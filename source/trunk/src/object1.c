@@ -3344,7 +3344,7 @@ info[i++] = "それはカオスへの耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_DISEN))
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_DISE))
 	{
 #ifdef JP
 info[i++] = "それは劣化への耐性を授ける。";

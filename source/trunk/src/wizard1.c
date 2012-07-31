@@ -755,7 +755,7 @@ static const flag_desc resist_flags_desc[] =
 	{ TR_RES_NETHER, "地獄" },
 	{ TR_RES_NEXUS,  "因果混乱" },
 	{ TR_RES_CHAOS,  "カオス" },
-	{ TR_RES_DISEN,  "劣化" },
+	{ TRAIT_RES_DISE,  "劣化" },
 #else
 	{ TR_RES_ACID,   "Acid" },
 	{ TR_RES_ELEC,   "Lightning" },
@@ -772,7 +772,7 @@ static const flag_desc resist_flags_desc[] =
 	{ TR_RES_NETHER, "Nether" },
 	{ TR_RES_NEXUS,  "Nexus" },
 	{ TR_RES_CHAOS,  "Chaos" },
-	{ TR_RES_DISEN,  "Disenchantment" },
+	{ TRAIT_RES_DISE,  "Disenchantment" },
 #endif
 };
 

@@ -6035,7 +6035,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			print_flag(TR_RES_NETHER);
 			print_flag(TR_RES_NEXUS);
 			print_flag(TR_RES_CHAOS);
-			print_flag(TR_RES_DISEN);
+			print_flag(TRAIT_RES_DISE);
 
 			fputs(" ", fff);
 

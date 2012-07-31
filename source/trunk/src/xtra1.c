@@ -3547,7 +3547,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_RES_LITE))   creature_ptr->resist_lite += 1;
 		if (have_flag(flgs, TR_RES_DARK))   creature_ptr->resist_dark += 1;
 		if (have_flag(flgs, TR_RES_CHAOS))  creature_ptr->resist_chaos += 1;
-		if (have_flag(flgs, TR_RES_DISEN))  creature_ptr->resist_disen += 1;
+		if (have_flag(flgs, TRAIT_RES_DISE))  creature_ptr->resist_disen += 1;
 		if (have_flag(flgs, TR_RES_SHARDS)) creature_ptr->resist_shard += 1;
 		if (have_flag(flgs, TR_RES_NEXUS))  creature_ptr->resist_nexus += 1;
 		if (have_flag(flgs, TR_RES_NETHER)) creature_ptr->resist_neth += 1;

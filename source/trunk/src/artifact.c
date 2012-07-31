@@ -59,7 +59,7 @@ void one_high_resistance(object_type *object_ptr)
 		case  7: add_flag(object_ptr->art_flags, TR_RES_NETHER); break;
 		case  8: add_flag(object_ptr->art_flags, TR_RES_NEXUS);  break;
 		case  9: add_flag(object_ptr->art_flags, TR_RES_CHAOS);  break;
-		case 10: add_flag(object_ptr->art_flags, TR_RES_DISEN);  break;
+		case 10: add_flag(object_ptr->trait_flags, TRAIT_RES_DISE);  break;
 		case 11: add_flag(object_ptr->art_flags, TR_RES_FEAR);   break;
 	}
 }
@@ -565,9 +565,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TR_RES_CONF);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_RES_DISEN)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_DISE)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_DISEN);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_DISE);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -701,7 +701,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 37:
 		case 38:
-			add_flag(object_ptr->art_flags, TR_RES_DISEN);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_DISE);
 			break;
 		case 39:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
