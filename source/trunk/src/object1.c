@@ -3532,7 +3532,7 @@ info[i++] = "それは危険に対して警告を発する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_REFLECT))
+	if (have_flag(flgs, TRAIT_REFLECTING))
 	{
 #ifdef JP
 info[i++] = "それは矢やボルトを反射する。";

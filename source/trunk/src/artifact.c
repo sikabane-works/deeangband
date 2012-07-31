@@ -722,7 +722,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		case 41:
 			if (object_ptr->tval == TV_SHIELD || object_ptr->tval == TV_CLOAK ||
 			    object_ptr->tval == TV_HELM || object_ptr->tval == TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TR_REFLECT);
+				add_flag(object_ptr->art_flags, TRAIT_REFLECTING);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			break;

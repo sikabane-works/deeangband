@@ -2402,10 +2402,10 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_REGEN);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_SPEED);
-		if (creature_ptr->lev > 39) add_flag(flgs, TR_REFLECT);
+		if (creature_ptr->lev > 39) add_flag(flgs, TRAIT_REFLECTING);
 		break;
 	case CLASS_MIRROR_MASTER:
-		if(creature_ptr->lev > 39)add_flag(flgs, TR_REFLECT);
+		if(creature_ptr->lev > 39)add_flag(flgs, TRAIT_REFLECTING);
 		break;
 	default:
 		break; /* Do nothing */
@@ -2487,9 +2487,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 			add_flag(flgs, TR_SPEED);
 	}
 	if (creature_ptr->special_defense & KATA_FUUJIN)
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 	if (creature_ptr->special_defense & KAMAE_GENBU)
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 	if (creature_ptr->special_defense & KAMAE_SUZAKU)
 		add_flag(flgs, TR_LEVITATION);
 	if (creature_ptr->special_defense & KAMAE_SEIRYU)
@@ -2517,7 +2517,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_RES_NEXU);
 		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TR_HOLD_LIFE);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_SH_FIRE);
@@ -2588,16 +2588,16 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (creature_ptr->special_defense & DEFENSE_COLD)
 		add_flag(flgs, TR_IM_COLD);
 	if (creature_ptr->wraith_form)
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 	/* by henkma */
 	if (creature_ptr->tim_reflect)
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 
 	if (creature_ptr->magicdef)
 	{
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_LEVITATION);
 	}
@@ -2622,7 +2622,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_RES_NEXU);
 		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
-		add_flag(flgs, TR_REFLECT);
+		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TR_HOLD_LIFE);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_SH_FIRE);
@@ -3148,7 +3148,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
 #ifdef JP
-	display_flag_aux(row+0, col, "反射      :", TR_REFLECT, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "反射      :", TRAIT_REFLECTING, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "火炎オーラ:", TR_SH_FIRE, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "電気オーラ:", TR_SH_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "冷気オーラ:", TR_SH_COLD, &f, 0, creature_ptr);
@@ -3163,7 +3163,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+12, col, "永遠光源  :", TR_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "呪い      :", 0, &f, DP_CURSE, creature_ptr);
 #else
-	display_flag_aux(row+0, col, "Reflct    :", TR_REFLECT, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "Reflct    :", TRAIT_REFLECTING, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "AuraFire  :", TR_SH_FIRE, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "AuraElec  :", TR_SH_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "AuraCold  :", TR_SH_COLD, &f, 0, creature_ptr);
