@@ -934,7 +934,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	else if (have_flag(flgs, TR_SLAY_DRAGON)) {tmp_cost += 1800;count++;}
 
 	if (have_flag(object_ptr->trait_flags, TRAIT_VORPAL)) {tmp_cost += 2500;count++;}
-	if (have_flag(flgs, TR_IMPACT)) {tmp_cost += 2500;count++;}
+	if (have_flag(flgs, TRAIT_SHATTER)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TR_BRAND_POIS)) {tmp_cost += 3800;count++;}
 	if (have_flag(flgs, TR_BRAND_ACID)) {tmp_cost += 3800;count++;}
 	if (have_flag(flgs, TR_BRAND_ELEC)) {tmp_cost += 3800;count++;}
@@ -6096,7 +6096,7 @@ static essence_type essence_info[] =
 	{TR_BLOWS, "í«â¡çUåÇ", 1, TR_BLOWS, 20},
 	{TRAIT_CHAOTIC_BRAND, "ÉJÉIÉXçUåÇ", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "ãzååçUåÇ", 1, TRAIT_VAMPIRIC_BRAND, 60},
-	{TR_IMPACT, "ínêkî≠ìÆ", 7, TR_IMPACT, 15},
+	{TRAIT_SHATTER, "ínêkî≠ìÆ", 7, TRAIT_SHATTER, 15},
 	{TR_BRAND_POIS, "ì≈éE", 1, TR_BRAND_POIS, 20},
 	{TR_BRAND_ACID, "ónâ", 1, TR_BRAND_ACID, 20},
 	{TR_BRAND_ELEC, "ìdåÇ", 1, TR_BRAND_ELEC, 20},
@@ -6207,7 +6207,7 @@ static essence_type essence_info[] =
 	{TR_BLOWS, "extra attack", 1, TR_BLOWS, 20},
 	{TRAIT_CHAOTIC_BRAND, "chaos brand", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "vampiric brand", 1, TRAIT_VAMPIRIC_BRAND, 60},
-	{TR_IMPACT, "quake activation", 7, TR_IMPACT, 15},
+	{TRAIT_SHATTER, "quake activation", 7, TRAIT_SHATTER, 15},
 	{TR_BRAND_POIS, "poison brand", 1, TR_BRAND_POIS, 20},
 	{TR_BRAND_ACID, "acid brand", 1, TR_BRAND_ACID, 20},
 	{TR_BRAND_ELEC, "electric brand", 1, TR_BRAND_ELEC, 20},

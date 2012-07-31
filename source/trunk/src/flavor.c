@@ -668,7 +668,7 @@ static flag_insc_table flag_insc_brand[] =
 	{ "ì≈", "P", TR_BRAND_POIS, -1 },
 	{ "ì◊", "Ca", TRAIT_CHAOTIC_BRAND, -1 },
 	{ "ãz", "V", TRAIT_VAMPIRIC_BRAND, -1 },
-	{ "êk", "Q", TR_IMPACT, -1 },
+	{ "êk", "Q", TRAIT_SHATTER, -1 },
 	{ "êÿ", "S", TRAIT_VORPAL, -1 },
 	{ "óù", "M", TR_FORCE_WEAPON, -1 },
 	{ NULL, NULL, 0, -1 }
@@ -829,7 +829,7 @@ static flag_insc_table flag_insc_brand[] =
 	{ "P", TR_BRAND_POIS, -1 },
 	{ "Ca", TRAIT_CHAOTIC_BRAND, -1 },
 	{ "V", TRAIT_VAMPIRIC_BRAND, -1 },
-	{ "Q", TR_IMPACT, -1 },
+	{ "Q", TRAIT_SHATTER, -1 },
 	{ "S", TRAIT_VORPAL, -1 },
 	{ "M", TR_FORCE_WEAPON, -1 },
 	{ NULL, 0, -1 }

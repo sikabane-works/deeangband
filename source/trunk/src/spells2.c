@@ -883,7 +883,7 @@ info[i++] = "あなたの武器はログルスの徴の属性をもつ。";
 		}
 
 		/* Hack */
-		if (have_flag(flgs, TR_IMPACT))
+		if (have_flag(flgs, TRAIT_SHATTER))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は打撃で地震を発生することができる。";

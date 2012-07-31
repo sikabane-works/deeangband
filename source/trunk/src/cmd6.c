@@ -5752,7 +5752,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			object_ptr->timeout = randint0(50) + 50;
 			return;
 
-		case TR_IMPACT:
+		case TRAIT_SHATTER:
 			earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
 			object_ptr->timeout = 100 + randint1(100);
 			

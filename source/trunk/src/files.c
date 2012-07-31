@@ -3389,7 +3389,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_flag_aux(row+3, col, "ìÄåã      :", TR_BRAND_COLD, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+4, col, "ì≈éE      :", TR_BRAND_POIS, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+5, col, "êÿÇÍñ°    :", TRAIT_VORPAL, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+6, col, "ínêk      :", TR_IMPACT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+6, col, "ínêk      :", TRAIT_SHATTER, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+7, col, "ãzåå      :", TRAIT_VAMPIRIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+8, col, "ÉJÉIÉXå¯â :", TRAIT_CHAOTIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+9, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
@@ -3400,7 +3400,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_flag_aux(row+3, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+4, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+5, col, "Sharpness :", TRAIT_VORPAL, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+6, col, "Quake     :", TR_IMPACT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+6, col, "Quake     :", TRAIT_SHATTER, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+7, col, "Vampiric  :", TRAIT_VAMPIRIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+8, col, "Chaotic   :", TRAIT_CHAOTIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+9, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);

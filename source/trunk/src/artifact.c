@@ -1195,7 +1195,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 				random_slay(object_ptr, artifact_bias);
 			break;
 		case 20:
-			add_flag(object_ptr->art_flags, TR_IMPACT);
+			add_flag(object_ptr->art_flags, TRAIT_SHATTER);
 			break;
 		case 21:
 		case 22:

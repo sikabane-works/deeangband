@@ -3471,7 +3471,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		}
 
 		/* Hack -- cause earthquakes */
-		if (have_flag(flgs, TR_IMPACT)) creature_ptr->impact[(i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
+		if (have_flag(flgs, TRAIT_SHATTER)) creature_ptr->impact[(i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
 
 		/* Boost shots */
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;

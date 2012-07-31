@@ -198,7 +198,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 			add_flag(flgs, TR_RES_FIRE);
 			add_flag(flgs, TR_RES_COLD);
 		}
-		else if (add == TR_IMPACT)
+		else if (add == TRAIT_SHATTER)
 		{
 			add_flag(flgs, TR_ACTIVATE);
 		}
@@ -1908,7 +1908,7 @@ return "釣りをする : いつでも";
 			return "resist cold every 50+d50 turns";
 #endif
 
-		case TR_IMPACT:
+		case TRAIT_SHATTER:
 #ifdef JP
 			return "地震 : 100+d100 ターン毎";
 #else
@@ -2860,7 +2860,7 @@ info[i++] = "それは敵からヒットポイントを吸収する。";
 
 	}
 
-	if (have_flag(flgs, TR_IMPACT))
+	if (have_flag(flgs, TRAIT_SHATTER))
 	{
 #ifdef JP
 info[i++] = "それは地震を起こすことができる。";
