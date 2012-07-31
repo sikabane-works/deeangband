@@ -3388,7 +3388,7 @@ info[i++] = "それは透明なクリーチャーを見ることを可能にする。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_TELEPATHY))
+	if (have_flag(flgs, TRAIT_ESP))
 	{
 #ifdef JP
 info[i++] = "それはテレパシー能力を授ける。";

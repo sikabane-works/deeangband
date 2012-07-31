@@ -934,7 +934,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 					artifact_bias = BIAS_MAGE;
 				break;
 			case 3:
-				add_flag(object_ptr->trait_flags, TR_TELEPATHY);
+				add_flag(object_ptr->trait_flags, TRAIT_ESP);
 				if (!artifact_bias && one_in_(9))
 					artifact_bias = BIAS_MAGE;
 				break;

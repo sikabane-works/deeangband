@@ -990,7 +990,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_LEVITATION)) total += 1250;
 	if (have_flag(flgs, TR_LITE)) total += 1250;
 	if (have_flag(flgs, TR_SEE_INVIS)) total += 2000;
-	if (have_flag(flgs, TR_TELEPATHY)) total += 20000;
+	if (have_flag(flgs, TRAIT_ESP)) total += 20000;
 	if (have_flag(flgs, TRAIT_SENSE_ANIMAL)) total += 1000;
 	if (have_flag(flgs, TRAIT_SENSE_UNDEAD)) total += 1000;
 	if (have_flag(flgs, TRAIT_SENSE_DEMON)) total += 1000;
@@ -2288,7 +2288,7 @@ static bool add_esp_strong(object_type *object_ptr)
 	switch (randint1(3))
 	{
 	case 1: add_flag(object_ptr->art_flags, TRAIT_SENSE_EVIL); break;
-	case 2: add_flag(object_ptr->art_flags, TR_TELEPATHY); break;
+	case 2: add_flag(object_ptr->art_flags, TRAIT_ESP); break;
 	case 3:	add_flag(object_ptr->art_flags, TRAIT_SENSE_NONLIVING); nonliv = TRUE; break;
 	}
 
@@ -6139,7 +6139,7 @@ static essence_type essence_info[] =
 	{TRAIT_LEVITATION, "浮遊", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "永久光源", 3, TR_LITE, 15},
 	{TR_SEE_INVIS, "可視透明", 3, TR_SEE_INVIS, 20},
-	{TR_TELEPATHY, "テレパシー", 6, TR_TELEPATHY, 15},
+	{TRAIT_ESP, "テレパシー", 6, TRAIT_ESP, 15},
 	{TR_SLOW_DIGEST, "遅消化", 3, TR_SLOW_DIGEST, 15},
 	{TR_REGEN, "急速回復", 3, TR_REGEN, 20},
 	{TR_TELEPORT, "テレポート", 3, TR_TELEPORT, 25},
@@ -6250,7 +6250,7 @@ static essence_type essence_info[] =
 	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "permanent light", 3, TR_LITE, 15},
 	{TR_SEE_INVIS, "see invisible", 3, TR_SEE_INVIS, 20},
-	{TR_TELEPATHY, "telepathy", 6, TR_TELEPATHY, 15},
+	{TRAIT_ESP, "telepathy", 6, TRAIT_ESP, 15},
 	{TR_SLOW_DIGEST, "slow digestion", 3, TR_SLOW_DIGEST, 15},
 	{TR_REGEN, "regeneration", 3, TR_REGEN, 20},
 	{TR_TELEPORT, "teleport", 3, TR_TELEPORT, 25},

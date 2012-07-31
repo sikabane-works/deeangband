@@ -2390,7 +2390,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		if (creature_ptr->lev > 29)
 			add_flag(flgs, TR_RES_CONF);
 		if (creature_ptr->lev > 39)
-			add_flag(flgs, TR_TELEPATHY);
+			add_flag(flgs, TRAIT_ESP);
 		break;
 	case CLASS_BARD:
 		add_flag(flgs, TRAIT_RES_SOUN);
@@ -2465,7 +2465,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_ESP))
 	{
-		add_flag(flgs, TR_TELEPATHY);
+		add_flag(flgs, TRAIT_ESP);
 	}
 
 	if (has_trait(creature_ptr, TRAIT_MOTION))
@@ -2526,7 +2526,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
 		add_flag(flgs, TR_SEE_INVIS);
-		add_flag(flgs, TR_TELEPATHY);
+		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TR_REGEN);
 		add_flag(flgs, TRAIT_SUSTAIN_STR);
@@ -2554,7 +2554,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (creature_ptr->tim_regen)
 		add_flag(flgs, TR_REGEN);
 	if (IS_TIM_ESP(creature_ptr))
-		add_flag(flgs, TR_TELEPATHY);
+		add_flag(flgs, TRAIT_ESP);
 	if (IS_FAST(creature_ptr) || creature_ptr->slow)
 		add_flag(flgs, TR_SPEED);
 
@@ -2631,7 +2631,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
 		add_flag(flgs, TR_SEE_INVIS);
-		add_flag(flgs, TR_TELEPATHY);
+		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TR_REGEN);
 		add_flag(flgs, TRAIT_SUSTAIN_STR);
@@ -3214,7 +3214,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_player_equippy(row-2, col+12, 0, creature_ptr);
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
 #ifdef JP
-	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 0, col, "テレパシー:", TRAIT_ESP, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "邪悪ESP   :", TRAIT_SENSE_EVIL, &f, 0, creature_ptr);
 	display_flag_aux(row+ 2, col, "無生物ESP :", TRAIT_SENSE_NONLIVING, &f, 0, creature_ptr);
 	display_flag_aux(row+ 3, col, "善良ESP   :", TRAIT_SENSE_GOOD, &f, 0, creature_ptr);
@@ -3234,7 +3234,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+17, col, "耐久維持  :", TRAIT_SUSTAIN_CON, &f, 0, creature_ptr);
 	display_flag_aux(row+18, col, "魅力維持  :", TRAIT_SUSTAIN_CHR, &f, 0, creature_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 0, col, "Telepathy :", TRAIT_ESP, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "ESP Evil  :", TRAIT_SENSE_EVIL, &f, 0, creature_ptr);
 	display_flag_aux(row+ 2, col, "ESP Noliv.:", TRAIT_SENSE_NONLIVING, &f, 0, creature_ptr);
 	display_flag_aux(row+ 3, col, "ESP Good  :", TRAIT_SENSE_GOOD, &f, 0, creature_ptr);

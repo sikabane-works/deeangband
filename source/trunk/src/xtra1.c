@@ -3485,7 +3485,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
 		//if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
 
-		//if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
+		//if (have_flag(flgs, TRAIT_ESP))   creature_ptr->telepathy = TRUE;
 		//if (have_flag(flgs, TRAIT_SENSE_ANIMAL))  creature_ptr->esp_animal = TRUE;
 		//if (have_flag(flgs, TRAIT_SENSE_UNDEAD))  creature_ptr->esp_undead = TRUE;
 		//if (have_flag(flgs, TRAIT_SENSE_DEMON))   creature_ptr->esp_demon = TRUE;

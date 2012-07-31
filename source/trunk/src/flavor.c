@@ -706,7 +706,7 @@ static flag_insc_table flag_insc_slay[] =
 
 static flag_insc_table flag_insc_esp1[] =
 {
-	{ "Š´", "Tele", TR_TELEPATHY, -1 },
+	{ "Š´", "Tele", TRAIT_ESP, -1 },
 	{ "Ž×", "Evil", TRAIT_SENSE_EVIL, -1 },
 	{ "‘P", "Good", TRAIT_SENSE_GOOD, -1 },
 	{ "–³", "Nolv", TRAIT_SENSE_NONLIVING, -1 },
@@ -867,7 +867,7 @@ static flag_insc_table flag_insc_slay[] =
 
 static flag_insc_table flag_insc_esp1[] =
 {
-	{ "Tele", TR_TELEPATHY, -1 },
+	{ "Tele", TRAIT_ESP, -1 },
 	{ "Evil", TRAIT_SENSE_EVIL, -1 },
 	{ "Good", TRAIT_SENSE_GOOD, -1 },
 	{ "Nolv", TRAIT_SENSE_NONLIVING, -1 },
