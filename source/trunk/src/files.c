@@ -2513,7 +2513,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TR_RES_SOUND);
 		add_flag(flgs, TR_RES_SHARDS);
-		add_flag(flgs, TR_RES_NETHER);
+		add_flag(flgs, TRAIT_RES_NETH);
 		add_flag(flgs, TRAIT_RES_NEXU);
 		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
@@ -2603,7 +2603,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	}
 	if (creature_ptr->tim_res_nether)
 	{
-		add_flag(flgs, TR_RES_NETHER);
+		add_flag(flgs, TRAIT_RES_NETH);
 	}
 	if (creature_ptr->tim_sh_fire)
 	{
@@ -2618,7 +2618,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TR_RES_SOUND);
 		add_flag(flgs, TR_RES_SHARDS);
-		add_flag(flgs, TR_RES_NETHER);
+		add_flag(flgs, TRAIT_RES_NETH);
 		add_flag(flgs, TRAIT_RES_NEXU);
 		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
@@ -2737,7 +2737,7 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr
 
 	/* TODO 
 	if (IS_RACE(creature_ptr, RACE_LICH))
-		add_flag(flgs, TR_RES_NETHER);
+		add_flag(flgs, TRAIT_RES_NETH);
 	if (creature_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(creature_ptr, RACE_VAMPIRE))
 		add_flag(flgs, TR_RES_DARK);
 	if (creature_ptr->mimic_form == MIMIC_DEMON_LORD)
@@ -3073,7 +3073,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 #ifdef JP
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "耐轟音:", TR_RES_SOUND, &f, 0, creature_ptr);
-	display_flag_aux(row+1, col, "耐地獄:", TR_RES_NETHER, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "耐地獄:", TRAIT_RES_NETH, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "耐因混:", TRAIT_RES_NEXU, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "耐カオ:", TRAIT_RES_CHAO, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "耐劣化:", TRAIT_RES_DISE, &f, 0, creature_ptr);
@@ -3081,7 +3081,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 #else
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, creature_ptr);
-	display_flag_aux(row+1, col, "Nether:", TR_RES_NETHER, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "Nether:", TRAIT_RES_NETH, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "Nexus :", TRAIT_RES_NEXU, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "Chaos :", TRAIT_RES_CHAO, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "Disnch:", TRAIT_RES_DISE, &f, 0, creature_ptr);

@@ -12089,7 +12089,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						add_flag(object_ptr->art_flags, TR_AGGRAVATE);
 						add_flag(object_ptr->art_flags, TR_RES_POIS);
 						add_flag(object_ptr->art_flags, TR_RES_DARK);
-						add_flag(object_ptr->art_flags, TR_RES_NETHER);
+						add_flag(object_ptr->trait_flags, TRAIT_RES_NETH);
 #ifdef JP
 						msg_print("ŒŒ‚¾IŒŒ‚¾IŒŒ‚¾I");
 #else

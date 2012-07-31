@@ -3538,19 +3538,19 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
 
 		/* Resistance flags */
-		if (have_flag(flgs, TR_RES_ACID))   creature_ptr->resist_acid += 1;
-		if (have_flag(flgs, TR_RES_ELEC))   creature_ptr->resist_elec += 1;
-		if (have_flag(flgs, TR_RES_FIRE))   creature_ptr->resist_fire += 1;
-		if (have_flag(flgs, TR_RES_COLD))   creature_ptr->resist_cold += 1;
-		if (have_flag(flgs, TR_RES_POIS))   creature_ptr->resist_pois += 1;
-		if (have_flag(flgs, TR_RES_SOUND))  creature_ptr->resist_sound += 1;
-		if (have_flag(flgs, TR_RES_LITE))   creature_ptr->resist_lite += 1;
-		if (have_flag(flgs, TR_RES_DARK))   creature_ptr->resist_dark += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_ACID))   creature_ptr->resist_acid += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_ELEC))   creature_ptr->resist_elec += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_FIRE))   creature_ptr->resist_fire += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_COLD))   creature_ptr->resist_cold += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_POIS))   creature_ptr->resist_pois += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_SOUND))  creature_ptr->resist_sound += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_LITE))   creature_ptr->resist_lite += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_DARK))   creature_ptr->resist_dark += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO))  creature_ptr->resist_chaos += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_DISE))  creature_ptr->resist_disen += 1;
-		if (have_flag(flgs, TR_RES_SHARDS)) creature_ptr->resist_shard += 1;
+		if (have_flag(object_ptr->trait_flags, TR_RES_SHARDS)) creature_ptr->resist_shard += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU))  creature_ptr->resist_nexus += 1;
-		if (have_flag(flgs, TR_RES_NETHER)) creature_ptr->resist_neth += 1;
+		if (have_flag(object_ptr->trait_flags, TRAIT_RES_NETH)) creature_ptr->resist_neth += 1;
 		if (object_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
 
 		//TODO if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;

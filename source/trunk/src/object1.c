@@ -3317,7 +3317,7 @@ info[i++] = "‚»‚ê‚Í”j•Ğ‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";
 
 	}
 
-	if (have_flag(flgs, TR_RES_NETHER))
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_NETH))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í’n–‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";
