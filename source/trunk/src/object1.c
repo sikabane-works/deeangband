@@ -2840,7 +2840,7 @@ info[i++] = "それは敵を毒する。";
 
 	}
 
-	if (have_flag(flgs, TR_CHAOTIC))
+	if (have_flag(flgs, TRAIT_CHAOTIC_BRAND))
 	{
 #ifdef JP
 info[i++] = "それはカオス的な効果を及ぼす。";
@@ -2850,7 +2850,7 @@ info[i++] = "それはカオス的な効果を及ぼす。";
 
 	}
 
-	if (have_flag(flgs, TR_VAMPIRIC))
+	if (have_flag(flgs, TRAIT_VAMPIRIC_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは敵からヒットポイントを吸収する。";

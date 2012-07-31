@@ -872,7 +872,7 @@ info[i++] = "あなたの武器は神の祝福を受けている。";
 
 		}
 
-		if (have_flag(flgs, TR_CHAOTIC))
+		if (have_flag(flgs, TRAIT_CHAOTIC_BRAND))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はログルスの徴の属性をもつ。";
@@ -903,7 +903,7 @@ info[i++] = "あなたの武器は非常に鋭い。";
 
 		}
 
-		if (have_flag(flgs, TR_VAMPIRIC))
+		if (have_flag(flgs, TRAIT_VAMPIRIC_BRAND))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は敵から生命力を吸収する。";

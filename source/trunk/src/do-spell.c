@@ -11623,7 +11623,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 						add_flag(object_ptr->art_flags, TR_AGGRAVATE);
 						add_flag(object_ptr->art_flags, TR_VORPAL);
-						add_flag(object_ptr->art_flags, TR_VAMPIRIC);
+						add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
 #ifdef JP
 						msg_print("ŒŒ‚¾IŒŒ‚¾IŒŒ‚¾I");
 #else

@@ -265,7 +265,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		object_flags(weapon_ptr, flgs);
 
 		// Select a chaotic effect (50% chance)
-		if ((have_flag(flgs, TR_CHAOTIC)) && one_in_(2))
+		if ((have_flag(flgs, TRAIT_CHAOTIC_BRAND)) && one_in_(2))
 		{
 			if (one_in_(10))
 			{
@@ -278,7 +278,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 
 		// Vampiric drain
-		if ((have_flag(flgs, TR_VAMPIRIC)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(attacker_ptr, HEX_VAMP_BLADE))
+		if ((have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(attacker_ptr, HEX_VAMP_BLADE))
 		{
 			// Only drain "living" creatures
 			if (creature_living(target_ptr)) can_drain = TRUE;

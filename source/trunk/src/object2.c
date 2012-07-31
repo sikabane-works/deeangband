@@ -909,8 +909,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 
 	tmp_cost = 0;
 	count = 0;
-	if (have_flag(flgs, TR_CHAOTIC)) {total += 5000;count++;}
-	if (have_flag(flgs, TR_VAMPIRIC)) {total += 6500;count++;}
+	if (have_flag(flgs, TRAIT_CHAOTIC_BRAND)) {total += 5000;count++;}
+	if (have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) {total += 6500;count++;}
 	if (have_flag(flgs, TR_FORCE_WEAPON)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TR_KILL_ANIMAL)) {tmp_cost += 2800;count++;}
 	else if (have_flag(flgs, TR_SLAY_ANIMAL)) {tmp_cost += 1800;count++;}
@@ -6094,8 +6094,8 @@ static essence_type essence_info[] =
 	{TR_TUNNEL, "çÃå@", 4, TR_TUNNEL, 15},
 	{TR_SPEED, "ÉXÉsÅ[Éh", 4, TR_SPEED, 12},
 	{TR_BLOWS, "í«â¡çUåÇ", 1, TR_BLOWS, 20},
-	{TR_CHAOTIC, "ÉJÉIÉXçUåÇ", 1, TR_CHAOTIC, 15},
-	{TR_VAMPIRIC, "ãzååçUåÇ", 1, TR_VAMPIRIC, 60},
+	{TRAIT_CHAOTIC_BRAND, "ÉJÉIÉXçUåÇ", 1, TRAIT_CHAOTIC_BRAND, 15},
+	{TRAIT_VAMPIRIC_BRAND, "ãzååçUåÇ", 1, TRAIT_VAMPIRIC_BRAND, 60},
 	{TR_IMPACT, "ínêkî≠ìÆ", 7, TR_IMPACT, 15},
 	{TR_BRAND_POIS, "ì≈éE", 1, TR_BRAND_POIS, 20},
 	{TR_BRAND_ACID, "ónâ", 1, TR_BRAND_ACID, 20},
@@ -6205,8 +6205,8 @@ static essence_type essence_info[] =
 	{TR_TUNNEL, "digging", 4, TR_TUNNEL, 15},
 	{TR_SPEED, "speed", 4, TR_SPEED, 12},
 	{TR_BLOWS, "extra attack", 1, TR_BLOWS, 20},
-	{TR_CHAOTIC, "chaos brand", 1, TR_CHAOTIC, 15},
-	{TR_VAMPIRIC, "vampiric brand", 1, TR_VAMPIRIC, 60},
+	{TRAIT_CHAOTIC_BRAND, "chaos brand", 1, TRAIT_CHAOTIC_BRAND, 15},
+	{TRAIT_VAMPIRIC_BRAND, "vampiric brand", 1, TRAIT_VAMPIRIC_BRAND, 60},
 	{TR_IMPACT, "quake activation", 7, TR_IMPACT, 15},
 	{TR_BRAND_POIS, "poison brand", 1, TR_BRAND_POIS, 20},
 	{TR_BRAND_ACID, "acid brand", 1, TR_BRAND_ACID, 20},

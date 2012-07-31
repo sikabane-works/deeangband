@@ -1027,9 +1027,9 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 	switch (artifact_bias)
 	{
 	case BIAS_CHAOS:
-		if (!(have_flag(object_ptr->art_flags, TR_CHAOTIC)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_CHAOTIC);
+			add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1044,9 +1044,9 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_NECROMANTIC:
-		if (!(have_flag(object_ptr->art_flags, TR_VAMPIRIC)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_VAMPIRIC);
+			add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
 			if (one_in_(2)) return;
 		}
 		if (!(have_flag(object_ptr->art_flags, TR_BRAND_POIS)) && one_in_(2))
@@ -1232,7 +1232,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 				artifact_bias = BIAS_ROGUE;
 			break;
 		case 31:
-			add_flag(object_ptr->art_flags, TR_VAMPIRIC);
+			add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_NECROMANTIC;
 			break;
@@ -1246,7 +1246,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
 			break;
 		default:
-			add_flag(object_ptr->art_flags, TR_CHAOTIC);
+			add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_CHAOS;
 			break;
@@ -3022,7 +3022,7 @@ void get_bloody_moon_flags(object_type *object_ptr)
 		if (flag >= 20) add_flag(object_ptr->art_flags, TR_KILL_UNDEAD + flag - 20);
 		else if (flag == 19) add_flag(object_ptr->art_flags, TR_KILL_ANIMAL);
 		else if (flag == 18) add_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
-		else add_flag(object_ptr->art_flags, TR_CHAOTIC + flag);
+		else add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND + flag);
 	}
 
 	dummy = randint1(2);
