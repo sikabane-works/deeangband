@@ -3523,7 +3523,7 @@ info[i++] = "‚»‚ê‚Í‘Ì—Í‰ñ•œ—Í‚ğ‹­‰»‚·‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_WARNING))
+	if (have_flag(flgs, TRAIT_WARNING))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍŠëŒ¯‚É‘Î‚µ‚ÄŒx‚ğ”­‚·‚éB";

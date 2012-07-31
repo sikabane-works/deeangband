@@ -1005,7 +1005,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_SENSE_UNIQUE)) total += 10000;
 	if (have_flag(flgs, TR_SLOW_DIGEST)) total += 750;
 	if (have_flag(flgs, TR_REGEN)) total += 2500;
-	if (have_flag(flgs, TR_WARNING)) total += 2000;
+	if (have_flag(flgs, TRAIT_WARNING)) total += 2000;
 	if (have_flag(flgs, TR_DEC_MANA)) total += 10000;
 	if (have_flag(flgs, TR_XTRA_MIGHT)) total += 2250;
 	if (have_flag(flgs, TR_XTRA_SHOTS)) total += 10000;
@@ -5611,7 +5611,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 		if (!IS_EQUIPPED(object_ptr)) continue;
 
 		object_flags(object_ptr, flgs);
-		if (have_flag(flgs, TR_WARNING))
+		if (have_flag(flgs, TRAIT_WARNING))
 		{
 			choices[number] = i;
 			number++;
@@ -6135,7 +6135,7 @@ static essence_type essence_info[] =
 	{TR_SH_ELEC, "", 0, -2, 0},
 	{TR_SH_COLD, "", 0, -2, 0},
 	{TR_NO_MAGIC, "”½–‚–@", 3, TR_NO_MAGIC, 15},
-	{TR_WARNING, "Œx", 3, TR_WARNING, 20},
+	{TRAIT_WARNING, "Œx", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "•‚—V", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "‰i‹vŒõŒ¹", 3, TR_LITE, 15},
 	{TR_SEE_INVIS, "‰ÂŽ‹“§–¾", 3, TR_SEE_INVIS, 20},
@@ -6246,7 +6246,7 @@ static essence_type essence_info[] =
 	{TR_SH_ELEC, "", 0, -2, 0},
 	{TR_SH_COLD, "", 0, -2, 0},
 	{TR_NO_MAGIC, "anti magic", 3, TR_NO_MAGIC, 15},
-	{TR_WARNING, "warning", 3, TR_WARNING, 20},
+	{TRAIT_WARNING, "warning", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "permanent light", 3, TR_LITE, 15},
 	{TR_SEE_INVIS, "see invisible", 3, TR_SEE_INVIS, 20},
@@ -7961,7 +7961,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if (one_in_(3))
 				add_flag(object_ptr->art_flags, TR_RES_POIS);
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TR_WARNING);
+				add_flag(object_ptr->art_flags, TRAIT_WARNING);
 			break;
 
 		case EGO_BLESS_BLADE:

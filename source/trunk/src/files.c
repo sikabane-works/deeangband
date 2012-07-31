@@ -3156,7 +3156,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "ëœñÉ·É    :", TR_FREE_ACT, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "ìßñæëÃéãîF:", TR_SEE_INVIS, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "åoå±ílï€éù:", TR_HOLD_LIFE, &f, 0, creature_ptr);
-	display_flag_aux(row+8, col, "åxçê      :", TR_WARNING, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "åxçê      :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "íxè¡âª    :", TR_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "ã}âÒïú    :", TR_REGEN, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "ïÇóV      :", TRAIT_LEVITATION, &f, 0, creature_ptr);
@@ -3171,7 +3171,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, creature_ptr);
-	display_flag_aux(row+8, col, "Warning   :", TR_WARNING, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "Warning   :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "Regene.   :", TR_REGEN, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "Levitation:", TRAIT_LEVITATION, &f, 0, creature_ptr);

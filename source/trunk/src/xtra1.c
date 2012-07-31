@@ -3505,7 +3505,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
 		/*
-		if (have_flag(flgs, TR_WARNING)){
+		if (have_flag(flgs, TRAIT_WARNING)){
 			if (!object_ptr->inscription || !(my_strchr(quark_str(object_ptr->inscription),'$'))) creature_ptr->warning = TRUE;
 		}
 		*/

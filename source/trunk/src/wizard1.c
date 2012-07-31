@@ -869,7 +869,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_SENSE_UNIQUE,             "ÉÜÉjÅ[ÉNä¥ím" },
 	{ TR_SLOW_DIGEST,        "íxè¡âª" },
 	{ TR_REGEN,              "ã}ë¨âÒïú" },
-	{ TR_WARNING,            "åxçê" },
+	{ TRAIT_WARNING,            "åxçê" },
 /*	{ TR_XTRA_MIGHT,         "ã≠óÕéÀåÇ" }, */
 	{ TR_XTRA_SHOTS,         "í«â¡éÀåÇ" },        /* always +1? */
 	{ TR_DRAIN_EXP,          "åoå±ílãzé˚" },
@@ -887,7 +887,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_ESP,          "ESP" },
 	{ TR_SLOW_DIGEST,        "Slow Digestion" },
 	{ TR_REGEN,              "Regeneration" },
-	{ TR_WARNING,            "Warning" },
+	{ TRAIT_WARNING,            "Warning" },
 /*	{ TR_XTRA_MIGHT,         "Extra Might" }, */
 	{ TR_XTRA_SHOTS,         "+1 Extra Shot" },        /* always +1? */
 	{ TR_DRAIN_EXP,          "Drains Experience" },
