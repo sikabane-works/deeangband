@@ -2393,7 +2393,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 			add_flag(flgs, TR_TELEPATHY);
 		break;
 	case CLASS_BARD:
-		add_flag(flgs, TR_RES_SOUND);
+		add_flag(flgs, TRAIT_RES_SOUN);
 		break;
 	case CLASS_BERSERKER:
 		add_flag(flgs, TR_SUST_STR);
@@ -2511,7 +2511,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_DARK);
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
-		add_flag(flgs, TR_RES_SOUND);
+		add_flag(flgs, TRAIT_RES_SOUN);
 		add_flag(flgs, TR_RES_SHARDS);
 		add_flag(flgs, TRAIT_RES_NETH);
 		add_flag(flgs, TRAIT_RES_NEXU);
@@ -2616,7 +2616,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_DARK);
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
-		add_flag(flgs, TR_RES_SOUND);
+		add_flag(flgs, TRAIT_RES_SOUN);
 		add_flag(flgs, TR_RES_SHARDS);
 		add_flag(flgs, TRAIT_RES_NETH);
 		add_flag(flgs, TRAIT_RES_NEXU);
@@ -3072,7 +3072,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 
 #ifdef JP
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "ëœçåâπ:", TR_RES_SOUND, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "ëœçåâπ:", TRAIT_RES_SOUN, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "ëœínçñ:", TRAIT_RES_NETH, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "ëœàˆç¨:", TRAIT_RES_NEXU, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "ëœÉJÉI:", TRAIT_RES_CHAO, &f, 0, creature_ptr);
@@ -3080,7 +3080,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "ëœã∞ï|:", TR_RES_FEAR, &f, 0, creature_ptr);
 #else
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "Sound :", TR_RES_SOUND, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "Sound :", TRAIT_RES_SOUN, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "Nether:", TRAIT_RES_NETH, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "Nexus :", TRAIT_RES_NEXU, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "Chaos :", TRAIT_RES_CHAO, &f, 0, creature_ptr);

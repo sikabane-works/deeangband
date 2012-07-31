@@ -3543,7 +3543,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(object_ptr->trait_flags, TR_RES_FIRE))   creature_ptr->resist_fire += 1;
 		if (have_flag(object_ptr->trait_flags, TR_RES_COLD))   creature_ptr->resist_cold += 1;
 		if (have_flag(object_ptr->trait_flags, TR_RES_POIS))   creature_ptr->resist_pois += 1;
-		if (have_flag(object_ptr->trait_flags, TR_RES_SOUND))  creature_ptr->resist_sound += 1;
+		if (have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN))  creature_ptr->resist_sound += 1;
 		if (have_flag(object_ptr->trait_flags, TR_RES_LITE))   creature_ptr->resist_lite += 1;
 		if (have_flag(object_ptr->trait_flags, TR_RES_DARK))   creature_ptr->resist_dark += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO))  creature_ptr->resist_chaos += 1;

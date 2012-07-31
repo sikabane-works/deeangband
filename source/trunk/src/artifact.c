@@ -55,7 +55,7 @@ void one_high_resistance(object_type *object_ptr)
 		case  3: add_flag(object_ptr->trait_flags, TR_RES_SHARDS); break;
 		case  4: add_flag(object_ptr->trait_flags, TR_RES_BLIND);  break;
 		case  5: add_flag(object_ptr->trait_flags, TR_RES_CONF);   break;
-		case  6: add_flag(object_ptr->trait_flags, TR_RES_SOUND);  break;
+		case  6: add_flag(object_ptr->trait_flags, TRAIT_RES_SOUN);  break;
 		case  7: add_flag(object_ptr->trait_flags, TRAIT_RES_NETH); break;
 		case  8: add_flag(object_ptr->trait_flags, TRAIT_RES_NEXU);  break;
 		case  9: add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);  break;
@@ -77,7 +77,7 @@ void one_lordly_high_resistance(object_type *object_ptr)
 		case 2: add_flag(object_ptr->trait_flags, TR_RES_SHARDS); break;
 		case 3: add_flag(object_ptr->trait_flags, TR_RES_BLIND);  break;
 		case 4: add_flag(object_ptr->trait_flags, TR_RES_CONF);   break;
-		case 5: add_flag(object_ptr->trait_flags, TR_RES_SOUND);  break;
+		case 5: add_flag(object_ptr->trait_flags, TRAIT_RES_SOUN);  break;
 		case 6: add_flag(object_ptr->trait_flags, TRAIT_RES_NETH); break;
 		case 7: add_flag(object_ptr->trait_flags, TRAIT_RES_NEXU);  break;
 		case 8: add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);  break;
@@ -677,7 +677,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 27:
 		case 28:
-			add_flag(object_ptr->art_flags, TR_RES_SOUND);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_SOUN);
 			break;
 		case 29:
 		case 30:

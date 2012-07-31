@@ -3298,7 +3298,7 @@ info[i++] = "‚»‚ê‚Í¬—‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_SOUND))
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍŒ‰¹‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";

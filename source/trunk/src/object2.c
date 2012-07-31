@@ -971,7 +971,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_RES_DARK)) {tmp_cost += 800;count += 2;}
 	if (have_flag(flgs, TR_RES_BLIND)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TR_RES_CONF)) {tmp_cost += 900;count += 2;}
-	if (have_flag(flgs, TR_RES_SOUND)) {tmp_cost += 900;count += 2;}
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TR_RES_SHARDS)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TRAIT_RES_NETH)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU)) {tmp_cost += 900;count += 2;}
@@ -6125,7 +6125,7 @@ static essence_type essence_info[] =
 	{TR_RES_DARK, "ëœà√çï", 2, TR_RES_DARK, 20},
 	{TR_RES_BLIND, "ëœñ”ñ⁄", 2, TR_RES_BLIND, 20},
 	{TR_RES_CONF, "ëœç¨óê", 2, TR_RES_CONF, 20},
-	{TR_RES_SOUND, "ëœçåâπ", 2, TR_RES_SOUND, 20},
+	{TRAIT_RES_SOUN, "ëœçåâπ", 2, TRAIT_RES_SOUN, 20},
 	{TR_RES_SHARDS, "ëœîjï–", 2, TR_RES_SHARDS, 20},
 	{TRAIT_RES_NETH, "ëœínçñ", 2, TRAIT_RES_NETH, 20},
 	{TRAIT_RES_NEXU, "ëœàˆâ ç¨óê", 2, TRAIT_RES_NEXU, 20},
@@ -6236,7 +6236,7 @@ static essence_type essence_info[] =
 	{TR_RES_DARK, "resistance to dark", 2, TR_RES_DARK, 20},
 	{TR_RES_BLIND, "resistance to blind", 2, TR_RES_BLIND, 20},
 	{TR_RES_CONF, "resistance to confusion", 2, TR_RES_CONF, 20},
-	{TR_RES_SOUND, "resistance to sound", 2, TR_RES_SOUND, 20},
+	{TRAIT_RES_SOUN, "resistance to sound", 2, TRAIT_RES_SOUN, 20},
 	{TR_RES_SHARDS, "resistance to shard", 2, TR_RES_SHARDS, 20},
 	{TRAIT_RES_NETH, "resistance to nether", 2, TRAIT_RES_NETH, 20},
 	{TRAIT_RES_NEXU, "resistance to nexus", 2, TRAIT_RES_NEXU, 20},
