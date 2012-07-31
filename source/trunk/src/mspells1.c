@@ -591,7 +591,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extra, biased saving throw for blessed items */
-	if (have_flag(oflgs, TR_BLESSED) && (randint1(888) > chance))
+	if (have_flag(oflgs, TRAIT_BLESSED_BRANDED) && (randint1(888) > chance))
 	{
 #ifdef JP
 		msg_format("%s‚Ì%s‚ÍŽô‚¢‚ð’µ‚Ë•Ô‚µ‚½I", creature_ptr->name, object_name);

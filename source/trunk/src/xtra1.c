@@ -3480,7 +3480,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
 		if (have_flag(flgs, TR_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
 		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
-		if (have_flag(flgs, TR_BLESSED))     creature_ptr->bless_blade = TRUE;
+		if (have_flag(flgs, TRAIT_BLESSED_BRANDED))     creature_ptr->bless_blade = TRUE;
 		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
 		//TODO if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
 		//if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
@@ -4417,7 +4417,7 @@ static void set_melee_status(creature_type *creature_ptr)
 
 		// Assume okay
 		// Priest weapon penalty for non-blessed edged weapons
-		if ((creature_ptr->class_idx == CLASS_PRIEST) && (!(have_flag(flgs, TR_BLESSED))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
+		if ((creature_ptr->class_idx == CLASS_PRIEST) && (!(have_flag(flgs, TRAIT_BLESSED_BRANDED))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
 			creature_ptr->to_hit[i] -= 2;

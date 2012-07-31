@@ -185,7 +185,7 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if (object_ptr->to_damage > 0) object_ptr->to_damage = 0 - (object_ptr->to_damage + (s16b)randint1(4));
 
 	object_ptr->curse_flags |= (TRC_HEAVY_CURSE | TRC_CURSED);
-	remove_flag(object_ptr->art_flags, TR_BLESSED);
+	remove_flag(object_ptr->art_flags, TRAIT_BLESSED_BRANDED);
 
 	if (one_in_(4)) object_ptr->curse_flags |= TRC_DIVINE_CURSE;
 	if (one_in_(3)) add_flag(object_ptr->art_flags, TR_TY_CURSE);
@@ -1036,10 +1036,10 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 
 	case BIAS_PRIESTLY:
 		if((object_ptr->tval == TV_SWORD || object_ptr->tval == TV_POLEARM) &&
-		   !(have_flag(object_ptr->art_flags, TR_BLESSED)))
+		   !(have_flag(object_ptr->art_flags, TRAIT_BLESSED_BRANDED)))
 		{
 			/* A free power for "priestly" random artifacts */
-			add_flag(object_ptr->art_flags, TR_BLESSED);
+			add_flag(object_ptr->art_flags, TRAIT_BLESSED_BRANDED);
 		}
 		break;
 
@@ -1812,7 +1812,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	{
 		object_ptr->to_hit += (s16b)randint1(object_ptr->to_hit > 19 ? 1 : 20 - object_ptr->to_hit);
 		object_ptr->to_damage += (s16b)randint1(object_ptr->to_damage > 19 ? 1 : 20 - object_ptr->to_damage);
-		if ((have_flag(object_ptr->art_flags, TR_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->art_flags, TR_BLESSED);
+		if ((have_flag(object_ptr->art_flags, TR_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->art_flags, TRAIT_BLESSED_BRANDED);
 	}
 
 	/* Just to be sure */

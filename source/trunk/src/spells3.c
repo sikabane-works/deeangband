@@ -3529,7 +3529,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 	 * artifact weapon they find. Ego weapons and normal weapons
 	 * can be blessed automatically.
 	 */
-	if (have_flag(flgs, TR_BLESSED))
+	if (have_flag(flgs, TRAIT_BLESSED_BRANDED))
 	{
 #ifdef JP
 msg_format("%s は既に祝福されている。",
@@ -3555,7 +3555,7 @@ msg_format("%sは輝いた！",
 		    ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
-		add_flag(object_ptr->art_flags, TR_BLESSED);
+		add_flag(object_ptr->art_flags, TRAIT_BLESSED_BRANDED);
 		object_ptr->discount = 99;
 	}
 	else

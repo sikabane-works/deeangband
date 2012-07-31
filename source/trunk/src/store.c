@@ -1602,7 +1602,7 @@ static bool is_blessed(object_type *object_ptr)
 {
 	u32b flgs[TR_FLAG_SIZE];
 	object_flags(object_ptr, flgs);
-	if (have_flag(flgs, TR_BLESSED)) return (TRUE);
+	if (have_flag(flgs, TRAIT_BLESSED_BRANDED)) return (TRUE);
 	else return (FALSE);
 }
 
