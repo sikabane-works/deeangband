@@ -2512,7 +2512,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TRAIT_RES_SOUN);
-		add_flag(flgs, TR_RES_SHARDS);
+		add_flag(flgs, TRAIT_RES_SHAR);
 		add_flag(flgs, TRAIT_RES_NETH);
 		add_flag(flgs, TRAIT_RES_NEXU);
 		add_flag(flgs, TRAIT_RES_CHAO);
@@ -2617,7 +2617,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TRAIT_RES_SOUN);
-		add_flag(flgs, TR_RES_SHARDS);
+		add_flag(flgs, TRAIT_RES_SHAR);
 		add_flag(flgs, TRAIT_RES_NETH);
 		add_flag(flgs, TRAIT_RES_NEXU);
 		add_flag(flgs, TRAIT_RES_CHAO);
@@ -2948,7 +2948,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+4, col, "ëœì≈  :", TR_RES_POIS, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "ëœëMåı:", TR_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "ëœà√çï:", TR_RES_DARK, &f, 0, creature_ptr);
-	display_flag_aux(row+7, col, "ëœîjï–:", TR_RES_SHARDS, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "ëœîjï–:", TRAIT_RES_SHAR, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "ëœñ”ñ⁄:", TR_RES_BLIND, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0, creature_ptr);
 #else
@@ -2964,7 +2964,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, creature_ptr);
-	display_flag_aux(row+7, col, "Shard :", TR_RES_SHARDS, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "Shard :", TRAIT_RES_SHAR, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Blind :", TR_RES_BLIND, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, creature_ptr);
 #endif

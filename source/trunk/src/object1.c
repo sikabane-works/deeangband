@@ -3307,7 +3307,7 @@ info[i++] = "‚»‚ê‚ÍŒ‰¹‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_SHARDS))
+	if (have_flag(flgs, TRAIT_RES_SHAR))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í”j•Ğ‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";

@@ -972,7 +972,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_RES_BLIND)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TR_RES_CONF)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN)) {tmp_cost += 900;count += 2;}
-	if (have_flag(flgs, TR_RES_SHARDS)) {tmp_cost += 900;count += 2;}
+	if (have_flag(flgs, TRAIT_RES_SHAR)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TRAIT_RES_NETH)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) {tmp_cost += 1000;count += 2;}
@@ -6126,7 +6126,7 @@ static essence_type essence_info[] =
 	{TR_RES_BLIND, "耐盲目", 2, TR_RES_BLIND, 20},
 	{TR_RES_CONF, "耐混乱", 2, TR_RES_CONF, 20},
 	{TRAIT_RES_SOUN, "耐轟音", 2, TRAIT_RES_SOUN, 20},
-	{TR_RES_SHARDS, "耐破片", 2, TR_RES_SHARDS, 20},
+	{TRAIT_RES_SHAR, "耐破片", 2, TRAIT_RES_SHAR, 20},
 	{TRAIT_RES_NETH, "耐地獄", 2, TRAIT_RES_NETH, 20},
 	{TRAIT_RES_NEXU, "耐因果混乱", 2, TRAIT_RES_NEXU, 20},
 	{TRAIT_RES_CHAO, "耐カオス", 2, TRAIT_RES_CHAO, 20},
@@ -6237,7 +6237,7 @@ static essence_type essence_info[] =
 	{TR_RES_BLIND, "resistance to blind", 2, TR_RES_BLIND, 20},
 	{TR_RES_CONF, "resistance to confusion", 2, TR_RES_CONF, 20},
 	{TRAIT_RES_SOUN, "resistance to sound", 2, TRAIT_RES_SOUN, 20},
-	{TR_RES_SHARDS, "resistance to shard", 2, TR_RES_SHARDS, 20},
+	{TRAIT_RES_SHAR, "resistance to shard", 2, TRAIT_RES_SHAR, 20},
 	{TRAIT_RES_NETH, "resistance to nether", 2, TRAIT_RES_NETH, 20},
 	{TRAIT_RES_NEXU, "resistance to nexus", 2, TRAIT_RES_NEXU, 20},
 	{TRAIT_RES_CHAO, "resistance to chaos", 2, TRAIT_RES_CHAO, 20},

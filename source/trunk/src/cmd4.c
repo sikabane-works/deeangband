@@ -6030,7 +6030,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			print_flag(TR_RES_POIS);
 			print_flag(TR_RES_LITE);
 			print_flag(TR_RES_DARK);
-			print_flag(TR_RES_SHARDS);
+			print_flag(TRAIT_RES_SHAR);
 			print_flag(TRAIT_RES_SOUN);
 			print_flag(TRAIT_RES_NETH);
 			print_flag(TRAIT_RES_NEXU);
