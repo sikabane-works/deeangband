@@ -3397,7 +3397,7 @@ info[i++] = "それはテレパシー能力を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_ANIMAL))
+	if (have_flag(flgs, TRAIT_SENSE_ANIMAL))
 	{
 #ifdef JP
 info[i++] = "それは自然界の生物を感知する。";
@@ -3406,7 +3406,7 @@ info[i++] = "それは自然界の生物を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_UNDEAD))
+	if (have_flag(flgs, TRAIT_SENSE_UNDEAD))
 	{
 #ifdef JP
 info[i++] = "それはアンデッドを感知する。";
@@ -3415,7 +3415,7 @@ info[i++] = "それはアンデッドを感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_DEMON))
+	if (have_flag(flgs, TRAIT_SENSE_DEMON))
 	{
 #ifdef JP
 info[i++] = "それは悪魔を感知する。";
@@ -3424,7 +3424,7 @@ info[i++] = "それは悪魔を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_ORC))
+	if (have_flag(flgs, TRAIT_SENSE_ORC))
 	{
 #ifdef JP
 info[i++] = "それはオークを感知する。";
@@ -3433,7 +3433,7 @@ info[i++] = "それはオークを感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_TROLL))
+	if (have_flag(flgs, TRAIT_SENSE_TROLL))
 	{
 #ifdef JP
 info[i++] = "それはトロルを感知する。";
@@ -3442,7 +3442,7 @@ info[i++] = "それはトロルを感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_GIANT))
+	if (have_flag(flgs, TRAIT_SENSE_GIANT))
 	{
 #ifdef JP
 info[i++] = "それは巨人を感知する。";
@@ -3451,7 +3451,7 @@ info[i++] = "それは巨人を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_DRAGON))
+	if (have_flag(flgs, TRAIT_SENSE_DRAGON))
 	{
 #ifdef JP
 info[i++] = "それはドラゴンを感知する。";
@@ -3460,7 +3460,7 @@ info[i++] = "それはドラゴンを感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_HUMAN))
+	if (have_flag(flgs, TRAIT_SENSE_HUMAN))
 	{
 #ifdef JP
 info[i++] = "それは人間を感知する。";
@@ -3469,7 +3469,7 @@ info[i++] = "それは人間を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_EVIL))
+	if (have_flag(flgs, TRAIT_SENSE_EVIL))
 	{
 #ifdef JP
 info[i++] = "それは邪悪な存在を感知する。";
@@ -3478,7 +3478,7 @@ info[i++] = "それは邪悪な存在を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_GOOD))
+	if (have_flag(flgs, TRAIT_SENSE_GOOD))
 	{
 #ifdef JP
 info[i++] = "それは善良な存在を感知する。";
@@ -3487,7 +3487,7 @@ info[i++] = "それは善良な存在を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_NONLIVING))
+	if (have_flag(flgs, TRAIT_SENSE_NONLIVING))
 	{
 #ifdef JP
 info[i++] = "それは活動する無生物体を感知する。";
@@ -3496,7 +3496,7 @@ info[i++] = "それは活動する無生物体を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_ESP_UNIQUE))
+	if (have_flag(flgs, TRAIT_SENSE_UNIQUE))
 	{
 #ifdef JP
 info[i++] = "それは特別な強敵を感知する。";

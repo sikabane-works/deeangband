@@ -707,23 +707,23 @@ static flag_insc_table flag_insc_slay[] =
 static flag_insc_table flag_insc_esp1[] =
 {
 	{ "感", "Tele", TR_TELEPATHY, -1 },
-	{ "邪", "Evil", TR_ESP_EVIL, -1 },
-	{ "善", "Good", TR_ESP_GOOD, -1 },
-	{ "無", "Nolv", TR_ESP_NONLIVING, -1 },
-	{ "個", "Uniq", TR_ESP_UNIQUE, -1 },
+	{ "邪", "Evil", TRAIT_SENSE_EVIL, -1 },
+	{ "善", "Good", TRAIT_SENSE_GOOD, -1 },
+	{ "無", "Nolv", TRAIT_SENSE_NONLIVING, -1 },
+	{ "個", "Uniq", TRAIT_SENSE_UNIQUE, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
 static flag_insc_table flag_insc_esp2[] =
 {
-	{ "人", "p", TR_ESP_HUMAN, -1 },
-	{ "竜", "D", TR_ESP_DRAGON, -1 },
-	{ "オ", "o", TR_ESP_ORC, -1 },
-	{ "ト", "T", TR_ESP_TROLL, -1 },
-	{ "巨", "P", TR_ESP_GIANT, -1 },
-	{ "デ", "U", TR_ESP_DEMON, -1 },
-	{ "死", "L", TR_ESP_UNDEAD, -1 },
-	{ "動", "Z", TR_ESP_ANIMAL, -1 },
+	{ "人", "p", TRAIT_SENSE_HUMAN, -1 },
+	{ "竜", "D", TRAIT_SENSE_DRAGON, -1 },
+	{ "オ", "o", TRAIT_SENSE_ORC, -1 },
+	{ "ト", "T", TRAIT_SENSE_TROLL, -1 },
+	{ "巨", "P", TRAIT_SENSE_GIANT, -1 },
+	{ "デ", "U", TRAIT_SENSE_DEMON, -1 },
+	{ "死", "L", TRAIT_SENSE_UNDEAD, -1 },
+	{ "動", "Z", TRAIT_SENSE_ANIMAL, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -868,23 +868,23 @@ static flag_insc_table flag_insc_slay[] =
 static flag_insc_table flag_insc_esp1[] =
 {
 	{ "Tele", TR_TELEPATHY, -1 },
-	{ "Evil", TR_ESP_EVIL, -1 },
-	{ "Good", TR_ESP_GOOD, -1 },
-	{ "Nolv", TR_ESP_NONLIVING, -1 },
-	{ "Uniq", TR_ESP_UNIQUE, -1 },
+	{ "Evil", TRAIT_SENSE_EVIL, -1 },
+	{ "Good", TRAIT_SENSE_GOOD, -1 },
+	{ "Nolv", TRAIT_SENSE_NONLIVING, -1 },
+	{ "Uniq", TRAIT_SENSE_UNIQUE, -1 },
 	{ NULL, 0, -1 }
 };
 
 static flag_insc_table flag_insc_esp2[] =
 {
-	{ "p", TR_ESP_HUMAN, -1 },
-	{ "D", TR_ESP_DRAGON, -1 },
-	{ "o", TR_ESP_ORC, -1 },
-	{ "T", TR_ESP_TROLL, -1 },
-	{ "P", TR_ESP_GIANT, -1 },
-	{ "U", TR_ESP_DEMON, -1 },
-	{ "L", TR_ESP_UNDEAD, -1 },
-	{ "Z", TR_ESP_ANIMAL, -1 },
+	{ "p", TRAIT_SENSE_HUMAN, -1 },
+	{ "D", TRAIT_SENSE_DRAGON, -1 },
+	{ "o", TRAIT_SENSE_ORC, -1 },
+	{ "T", TRAIT_SENSE_TROLL, -1 },
+	{ "P", TRAIT_SENSE_GIANT, -1 },
+	{ "U", TRAIT_SENSE_DEMON, -1 },
+	{ "L", TRAIT_SENSE_UNDEAD, -1 },
+	{ "Z", TRAIT_SENSE_ANIMAL, -1 },
 	{ NULL, 0, -1 }
 };
 

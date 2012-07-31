@@ -991,18 +991,18 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_LITE)) total += 1250;
 	if (have_flag(flgs, TR_SEE_INVIS)) total += 2000;
 	if (have_flag(flgs, TR_TELEPATHY)) total += 20000;
-	if (have_flag(flgs, TR_ESP_ANIMAL)) total += 1000;
-	if (have_flag(flgs, TR_ESP_UNDEAD)) total += 1000;
-	if (have_flag(flgs, TR_ESP_DEMON)) total += 1000;
-	if (have_flag(flgs, TR_ESP_ORC)) total += 1000;
-	if (have_flag(flgs, TR_ESP_TROLL)) total += 1000;
-	if (have_flag(flgs, TR_ESP_GIANT)) total += 1000;
-	if (have_flag(flgs, TR_ESP_DRAGON)) total += 1000;
-	if (have_flag(flgs, TR_ESP_HUMAN)) total += 1000;
-	if (have_flag(flgs, TR_ESP_EVIL)) total += 15000;
-	if (have_flag(flgs, TR_ESP_GOOD)) total += 2000;
-	if (have_flag(flgs, TR_ESP_NONLIVING)) total += 2000;
-	if (have_flag(flgs, TR_ESP_UNIQUE)) total += 10000;
+	if (have_flag(flgs, TRAIT_SENSE_ANIMAL)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_UNDEAD)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_DEMON)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_ORC)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_TROLL)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_GIANT)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_DRAGON)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_HUMAN)) total += 1000;
+	if (have_flag(flgs, TRAIT_SENSE_EVIL)) total += 15000;
+	if (have_flag(flgs, TRAIT_SENSE_GOOD)) total += 2000;
+	if (have_flag(flgs, TRAIT_SENSE_NONLIVING)) total += 2000;
+	if (have_flag(flgs, TRAIT_SENSE_UNIQUE)) total += 10000;
 	if (have_flag(flgs, TR_SLOW_DIGEST)) total += 750;
 	if (have_flag(flgs, TR_REGEN)) total += 2500;
 	if (have_flag(flgs, TR_WARNING)) total += 2000;
@@ -2287,9 +2287,9 @@ static bool add_esp_strong(object_type *object_ptr)
 
 	switch (randint1(3))
 	{
-	case 1: add_flag(object_ptr->art_flags, TR_ESP_EVIL); break;
+	case 1: add_flag(object_ptr->art_flags, TRAIT_SENSE_EVIL); break;
 	case 2: add_flag(object_ptr->art_flags, TR_TELEPATHY); break;
-	case 3:	add_flag(object_ptr->art_flags, TR_ESP_NONLIVING); nonliv = TRUE; break;
+	case 3:	add_flag(object_ptr->art_flags, TRAIT_SENSE_NONLIVING); nonliv = TRUE; break;
 	}
 
 	return nonliv;
@@ -2323,15 +2323,15 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
 
 	while (n--) switch (idx[n])
 	{
-	case 1: add_flag(object_ptr->art_flags, TR_ESP_ANIMAL); break;
-	case 2: add_flag(object_ptr->art_flags, TR_ESP_UNDEAD); break;
-	case 3: add_flag(object_ptr->art_flags, TR_ESP_DEMON); break;
-	case 4: add_flag(object_ptr->art_flags, TR_ESP_ORC); break;
-	case 5: add_flag(object_ptr->art_flags, TR_ESP_TROLL); break;
-	case 6: add_flag(object_ptr->art_flags, TR_ESP_GIANT); break;
-	case 7: add_flag(object_ptr->art_flags, TR_ESP_DRAGON);   break;
-	case 8: add_flag(object_ptr->art_flags, TR_ESP_HUMAN); break;
-	case 9: add_flag(object_ptr->art_flags, TR_ESP_GOOD); break;
+	case 1: add_flag(object_ptr->art_flags, TRAIT_SENSE_ANIMAL); break;
+	case 2: add_flag(object_ptr->art_flags, TRAIT_SENSE_UNDEAD); break;
+	case 3: add_flag(object_ptr->art_flags, TRAIT_SENSE_DEMON); break;
+	case 4: add_flag(object_ptr->art_flags, TRAIT_SENSE_ORC); break;
+	case 5: add_flag(object_ptr->art_flags, TRAIT_SENSE_TROLL); break;
+	case 6: add_flag(object_ptr->art_flags, TRAIT_SENSE_GIANT); break;
+	case 7: add_flag(object_ptr->art_flags, TRAIT_SENSE_DRAGON);   break;
+	case 8: add_flag(object_ptr->art_flags, TRAIT_SENSE_HUMAN); break;
+	case 9: add_flag(object_ptr->art_flags, TRAIT_SENSE_GOOD); break;
 	}
 }
 
@@ -6165,14 +6165,14 @@ static essence_type essence_info[] =
 	{TR_SLAY_HUMAN, "人間倍打", 5, TR_SLAY_HUMAN, 20},
 	{TR_KILL_HUMAN, "人間倍倍打", 5, TR_SLAY_HUMAN, 60},
 
-	{TR_ESP_ANIMAL, "動物ESP", 6, TR_SLAY_ANIMAL, 40},
-	{TR_ESP_UNDEAD, "不死ESP", 6, TR_SLAY_UNDEAD, 40}, 
-	{TR_ESP_DEMON, "悪魔ESP", 6, TR_SLAY_DEMON, 40},       
-	{TR_ESP_ORC, "オークESP", 6, TR_SLAY_ORC, 40},     
-	{TR_ESP_TROLL, "トロルESP", 6, TR_SLAY_TROLL, 40},   
-	{TR_ESP_GIANT, "巨人ESP", 6, TR_SLAY_GIANT, 40},       
-	{TR_ESP_DRAGON, "竜ESP", 6, TR_SLAY_DRAGON, 40},
-	{TR_ESP_HUMAN, "人間ESP", 6, TR_SLAY_HUMAN, 40},
+	{TRAIT_SENSE_ANIMAL, "動物ESP", 6, TR_SLAY_ANIMAL, 40},
+	{TRAIT_SENSE_UNDEAD, "不死ESP", 6, TR_SLAY_UNDEAD, 40}, 
+	{TRAIT_SENSE_DEMON, "悪魔ESP", 6, TR_SLAY_DEMON, 40},       
+	{TRAIT_SENSE_ORC, "オークESP", 6, TR_SLAY_ORC, 40},     
+	{TRAIT_SENSE_TROLL, "トロルESP", 6, TR_SLAY_TROLL, 40},   
+	{TRAIT_SENSE_GIANT, "巨人ESP", 6, TR_SLAY_GIANT, 40},       
+	{TRAIT_SENSE_DRAGON, "竜ESP", 6, TR_SLAY_DRAGON, 40},
+	{TRAIT_SENSE_HUMAN, "人間ESP", 6, TR_SLAY_HUMAN, 40},
 
 	{ESSENCE_ATTACK, "攻撃", 10, TR_ES_ATTACK, 30},
 	{ESSENCE_AC, "防御", 10, TR_ES_AC, 15},
@@ -6276,14 +6276,14 @@ static essence_type essence_info[] =
 	{TR_SLAY_HUMAN, "slay human", 5, TR_SLAY_HUMAN, 20},
 	{TR_KILL_HUMAN, "kill human", 5, TR_SLAY_HUMAN, 60},
 
-	{TR_ESP_ANIMAL, "sense animal", 6, TR_SLAY_ANIMAL, 40},
-	{TR_ESP_UNDEAD, "sense undead", 6, TR_SLAY_UNDEAD, 40}, 
-	{TR_ESP_DEMON, "sense demon", 6, TR_SLAY_DEMON, 40},       
-	{TR_ESP_ORC, "sense orc", 6, TR_SLAY_ORC, 40},     
-	{TR_ESP_TROLL, "sense troll", 6, TR_SLAY_TROLL, 40},   
-	{TR_ESP_GIANT, "sense giant", 6, TR_SLAY_GIANT, 40},       
-	{TR_ESP_DRAGON, "sense dragon", 6, TR_SLAY_DRAGON, 40},
-	{TR_ESP_HUMAN, "sense human", 6, TR_SLAY_HUMAN, 40},
+	{TRAIT_SENSE_ANIMAL, "sense animal", 6, TR_SLAY_ANIMAL, 40},
+	{TRAIT_SENSE_UNDEAD, "sense undead", 6, TR_SLAY_UNDEAD, 40}, 
+	{TRAIT_SENSE_DEMON, "sense demon", 6, TR_SLAY_DEMON, 40},       
+	{TRAIT_SENSE_ORC, "sense orc", 6, TR_SLAY_ORC, 40},     
+	{TRAIT_SENSE_TROLL, "sense troll", 6, TR_SLAY_TROLL, 40},   
+	{TRAIT_SENSE_GIANT, "sense giant", 6, TR_SLAY_GIANT, 40},       
+	{TRAIT_SENSE_DRAGON, "sense dragon", 6, TR_SLAY_DRAGON, 40},
+	{TRAIT_SENSE_HUMAN, "sense human", 6, TR_SLAY_HUMAN, 40},
 
 	{ESSENCE_ATTACK, "weapon enchant", 10, TR_ES_ATTACK, 30},
 	{ESSENCE_AC, "armor enchant", 10, TR_ES_AC, 15},

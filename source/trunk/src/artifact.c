@@ -124,15 +124,15 @@ void one_low_esp(object_type *object_ptr)
 {
 	switch (randint1(9))
 	{
-	case 1: add_flag(object_ptr->art_flags, TR_ESP_ANIMAL);   break;
-	case 2: add_flag(object_ptr->art_flags, TR_ESP_UNDEAD);   break;
-	case 3: add_flag(object_ptr->art_flags, TR_ESP_DEMON);   break;
-	case 4: add_flag(object_ptr->art_flags, TR_ESP_ORC);   break;
-	case 5: add_flag(object_ptr->art_flags, TR_ESP_TROLL);   break;
-	case 6: add_flag(object_ptr->art_flags, TR_ESP_GIANT);   break;
-	case 7: add_flag(object_ptr->art_flags, TR_ESP_DRAGON);   break;
-	case 8: add_flag(object_ptr->art_flags, TR_ESP_HUMAN);   break;
-	case 9: add_flag(object_ptr->art_flags, TR_ESP_GOOD);   break;
+	case 1: add_flag(object_ptr->trait_flags, TRAIT_SENSE_ANIMAL);   break;
+	case 2: add_flag(object_ptr->trait_flags, TRAIT_SENSE_UNDEAD);   break;
+	case 3: add_flag(object_ptr->trait_flags, TRAIT_SENSE_DEMON);   break;
+	case 4: add_flag(object_ptr->trait_flags, TRAIT_SENSE_ORC);   break;
+	case 5: add_flag(object_ptr->trait_flags, TRAIT_SENSE_TROLL);   break;
+	case 6: add_flag(object_ptr->trait_flags, TRAIT_SENSE_GIANT);   break;
+	case 7: add_flag(object_ptr->trait_flags, TRAIT_SENSE_DRAGON);   break;
+	case 8: add_flag(object_ptr->trait_flags, TRAIT_SENSE_HUMAN);   break;
+	case 9: add_flag(object_ptr->trait_flags, TRAIT_SENSE_GOOD);   break;
 	}
 }
 
@@ -924,12 +924,12 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			switch (randint1(3))
 			{
 			case 1:
-				add_flag(object_ptr->trait_flags, TR_ESP_EVIL);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_EVIL);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_LAW;
 				break;
 			case 2:
-				add_flag(object_ptr->trait_flags, TR_ESP_NONLIVING);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_NONLIVING);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_MAGE;
 				break;
@@ -958,36 +958,36 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			while (n--) switch (idx[n])
 			{
 			case 1:
-				add_flag(object_ptr->trait_flags, TR_ESP_ANIMAL);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_ANIMAL);
 				if (!artifact_bias && one_in_(4))
 					artifact_bias = BIAS_RANGER;
 				break;
 			case 2:
-				add_flag(object_ptr->trait_flags, TR_ESP_UNDEAD);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_UNDEAD);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_PRIESTLY;
 				else if (!artifact_bias && one_in_(6))
 					artifact_bias = BIAS_NECROMANTIC;
 				break;
 			case 3:
-				add_flag(object_ptr->trait_flags, TR_ESP_DEMON);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_DEMON);
 				break;
 			case 4:
-				add_flag(object_ptr->trait_flags, TR_ESP_ORC);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_ORC);
 				break;
 			case 5:
-				add_flag(object_ptr->trait_flags, TR_ESP_TROLL);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_TROLL);
 				break;
 			case 6:
-				add_flag(object_ptr->trait_flags, TR_ESP_GIANT);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_GIANT);
 				break;
 			case 7:
-				add_flag(object_ptr->trait_flags, TR_ESP_HUMAN);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_HUMAN);
 				if (!artifact_bias && one_in_(6))
 					artifact_bias = BIAS_ROGUE;
 				break;
 			case 8:
-				add_flag(object_ptr->trait_flags, TR_ESP_GOOD);
+				add_flag(object_ptr->trait_flags, TRAIT_SENSE_GOOD);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_LAW;
 				break;

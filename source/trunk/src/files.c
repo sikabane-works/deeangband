@@ -3215,17 +3215,17 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
 #ifdef JP
 	display_flag_aux(row+ 0, col, "テレパシー:", TR_TELEPATHY, &f, 0, creature_ptr);
-	display_flag_aux(row+ 1, col, "邪悪ESP   :", TR_ESP_EVIL, &f, 0, creature_ptr);
-	display_flag_aux(row+ 2, col, "無生物ESP :", TR_ESP_NONLIVING, &f, 0, creature_ptr);
-	display_flag_aux(row+ 3, col, "善良ESP   :", TR_ESP_GOOD, &f, 0, creature_ptr);
-	display_flag_aux(row+ 4, col, "不死ESP   :", TR_ESP_UNDEAD, &f, 0, creature_ptr);
-	display_flag_aux(row+ 5, col, "悪魔ESP   :", TR_ESP_DEMON, &f, 0, creature_ptr);
-	display_flag_aux(row+ 6, col, "龍ESP     :", TR_ESP_DRAGON, &f, 0, creature_ptr);
-	display_flag_aux(row+ 7, col, "人間ESP   :", TR_ESP_HUMAN, &f, 0, creature_ptr);
-	display_flag_aux(row+ 8, col, "動物ESP   :", TR_ESP_ANIMAL, &f, 0, creature_ptr);
-	display_flag_aux(row+ 9, col, "オークESP :", TR_ESP_ORC, &f, 0, creature_ptr);
-	display_flag_aux(row+10, col, "トロルESP :", TR_ESP_TROLL, &f, 0, creature_ptr);
-	display_flag_aux(row+11, col, "巨人ESP   :", TR_ESP_GIANT, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "邪悪ESP   :", TRAIT_SENSE_EVIL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "無生物ESP :", TRAIT_SENSE_NONLIVING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "善良ESP   :", TRAIT_SENSE_GOOD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "不死ESP   :", TRAIT_SENSE_UNDEAD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "悪魔ESP   :", TRAIT_SENSE_DEMON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 6, col, "龍ESP     :", TRAIT_SENSE_DRAGON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 7, col, "人間ESP   :", TRAIT_SENSE_HUMAN, &f, 0, creature_ptr);
+	display_flag_aux(row+ 8, col, "動物ESP   :", TRAIT_SENSE_ANIMAL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 9, col, "オークESP :", TRAIT_SENSE_ORC, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "トロルESP :", TRAIT_SENSE_TROLL, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "巨人ESP   :", TRAIT_SENSE_GIANT, &f, 0, creature_ptr);
 
 	display_flag_aux(row+13, col, "腕力維持  :", TRAIT_SUSTAIN_STR, &f, 0, creature_ptr);
 	display_flag_aux(row+14, col, "知力維持  :", TRAIT_SUSTAIN_INT, &f, 0, creature_ptr);
@@ -3235,17 +3235,17 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+18, col, "魅力維持  :", TRAIT_SUSTAIN_CHR, &f, 0, creature_ptr);
 #else
 	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, creature_ptr);
-	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, creature_ptr);
-	display_flag_aux(row+ 2, col, "ESP Noliv.:", TR_ESP_NONLIVING, &f, 0, creature_ptr);
-	display_flag_aux(row+ 3, col, "ESP Good  :", TR_ESP_GOOD, &f, 0, creature_ptr);
-	display_flag_aux(row+ 4, col, "ESP Undead:", TR_ESP_UNDEAD, &f, 0, creature_ptr);
-	display_flag_aux(row+ 5, col, "ESP Demon :", TR_ESP_DEMON, &f, 0, creature_ptr);
-	display_flag_aux(row+ 6, col, "ESP Dragon:", TR_ESP_DRAGON, &f, 0, creature_ptr);
-	display_flag_aux(row+ 7, col, "ESP Human :", TR_ESP_HUMAN, &f, 0, creature_ptr);
-	display_flag_aux(row+ 8, col, "ESP Animal:", TR_ESP_ANIMAL, &f, 0, creature_ptr);
-	display_flag_aux(row+ 9, col, "ESP Orc   :", TR_ESP_ORC, &f, 0, creature_ptr);
-	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, creature_ptr);
-	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "ESP Evil  :", TRAIT_SENSE_EVIL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "ESP Noliv.:", TRAIT_SENSE_NONLIVING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "ESP Good  :", TRAIT_SENSE_GOOD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "ESP Undead:", TRAIT_SENSE_UNDEAD, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "ESP Demon :", TRAIT_SENSE_DEMON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 6, col, "ESP Dragon:", TRAIT_SENSE_DRAGON, &f, 0, creature_ptr);
+	display_flag_aux(row+ 7, col, "ESP Human :", TRAIT_SENSE_HUMAN, &f, 0, creature_ptr);
+	display_flag_aux(row+ 8, col, "ESP Animal:", TRAIT_SENSE_ANIMAL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 9, col, "ESP Orc   :", TRAIT_SENSE_ORC, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "ESP Troll :", TRAIT_SENSE_TROLL, &f, 0, creature_ptr);
+	display_flag_aux(row+11, col, "ESP Giant :", TRAIT_SENSE_GIANT, &f, 0, creature_ptr);
 
 	display_flag_aux(row+13, col, "Sust Str  :", TRAIT_SUSTAIN_STR, &f, 0, creature_ptr);
 	display_flag_aux(row+14, col, "Sust Int  :", TRAIT_SUSTAIN_INT, &f, 0, creature_ptr);

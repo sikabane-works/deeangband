@@ -3486,18 +3486,18 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
 
 		//if (have_flag(flgs, TR_TELEPATHY))   creature_ptr->telepathy = TRUE;
-		//if (have_flag(flgs, TR_ESP_ANIMAL))  creature_ptr->esp_animal = TRUE;
-		//if (have_flag(flgs, TR_ESP_UNDEAD))  creature_ptr->esp_undead = TRUE;
-		//if (have_flag(flgs, TR_ESP_DEMON))   creature_ptr->esp_demon = TRUE;
-		//TODO if (have_flag(flgs, TR_ESP_ORC))     creature_ptr->esp_orc = TRUE;
-		//if (have_flag(flgs, TR_ESP_TROLL))   creature_ptr->esp_troll = TRUE;
-		//if (have_flag(flgs, TR_ESP_GIANT))   creature_ptr->esp_giant = TRUE;
-		//if (have_flag(flgs, TR_ESP_DRAGON))  creature_ptr->esp_dragon = TRUE;
-		//if (have_flag(flgs, TR_ESP_HUMAN))   creature_ptr->esp_human = TRUE;
-		//if (have_flag(flgs, TR_ESP_EVIL))    creature_ptr->esp_evil = TRUE;
-		//if (have_flag(flgs, TR_ESP_GOOD))    creature_ptr->esp_good = TRUE;
-		//if (have_flag(flgs, TR_ESP_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
-		//if (have_flag(flgs, TR_ESP_UNIQUE))  creature_ptr->esp_unique = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_ANIMAL))  creature_ptr->esp_animal = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_UNDEAD))  creature_ptr->esp_undead = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_DEMON))   creature_ptr->esp_demon = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_SENSE_ORC))     creature_ptr->esp_orc = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_TROLL))   creature_ptr->esp_troll = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_GIANT))   creature_ptr->esp_giant = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_DRAGON))  creature_ptr->esp_dragon = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_HUMAN))   creature_ptr->esp_human = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_EVIL))    creature_ptr->esp_evil = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_GOOD))    creature_ptr->esp_good = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
+		//if (have_flag(flgs, TRAIT_SENSE_UNIQUE))  creature_ptr->esp_unique = TRUE;
 
 		//if (have_flag(flgs, TR_SEE_INVIS))   creature_ptr->see_inv = TRUE;
 		//if (have_flag(flgs, TR_LEVITATION))  creature_ptr->levitation = TRUE;
