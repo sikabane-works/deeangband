@@ -3565,12 +3565,12 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TR_NO_TELE))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
 
 		/* Sustain flags */
-		//TODO if (have_flag(flgs, TR_SUST_STR)) has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
-		//if (have_flag(flgs, TR_SUST_INT)) has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
-		//if (have_flag(flgs, TR_SUST_WIS)) has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = TRUE;
-		//if (have_flag(flgs, TR_SUST_DEX)) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
-		//if (have_flag(flgs, TR_SUST_CON)) has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
-		//if (have_flag(flgs, TR_SUST_CHR)) has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_SUSTAIN_STR)) has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
+		//if (have_flag(flgs, TRAIT_SUSTAIN_INT)) has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
+		//if (have_flag(flgs, TRAIT_SUSTAIN_WIS)) has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = TRUE;
+		//if (have_flag(flgs, TRAIT_SUSTAIN_DEX)) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
+		//if (have_flag(flgs, TRAIT_SUSTAIN_CON)) has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
+		//if (have_flag(flgs, TRAIT_SUSTAIN_CHR)) has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
 
 		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 

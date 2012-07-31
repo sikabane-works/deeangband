@@ -3087,7 +3087,7 @@ info[i++] = "それは魔力の消費を押さえる。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SUST_STR))
+	if (have_flag(flgs, TRAIT_SUSTAIN_STR))
 	{
 #ifdef JP
 info[i++] = "それはあなたの腕力を維持する。";
@@ -3096,7 +3096,7 @@ info[i++] = "それはあなたの腕力を維持する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SUST_INT))
+	if (have_flag(flgs, TRAIT_SUSTAIN_INT))
 	{
 #ifdef JP
 info[i++] = "それはあなたの知能を維持する。";
@@ -3105,7 +3105,7 @@ info[i++] = "それはあなたの知能を維持する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SUST_WIS))
+	if (have_flag(flgs, TRAIT_SUSTAIN_WIS))
 	{
 #ifdef JP
 info[i++] = "それはあなたの賢さを維持する。";
@@ -3114,7 +3114,7 @@ info[i++] = "それはあなたの賢さを維持する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SUST_DEX))
+	if (have_flag(flgs, TRAIT_SUSTAIN_DEX))
 	{
 #ifdef JP
 info[i++] = "それはあなたの器用さを維持する。";
@@ -3123,7 +3123,7 @@ info[i++] = "それはあなたの器用さを維持する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SUST_CON))
+	if (have_flag(flgs, TRAIT_SUSTAIN_CON))
 	{
 #ifdef JP
 info[i++] = "それはあなたの耐久力を維持する。";
@@ -3132,7 +3132,7 @@ info[i++] = "それはあなたの耐久力を維持する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SUST_CHR))
+	if (have_flag(flgs, TRAIT_SUSTAIN_CHR))
 	{
 #ifdef JP
 info[i++] = "それはあなたの魅力を維持する。";

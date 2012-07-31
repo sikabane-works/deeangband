@@ -2379,14 +2379,14 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TR_RES_FEAR);
 		if (creature_ptr->lev > 19) add_flag(flgs, TR_RES_POIS);
-		if (creature_ptr->lev > 24) add_flag(flgs, TR_SUST_DEX);
+		if (creature_ptr->lev > 24) add_flag(flgs, TRAIT_SUSTAIN_DEX);
 		if (creature_ptr->lev > 29) add_flag(flgs, TR_SEE_INVIS);
 		break;
 	case CLASS_MINDCRAFTER:
 		if (creature_ptr->lev > 9)
 			add_flag(flgs, TR_RES_FEAR);
 		if (creature_ptr->lev > 19)
-			add_flag(flgs, TR_SUST_WIS);
+			add_flag(flgs, TRAIT_SUSTAIN_WIS);
 		if (creature_ptr->lev > 29)
 			add_flag(flgs, TR_RES_CONF);
 		if (creature_ptr->lev > 39)
@@ -2396,9 +2396,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_RES_SOUN);
 		break;
 	case CLASS_BERSERKER:
-		add_flag(flgs, TR_SUST_STR);
-		add_flag(flgs, TR_SUST_DEX);
-		add_flag(flgs, TR_SUST_CON);
+		add_flag(flgs, TRAIT_SUSTAIN_STR);
+		add_flag(flgs, TRAIT_SUSTAIN_DEX);
+		add_flag(flgs, TRAIT_SUSTAIN_CON);
 		add_flag(flgs, TR_REGEN);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_SPEED);
@@ -2529,12 +2529,12 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_TELEPATHY);
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TR_REGEN);
-		add_flag(flgs, TR_SUST_STR);
-		add_flag(flgs, TR_SUST_INT);
-		add_flag(flgs, TR_SUST_WIS);
-		add_flag(flgs, TR_SUST_DEX);
-		add_flag(flgs, TR_SUST_CON);
-		add_flag(flgs, TR_SUST_CHR);
+		add_flag(flgs, TRAIT_SUSTAIN_STR);
+		add_flag(flgs, TRAIT_SUSTAIN_INT);
+		add_flag(flgs, TRAIT_SUSTAIN_WIS);
+		add_flag(flgs, TRAIT_SUSTAIN_DEX);
+		add_flag(flgs, TRAIT_SUSTAIN_CON);
+		add_flag(flgs, TRAIT_SUSTAIN_CHR);
 	}
 }
 
@@ -2634,12 +2634,12 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_TELEPATHY);
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TR_REGEN);
-		add_flag(flgs, TR_SUST_STR);
-		add_flag(flgs, TR_SUST_INT);
-		add_flag(flgs, TR_SUST_WIS);
-		add_flag(flgs, TR_SUST_DEX);
-		add_flag(flgs, TR_SUST_CON);
-		add_flag(flgs, TR_SUST_CHR);
+		add_flag(flgs, TRAIT_SUSTAIN_STR);
+		add_flag(flgs, TRAIT_SUSTAIN_INT);
+		add_flag(flgs, TRAIT_SUSTAIN_WIS);
+		add_flag(flgs, TRAIT_SUSTAIN_DEX);
+		add_flag(flgs, TRAIT_SUSTAIN_CON);
+		add_flag(flgs, TRAIT_SUSTAIN_CHR);
 	}
 
 	/* Hex bonuses */
@@ -3227,12 +3227,12 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+10, col, "ƒgƒƒ‹ESP :", TR_ESP_TROLL, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "‹lESP   :", TR_ESP_GIANT, &f, 0, creature_ptr);
 
-	display_flag_aux(row+13, col, "˜r—ÍˆÛŽ  :", TR_SUST_STR, &f, 0, creature_ptr);
-	display_flag_aux(row+14, col, "’m—ÍˆÛŽ  :", TR_SUST_INT, &f, 0, creature_ptr);
-	display_flag_aux(row+15, col, "Œ«‚³ˆÛŽ  :", TR_SUST_WIS, &f, 0, creature_ptr);
-	display_flag_aux(row+16, col, "Ší—pˆÛŽ  :", TR_SUST_DEX, &f, 0, creature_ptr);
-	display_flag_aux(row+17, col, "‘Ï‹vˆÛŽ  :", TR_SUST_CON, &f, 0, creature_ptr);
-	display_flag_aux(row+18, col, "–£—ÍˆÛŽ  :", TR_SUST_CHR, &f, 0, creature_ptr);
+	display_flag_aux(row+13, col, "˜r—ÍˆÛŽ  :", TRAIT_SUSTAIN_STR, &f, 0, creature_ptr);
+	display_flag_aux(row+14, col, "’m—ÍˆÛŽ  :", TRAIT_SUSTAIN_INT, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "Œ«‚³ˆÛŽ  :", TRAIT_SUSTAIN_WIS, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "Ší—pˆÛŽ  :", TRAIT_SUSTAIN_DEX, &f, 0, creature_ptr);
+	display_flag_aux(row+17, col, "‘Ï‹vˆÛŽ  :", TRAIT_SUSTAIN_CON, &f, 0, creature_ptr);
+	display_flag_aux(row+18, col, "–£—ÍˆÛŽ  :", TRAIT_SUSTAIN_CHR, &f, 0, creature_ptr);
 #else
 	display_flag_aux(row+ 0, col, "Telepathy :", TR_TELEPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "ESP Evil  :", TR_ESP_EVIL, &f, 0, creature_ptr);
@@ -3247,12 +3247,12 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+10, col, "ESP Troll :", TR_ESP_TROLL, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "ESP Giant :", TR_ESP_GIANT, &f, 0, creature_ptr);
 
-	display_flag_aux(row+13, col, "Sust Str  :", TR_SUST_STR, &f, 0, creature_ptr);
-	display_flag_aux(row+14, col, "Sust Int  :", TR_SUST_INT, &f, 0, creature_ptr);
-	display_flag_aux(row+15, col, "Sust Wis  :", TR_SUST_WIS, &f, 0, creature_ptr);
-	display_flag_aux(row+16, col, "Sust Dex  :", TR_SUST_DEX, &f, 0, creature_ptr);
-	display_flag_aux(row+17, col, "Sust Con  :", TR_SUST_CON, &f, 0, creature_ptr);
-	display_flag_aux(row+18, col, "Sust Chr  :", TR_SUST_CHR, &f, 0, creature_ptr);
+	display_flag_aux(row+13, col, "Sust Str  :", TRAIT_SUSTAIN_STR, &f, 0, creature_ptr);
+	display_flag_aux(row+14, col, "Sust Int  :", TRAIT_SUSTAIN_INT, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "Sust Wis  :", TRAIT_SUSTAIN_WIS, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "Sust Dex  :", TRAIT_SUSTAIN_DEX, &f, 0, creature_ptr);
+	display_flag_aux(row+17, col, "Sust Con  :", TRAIT_SUSTAIN_CON, &f, 0, creature_ptr);
+	display_flag_aux(row+18, col, "Sust Chr  :", TRAIT_SUSTAIN_CHR, &f, 0, creature_ptr);
 #endif
 
 
@@ -3707,7 +3707,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 					if (object_ptr->pval < 10) c = '0' + object_ptr->pval;
 				}
 
-				if (have_flag(flgs, stat + TR_SUST_STR))
+				if (have_flag(flgs, stat + TRAIT_SUSTAIN_STR))
 				{
 					/* Dark green for sustained stats */
 					a = TERM_GREEN;
@@ -3725,7 +3725,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			}
 
 			/* Sustain */
-			else if (have_flag(flgs, stat + TR_SUST_STR))
+			else if (have_flag(flgs, stat + TRAIT_SUSTAIN_STR))
 			{
 				/* Dark green "s" */
 				a = TERM_GREEN;
@@ -3821,7 +3821,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 
 
 		/* Sustain */
-		if (have_flag(flgs, stat + TR_SUST_STR))
+		if (have_flag(flgs, stat + TRAIT_SUSTAIN_STR))
 		{
 			/* Dark green "s" */
 			a = TERM_GREEN;

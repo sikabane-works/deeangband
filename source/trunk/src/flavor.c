@@ -729,12 +729,12 @@ static flag_insc_table flag_insc_esp2[] =
 
 static flag_insc_table flag_insc_sust[] =
 {
-	{ "˜r", "St", TR_SUST_STR, -1 },
-	{ "’m", "In", TR_SUST_INT, -1 },
-	{ "Œ«", "Wi", TR_SUST_WIS, -1 },
-	{ "Ší", "Dx", TR_SUST_DEX, -1 },
-	{ "‘Ï", "Cn", TR_SUST_CON, -1 },
-	{ "–£", "Ch", TR_SUST_CHR, -1 },
+	{ "˜r", "St", TRAIT_SUSTAIN_STR, -1 },
+	{ "’m", "In", TRAIT_SUSTAIN_INT, -1 },
+	{ "Œ«", "Wi", TRAIT_SUSTAIN_WIS, -1 },
+	{ "Ší", "Dx", TRAIT_SUSTAIN_DEX, -1 },
+	{ "‘Ï", "Cn", TRAIT_SUSTAIN_CON, -1 },
+	{ "–£", "Ch", TRAIT_SUSTAIN_CHR, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -890,12 +890,12 @@ static flag_insc_table flag_insc_esp2[] =
 
 static flag_insc_table flag_insc_sust[] =
 {
-	{ "St", TR_SUST_STR, -1 },
-	{ "In", TR_SUST_INT, -1 },
-	{ "Wi", TR_SUST_WIS, -1 },
-	{ "Dx", TR_SUST_DEX, -1 },
-	{ "Cn", TR_SUST_CON, -1 },
-	{ "Ch", TR_SUST_CHR, -1 },
+	{ "St", TRAIT_SUSTAIN_STR, -1 },
+	{ "In", TRAIT_SUSTAIN_INT, -1 },
+	{ "Wi", TRAIT_SUSTAIN_WIS, -1 },
+	{ "Dx", TRAIT_SUSTAIN_DEX, -1 },
+	{ "Cn", TRAIT_SUSTAIN_CON, -1 },
+	{ "Ch", TRAIT_SUSTAIN_CHR, -1 },
 	{ NULL, 0, -1 }
 };
 #endif

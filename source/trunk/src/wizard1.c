@@ -802,19 +802,19 @@ static const flag_desc immune_flags_desc[] =
 static const flag_desc sustain_flags_desc[] =
 {
 #ifdef JP
-	{ TR_SUST_STR,   "˜r—Í" },
-	{ TR_SUST_INT,   "’m”\" },
-	{ TR_SUST_WIS,   "Œ«‚³" },
-	{ TR_SUST_DEX,   "Ší—p‚³" },
-	{ TR_SUST_CON,   "‘Ï‹v—Í" },
-	{ TR_SUST_CHR,   "–£—Í" },
+	{ TRAIT_SUSTAIN_STR,   "˜r—Í" },
+	{ TRAIT_SUSTAIN_INT,   "’m”\" },
+	{ TRAIT_SUSTAIN_WIS,   "Œ«‚³" },
+	{ TRAIT_SUSTAIN_DEX,   "Ší—p‚³" },
+	{ TRAIT_SUSTAIN_CON,   "‘Ï‹v—Í" },
+	{ TRAIT_SUSTAIN_CHR,   "–£—Í" },
 #else
-	{ TR_SUST_STR,   "STR" },
-	{ TR_SUST_INT,   "INT" },
-	{ TR_SUST_WIS,   "WIS" },
-	{ TR_SUST_DEX,   "DEX" },
-	{ TR_SUST_CON,   "CON" },
-	{ TR_SUST_CHR,   "CHR" },
+	{ TRAIT_SUSTAIN_STR,   "STR" },
+	{ TRAIT_SUSTAIN_INT,   "INT" },
+	{ TRAIT_SUSTAIN_WIS,   "WIS" },
+	{ TRAIT_SUSTAIN_DEX,   "DEX" },
+	{ TRAIT_SUSTAIN_CON,   "CON" },
+	{ TRAIT_SUSTAIN_CHR,   "CHR" },
 #endif
 };
 
@@ -1170,9 +1170,9 @@ static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 	object_flags(object_ptr, flgs);
 
 	/* Simplify things if an item sustains all stats */
-	if (have_flag(flgs, TR_SUST_STR) && have_flag(flgs, TR_SUST_INT) &&
-	    have_flag(flgs, TR_SUST_WIS) && have_flag(flgs, TR_SUST_DEX) &&
-	    have_flag(flgs, TR_SUST_CON) && have_flag(flgs, TR_SUST_CHR))
+	if (have_flag(flgs, TRAIT_SUSTAIN_STR) && have_flag(flgs, TRAIT_SUSTAIN_INT) &&
+	    have_flag(flgs, TRAIT_SUSTAIN_WIS) && have_flag(flgs, TRAIT_SUSTAIN_DEX) &&
+	    have_flag(flgs, TRAIT_SUSTAIN_CON) && have_flag(flgs, TRAIT_SUSTAIN_CHR))
 	{
 #ifdef JP
 		*sustain_list++ = "‘S”\—Í";
@@ -1182,9 +1182,9 @@ static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 	}
 
 	/* Should we bother? */
-	else if (have_flag(flgs, TR_SUST_STR) || have_flag(flgs, TR_SUST_INT) ||
-		 have_flag(flgs, TR_SUST_WIS) || have_flag(flgs, TR_SUST_DEX) ||
-		 have_flag(flgs, TR_SUST_CON) || have_flag(flgs, TR_SUST_CHR))
+	else if (have_flag(flgs, TRAIT_SUSTAIN_STR) || have_flag(flgs, TRAIT_SUSTAIN_INT) ||
+		 have_flag(flgs, TRAIT_SUSTAIN_WIS) || have_flag(flgs, TRAIT_SUSTAIN_DEX) ||
+		 have_flag(flgs, TRAIT_SUSTAIN_CON) || have_flag(flgs, TRAIT_SUSTAIN_CHR))
 	{
 		sustain_list = spoiler_flag_aux(flgs, sustain_flags_desc,
 						sustain_list,

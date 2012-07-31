@@ -942,12 +942,12 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_BRAND_COLD)) {tmp_cost += 2500;count++;}
 	total += (tmp_cost * count);
 
-	if (have_flag(flgs, TR_SUST_STR)) total += 850;
-	if (have_flag(flgs, TR_SUST_INT)) total += 850;
-	if (have_flag(flgs, TR_SUST_WIS)) total += 850;
-	if (have_flag(flgs, TR_SUST_DEX)) total += 850;
-	if (have_flag(flgs, TR_SUST_CON)) total += 850;
-	if (have_flag(flgs, TR_SUST_CHR)) total += 250;
+	if (have_flag(flgs, TRAIT_SUSTAIN_STR)) total += 850;
+	if (have_flag(flgs, TRAIT_SUSTAIN_INT)) total += 850;
+	if (have_flag(flgs, TRAIT_SUSTAIN_WIS)) total += 850;
+	if (have_flag(flgs, TRAIT_SUSTAIN_DEX)) total += 850;
+	if (have_flag(flgs, TRAIT_SUSTAIN_CON)) total += 850;
+	if (have_flag(flgs, TRAIT_SUSTAIN_CHR)) total += 250;
 	if (have_flag(flgs, TR_RIDING)) total += 0;
 	if (have_flag(flgs, TR_EASY_SPELL)) total += 1500;
 	if (have_flag(flgs, TR_THROW)) total += 5000;
@@ -6102,12 +6102,12 @@ static essence_type essence_info[] =
 	{TR_BRAND_ELEC, "ìdåÇ", 1, TR_BRAND_ELEC, 20},
 	{TR_BRAND_FIRE, "èƒä¸", 1, TR_BRAND_FIRE, 20},
 	{TR_BRAND_COLD, "ìÄåã", 1, TR_BRAND_COLD, 20},
-	{TR_SUST_STR, "òróÕà€éù", 3, TR_SUST_STR, 15},
-	{TR_SUST_INT, "ímî\à€éù", 3, TR_SUST_STR, 15},
-	{TR_SUST_WIS, "å´Ç≥à€éù", 3, TR_SUST_STR, 15},
-	{TR_SUST_DEX, "äÌópÇ≥à€éù", 3, TR_SUST_STR, 15},
-	{TR_SUST_CON, "ëœãvóÕà€éù", 3, TR_SUST_STR, 15},
-	{TR_SUST_CHR, "ñ£óÕà€éù", 3, TR_SUST_STR, 15},
+	{TRAIT_SUSTAIN_STR, "òróÕà€éù", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_INT, "ímî\à€éù", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_WIS, "å´Ç≥à€éù", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_DEX, "äÌópÇ≥à€éù", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_CON, "ëœãvóÕà€éù", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_CHR, "ñ£óÕà€éù", 3, TRAIT_SUSTAIN_STR, 15},
 	{TR_IM_ACID, "é_ñ∆âu", 2, TR_IM_ACID, 20},
 	{TR_IM_ELEC, "ìdåÇñ∆âu", 2, TR_IM_ACID, 20},
 	{TR_IM_FIRE, "âŒâäñ∆âu", 2, TR_IM_ACID, 20},
@@ -6213,12 +6213,12 @@ static essence_type essence_info[] =
 	{TR_BRAND_ELEC, "electric brand", 1, TR_BRAND_ELEC, 20},
 	{TR_BRAND_FIRE, "fire brand", 1, TR_BRAND_FIRE, 20},
 	{TR_BRAND_COLD, "cold brand", 1, TR_BRAND_COLD, 20},
-	{TR_SUST_STR, "sustain strength", 3, TR_SUST_STR, 15},
-	{TR_SUST_INT, "sustain intelligence", 3, TR_SUST_STR, 15},
-	{TR_SUST_WIS, "sustain wisdom", 3, TR_SUST_STR, 15},
-	{TR_SUST_DEX, "sustain dexterity", 3, TR_SUST_STR, 15},
-	{TR_SUST_CON, "sustain constitution", 3, TR_SUST_STR, 15},
-	{TR_SUST_CHR, "sustain charisma", 3, TR_SUST_STR, 15},
+	{TRAIT_SUSTAIN_STR, "sustain strength", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_INT, "sustain intelligence", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_WIS, "sustain wisdom", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_DEX, "sustain dexterity", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_CON, "sustain constitution", 3, TRAIT_SUSTAIN_STR, 15},
+	{TRAIT_SUSTAIN_CHR, "sustain charisma", 3, TRAIT_SUSTAIN_STR, 15},
 	{TR_IM_ACID, "acid immunity", 2, TR_IM_ACID, 20},
 	{TR_IM_ELEC, "electric immunity", 2, TR_IM_ACID, 20},
 	{TR_IM_FIRE, "fire immunity", 2, TR_IM_ACID, 20},

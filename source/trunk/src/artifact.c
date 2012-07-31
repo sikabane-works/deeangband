@@ -32,12 +32,12 @@ void one_sustain(object_type *object_ptr)
 {
 	switch (randint0(6))
 	{
-		case 0: add_flag(object_ptr->art_flags, TR_SUST_STR); break;
-		case 1: add_flag(object_ptr->art_flags, TR_SUST_INT); break;
-		case 2: add_flag(object_ptr->art_flags, TR_SUST_WIS); break;
-		case 3: add_flag(object_ptr->art_flags, TR_SUST_DEX); break;
-		case 4: add_flag(object_ptr->art_flags, TR_SUST_CON); break;
-		case 5: add_flag(object_ptr->art_flags, TR_SUST_CHR); break;
+		case 0: add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_STR); break;
+		case 1: add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_INT); break;
+		case 2: add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_WIS); break;
+		case 3: add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_DEX); break;
+		case 4: add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CON); break;
+		case 5: add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CHR); break;
 	}
 }
 
@@ -744,73 +744,73 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 	switch (artifact_bias)
 	{
 	case BIAS_RANGER:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_CON)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CON)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_CON);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CON);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_STR:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_STR)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_STR)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_STR);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_STR);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_WIS:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_WIS)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_WIS)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_WIS);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_WIS);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_INT:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_INT)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_INT)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_INT);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_INT);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_DEX:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_DEX)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_DEX)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_DEX);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_DEX);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_CON:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_CON)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CON)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_CON);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CON);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_CHR:
-		if (!(have_flag(object_ptr->art_flags, TR_SUST_CHR)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CHR)))
 		{
-			add_flag(object_ptr->art_flags, TR_SUST_CHR);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CHR);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_CHAOS:
-		if (!(have_flag(object_ptr->art_flags, TR_TELEPORT)))
+		if (!(have_flag(object_ptr->trait_flags, TR_TELEPORT)))
 		{
-			add_flag(object_ptr->art_flags, TR_TELEPORT);
+			add_flag(object_ptr->trait_flags, TR_TELEPORT);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_FIRE:
-		if (!(have_flag(object_ptr->art_flags, TR_LITE)))
+		if (!(have_flag(object_ptr->trait_flags, TR_LITE)))
 		{
-			add_flag(object_ptr->art_flags, TR_LITE); /* Freebie */
+			add_flag(object_ptr->trait_flags, TR_LITE); /* Freebie */
 		}
 		break;
 	}
@@ -818,42 +818,42 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 	switch (randint1(33))
 	{
 		case 1:
-			add_flag(object_ptr->art_flags, TR_SUST_STR);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_STR);
 			if (!artifact_bias)
 				artifact_bias = BIAS_STR;
 			break;
 		case 2:
-			add_flag(object_ptr->art_flags, TR_SUST_INT);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_INT);
 			if (!artifact_bias)
 				artifact_bias = BIAS_INT;
 			break;
 		case 3:
-			add_flag(object_ptr->art_flags, TR_SUST_WIS);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_WIS);
 			if (!artifact_bias)
 				artifact_bias = BIAS_WIS;
 			break;
 		case 4:
-			add_flag(object_ptr->art_flags, TR_SUST_DEX);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_DEX);
 			if (!artifact_bias)
 				artifact_bias = BIAS_DEX;
 			break;
 		case 5:
-			add_flag(object_ptr->art_flags, TR_SUST_CON);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CON);
 			if (!artifact_bias)
 				artifact_bias = BIAS_CON;
 			break;
 		case 6:
-			add_flag(object_ptr->art_flags, TR_SUST_CHR);
+			add_flag(object_ptr->trait_flags, TRAIT_SUSTAIN_CHR);
 			if (!artifact_bias)
 				artifact_bias = BIAS_CHR;
 			break;
 		case 7:
 		case 8:
 		case 14:
-			add_flag(object_ptr->art_flags, TR_FREE_ACT);
+			add_flag(object_ptr->trait_flags, TR_FREE_ACT);
 			break;
 		case 9:
-			add_flag(object_ptr->art_flags, TR_HOLD_LIFE);
+			add_flag(object_ptr->trait_flags, TR_HOLD_LIFE);
 			if (!artifact_bias && one_in_(5))
 				artifact_bias = BIAS_PRIESTLY;
 			else if (!artifact_bias && one_in_(6))
@@ -861,27 +861,27 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			break;
 		case 10:
 		case 11:
-			add_flag(object_ptr->art_flags, TR_LITE);
+			add_flag(object_ptr->trait_flags, TR_LITE);
 			break;
 		case 12:
 		case 13:
-			add_flag(object_ptr->art_flags, TR_LEVITATION);
+			add_flag(object_ptr->trait_flags, TR_LEVITATION);
 			break;
 		case 15:
 		case 16:
 		case 17:
-			add_flag(object_ptr->art_flags, TR_SEE_INVIS);
+			add_flag(object_ptr->trait_flags, TR_SEE_INVIS);
 			break;
 		case 19:
 		case 20:
-			add_flag(object_ptr->art_flags, TR_SLOW_DIGEST);
+			add_flag(object_ptr->trait_flags, TR_SLOW_DIGEST);
 			break;
 		case 21:
 		case 22:
-			add_flag(object_ptr->art_flags, TR_REGEN);
+			add_flag(object_ptr->trait_flags, TR_REGEN);
 			break;
 		case 23:
-			add_flag(object_ptr->art_flags, TR_TELEPORT);
+			add_flag(object_ptr->trait_flags, TR_TELEPORT);
 			break;
 		case 24:
 		case 25:
@@ -898,7 +898,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 		case 29:
 		{
 			int bonus_h, bonus_d;
-			add_flag(object_ptr->art_flags, TR_SHOW_MODS);
+			add_flag(object_ptr->trait_flags, TR_SHOW_MODS);
 			bonus_h = 4 + (randint1(11));
 			bonus_d = 4 + (randint1(11));
 			if ((object_ptr->tval != TV_SWORD) && (object_ptr->tval != TV_POLEARM) && (object_ptr->tval != TV_HAFTED) && (object_ptr->tval != TV_DIGGING) && (object_ptr->tval != TV_GLOVES) && (object_ptr->tval != TV_RING))
@@ -911,30 +911,30 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			break;
 		}
 		case 30:
-			add_flag(object_ptr->art_flags, TR_NO_MAGIC);
+			add_flag(object_ptr->trait_flags, TR_NO_MAGIC);
 			break;
 		case 31:
-			add_flag(object_ptr->art_flags, TR_NO_TELE);
+			add_flag(object_ptr->trait_flags, TR_NO_TELE);
 			break;
 		case 32:
-			add_flag(object_ptr->art_flags, TR_WARNING);
+			add_flag(object_ptr->trait_flags, TR_WARNING);
 			break;
 
 		case 18:
 			switch (randint1(3))
 			{
 			case 1:
-				add_flag(object_ptr->art_flags, TR_ESP_EVIL);
+				add_flag(object_ptr->trait_flags, TR_ESP_EVIL);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_LAW;
 				break;
 			case 2:
-				add_flag(object_ptr->art_flags, TR_ESP_NONLIVING);
+				add_flag(object_ptr->trait_flags, TR_ESP_NONLIVING);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_MAGE;
 				break;
 			case 3:
-				add_flag(object_ptr->art_flags, TR_TELEPATHY);
+				add_flag(object_ptr->trait_flags, TR_TELEPATHY);
 				if (!artifact_bias && one_in_(9))
 					artifact_bias = BIAS_MAGE;
 				break;
@@ -958,36 +958,36 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			while (n--) switch (idx[n])
 			{
 			case 1:
-				add_flag(object_ptr->art_flags, TR_ESP_ANIMAL);
+				add_flag(object_ptr->trait_flags, TR_ESP_ANIMAL);
 				if (!artifact_bias && one_in_(4))
 					artifact_bias = BIAS_RANGER;
 				break;
 			case 2:
-				add_flag(object_ptr->art_flags, TR_ESP_UNDEAD);
+				add_flag(object_ptr->trait_flags, TR_ESP_UNDEAD);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_PRIESTLY;
 				else if (!artifact_bias && one_in_(6))
 					artifact_bias = BIAS_NECROMANTIC;
 				break;
 			case 3:
-				add_flag(object_ptr->art_flags, TR_ESP_DEMON);
+				add_flag(object_ptr->trait_flags, TR_ESP_DEMON);
 				break;
 			case 4:
-				add_flag(object_ptr->art_flags, TR_ESP_ORC);
+				add_flag(object_ptr->trait_flags, TR_ESP_ORC);
 				break;
 			case 5:
-				add_flag(object_ptr->art_flags, TR_ESP_TROLL);
+				add_flag(object_ptr->trait_flags, TR_ESP_TROLL);
 				break;
 			case 6:
-				add_flag(object_ptr->art_flags, TR_ESP_GIANT);
+				add_flag(object_ptr->trait_flags, TR_ESP_GIANT);
 				break;
 			case 7:
-				add_flag(object_ptr->art_flags, TR_ESP_HUMAN);
+				add_flag(object_ptr->trait_flags, TR_ESP_HUMAN);
 				if (!artifact_bias && one_in_(6))
 					artifact_bias = BIAS_ROGUE;
 				break;
 			case 8:
-				add_flag(object_ptr->art_flags, TR_ESP_GOOD);
+				add_flag(object_ptr->trait_flags, TR_ESP_GOOD);
 				if (!artifact_bias && one_in_(3))
 					artifact_bias = BIAS_LAW;
 				break;
