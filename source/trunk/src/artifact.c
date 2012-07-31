@@ -1187,7 +1187,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 		case 19:
 			if (object_ptr->tval == TV_SWORD)
 			{
-				add_flag(object_ptr->art_flags, TR_VORPAL);
+				add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 				if (!artifact_bias && one_in_(9))
 					artifact_bias = BIAS_WARRIOR;
 			}
@@ -1867,7 +1867,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		remove_flag(object_ptr->art_flags, TR_SLAY_DRAGON);
 		remove_flag(object_ptr->art_flags, TR_KILL_DRAGON);
 		remove_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
-		remove_flag(object_ptr->art_flags, TR_VORPAL);
+		remove_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 		remove_flag(object_ptr->art_flags, TR_BRAND_POIS);
 		remove_flag(object_ptr->art_flags, TR_BRAND_ACID);
 		remove_flag(object_ptr->art_flags, TR_BRAND_ELEC);

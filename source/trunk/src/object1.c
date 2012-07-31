@@ -2870,7 +2870,7 @@ info[i++] = "それは地震を起こすことができる。";
 
 	}
 
-	if (have_flag(flgs, TR_VORPAL))
+	if (have_flag(object_ptr->trait_flags, TRAIT_VORPAL))
 	{
 #ifdef JP
 info[i++] = "それは非常に切れ味が鋭く敵を切断することができる。";

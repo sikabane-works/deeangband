@@ -717,7 +717,7 @@ static flag_desc brand_flags_desc[] =
 	{ TRAIT_CHAOTIC_BRAND,            "ç¨ì◊" },
 	{ TRAIT_VAMPIRIC_BRAND,           "ãzåå" },
 	{ TR_IMPACT,             "ínêk" },
-	{ TR_VORPAL,             "êÿÇÍñ°" },
+	{ TRAIT_VORPAL,             "êÿÇÍñ°" },
 #else
 	{ TR_BRAND_ACID,         "Acid Brand" },
 	{ TR_BRAND_ELEC,         "Lightning Brand" },
@@ -729,7 +729,7 @@ static flag_desc brand_flags_desc[] =
 	{ TRAIT_CHAOTIC_BRAND,            "Mark of Chaos" },
 	{ TRAIT_VAMPIRIC_BRAND,           "Vampiric" },
 	{ TR_IMPACT,             "Earthquake impact on hit" },
-	{ TR_VORPAL,             "Very sharp" },
+	{ TRAIT_VORPAL,             "Very sharp" },
 #endif
 };
 

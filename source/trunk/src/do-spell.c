@@ -10921,7 +10921,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					basedam *= 5;
 					basedam /= 3;
 				}
-				else if (have_flag(flgs, TR_VORPAL))
+				else if (have_flag(flgs, TRAIT_VORPAL))
 				{
 					/* vorpal flag only */
 					basedam *= 11;
@@ -11274,7 +11274,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					basedam *= 5;
 					basedam /= 3;
 				}
-				else if (have_flag(flgs, TR_VORPAL))
+				else if (have_flag(flgs, TRAIT_VORPAL))
 				{
 					/* vorpal flag only */
 					basedam *= 11;
@@ -11621,9 +11621,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
 						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
-						add_flag(object_ptr->art_flags, TR_AGGRAVATE);
-						add_flag(object_ptr->art_flags, TR_VORPAL);
-						add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
+						add_flag(object_ptr->trait_flags, TR_AGGRAVATE);
+						add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
+						add_flag(object_ptr->trait_flags, TRAIT_VAMPIRIC_BRAND);
 #ifdef JP
 						msg_print("ŒŒ‚¾IŒŒ‚¾IŒŒ‚¾I");
 #else

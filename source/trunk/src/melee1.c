@@ -285,7 +285,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else can_drain = FALSE;
 		}
 
-		if ((have_flag(flgs, TR_VORPAL) || hex_spelling(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+		if ((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || hex_spelling(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 			vorpal_cut = TRUE;
 		else vorpal_cut = FALSE;
 

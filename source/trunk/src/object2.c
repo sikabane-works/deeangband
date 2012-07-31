@@ -933,7 +933,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_KILL_DRAGON)) {tmp_cost += 2800;count++;}
 	else if (have_flag(flgs, TR_SLAY_DRAGON)) {tmp_cost += 1800;count++;}
 
-	if (have_flag(flgs, TR_VORPAL)) {tmp_cost += 2500;count++;}
+	if (have_flag(object_ptr->trait_flags, TRAIT_VORPAL)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TR_IMPACT)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TR_BRAND_POIS)) {tmp_cost += 3800;count++;}
 	if (have_flag(flgs, TR_BRAND_ACID)) {tmp_cost += 3800;count++;}
@@ -6687,7 +6687,7 @@ static void drain_essence(creature_type *creature_ptr)
 		drain_value[TR_INT] += 5;
 		drain_value[TR_WIS] += 5;
 	}
-	if ((have_flag(old_flgs, TR_VORPAL)) && !(have_flag(new_flgs, TR_VORPAL)))
+	if ((have_flag(old_flgs, TRAIT_VORPAL)) && !(have_flag(new_flgs, TRAIT_VORPAL)))
 	{
 		drain_value[TR_BRAND_POIS] += 5;
 		drain_value[TR_BRAND_ACID] += 5;
@@ -7996,7 +7996,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			}
 			if (object_ptr->tval == TV_SWORD && one_in_(3))
 			{
-				add_flag(object_ptr->art_flags, TR_VORPAL);
+				add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 			}
 			break;
 

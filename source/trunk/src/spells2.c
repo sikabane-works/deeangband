@@ -893,7 +893,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í‘ÅŒ‚‚Å’nk‚ğ”­¶‚·‚é‚±‚Æ‚ª‚Å‚«‚éB";
 
 		}
 
-		if (have_flag(flgs, TR_VORPAL))
+		if (have_flag(flgs, TRAIT_VORPAL))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í”ñí‚É‰s‚¢B";
