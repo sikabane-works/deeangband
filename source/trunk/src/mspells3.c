@@ -36,10 +36,6 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 	switch (power)
 	{
 		case TRAIT_SHRIEK:
-		case TRAIT_XXX1:
-		case TRAIT_XXX2:
-		case TRAIT_XXX3:
-		case TRAIT_XXX4:
 		case TRAIT_SCARE:
 		case TRAIT_BLIND:
 		case TRAIT_CONF:
@@ -712,8 +708,6 @@ msg_print("Ç©ÇÒçÇÇ¢ã‡êÿÇËê∫ÇÇ†Ç∞ÇΩÅB");
 
 		aggravate_creatures(caster_ptr);
 		break;
-	case TRAIT_XXX1:
-		break;
 	case TRAIT_DISPEL:
 	{
 		int m_idx;
@@ -762,12 +756,6 @@ msg_print("ñÓÇï˙Ç¡ÇΩÅB");
 		}
 		break;
 	}
-	case TRAIT_XXX2:
-		break;
-	case TRAIT_XXX3:
-		break;
-	case TRAIT_XXX4:
-		break;
 	case TRAIT_BR_ACID:
 		if (!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP

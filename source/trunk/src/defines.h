@@ -3457,12 +3457,6 @@ extern int PlayerUID;
 #define DETECT_RAD_MAP     30
 #define DETECT_RAD_ALL     255
 
-/* Creature Spells */
-#define TRAIT_XXX1           1
-#define TRAIT_XXX2           5
-#define TRAIT_XXX3           6
-#define TRAIT_XXX4           7
-
 #define MON_STIGMATIC_ONE 0
 #define MON_BEGGAR        12
 #define MON_LEPER         13

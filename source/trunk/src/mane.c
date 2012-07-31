@@ -307,8 +307,7 @@ msg_print("‚©‚ñ‚‚¢‹àØ‚èº‚ğ‚ ‚°‚½B");
 
 		aggravate_creatures(creature_ptr);
 		break;
-	case TRAIT_XXX1:
-		break;
+
 	case TRAIT_DISPEL:
 	{
 		int m_idx;
@@ -340,12 +339,6 @@ else msg_print("–î‚ğ•ú‚Á‚½B");
 #endif
 		
 			fire_bolt(creature_ptr, GF_ARROW, dir, damage);
-		break;
-	case TRAIT_XXX2:
-		break;
-	case TRAIT_XXX3:
-		break;
-	case TRAIT_XXX4:
 		break;
 	case TRAIT_BR_ACID:
 		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
