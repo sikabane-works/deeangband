@@ -163,7 +163,7 @@ void one_ability(object_type *object_ptr)
 	{
 	case 0: add_flag(object_ptr->art_flags, TRAIT_LEVITATION);     break;
 	case 1: add_flag(object_ptr->art_flags, TR_LITE);        break;
-	case 2: add_flag(object_ptr->art_flags, TR_SEE_INVIS);   break;
+	case 2: add_flag(object_ptr->art_flags, TRAIT_SEE_INVISIBLE);   break;
 	case 3: add_flag(object_ptr->art_flags, TRAIT_WARNING);     break;
 	case 4: add_flag(object_ptr->art_flags, TR_SLOW_DIGEST); break;
 	case 5: add_flag(object_ptr->art_flags, TRAIT_REGENERATE);       break;
@@ -870,7 +870,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 		case 15:
 		case 16:
 		case 17:
-			add_flag(object_ptr->trait_flags, TR_SEE_INVIS);
+			add_flag(object_ptr->trait_flags, TRAIT_SEE_INVISIBLE);
 			break;
 		case 19:
 		case 20:

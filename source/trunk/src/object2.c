@@ -989,7 +989,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_SHOW_MODS)) total += 0;
 	if (have_flag(flgs, TRAIT_LEVITATION)) total += 1250;
 	if (have_flag(flgs, TR_LITE)) total += 1250;
-	if (have_flag(flgs, TR_SEE_INVIS)) total += 2000;
+	if (have_flag(flgs, TRAIT_SEE_INVISIBLE)) total += 2000;
 	if (have_flag(flgs, TRAIT_ESP)) total += 20000;
 	if (have_flag(flgs, TRAIT_SENSE_ANIMAL)) total += 1000;
 	if (have_flag(flgs, TRAIT_SENSE_UNDEAD)) total += 1000;
@@ -3000,7 +3000,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_AMU_INFRA;
 						break;
 					case 5: case 6:
-						if (have_flag(k_ptr->flags, TR_SEE_INVIS)) break;
+						if (have_flag(k_ptr->flags, TRAIT_SEE_INVISIBLE)) break;
 						object_ptr->name2 = EGO_AMU_SEE_INVIS;
 						break;
 					case 7: case 8:
@@ -6138,7 +6138,7 @@ static essence_type essence_info[] =
 	{TRAIT_WARNING, "åxçê", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "ïÇóV", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "âiãvåıåπ", 3, TR_LITE, 15},
-	{TR_SEE_INVIS, "â¬éãìßñæ", 3, TR_SEE_INVIS, 20},
+	{TRAIT_SEE_INVISIBLE, "â¬éãìßñæ", 3, TRAIT_SEE_INVISIBLE, 20},
 	{TRAIT_ESP, "ÉeÉåÉpÉVÅ[", 6, TRAIT_ESP, 15},
 	{TR_SLOW_DIGEST, "íxè¡âª", 3, TR_SLOW_DIGEST, 15},
 	{TRAIT_REGENERATE, "ã}ë¨âÒïú", 3, TRAIT_REGENERATE, 20},
@@ -6249,7 +6249,7 @@ static essence_type essence_info[] =
 	{TRAIT_WARNING, "warning", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "permanent light", 3, TR_LITE, 15},
-	{TR_SEE_INVIS, "see invisible", 3, TR_SEE_INVIS, 20},
+	{TRAIT_SEE_INVISIBLE, "see invisible", 3, TRAIT_SEE_INVISIBLE, 20},
 	{TRAIT_ESP, "telepathy", 6, TRAIT_ESP, 15},
 	{TR_SLOW_DIGEST, "slow digestion", 3, TR_SLOW_DIGEST, 15},
 	{TRAIT_REGENERATE, "regeneration", 3, TRAIT_REGENERATE, 20},

@@ -2380,7 +2380,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_FEAR);
 		if (creature_ptr->lev > 19) add_flag(flgs, TR_RES_POIS);
 		if (creature_ptr->lev > 24) add_flag(flgs, TRAIT_SUSTAIN_DEX);
-		if (creature_ptr->lev > 29) add_flag(flgs, TR_SEE_INVIS);
+		if (creature_ptr->lev > 29) add_flag(flgs, TRAIT_SEE_INVISIBLE);
 		break;
 	case CLASS_MINDCRAFTER:
 		if (creature_ptr->lev > 9)
@@ -2525,7 +2525,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_SH_COLD);
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
-		add_flag(flgs, TR_SEE_INVIS);
+		add_flag(flgs, TRAIT_SEE_INVISIBLE);
 		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TRAIT_REGENERATE);
@@ -2550,7 +2550,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (IS_HERO(creature_ptr) || creature_ptr->shero)
 		add_flag(flgs, TR_RES_FEAR);
 	if (creature_ptr->tim_invis)
-		add_flag(flgs, TR_SEE_INVIS);
+		add_flag(flgs, TRAIT_SEE_INVISIBLE);
 	if (creature_ptr->tim_regen)
 		add_flag(flgs, TRAIT_REGENERATE);
 	if (IS_TIM_ESP(creature_ptr))
@@ -2630,7 +2630,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_SH_COLD);
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
-		add_flag(flgs, TR_SEE_INVIS);
+		add_flag(flgs, TRAIT_SEE_INVISIBLE);
 		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TR_SLOW_DIGEST);
 		add_flag(flgs, TRAIT_REGENERATE);
@@ -3154,7 +3154,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+3, col, "冷気オーラ:", TR_SH_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "加速      :", TR_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, creature_ptr);
-	display_flag_aux(row+6, col, "透明体視認:", TR_SEE_INVIS, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "透明体視認:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "経験値保持:", TR_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "警告      :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "遅消化    :", TR_SLOW_DIGEST, &f, 0, creature_ptr);
@@ -3169,7 +3169,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+3, col, "AuraCold  :", TR_SH_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, creature_ptr);
-	display_flag_aux(row+6, col, "SeeInvisi.:", TR_SEE_INVIS, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "SeeInvisi.:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Warning   :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, creature_ptr);
