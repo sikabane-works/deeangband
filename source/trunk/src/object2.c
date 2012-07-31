@@ -1004,7 +1004,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_SENSE_NONLIVING)) total += 2000;
 	if (have_flag(flgs, TRAIT_SENSE_UNIQUE)) total += 10000;
 	if (have_flag(flgs, TR_SLOW_DIGEST)) total += 750;
-	if (have_flag(flgs, TR_REGEN)) total += 2500;
+	if (have_flag(flgs, TRAIT_REGENERATE)) total += 2500;
 	if (have_flag(flgs, TRAIT_WARNING)) total += 2000;
 	if (have_flag(flgs, TR_DEC_MANA)) total += 10000;
 	if (have_flag(flgs, TR_XTRA_MIGHT)) total += 2250;
@@ -2660,7 +2660,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_THROW;
 						break;
 					case 3: case 4:
-						if (have_flag(k_ptr->flags, TR_REGEN)) break;
+						if (have_flag(k_ptr->flags, TRAIT_REGENERATE)) break;
 						object_ptr->name2 = EGO_RING_REGEN;
 						break;
 					case 5: case 6:
@@ -6141,7 +6141,7 @@ static essence_type essence_info[] =
 	{TR_SEE_INVIS, "可視透明", 3, TR_SEE_INVIS, 20},
 	{TRAIT_ESP, "テレパシー", 6, TRAIT_ESP, 15},
 	{TR_SLOW_DIGEST, "遅消化", 3, TR_SLOW_DIGEST, 15},
-	{TR_REGEN, "急速回復", 3, TR_REGEN, 20},
+	{TRAIT_REGENERATE, "急速回復", 3, TRAIT_REGENERATE, 20},
 	{TR_TELEPORT, "テレポート", 3, TR_TELEPORT, 25},
 
 	{TR_SLAY_EVIL, "邪悪倍打", 5, TR_SLAY_EVIL, 100},
@@ -6252,7 +6252,7 @@ static essence_type essence_info[] =
 	{TR_SEE_INVIS, "see invisible", 3, TR_SEE_INVIS, 20},
 	{TRAIT_ESP, "telepathy", 6, TRAIT_ESP, 15},
 	{TR_SLOW_DIGEST, "slow digestion", 3, TR_SLOW_DIGEST, 15},
-	{TR_REGEN, "regeneration", 3, TR_REGEN, 20},
+	{TRAIT_REGENERATE, "regeneration", 3, TRAIT_REGENERATE, 20},
 	{TR_TELEPORT, "teleport", 3, TR_TELEPORT, 25},
 
 	{TR_SLAY_EVIL, "slay evil", 5, TR_SLAY_EVIL, 100},

@@ -2343,7 +2343,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	{
 	case CLASS_WARRIOR:
 		if (creature_ptr->lev > 44)
-			add_flag(flgs, TR_REGEN);
+			add_flag(flgs, TRAIT_REGENERATE);
 	case CLASS_SAMURAI:
 		if (creature_ptr->lev > 29)
 			add_flag(flgs, TR_RES_FEAR);
@@ -2399,7 +2399,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_SUSTAIN_STR);
 		add_flag(flgs, TRAIT_SUSTAIN_DEX);
 		add_flag(flgs, TRAIT_SUSTAIN_CON);
-		add_flag(flgs, TR_REGEN);
+		add_flag(flgs, TRAIT_REGENERATE);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TR_SPEED);
 		if (creature_ptr->lev > 39) add_flag(flgs, TRAIT_REFLECTING);
@@ -2427,7 +2427,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_FLESH_ROT))
 	{
-		remove_flag(flgs, TR_REGEN);
+		remove_flag(flgs, TRAIT_REGENERATE);
 	}
 
 	if (has_trait(creature_ptr, TRAIT_XTRA_FAT) ||
@@ -2460,7 +2460,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_REGENERATE))
 	{
-		add_flag(flgs, TR_REGEN);
+		add_flag(flgs, TRAIT_REGENERATE);
 	}
 
 	if (has_trait(creature_ptr, TRAIT_ESP))
@@ -2528,7 +2528,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_SEE_INVIS);
 		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TR_SLOW_DIGEST);
-		add_flag(flgs, TR_REGEN);
+		add_flag(flgs, TRAIT_REGENERATE);
 		add_flag(flgs, TRAIT_SUSTAIN_STR);
 		add_flag(flgs, TRAIT_SUSTAIN_INT);
 		add_flag(flgs, TRAIT_SUSTAIN_WIS);
@@ -2552,7 +2552,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (creature_ptr->tim_invis)
 		add_flag(flgs, TR_SEE_INVIS);
 	if (creature_ptr->tim_regen)
-		add_flag(flgs, TR_REGEN);
+		add_flag(flgs, TRAIT_REGENERATE);
 	if (IS_TIM_ESP(creature_ptr))
 		add_flag(flgs, TRAIT_ESP);
 	if (IS_FAST(creature_ptr) || creature_ptr->slow)
@@ -2633,7 +2633,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_SEE_INVIS);
 		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TR_SLOW_DIGEST);
-		add_flag(flgs, TR_REGEN);
+		add_flag(flgs, TRAIT_REGENERATE);
 		add_flag(flgs, TRAIT_SUSTAIN_STR);
 		add_flag(flgs, TRAIT_SUSTAIN_INT);
 		add_flag(flgs, TRAIT_SUSTAIN_WIS);
@@ -2648,7 +2648,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
 			add_flag(flgs, TR_SH_FIRE);
-			add_flag(flgs, TR_REGEN);
+			add_flag(flgs, TRAIT_REGENERATE);
 		}
 		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TR_SH_COLD);
 		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TR_SH_ELEC);
@@ -3158,7 +3158,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+7, col, "åoå±ílï€éù:", TR_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "åxçê      :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "íxè¡âª    :", TR_SLOW_DIGEST, &f, 0, creature_ptr);
-	display_flag_aux(row+10, col, "ã}âÒïú    :", TR_REGEN, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "ã}âÒïú    :", TRAIT_REGENERATE, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "ïÇóV      :", TRAIT_LEVITATION, &f, 0, creature_ptr);
 	display_flag_aux(row+12, col, "âiâìåıåπ  :", TR_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "éÙÇ¢      :", 0, &f, DP_CURSE, creature_ptr);
@@ -3173,7 +3173,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Warning   :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "SlowDigest:", TR_SLOW_DIGEST, &f, 0, creature_ptr);
-	display_flag_aux(row+10, col, "Regene.   :", TR_REGEN, &f, 0, creature_ptr);
+	display_flag_aux(row+10, col, "Regene.   :", TRAIT_REGENERATE, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "Levitation:", TRAIT_LEVITATION, &f, 0, creature_ptr);
 	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, creature_ptr);

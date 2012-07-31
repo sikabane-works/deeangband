@@ -868,7 +868,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_SENSE_NONLIVING,          "ñ≥ê∂ï®ä¥ím" },
 	{ TRAIT_SENSE_UNIQUE,             "ÉÜÉjÅ[ÉNä¥ím" },
 	{ TR_SLOW_DIGEST,        "íxè¡âª" },
-	{ TR_REGEN,              "ã}ë¨âÒïú" },
+	{ TRAIT_REGENERATE,              "ã}ë¨âÒïú" },
 	{ TRAIT_WARNING,            "åxçê" },
 /*	{ TR_XTRA_MIGHT,         "ã≠óÕéÀåÇ" }, */
 	{ TR_XTRA_SHOTS,         "í«â¡éÀåÇ" },        /* always +1? */
@@ -886,7 +886,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TR_SEE_INVIS,          "See Invisible" },
 	{ TRAIT_ESP,          "ESP" },
 	{ TR_SLOW_DIGEST,        "Slow Digestion" },
-	{ TR_REGEN,              "Regeneration" },
+	{ TRAIT_REGENERATE,              "Regeneration" },
 	{ TRAIT_WARNING,            "Warning" },
 /*	{ TR_XTRA_MIGHT,         "Extra Might" }, */
 	{ TR_XTRA_SHOTS,         "+1 Extra Shot" },        /* always +1? */

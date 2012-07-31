@@ -3514,7 +3514,7 @@ info[i++] = "‚»‚ê‚Í‚ ‚È‚½‚ÌV’Â‘ãÓ‚ğ’x‚­‚·‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_REGEN))
+	if (have_flag(flgs, TRAIT_REGENERATE))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í‘Ì—Í‰ñ•œ—Í‚ğ‹­‰»‚·‚éB";

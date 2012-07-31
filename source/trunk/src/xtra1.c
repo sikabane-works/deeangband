@@ -3483,7 +3483,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TRAIT_BLESSED_BRANDED))     creature_ptr->bless_blade = TRUE;
 		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
 		//TODO if (have_flag(flgs, TR_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
-		//if (have_flag(flgs, TR_REGEN))       creature_ptr->regenerate = TRUE;
+		//if (have_flag(flgs, TRAIT_REGENERATE))       creature_ptr->regenerate = TRUE;
 
 		//if (have_flag(flgs, TRAIT_ESP))   creature_ptr->telepathy = TRUE;
 		//if (have_flag(flgs, TRAIT_SENSE_ANIMAL))  creature_ptr->esp_animal = TRUE;
