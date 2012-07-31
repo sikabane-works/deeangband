@@ -2464,7 +2464,7 @@ info[i++] = "それは二刀流での命中率を向上させる。";
 
 	}
 
-	if (have_flag(flgs, TR_EASY_SPELL))
+	if (have_flag(flgs, TRAIT_EASY_SPELL))
 	{
 #ifdef JP
 info[i++] = "それは魔法の難易度を下げる。";

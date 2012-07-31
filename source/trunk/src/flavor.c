@@ -628,7 +628,7 @@ static flag_insc_table flag_insc_resistance[] =
 
 static flag_insc_table flag_insc_misc[] =
 {
-	{ "ˆÕ", "Es", TR_EASY_SPELL, -1 },
+	{ "ˆÕ", "Es", TRAIT_EASY_SPELL, -1 },
 	{ "Œ¸", "Dm", TR_DEC_MANA, -1 },
 	{ "“Š", "Th", TR_THROW, -1 },
 	{ "”½", "Rf", TRAIT_REFLECTING, -1 },
@@ -789,7 +789,7 @@ static flag_insc_table flag_insc_resistance[] =
 
 static flag_insc_table flag_insc_misc[] =
 {
-	{ "Es", TR_EASY_SPELL, -1 },
+	{ "Es", TRAIT_EASY_SPELL, -1 },
 	{ "Dm", TR_DEC_MANA, -1 },
 	{ "Th", TR_THROW, -1 },
 	{ "Rf", TRAIT_REFLECTING, -1 },

@@ -3575,7 +3575,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 
 		//if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
-		if (have_flag(flgs, TR_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
+		if (have_flag(flgs, TRAIT_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
 		if (object_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
 
 		if (object_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
