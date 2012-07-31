@@ -3326,7 +3326,7 @@ info[i++] = "‚»‚ê‚Í’n–‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_NEXUS))
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Íˆö‰Ê¬—‚Ö‚Ì‘Ï«‚ğö‚¯‚éB";

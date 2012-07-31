@@ -974,7 +974,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_RES_SOUND)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TR_RES_SHARDS)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TR_RES_NETHER)) {tmp_cost += 900;count += 2;}
-	if (have_flag(flgs, TR_RES_NEXUS)) {tmp_cost += 900;count += 2;}
+	if (have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) {tmp_cost += 1000;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_DISE)) {tmp_cost += 2000;count += 2;}
 	total += (tmp_cost * count);
@@ -6128,7 +6128,7 @@ static essence_type essence_info[] =
 	{TR_RES_SOUND, "耐轟音", 2, TR_RES_SOUND, 20},
 	{TR_RES_SHARDS, "耐破片", 2, TR_RES_SHARDS, 20},
 	{TR_RES_NETHER, "耐地獄", 2, TR_RES_NETHER, 20},
-	{TR_RES_NEXUS, "耐因果混乱", 2, TR_RES_NEXUS, 20},
+	{TRAIT_RES_NEXU, "耐因果混乱", 2, TRAIT_RES_NEXU, 20},
 	{TRAIT_RES_CHAO, "耐カオス", 2, TRAIT_RES_CHAO, 20},
 	{TRAIT_RES_DISE, "耐劣化", 2, TRAIT_RES_DISE, 20},
 	{TR_SH_FIRE, "", 0, -2, 0},
@@ -6239,7 +6239,7 @@ static essence_type essence_info[] =
 	{TR_RES_SOUND, "resistance to sound", 2, TR_RES_SOUND, 20},
 	{TR_RES_SHARDS, "resistance to shard", 2, TR_RES_SHARDS, 20},
 	{TR_RES_NETHER, "resistance to nether", 2, TR_RES_NETHER, 20},
-	{TR_RES_NEXUS, "resistance to nexus", 2, TR_RES_NEXUS, 20},
+	{TRAIT_RES_NEXU, "resistance to nexus", 2, TRAIT_RES_NEXU, 20},
 	{TRAIT_RES_CHAO, "resistance to chaos", 2, TRAIT_RES_CHAO, 20},
 	{TRAIT_RES_DISE, "resistance to disenchantment", 2, TRAIT_RES_DISE, 20},
 	{TR_SH_FIRE, "", 0, -2, 0},
