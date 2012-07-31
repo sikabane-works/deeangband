@@ -6046,7 +6046,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			print_flag(TRAIT_SEE_INVISIBLE);
 			print_flag(TR_HOLD_LIFE);
 			print_flag(TRAIT_ESP);
-			print_flag(TR_SLOW_DIGEST);
+			print_flag(TRAIT_SLOW_DIGEST);
 			print_flag(TRAIT_REGENERATE);
 			print_flag(TRAIT_LEVITATION);
 

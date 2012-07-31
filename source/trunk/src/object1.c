@@ -3505,7 +3505,7 @@ info[i++] = "それは特別な強敵を感知する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLOW_DIGEST))
+	if (have_flag(flgs, TRAIT_SLOW_DIGEST))
 	{
 #ifdef JP
 info[i++] = "それはあなたの新陳代謝を遅くする。";

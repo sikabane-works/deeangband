@@ -1003,7 +1003,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_SENSE_GOOD)) total += 2000;
 	if (have_flag(flgs, TRAIT_SENSE_NONLIVING)) total += 2000;
 	if (have_flag(flgs, TRAIT_SENSE_UNIQUE)) total += 10000;
-	if (have_flag(flgs, TR_SLOW_DIGEST)) total += 750;
+	if (have_flag(flgs, TRAIT_SLOW_DIGEST)) total += 750;
 	if (have_flag(flgs, TRAIT_REGENERATE)) total += 2500;
 	if (have_flag(flgs, TRAIT_WARNING)) total += 2000;
 	if (have_flag(flgs, TR_DEC_MANA)) total += 10000;
@@ -2992,7 +2992,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					switch(randint1(21))
 					{
 					case 1: case 2:
-						if (have_flag(k_ptr->flags, TR_SLOW_DIGEST)) break;
+						if (have_flag(k_ptr->flags, TRAIT_SLOW_DIGEST)) break;
 						object_ptr->name2 = EGO_AMU_SLOW_D;
 						break;
 					case 3: case 4:
@@ -6140,7 +6140,7 @@ static essence_type essence_info[] =
 	{TR_LITE, "永久光源", 3, TR_LITE, 15},
 	{TRAIT_SEE_INVISIBLE, "可視透明", 3, TRAIT_SEE_INVISIBLE, 20},
 	{TRAIT_ESP, "テレパシー", 6, TRAIT_ESP, 15},
-	{TR_SLOW_DIGEST, "遅消化", 3, TR_SLOW_DIGEST, 15},
+	{TRAIT_SLOW_DIGEST, "遅消化", 3, TRAIT_SLOW_DIGEST, 15},
 	{TRAIT_REGENERATE, "急速回復", 3, TRAIT_REGENERATE, 20},
 	{TR_TELEPORT, "テレポート", 3, TR_TELEPORT, 25},
 
@@ -6251,7 +6251,7 @@ static essence_type essence_info[] =
 	{TR_LITE, "permanent light", 3, TR_LITE, 15},
 	{TRAIT_SEE_INVISIBLE, "see invisible", 3, TRAIT_SEE_INVISIBLE, 20},
 	{TRAIT_ESP, "telepathy", 6, TRAIT_ESP, 15},
-	{TR_SLOW_DIGEST, "slow digestion", 3, TR_SLOW_DIGEST, 15},
+	{TRAIT_SLOW_DIGEST, "slow digestion", 3, TRAIT_SLOW_DIGEST, 15},
 	{TRAIT_REGENERATE, "regeneration", 3, TRAIT_REGENERATE, 20},
 	{TR_TELEPORT, "teleport", 3, TR_TELEPORT, 25},
 
