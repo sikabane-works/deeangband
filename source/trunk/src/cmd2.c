@@ -3036,7 +3036,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Brand (Acid) */
-			if (have_flag(flgs, TR_BRAND_ACID))
+			if (have_flag(flgs, TRAIT_ACID_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ACID_RATE);
 
@@ -3047,7 +3047,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Brand (Elec) */
-			if (have_flag(flgs, TR_BRAND_ELEC))
+			if (have_flag(flgs, TRAIT_ELEC_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
@@ -3058,7 +3058,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Brand (Fire) */
-			if (have_flag(flgs, TR_BRAND_FIRE))
+			if (have_flag(flgs, TRAIT_FIRE_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 
@@ -3076,7 +3076,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Brand (Cold) */
-			if (have_flag(flgs, TR_BRAND_COLD))
+			if (have_flag(flgs, TRAIT_COLD_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_COLD_RATE);
 
@@ -3094,7 +3094,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Brand (Poison) */
-			if (have_flag(flgs, TR_BRAND_POIS))
+			if (have_flag(flgs, TRAIT_POIS_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);
 

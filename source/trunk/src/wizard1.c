@@ -707,11 +707,11 @@ static flag_desc slay_flags_desc[] =
 static flag_desc brand_flags_desc[] =
 {
 #ifdef JP
-	{ TR_BRAND_ACID,         "ónâ" },
-	{ TR_BRAND_ELEC,         "ìdåÇ" },
-	{ TR_BRAND_FIRE,         "èƒä¸" },
-	{ TR_BRAND_COLD,         "ìÄåã" },
-	{ TR_BRAND_POIS,         "ì≈éE" },
+	{ TRAIT_ACID_BRAND,         "ónâ" },
+	{ TRAIT_ELEC_BRAND,         "ìdåÇ" },
+	{ TRAIT_FIRE_BRAND,         "èƒä¸" },
+	{ TRAIT_COLD_BRAND,         "ìÄåã" },
+	{ TRAIT_POIS_BRAND,         "ì≈éE" },
 
 	{ TR_FORCE_WEAPON,       "óùóÕ" },
 	{ TRAIT_CHAOTIC_BRAND,            "ç¨ì◊" },
@@ -719,11 +719,11 @@ static flag_desc brand_flags_desc[] =
 	{ TRAIT_SHATTER,             "ínêk" },
 	{ TRAIT_VORPAL,             "êÿÇÍñ°" },
 #else
-	{ TR_BRAND_ACID,         "Acid Brand" },
-	{ TR_BRAND_ELEC,         "Lightning Brand" },
-	{ TR_BRAND_FIRE,         "Flame Tongue" },
-	{ TR_BRAND_COLD,         "Frost Brand" },
-	{ TR_BRAND_POIS,         "Poisoned" },
+	{ TRAIT_ACID_BRAND,         "Acid Brand" },
+	{ TRAIT_ELEC_BRAND,         "Lightning Brand" },
+	{ TRAIT_FIRE_BRAND,         "Flame Tongue" },
+	{ TRAIT_COLD_BRAND,         "Frost Brand" },
+	{ TRAIT_POIS_BRAND,         "Poisoned" },
 
 	{ TR_FORCE_WEAPON,       "Force" },
 	{ TRAIT_CHAOTIC_BRAND,            "Mark of Chaos" },

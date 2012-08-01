@@ -2570,15 +2570,15 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_POIS);
 
 	if (creature_ptr->special_attack & ATTACK_ACID)
-		add_flag(flgs, TR_BRAND_ACID);
+		add_flag(flgs, TRAIT_ACID_BRAND);
 	if (creature_ptr->special_attack & ATTACK_ELEC)
-		add_flag(flgs, TR_BRAND_ELEC);
+		add_flag(flgs, TRAIT_ELEC_BRAND);
 	if (creature_ptr->special_attack & ATTACK_FIRE)
-		add_flag(flgs, TR_BRAND_FIRE);
+		add_flag(flgs, TRAIT_FIRE_BRAND);
 	if (creature_ptr->special_attack & ATTACK_COLD)
-		add_flag(flgs, TR_BRAND_COLD);
+		add_flag(flgs, TRAIT_COLD_BRAND);
 	if (creature_ptr->special_attack & ATTACK_POIS)
-		add_flag(flgs, TR_BRAND_POIS);
+		add_flag(flgs, TRAIT_POIS_BRAND);
 	if (creature_ptr->special_defense & DEFENSE_ACID)
 		add_flag(flgs, TR_IM_ACID);
 	if (creature_ptr->special_defense & DEFENSE_ELEC)
@@ -3383,22 +3383,22 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
-	display_flag_aux(row, col, "ónâ      :", TR_BRAND_ACID, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+1, col, "ìdåÇ      :", TR_BRAND_ELEC, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+2, col, "èƒä¸      :", TR_BRAND_FIRE, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+3, col, "ìÄåã      :", TR_BRAND_COLD, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+4, col, "ì≈éE      :", TR_BRAND_POIS, &f, DP_WP, creature_ptr);
+	display_flag_aux(row, col, "ónâ      :", TRAIT_ACID_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+1, col, "ìdåÇ      :", TRAIT_ELEC_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+2, col, "èƒä¸      :", TRAIT_FIRE_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+3, col, "ìÄåã      :", TRAIT_COLD_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+4, col, "ì≈éE      :", TRAIT_POIS_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+5, col, "êÿÇÍñ°    :", TRAIT_VORPAL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+6, col, "ínêk      :", TRAIT_SHATTER, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+7, col, "ãzåå      :", TRAIT_VAMPIRIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+8, col, "ÉJÉIÉXå¯â :", TRAIT_CHAOTIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+9, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
 #else
-	display_flag_aux(row, col, "Acid Brand:", TR_BRAND_ACID, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+1, col, "Elec Brand:", TR_BRAND_ELEC, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+2, col, "Fire Brand:", TR_BRAND_FIRE, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+3, col, "Cold Brand:", TR_BRAND_COLD, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+4, col, "Poison Brd:", TR_BRAND_POIS, &f, DP_WP, creature_ptr);
+	display_flag_aux(row, col, "Acid Brand:", TRAIT_ACID_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+1, col, "Elec Brand:", TRAIT_ELEC_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+2, col, "Fire Brand:", TRAIT_FIRE_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+3, col, "Cold Brand:", TRAIT_COLD_BRAND, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+4, col, "Poison Brd:", TRAIT_POIS_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+5, col, "Sharpness :", TRAIT_VORPAL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+6, col, "Quake     :", TRAIT_SHATTER, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+7, col, "Vampiric  :", TRAIT_VAMPIRIC_BRAND, &f, DP_WP, creature_ptr);

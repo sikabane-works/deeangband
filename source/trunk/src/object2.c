@@ -935,11 +935,11 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 
 	if (have_flag(object_ptr->trait_flags, TRAIT_VORPAL)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TRAIT_SHATTER)) {tmp_cost += 2500;count++;}
-	if (have_flag(flgs, TR_BRAND_POIS)) {tmp_cost += 3800;count++;}
-	if (have_flag(flgs, TR_BRAND_ACID)) {tmp_cost += 3800;count++;}
-	if (have_flag(flgs, TR_BRAND_ELEC)) {tmp_cost += 3800;count++;}
-	if (have_flag(flgs, TR_BRAND_FIRE)) {tmp_cost += 2500;count++;}
-	if (have_flag(flgs, TR_BRAND_COLD)) {tmp_cost += 2500;count++;}
+	if (have_flag(flgs, TRAIT_POIS_BRAND)) {tmp_cost += 3800;count++;}
+	if (have_flag(flgs, TRAIT_ACID_BRAND)) {tmp_cost += 3800;count++;}
+	if (have_flag(flgs, TRAIT_ELEC_BRAND)) {tmp_cost += 3800;count++;}
+	if (have_flag(flgs, TRAIT_FIRE_BRAND)) {tmp_cost += 2500;count++;}
+	if (have_flag(flgs, TRAIT_COLD_BRAND)) {tmp_cost += 2500;count++;}
 	total += (tmp_cost * count);
 
 	if (have_flag(flgs, TRAIT_SUSTAIN_STR)) total += 850;
@@ -6097,11 +6097,11 @@ static essence_type essence_info[] =
 	{TRAIT_CHAOTIC_BRAND, "ƒJƒIƒXUŒ‚", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "‹zŒŒUŒ‚", 1, TRAIT_VAMPIRIC_BRAND, 60},
 	{TRAIT_SHATTER, "’nk”­“®", 7, TRAIT_SHATTER, 15},
-	{TR_BRAND_POIS, "“ÅŽE", 1, TR_BRAND_POIS, 20},
-	{TR_BRAND_ACID, "—n‰ð", 1, TR_BRAND_ACID, 20},
-	{TR_BRAND_ELEC, "“dŒ‚", 1, TR_BRAND_ELEC, 20},
-	{TR_BRAND_FIRE, "ÄŠü", 1, TR_BRAND_FIRE, 20},
-	{TR_BRAND_COLD, "“€Œ‹", 1, TR_BRAND_COLD, 20},
+	{TRAIT_POIS_BRAND, "“ÅŽE", 1, TRAIT_POIS_BRAND, 20},
+	{TRAIT_ACID_BRAND, "—n‰ð", 1, TRAIT_ACID_BRAND, 20},
+	{TRAIT_ELEC_BRAND, "“dŒ‚", 1, TRAIT_ELEC_BRAND, 20},
+	{TRAIT_FIRE_BRAND, "ÄŠü", 1, TRAIT_FIRE_BRAND, 20},
+	{TRAIT_COLD_BRAND, "“€Œ‹", 1, TRAIT_COLD_BRAND, 20},
 	{TRAIT_SUSTAIN_STR, "˜r—ÍˆÛŽ", 3, TRAIT_SUSTAIN_STR, 15},
 	{TRAIT_SUSTAIN_INT, "’m”\ˆÛŽ", 3, TRAIT_SUSTAIN_STR, 15},
 	{TRAIT_SUSTAIN_WIS, "Œ«‚³ˆÛŽ", 3, TRAIT_SUSTAIN_STR, 15},
@@ -6208,11 +6208,11 @@ static essence_type essence_info[] =
 	{TRAIT_CHAOTIC_BRAND, "chaos brand", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "vampiric brand", 1, TRAIT_VAMPIRIC_BRAND, 60},
 	{TRAIT_SHATTER, "quake activation", 7, TRAIT_SHATTER, 15},
-	{TR_BRAND_POIS, "poison brand", 1, TR_BRAND_POIS, 20},
-	{TR_BRAND_ACID, "acid brand", 1, TR_BRAND_ACID, 20},
-	{TR_BRAND_ELEC, "electric brand", 1, TR_BRAND_ELEC, 20},
-	{TR_BRAND_FIRE, "fire brand", 1, TR_BRAND_FIRE, 20},
-	{TR_BRAND_COLD, "cold brand", 1, TR_BRAND_COLD, 20},
+	{TRAIT_POIS_BRAND, "poison brand", 1, TRAIT_POIS_BRAND, 20},
+	{TRAIT_ACID_BRAND, "acid brand", 1, TRAIT_ACID_BRAND, 20},
+	{TRAIT_ELEC_BRAND, "electric brand", 1, TRAIT_ELEC_BRAND, 20},
+	{TRAIT_FIRE_BRAND, "fire brand", 1, TRAIT_FIRE_BRAND, 20},
+	{TRAIT_COLD_BRAND, "cold brand", 1, TRAIT_COLD_BRAND, 20},
 	{TRAIT_SUSTAIN_STR, "sustain strength", 3, TRAIT_SUSTAIN_STR, 15},
 	{TRAIT_SUSTAIN_INT, "sustain intelligence", 3, TRAIT_SUSTAIN_STR, 15},
 	{TRAIT_SUSTAIN_WIS, "sustain wisdom", 3, TRAIT_SUSTAIN_STR, 15},
@@ -6666,17 +6666,17 @@ static void drain_essence(creature_type *creature_ptr)
 			}
 			else if (es_ptr->add == TR_SH_FIRE)
 			{
-				drain_value[TR_BRAND_FIRE] += 10;
+				drain_value[TRAIT_FIRE_BRAND] += 10;
 				drain_value[TR_RES_FIRE] += 10;
 			}
 			else if (es_ptr->add == TR_SH_ELEC)
 			{
-				drain_value[TR_BRAND_ELEC] += 10;
+				drain_value[TRAIT_ELEC_BRAND] += 10;
 				drain_value[TR_RES_ELEC] += 10;
 			}
 			else if (es_ptr->add == TR_SH_COLD)
 			{
-				drain_value[TR_BRAND_COLD] += 10;
+				drain_value[TRAIT_COLD_BRAND] += 10;
 				drain_value[TR_RES_COLD] += 10;
 			}
 		}
@@ -6689,11 +6689,11 @@ static void drain_essence(creature_type *creature_ptr)
 	}
 	if ((have_flag(old_flgs, TRAIT_VORPAL)) && !(have_flag(new_flgs, TRAIT_VORPAL)))
 	{
-		drain_value[TR_BRAND_POIS] += 5;
-		drain_value[TR_BRAND_ACID] += 5;
-		drain_value[TR_BRAND_ELEC] += 5;
-		drain_value[TR_BRAND_FIRE] += 5;
-		drain_value[TR_BRAND_COLD] += 5;
+		drain_value[TRAIT_POIS_BRAND] += 5;
+		drain_value[TRAIT_ACID_BRAND] += 5;
+		drain_value[TRAIT_ELEC_BRAND] += 5;
+		drain_value[TRAIT_FIRE_BRAND] += 5;
+		drain_value[TRAIT_COLD_BRAND] += 5;
 	}
 	if ((have_flag(old_flgs, TR_DEC_MANA)) && !(have_flag(new_flgs, TR_DEC_MANA)))
 	{
@@ -7056,7 +7056,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(brand fire + res.fire)");
 #endif
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < es_ptr->value) able[ctr] = FALSE;
 							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_ELEC:
@@ -7065,7 +7065,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(brand elec. + res. elec.)");
 #endif
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < es_ptr->value) able[ctr] = FALSE;
 							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_COLD:
@@ -7074,7 +7074,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(brand cold + res. cold)");
 #endif
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < es_ptr->value) able[ctr] = FALSE;
 							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_RESISTANCE:
@@ -7409,30 +7409,30 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		switch(es_ptr->add)
 		{
 		case ESSENCE_SH_FIRE:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_FIRE] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_FIRE] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] -= use_essence;
 			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] -= use_essence;
 			break;
 		case ESSENCE_SH_ELEC:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_ELEC] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_ELEC] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] -= use_essence;
 			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] -= use_essence;
 			break;
 		case ESSENCE_SH_COLD:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_COLD] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->class_skills.old_skills.magic_num1[TR_BRAND_COLD] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] -= use_essence;
 			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] -= use_essence;
 			break;
 		case ESSENCE_RESISTANCE:
@@ -7992,7 +7992,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 					
 			if (one_in_(5))
 			{
-				add_flag(object_ptr->art_flags, TR_BRAND_POIS);
+				add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
 			}
 			if (object_ptr->tval == TV_SWORD && one_in_(3))
 			{

@@ -3030,11 +3030,11 @@ static void compare_weapon_aux1(creature_type *creature_ptr, object_type *object
 	 else if (have_flag(flgs, TR_SLAY_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "ãêêl:", TERM_YELLOW);
 	if (have_flag(flgs, TR_KILL_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "ó≥:", TERM_YELLOW);
 	else if (have_flag(flgs, TR_SLAY_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "ó≥:", TERM_YELLOW);
-	if (have_flag(flgs, TR_BRAND_ACID))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "é_ëÆê´:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_ELEC))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "ìdëÆê´:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_FIRE))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "âäëÆê´:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_COLD))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "ó‚ëÆê´:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_POIS))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "ì≈ëÆê´:", TERM_RED);
+	if (have_flag(flgs, TRAIT_ACID_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "é_ëÆê´:", TERM_RED);
+	if (have_flag(flgs, TRAIT_ELEC_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "ìdëÆê´:", TERM_RED);
+	if (have_flag(flgs, TRAIT_FIRE_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "âäëÆê´:", TERM_RED);
+	if (have_flag(flgs, TRAIT_COLD_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "ó‚ëÆê´:", TERM_RED);
+	if (have_flag(flgs, TRAIT_POIS_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "ì≈ëÆê´:", TERM_RED);
 #else
 	if (print_force_weapon)     compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 1*mult, "Force  :", TERM_L_BLUE);
 	if (have_flag(flgs, TR_KILL_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "Animals:", TERM_YELLOW);
@@ -3057,11 +3057,11 @@ static void compare_weapon_aux1(creature_type *creature_ptr, object_type *object
 	else if (have_flag(flgs, TR_SLAY_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Giants:", TERM_YELLOW);
 	if (have_flag(flgs, TR_KILL_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Dragons:", TERM_YELLOW);
 	else if (have_flag(flgs, TR_SLAY_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Dragons:", TERM_YELLOW);
-	if (have_flag(flgs, TR_BRAND_ACID))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Acid:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_ELEC))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Elec:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_FIRE))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Fire:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_COLD))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Cold:", TERM_RED);
-	if (have_flag(flgs, TR_BRAND_POIS))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Poison:", TERM_RED);
+	if (have_flag(flgs, TRAIT_ACID_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Acid:", TERM_RED);
+	if (have_flag(flgs, TRAIT_ELEC_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Elec:", TERM_RED);
+	if (have_flag(flgs, TRAIT_FIRE_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Fire:", TERM_RED);
+	if (have_flag(flgs, TRAIT_COLD_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Cold:", TERM_RED);
+	if (have_flag(flgs, TRAIT_POIS_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Poison:", TERM_RED);
 #endif
 
 }

@@ -914,7 +914,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚©‚ç¶–½—Í‚ğ‹zû‚·‚éB";
 		}
 
 		/* Special "Attack Bonuses" */
-		if (have_flag(flgs, TR_BRAND_ACID))
+		if (have_flag(flgs, TRAIT_ACID_BRAND))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ—n‚©‚·B";
@@ -923,7 +923,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ—n‚©‚·B";
 #endif
 
 		}
-		if (have_flag(flgs, TR_BRAND_ELEC))
+		if (have_flag(flgs, TRAIT_ELEC_BRAND))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğŠ´“d‚³‚¹‚éB";
@@ -932,7 +932,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğŠ´“d‚³‚¹‚éB";
 #endif
 
 		}
-		if (have_flag(flgs, TR_BRAND_FIRE))
+		if (have_flag(flgs, TRAIT_FIRE_BRAND))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ”R‚â‚·B";
@@ -941,7 +941,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ”R‚â‚·B";
 #endif
 
 		}
-		if (have_flag(flgs, TR_BRAND_COLD))
+		if (have_flag(flgs, TRAIT_COLD_BRAND))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ“€‚ç‚¹‚éB";
@@ -950,7 +950,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ“€‚ç‚¹‚éB";
 #endif
 
 		}
-		if (have_flag(flgs, TR_BRAND_POIS))
+		if (have_flag(flgs, TRAIT_POIS_BRAND))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“G‚ğ“Å‚ÅN‚·B";

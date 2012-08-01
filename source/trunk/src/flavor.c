@@ -661,11 +661,11 @@ static flag_insc_table flag_insc_aura[] =
 
 static flag_insc_table flag_insc_brand[] =
 {
-	{ "é_", "A", TR_BRAND_ACID, -1 },
-	{ "ìd", "E", TR_BRAND_ELEC, -1 },
-	{ "èƒ", "F", TR_BRAND_FIRE, -1 },
-	{ "ìÄ", "Co", TR_BRAND_COLD, -1 },
-	{ "ì≈", "P", TR_BRAND_POIS, -1 },
+	{ "é_", "A", TRAIT_ACID_BRAND, -1 },
+	{ "ìd", "E", TRAIT_ELEC_BRAND, -1 },
+	{ "èƒ", "F", TRAIT_FIRE_BRAND, -1 },
+	{ "ìÄ", "Co", TRAIT_COLD_BRAND, -1 },
+	{ "ì≈", "P", TRAIT_POIS_BRAND, -1 },
 	{ "ì◊", "Ca", TRAIT_CHAOTIC_BRAND, -1 },
 	{ "ãz", "V", TRAIT_VAMPIRIC_BRAND, -1 },
 	{ "êk", "Q", TRAIT_SHATTER, -1 },
@@ -822,11 +822,11 @@ static flag_insc_table flag_insc_aura[] =
 
 static flag_insc_table flag_insc_brand[] =
 {
-	{ "A", TR_BRAND_ACID, -1 },
-	{ "E", TR_BRAND_ELEC, -1 },
-	{ "F", TR_BRAND_FIRE, -1 },
-	{ "Co", TR_BRAND_COLD, -1 },
-	{ "P", TR_BRAND_POIS, -1 },
+	{ "A", TRAIT_ACID_BRAND, -1 },
+	{ "E", TRAIT_ELEC_BRAND, -1 },
+	{ "F", TRAIT_FIRE_BRAND, -1 },
+	{ "Co", TRAIT_COLD_BRAND, -1 },
+	{ "P", TRAIT_POIS_BRAND, -1 },
 	{ "Ca", TRAIT_CHAOTIC_BRAND, -1 },
 	{ "V", TRAIT_VAMPIRIC_BRAND, -1 },
 	{ "Q", TRAIT_SHATTER, -1 },

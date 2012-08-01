@@ -2793,7 +2793,7 @@ info[i++] = "それは打撃回数に影響を及ぼす。";
 
 	}
 
-	if (have_flag(flgs, TR_BRAND_ACID))
+	if (have_flag(flgs, TRAIT_ACID_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは酸によって大きなダメージを与える。";
@@ -2802,7 +2802,7 @@ info[i++] = "それは酸によって大きなダメージを与える。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_BRAND_ELEC))
+	if (have_flag(flgs, TRAIT_ELEC_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは電撃によって大きなダメージを与える。";
@@ -2811,7 +2811,7 @@ info[i++] = "それは電撃によって大きなダメージを与える。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_BRAND_FIRE))
+	if (have_flag(flgs, TRAIT_FIRE_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは火炎によって大きなダメージを与える。";
@@ -2820,7 +2820,7 @@ info[i++] = "それは火炎によって大きなダメージを与える。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_BRAND_COLD))
+	if (have_flag(flgs, TRAIT_COLD_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは冷気によって大きなダメージを与える。";
@@ -2830,7 +2830,7 @@ info[i++] = "それは冷気によって大きなダメージを与える。";
 
 	}
 
-	if (have_flag(flgs, TR_BRAND_POIS))
+	if (have_flag(flgs, TRAIT_POIS_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは敵を毒する。";

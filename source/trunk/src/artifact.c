@@ -1049,9 +1049,9 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_POIS)) && one_in_(2))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)) && one_in_(2))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1072,49 +1072,49 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			/* Free power for rogues... */
 			add_flag(object_ptr->art_flags, TR_THROW);
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_POIS)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_POIS:
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_POIS)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_FIRE:
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_FIRE)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_COLD:
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_COLD)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_COLD_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_COLD_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_ELEC:
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_ELEC)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_ACID:
-		if (!(have_flag(object_ptr->art_flags, TR_BRAND_ACID)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_ACID_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TR_BRAND_ACID);
+			add_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1199,31 +1199,31 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			break;
 		case 21:
 		case 22:
-			add_flag(object_ptr->art_flags, TR_BRAND_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_FIRE;
 			break;
 		case 23:
 		case 24:
-			add_flag(object_ptr->art_flags, TR_BRAND_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_COLD_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_COLD;
 			break;
 		case 25:
 		case 26:
-			add_flag(object_ptr->art_flags, TR_BRAND_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ELEC;
 			break;
 		case 27:
 		case 28:
-			add_flag(object_ptr->art_flags, TR_BRAND_ACID);
+			add_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ACID;
 			break;
 		case 29:
 		case 30:
-			add_flag(object_ptr->art_flags, TR_BRAND_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
 			if (!artifact_bias && !one_in_(3))
 				artifact_bias = BIAS_POIS;
 			else if (!artifact_bias && one_in_(6))
@@ -1868,11 +1868,11 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		remove_flag(object_ptr->art_flags, TR_KILL_DRAGON);
 		remove_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
 		remove_flag(object_ptr->trait_flags, TRAIT_VORPAL);
-		remove_flag(object_ptr->art_flags, TR_BRAND_POIS);
-		remove_flag(object_ptr->art_flags, TR_BRAND_ACID);
-		remove_flag(object_ptr->art_flags, TR_BRAND_ELEC);
-		remove_flag(object_ptr->art_flags, TR_BRAND_FIRE);
-		remove_flag(object_ptr->art_flags, TR_BRAND_COLD);
+		remove_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
+		remove_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
+		remove_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND);
+		remove_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND);
+		remove_flag(object_ptr->art_flags, TRAIT_COLD_BRAND);
 	}
 
 	if (!object_is_weapon_ammo(object_ptr))
