@@ -6023,10 +6023,10 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 		{
 			object_flags_known(object_ptr, flgs);
 
-			print_im_or_res_flag(TR_IM_ACID, TR_RES_ACID);
-			print_im_or_res_flag(TR_IM_ELEC, TR_RES_ELEC);
-			print_im_or_res_flag(TR_IM_FIRE, TR_RES_FIRE);
-			print_im_or_res_flag(TR_IM_COLD, TR_RES_COLD);
+			print_im_or_res_flag(TRAIT_IM_ACID, TR_RES_ACID);
+			print_im_or_res_flag(TRAIT_IM_ELEC, TR_RES_ELEC);
+			print_im_or_res_flag(TRAIT_IM_FIRE, TR_RES_FIRE);
+			print_im_or_res_flag(TRAIT_IM_COLD, TR_RES_COLD);
 			print_flag(TR_RES_POIS);
 			print_flag(TR_RES_LITE);
 			print_flag(TR_RES_DARK);

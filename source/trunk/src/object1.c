@@ -3142,7 +3142,7 @@ info[i++] = "それはあなたの魅力を維持する。";
 
 	}
 
-	if (have_flag(flgs, TR_IM_ACID))
+	if (have_flag(flgs, TRAIT_IM_ACID))
 	{
 #ifdef JP
 info[i++] = "それは酸に対する完全な免疫を授ける。";
@@ -3151,7 +3151,7 @@ info[i++] = "それは酸に対する完全な免疫を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_IM_ELEC))
+	if (have_flag(flgs, TRAIT_IM_ELEC))
 	{
 #ifdef JP
 info[i++] = "それは電撃に対する完全な免疫を授ける。";
@@ -3160,7 +3160,7 @@ info[i++] = "それは電撃に対する完全な免疫を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_IM_FIRE))
+	if (have_flag(flgs, TRAIT_IM_FIRE))
 	{
 #ifdef JP
 info[i++] = "それは火に対する完全な免疫を授ける。";
@@ -3169,7 +3169,7 @@ info[i++] = "それは火に対する完全な免疫を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_IM_COLD))
+	if (have_flag(flgs, TRAIT_IM_COLD))
 	{
 #ifdef JP
 info[i++] = "それは寒さに対する完全な免疫を授ける。";

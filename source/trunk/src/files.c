@@ -2580,13 +2580,13 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (creature_ptr->special_attack & ATTACK_POIS)
 		add_flag(flgs, TRAIT_POIS_BRAND);
 	if (creature_ptr->special_defense & DEFENSE_ACID)
-		add_flag(flgs, TR_IM_ACID);
+		add_flag(flgs, TRAIT_IM_ACID);
 	if (creature_ptr->special_defense & DEFENSE_ELEC)
-		add_flag(flgs, TR_IM_ELEC);
+		add_flag(flgs, TRAIT_IM_ELEC);
 	if (creature_ptr->special_defense & DEFENSE_FIRE)
-		add_flag(flgs, TR_IM_FIRE);
+		add_flag(flgs, TRAIT_IM_FIRE);
 	if (creature_ptr->special_defense & DEFENSE_COLD)
-		add_flag(flgs, TR_IM_COLD);
+		add_flag(flgs, TRAIT_IM_COLD);
 	if (creature_ptr->wraith_form)
 		add_flag(flgs, TRAIT_REFLECTING);
 	/* by henkma */
@@ -2720,10 +2720,10 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_
 		/* Known flags */
 		object_flags_known(object_ptr, o_flgs);
 
-		if (have_flag(o_flgs, TR_IM_ACID)) add_flag(flgs, TR_RES_ACID);
-		if (have_flag(o_flgs, TR_IM_ELEC)) add_flag(flgs, TR_RES_ELEC);
-		if (have_flag(o_flgs, TR_IM_FIRE)) add_flag(flgs, TR_RES_FIRE);
-		if (have_flag(o_flgs, TR_IM_COLD)) add_flag(flgs, TR_RES_COLD);
+		if (have_flag(o_flgs, TRAIT_IM_ACID)) add_flag(flgs, TR_RES_ACID);
+		if (have_flag(o_flgs, TRAIT_IM_ELEC)) add_flag(flgs, TR_RES_ELEC);
+		if (have_flag(o_flgs, TRAIT_IM_FIRE)) add_flag(flgs, TR_RES_FIRE);
+		if (have_flag(o_flgs, TRAIT_IM_COLD)) add_flag(flgs, TR_RES_COLD);
 	}
 }
 
@@ -2938,13 +2938,13 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 #ifdef JP
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "‘Ï_  :", TR_RES_ACID, &f, 0, creature_ptr);
-	display_flag_aux(row+0, col, "‘Ï_  :", TR_IM_ACID, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+0, col, "‘Ï_  :", TRAIT_IM_ACID, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_RES_ELEC, &f, 0, creature_ptr);
-	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_IM_ELEC, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TRAIT_IM_ELEC, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_RES_FIRE, &f, 0, creature_ptr);
-	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_IM_FIRE, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TRAIT_IM_FIRE, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_RES_COLD, &f, 0, creature_ptr);
-	display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_IM_COLD, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+3, col, "‘Ï—â‹C:", TRAIT_IM_COLD, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+4, col, "‘Ï“Å  :", TR_RES_POIS, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "‘Ï‘MŒõ:", TR_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "‘ÏˆÃ•:", TR_RES_DARK, &f, 0, creature_ptr);
@@ -2954,13 +2954,13 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 #else
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, creature_ptr);
-	display_flag_aux(row+0, col, "Acid  :", TR_IM_ACID, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+0, col, "Acid  :", TRAIT_IM_ACID, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, creature_ptr);
-	display_flag_aux(row+1, col, "Elec  :", TR_IM_ELEC, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+1, col, "Elec  :", TRAIT_IM_ELEC, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+2, col, "Fire  :", TR_RES_FIRE, &f, 0, creature_ptr);
-	display_flag_aux(row+2, col, "Fire  :", TR_IM_FIRE, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+2, col, "Fire  :", TRAIT_IM_FIRE, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0, creature_ptr);
-	display_flag_aux(row+3, col, "Cold  :", TR_IM_COLD, &f, DP_IMM, creature_ptr);
+	display_flag_aux(row+3, col, "Cold  :", TRAIT_IM_COLD, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, creature_ptr);

@@ -423,14 +423,14 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TR_RES_ACID);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TR_IM_ACID)))
+		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_ACID)))
 		{
-			add_flag(object_ptr->art_flags, TR_IM_ACID);
+			add_flag(object_ptr->art_flags, TRAIT_IM_ACID);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TR_IM_ELEC);
-				remove_flag(object_ptr->art_flags, TR_IM_COLD);
-				remove_flag(object_ptr->art_flags, TR_IM_FIRE);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_COLD);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
 			}
 			if (one_in_(2)) return;
 		}
@@ -448,14 +448,14 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TRAIT_AURA_ELEC);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TR_IM_ELEC)))
+		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_ELEC)))
 		{
-			add_flag(object_ptr->art_flags, TR_IM_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TR_IM_ACID);
-				remove_flag(object_ptr->art_flags, TR_IM_COLD);
-				remove_flag(object_ptr->art_flags, TR_IM_FIRE);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_ACID);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_COLD);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
 			}
 
 			if (one_in_(2)) return;
@@ -476,14 +476,14 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			if (one_in_(2)) return;
 		}
 		if (one_in_(BIAS_LUCK) &&
-		    !(have_flag(object_ptr->art_flags, TR_IM_FIRE)))
+		    !(have_flag(object_ptr->art_flags, TRAIT_IM_FIRE)))
 		{
-			add_flag(object_ptr->art_flags, TR_IM_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TR_IM_ELEC);
-				remove_flag(object_ptr->art_flags, TR_IM_COLD);
-				remove_flag(object_ptr->art_flags, TR_IM_ACID);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_COLD);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_ACID);
 			}
 			if (one_in_(2)) return;
 		}
@@ -502,14 +502,14 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TRAIT_AURA_COLD);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TR_IM_COLD)))
+		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_COLD)))
 		{
-			add_flag(object_ptr->art_flags, TR_IM_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_IM_COLD);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TR_IM_ELEC);
-				remove_flag(object_ptr->art_flags, TR_IM_ACID);
-				remove_flag(object_ptr->art_flags, TR_IM_FIRE);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_ACID);
+				remove_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
 			}
 			if (one_in_(2)) return;
 		}
@@ -580,7 +580,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TR_IM_ACID);
+				add_flag(object_ptr->art_flags, TRAIT_IM_ACID);
 				if (!artifact_bias)
 					artifact_bias = BIAS_ACID;
 			}
@@ -590,7 +590,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TR_IM_ELEC);
+				add_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
 				if (!artifact_bias)
 					artifact_bias = BIAS_ELEC;
 			}
@@ -600,7 +600,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TR_IM_COLD);
+				add_flag(object_ptr->art_flags, TRAIT_IM_COLD);
 				if (!artifact_bias)
 					artifact_bias = BIAS_COLD;
 			}
@@ -610,7 +610,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TR_IM_FIRE);
+				add_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
 				if (!artifact_bias)
 					artifact_bias = BIAS_FIRE;
 			}

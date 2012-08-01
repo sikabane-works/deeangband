@@ -3532,10 +3532,10 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		}
 
 		/* Immunity flags */
-		//TODO if (have_flag(flgs, TR_IM_FIRE)) creature_ptr->immune_fire = TRUE;
-		//TODO if (have_flag(flgs, TR_IM_ACID)) creature_ptr->immune_acid = TRUE;
-		//TODO if (have_flag(flgs, TR_IM_COLD)) creature_ptr->immune_cold = TRUE;
-		//TODO if (have_flag(flgs, TR_IM_ELEC)) creature_ptr->immune_elec = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_IM_FIRE)) creature_ptr->immune_fire = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_IM_ACID)) creature_ptr->immune_acid = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_IM_COLD)) creature_ptr->immune_cold = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_IM_ELEC)) creature_ptr->immune_elec = TRUE;
 
 		/* Resistance flags */
 		if (have_flag(object_ptr->trait_flags, TR_RES_ACID))   creature_ptr->resist_acid += 1;

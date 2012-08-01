@@ -598,19 +598,19 @@ static flag_insc_table flag_insc_plus[] =
 
 static flag_insc_table flag_insc_immune[] =
 {
-	{ "Ž_", "Ac", TR_IM_ACID, -1 },
-	{ "“d", "El", TR_IM_ELEC, -1 },
-	{ "‰Î", "Fi", TR_IM_FIRE, -1 },
-	{ "—â", "Co", TR_IM_COLD, -1 },
+	{ "Ž_", "Ac", TRAIT_IM_ACID, -1 },
+	{ "“d", "El", TRAIT_IM_ELEC, -1 },
+	{ "‰Î", "Fi", TRAIT_IM_FIRE, -1 },
+	{ "—â", "Co", TRAIT_IM_COLD, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
 static flag_insc_table flag_insc_resistance[] =
 {
-	{ "Ž_", "Ac", TR_RES_ACID, TR_IM_ACID },
-	{ "“d", "El", TR_RES_ELEC, TR_IM_ELEC },
-	{ "‰Î", "Fi", TR_RES_FIRE, TR_IM_FIRE },
-	{ "—â", "Co", TR_RES_COLD, TR_IM_COLD },
+	{ "Ž_", "Ac", TR_RES_ACID, TRAIT_IM_ACID },
+	{ "“d", "El", TR_RES_ELEC, TRAIT_IM_ELEC },
+	{ "‰Î", "Fi", TR_RES_FIRE, TRAIT_IM_FIRE },
+	{ "—â", "Co", TR_RES_COLD, TRAIT_IM_COLD },
 	{ "“Å", "Po", TR_RES_POIS, -1 },
 	{ "‘M", "Li", TR_RES_LITE, -1 },
 	{ "ˆÃ", "Dk", TR_RES_DARK, -1 },
@@ -759,19 +759,19 @@ static flag_insc_table flag_insc_plus[] =
 
 static flag_insc_table flag_insc_immune[] =
 {
-	{ "Ac", TR_IM_ACID, -1 },
-	{ "El", TR_IM_ELEC, -1 },
-	{ "Fi", TR_IM_FIRE, -1 },
-	{ "Co", TR_IM_COLD, -1 },
+	{ "Ac", TRAIT_IM_ACID, -1 },
+	{ "El", TRAIT_IM_ELEC, -1 },
+	{ "Fi", TRAIT_IM_FIRE, -1 },
+	{ "Co", TRAIT_IM_COLD, -1 },
 	{ NULL, 0, -1 }
 };
 
 static flag_insc_table flag_insc_resistance[] =
 {
-	{ "Ac", TR_RES_ACID, TR_IM_ACID },
-	{ "El", TR_RES_ELEC, TR_IM_ELEC },
-	{ "Fi", TR_RES_FIRE, TR_IM_FIRE },
-	{ "Co", TR_RES_COLD, TR_IM_COLD },
+	{ "Ac", TR_RES_ACID, TRAIT_IM_ACID },
+	{ "El", TR_RES_ELEC, TRAIT_IM_ELEC },
+	{ "Fi", TR_RES_FIRE, TRAIT_IM_FIRE },
+	{ "Co", TR_RES_COLD, TRAIT_IM_COLD },
 	{ "Po", TR_RES_POIS, -1 },
 	{ "Li", TR_RES_LITE, -1 },
 	{ "Dk", TR_RES_DARK, -1 },

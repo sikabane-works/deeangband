@@ -783,15 +783,15 @@ static const flag_desc resist_flags_desc[] =
 static const flag_desc immune_flags_desc[] =
 {
 #ifdef JP
-	{ TR_IM_ACID,    "Ž_" },
-	{ TR_IM_ELEC,    "“dŒ‚" },
-	{ TR_IM_FIRE,    "‰Î‰Š" },
-	{ TR_IM_COLD,    "—â‹C" },
+	{ TRAIT_IM_ACID,    "Ž_" },
+	{ TRAIT_IM_ELEC,    "“dŒ‚" },
+	{ TRAIT_IM_FIRE,    "‰Î‰Š" },
+	{ TRAIT_IM_COLD,    "—â‹C" },
 #else
-	{ TR_IM_ACID,    "Acid" },
-	{ TR_IM_ELEC,    "Lightning" },
-	{ TR_IM_FIRE,    "Fire" },
-	{ TR_IM_COLD,    "Cold" },
+	{ TRAIT_IM_ACID,    "Acid" },
+	{ TRAIT_IM_ELEC,    "Lightning" },
+	{ TRAIT_IM_FIRE,    "Fire" },
+	{ TRAIT_IM_COLD,    "Cold" },
 #endif
 };
 
