@@ -1022,7 +1022,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else
 			total += 250;
 	}
-	if (have_flag(flgs, TR_AGGRAVATE)) total -= 10000;
+	if (have_flag(flgs, TRAIT_ANTIPATHY)) total -= 10000;
 	if (have_flag(flgs, TRAIT_BLESSED_BRAND)) total += 750;
 	if (object_ptr->curse_flags & TRC_CURSED) total -= 5000;
 	if (object_ptr->curse_flags & TRC_HEAVY_CURSE) total -= 12500;
@@ -2817,7 +2817,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_NO_MELEE;
 						break;
 					case 3:
-						if (have_flag(k_ptr->flags, TR_AGGRAVATE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_ANTIPATHY)) break;
 						object_ptr->name2 = EGO_RING_AGGRAVATE;
 						break;
 					case 4:
@@ -3103,7 +3103,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_AMU_FOOL;
 						break;
 					case 3:
-						if (have_flag(k_ptr->flags, TR_AGGRAVATE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_ANTIPATHY)) break;
 						object_ptr->name2 = EGO_AMU_AGGRAVATE;
 						break;
 					case 4:
@@ -6617,7 +6617,7 @@ static void drain_essence(creature_type *creature_ptr)
 	old_name2 = object_ptr->name2;
 	old_timeout = object_ptr->timeout;
 	if (object_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE)) dec--;
-	if (have_flag(old_flgs, TR_AGGRAVATE)) dec--;
+	if (have_flag(old_flgs, TRAIT_ANTIPATHY)) dec--;
 	if (have_flag(old_flgs, TRAIT_PREVENT_TELEPORT)) dec--;
 	if (have_flag(old_flgs, TR_DRAIN_EXP)) dec--;
 	if (have_flag(old_flgs, TRAIT_TY_CURSE)) dec--;

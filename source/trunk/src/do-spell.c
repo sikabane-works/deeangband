@@ -11621,7 +11621,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
 						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
-						add_flag(object_ptr->trait_flags, TR_AGGRAVATE);
+						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 						add_flag(object_ptr->trait_flags, TRAIT_VAMPIRIC_BRAND);
 #ifdef JP
@@ -12086,7 +12086,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
 						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
-						add_flag(object_ptr->art_flags, TR_AGGRAVATE);
+						add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->art_flags, TR_RES_POIS);
 						add_flag(object_ptr->art_flags, TR_RES_DARK);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_NETH);

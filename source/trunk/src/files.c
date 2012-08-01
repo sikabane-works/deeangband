@@ -2476,7 +2476,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
 		add_flag(flgs, TRAIT_NO_CONF);
 	if (creature_ptr->chara_idx == CHARA_SEXY)
-		add_flag(flgs, TR_AGGRAVATE);
+		add_flag(flgs, TRAIT_ANTIPATHY);
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		add_flag(flgs, TRAIT_NO_BLIND);
@@ -3281,7 +3281,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 
 	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, creature_ptr);
 	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, creature_ptr);
-	display_flag_aux(row+16, col, "反感        :", TR_AGGRAVATE, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "反感        :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "太古の怨念  :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #else
 	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, creature_ptr);
@@ -3300,7 +3300,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 
 	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, creature_ptr);
 	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, creature_ptr);
-	display_flag_aux(row+16, col, "Aggravate   :", TR_AGGRAVATE, &f, 0, creature_ptr);
+	display_flag_aux(row+16, col, "Aggravate   :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "TY Curse    :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #endif
 

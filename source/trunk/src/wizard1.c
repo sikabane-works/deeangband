@@ -873,7 +873,7 @@ static const flag_desc misc_flags3_desc[] =
 /*	{ TR_XTRA_MIGHT,         "ã≠óÕéÀåÇ" }, */
 	{ TR_XTRA_SHOTS,         "í«â¡éÀåÇ" },        /* always +1? */
 	{ TR_DRAIN_EXP,          "åoå±ílãzé˚" },
-	{ TR_AGGRAVATE,          "îΩä¥" },
+	{ TRAIT_ANTIPATHY,          "îΩä¥" },
 	{ TRAIT_BLESSED_BRAND,            "èjïü" },
 	{ TRAIT_DEC_MANA,           "è¡îÔñÇóÕå∏è≠" },
 #else
@@ -891,7 +891,7 @@ static const flag_desc misc_flags3_desc[] =
 /*	{ TR_XTRA_MIGHT,         "Extra Might" }, */
 	{ TR_XTRA_SHOTS,         "+1 Extra Shot" },        /* always +1? */
 	{ TR_DRAIN_EXP,          "Drains Experience" },
-	{ TR_AGGRAVATE,          "Aggravates" },
+	{ TRAIT_ANTIPATHY,          "Aggravates" },
 	{ TRAIT_BLESSED_BRAND,            "Blessed Blade" },
 	{ TRAIT_DEC_MANA,           "Decrease Mana Consumption Rate" },
 #endif

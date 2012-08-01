@@ -3664,7 +3664,7 @@ info[i++] = "それは太古の禍々しい怨念が宿っている。";
 
 	}
 /*
-	if ((have_flag(flgs, TR_AGGRAVATE)) || (object_ptr->curse_flags & TRC_AGGRAVATE))
+	if ((have_flag(flgs, TRAIT_ANTIPATHY)) || (object_ptr->curse_flags & TRC_AGGRAVATE))
 	{
 #ifdef JP
 info[i++] = "それは付近のクリーチャーを怒らせる。";

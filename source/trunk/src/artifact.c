@@ -189,7 +189,7 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 
 	if (one_in_(4)) object_ptr->curse_flags |= TRC_DIVINE_CURSE;
 	if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_TY_CURSE);
-	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_AGGRAVATE);
+	if (one_in_(2)) add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
 	if (one_in_(3)) add_flag(object_ptr->art_flags, TR_DRAIN_EXP);
 	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_TELEPORT);
 	else if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_PREVENT_TELEPORT);
@@ -3050,7 +3050,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		}
 		else
 		{
-			add_flag(object_ptr->art_flags, TR_AGGRAVATE);
+			add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
 			add_flag(object_ptr->art_flags, TRAIT_TY_CURSE);
 			object_ptr->curse_flags |=
 			    (TRC_CURSED | TRC_HEAVY_CURSE);
@@ -3083,7 +3083,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	{
 		if (owner_ptr->sex != SEX_FEMALE)
 		{
-			add_flag(object_ptr->art_flags, TR_AGGRAVATE);
+			add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
 		}
 	}
 

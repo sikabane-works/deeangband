@@ -643,7 +643,7 @@ static flag_insc_table flag_insc_misc[] =
 	{ "î{", "Xm", TR_XTRA_MIGHT, -1 },
 	{ "éÀ", "Xs", TR_XTRA_SHOTS, -1 },
 	{ "èu", "Te", TR_TELEPORT, -1 },
-	{ "ì{", "Ag", TR_AGGRAVATE, -1 },
+	{ "ì{", "Ag", TRAIT_ANTIPATHY, -1 },
 	{ "èj", "Bs", TRAIT_BLESSED_BRAND, -1 },
 	{ "äı", "Ty", TRAIT_TY_CURSE, -1 },
 	{ NULL, NULL, 0, -1 }
@@ -804,7 +804,7 @@ static flag_insc_table flag_insc_misc[] =
 	{ "Xm", TR_XTRA_MIGHT, -1 },
 	{ "Xs", TR_XTRA_SHOTS, -1 },
 	{ "Te", TR_TELEPORT, -1 },
-	{ "Ag", TR_AGGRAVATE, -1 },
+	{ "Ag", TRAIT_ANTIPATHY, -1 },
 	{ "Bs", TRAIT_BLESSED_BRAND, -1 },
 	{ "Ty", TRAIT_TY_CURSE, -1 },
 	{ NULL, 0, -1 }
