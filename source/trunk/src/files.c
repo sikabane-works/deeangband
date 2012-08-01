@@ -3277,7 +3277,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+ 9, col, "祝福        :", TRAIT_BLESSED_BRAND, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "反テレポート:", TR_NO_TELE, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "反魔法      :", TRAIT_ANTI_MAGIC, &f, 0, creature_ptr);
-	display_flag_aux(row+12, col, "消費魔力減少:", TR_DEC_MANA, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "消費魔力減少:", TRAIT_DEC_MANA, &f, 0, creature_ptr);
 
 	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, creature_ptr);
 	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, creature_ptr);
@@ -3296,7 +3296,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+ 9, col, "Blessed     :", TRAIT_BLESSED_BRAND, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "No Teleport :", TR_NO_TELE, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "Anti Magic  :", TRAIT_ANTI_MAGIC, &f, 0, creature_ptr);
-	display_flag_aux(row+12, col, "Econom. Mana:", TR_DEC_MANA, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "Econom. Mana:", TRAIT_DEC_MANA, &f, 0, creature_ptr);
 
 	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, creature_ptr);
 	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, creature_ptr);

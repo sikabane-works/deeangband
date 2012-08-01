@@ -330,9 +330,9 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 
 	if ((artifact_bias == BIAS_MAGE || artifact_bias == BIAS_PRIESTLY) && (object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_ROBE))
 	{
-		if (!(have_flag(object_ptr->art_flags, TR_DEC_MANA)) && one_in_(3))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_DEC_MANA)) && one_in_(3))
 		{
-			add_flag(object_ptr->art_flags, TR_DEC_MANA);
+			add_flag(object_ptr->art_flags, TRAIT_DEC_MANA);
 			if (one_in_(2)) return;
 		}
 	}

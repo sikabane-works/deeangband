@@ -3479,7 +3479,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		/* Various flags */
 		if (have_flag(flgs, TR_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
 		if (have_flag(flgs, TRAIT_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
-		if (have_flag(flgs, TR_DEC_MANA))    creature_ptr->dec_mana = TRUE;
+		if (have_flag(flgs, TRAIT_DEC_MANA))    creature_ptr->dec_mana = TRUE;
 		if (have_flag(flgs, TRAIT_BLESSED_BRAND))     creature_ptr->bless_blade = TRUE;
 		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
 		//TODO if (have_flag(flgs, TRAIT_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;

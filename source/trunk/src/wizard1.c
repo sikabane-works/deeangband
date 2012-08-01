@@ -875,7 +875,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TR_DRAIN_EXP,          "åoå±ílãzé˚" },
 	{ TR_AGGRAVATE,          "îΩä¥" },
 	{ TRAIT_BLESSED_BRAND,            "èjïü" },
-	{ TR_DEC_MANA,           "è¡îÔñÇóÕå∏è≠" },
+	{ TRAIT_DEC_MANA,           "è¡îÔñÇóÕå∏è≠" },
 #else
 	{ TRAIT_AURA_FIRE,            "Fiery Aura" },
 	{ TRAIT_AURA_ELEC,            "Electric Aura" },
@@ -893,7 +893,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TR_DRAIN_EXP,          "Drains Experience" },
 	{ TR_AGGRAVATE,          "Aggravates" },
 	{ TRAIT_BLESSED_BRAND,            "Blessed Blade" },
-	{ TR_DEC_MANA,           "Decrease Mana Consumption Rate" },
+	{ TRAIT_DEC_MANA,           "Decrease Mana Consumption Rate" },
 #endif
 };
 

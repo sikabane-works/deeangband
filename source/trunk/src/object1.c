@@ -3078,7 +3078,7 @@ info[i++] = "それは使用者の魔力を使って攻撃する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_DEC_MANA))
+	if (have_flag(flgs, TRAIT_DEC_MANA))
 	{
 #ifdef JP
 info[i++] = "それは魔力の消費を押さえる。";
