@@ -241,7 +241,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 		case TV_DIGGING:
 		{
 			/* Slay Animal */
-			if ((have_flag(flgs, TR_SLAY_ANIMAL)) &&
+			if ((have_flag(flgs, TRAIT_SLAY_ANIMAL)) &&
 			    is_animal_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -261,7 +261,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Evil & Good*/
-			if ((have_flag(flgs, TR_SLAY_EVIL)) &&
+			if ((have_flag(flgs, TRAIT_SLAY_EVIL)) &&
 			    is_enemy_of_good_creature(target_ptr))
 			{
 				int t;
@@ -271,7 +271,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				t = calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 10;
 				if (mult < t) mult = t;
 			}
-			else if ((have_flag(flgs, TR_SLAY_GOOD)) &&
+			else if ((have_flag(flgs, TRAIT_SLAY_GOOD)) &&
 			    is_enemy_of_evil_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -300,7 +300,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Human */
-			if ((have_flag(flgs, TR_SLAY_HUMAN)) &&
+			if ((have_flag(flgs, TRAIT_SLAY_HUMAN)) &&
 			    (is_human_creature(target_ptr)))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -320,7 +320,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Undead */
-			if ((have_flag(flgs, TR_SLAY_UNDEAD)) && is_undead_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_UNDEAD)) && is_undead_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -338,7 +338,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Demon */
-			if ((have_flag(flgs, TR_SLAY_DEMON)) && is_demon_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_DEMON)) && is_demon_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -356,7 +356,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Orc */
-			if ((have_flag(flgs, TR_SLAY_ORC)) && is_orc_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_ORC)) && is_orc_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -374,7 +374,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Troll */
-			if ((have_flag(flgs, TR_SLAY_TROLL)) && is_troll_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_TROLL)) && is_troll_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -392,7 +392,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Giant */
-			if ((have_flag(flgs, TR_SLAY_GIANT)) && is_giant_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_GIANT)) && is_giant_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -410,7 +410,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Dragon  */
-			if ((have_flag(flgs, TR_SLAY_DRAGON)) && is_dragon_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_DRAGON)) && is_dragon_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);

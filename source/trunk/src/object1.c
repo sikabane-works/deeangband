@@ -2889,7 +2889,7 @@ info[i++] = "それはドラゴンにとっての天敵である。";
 #endif
 
 	}
-	else if (have_flag(flgs, TR_SLAY_DRAGON))
+	else if (have_flag(flgs, TRAIT_SLAY_DRAGON))
 	{
 #ifdef JP
 info[i++] = "それはドラゴンに対して特に恐るべき力を発揮する。";
@@ -2908,7 +2908,7 @@ info[i++] = "それはオークにとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_ORC))
+	if (have_flag(flgs, TRAIT_SLAY_ORC))
 	{
 #ifdef JP
 info[i++] = "それはオークに対して特に恐るべき力を発揮する。";
@@ -2927,7 +2927,7 @@ info[i++] = "それはトロルにとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_TROLL))
+	if (have_flag(flgs, TRAIT_SLAY_TROLL))
 	{
 #ifdef JP
 info[i++] = "それはトロルに対して特に恐るべき力を発揮する。";
@@ -2945,7 +2945,7 @@ info[i++] = "それは巨人にとっての天敵である。";
 		info[i++] = "It is a great bane of giants.";
 #endif
 	}
-	else if (have_flag(flgs, TR_SLAY_GIANT))
+	else if (have_flag(flgs, TRAIT_SLAY_GIANT))
 	{
 #ifdef JP
 info[i++] = "それはジャイアントに対して特に恐るべき力を発揮する。";
@@ -2964,7 +2964,7 @@ info[i++] = "それはデーモンにとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_DEMON))
+	if (have_flag(flgs, TRAIT_SLAY_DEMON))
 	{
 #ifdef JP
 info[i++] = "それはデーモンに対して聖なる力を発揮する。";
@@ -2983,7 +2983,7 @@ info[i++] = "それはアンデッドにとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_UNDEAD))
+	if (have_flag(flgs, TRAIT_SLAY_UNDEAD))
 	{
 #ifdef JP
 info[i++] = "それはアンデッドに対して聖なる力を発揮する。";
@@ -3002,7 +3002,7 @@ info[i++] = "それは邪悪なる存在にとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_EVIL))
+	if (have_flag(flgs, TRAIT_SLAY_EVIL))
 	{
 #ifdef JP
 info[i++] = "それは邪悪なる存在に対して聖なる力で攻撃する。";
@@ -3021,7 +3021,7 @@ info[i++] = "それは善良なる存在にとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_GOOD))
+	if (have_flag(flgs, TRAIT_SLAY_GOOD))
 	{
 #ifdef JP
 info[i++] = "それは善良なる存在に対して地獄の力で攻撃する。";
@@ -3040,7 +3040,7 @@ info[i++] = "それは自然界の動物にとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_ANIMAL))
+	if (have_flag(flgs, TRAIT_SLAY_ANIMAL))
 	{
 #ifdef JP
 info[i++] = "それは自然界の動物に対して特に恐るべき力を発揮する。";
@@ -3059,7 +3059,7 @@ info[i++] = "それは人間にとっての天敵である。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SLAY_HUMAN))
+	if (have_flag(flgs, TRAIT_SLAY_HUMAN))
 	{
 #ifdef JP
 info[i++] = "それは人間に対して特に恐るべき力を発揮する。";

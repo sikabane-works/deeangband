@@ -691,16 +691,16 @@ static flag_insc_table flag_insc_kill[] =
 
 static flag_insc_table flag_insc_slay[] =
 {
-	{ "邪", "*", TR_SLAY_EVIL, TR_KILL_EVIL },
-	{ "邪", "#", TR_SLAY_EVIL, TR_KILL_GOOD },
-	{ "人", "p", TR_SLAY_HUMAN, TR_KILL_HUMAN },
-	{ "竜", "D", TR_SLAY_DRAGON, TR_KILL_DRAGON },
-	{ "オ", "o", TR_SLAY_ORC, TR_KILL_ORC },
-	{ "ト", "T", TR_SLAY_TROLL, TR_KILL_TROLL },
-	{ "巨", "P", TR_SLAY_GIANT, TR_KILL_GIANT },
-	{ "デ", "U", TR_SLAY_DEMON, TR_KILL_DEMON },
-	{ "死", "L", TR_SLAY_UNDEAD, TR_KILL_UNDEAD },
-	{ "動", "Z", TR_SLAY_ANIMAL, TR_KILL_ANIMAL },
+	{ "邪", "*", TRAIT_SLAY_EVIL, TR_KILL_EVIL },
+	{ "邪", "#", TRAIT_SLAY_EVIL, TR_KILL_GOOD },
+	{ "人", "p", TRAIT_SLAY_HUMAN, TR_KILL_HUMAN },
+	{ "竜", "D", TRAIT_SLAY_DRAGON, TR_KILL_DRAGON },
+	{ "オ", "o", TRAIT_SLAY_ORC, TR_KILL_ORC },
+	{ "ト", "T", TRAIT_SLAY_TROLL, TR_KILL_TROLL },
+	{ "巨", "P", TRAIT_SLAY_GIANT, TR_KILL_GIANT },
+	{ "デ", "U", TRAIT_SLAY_DEMON, TR_KILL_DEMON },
+	{ "死", "L", TRAIT_SLAY_UNDEAD, TR_KILL_UNDEAD },
+	{ "動", "Z", TRAIT_SLAY_ANIMAL, TR_KILL_ANIMAL },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -852,16 +852,16 @@ static flag_insc_table flag_insc_kill[] =
 
 static flag_insc_table flag_insc_slay[] =
 {
-	{ "*", TR_SLAY_EVIL, TR_KILL_EVIL },
-	{ "#", TR_SLAY_GOOD, TR_KILL_GOOD },
-	{ "p", TR_SLAY_HUMAN, TR_KILL_HUMAN },
-	{ "D", TR_SLAY_DRAGON, TR_KILL_DRAGON },
-	{ "o", TR_SLAY_ORC, TR_KILL_ORC },
-	{ "T", TR_SLAY_TROLL, TR_KILL_TROLL },
-	{ "P", TR_SLAY_GIANT, TR_KILL_GIANT },
-	{ "U", TR_SLAY_DEMON, TR_KILL_DEMON },
-	{ "L", TR_SLAY_UNDEAD, TR_KILL_UNDEAD },
-	{ "Z", TR_SLAY_ANIMAL, TR_KILL_ANIMAL },
+	{ "*", TRAIT_SLAY_EVIL, TR_KILL_EVIL },
+	{ "#", TRAIT_SLAY_GOOD, TR_KILL_GOOD },
+	{ "p", TRAIT_SLAY_HUMAN, TR_KILL_HUMAN },
+	{ "D", TRAIT_SLAY_DRAGON, TR_KILL_DRAGON },
+	{ "o", TRAIT_SLAY_ORC, TR_KILL_ORC },
+	{ "T", TRAIT_SLAY_TROLL, TR_KILL_TROLL },
+	{ "P", TRAIT_SLAY_GIANT, TR_KILL_GIANT },
+	{ "U", TRAIT_SLAY_DEMON, TR_KILL_DEMON },
+	{ "L", TRAIT_SLAY_UNDEAD, TR_KILL_UNDEAD },
+	{ "Z", TRAIT_SLAY_ANIMAL, TR_KILL_ANIMAL },
 	{ NULL, 0, -1 }
 };
 

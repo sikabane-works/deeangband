@@ -970,7 +970,7 @@ info[i++] = "あなたの武器は動物の天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_ANIMAL))
+		else if (have_flag(flgs, TRAIT_SLAY_ANIMAL))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は動物に対して強い力を発揮する。";
@@ -988,7 +988,7 @@ info[i++] = "あなたの武器は邪悪なる存在の天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_EVIL))
+		else if (have_flag(flgs, TRAIT_SLAY_EVIL))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は邪悪なる存在に対して強い力を発揮する。";
@@ -1007,7 +1007,7 @@ info[i++] = "あなたの武器は善良なる存在の天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_GOOD))
+		else if (have_flag(flgs, TRAIT_SLAY_GOOD))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は善良なる存在に対して強い力を発揮する。";
@@ -1026,7 +1026,7 @@ info[i++] = "あなたの武器は人間の天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_HUMAN))
+		else if (have_flag(flgs, TRAIT_SLAY_HUMAN))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は人間に対して特に強い力を発揮する。";
@@ -1044,7 +1044,7 @@ info[i++] = "あなたの武器はアンデッドの天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_UNDEAD))
+		else if (have_flag(flgs, TRAIT_SLAY_UNDEAD))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はアンデッドに対して神聖なる力を発揮する。";
@@ -1062,7 +1062,7 @@ info[i++] = "あなたの武器はデーモンの天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_DEMON))
+		else if (have_flag(flgs, TRAIT_SLAY_DEMON))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はデーモンに対して神聖なる力を発揮する。";
@@ -1080,7 +1080,7 @@ info[i++] = "あなたの武器はオークの天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_ORC))
+		else if (have_flag(flgs, TRAIT_SLAY_ORC))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はオークに対して特に強い力を発揮する。";
@@ -1098,7 +1098,7 @@ info[i++] = "あなたの武器はトロルの天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_TROLL))
+		else if (have_flag(flgs, TRAIT_SLAY_TROLL))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はトロルに対して特に強い力を発揮する。";
@@ -1116,7 +1116,7 @@ info[i++] = "あなたの武器はジャイアントの天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_GIANT))
+		else if (have_flag(flgs, TRAIT_SLAY_GIANT))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はジャイアントに対して特に強い力を発揮する。";
@@ -1135,7 +1135,7 @@ info[i++] = "あなたの武器はドラゴンの天敵である。";
 #endif
 
 		}
-		else if (have_flag(flgs, TR_SLAY_DRAGON))
+		else if (have_flag(flgs, TRAIT_SLAY_DRAGON))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はドラゴンに対して特に強い力を発揮する。";

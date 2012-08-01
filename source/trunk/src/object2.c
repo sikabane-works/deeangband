@@ -913,25 +913,25 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) {total += 6500;count++;}
 	if (have_flag(flgs, TR_FORCE_WEAPON)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TR_KILL_ANIMAL)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_ANIMAL)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_ANIMAL)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TR_KILL_EVIL)) {tmp_cost += 3300;count++;}
-	else if (have_flag(flgs, TR_SLAY_EVIL)) {tmp_cost += 2300;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_EVIL)) {tmp_cost += 2300;count++;}
 	if (have_flag(flgs, TR_KILL_GOOD)) {tmp_cost += 3300;count++;}
-	else if (have_flag(flgs, TR_SLAY_GOOD)) {tmp_cost += 2300;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_GOOD)) {tmp_cost += 2300;count++;}
 	if (have_flag(flgs, TR_KILL_HUMAN)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_HUMAN)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_HUMAN)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TR_KILL_UNDEAD)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_UNDEAD)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_UNDEAD)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TR_KILL_DEMON)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_DEMON)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_DEMON)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TR_KILL_ORC)) {tmp_cost += 2500;count++;}
-	else if (have_flag(flgs, TR_SLAY_ORC)) {tmp_cost += 1500;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_ORC)) {tmp_cost += 1500;count++;}
 	if (have_flag(flgs, TR_KILL_TROLL)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_TROLL)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_TROLL)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TR_KILL_GIANT)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_GIANT)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_GIANT)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TR_KILL_DRAGON)) {tmp_cost += 2800;count++;}
-	else if (have_flag(flgs, TR_SLAY_DRAGON)) {tmp_cost += 1800;count++;}
+	else if (have_flag(flgs, TRAIT_SLAY_DRAGON)) {tmp_cost += 1800;count++;}
 
 	if (have_flag(object_ptr->trait_flags, TRAIT_VORPAL)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TRAIT_SHATTER)) {tmp_cost += 2500;count++;}
@@ -6144,35 +6144,35 @@ static essence_type essence_info[] =
 	{TRAIT_REGENERATE, "‹}‘¬‰ñ•œ", 3, TRAIT_REGENERATE, 20},
 	{TR_TELEPORT, "ƒeƒŒƒ|[ƒg", 3, TR_TELEPORT, 25},
 
-	{TR_SLAY_EVIL, "Ž×ˆ«”{‘Å", 5, TR_SLAY_EVIL, 100},
-	{TR_KILL_EVIL, "Ž×ˆ«”{”{‘Å", 0, TR_SLAY_EVIL, 60},
-	{TR_SLAY_GOOD, "‘P—Ç”{‘Å", 5, TR_SLAY_GOOD, 100},
-	{TR_KILL_GOOD, "‘P—Ç”{”{‘Å", 0, TR_SLAY_GOOD, 60},
-	{TR_SLAY_ANIMAL, "“®•¨”{‘Å", 5, TR_SLAY_ANIMAL, 20},
-	{TR_KILL_ANIMAL, "“®•¨”{”{‘Å", 5, TR_SLAY_ANIMAL, 60},
-	{TR_SLAY_UNDEAD, "•sŽ€”{‘Å", 5, TR_SLAY_UNDEAD, 20},
-	{TR_KILL_UNDEAD, "•sŽ€”{”{‘Å", 5, TR_SLAY_UNDEAD, 60},
-	{TR_SLAY_DEMON, "ˆ«–‚”{‘Å", 5, TR_SLAY_DEMON, 20},
-	{TR_KILL_DEMON, "ˆ«–‚”{”{‘Å", 5, TR_SLAY_DEMON, 60},
-	{TR_SLAY_ORC, "ƒI[ƒN”{‘Å", 5, TR_SLAY_ORC, 15},
-	{TR_KILL_ORC, "ƒI[ƒN”{”{‘Å", 5, TR_SLAY_ORC, 60},
-	{TR_SLAY_TROLL, "ƒgƒƒ‹”{‘Å", 5, TR_SLAY_TROLL, 15},
-	{TR_KILL_TROLL, "ƒgƒƒ‹”{”{‘Å", 5, TR_SLAY_TROLL, 60},
-	{TR_SLAY_GIANT, "‹l”{‘Å", 5, TR_SLAY_GIANT, 20},
-	{TR_KILL_GIANT, "‹l”{”{‘Å", 5, TR_SLAY_GIANT, 60},       
-	{TR_SLAY_DRAGON, "—³”{‘Å", 5, TR_SLAY_DRAGON, 20},
-	{TR_KILL_DRAGON, "—³”{”{‘Å", 5, TR_SLAY_DRAGON, 60},
-	{TR_SLAY_HUMAN, "lŠÔ”{‘Å", 5, TR_SLAY_HUMAN, 20},
-	{TR_KILL_HUMAN, "lŠÔ”{”{‘Å", 5, TR_SLAY_HUMAN, 60},
+	{TRAIT_SLAY_EVIL, "Ž×ˆ«”{‘Å", 5, TRAIT_SLAY_EVIL, 100},
+	{TR_KILL_EVIL, "Ž×ˆ«”{”{‘Å", 0, TRAIT_SLAY_EVIL, 60},
+	{TRAIT_SLAY_GOOD, "‘P—Ç”{‘Å", 5, TRAIT_SLAY_GOOD, 100},
+	{TR_KILL_GOOD, "‘P—Ç”{”{‘Å", 0, TRAIT_SLAY_GOOD, 60},
+	{TRAIT_SLAY_ANIMAL, "“®•¨”{‘Å", 5, TRAIT_SLAY_ANIMAL, 20},
+	{TR_KILL_ANIMAL, "“®•¨”{”{‘Å", 5, TRAIT_SLAY_ANIMAL, 60},
+	{TRAIT_SLAY_UNDEAD, "•sŽ€”{‘Å", 5, TRAIT_SLAY_UNDEAD, 20},
+	{TR_KILL_UNDEAD, "•sŽ€”{”{‘Å", 5, TRAIT_SLAY_UNDEAD, 60},
+	{TRAIT_SLAY_DEMON, "ˆ«–‚”{‘Å", 5, TRAIT_SLAY_DEMON, 20},
+	{TR_KILL_DEMON, "ˆ«–‚”{”{‘Å", 5, TRAIT_SLAY_DEMON, 60},
+	{TRAIT_SLAY_ORC, "ƒI[ƒN”{‘Å", 5, TRAIT_SLAY_ORC, 15},
+	{TR_KILL_ORC, "ƒI[ƒN”{”{‘Å", 5, TRAIT_SLAY_ORC, 60},
+	{TRAIT_SLAY_TROLL, "ƒgƒƒ‹”{‘Å", 5, TRAIT_SLAY_TROLL, 15},
+	{TR_KILL_TROLL, "ƒgƒƒ‹”{”{‘Å", 5, TRAIT_SLAY_TROLL, 60},
+	{TRAIT_SLAY_GIANT, "‹l”{‘Å", 5, TRAIT_SLAY_GIANT, 20},
+	{TR_KILL_GIANT, "‹l”{”{‘Å", 5, TRAIT_SLAY_GIANT, 60},       
+	{TRAIT_SLAY_DRAGON, "—³”{‘Å", 5, TRAIT_SLAY_DRAGON, 20},
+	{TR_KILL_DRAGON, "—³”{”{‘Å", 5, TRAIT_SLAY_DRAGON, 60},
+	{TRAIT_SLAY_HUMAN, "lŠÔ”{‘Å", 5, TRAIT_SLAY_HUMAN, 20},
+	{TR_KILL_HUMAN, "lŠÔ”{”{‘Å", 5, TRAIT_SLAY_HUMAN, 60},
 
-	{TRAIT_SENSE_ANIMAL, "“®•¨ESP", 6, TR_SLAY_ANIMAL, 40},
-	{TRAIT_SENSE_UNDEAD, "•sŽ€ESP", 6, TR_SLAY_UNDEAD, 40}, 
-	{TRAIT_SENSE_DEMON, "ˆ«–‚ESP", 6, TR_SLAY_DEMON, 40},       
-	{TRAIT_SENSE_ORC, "ƒI[ƒNESP", 6, TR_SLAY_ORC, 40},     
-	{TRAIT_SENSE_TROLL, "ƒgƒƒ‹ESP", 6, TR_SLAY_TROLL, 40},   
-	{TRAIT_SENSE_GIANT, "‹lESP", 6, TR_SLAY_GIANT, 40},       
-	{TRAIT_SENSE_DRAGON, "—³ESP", 6, TR_SLAY_DRAGON, 40},
-	{TRAIT_SENSE_HUMAN, "lŠÔESP", 6, TR_SLAY_HUMAN, 40},
+	{TRAIT_SENSE_ANIMAL, "“®•¨ESP", 6, TRAIT_SLAY_ANIMAL, 40},
+	{TRAIT_SENSE_UNDEAD, "•sŽ€ESP", 6, TRAIT_SLAY_UNDEAD, 40}, 
+	{TRAIT_SENSE_DEMON, "ˆ«–‚ESP", 6, TRAIT_SLAY_DEMON, 40},       
+	{TRAIT_SENSE_ORC, "ƒI[ƒNESP", 6, TRAIT_SLAY_ORC, 40},     
+	{TRAIT_SENSE_TROLL, "ƒgƒƒ‹ESP", 6, TRAIT_SLAY_TROLL, 40},   
+	{TRAIT_SENSE_GIANT, "‹lESP", 6, TRAIT_SLAY_GIANT, 40},       
+	{TRAIT_SENSE_DRAGON, "—³ESP", 6, TRAIT_SLAY_DRAGON, 40},
+	{TRAIT_SENSE_HUMAN, "lŠÔESP", 6, TRAIT_SLAY_HUMAN, 40},
 
 	{ESSENCE_ATTACK, "UŒ‚", 10, TR_ES_ATTACK, 30},
 	{ESSENCE_AC, "–hŒä", 10, TR_ES_AC, 15},
@@ -6255,35 +6255,35 @@ static essence_type essence_info[] =
 	{TRAIT_REGENERATE, "regeneration", 3, TRAIT_REGENERATE, 20},
 	{TR_TELEPORT, "teleport", 3, TR_TELEPORT, 25},
 
-	{TR_SLAY_EVIL, "slay evil", 5, TR_SLAY_EVIL, 100},
-	{TR_KILL_EVIL, "kill evil", 0, TR_SLAY_EVIL, 60},
-	{TR_SLAY_GOOD, "slay good", 5, TR_SLAY_GOOD, 100},
-	{TR_KILL_GOOD, "kill good", 0, TR_SLAY_GOOD, 60},
-	{TR_SLAY_ANIMAL, "slay animal", 5, TR_SLAY_ANIMAL, 20},
-	{TR_KILL_ANIMAL, "kill animal", 5, TR_SLAY_ANIMAL, 60},
-	{TR_SLAY_UNDEAD, "slay undead", 5, TR_SLAY_UNDEAD, 20},
-	{TR_KILL_UNDEAD, "kill undead", 5, TR_SLAY_UNDEAD, 60},
-	{TR_SLAY_DEMON, "slay demon", 5, TR_SLAY_DEMON, 20},
-	{TR_KILL_DEMON, "kill demon", 5, TR_SLAY_DEMON, 60},
-	{TR_SLAY_ORC, "slay orc", 5, TR_SLAY_ORC, 15},
-	{TR_KILL_ORC, "kill orc", 5, TR_SLAY_ORC, 60},
-	{TR_SLAY_TROLL, "slay troll", 5, TR_SLAY_TROLL, 15},
-	{TR_KILL_TROLL, "kill troll", 5, TR_SLAY_TROLL, 60},
-	{TR_SLAY_GIANT, "slay giant", 5, TR_SLAY_GIANT, 20},
-	{TR_KILL_GIANT, "kill giant", 5, TR_SLAY_GIANT, 60},       
-	{TR_SLAY_DRAGON, "slay dragon", 5, TR_SLAY_DRAGON, 20},
-	{TR_KILL_DRAGON, "kill dragon", 5, TR_SLAY_DRAGON, 60},
-	{TR_SLAY_HUMAN, "slay human", 5, TR_SLAY_HUMAN, 20},
-	{TR_KILL_HUMAN, "kill human", 5, TR_SLAY_HUMAN, 60},
+	{TRAIT_SLAY_EVIL, "slay evil", 5, TRAIT_SLAY_EVIL, 100},
+	{TR_KILL_EVIL, "kill evil", 0, TRAIT_SLAY_EVIL, 60},
+	{TRAIT_SLAY_GOOD, "slay good", 5, TRAIT_SLAY_GOOD, 100},
+	{TR_KILL_GOOD, "kill good", 0, TRAIT_SLAY_GOOD, 60},
+	{TRAIT_SLAY_ANIMAL, "slay animal", 5, TRAIT_SLAY_ANIMAL, 20},
+	{TR_KILL_ANIMAL, "kill animal", 5, TRAIT_SLAY_ANIMAL, 60},
+	{TRAIT_SLAY_UNDEAD, "slay undead", 5, TRAIT_SLAY_UNDEAD, 20},
+	{TR_KILL_UNDEAD, "kill undead", 5, TRAIT_SLAY_UNDEAD, 60},
+	{TRAIT_SLAY_DEMON, "slay demon", 5, TRAIT_SLAY_DEMON, 20},
+	{TR_KILL_DEMON, "kill demon", 5, TRAIT_SLAY_DEMON, 60},
+	{TRAIT_SLAY_ORC, "slay orc", 5, TRAIT_SLAY_ORC, 15},
+	{TR_KILL_ORC, "kill orc", 5, TRAIT_SLAY_ORC, 60},
+	{TRAIT_SLAY_TROLL, "slay troll", 5, TRAIT_SLAY_TROLL, 15},
+	{TR_KILL_TROLL, "kill troll", 5, TRAIT_SLAY_TROLL, 60},
+	{TRAIT_SLAY_GIANT, "slay giant", 5, TRAIT_SLAY_GIANT, 20},
+	{TR_KILL_GIANT, "kill giant", 5, TRAIT_SLAY_GIANT, 60},       
+	{TRAIT_SLAY_DRAGON, "slay dragon", 5, TRAIT_SLAY_DRAGON, 20},
+	{TR_KILL_DRAGON, "kill dragon", 5, TRAIT_SLAY_DRAGON, 60},
+	{TRAIT_SLAY_HUMAN, "slay human", 5, TRAIT_SLAY_HUMAN, 20},
+	{TR_KILL_HUMAN, "kill human", 5, TRAIT_SLAY_HUMAN, 60},
 
-	{TRAIT_SENSE_ANIMAL, "sense animal", 6, TR_SLAY_ANIMAL, 40},
-	{TRAIT_SENSE_UNDEAD, "sense undead", 6, TR_SLAY_UNDEAD, 40}, 
-	{TRAIT_SENSE_DEMON, "sense demon", 6, TR_SLAY_DEMON, 40},       
-	{TRAIT_SENSE_ORC, "sense orc", 6, TR_SLAY_ORC, 40},     
-	{TRAIT_SENSE_TROLL, "sense troll", 6, TR_SLAY_TROLL, 40},   
-	{TRAIT_SENSE_GIANT, "sense giant", 6, TR_SLAY_GIANT, 40},       
-	{TRAIT_SENSE_DRAGON, "sense dragon", 6, TR_SLAY_DRAGON, 40},
-	{TRAIT_SENSE_HUMAN, "sense human", 6, TR_SLAY_HUMAN, 40},
+	{TRAIT_SENSE_ANIMAL, "sense animal", 6, TRAIT_SLAY_ANIMAL, 40},
+	{TRAIT_SENSE_UNDEAD, "sense undead", 6, TRAIT_SLAY_UNDEAD, 40}, 
+	{TRAIT_SENSE_DEMON, "sense demon", 6, TRAIT_SLAY_DEMON, 40},       
+	{TRAIT_SENSE_ORC, "sense orc", 6, TRAIT_SLAY_ORC, 40},     
+	{TRAIT_SENSE_TROLL, "sense troll", 6, TRAIT_SLAY_TROLL, 40},   
+	{TRAIT_SENSE_GIANT, "sense giant", 6, TRAIT_SLAY_GIANT, 40},       
+	{TRAIT_SENSE_DRAGON, "sense dragon", 6, TRAIT_SLAY_DRAGON, 40},
+	{TRAIT_SENSE_HUMAN, "sense human", 6, TRAIT_SLAY_HUMAN, 40},
 
 	{ESSENCE_ATTACK, "weapon enchant", 10, TR_ES_ATTACK, 30},
 	{ESSENCE_AC, "armor enchant", 10, TR_ES_AC, 15},
@@ -6596,16 +6596,16 @@ static void drain_essence(creature_type *creature_ptr)
 	energy_use = 100;
 
 	object_flags(object_ptr, old_flgs);
-	if (have_flag(old_flgs, TR_KILL_DRAGON)) add_flag(old_flgs, TR_SLAY_DRAGON);
-	if (have_flag(old_flgs, TR_KILL_ANIMAL)) add_flag(old_flgs, TR_SLAY_ANIMAL);
-	if (have_flag(old_flgs, TR_KILL_EVIL)) add_flag(old_flgs, TR_SLAY_EVIL);
-	if (have_flag(old_flgs, TR_KILL_GOOD)) add_flag(old_flgs, TR_SLAY_GOOD);
-	if (have_flag(old_flgs, TR_KILL_UNDEAD)) add_flag(old_flgs, TR_SLAY_UNDEAD);
-	if (have_flag(old_flgs, TR_KILL_DEMON)) add_flag(old_flgs, TR_SLAY_DEMON);
-	if (have_flag(old_flgs, TR_KILL_ORC)) add_flag(old_flgs, TR_SLAY_ORC);
-	if (have_flag(old_flgs, TR_KILL_TROLL)) add_flag(old_flgs, TR_SLAY_TROLL);
-	if (have_flag(old_flgs, TR_KILL_GIANT)) add_flag(old_flgs, TR_SLAY_GIANT);
-	if (have_flag(old_flgs, TR_KILL_HUMAN)) add_flag(old_flgs, TR_SLAY_HUMAN);
+	if (have_flag(old_flgs, TR_KILL_DRAGON)) add_flag(old_flgs, TRAIT_SLAY_DRAGON);
+	if (have_flag(old_flgs, TR_KILL_ANIMAL)) add_flag(old_flgs, TRAIT_SLAY_ANIMAL);
+	if (have_flag(old_flgs, TR_KILL_EVIL)) add_flag(old_flgs, TRAIT_SLAY_EVIL);
+	if (have_flag(old_flgs, TR_KILL_GOOD)) add_flag(old_flgs, TRAIT_SLAY_GOOD);
+	if (have_flag(old_flgs, TR_KILL_UNDEAD)) add_flag(old_flgs, TRAIT_SLAY_UNDEAD);
+	if (have_flag(old_flgs, TR_KILL_DEMON)) add_flag(old_flgs, TRAIT_SLAY_DEMON);
+	if (have_flag(old_flgs, TR_KILL_ORC)) add_flag(old_flgs, TRAIT_SLAY_ORC);
+	if (have_flag(old_flgs, TR_KILL_TROLL)) add_flag(old_flgs, TRAIT_SLAY_TROLL);
+	if (have_flag(old_flgs, TR_KILL_GIANT)) add_flag(old_flgs, TRAIT_SLAY_GIANT);
+	if (have_flag(old_flgs, TR_KILL_HUMAN)) add_flag(old_flgs, TRAIT_SLAY_HUMAN);
 
 	old_to_ac = object_ptr->to_ac;
 	old_ac = object_ptr->ac;
@@ -8018,7 +8018,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_VAMPIRIC:
 			if (one_in_(5))
-				add_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
+				add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 			break;
 
 		case EGO_PRISM:
@@ -8026,7 +8026,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_TRUMP:
 			if (one_in_(5))
-				add_flag(object_ptr->art_flags, TR_SLAY_DEMON);
+				add_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
 			if (one_in_(7))
 				one_ability(object_ptr);
 			break;
@@ -8045,7 +8045,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_SLAY_HUMAN:
 			if (one_in_(2))
-				add_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
+				add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 			break;
 
 

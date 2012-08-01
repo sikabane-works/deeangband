@@ -3330,46 +3330,46 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, DP_WP), row-1, col+12);
 
 #ifdef JP
-	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TR_SLAY_EVIL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TRAIT_SLAY_EVIL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 0, col, "é◊à´ î{ë≈ :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TR_SLAY_GOOD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TRAIT_SLAY_GOOD, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 1, col, "ëPó« î{ë≈ :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TR_SLAY_UNDEAD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TRAIT_SLAY_UNDEAD, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 2, col, "ïséÄ î{ë≈ :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TR_SLAY_DEMON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TRAIT_SLAY_DEMON, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 3, col, "à´ñÇ î{ë≈ :", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TR_SLAY_DRAGON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TRAIT_SLAY_DRAGON, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 4, col, "ó¥ î{ë≈   :", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TR_SLAY_HUMAN, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TRAIT_SLAY_HUMAN, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 5, col, "êlä‘ î{ë≈ :", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TR_SLAY_ANIMAL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TRAIT_SLAY_ANIMAL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 6, col, "ìÆï® î{ë≈ :", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TR_SLAY_ORC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TRAIT_SLAY_ORC, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 7, col, "ÉIÅ[ÉNî{ë≈:", TR_KILL_ORC, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_SLAY_TROLL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TRAIT_SLAY_TROLL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 8, col, "ÉgÉçÉãî{ë≈:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_SLAY_GIANT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TRAIT_SLAY_GIANT, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 9, col, "ãêêl î{ë≈ :", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), creature_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Slay Evil :", TR_SLAY_EVIL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 0, col, "Slay Evil :", TRAIT_SLAY_EVIL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 0, col, "Slay Evil :", TR_KILL_EVIL, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 1, col, "Slay Good :", TR_SLAY_GOOD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 1, col, "Slay Good :", TRAIT_SLAY_GOOD, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 1, col, "Slay Good :", TR_KILL_GOOD, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 2, col, "Slay Und. :", TR_SLAY_UNDEAD, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 2, col, "Slay Und. :", TRAIT_SLAY_UNDEAD, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 2, col, "Slay Und. :", TR_KILL_UNDEAD, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 3, col, "Slay Demon:", TR_SLAY_DEMON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 3, col, "Slay Demon:", TRAIT_SLAY_DEMON, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 3, col, "Slay Demon:", TR_KILL_DEMON, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_SLAY_DRAGON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 4, col, "Slay Drag.:", TRAIT_SLAY_DRAGON, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 4, col, "Slay Drag.:", TR_KILL_DRAGON, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 5, col, "Slay Human:", TR_SLAY_HUMAN, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 5, col, "Slay Human:", TRAIT_SLAY_HUMAN, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 5, col, "Slay Human:", TR_KILL_HUMAN, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_SLAY_ANIMAL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 6, col, "Slay Anim.:", TRAIT_SLAY_ANIMAL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 6, col, "Slay Anim.:", TR_KILL_ANIMAL, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_SLAY_ORC, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 7, col, "Slay Orc  :", TRAIT_SLAY_ORC, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 7, col, "Slay Orc  :", TR_KILL_ORC, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 8, col, "Slay Troll:", TR_SLAY_TROLL, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 8, col, "Slay Troll:", TRAIT_SLAY_TROLL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 8, col, "Slay Troll:", TR_KILL_TROLL, &f, (DP_WP|DP_IMM), creature_ptr);
-	display_flag_aux(row+ 9, col, "Slay Giant:", TR_SLAY_GIANT, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+ 9, col, "Slay Giant:", TRAIT_SLAY_GIANT, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 9, col, "Slay Giant:", TR_KILL_GIANT, &f, (DP_WP|DP_IMM), creature_ptr);
 #endif
 

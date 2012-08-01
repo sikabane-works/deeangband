@@ -1057,9 +1057,9 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_RANGER:
-		if (!(have_flag(object_ptr->art_flags, TR_SLAY_ANIMAL)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL)))
 		{
-			add_flag(object_ptr->art_flags, TR_SLAY_ANIMAL);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1120,19 +1120,19 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_LAW:
-		if (!(have_flag(object_ptr->art_flags, TR_SLAY_EVIL)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL)))
 		{
-			add_flag(object_ptr->art_flags, TR_SLAY_EVIL);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_SLAY_UNDEAD)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD)))
 		{
-			add_flag(object_ptr->art_flags, TR_SLAY_UNDEAD);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_SLAY_DEMON)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON)))
 		{
-			add_flag(object_ptr->art_flags, TR_SLAY_DEMON);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1142,11 +1142,11 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 	{
 		case 1:
 		case 2:
-			add_flag(object_ptr->art_flags, TR_SLAY_ANIMAL);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL);
 			break;
 		case 3:
 		case 4:
-			add_flag(object_ptr->art_flags, TR_SLAY_EVIL);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL);
 			if (!artifact_bias && one_in_(2))
 				artifact_bias = BIAS_LAW;
 			else if (!artifact_bias && one_in_(9))
@@ -1154,31 +1154,31 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			break;
 		case 5:
 		case 6:
-			add_flag(object_ptr->art_flags, TR_SLAY_UNDEAD);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD);
 			if (!artifact_bias && one_in_(9))
 				artifact_bias = BIAS_PRIESTLY;
 			break;
 		case 7:
 		case 8:
-			add_flag(object_ptr->art_flags, TR_SLAY_DEMON);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
 			if (!artifact_bias && one_in_(9))
 				artifact_bias = BIAS_PRIESTLY;
 			break;
 		case 9:
 		case 10:
-			add_flag(object_ptr->art_flags, TR_SLAY_ORC);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_ORC);
 			break;
 		case 11:
 		case 12:
-			add_flag(object_ptr->art_flags, TR_SLAY_TROLL);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_TROLL);
 			break;
 		case 13:
 		case 14:
-			add_flag(object_ptr->art_flags, TR_SLAY_GIANT);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_GIANT);
 			break;
 		case 15:
 		case 16:
-			add_flag(object_ptr->art_flags, TR_SLAY_DRAGON);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_DRAGON);
 			break;
 		case 17:
 			add_flag(object_ptr->art_flags, TR_KILL_DRAGON);
@@ -1243,7 +1243,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			break;
 		case 33:
 		case 34:
-			add_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
+			add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 			break;
 		default:
 			add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND);
@@ -1857,16 +1857,16 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		object_ptr->to_damage = 0;
 		remove_flag(object_ptr->art_flags, TR_BLOWS);
 		remove_flag(object_ptr->art_flags, TR_FORCE_WEAPON);
-		remove_flag(object_ptr->art_flags, TR_SLAY_ANIMAL);
-		remove_flag(object_ptr->art_flags, TR_SLAY_EVIL);
-		remove_flag(object_ptr->art_flags, TR_SLAY_UNDEAD);
-		remove_flag(object_ptr->art_flags, TR_SLAY_DEMON);
-		remove_flag(object_ptr->art_flags, TR_SLAY_ORC);
-		remove_flag(object_ptr->art_flags, TR_SLAY_TROLL);
-		remove_flag(object_ptr->art_flags, TR_SLAY_GIANT);
-		remove_flag(object_ptr->art_flags, TR_SLAY_DRAGON);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_ORC);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_TROLL);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_GIANT);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_DRAGON);
 		remove_flag(object_ptr->art_flags, TR_KILL_DRAGON);
-		remove_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
+		remove_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 		remove_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 		remove_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
 		remove_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
@@ -3021,7 +3021,7 @@ void get_bloody_moon_flags(object_type *object_ptr)
 		int flag = randint0(26);
 		if (flag >= 20) add_flag(object_ptr->art_flags, TR_KILL_UNDEAD + flag - 20);
 		else if (flag == 19) add_flag(object_ptr->art_flags, TR_KILL_ANIMAL);
-		else if (flag == 18) add_flag(object_ptr->art_flags, TR_SLAY_HUMAN);
+		else if (flag == 18) add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 		else add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND + flag);
 	}
 
