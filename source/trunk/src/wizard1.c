@@ -827,12 +827,12 @@ static const flag_desc misc_flags2_desc[] =
 #ifdef JP
 	{ TRAIT_THROW_MIGHTY,      "ìäù±" },
 	{ TRAIT_REFLECTING,    "îΩéÀ" },
-	{ TR_FREE_ACT,   "ñÉ·ÉímÇÁÇ∏" },
+	{ TRAIT_FREE_ACTION,   "ñÉ·ÉímÇÁÇ∏" },
 	{ TRAIT_HOLD_LIFE,  "ê∂ñΩóÕà€éù" },
 #else
 	{ TRAIT_THROW_MIGHTY,      "Throwing" },
 	{ TRAIT_REFLECTING,    "Reflection" },
-	{ TR_FREE_ACT,   "Free Action" },
+	{ TRAIT_FREE_ACTION,   "Free Action" },
 	{ TRAIT_HOLD_LIFE,  "Hold Life" },
 #endif
 };

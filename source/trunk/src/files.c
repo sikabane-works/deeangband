@@ -2363,7 +2363,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		if ((creature_ptr->lev > 9) && !heavy_armor(creature_ptr))
 			add_flag(flgs, TR_SPEED);
 		if ((creature_ptr->lev>24) && !heavy_armor(creature_ptr))
-			add_flag(flgs, TR_FREE_ACT);
+			add_flag(flgs, TRAIT_FREE_ACTION);
 		break;
 	case CLASS_NINJA:
 		if (heavy_armor(creature_ptr))
@@ -2374,7 +2374,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 				add_flag(flgs, TR_SPEED);
 			if (creature_ptr->lev>24)
-				add_flag(flgs, TR_FREE_ACT);
+				add_flag(flgs, TRAIT_FREE_ACTION);
 		}
 		add_flag(flgs, TRAIT_SLOW_DIGEST);
 		add_flag(flgs, TR_RES_FEAR);
@@ -2400,7 +2400,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_SUSTAIN_DEX);
 		add_flag(flgs, TRAIT_SUSTAIN_CON);
 		add_flag(flgs, TRAIT_REGENERATE);
-		add_flag(flgs, TR_FREE_ACT);
+		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TR_SPEED);
 		if (creature_ptr->lev > 39) add_flag(flgs, TRAIT_REFLECTING);
 		break;
@@ -2470,7 +2470,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_MOTION))
 	{
-		add_flag(flgs, TR_FREE_ACT);
+		add_flag(flgs, TRAIT_FREE_ACTION);
 	}
 
 	if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
@@ -2519,7 +2519,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_RES_DISE);
 		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TRAIT_HOLD_LIFE);
-		add_flag(flgs, TR_FREE_ACT);
+		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TRAIT_AURA_FIRE);
 		add_flag(flgs, TRAIT_AURA_ELEC);
 		add_flag(flgs, TRAIT_AURA_COLD);
@@ -2598,7 +2598,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
 		add_flag(flgs, TRAIT_REFLECTING);
-		add_flag(flgs, TR_FREE_ACT);
+		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TRAIT_LEVITATION);
 	}
 	if (creature_ptr->tim_res_nether)
@@ -2624,7 +2624,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_RES_DISE);
 		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TRAIT_HOLD_LIFE);
-		add_flag(flgs, TR_FREE_ACT);
+		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TRAIT_AURA_FIRE);
 		add_flag(flgs, TRAIT_AURA_ELEC);
 		add_flag(flgs, TRAIT_AURA_COLD);
@@ -3153,7 +3153,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+2, col, "電気オーラ:", TRAIT_AURA_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "冷気オーラ:", TRAIT_AURA_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "加速      :", TR_SPEED, &f, 0, creature_ptr);
-	display_flag_aux(row+5, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "耐麻痺    :", TRAIT_FREE_ACTION, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "透明体視認:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "経験値保持:", TRAIT_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "警告      :", TRAIT_WARNING, &f, 0, creature_ptr);
@@ -3168,7 +3168,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+2, col, "AuraElec  :", TRAIT_AURA_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "AuraCold  :", TRAIT_AURA_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, creature_ptr);
-	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "FreeAction:", TRAIT_FREE_ACTION, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "SeeInvisi.:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Hold Life :", TRAIT_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Warning   :", TRAIT_WARNING, &f, 0, creature_ptr);

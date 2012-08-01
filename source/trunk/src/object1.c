@@ -3188,7 +3188,7 @@ info[i++] = "それは敵に投げて大きなダメージを与えることができる。";
 #endif
 	}
 
-	if (have_flag(flgs, TR_FREE_ACT))
+	if (have_flag(flgs, TRAIT_FREE_ACTION))
 	{
 #ifdef JP
 info[i++] = "それは麻痺に対する完全な免疫を授ける。";

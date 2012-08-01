@@ -2241,7 +2241,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 
 		/* Normal gloves hurt mage-type spells */
 		if (object_ptr->k_idx &&
-		    !(have_flag(flgs, TR_FREE_ACT)) &&
+		    !(have_flag(flgs, TRAIT_FREE_ACTION)) &&
 		    !(have_flag(flgs, TR_MAGIC_MASTERY)) &&
 		    !((have_flag(flgs, TR_DEX)) && (object_ptr->pval > 0)))
 		{
@@ -3501,7 +3501,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		//if (have_flag(flgs, TRAIT_SEE_INVISIBLE))   creature_ptr->see_inv = TRUE;
 		//if (have_flag(flgs, TRAIT_LEVITATION))  creature_ptr->levitation = TRUE;
-		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
+		if (have_flag(flgs, TRAIT_FREE_ACTION))    creature_ptr->free_act = TRUE;
 		//if (have_flag(flgs, TRAIT_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
 		/*

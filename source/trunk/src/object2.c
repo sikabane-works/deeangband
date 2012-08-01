@@ -951,7 +951,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_RIDING)) total += 0;
 	if (have_flag(flgs, TRAIT_EASY_SPELL)) total += 1500;
 	if (have_flag(flgs, TRAIT_THROW_MIGHTY)) total += 5000;
-	if (have_flag(flgs, TR_FREE_ACT)) total += 4500;
+	if (have_flag(flgs, TRAIT_FREE_ACTION)) total += 4500;
 	if (have_flag(flgs, TRAIT_HOLD_LIFE)) total += 8500;
 
 	tmp_cost = 0;
@@ -6113,7 +6113,7 @@ static essence_type essence_info[] =
 	{TRAIT_IM_FIRE, "âŒâäñ∆âu", 2, TRAIT_IM_ACID, 20},
 	{TRAIT_IM_COLD, "ó‚ãCñ∆âu", 2, TRAIT_IM_ACID, 20},
 	{TRAIT_REFLECTING, "îΩéÀ", 2, TRAIT_REFLECTING, 20},
-	{TR_FREE_ACT, "ñÉ·ÉímÇÁÇ∏", 3, TR_FREE_ACT, 20},
+	{TRAIT_FREE_ACTION, "ñÉ·ÉímÇÁÇ∏", 3, TRAIT_FREE_ACTION, 20},
 	{TRAIT_HOLD_LIFE, "ê∂ñΩóÕà€éù", 3, TRAIT_HOLD_LIFE, 20},
 	{TR_RES_ACID, "ëœé_", 2, TR_RES_ACID, 15},
 	{TR_RES_ELEC, "ëœìdåÇ", 2, TR_RES_ELEC, 15},
@@ -6224,7 +6224,7 @@ static essence_type essence_info[] =
 	{TRAIT_IM_FIRE, "fire immunity", 2, TRAIT_IM_ACID, 20},
 	{TRAIT_IM_COLD, "cold immunity", 2, TRAIT_IM_ACID, 20},
 	{TRAIT_REFLECTING, "reflection", 2, TRAIT_REFLECTING, 20},
-	{TR_FREE_ACT, "free action", 3, TR_FREE_ACT, 20},
+	{TRAIT_FREE_ACTION, "free action", 3, TRAIT_FREE_ACTION, 20},
 	{TRAIT_HOLD_LIFE, "hold life", 3, TRAIT_HOLD_LIFE, 20},
 	{TR_RES_ACID, "resistance to acid", 2, TR_RES_ACID, 15},
 	{TR_RES_ELEC, "resistance to electric", 2, TR_RES_ELEC, 15},

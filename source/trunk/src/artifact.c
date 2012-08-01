@@ -167,7 +167,7 @@ void one_ability(object_type *object_ptr)
 	case 3: add_flag(object_ptr->art_flags, TRAIT_WARNING);     break;
 	case 4: add_flag(object_ptr->art_flags, TRAIT_SLOW_DIGEST); break;
 	case 5: add_flag(object_ptr->art_flags, TRAIT_REGENERATE);       break;
-	case 6: add_flag(object_ptr->art_flags, TR_FREE_ACT);    break;
+	case 6: add_flag(object_ptr->art_flags, TRAIT_FREE_ACTION);    break;
 	case 7: add_flag(object_ptr->art_flags, TRAIT_HOLD_LIFE);   break;
 	case 8:
 	case 9:
@@ -850,7 +850,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 		case 7:
 		case 8:
 		case 14:
-			add_flag(object_ptr->trait_flags, TR_FREE_ACT);
+			add_flag(object_ptr->trait_flags, TRAIT_FREE_ACTION);
 			break;
 		case 9:
 			add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);
@@ -1849,7 +1849,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		}
 	}
 
-	if (((artifact_bias == BIAS_MAGE) || (artifact_bias == BIAS_INT)) && (object_ptr->tval == TV_GLOVES)) add_flag(object_ptr->art_flags, TR_FREE_ACT);
+	if (((artifact_bias == BIAS_MAGE) || (artifact_bias == BIAS_INT)) && (object_ptr->tval == TV_GLOVES)) add_flag(object_ptr->art_flags, TRAIT_FREE_ACTION);
 
 	if ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DOKUBARI))
 	{
