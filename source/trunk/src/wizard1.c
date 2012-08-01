@@ -1244,7 +1244,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 
 /*	if (object_is_cursed(object_ptr)) */
 	{
-		if (have_flag(flgs, TR_TY_CURSE))
+		if (have_flag(flgs, TRAIT_TY_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "‘¾ŒÃ‚Ì‰…”O";

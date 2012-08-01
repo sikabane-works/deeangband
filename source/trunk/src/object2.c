@@ -984,7 +984,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_AURA_COLD)) total += 5000;
 	if (have_flag(flgs, TR_NO_TELE)) total -= 10000;
 	if (have_flag(flgs, TR_NO_MAGIC)) total += 2500;
-	if (have_flag(flgs, TR_TY_CURSE)) total -= 15000;
+	if (have_flag(flgs, TRAIT_TY_CURSE)) total -= 15000;
 	if (have_flag(flgs, TR_HIDE_TYPE)) total += 0;
 	if (have_flag(flgs, TR_SHOW_MODS)) total += 0;
 	if (have_flag(flgs, TRAIT_LEVITATION)) total += 1250;
@@ -2821,7 +2821,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_AGGRAVATE;
 						break;
 					case 4:
-						if (have_flag(k_ptr->flags, TR_TY_CURSE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_TY_CURSE)) break;
 						object_ptr->name2 = EGO_RING_TY_CURSE;
 						break;
 					case 5:
@@ -3107,7 +3107,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_AMU_AGGRAVATE;
 						break;
 					case 4:
-						if (have_flag(k_ptr->flags, TR_TY_CURSE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_TY_CURSE)) break;
 						object_ptr->name2 = EGO_AMU_TY_CURSE;
 						break;
 					case 5:
@@ -6620,7 +6620,7 @@ static void drain_essence(creature_type *creature_ptr)
 	if (have_flag(old_flgs, TR_AGGRAVATE)) dec--;
 	if (have_flag(old_flgs, TR_NO_TELE)) dec--;
 	if (have_flag(old_flgs, TR_DRAIN_EXP)) dec--;
-	if (have_flag(old_flgs, TR_TY_CURSE)) dec--;
+	if (have_flag(old_flgs, TRAIT_TY_CURSE)) dec--;
 
 	iy = object_ptr->fy;
 	ix = object_ptr->fx;

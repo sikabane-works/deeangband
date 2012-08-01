@@ -3654,7 +3654,7 @@ info[i++] = "‚»‚ê‚Íô‚í‚ê‚Ä‚¢‚éB";
 		}
 	}
 
-	if ((have_flag(flgs, TR_TY_CURSE)) || (object_ptr->curse_flags & TRC_TY_CURSE))
+	if ((have_flag(flgs, TRAIT_TY_CURSE)) || (object_ptr->curse_flags & TRC_TY_CURSE))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í‘¾ŒÃ‚Ì‰ĞX‚µ‚¢‰…”O‚ªh‚Á‚Ä‚¢‚éB";

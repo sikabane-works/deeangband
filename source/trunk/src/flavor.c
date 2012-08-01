@@ -645,7 +645,7 @@ static flag_insc_table flag_insc_misc[] =
 	{ "èu", "Te", TR_TELEPORT, -1 },
 	{ "ì{", "Ag", TR_AGGRAVATE, -1 },
 	{ "èj", "Bs", TRAIT_BLESSED_BRAND, -1 },
-	{ "äı", "Ty", TR_TY_CURSE, -1 },
+	{ "äı", "Ty", TRAIT_TY_CURSE, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -806,7 +806,7 @@ static flag_insc_table flag_insc_misc[] =
 	{ "Te", TR_TELEPORT, -1 },
 	{ "Ag", TR_AGGRAVATE, -1 },
 	{ "Bs", TRAIT_BLESSED_BRAND, -1 },
-	{ "Ty", TR_TY_CURSE, -1 },
+	{ "Ty", TRAIT_TY_CURSE, -1 },
 	{ NULL, 0, -1 }
 };
 
