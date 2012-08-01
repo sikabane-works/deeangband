@@ -1154,7 +1154,7 @@ info[i++] = "‚ ‚È‚½‚Ì•Ší‚ÍMP‚ğg‚Á‚ÄUŒ‚‚·‚éB";
 #endif
 
 		}
-		if (have_flag(flgs, TR_THROW))
+		if (have_flag(flgs, TRAIT_THROW_MIGHTY))
 		{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì•Ší‚Í“Š‚°‚â‚·‚¢B";

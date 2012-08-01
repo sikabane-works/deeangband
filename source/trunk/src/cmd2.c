@@ -3980,7 +3980,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Description */
 	object_desc(object_name, quest_ptr, OD_OMIT_PREFIX);
 
-	if (has_trait(creature_ptr, TRAIT_MIGHTY_THROW)) mult += 3;
+	if (has_trait(creature_ptr, TRAIT_THROW_MIGHTY)) mult += 3;
 
 	/* Extract a "distance multiplier" */
 	/* Changed for 'launcher' mutation */
@@ -3988,7 +3988,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	/* Enforce a minimum "weight" of one pound */
 	div = ((quest_ptr->weight > 10) ? quest_ptr->weight : 10);
-	if ((have_flag(flgs, TR_THROW)) || boomerang) div /= 2;
+	if ((have_flag(flgs, TRAIT_THROW_MIGHTY)) || boomerang) div /= 2;
 
 	/* Hack -- Distance -- Reward strength, penalize weight */
 	tdis = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] + 20) * mul / div;
@@ -4062,11 +4062,11 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TR_THROW)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;
+	if ((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TRAIT_THROW_MIGHTY)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;
 
 	/* Chance of hitting */
-	if (have_flag(flgs, TR_THROW)) chance = ((creature_ptr->skill_tht) +
+	if (have_flag(flgs, TRAIT_THROW_MIGHTY)) chance = ((creature_ptr->skill_tht) +
 		((creature_ptr->to_hit_b + quest_ptr->to_hit) * BTH_PLUS_ADJ));
 	else chance = (creature_ptr->skill_tht + (creature_ptr->to_hit_b * BTH_PLUS_ADJ));
 
@@ -4197,7 +4197,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				{
 					tdam += creature_ptr->to_damage_m;
 				}
-				else if (have_flag(flgs, TR_THROW))
+				else if (have_flag(flgs, TRAIT_THROW_MIGHTY))
 				{
 					tdam *= (3+mult);
 					tdam += creature_ptr->to_damage_m;

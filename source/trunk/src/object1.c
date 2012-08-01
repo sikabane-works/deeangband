@@ -3179,7 +3179,7 @@ info[i++] = "それは寒さに対する完全な免疫を授ける。";
 
 	}
 
-	if (have_flag(flgs, TR_THROW))
+	if (have_flag(flgs, TRAIT_THROW_MIGHTY))
 	{
 #ifdef JP
 info[i++] = "それは敵に投げて大きなダメージを与えることができる。";

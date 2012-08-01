@@ -825,12 +825,12 @@ static const flag_desc sustain_flags_desc[] =
 static const flag_desc misc_flags2_desc[] =
 {
 #ifdef JP
-	{ TR_THROW,      "ìäù±" },
+	{ TRAIT_THROW_MIGHTY,      "ìäù±" },
 	{ TRAIT_REFLECTING,    "îΩéÀ" },
 	{ TR_FREE_ACT,   "ñÉ·ÉímÇÁÇ∏" },
 	{ TR_HOLD_LIFE,  "ê∂ñΩóÕà€éù" },
 #else
-	{ TR_THROW,      "Throwing" },
+	{ TRAIT_THROW_MIGHTY,      "Throwing" },
 	{ TRAIT_REFLECTING,    "Reflection" },
 	{ TR_FREE_ACT,   "Free Action" },
 	{ TR_HOLD_LIFE,  "Hold Life" },

@@ -1067,10 +1067,10 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 	case BIAS_ROGUE:
 		if ((((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DAGGER)) ||
 		     ((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_SPEAR))) &&
-			 !(have_flag(object_ptr->art_flags, TR_THROW)))
+			 !(have_flag(object_ptr->art_flags, TRAIT_THROW_MIGHTY)))
 		{
 			/* Free power for rogues... */
-			add_flag(object_ptr->art_flags, TR_THROW);
+			add_flag(object_ptr->art_flags, TRAIT_THROW_MIGHTY);
 		}
 		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)))
 		{
