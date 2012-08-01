@@ -6039,9 +6039,9 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 
 			fputs(" ", fff);
 
-			print_flag(TR_RES_BLIND);
+			print_flag(TRAIT_NO_BLIND);
 			print_flag(TR_RES_FEAR);
-			print_flag(TR_RES_CONF);
+			print_flag(TRAIT_NO_CONF);
 			print_flag(TRAIT_FREE_ACTION);
 			print_flag(TRAIT_SEE_INVISIBLE);
 			print_flag(TRAIT_HOLD_LIFE);

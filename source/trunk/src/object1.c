@@ -139,7 +139,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if ((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
-			remove_flag(flgs, TR_RES_BLIND);
+			remove_flag(flgs, TRAIT_NO_BLIND);
 			remove_flag(flgs, TRAIT_SEE_INVISIBLE);
 		}
 	}
@@ -248,7 +248,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if ((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
-			remove_flag(flgs, TR_RES_BLIND);
+			remove_flag(flgs, TRAIT_NO_BLIND);
 			remove_flag(flgs, TRAIT_SEE_INVISIBLE);
 		}
 	}
@@ -3280,7 +3280,7 @@ info[i++] = "それは暗黒への耐性を授ける。";
 
 	}
 
-	if (have_flag(flgs, TR_RES_BLIND))
+	if (have_flag(flgs, TRAIT_NO_BLIND))
 	{
 #ifdef JP
 info[i++] = "それは盲目への耐性を授ける。";
@@ -3289,7 +3289,7 @@ info[i++] = "それは盲目への耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_CONF))
+	if (have_flag(flgs, TRAIT_NO_CONF))
 	{
 #ifdef JP
 info[i++] = "それは混乱への耐性を授ける。";

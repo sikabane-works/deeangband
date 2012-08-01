@@ -3554,8 +3554,8 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (object_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
 
 		//TODO if (have_flag(flgs, TR_RES_FEAR))   creature_ptr->resist_fear = TRUE;
-		//TODO if (have_flag(flgs, TR_RES_CONF))   creature_ptr->resist_conf = TRUE;
-		//if (have_flag(flgs, TR_RES_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_NO_CONF))   creature_ptr->resist_conf = TRUE;
+		//if (have_flag(flgs, TRAIT_NO_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 
 		//TODO if (have_flag(flgs, TRAIT_REFLECTING))  has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		//TODO if (have_flag(flgs, TRAIT_AURA_FIRE))  creature_ptr->sh_fire = TRUE;

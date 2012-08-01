@@ -2388,7 +2388,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		if (creature_ptr->lev > 19)
 			add_flag(flgs, TRAIT_SUSTAIN_WIS);
 		if (creature_ptr->lev > 29)
-			add_flag(flgs, TR_RES_CONF);
+			add_flag(flgs, TRAIT_NO_CONF);
 		if (creature_ptr->lev > 39)
 			add_flag(flgs, TRAIT_ESP);
 		break;
@@ -2474,13 +2474,13 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	}
 
 	if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
-		add_flag(flgs, TR_RES_CONF);
+		add_flag(flgs, TRAIT_NO_CONF);
 	if (creature_ptr->chara_idx == CHARA_SEXY)
 		add_flag(flgs, TR_AGGRAVATE);
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
-		add_flag(flgs, TR_RES_BLIND);
-		add_flag(flgs, TR_RES_CONF);
+		add_flag(flgs, TRAIT_NO_BLIND);
+		add_flag(flgs, TRAIT_NO_CONF);
 		add_flag(flgs, TRAIT_HOLD_LIFE);
 		if (creature_ptr->class_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
 		if (creature_ptr->lev > 9)
@@ -2509,8 +2509,8 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_FEAR);
 		add_flag(flgs, TR_RES_LITE);
 		add_flag(flgs, TR_RES_DARK);
-		add_flag(flgs, TR_RES_BLIND);
-		add_flag(flgs, TR_RES_CONF);
+		add_flag(flgs, TRAIT_NO_BLIND);
+		add_flag(flgs, TRAIT_NO_CONF);
 		add_flag(flgs, TRAIT_RES_SOUN);
 		add_flag(flgs, TRAIT_RES_SHAR);
 		add_flag(flgs, TRAIT_RES_NETH);
@@ -2595,8 +2595,8 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 
 	if (creature_ptr->magicdef)
 	{
-		add_flag(flgs, TR_RES_BLIND);
-		add_flag(flgs, TR_RES_CONF);
+		add_flag(flgs, TRAIT_NO_BLIND);
+		add_flag(flgs, TRAIT_NO_CONF);
 		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TRAIT_LEVITATION);
@@ -2614,8 +2614,8 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_RES_FEAR);
 		add_flag(flgs, TR_RES_LITE);
 		add_flag(flgs, TR_RES_DARK);
-		add_flag(flgs, TR_RES_BLIND);
-		add_flag(flgs, TR_RES_CONF);
+		add_flag(flgs, TRAIT_NO_BLIND);
+		add_flag(flgs, TRAIT_NO_CONF);
 		add_flag(flgs, TRAIT_RES_SOUN);
 		add_flag(flgs, TRAIT_RES_SHAR);
 		add_flag(flgs, TRAIT_RES_NETH);
@@ -2949,8 +2949,8 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "ëœëMåı:", TR_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "ëœà√çï:", TR_RES_DARK, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "ëœîjï–:", TRAIT_RES_SHAR, &f, 0, creature_ptr);
-	display_flag_aux(row+8, col, "ëœñ”ñ⁄:", TR_RES_BLIND, &f, 0, creature_ptr);
-	display_flag_aux(row+9, col, "ëœç¨óê:", TR_RES_CONF, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "ëœñ”ñ⁄:", TRAIT_NO_BLIND, &f, 0, creature_ptr);
+	display_flag_aux(row+9, col, "ëœç¨óê:", TRAIT_NO_CONF, &f, 0, creature_ptr);
 #else
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, creature_ptr);
@@ -2965,8 +2965,8 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Shard :", TRAIT_RES_SHAR, &f, 0, creature_ptr);
-	display_flag_aux(row+8, col, "Blind :", TR_RES_BLIND, &f, 0, creature_ptr);
-	display_flag_aux(row+9, col, "Conf  :", TR_RES_CONF, &f, 0, creature_ptr);
+	display_flag_aux(row+8, col, "Blind :", TRAIT_NO_BLIND, &f, 0, creature_ptr);
+	display_flag_aux(row+9, col, "Conf  :", TRAIT_NO_CONF, &f, 0, creature_ptr);
 #endif
 
 	//acid

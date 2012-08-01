@@ -969,8 +969,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_RES_FEAR)) {tmp_cost += 1000;count += 2;}
 	if (have_flag(flgs, TR_RES_LITE)) {tmp_cost += 800;count += 2;}
 	if (have_flag(flgs, TR_RES_DARK)) {tmp_cost += 800;count += 2;}
-	if (have_flag(flgs, TR_RES_BLIND)) {tmp_cost += 900;count += 2;}
-	if (have_flag(flgs, TR_RES_CONF)) {tmp_cost += 900;count += 2;}
+	if (have_flag(flgs, TRAIT_NO_BLIND)) {tmp_cost += 900;count += 2;}
+	if (have_flag(flgs, TRAIT_NO_CONF)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TRAIT_RES_SHAR)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TRAIT_RES_NETH)) {tmp_cost += 900;count += 2;}
@@ -6123,8 +6123,8 @@ static essence_type essence_info[] =
 	{TR_RES_FEAR, "ëœã∞ï|", 2, TR_RES_FEAR, 20},
 	{TR_RES_LITE, "ëœëMåı", 2, TR_RES_LITE, 20},
 	{TR_RES_DARK, "ëœà√çï", 2, TR_RES_DARK, 20},
-	{TR_RES_BLIND, "ëœñ”ñ⁄", 2, TR_RES_BLIND, 20},
-	{TR_RES_CONF, "ëœç¨óê", 2, TR_RES_CONF, 20},
+	{TRAIT_NO_BLIND, "ëœñ”ñ⁄", 2, TRAIT_NO_BLIND, 20},
+	{TRAIT_NO_CONF, "ëœç¨óê", 2, TRAIT_NO_CONF, 20},
 	{TRAIT_RES_SOUN, "ëœçåâπ", 2, TRAIT_RES_SOUN, 20},
 	{TRAIT_RES_SHAR, "ëœîjï–", 2, TRAIT_RES_SHAR, 20},
 	{TRAIT_RES_NETH, "ëœínçñ", 2, TRAIT_RES_NETH, 20},
@@ -6234,8 +6234,8 @@ static essence_type essence_info[] =
 	{TR_RES_FEAR, "resistance to fear", 2, TR_RES_FEAR, 20},
 	{TR_RES_LITE, "resistance to light", 2, TR_RES_LITE, 20},
 	{TR_RES_DARK, "resistance to dark", 2, TR_RES_DARK, 20},
-	{TR_RES_BLIND, "resistance to blind", 2, TR_RES_BLIND, 20},
-	{TR_RES_CONF, "resistance to confusion", 2, TR_RES_CONF, 20},
+	{TRAIT_NO_BLIND, "resistance to blind", 2, TRAIT_NO_BLIND, 20},
+	{TRAIT_NO_CONF, "resistance to confusion", 2, TRAIT_NO_CONF, 20},
 	{TRAIT_RES_SOUN, "resistance to sound", 2, TRAIT_RES_SOUN, 20},
 	{TRAIT_RES_SHAR, "resistance to shard", 2, TRAIT_RES_SHAR, 20},
 	{TRAIT_RES_NETH, "resistance to nether", 2, TRAIT_RES_NETH, 20},
