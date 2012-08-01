@@ -979,9 +979,9 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_DISE)) {tmp_cost += 2000;count += 2;}
 	total += (tmp_cost * count);
 
-	if (have_flag(flgs, TR_SH_FIRE)) total += 5000;
-	if (have_flag(flgs, TR_SH_ELEC)) total += 5000;
-	if (have_flag(flgs, TR_SH_COLD)) total += 5000;
+	if (have_flag(flgs, TRAIT_AURA_FIRE)) total += 5000;
+	if (have_flag(flgs, TRAIT_AURA_ELEC)) total += 5000;
+	if (have_flag(flgs, TRAIT_AURA_COLD)) total += 5000;
 	if (have_flag(flgs, TR_NO_TELE)) total -= 10000;
 	if (have_flag(flgs, TR_NO_MAGIC)) total += 2500;
 	if (have_flag(flgs, TR_TY_CURSE)) total -= 15000;
@@ -6131,9 +6131,9 @@ static essence_type essence_info[] =
 	{TRAIT_RES_NEXU, "‘Ïˆö‰Ê¬—", 2, TRAIT_RES_NEXU, 20},
 	{TRAIT_RES_CHAO, "‘ÏƒJƒIƒX", 2, TRAIT_RES_CHAO, 20},
 	{TRAIT_RES_DISE, "‘Ï—ò‰»", 2, TRAIT_RES_DISE, 20},
-	{TR_SH_FIRE, "", 0, -2, 0},
-	{TR_SH_ELEC, "", 0, -2, 0},
-	{TR_SH_COLD, "", 0, -2, 0},
+	{TRAIT_AURA_FIRE, "", 0, -2, 0},
+	{TRAIT_AURA_ELEC, "", 0, -2, 0},
+	{TRAIT_AURA_COLD, "", 0, -2, 0},
 	{TR_NO_MAGIC, "”½–‚–@", 3, TR_NO_MAGIC, 15},
 	{TRAIT_WARNING, "Œx", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "•‚—V", 3, TRAIT_LEVITATION, 20},
@@ -6242,9 +6242,9 @@ static essence_type essence_info[] =
 	{TRAIT_RES_NEXU, "resistance to nexus", 2, TRAIT_RES_NEXU, 20},
 	{TRAIT_RES_CHAO, "resistance to chaos", 2, TRAIT_RES_CHAO, 20},
 	{TRAIT_RES_DISE, "resistance to disenchantment", 2, TRAIT_RES_DISE, 20},
-	{TR_SH_FIRE, "", 0, -2, 0},
-	{TR_SH_ELEC, "", 0, -2, 0},
-	{TR_SH_COLD, "", 0, -2, 0},
+	{TRAIT_AURA_FIRE, "", 0, -2, 0},
+	{TRAIT_AURA_ELEC, "", 0, -2, 0},
+	{TRAIT_AURA_COLD, "", 0, -2, 0},
 	{TR_NO_MAGIC, "anti magic", 3, TR_NO_MAGIC, 15},
 	{TRAIT_WARNING, "warning", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
@@ -6664,17 +6664,17 @@ static void drain_essence(creature_type *creature_ptr)
 			{
 				drain_value[es_ptr->essence] += 10;
 			}
-			else if (es_ptr->add == TR_SH_FIRE)
+			else if (es_ptr->add == TRAIT_AURA_FIRE)
 			{
 				drain_value[TRAIT_FIRE_BRAND] += 10;
 				drain_value[TR_RES_FIRE] += 10;
 			}
-			else if (es_ptr->add == TR_SH_ELEC)
+			else if (es_ptr->add == TRAIT_AURA_ELEC)
 			{
 				drain_value[TRAIT_ELEC_BRAND] += 10;
 				drain_value[TR_RES_ELEC] += 10;
 			}
-			else if (es_ptr->add == TR_SH_COLD)
+			else if (es_ptr->add == TRAIT_AURA_COLD)
 			{
 				drain_value[TRAIT_COLD_BRAND] += 10;
 				drain_value[TR_RES_COLD] += 10;

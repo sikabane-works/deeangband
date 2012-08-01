@@ -2439,12 +2439,12 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_ELEC_TOUC))
 	{
-		add_flag(flgs, TR_SH_ELEC);
+		add_flag(flgs, TRAIT_AURA_ELEC);
 	}
 
 	if (has_trait(creature_ptr, TRAIT_FIRE_BODY))
 	{
-		add_flag(flgs, TR_SH_FIRE);
+		add_flag(flgs, TRAIT_AURA_FIRE);
 		add_flag(flgs, TR_LITE);
 	}
 
@@ -2500,9 +2500,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TR_RES_ELEC);
 		add_flag(flgs, TR_RES_POIS);
 		add_flag(flgs, TRAIT_LEVITATION);
-		add_flag(flgs, TR_SH_FIRE);
-		add_flag(flgs, TR_SH_ELEC);
-		add_flag(flgs, TR_SH_COLD);
+		add_flag(flgs, TRAIT_AURA_FIRE);
+		add_flag(flgs, TRAIT_AURA_ELEC);
+		add_flag(flgs, TRAIT_AURA_COLD);
 	}
 	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
@@ -2520,9 +2520,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TR_HOLD_LIFE);
 		add_flag(flgs, TR_FREE_ACT);
-		add_flag(flgs, TR_SH_FIRE);
-		add_flag(flgs, TR_SH_ELEC);
-		add_flag(flgs, TR_SH_COLD);
+		add_flag(flgs, TRAIT_AURA_FIRE);
+		add_flag(flgs, TRAIT_AURA_ELEC);
+		add_flag(flgs, TRAIT_AURA_COLD);
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
 		add_flag(flgs, TRAIT_SEE_INVISIBLE);
@@ -2607,7 +2607,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	}
 	if (creature_ptr->tim_sh_fire)
 	{
-		add_flag(flgs, TR_SH_FIRE);
+		add_flag(flgs, TRAIT_AURA_FIRE);
 	}
 	if (creature_ptr->ult_res)
 	{
@@ -2625,9 +2625,9 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_REFLECTING);
 		add_flag(flgs, TR_HOLD_LIFE);
 		add_flag(flgs, TR_FREE_ACT);
-		add_flag(flgs, TR_SH_FIRE);
-		add_flag(flgs, TR_SH_ELEC);
-		add_flag(flgs, TR_SH_COLD);
+		add_flag(flgs, TRAIT_AURA_FIRE);
+		add_flag(flgs, TRAIT_AURA_ELEC);
+		add_flag(flgs, TRAIT_AURA_COLD);
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TR_LITE);
 		add_flag(flgs, TRAIT_SEE_INVISIBLE);
@@ -2647,11 +2647,11 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	{
 		if (hex_spelling(creature_ptr, HEX_DEMON_AURA))
 		{
-			add_flag(flgs, TR_SH_FIRE);
+			add_flag(flgs, TRAIT_AURA_FIRE);
 			add_flag(flgs, TRAIT_REGENERATE);
 		}
-		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TR_SH_COLD);
-		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TR_SH_ELEC);
+		if (hex_spelling(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TRAIT_AURA_COLD);
+		if (hex_spelling(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TRAIT_AURA_ELEC);
 	}
 }
 
@@ -3149,9 +3149,9 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
 #ifdef JP
 	display_flag_aux(row+0, col, "反射      :", TRAIT_REFLECTING, &f, 0, creature_ptr);
-	display_flag_aux(row+1, col, "火炎オーラ:", TR_SH_FIRE, &f, 0, creature_ptr);
-	display_flag_aux(row+2, col, "電気オーラ:", TR_SH_ELEC, &f, 0, creature_ptr);
-	display_flag_aux(row+3, col, "冷気オーラ:", TR_SH_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "火炎オーラ:", TRAIT_AURA_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "電気オーラ:", TRAIT_AURA_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "冷気オーラ:", TRAIT_AURA_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "加速      :", TR_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "耐麻痺    :", TR_FREE_ACT, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "透明体視認:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
@@ -3164,9 +3164,9 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+13, col, "呪い      :", 0, &f, DP_CURSE, creature_ptr);
 #else
 	display_flag_aux(row+0, col, "Reflct    :", TRAIT_REFLECTING, &f, 0, creature_ptr);
-	display_flag_aux(row+1, col, "AuraFire  :", TR_SH_FIRE, &f, 0, creature_ptr);
-	display_flag_aux(row+2, col, "AuraElec  :", TR_SH_ELEC, &f, 0, creature_ptr);
-	display_flag_aux(row+3, col, "AuraCold  :", TR_SH_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "AuraFire  :", TRAIT_AURA_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "AuraElec  :", TRAIT_AURA_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "AuraCold  :", TRAIT_AURA_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "SeeInvisi.:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);

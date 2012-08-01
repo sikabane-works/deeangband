@@ -847,9 +847,9 @@ static const flag_desc misc_flags2_desc[] =
 static const flag_desc misc_flags3_desc[] =
 {
 #ifdef JP
-	{ TR_SH_FIRE,            "火炎オーラ" },
-	{ TR_SH_ELEC,            "電撃オーラ" },
-	{ TR_SH_COLD,            "冷気オーラ" },
+	{ TRAIT_AURA_FIRE,            "火炎オーラ" },
+	{ TRAIT_AURA_ELEC,            "電撃オーラ" },
+	{ TRAIT_AURA_COLD,            "冷気オーラ" },
 	{ TR_NO_TELE,            "反テレポート" },
 	{ TR_NO_MAGIC,           "反魔法" },
 	{ TRAIT_LEVITATION,            "浮遊" },
@@ -877,9 +877,9 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_BLESSED_BRAND,            "祝福" },
 	{ TR_DEC_MANA,           "消費魔力減少" },
 #else
-	{ TR_SH_FIRE,            "Fiery Aura" },
-	{ TR_SH_ELEC,            "Electric Aura" },
-	{ TR_SH_COLD,            "Coldly Aura" },
+	{ TRAIT_AURA_FIRE,            "Fiery Aura" },
+	{ TRAIT_AURA_ELEC,            "Electric Aura" },
+	{ TRAIT_AURA_COLD,            "Coldly Aura" },
 	{ TR_NO_TELE,            "Prevent Teleportation" },
 	{ TR_NO_MAGIC,           "Anti-Magic" },
 	{ TRAIT_LEVITATION,            "Levitation" },

@@ -443,9 +443,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) && (object_ptr->tval <= TV_HARD_ARMOR) &&
-		    !(have_flag(object_ptr->art_flags, TR_SH_ELEC)))
+		    !(have_flag(object_ptr->art_flags, TRAIT_AURA_ELEC)))
 		{
-			add_flag(object_ptr->art_flags, TR_SH_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_AURA_ELEC);
 			if (one_in_(2)) return;
 		}
 		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TR_IM_ELEC)))
@@ -470,9 +470,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		}
 		if ((object_ptr->tval >= TV_CLOAK) &&
 		    (object_ptr->tval <= TV_HARD_ARMOR) &&
-		    !(have_flag(object_ptr->art_flags, TR_SH_FIRE)))
+		    !(have_flag(object_ptr->art_flags, TRAIT_AURA_FIRE)))
 		{
-			add_flag(object_ptr->art_flags, TR_SH_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_AURA_FIRE);
 			if (one_in_(2)) return;
 		}
 		if (one_in_(BIAS_LUCK) &&
@@ -497,9 +497,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		}
 		if ((object_ptr->tval >= TV_CLOAK) &&
 		    (object_ptr->tval <= TV_HARD_ARMOR) &&
-		    !(have_flag(object_ptr->art_flags, TR_SH_COLD)))
+		    !(have_flag(object_ptr->art_flags, TRAIT_AURA_COLD)))
 		{
-			add_flag(object_ptr->art_flags, TR_SH_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_AURA_COLD);
 			if (one_in_(2)) return;
 		}
 		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TR_IM_COLD)))
@@ -705,7 +705,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 39:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TR_SH_ELEC);
+				add_flag(object_ptr->art_flags, TRAIT_AURA_ELEC);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			if (!artifact_bias)
@@ -713,7 +713,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 40:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TR_SH_FIRE);
+				add_flag(object_ptr->art_flags, TRAIT_AURA_FIRE);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			if (!artifact_bias)
@@ -728,7 +728,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 42:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TR_SH_COLD);
+				add_flag(object_ptr->art_flags, TRAIT_AURA_COLD);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			if (!artifact_bias)

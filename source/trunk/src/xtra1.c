@@ -3558,9 +3558,9 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TR_RES_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 
 		//TODO if (have_flag(flgs, TRAIT_REFLECTING))  has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-		//TODO if (have_flag(flgs, TR_SH_FIRE))  creature_ptr->sh_fire = TRUE;
-		//TODO if (have_flag(flgs, TR_SH_ELEC))  creature_ptr->sh_elec = TRUE;
-		//TODO if (have_flag(flgs, TR_SH_COLD))  creature_ptr->sh_cold = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_AURA_FIRE))  creature_ptr->sh_fire = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_AURA_ELEC))  creature_ptr->sh_elec = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_AURA_COLD))  creature_ptr->sh_cold = TRUE;
 		//TODO if (have_flag(flgs, TR_NO_MAGIC)) has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = TRUE;
 		//TODO if (have_flag(flgs, TR_NO_TELE))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
 

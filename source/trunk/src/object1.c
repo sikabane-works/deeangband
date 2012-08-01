@@ -131,7 +131,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 
 		if ((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
-			remove_flag(flgs, TR_SH_FIRE);
+			remove_flag(flgs, TRAIT_AURA_FIRE);
 		}
 		else if ((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
@@ -179,17 +179,17 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		else if (add == ESSENCE_SH_FIRE)
 		{
 			add_flag(flgs, TR_RES_FIRE);
-			add_flag(flgs, TR_SH_FIRE);
+			add_flag(flgs, TRAIT_AURA_FIRE);
 		}
 		else if (add == ESSENCE_SH_ELEC)
 		{
 			add_flag(flgs, TR_RES_ELEC);
-			add_flag(flgs, TR_SH_ELEC);
+			add_flag(flgs, TRAIT_AURA_ELEC);
 		}
 		else if (add == ESSENCE_SH_COLD)
 		{
 			add_flag(flgs, TR_RES_COLD);
-			add_flag(flgs, TR_SH_COLD);
+			add_flag(flgs, TRAIT_AURA_COLD);
 		}
 		else if (add == ESSENCE_RESISTANCE)
 		{
@@ -240,7 +240,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 
 		if ((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
-			remove_flag(flgs, TR_SH_FIRE);
+			remove_flag(flgs, TRAIT_AURA_FIRE);
 		}
 		else if ((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
@@ -308,17 +308,17 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		else if (add == ESSENCE_SH_FIRE)
 		{
 			add_flag(flgs, TR_RES_FIRE);
-			add_flag(flgs, TR_SH_FIRE);
+			add_flag(flgs, TRAIT_AURA_FIRE);
 		}
 		else if (add == ESSENCE_SH_ELEC)
 		{
 			add_flag(flgs, TR_RES_ELEC);
-			add_flag(flgs, TR_SH_ELEC);
+			add_flag(flgs, TRAIT_AURA_ELEC);
 		}
 		else if (add == ESSENCE_SH_COLD)
 		{
 			add_flag(flgs, TR_RES_COLD);
-			add_flag(flgs, TR_SH_COLD);
+			add_flag(flgs, TRAIT_AURA_COLD);
 		}
 		else if (add == ESSENCE_RESISTANCE)
 		{
@@ -3541,7 +3541,7 @@ info[i++] = "それは矢やボルトを反射する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SH_FIRE))
+	if (have_flag(flgs, TRAIT_AURA_FIRE))
 	{
 #ifdef JP
 info[i++] = "それは炎のバリアを張る。";
@@ -3550,7 +3550,7 @@ info[i++] = "それは炎のバリアを張る。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SH_ELEC))
+	if (have_flag(flgs, TRAIT_AURA_ELEC))
 	{
 #ifdef JP
 info[i++] = "それは電気のバリアを張る。";
@@ -3559,7 +3559,7 @@ info[i++] = "それは電気のバリアを張る。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SH_COLD))
+	if (have_flag(flgs, TRAIT_AURA_COLD))
 	{
 #ifdef JP
 info[i++] = "それは冷気のバリアを張る。";
