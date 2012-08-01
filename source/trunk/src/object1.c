@@ -3568,7 +3568,7 @@ info[i++] = "それは冷気のバリアを張る。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_NO_MAGIC))
+	if (have_flag(flgs, TRAIT_ANTI_MAGIC))
 	{
 #ifdef JP
 info[i++] = "それは反魔法バリアを張る。";

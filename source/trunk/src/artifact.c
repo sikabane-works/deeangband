@@ -195,7 +195,7 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	else if (one_in_(3)) add_flag(object_ptr->art_flags, TR_NO_TELE);
 
 	if ((creature_ptr->class_idx != CLASS_WARRIOR) && (creature_ptr->class_idx != CLASS_ARCHER) && (creature_ptr->class_idx != CLASS_CAVALRY) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH) && one_in_(3))
-		add_flag(object_ptr->art_flags, TR_NO_MAGIC);
+		add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
 }
 
 
@@ -529,9 +529,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TR_RES_FEAR);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(3) && (!(have_flag(object_ptr->art_flags, TR_NO_MAGIC))))
+		if (one_in_(3) && (!(have_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC))))
 		{
-			add_flag(object_ptr->art_flags, TR_NO_MAGIC);
+			add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -911,7 +911,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			break;
 		}
 		case 30:
-			add_flag(object_ptr->trait_flags, TR_NO_MAGIC);
+			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
 			break;
 		case 31:
 			add_flag(object_ptr->trait_flags, TR_NO_TELE);
@@ -3063,7 +3063,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	{
 		if (owner_ptr->class_idx != CLASS_SAMURAI)
 		{
-			add_flag(object_ptr->art_flags, TR_NO_MAGIC);
+			add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
 			object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
 		}
 	}

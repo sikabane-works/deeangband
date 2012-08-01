@@ -983,7 +983,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_AURA_ELEC)) total += 5000;
 	if (have_flag(flgs, TRAIT_AURA_COLD)) total += 5000;
 	if (have_flag(flgs, TR_NO_TELE)) total -= 10000;
-	if (have_flag(flgs, TR_NO_MAGIC)) total += 2500;
+	if (have_flag(flgs, TRAIT_ANTI_MAGIC)) total += 2500;
 	if (have_flag(flgs, TRAIT_TY_CURSE)) total -= 15000;
 	if (have_flag(flgs, TR_HIDE_TYPE)) total += 0;
 	if (have_flag(flgs, TR_SHOW_MODS)) total += 0;
@@ -6134,7 +6134,7 @@ static essence_type essence_info[] =
 	{TRAIT_AURA_FIRE, "", 0, -2, 0},
 	{TRAIT_AURA_ELEC, "", 0, -2, 0},
 	{TRAIT_AURA_COLD, "", 0, -2, 0},
-	{TR_NO_MAGIC, "îΩñÇñ@", 3, TR_NO_MAGIC, 15},
+	{TRAIT_ANTI_MAGIC, "îΩñÇñ@", 3, TRAIT_ANTI_MAGIC, 15},
 	{TRAIT_WARNING, "åxçê", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "ïÇóV", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "âiãvåıåπ", 3, TR_LITE, 15},
@@ -6245,7 +6245,7 @@ static essence_type essence_info[] =
 	{TRAIT_AURA_FIRE, "", 0, -2, 0},
 	{TRAIT_AURA_ELEC, "", 0, -2, 0},
 	{TRAIT_AURA_COLD, "", 0, -2, 0},
-	{TR_NO_MAGIC, "anti magic", 3, TR_NO_MAGIC, 15},
+	{TRAIT_ANTI_MAGIC, "anti magic", 3, TRAIT_ANTI_MAGIC, 15},
 	{TRAIT_WARNING, "warning", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
 	{TR_LITE, "permanent light", 3, TR_LITE, 15},
