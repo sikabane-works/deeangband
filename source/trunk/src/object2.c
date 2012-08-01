@@ -1023,7 +1023,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 			total += 250;
 	}
 	if (have_flag(flgs, TR_AGGRAVATE)) total -= 10000;
-	if (have_flag(flgs, TRAIT_BLESSED_BRANDED)) total += 750;
+	if (have_flag(flgs, TRAIT_BLESSED_BRAND)) total += 750;
 	if (object_ptr->curse_flags & TRC_CURSED) total -= 5000;
 	if (object_ptr->curse_flags & TRC_HEAVY_CURSE) total -= 12500;
 	if (object_ptr->curse_flags & TRC_DIVINE_CURSE) total -= 15000;

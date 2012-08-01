@@ -54,7 +54,7 @@ bool object_is_favorite(creature_type *creature_ptr, object_type *object_ptr)
 		u32b flgs[TR_FLAG_SIZE];
 		object_flags_known(object_ptr, flgs);
 
-		if (!have_flag(flgs, TRAIT_BLESSED_BRANDED) && 
+		if (!have_flag(flgs, TRAIT_BLESSED_BRAND) && 
 		    !(object_ptr->tval == TV_HAFTED))
 			return FALSE;
 		break;

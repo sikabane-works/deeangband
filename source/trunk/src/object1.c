@@ -3605,7 +3605,7 @@ info[i++] = "それは矢／ボルト／弾を非常に早く発射することができる。";
 
 	}
 
-	if (have_flag(flgs, TRAIT_BLESSED_BRANDED))
+	if (have_flag(flgs, TRAIT_BLESSED_BRAND))
 	{
 #ifdef JP
 info[i++] = "それは神に祝福されている。";

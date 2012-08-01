@@ -11571,7 +11571,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRANDED)))
+				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
 #ifdef JP
 				msg_format("%s ÇÕéÙÇ¢ÇíµÇÀï‘ÇµÇΩÅB", object_name);
@@ -12036,7 +12036,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 			if (!one_in_(3) &&
-				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRANDED)))
+				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
 #ifdef JP
 				msg_format("%s ÇÕéÙÇ¢ÇíµÇÀï‘ÇµÇΩÅB", object_name);

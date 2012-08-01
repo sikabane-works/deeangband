@@ -862,7 +862,7 @@ info[i++] = "あなたの攻撃速度は装備によって影響を受けている。";
 	if (object_ptr->k_idx)
 	{
 		/* Indicate Blessing */
-		if (have_flag(flgs, TRAIT_BLESSED_BRANDED))
+		if (have_flag(flgs, TRAIT_BLESSED_BRAND))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は神の祝福を受けている。";
