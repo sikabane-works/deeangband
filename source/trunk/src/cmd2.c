@@ -2873,7 +2873,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Animal */
-			if ((have_flag(flgs, TR_KILL_ANIMAL)) &&
+			if ((have_flag(flgs, TRAIT_KILL_ANIMAL)) &&
 			    is_animal_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -2893,7 +2893,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Evil */
-			if ((have_flag(flgs, TR_KILL_EVIL)) &&
+			if ((have_flag(flgs, TRAIT_KILL_EVIL)) &&
 			    is_enemy_of_good_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -2913,7 +2913,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Human */
-			if ((have_flag(flgs, TR_KILL_HUMAN)) &&
+			if ((have_flag(flgs, TRAIT_KILL_HUMAN)) &&
 			    (is_human_creature(target_ptr)))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -2932,7 +2932,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Undead */
-			if ((have_flag(flgs, TR_KILL_UNDEAD)) && is_undead_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_UNDEAD)) && is_undead_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2950,7 +2950,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Demon */
-			if ((have_flag(flgs, TR_KILL_DEMON)) && is_demon_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_DEMON)) && is_demon_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2968,7 +2968,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Orc */
-			if ((have_flag(flgs, TR_KILL_ORC)) && is_orc_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_ORC)) && is_orc_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2986,7 +2986,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Troll */
-			if ((have_flag(flgs, TR_KILL_TROLL)) && is_troll_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_TROLL)) && is_troll_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -3004,7 +3004,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Giant */
-			if ((have_flag(flgs, TR_KILL_GIANT)) && is_giant_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_GIANT)) && is_giant_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -3022,7 +3022,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Execute Dragon */
-			if ((have_flag(flgs, TR_KILL_DRAGON)) && is_dragon_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_DRAGON)) && is_dragon_creature(target_ptr))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);

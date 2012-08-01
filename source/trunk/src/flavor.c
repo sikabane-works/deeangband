@@ -676,31 +676,31 @@ static flag_insc_table flag_insc_brand[] =
 
 static flag_insc_table flag_insc_kill[] =
 {
-	{ "邪", "*", TR_KILL_EVIL, -1 },
-	{ "善", "#", TR_KILL_GOOD, -1 },
-	{ "人", "p", TR_KILL_HUMAN, -1 },
-	{ "龍", "D", TR_KILL_DRAGON, -1 },
-	{ "オ", "o", TR_KILL_ORC, -1 },
-	{ "ト", "T", TR_KILL_TROLL, -1 },
-	{ "巨", "P", TR_KILL_GIANT, -1 },
-	{ "デ", "U", TR_KILL_DEMON, -1 },
-	{ "死", "L", TR_KILL_UNDEAD, -1 },
-	{ "動", "Z", TR_KILL_ANIMAL, -1 },
+	{ "邪", "*", TRAIT_KILL_EVIL, -1 },
+	{ "善", "#", TRAIT_KILL_GOOD, -1 },
+	{ "人", "p", TRAIT_KILL_HUMAN, -1 },
+	{ "龍", "D", TRAIT_KILL_DRAGON, -1 },
+	{ "オ", "o", TRAIT_KILL_ORC, -1 },
+	{ "ト", "T", TRAIT_KILL_TROLL, -1 },
+	{ "巨", "P", TRAIT_KILL_GIANT, -1 },
+	{ "デ", "U", TRAIT_KILL_DEMON, -1 },
+	{ "死", "L", TRAIT_KILL_UNDEAD, -1 },
+	{ "動", "Z", TRAIT_KILL_ANIMAL, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
 static flag_insc_table flag_insc_slay[] =
 {
-	{ "邪", "*", TRAIT_SLAY_EVIL, TR_KILL_EVIL },
-	{ "邪", "#", TRAIT_SLAY_EVIL, TR_KILL_GOOD },
-	{ "人", "p", TRAIT_SLAY_HUMAN, TR_KILL_HUMAN },
-	{ "竜", "D", TRAIT_SLAY_DRAGON, TR_KILL_DRAGON },
-	{ "オ", "o", TRAIT_SLAY_ORC, TR_KILL_ORC },
-	{ "ト", "T", TRAIT_SLAY_TROLL, TR_KILL_TROLL },
-	{ "巨", "P", TRAIT_SLAY_GIANT, TR_KILL_GIANT },
-	{ "デ", "U", TRAIT_SLAY_DEMON, TR_KILL_DEMON },
-	{ "死", "L", TRAIT_SLAY_UNDEAD, TR_KILL_UNDEAD },
-	{ "動", "Z", TRAIT_SLAY_ANIMAL, TR_KILL_ANIMAL },
+	{ "邪", "*", TRAIT_SLAY_EVIL, TRAIT_KILL_EVIL },
+	{ "邪", "#", TRAIT_SLAY_EVIL, TRAIT_KILL_GOOD },
+	{ "人", "p", TRAIT_SLAY_HUMAN, TRAIT_KILL_HUMAN },
+	{ "竜", "D", TRAIT_SLAY_DRAGON, TRAIT_KILL_DRAGON },
+	{ "オ", "o", TRAIT_SLAY_ORC, TRAIT_KILL_ORC },
+	{ "ト", "T", TRAIT_SLAY_TROLL, TRAIT_KILL_TROLL },
+	{ "巨", "P", TRAIT_SLAY_GIANT, TRAIT_KILL_GIANT },
+	{ "デ", "U", TRAIT_SLAY_DEMON, TRAIT_KILL_DEMON },
+	{ "死", "L", TRAIT_SLAY_UNDEAD, TRAIT_KILL_UNDEAD },
+	{ "動", "Z", TRAIT_SLAY_ANIMAL, TRAIT_KILL_ANIMAL },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -837,31 +837,31 @@ static flag_insc_table flag_insc_brand[] =
 
 static flag_insc_table flag_insc_kill[] =
 {
-	{ "*", TR_KILL_EVIL, -1 },
-	{ "#", TR_KILL_GOOD, -1 },
-	{ "p", TR_KILL_HUMAN, -1 },
-	{ "D", TR_KILL_DRAGON, -1 },
-	{ "o", TR_KILL_ORC, -1 },
-	{ "T", TR_KILL_TROLL, -1 },
-	{ "P", TR_KILL_GIANT, -1 },
-	{ "U", TR_KILL_DEMON, -1 },
-	{ "L", TR_KILL_UNDEAD, -1 },
-	{ "Z", TR_KILL_ANIMAL, -1 },
+	{ "*", TRAIT_KILL_EVIL, -1 },
+	{ "#", TRAIT_KILL_GOOD, -1 },
+	{ "p", TRAIT_KILL_HUMAN, -1 },
+	{ "D", TRAIT_KILL_DRAGON, -1 },
+	{ "o", TRAIT_KILL_ORC, -1 },
+	{ "T", TRAIT_KILL_TROLL, -1 },
+	{ "P", TRAIT_KILL_GIANT, -1 },
+	{ "U", TRAIT_KILL_DEMON, -1 },
+	{ "L", TRAIT_KILL_UNDEAD, -1 },
+	{ "Z", TRAIT_KILL_ANIMAL, -1 },
 	{ NULL, 0, -1 }
 };
 
 static flag_insc_table flag_insc_slay[] =
 {
-	{ "*", TRAIT_SLAY_EVIL, TR_KILL_EVIL },
-	{ "#", TRAIT_SLAY_GOOD, TR_KILL_GOOD },
-	{ "p", TRAIT_SLAY_HUMAN, TR_KILL_HUMAN },
-	{ "D", TRAIT_SLAY_DRAGON, TR_KILL_DRAGON },
-	{ "o", TRAIT_SLAY_ORC, TR_KILL_ORC },
-	{ "T", TRAIT_SLAY_TROLL, TR_KILL_TROLL },
-	{ "P", TRAIT_SLAY_GIANT, TR_KILL_GIANT },
-	{ "U", TRAIT_SLAY_DEMON, TR_KILL_DEMON },
-	{ "L", TRAIT_SLAY_UNDEAD, TR_KILL_UNDEAD },
-	{ "Z", TRAIT_SLAY_ANIMAL, TR_KILL_ANIMAL },
+	{ "*", TRAIT_SLAY_EVIL, TRAIT_KILL_EVIL },
+	{ "#", TRAIT_SLAY_GOOD, TRAIT_KILL_GOOD },
+	{ "p", TRAIT_SLAY_HUMAN, TRAIT_KILL_HUMAN },
+	{ "D", TRAIT_SLAY_DRAGON, TRAIT_KILL_DRAGON },
+	{ "o", TRAIT_SLAY_ORC, TRAIT_KILL_ORC },
+	{ "T", TRAIT_SLAY_TROLL, TRAIT_KILL_TROLL },
+	{ "P", TRAIT_SLAY_GIANT, TRAIT_KILL_GIANT },
+	{ "U", TRAIT_SLAY_DEMON, TRAIT_KILL_DEMON },
+	{ "L", TRAIT_SLAY_UNDEAD, TRAIT_KILL_UNDEAD },
+	{ "Z", TRAIT_SLAY_ANIMAL, TRAIT_KILL_ANIMAL },
 	{ NULL, 0, -1 }
 };
 

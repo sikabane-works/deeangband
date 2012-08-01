@@ -961,7 +961,7 @@ info[i++] = "あなたの武器は敵を毒で侵す。";
 		}
 
 		/* Special "slay" flags */
-		if (have_flag(flgs, TR_KILL_ANIMAL))
+		if (have_flag(flgs, TRAIT_KILL_ANIMAL))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は動物の天敵である。";
@@ -979,7 +979,7 @@ info[i++] = "あなたの武器は動物に対して強い力を発揮する。";
 #endif
 
 		}
-		if (have_flag(flgs, TR_KILL_EVIL))
+		if (have_flag(flgs, TRAIT_KILL_EVIL))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は邪悪なる存在の天敵である。";
@@ -998,7 +998,7 @@ info[i++] = "あなたの武器は邪悪なる存在に対して強い力を発揮する。";
 
 		}
 
-		if (have_flag(flgs, TR_KILL_GOOD))
+		if (have_flag(flgs, TRAIT_KILL_GOOD))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は善良なる存在の天敵である。";
@@ -1017,7 +1017,7 @@ info[i++] = "あなたの武器は善良なる存在に対して強い力を発揮する。";
 
 		}
 
-		if (have_flag(flgs, TR_KILL_HUMAN))
+		if (have_flag(flgs, TRAIT_KILL_HUMAN))
 		{
 #ifdef JP
 info[i++] = "あなたの武器は人間の天敵である。";
@@ -1035,7 +1035,7 @@ info[i++] = "あなたの武器は人間に対して特に強い力を発揮する。";
 #endif
 
 		}
-		if (have_flag(flgs, TR_KILL_UNDEAD))
+		if (have_flag(flgs, TRAIT_KILL_UNDEAD))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はアンデッドの天敵である。";
@@ -1053,7 +1053,7 @@ info[i++] = "あなたの武器はアンデッドに対して神聖なる力を発揮する。";
 #endif
 
 		}
-		if (have_flag(flgs, TR_KILL_DEMON))
+		if (have_flag(flgs, TRAIT_KILL_DEMON))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はデーモンの天敵である。";
@@ -1071,7 +1071,7 @@ info[i++] = "あなたの武器はデーモンに対して神聖なる力を発揮する。";
 #endif
 
 		}
-		if (have_flag(flgs, TR_KILL_ORC))
+		if (have_flag(flgs, TRAIT_KILL_ORC))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はオークの天敵である。";
@@ -1089,7 +1089,7 @@ info[i++] = "あなたの武器はオークに対して特に強い力を発揮する。";
 #endif
 
 		}
-		if (have_flag(flgs, TR_KILL_TROLL))
+		if (have_flag(flgs, TRAIT_KILL_TROLL))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はトロルの天敵である。";
@@ -1107,7 +1107,7 @@ info[i++] = "あなたの武器はトロルに対して特に強い力を発揮する。";
 #endif
 
 		}
-		if (have_flag(flgs, TR_KILL_GIANT))
+		if (have_flag(flgs, TRAIT_KILL_GIANT))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はジャイアントの天敵である。";
@@ -1126,7 +1126,7 @@ info[i++] = "あなたの武器はジャイアントに対して特に強い力を発揮する。";
 
 		}
 		/* Special "kill" flags */
-		if (have_flag(flgs, TR_KILL_DRAGON))
+		if (have_flag(flgs, TRAIT_KILL_DRAGON))
 		{
 #ifdef JP
 info[i++] = "あなたの武器はドラゴンの天敵である。";

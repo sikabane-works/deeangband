@@ -2880,7 +2880,7 @@ info[i++] = "それは非常に切れ味が鋭く敵を切断することができる。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_DRAGON))
+	if (have_flag(flgs, TRAIT_KILL_DRAGON))
 	{
 #ifdef JP
 info[i++] = "それはドラゴンにとっての天敵である。";
@@ -2899,7 +2899,7 @@ info[i++] = "それはドラゴンに対して特に恐るべき力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_ORC))
+	if (have_flag(flgs, TRAIT_KILL_ORC))
 	{
 #ifdef JP
 info[i++] = "それはオークにとっての天敵である。";
@@ -2918,7 +2918,7 @@ info[i++] = "それはオークに対して特に恐るべき力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_TROLL))
+	if (have_flag(flgs, TRAIT_KILL_TROLL))
 	{
 #ifdef JP
 info[i++] = "それはトロルにとっての天敵である。";
@@ -2937,7 +2937,7 @@ info[i++] = "それはトロルに対して特に恐るべき力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_GIANT))
+	if (have_flag(flgs, TRAIT_KILL_GIANT))
 	{
 #ifdef JP
 info[i++] = "それは巨人にとっての天敵である。";
@@ -2955,7 +2955,7 @@ info[i++] = "それはジャイアントに対して特に恐るべき力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_DEMON))
+	if (have_flag(flgs, TRAIT_KILL_DEMON))
 	{
 #ifdef JP
 info[i++] = "それはデーモンにとっての天敵である。";
@@ -2974,7 +2974,7 @@ info[i++] = "それはデーモンに対して聖なる力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_UNDEAD))
+	if (have_flag(flgs, TRAIT_KILL_UNDEAD))
 	{
 #ifdef JP
 info[i++] = "それはアンデッドにとっての天敵である。";
@@ -2993,7 +2993,7 @@ info[i++] = "それはアンデッドに対して聖なる力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_EVIL))
+	if (have_flag(flgs, TRAIT_KILL_EVIL))
 	{
 #ifdef JP
 info[i++] = "それは邪悪なる存在にとっての天敵である。";
@@ -3012,7 +3012,7 @@ info[i++] = "それは邪悪なる存在に対して聖なる力で攻撃する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_GOOD))
+	if (have_flag(flgs, TRAIT_KILL_GOOD))
 	{
 #ifdef JP
 info[i++] = "それは善良なる存在にとっての天敵である。";
@@ -3031,7 +3031,7 @@ info[i++] = "それは善良なる存在に対して地獄の力で攻撃する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_ANIMAL))
+	if (have_flag(flgs, TRAIT_KILL_ANIMAL))
 	{
 #ifdef JP
 info[i++] = "それは自然界の動物にとっての天敵である。";
@@ -3050,7 +3050,7 @@ info[i++] = "それは自然界の動物に対して特に恐るべき力を発揮する。";
 
 	}
 
-	if (have_flag(flgs, TR_KILL_HUMAN))
+	if (have_flag(flgs, TRAIT_KILL_HUMAN))
 	{
 #ifdef JP
 info[i++] = "それは人間にとっての天敵である。";

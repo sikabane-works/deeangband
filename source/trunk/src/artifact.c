@@ -1181,7 +1181,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TRAIT_SLAY_DRAGON);
 			break;
 		case 17:
-			add_flag(object_ptr->art_flags, TR_KILL_DRAGON);
+			add_flag(object_ptr->art_flags, TRAIT_KILL_DRAGON);
 			break;
 		case 18:
 		case 19:
@@ -1865,7 +1865,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		remove_flag(object_ptr->art_flags, TRAIT_SLAY_TROLL);
 		remove_flag(object_ptr->art_flags, TRAIT_SLAY_GIANT);
 		remove_flag(object_ptr->art_flags, TRAIT_SLAY_DRAGON);
-		remove_flag(object_ptr->art_flags, TR_KILL_DRAGON);
+		remove_flag(object_ptr->art_flags, TRAIT_KILL_DRAGON);
 		remove_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 		remove_flag(object_ptr->trait_flags, TRAIT_VORPAL);
 		remove_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
@@ -3019,8 +3019,8 @@ void get_bloody_moon_flags(object_type *object_ptr)
 	for (i = 0; i < dummy; i++)
 	{
 		int flag = randint0(26);
-		if (flag >= 20) add_flag(object_ptr->art_flags, TR_KILL_UNDEAD + flag - 20);
-		else if (flag == 19) add_flag(object_ptr->art_flags, TR_KILL_ANIMAL);
+		if (flag >= 20) add_flag(object_ptr->art_flags, TRAIT_KILL_UNDEAD + flag - 20);
+		else if (flag == 19) add_flag(object_ptr->art_flags, TRAIT_KILL_ANIMAL);
 		else if (flag == 18) add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
 		else add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND + flag);
 	}
