@@ -3577,7 +3577,7 @@ info[i++] = "それは反魔法バリアを張る。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_NO_TELE))
+	if (have_flag(flgs, TRAIT_PREVENT_TELEPORT))
 	{
 #ifdef JP
 info[i++] = "それはテレポートを邪魔する。";

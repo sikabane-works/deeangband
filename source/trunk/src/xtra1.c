@@ -3562,7 +3562,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//TODO if (have_flag(flgs, TRAIT_AURA_ELEC))  creature_ptr->sh_elec = TRUE;
 		//TODO if (have_flag(flgs, TRAIT_AURA_COLD))  creature_ptr->sh_cold = TRUE;
 		//TODO if (have_flag(flgs, TRAIT_ANTI_MAGIC)) has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = TRUE;
-		//TODO if (have_flag(flgs, TR_NO_TELE))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_PREVENT_TELEPORT))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
 
 		/* Sustain flags */
 		//TODO if (have_flag(flgs, TRAIT_SUSTAIN_STR)) has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;

@@ -982,7 +982,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_AURA_FIRE)) total += 5000;
 	if (have_flag(flgs, TRAIT_AURA_ELEC)) total += 5000;
 	if (have_flag(flgs, TRAIT_AURA_COLD)) total += 5000;
-	if (have_flag(flgs, TR_NO_TELE)) total -= 10000;
+	if (have_flag(flgs, TRAIT_PREVENT_TELEPORT)) total -= 10000;
 	if (have_flag(flgs, TRAIT_ANTI_MAGIC)) total += 2500;
 	if (have_flag(flgs, TRAIT_TY_CURSE)) total -= 15000;
 	if (have_flag(flgs, TR_HIDE_TYPE)) total += 0;
@@ -6618,7 +6618,7 @@ static void drain_essence(creature_type *creature_ptr)
 	old_timeout = object_ptr->timeout;
 	if (object_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE)) dec--;
 	if (have_flag(old_flgs, TR_AGGRAVATE)) dec--;
-	if (have_flag(old_flgs, TR_NO_TELE)) dec--;
+	if (have_flag(old_flgs, TRAIT_PREVENT_TELEPORT)) dec--;
 	if (have_flag(old_flgs, TR_DRAIN_EXP)) dec--;
 	if (have_flag(old_flgs, TRAIT_TY_CURSE)) dec--;
 

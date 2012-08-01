@@ -192,7 +192,7 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_AGGRAVATE);
 	if (one_in_(3)) add_flag(object_ptr->art_flags, TR_DRAIN_EXP);
 	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_TELEPORT);
-	else if (one_in_(3)) add_flag(object_ptr->art_flags, TR_NO_TELE);
+	else if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_PREVENT_TELEPORT);
 
 	if ((creature_ptr->class_idx != CLASS_WARRIOR) && (creature_ptr->class_idx != CLASS_ARCHER) && (creature_ptr->class_idx != CLASS_CAVALRY) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH) && one_in_(3))
 		add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
@@ -914,7 +914,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
 			break;
 		case 31:
-			add_flag(object_ptr->trait_flags, TR_NO_TELE);
+			add_flag(object_ptr->trait_flags, TRAIT_PREVENT_TELEPORT);
 			break;
 		case 32:
 			add_flag(object_ptr->trait_flags, TRAIT_WARNING);

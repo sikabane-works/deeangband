@@ -655,7 +655,7 @@ static flag_insc_table flag_insc_aura[] =
 	{ "ìd", "E", TRAIT_AURA_ELEC, -1 },
 	{ "ó‚", "C", TRAIT_AURA_COLD, -1 },
 	{ "ñÇ", "M", TRAIT_ANTI_MAGIC, -1 },
-	{ "èu", "T", TR_NO_TELE, -1 },
+	{ "èu", "T", TRAIT_PREVENT_TELEPORT, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -816,7 +816,7 @@ static flag_insc_table flag_insc_aura[] =
 	{ "E", TRAIT_AURA_ELEC, -1 },
 	{ "C", TRAIT_AURA_COLD, -1 },
 	{ "M", TRAIT_ANTI_MAGIC, -1 },
-	{ "T", TR_NO_TELE, -1 },
+	{ "T", TRAIT_PREVENT_TELEPORT, -1 },
 	{ NULL, 0, -1 }
 };
 
