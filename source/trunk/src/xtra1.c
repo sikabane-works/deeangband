@@ -3502,7 +3502,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		//if (have_flag(flgs, TRAIT_SEE_INVISIBLE))   creature_ptr->see_inv = TRUE;
 		//if (have_flag(flgs, TRAIT_LEVITATION))  creature_ptr->levitation = TRUE;
 		if (have_flag(flgs, TR_FREE_ACT))    creature_ptr->free_act = TRUE;
-		//if (have_flag(flgs, TR_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
+		//if (have_flag(flgs, TRAIT_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
 
 		/*
 		if (have_flag(flgs, TRAIT_WARNING)){

@@ -952,7 +952,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_EASY_SPELL)) total += 1500;
 	if (have_flag(flgs, TRAIT_THROW_MIGHTY)) total += 5000;
 	if (have_flag(flgs, TR_FREE_ACT)) total += 4500;
-	if (have_flag(flgs, TR_HOLD_LIFE)) total += 8500;
+	if (have_flag(flgs, TRAIT_HOLD_LIFE)) total += 8500;
 
 	tmp_cost = 0;
 	count = 0;
@@ -3004,7 +3004,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_AMU_SEE_INVIS;
 						break;
 					case 7: case 8:
-						if (have_flag(k_ptr->flags, TR_HOLD_LIFE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_HOLD_LIFE)) break;
 						object_ptr->name2 = EGO_AMU_HOLD_LIFE;
 						break;
 					case 9:
@@ -6114,7 +6114,7 @@ static essence_type essence_info[] =
 	{TRAIT_IM_COLD, "—â‹C–Æ‰u", 2, TRAIT_IM_ACID, 20},
 	{TRAIT_REFLECTING, "”½ŽË", 2, TRAIT_REFLECTING, 20},
 	{TR_FREE_ACT, "–ƒáƒ’m‚ç‚¸", 3, TR_FREE_ACT, 20},
-	{TR_HOLD_LIFE, "¶–½—ÍˆÛŽ", 3, TR_HOLD_LIFE, 20},
+	{TRAIT_HOLD_LIFE, "¶–½—ÍˆÛŽ", 3, TRAIT_HOLD_LIFE, 20},
 	{TR_RES_ACID, "‘ÏŽ_", 2, TR_RES_ACID, 15},
 	{TR_RES_ELEC, "‘Ï“dŒ‚", 2, TR_RES_ELEC, 15},
 	{TR_RES_FIRE, "‘Ï‰Î‰Š", 2, TR_RES_FIRE, 15},
@@ -6225,7 +6225,7 @@ static essence_type essence_info[] =
 	{TRAIT_IM_COLD, "cold immunity", 2, TRAIT_IM_ACID, 20},
 	{TRAIT_REFLECTING, "reflection", 2, TRAIT_REFLECTING, 20},
 	{TR_FREE_ACT, "free action", 3, TR_FREE_ACT, 20},
-	{TR_HOLD_LIFE, "hold life", 3, TR_HOLD_LIFE, 20},
+	{TRAIT_HOLD_LIFE, "hold life", 3, TRAIT_HOLD_LIFE, 20},
 	{TR_RES_ACID, "resistance to acid", 2, TR_RES_ACID, 15},
 	{TR_RES_ELEC, "resistance to electric", 2, TR_RES_ELEC, 15},
 	{TR_RES_FIRE, "resistance to fire", 2, TR_RES_FIRE, 15},
@@ -8033,7 +8033,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_PATTERN:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TR_HOLD_LIFE);
+				add_flag(object_ptr->art_flags, TRAIT_HOLD_LIFE);
 			if (one_in_(3))
 				add_flag(object_ptr->art_flags, TR_DEX);
 			if (one_in_(5))

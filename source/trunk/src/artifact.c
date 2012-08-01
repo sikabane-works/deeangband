@@ -168,7 +168,7 @@ void one_ability(object_type *object_ptr)
 	case 4: add_flag(object_ptr->art_flags, TRAIT_SLOW_DIGEST); break;
 	case 5: add_flag(object_ptr->art_flags, TRAIT_REGENERATE);       break;
 	case 6: add_flag(object_ptr->art_flags, TR_FREE_ACT);    break;
-	case 7: add_flag(object_ptr->art_flags, TR_HOLD_LIFE);   break;
+	case 7: add_flag(object_ptr->art_flags, TRAIT_HOLD_LIFE);   break;
 	case 8:
 	case 9:
 		one_low_esp(object_ptr);
@@ -853,7 +853,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			add_flag(object_ptr->trait_flags, TR_FREE_ACT);
 			break;
 		case 9:
-			add_flag(object_ptr->trait_flags, TR_HOLD_LIFE);
+			add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);
 			if (!artifact_bias && one_in_(5))
 				artifact_bias = BIAS_PRIESTLY;
 			else if (!artifact_bias && one_in_(6))

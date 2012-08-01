@@ -3197,7 +3197,7 @@ info[i++] = "‚»‚ê‚Í–ƒáƒ‚É‘Î‚·‚éŠ®‘S‚È–Æ‰u‚ğö‚¯‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_HOLD_LIFE))
+	if (have_flag(flgs, TRAIT_HOLD_LIFE))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í¶–½—Í‹zû‚É‘Î‚·‚é‘Ï«‚ğö‚¯‚éB";

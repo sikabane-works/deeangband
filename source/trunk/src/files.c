@@ -2481,7 +2481,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	{
 		add_flag(flgs, TR_RES_BLIND);
 		add_flag(flgs, TR_RES_CONF);
-		add_flag(flgs, TR_HOLD_LIFE);
+		add_flag(flgs, TRAIT_HOLD_LIFE);
 		if (creature_ptr->class_idx != CLASS_NINJA) add_flag(flgs, TR_LITE);
 		if (creature_ptr->lev > 9)
 			add_flag(flgs, TR_SPEED);
@@ -2518,7 +2518,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
 		add_flag(flgs, TRAIT_REFLECTING);
-		add_flag(flgs, TR_HOLD_LIFE);
+		add_flag(flgs, TRAIT_HOLD_LIFE);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TRAIT_AURA_FIRE);
 		add_flag(flgs, TRAIT_AURA_ELEC);
@@ -2623,7 +2623,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_RES_CHAO);
 		add_flag(flgs, TRAIT_RES_DISE);
 		add_flag(flgs, TRAIT_REFLECTING);
-		add_flag(flgs, TR_HOLD_LIFE);
+		add_flag(flgs, TRAIT_HOLD_LIFE);
 		add_flag(flgs, TR_FREE_ACT);
 		add_flag(flgs, TRAIT_AURA_FIRE);
 		add_flag(flgs, TRAIT_AURA_ELEC);
@@ -3155,7 +3155,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+4, col, "â¡ë¨      :", TR_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "ëœñÉ·É    :", TR_FREE_ACT, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "ìßñæëÃéãîF:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
-	display_flag_aux(row+7, col, "åoå±ílï€éù:", TR_HOLD_LIFE, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "åoå±ílï€éù:", TRAIT_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "åxçê      :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "íxè¡âª    :", TRAIT_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "ã}âÒïú    :", TRAIT_REGENERATE, &f, 0, creature_ptr);
@@ -3170,7 +3170,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "FreeAction:", TR_FREE_ACT, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "SeeInvisi.:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
-	display_flag_aux(row+7, col, "Hold Life :", TR_HOLD_LIFE, &f, 0, creature_ptr);
+	display_flag_aux(row+7, col, "Hold Life :", TRAIT_HOLD_LIFE, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Warning   :", TRAIT_WARNING, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "SlowDigest:", TRAIT_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "Regene.   :", TRAIT_REGENERATE, &f, 0, creature_ptr);
