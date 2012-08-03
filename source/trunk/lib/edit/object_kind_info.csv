@@ -188,8 +188,8 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 51,ヘヴィ・フレイル,,& Two-Handed Flail~,,\,y,HAND,HAFTED,18,0,45,0,150,100,590,0,0,0,0,3d6,0,0,0,45/1,SHOW_MODS,,2本の非常に大きな木製の棒を重い鎖で継いである。うまく用いるためには両手が必要だ。,"Two great bars of wood connected by a massive chain, needing two hands to properly wield.",
 399,グレート・ハンマー,,& Great Hammer~,,\,D,HAND,HAFTED,19,0,45,0,180,100,350,0,0,0,0,4d6,0,0,0,45/3,SHOW_MODS,,,,##### Dragon Scale Mail #####
 57,粉砕のメイス,,& Mace~ of Disruption,,\,v,HAND,HAFTED,20,0,80,0,240,100,4300,0,0,0,0,5d8,0,0,0,80/8,SLAY_UNDEAD|SHOW_MODS,,巨人の武器であり、相手の骨を、体を、そして精神をも粉砕する魔法が掛けられている。,"A giant's weapon, enchanted with shattering power that breaks bones, bodies, and spirit.",
-581,魔術師の杖,,& Wizardstaff~,,\,y,HAND,HAFTED,21,0,25,0,20,100,4000,0,0,0,0,1d2,0,0,0,25/4,SHOW_MODS|DEC_MANA,,,,
-682,イスタリの杖,,& Istaristaff~,,\,y,HAND,HAFTED,22,0,25,0,20,100,4000,0,0,0,0,1d2,0,0,0,25/4,SHOW_MODS|DEC_MANA,,,,
+581,魔術師の杖,,& Wizardstaff~,,\,y,HAND,HAFTED,21,0,25,0,20,100,4000,0,0,0,0,1d2,0,0,0,25/4,SHOW_MODS,DEC_MANA,,,
+682,イスタリの杖,,& Istaristaff~,,\,y,HAND,HAFTED,22,0,25,0,20,100,4000,0,0,0,0,1d2,0,0,0,25/4,SHOW_MODS,DEC_MANA,,,
 693,トロルの巨大棍棒,,& Troll Greatclub,,|,U,HAND,HAFTED,23,0,38,0,450,100,255,0,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,,引き抜いたオークの木を、丸ごと棍棒に削り上げたと思しきトロルの巨大な棍棒だ。粗雑な作りではあるが、しかるべき腕力の巨人が振り下ろせば実に効率的な殺しができるだろう。,,
 694,オログの鋼鉄鎚,,& Orog Hugemace,,|,U,HAND,HAFTED,24,0,38,0,850,100,255,0,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,,オログの鍛冶が自分達のために鍛造した巨大な黒鉄の戦鎚だ。その恐ろしい重量を振るえる腕力さえあれば、神話として語られるほどの武功をもたらすことも難しくはないだろう。,,
 696,バルログの火炎鞭,,& Balrog Flame Whip,,|,U,HAND,HAFTED,25,0,38,0,85,100,255,0,0,0,0,4d5,0,0,0,10/1:15/1,SHOW_MODS|RIDING,,メルコールに帰属したマイアの拷問官リンセレグの考案した傑作の一つだ。マイアの中でも彼女と趣きを同じくする残酷な趣味人達が、他者にさらなる苦痛を味わわせ、自らも味わうために好んで用いたが、ウトゥムノの同志の中にはそれが敵方エルフの伝承にまで残る事になってしまったことを恥と見なし、眉をひそめる者も多かった。,,
@@ -215,7 +215,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 120,ミスリル製鎖かたびら,,Mithril Chain Mail~,,[,B,BODY,HARD_ARMOR,20,0,55,0,67,100,7000,0,0,28,0,1d4,-1,0,0,55/4,IGNORE_ACID,,本当に希少で驚くべきまことの銀製の鎖かたびらであり、他の鎧に比べてもその軽さにしてより高い防御を与える。,"Rare and wondrous is chain mail made of true-silver, for it offers more protection for the weight than any other armour.",
 119,ミスリル製プレート・メイル,,Mithril Plate Mail~,,[,B,BODY,HARD_ARMOR,25,0,60,0,135,100,15000,0,0,35,0,2d4,-3,0,0,60/4,IGNORE_ACID,,遥かなる昔に伝説のドワーフの鍛冶師に鍛えられた、輝くまことの銀の鎧だ。凝視すると純白にきらめく。,"A shimmering suit of true-silver, forged long ago by dwarven smiths of legend.  It gleams with purest white as you gaze upon it.",
 118,アダマンタイト製プレート・メイル,,Adamantite Plate Mail~,,[,G,BODY,HARD_ARMOR,30,0,75,0,189,100,20000,0,0,40,0,2d4,-4,0,0,75/8,IGNORE_ACID,,ダイアモンドのように硬いアダマンタイトでできた精巧で美しい鎧であり、これほどの防御をもたらす鎧は中つ国には他に存在しない。,"Adamantite, hard as diamonds, forms this exquisite suit; nothing else in Middle Earth gives as much protection.",
-675,混沌の鎧,,Chaos Armor~,,[,v,BODY,HARD_ARMOR,35,2,75,0,189,100,30000,0,0,40,0,2d4,-3,0,0,75/8,DRAIN_EXP,,混沌の力が宿ったこの肉厚の甲冑は、着用者の肉体の一部と化して永遠にまとわり続ける代わりに絶大な力をもたらし、しかも戦士と共におぞましく進化してゆく。,,# N: serial number : & object name~# G: symbol : color# I: tval : sval : pval# W: depth : rarity : weight : cost# P: base armor class : base damage : plus to-hit : plus to-dam : plus to-ac# A: depth/rarity : depth/rarity : etc# F: flag | flag | etc#JZ##N:502:宝石#E:& Jewel~#G:*:R#I:39:6:0#W:70:0:5:60000#P:0:1d1:0:0:0#F:INSTA_ART | NO_LIMIT_LITE# The Ring of Boldor -- see artifact list
+675,混沌の鎧,,Chaos Armor~,,[,v,BODY,HARD_ARMOR,35,2,75,0,189,100,30000,0,0,40,0,2d4,-3,0,0,75/8,,DRAIN_EXP,混沌の力が宿ったこの肉厚の甲冑は、着用者の肉体の一部と化して永遠にまとわり続ける代わりに絶大な力をもたらし、しかも戦士と共におぞましく進化してゆく。,,# N: serial number : & object name~# G: symbol : color# I: tval : sval : pval# W: depth : rarity : weight : cost# P: base armor class : base damage : plus to-hit : plus to-dam : plus to-ac# A: depth/rarity : depth/rarity : etc# F: flag | flag | etc#JZ##N:502:宝石#E:& Jewel~#G:*:R#I:39:6:0#W:70:0:5:60000#P:0:1d1:0:0:0#F:INSTA_ART | NO_LIMIT_LITE# The Ring of Boldor -- see artifact list
 94,硬革帽子,,& Hard Leather Cap~,,],u,HEAD,HELM,2,0,3,0,6,100,12,0,0,2,0,0d0,0,0,0,3/1,,,煮固めた革製の詰め物入りの帽子だ。,A padded skullcap of boiled leather.,
 95,金属帽子,,& Metal Cap~,,],s,HEAD,HELM,3,0,10,0,9,100,30,0,0,3,0,1d1,0,0,0,10/1,,,頭部を保護する鋼鉄の帽子だ。,A pot-helm of steel that protects the skull.,
 562,陣笠,,& Jingasa~,,],s,HEAD,HELM,4,0,16,0,13,100,60,0,0,4,0,1d2,0,0,0,16/2,,,,,#JZ#
@@ -355,8 +355,8 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 145,脆弱,御影石の,Weakness,Granite,=,D,RING,RING,2,-5,5,0,0,100,0,0,0,0,0,1d1,0,0,0,5/1,CURSED|STR|HIDE_TYPE,,,,
 150,無知,大理石の,Stupidity,Marble,=,w,RING,RING,3,-5,5,0,0,100,0,0,0,0,0,1d1,0,0,0,5/1,CURSED|INT|HIDE_TYPE,,,,
 138,テレポート,方解石の,Teleportation,Calcite,=,w,RING,RING,4,0,5,0,0,100,250,0,0,0,0,1d1,0,0,0,5/1,TELEPORT|CURSED,,,,
-139,遅消化,赤めのうの,Slow Digestion,Carnelian,=,r,RING,RING,6,0,5,0,0,100,250,0,0,0,0,1d1,0,0,0,5/255,SLOW_DIGEST,,,,
-142,浮遊,エメラルドの,Levitation,Emerald,=,g,RING,RING,7,0,5,0,0,100,200,0,0,0,0,1d1,0,0,0,5/1,LEVITATION,,,,
+139,遅消化,赤めのうの,Slow Digestion,Carnelian,=,r,RING,RING,6,0,5,0,0,100,250,0,0,0,0,1d1,0,0,0,5/255,,SLOW_DIGEST,,,
+142,浮遊,エメラルドの,Levitation,Emerald,=,g,RING,RING,7,0,5,0,0,100,200,0,0,0,0,1d1,0,0,0,5/1,,LEVITATION,,,
 140,耐火,綱玉の,Resist Fire,Corundum,=,s,RING,RING,8,0,10,0,0,100,250,0,0,0,0,1d1,0,0,0,10/1,IGNORE_FIRE,RES_FIRE,,,
 141,耐冷,ダイアモンドの,Resist Cold,Diamond,=,w,RING,RING,9,0,10,0,0,100,250,0,0,0,0,1d1,0,0,0,10/1,IGNORE_COLD,RES_COLD,,,#JZ#
 156,腕力維持,石英岩の,Sustain Strength,Quartzite,=,W,RING,RING,10,0,30,0,0,100,750,0,0,0,0,1d1,0,0,0,30/1,,SUSTAIN_STR,,,
@@ -370,8 +370,8 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 146,火炎,ひすいの,Flames,Jade,=,G,RING,RING,18,0,35,0,0,100,3000,0,0,0,0,0d0,0,0,15,50/1,IGNORE_FIRE|ACTIVATE,RES_FIRE,,,
 148,氷,青瑠璃の,Ice,Lapis Lazuli,=,b,RING,RING,19,0,35,0,0,100,3000,0,0,0,0,0d0,0,0,15,50/1,IGNORE_COLD|ACTIVATE,RES_COLD,,,
 143,耐毒,ホタル石の,Poison Resistance,Fluorite,=,G,RING,RING,20,0,40,0,0,100,16000,0,0,0,0,1d1,0,0,0,40/2,,RES_POIS,,,
-144,麻痺知らず,ガーネットの,Free Action,Garnet,=,r,RING,RING,21,0,20,0,0,100,1500,0,0,0,0,1d1,0,0,0,20/1,FREE_ACT,,,,
-155,透明物体感知,水晶の,See Invisible,Quartz,=,W,RING,RING,22,0,30,0,0,100,340,0,0,0,0,1d1,0,0,0,30/1,SEE_INVIS,,,,
+144,麻痺知らず,ガーネットの,Free Action,Garnet,=,r,RING,RING,21,0,20,0,0,100,1500,0,0,0,0,1d1,0,0,0,20/1,,FREE_ACTION,,,
+155,透明物体感知,水晶の,See Invisible,Quartz,=,W,RING,RING,22,0,30,0,0,100,340,0,0,0,0,1d1,0,0,0,30/1,,SEE_INVISIBLE,,,
 137,探索,血玉随の,Searching,Bloodstone,=,r,RING,RING,23,0,5,0,0,100,250,0,0,0,0,1d1,0,0,0,5/1,SEARCH|HIDE_TYPE,,,,
 132,腕力,金緑石の,Strength,Alexandrite,=,g,RING,RING,24,0,30,0,0,100,500,0,0,0,0,1d1,0,0,0,30/1,STR|HIDE_TYPE,,,,
 135,電撃,めのうの,Lightning,Azurite,=,B,RING,RING,25,0,35,0,0,100,3000,0,0,0,0,0d0,0,0,15,50/1,RES_ELEC|IGNORE_ELEC|ACTIVATE,,,,
