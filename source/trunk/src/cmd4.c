@@ -6028,7 +6028,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			print_im_or_res_flag(TRAIT_IM_FIRE, TR_RES_FIRE);
 			print_im_or_res_flag(TRAIT_IM_COLD, TR_RES_COLD);
 			print_flag(TR_RES_POIS);
-			print_flag(TR_RES_LITE);
+			print_flag(TRAIT_RES_LITE);
 			print_flag(TR_RES_DARK);
 			print_flag(TRAIT_RES_SHAR);
 			print_flag(TRAIT_RES_SOUN);

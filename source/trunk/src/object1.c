@@ -3261,7 +3261,7 @@ info[i++] = "それは毒への耐性を授ける。";
 
 	}
 
-	if (have_flag(flgs, TR_RES_LITE))
+	if (have_flag(flgs, TRAIT_RES_LITE))
 	{
 #ifdef JP
 info[i++] = "それは閃光への耐性を授ける。";
@@ -3674,7 +3674,7 @@ info[i++] = "それは付近のクリーチャーを怒らせる。";
 
 	}
 */
-	if ((have_flag(flgs, TR_DRAIN_EXP)) || (object_ptr->curse_flags & TRC_DRAIN_EXP))
+	if ((have_flag(flgs, TRAIT_DRAIN_EXP)) || (object_ptr->curse_flags & TRC_DRAIN_EXP))
 	{
 #ifdef JP
 info[i++] = "それは経験値を吸い取る。";

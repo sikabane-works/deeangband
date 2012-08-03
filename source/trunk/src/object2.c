@@ -967,7 +967,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_RES_COLD)) {tmp_cost += 500;count++;}
 	if (have_flag(flgs, TR_RES_POIS)) {tmp_cost += 1000;count += 2;}
 	if (have_flag(flgs, TR_RES_FEAR)) {tmp_cost += 1000;count += 2;}
-	if (have_flag(flgs, TR_RES_LITE)) {tmp_cost += 800;count += 2;}
+	if (have_flag(flgs, TRAIT_RES_LITE)) {tmp_cost += 800;count += 2;}
 	if (have_flag(flgs, TR_RES_DARK)) {tmp_cost += 800;count += 2;}
 	if (have_flag(flgs, TRAIT_NO_BLIND)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TRAIT_NO_CONF)) {tmp_cost += 900;count += 2;}
@@ -1014,7 +1014,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_IGNORE_FIRE)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_COLD)) total += 100;
 	if (have_flag(flgs, TR_ACTIVATE)) total += 100;
-	if (have_flag(flgs, TR_DRAIN_EXP)) total -= 12500;
+	if (have_flag(flgs, TRAIT_DRAIN_EXP)) total -= 12500;
 	if (have_flag(flgs, TR_TELEPORT))
 	{
 		if (object_is_cursed(object_ptr))
@@ -2810,7 +2810,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					switch(randint1(5))
 					{
 					case 1:
-						if (have_flag(k_ptr->flags, TR_DRAIN_EXP)) break;
+						if (have_flag(k_ptr->flags, TRAIT_DRAIN_EXP)) break;
 						object_ptr->name2 = EGO_RING_DRAIN_EXP;
 						break;
 					case 2:
@@ -3096,7 +3096,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					switch(randint1(5))
 					{
 					case 1:
-						if (have_flag(k_ptr->flags, TR_DRAIN_EXP)) break;
+						if (have_flag(k_ptr->flags, TRAIT_DRAIN_EXP)) break;
 						object_ptr->name2 = EGO_AMU_DRAIN_EXP;
 						break;
 					case 2:
@@ -6121,7 +6121,7 @@ static essence_type essence_info[] =
 	{TR_RES_COLD, "‘Ï—â‹C", 2, TR_RES_COLD, 15},
 	{TR_RES_POIS, "‘Ï“Å", 2, TR_RES_POIS, 25},
 	{TR_RES_FEAR, "‘Ï‹°•|", 2, TR_RES_FEAR, 20},
-	{TR_RES_LITE, "‘Ï‘MŒõ", 2, TR_RES_LITE, 20},
+	{TRAIT_RES_LITE, "‘Ï‘MŒõ", 2, TRAIT_RES_LITE, 20},
 	{TR_RES_DARK, "‘ÏˆÃ•", 2, TR_RES_DARK, 20},
 	{TRAIT_NO_BLIND, "‘Ï–Ó–Ú", 2, TRAIT_NO_BLIND, 20},
 	{TRAIT_NO_CONF, "‘Ï¬—", 2, TRAIT_NO_CONF, 20},
@@ -6232,7 +6232,7 @@ static essence_type essence_info[] =
 	{TR_RES_COLD, "resistance to cold", 2, TR_RES_COLD, 15},
 	{TR_RES_POIS, "resistance to poison", 2, TR_RES_POIS, 25},
 	{TR_RES_FEAR, "resistance to fear", 2, TR_RES_FEAR, 20},
-	{TR_RES_LITE, "resistance to light", 2, TR_RES_LITE, 20},
+	{TRAIT_RES_LITE, "resistance to light", 2, TRAIT_RES_LITE, 20},
 	{TR_RES_DARK, "resistance to dark", 2, TR_RES_DARK, 20},
 	{TRAIT_NO_BLIND, "resistance to blind", 2, TRAIT_NO_BLIND, 20},
 	{TRAIT_NO_CONF, "resistance to confusion", 2, TRAIT_NO_CONF, 20},
@@ -6619,7 +6619,7 @@ static void drain_essence(creature_type *creature_ptr)
 	if (object_ptr->curse_flags & (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE)) dec--;
 	if (have_flag(old_flgs, TRAIT_ANTIPATHY)) dec--;
 	if (have_flag(old_flgs, TRAIT_PREVENT_TELEPORT)) dec--;
-	if (have_flag(old_flgs, TR_DRAIN_EXP)) dec--;
+	if (have_flag(old_flgs, TRAIT_DRAIN_EXP)) dec--;
 	if (have_flag(old_flgs, TRAIT_TY_CURSE)) dec--;
 
 	iy = object_ptr->fy;

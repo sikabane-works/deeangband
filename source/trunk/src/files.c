@@ -2507,7 +2507,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
 		add_flag(flgs, TR_RES_FEAR);
-		add_flag(flgs, TR_RES_LITE);
+		add_flag(flgs, TRAIT_RES_LITE);
 		add_flag(flgs, TR_RES_DARK);
 		add_flag(flgs, TRAIT_NO_BLIND);
 		add_flag(flgs, TRAIT_NO_CONF);
@@ -2612,7 +2612,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (creature_ptr->ult_res)
 	{
 		add_flag(flgs, TR_RES_FEAR);
-		add_flag(flgs, TR_RES_LITE);
+		add_flag(flgs, TRAIT_RES_LITE);
 		add_flag(flgs, TR_RES_DARK);
 		add_flag(flgs, TRAIT_NO_BLIND);
 		add_flag(flgs, TRAIT_NO_CONF);
@@ -2789,7 +2789,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_p
 	/*TODO
 	if (IS_RACE(creature_ptr, RACE_VAMPIRE) || IS_RACE(creature_ptr, RACE_S_FAIRY) ||
 	    (creature_ptr->mimic_form == MIMIC_VAMPIRE))
-		add_flag(flgs, TR_RES_LITE);
+		add_flag(flgs, TRAIT_RES_LITE);
 		*/
 }
 
@@ -2946,7 +2946,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+3, col, "耐冷気:", TR_RES_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "耐冷気:", TRAIT_IM_COLD, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+4, col, "耐毒  :", TR_RES_POIS, &f, 0, creature_ptr);
-	display_flag_aux(row+5, col, "耐閃光:", TR_RES_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "耐閃光:", TRAIT_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "耐暗黒:", TR_RES_DARK, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "耐破片:", TRAIT_RES_SHAR, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "耐盲目:", TRAIT_NO_BLIND, &f, 0, creature_ptr);
@@ -2962,7 +2962,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "Cold  :", TRAIT_IM_COLD, &f, DP_IMM, creature_ptr);
 	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, creature_ptr);
-	display_flag_aux(row+5, col, "Light :", TR_RES_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "Light :", TRAIT_RES_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Shard :", TRAIT_RES_SHAR, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Blind :", TRAIT_NO_BLIND, &f, 0, creature_ptr);
@@ -3279,7 +3279,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+11, col, "反魔法      :", TRAIT_ANTI_MAGIC, &f, 0, creature_ptr);
 	display_flag_aux(row+12, col, "消費魔力減少:", TRAIT_DEC_MANA, &f, 0, creature_ptr);
 
-	display_flag_aux(row+14, col, "経験値減少  :", TR_DRAIN_EXP, &f, 0, creature_ptr);
+	display_flag_aux(row+14, col, "経験値減少  :", TRAIT_DRAIN_EXP, &f, 0, creature_ptr);
 	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, creature_ptr);
 	display_flag_aux(row+16, col, "反感        :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "太古の怨念  :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
@@ -3298,7 +3298,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+11, col, "Anti Magic  :", TRAIT_ANTI_MAGIC, &f, 0, creature_ptr);
 	display_flag_aux(row+12, col, "Econom. Mana:", TRAIT_DEC_MANA, &f, 0, creature_ptr);
 
-	display_flag_aux(row+14, col, "Drain Exp   :", TR_DRAIN_EXP, &f, 0, creature_ptr);
+	display_flag_aux(row+14, col, "Drain Exp   :", TRAIT_DRAIN_EXP, &f, 0, creature_ptr);
 	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, creature_ptr);
 	display_flag_aux(row+16, col, "Aggravate   :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "TY Curse    :", TRAIT_TY_CURSE, &f, 0, creature_ptr);

@@ -746,7 +746,7 @@ static const flag_desc resist_flags_desc[] =
 	{ TR_RES_COLD,   "ó‚ãC" },
 	{ TR_RES_POIS,   "ì≈" },
 	{ TR_RES_FEAR,   "ã∞ï|"},
-	{ TR_RES_LITE,   "ëMåı" },
+	{ TRAIT_RES_LITE,   "ëMåı" },
 	{ TR_RES_DARK,   "à√çï" },
 	{ TRAIT_NO_BLIND,  "ñ”ñ⁄" },
 	{ TRAIT_NO_CONF,   "ç¨óê" },
@@ -763,7 +763,7 @@ static const flag_desc resist_flags_desc[] =
 	{ TR_RES_COLD,   "Cold" },
 	{ TR_RES_POIS,   "Poison" },
 	{ TR_RES_FEAR,   "Fear"},
-	{ TR_RES_LITE,   "Light" },
+	{ TRAIT_RES_LITE,   "Light" },
 	{ TR_RES_DARK,   "Dark" },
 	{ TRAIT_NO_BLIND,  "Blindness" },
 	{ TRAIT_NO_CONF,   "Confusion" },
@@ -872,7 +872,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_WARNING,            "åxçê" },
 /*	{ TR_XTRA_MIGHT,         "ã≠óÕéÀåÇ" }, */
 	{ TR_XTRA_SHOTS,         "í«â¡éÀåÇ" },        /* always +1? */
-	{ TR_DRAIN_EXP,          "åoå±ílãzé˚" },
+	{ TRAIT_DRAIN_EXP,          "åoå±ílãzé˚" },
 	{ TRAIT_ANTIPATHY,          "îΩä¥" },
 	{ TRAIT_BLESSED_BRAND,            "èjïü" },
 	{ TRAIT_DEC_MANA,           "è¡îÔñÇóÕå∏è≠" },
@@ -890,7 +890,7 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_WARNING,            "Warning" },
 /*	{ TR_XTRA_MIGHT,         "Extra Might" }, */
 	{ TR_XTRA_SHOTS,         "+1 Extra Shot" },        /* always +1? */
-	{ TR_DRAIN_EXP,          "Drains Experience" },
+	{ TRAIT_DRAIN_EXP,          "Drains Experience" },
 	{ TRAIT_ANTIPATHY,          "Aggravates" },
 	{ TRAIT_BLESSED_BRAND,            "Blessed Blade" },
 	{ TRAIT_DEC_MANA,           "Decrease Mana Consumption Rate" },

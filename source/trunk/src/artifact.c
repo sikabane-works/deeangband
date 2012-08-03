@@ -50,7 +50,7 @@ void one_high_resistance(object_type *object_ptr)
 	switch (randint0(12))
 	{
 		case  0: add_flag(object_ptr->trait_flags, TR_RES_POIS);   break;
-		case  1: add_flag(object_ptr->trait_flags, TR_RES_LITE);   break;
+		case  1: add_flag(object_ptr->trait_flags, TRAIT_RES_LITE);   break;
 		case  2: add_flag(object_ptr->trait_flags, TR_RES_DARK);   break;
 		case  3: add_flag(object_ptr->trait_flags, TRAIT_RES_SHAR); break;
 		case  4: add_flag(object_ptr->trait_flags, TRAIT_NO_BLIND);  break;
@@ -72,7 +72,7 @@ void one_lordly_high_resistance(object_type *object_ptr)
 {
 	switch (randint0(10))
 	{
-		case 0: add_flag(object_ptr->trait_flags, TR_RES_LITE);   break;
+		case 0: add_flag(object_ptr->trait_flags, TRAIT_RES_LITE);   break;
 		case 1: add_flag(object_ptr->trait_flags, TR_RES_DARK);   break;
 		case 2: add_flag(object_ptr->trait_flags, TRAIT_RES_SHAR); break;
 		case 3: add_flag(object_ptr->trait_flags, TRAIT_NO_BLIND);  break;
@@ -190,7 +190,7 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if (one_in_(4)) object_ptr->curse_flags |= TRC_DIVINE_CURSE;
 	if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_TY_CURSE);
 	if (one_in_(2)) add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
-	if (one_in_(3)) add_flag(object_ptr->art_flags, TR_DRAIN_EXP);
+	if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_DRAIN_EXP);
 	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_TELEPORT);
 	else if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_PREVENT_TELEPORT);
 
@@ -660,7 +660,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				artifact_bias = BIAS_WARRIOR;
 			break;
 		case 21:
-			add_flag(object_ptr->art_flags, TR_RES_LITE);
+			add_flag(object_ptr->art_flags, TRAIT_RES_LITE);
 			break;
 		case 22:
 			add_flag(object_ptr->art_flags, TR_RES_DARK);
