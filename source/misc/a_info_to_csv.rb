@@ -110,7 +110,7 @@ file1.each do |line|
 				a.comment += line[0..-2]
 
 			when 'F'
-				a.flags = ("|" + line.sub("\n", "").gsub(" ", "")[2..-1])
+				a.flags += ("|" + line.sub("\n", "").gsub(" ", "")[2..-1])
 				a.flags = a.flags[0..-2] if a.flags[-1] == "|"
 
 			when 'D'
