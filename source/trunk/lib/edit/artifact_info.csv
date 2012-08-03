@@ -218,7 +218,7 @@ ID,NAME,E_NAME,TVAL,SVAL,PVAL,AP_RATE,DEPTH,RARITY,WEIGHT,COST,SIZE_LOWER,SIZE_U
 219,帯魔力ペンダント,Charmed Pendant,40,27,2,100,50,100,2,100000,0,0,0,0,0d0,0,0,5,0,INSTA_ART,,,,
 220,ものまねの始祖ゴゴの,of Gogo,40,28,4,100,50,100,2,55555,0,0,0,0,0d0,0,0,0,0,INSTA_ART,,,,
 221,森の狩人ロビンフッドの,of Robin Hood,19,12,2,100,20,15,30,50000,0,0,0,0,2d1,15,17,0,0,XTRA_MIGHT|HIDE_TYPE|SHOW_MODS|XTRA_H_RES,,シャーウッドの森に住む義賊ロビン・フッドの弓だ。,This is of Robin Hood who live in the deep forest.,# from Slash'EM
-222,『ヘルファイア』,of 'Hellfire',19,23,4,100,30,15,110,60000,0,0,0,0,2d1,15,17,0,0,ACTIVATE|HIDE_TYPE|SHOW_MODS,,この燃えるような色のクロスボウは、発射するボルトに炎の力を与えることができる。,This crossbow gives flame energy to bolts which it fires.,
+222,『ヘルファイア』,'Hellfire',19,23,4,100,30,15,110,60000,0,0,0,0,2d1,15,17,0,0,ACTIVATE|HIDE_TYPE|SHOW_MODS,,この燃えるような色のクロスボウは、発射するボルトに炎の力を与えることができる。,This crossbow gives flame energy to bolts which it fires.,
 223,名射手ウィリアム・テルの,of Wilhelm Tell,19,23,4,100,35,30,110,50000,0,0,0,0,0d0,40,13,0,0,DEX|HIDE_TYPE|SEE_INVIS|XTRA_MIGHT|SHOW_MODS,,スイスの英雄ウィリアム・テルの使ったクロスボウだ。彼は我が子の頭の上のリンゴを正確に撃ち抜き、民衆を苦しめる悪代官ゲスラーを打ち破った。,"With this crossbow, Swiss hero Tell shot an apple exactly though it was on his son's head, and then he defeated evil magistrate Gessler.",
 224,名射手ウィリアム・テルの,of Wilhelm Tell,18,1,0,100,35,35,2,5000,0,0,0,0,6d5,20,16,0,0,KILL_HUMAN,,かつてウィリアム・テルが撃ち放った1本のクロスボウの矢だ。悪代官ゲスラーの命を正確に奪ったという。,It is said that this bolt sticked onto the heart of Gessler when Wilhelm Tell shot it.,#JX#
 225,アスクレピオスの,of Aesculapius,21,14,3,100,40,45,160,300000,0,0,0,0,2d11,15,15,5,0,RES_POIS|RES_CONF|RES_CHAOS,,これは、医学の神アスクレピオスの奇跡の六尺棒だ。どんな怪我もたちまち癒してしまう。,"This is the staff of Aesculapius, who is a greek god of the medicine.",#JX#
@@ -233,12 +233,12 @@ ID,NAME,E_NAME,TVAL,SVAL,PVAL,AP_RATE,DEPTH,RARITY,WEIGHT,COST,SIZE_LOWER,SIZE_U
 234,源義経の,of Yositsune,32,8,2,100,50,20,60,96000,0,9,7,0,1d2,0,0,8,0,WARNING|ESP_HUMAN,,源氏の勇者源義経の飾りのついた星兜だ。義経はこれをかぶり、平氏からの刃や矢の攻撃を防いだ。,This is Yositsune's kabuto. It defended his head against many arrows and blades from his ememies.,
 235,源義経の,of Yositsune,37,14,2,100,50,20,200,192000,0,9,17,0,1d4,0,0,28,0,RES_CHAOS|RES_NEXUS,,源義経の赤糸威胴丸鎧だ。義経はこれを着て舟から舟へと飛び移った。身につけると彼の身軽さと器用さを感じることができる。,"This is the haramakido of Yositsune who is the best brave warrior of Genji. You can feel his agility and dexterity, when you put it on.",
 236,畠山重忠の赤糸威,of the Bando Musha,37,16,2,100,45,15,320,90000,0,11,24,0,1d4,5,5,20,0,RES_FEAR|XTRA_H_RES,,知勇兼備の武者畠山重忠の赤糸威大鎧だ。清廉潔白をもって知られた重忠は「坂東武士の鑑」と称された。この大鎧は、あたかも彼がここにいるかのように威風堂々としている。,"This is Shigetada Hatakeyama's O-yoroi. He is brave, wise and honest warrior, so he was called the best model of eastern samurai. This O-yoroi is majestical like him.",
-237,サブテラの英雄トレマーの,of Tremor,31,1,2,100,50,20,5,86000,0,13,1,0,0d0,5,15,15,0,STR|CON|HIDE_TYPE|FREE_ACT|SHOW_MODS,,荒廃した世界を救うために、「ブラッドストーム」と呼ばれる世の皇帝を決める闘いへ身を投じた英雄のガントレットだ。それ自体が強力な兵器となっている。,,# シルマリルの物語、ヴァラクエンダやアイヌリンダレに記述されるところの創造の源
-238,アルダの,of Arda,39,10,2,100,99,120,5,150000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|STR|WIS|INT|DEX|CON|CHR,,アノールの炎、イシルの光、３つのシルマリル、そしてそれらの元となった二本の木、最も古き原初の二つの灯火、そしてアルダの生命全てがこの炎を源としている。これを所持していた事こそがイルーヴァタールの御技の一切が正しきことの証であり、メルコールのいかなる企みも、創造主の手の内にあった理由に他ならない。,,# 御馴染みのアレ
-239,イェンダーの魔除け,the Amulet of Yendor,40,29,2,100,50,100,50,60000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|WIS|INT|FULL_NAME|QUESTITEM|DIVINE_CURSE,,多元宇宙の遥か昔から数多の挑戦者が求めて止まなかった伝説の魔除けだ。,,
-240,ウドゥンの,of Udun,39,11,2,100,99,90,5,150000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|STR|WIS|INT|DEX|CON|CHR,,,,
+237,サブテラの英雄トレマーの,of Tremor,31,1,2,100,50,20,5,86000,0,13,1,0,0d0,5,15,15,0,STR|CON|HIDE_TYPE|FREE_ACT|SHOW_MODS,,荒廃した世界を救うために、「ブラッドストーム」と呼ばれる世の皇帝を決める闘いへ身を投じた英雄のガントレットだ。それ自体が強力な兵器となっている。,,
+238,アルダの,of Arda,39,10,2,100,99,120,5,150000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|STR|WIS|INT|DEX|CON|CHR,,アノールの炎、イシルの光、３つのシルマリル、そしてそれらの元となった二本の木、最も古き原初の二つの灯火、そしてアルダの生命全てがこの炎を源としている。これを所持していた事こそがイルーヴァタールの御技の一切が正しきことの証であり、メルコールのいかなる企みも、創造主の手の内にあった理由に他ならない。,,シルマリルの物語、ヴァラクエンダやアイヌリンダレに記述されるところの秘密の炎、不滅の炎、創造の源
+239,イェンダーの魔除け,the Amulet of Yendor,40,29,2,100,50,100,50,60000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|WIS|INT|FULL_NAME|QUESTITEM|DIVINE_CURSE,,多元宇宙の遥か昔から数多の挑戦者が求めて止まなかった伝説の魔除けだ。,,御馴染みのアレ
+240,ウドゥンの,of Udun,39,11,2,100,99,90,5,150000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|STR|WIS|INT|DEX|CON|CHR,,メルコールに追従したマイア達が、彼が独自に手に入れた創造の力を分け与えられた証そのものと言われる濃い色の炎だ。彼等がヴァリノールの神族と対峙する際は、常にこの炎に身を包み、恐るべき力の悪鬼の姿を取っていたという。,,
 241,ゾットの,of Zot,39,12,2,100,99,90,5,150000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|STR|WIS|INT|DEX|CON|CHR,,,,
-242,魔術師ワードナの,of Werdna,40,30,2,100,99,100,50,60000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|WIS|INT,,何か忘れてないか？,,
+242,魔術師ワードナの,of Werdna,40,30,2,100,99,100,50,60000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|WIS|INT,,ところで、何か忘れてないか？,,
 243,＊THE GHOST WHEEL＊,of Ghost,51,0,2,100,99,100,50,60000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|FULL_NAME,,,,
-244,冥王メルコールの,of Dark Lord Melkor,22,2,-2,100,80,100,50,500000,0,0,0,0,9d6,20,25,-30,0,VORPAL|BRAND_FIRE|BRAND_POIS|LITE,,,,
+244,冥王メルコールの,of Melkor,22,2,-2,100,80,100,50,500000,0,0,0,0,9d6,20,25,-30,0,VORPAL|BRAND_FIRE|BRAND_POIS|LITE,,冥王メルコールはヴァリノールの虜囚の身から脱する際、ウンゴリアントと共にテルペリオンとラウレリンの二本の木を破壊し、ノルドールの長フィンウェを殺して三つのシルマリルを略奪した。これはその際に用いられたと言われる黒く巨大な槍だ。,,
 245,アノールの,of Anor,39,11,3,100,99,90,5,150000,0,0,0,0,1d1,0,0,0,0,INSTA_ART|STR|WIS|INT|DEX|CON|CHR,,,,# N: serial number : item name# I: tval : sval : pval# W: depth : rarity : weight : cost# P: base armor class : base damage : plus to-hit : plus to-dam : plus# to-ac# F: flag | flag |etc#JZ#
