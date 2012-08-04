@@ -737,7 +737,7 @@ static cptr object_kind_info_flags[] =
 	"DRAIN_EXP",
 	"TELEPORT",
 	"ANTIPATHY",
-	"BLESSED",
+	"BLESSED_BRAND",
 	"XXX3",
 	"XXX4",
 	"XXX5",
