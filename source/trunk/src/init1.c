@@ -690,7 +690,7 @@ static cptr object_kind_info_flags[] =
 	"IM_COLD",
 	"THROW",
 	"REFLECT",
-	"FREE_ACT",
+	"FREE_ACTION",
 	"HOLD_LIFE",
 	"RES_ACID",
 	"RES_ELEC",
@@ -2717,28 +2717,36 @@ errr parse_artifact_csv(char *buf, header *head)
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
-				s = tmp;
-				/* Parse every entry textually */
-				for (s = tmp; *s;)
+
+				//if(0 != traits_precondition_splits(&artifact_info[n].add_creature_traits, tmp))
 				{
-						/* Find the end of this entry */
-					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
+					s = tmp;
 
-						/* Nuke and skip any dividers */
-					if (*t)
+					/* Parse every entry textually */
+					for (s = tmp; *s;)
 					{
-						*t++ = '\0';
-						while (*t == ' ' || *t == '|') t++;
+						/* Find the end of this entry */
+						for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
+						/* Nuke and skip any dividers */
+						if (*t)
+						{
+							*t++ = '\0';
+							while (*t == ' ' || *t == '|') t++;
+						}
+
+							/* Parse this entry */
+						if (0 != grab_one_artifact_flag(&artifact_info[n], s))
+							return (5);
+
+							/* Start the next entry */
+						s = t;
 					}
+					break;
 
-						/* Parse this entry */
-					if (0 != grab_one_artifact_flag(&artifact_info[n], s))
-						return (5);
-
-						/* Start the next entry */
-					s = t;
 				}
+
 				break;
+
 
 			case ARTIFACT_INFO_ADD_CREATURE_TRAITS:
 				if(0 != traits_precondition_splits(&artifact_info[n].add_creature_traits, tmp))
