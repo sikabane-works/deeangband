@@ -714,7 +714,7 @@ static cptr object_kind_info_flags[] =
 	"SLAY_HUMAN",
 	"AURA_COLD",
 	"NO_TELE",
-	"NO_MAGIC",
+	"ANTI_MAGIC",
 	"DEC_MANA",
 	"TY_CURSE",
 	"WARNING",
