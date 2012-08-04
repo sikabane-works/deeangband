@@ -709,10 +709,10 @@ static cptr object_kind_info_flags[] =
 	"RES_CHAOS",
 	"RES_DISEN",
 
-	"SH_FIRE",
-	"SH_ELEC",
+	"AURA_FIRE",
+	"AURA_ELEC",
 	"SLAY_HUMAN",
-	"SH_COLD",
+	"AURA_COLD",
 	"NO_TELE",
 	"NO_MAGIC",
 	"DEC_MANA",
