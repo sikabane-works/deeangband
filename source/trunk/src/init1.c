@@ -676,12 +676,12 @@ static cptr object_kind_info_flags[] =
 	"FIRE_BRAND",
 	"COLD_BRAND",
 
-	"SUSTAIN_STR",
-	"SUSTAIN_INT",
-	"SUSTAIN_WIS",
-	"SUSTAIN_DEX",
-	"SUSTAIN_CON",
-	"SUSTAIN_CHR",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
+	"XXX",
 	"RIDING",
 	"EASY_SPELL",
 	"IM_ACID",
@@ -1419,7 +1419,7 @@ errr parse_magic_info(char *buf, header *head)
 		else if (streq(book, "MUSIC")) m_ptr->spell_book = TV_MUSIC_BOOK;
 		else if (streq(book, "HISSATSU")) m_ptr->spell_book = TV_HISSATSU_BOOK;
 		else if (streq(book, "NONE")) m_ptr->spell_book = 0;
-		else return (5);
+		else return PARSE_ERROR_INVALID_FLAG;
 
 		stat = s;
 
@@ -1438,7 +1438,7 @@ errr parse_magic_info(char *buf, header *head)
 		else if (streq(stat, "DEX")) m_ptr->spell_stat = STAT_DEX;
 		else if (streq(stat, "CON")) m_ptr->spell_stat = STAT_CON;
 		else if (streq(stat, "CHR")) m_ptr->spell_stat = STAT_CHA;
-		else return (5);
+		else return PARSE_ERROR_INVALID_FLAG;
 
 
 		/* Scan for the values */
@@ -1540,6 +1540,68 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 	return -1;
 }
 
+static errr traits_precondition_splits_to(traits_precondition *flags_pre_ptr, object_type *object_ptr, char *tmp)
+{
+	char flagname[80];
+	char flag_aux[80];
+	char *s, *t;
+	int b, c, prob;
+
+	for (s = tmp; *s; )
+	{
+
+		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
+
+		/* Nuke and skip any dividers */
+		if (*t)
+		{
+			*t++ = '\0';
+			while (*t == ' ' || *t == '|' || *t == '\n') t++;
+		}
+
+		if (1 == sscanf(s, "1_IN_%d", &b))
+		{
+			//TODO
+				s=t;
+				continue;
+		}
+
+		if(sscanf(s, "%[^:]:%d:%d", &flag_aux, &b, &c) != 3)
+		{
+			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
+			{
+				c = PY_MAX_LEVEL + 1;
+			}
+			else if(sscanf(s, "%s", &flag_aux) == 1)
+			{
+				b = 1;
+				c = PY_MAX_LEVEL + 1;
+			}
+			else
+				return PARSE_ERROR_GENERIC;
+		}
+
+		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
+		{
+			if(sscanf(flag_aux, "%s", &flagname) != 1)
+				return PARSE_ERROR_GENERIC;
+			prob = 100;
+		}
+
+		/* Parse this entry */
+		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
+		{
+			//if(!grab_one_kind_flag(object_ptr, flagname))
+				return (PARSE_ERROR_INVALID_FLAG);
+		}
+
+		/* Start the next entry */
+		s = t;
+	}
+
+	return 0; // OK
+}
+
 
 static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char *tmp)
 {
@@ -1620,7 +1682,6 @@ static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byt
 	return -1;
 }
 
-
 /*
  * Grab one flag in an feature_type from a textual string
  */
@@ -1648,6 +1709,7 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
+
 
 
 /*
@@ -2379,7 +2441,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 						/* Parse this entry */
 					if (0 != grab_one_kind_flag(&object_kind_info[n], s))
-						return (5);
+						return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 					s = t;
@@ -2717,8 +2779,6 @@ errr parse_artifact_csv(char *buf, header *head)
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
-
-				//if(0 != traits_precondition_splits(&artifact_info[n].add_creature_traits, tmp))
 				{
 					s = tmp;
 
@@ -2734,9 +2794,12 @@ errr parse_artifact_csv(char *buf, header *head)
 							while (*t == ' ' || *t == '|') t++;
 						}
 
-							/* Parse this entry */
+						/* Parse this entry */
 						if (0 != grab_one_artifact_flag(&artifact_info[n], s))
-							return (5);
+						{
+							if(0 != traits_precondition_splits(&artifact_info[n].add_creature_traits, s))
+								return PARSE_ERROR_INVALID_FLAG;
+						}
 
 							/* Start the next entry */
 						s = t;
@@ -2744,8 +2807,6 @@ errr parse_artifact_csv(char *buf, header *head)
 					break;
 
 				}
-
-				break;
 
 
 			case ARTIFACT_INFO_ADD_CREATURE_TRAITS:
@@ -3018,7 +3079,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 						/* Parse this entry */
 					if (0 != grab_one_ego_item_flag(&object_ego_info[n], s))
-						return (5);
+						return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 					s = t;
@@ -3675,7 +3736,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					}
 
 					// Parse this entry
-					if ((b = grab_one_authority_flag(&species_info[n], s)) < 0) return (5);
+					if ((b = grab_one_authority_flag(&species_info[n], s)) < 0) return PARSE_ERROR_INVALID_FLAG;
 					species_ptr->authority[b / 32] |= (0x0001 << (b % 32));
 
 					// Start the next entry
@@ -4319,7 +4380,7 @@ errr parse_trait_csv(char *buf, header *head)
 						else if (streq(tmp, "DEX")) trait_info[n].use_stat = STAT_DEX;
 						else if (streq(tmp, "CON")) trait_info[n].use_stat = STAT_CON;
 						else if (streq(tmp, "CHA")) trait_info[n].use_stat = STAT_CHA;
-						else return (5);
+						else return PARSE_ERROR_INVALID_FLAG;
 					}
 					trait_info[n].use_stat = (s16b)b;
 				break;
@@ -5795,7 +5856,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 						}
 
 						/* Parse this entry */
-						if (0 != grab_one_dungeon_flag(dungeon_ptr, s)) return (5);
+						if (0 != grab_one_dungeon_flag(dungeon_ptr, s)) return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 						s = t;
