@@ -2363,7 +2363,10 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 						/* Parse this entry */
 					if (0 != grab_one_object_kind_flag(&object_kind_info[n], s))
-						return PARSE_ERROR_INVALID_FLAG;
+					{
+						if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, s))
+							return PARSE_ERROR_INVALID_FLAG;
+					}
 
 						/* Start the next entry */
 					s = t;
