@@ -1500,7 +1500,7 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 		if (streq(what, names[i]))
 		{
 			*flags |= (1L << i);
-			return 0;
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -1517,12 +1517,12 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 	if(streq(what, "VARIABLE"))
 	{
 		*n = INDEX_VARIABLE;
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else if(streq(what, "NONE") && common_none)
 	{
 		*n = INDEX_NONE;
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 
 	if(names == NULL) return -1;
@@ -1533,7 +1533,7 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 		if (streq(what, names[i]))
 		{
 			*n = i;
-			return 0;
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -1590,7 +1590,7 @@ static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char 
 		s = t;
 	}
 
-	return 0; // OK
+	return PARSE_ERROR_NONE;
 }
 
 static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byte remove, byte prob)
@@ -1605,7 +1605,7 @@ static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byt
 			cf_ptr->add_lev[i] = add;
 			cf_ptr->remove_lev[i] = remove;
 			cf_ptr->probability[i] = prob;
-			return 0;
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -1625,7 +1625,7 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 		if (streq(what, feature_info_flags[i]))
 		{
 			add_flag(f_ptr->flags, i);
-			return 0;
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -1655,7 +1655,7 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 		if (streq(what, feature_info_flags[i]))
 		{
 			f_ptr->state[count].action = i;
-			return 0;
+			return PARSE_ERROR_NONE;
 		}
 	}
 
@@ -2047,7 +2047,7 @@ static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
 	}
 
 	if (grab_one_flag(&k_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
-		return 0;
+		return PARSE_ERROR_NONE;
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -2158,7 +2158,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 			}
 			if(j == OBJECT_KIND_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -2444,7 +2444,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 	}
 
 	if (grab_one_flag(&a_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
-		return 0;
+		return PARSE_ERROR_NONE;
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -2542,7 +2542,7 @@ errr parse_artifact_csv(char *buf, header *head)
 			}
 			if(j == ARTIFACT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -2775,7 +2775,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 	}
 
 	if (grab_one_flag(&e_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
-		return 0;
+		return PARSE_ERROR_NONE;
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -2857,7 +2857,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 			}
 			if(j == OBJECT_EGO_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -3023,7 +3023,7 @@ errr parse_object_ego_csv(char *buf, header *head)
 static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 {
 	if (grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0)
-		return 0;
+		return PARSE_ERROR_NONE;
 
 	/* Oops */
 #ifdef JP
@@ -3248,7 +3248,7 @@ errr parse_species_info_csv(char *buf, header *head)
 			}
 			if(j == SPECIES_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -3887,7 +3887,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 			}
 			if(j == ST_INFO_CSV_COLUMNS) return PARSE_ERROR_GENERIC; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -4072,7 +4072,7 @@ errr reprocess_trait(header *head)
 		traits_precondition_splits(&trait_info[i].flags, head->tmp_ptr);
 	}
 
-	return 0;
+	return PARSE_ERROR_NONE;
 }
 
 errr parse_trait_csv(char *buf, header *head)
@@ -4105,7 +4105,7 @@ errr parse_trait_csv(char *buf, header *head)
 			}
 			if(j == TRAIT_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -4528,7 +4528,7 @@ errr parse_race_info_csv(char *buf, header *head)
 			}
 			if(j == RC_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -5031,7 +5031,7 @@ errr parse_class_info_csv(char *buf, header *head)
 			}
 			if(j == CL_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -5330,7 +5330,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 			}
 			if(j == CH_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -5483,7 +5483,7 @@ errr parse_chara_info_csv(char *buf, header *head)
 static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 {
 	if (grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
-		return 0;
+		return PARSE_ERROR_NONE;
 
 	/* Oops */
 #ifdef JP
@@ -5610,7 +5610,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 			}
 			if(j == DU_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN;
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -5945,7 +5945,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 			}
 			if(j == AU_INFO_CSV_COLUMNS) return PARSE_ERROR_COLUMN; /* ERROR */
 		}
-		return 0;
+		return PARSE_ERROR_NONE;
 	}
 	else
 	{
@@ -6329,11 +6329,11 @@ static errr parse_line_building(char *buf)
 
 #ifdef JP
 	if (buf[2] == '$')
-		return 0;
+		return PARSE_ERROR_NONE;
 	s = buf + 2;
 #else
 	if (buf[2] != '$')
-		return 0;
+		return PARSE_ERROR_NONE;
 	s = buf + 3;
 #endif
 	/* Get the building number */
@@ -6738,11 +6738,11 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		quest_type *quest_ptr;
 #ifdef JP
 		if (buf[2] == '$')
-			return 0;
+			return PARSE_ERROR_NONE;
 		num = tokenize(buf + 2, 33, zz, 0);
 #else
 		if (buf[2] != '$')
-			return 0;
+			return PARSE_ERROR_NONE;
 		num = tokenize(buf + 3, 33, zz, 0);
 #endif
 
