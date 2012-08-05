@@ -1591,7 +1591,7 @@ static errr traits_precondition_splits_to(traits_precondition *flags_pre_ptr, ob
 		/* Parse this entry */
 		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
 		{
-			//if(!grab_one_kind_flag(object_ptr, flagname))
+			//if(!grab_one_object_kind_flag(object_ptr, flagname))
 				return (PARSE_ERROR_INVALID_FLAG);
 		}
 
@@ -2102,7 +2102,7 @@ void retouch_feature_info(header *head)
 /*
  * Grab one flag in an object_kind from a textual string
  */
-static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
+static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
 {
 	int i;
 
@@ -2118,14 +2118,6 @@ static errr grab_one_kind_flag(object_kind *k_ptr, cptr what)
 
 	if (grab_one_flag(&k_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知のアイテム・フラグ '%s'。", what);
-#else
-	msg_format("Unknown object flag '%s'.", what);
-#endif
-
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -2440,7 +2432,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_kind_flag(&object_kind_info[n], s))
+					if (0 != grab_one_object_kind_flag(&object_kind_info[n], s))
 						return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
@@ -2523,14 +2515,6 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 
 	if (grab_one_flag(&a_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知の伝説のアイテム・フラグ '%s'。", what);
-#else
-	msg_format("Unknown artifact flag '%s'.", what);
-#endif
-
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
@@ -2862,14 +2846,6 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 
 	if (grab_one_flag(&e_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return 0;
-
-	/* Oops */
-#ifdef JP
-	msg_format("未知の名のあるアイテム・フラグ '%s'。", what);
-#else
-	msg_format("Unknown ego-item flag '%s'.", what);
-#endif
-
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
