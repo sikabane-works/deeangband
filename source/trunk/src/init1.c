@@ -2988,7 +2988,10 @@ errr parse_object_ego_csv(char *buf, header *head)
 
 						/* Parse this entry */
 					if (0 != grab_one_ego_item_flag(&object_ego_info[n], s))
-						return PARSE_ERROR_INVALID_FLAG;
+					{
+						if(0 != traits_precondition_splits(&object_ego_info[n].add_creature_traits, s))
+							return PARSE_ERROR_INVALID_FLAG;
+					}
 
 						/* Start the next entry */
 					s = t;
