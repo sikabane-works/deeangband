@@ -1540,69 +1540,6 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 	return -1;
 }
 
-static errr traits_precondition_splits_to(traits_precondition *flags_pre_ptr, object_type *object_ptr, char *tmp)
-{
-	char flagname[80];
-	char flag_aux[80];
-	char *s, *t;
-	int b, c, prob;
-
-	for (s = tmp; *s; )
-	{
-
-		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
-
-		/* Nuke and skip any dividers */
-		if (*t)
-		{
-			*t++ = '\0';
-			while (*t == ' ' || *t == '|' || *t == '\n') t++;
-		}
-
-		if (1 == sscanf(s, "1_IN_%d", &b))
-		{
-			//TODO
-				s=t;
-				continue;
-		}
-
-		if(sscanf(s, "%[^:]:%d:%d", &flag_aux, &b, &c) != 3)
-		{
-			if(sscanf(s, "%[^:]:%d", &flag_aux, &b) == 2)
-			{
-				c = PY_MAX_LEVEL + 1;
-			}
-			else if(sscanf(s, "%s", &flag_aux) == 1)
-			{
-				b = 1;
-				c = PY_MAX_LEVEL + 1;
-			}
-			else
-				return PARSE_ERROR_GENERIC;
-		}
-
-		if(sscanf(flag_aux, "%[^[][%d%]", &flagname, &prob) != 2)
-		{
-			if(sscanf(flag_aux, "%s", &flagname) != 1)
-				return PARSE_ERROR_GENERIC;
-			prob = 100;
-		}
-
-		/* Parse this entry */
-		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
-		{
-			//if(!grab_one_object_kind_flag(object_ptr, flagname))
-				return (PARSE_ERROR_INVALID_FLAG);
-		}
-
-		/* Start the next entry */
-		s = t;
-	}
-
-	return 0; // OK
-}
-
-
 static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char *tmp)
 {
 	char flagname[80];
@@ -1621,13 +1558,6 @@ static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char 
 		{
 			*t++ = '\0';
 			while (*t == ' ' || *t == '|' || *t == '\n') t++;
-		}
-
-		if (1 == sscanf(s, "1_IN_%d", &b))
-		{
-			//TODO
-				s=t;
-				continue;
 		}
 
 		if(sscanf(s, "%[^:]:%d:%d", &flag_aux, &b, &c) != 3)
