@@ -683,7 +683,7 @@ static cptr object_kind_info_flags[] =
 	"XXX",
 	"XXX",
 	"RIDING",
-	"EASY_SPELL",
+	"XXX",
 	"XXX",
 	"XXX",
 	"XXX",
@@ -715,7 +715,7 @@ static cptr object_kind_info_flags[] =
 	"XXX",
 	"XXX",
 	"XXX",
-	"DEC_MANA",
+	"XXX",
 	"XXX",
 	"XXX",
 	"HIDE_TYPE",
@@ -765,8 +765,8 @@ static cptr object_kind_info_flags[] =
 	"FULL_NAME",
 	"FIXED_FLAVOR",
 
-	"SLAY_GOOD",
-	"KILL_GOOD",
+	"XXX",
+	"XXX",
 	"NO_LIMIT_LITE",
 
 };
