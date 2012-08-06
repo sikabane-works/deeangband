@@ -697,21 +697,6 @@ static cptr object_kind_info_flags[] =
 	"XXX",
 	"XXX",
 
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-
-	"XXX",
-	"XXX",
-	"XXX",
 	"FULL_NAME",
 	"FIXED_FLAVOR",
 
