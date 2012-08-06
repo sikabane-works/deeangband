@@ -658,7 +658,7 @@ static cptr object_kind_info_flags[] =
 	"SPEED",
 	"BLOWS",
 	"RIDING",
-	"THROW",
+	"XXX",
 	"XXX",
 	"XXX",
 	"XXX",
