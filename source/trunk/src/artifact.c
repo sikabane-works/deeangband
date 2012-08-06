@@ -49,9 +49,9 @@ void one_high_resistance(object_type *object_ptr)
 {
 	switch (randint0(12))
 	{
-		case  0: add_flag(object_ptr->trait_flags, TR_RES_POIS);   break;
+		case  0: add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);   break;
 		case  1: add_flag(object_ptr->trait_flags, TRAIT_RES_LITE);   break;
-		case  2: add_flag(object_ptr->trait_flags, TR_RES_DARK);   break;
+		case  2: add_flag(object_ptr->trait_flags, TRAIT_RES_DARK);   break;
 		case  3: add_flag(object_ptr->trait_flags, TRAIT_RES_SHAR); break;
 		case  4: add_flag(object_ptr->trait_flags, TRAIT_NO_BLIND);  break;
 		case  5: add_flag(object_ptr->trait_flags, TRAIT_NO_CONF);   break;
@@ -60,7 +60,7 @@ void one_high_resistance(object_type *object_ptr)
 		case  8: add_flag(object_ptr->trait_flags, TRAIT_RES_NEXU);  break;
 		case  9: add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);  break;
 		case 10: add_flag(object_ptr->trait_flags, TRAIT_RES_DISE);  break;
-		case 11: add_flag(object_ptr->trait_flags, TR_RES_FEAR);   break;
+		case 11: add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);   break;
 	}
 }
 
@@ -73,7 +73,7 @@ void one_lordly_high_resistance(object_type *object_ptr)
 	switch (randint0(10))
 	{
 		case 0: add_flag(object_ptr->trait_flags, TRAIT_RES_LITE);   break;
-		case 1: add_flag(object_ptr->trait_flags, TR_RES_DARK);   break;
+		case 1: add_flag(object_ptr->trait_flags, TRAIT_RES_DARK);   break;
 		case 2: add_flag(object_ptr->trait_flags, TRAIT_RES_SHAR); break;
 		case 3: add_flag(object_ptr->trait_flags, TRAIT_NO_BLIND);  break;
 		case 4: add_flag(object_ptr->trait_flags, TRAIT_NO_CONF);   break;
@@ -81,7 +81,7 @@ void one_lordly_high_resistance(object_type *object_ptr)
 		case 6: add_flag(object_ptr->trait_flags, TRAIT_RES_NETH); break;
 		case 7: add_flag(object_ptr->trait_flags, TRAIT_RES_NEXU);  break;
 		case 8: add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);  break;
-		case 9: add_flag(object_ptr->trait_flags, TR_RES_FEAR);   break;
+		case 9: add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);   break;
 	}
 }
 
@@ -93,10 +93,10 @@ void one_ele_resistance(object_type *object_ptr)
 {
 	switch (randint0(4))
 	{
-		case  0: add_flag(object_ptr->art_flags, TR_RES_ACID); break;
-		case  1: add_flag(object_ptr->art_flags, TR_RES_ELEC); break;
-		case  2: add_flag(object_ptr->art_flags, TR_RES_COLD); break;
-		case  3: add_flag(object_ptr->art_flags, TR_RES_FIRE); break;
+		case  0: add_flag(object_ptr->art_flags, TRAIT_RES_ACID); break;
+		case  1: add_flag(object_ptr->art_flags, TRAIT_RES_ELEC); break;
+		case  2: add_flag(object_ptr->art_flags, TRAIT_RES_COLD); break;
+		case  3: add_flag(object_ptr->art_flags, TRAIT_RES_FIRE); break;
 	}
 }
 
@@ -108,7 +108,7 @@ void one_dragon_ele_resistance(object_type *object_ptr)
 {
 	if (one_in_(7))
 	{
-		add_flag(object_ptr->art_flags, TR_RES_POIS);
+		add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 	}
 	else
 	{
@@ -418,9 +418,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 	switch (artifact_bias)
 	{
 	case BIAS_ACID:
-		if (!(have_flag(object_ptr->art_flags, TR_RES_ACID)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_ACID)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_ACID);
+			add_flag(object_ptr->art_flags, TRAIT_RES_ACID);
 			if (one_in_(2)) return;
 		}
 		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_ACID)))
@@ -437,9 +437,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_ELEC:
-		if (!(have_flag(object_ptr->art_flags, TR_RES_ELEC)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_ELEC)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_RES_ELEC);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) && (object_ptr->tval <= TV_HARD_ARMOR) &&
@@ -463,9 +463,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_FIRE:
-		if (!(have_flag(object_ptr->art_flags, TR_RES_FIRE)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_FIRE)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_RES_FIRE);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) &&
@@ -490,9 +490,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_COLD:
-		if (!(have_flag(object_ptr->art_flags, TR_RES_COLD)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_COLD)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_RES_COLD);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) &&
@@ -516,17 +516,17 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_POIS:
-		if (!(have_flag(object_ptr->art_flags, TR_RES_POIS)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_POIS)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_WARRIOR:
-		if (!one_in_(3) && (!(have_flag(object_ptr->art_flags, TR_RES_FEAR))))
+		if (!one_in_(3) && (!(have_flag(object_ptr->art_flags, TRAIT_FEARLESS))))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_FEAR);
+			add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
 			if (one_in_(2)) return;
 		}
 		if (one_in_(3) && (!(have_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC))))
@@ -542,14 +542,14 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TRAIT_RES_NETH);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_RES_POIS)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_POIS)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_RES_DARK)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_DARK)))
 		{
-			add_flag(object_ptr->art_flags, TR_RES_DARK);
+			add_flag(object_ptr->art_flags, TRAIT_RES_DARK);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -618,34 +618,34 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		case 5:
 		case 6:
 		case 13:
-			add_flag(object_ptr->art_flags, TR_RES_ACID);
+			add_flag(object_ptr->art_flags, TRAIT_RES_ACID);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ACID;
 			break;
 		case 7:
 		case 8:
 		case 14:
-			add_flag(object_ptr->art_flags, TR_RES_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_RES_ELEC);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ELEC;
 			break;
 		case 9:
 		case 10:
 		case 15:
-			add_flag(object_ptr->art_flags, TR_RES_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_RES_FIRE);
 			if (!artifact_bias)
 				artifact_bias = BIAS_FIRE;
 			break;
 		case 11:
 		case 12:
 		case 16:
-			add_flag(object_ptr->art_flags, TR_RES_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_RES_COLD);
 			if (!artifact_bias)
 				artifact_bias = BIAS_COLD;
 			break;
 		case 17:
 		case 18:
-			add_flag(object_ptr->art_flags, TR_RES_POIS);
+			add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			if (!artifact_bias && !one_in_(4))
 				artifact_bias = BIAS_POIS;
 			else if (!artifact_bias && one_in_(2))
@@ -655,7 +655,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 19:
 		case 20:
-			add_flag(object_ptr->art_flags, TR_RES_FEAR);
+			add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
 			if (!artifact_bias && one_in_(3))
 				artifact_bias = BIAS_WARRIOR;
 			break;
@@ -663,7 +663,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->art_flags, TRAIT_RES_LITE);
 			break;
 		case 22:
-			add_flag(object_ptr->art_flags, TR_RES_DARK);
+			add_flag(object_ptr->art_flags, TRAIT_RES_DARK);
 			break;
 		case 23:
 		case 24:

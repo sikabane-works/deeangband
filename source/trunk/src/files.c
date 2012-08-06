@@ -2346,17 +2346,17 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 			add_flag(flgs, TRAIT_REGENERATE);
 	case CLASS_SAMURAI:
 		if (creature_ptr->lev > 29)
-			add_flag(flgs, TR_RES_FEAR);
+			add_flag(flgs, TRAIT_FEARLESS);
 		break;
 	case CLASS_PALADIN:
 		if (creature_ptr->lev > 39)
-			add_flag(flgs, TR_RES_FEAR);
+			add_flag(flgs, TRAIT_FEARLESS);
 		break;
 	case CLASS_CHAOS_WARRIOR:
 		if (creature_ptr->lev > 29)
 			add_flag(flgs, TRAIT_RES_CHAO);
 		if (creature_ptr->lev > 39)
-			add_flag(flgs, TR_RES_FEAR);
+			add_flag(flgs, TRAIT_FEARLESS);
 		break;
 	case CLASS_MONK:
 	case CLASS_FORCETRAINER:
@@ -2377,14 +2377,14 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 				add_flag(flgs, TRAIT_FREE_ACTION);
 		}
 		add_flag(flgs, TRAIT_SLOW_DIGEST);
-		add_flag(flgs, TR_RES_FEAR);
-		if (creature_ptr->lev > 19) add_flag(flgs, TR_RES_POIS);
+		add_flag(flgs, TRAIT_FEARLESS);
+		if (creature_ptr->lev > 19) add_flag(flgs, TRAIT_RES_POIS);
 		if (creature_ptr->lev > 24) add_flag(flgs, TRAIT_SUSTAIN_DEX);
 		if (creature_ptr->lev > 29) add_flag(flgs, TRAIT_SEE_INVISIBLE);
 		break;
 	case CLASS_MINDCRAFTER:
 		if (creature_ptr->lev > 9)
-			add_flag(flgs, TR_RES_FEAR);
+			add_flag(flgs, TRAIT_FEARLESS);
 		if (creature_ptr->lev > 19)
 			add_flag(flgs, TRAIT_SUSTAIN_WIS);
 		if (creature_ptr->lev > 29)
@@ -2455,7 +2455,7 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_FEARLESS))
 	{
-		add_flag(flgs, TR_RES_FEAR);
+		add_flag(flgs, TRAIT_FEARLESS);
 	}
 
 	if (has_trait(creature_ptr, TRAIT_REGENERATE))
@@ -2494,11 +2494,11 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 		add_flag(flgs, TRAIT_LEVITATION);
 	if (creature_ptr->special_defense & KAMAE_SEIRYU)
 	{
-		add_flag(flgs, TR_RES_FIRE);
-		add_flag(flgs, TR_RES_COLD);
-		add_flag(flgs, TR_RES_ACID);
-		add_flag(flgs, TR_RES_ELEC);
-		add_flag(flgs, TR_RES_POIS);
+		add_flag(flgs, TRAIT_RES_FIRE);
+		add_flag(flgs, TRAIT_RES_COLD);
+		add_flag(flgs, TRAIT_RES_ACID);
+		add_flag(flgs, TRAIT_RES_ELEC);
+		add_flag(flgs, TRAIT_RES_POIS);
 		add_flag(flgs, TRAIT_LEVITATION);
 		add_flag(flgs, TRAIT_AURA_FIRE);
 		add_flag(flgs, TRAIT_AURA_ELEC);
@@ -2506,9 +2506,9 @@ static void player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
 	}
 	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
-		add_flag(flgs, TR_RES_FEAR);
+		add_flag(flgs, TRAIT_FEARLESS);
 		add_flag(flgs, TRAIT_RES_LITE);
-		add_flag(flgs, TR_RES_DARK);
+		add_flag(flgs, TRAIT_RES_DARK);
 		add_flag(flgs, TRAIT_NO_BLIND);
 		add_flag(flgs, TRAIT_NO_CONF);
 		add_flag(flgs, TRAIT_RES_SOUN);
@@ -2548,7 +2548,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		flgs[i] = 0L;
 
 	if (IS_HERO(creature_ptr) || creature_ptr->shero)
-		add_flag(flgs, TR_RES_FEAR);
+		add_flag(flgs, TRAIT_FEARLESS);
 	if (creature_ptr->tim_invis)
 		add_flag(flgs, TRAIT_SEE_INVISIBLE);
 	if (creature_ptr->tim_regen)
@@ -2559,15 +2559,15 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TR_SPEED);
 
 	if (IS_OPPOSE_ACID(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(creature_ptr, RACE_YEEK) && (creature_ptr->lev > 19)))
-		add_flag(flgs, TR_RES_ACID);
+		add_flag(flgs, TRAIT_RES_ACID);
 	if (IS_OPPOSE_ELEC(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ELEC))
-		add_flag(flgs, TR_RES_ELEC);
+		add_flag(flgs, TRAIT_RES_ELEC);
 	if (IS_OPPOSE_FIRE(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_FIRE))
-		add_flag(flgs, TR_RES_FIRE);
+		add_flag(flgs, TRAIT_RES_FIRE);
 	if (IS_OPPOSE_COLD(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_COLD))
-		add_flag(flgs, TR_RES_COLD);
+		add_flag(flgs, TRAIT_RES_COLD);
 	if (IS_OPPOSE_POIS(creature_ptr))
-		add_flag(flgs, TR_RES_POIS);
+		add_flag(flgs, TRAIT_RES_POIS);
 
 	if (creature_ptr->special_attack & ATTACK_ACID)
 		add_flag(flgs, TRAIT_ACID_BRAND);
@@ -2611,9 +2611,9 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	}
 	if (creature_ptr->ult_res)
 	{
-		add_flag(flgs, TR_RES_FEAR);
+		add_flag(flgs, TRAIT_FEARLESS);
 		add_flag(flgs, TRAIT_RES_LITE);
-		add_flag(flgs, TR_RES_DARK);
+		add_flag(flgs, TRAIT_RES_DARK);
 		add_flag(flgs, TRAIT_NO_BLIND);
 		add_flag(flgs, TRAIT_NO_CONF);
 		add_flag(flgs, TRAIT_RES_SOUN);
@@ -2720,10 +2720,10 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_
 		/* Known flags */
 		object_flags_known(object_ptr, o_flgs);
 
-		if (have_flag(o_flgs, TRAIT_IM_ACID)) add_flag(flgs, TR_RES_ACID);
-		if (have_flag(o_flgs, TRAIT_IM_ELEC)) add_flag(flgs, TR_RES_ELEC);
-		if (have_flag(o_flgs, TRAIT_IM_FIRE)) add_flag(flgs, TR_RES_FIRE);
-		if (have_flag(o_flgs, TRAIT_IM_COLD)) add_flag(flgs, TR_RES_COLD);
+		if (have_flag(o_flgs, TRAIT_IM_ACID)) add_flag(flgs, TRAIT_RES_ACID);
+		if (have_flag(o_flgs, TRAIT_IM_ELEC)) add_flag(flgs, TRAIT_RES_ELEC);
+		if (have_flag(o_flgs, TRAIT_IM_FIRE)) add_flag(flgs, TRAIT_RES_FIRE);
+		if (have_flag(o_flgs, TRAIT_IM_COLD)) add_flag(flgs, TRAIT_RES_COLD);
 	}
 }
 
@@ -2739,12 +2739,12 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr
 	if (IS_RACE(creature_ptr, RACE_LICH))
 		add_flag(flgs, TRAIT_RES_NETH);
 	if (creature_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(creature_ptr, RACE_VAMPIRE))
-		add_flag(flgs, TR_RES_DARK);
+		add_flag(flgs, TRAIT_RES_DARK);
 	if (creature_ptr->mimic_form == MIMIC_DEMON_LORD)
-		add_flag(flgs, TR_RES_FIRE);
+		add_flag(flgs, TRAIT_RES_FIRE);
 	*/
 	if (IS_RACE(creature_ptr, RACE_YEEK) && creature_ptr->lev > 19)
-		add_flag(flgs, TR_RES_ACID);
+		add_flag(flgs, TRAIT_RES_ACID);
 }
 
 static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
@@ -2756,15 +2756,15 @@ static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature
 		flgs[i] = 0L;
 
 	if (creature_ptr->special_defense & DEFENSE_ACID)
-		add_flag(flgs, TR_RES_ACID);
+		add_flag(flgs, TRAIT_RES_ACID);
 	if (creature_ptr->special_defense & DEFENSE_ELEC)
-		add_flag(flgs, TR_RES_ELEC);
+		add_flag(flgs, TRAIT_RES_ELEC);
 	if (creature_ptr->special_defense & DEFENSE_FIRE)
-		add_flag(flgs, TR_RES_FIRE);
+		add_flag(flgs, TRAIT_RES_FIRE);
 	if (creature_ptr->special_defense & DEFENSE_COLD)
-		add_flag(flgs, TR_RES_COLD);
+		add_flag(flgs, TRAIT_RES_COLD);
 	if (creature_ptr->wraith_form)
-		add_flag(flgs, TR_RES_DARK);
+		add_flag(flgs, TRAIT_RES_DARK);
 }
 
 static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
@@ -2777,15 +2777,15 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_p
 
 	if (has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->special_defense & KATA_KOUKIJIN))
 	{
-		add_flag(flgs, TR_RES_ACID);
-		add_flag(flgs, TR_RES_ELEC);
-		add_flag(flgs, TR_RES_FIRE);
-		add_flag(flgs, TR_RES_COLD);
+		add_flag(flgs, TRAIT_RES_ACID);
+		add_flag(flgs, TRAIT_RES_ELEC);
+		add_flag(flgs, TRAIT_RES_FIRE);
+		add_flag(flgs, TRAIT_RES_COLD);
 	}
 	if (has_trait(creature_ptr, TRAIT_ANDROID))
-		add_flag(flgs, TR_RES_ELEC);
+		add_flag(flgs, TRAIT_RES_ELEC);
 	if (IS_RACE(creature_ptr, RACE_ENT))
-		add_flag(flgs, TR_RES_FIRE);
+		add_flag(flgs, TRAIT_RES_FIRE);
 	/*TODO
 	if (IS_RACE(creature_ptr, RACE_VAMPIRE) || IS_RACE(creature_ptr, RACE_S_FAIRY) ||
 	    (creature_ptr->mimic_form == MIMIC_VAMPIRE))
@@ -2937,33 +2937,33 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 
 #ifdef JP
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "‘Ï_  :", TR_RES_ACID, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "‘Ï_  :", TRAIT_RES_ACID, &f, 0, creature_ptr);
 	display_flag_aux(row+0, col, "‘Ï_  :", TRAIT_IM_ACID, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TR_RES_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TRAIT_RES_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "‘Ï“dŒ‚:", TRAIT_IM_ELEC, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TR_RES_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TRAIT_RES_FIRE, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "‘Ï‰Î‰Š:", TRAIT_IM_FIRE, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+3, col, "‘Ï—â‹C:", TR_RES_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "‘Ï—â‹C:", TRAIT_RES_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "‘Ï—â‹C:", TRAIT_IM_COLD, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+4, col, "‘Ï“Å  :", TR_RES_POIS, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "‘Ï“Å  :", TRAIT_RES_POIS, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "‘Ï‘MŒõ:", TRAIT_RES_LITE, &f, 0, creature_ptr);
-	display_flag_aux(row+6, col, "‘ÏˆÃ•:", TR_RES_DARK, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "‘ÏˆÃ•:", TRAIT_RES_DARK, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "‘Ï”j•Ğ:", TRAIT_RES_SHAR, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "‘Ï–Ó–Ú:", TRAIT_NO_BLIND, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "‘Ï¬—:", TRAIT_NO_CONF, &f, 0, creature_ptr);
 #else
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
-	display_flag_aux(row+0, col, "Acid  :", TR_RES_ACID, &f, 0, creature_ptr);
+	display_flag_aux(row+0, col, "Acid  :", TRAIT_RES_ACID, &f, 0, creature_ptr);
 	display_flag_aux(row+0, col, "Acid  :", TRAIT_IM_ACID, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+1, col, "Elec  :", TR_RES_ELEC, &f, 0, creature_ptr);
+	display_flag_aux(row+1, col, "Elec  :", TRAIT_RES_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "Elec  :", TRAIT_IM_ELEC, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+2, col, "Fire  :", TR_RES_FIRE, &f, 0, creature_ptr);
+	display_flag_aux(row+2, col, "Fire  :", TRAIT_RES_FIRE, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "Fire  :", TRAIT_IM_FIRE, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+3, col, "Cold  :", TR_RES_COLD, &f, 0, creature_ptr);
+	display_flag_aux(row+3, col, "Cold  :", TRAIT_RES_COLD, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "Cold  :", TRAIT_IM_COLD, &f, DP_IMM, creature_ptr);
-	display_flag_aux(row+4, col, "Poison:", TR_RES_POIS, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "Poison:", TRAIT_RES_POIS, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "Light :", TRAIT_RES_LITE, &f, 0, creature_ptr);
-	display_flag_aux(row+6, col, "Dark  :", TR_RES_DARK, &f, 0, creature_ptr);
+	display_flag_aux(row+6, col, "Dark  :", TRAIT_RES_DARK, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Shard :", TRAIT_RES_SHAR, &f, 0, creature_ptr);
 	display_flag_aux(row+8, col, "Blind :", TRAIT_NO_BLIND, &f, 0, creature_ptr);
 	display_flag_aux(row+9, col, "Conf  :", TRAIT_NO_CONF, &f, 0, creature_ptr);
@@ -3077,7 +3077,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+2, col, "‘Ïˆö¬:", TRAIT_RES_NEXU, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "‘ÏƒJƒI:", TRAIT_RES_CHAO, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "‘Ï—ò‰»:", TRAIT_RES_DISE, &f, 0, creature_ptr);
-	display_flag_aux(row+5, col, "‘Ï‹°•|:", TR_RES_FEAR, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "‘Ï‹°•|:", TRAIT_FEARLESS, &f, 0, creature_ptr);
 #else
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+8);
 	display_flag_aux(row+0, col, "Sound :", TRAIT_RES_SOUN, &f, 0, creature_ptr);
@@ -3085,7 +3085,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+2, col, "Nexus :", TRAIT_RES_NEXU, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "Chaos :", TRAIT_RES_CHAO, &f, 0, creature_ptr);
 	display_flag_aux(row+4, col, "Disnch:", TRAIT_RES_DISE, &f, 0, creature_ptr);
-	display_flag_aux(row+5, col, "Fear  :", TR_RES_FEAR, &f, 0, creature_ptr);
+	display_flag_aux(row+5, col, "Fear  :", TRAIT_FEARLESS, &f, 0, creature_ptr);
 #endif
 
 	rate = calc_damage(creature_ptr, 100, DAMAGE_TYPE_SOUND, FALSE);

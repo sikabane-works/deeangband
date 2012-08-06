@@ -607,13 +607,13 @@ static flag_insc_table flag_insc_immune[] =
 
 static flag_insc_table flag_insc_resistance[] =
 {
-	{ "é_", "Ac", TR_RES_ACID, TRAIT_IM_ACID },
-	{ "ìd", "El", TR_RES_ELEC, TRAIT_IM_ELEC },
-	{ "âŒ", "Fi", TR_RES_FIRE, TRAIT_IM_FIRE },
-	{ "ó‚", "Co", TR_RES_COLD, TRAIT_IM_COLD },
-	{ "ì≈", "Po", TR_RES_POIS, -1 },
+	{ "é_", "Ac", TRAIT_RES_ACID, TRAIT_IM_ACID },
+	{ "ìd", "El", TRAIT_RES_ELEC, TRAIT_IM_ELEC },
+	{ "âŒ", "Fi", TRAIT_RES_FIRE, TRAIT_IM_FIRE },
+	{ "ó‚", "Co", TRAIT_RES_COLD, TRAIT_IM_COLD },
+	{ "ì≈", "Po", TRAIT_RES_POIS, -1 },
 	{ "ëM", "Li", TRAIT_RES_LITE, -1 },
-	{ "à√", "Dk", TR_RES_DARK, -1 },
+	{ "à√", "Dk", TRAIT_RES_DARK, -1 },
 	{ "îj", "Sh", TRAIT_RES_SHAR, -1 },
 	{ "ñ”", "Bl", TRAIT_NO_BLIND, -1 },
 	{ "óê", "Cf", TRAIT_NO_CONF, -1 },
@@ -622,7 +622,7 @@ static flag_insc_table flag_insc_resistance[] =
 	{ "àˆ", "Nx", TRAIT_RES_NEXU, -1 },
 	{ "ì◊", "Ca", TRAIT_RES_CHAO, -1 },
 	{ "óÚ", "Di", TRAIT_RES_DISE, -1 },
-	{ "ã∞", "Fe", TR_RES_FEAR, -1 },
+	{ "ã∞", "Fe", TRAIT_FEARLESS, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -768,13 +768,13 @@ static flag_insc_table flag_insc_immune[] =
 
 static flag_insc_table flag_insc_resistance[] =
 {
-	{ "Ac", TR_RES_ACID, TRAIT_IM_ACID },
-	{ "El", TR_RES_ELEC, TRAIT_IM_ELEC },
-	{ "Fi", TR_RES_FIRE, TRAIT_IM_FIRE },
-	{ "Co", TR_RES_COLD, TRAIT_IM_COLD },
-	{ "Po", TR_RES_POIS, -1 },
+	{ "Ac", TRAIT_RES_ACID, TRAIT_IM_ACID },
+	{ "El", TRAIT_RES_ELEC, TRAIT_IM_ELEC },
+	{ "Fi", TRAIT_RES_FIRE, TRAIT_IM_FIRE },
+	{ "Co", TRAIT_RES_COLD, TRAIT_IM_COLD },
+	{ "Po", TRAIT_RES_POIS, -1 },
 	{ "Li", TRAIT_RES_LITE, -1 },
-	{ "Dk", TR_RES_DARK, -1 },
+	{ "Dk", TRAIT_RES_DARK, -1 },
 	{ "Sh", TRAIT_RES_SHAR, -1 },
 	{ "Bl", TRAIT_NO_BLIND, -1 },
 	{ "Cf", TRAIT_NO_CONF, -1 },
@@ -783,7 +783,7 @@ static flag_insc_table flag_insc_resistance[] =
 	{ "Nx", TRAIT_RES_NEXU, -1 },
 	{ "Ca", TRAIT_RES_CHAO, -1 },
 	{ "Di", TRAIT_RES_DISE, -1 },
-	{ "Fe", TR_RES_FEAR, -1 },
+	{ "Fe", TRAIT_FEARLESS, -1 },
 	{ NULL, 0, -1 }
 };
 

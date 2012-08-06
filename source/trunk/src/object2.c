@@ -961,14 +961,14 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_IM_FIRE)) {tmp_cost += 15000;count += 2;}
 	if (have_flag(flgs, TRAIT_IM_COLD)) {tmp_cost += 15000;count += 2;}
 	if (have_flag(flgs, TRAIT_REFLECTING)) {tmp_cost += 5000;count += 2;}
-	if (have_flag(flgs, TR_RES_ACID)) {tmp_cost += 500;count++;}
-	if (have_flag(flgs, TR_RES_ELEC)) {tmp_cost += 500;count++;}
-	if (have_flag(flgs, TR_RES_FIRE)) {tmp_cost += 500;count++;}
-	if (have_flag(flgs, TR_RES_COLD)) {tmp_cost += 500;count++;}
-	if (have_flag(flgs, TR_RES_POIS)) {tmp_cost += 1000;count += 2;}
-	if (have_flag(flgs, TR_RES_FEAR)) {tmp_cost += 1000;count += 2;}
+	if (have_flag(flgs, TRAIT_RES_ACID)) {tmp_cost += 500;count++;}
+	if (have_flag(flgs, TRAIT_RES_ELEC)) {tmp_cost += 500;count++;}
+	if (have_flag(flgs, TRAIT_RES_FIRE)) {tmp_cost += 500;count++;}
+	if (have_flag(flgs, TRAIT_RES_COLD)) {tmp_cost += 500;count++;}
+	if (have_flag(flgs, TRAIT_RES_POIS)) {tmp_cost += 1000;count += 2;}
+	if (have_flag(flgs, TRAIT_FEARLESS)) {tmp_cost += 1000;count += 2;}
 	if (have_flag(flgs, TRAIT_RES_LITE)) {tmp_cost += 800;count += 2;}
-	if (have_flag(flgs, TR_RES_DARK)) {tmp_cost += 800;count += 2;}
+	if (have_flag(flgs, TRAIT_RES_DARK)) {tmp_cost += 800;count += 2;}
 	if (have_flag(flgs, TRAIT_NO_BLIND)) {tmp_cost += 900;count += 2;}
 	if (have_flag(flgs, TRAIT_NO_CONF)) {tmp_cost += 900;count += 2;}
 	if (have_flag(object_ptr->trait_flags, TRAIT_RES_SOUN)) {tmp_cost += 900;count += 2;}
@@ -2699,27 +2699,27 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						break;
 					case 17:
 						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if (!(have_flag(k_ptr->flags, TR_RES_FIRE)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
+						if (!(have_flag(k_ptr->flags, TRAIT_RES_FIRE)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
 						if (tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_F;
 						else if (tmp > 3) object_ptr->name2 = EGO_RING_FIRE_BALL;
 						else object_ptr->name2 = EGO_RING_FIRE_BOLT;
 						break;
 					case 18:
 						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if (!(have_flag(k_ptr->flags, TR_RES_COLD)) && (have_flag(k_ptr->flags, TR_RES_FIRE) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
+						if (!(have_flag(k_ptr->flags, TRAIT_RES_COLD)) && (have_flag(k_ptr->flags, TRAIT_RES_FIRE) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
 						if (tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_C;
 						else if (tmp > 3) object_ptr->name2 = EGO_RING_COLD_BALL;
 						else object_ptr->name2 = EGO_RING_COLD_BOLT;
 						break;
 					case 19:
 						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if (!(have_flag(k_ptr->flags, TR_RES_ELEC)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_FIRE) || have_flag(k_ptr->flags, TR_RES_ACID))) break;
+						if (!(have_flag(k_ptr->flags, TRAIT_RES_ELEC)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_FIRE) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
 						if (tmp > 4) object_ptr->name2 = EGO_RING_ELEC_BALL;
 						else object_ptr->name2 = EGO_RING_ELEC_BOLT;
 						break;
 					case 20:
 						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if (!(have_flag(k_ptr->flags, TR_RES_ACID)) && (have_flag(k_ptr->flags, TR_RES_COLD) || have_flag(k_ptr->flags, TR_RES_ELEC) || have_flag(k_ptr->flags, TR_RES_FIRE))) break;
+						if (!(have_flag(k_ptr->flags, TRAIT_RES_ACID)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_FIRE))) break;
 						if (tmp > 4) object_ptr->name2 = EGO_RING_ACID_BALL;
 						else object_ptr->name2 = EGO_RING_ACID_BOLT;
 						break;
@@ -2900,7 +2900,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_AMULET_RESISTANCE:
 				{
 					if (one_in_(5)) one_high_resistance(object_ptr);
-					if (one_in_(5)) add_flag(object_ptr->art_flags, TR_RES_POIS);
+					if (one_in_(5)) add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 				}
 				break;
 
@@ -3015,28 +3015,28 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_AMU_AC;
 						break;
 					case 12:
-						if (have_flag(k_ptr->flags, TR_RES_FIRE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_RES_FIRE)) break;
 						if (m_bonus(10, level) > 8)
 							object_ptr->name2 = EGO_AMU_RES_FIRE_;
 						else
 							object_ptr->name2 = EGO_AMU_RES_FIRE;
 						break;
 					case 13:
-						if (have_flag(k_ptr->flags, TR_RES_COLD)) break;
+						if (have_flag(k_ptr->flags, TRAIT_RES_COLD)) break;
 						if (m_bonus(10, level) > 8)
 							object_ptr->name2 = EGO_AMU_RES_COLD_;
 						else
 							object_ptr->name2 = EGO_AMU_RES_COLD;
 						break;
 					case 14:
-						if (have_flag(k_ptr->flags, TR_RES_ELEC)) break;
+						if (have_flag(k_ptr->flags, TRAIT_RES_ELEC)) break;
 						if (m_bonus(10, level) > 8)
 							object_ptr->name2 = EGO_AMU_RES_ELEC_;
 						else
 							object_ptr->name2 = EGO_AMU_RES_ELEC;
 						break;
 					case 15:
-						if (have_flag(k_ptr->flags, TR_RES_ACID)) break;
+						if (have_flag(k_ptr->flags, TRAIT_RES_ACID)) break;
 						if (m_bonus(10, level) > 8)
 							object_ptr->name2 = EGO_AMU_RES_ACID_;
 						else
@@ -6115,14 +6115,14 @@ static essence_type essence_info[] =
 	{TRAIT_REFLECTING, "”½ŽË", 2, TRAIT_REFLECTING, 20},
 	{TRAIT_FREE_ACTION, "–ƒáƒ’m‚ç‚¸", 3, TRAIT_FREE_ACTION, 20},
 	{TRAIT_HOLD_LIFE, "¶–½—ÍˆÛŽ", 3, TRAIT_HOLD_LIFE, 20},
-	{TR_RES_ACID, "‘ÏŽ_", 2, TR_RES_ACID, 15},
-	{TR_RES_ELEC, "‘Ï“dŒ‚", 2, TR_RES_ELEC, 15},
-	{TR_RES_FIRE, "‘Ï‰Î‰Š", 2, TR_RES_FIRE, 15},
-	{TR_RES_COLD, "‘Ï—â‹C", 2, TR_RES_COLD, 15},
-	{TR_RES_POIS, "‘Ï“Å", 2, TR_RES_POIS, 25},
-	{TR_RES_FEAR, "‘Ï‹°•|", 2, TR_RES_FEAR, 20},
+	{TRAIT_RES_ACID, "‘ÏŽ_", 2, TRAIT_RES_ACID, 15},
+	{TRAIT_RES_ELEC, "‘Ï“dŒ‚", 2, TRAIT_RES_ELEC, 15},
+	{TRAIT_RES_FIRE, "‘Ï‰Î‰Š", 2, TRAIT_RES_FIRE, 15},
+	{TRAIT_RES_COLD, "‘Ï—â‹C", 2, TRAIT_RES_COLD, 15},
+	{TRAIT_RES_POIS, "‘Ï“Å", 2, TRAIT_RES_POIS, 25},
+	{TRAIT_FEARLESS, "‘Ï‹°•|", 2, TRAIT_FEARLESS, 20},
 	{TRAIT_RES_LITE, "‘Ï‘MŒõ", 2, TRAIT_RES_LITE, 20},
-	{TR_RES_DARK, "‘ÏˆÃ•", 2, TR_RES_DARK, 20},
+	{TRAIT_RES_DARK, "‘ÏˆÃ•", 2, TRAIT_RES_DARK, 20},
 	{TRAIT_NO_BLIND, "‘Ï–Ó–Ú", 2, TRAIT_NO_BLIND, 20},
 	{TRAIT_NO_CONF, "‘Ï¬—", 2, TRAIT_NO_CONF, 20},
 	{TRAIT_RES_SOUN, "‘ÏŒ‰¹", 2, TRAIT_RES_SOUN, 20},
@@ -6176,10 +6176,10 @@ static essence_type essence_info[] =
 
 	{ESSENCE_ATTACK, "UŒ‚", 10, TR_ES_ATTACK, 30},
 	{ESSENCE_AC, "–hŒä", 10, TR_ES_AC, 15},
-	{ESSENCE_TMP_RES_ACID, "Ž_‘Ï«”­“®", 7, TR_RES_ACID, 50},
-	{ESSENCE_TMP_RES_ELEC, "“dŒ‚‘Ï«”­“®", 7, TR_RES_ELEC, 50},
-	{ESSENCE_TMP_RES_FIRE, "‰Î‰Š‘Ï«”­“®", 7, TR_RES_FIRE, 50},
-	{ESSENCE_TMP_RES_COLD, "—â‹C‘Ï«”­“®", 7, TR_RES_COLD, 50},
+	{ESSENCE_TMP_RES_ACID, "Ž_‘Ï«”­“®", 7, TRAIT_RES_ACID, 50},
+	{ESSENCE_TMP_RES_ELEC, "“dŒ‚‘Ï«”­“®", 7, TRAIT_RES_ELEC, 50},
+	{ESSENCE_TMP_RES_FIRE, "‰Î‰Š‘Ï«”­“®", 7, TRAIT_RES_FIRE, 50},
+	{ESSENCE_TMP_RES_COLD, "—â‹C‘Ï«”­“®", 7, TRAIT_RES_COLD, 50},
 	{ESSENCE_SH_FIRE, "‰Î‰ŠƒI[ƒ‰", 7, -1, 50},
 	{ESSENCE_SH_ELEC, "“dŒ‚ƒI[ƒ‰", 7, -1, 50},
 	{ESSENCE_SH_COLD, "—â‹CƒI[ƒ‰", 7, -1, 50},
@@ -6226,14 +6226,14 @@ static essence_type essence_info[] =
 	{TRAIT_REFLECTING, "reflection", 2, TRAIT_REFLECTING, 20},
 	{TRAIT_FREE_ACTION, "free action", 3, TRAIT_FREE_ACTION, 20},
 	{TRAIT_HOLD_LIFE, "hold life", 3, TRAIT_HOLD_LIFE, 20},
-	{TR_RES_ACID, "resistance to acid", 2, TR_RES_ACID, 15},
-	{TR_RES_ELEC, "resistance to electric", 2, TR_RES_ELEC, 15},
-	{TR_RES_FIRE, "resistance to fire", 2, TR_RES_FIRE, 15},
-	{TR_RES_COLD, "resistance to cold", 2, TR_RES_COLD, 15},
-	{TR_RES_POIS, "resistance to poison", 2, TR_RES_POIS, 25},
-	{TR_RES_FEAR, "resistance to fear", 2, TR_RES_FEAR, 20},
+	{TRAIT_RES_ACID, "resistance to acid", 2, TRAIT_RES_ACID, 15},
+	{TRAIT_RES_ELEC, "resistance to electric", 2, TRAIT_RES_ELEC, 15},
+	{TRAIT_RES_FIRE, "resistance to fire", 2, TRAIT_RES_FIRE, 15},
+	{TRAIT_RES_COLD, "resistance to cold", 2, TRAIT_RES_COLD, 15},
+	{TRAIT_RES_POIS, "resistance to poison", 2, TRAIT_RES_POIS, 25},
+	{TRAIT_FEARLESS, "resistance to fear", 2, TRAIT_FEARLESS, 20},
 	{TRAIT_RES_LITE, "resistance to light", 2, TRAIT_RES_LITE, 20},
-	{TR_RES_DARK, "resistance to dark", 2, TR_RES_DARK, 20},
+	{TRAIT_RES_DARK, "resistance to dark", 2, TRAIT_RES_DARK, 20},
 	{TRAIT_NO_BLIND, "resistance to blind", 2, TRAIT_NO_BLIND, 20},
 	{TRAIT_NO_CONF, "resistance to confusion", 2, TRAIT_NO_CONF, 20},
 	{TRAIT_RES_SOUN, "resistance to sound", 2, TRAIT_RES_SOUN, 20},
@@ -6287,10 +6287,10 @@ static essence_type essence_info[] =
 
 	{ESSENCE_ATTACK, "weapon enchant", 10, TR_ES_ATTACK, 30},
 	{ESSENCE_AC, "armor enchant", 10, TR_ES_AC, 15},
-	{ESSENCE_TMP_RES_ACID, "resist acid activation", 7, TR_RES_ACID, 50},
-	{ESSENCE_TMP_RES_ELEC, "resist electricity activation", 7, TR_RES_ELEC, 50},
-	{ESSENCE_TMP_RES_FIRE, "resist fire activation", 7, TR_RES_FIRE, 50},
-	{ESSENCE_TMP_RES_COLD, "resist cold activation", 7, TR_RES_COLD, 50},
+	{ESSENCE_TMP_RES_ACID, "resist acid activation", 7, TRAIT_RES_ACID, 50},
+	{ESSENCE_TMP_RES_ELEC, "resist electricity activation", 7, TRAIT_RES_ELEC, 50},
+	{ESSENCE_TMP_RES_FIRE, "resist fire activation", 7, TRAIT_RES_FIRE, 50},
+	{ESSENCE_TMP_RES_COLD, "resist cold activation", 7, TRAIT_RES_COLD, 50},
 	{ESSENCE_SH_FIRE, "fiery sheath", 7, -1, 50},
 	{ESSENCE_SH_ELEC, "electric sheath", 7, -1, 50},
 	{ESSENCE_SH_COLD, "sheath of coldness", 7, -1, 50},
@@ -6667,17 +6667,17 @@ static void drain_essence(creature_type *creature_ptr)
 			else if (es_ptr->add == TRAIT_AURA_FIRE)
 			{
 				drain_value[TRAIT_FIRE_BRAND] += 10;
-				drain_value[TR_RES_FIRE] += 10;
+				drain_value[TRAIT_RES_FIRE] += 10;
 			}
 			else if (es_ptr->add == TRAIT_AURA_ELEC)
 			{
 				drain_value[TRAIT_ELEC_BRAND] += 10;
-				drain_value[TR_RES_ELEC] += 10;
+				drain_value[TRAIT_RES_ELEC] += 10;
 			}
 			else if (es_ptr->add == TRAIT_AURA_COLD)
 			{
 				drain_value[TRAIT_COLD_BRAND] += 10;
-				drain_value[TR_RES_COLD] += 10;
+				drain_value[TRAIT_RES_COLD] += 10;
 			}
 		}
 	}
@@ -7057,7 +7057,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 							strcat(dummy, "(brand fire + res.fire)");
 #endif
 							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_ELEC:
 #ifdef JP
@@ -7066,7 +7066,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 							strcat(dummy, "(brand elec. + res. elec.)");
 #endif
 							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SH_COLD:
 #ifdef JP
@@ -7075,7 +7075,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 							strcat(dummy, "(brand cold + res. cold)");
 #endif
 							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_RESISTANCE:
 #ifdef JP
@@ -7083,10 +7083,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						case ESSENCE_SUSTAIN:
 #ifdef JP
@@ -7094,10 +7094,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
 #endif
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+							if (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
 							break;
 						}
 					}
@@ -7409,43 +7409,43 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		switch(es_ptr->add)
 		{
 		case ESSENCE_SH_FIRE:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
 			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] -= use_essence;
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] -= use_essence;
 			break;
 		case ESSENCE_SH_ELEC:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
 			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] -= use_essence;
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] -= use_essence;
 			break;
 		case ESSENCE_SH_COLD:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
 			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] -= use_essence;
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] -= use_essence;
 			break;
 		case ESSENCE_RESISTANCE:
 		case ESSENCE_SUSTAIN:
-			if ((creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] < use_essence))
+			if ((creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < use_essence) || (creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < use_essence))
 			{
 				success = FALSE;
 				break;
 			}
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ACID] -= use_essence;
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_ELEC] -= use_essence;
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_FIRE] -= use_essence;
-			creature_ptr->class_skills.old_skills.magic_num1[TR_RES_COLD] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] -= use_essence;
+			creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] -= use_essence;
 			break;
 		}
 		if (!success)
@@ -7900,7 +7900,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	{
 		case EGO_RESISTANCE:
 			if (one_in_(4))
-				add_flag(object_ptr->art_flags, TR_RES_POIS);
+				add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			break;
 
 		case EGO_DWARVEN:
@@ -7920,7 +7920,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_ENDURANCE:
 			if (!one_in_(3)) one_high_resistance(object_ptr);
-			if (one_in_(4)) add_flag(object_ptr->art_flags, TR_RES_POIS);
+			if (one_in_(4)) add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			break;
 
 		case EGO_REFLECTION:
@@ -7959,7 +7959,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_DF:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TR_RES_POIS);
+				add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			if (one_in_(3))
 				add_flag(object_ptr->art_flags, TRAIT_WARNING);
 			break;
@@ -7968,7 +7968,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			break;
 		case EGO_WEST:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TR_RES_FEAR);
+				add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
 			break;
 		case EGO_ATTACKS:
 			break;
@@ -8013,7 +8013,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_KILL_DRAGON:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TR_RES_POIS);
+				add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
 			break;
 
 		case EGO_VAMPIRIC:
@@ -8037,7 +8037,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if (one_in_(3))
 				add_flag(object_ptr->art_flags, TR_DEX);
 			if (one_in_(5))
-				add_flag(object_ptr->art_flags, TR_RES_FEAR);
+				add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
 			break;
 
 		case EGO_DIGGING:

@@ -12087,8 +12087,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 
 						add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
-						add_flag(object_ptr->art_flags, TR_RES_POIS);
-						add_flag(object_ptr->art_flags, TR_RES_DARK);
+						add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+						add_flag(object_ptr->art_flags, TRAIT_RES_DARK);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_NETH);
 #ifdef JP
 						msg_print("ŒŒ‚¾IŒŒ‚¾IŒŒ‚¾I");

@@ -158,45 +158,45 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if (add == ESSENCE_TMP_RES_ACID)
 		{
-			add_flag(flgs, TR_RES_ACID);
+			add_flag(flgs, TRAIT_RES_ACID);
 			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_TMP_RES_ELEC)
 		{
-			add_flag(flgs, TR_RES_ELEC);
+			add_flag(flgs, TRAIT_RES_ELEC);
 			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_TMP_RES_FIRE)
 		{
-			add_flag(flgs, TR_RES_FIRE);
+			add_flag(flgs, TRAIT_RES_FIRE);
 			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_TMP_RES_COLD)
 		{
-			add_flag(flgs, TR_RES_COLD);
+			add_flag(flgs, TRAIT_RES_COLD);
 			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_SH_FIRE)
 		{
-			add_flag(flgs, TR_RES_FIRE);
+			add_flag(flgs, TRAIT_RES_FIRE);
 			add_flag(flgs, TRAIT_AURA_FIRE);
 		}
 		else if (add == ESSENCE_SH_ELEC)
 		{
-			add_flag(flgs, TR_RES_ELEC);
+			add_flag(flgs, TRAIT_RES_ELEC);
 			add_flag(flgs, TRAIT_AURA_ELEC);
 		}
 		else if (add == ESSENCE_SH_COLD)
 		{
-			add_flag(flgs, TR_RES_COLD);
+			add_flag(flgs, TRAIT_RES_COLD);
 			add_flag(flgs, TRAIT_AURA_COLD);
 		}
 		else if (add == ESSENCE_RESISTANCE)
 		{
-			add_flag(flgs, TR_RES_ACID);
-			add_flag(flgs, TR_RES_ELEC);
-			add_flag(flgs, TR_RES_FIRE);
-			add_flag(flgs, TR_RES_COLD);
+			add_flag(flgs, TRAIT_RES_ACID);
+			add_flag(flgs, TRAIT_RES_ELEC);
+			add_flag(flgs, TRAIT_RES_FIRE);
+			add_flag(flgs, TRAIT_RES_COLD);
 		}
 		else if (add == TRAIT_SHATTER)
 		{
@@ -291,41 +291,41 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if (add == ESSENCE_TMP_RES_ACID)
 		{
-			add_flag(flgs, TR_RES_ACID);
+			add_flag(flgs, TRAIT_RES_ACID);
 		}
 		else if (add == ESSENCE_TMP_RES_ELEC)
 		{
-			add_flag(flgs, TR_RES_ELEC);
+			add_flag(flgs, TRAIT_RES_ELEC);
 		}
 		else if (add == ESSENCE_TMP_RES_FIRE)
 		{
-			add_flag(flgs, TR_RES_FIRE);
+			add_flag(flgs, TRAIT_RES_FIRE);
 		}
 		else if (add == ESSENCE_TMP_RES_COLD)
 		{
-			add_flag(flgs, TR_RES_COLD);
+			add_flag(flgs, TRAIT_RES_COLD);
 		}
 		else if (add == ESSENCE_SH_FIRE)
 		{
-			add_flag(flgs, TR_RES_FIRE);
+			add_flag(flgs, TRAIT_RES_FIRE);
 			add_flag(flgs, TRAIT_AURA_FIRE);
 		}
 		else if (add == ESSENCE_SH_ELEC)
 		{
-			add_flag(flgs, TR_RES_ELEC);
+			add_flag(flgs, TRAIT_RES_ELEC);
 			add_flag(flgs, TRAIT_AURA_ELEC);
 		}
 		else if (add == ESSENCE_SH_COLD)
 		{
-			add_flag(flgs, TR_RES_COLD);
+			add_flag(flgs, TRAIT_RES_COLD);
 			add_flag(flgs, TRAIT_AURA_COLD);
 		}
 		else if (add == ESSENCE_RESISTANCE)
 		{
-			add_flag(flgs, TR_RES_ACID);
-			add_flag(flgs, TR_RES_ELEC);
-			add_flag(flgs, TR_RES_FIRE);
-			add_flag(flgs, TR_RES_COLD);
+			add_flag(flgs, TRAIT_RES_ACID);
+			add_flag(flgs, TRAIT_RES_ELEC);
+			add_flag(flgs, TRAIT_RES_FIRE);
+			add_flag(flgs, TRAIT_RES_COLD);
 		}
 	}
 }
@@ -3206,7 +3206,7 @@ info[i++] = "それは生命力吸収に対する耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_FEAR))
+	if (have_flag(flgs, TRAIT_FEARLESS))
 	{
 #ifdef JP
 info[i++] = "それは恐怖への完全な耐性を授ける。";
@@ -3215,7 +3215,7 @@ info[i++] = "それは恐怖への完全な耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_ACID))
+	if (have_flag(flgs, TRAIT_RES_ACID))
 	{
 #ifdef JP
 info[i++] = "それは酸への耐性を授ける。";
@@ -3224,7 +3224,7 @@ info[i++] = "それは酸への耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_ELEC))
+	if (have_flag(flgs, TRAIT_RES_ELEC))
 	{
 #ifdef JP
 info[i++] = "それは電撃への耐性を授ける。";
@@ -3233,7 +3233,7 @@ info[i++] = "それは電撃への耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_FIRE))
+	if (have_flag(flgs, TRAIT_RES_FIRE))
 	{
 #ifdef JP
 info[i++] = "それは火への耐性を授ける。";
@@ -3242,7 +3242,7 @@ info[i++] = "それは火への耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_COLD))
+	if (have_flag(flgs, TRAIT_RES_COLD))
 	{
 #ifdef JP
 info[i++] = "それは寒さへの耐性を授ける。";
@@ -3251,7 +3251,7 @@ info[i++] = "それは寒さへの耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_POIS))
+	if (have_flag(flgs, TRAIT_RES_POIS))
 	{
 #ifdef JP
 info[i++] = "それは毒への耐性を授ける。";
@@ -3270,7 +3270,7 @@ info[i++] = "それは閃光への耐性を授ける。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_RES_DARK))
+	if (have_flag(flgs, TRAIT_RES_DARK))
 	{
 #ifdef JP
 info[i++] = "それは暗黒への耐性を授ける。";

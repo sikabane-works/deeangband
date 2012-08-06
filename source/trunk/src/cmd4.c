@@ -6023,13 +6023,13 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 		{
 			object_flags_known(object_ptr, flgs);
 
-			print_im_or_res_flag(TRAIT_IM_ACID, TR_RES_ACID);
-			print_im_or_res_flag(TRAIT_IM_ELEC, TR_RES_ELEC);
-			print_im_or_res_flag(TRAIT_IM_FIRE, TR_RES_FIRE);
-			print_im_or_res_flag(TRAIT_IM_COLD, TR_RES_COLD);
-			print_flag(TR_RES_POIS);
+			print_im_or_res_flag(TRAIT_IM_ACID, TRAIT_RES_ACID);
+			print_im_or_res_flag(TRAIT_IM_ELEC, TRAIT_RES_ELEC);
+			print_im_or_res_flag(TRAIT_IM_FIRE, TRAIT_RES_FIRE);
+			print_im_or_res_flag(TRAIT_IM_COLD, TRAIT_RES_COLD);
+			print_flag(TRAIT_RES_POIS);
 			print_flag(TRAIT_RES_LITE);
-			print_flag(TR_RES_DARK);
+			print_flag(TRAIT_RES_DARK);
 			print_flag(TRAIT_RES_SHAR);
 			print_flag(TRAIT_RES_SOUN);
 			print_flag(TRAIT_RES_NETH);
@@ -6040,7 +6040,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 			fputs(" ", fff);
 
 			print_flag(TRAIT_NO_BLIND);
-			print_flag(TR_RES_FEAR);
+			print_flag(TRAIT_FEARLESS);
 			print_flag(TRAIT_NO_CONF);
 			print_flag(TRAIT_FREE_ACTION);
 			print_flag(TRAIT_SEE_INVISIBLE);
