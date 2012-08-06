@@ -663,12 +663,8 @@ static cptr object_kind_info_flags[] =
 
 	"HIDE_TYPE",
 	"SHOW_MODS",
-	"XXX",
-	"XXX",
 	"LITE",
 
-	"XXX",
-	"XXX",
 	"XXX",
 	"XXX",
 	"XTRA_MIGHT",
@@ -682,21 +678,6 @@ static cptr object_kind_info_flags[] =
 	"ACTIVATE",
 	"XXX",
 	"TELEPORT",
-	"XXX",
-	"XXX",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-
 	"FULL_NAME",
 	"FIXED_FLAVOR",
 
