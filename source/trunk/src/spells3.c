@@ -151,7 +151,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	lite_spot(floor_ptr, ny, nx);
 
 	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 
 	return (TRUE);
 }
@@ -244,7 +244,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	lite_spot(floor_ptr, ny, nx);
 
 	if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 }
 
 
@@ -1715,7 +1715,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 	// Update creatures
 	update |= (PU_MONSTERS);
@@ -4658,7 +4658,7 @@ bool hates_fire(object_type *object_ptr)
 		case TV_TRUMP_BOOK:
 		case TV_ARCANE_BOOK:
 		case TV_CRAFT_BOOK:
-		case TV_DAEMON_BOOK:
+		case TV_DAESPECIES_BOOK:
 		case TV_CRUSADE_BOOK:
 		case TV_MUSIC_BOOK:
 		case TV_HISSATSU_BOOK:

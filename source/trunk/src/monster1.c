@@ -824,9 +824,9 @@ bool no_questor_or_bounty_uniques(int species_idx)
 	 * Decline them to be questor or bounty because they use
 	 * special motion "split and combine"
 	 */
-	case MON_BANORLUPART:
-	case MON_BANOR:
-	case MON_LUPART:
+	case SPECIES_BANORLUPART:
+	case SPECIES_BANOR:
+	case SPECIES_LUPART:
 		return TRUE;
 	default:
 		return FALSE;

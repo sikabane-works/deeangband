@@ -5406,7 +5406,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				cptr kakusan = "";
 #endif
 
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, MON_SUKE, PM_FORCE_PET))
+				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_SUKE, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『助さん』が現れた。");
@@ -5416,7 +5416,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 					count++;
 				}
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, MON_KAKU, PM_FORCE_PET))
+				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_KAKU, PM_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『格さん』が現れた。");
@@ -5432,7 +5432,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 					{
 						m_ptr = &creature_list[i];
 						if (!m_ptr->species_idx) continue;
-						if (!((m_ptr->species_idx == MON_SUKE) || (m_ptr->species_idx == MON_KAKU))) continue;
+						if (!((m_ptr->species_idx == SPECIES_SUKE) || (m_ptr->species_idx == SPECIES_KAKU))) continue;
 						if (!los(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
 						if (!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
 						count++;
@@ -5578,7 +5578,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				bool pet = !one_in_(5);
 				if (pet) mode |= PM_FORCE_PET;
 
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, MON_JIZOTAKO, mode))
+				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_JIZOTAKO, mode))
 				{
 					if (pet)
 #ifdef JP

@@ -2304,7 +2304,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #ifdef JP
 				abbreviate = 2;
 #endif
-				act = desc_insult[randint0(attacker_ptr->species_idx == MON_DEBBY ? 10 : 8)];
+				act = desc_insult[randint0(attacker_ptr->species_idx == SPECIES_DEBBY ? 10 : 8)];
 				sound(SOUND_MOAN);
 				break;
 			}
@@ -2324,7 +2324,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #ifdef JP
 				abbreviate = 4;
 #endif
-				if (attacker_ptr->species_idx == MON_JAIAN)
+				if (attacker_ptr->species_idx == SPECIES_JAIAN)
 				{
 #ifdef JP
 					switch(randint1(15))
@@ -2987,7 +2987,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if (set_blind(target_ptr, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
 					{
 #ifdef JP
-						if (attacker_ptr->species_idx == MON_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
+						if (attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
 #else
 						/* nanka */
 #endif
@@ -3237,7 +3237,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_10:
 			{
-				s32b d = diceroll(10, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(10, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -3253,7 +3253,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_20:
 			{
-				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -3269,7 +3269,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_40:
 			{
-				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -3285,7 +3285,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_EXP_80:
 			{
-				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -3350,7 +3350,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 							msg_print("You feel life has clocked back.");
 #endif
 
-							lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * MON_DRAIN_LIFE);
+							lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
 							break;
 						}
 
@@ -3416,7 +3416,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 		case RBE_EXP_VAMP:
 			{
-				s32b d = diceroll(60, 6) + (target_ptr->exp / 100) * MON_DRAIN_LIFE;
+				s32b d = diceroll(60, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				bool resist_drain;
 
 				/* Obvious */

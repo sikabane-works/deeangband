@@ -1147,7 +1147,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 					lite_spot(floor_ptr, ty, tx);
 
 					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-						update |= (PU_MON_LITE);
+						update |= (PU_SPECIES_LITE);
 				}
 			}
 		}
@@ -1708,7 +1708,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		lite_spot(floor_ptr, ty, tx);
 
 		if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-			update |= (PU_MON_LITE);
+			update |= (PU_SPECIES_LITE);
 
 		if (m_ptr->ml)
 		{

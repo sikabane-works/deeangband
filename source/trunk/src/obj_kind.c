@@ -20,7 +20,7 @@ bool object_is_shoukinkubi(creature_type *creature_ptr, object_type *object_ptr)
 	if (today_mon > 0 && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name))) return TRUE;
 
 	/* Tsuchinoko */
-	if (object_ptr->pval == MON_TSUCHINOKO) return TRUE;
+	if (object_ptr->pval == SPECIES_TSUCHINOKO) return TRUE;
 
 	/* Unique creature */
 	for (i = 0; i < MAX_BOUNTY; i++)

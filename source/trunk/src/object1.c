@@ -2517,7 +2517,7 @@ info[i++] = "‚»‚ê‚Í–‚–@’ïR—Í‚ğ‰º‚°‚éB";
 #else
 			info[i++] = "It is HENTAI.";
 #endif	
-		else if (object_ptr->pval == MON_RICHARD_STOLENMAN || object_ptr->sval == SV_FS_FIGURE || object_ptr->sval == SV_FIGURE )
+		else if (object_ptr->pval == SPECIES_RICHARD_STOLENMAN || object_ptr->sval == SV_FS_FIGURE || object_ptr->sval == SV_FIGURE )
 #ifdef JP
 			info[i++] = "‚»‚ê‚Í•”‰®‚Éü‚é‚Æ’p‚¸‚©‚µ‚¢B";
 #else

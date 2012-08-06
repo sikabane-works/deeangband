@@ -2684,8 +2684,8 @@ static void calc_lite(creature_type *creature_ptr)
 	if (creature_ptr->old_lite != creature_ptr->cur_lite)
 	{
 		/* Update stuff */
-		/* Hack -- PU_MON_LITE for creatures' darkness */
-		update |= (PU_LITE | PU_MON_LITE | PU_MONSTERS);
+		/* Hack -- PU_SPECIES_LITE for creatures' darkness */
+		update |= (PU_LITE | PU_SPECIES_LITE | PU_MONSTERS);
 
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
@@ -5079,9 +5079,9 @@ void update_creature(creature_type *creature_ptr, bool message)
 		update_creatures(TRUE);
 	}
 
-	if (update & (PU_MON_LITE))
+	if (update & (PU_SPECIES_LITE))
 	{
-		update &= ~(PU_MON_LITE);
+		update &= ~(PU_SPECIES_LITE);
 		//update_creature_lite(floor_ptr);
 	}
 

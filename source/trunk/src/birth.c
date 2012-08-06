@@ -3959,17 +3959,17 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 		
 		if(IS_PURE_RACE(creature_ptr, RACE_MELNIBONE))
 		{
-			if(i != MON_ARIOCH) continue;
+			if(i != SPECIES_ARIOCH) continue;
 		}
 
 		if(IS_PURE_RACE(creature_ptr, RACE_AMBERITE))
 		{
-			if(i != MON_UNICORN_ORD) continue;
+			if(i != SPECIES_UNICORN_ORD) continue;
 		}
 
 		if(IS_PURE_RACE(creature_ptr, RACE_CHAOSIAN))
 		{
-			if(i != MON_SERPENT) continue;
+			if(i != SPECIES_SERPENT) continue;
 		}
 
 		if(IS_PURE_RACE(creature_ptr, RACE_ISTARI))
@@ -5594,7 +5594,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 
 			/* And start out fully healthy */
-			if (creature_ptr->species_idx == MON_WOUNDED_BEAR)
+			if (creature_ptr->species_idx == SPECIES_WOUNDED_BEAR)
 				set_creature_hp_percent(creature_ptr, 50);
 			else
 				set_creature_hp_percent(creature_ptr, 100);

@@ -1805,7 +1805,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	if (target_ptr == caster_ptr) return (FALSE);
 
 	if ((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
-	if (sukekaku && ((target_ptr->species_idx == MON_SUKE) || (target_ptr->species_idx == MON_KAKU))) return FALSE;
+	if (sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return FALSE;
 
 	/* Don't affect already death creatures */
 	/* Prevents problems with chain reactions of exploding creatures */
@@ -3479,7 +3479,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						msg_print("You feel life has clocked back.");
 #endif
 
-						lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * MON_DRAIN_LIFE);
+						lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
 						break;
 					}
 
@@ -4815,7 +4815,7 @@ note = "は眠り込んでしまった！";
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == MON_KENSHIROU) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -4854,7 +4854,7 @@ note = "は眠り込んでしまった！";
 			}
 
 			// Attempt a saving throw
-			if ((randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != MON_KENSHIROU)))
+			if ((randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -6740,7 +6740,7 @@ note = "には耐性がある！";
 			}
 			else if (target_ptr->chp < randint0(nokori_hp))
 			{
-				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_species(c_ptr->creature_idx, FALSE, MON_CHAMELEON, MONEGO_NONE);
+				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) choose_new_species(c_ptr->creature_idx, FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
 #ifdef JP
 				msg_format("%sを捕えた！",target_name);
 #else
@@ -8664,9 +8664,9 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					if (is_seen(player_ptr, m_ptr))
 					{
 #ifdef JP
-						if ((m_ptr->species_idx == MON_KENSHIROU) || (m_ptr->species_idx == MON_RAOU))
+						if ((m_ptr->species_idx == SPECIES_KENSHIROU) || (m_ptr->species_idx == SPECIES_RAOU))
 							msg_print("「北斗神拳奥義・二指真空把！」");
-						else if (m_ptr->species_idx == MON_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
+						else if (m_ptr->species_idx == SPECIES_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
 						else msg_print("攻撃は跳ね返った！");
 #else
 						msg_print("The attack bounces!");

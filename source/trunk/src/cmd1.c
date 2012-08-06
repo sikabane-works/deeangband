@@ -426,7 +426,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 
 				if (mult < 50) mult = 50;
 
-				if ((object_ptr->name1 == ART_NOTHUNG) && (target_ptr->species_idx == MON_FAFNER))
+				if ((object_ptr->name1 == ART_NOTHUNG) && (target_ptr->species_idx == SPECIES_FAFNER))
 					mult *= 3;
 			}
 
@@ -1970,7 +1970,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		}
 
 		/* Update stuff */
-		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_DISTANCE);
+		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);

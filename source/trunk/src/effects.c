@@ -495,7 +495,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 	if (disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Fully update the visuals */
-	update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_MON_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_SPECIES_LITE);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -955,7 +955,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 		if (&creature_list[creature_ptr->riding] == creature_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if (is_has_ld_creature(creature_ptr)) update |= (PU_MON_LITE);
+	if (is_has_ld_creature(creature_ptr)) update |= (PU_SPECIES_LITE);
 
 	return TRUE;
 
@@ -6141,23 +6141,23 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 					r_ptr->max_num = 0;
 	
 					/* Mega-Hack -- Banor & Lupart */
-					if ((target_ptr->species_idx == MON_BANOR) || (target_ptr->species_idx == MON_LUPART))
+					if ((target_ptr->species_idx == SPECIES_BANOR) || (target_ptr->species_idx == SPECIES_LUPART))
 					{
-						species_info[MON_BANORLUPART].max_num = 0;
-						species_info[MON_BANORLUPART].r_pkills++;
-						species_info[MON_BANORLUPART].r_akills++;
-						if (species_info[MON_BANORLUPART].r_tkills < MAX_SHORT) species_info[MON_BANORLUPART].r_tkills++;
+						species_info[SPECIES_BANORLUPART].max_num = 0;
+						species_info[SPECIES_BANORLUPART].r_pkills++;
+						species_info[SPECIES_BANORLUPART].r_akills++;
+						if (species_info[SPECIES_BANORLUPART].r_tkills < MAX_SHORT) species_info[SPECIES_BANORLUPART].r_tkills++;
 					}
-					else if (target_ptr->species_idx == MON_BANORLUPART)
+					else if (target_ptr->species_idx == SPECIES_BANORLUPART)
 					{
-						species_info[MON_BANOR].max_num = 0;
-						species_info[MON_BANOR].r_pkills++;
-						species_info[MON_BANOR].r_akills++;
-						if (species_info[MON_BANOR].r_tkills < MAX_SHORT) species_info[MON_BANOR].r_tkills++;
-						species_info[MON_LUPART].max_num = 0;
-						species_info[MON_LUPART].r_pkills++;
-						species_info[MON_LUPART].r_akills++;
-						if (species_info[MON_LUPART].r_tkills < MAX_SHORT) species_info[MON_LUPART].r_tkills++;
+						species_info[SPECIES_BANOR].max_num = 0;
+						species_info[SPECIES_BANOR].r_pkills++;
+						species_info[SPECIES_BANOR].r_akills++;
+						if (species_info[SPECIES_BANOR].r_tkills < MAX_SHORT) species_info[SPECIES_BANOR].r_tkills++;
+						species_info[SPECIES_LUPART].max_num = 0;
+						species_info[SPECIES_LUPART].r_pkills++;
+						species_info[SPECIES_LUPART].r_akills++;
+						if (species_info[SPECIES_LUPART].r_tkills < MAX_SHORT) species_info[SPECIES_LUPART].r_tkills++;
 					}
 				}
 	
@@ -6172,11 +6172,11 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			if ((target_ptr->ml && !IS_HALLUCINATION(attacker_ptr)) || is_unique_creature(target_ptr))
 			{
 				/* Count kills this life */
-				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_pkills < MAX_SHORT)) species_info[MON_KAGE].r_pkills++;
+				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
 				else if (r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
 	
 				/* Count kills in all lives */
-				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[MON_KAGE].r_tkills < MAX_SHORT)) species_info[MON_KAGE].r_tkills++;
+				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[SPECIES_KAGE].r_tkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_tkills++;
 				else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 	
 				/* Hack -- Auto-recall */
@@ -6200,7 +6200,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 					msg_format("%^s %s", tar_name, line_got);
 	
 	#ifdef WORLD_SCORE
-				if (target_ptr->species_idx == MON_SERPENT)
+				if (target_ptr->species_idx == SPECIES_SERPENT)
 				{
 					// Make screen dump
 					screen_dump = make_screen_dump();
@@ -6348,7 +6348,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			creature_death(attacker_ptr, target_ptr, TRUE);
 	
 			/* Mega hack : replace IKETA to BIKETAL */
-			if ((target_ptr->species_idx == MON_IKETA) &&
+			if ((target_ptr->species_idx == SPECIES_IKETA) &&
 			    !(fight_arena_mode || gamble_arena_mode))
 			{
 				int dummy_y = target_ptr->fy;
@@ -6359,7 +6359,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	
 				delete_species_idx(target_ptr);
 	
-				if (summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BIKETAL, mode))
+				if (summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BIKETAL, mode))
 				{
 	#ifdef JP
 					msg_print("「ハァッハッハッハ！！私がバイケタルだ！！」");

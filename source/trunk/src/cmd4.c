@@ -1184,7 +1184,7 @@ void do_cmd_redraw(void)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
 	update |= (PU_MONSTERS);

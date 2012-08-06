@@ -1503,10 +1503,10 @@ static bool vault_aux_undead(int species_idx)
 static bool vault_aux_chapel_g(int species_idx)
 {
 	static int chapel_list[] = {
-		MON_NOV_PRIEST, MON_NOV_PALADIN, MON_NOV_PRIEST_G, MON_NOV_PALADIN_G, 
-		MON_PRIEST, MON_JADE_MONK, MON_IVORY_MONK, MON_ULTRA_PALADIN, 
-		MON_EBONY_MONK, MON_W_KNIGHT, MON_KNI_TEMPLAR, MON_PALADIN,
-		MON_TOPAZ_MONK, 0};
+		SPECIES_NOV_PRIEST, SPECIES_NOV_PALADIN, SPECIES_NOV_PRIEST_G, SPECIES_NOV_PALADIN_G, 
+		SPECIES_PRIEST, SPECIES_JADE_MONK, SPECIES_IVORY_MONK, SPECIES_ULTRA_PALADIN, 
+		SPECIES_EBONY_MONK, SPECIES_W_KNIGHT, SPECIES_KNI_TEMPLAR, SPECIES_PALADIN,
+		SPECIES_TOPAZ_MONK, 0};
 
 	int i;
 
@@ -1516,7 +1516,7 @@ static bool vault_aux_chapel_g(int species_idx)
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
-	if ((species_idx == MON_A_GOLD) || (species_idx == MON_A_SILVER)) return (FALSE);
+	if ((species_idx == SPECIES_A_GOLD) || (species_idx == SPECIES_A_SILVER)) return (FALSE);
 
 	/* Require "priest" or Angel */
 
@@ -1869,9 +1869,9 @@ static bool vault_aux_dark_elf(int species_idx)
 	int i;
 	static int dark_elf_list[] =
 	{
-		MON_D_ELF, MON_D_ELF_MAGE, MON_D_ELF_WARRIOR, MON_D_ELF_PRIEST,
-		MON_D_ELF_LORD, MON_D_ELF_WARLOCK, MON_D_ELF_DRUID, MON_NIGHTBLADE,
-		MON_D_ELF_SORC, MON_D_ELF_SHADE, 0,
+		SPECIES_D_ELF, SPECIES_D_ELF_MAGE, SPECIES_D_ELF_WARRIOR, SPECIES_D_ELF_PRIEST,
+		SPECIES_D_ELF_LORD, SPECIES_D_ELF_WARLOCK, SPECIES_D_ELF_DRUID, SPECIES_NIGHTBLADE,
+		SPECIES_D_ELF_SORC, SPECIES_D_ELF_SHADE, 0,
 	};
 
 	/* Validate the creature */
@@ -2159,7 +2159,7 @@ static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
 }
 
 
-#define NUM_NEST_MON_TYPE 64
+#define NUM_NEST_SPECIES_TYPE 64
 
 /*
  * Type 5 -- Creature nests
@@ -2184,7 +2184,7 @@ static bool build_type5(floor_type *floor_ptr)
 {
 	int y, x, y1, x1, y2, x2, xval, yval;
 	int i;
-	nest_info_type nest_info[NUM_NEST_MON_TYPE];
+	nest_info_type nest_info[NUM_NEST_SPECIES_TYPE];
 
 	creature_type align;
 
@@ -2207,7 +2207,7 @@ static bool build_type5(floor_type *floor_ptr)
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
 	/* Pick some creature types */
-	for (i = 0; i < NUM_NEST_MON_TYPE; i++)
+	for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 	{
 		int species_idx = 0, attempts = 100;
 		species_type *r_ptr = NULL;
@@ -2331,7 +2331,7 @@ static bool build_type5(floor_type *floor_ptr)
 		{
 			int species_idx;
 
-			i = randint0(NUM_NEST_MON_TYPE);
+			i = randint0(NUM_NEST_SPECIES_TYPE);
 			species_idx = nest_info[i].species_idx;
 
 			/* Place that "random" creature (no groups) */
@@ -2343,13 +2343,13 @@ static bool build_type5(floor_type *floor_ptr)
 
 	if (cheat_room && cheat_hear)
 	{
-		ang_sort(nest_info, NULL, NUM_NEST_MON_TYPE, ang_sort_comp_nest_info, ang_sort_swap_nest_info);
+		ang_sort(nest_info, NULL, NUM_NEST_SPECIES_TYPE, ang_sort_comp_nest_info, ang_sort_swap_nest_info);
 
 		/* Dump the entries (prevent multi-printing) */
-		for (i = 0; i < NUM_NEST_MON_TYPE; i++)
+		for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 		{
 			if (!nest_info[i].used) break;
-			for (; i < NUM_NEST_MON_TYPE - 1; i++)
+			for (; i < NUM_NEST_SPECIES_TYPE - 1; i++)
 			{
 				if (nest_info[i].species_idx != nest_info[i + 1].species_idx) break;
 				if (!nest_info[i + 1].used) break;

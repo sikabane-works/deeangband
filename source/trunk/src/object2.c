@@ -3278,7 +3278,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				i = randint1(max_species_idx - 1);
 
 				if (!item_creature_okay(i)) continue;
-				if (i == MON_TSUCHINOKO) continue;
+				if (i == SPECIES_TSUCHINOKO) continue;
 
 				r_ptr = &species_info[i];
 
@@ -3757,7 +3757,7 @@ static bool kind_is_good(int k_idx)
 		case TV_DEATH_BOOK:
 		case TV_TRUMP_BOOK:
 		case TV_CRAFT_BOOK:
-		case TV_DAEMON_BOOK:
+		case TV_DAESPECIES_BOOK:
 		case TV_CRUSADE_BOOK:
 		case TV_MUSIC_BOOK:
 		case TV_HISSATSU_BOOK:
@@ -5791,7 +5791,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_CAUSE_4:
-		if ((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != MON_KENSHIROU))
+		if ((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != SPECIES_KENSHIROU))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;

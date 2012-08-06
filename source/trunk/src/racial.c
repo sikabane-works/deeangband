@@ -3373,7 +3373,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		case TRAIT_BR_SOUN:
 		{
 			disturb(player_ptr, 1, 0);
-			if (caster_ptr->species_idx == MON_JAIAN)
+			if (caster_ptr->species_idx == SPECIES_JAIAN)
 #ifdef JP
 				msg_format("「ボォエ～～～～～～」");
 #else
@@ -3523,7 +3523,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		case TRAIT_BR_SHAR:
 		{
 			disturb(player_ptr, 1, 0);
-			if (caster_ptr->species_idx == MON_BOTEI)
+			if (caster_ptr->species_idx == SPECIES_BOTEI)
 #ifdef JP
 				msg_format("「ボ帝ビルカッター！！！」");
 #else
@@ -3736,7 +3736,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 		{
 			disturb(player_ptr, 1, 0);
 
-			if (caster_ptr->species_idx == MON_ROLENTO)
+			if (caster_ptr->species_idx == SPECIES_ROLENTO)
 			{
 #ifdef JP
 				if (blind)
@@ -4733,8 +4733,8 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 		{
 			int who = 0;
 			disturb(player_ptr, 1, 0);
-			if(caster_ptr->species_idx == MON_DIO) who = 1;
-			else if(caster_ptr->species_idx == MON_WONG) who = 3;
+			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
+			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
 			dam = who;
 			if (!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
 			break;
@@ -4747,11 +4747,11 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			disturb(player_ptr, 1, 0);
 			switch (caster_ptr->species_idx)
 			{
-			case MON_OHMU:
+			case SPECIES_OHMU:
 				// Moved to process_nonplayer(), like multiplication 
 				return FALSE;
 
-			case MON_BANORLUPART:
+			case SPECIES_BANORLUPART:
 				{
 					int dummy_hp = (caster_ptr->chp + 1) / 2;
 					int dummy_mhp = caster_ptr->mhp/2;
@@ -4760,10 +4760,10 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 					if (fight_arena_mode || gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BANOR, mode);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_LUPART, mode);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
@@ -4776,18 +4776,18 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 					break;
 				}
 
-			case MON_BANOR:
-			case MON_LUPART:
+			case SPECIES_BANOR:
+			case SPECIES_LUPART:
 				{
 					int dummy_hp = 0;
 					int dummy_mhp = 0;
 					int dummy_y = caster_ptr->fy;
 					int dummy_x = caster_ptr->fx;
 
-					if (!species_info[MON_BANOR].cur_num || !species_info[MON_LUPART].cur_num) return (FALSE);
+					if (!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
 					for (k = 1; k < creature_max; k++)
 					{
-						if (creature_list[k].species_idx == MON_BANOR || creature_list[k].species_idx == MON_LUPART)
+						if (creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
 						{
 							dummy_hp += creature_list[k].chp;
 							dummy_mhp += creature_list[k].mhp;
@@ -4799,7 +4799,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 							delete_species_idx(&creature_list[k]);
 						}
 					}
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, MON_BANORLUPART, mode);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;
 					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
@@ -4812,7 +4812,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 					break;
 				}
 
-			case MON_ROLENTO:
+			case SPECIES_ROLENTO:
 #ifdef JP
 				if (blind) msg_format("%^sが何か大量に投げた。", caster_name);
 				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
@@ -4826,7 +4826,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, MON_SHURYUUDAN, mode);
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
 					}
 				}
 #ifdef JP
@@ -5114,7 +5114,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 		case TRAIT_S_KIN:
 		{
 			disturb(player_ptr, 1, 0);
-			if (caster_ptr->species_idx == MON_SERPENT || caster_ptr->species_idx == MON_ZOMBI_SERPENT)
+			if (caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
 			{
 #ifdef JP
 				if (blind)
@@ -5151,9 +5151,9 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			switch (caster_ptr->species_idx)
 			{
-			case MON_MENELDOR:
-			case MON_GWAIHIR:
-			case MON_THORONDOR:
+			case SPECIES_MENELDOR:
+			case SPECIES_GWAIHIR:
+			case SPECIES_THORONDOR:
 				{
 					int num = 4 + randint1(3);
 					for (k = 0; k < num; k++)
@@ -5163,22 +5163,22 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 				}
 				break;
 
-			case MON_RICHARD_STOLENMAN:
+			case SPECIES_RICHARD_STOLENMAN:
 				{
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, MON_IE, mode);
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
 					}
 				}
 				break;
 
-			case MON_SERPENT:
-			case MON_ZOMBI_SERPENT:
+			case SPECIES_SERPENT:
+			case SPECIES_ZOMBI_SERPENT:
 				{
 					int num = 2 + randint1(3);
 
-					if (species_info[MON_JORMUNGAND].cur_num < species_info[MON_JORMUNGAND].max_num && one_in_(6))
+					if (species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
 					{
 #ifdef JP
 						msg_print("地面から水が吹き出した！");
@@ -5195,17 +5195,17 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 				}
 				break;
 
-			case MON_CALDARM:
+			case SPECIES_CALDARM:
 				{
 					int num = randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, MON_LOCKE_CLONE, mode);
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
 					}
 				}
 				break;
 
-			case MON_LOUSY:
+			case SPECIES_LOUSY:
 				{
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
@@ -5561,7 +5561,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 		{
 			disturb(player_ptr, 1, 0);
 
-			if (((caster_ptr->species_idx == MON_MORGOTH) || (caster_ptr->species_idx == MON_SAURON) || (caster_ptr->species_idx == MON_ANGMAR)) && ((species_info[MON_NAZGUL].cur_num+2) < species_info[MON_NAZGUL].max_num))
+			if (((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
 			{
 				int cy = y;
 				int cx = x;
@@ -5593,7 +5593,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 					}
 					if (!cave_empty_bold(floor_ptr, cy, cx)) continue;
 
-					if (summon_named_creature(caster_ptr, floor_ptr, cy, cx, MON_NAZGUL, mode))
+					if (summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
 					{
 						y = cy;
 						x = cx;

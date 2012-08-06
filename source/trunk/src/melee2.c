@@ -1350,7 +1350,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 		if (multiply_barrier(player_ptr, creature_ptr)) k = 8;
 
 		/* Hack -- multiply slower in crowded areas */
-		if ((k < 4) && (!k || !randint0(k * MON_MULT_ADJ)))
+		if ((k < 4) && (!k || !randint0(k * SPECIES_MULT_ADJ)))
 		{
 			// Try to multiply
 			if (multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0)))
@@ -1375,7 +1375,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 	if (has_trait(creature_ptr, TRAIT_SPECIAL))
 	{
 		/* Hack -- Ohmu scatters molds! */
-		if (creature_ptr->species_idx == MON_OHMU)
+		if (creature_ptr->species_idx == SPECIES_OHMU)
 		{
 			if (!fight_arena_mode && !gamble_arena_mode)
 			{
@@ -1454,7 +1454,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		bool aware = TRUE;
 
 		// Hack! "Cyber" creature makes noise...
-		if (creature_ptr->ap_species_idx == MON_CYBER && one_in_(CYBERNOISE) && !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
+		if (creature_ptr->ap_species_idx == SPECIES_CYBER && one_in_(CYBERNOISE) && !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
 		{
 			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
 #ifdef JP
@@ -1594,7 +1594,7 @@ static void process_nonplayer(int m_idx)
 	}
 
 // TODO SYURYUUDAN's Process
-//	if (creature_ptr->species_idx == MON_SHURYUUDAN)
+//	if (creature_ptr->species_idx == SPECIES_SHURYUUDAN)
 //		melee_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
 // TODO Riding pinch
@@ -2536,7 +2536,7 @@ static void process_nonplayer(int m_idx)
 		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !gamble_arena_mode))
 	{
 		/* Update some things */
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 	}
 
 	/* Learn things from observable creature */

@@ -3879,7 +3879,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			}
 
 			// Update creatures
-			update |= (PU_MONSTERS | PU_MON_LITE);
+			update |= (PU_MONSTERS | PU_SPECIES_LITE);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
@@ -6359,7 +6359,7 @@ static void new_game_setting(void)
 		mode = select_mode();
 		if(mode == 0)
 		{
-			species = MON_STIGMATIC_ONE;
+			species = SPECIES_STIGMATIC_ONE;
 			unique_play = FALSE;
 #ifdef JP
 			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "qà€ˆóŽÒrƒ‚[ƒh‚ð‘I‘ð‚µ‚½");
@@ -6545,7 +6545,7 @@ static void play_loop(void)
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
 
 		// Update lite/view
-		update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS | PU_DISTANCE | PU_FLOW);
+		update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_MONSTERS | PU_DISTANCE | PU_FLOW);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		//TODO DELETE?
@@ -6906,7 +6906,7 @@ void play_game(bool new_game)
 
 	if (new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
 	{
-		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? MON_HORSE : MON_YASE_HORSE);
+		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? SPECIES_HORSE : SPECIES_YASE_HORSE);
 		place_creature_species(player_ptr, get_floor_ptr(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 

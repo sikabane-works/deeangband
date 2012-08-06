@@ -1885,7 +1885,7 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 		    (tv == TV_TRUMP_BOOK) ||
 			(tv == TV_ARCANE_BOOK) ||
 			(tv == TV_CRAFT_BOOK) ||
-			(tv == TV_DAEMON_BOOK) ||
+			(tv == TV_DAESPECIES_BOOK) ||
 			(tv == TV_CRUSADE_BOOK) ||
 			(tv == TV_MUSIC_BOOK) ||
 			(tv == TV_HISSATSU_BOOK) ||
@@ -3352,7 +3352,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		update |= (PU_UN_VIEW | PU_UN_LITE);
 
 		/* Update stuff */
-		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_MONSTERS);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -3867,7 +3867,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_MONSTERS);
 
 	/* Update the health bar */
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
@@ -5493,7 +5493,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
 
-	quest_ptr->pval = MON_NINJA;
+	quest_ptr->pval = SPECIES_NINJA;
 
 	/* Drop it in the dungeon */
 	(void)drop_near(floor_ptr, quest_ptr, -1, y, x);

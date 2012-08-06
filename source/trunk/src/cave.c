@@ -2988,7 +2988,7 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
  */
 void update_creature_lite(floor_type *floor_ptr)
 {
-	int i, rad, creature_fx, creature_fy, creature_lite_x[MON_LITE_MAX], creature_lite_y[MON_LITE_MAX], creature_invis;
+	int i, rad, creature_fx, creature_fy, creature_lite_x[SPECIES_LITE_MAX], creature_lite_y[SPECIES_LITE_MAX], creature_invis;
 	//int mon_lite_hack, mon_dark_hack, mon_lite_n;
 	cave_type *c_ptr;
 
@@ -4526,7 +4526,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the view and lite */
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
 	update |= (PU_MONSTERS);
@@ -4619,7 +4619,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
-		update |= (PU_VIEW | PU_LITE | PU_MON_LITE | PU_MONSTERS);
+		update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_MONSTERS);
 	}
 
 	/* Hack -- glow the GLOW terrain */
@@ -5115,7 +5115,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	}
 
 	/* Update the view and lite */
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

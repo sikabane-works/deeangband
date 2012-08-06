@@ -3030,7 +3030,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 				if (mult < 30) mult = 30;
 
 				if ((object_ptr->name1 == ART_BARD_ARROW) &&
-				    (target_ptr->species_idx == MON_SMAUG) &&
+				    (target_ptr->species_idx == SPECIES_SMAUG) &&
 				    (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_BARD))
 					mult *= 5;
 			}
@@ -3351,7 +3351,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				/* Forget the wall */
 				c_ptr->info &= ~(CAVE_MARK);
 
-				update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE);
+				update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 				/* Destroy the wall */
 				cave_alter_feat(floor_ptr, ny, nx, FF_HURT_ROCK);

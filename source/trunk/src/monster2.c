@@ -678,9 +678,9 @@ species_type *real_species_ptr(creature_type *m_ptr)
 	if (m_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
 		if (is_unique_species(r_ptr))
-			return &species_info[MON_CHAMELEON_K];
+			return &species_info[SPECIES_CHAMELEON_K];
 		else
-			return &species_info[MON_CHAMELEON];
+			return &species_info[SPECIES_CHAMELEON];
 	}
 	else
 	{
@@ -748,7 +748,7 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	/* Update some things */
 	if (is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 }
 
 
@@ -915,21 +915,21 @@ void wipe_creature_list(int floor_id)
 	int i;
 
 	/* Hack -- if Banor or Lupart dies, stay another dead */
-	if (!species_info[MON_BANORLUPART].max_num)
+	if (!species_info[SPECIES_BANORLUPART].max_num)
 	{
-		if (species_info[MON_BANOR].max_num)
+		if (species_info[SPECIES_BANOR].max_num)
 		{
-			species_info[MON_BANOR].max_num = 0;
-			species_info[MON_BANOR].r_pkills++;
-			species_info[MON_BANOR].r_akills++;
-			if (species_info[MON_BANOR].r_tkills < MAX_SHORT) species_info[MON_BANOR].r_tkills++;
+			species_info[SPECIES_BANOR].max_num = 0;
+			species_info[SPECIES_BANOR].r_pkills++;
+			species_info[SPECIES_BANOR].r_akills++;
+			if (species_info[SPECIES_BANOR].r_tkills < MAX_SHORT) species_info[SPECIES_BANOR].r_tkills++;
 		}
-		if (species_info[MON_LUPART].max_num)
+		if (species_info[SPECIES_LUPART].max_num)
 		{
-			species_info[MON_LUPART].max_num = 0;
-			species_info[MON_LUPART].r_pkills++;
-			species_info[MON_LUPART].r_akills++;
-			if (species_info[MON_LUPART].r_tkills < MAX_SHORT) species_info[MON_LUPART].r_tkills++;
+			species_info[SPECIES_LUPART].max_num = 0;
+			species_info[SPECIES_LUPART].r_pkills++;
+			species_info[SPECIES_LUPART].r_akills++;
+			if (species_info[SPECIES_LUPART].r_tkills < MAX_SHORT) species_info[SPECIES_LUPART].r_tkills++;
 		}
 	}
 
@@ -1190,7 +1190,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_DAWN:
 		{
-			okay = (species_idx == MON_DAWN);
+			okay = (species_idx == SPECIES_DAWN);
 			break;
 		}
 
@@ -1227,13 +1227,13 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_PHANTOM:
 		{
-			okay = (species_idx == MON_PHANTOM_B || species_idx == MON_PHANTOM_W);
+			okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
 			break;
 		}
 
 		case SUMMON_BLUE_HORROR:
 		{
-			okay = (species_idx == MON_BLUE_HORROR);
+			okay = (species_idx == SPECIES_BLUE_HORROR);
 			break;
 		}
 
@@ -1281,13 +1281,13 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_MANES:
 		{
-			okay = (species_idx == MON_MANES);
+			okay = (species_idx == SPECIES_MANES);
 			break;
 		}
 
 		case SUMMON_LOUSE:
 		{
-			okay = (species_idx == MON_LOUSE);
+			okay = (species_idx == SPECIES_LOUSE);
 			break;
 		}
 
@@ -1299,12 +1299,12 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_KNIGHTS:
 		{
-			okay = ((species_idx == MON_NOV_PALADIN) ||
-				(species_idx == MON_NOV_PALADIN_G) ||
-				(species_idx == MON_PALADIN) ||
-				(species_idx == MON_W_KNIGHT) ||
-				(species_idx == MON_ULTRA_PALADIN) ||
-				(species_idx == MON_KNI_TEMPLAR));
+			okay = ((species_idx == SPECIES_NOV_PALADIN) ||
+				(species_idx == SPECIES_NOV_PALADIN_G) ||
+				(species_idx == SPECIES_PALADIN) ||
+				(species_idx == SPECIES_W_KNIGHT) ||
+				(species_idx == SPECIES_ULTRA_PALADIN) ||
+				(species_idx == SPECIES_KNI_TEMPLAR));
 			break;
 		}
 
@@ -1318,7 +1318,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_PIRANHAS:
 		{
-			okay = (species_idx == MON_PIRANHA);
+			okay = (species_idx == SPECIES_PIRANHA);
 			break;
 		}
 
@@ -1361,13 +1361,13 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 	}
 	if (d_ptr->flags1 & DF1_NO_MAGIC)
 	{
-		if (species_idx != MON_CHAMELEON &&
+		if (species_idx != SPECIES_CHAMELEON &&
 		    r_ptr->freq_spell && has_non_magic_skill_flags(&r_ptr->flags))
 			return FALSE;
 	}
 	if (d_ptr->flags1 & DF1_NO_MELEE)
 	{
-		if (species_idx == MON_CHAMELEON) return TRUE;
+		if (species_idx == SPECIES_CHAMELEON) return TRUE;
 		if (!(has_bolt_flags(&r_ptr->flags) || has_beam_flags(&r_ptr->flags) || has_ball_flags(&r_ptr->flags) || 
 			has_trait_raw(&r_ptr->flags, TRAIT_CAUSE_1) || 
 			has_trait_raw(&r_ptr->flags, TRAIT_CAUSE_2) || 
@@ -1769,10 +1769,10 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 			if (is_sub_unique_species(r_ptr) && (r_ptr->cur_num >= 1)) continue;
 
-			if (species_idx == MON_BANORLUPART)
+			if (species_idx == SPECIES_BANORLUPART)
 			{
-				if (species_info[MON_BANOR].cur_num > 0) continue;
-				if (species_info[MON_LUPART].cur_num > 0) continue;
+				if (species_info[SPECIES_BANOR].cur_num > 0) continue;
+				if (species_info[SPECIES_LUPART].cur_num > 0) continue;
 			}
 		}
 
@@ -3079,8 +3079,8 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			/* Hack -- Count "fresh" sightings */
 			if (!IS_HALLUCINATION(creature_ptr))
 			{
-				//if ((target_ptr->ap_species_idx == MON_KAGE) && (species_info[MON_KAGE].r_sights < MAX_SHORT))
-				//	species_info[MON_KAGE].r_sights++;
+				//if ((target_ptr->ap_species_idx == SPECIES_KAGE) && (species_info[SPECIES_KAGE].r_sights < MAX_SHORT))
+				//	species_info[SPECIES_KAGE].r_sights++;
 				//else if (is_original_ap(target_ptr) && (r_ptr->r_sights < MAX_SHORT))
 				//	r_ptr->r_sights++;
 			}
@@ -3199,7 +3199,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	if (!(is_unique_species(r_ptr))) return FALSE;
 	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
 
-	if (ABS(r_ptr->level - species_info[MON_CHAMELEON_K].level) > 5) return FALSE;
+	if (ABS(r_ptr->level - species_info[SPECIES_CHAMELEON_K].level) > 5) return FALSE;
 
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) ||
 		(r_ptr->blow[1].method == RBM_EXPLODE) ||
@@ -3251,7 +3251,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 
 	if (is_unique_species(&species_info[creature_ptr->species_idx]))
 		old_unique = TRUE;
-	if (old_unique && (species_idx == MON_CHAMELEON)) species_idx = MON_CHAMELEON_K;
+	if (old_unique && (species_idx == SPECIES_CHAMELEON)) species_idx = SPECIES_CHAMELEON_K;
 	r_ptr = &species_info[species_idx];
 
 	creature_desc(old_m_name, creature_ptr, 0);
@@ -3267,7 +3267,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 			get_species_num_prep(creature_hook_chameleon, NULL);
 
 		if (old_unique)
-			level = species_info[MON_CHAMELEON_K].level;
+			level = species_info[SPECIES_CHAMELEON_K].level;
 		else if (!floor_ptr->floor_level)
 			level = wilderness[player_ptr->wy][player_ptr->wx].level;
 		else
@@ -3303,7 +3303,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 
 	if (is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
 	    (is_lighting_species(r_ptr) || is_darken_species(r_ptr)))
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 
 	if (is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, TRUE);
 
@@ -4005,10 +4005,10 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			return (max_creature_idx);
 		}
 
-		if (species_idx == MON_BANORLUPART)
+		if (species_idx == SPECIES_BANORLUPART)
 		{
-			if (species_info[MON_BANOR].cur_num > 0) return max_creature_idx;
-			if (species_info[MON_LUPART].cur_num > 0) return max_creature_idx;
+			if (species_info[SPECIES_BANOR].cur_num > 0) return max_creature_idx;
+			if (species_info[SPECIES_LUPART].cur_num > 0) return max_creature_idx;
 			if (cheat_hear)
 			{
 				msg_format("[max_creature_idx: Unique creature must be unique.]");
@@ -4146,7 +4146,7 @@ msg_print("守りのルーンが壊れた！");
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
 	{
-		creature_ptr->ap_species_idx = MON_KAGE;
+		creature_ptr->ap_species_idx = SPECIES_KAGE;
 		creature_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
@@ -4205,9 +4205,9 @@ msg_print("守りのルーンが壊れた！");
 
 /*TODO
 	if (is_self_ld_creature(creature_ptr))
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 	else if (is_has_ld_creature(creature_ptr) && !creature_ptr->paralyzed)
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 */
 
 	/* Update the creature */
@@ -4715,7 +4715,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 		if (is_unique_species(r_ptr)) continue;
 
-		if (species_idx == MON_HAGURE) continue;
+		if (species_idx == SPECIES_HAGURE) continue;
 		break;
 	}
 	if (attempts < 1) return FALSE;

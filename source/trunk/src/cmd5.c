@@ -1785,7 +1785,7 @@ msg_format("%sÇ©ÇÁêUÇËóéÇ∆Ç≥ÇÍÇªÇ§Ç…Ç»Ç¡ÇƒÅAï«Ç…Ç‘Ç¬Ç©Ç¡ÇΩÅB",m_name);
 	update_creature(creature_ptr, TRUE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_MON_LITE | PU_MONSTERS);
+	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_MONSTERS);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);

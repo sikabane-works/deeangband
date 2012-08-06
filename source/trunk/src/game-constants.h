@@ -30,9 +30,9 @@
 #define BREAK_GLYPH        550      // Rune of protection resistance
 #define BREAK_MINOR_GLYPH  299      // For explosive runes
 #define BTH_PLUS_ADJ        3       // Adjust BTH per plus-to-hit
-#define MON_MULT_ADJ  	    8       // High value slows multiplication
-#define MON_SUMMON_ADJ	    2       // Adjust level of summoned creatures
-#define MON_DRAIN_LIFE	    2       // Percent of player exp drained per hit
+#define SPECIES_MULT_ADJ  	    8       // High value slows multiplication
+#define SPECIES_SUMMON_ADJ	    2       // Adjust level of summoned creatures
+#define SPECIES_DRAIN_LIFE	    2       // Percent of player exp drained per hit
 #define USE_DEVICE    	    3       // x> Harder devices x< Easier devices
 #define MAX_UNDERLINGS     12       // Max Underling Types
 #define A_DAY              (TURNS_PER_TICK * TOWN_DAWN)

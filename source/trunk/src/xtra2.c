@@ -292,12 +292,12 @@ static int get_coin_type(int species_idx)
 	/* Analyze creatures */
 	switch (species_idx)
 	{
-	case MON_COPPER_COINS: return 2;
-	case MON_SILVER_COINS: return 5;
-	case MON_GOLD_COINS: return 10;
-	case MON_MITHRIL_COINS:
-	case MON_MITHRIL_GOLEM: return 16;
-	case MON_ADAMANT_COINS: return 17;
+	case SPECIES_COPPER_COINS: return 2;
+	case SPECIES_SILVER_COINS: return 5;
+	case SPECIES_GOLD_COINS: return 10;
+	case SPECIES_MITHRIL_COINS:
+	case SPECIES_MITHRIL_GOLEM: return 16;
+	case SPECIES_ADAMANT_COINS: return 17;
 	}
 
 	/* Assume nothing */
@@ -780,7 +780,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	if (is_lighting_creature(killed_ptr) || is_darken_creature(killed_ptr))
 	{
 		/* Update some things */
-		update |= (PU_MON_LITE);
+		update |= (PU_SPECIES_LITE);
 	}
 
 	/* Get the location */
@@ -815,7 +815,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	if (killed_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
 		//TODO
-		//choose_new_species(m_idx, TRUE, MON_CHAMELEON, MONEGO_NONE);
+		//choose_new_species(m_idx, TRUE, SPECIES_CHAMELEON, MONEGO_NONE);
 		//r_ptr = &species_info[killed_ptr->species_idx];
 	}
 
@@ -933,7 +933,7 @@ msg_print("地面に落とされた。");
 
 	switch (killed_ptr->species_idx)
 	{
-	case MON_PINK_HORROR:
+	case SPECIES_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
 		if (!(fight_arena_mode || gamble_arena_mode))
 		{
@@ -965,7 +965,7 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_BLOODLETTER:
+	case SPECIES_BLOODLETTER:
 		/* Bloodletters of Khorne may drop a blade of chaos */
 		if (drop_chosen_item && (randint1(100) < 15))
 		{
@@ -982,7 +982,7 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_RAAL:
+	case SPECIES_RAAL:
 		if (drop_chosen_item && (floor_ptr->floor_level > 9))
 		{
 			/* Get local object */
@@ -1005,7 +1005,7 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_DAWN:
+	case SPECIES_DAWN:
 		/*
 		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
 		 * spawn another in the fallen one's place!
@@ -1046,7 +1046,7 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_UNMAKER:
+	case SPECIES_UNMAKER:
 		/* One more ultra-hack: An Unmaker goes out with a big bang! */
 		{
 			/*TODO
@@ -1056,9 +1056,9 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_UNICORN_ORD:
-	case MON_MORGOTH:
-	case MON_ONE_RING:
+	case SPECIES_UNICORN_ORD:
+	case SPECIES_MORGOTH:
+	case SPECIES_ONE_RING:
 		/* Reward for "lazy" player */
 		if (slayer_ptr->chara_idx == CHARA_NAMAKE)
 		{
@@ -1098,7 +1098,7 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_SERPENT:
+	case SPECIES_SERPENT:
 		if (!drop_chosen_item) break;
 
 		/* Get local object */
@@ -1132,7 +1132,7 @@ msg_print("地面に落とされた。");
 		(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
 		break;
 
-	case MON_B_DEATH_SWORD:
+	case SPECIES_B_DEATH_SWORD:
 		if (drop_chosen_item)
 		{
 			/* Get local object */
@@ -1146,10 +1146,10 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_A_GOLD:
-	case MON_A_SILVER:
-		if (drop_chosen_item && ((killed_ptr->species_idx == MON_A_GOLD) ||
-		     ((killed_ptr->species_idx == MON_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+	case SPECIES_A_GOLD:
+	case SPECIES_A_SILVER:
+		if (drop_chosen_item && ((killed_ptr->species_idx == SPECIES_A_GOLD) ||
+		     ((killed_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
 			/* Get local object */
 			quest_ptr = &forge;
@@ -1164,7 +1164,7 @@ msg_print("地面に落とされた。");
 		}
 		break;
 
-	case MON_ROLENTO:
+	case SPECIES_ROLENTO:
 		{
 			/*TODO
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
@@ -1259,7 +1259,7 @@ msg_print("地面に落とされた。");
 			break;
 
 		case '|':
-			if (killed_ptr->species_idx != MON_STORMBRINGER)
+			if (killed_ptr->species_idx != SPECIES_STORMBRINGER)
 			{
 				/* Get local object */
 				quest_ptr = &forge;
@@ -1553,7 +1553,7 @@ void resize_map(void)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
 	update |= (PU_MONSTERS);

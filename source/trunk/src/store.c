@@ -500,10 +500,10 @@ static byte book_table[STABLE_BOOK_MAX][2] =
 		{ TV_CRAFT_BOOK, 1 },
 		{ TV_CRAFT_BOOK, 1 },
 
-		{ TV_DAEMON_BOOK, 0 },
-		{ TV_DAEMON_BOOK, 0 },
-		{ TV_DAEMON_BOOK, 1 },
-		{ TV_DAEMON_BOOK, 1 },
+		{ TV_DAESPECIES_BOOK, 0 },
+		{ TV_DAESPECIES_BOOK, 0 },
+		{ TV_DAESPECIES_BOOK, 1 },
+		{ TV_DAESPECIES_BOOK, 1 },
 
 		{ TV_MUSIC_BOOK, 0 },
 		{ TV_MUSIC_BOOK, 0 },
@@ -1305,7 +1305,7 @@ static void mass_produce(store_type *st_ptr, object_type *object_ptr)
 		case TV_TRUMP_BOOK:
 		case TV_ARCANE_BOOK:
 		case TV_CRAFT_BOOK:
-		case TV_DAEMON_BOOK:
+		case TV_DAESPECIES_BOOK:
 		case TV_CRUSADE_BOOK:
 		case TV_MUSIC_BOOK:
 		case TV_HISSATSU_BOOK:
@@ -1761,7 +1761,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_TRUMP_BOOK:
 				case TV_ARCANE_BOOK:
 				case TV_CRAFT_BOOK:
-				case TV_DAEMON_BOOK:
+				case TV_DAESPECIES_BOOK:
 				case TV_MUSIC_BOOK:
 				case TV_HEX_BOOK:
 				case TV_AMULET:
@@ -1795,7 +1795,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_TRUMP_BOOK:
 				case TV_ARCANE_BOOK:
 				case TV_CRAFT_BOOK:
-				case TV_DAEMON_BOOK:
+				case TV_DAESPECIES_BOOK:
 				case TV_CRUSADE_BOOK:
 				case TV_MUSIC_BOOK:
 				case TV_HEX_BOOK:
@@ -5352,7 +5352,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 	/*
 	// Update everything
-	update |= (PU_VIEW | PU_LITE | PU_MON_LITE);
+	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 	update |= (PU_MONSTERS);
 
 	// Redraw entire screen

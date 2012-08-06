@@ -3864,7 +3864,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	if (mode == DISPLAY_CR_STATUS_STANDARD)
 	{
 		/* Name, Sex, Race, Class */
-		if(creature_ptr->chara_idx != INDEX_NONE && creature_ptr->species_idx == MON_STIGMATIC_ONE){ 
+		if(creature_ptr->chara_idx != INDEX_NONE && creature_ptr->species_idx == SPECIES_STIGMATIC_ONE){ 
 #ifdef JP
 		if(!strcmp(creature_ptr->name, "à€ˆóŽÒ"))
 			sprintf(tmp, "%s%sq%sr", chara_info[creature_ptr->chara_idx].title, chara_info[creature_ptr->chara_idx].no == 1 ? "‚Ì":"", creature_ptr->name);
