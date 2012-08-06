@@ -697,7 +697,7 @@ static cptr object_kind_info_flags[] =
 	"XXX",
 	"XXX",
 	"XXX",
-	"RES_FEAR",
+	"XXX",
 	"RES_LITE",
 	"RES_DARK",
 	"RES_BLIND",
