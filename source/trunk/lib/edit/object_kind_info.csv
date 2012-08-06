@@ -495,8 +495,8 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 131,金属製ラージ・シールド,,& Large Metal Shield~,,),s,HAND,SHIELD,5,0,30,0,54,100,200,0,0,8,0,1d3,0,0,0,30/1,,,革で覆った木の板を金属で縁取った楕円形の盾だ。盾の大きな鉄の突起は素晴らしい腕の防御をもたらす。,An oval shield of wood covered by leather and rimmed with metal.  A large iron shield boss offers excellent hand protection.,##### Rings #####
 414,ドラゴン・シールド,,& Dragon Shield~,,[,G,HAND,SHIELD,6,0,60,0,45,100,10000,0,0,8,0,1d3,0,0,10,60/5,IGNORE_ACID|IGNORE_FIRE|IGNORE_ELEC|IGNORE_COLD,,,,##### Extra potions #####
 627,ナイト・シールド,,& Knight's Shield~,,),W,HAND,SHIELD,7,0,40,0,72,100,250,0,0,10,0,1d6,0,0,0,40/2,,,,,
-122,ミラー・シールド,,& Mirror Shield~,,[,B,HAND,SHIELD,10,0,70,0,45,100,10000,0,0,10,0,1d1,0,0,10,70/8,IGNORE_ACID|REFLECT,,,,"#D:$A shield of purest white, made of mithril, engraved with runes to keep #D:$all hurt and harm from you.#D:傷と危険から守られるようにルーン文字が刻まれたミスリル製の純白の盾だ。### The Cloaks ###"
-612,鏡,,& Mirror~,,*,b,HAND,SHIELD,50,0,65,0,22,100,10000,0,0,0,0,1d1,0,0,10,,IGNORE_ACID|REFLECT|INSTA_ART,,,,
+122,ミラー・シールド,,& Mirror Shield~,,[,B,HAND,SHIELD,10,0,70,0,45,100,10000,0,0,10,0,1d1,0,0,10,70/8,IGNORE_ACID|REFLECTING,,,,"#D:$A shield of purest white, made of mithril, engraved with runes to keep #D:$all hurt and harm from you.#D:傷と危険から守られるようにルーン文字が刻まれたミスリル製の純白の盾だ。### The Cloaks ###"
+612,鏡,,& Mirror~,,*,b,HAND,SHIELD,50,0,65,0,22,100,10000,0,0,0,0,1d1,0,0,10,,IGNORE_ACID|REFLECTING|INSTA_ART,,,,
 82,丸い小石,,& Rounded Pebble~,,{,s,AMMO,SHOT,0,0,0,0,1,100,1,0,0,0,0,1d2,0,0,0,0/1,SHOW_MODS,,,,
 83,鉄弾,,& Iron Shot~,,{,s,AMMO,SHOT,1,0,3,0,2,100,2,0,0,0,0,1d3,0,0,0,3/1,SHOW_MODS,,,,"#D:$A grapestone-shaped slug of lead, the right heft for hurling from a sling.#D:スリングで投げるのに適した重さの、葡萄の粒のような鉛の塊だ。##### Shovels and Picks #####"
 196,ミスリルの弾,,& Mithril Shot~,,{,B,AMMO,SHOT,2,0,25,0,2,100,15,0,0,0,0,4d3,0,0,0,30/3,IGNORE_ACID|IGNORE_COLD|IGNORE_FIRE|IGNORE_ELEC,,,,##### Additional scrolls #####
