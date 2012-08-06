@@ -607,7 +607,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,SVAL,PVAL,DEPTH,RARITY,W
 29,野太刀,,& No-dachi~,,|,W,HAND,SWORD,27,0,35,0,35,100,579,0,0,0,0,5d4,0,0,0,35/3,SHOW_MODS,,,,
 40,首切りソード,,& Executioner's Sword~,,|,r,HAND,SWORD,28,0,40,0,45,100,850,0,0,0,0,4d5,0,0,0,40/1,SHOW_MODS,,胴体から頭を綺麗に切り落とす為に作られた、巨大な曲った刃を持つ剣だ。,"A giant, curved blade designed to cleave the head cleanly from the body.",
 524,ツヴァイハンダー,,& Zweihander~,,|,w,HAND,SWORD,29,0,40,0,45,100,580,0,0,0,0,4d6,0,0,0,40/3,SHOW_MODS,,,,#JZ#
-36,カオス・ブレード,,& Blade~ of Chaos,,|,v,HAND,SWORD,30,0,70,0,55,100,4000,0,0,0,0,6d5,0,0,0,70/8,RES_CHAOS|SHOW_MODS,,千変万化の姿を持つこの武器は混沌の力によって敵を切り刻み、殺戮にふける事に残忍な喜びを感じている。,"This inconstant weapon revels in disorder, hacking and slashing your foes with bloodthirsty glee.",
+36,カオス・ブレード,,& Blade~ of Chaos,,|,v,HAND,SWORD,30,0,70,0,55,100,4000,0,0,0,0,6d5,0,0,0,70/8,RES_CHAO|SHOW_MODS,,千変万化の姿を持つこの武器は混沌の力によって敵を切り刻み、殺戮にふける事に残忍な喜びを感じている。,"This inconstant weapon revels in disorder, hacking and slashing your foes with bloodthirsty glee.",
 565,ダイヤモンド・エッジ,,& Diamond Edge~,,|,w,HAND,SWORD,31,4,90,0,70,100,50000,0,0,0,0,7d5,10,10,0,90/16,SHOW_MODS|VORPAL|TUNNEL,,,,
 592,毒針,,& Poison Needle~,,|,g,HAND,SWORD,32,0,0,0,5,100,2000,0,0,0,0,1d1,0,0,0,30/6,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,,,,
 635,隼の剣,,& Falcon Sword~,,|,y,HAND,SWORD,33,1,55,0,8,100,3500,0,0,0,0,1d6,0,0,0,65/8,SHOW_MODS|BLOWS,,,,#JP#
