@@ -1695,7 +1695,12 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 {
 	int i;
 	for(i = 0; i <= INVEN_TOTAL; i++)
-		if(have_flag(creature_ptr->inventory[i].trait_flags, type)) return TRUE;
+	{
+		object_type *object_ptr = &creature_ptr->inventory[i];
+		if (!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
+		if (!object_ptr->k_idx) continue; // Skip non-objects
+		if(have_flag(object_ptr->trait_flags, type)) return TRUE;
+	}
 
 	return FALSE;
 }
