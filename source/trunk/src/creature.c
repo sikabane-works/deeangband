@@ -1691,11 +1691,21 @@ bool has_trait_from_species(creature_type *creature_ptr, int type)
 	return FALSE;
 }
 
+bool has_trait_from_inventory(creature_type *creature_ptr, int type)
+{
+	int i;
+	for(i = 0; i <= INVEN_TOTAL; i++)
+		if(have_flag(creature_ptr->inventory[i].trait_flags, type)) return TRUE;
+
+	return FALSE;
+}
+
 bool has_trait(creature_type *creature_ptr, int type)
 {
 	if(has_trait_from_species(creature_ptr, type)) return TRUE;
 	if(has_trait_from_class(creature_ptr, type)) return TRUE;
 	if(has_trait_from_chara(creature_ptr, type)) return TRUE;
+	if(has_trait_from_inventory(creature_ptr, type)) return TRUE;
 
 	return FALSE;
 }
