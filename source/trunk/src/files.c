@@ -2548,20 +2548,14 @@ static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature
 {
 	int i;
 
-	/* Clear */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
-		flgs[i] = 0L;
+	// Clear
+	for (i = 0; i < TR_FLAG_SIZE; i++) flgs[i] = 0L;
 
-	if (creature_ptr->special_defense & DEFENSE_ACID)
-		add_flag(flgs, TRAIT_RES_ACID);
-	if (creature_ptr->special_defense & DEFENSE_ELEC)
-		add_flag(flgs, TRAIT_RES_ELEC);
-	if (creature_ptr->special_defense & DEFENSE_FIRE)
-		add_flag(flgs, TRAIT_RES_FIRE);
-	if (creature_ptr->special_defense & DEFENSE_COLD)
-		add_flag(flgs, TRAIT_RES_COLD);
-	if (creature_ptr->wraith_form)
-		add_flag(flgs, TRAIT_RES_DARK);
+	if (creature_ptr->special_defense & DEFENSE_ACID) add_flag(flgs, TRAIT_RES_ACID);
+	if (creature_ptr->special_defense & DEFENSE_ELEC) add_flag(flgs, TRAIT_RES_ELEC);
+	if (creature_ptr->special_defense & DEFENSE_FIRE) add_flag(flgs, TRAIT_RES_FIRE);
+	if (creature_ptr->special_defense & DEFENSE_COLD) add_flag(flgs, TRAIT_RES_COLD);
+	if (creature_ptr->wraith_form) add_flag(flgs, TRAIT_RES_DARK);
 }
 
 static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
@@ -2579,15 +2573,14 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_p
 		add_flag(flgs, TRAIT_RES_FIRE);
 		add_flag(flgs, TRAIT_RES_COLD);
 	}
-	if (has_trait(creature_ptr, TRAIT_ANDROID))
-		add_flag(flgs, TRAIT_RES_ELEC);
-	if (IS_RACE(creature_ptr, RACE_ENT))
-		add_flag(flgs, TRAIT_RES_FIRE);
+	if (has_trait(creature_ptr, TRAIT_ANDROID)) add_flag(flgs, TRAIT_RES_ELEC);
+	if (IS_RACE(creature_ptr, RACE_ENT)) add_flag(flgs, TRAIT_RES_FIRE);
+
 	/*TODO
 	if (IS_RACE(creature_ptr, RACE_VAMPIRE) || IS_RACE(creature_ptr, RACE_S_FAIRY) ||
 	    (creature_ptr->mimic_form == MIMIC_VAMPIRE))
 		add_flag(flgs, TRAIT_RES_LITE);
-		*/
+	*/
 }
 
 
