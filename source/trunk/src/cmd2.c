@@ -338,11 +338,13 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			/* Success */
 			if (target_dungeon)
 			{
+/*
 #ifdef JP
 				msg_format("%s‚Ö“ü‚Á‚½B", dungeon_text + dungeon_info[floor_ptr->dun_type].text);
 #else
 				msg_format("You entered %s.", dungeon_text + dungeon_info[floor_ptr->dun_type].text);
 #endif
+*/
 			}
 			else
 			{
