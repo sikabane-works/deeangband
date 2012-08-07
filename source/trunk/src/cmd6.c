@@ -1946,7 +1946,6 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			break;
 		}
 
-		/* New D'angband scrolls */
 		case SV_SCROLL_FIRE:
 		{
 			fire_ball(creature_ptr, GF_FIRE, 0, 666, 4);
@@ -1961,7 +1960,6 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			ident = TRUE;
 			break;
 		}
-
 
 		case SV_SCROLL_ICE:
 		{
@@ -1999,33 +1997,36 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			{
 				case 1:
 #ifdef JP
-err = get_rnd_line("chainswd_j.txt", 0, Rumor);
+					err = get_rnd_line("chainswd_j.txt", 0, Rumor);
 #else
 					err = get_rnd_line("chainswd.txt", 0, Rumor);
 #endif
 
 					break;
+
 				case 2:
 #ifdef JP
-err = get_rnd_line("error_j.txt", 0, Rumor);
+					err = get_rnd_line("error_j.txt", 0, Rumor);
 #else
 					err = get_rnd_line("error.txt", 0, Rumor);
 #endif
 
 					break;
+
 				case 3:
 				case 4:
 				case 5:
 #ifdef JP
-err = get_rnd_line("death_j.txt", 0, Rumor);
+					err = get_rnd_line("death_j.txt", 0, Rumor);
 #else
 					err = get_rnd_line("death.txt", 0, Rumor);
 #endif
 
 					break;
+
 				default:
 #ifdef JP
-err = get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10);
+					err = get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10);
 #else
 					err = get_rnd_line("rumors.txt", 0, Rumor);
 #endif
@@ -2035,14 +2036,14 @@ err = get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10);
 
 			/* An error occured */
 #ifdef JP
-if (err) strcpy(Rumor, "嘘の噂もある。");
+			if (err) strcpy(Rumor, "嘘の噂もある。");
 #else
 			if (err) strcpy(Rumor, "Some rumors are wrong.");
 #endif
 
 
 #ifdef JP
-msg_print("巻物にはメッセージが書かれている:");
+			msg_print("巻物にはメッセージが書かれている:");
 #else
 			msg_print("There is message on the scroll. It says:");
 #endif

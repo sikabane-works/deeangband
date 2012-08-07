@@ -610,6 +610,7 @@ struct object_type
 	byte tval;			/* Item type (from kind) */
 	byte sval;			/* Item sub-type (from kind) */
 
+	s16b stat_val[STAT_MAX]; // Stat
 	s16b pval;			/* Item extra-parameter */
 
 	byte discount;		/* Discount (if any) */
