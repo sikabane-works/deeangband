@@ -3477,38 +3477,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
 
 		/* Various flags */
-		if (have_flag(flgs, TRAIT_DRAIN_EXP))   creature_ptr->cursed |= TRC_DRAIN_EXP;
-		if (have_flag(flgs, TRAIT_TY_CURSE))    creature_ptr->cursed |= TRC_TY_CURSE;
-		if (have_flag(flgs, TRAIT_DEC_MANA))    creature_ptr->dec_mana = TRUE;
-		if (have_flag(flgs, TRAIT_BLESSED_BRAND))     creature_ptr->bless_blade = TRUE;
 		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_SLOW_DIGEST)) creature_ptr->slow_digest = TRUE;
-		//if (have_flag(flgs, TRAIT_REGENERATE))       creature_ptr->regenerate = TRUE;
-
-		//if (have_flag(flgs, TRAIT_ESP))   creature_ptr->telepathy = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_ANIMAL))  creature_ptr->esp_animal = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_UNDEAD))  creature_ptr->esp_undead = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_DEMON))   creature_ptr->esp_demon = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_SENSE_ORC))     creature_ptr->esp_orc = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_TROLL))   creature_ptr->esp_troll = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_GIANT))   creature_ptr->esp_giant = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_DRAGON))  creature_ptr->esp_dragon = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_HUMAN))   creature_ptr->esp_human = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_EVIL))    creature_ptr->esp_evil = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_GOOD))    creature_ptr->esp_good = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_NONLIVING)) creature_ptr->esp_nonliving = TRUE;
-		//if (have_flag(flgs, TRAIT_SENSE_UNIQUE))  creature_ptr->esp_unique = TRUE;
-
-		//if (have_flag(flgs, TRAIT_SEE_INVISIBLE))   creature_ptr->see_inv = TRUE;
-		//if (have_flag(flgs, TRAIT_LEVITATION))  creature_ptr->levitation = TRUE;
-		if (have_flag(flgs, TRAIT_FREE_ACTION))    creature_ptr->free_act = TRUE;
-		//if (have_flag(flgs, TRAIT_HOLD_LIFE))   creature_ptr->hold_life = TRUE;
-
-		/*
-		if (have_flag(flgs, TRAIT_WARNING)){
-			if (!object_ptr->inscription || !(my_strchr(quark_str(object_ptr->inscription),'$'))) creature_ptr->warning = TRUE;
-		}
-		*/
 
 		if (have_flag(flgs, TR_TELEPORT))
 		{
@@ -3531,12 +3500,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			}
 		}
 
-		/* Immunity flags */
-		//TODO if (have_flag(flgs, TRAIT_IM_FIRE)) creature_ptr->immune_fire = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_IM_ACID)) creature_ptr->immune_acid = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_IM_COLD)) creature_ptr->immune_cold = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_IM_ELEC)) creature_ptr->immune_elec = TRUE;
-
 		/* Resistance flags */
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_ACID))   creature_ptr->resist_acid += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_ELEC))   creature_ptr->resist_elec += 1;
@@ -3551,33 +3514,10 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_SHAR)) creature_ptr->resist_shard += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_NEXU))  creature_ptr->resist_nexus += 1;
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_NETH)) creature_ptr->resist_neth += 1;
+
 		if (object_ptr->name2 == EGO_RING_RES_TIME) creature_ptr->resist_time += 1;
-
-		//TODO if (have_flag(flgs, TRAIT_FEARLESS))   creature_ptr->resist_fear = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_NO_CONF))   creature_ptr->resist_conf = TRUE;
-		//if (have_flag(flgs, TRAIT_NO_BLIND))  has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
-
-		//TODO if (have_flag(flgs, TRAIT_REFLECTING))  has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_AURA_FIRE))  creature_ptr->sh_fire = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_AURA_ELEC))  creature_ptr->sh_elec = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_AURA_COLD))  creature_ptr->sh_cold = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_ANTI_MAGIC)) has_trait(creature_ptr, TRAIT_ANTI_MAGIC) = TRUE;
-		//TODO if (have_flag(flgs, TRAIT_PREVENT_TELEPORT))  has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT) = TRUE;
-
-		/* Sustain flags */
-		//TODO if (have_flag(flgs, TRAIT_SUSTAIN_STR)) has_trait(creature_ptr, TRAIT_SUSTAIN_STR) = TRUE;
-		//if (have_flag(flgs, TRAIT_SUSTAIN_INT)) has_trait(creature_ptr, TRAIT_SUSTAIN_INT) = TRUE;
-		//if (have_flag(flgs, TRAIT_SUSTAIN_WIS)) has_trait(creature_ptr, TRAIT_SUSTAIN_WIS) = TRUE;
-		//if (have_flag(flgs, TRAIT_SUSTAIN_DEX)) has_trait(creature_ptr, TRAIT_SUSTAIN_DEX) = TRUE;
-		//if (have_flag(flgs, TRAIT_SUSTAIN_CON)) has_trait(creature_ptr, TRAIT_SUSTAIN_CON) = TRUE;
-		//if (have_flag(flgs, TRAIT_SUSTAIN_CHR)) has_trait(creature_ptr, TRAIT_SUSTAIN_CHR) = TRUE;
-
 		if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
-
-		//if (object_ptr->name2 == EGO_RING_THROW) creature_ptr->mighty_throw = TRUE;
-		if (have_flag(flgs, TRAIT_EASY_SPELL)) creature_ptr->easy_spell = TRUE;
 		if (object_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
-
 		if (object_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
 
 		if (object_ptr->curse_flags & TRC_LOW_MAGIC)
