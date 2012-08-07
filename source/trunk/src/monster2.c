@@ -1684,18 +1684,18 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	alloc_entry *table = alloc_race_table;
 
 	int pls_kakuritu, pls_level;
-	int hoge=mysqrt(level*10000L);
+	int hoge = mysqrt(level * 10000L);
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
-	if ((floor_ptr->floor_turn > hoge * (TURNS_PER_TICK * 500L)) && !level)
+	if ((floor_ptr->floor_turn > hoge * (TURNS_PER_TICK * 500L)))
 	{
-		pls_kakuritu = MAX(2, NASTY_MON - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
+		pls_kakuritu = MAX(NASTY_MON_MAX, NASTY_MON_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
 		pls_level = MIN(8, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
 	}
 	else
 	{
-		pls_kakuritu = NASTY_MON;
+		pls_kakuritu = NASTY_MON_BASE;
 		pls_level = 2;
 	}
 
@@ -1708,7 +1708,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	}
 
 	/* Boost the level */
-	if ((level > 0) && !gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
+	if (!gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
 		/* Nightmare mode allows more out-of depth creatures */
 		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
