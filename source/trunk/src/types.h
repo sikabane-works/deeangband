@@ -121,8 +121,9 @@ struct object_kind
 
 	byte tval;			/* Object type */
 	byte sval;			/* Object sub type */
-
 	s16b pval;			/* Object extra info */
+
+	s16b stat_val[STAT_MAX]; // Stat
 
 	s16b to_hit;			/* Bonus to hit */
 	s16b to_damage;			/* Bonus to damage */

@@ -3436,13 +3436,13 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		creature_ptr->cursed |= (object_ptr->curse_flags & (0xFFFFFFF0L));
 		if (object_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
 
-		/* Affect stats */
-		if (have_flag(flgs, TR_STR)) creature_ptr->stat_add[STAT_STR] += object_ptr->pval * 10;
-		if (have_flag(flgs, TR_INT)) creature_ptr->stat_add[STAT_INT] += object_ptr->pval * 10;
-		if (have_flag(flgs, TR_WIS)) creature_ptr->stat_add[STAT_WIS] += object_ptr->pval * 10;
-		if (have_flag(flgs, TR_DEX)) creature_ptr->stat_add[STAT_DEX] += object_ptr->pval * 10;
-		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += object_ptr->pval * 10;
-		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += object_ptr->pval * 10;
+		// Affect stats
+		creature_ptr->stat_add[STAT_STR] += object_ptr->stat_val[STAT_STR];
+		creature_ptr->stat_add[STAT_INT] += object_ptr->stat_val[STAT_INT];
+		creature_ptr->stat_add[STAT_WIS] += object_ptr->stat_val[STAT_WIS];
+		creature_ptr->stat_add[STAT_DEX] += object_ptr->stat_val[STAT_DEX];
+		creature_ptr->stat_add[STAT_CON] += object_ptr->stat_val[STAT_CON];
+		creature_ptr->stat_add[STAT_CHA] += object_ptr->stat_val[STAT_CHA];
 
 		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
 

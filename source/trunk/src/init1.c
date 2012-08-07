@@ -1979,6 +1979,12 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_TVAL,
 	OK_INFO_SVAL,
 	OK_INFO_PVAL,
+	OK_INFO_STR,
+	OK_INFO_INT,
+	OK_INFO_WIS,
+	OK_INFO_DEX,
+	OK_INFO_CON,
+	OK_INFO_CHA,
 	OK_INFO_DEPTH,
 	OK_INFO_RARITY,
 	OK_INFO_WEIGHT,
@@ -2014,6 +2020,12 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"TVAL",
 	"SVAL",
 	"PVAL",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
 	"DEPTH",
 	"RARITY",
 	"WEIGHT",
@@ -2151,6 +2163,48 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->pval = (byte)b;
 				else
 					object_kind_ptr->pval = 0;
+				break;
+
+			case OK_INFO_STR:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->stat_val[STAT_STR] = (byte)b;
+				else
+					object_kind_ptr->stat_val[STAT_STR] = 0;
+				break;
+
+			case OK_INFO_INT:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->stat_val[STAT_INT] = (byte)b;
+				else
+					object_kind_ptr->stat_val[STAT_INT] = 0;
+				break;
+
+			case OK_INFO_WIS:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->stat_val[STAT_WIS] = (byte)b;
+				else
+					object_kind_ptr->stat_val[STAT_WIS] = 0;
+				break;
+
+			case OK_INFO_DEX:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->stat_val[STAT_DEX] = (byte)b;
+				else
+					object_kind_ptr->stat_val[STAT_DEX] = 0;
+				break;
+
+			case OK_INFO_CON:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->stat_val[STAT_CON] = (byte)b;
+				else
+					object_kind_ptr->stat_val[STAT_CON] = 0;
+				break;
+
+			case OK_INFO_CHA:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->stat_val[STAT_CHA] = (byte)b;
+				else
+					object_kind_ptr->stat_val[STAT_CHA] = 0;
 				break;
 
 			case OK_INFO_DEPTH:
