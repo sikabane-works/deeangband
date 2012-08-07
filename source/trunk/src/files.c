@@ -1907,7 +1907,7 @@ static void display_player_middle(creature_type *creature_ptr)
 			tmul = bow_tmul(bow_ptr->sval);
 
 			/* Get extra "power" from "extra might" */
-			if (creature_ptr->xtra_might) tmul++;
+			//TODO if (creature_ptr->xtra_might) tmul++;
 
 			tmul = tmul * (100 + (int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 		}

@@ -3445,7 +3445,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_CON)) creature_ptr->stat_add[STAT_CON] += object_ptr->pval * 10;
 		if (have_flag(flgs, TR_CHR)) creature_ptr->stat_add[STAT_CHA] += object_ptr->pval * 10;
 
-		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8*object_ptr->pval;
+		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
 
 		/* Affect stealth */
 		if (have_flag(flgs, TR_STEALTH)) creature_ptr->skill_stl += object_ptr->pval;
@@ -3477,7 +3477,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
 
 		/* Various flags */
-		if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
+		//TODO if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
 
 		if (have_flag(flgs, TR_TELEPORT))
 		{
@@ -3717,7 +3717,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
-	creature_ptr->xtra_might = FALSE;
 	creature_ptr->pass_wall = FALSE;
 	creature_ptr->dec_mana = FALSE;
 	creature_ptr->easy_spell = FALSE;

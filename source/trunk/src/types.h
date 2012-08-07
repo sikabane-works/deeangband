@@ -1482,7 +1482,6 @@ struct creature_type
 	bool free_act;		/* Never paralyzed */
 
 	bool bless_blade;	/* Blessed blade */
-	bool xtra_might;	/* Extra might bow */
 	bool impact[MAX_WEAPONS];		/* Earthquake blows */
 	bool pass_wall;     /* Permanent wraithform */
 	bool dec_mana;
