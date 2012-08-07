@@ -1686,7 +1686,9 @@ static void do_cmd_wiz_jump(creature_type *creature_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* Change level */
-	floor_ptr->floor_level = command_arg;
+	creature_ptr->depth = command_arg;
+	creature_ptr->wx = dungeon_info[floor_ptr->dun_type].dx;
+	creature_ptr->wy = dungeon_info[floor_ptr->dun_type].dy;
 
 	prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 
