@@ -1688,16 +1688,8 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
-	if ((floor_ptr->floor_turn > hoge * (TURNS_PER_TICK * 500L)))
-	{
-		pls_kakuritu = MAX(NASTY_MON_MAX, NASTY_MON_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
-		pls_level = MIN(8, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40);
-	}
-	else
-	{
-		pls_kakuritu = NASTY_MON_BASE;
-		pls_level = 2;
-	}
+	pls_kakuritu = MAX(NASTY_MON_MAX, NASTY_MON_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
+	pls_level = MIN(NASTY_MON_PLUS_MIN, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40 + MIN(5, level/10));
 
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
@@ -1719,24 +1711,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		else
 		{
 			/* Occasional "nasty" creature */
-			if (!randint0(pls_kakuritu))
-			{
-				/* Pick a level bonus */
-				int d = MIN(5, level/10) + pls_level;
-
-				/* Boost the level */
-				level += d;
-			}
-
-			/* Occasional "nasty" creature */
-			if (!randint0(pls_kakuritu))
-			{
-				/* Pick a level bonus */
-				int d = MIN(5, level/10) + pls_level;
-
-				/* Boost the level */
-				level += d;
-			}
+			if (!randint0(pls_kakuritu)) level += pls_level;
 		}
 	}
 

@@ -461,6 +461,7 @@
  */
 #define NASTY_MON_BASE       25
 #define NASTY_MON_MAX        3
+#define NASTY_MON_PLUS_MIN   10
 
 /* 1/x chance of hurting even if invulnerable! */
 #define PENETRATE_INVULNERABILITY 13
