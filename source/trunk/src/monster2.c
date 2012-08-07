@@ -1676,8 +1676,7 @@ static int mysqrt(int n)
  */
 s16b get_species_num(floor_type *floor_ptr, int level)
 {
-	int i, j, p;
-	int species_idx;
+	int i, j, p, species_idx;
 	long value, total;
 
 	species_type *r_ptr;
@@ -1687,7 +1686,6 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	int hoge = mysqrt(level * 10000L);
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
-
 	pls_kakuritu = MAX(NASTY_MON_MAX, NASTY_MON_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
 	pls_level = MIN(NASTY_MON_PLUS_MIN, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40 + MIN(5, level/10));
 
@@ -1699,134 +1697,82 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		level += 3;
 	}
 
-	/* Boost the level */
+	// Boost the level
 	if (!gamble_arena_mode && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
 	{
-		/* Nightmare mode allows more out-of depth creatures */
+		// Nightmare mode allows more out-of depth creatures
 		if (curse_of_Iluvatar && !randint0(pls_kakuritu))
-		{
-			/* What a bizarre calculation */
 			level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH));
-		}
 		else
-		{
-			/* Occasional "nasty" creature */
 			if (!randint0(pls_kakuritu)) level += pls_level;
-		}
 	}
 
+	total = 0L; // Reset total
 
-	/* Reset total */
-	total = 0L;
-
-	/* Process probabilities */
+	// Process probabilities
 	for (i = 0; i < alloc_race_size; i++)
 	{
-		/* Creatures are sorted by depth */
-		if (table[i].level > level) break;
-
-		/* Default */
-		table[i].prob3 = 0;
-
-		/* Access the "species_idx" of the chosen creature */
-		species_idx = table[i].index;
-
-		/* Access the actual race */
-		r_ptr = &species_info[species_idx];
-
-		/* Citizens doesn't wander. */
-		if (is_citizen_species(r_ptr)) continue;
+		if (table[i].level > level) break;			// Creatures are sorted by depth
+		table[i].prob3 = 0;							// Default
+		species_idx = table[i].index;				// Access the "species_idx" of the chosen creature
+		r_ptr = &species_info[species_idx];			// Access the actual race
+		if (is_citizen_species(r_ptr)) continue;	// Citizens doesn't wander.
 
 		if (!gamble_arena_mode && !chameleon_change_m_idx)
 		{
-			/* Hack -- "unique" creatures must be "unique" */
+			// Hack -- "unique" creatures must be "unique"
 			if ((is_unique_species(r_ptr)) && (r_ptr->cur_num >= r_ptr->max_num)) continue;
-
 			if (is_sub_unique_species(r_ptr) && (r_ptr->cur_num >= 1)) continue;
-
 			if (species_idx == SPECIES_BANORLUPART)
 			{
 				if (species_info[SPECIES_BANOR].cur_num > 0) continue;
 				if (species_info[SPECIES_LUPART].cur_num > 0) continue;
 			}
 		}
-
-		/* Accept */
-		table[i].prob3 = table[i].prob2;
-
-		/* Total */
-		total += table[i].prob3;
+		table[i].prob3 = table[i].prob2; // Accept
+		total += table[i].prob3; // Total
 	}
 
-	/* No legal creatures */
-	if (total <= 0) return (0);
+	if (total <= 0) return (0); // No legal creatures
 
+	value = randint0(total); // Pick a creature
 
-	/* Pick a creature */
-	value = randint0(total);
-
-	/* Find the creature */
-	for (i = 0; i < alloc_race_size; i++)
+	for (i = 0; i < alloc_race_size; i++) // Find the creature
 	{
-		/* Found the entry */
-		if (value < table[i].prob3) break;
-
-		/* Decrement */
-		value = value - table[i].prob3;
+		if (value < table[i].prob3) break; // Found the entry
+		value = value - table[i].prob3; // Decrement
 	}
+	
+	p = randint0(100); // Power boost
 
-
-	/* Power boost */
-	p = randint0(100);
-
-	/* Try for a "harder" creature once (50%) or twice (10%) */
-	if (p < 60)
+	if (p < 60) // Try for a "harder" creature once (50%) or twice (10%)
 	{
-		/* Save old */
-		j = i;
-
-		/* Pick a creature */
-		value = randint0(total);
-
-		/* Find the creature */
-		for (i = 0; i < alloc_race_size; i++)
+		j = i; // Save old
+		value = randint0(total); // Pick a creature
+		for (i = 0; i < alloc_race_size; i++) // Find the creature
 		{
-			/* Found the entry */
-			if (value < table[i].prob3) break;
-
-			/* Decrement */
-			value = value - table[i].prob3;
+			if (value < table[i].prob3) break;	// Found the entry
+			value = value - table[i].prob3;		// Decrement
 		}
 
 		/* Keep the "best" one */
 		if (table[i].level < table[j].level) i = j;
 	}
 
-	/* Try for a "harder" creature twice (10%) */
-	if (p < 10)
+	if (p < 10) // Try for a "harder" creature twice (10%)
 	{
-		/* Save old */
-		j = i;
-
-		/* Pick a creature */
-		value = randint0(total);
-
-		/* Find the creature */
-		for (i = 0; i < alloc_race_size; i++)
+		j = i; // Save old
+		value = randint0(total); // Pick a creature
+		for (i = 0; i < alloc_race_size; i++) // Find the creature
 		{
-			/* Found the entry */
-			if (value < table[i].prob3) break;
-
-			/* Decrement */
-			value = value - table[i].prob3;
+			if (value < table[i].prob3) break; // Found the entry
+			value = value - table[i].prob3; // Decrement
 		}
 
-		/* Keep the "best" one */
-		if (table[i].level < table[j].level) i = j;
+		if (table[i].level < table[j].level) i = j; // Keep the "best" one
 	}
 
-	/* Result */
-	return (table[i].index);
+	return (table[i].index); // Result
 }
 
 
