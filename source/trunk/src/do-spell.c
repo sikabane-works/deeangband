@@ -176,6 +176,7 @@ static int beam_chance(creature_type *creature_ptr)
 {
 	if (creature_ptr->class_idx == CLASS_MAGE)
 		return creature_ptr->lev;
+
 	if (creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER)
 		return creature_ptr->lev + 10;
 
@@ -3494,9 +3495,7 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (creature_ptr->class_idx == CLASS_MAGE ||
-			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
-			    creature_ptr->class_idx == CLASS_SORCERER)
+			if (has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -4407,9 +4406,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (creature_ptr->class_idx == CLASS_MAGE ||
-			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
-			    creature_ptr->class_idx == CLASS_SORCERER)
+			if (has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
