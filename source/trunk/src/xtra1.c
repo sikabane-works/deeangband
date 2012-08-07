@@ -2846,7 +2846,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 		case CLASS_FORCETRAINER:
 			if (!(heavy_armor(creature_ptr))) // Unencumbered Monks become faster every 10 levels
 			{
-				if (!(has_trait(creature_ptr, TRAIT_AGILE_RACE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
+				if (!(has_trait(creature_ptr, TRAIT_AGILE_RACE)))
 					creature_ptr->speed += (creature_ptr->lev) / 10;
 				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE; // Free action if unencumbered at level 25
 			}
@@ -2868,8 +2868,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->speed += 3;
-				if (!(IS_RACE(creature_ptr, RACE_KLACKON) || IS_RACE(creature_ptr, RACE_SPRITE) || (creature_ptr->chara_idx == CHARA_MUNCHKIN)))
-					creature_ptr->speed += (creature_ptr->lev) / 10;
+				if (!has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
 
 				// Free action if unencumbered at level 25
