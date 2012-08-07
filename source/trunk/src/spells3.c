@@ -3555,7 +3555,7 @@ msg_format("%s‚Í‹P‚¢‚½I",
 		    ((object_ptr->number > 1) ? "" : "s"));
 #endif
 
-		add_flag(object_ptr->art_flags, TRAIT_BLESSED_BRAND);
+		add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 		object_ptr->discount = 99;
 	}
 	else

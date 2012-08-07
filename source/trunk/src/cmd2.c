@@ -359,9 +359,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			}
 		}
 
-
-		/* Leaving */
-		subject_change_floor = TRUE;
+		subject_change_floor = TRUE; // Leaving
 
 		if (fall_trap)
 		{

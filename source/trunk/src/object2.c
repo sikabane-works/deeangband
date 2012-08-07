@@ -2287,9 +2287,9 @@ static bool add_esp_strong(object_type *object_ptr)
 
 	switch (randint1(3))
 	{
-	case 1: add_flag(object_ptr->art_flags, TRAIT_SENSE_EVIL); break;
-	case 2: add_flag(object_ptr->art_flags, TRAIT_ESP); break;
-	case 3:	add_flag(object_ptr->art_flags, TRAIT_SENSE_NONLIVING); nonliv = TRUE; break;
+	case 1: add_flag(object_ptr->trait_flags, TRAIT_SENSE_EVIL); break;
+	case 2: add_flag(object_ptr->trait_flags, TRAIT_ESP); break;
+	case 3:	add_flag(object_ptr->trait_flags, TRAIT_SENSE_NONLIVING); nonliv = TRUE; break;
 	}
 
 	return nonliv;
@@ -2323,15 +2323,15 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
 
 	while (n--) switch (idx[n])
 	{
-	case 1: add_flag(object_ptr->art_flags, TRAIT_SENSE_ANIMAL); break;
-	case 2: add_flag(object_ptr->art_flags, TRAIT_SENSE_UNDEAD); break;
-	case 3: add_flag(object_ptr->art_flags, TRAIT_SENSE_DEMON); break;
-	case 4: add_flag(object_ptr->art_flags, TRAIT_SENSE_ORC); break;
-	case 5: add_flag(object_ptr->art_flags, TRAIT_SENSE_TROLL); break;
-	case 6: add_flag(object_ptr->art_flags, TRAIT_SENSE_GIANT); break;
-	case 7: add_flag(object_ptr->art_flags, TRAIT_SENSE_DRAGON);   break;
-	case 8: add_flag(object_ptr->art_flags, TRAIT_SENSE_HUMAN); break;
-	case 9: add_flag(object_ptr->art_flags, TRAIT_SENSE_GOOD); break;
+	case 1: add_flag(object_ptr->trait_flags, TRAIT_SENSE_ANIMAL); break;
+	case 2: add_flag(object_ptr->trait_flags, TRAIT_SENSE_UNDEAD); break;
+	case 3: add_flag(object_ptr->trait_flags, TRAIT_SENSE_DEMON); break;
+	case 4: add_flag(object_ptr->trait_flags, TRAIT_SENSE_ORC); break;
+	case 5: add_flag(object_ptr->trait_flags, TRAIT_SENSE_TROLL); break;
+	case 6: add_flag(object_ptr->trait_flags, TRAIT_SENSE_GIANT); break;
+	case 7: add_flag(object_ptr->trait_flags, TRAIT_SENSE_DRAGON);   break;
+	case 8: add_flag(object_ptr->trait_flags, TRAIT_SENSE_HUMAN); break;
+	case 9: add_flag(object_ptr->trait_flags, TRAIT_SENSE_GOOD); break;
 	}
 }
 
@@ -2900,7 +2900,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				case SV_AMULET_RESISTANCE:
 				{
 					if (one_in_(5)) one_high_resistance(object_ptr);
-					if (one_in_(5)) add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+					if (one_in_(5)) add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 				}
 				break;
 
@@ -7900,7 +7900,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	{
 		case EGO_RESISTANCE:
 			if (one_in_(4))
-				add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+				add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			break;
 
 		case EGO_DWARVEN:
@@ -7920,7 +7920,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_ENDURANCE:
 			if (!one_in_(3)) one_high_resistance(object_ptr);
-			if (one_in_(4)) add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+			if (one_in_(4)) add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			break;
 
 		case EGO_REFLECTION:
@@ -7959,16 +7959,16 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_DF:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+				add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TRAIT_WARNING);
+				add_flag(object_ptr->trait_flags, TRAIT_WARNING);
 			break;
 
 		case EGO_BLESS_BLADE:
 			break;
 		case EGO_WEST:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
+				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			break;
 		case EGO_ATTACKS:
 			break;
@@ -7992,7 +7992,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 					
 			if (one_in_(5))
 			{
-				add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
+				add_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
 			}
 			if (object_ptr->tval == TV_SWORD && one_in_(3))
 			{
@@ -8013,12 +8013,12 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_KILL_DRAGON:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+				add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			break;
 
 		case EGO_VAMPIRIC:
 			if (one_in_(5))
-				add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
+				add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 			break;
 
 		case EGO_PRISM:
@@ -8026,18 +8026,18 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_TRUMP:
 			if (one_in_(5))
-				add_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
+				add_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
 			if (one_in_(7))
 				one_ability(object_ptr);
 			break;
 
 		case EGO_PATTERN:
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TRAIT_HOLD_LIFE);
+				add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);
 			if (one_in_(3))
 				add_flag(object_ptr->art_flags, TR_DEX);
 			if (one_in_(5))
-				add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
+				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			break;
 
 		case EGO_DIGGING:
@@ -8045,7 +8045,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_SLAY_HUMAN:
 			if (one_in_(2))
-				add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
+				add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 			break;
 
 

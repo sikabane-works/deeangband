@@ -93,10 +93,10 @@ void one_ele_resistance(object_type *object_ptr)
 {
 	switch (randint0(4))
 	{
-		case  0: add_flag(object_ptr->art_flags, TRAIT_RES_ACID); break;
-		case  1: add_flag(object_ptr->art_flags, TRAIT_RES_ELEC); break;
-		case  2: add_flag(object_ptr->art_flags, TRAIT_RES_COLD); break;
-		case  3: add_flag(object_ptr->art_flags, TRAIT_RES_FIRE); break;
+		case 0: add_flag(object_ptr->trait_flags, TRAIT_RES_ACID); break;
+		case 1: add_flag(object_ptr->trait_flags, TRAIT_RES_ELEC); break;
+		case 2: add_flag(object_ptr->trait_flags, TRAIT_RES_COLD); break;
+		case 3: add_flag(object_ptr->trait_flags, TRAIT_RES_FIRE); break;
 	}
 }
 
@@ -107,13 +107,9 @@ void one_ele_resistance(object_type *object_ptr)
 void one_dragon_ele_resistance(object_type *object_ptr)
 {
 	if (one_in_(7))
-	{
-		add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
-	}
+		add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 	else
-	{
 		one_ele_resistance(object_ptr);
-	}
 }
 
 
@@ -161,14 +157,14 @@ void one_ability(object_type *object_ptr)
 {
 	switch (randint0(10))
 	{
-	case 0: add_flag(object_ptr->art_flags, TRAIT_LEVITATION);     break;
+	case 0: add_flag(object_ptr->trait_flags, TRAIT_LEVITATION);     break;
 	case 1: add_flag(object_ptr->art_flags, TR_LITE);        break;
-	case 2: add_flag(object_ptr->art_flags, TRAIT_SEE_INVISIBLE);   break;
-	case 3: add_flag(object_ptr->art_flags, TRAIT_WARNING);     break;
-	case 4: add_flag(object_ptr->art_flags, TRAIT_SLOW_DIGEST); break;
-	case 5: add_flag(object_ptr->art_flags, TRAIT_REGENERATE);       break;
-	case 6: add_flag(object_ptr->art_flags, TRAIT_FREE_ACTION);    break;
-	case 7: add_flag(object_ptr->art_flags, TRAIT_HOLD_LIFE);   break;
+	case 2: add_flag(object_ptr->trait_flags, TRAIT_SEE_INVISIBLE);   break;
+	case 3: add_flag(object_ptr->trait_flags, TRAIT_WARNING);     break;
+	case 4: add_flag(object_ptr->trait_flags, TRAIT_SLOW_DIGEST); break;
+	case 5: add_flag(object_ptr->trait_flags, TRAIT_REGENERATE);       break;
+	case 6: add_flag(object_ptr->trait_flags, TRAIT_FREE_ACTION);    break;
+	case 7: add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);   break;
 	case 8:
 	case 9:
 		one_low_esp(object_ptr);
@@ -185,17 +181,17 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if (object_ptr->to_damage > 0) object_ptr->to_damage = 0 - (object_ptr->to_damage + (s16b)randint1(4));
 
 	object_ptr->curse_flags |= (TRC_HEAVY_CURSE | TRC_CURSED);
-	remove_flag(object_ptr->art_flags, TRAIT_BLESSED_BRAND);
+	remove_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 
 	if (one_in_(4)) object_ptr->curse_flags |= TRC_DIVINE_CURSE;
-	if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_TY_CURSE);
-	if (one_in_(2)) add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
-	if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_DRAIN_EXP);
+	if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
+	if (one_in_(2)) add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
+	if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_DRAIN_EXP);
 	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_TELEPORT);
-	else if (one_in_(3)) add_flag(object_ptr->art_flags, TRAIT_PREVENT_TELEPORT);
+	else if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_PREVENT_TELEPORT);
 
 	if ((creature_ptr->class_idx != CLASS_WARRIOR) && (creature_ptr->class_idx != CLASS_ARCHER) && (creature_ptr->class_idx != CLASS_CAVALRY) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH) && one_in_(3))
-		add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
+		add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
 }
 
 
@@ -330,9 +326,9 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 
 	if ((artifact_bias == BIAS_MAGE || artifact_bias == BIAS_PRIESTLY) && (object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_ROBE))
 	{
-		if (!(have_flag(object_ptr->art_flags, TRAIT_DEC_MANA)) && one_in_(3))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_DEC_MANA)) && one_in_(3))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_DEC_MANA);
+			add_flag(object_ptr->trait_flags, TRAIT_DEC_MANA);
 			if (one_in_(2)) return;
 		}
 	}
@@ -418,44 +414,44 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 	switch (artifact_bias)
 	{
 	case BIAS_ACID:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_ACID)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_ACID)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_ACID);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_ACID);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_ACID)))
+		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->trait_flags, TRAIT_IM_ACID)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_IM_ACID);
+			add_flag(object_ptr->trait_flags, TRAIT_IM_ACID);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_COLD);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_ELEC);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_COLD);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_FIRE);
 			}
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_ELEC:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_ELEC)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_ELEC)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_ELEC);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_ELEC);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) && (object_ptr->tval <= TV_HARD_ARMOR) &&
-		    !(have_flag(object_ptr->art_flags, TRAIT_AURA_ELEC)))
+		    !(have_flag(object_ptr->trait_flags, TRAIT_AURA_ELEC)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_AURA_ELEC);
+			add_flag(object_ptr->trait_flags, TRAIT_AURA_ELEC);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_ELEC)))
+		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->trait_flags, TRAIT_IM_ELEC)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
+			add_flag(object_ptr->trait_flags, TRAIT_IM_ELEC);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TRAIT_IM_ACID);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_COLD);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_ACID);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_COLD);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_FIRE);
 			}
 
 			if (one_in_(2)) return;
@@ -463,93 +459,93 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		break;
 
 	case BIAS_FIRE:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_FIRE)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_FIRE)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_FIRE);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_FIRE);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) &&
 		    (object_ptr->tval <= TV_HARD_ARMOR) &&
-		    !(have_flag(object_ptr->art_flags, TRAIT_AURA_FIRE)))
+		    !(have_flag(object_ptr->trait_flags, TRAIT_AURA_FIRE)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_AURA_FIRE);
+			add_flag(object_ptr->trait_flags, TRAIT_AURA_FIRE);
 			if (one_in_(2)) return;
 		}
 		if (one_in_(BIAS_LUCK) &&
-		    !(have_flag(object_ptr->art_flags, TRAIT_IM_FIRE)))
+		    !(have_flag(object_ptr->trait_flags, TRAIT_IM_FIRE)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
+			add_flag(object_ptr->trait_flags, TRAIT_IM_FIRE);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_COLD);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_ACID);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_ELEC);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_COLD);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_ACID);
 			}
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_COLD:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_COLD)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_COLD)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_COLD);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_COLD);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval >= TV_CLOAK) &&
 		    (object_ptr->tval <= TV_HARD_ARMOR) &&
-		    !(have_flag(object_ptr->art_flags, TRAIT_AURA_COLD)))
+		    !(have_flag(object_ptr->trait_flags, TRAIT_AURA_COLD)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_AURA_COLD);
+			add_flag(object_ptr->trait_flags, TRAIT_AURA_COLD);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->art_flags, TRAIT_IM_COLD)))
+		if (one_in_(BIAS_LUCK) && !(have_flag(object_ptr->trait_flags, TRAIT_IM_COLD)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_IM_COLD);
+			add_flag(object_ptr->trait_flags, TRAIT_IM_COLD);
 			if (!one_in_(IM_LUCK))
 			{
-				remove_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_ACID);
-				remove_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_ELEC);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_ACID);
+				remove_flag(object_ptr->trait_flags, TRAIT_IM_FIRE);
 			}
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_POIS:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_POIS)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_POIS)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_WARRIOR:
-		if (!one_in_(3) && (!(have_flag(object_ptr->art_flags, TRAIT_FEARLESS))))
+		if (!one_in_(3) && (!(have_flag(object_ptr->trait_flags, TRAIT_FEARLESS))))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
+			add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			if (one_in_(2)) return;
 		}
-		if (one_in_(3) && (!(have_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC))))
+		if (one_in_(3) && (!(have_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC))))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
+			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_NECROMANTIC:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_NETH)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_NETH)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_NETH);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_NETH);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_POIS)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_POIS)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_RES_DARK)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_DARK)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_RES_DARK);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_DARK);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -560,9 +556,9 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			add_flag(object_ptr->trait_flags, TRAIT_RES_CHAO);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_NO_CONF)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_NO_CONF)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_NO_CONF);
+			add_flag(object_ptr->trait_flags, TRAIT_NO_CONF);
 			if (one_in_(2)) return;
 		}
 		if (!(have_flag(object_ptr->trait_flags, TRAIT_RES_DISE)))
@@ -580,7 +576,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TRAIT_IM_ACID);
+				add_flag(object_ptr->trait_flags, TRAIT_IM_ACID);
 				if (!artifact_bias)
 					artifact_bias = BIAS_ACID;
 			}
@@ -590,7 +586,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TRAIT_IM_ELEC);
+				add_flag(object_ptr->trait_flags, TRAIT_IM_ELEC);
 				if (!artifact_bias)
 					artifact_bias = BIAS_ELEC;
 			}
@@ -600,7 +596,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TRAIT_IM_COLD);
+				add_flag(object_ptr->trait_flags, TRAIT_IM_COLD);
 				if (!artifact_bias)
 					artifact_bias = BIAS_COLD;
 			}
@@ -610,7 +606,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 				random_resistance(object_ptr, artifact_bias);
 			else
 			{
-				add_flag(object_ptr->art_flags, TRAIT_IM_FIRE);
+				add_flag(object_ptr->trait_flags, TRAIT_IM_FIRE);
 				if (!artifact_bias)
 					artifact_bias = BIAS_FIRE;
 			}
@@ -618,34 +614,34 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		case 5:
 		case 6:
 		case 13:
-			add_flag(object_ptr->art_flags, TRAIT_RES_ACID);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_ACID);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ACID;
 			break;
 		case 7:
 		case 8:
 		case 14:
-			add_flag(object_ptr->art_flags, TRAIT_RES_ELEC);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_ELEC);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ELEC;
 			break;
 		case 9:
 		case 10:
 		case 15:
-			add_flag(object_ptr->art_flags, TRAIT_RES_FIRE);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_FIRE);
 			if (!artifact_bias)
 				artifact_bias = BIAS_FIRE;
 			break;
 		case 11:
 		case 12:
 		case 16:
-			add_flag(object_ptr->art_flags, TRAIT_RES_COLD);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_COLD);
 			if (!artifact_bias)
 				artifact_bias = BIAS_COLD;
 			break;
 		case 17:
 		case 18:
-			add_flag(object_ptr->art_flags, TRAIT_RES_POIS);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
 			if (!artifact_bias && !one_in_(4))
 				artifact_bias = BIAS_POIS;
 			else if (!artifact_bias && one_in_(2))
@@ -655,23 +651,23 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 19:
 		case 20:
-			add_flag(object_ptr->art_flags, TRAIT_FEARLESS);
+			add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			if (!artifact_bias && one_in_(3))
 				artifact_bias = BIAS_WARRIOR;
 			break;
 		case 21:
-			add_flag(object_ptr->art_flags, TRAIT_RES_LITE);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_LITE);
 			break;
 		case 22:
-			add_flag(object_ptr->art_flags, TRAIT_RES_DARK);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_DARK);
 			break;
 		case 23:
 		case 24:
-			add_flag(object_ptr->art_flags, TRAIT_NO_BLIND);
+			add_flag(object_ptr->trait_flags, TRAIT_NO_BLIND);
 			break;
 		case 25:
 		case 26:
-			add_flag(object_ptr->art_flags, TRAIT_NO_CONF);
+			add_flag(object_ptr->trait_flags, TRAIT_NO_CONF);
 			if (!artifact_bias && one_in_(6))
 				artifact_bias = BIAS_CHAOS;
 			break;
@@ -681,11 +677,11 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 29:
 		case 30:
-			add_flag(object_ptr->art_flags, TRAIT_RES_SHAR);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_SHAR);
 			break;
 		case 31:
 		case 32:
-			add_flag(object_ptr->art_flags, TRAIT_RES_NETH);
+			add_flag(object_ptr->trait_flags, TRAIT_RES_NETH);
 			if (!artifact_bias && one_in_(3))
 				artifact_bias = BIAS_NECROMANTIC;
 			break;
@@ -705,7 +701,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 39:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TRAIT_AURA_ELEC);
+				add_flag(object_ptr->trait_flags, TRAIT_AURA_ELEC);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			if (!artifact_bias)
@@ -713,7 +709,7 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 			break;
 		case 40:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TRAIT_AURA_FIRE);
+				add_flag(object_ptr->trait_flags, TRAIT_AURA_FIRE);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			if (!artifact_bias)
@@ -722,13 +718,13 @@ static void random_resistance(object_type * object_ptr, int artifact_bias)
 		case 41:
 			if (object_ptr->tval == TV_SHIELD || object_ptr->tval == TV_CLOAK ||
 			    object_ptr->tval == TV_HELM || object_ptr->tval == TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TRAIT_REFLECTING);
+				add_flag(object_ptr->trait_flags, TRAIT_REFLECTING);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			break;
 		case 42:
 			if (object_ptr->tval >= TV_CLOAK && object_ptr->tval <= TV_HARD_ARMOR)
-				add_flag(object_ptr->art_flags, TRAIT_AURA_COLD);
+				add_flag(object_ptr->trait_flags, TRAIT_AURA_COLD);
 			else
 				random_resistance(object_ptr, artifact_bias);
 			if (!artifact_bias)
@@ -1027,39 +1023,39 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 	switch (artifact_bias)
 	{
 	case BIAS_CHAOS:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_CHAOTIC_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_CHAOTIC_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_PRIESTLY:
 		if((object_ptr->tval == TV_SWORD || object_ptr->tval == TV_POLEARM) &&
-		   !(have_flag(object_ptr->art_flags, TRAIT_BLESSED_BRAND)))
+		   !(have_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND)))
 		{
 			/* A free power for "priestly" random artifacts */
-			add_flag(object_ptr->art_flags, TRAIT_BLESSED_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 		}
 		break;
 
 	case BIAS_NECROMANTIC:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_VAMPIRIC_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_VAMPIRIC_BRAND);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)) && one_in_(2))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND)) && one_in_(2))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_RANGER:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1067,72 +1063,72 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 	case BIAS_ROGUE:
 		if ((((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DAGGER)) ||
 		     ((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_SPEAR))) &&
-			 !(have_flag(object_ptr->art_flags, TRAIT_THROW_MIGHTY)))
+			 !(have_flag(object_ptr->trait_flags, TRAIT_THROW_MIGHTY)))
 		{
 			/* Free power for rogues... */
-			add_flag(object_ptr->art_flags, TRAIT_THROW_MIGHTY);
+			add_flag(object_ptr->trait_flags, TRAIT_THROW_MIGHTY);
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_POIS:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_POIS_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_FIRE:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_FIRE_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_FIRE_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_COLD:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_COLD_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_COLD_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_COLD_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_COLD_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_ELEC:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_ACID:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_ACID_BRAND)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_LAW:
-		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON)))
 		{
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -1142,11 +1138,11 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 	{
 		case 1:
 		case 2:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL);
 			break;
 		case 3:
 		case 4:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL);
 			if (!artifact_bias && one_in_(2))
 				artifact_bias = BIAS_LAW;
 			else if (!artifact_bias && one_in_(9))
@@ -1154,34 +1150,34 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			break;
 		case 5:
 		case 6:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD);
 			if (!artifact_bias && one_in_(9))
 				artifact_bias = BIAS_PRIESTLY;
 			break;
 		case 7:
 		case 8:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
 			if (!artifact_bias && one_in_(9))
 				artifact_bias = BIAS_PRIESTLY;
 			break;
 		case 9:
 		case 10:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_ORC);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC);
 			break;
 		case 11:
 		case 12:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_TROLL);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL);
 			break;
 		case 13:
 		case 14:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_GIANT);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT);
 			break;
 		case 15:
 		case 16:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_DRAGON);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON);
 			break;
 		case 17:
-			add_flag(object_ptr->art_flags, TRAIT_KILL_DRAGON);
+			add_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON);
 			break;
 		case 18:
 		case 19:
@@ -1195,35 +1191,35 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 				random_slay(object_ptr, artifact_bias);
 			break;
 		case 20:
-			add_flag(object_ptr->art_flags, TRAIT_SHATTER);
+			add_flag(object_ptr->trait_flags, TRAIT_SHATTER);
 			break;
 		case 21:
 		case 22:
-			add_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_FIRE_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_FIRE;
 			break;
 		case 23:
 		case 24:
-			add_flag(object_ptr->art_flags, TRAIT_COLD_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_COLD_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_COLD;
 			break;
 		case 25:
 		case 26:
-			add_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ELEC;
 			break;
 		case 27:
 		case 28:
-			add_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_ACID;
 			break;
 		case 29:
 		case 30:
-			add_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
 			if (!artifact_bias && !one_in_(3))
 				artifact_bias = BIAS_POIS;
 			else if (!artifact_bias && one_in_(6))
@@ -1232,7 +1228,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 				artifact_bias = BIAS_ROGUE;
 			break;
 		case 31:
-			add_flag(object_ptr->art_flags, TRAIT_VAMPIRIC_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_VAMPIRIC_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_NECROMANTIC;
 			break;
@@ -1243,10 +1239,10 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			break;
 		case 33:
 		case 34:
-			add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
+			add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 			break;
 		default:
-			add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND);
+			add_flag(object_ptr->trait_flags, TRAIT_CHAOTIC_BRAND);
 			if (!artifact_bias)
 				artifact_bias = BIAS_CHAOS;
 			break;
@@ -1812,7 +1808,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	{
 		object_ptr->to_hit += (s16b)randint1(object_ptr->to_hit > 19 ? 1 : 20 - object_ptr->to_hit);
 		object_ptr->to_damage += (s16b)randint1(object_ptr->to_damage > 19 ? 1 : 20 - object_ptr->to_damage);
-		if ((have_flag(object_ptr->art_flags, TR_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->art_flags, TRAIT_BLESSED_BRAND);
+		if ((have_flag(object_ptr->art_flags, TR_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 	}
 
 	/* Just to be sure */
@@ -1849,7 +1845,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		}
 	}
 
-	if (((artifact_bias == BIAS_MAGE) || (artifact_bias == BIAS_INT)) && (object_ptr->tval == TV_GLOVES)) add_flag(object_ptr->art_flags, TRAIT_FREE_ACTION);
+	if (((artifact_bias == BIAS_MAGE) || (artifact_bias == BIAS_INT)) && (object_ptr->tval == TV_GLOVES)) add_flag(object_ptr->trait_flags, TRAIT_FREE_ACTION);
 
 	if ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DOKUBARI))
 	{
@@ -1857,22 +1853,22 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		object_ptr->to_damage = 0;
 		remove_flag(object_ptr->art_flags, TR_BLOWS);
 		remove_flag(object_ptr->art_flags, TR_FORCE_WEAPON);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_ANIMAL);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_EVIL);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_UNDEAD);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_DEMON);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_ORC);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_TROLL);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_GIANT);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_DRAGON);
-		remove_flag(object_ptr->art_flags, TRAIT_KILL_DRAGON);
-		remove_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON);
+		remove_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON);
+		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 		remove_flag(object_ptr->trait_flags, TRAIT_VORPAL);
-		remove_flag(object_ptr->art_flags, TRAIT_POIS_BRAND);
-		remove_flag(object_ptr->art_flags, TRAIT_ACID_BRAND);
-		remove_flag(object_ptr->art_flags, TRAIT_ELEC_BRAND);
-		remove_flag(object_ptr->art_flags, TRAIT_FIRE_BRAND);
-		remove_flag(object_ptr->art_flags, TRAIT_COLD_BRAND);
+		remove_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
+		remove_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND);
+		remove_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND);
+		remove_flag(object_ptr->trait_flags, TRAIT_FIRE_BRAND);
+		remove_flag(object_ptr->trait_flags, TRAIT_COLD_BRAND);
 	}
 
 	if (!object_is_weapon_ammo(object_ptr))
@@ -3019,10 +3015,10 @@ void get_bloody_moon_flags(object_type *object_ptr)
 	for (i = 0; i < dummy; i++)
 	{
 		int flag = randint0(26);
-		if (flag >= 20) add_flag(object_ptr->art_flags, TRAIT_KILL_UNDEAD + flag - 20);
-		else if (flag == 19) add_flag(object_ptr->art_flags, TRAIT_KILL_ANIMAL);
-		else if (flag == 18) add_flag(object_ptr->art_flags, TRAIT_SLAY_HUMAN);
-		else add_flag(object_ptr->art_flags, TRAIT_CHAOTIC_BRAND + flag);
+		if (flag >= 20) add_flag(object_ptr->trait_flags, TRAIT_KILL_UNDEAD + flag - 20);
+		else if (flag == 19) add_flag(object_ptr->trait_flags, TRAIT_KILL_ANIMAL);
+		else if (flag == 18) add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
+		else add_flag(object_ptr->trait_flags, TRAIT_CHAOTIC_BRAND + flag);
 	}
 
 	dummy = randint1(2);
@@ -3050,8 +3046,8 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		}
 		else
 		{
-			add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
-			add_flag(object_ptr->art_flags, TRAIT_TY_CURSE);
+			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
+			add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
 			object_ptr->curse_flags |=
 			    (TRC_CURSED | TRC_HEAVY_CURSE);
 			object_ptr->curse_flags |= get_curse(2, object_ptr);
@@ -3063,7 +3059,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	{
 		if (owner_ptr->class_idx != CLASS_SAMURAI)
 		{
-			add_flag(object_ptr->art_flags, TRAIT_ANTI_MAGIC);
+			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
 			object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
 		}
 	}
@@ -3083,7 +3079,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	{
 		if (owner_ptr->sex != SEX_FEMALE)
 		{
-			add_flag(object_ptr->art_flags, TRAIT_ANTIPATHY);
+			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 		}
 	}
 
