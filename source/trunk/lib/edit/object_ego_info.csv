@@ -156,7 +156,7 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,PVAL,DEPTH,RARI
 182,îÒñ\óÕÇÃ,of Pacifist,RING,0,100,20,20,0,0,3,0,0,0,0,CURSED|HEAVY_CURSE|STR|DEX,,
 183,îΩä¥ÇÃ,and Aggravate,RING,0,100,0,0,0,0,0,0,0,0,0,ANTIPATHY|CURSED|HEAVY_CURSE,,
 184,âÖîOÇÃ,and Ancient Foul Curse,RING,0,100,0,0,0,0,0,0,0,0,0,TY_CURSE|CURSED|HEAVY_CURSE,,
-185,ëœéûä‘ãtì]ÇÃ,and Resist Time,RING,25,100,0,0,0,0,0,30,0,0,7500,,,
+185,ëœéûä‘ãtì]ÇÃ,and Resist Time,RING,25,100,0,0,0,0,0,30,0,0,7500,RES_TIME,,
 186,ïsà¿íËÇÃ,and Random Teleportation,RING,3,100,0,0,0,0,0,30,0,0,100,,TPORT,
 187,ÉAÉãÉrÉmÇÃ,and Albino,RING,0,100,0,0,20,0,3,0,0,0,0,CURSED|HEAVY_CURSE|CON,,# Ego Amulet
 210,íxè¡âªÇÃ,and Slow Digestion,AMULET,5,100,0,0,0,0,0,30,0,0,200,,SLOW_DIGEST,
