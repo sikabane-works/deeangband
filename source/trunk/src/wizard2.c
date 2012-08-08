@@ -1436,7 +1436,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 static void do_cmd_wiz_creature_list(void)
 {
 	selection *ce;
-	int i, mode;
+	int i, mode, n;
 	char k, tmp[80];
 	ce = malloc(sizeof(selection) * (creature_max + 1));
 
@@ -1444,39 +1444,43 @@ static void do_cmd_wiz_creature_list(void)
 
 	while(1)
 	{
+		n = 0;
 
-		for(i = 0; i < creature_max; i++)
+		for(i = 1; i < creature_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
+			sprintf(ce[n].cap, "[%4d] F:%3d D:%3d (%3d, %3d) HP:%6d/%6d %-24s", i, creature_list[i].floor_id, creature_list[i].depth,
 				creature_list[i].fx, creature_list[i].fy, creature_list[i].chp, creature_list[i].mhp, creature_list[i].name);
-			ce[i].cap[72] = '\0'; 
+			ce[n].cap[72] = '\0'; 
 			if(is_player(&creature_list[i]))
 			{
-				ce[i].d_color = TERM_UMBER;
-				ce[i].l_color = TERM_YELLOW;
+				ce[n].d_color = TERM_UMBER;
+				ce[n].l_color = TERM_YELLOW;
 			}
 			else if(is_unique_creature(&creature_list[i]))
 			{
-				ce[i].d_color = TERM_GREEN;
-				ce[i].l_color = TERM_L_GREEN;
+				ce[n].d_color = TERM_GREEN;
+				ce[n].l_color = TERM_L_GREEN;
 			}
 			else
 			{
-				ce[i].d_color = TERM_L_DARK;
-				ce[i].l_color = TERM_WHITE;
+				ce[n].d_color = TERM_L_DARK;
+				ce[n].l_color = TERM_WHITE;
 			}
 
-			ce[i].key = '\0';
-			ce[i].code = i;
+			ce[n].key = '\0';
+			ce[n].code = i;
+			n++;
 		}
 
-		sprintf(ce[i].cap, " END ");
-		ce[i].d_color = TERM_RED;
-		ce[i].l_color = TERM_L_RED;
-		ce[i].key = ESCAPE;
-		ce[i].code = i;
+		sprintf(ce[n].cap, " END ");
+		ce[n].d_color = TERM_RED;
+		ce[n].l_color = TERM_L_RED;
+		ce[n].key = ESCAPE;
+		ce[n].code = creature_max;
 
-		i = get_selection(ce, creature_max + 1, 0, 1, 1, 22, 78, NULL, 0);
+		n++;
+
+		i = get_selection(ce, n, 0, 1, 1, 22, 78, NULL, 0);
 		if(i == creature_max) break;
 
 		mode = 0;
