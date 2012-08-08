@@ -294,8 +294,7 @@ enum OBJECT_TRAIT
 
 
 enum FEATURE_TRAIT
-{
-	
+{	
 	FF_LOS,
 	FF_PROJECT,
 	FF_MOVE,
@@ -419,7 +418,23 @@ enum FEATURE_TRAIT
 	FF_FLAG_MAX,
 };
 
-
+enum TERRAIN_TYPE
+{
+	TERRAIN_EDGE,			/* Edge of the World */
+	TERRAIN_TOWN,			/* Town */
+	TERRAIN_DEEP_WATER,		/* Deep water */
+	TERRAIN_SHALLOW_WATER,	/* Shallow water */
+	TERRAIN_SWAMP,			/* Swamp */
+	TERRAIN_DIRT,			/* Dirt */
+	TERRAIN_GRASS,			/* Grass */
+	TERRAIN_TREES,			/* Trees */
+	TERRAIN_DESERT,			/* Desert */
+	TERRAIN_SHALLOW_LAVA,	/* Shallow lava */
+	TERRAIN_DEEP_LAVA,		/* Deep lava */
+	TERRAIN_MOUNTAIN,		/* Mountain */
+	TERRAIN_CHAOS,			/* Chaos Tainted Field */
+	MAX_WILDERNESS,			/* Maximum wilderness index */
+};
 
 /*
  * Mega-Hack -- some primitive sound support (see "main-win.c")
