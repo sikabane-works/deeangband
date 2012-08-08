@@ -1723,6 +1723,13 @@ static void do_cmd_wiz_jump(creature_type *creature_ptr)
 	 */
 	prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
+	// move simulate floor and player.
+	move_floor(creature_ptr);
+
+	// redraw
+	play_redraw |= PR_MAP;
+	redraw_stuff();
+
 	/* Leaving */
 	subject_change_floor = TRUE;
 }
