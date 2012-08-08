@@ -1021,9 +1021,9 @@ static void rd_creature(creature_type *creature_ptr)
 	if (rd_inventory(creature_ptr))
 	{
 #ifdef JP
-		note("‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ");
+		note(format("[%d]u%sv‚Ì‚¿•¨î•ñ‚ğ“Ç‚İ‚Ş‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ", creature_ptr->creature_idx, creature_ptr->name));
 #else
-		note("Unable to read inventory");
+		note(format("Unable to read inventory of [%d]: \"%s\"", creature_ptr->creature_idx, creature_ptr->name);
 #endif
 		return;
 	}
