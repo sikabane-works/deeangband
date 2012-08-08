@@ -442,7 +442,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 	int slot = 0;
 
 	object_type forge;
-	object_type *quest_ptr;
+	object_type *object_ptr;
 
 	/* No weight */
 	creature_ptr->carrying_weight = 0;
@@ -457,32 +457,25 @@ static errr rd_inventory(creature_type *creature_ptr)
 	{
 		u16b n;
 
-		/* Get the next item index */
-		rd_u16b(&n);
+		rd_u16b(&n); // Get the next item index
+		if (n == 0xFFFF) break; // Nope, we reached the end
 
-		/* Nope, we reached the end */
-		if (n == 0xFFFF) break;
+		object_ptr = &forge;
+		object_wipe(object_ptr);
+		rd_object(object_ptr);
 
-		/* Get local object */
-		quest_ptr = &forge;
-
-		/* Wipe the object */
-		object_wipe(quest_ptr);
-
-		/* Read the item */
-		rd_object(quest_ptr);
-
-		/* Hack -- verify item */
-		if (!quest_ptr->k_idx) return (53);
+		// Hack -- verify item
+		if (!object_ptr->k_idx)
+			return (53);
 
 		/* Wield equipment */
-		if (IS_EQUIPPED(quest_ptr))
+		if (IS_EQUIPPED(object_ptr))
 		{
 			/* Player touches it */
-			quest_ptr->marked |= OM_TOUCHED;
+			object_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&creature_ptr->inventory[n], quest_ptr);
+			object_copy(&creature_ptr->inventory[n], object_ptr);
 
 			/* Add the weight */
 			set_inventory_weight(creature_ptr);
@@ -513,10 +506,10 @@ static errr rd_inventory(creature_type *creature_ptr)
 			n = slot++;
 
 			/* Player touches it */
-			quest_ptr->marked |= OM_TOUCHED;
+			object_ptr->marked |= OM_TOUCHED;
 
 			/* Copy object */
-			object_copy(&creature_ptr->inventory[n], quest_ptr);
+			object_copy(&creature_ptr->inventory[n], object_ptr);
 
 			/* Add the weight */
 			set_inventory_weight(creature_ptr);
@@ -963,6 +956,7 @@ static void rd_creature(creature_type *creature_ptr)
 {
 	int i;
 	char buf[1024];
+	errr r;
 
 	byte tmp8u;
 	u16b tmp16u;
@@ -1018,12 +1012,13 @@ static void rd_creature(creature_type *creature_ptr)
 	}
 
 	// Read the inventory
-	if (rd_inventory(creature_ptr))
+	r = rd_inventory(creature_ptr);
+	if (r)
 	{
 #ifdef JP
-		note(format("[%d]「%s」の持ち物情報を読み込むことができません", creature_ptr->creature_idx, creature_ptr->name));
+		note(format("[ERR:%d] ID[%d]「%s」の持ち物情報を読み込むことができません ", r, creature_ptr->creature_idx, creature_ptr->name));
 #else
-		note(format("Unable to read inventory of [%d]: \"%s\"", creature_ptr->creature_idx, creature_ptr->name);
+		note(format("[ERR:%d] Unable to read inventory of [%d]: \"%s\"", r, creature_ptr->creature_idx, creature_ptr->name);
 #endif
 		return;
 	}
