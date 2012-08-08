@@ -1611,7 +1611,7 @@ static void do_cmd_wiz_floor_teleport(void)
 static void do_cmd_wiz_floor_object_list(void)
 {
 	selection *ce;
-	int i;
+	int i, n;
 	char tmp[100];
 	ce = malloc(sizeof(selection) * (object_max + 1));
 
@@ -1619,27 +1619,30 @@ static void do_cmd_wiz_floor_object_list(void)
 
 	while(1)
 	{
+		n = 0;
 
-		for(i = 0; i < object_max; i++)
+		for(i = 1; i < object_max; i++)
 		{
 			object_desc(tmp, &object_list[i], 0);
-			sprintf(ce[i].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i,
-				object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
-			ce[i].cap[72] = '\0'; 
+			sprintf(ce[n].cap, "[%4d] F:%d X:%3d Y:%3d %-35s", i, object_list[i].floor_id, object_list[i].fx, object_list[i].fy, tmp);
+			ce[n].cap[72] = '\0'; 
 
-			ce[i].d_color = TERM_L_DARK;
-			ce[i].l_color = TERM_WHITE;
-			ce[i].key = '\0';
-			ce[i].code = i;
+			ce[n].d_color = TERM_L_DARK;
+			ce[n].l_color = TERM_WHITE;
+			ce[n].key = '\0';
+			ce[n].code = i;
+
+			n++;
 		}
 
-		sprintf(ce[i].cap, " END ");
-		ce[i].d_color = TERM_RED;
-		ce[i].l_color = TERM_L_RED;
-		ce[i].key = ESCAPE;
-		ce[i].code = i;
+		sprintf(ce[n].cap, " END ");
+		ce[n].d_color = TERM_RED;
+		ce[n].l_color = TERM_L_RED;
+		ce[n].key = ESCAPE;
+		ce[n].code = object_max;
+		n++;
 
-		i = get_selection(ce, object_max + 1, 0, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(ce, object_max, 0, 1, 1, 22, 78, NULL, 0);
 		if(i == object_max) break;
 
 	}
@@ -1650,7 +1653,7 @@ static void do_cmd_wiz_floor_object_list(void)
 }
 
 // Go to any level
-static void do_cmd_wiz_jump(creature_type *creature_ptr)
+static void do_cmd_generate_floor(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
@@ -2170,7 +2173,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Go up or down in the dungeon */
 	case 'j':
-		do_cmd_wiz_jump(creature_ptr);
+		do_cmd_generate_floor(creature_ptr);
 		break;
 
 	/* Self-Knowledge */
