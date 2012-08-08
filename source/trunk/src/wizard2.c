@@ -1528,47 +1528,52 @@ static void do_cmd_wiz_creature_list(void)
 static void do_cmd_wiz_floor_teleport(void)
 {
 	selection *ce;
-	int i;
+	int i, n;
 	ce = malloc(sizeof(selection) * (floor_max + 1));
 
 	screen_save();
 
 	while(1)
 	{
+		n = 0;
 
-		for(i = 0; i < floor_max; i++)
+		for(i = 1; i < floor_max; i++)
 		{
-			sprintf(ce[i].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
+			sprintf(ce[n].cap, "[%4d] World[X:%3d Y:%3d] Size[%3dx%3d] %s-%3dF", i,
 				floor_list[i].world_x, floor_list[i].world_y,
 				floor_list[i].width, floor_list[i].height,
-				map_name(&floor_list[i]),
-				floor_list[i].floor_level);
-			ce[i].cap[72] = '\0'; 
+				map_name(&floor_list[i]), floor_list[i].floor_level);
+			ce[n].cap[72] = '\0'; 
 
 			if(player_ptr->floor_id == i)
 			{
-				ce[i].d_color = TERM_GREEN;
-				ce[i].l_color = TERM_L_GREEN;
-				ce[i].key = '\0';
-				ce[i].code = i;
+				ce[n].d_color = TERM_GREEN;
+				ce[n].l_color = TERM_L_GREEN;
+				ce[n].key = '\0';
+				ce[n].code = i;
 			}
+
 			else
 			{
-				ce[i].d_color = TERM_L_DARK;
-				ce[i].l_color = TERM_WHITE;
-				ce[i].key = '\0';
-				ce[i].code = i;
+				ce[n].d_color = TERM_L_DARK;
+				ce[n].l_color = TERM_WHITE;
+				ce[n].key = '\0';
+				ce[n].code = i;
 			}
+
+			n++;
 		}
 
-		sprintf(ce[i].cap, " END ");
-		ce[i].d_color = TERM_RED;
-		ce[i].l_color = TERM_L_RED;
-		ce[i].key = ESCAPE;
-		ce[i].code = i;
+		sprintf(ce[n].cap, " END ");
+		ce[n].d_color = TERM_RED;
+		ce[n].l_color = TERM_L_RED;
+		ce[n].key = ESCAPE;
+		ce[n].code = i;
+		n++;
 
-		i = get_selection(ce, floor_max + 1, player_ptr->floor_id, 1, 1, 22, 78, NULL, 0);
+		i = get_selection(ce, n, player_ptr->floor_id, 1, 1, 22, 78, NULL, 0);
 		if(i == floor_max) break;
+
 		else
 		{
 			// move simulate floor and player.
@@ -1578,6 +1583,9 @@ static void do_cmd_wiz_floor_teleport(void)
 			// redraw
 			play_redraw |= PR_MAP;
 			redraw_stuff();
+
+			wiz_dimension_door(player_ptr);
+			break;
 		}
 
 	}
@@ -1588,7 +1596,6 @@ static void do_cmd_wiz_floor_teleport(void)
 	play_redraw |= PR_MAP;
 	redraw_stuff();
 
-	wiz_dimension_door(player_ptr);
 
 	free(ce);
 }
