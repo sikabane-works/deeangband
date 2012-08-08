@@ -1,28 +1,27 @@
-/* File: floors.c */
+// File: floors.c 
 
-/* Purpose: management of the saved floor */
+// Purpose: management of the saved floor 
 
 /*
- * Copyright (c) 2002  Mogami
+ * Copyright (c) 2002 Mogami / 2012 Deskull
  *
  * This software may be copied and distributed for educational, research, and
  * not for profit purposes provided that this copyright and statement are
  * included in all such copies.
  */
 
-// 2012 Deskull
-
 #include "angband.h"
 #include "grid.h"
 
 
-static u32b latest_visit_mark;  /* Max number of visit_mark */
+static u32b latest_visit_mark;  // Max number of visit_mark 
 
 
 /*
  * Initialize saved_floors array.  Make sure that old temporal files
  * are not remaining as gurbages.
  */
+
 void init_saved_floors(bool force)
 {
 	char floor_savefile[1024];
@@ -32,7 +31,7 @@ void init_saved_floors(bool force)
 
 #ifdef SET_UID
 # ifdef SECURE
-	/* Get "games" permissions */
+	// Get "games" permissions 
 	beGames();
 # endif
 #endif
@@ -41,19 +40,19 @@ void init_saved_floors(bool force)
 	{
 		floor_type *sf_ptr = &floor_list[i];
 
-		/* File name */
+		// File name 
 		sprintf(floor_savefile, "%s.F%02d", savefile, i);
 
-		/* Grab permissions */
+		// Grab permissions 
 		safe_setuid_grab();
 
-		/* Try to create the file */
+		// Try to create the file 
 		fd = fd_make(floor_savefile, mode);
 
-		/* Drop permissions */
+		// Drop permissions 
 		safe_setuid_drop();
 
-		/* Failed! */
+		// Failed! 
 		if (fd < 0)
 		{
 			if (!force)
@@ -76,30 +75,30 @@ void init_saved_floors(bool force)
 		}
 		else
 		{
-			/* Close the "fd" */
+			// Close the "fd" 
 			(void)fd_close(fd);
 		}
 
-		/* Grab permissions */
+		// Grab permissions 
 		safe_setuid_grab();
 
-		/* Simply kill the temporal file */ 
+		// Simply kill the temporal file  
 		(void)fd_kill(floor_savefile);
 
-		/* Drop permissions */
+		// Drop permissions 
 		safe_setuid_drop();
 
 	}
 
-	/* vist_mark is from 1 */
+	// vist_mark is from 1 
 	latest_visit_mark = 1;
 
-	/* A sign to mark temporal files */
+	// A sign to mark temporal files 
 	saved_floor_file_sign = (u32b)time(NULL);
 
 #ifdef SET_UID
 # ifdef SECURE
-	/* Drop "games" permissions */
+	// Drop "games" permissions 
 	bePlayer();
 # endif
 #endif
@@ -166,24 +165,22 @@ void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode)
 }
 
 
-/*
- * Builds the dead end
- */
+// Builds the dead end
 static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int x,y;
 
-	/* Clear and empty the cave */
+	// Clear and empty the cave 
 	clear_cave(floor_ptr);
 
-	/* Fill the arrays of floors and walls in the good proportions */
+	// Fill the arrays of floors and walls in the good proportions 
 	set_floor_and_wall(0);
 
-	/* Smallest area */
+	// Smallest area 
 	floor_ptr->height = SCREEN_HGT;
 	floor_ptr->width = SCREEN_WID;
 
-	/* Filled with permanent walls */
+	// Filled with permanent walls 
 	for (y = 0; y < MAX_HGT; y++)
 	{
 		for (x = 0; x < MAX_WID; x++)
@@ -192,11 +189,11 @@ static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 		}
 	}
 
-	/* Place at center of the floor */
+	// Place at center of the floor 
 	creature_ptr->fy = floor_ptr->height / 2;
 	creature_ptr->fx = floor_ptr->width / 2;
 
-	/* Give one square */
+	// Give one square 
 	place_floor_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	wipe_generate_floor_flags(floor_ptr);
@@ -213,34 +210,34 @@ static void update_unique_artifact(s16b cur_floor_id)
 {
 	int i;
 
-	/* Maintain unique creatures */
+	// Maintain unique creatures 
 	for (i = 1; i < creature_max; i++)
 	{
 		species_type *r_ptr;
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Skip dead creatures */
+		// Skip dead creatures 
 		if (!m_ptr->species_idx) continue;
 
-		/* Extract real creature race */
+		// Extract real creature race 
 		r_ptr = real_species_ptr(m_ptr);
 
-		/* Memorize location of the unique creature */
+		// Memorize location of the unique creature 
 		if (is_unique_species(r_ptr) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL))
 		{
 			r_ptr->floor_id = cur_floor_id;
 		}
 	}
 
-	/* Maintain artifatcs */
+	// Maintain artifatcs 
 	for (i = 1; i < object_max; i++)
 	{
 		object_type *object_ptr = &object_list[i];
 
-		/* Skip dead objects */
+		// Skip dead objects 
 		if (!object_ptr->k_idx) continue;
 
-		/* Memorize location of the artifact */
+		// Memorize location of the artifact 
 		if (object_is_fixed_artifact(object_ptr))
 		{
 			artifact_info[object_ptr->name1].floor_id = cur_floor_id;
@@ -279,6 +276,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		 * Increase distance after doing enough tries
 		 * compared to area of possible space
 		 */
+		 
 		if (tries > 20 * dis * dis) dis++;
 
 		if (!in_bounds(floor_ptr, ny, nx)) continue; // Ignore illegal locations
@@ -287,7 +285,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		if (is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;
 		if (pattern_tile(floor_ptr, ny, nx)) continue; // ...nor onto the Pattern
 
-		/*** It's a good place ***/
+		// ** It's a good place **
 
 		mover_ptr = &creature_list[mover_idx];
 		floor_ptr->cave[oy][ox].creature_idx = 0; // Update the old location
@@ -302,9 +300,9 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 }
 
 
-/*
- * Is this feature has special meaning (except floor_id) with c_ptr->special?
- */
+
+// Is this feature has special meaning (except floor_id) with c_ptr->special?
+ 
 #define feat_uses_special(F) (have_flag(feature_info[(F)].flags, FF_SPECIAL))
 
 
@@ -316,6 +314,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
  * the one of the floors connected by the one of the stairs in the
  * current floor.
  */
+ 
 static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *floor_ptr)
 {
 	int x, y, sx = 0, sy = 0;
@@ -519,7 +518,7 @@ void move_floor(creature_type *creature_ptr)
 	}
 
 
-	/*
+	//
 	// Leaving the dungeon to town
 	if (!old_floor_ptr->floor_level && old_floor_ptr->dun_type)
 	{
@@ -542,7 +541,7 @@ void move_floor(creature_type *creature_ptr)
 	{
 		kill_floor(old_floor_ptr);
 	}
-	*/
+	
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat))
 		stair_ptr->special = floor_id; // Connect from here
@@ -638,11 +637,11 @@ void change_floor(floor_type *floor_ptr, creature_type *creature_ptr)
 			}
 		}
 
-		//* Set lower/upper_floor_id of new floor when the new
-		//* floor is right-above/right-under the current floor.
-		//*
-		//* Stair creation/Teleport level/Trap door will take
-		//* you the same floor when you used it later again.
+		/// Set lower/upper_floor_id of new floor when the new
+		/// floor is right-above/right-under the current floor.
+		///
+		/// Stair creation/Teleport level/Trap door will take
+		/// you the same floor when you used it later again.
 		
 		if (creature_ptr->floor_id)
 		{
@@ -811,16 +810,16 @@ void change_floor(floor_type *floor_ptr, creature_type *creature_ptr)
 	}
 	*/
 
-	/* The dungeon is ready */
+	// The dungeon is ready 
 	floor_generated = TRUE;
 
-	/* Hack -- Munchkin characters always get whole map */
+	// Hack -- Munchkin characters always get whole map 
 	if (creature_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, creature_ptr, (bool)(creature_ptr->class_idx == CLASS_NINJA));
 
-	/* Remember when this level was "created" */
+	// Remember when this level was "created" 
 	old_turn = turn;
 
-	/* No dungeon feeling yet */
+	// No dungeon feeling yet 
 	creature_ptr->feeling_turn = old_turn;
 	creature_ptr->floor_feeling = 0;
 
@@ -842,18 +841,18 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	s16b dest_floor_id = 0;
 
 
-	/* Forbid up staircases on Ironman mode */
+	// Forbid up staircases on Ironman mode 
 	if (ironman_downward) up = FALSE;
 
-	/* Forbid down staircases on quest level */
+	// Forbid down staircases on quest level 
 	if (quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
 
-	/* No effect out of standard dungeon floor */
+	// No effect out of standard dungeon floor 
 	if (!floor_ptr->floor_level || (!up && !down) ||
 	    (inside_quest && is_fixed_quest_idx(inside_quest)) ||
 	    fight_arena_mode || gamble_arena_mode)
 	{
-		/* arena or quest */
+		// arena or quest 
 #ifdef JP
 		msg_print("Œø‰Ê‚ª‚ ‚è‚Ü‚¹‚ñI");
 #else
@@ -862,7 +861,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 		return;
 	}
 
-	/* Artifacts resists */
+	// Artifacts resists 
 	if (!cave_valid_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
 #ifdef JP
@@ -874,27 +873,27 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 		return;
 	}
 
-	/* Destroy all objects in the grid */
+	// Destroy all objects in the grid 
 	delete_object(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
-	/* Extract current floor data */
+	// Extract current floor data 
 	sf_ptr = &floor_list[creature_ptr->floor_id];
 
-	/* Paranoia */
+	// Paranoia 
 	if (!sf_ptr)
 	{
-		/* No floor id? -- Create now! */
+		// No floor id? -- Create now! 
 		sf_ptr = &floor_list[creature_ptr->floor_id];
 	} 
 
-	/* Choose randomly */
+	// Choose randomly 
 	if (up && down)
 	{
 		if (randint0(100) < 50) up = FALSE;
 		else down = FALSE;
 	}
 
-	/* Destination is already fixed */
+	// Destination is already fixed 
 	if (up)
 	{
 		if (sf_ptr->upper_floor_id) dest_floor_id = sf_ptr->upper_floor_id;
@@ -905,7 +904,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	}
 
 
-	/* Search old stairs leading to the destination */
+	// Search old stairs leading to the destination 
 	if (dest_floor_id)
 	{
 		int x, y;
@@ -920,28 +919,28 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 				if (feat_uses_special(c_ptr->feat)) continue;
 				if (c_ptr->special != dest_floor_id) continue;
 
-				/* Remove old stairs */
+				// Remove old stairs 
 				c_ptr->special = 0;
 				cave_set_feat(floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
 			}
 		}
 	}
 
-	/* No old destination -- Get new one now */
+	// No old destination -- Get new one now 
 	else
 	{
-		/* Fix it */
+		// Fix it 
 		if (up)
 			sf_ptr->upper_floor_id = dest_floor_id;
 		else
 			sf_ptr->lower_floor_id = dest_floor_id;
 	}
 
-	/* Extract destination floor data */
+	// Extract destination floor data 
 	dest_sf_ptr = &floor_list[dest_floor_id];
 
 
-	/* Create a staircase */
+	// Create a staircase
 	if (up)
 	{
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx,
@@ -957,8 +956,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 			feat_state(floor_ptr, feat_down_stair, FF_SHAFT) : feat_down_stair);
 	}
 
-
-	/* Connect this stairs to the destination */
+	// Connect this stairs to the destination
 	floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special = dest_floor_id;
 }
 

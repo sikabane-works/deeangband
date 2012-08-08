@@ -473,9 +473,9 @@ static errr rd_inventory(creature_type *creature_ptr)
 		else if (creature_ptr->inven_cnt == INVEN_TOTAL)			// Warning -- backpack is full
 		{
 #ifdef JP
-			note("クリーチャーの持ち物の中のアイテムが多すぎる！");
+			note("ERR54: クリーチャーの持ち物の中のアイテムが多すぎる！");
 #else
-			note("Too many creature's items in the inventory!");
+			note("ERR54: Too many creature's items in the inventory!");
 #endif
 			return (54);
 		}
@@ -776,12 +776,8 @@ static void rd_options(void)
 
 
 	/*** Normal Options ***/
-
-	/* Read the option flags */
-	for (n = 0; n < 8; n++) rd_u32b(&flag[n]);
-
-	/* Read the option masks */
-	for (n = 0; n < 8; n++) rd_u32b(&mask[n]);
+	for (n = 0; n < 8; n++) rd_u32b(&flag[n]); // Read the option flags
+	for (n = 0; n < 8; n++) rd_u32b(&mask[n]); // Read the option masks
 
 	/* Analyze the options */
 	for (n = 0; n < 8; n++)

@@ -2,7 +2,7 @@
  ***************************************
  ** D'angband (Alpha)                 **
  ***************************************
- 2010-2011 Deskull (Sikabane Works)
+ 2010-2012 Deskull (Sikabane Works)
 
        Based on Moria: Copyright (c) 1985 Robert Alan Koeneke
            and Umoria: Copyright (c) 1989 James E. Wilson
