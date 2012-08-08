@@ -1117,6 +1117,7 @@ extern void object_desc(char *buf, object_type *object_ptr, u32b mode);
 /* floors.c */
 extern void init_saved_floors(bool force);
 extern s16b floor_pop(void);
+extern int find_floor_id(int dungeon_id, int depth, int wx, int wy);
 extern void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode);
 extern void move_floor(creature_type *creature_ptr);
 extern void change_floor(floor_type *floor_ptr, creature_type *creature_ptr);

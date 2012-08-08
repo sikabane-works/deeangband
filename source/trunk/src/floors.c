@@ -404,6 +404,28 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	}
 }
 
+
+int find_floor_id(int dungeon_id, int depth, int wx, int wy)
+{
+	int i;
+	floor_type *floor_ptr;
+	for(i = 1; i < floor_max; i++)
+	{
+		floor_ptr = &floor_list[i];
+		if(dungeon_id < 0 || floor_ptr->dun_type == dungeon_id)
+		{
+			if(depth < 0 || floor_ptr->floor_level == depth)
+			{
+				if(wx < 0 || wy < 0 || floor_ptr->world_x == wx || floor_ptr->world_y == wy)
+					return i;
+			}
+		}
+	}
+
+	return 0;
+}
+
+
 /*
  * Maintain quest creatures, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
@@ -452,6 +474,7 @@ void move_floor(creature_type *creature_ptr)
 
 		floor_id = stair_ptr->special;
 	}
+
 	else // Create New Floor
 	{
 		floor_id = floor_pop();

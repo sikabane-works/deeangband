@@ -1673,33 +1673,28 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		tmp_dungeon_level = atoi(tmp_val);
 		if (!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_dungeon_idx)) tmp_dungeon_level = DUNGEON_DOD;
 
-		/* Prompt */
+		// Prompt
 		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_level].mindepth, dungeon_info[tmp_dungeon_level].maxdepth);
-
-		/* Default */
 		sprintf(tmp_val, "%d", floor_ptr->floor_level);
 
-		/* Ask for a level */
+		// Ask for a level
 		if (!get_string(ppp, tmp_val, 10)) return;
 
-		/* Extract request */
+		// Extract request
 		command_arg = atoi(tmp_val);
 
 		floor_ptr->dun_type = tmp_dungeon_level;
 	}
 
-	/* Paranoia */
 	if (command_arg < dungeon_info[floor_ptr->dun_type].mindepth) command_arg = 0;
-
-	/* Paranoia */
 	if (command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[floor_ptr->dun_type].maxdepth;
 
-	/* Accept request */
+	// Accept request
 	msg_format("You jump to dungeon level %d.", command_arg);
 
 	if (autosave_l) do_cmd_save_game(TRUE);
 
-	/* Change level */
+	// Change level
 	creature_ptr->depth = command_arg;
 	creature_ptr->wx = dungeon_info[floor_ptr->dun_type].dx;
 	creature_ptr->wy = dungeon_info[floor_ptr->dun_type].dy;
@@ -1717,7 +1712,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	inside_quest = 0;
 	energy_use = 0;
 
-	/* Prevent energy_need from being too lower than 0 */
+	// Prevent energy_need from being too lower than 0
 	creature_ptr->energy_need = 0;
 
 	/*
@@ -1733,7 +1728,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	play_redraw |= PR_MAP;
 	redraw_stuff();
 
-	/* Leaving */
+	// Leaving
 	subject_change_floor = TRUE;
 }
 
