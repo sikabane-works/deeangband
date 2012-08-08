@@ -545,6 +545,7 @@
 #define REALM_DAEMON       9
 #define REALM_CRUSADE      10
 #define MAX_MAGIC          10
+
 #define MIN_TECHNIC        16
 #define REALM_MUSIC        16
 #define REALM_HISSATSU     17
@@ -744,128 +745,6 @@
  * Originally from UnAngband, and modified into TR-like style in Hengband
  */
 
-
-#define FF_LOS           0
-#define FF_PROJECT       1
-#define FF_MOVE          2
-#define FF_PLACE         3
-#define FF_DROP          4
-#define FF_SECRET        5
-#define FF_NOTICE        6
-#define FF_REMEMBER      7
-#define FF_OPEN          8
-#define FF_CLOSE         9
-#define FF_BASH          10
-#define FF_SPIKE         11
-#define FF_DISARM        12
-#define FF_STORE         13
-#define FF_TUNNEL        14
-#define FF_MAY_HAVE_GOLD 15
-#define FF_HAS_GOLD      16
-#define FF_HAS_ITEM      17
-#define FF_DOOR          18
-#define FF_TRAP          19
-#define FF_STAIRS        20
-#define FF_GLYPH         21
-#define FF_LESS          22
-#define FF_MORE          23
-#define FF_AVOID_RUN     24
-#define FF_FLOOR         25
-#define FF_WALL          26
-#define FF_PERMANENT     27
-/* #define FF_XXX00         28 */
-/* #define FF_XXX01         29 */
-/* #define FF_XXX02         30 */
-#define FF_HIT_TRAP      31
-
-/* #define FF_BRIDGE        32 */
-/* #define FF_RIVER         33 */
-/* #define FF_LAKE          34 */
-/* #define FF_BRIDGED       35 */
-/* #define FF_COVERED       36 */
-#define FF_GLOW          37
-#define FF_ENSECRET      38
-#define FF_WATER         39
-#define FF_LAVA          40
-#define FF_SHALLOW       41
-#define FF_DEEP          42
-/* #define FF_FILLED        43 */
-#define FF_HURT_ROCK     44
-/* #define FF_HURT_FIRE     45 */
-/* #define FF_HURT_COLD     46 */
-/* #define FF_HURT_ACID     47 */
-/* #define FF_ICE           48 */
-/* #define FF_ACID          49 */
-/* #define FF_OIL           50 */
-/* #define FF_XXX04      51 */
-/* #define FF_CAN_CLIMB     52 */
-#define FF_CAN_FLY       53
-#define FF_CAN_SWIM      54
-#define FF_CAN_PASS      55
-/* #define FF_CAN_OOZE      56 */
-#define FF_CAN_DIG       57
-/* #define FF_HIDE_ITEM     58 */
-/* #define FF_HIDE_SNEAK    59 */
-/* #define FF_HIDE_SWIM     60 */
-/* #define FF_HIDE_DIG      61 */
-/* #define FF_KILL_HUGE     62 */
-/* #define FF_KILL_MOVE     63 */
-
-/* #define FF_PICK_TRAP     64 */
-/* #define FF_PICK_DOOR     65 */
-/* #define FF_ALLOC         66 */
-/* #define FF_CHEST         67 */
-/* #define FF_DROP_1D2      68 */
-/* #define FF_DROP_2D2      69 */
-/* #define FF_DROP_GOOD     70 */
-/* #define FF_DROP_GREAT    71 */
-/* #define FF_HURT_POIS     72 */
-/* #define FF_HURT_ELEC     73 */
-/* #define FF_HURT_WATER    74 */
-/* #define FF_HURT_BWATER   75 */
-/* #define FF_USE_FEAT      76 */
-/* #define FF_GET_FEAT      77 */
-/* #define FF_GROUND        78 */
-/* #define FF_OUTSIDE       79 */
-/* #define FF_EASY_HIDE     80 */
-/* #define FF_EASY_CLIMB    81 */
-/* #define FF_MUST_CLIMB    82 */
-#define FF_TREE          83
-/* #define FF_NEED_TREE     84 */
-/* #define FF_BLOOD         85 */
-/* #define FF_DUST          86 */
-/* #define FF_SLIME         87 */
-#define FF_PLANT         88
-/* #define FF_XXX2          89 */
-/* #define FF_INSTANT       90 */
-/* #define FF_EXPLODE       91 */
-/* #define FF_TIMED         92 */
-/* #define FF_ERUPT         93 */
-/* #define FF_STRIKE        94 */
-/* #define FF_SPREAD        95 */
-
-#define FF_SPECIAL       96
-#define FF_HURT_DISI     97
-#define FF_QUEST_ENTER   98
-#define FF_QUEST_EXIT    99
-#define FF_QUEST         100
-#define FF_SHAFT         101
-#define FF_MOUNTAIN      102
-#define FF_BLDG          103
-#define FF_MINOR_GLYPH   104
-#define FF_PATTERN       105
-#define FF_TOWN          106
-#define FF_ENTRANCE      107
-#define FF_MIRROR        108
-#define FF_UNPERM        109
-#define FF_TELEPORTABLE  110
-#define FF_CONVERT       111
-#define FF_GLASS         112
-#define FF_CHAOS_TAINTED 113
-#define FF_POISON_SWAMP  114
-#define FF_ACID_SWAMP    115
-
-#define FF_FLAG_MAX      116
 #define FF_FLAG_SIZE     (1 + ((FF_FLAG_MAX - 1) / 32))
 
 
