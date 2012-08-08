@@ -327,15 +327,11 @@ static void rd_object(object_type *object_ptr)
 	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) rd_byte(&object_ptr->marked);
 	else object_ptr->marked = 0;
 
-	/* Object flags */
+	// Object flags
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) rd_u32b(&object_ptr->art_flags[0]);
 	else object_ptr->art_flags[0] = 0;
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) rd_u32b(&object_ptr->art_flags[1]);
 	else object_ptr->art_flags[1] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS2) rd_u32b(&object_ptr->art_flags[2]);
-	else object_ptr->art_flags[2] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) rd_u32b(&object_ptr->art_flags[3]);
-	else object_ptr->art_flags[3] = 0;
 
 	if (flags & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&object_ptr->trait_flags[0]);
 	else object_ptr->trait_flags[0] = 0;
@@ -468,54 +464,30 @@ static errr rd_inventory(creature_type *creature_ptr)
 		if (!object_ptr->k_idx)
 			return (53);
 
-		/* Wield equipment */
-		if (IS_EQUIPPED(object_ptr))
+		if (IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
-			/* Player touches it */
-			object_ptr->marked |= OM_TOUCHED;
-
-			/* Copy object */
-			object_copy(&creature_ptr->inventory[n], object_ptr);
-
-			/* Add the weight */
-			set_inventory_weight(creature_ptr);
-
-			/* One more item */
-			creature_ptr->equip_cnt++;
+			object_ptr->marked |= OM_TOUCHED;						// Player touches it
+			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
+			set_inventory_weight(creature_ptr);						// Add the weight
+			creature_ptr->equip_cnt++;								// One more item
 		}
 
-		/* Warning -- backpack is full */
-		else if (creature_ptr->inven_cnt == INVEN_TOTAL)
+		else if (creature_ptr->inven_cnt == INVEN_TOTAL)			// Warning -- backpack is full
 		{
-			/* Oops */
 #ifdef JP
 			note("クリーチャーの持ち物の中のアイテムが多すぎる！");
 #else
 			note("Too many creature's items in the inventory!");
 #endif
-
-
-			/* Fail */
 			return (54);
 		}
-
-		/* Carry inventory */
-		else
+		else // Carry inventory
 		{
-			/* Get a slot */
-			n = slot++;
-
-			/* Player touches it */
-			object_ptr->marked |= OM_TOUCHED;
-
-			/* Copy object */
-			object_copy(&creature_ptr->inventory[n], object_ptr);
-
-			/* Add the weight */
-			set_inventory_weight(creature_ptr);
-
-			/* One more item */
-			creature_ptr->inven_cnt++;
+			n = slot++;							// Get a slot
+			object_ptr->marked |= OM_TOUCHED;	// Player touches it
+			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
+			set_inventory_weight(creature_ptr);		// Add the weight
+			creature_ptr->inven_cnt++;				// One more item
 		}
 	}
 

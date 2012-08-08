@@ -195,8 +195,6 @@ static void wr_object(object_type *object_ptr)
 
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) wr_u32b(object_ptr->art_flags[0]);
 	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) wr_u32b(object_ptr->art_flags[1]);
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS2) wr_u32b(object_ptr->art_flags[2]);
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS3) wr_u32b(object_ptr->art_flags[3]);
 
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) wr_u32b(object_ptr->trait_flags[0]);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) wr_u32b(object_ptr->trait_flags[1]);
@@ -218,7 +216,6 @@ static void wr_object(object_type *object_ptr)
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) wr_u32b(object_ptr->trait_flags[16]);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) wr_u32b(object_ptr->trait_flags[17]);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) wr_u32b(object_ptr->trait_flags[18]);
-
 
 	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) wr_u32b(object_ptr->curse_flags);
 
