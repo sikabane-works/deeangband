@@ -425,6 +425,20 @@ int find_floor_id(int dungeon_id, int depth, int wx, int wy)
 	return 0;
 }
 
+int set_creature_position(creature_type *creature_ptr, floor_type *floor_ptr, int x, int y)
+{
+	if(floor_ptr)
+	{
+		creature_ptr->floor_id = get_floor_id(floor_ptr);
+	}
+
+	creature_ptr->fx = x;
+	creature_ptr->fy = y;
+
+	if(is_player(creature_ptr)) play_redraw |= (PR_MAP);
+
+	return TRUE;
+}
 
 /*
  * Maintain quest creatures, mark next floor_id at stairs, save current

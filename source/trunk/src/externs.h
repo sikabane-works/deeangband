@@ -1114,18 +1114,19 @@ extern void flavor_init(void);
 extern char *object_desc_kosuu(char *t, object_type *object_ptr);
 extern void object_desc(char *buf, object_type *object_ptr, u32b mode);
 
-/* floors.c */
+// floors.c
 extern void init_saved_floors(bool force);
 extern s16b floor_pop(void);
 extern int find_floor_id(int dungeon_id, int depth, int wx, int wy);
 extern void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode);
+extern int set_creature_position(creature_type *creature_ptr, floor_type *floor_ptr, int x, int y);
 extern void move_floor(creature_type *creature_ptr);
 extern void change_floor(floor_type *floor_ptr, creature_type *creature_ptr);
 extern void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr);
 extern void reset_cave_creature_reference(void);
 extern int get_floor_id(floor_type *floor_ptr);
 
-/* generate.c */
+// generate.c
 extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
