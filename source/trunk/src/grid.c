@@ -55,7 +55,7 @@ bool new_player_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 			/* Refuse to start on anti-teleport grids in dungeon */
 			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
-		if (!creature_can_enter_aux(creature_ptr, c_ptr->feat, 0)) continue;
+		if (!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) continue;
 		if (!in_bounds(floor_ptr, y, x)) continue;
 
 		/* Refuse to start on anti-teleport grids */

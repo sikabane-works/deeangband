@@ -1451,13 +1451,13 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 		melee_attack(creature_ptr, y, x, 0);
 
-		if (!creature_can_enter_aux(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
+		if (!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 			break;
 
 		y += ddy[dir];
 		x += ddx[dir];
 
-		if (creature_can_enter_aux(creature_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
+		if (creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
 		{
 			msg_print(NULL);
 

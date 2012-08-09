@@ -640,11 +640,13 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 /*
  * Check if creature can cross terrain
  */
-bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feat, u16b mode)
+bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b mode)
 {
-	feature_type *f_ptr = &feature_info[feat];
+	feature_type *f_ptr = &feature_info[feature];
 
-	/* Pattern */
+	if (creature_ptr->riding) return creature_can_cross_terrain(&creature_list[creature_ptr->riding], feature, mode | CEM_RIDING);
+
+	// Pattern
 	if (have_flag(f_ptr->flags, FF_PATTERN))
 	{
 		if (!(mode & CEM_RIDING))
@@ -658,7 +660,7 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feat, u16b mod
 	}
 
 	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_creature(creature_ptr)) return TRUE;
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait(creature_ptr, TRAIT_CAN_FLY)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(creature_ptr, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
