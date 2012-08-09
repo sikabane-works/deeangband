@@ -2937,6 +2937,8 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_player_equippy(row-2, col+12, 0, creature_ptr);
 
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
+
+/*
 #ifdef JP
 	display_flag_aux(row+0, col, "”½Ë      :", TRAIT_REFLECTING, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "‰Î‰ŠƒI[ƒ‰:", TRAIT_AURA_FIRE, &f, 0, creature_ptr);
@@ -2968,7 +2970,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, creature_ptr);
 #endif
-
+*/
 }
 
 /*
@@ -3003,6 +3005,8 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 
 	display_player_equippy(row-2, col+12, 0, creature_ptr);
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+12);
+
+/*
 #ifdef JP
 	display_flag_aux(row+ 0, col, "ƒeƒŒƒpƒV[:", TRAIT_ESP, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "×ˆ«ESP   :", TRAIT_SENSE_EVIL, &f, 0, creature_ptr);
@@ -3044,7 +3048,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+17, col, "Sust Con  :", TRAIT_SUSTAIN_CON, &f, 0, creature_ptr);
 	display_flag_aux(row+18, col, "Sust Chr  :", TRAIT_SUSTAIN_CHR, &f, 0, creature_ptr);
 #endif
-
+*/
 
 	/*** Set 3 ***/
 
@@ -3054,6 +3058,8 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_player_equippy(row-2, col+14, 0, creature_ptr);
 
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, 0), row-1, col+14);
+
+/*
 #ifdef JP
 	display_flag_aux(row+ 0, col, "’Ç‰ÁUŒ‚    :", TR_BLOWS, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "ÌŒ@        :", TR_TUNNEL, &f, 0, creature_ptr);
@@ -3093,7 +3099,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+16, col, "Aggravate   :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "TY Curse    :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #endif
-
+*/
 }
 
 static void display_creature_flag_info4(creature_type *creature_ptr)
@@ -3118,7 +3124,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 
 	display_player_equippy(row-2, col+12, DP_WP, creature_ptr);
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, DP_WP), row-1, col+12);
-
+/*
 #ifdef JP
 	display_flag_aux(row+ 0, col, "×ˆ« ”{‘Å :", TRAIT_SLAY_EVIL, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 0, col, "×ˆ« ”{‘Å :", TRAIT_KILL_EVIL, &f, (DP_WP|DP_IMM), creature_ptr);
@@ -3162,7 +3168,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_flag_aux(row+ 9, col, "Slay Giant:", TRAIT_SLAY_GIANT, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+ 9, col, "Slay Giant:", TRAIT_KILL_GIANT, &f, (DP_WP|DP_IMM), creature_ptr);
 #endif
-
+*/
 
 	/*** Set 2 ***/
 
@@ -3172,6 +3178,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_player_equippy(row-2, col+12, DP_WP, creature_ptr);
 	c_put_str(TERM_WHITE, get_equipped_flag_label(creature_ptr, DP_WP), row-1, col+12);
 
+/*
 #ifdef JP
 	display_flag_aux(row, col, "—n‰ğ      :", TRAIT_ACID_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+1, col, "“dŒ‚      :", TRAIT_ELEC_BRAND, &f, DP_WP, creature_ptr);
@@ -3195,7 +3202,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_flag_aux(row+8, col, "Chaotic   :", TRAIT_CHAOTIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+9, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
 #endif
-
+*/
 }
 
 static void display_creature_trait(creature_type *creature_ptr)
