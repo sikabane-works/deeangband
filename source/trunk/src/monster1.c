@@ -409,7 +409,7 @@ static bool mon_hook_deep_water(int species_idx)
 
 	if (!species_hook_dungeon(species_idx)) return FALSE;
 
-	if (is_aquatic_species(r_ptr))
+	if (has_trait_species(r_ptr, TRAIT_AQUATIC))
 		return TRUE;
 	else
 		return FALSE;
@@ -448,8 +448,7 @@ static bool mon_hook_floor(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!is_aquatic_species(r_ptr) ||
-	    can_fly_species(r_ptr))
+	if (!has_trait_species(r_ptr, TRAIT_AQUATIC) || can_fly_species(r_ptr))
 		return TRUE;
 	else
 		return FALSE;
@@ -615,7 +614,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	/* Water */
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
-		if (!is_aquatic_species(r_ptr))
+		if (!has_trait_species(r_ptr, TRAIT_AQUATIC))
 		{
 			/* Deep water */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
@@ -626,7 +625,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	}
 
 	/* Aquatic creature into non-water? */
-	else if (is_aquatic_species(r_ptr)) return FALSE;
+	else if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
 
 	/* Lava */
 	if (have_flag(f_ptr->flags, FF_LAVA))
@@ -675,7 +674,7 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 	// Water
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
-		if (!is_aquatic_creature(creature_ptr))
+		if (!has_trait(creature_ptr, TRAIT_AQUATIC))
 		{
 			/* Deep water */
 			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
@@ -685,14 +684,11 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 		}
 	}
 
-	/* Aquatic creature into non-water? */
-	else if (is_aquatic_creature(creature_ptr)) return FALSE;
+	// Aquatic creature into non-water?
+	else if (has_trait(creature_ptr, TRAIT_AQUATIC)) return FALSE;
 
-	/* Lava */
-	if (have_flag(f_ptr->flags, FF_LAVA))
-	{
-		if (!has_trait(creature_ptr, TRAIT_RES_FIRE)) return FALSE;
-	}
+	// Lava
+	if (have_flag(f_ptr->flags, FF_LAVA)) if (!has_trait(creature_ptr, TRAIT_RES_FIRE)) return FALSE;
 
 	return TRUE;
 }

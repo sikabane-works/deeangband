@@ -1061,16 +1061,6 @@ bool is_kill_body_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_KILL_BODY]);
 }
 
-bool is_aquatic_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_AQUATIC]);
-}
-
-bool is_aquatic_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_AQUATIC);	
-}
-
 bool can_fly_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_CAN_FLY);	
@@ -1666,6 +1656,12 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 		if(have_flag(object_ptr->trait_flags, type)) return TRUE;
 	}
 
+	return FALSE;
+}
+
+bool has_trait_species(species_type *species_ptr, int type)
+{
+	//TODO
 	return FALSE;
 }
 

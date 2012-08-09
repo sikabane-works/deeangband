@@ -3293,7 +3293,7 @@ static bool creature_hook_tanuki(int species_idx)
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
 	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
-	if (is_aquatic_species(r_ptr)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;

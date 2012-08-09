@@ -1415,7 +1415,7 @@ static bool build_type4(floor_type *floor_ptr)
 	 !is_unique_species(&species_info[I]) && \
 	 !is_sub_unique_species(&species_info[I]) && \
 	 !has_trait_raw(&species_info[I].flags, TRAIT_RES_ALL) && \
-	 !is_aquatic_species(&species_info[I]))
+	 !has_trait_species(&species_info[I], TRAIT_AQUATIC))
 
 
 /* Race index for "creature pit (clone)" */

@@ -1662,7 +1662,7 @@ static bool vault_aux_battle(int species_idx)
 	if (is_never_move_species(species_ptr)) return (FALSE);
 	if (is_multiply_species(species_ptr)) return (FALSE);
 	if (is_quantum_species(species_ptr)) return (FALSE);
-	if (is_aquatic_species(species_ptr)) return (FALSE);
+	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return (FALSE);
 	if (is_chameleon_species(species_ptr)) return (FALSE);
 
 	for (i = 0; i < 4; i++)
