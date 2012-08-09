@@ -2703,7 +2703,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	energy_use = 100;
 
 	if (pickup) mpe_mode |= MPE_DO_PICKUP;
-	(void)move_creature_effect(creature_ptr, creature_ptr->fy, creature_ptr->fx, mpe_mode);
+	(void)move_creature_effect(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
 }
 
 

@@ -2375,7 +2375,7 @@ static void process_nonplayer(int m_idx)
 				/* sound(SOUND_WALK); */
 
 				/* Move the player */
-				if (!move_creature_effect(player_ptr, ny, nx, MPE_DONT_PICKUP)) break;
+				if (!move_creature_effect(player_ptr, NULL, ny, nx, MPE_DONT_PICKUP)) break;
 			}
 
 			/* Possible disturb */

@@ -3569,7 +3569,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			}
 
 			/* Move the player to the safe location */
-			(void)move_creature_effect(target_ptr, sy, sx, MPE_DONT_PICKUP);
+			(void)move_creature_effect(target_ptr, NULL, sy, sx, MPE_DONT_PICKUP);
 		}
 
 		/* Important -- no wall on player */
@@ -4700,7 +4700,7 @@ msg_print("é∏îsÇµÇΩÅB");
 	sound(SOUND_TELEPORT);
 
 	/* Swap the player and creature */
-	(void)move_creature_effect(creature_ptr, ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+	(void)move_creature_effect(creature_ptr, NULL, ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 
 	/* Success */
 	return TRUE;

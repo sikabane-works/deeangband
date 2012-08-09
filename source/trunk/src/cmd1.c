@@ -1889,13 +1889,11 @@ bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode)
 }
 
 
-/*
- * Move the player
- */
-bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_mode)
+// Move the creature
+bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	cave_type *c_ptr = &floor_ptr->cave[ny][nx];
+	floor_type *prev_floor_ptr = get_floor_ptr(creature_ptr);
+	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	if (wild_mode)
@@ -1917,7 +1915,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 	{
 		int oy = creature_ptr->fy;
 		int ox = creature_ptr->fx;
-		cave_type *oc_ptr = &floor_ptr->cave[oy][ox];
+		cave_type *oc_ptr = &prev_floor_ptr->cave[oy][ox];
 		int om_idx = oc_ptr->creature_idx;
 		int nm_idx = c_ptr->creature_idx;
 
@@ -1950,17 +1948,17 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		}
 
 		/* Redraw old spot */
-		lite_spot(floor_ptr, oy, ox);
+		lite_spot(prev_floor_ptr, oy, ox);
 
 		/* Redraw new spot */
-		lite_spot(floor_ptr, ny, nx);
+		lite_spot(prev_floor_ptr, ny, nx);
 
 		/* Check for new panel (redraw map) */
 		verify_panel(creature_ptr);
 
 		if (mpe_mode & MPE_FORGET_FLOW)
 		{
-			forget_flow(floor_ptr);
+			forget_flow(prev_floor_ptr);
 
 			/* Mega-Hack -- Forget the view */
 			update |= (PU_UN_VIEW);
@@ -1979,7 +1977,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		if ((!IS_BLIND(creature_ptr) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
-		if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(floor_ptr, creature_ptr);
+		if (prev_floor_ptr->floor_level && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
 
 		/* Handle stuff */
 		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
@@ -2089,7 +2087,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 		leave_quest_check(creature_ptr);
 
 		inside_quest = c_ptr->special;
-		floor_ptr->floor_level = 0;
+		prev_floor_ptr->floor_level = 0;
 		creature_ptr->oldpx = 0;
 		creature_ptr->oldpy = 0;
 
@@ -2113,7 +2111,7 @@ bool move_creature_effect(creature_type *creature_ptr, int ny, int nx, u32b mpe_
 #endif
 
 			/* Pick a trap */
-			disclose_grid(floor_ptr, creature_ptr->fy, creature_ptr->fx);
+			disclose_grid(prev_floor_ptr, creature_ptr->fy, creature_ptr->fx);
 		}
 
 		/* Hit the trap */
@@ -2731,7 +2729,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		if (break_trap) mpe_mode |= MPE_BREAK_TRAP;
 
 		/* Move the player */
-		(void)move_creature_effect(creature_ptr, y, x, mpe_mode);
+		(void)move_creature_effect(creature_ptr, NULL, y, x, mpe_mode);
 	}
 
 	if(!IS_BLIND(creature_ptr) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
