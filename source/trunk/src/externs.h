@@ -921,8 +921,6 @@ extern bool is_tanuki_species(species_type *species_ptr);
 extern bool is_kill_exp_species(species_type *species_ptr);
 extern bool is_friendly_species(species_type *species_ptr);
 
-extern bool is_wild_mountain_creature(creature_type *creature_ptr);
-
 extern bool is_variable_race_species(species_type *species_ptr);
 extern bool is_variable_class_species(species_type *species_ptr);
 extern bool is_variable_patron_species(species_type *species_ptr);

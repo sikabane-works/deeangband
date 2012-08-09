@@ -659,7 +659,7 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 		}
 	}
 
-	/* "CAN" flags */
+	// "CAN" flags
 	if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait(creature_ptr, TRAIT_CAN_FLY)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait(creature_ptr, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
@@ -669,10 +669,10 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
-	/* Some creatures can walk on mountains */
-	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_creature(creature_ptr)) return TRUE;
+	// Some creatures can walk on mountains
+	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && has_trait(creature_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 
-	/* Water */
+	// Water
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
 		if (!is_aquatic_creature(creature_ptr))

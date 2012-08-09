@@ -1403,29 +1403,14 @@ bool is_wild_volcano_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_WILD_VOLCANO]);
 }
 
-bool is_wild_volcano_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_VOLCANO);	
-}
-
 bool is_wild_grass_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_WILD_GRASS]);
 }
 
-bool is_wild_grass_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_GRASS);	
-}
-
 bool is_wild_mountain_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
-}
-
-bool is_wild_mountain_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_MOUNTAIN);	
 }
 
 bool is_chameleon_species(species_type *species_ptr)
