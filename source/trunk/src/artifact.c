@@ -3159,7 +3159,9 @@ bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x)
 {
 	object_type forge;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
-	
+
+	object_wipe(&forge);
+
 	(void)create_named_art(creature_ptr, &forge, a_idx);
 
 	/*
@@ -3168,8 +3170,8 @@ bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x)
 	 * ‚±‚ÌŠÖ”‚Ì•Ô‚è’l‚ÍM—p‚Å‚«‚È‚­‚È‚é.
 	 */
 
-	/* Drop the artifact from heaven */
-	return drop_near(floor_ptr, &forge, -1, y, x) ? TRUE : FALSE;
+	if(forge.k_idx) return drop_near(floor_ptr, &forge, -1, y, x) ? TRUE : FALSE;
+	else return 0;
 }
 
 

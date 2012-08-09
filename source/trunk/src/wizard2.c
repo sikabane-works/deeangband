@@ -108,12 +108,18 @@ static bool wiz_dimension_door(creature_type *creature_ptr)
  * Create the artifact of the specified number -- DAN
  *
  */
-static void wiz_drop_named_art(creature_type* creature_ptr, int a_idx)
+static void wiz_drop_named_art(creature_type* creature_ptr)
 {
-	/* Create the artifact */
-	(void)drop_named_art(creature_ptr, a_idx, creature_ptr->fy, creature_ptr->fx);
+	char tmp_val[20] = "";
+	int i = 0;
+	// Ask for a level
+	if (!get_string("Artifact ID: ", tmp_val, 10)) return;
+	i = atoi(tmp_val);
 
-	/* All done */
+	// Create the artifact
+	(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx);
+
+	// All done
 	msg_print("Allocated.");
 }
 
@@ -2105,7 +2111,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Create a named artifact */
 	case 'C':
-		wiz_drop_named_art(creature_ptr, command_arg);
+		wiz_drop_named_art(creature_ptr);
 		break;
 
 	/* Detect everything */
