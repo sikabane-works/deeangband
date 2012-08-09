@@ -4686,15 +4686,15 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 {
 	int i, j;
 	bool riding_levitation = FALSE;
-	creature_type *riding_m_ptr = &creature_list[creature_ptr->riding];
-	species_type *riding_r_ptr = &species_info[riding_m_ptr->species_idx];
-	int speed = riding_m_ptr->speed;
+	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
+	species_type *riding_r_ptr = &species_info[steed_ptr->species_idx];
+	int speed = steed_ptr->speed;
 	int penalty = 0;
 
 	j = creature_ptr->carrying_weight;
 
 
-	if (riding_m_ptr->speed > 0)
+	if (steed_ptr->speed > 0)
 	{
 		creature_ptr->speed = (s16b)(speed * (creature_ptr->skill_exp[SKILL_RIDING] * 3 + creature_ptr->lev * 160L - 10000L) / (22000L));
 		if (creature_ptr->speed < 0) creature_ptr->speed = 0;
@@ -4705,11 +4705,11 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	}
 
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
-	if (riding_m_ptr->fast) creature_ptr->speed += 10;
-	if (riding_m_ptr->slow) creature_ptr->speed -= 10;
+	if (steed_ptr->fast) creature_ptr->speed += 10;
+	if (steed_ptr->slow) creature_ptr->speed -= 10;
 	riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
 
-	if (!is_pass_wall_species(riding_r_ptr)) creature_ptr->pass_wall = FALSE;
+	if (!has_trait(steed_ptr, TRAIT_PASS_WALL)) creature_ptr->pass_wall = FALSE;
 	//TODO if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
 	if (creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;

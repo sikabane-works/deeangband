@@ -5579,13 +5579,13 @@ static bool vault_aux_trapped_pit(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the creature */
+	// Validate the creature
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	/* No wall passing creature */
-	if (has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || is_pass_wall_species(r_ptr)) return (FALSE);
+	// No wall passing creature
+	if (has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return (FALSE);
 
-	/* Okay */
+	// Okay
 	return (TRUE);
 }
 
@@ -5988,7 +5988,7 @@ static bool vault_aux_lite(int species_idx)
 	if (!has_trait_raw(&r_ptr->flags, TRAIT_BR_LITE) && !has_trait_raw(&r_ptr->flags, TRAIT_BA_LITE)) return FALSE;
 
 	/* No wall passing creatures */
-	if (has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || is_pass_wall_species(r_ptr)) return FALSE;
+	if (has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
 
 	/* No disintegrating creatures */
 	if (has_trait_raw(&r_ptr->flags, TRAIT_BR_DISI)) return FALSE;

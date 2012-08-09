@@ -1001,16 +1001,6 @@ bool is_powerful_species(species_type *species_ptr)
 }
 
 
-bool is_pass_wall_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_PASS_WALL);	
-}
-
-bool is_pass_wall_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_PASS_WALL]);
-}
-
 bool is_take_item_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_TAKE_ITEM);	
@@ -1069,17 +1059,6 @@ bool is_kill_body_creature(creature_type *creature_ptr)
 bool is_kill_body_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_KILL_BODY]);
-}
-
-
-bool is_puella_magi_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_PUELLA_MAGI]);
-}
-
-bool is_puella_magi_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_PUELLA_MAGI);	
 }
 
 bool is_aquatic_species(species_type *species_ptr)

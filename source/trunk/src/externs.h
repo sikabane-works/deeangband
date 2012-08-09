@@ -865,7 +865,6 @@ extern bool is_animal_species(species_type *species_ptr);
 
 extern bool is_quantum_species(species_type *species_ptr);
 extern bool is_powerful_species(species_type *species_ptr);
-extern bool is_pass_wall_species(species_type *species_ptr);
 extern bool is_take_item_species(species_type *species_ptr);
 extern bool is_kill_item_species(species_type *species_ptr);
 extern bool is_open_door_species(species_type *species_ptr);
@@ -874,7 +873,6 @@ extern bool is_move_body_species(species_type *species_ptr);
 extern bool is_kill_body_species(species_type *species_ptr);
 
 extern bool is_powerful_creature(creature_type *creature_ptr);
-extern bool is_pass_wall_creature(creature_type *creature_ptr);
 
 extern bool is_aquatic_species(species_type *species_ptr);
 extern bool can_fly_species(species_type *species_ptr);
@@ -1007,6 +1005,7 @@ extern bool has_trait_from_race(creature_type *creature_ptr, int type);
 extern bool has_trait_from_class(creature_type *creature_ptr, int type);
 extern bool has_trait_from_chara(creature_type *creature_ptr, int type);
 extern bool has_trait_from_inventory(creature_type *creature_ptr, int type);
+extern bool has_trait_from_species(creature_type *creature_ptr, int type);
 extern bool has_trait(creature_type *creature_ptr, int type);
 extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
 

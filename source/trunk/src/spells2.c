@@ -3640,7 +3640,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				}
 
 				/* Most creatures cannot co-exist with rock */
-				if (!has_trait(m_ptr, TRAIT_KILL_WALL) && !is_pass_wall_species(r_ptr))
+				if (!has_trait(m_ptr, TRAIT_KILL_WALL) && !has_trait(m_ptr, TRAIT_PASS_WALL))
 				{
 					char m_name[80];
 
