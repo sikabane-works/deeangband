@@ -10411,13 +10411,13 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 			melee_attack(caster_ptr, y, x, 0);
 	
-			if (!player_can_enter(caster_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
+			if (!creature_can_enter_aux(caster_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 				break;
 	
 			y += ddy[dir];
 			x += ddx[dir];
 	
-			if (player_can_enter(caster_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
+			if (creature_can_enter_aux(caster_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
 			{
 				msg_print(NULL);
 	
@@ -11028,7 +11028,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				lite_spot(floor_ptr, ny, nx);
 	
 				/* Player can move forward? */
-				if (player_can_enter(caster_ptr, c_ptr->feat, 0))
+				if (creature_can_enter_aux(caster_ptr, c_ptr->feat, 0))
 				{
 					/* Move the player */
 					if (!move_creature_effect(caster_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;

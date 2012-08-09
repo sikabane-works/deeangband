@@ -267,7 +267,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!player_can_enter(creature_ptr, c_ptr->feat, 0)) return FALSE;
+		if (!creature_can_enter_aux(creature_ptr, c_ptr->feat, 0)) return FALSE;
 
 		if (have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP))
 		{

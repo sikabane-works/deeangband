@@ -712,7 +712,7 @@ extern void search(creature_type *creature_ptr);
 extern void py_pickup_aux(creature_type *creature_ptr, int object_idx);
 extern void carry(creature_type *creature_ptr, bool pickup);
 extern bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x);
-extern bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode);
+extern bool creature_can_enter_aux(creature_type *creature_ptr, s16b feature, u16b mode);
 extern bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode);
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
 extern void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap);

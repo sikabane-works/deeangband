@@ -1657,7 +1657,7 @@ static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, b
 
 	set_creature_bonuses(creature_ptr, TRUE);
 
-	p_can_enter = player_can_enter(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	p_can_enter = creature_can_enter_aux(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
 	creature_ptr->riding = old_riding;
 	if (old_pf_two_handed) creature_ptr->pet_extra_flags |= (PF_RYOUTE);

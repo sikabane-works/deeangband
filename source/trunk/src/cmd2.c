@@ -3641,7 +3641,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							if (!in_bounds2(floor_ptr, ny, nx)) break;
 
 							/* Stopped by walls/doors */
-							if (!player_can_enter(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
+							if (!creature_can_enter_aux(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
 
 							/* Stopped by creatures */
 							if (!cave_empty_bold(floor_ptr, ny, nx)) break;

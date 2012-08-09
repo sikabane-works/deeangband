@@ -5563,7 +5563,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (cave_empty_bold(floor_ptr, ny, nx) && player_can_enter(creature_ptr, floor_ptr->cave[ny][nx].feat, 0))
+		if (cave_empty_bold(floor_ptr, ny, nx) && creature_can_enter_aux(creature_ptr, floor_ptr->cave[ny][nx].feat, 0))
 		{
 			ty = ny;
 			tx = nx;

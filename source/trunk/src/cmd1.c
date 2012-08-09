@@ -1866,7 +1866,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 }
 
 
-bool player_can_enter(creature_type *creature_ptr, s16b feature, u16b mode)
+bool creature_can_enter_aux(creature_type *creature_ptr, s16b feature, u16b mode)
 {
 	feature_type *f_ptr = &feature_info[feature];
 
@@ -2224,7 +2224,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	char m_name[80];
 
-	bool p_can_enter = player_can_enter(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	bool p_can_enter = creature_can_enter_aux(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 	bool p_can_kill_walls = FALSE;
 	bool stormbringer = FALSE;
 
@@ -2239,7 +2239,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 
 		/* Can the player enter the grid? */
-		if (c_ptr->mimic && player_can_enter(creature_ptr, c_ptr->mimic, 0))
+		if (c_ptr->mimic && creature_can_enter_aux(creature_ptr, c_ptr->mimic, 0))
 		{
 			/* Hack: move to new area */
 			if ((y == 0) && (x == 0))
@@ -2768,7 +2768,7 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 		feature_type *f_ptr = &feature_info[feat];
 
 		// Wall grids are known walls
-		if (!player_can_enter(creature_ptr, feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
+		if (!creature_can_enter_aux(creature_ptr, feat, 0)) return !have_flag(f_ptr->flags, FF_DOOR);
 
 		// Don't run on a tree unless explicitly requested
 		if (have_flag(f_ptr->flags, FF_AVOID_RUN) && !ignore_avoid_run)
