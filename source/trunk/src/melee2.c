@@ -713,7 +713,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Skip locations in a wall */
-			if (!creature_can_cross_terrain(c_ptr->feat, m_ptr, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if (!creature_can_cross_terrain(m_ptr, c_ptr->feat, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if creatures can flow) */
 			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
@@ -893,7 +893,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				c_ptr = &floor_ptr->cave[yy][xx];
 
 				/* Check grid */
-				if (creature_can_cross_terrain(c_ptr->feat, player_ptr, 0))
+				if (creature_can_cross_terrain(player_ptr, c_ptr->feat, 0))
 				{
 					/* One more room grid */
 					room++;
@@ -1904,7 +1904,7 @@ static void process_nonplayer(int m_idx)
 		/* Access that cave grid */
 		c_ptr = &floor_ptr->cave[ny][nx];
 		f_ptr = &feature_info[c_ptr->feat];
-		can_cross = creature_can_cross_terrain(c_ptr->feat, creature_ptr, is_riding_mon ? CEM_RIDING : 0);
+		can_cross = creature_can_cross_terrain(creature_ptr, c_ptr->feat, is_riding_mon ? CEM_RIDING : 0);
 
 		/* Access that cave grid's contents */
 		y_ptr = &creature_list[c_ptr->creature_idx];
@@ -2233,7 +2233,7 @@ static void process_nonplayer(int m_idx)
 			else if (has_trait(creature_ptr, TRAIT_MOVE_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
-				creature_can_cross_terrain(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, y_ptr, 0))
+				creature_can_cross_terrain(y_ptr, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, 0))
 			{
 				/* Allow movement */
 				do_move = TRUE;
@@ -2294,7 +2294,7 @@ static void process_nonplayer(int m_idx)
 
 		if (must_alter_to_move && has_trait(creature_ptr, TRAIT_AQUATIC))
 		{
-			if (!creature_can_cross_terrain(c_ptr->feat, creature_ptr, is_riding_mon ? CEM_RIDING : 0))
+			if (!creature_can_cross_terrain(creature_ptr, c_ptr->feat, is_riding_mon ? CEM_RIDING : 0))
 			{
 				/* Assume no move allowed */
 				do_move = FALSE;

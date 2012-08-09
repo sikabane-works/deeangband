@@ -1870,7 +1870,7 @@ bool creature_can_enter_aux(creature_type *creature_ptr, s16b feature, u16b mode
 {
 	feature_type *f_ptr = &feature_info[feature];
 
-	if (creature_ptr->riding) return creature_can_cross_terrain(feature, &creature_list[creature_ptr->riding], mode | CEM_RIDING);
+	if (creature_ptr->riding) return creature_can_cross_terrain(&creature_list[creature_ptr->riding], feature, mode | CEM_RIDING);
 
 	/* Pattern */
 	if (have_flag(f_ptr->flags, FF_PATTERN))
@@ -2413,7 +2413,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				melee_attack(creature_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
-			else if (creature_can_cross_terrain(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, creature_ptr, 0))
+			else if (creature_can_cross_terrain(creature_ptr, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, 0))
 			{
 				do_past = TRUE;
 			}

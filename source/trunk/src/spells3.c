@@ -37,7 +37,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
 
 	if (!(mode & TELEPORT_PASSIVE))
 	{
-		if (!creature_can_cross_terrain(c_ptr->feat, creature_ptr, 0)) return FALSE;
+		if (!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) return FALSE;
 	}
 
 	return TRUE;

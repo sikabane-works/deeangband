@@ -640,7 +640,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 /*
  * Check if creature can cross terrain
  */
-bool creature_can_cross_terrain(s16b feat, creature_type *creature_ptr, u16b mode)
+bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feat, u16b mode)
 {
 	feature_type *f_ptr = &feature_info[feat];
 
@@ -717,7 +717,7 @@ bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode)
 	if (c_ptr->creature_idx) return FALSE;
 
 	//TODO
-	return creature_can_cross_terrain(c_ptr->feat, creature_ptr, mode);
+	return creature_can_cross_terrain(creature_ptr, c_ptr->feat, mode);
 }
 
 
