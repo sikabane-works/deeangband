@@ -1134,7 +1134,6 @@ extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int
 
 /* init2.c */
 extern void init_file_paths(char *path);
-extern cptr err_str[PARSE_ERROR_MAX];
 extern errr init_vault_info(void);
 extern errr init_buildings(void);
 extern s16b feature_tag_to_index_in_init(cptr str);
