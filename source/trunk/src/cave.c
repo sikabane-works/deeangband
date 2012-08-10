@@ -2827,7 +2827,7 @@ static s16b mon_fy, mon_fx;
 /*
  * Add a square to the changes array
  */
-static void mon_lite_hack(creature_type *creature_ptr, int y, int x)
+static void creature_lite_hack(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	int       midpoint, dpf, d;
@@ -2989,7 +2989,7 @@ static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 void update_creature_lite(floor_type *floor_ptr)
 {
 	int i, rad, creature_fx, creature_fy, creature_lite_x[SPECIES_LITE_MAX], creature_lite_y[SPECIES_LITE_MAX], creature_invis;
-	//int mon_lite_hack, mon_dark_hack, mon_lite_n;
+	//int creature_lite_hack, mon_dark_hack, creature_lite_n;
 	cave_type *c_ptr;
 
 	s16b fx, fy;
@@ -3003,7 +3003,7 @@ void update_creature_lite(floor_type *floor_ptr)
 		(MAX_SIGHT / 2 + 1) : (MAX_SIGHT + 3);
 
 	/* Clear all creature lit squares */
-	for (i = 0; i < mon_lite_n; i++)
+	for (i = 0; i < creature_lite_n; i++)
 	{
 		/* Point to grid */
 		c_ptr = &floor_ptr->cave[creature_lite_y[i]][creature_lite_x[i]];
@@ -3054,7 +3054,7 @@ void update_creature_lite(floor_type *floor_ptr)
 				if (!(has_trait(creature_ptr, TRAIT_SELF_LITE_1) || has_trait(creature_ptr, TRAIT_SELF_LITE_2)) && 
 					(creature_ptr->paralyzed || (!floor_ptr->floor_level && is_daytime()) || gamble_arena_mode)) continue;
 				if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
-				add_creature_lite = mon_lite_hack;
+				add_creature_lite = creature_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
@@ -3197,7 +3197,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	/*
 	 * Look at old set flags to see if there are any changes.
 	 */
-	for (i = 0; i < mon_lite_n; i++)
+	for (i = 0; i < creature_lite_n; i++)
 	{
 		fx = creature_lite_x[i];
 		fy = creature_lite_y[i];
@@ -3235,7 +3235,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	}
 
 	/* Clear the lite array */
-	mon_lite_n = 0;
+	creature_lite_n = 0;
 
 	/* Copy the temp array into the lit array lighting the new squares. */
 	for (i = 0; i < end_temp; i++)
@@ -3270,9 +3270,9 @@ void update_creature_lite(floor_type *floor_ptr)
 		}
 
 		/* Save in the creature lit or darkened array */
-		creature_lite_x[mon_lite_n] = fx;
-		creature_lite_y[mon_lite_n] = fy;
-		mon_lite_n++;
+		creature_lite_x[creature_lite_n] = fx;
+		creature_lite_y[creature_lite_n] = fy;
+		creature_lite_n++;
 	}
 
 	/* Clear the temp flag for the old lit or darken grids */
@@ -3322,17 +3322,17 @@ void clear_creature_lite(floor_type *floor_ptr)
 	cave_type *c_ptr;
 
 	/* Clear all creature lit squares */
-	for (i = 0; i < mon_lite_n; i++)
+	for (i = 0; i < creature_lite_n; i++)
 	{
 		/* Point to grid */
-		c_ptr = &floor_ptr->cave[mon_lite_y[i]][mon_lite_x[i]];
+		c_ptr = &floor_ptr->cave[creature_lite_y[i]][creature_lite_x[i]];
 
 		/* Clear creature illumination flag */
 		c_ptr->info &= ~(CAVE_MNLT | CAVE_MNDK);
 	}
 
 	/* Empty the array */
-	mon_lite_n = 0;
+	creature_lite_n = 0;
 }
 
 

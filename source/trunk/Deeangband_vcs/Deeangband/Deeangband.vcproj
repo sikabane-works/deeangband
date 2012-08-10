@@ -233,6 +233,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\creature_control.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\creature_hook.c"
 				>
 			</File>
@@ -314,10 +318,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\mind.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\monster2.c"
 				>
 			</File>
 			<File

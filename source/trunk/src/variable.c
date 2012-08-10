@@ -378,9 +378,9 @@ s16b lite_x[LITE_MAX];
 /*
  * Array of grids lit by player lite (see "cave.c")
  */
-s16b mon_lite_n;
-s16b mon_lite_y[SPECIES_LITE_MAX];
-s16b mon_lite_x[SPECIES_LITE_MAX];
+s16b creature_lite_n;
+s16b creature_lite_y[SPECIES_LITE_MAX];
+s16b creature_lite_x[SPECIES_LITE_MAX];
 
 /*
  * Array of grids viewable to the player (see "cave.c")
