@@ -1,7 +1,7 @@
-/* File: creature1.c */
+/* File: creature_hook.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+ * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke 2012 Deskull
  *
  * This software may be copied and distributed for educational, research,
  * and not for profit purposes provided that this copyright and statement
@@ -30,18 +30,11 @@ static cptr wd_his[3] =
 { "its", "his", "her" };
 #endif
 
-
-
 /*
  * Pluralizer.  Args(count, singular, plural)
  */
 #define plural(c,s,p) \
     (((c) == 1) ? (s) : (p))
-
-
-
-
-
 
 /*
  * Determine if the "armor" is known
@@ -50,26 +43,16 @@ static cptr wd_his[3] =
 static bool know_armour(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-
 	s32b level = r_ptr->level;
-
 	s32b kills = r_ptr->r_tkills;
 
 	if (cheat_know) return (TRUE);
-
-	/* Normal creatures */
-	if (kills > 304 / (4 + level)) return (TRUE);
-
-	/* Skip non-uniques */
-	if (!(is_unique_species(r_ptr))) return (FALSE);
-
-	/* Unique creatures */
-	if (kills > 304 / (38 + (5 * level) / 4)) return (TRUE);
-
-	/* Assume false */
-	return (FALSE);
+	
+	if (kills > 304 / (4 + level)) return (TRUE);		// Normal creatures
+	if (!(is_unique_species(r_ptr))) return (FALSE);	// Skip non-uniques
+	if (kills > 304 / (38 + (5 * level) / 4)) return (TRUE);	// Unique creatures
+	return (FALSE);	// Assume false
 }
-
 
 /*
  * Determine if the "damage" of the given attack is known
@@ -339,21 +322,21 @@ bool species_hook_dungeon(int species_idx)
 }
 
 
-static bool mon_hook_ocean(int species_idx)
+static bool creature_hook_ocean(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return is_wild_ocean_species(species_ptr);
 }
 
 
-static bool mon_hook_shore(int species_idx)
+static bool creature_hook_shore(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 	return is_wild_shore_species(species_ptr);
 }
 
 
-static bool mon_hook_waste(int species_idx)
+static bool creature_hook_waste(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -364,7 +347,7 @@ static bool mon_hook_waste(int species_idx)
 }
 
 
-static bool mon_hook_town(int species_idx)
+static bool creature_hook_town(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -375,35 +358,35 @@ static bool mon_hook_town(int species_idx)
 }
 
 
-static bool mon_hook_wood(int species_idx)
+static bool creature_hook_wood(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	return (is_wild_wood_species(r_ptr) || is_wild_all_species(r_ptr));
 }
 
 
-static bool mon_hook_volcano(int species_idx)
+static bool creature_hook_volcano(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	return is_wild_wood_species(r_ptr);
 }
 
 
-static bool mon_hook_mountain(int species_idx)
+static bool creature_hook_mountain(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	return is_wild_mountain_species(r_ptr);
 }
 
 
-static bool mon_hook_grass(int species_idx)
+static bool creature_hook_grass(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	return (is_wild_grass_species(r_ptr) || is_wild_all_species(r_ptr));
 }
 
 
-static bool mon_hook_deep_water(int species_idx)
+static bool creature_hook_deep_water(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -416,7 +399,7 @@ static bool mon_hook_deep_water(int species_idx)
 }
 
 
-static bool mon_hook_shallow_water(int species_idx)
+static bool creature_hook_shallow_water(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -429,7 +412,7 @@ static bool mon_hook_shallow_water(int species_idx)
 }
 
 
-static bool mon_hook_lava(int species_idx)
+static bool creature_hook_lava(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -444,7 +427,7 @@ static bool mon_hook_lava(int species_idx)
 }
 
 
-static bool mon_hook_floor(int species_idx)
+static bool creature_hook_floor(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
@@ -463,24 +446,24 @@ creature_hook_type get_creature_hook(void)
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
 		case TERRAIN_TOWN:
-			return (creature_hook_type)mon_hook_town;
+			return (creature_hook_type)creature_hook_town;
 		case TERRAIN_DEEP_WATER:
-			return (creature_hook_type)mon_hook_ocean;
+			return (creature_hook_type)creature_hook_ocean;
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-			return (creature_hook_type)mon_hook_shore;
+			return (creature_hook_type)creature_hook_shore;
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
-			return (creature_hook_type)mon_hook_waste;
+			return (creature_hook_type)creature_hook_waste;
 		case TERRAIN_GRASS:
-			return (creature_hook_type)mon_hook_grass;
+			return (creature_hook_type)creature_hook_grass;
 		case TERRAIN_TREES:
-			return (creature_hook_type)mon_hook_wood;
+			return (creature_hook_type)creature_hook_wood;
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
-			return (creature_hook_type)mon_hook_volcano;
+			return (creature_hook_type)creature_hook_volcano;
 		case TERRAIN_MOUNTAIN:
-			return (creature_hook_type)mon_hook_mountain;
+			return (creature_hook_type)creature_hook_mountain;
 		default:
 			return (creature_hook_type)species_hook_dungeon;
 		}
@@ -505,23 +488,23 @@ creature_hook_type get_creature_hook2(int y, int x)
 		/* Deep water */
 		if (have_flag(f_ptr->flags, FF_DEEP))
 		{
-			return (creature_hook_type)mon_hook_deep_water;
+			return (creature_hook_type)creature_hook_deep_water;
 		}
 
 		/* Shallow water */
 		else
 		{
-			return (creature_hook_type)mon_hook_shallow_water;
+			return (creature_hook_type)creature_hook_shallow_water;
 		}
 	}
 
 	/* Lava */
 	else if (have_flag(f_ptr->flags, FF_LAVA))
 	{
-		return (creature_hook_type)mon_hook_lava;
+		return (creature_hook_type)creature_hook_lava;
 	}
 
-	else return (creature_hook_type)mon_hook_floor;
+	else return (creature_hook_type)creature_hook_floor;
 }
 
 
