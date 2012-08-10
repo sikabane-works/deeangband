@@ -5015,14 +5015,14 @@ static cptr find_quest[] =
 void quest_discovery(int q_idx)
 {
 	quest_type      *quest_ptr = &quest[q_idx];
-	species_type    *r_ptr = &species_info[quest_ptr->species_idx];
+	species_type    *species_ptr = &species_info[quest_ptr->species_idx];
 	int             q_num = quest_ptr->max_num;
 	char            name[80];
 
 	/* No quest index */
 	if (!q_idx) return;
 
-	strcpy(name, (species_name + r_ptr->name));
+	strcpy(name, (species_name + species_ptr->name));
 
 	msg_print(find_quest[rand_range(0, 4)]);
 	msg_print(NULL);
@@ -5032,7 +5032,7 @@ void quest_discovery(int q_idx)
 		/* Unique */
 
 		/* Hack -- "unique" creatures must be "unique" */
-		if (is_unique_species(r_ptr) && (0 == r_ptr->max_num))
+		if (is_unique_species(species_ptr) && (0 == species_ptr->max_num))
 		{
 #ifdef JP
 			msg_print("この階は以前は誰かによって守られていたようだ…。");
