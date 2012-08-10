@@ -1533,7 +1533,7 @@ void generate_floor(floor_type *floor_ptr)
 		clear_cave(floor_ptr); // Clear and empty the cave
 
 		if(fight_arena_mode)
-			generate_floor_arena(floor_ptr, 41, 41); // fight arena
+			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
 		else if(gamble_arena_mode)
 			generate_floor_creature_arena(floor_ptr); // gamble arena
 		else if(inside_quest)
@@ -1590,4 +1590,8 @@ void generate_floor(floor_type *floor_ptr)
 	player_ptr->enter_dungeon = FALSE;
 
 	wipe_generate_floor_flags(floor_ptr);
+
+	// Hack -- Munchkin characters always get whole map 
+	if (player_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, player_ptr, (bool)(player_ptr->class_idx == CLASS_NINJA));
+
 }

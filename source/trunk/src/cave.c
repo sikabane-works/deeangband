@@ -4626,7 +4626,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	if (have_flag(f_ptr->flags, FF_GLOW) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 	{
 		int i, yy, xx;
-		cave_type *ccave_ptr;
+		cave_type *cc_ptr;
 		creature_type *creature_ptr;
 
 		for (i = 0; i < 9; i++)
@@ -4634,14 +4634,14 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 			yy = y + ddy_ddd[i];
 			xx = x + ddx_ddd[i];
 			if (!in_bounds2(floor_ptr, yy, xx)) continue;
-			ccave_ptr = &floor_ptr->cave[yy][xx];
-			creature_ptr = &creature_list[ccave_ptr->creature_idx];
-			ccave_ptr->info |= CAVE_GLOW;
+			cc_ptr = &floor_ptr->cave[yy][xx];
+			creature_ptr = &creature_list[cc_ptr->creature_idx];
+			cc_ptr->info |= CAVE_GLOW;
 
-			if (player_has_los_grid(ccave_ptr))
+			if (player_has_los_grid(cc_ptr))
 			{
 				/* Update the creature */
-				if (ccave_ptr->creature_idx) update_creature_view(player_ptr, ccave_ptr->creature_idx, FALSE);
+				if (cc_ptr->creature_idx) update_creature_view(player_ptr, cc_ptr->creature_idx, FALSE);
 
 				/* Notice */
 				note_spot(floor_ptr, yy, xx);

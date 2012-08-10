@@ -4699,10 +4699,8 @@ msg_print("é∏îsÇµÇΩÅB");
 
 	sound(SOUND_TELEPORT);
 
-	/* Swap the player and creature */
+	// Swap the player and creature
 	(void)move_creature_effect(creature_ptr, NULL, ty, tx, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
-
-	/* Success */
 	return TRUE;
 }
 
