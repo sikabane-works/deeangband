@@ -229,15 +229,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\creature.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\creature_control.c"
 				>
 			</File>
 			<File
 				RelativePath="..\..\src\creature_hook.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\creature_misc.c"
 				>
 			</File>
 			<File
