@@ -2243,7 +2243,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		if (object_ptr->k_idx &&
 		    !(have_flag(flgs, TRAIT_FREE_ACTION)) &&
 		    !(have_flag(flgs, TR_MAGIC_MASTERY)) &&
-		    !((have_flag(flgs, TR_DEX)) && (object_ptr->pval > 0)))
+		    !((have_flag(flgs, STAT_DEX)) && (object_ptr->pval > 0)))
 		{
 			/* Encumbered */
 			creature_ptr->cumber_glove = TRUE;

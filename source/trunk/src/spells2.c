@@ -745,7 +745,7 @@ info[i++] = "あなたは地獄の力を吸収できる。";
 	}
 	*/
 
-	if (have_flag(flgs, TR_STR))
+	if (have_flag(flgs, STAT_STR))
 	{
 #ifdef JP
 info[i++] = "あなたの腕力は装備によって影響を受けている。";
@@ -754,7 +754,7 @@ info[i++] = "あなたの腕力は装備によって影響を受けている。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_INT))
+	if (have_flag(flgs, STAT_INT))
 	{
 #ifdef JP
 info[i++] = "あなたの知能は装備によって影響を受けている。";
@@ -763,7 +763,7 @@ info[i++] = "あなたの知能は装備によって影響を受けている。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_WIS))
+	if (have_flag(flgs, STAT_WIS))
 	{
 #ifdef JP
 info[i++] = "あなたの賢さは装備によって影響を受けている。";
@@ -772,7 +772,7 @@ info[i++] = "あなたの賢さは装備によって影響を受けている。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_DEX))
+	if (have_flag(flgs, STAT_DEX))
 	{
 #ifdef JP
 info[i++] = "あなたの器用さは装備によって影響を受けている。";
@@ -781,7 +781,7 @@ info[i++] = "あなたの器用さは装備によって影響を受けている。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_CON))
+	if (have_flag(flgs, STAT_CON))
 	{
 #ifdef JP
 info[i++] = "あなたの耐久力は装備によって影響を受けている。";
@@ -790,7 +790,7 @@ info[i++] = "あなたの耐久力は装備によって影響を受けている。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_CHR))
+	if (have_flag(flgs, STAT_CHA))
 	{
 #ifdef JP
 info[i++] = "あなたの魅力は装備によって影響を受けている。";

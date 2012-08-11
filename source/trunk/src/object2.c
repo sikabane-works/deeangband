@@ -891,12 +891,12 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	/*
 	 * Calucurate values of remaining flags
 	 */
-	if (have_flag(flgs, TR_STR)) total += (1500 * plusses);
-	if (have_flag(flgs, TR_INT)) total += (1500 * plusses);
-	if (have_flag(flgs, TR_WIS)) total += (1500 * plusses);
-	if (have_flag(flgs, TR_DEX)) total += (1500 * plusses);
-	if (have_flag(flgs, TR_CON)) total += (1500 * plusses);
-	if (have_flag(flgs, TR_CHR)) total += (750 * plusses);
+	if (have_flag(flgs, STAT_STR)) total += (1500 * plusses);
+	if (have_flag(flgs, STAT_INT)) total += (1500 * plusses);
+	if (have_flag(flgs, STAT_WIS)) total += (1500 * plusses);
+	if (have_flag(flgs, STAT_DEX)) total += (1500 * plusses);
+	if (have_flag(flgs, STAT_CON)) total += (1500 * plusses);
+	if (have_flag(flgs, STAT_CHA)) total += (750 * plusses);
 	if (have_flag(flgs, TR_MAGIC_MASTERY)) total += (600 * plusses);
 	if (have_flag(flgs, TR_STEALTH)) total += (250 * plusses);
 	if (have_flag(flgs, TR_SEARCH)) total += (100 * plusses);
@@ -1222,12 +1222,12 @@ s32b object_value_real(object_type *object_ptr)
 		if (object_ptr->pval < 0) return (0L);
 
 		/* Give credit for stat bonuses */
-		if (have_flag(flgs, TR_STR)) value += (object_ptr->pval * 200L);
-		if (have_flag(flgs, TR_INT)) value += (object_ptr->pval * 200L);
-		if (have_flag(flgs, TR_WIS)) value += (object_ptr->pval * 200L);
-		if (have_flag(flgs, TR_DEX)) value += (object_ptr->pval * 200L);
-		if (have_flag(flgs, TR_CON)) value += (object_ptr->pval * 200L);
-		if (have_flag(flgs, TR_CHR)) value += (object_ptr->pval * 200L);
+		if (have_flag(flgs, STAT_STR)) value += (object_ptr->pval * 200L);
+		if (have_flag(flgs, STAT_INT)) value += (object_ptr->pval * 200L);
+		if (have_flag(flgs, STAT_WIS)) value += (object_ptr->pval * 200L);
+		if (have_flag(flgs, STAT_DEX)) value += (object_ptr->pval * 200L);
+		if (have_flag(flgs, STAT_CON)) value += (object_ptr->pval * 200L);
+		if (have_flag(flgs, STAT_CHA)) value += (object_ptr->pval * 200L);
 
 		/* Give credit for stealth and searching */
 		if (have_flag(flgs, TR_MAGIC_MASTERY)) value += (object_ptr->pval * 100);
@@ -2684,7 +2684,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_SLAY;
 						break;
 					case 14:
-						if ((have_flag(k_ptr->flags, TR_STR)) || object_ptr->to_hit || object_ptr->to_damage) break;
+						if ((have_flag(k_ptr->flags, STAT_STR)) || object_ptr->to_hit || object_ptr->to_damage) break;
 						object_ptr->name2 = EGO_RING_WIZARD;
 						break;
 					case 15:
@@ -3616,12 +3616,12 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	    (owner_ptr->chara_idx == CHARA_SEXY))
 	{
 		object_ptr->pval = 3;
-		add_flag(object_ptr->art_flags, TR_STR);
-		add_flag(object_ptr->art_flags, TR_INT);
-		add_flag(object_ptr->art_flags, TR_WIS);
-		add_flag(object_ptr->art_flags, TR_DEX);
-		add_flag(object_ptr->art_flags, TR_CON);
-		add_flag(object_ptr->art_flags, TR_CHR);
+		add_flag(object_ptr->art_flags, STAT_STR);
+		add_flag(object_ptr->art_flags, STAT_INT);
+		add_flag(object_ptr->art_flags, STAT_WIS);
+		add_flag(object_ptr->art_flags, STAT_DEX);
+		add_flag(object_ptr->art_flags, STAT_CON);
+		add_flag(object_ptr->art_flags, STAT_CHA);
 	}
 
 	// Hack -- analyze ego-items
@@ -6081,12 +6081,12 @@ typedef struct {
 #ifdef JP
 static essence_type essence_info[] = 
 {
-	{TR_STR, "˜r—Í", 4, TR_STR, 20},
-	{TR_INT, "’m”\", 4, TR_INT, 20},
-	{TR_WIS, "Œ«‚³", 4, TR_WIS, 20},
-	{TR_DEX, "Ší—p‚³", 4, TR_DEX, 20},
-	{TR_CON, "‘Ï‹v—Í", 4, TR_CON, 20},
-	{TR_CHR, "–£—Í", 4, TR_CHR, 20},
+	{STAT_STR, "˜r—Í", 4, STAT_STR, 20},
+	{STAT_INT, "’m”\", 4, STAT_INT, 20},
+	{STAT_WIS, "Œ«‚³", 4, STAT_WIS, 20},
+	{STAT_DEX, "Ší—p‚³", 4, STAT_DEX, 20},
+	{STAT_CON, "‘Ï‹v—Í", 4, STAT_CON, 20},
+	{STAT_CHA, "–£—Í", 4, STAT_CHA, 20},
 	{TR_MAGIC_MASTERY, "–‚—ÍŽx”z", 4, TR_MAGIC_MASTERY, 20},
 	{TR_STEALTH, "‰B–§", 4, TR_STEALTH, 40},
 	{TR_SEARCH, "’Tõ", 4, TR_SEARCH, 15},
@@ -6192,12 +6192,12 @@ static essence_type essence_info[] =
 #else
 static essence_type essence_info[] = 
 {
-	{TR_STR, "strength", 4, TR_STR, 20},
-	{TR_INT, "intelligence", 4, TR_INT, 20},
-	{TR_WIS, "wisdom", 4, TR_WIS, 20},
-	{TR_DEX, "dexterity", 4, TR_DEX, 20},
-	{TR_CON, "constitution", 4, TR_CON, 20},
-	{TR_CHR, "charisma", 4, TR_CHR, 20},
+	{STAT_STR, "strength", 4, STAT_STR, 20},
+	{STAT_INT, "intelligence", 4, STAT_INT, 20},
+	{STAT_WIS, "wisdom", 4, STAT_WIS, 20},
+	{STAT_DEX, "dexterity", 4, STAT_DEX, 20},
+	{STAT_CON, "constitution", 4, STAT_CON, 20},
+	{STAT_CHA, "charisma", 4, STAT_CHA, 20},
 	{TR_MAGIC_MASTERY, "magic mastery", 4, TR_MAGIC_MASTERY, 20},
 	{TR_STEALTH, "stealth", 4, TR_STEALTH, 40},
 	{TR_SEARCH, "serching", 4, TR_SEARCH, 15},
@@ -6684,8 +6684,8 @@ static void drain_essence(creature_type *creature_ptr)
 
 	if ((have_flag(old_flgs, TR_FORCE_WEAPON)) && !(have_flag(new_flgs, TR_FORCE_WEAPON)))
 	{
-		drain_value[TR_INT] += 5;
-		drain_value[TR_WIS] += 5;
+		drain_value[STAT_INT] += 5;
+		drain_value[STAT_WIS] += 5;
 	}
 	if ((have_flag(old_flgs, TRAIT_VORPAL)) && !(have_flag(new_flgs, TRAIT_VORPAL)))
 	{
@@ -6697,19 +6697,19 @@ static void drain_essence(creature_type *creature_ptr)
 	}
 	if ((have_flag(old_flgs, TRAIT_DEC_MANA)) && !(have_flag(new_flgs, TRAIT_DEC_MANA)))
 	{
-		drain_value[TR_INT] += 10;
+		drain_value[STAT_INT] += 10;
 	}
 	if ((have_flag(old_flgs, TR_XTRA_MIGHT)) && !(have_flag(new_flgs, TR_XTRA_MIGHT)))
 	{
-		drain_value[TR_STR] += 10;
+		drain_value[STAT_STR] += 10;
 	}
 	if ((have_flag(old_flgs, TR_XTRA_SHOTS)) && !(have_flag(new_flgs, TR_XTRA_SHOTS)))
 	{
-		drain_value[TR_DEX] += 10;
+		drain_value[STAT_DEX] += 10;
 	}
 	if (old_name2 == EGO_TWO_WEAPON)
 	{
-		drain_value[TR_DEX] += 20;
+		drain_value[STAT_DEX] += 20;
 	}
 	if (object_is_weapon_ammo(object_ptr))
 	{
@@ -7907,7 +7907,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			object_ptr->weight = (2 * object_kind_info[object_ptr->k_idx].weight / 3);
 			object_ptr->ac = object_kind_info[object_ptr->k_idx].ac + 5;
 			if (one_in_(4))
-				add_flag(object_ptr->art_flags, TR_CON);
+				add_flag(object_ptr->art_flags, STAT_CON);
 			break;
 
 		case EGO_YOIYAMI:
@@ -8035,7 +8035,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if (one_in_(3))
 				add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, TR_DEX);
+				add_flag(object_ptr->art_flags, STAT_DEX);
 			if (one_in_(5))
 				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			break;

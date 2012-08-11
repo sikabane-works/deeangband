@@ -202,29 +202,29 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 	switch (artifact_bias)
 	{
 	case BIAS_WARRIOR:
-		if (!(have_flag(object_ptr->art_flags, TR_STR)))
+		if (!(have_flag(object_ptr->art_flags, STAT_STR)))
 		{
-			add_flag(object_ptr->art_flags, TR_STR);
+			add_flag(object_ptr->art_flags, STAT_STR);
 			if (one_in_(2)) return;
 		}
 
-		if (!(have_flag(object_ptr->art_flags, TR_CON)))
+		if (!(have_flag(object_ptr->art_flags, STAT_CON)))
 		{
-			add_flag(object_ptr->art_flags, TR_CON);
+			add_flag(object_ptr->art_flags, STAT_CON);
 			if (one_in_(2)) return;
 		}
 
-		if (!(have_flag(object_ptr->art_flags, TR_DEX)))
+		if (!(have_flag(object_ptr->art_flags, STAT_DEX)))
 		{
-			add_flag(object_ptr->art_flags, TR_DEX);
+			add_flag(object_ptr->art_flags, STAT_DEX);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_MAGE:
-		if (!(have_flag(object_ptr->art_flags, TR_INT)))
+		if (!(have_flag(object_ptr->art_flags, STAT_INT)))
 		{
-			add_flag(object_ptr->art_flags, TR_INT);
+			add_flag(object_ptr->art_flags, STAT_INT);
 			if (one_in_(2)) return;
 		}
 		if ((object_ptr->tval == TV_GLOVES) && !(have_flag(object_ptr->art_flags, TR_MAGIC_MASTERY)))
@@ -235,29 +235,29 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 		break;
 
 	case BIAS_PRIESTLY:
-		if (!(have_flag(object_ptr->art_flags, TR_WIS)))
+		if (!(have_flag(object_ptr->art_flags, STAT_WIS)))
 		{
-			add_flag(object_ptr->art_flags, TR_WIS);
+			add_flag(object_ptr->art_flags, STAT_WIS);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_RANGER:
-		if (!(have_flag(object_ptr->art_flags, TR_DEX)))
+		if (!(have_flag(object_ptr->art_flags, STAT_DEX)))
 		{
-			add_flag(object_ptr->art_flags, TR_DEX);
+			add_flag(object_ptr->art_flags, STAT_DEX);
 			if (one_in_(2)) return;
 		}
 
-		if (!(have_flag(object_ptr->art_flags, TR_CON)))
+		if (!(have_flag(object_ptr->art_flags, STAT_CON)))
 		{
-			add_flag(object_ptr->art_flags, TR_CON);
+			add_flag(object_ptr->art_flags, STAT_CON);
 			if (one_in_(2)) return;
 		}
 
-		if (!(have_flag(object_ptr->art_flags, TR_STR)))
+		if (!(have_flag(object_ptr->art_flags, STAT_STR)))
 		{
-			add_flag(object_ptr->art_flags, TR_STR);
+			add_flag(object_ptr->art_flags, STAT_STR);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -276,49 +276,49 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 		break;
 
 	case BIAS_STR:
-		if (!(have_flag(object_ptr->art_flags, TR_STR)))
+		if (!(have_flag(object_ptr->art_flags, STAT_STR)))
 		{
-			add_flag(object_ptr->art_flags, TR_STR);
+			add_flag(object_ptr->art_flags, STAT_STR);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_WIS:
-		if (!(have_flag(object_ptr->art_flags, TR_WIS)))
+		if (!(have_flag(object_ptr->art_flags, STAT_WIS)))
 		{
-			add_flag(object_ptr->art_flags, TR_WIS);
+			add_flag(object_ptr->art_flags, STAT_WIS);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_INT:
-		if (!(have_flag(object_ptr->art_flags, TR_INT)))
+		if (!(have_flag(object_ptr->art_flags, STAT_INT)))
 		{
-			add_flag(object_ptr->art_flags, TR_INT);
+			add_flag(object_ptr->art_flags, STAT_INT);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_DEX:
-		if (!(have_flag(object_ptr->art_flags, TR_DEX)))
+		if (!(have_flag(object_ptr->art_flags, STAT_DEX)))
 		{
-			add_flag(object_ptr->art_flags, TR_DEX);
+			add_flag(object_ptr->art_flags, STAT_DEX);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_CON:
-		if (!(have_flag(object_ptr->art_flags, TR_CON)))
+		if (!(have_flag(object_ptr->art_flags, STAT_CON)))
 		{
-			add_flag(object_ptr->art_flags, TR_CON);
+			add_flag(object_ptr->art_flags, STAT_CON);
 			if (one_in_(2)) return;
 		}
 		break;
 
 	case BIAS_CHR:
-		if (!(have_flag(object_ptr->art_flags, TR_CHR)))
+		if (!(have_flag(object_ptr->art_flags, STAT_CHA)))
 		{
-			add_flag(object_ptr->art_flags, TR_CHR);
+			add_flag(object_ptr->art_flags, STAT_CHA);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -336,42 +336,42 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 	switch (randint1(this_type))
 	{
 	case 1: case 2:
-		add_flag(object_ptr->art_flags, TR_STR);
+		add_flag(object_ptr->art_flags, STAT_STR);
 		if (!artifact_bias && !one_in_(13))
 			artifact_bias = BIAS_STR;
 		else if (!artifact_bias && one_in_(7))
 			artifact_bias = BIAS_WARRIOR;
 		break;
 	case 3: case 4:
-		add_flag(object_ptr->art_flags, TR_INT);
+		add_flag(object_ptr->art_flags, STAT_INT);
 		if (!artifact_bias && !one_in_(13))
 			artifact_bias = BIAS_INT;
 		else if (!artifact_bias && one_in_(7))
 			artifact_bias = BIAS_MAGE;
 		break;
 	case 5: case 6:
-		add_flag(object_ptr->art_flags, TR_WIS);
+		add_flag(object_ptr->art_flags, STAT_WIS);
 		if (!artifact_bias && !one_in_(13))
 			artifact_bias = BIAS_WIS;
 		else if (!artifact_bias && one_in_(7))
 			artifact_bias = BIAS_PRIESTLY;
 		break;
 	case 7: case 8:
-		add_flag(object_ptr->art_flags, TR_DEX);
+		add_flag(object_ptr->art_flags, STAT_DEX);
 		if (!artifact_bias && !one_in_(13))
 			artifact_bias = BIAS_DEX;
 		else if (!artifact_bias && one_in_(7))
 			artifact_bias = BIAS_ROGUE;
 		break;
 	case 9: case 10:
-		add_flag(object_ptr->art_flags, TR_CON);
+		add_flag(object_ptr->art_flags, STAT_CON);
 		if (!artifact_bias && !one_in_(13))
 			artifact_bias = BIAS_CON;
 		else if (!artifact_bias && one_in_(9))
 			artifact_bias = BIAS_RANGER;
 		break;
 	case 11: case 12:
-		add_flag(object_ptr->art_flags, TR_CHR);
+		add_flag(object_ptr->art_flags, STAT_CHA);
 		if (!artifact_bias && !one_in_(13))
 			artifact_bias = BIAS_CHR;
 		break;
@@ -1808,7 +1808,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	{
 		object_ptr->to_hit += (s16b)randint1(object_ptr->to_hit > 19 ? 1 : 20 - object_ptr->to_hit);
 		object_ptr->to_damage += (s16b)randint1(object_ptr->to_damage > 19 ? 1 : 20 - object_ptr->to_damage);
-		if ((have_flag(object_ptr->art_flags, TR_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
+		if ((have_flag(object_ptr->art_flags, STAT_WIS)) && (object_ptr->pval > 0)) add_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 	}
 
 	/* Just to be sure */
@@ -3027,7 +3027,7 @@ void get_bloody_moon_flags(object_type *object_ptr)
 	for (i = 0; i < 2; i++)
 	{
 		int tmp = randint0(11);
-		if (tmp < 6) add_flag(object_ptr->art_flags, TR_STR + tmp);
+		if (tmp < 6) add_flag(object_ptr->art_flags, STAT_STR + tmp);
 		else add_flag(object_ptr->art_flags, TR_STEALTH + tmp - 6);
 	}
 }

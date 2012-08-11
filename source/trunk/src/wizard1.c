@@ -604,19 +604,19 @@ struct flag_desc
 static flag_desc stat_flags_desc[] =
 {
 #ifdef JP
-	{ TR_STR,        "˜r—Í" },
-	{ TR_INT,        "’m”\" },
-	{ TR_WIS,        "Œ«‚³" },
-	{ TR_DEX,        "Ší—p‚³" },
-	{ TR_CON,        "‘Ï‹v—Í" },
-	{ TR_CHR,        "–£—Í" }
+	{ STAT_STR,        "˜r—Í" },
+	{ STAT_INT,        "’m”\" },
+	{ STAT_WIS,        "Œ«‚³" },
+	{ STAT_DEX,        "Ší—p‚³" },
+	{ STAT_CON,        "‘Ï‹v—Í" },
+	{ STAT_CHA,        "–£—Í" }
 #else
-	{ TR_STR,        "STR" },
-	{ TR_INT,        "INT" },
-	{ TR_WIS,        "WIS" },
-	{ TR_DEX,        "DEX" },
-	{ TR_CON,        "CON" },
-	{ TR_CHR,        "CHR" }
+	{ STAT_STR,        "STR" },
+	{ STAT_INT,        "INT" },
+	{ STAT_WIS,        "WIS" },
+	{ STAT_DEX,        "DEX" },
+	{ STAT_CON,        "CON" },
+	{ STAT_CHA,        "CHR" }
 #endif
 };
 
@@ -1072,9 +1072,9 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 	sprintf(pval_ptr->pval_desc, "%s%d", POSITIZE(object_ptr->pval), object_ptr->pval);
 
 	/* First, check to see if the pval affects all stats */
-	if (have_flag(flgs, TR_STR) && have_flag(flgs, TR_INT) &&
-	    have_flag(flgs, TR_WIS) && have_flag(flgs, TR_DEX) &&
-	    have_flag(flgs, TR_CON) && have_flag(flgs, TR_CHR))
+	if (have_flag(flgs, STAT_STR) && have_flag(flgs, STAT_INT) &&
+	    have_flag(flgs, STAT_WIS) && have_flag(flgs, STAT_DEX) &&
+	    have_flag(flgs, STAT_CON) && have_flag(flgs, STAT_CHA))
 	{
 #ifdef JP
 		*affects_list++ = "‘S”\—Í";
@@ -1084,9 +1084,9 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 	}
 
 	/* Are any stats affected? */
-	else if (have_flag(flgs, TR_STR) || have_flag(flgs, TR_INT) ||
-		 have_flag(flgs, TR_WIS) || have_flag(flgs, TR_DEX) ||
-		 have_flag(flgs, TR_CON) || have_flag(flgs, TR_CHR))
+	else if (have_flag(flgs, STAT_STR) || have_flag(flgs, STAT_INT) ||
+		 have_flag(flgs, STAT_WIS) || have_flag(flgs, STAT_DEX) ||
+		 have_flag(flgs, STAT_CON) || have_flag(flgs, STAT_CHA))
 	{
 		affects_list = spoiler_flag_aux(flgs, stat_flags_desc,
 						affects_list,

@@ -2674,7 +2674,7 @@ info[i++] = "‚»‚ê‚Íæ”n’†‚Í”ñí‚Ég‚¢‚â‚·‚¢B";
 			trivial_info++;
 		}
 	}
-	if (have_flag(flgs, TR_STR))
+	if (have_flag(flgs, STAT_STR))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í˜r—Í‚É‰e‹¿‚ğ‹y‚Ú‚·B";
@@ -2683,7 +2683,7 @@ info[i++] = "‚»‚ê‚Í˜r—Í‚É‰e‹¿‚ğ‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_INT))
+	if (have_flag(flgs, STAT_INT))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í’m”\‚É‰e‹¿‚ğ‹y‚Ú‚·B";
@@ -2692,7 +2692,7 @@ info[i++] = "‚»‚ê‚Í’m”\‚É‰e‹¿‚ğ‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_WIS))
+	if (have_flag(flgs, STAT_WIS))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍŒ«‚³‚É‰e‹¿‚ğ‹y‚Ú‚·B";
@@ -2701,7 +2701,7 @@ info[i++] = "‚»‚ê‚ÍŒ«‚³‚É‰e‹¿‚ğ‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_DEX))
+	if (have_flag(flgs, STAT_DEX))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍŠí—p‚³‚É‰e‹¿‚ğ‹y‚Ú‚·B";
@@ -2710,7 +2710,7 @@ info[i++] = "‚»‚ê‚ÍŠí—p‚³‚É‰e‹¿‚ğ‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_CON))
+	if (have_flag(flgs, STAT_CON))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í‘Ï‹v—Í‚É‰e‹¿‚ğ‹y‚Ú‚·B";
@@ -2719,7 +2719,7 @@ info[i++] = "‚»‚ê‚Í‘Ï‹v—Í‚É‰e‹¿‚ğ‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_CHR))
+	if (have_flag(flgs, STAT_CHA))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í–£—Í‚É‰e‹¿‚ğ‹y‚Ú‚·B";
