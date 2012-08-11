@@ -1552,31 +1552,30 @@ static bool init_graphics(void)
 		int wid, hgt;
 		cptr name;
 
-		if (arg_graphics == GRAPHICS_ADAM_BOLT)
+		switch(arg_graphics)
 		{
+
+			case GRAPHICS_ADAM_BOLT:
 			wid = 16;
 			hgt = 16;
-
-			name = "adambolt.BMP";
-
+			name = "adambolt.png";
 			ANGBAND_GRAF = "new";
-		}
-		else if (arg_graphics == GRAPHICS_DESKULL)
-		{
+			break;
+
+			case GRAPHICS_DESKULL:
 			wid = 32;
 			hgt = 32;
-
-			name = "deskull.BMP";
-
+			name = "deskull.png";
 			ANGBAND_GRAF = "new";
-		}
-		else
-		{
+			break;
+
+			case GRAPHICS_ORIGINAL:
 			wid = 8;
 			hgt = 8;
-
-			name = "oldest.BMP";
+			name = "oldest.png";
 			ANGBAND_GRAF = "old";
+			break;
+
 		}
 
 		/* Access the bitmap file */
