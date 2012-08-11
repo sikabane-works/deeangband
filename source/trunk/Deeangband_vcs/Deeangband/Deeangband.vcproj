@@ -590,6 +590,14 @@
 				RelativePath="..\..\src\z-virt.h"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\zconf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\zlib.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="リソース ファイル"
