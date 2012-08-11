@@ -2816,6 +2816,12 @@ enum OBJECT_EGO {
 	OBJECT_EGO_INFO_MAX_DAM,
 	OBJECT_EGO_INFO_MAX_AC,
 	OBJECT_EGO_INFO_MAX_EV,
+	OBJECT_EGO_INFO_STR,
+	OBJECT_EGO_INFO_INT,
+	OBJECT_EGO_INFO_WIS,
+	OBJECT_EGO_INFO_DEX,
+	OBJECT_EGO_INFO_CON,
+	OBJECT_EGO_INFO_CHA,
 	OBJECT_EGO_INFO_PVAL,
 	OBJECT_EGO_INFO_DEPTH,
 	OBJECT_EGO_INFO_RARITY,
@@ -2839,6 +2845,12 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"MAX_DAM",
 	"MAX_AC",
 	"MAX_EV",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
 	"PVAL",
 	"DEPTH",
 	"RARITY",
@@ -2967,6 +2979,48 @@ errr parse_object_ego_csv(char *buf, header *head)
 					object_ego_info[n].max_pval = (byte)b;
 				else
 					object_ego_info[n].max_pval = 0;
+				break;
+
+			case OBJECT_EGO_INFO_STR:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_stat[STAT_STR] = (byte)b;
+				else
+					object_ego_info[n].max_stat[STAT_STR] = 0;
+				break;
+
+			case OBJECT_EGO_INFO_INT:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_stat[STAT_INT] = (byte)b;
+				else
+					object_ego_info[n].max_stat[STAT_INT] = 0;
+				break;
+
+			case OBJECT_EGO_INFO_WIS:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_stat[STAT_WIS] = (byte)b;
+				else
+					object_ego_info[n].max_stat[STAT_WIS] = 0;
+				break;
+
+			case OBJECT_EGO_INFO_DEX:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_stat[STAT_DEX] = (byte)b;
+				else
+					object_ego_info[n].max_stat[STAT_DEX] = 0;
+				break;
+
+			case OBJECT_EGO_INFO_CON:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_stat[STAT_CON] = (byte)b;
+				else
+					object_ego_info[n].max_stat[STAT_CON] = 0;
+				break;
+
+			case OBJECT_EGO_INFO_CHA:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_ego_info[n].max_stat[STAT_CHA] = (byte)b;
+				else
+					object_ego_info[n].max_stat[STAT_CHA] = 0;
 				break;
 
 			case OBJECT_EGO_INFO_DEPTH:

@@ -257,8 +257,8 @@ struct ego_item_type
 	byte max_to_ac;			// Maximum to-ac bonus
 	byte max_to_ev;			// Maximum to-ac bonus
 
-	byte max_pval;		/* Maximum pval */
-
+	byte max_pval;		// Maximum pval
+	s16b max_stat[STAT_MAX];		// Maximum stat
 	s32b cost;			/* Ego-item "cost" */
 
 	u32b flags[TR_FLAG_SIZE];	/* Ego-Item Flags */
