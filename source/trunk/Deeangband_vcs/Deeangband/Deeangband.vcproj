@@ -297,6 +297,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\libpng.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\load.c"
 				>
 			</File>
@@ -512,6 +516,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\mindtips.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\png.h"
 				>
 			</File>
 			<File
