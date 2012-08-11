@@ -2428,6 +2428,12 @@ enum ARTIFACT_INFO {
 	ARTIFACT_INFO_E_NAME,
 	ARTIFACT_INFO_TVAL,
 	ARTIFACT_INFO_SVAL,
+	ARTIFACT_INFO_STR,
+	ARTIFACT_INFO_INT,
+	ARTIFACT_INFO_WIS,
+	ARTIFACT_INFO_DEX,
+	ARTIFACT_INFO_CON,
+	ARTIFACT_INFO_CHA,
 	ARTIFACT_INFO_PVAL,
 	ARTIFACT_INFO_DEPTH,
 	ARTIFACT_INFO_RARITY,
@@ -2458,6 +2464,12 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"E_NAME",
 	"TVAL",
 	"SVAL",
+	"STR",
+	"INT",
+	"WIS",
+	"DEX",
+	"CON",
+	"CHA",
 	"PVAL",
 	"DEPTH",
 	"RARITY",
@@ -2557,6 +2569,48 @@ errr parse_artifact_csv(char *buf, header *head)
 					artifact_info[n].sval = (byte)b;
 				else
 					artifact_info[n].sval = 0;
+				break;
+
+			case ARTIFACT_INFO_STR:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].stat[STAT_STR] = (byte)b;
+				else
+					artifact_info[n].stat[STAT_STR] = 0;
+				break;
+
+			case ARTIFACT_INFO_INT:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].stat[STAT_INT] = (byte)b;
+				else
+					artifact_info[n].stat[STAT_INT] = 0;
+				break;
+
+			case ARTIFACT_INFO_WIS:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].stat[STAT_WIS] = (byte)b;
+				else
+					artifact_info[n].stat[STAT_WIS] = 0;
+				break;
+
+			case ARTIFACT_INFO_DEX:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].stat[STAT_DEX] = (byte)b;
+				else
+					artifact_info[n].stat[STAT_DEX] = 0;
+				break;
+
+			case ARTIFACT_INFO_CON:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].stat[STAT_CON] = (byte)b;
+				else
+					artifact_info[n].stat[STAT_CON] = 0;
+				break;
+
+			case ARTIFACT_INFO_CHA:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].stat[STAT_CHA] = (byte)b;
+				else
+					artifact_info[n].stat[STAT_CHA] = 0;
 				break;
 
 			case ARTIFACT_INFO_PVAL:

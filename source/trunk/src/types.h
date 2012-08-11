@@ -190,6 +190,8 @@ struct artifact_type
 	byte tval;			/* Artifact type */
 	byte sval;			/* Artifact sub type */
 
+	s16b stat[STAT_MAX]; // stat info.
+
 	s16b pval;			/* Artifact extra info */
 
 	s16b to_hit;			// Bonus to hit
