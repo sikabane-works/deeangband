@@ -1578,16 +1578,16 @@ static bool init_graphics(void)
 
 		}
 
-		/* Access the bitmap file */
+		// Access the bitmap file
 		path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, name);
 
-		/* Load the bitmap or quit */
+		// Load the bitmap or quit
 		if (!ReadDIB(data[0].w, buf, &infGraph))
 		{
 #ifdef JP
-			plog_fmt("ビットマップ '%s' を読み込めません。", name);
+			plog_fmt("画像ファイル '%s' を読み込めません。", name);
 #else
-			plog_fmt("Cannot read bitmap file '%s'", name);
+			plog_fmt("Cannot read graphic file '%s'", name);
 #endif
 
 			return (FALSE);
@@ -1596,31 +1596,6 @@ static bool init_graphics(void)
 		/* Save the new sizes */
 		infGraph.CellWidth = wid;
 		infGraph.CellHeight = hgt;
-
-		if (arg_graphics == GRAPHICS_ADAM_BOLT)
-		{
-			/* Access the mask file */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "adambolt_mask.bmp");
-
-			/* Load the bitmap or quit */
-			if (!ReadDIB(data[0].w, buf, &infMask))
-			{
-				plog_fmt("Cannot read bitmap file '%s'", buf);
-				return (FALSE);
-			}
-		}
-		else if (arg_graphics == GRAPHICS_DESKULL)
-		{
-			/* Access the mask file */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_GRAF, "deskull_mask.bmp");
-
-			/* Load the bitmap or quit */
-			if (!ReadDIB(data[0].w, buf, &infMask))
-			{
-				plog_fmt("Cannot read bitmap file '%s'", buf);
-				return (FALSE);
-			}
-		}
 
 		/* Activate a palette */
 		if (!new_palette())

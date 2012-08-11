@@ -3256,13 +3256,15 @@ extern int PlayerUID;
 #define QUEST_FLAG_PRESET  0x02 /* quest is outside the main dungeon */
 #define QUEST_FLAG_ONCE    0x04 /* quest is marked finished after leaving */
 
-/*
- * Available graphic modes
- */
-#define GRAPHICS_NONE       0
-#define GRAPHICS_ORIGINAL   1
-#define GRAPHICS_ADAM_BOLT  2
-#define GRAPHICS_DESKULL    3
+
+// Available graphic modes
+enum GRAPHICS_MODE
+{
+	GRAPHICS_NONE,
+	GRAPHICS_ORIGINAL,
+	GRAPHICS_ADAM_BOLT,
+	GRAPHICS_DESKULL
+};
 
 /*
  * Generate Creature Flag
