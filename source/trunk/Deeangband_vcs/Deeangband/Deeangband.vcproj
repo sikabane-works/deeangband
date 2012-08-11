@@ -523,6 +523,30 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\pngconf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\pngdebug.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\pnginfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\pnglibconf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\pngpriv.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\pngstruct.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\readdib.h"
 				>
 			</File>

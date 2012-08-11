@@ -5,15 +5,15 @@
 #ifndef INCLUDED_ANGBAND_H
 #define INCLUDED_ANGBAND_H
 
+#include "png.h"
+
 /*
- * Copyright (c) 1989 James E. Wilson
+ * Copyright (c) 1989 James E. Wilson 2012 Deskull
  *
  * This software may be copied and distributed for educational, research, and
  * not for profit purposes provided that this copyright and statement are
  * included in all such copies.
  */
-
-
 
 /*
  * First, include the low-level includes.  Be sure to edit "h-config.h"
