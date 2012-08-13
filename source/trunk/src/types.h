@@ -1488,10 +1488,6 @@ struct creature_type
 	bool bless_blade;	/* Blessed blade */
 	bool impact[MAX_WEAPONS];		/* Earthquake blows */
 	bool pass_wall;     /* Permanent wraithform */
-	bool dec_mana;
-	bool easy_spell;
-	bool heavy_spell;
-	bool easy_multi_weapon;
 
 	s32b regist_rate[RR_MAX]; 
 

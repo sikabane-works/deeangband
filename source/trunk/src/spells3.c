@@ -4121,7 +4121,7 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int rea
 		 * MANSTAT_CONST is used to calculate need_mana effected from spell proficiency.
 		 */
 		need_mana = need_mana * (MANSTAT_CONST + SPELL_EXP_EXPERT - experience_of_spell(creature_ptr, spell, realm)) + (MANSTAT_CONST - 1);
-		need_mana *= creature_ptr->dec_mana ? DEC_MANA_DIV : MANA_DIV;
+		need_mana *= has_trait(creature_ptr, TRAIT_DEC_MANA) ? DEC_MANA_DIV : MANA_DIV;
 		need_mana /= MANSTAT_CONST * MANA_DIV;
 		if (need_mana < 1) need_mana = 1;
 	}
@@ -4129,7 +4129,7 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int rea
 	/* Non-realm magic */
 	else
 	{
-		if (creature_ptr->dec_mana) need_mana = (need_mana + 1) * DEC_MANA_DIV / MANA_DIV;
+		if (has_trait(creature_ptr, TRAIT_DEC_MANA)) need_mana = (need_mana + 1) * DEC_MANA_DIV / MANA_DIV;
 	}
 
 #undef DEC_MANA_DIV
@@ -4142,17 +4142,16 @@ int mod_need_mana(creature_type *creature_ptr, int need_mana, int spell, int rea
 
 /*
  * Modify spell fail rate
- * Using creature_ptr->to_m_chance, creature_ptr->dec_mana, creature_ptr->easy_spell and creature_ptr->heavy_spell
  */
 int mod_spell_chance_1(creature_type *creature_ptr, int chance)
 {
 	chance += creature_ptr->to_m_chance;
 
-	if (creature_ptr->heavy_spell) chance += 20;
+	if (has_trait(creature_ptr, TRAIT_HARD_SPELL)) chance += 20;
 
-	if (creature_ptr->dec_mana && creature_ptr->easy_spell) chance -= 4;
-	else if (creature_ptr->easy_spell) chance -= 3;
-	else if (creature_ptr->dec_mana) chance -= 2;
+	if (has_trait(creature_ptr, TRAIT_DEC_MANA) && has_trait(creature_ptr, TRAIT_EASY_SPELL)) chance -= 4;
+	else if (has_trait(creature_ptr, TRAIT_EASY_SPELL)) chance -= 3;
+	else if (has_trait(creature_ptr, TRAIT_DEC_MANA)) chance -= 2;
 
 	return chance;
 }
@@ -4160,14 +4159,12 @@ int mod_spell_chance_1(creature_type *creature_ptr, int chance)
 
 /*
  * Modify spell fail rate (as "suffix" process)
- * Using creature_ptr->dec_mana, creature_ptr->easy_spell and creature_ptr->heavy_spell
  * Note: variable "chance" cannot be negative.
  */
 int mod_spell_chance_2(creature_type *creature_ptr, int chance)
 {
-	if (creature_ptr->dec_mana) chance--;
-
-	if (creature_ptr->heavy_spell) chance += 5;
+	if (has_trait(creature_ptr, TRAIT_DEC_MANA)) chance--;
+	if (has_trait(creature_ptr, TRAIT_HARD_SPELL)) chance += 5;
 
 	return MAX(chance, 0);
 }

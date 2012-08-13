@@ -676,38 +676,10 @@ info[i++] = "あなたはテレポートできない。";
 	if (creature_ptr->lite)
 	{
 #ifdef JP
-info[i++] = "あなたの身体は光っている。";
+		info[i++] = "あなたの身体は光っている。";
 #else
 		info[i++] = "You are carrying a permanent light.";
 #endif
-
-	}
-	if (creature_ptr->dec_mana)
-	{
-#ifdef JP
-info[i++] = "あなたは少ない消費魔力で魔法を唱えることができる。";
-#else
-		info[i++] = "You can cast spells with fewer mana points.";
-#endif
-
-	}
-	if (creature_ptr->easy_spell)
-	{
-#ifdef JP
-info[i++] = "あなたは低い失敗率で魔法を唱えることができる。";
-#else
-		info[i++] = "Fail rate of your magic is decreased.";
-#endif
-
-	}
-	if (creature_ptr->heavy_spell)
-	{
-#ifdef JP
-info[i++] = "あなたは高い失敗率で魔法を唱えなければいけない。";
-#else
-		info[i++] = "Fail rate of your magic is increased.";
-#endif
-
 	}
 
 	/*TODO

@@ -3717,9 +3717,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
 	creature_ptr->pass_wall = FALSE;
-	creature_ptr->dec_mana = FALSE;
-	creature_ptr->easy_spell = FALSE;
-	creature_ptr->heavy_spell = FALSE;
 	creature_ptr->free_act = FALSE;
 	creature_ptr->lite = FALSE;
 	creature_ptr->resist_acid = FALSE;
@@ -4287,7 +4284,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->to_ac += 10;
 			creature_ptr->dis_to_ac += 10;
 		}
-		if (creature_ptr->easy_multi_weapon)
+		if (has_trait(creature_ptr, TRAIT_EASY_MULTI_WEAPON)
 		{
 			if (penalty1 > 0) penalty1 /= 2;
 			if (penalty2 > 0) penalty2 /= 2;
