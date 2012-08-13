@@ -1216,7 +1216,7 @@ struct creature_type
 	u32b sub_race[8];       /* Sub-Race flags */
 	u32b authority[8];      /* Autority flags*/
 	s16b sex;				/* Sex index */
-	bool sexual_penalty;	/* Sexual penalty flag*/
+	bool sexual_penalty;	/* Sexual penalty flag */
 	s16b class_idx;		    /* Class index */
 	bool cls_bonus;	        /* Class bonus flag*/
 	s16b chara_idx;		    /* chara index */
@@ -1225,17 +1225,13 @@ struct creature_type
 	s16b mother_idx;
 	s16b realm1;            /* First magic realm */
 	s16b realm2;            /* Second magic realm */
-	byte oops;			    /* Unused */
 
-	s16b camp_idx;				/* Camp */
-	s16b master_creature_idx;	/* Master */
+	s16b camp_idx;				// Camp
+	s16b master_creature_idx;	// Master
 
-	s16b hitdice;		/* Hit dice */
-	s16b hitdice_base;   /* Hit dice base */
-	u16b expfact;       /* Experience factor
-			     * Note: was byte, causing overflow for Amberite
-			     * characters (such as Amberite Paladins)
-			     */
+	s16b hitdice;		// Hit dice
+	s16b hitdice_base;  // Hit dice base
+	u16b expfact;       // Experience factor
 
 	s32b age;			/* Characters age */
 	s32b ht;			/* Height */
@@ -1273,34 +1269,34 @@ struct creature_type
 
 	s16b max_plv;		/* Max Player Level */
 
-	s16b stat_cur[STAT_MAX];           // Current "natural" stat values
-	s16b stat_max[STAT_MAX];	        // Current "maximal" stat values
+	s16b stat_cur[STAT_MAX];			// Current "natural" stat values
+	s16b stat_max[STAT_MAX];			// Current "maximal" stat values
 	s16b stat_max_max[STAT_MAX];	    // Maximal "maximal" stat values
 	s16b stat_mod_max_max[STAT_MAX];	// Modified Maximal "maximal" stat values by divine rank
-	s16b stat_use[STAT_MAX];           // Current modified stats
-	s16b stat_top[STAT_MAX];           // Maximal modified stats
-	s16b stat_add[STAT_MAX];           // Modifiers to stat values
-	s16b stat_ind[STAT_MAX];           // Indexes into stat tables
+	s16b stat_use[STAT_MAX];			// Current modified stats
+	s16b stat_top[STAT_MAX];			// Maximal modified stats
+	s16b stat_add[STAT_MAX];			// Modifiers to stat values
+	s16b stat_ind[STAT_MAX];			// Indexes into stat tables
 
 	s16b learned_spells;
 	s16b add_spells;
 
-	s16b fast;		/* Timed -- Fast */
-	s16b slow;		/* Timed -- Slow */
-	s16b blind;		/* Timed -- Blindness */
+	s16b fast;			/* Timed -- Fast */
+	s16b slow;			/* Timed -- Slow */
+	s16b blind;			/* Timed -- Blindness */
 	s16b paralyzed;		/* Timed -- Paralysis */
 	s16b confused;		/* Timed -- Confusion */
 	s16b afraid;		/* Timed -- Fear */
-	s16b image;		/* Timed -- Hallucination */
+	s16b image;			/* Timed -- Hallucination */
 	s16b poisoned;		/* Timed -- Poisoned */
-	s16b cut;		/* Timed -- Cut */
-	s16b stun;		/* Timed -- Stun */
+	s16b cut;			/* Timed -- Cut */
+	s16b stun;			/* Timed -- Stun */
 
 	s16b protevil;		/* Timed -- Protection */
 	s16b invuln;		/* Timed -- Invulnerable */
 	s16b ult_res;		/* Timed -- Ultimate Resistance */
-	s16b hero;		/* Timed -- Heroism */
-	s16b shero;		/* Timed -- Super Heroism */
+	s16b hero;			/* Timed -- Heroism */
+	s16b shero;			/* Timed -- Super Heroism */
 	s16b shield;		/* Timed -- Shield Spell */
 	s16b blessed;		/* Timed -- Blessed */
 	s16b tim_invis;		/* Timed -- See Invisible */
@@ -1314,7 +1310,6 @@ struct creature_type
 	s16b oppose_fire;	/* Timed -- oppose heat */
 	s16b oppose_cold;	/* Timed -- oppose cold */
 	s16b oppose_pois;	/* Timed -- oppose poison */
-
 
 	s16b tim_esp;       /* Timed ESP */
 	s16b wraith_form;   /* Timed wraithform */
@@ -1453,7 +1448,6 @@ struct creature_type
 	s16b run_py;
 	s16b run_px;
 
-
 	/*** Extracted fields ***/
 
 	u32b equipping_weight;	/* Total weight being carried */
@@ -1574,12 +1568,12 @@ struct creature_type
 
 	byte snipe_type;
 	bool is_fired;
-	bool reset_concent;   /* Concentration reset flag */
+	bool reset_concent;   // Concentration reset flag
 
 	bool now_damaged;
 	bool hack_mutation;
 
-	u16b total_winner;	  /* Total winner */
+	u16b total_winner;	  // Total winner
 	u32b creature_update;
 
 	u32b change_floor_mode;
