@@ -5039,6 +5039,8 @@ enum CLASS_INFO {
 	CL_INFO_EXP,
 	CL_INFO_PET_UPKEEP,
 	CL_INFO_FLAGS,
+	CL_INFO_DESCRIPTION,
+	CL_INFO_E_DESCRIPTION,
 	CL_INFO_CSV_COLUMNS,
 };
 
@@ -5079,7 +5081,9 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 	"HD",
 	"EXP",
 	"PET_UPKEEP",
-	"FLAGS"
+	"FLAGS",
+	"DESCRIPTION",
+	"E_DESCRIPTION",
 };
 static int cl_info_csv_code[CL_INFO_CSV_COLUMNS];
 
@@ -5317,6 +5321,13 @@ errr parse_class_info_csv(char *buf, header *head)
 					if(0 != traits_precondition_splits(&class_ptr->flags, tmp))
 						return PARSE_ERROR_GENERIC;
 					break;
+
+				case CL_INFO_DESCRIPTION:
+					break;
+
+				case CL_INFO_E_DESCRIPTION:
+					break;
+
 			}
 		}
 	}
