@@ -2706,7 +2706,7 @@ void process_creatures(void)
 	byte    old_r_cast_spell = 0;
 
 	/* Clear creature fighting indicator */
-	mon_fight = FALSE;
+	npc_action = FALSE;
 
 	/* Memorize old race */
 	old_species_window_idx = species_window_idx;

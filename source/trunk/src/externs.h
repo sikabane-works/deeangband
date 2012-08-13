@@ -90,9 +90,11 @@ extern u32b fake_spell_flags[4];
 extern s32b realm_choices1[];
 extern s32b realm_choices2[];
 extern cptr realm_names[];
+
 #ifdef JP
 extern cptr E_realm_names[];
 #endif
+
 extern cptr spell_names[VALID_REALM][32];
 extern int chest_traps[64];
 extern cptr colospecies_names[16];
@@ -117,7 +119,7 @@ extern byte feature_action_flags[FF_FLAG_MAX];
 extern byte race_crossing[MAX_RACES][MAX_RACES];
 extern object_id prize_list[MAX_BOUNTY];
 
-/* variable.c */
+// variable.c
 extern cptr copyright[5];
 extern byte ver_major;
 extern byte ver_minor;
@@ -553,7 +555,7 @@ extern u16b noscore;		  /* Cheating flags */
 
 extern bool sukekaku;
 extern bool new_mane;
-extern bool mon_fight;
+extern bool npc_action;
 extern bool ambush_flag;
 extern bool generate_encounter;
 extern cptr screen_dump;

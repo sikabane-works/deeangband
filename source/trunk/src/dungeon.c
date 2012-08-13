@@ -3928,7 +3928,7 @@ static void process_world(void)
 			do_cmd_save_game(TRUE);
 	}
 
-	if (mon_fight && !ignore_unview)
+	if (npc_action && !ignore_unview)
 	{
 #ifdef JP
 		msg_print("âΩÇ©Ç™ï∑Ç±Ç¶ÇΩÅB");

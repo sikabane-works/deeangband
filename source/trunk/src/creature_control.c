@@ -4215,7 +4215,7 @@ msg_print("守りのルーンが壊れた！");
 			else
 			{
 #ifdef JP
-				msg_format("s%光る物が頭に浮かんだ。", color);
+				msg_format("%s光る物が頭に浮かんだ。", color);
 #else
 				msg_format("An %s image forms in your mind.");
 #endif

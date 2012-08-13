@@ -1087,7 +1087,7 @@ u16b noscore;		  /* Cheating flags */
 bool sukekaku;
 bool new_mane;
 
-bool mon_fight;
+bool npc_action;
 
 bool ambush_flag;
 bool generate_encounter;

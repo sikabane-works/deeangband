@@ -1796,24 +1796,21 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 	int caster_lev = caster_ptr->lev * 2;
 
-//
-
-	/* Nobody here */
+	// Nobody here
 	if (!c_ptr->creature_idx) return (FALSE);
 
-	/* Never affect projector */
+	// Never affect projector
 	if (target_ptr == caster_ptr) return (FALSE);
 
 	if ((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
 	if (sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return FALSE;
 
-	/* Don't affect already death creatures */
-	/* Prevents problems with chain reactions of exploding creatures */
+	// Don't affect already death creatures
+	// Prevents problems with chain reactions of exploding creatures
 	if (target_ptr->chp < 0) return (FALSE);
 
-	/* Reduce damage by distance */
+	// Reduce damage by distance
 	dam = (dam + r) / (r + 1);
-
 
 	/* Get the creature name (BEFORE polymorphing) */
 	creature_desc(target_name, target_ptr, 0);
@@ -2077,7 +2074,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				}
 				else
 				{
-					mon_fight = TRUE;
+					npc_action = TRUE;
 				}
 			}
 
@@ -2113,7 +2110,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			}
 			else
 			{
-				mon_fight = TRUE;
+				npc_action = TRUE;
 			}
 
 			/* Hack -- handle sleep */
@@ -2190,7 +2187,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				if (!count)
 				{
 #ifdef JP
-msg_print("地面が揺れた...");
+					msg_print("地面が揺れた...");
 #else
 					msg_print("The ground trembles...");
 #endif
@@ -2203,7 +2200,7 @@ msg_print("地面が揺れた...");
 				{
 					int dam = diceroll(10, 10);
 #ifdef JP
-msg_print("純粋な魔力の次元への扉が開いた！");
+					msg_print("純粋な魔力の次元への扉が開いた！");
 #else
 					msg_print("A portal opens to a plane of raw mana!");
 #endif
@@ -2215,7 +2212,7 @@ msg_print("純粋な魔力の次元への扉が開いた！");
 				if (!count)
 				{
 #ifdef JP
-msg_print("空間が歪んだ！");
+					msg_print("空間が歪んだ！");
 #else
 					msg_print("Space warps about you!");
 #endif
@@ -2226,7 +2223,7 @@ msg_print("空間が歪んだ！");
 				}
 			case 9: case 10: case 11:
 #ifdef JP
-msg_print("エネルギーのうねりを感じた！");
+				msg_print("エネルギーのうねりを感じた！");
 #else
 				msg_print("You feel a surge of energy!");
 #endif
