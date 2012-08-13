@@ -3087,7 +3087,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	if (a_ptr->gen_flags & (TRG_XTRA_H_RES)) give_resistance = TRUE;
 	if (a_ptr->gen_flags & (TRG_XTRA_RES_OR_POWER))
 	{
-		/* Give a resistance OR a power */
+		// Give a resistance OR a power
 		if (one_in_(2)) give_resistance = TRUE;
 		else give_power = TRUE;
 	}

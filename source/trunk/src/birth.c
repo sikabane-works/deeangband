@@ -2911,12 +2911,12 @@ void subrace_detail(int code)
 #endif
 
 		sprintf(buf, "%+2d      %+2d      %+2d      %+2d      %+2d      %+2d      %+4d%% ",
-			race_info[code].r_s_adj[0],
-			race_info[code].r_s_adj[1],
-			race_info[code].r_s_adj[2],
-			race_info[code].r_s_adj[3],
-			race_info[code].r_s_adj[4],
-			race_info[code].r_s_adj[5],
+			race_info[code].r_s_adj[STAT_STR],
+			race_info[code].r_s_adj[STAT_INT],
+			race_info[code].r_s_adj[STAT_WIS],
+			race_info[code].r_s_adj[STAT_DEX],
+			race_info[code].r_s_adj[STAT_CON],
+			race_info[code].r_s_adj[STAT_CHA],
 			(race_info[code].r_s_exp - 100));
 		c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
@@ -2980,12 +2980,12 @@ void class_detail(int code)
 #endif
 
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
-		class_info[code].c_adj[0],
-		class_info[code].c_adj[1],
-		class_info[code].c_adj[2],
-		class_info[code].c_adj[3],
-		class_info[code].c_adj[4],
-		class_info[code].c_adj[5],
+		class_info[code].c_adj[STAT_STR],
+		class_info[code].c_adj[STAT_INT],
+		class_info[code].c_adj[STAT_WIS],
+		class_info[code].c_adj[STAT_DEX],
+		class_info[code].c_adj[STAT_CON],
+		class_info[code].c_adj[STAT_CHA],
 		class_info[code].c_exp);
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
@@ -3028,12 +3028,12 @@ void chara_detail(int code)
 #endif
 
 	sprintf(buf, "%+2d      %+2d      %+2d      %+2d       %+2d      %+2d     %+4d%% ",
-		chara_info[code].a_adj[0],
-		chara_info[code].a_adj[1],
-		chara_info[code].a_adj[2],
-		chara_info[code].a_adj[3],
-		chara_info[code].a_adj[4],
-		chara_info[code].a_adj[5],
+		chara_info[code].a_adj[STAT_STR],
+		chara_info[code].a_adj[STAT_INT],
+		chara_info[code].a_adj[STAT_WIS],
+		chara_info[code].a_adj[STAT_DEX],
+		chara_info[code].a_adj[STAT_CON],
+		chara_info[code].a_adj[STAT_CHA],
 		0);
 	c_put_str(TERM_L_BLUE, buf, base+2, 24);
 
