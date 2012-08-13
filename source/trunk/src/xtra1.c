@@ -3191,12 +3191,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if (creature_ptr->wraith_form)
 	{
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-		creature_ptr->pass_wall = TRUE;
-	}
-
-	if (creature_ptr->kabenuke)
-	{
-		creature_ptr->pass_wall = TRUE;
 	}
 
 	/* Temporary blessing */
@@ -3716,7 +3710,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
-	creature_ptr->pass_wall = FALSE;
 	creature_ptr->free_act = FALSE;
 	creature_ptr->lite = FALSE;
 	creature_ptr->resist_acid = FALSE;
@@ -4706,7 +4699,6 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	if (steed_ptr->slow) creature_ptr->speed -= 10;
 	riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
 
-	if (!has_trait(steed_ptr, TRAIT_PASS_WALL)) creature_ptr->pass_wall = FALSE;
 	//TODO if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
 	if (creature_ptr->skill_exp[SKILL_RIDING] < RIDING_EXP_SKILLED) j += (creature_ptr->wt * 3 * (RIDING_EXP_SKILLED - creature_ptr->skill_exp[SKILL_RIDING])) / RIDING_EXP_SKILLED;
@@ -4813,7 +4805,7 @@ static void set_flow_flag(creature_type *creature_ptr)
 		}
 	}
 
-	if (creature_ptr->pass_wall && !has_trait(creature_ptr, TRAIT_KILL_WALL)) creature_ptr->no_flowed = TRUE;
+	if (has_trait(creature_ptr, TRAIT_PASS_WALL) && !has_trait(creature_ptr, TRAIT_KILL_WALL)) creature_ptr->no_flowed = TRUE;
 
 	if (have_sw && ((creature_ptr->realm1 == REALM_NATURE) || (creature_ptr->realm2 == REALM_NATURE) || (creature_ptr->class_idx == CLASS_SORCERER)))
 	{

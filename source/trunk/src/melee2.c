@@ -94,7 +94,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 			if (!are_enemies(m_ptr, t_ptr)) continue;
 
 			/* Creature must be projectable if we can't pass through walls */
-			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || creature_ptr->pass_wall)) ||
+			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || has_trait(creature_ptr, TRAIT_PASS_WALL))) ||
 			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (m_idx != creature_ptr->riding)))
 			{
 				if (!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
@@ -300,7 +300,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		cost = c_ptr->cost;
 
 		/* Creature cannot kill or pass walls */
-		if (!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall)) ||
+		if (!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL))) ||
 			  (has_trait(creature_ptr, TRAIT_KILL_WALL) && (m_idx != player_ptr->riding))))
 		{
 			if (cost == 0) continue;
@@ -374,7 +374,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	if (no_flow) return (FALSE);
 
 	/* Creature can go through rocks */
-	if (has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || mover_ptr->pass_wall)) return (FALSE);
+	if (has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return (FALSE);
 	if (has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
 
 	/* Creature location */
@@ -849,7 +849,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
 	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
-	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || player_ptr->pass_wall));
+	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL)));
 
 	/* Counter attack to an enemy creature */
 	if (!will_run && nonplayer_ptr->target_y)
@@ -1942,7 +1942,7 @@ static void process_nonplayer(int m_idx)
 			do_move = TRUE;
 
 			/* Creature moves through walls (and doors) */
-			if (has_trait(creature_ptr, TRAIT_PASS_WALL) && (!is_riding_mon || player_ptr->pass_wall) &&
+			if (has_trait(creature_ptr, TRAIT_PASS_WALL) && (!is_riding_mon || has_trait(player_ptr, TRAIT_PASS_WALL)) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
 				/* Creature went through a wall */

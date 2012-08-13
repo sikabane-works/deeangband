@@ -3429,7 +3429,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	}
 
 	/* First, affect the player (if necessary) */
-	if (hurt && !target_ptr->pass_wall && !has_trait(target_ptr, TRAIT_KILL_WALL))
+	if (hurt && !has_trait(target_ptr, TRAIT_PASS_WALL) && !has_trait(target_ptr, TRAIT_KILL_WALL))
 	{
 		/* Check around the player */
 		for (i = 0; i < 8; i++)

@@ -1861,13 +1861,13 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 	if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
 		if (!IS_INVULN(creature_ptr) && !creature_ptr->wraith_form && !creature_ptr->kabenuke &&
-		    ((creature_ptr->chp > (creature_ptr->lev / 5)) || !creature_ptr->pass_wall))
+		    ((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;
 
 			cave_no_regen = TRUE;
 
-			if (creature_ptr->pass_wall)
+			if (has_trait(creature_ptr, TRAIT_PASS_WALL))
 			{
 #ifdef JP
 				msg_print("体の分子が分解した気がする！");
