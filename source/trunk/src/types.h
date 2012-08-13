@@ -1479,9 +1479,8 @@ struct creature_type
 	s16b resist_force;   /* Resist force */
 	s16b resist_water;   /* Resist water */
 
-	u32b cursed;            /* Player is cursed */
+	u32b cursed;         /* Player is cursed */
 
-	bool can_swim;		/* No damage falling */
 	bool lite;		/* Permanent light */
 
 	s32b regist_rate[RR_MAX]; 
