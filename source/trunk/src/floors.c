@@ -524,7 +524,9 @@ void move_floor(creature_type *creature_ptr)
 			new_floor_ptr->floor_level = creature_ptr->depth = old_floor_ptr->floor_level + move_num;
 		}
 
-		change_floor(new_floor_ptr, creature_ptr);
+		generate_floor(new_floor_ptr);
+		creature_ptr->feeling_turn = old_turn;
+		creature_ptr->floor_feeling = 0;
 		creature_ptr->floor_id = floor_id;
 
 		// Choose random stairs
@@ -601,46 +603,6 @@ void move_floor(creature_type *creature_ptr)
 
 	reset_cave_creature_reference();
 }
-
-
-/*
- * Enter new floor.  If the floor is an old saved floor, it will be
- * restored from the temporal file.  If the floor is new one, new cave
- * will be generated.
- */
-void change_floor(floor_type *floor_ptr, creature_type *creature_ptr)
-{
-	//floor_type *sf_ptr;
-	bool loaded = FALSE;
-
-	// No longer in the trap detecteded region
-	detect_trap = FALSE;
-
-	// Mega-Hack -- no panel yet
-	panel_row_min = 0;
-	panel_row_max = 0;
-	panel_col_min = 0;
-	panel_col_max = 0;
-
-	// Mega-Hack -- not ambushed on the wildness?
-	ambush_flag = FALSE;
-
-	generate_floor(floor_ptr); // Generate field
-
-	// The dungeon is ready 
-	floor_generated = TRUE;
-
-
-	// Remember when this level was "created" 
-	old_turn = turn;
-
-	// No dungeon feeling yet 
-	creature_ptr->feeling_turn = old_turn;
-	creature_ptr->floor_feeling = 0;
-
-}
-
-
 
 
 /*

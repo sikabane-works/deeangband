@@ -1472,10 +1472,6 @@ bool is_hyper_int_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_HYPER_INT]);
 }
 
-
-
-
-
 bool is_enemy_of_evil_creature(creature_type *creature_ptr)
 {
 	//TODO
