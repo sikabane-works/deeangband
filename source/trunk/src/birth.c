@@ -1680,66 +1680,19 @@ static cptr class_jouhou[MAX_CLASS] =
 
 static cptr chara_jouhou[MAX_CHARA] =
 {
-#ifdef JP
-"普通は、特に特筆するべき部分がない性格です。あらゆる技能を平均的にこなします。",
-
-"力自慢は、肉体的な能力や技能が上昇します。しかし、魔法に関係する能力や技能は劣り、戦士よりのステータスを持ちます。",
-
-"切れ者は、肉体的な能力は下がりますが、知能や魔法に関係する技能は上昇し、メイジよりのステータスを持ちます。",
-
-"幸せ者は、神を信仰する能力が高くなります。肉体的には平均的な能力を持ち、プリーストに近いステータスとなります。",
-
-"素早いは、どのスキルも比較的うまくこなしますが、肉体的な能力は低くなります。",
-
-"命知らずは、戦闘力、魔法能力の両方が上昇しますが、魔法防御、ＨＰといった能力は悪くなります。",
-
-"好きな食べ物は焼きビーフン。抑えてはいるが、冒険心旺盛な一匹狼。正義感、勇気とも平均以上だがカッとしやすい所もある。計画的人生より行き当たりばったりの人生を選んでしまうタイプで、異性の扱いは苦手。",
-
-"怠け者は、あらゆるスキルが低く、何をやってもうまくいきません。",
-
-"セクシーギャルは、あらゆるスキルをうまくこなすことができます。しかし、その人をなめた性格は全てのクリーチャーを怒らせることになるでしょう。この性格は女性しか選ぶことができません。",
-
-"ラッキーマンは、能力値はなまけものに匹敵するくらい低いにもかかわらず、どんなことをしてもなぜかうまくいってしまいます。この性格は男性しか選ぶことができません。",
-
-"我慢強いは、じっくりと物事にとりくむ慎重な性格で、他の性格に比べて高い耐久力を得ることができます。しかし、自分から行動するのは苦手で、多くの技能は低くなってしまいます。",
-
-"イカサマは、初心者の練習用の性格です。あらゆる能力が高くなっています。この性格を使えば勝利者になることは容易ですが、勝利しても全く自慢になりません。",
-
-"チャージマンは「こんなところ」に連れて行かれても仕方のない可愛そうなお友達なんＤＡ。腕っ節やタフさはマンモス並みに強いのだけれど知能面はまるで駄目なのが分かるだろう？この性格は最初から気が狂っているので、混乱したり幻覚を見る心配がないのです。",
-"TODO::Explain",
-"TODO::Explain",
-"TODO::Explain",
-"TODO::Explain",
-"TODO::Explain",
-"TODO::Explain",
-
-#else
-
 "\"Ordinary\" is a personality with no special skills or talents, with unmodified stats and skills.",
-
 "\"Mighty\" raises your physical stats and skills, but reduces stats and skills which influence magic.  It makes your stats suitable for a warrior.  Also it directly influences your hit-points and spell fail rate.",
-
 "\"Shrewd\" reduces your physical stats, and raises your intelligence and magical skills.  It makes your stats suitable for a mage.  Also it directly influences your hit-points and spell fail rate.",
-
 "\"Pious\" deepens your faith in your God.  It makes your physical ability average, and your stats suitable for priest. ",
-
 "\"Nimble\" renders you highly skilled comparatively well, but reduces your physical ability. ",
-
 "\"Fearless\" raises both your melee and magical ability.  Stats such as magic defense and constitution are reduced.  Also it has a direct bad influence on your hit-points.",
-
 "\"Combat\" gives you comparatively high melee and shooting abilities, and average constitution.  Other skills such as stealth, magic defence, and magical devices are weakened.  All \"Combat\" people have great respect for the legendary \"Combat Echizen\".\n\
 (See \"Death Crimson\" / Ecole Software Corp.)",
-
 "A \"Lazy\" person has no good stats and can do no action well.  Also it has a direct bad influence on your spell fail rate.",
-
 "\"Sexy\" rises all of your abilities, but your haughty attitude will aggravate all creatures.  Only females can choose this personality.",
-
 "A \"Lucky\" man has poor stats, equivalent to a \"Lazy\" person.  Mysteriously, however, he can do all things well.  Only males can choose this personality.",
-
 "A \"Patient\" person does things carefully.  Patient people have high constitution, and high resilience, but poor abilities in most other skills.  Also it directly influences your hit-points.",
-
 "\"Munchkin\" is a personality for beginners.  It raises all your stats and skills.  With this personality, you can win the game easily, but gain little honor in doing so."
-
 "\"ChargeMan\" is crazy killer. It render you powerfull strength and constitution, but poor intelligence. you are not confused and seen the illusion because this you go mad from the beginning. ",
 "TODO::Explain",
 "TODO::Explain",
@@ -1747,8 +1700,6 @@ static cptr chara_jouhou[MAX_CHARA] =
 "TODO::Explain",
 "TODO::Explain",
 "TODO::Explain",
-
-#endif
 };
 
 static cptr realm_jouhou[VALID_REALM] =

@@ -5361,6 +5361,8 @@ enum CHARA_INFO {
 	CH_INFO_SEX,
 	CH_INFO_M_PENA,
 	CH_INFO_FLAGS,
+	CH_INFO_DESCRIPTION,
+	CH_INFO_E_DESCRIPTION,
 	CH_INFO_CSV_COLUMNS
 };
 
@@ -5391,6 +5393,8 @@ static cptr ch_info_csv_list[CH_INFO_CSV_COLUMNS] =
 	"SEX",
 	"M_PENA",
 	"FLAGS",
+	"DESCRIPTION",
+	"E_DESCRIPTION",
 };
 
 errr parse_chara_info_csv(char *buf, header *head)
@@ -5562,6 +5566,13 @@ errr parse_chara_info_csv(char *buf, header *head)
 					if(0 != traits_precondition_splits(&chara_ptr->flags, tmp))
 						return PARSE_ERROR_GENERIC;
 					break;
+
+				case CH_INFO_DESCRIPTION:
+					break;
+
+				case CH_INFO_E_DESCRIPTION:
+					break;
+
 			}
 		}
 	}
