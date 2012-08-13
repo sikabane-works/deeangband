@@ -1484,9 +1484,6 @@ struct creature_type
 	bool can_swim;		/* No damage falling */
 	bool lite;		/* Permanent light */
 
-	bool bless_blade;	/* Blessed blade */
-	bool impact[MAX_WEAPONS];		/* Earthquake blows */
-
 	s32b regist_rate[RR_MAX]; 
 
 	s16b to_damaged[MAX_WEAPONS];		// Extra dice/sides

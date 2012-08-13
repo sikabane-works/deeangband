@@ -3461,9 +3461,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			//TODO adjust
 		}
 
-		/* Hack -- cause earthquakes */
-		if (have_flag(flgs, TRAIT_SHATTER)) creature_ptr->impact[(i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ? 0 : 1] = TRUE;
-
 		/* Boost shots */
 		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
 
@@ -3682,7 +3679,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 		creature_ptr->dis_to_hit[i] = creature_ptr->to_hit[i] = 0;
 		creature_ptr->dis_to_damage[i] = creature_ptr->to_damage[i] = 0;
 		creature_ptr->to_damaged[i] = creature_ptr->to_damages[i] = 0;
-		creature_ptr->impact[i] = FALSE;
 		creature_ptr->can_melee[i] = FALSE;
 	}
 
@@ -3707,7 +3703,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
-	creature_ptr->bless_blade = FALSE;
 	creature_ptr->lite = FALSE;
 	creature_ptr->resist_acid = FALSE;
 	creature_ptr->resist_elec = FALSE;

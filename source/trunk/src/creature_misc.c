@@ -1661,6 +1661,12 @@ bool has_trait_species(species_type *species_ptr, int type)
 	return FALSE;
 }
 
+bool has_trait_object(object_type *object_ptr, int type)
+{
+	//TODO
+	return FALSE;
+}
+
 bool has_trait(creature_type *creature_ptr, int type)
 {
 	if(has_trait_from_species(creature_ptr, type)) return TRUE;

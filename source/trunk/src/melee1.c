@@ -301,15 +301,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else if (fuiuchi)
 			{
-				k = k*(5+(attacker_ptr->lev*2/25))/2;
+				k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
 			}
 			else if (stab_fleeing)
 			{
 				k = (3 * k) / 2;
 			}
 
-			if ((attacker_ptr->impact[hand] && ((k > 50) || one_in_(7))) ||
-				(chaos_effect == 2) || (mode == HISSATSU_QUAKE))
+			if ((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 			{
 				do_quake = TRUE;
 			}
