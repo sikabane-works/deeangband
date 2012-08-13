@@ -2806,7 +2806,7 @@ static bool creature_hook_quest(int species_idx)
 void determine_random_questor(quest_type *quest_ptr)
 {
 	int          species_idx;
-	species_type *r_ptr;
+	species_type *species_ptr;
 
 	get_species_num_prep(creature_hook_quest, NULL); // Prepare allocation table
 
@@ -2817,21 +2817,21 @@ void determine_random_questor(quest_type *quest_ptr)
 		 * (depending on level)
 		 */
 		species_idx = get_species_num(current_floor_ptr, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
-		r_ptr = &species_info[species_idx];
+		species_ptr = &species_info[species_idx];
 
-		if (!is_unique_species(r_ptr)) continue;
-		if (is_quest_species(r_ptr)) continue;
-		if (r_ptr->rarity > 100) continue;
-		if (is_friendly_species(r_ptr)) continue;
-		if (has_trait_species(r_ptr, TRAIT_AQUATIC)) continue;
-		if (is_wild_only_species(r_ptr)) continue;
+		if (!is_unique_species(species_ptr)) continue;
+		if (is_quest_species(species_ptr)) continue;
+		if (species_ptr->rarity > 100) continue;
+		if (is_friendly_species(species_ptr)) continue;
+		if (has_trait_species(species_ptr, TRAIT_AQUATIC)) continue;
+		if (is_wild_only_species(species_ptr)) continue;
 		if (no_questor_or_bounty_uniques(species_idx)) continue;
 
 		/*
 		 * Accept creatures that are 2 - 6 levels
 		 * out of depth depending on the quest level
 		 */
-		if (r_ptr->level > (quest_ptr->level + (quest_ptr->level / 20))) break;
+		if (species_ptr->level > (quest_ptr->level + (quest_ptr->level / 20))) break;
 	}
 
 	quest_ptr->species_idx = species_idx;

@@ -3833,17 +3833,17 @@ void do_cmd_visuals(void)
 			/* Dump creatures */
 			for (i = 0; i < max_species_idx; i++)
 			{
-				species_type *r_ptr = &species_info[i];
+				species_type *species_ptr = &species_info[i];
 
 				/* Skip non-entries */
-				if (!r_ptr->name) continue;
+				if (!species_ptr->name) continue;
 
 				/* Dump a comment */
-				auto_dump_printf("# %s\n", (species_name + r_ptr->name));
+				auto_dump_printf("# %s\n", (species_name + species_ptr->name));
 
 				/* Dump the creature attr/char info */
 				auto_dump_printf("R:%d:0x%02X/0x%02X\n\n", i,
-					(byte)(r_ptr->x_attr), (byte)(r_ptr->x_char));
+					(byte)(species_ptr->x_attr), (byte)(species_ptr->x_char));
 			}
 
 			/* Close */
@@ -4034,24 +4034,24 @@ void do_cmd_visuals(void)
 			/* Hack -- query until done */
 			while (1)
 			{
-				species_type *r_ptr = &species_info[r];
+				species_type *species_ptr = &species_info[r];
 				char c;
 				int t;
 
-				byte da = r_ptr->d_attr;
-				byte dc = r_ptr->d_char;
-				byte ca = r_ptr->x_attr;
-				byte cc = r_ptr->x_char;
+				byte da = species_ptr->d_attr;
+				byte dc = species_ptr->d_char;
+				byte ca = species_ptr->x_attr;
+				byte cc = species_ptr->x_char;
 
 				/* Label the object */
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("クリーチャー = %d, 名前 = %-40.40s",
-						   r, (species_name + r_ptr->name)));
+						   r, (species_name + species_ptr->name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Creature = %d, Name = %-40.40s",
-						   r, (species_name + r_ptr->name)));
+						   r, (species_name + species_ptr->name)));
 #endif
 
 				/* Label the Default values */
@@ -4114,15 +4114,15 @@ void do_cmd_visuals(void)
 					}
 					break;
 				case 'a':
-					t = (int)r_ptr->x_attr;
+					t = (int)species_ptr->x_attr;
 					(void)cmd_visuals_aux(i, &t, 256);
-					r_ptr->x_attr = (byte)t;
+					species_ptr->x_attr = (byte)t;
 					need_redraw = TRUE;
 					break;
 				case 'c':
-					t = (int)r_ptr->x_char;
+					t = (int)species_ptr->x_char;
 					(void)cmd_visuals_aux(i, &t, 256);
-					r_ptr->x_char = (byte)t;
+					species_ptr->x_char = (byte)t;
 					need_redraw = TRUE;
 					break;
 				case 'v':
