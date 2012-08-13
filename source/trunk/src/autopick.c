@@ -1585,7 +1585,6 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 	if (!destroy) return;
 
 	/* Now decided to destroy */
-
 	disturb(player_ptr, 0,0);
 
 	/* Artifact? */

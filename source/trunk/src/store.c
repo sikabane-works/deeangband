@@ -4623,7 +4623,7 @@ static bool leave_store = FALSE;
  * must disable some commands which are allowed in the dungeon
  * but not in the stores, to prevent chaos.
  */
-static void store_process_command(store_type *st_ptr, creature_type *guest_ptr)
+static void store_process_player_command(store_type *st_ptr, creature_type *guest_ptr)
 {
 
 	/* Handle repeating the last command */
@@ -5211,7 +5211,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		request_command(creature_ptr, TRUE);
 
 		/* Process the command */
-		store_process_command(st_ptr, creature_ptr);
+		store_process_player_command(st_ptr, creature_ptr);
 
 		/*
 		 * Hack -- To redraw missiles damage and prices in store

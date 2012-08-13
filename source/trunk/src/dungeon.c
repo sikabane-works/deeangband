@@ -4197,7 +4197,7 @@ extern void do_cmd_debug(creature_type *creature_ptr);
  *
  * XXX XXX XXX Make some "blocks"
  */
-static void process_command(creature_type *creature_ptr)
+static void process_player_command(creature_type *creature_ptr)
 {
 	int old_now_message = now_message;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
@@ -4522,7 +4522,6 @@ msg_print("ウィザードモード突入。");
 			if (!wild_mode) do_cmd_disarm(creature_ptr);
 			break;
 		}
-
 
 		/*** Magic and Prayers ***/
 
@@ -5582,7 +5581,7 @@ msg_print("中断しました。");
 			command_cmd = SPECIAL_KEY_BUILDING;
 
 			/* Process the command */
-			process_command(creature_ptr);
+			process_player_command(creature_ptr);
 		}
 
 		/* Paralyzed or Knocked Out */
@@ -5653,7 +5652,7 @@ msg_print("中断しました。");
 			prt("", 0, 0);
 
 			/* Process the command */
-			process_command(creature_ptr);
+			process_player_command(creature_ptr);
 		}
 
 		/* Normal command */
@@ -5668,7 +5667,7 @@ msg_print("中断しました。");
 			can_save = FALSE;
 
 			/* Process the command */
-			process_command(creature_ptr);
+			process_player_command(creature_ptr);
 		}
 
 

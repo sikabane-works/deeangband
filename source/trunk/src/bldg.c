@@ -4455,7 +4455,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'Žv‚¢o, ' '‚Å‘±s, ESC]");
 /*
  * Execute a building command
  */
-static void bldg_process_command(creature_type *creature_ptr, building_type *bldg, int i)
+static void bldg_process_player_command(creature_type *creature_ptr, building_type *bldg, int i)
 {
 	int bact = bldg->actions[i];
 	int bcost;
@@ -4939,7 +4939,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		}
 
 		if (validcmd)
-			bldg_process_command(creature_ptr, bldg, i);
+			bldg_process_player_command(creature_ptr, bldg, i);
 
 		/* Notice stuff */
 		notice_stuff(creature_ptr);
