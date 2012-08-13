@@ -12,8 +12,6 @@
 
 #include "angband.h"
 
-#define MIN_STOCK 12
-
 static int store_top = 0;
 static int store_bottom = 0;
 static int xtra_stock = 0;
@@ -5058,7 +5056,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 	/* Calculate stocks per 1 page */
 	xtra_stock = MIN(14+26, ((h > 24) ? (h - 24) : 0));
-	store_bottom = MIN_STOCK + xtra_stock;
+	store_bottom = STORE_MIN_STOCK + xtra_stock;
 
 	/* Calculate the number of store maintainances since the last visit */
 	maintain_num = (turn - st_ptr->last_visit) / (TURNS_PER_TICK * STORE_TICKS);

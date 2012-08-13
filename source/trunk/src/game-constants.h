@@ -1,6 +1,8 @@
 
 // 2012 D'angband  game-contants.h
 
+#define STORE_MIN_STOCK 12
+
 #define RANDOM_TRY  100000 // Number of Trying for random search
 #define PERCENTAGE  100
 
