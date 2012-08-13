@@ -1483,7 +1483,6 @@ struct creature_type
 
 	bool can_swim;		/* No damage falling */
 	bool lite;		/* Permanent light */
-	bool free_act;		/* Never paralyzed */
 
 	bool bless_blade;	/* Blessed blade */
 	bool impact[MAX_WEAPONS];		/* Earthquake blows */

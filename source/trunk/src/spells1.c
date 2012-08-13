@@ -3897,7 +3897,7 @@ note = "には効果がなかった！";
 
 		case GF_OLD_SLEEP:
 		{
-			if (target_ptr->free_act)  break;
+			if (has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 #ifdef JP
 			if (fuzzy) msg_print("眠ってしまった！");
 #else
@@ -4538,7 +4538,7 @@ note = "は眠り込んでしまった！";
 					{
 						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
 					}
-					if (!target_ptr->free_act)
+					if (!has_trait(target_ptr, TRAIT_FREE_ACTION))
 					{
 						(void)set_paralyzed(target_ptr, target_ptr->paralyzed + randint0(4) + 4);
 					}
@@ -5049,7 +5049,7 @@ note = "は眠り込んでしまった！";
 									break;
 								}
 								default:
-									if (!caster_ptr->free_act)
+									if (!has_trait(caster_ptr, TRAIT_FREE_ACTION))
 										(void)set_paralyzed(caster_ptr, caster_ptr->paralyzed + randint1(dam));
 									break;
 							}

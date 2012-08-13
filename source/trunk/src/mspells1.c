@@ -129,7 +129,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		//if (caster_ptr->reflect) smart |= (SM_IMM_REFLECT);
 
 		/* Know bizarre "resistances" */
-		if (caster_ptr->free_act) smart |= (SM_IMM_FREE);
+		if (has_trait(caster_ptr, TRAIT_FREE_ACTION)) smart |= (SM_IMM_FREE);
 		if (!caster_ptr->msp) smart |= (SM_IMM_MANA);
 	}
 
@@ -2997,7 +2997,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			msg_format("%^s drains power from your muscles!", m_name);
 #endif
 
-			if (target_ptr->free_act)
+			if (has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");
@@ -3040,7 +3040,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s stares deep into your eyes!", m_name);
 #endif
 
-			if (target_ptr->free_act)
+			if (has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");

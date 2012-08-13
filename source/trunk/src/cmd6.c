@@ -154,7 +154,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_PARALYSIS:
 			{
-				if (!creature_ptr->free_act)
+				if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 				{
 					if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(10) + 10))
 					{
@@ -877,7 +877,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_SLEEP:
-			if (!creature_ptr->free_act)
+			if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 		msg_print("Ç†Ç»ÇΩÇÕñ∞Ç¡ÇƒÇµÇ‹Ç¡ÇΩÅB");

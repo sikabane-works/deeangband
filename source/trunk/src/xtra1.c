@@ -2825,7 +2825,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_ORDINARILY_BERSERK))
 	{
 		creature_ptr->shero = 1;
-		creature_ptr->free_act = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
 		creature_ptr->speed += 2;
 
 		if (creature_ptr->lev > 29) creature_ptr->speed++;
@@ -2848,7 +2848,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 			{
 				if (!(has_trait(creature_ptr, TRAIT_AGILE_RACE)))
 					creature_ptr->speed += (creature_ptr->lev) / 10;
-				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE; // Free action if unencumbered at level 25
+				//TODO if  (creature_ptr->lev > 24) has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE; // Free action if unencumbered at level 25
 			}
 			break;
 
@@ -2871,8 +2871,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				if (!has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
 
-				// Free action if unencumbered at level 25
-				if  (creature_ptr->lev > 24) creature_ptr->free_act = TRUE;
 			}
 			if ((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
 			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
@@ -3212,7 +3210,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		//TODO creature_ptr->resist_conf = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-		creature_ptr->free_act = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
 		//creature_ptr->levitation = TRUE;
 	}
 
@@ -3314,7 +3312,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if (creature_ptr->ult_res || (creature_ptr->special_defense & KATA_MUSOU))
 	{
 		//creature_ptr->see_inv = TRUE;
-		creature_ptr->free_act = TRUE;
+		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
 		//creature_ptr->slow_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
 		//creature_ptr->levitation = TRUE;
@@ -3710,7 +3708,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 	// Clear all the flags
 	creature_ptr->cursed = 0L;
 	creature_ptr->bless_blade = FALSE;
-	creature_ptr->free_act = FALSE;
 	creature_ptr->lite = FALSE;
 	creature_ptr->resist_acid = FALSE;
 	creature_ptr->resist_elec = FALSE;
@@ -4087,7 +4084,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 
 		if (has_trait(creature_ptr, TRAIT_MOTION))
 		{
-			creature_ptr->free_act = TRUE;
+			//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
 			creature_ptr->skill_stl += 1;
 		}
 

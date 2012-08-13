@@ -2484,7 +2484,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!watcher_ptr->free_act)
+		if (!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
 			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
 		}
@@ -5743,7 +5743,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 		break;
 
 	case DRS_FREE:
-		if (player_ptr->free_act) learner_ptr->smart |= (SM_IMM_FREE);
+		if (has_trait(player_ptr, TRAIT_FREE_ACTION)) learner_ptr->smart |= (SM_IMM_FREE);
 		break;
 
 	case DRS_MANA:

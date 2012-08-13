@@ -3082,7 +3082,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					/* Do nothing */
 				}
-				else if (target_ptr->free_act)
+				else if (has_trait(target_ptr, TRAIT_FREE_ACTION))
 				{
 #ifdef JP
 					msg_print("‚µ‚©‚µŒø‰Ê‚ª‚È‚©‚Á‚½I");

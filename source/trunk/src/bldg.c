@@ -2433,7 +2433,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!watcher_ptr->free_act)
+		if (!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
 			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
 		}

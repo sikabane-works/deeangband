@@ -603,7 +603,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 
 
-		if (!creature_ptr->free_act)
+		if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 		{
 			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 10 + randint1(20));
 		}
@@ -753,7 +753,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 				else if (one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->cut + 200);
 				else if (one_in_(4))
 				{
-					if (!creature_ptr->free_act) 
+					if (!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
 						(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 2 + 
 						randint0(6));
 					else 

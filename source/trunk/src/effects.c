@@ -5717,7 +5717,7 @@ static void you_died(cptr hit_from)
 			{
 				char dummy[1024];
 #ifdef JP
-				sprintf(dummy, "%s%s%s", !player_ptr->paralyzed ? "" : player_ptr->free_act ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->image ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
+				sprintf(dummy, "%s%s%s", !player_ptr->paralyzed ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->image ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
 #else
 				sprintf(dummy, "%s%s", hit_from, !player_ptr->paralyzed ? "" : " while helpless");
 #endif

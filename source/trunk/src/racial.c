@@ -4438,7 +4438,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			msg_format("%^s drains power from your muscles!", caster_name);
 #endif
 
-			if (target_ptr->free_act)
+			if (has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");
@@ -4481,7 +4481,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			else msg_format("%^s stares deep into your eyes!", caster_name);
 #endif
 
-			if (target_ptr->free_act)
+			if (has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");

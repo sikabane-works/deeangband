@@ -1528,7 +1528,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			msg_print("A strange white mist surrounds you!");
 #endif
 
-			if (!creature_ptr->free_act)
+			if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
@@ -2158,7 +2158,7 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 		if (creature_ptr->resist_pois) return TRUE;
 		break;
 	case TRAP_SLEEP:
-		if (creature_ptr->free_act) return TRUE;
+		if (has_trait(creature_ptr, TRAIT_FREE_ACTION)) return TRUE;
 		break;
 	}
 
