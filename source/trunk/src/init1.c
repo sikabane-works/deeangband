@@ -2342,7 +2342,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_DESCRIPTION:
-				/* Store the text */
+				// Store the text
 				if (!add_text(&object_kind_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
@@ -5323,9 +5323,13 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_DESCRIPTION:
+					if (!add_text(&class_ptr->text, head, tmp, TRUE))
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_DESCRIPTION:
+					if (!add_text(&class_ptr->E_text, head, tmp, TRUE))
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 			}
@@ -5568,9 +5572,13 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 
 				case CH_INFO_DESCRIPTION:
+					if (!add_text(&chara_ptr->text, head, tmp, TRUE))
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CH_INFO_E_DESCRIPTION:
+					if (!add_text(&chara_ptr->E_text, head, tmp, TRUE))
+						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 			}
