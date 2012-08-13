@@ -4819,7 +4819,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	building_type   *bldg;
 	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
 
-
 	energy_use = 100;
 
 	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))

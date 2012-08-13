@@ -100,10 +100,9 @@ s16b command_arg;		/* Gives argument of current command */
 s16b command_rep;		/* Gives repetition of current command */
 s16b command_dir;		/* Gives direction of current command */
 
-s16b command_see;		/* See "object1.c" */
-s16b command_wrk;		/* See "object1.c" */
-
-s16b command_gap = 999;         /* See "object1.c" */
+s16b command_see;		// See "object1.c"
+s16b command_wrk;		// See "object1.c"
+s16b command_gap = 999;	// See "object1.c"
 
 s16b command_new;		/* Command chaining from inven/equip view */
 
@@ -140,8 +139,6 @@ bool shimmer_objects;	/* Hack -- optimize multi-hued objects */
 
 bool repair_creatures;	/* Hack -- optimize detect creatures */
 bool repair_objects;	/* Hack -- optimize detect objects */
-
-s16b inven_nxt;			/* Hack -- unused */
 
 s16b object_max = 1;			/* Number of allocated objects */
 s16b object_cnt = 0;			/* Number of live objects */
@@ -301,15 +298,15 @@ bool record_arena;			// Record arena victories
 bool record_ident;			// Record first identified items
 bool record_named_pet;		// Record informations of named pets
 
-/* Cheating options */
+/*** Cheating options ***/
 
-bool cheat_peek;	// Peek into object creation
-bool cheat_hear;	// Peek into creature creation
-bool cheat_room;	// Peek into dungeon creation
-bool cheat_xtra;	// Peek into something else
-bool cheat_know;	// Know complete creature info
-bool cheat_live;	// Allow player to avoid death
-bool cheat_save;	// Ask for saving death
+bool cheat_peek;			// Peek into object creation
+bool cheat_hear;			// Peek into creature creation
+bool cheat_room;			// Peek into dungeon creation
+bool cheat_xtra;			// Peek into something else
+bool cheat_know;			// Know complete creature info
+bool cheat_live;			// Allow player to avoid death
+bool cheat_save;			// Ask for saving death
 
 /*** Special options ***/
 
@@ -502,22 +499,22 @@ char angband_term_name[8][16] =
  */
 byte angband_color_table[256][4] =
 {
-	{0x00, 0x00, 0x00, 0x00},	/* TERM_DARK */
-	{0x00, 0xFF, 0xFF, 0xFF},	/* TERM_WHITE */
-	{0x00, 0x80, 0x80, 0x80},	/* TERM_SLATE */
-	{0x00, 0xFF, 0x80, 0x00},	/* TERM_ORANGE */
-	{0x00, 0xC0, 0x00, 0x00},	/* TERM_RED */
-	{0x00, 0x00, 0x80, 0x40},	/* TERM_GREEN */
-	{0x00, 0x00, 0x00, 0xFF},	/* TERM_BLUE */
-	{0x00, 0x80, 0x40, 0x00},	/* TERM_UMBER */
-	{0x00, 0x40, 0x40, 0x40},	/* TERM_L_DARK */
-	{0x00, 0xC0, 0xC0, 0xC0},	/* TERM_L_WHITE */
-	{0x00, 0xFF, 0x00, 0xFF},	/* TERM_VIOLET */
-	{0x00, 0xFF, 0xFF, 0x00},	/* TERM_YELLOW */
-	{0x00, 0xFF, 0x00, 0x00},	/* TERM_L_RED */
-	{0x00, 0x00, 0xFF, 0x00},	/* TERM_L_GREEN */
-	{0x00, 0x00, 0xFF, 0xFF},	/* TERM_L_BLUE */
-	{0x00, 0xC0, 0x80, 0x40}	/* TERM_L_UMBER */
+	{0x00, 0x00, 0x00, 0x00},	// TERM_DARK
+	{0x00, 0xFF, 0xFF, 0xFF},	// TERM_WHITE
+	{0x00, 0x80, 0x80, 0x80},	// TERM_SLATE
+	{0x00, 0xFF, 0x80, 0x00},	// TERM_ORANGE
+	{0x00, 0xC0, 0x00, 0x00},	// TERM_RED
+	{0x00, 0x00, 0x80, 0x40},	// TERM_GREEN
+	{0x00, 0x00, 0x00, 0xFF},	// TERM_BLUE
+	{0x00, 0x80, 0x40, 0x00},	// TERM_UMBER
+	{0x00, 0x40, 0x40, 0x40},	// TERM_L_DARK
+	{0x00, 0xC0, 0xC0, 0xC0},	// TERM_L_WHITE
+	{0x00, 0xFF, 0x00, 0xFF},	// TERM_VIOLET
+	{0x00, 0xFF, 0xFF, 0x00},	// TERM_YELLOW
+	{0x00, 0xFF, 0x00, 0x00},	// TERM_L_RED
+	{0x00, 0x00, 0xFF, 0x00},	// TERM_L_GREEN
+	{0x00, 0x00, 0xFF, 0xFF},	// TERM_L_BLUE
+	{0x00, 0xC0, 0x80, 0x40}	// TERM_L_UMBER
 };
 
 
@@ -594,26 +591,21 @@ char angband_sound_name[SOUND_MAX][16] =
 	"glass",
 };
 
-
-
 /*
  * The array of saved floors
  */
 floor_type floor_list[MAX_FLOORS];
-
 
 /*
  * Number of floor_id used from birth
  */
 s16b floor_max;
 
-
 /*
  * Sign for current process used in temporal files.
  * Actually it is the start time of current process.
  */
 u32b saved_floor_file_sign;
-
 
 /*
  * The array of dungeon items [max_object_idx]
@@ -630,8 +622,6 @@ creature_type *creature_list;
  * The array of stores [max_st_idx]
  */
 store_type *st_list;
-
-
 
 /*
  * The array to process dungeon creatures [max_creature_idx]
@@ -676,7 +666,6 @@ s16b alloc_race_size;
  */
 alloc_entry *alloc_race_table;
 
-
 /*
  * Specify attr/char pairs for visual special effects
  * Be sure to use "index & 0x7F" to avoid illegal access
@@ -684,14 +673,12 @@ alloc_entry *alloc_race_table;
 byte misc_to_acttr[256];
 char misc_to_char[256];
 
-
 /*
  * Specify attr/char pairs for inventory items (by tval)
  * Be sure to use "index & 0x7F" to avoid illegal access
  */
 byte tval_to_acttr[128];
 char tval_to_char[128];
-
 
 /*
  * Keymaps for each "mode" associated with each keypress.
@@ -701,7 +688,6 @@ cptr keymap_act[KEYMAP_MODES][256];
 // pointer current floor
 floor_type *current_floor_ptr = NULL;
 
-
 /*** Player information ***/
 
 /*
@@ -709,21 +695,21 @@ floor_type *current_floor_ptr = NULL;
  */
 creature_type *player_ptr = NULL;
 
-u32b play_redraw = 0;		/* Normal Redraws (bit flags) */
-u32b play_window = 0;		/* Window Redraws (bit flags) */
-bool wizard = FALSE;		 /* wizard mode */
-bool unique_play = FALSE;    /* unique play mode */
+u32b play_redraw = 0;				// Normal Redraws (bit flags)
+u32b play_window = 0;				// Window Redraws (bit flags)
+bool wizard = FALSE;				// wizard mode
+bool unique_play = FALSE;			// unique play mode
 s16b inside_quest = 0;
 bool wild_mode = FALSE;
-bool fight_arena_mode = FALSE;		/* inside arena? */
-bool gamble_arena_mode = FALSE;		/* inside tougijou? */
-s16b town_num = 0;			/* Current town number */
-s16b arena_number = 0;		/* creature number in arena -KMW- */
-bool detect_trap;               /* Whether on trap-safe grids */
+bool fight_arena_mode = FALSE;		// inside arena?
+bool gamble_arena_mode = FALSE;		// inside tougijou?
+s16b town_num = 0;					// Current town number
+s16b arena_number = 0;				// creature number in arena -KMW-
+bool detect_trap;					// Whether on trap-safe grids
 
-s16b species_window_idx;	/* Species info trackee */
+s16b species_window_idx;			// Species info trackee
 
-u32b update;		/* Pending Updates (bit flags) */
+u32b update;						// Pending Updates (bit flags)
 
 
 /*
@@ -784,7 +770,6 @@ char *object_ego_text;
 species_type *species_info;
 char *species_name;
 char *species_text;
-
 
 /*
  * The creature flags arrays
@@ -948,8 +933,7 @@ cptr ANGBAND_DIR_XTRA;
  */
 bool (*get_obj_num_hook)(int k_idx);
 
-
-/* Hack, monk armour */
+// Hack, monk armour
 bool monk_armour_aux;
 bool monk_notify_aux;
 
@@ -966,7 +950,6 @@ wilderness_type **wilderness;
  * Buildings
  */
 building_type building[MAX_BLDG];
-
 
 /*
  * Maximum number of quests
@@ -1026,7 +1009,6 @@ u16b max_dungeon_idx;
 // Maximum number of objects in the level
 u16b max_object_idx;
 
-
 // Maximum number of traits_precondition
 u16b max_trait_idx;
 
@@ -1073,7 +1055,6 @@ s16b gf_color[MAX_GF];
  */
 int init_flags;
 
-
 /*
  * The "highscore" file descriptor, if available.
  */
@@ -1115,51 +1096,48 @@ cptr screen_dump = NULL;
 
 /*** Terrain feature variables ***/
 
-/* Nothing */
-s16b feat_none;
+s16b feat_none;		// Nothing
+s16b feat_floor;	// Floor
 
-/* Floor */
-s16b feat_floor;
-
-/* Objects */
+// Objects
 s16b feat_glyph;
 s16b feat_explosive_rune;
 s16b feat_mirror;
 
-/* Doors */
+// Doors
 door_type feat_door[MAX_DOOR_TYPES];
 
-/* Stairs */
+// Stairs
 s16b feat_up_stair;
 s16b feat_down_stair;
 s16b feat_entrance;
 
-/* Special traps */
+// Special traps
 s16b feat_trap_open;
 s16b feat_trap_armageddon;
 s16b feat_trap_piranha;
 s16b feat_trap_acid_flow;
 s16b feat_trap_poison_flow;
 
-/* Rubble */
+// Rubble
 s16b feat_rubble;
 
-/* Seams */
+// Seams
 s16b feat_magma_vein;
 s16b feat_quartz_vein;
 
-/* Walls */
+// Walls
 s16b feat_granite;
 s16b feat_permanent;
 
-/* Glass floor */
+// Glass floor
 s16b feat_glass_floor;
 
-/* Glass walls */
+// Glass walls
 s16b feat_glass_wall;
 s16b feat_permanent_glass_wall;
 
-/* Pattern */
+// Pattern
 s16b feat_pattern_start;
 s16b feat_pattern_1;
 s16b feat_pattern_2;
@@ -1170,11 +1148,11 @@ s16b feat_pattern_old;
 s16b feat_pattern_exit;
 s16b feat_pattern_corrupted;
 
-/* Various */
+// Various
 s16b feat_black_market;
 s16b feat_town;
 
-/* Terrains */
+// Terrains
 s16b feat_deep_water;
 s16b feat_shallow_water;
 s16b feat_deep_lava;
@@ -1193,8 +1171,7 @@ s16b feat_mountain;
 s16b feat_swamp;
 s16b feat_chaos_tainted;
 
-
-/* Unknown grid (not detected) */
+// Unknown grid (not detected)
 s16b feat_undetected;
 
 /*
@@ -1226,9 +1203,8 @@ travel_type travel;
 #endif
 
 u32b creature_idx_latest = 0;
-char gameover_from[80];   	  /* What killed the player */
-
-bool wait_report_score = FALSE;   /* Waiting to report score */
+char gameover_from[80];   			// What killed the player
+bool wait_report_score = FALSE;		// Waiting to report score
 bool gameover = FALSE;
 bool arena_settled = TRUE;
 bool subject_change_floor = FALSE;
@@ -1239,3 +1215,4 @@ u32b game_load_count = 0;
 
 byte start_hour;
 byte start_min;
+
