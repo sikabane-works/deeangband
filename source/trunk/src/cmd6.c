@@ -5311,6 +5311,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = randint0(250) + 250;
 				break;
 			}
+
 			case ART_TAIKOBO:
 			{
 				int x, y;
@@ -5525,6 +5526,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = 50;
 				break;
 			}
+
 			case ART_BLOOD:
 			{
 #ifdef JP
@@ -5538,6 +5540,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 				break;
 			}
+
 			case ART_KESHO:
 			{
 #ifdef JP
@@ -5551,6 +5554,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = 100 + randint1(100);
 				break;
 			}
+
 			case ART_MOOK:
 			{
 #ifdef JP
@@ -5562,6 +5566,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = 40 + randint1(40);
 				break;
 			}
+
 			case ART_HERMIT:
 			{
 #ifdef JP

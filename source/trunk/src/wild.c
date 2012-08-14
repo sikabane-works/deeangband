@@ -586,7 +586,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 		if (!(generate_encounter || (one_in_(2) && (!town_num))))
 			mode |= PM_ALLOW_SLEEP;
 
-		/* Make a resident */
+		// Make a resident
 		(void)alloc_creature(floor_ptr, player_ptr, generate_encounter ? 0 : 3, mode);
 	}
 

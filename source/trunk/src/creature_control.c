@@ -4009,16 +4009,16 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	hack_m_idx_ii = c_ptr->creature_idx;
 
-	/* No flags */
+	// No flags
 	creature_ptr->mflag = 0;
 	creature_ptr->mflag2 = 0;
 
-	/* Hack -- Appearance transfer */
-	if ((mode & PM_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
+	// Hack -- Appearance transfer
+	if (summoner_ptr && (mode & PM_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
 		creature_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
 
-		/* Hack -- Shadower spawns Shadower */
+		// Hack -- Shadower spawns Shadower
 		if (summoner_ptr->mflag2 & MFLAG2_KAGE) creature_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
@@ -4502,8 +4502,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	species_type    *r_ptr = &species_info[species_idx];
 	creature_type   *m_ptr;
 
-	if (!(mode & PM_NO_KAGE) && one_in_(333))
-		mode |= PM_KAGE;
+	if (!(mode & PM_NO_KAGE) && one_in_(SHADOW_GENERATE_RATE)) mode |= PM_KAGE;
 
 	// Place one creature, or fail
 	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
