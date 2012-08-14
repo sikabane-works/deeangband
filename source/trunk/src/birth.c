@@ -4972,7 +4972,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	bool flag = FALSE;
 	bool prev = FALSE;
-	bool player = flags & GC_PLAYER;
+	bool player_generate = flags & GC_PLAYER;
 	bool auto_generate = flags & GC_AUTO;
 
 	char c;
@@ -4989,7 +4989,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	species_type *species_ptr = &species_info[species_idx];
 
-	/* Wipe the player */
+	/* Wipe the player_generate */
 	creature_wipe(creature_ptr);
 
 	creature_ptr->creature_idx = ++creature_idx_latest;
@@ -5106,7 +5106,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	//
 	// Starting Point
 	//
-	if(player)
+	if(player_generate)
 	{
 		i = get_starting_point(creature_ptr, auto_generate);
 		if(i == -2) return (FALSE);
@@ -5116,7 +5116,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	creature_ptr->lev = 1;
 	creature_ptr->dr = species_ptr->dr;
 
-	if(player)
+	if(player_generate)
 	{
 		screen_save();
 
@@ -5398,11 +5398,11 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			set_creature_sp_percent(creature_ptr, 100);
 
 			// Sexy gal gets bonus to maximum weapon skill of whip
-			// TODO if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_ptr->class_idx].w_max[TV_HAFTED - TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
+			// TODO if (creature_ptr->chara_idx == CHARA_SEXY) skill_info[player_generate_ptr->class_idx].w_max[TV_HAFTED - TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_MASTER;
 
 			if(auto_generate) break;
 
-			/* Display the player */
+			/* Display the player_generate */
 			display_creature_status(mode, creature_ptr);
 
 			/* Prepare a prompt (must squeeze everything in) */
@@ -5515,7 +5515,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	if(!auto_generate)
 	{
 		get_name(creature_ptr); // Get a name, recolor it, prepare savefile
-		set_creature_name(creating_savefile, creature_ptr); // Process the player name
+		set_creature_name(creating_savefile, creature_ptr); // Process the player_generate name
 		edit_history(creature_ptr); // Edit character background
 	}
 
