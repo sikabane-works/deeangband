@@ -3055,6 +3055,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		}
 	}
 
+	/* TODO
 	if (object_ptr->name1 == ART_MURAMASA)
 	{
 		if (owner_ptr->class_idx != CLASS_SAMURAI)
@@ -3063,6 +3064,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 			object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
 		}
 	}
+	*/
 
 	if (object_ptr->name1 == ART_XIAOLONG)
 	{

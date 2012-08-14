@@ -1685,6 +1685,7 @@ return "–‚—Í[“U : 200 ƒ^[ƒ“–ˆ";
 			return "recharge item every 200 turns";
 #endif
 		}
+		/*TODO
 		case ART_MURAMASA:
 		{
 #ifdef JP
@@ -1693,6 +1694,7 @@ return "˜r—Í‚Ìã¸ : Šm—¦50%‚Å‰ó‚ê‚é";
 			return "increase STR (destroyed 50%)";
 #endif
 		}
+		*/
 		case ART_FLY_STONE:
 		{
 #ifdef JP

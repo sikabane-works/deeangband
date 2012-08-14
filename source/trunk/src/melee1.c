@@ -577,7 +577,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if (can_drain && (drain_result > 0))
 		{
-			if (weapon_ptr->name1 == ART_MURAMASA)
+			if (has_trait_object(weapon_ptr, TRAIT_MURAMASA))
 			{
 				if (is_human)
 				{
@@ -608,11 +608,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else
 			{
-				if (drain_result > 5) /* Did we really hurt it? */
+				if (drain_result > 5) // Did we really hurt it?
 				{
 					drain_heal = diceroll(2, drain_result / 6);
 
-					/* Hex */
+					// Hex
 					if (hex_spelling(attacker_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
 					if (cheat_xtra)
@@ -1604,8 +1604,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			}
 		}
 
-		if(!action_num)
-		
+		if(!action_num)	
 		{
 #if JP 
 			msg_format("%s‚ÍUŒ‚‚·‚éè’i‚ğ‚Á‚Ä‚¢‚È‚¢B", attacker_name);

@@ -5270,6 +5270,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = 200;
 				break;
 			}
+			/*
 			case ART_MURAMASA:
 			{
 #ifdef JP
@@ -5296,6 +5297,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				}
 				break;
 			}
+			*/
 			case ART_FLY_STONE:
 			{
 #ifdef JP
