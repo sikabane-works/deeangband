@@ -3646,7 +3646,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 	}
 
 	clear_from(0);
-	put_initial_status(creature_ptr);
+	if(!npc) put_initial_status(creature_ptr);
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
@@ -3715,7 +3715,9 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 #else
 	put_str("Select a class(Any green entries have race bonus):", 0, 0);
 #endif
-	put_initial_status(creature_ptr);
+
+	if(!npc) put_initial_status(creature_ptr);
+
 	i = get_selection(ce, n, 0, 5, 2, 18, 20, class_detail, 0);
 
 	if(i >= 0)
@@ -3829,7 +3831,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 #else
 	put_str("Select a patron:", 0, 0);
 #endif
-	put_initial_status(creature_ptr);
+	if(!npc) put_initial_status(creature_ptr);
 	i = get_selection(pt, n, 0, 5, 2, 18, 76, NULL, 0);
 
 	if(i >= 0)
@@ -3935,12 +3937,11 @@ static bool get_chara_type(creature_type *creature_ptr, species_type *species_pt
 
 #if JP
 	put_str("«Ši‚ð‘I‘ð‚µ‚Ä‰º‚³‚¢:", 0, 0);
-
-
 #else
 	put_str("Select a personality:", 0, 0);
 #endif
-	put_initial_status(creature_ptr);
+
+	if(!npc) put_initial_status(creature_ptr);
 	i = get_selection(ce, n, 0, 5, 2, 18, 20, chara_detail, 0);
 
 	if(i >= 0)
@@ -3972,7 +3973,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 	selection se[STARTING_MAX + 3];
 
 	clear_from(0);
-	put_initial_status(creature_ptr);
+	if(!npc) put_initial_status(creature_ptr);
 
 	for (i = 0, n = 0; i < STARTING_MAX; i++)
 	{
@@ -5030,9 +5031,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(species_ptr->race_idx2 == INDEX_VARIABLE)
 	{
-		if(!auto_generate)
-			put_initial_status(creature_ptr);
-
+		if(!auto_generate) put_initial_status(creature_ptr);
 		i = get_creature_second_race(creature_ptr, species_ptr, auto_generate);
 		if(i == -2) return (FALSE);
 		if(i == -3) birth_quit();
@@ -5053,7 +5052,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	// TODO Race Trait
 
 	// Give beastman a mutation at character birth
-	if (IS_RACE(creature_ptr, RACE_BEASTMAN)) creature_ptr->hack_mutation = TRUE;
+	if (has_trait(creature_ptr, TRAIT_KALEIDOSCOPIC_RACE)) creature_ptr->hack_mutation = TRUE;
 	else creature_ptr->hack_mutation = FALSE;
 
 	//
