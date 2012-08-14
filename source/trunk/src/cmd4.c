@@ -4978,11 +4978,11 @@ void do_cmd_feeling(creature_type *creature_ptr)
 		return;
 	}
 
-	/* No useful feeling in town */
+	// No useful feeling in town
 	else if (town_num && !floor_ptr->floor_level)
 	{
 #ifdef JP
-		if (!strcmp(town[town_num].name, "r–ì"))
+		if (!strcmp(town[town_num].name, "¬“×‚Ì’n•½"))
 #else
 		if (!strcmp(town[town_num].name, "wilderness"))
 #endif
@@ -5007,7 +5007,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 		}
 	}
 
-	/* No useful feeling in the wilderness */
+	// No useful feeling in the wilderness
 	else if (!floor_ptr->floor_level)
 	{
 #ifdef JP
@@ -5019,11 +5019,10 @@ void do_cmd_feeling(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Display the feeling */
+	// Display the feeling
 	if (has_trait(creature_ptr, TRAIT_GOOD_LUCK))
 		msg_print(do_cmd_feeling_text_lucky[creature_ptr->floor_feeling]);
-	else if (creature_ptr->chara_idx == CHARA_COMBAT ||
-             get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+	else if (creature_ptr->chara_idx == CHARA_COMBAT || get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
 		msg_print(do_cmd_feeling_text_combat[creature_ptr->floor_feeling]);
 	else
 		msg_print(do_cmd_feeling_text[creature_ptr->floor_feeling]);

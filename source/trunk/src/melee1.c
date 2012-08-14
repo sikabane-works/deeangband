@@ -1512,11 +1512,19 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	disturb(player_ptr, 0, 0); // Disturb the player
 
-	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return FALSE;
-
 	// Extract attacker and target name (or "it")
 	creature_desc(target_name, target_ptr, 0);
 	creature_desc(attacker_name, attacker_ptr, 0);
+
+	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW))
+	{
+#if JP 
+		msg_format("%s‚ÍUŒ‚‚·‚éŽè’i‚ðŽ‚Á‚Ä‚¢‚È‚¢B", attacker_name);
+#else
+		//TODO msg_format("%s don't have attack method.", attacker_name);
+#endif
+		return FALSE;
+	}
 
 	if (target_ptr->ml)
 	{
@@ -1570,7 +1578,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				case MELEE_TYPE_SPECIAL_2ND:
 				case MELEE_TYPE_SPECIAL_3RD:
 				case MELEE_TYPE_SPECIAL_4TH:
-					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice);
+					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice > 0)
 					{
 						special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
 						action_list[action_num] = i;
@@ -1578,7 +1586,6 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 						action_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
 						action_num++;
 					}
-					break;
 					break;
 
 				case MELEE_TYPE_BARE_HAND:

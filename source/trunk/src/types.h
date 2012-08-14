@@ -1325,6 +1325,7 @@ struct creature_type
 	s16b magicdef;
 	s16b tim_res_nether;	// Timed -- Nether resistance 
 	s16b tim_res_time;	// Timed -- Time resistance 
+
 	byte mimic_form;
 	s16b tim_mimic;
 	s16b tim_sh_fire;

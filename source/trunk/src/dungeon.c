@@ -3655,48 +3655,28 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	int quest_num;
 	int delay;
 
-	/* No feeling on the surface */
-	if (!floor_ptr->floor_level) return;
+	if (!floor_ptr->floor_level) return; // No feeling on the surface
+	if (gamble_arena_mode) return;		 // No feeling in the arena
 
-	/* No feeling in the arena */
-	if (gamble_arena_mode) return;
-
-	/* Extract delay time */
+	// Extract delay time
 	delay = MAX(10, 150 - creature_ptr->skill_fos) * (150 - floor_ptr->floor_level) * TURNS_PER_TICK / 100;
-
- 	/* Not yet felt anything */
 	if (turn < creature_ptr->feeling_turn + delay && !cheat_xtra) return;
 
-	/* Extract quest number (if any) */
+	// No feeling in a quest
 	quest_num = quest_number(floor_ptr);
-
-	/* No feeling in a quest */
-	if (quest_num &&
-	    (is_fixed_quest_idx(quest_num) &&
-	     !(quest_num == QUEST_SERPENT ||
+	if (quest_num && (is_fixed_quest_idx(quest_num) && !(quest_num == QUEST_SERPENT ||
 	       !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) return;
 
+	new_feeling = get_dungeon_feeling(floor_ptr); // Get new dungeon feeling
+	creature_ptr->feeling_turn = turn; // Remember last time updated
 
-	/* Get new dungeon feeling */
-	new_feeling = get_dungeon_feeling(floor_ptr);
+	if (creature_ptr->floor_feeling == new_feeling) return; // No change
 
-	/* Remember last time updated */
-	creature_ptr->feeling_turn = turn;
+	creature_ptr->floor_feeling = new_feeling; 	// Dungeon feeling is changed
+	do_cmd_feeling(creature_ptr); // Announce feeling
 
-	/* No change */
-	if (creature_ptr->floor_feeling == new_feeling) return;
-
-	/* Dungeon feeling is changed */
-	creature_ptr->floor_feeling = new_feeling;
-
-	/* Announce feeling */
-	do_cmd_feeling(creature_ptr);
-
-	/* Update the level indicator */
-	play_redraw |= (PR_DEPTH);
-
-	/* Disturb */
-	if (disturb_minor) disturb(player_ptr, 0, 0);
+	play_redraw |= (PR_DEPTH); // Update the level indicator
+	if (disturb_minor) disturb(player_ptr, 0, 0); // Disturb
 }
 
 static void creature_arena_result(floor_type *floor_ptr)
