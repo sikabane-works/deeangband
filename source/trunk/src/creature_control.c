@@ -3559,11 +3559,8 @@ void deal_item(creature_type *creature_ptr)
 		}
 	}
 
-	// Dealing MagicBook
-	deal_magic_book(creature_ptr);
-
-	// Dealing Potion
-	if(is_player(creature_ptr)) deal_potion(creature_ptr);
+	deal_magic_book(creature_ptr);							// Dealing MagicBook
+	if(is_player(creature_ptr)) deal_potion(creature_ptr);	// Dealing Potion
 
 	//TODO
 	// Food depend on traits_precondition

@@ -389,7 +389,7 @@ static cptr tval_flags[255] =
 	"TRUMP_BOOK",
 	"ARCANE_BOOK",
 	"CRAFT_BOOK",
-	"DAESPECIES_BOOK",
+	"DAEMON_BOOK",
 	"CRUSADE_BOOK",
 	"XXX",
 

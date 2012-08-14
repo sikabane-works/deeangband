@@ -1831,32 +1831,20 @@ s16b lookup_kind(int tval, int sval)
 	int num = 0;
 	int bk = 0;
 
-	/* Look for it */
+	// Look for it
 	for (k = 1; k < max_object_kind_idx; k++)
 	{
 		object_kind *k_ptr = &object_kind_info[k];
 
-		/* Require correct tval */
-		if (k_ptr->tval != tval) continue;
-
-		/* Found a match */
-		if (k_ptr->sval == sval) return (k);
-
-		/* Ignore illegal items */
-		if (sval != SV_ANY) continue;
-
-		/* Apply the randomizer */
-		if (!one_in_(++num)) continue;
-
-		/* Use this value */
-		bk = k;
+		if (k_ptr->tval != tval) continue;		// Require correct tval
+		if (k_ptr->sval == sval) return (k);	// Found a match
+		if (sval != SV_ANY) continue;			// Ignore illegal items
+		if (!one_in_(++num)) continue;			// Apply the randomizer
+	
+		bk = k;	// Use this value
 	}
 
-	/* Return this choice */
-	if (sval == SV_ANY)
-	{
-		return bk;
-	}
+	if (sval == SV_ANY) return bk;	// Return this choice
 
 	// Oops
 	msg_format("WARNING:: No object (TV=%d,SV=%d)", tval, sval);
@@ -3754,7 +3742,7 @@ static bool kind_is_good(int k_idx)
 		case TV_DEATH_BOOK:
 		case TV_TRUMP_BOOK:
 		case TV_CRAFT_BOOK:
-		case TV_DAESPECIES_BOOK:
+		case TV_DAEMON_BOOK:
 		case TV_CRUSADE_BOOK:
 		case TV_MUSIC_BOOK:
 		case TV_HISSATSU_BOOK:

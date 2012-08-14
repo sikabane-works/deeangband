@@ -30,7 +30,7 @@ static bool object_easy_know(int i)
 		case TV_TRUMP_BOOK:
 		case TV_ARCANE_BOOK:
 		case TV_CRAFT_BOOK:
-		case TV_DAESPECIES_BOOK:
+		case TV_DAEMON_BOOK:
 		case TV_CRUSADE_BOOK:
 		case TV_MUSIC_BOOK:
 		case TV_HISSATSU_BOOK:
@@ -450,7 +450,7 @@ char *object_desc_kosuu(char *t, object_type *object_ptr)
       case  TV_TRUMP_BOOK:
       case  TV_ARCANE_BOOK:
       case  TV_CRAFT_BOOK:
-      case  TV_DAESPECIES_BOOK:
+      case  TV_DAEMON_BOOK:
       case  TV_CRUSADE_BOOK:
       case  TV_MUSIC_BOOK:
       case  TV_HISSATSU_BOOK:
@@ -1682,7 +1682,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			break;
 		}
 
-		case TV_DAESPECIES_BOOK:
+		case TV_DAEMON_BOOK:
 		{
 #ifdef JP
 			basenm = "à´ñÇÇÃñÇñ@èë%";

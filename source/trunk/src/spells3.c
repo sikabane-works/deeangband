@@ -4655,7 +4655,7 @@ bool hates_fire(object_type *object_ptr)
 		case TV_TRUMP_BOOK:
 		case TV_ARCANE_BOOK:
 		case TV_CRAFT_BOOK:
-		case TV_DAESPECIES_BOOK:
+		case TV_DAEMON_BOOK:
 		case TV_CRUSADE_BOOK:
 		case TV_MUSIC_BOOK:
 		case TV_HISSATSU_BOOK:
