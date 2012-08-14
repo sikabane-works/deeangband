@@ -1604,7 +1604,16 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			}
 		}
 
-		if(!action_num) break;
+		if(!action_num)
+		
+		{
+#if JP 
+			msg_format("%s‚ÍUŒ‚‚·‚éè’i‚ğ‚Á‚Ä‚¢‚È‚¢B", attacker_name);
+#else
+			//TODO msg_format("%s don't have attack method.", attacker_name);
+#endif
+			return FALSE;
+		}
 
 		i = uneven_rand(action_list, action_weight, action_num);
 
@@ -1664,7 +1673,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	if(!tried_num)
 	{
 #ifdef JP
-		msg_format("%s‚ğUŒ‚‚Å‚«‚È‚¢B", (!empty_hands(attacker_ptr, FALSE)) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
+		msg_format("%s‚Í%sUŒ‚‚Å‚«‚È‚¢B", attacker_name, (!empty_hands(attacker_ptr, FALSE)) ? "—¼è‚ª‚Ó‚³‚ª‚Á‚Ä" : "");
 #else
 		msg_print("You cannot do attacking.");
 #endif
