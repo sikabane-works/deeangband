@@ -1858,11 +1858,8 @@ s16b lookup_kind(int tval, int sval)
 		return bk;
 	}
 
-	/* Oops */
+	// Oops
 	msg_format("WARNING:: No object (TV=%d,SV=%d)", tval, sval);
-
-
-	/* Oops */
 	return (0);
 }
 

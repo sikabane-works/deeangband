@@ -4005,7 +4005,7 @@ enum GRAPHICS_MODE
 
 #define IS_DEAD(CR) ((CR)->chp < 0)
 
-#define get_floor_ptr(CR) ((CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
+#define get_floor_ptr(CR) ((CR) && (CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
 
 
 #define GET_SE_NO_FRAME    0x00000001

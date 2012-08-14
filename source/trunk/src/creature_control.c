@@ -4604,10 +4604,10 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	/* Handle failure */
 	if (!species_idx) return (FALSE);
 
-	/* Attempt to place the creature */
+	// Attempt to place the creature
 	if (place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (TRUE);
 
-	/* Oops */
+	// Oops
 	return (FALSE);
 }
 
@@ -4846,7 +4846,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	if (floor_ptr) return (FALSE);
 	if (!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
 
-	/* Save the summoner */
+	// Save the summoner
 	//summon_specific_who = who;
 
 	/* Save the "summon" type */
