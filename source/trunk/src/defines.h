@@ -106,7 +106,7 @@
 #define MIN_RANDOM_QUEST    40
 #define MAX_RANDOM_QUEST    49
 
-/* Check is the quest index is "fixed" */
+// Check is the quest index is "fixed"
 #define is_fixed_quest_idx(Q_IDX) (((Q_IDX) < MIN_RANDOM_QUEST) || ((Q_IDX) > MAX_RANDOM_QUEST))
 #define QUEST_SERPENT        9
 #define QUEST_AOY           18
@@ -116,19 +116,6 @@
 
 // Total number of stores (see "store.c", etc)
 #define MAX_STORES      10
-
-// Store types
-#define STORE_GENERAL   0
-#define STORE_ARMOURY   1
-#define STORE_WEAPON    2
-#define STORE_TEMPLE    3
-#define STORE_ALCHEMIST 4
-#define STORE_MAGIC     5
-#define STORE_BLACK     6
-#define STORE_HOME      7
-#define STORE_BOOK      8
-#define STORE_MUSEUM    9
-#define STORE_ART      10
 
 // Number of buildings
 #define MAX_BLDG		32
@@ -176,44 +163,6 @@
 #define MAX_SAN_DELIGHT  20
 #define MAX_SAN_FUNNY    22
 #define MAX_SAN_COMMENT  5
-
-// Reward types
-#define REW_POLY_SLF    1
-#define REW_GAIN_EXP    2
-#define REW_LOSE_EXP    3
-#define REW_GOOD_OBJ    4
-#define REW_GREA_OBJ    5
-#define REW_CHAOS_WP    6
-#define REW_GOOD_OBS    7
-#define REW_GREA_OBS    8
-#define REW_TY_CURSE    9
-#define REW_SUMMON_M    10
-#define REW_H_SUMMON    11
-#define REW_DO_HAVOC    12
-#define REW_GAIN_ABL    13
-#define REW_LOSE_ABL    14
-#define REW_RUIN_ABL    15
-#define REW_AUGM_ABL    16
-#define REW_POLY_WND    17
-#define REW_HEAL_FUL    18
-#define REW_HURT_LOT    19
-#define REW_CURSE_WP    20
-#define REW_CURSE_AR    21
-#define REW_PISS_OFF    22
-#define REW_WRATH       23
-#define REW_DESTRUCT    24
-#define REW_GENOCIDE    25
-#define REW_MASS_GEN    26
-#define REW_DISPEL_C    27
-#define REW_UNUSED_1    28
-#define REW_UNUSED_2    29
-#define REW_UNUSED_3    30
-#define REW_UNUSED_4    31
-#define REW_UNUSED_5    32
-#define REW_IGNORE      33
-#define REW_SER_UNDE    34
-#define REW_SER_DEMO    35
-#define REW_SER_MONS    36
 
 /* TRAITS */
 
