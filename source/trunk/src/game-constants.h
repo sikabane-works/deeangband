@@ -108,3 +108,23 @@
 #define SPELL_EXP_MASTER      1600
 
 #define MAX_BOUNTY 20
+
+
+/*
+ * There is a 1/20 (5%) chance of inflating the requested object_level
+ * during the creation of an object (see "get_obj_num()" in "object.c").
+ * Lower values yield better objects more often.
+ */
+#define GREAT_OBJ       10
+
+/*
+ * There is a 1/25 (4%) chance of inflating the requested creature_level
+ * during the creation of a creatures (see "get_species_num" in "creature.c").
+ * Lower values yield harder creatures more often.
+ */
+#define NASTY_MON_BASE       25
+#define NASTY_MON_MAX        3
+#define NASTY_MON_PLUS_MIN   10
+
+/* 1/x chance of hurting even if invulnerable! */
+#define PENETRATE_INVULNERABILITY 13

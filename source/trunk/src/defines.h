@@ -330,28 +330,6 @@
 #define EXP_STAND_RATE 1500
 
 
-// "Biases" for random artifact gen
-#define BIAS_ELEC            1
-#define BIAS_POIS            2
-#define BIAS_FIRE            3
-#define BIAS_COLD            4
-#define BIAS_ACID            5
-#define BIAS_STR             6
-#define BIAS_INT             7
-#define BIAS_WIS             8
-#define BIAS_DEX             9
-#define BIAS_CON            10
-#define BIAS_CHR            11
-#define BIAS_CHAOS          12
-#define BIAS_PRIESTLY       13
-#define BIAS_NECROMANTIC    14
-#define BIAS_LAW            15
-#define BIAS_ROGUE          16
-#define BIAS_MAGE           17
-#define BIAS_WARRIOR        18
-#define BIAS_RANGER         19
-
-
 /*** Pet constants ***/
 
 /*
@@ -395,25 +373,6 @@
 
 #define CAN_TWO_HANDS_WIELDING(WHO) (!(WHO)->riding || ((WHO)->pet_extra_flags & PF_RYOUTE))
 
-
-/*
- * There is a 1/20 (5%) chance of inflating the requested object_level
- * during the creation of an object (see "get_obj_num()" in "object.c").
- * Lower values yield better objects more often.
- */
-#define GREAT_OBJ       10
-
-/*
- * There is a 1/25 (4%) chance of inflating the requested creature_level
- * during the creation of a creatures (see "get_species_num" in "creature.c").
- * Lower values yield harder creatures more often.
- */
-#define NASTY_MON_BASE       25
-#define NASTY_MON_MAX        3
-#define NASTY_MON_PLUS_MIN   10
-
-/* 1/x chance of hurting even if invulnerable! */
-#define PENETRATE_INVULNERABILITY 13
 
 
 
