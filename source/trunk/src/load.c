@@ -1038,8 +1038,6 @@ static void rd_creature(creature_type *creature_ptr)
 
 	if (music_singing_any(creature_ptr)) creature_ptr->action = ACTION_SING;
 
-	rd_s16b(&creature_ptr->start_race1);
-	rd_s16b(&creature_ptr->start_race2);
 	rd_s32b(&creature_ptr->old_race1);
 	rd_s32b(&creature_ptr->old_race2);
 	rd_s32b(&creature_ptr->old_race3);

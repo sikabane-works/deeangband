@@ -2241,8 +2241,6 @@ static void get_extra(creature_type *creature_ptr, bool roll_hitdice)
 	set_expfact(creature_ptr);
 
 	/* Reset record of race/realm changes */
-	creature_ptr->start_race1 = creature_ptr->race_idx1;
-	creature_ptr->start_race2 = creature_ptr->race_idx2;
 	creature_ptr->old_race1 = 0L;
 	creature_ptr->old_race2 = 0L;
 	creature_ptr->old_realm = 0;
