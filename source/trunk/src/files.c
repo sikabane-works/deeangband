@@ -4967,36 +4967,33 @@ static void dump_aux_creatures(FILE *fff)
  */
 static void dump_aux_race_history(creature_type *creature_ptr, FILE *fff)
 {
-	if (creature_ptr->old_race1 || creature_ptr->old_race2)
-	{
-		int i;
+	int i;
 
 #ifdef JP
-		fprintf(fff, "\n\n あなたは%sとして生まれた。", desc_race_name(creature_ptr));
+	fprintf(fff, "\n\n あなたは%sとして生まれた。", desc_race_name(&player_prev));
 #else
-		fprintf(fff, "\n\n You were born as %s.", desc_race_name(creature_ptr));
+	fprintf(fff, "\n\n You were born as %s.", desc_race_name(&player_prev));
 #endif
-		//TODO
-		for (i = 0; i < MAX_RACES; i++)
+	//TODO
+	for (i = 0; i < MAX_RACES; i++)
+	{
+		if (creature_ptr->start_race1 == i) continue;
+		if (i < 32)
 		{
-			if (creature_ptr->start_race1 == i) continue;
-			if (i < 32)
-			{
-				if (!(creature_ptr->old_race1 & 1L << i)) continue;
-			}
-			else
-			{
-				if (!(creature_ptr->old_race2 & 1L << (i-32))) continue;
-			}
-#ifdef JP
-			fprintf(fff, "\n あなたはかつて%sだった。", race_info[i].title);
-#else
-			fprintf(fff, "\n You were a %s before.", race_info[i].title);
-#endif
+			if (!(creature_ptr->old_race1 & 1L << i)) continue;
 		}
+		else
+		{
+			if (!(creature_ptr->old_race2 & 1L << (i-32))) continue;
+		}
+#ifdef JP
+		fprintf(fff, "\n あなたはかつて%sだった。", race_info[i].title);
+#else
+		fprintf(fff, "\n You were a %s before.", race_info[i].title);
+#endif
+	}
 
 		fputc('\n', fff);
-	}
 }
 
 

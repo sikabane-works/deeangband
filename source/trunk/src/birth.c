@@ -5500,14 +5500,17 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 		}
 
-		/* Are we done? */
+		// Are we done?
 		if (auto_generate || c == '\r' || c == '\n' || c == ESCAPE) break;
 
-		/* Save this for the "previous" character */
-		player_prev = *creature_ptr;
-		quick_ok = FALSE;
+		// Save this for the "previous" character
+		if(player_generate)
+		{
+			player_prev = *creature_ptr;
+			quick_ok = FALSE;
+		}
 
-		/* Note that a previous roll exists */
+		// Note that a previous roll exists
 		prev = TRUE;
 	}
 
