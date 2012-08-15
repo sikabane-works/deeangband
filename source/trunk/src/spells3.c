@@ -4869,8 +4869,8 @@ static int minus_ac(creature_type *creature_ptr)
 	/* Pick a (possibly empty) inventory slot */
 	//TODO
 	i = randint0(INVEN_TOTAL);
-	if(!IS_EQUIPPED(object_ptr)) return (FALSE);
 	object_ptr = &creature_ptr->inventory[i];
+	if(!IS_EQUIPPED(object_ptr)) return (FALSE);
 
 	/* Nothing to damage */
 	if (!object_ptr->k_idx) return (FALSE);
