@@ -87,6 +87,11 @@ void prt_time(creature_type *player_ptr)
 	c_put_str(TERM_WHITE, format("%2d:%02d", hour, min), ROW_DAY, COL_DAY+7);
 }
 
+void prt_wiz_pos(creature_type *player_ptr)
+{
+	c_put_str(TERM_WHITE, format("W(%03d,%03d) F(%03d,%03d)", player_ptr->wx, player_ptr->wy, player_ptr->fx, player_ptr->fy), ROW_DAY + 5, COL_DAY);
+}
+
 
 cptr map_name(floor_type *floor_ptr)
 {
@@ -5057,6 +5062,7 @@ void redraw_stuff()
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
 		prt_time(player_ptr);
+		if(wizard) prt_wiz_pos(player_ptr);
 		prt_dungeon();
 	}
 

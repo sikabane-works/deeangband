@@ -4094,6 +4094,7 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 			return (FALSE);
 		}
 
+		wizard = TRUE;
 #ifdef JP
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "ウィザードモードに突入してスコアを残せなくなった。");
 #else
@@ -4217,7 +4218,7 @@ static void process_player_command(creature_type *creature_ptr)
 			{
 				wizard = FALSE;
 #ifdef JP
-msg_print("ウィザードモード解除。");
+				msg_print("ウィザードモード解除。");
 #else
 				msg_print("Wizard mode off.");
 #endif
@@ -4227,7 +4228,7 @@ msg_print("ウィザードモード解除。");
 			{
 				wizard = TRUE;
 #ifdef JP
-msg_print("ウィザードモード突入。");
+				msg_print("ウィザードモード突入。");
 #else
 				msg_print("Wizard mode on.");
 #endif

@@ -2043,7 +2043,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	/* Dump gold */
 	display_player_one_line(ENTRY_GOLD, format("%ld", creature_ptr->au), TERM_L_GREEN);
 
-	/* Dump Day */
+	// Dump Day
 	{
 		int day, hour, min;
 		extract_day_hour_min(&day, &hour, &min);
