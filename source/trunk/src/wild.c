@@ -1001,7 +1001,15 @@ void init_wilderness_terrains(void)
 		feat_chaos_tainted, MAX_FEAT_IN_TERRAIN - 6);
 }
 
-
+static bool enemy_is_still_here(creature_type *enemy_ptr)
+{
+	if (player_ptr->floor_id != enemy_ptr->floor_id) return FALSE;
+	if (!enemy_ptr->species_idx) return FALSE;
+	if (enemy_ptr->paralyzed) return FALSE;
+	if (enemy_ptr->cdis > MAX_SIGHT) return FALSE;
+	if (!is_hostile(enemy_ptr)) return FALSE;
+	return TRUE;
+}
 
 bool change_wild_mode(creature_type *creature_ptr)
 {
@@ -1037,14 +1045,14 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 		if (!m_ptr->species_idx) continue;
 		if (is_pet(player_ptr, m_ptr) && i != creature_ptr->riding) have_pet = TRUE;
-		if (m_ptr->paralyzed) continue;
-		if (m_ptr->cdis > MAX_SIGHT) continue;
-		if (!is_hostile(m_ptr)) continue;
+		if (!enemy_is_still_here(m_ptr)) continue;
+
 #ifdef JP
 		msg_print("敵がすぐ近くにいるときは広域マップに入れない！");
 #else
 		msg_print("You cannot enter global map, since there is some creatures nearby!");
 #endif
+
 		energy_use = 0;
 		return FALSE;
 	}
