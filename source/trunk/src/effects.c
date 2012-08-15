@@ -972,7 +972,7 @@ bool set_image(creature_type *creature_ptr, int v)
 {
 	bool notice = FALSE;
 
-	if(creature_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(has_trait(creature_ptr, TRAIT_NO_HALLUCINATION));
 	{
 		creature_ptr->image = 0;
 		return (TRUE);
