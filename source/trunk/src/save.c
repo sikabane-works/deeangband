@@ -611,10 +611,6 @@ static void wr_creature(creature_type *creature_ptr)
 		for (i = 0; i < 108; i++) wr_byte(creature_ptr->class_skills.old_skills.magic_num2[i]);
 	}
 
-	wr_s32b(creature_ptr->old_race1);
-	wr_s32b(creature_ptr->old_race2);
-	wr_s32b(creature_ptr->old_race3);
-	wr_s32b(creature_ptr->old_race4);
 	wr_s16b(creature_ptr->old_realm);
 
 	for (i = 0; i < MAX_MANE; i++)

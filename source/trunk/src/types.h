@@ -1383,10 +1383,6 @@ struct creature_type
 	byte knowledge;           // Knowledge about yourself 
 	s32b visit;               // Visited towns 
 
-	s32b old_race1;           // Record of race changes 
-	s32b old_race2;           // Record of race changes 
-	s32b old_race3;           // Record of race changes 
-	s32b old_race4;           // Record of race changes 
 	s16b old_realm;           // Record of realm changes 
 
 	s16b pet_follow_distance; // Length of the imaginary "leash" for pets 

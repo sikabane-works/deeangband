@@ -5423,14 +5423,6 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 #endif
 	}
 
-	if (creature_ptr->race_idx1 < 32)
-	{
-		creature_ptr->old_race1 |= 1L << creature_ptr->race_idx1;
-	}
-	else
-	{
-		creature_ptr->old_race2 |= 1L << (creature_ptr->race_idx1-32);
-	}
 	creature_ptr->race_idx1 = new_race;
 
 	/* Experience factor */
@@ -5457,7 +5449,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 	handle_stuff();
 
 	/* Load an autopick preference file */
-	if (old_race != creature_ptr->race_idx1) autopick_load_pref(FALSE);
+	autopick_load_pref(FALSE);
 
 	/* Player's graphic tile may change */
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);

@@ -2237,12 +2237,9 @@ void get_max_stats(creature_type *creature_ptr)
  */
 static void get_extra(creature_type *creature_ptr, bool roll_hitdice)
 {
-
 	set_expfact(creature_ptr);
 
-	/* Reset record of race/realm changes */
-	creature_ptr->old_race1 = 0L;
-	creature_ptr->old_race2 = 0L;
+	// Reset record of realm changes
 	creature_ptr->old_realm = 0;
 
 	initialize_skill(creature_ptr);
@@ -2252,8 +2249,6 @@ static void get_extra(creature_type *creature_ptr, bool roll_hitdice)
 
 	/* Roll for hit point unless quick-start */
 	if (roll_hitdice) set_base_hp(creature_ptr);
-
-
 }
 
 
