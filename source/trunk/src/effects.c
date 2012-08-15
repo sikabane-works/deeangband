@@ -6247,9 +6247,9 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
 	#ifdef JP
-					if ((attacker_ptr->chara_idx == CHARA_COMBAT) || get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
+					if (has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
 						msg_format("%sはせっかくだから%sを殺した。", atk_name, tar_name);
-					else if(attacker_ptr->chara_idx == CHARA_CHARGEMAN)
+					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
 						msg_format("%sは%sを殺した。「ごめんね～」", atk_name, tar_name);
 					else
 						msg_format("%sは%sを殺した。", atk_name, tar_name);
@@ -6281,14 +6281,12 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				else
 				{
 	#ifdef JP
-					if ((attacker_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+					if (has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
 						msg_format("せっかくだから%sを倒した。", tar_name);
-					else if(attacker_ptr->chara_idx == CHARA_CHARGEMAN)
+					else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
 						msg_format("%s！お許し下さい！", tar_name);
 					else
 						msg_format("%sを倒した。", tar_name);
-					if (attacker_ptr->chara_idx == CHARA_CHARGEMAN)
-						msg_format("%s!お許し下さい！", tar_name);
 	#else
 					msg_format("You have destroyed %s.", tar_name);
 	#endif
@@ -6303,9 +6301,9 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 					{
 #ifdef JP
-						if ((attacker_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+						if (has_trait(attacker_ptr, TRAIT_ECHIZEN_TALK))
 							msg_format("%sはせっかくだから%sを葬り去った。", atk_name, tar_name);
-						else if(attacker_ptr->chara_idx == CHARA_CHARGEMAN)
+						else if(has_trait(attacker_ptr, TRAIT_CHARGEMAN_TALK))
 						{
 							msg_format("%sは%sを葬り去った。", atk_name, tar_name);
 							msg_format("%s！お許し下さい！", tar_name);

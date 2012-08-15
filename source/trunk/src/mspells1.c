@@ -1686,9 +1686,9 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			if (target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
 
 #ifdef JP
-			if ((target_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+			if (has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
 				msg_print("やりやがったな！");
-			else if (target_ptr->chara_idx == CHARA_CHARGEMAN)
+			else if (has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
 				msg_print("弱いものいじめはやめるんだ！");
 #endif
 			learn_trait(target_ptr, TRAIT_DISPEL);
@@ -3494,10 +3494,9 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #ifdef JP
 			msg_format("%^sにテレポートさせられた。", m_name);
 
-			if ((target_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
 				msg_print("くっそ～");
-
-			if (target_ptr->chara_idx == CHARA_CHARGEMAN)
+			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
 				msg_print("なんて事をするんだ！");
 #else
 			msg_format("%^s teleports you away.", m_name);

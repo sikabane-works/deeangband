@@ -712,7 +712,7 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 		}
 
 #ifdef JP
-	if(killer_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(has_trait(killer_ptr, TRAIT_CHARGEMAN_TALK))
 		return "‚ğ“|‚µ‚½B‚²‚ß‚ñ‚Ë`";
 	else
 		return "‚ğ“|‚µ‚½B";
@@ -721,9 +721,9 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 #endif
 	}
 
-	/* Assume a default death */
+	// Assume a default death
 #ifdef JP
-	if(killer_ptr->chara_idx == CHARA_CHARGEMAN)
+	if(has_trait(killer_ptr, TRAIT_CHARGEMAN_TALK))
 		return "‚Í€‚ñ‚¾B‚²‚ß‚ñ‚Ë`";
 	else
 		return "‚Í€‚ñ‚¾B";

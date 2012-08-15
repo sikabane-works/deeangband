@@ -1079,9 +1079,9 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			{
 #ifdef JP
 				msg_print("落とし戸に落ちた！");
-				if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+				if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 					msg_print("くっそ～！");
-				if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
+				if (has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 					msg_print("ジュラル星人の仕業に違いない！");
 
 #else

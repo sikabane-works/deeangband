@@ -4801,16 +4801,16 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 
 				/* Message */
 #ifdef JP
-msg_format("%s(%c)が%s壊れてしまった！",
+				msg_format("%s(%c)が%s壊れてしまった！",
 #else
 				msg_format("%sour %s (%c) %s destroyed!",
 #endif
 
 #ifdef JP
-object_name, index_to_label(i),
-    ((object_ptr->number > 1) ?
-    ((amt == object_ptr->number) ? "全部" :
-    (amt > 1 ? "何個か" : "一個")) : "")    );
+				object_name, index_to_label(i),
+					((object_ptr->number > 1) ?
+					((amt == object_ptr->number) ? "全部" :
+					(amt > 1 ? "何個か" : "一個")) : "")    );
 #else
 				    ((object_ptr->number > 1) ?
 				    ((amt == object_ptr->number) ? "All of y" :
@@ -4820,14 +4820,13 @@ object_name, index_to_label(i),
 #endif
 
 #ifdef JP
-				if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 					msg_print("やりやがったな！");
-
-				if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
+				else if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 					msg_print("なんて事をするんだ！");
 #endif
 
-				/* Potions smash open */
+				// Potions smash open
 				if (object_is_potion(creature_ptr, object_ptr))
 				{
 					(void)potion_smash_effect(0, creature_ptr->fy, creature_ptr->fx, object_ptr->k_idx);
@@ -4865,62 +4864,47 @@ static int minus_ac(creature_type *creature_ptr)
 	u32b flgs[TR_FLAG_SIZE];
 	char object_name[MAX_NLEN];
 
-
-	/* Pick a (possibly empty) inventory slot */
-	//TODO
+	// Pick a (possibly empty) inventory slot
 	i = randint0(INVEN_TOTAL);
 	object_ptr = &creature_ptr->inventory[i];
 	if(!IS_EQUIPPED(object_ptr)) return (FALSE);
 
-	/* Nothing to damage */
+	// Nothing to damage
 	if (!object_ptr->k_idx) return (FALSE);
-
 	if (!object_is_armour(object_ptr)) return (FALSE);
 
-	/* No damage left to be done */
+	// No damage left to be done
 	if (object_ptr->ac + object_ptr->to_ac <= 0) return (FALSE);
 
+	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe
 
-	/* Describe */
-	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_flags(object_ptr, flgs); // Extract the flags
 
-	/* Extract the flags */
-	object_flags(object_ptr, flgs);
-
-	/* Object resists */
+	// Object resists
 	if (have_flag(flgs, TR_IGNORE_ACID))
 	{
 #ifdef JP
-msg_format("しかし%sには効果がなかった！", object_name);
+		msg_format("しかし%sには効果がなかった！", object_name);
 #else
 		msg_format("Your %s is unaffected!", object_name);
 #endif
-
-
 		return (TRUE);
 	}
 
 	/* Message */
 #ifdef JP
-msg_format("%sがダメージを受けた！", object_name);
+	msg_format("%sがダメージを受けた！", object_name);
 #else
 	msg_format("Your %s is damaged!", object_name);
 #endif
 
+	object_ptr->to_ac--; // Damage the item
 
-	/* Damage the item */
-	object_ptr->to_ac--;
-
-	/* Calculate bonuses */
-	creature_ptr->creature_update |= (CRU_BONUS);
-
-	/* Window stuff */
-	play_window |= (PW_EQUIP | PW_PLAYER);
-
+	creature_ptr->creature_update |= (CRU_BONUS);		// Calculate bonuses
+	play_window |= (PW_EQUIP | PW_PLAYER);				// Window stuff
 	calc_android_exp(creature_ptr);
 
-	/* Item was damaged */
-	return (TRUE);
+	return (TRUE); // Item was damaged
 }
 
 

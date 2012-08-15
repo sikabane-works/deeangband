@@ -2367,7 +2367,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		msg_format("You behold the %s visage of %s!",
 #endif
 
-					  funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
+		funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
 		if (one_in_(3) && watcher_ptr->chara_idx != CHARA_CHARGEMAN)
 		{
@@ -4785,9 +4785,9 @@ msg_print("ここにはクエストの入口はない。");
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
 		if (!get_check("クエストに入りますか？")) return;
-		if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
+		if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 			msg_print("『とにかく入ってみようぜぇ。』");
-		if (creature_ptr->chara_idx == CHARA_CHARGEMAN)
+		if (has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");
