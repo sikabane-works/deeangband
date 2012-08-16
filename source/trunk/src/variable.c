@@ -702,7 +702,6 @@ bool unique_play = FALSE;			// unique play mode
 s16b inside_quest = 0;
 bool wild_mode = FALSE;
 bool fight_arena_mode = FALSE;		// inside arena?
-bool gamble_arena_mode = FALSE;		// inside tougijou?
 s16b town_num = 0;					// Current town number
 s16b arena_number = 0;				// creature number in arena -KMW-
 bool detect_trap;					// Whether on trap-safe grids

@@ -50,7 +50,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 66
+#define VER_PATCH 67
 
 #define VER_EXTRA 0
 
@@ -387,7 +387,7 @@
  * More maximum values
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
-#define MAX_RANGE       (gamble_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
+#define MAX_RANGE       (floor_ptr->gamble_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
@@ -2653,7 +2653,7 @@
  */
 // TODO Check using
 #define is_seen(B, A) \
-	((bool)((A)->ml && (!ignore_unview || gamble_arena_mode || \
+	((bool)((A)->ml && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
@@ -2967,7 +2967,7 @@
  * Note the use of comparison to zero to force a "boolean" result
  */
 #define player_has_los_bold(Y, X) \
-    (((GET_FLOOR_PTR(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
+    (((GET_FLOOR_PTR(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || floor_ptr->gamble_arena_mode)
 
 
 /*

@@ -1890,6 +1890,7 @@ typedef struct {
  */
 typedef struct 
 {
+	byte gamble_arena_mode;
 	s16b base_level;      // Base dungeon level
 	s16b floor_level;
 	s16b creature_level;  // Current creature creation level
@@ -1905,10 +1906,11 @@ typedef struct
 	s16b height;
 	s16b num_repro;       // Current reproducer count
 	cave_type cave[MAX_HGT][MAX_WID];
-	s32b floor_turn;	     // Game turn in dungeon
-	s32b floor_turn_limit; // Limit of game turn in dungeon
+	s32b floor_turn;		// Game turn in dungeon
+	s32b floor_turn_limit;	// Limit of game turn in dungeon
 
 	s16b race_population[MAX_RACES];
+
 } floor_type;
 
 

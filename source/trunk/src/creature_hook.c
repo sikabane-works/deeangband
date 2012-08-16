@@ -530,8 +530,8 @@ void set_pet(creature_type *master_ptr, creature_type *m_ptr)
  */
 void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
 {
-	if (gamble_arena_mode) return;
-
+	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
+	if (floor_ptr->gamble_arena_mode) return;
 	if (is_pet(master_ptr, m_ptr)) check_pets_num_and_align(master_ptr, m_ptr, FALSE);
 
 	m_ptr->smart &= ~SM_PET;
@@ -544,7 +544,9 @@ void set_hostile(creature_type *master_ptr, creature_type *m_ptr)
  */
 void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 {
-	if (gamble_arena_mode) return;
+	floor_type *floor_ptr = GET_FLOOR_PTR(hostile_ptr);
+
+	if (floor_ptr->gamble_arena_mode) return;
 	if (is_friendly(player_ptr, m_ptr))
 	{
 		char m_name[80];
@@ -727,8 +729,9 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 {
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	species_type *s_ptr = &species_info[n_ptr->species_idx];
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
-	if (gamble_arena_mode)
+	if (floor_ptr->gamble_arena_mode)
 	{
 		if (is_pet(player_ptr, m_ptr) || is_pet(player_ptr, n_ptr)) return FALSE;
 		return TRUE;

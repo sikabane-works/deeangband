@@ -789,12 +789,12 @@ static bool spell_world(byte spell)
  */
 static bool spell_special(byte spell)
 {
-	if (gamble_arena_mode) return FALSE;
+	//TODO if (floor_ptr->gamble_arena_mode) return FALSE;
 
-	/* world */
+	// world
 	if (spell == 160 + 7) return (TRUE);
 
-	/* Not a haste spell */
+	// Not a haste spell
 	return (FALSE);
 }
 
@@ -1504,7 +1504,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Remove the "ineffective" spells */
 	//TODO remove_bad_spells(caster_ptr, &f4, &f5, &f6);
 
-	if (fight_arena_mode || gamble_arena_mode)
+	if (fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		//TODO f4 &= ~(RF4_SUMMON_MASK);
 		//TODO f5 &= ~(RF5_SUMMON_MASK);
@@ -3317,7 +3317,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 					int dummy_y = caster_ptr->fy;
 					int dummy_x = caster_ptr->fx;
 
-					if (fight_arena_mode || gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
+					if (fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;

@@ -1681,14 +1681,14 @@ static bool vault_aux_battle(int species_idx)
 
 void battle_creatures(void)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	//TODO :: NEW CALCULATION
-
 	int total, i;
 	int max_dl = 0;
 	int ave_creature_level;
 	int power[4];
 	bool tekitou;
-	bool old_gamble_arena_mode = gamble_arena_mode;
+	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 
 	for (i = 0; i < max_dungeon_idx; i++)
 		if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
@@ -1716,9 +1716,9 @@ void battle_creatures(void)
 
 			while (1)
 			{
-				gamble_arena_mode = TRUE;
+				floor_ptr->gamble_arena_mode = TRUE;
 				species_idx = get_species_num(current_floor_ptr, ave_creature_level);
-				gamble_arena_mode = old_gamble_arena_mode;
+				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if (!species_idx) continue;
 
 				if (is_unique_species(&species_info[species_idx]) || is_sub_unique_species(&species_info[species_idx]))
@@ -1786,8 +1786,9 @@ static bool kakutoujou(creature_type *creature_ptr)
 	s32b wager;
 	char out_val[160], tmp_str[80];
 	cptr p;
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if ((turn - old_battle) > TURNS_PER_TICK*250)
+	if ((turn - old_battle) > TURNS_PER_TICK * 250)
 	{
 		battle_creatures();
 		old_battle = turn;
@@ -1927,7 +1928,7 @@ msg_print("‚n‚jA‚PƒS[ƒ‹ƒh‚Å‚¢‚±‚¤B");
 			// Save the surface floor as saved floor
 			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS);
 
-			gamble_arena_mode = TRUE;
+			floor_ptr->gamble_arena_mode = TRUE;
 			subject_change_floor = TRUE;
 
 			leave_bldg = TRUE;
@@ -4080,7 +4081,7 @@ bool tele_town(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if (fight_arena_mode || gamble_arena_mode)
+	if (fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 #ifdef JP
 		msg_print("‚±‚Ì–‚–@‚ÍŠO‚Å‚µ‚©Žg‚¦‚È‚¢I");
@@ -4875,13 +4876,13 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 		return;
 	}
-	else if (gamble_arena_mode)
+	else if (floor_ptr->gamble_arena_mode)
 	{
 		/* Don't save the arena as saved floor */
 		prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
 		subject_change_floor = TRUE;
-		gamble_arena_mode = FALSE;
+		floor_ptr->gamble_arena_mode = FALSE;
 
 		/* Re-enter the creature arena */
 		command_new = SPECIAL_KEY_BUILDING;
@@ -4921,7 +4922,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		{
 			leave_bldg = TRUE;
 			fight_arena_mode = FALSE;
-			gamble_arena_mode = FALSE;
+			floor_ptr->gamble_arena_mode = FALSE;
 			break;
 		}
 

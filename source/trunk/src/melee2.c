@@ -46,7 +46,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 	}
 	else
 	{
-		if (gamble_arena_mode)
+		if (floor_ptr->gamble_arena_mode)
 		{
 			start = randint1(creature_max-1) + creature_max;
 			if(randint0(2)) plus = -1;
@@ -1293,7 +1293,9 @@ static void creature_lack_food(creature_type *creature_ptr)
 
 static void creature_food_digest(creature_type *creature_ptr)
 {
-	if (!gamble_arena_mode)
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+
+	if (!floor_ptr->gamble_arena_mode)
 	{
 		// Digest quickly when gorged
 		if (creature_ptr->food >= PY_FOOD_MAX)
@@ -1370,6 +1372,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 
 static void do_scatting_creature(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	if (has_trait(creature_ptr, TRAIT_SPECIAL))
@@ -1377,7 +1380,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 		/* Hack -- Ohmu scatters molds! */
 		if (creature_ptr->species_idx == SPECIES_OHMU)
 		{
-			if (!fight_arena_mode && !gamble_arena_mode)
+			if (!fight_arena_mode && !floor_ptr->gamble_arena_mode)
 			{
 				if (species_ptr->freq_spell && (randint1(100) <= species_ptr->freq_spell))
 				{
@@ -1446,7 +1449,9 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 
 static void do_creature_speaking(creature_type *creature_ptr)
 {
-	if (!gamble_arena_mode)
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+
+	if (!floor_ptr->gamble_arena_mode)
 	{
 		floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 		int oy = creature_ptr->fy;
@@ -1599,7 +1604,7 @@ static void process_nonplayer(int m_idx)
 
 // TODO Riding pinch
 /*
-	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !gamble_arena_mode)
+	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !floor_ptr->gamble_arena_mode)
 	{
 		static int riding_pinch = 0;
 
@@ -1698,7 +1703,7 @@ static void process_nonplayer(int m_idx)
 		gets_angry = TRUE;
 	}
 
-	if (gamble_arena_mode) gets_angry = FALSE;
+	if (floor_ptr->gamble_arena_mode) gets_angry = FALSE;
 
 	if (gets_angry)
 	{
@@ -2533,7 +2538,7 @@ static void process_nonplayer(int m_idx)
 
 	/* Notice changes in view */
 	if (do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !gamble_arena_mode))
+		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !floor_ptr->gamble_arena_mode))
 	{
 		/* Update some things */
 		update |= (PU_SPECIES_LITE);
@@ -2834,6 +2839,7 @@ void creature_process_init(void)
 
 static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_type *creature_ptr, int mtimed_idx)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	switch (mtimed_idx)
 	{

@@ -764,7 +764,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	object_type *quest_ptr;
 
 	bool drop_chosen_item = drop_item && !cloned && !fight_arena_mode
-		&& !gamble_arena_mode && !is_pet(player_ptr, killed_ptr);
+		&& !floor_ptr->gamble_arena_mode && !is_pet(player_ptr, killed_ptr);
 
 	/* The caster is dead? */
 	if (the_world && &creature_list[the_world] == killed_ptr) the_world = 0;
@@ -879,7 +879,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	/* Drop a dead corpse? */
 	if (one_in_(has_trait(killed_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
 	    (has_trait(killed_ptr, TRAIT_DROP_CORPSE) || has_trait(killed_ptr, TRAIT_DROP_SKELETON)) &&
-	    !(fight_arena_mode || gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
+	    !(fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -928,7 +928,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	{
 	case SPECIES_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
-		if (!(fight_arena_mode || gamble_arena_mode))
+		if (!(fight_arena_mode || floor_ptr->gamble_arena_mode))
 		{
 			bool notice = FALSE;
 
@@ -1003,7 +1003,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
 		 * spawn another in the fallen one's place!
 		 */
-		if (!fight_arena_mode && !gamble_arena_mode)
+		if (!fight_arena_mode && !floor_ptr->gamble_arena_mode)
 		{
 			if (!one_in_(7))
 			{
@@ -1331,7 +1331,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	if (cloned && !(is_unique_creature(killed_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(player_ptr, killed_ptr) || gamble_arena_mode || fight_arena_mode)
+	if (is_pet(player_ptr, killed_ptr) || floor_ptr->gamble_arena_mode || fight_arena_mode)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1390,7 +1390,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 
 	/* Only process "Quest Creatures" */
 	if (!is_quest_creature(killed_ptr)) return;
-	if (gamble_arena_mode) return;
+	if (floor_ptr->gamble_arena_mode) return;
 }
 
 /*
@@ -1454,7 +1454,7 @@ void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *targe
 
 	if (has_trait(target_ptr, TRAIT_BLUFF)) return;
 	if (!target_ptr->species_idx) return;
-	if (is_pet(player_ptr, target_ptr) || gamble_arena_mode) return;
+	if (is_pet(player_ptr, target_ptr) || floor_ptr->gamble_arena_mode) return;
 
 	/*
 	 * - Ratio of creature's level to player's level effects

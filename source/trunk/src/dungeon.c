@@ -2319,7 +2319,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* No effect on creature arena */
-	if (gamble_arena_mode) return;
+	if (floor_ptr->gamble_arena_mode) return;
 
 	/* No effect on the global map */
 	if (wild_mode) return;
@@ -2929,7 +2929,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if ((creature_ptr->cursed & TRC_P_FLAG_MASK) && !gamble_arena_mode && !wild_mode)
+	if ((creature_ptr->cursed & TRC_P_FLAG_MASK) && !floor_ptr->gamble_arena_mode && !wild_mode)
 	{
 		/*
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
@@ -3341,7 +3341,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 		 * The player is yanked up/down as soon as
 		 * he loads the autosaved game.
 		 */
-		if (autosave_l && (creature_ptr->word_recall == 1) && !gamble_arena_mode)
+		if (autosave_l && (creature_ptr->word_recall == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
@@ -3460,7 +3460,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 	/* Delayed Alter reality */
 	if (creature_ptr->alter_reality)
 	{
-		if (autosave_l && (creature_ptr->alter_reality == 1) && !gamble_arena_mode)
+		if (autosave_l && (creature_ptr->alter_reality == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
@@ -3636,7 +3636,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	int delay;
 
 	if (!floor_ptr->floor_level) return; // No feeling on the surface
-	if (gamble_arena_mode) return;		 // No feeling in the arena
+	if (floor_ptr->gamble_arena_mode) return;		 // No feeling in the arena
 
 	// Extract delay time
 	delay = MAX(10, 150 - creature_ptr->skill_fos) * (150 - floor_ptr->floor_level) * TURNS_PER_TICK / 100;
@@ -3665,7 +3665,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 	int win_m_idx = 0;
 	int number_mon = 0;
 
-	/* Count all hostile creatures */
+	// Count all hostile creatures
 	for (i2 = 0; i2 < floor_ptr->width; ++i2)
 		for (j2 = 0; j2 < floor_ptr->height; j2++)
 		{
@@ -3728,7 +3728,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 		msg_print(NULL);
 		battle_creatures();
 	}
-	else if (turn - old_turn == 150*TURNS_PER_TICK)
+	else if (turn - old_turn == 150 * TURNS_PER_TICK)
 	{
 #ifdef JP
 		msg_print("申し分けありませんが、この勝負は引き分けとさせていただきます。");
@@ -3745,7 +3745,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 {
 
 	/* While in town/wilderness */
-	if (!floor_ptr->floor_level && !inside_quest && !gamble_arena_mode && !fight_arena_mode)
+	if (!floor_ptr->floor_level && !inside_quest && !floor_ptr->gamble_arena_mode && !fight_arena_mode)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -3832,7 +3832,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 							}
 						}
 
-						/* Glow deep lava and building entrances */
+						// Glow deep lava and building entrances
 						glow_deep_lava_and_bldg(floor_ptr);
 					}
 				}
@@ -3872,17 +3872,17 @@ static void process_world(void)
 	
 	extract_day_hour_min(&day, &hour, &min);
 
-	/* Update dungeon feeling, and announce it if changed */
+	// Update dungeon feeling, and announce it if changed
 	update_dungeon_feeling(player_ptr);
 
 	/*** Check creature arena ***/
-	if (gamble_arena_mode && !subject_change_floor) creature_arena_result(floor_ptr);
+	if (floor_ptr->gamble_arena_mode && !subject_change_floor) creature_arena_result(floor_ptr);
 
-	/* Every 10 game turns */
+	// Every 10 game turns
 	if (turn % TURNS_PER_TICK) return;
 
 	/*** Attempt timed autosave ***/
-	if (autosave_t && autosave_freq && !gamble_arena_mode)
+	if (autosave_t && autosave_freq && !floor_ptr->gamble_arena_mode)
 	{
 		if (!(turn % ((s32b)autosave_freq * TURNS_PER_TICK)))
 			do_cmd_save_game(TRUE);
@@ -3905,14 +3905,14 @@ static void process_world(void)
 
 	/* Check for creature generation. */
 	if (one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
-	    !fight_arena_mode && !inside_quest && !gamble_arena_mode)
+	    !fight_arena_mode && !inside_quest && !floor_ptr->gamble_arena_mode)
 	{
 		/* Make a new creature */
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
 	}
 
 	/* Hack -- Check for creature regeneration */
-	if (!(turn % (TURNS_PER_TICK*10)) && !gamble_arena_mode) regen_creatures(player_ptr);
+	if (!(turn % (TURNS_PER_TICK*10)) && !floor_ptr->gamble_arena_mode) regen_creatures(player_ptr);
 	if (!(turn % (TURNS_PER_TICK*3))) regen_captured_creatures(player_ptr);
 
 	if (!subject_change_floor)
@@ -5194,8 +5194,10 @@ void do_creature_fishing(creature_type *creature_ptr)
 
 void gamble_arena_limitation(void)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+
 	int i;
-	if (gamble_arena_mode)
+	if (floor_ptr->gamble_arena_mode)
 	{
 		for(i = 1; i < creature_max; i++)
 		{
@@ -5534,7 +5536,7 @@ msg_print("中断しました。");
 		energy_use = 0;
 
 
-		if (gamble_arena_mode)
+		if (floor_ptr->gamble_arena_mode)
 		{
 			/* Place the cursor on the player */
 			move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
@@ -5830,8 +5832,8 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 	{
 		// Hack -- Compact and Compress the creature & object list occasionally
 		/*
-		if ((creature_cnt + 32 > max_creature_idx) && !gamble_arena_mode) compact_creatures(64);
-		if ((creature_cnt + 32 < creature_max) && !gamble_arena_mode) compact_creatures(0);
+		if ((creature_cnt + 32 > max_creature_idx) && !floor_ptr->gamble_arena_mode) compact_creatures(64);
+		if ((creature_cnt + 32 < creature_max) && !floor_ptr->gamble_arena_mode) compact_creatures(0);
 		if (object_cnt + 32 > max_object_idx) compact_objects(64);
 		if (object_cnt + 32 < object_max) compact_objects(0);
 		*/
@@ -6054,7 +6056,8 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 {
 	int n = 0;
 	int max_dl = 3, i;
-	bool old_gamble_arena_mode = gamble_arena_mode;
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 	species_type *r_ptr;
 
 	if (!conv_old)
@@ -6067,7 +6070,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	}
 	else max_dl = MAX(max_dlv[DUNGEON_DOD], 3);
 
-	gamble_arena_mode = TRUE;
+	floor_ptr->gamble_arena_mode = TRUE;
 	get_species_num_prep(NULL, NULL);
 
 	while (n < RANDOM_TRY)
@@ -6086,7 +6089,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	}
 
 	today_mon = 0;
-	gamble_arena_mode = old_gamble_arena_mode;
+	floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 }
 
 static void cheat_death(void)
@@ -6183,7 +6186,6 @@ static void cheat_death(void)
 
 	current_floor_ptr->floor_level = 0;
 	fight_arena_mode = FALSE;
-	gamble_arena_mode = FALSE;
 	leaving_quest = 0;
 	inside_quest = 0;
 	if (current_floor_ptr->dun_type) player_ptr->recall_dungeon = current_floor_ptr->dun_type;
@@ -6288,7 +6290,6 @@ static void new_game_setting(void)
 	/* Start in town */
 	inside_quest = 0;
 	fight_arena_mode = FALSE;
-	gamble_arena_mode = FALSE;
 
 	write_level = TRUE;
 
@@ -6524,7 +6525,7 @@ static void play_loop(void)
 		    !( quest_num == QUEST_SERPENT ||
 		    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
 
-		if (gamble_arena_mode)
+		if (floor_ptr->gamble_arena_mode)
 		{
 			if (load_game)
 			{
@@ -6577,7 +6578,7 @@ static void play_loop(void)
 		floor_ptr->creature_level = floor_ptr->base_level;
 		floor_ptr->object_level = floor_ptr->base_level;
 
-		if (player_ptr->energy_need > 0 && !gamble_arena_mode &&
+		if (player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&
 			(floor_ptr->floor_level || subject_change_dungeon || fight_arena_mode))
 			player_ptr->energy_need = 0;
 

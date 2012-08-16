@@ -114,7 +114,7 @@ cptr map_name(floor_type *floor_ptr)
 #else
 		return "Arena";
 #endif
-	else if (gamble_arena_mode)
+	else if (floor_ptr->gamble_arena_mode)
 #ifdef JP
 		return "“¬‹Zê";
 #else

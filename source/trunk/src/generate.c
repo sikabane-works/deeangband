@@ -1534,7 +1534,7 @@ void generate_floor(floor_type *floor_ptr)
 
 		if(fight_arena_mode)
 			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
-		else if(gamble_arena_mode)
+		else if(floor_ptr->gamble_arena_mode)
 			generate_floor_creature_arena(floor_ptr); // gamble arena
 		else if(inside_quest)
 			generate_floor_quest(floor_ptr); // quest
