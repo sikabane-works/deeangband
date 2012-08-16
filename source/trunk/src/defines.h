@@ -427,17 +427,6 @@
 #define CH_HISSATSU     0x10000
 #define CH_HEX          0x20000
 
-
-/*
- * Alignment 
- */
-#define ALIGNMENT_GOOD    0
-#define ALIGNMENT_EVIL    1
-#define ALIGNMENT_ORDER   2
-#define ALIGNMENT_CHAOS   3
-#define ALIGNMENT_BALANCE 4
-
-
 /*
  * Magic realms
  */
