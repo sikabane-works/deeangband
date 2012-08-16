@@ -3585,9 +3585,10 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 		object_kind *kind_ptr = &object_kind_info[object_ptr->k_idx];
 		int delta = 0;
 
-		if (!object_ptr->k_idx) continue; // Skip dead objects
-		if (object_is_known(object_ptr) && object_ptr->marked & OM_TOUCHED) continue; // Skip known objects
-		if (object_ptr->ident & IDENT_SENSE) continue; /* Skip pseudo-known objects */
+		if(!object_ptr->k_idx) continue; // Skip dead objects
+		if(!IS_IN_THIS_FLOOR(object_ptr)) continue;
+		if(object_is_known(object_ptr) && object_ptr->marked & OM_TOUCHED) continue; // Skip known objects
+		if(object_ptr->ident & IDENT_SENSE) continue; // Skip pseudo-known objects
 
 		if (object_is_ego(object_ptr)) // Ego objects
 		{
@@ -3605,25 +3606,6 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 			if (cost > 100000L) delta += 10 * base;
 			if (!preserve_mode) return 1; // Special feeling
 		}
-
-		if (object_ptr->tval == TV_DRAG_ARMOR) delta += 30 * base;
-		if (object_ptr->tval == TV_SHIELD &&
-		    object_ptr->sval == SV_DRAGON_SHIELD) delta += 5 * base;
-		if (object_ptr->tval == TV_GLOVES &&
-		    object_ptr->sval == SV_SET_OF_DRAGON_GLOVES) delta += 5 * base;
-		if (object_ptr->tval == TV_BOOTS &&
-		    object_ptr->sval == SV_PAIR_OF_DRAGON_GREAVE) delta += 5 * base;
-		if (object_ptr->tval == TV_HELM &&
-		    object_ptr->sval == SV_DRAGON_HELM) delta += 5 * base;
-		if (object_ptr->tval == TV_RING &&
-		    object_ptr->sval == SV_RING_SPEED &&
-		    !object_is_cursed(object_ptr)) delta += 25 * base;
-		if (object_ptr->tval == TV_RING &&
-		    object_ptr->sval == SV_RING_LORDLY &&
-		    !object_is_cursed(object_ptr)) delta += 15 * base;
-		if (object_ptr->tval == TV_AMULET &&
-		    object_ptr->sval == SV_AMULET_THE_MAGI &&
-		    !object_is_cursed(object_ptr)) delta += 15 * base;
 
 		if (!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && 
 		    kind_ptr->level > floor_ptr->floor_level) // Out-of-depth objects
