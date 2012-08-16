@@ -6346,7 +6346,7 @@ static void new_game_setting(void)
 		player_ptr->wx = player_ptr->start_wx;
 		player_ptr->wy = player_ptr->start_wy;
 
-		if(is_undead_creature(player_ptr))
+		if(has_trait(player_ptr, TRAIT_UNDEAD))
 		{
 			start_hour = 18;
 			start_min = 0;
@@ -6882,7 +6882,7 @@ void play_game(bool new_game)
 
 s32b turn_real(creature_type *creature_ptr, s32b hoge)
 {
-	if(is_undead_creature(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_UNDEAD))
 		return hoge - (TURNS_PER_TICK * TOWN_DAWN * 3 / 4);
 	else
 		return hoge;

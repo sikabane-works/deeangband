@@ -85,14 +85,14 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 {
 	int i, k;
 
-	/* Extract "shot" power */
+	// Extract "shot" power
 	i = ((creature_ptr->to_hit_b + plus) * 4) + (creature_ptr->lev * 2);
 
-	/* Snipers can shot more critically with crossbows */
+	// Snipers can shot more critically with crossbows
 	if (creature_ptr->concent) i += ((i * creature_ptr->concent) / 5);
 	if ((creature_ptr->class_idx == CLASS_SNIPER) && (creature_ptr->tval_ammo == TV_BOLT)) i *= 2;
 
-	/* Critical hit */
+	// Critical hit
 	if (randint1(5000) <= i)
 	{
 		k = weight * randint1(500);
@@ -271,6 +271,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				t = calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 10;
 				if (mult < t) mult = t;
 			}
+
 			else if ((have_flag(flgs, TRAIT_SLAY_GOOD)) &&
 			    is_enemy_of_evil_creature(target_ptr))
 			{
@@ -320,7 +321,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Undead */
-			if ((have_flag(flgs, TRAIT_SLAY_UNDEAD)) && is_undead_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -329,7 +330,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Execute Undead */
-			if ((have_flag(flgs, TRAIT_KILL_UNDEAD)) && is_undead_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -559,7 +560,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 			if (mode == HISSATSU_UNDEAD)
 			{
-				if (is_undead_creature(target_ptr))
+				if (has_trait(target_ptr, TRAIT_UNDEAD))
 				{
 					if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 						reveal_creature_info(target_ptr, INFO_TYPE_RACE);

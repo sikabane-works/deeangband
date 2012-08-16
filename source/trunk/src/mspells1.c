@@ -1461,7 +1461,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	{
 		if ((target_ptr->class_idx == CLASS_NINJA) &&
 		    !is_hurt_lite_creature(caster_ptr) &&
-			!is_undead_creature(caster_ptr) && 
+			!has_trait(caster_ptr, TRAIT_UNDEAD) && 
 		    !is_darken_creature(caster_ptr))
 			can_use_lite_area = TRUE;
 

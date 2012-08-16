@@ -1049,7 +1049,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if (has_trait(target_ptr, TRAIT_NO_STUN)) resist_stun += 66;
 		if (has_trait(target_ptr, TRAIT_NO_CONF)) resist_stun += 33;
 		if (has_trait(target_ptr, TRAIT_NO_SLEEP)) resist_stun += 33;
-		if (is_undead_creature(target_ptr) || has_trait(target_ptr, TRAIT_NONLIVING))
+		if (has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING))
 			resist_stun += 66;
 
 		if (attacker_ptr->special_defense & KAMAE_BYAKKO)
@@ -3444,7 +3444,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
 				/* Heal the attacker? */
-				if(has_trait(target_ptr, TRAIT_NONLIVING) || is_undead_creature(target_ptr) || is_demon_creature(target_ptr))
+				if(has_trait(target_ptr, TRAIT_NONLIVING) || has_trait(target_ptr, TRAIT_UNDEAD) || is_demon_creature(target_ptr))
 				{
 					resist_drain = TRUE;
 					break;

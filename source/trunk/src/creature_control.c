@@ -2447,7 +2447,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if (wizard) return;
 
 		/* Undead characters are 50% likely to be unaffected */
-		if (is_undead_creature(watcher_ptr))
+		if (has_trait(watcher_ptr, TRAIT_UNDEAD))
 		{
 			if (saving_throw(25 + watcher_ptr->lev)) return;
 		}
@@ -2901,7 +2901,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			}
 
 			/* Magical sensing */
-			if (has_trait(creature_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !is_undead_creature(target_ptr)) 
+			if (has_trait(creature_ptr, TRAIT_SENSE_NONLIVING) && has_trait(target_ptr, TRAIT_NONLIVING) && !has_trait(target_ptr, TRAIT_UNDEAD)) 
 			{
 				flag = TRUE;
 				reveal_creature_info(target_ptr, TRAIT_NONLIVING);

@@ -4224,7 +4224,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 	if (IS_DEAD(creature_ptr)) return FALSE;
 
-	if (is_undead_creature(creature_ptr) && has_trait(creature_ptr, TRAIT_NONLIVING))
+	if (has_trait(creature_ptr, TRAIT_UNDEAD) && has_trait(creature_ptr, TRAIT_NONLIVING))
 		v = 0;
 
 	/* Mortal wound */

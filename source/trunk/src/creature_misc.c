@@ -572,17 +572,6 @@ bool is_giant_species(species_type *species_ptr)
 		return FALSE;
 }
 
-bool is_undead_creature(creature_type *creature_ptr)
-{
-	if(has_trait(creature_ptr, TRAIT_ZOMBIE) ||
-	   has_trait(creature_ptr, TRAIT_SKELETON) ||
-	   has_trait(creature_ptr, TRAIT_VAMPIRE) ||
-	   has_trait(creature_ptr, TRAIT_LICH) ||
-	   has_trait(creature_ptr, TRAIT_NAZGUL))
-		return TRUE;
-	else
-		return FALSE;
-}
 
 bool is_undead_species(species_type *species_ptr)
 {
@@ -1750,7 +1739,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
 	case DAMAGE_TYPE_NETH:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL) || is_undead_creature(creature_ptr))
+		if(has_trait(creature_ptr, TRAIT_RES_ALL) || has_trait(creature_ptr, TRAIT_UNDEAD))
 		{
 			t = 0;
 			break;

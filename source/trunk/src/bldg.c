@@ -2396,7 +2396,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			if (saving_throw(20 + watcher_ptr->lev)) return;
 		}
 
-		if(is_undead_creature(watcher_ptr))
+		if(has_trait(watcher_ptr, TRAIT_UNDEAD))
 		{
 			if (saving_throw(10 + watcher_ptr->lev)) return;
 		}

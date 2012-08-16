@@ -415,7 +415,7 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 #endif
 
 	}
-	else if (is_undead_creature(creature_ptr) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
+	else if (has_trait(creature_ptr, TRAIT_UNDEAD) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
 	{
 		cptr staff;
 
@@ -577,7 +577,7 @@ msg_print("H‚×•¨‚ªƒAƒS‚ð‘f’Ê‚è‚µ‚Ä—Ž‚¿AÁ‚¦‚½I");
 
 		}
 	}
-	else if (has_trait(creature_ptr, TRAIT_NONLIVING) || is_undead_creature(creature_ptr) || is_demon_creature(creature_ptr))
+	else if (has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || is_demon_creature(creature_ptr))
 	{
 #ifdef JP
 msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
@@ -633,7 +633,7 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 	else 
 #endif
 
-	if (is_undead_creature(creature_ptr))
+	if (has_trait(creature_ptr, TRAIT_UNDEAD))
 	{
 		if (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND)
 			return TRUE;

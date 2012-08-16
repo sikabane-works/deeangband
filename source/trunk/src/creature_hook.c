@@ -789,7 +789,7 @@ bool species_living(species_type *r_ptr)
 bool creature_living(creature_type *creature_ptr)
 {
 	/* Non-living, undead, or demon */
-	if (is_non_living_creature(creature_ptr) || is_undead_creature(creature_ptr)) return FALSE;
+	if (is_non_living_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	if (is_demon_creature(creature_ptr)) return FALSE;
 

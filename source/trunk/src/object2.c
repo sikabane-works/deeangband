@@ -5738,7 +5738,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_DEATH_RAY:
-		if(has_trait(caster_ptr, TRAIT_NONLIVING) && is_undead_creature(caster_ptr))
+		if(has_trait(caster_ptr, TRAIT_NONLIVING) && has_trait(caster_ptr, TRAIT_UNDEAD))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;

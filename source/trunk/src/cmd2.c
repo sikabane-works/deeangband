@@ -2917,7 +2917,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Slay Undead */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD)) && is_undead_creature(target_ptr))
+			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2926,7 +2926,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Undead */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_UNDEAD)) && is_undead_creature(target_ptr))
+			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
