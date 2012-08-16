@@ -4205,7 +4205,7 @@ static char inkey_from_menu(void)
 					if (player_ptr->class_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					break;
 				case MENU_WILD:
-					if (!floor_ptr->floor_level && !fight_arena_mode && !inside_quest)
+					if (!floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !inside_quest)
 					{
 						if ((byte)wild_mode == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					}

@@ -763,7 +763,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	object_type forge;
 	object_type *quest_ptr;
 
-	bool drop_chosen_item = drop_item && !cloned && !fight_arena_mode
+	bool drop_chosen_item = drop_item && !cloned && !floor_ptr->fight_arena_mode
 		&& !floor_ptr->gamble_arena_mode && !is_pet(player_ptr, killed_ptr);
 
 	/* The caster is dead? */
@@ -816,7 +816,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	check_quest_completion(slayer_ptr, killed_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (fight_arena_mode && !is_pet(player_ptr, killed_ptr))
+	if (floor_ptr->fight_arena_mode && !is_pet(player_ptr, killed_ptr))
 	{
 		arena_settled = TRUE;
 
@@ -879,7 +879,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	/* Drop a dead corpse? */
 	if (one_in_(has_trait(killed_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
 	    (has_trait(killed_ptr, TRAIT_DROP_CORPSE) || has_trait(killed_ptr, TRAIT_DROP_SKELETON)) &&
-	    !(fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
+	    !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -928,7 +928,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	{
 	case SPECIES_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
-		if (!(fight_arena_mode || floor_ptr->gamble_arena_mode))
+		if (!(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode))
 		{
 			bool notice = FALSE;
 
@@ -1003,7 +1003,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
 		 * spawn another in the fallen one's place!
 		 */
-		if (!fight_arena_mode && !floor_ptr->gamble_arena_mode)
+		if (!floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
 		{
 			if (!one_in_(7))
 			{
@@ -1331,7 +1331,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	if (cloned && !(is_unique_creature(killed_ptr)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(player_ptr, killed_ptr) || floor_ptr->gamble_arena_mode || fight_arena_mode)
+	if (is_pet(player_ptr, killed_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -2884,7 +2884,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		}
 
 		/* Hack -- special handling for building doors */
-		else if (have_flag(f_ptr->flags, FF_BLDG) && !fight_arena_mode)
+		else if (have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode)
 		{
 			name = building[f_ptr->subtype].name;
 		}
@@ -2930,7 +2930,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		/* Hack -- special introduction for store & building doors -KMW- */
 		if (have_flag(f_ptr->flags, FF_STORE) ||
 		    have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
-		    (have_flag(f_ptr->flags, FF_BLDG) && !fight_arena_mode) ||
+		    (have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode) ||
 		    have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
 #ifdef JP

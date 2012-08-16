@@ -1380,7 +1380,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 		/* Hack -- Ohmu scatters molds! */
 		if (creature_ptr->species_idx == SPECIES_OHMU)
 		{
-			if (!fight_arena_mode && !floor_ptr->gamble_arena_mode)
+			if (!floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
 			{
 				if (species_ptr->freq_spell && (randint1(100) <= species_ptr->freq_spell))
 				{

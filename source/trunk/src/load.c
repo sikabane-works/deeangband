@@ -1210,8 +1210,6 @@ static void rd_extra(void)
 
 	/* Read arena and rewards information */
 	rd_s16b(&arena_number);
-	rd_s16b(&tmp16s);
-	fight_arena_mode = (bool)tmp16s;
 	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
 	rd_byte((byte *)&preserve_mode);
@@ -1361,6 +1359,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s16b(&floor_ptr->upper_floor_id);
 	rd_s16b(&floor_ptr->lower_floor_id);
 
+	rd_byte(&floor_ptr->fight_arena_mode);
 	rd_byte(&floor_ptr->gamble_arena_mode);
 
 	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);

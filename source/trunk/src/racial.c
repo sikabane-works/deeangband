@@ -1313,7 +1313,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(creature_ptr->skill_exp[SKILL_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
-			    && one_in_(2) && !fight_arena_mode && !floor_ptr->gamble_arena_mode
+			    && one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
 			    && !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
 			    && (rlev < creature_ptr->lev * 3 / 2 + randint0(creature_ptr->lev / 5)))
 			{
@@ -2616,7 +2616,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + caster_ptr->lev * 2 / 3) > rlev)
-			    && one_in_(2) && !fight_arena_mode && !floor_ptr->gamble_arena_mode
+			    && one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
 			    && !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
 			    && (rlev < caster_ptr->lev * 3 / 2 + randint0(caster_ptr->lev / 5)))
 			{
@@ -4758,7 +4758,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 					int dummy_y = caster_ptr->fy;
 					int dummy_x = caster_ptr->fx;
 
-					if (fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
+					if (floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
 					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
 					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
 					creature_list[hack_m_idx_ii].chp = dummy_hp;

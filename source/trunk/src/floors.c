@@ -628,7 +628,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	// No effect out of standard dungeon floor 
 	if (!floor_ptr->floor_level || (!up && !down) ||
 	    (inside_quest && is_fixed_quest_idx(inside_quest)) ||
-	    fight_arena_mode || floor_ptr->gamble_arena_mode)
+	    floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		// arena or quest 
 #ifdef JP

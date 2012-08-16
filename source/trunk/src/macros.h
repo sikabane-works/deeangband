@@ -82,7 +82,7 @@
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \
-	(fight_arena_mode || (FLOOR)->gamble_arena_mode || \
+	((FLOOR)->fight_arena_mode || (FLOOR)->gamble_arena_mode || \
 	 (inside_quest && !random_quest_number(FLOOR)) || \
 	 (((TARGET) <= 0) && (quest_number(FLOOR) || ((FLOOR)->floor_level >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
 	  ((FLOOR)->floor_level >= 1) && ironman_downward))

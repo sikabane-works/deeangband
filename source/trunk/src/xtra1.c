@@ -108,7 +108,7 @@ cptr map_name(floor_type *floor_ptr)
 #else
 		return "Surface";
 #endif
-	else if (fight_arena_mode)
+	else if (floor_ptr->fight_arena_mode)
 #ifdef JP
 		return "ƒAƒŠ[ƒi";
 #else

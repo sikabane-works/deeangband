@@ -281,7 +281,6 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 						/* Save the surface floor as saved floor */
 						prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS);
 
-						fight_arena_mode = TRUE;
 						subject_change_floor = TRUE;
 						leave_bldg = TRUE;
 					}
@@ -322,7 +321,6 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 				/* Save the surface floor as saved floor */
 				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS);
 
-				fight_arena_mode = TRUE;
 				subject_change_floor = TRUE;
 				leave_bldg = TRUE;
 			}
@@ -4081,7 +4079,7 @@ bool tele_town(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if (fight_arena_mode || floor_ptr->gamble_arena_mode)
+	if (floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 #ifdef JP
 		msg_print("この魔法は外でしか使えない！");
@@ -4849,7 +4847,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 #endif
 		return;
 	}
-	else if ((which == 2) && fight_arena_mode)
+	else if ((which == 2) && floor_ptr->fight_arena_mode)
 	{
 		if (!arena_settled)
 		{
@@ -4864,7 +4862,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 			/* Don't save the arena as saved floor */
 			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
 
-			fight_arena_mode = FALSE;
+			floor_ptr->fight_arena_mode = FALSE;
 			subject_change_floor = TRUE;
 
 			/* Re-enter the arena */
@@ -4921,7 +4919,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		if (command == ESCAPE)
 		{
 			leave_bldg = TRUE;
-			fight_arena_mode = FALSE;
+			floor_ptr->fight_arena_mode = FALSE;
 			floor_ptr->gamble_arena_mode = FALSE;
 			break;
 		}

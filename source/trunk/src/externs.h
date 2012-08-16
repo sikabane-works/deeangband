@@ -1861,7 +1861,6 @@ extern void repeat_check(void);
 extern bool easy_open;
 extern s16b inside_quest;		/* Inside quest level */
 extern bool wild_mode;
-extern bool fight_arena_mode;		/* Is character inside arena? */
 extern s16b town_num;			/* Current town number */
 extern s16b arena_number;		/* creature number in arena -KMW- */
 

@@ -3980,7 +3980,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 	/* Always notice cause of death */
-	if (IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !fight_arena_mode)
+	if (IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
 	{
 		r_ptr->r_deaths++;
 	}

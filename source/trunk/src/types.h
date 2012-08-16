@@ -1890,6 +1890,7 @@ typedef struct {
  */
 typedef struct 
 {
+	byte fight_arena_mode;
 	byte gamble_arena_mode;
 	s16b base_level;      // Base dungeon level
 	s16b floor_level;

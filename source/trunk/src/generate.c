@@ -1532,7 +1532,7 @@ void generate_floor(floor_type *floor_ptr)
 
 		clear_cave(floor_ptr); // Clear and empty the cave
 
-		if(fight_arena_mode)
+		if(floor_ptr->fight_arena_mode)
 			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
 		else if(floor_ptr->gamble_arena_mode)
 			generate_floor_creature_arena(floor_ptr); // gamble arena

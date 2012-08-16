@@ -2761,7 +2761,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	}
 
 	if (has_trait(creature_ptr, TRAIT_WALK_SHAD) &&
-	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(12000) && !fight_arena_mode)
+	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(12000) && !floor_ptr->fight_arena_mode)
 	{
 		alter_reality(creature_ptr);
 	}
@@ -3745,7 +3745,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 {
 
 	/* While in town/wilderness */
-	if (!floor_ptr->floor_level && !inside_quest && !floor_ptr->gamble_arena_mode && !fight_arena_mode)
+	if (!floor_ptr->floor_level && !inside_quest && !floor_ptr->gamble_arena_mode && !floor_ptr->fight_arena_mode)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -3905,7 +3905,7 @@ static void process_world(void)
 
 	/* Check for creature generation. */
 	if (one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
-	    !fight_arena_mode && !inside_quest && !floor_ptr->gamble_arena_mode)
+	    !floor_ptr->fight_arena_mode && !inside_quest && !floor_ptr->gamble_arena_mode)
 	{
 		/* Make a new creature */
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
@@ -4408,7 +4408,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Go up staircase */
 		case '<':
 		{
-			if (!wild_mode && !floor_ptr->floor_level && !fight_arena_mode && !inside_quest)
+			if (!wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !inside_quest)
 			{
 
 				if (ambush_flag)
@@ -4676,7 +4676,7 @@ static void process_player_command(creature_type *creature_ptr)
 		{
 			if (!wild_mode)
 			{
-			if (!fight_arena_mode)
+			if (!floor_ptr->fight_arena_mode)
 				do_cmd_activate(creature_ptr);
 			else
 			{
@@ -4728,7 +4728,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (!fight_arena_mode)
+			if (!floor_ptr->fight_arena_mode)
 				do_cmd_aim_wand(creature_ptr);
 			else
 			{
@@ -4749,7 +4749,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (fight_arena_mode)
+			if (floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 msg_print("アリーナが魔法を吸収した！");
@@ -4776,7 +4776,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (!fight_arena_mode)
+			if (!floor_ptr->fight_arena_mode)
 				do_cmd_quaff_potion(creature_ptr);
 			else
 			{
@@ -4797,7 +4797,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (!fight_arena_mode)
+			if (!floor_ptr->fight_arena_mode)
 				do_cmd_read_scroll(creature_ptr);
 			else
 			{
@@ -4818,7 +4818,7 @@ msg_print("アリーナが魔法を吸収した！");
 		{
 			if (!wild_mode)
 			{
-			if (fight_arena_mode)
+			if (floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 msg_print("アリーナが魔法を吸収した！");
@@ -6185,7 +6185,6 @@ static void cheat_death(void)
 	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
 
 	current_floor_ptr->floor_level = 0;
-	fight_arena_mode = FALSE;
 	leaving_quest = 0;
 	inside_quest = 0;
 	if (current_floor_ptr->dun_type) player_ptr->recall_dungeon = current_floor_ptr->dun_type;
@@ -6289,7 +6288,6 @@ static void new_game_setting(void)
 
 	/* Start in town */
 	inside_quest = 0;
-	fight_arena_mode = FALSE;
 
 	write_level = TRUE;
 
@@ -6401,9 +6399,11 @@ static void new_game_setting(void)
 
 static void accidental_death(void)
 {
-	if (fight_arena_mode)
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+
+	if (floor_ptr->fight_arena_mode)
 	{
-		fight_arena_mode = FALSE;
+		floor_ptr->fight_arena_mode = FALSE;
 
 		if (arena_number > MAX_ARENA_MONS)
 			arena_number++;
@@ -6579,7 +6579,7 @@ static void play_loop(void)
 		floor_ptr->object_level = floor_ptr->base_level;
 
 		if (player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&
-			(floor_ptr->floor_level || subject_change_dungeon || fight_arena_mode))
+			(floor_ptr->floor_level || subject_change_dungeon || floor_ptr->fight_arena_mode))
 			player_ptr->energy_need = 0;
 
 		/* Not leaving dungeon */

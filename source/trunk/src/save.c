@@ -771,7 +771,6 @@ static void wr_extra(void)
 
 	/* Write arena and rewards information -KMW- */
 	wr_s16b(arena_number);
-	wr_s16b(fight_arena_mode);
 	wr_s16b(inside_quest);
 	wr_byte(preserve_mode);
 	wr_byte(0); /* Unused */
@@ -890,6 +889,7 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_s16b(floor_ptr->upper_floor_id);
 	wr_s16b(floor_ptr->lower_floor_id);
 
+	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);
 
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);

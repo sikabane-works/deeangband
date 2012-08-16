@@ -4890,7 +4890,7 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, i
 	/* Prevent illegal creatures */
 	if (species_idx >= max_species_idx) return FALSE;
 
-	if (fight_arena_mode) return FALSE;
+	if (floor_ptr->fight_arena_mode) return FALSE;
 
 	if (!creature_scatter(species_idx, &y, &x, floor_ptr, oy, ox, 2)) return FALSE;
 

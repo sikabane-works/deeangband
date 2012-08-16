@@ -5452,7 +5452,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((fight_arena_mode) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| is_sub_unique_creature(target_ptr))
+			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| is_sub_unique_creature(target_ptr))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5627,7 +5627,7 @@ note = "は眠り込んでしまった！";
 
 			if (seen) obvious = TRUE;
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5711,7 +5711,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5786,7 +5786,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5864,7 +5864,7 @@ note = "は眠り込んでしまった！";
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5960,7 +5960,7 @@ note = "は眠り込んでしまった！";
 #else
 			msg_format("You stare into %s.", target_name);
 #endif
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || fight_arena_mode)
+			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -7025,7 +7025,7 @@ msg_format("うまく捕まえられなかった。");
 			bool success = FALSE;
 			if (seen) obvious = TRUE;
 
-			if (is_enemy_of_evil_creature(target_ptr) && !fight_arena_mode)
+			if (is_enemy_of_evil_creature(target_ptr) && !floor_ptr->fight_arena_mode)
 			{
 				if (has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 50;
 				if (dam < 1) dam = 1;
