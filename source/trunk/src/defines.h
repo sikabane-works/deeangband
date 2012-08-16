@@ -2414,59 +2414,6 @@
 /*** General index values ***/
 
 
-/*
- * Legal restrictions for "summon_specific()"
- */
-#define SUMMON_ANT                  11
-#define SUMMON_SPIDER               12
-#define SUMMON_HOUND                13
-#define SUMMON_HYDRA                14
-#define SUMMON_ANGEL                15
-#define SUMMON_DEMON                16
-#define SUMMON_UNDEAD               17
-#define SUMMON_DRAGON               18
-#define SUMMON_HI_UNDEAD            21
-#define SUMMON_HI_DRAGON            22
-#define SUMMON_HI_DEMON             23
-#define SUMMON_AMBERITES            31
-#define SUMMON_UNIQUE               32
-#define SUMMON_BIZARRE1             33
-#define SUMMON_BIZARRE2             34
-#define SUMMON_BIZARRE3             35
-#define SUMMON_BIZARRE4             36
-#define SUMMON_BIZARRE5             37
-#define SUMMON_BIZARRE6             38
-#define SUMMON_CYBER                39
-#define SUMMON_KIN                  40
-#define SUMMON_DAWN                 41
-#define SUMMON_ANIMAL               42
-#define SUMMON_ANIMAL_RANGER        43
-/*#define SUMMON_HI_UNDEAD_NO_UNIQUES 44*/
-/*#define SUMMON_HI_DRAGON_NO_UNIQUES 45*/
-/*#define SUMMON_NO_UNIQUES           46*/
-#define SUMMON_PHANTOM              47
-/*#define SUMMON_ELEMENTAL_NO_UNIQUES 48*/
-#define SUMMON_BLUE_HORROR          49
-#define SUMMON_LIVING               50
-#define SUMMON_HI_DRAGON_LIVING     51
-#define SUMMON_GOLEM                52
-#define SUMMON_ELEMENTAL            53
-#define SUMMON_VORTEX               54
-#define SUMMON_HYBRID               55
-#define SUMMON_BIRD                 56
-/*#define SUMMON_AQUATIC_NO_UNIQUES   57*/
-#define SUMMON_KAMIKAZE             58
-#define SUMMON_KAMIKAZE_LIVING      59
-#define SUMMON_MANES                60
-#define SUMMON_LOUSE                61
-#define SUMMON_GUARDIANS            62
-#define SUMMON_KNIGHTS              63
-#define SUMMON_EAGLES               64
-#define SUMMON_PIRANHAS             65
-#define SUMMON_ARMAGE_GOOD          66
-#define SUMMON_ARMAGE_EVIL          67
-
-
 
 /*
  * Some things which induce learning

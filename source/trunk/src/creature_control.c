@@ -1136,11 +1136,13 @@ static bool summon_specific_aux(int species_idx)
 			okay = (r_ptr->d_char == 'm');
 			break;
 		}
+
 		case SUMMON_BIZARRE2:
 		{
 			okay = (r_ptr->d_char == 'b');
 			break;
 		}
+
 		case SUMMON_BIZARRE3:
 		{
 			okay = (r_ptr->d_char == 'Q');
