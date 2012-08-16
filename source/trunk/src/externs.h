@@ -824,7 +824,6 @@ extern void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse);
 /* creature.c */
 extern int estimate_level(species_type *species_ptr);
 extern bool is_player(creature_type *creature_ptr);
-extern bool is_in_this_floor(creature_type *creature_ptr);
 extern void set_sex(creature_type *creature_ptr);
 extern void set_underlings(creature_type *creature_ptr, species_type *species_ptr);
 extern void set_height_weight(creature_type *creature_ptr);

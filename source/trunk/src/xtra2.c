@@ -823,7 +823,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		if (arena_number > MAX_ARENA_MONS)
 		{
 #ifdef JP
-msg_print("素晴らしい！君こそ真の勝利者だ。");
+			msg_print("素晴らしい！君こそ真の勝利者だ。");
 #else
 			msg_print("You are a Genuine Champion!");
 #endif
@@ -831,7 +831,7 @@ msg_print("素晴らしい！君こそ真の勝利者だ。");
 		else
 		{
 #ifdef JP
-msg_print("勝利！チャンピオンへの道を進んでいる。");
+			msg_print("勝利！チャンピオンへの道を進んでいる。");
 #else
 			msg_print("Victorious! You're on your way to becoming Champion.");
 #endif
@@ -869,7 +869,7 @@ msg_print("勝利！チャンピオンへの道を進んでいる。");
 		if (do_thrown_from_riding(slayer_ptr, -1, FALSE))
 		{
 #ifdef JP
-msg_print("地面に落とされた。");
+			msg_print("地面に落とされた。");
 #else
 			msg_print("You have fallen from your riding pet.");
 #endif

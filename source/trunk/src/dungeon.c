@@ -3552,16 +3552,14 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 	for (i = 1; i < creature_max; i++) // Examine each creature
 	{
 		creature_type *creature_ptr = &creature_list[i];
-		species_type *species_ptr;
+		species_type *species_ptr = &species_info[creature_ptr->species_idx];
 		int delta = 0;
 
-		if(!is_in_this_floor(creature_ptr)) continue;
+		if(!IS_IN_THIS_FLOOR(creature_ptr)) continue;
 		if(!creature_ptr->species_idx) continue; // Skip dead creatures
 		if(is_pet(player_ptr, creature_ptr)) continue; // Ignore pet
 
-		species_ptr = &species_info[creature_ptr->species_idx];
-
-		if (is_unique_species(species_ptr)) // Unique creatures
+		if (has_trait(creature_ptr, TRAIT_UNIQUE)) // Unique creatures
 		{
 			if (species_ptr->level + 10 > floor_ptr->floor_level) // Nearly out-of-depth unique creatures
 				delta += (species_ptr->level + 10 - floor_ptr->floor_level) * 2 * base; // Boost rating by twice delta-depth
@@ -3672,8 +3670,8 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 
 	if (creature_ptr->floor_feeling == new_feeling) return; // No change
 
-	creature_ptr->floor_feeling = new_feeling; 	// Dungeon feeling is changed
-	do_cmd_feeling(creature_ptr); // Announce feeling
+	creature_ptr->floor_feeling = new_feeling;	// Dungeon feeling is changed
+	do_cmd_feeling(creature_ptr);				// Announce feeling
 
 	play_redraw |= (PR_DEPTH); // Update the level indicator
 	if (disturb_minor) disturb(player_ptr, 0, 0); // Disturb

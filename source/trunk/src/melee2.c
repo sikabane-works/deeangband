@@ -2579,7 +2579,7 @@ static void process_creature(int i)
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ignore dead or out of floot creatures
-	if (!is_in_this_floor(creature_ptr)) return;
+	if (!IS_IN_THIS_FLOOR(creature_ptr)) return;
 	if (!is_player(creature_ptr) && wild_mode) return;
 
 	// Handle "fresh" creatures

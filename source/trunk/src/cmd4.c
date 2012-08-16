@@ -7318,7 +7318,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 	for (i = creature_max - 1; i >= 1; i--)
 	{
 		pet_ptr = &creature_list[i]; // Access the creature
-		if(!is_in_this_floor(pet_ptr)) continue;
+		if(!IS_IN_THIS_FLOOR(pet_ptr)) continue;
 
 		/* Ignore "dead" creatures */
 		if (!pet_ptr->species_idx) continue;

@@ -90,3 +90,6 @@
 #define music_singing(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->class_skills.old_skills.magic_num1[0] == (X)))
 
 #define music_singing_any(C) (((C)->class_idx == CLASS_BARD) && (C)->class_skills.old_skills.magic_num1[0])
+
+#define IS_IN_THIS_FLOOR(C) ((&floor_list[(C)->floor_id]) == current_floor_ptr && (C)->fx && (C)->fy)
+

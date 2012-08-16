@@ -3030,7 +3030,7 @@ void update_creature_lite(floor_type *floor_ptr)
 			creature_ptr = &creature_list[i];
 			species_ptr = &species_info[creature_ptr->species_idx];
 
-			if(!is_in_this_floor(creature_ptr)) continue;
+			if(!IS_IN_THIS_FLOOR(creature_ptr)) continue;
 
 			/* Skip dead creatures */
 			if (!creature_ptr->species_idx) continue;

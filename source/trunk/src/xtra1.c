@@ -4789,7 +4789,7 @@ static void set_flow_flag(creature_type *creature_ptr)
 		if ((creature_ptr->inventory[i].tval == TV_CRAFT_BOOK) && (creature_ptr->inventory[i].sval == 2)) have_kabe = TRUE;
 	}
 
-	if(is_in_this_floor(creature_ptr))
+	if(IS_IN_THIS_FLOOR(creature_ptr))
 	{
 		for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 		{
