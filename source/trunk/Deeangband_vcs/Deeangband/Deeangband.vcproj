@@ -519,6 +519,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\macros.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\mindtips.h"
 				>
 			</File>

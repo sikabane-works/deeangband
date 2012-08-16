@@ -43,6 +43,7 @@
  */
 #include "defines.h"
 #include "enums.h"
+#include "macros.h"
 #include "game-constants.h"
 #include "types.h"
 #include "externs.h"

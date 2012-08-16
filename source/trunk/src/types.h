@@ -1472,8 +1472,6 @@ struct creature_type
 
 	bool lite;		// Permanent light 
 
-	s32b regist_rate[RR_MAX]; 
-
 	s16b to_damaged[MAX_WEAPONS];		// Extra dice/sides
 	s16b to_damages[MAX_WEAPONS];
 	s16b to_hit[MAX_WEAPONS];		// Bonus to hit (wield)

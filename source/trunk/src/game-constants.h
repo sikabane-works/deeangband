@@ -122,9 +122,12 @@
  * during the creation of a creatures (see "get_species_num" in "creature.c").
  * Lower values yield harder creatures more often.
  */
-#define NASTY_MON_BASE       25
-#define NASTY_MON_MAX        3
-#define NASTY_MON_PLUS_MIN   10
+#define NASTY_ENEMY_BASE       25
+#define NASTY_ENEMY_MAX        3
+#define NASTY_ENEMY_PLUS_MIN   10
 
 /* 1/x chance of hurting even if invulnerable! */
 #define PENETRATE_INVULNERABILITY 13
+
+#define QUANTUM_CREATURE_VANISH_CHANCE 60
+

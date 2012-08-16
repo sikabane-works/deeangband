@@ -2615,24 +2615,6 @@
 #define TR_FLAG_SIZE		((TR_FLAG_MAX - 1) / 32) + 1
 #define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
 
-#define RR_RES_ACID            0
-#define RR_RES_ELEC            1
-#define RR_RES_FIRE            2
-#define RR_RES_COLD            3
-#define RR_RES_POIS            4
-#define RR_RES_LITE            5
-#define RR_RES_DARK            6
-#define RR_RES_BLIND           7
-#define RR_RES_CONF            8
-#define RR_RES_SOUND           9
-#define RR_RES_SHARDS          10
-#define RR_RES_NETHER          11
-#define RR_RES_NEXUS           12
-#define RR_RES_CHAOS           13
-#define RR_RES_DISEN           14
-#define RR_MAX                 15
-
-
 #define TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
 #define TRG_QUESTITEM           0x00000002L     /* quest level item -KMW- */
 #define TRG_XTRA_POWER          0x00000004L     /* Extra power */
@@ -2659,7 +2641,7 @@
 #define TRC_DIVINE_CURSE        0x00000004L
 #define TRC_XXX1                0x00000008L
 #define TRC_TY_CURSE            0x00000010L
-//#define TRC_AGGRAVATE           0x00000020L
+#define TRC_AGGRAVATE           0x00000020L
 #define TRC_DRAIN_EXP           0x00000040L
 #define TRC_SLOW_REGEN          0x00000080L
 #define TRC_ADD_L_CURSE         0x00000100L
@@ -3194,7 +3176,6 @@ enum GRAPHICS_MODE
 #define TOKENIZE_CHECKQUOTE 0x01  /* Special handling of single quotes */
 
 
-
 #define NO_TOWN 255
 
 #define RECORD_NAMED_PET_NAME        0
@@ -3215,6 +3196,7 @@ enum GRAPHICS_MODE
 
 #define MAX_MANE 16
 #define MAX_MONSPELLS 96
+
 #define MONSPELL_TYPE_BOLT 1
 #define MONSPELL_TYPE_BALL 2
 #define MONSPELL_TYPE_BREATH 3
@@ -3544,9 +3526,6 @@ enum GRAPHICS_MODE
 
 #define MUSIC_DETECT            101
 
-#define music_singing(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->class_skills.old_skills.magic_num1[0] == (X)))
-#define music_singing_any(C) (((C)->class_idx == CLASS_BARD) && (C)->class_skills.old_skills.magic_num1[0])
-
 #define HISSATSU_NONE   0
 #define HISSATSU_2      1
 #define HISSATSU_3WAY   2
@@ -3762,32 +3741,6 @@ enum GRAPHICS_MODE
 #define SUB_ALIGN_CHAOS   0x0008
 #define SUB_ALIGN_BALANCE 0x0010
 
-// Temporary flags macro
-#define IS_FAST(C)			((C)->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
-#define IS_SLOW(C)			((C)->slow)
-#define IS_INVULN(C)		((C)->invuln || music_singing(C, MUSIC_INVULN))
-#define IS_HERO(C)			((C)->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
-#define IS_BLESSED(C)		((C)->blessed || music_singing(C, MUSIC_BLESS) || hex_spelling(C, HEX_BLESS))
-#define IS_OPPOSE_ACID(C)	((C)->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_ELEC(C)	((C)->oppose_elec || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_FIRE(C)	((C)->oppose_fire || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_COLD(C)	((C)->oppose_cold || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
-#define IS_OPPOSE_POIS(C)	((C)->oppose_pois || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
-#define IS_TIM_ESP(C)		((C)->tim_esp || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
-#define IS_TIM_STEALTH(C)	((C)->tim_stealth || music_singing(C, MUSIC_STEALTH))
-#define IS_LIGHTSPEED(C)	((C)->lightspeed)
-#define IS_BLIND(C)			((C)->blind > 0)
-#define IS_POISONED(C)		((C)->poisoned)
-#define IS_HALLUCINATION(C) ((C)->image > 0)
-#define IS_WOUND(C)			((C)->cut > 0)
-
-/* Is "teleport level" ineffective to this target? */
-#define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \
-	(fight_arena_mode || gamble_arena_mode || \
-	 (inside_quest && !random_quest_number(FLOOR)) || \
-	 (((TARGET) <= 0) && (quest_number(FLOOR) || ((FLOOR)->floor_level >= dungeon_info[(FLOOR)->dun_type].maxdepth)) && \
-	  ((FLOOR)->floor_level >= 1) && ironman_downward))
-
 
 /*
  * Max numbers of macro trigger names
@@ -3855,13 +3808,6 @@ enum GRAPHICS_MODE
 #define CONCENT_RADAR_THRESHOLD 2
 #define CONCENT_TELE_THRESHOLD  5
 
-/* Hex */
-#define hex_spelling_any(USER) \
-	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
-#define hex_spelling(USER, X) \
-	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
-
-
 #define INFO_TYPE_RACE            1000
 #define INFO_TYPE_ALIGNMENT       1001
 #define INFO_TYPE_RESIST          1002
@@ -3872,21 +3818,11 @@ enum GRAPHICS_MODE
 #define INFO_TYPE_RESIST_ACID_RATE     1103
 #define INFO_TYPE_RESIST_POIS_RATE     1104
 
-
-
-
 // obeserve creature flags
 #define CREATURE_OBS_RACE			100
 #define CREATURE_OBS_ALIGNMENT		110
 
 #define NO_FLAGS 0 // no flags
-
-
-#define IS_PURE_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) && (CR)->race_idx2 == (IDX))
-#define IS_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) || (CR)->race_idx2 == (IDX))
-#define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
-#define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE)
-
 
 #define CAMP_PLAYER   0
 #define CAMP_DUNGEON  1
@@ -3901,21 +3837,6 @@ enum GRAPHICS_MODE
 #define SHOW_ITEM_EQUIPMENT 0x00000004
 #define SHOW_ITEM_FULL      0x00000008
 
-
-#define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 
-
-#define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
-
-
-#define GET_INVEN_SLOT_TYPE(CR, I) (object_kind_info[(CR)->inventory[(I)].k_idx].slot)
-
-#define WIELD_SLOT(O) (object_kind_info[(O)->k_idx].slot)
-
-#define IS_DEAD(CR) ((CR)->chp < 0)
-
-#define get_floor_ptr(CR) ((CR) && (CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
-
-
 #define GET_SE_NO_FRAME    0x00000001
 #define GET_SE_AUTO_WIDTH  0x00000002
 #define GET_SE_AUTO_HEIGHT 0x00000004
@@ -3926,7 +3847,4 @@ enum GRAPHICS_MODE
 #define GET_SE_MIDDLE      0x00000080
 #define GET_SE_BOTTOM      0x00000100
 
-#define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)
 
-
-#define QUANTUM_CREATURE_VANISH_CHANCE 60

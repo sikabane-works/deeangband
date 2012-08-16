@@ -1686,8 +1686,8 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	int hoge = mysqrt(level * 10000L);
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
-	pls_kakuritu = MAX(NASTY_MON_MAX, NASTY_MON_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
-	pls_level = MIN(NASTY_MON_PLUS_MIN, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40 + MIN(5, level/10));
+	pls_kakuritu = MAX(NASTY_ENEMY_MAX, NASTY_ENEMY_BASE - ((floor_ptr->floor_turn / (TURNS_PER_TICK * 2500L) - hoge / 10)));
+	pls_level = MIN(NASTY_ENEMY_PLUS_MIN, 3 + floor_ptr->floor_turn / (TURNS_PER_TICK * 20000L) - hoge / 40 + MIN(5, level/10));
 
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_MAZE)
 	{
