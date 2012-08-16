@@ -2494,7 +2494,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 {
 	bool notice = FALSE;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if (IS_DEAD(creature_ptr)) return FALSE;
 
 	if (set)
@@ -5356,7 +5356,7 @@ bool lose_all_info(creature_type *creature_ptr)
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
 	/* Mega-Hack -- Forget the map */
-	wiz_dark(get_floor_ptr(creature_ptr), creature_ptr);
+	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr);
 
 	/* It worked */
 	return (TRUE);
@@ -5412,7 +5412,7 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 {
 	cptr title = race_info[new_race].title;
 	int  old_race = creature_ptr->race_idx1;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(is_seen(player_ptr, creature_ptr))
 	{
@@ -5653,7 +5653,7 @@ void do_poly_self(creature_type *creature_ptr)
 // Player died.
 static void you_died(cptr hit_from)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	char tmp[100];
 	char death_message[1024];
 	bool android = has_trait(player_ptr, TRAIT_ANDROID);
@@ -5912,7 +5912,7 @@ static void you_died(cptr hit_from)
 
 int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
-	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int old_chp = target_ptr->chp;
 	species_type    *r_ptr = &species_info[target_ptr->species_idx];
 	bool fear = FALSE;

@@ -30,7 +30,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 
 	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	creature_type *t_ptr;
 
@@ -260,7 +260,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	int now_cost;
 
 	creature_type *creature_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *r_ptr = &species_info[creature_ptr->species_idx];
 
 	/* Creature location */
@@ -356,7 +356,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 {
 	int i, y, x, y1, x1, best;
 
-	floor_type *floor_ptr = get_floor_ptr(mover_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(mover_ptr);
 	cave_type *c_ptr;
 	bool use_scent = FALSE;
 
@@ -472,7 +472,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	int i;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	/* Creature location */
 	fy = m_ptr->fy;
@@ -679,7 +679,7 @@ static sint *dist_offsets_x[10] =
 static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(avoid_target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(avoid_target_ptr);
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -770,7 +770,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	int fy = m_ptr->fy;
 	int fx = m_ptr->fx;
@@ -840,7 +840,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int          y, ay, x, ax;
 	int          move_val = 0;
 	int          y2 = player_ptr->fy;
@@ -1327,7 +1327,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 	// Attempt to "multiply" if able and allowed
 	if (has_trait(creature_ptr, TRAIT_MULTIPLY))
 	{
-		floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+		floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 		int k, y, x;
 		int oy = creature_ptr->fy;
 		int ox = creature_ptr->fx;
@@ -1448,7 +1448,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 {
 	if (!gamble_arena_mode)
 	{
-		floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+		floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 		int oy = creature_ptr->fy;
 		int	ox = creature_ptr->fx;
 		bool aware = TRUE;
@@ -1502,7 +1502,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 static void process_nonplayer(int m_idx)
 {
 	creature_type    *creature_ptr = &creature_list[m_idx];
-	floor_type       *floor_ptr = get_floor_ptr(creature_ptr); 
+	floor_type       *floor_ptr = GET_FLOOR_PTR(creature_ptr); 
 	char creature_name[80];
 
 	species_type    *r_ptr = &species_info[creature_ptr->species_idx];
@@ -2576,7 +2576,7 @@ static void process_creature(int i)
 	// Access the creature
 	creature_type *creature_ptr = &creature_list[i];
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
-	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ignore dead or out of floot creatures
 	if (!is_in_this_floor(creature_ptr)) return;
@@ -2986,7 +2986,7 @@ void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx)
 bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
 {
 	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world creature */
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if(the_world) return (FALSE);
 

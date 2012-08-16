@@ -350,7 +350,7 @@ static bool item_tester_learn_trait(creature_type *creature_ptr, object_type *ob
 
 static bool creature_has_no_spellbooks(creature_type *creature_ptr)
 {
-	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int         i;
 	object_type *object_ptr;
 
@@ -969,7 +969,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 	bool over_exerted = FALSE;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cptr prayer;
 
 	object_type	*object_ptr;
@@ -1672,7 +1672,7 @@ static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, b
 
 bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, y, x, oy, ox;
 	int sn = 0, sy = 0, sx = 0;
 	char m_name[80];
@@ -1826,7 +1826,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	int x, y, dir = 0;
 	cave_type *c_ptr;
 	creature_type *steed_ptr;
-	floor_type *floor_ptr = get_floor_ptr(rider_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(rider_ptr);
 
 	if (!get_rep_dir2(rider_ptr, &dir)) return FALSE;
 	y = rider_ptr->fy + ddy[dir];
@@ -1990,7 +1990,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 static void dobject_name_pet(creature_type *master_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(master_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
 	creature_type *pet_ptr;
 	char out_val[20];
 	char m_name[80];
@@ -2089,7 +2089,7 @@ static void dobject_name_pet(creature_type *master_ptr)
 // Issue a pet command
 void do_cmd_pet(creature_type *master_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(master_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
 	int			i = 0;
 	int			num;
 	int			powers[36];

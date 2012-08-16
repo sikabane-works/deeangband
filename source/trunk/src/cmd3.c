@@ -1084,7 +1084,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
  */
 void do_cmd_inscribe_caves(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char tmp[CAVE_MESSAGE_LENGTH];
 
 	/* Get an item */

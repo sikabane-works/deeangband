@@ -126,7 +126,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
    Called from dungeon.c */
 void check_hex(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	magic_type *s_ptr;
 	int spell;
 	s32b need_mana;

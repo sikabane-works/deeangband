@@ -58,7 +58,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 {
 	int ident, lev;
 	object_type *object_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
@@ -687,7 +687,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
  */
 static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 {
-	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int         ident, lev;
 	object_type	*object_ptr;
 	object_type forge;
@@ -1496,7 +1496,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	object_type *object_ptr;
 	char        Rumor[1024];
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 
 	/* Get the item (in the pack) */
@@ -2249,7 +2249,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 
 static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge, bool magic, bool known)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int k;
 	int ident = FALSE;
 
@@ -3355,7 +3355,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_PROBING:
 		{
-			probing(get_floor_ptr(creature_ptr));
+			probing(GET_FLOOR_PTR(creature_ptr));
 			ident = TRUE;
 			break;
 		}
@@ -3868,7 +3868,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	int         k, dir, lev, chance, fail;
 	object_type *object_ptr;
 	bool success;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 
 	/* Get the item (in the pack) */

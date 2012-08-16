@@ -21,7 +21,7 @@
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -53,7 +53,7 @@ static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, 
  */
 bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int oy, ox, d, i, min, m_idx;
 	int tries = 0;
 	int ny = 0, nx = 0;
@@ -164,7 +164,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	int dis = 2;
 	bool look = TRUE;
 	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if (randint1(100) > power) return; // "Skill" test
 
@@ -250,7 +250,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 
 bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
 {
-	floor_type   *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type   *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type    *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -310,7 +310,7 @@ bool cave_player_teleportable_bold(creature_type *creature_ptr, int y, int x, u3
 
 bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int candidates_at[MAX_TELEPORT_DISTANCE + 1];
 	int total_candidates, cur_candidates;
 	int y = 0, x = 0, min, pick, i;
@@ -426,7 +426,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 
 void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int yy, xx;
 
 	// Save the old location
@@ -463,7 +463,7 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 
 void teleport_player_away(creature_type *creature_ptr, int dis)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int yy, xx;
 
 	/* Save the old location */
@@ -508,7 +508,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b mode)
 {
 	int y, x, dis = 0, ctr = 0;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	if (has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT) && !(mode & TELEPORT_NONMAGICAL))
 	{
@@ -560,7 +560,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 	int oldfx = creature_ptr->fx;
 	bool old_ml = creature_ptr->ml;
 	int old_cdis = creature_ptr->cdis;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	teleport_away(creature_ptr, MAX_SIGHT * 2 + 5, 0L);
 
@@ -627,7 +627,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 	bool go_up;
 	char m_name[160];
 	bool see_m = TRUE;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (m_idx <= 0) /* To player */
 	{
@@ -907,7 +907,7 @@ bool recall_player(creature_type *creature_ptr, int turns)
 	 * visited town when in the wilderness
 	 */
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ironman option
 	if (fight_arena_mode || ironman_downward)
@@ -1332,7 +1332,7 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 	object_type *object_ptr;
 	cptr        q, s;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Get an item */
 #ifdef JP
@@ -1732,7 +1732,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 
 void call_the_void(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	cave_type *c_ptr;
 	bool do_call = TRUE;
@@ -1833,7 +1833,7 @@ void fetch(creature_type *creature_ptr, int dir, int wgt, bool require_los)
 	cave_type *c_ptr;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Check to see if an object is already there */
 	if (floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx)
@@ -2013,7 +2013,7 @@ void alter_reality(creature_type *creature_ptr)
  */
 bool warding_glyph(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* XXX XXX XXX */
 	if (!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
@@ -2042,7 +2042,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 
 bool place_mirror(creature_type *caster_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	if (!cave_clean_bold(floor_ptr, caster_ptr->fy, caster_ptr->fx))
 	{
@@ -2070,7 +2070,7 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 // Leave an "explosive rune" which prevents creature movement
 bool explosive_rune(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (!cave_clean_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
@@ -5328,7 +5328,7 @@ static s16b poly_species_idx(int pre_species_idx)
 {
 	s16b after_species_idx = pre_species_idx;
 	species_type *species_ptr = &species_info[pre_species_idx];
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	int i, r, lev1, lev2;
 
@@ -5372,7 +5372,7 @@ static s16b poly_species_idx(int pre_species_idx)
 
 bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 	bool polymorphed = FALSE;

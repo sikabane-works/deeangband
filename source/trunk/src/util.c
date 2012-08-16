@@ -4165,7 +4165,7 @@ static char inkey_from_menu(void)
 	int num = 0, max_num, old_num = 0;
 	int menu = 0;
 	bool kisuu;
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	if (player_ptr->fy - panel_row_min > 10) basey = 2;
 	else basey = 13;

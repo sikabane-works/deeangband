@@ -830,7 +830,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 
 static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int        b = 0;
 	int        dir;
 	int        plev = creature_ptr->lev;
@@ -1031,7 +1031,7 @@ msg_print("なに？");
  */
 static bool cast_force_spell(creature_type *creature_ptr, int spell)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int             dir;
 	int             plev = creature_ptr->lev;
 	int             boost = creature_ptr->class_skills.old_skills.magic_num1[0];
@@ -1225,7 +1225,7 @@ msg_print("なに？");
 // Fixed by Deskull for D'angband
 static int number_of_mirrors(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int x, y;
 	int val = 0;
 	for(x = 0; x < floor_ptr->width ; x++ ){
@@ -1238,7 +1238,7 @@ static int number_of_mirrors(creature_type *creature_ptr)
 
 static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
 	int plev = creature_ptr->lev;
 	int tmp;
@@ -1413,7 +1413,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 	int y, x;
 	int dir;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// spell code
 	switch (spell)
@@ -1514,7 +1514,7 @@ msg_print("なに？");
 // is 'ninja'.
 static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int x, y;
 	int dir;
 	int plev = creature_ptr->lev;
@@ -1792,7 +1792,7 @@ msg_print("なに？");
  */
 void do_cmd_mind(creature_type *creature_ptr)
 {
-	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int             n = 0,  b = 0;
 	int             chance;
 	int             minfail = 0;

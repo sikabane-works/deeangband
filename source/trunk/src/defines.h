@@ -2527,38 +2527,6 @@
 #define MFLAG2_MARK      0x40    /* Creature is currently memorized */
 
 
-/*
- * Object flags
- *
- * Old variables for object flags such as flags1, flags2, and flags3
- * are obsolated.  Now single array flgs[TR_FLAG_SIZE] contains all
- * object flags.  And each flag is refered by single index number
- * instead of a bit mask.
- *
- * Therefore it's very easy to add a lot of new flags; no one need to
- * worry about in which variable a new flag should be put, nor to
- * modify a huge number of files all over the source directory at once
- * to add new flag variables such as flags4, flags5, etc...
- *
- * All management of flags is now treated using a set of macros
- * instead of bit operations.
- * Note: These macros are using division, modulo, and bit shift
- * operations, and it seems that these operations are rather slower
- * than original bit operation.  But since index numbers are almost
- * always given as constant, such slow operations are performed in the
- * compile time.  So there is no problem on the speed.
- *
- * Exceptions of new flag management is a set of flags to control
- * object generation and the curse flags.  These are not yet rewritten
- * in new index form; maybe these have no merit of rewriting.
- */
-
-#define have_flag(ARRAY, INDEX)		!!((ARRAY)[(INDEX)/32] & (1L << ((INDEX)%32)))
-#define add_flag(ARRAY, INDEX)		((ARRAY)[(INDEX)/32] |= (1L << ((INDEX)%32)))
-#define remove_flag(ARRAY, INDEX)	((ARRAY)[(INDEX)/32] &= ~(1L << ((INDEX)%32)))
-#define is_pval_flag(INDEX)			((STAT_STR <= (INDEX) && (INDEX) <= TR_MAGIC_MASTERY) || (TR_STEALTH <= (INDEX) && (INDEX) <= TR_BLOWS))
-#define have_pval_flags(ARRAY)		!!((ARRAY)[0] & (0x00003f7f))
-
 #define TR_FLAG_SIZE		((TR_FLAG_MAX - 1) / 32) + 1
 #define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
 
@@ -2686,7 +2654,7 @@
 // TODO Check using
 #define is_seen(B, A) \
 	((bool)((A)->ml && (!ignore_unview || gamble_arena_mode || \
-	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(get_floor_ptr(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
+	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?
 #define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)
@@ -2999,7 +2967,7 @@
  * Note the use of comparison to zero to force a "boolean" result
  */
 #define player_has_los_bold(Y, X) \
-    (((get_floor_ptr(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
+    (((GET_FLOOR_PTR(player_ptr)->cave[Y][X].info & (CAVE_VIEW)) != 0) || gamble_arena_mode)
 
 
 /*

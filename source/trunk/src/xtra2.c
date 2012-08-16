@@ -12,9 +12,6 @@
 
 #include "angband.h"
 
-#define REWARD_CHANCE 10
-
-
 
 /*
  * Advance experience levels for initial creature
@@ -35,10 +32,10 @@ void set_experience(creature_type *creature_ptr)
 	if (creature_ptr->max_exp > CREATURE_MAX_EXP) creature_ptr->max_exp = CREATURE_MAX_EXP;
 	if (creature_ptr->max_max_exp > CREATURE_MAX_EXP) creature_ptr->max_max_exp = CREATURE_MAX_EXP;
 
-	/* Hack -- maintain "max" experience */
+	// Hack -- maintain "max" experience
 	if (creature_ptr->exp > creature_ptr->max_exp) creature_ptr->max_exp = creature_ptr->exp;
 
-	/* Hack -- maintain "max max" experience */
+	// Hack -- maintain "max max" experience
 	if (creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
 
 	if (creature_ptr->dr >= 0)
@@ -46,13 +43,10 @@ void set_experience(creature_type *creature_ptr)
 	else
 		creature_ptr->max_lev = PY_MORTAL_LIMIT_LEVEL;
 
-	/* Gain levels while possible */
+	// Gain levels while possible
 	while ((creature_ptr->lev < creature_ptr->max_lev) &&
 	       (creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
-	{
-		/* Gain a level */
-		creature_ptr->lev++;
-	}
+		creature_ptr->lev++; // Gain a level
 }
 
 /*
@@ -434,7 +428,7 @@ static bool kind_is_hafted(int k_idx)
 // Check for "Quest" completion when a quest creature is killed or charmed.
 void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(dead_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
 	int i, j, y, x, ny, nx, i2, j2;
 	int quest_num;
 
@@ -621,11 +615,10 @@ msg_print("クエストを達成した！");
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
 #ifdef JP
-msg_print("クエストを達成した！");
+						msg_print("クエストを達成した！");
 #else
 						msg_print("You just completed your quest!");
 #endif
-
 						msg_print(NULL);
 					}
 					quest[i].cur_num = 0;
@@ -750,7 +743,7 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
 {
 	int i, j, y, x;
-	floor_type *floor_ptr = get_floor_ptr(killed_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(killed_ptr);
 	species_type *r_ptr = &species_info[killed_ptr->species_idx];
 
 	int dump_item = 0;
@@ -1452,7 +1445,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
  */
 void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *target_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	s32b new_exp;
 	u32b new_exp_frac;
 	s32b div_h;
@@ -1531,7 +1524,7 @@ void panel_bounds_center(void)
  */
 void resize_map(void)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Only if the dungeon exists */
 	if (!floor_generated) return;
@@ -1608,7 +1601,7 @@ void redraw_window(void)
  */
 bool change_panel(int dy, int dx)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int y, x;
 	int wid, hgt;
 
@@ -1665,7 +1658,7 @@ bool change_panel(int dy, int dx)
  */
 void verify_panel(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int y = creature_ptr->fy;
 	int x = creature_ptr->fx;
@@ -1986,7 +1979,7 @@ void ang_sort(vptr u, vptr v, int n,
 bool target_able(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Creature must be alive */
 	if (!m_ptr->species_idx) return (FALSE);
@@ -2085,7 +2078,7 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 {
 	// TODO
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	byte *x = (byte*)(u);
 	byte *y = (byte*)(v);
@@ -2230,7 +2223,7 @@ static s16b target_pick(int y1, int x1, int dy, int dx)
 static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	s16b this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
@@ -2293,7 +2286,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
  */
 static void target_set_prepare(creature_type *creature_ptr, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int y, x;
 
 	// Reset "temp" array
@@ -2424,7 +2417,7 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
  */
 static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, cptr info)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	s16b this_object_idx, next_object_idx = 0;
 	cptr s1 = "", s2 = "", s3 = "", x_info = "";
@@ -3041,7 +3034,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
  */
 bool target_set(creature_type *aimer_ptr, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(aimer_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 
 	int		i, d, m, t, bd;
 	int		y = aimer_ptr->fy;
@@ -3910,7 +3903,7 @@ msg_print("あなたは混乱している。");
 
 void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	object_type *quest_ptr;
 	object_type forge;
 	char        wrath_reason[32] = "";
@@ -4899,7 +4892,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_i
 static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if (!(in_bounds(floor_ptr, y, x))) return (FALSE); // Bounds
 	if ((y == creature_ptr->fy) && (x == creature_ptr->fx)) return (TRUE); // Player grid is always interesting
 	if (IS_HALLUCINATION(creature_ptr)) return (FALSE); // Handle hallucination
@@ -4927,7 +4920,7 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
  */
 static void tgt_pt_prepare(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int y, x;
 
 	// Reset "temp" array
@@ -4962,7 +4955,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	char ch = 0;
 	int d, x, y, n;
 	bool success = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int wid, hgt;
 

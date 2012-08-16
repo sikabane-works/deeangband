@@ -286,7 +286,7 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
  */
 static bool use_mane(creature_type *creature_ptr, int spell)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int             dir;
 	int             plev = creature_ptr->lev;
 	u32b mode = (PM_ALLOW_GROUP | PM_FORCE_PET);

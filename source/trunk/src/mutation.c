@@ -144,7 +144,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 {
 	int     dir = 0;
 	int     lvl = creature_ptr->lev;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	switch (power)
 	{

@@ -1514,7 +1514,7 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 	int       x, y;
 	bool      detect = FALSE;
 	cave_type *c_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
@@ -1673,7 +1673,7 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 	int range2 = range;
 
 	bool detect = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
@@ -1739,11 +1739,11 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
 	int range2 = range;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool detect = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range2 /= 3;
 
 	/* Scan objects */
 	for (i = 1; i < object_max; i++)
@@ -1812,11 +1812,11 @@ msg_print("アイテムの存在を感じとった！");
 bool detect_objects_magic(creature_type *creature_ptr, int range)
 {
 	int i, y, x, tv;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool detect = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 	/* Scan all objects */
 	for (i = 1; i < object_max; i++)
 	{
@@ -1900,7 +1900,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -1962,7 +1962,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2032,7 +2032,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2107,7 +2107,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2174,7 +2174,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 	int     i, y, x;
 	bool    flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2241,7 +2241,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 	int i, y, x;
 	bool flag = FALSE;
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2315,7 +2315,7 @@ cptr desc_creatures = "変なクリーチャー";
 	cptr desc_creatures = "weird creatures";
 #endif
 
-	if (dungeon_info[get_floor_ptr(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
+	if (dungeon_info[GET_FLOOR_PTR(creature_ptr)->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
 	/* Scan creatures */
 	for (i = 1; i < creature_max; i++)
@@ -2431,7 +2431,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	int     i, x, y;
 	int     flg = PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE;
 	bool    obvious = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 
 	/* Mark all (nearby) creatures */
@@ -2642,7 +2642,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
 	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool         resist = FALSE;
 
@@ -2756,7 +2756,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	int  i;
 	char typ;
 	bool result = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	/* Prevent genocide in quest levels */
 	if ((inside_quest && !random_quest_number(floor_ptr)) || fight_arena_mode || gamble_arena_mode)
@@ -2802,7 +2802,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
 	bool result = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	/* Prevent mass genocide in quest levels */
 	if ((inside_quest && !random_quest_number(floor_ptr)) || fight_arena_mode || gamble_arena_mode)
@@ -2841,7 +2841,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 {
 	int  i;
 	bool result = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	/* Prevent mass genocide in quest levels */
 	if ((inside_quest && !random_quest_number(floor_ptr)) || fight_arena_mode || gamble_arena_mode)
@@ -3061,7 +3061,7 @@ msg_print("これで全部です。");
  */
 bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int       y, x, k, t;
 	cave_type *c_ptr;
 	bool      flag = FALSE;
@@ -3369,7 +3369,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	bool            hurt = FALSE;
 	cave_type       *c_ptr;
 	bool            map[32][32];
-	floor_type      *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(target_ptr);
 
 
 	/* Prevent destruction of quest levels and town */
@@ -3946,7 +3946,7 @@ void discharge_minion(creature_type *caster_ptr)
 static void cave_temp_room_lite(creature_type *lite_ptr)
 {
 	int i;
-	floor_type *floor_ptr = get_floor_ptr(lite_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(lite_ptr);
 
 	/* Clear them all */
 	for (i = 0; i < temp_n; i++)
@@ -4167,7 +4167,7 @@ static int next_to_walls_adj(floor_type *floor_ptr, int cy, int cx, bool (*pass_
 static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(int, int))
 {
 	cave_type *c_ptr;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	c_ptr = &floor_ptr->cave[y][x]; // Get the grid
 
 	if (c_ptr->info & (CAVE_TEMP)) return; // Avoid infinite recursion
@@ -4212,7 +4212,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool only_room, bool (*pass_bold)(floor_type *, int, int))
 {
 	cave_type *c_ptr;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	c_ptr = &floor_ptr->cave[y][x]; // Get the grid
 
 	if (c_ptr->info & (CAVE_TEMP)) return; // Avoid infinite recursion
@@ -4294,7 +4294,7 @@ static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 void lite_room(creature_type *creature_ptr, int y1, int x1)
 {
 	int i, x, y;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Add the initial grid */
 	cave_temp_lite_room_aux(creature_ptr, y1, x1);
@@ -4335,7 +4335,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
  */
 void unlite_room(creature_type *caster_ptr, int y1, int x1)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, x, y;
 
 	cave_temp_unlite_room_aux(caster_ptr, y1, x1); // Add the initial grid
@@ -4368,7 +4368,7 @@ void unlite_room(creature_type *caster_ptr, int y1, int x1)
 // Affect all creatures in the projection radius
 bool lite_area(creature_type *creature_ptr, int dam, int rad)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
 	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
@@ -4600,7 +4600,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	cave_type * c_ptr;
 	creature_type * target_ptr;
 	species_type * r_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if ((dir == 5) && target_okay(creature_ptr))
 	{
@@ -5001,7 +5001,7 @@ void call_chaos(creature_type *creature_ptr)
  */
 bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int     i = 0, j;
 	int flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 
@@ -5153,7 +5153,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 
 int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	int count = 0;
 	int summon_lev;
@@ -5235,7 +5235,7 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 
 int summon_cyber(creature_type *summoner_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	int i;
 	int max_cyber = (floor_ptr->floor_level / 50) + randint1(2);
 	int count = 0;
@@ -5258,7 +5258,7 @@ int summon_cyber(creature_type *summoner_ptr, int y, int x)
 
 void wall_breaker(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	int y, x;
 	int attempts = 1000;
@@ -5432,7 +5432,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	object_type *quest_ptr = &forge;
 	int y, x;
 	char user_name[80];
-	floor_type *floor_ptr = get_floor_ptr(user_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(user_ptr);
 
 	creature_desc(user_name, user_ptr, 0);
 
@@ -5488,7 +5488,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 // Return value is for checking "done"
 bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
 	int tx, ty;
 	int tm_idx = 0;

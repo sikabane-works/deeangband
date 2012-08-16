@@ -109,7 +109,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 {
 	int		num = 0, k, bonus, chance;
 
-	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	species_type    *r_ptr = &species_info[target_ptr->species_idx];
 
@@ -999,7 +999,7 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	char weapon_name[100], atk_name[100], tar_name[100];
-	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 	bool monk_attack = FALSE;
@@ -1217,7 +1217,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
 	char tar_name[100];
-	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
@@ -1488,7 +1488,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	bool fear = FALSE;
 	bool dead = FALSE;
 
-	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	creature_type   *target_ptr;
 	species_type    *atk_species_ptr;
@@ -3999,7 +3999,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 {
 	char attacker_name[100], target_name[100];
 
-	floor_type      *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	species_type    *r_ptr = &species_info[target_ptr->species_idx];
 

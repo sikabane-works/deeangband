@@ -1352,7 +1352,7 @@ static int chameleon_change_m_idx = 0;
 // Return TRUE is the creature is OK and FALSE otherwise
 static bool restrict_creature_to_damageungeon(int species_idx)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
 	species_type *r_ptr = &species_info[species_idx];
 	//byte a;
@@ -1445,7 +1445,7 @@ static bool restrict_creature_to_damageungeon(int species_idx)
 errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2)
 {
 	int i;
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Todo: Check the hooks for non-changes */
 
@@ -1505,8 +1505,8 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 	creature_hook_type2 get_species_num_hook  = creature_hook;
 	creature_hook_type2 get_species_num2_hook = creature_hook2;
 
-	if(summoner_ptr) floor_ptr = get_floor_ptr(summoner_ptr);
-	else floor_ptr = get_floor_ptr(player_ptr);
+	if(summoner_ptr) floor_ptr = GET_FLOOR_PTR(summoner_ptr);
+	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_race_size; i++)
@@ -1560,7 +1560,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 // Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type2 creature_hook2)
 {
-	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	int i;
 
 	/* Todo: Check the hooks for non-changes */
@@ -2707,7 +2707,7 @@ msg_print("Œƒ—ó‚ÈŠ´î‚Ì”­ì‚É‚¨‚»‚í‚ê‚é‚æ‚¤‚É‚È‚Á‚½I");
 void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 {
 	creature_type *target_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 
 	bool do_disturb = disturb_move;
 
@@ -3117,7 +3117,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
 	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
@@ -3140,7 +3140,7 @@ static bool creature_hook_chameleon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	creature_type *m_ptr = &creature_list[chameleon_change_m_idx];
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (is_multiply_species(r_ptr)) return FALSE;
@@ -3166,7 +3166,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 {
 	int oldmhp;
 	creature_type *creature_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *r_ptr;
 	char old_m_name[80];
 	bool old_unique = FALSE;
@@ -3311,7 +3311,7 @@ static int initial_r_appearance(int species_idx)
 {
 	int attempts = 1000;
 	int ap_species_idx;
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int min = MIN(floor_ptr->base_level - 5, 50);
 
 	if (is_tanuki_species(&species_info[species_idx]))
@@ -4779,7 +4779,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 // Hack -- help decide if a creature race is "okay" to summon
 static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 {
-	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Hack - Only summon dungeon creatures */
@@ -4839,8 +4839,8 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	int x, y, species_idx;
 	floor_type *floor_ptr;
 	
-	if(summoner_ptr) floor_ptr = get_floor_ptr(summoner_ptr);
-	else floor_ptr = get_floor_ptr(player_ptr);
+	if(summoner_ptr) floor_ptr = GET_FLOOR_PTR(summoner_ptr);
+	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	if (floor_ptr) return (FALSE);
 	if (!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
@@ -5770,7 +5770,7 @@ bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, i
 // Drop all items carried by a creature
 void creature_drop_carried_objects(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
 		if(creature_ptr->inventory[i].k_idx)

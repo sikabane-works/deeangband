@@ -375,7 +375,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
  */
 static bool check_local_illumination(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Hack -- move towards player
 	int yy = (y < creature_ptr->fy) ? (y + 1) : (y > creature_ptr->fy) ? (y - 1) : y;
@@ -546,7 +546,7 @@ void update_local_illumination(floor_type *floor_ptr, int y, int x)
 bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 {
 	cave_type *cave_ptr;
-	floor_type *floor_ptr = get_floor_ptr(viewer_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(viewer_ptr);
 
 	/* Blind players see nothing */
 	if (IS_BLIND(viewer_ptr)) return FALSE;
@@ -915,7 +915,7 @@ void apply_default_feat_lighting(byte f_attr[F_LIT_MAX], byte f_char[F_LIT_MAX])
  */
 void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte *tap, char *tcp)
 {
-	floor_type *floor_ptr = get_floor_ptr(watcher_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 	cave_type *cave_ptr = &floor_ptr->cave[y][x]; // Get the cave
 
 	s16b this_object_idx, next_object_idx = 0;
@@ -1563,7 +1563,7 @@ void display_dungeon(creature_type *creature_ptr)
 	byte ta;
 	char tc;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	for (x = creature_ptr->fx - Term->wid / 2 + 1; x <= creature_ptr->fx + Term->wid / 2; x++)
 	{
@@ -1660,7 +1660,7 @@ void prt_map(creature_type *watcher_ptr)
 	s16b xmin, xmax, ymin, ymax;
 	int wid, hgt;
 
-	floor_type *floor_ptr = get_floor_ptr(watcher_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);
@@ -1735,7 +1735,7 @@ void prt_map(creature_type *watcher_ptr)
 // print project path
 void prt_path(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	int path_n;
 	u16b path_g[512];
@@ -1933,8 +1933,8 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
 	int **match_autopick_yx;
 	object_type ***object_autopick_yx;
 
-	if(watcher_ptr->floor_id) floor_ptr = get_floor_ptr(watcher_ptr);
-	else floor_ptr = get_floor_ptr(player_ptr);
+	if(watcher_ptr->floor_id) floor_ptr = GET_FLOOR_PTR(watcher_ptr);
+	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Get size */
 	Term_get_size(&wid, &hgt);
@@ -2606,7 +2606,7 @@ void update_lite(creature_type *creature_ptr)
 	int i, x, y, min_x, max_x, min_y, max_y;
 	int p = creature_ptr->cur_lite;
 	cave_type *cave_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/*** Special case ***/
 
@@ -2911,7 +2911,7 @@ static void creature_lite_hack(creature_type *creature_ptr, int y, int x)
  */
 static void mon_dark_hack(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *cave_ptr;
 	int       midpoint, dpf, d;
 
@@ -3401,7 +3401,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 	cave_type *g1_cave_ptr;
 	cave_type *g2_cave_ptr;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Access the grids */
 	g1_cave_ptr = &floor_ptr->cave[y1][x1];
@@ -4124,7 +4124,7 @@ static u16b flow_y = 0;
  */
 void update_flow(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int x, y, d;
 	int flow_head = 1;
 	int flow_tail = 0;
@@ -4235,7 +4235,7 @@ static int scent_when = 0;
  */
 void update_smell(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, j;
 	int y, x;
 
@@ -4308,7 +4308,7 @@ void map_area(creature_type *creature_ptr, int range)
 	cave_type       *cave_ptr;
 	s16b            feat;
 	feature_type    *f_ptr;
-	floor_type      *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) range /= 3;
 
@@ -4780,7 +4780,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 // Remove a mirror
 void remove_mirror(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *cave_ptr = &floor_ptr->cave[y][x];
 
 	/* Remove the mirror */

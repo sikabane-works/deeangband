@@ -1956,7 +1956,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 bool activate_random_artifact(creature_type *creature_ptr, object_type * object_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int plev = creature_ptr->lev;
 	int k, dir, dummy = 0;
 
@@ -3160,7 +3160,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 bool drop_named_art(creature_type *creature_ptr, int a_idx, int y, int x)
 {
 	object_type forge;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	object_wipe(&forge);
 

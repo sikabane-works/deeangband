@@ -40,7 +40,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 	char com[80];
 	char object_name[MAX_NLEN];
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	quest_ptr = &forge;
 
@@ -429,7 +429,7 @@ s = "魔力を取り込めるアイテムがない。";
 
 static bool can_do_cmd_cast(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (floor_ptr->floor_level && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 	{
@@ -891,7 +891,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 {
 	s16b        plev = creature_ptr->lev;
 	int         dir = 0;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (command <= -3)
 	{
@@ -1360,7 +1360,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		{
 			if (command == -3)
 			{
-				remove_all_mirrors(creature_ptr, get_floor_ptr(creature_ptr), TRUE); // Explode all mirrors
+				remove_all_mirrors(creature_ptr, GET_FLOOR_PTR(creature_ptr), TRUE); // Explode all mirrors
 			}
 			else if (command == -4)
 			{
@@ -2180,7 +2180,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 {
 	s16b        plev = caster_ptr->lev;
 	int         dir = 0;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	char caster_name[100];
 
 	creature_desc(caster_name, caster_ptr, 0);
@@ -2657,7 +2657,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 
 		case TRAIT_BREAK_MIRROR:
 		{
-			remove_all_mirrors(caster_ptr, get_floor_ptr(caster_ptr), TRUE); // Explode all mirrors
+			remove_all_mirrors(caster_ptr, GET_FLOOR_PTR(caster_ptr), TRUE); // Explode all mirrors
 			break;
 		}
 

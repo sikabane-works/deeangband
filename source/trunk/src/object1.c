@@ -5225,7 +5225,7 @@ static bool get_item_okay(creature_type *creature_ptr, int i, bool (*hook)(creat
  */
 bool can_get_item(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int j, floor_list[23], floor_num = 0;
 
 	for (j = 0; j < INVEN_TOTAL; j++)
@@ -5351,7 +5351,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
  */
 bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	s16b this_object_idx, next_object_idx = 0;
 
@@ -6332,7 +6332,7 @@ int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_wi
 // the easy_floor is on.
 bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char n1 = ' ', n2 = ' ', which = ' ';
 	int j, k, i1, i2, e1, e2;
 	bool done, item;
@@ -7634,7 +7634,7 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 	char object_name[MAX_NLEN];
 	object_type *object_ptr;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int floor_num = 0, floor_list[23], floor_object_idx = 0;
 
 	int can_pickup = 0;

@@ -358,7 +358,7 @@ cptr get_ordinal_number_suffix(int num)
 // Take note to the diary.
 errr do_cmd_write_nikki(int type, int num, cptr note)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int day, hour, min;
 	FILE *fff = NULL;
 	char file_name[80];
@@ -4964,7 +4964,7 @@ static cptr do_cmd_feeling_text_lucky[11] =
  */
 void do_cmd_feeling(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// No useful feeling in quests
 	if (inside_quest && !random_quest_number(floor_ptr))
@@ -6606,7 +6606,7 @@ static void ang_sort_art_swap(vptr u, vptr v, int a, int b)
 // Check the status of "artifacts"
 static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 	int i, k, z, x, y, n = 0;
 	u16b why = 3;
 	s16b *who;

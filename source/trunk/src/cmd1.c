@@ -608,7 +608,7 @@ void search(creature_type *creature_ptr)
 	int y, x, chance;
 	s16b this_object_idx, next_object_idx = 0;
 	cave_type *c_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 
 	/* Start with base search ability */
@@ -824,7 +824,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
  */
 void carry(creature_type *creature_ptr, bool pickup)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	int max_len = 0;
 
@@ -1043,7 +1043,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 {
 	int i, num, dam;
 	int x = creature_ptr->fx, y = creature_ptr->fy;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Get the cave grid */
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -1714,7 +1714,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 
 bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	feature_type *cur_f_ptr = &feature_info[floor_ptr->cave[c_y][c_x].feat];
 	feature_type *new_f_ptr = &feature_info[floor_ptr->cave[n_y][n_x].feat];
@@ -1870,7 +1870,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 // Move the creature
 bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode)
 {
-	floor_type *prev_floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -2191,7 +2191,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	int x = creature_ptr->fx + ddx[dir];
 
 	// Examine the destination
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -2729,7 +2729,7 @@ static bool ignore_avoid_run;
 // Hack -- Check for a "known wall" (see below)
 static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type  *c_ptr;
 
 	// Get the new location
@@ -2764,7 +2764,7 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 // Hack -- Check for an "unknown corner" (see below)
 static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(watcher_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 
 	// Get the new location
 	y += ddy[dir];
@@ -2963,7 +2963,7 @@ static void run_init(creature_type *creature_ptr, int dir)
 {
 	int             row, col, deepleft, deepright;
 	int             i, shortleft, shortright;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Save the direction */
 	find_current = dir;
@@ -3059,7 +3059,7 @@ static void run_init(creature_type *creature_ptr, int dir)
  */
 static bool run_test(creature_type *creature_ptr)
 {
-	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int         prev_dir, new_dir, check_dir = 0;
 	int         row, col;
 	int         i, max, inv;
@@ -3461,7 +3461,7 @@ void run_step(creature_type *creature_ptr, int dir)
 // Test for traveling
 static bool travel_test(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int prev_dir, new_dir, check_dir = 0;
 	int row, col;
@@ -3555,7 +3555,7 @@ void travel_step(creature_type *creature_ptr)
 	int i;
 	int dir = travel.dir;
 	int old_run = travel.run;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	find_prevdir = dir;
 

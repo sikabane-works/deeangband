@@ -482,7 +482,7 @@ errr top_twenty(creature_type *player_ptr)
 	high_score   the_score;
 
 	time_t ct = time((time_t*)0);
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	errr err;
 
@@ -598,7 +598,7 @@ errr top_twenty(creature_type *player_ptr)
 errr predict_score(creature_type *player_ptr)
 {
 	int          j;
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	high_score   the_score;
 
 

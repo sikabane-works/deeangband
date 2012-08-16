@@ -16,7 +16,7 @@
 // Determine if a beam spell will hit the target.
 static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x2, creature_type *caster_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	bool hit2 = FALSE;
 	int i, y, x;
 
@@ -53,7 +53,7 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 // Will Delete ?
 static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
 {
-	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int i; // Must be the same as projectable(floor_ptr, )
 
 	// Initial grid
@@ -163,7 +163,7 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 {
 	u16b path_g[128];
 	int  path_n, i;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	path_n = project_path(path_g, MAX_RANGE, floor_ptr, sy, sx, *ty, *tx, flg);
 

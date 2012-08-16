@@ -2055,7 +2055,7 @@ static bool kankin(creature_type *creature_ptr)
 	bool change = FALSE;
 	char object_name[MAX_NLEN];
 	object_type *object_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Loop for creature_ptr->inventory and right/left arm */
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -2799,7 +2799,7 @@ static void castle_quest(creature_type *creature_ptr)
 	species_type    *species_ptr;
 	quest_type      *quest_ptr;
 	cptr            name;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 
 	clear_bldg(4, 18);
@@ -4068,7 +4068,7 @@ bool tele_town(creature_type *creature_ptr)
 {
 	int i, x, y;
 	int num = 0;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (floor_ptr->floor_level)
 	{
@@ -4767,7 +4767,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 // Enter quest level
 void do_cmd_quest(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	energy_use = 100;
 
 	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
@@ -4817,7 +4817,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	char            command;
 	bool            validcmd;
 	building_type   *bldg;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	energy_use = 100;
 

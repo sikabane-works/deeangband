@@ -131,7 +131,7 @@ cptr map_name(floor_type *floor_ptr)
  */
 static void prt_dungeon(void)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	cptr dungeon_name;
 	int col;
 
@@ -755,7 +755,7 @@ static void prt_sp(creature_type *creature_ptr)
 // Prints depth in stat area
 static void prt_depth(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char depths[32];
 	int wid, hgt, row_depth, col_depth;
 	byte attr = TERM_WHITE;
@@ -2595,7 +2595,7 @@ static void calc_lite(creature_type *creature_ptr)
 	int i;
 	object_type *object_ptr;
 	u32b flgs[TR_FLAG_SIZE];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Assume no light
 	creature_ptr->cur_lite = 0;
@@ -4781,7 +4781,7 @@ static void set_flow_flag(creature_type *creature_ptr)
 	int i;
 	bool have_sw = FALSE, have_kabe = FALSE;
 	s16b this_object_idx, next_object_idx = 0;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -4920,7 +4920,7 @@ void notice_stuff(creature_type *creature_ptr)
 // Handle "update"
 void update_creature(creature_type *creature_ptr, bool message)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Update stuff
 	if (!creature_ptr->creature_update) return;

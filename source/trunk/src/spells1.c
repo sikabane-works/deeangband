@@ -588,7 +588,7 @@ static s16b creature_target_y;
  */
 static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int r, int y, int x, int dam, int typ)
 {
-	floor_type      *floor_ptr = get_floor_ptr(aimer_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	feature_type    *f_ptr = &feature_info[c_ptr->feat];
 
@@ -1261,7 +1261,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
  */
 static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	s16b this_object_idx, next_object_idx = 0;
@@ -1729,7 +1729,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 {
 	int tmp;
 
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
@@ -2370,7 +2370,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	int get_damage;
 	cptr act, note, note_dies;
 
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[target_ptr->fy][target_ptr->fx];
 
 	int photo = 0;
@@ -7160,7 +7160,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 {
 	int k = 0;
 
-	floor_type *floor_ptr = get_floor_ptr(attacker_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 
 	bool obvious = TRUE; // Hack -- assume obvious
 	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE); // Player blind-ness
@@ -7828,7 +7828,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
  */
 bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t, dist;
 
 	int y1, x1;
@@ -8907,7 +8907,7 @@ msg_format("%^sÇ©ÇÁóéÇøÇƒÇµÇ‹Ç¡ÇΩÅI", m_name);
 
 bool binding_field(creature_type *caster_ptr, int dam)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int mirror_x[10], mirror_y[10];
 	int mirror_num=0;               // Number of mirror
 	int x,y;
@@ -9056,7 +9056,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 
 void seal_of_mirror(creature_type *caster_ptr, int dam)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int x,y;
 
 	for( x = 0 ; x < floor_ptr->width ; x++ )

@@ -1668,7 +1668,7 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 void autopick_delayed_alter(creature_type *creature_ptr)
 {
 	int item;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* 
 	 * Scan inventry in reverse order to prevent

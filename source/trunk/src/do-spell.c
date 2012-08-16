@@ -330,7 +330,7 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 
 static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int plev = creature_ptr->lev;
 	int die = randint1(100) + plev / 5;
 	// TODO: Add Karma of Fortune feature.
@@ -498,7 +498,7 @@ void wild_magic(creature_type *creature_ptr, int spell)
 {
 	int counter = 0;
 	int type = SUMMON_BIZARRE1 + randint0(6);
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (type < SUMMON_BIZARRE1) type = SUMMON_BIZARRE1;
 	else if (type > SUMMON_BIZARRE6) type = SUMMON_BIZARRE6;
@@ -598,7 +598,7 @@ void wild_magic(creature_type *creature_ptr, int spell)
 
 static void cast_shuffle(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int plev = creature_ptr->lev;
 	int dir;
 	int die;
@@ -895,7 +895,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 // Drop 10+1d10 meteor ball at random places near the player
 static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i;
 	int b = 10 + randint1(10);
 
@@ -936,7 +936,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 // Drop 10+1d10 disintegration ball at random places near the target
 static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int x, y, tx, ty;
 	int nx, ny;
 	int dir, i;
@@ -1174,7 +1174,7 @@ void stop_singing(creature_type *creature_ptr)
 
 static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -1874,7 +1874,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
@@ -2411,7 +2411,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if (cast)
 			{
-				probing(get_floor_ptr(creature_ptr));
+				probing(GET_FLOOR_PTR(creature_ptr));
 			}
 		}
 		break;
@@ -2582,7 +2582,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
 
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 #ifdef JP
 	static const char s_dam[] = "‘¹:";
@@ -5925,7 +5925,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
 	bool cast = (mode == SPELL_CAST) ? TRUE : FALSE;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int dir;
 	int plev = creature_ptr->lev;
@@ -8131,7 +8131,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -8921,7 +8921,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
 	bool info = (mode == SPELL_INFO) ? TRUE : FALSE;
@@ -10166,7 +10166,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	int dir;
 	int plev = caster_ptr->lev;
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	switch (spell)
 	{
@@ -11397,7 +11397,7 @@ static bool item_tester_hook_cursed(creature_type *creature_ptr, object_type *ob
 
 static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;

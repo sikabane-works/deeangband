@@ -49,7 +49,7 @@ void excise_object_idx(int object_idx)
 		int x = j_ptr->fx;
 
 		/* Grid */
-		floor_ptr = get_floor_ptr(j_ptr);
+		floor_ptr = GET_FLOOR_PTR(j_ptr);
 		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Scan all objects in the grid */
@@ -114,7 +114,7 @@ void delete_object_idx(int object_idx)
 
 	/* Object */
 	j_ptr = &object_list[object_idx];
-	floor_ptr = get_floor_ptr(j_ptr);
+	floor_ptr = GET_FLOOR_PTR(j_ptr);
 
 	/* Dungeon floor */
 	if (!(j_ptr->held_m_idx))
@@ -198,7 +198,7 @@ static void compact_objects_aux(int i1, int i2)
 	{
 		/* Acquire object */
 		object_ptr = &object_list[i];
-		floor_ptr = get_floor_ptr(object_ptr);
+		floor_ptr = GET_FLOOR_PTR(object_ptr);
 
 		/* Skip "dead" objects */
 		if (!object_ptr->k_idx) continue;
@@ -220,7 +220,7 @@ static void compact_objects_aux(int i1, int i2)
 	x = object_ptr->fx;
 
 	/* Acquire grid */
-	c_ptr = &get_floor_ptr(object_ptr)->cave[y][x];
+	c_ptr = &GET_FLOOR_PTR(object_ptr)->cave[y][x];
 
 	/* Repair grid */
 	if (c_ptr->object_idx == i1)
@@ -2079,7 +2079,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *object_
 {
 	int i;
 	int k_idx = 0;
-	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
 
 	/* No artifacts in the town */
@@ -2156,7 +2156,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *object_
 static bool make_artifact(creature_type *owner_ptr, object_type *object_ptr)
 {
 	int i;
-	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 	if (!floor_ptr->floor_level) return (FALSE); // No artifacts in the town 
 	if (object_ptr->number != 1) return (FALSE); // Paranoia -- no "plural" artifacts
 
@@ -3140,7 +3140,7 @@ static bool item_creature_okay(int species_idx)
 static void generate_other_magic_item(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
 {
 	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Unused */
 	(void)level;
@@ -3443,7 +3443,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32b mode, int specified_idx)
 {
 	int i, rolls, f1, f2, power;
-	floor_type *floor_ptr = get_floor_ptr(owner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
 	if (owner_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(owner_ptr->lev / 2 + 10);
 
@@ -3787,7 +3787,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 {
 	int prob, base;
 	byte obj_level;
-	floor_type *floor_ptr = get_floor_ptr(j_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(j_ptr);
 
 	/* Chance of "special object" */
 	prob = ((mode & AM_GOOD) ? 10 : 1000);
@@ -5252,7 +5252,7 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	object_type forge;
 	object_type *quest_ptr;
 	object_type *object_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	char object_name[MAX_NLEN];
 
@@ -5868,7 +5868,7 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 // Examine the grid (xx,yy) and warn the player if there are any danger
 bool process_warning(creature_type *player_ptr, int xx, int yy)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int mx, my;
 	cave_type *c_ptr;
 	char object_name[MAX_NLEN];

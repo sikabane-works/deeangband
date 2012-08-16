@@ -308,7 +308,7 @@ void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr 
 bool species_hook_dungeon(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	if (!is_wild_only_species(r_ptr))
 		return TRUE;
@@ -440,7 +440,7 @@ static bool creature_hook_floor(int species_idx)
 
 creature_hook_type get_creature_hook(void)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	if (!floor_ptr->floor_level && !inside_quest)
 	{
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
@@ -477,7 +477,7 @@ creature_hook_type get_creature_hook(void)
 
 creature_hook_type get_creature_hook2(int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	feature_type *f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
 	/* Set the creature list */
@@ -691,7 +691,7 @@ bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr,
 
 bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode)
 {
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Other creature */

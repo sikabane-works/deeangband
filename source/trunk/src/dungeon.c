@@ -690,7 +690,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 {
 	int min_level = 0;
 	int max_level = 99;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ask for level
 #ifdef JP
@@ -1465,7 +1465,7 @@ static void recharged_notice(object_type *object_ptr)
 
 static void check_music(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	magic_type *s_ptr;
 	int spell;
 	s32b need_mana;
@@ -1568,7 +1568,7 @@ static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b fla
 // Handle timed damage and regeneration every 10 game turns
 static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	feature_type *f_ptr = &feature_info[floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat];
 	char creature_name[80];
 	bool cave_no_regen = FALSE;
@@ -2316,7 +2316,7 @@ static void process_world_aux_light(creature_type *creature_ptr)
 // Handle mutation effects once every 10 game turns
 static void process_world_aux_mutation(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* No effect on creature arena */
 	if (gamble_arena_mode) return;
@@ -2927,7 +2927,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 // Handle curse effects once every 10 game turns
 static void process_world_aux_curse(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if ((creature_ptr->cursed & TRC_P_FLAG_MASK) && !gamble_arena_mode && !wild_mode)
 	{
@@ -3331,7 +3331,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
  */
 static void process_world_aux_movement(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Delayed Word-of-Recall */
 	if (creature_ptr->word_recall)
@@ -3512,7 +3512,7 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 static int get_creature_crowd_number(int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = get_floor_ptr(m_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 	int my = m_ptr->fy;
 	int mx = m_ptr->fx;
 	int i;
@@ -3650,7 +3650,7 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 // Update dungeon feeling, and announce it if changed
 static void update_dungeon_feeling(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	byte new_feeling;
 	int quest_num;
 	int delay;
@@ -3885,7 +3885,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 static void process_world(void)
 {
 	int day, hour, min;
-	floor_type *floor_ptr = get_floor_ptr(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
@@ -4181,7 +4181,7 @@ extern void do_cmd_debug(creature_type *creature_ptr);
 static void process_player_command(creature_type *creature_ptr)
 {
 	int old_now_message = now_message;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Handle repeating the last command */
 	repeat_check();
@@ -5173,7 +5173,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 {
 	if (creature_ptr->action == ACTION_FISH)
 	{
-		floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+		floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 		Term_xtra(TERM_XTRA_DELAY, 10);
 		if (one_in_(1000))
 		{
@@ -5238,7 +5238,7 @@ void gamble_arena_limitation(void)
 // Hack -- Pack Overflow
 static void pack_overflow(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (creature_ptr->inventory[INVEN_TOTAL].k_idx)
 	{
@@ -5386,7 +5386,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
  */
 void process_player(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 
 	/*** Apply energy ***/
@@ -6464,7 +6464,7 @@ static void play_loop(void)
 
 		if (!floor_generated) move_floor(player_ptr);
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
-		floor_ptr = get_floor_ptr(player_ptr); 
+		floor_ptr = GET_FLOOR_PTR(player_ptr); 
 
 		if (panic_save) panic_save = 0; // TODO
 
@@ -6852,9 +6852,9 @@ void play_game(bool new_game)
 		char buf[80];
 
 #ifdef JP
-		sprintf(buf, "%s‚É~‚è—§‚Á‚½B", map_name(get_floor_ptr(player_ptr)));
+		sprintf(buf, "%s‚É~‚è—§‚Á‚½B", map_name(GET_FLOOR_PTR(player_ptr)));
 #else
-		sprintf(buf, "You are standing in the %s.", map_name(get_floor_ptr(player_ptr)));
+		sprintf(buf, "You are standing in the %s.", map_name(GET_FLOOR_PTR(player_ptr)));
 #endif
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, buf);
 	}
@@ -6887,7 +6887,7 @@ void play_game(bool new_game)
 	if (new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
 	{
 		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? SPECIES_HORSE : SPECIES_YASE_HORSE);
-		place_creature_species(player_ptr, get_floor_ptr(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
+		place_creature_species(player_ptr, GET_FLOOR_PTR(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
 	}
 
 	play_loop();

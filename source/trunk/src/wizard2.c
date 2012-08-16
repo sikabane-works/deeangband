@@ -129,7 +129,7 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 {
 	int wy = summoner_ptr->fy, wx = summoner_ptr->fx;
 	int attempts = 1000;
-	floor_type *floor_ptr = get_floor_ptr(summoner_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 
 	while (--attempts)
 	{
@@ -816,7 +816,7 @@ static void wiz_tweak_item(creature_type *creature_ptr, object_type *object_ptr)
 // Apply magic to an item or turn it into an artifact. -Bernd-
 static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	object_type forge;
 	object_type *quest_ptr;
 
@@ -955,7 +955,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
  */
 static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	u32b i, matches, better, worse, other, correct;
 	u32b test_roll = 1000000;
 	char ch;
@@ -1323,7 +1323,7 @@ static void wiz_create_item(creature_type *creature_ptr)
 {
 	object_type	forge;
 	object_type *quest_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int k_idx;
 
@@ -1661,7 +1661,7 @@ static void do_cmd_wiz_floor_object_list(void)
 // Go to any level
 static void do_cmd_generate_floor(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ask for level
 	if (command_arg <= 0)
@@ -1773,7 +1773,7 @@ static void do_cmd_wiz_learn(void)
 // Summon some creatures
 static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 
 	for (i = 0; i < num; i++)
@@ -1788,7 +1788,7 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
  */
 static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
 }
 
@@ -1800,7 +1800,7 @@ static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
  */
 static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, int species_idx)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
 }
 
@@ -1877,7 +1877,7 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 // Create desired feature
 static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 {
-	floor_type   *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type   *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	static int   prev_feat = 0;
 	static int   prev_mimic = 0;
 	cave_type    *c_ptr;
@@ -2054,7 +2054,7 @@ extern void do_cmd_debug(creature_type *creature_ptr);
  */
 void do_cmd_debug(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int     x, y;
 	char    cmd;
 
@@ -2330,7 +2330,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Hack -- whatever I desire */
 	case '_':
-		(void)probing(get_floor_ptr(creature_ptr));
+		(void)probing(GET_FLOOR_PTR(creature_ptr));
 		break;
 
 	/* Not a Wizard Command */

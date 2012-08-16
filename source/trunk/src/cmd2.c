@@ -20,7 +20,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 {
 	bool go_up = FALSE;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -190,7 +190,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 // Go down one level
 void do_cmd_go_down(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -540,7 +540,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 {
 	int  i, trap;
 	object_type *object_ptr = &object_list[object_idx];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	int mon_level = object_ptr->xtra3;
 
@@ -833,7 +833,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	bool flag = TRUE;
 	bool more = FALSE;
 	object_type *object_ptr = &object_list[object_idx];
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 
 	/* Take a turn */
@@ -913,7 +913,7 @@ static bool is_open(int feat)
 static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(int feat), bool under)
 {
 	int d, count, xx, yy;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Count how many matches
 	count = 0;
@@ -964,7 +964,7 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 {
 	int d, count, object_idx;
 	object_type *object_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Count how many matches */
 	count = 0;
@@ -1029,7 +1029,7 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
  */
 static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, j;
 	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get requested grid
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
@@ -1129,7 +1129,7 @@ void do_cmd_open(creature_type *creature_ptr)
 	int y, x, dir;
 	s16b object_idx;
 	bool more = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (creature_ptr->special_defense & KATA_MUSOU)
 	{
@@ -1247,7 +1247,7 @@ void do_cmd_open(creature_type *creature_ptr)
 static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 {
 	// Get grid and contents
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type  *c_ptr = &floor_ptr->cave[y][x];
 	s16b       old_feat = c_ptr->feat;
 	bool       more = FALSE;
@@ -1306,7 +1306,7 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 void do_cmd_close(creature_type *creature_ptr)
 {
 	int y, x, dir;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
 	if (creature_ptr->special_defense & KATA_MUSOU)
@@ -1399,7 +1399,7 @@ void do_cmd_close(creature_type *creature_ptr)
  */
 static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Must have knowledge */
@@ -1446,7 +1446,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
  */
 static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr;
 	feature_type *f_ptr, *mimic_f_ptr;
 	int power;
@@ -1609,7 +1609,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 void do_cmd_tunnel(creature_type *creature_ptr)
 {
 	int y, x, dir;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr;
 	s16b feat;
 	bool more = FALSE;
@@ -1703,7 +1703,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 {
 	int i, j;
 
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
@@ -1919,7 +1919,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Get grid and contents */
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -2013,7 +2013,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 // Disarms a trap, or chest
 void do_cmd_disarm(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int y, x, dir;
 	s16b object_idx;
 	bool more = FALSE;
@@ -2132,7 +2132,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
  */
 static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x]; // Get grid
 	feature_type *f_ptr = &feature_info[c_ptr->feat]; // Get feature
 
@@ -2241,7 +2241,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
  */
 void do_cmd_bash(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int			y, x, dir;
 	cave_type	*c_ptr;
 	bool		more = FALSE;
@@ -2335,7 +2335,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 void do_cmd_alter(creature_type *creature_ptr)
 {
 	int			y, x, dir;
-	floor_type  *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type	*c_ptr;
 	bool		more = FALSE;
 
@@ -2470,7 +2470,7 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 // This command may NOT be repeated
 void do_cmd_spike(creature_type *creature_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
 
 	if (creature_ptr->special_defense & KATA_MUSOU)
@@ -2566,7 +2566,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 {
 	int dir;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
 
@@ -3146,7 +3146,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
  */
 void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
 	int i, j, y, x, ny, nx, ty, tx, prev_y, prev_x;
 	int tdam_base, tdis, thits, tmul;
@@ -3841,7 +3841,7 @@ static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type 
  */
 bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir, item;
 	int i, j, y, x, ty, tx, prev_y, prev_x;
 	int ny[19], nx[19];
@@ -4489,7 +4489,7 @@ static void forget_travel_flow(floor_type *floor_ptr)
 
 static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bool wall)
 {
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 	int old_head = flow_head;
@@ -4537,7 +4537,7 @@ static void travel_flow(creature_type *creature_ptr, int ty, int tx)
 {
 	int x, y, d;
 	bool wall = FALSE;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	feature_type *f_ptr = &feature_info[floor_ptr->cave[ty][tx].feat];
 
 	/* Reset the "queue" */
@@ -4575,7 +4575,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 	int x, y, i;
 	int dx, dy, sx, sy;
 	feature_type *f_ptr;
-	floor_type *floor_ptr = get_floor_ptr(creature_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if (!tgt_pt(creature_ptr, &x, &y)) return;
 

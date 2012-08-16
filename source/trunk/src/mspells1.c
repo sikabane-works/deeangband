@@ -363,7 +363,7 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 // a summoned creature can appear
 bool summon_possible(creature_type *target_ptr, int y1, int x1)
 {
-	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int y, x;
 
 	/* Start at the player's location, and check 2 grids in each dir */
@@ -391,7 +391,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 // For raised dead
 bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 {
-	floor_type *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int xx, yy;
 	int y = target_ptr->fy;
 	int x = target_ptr->fx;
@@ -443,7 +443,7 @@ bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
  */
 bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend)
 {
-	floor_type *floor_ptr = get_floor_ptr(target_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 
 	/* Must be the same as projectable(floor_ptr, ) */
 	int i, y, x;
@@ -1183,7 +1183,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 			                     { 1,  0, -1,  1, -1,  1,  0, -1},
 			                     {-1,  0,  1, -1,  1, -1,  0,  1},
 			                     { 1,  0, -1,  1, -1,  1,  0, -1}};
-	floor_type *floor_ptr = get_floor_ptr(base_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(base_ptr);
 
 	if (m_ptr->fy < base_ptr->fy && m_ptr->fx < base_ptr->fx) tonari = 0;
 	else if (m_ptr->fy < base_ptr->fy) tonari = 1;
@@ -1274,7 +1274,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  */
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
-	floor_type      *floor_ptr = get_floor_ptr(caster_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int             k, thrown_spell = 0, rlev, failrate;
 	int             racial_spell[MAX_TRAITS], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
