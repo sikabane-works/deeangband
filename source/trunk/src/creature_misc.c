@@ -581,16 +581,6 @@ bool is_attr_semirand_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_ATTR_SEMIRAND]);
 }
 
-bool is_force_sleep_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_FORCE_SLEEP);	
-}
-
-bool is_force_sleep_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_FORCE_SLEEP]);
-}
-
 bool is_friends_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_FRIENDS);	
@@ -599,17 +589,6 @@ bool is_friends_creature(creature_type *creature_ptr)
 bool is_friends_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_FRIENDS]);
-}
-
-
-bool is_smart_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_SMART);	
-}
-
-bool is_smart_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_SMART]);
 }
 
 bool is_stupid_creature(creature_type *creature_ptr)

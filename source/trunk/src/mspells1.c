@@ -50,10 +50,10 @@
  */
 static bool int_outof(species_type *r_ptr, int prob)
 {
-	/* Non-Smart creatures are half as "smart" */
-	if (!is_smart_species(r_ptr)) prob = prob / 2;
+	// Non-Smart creatures are half as "smart"
+	if (!has_trait_species(r_ptr, TRAIT_SMART)) prob = prob / 2;
 
-	/* Roll the dice */
+	// Roll the dice
 	return (randint0(100) < prob);
 }
 

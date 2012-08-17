@@ -932,12 +932,9 @@ extern bool is_attr_multi_species(species_type *species_ptr);
 extern bool is_attr_any_species(species_type *species_ptr);
 extern bool is_attr_semirand_species(species_type *species_ptr);
 
-extern bool is_force_sleep_species(species_type *species_ptr);
-
 extern bool is_friends_species(species_type *species_ptr);
 extern bool is_escorts_species(species_type *species_ptr);
 
-extern bool is_smart_species(species_type *species_ptr);
 extern bool is_stupid_species(species_type *species_ptr);
 extern bool is_multiply_species(species_type *species_ptr);
 extern bool is_empty_mind_species(species_type *species_ptr);
