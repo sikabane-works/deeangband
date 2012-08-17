@@ -581,26 +581,6 @@ bool is_attr_semirand_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_ATTR_SEMIRAND]);
 }
 
-bool is_stupid_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_STUPID);	
-}
-
-bool is_stupid_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_STUPID]);
-}
-
-bool is_multiply_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_MULTIPLY);	
-}
-
-bool is_multiply_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_MULTIPLY]);
-}
-
 bool is_empty_mind_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_EMPTY_MIND);	

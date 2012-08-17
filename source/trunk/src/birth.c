@@ -2583,7 +2583,7 @@ static bool creature_hook_quest(int species_idx)
 	species_type *species_ptr = &species_info[species_idx];
 	if (is_wild_only_species(species_ptr)) return FALSE;	// Random quests are in the dungeon
 	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;		// No random quests for aquatic creatures
-	if (is_multiply_species(species_ptr)) return FALSE;		// No random quests for multiplying creatures
+	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;		// No random quests for multiplying creatures
 	if (is_friendly_species(species_ptr)) return FALSE;		// No quests to kill friendly creatures
 	return TRUE;
 }

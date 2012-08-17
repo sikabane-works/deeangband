@@ -1210,7 +1210,7 @@ static bool summon_specific_aux(int species_idx)
 			       !(is_enemy_of_good_species(r_ptr)) &&
 			       !is_undead_species(r_ptr) &&
 			       !is_demon_species(r_ptr) &&
-			       !is_multiply_species(r_ptr));// &&
+			       !has_trait_species(r_ptr, TRAIT_MULTIPLY));// &&
 			       //TODO !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
 			break;
 		}
@@ -3140,7 +3140,7 @@ static bool creature_hook_chameleon(int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if (is_unique_species(r_ptr)) return FALSE;
-	if (is_multiply_species(r_ptr)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
 	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
@@ -3290,7 +3290,7 @@ static bool creature_hook_tanuki(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
-	if (is_multiply_species(r_ptr)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
 	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
 	

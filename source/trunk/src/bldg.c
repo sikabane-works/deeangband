@@ -1658,7 +1658,7 @@ static bool vault_aux_battle(int species_idx)
 	
 	if (is_unique_species(species_ptr)) return (FALSE); // Decline unique creatures
 	if (has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return (FALSE);
-	if (is_multiply_species(species_ptr)) return (FALSE);
+	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return (FALSE);
 	if (has_trait_species(species_ptr, TRAIT_QUANTUM)) return (FALSE);
 	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return (FALSE);
 	if (is_chameleon_species(species_ptr)) return (FALSE);

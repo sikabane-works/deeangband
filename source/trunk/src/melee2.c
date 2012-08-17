@@ -1198,7 +1198,7 @@ static int check_hit2(int power, int level, int ac, int stun)
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
 {
 	return !have_flag(f_ptr->flags, FF_GLASS) ||
-	       is_stupid_species(&species_info[m_ptr->species_idx]) ||
+	       has_trait_species(&species_info[m_ptr->species_idx], TRAIT_STUPID) ||
 	       (m_ptr->chp >= MAX(m_ptr->mhp / 3, 200));
 }
 
