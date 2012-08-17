@@ -3059,7 +3059,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 				/* Notice immunity */
 				if (!has_trait(target_ptr, TRAIT_RES_FIRE))
 				{
-					if (is_hurt_fire_creature(target_ptr))
+					if (has_trait(target_ptr, TRAIT_HURT_FIRE))
 					{
 						if (mult < 25) mult = 25;
 						if (is_original_ap_and_seen(attacker_ptr, target_ptr))

@@ -693,17 +693,6 @@ bool is_non_living_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_NONLIVING]);
 }
 
-
-bool is_hurt_fire_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_HURT_FIRE);	
-}
-
-bool is_hurt_fire_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_HURT_FIRE]);
-}
-
 bool is_hurt_cold_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_HURT_COLD);	
