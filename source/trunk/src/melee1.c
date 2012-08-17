@@ -709,7 +709,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 		{
-			if (!(is_unique_creature(target_ptr) || is_quest_creature(target_ptr)) &&
+			if (!(is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_QUESTOR)) &&
 				!has_trait(target_ptr, TRAIT_RES_CHAO))
 			{
 				if (polymorph_creature(attacker_ptr, y, x))

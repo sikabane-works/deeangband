@@ -927,7 +927,6 @@ extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
 extern bool is_sub_unique_creature(creature_type *creature_ptr);
 extern bool is_sub_unique_species(species_type *species_ptr);
-extern bool is_quest_creature(creature_type *creature_ptr);
 
 extern bool is_char_clear_species(species_type *species_ptr);
 extern bool is_attr_clear_species(species_type *species_ptr);

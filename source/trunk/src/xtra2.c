@@ -1389,7 +1389,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 	}
 
 	/* Only process "Quest Creatures" */
-	if (!is_quest_creature(killed_ptr)) return;
+	if (!has_trait(killed_ptr, TRAIT_QUESTOR)) return;
 	if (floor_ptr->gamble_arena_mode) return;
 }
 

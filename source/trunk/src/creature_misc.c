@@ -550,12 +550,6 @@ bool is_sub_unique_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_UNIQUE2]);
 }
 
-bool is_quest_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_QUESTOR);	
-}
-
-
 bool is_char_clear_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_CHAR_CLEAR);	

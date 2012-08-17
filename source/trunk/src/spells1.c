@@ -1847,12 +1847,12 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	if (is_unique_creature(target_ptr)) do_poly = FALSE;
 
 	/* Quest creatures cannot be polymorphed */
-	if (is_quest_creature(target_ptr)) do_poly = FALSE;
+	if (has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE;
 
 	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" creatures can only be "killed" by the player. */
-	if ((is_quest_creature(target_ptr)) || is_unique_species(species_ptr) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
+	if ((has_trait(target_ptr, TRAIT_QUESTOR)) || is_unique_species(species_ptr) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
 	{
 		if (caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}
@@ -5427,7 +5427,7 @@ note = "は眠り込んでしまった！";
 
 			/* Powerful creatures can resist */
 			if ((is_unique_creature(target_ptr)) ||
-			    (is_quest_creature(target_ptr)) ||
+			    (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -5452,7 +5452,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (is_quest_creature(target_ptr)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| is_sub_unique_creature(target_ptr))
+			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| is_sub_unique_creature(target_ptr))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5644,7 +5644,7 @@ note = "は眠り込んでしまった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if (is_quest_creature(target_ptr) ||
+			if (has_trait(target_ptr, TRAIT_QUESTOR) ||
 			    has_trait(target_ptr, TRAIT_NO_CONF) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
@@ -5727,7 +5727,7 @@ note = "は眠り込んでしまった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((is_quest_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			  (!is_undead_species(species_ptr)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -5802,7 +5802,7 @@ note = "は眠り込んでしまった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((is_quest_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			  (!is_demon_species(species_ptr)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -5880,7 +5880,7 @@ note = "は眠り込んでしまった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ( is_quest_creature(target_ptr) ||
+			if ( has_trait(target_ptr, TRAIT_QUESTOR) ||
 			    !is_animal_creature(target_ptr) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 has_trait(target_ptr, TRAIT_NO_CONF) ||
@@ -5976,7 +5976,7 @@ note = "は眠り込んでしまった！";
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((is_quest_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 !creature_living(target_ptr) ||
 				 ((species_ptr->level+10) > randint1(dam)))
@@ -6709,7 +6709,7 @@ note = "には耐性がある！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-			    (is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL) || is_sub_unique_creature(target_ptr) || (is_quest_creature(target_ptr)) || target_ptr->parent_m_idx)
+			    (is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL) || is_sub_unique_creature(target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",target_name);
@@ -7044,7 +7044,7 @@ msg_format("うまく捕まえられなかった。");
 				}
 
 				/* Attempt a saving throw */
-				else if ((is_quest_creature(target_ptr)) ||
+				else if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 				    (is_unique_creature(target_ptr)) ||
 				    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				    (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
