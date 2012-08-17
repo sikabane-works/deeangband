@@ -1122,7 +1122,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		else if (ma_ptr->effect == MA_SLOW)
 		{
-			if (!((is_never_move_species(r_ptr)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
+			if (!((has_trait_species(r_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{

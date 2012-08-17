@@ -633,17 +633,6 @@ bool is_force_sleep_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_FORCE_SLEEP]);
 }
 
-
-bool is_never_move_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_NEVER_MOVE);	
-}
-
-bool is_never_move_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_NEVER_MOVE]);
-}
-
 bool is_never_blow_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_NEVER_BLOW);	

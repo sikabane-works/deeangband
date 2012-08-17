@@ -3621,7 +3621,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					sn = 0;
 
 					/* Creature can move to escape the wall */
-					if (!(is_never_move_species(r_ptr)))
+					if (!(has_trait_species(r_ptr, TRAIT_NEVER_MOVE)))
 					{
 						/* Look for safety */
 						for (i = 0; i < 8; i++)
