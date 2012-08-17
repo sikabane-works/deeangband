@@ -5948,7 +5948,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			}
 
 			/* Creature melee attacks */
-			if (!(is_never_blow_species(r_ptr)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if (!(has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{
