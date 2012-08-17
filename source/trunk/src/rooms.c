@@ -1661,7 +1661,7 @@ static bool vault_aux_giant(int species_idx)
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require giant */
-	if (!is_giant_species(r_ptr)) return (FALSE);
+	if (!has_trait_species(r_ptr, TRAIT_GIANT)) return (FALSE);
 
 	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
 

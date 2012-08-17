@@ -506,17 +506,6 @@ bool is_demon_species(species_type *species_ptr)
 		return FALSE;
 }
 
-bool is_giant_species(species_type *species_ptr)
-{
-	if(IS_RACE(species_ptr, RACE_GIANT) ||
-	   IS_RACE(species_ptr, RACE_CYCLOPS) ||
-	   IS_RACE(species_ptr, RACE_TITAN))
-		return TRUE;
-	else
-		return FALSE;
-}
-
-
 bool is_undead_species(species_type *species_ptr)
 {
 	if(has_trait_raw(&species_ptr->flags, TRAIT_ZOMBIE) ||
