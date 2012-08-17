@@ -941,16 +941,6 @@ bool is_open_door_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_OPEN_DOOR]);
 }
 
-bool is_move_body_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_MOVE_BODY);	
-}
-
-bool is_move_body_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_MOVE_BODY]);
-}
-
 bool is_kill_body_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_KILL_BODY);	
