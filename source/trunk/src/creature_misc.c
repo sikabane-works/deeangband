@@ -693,11 +693,6 @@ bool is_non_living_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_NONLIVING]);
 }
 
-bool is_eldritch_horror_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ELDRITCH_HORROR);	
-}
-
 bool is_random_walker_50_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_RAND_50);	
@@ -741,16 +736,6 @@ bool is_kill_body_species(species_type *species_ptr)
 bool can_fly_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_CAN_FLY);	
-}
-
-bool is_guardian_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_GUARDIAN);	
-}
-
-bool is_guardian_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_GUARDIAN]);
 }
 
 bool is_riding_creature(creature_type *creature_ptr)

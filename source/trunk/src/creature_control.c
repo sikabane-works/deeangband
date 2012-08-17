@@ -1295,7 +1295,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_GUARDIANS:
 		{
-			okay = (is_guardian_species(r_ptr));
+			okay = (has_trait_species(r_ptr, TRAIT_GUARDIAN));
 			break;
 		}
 
@@ -1473,7 +1473,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
-			if (is_guardian_species(r_ptr)) continue;
+			if (has_trait_species(r_ptr, TRAIT_GUARDIAN)) continue;
 			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
@@ -1531,7 +1531,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 			if (is_quest_species(r_ptr))
 				continue;
 
-			if (is_guardian_species(r_ptr))
+			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))
 				continue;
 
 			/* Depth Creatures never appear out of depth */
@@ -1592,7 +1592,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 			if (is_quest_species(r_ptr))
 				continue;
 
-			if (is_guardian_species(r_ptr))
+			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))
 				continue;
 
 			/* Depth Creatures never appear out of depth */
