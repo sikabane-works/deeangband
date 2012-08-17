@@ -955,7 +955,7 @@ extern bool is_invisible_species(species_type *species_ptr);
 extern bool is_cold_blood_species(species_type *species_ptr);
 extern bool is_empty_mind_species(species_type *species_ptr);
 extern bool is_weird_mind_species(species_type *species_ptr);
-extern bool is_regenerate_species(species_type *species_ptr);
+
 extern bool is_non_living_species(species_type *species_ptr);
 extern bool is_non_living_creature(creature_type *creature_ptr);
 

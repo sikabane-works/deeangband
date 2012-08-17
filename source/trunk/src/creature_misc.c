@@ -768,16 +768,6 @@ bool is_weird_mind_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_WEIRD_MIND]);
 }
 
-bool is_regenerate_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_REGENERATE);	
-}
-
-bool is_regenerate_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_REGENERATE]);
-}
-
 bool is_non_living_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_NONLIVING);	
