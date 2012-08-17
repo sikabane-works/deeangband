@@ -1718,7 +1718,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		table[i].prob3 = 0;							// Default
 		species_idx = table[i].index;				// Access the "species_idx" of the chosen creature
 		r_ptr = &species_info[species_idx];			// Access the actual race
-		if (is_citizen_species(r_ptr)) continue;	// Citizens doesn't wander.
+		if (has_trait_species(r_ptr, TRAIT_CITIZEN)) continue;	// Citizens doesn't wander.
 
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx)
 		{

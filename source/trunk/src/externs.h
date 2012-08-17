@@ -893,7 +893,6 @@ extern bool is_has_ld_species(species_type *species_ptr);
 extern bool is_drop_corpse_species(species_type *species_ptr);
 extern bool is_drop_skeleton_species(species_type *species_ptr);
 
-extern bool is_citizen_species(species_type *species_ptr);
 
 extern bool is_wild_only_species(species_type *species_ptr);
 extern bool is_wild_town_species(species_type *species_ptr);

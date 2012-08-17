@@ -1144,38 +1144,6 @@ bool is_human_creature(creature_type *creature_ptr)
 	return (creature_ptr->race_idx1 == RACE_HUMAN || creature_ptr->race_idx1 == RACE_BARBARIAN || creature_ptr->race_idx1 == RACE_DUNADAN);
 }
 
-/*
-bool IS_MALE(species_type *species_ptr)
-{
-	return species_ptr->sex & SEX_MALE;
-}
-
-bool IS_MALE(creature_type *creature_ptr)
-{
-	return creature_ptr->sex & SEX_MALE;
-}
-
-bool IS_FEMALE(species_type *species_ptr)
-{
-	return species_ptr->sex & SEX_FEMALE;
-}
-
-bool IS_FEMALE(creature_type *creature_ptr)
-{
-	return creature_ptr->sex & SEX_FEMALE;
-}
-
-bool is_intersex_species(species_type *species_ptr)
-{
-	return species_ptr->sex & (SEX_MALE | SEX_FEMALE);
-}
-
-bool is_intersex_creature(creature_type *creature_ptr)
-{
-	return creature_ptr->sex & (SEX_MALE | SEX_FEMALE);
-}
-*/
-
 bool is_drop_corpse_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_DROP_CORPSE);	
@@ -1194,17 +1162,6 @@ bool is_drop_skeleton_creature(creature_type *creature_ptr)
 bool is_drop_skeleton_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_DROP_SKELETON]);
-}
-
-
-bool is_citizen_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_CITIZEN);	
-}
-
-bool is_citizen_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_CITIZEN]);
 }
 
 bool is_wild_only_creature(creature_type *creature_ptr)
