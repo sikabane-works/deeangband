@@ -4982,7 +4982,7 @@ note = "は眠り込んでしまった！";
 
 			}
 			else if (has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
-			         is_animal_creature(target_ptr) ||
+			         has_trait(target_ptr, TRAIT_ANIMAL) ||
 			         (species_ptr->level > randint1(3 * dam)))
 			{
 				dam /= 3;
@@ -4998,7 +4998,7 @@ note = "は眠り込んでしまった！";
 				 * attacks back on them
 				 */
 				if (is_undead_species(species_ptr) && 
-					 is_demon_species(species_ptr) &&
+					 has_trait_species(species_ptr, TRAIT_DEMON) &&
 				    (species_ptr->level > caster_ptr->lev / 2) &&
 				    one_in_(2))
 				{
@@ -5119,7 +5119,7 @@ note = "は眠り込んでしまった！";
 
 			}
 			else if (has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
-			         is_animal_creature(target_ptr) ||
+			         has_trait(target_ptr, TRAIT_ANIMAL) ||
 			         (species_ptr->level > randint1(3 * dam)))
 			{
 				dam /= 3;
@@ -5135,7 +5135,7 @@ note = "は眠り込んでしまった！";
 				 * attacks back on them
 				 */
 				if (is_undead_species(species_ptr) &&
-					 is_demon_species(species_ptr) &&
+					 has_trait_species(species_ptr, TRAIT_DEMON) &&
 				     (species_ptr->level > caster_ptr->lev / 2) &&
 				     (one_in_(2)))
 				{
@@ -5277,7 +5277,7 @@ note = "は眠り込んでしまった！";
 				 * attacks back on them
 				 */
 				if (is_undead_species(species_ptr) &&
-					is_demon_species(species_ptr) &&
+					has_trait_species(species_ptr, TRAIT_DEMON) &&
 				    (species_ptr->level > caster_ptr->lev / 2) &&
 				    (one_in_(2)))
 				{
@@ -5803,7 +5803,7 @@ note = "は眠り込んでしまった！";
 
 			/* Attempt a saving throw */
 			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			  (!is_demon_species(species_ptr)) ||
+			  (!has_trait_species(species_ptr, TRAIT_DEMON)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -5881,7 +5881,7 @@ note = "は眠り込んでしまった！";
 
 			/* Attempt a saving throw */
 			if ( has_trait(target_ptr, TRAIT_QUESTOR) ||
-			    !is_animal_creature(target_ptr) ||
+			    !has_trait(target_ptr, TRAIT_ANIMAL) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -6648,7 +6648,7 @@ note = "には耐性がある！";
 				break;
 			}
 			/* Only affect demons */
-			if (is_demon_species(species_ptr))
+			if (has_trait_species(species_ptr, TRAIT_DEMON))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;

@@ -1472,7 +1472,7 @@ static bool vault_aux_animal(int species_idx)
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require "animal" flag */
-	if (!is_animal_species(r_ptr)) return (FALSE);
+	if (!has_trait_species(r_ptr, TRAIT_ANIMAL)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1710,7 +1710,7 @@ static bool vault_aux_demon(int species_idx)
 	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Require demon */
-	if (!is_demon_species(r_ptr)) return (FALSE);
+	if (!has_trait_species(r_ptr, TRAIT_DEMON)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

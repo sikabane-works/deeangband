@@ -2858,7 +2858,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 		{
 			/* Slay Animal */
 			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL)) &&
-			    is_animal_creature(target_ptr))
+			    has_trait(target_ptr, TRAIT_ANIMAL))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2868,7 +2868,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 
 			/* Kill Animal */
 			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_ANIMAL)) &&
-			    is_animal_creature(target_ptr))
+			    has_trait(target_ptr, TRAIT_ANIMAL))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);

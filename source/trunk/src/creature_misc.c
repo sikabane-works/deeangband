@@ -490,18 +490,6 @@ bool is_undead_species(species_type *species_ptr)
 		return FALSE;
 }
 
-bool is_animal_creature(creature_type *creature_ptr)
-{
-	//TODO
-	return FALSE;
-}
-
-bool is_animal_species(species_type *species_ptr)
-{
-	//TODO
-	return FALSE;
-}
-
 bool is_unique_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_UNIQUE);	

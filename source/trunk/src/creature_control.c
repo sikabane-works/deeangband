@@ -1080,7 +1080,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_DEMON:
 		{
-			okay = is_demon_species(r_ptr);
+			okay = has_trait_species(r_ptr, TRAIT_DEMON);
 			break;
 		}
 
@@ -1115,7 +1115,7 @@ static bool summon_specific_aux(int species_idx)
 			okay = (((r_ptr->d_char == 'U') ||
 				    (r_ptr->d_char == 'H') ||
 				    (r_ptr->d_char == 'B')) &&
-		  		    is_demon_species(r_ptr)) ? TRUE : FALSE;
+		  		    has_trait_species(r_ptr, TRAIT_DEMON)) ? TRUE : FALSE;
 			break;
 		}
 
@@ -1198,18 +1198,18 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_ANIMAL:
 		{
-			okay = is_animal_species(r_ptr);
+			okay = has_trait_species(r_ptr, TRAIT_ANIMAL);
 			break;
 		}
 
 		case SUMMON_ANIMAL_RANGER:
 		{
-			okay = (is_animal_species(r_ptr) &&
+			okay = (has_trait_species(r_ptr, TRAIT_ANIMAL) &&
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
 			       !has_trait_species(r_ptr, TRAIT_DRAGON) &&
 			       !(is_enemy_of_good_species(r_ptr)) &&
 			       !is_undead_species(r_ptr) &&
-			       !is_demon_species(r_ptr) &&
+			       !has_trait_species(r_ptr, TRAIT_DEMON) &&
 			       !has_trait_species(r_ptr, TRAIT_MULTIPLY));// &&
 			       //TODO !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));
 			break;
@@ -1332,7 +1332,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_ARMAGE_EVIL:
 		{
-			okay = ((is_demon_species(r_ptr)) ||
+			okay = ((has_trait_species(r_ptr, TRAIT_DEMON)) ||
 				(r_ptr->d_char == 'A' && is_enemy_of_good_species(r_ptr)));
 			break;
 		}

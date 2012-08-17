@@ -877,7 +877,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	 * Animal packs try to get the player out of corridors
 	 * (...unless they can move through walls -- TY)
 	 */
-		if (is_animal_creature(nonplayer_ptr) && !can_pass_wall &&
+		if (has_trait(nonplayer_ptr, TRAIT_ANIMAL) && !can_pass_wall &&
 			 !has_trait(nonplayer_ptr, TRAIT_BASH_DOOR))
 		{
 			int i, room = 0;
