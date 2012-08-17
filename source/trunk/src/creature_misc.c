@@ -550,26 +550,6 @@ bool is_sub_unique_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_UNIQUE2]);
 }
 
-bool is_char_clear_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_CHAR_CLEAR);	
-}
-
-bool is_char_clear_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_CHAR_CLEAR]);
-}
-
-bool is_attr_clear_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ATTR_CLEAR);	
-}
-
-bool is_attr_clear_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ATTR_CLEAR]);
-}
-
 bool is_attr_multi_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_ATTR_MULTI);	

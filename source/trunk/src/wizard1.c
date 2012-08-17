@@ -29,11 +29,11 @@ static FILE *fff = NULL;
 static cptr attr_to_text(species_type *species_ptr)
 {
 #ifdef JP000
-	if (is_attr_clear_species(species_ptr))    return "“§–¾‚È";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))    return "“§–¾‚È";
 	if (is_attr_multi_species(species_ptr))    return "–œF‚Ì";
 	if (is_attr_semirand_species(species_ptr)) return "€ƒ‰ƒ“ƒ_ƒ€‚È";
 #else
-	if (is_attr_clear_species(species_ptr))    return "Clear";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR)) return "Clear";
 	if (is_attr_multi_species(species_ptr))    return "Multi";
 	if (is_attr_semirand_species(species_ptr)) return "S.Rand";
 #endif
