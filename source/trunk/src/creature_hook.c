@@ -418,9 +418,9 @@ static bool creature_hook_lava(int species_idx)
 
 	if (!species_hook_dungeon(species_idx)) return FALSE;
 
-	if ((has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE) ||
-	     can_fly_species(r_ptr)) &&
-	    !has_trait_raw(&r_ptr->flags, TRAIT_AURA_COLD))
+	if (has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE) ||
+	    has_trait_species(r_ptr, TRAIT_CAN_FLY) &&
+	   !has_trait_raw(&r_ptr->flags, TRAIT_AURA_COLD))
 		return TRUE;
 	else
 		return FALSE;
@@ -431,7 +431,7 @@ static bool creature_hook_floor(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!has_trait_species(r_ptr, TRAIT_AQUATIC) || can_fly_species(r_ptr))
+	if (!has_trait_species(r_ptr, TRAIT_AQUATIC) || has_trait_species(r_ptr, TRAIT_CAN_FLY))
 		return TRUE;
 	else
 		return FALSE;
@@ -575,7 +575,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	{
 		if (!(mode & CEM_RIDING))
 		{
-			if (!can_fly_species(r_ptr)) return FALSE;
+			if (!has_trait_species(r_ptr, TRAIT_CAN_FLY)) return FALSE;
 		}
 		else
 		{
@@ -583,8 +583,8 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 		}
 	}
 
-	/* "CAN" flags */
-	if (have_flag(f_ptr->flags, FF_CAN_FLY) && can_fly_species(r_ptr)) return TRUE;
+	// "CAN" flags
+	if (have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait_species(r_ptr, TRAIT_CAN_FLY)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait_raw(&r_ptr->flags, TRAIT_CAN_SWIM)) return TRUE;
 	if (have_flag(f_ptr->flags, FF_CAN_PASS))
 	{

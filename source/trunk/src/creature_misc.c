@@ -938,11 +938,6 @@ bool can_fly_creature(creature_type *creature_ptr)
 	return has_trait(creature_ptr, TRAIT_CAN_FLY);	
 }
 
-bool can_fly_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_CAN_FLY]);
-}
-
 bool is_guardian_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_GUARDIAN);	

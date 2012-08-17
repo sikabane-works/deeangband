@@ -4694,7 +4694,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
 	if (steed_ptr->fast) creature_ptr->speed += 10;
 	if (steed_ptr->slow) creature_ptr->speed -= 10;
-	riding_levitation = can_fly_species(riding_r_ptr) ? TRUE : FALSE;
+	riding_levitation = has_trait_species(riding_r_ptr, TRAIT_CAN_FLY) ? TRUE : FALSE;
 
 	//TODO if (is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 

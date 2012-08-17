@@ -863,7 +863,6 @@ extern bool is_kill_body_species(species_type *species_ptr);
 
 extern bool is_powerful_creature(creature_type *creature_ptr);
 
-extern bool can_fly_species(species_type *species_ptr);
 extern bool is_guardian_species(species_type *species_ptr);
 extern bool is_riding_species(species_type *species_ptr);
 
