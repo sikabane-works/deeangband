@@ -950,8 +950,6 @@ extern bool is_weird_mind_species(species_type *species_ptr);
 
 extern bool is_non_living_species(species_type *species_ptr);
 extern bool is_non_living_creature(creature_type *creature_ptr);
-extern bool is_hurt_cold_creature(creature_type *creature_ptr);
-extern bool is_hurt_cold_species(species_type *species_ptr);
 
 extern bool is_eldritch_horror_species(species_type *species_ptr);
 

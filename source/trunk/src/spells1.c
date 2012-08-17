@@ -4147,7 +4147,7 @@ note = "‚Í–°‚è‚ñ‚Å‚µ‚Ü‚Á‚½I";
 				dam /= 9;
 				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_IM_COLD);
 			}
-			else if (is_hurt_cold_creature(target_ptr))
+			else if (has_trait(target_ptr))
 			{
 #ifdef JP
 				note = "‚Í‚Ğ‚Ç‚¢’Éè‚ğ‚¤‚¯‚½B";

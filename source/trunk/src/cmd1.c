@@ -514,7 +514,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 					/* Otherwise, take the damage */
 				else if ((have_flag(flgs, TRAIT_COLD_BRAND) || ((attacker_ptr->special_attack & (ATTACK_COLD)) && !thrown)) && (mode == HISSATSU_COLD))
 				{
-					if (is_hurt_cold_creature(target_ptr))
+					if (has_trait(target_ptr, TRAIT_HURT_COLD))
 					{
 						if (mult < 70) mult = 70;
 						if (is_original_ap_and_seen(attacker_ptr, target_ptr))
@@ -524,7 +524,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				}
 				else
 				{
-					if (is_hurt_cold_creature(target_ptr))
+					if (has_trait(target_ptr, TRAIT_HURT_COLD))
 					{
 						if (mult < 50) mult = 50;
 						if (is_original_ap_and_seen(attacker_ptr, target_ptr))
