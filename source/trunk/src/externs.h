@@ -841,9 +841,6 @@ extern void estimate_enemy_hp(species_type *mr_ptr, int *result);
 extern void set_resistance(creature_type *creature_ptr);
 extern void initialize_skill(creature_type *creature_ptr);
 
-extern bool is_force_depth_creature(creature_type *creature_ptr);
-extern bool is_force_depth_species(species_type *species_ptr);
-
 extern bool have_shoot_weapon(creature_type *creature_ptr);
 
 extern bool is_animal_creature(creature_type *creature_ptr);

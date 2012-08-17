@@ -468,16 +468,6 @@ void initialize_skill(creature_type *creature_ptr)
 
 }
 
-bool is_force_depth_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_FORCE_DEPTH);	
-}
-
-bool is_force_depth_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_FORCE_DEPTH]);
-}
-
 bool is_dragon_species(species_type *species_ptr)
 {
 	if(IS_RACE(species_ptr, RACE_DRAGON) ||

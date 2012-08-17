@@ -1474,7 +1474,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		{
 			if (has_trait_species(r_ptr, TRAIT_QUESTOR)) continue; // Hack -- don't create questors
 			if (has_trait_species(r_ptr, TRAIT_GUARDIAN)) continue;
-			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
+			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
 		/* Accept this creature */
@@ -1535,7 +1535,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 				continue;
 
 			/* Depth Creatures never appear out of depth */
-			if (is_force_depth_species(r_ptr) &&
+			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) &&
 			    (r_ptr->level > floor_ptr->floor_level))
 				continue;
 		}
@@ -1593,7 +1593,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 			if (has_trait_species(r_ptr, TRAIT_GUARDIAN)) continue;
 
 			/* Depth Creatures never appear out of depth */
-			if (is_force_depth_species(r_ptr) && (r_ptr->level > floor_ptr->floor_level)) continue;
+			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && (r_ptr->level > floor_ptr->floor_level)) continue;
 		}
 
 		/* Accept this creature */
@@ -3934,7 +3934,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		}
 
 		/* Depth creatures may NOT be created out of depth, unless in Nightmare mode */
-		if (is_force_depth_species(r_ptr) && (floor_ptr->floor_level < r_ptr->level) &&
+		if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->floor_level < r_ptr->level) &&
 		    (!curse_of_Iluvatar || (has_trait_species(r_ptr, TRAIT_QUESTOR))))
 		{
 			if (cheat_hear)
