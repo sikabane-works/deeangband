@@ -948,8 +948,6 @@ extern bool is_escorts_species(species_type *species_ptr);
 extern bool is_smart_species(species_type *species_ptr);
 extern bool is_stupid_species(species_type *species_ptr);
 extern bool is_multiply_species(species_type *species_ptr);
-extern bool is_reflecting_species(species_type *species_ptr);
-extern bool is_invisible_species(species_type *species_ptr);
 extern bool is_empty_mind_species(species_type *species_ptr);
 extern bool is_weird_mind_species(species_type *species_ptr);
 
@@ -965,7 +963,6 @@ extern bool is_hurt_fire_species(species_type *species_ptr);
 extern bool is_hurt_cold_creature(creature_type *creature_ptr);
 extern bool is_hurt_cold_species(species_type *species_ptr);
 
-extern bool is_no_fear_species(species_type *species_ptr);
 extern bool is_no_stun_species(species_type *species_ptr);
 extern bool is_no_conf_species(species_type *species_ptr);
 extern bool is_no_sleep_species(species_type *species_ptr);

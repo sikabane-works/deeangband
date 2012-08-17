@@ -696,26 +696,6 @@ bool is_multiply_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_MULTIPLY]);
 }
 
-bool is_reflecting_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_REFLECTING);	
-}
-
-bool is_reflecting_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_REFLECTING]);
-}
-
-bool is_invisible_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_INVISIBLE);	
-}
-
-bool is_invisible_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_INVISIBLE]);
-}
-
 bool is_empty_mind_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_EMPTY_MIND);	
@@ -782,16 +762,6 @@ bool is_hurt_cold_creature(creature_type *creature_ptr)
 }
 
 bool is_hurt_cold_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_HURT_COLD]);
-}
-
-bool is_no_fear_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_HURT_COLD);	
-}
-
-bool is_no_fear_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_HURT_COLD]);
 }

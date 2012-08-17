@@ -5947,7 +5947,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				if (has_trait(m_ptr, TRAIT_BR_DISI)) spell_dam_estimation(m_ptr, player_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
 			}
 
-			/* Creature melee attacks */
+			// Creature melee attacks
 			if (!(has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if (mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
