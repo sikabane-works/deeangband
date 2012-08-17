@@ -2970,8 +2970,8 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 				if (mult < 30) mult = 30;
 			}
 
-			/* Slay Troll */
-			if (have_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL) && is_troll_creature(target_ptr))
+			// Slay Troll
+			if (have_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2979,8 +2979,8 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 				if (mult < 20) mult = 20;
 			}
 
-			/* Kill Troll */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_TROLL)) && is_troll_creature(target_ptr))
+			// Kill Troll
+			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_TROLL)) && has_trait(target_ptr, TRAIT_TROLL))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);

@@ -496,15 +496,6 @@ bool is_orc_species(species_type *species_ptr)
 		return FALSE;
 }
 
-bool is_troll_creature(creature_type *creature_ptr)
-{
-	if(IS_RACE(creature_ptr, RACE_TROLL) ||
-	   IS_RACE(creature_ptr, RACE_OLOG)) 
-		return TRUE;
-	else
-		return FALSE;
-}
-
 bool is_troll_species(species_type *species_ptr)
 {
 	if(IS_RACE(species_ptr, RACE_TROLL) ||
