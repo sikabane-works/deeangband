@@ -478,15 +478,6 @@ bool is_force_depth_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_FORCE_DEPTH]);
 }
 
-bool is_orc_creature(creature_type *creature_ptr)
-{
-	if(IS_RACE(creature_ptr, RACE_ORC) ||
-	   IS_RACE(creature_ptr, RACE_URUK))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 bool is_orc_species(species_type *species_ptr)
 {
 	if(IS_RACE(species_ptr, RACE_ORC) ||

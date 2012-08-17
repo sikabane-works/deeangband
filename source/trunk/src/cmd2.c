@@ -2953,7 +2953,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Slay Orc */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC)) && is_orc_creature(target_ptr))
+			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2962,7 +2962,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Kill Orc */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_ORC)) && is_orc_creature(target_ptr))
+			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
