@@ -1627,17 +1627,12 @@ static bool vault_aux_orc(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
+	if (!has_trait_species(r_ptr, TRAIT_ORC)) return (FALSE);	// Require orc
 
-	/* Require orc */
-	if (!is_orc_species(r_ptr)) return (FALSE);
+	if (is_undead_species(r_ptr)) return (FALSE);					// Decline undead
 
-	/* Decline undead */
-	if (is_undead_species(r_ptr)) return (FALSE);
-
-	/* Okay */
-	return (TRUE);
+	return (TRUE); // Okay
 }
 
 
