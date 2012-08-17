@@ -499,7 +499,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 
 		mode = (PM_NO_KAGE | PM_NO_PET);
 
-		if (!is_friends_species(r_ptr))
+		if (!has_trait_species(r_ptr, TRAIT_FRIENDLY))
 			mode |= PM_ALLOW_GROUP;
 
 		for (j = 0; j < (quest[i].max_num - quest[i].cur_num); j++)

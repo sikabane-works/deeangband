@@ -2338,7 +2338,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	if (!is_unique_species(eldritch_ptr))
 	{
-		if(is_friends_species(eldritch_ptr)) power /= 2;
+		if(has_trait_species(eldritch_ptr, TRAIT_FRIENDLY)) power /= 2;
 	}
 	else power *= 2;
 
@@ -2360,7 +2360,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 #ifdef JP
 		msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I",
 #else
-		msg_format("You behold the %s visage of %s!",
+	1111111	msg_format("You behold the %s visage of %s!",
 #endif
 
 		funny_desc[randint0(MAX_SAN_FUNNY)], m_name);

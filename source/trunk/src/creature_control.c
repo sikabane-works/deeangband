@@ -4535,7 +4535,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	place_creature_m_idx = hack_m_idx_ii;
 
 	/* Friends for certain creatures */
-	if (is_friends_species(r_ptr))
+	if (has_trait_species(r_ptr, TRAIT_FRIENDLY))
 	{
 		/* Attempt to place a group */
 		(void)place_creature_group(summoner_ptr, floor_ptr, y, x, species_idx, mode);
@@ -4572,7 +4572,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			(void)place_creature_one(summoner_ptr, floor_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			// Place a "group" of escorts if needed
-			if (is_friends_species(&species_info[z]) || has_trait_species(r_ptr, TRAIT_ESCORT))
+			if (has_trait_species(&species_info[z], TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_ESCORT))
 			{
 				/* Place a group of creatures */
 				(void)place_creature_group(&creature_list[place_creature_m_idx], floor_ptr, ny, nx, z, mode);
