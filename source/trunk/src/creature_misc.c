@@ -754,21 +754,6 @@ bool is_has_ld_species(species_type *species_ptr)
 		   is_has_dark_1_species(species_ptr) || is_has_dark_2_species(species_ptr);
 }
 
-
-bool is_human_species(species_type *species_ptr)
-{
-	if(IS_RACE(species_ptr, RACE_HUMAN) ||
-	   IS_RACE(species_ptr, RACE_BARBARIAN) ||
-	   IS_RACE(species_ptr, RACE_DUNADAN))
-		return TRUE;
-	return FALSE;
-}
-
-bool is_human_creature(creature_type *creature_ptr)
-{
-	return (creature_ptr->race_idx1 == RACE_HUMAN || creature_ptr->race_idx1 == RACE_BARBARIAN || creature_ptr->race_idx1 == RACE_DUNADAN);
-}
-
 bool is_drop_corpse_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_DROP_CORPSE);	
