@@ -403,7 +403,7 @@ int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_pt
 	switch (creature_ptr->snipe_type)
 	{
 	case SP_LITE:
-		if (is_hurt_lite_creature(m_ptr))
+		if (has_trait(m_ptr, TRAIT_HURT_LITE))
 		{
 			int n = 20 + creature_ptr->concent;
 			reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
@@ -435,7 +435,7 @@ int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_pt
 		}
 		break;
 	case SP_KILL_WALL:
-		if (is_hurt_rock_creature(m_ptr))
+		if (has_trait(m_ptr, TRAIT_HURT_ROCK))
 		{
 			int n = 15 + (creature_ptr->concent * 2);
 			reveal_creature_info(m_ptr, TRAIT_HURT_ROCK);
@@ -462,7 +462,7 @@ int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_pt
 			int n = 12 + (creature_ptr->concent * 3);
 			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 
-			if (is_hurt_lite_creature(m_ptr))
+			if (has_trait(m_ptr, TRAIT_HURT_LITE))
 			{
 				n += (creature_ptr->concent * 3);
 				reveal_creature_info(m_ptr, TRAIT_HURT_LITE);

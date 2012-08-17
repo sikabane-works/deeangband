@@ -576,7 +576,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				int tmp = MIN(100, MAX(10, attacker_ptr->cut / 10));
 				if (mult < tmp) mult = tmp;
 			}
-			if ((mode == HISSATSU_HAGAN) && is_hurt_rock_creature(target_ptr))
+			if ((mode == HISSATSU_HAGAN) && has_trait(target_ptr, TRAIT_HURT_ROCK))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 				{

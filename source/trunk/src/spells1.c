@@ -3368,7 +3368,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam *= 2; dam /= (randint1(6)+6);
 				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_LITE);
 			}
-			else if (is_hurt_lite_creature(target_ptr))
+			else if (has_trait(target_ptr, TRAIT_HIRT_LITE))
 			{
 				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 #ifdef JP
@@ -6119,7 +6119,7 @@ note = "ÇÕñ∞ÇËçûÇÒÇ≈ÇµÇ‹Ç¡ÇΩÅI";
 				break;
 			}
 			/* Hurt by light */
-			if (is_hurt_lite_creature(target_ptr))
+			if (has_trait(target_ptr, TRAIT_HURT_LITE))
 			{
 				/* Obvious effect */
 				if (seen) obvious = TRUE;
@@ -6158,7 +6158,7 @@ note = "ÇÕñ∞ÇËçûÇÒÇ≈ÇµÇ‹Ç¡ÇΩÅI";
 				break;
 			}
 			/* Hurt by rock remover */
-			if (is_hurt_rock_creature(target_ptr))
+			if (has_trait(target_ptr, TRAIT_HURT_ROCK))
 			{
 				/* Notice effect */
 				if (seen) obvious = TRUE;
@@ -6970,7 +6970,7 @@ msg_format("Ç§Ç‹Ç≠ïﬂÇ‹Ç¶ÇÁÇÍÇ»Ç©Ç¡ÇΩÅB");
 			if (is_player(caster_ptr)) msg_format("You take a photograph of %s.", target_name);
 #endif
 			/* Hurt by light */
-			if (is_hurt_lite_creature(target_ptr))
+			if (has_trait(target_ptr, TRAIT_HURT_LITE))
 			{
 				/* Obvious effect */
 				if (seen) obvious = TRUE;
