@@ -975,8 +975,6 @@ extern bool is_no_sleep_species(species_type *species_ptr);
 
 extern bool can_speak_species(species_type *species_ptr);
 extern bool is_eldritch_horror_species(species_type *species_ptr);
-extern bool is_random_walker_25_species(species_type *species_ptr);
-extern bool is_random_walker_50_species(species_type *species_ptr);
 
 //extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, int low, int high);

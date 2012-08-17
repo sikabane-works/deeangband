@@ -878,24 +878,9 @@ bool is_eldritch_horror_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_ELDRITCH_HORROR]);
 }
 
-bool is_random_walker_25_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_RAND_25);	
-}
-
-bool is_random_walker_25_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_RAND_25]);
-}
-
 bool is_random_walker_50_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_RAND_50);	
-}
-
-bool is_random_walker_50_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_RAND_50]);
 }
 
 bool is_powerful_creature(creature_type *creature_ptr)
