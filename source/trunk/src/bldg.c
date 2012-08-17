@@ -2391,7 +2391,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	if (!watcher_ptr->mimic_form)
 	{
-		if(is_demon_creature(watcher_ptr))
+		if(has_trait(watcher_ptr, TRAIT_DEMON))
 		{
 			if (saving_throw(20 + watcher_ptr->lev)) return;
 		}

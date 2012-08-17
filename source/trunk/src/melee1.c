@@ -3443,8 +3443,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
-				/* Heal the attacker? */
-				if(has_trait(target_ptr, TRAIT_NONLIVING) || has_trait(target_ptr, TRAIT_UNDEAD) || is_demon_creature(target_ptr))
+				// Heal the attacker?
+				if(has_trait(target_ptr, TRAIT_NONLIVING) || has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_DEMON))
 				{
 					resist_drain = TRUE;
 					break;

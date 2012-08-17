@@ -4172,7 +4172,7 @@ note = "ÇÕñ∞ÇËçûÇÒÇ≈ÇµÇ‹Ç¡ÇΩÅI";
 #endif
 
 			/* Some races are immune */
-			if(has_trait(target_ptr, TRAIT_UNDEAD) || is_demon_creature(target_ptr) || has_trait(target_ptr, TRAIT_NONLIVING))
+			if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_DEMON) || has_trait(target_ptr, TRAIT_NONLIVING))
 				dam = 0;
 			else
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);

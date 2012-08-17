@@ -2418,7 +2418,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		/* Something frightening happens... */
 
-		if (is_demon_creature(watcher_ptr))
+		if (has_trait(watcher_ptr, TRAIT_DEMON))
 		{
 #ifdef JP
 			msg_format("%s%s‚ÌŠç‚ªŠ_ŠÔŒ©‚¦‚½B",
@@ -2442,7 +2442,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		reveal_creature_info(m_ptr, TRAIT_ELDRITCH_HORROR);
 
 		/* Demon characters are unaffected */
-		if (is_demon_creature(watcher_ptr)) return;
+		if (has_trait(watcher_ptr, TRAIT_DEMON)) return;
 
 		if (wizard) return;
 

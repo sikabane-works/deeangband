@@ -1519,7 +1519,7 @@ static bool is_opt_confirm_destroy(creature_type *creature_ptr, object_type *obj
 
 	if (leave_special)
 	{
-		if (is_demon_creature(creature_ptr))
+		if (has_trait(creature_ptr, TRAIT_DEMON))
 		{
 			if (object_ptr->tval == TV_CORPSE &&
 			    object_ptr->sval == SV_CORPSE &&

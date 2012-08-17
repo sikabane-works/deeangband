@@ -338,8 +338,8 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				if (mult < 50) mult = 50;
 			}
 
-			/* Slay Demon */
-			if ((have_flag(flgs, TRAIT_SLAY_DEMON)) && is_demon_creature(target_ptr))
+			// Slay Demon
+			if ((have_flag(flgs, TRAIT_SLAY_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -347,8 +347,8 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				if (mult < 30) mult = 30;
 			}
 
-			/* Execute Demon */
-			if ((have_flag(flgs, TRAIT_KILL_DEMON)) && is_demon_creature(target_ptr))
+			// Execute Demon
+			if ((have_flag(flgs, TRAIT_KILL_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);

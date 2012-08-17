@@ -865,7 +865,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	/* Berserk Strength */
 	if (target_ptr->shero && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
 
-	/* Elemental resistances */
+	// Elemental resistances
 	if (has_trait(caster_ptr, TRAIT_BR_ACID))
 	{
 		if (!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->oppose_acid || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
@@ -874,7 +874,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 
 	if (has_trait(caster_ptr, TRAIT_BR_FIRE))
 	{
-		if (!(is_demon_creature(target_ptr) && target_ptr->lev > 44))
+		if (!(has_trait(target_ptr, TRAIT_DEMON) && target_ptr->lev > 44)) //TODO
 		{
 			if (!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->oppose_fire || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
 			if (target_ptr->special_defense & DEFENSE_FIRE) return (TRUE);

@@ -223,7 +223,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	while(creature_ptr->energy_need < 0) creature_ptr->energy_need += ENERGY_NEED();
 	creature_ptr->time_stopper = FALSE;
 
-	if (is_demon_creature(creature_ptr) && (creature_ptr->lev > 44)) creature_ptr->oppose_fire = 1;
+	if (has_trait(creature_ptr, TRAIT_DEMON) && (creature_ptr->lev > 44)) creature_ptr->oppose_fire = 1;
 	if ((creature_ptr->class_idx == CLASS_NINJA) && (creature_ptr->lev > 44)) creature_ptr->oppose_pois = 1;
 	if (creature_ptr->class_idx == CLASS_BERSERKER) creature_ptr->shero = 1;
 
