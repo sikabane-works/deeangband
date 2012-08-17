@@ -530,14 +530,6 @@ bool is_animal_species(species_type *species_ptr)
 	return FALSE;
 }
 
-
-bool is_quantum_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_QUANTUM]);
-}
-
-
-
 bool is_unique_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_UNIQUE);	
