@@ -2525,7 +2525,7 @@ info[i++] = "‚»‚ê‚Í–‚–@’ïR—Í‚ğ‰º‚°‚éB";
 #else
 			info[i++] = "It is shameful.";
 #endif
-		else if (is_eldritch_horror_species(r_ptr))
+		else if (has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR))
 #ifdef JP
 			info[i++] = "‚»‚ê‚Í•”‰®‚Éü‚é‚Æ‹°‚¢B";
 #else

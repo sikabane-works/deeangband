@@ -3011,7 +3011,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			}
 
 			/* Eldritch Horror */
-			if (is_eldritch_horror_species(&species_info[target_ptr->ap_species_idx]))
+			if (has_trait_species(&species_info[target_ptr->ap_species_idx], TRAIT_ELDRITCH_HORROR))
 			{
 				sanity_blast(creature_ptr, target_ptr, FALSE);
 			}

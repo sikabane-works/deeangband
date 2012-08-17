@@ -1842,7 +1842,7 @@ static void spoil_species_desc(cptr fname)
 				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];
 		}
 
-		if(is_eldritch_horror_species(species_ptr)){
+		if(has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)){
 			stat[STAT_CHA] += 5;		
 		}
 
