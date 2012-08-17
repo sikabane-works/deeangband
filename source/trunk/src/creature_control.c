@@ -4548,7 +4548,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 
 
 	/* Escorts for certain creatures */
-	if (is_escort_species(r_ptr))
+	if(has_trait_species(r_ptr, TRAIT_ESCORT))
 	{
 		/* Set the escort index */
 		place_species_idx = species_idx;
@@ -4576,8 +4576,8 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			/* Place a single escort */
 			(void)place_creature_one(summoner_ptr, floor_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
-			/* Place a "group" of escorts if needed */
-			if (is_friends_species(&species_info[z]) || is_escort_species(r_ptr))
+			// Place a "group" of escorts if needed
+			if (is_friends_species(&species_info[z]) || has_trait_species(r_ptr, TRAIT_ESCORT))
 			{
 				/* Place a group of creatures */
 				(void)place_creature_group(&creature_list[place_creature_m_idx], floor_ptr, ny, nx, z, mode);

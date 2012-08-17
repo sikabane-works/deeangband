@@ -612,17 +612,6 @@ bool is_attr_semirand_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_ATTR_SEMIRAND]);
 }
 
-bool is_shapechanger_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_SHAPECHANGER);	
-}
-
-bool is_shapechanger_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_SHAPECHANGER]);
-}
-
-
 bool is_force_sleep_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_FORCE_SLEEP);	
@@ -642,28 +631,6 @@ bool is_friends_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_FRIENDS]);
 }
-
-bool is_escort_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ESCORT);	
-}
-
-bool is_escort_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ESCORT]);
-}
-
-bool is_escorts_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ESCORTS);	
-}
-
-bool is_escorts_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ESCORTS]);
-}
-
-
 
 
 bool is_smart_creature(creature_type *creature_ptr)
