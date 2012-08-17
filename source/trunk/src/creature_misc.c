@@ -611,46 +611,6 @@ bool is_non_living_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_NONLIVING]);
 }
 
-bool is_random_walker_50_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_RAND_50);	
-}
-
-bool is_powerful_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_POWERFUL);	
-}
-
-bool is_take_item_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_TAKE_ITEM);	
-}
-
-bool is_take_item_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_TAKE_ITEM]);
-}
-
-bool is_kill_item_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_KILL_ITEM);	
-}
-
-bool is_kill_item_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_KILL_ITEM]);
-}
-
-bool is_kill_body_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_KILL_BODY);	
-}
-
-bool is_kill_body_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_KILL_BODY]);
-}
-
 bool can_fly_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_CAN_FLY);	

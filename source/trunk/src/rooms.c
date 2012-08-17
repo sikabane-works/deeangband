@@ -1448,7 +1448,7 @@ static bool vault_aux_jelly(int species_idx)
 	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (is_kill_body_species(r_ptr) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Also decline evil jellies (like death molds and shoggoths) */
 	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
@@ -1586,7 +1586,7 @@ static bool vault_aux_symbol_e(int species_idx)
 	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (is_kill_body_species(r_ptr) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
@@ -1608,7 +1608,7 @@ static bool vault_aux_symbol_g(int species_idx)
 	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (is_kill_body_species(r_ptr) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
 
@@ -1707,7 +1707,7 @@ static bool vault_aux_demon(int species_idx)
 	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (is_kill_body_species(r_ptr) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Require demon */
 	if (!is_demon_species(r_ptr)) return (FALSE);
@@ -1727,7 +1727,7 @@ static bool vault_aux_cthulhu(int species_idx)
 	/* Validate the creature */
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (is_kill_body_species(r_ptr) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Require eldritch horror */
 	if (!has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR)) return (FALSE);

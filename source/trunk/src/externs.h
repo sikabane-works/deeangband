@@ -857,12 +857,6 @@ extern bool is_undead_species(species_type *species_ptr);
 extern bool is_human_species(species_type *species_ptr);
 extern bool is_animal_species(species_type *species_ptr);
 
-extern bool is_take_item_species(species_type *species_ptr);
-extern bool is_kill_item_species(species_type *species_ptr);
-extern bool is_kill_body_species(species_type *species_ptr);
-
-extern bool is_powerful_creature(creature_type *creature_ptr);
-
 extern bool is_riding_species(species_type *species_ptr);
 
 extern bool can_fly_creature(creature_type *creature_ptr);
