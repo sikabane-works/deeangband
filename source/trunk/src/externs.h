@@ -963,11 +963,6 @@ extern bool is_hurt_fire_species(species_type *species_ptr);
 extern bool is_hurt_cold_creature(creature_type *creature_ptr);
 extern bool is_hurt_cold_species(species_type *species_ptr);
 
-extern bool is_no_stun_species(species_type *species_ptr);
-extern bool is_no_conf_species(species_type *species_ptr);
-extern bool is_no_sleep_species(species_type *species_ptr);
-
-extern bool can_speak_species(species_type *species_ptr);
 extern bool is_eldritch_horror_species(species_type *species_ptr);
 
 //extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);

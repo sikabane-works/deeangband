@@ -766,36 +766,6 @@ bool is_hurt_cold_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_HURT_COLD]);
 }
 
-bool is_no_stun_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_NO_STUN);	
-}
-
-bool is_no_stun_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_NO_STUN]);
-}
-
-bool is_no_conf_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_NO_CONF);	
-}
-
-bool is_no_conf_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_NO_CONF]);
-}
-
-bool is_no_sleep_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_NO_SLEEP);	
-}
-
-bool is_no_sleep_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_NO_SLEEP]);
-}
-
 bool is_eldritch_horror_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_ELDRITCH_HORROR);	
