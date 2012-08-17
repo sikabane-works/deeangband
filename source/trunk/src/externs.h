@@ -850,7 +850,6 @@ extern bool is_orc_creature(creature_type *creature_ptr);
 extern bool is_troll_creature(creature_type *creature_ptr);
 extern bool is_dragon_creature(creature_type *creature_ptr);
 extern bool is_demon_creature(creature_type *creature_ptr);
-extern bool is_giant_creature(creature_type *creature_ptr);
 
 extern bool is_human_creature(creature_type *creature_ptr);
 extern bool is_animal_creature(creature_type *creature_ptr);

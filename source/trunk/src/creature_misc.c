@@ -552,16 +552,6 @@ bool is_demon_species(species_type *species_ptr)
 		return FALSE;
 }
 
-bool is_giant_creature(creature_type *creature_ptr)
-{
-	if(IS_RACE(creature_ptr, RACE_GIANT) ||
-	   IS_RACE(creature_ptr, RACE_CYCLOPS) ||
-	   IS_RACE(creature_ptr, RACE_TITAN))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 bool is_giant_species(species_type *species_ptr)
 {
 	if(IS_RACE(species_ptr, RACE_GIANT) ||

@@ -2988,8 +2988,8 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 				if (mult < 30) mult = 30;
 			}
 
-			/* Slay Giant */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT)) && is_giant_creature(target_ptr))
+			// Slay Giant
+			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2997,8 +2997,8 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 				if (mult < 20) mult = 20;
 			}
 
-			/* Kill Giant */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_GIANT)) && is_giant_creature(target_ptr))
+			// Kill Giant
+			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
