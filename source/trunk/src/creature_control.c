@@ -836,7 +836,7 @@ void compact_creatures(int size)
 			chance = 90;
 
 			/* Only compact "Quest" Creatures in emergencies */
-			if ((is_quest_species(r_ptr)) && (cnt < 1000)) chance = 100;
+			if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) && (cnt < 1000)) chance = 100;
 
 			/* Try not to compact Unique Creatures */
 			if (is_unique_species(r_ptr)) chance = 100;
@@ -1472,7 +1472,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
-			if (is_quest_species(r_ptr)) continue; // Hack -- don't create questors
+			if (has_trait_species(r_ptr, TRAIT_QUESTOR)) continue; // Hack -- don't create questors
 			if (has_trait_species(r_ptr, TRAIT_GUARDIAN)) continue;
 			if (is_force_depth_species(r_ptr) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
@@ -1528,7 +1528,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			/* Hack -- don't create questors */
-			if (is_quest_species(r_ptr))
+			if (has_trait_species(r_ptr, TRAIT_QUESTOR))
 				continue;
 
 			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))
@@ -1589,16 +1589,11 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
 			/* Hack -- don't create questors */
-			if (is_quest_species(r_ptr))
-				continue;
-
-			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))
-				continue;
+			if (has_trait_species(r_ptr, TRAIT_QUESTOR)) continue;
+			if (has_trait_species(r_ptr, TRAIT_GUARDIAN)) continue;
 
 			/* Depth Creatures never appear out of depth */
-			if (is_force_depth_species(r_ptr) &&
-			    (r_ptr->level > floor_ptr->floor_level))
-				continue;
+			if (is_force_depth_species(r_ptr) && (r_ptr->level > floor_ptr->floor_level)) continue;
 		}
 
 		/* Accept this creature */
@@ -3940,7 +3935,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 		/* Depth creatures may NOT be created out of depth, unless in Nightmare mode */
 		if (is_force_depth_species(r_ptr) && (floor_ptr->floor_level < r_ptr->level) &&
-		    (!curse_of_Iluvatar || (is_quest_species(r_ptr))))
+		    (!curse_of_Iluvatar || (has_trait_species(r_ptr, TRAIT_QUESTOR))))
 		{
 			if (cheat_hear)
 			{

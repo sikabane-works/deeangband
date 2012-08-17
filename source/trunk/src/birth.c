@@ -2609,7 +2609,7 @@ void determine_random_questor(quest_type *quest_ptr)
 		species_ptr = &species_info[species_idx];
 
 		if (!is_unique_species(species_ptr)) continue;
-		if (is_quest_species(species_ptr)) continue;
+		if (has_trait_species(species_ptr, TRAIT_QUESTOR)) continue;
 		if (species_ptr->rarity > 100) continue;
 		if (is_friendly_species(species_ptr)) continue;
 		if (has_trait_species(species_ptr, TRAIT_AQUATIC)) continue;

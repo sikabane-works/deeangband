@@ -1400,7 +1400,7 @@ msg_format("%s‚ğˆø‚«–ß‚µ‚½B", m_name);
 #endif
 
 		if (has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
-			is_quest_species(r_ptr) || (r_ptr->level + randint1(50) > plev + randint1(60)))
+			has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP
 			msg_print("‚µ‚©‚µŒø‰Ê‚ª‚È‚©‚Á‚½I");

@@ -589,7 +589,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				r_ptr = &species_info[m_ptr->species_idx];
 
 				if (is_enemy_of_good_species(r_ptr) &&
-				    !(is_quest_species(r_ptr)) &&
+				    !(has_trait_species(r_ptr, TRAIT_QUESTOR)) &&
 				    !(is_unique_species(r_ptr)) &&
 				    !floor_ptr->fight_arena_mode && !inside_quest &&
 					(r_ptr->level < randint1(creature_ptr->lev+50)) &&

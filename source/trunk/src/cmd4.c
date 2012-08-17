@@ -6838,7 +6838,7 @@ static void do_cmd_knowledge_uniques(void)
 		if (!cheat_know && !r_ptr->r_sights) continue;
 
 		/* Only print rarity <= 100 uniques */
-		if (!r_ptr->rarity || ((r_ptr->rarity > 100) && !(is_quest_species(r_ptr)))) continue;
+		if (!r_ptr->rarity || ((r_ptr->rarity > 100) && !(has_trait_species(r_ptr, TRAIT_QUESTOR)))) continue;
 
 		/* Only "alive" uniques */
 		if (r_ptr->max_num == 0) continue;

@@ -1788,7 +1788,7 @@ static void spoil_species_desc(cptr fname)
 		//TODOif (is_shadow_species(species_ptr)) continue;
 		/* Get the "name" */
 		/*
-		else if (is_quest_species(species_ptr))
+		else if (has_trait_species(species_ptr, TRAIT_QUESTOR))
 		{
 			sprintf(nam, "[Q] %s", name);
 		}

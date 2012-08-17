@@ -2650,7 +2650,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	if (is_pet(player_ptr, m_ptr) && !player_cast) return FALSE;
 
 	/* Hack -- Skip Unique Creatures or Quest Creatures */
-	if ((is_quest_species(r_ptr)) || is_unique_species(r_ptr)) resist = TRUE;
+	if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) || is_unique_species(r_ptr)) resist = TRUE;
 
 	else if (is_sub_unique_species(r_ptr)) resist = TRUE;
 
@@ -3131,7 +3131,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, y, x);
 				}
-				else if (is_quest_species(r_ptr))
+				else if (has_trait_species(r_ptr, TRAIT_QUESTOR))
 				{
 					/* Heal the creature */
 					m_ptr->chp = m_ptr->mhp;
@@ -3604,7 +3604,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/* Quest creatures */
-				if (is_quest_species(r_ptr))
+				if (has_trait_species(r_ptr, TRAIT_QUESTOR))
 				{
 					/* No wall on quest creatures */
 					map[16+yy-cy][16+xx-cx] = FALSE;
