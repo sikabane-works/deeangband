@@ -5913,7 +5913,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				{
 					int rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
 					int storm_dam = rlev * 4 + 150;
-					bool powerful = (bool)(is_powerful_species(r_ptr));
+					bool powerful = (bool)(has_trait_species(r_ptr, TRAIT_POWERFUL));
 
 					if (has_trait(m_ptr, TRAIT_BA_CHAO)) spell_dam_estimation(m_ptr, player_ptr, GF_CHAOS, rlev * (powerful ? 3 : 2) + 100, 0, &dam_max0);
 					if (has_trait(m_ptr, TRAIT_BA_MANA)) spell_dam_estimation(m_ptr, player_ptr, GF_MANA, storm_dam, 0, &dam_max0);

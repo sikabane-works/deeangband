@@ -911,12 +911,6 @@ bool is_powerful_creature(creature_type *creature_ptr)
 	return has_trait(creature_ptr, TRAIT_POWERFUL);	
 }
 
-bool is_powerful_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_POWERFUL]);
-}
-
-
 bool is_take_item_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_TAKE_ITEM);	

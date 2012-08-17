@@ -1846,7 +1846,7 @@ static void spoil_species_desc(cptr fname)
 			stat[STAT_CHA] += 5;		
 		}
 
-		if(is_powerful_species(species_ptr)){
+		if(has_trait_species(species_ptr, TRAIT_POWERFUL)){
 			for(j = STAT_STR; j <= STAT_CHA; j++)
 			{
 				stat[j] += 2;
