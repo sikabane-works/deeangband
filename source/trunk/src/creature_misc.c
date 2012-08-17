@@ -468,15 +468,6 @@ void initialize_skill(creature_type *creature_ptr)
 
 }
 
-bool is_dragon_species(species_type *species_ptr)
-{
-	if(IS_RACE(species_ptr, RACE_DRAGON) ||
-	   IS_RACE(species_ptr, RACE_DRACONIAN))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 bool is_demon_species(species_type *species_ptr)
 {
 	if(IS_RACE(species_ptr, RACE_IMP) ||

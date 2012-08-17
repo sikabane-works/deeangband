@@ -845,7 +845,6 @@ extern bool have_shoot_weapon(creature_type *creature_ptr);
 
 extern bool is_animal_creature(creature_type *creature_ptr);
 
-extern bool is_dragon_species(species_type *species_ptr);
 extern bool is_demon_species(species_type *species_ptr);
 extern bool is_undead_species(species_type *species_ptr);
 extern bool is_animal_species(species_type *species_ptr);

@@ -1092,7 +1092,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_DRAGON:
 		{
-			okay = is_dragon_species(r_ptr);
+			okay = has_trait_species(r_ptr, TRAIT_DRAGON);
 			break;
 		}
 
@@ -1206,7 +1206,7 @@ static bool summon_specific_aux(int species_idx)
 		{
 			okay = (is_animal_species(r_ptr) &&
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
-			       !is_dragon_species(r_ptr) &&
+			       !has_trait_species(r_ptr, TRAIT_DRAGON) &&
 			       !(is_enemy_of_good_species(r_ptr)) &&
 			       !is_undead_species(r_ptr) &&
 			       !is_demon_species(r_ptr) &&
