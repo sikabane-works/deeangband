@@ -952,7 +952,6 @@ extern bool is_stupid_species(species_type *species_ptr);
 extern bool is_multiply_species(species_type *species_ptr);
 extern bool is_reflecting_species(species_type *species_ptr);
 extern bool is_invisible_species(species_type *species_ptr);
-extern bool is_cold_blood_species(species_type *species_ptr);
 extern bool is_empty_mind_species(species_type *species_ptr);
 extern bool is_weird_mind_species(species_type *species_ptr);
 

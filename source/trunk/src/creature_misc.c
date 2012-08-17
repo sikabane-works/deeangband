@@ -738,16 +738,6 @@ bool is_invisible_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_INVISIBLE]);
 }
 
-bool is_cold_blood_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_COLD_BLOOD);	
-}
-
-bool is_cold_blood_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_COLD_BLOOD]);
-}
-
 bool is_empty_mind_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_EMPTY_MIND);	
