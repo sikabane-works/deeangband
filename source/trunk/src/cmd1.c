@@ -300,9 +300,8 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				if (mult < 35) mult = 35;
 			}
 
-			/* Slay Human */
-			if ((have_flag(flgs, TRAIT_SLAY_HUMAN)) &&
-			    (has_trait(target_ptr, TRAIT_HUMAN)))
+			// Slay Human
+			if ((have_flag(flgs, TRAIT_SLAY_HUMAN)) && (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -310,7 +309,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				if (mult < 25) mult = 25;
 			}
 
-			/* Execute Human */
+			// Execute Human
 			if ((have_flag(flgs, TRAIT_KILL_HUMAN)) &&
 			    (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
@@ -411,7 +410,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Slay Dragon  */
-			if ((have_flag(flgs, TRAIT_SLAY_DRAGON)) && is_dragon_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_SLAY_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -420,7 +419,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Execute Dragon */
-			if ((have_flag(flgs, TRAIT_KILL_DRAGON)) && is_dragon_creature(target_ptr))
+			if ((have_flag(flgs, TRAIT_KILL_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);

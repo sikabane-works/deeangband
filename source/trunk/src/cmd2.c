@@ -3007,7 +3007,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Slay Dragon  */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON)) && is_dragon_creature(target_ptr))
+			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -3016,7 +3016,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			}
 
 			/* Execute Dragon */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON)) && is_dragon_creature(target_ptr))
+			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
 				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
