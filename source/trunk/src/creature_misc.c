@@ -858,26 +858,6 @@ bool is_variable_chara_species(species_type *species_ptr)
 	return species_ptr->chara_idx == INDEX_VARIABLE;
 }
 
-bool is_puny_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_HYPER_STR);	
-}
-
-bool is_puny_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_HYPER_STR]);
-}
-
-bool is_hyper_int_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_HYPER_INT);	
-}
-
-bool is_hyper_int_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_HYPER_INT]);
-}
-
 bool is_enemy_of_evil_creature(creature_type *creature_ptr)
 {
 	//TODO

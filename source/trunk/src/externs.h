@@ -890,9 +890,6 @@ extern bool is_variable_class_species(species_type *species_ptr);
 extern bool is_variable_patron_species(species_type *species_ptr);
 extern bool is_variable_chara_species(species_type *species_ptr);
 
-extern bool is_puny_species(species_type *species_ptr);
-extern bool is_hyper_int_species(species_type *species_ptr);
-
 extern bool is_enemy_of_evil_creature(creature_type *creature_ptr);
 extern bool is_enemy_of_evil_species(species_type *creature_ptr);
 extern bool is_enemy_of_good_creature(creature_type *creature_ptr);
