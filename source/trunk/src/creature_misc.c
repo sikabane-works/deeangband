@@ -510,16 +510,6 @@ bool is_sub_unique_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_UNIQUE2]);
 }
 
-bool is_attr_multi_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ATTR_MULTI);	
-}
-
-bool is_attr_multi_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ATTR_MULTI]);
-}
-
 bool is_attr_any_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_ATTR_ANY);	
@@ -528,17 +518,6 @@ bool is_attr_any_creature(creature_type *creature_ptr)
 bool is_attr_any_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_ATTR_ANY]);
-}
-
-
-bool is_attr_semirand_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ATTR_SEMIRAND);	
-}
-
-bool is_attr_semirand_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ATTR_SEMIRAND]);
 }
 
 bool is_empty_mind_creature(creature_type *creature_ptr)

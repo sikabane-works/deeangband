@@ -910,9 +910,7 @@ extern bool is_unique_species(species_type *species_ptr);
 extern bool is_sub_unique_creature(creature_type *creature_ptr);
 extern bool is_sub_unique_species(species_type *species_ptr);
 
-extern bool is_attr_multi_species(species_type *species_ptr);
 extern bool is_attr_any_species(species_type *species_ptr);
-extern bool is_attr_semirand_species(species_type *species_ptr);
 
 extern bool is_escorts_species(species_type *species_ptr);
 

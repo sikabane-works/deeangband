@@ -1468,11 +1468,8 @@ static bool vault_aux_animal(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
-
-	/* Require "animal" flag */
-	if (!has_trait_species(r_ptr, TRAIT_ANIMAL)) return (FALSE);
+	if (!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
+	if (!has_trait_species(r_ptr, TRAIT_ANIMAL)) return (FALSE);	// Require "animal" flag
 
 	/* Okay */
 	return (TRUE);

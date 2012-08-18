@@ -29,13 +29,13 @@ static FILE *fff = NULL;
 static cptr attr_to_text(species_type *species_ptr)
 {
 #ifdef JP000
-	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))    return "透明な";
-	if (is_attr_multi_species(species_ptr))    return "万色の";
-	if (is_attr_semirand_species(species_ptr)) return "準ランダムな";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "透明な";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "万色の";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "準ランダムな";
 #else
-	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR)) return "Clear";
-	if (is_attr_multi_species(species_ptr))    return "Multi";
-	if (is_attr_semirand_species(species_ptr)) return "S.Rand";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "Clear";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "Multi";
+	if (has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "S.Rand";
 #endif
 
 	switch (species_ptr->d_attr)
