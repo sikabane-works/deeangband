@@ -890,7 +890,6 @@ extern bool is_variable_class_species(species_type *species_ptr);
 extern bool is_variable_patron_species(species_type *species_ptr);
 extern bool is_variable_chara_species(species_type *species_ptr);
 
-extern bool is_hyper_str_species(species_type *species_ptr);
 extern bool is_puny_species(species_type *species_ptr);
 extern bool is_hyper_int_species(species_type *species_ptr);
 

@@ -858,16 +858,6 @@ bool is_variable_chara_species(species_type *species_ptr)
 	return species_ptr->chara_idx == INDEX_VARIABLE;
 }
 
-bool is_hyper_str_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_HYPER_STR);	
-}
-
-bool is_hyper_str_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_HYPER_STR]);
-}
-
 bool is_puny_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_HYPER_STR);	
