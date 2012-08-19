@@ -487,7 +487,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		k = invuln_damage_mod(target_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((attacker_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
 		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
-			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(target_ptr) && !is_sub_unique_creature(target_ptr))
+			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(target_ptr) && !has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
@@ -513,9 +513,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 			}
 
-			else if (((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(target_ptr) && !is_sub_unique_creature(target_ptr)))
+			else if (((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(target_ptr) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
 			{
-				if (is_unique_creature(target_ptr) || is_sub_unique_creature(target_ptr) || (target_ptr->chp >= target_ptr->mhp/2))
+				if (is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_UNIQUE2) || (target_ptr->chp >= target_ptr->mhp/2))
 				{
 					k = MAX(k*5, target_ptr->chp/2);
 					drain_result *= 2;

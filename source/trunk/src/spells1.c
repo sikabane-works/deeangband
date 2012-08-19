@@ -5452,7 +5452,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| is_sub_unique_creature(target_ptr))
+			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -6709,7 +6709,7 @@ note = "には耐性がある！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-			    (is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL) || is_sub_unique_creature(target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
+			    (is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",target_name);

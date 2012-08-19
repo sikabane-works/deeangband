@@ -1719,7 +1719,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		{
 			// Hack -- "unique" creatures must be "unique"
 			if ((is_unique_species(r_ptr)) && (r_ptr->cur_num >= r_ptr->max_num)) continue;
-			if (is_sub_unique_species(r_ptr) && (r_ptr->cur_num >= 1)) continue;
+			if (has_trait_species(r_ptr, TRAIT_UNIQUE2) && (r_ptr->cur_num >= 1)) continue;
 			if (species_idx == SPECIES_BANORLUPART)
 			{
 				if (species_info[SPECIES_BANOR].cur_num > 0) continue;
@@ -3912,7 +3912,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 			return (max_creature_idx);
 		}
 
-		if (is_sub_unique_species(r_ptr) &&
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE2) &&
 		    (r_ptr->cur_num >= 1))
 		{
 			if (cheat_hear)

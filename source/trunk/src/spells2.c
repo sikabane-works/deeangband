@@ -2652,7 +2652,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	/* Hack -- Skip Unique Creatures or Quest Creatures */
 	if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) || is_unique_species(r_ptr)) resist = TRUE;
 
-	else if (is_sub_unique_species(r_ptr)) resist = TRUE;
+	else if (has_trait_species(r_ptr, TRAIT_UNIQUE2)) resist = TRUE;
 
 	else if (m_idx == user_ptr->riding) resist = TRUE;
 

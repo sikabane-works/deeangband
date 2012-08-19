@@ -3125,7 +3125,7 @@ static bool item_creature_okay(int species_idx)
 	if (has_trait_raw(&r_ptr->flags, TRAIT_RES_ALL)) return (FALSE);
 	if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL)) return (FALSE);
 	if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH)) return (FALSE);
-	if (is_sub_unique_species(r_ptr)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_UNIQUE2)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

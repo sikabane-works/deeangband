@@ -1719,7 +1719,7 @@ void battle_creatures(void)
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if (!species_idx) continue;
 
-				if (is_unique_species(&species_info[species_idx]) || is_sub_unique_species(&species_info[species_idx]))
+				if (is_unique_species(&species_info[species_idx]) || has_trait_species(&species_info[species_idx], TRAIT_UNIQUE2))
 				{
 					if ((species_info[species_idx].level + 10) > ave_creature_level) continue;
 				}
