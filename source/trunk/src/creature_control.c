@@ -3117,7 +3117,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
-	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
+	if (is_friendly_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 
 	if (ABS(r_ptr->level - species_info[SPECIES_CHAMELEON_K].level) > 5) return FALSE;
 
@@ -3141,7 +3141,7 @@ static bool creature_hook_chameleon(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
+	if (is_friendly_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
@@ -3149,7 +3149,7 @@ static bool creature_hook_chameleon(int species_idx)
 	if (!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
 	/* Not born */
-	if (!is_chameleon_species(old_r_ptr))
+	if (!has_trait_species(old_r_ptr, TRAIT_CHAMELEON))
 	{
 		if (is_enemy_of_evil_species(old_r_ptr) && !is_enemy_of_evil_species(r_ptr)) return FALSE;
 		if (is_enemy_of_good_species(old_r_ptr) && !is_enemy_of_good_species(r_ptr)) return FALSE;
@@ -3291,7 +3291,7 @@ static bool creature_hook_tanuki(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if (is_friendly_species(r_ptr) || is_chameleon_species(r_ptr)) return FALSE;
+	if (is_friendly_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
@@ -4051,7 +4051,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 		creature_ptr->parent_m_idx = 0;
 	}
 
-	if (is_chameleon_species(r_ptr))
+	if (has_trait_species(r_ptr, TRAIT_CHAMELEON))
 	{
 		choose_new_species(c_ptr->creature_idx, TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
@@ -4466,7 +4466,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	/* Skip different alignment */
 	if (creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE;
 
-	if (is_chameleon_species(r_ptr) && !is_chameleon_species(z_ptr))
+	if (has_trait_species(r_ptr, TRAIT_CHAMELEON) && !has_trait_species(z_ptr, TRAIT_CHAMELEON))
 		return FALSE;
 
 	/* Okay */
@@ -4801,7 +4801,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	if ((summon_specific_who < 0) &&
 	    ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL))) return FALSE;
 
-	if (is_chameleon_species(r_ptr) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
+	if (has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 
 	return (summon_specific_aux(species_idx));
 }

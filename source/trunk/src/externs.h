@@ -880,7 +880,6 @@ extern bool is_wild_wood_species(species_type *species_ptr);
 extern bool is_wild_volcano_species(species_type *species_ptr);
 extern bool is_wild_grass_species(species_type *species_ptr);
 extern bool is_wild_mountain_species(species_type *species_ptr);
-extern bool is_chameleon_species(species_type *species_ptr);
 extern bool is_tanuki_species(species_type *species_ptr);
 extern bool is_kill_exp_species(species_type *species_ptr);
 extern bool is_friendly_species(species_type *species_ptr);
