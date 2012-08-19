@@ -798,16 +798,6 @@ bool is_wild_mountain_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
 }
 
-bool is_kill_exp_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_KILL_EXP]);
-}
-
-bool is_kill_exp_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_KILL_EXP);	
-}
-
 bool is_friendly_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
