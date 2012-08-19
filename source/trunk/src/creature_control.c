@@ -3311,7 +3311,7 @@ static int initial_r_appearance(int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int min = MIN(floor_ptr->base_level - 5, 50);
 
-	if (is_tanuki_species(&species_info[species_idx]))
+	if (has_trait_species(&species_info[species_idx], TRAIT_TANUKI))
 		return species_idx;
 
 	get_species_num_prep(creature_hook_tanuki, NULL);
