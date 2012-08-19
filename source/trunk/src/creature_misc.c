@@ -510,16 +510,6 @@ bool is_sub_unique_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_UNIQUE2]);
 }
 
-bool is_attr_any_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_ATTR_ANY);	
-}
-
-bool is_attr_any_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_ATTR_ANY]);
-}
-
 bool is_empty_mind_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_EMPTY_MIND);	
