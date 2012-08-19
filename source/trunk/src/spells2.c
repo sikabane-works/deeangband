@@ -2651,15 +2651,10 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	/* Hack -- Skip Unique Creatures or Quest Creatures */
 	if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) || is_unique_species(r_ptr)) resist = TRUE;
-
 	else if (has_trait_species(r_ptr, TRAIT_UNIQUE2)) resist = TRUE;
-
 	else if (m_idx == user_ptr->riding) resist = TRUE;
-
 	else if ((inside_quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
-
 	else if (player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
-
 	else if (player_cast && (m_ptr->mflag2 & MFLAG2_NOGENO)) resist = TRUE;
 
 	/* Delete the creature */
