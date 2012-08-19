@@ -3324,7 +3324,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				if (!r_ptr->rarity) continue;
 
 				/* Ignore corpseless creatures */
-				if (object_ptr->sval == SV_SKELETON && !is_drop_skeleton_species(r_ptr)) continue;
+				if (object_ptr->sval == SV_SKELETON && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
 				if (object_ptr->sval =- SV_CORPSE && !has_trait_species(r_ptr, TRAIT_DROP_CORPSE)) continue;
 
 				/* Prefer less out-of-depth creatures */
