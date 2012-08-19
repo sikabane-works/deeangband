@@ -1838,7 +1838,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		if (uniq && !is_unique_species(r_ptr)) continue;
 
 		/* Require ridable creatures if needed */
-		if (ride && !is_riding_species(r_ptr)) continue;
+		if (ride && !has_trait_species(r_ptr, TRAIT_RIDING)) continue;
 
 		/* XTRA HACK WHATSEARCH */
 		if (temp[0])

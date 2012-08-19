@@ -515,16 +515,6 @@ bool can_fly_creature(creature_type *creature_ptr)
 	return has_trait(creature_ptr, TRAIT_CAN_FLY);	
 }
 
-bool is_riding_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_RIDING);	
-}
-
-bool is_riding_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_RIDING]);
-}
-
 bool is_self_lite_1_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_SELF_LITE_1);	

@@ -5425,7 +5425,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 
 		else if (grp_riding)
 		{
-			if (!is_riding_species(r_ptr)) continue;
+			if (!has_trait_species(r_ptr, TRAIT_RIDING)) continue;
 		}
 
 		else if (grp_wanted)
