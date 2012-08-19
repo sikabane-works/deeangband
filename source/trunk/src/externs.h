@@ -864,7 +864,6 @@ extern bool is_self_ld_creature(creature_type *creature_ptr);
 extern bool is_self_ld_species(species_type *species_ptr);
 extern bool is_has_ld_creature(creature_type *creature_ptr);
 extern bool is_has_ld_species(species_type *species_ptr);
-extern bool is_drop_corpse_species(species_type *species_ptr);
 extern bool is_drop_skeleton_species(species_type *species_ptr);
 
 
