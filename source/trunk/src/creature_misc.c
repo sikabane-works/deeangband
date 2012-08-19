@@ -500,16 +500,6 @@ bool is_unique_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_UNIQUE]);
 }
 
-bool is_empty_mind_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_EMPTY_MIND);	
-}
-
-bool is_empty_mind_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_EMPTY_MIND]);
-}
-
 bool is_non_living_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_NONLIVING);	

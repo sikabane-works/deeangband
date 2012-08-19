@@ -903,8 +903,6 @@ extern bool is_unique_species(species_type *species_ptr);
 
 extern bool is_escorts_species(species_type *species_ptr);
 
-extern bool is_empty_mind_species(species_type *species_ptr);
-
 extern bool is_non_living_species(species_type *species_ptr);
 extern bool is_non_living_creature(creature_type *creature_ptr);
 

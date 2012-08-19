@@ -1863,12 +1863,12 @@ static void spoil_species_desc(cptr fname)
 		else
 			sprintf(sa, "%2d", stat[0]);
 
-		if(is_empty_mind_species(species_ptr))
+		if(has_trait_species(species_ptr, TRAIT_EMPTY_MIND))
 			sprintf(ia, "--");
 		else
 			sprintf(ia, "%2d", stat[1]);
 
-		if(is_empty_mind_species(species_ptr) || has_trait_species(species_ptr, TRAIT_WEIRD_MIND))
+		if(has_trait_species(species_ptr, TRAIT_EMPTY_MIND) || has_trait_species(species_ptr, TRAIT_WEIRD_MIND))
 			sprintf(wa, "--");
 		else
 			sprintf(wa, "%2d", stat[2]);
@@ -1880,7 +1880,7 @@ static void spoil_species_desc(cptr fname)
 
 		sprintf(ca, "%2d", stat[4]);
 
-		if(is_empty_mind_species(species_ptr) || has_trait_species(species_ptr, TRAIT_WEIRD_MIND))
+		if(has_trait_species(species_ptr, TRAIT_WEIRD_MIND) || has_trait_species(species_ptr, TRAIT_WEIRD_MIND))
 			sprintf(cha, "--");
 		else
 			sprintf(cha, "%2d", stat[5]);
