@@ -55,42 +55,6 @@ static bool know_armour(int species_idx)
 }
 
 /*
- * Determine if the "damage" of the given attack is known
- * the higher the level of the creature, the fewer the attacks you need,
- * the more damage an attack does, the more attacks you need
- */
-
-//TODO Change reference to creature_type.
-static bool know_damage(int species_idx, int i)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	s32b level = r_ptr->level;
-
-	s32b a = r_ptr->r_blows[i];
-
-	s32b d1 = r_ptr->blow[i].d_dice;
-	s32b d2 = r_ptr->blow[i].d_side;
-
-	s32b d = d1 * d2;
-
-	if (d >= ((4+level)*MAX_UCHAR)/80) d = ((4+level)*MAX_UCHAR-1)/80;
-
-	/* Normal creatures */
-	if ((4 + level) * a > 80 * d) return (TRUE);
-
-	/* Skip non-uniques */
-	if (!(is_unique_species(r_ptr))) return (FALSE);
-
-	/* Unique creatures */
-	if ((4 + level) * (2 * a) > 80 * d) return (TRUE);
-
-	/* Assume false */
-	return (FALSE);
-}
-
-
-/*
  * Prepare hook for c_roff(). It will be changed for spoiler generation in wizard1.c.
  */
 void (*hook_c_roff)(byte attr, cptr str) = c_roff;
@@ -480,28 +444,18 @@ creature_hook_type get_creature_hook2(int y, int x)
 
 	/* Set the creature list */
 
-	/* Water */
+	// Water
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
-		/* Deep water */
-		if (have_flag(f_ptr->flags, FF_DEEP))
-		{
-			return (creature_hook_type)creature_hook_deep_water;
-		}
+		// Deep water
+		if (have_flag(f_ptr->flags, FF_DEEP)) return (creature_hook_type)creature_hook_deep_water;
 
-		/* Shallow water */
-		else
-		{
-			return (creature_hook_type)creature_hook_shallow_water;
-		}
+		// Shallow water
+		else return (creature_hook_type)creature_hook_shallow_water;
 	}
 
-	/* Lava */
-	else if (have_flag(f_ptr->flags, FF_LAVA))
-	{
-		return (creature_hook_type)creature_hook_lava;
-	}
-
+	// Lava
+	else if (have_flag(f_ptr->flags, FF_LAVA)) return (creature_hook_type)creature_hook_lava;
 	else return (creature_hook_type)creature_hook_floor;
 }
 
@@ -669,8 +623,6 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 }
 
 
-
-
 // Strictly check if creature can enter the grid
 bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr, u16b mode)
 {
@@ -694,9 +646,7 @@ bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode)
 }
 
 
-/*
- * Check if this creature has "hostile" alignment (aux)
- */
+// Check if this creature has "hostile" alignment (aux)
 static bool check_hostile_align(byte sub_align1, byte sub_align2)
 {
 	//TODO
@@ -715,7 +665,7 @@ static bool check_hostile_align(byte sub_align1, byte sub_align2)
 // Check if two creatures are enemies
 bool are_mutual_enemies(creature_type *m_ptr, creature_type *n_ptr)
 {
-	return m_ptr->camp_idx ! n_ptr->camp_idx;
+	return m_ptr->camp_idx != n_ptr->camp_idx;
 }
 
 
