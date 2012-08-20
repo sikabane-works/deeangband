@@ -843,8 +843,6 @@ extern void initialize_skill(creature_type *creature_ptr);
 
 extern bool have_shoot_weapon(creature_type *creature_ptr);
 
-extern bool is_undead_species(species_type *species_ptr);
-
 extern bool is_self_lite_1_species(species_type *species_ptr);
 extern bool is_self_lite_2_species(species_type *species_ptr);
 extern bool is_self_dark_1_species(species_type *species_ptr);

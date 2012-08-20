@@ -1487,7 +1487,7 @@ static bool vault_aux_undead(int species_idx)
 	if (!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require Undead */
-	if (!is_undead_species(r_ptr)) return (FALSE);
+	if (!has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1626,7 +1626,7 @@ static bool vault_aux_orc(int species_idx)
 
 	if (!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
 	if (!has_trait_species(species_ptr, TRAIT_ORC)) return (FALSE);		// Require orc
-	if (is_undead_species(species_ptr)) return (FALSE);					// Decline undead
+	if (has_trait_species(species_ptr, TRAIT_UNDEAD)) return (FALSE);					// Decline undead
 
 	return (TRUE); // Okay
 }
@@ -1641,7 +1641,7 @@ static bool vault_aux_troll(int species_idx)
 
 	if (!vault_creature_okay(species_idx)) return (FALSE);				// Validate the creature
 	if (has_trait_species(species_ptr, TRAIT_TROLL)) return (FALSE);	// Require troll
-	if (is_undead_species(species_ptr)) return (FALSE);					// Decline undead
+	if (has_trait_species(species_ptr, TRAIT_UNDEAD)) return (FALSE);					// Decline undead
 
 	return (TRUE); // Okay
 }
@@ -1663,7 +1663,7 @@ static bool vault_aux_giant(int species_idx)
 	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
-	if (is_undead_species(r_ptr)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1687,7 +1687,7 @@ static bool vault_aux_dragon(int species_idx)
 	//TODO if (r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);
 
 	/* Decline undead */
-	if (is_undead_species(r_ptr)) return (FALSE);
+	if (has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);

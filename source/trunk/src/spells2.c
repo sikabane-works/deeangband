@@ -2854,7 +2854,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 		/* Paranoia -- Skip dead creatures */
 		if (!m_ptr->species_idx) continue;
 
-		if (!is_undead_species(r_ptr)) continue;
+		if (!has_trait_species(r_ptr, TRAIT_UNDEAD)) continue;
 
 		/* Skip distant creatures */
 		if (m_ptr->cdis > MAX_SIGHT) continue;

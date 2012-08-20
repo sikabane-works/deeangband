@@ -1086,7 +1086,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_UNDEAD:
 		{
-			okay = is_undead_species(r_ptr);
+			okay = has_trait_species(r_ptr, TRAIT_UNDEAD);
 			break;
 		}
 
@@ -1208,7 +1208,7 @@ static bool summon_specific_aux(int species_idx)
 			       (my_strchr("abcflqrwBCHIJKMRS", r_ptr->d_char)) &&
 			       !has_trait_species(r_ptr, TRAIT_DRAGON) &&
 			       !(is_enemy_of_good_species(r_ptr)) &&
-			       !is_undead_species(r_ptr) &&
+			       !has_trait_species(r_ptr, TRAIT_UNDEAD) &&
 			       !has_trait_species(r_ptr, TRAIT_DEMON) &&
 			       !has_trait_species(r_ptr, TRAIT_MULTIPLY));// &&
 			       //TODO !(r_ptr->flags4 || r_ptr->flags5 || r_ptr->flags6));

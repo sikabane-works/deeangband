@@ -779,7 +779,7 @@ bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *targe
 bool species_living(species_type *r_ptr)
 {
 	/* Non-living, undead, or demon */
-	if (is_non_living_species(r_ptr) || is_undead_species(r_ptr)) return FALSE;
+	if (is_non_living_species(r_ptr) || has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	if (has_trait_species(r_ptr, TRAIT_DEMON)) return FALSE;
 

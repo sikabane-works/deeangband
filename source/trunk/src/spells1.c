@@ -4997,7 +4997,7 @@ note = "は眠り込んでしまった！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (is_undead_species(species_ptr) && 
+				if (has_trait_species(species_ptr, TRAIT_UNDEAD) && 
 					 has_trait_species(species_ptr, TRAIT_DEMON) &&
 				    (species_ptr->level > caster_ptr->lev / 2) &&
 				    one_in_(2))
@@ -5134,7 +5134,7 @@ note = "は眠り込んでしまった！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (is_undead_species(species_ptr) &&
+				if (has_trait_species(species_ptr, TRAIT_UNDEAD) &&
 					 has_trait_species(species_ptr, TRAIT_DEMON) &&
 				     (species_ptr->level > caster_ptr->lev / 2) &&
 				     (one_in_(2)))
@@ -5276,7 +5276,7 @@ note = "は眠り込んでしまった！";
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (is_undead_species(species_ptr) &&
+				if (has_trait_species(species_ptr, TRAIT_UNDEAD) &&
 					has_trait_species(species_ptr, TRAIT_DEMON) &&
 				    (species_ptr->level > caster_ptr->lev / 2) &&
 				    (one_in_(2)))
@@ -5728,7 +5728,7 @@ note = "は眠り込んでしまった！";
 
 			/* Attempt a saving throw */
 			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			  (!is_undead_species(species_ptr)) ||
+			  (!has_trait_species(species_ptr, TRAIT_UNDEAD)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -6192,7 +6192,7 @@ note = "は眠り込んでしまった！";
 		case GF_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
-			if (is_undead_species(species_ptr))
+			if (has_trait_species(species_ptr, TRAIT_UNDEAD))
 			{
 				bool resists_tele = FALSE;
 
@@ -6352,7 +6352,7 @@ note = "には耐性がある！";
 				break;
 			}
 			/* Only affect undead */
-			if (is_undead_species(species_ptr))
+			if (has_trait_species(species_ptr, TRAIT_UNDEAD))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;
@@ -6485,7 +6485,7 @@ note = "には耐性がある！";
 				break;
 			}
 			/* Only affect undead */
-			if (is_undead_species(species_ptr))
+			if (has_trait_species(species_ptr, TRAIT_UNDEAD))
 			{
 				/* Obvious */
 				if (seen) obvious = TRUE;

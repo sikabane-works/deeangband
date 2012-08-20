@@ -478,18 +478,6 @@ bool is_demon_species(species_type *species_ptr)
 		return FALSE;
 }
 
-bool is_undead_species(species_type *species_ptr)
-{
-	if(has_trait_raw(&species_ptr->flags, TRAIT_ZOMBIE) ||
-	   has_trait_raw(&species_ptr->flags, TRAIT_SKELETON) ||
-	   has_trait_raw(&species_ptr->flags, TRAIT_VAMPIRE) ||
-	   has_trait_raw(&species_ptr->flags, TRAIT_LICH) ||
-	   has_trait_raw(&species_ptr->flags, TRAIT_NAZGUL))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 bool is_unique_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_UNIQUE);	
