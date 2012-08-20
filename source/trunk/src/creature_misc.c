@@ -488,11 +488,6 @@ bool is_unique_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_UNIQUE]);
 }
 
-bool is_non_living_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_NONLIVING);	
-}
-
 bool is_non_living_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_NONLIVING]);
