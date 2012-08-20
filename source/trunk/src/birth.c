@@ -2584,7 +2584,7 @@ static bool creature_hook_quest(int species_idx)
 	if (has_trait_species(species_ptr, TRAIT_WILD_ONLY)) return FALSE;	// Random quests are in the dungeon
 	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;		// No random quests for aquatic creatures
 	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;		// No random quests for multiplying creatures
-	if (is_friendly_species(species_ptr)) return FALSE;		// No quests to kill friendly creatures
+	if (has_trait_species(species_ptr, TRAIT_FRIENDLY)) return FALSE;		// No quests to kill friendly creatures
 	return TRUE;
 }
 
@@ -2611,7 +2611,7 @@ void determine_random_questor(quest_type *quest_ptr)
 		if (!is_unique_species(species_ptr)) continue;
 		if (has_trait_species(species_ptr, TRAIT_QUESTOR)) continue;
 		if (species_ptr->rarity > 100) continue;
-		if (is_friendly_species(species_ptr)) continue;
+		if (has_trait_species(species_ptr, TRAIT_FRIENDLY)) continue;
 		if (has_trait_species(species_ptr, TRAIT_AQUATIC)) continue;
 		if (has_trait_species(species_ptr, TRAIT_WILD_ONLY)) continue;
 		if (no_questor_or_bounty_uniques(species_idx)) continue;

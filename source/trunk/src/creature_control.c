@@ -3117,7 +3117,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	if (!(is_unique_species(r_ptr))) return FALSE;
-	if (is_friendly_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 
 	if (ABS(r_ptr->level - species_info[SPECIES_CHAMELEON_K].level) > 5) return FALSE;
 
@@ -3141,7 +3141,7 @@ static bool creature_hook_chameleon(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if (is_friendly_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
@@ -3291,7 +3291,7 @@ static bool creature_hook_tanuki(int species_idx)
 
 	if (is_unique_species(r_ptr)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if (is_friendly_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
 	
 	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))

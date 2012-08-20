@@ -718,16 +718,6 @@ bool is_wild_mountain_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
 }
 
-bool is_friendly_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
-}
-
-bool is_friendly_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_MOUNTAIN);	
-}
-
 bool is_variable_race_species(species_type *species_ptr)
 {
 	return IS_RACE(species_ptr, INDEX_VARIABLE);
