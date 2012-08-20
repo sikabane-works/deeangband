@@ -864,8 +864,6 @@ extern bool is_has_ld_species(species_type *species_ptr);
 extern bool is_wild_town_species(species_type *species_ptr);
 extern bool is_wild_all_species(species_type *species_ptr);
 extern bool is_wild_shore_species(species_type *species_ptr);
-extern bool is_wild_ocean_species(species_type *species_ptr);
-extern bool is_wild_volcano_species(species_type *species_ptr);
 
 extern bool is_variable_race_species(species_type *species_ptr);
 extern bool is_variable_class_species(species_type *species_ptr);
