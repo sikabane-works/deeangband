@@ -686,11 +686,6 @@ bool is_wild_grass_species(species_type *species_ptr)
 	return (species_ptr->flags.add_lev[TRAIT_WILD_GRASS]);
 }
 
-bool is_wild_mountain_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_WILD_MOUNTAIN]);
-}
-
 bool is_variable_race_species(species_type *species_ptr)
 {
 	return IS_RACE(species_ptr, INDEX_VARIABLE);

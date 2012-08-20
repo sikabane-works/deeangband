@@ -316,7 +316,7 @@ bool species_hook_dungeon(int species_idx)
 	{
 		dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
 //TODO	if ((d_ptr->mflags8 & RF8_WILD_MOUNTAIN) &&
-//		    is_wild_mountain_species(r_ptr)) return TRUE;
+//		    has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 		return FALSE;
 	}
 }
@@ -375,7 +375,7 @@ static bool creature_hook_volcano(int species_idx)
 static bool creature_hook_mountain(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	return is_wild_mountain_species(r_ptr);
+	return has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN);
 }
 
 
@@ -593,10 +593,10 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 
 	if (!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
-	/* Some creatures can walk on mountains */
-	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && is_wild_mountain_species(r_ptr)) return TRUE;
+	// Some creatures can walk on mountains
+	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 
-	/* Water */
+	// Water
 	if (have_flag(f_ptr->flags, FF_WATER))
 	{
 		if (!has_trait_species(r_ptr, TRAIT_AQUATIC))

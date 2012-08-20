@@ -1313,7 +1313,7 @@ static bool summon_specific_aux(int species_idx)
 		case SUMMON_EAGLES:
 		{
 			okay = (r_ptr->d_char == 'B' &&
-				is_wild_mountain_species(r_ptr) &&
+				has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN) &&
 				has_trait_species(r_ptr, TRAIT_WILD_ONLY));
 			break;
 		}
