@@ -361,14 +361,14 @@ static bool creature_hook_town(int species_idx)
 static bool creature_hook_wood(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	return (is_wild_wood_species(r_ptr) || is_wild_all_species(r_ptr));
+	return (has_trait_species(r_ptr, TRAIT_WILD_WOOD) || is_wild_all_species(r_ptr));
 }
 
 
 static bool creature_hook_volcano(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	return is_wild_wood_species(r_ptr);
+	return has_trait_species(r_ptr, TRAIT_WILD_WOOD);
 }
 
 

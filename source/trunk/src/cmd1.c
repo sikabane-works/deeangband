@@ -2531,11 +2531,11 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	 * Rangers can move without penality
 	 */
 	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
-	{
-		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) && (!creature_ptr->riding || !is_wild_wood_species(riding_r_ptr))) energy_use *= 2;
-	}
+		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
+			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
+			energy_use *= 2;
 
-	/* Disarm a visible trap */
+	// Disarm a visible trap
 	else if ((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
 	{
 		if (!trap_can_be_ignored(creature_ptr, c_ptr->feat))
