@@ -656,16 +656,6 @@ bool is_wild_ocean_creature(creature_type *creature_ptr)
 	return has_trait(creature_ptr, TRAIT_WILD_OCEAN);	
 }
 
-bool is_wild_waste_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_WILD_WASTE]);
-}
-
-bool is_wild_waste_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_WASTE);	
-}
-
 bool is_wild_volcano_species(species_type *species_ptr)
 {
 	return (species_ptr->flags.add_lev[TRAIT_WILD_VOLCANO]);

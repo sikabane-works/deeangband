@@ -340,7 +340,7 @@ static bool creature_hook_waste(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (is_wild_waste_species(r_ptr) || is_wild_all_species(r_ptr))
+	if (has_trait_species(r_ptr, TRAIT_WILD_WASTE) || is_wild_all_species(r_ptr))
 		return TRUE;
 	else
 		return FALSE;
