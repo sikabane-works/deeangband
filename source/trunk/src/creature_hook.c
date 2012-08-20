@@ -351,7 +351,7 @@ static bool creature_hook_town(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (is_wild_all_species(r_ptr) || is_wild_town_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CITIZEN))
+	if (is_wild_all_species(r_ptr) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
 		return TRUE;
 	else
 		return FALSE;
@@ -727,8 +727,8 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 		return TRUE;
 	}
 
-	if ((is_wild_all_species(r_ptr) || is_wild_town_species(r_ptr) || has_trait_species(r_ptr, TRAIT_CITIZEN))
-	    && (is_wild_all_species(r_ptr) || is_wild_town_species(r_ptr) || has_trait_species(s_ptr, TRAIT_CITIZEN)))
+	if ((is_wild_all_species(r_ptr) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
+	    && (is_wild_all_species(r_ptr) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(s_ptr, TRAIT_CITIZEN)))
 	{
 		if (!is_pet(player_ptr, m_ptr) && !is_pet(player_ptr, n_ptr)) return FALSE;
 	}
