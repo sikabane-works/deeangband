@@ -868,7 +868,6 @@ extern bool is_wild_ocean_species(species_type *species_ptr);
 extern bool is_wild_waste_species(species_type *species_ptr);
 extern bool is_wild_wood_species(species_type *species_ptr);
 extern bool is_wild_volcano_species(species_type *species_ptr);
-extern bool is_wild_grass_species(species_type *species_ptr);
 
 extern bool is_variable_race_species(species_type *species_ptr);
 extern bool is_variable_class_species(species_type *species_ptr);

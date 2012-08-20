@@ -378,13 +378,11 @@ static bool creature_hook_mountain(int species_idx)
 	return has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN);
 }
 
-
 static bool creature_hook_grass(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	return (is_wild_grass_species(r_ptr) || is_wild_all_species(r_ptr));
+	return (has_trait_species(r_ptr, TRAIT_WILD_GRASS) || is_wild_all_species(r_ptr));
 }
-
 
 static bool creature_hook_deep_water(int species_idx)
 {
@@ -596,27 +594,19 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	// Some creatures can walk on mountains
 	if (have_flag(f_ptr->flags, FF_MOUNTAIN) && has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 
-	// Water
-	if (have_flag(f_ptr->flags, FF_WATER))
+	if (have_flag(f_ptr->flags, FF_WATER)) // Water
 	{
 		if (!has_trait_species(r_ptr, TRAIT_AQUATIC))
 		{
-			/* Deep water */
-			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;
-
-			/* Shallow water */
-			else if (has_trait_raw(&r_ptr->flags, TRAIT_AURA_FIRE)) return FALSE;
+			if (have_flag(f_ptr->flags, FF_DEEP)) return FALSE;						// Deep water
+			else if (has_trait_raw(&r_ptr->flags, TRAIT_AURA_FIRE)) return FALSE;	// Shallow water
 		}
 	}
 
-	/* Aquatic creature into non-water? */
-	else if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
+	else if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;	// Aquatic creature into non-water?
 
-	/* Lava */
-	if (have_flag(f_ptr->flags, FF_LAVA))
-	{
+	if (have_flag(f_ptr->flags, FF_LAVA)) // Lava
 		if (!has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE)) return FALSE;
-	}
 
 	return TRUE;
 }
