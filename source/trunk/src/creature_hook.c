@@ -332,7 +332,7 @@ static bool creature_hook_ocean(int species_idx)
 static bool creature_hook_shore(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
-	return is_wild_shore_species(species_ptr);
+	return has_trait_species(species_ptr, TRAIT_WILD_SHORE);
 }
 
 
