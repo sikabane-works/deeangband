@@ -310,7 +310,7 @@ bool species_hook_dungeon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	if (!is_wild_only_species(r_ptr))
+	if (!has_trait_species(r_ptr, TRAIT_WILD_ONLY))
 		return TRUE;
 	else
 	{

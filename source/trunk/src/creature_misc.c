@@ -643,16 +643,6 @@ bool is_has_ld_species(species_type *species_ptr)
 		   is_has_dark_1_species(species_ptr) || is_has_dark_2_species(species_ptr);
 }
 
-bool is_wild_only_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_ONLY);	
-}
-
-bool is_wild_only_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_WILD_ONLY]);
-}
-
 bool is_wild_town_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_WILD_TOWN);	

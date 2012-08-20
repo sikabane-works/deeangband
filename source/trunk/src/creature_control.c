@@ -1314,7 +1314,7 @@ static bool summon_specific_aux(int species_idx)
 		{
 			okay = (r_ptr->d_char == 'B' &&
 				is_wild_mountain_species(r_ptr) &&
-				is_wild_only_species(r_ptr));
+				has_trait_species(r_ptr, TRAIT_WILD_ONLY));
 			break;
 		}
 
