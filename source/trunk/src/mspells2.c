@@ -36,7 +36,7 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 		if (y == y2 && x == x2)
 			hit2 = TRUE;
 		else if (friend && floor_ptr->cave[y][x].creature_idx > 0 &&
-			 !are_enemies(caster_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]))
+			 !are_mutual_enemies(caster_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]))
 		{
 			/* Friends don't shoot friends */
 			return FALSE;

@@ -712,41 +712,10 @@ static bool check_hostile_align(byte sub_align1, byte sub_align2)
 }
 
 
-/*
- * Check if two creatures are enemies
- */
-bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
+// Check if two creatures are enemies
+bool are_mutual_enemies(creature_type *m_ptr, creature_type *n_ptr)
 {
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
-	species_type *s_ptr = &species_info[n_ptr->species_idx];
-	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
-
-	if (floor_ptr->gamble_arena_mode)
-	{
-		if (is_pet(player_ptr, m_ptr) || is_pet(player_ptr, n_ptr)) return FALSE;
-		return TRUE;
-	}
-
-	if ((has_trait_species(r_ptr, TRAIT_WILD_ALL) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
-	    && (has_trait_species(r_ptr, TRAIT_WILD_ALL) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(s_ptr, TRAIT_CITIZEN)))
-	{
-		if (!is_pet(player_ptr, m_ptr) && !is_pet(player_ptr, n_ptr)) return FALSE;
-	}
-
-	/* Friendly vs. opposite aligned normal or pet */
-	if (check_hostile_align(m_ptr->sub_align, n_ptr->sub_align))
-	{
-		if (!(m_ptr->mflag2 & MFLAG2_CHAMELEON) || !(n_ptr->mflag2 & MFLAG2_CHAMELEON)) return TRUE;
-	}
-
-	/* Hostile vs. non-hostile */
-	if (is_hostile(m_ptr) != is_hostile(n_ptr))
-	{
-		return TRUE;
-	}
-
-	/* Default */
-	return FALSE;
+	return m_ptr->camp_idx ! n_ptr->camp_idx;
 }
 
 

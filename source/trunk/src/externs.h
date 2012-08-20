@@ -1070,7 +1070,7 @@ extern bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 extern bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b mode);
 extern bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr, u16b mode);
 extern bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode);
-extern bool are_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
+extern bool are_mutual_enemies(creature_type *m_ptr1, creature_type *m_ptr2);
 extern bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *target_ptr);
 extern bool species_living(species_type *r_ptr);
 extern bool creature_living(creature_type *creature_ptr);

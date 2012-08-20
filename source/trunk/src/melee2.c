@@ -91,7 +91,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 			}
 
 			/* Creature must be 'an enemy' */
-			if (!are_enemies(m_ptr, t_ptr)) continue;
+			if (!are_mutual_enemies(m_ptr, t_ptr)) continue;
 
 			/* Creature must be projectable if we can't pass through walls */
 			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || has_trait(creature_ptr, TRAIT_PASS_WALL))) ||
@@ -858,7 +858,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 		/* The creature must be an enemy, and in LOS */
 		if (t_m_idx &&
-		    are_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
+		    are_mutual_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
 		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
 		    projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 		{
@@ -1736,7 +1736,7 @@ static void process_nonplayer(int m_idx)
 
 			/* The creature must be an enemy, and projectable */
 			if (t_m_idx &&
-			    are_enemies(creature_ptr, &creature_list[t_m_idx]) &&
+			    are_mutual_enemies(creature_ptr, &creature_list[t_m_idx]) &&
 			    projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
 			{
 				counterattack = TRUE;
@@ -2206,7 +2206,7 @@ static void process_nonplayer(int m_idx)
 			if ((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
 				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
-				  are_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
+				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
 			{
 				if (!has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 				{
