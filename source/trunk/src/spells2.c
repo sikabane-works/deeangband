@@ -682,18 +682,6 @@ info[i++] = "あなたはテレポートできない。";
 #endif
 	}
 
-	/*TODO
-	if (IS_RACE(creature_ptr, RACE_ENT) && !creature_ptr->immune_fire)
-	{
-#ifdef JP
-info[i++] = "あなたは火に弱い。";
-#else
-		info[i++] = "You are susceptible to damage from fire.";
-#endif
-
-	}
-	*/
-
 	if (has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
 #ifdef JP
@@ -703,19 +691,6 @@ info[i++] = "あなたは閃光に弱い。";
 #endif
 
 	}
-
-	//TODO
-	/*
-	if (IS_RACE(creature_ptr, RACE_LICH))
-	{
-#ifdef JP
-info[i++] = "あなたは地獄の力を吸収できる。";
-#else
-		info[i++] = "You can drain nether forces.";
-#endif
-
-	}
-	*/
 
 	if (have_flag(flgs, STAT_STR))
 	{

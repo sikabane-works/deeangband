@@ -616,16 +616,6 @@ bool is_has_ld_species(species_type *species_ptr)
 		   is_has_dark_1_species(species_ptr) || is_has_dark_2_species(species_ptr);
 }
 
-bool is_wild_all_creature(creature_type *creature_ptr)
-{
-	return has_trait(creature_ptr, TRAIT_WILD_ALL);	
-}
-
-bool is_wild_all_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_WILD_ALL]);
-}
-
 bool is_variable_race_species(species_type *species_ptr)
 {
 	return IS_RACE(species_ptr, INDEX_VARIABLE);

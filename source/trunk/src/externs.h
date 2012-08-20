@@ -861,8 +861,6 @@ extern bool is_self_ld_species(species_type *species_ptr);
 extern bool is_has_ld_creature(creature_type *creature_ptr);
 extern bool is_has_ld_species(species_type *species_ptr);
 
-extern bool is_wild_all_species(species_type *species_ptr);
-
 extern bool is_variable_race_species(species_type *species_ptr);
 extern bool is_variable_class_species(species_type *species_ptr);
 extern bool is_variable_patron_species(species_type *species_ptr);

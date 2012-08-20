@@ -3287,14 +3287,14 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
  */
 static bool creature_hook_tanuki(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
-	if (is_unique_species(r_ptr)) return FALSE;
-	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if (has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
-	if (has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;
+	if (is_unique_species(species_ptr)) return FALSE;
+	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;
+	if (has_trait_species(species_ptr, TRAIT_FRIENDLY) || has_trait_species(species_ptr, TRAIT_CHAMELEON)) return FALSE;
+	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;
 	
-	if ((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
+	if ((species_ptr->blow[0].method == RBM_EXPLODE) || (species_ptr->blow[1].method == RBM_EXPLODE) || (species_ptr->blow[2].method == RBM_EXPLODE) || (species_ptr->blow[3].method == RBM_EXPLODE))
 		return FALSE;
 
 	return (*(get_creature_hook()))(species_idx);

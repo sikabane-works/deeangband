@@ -340,7 +340,7 @@ static bool creature_hook_waste(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (has_trait_species(r_ptr, TRAIT_WILD_WASTE) || is_wild_all_species(r_ptr))
+	if (has_trait_species(r_ptr, TRAIT_WILD_WASTE) || has_trait_species(r_ptr, TRAIT_WILD_ALL))
 		return TRUE;
 	else
 		return FALSE;
@@ -351,7 +351,7 @@ static bool creature_hook_town(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (is_wild_all_species(r_ptr) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
+	if (has_trait_species(r_ptr, TRAIT_WILD_ALL) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
 		return TRUE;
 	else
 		return FALSE;
@@ -361,7 +361,7 @@ static bool creature_hook_town(int species_idx)
 static bool creature_hook_wood(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	return (has_trait_species(r_ptr, TRAIT_WILD_WOOD) || is_wild_all_species(r_ptr));
+	return (has_trait_species(r_ptr, TRAIT_WILD_WOOD) || has_trait_species(r_ptr, TRAIT_WILD_ALL));
 }
 
 
@@ -381,7 +381,7 @@ static bool creature_hook_mountain(int species_idx)
 static bool creature_hook_grass(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
-	return (has_trait_species(r_ptr, TRAIT_WILD_GRASS) || is_wild_all_species(r_ptr));
+	return (has_trait_species(r_ptr, TRAIT_WILD_GRASS) || has_trait_species(r_ptr, TRAIT_WILD_ALL));
 }
 
 static bool creature_hook_deep_water(int species_idx)
@@ -727,8 +727,8 @@ bool are_enemies(creature_type *m_ptr, creature_type *n_ptr)
 		return TRUE;
 	}
 
-	if ((is_wild_all_species(r_ptr) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
-	    && (is_wild_all_species(r_ptr) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(s_ptr, TRAIT_CITIZEN)))
+	if ((has_trait_species(r_ptr, TRAIT_WILD_ALL) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
+	    && (has_trait_species(r_ptr, TRAIT_WILD_ALL) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(s_ptr, TRAIT_CITIZEN)))
 	{
 		if (!is_pet(player_ptr, m_ptr) && !is_pet(player_ptr, n_ptr)) return FALSE;
 	}
