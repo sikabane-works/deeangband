@@ -635,7 +635,7 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 	{
 		if (!(mode & CEM_RIDING))
 		{
-			if (!can_fly_creature(creature_ptr)) return FALSE;
+			if (!has_trait(creature_ptr, TRAIT_CAN_FLY)) return FALSE;
 		}
 		else
 		{
