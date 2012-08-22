@@ -592,10 +592,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	cast = cast_sniper_spell(creature_ptr, n);
 
 	if (!cast) return;
-#if 0
-	/* Take a turn */
-	creature_ptr->energy_use = 100;
-#endif
+
 	/* Redraw mana */
 	play_redraw |= (PR_HP | PR_MANA);
 

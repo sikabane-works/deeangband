@@ -1105,47 +1105,6 @@ static int do_poker(void)
 		cards[i] = deck[deck_ptr++];
 		kaeruka[i] = 0; /* default:nokosu */
 	}
-	
-#if 0
-	/* debug:RF */
-	cards[0] = 12;
-	cards[1] = 0;
-	cards[2] = 9;
-	cards[3] = 11;
-	cards[4] = 10;
-#endif
-#if 0
-	/* debug:SF */
-	cards[0] = 3;
-	cards[1] = 2;
-	cards[2] = 4;
-	cards[3] = 6;
-	cards[4] = 5;
-#endif
-#if 0
-	/* debug:Four Cards */
-	cards[0] = 0;
-	cards[1] = 0 + 13 * 1;
-	cards[2] = 0 + 13 * 2;
-	cards[3] = 0 + 13 * 3;
-	cards[4] = 51;
-#endif
-#if 0
-	/* debug:Straight */
-	cards[0] = 1;
-	cards[1] = 0 + 13;
-	cards[2] = 3;
-	cards[3] = 2 + 26;
-	cards[4] = 4;
-#endif
-#if 0
-	/* debug */
-	cards[0] = 52;
-	cards[1] = 0;
-	cards[2] = 1;
-	cards[3] = 2;
-	cards[4] = 3;
-#endif
 
 	/* suteruno wo kimeru */
 #ifdef JP

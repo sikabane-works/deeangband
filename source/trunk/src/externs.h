@@ -1704,13 +1704,6 @@ extern bool mutation_power_aux(creature_type *creature_ptr, u32b power);
 extern void usespecies_name(char *buf, int id);
 #endif
 
-#if 0
-#ifndef HAS_STRICMP
-/* util.c */
-extern int stricmp(cptr a, cptr b);
-#endif
-#endif
-
 #ifndef HAVE_USLEEP
 /* util.c */
 extern int usleep(huge usecs);

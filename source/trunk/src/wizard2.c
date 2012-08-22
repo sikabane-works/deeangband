@@ -2227,27 +2227,6 @@ void do_cmd_debug(creature_type *creature_ptr)
 		teleport_player(creature_ptr, 10, 0L);
 		break;
 
-#if 0
-	/* Complete a Quest -KMW- */
-	case 'q':
-		for (i = 0; i < max_quests; i++)
-		{
-			if (creature_ptr->quest[i].status == QUEST_STATUS_TAKEN)
-			{
-				creature_ptr->quest[i].status++;
-				msg_print("Completed Quest");
-				msg_print(NULL);
-				break;
-			}
-		}
-		if (i == max_quests)
-		{
-			msg_print("No current quest");
-			msg_print(NULL);
-		}
-		break;
-#endif
-
 	/* Make every dungeon square "known" to test streamers -KMW- */
 	case 'u':
 		for (y = 0; y < floor_ptr->height; y++)
