@@ -3672,16 +3672,8 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 // Apply magic at specified ego.
 void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego)
 {
-	if(object_is_weapon(object_ptr))
-	{
-		weapon_boost(object_ptr, lev, ITEM_RANK_GREAT);
-	}
-
-	if(object_is_armour(object_ptr))
-	{
-		armour_boost(object_ptr, lev, ITEM_RANK_GREAT);
-	}
-
+	if(object_is_weapon(object_ptr)) weapon_boost(object_ptr, lev, ITEM_RANK_GREAT);
+	if(object_is_armour(object_ptr)) armour_boost(object_ptr, lev, ITEM_RANK_GREAT);
 	object_ptr->name2 = ego;
 }
 
@@ -3772,11 +3764,8 @@ static bool kind_is_good(int k_idx)
 
 /*
  * Attempt to make an object (normal or good/great)
- *
  * This routine plays nasty games to generate the "special artifacts".
- *
  * This routine uses "object_level" for the "generation level".
- *
  * We assume that the given object has been "wiped".
  */
 bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)

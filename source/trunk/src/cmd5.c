@@ -1641,7 +1641,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, bool now_riding)
 {
-	bool p_can_enter;
+	bool can_enter;
 	int  old_riding = creature_ptr->riding;
 	bool old_riding_two_handed = creature_ptr->riding_two_handed;
 	bool old_old_riding_two_handed = creature_ptr->old_riding_two_handed;
@@ -1657,7 +1657,7 @@ static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, b
 
 	set_creature_bonuses(creature_ptr, TRUE);
 
-	p_can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 
 	creature_ptr->riding = old_riding;
 	if (old_pf_two_handed) creature_ptr->pet_extra_flags |= (PF_RYOUTE);
@@ -1667,7 +1667,7 @@ static bool player_can_ride_aux(creature_type *creature_ptr, cave_type *c_ptr, b
 
 	set_creature_bonuses(creature_ptr, TRUE);
 
-	return p_can_enter;
+	return can_enter;
 }
 
 bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)

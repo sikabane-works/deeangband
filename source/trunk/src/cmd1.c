@@ -2202,8 +2202,8 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	char m_name[80];
 
-	bool p_can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
-	bool p_can_kill_walls = FALSE;
+	bool can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	bool can_kill_walls = FALSE;
 	bool stormbringer = FALSE;
 
 	bool oktomove = TRUE;
@@ -2342,7 +2342,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		/* "Blocked" message appears later */
 		/* oktomove = FALSE; */
-		p_can_enter = FALSE;
+		can_enter = FALSE;
 	}
 
 	/* Get the creature */
@@ -2355,12 +2355,12 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
-	p_can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
-		(!p_can_enter || !have_flag(f_ptr->flags, FF_LOS)) &&
+	can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
+		(!can_enter || !have_flag(f_ptr->flags, FF_LOS)) &&
 		!have_flag(f_ptr->flags, FF_PERMANENT);
 
 	/* Hack -- attack creatures */
-	if (c_ptr->creature_idx && (m_ptr->ml || p_can_enter || p_can_kill_walls))
+	if (c_ptr->creature_idx && (m_ptr->ml || can_enter || can_kill_walls))
 	{
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
@@ -2368,7 +2368,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		if (!is_hostile(m_ptr) &&
 		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->ml || creature_ptr->stun ||
 		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->shero) &&
-		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (p_can_enter || p_can_kill_walls))
+		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
 			/* Disturb the creature */
 			(void)set_paralyzed(m_ptr, 0);
@@ -2530,7 +2530,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	 * has effective -10 speed
 	 * Rangers can move without penality
 	 */
-	else if (have_flag(f_ptr->flags, FF_TREE) && !p_can_kill_walls)
+	else if (have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
 		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
 			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
 			energy_use *= 2;
@@ -2546,7 +2546,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	}
 
 	/* Player can not walk through "walls" unless in wraith form...*/
-	else if (!p_can_enter && !p_can_kill_walls)
+	else if (!can_enter && !can_kill_walls)
 	{
 		/* Feature code (applying "mimic" field) */
 		s16b feat = get_feat_mimic(c_ptr);
@@ -2692,7 +2692,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			if (ddx[dir] == 0) creature_ptr->oldpx = MAX_WID / 2;
 		}
 
-		if (p_can_kill_walls)
+		if (can_kill_walls)
 		{
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
