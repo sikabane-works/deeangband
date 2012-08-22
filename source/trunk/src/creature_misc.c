@@ -1521,19 +1521,3 @@ int calc_action_power(creature_type *creature_ptr)
 
 	return point;
 }
-
-int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ac)
-{
-	int chance = 0;
-	int meichuu = creature_ptr->skill_thn + (creature_ptr->to_hit[0] + to_hit) * BTH_PLUS_ADJ;
-
-	if (meichuu <= 0) return 5;
-
-	chance = 100 - ((ac * 75) / meichuu);
-
-	if (chance > 95) chance = 95;
-	if (chance < 5) chance = 5;
-	if (creature_ptr->chara_idx == CHARA_NAMAKE)
-		chance = (chance * 19 + 9) / 20;
-	return chance;
-}

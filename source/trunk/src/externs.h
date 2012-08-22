@@ -934,7 +934,7 @@ extern int calc_weapon_melee_priority(creature_type *creature_ptr, object_type *
 extern int calc_special_melee_cost(creature_type *creature_ptr, special_blow_type *special_ptr);
 extern int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *special_ptr);
 extern int calc_action_power(creature_type *creature_ptr);
-extern int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ac);
+extern int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev);
 
 // do-spell.c
 extern void stop_singing(creature_type *creature_ptr);

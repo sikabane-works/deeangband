@@ -237,6 +237,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\creature_melee.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\creature_misc.c"
 				>
 			</File>
