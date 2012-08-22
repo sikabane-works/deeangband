@@ -3445,22 +3445,18 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	int i, rolls, f1, f2, power;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
-	if (owner_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(owner_ptr->lev / 2 + 10);
+	if (owner_ptr && owner_ptr->chara_idx == CHARA_MUNCHKIN) lev += randint0(owner_ptr->lev / 2 + 10);
 
-	/* Maximum "level" for various things */
-	if (lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1;
+	if (lev > MAX_DEPTH - 1) lev = MAX_DEPTH - 1; // Maximum "level" for various things
 
-	/* Base chance of being "good" */
-	f1 = lev + 10;
-
-	/* Maximal chance of being "good" */
-	if (f1 > dungeon_info[floor_ptr->dun_type].obj_good) f1 = dungeon_info[floor_ptr->dun_type].obj_good;
+	f1 = lev + 10; // Base chance of being "good"
+	if (f1 > dungeon_info[floor_ptr->dun_type].obj_good) f1 = dungeon_info[floor_ptr->dun_type].obj_good; // Maximal chance of being "good"
 
 	/* Base chance of being "great" */
 	f2 = f1 * 2 / 3;
 
 	/* Maximal chance of being "great" */
-	if ((owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > dungeon_info[floor_ptr->dun_type].obj_great))
+	if ((owner_ptr && owner_ptr->chara_idx != CHARA_MUNCHKIN) && (f2 > dungeon_info[floor_ptr->dun_type].obj_great))
 		f2 = dungeon_info[floor_ptr->dun_type].obj_great;
 
 	if (has_trait(owner_ptr, TRAIT_GOOD_LUCK))

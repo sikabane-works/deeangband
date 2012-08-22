@@ -6075,17 +6075,20 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	while (n < RANDOM_TRY)
 	{
 		n++;
+
 		today_mon = get_species_num(current_floor_ptr, max_dl);
 		r_ptr = &species_info[today_mon];
 
-		if (is_unique_species(r_ptr)) continue;
-		if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) && has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
+		if (is_unique_species(r_ptr) || has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
+		if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) ) continue;
 		if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) continue;
 		if (!has_trait_species(r_ptr, TRAIT_DROP_CORPSE) && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
 		if (r_ptr->rarity > 10) continue;
 		break;
+
 	}
+	if(n == RANDOM_TRY) msg_print("Warning: undetermined today wanted creature.");
 
 	today_mon = 0;
 	floor_ptr->gamble_arena_mode = old_gamble_arena_mode;

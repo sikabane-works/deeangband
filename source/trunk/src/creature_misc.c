@@ -839,6 +839,7 @@ bool has_trait_object(object_type *object_ptr, int type)
 
 bool has_trait(creature_type *creature_ptr, int type)
 {
+	if(!creature_ptr) return FALSE;
 	if(has_trait_from_species(creature_ptr, type)) return TRUE;
 	if(has_trait_from_class(creature_ptr, type)) return TRUE;
 	if(has_trait_from_chara(creature_ptr, type)) return TRUE;

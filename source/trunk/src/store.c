@@ -2305,8 +2305,7 @@ static int store_replacement(store_type *st_ptr, int num)
 	object_type forge;
 	object_type *quest_ptr;
 
-
-	/* Paranoia -- no room left */
+	// Paranoia -- no room left
 	if (st_ptr->stock_num >= st_ptr->stock_size) return 0;
 
 	/* Hack -- consider up to four items */
@@ -2314,22 +2313,14 @@ static int store_replacement(store_type *st_ptr, int num)
 	{
 		if (is_black_market(st_ptr)) // Black Market
 		{
-			/* Pick a level for object/magic */
-			level = rand_range(st_ptr->level / 2, st_ptr->level);
-
-			/* Random item (usually of given level) */
-			i = get_obj_num(current_floor_ptr, level, 0);
-
-			/* Handle failure */
-			if (!i) continue;
+			level = rand_range(st_ptr->level / 2, st_ptr->level);	// Pick a level for object/magic
+			i = get_obj_num(current_floor_ptr, level, 0);			// Random item (usually of given level)
+			if (!i) continue; // Handle failure
 		}
 		else // Normal Store
 		{
-			// Hack -- Pick an item to sell
-			i = st_ptr->table[randint0(st_ptr->table_num)];
-
-			// Hack -- fake level for apply_magic()
-			level = rand_range(1, st_ptr->level);
+			i = st_ptr->table[randint0(st_ptr->table_num)];	// Hack -- Pick an item to sell
+			level = rand_range(1, st_ptr->level);			// Hack -- fake level for apply_magic()
 		}
 
 		/* Get local object */
