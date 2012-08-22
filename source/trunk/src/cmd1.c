@@ -2175,41 +2175,12 @@ bool trap_can_be_ignored(creature_type *creature_ptr, int feat)
 	 have_flag((MF)->flags, FF_PROJECT) && \
 	 !have_flag((MF)->flags, FF_OPEN))
 
-/*
- * Move player in the given direction, with the given "pickup" flag.
- *
- * This routine should (probably) always induce energy expenditure.
- *
- * Note that moving will *always* take a turn, and will *always* hit
- * any creature which might be in the destination grid.  Previously,
- * moving into walls was "free" and did NOT hit invisible creatures.
- */
-void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
+static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap, int x, int y)
 {
-	// Find the result of moving
-	int y = creature_ptr->fy + ddy[dir];
-	int x = creature_ptr->fx + ddx[dir];
-
-	// Examine the destination
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	creature_type *m_ptr;
-
-	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
-	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
-
-	char m_name[80];
-
-	bool can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
-	bool can_kill_walls = FALSE;
-	bool stormbringer = FALSE;
-
-	bool oktomove = TRUE;
-	bool do_past = FALSE;
-
-	/* Exit the area */
 	if (!floor_ptr->floor_level && !wild_mode && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
@@ -2333,15 +2304,55 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				return;
 			}
 
-			creature_ptr->energy_use = 0;
-			oktomove = FALSE;
+			//creature_ptr->energy_use = 0;
+			//oktomove = FALSE;
 
 		}
 
 		/* "Blocked" message appears later */
-		/* oktomove = FALSE; */
-		can_enter = FALSE;
+		//can_enter = FALSE;
 	}
+
+}
+
+
+
+/*
+ * Move player in the given direction, with the given "pickup" flag.
+ *
+ * This routine should (probably) always induce energy expenditure.
+ *
+ * Note that moving will *always* take a turn, and will *always* hit
+ * any creature which might be in the destination grid.  Previously,
+ * moving into walls was "free" and did NOT hit invisible creatures.
+ */
+void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
+{
+	// Find the result of moving
+	int y = creature_ptr->fy + ddy[dir];
+	int x = creature_ptr->fx + ddx[dir];
+
+	// Examine the destination
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
+
+	creature_type *m_ptr;
+
+	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
+	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
+
+	char m_name[80];
+
+	bool can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
+	bool can_kill_walls = FALSE;
+	bool stormbringer = FALSE;
+
+	bool oktomove = TRUE;
+	bool do_past = FALSE;
+
+	// Exit the area
+	exit_area(creature_ptr, dir, do_pickup, break_trap, x, y);
 
 	/* Get the creature */
 	m_ptr = &creature_list[c_ptr->creature_idx];
