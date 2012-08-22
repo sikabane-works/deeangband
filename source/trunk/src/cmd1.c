@@ -2210,9 +2210,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	bool do_past = FALSE;
 
 	/* Exit the area */
-	if (!floor_ptr->floor_level && !wild_mode &&
-		((x == 0) || (x == MAX_WID - 1) ||
-		 (y == 0) || (y == MAX_HGT - 1)))
+	if (!floor_ptr->floor_level && !wild_mode && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 
@@ -2356,8 +2354,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
 	can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
-		(!can_enter || !have_flag(f_ptr->flags, FF_LOS)) &&
-		!have_flag(f_ptr->flags, FF_PERMANENT);
+		(!can_enter || !have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
 
 	/* Hack -- attack creatures */
 	if (c_ptr->creature_idx && (m_ptr->ml || can_enter || can_kill_walls))
@@ -2429,6 +2426,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
+
 		else if (steed_ptr->afraid)
 		{
 			char m_name[80];
@@ -2508,10 +2506,6 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 	}
 
-	if (!oktomove)
-	{
-	}
-
 	else if (!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 #ifdef JP
@@ -2530,10 +2524,12 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	 * has effective -10 speed
 	 * Rangers can move without penality
 	 */
+	/*
 	else if (have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
 		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
 			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
 			energy_use *= 2;
+	*/
 
 	// Disarm a visible trap
 	else if ((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
@@ -2545,7 +2541,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 	}
 
-	/* Player can not walk through "walls" unless in wraith form...*/
+	// Player can not walk through "walls" unless in wraith form...
 	else if (!can_enter && !can_kill_walls)
 	{
 		/* Feature code (applying "mimic" field) */
