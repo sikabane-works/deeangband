@@ -821,7 +821,7 @@ extern void ring_of_power(creature_type *creature_ptr, int dir);
 extern void do_cmd_use(creature_type *creature_ptr);
 extern void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse);
 
-/* creature.c */
+// creature_misc.c
 extern int estimate_level(species_type *species_ptr);
 extern bool is_player(creature_type *creature_ptr);
 extern void set_sex(creature_type *creature_ptr);
@@ -879,8 +879,6 @@ extern bool is_enemy_of_balance_species(species_type *creature_ptr);
 
 extern bool is_unique_creature(creature_type *creature_ptr);
 extern bool is_unique_species(species_type *species_ptr);
-
-extern bool is_escorts_species(species_type *species_ptr);
 
 //extern void set_observance_flags(creature_type *creature_ptr, int num, u32b flags);
 extern void set_traits_precondition(traits_precondition *flags_pre_ptr, int type, int low, int high);

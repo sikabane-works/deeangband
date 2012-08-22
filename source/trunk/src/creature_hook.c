@@ -1,7 +1,8 @@
 /* File: creature_hook.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke 2012 Deskull
+ * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke 
+ *               2012 Deskull
  *
  * This software may be copied and distributed for educational, research,
  * and not for profit purposes provided that this copyright and statement
@@ -35,24 +36,6 @@ static cptr wd_his[3] =
  */
 #define plural(c,s,p) \
     (((c) == 1) ? (s) : (p))
-
-/*
- * Determine if the "armor" is known
- * The higher the level, the fewer kills needed.
- */
-static bool know_armour(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-	s32b level = r_ptr->level;
-	s32b kills = r_ptr->r_tkills;
-
-	if (cheat_know) return (TRUE);
-	
-	if (kills > 304 / (4 + level)) return (TRUE);		// Normal creatures
-	if (!(is_unique_species(r_ptr))) return (FALSE);	// Skip non-uniques
-	if (kills > 304 / (38 + (5 * level) / 4)) return (TRUE);	// Unique creatures
-	return (FALSE);	// Assume false
-}
 
 /*
  * Prepare hook for c_roff(). It will be changed for spoiler generation in wizard1.c.

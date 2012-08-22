@@ -2,6 +2,7 @@
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+ *               2012 Deskull
  *
  * This software may be copied and distributed for educational, research,
  * and not for profit purposes provided that this copyright and statement
@@ -26,7 +27,6 @@ void excise_object_idx(int object_idx)
 	s16b this_object_idx, next_object_idx = 0;
 
 	s16b prev_object_idx = 0;
-
 
 	/* Object */
 	j_ptr = &object_list[object_idx];

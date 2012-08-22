@@ -6081,7 +6081,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		if (is_unique_species(r_ptr)) continue;
 		if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) && has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
 		if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) continue;
-		//if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
+		if (!has_trait_species(r_ptr, TRAIT_DROP_CORPSE) && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
 		if (r_ptr->rarity > 10) continue;
 		break;
@@ -6102,7 +6102,7 @@ static void cheat_death(void)
 		player_ptr->age = 0;
 	}
 
-	/* Increase age */
+	// Increase age
 	player_ptr->age++;
 
 	/* Mark savefile */
@@ -6116,7 +6116,7 @@ static void cheat_death(void)
 #endif
 	msg_print(NULL);
 
-	/* Restore hit points */
+	// Restore hit points
 	player_ptr->chp = player_ptr->mhp;
 	player_ptr->chp_frac = 0;
 
