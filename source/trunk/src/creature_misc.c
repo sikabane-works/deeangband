@@ -821,7 +821,13 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 
 bool has_trait_species(species_type *species_ptr, int type)
 {
-	//TODO
+	if(species_ptr->flags.add_lev[type])
+//	   species_ptr->flags.add_lev[type] <= creature_ptr->lev &&
+//	   species_ptr->flags.remove_lev[type] > creature_ptr->lev)
+	{
+		return TRUE;
+	}
+
 	return FALSE;
 }
 

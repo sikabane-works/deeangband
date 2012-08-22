@@ -6026,13 +6026,12 @@ void determine_bounty_uniques(void)
 			//TODO if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 			if (r_ptr->rarity > 100) continue;
 			if (no_questor_or_bounty_uniques(kubi_species_idx[i])) continue;
-			for (j = 0; j < i; j++)
-				if (kubi_species_idx[i] == kubi_species_idx[j]) break;
+			for (j = 0; j < i; j++) if (kubi_species_idx[i] == kubi_species_idx[j]) break;
 			if (j == i) break;
 		}
 	}
 
-	/* Sort them */
+	// Sort them
 	for (i = 0; i < MAX_BOUNTY - 1; i++)
 	{
 		for (j = i; j < MAX_BOUNTY; j++)
@@ -6075,6 +6074,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 
 	while (n < RANDOM_TRY)
 	{
+		n++;
 		today_mon = get_species_num(current_floor_ptr, max_dl);
 		r_ptr = &species_info[today_mon];
 
@@ -6085,7 +6085,6 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;
 		if (r_ptr->rarity > 10) continue;
 		break;
-		n++;
 	}
 
 	today_mon = 0;
@@ -6372,16 +6371,12 @@ static void new_game_setting(void)
 	/* Init Uniques */
 	//TODO birth_uniques();
 
-	/* Generate the random seeds for the wilderness */
+	// Generate the random seeds for the wilderness
 	seed_wilderness();
 
-	/* Set the message window flag as default */
-	if (!window_flag[1])
-		window_flag[1] |= PW_MESSAGE;
-
-	/* Set the inv/equip window flag as default */
-	if (!window_flag[2])
-		window_flag[2] |= PW_INVEN;
+	// Set the window flag as default
+	if (!window_flag[1]) window_flag[1] |= PW_MESSAGE;
+	if (!window_flag[2]) window_flag[2] |= PW_INVEN;
 
 	counts_write(2,0);
 	game_load_count = 0;

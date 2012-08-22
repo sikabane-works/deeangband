@@ -2770,7 +2770,6 @@ bool creature_hook_human(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	if (is_unique_species(r_ptr)) return FALSE;
-
 	if (my_strchr("pht", r_ptr->d_char)) return TRUE;
 
 	return FALSE;
