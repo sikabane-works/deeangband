@@ -2315,6 +2315,29 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 
 }
 
+static void plus_move_cost(creature_type *creature_ptr, int x, int y)
+{
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	cave_type *c_ptr = &floor_ptr->cave[y][x];
+	feature_type *f_ptr = &feature_info[c_ptr->feat];
+
+	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
+	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
+
+	bool can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
+		(!have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
+
+	/*
+	 * Player can move through trees and
+	 * has effective -10 speed
+	 * Rangers can move without penality
+	 */
+	if (have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
+		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
+			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
+			creature_ptr->energy_use *= 2;
+}
+
 
 
 /*
@@ -2530,18 +2553,6 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		oktomove = FALSE;
 	}
 
-	/*
-	 * Player can move through trees and
-	 * has effective -10 speed
-	 * Rangers can move without penality
-	 */
-	/*
-	else if (have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
-		if ((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
-			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
-			creature_ptr->energy_use *= 2;
-	*/
-
 	// Disarm a visible trap
 	else if ((do_pickup != easy_disarm) && have_flag(f_ptr->flags, FF_DISARM) && !c_ptr->mimic)
 	{
@@ -2716,6 +2727,8 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		/* Move the player */
 		(void)move_creature_effect(creature_ptr, NULL, y, x, mpe_mode);
 	}
+
+	plus_move_cost(creature_ptr, x, y);
 
 	if(!IS_BLIND(creature_ptr) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
