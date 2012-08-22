@@ -3021,22 +3021,6 @@ static void compare_weapon_aux1(creature_type *creature_ptr, object_type *object
 
 }
 
-static int hit_chance(creature_type *creature_ptr, int to_hit, int ac)
-{
-	int chance = 0;
-	int meichuu = creature_ptr->skill_thn + (creature_ptr->to_hit[0] + to_hit) * BTH_PLUS_ADJ;
-
-	if (meichuu <= 0) return 5;
-
-	chance = 100 - ((ac * 75) / meichuu);
-
-	if (chance > 95) chance = 95;
-	if (chance < 5) chance = 5;
-	if (creature_ptr->chara_idx == CHARA_NAMAKE)
-		chance = (chance*19+9)/20;
-	return chance;
-}
-
 /*
  * Displays all info about a weapon
  *
@@ -3069,9 +3053,9 @@ sprintf(tmp_str, "To Hit:  0  50 100 150 200 (AC)");
 
 	/* Print the weapons base damage dice */
 #ifdef JP
-sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", hit_chance(creature_ptr, object_ptr->to_hit, 0), hit_chance(creature_ptr, object_ptr->to_hit, 50), hit_chance(creature_ptr, object_ptr->to_hit, 100), hit_chance(creature_ptr, object_ptr->to_hit, 150), hit_chance(creature_ptr, object_ptr->to_hit, 200));
+sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", melee_hit_chance(creature_ptr, object_ptr->to_hit, 0), melee_hit_chance(creature_ptr, object_ptr->to_hit, 50), melee_hit_chance(creature_ptr, object_ptr->to_hit, 100), melee_hit_chance(creature_ptr, object_ptr->to_hit, 150), melee_hit_chance(creature_ptr, object_ptr->to_hit, 200));
 #else
-sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", hit_chance(creature_ptr, object_ptr->to_hit, 0), hit_chance(creature_ptr, object_ptr->to_hit, 50), hit_chance(creature_ptr, object_ptr->to_hit, 100), hit_chance(creature_ptr, object_ptr->to_hit, 150), hit_chance(creature_ptr, object_ptr->to_hit, 200));
+sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", melee_hit_chance(creature_ptr, object_ptr->to_hit, 0), melee_hit_chance(creature_ptr, object_ptr->to_hit, 50), melee_hit_chance(creature_ptr, object_ptr->to_hit, 100), melee_hit_chance(creature_ptr, object_ptr->to_hit, 150), melee_hit_chance(creature_ptr, object_ptr->to_hit, 200));
 #endif
 
 	put_str(tmp_str, row+3, col);
