@@ -775,7 +775,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	if (record_stair) do_cmd_write_nikki(DIARY_PAT_TELE,0,NULL);
 
 	inside_quest = 0;
-	energy_use = 0;
+	creature_ptr->energy_use = 0;
 
 	/*
 	 * Clear all saved floors
@@ -4595,7 +4595,7 @@ static void process_player_command(creature_type *creature_ptr)
 #else
 					msg_format("An anti-magic shell disrupts your %s!", which_power);
 #endif
-					energy_use = 0;
+					creature_ptr->energy_use = 0;
 				}
 				else if (creature_ptr->shero && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
@@ -4604,7 +4604,7 @@ static void process_player_command(creature_type *creature_ptr)
 #else
 					msg_format("You cannot think directly!");
 #endif
-					energy_use = 0;
+					creature_ptr->energy_use = 0;
 				}
 				else
 				{
@@ -5121,7 +5121,7 @@ prt(" '?' ‚Åƒwƒ‹ƒv‚ª•\Ž¦‚³‚ê‚Ü‚·B", 0, 0);
 			break;
 		}
 	}
-	if (!energy_use && !now_message)
+	if (!creature_ptr->energy_use && !now_message)
 		now_message = old_now_message;
 }
 
@@ -5533,7 +5533,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 
 
 		/* Assume free turn */
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 
 
 		if (floor_ptr->gamble_arena_mode)
@@ -5551,7 +5551,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		else if (creature_ptr->paralyzed || (creature_ptr->stun >= 100))
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 		}
 
 		/* Resting */
@@ -5570,14 +5570,14 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			}
 
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 		}
 
 		/* Fishing */
 		else if (creature_ptr->action == ACTION_FISH)
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 		}
 
 		/* Running */
@@ -5641,18 +5641,18 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		/*** Clean up ***/
 
 		/* Significant */
-		if (energy_use)
+		if (creature_ptr->energy_use)
 		{
 			/* Use some energy */
-			if (creature_ptr->time_stopper || energy_use > 400)
+			if (creature_ptr->time_stopper || creature_ptr->energy_use > 400)
 			{
 				/* The Randomness is irrelevant */
-				creature_ptr->energy_need += energy_use * TURNS_PER_TICK / 10;
+				creature_ptr->energy_need += creature_ptr->energy_use * TURNS_PER_TICK / 10;
 			}
 			else
 			{
 				/* There is some randomness of needed energy */
-				creature_ptr->energy_need += (s16b)((s32b)energy_use * ENERGY_NEED() / 100L);
+				creature_ptr->energy_need += (s16b)((s32b)creature_ptr->energy_use * ENERGY_NEED() / 100L);
 			}
 
 			/* Hack -- constant hallucination */
@@ -5807,7 +5807,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Sniper */
-		if (energy_use && creature_ptr->reset_concent) reset_concentration(creature_ptr, TRUE);
+		if (creature_ptr->energy_use && creature_ptr->reset_concent) reset_concentration(creature_ptr, TRUE);
 
 		/* Handle "leaving" */
 		if (subject_change_floor) break;

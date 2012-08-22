@@ -4764,7 +4764,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 void do_cmd_quest(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
@@ -4815,7 +4815,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	building_type   *bldg;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{
@@ -4866,7 +4866,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 			command_new = SPECIAL_KEY_BUILDING;
 
 			/* No energy needed to re-enter the arena */
-			energy_use = 0;
+			creature_ptr->energy_use = 0;
 		}
 
 		return;
@@ -4883,7 +4883,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		command_new = SPECIAL_KEY_BUILDING;
 
 		/* No energy needed to re-enter the arena */
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 
 		return;
 	}

@@ -6563,7 +6563,7 @@ static void drain_essence(creature_type *creature_ptr)
 #endif
 	}
 
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	object_flags(object_ptr, old_flgs);
 	if (have_flag(old_flgs, TRAIT_KILL_DRAGON)) add_flag(old_flgs, TRAIT_SLAY_DRAGON);
@@ -7341,7 +7341,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 				msg_print("You failed to enchant.");
 #endif
-				energy_use = 100;
+				creature_ptr->energy_use = 100;
 				return;
 			}
 			else
@@ -7359,7 +7359,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #else
 				msg_print("You failed to enchant.");
 #endif
-				energy_use = 100;
+				creature_ptr->energy_use = 100;
 				return;
 			}
 			else
@@ -7440,7 +7440,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		}
 	}
 
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 #ifdef JP
 	msg_format("%s‚É%s‚Ì”\—Í‚ð•t‰Á‚µ‚Ü‚µ‚½B", object_name, es_ptr->add_name);
@@ -7494,7 +7494,7 @@ static void erase_essence(creature_type *creature_ptr)
 	if (!get_check(format("Are you sure? [%s]", object_name))) return;
 #endif
 
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	if (object_ptr->xtra3 == 1+ESSENCE_SLAY_GLOVE)
 	{

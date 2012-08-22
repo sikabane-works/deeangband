@@ -315,7 +315,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 		autopick_alter_item(creature_ptr, item, FALSE); // Auto-inscription
 	}
 
-	energy_use = 100;          // Take a turn
+	creature_ptr->energy_use = 100;          // Take a turn
 
 	object_ptr->marked |= OM_TOUCHED;   // Player touches it
 	creature_ptr->equip_cnt++;           // Increment the equip counter by hand
@@ -519,12 +519,12 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #else
 			msg_print("You couldn't remove the equipment.");
 #endif
-			energy_use = 50;
+			creature_ptr->energy_use = 50;
 			return;
 		}
 	}
 
-	energy_use = 50; // Take a partial turn
+	creature_ptr->energy_use = 50; // Take a partial turn
 	(void)inven_takeoff(creature_ptr, item, 255); // Take off the item
 
 	kamaenaoshi(creature_ptr, item);
@@ -599,7 +599,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 
 	/* Take a partial turn */
-	energy_use = 50;
+	creature_ptr->energy_use = 50;
 
 	/* Drop (some of) the item */
 	inven_drop(creature_ptr, item, amt);
@@ -767,12 +767,12 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	object_ptr->number = old_number;
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Artifacts cannot be destroyed */
 	if (!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 
 		/* Message */
 #ifdef JP
@@ -1206,7 +1206,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 
 
 	/* Take a partial turn */
-	energy_use = 50;
+	creature_ptr->energy_use = 50;
 
 	/* Access the lantern */
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
@@ -1323,7 +1323,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 
 
 	/* Take a partial turn */
-	energy_use = 50;
+	creature_ptr->energy_use = 50;
 
 	/* Access the primary torch */
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);

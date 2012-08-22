@@ -555,7 +555,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(gameover);
 		{
 			*mdeath = TRUE;
-			if ((attacker_ptr->class_idx == CLASS_BERSERKER) && energy_use)
+			if ((attacker_ptr->class_idx == CLASS_BERSERKER) && attacker_ptr->energy_use)
 			{
 				//TODO
 			}
@@ -1547,7 +1547,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	action_power = calc_action_power(attacker_ptr);
 	action_num = 0;
 	tried_num = 0;
-	energy_use = 100;
+	attacker_ptr->energy_use = 100;
 
 	do
 	{

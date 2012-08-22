@@ -1241,6 +1241,8 @@ struct creature_type
 	s16b size;			// Body Size 
 	s16b regenerate_mod;
 
+	s16b energy_use;		/* Energy use this turn */
+
 	s16b inven_cnt;			// Number of items in inventory 
 	s16b equip_cnt;			// Number of items in equipment 
 	object_type inventory[INVEN_TOTAL];  // Inventory 

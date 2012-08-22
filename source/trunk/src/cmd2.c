@@ -114,7 +114,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if (!go_up) return;
 
 	/* Hack -- take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	if (autosave_l) do_cmd_save_game(TRUE);
 
@@ -299,7 +299,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		}
 
 		/* Hack -- take a turn */
-		energy_use = 100;
+		creature_ptr->energy_use = 100;
 
 		if (autosave_l) do_cmd_save_game(TRUE);
 
@@ -402,7 +402,7 @@ void do_cmd_search(creature_type *creature_ptr)
 	}
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Search */
 	search(creature_ptr);
@@ -837,7 +837,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Attempt to unlock it */
 	if (object_ptr->pval > 0)
@@ -1036,7 +1036,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	bool more = FALSE;
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Seeing true feature code (ignore mimic) */
 
@@ -1203,7 +1203,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* Message */
 #ifdef JP
@@ -1253,7 +1253,7 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 	bool       more = FALSE;
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Seeing true feature code (ignore mimic) */
 
@@ -1368,7 +1368,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* Message */
 #ifdef JP
@@ -1457,7 +1457,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	if (!do_cmd_tunnel_test(creature_ptr, y, x)) return (FALSE);
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Get grid */
 	c_ptr = &floor_ptr->cave[y][x];
@@ -1664,7 +1664,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* Message */
 #ifdef JP
@@ -1814,7 +1814,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Get the "disarm" factor */
 	i = creature_ptr->skill_dis;
@@ -1941,7 +1941,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	int j;
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Penalize some conditions */
 	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
@@ -2143,7 +2143,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	cptr name = feature_name + feature_info[get_feat_mimic(c_ptr)].name;
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Message */
 #ifdef JP
@@ -2295,7 +2295,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* Message */
 #ifdef JP
@@ -2376,7 +2376,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 		f_ptr = &feature_info[feat];
 
 		/* Take a turn */
-		energy_use = 100;
+		creature_ptr->energy_use = 100;
 
 		/* Attack creatures */
 		if (c_ptr->creature_idx)
@@ -2522,7 +2522,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		else if (c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* Message */
 #ifdef JP
@@ -2539,7 +2539,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		else
 		{
 			/* Take a turn */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* Successful jamming */
 #ifdef JP
@@ -2587,7 +2587,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Take a turn */
-		energy_use = 100;
+		creature_ptr->energy_use = 100;
 
 		if ((dir != 5) && (creature_ptr->special_defense & KATA_MUSOU))
 		{
@@ -2595,8 +2595,8 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 		}
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
-		if (wild_mode) energy_use *= ((MAX_HGT + MAX_WID) / 2);
-		if (creature_ptr->action == ACTION_HAYAGAKE) energy_use = energy_use * (45-(creature_ptr->lev/2)) / 100;
+		if (wild_mode) creature_ptr->energy_use *= ((MAX_HGT + MAX_WID) / 2);
+		if (creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_use = creature_ptr->energy_use * (45-(creature_ptr->lev/2)) / 100;
 
 		/* Actually move the character */
 		move_creature(creature_ptr, dir, pickup, FALSE);
@@ -2628,7 +2628,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 			change_wild_mode(creature_ptr);
 
 			/* Give first move to creatures */
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 
 			/* HACk -- set the encouter flag for the wilderness generation */
 			generate_encounter = TRUE;
@@ -2700,7 +2700,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	if (pickup) mpe_mode |= MPE_DO_PICKUP;
 	(void)move_creature_effect(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
@@ -2769,7 +2769,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	if (creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	/* Take a turn XXX XXX XXX (?) */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Save the rest code */
 	resting = command_arg;
@@ -3202,7 +3202,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		chance = (creature_ptr->skill_thb + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
 	*/
 
-	energy_use = bow_energy(j_ptr->sval);
+	creature_ptr->energy_use = bow_energy(j_ptr->sval);
 	tmul = bow_tmul(j_ptr->sval);
 
 	/* Get extra "power" from "extra might" */
@@ -3229,7 +3229,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Get a direction (or cancel) */
 	if (!get_aim_dir(creature_ptr, &dir))
 	{
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 
 		if (creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
 
@@ -3257,7 +3257,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Don't shoot at my feet */
 	if (tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 
 		/* project_length is already reset to 0 */
 
@@ -3266,7 +3266,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 
 	/* Take a (partial) turn */
-	energy_use = (energy_use / thits);
+	creature_ptr->energy_use = (creature_ptr->energy_use / thits);
 	creature_ptr->is_fired = TRUE;
 
 	/* Sniper - Difficult to shot twice at 1 turn */
@@ -4042,11 +4042,11 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Rogue and Ninja gets bonus */
 	if ((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_NINJA))
-		energy_use -= creature_ptr->lev;
+		creature_ptr->energy_use -= creature_ptr->lev;
 
 	/* Start at the player */
 	y = creature_ptr->fy;

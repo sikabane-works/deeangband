@@ -422,7 +422,7 @@ s = "魔力を取り込めるアイテムがない。";
 		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 	return TRUE;
 }
 
@@ -809,7 +809,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		msg_format("You need to attain level %d to use this power.", min_level);
 #endif
 
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 		return 0;
 	}
 
@@ -822,7 +822,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		msg_print("You are too confused to use this power.");
 #endif
 
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 		return 0;
 	}
 
@@ -835,7 +835,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		if (!get_check("Really use the power in your weakened state? "))
 #endif
 		{
-			energy_use = 0;
+			creature_ptr->energy_use = 0;
 			return 0;
 		}
 	}
@@ -859,7 +859,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* take time and pay the price */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 
 	/* Success? */
 	if (randint1(creature_ptr->stat_cur[use_stat]) >=
@@ -927,7 +927,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		if (creature_ptr->realm1 == REALM_HEX)
 		{
 			bool retval = stop_hex_spell(creature_ptr);
-			if (retval) energy_use = 10;
+			if (retval) creature_ptr->energy_use = 10;
 			return (retval);
 		}
 		case CLASS_MAGE:
@@ -1203,7 +1203,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if (!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(creature_ptr);
-			energy_use = 10;
+			creature_ptr->energy_use = 10;
 			break;
 		}
 		case CLASS_RED_MAGE:
@@ -1282,7 +1282,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				set_action(creature_ptr, ACTION_LEARN);
 			}
-			energy_use = 0;
+			creature_ptr->energy_use = 0;
 			break;
 		}
 		case CLASS_CAVALRY:
@@ -1427,7 +1427,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					set_action(creature_ptr, ACTION_HAYAGAKE);
 				}
 			}
-			energy_use = 0;
+			creature_ptr->energy_use = 0;
 			break;
 		}
 		}
@@ -2169,7 +2169,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("This race has no bonus power.");
 #endif
 
-			energy_use = 0;
+			creature_ptr->energy_use = 0;
 	}
 	}
 	return TRUE;
@@ -2217,7 +2217,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		case TRAIT_STOP_HEX:
 		{
 			bool retval = stop_hex_spell(caster_ptr);
-			if (retval) energy_use = 10;
+			if (retval) caster_ptr->energy_use = 10;
 			return (retval);
 			break;
 		}
@@ -2504,7 +2504,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			if (!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(caster_ptr);
-			energy_use = 10;
+			caster_ptr->energy_use = 10;
 			break;
 		}
 
@@ -2568,7 +2568,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			{
 				set_action(caster_ptr, ACTION_LEARN);
 			}
-			energy_use = 0;
+			caster_ptr->energy_use = 0;
 			break;
 		}
 
@@ -2725,7 +2725,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 					set_action(caster_ptr, ACTION_HAYAGAKE);
 				}
 			}
-			energy_use = 0;
+			caster_ptr->energy_use = 0;
 			break;
 		}
 
@@ -5799,7 +5799,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		msg_print("You are too confused to use any powers!");
 #endif
 
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 		return;
 	}
 
@@ -5841,7 +5841,7 @@ if (!repeat_pull(&i) || i<0 || i>=num) {
 				case '0':
 				{
 					screen_load();
-					energy_use = 0;
+					creature_ptr->energy_use = 0;
 					return;
 				}
 
@@ -6028,7 +6028,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 	/* Abort if needed */
 	if (!flag)
 	{
-		energy_use = 0;
+		creature_ptr->energy_use = 0;
 		return;
 	}
 
@@ -6077,7 +6077,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}
-	else energy_use = 0;
+	else creature_ptr->energy_use = 0;
 
 	/* Success */
 	return;

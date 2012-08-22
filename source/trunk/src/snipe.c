@@ -502,7 +502,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	{
 	case 0: /* Concentration */
 		if (!snipe_concentrate(creature_ptr)) return (FALSE);
-		energy_use = 100;
+		creature_ptr->energy_use = 100;
 		return (TRUE);
 	case 1: creature_ptr->snipe_type = SP_LITE; break;
 	case 2: creature_ptr->snipe_type = SP_AWAY; break;
@@ -594,7 +594,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	if (!cast) return;
 #if 0
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 #endif
 	/* Redraw mana */
 	play_redraw |= (PR_HP | PR_MANA);

@@ -1642,7 +1642,7 @@ msg_print("その方向にはクリーチャーはいません。");
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
 			do_cmd_throw_aux(creature_ptr, 1, FALSE, slot);
 
-			energy_use = 100;
+			creature_ptr->energy_use = 100;
 		}
 		break;
 	}
@@ -2096,11 +2096,11 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 
 
 	/* Take a turn */
-	energy_use = 100;
+	creature_ptr->energy_use = 100;
 	/* teleport from mirror costs small energy */
 	if( on_mirror && creature_ptr->class_idx == CLASS_MIRROR_MASTER )
 	{
-	  if( n==3 || n==5 || n==7 || n==16 )energy_use = 50;
+	  if( n==3 || n==5 || n==7 || n==16 )creature_ptr->energy_use = 50;
 	}
 
 	if ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
