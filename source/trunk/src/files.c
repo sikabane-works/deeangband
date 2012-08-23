@@ -2227,9 +2227,6 @@ static void display_player_various(creature_type * creature_ptr)
 	/* Shooting Skill (with current bow and normal missile) */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
-	tmp = creature_ptr->to_hit_b;
-
-	tmp += object_ptr->to_hit;
 	/* If the player is wielding one? */
 	if (object_ptr->k_idx)
 	{
@@ -2245,13 +2242,8 @@ static void display_player_various(creature_type * creature_ptr)
 			shot_frac = 0;
 			if (creature_ptr->class_idx == CLASS_ARCHER)
 			{
-				/* Extra shot at level 10 */
 				if (creature_ptr->lev >= 10) shots++;
-
-				/* Extra shot at level 30 */
 				if (creature_ptr->lev >= 30) shots++;
-
-				/* Extra shot at level 45 */
 				if (creature_ptr->lev >= 45) shots++;
 			}
 		}
@@ -2262,9 +2254,8 @@ static void display_player_various(creature_type * creature_ptr)
 		shot_frac = 0;
 	}
 
-	/* Basic abilities */
-
-	xthb = creature_ptr->skill_thb + (tmp * BTH_PLUS_ADJ);
+	// Basic abilities
+	xthb = creature_ptr->skill_thb;
 	xdis = creature_ptr->skill_dis;
 	xdev = creature_ptr->skill_dev;
 	xrob = creature_ptr->skill_rob;

@@ -4973,6 +4973,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	creature_ptr->creature_idx = ++creature_idx_latest;
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
+	creature_ptr->lev = 1;
+	creature_ptr->dr = species_ptr->dr;
 
 	if(flags & GC_PLAYER) creature_ptr->player = TRUE;
 
@@ -5044,46 +5046,33 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		creature_ptr->sex = species_ptr->sex;
 	}
 
-	//
 	// Class Select
-	//
 	i = get_creature_class(creature_ptr, species_ptr, auto_generate);
 	if(i == BIRTH_SELECT_RETURN) return (FALSE);
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
-	//
 	// Realm Select
-	//
 	i = get_creature_realms(creature_ptr, species_ptr, auto_generate);
 	if(i == BIRTH_SELECT_RETURN) return (FALSE);
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
-	//
 	// Patron Select
-	//
 	i = get_creature_patron(creature_ptr, species_ptr, auto_generate);
 	if(i == BIRTH_SELECT_RETURN) return (FALSE);
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
-	//
 	// Character Select
-	//
 	i = get_chara_type(creature_ptr, species_ptr, auto_generate);
 	if(i == BIRTH_SELECT_RETURN) return (FALSE);
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
-	//
 	// Starting Point
-	//
 	if(player_generate)
 	{
 		i = get_starting_point(creature_ptr, auto_generate);
 		if(i == BIRTH_SELECT_RETURN) return (FALSE);
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
-
-	creature_ptr->lev = 1;
-	creature_ptr->dr = species_ptr->dr;
 
 	if(player_generate)
 	{
@@ -5135,19 +5124,11 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		if (!auto_generate && (autoroller || autochara))
 		{
 			Term_clear();
-
-			/* Label count */
 #ifdef JP
 			put_str("‰ñ” :", 10, col+13);
-#else
-			put_str("Round:", 10, col+13);
-#endif
-
-
-			/* Indicate the state */
-#ifdef JP
 			put_str("(ESC‚Å’â~)", 12, col+13);
 #else
+			put_str("Round:", 10, col+13);
 			put_str("(Hit ESC to stop)", 12, col+13);
 #endif
 		}
@@ -5155,7 +5136,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		// Otherwise just get a character
 		else
 		{
-
 			set_stats(creature_ptr, species_ptr);   // Get a new character
 			set_age(creature_ptr);                  // Roll for age
 			set_exp(creature_ptr, species_ptr);                  // Roll for exp
@@ -5166,42 +5146,29 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			get_history(creature_ptr);              // Roll for social class
 		}
 
-		/* Feedback */
+		// Feedback
 		if (!auto_generate && autoroller)
 		{
-			/* Label */
+			// Label
 #ifdef JP
 			put_str("Å¬’l", 2, col+5);
-#else
-			put_str(" Limit", 2, col+5);
-#endif
-
-
-			/* Label */
-#ifdef JP
 			put_str("¬Œ÷—¦", 2, col+13);
-#else
-			put_str("  Freq", 2, col+13);
-#endif
-
-
-			/* Label */
-#ifdef JP
 			put_str("Œ»İ’l", 2, col+24);
 #else
+			put_str(" Limit", 2, col+5);
+			put_str("  Freq", 2, col+13);
 			put_str("  Roll", 2, col+24);
 #endif
 
-
-			/* Put the minimal stats */
+			// Put the minimal stats
 			for (i = 0; i < 6; i++)
 			{
 				int j, m;
 
-				/* Label stats */
+				// Label stats
 				put_str(stat_names[i], 3 + i, col);
 
-				/* Race/Class/Species bonus */
+				// Race/Class/Species bonus
 				if(IS_PURE(creature_ptr))
 					j = race_info[creature_ptr->race_idx1].r_adj[i] + 
 						class_info[creature_ptr->class_idx].c_adj[i] +
@@ -5214,11 +5181,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 						chara_info[creature_ptr->chara_idx].a_adj[i] +
 						species_ptr->stat_max[i] / STAT_FRACTION - 10;
 
-
-				/* Obtain the current stat */
+				// Obtain the current stat
 				m = adjust_stat(stat_limit[i], j);
 
-				/* Put the stat */
+				// Put the stat
 				cnv_stat(m, buf);
 				c_put_str(TERM_L_BLUE, buf, 3+i, col+5);
 			}
@@ -5229,11 +5195,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		{
 			bool accept = TRUE;
 
-			/* Get a new character */
-			set_stats(creature_ptr, species_ptr);
-
-			/* Advance the round */
-			auto_round++;
+			set_stats(creature_ptr, species_ptr);	// Get a new character
+			auto_round++;							// Advance the round
 
 			/* Hack -- Prevent overflow */
 			if (auto_round >= 1000000000L)
@@ -5488,18 +5451,12 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	prt("['Q'uit, 'S'tart over, or Enter to continue]", 23, 10);
 #endif
 
-	/* Get a key */
-	c = inkey();
+	
+	c = inkey();	// Get a key
 
-	/* Quit */
-	if (c == 'Q') birth_quit();
-
-	/* Start over */
-	if (c == 'S') return (FALSE);
-
-
-	/* Accept */
-	return (TRUE);
+	if (c == 'Q') birth_quit();		// Quit
+	if (c == 'S') return (FALSE);	// Start over
+	return (TRUE);					// Accept
 }
 
 /*
