@@ -2206,7 +2206,6 @@ static cptr likert(int x, int y)
  */
 static void display_player_various(creature_type * creature_ptr)
 {
-	int         tmp;
 	int			xthn, xthb, xfos, xsrh;
 	int			xdis, xdev, xrob, xagi, xvol, xstl;
 	int			xdig;
@@ -2221,8 +2220,6 @@ static void display_player_various(creature_type * creature_ptr)
 	if (has_trait(creature_ptr, TRAIT_BEAK))      muta_att++;
 	if (has_trait(creature_ptr, TRAIT_TRUNK))     muta_att++;
 	if (has_trait(creature_ptr, TRAIT_TENTACLES)) muta_att++;
-
-	xthn = creature_ptr->skill_thn + (creature_ptr->to_hit_m * BTH_PLUS_ADJ);
 
 	/* Shooting Skill (with current bow and normal missile) */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
@@ -2255,6 +2252,7 @@ static void display_player_various(creature_type * creature_ptr)
 	}
 
 	// Basic abilities
+	xthn = creature_ptr->skill_thn;
 	xthb = creature_ptr->skill_thb;
 	xdis = creature_ptr->skill_dis;
 	xdev = creature_ptr->skill_dev;
@@ -2265,7 +2263,6 @@ static void display_player_various(creature_type * creature_ptr)
 	xsrh = creature_ptr->skill_srh;
 	xfos = creature_ptr->skill_fos;
 	xdig = creature_ptr->skill_dig;
-
 
 	desc = likert(xthn, 10);
 	display_player_one_line(ENTRY_SKILL_FIGHT, desc, likert_color);
