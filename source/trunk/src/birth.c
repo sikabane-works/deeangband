@@ -22,20 +22,6 @@
 #define AUTOROLLER_STEP 5431L
 
 /*
- * Define this to cut down processor use while autorolling
- */
-#if 0
-#  define AUTOROLLER_DELAY
-#endif
-
-/*
- * Maximum number of tries for selection of a proper quest creature
- */
-#define MAX_TRIES 100
-
-#define MAX_CLASS_CHOICE     MAX_CLASS
-
-/*
  * Forward declare
  */
 typedef struct hist_type hist_type;
@@ -4981,11 +4967,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	species_type *species_ptr = &species_info[species_idx];
 
-	/* Wipe the player_generate */
+	// Wipe the player_generate
 	creature_wipe(creature_ptr);
 
 	creature_ptr->creature_idx = ++creature_idx_latest;
-
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
 
@@ -4993,16 +4978,10 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	strcpy(creature_ptr->name, species_name + species_ptr->name);
 
-
 	// Authority is statics
-	for(i = 0; i < 8; i++)
-	{
-		creature_ptr->authority[i] = species_ptr->authority[i];
-	}
-
+	for(i = 0; i < AUTHORITY_FLAG_MAX; i++) creature_ptr->authority[i] = species_ptr->authority[i];
 
 	// Race Select
-
 	if(species_ptr->race_idx1 == INDEX_VARIABLE)
 	{
 		if(!auto_generate)
@@ -5430,37 +5409,27 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 			Term_addch(TERM_WHITE, b2);
 
-			/* Prompt and get a command */
-			c = inkey();
+			
+			c = inkey();	// Prompt and get a command
 
-			/* Quit */
-			if (c == 'Q') birth_quit();
+			if (c == 'Q') birth_quit();							// Quit
+			if (c == 'S') return (FALSE);						// Start over
+			if (c == '\r' || c == '\n' || c == ESCAPE) break;	// Escape accepts the roll
+			if ((c == ' ') || (c == 'r')) break;	// Reroll this character
 
-			/* Start over */
-			if (c == 'S') return (FALSE);
-
-			/* Escape accepts the roll */
-			if (c == '\r' || c == '\n' || c == ESCAPE) break;
-
-			/* Reroll this character */
-			if ((c == ' ') || (c == 'r')) break;
-
-			/* Previous character */
-			if (prev && (c == 'p'))
+			if (prev && (c == 'p'))			// Previous character
 			{
 				*creature_ptr = player_prev;
 				continue;
 			}
 
-			/* Toggle the display */
-			if ((c == 'H') || (c == 'h'))
+			if ((c == 'H') || (c == 'h'))	// Toggle the display
 			{
-				((mode >= 3) ? mode = 0 : mode++);
+				((mode >= DISPLAY_CR_STATUS_MAX) ? mode = DISPLAY_CR_STATUS_STANDARD : mode++);
 				continue;
 			}
 
-			/* Help */
-			if (c == '?')
+			if (c == '?')	// Help
 			{
 #ifdef JP
 				show_help("jbirth.txt#AutoRoller");
@@ -5482,12 +5451,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				continue;
 			}
 
-			/* Warning */
-#ifdef JP
+			// Warning
 			bell();
-#else
-			bell();
-#endif
 
 		}
 

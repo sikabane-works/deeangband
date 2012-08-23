@@ -2516,6 +2516,7 @@
 
 #define TR_FLAG_SIZE		((TR_FLAG_MAX - 1) / 32) + 1
 #define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
+#define AUTHORITY_FLAG_MAX		((MAX_AUTHORITY - 1) / 32) + 1
 
 #define TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
 #define TRG_QUESTITEM           0x00000002L     /* quest level item -KMW- */
