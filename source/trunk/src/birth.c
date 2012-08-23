@@ -1947,7 +1947,7 @@ static int choose_realm(s32b choices, bool npc)
 #else
 	strcpy(re[n].cap, "Back to start");
 #endif
-	re[n].code = -2;
+	re[n].code = BIRTH_SELECT_RETURN;
 	re[n].key = 'S';
 	re[n].d_color = TERM_UMBER;
 	re[n].l_color = TERM_L_UMBER;
@@ -1958,7 +1958,7 @@ static int choose_realm(s32b choices, bool npc)
 #else
 	strcpy(re[n].cap, "Quit game");
 #endif
-	re[n].code = -3;
+	re[n].code = BIRTH_SELECT_QUIT;
 	re[n].key = 'Q';
 	re[n].d_color = TERM_UMBER;
 	re[n].l_color = TERM_L_UMBER;
@@ -2020,10 +2020,10 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 		creature_ptr->realm2 = 255;
 		i = choose_realm(realm_choices1[creature_ptr->class_idx], npc);
 
-		if(i == -2)
-			return -2;
-		else if(i == -3)
-			return -3;
+		if(i == BIRTH_SELECT_RETURN)
+			return BIRTH_SELECT_RETURN;
+		else if(i == BIRTH_SELECT_QUIT)
+			return BIRTH_SELECT_QUIT;
 		else
 			creature_ptr->realm1 = i;
 	}
@@ -2048,10 +2048,10 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 		/* Select the second realm */
 		creature_ptr->realm2 = REALM_NONE;
 		i = choose_realm(realm_choices2[creature_ptr->class_idx] & ~(1 << (creature_ptr->realm1 - 1)), npc);
-		if(i == -2)
-			return -2;
-		else if(i == -3)
-			return -3;
+		if(i == BIRTH_SELECT_RETURN)
+			return BIRTH_SELECT_RETURN;
+		else if(i == BIRTH_SELECT_QUIT)
+			return BIRTH_SELECT_QUIT;
 		else
 			creature_ptr->realm2 = i;
 	}
@@ -3136,7 +3136,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 #else
 	strcpy(se[n].cap, "Back to start");
 #endif
-	se[n].code = -2;
+	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3147,7 +3147,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 #else
 	strcpy(se[n].cap, "Quit game");
 #endif
-	se[n].code = -3;
+	se[n].code = BIRTH_SELECT_QUIT;
 	se[n].key = 'Q';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3232,7 +3232,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 #else
 	strcpy(se[n].cap, "Back to start");
 #endif
-	se[n].code = -2;
+	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3243,7 +3243,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 #else
 	strcpy(se[n].cap, "Quit game");
 #endif
-	se[n].code = -3;
+	se[n].code = BIRTH_SELECT_QUIT;
 	se[n].key = 'Q';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3334,7 +3334,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 #else
 	strcpy(se[n].cap, "Back to start");
 #endif
-	se[n].code = -2;
+	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3345,7 +3345,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 #else
 	strcpy(se[n].cap, "Quit game");
 #endif
-	se[n].code = -3;
+	se[n].code = BIRTH_SELECT_QUIT;
 	se[n].key = 'Q';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3457,7 +3457,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 #else
 	strcpy(se[n].cap, "Back to start");
 #endif
-	se[n].code = -2;
+	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3468,7 +3468,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 #else
 	strcpy(se[n].cap, "Quit game");
 #endif
-	se[n].code = -3;
+	se[n].code = BIRTH_SELECT_QUIT;
 	se[n].key = 'Q';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3560,7 +3560,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 #else
 	strcpy(se[n].cap, "Back to start");
 #endif
-	se[n].code = -2;
+	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3571,7 +3571,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 #else
 	strcpy(se[n].cap, "Quit game");
 #endif
-	se[n].code = -3;
+	se[n].code = BIRTH_SELECT_QUIT;
 	se[n].key = 'Q';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3670,7 +3670,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 #else
 	strcpy(ce[n].cap, "Back to start");
 #endif
-	ce[n].code = -2;
+	ce[n].code = BIRTH_SELECT_RETURN;
 	ce[n].key = 'S';
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
@@ -3681,7 +3681,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 #else
 	strcpy(ce[n].cap, "Quit game");
 #endif
-	ce[n].code = -3;
+	ce[n].code = BIRTH_SELECT_QUIT;
 	ce[n].key = 'Q';
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
@@ -3780,7 +3780,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 #else
 	strcpy(pt[n].cap, "Back to start");
 #endif
-	pt[n].code = -2;
+	pt[n].code = BIRTH_SELECT_RETURN;
 	pt[n].key = 'S';
 	pt[n].d_color = TERM_UMBER;
 	pt[n].l_color = TERM_L_UMBER;
@@ -3791,7 +3791,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 #else
 	strcpy(pt[n].cap, "Quit game");
 #endif
-	pt[n].code = -3;
+	pt[n].code = BIRTH_SELECT_QUIT;
 	pt[n].key = 'Q';
 	pt[n].d_color = TERM_UMBER;
 	pt[n].l_color = TERM_L_UMBER;
@@ -3895,7 +3895,7 @@ static bool get_chara_type(creature_type *creature_ptr, species_type *species_pt
 #else
 	strcpy(ce[n].cap, "Back to start");
 #endif
-	ce[n].code = -2;
+	ce[n].code = BIRTH_SELECT_RETURN;
 	ce[n].key = 'S';
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
@@ -3906,7 +3906,7 @@ static bool get_chara_type(creature_type *creature_ptr, species_type *species_pt
 #else
 	strcpy(ce[n].cap, "Quit game");
 #endif
-	ce[n].code = -3;
+	ce[n].code = BIRTH_SELECT_QUIT;
 	ce[n].key = 'Q';
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
@@ -3981,7 +3981,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 #else
 	strcpy(se[n].cap, "Back to start");
 #endif
-	se[n].code = -2;
+	se[n].code = BIRTH_SELECT_RETURN;
 	se[n].key = 'S';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3992,7 +3992,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 #else
 	strcpy(se[n].cap, "Quit game");
 #endif
-	se[n].code = -3;
+	se[n].code = BIRTH_SELECT_QUIT;
 	se[n].key = 'Q';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -4991,8 +4991,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			put_initial_status(creature_ptr);
 		}
 		i = get_creature_first_race(creature_ptr, species_ptr, auto_generate);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
+		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 	else
 	{
@@ -5003,8 +5003,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	{
 		if(!auto_generate) put_initial_status(creature_ptr);
 		i = get_creature_second_race(creature_ptr, species_ptr, auto_generate);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
+		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 	else
 	{
@@ -5036,8 +5036,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			put_initial_status(creature_ptr);
 		}
 		i = get_creature_sex(creature_ptr, species_ptr, auto_generate);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
+		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 	else
 	{
@@ -5048,29 +5048,29 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	// Class Select
 	//
 	i = get_creature_class(creature_ptr, species_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	//
 	// Realm Select
 	//
 	i = get_creature_realms(creature_ptr, species_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	//
 	// Patron Select
 	//
 	i = get_creature_patron(creature_ptr, species_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	//
 	// Character Select
 	//
 	i = get_chara_type(creature_ptr, species_ptr, auto_generate);
-	if(i == -2) return (FALSE);
-	if(i == -3) birth_quit();
+	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	//
 	// Starting Point
@@ -5078,8 +5078,8 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	if(player_generate)
 	{
 		i = get_starting_point(creature_ptr, auto_generate);
-		if(i == -2) return (FALSE);
-		if(i == -3) birth_quit();
+		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 
 	creature_ptr->lev = 1;
