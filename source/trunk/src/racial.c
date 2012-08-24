@@ -1310,7 +1310,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 			if (is_pet(player_ptr, steed_ptr)) break;
 			rlev = steed_ptr->lev;
-			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
+			if (has_trait(steed_ptr, TRAIT_UNIQUE)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(creature_ptr->skill_exp[SKILL_RIDING] / 120 + creature_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
@@ -2613,7 +2613,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #endif
 			if (is_pet(player_ptr, steed_ptr)) break;
 			rlev = steed_ptr->lev;
-			if (is_unique_creature(steed_ptr)) rlev = rlev * 3 / 2;
+			if (has_trait(steed_ptr, TRAIT_UNIQUE)) rlev = rlev * 3 / 2;
 			if (rlev > 60) rlev = 60+(rlev-60)/2;
 			if ((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + caster_ptr->lev * 2 / 3) > rlev)
 			    && one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
@@ -5135,7 +5135,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 				else
 					msg_format("%^sは魔法で%sを召喚した。",
 					caster_name,
-					(is_unique_creature(caster_ptr) ?
+					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
 					"手下" : "仲間"));
 #else
 				if (blind)
@@ -5143,7 +5143,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 				else
 					msg_format("%^s magically summons %s %s.",
 					caster_name, m_poss,
-					is_unique_creature(caster_ptr) ?
+					has_trait(caster_ptr, TRAIT_UNIQUE) ?
 					"minions" : "kin"));
 #endif
 			}

@@ -989,7 +989,7 @@ s16b creature_pop(void)
 
 		// Skip live creatures and player
 		if (creature_ptr->species_idx ||
-			is_unique_creature(creature_ptr) ||
+			has_trait(creature_ptr, TRAIT_UNIQUE) ||
 			is_player(creature_ptr)) continue;
 
 		// Count creature and return using id

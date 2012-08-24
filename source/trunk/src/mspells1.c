@@ -3694,7 +3694,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 				else
 					msg_format("%^sは魔法で%sを召喚した。",
 					m_name,
-					(is_unique_creature(caster_ptr) ?
+					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
 					"手下" : "仲間"));
 #else
 				if (blind)
@@ -3702,7 +3702,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 				else
 					msg_format("%^s magically summons %s %s.",
 					m_name, m_poss,
-					is_unique_creature(caster_ptr) ?
+					has_trait(caster_ptr, TRAIT_UNIQUE) ?
 					"minions" : "kin"));
 #endif
 			}

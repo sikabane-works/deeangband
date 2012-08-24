@@ -1844,7 +1844,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	if (skipped) return (FALSE);
 
 	/* "Unique" creatures cannot be polymorphed */
-	if (is_unique_creature(target_ptr)) do_poly = FALSE;
+	if (has_trait(target_ptr, TRAIT_UNIQUE)) do_poly = FALSE;
 
 	/* Quest creatures cannot be polymorphed */
 	if (has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE;
@@ -3260,7 +3260,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			{
 				// Powerful creatures can resist
-				if ((is_unique_creature(target_ptr)) ||
+				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					obvious = FALSE;
@@ -3601,7 +3601,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			if (target_ptr->resist_tele)
 			{
-				if (is_unique_creature(target_ptr))
+				if (has_trait(target_ptr, TRAIT_UNIQUE))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -3645,7 +3645,7 @@ note = "には耐性がある！";
 			{
 				// 1. slowness
 				// Powerful creatures can resist
-				if ((is_unique_creature(target_ptr)) ||
+				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					obvious = FALSE;
@@ -3667,7 +3667,7 @@ note = "には耐性がある！";
 				do_stun = diceroll((caster_lev / 20) + 3 , (dam)) + 1;
 
 				// Attempt a saving throw
-				if ((is_unique_creature(target_ptr)) ||
+				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					// Resist
@@ -3863,7 +3863,7 @@ note_dies = "は蒸発した！";
 				break;
 			}
 			// Powerful creatures can resist
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -4209,7 +4209,7 @@ note = "は眠り込んでしまった！";
 				obvious = FALSE;
 				dam = 0;
 			}
-			else if (((is_unique_creature(target_ptr)) &&
+			else if (((has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				 (randint1(888) != 666)) ||
 				 (((species_ptr->level + randint1(20)) > randint1((caster_lev / 2) + randint1(10))) &&
 				 randint1(100) != 66))
@@ -4441,7 +4441,7 @@ note = "は眠り込んでしまった！";
 			}
 
 			// Attempt a saving throw
-			if (is_unique_creature(target_ptr) ||
+			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
 			   (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
@@ -4580,7 +4580,7 @@ note = "は眠り込んでしまった！";
 			}
 
 			// Attempt a saving throw 
-			if (is_unique_creature(target_ptr) ||
+			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
 				 (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
 			{
@@ -4910,7 +4910,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if (is_unique_creature(target_ptr))
+			if (has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5229,7 +5229,7 @@ note = "は眠り込んでしまった！";
 			do_stun = diceroll((caster_lev / 20) + 3 , dam) + 1;
 
 			/* Attempt a saving throw */
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > 5 + randint1(dam)))
 			{
 				/* Resist */
@@ -5425,7 +5425,7 @@ note = "は眠り込んでしまった！";
 			do_poly = TRUE;
 
 			/* Powerful creatures can resist */
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -5451,7 +5451,7 @@ note = "は眠り込んでしまった！";
 		{
 			if (seen) obvious = TRUE;
 
-			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
+			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -5529,7 +5529,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    !(is_enemy_of_good_creature(target_ptr)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -5575,7 +5575,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -5639,7 +5639,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5722,7 +5722,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5797,7 +5797,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5875,7 +5875,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -5971,7 +5971,7 @@ note = "は眠り込んでしまった！";
 				break;
 			}
 
-			if ((is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
@@ -6037,7 +6037,7 @@ note = "は眠り込んでしまった！";
 			do_conf = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if (is_unique_creature(target_ptr) ||
+			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
 			    has_trait(target_ptr, TRAIT_NO_CONF) ||
 			   (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -6083,7 +6083,7 @@ note = "は眠り込んでしまった！";
 			do_stun = diceroll((caster_lev / 20) + 3 , (dam)) + 1;
 
 			/* Attempt a saving throw */
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Resist */
@@ -6197,7 +6197,7 @@ note = "は眠り込んでしまった！";
 
 				if (has_trait(target_ptr, TRAIT_RES_TELE))
 				{
-					if ((is_unique_creature(target_ptr)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+					if ((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -6252,7 +6252,7 @@ note = "は眠り込んでしまった！";
 
 				if (has_trait(target_ptr, TRAIT_RES_TELE))
 				{
-					if ((is_unique_creature(target_ptr)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+					if ((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
 						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -6303,7 +6303,7 @@ note = "には耐性がある！";
 			bool resists_tele = FALSE;
 			if (has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if ((is_unique_creature(target_ptr)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+				if ((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 				{
 					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -6453,7 +6453,7 @@ note = "には耐性がある！";
 			do_fear = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if ((is_unique_creature(target_ptr)) ||
+			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -6708,7 +6708,7 @@ note = "には耐性がある！";
 		{
 			int nokori_hp;
 			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-			    (is_unique_creature(target_ptr)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
+			    (has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",target_name);
@@ -6829,7 +6829,7 @@ msg_format("うまく捕まえられなかった。");
 			if (effect == 1)
 			{
 				/* Powerful creatures can resist */
-				if ((is_unique_creature(target_ptr)) ||
+				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 #ifdef JP
@@ -6860,7 +6860,7 @@ msg_format("うまく捕まえられなかった。");
 				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
-				if ((is_unique_creature(target_ptr)) ||
+				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Resist */
@@ -6880,7 +6880,7 @@ msg_format("うまく捕まえられなかった。");
 			else if (effect == 3)
 			{
 				/* Attempt a saving throw */
-				if (is_unique_creature(target_ptr) ||
+				if (has_trait(target_ptr, TRAIT_UNIQUE) ||
 				    has_trait(target_ptr, TRAIT_NO_SLEEP) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
@@ -7044,7 +7044,7 @@ msg_format("うまく捕まえられなかった。");
 
 				/* Attempt a saving throw */
 				else if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				    (is_unique_creature(target_ptr)) ||
+				    (has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				    (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					 ((species_ptr->level+10) > randint1(dam)))

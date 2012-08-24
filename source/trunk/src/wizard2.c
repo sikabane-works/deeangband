@@ -1462,7 +1462,7 @@ static void do_cmd_wiz_creature_list(void)
 				ce[n].d_color = TERM_UMBER;
 				ce[n].l_color = TERM_YELLOW;
 			}
-			else if(is_unique_creature(&creature_list[i]))
+			else if(has_trait(&creature_list[i], TRAIT_UNIQUE))
 			{
 				ce[n].d_color = TERM_GREEN;
 				ce[n].l_color = TERM_L_GREEN;

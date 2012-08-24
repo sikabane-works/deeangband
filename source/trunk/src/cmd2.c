@@ -3518,7 +3518,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				if (creature_ptr->snipe_type == SP_NEEDLE)
 				{
 					if ((randint1(randint1(m_ptr->lev / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
-						&& !is_unique_creature(m_ptr) && !has_trait(m_ptr, TRAIT_UNIQUE2))
+						&& !has_trait(m_ptr, TRAIT_UNIQUE) && !has_trait(m_ptr, TRAIT_UNIQUE2))
 					{
 						char m_name[80];
 

@@ -1445,7 +1445,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 		if (is_pet(player_ptr, pet_ptr))
 		{
 			master_ptr->total_friends++;
-			if (is_unique_creature(master_ptr))
+			if (has_trait(master_ptr, TRAIT_UNIQUE))
 			{
 				if (master_ptr->class_idx == CLASS_CAVALRY)
 				{

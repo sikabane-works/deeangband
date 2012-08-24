@@ -1409,7 +1409,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 	bool see_m = is_seen(player_ptr, creature_ptr);
 
 	// Sometimes die
-	if (!randint0(QUANTUM_CREATURE_VANISH_CHANCE) && !is_unique_creature(creature_ptr))
+	if (!randint0(QUANTUM_CREATURE_VANISH_CHANCE) && !has_trait(creature_ptr, TRAIT_UNIQUE))
 	{
 		bool sad = FALSE;
 
@@ -1604,7 +1604,7 @@ static void process_nonplayer(int m_idx)
 
 // TODO Riding pinch
 /*
-	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !floor_ptr->gamble_arena_mode)
+	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !floor_ptr->gamble_arena_mode)
 	{
 		static int riding_pinch = 0;
 
@@ -1696,7 +1696,7 @@ static void process_nonplayer(int m_idx)
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
 	if (is_pet(player_ptr, creature_ptr) &&
-	    (((is_unique_creature(creature_ptr) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
+	    (((has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
 	      creature_has_hostile_align(creature_ptr, player_ptr))
 	     || (has_trait(creature_ptr, TRAIT_RES_ALL))))
 	{

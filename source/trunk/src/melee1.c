@@ -470,7 +470,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		k = invuln_damage_mod(target_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((attacker_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
 		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
-			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !is_unique_creature(target_ptr) && !has_trait(target_ptr, TRAIT_UNIQUE2))
+			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
@@ -496,9 +496,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 			}
 
-			else if (((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !is_unique_creature(target_ptr) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
+			else if (((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
 			{
-				if (is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_UNIQUE2) || (target_ptr->chp >= target_ptr->mhp/2))
+				if (has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_UNIQUE2) || (target_ptr->chp >= target_ptr->mhp/2))
 				{
 					k = MAX(k*5, target_ptr->chp/2);
 					drain_result *= 2;
@@ -661,7 +661,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			if (has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if (is_unique_creature(target_ptr))
+				if (has_trait(target_ptr, TRAIT_UNIQUE))
 				{
 					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -700,7 +700,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 		{
-			if (!(is_unique_creature(target_ptr) || has_trait(target_ptr, TRAIT_QUESTOR)) &&
+			if (!(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) &&
 				!has_trait(target_ptr, TRAIT_RES_CHAO))
 			{
 				if (polymorph_creature(attacker_ptr, y, x))
@@ -1150,7 +1150,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		else if ((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if (!is_unique_creature(target_ptr) &&
+			if (!has_trait(target_ptr, TRAIT_UNIQUE) &&
 			    (randint1(attacker_ptr->lev) > r_ptr->level) &&
 			    target_ptr->speed > 60)
 			{

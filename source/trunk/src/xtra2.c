@@ -751,7 +751,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 
 	int number = 0;
 
-	bool visible = ((killed_ptr->ml && !slayer_ptr->image) || (is_unique_creature(killed_ptr)));
+	bool visible = ((killed_ptr->ml && !slayer_ptr->image) || (has_trait(killed_ptr, TRAIT_UNIQUE)));
 
 	u32b mo_mode = 0L;
 
@@ -1328,7 +1328,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		}
 	}
 
-	if (cloned && !(is_unique_creature(killed_ptr)))
+	if (cloned && !(has_trait(killed_ptr, TRAIT_UNIQUE)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
 	if (is_pet(player_ptr, killed_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
