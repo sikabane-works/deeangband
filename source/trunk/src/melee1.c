@@ -205,7 +205,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 	if (attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
-	zantetsu_mukou = ((weapon_ptr->name1 == ART_ZANTETSU) && (r_ptr->d_char == 'j'));
+	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (r_ptr->d_char == 'j'));
+
 	e_j_mukou = ((weapon_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
@@ -228,18 +229,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 		{
 #ifdef JP
-			if (backstab)
-			{
-				msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", attacker_name, target_name);
-			}
-			else if (fuiuchi)
-			{
-				msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", attacker_name, target_name);
-			}
-			else if (stab_fleeing)
-			{
-				msg_format("%sは逃げる%sを背中から突き刺した！", attacker_name, target_name);
-			}
+			if (backstab)			msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", attacker_name, target_name);
+			else if (fuiuchi)		msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", attacker_name, target_name);
+			else if (stab_fleeing)	msg_format("%sは逃げる%sを背中から突き刺した！", attacker_name, target_name);
 #else
 			if (backstab)
 			{
@@ -259,7 +251,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 		}
 
-		/* Hack -- bare hands do one damage */
+		// Hack -- bare hands do one damage
 		k = 1;
 
 		object_flags(weapon_ptr, flgs);
@@ -558,7 +550,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				//TODO
 			}
-			if ((weapon_ptr->name1 == ART_ZANTETSU) && is_lowlevel)
+			if (has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT) && is_lowlevel)
 				if(is_player(attacker_ptr))
 #ifdef JP
 					msg_print("またつまらぬものを斬ってしまった．．．");
@@ -1279,7 +1271,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
 		{
-			if (attacker_ptr->inventory[i].name1 == ART_ZANTETSU)
+			if (has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
 #ifdef JP
 				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);

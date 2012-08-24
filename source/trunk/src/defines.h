@@ -901,7 +901,7 @@
 #define ART_NOVA                137
 #define ART_CHARIOT             140
 #define ART_WORPAL_BLADE        142
-#define ART_ZANTETSU            150
+//#define ART_ZANTETSU            150
 #define ART_SOULCRUSH           154
 #define ART_FALIS               155
 #define ART_HRUNTING            156
