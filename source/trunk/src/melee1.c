@@ -1583,8 +1583,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				case MELEE_TYPE_SPECIAL_4TH:
 					special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
 					action_cost[i] = calc_special_melee_cost(attacker_ptr, special_ptr);
-					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice > 0 && action_cost[i] <= action_power
-						)
+					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice > 0 && action_cost[i] <= action_power)
 					{
 						select_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
 						select_list[action_num] = i;
@@ -1686,13 +1685,10 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	/* Hack -- delay fear messages */
+	// Hack -- delay fear messages
 	if (fear && target_ptr->ml && !dead)
 	{
-		/* Sound */
-		sound(SOUND_FLEE);
-
-		/* Message */
+		sound(SOUND_FLEE); // Sound
 #ifdef JP
 		msg_format("%^s‚Í‹°•|‚µ‚Ä“¦‚°o‚µ‚½I", target_name);
 #else

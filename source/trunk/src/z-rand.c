@@ -397,22 +397,22 @@ u32b Rand_simple(u32b m)
 // D'angband added.
 // Random select by rarity.
 
-int uneven_rand(int *id_list, int *rarity_list, int num)
+int uneven_rand(int *id_list, int *weight_list, int num)
 {
 	int i;
 
 	long value, total = 0L;
 	
 	for (i = 0; i < num; i++)
-		if (rarity_list[i] > 0) total += 10000 / rarity_list[i];
+		if (weight_list[i] > 0) total += 10000 / weight_list[i];
 
 	value = randint0(total - 1);
 
 	for (i = 0; i < num; i++)
 	{
-		if (rarity_list[i])
+		if (weight_list[i])
 		{
-			value -= 10000 / rarity_list[i];
+			value -= 10000 / weight_list[i];
 			if(value < 0) return id_list[i];
 		}
 	}

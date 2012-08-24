@@ -3837,7 +3837,7 @@ static bool get_chara_type(creature_type *creature_ptr, species_type *species_pt
 	int i, n;
 	selection ce[MAX_CHARA + 3];
 	int id[MAX_CHARA];
-	int rarity[MAX_CHARA];
+	int weight[MAX_CHARA];
 
 	if(!npc)
 	{
@@ -3868,14 +3868,14 @@ static bool get_chara_type(creature_type *creature_ptr, species_type *species_pt
 			ce[n].l_color = TERM_WHITE;
 
 			id[n] = i;
-			rarity[n] = chara_info[i].rarity;
+			weight[n] = (chara_info[i].rarity ? 10000 / chara_info[i].rarity : 10000);
 			n++;
 		}
 	}
 
 	if(npc)
 	{
-		creature_ptr->chara_idx = uneven_rand(id, rarity, n);
+		creature_ptr->chara_idx = uneven_rand(id, weight, n);
 		return 0;
 	}
 
@@ -3928,7 +3928,7 @@ static bool get_chara_type(creature_type *creature_ptr, species_type *species_pt
 	}
 	else if(i == -1)
 	{
-		creature_ptr->chara_idx = uneven_rand(id, rarity, n - 3);
+		creature_ptr->chara_idx = uneven_rand(id, weight, n - 3);
 		return 0;
 	}
 	else
