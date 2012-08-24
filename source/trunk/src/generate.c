@@ -187,7 +187,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 			species_type *r_ptr = &species_info[quest[q_idx].species_idx];
 
 			/* The quest creature(s) is still alive? */
-			if (!(is_unique_species(r_ptr)) || 0 < r_ptr->max_num)
+			if (!(has_trait_species(r_ptr, TRAIT_UNIQUE)) || 0 < r_ptr->max_num)
 				return TRUE;
 		}
 
@@ -494,7 +494,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 		r_ptr = &species_info[quest[i].species_idx];
 
 		/* Hack -- "unique" creatures must be "unique" */
-		if ((is_unique_species(r_ptr)) &&
+		if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num)) continue;
 
 		mode = (PM_NO_KAGE | PM_NO_PET);

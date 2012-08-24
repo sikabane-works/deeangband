@@ -1832,10 +1832,10 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		if (!cheat_know && !r_ptr->r_sights) continue;
 
 		/* Require non-unique creatures if needed */
-		if (norm && is_unique_species(r_ptr)) continue;
+		if (norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require unique creatures if needed */
-		if (uniq && !is_unique_species(r_ptr)) continue;
+		if (uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require ridable creatures if needed */
 		if (ride && !has_trait_species(r_ptr, TRAIT_RIDING)) continue;

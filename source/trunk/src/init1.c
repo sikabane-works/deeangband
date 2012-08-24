@@ -6887,7 +6887,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 					quest_ptr->flags  = atoi(zz[10]);
 
 				r_ptr = &species_info[quest_ptr->species_idx];
-				//if (is_unique_species(r_ptr))
+				//if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 					//TODO r_ptr->flags1 |= RF1_QUESTOR;
 
 				a_ptr = &artifact_info[quest_ptr->k_idx];

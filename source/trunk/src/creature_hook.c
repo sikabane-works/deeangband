@@ -114,7 +114,7 @@ void roff_top(int species_idx)
 
 #ifndef JP
 	/* A title (use "The" for non-uniques) */
-	if (!(is_unique_species(r_ptr)))
+	if (!(has_trait_species(r_ptr, TRAIT_UNIQUE)))
 	{
 		Term_addstr(-1, TERM_WHITE, "The ");
 	}

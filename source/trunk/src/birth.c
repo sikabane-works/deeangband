@@ -2594,7 +2594,7 @@ void determine_random_questor(quest_type *quest_ptr)
 		species_idx = get_species_num(current_floor_ptr, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
 		species_ptr = &species_info[species_idx];
 
-		if (!is_unique_species(species_ptr)) continue;
+		if (!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 		if (has_trait_species(species_ptr, TRAIT_QUESTOR)) continue;
 		if (species_ptr->rarity > 100) continue;
 		if (has_trait_species(species_ptr, TRAIT_FRIENDLY)) continue;
@@ -2755,7 +2755,7 @@ bool creature_hook_human(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (is_unique_species(r_ptr)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_UNIQUE)) return FALSE;
 	if (my_strchr("pht", r_ptr->d_char)) return TRUE;
 
 	return FALSE;

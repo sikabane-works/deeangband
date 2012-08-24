@@ -677,7 +677,7 @@ species_type *real_species_ptr(creature_type *m_ptr)
 	/* Extract real race */
 	if (m_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
-		if (is_unique_species(r_ptr))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 			return &species_info[SPECIES_CHAMELEON_K];
 		else
 			return &species_info[SPECIES_CHAMELEON];
@@ -839,7 +839,7 @@ void compact_creatures(int size)
 			if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) && (cnt < 1000)) chance = 100;
 
 			/* Try not to compact Unique Creatures */
-			if (is_unique_species(r_ptr)) chance = 100;
+			if (has_trait_species(r_ptr, TRAIT_UNIQUE)) chance = 100;
 
 			/* All creatures get a saving throw */
 			if (randint0(100) < chance) continue;
@@ -1127,7 +1127,7 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_UNIQUE:
 		{
-			okay = (is_unique_species(r_ptr)) ? TRUE : FALSE;
+			okay = (has_trait_species(r_ptr, TRAIT_UNIQUE)) ? TRUE : FALSE;
 			break;
 		}
 
@@ -1718,7 +1718,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx)
 		{
 			// Hack -- "unique" creatures must be "unique"
-			if ((is_unique_species(r_ptr)) && (r_ptr->cur_num >= r_ptr->max_num)) continue;
+			if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) && (r_ptr->cur_num >= r_ptr->max_num)) continue;
 			if (has_trait_species(r_ptr, TRAIT_UNIQUE2) && (r_ptr->cur_num >= 1)) continue;
 			if (species_idx == SPECIES_BANORLUPART)
 			{
@@ -2034,7 +2034,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if ((is_unique_species(species_ptr)) && !(IS_HALLUCINATION(player_ptr) && !(mode & MD_IGNORE_HALLU)))
+		if ((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(IS_HALLUCINATION(player_ptr) && !(mode & MD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
 			if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
@@ -2139,7 +2139,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 		if ((mode & MD_IGNORE_HALLU) && (creature_ptr->mflag2 & MFLAG2_CHAMELEON))
 		{
-			if (is_unique_species(species_ptr))
+			if (has_trait_species(species_ptr, TRAIT_UNIQUE))
 			{
 #ifdef JP
 				strcat(desc,"(カメレオンの王)");
@@ -3116,7 +3116,7 @@ static bool creature_hook_chameleon_lord(int species_idx)
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
-	if (!(is_unique_species(r_ptr))) return FALSE;
+	if (!(has_trait_species(r_ptr, TRAIT_UNIQUE))) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 
 	if (ABS(r_ptr->level - species_info[SPECIES_CHAMELEON_K].level) > 5) return FALSE;
@@ -3139,7 +3139,7 @@ static bool creature_hook_chameleon(int species_idx)
 	species_type *old_r_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
-	if (is_unique_species(r_ptr)) return FALSE;
+	if (has_trait_species(r_ptr, TRAIT_UNIQUE)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
 	
@@ -3289,7 +3289,7 @@ static bool creature_hook_tanuki(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
-	if (is_unique_species(species_ptr)) return FALSE;
+	if (has_trait_species(species_ptr, TRAIT_UNIQUE)) return FALSE;
 	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;
 	if (has_trait_species(species_ptr, TRAIT_FRIENDLY) || has_trait_species(species_ptr, TRAIT_CHAMELEON)) return FALSE;
 	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;
@@ -3900,7 +3900,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (!floor_ptr->gamble_arena_mode)
 	{
 		/* Hack -- "unique" creatures must be "unique" */
-		if (((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL)) &&
+		if (((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
@@ -3992,7 +3992,7 @@ msg_print("守りのルーンが壊れた！");
 		else return max_creature_idx;
 	}
 
-	if ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	{
 	creature_type cr;
@@ -4054,7 +4054,7 @@ msg_print("守りのルーンが壊れた！");
 		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
-		if (summoner_ptr && (is_unique_species(r_ptr)) && is_player(summoner_ptr))
+		if (summoner_ptr && (has_trait_species(r_ptr, TRAIT_UNIQUE)) && is_player(summoner_ptr))
 			creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
 	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
@@ -4135,7 +4135,7 @@ msg_print("守りのルーンが壊れた！");
 	 */
 /*TODO
 	if (floor_generated &&
-	    ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL)))
+	    ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL)))
 		real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
 */
 
@@ -4151,7 +4151,7 @@ msg_print("守りのルーンが壊れた！");
 /* TODO
 	if (watcher_ptr->warning && floor_generated)
 	{
-		if (is_unique_species(r_ptr))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 		{
 			cptr color;
 			object_type *object_ptr;
@@ -4625,7 +4625,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 		r_ptr = &species_info[species_idx];
 
-		if (is_unique_species(r_ptr)) continue;
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		if (species_idx == SPECIES_HAGURE) continue;
 		break;
@@ -4792,10 +4792,10 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
+	    ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
 
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 

@@ -5129,7 +5129,7 @@ static bool creature_tsuri(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (has_trait_species(r_ptr, TRAIT_AQUATIC) && !is_unique_species(r_ptr) && my_strchr("Jjlw", r_ptr->d_char))
+	if (has_trait_species(r_ptr, TRAIT_AQUATIC) && !has_trait_species(r_ptr, TRAIT_UNIQUE) && my_strchr("Jjlw", r_ptr->d_char))
 		return TRUE;
 	else
 		return FALSE;
@@ -6022,7 +6022,7 @@ void determine_bounty_uniques(void)
 			kubi_species_idx[i] = get_species_num(current_floor_ptr, MAX_DEPTH - 1);
 			r_ptr = &species_info[kubi_species_idx[i]];
 
-			if (!is_unique_species(r_ptr)) continue;
+			if (!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 			//TODO if (!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
 			if (r_ptr->rarity > 100) continue;
 			if (no_questor_or_bounty_uniques(kubi_species_idx[i])) continue;
@@ -6079,7 +6079,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		today_mon = get_species_num(current_floor_ptr, max_dl);
 		r_ptr = &species_info[today_mon];
 
-		if (is_unique_species(r_ptr) || has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE) || has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
 		if (has_trait_species(r_ptr, TRAIT_NAZGUL) ) continue;
 		if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) continue;
 		if (!has_trait_species(r_ptr, TRAIT_DROP_CORPSE) && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
@@ -6973,7 +6973,7 @@ void world_wipe()
 
 		species_ptr->cur_num = 0; // Hack -- Reset the counter
 		species_ptr->max_num = 100; // Hack -- Reset the max counter
-		if (is_unique_species(species_ptr)) species_ptr->max_num = 1; // Hack -- Reset the max counter
+		if (has_trait_species(species_ptr, TRAIT_UNIQUE)) species_ptr->max_num = 1; // Hack -- Reset the max counter
 		else if (has_trait_raw(&species_ptr->flags, TRAIT_NAZGUL)) species_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 
 		species_ptr->r_pkills = 0; // Clear visible kills in this life

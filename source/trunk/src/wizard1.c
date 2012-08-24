@@ -1793,7 +1793,7 @@ static void spoil_species_desc(cptr fname)
 			sprintf(nam, "[Q] %s", name);
 		}
 		*/
-		if (is_unique_species(species_ptr))
+		if (has_trait_species(species_ptr, TRAIT_UNIQUE))
 		{
 			sprintf(nam, "[U] %s", name);
 		}

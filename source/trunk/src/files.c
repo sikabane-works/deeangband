@@ -4869,7 +4869,7 @@ static void dump_aux_creatures(FILE *fff)
  		if (!r_ptr->name) continue;
 
 		/* Unique creatures */
-		if (is_unique_species(r_ptr))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 		{
 			bool dead = (r_ptr->max_num == 0);
 			if (dead)

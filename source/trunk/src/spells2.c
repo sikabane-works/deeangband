@@ -2625,7 +2625,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	if (is_pet(player_ptr, m_ptr) && !player_cast) return FALSE;
 
 	/* Hack -- Skip Unique Creatures or Quest Creatures */
-	if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) || is_unique_species(r_ptr)) resist = TRUE;
+	if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) || has_trait_species(r_ptr, TRAIT_UNIQUE)) resist = TRUE;
 	else if (has_trait_species(r_ptr, TRAIT_UNIQUE2)) resist = TRUE;
 	else if (m_idx == user_ptr->riding) resist = TRUE;
 	else if ((inside_quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
@@ -3866,7 +3866,7 @@ void discharge_minion(creature_type *caster_ptr)
 		r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Uniques resist discharging */
-		if (is_unique_species(r_ptr))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 		{
 			char m_name[80];
 			creature_desc(m_name, m_ptr, 0x00);

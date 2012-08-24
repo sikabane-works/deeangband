@@ -928,7 +928,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 		creature_desc(m_name, m_ptr, 0);
 		if (has_trait(m_ptr, TRAIT_RES_TELE))
 		{
-			if ((is_unique_species(r_ptr)) || has_trait(m_ptr, TRAIT_RES_ALL))
+			if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
 			{
 				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP

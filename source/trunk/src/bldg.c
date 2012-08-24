@@ -1615,7 +1615,7 @@ static bool vault_aux_battle(int species_idx)
 
 	species_type *species_ptr = &species_info[species_idx];
 	
-	if (is_unique_species(species_ptr)) return (FALSE); // Decline unique creatures
+	if (has_trait_species(species_ptr, TRAIT_UNIQUE)) return (FALSE); // Decline unique creatures
 	if (has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return (FALSE);
 	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return (FALSE);
 	if (has_trait_species(species_ptr, TRAIT_QUANTUM)) return (FALSE);
@@ -1783,9 +1783,9 @@ static bool kakutoujou(creature_type *creature_ptr)
 			species_type *r_ptr = &species_info[battle_mon[i]];
 
 #ifdef JP
-			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",species_name + r_ptr->name, is_unique_species(r_ptr) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld倍", i+1, format("%s%s",species_name + r_ptr->name, has_trait_species(r_ptr, TRAIT_UNIQUE) ? "もどき" : "      "), mon_odds[i]/100, mon_odds[i]%100);
 #else
-			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", is_unique_species(r_ptr) ? "Fake " : "", species_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", has_trait_species(r_ptr, TRAIT_UNIQUE) ? "Fake " : "", species_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
 #endif
 			prt(buf, 5+i, 1);
 		}
@@ -2832,7 +2832,7 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 
 			species_ptr = &species_info[quest_ptr->species_idx];
 
-			while (is_unique_species(species_ptr) || (species_ptr->rarity != 1))
+			while (has_trait_species(species_ptr, TRAIT_UNIQUE) || (species_ptr->rarity != 1))
 			{
 				quest_ptr->species_idx = get_species_num(floor_ptr, quest_ptr->level) + 4 + (s16b)randint1(6);
 				species_ptr = &species_info[quest_ptr->species_idx];
@@ -4228,10 +4228,10 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 		/* XTRA HACK WHATSEARCH */
 		/* Require non-unique creatures if needed */
-		if (norm && is_unique_species(r_ptr)) continue;
+		if (norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require unique creatures if needed */
-		if (uniq && !is_unique_species(r_ptr)) continue;
+		if (uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* 名前検索 */
 		if (temp[0])
@@ -4970,7 +4970,7 @@ void quest_discovery(int q_idx)
 		/* Unique */
 
 		/* Hack -- "unique" creatures must be "unique" */
-		if (is_unique_species(species_ptr) && (0 == species_ptr->max_num))
+		if (has_trait_species(species_ptr, TRAIT_UNIQUE) && (0 == species_ptr->max_num))
 		{
 #ifdef JP
 			msg_print("この階は以前は誰かによって守られていたようだ…。");

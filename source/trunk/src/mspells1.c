@@ -4001,7 +4001,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			else msg_format("%^s magically summons an angel!", m_name);
 #endif
 
-			if (is_unique_species(r_ptr))
+			if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 			{
 				num += r_ptr->level/40;
 			}

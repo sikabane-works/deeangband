@@ -5420,7 +5420,7 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 
 		if (grp_unique)
 		{
-			if (!is_unique_species(r_ptr)) continue;
+			if (!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 		}
 
 		else if (grp_riding)
@@ -6832,7 +6832,7 @@ static void do_cmd_knowledge_uniques(void)
 		if (!r_ptr->name) continue;
 
 		/* Require unique creatures */
-		if (!is_unique_species(r_ptr)) continue;
+		if (!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Only display "known" uniques */
 		if (!cheat_know && !r_ptr->r_sights) continue;
@@ -7404,7 +7404,7 @@ static void do_cmd_knowledge_kill_count(void)
 		{
 			species_type *r_ptr = &species_info[kk];
 
-			if (is_unique_species(r_ptr))
+			if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 			{
 				bool dead = (r_ptr->max_num == 0);
 
@@ -7457,7 +7457,7 @@ static void do_cmd_knowledge_kill_count(void)
 	{
 		species_type *r_ptr = &species_info[who[k]];
 
-		if (is_unique_species(r_ptr))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 		{
 			bool dead = (r_ptr->max_num == 0);
 
@@ -7931,7 +7931,7 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 		if (!visual_only)
 		{
 			/* Display kills */
-			if (!is_unique_species(r_ptr)) put_str(format("%5d", r_ptr->r_pkills), row + i, 73);
+			if (!has_trait_species(r_ptr, TRAIT_UNIQUE)) put_str(format("%5d", r_ptr->r_pkills), row + i, 73);
 #ifdef JP
 			else c_put_str((r_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (r_ptr->max_num == 0 ? "€–S" : "¶‘¶"), row + i, 74);
 #else

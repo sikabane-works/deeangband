@@ -1313,7 +1313,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #else
 					cptr t = species_name + r_ptr->name;
 
-					if (!is_unique_species(r_ptr))
+					if (!has_trait_species(r_ptr, TRAIT_UNIQUE))
 					{
 						sprintf(tmp_val2, " (%s%s)", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1342,7 +1342,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #else
 			cptr t = species_name + r_ptr->name;
 
-			if (!is_unique_species(r_ptr))
+			if (!has_trait_species(r_ptr, TRAIT_UNIQUE))
 			{
 				sprintf(tmp_val2, "%s%s", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1368,7 +1368,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #ifdef JP
 			basenm = "#%";
 #else
-			if (is_unique_species(r_ptr))
+			if (has_trait_species(r_ptr, TRAIT_UNIQUE))
 				basenm = "& % of #";
 			else
 				basenm = "& # %";

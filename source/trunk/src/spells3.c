@@ -5336,7 +5336,7 @@ static s16b poly_species_idx(int pre_species_idx)
 	int i, r, lev1, lev2;
 
 	// Hack -- Uniques/Questors never polymorph
-	if (is_unique_species(species_ptr) || has_trait_species(species_ptr, TRAIT_QUESTOR))
+	if (has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait_species(species_ptr, TRAIT_QUESTOR))
 		return (pre_species_idx);
 
 	// Allowable range of "levels" for resulting creature
@@ -5356,7 +5356,7 @@ static s16b poly_species_idx(int pre_species_idx)
 		species_ptr = &species_info[r];
 
 		/* Ignore unique creatures */
-		if (is_unique_species(species_ptr)) continue;
+		if (has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Ignore creatures with incompatible levels */
 		if ((species_ptr->level < lev1) || (species_ptr->level > lev2)) continue;

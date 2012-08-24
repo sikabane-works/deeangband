@@ -1852,7 +1852,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" creatures can only be "killed" by the player. */
-	if ((has_trait(target_ptr, TRAIT_QUESTOR)) || is_unique_species(species_ptr) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
+	if ((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
 	{
 		if (caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}

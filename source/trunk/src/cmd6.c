@@ -5107,7 +5107,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 
 					r_ptr = &species_info[m_ptr->species_idx];
 
-					if(is_unique_species(r_ptr))
+					if(has_trait_species(r_ptr, TRAIT_UNIQUE))
 					{
 #ifdef JP
 						msg_format("%s． ",species_name + r_ptr->name);
