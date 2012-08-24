@@ -893,7 +893,7 @@ void birth_uniques(void)
 		prt(buf, 0, 0);
 		Term_fresh();
 
-		if(is_unique_species(&species_info[i]))
+		if(has_trait_species(&species_info[i], TRAIT_UNIQUE))
 		{
 			creature_type save_ptr;
 			unique_max++;
@@ -1880,7 +1880,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			{
 				hallu_race = &species_info[randint1(max_species_idx - 1)];
 			}
-			while (!hallu_race->name || is_unique_species(hallu_race));
+			while (!hallu_race->name || has_trait_species(hallu_race, TRAIT_UNIQUE));
 
 			strcpy(silly_name, (species_name + hallu_race->name));
 		}
@@ -3169,7 +3169,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 	bool old_unique = FALSE;
 	int old_species_idx = creature_ptr->species_idx;
 
-	if (is_unique_species(&species_info[creature_ptr->species_idx]))
+	if (has_trait_species(&species_info[creature_ptr->species_idx], TRAIT_UNIQUE))
 		old_unique = TRUE;
 	if (old_unique && (species_idx == SPECIES_CHAMELEON)) species_idx = SPECIES_CHAMELEON_K;
 	r_ptr = &species_info[species_idx];
@@ -4454,7 +4454,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	if (z_ptr->level > r_ptr->level) return (FALSE);
 
 	/* Skip unique creatures */
-	if (is_unique_species(z_ptr)) return (FALSE);
+	if (has_trait_species(z_ptr, TRAIT_UNIQUE)) return (FALSE);
 
 	/* Paranoia -- Skip identical creatures */
 	if (place_species_idx == species_idx) return (FALSE);

@@ -1392,8 +1392,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	if (!m_ptr1->parent_m_idx && m_ptr2->parent_m_idx) return TRUE;
 	if (!m_ptr2->parent_m_idx && m_ptr1->parent_m_idx) return FALSE;
 
-	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return TRUE;
-	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return FALSE;
+	if (has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return TRUE;
+	if (has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return FALSE;
 
 	if (r_ptr1->level > r_ptr2->level) return TRUE;
 	if (r_ptr2->level > r_ptr1->level) return FALSE;

@@ -583,7 +583,7 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	}
 
 	if ((object_ptr->tval == TV_CORPSE || object_ptr->tval == TV_STATUE)
-	    && is_unique_species(&species_info[object_ptr->pval]))
+	    && has_trait_species(&species_info[object_ptr->pval], TRAIT_UNIQUE))
 	{
 		ADD_FLG(FLG_UNIQUE);
 	}
@@ -1252,7 +1252,7 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr
 	/*** Unique creature's corpse/skeletons/statues ***/
 	if (IS_FLG(FLG_UNIQUE) &&
 	    ((object_ptr->tval != TV_CORPSE && object_ptr->tval != TV_STATUE) ||
-	     !is_unique_species(&species_info[object_ptr->pval])))
+	     !has_trait_species(&species_info[object_ptr->pval], TRAIT_UNIQUE)))
 		return FALSE;
 
 	/*** Human corpse/skeletons (for Daemon magic) ***/

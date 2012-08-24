@@ -5338,8 +5338,8 @@ static bool ang_sort_comp_creature_level(vptr u, vptr v, int a, int b)
 	if (r_ptr2->level > r_ptr1->level) return TRUE;
 	if (r_ptr1->level > r_ptr2->level) return FALSE;
 
-	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return TRUE;
-	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return FALSE;
+	if (has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return TRUE;
+	if (has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return FALSE;
 	return w1 <= w2;
 }
 
@@ -5359,8 +5359,8 @@ static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
 	if (r_ptr2->exp > r_ptr1->exp) return TRUE;
 	if (r_ptr1->exp > r_ptr2->exp) return FALSE;
 
-	if (is_unique_species(r_ptr2) && !is_unique_species(r_ptr1)) return TRUE;
-	if (is_unique_species(r_ptr1) && !is_unique_species(r_ptr2)) return FALSE;
+	if (has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return TRUE;
+	if (has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return FALSE;
 	return w1 <= w2;
 }
 
@@ -8180,7 +8180,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 			case 'R':
 			case 'r':
-				if(is_unique_species(&species_info[mon_idx[mon_cur]]))
+				if(has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE))
 				{
 					creature_type *creature_ptr;
 					int j;
@@ -8208,7 +8208,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 				break;
 
 			case 'n':
-				if(cheat_know && (is_unique_species(&species_info[mon_idx[mon_cur]])))
+				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
 					int m = 0;
 
@@ -8231,7 +8231,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 				break;
 
 			case 'i':
-				if(cheat_know && (is_unique_species(&species_info[mon_idx[mon_cur]])))
+				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
 					char c;
 					int m = 0;
@@ -8264,7 +8264,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 				break;
 
 			case 'e':
-				if(cheat_know && (is_unique_species(&species_info[mon_idx[mon_cur]])))
+				if(cheat_know && (has_trait_species(&species_info[mon_idx[mon_cur]], TRAIT_UNIQUE)))
 				{
 					char c;
 					int m = 0;

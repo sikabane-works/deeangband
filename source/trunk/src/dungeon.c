@@ -85,7 +85,7 @@ static int select_unique_species(void)
 	unique_num = 0;
 	for(i = 0; i < max_species_idx; i++)
 	{
-		if(is_unique_species(&species_info[i]))
+		if(has_trait_species(&species_info[i], TRAIT_UNIQUE))
 		{
 			if(species_info[i].dr >= 0) sprintf(dr, "%2d", species_info[i].dr);
 			else strcpy(dr, "--");
@@ -6589,7 +6589,7 @@ static void play_loop(void)
 		turn_loop(floor_ptr, load_game); // Process the level, Turn loop
 
 		// Inside a quest and non-unique questor?
-		if (quest_num && !is_unique_species(&species_info[quest[quest_num].species_idx]))
+		if (quest_num && !has_trait_species(&species_info[quest[quest_num].species_idx], TRAIT_UNIQUE))
 		{
 			// Un-mark the quest creature
 			// TODO species_info[quest[quest_num].species_idx].flags1 &= ~RF1_QUESTOR;

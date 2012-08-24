@@ -1823,7 +1823,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		/* Hack -- The only one of its kind */
 		else if ((known && object_is_artifact(object_ptr)) ||
 		         ((object_ptr->tval == TV_CORPSE) &&
-		          (is_unique_species(species_info[object_ptr->pval]))))
+		          (has_trait_species(species_info[object_ptr->pval], TRAIT_UNIQUE))))
 		{
 			t = object_desc_str(t, "The ");
 		}

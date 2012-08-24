@@ -2037,7 +2037,7 @@ static void do_cmd_dump_options(void)
  */
 extern void do_cmd_spoilers(void);
 
-#endif /* ALLOW_SPOILERS */
+#endif // ALLOW_SPOILERS
 
 
 
@@ -2079,7 +2079,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		do_cmd_spoilers();
 		break;
 
-#endif /* ALLOW_SPOILERS */
+#endif // ALLOW_SPOILERS
 
 	/* Hack -- Help */
 	case '?':
@@ -2264,7 +2264,6 @@ void do_cmd_debug(creature_type *creature_ptr)
 	/* Very Good Objects 2*/
 	case 'V':
 		if (command_arg <= 0) command_arg = 1;
-				/* Default */
 		{
 			char tmp_val[10], tmp_val2[10];
 			int tmp_int, tmp_int2;

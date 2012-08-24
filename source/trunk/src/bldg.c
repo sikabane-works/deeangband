@@ -1678,7 +1678,7 @@ void battle_creatures(void)
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if (!species_idx) continue;
 
-				if (is_unique_species(&species_info[species_idx]) || has_trait_species(&species_info[species_idx], TRAIT_UNIQUE2))
+				if (has_trait_species(&species_info[species_idx], TRAIT_UNIQUE) || has_trait_species(&species_info[species_idx], TRAIT_UNIQUE2))
 				{
 					if ((species_info[species_idx].level + 10) > ave_creature_level) continue;
 				}
@@ -2289,13 +2289,13 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	/* Describe it */
 #ifndef JP
-	if (!is_unique_species(eldritch_ptr))
+	if (!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
 		sprintf(m_name, "%s %s", (is_a_vowel(desc[0]) ? "an" : "a"), desc);
 	else
 #endif
 		sprintf(m_name, "%s", desc);
 
-	if (!is_unique_species(eldritch_ptr))
+	if (!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
 	{
 		if(has_trait_species(eldritch_ptr, TRAIT_FRIENDLY)) power /= 2;
 	}

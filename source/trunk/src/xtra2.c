@@ -2105,8 +2105,8 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (ap_ra_ptr && ap_rb_ptr)
 	{
 		/* Unique creatures first */
-		if (is_unique_species(ap_ra_ptr) && !is_unique_species(ap_rb_ptr)) return TRUE;
-		if (!is_unique_species(ap_ra_ptr) && is_unique_species(ap_rb_ptr)) return FALSE;
+		if (has_trait_species(ap_ra_ptr, TRAIT_UNIQUE) && !has_trait_species(ap_rb_ptr, TRAIT_UNIQUE)) return TRUE;
+		if (!has_trait_species(ap_ra_ptr, TRAIT_UNIQUE) && has_trait_species(ap_rb_ptr, TRAIT_UNIQUE)) return FALSE;
 
 		/* Shadowers first (‚ ‚â‚µ‚¢‰e) */
 		if ((ma_ptr->mflag2 & MFLAG2_KAGE) && !(mb_ptr->mflag2 & MFLAG2_KAGE)) return TRUE;
