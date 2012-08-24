@@ -116,8 +116,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// Access the weapon
 	object_type     *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
 
-	char            atk_name[80];
-	char            tar_name[80];
+	char            attacker_name[80];
+	char            target_name[80];
 	char			weapon_name[80];
 
 	bool            success_hit = FALSE;
@@ -194,8 +194,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	(void)set_paralyzed(target_ptr, 0);
 
 	// Extract attacker and target name (or "it")
-	creature_desc(atk_name, attacker_ptr, 0);
-	creature_desc(tar_name, target_ptr, 0);
+	creature_desc(attacker_name, attacker_ptr, 0);
+	creature_desc(target_name, target_ptr, 0);
 
 	// Calculate the "attack quality"
 	bonus = attacker_ptr->to_hit[hand] + weapon_ptr->to_hit;
@@ -230,31 +230,31 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #ifdef JP
 			if (backstab)
 			{
-				msg_format("%s‚Í—â“‚É‚à–°‚Á‚Ä‚¢‚é–³—Í‚È%s‚ð“Ë‚«Žh‚µ‚½I", atk_name, tar_name);
+				msg_format("%s‚Í—â“‚É‚à–°‚Á‚Ä‚¢‚é–³—Í‚È%s‚ð“Ë‚«Žh‚µ‚½I", attacker_name, target_name);
 			}
 			else if (fuiuchi)
 			{
-				msg_format("%s‚Í•sˆÓ‚ð“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ð‹ò‚ç‚í‚¹‚½I", atk_name, tar_name);
+				msg_format("%s‚Í•sˆÓ‚ð“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ð‹ò‚ç‚í‚¹‚½I", attacker_name, target_name);
 			}
 			else if (stab_fleeing)
 			{
-				msg_format("%s‚Í“¦‚°‚é%s‚ð”w’†‚©‚ç“Ë‚«Žh‚µ‚½I", atk_name, tar_name);
+				msg_format("%s‚Í“¦‚°‚é%s‚ð”w’†‚©‚ç“Ë‚«Žh‚µ‚½I", attacker_name, target_name);
 			}
 #else
 			if (backstab)
 			{
 				//TODO
-				msg_format("%s cruelly stab the helpless, sleeping %s!", atk_name, tar_name);
+				msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
 			}
 			else if (fuiuchi)
 			{
 				//TODO
-				msg_format("%s make surprise attack, and hit %s with a powerful blow!", atk_name, tar_name);
+				msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
 			}
 			else if (stab_fleeing)
 			{
 				//TODO
-				msg_format("%s backstab the fleeing %s!", atk_name, tar_name);
+				msg_format("%s backstab the fleeing %s!", attacker_name, target_name);
 			}
 #endif
 		}
@@ -295,18 +295,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			k = diceroll(weapon_ptr->dd + attacker_ptr->to_damaged[hand], weapon_ptr->ds + attacker_ptr->to_damages[hand]);
 			k = tot_dam_aux(attacker_ptr, weapon_ptr, k, target_ptr, mode, FALSE);
 
-			if (backstab)
-			{
-				k *= (3 + (attacker_ptr->lev / 20));
-			}
-			else if (fuiuchi)
-			{
-				k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
-			}
-			else if (stab_fleeing)
-			{
-				k = (3 * k) / 2;
-			}
+			if (backstab)			k *= (3 + (attacker_ptr->lev / 20));
+			else if (fuiuchi)		k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
+			else if (stab_fleeing)	k = (3 * k) / 2;
 
 			if ((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 			{
@@ -348,9 +339,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%s‚ðƒOƒbƒTƒŠØ‚è—ô‚¢‚½I", tar_name);
+						msg_format("%s‚ðƒOƒbƒTƒŠØ‚è—ô‚¢‚½I", target_name);
 #else
-						msg_format("Your weapon cuts deep into %s!", tar_name);
+						msg_format("Your weapon cuts deep into %s!", target_name);
 #endif
 				}
 
@@ -367,9 +358,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%s‚ð^‚Á“ñ‚Â‚É‚µ‚½I", tar_name);
+						msg_format("%s‚ð^‚Á“ñ‚Â‚É‚µ‚½I", target_name);
 #else
-						msg_format("You cut %s in half!", tar_name);
+						msg_format("You cut %s in half!", target_name);
 #endif
 				}
 				else
@@ -379,21 +370,21 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 						if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 						{
 #ifdef JP
-							case 2: msg_format("%s‚ðŽa‚Á‚½I", tar_name); break;
-							case 3: msg_format("%s‚ð‚Ô‚Á‚½Ža‚Á‚½I", tar_name); break;
-							case 4: msg_format("%s‚ðƒƒbƒ^Ža‚è‚É‚µ‚½I", tar_name); break;
-							case 5: msg_format("%s‚ðƒƒbƒ^ƒƒ^‚ÉŽa‚Á‚½I", tar_name); break;
-							case 6: msg_format("%s‚ðŽhg‚É‚µ‚½I", tar_name); break;
-							case 7: msg_format("%s‚ðŽa‚Á‚ÄŽa‚Á‚ÄŽa‚è‚Ü‚­‚Á‚½I", tar_name); break;
-							default: msg_format("%s‚ð×Ø‚ê‚É‚µ‚½I", tar_name); break;
+							case 2: msg_format("%s‚ðŽa‚Á‚½I", target_name); break;
+							case 3: msg_format("%s‚ð‚Ô‚Á‚½Ža‚Á‚½I", target_name); break;
+							case 4: msg_format("%s‚ðƒƒbƒ^Ža‚è‚É‚µ‚½I", target_name); break;
+							case 5: msg_format("%s‚ðƒƒbƒ^ƒƒ^‚ÉŽa‚Á‚½I", target_name); break;
+							case 6: msg_format("%s‚ðŽhg‚É‚µ‚½I", target_name); break;
+							case 7: msg_format("%s‚ðŽa‚Á‚ÄŽa‚Á‚ÄŽa‚è‚Ü‚­‚Á‚½I", target_name); break;
+							default: msg_format("%s‚ð×Ø‚ê‚É‚µ‚½I", target_name); break;
 #else
-							case 2: msg_format("You gouge %s!", tar_name); break;
-							case 3: msg_format("You maim %s!", tar_name); break;
-							case 4: msg_format("You carve %s!", tar_name); break;
-							case 5: msg_format("You cleave %s!", tar_name); break;
-							case 6: msg_format("You smite %s!", tar_name); break;
-							case 7: msg_format("You eviscerate %s!", tar_name); break;
-							default: msg_format("You shred %s!", tar_name); break;
+							case 2: msg_format("You gouge %s!", target_name); break;
+							case 3: msg_format("You maim %s!", target_name); break;
+							case 4: msg_format("You carve %s!", target_name); break;
+							case 5: msg_format("You cleave %s!", target_name); break;
+							case 6: msg_format("You smite %s!", target_name); break;
+							case 7: msg_format("You eviscerate %s!", target_name); break;
+							default: msg_format("You shred %s!", target_name); break;
 #endif
 						}
 					}
@@ -453,9 +444,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					if(is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%s‚Í‚Ð‚Ç‚­‚à‚¤‚ë‚¤‚Æ‚µ‚½B", tar_name);
+						msg_format("%s‚Í‚Ð‚Ç‚­‚à‚¤‚ë‚¤‚Æ‚µ‚½B", target_name);
 #else
-						msg_format("%s is more dazed.", tar_name);
+						msg_format("%s is more dazed.", target_name);
 #endif
 					tmp /= 2;
 				}
@@ -463,9 +454,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%s ‚Í‚à‚¤‚ë‚¤‚Æ‚µ‚½B", tar_name);
+						msg_format("%s ‚Í‚à‚¤‚ë‚¤‚Æ‚µ‚½B", target_name);
 #else
-						msg_format("%s is dazed.", tar_name);
+						msg_format("%s is dazed.", target_name);
 #endif
 				}
 
@@ -476,9 +467,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-					msg_format("%s ‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", tar_name);
+					msg_format("%s ‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", target_name);
 #else
-					msg_format("%s is not effected.", tar_name);
+					msg_format("%s is not effected.", target_name);
 #endif
 			}
 		}
@@ -492,9 +483,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-					msg_format("%s‚Ì‹}Š‚ð“Ë‚«Žh‚µ‚½I", tar_name);
+					msg_format("%s‚Ì‹}Š‚ð“Ë‚«Žh‚µ‚½I", target_name);
 #else
-					msg_format("You hit %s on a fatal spot!", tar_name);
+					msg_format("You hit %s on a fatal spot!", target_name);
 #endif
 			}
 			else k = 1;
@@ -507,9 +498,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				drain_result *= 2;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-					msg_format("n‚ª%s‚É[X‚Æ“Ë‚«Žh‚³‚Á‚½I", tar_name);
+					msg_format("n‚ª%s‚É[X‚Æ“Ë‚«Žh‚³‚Á‚½I", target_name);
 #else
-					msg_format("You critically injured %s!", tar_name);
+					msg_format("You critically injured %s!", target_name);
 #endif
 			}
 
@@ -521,9 +512,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					drain_result *= 2;
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("%s‚É’v–½‚ð•‰‚í‚¹‚½I", tar_name);
+						msg_format("%s‚É’v–½‚ð•‰‚í‚¹‚½I", target_name);
 #else
-						msg_format("You fatally injured %s!", tar_name);
+						msg_format("You fatally injured %s!", target_name);
 #endif
 				}
 				else
@@ -531,12 +522,20 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					k = target_ptr->chp + 1;
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
-						msg_format("n‚ª%s‚Ì‹}Š‚ðŠÑ‚¢‚½I", tar_name);
+						msg_format("n‚ª%s‚Ì‹}Š‚ðŠÑ‚¢‚½I", target_name);
 #else
-						msg_format("You hit %s on a fatal spot!", tar_name);
+						msg_format("You hit %s on a fatal spot!", target_name);
 #endif
 				}
 			}
+		}
+		else
+		{
+#ifdef JP
+			msg_format("%s‚Í%s‚ð%s‚ÅUŒ‚‚µ‚½B", attacker_name, target_name, weapon_name);
+#else
+			msg_format("%s hit %s with your %s.", attacker_name, target_name, weapon_name);
+#endif
 		}
 
 		// Complex message
@@ -641,9 +640,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 						{
 							if(is_seen(player_ptr, attacker_ptr))
 #ifdef JP
-								msg_format("n‚ª%s‚©‚ç¶–½—Í‚ð‹z‚¢Žæ‚Á‚½I", tar_name);
+								msg_format("n‚ª%s‚©‚ç¶–½—Í‚ð‹z‚¢Žæ‚Á‚½I", target_name);
 #else
-								msg_format("Your weapon drains life from %s!", tar_name);
+								msg_format("Your weapon drains life from %s!", target_name);
 #endif
 
 							drain_msg = FALSE;
@@ -674,9 +673,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
-					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", tar_name);
+					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", target_name);
 #else
-					msg_format("%^s is unaffected!", tar_name);
+					msg_format("%^s is unaffected!", target_name);
 #endif
 
 					resists_tele = TRUE;
@@ -685,9 +684,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				{
 					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
-					msg_format("%^s‚Í’ïR—Í‚ðŽ‚Á‚Ä‚¢‚éI", tar_name);
+					msg_format("%^s‚Í’ïR—Í‚ðŽ‚Á‚Ä‚¢‚éI", target_name);
 #else
-					msg_format("%^s resists!", tar_name);
+					msg_format("%^s resists!", target_name);
 #endif
 
 					resists_tele = TRUE;
@@ -697,9 +696,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if (!resists_tele)
 			{
 #ifdef JP
-				msg_format("%^s‚ÍÁ‚¦‚½I", tar_name);
+				msg_format("%^s‚ÍÁ‚¦‚½I", target_name);
 #else
-				msg_format("%^s disappears!", tar_name);
+				msg_format("%^s disappears!", target_name);
 #endif
 
 				teleport_away(&creature_list[c_ptr->creature_idx], 50, TELEPORT_PASSIVE);
@@ -715,9 +714,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if (polymorph_creature(attacker_ptr, y, x))
 				{
 #ifdef JP
-					msg_format("%^s‚Í•Ï‰»‚µ‚½I", tar_name);
+					msg_format("%^s‚Í•Ï‰»‚µ‚½I", target_name);
 #else
-					msg_format("%^s changes!", tar_name);
+					msg_format("%^s changes!", target_name);
 #endif
 
 					*fear = FALSE;
@@ -726,9 +725,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				else
 				{
 #ifdef JP
-					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", tar_name);
+					msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", target_name);
 #else
-					msg_format("%^s is unaffected.", tar_name);
+					msg_format("%^s is unaffected.", target_name);
 #endif
 				}
 
@@ -736,7 +735,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				target_ptr = &creature_list[c_ptr->creature_idx];
 
 				/* Oops, we need a different name... */
-				creature_desc(tar_name, target_ptr, 0);
+				creature_desc(target_name, target_ptr, 0);
 
 				/* Hack -- Get new race */
 				r_ptr = &species_info[target_ptr->species_idx];
@@ -766,9 +765,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 			{
 #ifdef JP
-				msg_format("%s‚Í%s‚ÌUŒ‚‚ð‚©‚í‚µ‚½B", tar_name, atk_name);
+				msg_format("%s‚Í%s‚ÌUŒ‚‚ð‚©‚í‚µ‚½B", target_name, attacker_name);
 #else
-				msg_format("%^s misses %s.", tar_name, atk_name);
+				msg_format("%^s misses %s.", target_name, attacker_name);
 #endif
 #ifdef JP
 				msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ªŽ©•ªŽ©g‚É•Ô‚Á‚Ä‚«‚½I");
@@ -795,9 +794,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			/* Message */
 #ifdef JP
 
-			msg_format("%s‚Í%s‚ÌUŒ‚‚ð‚©‚í‚µ‚½B", tar_name, atk_name);
+			msg_format("%s‚Í%s‚ÌUŒ‚‚ð‚©‚í‚µ‚½B", target_name, attacker_name);
 #else
-			msg_format("%^s misses %s.", tar_name, atk_name);
+			msg_format("%^s misses %s.", target_name, attacker_name);
 #endif
 		}
 	}
@@ -808,9 +807,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	if (weak && !(*mdeath))
 	{
 #ifdef JP
-		msg_format("%s‚ÍŽã‚­‚È‚Á‚½‚æ‚¤‚¾B", tar_name);
+		msg_format("%s‚ÍŽã‚­‚È‚Á‚½‚æ‚¤‚¾B", target_name);
 #else
-		msg_format("%^s seems weakened.", tar_name);
+		msg_format("%^s seems weakened.", target_name);
 #endif
 	}
 
@@ -910,11 +909,10 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	bonus += (attacker_ptr->lev * 6 / 5);
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
-	/* Test for hit */
+	// Test for hit
 	if ((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_norm(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->ml))
 	{
-		/* Sound */
-		sound(SOUND_HIT);
+		sound(SOUND_HIT); // Sound
 
 #ifdef JP
 		msg_format("%s‚ð%s‚ÅUŒ‚‚µ‚½B", target_name, atk_desc);
@@ -922,29 +920,23 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		msg_format("You hit %s with your %s.", target_name, atk_desc);
 #endif
 
-
+		// Apply the player damage bonuses
 		k = diceroll(ddd, dss);
 		k = critical_norm(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
-
-		/* Apply the player damage bonuses */
 		k += attacker_ptr->to_damage_m;
-
-		/* No negative damage */
 		if (k < 0) k = 0;
-
-		/* Modify the damage */
 		k = invuln_damage_mod(target_ptr, k, FALSE);
 
-		/* Complex message */
+		// Complex message
 		if (wizard)
 		{
 			msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
 		}
 
-		/* Anger the creature */
+		// Anger the creature
 		if (k > 0) anger_creature(attacker_ptr, target_ptr);
 
-		/* Damage, check for fear and mdeath */
+		// Damage, check for fear and mdeath
 		switch (attack)
 		{
 			case TRAIT_SCOR_TAIL:
@@ -968,13 +960,9 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		*mdeath = (target_ptr->species_idx == 0);
 		touch_zap_player(attacker_ptr, target_ptr);
 	}
-	/* Player misses */
-	else
+	else // Attack misses
 	{
-		/* Sound */
 		sound(SOUND_MISS);
-
-		/* Message */
 		if(is_player(attacker_ptr))
 		{
 #ifdef JP
