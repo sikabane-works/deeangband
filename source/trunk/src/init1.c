@@ -6717,7 +6717,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				old_max_num = species_info[creature_index].max_num;
 
 				/* Make alive again */
-				if (is_unique_species(&species_info[creature_index]))
+				if (has_trait_species(&species_info[creature_index], TRAIT_UNIQUE))
 				{
 					species_info[creature_index].cur_num = 0;
 					species_info[creature_index].max_num = 1;

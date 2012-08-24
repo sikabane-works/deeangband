@@ -483,11 +483,6 @@ bool is_unique_creature(creature_type *creature_ptr)
 	return has_trait(creature_ptr, TRAIT_UNIQUE);	
 }
 
-bool is_unique_species(species_type *species_ptr)
-{
-	return (species_ptr->flags.add_lev[TRAIT_UNIQUE]);
-}
-
 bool is_self_lite_1_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_SELF_LITE_1);	

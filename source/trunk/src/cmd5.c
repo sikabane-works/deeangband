@@ -2019,7 +2019,8 @@ static void dobject_name_pet(creature_type *master_ptr)
 #endif
 			return;
 		}
-		if (is_unique_species(&species_info[pet_ptr->species_idx]))
+
+		if (!has_trait_species(&species_info[pet_ptr->species_idx], TRAIT_UNIQUE))
 		{
 #ifdef JP
 			msg_print("そのクリーチャーの名前は変えられない！");

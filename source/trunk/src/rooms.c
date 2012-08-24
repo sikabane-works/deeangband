@@ -1412,7 +1412,7 @@ static bool build_type4(floor_type *floor_ptr)
  */
 #define vault_creature_okay(I) \
 	(species_hook_dungeon(I) && \
-	 !is_unique_species(&species_info[I]) && \
+	 !has_trait_species(&species_info[I], TRAIT_UNIQUE) && \
 	 !has_trait_species(&species_info[I], TRAIT_UNIQUE2) && \
 	 !has_trait_raw(&species_info[I].flags, TRAIT_RES_ALL) && \
 	 !has_trait_species(&species_info[I], TRAIT_AQUATIC))
