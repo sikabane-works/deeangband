@@ -404,11 +404,9 @@ int uneven_rand(int *id_list, int *rarity_list, int num)
 	long value, total = 0L;
 	
 	for (i = 0; i < num; i++)
-		if (rarity_list[i])
-				total += 10000 / rarity_list[i];
+		if (rarity_list[i] > 0) total += 10000 / rarity_list[i];
 
 	value = randint0(total - 1);
-
 
 	for (i = 0; i < num; i++)
 	{
@@ -418,7 +416,6 @@ int uneven_rand(int *id_list, int *rarity_list, int num)
 			if(value < 0) return id_list[i];
 		}
 	}
-
 
 	return -1;
 }

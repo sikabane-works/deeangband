@@ -2201,7 +2201,6 @@ static cptr likert(int x, int y)
 
 /*
  * Prints ratings on certain abilities
- *
  * This code is "imitated" elsewhere to "dump" a character sheet.
  */
 static void display_player_various(creature_type * creature_ptr)

@@ -1498,10 +1498,11 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	char			attacker_name[80];
 	char            target_name[80];
 
+	int select_list[MAX_MELEE_TYPE];
+	int select_weight[MAX_MELEE_TYPE];
+
 	int action_power;
-	int action_list[MAX_MELEE_TYPE];
 	int action_cost[MAX_MELEE_TYPE];
-	int action_weight[MAX_MELEE_TYPE];
 	int action_num;
 	int tried_num;
 
@@ -1565,11 +1566,13 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				case MELEE_TYPE_WEAPON_6TH:
 				case MELEE_TYPE_WEAPON_7TH:
 				case MELEE_TYPE_WEAPON_8TH:
-					if(attacker_ptr->can_melee[i])
+					weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
+					action_cost[i] = calc_weapon_melee_cost(attacker_ptr, weapon_ptr);
+
+					if(attacker_ptr->can_melee[i] && action_cost[i] <= action_power)
 					{
-						weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, i - MELEE_TYPE_WEAPON_1ST);
-						action_list[action_num] = i;
-						action_weight[action_num] = calc_weapon_melee_priority(attacker_ptr, weapon_ptr);
+						select_weight[action_num] = calc_weapon_melee_priority(attacker_ptr, weapon_ptr);
+						select_list[action_num] = i;
 						action_num++;
 					}
 					break;
@@ -1578,12 +1581,13 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 				case MELEE_TYPE_SPECIAL_2ND:
 				case MELEE_TYPE_SPECIAL_3RD:
 				case MELEE_TYPE_SPECIAL_4TH:
-					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice > 0)
+					special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
+					action_cost[i] = calc_special_melee_cost(attacker_ptr, special_ptr);
+					if(attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST].d_dice > 0 && action_cost[i] <= action_power
+						)
 					{
-						special_ptr = &attacker_ptr->blow[i - MELEE_TYPE_SPECIAL_1ST];
-						action_list[action_num] = i;
-						action_cost[action_num] = calc_special_melee_cost(attacker_ptr, special_ptr);
-						action_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
+						select_weight[action_num] = calc_special_melee_priority(attacker_ptr, special_ptr);
+						select_list[action_num] = i;
 						action_num++;
 					}
 					break;
@@ -1606,15 +1610,18 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 		if(!action_num)	
 		{
+			if(tried_num <= 0)
+			{
 #if JP 
 			msg_format("%s‚ÍUŒ‚‚·‚éŽè’i‚ðŽ‚Á‚Ä‚¢‚È‚¢B", attacker_name);
 #else
 			//TODO msg_format("%s don't have attack method.", attacker_name);
 #endif
+			}
 			return FALSE;
 		}
 
-		i = uneven_rand(action_list, action_weight, action_num);
+		i = uneven_rand(select_list, select_weight, action_num);
 
 		switch(i)
 		{
