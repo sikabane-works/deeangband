@@ -223,7 +223,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		r_ptr = real_species_ptr(m_ptr);
 
 		// Memorize location of the unique creature 
-		if (is_unique_species(r_ptr) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL))
+		if (is_unique_species(r_ptr) || has_trait_species(r_ptr, TRAIT_NAZGUL))
 		{
 			r_ptr->floor_id = cur_floor_id;
 		}

@@ -3056,7 +3056,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	}
 
 	/* TODO
-	if (object_ptr->name1 == ART_MURAMASA)
+	if (object_ptr->name1 == MURAMASA)
 	{
 		if (owner_ptr->class_idx != CLASS_SAMURAI)
 		{

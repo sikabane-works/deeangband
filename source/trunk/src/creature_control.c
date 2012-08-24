@@ -1472,8 +1472,8 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx &&
 		    summon_specific_type != SUMMON_GUARDIANS)
 		{
-			if (has_trait_species(r_ptr, TRAIT_QUESTOR)) continue; // Hack -- don't create questors
-			if (has_trait_species(r_ptr, TRAIT_GUARDIAN)) continue;
+			if (has_trait_species(r_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
+			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))	continue;
 			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
@@ -3900,7 +3900,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (!floor_ptr->gamble_arena_mode)
 	{
 		/* Hack -- "unique" creatures must be "unique" */
-		if (((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL)) &&
+		if (((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num))
 		{
 			if (cheat_hear)
@@ -3933,16 +3933,12 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 		}
 
-		/* Depth creatures may NOT be created out of depth, unless in Nightmare mode */
+		// Depth creatures may NOT be created out of depth, unless in Nightmare mode
 		if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && (floor_ptr->floor_level < r_ptr->level) &&
 		    (!curse_of_Iluvatar || (has_trait_species(r_ptr, TRAIT_QUESTOR))))
 		{
-			if (cheat_hear)
-			{
-				msg_format("[max_creature_idx: No Nightmare mode.]");
-			}
-			/* Cannot create */
-			return (max_creature_idx);
+			if (cheat_hear) msg_format("[max_creature_idx: No Nightmare mode.]");
+			return (max_creature_idx);	// Cannot create
 		}
 	}
 
@@ -3996,7 +3992,7 @@ msg_print("守りのルーンが壊れた！");
 		else return max_creature_idx;
 	}
 
-	if ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
 	{
 	creature_type cr;
@@ -4139,7 +4135,7 @@ msg_print("守りのルーンが壊れた！");
 	 */
 /*TODO
 	if (floor_generated &&
-	    ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL)))
+	    ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL)))
 		real_species_ptr(creature_ptr)->floor_id = watcher_ptr->floor_id;
 */
 
@@ -4796,10 +4792,10 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	/* Hack -- no specific type specified */
 	if (!summon_specific_type) return (TRUE);
 
-	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL))) return FALSE;
+	if (!summon_unique_okay && ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
 
 	if ((summon_specific_who < 0) &&
-	    ((is_unique_species(r_ptr)) || has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL))) return FALSE;
+	    ((is_unique_species(r_ptr)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
 
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 

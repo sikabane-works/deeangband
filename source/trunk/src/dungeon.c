@@ -6080,7 +6080,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		r_ptr = &species_info[today_mon];
 
 		if (is_unique_species(r_ptr) || has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
-		if (has_trait_raw(&r_ptr->flags, TRAIT_NAZGUL) ) continue;
+		if (has_trait_species(r_ptr, TRAIT_NAZGUL) ) continue;
 		if (has_trait_species(r_ptr, TRAIT_MULTIPLY)) continue;
 		if (!has_trait_species(r_ptr, TRAIT_DROP_CORPSE) && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
 		if (r_ptr->level < MIN(max_dl / 2, 40)) continue;

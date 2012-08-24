@@ -1722,7 +1722,7 @@ return "ハウンド召喚 : 300+d150ターン毎";
 		case ART_GAEBOLG:
 		{
 #ifdef JP
-return "巨大スター・ボール(200) : 200+d200 ターン毎";
+			return "巨大スター・ボール(200) : 200+d200 ターン毎";
 #else
 			return "large star ball (200) every 200+d200 turns";
 #endif
