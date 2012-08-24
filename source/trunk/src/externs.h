@@ -988,7 +988,7 @@ extern errr get_rnd_line_jonly(cptr file_name, int entry, char *output, int coun
 extern errr counts_write(int where, u32b count);
 extern u32b counts_read(int where);
 
-/* flavor.c */
+// flavor.c
 extern void get_table_name_aux(char *out_string);
 extern void get_table_name(char *out_string);
 extern void get_table_sindarin_aux(char *out_string);
@@ -1112,7 +1112,7 @@ extern void choose_new_species(int m_idx, bool born, int species_idx, int creatu
 extern bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x);
 extern void creature_drop_carried_objects(creature_type *m_ptr);
 
-/* object1.c */
+// object1.c
 extern s16b m_bonus(int max, int level);
 
 extern void reset_visuals(void);

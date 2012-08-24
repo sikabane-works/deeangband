@@ -1566,9 +1566,9 @@ static void process_nonplayer(int m_idx)
 		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stl + 10) * 4;
 		if (player_ptr->monlite) tmp /= 3;
 		if (has_trait(player_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
-		if (r_ptr->level > (player_ptr->lev * player_ptr->lev / 20 + 10)) tmp /= 3;
+		if (creature_ptr->lev > (player_ptr->lev + 10)) tmp /= 3;
 		// Low-level creatures will find it difficult to locate the player.
-		if (randint0(tmp) > (r_ptr->level+20)) aware = FALSE;
+		if (randint0(tmp) > (creature_ptr->lev * 2 + 20)) aware = FALSE;
 	}
 
 	// Are there its parent?

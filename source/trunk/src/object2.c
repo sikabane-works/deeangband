@@ -1969,42 +1969,22 @@ s16b m_bonus(int max, int level)
 {
 	int bonus, stand, extra, value;
 
+	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;	// Paranoia -- enforce maximal "level"
+	bonus = ((max * level) / MAX_DEPTH);				// The "bonus" moves towards the max
+	extra = ((max * level) % MAX_DEPTH);				// Hack -- determine fraction of error
 
-	/* Paranoia -- enforce maximal "level" */
-	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
+	if (randint0(MAX_DEPTH) < extra) bonus++;			// Hack -- simulate floating point computations
 
+	stand = (max / 4);		// The "stand" is equal to one quarter of the max
+	extra = (max % 4);		// Hack -- determine fraction of error
 
-	/* The "bonus" moves towards the max */
-	bonus = ((max * level) / MAX_DEPTH);
+	if (randint0(4) < extra) stand++;	// Hack -- simulate floating point computations
+	
+	value = randnor(bonus, stand);		// Choose an "interesting" value
+	if (value < 0) return (0);			// Enforce the minimum value
+	if (value > max) return (max);		// Enforce the maximum value
 
-	/* Hack -- determine fraction of error */
-	extra = ((max * level) % MAX_DEPTH);
-
-	/* Hack -- simulate floating point computations */
-	if (randint0(MAX_DEPTH) < extra) bonus++;
-
-
-	/* The "stand" is equal to one quarter of the max */
-	stand = (max / 4);
-
-	/* Hack -- determine fraction of error */
-	extra = (max % 4);
-
-	/* Hack -- simulate floating point computations */
-	if (randint0(4) < extra) stand++;
-
-
-	/* Choose an "interesting" value */
-	value = randnor(bonus, stand);
-
-	/* Enforce the minimum value */
-	if (value < 0) return (0);
-
-	/* Enforce the maximum value */
-	if (value > max) return (max);
-
-	/* Result */
-	return (value);
+	return (value);		// Result
 }
 
 
@@ -2021,13 +2001,11 @@ static void object_mention(object_type *object_ptr)
 	/* Artifact */
 	if (object_is_fixed_artifact(object_ptr))
 	{
-		/* Silly message */
 #ifdef JP
 		msg_format("ì`ê‡ÇÃÉAÉCÉeÉÄ (%s)", object_name);
 #else
 		msg_format("Artifact (%s)", object_name);
 #endif
-
 	}
 
 	/* Random Artifact */
