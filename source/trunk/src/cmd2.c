@@ -145,14 +145,14 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		if (have_flag(f_ptr->flags, FF_SHAFT))
 		{
 			/* Create a way back */
-			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_SHAFT);
+			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_SHAFT);
 
 			up_num = 2;
 		}
 		else
 		{
 			/* Create a way back */
-			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP);
+			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP);
 
 			up_num = 1;
 		}
@@ -295,7 +295,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			 * Clear all saved floors
 			 * and create a first saved floor
 			 */
-			prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+			//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 		}
 
 		/* Hack -- take a turn */
@@ -363,19 +363,19 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		if (fall_trap)
 		{
-			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
 		}
 		else
 		{
 			if (have_flag(f_ptr->flags, FF_SHAFT))
 			{
 				/* Create a way back */
-				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_SHAFT);
+				//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_SHAFT);
 			}
 			else
 			{
 				/* Create a way back */
-				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN);
+				//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN);
 			}
 		}
 	}

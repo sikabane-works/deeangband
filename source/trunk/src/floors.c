@@ -159,10 +159,12 @@ s16b floor_pop(void)
 //
 // Prepare mode flags of changing floor
 //
+/*
 void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode)
 {
 	creature_ptr->change_floor_mode |= mode;
 }
+*/
 
 
 // Builds the dead end
@@ -388,7 +390,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	else if (!num)
 	{
 		// No stairs found! -- No return
-		prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE | CFM_NO_RETURN);
+		//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE | CFM_NO_RETURN);
 
 		// Mega Hack -- It's not the stairs you enter.  Disable it.
 		if (!feat_uses_special(stair_ptr->feat)) stair_ptr->special = 0;
@@ -493,7 +495,7 @@ void move_floor(creature_type *creature_ptr)
 		// Mark shaft up/down
 		if (have_flag(feature_ptr->flags, FF_STAIRS) && have_flag(feature_ptr->flags, FF_SHAFT))
 		{
-			prepare_change_floor_mode(creature_ptr, CFM_SHAFT);
+			//prepare_change_floor_mode(creature_ptr, CFM_SHAFT);
 		}
 
 		// Climb up/down some sort of stairs

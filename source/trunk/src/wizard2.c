@@ -1705,7 +1705,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	creature_ptr->wx = dungeon_info[floor_ptr->dun_type].dx;
 	creature_ptr->wy = dungeon_info[floor_ptr->dun_type].dy;
 
-	prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
+	//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 
 	if (!floor_ptr->floor_level) floor_ptr->dun_type = 0;
 	floor_ptr->fight_arena_mode = FALSE;
@@ -1725,7 +1725,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	 * Clear all saved floors
 	 * and create a first saved floor
 	 */
-	prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+	//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 	// move simulate floor and player.
 	move_floor(creature_ptr);

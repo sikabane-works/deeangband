@@ -278,9 +278,6 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 						arena_settled = FALSE;
 						reset_tim_flags(creature_ptr);
 
-						/* Save the surface floor as saved floor */
-						prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS);
-
 						subject_change_floor = TRUE;
 						leave_bldg = TRUE;
 					}
@@ -317,9 +314,6 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			{
 				arena_settled = FALSE;
 				reset_tim_flags(creature_ptr);
-
-				/* Save the surface floor as saved floor */
-				prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS);
 
 				subject_change_floor = TRUE;
 				leave_bldg = TRUE;
@@ -1881,9 +1875,6 @@ msg_print("‚n‚jA‚PƒS[ƒ‹ƒh‚Å‚¢‚±‚¤B");
 			kakekin = wager;
 			creature_ptr->au -= wager;
 			reset_tim_flags(creature_ptr);
-
-			// Save the surface floor as saved floor
-			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS);
 
 			floor_ptr->gamble_arena_mode = TRUE;
 			subject_change_floor = TRUE;
@@ -4791,9 +4782,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		}
 		else
 		{
-			/* Don't save the arena as saved floor */
-			prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
-
 			floor_ptr->fight_arena_mode = FALSE;
 			subject_change_floor = TRUE;
 
@@ -4808,9 +4796,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	}
 	else if (floor_ptr->gamble_arena_mode)
 	{
-		/* Don't save the arena as saved floor */
-		prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_NO_RETURN);
-
 		subject_change_floor = TRUE;
 		floor_ptr->gamble_arena_mode = FALSE;
 

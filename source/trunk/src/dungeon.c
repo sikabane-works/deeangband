@@ -781,7 +781,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	 * Clear all saved floors
 	 * and create a first saved floor
 	 */
-	prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+	//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 	/* Leaving */
 	subject_change_floor = TRUE;
@@ -1272,7 +1272,7 @@ void leave_quest_check(creature_type *creature_ptr)
 				do_cmd_write_nikki(DIARY_RAND_QUEST_F, leaving_quest, NULL);
 
 			/* Floor of random quest will be blocked */
-			prepare_change_floor_mode(creature_ptr, CFM_NO_RETURN);
+			//prepare_change_floor_mode(creature_ptr, CFM_NO_RETURN);
 		}
 		else if (record_fix_quest)
 			do_cmd_write_nikki(DIARY_FIX_QUEST_F, leaving_quest, NULL);
@@ -3427,7 +3427,7 @@ msg_print("â∫Ç…à¯Ç´Ç∏ÇËç~ÇÎÇ≥ÇÍÇÈä¥Ç∂Ç™Ç∑ÇÈÅI");
 				 * Clear all saved floors
 				 * and create a first saved floor
 				 */
-				prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+				//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 				/* Leaving */
 				subject_change_floor = TRUE;
@@ -3486,7 +3486,7 @@ msg_print("â∫Ç…à¯Ç´Ç∏ÇËç~ÇÎÇ≥ÇÍÇÈä¥Ç∂Ç™Ç∑ÇÈÅI");
 				 * Clear all saved floors
 				 * and create a first saved floor
 				 */
-				prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+				//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 				/* Leaving */
 				subject_change_floor = TRUE;
@@ -6411,7 +6411,7 @@ static void accidental_death(void)
 		arena_settled = TRUE;
 		reset_tim_flags(player_ptr);
 
-		prepare_change_floor_mode(player_ptr, CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
+		//prepare_change_floor_mode(player_ptr, CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
 
 		move_floor(player_ptr); // prepare next floor
 	}
