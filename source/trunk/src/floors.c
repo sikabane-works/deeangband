@@ -431,7 +431,7 @@ int find_floor_id(int dungeon_id, int depth, int wx, int wy)
  * Maintain quest creatures, mark next floor_id at stairs, save current
  * floor, and prepare to enter next floor.
  */
-void move_floor(creature_type *creature_ptr)
+void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
 {
 	int i, old_floor_id, floor_id, old_fx, old_fy;
 	cave_type *stair_ptr = NULL;
@@ -455,10 +455,9 @@ void move_floor(creature_type *creature_ptr)
 	for (i = 0; i < max_quests; i++)
 	{
 		if ((quest[i].status == QUEST_STATUS_TAKEN) && 
-			 ((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
-		      (quest[i].type == QUEST_TYPE_RANDOM)) &&
-		      (quest[i].level == old_floor_ptr->floor_level) &&
-		      (old_floor_ptr->dun_type == quest[i].dungeon) &&
+			 ((quest[i].type == QUEST_TYPE_KILL_LEVEL) || (quest[i].type == QUEST_TYPE_RANDOM)) &&
+		     (quest[i].level == old_floor_ptr->floor_level) &&
+		     (old_floor_ptr->dun_type == quest[i].dungeon) &&
 		     !(quest[i].flags & QUEST_FLAG_PRESET))
 		{
 			quest_species_idx = quest[i].species_idx;
@@ -531,8 +530,6 @@ void move_floor(creature_type *creature_ptr)
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cy = old_fy;
 	}
 
-
-	//
 	// Leaving the dungeon to town
 	if (!old_floor_ptr->floor_level && old_floor_ptr->dun_type)
 	{

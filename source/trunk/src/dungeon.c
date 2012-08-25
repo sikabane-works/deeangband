@@ -6207,7 +6207,7 @@ static void cheat_death(void)
 #endif
 
 	// Prepare next floor
-	move_floor(player_ptr);
+	move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 }
 
 void waited_report_score(void)
@@ -6413,7 +6413,7 @@ static void accidental_death(void)
 
 		//prepare_change_floor_mode(player_ptr, CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
 
-		move_floor(player_ptr); // prepare next floor
+		if (!floor_generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 	}
 	else
 	{
@@ -6438,7 +6438,7 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		if (!floor_generated) move_floor(player_ptr);
+		if (!floor_generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
 		floor_ptr = GET_FLOOR_PTR(player_ptr); 
 
