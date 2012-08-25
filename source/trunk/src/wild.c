@@ -1084,17 +1084,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	/* Leaving */
 	subject_change_floor = TRUE;
-
-	//TODO
-	wilderness[creature_ptr->wy][creature_ptr->wx].known = TRUE;
-	wilderness[creature_ptr->wy - 1][creature_ptr->wx - 1].known = TRUE;
-	wilderness[creature_ptr->wy + 1][creature_ptr->wx + 1].known = TRUE;
-	wilderness[creature_ptr->wy + 1][creature_ptr->wx - 1].known = TRUE;
-	wilderness[creature_ptr->wy - 1][creature_ptr->wx + 1].known = TRUE;
-	wilderness[creature_ptr->wy][creature_ptr->wx - 1].known = TRUE;
-	wilderness[creature_ptr->wy - 1][creature_ptr->wx].known = TRUE;
-	wilderness[creature_ptr->wy][creature_ptr->wx + 1].known = TRUE;
-	wilderness[creature_ptr->wy + 1][creature_ptr->wx].known = TRUE;
+	reveal_wilderness(creature_ptr->wy, creature_ptr->wx);
 
 	/* HACK */
 	creature_ptr->energy_use = 1000;
@@ -1105,4 +1095,17 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 	/* Succeed */
 	return TRUE;
+}
+
+void reveal_wilderness(int y, int x)
+{
+	wilderness[y-1][x-1].known = TRUE;
+	wilderness[y-1][x].known = TRUE;
+	wilderness[y-1][x+1].known = TRUE;
+	wilderness[y][x-1].known = TRUE;
+	wilderness[y][x].known = TRUE;
+	wilderness[y][x+1].known = TRUE;
+	wilderness[y+1][x-1].known = TRUE;
+	wilderness[y+1][x].known = TRUE;
+	wilderness[y+1][x+1].known = TRUE;
 }

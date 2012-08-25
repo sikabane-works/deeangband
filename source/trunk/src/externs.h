@@ -1813,6 +1813,7 @@ extern void init_wilderness_terrains(void);
 extern void seed_wilderness(void);
 extern errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x);
 extern bool change_wild_mode(creature_type *creature_ptr);
+extern void reveal_wilderness(int y, int x);
 
 /* wizard1.c */
 extern void spoil_random_artifact(creature_type *creature_ptr, cptr fname);

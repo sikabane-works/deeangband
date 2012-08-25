@@ -2518,11 +2518,9 @@ static void process_nonplayer(int m_idx)
 	/* If we haven't done anything, try casting a spell again */
 	if (!do_turn && !do_move && !creature_ptr->afraid && !is_riding_mon && aware)
 	{
-		/* Try to cast spell again */
+		// Try to cast spell again
 		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
-		{
 			if (make_attack_spell(creature_ptr, player_ptr)) return;
-		}
 	}
 
 

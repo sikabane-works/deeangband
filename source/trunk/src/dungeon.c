@@ -6994,71 +6994,22 @@ void world_wipe()
 
 	/* Knowledge Main Dungeon and Towns */
 	/* Telmola */
-	/* TODO */
-	wilderness[67][61].known = TRUE;
-	wilderness[67][62].known = TRUE;
-	wilderness[67][63].known = TRUE;
-	wilderness[68][61].known = TRUE;
-	wilderness[68][62].known = TRUE;
-	wilderness[68][63].known = TRUE;
-	wilderness[69][61].known = TRUE;
-	wilderness[69][62].known = TRUE;
-	wilderness[69][63].known = TRUE;
+	reveal_wilderness(68, 62);
 
 	/* Morivant */
-	wilderness[63][85].known = TRUE;
-	wilderness[63][86].known = TRUE;
-	wilderness[63][87].known = TRUE;
-	wilderness[64][85].known = TRUE;
-	wilderness[64][86].known = TRUE;
-	wilderness[64][87].known = TRUE;
-	wilderness[65][85].known = TRUE;
-	wilderness[65][86].known = TRUE;
-	wilderness[65][87].known = TRUE;
+	reveal_wilderness(64, 86);
 
 	/* Telmola */
-	wilderness[92][66].known = TRUE;
-	wilderness[92][67].known = TRUE;
-	wilderness[92][68].known = TRUE;
-	wilderness[93][66].known = TRUE;
-	wilderness[93][67].known = TRUE;
-	wilderness[93][68].known = TRUE;
-	wilderness[94][66].known = TRUE;
-	wilderness[94][67].known = TRUE;
-	wilderness[94][68].known = TRUE;
+	reveal_wilderness(93, 67);
 
 	/* LugBuruz */
-	wilderness[61][75].known = TRUE;
-	wilderness[61][76].known = TRUE;
-	wilderness[61][77].known = TRUE;
-	wilderness[62][75].known = TRUE;
-	wilderness[62][76].known = TRUE;
-	wilderness[62][77].known = TRUE;
-	wilderness[63][75].known = TRUE;
-	wilderness[63][76].known = TRUE;
-	wilderness[63][77].known = TRUE;
+	reveal_wilderness(62, 76);
 
 	/* Texorami */
-	wilderness[36][168].known = TRUE;
-	wilderness[36][169].known = TRUE;
-	wilderness[36][170].known = TRUE;
-	wilderness[37][168].known = TRUE;
-	wilderness[37][169].known = TRUE;
-	wilderness[37][170].known = TRUE;
-	wilderness[38][168].known = TRUE;
-	wilderness[38][169].known = TRUE;
-	wilderness[38][170].known = TRUE;
+	reveal_wilderness(36, 169);
 
 	/* Dungeon of Doom */
-	wilderness[51][96].known = TRUE;
-	wilderness[51][97].known = TRUE;
-	wilderness[51][98].known = TRUE;
-	wilderness[52][96].known = TRUE;
-	wilderness[52][97].known = TRUE;
-	wilderness[52][98].known = TRUE;
-	wilderness[53][96].known = TRUE;
-	wilderness[53][97].known = TRUE;
-	wilderness[53][98].known = TRUE;
+	reveal_wilderness(52, 97);
 
 	creating_savefile = FALSE;
 	the_world = FALSE;

@@ -2559,10 +2559,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 }
 
 
-
-/*
- * Support code for the "Walk" and "Jump" commands
- */
+// Support code for the "Walk" and "Jump" commands
 void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 {
 	int dir;

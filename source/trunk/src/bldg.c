@@ -4686,16 +4686,8 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		msg_print("You may retire (commit suicide) when you are ready.");
 #endif
 
-		/* Angband */
-		wilderness[26][69].known = TRUE;
-		wilderness[26][70].known = TRUE;
-		wilderness[26][71].known = TRUE;
-		wilderness[27][69].known = TRUE;
-		wilderness[27][70].known = TRUE;
-		wilderness[27][71].known = TRUE;
-		wilderness[28][69].known = TRUE;
-		wilderness[28][70].known = TRUE;
-		wilderness[28][71].known = TRUE;
+		// Angband
+		reveal_wilderness(70, 27);
 
 		creature_ptr->dr = 1;
 

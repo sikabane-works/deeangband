@@ -1769,20 +1769,7 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if (wild_mode)
-	{
-		// add known map
-		wilderness[ny][nx].known = TRUE;
-		wilderness[ny - 1][nx - 1].known = TRUE;
-		wilderness[ny + 1][nx + 1].known = TRUE;
-		wilderness[ny + 1][nx - 1].known = TRUE;
-		wilderness[ny - 1][nx + 1].known = TRUE;
-		wilderness[ny][nx - 1].known = TRUE;
-		wilderness[ny - 1][nx].known = TRUE;
-		wilderness[ny][nx + 1].known = TRUE;
-		wilderness[ny + 1][nx].known = TRUE;
-	}
-
+	if (wild_mode) reveal_wilderness(ny, nx);
 
 	if (!(mpe_mode & MPE_STAYING))
 	{
@@ -2163,15 +2150,8 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				creature_ptr->oldpy = tmp_py;
 				creature_ptr->oldpx = tmp_px;
 				subject_change_floor = TRUE;
-				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
-				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
-				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
-				wilderness[tmp_wy][tmp_wx-1].known = TRUE;
-				wilderness[tmp_wy][tmp_wx].known = TRUE;
-				wilderness[tmp_wy][tmp_wx+1].known = TRUE;
-				wilderness[tmp_wy+1][tmp_wx-1].known = TRUE;
-				wilderness[tmp_wy+1][tmp_wx].known = TRUE;
-				wilderness[tmp_wy+1][tmp_wx+1].known = TRUE;
+
+				reveal_wilderness(tmp_wy, tmp_wx);
 				creature_ptr->energy_use = 100;
 				return;
 			}
@@ -2186,15 +2166,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				creature_ptr->oldpy = tmp_py;
 				creature_ptr->oldpx = tmp_px;
 				subject_change_floor = TRUE;
-				wilderness[tmp_wy-1][tmp_wx-1].known = TRUE;
-				wilderness[tmp_wy-1][tmp_wx].known = TRUE;
-				wilderness[tmp_wy-1][tmp_wx+1].known = TRUE;
-				wilderness[tmp_wy][tmp_wx-1].known = TRUE;
-				wilderness[tmp_wy][tmp_wx].known = TRUE;
-				wilderness[tmp_wy][tmp_wx+1].known = TRUE;
-				wilderness[tmp_wy+1][tmp_wx-1].known = TRUE;
-				wilderness[tmp_wy+1][tmp_wx].known = TRUE;
-				wilderness[tmp_wy+1][tmp_wx+1].known = TRUE;
+				reveal_wilderness(tmp_wy, tmp_wx);
 				creature_ptr->energy_use = 100;
 				return;
 			}
