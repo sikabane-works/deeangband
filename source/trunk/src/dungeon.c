@@ -5376,13 +5376,13 @@ void process_player(creature_type *creature_ptr)
 
 	/*** Check for interupts ***/
 
-	/* Complete resting */
-	if (resting < 0)
+	/* Complete creature_ptr->resting */
+	if (creature_ptr->resting < 0)
 	{
-		/* Basic resting */
-		if (resting == -1)
+		/* Basic creature_ptr->resting */
+		if (creature_ptr->resting == -1)
 		{
-			/* Stop resting */
+			/* Stop creature_ptr->resting */
 			if ((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp))
 			{
@@ -5390,10 +5390,10 @@ void process_player(creature_type *creature_ptr)
 			}
 		}
 
-		/* Complete resting */
-		else if (resting == -2)
+		/* Complete creature_ptr->resting */
+		else if (creature_ptr->resting == -2)
 		{
-			/* Stop resting */
+			/* Stop creature_ptr->resting */
 			if ((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp) &&
 			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
@@ -5411,7 +5411,7 @@ void process_player(creature_type *creature_ptr)
 	/* Handle "abort" */
 	if (check_abort)
 	{
-		/* Check for "player abort" (semi-efficiently for resting) */
+		/* Check for "player abort" (semi-efficiently for creature_ptr->resting) */
 		if (creature_ptr->running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
 		{
 			/* Do not wait */
@@ -5557,12 +5557,12 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		else if (creature_ptr->action == ACTION_REST)
 		{
 			/* Timed rest */
-			if (resting > 0)
+			if (creature_ptr->resting > 0)
 			{
 				/* Reduce rest count */
-				resting--;
+				creature_ptr->resting--;
 
-				if (!resting) set_action(creature_ptr, ACTION_NONE);
+				if (!creature_ptr->resting) set_action(creature_ptr, ACTION_NONE);
 
 				/* Redraw the state */
 				play_redraw |= (PR_STATE);

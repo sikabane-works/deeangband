@@ -36,7 +36,7 @@ void set_action(creature_type *creature_ptr, int typ)
 			}
 			case ACTION_REST:
 			{
-				resting = 0;
+				creature_ptr->resting = 0;
 				break;
 			}
 			case ACTION_LEARN:

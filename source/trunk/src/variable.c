@@ -105,8 +105,6 @@ s16b command_new;		/* Command chaining from inven/equip view */
 
 bool msg_flag;			/* Used in msg_print() for "buffering" */
 
-s16b resting;			/* Current counter for resting, if any */
-
 s32b turn;				/* Current game turn */
 s32b turn_limit;		/* Limit of game turn */
 s32b old_turn;			/* Turn when level began */

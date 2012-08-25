@@ -961,9 +961,9 @@ sprintf(text, "  %2d", command_rep);
 
 
 				/* Extensive (timed) rest */
-				if (resting >= 1000)
+				if (creature_ptr->resting >= 1000)
 				{
-					i = resting / 100;
+					i = creature_ptr->resting / 100;
 					text[3] = '0';
 					text[2] = '0';
 					text[1] = '0' + (i % 10);
@@ -971,9 +971,9 @@ sprintf(text, "  %2d", command_rep);
 				}
 
 				/* Long (timed) rest */
-				else if (resting >= 100)
+				else if (creature_ptr->resting >= 100)
 				{
-					i = resting;
+					i = creature_ptr->resting;
 					text[3] = '0' + (i % 10);
 					i = i / 10;
 					text[2] = '0' + (i % 10);
@@ -981,28 +981,28 @@ sprintf(text, "  %2d", command_rep);
 				}
 
 				/* Medium (timed) rest */
-				else if (resting >= 10)
+				else if (creature_ptr->resting >= 10)
 				{
-					i = resting;
+					i = creature_ptr->resting;
 					text[3] = '0' + (i % 10);
 					text[2] = '0' + (i / 10);
 				}
 
 				/* Short (timed) rest */
-				else if (resting > 0)
+				else if (creature_ptr->resting > 0)
 				{
-					i = resting;
+					i = creature_ptr->resting;
 					text[3] = '0' + (i);
 				}
 
 				/* Rest until healed */
-				else if (resting == -1)
+				else if (creature_ptr->resting == -1)
 				{
 					text[0] = text[1] = text[2] = text[3] = '*';
 				}
 
 				/* Rest until done */
-				else if (resting == -2)
+				else if (creature_ptr->resting == -2)
 				{
 					text[0] = text[1] = text[2] = text[3] = '&';
 				}

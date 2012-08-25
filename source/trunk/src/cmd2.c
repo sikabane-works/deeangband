@@ -2769,7 +2769,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	creature_ptr->energy_use = 100;
 
 	/* Save the rest code */
-	resting = command_arg;
+	creature_ptr->resting = command_arg;
 	creature_ptr->action = ACTION_REST;
 
 	/* Recalculate bonuses */
