@@ -2583,7 +2583,7 @@ static void process_creature(int i)
 
 	// Ignore dead or out of floot creatures
 	if (!IS_IN_THIS_FLOOR(creature_ptr)) return;
-	if (!is_player(creature_ptr) && wild_mode) return;
+	if (!is_player(creature_ptr) && floor_ptr->wild_mode) return;
 
 	// Handle "fresh" creatures
 	if (creature_ptr->mflag & MFLAG_BORN)

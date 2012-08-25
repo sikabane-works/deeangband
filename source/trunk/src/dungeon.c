@@ -2322,7 +2322,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	if (floor_ptr->gamble_arena_mode) return;
 
 	/* No effect on the global map */
-	if (wild_mode) return;
+	if (floor_ptr->wild_mode) return;
 
 
 	if (has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
@@ -2929,7 +2929,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if ((creature_ptr->cursed & TRC_P_FLAG_MASK) && !floor_ptr->gamble_arena_mode && !wild_mode)
+	if ((creature_ptr->cursed & TRC_P_FLAG_MASK) && !floor_ptr->gamble_arena_mode && !floor_ptr->wild_mode)
 	{
 		/*
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
@@ -3411,7 +3411,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					}
 				}
 
-				if (wild_mode)
+				if (floor_ptr->wild_mode)
 				{
 					creature_ptr->wy = creature_ptr->fy;
 					creature_ptr->wx = creature_ptr->fx;
@@ -3422,7 +3422,7 @@ msg_print("下に引きずり降ろされる感じがする！");
 					creature_ptr->oldpx = creature_ptr->fx;
 					creature_ptr->oldpy = creature_ptr->fy;
 				}
-				wild_mode = FALSE;
+				floor_ptr->wild_mode = FALSE;
 
 				/*
 				 * Clear all saved floors
@@ -3767,7 +3767,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 				msg_print("The sun has risen.");
 #endif
 
-				if (!wild_mode)
+				if (!floor_ptr->wild_mode)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < floor_ptr->height; y++)
@@ -3802,7 +3802,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 				msg_print("The sun has fallen.");
 #endif
 
-				if (!wild_mode)
+				if (!floor_ptr->wild_mode)
 				{
 					/* Hack -- Scan the town */
 					for (y = 0; y < floor_ptr->height; y++)
@@ -4245,21 +4245,21 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Wear/wield equipment */
 		case 'w':
 		{
-			if (!wild_mode) do_cmd_wield(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_wield(creature_ptr);
 			break;
 		}
 
 		/* Take off equipment */
 		case 't':
 		{
-			if (!wild_mode) do_cmd_takeoff(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_takeoff(creature_ptr);
 			break;
 		}
 
 		/* Drop an item */
 		case 'd':
 		{
-			if (!wild_mode) do_cmd_drop(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_drop(creature_ptr);
 			break;
 		}
 
@@ -4307,14 +4307,14 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Alter a grid */
 		case '+':
 		{
-			if (!wild_mode) do_cmd_alter(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_alter(creature_ptr);
 			break;
 		}
 
 		/* Dig a tunnel */
 		case 'T':
 		{
-			if (!wild_mode) do_cmd_tunnel(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_tunnel(creature_ptr);
 			break;
 		}
 
@@ -4337,7 +4337,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Begin Running -- Arg is Max Distance */
 		case '.':
 		{
-			if (!wild_mode) do_cmd_run(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_run(creature_ptr);
 			break;
 		}
 
@@ -4394,21 +4394,21 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Enter building -KMW- */
 		case SPECIAL_KEY_BUILDING:
 		{
-			if (!wild_mode) do_cmd_bldg(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_bldg(creature_ptr);
 			break;
 		}
 
 		/* Enter quest level -KMW- */
 		case SPECIAL_KEY_QUEST:
 		{
-			if (!wild_mode) do_cmd_quest(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_quest(creature_ptr);
 			break;
 		}
 
 		/* Go up staircase */
 		case '<':
 		{
-			if (!wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !inside_quest)
+			if (!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !inside_quest)
 			{
 
 				if (ambush_flag)
@@ -4441,7 +4441,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Go down staircase */
 		case '>':
 		{
-			if (wild_mode)
+			if (floor_ptr->wild_mode)
 				change_wild_mode(creature_ptr);
 			else
 				do_cmd_go_down(creature_ptr);
@@ -4452,35 +4452,35 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Open a door or chest */
 		case 'o':
 		{
-			if (!wild_mode) do_cmd_open(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_open(creature_ptr);
 			break;
 		}
 
 		/* Close a door */
 		case 'c':
 		{
-			if (!wild_mode) do_cmd_close(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_close(creature_ptr);
 			break;
 		}
 
 		/* Jam a door with spikes */
 		case 'j':
 		{
-			if (!wild_mode) do_cmd_spike(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_spike(creature_ptr);
 			break;
 		}
 
 		/* Bash a door */
 		case 'B':
 		{
-			if (!wild_mode) do_cmd_bash(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_bash(creature_ptr);
 			break;
 		}
 
 		/* Disarm a trap or chest */
 		case 'D':
 		{
-			if (!wild_mode) do_cmd_disarm(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_disarm(creature_ptr);
 			break;
 		}
 
@@ -4526,7 +4526,7 @@ static void process_player_command(creature_type *creature_ptr)
 		case 'm':
 		{
 			/* -KMW- */
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 				if ((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_CAVALRY))
 				{
@@ -4636,7 +4636,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Issue a pet command */
 		case 'p':
 		{
-			if (!wild_mode) do_cmd_pet(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_pet(creature_ptr);
 			break;
 		}
 
@@ -4674,7 +4674,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Activate an artifact */
 		case 'A':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 			if (!floor_ptr->fight_arena_mode)
 				do_cmd_activate(creature_ptr);
@@ -4709,14 +4709,14 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Fire an item */
 		case 'f':
 		{
-			if (!wild_mode) do_cmd_fire(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_fire(creature_ptr);
 			break;
 		}
 
 		/* Throw an item */
 		case 'v':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 				do_cmd_throw(creature_ptr);
 			}
@@ -4726,7 +4726,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Aim a wand */
 		case 'a':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 			if (!floor_ptr->fight_arena_mode)
 				do_cmd_aim_wand(creature_ptr);
@@ -4747,7 +4747,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Zap a rod */
 		case 'z':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 			if (floor_ptr->fight_arena_mode)
 			{
@@ -4774,7 +4774,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Quaff a potion */
 		case 'q':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 			if (!floor_ptr->fight_arena_mode)
 				do_cmd_quaff_potion(creature_ptr);
@@ -4795,7 +4795,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Read a scroll */
 		case 'r':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 			if (!floor_ptr->fight_arena_mode)
 				do_cmd_read_scroll(creature_ptr);
@@ -4816,7 +4816,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use a staff */
 		case 'u':
 		{
-			if (!wild_mode)
+			if (!floor_ptr->wild_mode)
 			{
 			if (floor_ptr->fight_arena_mode)
 			{
@@ -4841,7 +4841,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Use racial power */
 		case 'U':
 		{
-			if (!wild_mode) do_cmd_racial_power(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_racial_power(creature_ptr);
 			break;
 		}
 
@@ -4872,7 +4872,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Target creature or location */
 		case '*':
 		{
-			if (!wild_mode) do_cmd_target(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_target(creature_ptr);
 			break;
 		}
 
@@ -4981,7 +4981,7 @@ msg_print("アリーナが魔法を吸収した！");
 		/* Repeat level feeling */
 		case KTRL('F'):
 		{
-			if (!wild_mode) do_cmd_feeling(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_feeling(creature_ptr);
 			break;
 		}
 
@@ -5090,7 +5090,7 @@ msg_print("アリーナが魔法を吸収した！");
 #ifdef TRAVEL
 		case '`':
 		{
-			if (!wild_mode) do_cmd_travel(creature_ptr);
+			if (!floor_ptr->wild_mode) do_cmd_travel(creature_ptr);
 			break;
 		}
 #endif
@@ -5897,8 +5897,8 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 
 		if (floor_ptr->floor_turn < floor_ptr->floor_turn_limit)
 		{
-			if (!wild_mode || wild_regen) floor_ptr->floor_turn++;
-			else if (wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) floor_ptr->floor_turn++;
+			if (!floor_ptr->wild_mode || wild_regen) floor_ptr->floor_turn++;
+			else if (floor_ptr->wild_mode && !(turn % ((MAX_HGT + MAX_WID) / 2))) floor_ptr->floor_turn++;
 		}
 
 		prevent_turn_overflow(player_ptr);
@@ -6199,8 +6199,6 @@ static void cheat_death(void)
 	player_ptr->oldpy = 95;
 	player_ptr->oldpx = 95;
 
-	/* Leaving */
-	wild_mode = FALSE;
 	subject_change_floor = TRUE;
 
 #ifdef JP

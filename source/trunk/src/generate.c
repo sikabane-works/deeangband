@@ -1538,7 +1538,7 @@ void generate_floor(floor_type *floor_ptr)
 			generate_floor_creature_arena(floor_ptr); // gamble arena
 		else if(inside_quest)
 			generate_floor_quest(floor_ptr); // quest
-		else if(wild_mode)
+		else if(floor_ptr->wild_mode)
 			generate_floor_world(floor_ptr);
 		else if(!floor_ptr->floor_level) // world map
 			generate_floor_wilderness(floor_ptr);

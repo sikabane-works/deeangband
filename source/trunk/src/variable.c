@@ -698,7 +698,6 @@ u32b play_window = 0;				// Window Redraws (bit flags)
 bool wizard = FALSE;				// wizard mode
 bool unique_play = FALSE;			// unique play mode
 s16b inside_quest = 0;
-bool wild_mode = FALSE;
 s16b town_num = 0;					// Current town number
 s16b arena_number = 0;				// creature number in arena -KMW-
 bool detect_trap;					// Whether on trap-safe grids

@@ -951,7 +951,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			c = f_ptr->x_char[F_LIT_STANDARD];
 			if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 
-			if (wild_mode)
+			if (floor_ptr->wild_mode)
 			{
 				/* Special lighting effects */
 				/* Handle "night" */
@@ -1041,7 +1041,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			c = f_ptr->x_char[F_LIT_STANDARD];
 			if (strlen(floor_ptr->cave[y][x].message)) a = TERM_BLUE;
 
-			if (wild_mode)
+			if (floor_ptr->wild_mode)
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
@@ -1354,7 +1354,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		feat_priority = 31;
 	}
 
-	if(wild_mode)
+	if(floor_ptr->wild_mode)
 	{
 		if(y < max_wild_y && x < max_wild_x)
 		{
@@ -1365,7 +1365,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			}
 		}
 		else
-			wild_mode = FALSE;
+			floor_ptr->wild_mode = FALSE;
 	}
 
 }
@@ -2199,6 +2199,7 @@ void display_map(creature_type *watcher_ptr, int *cy, int *cx)
  */
 void do_cmd_view_map(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int cy, cx;
 
 
@@ -2224,7 +2225,7 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	display_map(creature_ptr, &cy, &cx);
 
 	/* Wait for it */
-	if(max_autopick && !wild_mode)
+	if(max_autopick && !floor_ptr->wild_mode)
 	{
 		display_autopick = ITEM_DISPLAY;
 

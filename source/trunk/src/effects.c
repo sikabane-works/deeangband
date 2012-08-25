@@ -1168,6 +1168,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
  */
 bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
@@ -1175,7 +1176,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 
 	if (IS_DEAD(creature_ptr)) return FALSE;
 
-	if (wild_mode) v = 0;
+	if (floor_ptr->wild_mode) v = 0;
 
 	/* Open */
 	if (v)
@@ -1976,6 +1977,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
  */
 bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool notice = FALSE;
 
 	/* Hack -- Force good values */
@@ -2084,7 +2086,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 		if (creature_ptr->invuln)
 		{
 			mproc_remove(creature_ptr, MTIMED_INVULNER);
-			if (!wild_mode) creature_ptr->energy_need += ENERGY_NEED();
+			if (!floor_ptr->wild_mode) creature_ptr->energy_need += ENERGY_NEED();
 			notice = TRUE;
 		}
 	}
@@ -4511,8 +4513,8 @@ bool set_cut(creature_type *creature_ptr, int v)
 bool set_food(creature_type *creature_ptr, int v)
 {
 	int old_aux, new_aux;
-
 	bool notice = FALSE;
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(is_player(creature_ptr)) play_redraw |= PR_HUNGER;
 
@@ -4737,7 +4739,7 @@ bool set_food(creature_type *creature_ptr, int v)
 			break;
 		}
 
-		if (wild_mode && (new_aux < 2))
+		if (floor_ptr->wild_mode && (new_aux < 2))
 		{
 			change_wild_mode(creature_ptr);
 		}
@@ -6097,7 +6099,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		target_ptr->chp = 0;
 	}
 
-	if (wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp/5)))
+	if (floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp/5)))
 	{
 		change_wild_mode(player_ptr);
 	}

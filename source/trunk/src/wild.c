@@ -1013,6 +1013,7 @@ static bool enemy_is_still_here(creature_type *enemy_ptr)
 
 bool change_wild_mode(creature_type *creature_ptr)
 {
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 	bool have_pet = FALSE;
 
@@ -1020,23 +1021,19 @@ bool change_wild_mode(creature_type *creature_ptr)
 	if (subject_change_floor) return FALSE;
 
 
-	if (wild_mode)
+	if (floor_ptr->wild_mode)
 	{
-		/* Save the location in the global map */
+		// Save the location in the global map
 		creature_ptr->wx = creature_ptr->fx;
 		creature_ptr->wy = creature_ptr->fy;
 
-		/* Give first move to the player */
+		// Give first move to the player
 		creature_ptr->energy_need = 0;
 
-		/* Go back to the ordinary map */
-		wild_mode = FALSE;
-
-		/* Leaving */
+		// Go back to the ordinary map
+		floor_ptr->wild_mode = FALSE;
 		subject_change_floor = TRUE;
-
-		/* Succeed */
-		return TRUE;
+		return TRUE;	// Succeed
 	}
 
 	for (i = 1; i < creature_max; i++)
@@ -1048,7 +1045,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		if (!enemy_is_still_here(m_ptr)) continue;
 
 #ifdef JP
-		msg_print("敵がすぐ近くにいるときは広域マップに入れない！");
+		msg_print("敵がすぐ近くにいるときは混沌の地平に入れない！");
 #else
 		msg_print("You cannot enter global map, since there is some creatures nearby!");
 #endif
@@ -1060,7 +1057,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	if (have_pet)
 	{
 #ifdef JP
-		cptr msg = "ペットを置いて広域マップに入りますか？";
+		cptr msg = "ペットを置いて混沌の地平に入りますか？";
 #else
 		cptr msg = "Do you leave your pets behind? ";
 #endif
@@ -1079,12 +1076,13 @@ bool change_wild_mode(creature_type *creature_ptr)
 	set_action(creature_ptr, ACTION_NONE);
 
 	/* Go into the global map */
-	wild_mode = TRUE;
+	floor_ptr->wild_mode = TRUE;
 	msg_print("あなたは混沌の地平を歩み始めた…");
 
 	/* Leaving */
 	subject_change_floor = TRUE;
 	reveal_wilderness(creature_ptr->wy, creature_ptr->wx);
+	reveal_wilderness(creature_ptr->fy, creature_ptr->fx);
 
 	/* HACK */
 	creature_ptr->energy_use = 1000;

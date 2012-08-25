@@ -1769,7 +1769,7 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if (wild_mode) reveal_wilderness(ny, nx);
+	if (floor_ptr->wild_mode) reveal_wilderness(ny, nx);
 
 	if (!(mpe_mode & MPE_STAYING))
 	{
@@ -2063,7 +2063,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if (!floor_ptr->floor_level && !wild_mode && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
+	if (!floor_ptr->floor_level && !floor_ptr->wild_mode && ((x == 0) || (x == MAX_WID - 1) || (y == 0) || (y == MAX_HGT - 1)))
 	{
 		int tmp_wx, tmp_wy, tmp_px, tmp_py;
 
@@ -2515,7 +2515,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	}
 
 
-	if(wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+	if(floor_ptr->wild_mode && have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
 #ifdef JP
 		if(!get_check("–{“–‚Éq¬“×r‚Ì—Ìˆæ‚É“ü‚è‚Ü‚·‚©H"))
@@ -2567,7 +2567,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 
 		/* Change oldpx and oldpy to place the player well when going back to big mode */
-		if (wild_mode)
+		if (floor_ptr->wild_mode)
 		{
 			if (ddy[dir] > 0)  creature_ptr->oldpy = 1;
 			if (ddy[dir] < 0)  creature_ptr->oldpy = MAX_HGT - 2;

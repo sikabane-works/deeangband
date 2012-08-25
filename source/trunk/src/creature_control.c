@@ -3844,7 +3844,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
-	if (wild_mode){
+	if (floor_ptr->wild_mode){
 		if (cheat_hear)
 		{
 			msg_format("[max_creature_idx: Wild mode]");

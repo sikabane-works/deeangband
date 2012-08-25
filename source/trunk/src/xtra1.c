@@ -102,7 +102,7 @@ cptr map_name(floor_type *floor_ptr)
 #else
 		return "Quest";
 #endif
-	else if (wild_mode)
+	else if (floor_ptr->wild_mode)
 #ifdef JP
 		return "’nã";
 #else

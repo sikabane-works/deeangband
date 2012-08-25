@@ -2511,9 +2511,6 @@ void creature_wipe(creature_type *creature_ptr)
 
 	creature_ptr->visit = 1;
 
-	/* Reset wild_mode to FALSE */
-	wild_mode = FALSE;
-
 	for (i = 0; i < 108; i++)
 	{
 		creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
