@@ -3422,7 +3422,6 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 					creature_ptr->oldpx = creature_ptr->fx;
 					creature_ptr->oldpy = creature_ptr->fy;
 				}
-				floor_ptr->wild_mode = FALSE;
 
 				/*
 				 * Clear all saved floors

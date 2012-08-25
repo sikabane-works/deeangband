@@ -1709,7 +1709,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	if (!floor_ptr->floor_level) floor_ptr->dun_type = 0;
 	floor_ptr->fight_arena_mode = FALSE;
-	floor_ptr->wild_mode = FALSE;
+	//TODO floor_ptr->wild_mode = FALSE;
 
 	leave_quest_check(creature_ptr);
 

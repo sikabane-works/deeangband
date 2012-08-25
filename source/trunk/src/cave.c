@@ -1364,8 +1364,6 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 				*cp = 'x';
 			}
 		}
-		else
-			floor_ptr->wild_mode = FALSE;
 	}
 
 }

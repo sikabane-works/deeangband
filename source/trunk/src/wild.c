@@ -1031,7 +1031,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		creature_ptr->energy_need = 0;
 
 		// Go back to the ordinary map
-		floor_ptr->wild_mode = FALSE;
+		//TODO floor_ptr->wild_mode = FALSE;
 		subject_change_floor = TRUE;
 		return TRUE;	// Succeed
 	}
@@ -1076,7 +1076,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	set_action(creature_ptr, ACTION_NONE);
 
 	/* Go into the global map */
-	floor_ptr->wild_mode = TRUE;
+	//TODO floor_ptr->wild_mode = TRUE;
 	msg_print("‚ ‚È‚½‚Í¬“×‚Ì’n•½‚ğ•à‚İn‚ß‚½c");
 
 	/* Leaving */
