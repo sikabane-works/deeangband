@@ -471,52 +471,17 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		creature_ptr->floor_id = stair_ptr->special;
 		creature_ptr->fx = (byte)stair_ptr->cx;
 		creature_ptr->fy = (byte)stair_ptr->cy;
-
 		floor_id = stair_ptr->special;
 	}
 
 	else // Create New Floor
 	{
-
-		// Mark shaft up/down
-		if (have_flag(feature_ptr->flags, FF_STAIRS) && have_flag(feature_ptr->flags, FF_SHAFT))
-		{
-			//prepare_change_floor_mode(creature_ptr, CFM_SHAFT);
-		}
-
-		// Climb up/down some sort of stairs
-		if (creature_ptr->change_floor_mode & (CFM_DOWN | CFM_UP))
-		{
-			int move_num = 0;
-
-			// Extract level movement number
-			if      (creature_ptr->change_floor_mode & CFM_DOWN) move_num = 1;
-			else if (creature_ptr->change_floor_mode & CFM_UP)   move_num = -1;
-
-			// Shafts are deeper than normal stairs
-			if (creature_ptr->change_floor_mode & CFM_SHAFT)
-				move_num += SGN(move_num);
-
-			// Get out from or Enter the dungeon
-			if (creature_ptr->change_floor_mode & CFM_DOWN)
-			{
-				if (!old_floor_ptr->floor_level)
-					move_num = dungeon_info[old_floor_ptr->dun_type].mindepth;
-			}
-			else if (creature_ptr->change_floor_mode & CFM_UP)
-			{
-				if (old_floor_ptr->floor_level + move_num < dungeon_info[old_floor_ptr->dun_type].mindepth)
-					move_num = -old_floor_ptr->floor_level;
-			}
-
-			//new_floor_ptr->floor_level = creature_ptr->depth = old_floor_ptr->floor_level + move_num;
-		}
-
-		new_floor_ptr = generate_floor(old_floor_ptr->dun_type, old_floor_ptr->world_y, old_floor_ptr->world_x, old_floor_ptr->floor_level, old_floor_ptr, 0);
+		floor_id = generate_floor(dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
+		new_floor_ptr = &floor_list[floor_id];
 
 		creature_ptr->feeling_turn = old_turn;
 		creature_ptr->floor_feeling = 0;
-		//creature_ptr->floor_id = floor_id;
+		creature_ptr->floor_id = floor_id;
 
 		// Choose random stairs
 		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr);
@@ -553,7 +518,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		kill_floor(old_floor_ptr);
 	}
 	
-
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
