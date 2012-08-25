@@ -1576,6 +1576,8 @@ struct creature_type
 	s16b time_stopper;
 	byte tsuri_dir;
 
+	s16b running;			/* Current counter for running, if any */
+
 };
 
 // traits_precondition_type

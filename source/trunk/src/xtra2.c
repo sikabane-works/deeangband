@@ -1674,7 +1674,7 @@ void verify_panel(creature_type *creature_ptr)
 	if (max_pcol_min < 0) max_pcol_min = 0;
 
 		/* Center on player */
-	if (center_player && (center_running || !running))
+	if (center_player && (center_running || !creature_ptr->running))
 	{
 		/* Center vertically */
 		prow_min = y - hgt / 2;

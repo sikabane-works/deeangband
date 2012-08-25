@@ -5412,7 +5412,7 @@ void process_player(creature_type *creature_ptr)
 	if (check_abort)
 	{
 		/* Check for "player abort" (semi-efficiently for resting) */
-		if (running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
+		if (creature_ptr->running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
 		{
 			/* Do not wait */
 			inkey_scan = TRUE;
@@ -5580,7 +5580,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Running */
-		else if (running)
+		else if (creature_ptr->running)
 		{
 			/* Take a step */
 			run_step(creature_ptr, 0);

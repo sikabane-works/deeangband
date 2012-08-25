@@ -4132,7 +4132,7 @@ void update_flow(creature_type *creature_ptr)
 	if (temp_n) return;
 
 	/* The last way-point is on the map */
-	if (running && in_bounds(floor_ptr, flow_y, flow_x))
+	if (creature_ptr->running && in_bounds(floor_ptr, flow_y, flow_x))
 	{
 		/* The way point is in sight - do not update.  (Speedup) */
 		if (floor_ptr->cave[flow_y][flow_x].info & CAVE_VIEW) return;
@@ -5048,10 +5048,10 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 	}
 
 	/* Cancel running */
-	if (running)
+	if (player_ptr->running)
 	{
 		/* Cancel */
-		running = 0;
+		player_ptr->running = 0;
 
 		/* Check for new panel if appropriate */
 		if (center_player && !center_running) verify_panel(player_ptr);

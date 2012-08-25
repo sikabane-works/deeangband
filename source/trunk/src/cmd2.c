@@ -2666,7 +2666,7 @@ void do_cmd_run(creature_type *creature_ptr)
 	if (get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Hack -- Set the run counter */
-		running = (command_arg ? command_arg : 1000);
+		creature_ptr->running = (command_arg ? command_arg : 1000);
 
 		/* First step */
 		run_step(creature_ptr, dir);

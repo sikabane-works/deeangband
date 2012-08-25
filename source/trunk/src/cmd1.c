@@ -2416,7 +2416,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #endif
 
 		creature_ptr->energy_use = 0;
-		running = 0;
+		creature_ptr->running = 0;
 		oktomove = FALSE;
 	}
 
@@ -3326,7 +3326,7 @@ void run_step(creature_type *creature_ptr, int dir)
 	}
 
 	/* Decrease the run counter */
-	if (--running <= 0) return;
+	if (--creature_ptr->running <= 0) return;
 
 	/* Take time */
 	creature_ptr->energy_use = 100;

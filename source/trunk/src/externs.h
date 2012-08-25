@@ -154,7 +154,6 @@ extern s16b command_gap;
 extern s16b command_wrk;
 extern s16b command_new;
 extern bool msg_flag;
-extern s16b running;
 extern s16b resting;
 extern s32b turn;
 extern s32b turn_limit;
