@@ -464,17 +464,15 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		}
 	}
 
-	// Get back to old saved floor?
+	// Get back to old saved floor.
 	if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
-		creature_ptr->floor_id = stair_ptr->special;
-		creature_ptr->fx = (byte)stair_ptr->cx;
-		creature_ptr->fy = (byte)stair_ptr->cy;
+		move_creature_effect(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
 		floor_id = stair_ptr->special;
 	}
-
-	else // Create New Floor
+	// Create New Floor
+	else
 	{
 		floor_id = generate_floor(dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
 		new_floor_ptr = &floor_list[floor_id];
@@ -501,7 +499,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		subject_change_dungeon = TRUE;
 		creature_ptr->wy = dungeon_info[old_floor_ptr->dun_type].dy;
 		creature_ptr->wx = dungeon_info[old_floor_ptr->dun_type].dx;
-
 		creature_ptr->recall_dungeon = old_floor_ptr->dun_type;
 		old_floor_ptr->dun_type = 0;
 
@@ -541,8 +538,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		clear_creature_lite(old_floor_ptr);
 	}
 
-	if(is_player(creature_ptr))
-		current_floor_ptr = new_floor_ptr;
+	if(is_player(creature_ptr)) current_floor_ptr = new_floor_ptr;
 
 	// Arrive at random grid
 	if (creature_ptr->change_floor_mode & (CFM_RAND_PLACE))

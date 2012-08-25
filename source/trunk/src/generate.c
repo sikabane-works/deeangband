@@ -1526,9 +1526,16 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 	floor_ptr->upper_floor_id = 0;
 	floor_ptr->lower_floor_id = 0;
 	//floor_ptr->visit_mark = latest_visit_mark++;
-	floor_ptr->world_x = 0;
-	floor_ptr->world_y = 0;
-	floor_ptr->dun_type = 4;
+
+	floor_ptr->world_x = world_x;
+	floor_ptr->world_y = world_y;
+	floor_ptr->dun_type = dungeon_id;
+
+	floor_ptr->base_level     = depth;
+	floor_ptr->floor_level    = depth;
+	floor_ptr->creature_level = depth;  // Current creature creation level
+	floor_ptr->object_level   = depth;  // Current object creation level
+
 
 	floor_ptr->floor_turn = 1;
 	floor_ptr->floor_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
