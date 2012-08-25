@@ -1011,14 +1011,14 @@ extern int get_floor_id(floor_type *floor_ptr);
 extern bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr);
 extern void wipe_generate_floor_flags(floor_type *floor_ptr);
 extern void clear_cave(floor_type *floor_ptr);
-extern void generate_floor(floor_type *floor_ptr, int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag);
+extern floor_type *generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag);
 
-/* init1.c */
+// init1.c
 extern byte color_char_to_acttr(char c);
 extern s16b feature_tag_to_index(cptr str);
 extern errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax);
 
-/* init2.c */
+// init2.c
 extern void init_file_paths(char *path);
 extern errr init_vault_info(void);
 extern errr init_buildings(void);
@@ -1026,7 +1026,7 @@ extern s16b feature_tag_to_index_in_init(cptr str);
 extern void init_angband(void);
 extern cptr get_check_sum(void);
 
-/* load.c */
+// load.c
 extern errr rd_savefile_new(void);
 extern bool load_floor(floor_type *sf_ptr, u32b mode);
 

@@ -1514,9 +1514,21 @@ void clear_cave(floor_type *floor_ptr)
  *
  * Hack -- regenerate any "overflow" levels
  */
-void generate_floor(floor_type *floor_ptr, int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
+floor_type *generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
 {
 	int num;
+	int floor_id = floor_pop();
+
+	floor_type *floor_ptr = &floor_list[floor_id];
+
+	// Prepare new floor data
+	floor_ptr->last_visit = 0;
+	floor_ptr->upper_floor_id = 0;
+	floor_ptr->lower_floor_id = 0;
+	//floor_ptr->visit_mark = latest_visit_mark++;
+	floor_ptr->world_x = 0;
+	floor_ptr->world_y = 0;
+	floor_ptr->dun_type = 4;
 
 	floor_ptr->floor_turn = 1;
 	floor_ptr->floor_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
@@ -1594,4 +1606,5 @@ void generate_floor(floor_type *floor_ptr, int dungeon_id, int world_y, int worl
 	// Hack -- Munchkin characters always get whole map 
 	if (player_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, player_ptr, (bool)(player_ptr->class_idx == CLASS_NINJA));
 
+	return floor_ptr;
 }

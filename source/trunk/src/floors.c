@@ -478,19 +478,6 @@ void move_floor(creature_type *creature_ptr)
 
 	else // Create New Floor
 	{
-		floor_id = floor_pop();
-
-		new_floor_ptr = &floor_list[floor_id];
-
-		// Prepare new floor data
-		new_floor_ptr->last_visit = 0;
-		new_floor_ptr->upper_floor_id = 0;
-		new_floor_ptr->lower_floor_id = 0;
-		new_floor_ptr->visit_mark = latest_visit_mark++;
-		new_floor_ptr->world_x = creature_ptr->wx;
-		new_floor_ptr->world_y = creature_ptr->wy;
-
-		new_floor_ptr->dun_type = 4; // TODO
 
 		// Mark shaft up/down
 		if (have_flag(feature_ptr->flags, FF_STAIRS) && have_flag(feature_ptr->flags, FF_SHAFT))
@@ -523,18 +510,19 @@ void move_floor(creature_type *creature_ptr)
 					move_num = -old_floor_ptr->floor_level;
 			}
 
-			new_floor_ptr->floor_level = creature_ptr->depth = old_floor_ptr->floor_level + move_num;
+			//new_floor_ptr->floor_level = creature_ptr->depth = old_floor_ptr->floor_level + move_num;
 		}
 
-		generate_floor(new_floor_ptr, old_floor_ptr->dun_type, old_floor_ptr->world_y, old_floor_ptr->world_x, new_floor_ptr->floor_level, old_floor_ptr, 0);
+		new_floor_ptr = generate_floor(old_floor_ptr->dun_type, old_floor_ptr->world_y, old_floor_ptr->world_x, old_floor_ptr->floor_level, old_floor_ptr, 0);
+
 		creature_ptr->feeling_turn = old_turn;
 		creature_ptr->floor_feeling = 0;
-		creature_ptr->floor_id = floor_id;
+		//creature_ptr->floor_id = floor_id;
 
 		// Choose random stairs
 		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr);
 
-		stair_ptr->special = floor_id;
+		//stair_ptr->special = floor_id;
 		stair_ptr->cx = player_ptr->fx;
 		stair_ptr->cy = player_ptr->fy;
 
@@ -569,8 +557,7 @@ void move_floor(creature_type *creature_ptr)
 	}
 	
 
-	if (stair_ptr && !feat_uses_special(stair_ptr->feat))
-		stair_ptr->special = floor_id; // Connect from here
+	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
 	if (creature_ptr->change_floor_mode & CFM_RAND_CONNECT)
