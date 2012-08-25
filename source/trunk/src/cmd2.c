@@ -2628,7 +2628,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 			creature_ptr->energy_use = 100;
 
 			/* HACk -- set the encouter flag for the wilderness generation */
-			generate_encounter = TRUE;
+			floor_ptr->generate_encounter = TRUE;
 		}
 	}
 

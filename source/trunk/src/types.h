@@ -1575,6 +1575,7 @@ struct creature_type
 	u32b change_floor_mode;
 	s16b time_stopper;
 	byte tsuri_dir;
+
 };
 
 // traits_precondition_type
@@ -1917,6 +1918,7 @@ typedef struct
 	byte wild_mode;			// Wilderness
 	s16b race_population[MAX_RACES];
 	byte generated;
+	byte generate_encounter;
 
 } floor_type;
 

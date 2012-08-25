@@ -933,7 +933,6 @@ s32b record_turn;
  */
 wilderness_type **wilderness;
 
-
 /*
  * Buildings
  */
@@ -1078,7 +1077,6 @@ bool new_mane;
 bool npc_action;
 
 bool ambush_flag;
-bool generate_encounter;
 
 cptr screen_dump = NULL;
 

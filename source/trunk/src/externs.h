@@ -551,7 +551,6 @@ extern bool sukekaku;
 extern bool new_mane;
 extern bool npc_action;
 extern bool ambush_flag;
-extern bool generate_encounter;
 extern cptr screen_dump;
 
 /*** Terrain feature variables ***/

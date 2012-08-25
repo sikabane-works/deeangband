@@ -576,22 +576,22 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	/* subject_change_floor_dungeon = FALSE;*/
 
 
-	lim = (generate_encounter==TRUE)?MIN_M_ALLOC_TN * 2:MIN_M_ALLOC_TN;
+	lim = (floor_ptr->generate_encounter==TRUE)?MIN_M_ALLOC_TN * 2:MIN_M_ALLOC_TN;
 
 	/* Make some residents */
 	for (i = 0; i < lim; i++)
 	{
 		u32b mode = 0;
 
-		if (!(generate_encounter || (one_in_(2) && (!town_num))))
+		if (!(floor_ptr->generate_encounter || (one_in_(2) && (!town_num))))
 			mode |= PM_ALLOW_SLEEP;
 
 		// Make a resident
-		(void)alloc_creature(floor_ptr, player_ptr, generate_encounter ? 0 : 3, mode);
+		(void)alloc_creature(floor_ptr, player_ptr, floor_ptr->generate_encounter ? 0 : 3, mode);
 	}
 
-	if(generate_encounter) ambush_flag = TRUE;
-	generate_encounter = FALSE;
+	if(floor_ptr->generate_encounter) ambush_flag = TRUE;
+	floor_ptr->generate_encounter = FALSE;
 
 	/* Fill the arrays of floors and walls in the good proportions */
 	set_floor_and_wall(0);
@@ -860,8 +860,6 @@ errr init_wilderness(void)
 	/* Init the other pointers */
 	for (i = 1; i < max_wild_y; i++)
 		wilderness[i] = wilderness[0] + i * max_wild_x;
-
-	generate_encounter = FALSE;
 
 	return 0;
 }

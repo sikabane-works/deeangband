@@ -876,7 +876,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 }
 
 
-#define MAX_SUBTITLE (sizeof(subtitle)/sizeof(subtitle[0]))
+#define MAX_SUBTITLE (sizeof(subtitle) / sizeof(subtitle[0]))
 
 static void do_cmd_disp_nikki(creature_type *creature_ptr)
 {
