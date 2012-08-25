@@ -1567,6 +1567,7 @@ struct creature_type
 
 	bool now_damaged;
 	bool hack_mutation;
+	bool level_up;
 
 	u16b total_winner;	  // Total winner
 	u32b creature_update;
@@ -1894,6 +1895,7 @@ typedef struct
 {
 	byte fight_arena_mode;
 	byte gamble_arena_mode;
+
 	s16b base_level;      // Base dungeon level
 	s16b floor_level;
 	s16b creature_level;  // Current creature creation level

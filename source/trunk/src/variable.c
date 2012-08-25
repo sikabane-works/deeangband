@@ -36,8 +36,6 @@ cptr macro_modifiespecies_name[MAX_MACRO_MOD];
 cptr macro_triggespecies_name[MAX_MACRO_TRIG];
 cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
-int level_up = 0;
-
 s16b health_who = 0;	/* Health bar trackee */
 
 /* 

@@ -2429,8 +2429,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		}
 
 #ifdef JP
-		/* レベルアップの時は上昇量を表示する */
-		if ((level_up == 1) && (msp > creature_ptr->msp))
+		if (creature_ptr->level_up && (msp > creature_ptr->msp))
 		{
 			if(message) msg_format("最大マジック・ポイントが %d 増加した！",
 				   (msp - creature_ptr->msp));
@@ -2564,8 +2563,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 		}
 
 #ifdef JP
-		/* レベルアップの時は上昇量を表示する */
-		if ((level_up == 1) && (mhp > creature_ptr->mhp))
+		if (creature_ptr->level_up && (mhp > creature_ptr->mhp))
 		{
 			if(message) msg_format("最大ヒット・ポイントが %d 増加した！", (mhp - creature_ptr->mhp) );
 		}

@@ -154,13 +154,10 @@ void check_experience(creature_type *creature_ptr)
 		/* Window stuff */
 		play_window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
-		/* HP‚ÆMP‚Ìã¸—Ê‚ð•\Ž¦ */
-		level_up = 1;
-
-		/* Handle stuff */
+		// Handle stuff
+		creature_ptr->level_up = TRUE;
 		handle_stuff();
-
-		level_up = 0;
+		creature_ptr->level_up = FALSE;
 
 		if (level_inc_stat)
 		{

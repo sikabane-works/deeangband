@@ -29,8 +29,6 @@ extern cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
 extern bool playing;
 
-extern int level_up;
-
 extern s16b health_who;
 
 /* 

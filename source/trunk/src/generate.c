@@ -1538,7 +1538,6 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 	floor_ptr->creature_level = depth;  // Current creature creation level
 	floor_ptr->object_level   = depth;  // Current object creation level
 
-
 	floor_ptr->floor_turn = 1;
 	floor_ptr->floor_turn_limit = TURNS_PER_TICK * TOWN_DAWN * (MAX_DAYS - 1) + TURNS_PER_TICK * TOWN_DAWN * 3 / 4;
 
