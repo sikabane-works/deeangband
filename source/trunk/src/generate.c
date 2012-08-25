@@ -1514,7 +1514,7 @@ void clear_cave(floor_type *floor_ptr)
  *
  * Hack -- regenerate any "overflow" levels
  */
-void generate_floor(floor_type *floor_ptr)
+void generate_floor(floor_type *floor_ptr, int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
 {
 	int num;
 

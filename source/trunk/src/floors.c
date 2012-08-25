@@ -524,7 +524,7 @@ void move_floor(creature_type *creature_ptr)
 			new_floor_ptr->floor_level = creature_ptr->depth = old_floor_ptr->floor_level + move_num;
 		}
 
-		generate_floor(new_floor_ptr);
+		generate_floor(new_floor_ptr, old_floor_ptr->dun_type, old_floor_ptr->world_y, old_floor_ptr->world_x, new_floor_ptr->floor_level, old_floor_ptr, 0);
 		creature_ptr->feeling_turn = old_turn;
 		creature_ptr->floor_feeling = 0;
 		creature_ptr->floor_id = floor_id;
