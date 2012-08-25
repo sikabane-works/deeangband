@@ -891,6 +891,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);
+	wr_byte(floor_ptr->wild_mode);
 
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
 

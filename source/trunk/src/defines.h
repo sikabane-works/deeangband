@@ -1,4 +1,4 @@
-/* File: defines.h */
+// File: defines.h
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
@@ -50,7 +50,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 68
+#define VER_PATCH 69
 
 #define VER_EXTRA 0
 
