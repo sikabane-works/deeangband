@@ -1662,6 +1662,7 @@ static void do_cmd_wiz_floor_object_list(void)
 static void do_cmd_generate_floor(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	int depth = 0, wx, wy, dungeon_id = 0;
 
 	// Ask for level
 	if (command_arg <= 0)
@@ -1673,7 +1674,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 		// Ask for a level
 		sprintf(ppp, "Jump which dungeon : ");
-		sprintf(tmp_val, "%d", floor_ptr->dun_type);
+		sprintf(tmp_val, "%d", dungeon_id);
 		if (!get_string(ppp, tmp_val, 2)) return;
 
 		tmp_dungeon_level = atoi(tmp_val);
@@ -1681,7 +1682,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 		// Prompt
 		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_level].mindepth, dungeon_info[tmp_dungeon_level].maxdepth);
-		sprintf(tmp_val, "%d", floor_ptr->floor_level);
+		sprintf(tmp_val, "%d", depth);
 
 		// Ask for a level
 		if (!get_string(ppp, tmp_val, 10)) return;
@@ -1689,11 +1690,11 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		// Extract request
 		command_arg = atoi(tmp_val);
 
-		floor_ptr->dun_type = tmp_dungeon_level;
+		dungeon_id = tmp_dungeon_level;
 	}
 
 	if (command_arg < dungeon_info[floor_ptr->dun_type].mindepth) command_arg = 0;
-	if (command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[floor_ptr->dun_type].maxdepth;
+	if (command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[dungeon_id].maxdepth;
 
 	// Accept request
 	msg_format("You jump to dungeon level %d.", command_arg);
@@ -1701,13 +1702,13 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	// Change level
-	creature_ptr->depth = command_arg;
-	creature_ptr->wx = dungeon_info[floor_ptr->dun_type].dx;
-	creature_ptr->wy = dungeon_info[floor_ptr->dun_type].dy;
+	depth = command_arg;
+	wx = dungeon_info[floor_ptr->dun_type].dx;
+	wy = dungeon_info[floor_ptr->dun_type].dy;
 
 	//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 
-	if (!floor_ptr->floor_level) floor_ptr->dun_type = 0;
+	if (!floor_ptr->floor_level) dungeon_id = 0;
 	floor_ptr->fight_arena_mode = FALSE;
 	//TODO floor_ptr->wild_mode = FALSE;
 
@@ -1728,7 +1729,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 	// move simulate floor and player.
-	//TODO move_floor(creature_ptr);
+	move_floor(creature_ptr, dungeon_id, wy, wx, depth, floor_ptr, 0);
 
 	// redraw
 	play_redraw |= PR_MAP;
