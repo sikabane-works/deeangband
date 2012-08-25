@@ -3792,6 +3792,10 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 {
 	int i;
 
+	// TODO : Hack, monk armour
+	bool monk_armour_aux = FALSE;
+	bool monk_notify_aux = FALSE;
+
 	/* Take note when "heavy bow" changes */
 	if (creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
 	{

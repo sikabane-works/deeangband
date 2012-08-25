@@ -925,10 +925,6 @@ cptr ANGBAND_DIR_XTRA;
  */
 bool (*get_obj_num_hook)(int k_idx);
 
-// Hack, monk armour
-bool monk_armour_aux;
-bool monk_notify_aux;
-
 char record_object_name[MAX_NLEN];
 s32b record_turn;
 
