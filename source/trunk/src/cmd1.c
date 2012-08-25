@@ -2962,11 +2962,11 @@ static bool run_test(creature_type *creature_ptr)
 	max = (prev_dir & 0x01) + 1;
 
 	// break run when leaving trap detected region
-	if ((disturb_trap_detect || alert_trap_detect)
-	    && detect_trap && !(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_IN_DETECT))
+	if ((disturb_trap_detect || alert_trap_detect) && detect_trap && !(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_IN_DETECT))
 	{
 		// No duplicate warning
 		detect_trap = FALSE;
+
 
 		// You are just on the edge
 		if (!(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_UNSAFE))
@@ -3034,6 +3034,11 @@ static bool run_test(creature_type *creature_ptr)
 		/* Assume unknown */
 		inv = TRUE;
 
+		if (have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
+		{
+			return(TRUE);
+		}
+
 		/* Check memorized grids */
 		if (c_ptr->info & (CAVE_MARK))
 		{
@@ -3069,6 +3074,7 @@ static bool run_test(creature_type *creature_ptr)
 					/* Ignore */
 					notice = FALSE;
 				}
+
 			}
 
 			/* Interesting feature */
