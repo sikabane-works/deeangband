@@ -182,7 +182,6 @@ extern s16b hack_m_idx_ii;
 extern s32b friend_align;
 extern s32b friend_ethics;
 extern int leaving_quest;
-extern bool reinit_wilderness;
 extern bool multi_rew;
 	
 /*

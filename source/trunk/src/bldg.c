@@ -2775,7 +2775,7 @@ put_str("今のところクエストはありません。", 8, 3);
 
 		get_questinfo(q_index);
 
-		reinit_wilderness = TRUE;
+		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Failed quest */
 	else if (quest_ptr->status == QUEST_STATUS_FAILED)
@@ -2785,7 +2785,7 @@ put_str("今のところクエストはありません。", 8, 3);
 		/* Mark quest as done (but failed) */
 		quest_ptr->status = QUEST_STATUS_FAILED_DONE;
 
-		reinit_wilderness = TRUE;
+		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Quest is still unfinished */
 	else if (quest_ptr->status == QUEST_STATUS_TAKEN)
@@ -2863,7 +2863,7 @@ msg_format("クエスト: %sを %d体倒す", name,quest_ptr->max_num);
 		}
 
 		quest_ptr->status = QUEST_STATUS_TAKEN;
-		reinit_wilderness = TRUE;
+		creature_ptr->reinit_wilderness = TRUE;
 #ifdef JP
 		msg_format("クエスト『%s』を受諾しました。", quest_ptr->name);
 #else
@@ -4759,7 +4759,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	bldg = &building[which];
 
 	/* Don't re-init the wilderness */
-	reinit_wilderness = FALSE;
+	creature_ptr->reinit_wilderness = FALSE;
 
 	if ((which == 2) && (arena_number < 0))
 	{
@@ -4868,7 +4868,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	msg_print(NULL);
 
 	/* Reinit wilderness to activate quests ... */
-	if (reinit_wilderness)
+	if (creature_ptr->reinit_wilderness)
 	{
 		subject_change_floor = TRUE;
 	}

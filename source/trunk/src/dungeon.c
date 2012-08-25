@@ -6597,7 +6597,7 @@ static void play_loop(void)
 			//TODO move_floor(player_ptr);
 
 			// Forget the flag
-			reinit_wilderness = FALSE;
+			player_ptr->reinit_wilderness = FALSE;
 		}
 
 		// Write about current level on the play record once per level
