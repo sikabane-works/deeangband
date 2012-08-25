@@ -6282,9 +6282,6 @@ void waited_report_score(void)
 
 static void new_game_setting(void)
 {
-	/* The dungeon is not ready */
-	floor_generated = FALSE;
-
 	/* Start in town */
 	inside_quest = 0;
 
@@ -6413,7 +6410,7 @@ static void accidental_death(void)
 
 		//prepare_change_floor_mode(player_ptr, CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
 
-		if (!floor_generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
+		if (!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 	}
 	else
 	{
@@ -6438,9 +6435,9 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		if (!floor_generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
 		floor_ptr = GET_FLOOR_PTR(player_ptr); 
+		if (!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 
 		if (panic_save) panic_save = 0; // TODO
 
@@ -6600,7 +6597,6 @@ static void play_loop(void)
 			//TODO move_floor(player_ptr);
 
 			// Forget the flag
-			floor_generated = FALSE;
 			reinit_wilderness = FALSE;
 		}
 
@@ -6715,9 +6711,6 @@ void play_game(bool new_game)
 	{
 		/* Make new player */
 		new_game = TRUE;
-
-		/* The dungeon is not ready */
-		floor_generated = FALSE;
 
 		/* Prepare to init the RNG */
 		Rand_quick = TRUE;

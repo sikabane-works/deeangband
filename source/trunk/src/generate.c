@@ -1527,6 +1527,8 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 	floor_ptr->lower_floor_id = 0;
 	//floor_ptr->visit_mark = latest_visit_mark++;
 
+	floor_ptr->generated = FALSE;
+
 	floor_ptr->world_x = world_x;
 	floor_ptr->world_y = world_y;
 	floor_ptr->dun_type = dungeon_id;

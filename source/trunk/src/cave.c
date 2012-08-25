@@ -4550,7 +4550,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	feature_type *f_ptr = &feature_info[feat];
 	bool old_los, old_mirror;
 
-	if (!floor_generated)
+	if (!floor_ptr->generated)
 	{
 		/* Clear mimic type */
 		cave_ptr->mimic = 0;
@@ -4753,7 +4753,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 			found = TRUE;
 		}
 
-		if (found && floor_generated && creature_can_see_bold(player_ptr, y, x))
+		if (found && floor_ptr->generated && creature_can_see_bold(player_ptr, y, x))
 		{
 #ifdef JP
 			msg_print("‰½‚©‚ð”­Œ©‚µ‚½I");
@@ -4767,7 +4767,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 	{
 		feature_type *old_f_ptr = &feature_info[oldfeat];
 
-		if (have_flag(old_f_ptr->flags, FF_GLASS) && floor_generated)
+		if (have_flag(old_f_ptr->flags, FF_GLASS) && floor_ptr->generated)
 		{
 			project(NULL, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, GF_SHARDS,
 			        (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);

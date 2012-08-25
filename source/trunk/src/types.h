@@ -1914,6 +1914,7 @@ typedef struct
 
 	byte wild_mode;			// Wilderness
 	s16b race_population[MAX_RACES];
+	byte generated;
 
 } floor_type;
 

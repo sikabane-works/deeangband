@@ -1085,7 +1085,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 				a_ptr->cur_num = 1;
 
 				/* Hack -- Memorize location of artifact in saved floors */
-				if (floor_generated) a_ptr->floor_id = slayer_ptr->floor_id;
+				if (floor_ptr->generated) a_ptr->floor_id = slayer_ptr->floor_id;
 			}
 			else if (!preserve_mode) a_ptr->cur_num = 1;
 		}
@@ -1298,7 +1298,7 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 						a_ptr->cur_num = 1;
 
 						/* Hack -- Memorize location of artifact in saved floors */
-						if (floor_generated) a_ptr->floor_id = slayer_ptr->floor_id;
+						if (floor_ptr->generated) a_ptr->floor_id = slayer_ptr->floor_id;
 					}
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
@@ -1527,7 +1527,7 @@ void resize_map(void)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Only if the dungeon exists */
-	if (!floor_generated) return;
+	if (!floor_ptr->generated) return;
 	
 	/* Mega-Hack -- no panel yet */
 	panel_row_max = 0;
@@ -1575,9 +1575,6 @@ void resize_map(void)
  */
 void redraw_window(void)
 {
-	/* Only if the dungeon exists */
-	if (!floor_generated) return;
-
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 

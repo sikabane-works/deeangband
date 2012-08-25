@@ -1550,9 +1550,6 @@ static errr rd_floors(void)
 		break;
 	}
 
-	/* The dungeon is ready */
-	floor_generated = TRUE;
-
 	/* Success or Error */
 	return err;
 }

@@ -2890,7 +2890,7 @@
  */
 #define cave_empty_bold2(FLOOR, Y, X) \
 	(cave_empty_bold((FLOOR), Y, X) && \
-	 (floor_generated || !cave_have_flag_bold((FLOOR), (Y), (X), FF_TREE)))
+	 (floor_ptr->generated || !cave_have_flag_bold((FLOOR), (Y), (X), FF_TREE)))
 
 
 /*

@@ -142,7 +142,6 @@ extern bool arg_force_original;
 extern bool arg_force_roguelike;
 extern bool arg_bigtile;
 extern bool character_generated;
-extern bool floor_generated;
 extern bool character_loaded;
 extern bool character_saved;
 extern bool creating_savefile;

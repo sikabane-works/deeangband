@@ -3929,7 +3929,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 #endif
 			}
 		}
-		else if (floor_generated)
+		else
 		{
 			if (!floor_ptr->floor_level)
 			{
