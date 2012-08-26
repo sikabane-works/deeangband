@@ -1002,7 +1002,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "You have fallen through a trap door!");
 #endif
-				//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
+				move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
 
 				/* Leaving */
 				subject_change_floor = TRUE;

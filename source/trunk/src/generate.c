@@ -1614,5 +1614,7 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 	// Hack -- Munchkin characters always get whole map 
 	if (player_ptr->chara_idx == CHARA_MUNCHKIN) wiz_lite(floor_ptr, player_ptr, (bool)(player_ptr->class_idx == CLASS_NINJA));
 
+	floor_ptr->generated = TRUE;
+
 	return floor_id;
 }

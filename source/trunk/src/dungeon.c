@@ -767,7 +767,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 
 	if (autosave_l) do_cmd_save_game(TRUE);
 
-	/* Change level */
+	// Change level
 	floor_ptr->floor_level = command_arg;
 
 	leave_quest_check(creature_ptr);
@@ -781,7 +781,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	 * Clear all saved floors
 	 * and create a first saved floor
 	 */
-	//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+	move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, command_arg, floor_ptr, 0);
 
 	/* Leaving */
 	subject_change_floor = TRUE;
@@ -6437,6 +6437,7 @@ static void play_loop(void)
 
 		current_floor_ptr = &floor_list[player_ptr->floor_id];
 		floor_ptr = GET_FLOOR_PTR(player_ptr); 
+
 		if (!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
 
 		if (panic_save) panic_save = 0; // TODO

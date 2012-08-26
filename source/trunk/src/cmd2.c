@@ -144,16 +144,14 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		/* New depth */
 		if (have_flag(f_ptr->flags, FF_SHAFT))
 		{
-			/* Create a way back */
-			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP | CFM_SHAFT);
-
+			// Create a way back
+			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 2, floor_ptr,  CFM_SAVE_FLOORS);
 			up_num = 2;
 		}
 		else
 		{
-			/* Create a way back */
-			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_UP);
-
+			// Create a way back
+			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 1, floor_ptr,  CFM_SAVE_FLOORS);
 			up_num = 1;
 		}
 
@@ -289,13 +287,13 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			/* Save old player position */
 			creature_ptr->oldpx = creature_ptr->fx;
 			creature_ptr->oldpy = creature_ptr->fy;
-			floor_ptr->dun_type = (byte)target_dungeon;
 
 			/*
 			 * Clear all saved floors
 			 * and create a first saved floor
 			 */
-			//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
+			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, dungeon_info[target_dungeon].mindepth, floor_ptr, CFM_SAVE_FLOORS);
+
 		}
 
 		/* Hack -- take a turn */
@@ -363,19 +361,17 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		if (fall_trap)
 		{
-			//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_RAND_PLACE | CFM_RAND_CONNECT);
+			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
 		}
 		else
 		{
 			if (have_flag(f_ptr->flags, FF_SHAFT))
 			{
-				/* Create a way back */
-				//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN | CFM_SHAFT);
+				move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 2, floor_ptr, 0);
 			}
 			else
 			{
-				/* Create a way back */
-				//prepare_change_floor_mode(creature_ptr, CFM_SAVE_FLOORS | CFM_DOWN);
+				move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, 0);
 			}
 		}
 	}
