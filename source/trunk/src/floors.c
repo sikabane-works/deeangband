@@ -491,6 +491,8 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].special = old_floor_id;
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cx = old_fx;
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cy = old_fy;
+
+		if(is_player(creature_ptr)) current_floor_ptr = new_floor_ptr;
 	}
 
 	// Leaving the dungeon to town
@@ -537,8 +539,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		forget_view(old_floor_ptr);
 		clear_creature_lite(old_floor_ptr);
 	}
-
-	if(is_player(creature_ptr)) current_floor_ptr = new_floor_ptr;
 
 	// Arrive at random grid
 	if (creature_ptr->change_floor_mode & (CFM_RAND_PLACE))
