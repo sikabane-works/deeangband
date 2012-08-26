@@ -495,28 +495,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		if(is_player(creature_ptr)) current_floor_ptr = new_floor_ptr;
 	}
 
-	// Leaving the dungeon to town
-	if (!old_floor_ptr->floor_level && old_floor_ptr->dun_type)
-	{
-		subject_change_dungeon = TRUE;
-		creature_ptr->wy = dungeon_info[old_floor_ptr->dun_type].dy;
-		creature_ptr->wx = dungeon_info[old_floor_ptr->dun_type].dx;
-		creature_ptr->recall_dungeon = old_floor_ptr->dun_type;
-		old_floor_ptr->dun_type = 0;
-
-		// Reach to the surface -- Clear all saved floors
-		creature_ptr->change_floor_mode &= ~CFM_SAVE_FLOORS;
-	}
-	if (!(creature_ptr->change_floor_mode & CFM_SAVE_FLOORS))	// Kill some old saved floors
-	{
-		for (i = 0; i < MAX_FLOORS; i++) kill_floor(&floor_list[i]); // Kill all saved floors
-		latest_visit_mark = 1; // Reset visit_mark count
-	}
-	else if (creature_ptr->change_floor_mode & CFM_NO_RETURN)
-	{
-		kill_floor(old_floor_ptr);
-	}
-	
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
@@ -541,11 +519,9 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	// Arrive at random grid
-	if (creature_ptr->change_floor_mode & (CFM_RAND_PLACE))
-		(void)new_player_spot(new_floor_ptr, creature_ptr);
+	if (creature_ptr->change_floor_mode & (CFM_RAND_PLACE)) (void)new_player_spot(new_floor_ptr, creature_ptr);
 
-	// Clear all flags
-	creature_ptr->change_floor_mode = 0L;
+	creature_ptr->change_floor_mode = 0L;	// Clear all flags
 
 	reset_cave_creature_reference();
 }
