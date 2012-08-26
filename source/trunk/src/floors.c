@@ -155,18 +155,6 @@ s16b floor_pop(void)
 	return i;
 }
 
-
-//
-// Prepare mode flags of changing floor
-//
-/*
-void prepare_change_floor_mode(creature_type *creature_ptr, u32b mode)
-{
-	creature_ptr->change_floor_mode |= mode;
-}
-*/
-
-
 // Builds the dead end
 static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 {
@@ -317,7 +305,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
  * current floor.
  */
  
-static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *floor_ptr)
+static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *floor_ptr, u32b flag)
 {
 	int x, y, sx = 0, sy = 0;
 	int x_table[20];
@@ -334,7 +322,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 			feature_type *f_ptr = &feature_info[c_ptr->feat];
 			bool ok = FALSE;
 
-			if (creature_ptr->change_floor_mode & CFM_DOWN)
+			if (flag & CFM_DOWN)
 			{
 				if (have_flag(f_ptr->flags, FF_LESS) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
@@ -349,7 +337,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 				}
 			}
 
-			else if (creature_ptr->change_floor_mode & CFM_UP)
+			else if (flag & CFM_UP)
 			{
 				if (have_flag(f_ptr->flags, FF_MORE) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
@@ -482,7 +470,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		creature_ptr->floor_id = floor_id;
 
 		// Choose random stairs
-		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr);
+		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr, flag);
 
 		//stair_ptr->special = floor_id;
 		stair_ptr->cx = player_ptr->fx;
