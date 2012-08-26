@@ -305,7 +305,7 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
  * current floor.
  */
  
-static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *floor_ptr, u32b flag)
+static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stair_ptr, floor_type *old_floor_ptr, floor_type *new_floor_ptr, u32b flag)
 {
 	int x, y, sx = 0, sy = 0;
 	int x_table[20];
@@ -314,11 +314,11 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	int i;
 
 	// Search usable stairs
-	for (y = 0; y < floor_ptr->height; y++)
+	for (y = 0; y < new_floor_ptr->height; y++)
 	{
-		for (x = 0; x < floor_ptr->width; x++)
+		for (x = 0; x < new_floor_ptr->width; x++)
 		{
-			cave_type *c_ptr = &floor_ptr->cave[y][x];
+			cave_type *c_ptr = &new_floor_ptr->cave[y][x];
 			feature_type *f_ptr = &feature_info[c_ptr->feat];
 			bool ok = FALSE;
 
@@ -329,7 +329,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 					ok = TRUE;
 
 					// Found fixed stairs?
-					if (c_ptr->special && c_ptr->special == floor_ptr->upper_floor_id)
+					if (c_ptr->special && c_ptr->special == new_floor_ptr->upper_floor_id)
 					{
 						sx = x;
 						sy = y;
@@ -344,7 +344,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 					ok = TRUE;
 
 					// Found fixed stairs
-					if (c_ptr->special && c_ptr->special == floor_ptr->lower_floor_id)
+					if (c_ptr->special && c_ptr->special == new_floor_ptr->lower_floor_id)
 					{
 						sx = x;
 						sy = y;
@@ -470,11 +470,12 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		creature_ptr->floor_id = floor_id;
 
 		// Choose random stairs
-		locate_connected_stairs(creature_ptr, stair_ptr, new_floor_ptr, flag);
+		(void)new_player_spot(new_floor_ptr, creature_ptr);
+		//if (!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
 
 		//stair_ptr->special = floor_id;
-		stair_ptr->cx = player_ptr->fx;
-		stair_ptr->cy = player_ptr->fy;
+		//stair_ptr->cx = player_ptr->fx;
+		//stair_ptr->cy = player_ptr->fy;
 
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].special = old_floor_id;
 		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cx = old_fx;
