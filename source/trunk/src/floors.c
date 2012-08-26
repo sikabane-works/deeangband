@@ -486,15 +486,15 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// Fix connection -- level teleportation or trap door
-	if (creature_ptr->change_floor_mode & CFM_RAND_CONNECT)
+	if (flag & CFM_RAND_CONNECT)
 	{
-		if (creature_ptr->change_floor_mode & CFM_UP)        old_floor_ptr->upper_floor_id = floor_id;
-		else if (creature_ptr->change_floor_mode & CFM_DOWN) old_floor_ptr->lower_floor_id = floor_id;
+		if (flag & CFM_UP)        old_floor_ptr->upper_floor_id = floor_id;
+		else if (flag & CFM_DOWN) old_floor_ptr->lower_floor_id = floor_id;
 	}
 
 	// If you can return, you need to save previous floor
 
-	if ((creature_ptr->change_floor_mode & CFM_SAVE_FLOORS) && !(creature_ptr->change_floor_mode & CFM_NO_RETURN))
+	if ((flag & CFM_SAVE_FLOORS) && !(flag & CFM_NO_RETURN))
 	{
 		get_out_creature(new_floor_ptr, creature_ptr); // Get out of the my way!
 		old_floor_ptr->last_visit = turn; // Record the last visit turn of current floor
@@ -507,9 +507,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	// Arrive at random grid
-	if (creature_ptr->change_floor_mode & (CFM_RAND_PLACE)) (void)new_player_spot(new_floor_ptr, creature_ptr);
-
-	creature_ptr->change_floor_mode = 0L;	// Clear all flags
+	if (flag & (CFM_RAND_PLACE)) (void)new_player_spot(new_floor_ptr, creature_ptr);
 
 	reset_cave_creature_reference();
 }
