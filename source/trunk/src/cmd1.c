@@ -2474,7 +2474,7 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		/* Notice things */
 		else
 		{
-			/* Boundary floor mimic */
+			// Boundary floor mimic
 			if (boundary_floor(c_ptr, f_ptr, mimic_f_ptr))
 			{
 #ifdef JP

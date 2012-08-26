@@ -1080,7 +1080,6 @@ bool change_wild_mode(creature_type *creature_ptr)
 	/* Leaving */
 	subject_change_floor = TRUE;
 	reveal_wilderness(creature_ptr->wy, creature_ptr->wx);
-	reveal_wilderness(creature_ptr->fy, creature_ptr->fx);
 
 	/* HACK */
 	creature_ptr->energy_use = 1000;
