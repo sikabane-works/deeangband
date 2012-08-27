@@ -30,13 +30,13 @@ bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 	// Place the player
 	while (max_attempts--)
 	{
-		/* Pick a legal spot */
+		// Pick a legal spot
 		y = rand_range(1, floor_ptr->height - 2);
 		x = rand_range(1, floor_ptr->width - 2);
 
 		c_ptr = &floor_ptr->cave[y][x];
 
-		/* Must be a "naked" floor grid */
+		// Must be a "naked" floor grid
 		if (c_ptr->creature_idx) continue;
 		if (floor_ptr->floor_level)
 		{
@@ -46,23 +46,22 @@ bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 			{
 				if (!have_flag(f_ptr->flags, FF_FLOOR)) continue;
 			}
-			else /* Rule 2 */
+			else // Rule 2
 			{
 				if (!have_flag(f_ptr->flags, FF_MOVE)) continue;
 				if (have_flag(f_ptr->flags, FF_HIT_TRAP)) continue;
 			}
 
-			/* Refuse to start on anti-teleport grids in dungeon */
+			// Refuse to start on anti-teleport grids in dungeon
 			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
 		if (!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) continue;
 		if (!in_bounds(floor_ptr, y, x)) continue;
 
-		/* Refuse to start on anti-teleport grids */
+		// Refuse to start on anti-teleport grids
 		if (c_ptr->info & (CAVE_ICKY)) continue;
 
-		/* Done */
-		break;
+		break; // Done
 	}
 
 	if (max_attempts < 1) // (someone's comment) Should be -1, actually if we failed...

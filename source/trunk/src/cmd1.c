@@ -1896,10 +1896,10 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 	}
 
 	/* Handle "store doors" */
-	if (have_flag(f_ptr->flags, FF_STORE))
+	if (have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MPE_NO_ENTER_STORE))
 	{
-		/* Disturb */
-		disturb(player_ptr, 0, 0);
+		// Disturb
+		disturb(creature_ptr, 0, 0);
 
 		creature_ptr->energy_use = 0;
 		/* Hack -- Enter store */
