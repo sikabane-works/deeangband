@@ -22,7 +22,7 @@
 bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int	y, x;
-	int max_attempts = RANDOM_TRY;
+	int max_attempts = MAX_TRIES;
 
 	cave_type *c_ptr;
 	feature_type *f_ptr;

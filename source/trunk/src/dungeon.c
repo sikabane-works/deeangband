@@ -6071,7 +6071,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	floor_ptr->gamble_arena_mode = TRUE;
 	get_species_num_prep(NULL, NULL);
 
-	while (n < RANDOM_TRY)
+	while (n < MAX_TRIES)
 	{
 		n++;
 
@@ -6087,7 +6087,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		break;
 
 	}
-	if(n == RANDOM_TRY) msg_print("Warning: undetermined today wanted creature.");
+	if(n == MAX_TRIES) msg_print("Warning: undetermined today wanted creature.");
 
 	today_mon = 0;
 	floor_ptr->gamble_arena_mode = old_gamble_arena_mode;

@@ -3,7 +3,12 @@
 
 #define STORE_MIN_STOCK 12
 
-#define RANDOM_TRY  100000 // Number of Trying for random search
+// Maximum number of random tries
+#define MAX_TRIES 10000
+
+// 1/x chance of reducing stats (for elemental attacks)
+#define HURT_CHANCE 16
+
 #define PERCENTAGE  100
 
 #define SPEAK_CHANCE 8

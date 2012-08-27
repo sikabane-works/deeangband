@@ -12,12 +12,6 @@
 
 #include "angband.h"
 
-/* Maximum number of tries for teleporting */
-#define MAX_TRIES 100
-
-/* 1/x chance of reducing stats (for elemental attacks) */
-#define HURT_CHANCE 16
-
 
 static bool cave_creature_teleportable_bold(creature_type *creature_ptr, int y, int x, u32b mode)
 {

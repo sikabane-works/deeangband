@@ -46,13 +46,6 @@
  */
 
 
-
-/*
- * Maximum number of tries for selection of a proper quest creature
- */
-#define MAX_TRIES 100
-
-
 /*
  * Local "savefile" pointer
  */
