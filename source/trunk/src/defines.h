@@ -3673,7 +3673,7 @@ enum GRAPHICS_MODE
 #define SKEY_BOTTOM 	  0xf008
 
 /*
- * Bit flags for move_creature_effect()
+ * Bit flags for move_creature()
  */
 #define MPE_STAYING			0x00000001
 #define MPE_FORGET_FLOW		0x00000002

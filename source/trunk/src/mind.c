@@ -1462,7 +1462,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			msg_print(NULL);
 
 			/* Move the player */
-			(void)move_creature_effect(creature_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+			(void)move_creature(creature_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 		}
 		break;
 	}
@@ -1471,7 +1471,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 		if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
-		move_creature(creature_ptr, dir, easy_disarm, TRUE);
+		walk_creature(creature_ptr, dir, easy_disarm, TRUE);
 		break;
 	}
 	case 3:

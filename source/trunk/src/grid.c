@@ -71,7 +71,7 @@ bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 	}
 
 	// Save the new player grid
-	move_creature_effect(creature_ptr, floor_ptr, y, x, 0);
+	move_creature(creature_ptr, floor_ptr, y, x, 0);
 	return TRUE;
 }
 

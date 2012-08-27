@@ -715,7 +715,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 /*
  * Player "wants" to pick up an object or gold.
  * Note that we ONLY handle things that can be picked up.
- * See "move_creature()" for handling of other things.
+ * See "walk_creature()" for handling of other things.
  */
 void carry(creature_type *creature_ptr, bool pickup)
 {
@@ -1763,7 +1763,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 
 
 // Move the creature
-bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode)
+bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, int nx, u32b mpe_mode)
 {
 	floor_type *prev_floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
@@ -1771,6 +1771,13 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 
 	if(!floor_ptr) floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if(floor_ptr->wild_mode) reveal_wilderness(ny, nx);
+
+	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
+	if(prev_floor_ptr != floor_ptr)
+	{
+		remove_all_mirrors(creature_ptr, prev_floor_ptr, FALSE);
+		if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
+	}
 
 	if (!(mpe_mode & MPE_STAYING))
 	{
@@ -2205,7 +2212,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 
 
 /*
- * Move player in the given direction, with the given "pickup" flag.
+ * Walk player in the given direction, with the given "pickup" flag.
  *
  * This routine should (probably) always induce energy expenditure.
  *
@@ -2213,7 +2220,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
  * any creature which might be in the destination grid.  Previously,
  * moving into walls was "free" and did NOT hit invisible creatures.
  */
-void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
+void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap)
 {
 	// Find the result of moving
 	int y = creature_ptr->fy + ddy[dir];
@@ -2578,18 +2585,16 @@ void move_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
-			/* Update some things -- similar to GF_KILL_WALL */
+			// Update some things -- similar to GF_KILL_WALL
 			update |= (PU_FLOW);
 		}
 
-		/* Sound */
-		/* sound(SOUND_WALK); */
-
+		// Sound
 		if (do_pickup != always_pickup) mpe_mode |= MPE_DO_PICKUP;
 		if (break_trap) mpe_mode |= MPE_BREAK_TRAP;
 
-		/* Move the player */
-		(void)move_creature_effect(creature_ptr, NULL, y, x, mpe_mode);
+		// Move the player
+		(void)move_creature(creature_ptr, NULL, y, x, mpe_mode);
 	}
 
 	plus_move_cost(creature_ptr, x, y);
@@ -3335,7 +3340,7 @@ void run_step(creature_type *creature_ptr, int dir)
 	creature_ptr->energy_use = 100;
 
 	/* Move the player, using the "pickup" flag */
-	move_creature(creature_ptr, find_current, FALSE, FALSE);
+	walk_creature(creature_ptr, find_current, FALSE, FALSE);
 
 	if (creature_bold(creature_ptr, creature_ptr->run_py, creature_ptr->run_px))
 	{
@@ -3484,7 +3489,7 @@ void travel_step(creature_type *creature_ptr)
 	}
 
 	travel.dir = dir;
-	move_creature(creature_ptr, dir, always_pickup, easy_disarm);
+	walk_creature(creature_ptr, dir, always_pickup, easy_disarm);
 	travel.run = old_run;
 
 	if ((creature_ptr->fy == travel.y) && (creature_ptr->fx == travel.x))

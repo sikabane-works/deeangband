@@ -1966,7 +1966,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 		cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 
 		/* Move the player onto the trap */
-		move_creature(creature_ptr, dir, easy_disarm, FALSE);
+		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
 	}
 
 	/* Failure -- Keep trying */
@@ -1997,7 +1997,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 #endif
 
 		/* Move the player onto the trap */
-		move_creature(creature_ptr, dir, easy_disarm, FALSE);
+		walk_creature(creature_ptr, dir, easy_disarm, FALSE);
 	}
 
 	/* Result */
@@ -2182,7 +2182,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 		}
 
 		/* Hack -- Fall through the door */
-		move_creature(creature_ptr, dir, FALSE, FALSE);
+		walk_creature(creature_ptr, dir, FALSE, FALSE);
 	}
 
 	/* Saving throw against stun */
@@ -2592,7 +2592,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 		if (creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_use = creature_ptr->energy_use * (45-(creature_ptr->lev/2)) / 100;
 
 		/* Actually move the character */
-		move_creature(creature_ptr, dir, pickup, FALSE);
+		walk_creature(creature_ptr, dir, pickup, FALSE);
 
 		/* Allow more walking */
 		more = TRUE;
@@ -2696,7 +2696,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	creature_ptr->energy_use = 100;
 
 	if (pickup) mpe_mode |= MPE_DO_PICKUP;
-	(void)move_creature_effect(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
+	(void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
 }
 
 

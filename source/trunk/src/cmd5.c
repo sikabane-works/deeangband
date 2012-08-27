@@ -1816,7 +1816,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 
 	/* Move the player */
 	if (sy && !gameover)
-		(void)move_creature_effect(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+		(void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return fall_dam;
 }
@@ -1983,7 +1983,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	play_redraw |= (PR_UHEALTH);
 
 	/* Move the player */
-	(void)move_creature_effect(rider_ptr, NULL, y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
+	(void)move_creature(rider_ptr, NULL, y, x, MPE_HANDLE_STUFF | MPE_ENERGY_USE | MPE_DONT_PICKUP | MPE_DONT_SWAP_MON);
 
 	return TRUE;
 }

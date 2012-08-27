@@ -371,7 +371,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 
 	if (sx)
 	{
-		move_creature_effect(creature_ptr, new_floor_ptr, sy, sx, MPE_NO_ENTER); // Already fixed
+		move_creature(creature_ptr, new_floor_ptr, sy, sx, MPE_NO_ENTER); // Already fixed
 	}
 	else if (!num)
 	{
@@ -381,7 +381,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	else
 	{
 		i = randint0(num);		// Choose random one
-		move_creature_effect(creature_ptr, new_floor_ptr, y_table[i], x_table[i], MPE_NO_ENTER); // Point stair location
+		move_creature(creature_ptr, new_floor_ptr, y_table[i], x_table[i], MPE_NO_ENTER); // Point stair location
 	}
 }
 
@@ -426,10 +426,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	stair_ptr = &old_floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_ptr = &feature_info[stair_ptr->feat];
 
-	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
-	remove_all_mirrors(creature_ptr, old_floor_ptr, FALSE);
-	if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
-
 	// Search the quest creature index
 	for (i = 0; i < max_quests; i++)
 	{
@@ -447,7 +443,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
-		move_creature_effect(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
+		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
 		floor_id = stair_ptr->special;
 	}
 	// Create New Floor

@@ -10422,7 +10422,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print(NULL);
 	
 				/* Move the player */
-				(void)move_creature_effect(caster_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
+				(void)move_creature(caster_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP);
 			}
 		}
 		break;
@@ -11031,7 +11031,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				if (creature_can_cross_terrain(caster_ptr, c_ptr->feat, 0))
 				{
 					/* Move the player */
-					if (!move_creature_effect(caster_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;
+					if (!move_creature(caster_ptr, NULL, y, x, MPE_FORGET_FLOW | MPE_HANDLE_STUFF | MPE_DONT_PICKUP)) break;
 				}
 				else
 				{
