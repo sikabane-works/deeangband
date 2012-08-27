@@ -322,7 +322,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 			feature_type *f_ptr = &feature_info[c_ptr->feat];
 			bool ok = FALSE;
 
-			if (flag & CFM_DOWN)
+			if(old_floor_ptr->base_level < new_floor_ptr->base_level)
 			{
 				if (have_flag(f_ptr->flags, FF_LESS) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
@@ -337,7 +337,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 				}
 			}
 
-			else if (flag & CFM_UP)
+			else if(old_floor_ptr->base_level > new_floor_ptr->base_level)
 			{
 				if (have_flag(f_ptr->flags, FF_MORE) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
@@ -446,6 +446,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
 		floor_id = stair_ptr->special;
 	}
+
 	// Create New Floor
 	else
 	{
@@ -471,13 +472,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
-
-	// Fix connection -- level teleportation or trap door
-	if (flag & CFM_RAND_CONNECT)
-	{
-		if (flag & CFM_UP)        old_floor_ptr->upper_floor_id = floor_id;
-		else if (flag & CFM_DOWN) old_floor_ptr->lower_floor_id = floor_id;
-	}
 
 	// If you can return, you need to save previous floor
 

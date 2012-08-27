@@ -3532,7 +3532,7 @@ enum GRAPHICS_MODE
  * Flags for change floor mode
  */
 #define CFM_UP        	 0x0001  /* Move up */
-#define CFM_DOWN      	 0x0002  /* Move down */
+
 #define CFM_LONG_STAIRS  0x0004  /* Randomly occurred long stairs/shaft */
 #define CFM_XXX  	     0x0008  /* XXX */
 #define CFM_SHAFT     	 0x0010  /* Shaft */
