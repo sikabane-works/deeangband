@@ -1889,25 +1889,23 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 		}
 	}
 
-	/* Handle "objects" */
+	// Handle "objects"
 	if (!(mpe_mode & MPE_DONT_PICKUP))
 	{
 		carry(creature_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
 	}
 
-	/* Handle "store doors" */
-	if (have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MPE_NO_ENTER_STORE))
+	// Handle "store doors"
+	if (have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MPE_NO_ENTER))
 	{
-		// Disturb
 		disturb(creature_ptr, 0, 0);
 
 		creature_ptr->energy_use = 0;
-		/* Hack -- Enter store */
-		command_new = SPECIAL_KEY_STORE;
+		command_new = SPECIAL_KEY_STORE;	// Hack -- Enter store
 	}
 
 	/* Handle "building doors" -KMW- */
-	else if (have_flag(f_ptr->flags, FF_BLDG))
+	else if (have_flag(f_ptr->flags, FF_BLDG) && !(mpe_mode & MPE_NO_ENTER))
 	{
 		/* Disturb */
 		disturb(player_ptr, 0, 0);

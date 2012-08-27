@@ -3683,7 +3683,7 @@ enum GRAPHICS_MODE
 #define MPE_DO_PICKUP		0x00000020
 #define MPE_BREAK_TRAP		0x00000040
 #define MPE_DONT_SWAP_MON	0x00000080
-#define MPE_NO_ENTER_STORE	0x00000100
+#define MPE_NO_ENTER	0x00000100
 
 #define MTIMED_CSLEEP   0 /* Creature is sleeping */
 #define MTIMED_FAST     1 /* Creature is temporarily fast */

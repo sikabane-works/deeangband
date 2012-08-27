@@ -371,7 +371,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 
 	if (sx)
 	{
-		move_creature_effect(creature_ptr, new_floor_ptr, sy, sx, MPE_NO_ENTER_STORE); // Already fixed
+		move_creature_effect(creature_ptr, new_floor_ptr, sy, sx, MPE_NO_ENTER); // Already fixed
 	}
 	else if (!num)
 	{
@@ -381,7 +381,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	else
 	{
 		i = randint0(num);		// Choose random one
-		move_creature_effect(creature_ptr, new_floor_ptr, y_table[i], x_table[i], MPE_NO_ENTER_STORE); // Point stair location
+		move_creature_effect(creature_ptr, new_floor_ptr, y_table[i], x_table[i], MPE_NO_ENTER); // Point stair location
 	}
 }
 
