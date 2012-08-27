@@ -375,11 +375,8 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	}
 	else if (!num)
 	{
-		// No stairs found! -- No return
-		//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE | CFM_NO_RETURN);
-
-		// Mega Hack -- It's not the stairs you enter.  Disable it.
-		if (!feat_uses_special(stair_ptr->feat)) stair_ptr->special = 0;
+		if (!feat_uses_special(stair_ptr->feat)) stair_ptr->special = 0; // Mega Hack -- It's not the stairs you enter.  Disable it.
+		(void)new_creature_spot(new_floor_ptr, creature_ptr);
 	}
 	else
 	{
@@ -501,7 +498,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	// Arrive at random grid
-	if (flag & (CFM_RAND_PLACE)) (void)new_player_spot(new_floor_ptr, creature_ptr);
+	if (flag & (CFM_RAND_PLACE)) (void)new_creature_spot(new_floor_ptr, creature_ptr);
 
 	reset_cave_creature_reference();
 }

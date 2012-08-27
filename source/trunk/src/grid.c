@@ -19,15 +19,15 @@
 /*
  * Returns random co-ordinates for player/creature/object
  */
-bool new_player_spot(floor_type *floor_ptr, creature_type *creature_ptr)
+bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 {
 	int	y, x;
-	int max_attempts = 10000;
+	int max_attempts = RANDOM_TRY;
 
 	cave_type *c_ptr;
 	feature_type *f_ptr;
 
-	/* Place the player */
+	// Place the player
 	while (max_attempts--)
 	{
 		/* Pick a legal spot */
@@ -65,13 +65,14 @@ bool new_player_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 		break;
 	}
 
-	if (max_attempts < 1) /* Should be -1, actually if we failed... */
+	if (max_attempts < 1) // (someone's comment) Should be -1, actually if we failed...
+	{
+		msg_format("Warning: new creature spot failed...");
 		return FALSE;
+	}
 
-	/* Save the new player grid */
-	creature_ptr->fy = y;
-	creature_ptr->fx = x;
-
+	// Save the new player grid
+	move_creature_effect(creature_ptr, floor_ptr, y, x, 0);
 	return TRUE;
 }
 
