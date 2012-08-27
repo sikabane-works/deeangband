@@ -1769,7 +1769,8 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 	cave_type *c_ptr = &prev_floor_ptr->cave[ny][nx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if (floor_ptr && floor_ptr->wild_mode) reveal_wilderness(ny, nx);
+	if(!floor_ptr) floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	if(floor_ptr->wild_mode) reveal_wilderness(ny, nx);
 
 	if (!(mpe_mode & MPE_STAYING))
 	{
@@ -1996,6 +1997,8 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 			if (disturb_trap_detect) disturb(player_ptr, 0, 0);
 		}
 	}
+
+	creature_ptr->depth = floor_ptr->floor_level;
 
 	return creature_bold(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
