@@ -1901,32 +1901,28 @@ bool move_creature_effect(creature_type *creature_ptr, floor_type *floor_ptr, in
 		disturb(creature_ptr, 0, 0);
 
 		creature_ptr->energy_use = 0;
-		command_new = SPECIAL_KEY_STORE;	// Hack -- Enter store
+		command_new = SPECIAL_KEY_STORE;
 	}
 
-	/* Handle "building doors" -KMW- */
+	// Handle "building doors" -KMW-
 	else if (have_flag(f_ptr->flags, FF_BLDG) && !(mpe_mode & MPE_NO_ENTER))
 	{
-		/* Disturb */
 		disturb(player_ptr, 0, 0);
 
 		creature_ptr->energy_use = 0;
-		/* Hack -- Enter building */
 		command_new = SPECIAL_KEY_BUILDING;
 	}
 
-	/* Handle quest areas -KMW- */
-	else if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
+	// Handle quest areas -KMW-
+	else if (have_flag(f_ptr->flags, FF_QUEST_ENTER) && !(mpe_mode & MPE_NO_ENTER))
 	{
-		/* Disturb */
 		disturb(player_ptr, 0, 0);
 
 		creature_ptr->energy_use = 0;
-		/* Hack -- Enter quest level */
 		command_new = SPECIAL_KEY_QUEST;
 	}
 
-	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT))
+	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT) && !(mpe_mode & MPE_NO_ENTER))
 	{
 		if (quest[inside_quest].type == QUEST_TYPE_FIND_EXIT)
 		{

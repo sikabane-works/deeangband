@@ -292,7 +292,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			 * Clear all saved floors
 			 * and create a first saved floor
 			 */
-			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, dungeon_info[target_dungeon].mindepth, floor_ptr, CFM_SAVE_FLOORS);
+			//move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, dungeon_info[target_dungeon].mindepth, floor_ptr, CFM_SAVE_FLOORS);
 
 		}
 
