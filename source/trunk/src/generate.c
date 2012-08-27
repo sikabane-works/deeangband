@@ -1368,9 +1368,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 
 	if (i != MAX_DUNEGON_FORTLESS)
 	{
-		if (cheat_room)
-			msg_format("Fortless level -- type %d.", dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
-
+		if (cheat_room) msg_format("Fortless level -- type %d.", dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
 		generate_floor_fortress(floor_ptr, dungeon_info[floor_ptr->dun_type].vault_quest_type[i]);
 		return TRUE;
 	}
@@ -1560,7 +1558,7 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 			generate_floor_quest(floor_ptr); // quest
 		else if(floor_ptr->wild_mode)
 			generate_floor_world(floor_ptr);
-		else if(!floor_ptr->floor_level) // world map
+		else if(floor_ptr->floor_level <= 0) // field
 			generate_floor_wilderness(floor_ptr);
 		else
 			okay = generate_floor_cave(floor_ptr, &why); // dungeon
