@@ -2905,9 +2905,8 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		}
 
 
-		/* Pick a prefix */
-		if (*s2 &&
-		    ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
+		// Pick a prefix
+		if (*s2 && ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
 		     (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE)) ||
 		     have_flag(f_ptr->flags, FF_TOWN)))
 		{
@@ -2918,9 +2917,8 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 #endif
 		}
 
-		/* Hack -- special introduction for store & building doors -KMW- */
-		if (have_flag(f_ptr->flags, FF_STORE) ||
-		    have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
+		// Hack -- special introduction for store & building doors -KMW-
+		if (have_flag(f_ptr->flags, FF_STORE) || have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
 		    (have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode) ||
 		    have_flag(f_ptr->flags, FF_ENTRANCE))
 		{
