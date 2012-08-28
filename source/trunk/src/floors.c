@@ -434,7 +434,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	// Get back to old saved floor.
-	if(stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
+	if(stair_ptr->special && stair_ptr->cy && stair_ptr->cx)
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
@@ -455,10 +455,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		if (!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
 
 		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
-
-		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].special = old_floor_id;
-		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cx = old_fx;
-		new_floor_ptr->cave[player_ptr->fy][player_ptr->fx].cy = old_fy;
+		connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
 
 		if(is_player(creature_ptr)) current_floor_ptr = new_floor_ptr;
 	}
