@@ -771,7 +771,6 @@ static void wr_extra(void)
 
 	/* Write arena and rewards information -KMW- */
 	wr_s16b(arena_number);
-	wr_s16b(inside_quest);
 	wr_byte(preserve_mode);
 	wr_byte(0); /* Unused */
 

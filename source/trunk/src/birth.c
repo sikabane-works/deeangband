@@ -2619,10 +2619,7 @@ void init_dungeon_quests(void)
 	int i;
 
 	// Init the random quests
-	inside_quest = MIN_RANDOM_QUEST;
-	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
-
-	inside_quest = 0;
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN, MIN_RANDOM_QUEST);
 
 	// Generate quests
 	for (i = MIN_RANDOM_QUEST + number_of_quests - 1; i >= MIN_RANDOM_QUEST; i--)

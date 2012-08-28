@@ -6627,7 +6627,7 @@ static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x, u32b flags)
+static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x, u32b flags, int quest)
 {
 	int i;
 
@@ -6949,7 +6949,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				panel_col_min = floor_ptr->width;
 
 				/* Place player in a quest level */
-				if (inside_quest)
+				if (quest)
 				{
 					int y, x;
 
@@ -7455,37 +7455,22 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 }
 
 
-errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax, u32b flags)
+errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax, u32b flags, int quest)
 {
 	FILE *fp;
-
 	char buf[1024];
-
 	int num = -1;
-
 	errr err = 0;
-
 	bool bypass = FALSE;
-
 	int x = xmin, y = ymin;
 
+	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, name);	// Build the filename
+	fp = my_fopen(buf, "r");	// Open the file
+	if (!fp) return (-1);		// No such file
 
-	/* Build the filename */
-	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, name);
-
-	/* Open the file */
-	fp = my_fopen(buf, "r");
-
-	/* No such file */
-	if (!fp) return (-1);
-
-
-	/* Process the file */
-	while (0 == my_fgets(fp, buf, sizeof(buf)))
+	while (0 == my_fgets(fp, buf, sizeof(buf)))	// Process the file
 	{
-		/* Count lines */
-		num++;
-
+		num++;	// Count lines
 
 		/* Skip "empty" lines */
 		if (!buf[0]) continue;
@@ -7520,7 +7505,7 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		if (bypass) continue;
 
 		/* Process the line */
-		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags);
+		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags, quest);
 
 		if (err) break;
 	}

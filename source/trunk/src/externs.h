@@ -1724,9 +1724,8 @@ extern void repeat_push(int what);
 extern bool repeat_pull(int *what);
 extern void repeat_check(void);
 
-/* variable.c */
+// variable.c
 extern bool easy_open;
-extern s16b inside_quest;		/* Inside quest level */
 extern s16b town_num;			/* Current town number */
 extern s16b arena_number;		/* creature number in arena -KMW- */
 

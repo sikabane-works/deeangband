@@ -1203,7 +1203,6 @@ static void rd_extra(void)
 
 	/* Read arena and rewards information */
 	rd_s16b(&arena_number);
-	rd_s16b(&inside_quest);
 	rd_s16b(&tmp16s);
 	rd_byte((byte *)&preserve_mode);
 	rd_byte(&tmp8u);
@@ -1744,7 +1743,7 @@ note("—”î•ñ‚ğƒ[ƒh‚µ‚Ü‚µ‚½");
 		u16b max_towns_load;
 		u16b max_quests_load;
 		byte max_rquests_load;
-		s16b old_inside_quest = inside_quest;
+		//TODO s16b old_inside_quest = inside_quest;
 
 		/* Number of towns */
 		rd_u16b(&max_towns_load);
