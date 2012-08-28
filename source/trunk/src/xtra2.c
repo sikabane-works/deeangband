@@ -440,7 +440,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 	x = dead_ptr->fx;
 
 	/* Inside a quest */
-	quest_num = inside_quest;
+	quest_num = floor_ptr->quest;
 
 	/* Search for an active quest on this dungeon level */
 	if (!quest_num)
@@ -570,7 +570,7 @@ msg_print("クエストを達成した！");
 					if (!(quest[i].flags & QUEST_FLAG_PRESET))
 					{
 						create_stairs = TRUE;
-						inside_quest = 0;
+						floor_ptr->quest = 0;
 					}
 
 					if (!(quest[i].flags & QUEST_FLAG_SILENT))
@@ -2852,26 +2852,19 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		{
 		if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
 		{
-			/* Set the quest number temporary */
-			int old_quest = inside_quest;
 			int j;
 
 			/* Clear the text */
 			for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
 			questp_text_line = 0;
 
-			inside_quest = c_ptr->special;
-
-			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT);
+			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, c_ptr->special);
 
 #ifdef JP
 			name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
 #else
 			name = format("the entrance to the quest '%s'(level %d)", quest[c_ptr->special].name, quest[c_ptr->special].level);
 #endif
-
-			// Reset the old quest number
-			inside_quest = old_quest;
 		}
 
 		/* Hack -- special handling for building doors */

@@ -1716,7 +1716,6 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	if (record_stair) do_cmd_write_nikki(DIARY_WIZ_TELE,0,NULL);
 
-	inside_quest = 0;
 	creature_ptr->energy_use = 0;
 
 	// Prevent energy_need from being too lower than 0

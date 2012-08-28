@@ -95,8 +95,8 @@ void prt_wiz_pos(creature_type *player_ptr)
 
 cptr map_name(floor_type *floor_ptr)
 {
-	if (inside_quest && is_fixed_quest_idx(inside_quest)
-	    && (quest[inside_quest].flags & QUEST_FLAG_PRESET))
+	if (floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)
+	    && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
 #ifdef JP
 		return "クエスト";
 #else
@@ -772,7 +772,7 @@ static void prt_depth(creature_type *creature_ptr)
 		strcpy(depths, "Surf.");
 #endif
 	}
-	else if (inside_quest && !floor_ptr->dun_type)
+	else if (floor_ptr->quest && !floor_ptr->dun_type)
 	{
 #ifdef JP
 		strcpy(depths, "地上");
