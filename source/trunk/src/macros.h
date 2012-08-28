@@ -93,3 +93,4 @@
 
 #define IS_IN_THIS_FLOOR(C) ((&floor_list[(C)->floor_id]) == current_floor_ptr && (C)->fx && (C)->fy)
 
+#define current_floor_ptr (&floor_list[player_ptr->floor_id])

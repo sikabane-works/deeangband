@@ -674,9 +674,6 @@ char tval_to_char[128];
  */
 cptr keymap_act[KEYMAP_MODES][256];
 
-// pointer current floor
-floor_type *current_floor_ptr = NULL;
-
 /*** Player information ***/
 
 /*

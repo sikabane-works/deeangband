@@ -456,8 +456,6 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 
 		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
 		connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
-
-		if(is_player(creature_ptr)) current_floor_ptr = new_floor_ptr;
 	}
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here

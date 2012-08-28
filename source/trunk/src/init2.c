@@ -1907,6 +1907,10 @@ void init_angband(void)
 	char ver[24];
 	int wid, hgt;
 
+	creature_type dammy;
+	player_ptr = &dammy;
+
+
 	Term_get_size(&wid, &hgt);
 
 	/*** Verify the "news" file ***/

@@ -6437,7 +6437,6 @@ static void play_loop(void)
 	{
 		int quest_num = 0;
 
-		current_floor_ptr = &floor_list[player_ptr->floor_id];
 		floor_ptr = GET_FLOOR_PTR(player_ptr); 
 
 		if (!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
@@ -6929,8 +6928,6 @@ void world_wipe()
 	int i;
 
 	playtime = 0;
-
-	current_floor_ptr = &floor_list[0];
 	floor_max = 1; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
 
 	//TODO Move player_ptr->time_stopper = FALSE; // Assume no winning game

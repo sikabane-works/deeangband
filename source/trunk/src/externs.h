@@ -417,7 +417,6 @@ extern byte tval_to_acttr[128];
 extern char tval_to_char[128];
 extern cptr keymap_act[KEYMAP_MODES][256];
 extern creature_type *player_ptr;     // New Reference Pointer
-extern floor_type *current_floor_ptr; 
 extern u32b play_redraw;		// Normal Redraws (bit flags)
 extern u32b play_window;		// Window Redraws (bit flags)
 extern bool wizard;		        // (Player Only) wizard mode

@@ -1587,7 +1587,7 @@ static void do_cmd_wiz_floor_teleport(void)
 		else
 		{
 			// move simulate floor and player.
-			current_floor_ptr = &floor_list[i];
+			move_creature(player_ptr, &floor_list[player_ptr->floor_id], player_ptr->fy, player_ptr->fx, 0);
 			player_ptr->floor_id = i;
 
 			// redraw
