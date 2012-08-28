@@ -1236,9 +1236,6 @@ static void rd_extra(void)
 	rd_u16b(&panic_save);
 	rd_u16b(&noscore);
 
-	/* Turn when level began */
-	rd_s32b(&old_turn);
-
 	/* Current turn */
 	rd_s32b(&turn);
 	rd_s32b(&turn_limit);

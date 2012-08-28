@@ -794,9 +794,6 @@ static void wr_extra(void)
 	wr_u16b(panic_save);
 	wr_u16b(noscore);
 
-	/* Turn when level began */
-	wr_s32b(old_turn);
-
 	/* Current turn */
 	wr_s32b(turn);
 	wr_s32b(turn_limit);

@@ -3727,6 +3727,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 		msg_print(NULL);
 		battle_creatures();
 	}
+	/* TODO Turn count in floor.
 	else if (turn - old_turn == 150 * TURNS_PER_TICK)
 	{
 #ifdef JP
@@ -3738,6 +3739,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 		msg_print(NULL);
 		battle_creatures();
 	}
+	*/
 }
 
 static void sunrise_and_sunset(floor_type *floor_ptr)
@@ -6893,8 +6895,6 @@ void prevent_turn_overflow(creature_type *creature_ptr)
 
 	if (turn > rollback_turns) turn -= rollback_turns;
 	else turn = 1; /* Paranoia */
-	if (old_turn > rollback_turns) old_turn -= rollback_turns;
-	else old_turn = 1;
 	if (old_battle > rollback_turns) old_battle -= rollback_turns;
 	else old_battle = 1;
 	if (creature_ptr->feeling_turn > rollback_turns) creature_ptr->feeling_turn -= rollback_turns;

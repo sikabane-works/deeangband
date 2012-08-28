@@ -447,7 +447,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		floor_id = generate_floor(dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
 		new_floor_ptr = &floor_list[floor_id];
 
-		creature_ptr->feeling_turn = old_turn;
+		creature_ptr->feeling_turn = 0;
 		creature_ptr->floor_feeling = 0;
 		creature_ptr->floor_id = floor_id;
 

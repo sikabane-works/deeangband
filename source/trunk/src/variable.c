@@ -107,7 +107,6 @@ bool msg_flag;			/* Used in msg_print() for "buffering" */
 
 s32b turn;				/* Current game turn */
 s32b turn_limit;		/* Limit of game turn */
-s32b old_turn;			/* Turn when level began */
 s32b old_battle;
 
 bool use_sound;			/* The "sound" mode is enabled */

@@ -156,7 +156,6 @@ extern s16b command_new;
 extern bool msg_flag;
 extern s32b turn;
 extern s32b turn_limit;
-extern s32b old_turn;
 extern s32b old_battle;
 extern bool use_sound;
 extern bool use_graphics;
