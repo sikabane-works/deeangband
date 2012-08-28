@@ -59,6 +59,8 @@
 #define WINDOWS_BK_COLOR_G  0
 #define WINDOWS_BK_COLOR_B  0
 
+#define QUEST_INFO_FILE "q_info.txt"
+
 /*
  * Number of grids in each block (vertically)
  * Probably hard-coded to 11, see "generate.c"

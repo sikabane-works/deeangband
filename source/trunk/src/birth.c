@@ -2622,7 +2622,7 @@ void init_dungeon_quests(void)
 	init_flags = INIT_ASSIGN;
 	inside_quest = MIN_RANDOM_QUEST;
 
-	process_dungeon_file(NULL, "q_info.txt", 0, 0, 0, 0);
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 	inside_quest = 0;
 
@@ -2646,7 +2646,7 @@ void init_dungeon_quests(void)
 	init_flags = INIT_ASSIGN;
 	inside_quest = QUEST_AOY;
 
-	process_dungeon_file(NULL, "q_info.txt", 0, 0, 0, 0);
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 	quest[QUEST_AOY].status = QUEST_STATUS_TAKEN;
 	inside_quest = 0;

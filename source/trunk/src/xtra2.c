@@ -2865,7 +2865,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			/* Get the quest text */
 			init_flags = INIT_SHOW_TEXT;
 
-			process_dungeon_file(floor_ptr, "q_info.txt", 0, 0, 0, 0);
+			process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 #ifdef JP
 			name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
