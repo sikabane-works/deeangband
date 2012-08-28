@@ -58,16 +58,16 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 		leave_quest_check(creature_ptr);
 
-		inside_quest = c_ptr->special;
+		floor_ptr->quest = c_ptr->special;
 
 		/* Activate the quest */
-		if (!quest[inside_quest].status)
+		if (!quest[floor_ptr->quest].status)
 		{
-			quest[inside_quest].status = QUEST_STATUS_TAKEN;
+			quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;
 		}
 
 		/* Leaving a quest */
-		if (!inside_quest)
+		if (!floor_ptr->quest)
 		{
 			floor_ptr->floor_level = 0;
 		}
@@ -88,10 +88,10 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 	else
 	{
-		quest_type *quest_ptr = &quest[inside_quest];
+		quest_type *quest_ptr = &quest[floor_ptr->quest];
 
 		/* Confirm leaving from once only quest */
-		if (confirm_quest && inside_quest &&
+		if (confirm_quest && floor_ptr->quest &&
 		    (quest_ptr->type == QUEST_TYPE_RANDOM ||
 		     (quest_ptr->flags & QUEST_FLAG_ONCE &&
 		      quest_ptr->status != QUEST_STATUS_COMPLETED)))
@@ -119,21 +119,21 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if (autosave_l) do_cmd_save_game(TRUE);
 
 	/* For a random quest */
-	if (inside_quest &&
-	    quest[inside_quest].type == QUEST_TYPE_RANDOM)
+	if (floor_ptr->quest &&
+	    quest[floor_ptr->quest].type == QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check(creature_ptr);
 
-		inside_quest = 0;
+		floor_ptr->quest = 0;
 	}
 
 	/* For a fixed quest */
-	if (inside_quest &&
-	    quest[inside_quest].type != QUEST_TYPE_RANDOM)
+	if (floor_ptr->quest &&
+	    quest[floor_ptr->quest].type != QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check(creature_ptr);
 
-		inside_quest = c_ptr->special;
+		floor_ptr->quest = c_ptr->special;
 		floor_ptr->floor_level = 0;
 		up_num = 0;
 	}
@@ -191,6 +191,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
+	int inside_quest;
 
 	bool fall_trap = FALSE;
 	int down_num = 0;

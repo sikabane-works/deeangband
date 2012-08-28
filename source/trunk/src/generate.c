@@ -1294,7 +1294,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 /*
  * Generate a quest level
  */
-static void generate_floor_quest(floor_type *floor_ptr)
+static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 {
 	int x, y;
 
@@ -1308,12 +1308,12 @@ static void generate_floor_quest(floor_type *floor_ptr)
 	}
 
 	/* Set the quest level */
-	floor_ptr->base_level = quest[inside_quest].level;
+	floor_ptr->base_level = quest[quest_id].level;
 	floor_ptr->floor_level = floor_ptr->base_level;
 	floor_ptr->object_level = floor_ptr->base_level;
 	floor_ptr->creature_level = floor_ptr->base_level;
 
-	if (record_stair) do_cmd_write_nikki(DIARY_TO_QUEST, inside_quest, NULL);
+	if (record_stair) do_cmd_write_nikki(DIARY_TO_QUEST, quest_id, NULL);
 
 	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), NULL);
@@ -1339,9 +1339,7 @@ static void generate_floor_fortress(floor_type *floor_ptr, int type)
 	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), NULL);
 
-	inside_quest = type;
-	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN);
-	inside_quest = 0;
+	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN, type);
 }
 
 

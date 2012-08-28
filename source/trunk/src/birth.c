@@ -2522,7 +2522,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 	/* Initialize arena and rewards information -KMW- */
 	arena_number = 0;
-	inside_quest = 0;
+
 	for (i = 0; i < MAX_MANE; i++)
 	{
 		creature_ptr->mane_spell[i] = -1;
@@ -2638,13 +2638,8 @@ void init_dungeon_quests(void)
 	}
 
 	// Init the two main quests (AOY)
-	inside_quest = QUEST_AOY;
-	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
-
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN, QUEST_AOY);
 	quest[QUEST_AOY].status = QUEST_STATUS_TAKEN;
-	inside_quest = 0;
-
-
 }
 
 /*

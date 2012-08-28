@@ -2696,26 +2696,16 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 static void get_questinfo(int questnum)
 {
 	int     i;
-	int     old_quest;
 	char    tmp_str[80];
 
-
-	/* Clear the text */
+	// Clear the text
 	for (i = 0; i < 10; i++)
 	{
 		questp_text[i][0] = '\0';
 	}
 
 	questp_text_line = 0;
-
-	/* Set the quest number temporary */
-	old_quest = inside_quest;
-	inside_quest = questnum;
-
-	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT | INIT_ASSIGN);
-
-	/* Reset the old quest number */
-	inside_quest = old_quest;
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT | INIT_ASSIGN, questnum);
 
 	/* Print the quest info */
 #ifdef JP
@@ -4692,7 +4682,7 @@ void do_cmd_quest(creature_type *creature_ptr)
 	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
 #ifdef JP
-msg_print("ここにはクエストの入口はない。");
+		msg_print("ここにはクエストの入口はない。");
 #else
 		msg_print("You see no quest level here.");
 #endif
@@ -4713,14 +4703,16 @@ msg_print("ここにはクエストの入口はない。");
 		if (!get_check("Do you enter? ")) return;
 #endif
 
-		/* Player enters a new quest */
+		// Player enters a new quest
 		creature_ptr->oldpy = 0;
 		creature_ptr->oldpx = 0;
 
 		leave_quest_check(creature_ptr);
 
+		/* TODO
 		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) floor_ptr->floor_level = 1;
 		inside_quest = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special;
+		*/
 
 		subject_change_floor = TRUE;
 	}
@@ -4985,9 +4977,8 @@ int quest_number(floor_type *floor_ptr)
 	int i;
 
 	// Check quests
-	if (inside_quest)
-		return (inside_quest);
-
+	if (floor_ptr->quest) floor_ptr->quest;
+	
 	for (i = 0; i < max_quests; i++)
 	{
 		if (quest[i].status != QUEST_STATUS_TAKEN) continue;

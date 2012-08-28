@@ -771,10 +771,8 @@ static void pattern_teleport(creature_type *creature_ptr)
 	floor_ptr->floor_level = command_arg;
 
 	leave_quest_check(creature_ptr);
-
 	if (record_stair) do_cmd_write_nikki(DIARY_PAT_TELE,0,NULL);
 
-	inside_quest = 0;
 	creature_ptr->energy_use = 0;
 
 	/*
@@ -1255,10 +1253,12 @@ msg_print("–¾‚©‚è‚ª”÷‚©‚É‚È‚Á‚Ä‚«‚Ä‚¢‚éB");
 
 void leave_quest_check(creature_type *creature_ptr)
 {
-	/* Save quest number for dungeon pref file ($LEAVING_QUEST) */
-	leaving_quest = inside_quest;
+	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	/* Leaving an 'only once' quest marks it as failed */
+	// Save quest number for dungeon pref file ($LEAVING_QUEST)
+	leaving_quest = floor_ptr->quest;
+
+	// Leaving an 'only once' quest marks it as failed
 	if (leaving_quest &&
 	    ((quest[leaving_quest].flags & QUEST_FLAG_ONCE)  || (quest[leaving_quest].type == QUEST_TYPE_RANDOM)) &&
 	    (quest[leaving_quest].status == QUEST_STATUS_TAKEN))

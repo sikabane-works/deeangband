@@ -1932,11 +1932,11 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT) && !(mpe_mode & MPE_NO_ENTER))
 	{
-		if (quest[inside_quest].type == QUEST_TYPE_FIND_EXIT)
+		if (quest[floor_ptr->quest].type == QUEST_TYPE_FIND_EXIT)
 		{
-			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, inside_quest, NULL);
-			quest[inside_quest].status = QUEST_STATUS_COMPLETED;
-			quest[inside_quest].complev = (byte)creature_ptr->lev;
+			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, floor_ptr->quest, NULL);
+			quest[floor_ptr->quest].status = QUEST_STATUS_COMPLETED;
+			quest[floor_ptr->quest].complev = (byte)creature_ptr->lev;
 #ifdef JP
 			msg_print("クエストを達成した！");
 #else
@@ -1948,7 +1948,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 		leave_quest_check(creature_ptr);
 
-		inside_quest = c_ptr->special;
+		floor_ptr->quest = c_ptr->special;
 		prev_floor_ptr->floor_level = 0;
 		creature_ptr->oldpx = 0;
 		creature_ptr->oldpy = 0;
