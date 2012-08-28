@@ -1349,8 +1349,6 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_s32b(&floor_ptr->world_y);
 	rd_s32b(&floor_ptr->last_visit);
 	rd_u32b(&floor_ptr->visit_mark);
-	rd_s16b(&floor_ptr->upper_floor_id);
-	rd_s16b(&floor_ptr->lower_floor_id);
 
 	rd_byte(&floor_ptr->fight_arena_mode);
 	rd_byte(&floor_ptr->gamble_arena_mode);

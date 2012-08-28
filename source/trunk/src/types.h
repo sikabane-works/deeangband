@@ -1909,8 +1909,6 @@ typedef struct
 	s32b world_y;
 	s32b last_visit;      // Time count of last visit. 0 for new floor.
 	u32b visit_mark;      // Older has always smaller mark.
-	s16b upper_floor_id;  // a floor connected with level teleportation
-	s16b lower_floor_id;  // a floor connected with level tel. and trap door
 	s16b width;
 	s16b height;
 	s16b num_repro;       // Current reproducer count

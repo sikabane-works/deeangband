@@ -695,7 +695,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	dun_data dun_body;
 
-	/* Global data */
+	// Global data
 	dungeon_ptr = &dun_body;
 
 	dungeon_ptr->destroyed = FALSE;
@@ -703,24 +703,24 @@ static bool create_cave_structure(floor_type *floor_ptr)
 	dungeon_ptr->cavern = FALSE;
 	dungeon_ptr->laketype = 0;
 
-	/* Fill the arrays of floors and walls in the good proportions */
+	// Fill the arrays of floors and walls in the good proportions
 	set_floor_and_wall(floor_ptr->dun_type);
 
-	/* Prepare allocation table */
+	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), NULL);
 
-	/* Randomize the dungeon creation values */
+	// Randomize the dungeon creation values
 	dun_tun_rnd = rand_range(DUN_TUN_RND_MIN, DUN_TUN_RND_MAX);
 	dun_tun_chg = rand_range(DUN_TUN_CHG_MIN, DUN_TUN_CHG_MAX);
 	dun_tun_con = rand_range(DUN_TUN_CON_MIN, DUN_TUN_CON_MAX);
 	dun_tun_pen = rand_range(DUN_TUN_PEN_MIN, DUN_TUN_PEN_MAX);
 	dun_tun_jct = rand_range(DUN_TUN_JCT_MIN, DUN_TUN_JCT_MAX);
 
-	/* Actual maximum number of rooms on this level */
+	// Actual maximum number of rooms on this level
 	dungeon_ptr->row_rooms = floor_ptr->height / BLOCK_HGT;
 	dungeon_ptr->col_rooms = floor_ptr->width / BLOCK_WID;
 
-	/* Initialize the room table */
+	// Initialize the room table
 	for (y = 0; y < dungeon_ptr->row_rooms; y++)
 	{
 		for (x = 0; x < dungeon_ptr->col_rooms; x++)
@@ -1373,8 +1373,7 @@ static bool generate_floor_cave(floor_type *floor_ptr, cptr *why)
 		return TRUE;
 	}
 
-	if ((always_small_levels || ironman_small_levels ||
-	    (one_in_(SMALL_LEVEL) && small_levels) ||
+	if ((always_small_levels || ironman_small_levels || (one_in_(SMALL_LEVEL) && small_levels) ||
 	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER) ||
 	    (dungeon_info[floor_ptr->dun_type].flags1 & DF1_SMALLEST)) &&
 	    !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BIG))
@@ -1521,8 +1520,6 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 
 	// Prepare new floor data
 	floor_ptr->last_visit = 0;
-	floor_ptr->upper_floor_id = 0;
-	floor_ptr->lower_floor_id = 0;
 	//floor_ptr->visit_mark = latest_visit_mark++;
 
 	floor_ptr->generated = FALSE;

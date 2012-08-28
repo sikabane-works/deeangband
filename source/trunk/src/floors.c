@@ -329,11 +329,8 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 					ok = TRUE;
 
 					// Found fixed stairs?
-					if (c_ptr->special && c_ptr->special == new_floor_ptr->upper_floor_id)
-					{
-						sx = x;
-						sy = y;
-					}
+					sx = x;
+					sy = y;
 				}
 			}
 
@@ -344,11 +341,8 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 					ok = TRUE;
 
 					// Found fixed stairs
-					if (c_ptr->special && c_ptr->special == new_floor_ptr->lower_floor_id)
-					{
-						sx = x;
-						sy = y;
-					}
+					sx = x;
+					sy = y;
 				}
 			}
 
@@ -440,7 +434,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	// Get back to old saved floor.
-	if (stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
+	if(stair_ptr->special && !have_flag(feature_ptr->flags, FF_SPECIAL) && &floor_list[stair_ptr->special])
 	{
 		new_floor_ptr = &floor_list[stair_ptr->special]; // Saved floor is exist.  Use it.
 		move_creature(creature_ptr, new_floor_ptr, stair_ptr->cy, stair_ptr->cx, 0);
@@ -560,16 +554,6 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 		else down = FALSE;
 	}
 
-	// Destination is already fixed 
-	if (up)
-	{
-		if (sf_ptr->upper_floor_id) dest_floor_id = sf_ptr->upper_floor_id;
-	}
-	else
-	{
-		if (sf_ptr->lower_floor_id) dest_floor_id = sf_ptr->lower_floor_id;
-	}
-
 
 	// Search old stairs leading to the destination 
 	if (dest_floor_id)
@@ -591,16 +575,6 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 				cave_set_feat(floor_ptr, y, x, feat_floor_rand_table[randint0(100)]);
 			}
 		}
-	}
-
-	// No old destination -- Get new one now 
-	else
-	{
-		// Fix it 
-		if (up)
-			sf_ptr->upper_floor_id = dest_floor_id;
-		else
-			sf_ptr->lower_floor_id = dest_floor_id;
 	}
 
 	// Extract destination floor data 

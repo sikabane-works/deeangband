@@ -886,9 +886,6 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_s32b(floor_ptr->world_y);
 	wr_s32b(floor_ptr->last_visit);
 	wr_u32b(floor_ptr->visit_mark);
-	wr_s16b(floor_ptr->upper_floor_id);
-	wr_s16b(floor_ptr->lower_floor_id);
-
 	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);
 	wr_byte(floor_ptr->wild_mode);
