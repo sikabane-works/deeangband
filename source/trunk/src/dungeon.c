@@ -3355,11 +3355,11 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
 
-			/* Determine the level */
-			if (floor_ptr->floor_level || inside_quest)
+			// Determine the level
+			if (floor_ptr->floor_level || floor_ptr->quest)
 			{
 #ifdef JP
-msg_print("ã‚Éˆø‚Á’£‚è‚ ‚°‚ç‚ê‚éŠ´‚¶‚ª‚·‚éI");
+				msg_print("ã‚Éˆø‚Á’£‚è‚ ‚°‚ç‚ê‚éŠ´‚¶‚ª‚·‚éI");
 #else
 				msg_print("You feel yourself yanked upwards!");
 #endif
@@ -3373,7 +3373,7 @@ msg_print("ã‚Éˆø‚Á’£‚è‚ ‚°‚ç‚ê‚éŠ´‚¶‚ª‚·‚éI");
 
 				leave_quest_check(creature_ptr);
 
-				inside_quest = 0;
+				floor_ptr->quest = 0;
 
 				subject_change_floor = TRUE;
 			}
@@ -3746,7 +3746,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 {
 
 	/* While in town/wilderness */
-	if (!floor_ptr->floor_level && !inside_quest && !floor_ptr->gamble_arena_mode && !floor_ptr->fight_arena_mode)
+	if (!floor_ptr->floor_level && !floor_ptr->quest && !floor_ptr->gamble_arena_mode && !floor_ptr->fight_arena_mode)
 	{
 		/* Hack -- Daybreak/Nighfall in town */
 		if (!(turn % ((TURNS_PER_TICK * TOWN_DAWN) / 2)))
@@ -3906,7 +3906,7 @@ static void process_world(void)
 
 	/* Check for creature generation. */
 	if (one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
-	    !floor_ptr->fight_arena_mode && !inside_quest && !floor_ptr->gamble_arena_mode)
+	    !floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode)
 	{
 		/* Make a new creature */
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
@@ -4409,7 +4409,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Go up staircase */
 		case '<':
 		{
-			if (!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !inside_quest)
+			if (!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
 
 				if (ambush_flag)
@@ -6189,7 +6189,6 @@ static void cheat_death(void)
 
 	current_floor_ptr->floor_level = 0;
 	leaving_quest = 0;
-	inside_quest = 0;
 	if (current_floor_ptr->dun_type) player_ptr->recall_dungeon = current_floor_ptr->dun_type;
 	current_floor_ptr->dun_type = 0;
 
@@ -6284,9 +6283,6 @@ void waited_report_score(void)
 
 static void new_game_setting(void)
 {
-	/* Start in town */
-	inside_quest = 0;
-
 	write_level = TRUE;
 
 	/* Hack -- seed for flavors */
@@ -6481,7 +6477,7 @@ static void play_loop(void)
 		}
 
 		// Track maximum dungeon level (if not in quest -KMW-)
-		if ((max_dlv[floor_ptr->dun_type] < floor_ptr->floor_level) && !inside_quest)
+		if ((max_dlv[floor_ptr->dun_type] < floor_ptr->floor_level) && !floor_ptr->quest)
 		{
 			max_dlv[floor_ptr->dun_type] = floor_ptr->floor_level;
 			if (record_maxdepth) do_cmd_write_nikki(DIARY_MAXDEAPTH, floor_ptr->floor_level, NULL);
@@ -6544,10 +6540,10 @@ static void play_loop(void)
 		if (!playing || gameover) return;
 
 		/* Print quest message if appropriate */
-		if (!inside_quest && (floor_ptr->dun_type == DUNGEON_DOD))
+		if (!floor_ptr->quest && (floor_ptr->dun_type == DUNGEON_DOD))
 		{
 			quest_discovery(random_quest_number(floor_ptr));
-			inside_quest = random_quest_number(floor_ptr);
+			floor_ptr->quest = random_quest_number(floor_ptr);
 		}
 
 		if ((floor_ptr->floor_level == dungeon_info[floor_ptr->dun_type].maxdepth) && dungeon_info[floor_ptr->dun_type].final_guardian)
@@ -6799,14 +6795,9 @@ void play_game(bool new_game)
 
 			if (gameover || !player_ptr->fy || !player_ptr->fx)
 			{
-				/* Initialize the saved floors data */
-				init_saved_floors(TRUE);
-
-				/* Avoid crash */
-				inside_quest = 0;
-
-				/* Avoid crash in update_view() */
-				player_ptr->fy = player_ptr->fx = 10;
+				
+				init_saved_floors(TRUE); // Initialize the saved floors data
+				player_ptr->fy = player_ptr->fx = 10; // Avoid crash in update_view()
 			}
 		}
 		else if (gameover)

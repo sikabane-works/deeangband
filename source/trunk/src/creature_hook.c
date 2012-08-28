@@ -386,7 +386,7 @@ static bool creature_hook_floor(int species_idx)
 creature_hook_type get_creature_hook(void)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-	if (!floor_ptr->floor_level && !inside_quest)
+//	if (!floor_ptr->floor_level && !inside_quest)
 	{
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
@@ -413,10 +413,10 @@ creature_hook_type get_creature_hook(void)
 			return (creature_hook_type)species_hook_dungeon;
 		}
 	}
-	else
-	{
-		return (creature_hook_type)species_hook_dungeon;
-	}
+	//else
+	//{
+	//	return (creature_hook_type)species_hook_dungeon;
+	//}
 }
 
 
