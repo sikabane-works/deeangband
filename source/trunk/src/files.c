@@ -5094,7 +5094,7 @@ static void dump_aux_home_museum(FILE *fff)
 //	store_type  *st_ptr;
 
 	/* Do we need it?? */
-	/* process_dungeon_file("w_info.txt", 0, 0, max_wild_y, max_wild_x); */
+	/* process_dungeon_file(WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x); */
 
 	/* Print the home */
 	//TODO

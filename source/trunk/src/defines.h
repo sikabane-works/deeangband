@@ -60,6 +60,7 @@
 #define WINDOWS_BK_COLOR_B  0
 
 #define QUEST_INFO_FILE "q_info.txt"
+#define WORLD_INFO_FILE "w_info.txt"
 
 /*
  * Number of grids in each block (vertically)
