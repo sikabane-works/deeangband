@@ -1315,12 +1315,9 @@ static void generate_floor_quest(floor_type *floor_ptr)
 
 	if (record_stair) do_cmd_write_nikki(DIARY_TO_QUEST, inside_quest, NULL);
 
-	/* Prepare allocation table */
+	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), NULL);
-
-	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
-
-	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID);
+	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN);
 }
 
 /*
@@ -1339,13 +1336,11 @@ static void generate_floor_fortress(floor_type *floor_ptr, int type)
 		}
 	}
 
-	/* Prepare allocation table */
+	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), NULL);
 
-	init_flags = INIT_CREATE_DUNGEON | INIT_ASSIGN;
-
 	inside_quest = type;
-	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID);
+	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN);
 	inside_quest = 0;
 }
 

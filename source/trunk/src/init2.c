@@ -1165,7 +1165,7 @@ static errr init_magic_info(void)
 static errr init_misc(void)
 {
 	// Initialize the values
-	process_dungeon_file(NULL, "misc.txt", 0, 0, 0, 0);
+	process_dungeon_file(NULL, "misc.txt", 0, 0, 0, 0, 0);
 	return 0;
 }
 

@@ -2862,10 +2862,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 			inside_quest = c_ptr->special;
 
-			/* Get the quest text */
-			init_flags = INIT_SHOW_TEXT;
-
-			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT);
 
 #ifdef JP
 			name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
@@ -2873,7 +2870,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			name = format("the entrance to the quest '%s'(level %d)", quest[c_ptr->special].name, quest[c_ptr->special].level);
 #endif
 
-			/* Reset the old quest number */
+			// Reset the old quest number
 			inside_quest = old_quest;
 		}
 

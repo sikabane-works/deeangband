@@ -1029,11 +1029,6 @@ int questp_text_line;
 s16b gf_color[MAX_GF];
 
 /*
- * Flags for initialization
- */
-int init_flags;
-
-/*
  * The "highscore" file descriptor, if available.
  */
 int highscore_fd = -1;

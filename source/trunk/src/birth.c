@@ -2618,15 +2618,13 @@ void init_dungeon_quests(void)
 	int number_of_quests = MAX_RANDOM_QUEST - MIN_RANDOM_QUEST + 1;
 	int i;
 
-	/* Init the random quests */
-	init_flags = INIT_ASSIGN;
+	// Init the random quests
 	inside_quest = MIN_RANDOM_QUEST;
-
-	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
 
 	inside_quest = 0;
 
-	/* Generate quests */
+	// Generate quests
 	for (i = MIN_RANDOM_QUEST + number_of_quests - 1; i >= MIN_RANDOM_QUEST; i--)
 	{
 		quest_type      *quest_ptr = &quest[i];
@@ -2642,11 +2640,9 @@ void init_dungeon_quests(void)
 		quest_ptr->max_num = 1;
 	}
 
-	/* Init the two main quests (AOY) */
-	init_flags = INIT_ASSIGN;
+	// Init the two main quests (AOY)
 	inside_quest = QUEST_AOY;
-
-	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
 
 	quest[QUEST_AOY].status = QUEST_STATUS_TAKEN;
 	inside_quest = 0;

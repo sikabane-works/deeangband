@@ -3908,11 +3908,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			}
 			else if (inside_quest && is_fixed_quest_idx(inside_quest))
 			{
-				/* Get the quest text */
-				/* Bewere that INIT_ASSIGN resets the cur_num. */
-				init_flags = INIT_ASSIGN;
-
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+				// Get the quest text
+				// Bewere that INIT_ASSIGN resets the cur_num.
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
 
 #ifdef JP
 				sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[inside_quest].name, gameover_from);
@@ -3949,10 +3947,8 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 				}
 				questp_text_line = 0;
 
-				/* Get the quest text */
-				init_flags = INIT_SHOW_TEXT;
-
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+				// Get the quest text
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT);
 
 #ifdef JP
 				sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[inside_quest].name);

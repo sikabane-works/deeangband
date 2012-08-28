@@ -2712,10 +2712,7 @@ static void get_questinfo(int questnum)
 	old_quest = inside_quest;
 	inside_quest = questnum;
 
-	/* Get the quest text */
-	init_flags = INIT_SHOW_TEXT | INIT_ASSIGN;
-
-	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+	process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT | INIT_ASSIGN);
 
 	/* Reset the old quest number */
 	inside_quest = old_quest;

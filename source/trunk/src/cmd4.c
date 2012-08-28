@@ -385,10 +385,8 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 		old_quest = inside_quest;
 		inside_quest = (quest[num].type == QUEST_TYPE_RANDOM) ? 0 : num;
 
-		/* Get the quest text */
-		init_flags = INIT_ASSIGN;
-
-		process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+		// Get the quest text
+		process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
 
 		/* Reset the old quest number */
 		inside_quest = old_quest;
@@ -9414,10 +9412,8 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 
 			inside_quest = i;
 
-			/* Get the quest text */
-			init_flags = INIT_SHOW_TEXT;
-
-			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+			// Get the quest text
+			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT);
 
 			/* Reset the old quest number */
 			inside_quest = old_quest;
@@ -9612,10 +9608,8 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 
 				inside_quest = q_idx;
 
-				/* Get the quest */
-				init_flags = INIT_ASSIGN;
-
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+				// Get the quest
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
 
 				/* Reset the old quest number */
 				inside_quest = old_quest;
@@ -9704,10 +9698,8 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 
 				inside_quest = q_idx;
 
-				/* Get the quest text */
-				init_flags = INIT_ASSIGN;
-
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
+				// Get the quest text
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
 
 				/* Reset the old quest number */
 				inside_quest = old_quest;
@@ -9894,7 +9886,7 @@ static void do_cmd_knowledge_home(void)
 //	char object_name[MAX_NLEN];
 	cptr		paren = ")";
 
-	process_dungeon_file(current_floor_ptr, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x);
+	process_dungeon_file(current_floor_ptr, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x, 0);
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);

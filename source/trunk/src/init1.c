@@ -6308,13 +6308,13 @@ static dungeon_grid letter[255];
 /*
  * Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid
  */
-static errr parse_line_feature(char *buf)
+static errr parse_line_feature(char *buf, u32b flags)
 {
 	int num;
 	char *zz[9];
 
 
-	if (init_flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
+	if (flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 	/* Tokenize the line */
 	if ((num = tokenize(buf+2, 9, zz, 0)) > 1)
@@ -6627,7 +6627,7 @@ static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x)
+static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x, u32b flags)
 {
 	int i;
 
@@ -6651,13 +6651,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	if (buf[0] == '%')
 	{
 		// Attempt to Process the given file
-		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax));
+		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax, flags));
 	}
 
 	/* Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
 	if (buf[0] == 'F')
 	{
-		return parse_line_feature(buf);
+		return parse_line_feature(buf, flags);
 	}
 
 	/* Process "D:<dungeon>" -- info for the cave grids */
@@ -6671,7 +6671,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Length of the text */
 		int len = strlen(s);
 
-		if (init_flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
+		if (flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 		for (*x = xmin, i = 0; ((*x < xmax) && (i < len)); (*x)++, s++, i++)
 		{
@@ -6691,7 +6691,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].feature);
 
 			/* Only the features */
-			if (init_flags & INIT_ONLY_FEATURES) continue;
+			if (flags & INIT_ONLY_FEATURES) continue;
 
 			/* Cave info */
 			c_ptr->info = letter[idx].cave_info;
@@ -6867,7 +6867,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
 		if (zz[1][0] == 'Q')
 		{
-			if (init_flags & INIT_ASSIGN)
+			if (flags & INIT_ASSIGN)
 			{
 				species_type *r_ptr;
 				artifact_type *a_ptr;
@@ -6899,7 +6899,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Process "Q:<q_index>:N:<name>" -- quest name */
 		else if (zz[1][0] == 'N')
 		{
-			if (init_flags & (INIT_ASSIGN | INIT_SHOW_TEXT))
+			if (flags & (INIT_ASSIGN | INIT_SHOW_TEXT))
 			{
 				strcpy(quest_ptr->name, zz[2]);
 			}
@@ -6910,7 +6910,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Process "Q:<q_index>:T:<text>" -- quest description line */
 		else if (zz[1][0] == 'T')
 		{
-			if (init_flags & INIT_SHOW_TEXT)
+			if (flags & INIT_SHOW_TEXT)
 			{
 				strcpy(questp_text[questp_text_line], zz[2]);
 				questp_text_line++;
@@ -6929,7 +6929,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	/* Process "P:<y>:<x>" -- player position */
 	else if (buf[0] == 'P')
 	{
-		if (init_flags & INIT_CREATE_DUNGEON)
+		if (flags & INIT_CREATE_DUNGEON)
 		{
 			if (tokenize(buf + 2, 2, zz, 0) == 2)
 			{
@@ -7455,7 +7455,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 }
 
 
-errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax)
+errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, int ymax, int xmax, u32b flags)
 {
 	FILE *fp;
 
@@ -7520,7 +7520,7 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		if (bypass) continue;
 
 		/* Process the line */
-		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x);
+		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags);
 
 		if (err) break;
 	}
