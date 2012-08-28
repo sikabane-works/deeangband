@@ -6627,7 +6627,7 @@ static void drop_here(floor_type *floor_ptr, object_type *j_ptr, int y, int x)
 /*
  * Parse a sub-file of the "extra info"
  */
-static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x, u32b flags, int quest)
+static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin, int xmin, int ymax, int xmax, int *y, int *x, u32b flags, int quest_id)
 {
 	int i;
 
@@ -6651,7 +6651,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	if (buf[0] == '%')
 	{
 		// Attempt to Process the given file
-		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax, flags));
+		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax, flags, quest_id));
 	}
 
 	/* Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
@@ -7396,7 +7396,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Current quest number */
 			else if (streq(b+1, "QUEST_NUMBER"))
 			{
-				sprintf(tmp, "%d", inside_quest);
+				sprintf(tmp, "%d", floor_list[player_ptr->floor_id].quest);
 				v = tmp;
 			}
 
@@ -7504,8 +7504,8 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		/* Apply conditionals */
 		if (bypass) continue;
 
-		/* Process the line */
-		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags, quest);
+		// Process the line
+		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags, quest_id);
 
 		if (err) break;
 	}

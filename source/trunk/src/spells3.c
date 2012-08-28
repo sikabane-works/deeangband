@@ -91,7 +91,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 			if (!cave_creature_teleportable_bold(creature_ptr, ny, nx, mode)) continue;
 
 			/* No teleporting into vaults and such */
-			if (!(inside_quest || floor_ptr->fight_arena_mode))
+			if (!(floor_ptr->quest || floor_ptr->fight_arena_mode))
 				if (floor_ptr->cave[ny][nx].info & CAVE_ICKY) continue;
 
 			/* This grid looks good */
@@ -730,7 +730,7 @@ void teleport_level(creature_type *creature_ptr, int m_idx)
 			leave_quest_check(creature_ptr);
 
 			/* Leaving */
-			inside_quest = 0;
+			floor_ptr->quest = 0;
 			subject_change_floor = TRUE;
 		}
 	}
@@ -915,7 +915,7 @@ msg_print("何も起こらなかった。");
 		return TRUE;
 	}
 
-	if (floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !inside_quest && !creature_ptr->word_recall)
+	if (floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->word_recall)
 	{
 #ifdef JP
 if (get_check("ここは最深到達階より浅い階です。この階に戻って来ますか？ "))
@@ -1591,7 +1591,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	char         m_name[80];
 
 	/* Prevent vasishing of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
+	if ((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
 	{
 		return FALSE;
 	}
@@ -1765,7 +1765,7 @@ void call_the_void(creature_type *creature_ptr)
 	}
 
 	/* Prevent destruction of quest levels and town */
-	else if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
+	else if ((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("地面が揺れた。");

@@ -6707,7 +6707,7 @@ note = "‚É‚Í‘Ï«‚ª‚ ‚éI";
 		case GF_CAPTURE:
 		{
 			int nokori_hp;
-			if ((inside_quest && (quest[inside_quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
+			if ((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
 			    (has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP

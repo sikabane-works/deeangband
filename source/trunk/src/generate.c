@@ -1312,12 +1312,13 @@ static void generate_floor_quest(floor_type *floor_ptr, int quest_id)
 	floor_ptr->floor_level = floor_ptr->base_level;
 	floor_ptr->object_level = floor_ptr->base_level;
 	floor_ptr->creature_level = floor_ptr->base_level;
+	floor_ptr->quest = quest_id;
 
 	if (record_stair) do_cmd_write_nikki(DIARY_TO_QUEST, quest_id, NULL);
 
 	// Prepare allocation table
 	get_species_num_prep(get_creature_hook(), NULL);
-	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN);
+	process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ASSIGN, quest_id);
 }
 
 /*
@@ -1544,8 +1545,8 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
 		else if(floor_ptr->gamble_arena_mode)
 			generate_floor_creature_arena(floor_ptr); // gamble arena
-		else if(inside_quest)
-			generate_floor_quest(floor_ptr); // quest
+		//TODO else if(floor_ptr->quest)
+		//	generate_floor_quest(floor_ptr, floor_ptr->quest); // quest
 		else if(floor_ptr->wild_mode)
 			generate_floor_world(floor_ptr);
 		else if(floor_ptr->floor_level <= 0) // field

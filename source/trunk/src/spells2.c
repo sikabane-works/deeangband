@@ -2628,7 +2628,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	if ((has_trait_species(r_ptr, TRAIT_QUESTOR)) || has_trait_species(r_ptr, TRAIT_UNIQUE)) resist = TRUE;
 	else if (has_trait_species(r_ptr, TRAIT_UNIQUE2)) resist = TRUE;
 	else if (m_idx == user_ptr->riding) resist = TRUE;
-	else if ((inside_quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
+	else if ((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
 	else if (player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
 	else if (player_cast && (m_ptr->mflag2 & MFLAG2_NOGENO)) resist = TRUE;
 
@@ -2730,7 +2730,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	/* Prevent genocide in quest levels */
-	if ((inside_quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
+	if ((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -2776,7 +2776,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
+	if ((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -2815,7 +2815,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	/* Prevent mass genocide in quest levels */
-	if ((inside_quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
+	if ((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		return (FALSE);
 	}
@@ -3038,7 +3038,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 	bool      flag = FALSE;
 
 	/* Prevent destruction of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
+	if ((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
 	{
 		return (FALSE);
 	}
@@ -3344,7 +3344,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 
 	/* Prevent destruction of quest levels and town */
-	if ((inside_quest && is_fixed_quest_idx(inside_quest)) || !floor_ptr->floor_level)
+	if ((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
 	{
 		return (FALSE);
 	}
