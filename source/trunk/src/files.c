@@ -3912,7 +3912,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 				/* Bewere that INIT_ASSIGN resets the cur_num. */
 				init_flags = INIT_ASSIGN;
 
-				process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, 0, 0);
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 #ifdef JP
 				sprintf(statmsg, "…あなたは、クエスト「%s」で%sに殺された。", quest[inside_quest].name, gameover_from);
@@ -3952,7 +3952,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 				/* Get the quest text */
 				init_flags = INIT_SHOW_TEXT;
 
-				process_dungeon_file(floor_ptr, QUEST_INFO_FILE, 0, 0, 0, 0);
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 #ifdef JP
 				sprintf(statmsg, "…あなたは現在、 クエスト「%s」を遂行中だ。", quest[inside_quest].name);

@@ -9615,7 +9615,7 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 				/* Get the quest */
 				init_flags = INIT_ASSIGN;
 
-				process_dungeon_file(current_floor_ptr, QUEST_INFO_FILE, 0, 0, 0, 0);
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 				/* Reset the old quest number */
 				inside_quest = old_quest;
@@ -9707,7 +9707,7 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 				/* Get the quest text */
 				init_flags = INIT_ASSIGN;
 
-				process_dungeon_file(current_floor_ptr, QUEST_INFO_FILE, 0, 0, 0, 0);
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0);
 
 				/* Reset the old quest number */
 				inside_quest = old_quest;
