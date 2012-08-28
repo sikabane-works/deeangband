@@ -1475,12 +1475,13 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
-		{
+		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		//{
+
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
-		}
+		//}
 	}
 
 	/* Success */
@@ -1538,12 +1539,12 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
-		{
+		//TODO if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		//{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
-		}
+		//}
 	}
 
 	/* Success */
@@ -1594,12 +1595,12 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
-		{
+		//TODO if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		//{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
-		}
+		//}
 	}
 
 	/* Success */

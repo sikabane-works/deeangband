@@ -374,22 +374,11 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	if (disable_nikki) return(-1);
 
-	if (type == DIARY_FIX_QUEST_C ||
-	    type == DIARY_FIX_QUEST_F ||
-	    type == DIARY_RAND_QUEST_C ||
-	    type == DIARY_RAND_QUEST_F ||
-	    type == DIARY_TO_QUEST)
+	if (type == DIARY_FIX_QUEST_C || type == DIARY_FIX_QUEST_F ||
+	    type == DIARY_RAND_QUEST_C || type == DIARY_RAND_QUEST_F || type == DIARY_TO_QUEST)
 	{
-		int old_quest;
-
-		old_quest = inside_quest;
-		inside_quest = (quest[num].type == QUEST_TYPE_RANDOM) ? 0 : num;
-
 		// Get the quest text
-		process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
-
-		/* Reset the old quest number */
-		inside_quest = old_quest;
+		process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN, (quest[num].type == QUEST_TYPE_RANDOM) ? 0 : num);
 	}
 
 #ifdef JP
@@ -4965,7 +4954,7 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// No useful feeling in quests
-	if (inside_quest && !random_quest_number(floor_ptr))
+	if (floor_ptr->quest && !random_quest_number(floor_ptr))
 	{
 #ifdef JP
 		msg_print("典型的なクエストのダンジョンのようだ。");
@@ -9402,21 +9391,14 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	{
 		if ((quest[i].status == QUEST_STATUS_TAKEN) || (quest[i].status == QUEST_STATUS_COMPLETED))
 		{
-			/* Set the quest number temporary */
-			int old_quest = inside_quest;
 			int j;
 
-			/* Clear the text */
+			// Clear the text
 			for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
 			questp_text_line = 0;
 
-			inside_quest = i;
-
 			// Get the quest text
-			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT);
-
-			/* Reset the old quest number */
-			inside_quest = old_quest;
+			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, i);
 
 			/* No info from "silent" quests */
 			if (quest[i].flags & QUEST_FLAG_SILENT) continue;
@@ -9603,16 +9585,8 @@ void do_cmd_knowledge_quests_completed(FILE *fff, int quest_num[])
 		{
 			if (is_fixed_quest_idx(q_idx))
 			{
-				/* Set the quest number temporary */
-				int old_quest = inside_quest;
-
-				inside_quest = q_idx;
-
 				// Get the quest
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
-
-				/* Reset the old quest number */
-				inside_quest = old_quest;
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN, q_idx);
 
 				/* No info from "silent" quests */
 				if (quest[q_idx].flags & QUEST_FLAG_SILENT) continue;
@@ -9693,16 +9667,9 @@ void do_cmd_knowledge_quests_failed(FILE *fff, int quest_num[])
 		{
 			if (is_fixed_quest_idx(q_idx))
 			{
-				/* Set the quest number temporary */
-				int old_quest = inside_quest;
-
-				inside_quest = q_idx;
 
 				// Get the quest text
-				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN);
-
-				/* Reset the old quest number */
-				inside_quest = old_quest;
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_ASSIGN, q_idx);
 
 				/* No info from "silent" quests */
 				if (quest[q_idx].flags & QUEST_FLAG_SILENT) continue;
@@ -9886,7 +9853,7 @@ static void do_cmd_knowledge_home(void)
 //	char object_name[MAX_NLEN];
 	cptr		paren = ")";
 
-	process_dungeon_file(current_floor_ptr, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x, 0);
+	process_dungeon_file(current_floor_ptr, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x, 0, 0);
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
