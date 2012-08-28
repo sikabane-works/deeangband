@@ -1161,26 +1161,18 @@ static errr init_magic_info(void)
 }
 
 
-
-/*
- * Initialize misc. values
- */
+// Initialize misc. values
 static errr init_misc(void)
 {
-	/* Initialize the values */
-	process_dungeon_file(current_floor_ptr, "misc.txt", 0, 0, 0, 0);
-
+	// Initialize the values
+	process_dungeon_file(NULL, "misc.txt", 0, 0, 0, 0);
 	return 0;
 }
 
-
-/*
- * Initialize town array
- */
+// Initialize town array
 static errr init_towns(void)
 {
 	C_MAKE(town, max_towns, town_type);
-
 	return 0;
 }
 
