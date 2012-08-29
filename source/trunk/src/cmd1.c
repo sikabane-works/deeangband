@@ -2500,8 +2500,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #ifdef JP
 				msg_format("%s‚ªs‚­è‚ğ‚Í‚Î‚ñ‚Å‚¢‚éB", name);
 #else
-				msg_format("There is %s %s blocking your way.",
-					is_a_vowel(name[0]) ? "an" : "a", name);
+				msg_format("There is %s %s blocking your way.", is_a_vowel(name[0]) ? "an" : "a", name);
 #endif
 
 				/*

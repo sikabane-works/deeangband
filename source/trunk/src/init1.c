@@ -7128,22 +7128,16 @@ static cptr variant = "D\'ANGBAND";
 /*
  * Helper function for "process_dungeon_file()"
  */
-static cptr process_dungeon_file_expr(char **sp, char *fp)
+static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp)
 {
 	cptr v;
-
 	char *b;
 	char *s;
-
 	char b1 = '[';
 	char b2 = ']';
-
 	char f = ' ';
 
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-
-	/* Initial */
-	s = (*sp);
+	s = (*sp);	// Initial
 
 	/* Skip spaces */
 	while (isspace(*s)) s++;
@@ -7164,7 +7158,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 		s++;
 
 		/* First */
-		t = process_dungeon_file_expr(&s, &f);
+		t = process_dungeon_file_expr(floor_ptr, &s, &f);
 
 		/* Oops */
 		if (!*t)
@@ -7178,7 +7172,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "0";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 				if (*t && !streq(t, "0")) v = "1";
 			}
 		}
@@ -7189,7 +7183,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 				if (*t && streq(t, "0")) v = "0";
 			}
 		}
@@ -7200,7 +7194,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 				if (*t && streq(t, "1")) v = "0";
 			}
 		}
@@ -7211,11 +7205,11 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "0";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
-				p = process_dungeon_file_expr(&s, &f);
+				p = process_dungeon_file_expr(floor_ptr, &s, &f);
 				if (streq(t, p)) v = "1";
 			}
 		}
@@ -7226,12 +7220,12 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 				if (*t && atoi(p) > atoi(t)) v = "0";
 			}
 		}
@@ -7242,12 +7236,12 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			v = "1";
 			if (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = t;
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 
 				/* Compare two numbers instead of string */
 				if (*t && atoi(p) < atoi(t)) v = "0";
@@ -7259,7 +7253,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 		{
 			while (*s && (f != b2))
 			{
-				t = process_dungeon_file_expr(&s, &f);
+				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
 		}
 
@@ -7494,7 +7488,7 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 			s = buf + 2;
 
 			/* Parse the expr */
-			v = process_dungeon_file_expr(&s, &f);
+			v = process_dungeon_file_expr(floor_ptr, &s, &f);
 
 			/* Set flag */
 			bypass = (streq(v, "0") ? TRUE : FALSE);
