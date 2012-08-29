@@ -240,34 +240,21 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 {
 	int x1, y1;
 
-	/* Number of the town (if any) */
-	floor_ptr->town_num = wilderness[y][x].town;
+	floor_ptr->town_num = wilderness[y][x].town;		// Number of the town (if any)
+	floor_ptr->base_level = wilderness[y][x].level;		// Set the base level
+	floor_ptr->floor_level = 0;							// Set the dungeon level
+	floor_ptr->creature_level = floor_ptr->base_level;	// Set the creature generation level
+	floor_ptr->object_level = floor_ptr->base_level;	// Set the object generation level
 
-	/* Set the base level */
-	floor_ptr->base_level = wilderness[y][x].level;
-
-	/* Set the dungeon level */
-	floor_ptr->floor_level = 0;
-
-	/* Set the creature generation level */
-	floor_ptr->creature_level = floor_ptr->base_level;
-
-	/* Set the object generation level */
-	floor_ptr->object_level = floor_ptr->base_level;
-
-
-	/* Create the town */
-	if (floor_ptr->town_num)
+	if (floor_ptr->town_num)	// Create the town
 	{
-		/* Reset the buildings */
-		init_buildings();
+		init_buildings();	// Reset the buildings
 
-		/* Initialize the town */
+		// Initialize the town 
 		if (border | corner)
-			process_dungeon_file(floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ONLY_FEATURES, 0);
+			process_dungeon_file(floor_ptr, TOWN_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON | INIT_ONLY_FEATURES, 0);
 		else
-			process_dungeon_file(floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON, 0);
-
+			process_dungeon_file(floor_ptr, TOWN_INFO_FILE, 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON, 0);
 
 		if (!corner && !border) player_ptr->visit |= (1L << (floor_ptr->town_num - 1));
 	}
