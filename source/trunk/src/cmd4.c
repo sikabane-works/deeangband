@@ -4966,12 +4966,12 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	}
 
 	// No useful feeling in town
-	else if (town_num && !floor_ptr->floor_level)
+	else if (floor_ptr->town_num && !floor_ptr->floor_level)
 	{
 #ifdef JP
-		if (!strcmp(town[town_num].name, "¬“×‚Ì’n•½"))
+		if (!strcmp(town[floor_ptr->town_num].name, "¬“×‚Ì’n•½"))
 #else
-		if (!strcmp(town[town_num].name, "wilderness"))
+		if (!strcmp(town[floor_ptr->town_num].name, "wilderness"))
 #endif
 		{
 #ifdef JP

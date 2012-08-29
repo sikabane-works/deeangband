@@ -4385,7 +4385,7 @@ static void process_player_command(creature_type *creature_ptr)
 		case SPECIAL_KEY_STORE:
 		{
 			cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
-			int which = town_store_id[town_num][feature_info[c_ptr->feat].subtype];
+			int which = town_store_id[floor_ptr->town_num][feature_info[c_ptr->feat].subtype];
 			screen_save();
 			store_process(creature_ptr, &st_list[which]);
 			screen_load();

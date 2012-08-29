@@ -6823,7 +6823,7 @@ static void print_tomb(creature_type *creature_ptr)
 		{
 			if (floor_ptr->floor_level == 0)
 			{
-				cptr town = town_num ? "ŠX" : "r–ì";
+				cptr town = floor_ptr->town_num ? "ŠX" : "r–ì";
 				if (streq(gameover_from, "“r’†I—¹"))
 				{
 					sprintf(tmp, "%s‚Å€‚ñ‚¾", town);

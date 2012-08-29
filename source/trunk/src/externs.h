@@ -1726,7 +1726,6 @@ extern void repeat_check(void);
 
 // variable.c
 extern bool easy_open;
-extern s16b town_num;			/* Current town number */
 extern s16b arena_number;		/* creature number in arena -KMW- */
 
 extern s16b species_window_idx;	/* Species info trackee */

@@ -241,7 +241,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 	int x1, y1;
 
 	/* Number of the town (if any) */
-	town_num = wilderness[y][x].town;
+	floor_ptr->town_num = wilderness[y][x].town;
 
 	/* Set the base level */
 	floor_ptr->base_level = wilderness[y][x].level;
@@ -257,7 +257,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 
 
 	/* Create the town */
-	if (town_num)
+	if (floor_ptr->town_num)
 	{
 		/* Reset the buildings */
 		init_buildings();
@@ -269,7 +269,7 @@ static void generate_area(floor_type *floor_ptr, int y, int x, bool border, bool
 			process_dungeon_file(floor_ptr, "t_info.txt", 0, 0, MAX_HGT, MAX_WID, INIT_CREATE_DUNGEON, 0);
 
 
-		if (!corner && !border) player_ptr->visit |= (1L << (town_num - 1));
+		if (!corner && !border) player_ptr->visit |= (1L << (floor_ptr->town_num - 1));
 	}
 	else
 	{
@@ -538,7 +538,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 
 				if (have_flag(f_ptr->flags, FF_BLDG))
 				{
-					if ((f_ptr->subtype == 4) || ((town_num == 1) && (f_ptr->subtype == 0)))
+					if ((f_ptr->subtype == 4) || ((floor_ptr->town_num == 1) && (f_ptr->subtype == 0)))
 					{
 						if (c_ptr->creature_idx) delete_species_idx(&creature_list[c_ptr->creature_idx]);
 						player_ptr->oldpy = y;
@@ -581,7 +581,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	{
 		u32b mode = 0;
 
-		if (!(floor_ptr->generate_encounter || (one_in_(2) && (!town_num))))
+		if (!(floor_ptr->generate_encounter || (one_in_(2) && (!floor_ptr->town_num))))
 			mode |= PM_ALLOW_SLEEP;
 
 		// Make a resident
@@ -660,8 +660,6 @@ void generate_floor_world(floor_type *floor_ptr)
 	// Place the player
 	player_ptr->fx = (byte)player_ptr->wx;
 	player_ptr->fy = (byte)player_ptr->wy;
-
-	town_num = 0;
 }
 
 

@@ -1920,6 +1920,7 @@ typedef struct
 	s16b race_population[MAX_RACES];
 	byte generated;
 	byte generate_encounter;
+	s16b town_num;			// Current town number
 
 } floor_type;
 

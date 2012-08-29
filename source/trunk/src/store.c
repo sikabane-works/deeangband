@@ -4874,9 +4874,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 		/* Character description */
 		case 'C':
 		{
-			town_num = old_town_num;
 			do_cmd_change_name(guest_ptr);
-			town_num = inner_town_num;
 			display_store(guest_ptr, st_ptr);
 			break;
 		}
@@ -4894,36 +4892,28 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 		/* Single line from a pref file */
 		case '"':
 		{
-			town_num = old_town_num;
 			do_cmd_pref();
-			town_num = inner_town_num;
 			break;
 		}
 
 		/* Interact with macros */
 		case '@':
 		{
-			town_num = old_town_num;
 			do_cmd_macros();
-			town_num = inner_town_num;
 			break;
 		}
 
 		/* Interact with visuals */
 		case '%':
 		{
-			town_num = old_town_num;
 			do_cmd_visuals();
-			town_num = inner_town_num;
 			break;
 		}
 
 		/* Interact with colors */
 		case '&':
 		{
-			town_num = old_town_num;
 			do_cmd_colors();
-			town_num = inner_town_num;
 			break;
 		}
 
@@ -5439,7 +5429,7 @@ void move_to_black_market(object_type *object_ptr)
 {
 //	store_type *st_ptr;
 	/* Not in town */
-	if (!town_num) return;
+//	if (!town_num) return;
 
 //	st_ptr = &town[town_num].store[STORE_BLACK];
 

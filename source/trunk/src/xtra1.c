@@ -120,8 +120,8 @@ cptr map_name(floor_type *floor_ptr)
 #else
 		return "Creature Arena";
 #endif
-	else if (!floor_ptr->floor_level && town_num)
-		return town[town_num].name;
+	else if (!floor_ptr->floor_level && floor_ptr->town_num)
+		return town[floor_ptr->town_num].name;
 	else
 		return dungeon_name + dungeon_info[floor_ptr->dun_type].name;
 }

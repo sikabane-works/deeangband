@@ -502,8 +502,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	if (quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
 
 	// No effect out of standard dungeon floor 
-	if (!floor_ptr->floor_level || (!up && !down) ||
-	    (floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) ||
+	if (!floor_ptr->floor_level || (!up && !down) || (floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) ||
 	    floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		// arena or quest 

@@ -1199,8 +1199,6 @@ static void rd_extra(void)
 		rd_u32b(&mon_odds[i]);
 	}
 
-	rd_s16b(&town_num);
-
 	/* Read arena and rewards information */
 	rd_s16b(&arena_number);
 	rd_s16b(&tmp16s);
@@ -1349,6 +1347,7 @@ static errr rd_floor(floor_type *floor_ptr)
 	rd_byte(&floor_ptr->fight_arena_mode);
 	rd_byte(&floor_ptr->gamble_arena_mode);
 	rd_byte(&floor_ptr->wild_mode);
+	rd_s16b(&floor_ptr->town_num);
 
 	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
 

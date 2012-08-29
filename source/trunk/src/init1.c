@@ -7140,6 +7140,8 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 
 	char f = ' ';
 
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+
 	/* Initial */
 	s = (*sp);
 
@@ -7382,7 +7384,7 @@ static cptr process_dungeon_file_expr(char **sp, char *fp)
 			/* Town */
 			else if (streq(b+1, "TOWN"))
 			{
-				sprintf(tmp, "%d", town_num);
+				sprintf(tmp, "%d", floor_ptr->town_num);
 				v = tmp;
 			}
 
