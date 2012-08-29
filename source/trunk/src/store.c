@@ -3356,6 +3356,12 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	return (FALSE);
 }
 
+static int calc_max_price(store_type *st_ptr)
+{
+	//TODO
+	return creature_list[st_ptr->owner_id].au / 2;
+}
+
 
 /*
  * Haggling routine 				-RAK-
@@ -3391,7 +3397,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	noneed = noneedtobargain(st_ptr, final_ask);
 
 	/* Get the owner's payout limit */
-	purse = (s32b)30000; //TODO (ot_ptr->max_cost);
+	purse = calc_max_price(st_ptr);
 
 	/* No need to haggle */
 	if (noneed || !manual_haggle || (final_ask >= purse))

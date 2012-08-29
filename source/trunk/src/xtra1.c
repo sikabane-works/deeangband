@@ -443,7 +443,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned
 	if (creature_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
-	//TODO if (creature_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
+	if (creature_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
 	if (creature_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
 	if (creature_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability

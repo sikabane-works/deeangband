@@ -7281,16 +7281,16 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 		/* Extract final and Terminate */
 		if ((f = *s) != '\0') *s++ = '\0';
 
-		/* Variable */
+		// Variable
 		if (*b == '$')
 		{
-			/* System */
+			// System
 			if (streq(b+1, "SYS"))
 			{
 				v = ANGBAND_SYS;
 			}
 
-			/* Graphics */
+			// Graphics
 			else if (streq(b+1, "GRAF"))
 			{
 				v = ANGBAND_GRAF;
@@ -7304,7 +7304,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 					v = "OFF";
 			}
 
-			/* Race1 */
+			// Race1
 			else if (streq(b+1, "RACE1"))
 			{
 #ifdef JP
@@ -7314,7 +7314,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #endif
 			}
 
-			/* Race2 */
+			// Race2
 			else if (streq(b+1, "RACE2"))
 			{
 #ifdef JP
@@ -7324,7 +7324,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #endif
 			}
 
-			/* Class */
+			// Class
 			else if (streq(b+1, "CLASS"))
 			{
 #ifdef JP
@@ -7334,7 +7334,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #endif
 			}
 
-			/* First realm */
+			// First realm
 			else if (streq(b+1, "REALM1"))
 			{
 #ifdef JP
@@ -7344,7 +7344,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #endif
 			}
 
-			/* Second realm */
+			// Second realm
 			else if (streq(b+1, "REALM2"))
 			{
 #ifdef JP
@@ -7354,7 +7354,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #endif
 			}
 
-			/* Player name */
+			// Player name
 			else if (streq(b+1, "PLAYER"))
 			{
 				static char tmp_playespecies_name[128];
