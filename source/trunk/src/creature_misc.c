@@ -628,9 +628,7 @@ bool is_variable_chara_species(species_type *species_ptr)
 
 bool is_enemy_of_evil_creature(creature_type *creature_ptr)
 {
-	//TODO
-	// return calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL) > 100;
-	return FALSE;
+	return calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL) > 100;
 }
 
 bool is_enemy_of_evil_species(species_type *creature_ptr)
@@ -641,8 +639,7 @@ bool is_enemy_of_evil_species(species_type *creature_ptr)
 
 bool is_enemy_of_good_creature(creature_type *creature_ptr)
 {
-	return FALSE;
-	//	return calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD) > 100;
+	return calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD) > 100;
 }
 
 bool is_enemy_of_good_species(species_type *creature_ptr)

@@ -1431,11 +1431,11 @@ struct creature_type
 	bool sutemi;
 	bool counter;
 
-	s32b good;
-	s32b evil;
-	s32b order;
-	s32b chaos;
-	s32b balance;
+	s32b good_exp;
+	s32b evil_exp;
+	s32b order_exp;
+	s32b chaos_exp;
+	s32b balance_exp;
 	s16b good_rank;
 	s16b evil_rank;
 	s16b order_rank;

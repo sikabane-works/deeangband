@@ -2690,21 +2690,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (target_ptr->good > 10)
-				dam /= 2;
-			else if (target_ptr->evil > 10)
-				dam *= 2;
+			dam = dam * calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 100;
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Holy Fire -- hurts Evil, Good are immune, others _resist_
-		case GF_HOLY_FIRE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HOLY_FIRE, TRUE);
-			break;
-		}
-		*/
 
 		case GF_HELL_FIRE:
 		{
@@ -2714,19 +2703,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (target_ptr->good > 10)
-				dam *= 2;
+			dam = dam * calc_punishment_slay(target_ptr, ALIGNMENT_EVIL) / 100;
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Hellfire -- hurts Evil
-		case GF_HELL_FIRE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_HELL_FIRE, TRUE);
-			break;
-		}
-		*/
 
 		/* Arrow -- XXX no dodging */
 		case GF_ARROW:
