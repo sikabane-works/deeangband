@@ -1508,6 +1508,7 @@ void clear_cave(floor_type *floor_ptr)
 int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_type *prev_ptr, u32b flag)
 {
 	int num;
+
 	int floor_id = floor_pop();
 
 	floor_type *floor_ptr = &floor_list[floor_id];
@@ -1545,8 +1546,8 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 			generate_floor_arena(floor_ptr, 41, 41); // fighting arena
 		else if(floor_ptr->gamble_arena_mode)
 			generate_floor_creature_arena(floor_ptr); // gamble arena
-		//TODO else if(floor_ptr->quest)
-		//	generate_floor_quest(floor_ptr, floor_ptr->quest); // quest
+		else if(floor_ptr->quest)
+			generate_floor_quest(floor_ptr, floor_ptr->quest); // quest
 		else if(floor_ptr->wild_mode)
 			generate_floor_world(floor_ptr);
 		else if(floor_ptr->floor_level <= 0) // field
