@@ -567,7 +567,7 @@ info[i++] = "あなたは呪文や祈りを学ぶことができる。";
 	if (creature_ptr->word_recall)
 	{
 #ifdef JP
-info[i++] = "あなたはすぐに帰還するだろう。";
+		info[i++] = "あなたはすぐに帰還するだろう。";
 #else
 		info[i++] = "You will soon be recalled.";
 #endif
@@ -585,7 +585,7 @@ info[i++] = "あなたはすぐに帰還するだろう。";
 	if (creature_ptr->see_infra)
 	{
 #ifdef JP
-info[i++] = "あなたの瞳は赤外線に敏感である。";
+		info[i++] = "あなたの瞳は赤外線に敏感である。";
 #else
 		info[i++] = "Your eyes are sensitive to infrared light.";
 #endif
@@ -655,24 +655,6 @@ info[i++] = "あなたは闘気のオーラに包まれている。";
 #endif
 
 	}
-	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
-	{
-#ifdef JP
-info[i++] = "あなたは反魔法シールドに包まれている。";
-#else
-		info[i++] = "You are surrounded by an anti-magic shell.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
-	{
-#ifdef JP
-info[i++] = "あなたはテレポートできない。";
-#else
-		info[i++] = "You cannot teleport.";
-#endif
-
-	}
 	if (creature_ptr->lite)
 	{
 #ifdef JP
@@ -681,7 +663,6 @@ info[i++] = "あなたはテレポートできない。";
 		info[i++] = "You are carrying a permanent light.";
 #endif
 	}
-
 	if (has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
 #ifdef JP
