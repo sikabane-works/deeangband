@@ -841,224 +841,123 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	int t = 1000;
 	switch(type)
 	{
+
 	case GF_MELEE:
 		t = (250 - creature_ptr->ac - creature_ptr->to_ac) * 1000 / 2500;
 		t = (t < 40) ? 40 : t;
 		break;
+
 	case GF_FIRE:
-		if(has_trait(creature_ptr, TRAIT_IM_FIRE) || has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(has_trait(creature_ptr, TRAIT_HURT_FIRE)) t *= 2;
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
+
 	case GF_COLD:
-		if(has_trait(creature_ptr, TRAIT_IM_COLD) || has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(has_trait(creature_ptr, TRAIT_HURT_COLD)) t *= 2;
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
+
 	case GF_ELEC:
-		if(has_trait(creature_ptr, TRAIT_IM_ELEC) || has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
+
 	case GF_ACID:
-		if(has_trait(creature_ptr, TRAIT_IM_ACID) || has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;
+
 	case GF_POIS:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_pois > 0) t /= 3;
 		break;
+
 	case GF_LITE:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->wraith_form) t *= 2;
 		if(creature_ptr->resist_lite > 0) t = t*4/9;
 		break;
+
 	case GF_DARK:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->wraith_form) t = 0;
 		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
+
 	case GF_NETHER:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL) || has_trait(creature_ptr, TRAIT_UNDEAD))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_dark > 0) t = t*2/3;
 		//TODO Evil x0.5
 		break;
+
 	case GF_WATER:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_water > 0) t = t*5/9;
 		break;
+
 	case GF_PLASMA:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_SHARDS:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_shard > 0) t = t*2/3;
 		break;
+
 	case GF_SOUND:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_sound > 0) t = t*5/9;
-		else
-		{
-		}
 		break;
+
 	case GF_CHAOS:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_chaos > 0) t = t*2/3;
 		break;
+
 	case GF_NEXUS:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_nexus > 0) t = t*2/3;
 		break;
+
 	case GF_DISENCHANT:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		if(creature_ptr->resist_disen > 0) t = t*2/3;
 		break;
+
 	case GF_FORCE:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_INERTIA:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_TIME:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_GRAVITY:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_HOLY_FIRE:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		//TODO Evil x2
 		break;
+
 	case GF_HELL_FIRE:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		//TODO Good x2
 		break;
+
 	case GF_NUKE:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_MISSILE:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_MANA:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	case GF_ROCKET:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+
 	default:
-		if(has_trait(creature_ptr, TRAIT_RES_ALL))
-		{
-			t = 0;
-			break;
-		}
 		break;
+	}
+
+	if(has_trait(creature_ptr, TRAIT_RES_ALL))
+	{
+		t = 0;
 	}
 
 	/* TODO Multishadow
