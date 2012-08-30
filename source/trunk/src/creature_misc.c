@@ -1061,6 +1061,22 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 	}
 
+	// TODO learn trait
+
+	/* TODO Multishadow
+	if (!(creature_ptr->multishadow && (turn & 1)))
+	{
+		if ((!(double_resist || creature_ptr->resist_acid)) &&
+		    one_in_(HURT_CHANCE))
+			(void)do_dec_stat(creature_ptr, STAT_CHA);
+
+		// If any armor gets hit, defend the player
+		if (minus_ac(creature_ptr)) dam = (dam + 1) / 2;
+	}
+	*/
+
+
+
 	if(message)
 	{
 

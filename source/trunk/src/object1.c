@@ -908,7 +908,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 			case ACT_DETECT_ALL:
 			{
 #ifdef JP
-return "全感知 : 55+d55 ターン毎";
+				return "全感知 : 55+d55 ターン毎";
 #else
 				return "detection every 55+d55 turns";
 #endif
@@ -917,7 +917,7 @@ return "全感知 : 55+d55 ターン毎";
 			case ACT_DETECT_XTRA:
 			{
 #ifdef JP
-return "全感知、探索、*鑑定* : 1000 ターン毎";
+				return "全感知、探索、*鑑定* : 1000 ターン毎";
 #else
 				return "detection, probing and identify true every 1000 turns";
 #endif
@@ -926,7 +926,7 @@ return "全感知、探索、*鑑定* : 1000 ターン毎";
 			case ACT_ID_FULL:
 			{
 #ifdef JP
-return "*鑑定* : 750 ターン毎";
+				return "*鑑定* : 750 ターン毎";
 #else
 				return "identify true every 750 turns";
 #endif
@@ -935,7 +935,7 @@ return "*鑑定* : 750 ターン毎";
 			case ACT_ID_PLAIN:
 			{
 #ifdef JP
-return "鑑定 : 10 ターン毎";
+				return "鑑定 : 10 ターン毎";
 #else
 				return "identify spell every 10 turns";
 #endif
@@ -944,7 +944,7 @@ return "鑑定 : 10 ターン毎";
 			case ACT_RUNE_EXPLO:
 			{
 #ifdef JP
-return "爆発のルーン : 200 ターン毎";
+				return "爆発のルーン : 200 ターン毎";
 #else
 				return "explosive rune every 200 turns";
 #endif
@@ -953,7 +953,7 @@ return "爆発のルーン : 200 ターン毎";
 			case ACT_RUNE_PROT:
 			{
 #ifdef JP
-return "守りのルーン : 400 ターン毎";
+				return "守りのルーン : 400 ターン毎";
 #else
 				return "rune of protection every 400 turns";
 #endif
@@ -962,7 +962,7 @@ return "守りのルーン : 400 ターン毎";
 			case ACT_SATIATE:
 			{
 #ifdef JP
-return "空腹充足 : 200 ターン毎";
+				return "空腹充足 : 200 ターン毎";
 #else
 				return "satisfy hunger every 200 turns";
 #endif

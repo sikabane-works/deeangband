@@ -4914,36 +4914,11 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ACID(creature_ptr);
 
-	/* Total Immunity */
-	if (has_trait(creature_ptr, TRAIT_IM_ACID) || (dam <= 0))
-	{
-		learn_trait(creature_ptr, monspell);
-		return 0;
-	}
-
-	/* Vulnerability (Ouch!) */
-	if (has_trait(creature_ptr, TRAIT_VULN_ELEM)) dam *= 2;
-
-	/* Resist the damage */
-	if (creature_ptr->resist_acid) dam = (dam + 2) / 3;
-	if (double_resist) dam = (dam + 2) / 3;
-
-	if (!(creature_ptr->multishadow && (turn & 1)))
-	{
-		if ((!(double_resist || creature_ptr->resist_acid)) &&
-		    one_in_(HURT_CHANCE))
-			(void)do_dec_stat(creature_ptr, STAT_CHA);
-
-		/* If any armor gets hit, defend the player */
-		if (minus_ac(creature_ptr)) dam = (dam + 1) / 2;
-	}
-
-	/* Take damage */
-	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_ACID, TRUE);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* inventory damage */
-	if (!(double_resist && creature_ptr->resist_acid))
-		inven_damage(creature_ptr, set_acid_destroy, inv);
+	if (!(double_resist && creature_ptr->resist_acid)) inven_damage(creature_ptr, set_acid_destroy, inv);
 	return get_damage;
 }
 

@@ -1735,49 +1735,27 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	/* Is the creature "seen"? */
+	// Is the creature "seen"?
 	bool seen = target_ptr->ml;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
 	bool slept = (bool)target_ptr->paralyzed;
 
-	/* Can the player know about this effect? */
+	// Can the player know about this effect?
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);
 
-	/* Were the effects "irrelevant"? */
-	bool skipped = FALSE;
-
-	/* Gets the creature angry at the source of the effect? */
-	bool get_angry = FALSE;
-
-	/* Polymorph setting (true or false) */
-	bool do_poly = FALSE;
-
-	/* Were the effects "obvious" (if seen)? */
-	bool obvious = FALSE;
-
-	/* Teleport setting (max distance) */
-	int do_dist = 0;
-
-	/* Confusion setting (amount to confuse) */
-	int do_conf = 0;
-
-	/* Stunning setting (amount to stun) */
-	int do_stun = 0;
-
-	/* Sleep amount (amount to sleep) */
-	int do_sleep = 0;
-
-	/* Fear amount (amount to fear) */
-	int do_fear = 0;
-
-	/* Time amount (amount to time) */
-	int do_time = 0;
-
+	bool skipped = FALSE;		// Were the effects "irrelevant"?
+	bool get_angry = FALSE;		// Gets the creature angry at the source of the effect?
+	bool do_poly = FALSE;		// Polymorph setting (true or false)
+	bool obvious = FALSE;		// Were the effects "obvious" (if seen)?
+	int do_dist = 0;			// Teleport setting (max distance)
+	int do_conf = 0;			// Confusion setting (amount to confuse)
+	int do_stun = 0;			// Stunning setting (amount to stun)
+	int do_sleep = 0;			// Sleep amount (amount to sleep)
+	int do_fear = 0;			// Fear amount (amount to fear)
+	int do_time = 0;			// Time amount (amount to time)
 	bool heal_leper = FALSE;
-
-	/* Hold the creature name */
-	char target_name[80];
+	char target_name[80];		// Hold the creature name
 
 #ifndef JP
 	char m_poss[10];
@@ -1785,10 +1763,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 	int photo = 0;
 
-	/* Assume no note */
+	// Assume no note
 	cptr note = NULL;
 
-	/* Assume a default death */
+	// Assume a default death
 	cptr note_dies = extract_note_dies(player_ptr, target_ptr);
 
 	int ty = target_ptr->fy;
@@ -1812,18 +1790,18 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	// Reduce damage by distance
 	dam = (dam + r) / (r + 1);
 
-	/* Get the creature name (BEFORE polymorphing) */
+	// Get the creature name (BEFORE polymorphing)
 	creature_desc(target_name, target_ptr, 0);
 
 #ifndef JP
-	/* Get the creature possessive ("his"/"her"/"its") */
+	// Get the creature possessive ("his"/"her"/"its")
 	creature_desc(m_poss, target_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
 #endif
 
 
 	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 
-	/* Analyze the damage type */
+	// Analyze the damage type
 	switch (typ)
 	{
 		/* Default */
@@ -2377,46 +2355,33 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	bool skipped = FALSE;
 
-	/* Player needs a "description" (he is blind) */
+	// Player needs a "description" (he is blind)
 	bool fuzzy = FALSE;
 
-	/* Creature name (for attacker and target) */
+	// Creature name (for attacker and target)
 	char caster_name[80];
 	char target_name[80];
 	char killer[80];
 
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	/* Is the player blind? */
+	// Is the player blind?
 	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
 
-	/* Were the effects "obvious" (if seen)? */
+	// Were the effects "obvious" (if seen)?
 	bool obvious = FALSE;
 
-	/* Is the creature "seen"? */
+	// Is the creature "seen"?
 	bool seen = target_ptr->ml;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
-	/* Polymorph setting (true or false) */
-	bool do_poly = FALSE;
-
-	/* Teleport setting (max distance) */
-	int do_dist = 0;
-
-	/* Confusion setting (amount to confuse) */
-	int do_conf = 0;
-
-	/* Stunning setting (amount to stun) */
-	int do_stun = 0;
-
-	/* Sleep amount (amount to sleep) */
-	int do_sleep = 0;
-
-	/* Fear amount (amount to fear) */
-	int do_fear = 0;
-
-	/* Time amount (amount to time) */
-	int do_time = 0;
+	bool do_poly = FALSE;	// Polymorph setting (true or false)	
+	int do_dist = 0;		// Teleport setting (max distance)
+	int do_conf = 0;		// Confusion setting (amount to confuse)
+	int do_stun = 0;		// Stunning setting (amount to stun)
+	int do_sleep = 0;		// Sleep amount (amount to sleep)
+	int do_fear = 0;		// Fear amount (amount to fear)
+	int do_time = 0;		// Time amount (amount to time)
 
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
@@ -2428,13 +2393,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	if (!is_player(caster_ptr))
 	{
-		/* Get the source creature */
-		/* Extract the creature level */
+		// Get the source creature
+		// Extract the creature level
 		rlev = (((&species_info[caster_ptr->species_idx])->level >= 1) ? (&species_info[caster_ptr->species_idx])->level : 1);
-
-		/* Get the creature name */
-		creature_desc(caster_name, caster_ptr, 0);
-
+		creature_desc(caster_name, caster_ptr, 0);	// Get the creature name
 		/* Get the creature's real name (gotten before polymorph!) */
 		//TODO ? strcpy(killer, who_name);
 	}
