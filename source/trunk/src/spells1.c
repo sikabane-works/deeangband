@@ -2444,10 +2444,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	/* If the player is blind, be more descriptive */
 	if (blind) fuzzy = TRUE;
 
-	/* Analyze the damage */
+	// Analyze the damage
 	switch (typ)
 	{
-		/* Standard damage -- hurts target_ptr->inventory too */
+
 		case GF_ACID:
 		{
 #ifdef JP
@@ -2459,18 +2459,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = acid_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		// project_creature_aux2()
-		/*
-		case GF_ACID:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ACID, TRUE);
-			break;
-		}
-		*/
 
-
-		/* Standard damage -- hurts target_ptr->inventory too */
 		case GF_FIRE:
 		{
 #ifdef JP
@@ -2482,16 +2471,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = fire_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		/* project_creature_aux2()
-		case GF_FIRE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
-		}
-		*/
 
-
-		/* Standard damage -- hurts target_ptr->inventory too */
 		case GF_COLD:
 		{
 #ifdef JP
@@ -2503,17 +2483,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		/* project_creature_aux2()
-		case GF_COLD:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
-			break;
-		}
-		*/
 
-
-		/* Standard damage -- hurts target_ptr->inventory too */
 		case GF_ELEC:
 		{
 #ifdef JP
@@ -2525,19 +2495,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = elec_dam(target_ptr, dam, killer, spell);
 			break;
 		}
-		// project_creature_aux2()
-		/*
-		case GF_ELEC:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ELEC, TRUE);
-			break;
-		}
-		*/
 
-
-
-		/* Standard damage -- also poisons player */
 		case GF_POIS:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
@@ -2547,15 +2505,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by poison!");
 #endif
 
-			if (target_ptr->resist_pois) dam = (dam + 2) / 3;
-			if (double_resist) dam = (dam + 2) / 3;
-
-			if ((!(double_resist || target_ptr->resist_pois)) &&
-			     one_in_(HURT_CHANCE) && !(target_ptr->multishadow && (turn & 1)))
-			{
-				do_dec_stat(target_ptr, STAT_CON);
-			}
-
+			get_damage = calc_damage(caster_ptr, dam, DAMAGE_TYPE_POIS, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
@@ -2564,17 +2514,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
-		/* project_creature_aux2()
-		case GF_POIS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_POIS, TRUE);
-			break;
-		}
-		*/
 
-
-		/* Standard damage -- also poisons / mutates player */
 		case GF_NUKE:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
@@ -2584,9 +2524,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by radiation!");
 #endif
 
-			if (target_ptr->resist_pois) dam = (2 * dam + 2) / 5;
-			if (double_resist) dam = (2 * dam + 2) / 5;
+			get_damage = calc_damage(caster_ptr, dam, DAMAGE_TYPE_NUKE, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
 			{
 				set_poisoned(target_ptr, target_ptr->poisoned + randint0(dam) + 10);
@@ -2612,16 +2552,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
-		/* Nuclear waste
-		case GF_NUKE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NUKE, TRUE);
-			break;
-		}
-		*/
 
-		/* Standard damage */
 		case GF_MISSILE:
 		{
 #ifdef JP
@@ -2629,21 +2560,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
-
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		// project_m
-		/*
-		case GF_MISSILE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_LOW_MANA, TRUE);
-			break;
-		}
-		*/
 
-		/* Holy Orb -- Player only takes partial damage */
 		case GF_HOLY_FIRE:
 		{
 #ifdef JP

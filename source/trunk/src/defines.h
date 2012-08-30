@@ -2431,15 +2431,6 @@
 #define DRS_MANA        31
 #define DRS_REFLECT     32
 
-
-
-#define DAMAGE_FORCE    1
-#define DAMAGE_GENO     2
-#define DAMAGE_LOSELIFE 3
-#define DAMAGE_ATTACK   4
-#define DAMAGE_NOESCAPE 5
-#define DAMAGE_USELIFE  6
-
 /*
  * Hack -- special "xtra" object powers
  */

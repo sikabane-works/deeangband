@@ -1061,8 +1061,6 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 	}
 
-	// TODO learn trait
-
 	/* TODO Multishadow
 	if (!(creature_ptr->multishadow && (turn & 1)))
 	{
@@ -1074,8 +1072,6 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if (minus_ac(creature_ptr)) dam = (dam + 1) / 2;
 	}
 	*/
-
-
 
 	if(message)
 	{

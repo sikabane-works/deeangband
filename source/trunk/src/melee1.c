@@ -2889,7 +2889,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				msg_print("You are covered in acid!");
 #endif
 
-
 				/* Special damage */
 				get_damage += acid_dam(target_ptr, damage, ddesc, -1);
 
