@@ -878,6 +878,16 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_LITE:
+		if (has_trait(creature_ptr, TRAIT_HURT_LITE))
+		{
+#ifdef JP
+			if (!(creature_ptr->multishadow && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
+#else
+			if (!(creature_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
+#endif
+			t *= 2;
+		}
+
 		if(creature_ptr->wraith_form) t *= 2;
 		if(creature_ptr->resist_lite > 0) t = t*4/9;
 		break;

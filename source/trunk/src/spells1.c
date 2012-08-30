@@ -2872,31 +2872,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (target_ptr->resist_lite)
-			{
-				dam *= 4; dam /= (randint1(4) + 7);
-			}
-			else if (!blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
+			else if (!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 
-			if (has_trait(target_ptr, TRAIT_HURT_LITE))
-			{
-#ifdef JP
-				if (!(target_ptr->multishadow && (turn & 1))) msg_print("光で肉体が焦がされた！");
-#else
-				if (!(target_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
-#endif
-
-				dam *= 2;
-			}
-			else if (IS_RACE(target_ptr, RACE_S_FAIRY))
-			{
-				dam = dam * 4 / 3;
-			}
-
-			if (target_ptr->wraith_form) dam *= 2;
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
 			if (target_ptr->wraith_form && !(target_ptr->multishadow && (turn & 1)))
@@ -2907,66 +2887,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				msg_print("The light forces you out of your incorporeal shadow form.");
 #endif
-
 				play_redraw |= PR_MAP;
-				// Update creatures
 				update |= (PU_MONSTERS);
-				/* Window stuff */
-				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-				/* Redraw status bar */
-				play_redraw |= (PR_STATUS);
-
-			}
-
-			break;
-		}
-		/* Lite -- opposite of Dark
-		case GF_LITE:
-		{
-			if (seen) obvious = TRUE;
-
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (has_trait(target_ptr, TRAIT_RES_LITE))
-			{
-#ifdef JP
-				note = "には耐性がある！";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 2; dam /= (randint1(6)+6);
-				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_LITE);
-			}
-			else if (has_trait(target_ptr, TRAIT_HIRT_LITE))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-#ifdef JP
-				note = "は光に身をすくめた！";
-				note_dies = "は光を受けてしぼんでしまった！";
-#else
-				note = " cringes from the light!";
-				note_dies = " shrivels away in the light!";
-#endif
-
-				dam *= 2;
+				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
 			}
 			break;
 		}
-		*/
 
-
-		/* Dark -- blinding */
+		// Dark -- blinding
 		case GF_DARK:
 		{
 #ifdef JP
@@ -2975,52 +2903,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (target_ptr->resist_dark)
-			{
-				dam *= 4; dam /= (randint1(4) + 7);
-
-				//TODO Dark Immune
-				//if () dam = 0;
-			}
-			else if (!blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
+			if (!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Dark -- opposite of Lite
-		case GF_DARK:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (has_trait(target_ptr, TRAIT_RES_DARK))
-			{
-#ifdef JP
-				note = "には耐性がある！";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 2; dam /= (randint1(6)+6);
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_DARK);
-			}
-			break;
-		}
-		*/
-
-		/* Time -- bolt fewer effects XXX */
 		case GF_TIME:
 		{
 #ifdef JP
