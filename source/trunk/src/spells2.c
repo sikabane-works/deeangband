@@ -591,52 +591,7 @@ info[i++] = "あなたは呪文や祈りを学ぶことができる。";
 #endif
 
 	}
-	if (has_trait(creature_ptr, TRAIT_FREE_ACTION))
-	{
-#ifdef JP
-info[i++] = "あなたは麻痺知らずの効果を持っている。";
-#else
-		info[i++] = "You have free action.";
-#endif
 
-	}
-
-	if (has_trait(creature_ptr, TRAIT_REFLECTING))
-	{
-#ifdef JP
-info[i++] = "あなたは矢やボルトを反射する。";
-#else
-		info[i++] = "You reflect arrows and bolts.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_AURA_FIRE))
-	{
-#ifdef JP
-info[i++] = "あなたは炎のオーラに包まれている。";
-#else
-		info[i++] = "You are surrounded with a fiery aura.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_AURA_ELEC))
-	{
-#ifdef JP
-info[i++] = "あなたは電気に包まれている。";
-#else
-		info[i++] = "You are surrounded with electricity.";
-#endif
-
-	}
-	if (has_trait(creature_ptr, TRAIT_AURA_COLD))
-	{
-#ifdef JP
-info[i++] = "あなたは冷気のオーラに包まれている。";
-#else
-		info[i++] = "You are surrounded with an aura of coldness.";
-#endif
-
-	}
 	if (creature_ptr->tim_sh_holy)
 	{
 #ifdef JP
@@ -662,15 +617,6 @@ info[i++] = "あなたは闘気のオーラに包まれている。";
 #else
 		info[i++] = "You are carrying a permanent light.";
 #endif
-	}
-	if (has_trait(creature_ptr, TRAIT_HURT_LITE))
-	{
-#ifdef JP
-info[i++] = "あなたは閃光に弱い。";
-#else
-		info[i++] = "You are susceptible to damage from bright light.";
-#endif
-
 	}
 
 	if (have_flag(flgs, STAT_STR))
