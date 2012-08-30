@@ -2572,7 +2572,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			dam = dam * calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 100;
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
@@ -2585,7 +2584,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
 
-			dam = dam * calc_punishment_slay(target_ptr, ALIGNMENT_EVIL) / 100;
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
@@ -2593,12 +2591,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Arrow -- XXX no dodging */
 		case GF_ARROW:
 		{
+
 #ifdef JP
 			if (fuzzy) msg_print("âΩÇ©âsÇ¢Ç‡ÇÃÇ≈çUåÇÇ≥ÇÍÇΩÅI");
 #else
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
-
 
 			else if (has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
@@ -2609,29 +2607,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				break;
 			}
+
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Arrow -- XXX no defense
-		case GF_ARROW:
-		{
-			if (seen) obvious = TRUE;
-
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "Ç…ÇÕäÆëSÇ»ëœê´Ç™Ç†ÇÈÅI";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			break;
-		}
-		*/
-
 
 		/* Plasma -- XXX No resist */
 		case GF_PLASMA:
@@ -2657,16 +2636,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
-		/* Plasma -- XXX perhaps check ELEC or FIRE
-		case GF_PLASMA:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_PLASMA, TRUE);
-			break;
-		}
-		*/
 
-		/* Nether -- drain experience */
 		case GF_NETHER:
 		{
 #ifdef JP

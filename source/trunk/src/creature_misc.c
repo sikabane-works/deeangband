@@ -932,11 +932,11 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_HOLY_FIRE:
-		//TODO Evil x2
+		t = t * calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD) / 100;
 		break;
 
 	case GF_HELL_FIRE:
-		//TODO Good x2
+		t = t * calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL) / 100;
 		break;
 
 	case GF_NUKE:
@@ -983,6 +983,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 				note = " is immune.";
 #endif
 		}
+
 		else if(t < 200)
 		{
 #ifdef JP
@@ -991,6 +992,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 				note = " resists strongly.";
 #endif
 		}
+
 		else if(t < 500)
 		{
 #ifdef JP
@@ -999,6 +1001,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 				note = " resists.";
 #endif
 		}
+
 		else if(t < 800)
 		{
 #ifdef JP
@@ -1007,6 +1010,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 				note = " resists a little.";
 #endif
 		}
+
 		else if(t >= 1200)
 		{
 #ifdef JP
