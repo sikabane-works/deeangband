@@ -4906,7 +4906,7 @@ static int minus_ac(creature_type *creature_ptr)
 
 
 /*
- * Hurt the player with Acid
+ * Hurt the creature with Acid
  */
 int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 {
@@ -4917,14 +4917,14 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_ACID, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
-	/* inventory damage */
+	// inventory damage
 	if (!(double_resist && creature_ptr->resist_acid)) inven_damage(creature_ptr, set_acid_destroy, inv);
 	return get_damage;
 }
 
 
 /*
- * Hurt the player with electricity
+ * Hurt the creature with electricity
  */
 int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 {
@@ -4932,37 +4932,17 @@ int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ELEC(creature_ptr);
 
-	// Total immunity
-	if(has_trait(creature_ptr, TRAIT_IM_ELEC) || (dam <= 0))
-	{
-		learn_trait(creature_ptr, monspell);
-		return 0;
-	}
+	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_ELEC, TRUE);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
-	/* Vulnerability (Ouch!) */
-	if (has_trait(creature_ptr, TRAIT_HURT_ELEC)) dam += dam / 3;
-
-	/* Resist the damage */
-	if (creature_ptr->resist_elec) dam = (dam + 2) / 3;
-	if (double_resist) dam = (dam + 2) / 3;
-
-	if ((!(double_resist || creature_ptr->resist_elec)) &&
-	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(creature_ptr, STAT_DEX);
-
-	/* Take damage */
-	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
-
-	/* creature_ptr->inventory damage */
-	if (!(double_resist && creature_ptr->resist_elec))
-		inven_damage(creature_ptr, set_elec_destroy, inv);
-
+	// inventory damage
+	if (!(double_resist && creature_ptr->resist_elec)) inven_damage(creature_ptr, set_elec_destroy, inv);
 	return get_damage;
 }
 
 
 /*
- * Hurt the player with Fire
+ * Hurt the creature with Fire
  */
 int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 {
@@ -4970,26 +4950,17 @@ int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_FIRE(creature_ptr);
 
-	dam = calc_damage(creature_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
-	if(dam <= 0) learn_trait(creature_ptr, monspell);
-
-	if ((!(double_resist || creature_ptr->resist_fire)) &&
-	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(creature_ptr, STAT_STR);
-
-	/* Take damage */
-	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* inventory damage */
-	if (!(double_resist && creature_ptr->resist_fire))
-		inven_damage(creature_ptr, set_fire_destroy, inv);
-
+	if (!(double_resist && creature_ptr->resist_fire)) inven_damage(creature_ptr, set_fire_destroy, inv);
 	return get_damage;
 }
 
 
 /*
- * Hurt the player with Cold
+ * Hurt the creature with Cold
  */
 int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 {
@@ -4997,20 +4968,11 @@ int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_COLD(creature_ptr);
 
-	dam = calc_damage(creature_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
-	if(dam <= 0) learn_trait(creature_ptr, monspell);
-
-	if ((!(double_resist || creature_ptr->resist_cold)) &&
-	    one_in_(HURT_CHANCE) && !(creature_ptr->multishadow && (turn & 1)))
-		(void)do_dec_stat(creature_ptr, STAT_STR);
-
-	/* Take damage */
-	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, kb_str, NULL, monspell);
+	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
+	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* creature_ptr->inventory damage */
-	if (!(double_resist && creature_ptr->resist_cold))
-		inven_damage(creature_ptr, set_cold_destroy, inv);
-
+	if (!(double_resist && creature_ptr->resist_cold)) inven_damage(creature_ptr, set_cold_destroy, inv);
 	return get_damage;
 }
 
