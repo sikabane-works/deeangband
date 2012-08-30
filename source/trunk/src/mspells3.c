@@ -1283,7 +1283,7 @@ msg_print("©•ª‚Ì‚É”O‚ğW’†‚µ‚½B");
 #else
 			msg_print("You concentrate on your wounds!");
 #endif
-		(void)hp_player(caster_ptr, plev*4);
+		(void)heal_creature(caster_ptr, plev*4);
 		(void)set_stun(caster_ptr, 0);
 		(void)set_cut(caster_ptr, 0);
 		break;

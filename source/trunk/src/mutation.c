@@ -262,7 +262,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				{
 					if (creature_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
-						(void)hp_player(creature_ptr, dummy);
+						(void)heal_creature(creature_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -430,7 +430,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case TRAIT_BERSERK:
 			(void)set_shero(creature_ptr, randint1(25) + 25, FALSE);
-			(void)hp_player(creature_ptr, 30);
+			(void)heal_creature(creature_ptr, 30);
 			(void)set_afraid(creature_ptr, 0);
 			break;
 

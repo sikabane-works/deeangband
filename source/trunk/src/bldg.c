@@ -4501,7 +4501,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		do_cmd_study(creature_ptr);
 		break;
 	case BUILDING_FUNCTION_HEALING: /* needs work */
-		hp_player(creature_ptr, 200);
+		heal_creature(creature_ptr, 200);
 		set_poisoned(creature_ptr, 0);
 		set_blind(creature_ptr, 0);
 		set_confused(creature_ptr, 0);

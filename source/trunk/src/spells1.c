@@ -3017,125 +3017,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					(void)set_stun(target_ptr, target_ptr->stun + k);
 				}
 			}
-			if (has_trait(target_ptr, TRAIT_CAN_FLY))
-			{
-				dam = (dam * 2) / 3;
-			}
 
-			if (!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13))
-			{
-				inven_damage(target_ptr, set_cold_destroy, 2);
-			}
+			if (!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Gravity -- breathers resist
-		case GF_GRAVITY:
-		{
-			bool resist_tele = FALSE;
 
-			if (seen) obvious = TRUE;
-
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (target_ptr->resist_tele)
-			{
-				if (has_trait(target_ptr, TRAIT_UNIQUE))
-				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-note = "には効果がなかった。";
-#else
-					note = " is unaffected!";
-#endif
-
-					resist_tele = TRUE;
-				}
-				else if (species_ptr->level > randint1(100))
-				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-note = "には耐性がある！";
-#else
-					note = " resists!";
-#endif
-
-					resist_tele = TRUE;
-				}
-			}
-
-			if (!resist_tele) do_dist = 10;
-			else do_dist = 0;
-			if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
-
-			if (target_ptr->resist_gravity)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				do_dist = 0;
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_GRAV);
-			}
-			else
-			{
-				// 1. slowness
-				// Powerful creatures can resist
-				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-				{
-					obvious = FALSE;
-				}
-				// Normal creatures slow down
-				else
-				{
-					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
-					{
-#ifdef JP
-						note = "の動きが遅くなった。";
-#else
-						note = " starts moving slower.";
-#endif
-					}
-				}
-
-				// 2. stun
-				do_stun = diceroll((caster_lev / 20) + 3 , (dam)) + 1;
-
-				// Attempt a saving throw
-				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-				{
-					// Resist
-					do_stun = 0;
-					// No obvious effect
-#ifdef JP
-					note = "には効果がなかった。";
-#else
-					note = " is unaffected!";
-#endif
-
-					obvious = FALSE;
-				}
-			}
-			break;
-		}
-		*/
-
-		/* Standard damage */
 		case GF_DISINTEGRATE:
 		{
 #ifdef JP
@@ -3143,43 +3031,9 @@ note = "には耐性がある！";
 #else
 			if (fuzzy) msg_print("You are hit by pure energy!");
 #endif
-
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Pure damage
-		case GF_DISINTEGRATE:
-		{
-			if (seen) obvious = TRUE;
-
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RESIST);
-				break;
-			}
-			if (is_hurt_rock_creature(target_ptr))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
-#ifdef JP
-note = "の皮膚がただれた！";
-note_dies = "は蒸発した！";
-#else
-				note = " loses some skin!";
-				note_dies = " evaporates!";
-#endif
-
-				dam *= 2;
-			}
-			break;
-		}
-		*/
-
 
 		case GF_OLD_HEAL:
 		{
@@ -3189,67 +3043,19 @@ note_dies = "は蒸発した！";
 			if (fuzzy) msg_print("You are hit by something invigorating!");
 #endif
 
-			(void)hp_player(target_ptr, dam);
-			dam = 0;
-			break;
-		}
-		/*
-		case GF_OLD_HEAL:
-		{
-			if (seen) obvious = TRUE;
-
-			// Wake up
 			(void)set_paralyzed(target_ptr, 0);
-			if (target_ptr->stun)
-			{
-#ifdef JP
-				if (seen_msg) msg_format("%^sは朦朧状態から立ち直った。", target_name);
-#else
-				if (seen_msg) msg_format("%^s is no longer stunned.", target_name);
-#endif
-				(void)set_stun(target_ptr, 0);
-			}
-			if (target_ptr->confused)
-			{
-#ifdef JP
-				if (seen_msg) msg_format("%^sは混乱から立ち直った。", target_name);
-#else
-				if (seen_msg) msg_format("%^s is no longer confused.", target_name);
-#endif
-				(void)set_confused(target_ptr, 0);
-			}
-			if (target_ptr->afraid)
-			{
-#ifdef JP
-				if (seen_msg) msg_format("%^sは勇気を取り戻した。", target_name);
-#else
-				if (seen_msg) msg_format("%^s recovers %s courage.", target_name, m_poss);
-#endif
-				(void)set_afraid(target_ptr, 0);
-			}
-
-			// Heal
-			if (target_ptr->chp < 30000) target_ptr->chp += dam;
-
-			// No overflow
-			if (target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
+			(void)set_stun(target_ptr, 0);
+			(void)set_confused(target_ptr, 0);
+			(void)set_afraid(target_ptr, 0);
+			(void)heal_creature(target_ptr, dam);
 
 			// Redraw (later) if needed
 			if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 			if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
-			// Message
-#ifdef JP
-			note = "は体力を回復したようだ。";
-#else
-			note = " looks healthier.";
-#endif
-
-			// No "real" damage
-			dam = 0;
+			get_damage = 0;
 			break;
 		}
-		*/
 
 		case GF_OLD_SPEED:
 		{
@@ -3805,7 +3611,7 @@ note = "は眠り込んでしまった！";
 					msg_format("You draw psychic energy from %s.", target_name);
 #endif
 
-					(void)hp_player(caster_ptr, dam);
+					(void)heal_creature(caster_ptr, dam);
 				}
 			}
 			else

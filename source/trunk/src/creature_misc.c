@@ -952,6 +952,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_GRAVITY:
+		if (has_trait(creature_ptr, TRAIT_CAN_FLY)) t = (t * 2) / 3;
 		break;
 
 	case GF_HOLY_FIRE:
@@ -969,6 +970,10 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_MANA:
+		break;
+
+	case GF_DISINTEGRATE:
+		if (has_trait(creature_ptr, TRAIT_HURT_ROCK)) t *= 2;
 		break;
 
 	case GF_ROCKET:

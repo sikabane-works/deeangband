@@ -642,7 +642,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 						drain_heal = (drain_heal * attacker_ptr->regenerate_mod) / 100;
 
-						hp_player(attacker_ptr, drain_heal);
+						heal_creature(attacker_ptr, drain_heal);
 						/* We get to keep some of it! */
 					}
 				}

@@ -323,7 +323,7 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 		dispel_creatures(creature_ptr, 150);
 		slow_creatures(creature_ptr);
 		sleep_creatures(creature_ptr);
-		hp_player(creature_ptr, 300);
+		heal_creature(creature_ptr, 300);
 	}
 }
 
@@ -480,7 +480,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		dispel_creatures(creature_ptr, 150);
 		slow_creatures(creature_ptr);
 		sleep_creatures(creature_ptr);
-		hp_player(creature_ptr, 300);
+		heal_creature(creature_ptr, 300);
 	}
 
 	if (die < 31)
@@ -1203,7 +1203,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, diceroll(dice, sides));
+				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, creature_ptr->cut - 10);
 			}
 		}
@@ -1316,7 +1316,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, diceroll(dice, sides));
+				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, (creature_ptr->cut / 2) - 20);
 			}
 		}
@@ -1420,7 +1420,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, diceroll(dice, sides));
+				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
 			}
@@ -1503,7 +1503,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, heal);
+				heal_creature(creature_ptr, heal);
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
 			}
@@ -1815,7 +1815,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, heal);
+				heal_creature(creature_ptr, heal);
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
 			}
@@ -2798,7 +2798,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(caster_ptr, diceroll(dice, sides));
+				heal_creature(caster_ptr, diceroll(dice, sides));
 				set_cut(caster_ptr, 0);
 				set_poisoned(caster_ptr, 0);
 			}
@@ -2993,7 +2993,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(caster_ptr, heal);
+				heal_creature(caster_ptr, heal);
 				set_stun(caster_ptr, 0);
 				set_cut(caster_ptr, 0);
 				set_poisoned(caster_ptr, 0);
@@ -4533,7 +4533,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 				if (drain_life(creature_ptr, dir, dam))
 				{
-					hp_player(creature_ptr, dam);
+					heal_creature(creature_ptr, dam);
 
 					/*
 					 * Gain nutritional sustenance:
@@ -4611,7 +4611,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				set_shero(creature_ptr, randint1(base) + base, FALSE);
-				hp_player(creature_ptr, 30);
+				heal_creature(creature_ptr, 30);
 				set_afraid(creature_ptr, 0);
 			}
 		}
@@ -4681,7 +4681,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				set_shero(creature_ptr, randint1(25) + 25, FALSE);
-				hp_player(creature_ptr, 30);
+				heal_creature(creature_ptr, 30);
 				set_afraid(creature_ptr, 0);
 				set_fast(creature_ptr, randint1(sp_sides) + sp_base, FALSE);
 			}
@@ -4728,7 +4728,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 				for (i = 0; i < 3; i++)
 				{
 					if (drain_life(creature_ptr, dir, dam))
-						hp_player(creature_ptr, dam);
+						heal_creature(creature_ptr, dam);
 				}
 			}
 		}
@@ -6097,7 +6097,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, diceroll(dice, sides));
+				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, creature_ptr->cut - 10);
 			}
 		}
@@ -6325,7 +6325,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if (cast)
 			{
-				hp_player(creature_ptr, diceroll(dice, sides));
+				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
 			}
 		}
@@ -6769,7 +6769,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
-				hp_player(creature_ptr, 10);
+				heal_creature(creature_ptr, 10);
 				set_afraid(creature_ptr, 0);
 			}
 		}
@@ -6900,7 +6900,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				set_shero(creature_ptr, randint1(base) + base, FALSE);
-				hp_player(creature_ptr, 30);
+				heal_creature(creature_ptr, 30);
 				set_afraid(creature_ptr, 0);
 			}
 		}
@@ -7964,7 +7964,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
-				hp_player(creature_ptr, 10);
+				heal_creature(creature_ptr, 10);
 				set_afraid(creature_ptr, 0);
 			}
 		}
@@ -8503,7 +8503,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				dispel_evil(creature_ptr, randint1(dam_sides));
-				hp_player(creature_ptr, heal);
+				heal_creature(creature_ptr, heal);
 				set_afraid(creature_ptr, 0);
 				set_poisoned(creature_ptr, 0);
 				set_stun(creature_ptr, 0);
@@ -8717,7 +8717,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if (cast)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
-				hp_player(creature_ptr, 10);
+				heal_creature(creature_ptr, 10);
 				set_afraid(creature_ptr, 0);
 			}
 		}
@@ -8869,7 +8869,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				confuse_creatures(creature_ptr, power);
 				turn_creatures(creature_ptr, power);
 				stasis_creatures(creature_ptr, power);
-				hp_player(creature_ptr, heal);
+				heal_creature(creature_ptr, heal);
 			}
 		}
 		break;
@@ -9104,7 +9104,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(caster_ptr, diceroll(dice, sides));
+				heal_creature(caster_ptr, diceroll(dice, sides));
 			}
 		}
 
@@ -9197,7 +9197,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			msg_print("You start singing a song of intense fighting...");
 #endif
 
-			(void)hp_player(caster_ptr, 10);
+			(void)heal_creature(caster_ptr, 10);
 			(void)set_afraid(caster_ptr, 0);
 
 			/* Recalculate hitpoints */
@@ -9957,7 +9957,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 			msg_print("You chant a powerful, heroic call to arms...");
 #endif
-			(void)hp_player(caster_ptr, 10);
+			(void)heal_creature(caster_ptr, 10);
 			(void)set_afraid(caster_ptr, 0);
 
 			/* Recalculate hitpoints */
@@ -10032,7 +10032,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if (cont)
 			{
-				hp_player(caster_ptr, diceroll(dice, sides));
+				heal_creature(caster_ptr, diceroll(dice, sides));
 				set_stun(caster_ptr, 0);
 				set_cut(caster_ptr, 0);
 			}
@@ -11466,7 +11466,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(creature_ptr, diceroll(1, 10));
+			heal_creature(creature_ptr, diceroll(1, 10));
 			set_cut(creature_ptr, creature_ptr->cut - 10);
 		}
 		break;
@@ -11773,7 +11773,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(creature_ptr, diceroll(2, 10));
+			heal_creature(creature_ptr, diceroll(2, 10));
 			set_cut(creature_ptr, (creature_ptr->cut / 2) - 10);
 		}
 		break;
@@ -11950,7 +11950,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (cast || cont)
 		{
-			hp_player(creature_ptr, diceroll(4, 10));
+			heal_creature(creature_ptr, diceroll(4, 10));
 			set_stun(creature_ptr, 0);
 			set_cut(creature_ptr, 0);
 			set_poisoned(creature_ptr, 0);

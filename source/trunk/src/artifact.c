@@ -2153,7 +2153,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * object_
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(creature_ptr, dir, 50))
-				hp_player(creature_ptr, 50);
+				heal_creature(creature_ptr, 50);
 			}
 			object_ptr->timeout = 400;
 			break;
@@ -2245,7 +2245,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * object_
 			for (dummy = 0; dummy < 3; dummy++)
 			{
 				if (drain_life(creature_ptr, dir, 100))
-				hp_player(creature_ptr, 100);
+				heal_creature(creature_ptr, 100);
 			}
 
 			object_ptr->timeout = 400;
@@ -2592,7 +2592,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * object_
 		case ACT_CURE_LW:
 		{
 			(void)set_afraid(creature_ptr, 0);
-			(void)hp_player(creature_ptr, 30);
+			(void)heal_creature(creature_ptr, 30);
 			object_ptr->timeout = 10;
 			break;
 		}
@@ -2605,7 +2605,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * object_
 			msg_print("It radiates deep purple...");
 #endif
 
-			hp_player(creature_ptr, diceroll(4, 8));
+			heal_creature(creature_ptr, diceroll(4, 8));
 			(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
 			object_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
@@ -2671,7 +2671,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * object_
 			msg_print("You feel a warm tingling inside...");
 #endif
 
-			(void)hp_player(creature_ptr, 700);
+			(void)heal_creature(creature_ptr, 700);
 			(void)set_cut(creature_ptr, 0);
 			object_ptr->timeout = 250;
 			break;
@@ -2691,7 +2691,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type * object_
 			msg_print("You feel much better...");
 #endif
 
-			(void)hp_player(creature_ptr, 1000);
+			(void)heal_creature(creature_ptr, 1000);
 			(void)set_cut(creature_ptr, 0);
 			object_ptr->timeout = 888;
 			break;

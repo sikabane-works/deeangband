@@ -4989,7 +4989,7 @@ bool res_stat(creature_type *creature_ptr, int stat)
 /*
  * Increase players hit points, notice effects
  */
-bool hp_player(creature_type *creature_ptr, int num)
+bool heal_creature(creature_type *creature_ptr, int num)
 {
 	int vir;
 	// TODO: Add Karma of Vitality feature.
@@ -5384,7 +5384,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 #endif
 	}
 
-	hp_player(creature_ptr, change);
+	heal_creature(creature_ptr, change);
 	if (Nasty_effect)
 	{
 		if(is_seen(player_ptr, creature_ptr))

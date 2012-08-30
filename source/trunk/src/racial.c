@@ -1030,7 +1030,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				if (creature_ptr->csp >= creature_ptr->lev / 5)
 				{
 					creature_ptr->csp -= creature_ptr->lev / 5;
-					hp_player(creature_ptr, creature_ptr->lev);
+					heal_creature(creature_ptr, creature_ptr->lev);
 				}
 				else
 #ifdef JP
@@ -1497,7 +1497,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				{
 					if (creature_ptr->food < PY_FOOD_FULL)
 						// No heal if we are "full"
-						(void)hp_player(creature_ptr, dummy);
+						(void)heal_creature(creature_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -1594,7 +1594,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 			(void)set_afraid(creature_ptr, 0);
 			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(creature_ptr, 30);
+			(void)heal_creature(creature_ptr, 30);
 			break;
 
 		case RACE_AMBERITE:
@@ -1640,7 +1640,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 			(void)set_afraid(creature_ptr, 0);
 			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(creature_ptr, 30);
+			(void)heal_creature(creature_ptr, 30);
 			break;
 
 		case RACE_OGRE:
@@ -2039,7 +2039,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				{
 					if (creature_ptr->food < PY_FOOD_FULL)
 						// No heal if we are "full"
-						(void)hp_player(creature_ptr, dummy);
+						(void)heal_creature(creature_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -2327,7 +2327,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				if (caster_ptr->csp >= caster_ptr->lev / 5)
 				{
 					caster_ptr->csp -= caster_ptr->lev / 5;
-					hp_player(caster_ptr, caster_ptr->lev);
+					heal_creature(caster_ptr, caster_ptr->lev);
 				}
 				else
 #ifdef JP
@@ -2775,7 +2775,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				{
 					if (caster_ptr->food < PY_FOOD_FULL)
 						// No heal if we are "full"
-						(void)hp_player(caster_ptr, dummy);
+						(void)heal_creature(caster_ptr, dummy);
 					else
 #ifdef JP
 						msg_print("‚ ‚È‚½‚Í‹ó• ‚Å‚Í‚ ‚è‚Ü‚¹‚ñB");
@@ -2889,7 +2889,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #endif
 			(void)set_afraid(caster_ptr, 0);
 			(void)set_shero(caster_ptr, 10 + randint1(plev), FALSE);
-			(void)hp_player(caster_ptr, 30);
+			(void)heal_creature(caster_ptr, 30);
 			break;
 
 		case TRAIT_EXPLOSIVE_RUNE:

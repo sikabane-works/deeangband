@@ -4509,7 +4509,7 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 			(void)set_image(creature_ptr, 0);
 			(void)set_stun(creature_ptr, 0);
 			(void)set_cut(creature_ptr, 0);
-			hp_player(creature_ptr, 5000);
+			heal_creature(creature_ptr, 5000);
 			for (dummy = 0; dummy < 6; dummy++)
 			{
 				(void)do_res_stat(creature_ptr, dummy);

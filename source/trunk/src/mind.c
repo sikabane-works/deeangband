@@ -947,7 +947,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		 */
 		if (!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr))
 		{
-			hp_player(creature_ptr, plev);
+			heal_creature(creature_ptr, plev);
 		}
 
 		b = 10 + randint1((plev * 3) / 2);

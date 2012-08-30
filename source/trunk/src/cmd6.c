@@ -268,7 +268,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_SERIOUS:
 			{
-				if (hp_player(creature_ptr, diceroll(4, 8))) ident = TRUE;
+				if (heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 				break;
 			}
 
@@ -347,7 +347,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 #endif
 
 				(void)set_poisoned(creature_ptr, 0);
-				(void)hp_player(creature_ptr, diceroll(4, 8));
+				(void)heal_creature(creature_ptr, diceroll(4, 8));
 				ident = TRUE;
 				break;
 			}
@@ -1046,24 +1046,24 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 		case SV_POTION_HEROISM:
 			if (set_afraid(creature_ptr, 0)) ident = TRUE;
 			if (set_hero(creature_ptr, creature_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (hp_player(creature_ptr, 10)) ident = TRUE;
+			if (heal_creature(creature_ptr, 10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
 			if (set_afraid(creature_ptr, 0)) ident = TRUE;
 			if (set_shero(creature_ptr, creature_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (hp_player(creature_ptr, 30)) ident = TRUE;
+			if (heal_creature(creature_ptr, 30)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_LIGHT:
-			if (hp_player(creature_ptr, diceroll(2, 8))) ident = TRUE;
+			if (heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, creature_ptr->cut - 10)) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
-			if (hp_player(creature_ptr, diceroll(4, 8))) ident = TRUE;
+			if (heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, (creature_ptr->cut / 2) - 50)) ident = TRUE;
@@ -1071,7 +1071,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
-			if (hp_player(creature_ptr, diceroll(6, 8))) ident = TRUE;
+			if (heal_creature(creature_ptr, diceroll(6, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
 			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
@@ -1081,7 +1081,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_HEALING:
-			if (hp_player(creature_ptr, 300)) ident = TRUE;
+			if (heal_creature(creature_ptr, 300)) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
 			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
@@ -1091,7 +1091,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_STAR_HEALING:
-			if (hp_player(creature_ptr, 1200)) ident = TRUE;
+			if (heal_creature(creature_ptr, 1200)) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
 			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
@@ -1122,7 +1122,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			(void)do_res_stat(creature_ptr, STAT_CHA);
 			(void)set_shero(creature_ptr, 0,TRUE);
 			update_creature(creature_ptr, TRUE);
-			hp_player(creature_ptr, 5000);
+			heal_creature(creature_ptr, 5000);
 			ident = TRUE;
 			break;
 
@@ -1300,7 +1300,7 @@ msg_print("恐ろしい光景が頭に浮かんできた。");
 			break;
 
 		case SV_POTION_CURING:
-			if (hp_player(creature_ptr, 50)) ident = TRUE;
+			if (heal_creature(creature_ptr, 50)) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
@@ -2418,7 +2418,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_CURE_LIGHT:
 		{
-			if (hp_player(creature_ptr, diceroll(2, 8))) ident = TRUE;
+			if (heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -2437,7 +2437,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_HEALING:
 		{
-			if (hp_player(creature_ptr, 300)) ident = TRUE;
+			if (heal_creature(creature_ptr, 300)) ident = TRUE;
 			if (set_stun(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, 0)) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
@@ -2510,7 +2510,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if (set_protevil(creature_ptr, (magic ? 0 : creature_ptr->protevil) + randint1(25) + k, FALSE)) ident = TRUE;
 			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
 			if (set_afraid(creature_ptr, 0)) ident = TRUE;
-			if (hp_player(creature_ptr, 50)) ident = TRUE;
+			if (heal_creature(creature_ptr, 50)) ident = TRUE;
 			if (set_stun(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, 0)) ident = TRUE;
 			break;
@@ -3374,7 +3374,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_HEALING:
 		{
-			if (hp_player(creature_ptr, 500)) ident = TRUE;
+			if (heal_creature(creature_ptr, 500)) ident = TRUE;
 			if (set_stun(creature_ptr, 0)) ident = TRUE;
 			if (set_cut(creature_ptr, 0)) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
@@ -4323,7 +4323,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
-				(void)hp_player(creature_ptr, 10);
+				(void)heal_creature(creature_ptr, 10);
 				(void)set_blessed(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_acid(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_elec(creature_ptr, randint1(50) + 50, FALSE);
@@ -4344,7 +4344,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				msg_print("You feel much better...");
 #endif
 
-				(void)hp_player(creature_ptr, 1000);
+				(void)heal_creature(creature_ptr, 1000);
 				(void)set_cut(creature_ptr, 0);
 				object_ptr->timeout = 888;
 				break;
@@ -4365,7 +4365,7 @@ msg_print("天国の歌が聞こえる...");
 				(void)set_blind(creature_ptr, 0);
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
-				(void)hp_player(creature_ptr, 777);
+				(void)heal_creature(creature_ptr, 777);
 				object_ptr->timeout = 300;
 				break;
 			}
@@ -4431,7 +4431,7 @@ msg_print("天国の歌が聞こえる...");
 				msg_print("You feel a warm tingling inside...");
 #endif
 
-				(void)hp_player(creature_ptr, 700);
+				(void)heal_creature(creature_ptr, 700);
 				(void)set_cut(creature_ptr, 0);
 				object_ptr->timeout = 250;
 				break;
@@ -4888,7 +4888,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your battle axe radiates deep purple...");
 #endif
 
-				hp_player(creature_ptr, diceroll(4, 8));
+				heal_creature(creature_ptr, diceroll(4, 8));
 				(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
 				object_ptr->timeout = randint0(3) + 3;
 				break;
@@ -5241,7 +5241,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case ART_HURIN:
 			{
 				(void)set_fast(creature_ptr, randint1(50) + 50, FALSE);
-				hp_player(creature_ptr, 10);
+				heal_creature(creature_ptr, 10);
 				set_afraid(creature_ptr, 0);
 				set_hero(creature_ptr, randint1(50) + 50, FALSE);
 				object_ptr->timeout = randint0(200) + 100;
@@ -5487,7 +5487,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 			{
 				(void)set_afraid(creature_ptr, 0);
 				set_hero(creature_ptr, randint1(25)+25, FALSE);
-				hp_player(creature_ptr, 10);
+				heal_creature(creature_ptr, 10);
 				object_ptr->timeout = randint0(30) + 30;
 				break;
 			}
@@ -6068,7 +6068,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case EGO_RING_HERO:
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
-				(void)hp_player(creature_ptr, 10);
+				(void)heal_creature(creature_ptr, 10);
 				object_ptr->timeout = randint1(100)+100;
 				break;
 			case EGO_RING_MAGIC_MIS:
@@ -6170,7 +6170,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				int v = randint1(25)+25;
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, v, FALSE);
-				(void)hp_player(creature_ptr, 10);
+				(void)heal_creature(creature_ptr, 10);
 				(void)set_blessed(creature_ptr, v, FALSE);
 				(void)set_oppose_acid(creature_ptr, v, FALSE);
 				(void)set_oppose_elec(creature_ptr, v, FALSE);

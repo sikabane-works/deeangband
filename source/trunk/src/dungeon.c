@@ -855,7 +855,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		(void)do_res_stat(creature_ptr, STAT_CON);
 		(void)do_res_stat(creature_ptr, STAT_CHA);
 		(void)restore_level(creature_ptr);
-		(void)hp_player(creature_ptr, 1000);
+		(void)heal_creature(creature_ptr, 1000);
 
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
 
@@ -2556,7 +2556,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		/* Absorb light from the current possition */
 		if ((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 		{
-			hp_player(creature_ptr, 10);
+			heal_creature(creature_ptr, 10);
 		}
 
 		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
@@ -2568,7 +2568,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			if (!object_is_fixed_artifact(object_ptr) && (object_ptr->xtra4 > 0))
 			{
 				/* Heal the player a bit */
-				hp_player(creature_ptr, object_ptr->xtra4 / 20);
+				heal_creature(creature_ptr, object_ptr->xtra4 / 20);
 
 				/* Decrease life-span of lite */
 				object_ptr->xtra4 /= 2;
@@ -2854,7 +2854,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 				healing = wounds;
 			}
 
-			hp_player(creature_ptr, healing);
+			heal_creature(creature_ptr, healing);
 			creature_ptr->csp -= healing;
 
 			/* Redraw mana */
