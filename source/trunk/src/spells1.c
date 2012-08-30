@@ -2441,10 +2441,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		strcpy(caster_name, killer);
 	}
 
-	/* If the player is blind, be more descriptive */
+	// If the player is blind, be more descriptive
 	if (blind) fuzzy = TRUE;
 
 	// Analyze the damage
+	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
 	switch (typ)
 	{
 
@@ -2455,7 +2456,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by acid!");
 #endif
-			
 			get_damage = acid_dam(target_ptr, dam, killer, spell);
 			break;
 		}
@@ -2467,7 +2467,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by fire!");
 #endif
-
 			get_damage = fire_dam(target_ptr, dam, killer, spell);
 			break;
 		}
@@ -2479,7 +2478,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by cold!");
 #endif
-
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 			break;
 		}
@@ -2491,7 +2489,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by lightning!");
 #endif
-
 			get_damage = elec_dam(target_ptr, dam, killer, spell);
 			break;
 		}
@@ -2504,8 +2501,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by poison!");
 #endif
-
-			get_damage = calc_damage(caster_ptr, dam, GF_POIS, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
@@ -2523,9 +2518,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by radiation!");
 #endif
-
-			get_damage = calc_damage(caster_ptr, dam, GF_NUKE, TRUE);
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
 			{
@@ -2560,8 +2553,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
-
-			get_damage = calc_damage(caster_ptr, dam, GF_MISSILE, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
@@ -2573,8 +2564,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
 
@@ -2585,12 +2575,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
 
-		/* Arrow -- XXX no dodging */
 		case GF_ARROW:
 		{
 
@@ -2599,7 +2587,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
-
 			else if (has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
 #ifdef JP
@@ -2610,11 +2597,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
 
-		/* Plasma -- XXX No resist */
 		case GF_PLASMA:
 		{
 #ifdef JP
@@ -2647,12 +2633,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by nether forces!");
 #endif
 
-			if (target_ptr->resist_neth)
-			{
-				dam /= (randint1(4) + 7);
-			}
+			if (target_ptr->resist_neth);
 			else if (!(target_ptr->multishadow && (turn & 1))) drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
+/*
 			if (!(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
@@ -2660,27 +2644,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				msg_print("You feel invigorated!");
 #endif
-
 				hp_player(target_ptr, dam / 4);
 				learn_trait(target_ptr, spell);
 			}
 			else
+*/
 			{
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			}
 
 			break;
 		}
-		/* Nether -- see above
-		case GF_NETHER:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_NETHER, TRUE);
-			break;
-		}
-		*/
 
-		/* Water -- stun/confuse */
 		case GF_WATER:
 		{
 #ifdef JP
@@ -2699,26 +2674,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					set_confused(target_ptr, target_ptr->confused + randint1(5) + 5);
 				}
-
 				if (one_in_(5))
 				{
 					inven_damage(target_ptr, set_cold_destroy, 3);
 				}
 			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Water (acid) damage -- Water spirits/elementals are immune
-		case GF_WATER:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_WATER, TRUE);
-			break;
-		}
-		*/
 
-		/* Chaos -- many effects */
 		case GF_CHAOS:
 		{
 #ifdef JP
@@ -2726,11 +2691,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by a wave of anarchy!");
 #endif
-
-			if (target_ptr->resist_chaos)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
 
 			if (!(target_ptr->multishadow && (turn & 1)))
 			{
@@ -2764,19 +2724,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Chaos -- Chaos breathers resist
-		case GF_CHAOS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_CHAOS, TRUE);
-			break;
-		}
-		*/
 
-		/* Shards -- mostly cutting */
 		case GF_SHARDS:
 		{
 #ifdef JP
