@@ -1671,7 +1671,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 
 	if (have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-		int damage = calc_damage(creature_ptr, randint0(50) + 20, DAMAGE_TYPE_CHAOS, FALSE);;		
+		int damage = calc_damage(creature_ptr, randint0(50) + 20, GF_CHAOS, FALSE);;		
 #ifdef JP
 			msg_print("混沌に身を蝕まれた！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
@@ -1697,7 +1697,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		if (damage)
 		{
 
-			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
+			damage = calc_damage(creature_ptr, damage, GF_FIRE, FALSE);
 
 			if (has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
 
@@ -1744,7 +1744,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		if (damage)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_POIS, FALSE);
+			damage = calc_damage(creature_ptr, damage, GF_POIS, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1775,7 +1775,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		if (damage)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ACID, FALSE);
+			damage = calc_damage(creature_ptr, damage, GF_ACID, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1816,7 +1816,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		if (has_trait(steed_ptr, TRAIT_AURA_FIRE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_FIRE, FALSE);
+			damage = calc_damage(creature_ptr, damage, GF_FIRE, FALSE);
 #ifdef JP
 			msg_print("熱い！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
@@ -1828,7 +1828,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		if (has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_ELEC, FALSE);
+			damage = calc_damage(creature_ptr, damage, GF_ELEC, FALSE);
 #ifdef JP
 			msg_print("痛い！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
@@ -1840,7 +1840,7 @@ msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 		if (has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, DAMAGE_TYPE_COLD, FALSE);
+			damage = calc_damage(creature_ptr, damage, GF_COLD, FALSE);
 #ifdef JP
 			msg_print("冷たい！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);

@@ -38,7 +38,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			msg_print("You are suddenly very hot!");
 #endif
 
-			aura_damage = calc_damage(attacker_ptr, aura_damage, DAMAGE_TYPE_FIRE, FALSE);
+			aura_damage = calc_damage(attacker_ptr, aura_damage, GF_FIRE, FALSE);
 			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if (is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);

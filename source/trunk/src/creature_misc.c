@@ -841,11 +841,11 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	int t = 1000;
 	switch(type)
 	{
-	case DAMAGE_TYPE_MELEE:
+	case GF_MELEE:
 		t = (250 - creature_ptr->ac - creature_ptr->to_ac) * 1000 / 2500;
 		t = (t < 40) ? 40 : t;
 		break;
-	case DAMAGE_TYPE_FIRE:
+	case GF_FIRE:
 		if(has_trait(creature_ptr, TRAIT_IM_FIRE) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -856,7 +856,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
-	case DAMAGE_TYPE_COLD:
+	case GF_COLD:
 		if(has_trait(creature_ptr, TRAIT_IM_COLD) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -867,7 +867,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
-	case DAMAGE_TYPE_ELEC:
+	case GF_ELEC:
 		if(has_trait(creature_ptr, TRAIT_IM_ELEC) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -877,7 +877,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
-	case DAMAGE_TYPE_ACID:
+	case GF_ACID:
 		if(has_trait(creature_ptr, TRAIT_IM_ACID) || has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -887,7 +887,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;
-	case DAMAGE_TYPE_POIS:
+	case GF_POIS:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -895,7 +895,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		if(creature_ptr->resist_pois > 0) t /= 3;
 		break;
-	case DAMAGE_TYPE_LITE:
+	case GF_LITE:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -904,7 +904,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->wraith_form) t *= 2;
 		if(creature_ptr->resist_lite > 0) t = t*4/9;
 		break;
-	case DAMAGE_TYPE_DARK:
+	case GF_DARK:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -913,7 +913,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->wraith_form) t = 0;
 		if(creature_ptr->resist_dark > 0) t = t*4/9;
 		break;
-	case DAMAGE_TYPE_NETH:
+	case GF_NETHER:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL) || has_trait(creature_ptr, TRAIT_UNDEAD))
 		{
 			t = 0;
@@ -922,7 +922,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_dark > 0) t = t*2/3;
 		//TODO Evil x0.5
 		break;
-	case DAMAGE_TYPE_WATER:
+	case GF_WATER:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -930,14 +930,14 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		if(creature_ptr->resist_water > 0) t = t*5/9;
 		break;
-	case DAMAGE_TYPE_PLASMA:
+	case GF_PLASMA:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_SHARD:
+	case GF_SHARDS:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -945,7 +945,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		if(creature_ptr->resist_shard > 0) t = t*2/3;
 		break;
-	case DAMAGE_TYPE_SOUND:
+	case GF_SOUND:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -956,7 +956,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		{
 		}
 		break;
-	case DAMAGE_TYPE_CHAOS:
+	case GF_CHAOS:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -964,7 +964,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		if(creature_ptr->resist_chaos > 0) t = t*2/3;
 		break;
-	case DAMAGE_TYPE_NEXUS:
+	case GF_NEXUS:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -972,7 +972,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		if(creature_ptr->resist_nexus > 0) t = t*2/3;
 		break;
-	case DAMAGE_TYPE_DISEN:
+	case GF_DISENCHANT:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -980,35 +980,35 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		if(creature_ptr->resist_disen > 0) t = t*2/3;
 		break;
-	case DAMAGE_TYPE_FORCE:
+	case GF_FORCE:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_INERTIA:
+	case GF_INERTIA:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_TIME:
+	case GF_TIME:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_GRAVITY:
+	case GF_GRAVITY:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_HOLY_FIRE:
+	case GF_HOLY_FIRE:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -1016,7 +1016,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		//TODO Evil x2
 		break;
-	case DAMAGE_TYPE_HELL_FIRE:
+	case GF_HELL_FIRE:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
@@ -1024,28 +1024,28 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		}
 		//TODO Good x2
 		break;
-	case DAMAGE_TYPE_NUKE:
+	case GF_NUKE:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_LOW_MANA:
+	case GF_MISSILE:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_HIGH_MANA:
+	case GF_MANA:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;
 			break;
 		}
 		break;
-	case DAMAGE_TYPE_ROCKET:
+	case GF_ROCKET:
 		if(has_trait(creature_ptr, TRAIT_RES_ALL))
 		{
 			t = 0;

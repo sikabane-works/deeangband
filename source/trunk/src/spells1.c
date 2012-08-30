@@ -2505,7 +2505,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by poison!");
 #endif
 
-			get_damage = calc_damage(caster_ptr, dam, DAMAGE_TYPE_POIS, TRUE);
+			get_damage = calc_damage(caster_ptr, dam, GF_POIS, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
@@ -2524,7 +2524,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by radiation!");
 #endif
 
-			get_damage = calc_damage(caster_ptr, dam, DAMAGE_TYPE_NUKE, TRUE);
+			get_damage = calc_damage(caster_ptr, dam, GF_NUKE, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
@@ -2661,7 +2661,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_PLASMA:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_PLASMA, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_PLASMA, TRUE);
 			break;
 		}
 		*/
@@ -2703,7 +2703,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_NETHER:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NETH, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_NETHER, TRUE);
 			break;
 		}
 		*/
@@ -2741,7 +2741,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_WATER:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_WATER, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_WATER, TRUE);
 			break;
 		}
 		*/
@@ -2799,7 +2799,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_CHAOS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_CHAOS, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_CHAOS, TRUE);
 			break;
 		}
 		*/
@@ -2834,7 +2834,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_SHARDS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_SHARD, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_SHARDS, TRUE);
 			break;
 		}
 		*/
@@ -2870,7 +2870,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_SOUND:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_SOUND, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_SOUND, TRUE);
 			//TODO  do_stun = (10 + randint1(15) + r) / (r + 1);
 			break;
 		}
@@ -3006,7 +3006,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_NEXUS:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_NEXUS, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_NEXUS, TRUE);
 			break;
 		}
 		*/
@@ -3031,7 +3031,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_FORCE:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FORCE, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_FORCE, TRUE);
 			break;
 			//TODO else do_stun = (randint1(15) + r) / (r + 1);
 		}
@@ -3073,7 +3073,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_ROCKET:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ROCKET, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_ROCKET, TRUE);
 			break;
 		}
 		*/
@@ -3402,7 +3402,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_TIME:
 		{
 			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_TIME, TRUE);
+			dam = calc_damage(target_ptr, dam, GF_TIME, TRUE);
 			//TODO else do_time = (dam + 1) / 2;
 			break;
 		}

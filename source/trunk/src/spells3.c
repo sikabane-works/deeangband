@@ -4914,7 +4914,7 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ACID(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_ACID, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, GF_ACID, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	// inventory damage
@@ -4932,7 +4932,7 @@ int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ELEC(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_ELEC, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, GF_ELEC, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	// inventory damage
@@ -4950,7 +4950,7 @@ int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_FIRE(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_FIRE, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, GF_FIRE, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* inventory damage */
@@ -4968,7 +4968,7 @@ int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_COLD(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, DAMAGE_TYPE_COLD, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, GF_COLD, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* creature_ptr->inventory damage */

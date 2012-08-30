@@ -5578,28 +5578,28 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 	switch (typ)
 	{
 	case GF_ELEC:
-		dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ELEC, FALSE);
+		dam = calc_damage(target_ptr, dam, GF_ELEC, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_POIS:
-		dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_POIS, FALSE);
+		dam = calc_damage(target_ptr, dam, GF_POIS, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_ACID:
-		dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_ACID, FALSE);
+		dam = calc_damage(target_ptr, dam, GF_ACID, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_COLD:
 	case GF_ICE:
-		dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_COLD, FALSE);
+		dam = calc_damage(target_ptr, dam, GF_COLD, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case GF_FIRE:
-		dam = calc_damage(target_ptr, dam, DAMAGE_TYPE_FIRE, FALSE);
+		dam = calc_damage(target_ptr, dam, GF_FIRE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
