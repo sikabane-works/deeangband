@@ -63,6 +63,8 @@
 #define WORLD_INFO_FILE	"w_info.txt"
 #define TOWN_INFO_FILE	"t_info.txt"
 
+#define NAME_BUFFER_SIZE 100
+
 /*
  * Number of grids in each block (vertically)
  * Probably hard-coded to 11, see "generate.c"

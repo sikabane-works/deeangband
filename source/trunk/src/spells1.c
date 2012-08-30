@@ -2919,20 +2919,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by a blast from the past!");
 #endif
 
-			if (target_ptr->resist_time)
-			{
-				dam *= 4;
-				dam /= (randint1(4) + 7);
-				if(is_player(target_ptr))
-				{
-#ifdef JP
-					msg_format("%s‚ÍŽžŠÔ‚ª’Ê‚è‰ß‚¬‚Ä‚¢‚­—lŽq‚ðŠ´‚¶‚½B", target_name);
-#else
-					msg_format("You feel as if time is passing you by.");
-#endif
-				}
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			if (!target_ptr->resist_time && !(target_ptr->multishadow && (turn & 1)))
 			{
 				switch (randint1(10))
 				{
@@ -3007,15 +2994,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Time -- breathers resist
-		case GF_TIME:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_TIME, TRUE);
-			//TODO else do_time = (dam + 1) / 2;
-			break;
-		}
-		*/
 
 		/* Gravity -- stun plus slowness plus teleport */
 		case GF_GRAVITY:

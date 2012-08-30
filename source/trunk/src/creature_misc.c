@@ -837,8 +837,11 @@ bool has_trait(creature_type *creature_ptr, int type)
 
 int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 {
+	char creature_name[NAME_BUFFER_SIZE];
 	cptr note;
 	int t = 1000;
+
+	if(message) creature_desc(creature_name, creature_ptr, 0);
 	switch(type)
 	{
 
@@ -936,6 +939,16 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_TIME:
+		t *= 4;
+		t /= (randint1(4) + 7);
+		if(is_player(creature_ptr) && message)
+		{
+#ifdef JP
+			msg_format("%s‚ÍŠÔ‚ª’Ê‚è‰ß‚¬‚Ä‚¢‚­—lq‚ğŠ´‚¶‚½B", creature_name);
+#else
+			msg_format("You feel as if time is passing you by.");
+#endif
+		}
 		break;
 
 	case GF_GRAVITY:
