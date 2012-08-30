@@ -2633,25 +2633,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by nether forces!");
 #endif
 
-			if (target_ptr->resist_neth);
-			else if (!(target_ptr->multishadow && (turn & 1))) drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
+			if (!target_ptr->resist_neth && !(target_ptr->multishadow && (turn & 1)))
+				drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
-/*
-			if (!(target_ptr->multishadow && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("気分がよくなった。");
-#else
-				msg_print("You feel invigorated!");
-#endif
-				hp_player(target_ptr, dam / 4);
-				learn_trait(target_ptr, spell);
-			}
-			else
-*/
-			{
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
-			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
 			break;
 		}
@@ -2736,11 +2721,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			if (target_ptr->resist_shard)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			if (!target_ptr->resist_shard && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_cut(target_ptr, target_ptr->cut + dam);
 			}
@@ -2750,19 +2731,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Shards -- Shard breathers resist
-		case GF_SHARDS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_SHARDS, TRUE);
-			break;
-		}
-		*/
 
-		/* Sound -- mostly stunning */
 		case GF_SOUND:
 		{
 #ifdef JP
@@ -2771,11 +2743,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by a loud noise!");
 #endif
 
-			if (target_ptr->resist_sound)
-			{
-				dam *= 5; dam /= (randint1(4) + 7);
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			if (!target_ptr->resist_sound && !(target_ptr->multishadow && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
 				(void)set_stun(target_ptr, target_ptr->stun + k);
@@ -2786,20 +2754,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Sound -- Sound breathers resist
-		case GF_SOUND:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_SOUND, TRUE);
-			//TODO  do_stun = (10 + randint1(15) + r) / (r + 1);
-			break;
-		}
-		*/
 
-		/* Pure confusion */
 		case GF_CONFUSION:
 		{
 #ifdef JP
@@ -2808,53 +2766,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something puzzling!");
 #endif
 
-			if (has_trait(target_ptr, TRAIT_NO_CONF))
-			{
-				dam *= 5; dam /= (randint1(4) + 7);
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			if (!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_confused(target_ptr, target_ptr->confused + randint1(20) + 10);
 			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Confusion
-		case GF_CONFUSION:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (has_trait(target_ptr, TRAIT_NO_CONF))
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-			}
-			else
-			{
-				//TODO do_conf = (10 + randint1(15) + r) / (r + 1);
-			}
-			break;
-		}
-		*/
-
-		/* Disenchantment -- see above */
 		case GF_DISENCHANT:
 		{
 #ifdef JP
@@ -2863,49 +2782,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something static!");
 #endif
 
-			if (target_ptr->resist_disen)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			if (!target_ptr->resist_disen && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)apply_disenchant(target_ptr, 0);
 			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* project_m
-		case GF_DISENCHANT:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (target_ptr->resist_disen)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_DISE);
-			}
-			break;
-		}
-		*/
-
-		/* Nexus -- see above */
 		case GF_NEXUS:
 		{
 #ifdef JP
@@ -2914,27 +2798,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something strange!");
 #endif
 
-			if (target_ptr->resist_nexus)
-			{
-				dam *= 6; dam /= (randint1(4) + 7);
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			if (!target_ptr->resist_nexus && !(target_ptr->multishadow && (turn & 1)))
 			{
 				apply_nexus(caster_ptr);
 			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Nexus -- Breathers and Existers resist
-		case GF_NEXUS:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_NEXUS, TRUE);
-			break;
-		}
-		*/
 
-		/* Force -- mostly stun */
 		case GF_FORCE:
 		{
 #ifdef JP
@@ -2950,18 +2821,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Force
-		case GF_FORCE:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_FORCE, TRUE);
-			break;
-			//TODO else do_stun = (randint1(15) + r) / (r + 1);
-		}
-		*/
 
-
-		/* Rocket -- stun, cut */
 		case GF_ROCKET:
 		{
 #ifdef JP
@@ -2975,11 +2835,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(void)set_stun(target_ptr, target_ptr->stun + randint1(20));
 			}
 
-			if (target_ptr->resist_shard)
-			{
-				dam /= 2;
-			}
-			else if (!(target_ptr->multishadow && (turn & 1)))
+			else if (!target_ptr->resist_shard && !(target_ptr->multishadow && (turn & 1)))
 			{
 				(void)set_cut(target_ptr, target_ptr->cut + (dam / 2));
 			}
@@ -2992,17 +2848,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Rocket: Shard resistance helps
-		case GF_ROCKET:
-		{
-			if (seen) obvious = TRUE;
-			dam = calc_damage(target_ptr, dam, GF_ROCKET, TRUE);
-			break;
-		}
-		*/
 
-
-		/* Inertia -- slowness */
 		case GF_INERTIA:
 		{
 #ifdef JP
@@ -3011,61 +2857,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if (!(target_ptr->multishadow && (turn & 1))) (void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			if (!target_ptr->resist_inertia && !(target_ptr->multishadow && (turn & 1))) (void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
-		/* Inertia -- breathers resist
-		case GF_INERTIA:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (target_ptr->resist_inertia)
-			{
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
-				dam *= 3; dam /= randint1(6) + 6;
-				//if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_RES_INER);
-			}
-			else
-			{
-				// Powerful creatures can resist
-				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-				{
-					obvious = FALSE;
-				}
-				// Normal creatures slow down
-				else
-				{
-					if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
-					{
-#ifdef JP
-						note = "の動きが遅くなった。";
-#else
-						note = " starts moving slower.";
-#endif
-					}
-				}
-			}
-			break;
-		}
-		*/
 
 		/* Lite -- blinding */
 		case GF_LITE:

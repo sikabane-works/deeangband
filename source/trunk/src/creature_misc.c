@@ -949,6 +949,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_ROCKET:
+		if(creature_ptr->resist_shard > 0) t = t / 2;
 		break;
 
 	default:
