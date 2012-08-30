@@ -980,6 +980,10 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_shard > 0) t = t / 2;
 		break;
 
+	case GF_DEATH_RAY:
+		if(has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON) || has_trait(creature_ptr, TRAIT_NONLIVING)) t = 0;
+		break;
+
 	default:
 		break;
 	}

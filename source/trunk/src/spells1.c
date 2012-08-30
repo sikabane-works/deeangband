@@ -3104,7 +3104,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You fall asleep!");
 #endif
 
-
 			if (curse_of_Iluvatar)
 			{
 #ifdef JP
@@ -3113,14 +3112,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_print("A horrible vision enters your mind.");
 #endif
 
-				/* Pick a nightmare */
-				get_species_num_prep(get_nightmare, NULL);
-
-				/* Have some nightmares */
-				have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));
-
-				/* Remove the creature restriction */
-				get_species_num_prep(NULL, NULL);
+				get_species_num_prep(get_nightmare, NULL);							// Pick a nightmare
+				have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));	// Have some nightmares
+				get_species_num_prep(NULL, NULL);									// Remove the creature restriction
 			}
 
 			set_paralyzed(target_ptr, target_ptr->paralyzed + dam);
@@ -3128,60 +3122,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		/* Sleep (Use "dam" as "power")
-		case GF_OLD_SLEEP:
-		{
-			if (seen) obvious = TRUE;
-
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			// Attempt a saving throw
-			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
-			    has_trait(target_ptr, TRAIT_NO_SLEEP) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				// Memorize a flag
-				if (has_trait(target_ptr, TRAIT_NO_SLEEP))
-				{
-				}
-
-				// No obvious effect
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
-				obvious = FALSE;
-			}
-			else
-			{
-				// Go to sleep (much) later
-#ifdef JP
-note = "は眠り込んでしまった！";
-#else
-				note = " falls asleep!";
-#endif
-
-				do_sleep = 500;
-			}
-
-			// No "real" damage
-			dam = 0;
-			break;
-		}
-		*/
-
-		/* Pure damage */
 		case GF_MANA:
 		case GF_SEEKER:
 		case GF_SUPER_RAY:
@@ -3195,30 +3135,7 @@ note = "は眠り込んでしまった！";
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
 		}
-		/* Pure damage
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			break;
-		}
-		*/
-
-
-		/* Pure damage */
 		case GF_PSY_SPEAR:
 		{
 #ifdef JP
@@ -3226,31 +3143,10 @@ note = "は眠り込んでしまった！";
 #else
 			if (fuzzy) msg_print("You are hit by an energy!");
 #endif
-
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, killer, NULL, spell);
 			break;
 		}
-		/* Psycho-spear -- powerful magic missile
-		case GF_PSY_SPEAR:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			break;
-		}
-		*/
-
-		/* Pure damage */
 		case GF_METEOR:
 		{
 #ifdef JP
@@ -3268,28 +3164,8 @@ note = "は眠り込んでしまった！";
 
 			break;
 		}
-		/* Meteor -- powerful magic missile
-		case GF_METEOR:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			break;
-		}
-		*/
-
-
-		/* Ice -- cold plus stun plus cuts */
+		// Ice -- cold plus stun plus cuts
 		case GF_ICE:
 		{
 #ifdef JP
@@ -3299,6 +3175,7 @@ note = "は眠り込んでしまった！";
 #endif
 
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
+
 			if (!(target_ptr->multishadow && (turn & 1)))
 			{
 				if (!target_ptr->resist_shard)
@@ -3319,50 +3196,7 @@ note = "は眠り込んでしまった！";
 			break;
 		}
 
-		/* Ice -- Cold + Cuts + Stun
-		case GF_ICE:
-		{
-			if (seen) obvious = TRUE;
-
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			//TODO do_stun = (randint1(15) + 1) / (r + 1);
-			if (has_trait(target_ptr, TRAIT_RES_COLD))
-			{
-#ifdef JP
-				note = "にはかなり耐性がある。";
-#else
-				note = " resists a lot.";
-#endif
-
-				dam /= 9;
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags10 |= (RF10_IM_COLD);
-			}
-			else if (has_trait(target_ptr))
-			{
-#ifdef JP
-				note = "はひどい痛手をうけた。";
-#else
-				note = " is hit hard.";
-#endif
-
-				dam *= 2;
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_COLD);
-			}
-			break;
-		}
-		*/
-
-		/* Death Ray */
+		// Death Ray
 		case GF_DEATH_RAY:
 		{
 #ifdef JP
@@ -3371,65 +3205,13 @@ note = "は眠り込んでしまった！";
 			if (fuzzy) msg_print("You are hit by something extremely cold!");
 #endif
 
-			/* Some races are immune */
-			if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_DEMON) || has_trait(target_ptr, TRAIT_NONLIVING))
-				dam = 0;
-			else
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
 			break;
 		}
 
-		/* Death Ray
-		case GF_DEATH_RAY:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if (!species_living(species_ptr))
-			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr))
-					 has_trait(target_ptr, INFO_TYPE_RACE);
-
-#ifdef JP
-				note = "には完全な耐性がある。";
-#else
-				note = " is immune.";
-#endif
-
-				obvious = FALSE;
-				dam = 0;
-			}
-			else if (((has_trait(target_ptr, TRAIT_UNIQUE)) &&
-				 (randint1(888) != 666)) ||
-				 (((species_ptr->level + randint1(20)) > randint1((caster_lev / 2) + randint1(10))) &&
-				 randint1(100) != 66))
-			{
-#ifdef JP
-				note = "には耐性がある！";
-#else
-				note = " resists!";
-#endif
-
-				obvious = FALSE;
-				dam = 0;
-			}
-
-			break;
-		}
-		*/
-
-		/* Drain mana */
+		// Drain mana
 		case GF_DRAIN_MANA:
 		{
 			if ((target_ptr->multishadow && (turn & 1)))
