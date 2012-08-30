@@ -27,7 +27,7 @@ div.header {
 	padding: 0px;
 	border: 0px;
 	margin: 0px;
-	background-color: #445511;
+	background-color: #000000;
 }
 
 div.left_bar {
@@ -36,9 +36,8 @@ div.left_bar {
 	padding: 0px;
 	border: 0px;
 	margin: 0px;
-	background-color: #442211;
 	background-repeat: repeat-y;
-	background-image:  url("SideBack.png");
+	/*background-image:  url("SideBack.png");*/
 }
 
 div.center_contents {
@@ -47,7 +46,6 @@ div.center_contents {
 	padding: 0px;
 	border: 0px;
 	margin: 0px;
-	background-color: #662211;
 }
 
 div.right_bar {
@@ -56,16 +54,15 @@ div.right_bar {
 	padding: 0px;
 	border: 0px;
 	margin: 0px;
-	background-color: #442211;
 	background-repeat: repeat-y;
-	background-image:  url("SideBack.png");
+	/*background-image:  url("SideBack.png");*/
 }
 
 div.footer {
 	clear:both;
 	text-align: center;
 	width: 960px;
-	background-color: #555555;
+	background-color: #000000;
 	padding: 10px;
 	border: 0px;
 	margin: 0px;
@@ -168,8 +165,8 @@ H2.topmenu{
 	text-align: center;
 	vertical-align: bottom;
 	height: 32px;
-	background-image: url("MenuBanner.png");
-	color: #F0C09E;
+	/*background-image: url("MenuBanner.png");
+	color: #F0C09E;*/
 }
 
 H3{
@@ -187,6 +184,7 @@ ul{
 }
 
 li{
+	text-align: left;
 	padding: 0px 0px 0px 0px;
 }
 
