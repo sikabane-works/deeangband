@@ -3066,29 +3066,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			(void)set_fast(target_ptr, target_ptr->fast + randint1(5), FALSE);
-			dam = 0;
+			get_damage = 0;
 			break;
 		}
-		/* Speed Creature (Ignore "dam")
-		case GF_OLD_SPEED:
-		{
-			if (seen) obvious = TRUE;
-
-			// Speed up
-			if (set_fast(target_ptr, target_ptr->fast + 100, FALSE))
-			{
-#ifdef JP
-				note = "‚Ì“®‚«‚ª‘¬‚­‚È‚Á‚½B";
-#else
-				note = " starts moving faster.";
-#endif
-			}
-
-			// No "real" damage
-			dam = 0;
-			break;
-		}
-		*/
 
 		case GF_OLD_SLOW:
 		{
@@ -3098,14 +3078,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if (fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
-			break;
-		}
-		/* Slow Creature (Use "dam" as "power")
-		case GF_OLD_SLOW:
-		{
-			if (seen) obvious = TRUE;
-
 			if (has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
@@ -3113,41 +3085,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				note = " is immune.";
 #endif
-				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
 			}
-			// Powerful creatures can resist
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-#ifdef JP
-note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
-#else
-				note = " is unaffected!";
-#endif
-
-				obvious = FALSE;
-			}
-
-			// Normal creatures slow down
 			else
 			{
-				if (set_slow(target_ptr, target_ptr->slow + 50, FALSE))
-				{
-#ifdef JP
-					note = "‚Ì“®‚«‚ª’x‚­‚È‚Á‚½B";
-#else
-					note = " starts moving slower.";
-#endif
-				}
+				(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
 			}
-
-			// No "real" damage
-			dam = 0;
+			get_damage = 0;
 			break;
 		}
-		*/
 
 		case GF_OLD_SLEEP:
 		{
