@@ -2506,7 +2506,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			get_damage = calc_damage(caster_ptr, dam, GF_POIS, TRUE);
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
 			{
@@ -2560,7 +2560,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if (fuzzy) msg_print("You are hit by something!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
+
+			get_damage = calc_damage(caster_ptr, dam, GF_MISSILE, TRUE);
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
 
