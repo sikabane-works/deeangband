@@ -2387,20 +2387,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	int caster_power = caster_ptr->lev * 2;
 
-	creature_desc(caster_name, caster_ptr, 0);
 	creature_desc(target_name, target_ptr, 0);
 
-	if (!is_player(caster_ptr))
+	if(caster_ptr)
 	{
-		// Get the source creature
-		// Extract the creature level
-		caster_power = (((&species_info[caster_ptr->species_idx])->level >= 1) ? (&species_info[caster_ptr->species_idx])->level : 1);
-		creature_desc(caster_name, caster_ptr, 0);	// Get the creature name
-		/* Get the creature's real name (gotten before polymorph!) */
-		//TODO ? strcpy(killer, who_name);
-	}
-	else
-	{
+		creature_desc(caster_name, caster_ptr, 0);
 /*TODO
 		switch (who)
 		{
@@ -2435,7 +2426,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		strcpy(killer, "a trap");
 #endif
-
 		/* Paranoia */
 		strcpy(caster_name, killer);
 	}
