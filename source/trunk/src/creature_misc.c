@@ -1456,3 +1456,20 @@ int calc_action_power(creature_type *creature_ptr)
 
 	return point;
 }
+
+bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty)
+{
+	int resistance;
+	switch(type)
+	{
+	case SAVING_ROBUSTNESS:
+		resistance = creature_ptr->skill_rob;
+	case SAVING_EVASION:
+		resistance = creature_ptr->skill_eva;
+	case SAVING_VOLITION:
+		resistance = creature_ptr->skill_vol;
+	};
+
+	return randint0(100) >= (difficulty - resistance);
+}
+
