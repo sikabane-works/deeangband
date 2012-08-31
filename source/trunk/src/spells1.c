@@ -3224,7 +3224,20 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else if (target_ptr->csp)
 			{
-				/* Basic message */
+				if (has_trait(target_ptr, TRAIT_RES_ALL))
+				{
+#ifdef JP
+					note = "には完全な耐性がある！";
+#else
+					note = " is immune.";
+#endif
+					skipped = TRUE;
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+					break;
+				}
+			}
+
+				// Basic message
 #ifdef JP
 				if (caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
 				else msg_print("精神エネルギーを吸い取られてしまった！");
@@ -3280,80 +3293,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						}
 					}
 				}
-			}
+		}
 
 			dam = 0;
 			break;
-		}
-		/* Drain mana
-		case GF_DRAIN_MANA:
-		{
-			if (seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-
-			if (has_magic_power(target_ptr))
-			{
-				if (caster_ptr > 0)
-				{
-					// Heal the creature
-					if (caster_ptr->chp < caster_ptr->mhp)
-					{
-						// Heal
-						caster_ptr->chp += 6 * dam;
-						if (caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
-
-						// Redraw (later) if needed
-						if (&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-						if (&creature_list[player_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
-
-						// Special message
-						if (see_s_msg)
-						{
-							// Get the creature name
-							creature_desc(killer, caster_ptr, 0);
-#ifdef JP
-							msg_format("%^sは気分が良さそうだ。", killer);
-#else
-							msg_format("%^s appears healthier.", killer);
-#endif
-						}
-					}
-				}
-				else
-				{
-					// Message
-#ifdef JP
-					msg_format("%sから精神エネルギーを吸いとった。", target_name);
-#else
-					msg_format("You draw psychic energy from %s.", target_name);
-#endif
-
-					(void)heal_creature(caster_ptr, dam);
-				}
-			}
-			else
-			{
-#ifdef JP
-				if (see_s_msg) msg_format("%sには効果がなかった。", target_name);
-#else
-				if (see_s_msg) msg_format("%s is unaffected.", target_name);
-#endif
-			}
-			dam = 0;
-			break;
-		}
-		*/
 
 		/* Mind blast */
 		case GF_MIND_BLAST:
