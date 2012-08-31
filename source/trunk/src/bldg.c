@@ -2292,15 +2292,13 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 	else power *= 2;
 
-	if (saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if (new_saving_throw(watcher_ptr, SAVING_VOLITION, power))
 	{
 #ifdef JP
 		msg_format("–²‚Ì’†‚Å%s‚É’Ç‚¢‚©‚¯‚ç‚ê‚½B", m_name);
 #else
 		msg_format("%^s chases you through your dreams.", m_name);
 #endif
-
-		/* Safe */
 		return;
 	}
 
@@ -2336,22 +2334,8 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
-	if (!watcher_ptr->mimic_form)
-	{
-		if(has_trait(watcher_ptr, TRAIT_DEMON))
-		{
-			if (saving_throw(20 + watcher_ptr->lev)) return;
-		}
-
-		if(has_trait(watcher_ptr, TRAIT_UNDEAD))
-		{
-			if (saving_throw(10 + watcher_ptr->lev)) return;
-		}
-
-	}
-
 	/* Mind blast */
-	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if (!new_saving_throw(watcher_ptr, SAVING_VOLITION, power))
 	{
 		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
