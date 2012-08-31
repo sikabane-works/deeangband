@@ -2344,7 +2344,6 @@ msg_print("生命力が体から吸い取られた気がする！");
 static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell, bool see_s_msg)
 {
 	int k;
-	int rlev = 0;
 	int get_damage;
 	cptr act, note, note_dies;
 
@@ -2386,7 +2385,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
 
-	int caster_lev = caster_ptr->lev * 2;
+	int caster_power = caster_ptr->lev * 2;
 
 	creature_desc(caster_name, caster_ptr, 0);
 	creature_desc(target_name, target_ptr, 0);
@@ -2395,7 +2394,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	{
 		// Get the source creature
 		// Extract the creature level
-		rlev = (((&species_info[caster_ptr->species_idx])->level >= 1) ? (&species_info[caster_ptr->species_idx])->level : 1);
+		caster_power = (((&species_info[caster_ptr->species_idx])->level >= 1) ? (&species_info[caster_ptr->species_idx])->level : 1);
 		creature_desc(caster_name, caster_ptr, 0);	// Get the creature name
 		/* Get the creature's real name (gotten before polymorph!) */
 		//TODO ? strcpy(killer, who_name);
@@ -3302,7 +3301,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Mind blast */
 		case GF_MIND_BLAST:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3370,7 +3369,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// Attempt a saving throw
 			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
-			   (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
+			   (species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
 			{
 				// Memorize a flag
 				if (has_trait(target_ptr, TRAIT_NO_CONF))
@@ -3425,7 +3424,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
 		{
-			if ((randint0(100 + rlev / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3470,9 +3469,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 					(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
 
-					while (randint0(100 + rlev / 2) > (MAX(5, target_ptr->skill_rob)))
+					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob)))
 						(void)do_dec_stat(target_ptr, STAT_INT);
-					while (randint0(100 + rlev / 2) > (MAX(5, target_ptr->skill_rob)))
+					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob)))
 						(void)do_dec_stat(target_ptr, STAT_WIS);
 
 					if (!target_ptr->resist_chaos)
@@ -3509,7 +3508,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// Attempt a saving throw 
 			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				 (species_ptr->level > randint1((caster_lev - 10) < 1 ? 1 : (caster_lev - 10)) + 10))
+				 (species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
 			{
 				// Memorize a flag
 				if (has_trait(target_ptr, TRAIT_NO_CONF))
@@ -3572,7 +3571,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 1 */
 		case GF_CAUSE_1:
 		{
-			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3613,7 +3612,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
+			if (randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3628,7 +3627,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 2 */
 		case GF_CAUSE_2:
 		{
-			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3639,7 +3638,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 25, MIN(rlev / 2 - 15, 5));
+				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			}
 			break;
@@ -3668,7 +3667,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
+			if (randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3683,7 +3682,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 3 */
 		case GF_CAUSE_3:
 		{
-			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3694,7 +3693,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 33, MIN(rlev / 2 - 15, 15));
+				if (!(target_ptr->multishadow && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			}
 			break;
@@ -3723,7 +3722,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35))
+			if (randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3738,7 +3737,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + rlev / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -3777,7 +3776,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if ((randint0(100 + (caster_lev / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
+			if ((randint0(100 + (caster_power / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3793,7 +3792,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
 		{
-			if ((randint0(100 + rlev/2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
+			if ((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->multishadow && (turn & 1)))
 			{
 #ifdef JP
 				msg_format("しかし効力を跳ね返した！");
@@ -3848,8 +3847,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if ((caster_ptr != caster_ptr) ? ((caster_lev + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
-				   (((caster_lev / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
+				if ((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
+				   (((caster_power / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
 				{
 					dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
 
@@ -4153,7 +4152,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			/* 1. stun */
-			do_stun = diceroll((caster_lev / 20) + 3 , dam) + 1;
+			do_stun = diceroll((caster_power / 20) + 3 , dam) + 1;
 
 			/* Attempt a saving throw */
 			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
@@ -5007,7 +5006,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			do_stun = diceroll((caster_lev / 20) + 3 , (dam)) + 1;
+			do_stun = diceroll((caster_power / 20) + 3 , (dam)) + 1;
 
 			/* Attempt a saving throw */
 			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
