@@ -2269,7 +2269,6 @@ bool get_nightmare(int species_idx)
 	return (TRUE); // Accept this creature
 }
 
-
 void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 {
 	bool happened = FALSE;
@@ -2278,7 +2277,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	char m_name[80];
 	cptr desc = species_name + eldritch_ptr->name;
 
-	/* Describe it */
+	// Describe it
 #ifndef JP
 	if (!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
 		sprintf(m_name, "%s %s", (is_a_vowel(desc[0]) ? "an" : "a"), desc);
@@ -2304,13 +2303,12 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	if (IS_HALLUCINATION(watcher_ptr))
 	{
-		/* Something silly happens... */
+		// Something silly happens...
 #ifdef JP
 		msg_format("%s%s‚ÌŠç‚ðŒ©‚Ä‚µ‚Ü‚Á‚½I",
 #else
-	1111111	msg_format("You behold the %s visage of %s!",
+		msg_format("You behold the %s visage of %s!",
 #endif
-
 		funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
 		if (one_in_(3) && watcher_ptr->chara_idx != CHARA_CHARGEMAN)
@@ -2318,12 +2316,11 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
 			watcher_ptr->image = watcher_ptr->image + (s16b)randint1(eldritch_ptr->level);
 		}
-
-		/* Never mind; we can't see it clearly enough */
-		return;
+		
+		return;	// Never mind; we can't see it clearly enough
 	}
 
-	/* Something frightening happens... */
+	// Something frightening happens...
 #ifdef JP
 	msg_format("%s%s‚ÌŠç‚ðŒ©‚Ä‚µ‚Ü‚Á‚½I",
 #else
@@ -2341,7 +2338,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!watcher_ptr->resist_chaos && one_in_(3) && watcher_ptr->chara_idx == CHARA_CHARGEMAN)
+		if (!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(creature_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
