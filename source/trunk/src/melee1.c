@@ -217,7 +217,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		success_hit = one_in_(n);
 	}
 	else if ((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-	else success_hit = test_hit_norm(attacker_ptr, chance,  target_ptr->ac + target_ptr->to_ac, target_ptr->ml);
+	else success_hit = test_hit_melee(attacker_ptr, chance,  target_ptr->ac + target_ptr->to_ac, target_ptr->ml);
 
 	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
@@ -297,7 +297,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 
 			if ((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
-				k = critical_norm(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
+				k = test_critial_melee(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
 
 			drain_result = k;
 
@@ -902,7 +902,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	// Test for hit
-	if ((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_norm(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->ml))
+	if ((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->ml))
 	{
 		sound(SOUND_HIT); // Sound
 
@@ -914,7 +914,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 
 		// Apply the player damage bonuses
 		k = diceroll(ddd, dss);
-		k = critical_norm(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
+		k = test_critial_melee(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 		k += attacker_ptr->to_damage_m;
 		if (k < 0) k = 0;
 		k = invuln_damage_mod(target_ptr, k, FALSE);
@@ -1134,7 +1134,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			if (weight > 20) weight = 20;
 		}
 
-		k = critical_norm(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
+		k = test_critial_melee(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
 
 		if ((special_effect == MA_KNEE) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{

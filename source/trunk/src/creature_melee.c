@@ -20,7 +20,7 @@ int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev)
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_norm(creature_type *attacker_ptr, int chance, int ac, int vis)
+bool test_hit_melee(creature_type *attacker_ptr, int chance, int ac, int vis)
 {
 	int k;
 
@@ -52,7 +52,7 @@ bool test_hit_norm(creature_type *attacker_ptr, int chance, int ac, int vis)
  *
  * Factor in weapon weight, total plusses, player level.
  */
-s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s16b meichuu, int mode)
+s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int dam, s16b meichuu, int mode)
 {
 	int i, k;
 
