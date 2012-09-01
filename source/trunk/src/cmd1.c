@@ -16,34 +16,21 @@
  * Determine if the player "hits" a creature (normal combat).
  * Note -- Always miss 5%, always hit 5%, otherwise random.
  */
-bool test_hit_fire(creature_type *attacker_ptr, int chance, int ac, int vis)
+bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis)
 {
 	int k;
 
-	/* Percentile dice */
-	k = randint0(100);
+	k = randint0(100); // Percentile dice
 
-	/* Hack -- Instant miss or hit */
-	if (k < 10) return (k < 5);
+	if (k < 10) return (k < 5);	// Instant miss or hit
+	if (has_trait(attacker_ptr, TRAIT_MISS_SHOOTING) && (one_in_(20))) return (FALSE);
 
-	if (attacker_ptr->chara_idx == CHARA_NAMAKE)
-		if (one_in_(20)) return (FALSE);
-
-	/* Never hit */
 	if (chance <= 0) return (FALSE);
+	if (!vis) chance = (chance + 1) / 2;	// Invisible creatures are harder to hit
 
-	/* Invisible creatures are harder to hit */
-	if (!vis) chance = (chance + 1) / 2;
-
-	/* Power competes against armor */
-	if (randint0(chance) < (ac * 3 / 4)) return (FALSE);
-
-	/* Assume hit */
-	return (TRUE);
+	if (randint0(chance) < (ev * 3 / 4)) return (FALSE);	// Power competes against armor
+	return (TRUE);	// Assume hit
 }
-
-
-
 
 
 /*

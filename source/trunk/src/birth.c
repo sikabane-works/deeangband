@@ -2363,10 +2363,8 @@ static void get_money(creature_type *creature_ptr)
 	if (creature_ptr->class_idx == CLASS_TOURIST) gold += 2000;
 	if (gold < 100) gold = 100;
 
-	if (creature_ptr->chara_idx == CHARA_NAMAKE)
-		gold /= 2;
-	else if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
-		gold = 10000000;
+	if (creature_ptr->chara_idx == CHARA_NAMAKE) gold /= 2;
+	else if (creature_ptr->chara_idx == CHARA_MUNCHKIN) gold = 10000000;
 	if (has_trait(creature_ptr, TRAIT_ANDROID)) gold /= 5;
 
 	gold += creature_ptr->sc * (creature_ptr->lev * creature_ptr->lev + 5) / 2; // Level and social class calc
@@ -5319,10 +5317,9 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 			if(auto_generate) break;
 
-			/* Display the player_generate */
-			display_creature_status(mode, creature_ptr);
+			display_creature_status(mode, creature_ptr);	// Display the player_generate
 
-			/* Prepare a prompt (must squeeze everything in) */
+			// Prepare a prompt (must squeeze everything in)
 			Term_gotoxy(2, 23);
 			Term_addch(TERM_WHITE, b1);
 #ifdef JP

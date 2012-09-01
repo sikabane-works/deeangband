@@ -692,7 +692,7 @@ extern void glow_deep_lava_and_bldg(floor_type *floor_ptr);
 extern void connect_cave_to(cave_type *stair_ptr, int floor_id, int y, int x);
 
 // cmd1.c
-extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ac, int vis);
+extern bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis);
 extern bool test_hit_norm(creature_type *attacker_ptr, int chance, int ac, int vis);
 extern s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam);
 extern s16b critical_norm(creature_type *creature_ptr, int weight, int plus, int dam, s16b meichuu, int mode);

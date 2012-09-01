@@ -2161,7 +2161,7 @@ static bool kankin(creature_type *creature_ptr)
 
 	for (j = 0; j < MAX_BOUNTY; j++)
 	{
-		/* Need reverse order --- Positions will be changed in the loop */
+		// Need reverse order --- Positions will be changed in the loop
 		for (i = INVEN_TOTAL-1; i >= 0; i--)
 		{
 			object_ptr = &creature_ptr->inventory[i];
@@ -2202,7 +2202,7 @@ static bool kankin(creature_type *creature_ptr)
 
 				kubi_species_idx[j] += 10000;
 
-				/* Count number of unique corpses already handed */
+				// Count number of unique corpses already handed
 				for (num = 0, k = 0; k < MAX_BOUNTY; k++)
 				{
 					if (kubi_species_idx[k] >= 10000) num++;
@@ -2214,11 +2214,11 @@ static bool kankin(creature_type *creature_ptr)
 				msg_format("You earned %d point%s total.", num, (num > 1 ? "s" : ""));
 #endif
 
-				/* Prepare to make a prize */
+				// Prepare to make a prize
 				object_prep(&forge, lookup_kind(prize_list[num-1].tval, prize_list[num-1].sval), ITEM_FREE_SIZE);
 				apply_magic(creature_ptr, &forge, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
-				/* Identify it fully */
+				// Identify it fully
 				object_aware(&forge);
 				object_known(&forge);
 
@@ -2228,20 +2228,15 @@ static bool kankin(creature_type *creature_ptr)
 				 * there is at least one empty slot.
 				 */
 				item_new = inven_carry(creature_ptr, &forge);
-
-				/* Describe the object */
-				object_desc(object_name, &forge, 0);
+				object_desc(object_name, &forge, 0);	// Describe the object
 #ifdef JP
 				msg_format("%s(%c)‚ð–á‚Á‚½B", object_name, index_to_label(item_new));
 #else
 				msg_format("You get %s (%c). ", object_name, index_to_label(item_new));
 #endif
 
-				/* Auto-inscription */
-				autopick_alter_item(creature_ptr, item_new, FALSE);
-
-				/* Handle stuff */
-				handle_stuff();
+				autopick_alter_item(creature_ptr, item_new, FALSE);	// Auto-inscription
+				handle_stuff();	// Handle stuff
 
 				change = TRUE;
 			}
@@ -2338,7 +2333,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
 		}
-		if (!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(creature_ptr, TRAIT_NO_HALLUCINATION))
+		if (!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
