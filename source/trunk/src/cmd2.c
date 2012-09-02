@@ -494,7 +494,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		else
 		{
 			/* Make a good object */
-			if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level)) continue;
+			if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL)) continue;
 		}
 
 		/* If chest scatters its contents, pick any floor square. */

@@ -6112,7 +6112,7 @@ static bool build_type15(floor_type *floor_ptr)
 			if (is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
 
 			/* Place a potion */
-			get_obj_num_hook = kind_is_potion;
+			//TODO get_obj_num_hook = kind_is_potion;
 			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART);
 			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
@@ -6217,16 +6217,16 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place two potions */
 			if (one_in_(2))
 			{
-				get_obj_num_hook = kind_is_potion;
+				//TODO get_obj_num_hook = kind_is_potion;
 				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART);
-				get_obj_num_hook = kind_is_potion;
+				//TODO get_obj_num_hook = kind_is_potion;
 				place_object(floor_ptr, yval, xval + 1, AM_NO_FIXED_ART);
 			}
 			else
 			{
-				get_obj_num_hook = kind_is_potion;
+				//TODO get_obj_num_hook = kind_is_potion;
 				place_object(floor_ptr, yval - 1, xval, AM_NO_FIXED_ART);
-				get_obj_num_hook = kind_is_potion;
+				//TODO get_obj_num_hook = kind_is_potion;
 				place_object(floor_ptr, yval + 1, xval, AM_NO_FIXED_ART);
 			}
 

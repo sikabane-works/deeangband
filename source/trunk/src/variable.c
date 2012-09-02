@@ -908,12 +908,6 @@ cptr ANGBAND_DIR_USER;
  */
 cptr ANGBAND_DIR_XTRA;
 
-
-/*
- * Hack -- function hook to restrict "get_obj_num_prep()" function
- */
-bool (*get_obj_num_hook)(int k_idx);
-
 char record_object_name[MAX_NLEN];
 s32b record_turn;
 

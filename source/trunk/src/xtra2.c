@@ -651,7 +651,7 @@ msg_print("–‚–@‚ÌŠK’i‚ªŒ»‚ê‚½...");
 		{
 			quest_ptr = &forge;	// Get local object
 			object_wipe(quest_ptr);	// Wipe the object
-			make_object(quest_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level);	// Make a great object
+			make_object(quest_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level, NULL);	// Make a great object
 			(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
 		}
 	}
@@ -929,23 +929,10 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	case SPECIES_RAAL:
 		if (drop_chosen_item && (floor_ptr->floor_level > 9))
 		{
-			/* Get local object */
-			quest_ptr = &forge;
-
-			/* Wipe the object */
-			object_wipe(quest_ptr);
-
-			/* Activate restriction */
-			if ((floor_ptr->floor_level > 49) && one_in_(5))
-				get_obj_num_hook = kind_is_good_book;
-			else
-				get_obj_num_hook = kind_is_book;
-
-			/* Make a book */
-			make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level);
-
-			/* Drop it in the dungeon */
-			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+			quest_ptr = &forge;	// Get local object
+			object_wipe(quest_ptr); // Wipe the object
+			make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, (floor_ptr->floor_level > 49) && one_in_(5) ? kind_is_good_book : kind_is_book);
+			(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
 		}
 		break;
 
@@ -1081,37 +1068,19 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		case '(':
 			if (floor_ptr->floor_level > 0)
 			{
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Wipe the object */
-				object_wipe(quest_ptr);
-
-				/* Activate restriction */
-				get_obj_num_hook = kind_is_cloak;
-
-				/* Make a cloak */
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level);
-
-				/* Drop it in the dungeon */
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+				quest_ptr = &forge;	// Get local object
+				object_wipe(quest_ptr);	// Wipe the object
+				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_cloak);	// Make a cloak
+				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
 			}
 			break;
 
 		case '/':
 			if (floor_ptr->floor_level > 4)
 			{
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Wipe the object */
-				object_wipe(quest_ptr);
-
-				/* Activate restriction */
-				get_obj_num_hook = kind_is_polearm;
-
-				/* Make a poleweapon */
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level);
+				quest_ptr = &forge;	// Get local object
+				object_wipe(quest_ptr);	// Wipe the object
+				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_polearm);	// Make a poleweapon
 
 				/* Drop it in the dungeon */
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
@@ -1121,59 +1090,29 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		case '[':
 			if (floor_ptr->floor_level > 19)
 			{
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Wipe the object */
-				object_wipe(quest_ptr);
-
-				/* Activate restriction */
-				get_obj_num_hook = kind_is_armor;
-
-				/* Make a hard armor */
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level);
-
-				/* Drop it in the dungeon */
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+				quest_ptr = &forge; // Get local object	
+				object_wipe(quest_ptr); // Wipe the object
+				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_armor); // Make a hard armor
+				(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
 			}
 			break;
 
 		case '\\':
 			if (floor_ptr->floor_level > 4)
 			{
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Wipe the object */
-				object_wipe(quest_ptr);
-
-				/* Activate restriction */
-				get_obj_num_hook = kind_is_hafted;
-
-				/* Make a hafted weapon */
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level);
-
-				/* Drop it in the dungeon */
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+				quest_ptr = &forge; // Get local object
+				object_wipe(quest_ptr); // Wipe the object
+				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_hafted); // Make a hafted weapon
+				(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
 			}
 			break;
 
 		case '|':
 			if (dead_ptr->species_idx != SPECIES_STORMBRINGER)
 			{
-				/* Get local object */
 				quest_ptr = &forge;
-
-				/* Wipe the object */
 				object_wipe(quest_ptr);
-
-				/* Activate restriction */
-				get_obj_num_hook = kind_is_sword;
-
-				/* Make a sword */
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level);
-
-				/* Drop it in the dungeon */
+				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_sword); // Make a sword
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
 			}
 			break;
@@ -1271,7 +1210,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		else
 		{
 			/* Make an object */
-			if (!make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level)) continue;
+			if (!make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, NULL)) continue;
 
 			/* XXX XXX XXX */
 			dump_item++;

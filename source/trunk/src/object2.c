@@ -485,7 +485,7 @@ s16b object_pop(void)
 /*
  * Apply a "object restriction function" to the "object allocation table"
  */
-static errr get_obj_num_prep(void)
+static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 {
 	int i;
 
@@ -2055,12 +2055,8 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *object_
 	int k_idx = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
-
 	/* No artifacts in the town */
 	if (!floor_ptr->floor_level) return (FALSE);
-
-	/* Themed object */
-	if (get_obj_num_hook) return (FALSE);
 
 	/* Check the artifact list (just the "specials") */
 	for (i = 0; i < max_artifact_idx; i++)
@@ -3741,7 +3737,7 @@ static bool kind_is_good(int k_idx)
  * This routine uses "object_level" for the "generation level".
  * We assume that the given object has been "wiped".
  */
-bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
+bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
 	byte obj_level;
@@ -3767,20 +3763,13 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level)
 		}
 
 		/* Restricted objects - prepare allocation table */
-		if (get_obj_num_hook) get_obj_num_prep();
+		if (get_obj_num_hook) get_obj_num_prep(get_obj_num_hook);
 
 		/* Pick a random object */
 		k_idx = get_obj_num(floor_ptr, floor_ptr->floor_level, gon_mode);
 
 		/* Restricted objects */
-		if (get_obj_num_hook)
-		{
-			/* Clear restriction */
-			get_obj_num_hook = NULL;
-
-			/* Reset allocation table to default */
-			get_obj_num_prep();
-		}
+		if (get_obj_num_hook) get_obj_num_prep(get_obj_num_hook);
 
 		/* Handle failure */
 		if (!k_idx) return (FALSE);
@@ -3850,7 +3839,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 	object_wipe(quest_ptr);
 
 	/* Make an object (if possible) */
-	if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level)) return;
+	if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL)) return;
 
 
 	/* Make an object */
@@ -4420,7 +4409,7 @@ void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, boo
 		object_wipe(i_ptr);
 
 		/* Make a good (or great) object (if possible) */
-		if (!make_object(i_ptr, mode, 0, floor_ptr->object_level)) continue;
+		if (!make_object(i_ptr, mode, 0, floor_ptr->object_level, NULL)) continue;
 
 		if (known)
 		{
