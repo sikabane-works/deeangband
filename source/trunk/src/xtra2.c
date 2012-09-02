@@ -702,12 +702,11 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 #endif
 }
 
-void special_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv, int artifact)
+void specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv)
 {
 	object_type forge;
 	object_prep(&forge, lookup_kind(tv, sv), ITEM_FREE_SIZE);
-	if(artifact) apply_magic(creature_ptr, &forge, -1, AM_GOOD | AM_GREAT, 0);
-	else apply_magic(creature_ptr, &forge, creature_ptr->lev, AM_NO_FIXED_ART, 0);
+	apply_magic(creature_ptr, &forge, creature_ptr->lev, AM_NO_FIXED_ART, 0);
 	forge.creater_idx = creature_ptr->species_idx;
 	(void)drop_near(floor_ptr, &forge, -1, creature_ptr->fy, creature_ptr->fx);
 }
@@ -887,7 +886,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			else if (!one_in_(5)) corpse = TRUE;
 		}
 
-		special_drop(floor_ptr, dead_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON, 0);
+		specified_drop(floor_ptr, dead_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON);
 	}
 
 	/* Drop objects being carried */
@@ -1045,7 +1044,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	case SPECIES_SERPENT:
 		if (drop_chosen_item){
-			special_drop(floor_ptr, dead_ptr, TV_CROWN, SV_CHAOS, ART_CHAOS);
+			drop_named_art(dead_ptr, TV_CROWN, dead_ptr->fy, dead_ptr->fx);
 		}
 
 		break;
@@ -1053,7 +1052,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	case SPECIES_B_DEATH_SWORD:
 		if (drop_chosen_item)
 		{
-			special_drop(floor_ptr, dead_ptr, TV_SWORD, randint1(2), 0);
+			specified_drop(floor_ptr, dead_ptr, TV_SWORD, randint1(2));
 		}
 		break;
 
@@ -1061,7 +1060,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	case SPECIES_A_SILVER:
 		if (drop_chosen_item && ((dead_ptr->species_idx == SPECIES_A_GOLD) || ((dead_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
-			special_drop(floor_ptr, dead_ptr, TV_CHEST, SV_CHEST_KANDUME, 0);
+			specified_drop(floor_ptr, dead_ptr, TV_CHEST, SV_CHEST_KANDUME);
 		}
 		break;
 
