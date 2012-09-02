@@ -2306,7 +2306,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 #endif
 		funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
-		if (one_in_(3) && watcher_ptr->chara_idx != CHARA_CHARGEMAN)
+		if (one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
 			watcher_ptr->image = watcher_ptr->image + (s16b)randint1(eldritch_ptr->level);
