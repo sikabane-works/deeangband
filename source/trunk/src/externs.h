@@ -1466,9 +1466,7 @@ extern void roff_to_buf(cptr str, int wlen, char *tbuf, size_t bufsize);
 extern int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int h, int w, void(*)(int), s32b mode);
 extern int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, void(*detail)(int), u32b *ret);
 
-#ifdef SORT_R_INFO
 extern void tag_sort(tag_type elements[], int number);
-#endif /* SORT_R_INFO */
 
 #ifdef SUPPORT_GAMMA
 extern byte gamma_table[256];

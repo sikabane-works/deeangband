@@ -4896,7 +4896,6 @@ void repeat_check(void)
 	}
 }
 
-#ifdef SORT_R_INFO
 
 /*
  * Array size for which InsertionSort
@@ -5022,8 +5021,6 @@ void tag_sort(tag_type elements[], int number)
 {
 	quicksort(elements, 0, number - 1);
 }
-
-#endif /* SORT_R_INFO */
 
 #ifdef SUPPORT_GAMMA
 

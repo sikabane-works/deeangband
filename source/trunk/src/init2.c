@@ -1627,15 +1627,12 @@ static errr init_alloc(void)
 {
 	int i;
 	species_type *r_ptr;
-
-#ifdef SORT_R_INFO
-
 	tag_type *elements;
 
 	/* Allocate the "species_info" array */
 	C_MAKE(elements, max_species_idx, tag_type);
 
-	/* Scan the creatures */
+	/* Scan the species */
 	for (i = 1; i < max_species_idx; i++)
 	{
 		elements[i].tag = species_info[i].level;
@@ -1680,102 +1677,6 @@ static errr init_alloc(void)
 
 	/* Free the "species_info" array */
 	C_KILL(elements, max_species_idx, tag_type);
-
-#else /* SORT_R_INFO */
-
-	int j;
-	alloc_entry *table;
-	s16b num[MAX_DEPTH];
-	s16b aux[MAX_DEPTH];
-
-	/*** Analyze creature allocation info ***/
-
-	/* Clear the "aux" array */
-	C_WIPE(&aux, MAX_DEPTH, s16b);
-
-	/* Clear the "num" array */
-	C_WIPE(&num, MAX_DEPTH, s16b);
-
-	/* Size of "alloc_species_table" */
-	alloc_species_size = 0;
-
-	/* Scan the creatures */
-	for (i = 1; i < max_species_idx; i++)
-	{
-		/* Get the i'th race */
-		r_ptr = &species_info[i];
-
-		/* Legal creatures */
-		if (r_ptr->rarity)
-		{
-			/* Count the entries */
-			alloc_species_size++;
-
-			/* Group by level */
-			num[r_ptr->level]++;
-		}
-	}
-
-	/* Collect the level indexes */
-	for (i = 1; i < MAX_DEPTH; i++)
-	{
-		/* Group by level */
-		num[i] += num[i-1];
-	}
-
-	/* Paranoia */
-#ifdef JP
-	if (!num[0]) quit("町のクリーチャーがない！");
-#else
-	if (!num[0]) quit("No town creatures!");
-#endif
-
-
-
-	/*** Initialize creature allocation info ***/
-
-	/* Allocate the alloc_species_table */
-	C_MAKE(alloc_species_table, alloc_species_size, alloc_entry);
-
-	/* Access the table entry */
-	table = alloc_species_table;
-
-	/* Scan the creatures */
-	for (i = 1; i < max_species_idx; i++)
-	{
-		/* Get the i'th race */
-		r_ptr = &species_info[i];
-
-		/* Count valid pairs */
-		if (r_ptr->rarity)
-		{
-			int p, x, y, z;
-
-			/* Extract the base level */
-			x = r_ptr->level;
-
-			/* Extract the base probability */
-			p = (100 / r_ptr->rarity);
-
-			/* Skip entries preceding our locale */
-			y = (x > 0) ? num[x-1] : 0;
-
-			/* Skip previous entries at this locale */
-			z = y + aux[x];
-
-			/* Load the entry */
-			table[z].index = i;
-			table[z].level = x;
-			table[z].prob1 = p;
-			table[z].prob2 = p;
-			table[z].prob3 = p;
-
-			/* Another entry complete for this locale */
-			aux[x]++;
-		}
-	}
-
-#endif /* SORT_R_INFO */
 
 	/* Init the "alloc_kind_table" */
 	(void)init_object_alloc();

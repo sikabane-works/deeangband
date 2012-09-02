@@ -432,13 +432,6 @@
 #define CHECK_MODIFICATION_TIME
 #endif
 
-/*
- * Use the new sorting routines for creation
- * of the creature allocation table
- */
-#define SORT_R_INFO
-
-
 #ifndef HAVE_CONFIG_H
 
 //#define WORLD_SCORE

@@ -625,11 +625,8 @@ u16b max_towns;
  */
 u16b start_point_size;
 
-/*
- * The towns [max_towns]
- */
+// The towns [max_towns]
 town_type *town;
-
 
 // The size of "alloc_kind_table" (at most max_object_kind_idx * 4)
 // The entries in the "kind allocator table"
