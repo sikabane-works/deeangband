@@ -747,63 +747,63 @@ static void special_drop(floor_type *floor_ptr, creature_type *creature_ptr, int
  * Note that creatures can now carry objects, and when a creature dies,
  * it drops all of its objects, which may disappear in crowded rooms.
  */
-void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
+void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item)
 {
 	int i, j, y, x;
-	floor_type *floor_ptr = GET_FLOOR_PTR(killed_ptr);
-	species_type *r_ptr = &species_info[killed_ptr->species_idx];
+	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
+	species_type *r_ptr = &species_info[dead_ptr->species_idx];
 
 	int dump_item = 0;
 	int dump_gold = 0;
 
 	int number = 0;
 
-	bool visible = ((killed_ptr->ml && !slayer_ptr->image) || (has_trait(killed_ptr, TRAIT_UNIQUE)));
+	bool visible = ((dead_ptr->ml && !slayer_ptr->image) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
 
 	u32b mo_mode = 0L;
 
 	bool do_gold = FALSE; // TODO
 	bool do_item = FALSE; // TODO
-	bool cloned = (killed_ptr->smart & SM_CLONED) ? TRUE : FALSE;
-	int force_coin = get_coin_type(killed_ptr->species_idx);
+	bool cloned = (dead_ptr->smart & SM_CLONED) ? TRUE : FALSE;
+	int force_coin = get_coin_type(dead_ptr->species_idx);
 
 	object_type forge;
 	object_type *quest_ptr;
 
 	bool drop_chosen_item = drop_item && !cloned && !floor_ptr->fight_arena_mode
-		&& !floor_ptr->gamble_arena_mode && !is_pet(player_ptr, killed_ptr);
+		&& !floor_ptr->gamble_arena_mode && !is_pet(player_ptr, dead_ptr);
 
 	/* The caster is dead? */
-	if (the_world && &creature_list[the_world] == killed_ptr) the_world = 0;
+	if (the_world && &creature_list[the_world] == dead_ptr) the_world = 0;
 
 	/* Notice changes in view */
-	if (is_lighting_creature(killed_ptr) || is_darken_creature(killed_ptr))
+	if (is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr))
 	{
 		/* Update some things */
 		update |= (PU_SPECIES_LITE);
 	}
 
 	/* Get the location */
-	y = killed_ptr->fy;
-	x = killed_ptr->fx;
+	y = dead_ptr->fy;
+	x = dead_ptr->fx;
 
-	if (record_named_pet && is_pet(player_ptr, killed_ptr) && killed_ptr->nickname)
+	if (record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
 	{
 		char m_name[80];
 
-		creature_desc(m_name, killed_ptr, MD_INDEF_VISIBLE);
+		creature_desc(m_name, dead_ptr, MD_INDEF_VISIBLE);
 		do_cmd_write_nikki(DIARY_NAMED_PET, 3, m_name);
 	}
 
 	/* Let creatures explode! */
 	for (i = 0; i < 4; i++)
 	{
-		if (killed_ptr->blow[i].method == RBM_EXPLODE)
+		if (dead_ptr->blow[i].method == RBM_EXPLODE)
 		{
 			int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-			int typ = mbe_info[killed_ptr->blow[i].effect].explode_type;
-			int d_dice = killed_ptr->blow[i].d_dice;
-			int d_side = killed_ptr->blow[i].d_side;
+			int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
+			int d_dice = dead_ptr->blow[i].d_dice;
+			int d_side = dead_ptr->blow[i].d_side;
 			int damage = diceroll(d_dice, d_side);
 
 			//TODO
@@ -812,18 +812,18 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 		}
 	}
 
-	if (killed_ptr->mflag2 & MFLAG2_CHAMELEON)
+	if (dead_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
 		//TODO
 		//choose_new_species(m_idx, TRUE, SPECIES_CHAMELEON, MONEGO_NONE);
-		//r_ptr = &species_info[killed_ptr->species_idx];
+		//r_ptr = &species_info[dead_ptr->species_idx];
 	}
 
 	/* Check for quest completion */
-	check_quest_completion(slayer_ptr, killed_ptr);
+	check_quest_completion(slayer_ptr, dead_ptr);
 
 	/* Handle the possibility of player vanquishing arena combatant -KMW- */
-	if (floor_ptr->fight_arena_mode && !is_pet(player_ptr, killed_ptr))
+	if (floor_ptr->fight_arena_mode && !is_pet(player_ptr, dead_ptr))
 	{
 		arena_settled = TRUE;
 
@@ -852,7 +852,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 			/* Prepare to make a prize */
 			object_prep(quest_ptr, lookup_kind(arena_info[arena_number].tval, arena_info[arena_number].sval), ITEM_FREE_SIZE);
 
-			apply_magic(killed_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
+			apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
 
 			/* Drop it in the dungeon */
 			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
@@ -865,13 +865,13 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 			char m_name[80];
 			
 			/* Extract creature name */
-			creature_desc(m_name, killed_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(m_name, dead_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
 			
 			do_cmd_write_nikki(DIARY_ARENA, arena_number, m_name);
 		}
 	}
 
-	if (killed_ptr == &creature_list[slayer_ptr->riding])
+	if (dead_ptr == &creature_list[slayer_ptr->riding])
 	{
 		if (do_thrown_from_riding(slayer_ptr, -1, FALSE))
 		{
@@ -884,9 +884,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 	}
 
 	/* Drop a dead corpse? */
-	if (one_in_(has_trait(killed_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
-	    (has_trait(killed_ptr, TRAIT_DROP_CORPSE) || has_trait(killed_ptr, TRAIT_DROP_SKELETON)) &&
-	    !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((killed_ptr->species_idx == today_mon) && is_pet(player_ptr, killed_ptr))))
+	if (one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
+	    (has_trait(dead_ptr, TRAIT_DROP_CORPSE) || has_trait(dead_ptr, TRAIT_DROP_SKELETON)) &&
+	    !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((dead_ptr->species_idx == today_mon) && is_pet(player_ptr, dead_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
@@ -895,26 +895,26 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 		 * We cannot drop a skeleton? Note, if we are in this check,
 		 * we *know* we can drop at least a corpse or a skeleton
 		 */
-		if (!has_trait(killed_ptr, TRAIT_DROP_SKELETON))
+		if (!has_trait(dead_ptr, TRAIT_DROP_SKELETON))
 			corpse = TRUE;
-		else if (has_trait(killed_ptr, TRAIT_DROP_CORPSE) && has_trait(killed_ptr, TRAIT_UNIQUE))
+		else if (has_trait(dead_ptr, TRAIT_DROP_CORPSE) && has_trait(dead_ptr, TRAIT_UNIQUE))
 			corpse = TRUE;
 
 		/* Else, a corpse is more likely unless we did a "lot" of damage */
-		else if (has_trait(killed_ptr, TRAIT_DROP_CORPSE))
+		else if (has_trait(dead_ptr, TRAIT_DROP_CORPSE))
 		{
 			/* Lots of damage in one blow */
-			if ((0 - ((killed_ptr->mhp) / 4)) > killed_ptr->chp) if (one_in_(5)) corpse = TRUE;
+			if ((0 - ((dead_ptr->mhp) / 4)) > dead_ptr->chp) if (one_in_(5)) corpse = TRUE;
 			else if (!one_in_(5)) corpse = TRUE;
 		}
 
-		special_drop(floor_ptr, killed_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON, 0);
+		special_drop(floor_ptr, dead_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON, 0);
 	}
 
 	/* Drop objects being carried */
-	creature_drop_carried_objects(killed_ptr);
+	creature_drop_carried_objects(dead_ptr);
 
-	switch (killed_ptr->species_idx)
+	switch (dead_ptr->species_idx)
 	{
 	case SPECIES_PINK_HORROR:
 		/* Pink horrors are replaced with 2 Blue horrors */
@@ -925,7 +925,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 			for (i = 0; i < 2; i++)
 			{
 				int wy = y, wx = x;
-				bool pet = is_pet(player_ptr, killed_ptr);
+				bool pet = is_pet(player_ptr, dead_ptr);
 				u32b mode = 0L;
 
 				if (pet) mode |= PM_FORCE_PET;
@@ -933,7 +933,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 
 				if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_BLUE_HORROR, mode))
 				{
-					if (creature_can_see_bold(killed_ptr, wy, wx))
+					if (creature_can_see_bold(dead_ptr, wy, wx))
 						notice = TRUE;
 				}
 				*/
@@ -982,7 +982,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 			{
 				int wy = y, wx = x;
 				int attempts = 100;
-				bool pet = is_pet(player_ptr, killed_ptr);
+				bool pet = is_pet(player_ptr, dead_ptr);
 
 				do
 				{
@@ -998,7 +998,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 					/*TODO
 					if (summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_DAWN, mode))
 					{
-						if (creature_can_see_bold(killed_ptr, wy, wx))
+						if (creature_can_see_bold(dead_ptr, wy, wx))
 #ifdef JP
 							msg_print("V‚½‚ÈíŽm‚ªŒ»‚ê‚½I");
 #else
@@ -1053,7 +1053,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 			while (a_ptr->cur_num);
 
 			/* Create the artifact */
-			if (drop_named_art(killed_ptr, a_idx, y, x))
+			if (drop_named_art(dead_ptr, a_idx, y, x))
 			{
 				a_ptr->cur_num = 1;
 
@@ -1066,7 +1066,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 
 	case SPECIES_SERPENT:
 		if (drop_chosen_item){
-			special_drop(floor_ptr, killed_ptr, TV_CROWN, SV_CHAOS, ART_CHAOS);
+			special_drop(floor_ptr, dead_ptr, TV_CROWN, SV_CHAOS, ART_CHAOS);
 		}
 
 		break;
@@ -1074,15 +1074,15 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 	case SPECIES_B_DEATH_SWORD:
 		if (drop_chosen_item)
 		{
-			special_drop(floor_ptr, killed_ptr, TV_SWORD, randint1(2), 0);
+			special_drop(floor_ptr, dead_ptr, TV_SWORD, randint1(2), 0);
 		}
 		break;
 
 	case SPECIES_A_GOLD:
 	case SPECIES_A_SILVER:
-		if (drop_chosen_item && ((killed_ptr->species_idx == SPECIES_A_GOLD) || ((killed_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+		if (drop_chosen_item && ((dead_ptr->species_idx == SPECIES_A_GOLD) || ((dead_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
-			special_drop(floor_ptr, killed_ptr, TV_CHEST, SV_CHEST_KANDUME, 0);
+			special_drop(floor_ptr, dead_ptr, TV_CHEST, SV_CHEST_KANDUME, 0);
 		}
 		break;
 
@@ -1181,7 +1181,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 			break;
 
 		case '|':
-			if (killed_ptr->species_idx != SPECIES_STORMBRINGER)
+			if (dead_ptr->species_idx != SPECIES_STORMBRINGER)
 			{
 				/* Get local object */
 				quest_ptr = &forge;
@@ -1209,7 +1209,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 		int a_idx = 0;
 		int chance = 0;
 
-		if (has_trait(killed_ptr, TRAIT_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == killed_ptr->species_idx))
+		if (has_trait(dead_ptr, TRAIT_GUARDIAN) && (dungeon_info[floor_ptr->dun_type].final_guardian == dead_ptr->species_idx))
 		{
 			int k_idx = dungeon_info[floor_ptr->dun_type].final_object ? dungeon_info[floor_ptr->dun_type].final_object
 				: lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
@@ -1222,7 +1222,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 				if (!a_ptr->cur_num)
 				{
 					/* Create the artifact */
-					if (drop_named_art(killed_ptr, a_idx, y, x))
+					if (drop_named_art(dead_ptr, a_idx, y, x))
 					{
 						a_ptr->cur_num = 1;
 
@@ -1244,7 +1244,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 				/* Prepare to make a reward */
 				object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
 
-				apply_magic(killed_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
+				apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
 
 				/* Drop it in the dungeon */
 				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
@@ -1257,10 +1257,10 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 		}
 	}
 
-	if (cloned && !(has_trait(killed_ptr, TRAIT_UNIQUE)))
+	if (cloned && !(has_trait(dead_ptr, TRAIT_UNIQUE)))
 		number = 0; /* Clones drop no stuff unless Cloning Pits */
 
-	if (is_pet(player_ptr, killed_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
+	if (is_pet(player_ptr, dead_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
 
@@ -1314,11 +1314,11 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, 
 	if (visible && (dump_item || dump_gold))
 	{
 		/* Take notes on treasure */
-		lore_treasure(killed_ptr, dump_item, dump_gold);
+		lore_treasure(dead_ptr, dump_item, dump_gold);
 	}
 
 	/* Only process "Quest Creatures" */
-	if (!has_trait(killed_ptr, TRAIT_QUESTOR)) return;
+	if (!has_trait(dead_ptr, TRAIT_QUESTOR)) return;
 	if (floor_ptr->gamble_arena_mode) return;
 }
 
