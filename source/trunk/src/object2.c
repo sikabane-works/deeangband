@@ -569,81 +569,25 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		/* Access the actual kind */
 		k_ptr = &object_kind_info[k_idx];
 
-		if(flag & GON_ITEM)
-		{
-			if(k_ptr->tval < TV_STAFF && k_ptr->tval < TV_POTION)
-				continue;			
-		}
+		if(flag & GON_ITEM && k_ptr->tval < TV_STAFF && k_ptr->tval > TV_POTION) continue;			
+		if(flag & GON_ARMS && k_ptr->tval != TV_SWORD && k_ptr->tval != TV_HAFTED && k_ptr->tval != TV_POLEARM) continue;
+		if(flag & GON_BODY && k_ptr->tval != TV_SOFT_ARMOR && k_ptr->tval != TV_HARD_ARMOR && k_ptr->tval != TV_DRAG_ARMOR) continue;
+		if(flag & GON_FEET && k_ptr->tval != TV_BOOTS) continue;
+		if(flag & GON_HANDS && k_ptr->tval != TV_GLOVES) continue;
+		if(flag & GON_HEAD && k_ptr->tval != TV_HELM || k_ptr->tval != TV_CROWN) continue;
+		if(flag & GON_LITE && k_ptr->tval != TV_LITE) continue;
+		if(flag & GON_OUTER && k_ptr->tval != TV_CLOAK) continue;
+		if(flag & GON_RING && k_ptr->tval != TV_RING) continue;
+		if(flag & GON_AMULET && k_ptr->tval != TV_AMULET) continue;
+		if(flag & GON_UNCURSED && (k_ptr->gen_flags & TRG_CURSED) || (k_ptr->gen_flags & TRG_HEAVY_CURSE)) continue;
 
-		if(flag & GON_ARMS)
-		{
-			if(k_ptr->tval != TV_SWORD && k_ptr->tval != TV_HAFTED && k_ptr->tval != TV_POLEARM)
-				continue;
-		}
-
-		if(flag & GON_BODY)
-		{
-			if(k_ptr->tval != TV_SOFT_ARMOR && k_ptr->tval != TV_HARD_ARMOR && k_ptr->tval != TV_DRAG_ARMOR)
-				continue;
-		}
-
-		if(flag & GON_FEET)
-		{
-			if(k_ptr->tval != TV_BOOTS)
-				continue;
-		}
-
-		if(flag & GON_HANDS)
-		{
-			if(k_ptr->tval != TV_GLOVES)
-				continue;
-		}
-
-		if(flag & GON_HEAD)
-		{
-			if(k_ptr->tval != TV_HELM || k_ptr->tval != TV_CROWN)
-				continue;
-		}
-
-		if(flag & GON_LITE)
-		{
-			if(k_ptr->tval != TV_LITE)
-				continue;
-		}
-
-		if(flag & GON_OUTER)
-		{
-			if(k_ptr->tval != TV_CLOAK)
-				continue;
-		}
-
-		if(flag & GON_RING)
-		{
-			if(k_ptr->tval != TV_RING)
-				continue;
-		}
-
-		if(flag & GON_AMULET)
-		{
-			if(k_ptr->tval != TV_AMULET)
-				continue;
-		}
-
-		if(flag & GON_UNCURSED)
-		{
-			if ((k_ptr->gen_flags & TRG_CURSED) || (k_ptr->gen_flags & TRG_HEAVY_CURSE))
-				continue;
-		}
-
-		/* Hack -- prevent embedded chests */
-		if ((flag & TRG_NO_CHEST) && (k_ptr->tval == TV_CHEST)) continue;
+		if (flag & TRG_NO_CHEST && (k_ptr->tval == TV_CHEST)) continue;
 
 		table[i].prob3 = table[i].prob2; // Accept
 		total += table[i].prob3; // Total
 	}
 
-	/* No legal objects */
-	if (total <= 0) return (0);
+	if (total <= 0) return (0); // No legal objects
 
 
 	/* Pick an object */
