@@ -1978,12 +1978,12 @@ void init_angband(void)
 	note("[Initializing arrays... (dungeon)]");
 	if (init_dungeon_info()) quit("Cannot initialize dungeon");
 	{
-		/*
 		int i;
 		for (i = 1; i < max_dungeon_idx; i++)
+		{
 			if (dungeon_info[i].final_guardian)
-				species_info[dungeon_info[i].final_guardian].flags7 |= RF7_GUARDIAN;
-		*/
+				species_info[dungeon_info[i].final_guardian].flags.add_lev[TRAIT_GUARDIAN] = 1;
+		}
 	}
 
 	/* Initialize magic info */
