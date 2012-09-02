@@ -7556,10 +7556,10 @@ void write_species_info_txt(void)
 	/* Write a note */
 	fprintf(fff, "##### The Player #####\n\n");
 
-	for (z = -1; z < alloc_race_size; z++)
+	for (z = -1; z < alloc_species_size; z++)
 	{
 		/* Output the creatures in order */
-		i = (z >= 0) ? alloc_race_table[z].index : 0;
+		i = (z >= 0) ? alloc_species_table[z].index : 0;
 
 		/* Acquire the creature */
 		r_ptr = &species_info[i];

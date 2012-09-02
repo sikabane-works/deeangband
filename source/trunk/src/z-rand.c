@@ -404,7 +404,7 @@ int uneven_rand(int *id_list, int *weight_list, int num)
 	long value, total = 0L;
 	
 	for (i = 0; i < num; i++)
-		if (weight_list[i] > 0) total += 10000 / weight_list[i];
+		if (weight_list[i] > 0) total += weight_list[i];
 
 	value = randint0(total - 1);
 

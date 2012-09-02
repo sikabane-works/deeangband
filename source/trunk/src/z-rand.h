@@ -103,7 +103,6 @@ extern u32b Rand_simple(u32b m);
 
 extern int uneven_rand(int *id_list, int *weight_list, int num);
 
-
 #endif
 
 

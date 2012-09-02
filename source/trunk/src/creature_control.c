@@ -1449,12 +1449,12 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 	creature_hook_type get_species_num2_hook = creature_hook2;
 
 	/* Scan the allocation table */
-	for (i = 0; i < alloc_race_size; i++)
+	for (i = 0; i < alloc_species_size; i++)
 	{
 		species_type	*r_ptr;
 		
 		/* Get the entry */
-		alloc_entry *entry = &alloc_race_table[i];
+		alloc_entry *entry = &alloc_species_table[i];
 
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
@@ -1505,12 +1505,12 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Scan the allocation table */
-	for (i = 0; i < alloc_race_size; i++)
+	for (i = 0; i < alloc_species_size; i++)
 	{
 		species_type	*r_ptr;
 		
 		/* Get the entry */
-		alloc_entry *entry = &alloc_race_table[i];
+		alloc_entry *entry = &alloc_species_table[i];
 
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
@@ -1566,12 +1566,12 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 	creature_hook_type2 get_species_num2_hook = creature_hook2;
 
 	/* Scan the allocation table */
-	for (i = 0; i < alloc_race_size; i++)
+	for (i = 0; i < alloc_species_size; i++)
 	{
 		species_type	*r_ptr;
 		
 		/* Get the entry */
-		alloc_entry *entry = &alloc_race_table[i];
+		alloc_entry *entry = &alloc_species_table[i];
 
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
@@ -1673,7 +1673,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	long value, total;
 
 	species_type *r_ptr;
-	alloc_entry *table = alloc_race_table;
+	alloc_entry *table = alloc_species_table;
 
 	int pls_kakuritu, pls_level;
 	int hoge = mysqrt(level * 10000L);
@@ -1703,7 +1703,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	total = 0L; // Reset total
 
 	// Process probabilities
-	for (i = 0; i < alloc_race_size; i++)
+	for (i = 0; i < alloc_species_size; i++)
 	{
 		if (table[i].level > level) break;			// Creatures are sorted by depth
 		table[i].prob3 = 0;							// Default
@@ -1730,7 +1730,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 	value = randint0(total); // Pick a creature
 
-	for (i = 0; i < alloc_race_size; i++) // Find the creature
+	for (i = 0; i < alloc_species_size; i++) // Find the creature
 	{
 		if (value < table[i].prob3) break; // Found the entry
 		value = value - table[i].prob3; // Decrement
@@ -1742,7 +1742,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	{
 		j = i; // Save old
 		value = randint0(total); // Pick a creature
-		for (i = 0; i < alloc_race_size; i++) // Find the creature
+		for (i = 0; i < alloc_species_size; i++) // Find the creature
 		{
 			if (value < table[i].prob3) break;	// Found the entry
 			value = value - table[i].prob3;		// Decrement
@@ -1756,7 +1756,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 	{
 		j = i; // Save old
 		value = randint0(total); // Pick a creature
-		for (i = 0; i < alloc_race_size; i++) // Find the creature
+		for (i = 0; i < alloc_species_size; i++) // Find the creature
 		{
 			if (value < table[i].prob3) break; // Found the entry
 			value = value - table[i].prob3; // Decrement

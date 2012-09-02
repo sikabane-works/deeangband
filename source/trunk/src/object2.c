@@ -540,15 +540,9 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 
 	if (level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
 
-	// Boost level
-	if ((level > 0) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER))
+	if ((level > 0) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_BEGINNER)) // Boost level
 	{
-		// Occasional "boost"
-		if (one_in_(GREAT_OBJ))
-		{
-			/* What a bizarre calculation */
-			level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH));
-		}
+		if (one_in_(GREAT_OBJ)) level = 1 + (level * MAX_DEPTH / randint1(MAX_DEPTH)); // Occasional "boost"
 	}
 
 	/* Reset total */
@@ -602,7 +596,6 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		/* Decrement */
 		value = value - table[i].prob3;
 	}
-
 
 	/* Power boost */
 	p = randint0(100);

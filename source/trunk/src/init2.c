@@ -1616,8 +1616,7 @@ static errr init_object_alloc(void)
 		}
 	}
 
-	/* Success */
-	return (0);
+	return (0); // Success
 }
 
 
@@ -1647,11 +1646,11 @@ static errr init_alloc(void)
 
 	/*** Initialize creature allocation info ***/
 
-	/* Size of "alloc_race_table" */
-	alloc_race_size = max_species_idx;
+	/* Size of "alloc_species_table" */
+	alloc_species_size = max_species_idx;
 
-	/* Allocate the alloc_race_table */
-	C_MAKE(alloc_race_table, alloc_race_size, alloc_entry);
+	/* Allocate the alloc_species_table */
+	C_MAKE(alloc_species_table, alloc_species_size, alloc_entry);
 
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
@@ -1671,11 +1670,11 @@ static errr init_alloc(void)
 			p = (100 / r_ptr->rarity);
 
 			/* Load the entry */
-			alloc_race_table[i].index = (int)elements[i].pointer;
-			alloc_race_table[i].level = x;
-			alloc_race_table[i].prob1 = p;
-			alloc_race_table[i].prob2 = p;
-			alloc_race_table[i].prob3 = p;
+			alloc_species_table[i].index = (int)elements[i].pointer;
+			alloc_species_table[i].level = x;
+			alloc_species_table[i].prob1 = p;
+			alloc_species_table[i].prob2 = p;
+			alloc_species_table[i].prob3 = p;
 		}
 	}
 
@@ -1697,8 +1696,8 @@ static errr init_alloc(void)
 	/* Clear the "num" array */
 	C_WIPE(&num, MAX_DEPTH, s16b);
 
-	/* Size of "alloc_race_table" */
-	alloc_race_size = 0;
+	/* Size of "alloc_species_table" */
+	alloc_species_size = 0;
 
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
@@ -1710,7 +1709,7 @@ static errr init_alloc(void)
 		if (r_ptr->rarity)
 		{
 			/* Count the entries */
-			alloc_race_size++;
+			alloc_species_size++;
 
 			/* Group by level */
 			num[r_ptr->level]++;
@@ -1735,11 +1734,11 @@ static errr init_alloc(void)
 
 	/*** Initialize creature allocation info ***/
 
-	/* Allocate the alloc_race_table */
-	C_MAKE(alloc_race_table, alloc_race_size, alloc_entry);
+	/* Allocate the alloc_species_table */
+	C_MAKE(alloc_species_table, alloc_species_size, alloc_entry);
 
 	/* Access the table entry */
-	table = alloc_race_table;
+	table = alloc_species_table;
 
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
