@@ -2263,47 +2263,6 @@ int lore_do_probe(int species_idx)
 	if (r_ptr->r_cast_spell != MAX_UCHAR) n++;
 	r_ptr->r_cast_spell = MAX_UCHAR;
 
-	/* Count unknown flags */
-	/*
-	for (i = 0; i < 32; i++)
-	{
-		if (!(r_ptr->r_flags1 & (1L << i)) &&
-		    (r_ptr->flags1 & (1L << i))) n++;
-		if (!(r_ptr->r_flags2 & (1L << i)) &&
-		    (r_ptr->flags2 & (1L << i))) n++;
-		if (!(r_ptr->r_flags3 & (1L << i)) &&
-		    (r_ptr->flags3 & (1L << i))) n++;
-		if (!(r_ptr->r_flags4 & (1L << i)) &&
-		    (r_ptr->flags4 & (1L << i))) n++;
-		if (!(r_ptr->r_flags5 & (1L << i)) &&
-		    (r_ptr->flags5 & (1L << i))) n++;
-		if (!(r_ptr->r_flags6 & (1L << i)) &&
-		    (r_ptr->flags6 & (1L << i))) n++;
-		if (!(r_ptr->r_flags10 & (1L << i)) &&
-		    (r_ptr->flags10 & (1L << i))) n++;
-
-#if 0
-		if (!(r_ptr->r_flags7 & (1L << i)) &&
-		    (r_ptr->flags7 & (1L << i))) n++;
-#endif
-	}
-	*/
-
-
-	/* Know all the flags */
-/*
-	r_ptr->r_flags1 = r_ptr->flags1;
-	r_ptr->r_flags2 = r_ptr->flags2;
-	r_ptr->r_flags3 = r_ptr->flags3;
-	r_ptr->r_flags4 = r_ptr->flags4;
-	r_ptr->r_flags5 = r_ptr->flags5;
-	r_ptr->r_flags6 = r_ptr->flags6;
-	r_ptr->r_flags10 = r_ptr->flags10;
-*/
-
-	/* r_flags7 is actually unused */
-	/* r_ptr->r_flags7 = r_ptr->flags7; */
-
 	/* Know about evolution */
 	if (!(r_ptr->r_xtra1 & MR1_SINKA)) n++;
 	r_ptr->r_xtra1 |= MR1_SINKA;

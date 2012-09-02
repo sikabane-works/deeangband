@@ -4938,10 +4938,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	char c;
 
-#if 0
-	char p1 = '(';
-#endif
-
 	char p2 = ')';
 	char b1 = '[';
 	char b2 = ']';

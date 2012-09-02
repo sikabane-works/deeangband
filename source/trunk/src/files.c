@@ -6575,75 +6575,6 @@ static void center_string(char *buf, cptr str)
 	(void)sprintf(buf, "%*s%s%*s", j, "", str, GRAVE_LINE_WIDTH - i - j, "");
 }
 
-
-#if 0
-/*
- * Save a "bones" file for a dead character
- *
- * Note that we will not use these files until Angband 2.8.0, and
- * then we will only use the name and level on which death occured.
- *
- * Should probably attempt some form of locking...
- */
-static void make_bones(creature_type *body_ptr)
-{
-	FILE                *fp;
-
-	char                str[1024];
-
-
-	/* Ignore wizards and borgs */
-	if (!(noscore & 0x00FF))
-	{
-		/* Ignore people who die in town */
-		if (current_floor_ptr->floor_level)
-		{
-			char tmp[128];
-
-			/* XXX XXX XXX "Bones" name */
-			sprintf(tmp, "bone.%03d", current_floor_ptr->floor_level);
-
-			/* Build the filename */
-			path_build(str, sizeof(str), ANGBAND_DIR_BONE, tmp);
-
-			/* Attempt to open the bones file */
-			fp = my_fopen(str, "r");
-
-			/* Close it right away */
-			if (fp) my_fclose(fp);
-
-			/* Do not over-write a previous ghost */
-			if (fp) return;
-
-			/* File type is "TEXT" */
-			FILE_TYPE(FILE_TYPE_TEXT);
-
-			/* Grab permissions */
-			safe_setuid_grab();
-
-			/* Try to write a new "Bones File" */
-			fp = my_fopen(str, "w");
-
-			/* Drop permissions */
-			safe_setuid_drop();
-
-			/* Not allowed to write it?  Weird. */
-			if (!fp) return;
-
-			/* Save the info */
-			fprintf(fp, "%s\n", body_ptr->name);
-			fprintf(fp, "%d\n", body_ptr->mhp);
-			fprintf(fp, "%d\n", body_ptr->race_idx1);
-			fprintf(fp, "%d\n", body_ptr->class_idx);
-
-			/* Close and save the Bones file */
-			my_fclose(fp);
-		}
-	}
-}
-#endif
-
-
 /*
  * Redefinable "print_tombstone" action
  */
@@ -7267,10 +7198,6 @@ if (!save_player()) msg_print("セーブ失敗！");
 		{
 			display_scores_aux(0, 10, -1, NULL);
 		}
-#if 0
-		/* Dump bones file */
-		make_bones(player_ptr);
-#endif
 	}
 
 	/* Still alive */

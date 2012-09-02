@@ -2609,18 +2609,6 @@ void update_lite(creature_type *creature_ptr)
 
 	/*** Special case ***/
 
-#if 0
-	/* Hack -- Player has no lite */
-	if (p <= 0)
-	{
-		/* Forget the old lite */
-		/* forget_lite(); Perhaps don't need? */
-
-		/* Add it to later visual update */
-		cave_redraw_later(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx], creature_ptr->fy, creature_ptr->fx);
-	}
-#endif
-
 	/*** Save the old "lite" grids for later ***/
 
 	/* Clear them all */

@@ -2179,22 +2179,6 @@ static bool kankin(creature_type *creature_ptr)
 #endif
 				if (!get_check(buf)) continue;
 
-#if 0 /* Obsoleted */
-#ifdef JP
-				msg_format("Ü‹à %ld‚ğè‚É“ü‚ê‚½B", (species_info[kubi_species_idx[j]].level + 1) * 300 * object_ptr->number);
-#else
-				msg_format("You get %ldgp.", (species_info[kubi_species_idx[j]].level + 1) * 300 * object_ptr->number);
-#endif
-				creature_ptr->au += (species_info[kubi_species_idx[j]].level+1) * 300 * object_ptr->number;
-				play_redraw |= (PR_GOLD);
-				inven_item_increase(i, -object_ptr->number);
-				inven_item_describe(creature_ptr, i);
-				inven_item_optimize(creature_ptr, i);
-				kubi_species_idx[j] += 10000;
-
-				change = TRUE;
-#endif /* Obsoleted */
-
 				/* Hand it first */
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
 				inven_item_describe(creature_ptr, i);

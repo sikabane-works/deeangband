@@ -5749,47 +5749,6 @@ static int collect_features(int grp_cur, int *feat_idx, byte mode)
 }
 
 
-#if 0
-/*
- * Build a list of creature indexes in the given group. Return the number
- * of creatures in the group.
- */
-static int collect_artifacts(int grp_cur, int object_idx[])
-{
-	int i, object_cnt = 0;
-
-	/* Get a list of x_char in this group */
-	byte group_tval = object_group_tval[grp_cur];
-
-	/* Check every object */
-	for (i = 0; i < max_artifact_idx; i++)
-	{
-		/* Access the artifact */
-		artifact_type *a_ptr = &artifact_info[i];
-
-		/* Skip empty artifacts */
-		if (!a_ptr->name) continue;
-
-		/* Skip "uncreated" artifacts */
-		if (!a_ptr->cur_num) continue;
-
-		/* Check for race in the group */
-		if (a_ptr->tval == group_tval)
-		{
-			/* Add the race */
-			object_idx[object_cnt++] = i;
-		}
-	}
-
-	/* Terminate the list */
-	object_idx[object_cnt] = 0;
-
-	/* Return the number of races */
-	return object_cnt;
-}
-#endif /* 0 */
-
-
 /*
  * Encode the screen colors
  */

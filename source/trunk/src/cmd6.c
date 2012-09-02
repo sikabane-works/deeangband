@@ -534,19 +534,6 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚Ý–ž‚½‚³‚ê‚éI");
 	}
 	else if (has_trait(creature_ptr, TRAIT_SKELETON))
 	{
-#if 0
-		if (object_ptr->tval == TV_SKELETON ||
-		    (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_SKELETON))
-		{
-#ifdef JP
-			msg_print("‚ ‚È‚½‚Íœ‚ÅŽ©•ª‚Ì‘Ì‚ð•â‚Á‚½B");
-#else
-			msg_print("Your body absorbs the bone.");
-#endif
-			set_food(creature_ptr, creature_ptr->food + 5000);
-		}
-		else 
-#endif
 
 		if (!((object_ptr->sval == SV_FOOD_WAYBREAD) ||
 		      (object_ptr->sval < SV_FOOD_BISCUIT)))
@@ -622,16 +609,6 @@ msg_print("¶ŽÒ‚ÌH•¨‚Í‚ ‚È‚½‚É‚Æ‚Á‚Ä‚Ù‚Æ‚ñ‚Ç‰h—{‚É‚È‚ç‚È‚¢B");
 static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if (object_ptr->tval==TV_FOOD) return TRUE;
-
-#if 0
-	if (IS_RACE(creature_ptr, RACE_SKELETON))
-	{
-		if (object_ptr->tval == TV_SKELETON ||
-		    (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_SKELETON))
-			return TRUE;
-	}
-	else 
-#endif
 
 	if (has_trait(creature_ptr, TRAIT_UNDEAD))
 	{

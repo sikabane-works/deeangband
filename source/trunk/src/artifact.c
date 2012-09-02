@@ -1774,13 +1774,6 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	if (has_pval)
 	{
-#if 0
-		add_flag(object_ptr->art_flags, TR_SHOW_MODS);
-
-		/* This one commented out by gw's request... */
-		if (!a_scroll)
-			add_flag(object_ptr->art_flags, TR_HIDE_TYPE);
-#endif
 
 		if (have_flag(object_ptr->art_flags, TR_BLOWS))
 		{
