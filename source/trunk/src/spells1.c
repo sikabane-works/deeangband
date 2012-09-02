@@ -2060,7 +2060,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			//if (caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
 
 			/* Generate treasure, etc */
-			creature_death(player_ptr, target_ptr, FALSE);
+			creature_dead_effect(player_ptr, target_ptr, FALSE);
 
 			/* Delete the creature */
 			delete_species_idx(target_ptr);

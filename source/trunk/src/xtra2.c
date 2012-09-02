@@ -741,13 +741,13 @@ static void special_drop(floor_type *floor_ptr, creature_type *creature_ptr, int
  *
  * Check for "Quest" completion when a quest creature is killed.
  *
- * Note that only the player can induce "creature_death()" on Uniques.
+ * Note that only the player can induce "creature_dead_effect()" on Uniques.
  * Thus (for now) all Quest creatures should be Uniques.
  *
  * Note that creatures can now carry objects, and when a creature dies,
  * it drops all of its objects, which may disappear in crowded rooms.
  */
-void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
+void creature_dead_effect(creature_type *slayer_ptr, creature_type *killed_ptr, bool drop_item)
 {
 	int i, j, y, x;
 	floor_type *floor_ptr = GET_FLOOR_PTR(killed_ptr);
@@ -904,21 +904,11 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		else if (has_trait(killed_ptr, TRAIT_DROP_CORPSE))
 		{
 			/* Lots of damage in one blow */
-			if ((0 - ((killed_ptr->mhp) / 4)) > killed_ptr->chp)
-			{
-				if (one_in_(5)) corpse = TRUE;
-			}
-			else
-			{
-				if (!one_in_(5)) corpse = TRUE;
-			}
+			if ((0 - ((killed_ptr->mhp) / 4)) > killed_ptr->chp) if (one_in_(5)) corpse = TRUE;
+			else if (!one_in_(5)) corpse = TRUE;
 		}
 
-		quest_ptr = &forge;
-		object_prep(quest_ptr, lookup_kind(TV_CORPSE, (corpse ? SV_CORPSE : SV_SKELETON)), ITEM_FREE_SIZE);
-		apply_magic(killed_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
-		quest_ptr->pval = killed_ptr->species_idx;
-		(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+		special_drop(floor_ptr, killed_ptr, TV_CORPSE, corpse ? SV_CORPSE : SV_SKELETON, 0);
 	}
 
 	/* Drop objects being carried */
@@ -955,23 +945,6 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 #else
 				msg_print("The Pink horror divides!");
 #endif
-		}
-		break;
-
-	case SPECIES_BLOODLETTER:
-		/* Bloodletters of Khorne may drop a blade of chaos */
-		if (drop_chosen_item && (randint1(100) < 15))
-		{
-			/* Get local object */
-			quest_ptr = &forge;
-
-			/* Prepare to make a Blade of Chaos */
-			object_prep(quest_ptr, lookup_kind(TV_SWORD, SV_BLADE_OF_CHAOS), ITEM_FREE_SIZE);
-
-			apply_magic(killed_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | mo_mode, 0);
-
-			/* Drop it in the dungeon */
-			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
 		}
 		break;
 
@@ -1092,40 +1065,24 @@ void creature_death(creature_type *slayer_ptr, creature_type *killed_ptr, bool d
 		break;
 
 	case SPECIES_SERPENT:
-		if (!drop_chosen_item) break;
-
-		quest_ptr = &forge;	// Get local object
-		object_prep(quest_ptr, lookup_kind(TV_HAFTED, SV_GROND), ITEM_FREE_SIZE);	// Mega-Hack -- Prepare to make "Grond"
-		quest_ptr->name1 = ART_GROND;	// Mega-Hack -- Mark this item as "Grond"
-		apply_magic(slayer_ptr, quest_ptr, -1, AM_GOOD | AM_GREAT, 0);	// Mega-Hack -- Actually create "Grond"
-		(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
-		
-		quest_ptr = &forge;	// Get local object
-		object_prep(quest_ptr, lookup_kind(TV_CROWN, SV_CHAOS), ITEM_FREE_SIZE);	// Mega-Hack -- Prepare to make "Chaos"
-		quest_ptr->name1 = ART_CHAOS;	// Mega-Hack -- Mark this item as "Chaos"
-		apply_magic(killed_ptr, quest_ptr, -1, AM_GOOD | AM_GREAT, 0);	// Mega-Hack -- Actually create "Chaos"
-		(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
+		if (drop_chosen_item){
+			special_drop(floor_ptr, killed_ptr, TV_CROWN, SV_CHAOS, ART_CHAOS);
+		}
 
 		break;
 
 	case SPECIES_B_DEATH_SWORD:
 		if (drop_chosen_item)
 		{
-			quest_ptr = &forge;	// Get local object
-			object_prep(quest_ptr, lookup_kind(TV_SWORD, randint1(2)), ITEM_FREE_SIZE);	// Prepare to make a broken sword
-			(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
+			special_drop(floor_ptr, killed_ptr, TV_SWORD, randint1(2), 0);
 		}
 		break;
 
 	case SPECIES_A_GOLD:
 	case SPECIES_A_SILVER:
-		if (drop_chosen_item && ((killed_ptr->species_idx == SPECIES_A_GOLD) ||
-		     ((killed_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+		if (drop_chosen_item && ((killed_ptr->species_idx == SPECIES_A_GOLD) || ((killed_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
 		{
-			quest_ptr = &forge;	// Get local object
-			object_prep(quest_ptr, lookup_kind(TV_CHEST, SV_CHEST_KANDUME), ITEM_FREE_SIZE); // Prepare to make a Can of Toys
-			apply_magic(killed_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART, 0);
-			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
+			special_drop(floor_ptr, killed_ptr, TV_CHEST, SV_CHEST_KANDUME, 0);
 		}
 		break;
 

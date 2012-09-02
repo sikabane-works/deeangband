@@ -1428,7 +1428,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 		}
 
 		// Generate treasure, etc
-		creature_death(player_ptr, creature_ptr, FALSE);
+		creature_dead_effect(player_ptr, creature_ptr, FALSE);
 
 		// Delete the creature
 		delete_species_idx(creature_ptr);

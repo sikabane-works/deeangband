@@ -6337,7 +6337,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 	
 			/* Generate treasure */
-			creature_death(attacker_ptr, target_ptr, TRUE);
+			creature_dead_effect(attacker_ptr, target_ptr, TRUE);
 	
 			/* Mega hack : replace IKETA to BIKETAL */
 			if ((target_ptr->species_idx == SPECIES_IKETA) &&
