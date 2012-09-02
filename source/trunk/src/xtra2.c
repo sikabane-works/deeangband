@@ -297,60 +297,6 @@ static int get_coin_type(int species_idx)
 
 
 /*
- * Hack -- determine if a template is Cloak
- */
-static bool kind_is_cloak(int k_idx)
-{
-	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if (k_ptr->tval == TV_CLOAK)
-	{
-		return (TRUE);
-	}
-
-	/* Assume not good */
-	return (FALSE);
-}
-
-
-/*
- * Hack -- determine if a template is Polearm
- */
-static bool kind_is_polearm(int k_idx)
-{
-	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if (k_ptr->tval == TV_POLEARM)
-	{
-		return (TRUE);
-	}
-
-	/* Assume not good */
-	return (FALSE);
-}
-
-
-/*
- * Hack -- determine if a template is Sword
- */
-static bool kind_is_sword(int k_idx)
-{
-	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if ((k_ptr->tval == TV_SWORD) && (k_ptr->sval > 2))
-	{
-		return (TRUE);
-	}
-
-	/* Assume not good */
-	return (FALSE);
-}
-
-
-/*
  * Hack -- determine if a template is Book
  */
 static bool kind_is_book(int k_idx)
@@ -383,43 +329,6 @@ static bool kind_is_good_book(int k_idx)
 	/* Assume not good */
 	return (FALSE);
 }
-
-
-/*
- * Hack -- determine if a template is Armor
- */
-static bool kind_is_armor(int k_idx)
-{
-	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if (k_ptr->tval == TV_HARD_ARMOR)
-	{
-		return (TRUE);
-	}
-
-	/* Assume not good */
-	return (FALSE);
-}
-
-
-/*
- * Hack -- determine if a template is hafted weapon
- */
-static bool kind_is_hafted(int k_idx)
-{
-	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if (k_ptr->tval == TV_HAFTED)
-	{
-		return (TRUE);
-	}
-
-	/* Assume not good */
-	return (FALSE);
-}
-
 
 // Check for "Quest" completion when a quest creature is killed or charmed.
 void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
@@ -1068,52 +977,35 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		case '(':
 			if (floor_ptr->floor_level > 0)
 			{
-				quest_ptr = &forge;	// Get local object
-				object_wipe(quest_ptr);	// Wipe the object
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_cloak);	// Make a cloak
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
+				specified_drop(floor_ptr, dead_ptr, TV_CLOAK, SV_ANY);
 			}
 			break;
 
 		case '/':
 			if (floor_ptr->floor_level > 4)
 			{
-				quest_ptr = &forge;	// Get local object
-				object_wipe(quest_ptr);	// Wipe the object
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_polearm);	// Make a poleweapon
-
-				/* Drop it in the dungeon */
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+				specified_drop(floor_ptr, dead_ptr, TV_POLEARM, SV_ANY);
 			}
 			break;
 
 		case '[':
 			if (floor_ptr->floor_level > 19)
 			{
-				quest_ptr = &forge; // Get local object	
-				object_wipe(quest_ptr); // Wipe the object
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_armor); // Make a hard armor
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
+				specified_drop(floor_ptr, dead_ptr, TV_HARD_ARMOR, SV_ANY);
 			}
 			break;
 
 		case '\\':
 			if (floor_ptr->floor_level > 4)
 			{
-				quest_ptr = &forge; // Get local object
-				object_wipe(quest_ptr); // Wipe the object
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_hafted); // Make a hafted weapon
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
+				specified_drop(floor_ptr, dead_ptr, TV_HAFTED, SV_ANY);
 			}
 			break;
 
 		case '|':
 			if (dead_ptr->species_idx != SPECIES_STORMBRINGER)
 			{
-				quest_ptr = &forge;
-				object_wipe(quest_ptr);
-				make_object(quest_ptr, mo_mode, 0, floor_ptr->object_level, kind_is_sword); // Make a sword
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+				specified_drop(floor_ptr, dead_ptr, TV_SWORD, SV_ANY);
 			}
 			break;
 		}
