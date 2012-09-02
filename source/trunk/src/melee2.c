@@ -2721,9 +2721,9 @@ void process_creatures(void)
 		species_ptr = &species_info[species_window_idx];
 
 		/* Memorize flags */
-		old_r_flags1 = species_ptr->r_flags1;
-		old_r_flags2 = species_ptr->r_flags2;
-		old_r_flags3 = species_ptr->r_flags3;
+		//old_r_flags1 = species_ptr->r_flags1;
+		//old_r_flags2 = species_ptr->r_flags2;
+		//old_r_flags3 = species_ptr->r_flags3;
 		old_r_flags4 = species_ptr->r_flags4;
 		old_r_flags5 = species_ptr->r_flags5;
 		old_r_flags6 = species_ptr->r_flags6;
@@ -2757,9 +2757,9 @@ void process_creatures(void)
 		species_ptr = &species_info[species_window_idx];
 
 		/* Check for knowledge change */
-		if ((old_r_flags1 != species_ptr->r_flags1) ||
-			(old_r_flags2 != species_ptr->r_flags2) ||
-			(old_r_flags3 != species_ptr->r_flags3) ||
+		if (
+			//(old_r_flags2 != species_ptr->r_flags2) ||
+			//(old_r_flags3 != species_ptr->r_flags3) ||
 			(old_r_flags4 != species_ptr->r_flags4) ||
 			(old_r_flags5 != species_ptr->r_flags5) ||
 			(old_r_flags6 != species_ptr->r_flags6) ||

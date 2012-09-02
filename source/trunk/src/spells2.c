@@ -1935,7 +1935,7 @@ cptr desc_creatures = "変なクリーチャー";
 			if (is_original_ap(m_ptr))
 			{
 				/* Take note that they are something */
-				r_ptr->r_flags3 |= (match_flag);
+				//TODO r_ptr->r_flags3 |= (match_flag);
 
 				/* Update creature recall window */
 				if (species_window_idx == m_ptr->species_idx)
