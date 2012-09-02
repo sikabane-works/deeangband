@@ -1578,11 +1578,12 @@ extern bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_superstealth(creature_type *creature_ptr, bool set);
 
-/* xtra2.c */
+// xtra2.c
 extern void set_experience(creature_type *creature_ptr);
 extern void check_experience(creature_type *creature_ptr);
 extern void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr);
 extern cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr);
+extern void special_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv, int artifact);
 extern void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item);
 extern void get_screen_size(int *wid_p, int *hgt_p);
 extern void panel_bounds_center(void);

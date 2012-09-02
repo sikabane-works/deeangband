@@ -367,7 +367,6 @@ static bool kind_is_book(int k_idx)
 	return (FALSE);
 }
 
-
 /*
  * Hack -- determine if a template is Good book
  */
@@ -631,11 +630,8 @@ msg_print("クエストを達成した！");
 		/* Stagger around */
 		while (cave_perma_bold(floor_ptr, y, x) || floor_ptr->cave[y][x].object_idx || (floor_ptr->cave[y][x].info & CAVE_OBJECT) )
 		{
-			/* Pick a location */
-			scatter(floor_ptr, &ny, &nx, y, x, 1, 0);
-
-			/* Stagger */
-			y = ny; x = nx;
+			scatter(floor_ptr, &ny, &nx, y, x, 1, 0); // Pick a location
+			y = ny; x = nx;	// Stagger
 		}
 
 		/* Explain the staircase */
@@ -645,36 +641,20 @@ msg_print("魔法の階段が現れた...");
 		msg_print("A magical staircase appears...");
 #endif
 
-
-		/* Create stairs down */
-		cave_set_feat(floor_ptr, y, x, feat_down_stair);
-
-		/* Remember to update everything */
-		update |= (PU_FLOW);
+		cave_set_feat(floor_ptr, y, x, feat_down_stair); // Create stairs down
+		update |= (PU_FLOW); // Remember to update everything
 	}
 
-	/*
-	 * Drop quest reward
-	 */
-	if (reward)
+	if (reward)	// Drop quest reward
 	{
-		for (j = 0; j < (floor_ptr->floor_level / 15)+1; j++)
+		for (j = 0; j < (floor_ptr->floor_level / 15) + 1; j++)
 		{
-			/* Get local object */
-			quest_ptr = &forge;
-
-			/* Wipe the object */
-			object_wipe(quest_ptr);
-
-			/* Make a great object */
-			make_object(quest_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level);
-
-			/* Drop it in the dungeon */
-			(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+			quest_ptr = &forge;	// Get local object
+			object_wipe(quest_ptr);	// Wipe the object
+			make_object(quest_ptr, AM_GOOD | AM_GREAT, 0, floor_ptr->object_level);	// Make a great object
+			(void)drop_near(floor_ptr, quest_ptr, -1, y, x); // Drop it in the dungeon
 		}
 	}
-
-
 
 }
 
@@ -722,8 +702,7 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 #endif
 }
 
-
-static void special_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv, int artifact)
+void special_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, int sv, int artifact)
 {
 	object_type forge;
 	object_prep(&forge, lookup_kind(tv, sv), ITEM_FREE_SIZE);
