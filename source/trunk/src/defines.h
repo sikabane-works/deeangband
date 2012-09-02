@@ -2532,6 +2532,7 @@
 #define TRG_RANDOM_CURSE1       0x00004000L     /* Item is Random Cursed */
 #define TRG_RANDOM_CURSE2       0x00008000L     /* Item is Random Cursed */
 #define TRG_NO_LIMIT_LITE       0x00010000L     /* Item is no limit light */
+#define TRG_NO_CHEST            0x00010000L     /* No generate chest */
 
 
 #define MAX_CURSE 17

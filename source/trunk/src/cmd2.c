@@ -472,9 +472,6 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	/* Zero pval means empty chest */
 	if (!object_ptr->pval) number = 0;
 
-	/* Opening a chest */
-	opening_chest = TRUE;
-
 	/* Drop some objects (non-chests) */
 	for (; number > 0; --number)
 	{
@@ -486,7 +483,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 
 		// Small chests often drop gold
 		if (small && (randint0(100) < 25)) if (!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
-		else if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL)) continue; // Make object
+		else if (!make_object(quest_ptr, mode, TRG_NO_CHEST, floor_ptr->object_level, NULL)) continue; // Make object
 
 		/* If chest scatters its contents, pick any floor square. */
 		if (scatter)
@@ -501,8 +498,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 				/* Must be an empty floor. */
 				if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
-				
-				drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
+					drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
 				break;
 			}
 		}
@@ -510,7 +506,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	}
 
 	floor_ptr->object_level = floor_ptr->base_level; // Reset the object level 
-	opening_chest = FALSE; // No longer opening a chest
+
 	object_ptr->pval = 0; // Empty
 	object_known(object_ptr); // Known
 }

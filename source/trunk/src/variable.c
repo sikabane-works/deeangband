@@ -121,8 +121,6 @@ bool inkey_scan;		/* See the "inkey()" function */
 bool inkey_flag;		/* See the "inkey()" function */
 bool get_com_no_macros = FALSE;	/* Expand macros in "get_com" or not */
 
-bool opening_chest;		/* Hack -- prevent chest generation */
-
 bool shimmer_creatures;	/* Hack -- optimize multi-hued creatures */
 bool shimmer_objects;	/* Hack -- optimize multi-hued objects */
 

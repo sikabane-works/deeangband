@@ -635,15 +635,11 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 				continue;
 		}
 
-
 		/* Hack -- prevent embedded chests */
-		if (opening_chest && (k_ptr->tval == TV_CHEST)) continue;
+		if ((flag & TRG_NO_CHEST) && (k_ptr->tval == TV_CHEST)) continue;
 
-		/* Accept */
-		table[i].prob3 = table[i].prob2;
-
-		/* Total */
-		total += table[i].prob3;
+		table[i].prob3 = table[i].prob2; // Accept
+		total += table[i].prob3; // Total
 	}
 
 	/* No legal objects */
