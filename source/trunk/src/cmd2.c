@@ -484,18 +484,9 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		/* Wipe the object */
 		object_wipe(quest_ptr);
 
-		/* Small chests often drop gold */
-		if (small && (randint0(100) < 25))
-		{
-			if (!make_gold(floor_ptr, quest_ptr, 0)) continue; // Make some gold
-		}
-
-		/* Otherwise drop an item */
-		else
-		{
-			/* Make a good object */
-			if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL)) continue;
-		}
+		// Small chests often drop gold
+		if (small && (randint0(100) < 25)) if (!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
+		else if (!make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL)) continue; // Make object
 
 		/* If chest scatters its contents, pick any floor square. */
 		if (scatter)
@@ -503,17 +494,15 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 			int i;
 			for (i = 0; i < 200; i++)
 			{
-				/* Pick a totally random spot. */
+				// Pick a totally random spot.
 				y = randint0(MAX_HGT);
 				x = randint0(MAX_WID);
 
 				/* Must be an empty floor. */
 				if (!cave_empty_bold(floor_ptr, y, x)) continue;
 
-				/* Place the object there. */
-				drop_near(floor_ptr, quest_ptr, -1, y, x);
-
-				/* Done. */
+				
+				drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
 				break;
 			}
 		}

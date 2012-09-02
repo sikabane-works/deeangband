@@ -3884,19 +3884,14 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 
 // Make a treasure object
 // The location must be a legal, clean, floor grid.
-bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value)
+bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int coin_type)
 {
 	int i;
 	s32b base;
 
-	/* Hack -- Pick a Treasure variety */
+	// Hack -- Pick a Treasure variety
 	i = ((randint1(floor_ptr->object_level + 2) + 2) / 2) - 1;
-
-	/* Apply "extra" magic */
-	if (one_in_(GREAT_OBJ))
-	{
-		i += randint1(floor_ptr->object_level + 1);
-	}
+	if (one_in_(GREAT_OBJ)) i += randint1(floor_ptr->object_level + 1);
 
 	/* Hack -- Creeping Coins only generate "themselves" */
 	if (coin_type) i = coin_type;
@@ -3955,7 +3950,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 	object_wipe(quest_ptr);
 
 	/* Make some gold */
-	if (!make_gold(floor_ptr, quest_ptr, 0)) return;
+	if (!make_gold(floor_ptr, quest_ptr, 0, 0)) return;
 
 
 	/* Make an object */

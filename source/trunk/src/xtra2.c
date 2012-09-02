@@ -652,7 +652,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	bool do_gold = FALSE; // TODO
 	bool do_item = FALSE; // TODO
 	bool cloned = (dead_ptr->smart & SM_CLONED) ? TRUE : FALSE;
-	int force_coin = get_coin_type(dead_ptr->species_idx);
 
 	object_type forge;
 	object_type *quest_ptr;
@@ -975,44 +974,29 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		switch (r_ptr->d_char)
 		{
 		case '(':
-			if (floor_ptr->floor_level > 0)
-			{
-				specified_drop(floor_ptr, dead_ptr, TV_CLOAK, SV_ANY);
-			}
+			specified_drop(floor_ptr, dead_ptr, TV_CLOAK, SV_ANY);
 			break;
 
 		case '/':
-			if (floor_ptr->floor_level > 4)
-			{
-				specified_drop(floor_ptr, dead_ptr, TV_POLEARM, SV_ANY);
-			}
+			specified_drop(floor_ptr, dead_ptr, TV_POLEARM, SV_ANY);
 			break;
 
 		case '[':
-			if (floor_ptr->floor_level > 19)
-			{
-				specified_drop(floor_ptr, dead_ptr, TV_HARD_ARMOR, SV_ANY);
-			}
+			specified_drop(floor_ptr, dead_ptr, TV_HARD_ARMOR, SV_ANY);
 			break;
 
 		case '\\':
-			if (floor_ptr->floor_level > 4)
-			{
-				specified_drop(floor_ptr, dead_ptr, TV_HAFTED, SV_ANY);
-			}
+			specified_drop(floor_ptr, dead_ptr, TV_HAFTED, SV_ANY);
 			break;
 
 		case '|':
-			if (dead_ptr->species_idx != SPECIES_STORMBRINGER)
-			{
-				specified_drop(floor_ptr, dead_ptr, TV_SWORD, SV_ANY);
-			}
+			if (dead_ptr->species_idx != SPECIES_STORMBRINGER) specified_drop(floor_ptr, dead_ptr, TV_SWORD, SV_ANY);
 			break;
 		}
 		break;
 	}
 
-	/* Mega-Hack -- drop fixed items */
+	// Mega-Hack -- drop fixed items
 	if (drop_chosen_item)
 	{
 		int a_idx = 0;
@@ -1030,33 +1014,26 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 				if (!a_ptr->cur_num)
 				{
-					/* Create the artifact */
+					// Create the artifact
 					if (drop_named_art(dead_ptr, a_idx, y, x))
 					{
 						a_ptr->cur_num = 1;
-
-						/* Hack -- Memorize location of artifact in saved floors */
+						// Hack -- Memorize location of artifact in saved floors
 						if (floor_ptr->generated) a_ptr->floor_id = slayer_ptr->floor_id;
 					}
 					else if (!preserve_mode) a_ptr->cur_num = 1;
 
-					/* Prevent rewarding both artifact and "default" object */
+					// Prevent rewarding both artifact and "default" object
 					if (!dungeon_info[floor_ptr->dun_type].final_object) k_idx = 0;
 				}
 			}
 
 			if (k_idx)
 			{
-				/* Get local object */
-				quest_ptr = &forge;
-
-				/* Prepare to make a reward */
-				object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);
-
+				quest_ptr = &forge;	// Get local object
+				object_prep(quest_ptr, k_idx, ITEM_FREE_SIZE);	// Prepare to make a reward
 				apply_magic(dead_ptr, quest_ptr, floor_ptr->object_level, AM_NO_FIXED_ART | AM_GOOD, 0);
-
-				/* Drop it in the dungeon */
-				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);
+				(void)drop_near(floor_ptr, quest_ptr, -1, y, x);	// Drop it in the dungeon
 			}
 #ifdef JP
 			msg_format("‚ ‚È‚½‚Í%s‚ð§”e‚µ‚½I", dungeon_name + dungeon_info[floor_ptr->dun_type].name);
@@ -1072,9 +1049,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if (is_pet(player_ptr, dead_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
 		number = 0; /* Pets drop no stuff */
 	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
-
-	/* Hack -- handle creeping coins */
-	coin_type = force_coin;
 
 	/* Average dungeon and creature levels */
 	floor_ptr->object_level = (floor_ptr->floor_level + r_ptr->level) / 2;
@@ -1092,7 +1066,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		if (do_gold && (!do_item || (randint0(100) < 50)))
 		{
 			/* Make some gold */
-			if (!make_gold(floor_ptr, quest_ptr, 0)) continue;
+			if (!make_gold(floor_ptr, quest_ptr, 0, get_coin_type(dead_ptr->species_idx))) continue;
 
 			/* XXX XXX XXX */
 			dump_gold++;
@@ -1114,10 +1088,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	/* Reset the object level */
 	floor_ptr->object_level = floor_ptr->base_level;
-
-	/* Reset "coin" type */
-	coin_type = 0;
-
 
 	/* Take note of any dropped treasure */
 	if (visible && (dump_item || dump_gold))

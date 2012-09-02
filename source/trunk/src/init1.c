@@ -6801,9 +6801,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				if (object_ptr->tval == TV_GOLD)
 				{
-					coin_type = object_index - OBJ_GOLD_LIST;
-					make_gold(floor_ptr, object_ptr, letter[idx].special);
-					coin_type = 0;
+					make_gold(floor_ptr, object_ptr, letter[idx].special, object_index - OBJ_GOLD_LIST);
 				}
 
 				/* Apply magic (no messages, no artifacts) */
