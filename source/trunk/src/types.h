@@ -445,11 +445,11 @@ struct species_type
 
 	byte r_blows[MAX_SPECIAL_BLOWS];		/* Number of times each blow type was seen */
 
-	u32b r_flags4;			/* Observed racial flags */
-	u32b r_flags5;			/* Observed racial flags */
-	u32b r_flags6;			/* Observed racial flags */
+	//u32b r_flags4;			/* Observed racial flags */
+	//u32b r_flags5;			/* Observed racial flags */
+	//u32b r_flags6;			/* Observed racial flags */
 	/* u32b r_flags7; */			/* Observed racial flags */
-	u32b r_flags10;			/* Observed racial resistance flags */
+	//u32b r_flags10;			/* Observed racial resistance flags */
 
 	s16b slot_hand;
 	s16b slot_ring;

@@ -2720,15 +2720,6 @@ void process_creatures(void)
 		/* Acquire current creature */
 		species_ptr = &species_info[species_window_idx];
 
-		/* Memorize flags */
-		//old_r_flags1 = species_ptr->r_flags1;
-		//old_r_flags2 = species_ptr->r_flags2;
-		//old_r_flags3 = species_ptr->r_flags3;
-		old_r_flags4 = species_ptr->r_flags4;
-		old_r_flags5 = species_ptr->r_flags5;
-		old_r_flags6 = species_ptr->r_flags6;
-		old_r_flags10 = species_ptr->r_flags10;
-
 		/* Memorize blows */
 		old_r_blows0 = species_ptr->r_blows[0];
 		old_r_blows1 = species_ptr->r_blows[1];
@@ -2758,12 +2749,6 @@ void process_creatures(void)
 
 		/* Check for knowledge change */
 		if (
-			//(old_r_flags2 != species_ptr->r_flags2) ||
-			//(old_r_flags3 != species_ptr->r_flags3) ||
-			(old_r_flags4 != species_ptr->r_flags4) ||
-			(old_r_flags5 != species_ptr->r_flags5) ||
-			(old_r_flags6 != species_ptr->r_flags6) ||
-			(old_r_flags10 != species_ptr->r_flags10) ||
 			(old_r_blows0 != species_ptr->r_blows[0]) ||
 			(old_r_blows1 != species_ptr->r_blows[1]) ||
 			(old_r_blows2 != species_ptr->r_blows[2]) ||

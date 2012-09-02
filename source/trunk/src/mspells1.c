@@ -4351,26 +4351,28 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 	/* Remember what the creature did to us */
 	if (can_remember)
 	{
-		/* Inate spell */
+		/*
+		// Inate spell
 		if (thrown_spell < 32 * 4)
 		{
 			r_ptr->r_flags4 |= (1L << (thrown_spell - 32 * 3));
 			if (r_ptr->r_cast_spell < MAX_UCHAR) r_ptr->r_cast_spell++;
 		}
 
-		/* Bolt or Ball */
+		// Bolt or Ball
 		else if (thrown_spell < 32 * 5)
 		{
 			r_ptr->r_flags5 |= (1L << (thrown_spell - 32 * 4));
 			if (r_ptr->r_cast_spell < MAX_UCHAR) r_ptr->r_cast_spell++;
 		}
 
-		/* Special spell */
+		// Special spell
 		else if (thrown_spell < 32 * 6)
 		{
 			r_ptr->r_flags6 |= (1L << (thrown_spell - 32 * 5));
 			if (r_ptr->r_cast_spell < MAX_UCHAR) r_ptr->r_cast_spell++;
 		}
+		*/
 	}
 
 
