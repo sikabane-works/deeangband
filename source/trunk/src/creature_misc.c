@@ -239,11 +239,17 @@ void set_bodysize(creature_type * creature_ptr)
 void set_hitdice(creature_type * creature_ptr)
 {
 	creature_ptr->hitdice = creature_ptr->size >= 10 ? 5 + creature_ptr->size / 2 : creature_ptr->size;
-	if (creature_ptr->race_idx1 != INDEX_NONE)
+
+	if(creature_ptr->race_idx1 != INDEX_NONE)
+	{
 		creature_ptr->hitdice += race_info[creature_ptr->race_idx1].r_mhp;
-	if (creature_ptr->class_idx == CLASS_SORCERER)
+		if(!IS_PURE(creature_ptr)) creature_ptr->hitdice += race_info[creature_ptr->race_idx2].r_mhp;
+	}
+
+	if(creature_ptr->class_idx == CLASS_SORCERER)
 		creature_ptr->hitdice /= 2;
-	if (creature_ptr->class_idx != INDEX_NONE)
+
+	if(creature_ptr->class_idx != INDEX_NONE)
 		creature_ptr->hitdice += class_info[creature_ptr->class_idx].c_mhp;
 	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
