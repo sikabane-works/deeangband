@@ -128,6 +128,8 @@ struct object_kind
 	s16b to_hit;			/* Bonus to hit */
 	s16b to_damage;			/* Bonus to damage */
 	s16b to_ac;			/* Bonus to armor */
+	s16b to_ev;			/* Bonus to evasion */
+	s16b bow_mul;			/* Bonus to bow_mul */
 
 	s16b ap_rate;		// AP rate
 	s16b ac;			// Base AC
@@ -198,6 +200,7 @@ struct artifact_type
 	s16b to_damage;			// Bonus to damage
 	s16b to_ac;				// Bonus to armor
 	s16b to_ev;				// Bonus to armor
+	s16b bow_mul;			/* Bonus to bow_mul */
 
 	s16b size_lower;		/* Regular body size */
 	s16b size_upper;		/* Regular body size */
@@ -256,6 +259,7 @@ struct ego_item_type
 	byte max_to_damage;		// Maximum to-dam bonus
 	byte max_to_ac;			// Maximum to-ac bonus
 	byte max_to_ev;			// Maximum to-ac bonus
+	s16b bow_mul;			// Bonus to bow_mul
 
 	byte max_pval;		// Maximum pval
 	s16b max_stat[STAT_MAX];		// Maximum stat
@@ -633,6 +637,7 @@ struct object_type
 	s16b to_damage;		// Plusses to damage
 	s16b to_ac;			// Plusses to AC
 	s16b to_ev;			// Plusses to EV
+	s16b bow_mul;		// Bonus to bow_mul
 
 	s16b size_upper;	/* Size Upper */
 	s16b size_lower;    /* Size Lower */

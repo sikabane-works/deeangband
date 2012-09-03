@@ -50,7 +50,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 72
+#define VER_PATCH 73
 
 #define VER_EXTRA 0
 
@@ -3613,6 +3613,7 @@ enum GRAPHICS_MODE
 #define SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17   0x00400000
 #define SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18   0x00800000
 
+#define SAVEFLAG_OBJECT_KIND_BOW_MUL	     0x01000000
 
 /*
  * Flags for wr_creature()/rd_creature()
