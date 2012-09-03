@@ -1995,6 +1995,8 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_PLUS_HIT,
 	OK_INFO_PLUS_DAM,
 	OK_INFO_PLUS_AC,
+	OK_INFO_PLUS_EV,
+	OK_INFO_BOW_MUL,
 	OK_INFO_ADD_DEPTH_RARITY,
 	OK_INFO_FLAGS,
 	OK_INFO_ADD_CREATURE_TRAITS,
@@ -2036,6 +2038,8 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"PLUS_HIT",
 	"PLUS_DAM",
 	"PLUS_AC",
+	"PLUS_EV",
+	"BOW_MUL",
 	"ADD_DEPTH_RARITY",
 	"FLAGS",
 	"ADD_CREATURE_TRAITS",
@@ -2281,6 +2285,12 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->to_ac = (s16b)b;
 				else
 					object_kind_ptr->to_ac = 0;
+				break;
+
+			case OK_INFO_PLUS_EV:
+				break;
+
+			case OK_INFO_BOW_MUL:
 				break;
 
 			case OK_INFO_ADD_DEPTH_RARITY:

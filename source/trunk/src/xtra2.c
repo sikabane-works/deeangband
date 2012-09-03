@@ -5158,16 +5158,13 @@ void display_creature_dump(creature_type *creature_ptr)
 	char c;
 	int m = 0;
 
-	/* Save the screen */
-	screen_save();
+	screen_save();	// Save the screen
 
-	/* Forever */
-	while (1)
+	
+	while (1)	// Forever
 	{
 		update_playtime();
-
-		/* Display the player */
-		display_creature_status(m, creature_ptr);
+		display_creature_status(m, creature_ptr);	// Display the player
 
 		if (m == DISPLAY_CR_STATUS_MAX)
 		{
@@ -5175,41 +5172,22 @@ void display_creature_dump(creature_type *creature_ptr)
 			display_creature_status(m, creature_ptr);
 		}
 
-		/* Prompt */
 #ifdef JP
-		Term_putstr(2, 23, -1, TERM_WHITE,
-			"['h'でモード変更, ESCで終了]");
+		Term_putstr(2, 23, -1, TERM_WHITE, "['h'でモード変更, ESCで終了]");
 #else
-		Term_putstr(2, 23, -1, TERM_WHITE,
-			"['h' to change mode, or ESC]");
+		Term_putstr(2, 23, -1, TERM_WHITE, "['h' to change mode, or ESC]");
 #endif
+		
+		c = inkey();	// Query
 
+		if (c == ESCAPE) break; // Exit
+		else if (c == 'h') m++;	// Toggle mode
+		else bell();
 
-		/* Query */
-		c = inkey();
-
-		/* Exit */
-		if (c == ESCAPE) break;
-
-		/* Toggle mode */
-		else if (c == 'h')
-		{
-			m++;
-		}
-
-		/* Oops */
-		else
-		{
-			bell();
-		}
-
-		/* Flush messages */
 		msg_print(NULL);
 	}
 
-		/* Restore the screen */
-		screen_load();
-
+	screen_load();
 }
 
 void format_weight(char * buf, int weight)
