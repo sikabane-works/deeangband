@@ -1920,7 +1920,6 @@ void init_angband(void)
 	/* Close it */
 	(void)fd_close(fd);
 
-
 	/*** Initialize some arrays ***/
 
 	/* Initialize misc. values */

@@ -334,12 +334,7 @@ void build_streamer(floor_type *floor_ptr, int feat, int chance)
 		{
 			if (cheat_room)
 			{
-#ifdef JP
-msg_print("警告！ストリーマーを配置できません！");
-#else
-				msg_print("Warning! Could not place streamer!");
-#endif
-
+				msg_warning("Could not place streamer!");
 			}
 			return;
 		}

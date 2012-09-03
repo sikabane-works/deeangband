@@ -251,7 +251,7 @@ void set_hitdice(creature_type * creature_ptr)
 	if(creature_ptr->hitdice <= 0) 
 	{
 		creature_ptr->hitdice = 1;
-		msg_format("Warning:: Hitdice is less 1.");
+		msg_warning("Hitdice is less 1.");
 	}
 	return;	
 }
