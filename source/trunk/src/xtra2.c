@@ -5218,7 +5218,7 @@ void format_weight(char * buf, int weight)
 	return;
 }
 
-void msg_warning(cptr *message, ...)
+void msg_warning(cptr message, ...)
 {
 	va_list vp;
 	char buf[1024];

@@ -1936,7 +1936,7 @@ static int choose_realm(s32b choices, bool npc)
 #else
 	strcpy(re[n].cap, "Random");
 #endif
-	re[n].code = -1;
+	re[n].code = BIRTH_SELECT_RANDOM;
 	re[n].key = '*';
 	re[n].d_color = TERM_UMBER;
 	re[n].l_color = TERM_L_UMBER;
@@ -1979,7 +1979,7 @@ static int choose_realm(s32b choices, bool npc)
 		return re[randint0(n-3)].code;
 
 	if (i >= 0) return i;
-	else if (i == -1) return re[randint0(n-3)].code;
+	else if (i == BIRTH_SELECT_RANDOM) return re[randint0(n - 3)].code;
 	else return i;
 
 }
@@ -3108,7 +3108,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 #else
 	strcpy(se[n].cap, "Random");
 #endif
-	se[n].code = -1;
+	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3149,7 +3149,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 		creature_ptr->race_idx1 = i;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		creature_ptr->race_idx1 = se[randint0(n - 3)].code;
 		return 0;
@@ -3204,7 +3204,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 #else
 	strcpy(se[n].cap, "Random");
 #endif
-	se[n].code = -1;
+	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3258,7 +3258,7 @@ static int get_creature_second_race(creature_type *creature_ptr, species_type *s
 		creature_ptr->race_idx2 = i;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		int t = randint0(n-3);
 		creature_ptr->race_idx2 = se[t].code;
@@ -3306,7 +3306,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 #else
 	strcpy(se[n].cap, "Random");
 #endif
-	se[n].code = -1;
+	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3354,7 +3354,7 @@ static bool get_creature_subrace_eldar(creature_type *creature_ptr, bool npc)
 		set_subrace(creature_ptr, i, TRUE);
 		return 0;
 	}
-	if(i == -1)
+	if(i == BIRTH_SELECT_RANDOM)
 	{
 		set_subrace(creature_ptr, se[randint0(3)].code, TRUE);
 		return 0;
@@ -3429,7 +3429,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 #else
 	strcpy(se[n].cap, "Random");
 #endif
-	se[n].code = -1;
+	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3477,7 +3477,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 		set_subrace(creature_ptr, i, TRUE);
 		return 0;
 	}
-	if(i == -1)
+	if(i == BIRTH_SELECT_RANDOM)
 	{
 		set_subrace(creature_ptr, se[randint0(12)].code, TRUE);
 		return 0;
@@ -3532,7 +3532,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 #else
 	strcpy(se[n].cap, "Random");
 #endif
-	se[n].code = -1;
+	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -3579,7 +3579,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		creature_ptr->sex = i;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		creature_ptr->sex = se[randint0(4)].code;
 		return 0;
@@ -3642,7 +3642,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 #else
 	strcpy(ce[n].cap, "Random");
 #endif
-	ce[n].code = -1;
+	ce[n].code = BIRTH_SELECT_RANDOM;
 	ce[n].key = '*';
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
@@ -3685,7 +3685,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 		creature_ptr->class_idx = i;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		creature_ptr->class_idx = ce[randint0(n - 3)].code;
 		return 0;
@@ -3752,7 +3752,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 #else
 	strcpy(pt[n].cap, "Random");
 #endif
-	pt[n].code = -1;
+	pt[n].code = BIRTH_SELECT_RANDOM;
 	pt[n].key = '*';
 	pt[n].d_color = TERM_UMBER;
 	pt[n].l_color = TERM_L_UMBER;
@@ -3799,7 +3799,7 @@ static bool get_creature_patron(creature_type *creature_ptr, species_type *speci
 		creature_ptr->patron_idx = i;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		creature_ptr->patron_idx = pt[randint0(n - 3)].code;
 		return 0;
@@ -3867,7 +3867,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 #else
 	strcpy(ce[n].cap, "Random");
 #endif
-	ce[n].code = -1;
+	ce[n].code = BIRTH_SELECT_RANDOM;
 	ce[n].key = '*';
 	ce[n].d_color = TERM_UMBER;
 	ce[n].l_color = TERM_L_UMBER;
@@ -3909,7 +3909,7 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		creature_ptr->chara_idx = i;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		creature_ptr->chara_idx = uneven_rand(id, weight, n - 3);
 		return 0;
@@ -3953,7 +3953,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 #else
 	strcpy(se[n].cap, "Random");
 #endif
-	se[n].code = -1;
+	se[n].code = BIRTH_SELECT_RANDOM;
 	se[n].key = '*';
 	se[n].d_color = TERM_UMBER;
 	se[n].l_color = TERM_L_UMBER;
@@ -4004,7 +4004,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 		creature_ptr->start_wx = starting_point[i].wx;
 		return 0;
 	}
-	else if(i == -1)
+	else if(i == BIRTH_SELECT_RANDOM)
 	{
 		j = se[randint0(n - 3)].code;
 		creature_ptr->start_wy = starting_point[j].wy;
