@@ -1243,16 +1243,6 @@ static void rd_extra(void)
 	rd_s32b(&old_battle);
 	rd_s16b(&today_mon);
 
-	/* Get number of party_mon array */
-	rd_s16b(&tmp16s);
-
-	/* Strip old temporary preserved pets */
-	for (i = 0; i < tmp16s; i++)
-	{
-		creature_type dummy_mon;
-		rd_creature(&dummy_mon);
-	}
-
 	rd_u32b(&playtime);
 
 	rd_u32b(&creature_idx_latest);
@@ -1741,7 +1731,6 @@ note("乱数情報をロードしました");
 		}
 	}
 
-	/* 2.1.3 or newer version */
 	{
 		u16b max_towns_load;
 		u16b max_quests_load;
@@ -1852,7 +1841,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		if ((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
 		{
 #ifdef JP
-note(format("荒野が大きすぎる(X:%u/%u) (Y:%u/%u)！", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
+			note(format("荒野が大きすぎる(X:%u/%u) (Y:%u/%u)！", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
 #else
 			note(format("Wilderness is too big (%u/%u)!", wild_x_size, wild_y_size));
 #endif
@@ -1912,7 +1901,7 @@ note(format("荒野が大きすぎる(X:%u/%u) (Y:%u/%u)！", wild_x_size, max_wild_x, wi
 		rd_s16b(&a_ptr->floor_id);
 	}
 #ifdef JP
-note("伝説のアイテムをロードしました");
+	note("伝説のアイテムをロードしました");
 #else
 	if (arg_fiddle) note("Loaded Artifacts");
 #endif
@@ -1925,7 +1914,7 @@ note("伝説のアイテムをロードしました");
 	if (player_ptr->energy_need < -999) player_ptr->time_stopper = TRUE;
 
 #ifdef JP
-note("特別情報をロードしました");
+	note("特別情報をロードしました");
 #else
 	if (arg_fiddle) note("Loaded extra information");
 #endif

@@ -776,7 +776,6 @@ static void wr_extra(void)
 	wr_byte(preserve_mode);
 	wr_byte(0); /* Unused */
 
-
 	/* Was number of creature_ptr->rewards[] */
 	wr_s16b(0);
 
@@ -785,7 +784,6 @@ static void wr_extra(void)
 	wr_byte(tmp8u);
 	for (i = 0; i < tmp8u; i++)
 		wr_s16b(max_dlv[i]);
-
 
 	/* Write the "object seeds" */
 	wr_u32b(seed_flavor);
@@ -800,9 +798,6 @@ static void wr_extra(void)
 	wr_s32b(turn_limit);
 	wr_s32b(old_battle);
 	wr_s16b(today_mon);
-
-	/* Save temporary preserved pets (obsolated) */
-	wr_s16b(0);
 
 	wr_u32b(playtime);
 
@@ -1288,7 +1283,6 @@ static bool wr_savefile_new(void)
 	/* Note the towns */
 	tmp16u = max_towns;
 	wr_u16b(tmp16u);
-
 	wr_u16b(max_st_idx);
 
 	for(i = 0; i < max_st_idx; i++)
@@ -1308,47 +1302,27 @@ static bool wr_savefile_new(void)
 		wr_string("");
 	}
 
-	/* Player is not dead, write the dungeon */
-	if (!gameover)
+	if (!gameover)	// Player is not dead, write the dungeon
 	{
-		// Dump the dungeon
-		if (!wr_floors(player_ptr)) return FALSE;
-
-		/* Dump the ghost */
-		wr_ghost();
-
-		/* No scripts */
-		wr_s32b(0);
+		if (!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
+		wr_ghost();		// Dump the ghost
+		wr_s32b(0);		// No scripts
 	}
 
-
-	/* Write the "value check-sum" */
-	wr_u32b(v_stamp);
-
-	/* Write the "encoded checksum" */
-	wr_u32b(x_stamp);
-
-
-	/* Error in save */
-
-	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;
+	wr_u32b(v_stamp);	// Write the "value check-sum"
+	wr_u32b(x_stamp);	// Write the "encoded checksum"
+	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;	// Error in save
 
 	/*** Dump the creatures ***/
 
-	/* Total creatures */
-	wr_u16b(creature_max);
-
-	/* Dump the creatures */
-	for (i = 1; i < creature_max; i++)
+	wr_u16b(creature_max);	// Total creatures
+	for (i = 1; i < creature_max; i++)	// Dump the creatures
 	{
 		creature_type *m_ptr = &creature_list[i];
-
-		/* Dump it */
-		wr_creature(m_ptr);
+		wr_creature(m_ptr);	// Dump it
 	}
 
-
-	/* Successful save */
+	// Successful save
 	return TRUE;
 }
 
