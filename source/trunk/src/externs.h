@@ -1603,7 +1603,6 @@ extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_m
 extern int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
 extern s16b gain_energy(void);
 extern s16b bow_energy(int sval);
-extern int bow_tmul(int sval);
 extern void show_alignment(char *buf, creature_type *creature_ptr);
 extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);

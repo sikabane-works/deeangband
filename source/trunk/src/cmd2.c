@@ -3182,7 +3182,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	*/
 
 	creature_ptr->energy_use = bow_energy(j_ptr->sval);
-	tmul = bow_tmul(j_ptr->sval);
+	tmul = j_ptr->bow_mul;
 
 	/* Get extra "power" from "extra might" */
 	//TODO if (creature_ptr->xtra_might) tmul++;

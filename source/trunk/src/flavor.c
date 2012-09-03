@@ -2314,7 +2314,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_BOW:
 
 		/* Mega-Hack -- Extract the "base power" */
-		power = bow_tmul(object_ptr->sval);
+		power = object_ptr->bow_mul;
 
 		/* Apply the "Extra Might" flag */
 		if (have_flag(flgs, TR_XTRA_MIGHT)) power++;
@@ -2371,7 +2371,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	if (bow_ptr->k_idx && (object_ptr->tval == owner_ptr->tval_ammo))
 	{
 		int avgdam = object_ptr->dd * (object_ptr->ds + 1) * 10 / 2;
-		int tmul = bow_tmul(bow_ptr->sval);
+		int tmul = bow_ptr->bow_mul;
 		s16b energy_fire = bow_energy(bow_ptr->sval);
 
 		// See if the bow is "known" - then set damage bonus

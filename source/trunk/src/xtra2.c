@@ -5041,63 +5041,6 @@ s16b bow_energy(int sval)
 	return (energy);
 }
 
-
-/*
- * Return bow tmul
- */
-int bow_tmul(int sval)
-{
-	int tmul = 0;
-
-	/* Analyze the launcher */
-	switch (sval)
-	{
-		/* Sling and ammo */
-		case SV_SLING:
-		{
-			tmul = 2;
-			break;
-		}
-
-		/* Short Bow and Arrow */
-		case SV_SHORT_BOW:
-		{
-			tmul = 2;
-			break;
-		}
-
-		/* Long Bow and Arrow */
-		case SV_LONG_BOW:
-		{
-			tmul = 3;
-			break;
-		}
-
-		/* Bow of irresponsiblity and Arrow */
-		case SV_NAMAKE_BOW:
-		{
-			tmul = 3;
-			break;
-		}
-
-		/* Light Crossbow and Bolt */
-		case SV_LIGHT_XBOW:
-		{
-			tmul = 3;
-			break;
-		}
-
-		/* Heavy Crossbow and Bolt */
-		case SV_HEAVY_XBOW:
-		{
-			tmul = 4;
-			break;
-		}
-	}
-
-	return (tmul);
-}
-
 /*
  * Return alignment title
  */
