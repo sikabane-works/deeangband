@@ -4984,63 +4984,6 @@ s16b gain_energy(void)
 	return (s16b)(energy_result + tmp);
 }
 
-
-/*
- * Return bow energy 
- */
-s16b bow_energy(int sval)
-{
-	int energy = 100;
-
-	/* Analyze the launcher */
-	switch (sval)
-	{
-		/* Sling and ammo */
-		case SV_SLING:
-		{
-			energy = 8000;
-			break;
-		}
-
-		/* Short Bow and Arrow */
-		case SV_SHORT_BOW:
-		{
-			energy = 10000;
-			break;
-		}
-
-		/* Long Bow and Arrow */
-		case SV_LONG_BOW:
-		{
-			energy = 10000;
-			break;
-		}
-
-		/* Bow of irresponsiblity and Arrow */
-		case SV_NAMAKE_BOW:
-		{
-			energy = 7777;
-			break;
-		}
-
-		/* Light Crossbow and Bolt */
-		case SV_LIGHT_XBOW:
-		{
-			energy = 12000;
-			break;
-		}
-
-		/* Heavy Crossbow and Bolt */
-		case SV_HEAVY_XBOW:
-		{
-			energy = 13333;
-			break;
-		}
-	}
-
-	return (energy);
-}
-
 /*
  * Return alignment title
  */

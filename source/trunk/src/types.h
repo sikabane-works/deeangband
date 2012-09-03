@@ -637,7 +637,8 @@ struct object_type
 	s16b to_damage;		// Plusses to damage
 	s16b to_ac;			// Plusses to AC
 	s16b to_ev;			// Plusses to EV
-	s16b bow_mul;		// Bonus to bow_mul
+	s16b bow_mul;		// Multiply of Bow Damage
+	s16b bow_energy;	// Energt Cost of Bow
 
 	s16b size_upper;	/* Size Upper */
 	s16b size_lower;    /* Size Lower */

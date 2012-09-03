@@ -2226,7 +2226,7 @@ static void display_player_various(creature_type * creature_ptr)
 	/* If the player is wielding one? */
 	if (object_ptr->k_idx)
 	{
-		s16b energy_fire = bow_energy(object_ptr->sval);
+		s16b energy_fire = object_ptr->bow_energy;
 
 		/* Calculate shots per round */
 		shots = creature_ptr->num_fire * 100;

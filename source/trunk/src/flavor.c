@@ -2372,7 +2372,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	{
 		int avgdam = object_ptr->dd * (object_ptr->ds + 1) * 10 / 2;
 		int tmul = bow_ptr->bow_mul;
-		s16b energy_fire = bow_energy(bow_ptr->sval);
+		s16b energy_fire = bow_ptr->bow_energy;
 
 		// See if the bow is "known" - then set damage bonus
 		if (object_is_known(bow_ptr)) avgdam += (bow_ptr->to_damage * 10);

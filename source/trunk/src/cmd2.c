@@ -3181,7 +3181,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		chance = (creature_ptr->skill_thb + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
 	*/
 
-	creature_ptr->energy_use = bow_energy(j_ptr->sval);
+	creature_ptr->energy_use = j_ptr->bow_energy;
 	tmul = j_ptr->bow_mul;
 
 	/* Get extra "power" from "extra might" */
