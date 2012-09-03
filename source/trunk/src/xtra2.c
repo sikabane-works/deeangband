@@ -5218,3 +5218,16 @@ void format_weight(char * buf, int weight)
 	return;
 }
 
+void msg_warning(cptr *message, ...)
+{
+	va_list vp;
+
+	char buf[1024];
+
+	va_start(vp, message);	// Begin the Varargs Stuff
+
+	sprintf(buf, "Warning: %s", message);
+
+	msg_format(buf, vp);
+	va_end(vp);	// End the Varargs Stuff
+}

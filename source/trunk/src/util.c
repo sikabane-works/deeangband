@@ -2988,17 +2988,10 @@ void msg_format(cptr fmt, ...)
 
 	char buf[1024];
 
-	/* Begin the Varargs Stuff */
-	va_start(vp, fmt);
-
-	/* Format the args, save the length */
-	(void)vstrnfmt(buf, 1024, fmt, vp);
-
-	/* End the Varargs Stuff */
-	va_end(vp);
-
-	/* Display */
-	msg_print(buf);
+	va_start(vp, fmt);	// Begin the Varargs Stuff
+	(void)vstrnfmt(buf, 1024, fmt, vp);	// Format the args, save the length
+	va_end(vp);	// End the Varargs Stuff
+	msg_print(buf);	// Display
 }
 
 
