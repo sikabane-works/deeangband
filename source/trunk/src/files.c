@@ -2526,9 +2526,9 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr
 		add_flag(flgs, TRAIT_RES_DARK);
 	if (creature_ptr->mimic_form == MIMIC_DEMON_LORD)
 		add_flag(flgs, TRAIT_RES_FIRE);
-	*/
 	if (IS_RACE(creature_ptr, RACE_YEEK) && creature_ptr->lev > 19)
 		add_flag(flgs, TRAIT_RES_ACID);
+	*/
 }
 
 static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
@@ -7208,7 +7208,7 @@ if (!save_player()) msg_print("セーブ失敗！");
 
 		/* Prompt for scores XXX XXX XXX */
 #ifdef JP
-prt("リターンキーか ESC キーを押して下さい。", 0, 40);
+		prt("リターンキーか ESC キーを押して下さい。", 0, 40);
 #else
 		prt("Press Return (or Escape).", 0, 40);
 #endif

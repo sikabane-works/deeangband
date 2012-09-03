@@ -247,6 +247,12 @@ void set_hitdice(creature_type * creature_ptr)
 		creature_ptr->hitdice += class_info[creature_ptr->class_idx].c_mhp;
 	if(creature_ptr->chara_idx != INDEX_NONE)
 		creature_ptr->hitdice += chara_info[creature_ptr->chara_idx].a_mhp;
+
+	if(creature_ptr->hitdice <= 0) 
+	{
+		creature_ptr->hitdice = 1;
+		msg_format("Warning:: Hitdice is less 1.");
+	}
 	return;	
 }
 
