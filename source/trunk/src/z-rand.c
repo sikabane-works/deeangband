@@ -412,11 +412,12 @@ int uneven_rand(int *id_list, int *weight_list, int num)
 	{
 		if (weight_list[i])
 		{
-			value -= 10000 / weight_list[i];
+			value -= weight_list[i];
 			if(value < 0) return id_list[i];
 		}
 	}
 
+	msg_warning("Error in uneven_rand()");
 	return -1;
 }
 
