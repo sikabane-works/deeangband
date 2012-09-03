@@ -306,6 +306,8 @@ static void rd_object(object_type *object_ptr)
 	else object_ptr->to_ev = 0;
 	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_MUL) rd_s16b(&object_ptr->bow_mul);
 	else object_ptr->bow_mul = 0;
+	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_ENERGY) rd_s16b(&object_ptr->bow_energy);
+	else object_ptr->bow_energy = 0;
 
 	if (flags & SAVEFLAG_OBJECT_KIND_AC) rd_s16b(&object_ptr->ac);
 	else object_ptr->ac = 0;

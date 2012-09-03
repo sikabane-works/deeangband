@@ -132,6 +132,7 @@ static void wr_object(object_type *object_ptr)
 	if (object_ptr->size_lower) flags2 |= SAVEFLAG_OBJECT_KIND_SIZE_LOWER;
 	if (object_ptr->to_size) flags2 |= SAVEFLAG_OBJECT_KIND_TO_SIZE;
 	if (object_ptr->bow_mul) flags2 |= SAVEFLAG_OBJECT_KIND_BOW_MUL;
+	if (object_ptr->bow_mul) flags2 |= SAVEFLAG_OBJECT_KIND_BOW_ENERGY;
 
 	if (object_ptr->trait_flags[0]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0;
 	if (object_ptr->trait_flags[1]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1;
@@ -185,6 +186,7 @@ static void wr_object(object_type *object_ptr)
 	if (flags & SAVEFLAG_OBJECT_KIND_TO_A) wr_s16b(object_ptr->to_ac);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_E) wr_s16b(object_ptr->to_ev);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_MUL) wr_s16b(object_ptr->bow_mul);
+	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_ENERGY) wr_s16b(object_ptr->bow_energy);
 
 	if (flags & SAVEFLAG_OBJECT_KIND_AC) wr_s16b(object_ptr->ac);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_EV) wr_s16b(object_ptr->ev);
