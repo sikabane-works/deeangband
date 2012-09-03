@@ -774,10 +774,6 @@ static void wr_extra(void)
 	/* Write arena and rewards information -KMW- */
 	wr_s16b(arena_number);
 	wr_byte(preserve_mode);
-	wr_byte(0); /* Unused */
-
-	/* Was number of creature_ptr->rewards[] */
-	wr_s16b(0);
 
 	/* Max Player and Dungeon Levels */
 	tmp8u = (byte)max_dungeon_idx;

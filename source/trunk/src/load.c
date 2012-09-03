@@ -1205,22 +1205,9 @@ static void rd_extra(void)
 
 	/* Read arena and rewards information */
 	rd_s16b(&arena_number);
-	rd_s16b(&tmp16s);
 	rd_byte((byte *)&preserve_mode);
-	rd_byte(&tmp8u);
-
-
-	/* Was creature_ptr->rewards[BUILDING_FUNCTION_MAX] */
-	rd_s16b(&tmp16s);
-	for (i = 0; i < tmp16s; i++)
-	{
-		s16b tmp16s2;
-		rd_s16b(&tmp16s2);
-	}
-
 
 	max = (byte)max_dungeon_idx;
-
 	rd_byte(&max);
 
 	for(i = 0; i < max; i++)
