@@ -436,26 +436,6 @@ static void wr_options(void)
 
 
 /*
- * Hack -- Write the "ghost" info
- */
-static void wr_ghost(void)
-{
-	int i;
-
-	/* Name */
-#ifdef JP
-	wr_string("不正なゴースト");
-#else
-	wr_string("Broken Ghost");
-#endif
-
-
-	/* Hack -- stupid data */
-	for (i = 0; i < 60; i++) wr_byte(0);
-}
-
-
-/*
  * Save quick start data
  */
 static void save_quick_start(species_type *species_ptr)
@@ -1293,7 +1273,6 @@ static bool wr_savefile_new(void)
 	if (!gameover)	// Player is not dead, write the dungeon
 	{
 		if (!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
-		wr_ghost();		// Dump the ghost
 		wr_s32b(0);		// No scripts
 	}
 

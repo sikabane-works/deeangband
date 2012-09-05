@@ -852,25 +852,6 @@ static void rd_options(void)
 
 
 
-
-
-/*
- * Hack -- strip the "ghost" info
- *
- * XXX XXX XXX This is such a nasty hack it hurts.
- */
-static void rd_ghost(void)
-{
-	char buf[64];
-
-	/* Strip name */
-	rd_string(buf, sizeof(buf));
-
-	/* Strip old data */
-	strip_bytes(60);
-}
-
-
 /*
  * Save quick start data
  */
@@ -1931,8 +1912,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 			return (34);
 		}
 
-		// Read the ghost info
-		rd_ghost();
 		{
 			rd_s32b(&tmp32s);
 			strip_bytes(tmp32s);
