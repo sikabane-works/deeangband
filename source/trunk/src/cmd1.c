@@ -1760,10 +1760,13 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	if(floor_ptr->wild_mode) reveal_wilderness(ny, nx);
 
 	// Creature status adjustment (Remove all mirrors without explosion / Cut supersthealth)
-	if(prev_floor_ptr != floor_ptr)
+	if(!prev_floor_ptr || prev_floor_ptr != floor_ptr)
 	{
 		remove_all_mirrors(creature_ptr, prev_floor_ptr, FALSE);
 		if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
+		creature_ptr->feeling_turn = 0;
+		creature_ptr->floor_feeling = 0;
+		creature_ptr->floor_id = get_floor_id(floor_ptr);
 	}
 
 	if (!(mpe_mode & MPE_STAYING))
