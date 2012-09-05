@@ -1908,13 +1908,9 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 			return (34);
 		}
 
-		{
-			rd_s32b(&tmp32s);
-			strip_bytes(tmp32s);
-		}
+		reset_cave_creature_reference();
 	}
 
-	reset_cave_creature_reference();
 
 #ifdef VERIFY_CHECKSUMS
 

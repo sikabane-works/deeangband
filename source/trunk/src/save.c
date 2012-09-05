@@ -1268,11 +1268,7 @@ static bool wr_savefile_new(void)
 		wr_string("");
 	}
 
-	if (!gameover)	// Player is not dead, write the dungeon
-	{
-		if (!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
-		wr_s32b(0);		// No scripts
-	}
+	if (!gameover)	if (!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
 
 	wr_u32b(v_stamp);	// Write the "value check-sum"
 	wr_u32b(x_stamp);	// Write the "encoded checksum"
