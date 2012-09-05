@@ -846,7 +846,12 @@ static void wr_floor(floor_type *floor_ptr)
 	/*** Basic info ***/
 
 	// Dungeon floor specific info follows
+	wr_s16b(floor_ptr->base_level);
 	wr_s16b(floor_ptr->floor_level);
+	wr_s16b(floor_ptr->creature_level);
+	wr_s16b(floor_ptr->object_level);
+
+
 	wr_byte(floor_ptr->dun_type);
 	wr_s32b(floor_ptr->world_x);
 	wr_s32b(floor_ptr->world_y);
@@ -859,7 +864,6 @@ static void wr_floor(floor_type *floor_ptr)
 
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
 
-	wr_u16b(floor_ptr->base_level);
 	wr_u16b(floor_ptr->num_repro);
 	wr_u16b(floor_ptr->height);
 	wr_u16b(floor_ptr->width);
@@ -1066,6 +1070,7 @@ static bool wr_floors(creature_type *player_ptr)
 	/*** Meta info ***/
 
 	wr_s16b(floor_max); 	// Number of floor_id used from birth
+
 	for(i = 1; i < floor_max; i++) wr_floor(&floor_list[i]); // Write the current floor data
 
 	return TRUE; 

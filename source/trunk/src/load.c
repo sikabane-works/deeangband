@@ -1300,9 +1300,15 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	/*** Basic info ***/
 
+	floor_ptr->generated = TRUE;
+
 	/* Dungeon floor specific info follows */
 
+	rd_s16b(&floor_ptr->base_level);
 	rd_s16b(&floor_ptr->floor_level);
+	rd_s16b(&floor_ptr->creature_level);
+	rd_s16b(&floor_ptr->object_level);
+
 	rd_byte(&floor_ptr->dun_type);
 	rd_s32b(&floor_ptr->world_x);
 	rd_s32b(&floor_ptr->world_y);
@@ -1316,7 +1322,6 @@ static errr rd_floor(floor_type *floor_ptr)
 
 	for (i = 0; i < MAX_RACES; i++) rd_s16b(&floor_ptr->race_population[i]);
 
-	rd_s16b(&floor_ptr->base_level);
 	rd_s16b(&floor_ptr->num_repro);
 	rd_s16b(&floor_ptr->height);
 	rd_s16b(&floor_ptr->width);
