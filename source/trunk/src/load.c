@@ -1573,15 +1573,6 @@ static errr rd_savefile_new_aux(void)
 	/* Number of times played */
 	rd_u16b(&sf_saves);
 
-	/* Later use (always zero) */
-	rd_u32b(&tmp32u);
-
-	/* Later use (always zero) */
-	rd_u16b(&tmp16u);
-
-	/* Later use (always zero) */
-	rd_byte(&tmp8u);
-
 	/* Kanji code */
 	rd_byte(&kanji_code);
 

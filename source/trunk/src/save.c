@@ -1070,7 +1070,6 @@ static bool wr_floors(creature_type *player_ptr)
 	/*** Meta info ***/
 
 	wr_s16b(floor_max); 	// Number of floor_id used from birth
-
 	for(i = 1; i < floor_max; i++) wr_floor(&floor_list[i]); // Write the current floor data
 
 	return TRUE; 
@@ -1100,7 +1099,6 @@ static bool wr_savefile_new(void)
 
 	/* Note the number of saves */
 	sf_saves++;
-
 
 	/*** Actually write the file ***/
 
@@ -1139,11 +1137,6 @@ static bool wr_savefile_new(void)
 
 	/* Number of times saved */
 	wr_u16b(sf_saves);
-
-	/* Space */
-	wr_u32b(0L);
-	wr_u16b(0);
-	wr_byte(0);
 
 #ifdef JP
 #ifdef EUC
