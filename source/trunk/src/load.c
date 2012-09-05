@@ -1175,6 +1175,9 @@ static void rd_creature(creature_type *creature_ptr)
 	set_experience(creature_ptr);
 	set_creature_bonuses(creature_ptr, FALSE);
 
+	rd_s16b(&creature_ptr->pet_follow_distance);
+	rd_s16b(&creature_ptr->pet_extra_flags);
+
 }
 
 /*
@@ -1919,10 +1922,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 	//C_WIPE(st_list, max_st_idx, store_type);
 	for(i = 0; i < max_st_idx; i++)
 			rd_store(&st_list[i]);
-
-
-	rd_s16b(&player_ptr->pet_follow_distance);
-	rd_s16b(&player_ptr->pet_extra_flags);
 
 	rd_string(buf, sizeof(buf));
 	if (buf[0]) screen_dump = string_make(buf);

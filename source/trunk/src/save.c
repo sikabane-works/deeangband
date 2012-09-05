@@ -516,7 +516,7 @@ static void wr_creature(creature_type *creature_ptr)
 		wr_string(creature_ptr->history[i]);
 	}
 
-	/* Race/Class/Gender/Spells */
+	// Race/Class/Gender/Spells
 	wr_s16b(creature_ptr->species_idx);
 	wr_s16b(creature_ptr->ap_species_idx);
 	wr_s16b(creature_ptr->race_idx1);
@@ -549,19 +549,12 @@ static void wr_creature(creature_type *creature_ptr)
 		wr_byte(creature_ptr->equip_now[i]);
 	}
 
-	/* Write the inventory */
-	for (i = 0; i < INVEN_TOTAL; i++)
+	for (i = 0; i < INVEN_TOTAL; i++)	// Write the inventory
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
-
-		/* Skip non-objects */
-		if (!object_ptr->k_idx) continue;
-
-		/* Dump index */
-		wr_u16b((u16b)i);
-
-		/* Dump object */
-		wr_object(object_ptr);
+		if (!object_ptr->k_idx) continue;	// Skip non-objects
+		wr_u16b((u16b)i);	// Dump index
+		wr_object(object_ptr);	// Dump object
 	}
 
 	/* Add a sentinel */
@@ -745,6 +738,10 @@ static void wr_creature(creature_type *creature_ptr)
 	}
 
 	wr_u16b(creature_ptr->total_winner);
+
+	// Write the pet command settings
+	wr_s16b(creature_ptr->pet_follow_distance);
+	wr_s16b(creature_ptr->pet_extra_flags);
 
 }
 
@@ -1283,10 +1280,6 @@ static bool wr_savefile_new(void)
 
 	for(i = 0; i < max_st_idx; i++)
 			wr_store(&st_list[i]);
-
-	/* Write the pet command settings */
-	wr_s16b(player_ptr->pet_follow_distance);
-	wr_s16b(player_ptr->pet_extra_flags);
 
 	/* Write screen dump for sending score */
 	if (screen_dump && (wait_report_score || !gameover))
