@@ -1270,7 +1270,6 @@ static bool wr_savefile_new(void)
 	}
 
 	/* Write the "extra" information */
-	wr_creature(player_ptr);
 	wr_extra();
 
 	/* Note the towns */

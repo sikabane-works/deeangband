@@ -1797,11 +1797,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 					rd_byte(&quest[i].flags);
 					rd_byte(&quest[i].dungeon);
-
-					/* Mark uniques */
-					//if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_UNTAKEN)
-						//TODO if (is_unique_species(&species_info[quest[i].species_idx]))
-						//	species_info[quest[i].species_idx].flags1 |= RF1_QUESTOR;
 				}
 			}
 			/* Ignore the empty quests from old versions */
@@ -1835,7 +1830,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 #else
 			note(format("Wilderness is too big (%u/%u)!", wild_x_size, wild_y_size));
 #endif
-
 			return (23);
 		}
 
@@ -1877,17 +1871,14 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 #else
 		note(format("Too many (%u) artifacts!", tmp16u));
 #endif
-
 		return (24);
 	}
 
-	/* Read the artifact flags */
+	// Read the artifact flags
 	for (i = 0; i < tmp16u; i++)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
-
-		rd_byte(&tmp8u);
-		a_ptr->cur_num = tmp8u;
+		rd_byte(&a_ptr->cur_num);
 		rd_s16b(&a_ptr->floor_id);
 	}
 #ifdef JP
@@ -1896,10 +1887,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 	if (arg_fiddle) note("Loaded Artifacts");
 #endif
 
-
-
 	/* Read the extra stuff */
-	rd_creature(player_ptr);
 	rd_extra();
 	if (player_ptr->energy_need < -999) player_ptr->time_stopper = TRUE;
 
@@ -1912,33 +1900,20 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 	if (player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
 	/* Read number of towns */
-	rd_u16b(&tmp16u);
-	max_towns = tmp16u;
+	rd_u16b(&max_towns);
 	C_MAKE(town, max_towns, town_type);
 
 	rd_u16b(&max_st_idx);
 
 	C_MAKE(st_list, max_st_idx, store_type);
-	//C_WIPE(st_list, max_st_idx, store_type);
-	for(i = 0; i < max_st_idx; i++)
-			rd_store(&st_list[i]);
+	for(i = 0; i < max_st_idx; i++) rd_store(&st_list[i]);
 
 	rd_string(buf, sizeof(buf));
 	if (buf[0]) screen_dump = string_make(buf);
 
-	if (gameover)
+	if (!gameover)	// I'm not dead yet...
 	{
-		for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
-		{
-			//TODO species_info[quest[i].species_idx].flags1 &= ~(RF1_QUESTOR);
-		}
-	}
-
-
-	/* I'm not dead yet... */
-	if (!gameover)
-	{
-		/* Dead players have no dungeon */
+		// Dead players have no dungeon
 #ifdef JP
 		note("ダンジョン復元中...");
 #else
