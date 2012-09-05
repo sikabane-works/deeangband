@@ -1558,7 +1558,7 @@ static void process_nonplayer(int m_idx)
 
 	if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->paralyzed)
 	{
-		choose_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
+		set_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
 	}
 

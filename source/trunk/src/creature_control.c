@@ -1345,7 +1345,7 @@ static int chameleon_change_m_idx = 0;
 
 // Some dungeon types restrict the possible creatures.
 // Return TRUE is the creature is OK and FALSE otherwise
-static bool restrict_creature_to_damageungeon(int species_idx)
+static bool restrict_creature_to_dungeon(int species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
@@ -1475,7 +1475,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
 
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
@@ -1539,7 +1539,7 @@ errr get_species_num_prep2(creature_type *summoner_ptr, creature_hook_type2 crea
 		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		//TODO if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		//TODO if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1595,7 +1595,7 @@ errr get_species_num_prep3(creature_type *summoner_ptr, creature_hook_type creat
 		/* Accept this creature */
 		entry->prob2 = entry->prob1;
 
-		//TODO if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_damageungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		//TODO if (floor_ptr->floor_level && (!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -3114,9 +3114,9 @@ static bool creature_hook_chameleon(int species_idx)
 	return (*(get_creature_hook()))(species_idx);
 }
 
-void choose_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx)
+void set_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx)
 {
-	int m_idx = 0; //dammy
+	int m_idx = 0;
 
 	int oldmhp;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -4006,7 +4006,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON))
 	{
-		choose_new_species(&creature_list[c_ptr->creature_idx], TRUE, 0, MONEGO_NONE);
+		set_new_species(&creature_list[c_ptr->creature_idx], TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
 		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
