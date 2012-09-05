@@ -1018,8 +1018,6 @@ static bool create_cave_structure(floor_type *floor_ptr)
 		set_bound_perm_wall(&floor_ptr->cave[y][floor_ptr->width - 1]);
 	}
 
-	if (!new_creature_spot(floor_ptr, player_ptr)) return FALSE; // Determine the character location
-
 	if (!place_quest_creatures(floor_ptr, player_ptr)) return FALSE; // Set Quest Creature
 
 	// Basic "amount"
