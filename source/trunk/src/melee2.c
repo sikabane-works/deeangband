@@ -1540,6 +1540,8 @@ static void process_nonplayer(int m_idx)
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 
+	if(current_floor_ptr != floor_ptr) return;
+
 	if (is_riding_mon && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
 		if (do_thrown_from_riding(player_ptr, 0, TRUE))
@@ -2639,12 +2641,11 @@ static void process_creature(int i)
 	if (has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
-	else
+	else if(current_floor_ptr == floor_ptr)
 	{
 		process_nonplayer(i); // Process non player creature
 		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
 	}
-
 
 	reset_target(creature_ptr);
 
