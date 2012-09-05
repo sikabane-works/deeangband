@@ -638,7 +638,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 {
 	int i, j, y, x;
 	floor_type *floor_ptr = GET_FLOOR_PTR(dead_ptr);
-	species_type *r_ptr = &species_info[dead_ptr->species_idx];
+	species_type *species_ptr = &species_info[dead_ptr->species_idx];
 
 	int dump_item = 0;
 	int dump_gold = 0;
@@ -700,9 +700,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if (dead_ptr->mflag2 & MFLAG2_CHAMELEON)
 	{
-		//TODO
 		//choose_new_species(m_idx, TRUE, SPECIES_CHAMELEON, MONEGO_NONE);
-		//r_ptr = &species_info[dead_ptr->species_idx];
+		species_ptr = &species_info[dead_ptr->species_idx];
 	}
 
 	/* Check for quest completion */
@@ -953,7 +952,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	case SPECIES_A_GOLD:
 	case SPECIES_A_SILVER:
-		if (drop_chosen_item && ((dead_ptr->species_idx == SPECIES_A_GOLD) || ((dead_ptr->species_idx == SPECIES_A_SILVER) && (r_ptr->r_akills % 5 == 0))))
+		if (drop_chosen_item && ((dead_ptr->species_idx == SPECIES_A_GOLD) || ((dead_ptr->species_idx == SPECIES_A_SILVER) && (species_ptr->r_akills % 5 == 0))))
 		{
 			specified_drop(floor_ptr, dead_ptr, TV_CHEST, SV_CHEST_KANDUME);
 		}
@@ -971,7 +970,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	default:
 		if (!drop_chosen_item) break;
 
-		switch (r_ptr->d_char)
+		switch (species_ptr->d_char)
 		{
 		case '(':
 			specified_drop(floor_ptr, dead_ptr, TV_CLOAK, SV_ANY);
@@ -1048,10 +1047,10 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if (is_pet(player_ptr, dead_ptr) || floor_ptr->gamble_arena_mode || floor_ptr->fight_arena_mode)
 		number = 0; /* Pets drop no stuff */
-	if (!drop_item && (r_ptr->d_char != '$')) number = 0;
+	if (!drop_item && (species_ptr->d_char != '$')) number = 0;
 
 	/* Average dungeon and creature levels */
-	floor_ptr->object_level = (floor_ptr->floor_level + r_ptr->level) / 2;
+	floor_ptr->object_level = (floor_ptr->floor_level + species_ptr->level) / 2;
 
 	/* Drop some objects */
 	for (j = 0; j < number; j++)
