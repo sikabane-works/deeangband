@@ -447,13 +447,12 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		floor_id = generate_floor(dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
 		new_floor_ptr = &floor_list[floor_id];
 
-		move_creature(creature_ptr, new_floor_ptr, 0, 0, MCE_NO_SEE);
-
 		// Choose random stairs
 		if (!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
 
 		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
 		connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
+		move_creature(creature_ptr, new_floor_ptr, 0, 0, MCE_NO_SEE);
 	}
 
 	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here

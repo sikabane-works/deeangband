@@ -1778,8 +1778,8 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		int nm_idx = c_ptr->creature_idx;
 
 		/* Move the player */
-		creature_ptr->fy = ny;
-		creature_ptr->fx = nx;
+		if(ny) creature_ptr->fy = ny;
+		if(nx) creature_ptr->fx = nx;
 
 		/* Hack -- For moving creature or riding player's moving */
 		if (!(mpe_mode & MCE_DONT_SWAP_MON))
@@ -1805,28 +1805,27 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			}
 		}
 
-		/* Redraw old spot */
-		lite_spot(prev_floor_ptr, oy, ox);
+		if (!(mpe_mode & MCE_NO_SEE))
+		{
+			lite_spot(prev_floor_ptr, oy, ox);	// Redraw old spot
+			lite_spot(prev_floor_ptr, ny, nx);	// Redraw new spot
+		}
 
-		/* Redraw new spot */
-		lite_spot(prev_floor_ptr, ny, nx);
-
-		/* Check for new panel (redraw map) */
+		// Check for new panel (redraw map)
 		verify_panel(creature_ptr);
 
 		if (mpe_mode & MCE_FORGET_FLOW)
 		{
 			forget_flow(prev_floor_ptr);
 
-			/* Mega-Hack -- Forget the view */
+			// Mega-Hack -- Forget the view
 			update |= (PU_UN_VIEW);
 
-			/* Redraw map */
+			// Redraw map
 			play_redraw |= (PR_MAP);
 		}
 
-		/* Update stuff */
-		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);
+		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);	// Update stuff
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
