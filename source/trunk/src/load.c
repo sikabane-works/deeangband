@@ -1188,7 +1188,7 @@ static void rd_extra(void)
 	int i;
 
 	byte tmp8u;
-	s16b tmp16s;
+
 	byte max;
 
 	rd_creature(&player_prev);
@@ -1537,6 +1537,7 @@ static errr rd_savefile_new_aux(void)
 	byte tmp8u;
 	u16b tmp16u;
 	u32b tmp32u;
+	s32b tmp32s;
 
 	char buf[SCREEN_BUF_SIZE];
 
@@ -1933,7 +1934,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		// Read the ghost info
 		rd_ghost();
 		{
-			s32b tmp32s;
 			rd_s32b(&tmp32s);
 			strip_bytes(tmp32s);
 		}
@@ -1982,6 +1982,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 errr rd_savefile_new(void)
 {
 	errr err;
+
 
 	safe_setuid_grab(); // Grab permissions
 	fff = my_fopen(savefile, "rb"); // The savefile is a binary file
