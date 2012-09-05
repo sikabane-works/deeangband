@@ -365,7 +365,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 
 	if (sx)
 	{
-		move_creature(creature_ptr, new_floor_ptr, sy, sx, MPE_NO_ENTER); // Already fixed
+		move_creature(creature_ptr, new_floor_ptr, sy, sx, MCE_NO_ENTER); // Already fixed
 	}
 	else if (!num)
 	{
@@ -375,7 +375,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 	else
 	{
 		i = randint0(num);		// Choose random one
-		move_creature(creature_ptr, new_floor_ptr, y_table[i], x_table[i], MPE_NO_ENTER); // Point stair location
+		move_creature(creature_ptr, new_floor_ptr, y_table[i], x_table[i], MCE_NO_ENTER); // Point stair location
 	}
 }
 
@@ -447,9 +447,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		floor_id = generate_floor(dungeon_id, world_y, world_x, depth, old_floor_ptr, 0);
 		new_floor_ptr = &floor_list[floor_id];
 
-		creature_ptr->feeling_turn = 0;
-		creature_ptr->floor_feeling = 0;
-		creature_ptr->floor_id = floor_id;
+		move_creature(creature_ptr, new_floor_ptr, 0, 0, MCE_NO_SEE);
 
 		// Choose random stairs
 		if (!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);

@@ -2663,7 +2663,7 @@ void do_cmd_run(creature_type *creature_ptr)
  */
 void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 {
-	u32b mpe_mode = MPE_STAYING | MPE_ENERGY_USE;
+	u32b mpe_mode = MCE_STAYING | MCE_ENERGY_USE;
 
 	/* Allow repeated command */
 	if (command_arg)
@@ -2681,7 +2681,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	/* Take a turn */
 	creature_ptr->energy_use = 100;
 
-	if (pickup) mpe_mode |= MPE_DO_PICKUP;
+	if (pickup) mpe_mode |= MCE_DO_PICKUP;
 	(void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
 }
 

@@ -1769,7 +1769,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		creature_ptr->floor_id = get_floor_id(floor_ptr);
 	}
 
-	if (!(mpe_mode & MPE_STAYING))
+	if (!(mpe_mode & MCE_STAYING))
 	{
 		int oy = creature_ptr->fy;
 		int ox = creature_ptr->fx;
@@ -1782,7 +1782,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		creature_ptr->fx = nx;
 
 		/* Hack -- For moving creature or riding player's moving */
-		if (!(mpe_mode & MPE_DONT_SWAP_MON))
+		if (!(mpe_mode & MCE_DONT_SWAP_MON))
 		{
 			/* Swap two creatures */
 			c_ptr->creature_idx = om_idx;
@@ -1814,7 +1814,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* Check for new panel (redraw map) */
 		verify_panel(creature_ptr);
 
-		if (mpe_mode & MPE_FORGET_FLOW)
+		if (mpe_mode & MCE_FORGET_FLOW)
 		{
 			forget_flow(prev_floor_ptr);
 
@@ -1838,7 +1838,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		if (prev_floor_ptr->floor_level && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
 
 		/* Handle stuff */
-		if (mpe_mode & MPE_HANDLE_STUFF) handle_stuff();
+		if (mpe_mode & MCE_HANDLE_STUFF) handle_stuff();
 
 		if (creature_ptr->class_idx == CLASS_NINJA)
 		{
@@ -1864,7 +1864,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		}
 	}
 
-	if (mpe_mode & MPE_ENERGY_USE)
+	if (mpe_mode & MCE_ENERGY_USE)
 	{
 		if (music_singing(creature_ptr, MUSIC_WALL))
 		{
@@ -1888,13 +1888,13 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	}
 
 	// Handle "objects"
-	if (!(mpe_mode & MPE_DONT_PICKUP))
+	if (!(mpe_mode & MCE_DONT_PICKUP))
 	{
-		carry(creature_ptr, (mpe_mode & MPE_DO_PICKUP) ? TRUE : FALSE);
+		carry(creature_ptr, (mpe_mode & MCE_DO_PICKUP) ? TRUE : FALSE);
 	}
 
 	// Handle "store doors"
-	if (have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MPE_NO_ENTER))
+	if (have_flag(f_ptr->flags, FF_STORE) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(creature_ptr, 0, 0);
 
@@ -1903,7 +1903,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	}
 
 	// Handle "building doors" -KMW-
-	else if (have_flag(f_ptr->flags, FF_BLDG) && !(mpe_mode & MPE_NO_ENTER))
+	else if (have_flag(f_ptr->flags, FF_BLDG) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(player_ptr, 0, 0);
 
@@ -1912,7 +1912,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	}
 
 	// Handle quest areas -KMW-
-	else if (have_flag(f_ptr->flags, FF_QUEST_ENTER) && !(mpe_mode & MPE_NO_ENTER))
+	else if (have_flag(f_ptr->flags, FF_QUEST_ENTER) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		disturb(player_ptr, 0, 0);
 
@@ -1920,7 +1920,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		command_new = SPECIAL_KEY_QUEST;
 	}
 
-	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT) && !(mpe_mode & MPE_NO_ENTER))
+	else if (have_flag(f_ptr->flags, FF_QUEST_EXIT) && !(mpe_mode & MCE_NO_ENTER))
 	{
 		if (quest[floor_ptr->quest].type == QUEST_TYPE_FIND_EXIT)
 		{
@@ -1947,7 +1947,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	}
 
 	/* Set off a trap */
-	else if (have_flag(f_ptr->flags, FF_HIT_TRAP) && !(mpe_mode & MPE_STAYING))
+	else if (have_flag(f_ptr->flags, FF_HIT_TRAP) && !(mpe_mode & MCE_STAYING))
 	{
 		/* Disturb */
 		disturb(player_ptr, 0, 0);
@@ -1967,13 +1967,13 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		}
 
 		/* Hit the trap */
-		hit_trap(creature_ptr, (mpe_mode & MPE_BREAK_TRAP) ? TRUE : FALSE);
+		hit_trap(creature_ptr, (mpe_mode & MCE_BREAK_TRAP) ? TRUE : FALSE);
 
 		if (!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 	}
 
 	/* Warn when leaving trap detected region */
-	if (!(mpe_mode & MPE_STAYING) && (disturb_trap_detect || alert_trap_detect)
+	if (!(mpe_mode & MCE_STAYING) && (disturb_trap_detect || alert_trap_detect)
 	    && detect_trap && !(c_ptr->info & CAVE_IN_DETECT))
 	{
 		/* No duplicate warning */
@@ -2539,7 +2539,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Normal movement */
 	if (oktomove)
 	{
-		u32b mpe_mode = MPE_ENERGY_USE;
+		u32b mpe_mode = MCE_ENERGY_USE;
 
 		if (has_trait(creature_ptr, TRAIT_WARNING))
 		{
@@ -2579,8 +2579,8 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 
 		// Sound
-		if (do_pickup != always_pickup) mpe_mode |= MPE_DO_PICKUP;
-		if (break_trap) mpe_mode |= MPE_BREAK_TRAP;
+		if (do_pickup != always_pickup) mpe_mode |= MCE_DO_PICKUP;
+		if (break_trap) mpe_mode |= MCE_BREAK_TRAP;
 
 		// Move the player
 		(void)move_creature(creature_ptr, NULL, y, x, mpe_mode);
