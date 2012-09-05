@@ -1520,10 +1520,7 @@ static errr rd_savefile_new_aux(void)
 	s32b wild_x_size;
 	s32b wild_y_size;
 
-	byte tmp8u;
 	u16b tmp16u;
-	u32b tmp32u;
-	s32b tmp32s;
 
 	char buf[SCREEN_BUF_SIZE];
 

@@ -3114,10 +3114,11 @@ static bool creature_hook_chameleon(int species_idx)
 	return (*(get_creature_hook()))(species_idx);
 }
 
-void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_idx)
+void choose_new_species(creature_type *creature_ptr, bool born, int species_idx, int creature_ego_idx)
 {
+	int m_idx = 0; //dammy
+
 	int oldmhp;
-	creature_type *creature_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *r_ptr;
 	char old_m_name[80];
@@ -3130,6 +3131,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 	r_ptr = &species_info[species_idx];
 
 	creature_desc(old_m_name, creature_ptr, 0);
+
 
 	if (!species_idx)
 	{
@@ -3194,7 +3196,7 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 		return;
 	}
 
-	if (creature_list[m_idx].ridden)
+	if (creature_ptr->ridden)
 	{
 		char m_name[80];
 		creature_desc(m_name, creature_ptr, 0);
@@ -3205,9 +3207,9 @@ void choose_new_species(int m_idx, bool born, int species_idx, int creature_ego_
 #endif
 		if (!has_trait(creature_ptr, TRAIT_RIDING))
 #ifdef JP
-			if (do_thrown_from_riding(&creature_list[creature_list[m_idx].ridden], 0, TRUE)) msg_print("地面に落とされた。");
+			if (do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print("地面に落とされた。");
 #else
-			if (do_thrown_from_riding(&creature_list[creature_list[m_idx].ridden], 0, TRUE)) msg_format("You have fallen from %s.", m_name);
+			if (do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_format("You have fallen from %s.", m_name);
 #endif
 	}
 
@@ -4004,7 +4006,7 @@ msg_print("守りのルーンが壊れた！");
 
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON))
 	{
-		choose_new_species(c_ptr->creature_idx, TRUE, 0, MONEGO_NONE);
+		choose_new_species(&creature_list[c_ptr->creature_idx], TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
 		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
 
