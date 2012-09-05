@@ -3101,9 +3101,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_print("A horrible vision enters your mind.");
 #endif
 
-				get_species_num_prep(get_nightmare, NULL);							// Pick a nightmare
+				get_species_num_prep(NULL, get_nightmare, NULL, NULL);							// Pick a nightmare
 				have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));	// Have some nightmares
-				get_species_num_prep(NULL, NULL);									// Remove the creature restriction
+				get_species_num_prep(NULL, NULL, NULL, NULL);									// Remove the creature restriction
 			}
 
 			set_paralyzed(target_ptr, target_ptr->paralyzed + dam);

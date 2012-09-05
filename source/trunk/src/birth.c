@@ -2578,7 +2578,7 @@ void determine_random_questor(quest_type *quest_ptr)
 	int          species_idx;
 	species_type *species_ptr;
 
-	get_species_num_prep(creature_hook_quest, NULL); // Prepare allocation table
+	get_species_num_prep(NULL, creature_hook_quest, NULL, NULL); // Prepare allocation table
 
 	while (1)
 	{

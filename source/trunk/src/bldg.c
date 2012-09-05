@@ -1663,7 +1663,7 @@ void battle_creatures(void)
 		for(i = 0; i < 4; i++)
 		{
 			int species_idx, j;
-			get_species_num_prep(vault_aux_battle, NULL);
+			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL);
 
 			while (1)
 			{
@@ -2571,7 +2571,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #endif
 
 					/* Pick a nightmare */
-					get_species_num_prep(get_nightmare, NULL);
+					get_species_num_prep(NULL, get_nightmare, NULL, NULL);
 
 					/* Have some nightmares */
 					while(1)
@@ -2582,7 +2582,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					}
 
 					/* Remove the creature restriction */
-					get_species_num_prep(NULL, NULL);
+					get_species_num_prep(NULL, NULL, NULL, NULL);
 
 #ifdef JP
 					msg_print("あなたは絶叫して目を覚ました。");

@@ -1740,13 +1740,13 @@ static bool vault_aux_cthulhu(int species_idx)
 static void vault_prep_clone(floor_type *floor_ptr)
 {
 	/* Apply the creature restriction */
-	get_species_num_prep(vault_aux_simple, NULL);
+	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL);
 
 	/* Pick a race to clone */
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
 	/* Remove the creature restriction */
-	get_species_num_prep(NULL, NULL);
+	get_species_num_prep(NULL, NULL, NULL, NULL);
 }
 
 
@@ -1758,13 +1758,13 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	int species_idx;
 
 	/* Apply the creature restriction */
-	get_species_num_prep(vault_aux_simple, NULL);
+	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL);
 
 	/* Pick a race to clone */
 	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
 	/* Remove the creature restriction */
-	get_species_num_prep(NULL, NULL);
+	get_species_num_prep(NULL, NULL, NULL, NULL);
 
 	/* Extract the symbol */
 	vault_aux_char = species_info[species_idx].d_char;
@@ -2155,7 +2155,7 @@ static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
  * The creatures are chosen from a set of 64 randomly selected creature
  * races, to allow the nest creation to fail instead of having "holes".
  *
- * Note the use of the "get_species_num_prep()" function, and the special
+ * Note the use of the "get_species_num_prep(NULL, )" function, and the special
  * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique creatures for the nest.
@@ -2187,7 +2187,7 @@ static bool build_type5(floor_type *floor_ptr)
 	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(n_ptr->hook_func, NULL);
+	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -2373,7 +2373,7 @@ static bool build_type5(floor_type *floor_ptr)
  * dragons.  This may include "multi-hued" breath.  Note that "wyrms" may
  * be present in many of the dragon pits, if they have the proper breath.
  *
- * Note the use of the "get_species_num_prep()" function, and the special
+ * Note the use of the "get_species_num_prep(NULL, )" function, and the special
  * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique creatures for the pit.
@@ -2406,7 +2406,7 @@ static bool build_type6(floor_type *floor_ptr)
 	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(n_ptr->hook_func, NULL);
+	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -5609,7 +5609,7 @@ static bool vault_aux_trapped_pit(int species_idx)
  * dragons.  This may include "multi-hued" breath.  Note that "wyrms" may
  * be present in many of the dragon pits, if they have the proper breath.
  *
- * Note the use of the "get_species_num_prep()" function, and the special
+ * Note the use of the "get_species_num_prep(NULL, )" function, and the special
  * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique creatures for the pit.
@@ -5674,7 +5674,7 @@ static bool build_type13(floor_type *floor_ptr)
 	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(n_ptr->hook_func, vault_aux_trapped_pit);
+	get_species_num_prep(NULL, n_ptr->hook_func, vault_aux_trapped_pit, NULL);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -6072,7 +6072,7 @@ static bool build_type15(floor_type *floor_ptr)
 			int dir1, dir2;
 
 			/* Prepare allocation table */
-			get_species_num_prep(vault_aux_lite, NULL);
+			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL);
 
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
@@ -6140,7 +6140,7 @@ static bool build_type15(floor_type *floor_ptr)
 			c_ptr->feat = feat_glass_wall;
 
 			/* Prepare allocation table */
-			get_species_num_prep(vault_aux_lite, NULL);
+			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL);
 
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 			if (species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
@@ -6202,7 +6202,7 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			/* Prepare allocation table */
-			get_species_num_prep(vault_aux_shards, NULL);
+			get_species_num_prep(NULL, vault_aux_shards, NULL, NULL);
 
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)

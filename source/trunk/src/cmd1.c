@@ -1429,13 +1429,13 @@ msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
 
 
 					/* Pick a nightmare */
-					get_species_num_prep(get_nightmare, NULL);
+					get_species_num_prep(NULL, get_nightmare, NULL, NULL);
 
 					/* Have some nightmares */
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
 					/* Remove the creature restriction */
-					get_species_num_prep(NULL, NULL);
+					get_species_num_prep(NULL, NULL, NULL, NULL);
 				}
 				(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(10) + 5);
 			}

@@ -1442,7 +1442,7 @@ errr get_species_num_new()
 
 
 // Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type creature_hook2)
+errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3)
 {
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
@@ -1452,6 +1452,7 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 	/* Set the new hooks */
 	creature_hook_type get_species_num_hook  = creature_hook;
 	creature_hook_type get_species_num2_hook = creature_hook2;
+	creature_hook_type2 get_species_num3_hook = creature_hook3;
 
 	/* Scan the allocation table */
 	for (i = 0; i < alloc_species_size; i++)
@@ -1466,7 +1467,8 @@ errr get_species_num_prep(creature_hook_type creature_hook, creature_hook_type c
 
 		/* Skip creatures which don't pass the restriction */
 		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
-		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))))
+		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
+			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
 			continue;
 
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx &&
@@ -3080,9 +3082,9 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 		chameleon_change_m_idx = m_idx;
 		if (old_unique)
-			get_species_num_prep(creature_hook_chameleon_lord, NULL);
+			get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL);
 		else
-			get_species_num_prep(creature_hook_chameleon, NULL);
+			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL);
 
 		if (old_unique)
 			level = species_info[SPECIES_CHAMELEON_K].level;
@@ -3212,7 +3214,7 @@ static int initial_r_appearance(int species_idx)
 	if (has_trait_species(&species_info[species_idx], TRAIT_TANUKI))
 		return species_idx;
 
-	get_species_num_prep(creature_hook_tanuki, NULL);
+	get_species_num_prep(NULL, creature_hook_tanuki, NULL, NULL);
 
 	while (--attempts)
 	{
@@ -3314,7 +3316,7 @@ static void deal_food(creature_type *creature_ptr)
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
 	{
 		/* Prepare allocation table */
-		get_species_num_prep(creature_hook_human, NULL);
+		get_species_num_prep(NULL, creature_hook_human, NULL, NULL);
 
 		for (i = rand_range(3,4); i > 0; i--)
 		{
@@ -4486,7 +4488,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	int species_idx;
 
 	/* Prepare allocation table */
-	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
+	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL);
 
 	/* Pick a creature */
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
@@ -4511,7 +4513,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	int cx = x;
 
 	// Prepare allocation table
-	get_species_num_prep(get_creature_hook(), get_creature_hook2(y, x));
+	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL);
 
 	while (--attempts)
 	{

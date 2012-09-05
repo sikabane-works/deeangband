@@ -873,13 +873,13 @@ msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 
 
 					/* Pick a nightmare */
-					get_species_num_prep(get_nightmare, NULL);
+					get_species_num_prep(NULL, get_nightmare, NULL, NULL);
 
 					/* Have some nightmares */
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
 					/* Remove the creature restriction */
-					get_species_num_prep(NULL, NULL);
+					get_species_num_prep(NULL, NULL, NULL, NULL);
 				}
 				if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(4) + 4))
 				{
