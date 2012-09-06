@@ -1444,8 +1444,9 @@ errr get_species_num_new()
 errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type creature_hook,
 							  creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, u32b trait_flags[TRAIT_FLAG_MAX])
 {
-	int i;
+	int i, j;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+	species_type	*species_ptr;
 
 	// Set the new hooks
 	creature_hook_type get_species_num_hook  = creature_hook;
@@ -1455,13 +1456,12 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type cr
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
 	{
-		species_type	*r_ptr;
 		
 		/* Get the entry */
 		alloc_entry *entry = &alloc_species_table[i];
 
 		entry->prob2 = 0;
-		r_ptr = &species_info[entry->index];
+		species_ptr = &species_info[entry->index];
 
 		/* Skip creatures which don't pass the restriction */
 		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
@@ -1469,12 +1469,13 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type cr
 			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
 			continue;
 
-		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx &&
-		    summon_specific_type != SUMMON_GUARDIANS)
+		for(j = 0; j < MAX_TRAITS; j++) if(have_flag(trait_flags, j) && !has_trait_species(species_ptr, j)) continue;
+
+		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
 		{
-			if (has_trait_species(r_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
-			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))	continue;
-			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
+			if (has_trait_species(species_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
+			if (has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
+			if (has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
 		/* Accept this creature */
