@@ -191,7 +191,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
-	int inside_quest;
 
 	bool fall_trap = FALSE;
 	int down_num = 0;
