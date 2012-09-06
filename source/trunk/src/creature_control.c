@@ -1441,17 +1441,11 @@ errr get_species_num_new()
 }
 
 // Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type creature_hook,
-							  creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, u32b trait_flags[TRAIT_FLAG_MAX])
+errr get_species_num_prep_new(creature_type *summoner_ptr, u32b trait_flags[TRAIT_FLAG_MAX], u32b flags)
 {
 	int i, j;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	species_type	*species_ptr;
-
-	// Set the new hooks
-	creature_hook_type get_species_num_hook  = creature_hook;
-	creature_hook_type get_species_num2_hook = creature_hook2;
-	creature_hook_type2 get_species_num3_hook = creature_hook3;
 
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
@@ -1463,12 +1457,6 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type cr
 		entry->prob2 = 0;
 		species_ptr = &species_info[entry->index];
 
-		/* Skip creatures which don't pass the restriction */
-		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
-		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
-			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
-			continue;
-
 		for(j = 0; j < MAX_TRAITS; j++) if(have_flag(trait_flags, j) && !has_trait_species(species_ptr, j)) continue;
 
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
@@ -1478,12 +1466,11 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type cr
 			if (has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
-		/* Accept this creature */
+		// Accept this creature
 		entry->prob2 = entry->prob1;
 
 		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
-
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
