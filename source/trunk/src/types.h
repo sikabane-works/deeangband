@@ -660,16 +660,13 @@ struct object_type
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
-	u32b art_flags[TR_FLAG_SIZE];        /* Extra Flags for ego and artifacts */
+	u32b art_flags[TR_FLAG_SIZE];		// Extra Flags for ego and artifacts
 	u32b trait_flags[TRAIT_FLAG_MAX];
 
-	u32b curse_flags;        /* Flags for curse */
-
-	s16b next_object_idx;	/* Next object in stack (if any) */
-
-	s16b held_m_idx;	/* Creature holding us (if any) */
-
-	s16b creater_idx;	/* Creater */
+	u32b curse_flags;		// Flags for curse
+	s16b next_object_idx;	// Next object in stack (if any)
+	s16b held_m_idx;		// Creature holding us (if any)
+	s16b creater_idx;		// Creater
 
 	byte equipped_slot_type;
 	byte equipped_slot_num;

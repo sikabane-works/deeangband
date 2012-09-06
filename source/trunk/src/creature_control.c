@@ -1440,6 +1440,59 @@ errr get_species_num_new()
 	return TRUE;
 }
 
+// Apply a "creature restriction function" to the "creature allocation table"
+errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type creature_hook,
+							  creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, u32b trait_flags[TRAIT_FLAG_MAX])
+{
+	int i;
+	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+
+	// Set the new hooks
+	creature_hook_type get_species_num_hook  = creature_hook;
+	creature_hook_type get_species_num2_hook = creature_hook2;
+	creature_hook_type2 get_species_num3_hook = creature_hook3;
+
+	// Scan the allocation table
+	for (i = 0; i < alloc_species_size; i++)
+	{
+		species_type	*r_ptr;
+		
+		/* Get the entry */
+		alloc_entry *entry = &alloc_species_table[i];
+
+		entry->prob2 = 0;
+		r_ptr = &species_info[entry->index];
+
+		/* Skip creatures which don't pass the restriction */
+		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
+		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
+			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
+			continue;
+
+		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx &&
+		    summon_specific_type != SUMMON_GUARDIANS)
+		{
+			if (has_trait_species(r_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
+			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))	continue;
+			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
+		}
+
+		/* Accept this creature */
+		entry->prob2 = entry->prob1;
+
+		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		{
+
+			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
+			entry->prob2 = hoge / 64;
+			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
+		}
+	}
+
+	/* Success */
+	return (0);
+}
+
 
 // Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3)
@@ -1447,14 +1500,12 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	/* Todo: Check the hooks for non-changes */
-
-	/* Set the new hooks */
+	// Set the new hooks
 	creature_hook_type get_species_num_hook  = creature_hook;
 	creature_hook_type get_species_num2_hook = creature_hook2;
 	creature_hook_type2 get_species_num3_hook = creature_hook3;
 
-	/* Scan the allocation table */
+	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
 	{
 		species_type	*r_ptr;
@@ -1497,7 +1548,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 
 static int mysqrt(int n)
 {
-	int tmp = n>>1;
+	int tmp = n >> 1;
 	int tasu = 10;
 	int kaeriti = 1;
 

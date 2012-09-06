@@ -1074,6 +1074,7 @@ extern void wipe_creature_list(int floor_id);
 extern s16b creature_pop(void);
 extern errr get_species_num_new();
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3);
+extern errr get_species_num_prep_new(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, u32b trait_flags[TRAIT_FLAG_MAX]);
 extern s16b get_species_num(floor_type *floor_ptr, int level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
 extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr);
