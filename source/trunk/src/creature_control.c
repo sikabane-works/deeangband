@@ -1450,9 +1450,7 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, u32b trait_flags[TRAI
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
 	{
-		
-		/* Get the entry */
-		alloc_entry *entry = &alloc_species_table[i];
+		alloc_entry *entry = &alloc_species_table[i];	// Get the entry
 
 		entry->prob2 = 0;
 		species_ptr = &species_info[entry->index];
@@ -1466,10 +1464,9 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, u32b trait_flags[TRAI
 			if (has_trait_species(species_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (species_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
-		// Accept this creature
-		entry->prob2 = entry->prob1;
+		entry->prob2 = entry->prob1; // Accept this creature
 
-		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		if((!floor_ptr->quest || is_fixed_quest_idx(floor_ptr->quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
@@ -1477,8 +1474,8 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, u32b trait_flags[TRAI
 		}
 	}
 
-	/* Success */
-	return (0);
+	
+	return (0); // Success
 }
 
 

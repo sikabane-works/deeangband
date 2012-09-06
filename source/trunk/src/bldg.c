@@ -4668,12 +4668,6 @@ void do_cmd_quest(creature_type *creature_ptr)
 		creature_ptr->oldpx = 0;
 
 		leave_quest_check(creature_ptr);
-
-		/* TODO
-		if (quest[inside_quest].type != QUEST_TYPE_RANDOM) floor_ptr->floor_level = 1;
-		inside_quest = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special;
-		*/
-
 		subject_change_floor = TRUE;
 	}
 }

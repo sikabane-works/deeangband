@@ -233,24 +233,9 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			msg_print("You enter the down staircase.");
 #endif
 
-
 		leave_quest_check(creature_ptr);
 
-		inside_quest = c_ptr->special;
-
-		/* Activate the quest */
-		if (!quest[inside_quest].status)
-		{
-			quest[inside_quest].status = QUEST_STATUS_TAKEN;
-		}
-
-		/* Leaving a quest */
-		if (!inside_quest)
-		{
-			floor_ptr->floor_level = 0;
-		}
-
-		/* Leaving */
+		// Leaving
 		subject_change_floor = TRUE;
 
 		creature_ptr->oldpx = 0;
