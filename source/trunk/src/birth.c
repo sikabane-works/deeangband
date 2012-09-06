@@ -2555,21 +2555,6 @@ void creature_wipe(creature_type *creature_ptr)
 
 }
 
-
-/*
- *  Hook function for quest creatures
- */
-static bool creature_hook_quest(int species_idx)
-{
-	species_type *species_ptr = &species_info[species_idx];
-	if (has_trait_species(species_ptr, TRAIT_WILD_ONLY)) return FALSE;	// Random quests are in the dungeon
-	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;		// No random quests for aquatic creatures
-	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;		// No random quests for multiplying creatures
-	if (has_trait_species(species_ptr, TRAIT_FRIENDLY)) return FALSE;		// No quests to kill friendly creatures
-	return TRUE;
-}
-
-
 /*
  * Determine the random quest uniques
  */
