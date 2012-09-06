@@ -257,13 +257,11 @@ bool species_hook_dungeon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	if (!has_trait_species(r_ptr, TRAIT_WILD_ONLY))
-		return TRUE;
+	if (!has_trait_species(r_ptr, TRAIT_WILD_ONLY)) return TRUE;
 	else
 	{
 		dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
-//TODO	if ((d_ptr->mflags8 & RF8_WILD_MOUNTAIN) &&
-//		    has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
+		if(has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 		return FALSE;
 	}
 }
@@ -386,7 +384,7 @@ static bool creature_hook_floor(int species_idx)
 creature_hook_type get_creature_hook(void)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
-//	if (!floor_ptr->floor_level && !inside_quest)
+	if (!floor_ptr->floor_level && !floor_ptr->quest)
 	{
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
@@ -413,10 +411,10 @@ creature_hook_type get_creature_hook(void)
 			return (creature_hook_type)species_hook_dungeon;
 		}
 	}
-	//else
-	//{
-	//	return (creature_hook_type)species_hook_dungeon;
-	//}
+	else
+	{
+		return (creature_hook_type)species_hook_dungeon;
+	}
 }
 
 

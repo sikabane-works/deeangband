@@ -1414,7 +1414,7 @@ static bool build_type4(floor_type *floor_ptr)
 	(species_hook_dungeon(I) && \
 	 !has_trait_species(&species_info[I], TRAIT_UNIQUE) && \
 	 !has_trait_species(&species_info[I], TRAIT_UNIQUE2) && \
-	 !has_trait_raw(&species_info[I].flags, TRAIT_RES_ALL) && \
+	 !has_trait_species(&species_info[I], TRAIT_RES_ALL) && \
 	 !has_trait_species(&species_info[I], TRAIT_AQUATIC))
 
 
@@ -2155,12 +2155,12 @@ static void ang_sort_swap_nest_info(vptr u, vptr v, int a, int b)
  * The creatures are chosen from a set of 64 randomly selected creature
  * races, to allow the nest creation to fail instead of having "holes".
  *
- * Note the use of the "get_species_num_prep(NULL, )" function, and the special
+ * Note the use of the "get_species_num_prep()" function, and the special
  * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique creatures for the nest.
  *
- * Note that the "get_species_num(floor_ptr, )" function may (rarely) fail, in which
+ * Note that the "get_species_num()" function may (rarely) fail, in which
  * case the nest will be empty.
  *
  * Note that "creature nests" will never contain "unique" creatures.
