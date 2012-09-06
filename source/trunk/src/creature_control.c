@@ -1455,7 +1455,7 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32
 		entry->prob2 = 0;
 		species_ptr = &species_info[entry->index];
 
-		for(j = 0; trait_flags[j] < MAX_TRAITS; j++) if(!has_trait_species(species_ptr, trait_flags[j])) continue;
+		for(j = 0; trait_flags[j] < MAX_TRAITS && trait_flags[j] >= 0; j++) if(!has_trait_species(species_ptr, trait_flags[j])) continue;
 
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
 		{

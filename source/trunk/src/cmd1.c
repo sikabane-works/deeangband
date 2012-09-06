@@ -1421,15 +1421,15 @@ msg_print("あなたは眠りに就いた。");
 
 				if (curse_of_Iluvatar)
 				{
+					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
 #ifdef JP
-msg_print("身の毛もよだつ光景が頭に浮かんだ。");
+					msg_print("身の毛もよだつ光景が頭に浮かんだ。");
 #else
 					msg_print("A horrible vision enters your mind.");
 #endif
 
-
 					/* Pick a nightmare */
-					get_species_num_prep(NULL, get_nightmare, NULL, NULL);
+					get_species_num_prep_new(NULL, traits, 0); // Prepare allocation table
 
 					/* Have some nightmares */
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));

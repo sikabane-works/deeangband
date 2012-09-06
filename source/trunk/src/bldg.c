@@ -2240,14 +2240,6 @@ static bool kankin(creature_type *creature_ptr)
 	return TRUE;
 }
 
-bool get_nightmare(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	if (!has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR)) return (FALSE); // Require eldritch horrors
-	return (TRUE); // Accept this creature
-}
-
 void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 {
 	bool happened = FALSE;
@@ -2564,6 +2556,8 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 
 				if (curse_of_Iluvatar)
 				{
+					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
+
 #ifdef JP
 					msg_print("眠りに就くと恐ろしい光景が心をよぎった。");
 #else
@@ -2571,7 +2565,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #endif
 
 					/* Pick a nightmare */
-					get_species_num_prep(NULL, get_nightmare, NULL, NULL);
+					get_species_num_prep_new(NULL, traits, 0);
 
 					/* Have some nightmares */
 					while(1)
