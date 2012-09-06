@@ -2489,7 +2489,7 @@ void creature_wipe(creature_type *creature_ptr)
 		creature_ptr->spell_worked1 = creature_ptr->spell_worked2 = 0L;
 	}
 	creature_ptr->spell_forgotten1 = creature_ptr->spell_forgotten2 = 0L;
-	for (i = 0; i < 64; i++) creature_ptr->spell_order[i] = 99;
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) creature_ptr->spell_order[i] = 99;
 	creature_ptr->learned_spells = 0;
 	creature_ptr->add_spells = 0;
 	creature_ptr->knowledge = 0;

@@ -1535,7 +1535,7 @@ void ascii_to_text(char *buf, cptr str)
 		{
 			*s++ = i;
 		}
-		else if (i < 64)
+		else if (i < (REALM_MAGIC_NUMBER * 2))
 		{
 			*s++ = '\\';
 			*s++ = '0';

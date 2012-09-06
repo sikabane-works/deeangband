@@ -120,6 +120,9 @@
 // Arena constants
 #define MAX_ARENA_MONS		39
 
+// Realm 
+#define REALM_MAGIC_NUMBER		32
+
 // Total number of stores (see "store.c", etc)
 #define MAX_STORES      10
 

@@ -458,7 +458,7 @@ void initialize_skill(creature_type *creature_ptr)
 	else
 		tmp_cls = CLASS_TOURIST;
 
-	for (i = 0; i < 64; i++)
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		if (tmp_cls == CLASS_SORCERER) creature_ptr->spell_exp[i] = SPELL_EXP_MASTER;
 		else if (tmp_cls == CLASS_RED_MAGE) creature_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
@@ -467,7 +467,7 @@ void initialize_skill(creature_type *creature_ptr)
 
 //TODO
 //	for (i = 0; i < 5; i++)
-//		for (j = 0; j < 64; j++)
+//		for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 //			creature_ptr->weapon_exp[i][j] = skill_info[tmp_cls].w_start[i][j];
 
 //	if ((creature_ptr->chara_idx == CHARA_SEXY) && (creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))

@@ -513,7 +513,7 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 #else
 		msg_format("You have learned the special attack of %s.", do_spell(creature_ptr, REALM_HISSATSU, i, SPELL_NAME));
 #endif
-		for (j = 0; j < 64; j++)
+		for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 		{
 			/* Stop at the first empty space */
 			if (creature_ptr->spell_order[j] == 99) break;

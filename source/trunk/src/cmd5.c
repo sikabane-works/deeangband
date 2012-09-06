@@ -599,15 +599,15 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 	int i, j = 0;
 	char tmp[80];
 
-	for (i = 0; i < 64; i++)
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		creature_ptr->spell_order[j] = creature_ptr->spell_order[i];
 		if (creature_ptr->spell_order[i] < 32) j++;
 	}
-	for (; j < 64; j++)
+	for (; j < (REALM_MAGIC_NUMBER * 2); j++)
 		creature_ptr->spell_order[j] = 99;
 
-	for (i = 32; i < 64; i++)
+	for (i = 32; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		creature_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
 	}
@@ -895,7 +895,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 	else
 	{
 		/* Find the next open entry in "creature_ptr->spell_order[]" */
-		for (i = 0; i < 64; i++)
+		for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 		{
 			/* Stop at the first empty space */
 			if (creature_ptr->spell_order[i] == 99) break;

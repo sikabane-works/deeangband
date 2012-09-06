@@ -570,7 +570,7 @@ static void wr_creature(creature_type *creature_ptr)
 	}
 
 	for (i = 0; i < 8; i++) wr_s32b(creature_ptr->authority[i]);
-	for (i = 0; i < 64; i++) wr_s16b(creature_ptr->spell_exp[i]);
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) wr_s16b(creature_ptr->spell_exp[i]);
 	for (i = 0; i < 10; i++) wr_s16b(creature_ptr->skill_exp[i]);
 
 	if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
@@ -712,7 +712,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->start_wy);
 
 	/* Dump the ordered spells */
-	for (i = 0; i < 64; i++)
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		wr_byte(creature_ptr->spell_order[i]);
 	}

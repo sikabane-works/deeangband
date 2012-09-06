@@ -383,7 +383,7 @@ cptr            p = "–‚–@";
 	{
 		if ((0x00000001 << i) & f4) spellnum[num++] = i;
 	}
-	for (; i < 64; i++)
+	for (; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		if ((0x00000001 << (i - 32)) & f5) spellnum[num++] = i;
 	}

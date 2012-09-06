@@ -1908,7 +1908,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	}
 
 	/* Count the number of spells we know */
-	for (j = 0; j < 64; j++)
+	for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 	{
 		/* Count known spells */
 		if ((j < 32) ?
@@ -2058,7 +2058,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 
 
 	/* Check for spells to remember */
-	for (i = 0; i < 64; i++)
+	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
 		/* None left to remember */
 		if (creature_ptr->new_spells <= 0) break;

@@ -6910,7 +6910,7 @@ static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
 
 	for (i = 0; i < 5; i++)
 	{
-		for (num = 0; num < 64; num++)
+		for (num = 0; num < (REALM_MAGIC_NUMBER * 2); num++)
 		{
 			for (j = 0; j < max_object_kind_idx; j++)
 			{

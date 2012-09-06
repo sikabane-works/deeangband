@@ -381,7 +381,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	/*
 	for (j = 0; j <= TV_WEAPON_END - TV_WEAPON_BEGIN; j++)
 	{
-		for (i = 0;i < 64;i++)
+		for (i = 0;i < (REALM_MAGIC_NUMBER * 2);i++)
 		{
 			creature_ptr->weapon_exp[j][i] = tmp_s16b;
 			if (creature_ptr->weapon_exp[j][i] > skill_info[creature_ptr->class_idx].w_max[j][i]) creature_ptr->weapon_exp[j][i] = skill_info[creature_ptr->class_idx].w_max[j][i];
@@ -397,7 +397,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	for (j = 0; j < 32; j++)
 		creature_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_MASTER ? SPELL_EXP_MASTER : tmp_s16b);
-	for (; j < 64; j++)
+	for (; j < (REALM_MAGIC_NUMBER * 2); j++)
 		creature_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_EXPERT ? SPELL_EXP_EXPERT : tmp_s16b);
 
 	/* Default */
@@ -1164,7 +1164,7 @@ static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 		{
 			if ((0x00000001 << i) & f4) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
 		}
-		for (; i < 64; i++)
+		for (; i < (REALM_MAGIC_NUMBER * 2); i++)
 		{
 			if ((0x00000001 << (i - 32)) & f5) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
 		}
