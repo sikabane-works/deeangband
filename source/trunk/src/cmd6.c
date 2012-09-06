@@ -880,7 +880,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
 					/* Remove the creature restriction */
-					get_species_num_prep(NULL, NULL, NULL, NULL);
+					reset_species_preps();
 				}
 				if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(4) + 4))
 				{

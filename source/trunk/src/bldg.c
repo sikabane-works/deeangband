@@ -2576,7 +2576,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					}
 
 					/* Remove the creature restriction */
-					get_species_num_prep(NULL, NULL, NULL, NULL);
+					reset_species_preps();
 
 #ifdef JP
 					msg_print("あなたは絶叫して目を覚ました。");

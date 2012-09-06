@@ -5092,3 +5092,4 @@ void msg_warning(cptr message, ...)
 	msg_format(buf, vp);
 	va_end(vp);	// End the Varargs Stuff
 }
+

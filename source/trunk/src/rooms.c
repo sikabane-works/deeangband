@@ -1746,7 +1746,7 @@ static void vault_prep_clone(floor_type *floor_ptr)
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
 	/* Remove the creature restriction */
-	get_species_num_prep(NULL, NULL, NULL, NULL);
+	reset_species_preps();
 }
 
 
@@ -1764,7 +1764,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
 
 	/* Remove the creature restriction */
-	get_species_num_prep(NULL, NULL, NULL, NULL);
+	reset_species_preps();
 
 	/* Extract the symbol */
 	vault_aux_char = species_info[species_idx].d_char;

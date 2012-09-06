@@ -3103,7 +3103,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				get_species_num_prep_new(NULL, traits, 0);							// Pick a nightmare
 				have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));	// Have some nightmares
-				get_species_num_prep(NULL, NULL, NULL, NULL);									// Remove the creature restriction
+				reset_species_preps();									// Remove the creature restriction
 			}
 
 			set_paralyzed(target_ptr, target_ptr->paralyzed + dam);

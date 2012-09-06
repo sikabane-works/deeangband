@@ -1478,6 +1478,18 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32
 	return (0); // Success
 }
 
+void reset_species_preps(void)
+{
+	int i;
+
+	// Scan the allocation table
+	for (i = 0; i < alloc_species_size; i++)
+	{
+		alloc_entry *entry = &alloc_species_table[i];	// Get the entry
+		entry->prob2 = entry->prob1; // Accept this creature
+	}
+
+}
 
 // Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3)

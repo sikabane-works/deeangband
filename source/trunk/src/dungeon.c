@@ -6015,7 +6015,7 @@ void determine_bounty_uniques(void)
 	int          i, j, tmp;
 	species_type *r_ptr;
 
-	get_species_num_prep(NULL, NULL, NULL, NULL);
+	reset_species_preps();
 	for (i = 0; i < MAX_BOUNTY; i++)
 	{
 		while (1)
@@ -6071,7 +6071,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	else max_dl = MAX(max_dlv[DUNGEON_DOD], 3);
 
 	floor_ptr->gamble_arena_mode = TRUE;
-	get_species_num_prep(NULL, NULL, NULL, NULL);
+	reset_species_preps();
 
 	while (n < MAX_TRIES)
 	{

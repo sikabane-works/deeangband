@@ -1435,7 +1435,7 @@ msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 
 					/* Remove the creature restriction */
-					get_species_num_prep(NULL, NULL, NULL, NULL);
+					reset_species_preps();
 				}
 				(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(10) + 5);
 			}
