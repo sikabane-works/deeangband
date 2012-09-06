@@ -1675,6 +1675,8 @@ extern void dump_traits(creature_type *creature_ptr, FILE *OutFile);
 extern void do_cmd_knowledge_traits(creature_type *creature_ptr);
 extern int calc_regenerate_mod(creature_type *creature_ptr);
 extern bool mutation_power_aux(creature_type *creature_ptr, u32b power);
+extern void get_acquired_trait(creature_type *creature_ptr, int trait);
+extern void lose_acquired_trait(creature_type *creature_ptr, int trait);
 
 
 /*

@@ -1579,6 +1579,7 @@ struct creature_type
 	s16b resting;			// Current counter for resting, if any
 	bool reinit_wilderness;
 
+	u32b acquired_trait[TRAIT_FLAG_MAX];
 };
 
 // traits_precondition_type
