@@ -2385,7 +2385,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TRAIT_LEVITATION);
 	}
-	if (creature_ptr->tim_res_nether)
+	if (creature_ptr->timed_trait[TRAIT_RES_NETH])
 	{
 		add_flag(flgs, TRAIT_RES_NETH);
 	}

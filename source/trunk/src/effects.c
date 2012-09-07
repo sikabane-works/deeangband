@@ -195,8 +195,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->resist_magic = 0;
 	creature_ptr->tsuyoshi = 0;
 	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
-	creature_ptr->tim_res_nether = 0;
-	creature_ptr->tim_res_time = 0;
+	creature_ptr->timed_trait[TRAIT_RES_NETH] = 0;
+	creature_ptr->timed_trait[TRAIT_RES_TIME] = 0;
 	creature_ptr->tim_mimic = 0;
 	creature_ptr->mimic_form = 0;
 	creature_ptr->tim_reflect = 0;
@@ -6889,11 +6889,11 @@ bool set_tim_res_nether(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_res_nether && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_NETH] && !do_dec)
 		{
-			if (creature_ptr->tim_res_nether > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_NETH] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_res_nether)
+		else if (!creature_ptr->timed_trait[TRAIT_RES_NETH])
 		{
 #ifdef JP
 msg_print("地獄の力に対して耐性がついた気がする！");
@@ -6908,7 +6908,7 @@ msg_print("地獄の力に対して耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_res_nether)
+		if (creature_ptr->timed_trait[TRAIT_RES_NETH])
 		{
 #ifdef JP
 msg_print("地獄の力に対する耐性が薄れた気がする。");
@@ -6921,7 +6921,7 @@ msg_print("地獄の力に対する耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	creature_ptr->tim_res_nether = v;
+	creature_ptr->timed_trait[TRAIT_RES_NETH] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -6954,11 +6954,11 @@ bool set_tim_res_time(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_res_time && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_TIME] && !do_dec)
 		{
-			if (creature_ptr->tim_res_time > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_TIME] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_res_time)
+		else if (!creature_ptr->timed_trait[TRAIT_RES_TIME])
 		{
 #ifdef JP
 msg_print("時間逆転の力に対して耐性がついた気がする！");
@@ -6973,7 +6973,7 @@ msg_print("時間逆転の力に対して耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_res_time)
+		if (creature_ptr->timed_trait[TRAIT_RES_TIME])
 		{
 #ifdef JP
 msg_print("時間逆転の力に対する耐性が薄れた気がする。");
@@ -6986,7 +6986,7 @@ msg_print("時間逆転の力に対する耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	creature_ptr->tim_res_time = v;
+	creature_ptr->timed_trait[TRAIT_RES_TIME] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

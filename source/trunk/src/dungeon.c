@@ -2091,15 +2091,15 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed resist nether */
-	if (creature_ptr->tim_res_nether)
+	if (creature_ptr->timed_trait[TRAIT_RES_NETH])
 	{
-		(void)set_tim_res_nether(creature_ptr, creature_ptr->tim_res_nether - 1, TRUE);
+		(void)set_tim_res_nether(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_NETH] - 1, TRUE);
 	}
 
 	/* Timed resist time */
-	if (creature_ptr->tim_res_time)
+	if (creature_ptr->timed_trait[TRAIT_RES_TIME])
 	{
-		(void)set_tim_res_time(creature_ptr, creature_ptr->tim_res_time - 1, TRUE);
+		(void)set_tim_res_time(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_TIME] - 1, TRUE);
 	}
 
 	/* Timed reflect */

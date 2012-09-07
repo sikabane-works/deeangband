@@ -485,7 +485,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->timed_trait[TRAIT_AFRAID]) ADD_FLG(BAR_AFRAID);
 
 	/* Resist time */
-	if (creature_ptr->tim_res_time) ADD_FLG(BAR_RESTIME);
+	if (creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME);
 
 	if (creature_ptr->multishadow) ADD_FLG(BAR_MULTISHADOW);
 
@@ -500,7 +500,7 @@ static void prt_status(creature_type *creature_ptr)
 	/* tim levitation */
 	if (creature_ptr->timed_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE);
 
-	if (creature_ptr->tim_res_nether) ADD_FLG(BAR_RESNETH);
+	if (creature_ptr->timed_trait[TRAIT_RES_NETH]) ADD_FLG(BAR_RESNETH);
 
 	if (creature_ptr->dustrobe) ADD_FLG(BAR_DUSTROBE);
 
@@ -3357,7 +3357,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_ac += 50;
 	}
 
-	if (creature_ptr->tim_res_nether)
+	if (creature_ptr->timed_trait[TRAIT_RES_NETH])
 	{
 		creature_ptr->resist_neth = TRUE;
 	}
@@ -3367,7 +3367,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->sh_fire = TRUE;
 	}
 
-	if (creature_ptr->tim_res_time)
+	if (creature_ptr->timed_trait[TRAIT_RES_TIME])
 	{
 		creature_ptr->resist_time = TRUE;
 	}

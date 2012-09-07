@@ -1099,8 +1099,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
 	rd_s16b(&creature_ptr->tsubureru);
 	rd_s16b(&creature_ptr->magicdef);
-	rd_s16b(&creature_ptr->tim_res_nether);
-	rd_s16b(&creature_ptr->tim_res_time);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_NETH]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_TIME]);
 	rd_byte(&creature_ptr->mimic_form);
 	rd_s16b(&creature_ptr->tim_mimic);
 	rd_s16b(&creature_ptr->tim_sh_fire);
