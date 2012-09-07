@@ -620,6 +620,17 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->food);
 	wr_s16b(creature_ptr->energy_need);
 
+	// Save timed trait
+	for(i = 0; i < MAX_TRAITS; i++)
+	{
+		if(creature_ptr->timed_status[i])
+		{
+			wr_s16b(i);
+			wr_s16b(&creature_ptr->timed_status[i]);
+		}
+	}
+	wr_s16b(-1);
+
 	wr_s16b(creature_ptr->fast);
 	wr_s16b(creature_ptr->slow);
 	wr_s16b(creature_ptr->afraid);

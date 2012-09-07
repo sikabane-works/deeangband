@@ -904,6 +904,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	byte tmp8u;
 	u16b tmp16u;
+	s16b tmp16s;
 
 	rd_u32b(&creature_ptr->creature_idx);
 
@@ -1050,6 +1051,14 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->confused);
 	rd_s16b(&creature_ptr->food);
 	rd_s16b(&creature_ptr->energy_need);
+
+	// Load timed trait
+	while(1)
+	{
+		rd_s16b(&tmp16s);
+		if(tmp16s < 0) break;
+		rd_s16b(&creature_ptr->timed_status[tmp16s]);
+	}
 
 	rd_s16b(&creature_ptr->fast);
 	rd_s16b(&creature_ptr->slow);
