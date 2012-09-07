@@ -1250,7 +1250,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(creature_ptr->multishadow && (turn & 1))) (void)set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint0(20) + 20, FALSE);
+				if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint0(20) + 20, FALSE);
 			}
 			else
 			{
@@ -1281,7 +1281,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(creature_ptr->multishadow && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
+				if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
 			{
@@ -1312,7 +1312,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(creature_ptr->multishadow && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
+				if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
 			{
@@ -1343,7 +1343,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if (!(creature_ptr->multishadow && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
+				if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else
 			{

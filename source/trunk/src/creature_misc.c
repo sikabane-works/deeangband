@@ -886,9 +886,9 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if (has_trait(creature_ptr, TRAIT_HURT_LITE))
 		{
 #ifdef JP
-			if (!(creature_ptr->multishadow && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
+			if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
 #else
-			if (!(creature_ptr->multishadow && (turn & 1))) msg_print("The light scorches your flesh!");
+			if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("The light scorches your flesh!");
 #endif
 			t *= 2;
 		}
@@ -996,7 +996,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	}
 
 	/* TODO Multishadow
-	if (!(creature_ptr->multishadow && (turn & 1)))
+	if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 	{
 		if ((!(double_resist || creature_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))

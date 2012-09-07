@@ -857,7 +857,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->magicdef) return (TRUE);
 
 	/* Multi Shadow */
-	if (target_ptr->multishadow) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return (TRUE);
 
 	/* Robe of dust */
 	if (target_ptr->dustrobe) return (TRUE);

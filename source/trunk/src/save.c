@@ -678,8 +678,8 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->tim_eyeeye);
 
 	/* by henkma */
-	wr_s16b(creature_ptr->tim_reflect);
-	wr_s16b(creature_ptr->multishadow);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_REFLECTING]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]);
 	wr_s16b(creature_ptr->dustrobe);
 
 	wr_s16b(creature_ptr->patron_idx);

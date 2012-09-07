@@ -1323,8 +1323,6 @@ struct creature_type
 	s16b tim_eyeeye;
 
 	// for mirror master 
-	s16b tim_reflect;       // Timed -- Reflect 
-	s16b multishadow;       // Timed -- Multi-shadow 
 	s16b dustrobe;          // Timed -- Robe of dust 
 
 	s32b karmas_cur[MAX_KARMA];

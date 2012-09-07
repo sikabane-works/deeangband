@@ -1106,8 +1106,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->tim_sh_fire);
 	rd_s16b(&creature_ptr->tim_sh_holy);
 	rd_s16b(&creature_ptr->tim_eyeeye);
-	rd_s16b(&creature_ptr->tim_reflect);
-	rd_s16b(&creature_ptr->multishadow);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_REFLECTING]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]);
 	rd_s16b(&creature_ptr->dustrobe);
 	rd_s16b(&creature_ptr->patron_idx);
 	rd_s16b(&creature_ptr->father_idx);

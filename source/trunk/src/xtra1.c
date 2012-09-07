@@ -449,7 +449,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if (creature_ptr->wraith_form) ADD_FLG(BAR_WRAITH);		// Wraith form
 	if (creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
-	if (creature_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
+	if (creature_ptr->timed_trait[TRAIT_REFLECTING]) ADD_FLG(BAR_REFLECTION);
 	if (IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
 	if (creature_ptr->shero) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
 	if (IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
@@ -487,7 +487,7 @@ static void prt_status(creature_type *creature_ptr)
 	/* Resist time */
 	if (creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME);
 
-	if (creature_ptr->multishadow) ADD_FLG(BAR_MULTISHADOW);
+	if (creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
 
 	/* Confusing Hands */
 	if (creature_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
@@ -3301,7 +3301,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	/* Temporary reflection */
-	if (creature_ptr->tim_reflect)
+	if (creature_ptr->timed_trait[TRAIT_REFLECTING])
 	{
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 	}

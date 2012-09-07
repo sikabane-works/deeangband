@@ -199,8 +199,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_RES_TIME] = 0;
 	creature_ptr->tim_mimic = 0;
 	creature_ptr->mimic_form = 0;
-	creature_ptr->tim_reflect = 0;
-	creature_ptr->multishadow = 0;
+	creature_ptr->timed_trait[TRAIT_REFLECTING] = 0;
+	creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] = 0;
 	creature_ptr->dustrobe = 0;
 	creature_ptr->action = ACTION_NONE;
 
@@ -3123,7 +3123,7 @@ bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_reflect", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_REFLECTING]", notice observable changes
  */
 bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3137,11 +3137,11 @@ bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_reflect && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_REFLECTING] && !do_dec)
 		{
-			if (creature_ptr->tim_reflect > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_REFLECTING] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_reflect)
+		else if (!creature_ptr->timed_trait[TRAIT_REFLECTING])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3158,7 +3158,7 @@ bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_reflect)
+		if (creature_ptr->timed_trait[TRAIT_REFLECTING])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3174,7 +3174,7 @@ bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_reflect = v;
+	creature_ptr->timed_trait[TRAIT_REFLECTING] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -3197,7 +3197,7 @@ bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->multishadow", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]", notice observable changes
  */
 bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3211,11 +3211,11 @@ bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->multishadow && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && !do_dec)
 		{
-			if (creature_ptr->multishadow > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] > v) return FALSE;
 		}
-		else if (!creature_ptr->multishadow)
+		else if (!creature_ptr->timed_trait[TRAIT_MULTI_SHADOW])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3232,7 +3232,7 @@ bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->multishadow)
+		if (creature_ptr->timed_trait[TRAIT_MULTI_SHADOW])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3247,7 +3247,7 @@ bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->multishadow = v;
+	creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -6142,7 +6142,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 		}
 
-		if ((target_ptr->multishadow && (turn & 1)))
+		if ((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{

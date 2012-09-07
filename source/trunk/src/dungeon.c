@@ -2103,15 +2103,15 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed reflect */
-	if (creature_ptr->tim_reflect)
+	if (creature_ptr->timed_trait[TRAIT_REFLECTING])
 	{
-		(void)set_tim_reflect(creature_ptr, creature_ptr->tim_reflect - 1, TRUE);
+		(void)set_tim_reflect(creature_ptr, creature_ptr->timed_trait[TRAIT_REFLECTING] - 1, TRUE);
 	}
 
 	/* Multi-shadow */
-	if (creature_ptr->multishadow)
+	if (creature_ptr->timed_trait[TRAIT_MULTI_SHADOW])
 	{
-		(void)set_multishadow(creature_ptr, creature_ptr->multishadow - 1, TRUE);
+		(void)set_multishadow(creature_ptr, creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] - 1, TRUE);
 	}
 
 	/* Timed Robe of dust */
