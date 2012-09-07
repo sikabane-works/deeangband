@@ -962,6 +962,130 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	}
 }
 
+/*
+ * Set "slept", notice observable changes
+ */
+bool set_slept(creature_type *creature_ptr, int v)
+{
+	bool notice = FALSE;
+
+	/* Hack -- Force good values */
+	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
+
+	if (IS_DEAD(creature_ptr)) return FALSE;
+
+	//TODO
+	if(is_player(creature_ptr))
+	{
+
+	/* Open */
+	if (v)
+	{
+		if (!creature_ptr->slept)
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+#ifdef JP
+				msg_print("‘Ì‚ª–ƒáƒ‚µ‚Ä‚µ‚Ü‚Á‚½I");
+#else
+				msg_print("You are slept!");
+#endif
+			}
+
+			/* Sniper */
+			if (creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
+
+			/* Hex */
+			if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+
+			creature_ptr->counter = FALSE;
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (creature_ptr->slept)
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+#ifdef JP
+				msg_print("‚â‚Á‚Æ“®‚¯‚é‚æ‚¤‚É‚È‚Á‚½B");
+#else
+				msg_print("You can move again.");
+#endif
+			}
+
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	creature_ptr->slept = v;
+
+	/* Redraw status bar */
+	play_redraw |= (PR_STATUS);
+
+	/* Nothing to notice */
+	if (!notice) return (FALSE);
+
+	/* Disturb */
+	if (disturb_state) disturb(player_ptr, 0, 0);
+
+	/* Redraw the state */
+	play_redraw |= (PR_STATE);
+
+	/* Handle stuff */
+	handle_stuff();
+
+	/* Result */
+	return (TRUE);
+	}
+	else
+	{
+	/* Hack -- Force good values */
+	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
+
+	/* Open */
+	if (v)
+	{
+		if (!creature_ptr->slept)
+		{
+			mproc_add(creature_ptr, MTIMED_CSLEEP);
+			notice = TRUE;
+		}
+	}
+
+	/* Shut */
+	else
+	{
+		if (creature_ptr->slept)
+		{
+			mproc_remove(creature_ptr, MTIMED_CSLEEP);
+			notice = TRUE;
+		}
+	}
+
+	/* Use the value */
+	creature_ptr->slept = v;
+
+	if (!notice) return FALSE;
+
+	if (creature_ptr->see_others)
+	{
+		/* Update health bar as needed */
+		if (&creature_list[health_who] == creature_ptr) play_redraw |= (PR_HEALTH);
+		if (&creature_list[creature_ptr->riding] == creature_ptr) play_redraw |= (PR_UHEALTH);
+	}
+
+	if (is_has_ld_creature(creature_ptr)) update |= (PU_SPECIES_LITE);
+
+	return TRUE;
+
+	}
+}
+
 
 /*
  * Set "IS_HALLUCINATION(creature_ptr)", notice observable changes
