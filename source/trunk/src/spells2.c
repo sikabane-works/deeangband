@@ -2214,7 +2214,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 		{
 			if (!is_pet(player_ptr, m_ptr))
 			{
-				(void)set_fast(m_ptr, m_ptr->fast + 100, FALSE);
+				(void)set_fast(m_ptr, m_ptr->timed_trait[TRAIT_FAST] + 100, FALSE);
 				speed = TRUE;
 			}
 		}
@@ -2525,7 +2525,7 @@ bool probing(floor_type *floor_ptr)
 			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
 
 			speed = m_ptr->speed;
-			if (m_ptr->fast) speed += 10;
+			if (m_ptr->timed_trait[TRAIT_FAST]) speed += 10;
 			if (m_ptr->slow) speed -= 10;
 
 			/* Get the creature's alignment */

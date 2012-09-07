@@ -4531,7 +4531,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 
 			// Allow quick speed increases to base+10 
-			if (set_fast(caster_ptr, caster_ptr->fast + 100, FALSE))
+			if (set_fast(caster_ptr, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
 			{
 #ifdef JP
 				msg_format("%^sの動きが速くなった。", caster_name);

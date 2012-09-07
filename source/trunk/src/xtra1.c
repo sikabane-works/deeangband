@@ -1115,8 +1115,8 @@ static void prt_speed(creature_type *creature_ptr)
 		if (creature_ptr->riding)
 		{
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
-			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
+			if (m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->slow) attr = TERM_L_BLUE;
+			else if (m_ptr->slow && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
 		else if ((is_fast && !creature_ptr->slow) || creature_ptr->lightspeed) attr = TERM_YELLOW;
@@ -1136,8 +1136,8 @@ static void prt_speed(creature_type *creature_ptr)
 		if (creature_ptr->riding)
 		{
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-			if (m_ptr->fast && !m_ptr->slow) attr = TERM_L_BLUE;
-			else if (m_ptr->slow && !m_ptr->fast) attr = TERM_VIOLET;
+			if (m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->slow) attr = TERM_L_BLUE;
+			else if (m_ptr->slow && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
 			else attr = TERM_RED;
 		}
 		else if (is_fast && !creature_ptr->slow) attr = TERM_YELLOW;
@@ -4694,7 +4694,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	}
 
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
-	if (steed_ptr->fast) creature_ptr->speed += 10;
+	if (steed_ptr->timed_trait[TRAIT_FAST]) creature_ptr->speed += 10;
 	if (steed_ptr->slow) creature_ptr->speed -= 10;
 	riding_levitation = has_trait_species(riding_r_ptr, TRAIT_CAN_FLY) ? TRUE : FALSE;
 

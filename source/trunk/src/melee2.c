@@ -2821,7 +2821,7 @@ void creature_process_init(void)
 		if (!creature_ptr->species_idx) continue;
 
 		if (creature_ptr->paralyzed) mproc_add(creature_ptr, MTIMED_CSLEEP);
-		if (creature_ptr->fast) mproc_add(creature_ptr, MTIMED_FAST);
+		if (creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
 		if (creature_ptr->slow) mproc_add(creature_ptr, MTIMED_SLOW);
 		if (creature_ptr->stun) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if (creature_ptr->confused) mproc_add(creature_ptr, MTIMED_CONFUSED);
@@ -2930,7 +2930,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_FAST:
 		/* Reduce by one, note if expires */
-		set_fast(creature_ptr, creature_ptr->fast - 1, FALSE);
+		set_fast(creature_ptr, creature_ptr->timed_trait[TRAIT_FAST] - 1, FALSE);
 		break;
 
 	case MTIMED_SLOW:

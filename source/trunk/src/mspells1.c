@@ -926,7 +926,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 
 	if (target_ptr->riding && (creature_list[target_ptr->riding].speed < 135))
 	{
-		if (creature_list[target_ptr->riding].fast) return (TRUE);
+		if (creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return (TRUE);
 	}
 
 	/* No need to cast dispel spell */
@@ -1152,7 +1152,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Haste self if we aren't already somewhat hasted (rarely) */
-	if (haste_num && (randint0(100) < 20) && !caster_ptr->fast)
+	if (haste_num && (randint0(100) < 20) && !caster_ptr->timed_trait[TRAIT_FAST])
 	{
 		/* Choose haste spell */
 		return (haste[randint0(haste_num)]);
@@ -3090,7 +3090,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 
 			/* Allow quick speed increases to base+10 */
-			if (set_fast(caster_ptr, caster_ptr->fast + 100, FALSE))
+			if (set_fast(caster_ptr, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
 			{
 #ifdef JP
 				msg_format("%^sの動きが速くなった。", m_name);

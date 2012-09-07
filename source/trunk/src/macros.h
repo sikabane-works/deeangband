@@ -62,7 +62,7 @@
 	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
 
 // Temporary flags macro
-#define IS_FAST(C)			((C)->fast || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
+#define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_SLOW(C)			((C)->slow)
 #define IS_INVULN(C)		((C)->invuln || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C)			((C)->hero || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))

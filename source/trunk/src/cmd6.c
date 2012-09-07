@@ -997,13 +997,13 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_SPEED:
-			if (!creature_ptr->fast)
+			if (!creature_ptr->timed_trait[TRAIT_FAST])
 			{
 				if (set_fast(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			}
 			else
 			{
-				(void)set_fast(creature_ptr, creature_ptr->fast + 5, FALSE);
+				(void)set_fast(creature_ptr, creature_ptr->timed_trait[TRAIT_FAST] + 5, FALSE);
 			}
 			break;
 

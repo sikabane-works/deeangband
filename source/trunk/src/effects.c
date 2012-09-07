@@ -161,7 +161,7 @@ void set_action(creature_type *creature_ptr, int typ)
 /* reset timed flags */
 void reset_tim_flags(creature_type *creature_ptr)
 {
-	creature_ptr->fast = 0;            /* Timed -- Fast */
+	creature_ptr->timed_trait[TRAIT_FAST] = 0;            /* Timed -- Fast */
 	creature_ptr->lightspeed = 0;
 	creature_ptr->slow = 0;            /* Timed -- Slow */
 	creature_ptr->blind = 0;           /* Timed -- Blindness */
@@ -1181,7 +1181,7 @@ bool set_image(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->fast", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_FAST]", notice observable changes
  */
 bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1198,9 +1198,9 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->fast && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_FAST] && !do_dec)
 		{
-			if (creature_ptr->fast > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_FAST] > v) return FALSE;
 		}
 		else if (!IS_FAST(creature_ptr) && !creature_ptr->lightspeed)
 		{
@@ -1219,7 +1219,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->fast && !creature_ptr->lightspeed && !music_singing(creature_ptr, MUSIC_SPEED) && !music_singing(creature_ptr, MUSIC_SHERO))
+		if (creature_ptr->timed_trait[TRAIT_FAST] && !creature_ptr->lightspeed && !music_singing(creature_ptr, MUSIC_SPEED) && !music_singing(creature_ptr, MUSIC_SHERO))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1234,7 +1234,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->fast = v;
+	creature_ptr->timed_trait[TRAIT_FAST] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1257,7 +1257,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->fast)
+		if (!creature_ptr->timed_trait[TRAIT_FAST])
 		{
 			mproc_add(creature_ptr, MTIMED_FAST);
 			notice = TRUE;
@@ -1267,7 +1267,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->fast)
+		if (creature_ptr->timed_trait[TRAIT_FAST])
 		{
 			mproc_remove(creature_ptr, MTIMED_FAST);
 			notice = TRUE;
@@ -1275,7 +1275,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->fast = v;
+	creature_ptr->timed_trait[TRAIT_FAST] = v;
 
 	if (!notice) return FALSE;
 

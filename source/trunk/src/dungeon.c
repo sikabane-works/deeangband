@@ -2145,9 +2145,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Fast */
-	if (creature_ptr->fast)
+	if (creature_ptr->timed_trait[TRAIT_FAST])
 	{
-		(void)set_fast(creature_ptr, creature_ptr->fast - 1, TRUE);
+		(void)set_fast(creature_ptr, creature_ptr->timed_trait[TRAIT_FAST] - 1, TRUE);
 	}
 
 	/* Slow */
@@ -2500,7 +2500,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("You feel less energetic.");
 #endif
 
-			if (creature_ptr->fast > 0)
+			if (creature_ptr->timed_trait[TRAIT_FAST] > 0)
 			{
 				set_fast(creature_ptr, 0, TRUE);
 			}

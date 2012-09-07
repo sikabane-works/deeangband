@@ -9668,7 +9668,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if (stop)
 		{
-			if (!caster_ptr->fast)
+			if (!caster_ptr->timed_trait[TRAIT_FAST])
 			{
 #ifdef JP
 				msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
@@ -9979,7 +9979,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				caster_ptr->creature_update |= (CRU_HP);
 			}
 
-			if (!caster_ptr->fast)
+			if (!caster_ptr->timed_trait[TRAIT_FAST])
 			{
 #ifdef JP
 				msg_print("“®‚«‚Ì‘f‘‚³‚ª‚È‚­‚È‚Á‚½‚æ‚¤‚¾B");
