@@ -906,7 +906,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->ult_res) return (TRUE);
 
 	/* Potion of Neo Tsuyosi special */
-	if (target_ptr->tsuyoshi) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_TSUYOSHI]) return (TRUE);
 
 	/* Elemental Brands */
 	if ((target_ptr->special_attack & ATTACK_ACID) && !has_trait(target_ptr, TRAIT_RES_ACID)) return (TRUE);
@@ -1138,7 +1138,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Cast globe of invulnerability if not already in effect */
-	if (invul_num && !caster_ptr->invuln && (randint0(100) < 50))
+	if (invul_num && !caster_ptr->timed_trait[TRAIT_INVULNERABLE] && (randint0(100) < 50))
 	{
 		/* Choose Globe of Invulnerability */
 		return (invul[randint0(invul_num)]);
@@ -3237,7 +3237,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 			}
 
-			if (!caster_ptr->invuln) (void)set_invuln(caster_ptr, randint1(4) + 4, FALSE);
+			if (!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_invuln(caster_ptr, randint1(4) + 4, FALSE);
 			break;
 		}
 

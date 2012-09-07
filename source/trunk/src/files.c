@@ -3536,7 +3536,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 
 		/* Mutations ... */
 		//TODO
-		if (creature_ptr->tsuyoshi)
+		if (creature_ptr->timed_trait[TRAIT_TSUYOSHI])
 		{
 			int dummy = 0;
 
@@ -3544,7 +3544,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			{
 				if (has_trait(creature_ptr, TRAIT_HYPER_STR)) dummy += 4;
 				if (has_trait(creature_ptr, TRAIT_PUNY)) dummy -= 4;
-				if (creature_ptr->tsuyoshi) dummy += 4;
+				if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) dummy += 4;
 			}
 			else if (stat == STAT_WIS || stat == STAT_INT)
 			{
@@ -3563,7 +3563,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 				if (has_trait(creature_ptr, TRAIT_XTRA_FAT)) dummy += 2;
 				if (has_trait(creature_ptr, TRAIT_ALBINO)) dummy -= 4;
 				if (has_trait(creature_ptr, TRAIT_FLESH_ROT)) dummy -= 2;
-				if (creature_ptr->tsuyoshi) dummy += 4;
+				if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) dummy += 4;
 			}
 			else if (stat == STAT_CHA)
 			{

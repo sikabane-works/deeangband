@@ -1288,7 +1288,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_INVULNERABILITY:
-			(void)set_invuln(creature_ptr, creature_ptr->invuln + randint1(4) + 4, FALSE);
+			(void)set_invuln(creature_ptr, creature_ptr->timed_trait[TRAIT_INVULNERABLE] + randint1(4) + 4, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1302,7 +1302,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 
 		case SV_POTION_NEO_TSUYOSHI:
 			(void)set_image(creature_ptr, 0);
-			(void)set_tsuyoshi(creature_ptr, creature_ptr->tsuyoshi + randint1(100) + 100, FALSE);
+			(void)set_tsuyoshi(creature_ptr, creature_ptr->timed_trait[TRAIT_TSUYOSHI] + randint1(100) + 100, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1313,7 +1313,7 @@ msg_print("「オクレ兄さん！」");
 			msg_print("Brother OKURE!");
 #endif
 			msg_print(NULL);
-			creature_ptr->tsuyoshi = 1;
+			creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
 			(void)set_tsuyoshi(creature_ptr, 0, TRUE);
 			if (!creature_ptr->resist_chaos)
 			{

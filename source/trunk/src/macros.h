@@ -64,7 +64,7 @@
 // Temporary flags macro
 #define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_SLOW(C)			((C)->timed_trait[TRAIT_SLOW_])
-#define IS_INVULN(C)		((C)->invuln || music_singing(C, MUSIC_INVULN))
+#define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C)			((C)->timed_trait[TRAIT_HERO] || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
 #define IS_BLESSED(C)		((C)->timed_trait[TRAIT_BLESSED] || music_singing(C, MUSIC_BLESS) || hex_spelling(C, HEX_BLESS))
 #define IS_OPPOSE_ACID(C)	((C)->oppose_acid || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))

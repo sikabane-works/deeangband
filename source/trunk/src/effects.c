@@ -174,7 +174,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_STUN] = 0;            /* Timed -- Stun */
 
 	creature_ptr->protevil = 0;        /* Timed -- Protection */
-	creature_ptr->invuln = 0;          /* Timed -- Invulnerable */
+	creature_ptr->timed_trait[TRAIT_INVULNERABLE] = 0;          /* Timed -- Invulnerable */
 	creature_ptr->ult_res = 0;
 	creature_ptr->timed_trait[TRAIT_HERO] = 0;            /* Timed -- Heroism */
 	creature_ptr->timed_trait[TRAIT_S_HERO] = 0;           /* Timed -- Super Heroism */
@@ -193,7 +193,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->tim_eyeeye = 0;
 	creature_ptr->magicdef = 0;
 	creature_ptr->resist_magic = 0;
-	creature_ptr->tsuyoshi = 0;
+	creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 0;
 	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
 	creature_ptr->timed_trait[TRAIT_RES_NETH] = 0;
 	creature_ptr->timed_trait[TRAIT_RES_TIME] = 0;
@@ -2097,7 +2097,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->invuln", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_INVULNERABLE]", notice observable changes
  */
 bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2115,9 +2115,9 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->invuln && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_INVULNERABLE] && !do_dec)
 		{
-			if (creature_ptr->invuln > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_INVULNERABLE] > v) return FALSE;
 		}
 		else if (!IS_INVULN(creature_ptr))
 		{
@@ -2146,7 +2146,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->invuln && !music_singing(creature_ptr, MUSIC_INVULN))
+		if (creature_ptr->timed_trait[TRAIT_INVULNERABLE] && !music_singing(creature_ptr, MUSIC_INVULN))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2173,7 +2173,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->invuln = v;
+	creature_ptr->timed_trait[TRAIT_INVULNERABLE] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -2197,7 +2197,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	{
 	if (v)
 	{
-		if (!creature_ptr->invuln)
+		if (!creature_ptr->timed_trait[TRAIT_INVULNERABLE])
 		{
 			mproc_add(creature_ptr, MTIMED_INVULNER);
 			notice = TRUE;
@@ -2207,7 +2207,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->invuln)
+		if (creature_ptr->timed_trait[TRAIT_INVULNERABLE])
 		{
 			mproc_remove(creature_ptr, MTIMED_INVULNER);
 			if (!floor_ptr->wild_mode) creature_ptr->energy_need += ENERGY_NEED();
@@ -2216,7 +2216,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->invuln = v;
+	creature_ptr->timed_trait[TRAIT_INVULNERABLE] = v;
 
 	if (!notice) return FALSE;
 
@@ -3429,11 +3429,11 @@ bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tsuyoshi && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_TSUYOSHI] && !do_dec)
 		{
-			if (creature_ptr->tsuyoshi > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_TSUYOSHI] > v) return FALSE;
 		}
-		else if (!creature_ptr->tsuyoshi)
+		else if (!creature_ptr->timed_trait[TRAIT_TSUYOSHI])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3451,7 +3451,7 @@ bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tsuyoshi)
+		if (creature_ptr->timed_trait[TRAIT_TSUYOSHI])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3470,7 +3470,7 @@ bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tsuyoshi = v;
+	creature_ptr->timed_trait[TRAIT_TSUYOSHI] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

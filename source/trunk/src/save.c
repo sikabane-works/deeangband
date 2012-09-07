@@ -639,7 +639,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->timed_trait[TRAIT_POISONED]);
 	wr_s16b(IS_HALLUCINATION(creature_ptr));
 	wr_s16b(creature_ptr->protevil);
-	wr_s16b(creature_ptr->invuln);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_INVULNERABLE]);
 	wr_s16b(creature_ptr->ult_res);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_HERO]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_S_HERO]);
@@ -657,7 +657,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->oppose_acid);
 	wr_s16b(creature_ptr->oppose_elec);
 	wr_s16b(creature_ptr->oppose_pois);
-	wr_s16b(creature_ptr->tsuyoshi);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_TSUYOSHI]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_ESP]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
 	wr_s16b(creature_ptr->resist_magic);

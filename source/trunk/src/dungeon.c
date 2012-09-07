@@ -2163,9 +2163,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Invulnerability */
-	if (creature_ptr->invuln)
+	if (creature_ptr->timed_trait[TRAIT_INVULNERABLE])
 	{
-		(void)set_invuln(creature_ptr, creature_ptr->invuln - 1, TRUE);
+		(void)set_invuln(creature_ptr, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
 	}
 
 	/* Wraith form */
@@ -2211,9 +2211,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Tsuyoshi */
-	if (creature_ptr->tsuyoshi)
+	if (creature_ptr->timed_trait[TRAIT_TSUYOSHI])
 	{
-		(void)set_tsuyoshi(creature_ptr, creature_ptr->tsuyoshi - 1, TRUE);
+		(void)set_tsuyoshi(creature_ptr, creature_ptr->timed_trait[TRAIT_TSUYOSHI] - 1, TRUE);
 	}
 
 	/* Oppose Acid */

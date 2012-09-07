@@ -948,9 +948,9 @@ info[i++] = "‚ ‚È‚½‚Í_”é‚ÌƒV[ƒ‹ƒh‚ÅŽç‚ç‚ê‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->invuln)
+	if (creature_ptr->timed_trait[TRAIT_INVULNERABLE])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->invuln);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_INVULNERABLE]);
 #ifdef JP
 info[i++] = "–³“G‚Å‚¢‚ç‚ê‚éB";
 #else
@@ -2572,13 +2572,13 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 			if (m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"žNžO ");
 			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"‹°•| ");
 			if (m_ptr->confused) strcat(buf,"¬— ");
-			if (m_ptr->invuln) strcat(buf,"–³“G ");
+			if (m_ptr->timed_trait[TRAIT_INVULNERABLE]) strcat(buf,"–³“G ");
 #else
 			if (m_ptr->paralyzed) strcat(buf,"sleeping ");
 			if (m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"stunned ");
 			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"scared ");
 			if (m_ptr->confused) strcat(buf,"confused ");
-			if (m_ptr->invuln) strcat(buf,"invulnerable ");
+			if (m_ptr->timed_trait[TRAIT_INVULNERABLE]) strcat(buf,"invulnerable ");
 #endif
 			buf[strlen(buf)-1] = '\0';
 			prt(buf,0,0);

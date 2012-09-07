@@ -2826,7 +2826,7 @@ void creature_process_init(void)
 		if (creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if (creature_ptr->confused) mproc_add(creature_ptr, MTIMED_CONFUSED);
 		if (creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
-		if (creature_ptr->invuln) mproc_add(creature_ptr, MTIMED_INVULNER);
+		if (creature_ptr->timed_trait[TRAIT_INVULNERABLE]) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
 }
 
@@ -2957,7 +2957,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		break;
 
 	case MTIMED_INVULNER:
-		set_invuln(creature_ptr, creature_ptr->invuln - 1, TRUE);
+		set_invuln(creature_ptr, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
 		break;
 	}
 }

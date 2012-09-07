@@ -1119,7 +1119,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 		if ((dam == 0) && one_in_(3)) dam = 1;
 	}
 
-	if (m_ptr->invuln)
+	if (m_ptr->timed_trait[TRAIT_INVULNERABLE])
 	{
 		if (is_psy_spear)
 		{

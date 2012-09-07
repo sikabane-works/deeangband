@@ -435,7 +435,7 @@ static void prt_status(creature_type *creature_ptr)
 
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
-	if (creature_ptr->tsuyoshi) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
+	if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
 	if (IS_HALLUCINATION(creature_ptr)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
 	if (IS_BLIND(creature_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
 	if (creature_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
@@ -1413,7 +1413,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		byte attr = TERM_RED;
 
 		/* Invulnerable */
-		if (m_ptr->invuln) attr = TERM_WHITE;
+		if (m_ptr->timed_trait[TRAIT_INVULNERABLE]) attr = TERM_WHITE;
 
 		/* Asleep */
 		else if (m_ptr->paralyzed) attr = TERM_BLUE;
@@ -2546,7 +2546,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 	/* Factor in the hero / superhero settings */
 	if (IS_HERO(creature_ptr)) mhp += 10;
 	if (creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
-	if (creature_ptr->tsuyoshi) mhp += 50;
+	if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) mhp += 50;
 
 	/* Factor in the hex spell settings */
 	if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT)) mhp += 15;
@@ -3372,7 +3372,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_time = TRUE;
 	}
 
-	if (creature_ptr->tsuyoshi)
+	if (creature_ptr->timed_trait[TRAIT_TSUYOSHI])
 	{
 		creature_ptr->stat_add[STAT_STR] += 40;
 		creature_ptr->stat_add[STAT_CON] += 40;
