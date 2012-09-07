@@ -1666,7 +1666,7 @@ static void process_nonplayer(int m_idx)
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		// Notice the "waking up"
-		if (creature_ptr->ml)
+		if (creature_ptr->ml || creature_ptr->hear_noise)
 		{
 			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
@@ -2614,6 +2614,10 @@ static void process_creature(int i)
 #endif
 	}
 
+	// Clear creature fighting indicator
+	creature_ptr->hear_noise = FALSE;
+
+
 	// Handle "sensing radius"
 	if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
 		test = TRUE;
@@ -2717,9 +2721,6 @@ void process_creatures(void)
 	byte    old_r_blows3 = 0;
 
 	byte    old_r_cast_spell = 0;
-
-	/* Clear creature fighting indicator */
-	player_ptr->hear_noise = FALSE;
 
 	/* Memorize old race */
 	old_species_window_idx = species_window_idx;
@@ -2901,7 +2902,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				else
 				{
 					/* Notice the "waking up" */
-					if (creature_ptr->ml)
+					if (creature_ptr->ml || creature_ptr->hear_noise)
 					{
 						char m_name[80];
 

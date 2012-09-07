@@ -2283,7 +2283,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		if (m_ptr->paralyzed)
 		{
 			(void)set_paralyzed(&creature_list[m_idx], 0);
-			if (m_ptr->ml)
+			if (m_ptr->ml || m_ptr->hear_noise)
 			{
 #ifdef JP
 				msg_format("%^s‚ª–Ú‚ðŠo‚Ü‚µ‚½B", m_name);
@@ -3581,7 +3581,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 				/* Notice the "waking up" */
-				if (m_ptr->ml)
+				if (m_ptr->ml || m_ptr->hear_noise)
 				{
 					char m_name[80];
 

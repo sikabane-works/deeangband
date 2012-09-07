@@ -2052,7 +2052,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				}
 				else
 				{
-					player_ptr->hear_noise = TRUE;
+					player_ptr->hear_noise = TRUE;	//TODO check all creature
 				}
 			}
 
@@ -2088,11 +2088,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			}
 			else
 			{
-				player_ptr->hear_noise = TRUE;
+				player_ptr->hear_noise = TRUE; // check all creature
 			}
 
-			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_paralyzed(target_ptr, do_sleep);
+			if (do_sleep) (void)set_paralyzed(target_ptr, do_sleep); // Hack -- handle sleep
 		}
 	}
 

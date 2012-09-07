@@ -1618,7 +1618,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 				(void)set_paralyzed(m_ptr, 0);
 
 				/* Notice the "waking up" */
-				if (m_ptr->ml)
+				if (m_ptr->ml || m_ptr->hear_noise)
 				{
 					/* Acquire the creature name */
 					creature_desc(m_name, m_ptr, 0);
