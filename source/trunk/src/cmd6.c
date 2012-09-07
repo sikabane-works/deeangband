@@ -1023,7 +1023,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 
 		case SV_POTION_HEROISM:
 			if (set_afraid(creature_ptr, 0)) ident = TRUE;
-			if (set_hero(creature_ptr, creature_ptr->hero + randint1(25) + 25, FALSE)) ident = TRUE;
+			if (set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
 			if (heal_creature(creature_ptr, 10)) ident = TRUE;
 			break;
 
@@ -1798,19 +1798,19 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_BLESSING:
 		{
-			if (set_blessed(creature_ptr, creature_ptr->blessed + randint1(12) + 6, FALSE)) ident = TRUE;
+			if (set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(12) + 6, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_CHANT:
 		{
-			if (set_blessed(creature_ptr, creature_ptr->blessed + randint1(24) + 12, FALSE)) ident = TRUE;
+			if (set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(24) + 12, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_PRAYER:
 		{
-			if (set_blessed(creature_ptr, creature_ptr->blessed + randint1(48) + 24, FALSE)) ident = TRUE;
+			if (set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(48) + 24, FALSE)) ident = TRUE;
 			break;
 		}
 

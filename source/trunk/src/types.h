@@ -1293,10 +1293,8 @@ struct creature_type
 	s16b protevil;		// Timed -- Protection 
 	s16b invuln;		// Timed -- Invulnerable 
 	s16b ult_res;		// Timed -- Ultimate Resistance 
-	s16b hero;			// Timed -- Heroism 
 	s16b shero;			// Timed -- Super Heroism 
 	s16b shield;		// Timed -- Shield Spell 
-	s16b blessed;		// Timed -- Blessed 
 	s16b tim_invis;		// Timed -- See Invisible 
 	s16b tim_infra;		// Timed -- Infra Vision 
 	s16b tsuyoshi;		// Timed -- Tsuyoshi Special 

@@ -8999,7 +8999,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if (stop)
 		{
-			if (!caster_ptr->blessed)
+			if (!caster_ptr->timed_trait[TRAIT_BLESSED])
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");
@@ -9208,7 +9208,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if (stop)
 		{
-			if (!caster_ptr->hero)
+			if (!caster_ptr->timed_trait[TRAIT_HERO])
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9968,7 +9968,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if (stop)
 		{
-			if (!caster_ptr->hero)
+			if (!caster_ptr->timed_trait[TRAIT_HERO])
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -11425,7 +11425,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 		if (cast)
 		{
-			if (!creature_ptr->blessed)
+			if (!creature_ptr->timed_trait[TRAIT_BLESSED])
 			{
 #ifdef JP
 				msg_print("高潔な気分になった！");
@@ -11436,7 +11436,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		}
 		if (stop)
 		{
-			if (!creature_ptr->blessed)
+			if (!creature_ptr->timed_trait[TRAIT_BLESSED])
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");

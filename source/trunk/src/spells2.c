@@ -898,9 +898,9 @@ info[i++] = "あなたは幻覚を見ている。";
 #endif
 
 	}
-	if (creature_ptr->blessed)
+	if (creature_ptr->timed_trait[TRAIT_BLESSED])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->blessed);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_BLESSED]);
 #ifdef JP
 info[i++] = "あなたは公正さを感じている。";
 #else
@@ -908,9 +908,9 @@ info[i++] = "あなたは公正さを感じている。";
 #endif
 
 	}
-	if (creature_ptr->hero)
+	if (creature_ptr->timed_trait[TRAIT_HERO])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->hero);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_HERO]);
 #ifdef JP
 info[i++] = "あなたはヒーロー気分だ。";
 #else

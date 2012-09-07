@@ -2175,9 +2175,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Heroism */
-	if (creature_ptr->hero)
+	if (creature_ptr->timed_trait[TRAIT_HERO])
 	{
-		(void)set_hero(creature_ptr, creature_ptr->hero - 1, TRUE);
+		(void)set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] - 1, TRUE);
 	}
 
 	/* Super Heroism */
@@ -2187,9 +2187,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Blessed */
-	if (creature_ptr->blessed)
+	if (creature_ptr->timed_trait[TRAIT_BLESSED])
 	{
-		(void)set_blessed(creature_ptr, creature_ptr->blessed - 1, TRUE);
+		(void)set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] - 1, TRUE);
 	}
 
 	/* Shield */

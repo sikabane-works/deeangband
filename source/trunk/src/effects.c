@@ -176,10 +176,10 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->protevil = 0;        /* Timed -- Protection */
 	creature_ptr->invuln = 0;          /* Timed -- Invulnerable */
 	creature_ptr->ult_res = 0;
-	creature_ptr->hero = 0;            /* Timed -- Heroism */
+	creature_ptr->timed_trait[TRAIT_HERO] = 0;            /* Timed -- Heroism */
 	creature_ptr->shero = 0;           /* Timed -- Super Heroism */
 	creature_ptr->shield = 0;          /* Timed -- Shield Spell */
-	creature_ptr->blessed = 0;         /* Timed -- Blessed */
+	creature_ptr->timed_trait[TRAIT_BLESSED] = 0;         /* Timed -- Blessed */
 	creature_ptr->tim_invis = 0;       /* Timed -- Invisibility */
 	creature_ptr->tim_infra = 0;       /* Timed -- Infra Vision */
 	creature_ptr->tim_regen = 0;       /* Timed -- Regeneration */
@@ -1702,7 +1702,7 @@ bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->blessed", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_BLESSED]", notice observable changes
  */
 bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1716,9 +1716,9 @@ bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->blessed && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_BLESSED] && !do_dec)
 		{
-			if (creature_ptr->blessed > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_BLESSED] > v) return FALSE;
 		}
 		else if (!IS_BLESSED(creature_ptr))
 		{
@@ -1738,7 +1738,7 @@ bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->blessed && !music_singing(creature_ptr, MUSIC_BLESS))
+		if (creature_ptr->timed_trait[TRAIT_BLESSED] && !music_singing(creature_ptr, MUSIC_BLESS))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1754,7 +1754,7 @@ bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->blessed = v;
+	creature_ptr->timed_trait[TRAIT_BLESSED] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -1777,7 +1777,7 @@ bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->hero", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_HERO]", notice observable changes
  */
 bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1791,9 +1791,9 @@ bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->hero && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_HERO] && !do_dec)
 		{
-			if (creature_ptr->hero > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_HERO] > v) return FALSE;
 		}
 		else if (!IS_HERO(creature_ptr))
 		{
@@ -1812,7 +1812,7 @@ bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->hero && !music_singing(creature_ptr, MUSIC_HERO) && !music_singing(creature_ptr, MUSIC_SHERO))
+		if (creature_ptr->timed_trait[TRAIT_HERO] && !music_singing(creature_ptr, MUSIC_HERO) && !music_singing(creature_ptr, MUSIC_SHERO))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1828,7 +1828,7 @@ bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->hero = v;
+	creature_ptr->timed_trait[TRAIT_HERO] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

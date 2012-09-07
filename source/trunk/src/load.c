@@ -1070,10 +1070,10 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->protevil);
 	rd_s16b(&creature_ptr->invuln);
 	rd_s16b(&creature_ptr->ult_res);
-	rd_s16b(&creature_ptr->hero);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_HERO]);
 	rd_s16b(&creature_ptr->shero);
 	rd_s16b(&creature_ptr->shield);
-	rd_s16b(&creature_ptr->blessed);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_BLESSED]);
 	rd_s16b(&creature_ptr->tim_invis);
 	rd_s16b(&creature_ptr->word_recall);
 	rd_byte(&creature_ptr->recall_dungeon);
