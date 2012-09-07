@@ -2307,19 +2307,10 @@ static void spoil_species_info(cptr fname)
 	{
 		species_type *species_ptr = &species_info[who[l]];
 
-		/* TODO: Prefix */
-		/*
-		if (flags1 & (RF1_QUESTOR))
-		{
-			spoil_out("[Q] ");
-		}
-		else
-		if (flags1 & (RF1_UNIQUE))
-		{
-			spoil_out("[U] ");
-		}
-		else
-		*/
+		// TODO: Prefix
+		if (has_trait_species(species_ptr, TRAIT_QUESTOR)) spoil_out("[Q] ");
+		if (has_trait_species(species_ptr, TRAIT_UNIQUE)) spoil_out("[U] ");
+
 		{
 #ifndef JP
 			spoil_out("The ");
