@@ -631,55 +631,9 @@ static void wr_creature(creature_type *creature_ptr)
 	}
 	wr_s16b(-1);
 
-	wr_s16b(creature_ptr->timed_trait[TRAIT_FAST]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_SLOW_]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_AFRAID]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_CUT]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_STUN]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_POISONED]);
-	wr_s16b(IS_HALLUCINATION(creature_ptr));
-	wr_s16b(creature_ptr->timed_trait[TRAIT_PROT_EVIL]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_INVULNERABLE]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_ULTRA_RES]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_HERO]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_S_HERO]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_SHIELD]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_BLESSED]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_WORD_RECALL]);
 	wr_byte(creature_ptr->recall_dungeon);
 
-	wr_s16b(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]);
 	wr_s16b(creature_ptr->see_infra);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INFRA]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_FIRE]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_COLD]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_ACID]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_ELEC]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_POIS]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_TSUYOSHI]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_ESP]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_REGENERATE]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_PASS_WALL]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_STEALTH_PLUS]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_LEVITATION]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_AURA_MANA]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_TSUBURERU]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_MAGIC_DEF]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_NETH]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_TIME]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_MIMIC]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_AURA_FIRE]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_HOLY_AURA]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_EYE_EYE]);
-
-	/* by henkma */
-	wr_s16b(creature_ptr->timed_trait[TRAIT_REFLECTING]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_DUST_ROBE]);
 
 	wr_s16b(creature_ptr->patron_idx);
 	wr_s16b(creature_ptr->father_idx);
