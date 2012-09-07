@@ -266,7 +266,7 @@ info[i++] = "あなたはもうろうとしている。";
 #endif
 
 	}
-	if (creature_ptr->poisoned)
+	if (creature_ptr->timed_trait[TRAIT_POISONED])
 	{
 #ifdef JP
 info[i++] = "あなたは毒に侵されている。";
@@ -878,9 +878,9 @@ info[i++] = "あなたは恐怖に侵されている。";
 #endif
 
 	}
-	if (creature_ptr->poisoned)
+	if (creature_ptr->timed_trait[TRAIT_POISONED])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->poisoned);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_POISONED]);
 #ifdef JP
 info[i++] = "あなたは毒に侵されている。";
 #else

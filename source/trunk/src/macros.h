@@ -76,7 +76,7 @@
 #define IS_TIM_STEALTH(C)	((C)->tim_stealth || music_singing(C, MUSIC_STEALTH))
 #define IS_LIGHTSPEED(C)	((C)->lightspeed)
 #define IS_BLIND(C)			((C)->blind > 0)
-#define IS_POISONED(C)		((C)->poisoned)
+#define IS_POISONED(C)		((C)->timed_trait[TRAIT_POISONED])
 #define IS_HALLUCINATION(C) ((C)->timed_trait[TRAIT_HALLUCINATION] > 0)
 #define IS_WOUND(C)			((C)->cut > 0)
 

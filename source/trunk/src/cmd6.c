@@ -96,7 +96,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 				{
-					if (set_poisoned(creature_ptr, creature_ptr->poisoned + randint0(10) + 10))
+					if (set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -798,7 +798,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_POISON:
 			if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 			{
-				if (set_poisoned(creature_ptr, creature_ptr->poisoned + randint0(15) + 10))
+				if (set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(15) + 10))
 				{
 					ident = TRUE;
 				}
@@ -985,7 +985,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if (set_poisoned(creature_ptr, creature_ptr->poisoned / 2)) ident = TRUE;
+			if (set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] / 2)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_POISON:

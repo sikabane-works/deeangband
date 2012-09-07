@@ -2515,7 +2515,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			break;
 
 		case BUILDING_FUNCTION_REST: /* Rest for the night */
-			if ((creature_ptr->poisoned) || IS_WOUND(creature_ptr))
+			if ((creature_ptr->timed_trait[TRAIT_POISONED]) || IS_WOUND(creature_ptr))
 			{
 #ifdef JP
 				msg_print("あなたに必要なのは部屋ではなく、治療者です。");

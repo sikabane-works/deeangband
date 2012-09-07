@@ -1146,7 +1146,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					else
 					{
 						dam = dam * 2;
-						(void)set_poisoned(creature_ptr, creature_ptr->poisoned + randint1(dam));
+						(void)set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint1(dam));
 					}
 				}
 
@@ -1397,7 +1397,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 			if (!creature_ptr->resist_pois && !IS_OPPOSE_POIS(creature_ptr))
 			{
-				(void)set_poisoned(creature_ptr, creature_ptr->poisoned + randint0(20) + 10);
+				(void)set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(20) + 10);
 			}
 			break;
 		}

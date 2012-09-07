@@ -636,7 +636,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->timed_trait[TRAIT_AFRAID]);
 	wr_s16b(creature_ptr->cut);
 	wr_s16b(creature_ptr->stun);
-	wr_s16b(creature_ptr->poisoned);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_POISONED]);
 	wr_s16b(IS_HALLUCINATION(creature_ptr));
 	wr_s16b(creature_ptr->protevil);
 	wr_s16b(creature_ptr->invuln);

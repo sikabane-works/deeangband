@@ -2493,7 +2493,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
 			{
-				set_poisoned(target_ptr, target_ptr->poisoned + randint0(dam) + 10);
+				set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 			}
 			break;
 		}
@@ -2510,7 +2510,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->multishadow && (turn & 1)))
 			{
-				set_poisoned(target_ptr, target_ptr->poisoned + randint0(dam) + 10);
+				set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 
 				if (one_in_(5)) /* 6 */
 				{

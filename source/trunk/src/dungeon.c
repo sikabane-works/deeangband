@@ -1583,7 +1583,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	creature_desc(creature_name, creature_ptr, 0);
 
 	/* Take damage from poison */
-	if (creature_ptr->poisoned && !IS_INVULN(creature_ptr))
+	if (creature_ptr->timed_trait[TRAIT_POISONED] && !IS_INVULN(creature_ptr))
 {
 		/* Take damage */
 #ifdef JP
@@ -1964,7 +1964,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
 	}
 
 	/* Poisoned or cut yields no healing */
-	if (creature_ptr->poisoned) regen_amount = 0;
+	if (creature_ptr->timed_trait[TRAIT_POISONED]) regen_amount = 0;
 	if (IS_WOUND(creature_ptr)) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
@@ -2254,12 +2254,12 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/*** Poison and Stun and Cut ***/
 
 	/* Poison */
-	if (creature_ptr->poisoned)
+	if (creature_ptr->timed_trait[TRAIT_POISONED])
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_poisoned(creature_ptr, creature_ptr->poisoned - adjust);
+		(void)set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] - adjust);
 	}
 
 	/* Stun */
@@ -5390,7 +5390,7 @@ void process_player(creature_type *creature_ptr)
 			if ((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp) &&
 			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
-			    !creature_ptr->poisoned && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
+			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->stun && !IS_WOUND(creature_ptr) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->paralyzed &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->word_recall &&

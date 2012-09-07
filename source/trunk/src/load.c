@@ -1065,7 +1065,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_AFRAID]);
 	rd_s16b(&creature_ptr->cut);
 	rd_s16b(&creature_ptr->stun);
-	rd_s16b(&creature_ptr->poisoned);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_POISONED]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_HALLUCINATION]);
 	rd_s16b(&creature_ptr->protevil);
 	rd_s16b(&creature_ptr->invuln);

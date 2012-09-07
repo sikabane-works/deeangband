@@ -169,7 +169,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->confused = 0;        /* Timed -- Confusion */
 	creature_ptr->timed_trait[TRAIT_AFRAID] = 0;          /* Timed -- Fear */
 	creature_ptr->timed_trait[TRAIT_HALLUCINATION] = 0;           /* Timed -- Hallucination */
-	creature_ptr->poisoned = 0;        /* Timed -- Poisoned */
+	creature_ptr->timed_trait[TRAIT_POISONED] = 0;        /* Timed -- Poisoned */
 	creature_ptr->cut = 0;             /* Timed -- Cut */
 	creature_ptr->stun = 0;            /* Timed -- Stun */
 
@@ -637,7 +637,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->poisoned", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_POISONED]", notice observable changes
  */
 bool set_poisoned(creature_type *creature_ptr, int v)
 {
@@ -651,7 +651,7 @@ bool set_poisoned(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->poisoned)
+		if (!creature_ptr->timed_trait[TRAIT_POISONED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -669,7 +669,7 @@ bool set_poisoned(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->poisoned)
+		if (creature_ptr->timed_trait[TRAIT_POISONED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -685,7 +685,7 @@ bool set_poisoned(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->poisoned = v;
+	creature_ptr->timed_trait[TRAIT_POISONED] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

@@ -440,7 +440,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (IS_BLIND(creature_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
 	if (creature_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if (creature_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
-	if (creature_ptr->poisoned) ADD_FLG(BAR_POISONED);		// Posioned
+	if (creature_ptr->timed_trait[TRAIT_POISONED]) ADD_FLG(BAR_POISONED);		// Posioned
 	if (creature_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
 	if (creature_ptr->tim_regen) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
