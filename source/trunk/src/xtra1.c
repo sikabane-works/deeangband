@@ -3262,7 +3262,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if (creature_ptr->timed_trait[TRAIT_SLOW_]) creature_ptr->speed -= 10;
 	//TODO if (IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 
-	if (creature_ptr->ele_immune)
+	if (creature_ptr->timed_trait[TRAIT_IM_FIRE])
 	{
 		/*
 		if (creature_ptr->special_defense & DEFENSE_ACID)

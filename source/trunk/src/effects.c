@@ -215,8 +215,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
 	creature_ptr->sutemi = FALSE;
 	creature_ptr->counter = FALSE;
-	creature_ptr->ele_attack = 0;
-	creature_ptr->ele_immune = 0;
+	creature_ptr->timed_trait[TRAIT_FIRE_BRAND] = 0;
+	creature_ptr->timed_trait[TRAIT_IM_FIRE] = 0;
 	creature_ptr->special_attack = 0L;
 	creature_ptr->special_defense = 0L;
 
@@ -3579,7 +3579,7 @@ bool set_ele_attack(creature_type *creature_ptr, u32b attack_type, int v)
 		creature_ptr->special_attack |= (attack_type);
 
 		/* Set duration. */
-		creature_ptr->ele_attack = v;
+		creature_ptr->timed_trait[TRAIT_FIRE_BRAND] = v;
 
 		/* Message. */
 		if(is_seen(player_ptr, creature_ptr))
@@ -3696,7 +3696,7 @@ bool set_ele_immune(creature_type *creature_ptr, u32b immune_type, int v)
 		creature_ptr->special_defense |= (immune_type);
 
 		/* Set duration. */
-		creature_ptr->ele_immune = v;
+		creature_ptr->timed_trait[TRAIT_IM_FIRE] = v;
 
 		/* Message. */
 		if(is_seen(player_ptr, creature_ptr))

@@ -2019,21 +2019,21 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed temporary elemental brands. -LM- */
-	if (creature_ptr->ele_attack)
+	if (creature_ptr->timed_trait[TRAIT_FIRE_BRAND])
 	{
-		creature_ptr->ele_attack--;
+		creature_ptr->timed_trait[TRAIT_FIRE_BRAND]--;
 
 		/* Clear all temporary elemental brands. */
-		if (!creature_ptr->ele_attack) set_ele_attack(creature_ptr, 0, 0);
+		if (!creature_ptr->timed_trait[TRAIT_FIRE_BRAND]) set_ele_attack(creature_ptr, 0, 0);
 	}
 
 	/* Timed temporary elemental immune. -LM- */
-	if (creature_ptr->ele_immune)
+	if (creature_ptr->timed_trait[TRAIT_IM_FIRE])
 	{
-		creature_ptr->ele_immune--;
+		creature_ptr->timed_trait[TRAIT_IM_FIRE]--;
 
 		/* Clear all temporary elemental brands. */
-		if (!creature_ptr->ele_immune) set_ele_immune(creature_ptr, 0, 0);
+		if (!creature_ptr->timed_trait[TRAIT_IM_FIRE]) set_ele_immune(creature_ptr, 0, 0);
 	}
 
 	/* Timed infra-vision */

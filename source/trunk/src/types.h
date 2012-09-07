@@ -1285,9 +1285,6 @@ struct creature_type
 
 	s16b timed_trait[MAX_TRAITS];
 
-	s16b ele_attack;	// Timed -- Elemental Attack 
-	s16b ele_immune;	// Timed -- Elemental Immune 
-
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
