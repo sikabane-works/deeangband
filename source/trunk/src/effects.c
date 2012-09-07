@@ -182,11 +182,11 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_BLESSED] = 0;         /* Timed -- Blessed */
 	creature_ptr->tim_invis = 0;       /* Timed -- Invisibility */
 	creature_ptr->tim_infra = 0;       /* Timed -- Infra Vision */
-	creature_ptr->tim_regen = 0;       /* Timed -- Regeneration */
+	creature_ptr->timed_trait[TRAIT_REGENERATE] = 0;       /* Timed -- Regeneration */
 	creature_ptr->tim_stealth = 0;     /* Timed -- Stealth */
 	creature_ptr->tim_esp = 0;
 	creature_ptr->wraith_form = 0;     /* Timed -- Wraith Form */
-	creature_ptr->tim_levitation = 0;
+	creature_ptr->timed_trait[TRAIT_LEVITATION] = 0;
 	creature_ptr->tim_sh_touki = 0;
 	creature_ptr->tim_sh_fire = 0;
 	creature_ptr->tim_sh_holy = 0;
@@ -2467,7 +2467,7 @@ bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_regen", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_REGENERATE]", notice observable changes
  */
 bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2481,11 +2481,11 @@ bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_regen && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_REGENERATE] && !do_dec)
 		{
-			if (creature_ptr->tim_regen > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_REGENERATE] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_regen)
+		else if (!creature_ptr->timed_trait[TRAIT_REGENERATE])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2503,7 +2503,7 @@ bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_regen)
+		if (creature_ptr->timed_trait[TRAIT_REGENERATE])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2519,7 +2519,7 @@ bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_regen = v;
+	creature_ptr->timed_trait[TRAIT_REGENERATE] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -2695,7 +2695,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 
 /*
- * Set "creature_ptr->tim_levitation", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_LEVITATION]", notice observable changes
  */
 bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2709,11 +2709,11 @@ bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_levitation && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_LEVITATION] && !do_dec)
 		{
-			if (creature_ptr->tim_levitation > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_LEVITATION] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_levitation)
+		else if (!creature_ptr->timed_trait[TRAIT_LEVITATION])
 		{
 #ifdef JP
 			msg_print("‘Ì‚ª’ˆ‚É•‚‚«Žn‚ß‚½B");
@@ -2728,7 +2728,7 @@ bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_levitation)
+		if (creature_ptr->timed_trait[TRAIT_LEVITATION])
 		{
 #ifdef JP
 			msg_print("‚à‚¤’ˆ‚É•‚‚©‚×‚È‚­‚È‚Á‚½B");
@@ -2741,7 +2741,7 @@ bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_levitation = v;
+	creature_ptr->timed_trait[TRAIT_LEVITATION] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -3344,7 +3344,7 @@ bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_regen", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_REGENERATE]", notice observable changes
  */
 bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 {

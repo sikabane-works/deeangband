@@ -2335,7 +2335,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_FEARLESS);
 	if (creature_ptr->tim_invis)
 		add_flag(flgs, TRAIT_SEE_INVISIBLE);
-	if (creature_ptr->tim_regen)
+	if (creature_ptr->timed_trait[TRAIT_REGENERATE])
 		add_flag(flgs, TRAIT_REGENERATE);
 	if (IS_TIM_ESP(creature_ptr))
 		add_flag(flgs, TRAIT_ESP);

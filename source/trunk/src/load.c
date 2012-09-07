@@ -1091,10 +1091,10 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->tim_esp);
 	rd_s16b(&creature_ptr->wraith_form);
 	rd_s16b(&creature_ptr->resist_magic);
-	rd_s16b(&creature_ptr->tim_regen);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_REGENERATE]);
 	rd_s16b(&creature_ptr->kabenuke);
 	rd_s16b(&creature_ptr->tim_stealth);
-	rd_s16b(&creature_ptr->tim_levitation);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_LEVITATION]);
 	rd_s16b(&creature_ptr->tim_sh_touki);
 	rd_s16b(&creature_ptr->lightspeed);
 	rd_s16b(&creature_ptr->tsubureru);

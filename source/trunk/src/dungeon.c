@@ -2049,9 +2049,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed levitation */
-	if (creature_ptr->tim_levitation)
+	if (creature_ptr->timed_trait[TRAIT_LEVITATION])
 	{
-		(void)set_tim_levitation(creature_ptr, creature_ptr->tim_levitation - 1, TRUE);
+		(void)set_tim_levitation(creature_ptr, creature_ptr->timed_trait[TRAIT_LEVITATION] - 1, TRUE);
 	}
 
 	/* Timed sh_touki */
@@ -2085,9 +2085,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed regeneration */
-	if (creature_ptr->tim_regen)
+	if (creature_ptr->timed_trait[TRAIT_REGENERATE])
 	{
-		(void)set_tim_regen(creature_ptr, creature_ptr->tim_regen - 1, TRUE);
+		(void)set_tim_regen(creature_ptr, creature_ptr->timed_trait[TRAIT_REGENERATE] - 1, TRUE);
 	}
 
 	/* Timed resist nether */
