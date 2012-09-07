@@ -1311,10 +1311,8 @@ struct creature_type
 	s16b wraith_form;   // Timed wraithform 
 
 	s16b resist_magic;  // Timed Resist Magic (later) 
-	s16b kabenuke;
 	s16b tim_stealth;
 	s16b tim_sh_touki;
-	s16b lightspeed;
 	s16b tsubureru;
 	s16b magicdef;
 	s16b tim_res_nether;	// Timed -- Nether resistance 

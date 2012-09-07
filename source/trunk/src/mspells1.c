@@ -922,7 +922,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Light speed */
-	if (target_ptr->lightspeed && (target_ptr->speed < 136)) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 136)) return (TRUE);
 
 	if (target_ptr->riding && (creature_list[target_ptr->riding].speed < 135))
 	{

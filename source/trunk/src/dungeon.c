@@ -1860,7 +1860,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
 	 */
 	if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if (!IS_INVULN(creature_ptr) && !creature_ptr->wraith_form && !creature_ptr->kabenuke &&
+		if (!IS_INVULN(creature_ptr) && !creature_ptr->wraith_form && !creature_ptr->timed_trait[TRAIT_PASS_WALL] &&
 		    ((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;
@@ -2121,9 +2121,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed infra-vision */
-	if (creature_ptr->kabenuke)
+	if (creature_ptr->timed_trait[TRAIT_PASS_WALL])
 	{
-		(void)set_kabenuke(creature_ptr, creature_ptr->kabenuke - 1, TRUE);
+		(void)set_kabenuke(creature_ptr, creature_ptr->timed_trait[TRAIT_PASS_WALL] - 1, TRUE);
 	}
 
 	/* Paralysis */
@@ -5440,9 +5440,9 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	load = FALSE;
 
 	/* Fast */
-	if (creature_ptr->lightspeed)
+	if (creature_ptr->timed_trait[TRAIT_LIGHT_SPEED])
 	{
-		(void)set_lightspeed(creature_ptr, creature_ptr->lightspeed - 1, TRUE);
+		(void)set_lightspeed(creature_ptr, creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] - 1, TRUE);
 	}
 	if ((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->class_skills.old_skills.magic_num1[0]))
 	{

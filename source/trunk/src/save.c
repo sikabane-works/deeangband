@@ -662,11 +662,11 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->wraith_form);
 	wr_s16b(creature_ptr->resist_magic);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_REGENERATE]);
-	wr_s16b(creature_ptr->kabenuke);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_PASS_WALL]);
 	wr_s16b(creature_ptr->tim_stealth);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_LEVITATION]);
 	wr_s16b(creature_ptr->tim_sh_touki);
-	wr_s16b(creature_ptr->lightspeed);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
 	wr_s16b(creature_ptr->tsubureru);
 	wr_s16b(creature_ptr->magicdef);
 	wr_s16b(creature_ptr->tim_res_nether);

@@ -448,7 +448,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if (creature_ptr->wraith_form) ADD_FLG(BAR_WRAITH);		// Wraith form
-	if (creature_ptr->kabenuke) ADD_FLG(BAR_PASSWALL);		// Pass wall
+	if (creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
 	if (creature_ptr->tim_reflect) ADD_FLG(BAR_REFLECTION);
 	if (IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
 	if (creature_ptr->shero) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
@@ -1107,7 +1107,7 @@ static void prt_speed(creature_type *creature_ptr)
 	row_speed = hgt + ROW_SPEED;
 
 	/* Hack -- Visually "undo" the Search Mode Slowdown */
-	if (creature_ptr->action == ACTION_SEARCH && !creature_ptr->lightspeed) i += 10;
+	if (creature_ptr->action == ACTION_SEARCH && !creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) i += 10;
 
 	/* Fast */
 	if (i > 0)
@@ -1119,7 +1119,7 @@ static void prt_speed(creature_type *creature_ptr)
 			else if (m_ptr->timed_trait[TRAIT_SLOW_] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
-		else if ((is_fast && !creature_ptr->timed_trait[TRAIT_SLOW_]) || creature_ptr->lightspeed) attr = TERM_YELLOW;
+		else if ((is_fast && !creature_ptr->timed_trait[TRAIT_SLOW_]) || creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) attr = TERM_YELLOW;
 		else if (creature_ptr->timed_trait[TRAIT_SLOW_] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
@@ -3258,7 +3258,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	if (IS_FAST(creature_ptr)) creature_ptr->speed += 10;
-	if (creature_ptr->lightspeed && !creature_ptr->riding) creature_ptr->speed += 40;
+	if (creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] && !creature_ptr->riding) creature_ptr->speed += 40;
 	if (creature_ptr->timed_trait[TRAIT_SLOW_]) creature_ptr->speed -= 10;
 	//TODO if (IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 

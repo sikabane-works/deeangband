@@ -162,7 +162,7 @@ void set_action(creature_type *creature_ptr, int typ)
 void reset_tim_flags(creature_type *creature_ptr)
 {
 	creature_ptr->timed_trait[TRAIT_FAST] = 0;            /* Timed -- Fast */
-	creature_ptr->lightspeed = 0;
+	creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] = 0;
 	creature_ptr->timed_trait[TRAIT_SLOW_] = 0;            /* Timed -- Slow */
 	creature_ptr->blind = 0;           /* Timed -- Blindness */
 	creature_ptr->paralyzed = 0;       /* Timed -- Paralysis */
@@ -194,7 +194,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->magicdef = 0;
 	creature_ptr->resist_magic = 0;
 	creature_ptr->tsuyoshi = 0;
-	creature_ptr->kabenuke = 0;
+	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
 	creature_ptr->tim_res_nether = 0;
 	creature_ptr->tim_res_time = 0;
 	creature_ptr->tim_mimic = 0;
@@ -1202,7 +1202,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 		{
 			if (creature_ptr->timed_trait[TRAIT_FAST] > v) return FALSE;
 		}
-		else if (!IS_FAST(creature_ptr) && !creature_ptr->lightspeed)
+		else if (!IS_FAST(creature_ptr) && !creature_ptr->timed_trait[TRAIT_LIGHT_SPEED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1219,7 +1219,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->timed_trait[TRAIT_FAST] && !creature_ptr->lightspeed && !music_singing(creature_ptr, MUSIC_SPEED) && !music_singing(creature_ptr, MUSIC_SHERO))
+		if (creature_ptr->timed_trait[TRAIT_FAST] && !creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] && !music_singing(creature_ptr, MUSIC_SPEED) && !music_singing(creature_ptr, MUSIC_SHERO))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1288,7 +1288,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->lightspeed", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]", notice observable changes
  */
 bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1305,11 +1305,11 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->lightspeed && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] && !do_dec)
 		{
-			if (creature_ptr->lightspeed > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] > v) return FALSE;
 		}
-		else if (!creature_ptr->lightspeed)
+		else if (!creature_ptr->timed_trait[TRAIT_LIGHT_SPEED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1327,7 +1327,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->lightspeed)
+		if (creature_ptr->timed_trait[TRAIT_LIGHT_SPEED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1343,7 +1343,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->lightspeed = v;
+	creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3358,11 +3358,11 @@ bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->kabenuke && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_PASS_WALL] && !do_dec)
 		{
-			if (creature_ptr->kabenuke > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_PASS_WALL] > v) return FALSE;
 		}
-		else if (!creature_ptr->kabenuke)
+		else if (!creature_ptr->timed_trait[TRAIT_PASS_WALL])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3380,7 +3380,7 @@ bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->kabenuke)
+		if (creature_ptr->timed_trait[TRAIT_PASS_WALL])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3395,7 +3395,7 @@ bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->kabenuke = v;
+	creature_ptr->timed_trait[TRAIT_PASS_WALL] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
