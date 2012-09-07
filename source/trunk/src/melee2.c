@@ -215,7 +215,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	if (m_ptr->cdis > MAX_SIGHT + 5) return (FALSE);
 
 	/* All "afraid" creatures will run away */
-	if (m_ptr->afraid) return (TRUE);
+	if (m_ptr->timed_trait[TRAIT_AFRAID]) return (TRUE);
 
 	/* Nearby creatures will not become terrified */
 	if (m_ptr->cdis <= 5) return (FALSE);
@@ -1219,7 +1219,7 @@ static void creature_speaking(creature_type *creature_ptr)
 #endif
 
 	/* Select the file for creature quotes */
-	if (creature_ptr->afraid)
+	if (creature_ptr->timed_trait[TRAIT_AFRAID])
 #ifdef JP
 		filename = "monfear_j.txt";
 #else
@@ -2257,7 +2257,7 @@ static void process_nonplayer(int m_idx)
 
 		if (is_riding_mon)
 		{
-			if (!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].afraid) do_move = FALSE;
+			if (!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].timed_trait[TRAIT_AFRAID]) do_move = FALSE;
 		}
 
 		if (did_kill_wall && do_move)
@@ -2518,7 +2518,7 @@ static void process_nonplayer(int m_idx)
 		creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
-	if (!do_turn && !do_move && !creature_ptr->afraid && !is_riding_mon && aware)
+	if (!do_turn && !do_move && !creature_ptr->timed_trait[TRAIT_AFRAID] && !is_riding_mon && aware)
 	{
 		// Try to cast spell again
 		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
@@ -2825,7 +2825,7 @@ void creature_process_init(void)
 		if (creature_ptr->timed_trait[TRAIT_SLOW_]) mproc_add(creature_ptr, MTIMED_SLOW);
 		if (creature_ptr->stun) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if (creature_ptr->confused) mproc_add(creature_ptr, MTIMED_CONFUSED);
-		if (creature_ptr->afraid) mproc_add(creature_ptr, MTIMED_MONFEAR);
+		if (creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
 		if (creature_ptr->invuln) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
 }
@@ -2953,7 +2953,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		set_afraid(creature_ptr, creature_ptr->afraid - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
+		set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_INVULNER:

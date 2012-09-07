@@ -2009,7 +2009,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		if (do_fear)
 		{
 			/* Set fear */
-			(void)set_afraid(target_ptr, target_ptr->afraid + do_fear);
+			(void)set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -3959,7 +3959,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 									else
-										set_afraid(caster_ptr, caster_ptr->afraid + 3 + randint1(dam));
+										set_afraid(caster_ptr, caster_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(dam));
 									break;
 								}
 								default:
@@ -4234,7 +4234,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 								else
-									set_afraid(caster_ptr, caster_ptr->afraid + dam);
+									set_afraid(caster_ptr, caster_ptr->timed_trait[TRAIT_AFRAID] + dam);
 							}
 						}
 					}

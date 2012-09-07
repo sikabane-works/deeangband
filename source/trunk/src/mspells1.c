@@ -1050,7 +1050,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Hurt badly or afraid, attempt to flee */
-	if (((caster_ptr->chp < caster_ptr->mhp / 3) || caster_ptr->afraid) && one_in_(2))
+	if (((caster_ptr->chp < caster_ptr->mhp / 3) || caster_ptr->timed_trait[TRAIT_AFRAID]) && one_in_(2))
 	{
 		/* Choose escape spell if possible */
 		if (escape_num) return (escape[randint0(escape_num)]);
@@ -2894,7 +2894,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 			else
 			{
-				(void)set_afraid(target_ptr, target_ptr->afraid + randint0(4) + 4);
+				(void)set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_SCARE);
 			update_smart_learn(caster_ptr, DRS_FEAR);
@@ -3198,7 +3198,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			if (&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
 			/* Cancel fear */
-			if (caster_ptr->afraid)
+			if (caster_ptr->timed_trait[TRAIT_AFRAID])
 			{
 				/* Cancel fear */
 				(void)set_afraid(caster_ptr, 0);

@@ -239,7 +239,7 @@ info[i++] = "‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->afraid)
+	if (creature_ptr->timed_trait[TRAIT_AFRAID])
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹°•|‚ÉN‚³‚ê‚Ä‚¢‚éB";
@@ -868,9 +868,9 @@ info[i++] = "‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->afraid)
+	if (creature_ptr->timed_trait[TRAIT_AFRAID])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->afraid);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_AFRAID]);
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‹°•|‚ÉN‚³‚ê‚Ä‚¢‚éB";
 #else
@@ -2570,13 +2570,13 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 #ifdef JP
 			if (m_ptr->paralyzed) strcat(buf,"‡–° ");
 			if (m_ptr->stun) strcat(buf,"žNžO ");
-			if (m_ptr->afraid) strcat(buf,"‹°•| ");
+			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"‹°•| ");
 			if (m_ptr->confused) strcat(buf,"¬— ");
 			if (m_ptr->invuln) strcat(buf,"–³“G ");
 #else
 			if (m_ptr->paralyzed) strcat(buf,"sleeping ");
 			if (m_ptr->stun) strcat(buf,"stunned ");
-			if (m_ptr->afraid) strcat(buf,"scared ");
+			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"scared ");
 			if (m_ptr->confused) strcat(buf,"confused ");
 			if (m_ptr->invuln) strcat(buf,"invulnerable ");
 #endif

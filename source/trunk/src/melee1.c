@@ -157,7 +157,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 				fuiuchi = TRUE;
 			}
-			else if (target_ptr->afraid && target_ptr->see_others)
+			else if (target_ptr->timed_trait[TRAIT_AFRAID] && target_ptr->see_others)
 			{
 				stab_fleeing = TRUE;
 			}
@@ -1288,7 +1288,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 
 static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (attacker_ptr->afraid) // Handle player fear
+	if (attacker_ptr->timed_trait[TRAIT_AFRAID]) // Handle player fear
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -3054,7 +3054,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if (set_afraid(target_ptr, target_ptr->afraid + 3 + randint1(rlev)))
+					if (set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
 					{
 						obvious = TRUE;
 					}

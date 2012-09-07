@@ -2321,7 +2321,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			disturb(player_ptr, 0, 0);
 		}
 
-		else if (steed_ptr->afraid)
+		else if (steed_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			char m_name[80];
 

@@ -605,7 +605,7 @@ static bool choose_kata(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if (creature_ptr->afraid)
+	if (creature_ptr->timed_trait[TRAIT_AFRAID])
 	{
 #ifdef JP
 		msg_print("体が震えて構えられない！");
@@ -4335,7 +4335,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_afraid(target_ptr, target_ptr->afraid + randint0(4) + 4);
+				(void)set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_SCARE);
 			update_smart_learn(caster_ptr, DRS_FEAR);
@@ -4639,7 +4639,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			if (&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
 			// Cancel fear 
-			if (caster_ptr->afraid)
+			if (caster_ptr->timed_trait[TRAIT_AFRAID])
 			{
 				// Cancel fear 
 				(void)set_afraid(caster_ptr, 0);

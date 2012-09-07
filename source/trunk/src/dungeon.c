@@ -2139,9 +2139,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Afraid */
-	if (creature_ptr->afraid)
+	if (creature_ptr->timed_trait[TRAIT_AFRAID])
 	{
-		(void)set_afraid(creature_ptr, creature_ptr->afraid - dec_count);
+		(void)set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] - dec_count);
 	}
 
 	/* Fast */
@@ -2351,7 +2351,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("It's so dark... so scary!");
 #endif
 
-			set_afraid(creature_ptr, creature_ptr->afraid + 13 + randint1(26));
+			set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
 		}
 	}
 
@@ -3140,7 +3140,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				msg_print("It's so dark... so scary!");
 #endif
 
-				set_afraid(creature_ptr, creature_ptr->afraid + 13 + randint1(26));
+				set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
 			}
 		}
 		/* Teleport player */
@@ -5325,11 +5325,11 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		if (m_ptr->afraid)
+		if (m_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			/* Hack -- Recover from fear */
 			if (set_afraid(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->afraid - 1)))
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
 				char m_name[80];
 
@@ -5390,7 +5390,7 @@ void process_player(creature_type *creature_ptr)
 			if ((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp) &&
 			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
-			    !creature_ptr->poisoned && !creature_ptr->afraid &&
+			    !creature_ptr->poisoned && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->stun && !IS_WOUND(creature_ptr) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->paralyzed &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->word_recall &&

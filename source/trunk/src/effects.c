@@ -167,7 +167,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->blind = 0;           /* Timed -- Blindness */
 	creature_ptr->paralyzed = 0;       /* Timed -- Paralysis */
 	creature_ptr->confused = 0;        /* Timed -- Confusion */
-	creature_ptr->afraid = 0;          /* Timed -- Fear */
+	creature_ptr->timed_trait[TRAIT_AFRAID] = 0;          /* Timed -- Fear */
 	creature_ptr->image = 0;           /* Timed -- Hallucination */
 	creature_ptr->poisoned = 0;        /* Timed -- Poisoned */
 	creature_ptr->cut = 0;             /* Timed -- Cut */
@@ -705,7 +705,7 @@ bool set_poisoned(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->afraid", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_AFRAID]", notice observable changes
  */
 bool set_afraid(creature_type *creature_ptr, int v)
 {
@@ -722,7 +722,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->afraid)
+		if (!creature_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -759,7 +759,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->afraid)
+		if (creature_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{			
@@ -779,7 +779,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 	if(is_player(creature_ptr))
 	{
 		/* Use the value */
-		creature_ptr->afraid = v;
+		creature_ptr->timed_trait[TRAIT_AFRAID] = v;
 
 		/* Redraw status bar */
 		play_redraw |= (PR_STATUS);
@@ -802,7 +802,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Open */
 			if (v)
 			{
-				if (!creature_ptr->afraid)
+				if (!creature_ptr->timed_trait[TRAIT_AFRAID])
 				{
 					mproc_add(creature_ptr, MTIMED_MONFEAR);
 					notice = TRUE;
@@ -812,7 +812,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Shut */
 		else
 		{
-			if (creature_ptr->afraid)
+			if (creature_ptr->timed_trait[TRAIT_AFRAID])
 			{
 				mproc_remove(creature_ptr, MTIMED_MONFEAR);
 				notice = TRUE;
@@ -820,7 +820,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		}
 
 		/* Use the value */
-		creature_ptr->afraid = v;
+		creature_ptr->timed_trait[TRAIT_AFRAID] = v;
 
 		if (!notice) return FALSE;
 
@@ -6526,10 +6526,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	}
 	
 	/* Mega-Hack -- Pain cancels fear */
-	if (target_ptr->afraid && (damage > 0))
+	if (target_ptr->timed_trait[TRAIT_AFRAID] && (damage > 0))
 	{
 		/* Cure fear */
-		if (set_afraid(target_ptr, target_ptr->afraid - randint1(damage)))
+		if (set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] - randint1(damage)))
 		{
 			/* No more fear */
 			fear = FALSE;
@@ -6537,7 +6537,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	}
 	
 	/* Sometimes a creature gets scared by damage */
-	if (!target_ptr->afraid && !has_trait(target_ptr, TRAIT_FEARLESS))
+	if (!target_ptr->timed_trait[TRAIT_AFRAID] && !has_trait(target_ptr, TRAIT_FEARLESS))
 	{
 		/* Percentage of fully healthy */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
@@ -6553,7 +6553,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		}
 	}
 
-	if(fear && !target_ptr->afraid)
+	if(fear && !target_ptr->timed_trait[TRAIT_AFRAID])
 	{
 		/* XXX XXX XXX Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;

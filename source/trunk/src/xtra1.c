@@ -482,7 +482,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->alter_reality) ADD_FLG(BAR_ALTER);
 
 	/* Afraid */
-	if (creature_ptr->afraid) ADD_FLG(BAR_AFRAID);
+	if (creature_ptr->timed_trait[TRAIT_AFRAID]) ADD_FLG(BAR_AFRAID);
 
 	/* Resist time */
 	if (creature_ptr->tim_res_time) ADD_FLG(BAR_RESTIME);
@@ -1419,7 +1419,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		else if (m_ptr->paralyzed) attr = TERM_BLUE;
 
 		/* Afraid */
-		else if (m_ptr->afraid) attr = TERM_VIOLET;
+		else if (m_ptr->timed_trait[TRAIT_AFRAID]) attr = TERM_VIOLET;
 
 		/* Healthy */
 		else if (pct >= 100) attr = TERM_L_GREEN;

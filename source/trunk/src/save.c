@@ -633,7 +633,7 @@ static void wr_creature(creature_type *creature_ptr)
 
 	wr_s16b(creature_ptr->timed_trait[TRAIT_FAST]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_SLOW_]);
-	wr_s16b(creature_ptr->afraid);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_AFRAID]);
 	wr_s16b(creature_ptr->cut);
 	wr_s16b(creature_ptr->stun);
 	wr_s16b(creature_ptr->poisoned);

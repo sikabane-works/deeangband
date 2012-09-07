@@ -120,7 +120,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if (!has_trait(creature_ptr, TRAIT_FEARLESS))
 				{
-					if (set_afraid(creature_ptr, creature_ptr->afraid + randint0(10) + 10))
+					if (set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
