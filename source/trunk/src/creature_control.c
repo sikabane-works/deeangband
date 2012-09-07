@@ -2446,10 +2446,10 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 #else
 						msg_print("Your brain is no longer a living computer.");
 #endif
-
-						//TODO watcher_ptr->flags14 &= ~(RF14_HYPER_INT);
+						lose_acquired_trait(watcher_ptr, TRAIT_HYPER_INT);
 					}
-					//TODO watcher_ptr->flags14 |= RF14_MORONIC;
+
+					get_acquired_trait(watcher_ptr, TRAIT_MORONIC);
 					happened = TRUE;
 				}
 				break;
