@@ -2285,7 +2285,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		if (one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-			watcher_ptr->image = watcher_ptr->image + (s16b)randint1(eldritch_ptr->level);
+			watcher_ptr->timed_trait[TRAIT_HALLUCINATION] = watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(eldritch_ptr->level);
 		}
 		
 		return;	// Never mind; we can't see it clearly enough

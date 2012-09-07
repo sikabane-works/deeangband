@@ -2295,7 +2295,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 			if (one_in_(3))
 			{
 				msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-				watcher_ptr->image = watcher_ptr->image + (s16b)randint1(r_ptr->level);
+				watcher_ptr->timed_trait[TRAIT_HALLUCINATION] = watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(r_ptr->level);
 			}
 
 			return; /* Never mind; we can't see it clearly enough */

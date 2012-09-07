@@ -645,7 +645,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	int number = 0;
 
-	bool visible = ((dead_ptr->see_others && !slayer_ptr->image) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
+	bool visible = ((dead_ptr->see_others && !slayer_ptr->timed_trait[TRAIT_HALLUCINATION]) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
 
 	u32b mo_mode = 0L;
 

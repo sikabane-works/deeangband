@@ -1289,7 +1289,6 @@ struct creature_type
 	s16b paralyzed;		// Timed -- Paralysis
 	s16b slept;			// Timed -- Paralysis
 	s16b confused;		// Timed -- Confusion 
-	s16b image;			// Timed -- Hallucination 
 	s16b poisoned;		// Timed -- Poisoned 
 	s16b cut;			// Timed -- Cut 
 	s16b stun;			// Timed -- Stun 

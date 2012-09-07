@@ -5030,7 +5030,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if (!(user_ptr->special_defense & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
 
 	if (gameover) return FALSE;
-	if (user_ptr->confused || IS_BLIND(user_ptr) || user_ptr->paralyzed || user_ptr->image) return FALSE;
+	if (user_ptr->confused || IS_BLIND(user_ptr) || user_ptr->paralyzed || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
 	if (randint0(200) < user_ptr->stun) return FALSE;
 
 	if (!success && one_in_(3))

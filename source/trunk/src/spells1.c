@@ -2673,7 +2673,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				if (!target_ptr->resist_chaos)
 				{
-					(void)set_image(target_ptr, target_ptr->image + randint1(10));
+					(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint1(10));
 					if (one_in_(3))
 					{
 #ifdef JP
@@ -3316,7 +3316,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					if (!target_ptr->resist_chaos && one_in_(3))
 					{
-						(void)set_image(target_ptr, target_ptr->image + randint0(250) + 150);
+						(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
 					}
 
 					target_ptr->csp -= 50;
@@ -3465,7 +3465,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					if (!target_ptr->resist_chaos)
 					{
-						(void)set_image(target_ptr, target_ptr->image + randint0(250) + 150);
+						(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
 					}
 				}
 			}
@@ -7000,7 +7000,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					    if (m_ptr->see_others)
 					    {
 					      /* Hack -- auto-recall */
-					      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
+					      if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 					      /* Hack - auto-track */
 					      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -7026,7 +7026,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			    if (m_ptr->see_others)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
+			      if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -7158,7 +7158,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			    if (m_ptr->see_others)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
+			      if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -7700,7 +7700,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				if (m_ptr->see_others)
 				{
 					/* Hack -- auto-recall */
-					if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
+					if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
 					if (m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx);

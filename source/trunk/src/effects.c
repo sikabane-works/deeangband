@@ -168,7 +168,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->paralyzed = 0;       /* Timed -- Paralysis */
 	creature_ptr->confused = 0;        /* Timed -- Confusion */
 	creature_ptr->timed_trait[TRAIT_AFRAID] = 0;          /* Timed -- Fear */
-	creature_ptr->image = 0;           /* Timed -- Hallucination */
+	creature_ptr->timed_trait[TRAIT_HALLUCINATION] = 0;           /* Timed -- Hallucination */
 	creature_ptr->poisoned = 0;        /* Timed -- Poisoned */
 	creature_ptr->cut = 0;             /* Timed -- Cut */
 	creature_ptr->stun = 0;            /* Timed -- Stun */
@@ -1098,7 +1098,7 @@ bool set_image(creature_type *creature_ptr, int v)
 
 	if(has_trait(creature_ptr, TRAIT_NO_HALLUCINATION));
 	{
-		creature_ptr->image = 0;
+		creature_ptr->timed_trait[TRAIT_HALLUCINATION] = 0;
 		return (TRUE);
 	}
 
@@ -1149,7 +1149,7 @@ bool set_image(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->image = v;
+	creature_ptr->timed_trait[TRAIT_HALLUCINATION] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -5835,7 +5835,7 @@ static void you_died(cptr hit_from)
 			{
 				char dummy[1024];
 #ifdef JP
-				sprintf(dummy, "%s%s%s", !player_ptr->paralyzed ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->image ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
+				sprintf(dummy, "%s%s%s", !player_ptr->paralyzed ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
 #else
 				sprintf(dummy, "%s%s", hit_from, !player_ptr->paralyzed ? "" : " while helpless");
 #endif
