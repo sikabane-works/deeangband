@@ -34,8 +34,9 @@ void dump_traits(creature_type *creature_ptr, FILE *OutFile)
 	//TODO
 }
 
-void remove_all_postnatal_traits(creature_type *creature_ptr)
+void remove_all_acquired_traits(creature_type *creature_ptr)
 {
+	int i;
 
 #ifdef JP
 	msg_print("‘S‚Ä‚Ì“Ë‘R•ÏˆÙ‚ª¡‚Á‚½B");
@@ -43,7 +44,7 @@ void remove_all_postnatal_traits(creature_type *creature_ptr)
 	msg_print("You are cured of all mutations.");
 #endif
 
-	//TODO creature_ptr->flags12 = creature_ptr->flags13 = creature_ptr->flags14 = 0;
+	for(i = 0; i < TRAIT_FLAG_MAX; i++) creature_ptr->acquired_trait[i] = 0L;
 	creature_ptr->creature_update |= CRU_BONUS;
 	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 	handle_stuff();

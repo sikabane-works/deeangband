@@ -1670,7 +1670,7 @@ extern void do_cmd_gain_hissatsu(creature_type *creature_ptr);
 extern int count_bits(u32b x);
 extern bool gain_trait(creature_type *creature_ptr, int choose_mut, bool message);
 extern bool lose_trait(creature_type *creature_ptr, int choose_mut);
-extern void remove_all_postnatal_traits(creature_type *creature_ptr);
+extern void remove_all_acquired_traits(creature_type *creature_ptr);
 extern void dump_traits(creature_type *creature_ptr, FILE *OutFile);
 extern void do_cmd_knowledge_traits(creature_type *creature_ptr);
 extern int calc_regenerate_mod(creature_type *creature_ptr);
