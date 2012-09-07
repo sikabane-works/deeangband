@@ -646,10 +646,10 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->timed_trait[TRAIT_SHIELD]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_BLESSED]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]);
-	wr_s16b(creature_ptr->word_recall);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_WORD_RECALL]);
 	wr_byte(creature_ptr->recall_dungeon);
 
-	wr_s16b(creature_ptr->alter_reality);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]);
 	wr_s16b(creature_ptr->see_infra);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INFRA]);
 	wr_s16b(creature_ptr->oppose_fire);

@@ -1299,14 +1299,10 @@ struct creature_type
 	s16b oppose_cold;	// Timed -- oppose cold 
 	s16b oppose_pois;	// Timed -- oppose poison 
 
-	s16b resist_magic;  // Timed Resist Magic (later) 
-
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
 
-	s16b word_recall;	  // Word of recall counter 
-	s16b alter_reality;	  // Alter reality counter 
 	byte recall_dungeon;      // Dungeon set to be recalled 
 
 	s16b energy_need;	  // Energy needed for next move 

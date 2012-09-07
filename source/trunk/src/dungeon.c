@@ -3334,23 +3334,23 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Delayed Word-of-Recall */
-	if (creature_ptr->word_recall)
+	if (creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 		/*
 		 * HACK: Autosave BEFORE resetting the recall counter (rr9)
 		 * The player is yanked up/down as soon as
 		 * he loads the autosaved game.
 		 */
-		if (autosave_l && (creature_ptr->word_recall == 1) && !floor_ptr->gamble_arena_mode)
+		if (autosave_l && (creature_ptr->timed_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards recall */
-		creature_ptr->word_recall--;
+		creature_ptr->timed_trait[TRAIT_WORD_RECALL]--;
 
 		play_redraw |= (PR_STATUS);
 
 		/* Activate the recall */
-		if (!creature_ptr->word_recall)
+		if (!creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 		{
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
@@ -3457,18 +3457,18 @@ msg_print("‰º‚Éˆø‚«‚¸‚è~‚ë‚³‚ê‚éŠ´‚¶‚ª‚·‚éI");
 
 
 	/* Delayed Alter reality */
-	if (creature_ptr->alter_reality)
+	if (creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
-		if (autosave_l && (creature_ptr->alter_reality == 1) && !floor_ptr->gamble_arena_mode)
+		if (autosave_l && (creature_ptr->timed_trait[TRAIT_ALTER_REALITY] == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
 		/* Count down towards alter */
-		creature_ptr->alter_reality--;
+		creature_ptr->timed_trait[TRAIT_ALTER_REALITY]--;
 
 		play_redraw |= (PR_STATUS);
 
 		/* Activate the alter reality */
-		if (!creature_ptr->alter_reality)
+		if (!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 		{
 			/* Disturbing! */
 			disturb(player_ptr, 0, 0);
@@ -5393,8 +5393,8 @@ void process_player(creature_type *creature_ptr)
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->timed_trait[TRAIT_STUN] && !IS_WOUND(creature_ptr) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->paralyzed &&
-			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->word_recall &&
-			    !creature_ptr->alter_reality)
+			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
+			    !creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 			{
 				set_action(creature_ptr, ACTION_NONE);
 			}
@@ -6131,7 +6131,7 @@ static void cheat_death(void)
 	player_ptr->csp_frac = 0;
 
 	/* Hack -- cancel recall */
-	if (player_ptr->word_recall)
+	if (player_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 		/* Message */
 #ifdef JP
@@ -6143,15 +6143,15 @@ static void cheat_death(void)
 		msg_print(NULL);
 
 		/* Hack -- Prevent recall */
-		player_ptr->word_recall = 0;
+		player_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
 		play_redraw |= (PR_STATUS);
 	}
 
 	/* Hack -- cancel alter */
-	if (player_ptr->alter_reality)
+	if (player_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
 		/* Hack -- Prevent alter */
-		player_ptr->alter_reality = 0;
+		player_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
 		play_redraw |= (PR_STATUS);
 	}
 

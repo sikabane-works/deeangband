@@ -564,7 +564,7 @@ info[i++] = "あなたは呪文や祈りを学ぶことができる。";
 #endif
 
 	}
-	if (creature_ptr->word_recall)
+	if (creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 #ifdef JP
 		info[i++] = "あなたはすぐに帰還するだろう。";
@@ -573,7 +573,7 @@ info[i++] = "あなたは呪文や祈りを学ぶことができる。";
 #endif
 
 	}
-	if (creature_ptr->alter_reality)
+	if (creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
 #ifdef JP
 		info[i++] = "あなたはすぐにこの世界を離れるだろう。";
@@ -978,9 +978,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (creature_ptr->word_recall)
+	if (creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->word_recall);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_WORD_RECALL]);
 #ifdef JP
 		info[i++] = "この後帰還の詔を発動する。";
 #else
@@ -988,9 +988,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (creature_ptr->alter_reality)
+	if (creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->alter_reality);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]);
 #ifdef JP
 		info[i++] = "この後現実変容が発動する。";
 #else

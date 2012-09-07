@@ -211,8 +211,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->oppose_cold = 0;     /* Timed -- oppose cold */
 	creature_ptr->oppose_pois = 0;     /* Timed -- oppose poison */
 
-	creature_ptr->word_recall = 0;
-	creature_ptr->alter_reality = 0;
+	creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
+	creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
 	creature_ptr->sutemi = FALSE;
 	creature_ptr->counter = FALSE;
 	creature_ptr->ele_attack = 0;

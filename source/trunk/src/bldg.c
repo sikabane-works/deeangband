@@ -4511,7 +4511,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 
 		if (amt > 0)
 		{
-			creature_ptr->word_recall = 1;
+			creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 1;
 			creature_ptr->recall_dungeon = select_dungeon;
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if (record_maxdepth)

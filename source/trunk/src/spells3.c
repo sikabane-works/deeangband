@@ -915,7 +915,7 @@ msg_print("何も起こらなかった。");
 		return TRUE;
 	}
 
-	if (floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->word_recall)
+	if (floor_ptr->floor_level && (max_dlv[floor_ptr->dun_type] > floor_ptr->floor_level) && !floor_ptr->quest && !creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 #ifdef JP
 if (get_check("ここは最深到達階より浅い階です。この階に戻って来ますか？ "))
@@ -933,7 +933,7 @@ if (get_check("ここは最深到達階より浅い階です。この階に戻って来ますか？ "))
 		}
 
 	}
-	if (!creature_ptr->word_recall)
+	if (!creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 		if (!floor_ptr->floor_level)
 		{
@@ -946,7 +946,7 @@ if (get_check("ここは最深到達階より浅い階です。この階に戻って来ますか？ "))
 			if (!select_dungeon) return FALSE;
 			creature_ptr->recall_dungeon = select_dungeon;
 		}
-		creature_ptr->word_recall = turns;
+		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = turns;
 #ifdef JP
 msg_print("回りの大気が張りつめてきた...");
 #else
@@ -957,7 +957,7 @@ msg_print("回りの大気が張りつめてきた...");
 	}
 	else
 	{
-		creature_ptr->word_recall = 0;
+		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
 #ifdef JP
 msg_print("張りつめた大気が流れ去った...");
 #else
@@ -1976,11 +1976,11 @@ void alter_reality(creature_type *creature_ptr)
 		return;
 	}
 
-	if (!creature_ptr->alter_reality)
+	if (!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
 		int turns = randint0(21) + 15;
 
-		creature_ptr->alter_reality = turns;
+		creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = turns;
 #ifdef JP
 		msg_print("回りの景色が変わり始めた...");
 #else
@@ -1991,7 +1991,7 @@ void alter_reality(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->alter_reality = 0;
+		creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
 #ifdef JP
 		msg_print("景色が元に戻った...");
 #else

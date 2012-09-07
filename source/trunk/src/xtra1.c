@@ -476,10 +476,10 @@ static void prt_status(creature_type *creature_ptr)
 	if (IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
 
 	/* Word of Recall */
-	if (creature_ptr->word_recall) ADD_FLG(BAR_RECALL);
+	if (creature_ptr->timed_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL);
 
 	/* Alter realiry */
-	if (creature_ptr->alter_reality) ADD_FLG(BAR_ALTER);
+	if (creature_ptr->timed_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER);
 
 	/* Afraid */
 	if (creature_ptr->timed_trait[TRAIT_AFRAID]) ADD_FLG(BAR_AFRAID);
