@@ -9392,7 +9392,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if (stop)
 		{
-			if (!caster_ptr->tim_stealth)
+			if (!caster_ptr->timed_trait[TRAIT_STEALTH_PLUS])
 			{
 #ifdef JP
 				msg_print("p‚ª‚Í‚Á‚«‚è‚ÆŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚½B");

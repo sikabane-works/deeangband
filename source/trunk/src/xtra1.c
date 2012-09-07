@@ -492,7 +492,7 @@ static void prt_status(creature_type *creature_ptr)
 	/* Confusing Hands */
 	if (creature_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
 
-	if (creature_ptr->resist_magic) ADD_FLG(BAR_REGMAGIC);
+	if (creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]) ADD_FLG(BAR_REGMAGIC);
 
 	/* Ultimate-resistance */
 	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE);
@@ -3399,7 +3399,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
 	}
 
-	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] || creature_ptr->resist_magic || creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] || creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] || creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
 		creature_ptr->skill_rob += 95 + creature_ptr->lev;
 		creature_ptr->skill_eva += 95 + creature_ptr->lev;

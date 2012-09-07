@@ -2043,9 +2043,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed stealth */
-	if (creature_ptr->tim_stealth)
+	if (creature_ptr->timed_trait[TRAIT_STEALTH_PLUS])
 	{
-		(void)set_tim_stealth(creature_ptr, creature_ptr->tim_stealth - 1, TRUE);
+		(void)set_tim_stealth(creature_ptr, creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] - 1, TRUE);
 	}
 
 	/* Timed levitation */
@@ -2079,9 +2079,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed resist-magic */
-	if (creature_ptr->resist_magic)
+	if (creature_ptr->timed_trait[TRAIT_RESIST_MAGIC])
 	{
-		(void)set_resist_magic(creature_ptr, creature_ptr->resist_magic - 1, TRUE);
+		(void)set_resist_magic(creature_ptr, creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] - 1, TRUE);
 	}
 
 	/* Timed regeneration */

@@ -183,7 +183,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] = 0;       /* Timed -- Invisibility */
 	creature_ptr->timed_trait[TRAIT_SEE_INFRA] = 0;       /* Timed -- Infra Vision */
 	creature_ptr->timed_trait[TRAIT_REGENERATE] = 0;       /* Timed -- Regeneration */
-	creature_ptr->tim_stealth = 0;     /* Timed -- Stealth */
+	creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] = 0;     /* Timed -- Stealth */
 	creature_ptr->timed_trait[TRAIT_ESP] = 0;
 	creature_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;     /* Timed -- Wraith Form */
 	creature_ptr->timed_trait[TRAIT_LEVITATION] = 0;
@@ -192,7 +192,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = 0;
 	creature_ptr->timed_trait[TRAIT_EYE_EYE] = 0;
 	creature_ptr->timed_trait[TRAIT_MAGIC_DEF] = 0;
-	creature_ptr->resist_magic = 0;
+	creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] = 0;
 	creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 0;
 	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
 	creature_ptr->timed_trait[TRAIT_RES_NETH] = 0;
@@ -2542,7 +2542,7 @@ bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_stealth", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_STEALTH_PLUS]", notice observable changes
  */
 bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2556,9 +2556,9 @@ bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_stealth && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] && !do_dec)
 		{
-			if (creature_ptr->tim_stealth > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] > v) return FALSE;
 		}
 		else if (!IS_TIM_STEALTH(creature_ptr))
 		{
@@ -2578,7 +2578,7 @@ bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_stealth && !music_singing(creature_ptr, MUSIC_STEALTH))
+		if (creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] && !music_singing(creature_ptr, MUSIC_STEALTH))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2594,7 +2594,7 @@ bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_stealth = v;
+	creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -3049,7 +3049,7 @@ bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->resist_magic", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]", notice observable changes
  */
 bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3063,11 +3063,11 @@ bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->resist_magic && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] && !do_dec)
 		{
-			if (creature_ptr->resist_magic > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] > v) return FALSE;
 		}
-		else if (!creature_ptr->resist_magic)
+		else if (!creature_ptr->timed_trait[TRAIT_RESIST_MAGIC])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3085,7 +3085,7 @@ bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->resist_magic)
+		if (creature_ptr->timed_trait[TRAIT_RESIST_MAGIC])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3100,7 +3100,7 @@ bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->resist_magic = v;
+	creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

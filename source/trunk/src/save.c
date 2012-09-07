@@ -660,10 +660,10 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->timed_trait[TRAIT_TSUYOSHI]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_ESP]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
-	wr_s16b(creature_ptr->resist_magic);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_REGENERATE]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_PASS_WALL]);
-	wr_s16b(creature_ptr->tim_stealth);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_STEALTH_PLUS]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_LEVITATION]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_AURA_MANA]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);

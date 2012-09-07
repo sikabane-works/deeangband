@@ -1300,7 +1300,6 @@ struct creature_type
 	s16b oppose_pois;	// Timed -- oppose poison 
 
 	s16b resist_magic;  // Timed Resist Magic (later) 
-	s16b tim_stealth;
 
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];

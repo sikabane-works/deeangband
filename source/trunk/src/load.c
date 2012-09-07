@@ -1090,10 +1090,10 @@ static void rd_creature(creature_type *creature_ptr)
 
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_ESP]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
-	rd_s16b(&creature_ptr->resist_magic);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_REGENERATE]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_PASS_WALL]);
-	rd_s16b(&creature_ptr->tim_stealth);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_STEALTH_PLUS]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LEVITATION]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_AURA_MANA]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
