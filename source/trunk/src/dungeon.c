@@ -3889,15 +3889,6 @@ static void process_world(void)
 			do_cmd_save_game(TRUE);
 	}
 
-	if (npc_action && !ignore_unview)
-	{
-#ifdef JP
-		msg_print("âΩÇ©Ç™ï∑Ç±Ç¶ÇΩÅB");
-#else
-		msg_print("You hear noise.");
-#endif
-	}
-
 	sunrise_and_sunset(floor_ptr);
 
 	/*** Shuffle the Storekeepers (Deleted Old Feature by Deskull)***/

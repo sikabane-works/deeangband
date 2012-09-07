@@ -2052,7 +2052,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				}
 				else
 				{
-					npc_action = TRUE;
+					player_ptr->hear_noise = TRUE;
 				}
 			}
 
@@ -2088,7 +2088,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			}
 			else
 			{
-				npc_action = TRUE;
+				player_ptr->hear_noise = TRUE;
 			}
 
 			/* Hack -- handle sleep */

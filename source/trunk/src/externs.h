@@ -540,7 +540,6 @@ extern u16b noscore;		  /* Cheating flags */
 
 extern bool sukekaku;
 extern bool new_mane;
-extern bool npc_action;
 extern bool ambush_flag;
 extern cptr screen_dump;
 

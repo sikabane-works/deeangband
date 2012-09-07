@@ -2605,6 +2605,15 @@ static void process_creature(int i)
 
 	test = FALSE; // Assume no move
 
+	if (is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
+	{
+#ifdef JP
+		msg_print("‰½‚©‚ª•·‚±‚¦‚½B");
+#else
+		msg_print("You hear noise.");
+#endif
+	}
+
 	// Handle "sensing radius"
 	if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
 		test = TRUE;
@@ -2710,7 +2719,7 @@ void process_creatures(void)
 	byte    old_r_cast_spell = 0;
 
 	/* Clear creature fighting indicator */
-	npc_action = FALSE;
+	player_ptr->hear_noise = FALSE;
 
 	/* Memorize old race */
 	old_species_window_idx = species_window_idx;
