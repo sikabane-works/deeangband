@@ -190,14 +190,14 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->tim_sh_touki = 0;
 	creature_ptr->timed_trait[TRAIT_AURA_FIRE] = 0;
 	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = 0;
-	creature_ptr->tim_eyeeye = 0;
+	creature_ptr->timed_trait[TRAIT_EYE_EYE] = 0;
 	creature_ptr->magicdef = 0;
 	creature_ptr->resist_magic = 0;
 	creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 0;
 	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
 	creature_ptr->timed_trait[TRAIT_RES_NETH] = 0;
 	creature_ptr->timed_trait[TRAIT_RES_TIME] = 0;
-	creature_ptr->tim_mimic = 0;
+	creature_ptr->timed_trait[TRAIT_MIMIC] = 0;
 	creature_ptr->mimic_form = 0;
 	creature_ptr->timed_trait[TRAIT_REFLECTING] = 0;
 	creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] = 0;
@@ -330,7 +330,7 @@ void dispel_creature(creature_type *creature_ptr)
 
 
 /*
- * Set "creature_ptr->tim_mimic", and "creature_ptr->mimic_form",
+ * Set "creature_ptr->timed_trait[TRAIT_MIMIC]", and "creature_ptr->mimic_form",
  * notice observable changes
  */
 bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
@@ -345,11 +345,11 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_mimic && (creature_ptr->mimic_form == p) && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_MIMIC] && (creature_ptr->mimic_form == p) && !do_dec)
 		{
-			if (creature_ptr->tim_mimic > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_MIMIC] > v) return FALSE;
 		}
-		else if (((!creature_ptr->tim_mimic) || (creature_ptr->mimic_form != p)))
+		else if (((!creature_ptr->timed_trait[TRAIT_MIMIC]) || (creature_ptr->mimic_form != p)))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -367,7 +367,7 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_mimic)
+		if (creature_ptr->timed_trait[TRAIT_MIMIC])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -384,7 +384,7 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_mimic = v;
+	creature_ptr->timed_trait[TRAIT_MIMIC] = v;
 
 	/* Nothing to notice */
 	if (!notice)
@@ -2973,7 +2973,7 @@ bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_eyeeye", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_EYE_EYE]", notice observable changes
  */
 bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2987,11 +2987,11 @@ bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_eyeeye && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_EYE_EYE] && !do_dec)
 		{
-			if (creature_ptr->tim_eyeeye > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_EYE_EYE] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_eyeeye)
+		else if (!creature_ptr->timed_trait[TRAIT_EYE_EYE])
 		{
 
 			if(is_seen(player_ptr, creature_ptr))
@@ -3009,7 +3009,7 @@ bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_eyeeye)
+		if (creature_ptr->timed_trait[TRAIT_EYE_EYE])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3025,7 +3025,7 @@ bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_eyeeye = v;
+	creature_ptr->timed_trait[TRAIT_EYE_EYE] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

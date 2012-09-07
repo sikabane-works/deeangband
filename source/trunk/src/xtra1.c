@@ -523,7 +523,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->timed_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
 
 	/* An Eye for an Eye */
-	if (creature_ptr->tim_eyeeye) ADD_FLG(BAR_EYEEYE);
+	if (creature_ptr->timed_trait[TRAIT_EYE_EYE]) ADD_FLG(BAR_EYEEYE);
 
 	/* Hex spells */
 	if (creature_ptr->realm1 == REALM_HEX)

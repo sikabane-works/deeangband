@@ -4886,7 +4886,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 						   -- henkma
 						 
 						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, caster_name, NULL, -1);
-						if (target_ptr->tim_eyeeye && get_damage > 0 && !gameover)
+						if (target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 						{
 #ifdef JP
 							msg_format("攻撃が%s自身を傷つけた！", caster_name);
@@ -4899,7 +4899,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
 							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
+							set_tim_eyeeye(target_ptr, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 						}
 
 						if (target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);

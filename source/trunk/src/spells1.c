@@ -6217,7 +6217,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	/* Hex - revenge damage stored */
 	revenge_store(player_ptr, get_damage);
 
-	if ((player_ptr->tim_eyeeye || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
+	if ((player_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
 		&& (get_damage > 0) && !gameover && (attacker_ptr != NULL))
 	{
 #ifdef JP
@@ -6231,7 +6231,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
 		project(0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if (player_ptr->tim_eyeeye) set_tim_eyeeye(player_ptr, player_ptr->tim_eyeeye-5, TRUE);
+		if (player_ptr->timed_trait[TRAIT_EYE_EYE]) set_tim_eyeeye(player_ptr, player_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
 	if (player_ptr->riding && dam > 0)

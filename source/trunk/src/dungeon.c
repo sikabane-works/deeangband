@@ -1990,9 +1990,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/*** Timeout Various Things ***/
 
 	/* Mimic */
-	if (creature_ptr->tim_mimic)
+	if (creature_ptr->timed_trait[TRAIT_MIMIC])
 	{
-		(void)set_mimic(creature_ptr, creature_ptr->tim_mimic - 1, creature_ptr->mimic_form, TRUE);
+		(void)set_mimic(creature_ptr, creature_ptr->timed_trait[TRAIT_MIMIC] - 1, creature_ptr->mimic_form, TRUE);
 	}
 
 	/* Hack -- Hallucinating */
@@ -2073,9 +2073,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed eyeeye */
-	if (creature_ptr->tim_eyeeye)
+	if (creature_ptr->timed_trait[TRAIT_EYE_EYE])
 	{
-		(void)set_tim_eyeeye(creature_ptr, creature_ptr->tim_eyeeye - 1, TRUE);
+		(void)set_tim_eyeeye(creature_ptr, creature_ptr->timed_trait[TRAIT_EYE_EYE] - 1, TRUE);
 	}
 
 	/* Timed resist-magic */
