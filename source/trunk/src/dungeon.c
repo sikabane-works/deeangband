@@ -1600,12 +1600,12 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		int dam;
 
 		// Mortal wound or Deep Gash
-		if (creature_ptr->cut > 1000) dam = 200;
-		else if (creature_ptr->cut > 200) dam = 80;
-		else if (creature_ptr->cut > 100) dam = 32;
-		else if (creature_ptr->cut > 50) dam = 16;
-		else if (creature_ptr->cut > 25) dam = 7;
-		else if (creature_ptr->cut > 10) dam = 3;
+		if (creature_ptr->timed_trait[TRAIT_CUT] > 1000) dam = 200;
+		else if (creature_ptr->timed_trait[TRAIT_CUT] > 200) dam = 80;
+		else if (creature_ptr->timed_trait[TRAIT_CUT] > 100) dam = 32;
+		else if (creature_ptr->timed_trait[TRAIT_CUT] > 50) dam = 16;
+		else if (creature_ptr->timed_trait[TRAIT_CUT] > 25) dam = 7;
+		else if (creature_ptr->timed_trait[TRAIT_CUT] > 10) dam = 3;
 		else dam = 1;
 
 		// Take damage
@@ -2263,12 +2263,12 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Stun */
-	if (creature_ptr->stun)
+	if (creature_ptr->timed_trait[TRAIT_STUN])
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_stun(creature_ptr, creature_ptr->stun - adjust);
+		(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] - adjust);
 	}
 
 	/* Cut */
@@ -2277,10 +2277,10 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Hack -- Truly "mortal" wound */
-		if (creature_ptr->cut > 1000) adjust = 0;
+		if (creature_ptr->timed_trait[TRAIT_CUT] > 1000) adjust = 0;
 
 		/* Apply some healing */
-		(void)set_cut(creature_ptr, creature_ptr->cut - adjust);
+		(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - adjust);
 	}
 }
 
@@ -5285,11 +5285,11 @@ void do_creature_riding_control(creature_type *creature_ptr)
 #endif
 		}
 
-		if (m_ptr->stun)
+		if (m_ptr->timed_trait[TRAIT_STUN])
 		{
 			/* Hack -- Recover from stun */
 			if (set_stun(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->stun - 1)))
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_STUN] - 1)))
 			{
 				char m_name[80];
 
@@ -5391,7 +5391,7 @@ void process_player(creature_type *creature_ptr)
 			    (creature_ptr->csp >= creature_ptr->msp) &&
 			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
-			    !creature_ptr->stun && !IS_WOUND(creature_ptr) &&
+			    !creature_ptr->timed_trait[TRAIT_STUN] && !IS_WOUND(creature_ptr) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->paralyzed &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->word_recall &&
 			    !creature_ptr->alter_reality)
@@ -5540,7 +5540,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Paralyzed or Knocked Out */
-		else if (creature_ptr->paralyzed || (creature_ptr->stun >= 100))
+		else if (creature_ptr->paralyzed || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;

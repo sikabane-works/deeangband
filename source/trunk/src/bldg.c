@@ -2590,7 +2590,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				{
 					set_blind(creature_ptr, 0);
 					set_confused(creature_ptr, 0);
-					creature_ptr->stun = 0;
+					creature_ptr->timed_trait[TRAIT_STUN] = 0;
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
 

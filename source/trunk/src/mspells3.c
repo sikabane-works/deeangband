@@ -556,8 +556,8 @@ put_str("MP é∏ó¶ å¯â ", y, x + 33);
 					if (chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if (creature_ptr->stun > 50) chance += 25;
-					else if (creature_ptr->stun) chance += 15;
+					if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+					else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 					/* Always a 5 percent chance of working */
 					if (chance > 95) chance = 95;
@@ -1949,8 +1949,8 @@ if (!get_check("ÇªÇÍÇ≈Ç‡íßêÌÇµÇ‹Ç∑Ç©? ")) return FALSE;
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (creature_ptr->stun > 50) chance += 25;
-	else if (creature_ptr->stun) chance += 15;
+	if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;
@@ -2042,7 +2042,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 	if (creature_ptr->action != ACTION_LEARN) return;
 	if (trait_index < 0) return; /* Paranoia */
 	if (creature_ptr->class_skills.old_skills.magic_num2[trait_index]) return;
-	if (creature_ptr->confused || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->stun || creature_ptr->paralyzed) return;
+	if (creature_ptr->confused || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->timed_trait[TRAIT_STUN] || creature_ptr->paralyzed) return;
 
 	if (randint1(creature_ptr->lev + 70) > trait_info[trait_index].base_level + 40)
 	{

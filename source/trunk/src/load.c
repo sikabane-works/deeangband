@@ -1063,8 +1063,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_FAST]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_SLOW_]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_AFRAID]);
-	rd_s16b(&creature_ptr->cut);
-	rd_s16b(&creature_ptr->stun);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_CUT]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_STUN]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_POISONED]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_HALLUCINATION]);
 	rd_s16b(&creature_ptr->protevil);

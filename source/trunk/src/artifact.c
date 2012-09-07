@@ -2599,7 +2599,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			heal_creature(creature_ptr, diceroll(4, 8));
-			(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
+			(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
 			object_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
 		}

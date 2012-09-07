@@ -953,8 +953,8 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
-			(void)set_stun(creature_ptr, creature_ptr->stun + 75);
-			(void)set_cut(creature_ptr, creature_ptr->cut + 5000);
+			(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + 75);
+			(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + 5000);
 			ident = TRUE;
 			break;
 
@@ -1036,7 +1036,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_CURE_LIGHT:
 			if (heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, creature_ptr->cut - 10)) ident = TRUE;
+			if (set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -1044,7 +1044,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if (heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 			if (set_blind(creature_ptr, 0)) ident = TRUE;
 			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, (creature_ptr->cut / 2) - 50)) ident = TRUE;
+			if (set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
 			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -4867,7 +4867,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				heal_creature(creature_ptr, diceroll(4, 8));
-				(void)set_cut(creature_ptr, (creature_ptr->cut / 2) - 50);
+				(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
 				object_ptr->timeout = randint0(3) + 3;
 				break;
 			}
@@ -6887,8 +6887,8 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				chance = mod_spell_chance_1(creature_ptr, chance);
 				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 				/* Stunning makes spells harder */
-				if (creature_ptr->stun > 50) chance += 25;
-				else if (creature_ptr->stun) chance += 15;
+				if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+				else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 				if (chance > 95) chance = 95;
 
@@ -7183,8 +7183,8 @@ msg_print("混乱していて唱えられない！");
 	chance = mod_spell_chance_1(creature_ptr, chance);
 	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 	/* Stunning makes spells harder */
-	if (creature_ptr->stun > 50) chance += 25;
-	else if (creature_ptr->stun) chance += 15;
+	if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 	if (chance > 95) chance = 95;
 

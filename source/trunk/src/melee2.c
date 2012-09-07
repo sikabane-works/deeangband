@@ -2823,7 +2823,7 @@ void creature_process_init(void)
 		if (creature_ptr->paralyzed) mproc_add(creature_ptr, MTIMED_CSLEEP);
 		if (creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
 		if (creature_ptr->timed_trait[TRAIT_SLOW_]) mproc_add(creature_ptr, MTIMED_SLOW);
-		if (creature_ptr->stun) mproc_add(creature_ptr, MTIMED_STUNNED);
+		if (creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if (creature_ptr->confused) mproc_add(creature_ptr, MTIMED_CONFUSED);
 		if (creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
 		if (creature_ptr->invuln) mproc_add(creature_ptr, MTIMED_INVULNER);
@@ -2942,7 +2942,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 	{
 		int rlev = species_info[creature_ptr->species_idx].level;
 		/* Recover from stun */
-		set_stun(creature_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (creature_ptr->stun - 1));
+		set_stun(creature_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (creature_ptr->timed_trait[TRAIT_STUN] - 1));
 		break;
 	}
 

@@ -702,8 +702,8 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						if (chance < minfail) chance = minfail;
 
 						/* Stunning makes spells harder */
-						if (creature_ptr->stun > 50) chance += 25;
-						else if (creature_ptr->stun) chance += 15;
+						if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+						else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 						if (use_mind == MIND_KI)
 						{
@@ -1920,8 +1920,8 @@ if (!get_check("ÇªÇÍÇ≈Ç‡íßêÌÇµÇ‹Ç∑Ç©? ")) return;
 		if (chance < minfail) chance = minfail;
 
 		/* Stunning makes spells harder */
-		if (creature_ptr->stun > 50) chance += 25;
-		else if (creature_ptr->stun) chance += 15;
+		if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+		else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 		if (use_mind == MIND_KI)
 		{
@@ -1996,7 +1996,7 @@ msg_print("Ç†Ç»ÇΩÇÃì™ÇÕç¨óêÇµÇΩÅI");
 				}
 				else if (b < 90)
 				{
-					set_stun(creature_ptr, creature_ptr->stun + randint1(8));
+					set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + randint1(8));
 				}
 				else
 				{

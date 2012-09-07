@@ -3973,8 +3973,8 @@ put_str("Lv   MP Ž¸—¦ Œø‰Ê", y, x + 35);
 			if (chance < minfail) chance = minfail;
 
 			/* Stunning makes spells harder */
-			if (creature_ptr->stun > 50) chance += 25;
-			else if (creature_ptr->stun) chance += 15;
+			if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+			else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 			/* Always a 5 percent chance of working */
 			if (chance > 95) chance = 95;
@@ -4251,8 +4251,8 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	if (chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (creature_ptr->stun > 50) chance += 25;
-	else if (creature_ptr->stun) chance += 15;
+	if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 	/* Always a 5 percent chance of working */
 	if (chance > 95) chance = 95;

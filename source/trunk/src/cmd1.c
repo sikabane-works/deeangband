@@ -454,7 +454,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 			if ((mode == HISSATSU_SEKIRYUKA) && IS_WOUND(attacker_ptr) && creature_living(attacker_ptr))
 			{
-				int tmp = MIN(100, MAX(10, attacker_ptr->cut / 10));
+				int tmp = MIN(100, MAX(10, attacker_ptr->timed_trait[TRAIT_CUT] / 10));
 				if (mult < tmp) mult = tmp;
 			}
 			if ((mode == HISSATSU_HAGAN) && has_trait(target_ptr, TRAIT_HURT_ROCK))
@@ -1074,7 +1074,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 					dam = dam * 2;
-					(void)set_cut(creature_ptr, creature_ptr->cut + randint1(dam));
+					(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
 				}
 
 				/* Take the damage */
@@ -1131,7 +1131,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 
 					dam = dam * 2;
-					(void)set_cut(creature_ptr, creature_ptr->cut + randint1(dam));
+					(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
 
 					if (creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr))
 					{
@@ -1611,7 +1611,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 
 	if (pattern_type_new == PATTERN_TILE_START)
 	{
-		if (!is_pattern_tile_cur && !creature_ptr->confused && !creature_ptr->stun && !IS_HALLUCINATION(creature_ptr))
+		if (!is_pattern_tile_cur && !creature_ptr->confused && !creature_ptr->timed_trait[TRAIT_STUN] && !IS_HALLUCINATION(creature_ptr))
 		{
 #ifdef JP
 			if (get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))
@@ -2257,7 +2257,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
-		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->see_others || creature_ptr->stun ||
+		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->see_others || creature_ptr->timed_trait[TRAIT_STUN] ||
 		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->shero) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
@@ -2386,7 +2386,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			disturb(player_ptr, 0, 0);
 		}
 
-		if (oktomove && steed_ptr->stun && one_in_(2))
+		if (oktomove && steed_ptr->timed_trait[TRAIT_STUN] && one_in_(2))
 		{
 			char m_name[80];
 			creature_desc(m_name, steed_ptr, 0);
@@ -2476,7 +2476,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				msg_print("You cannot go any more.");
 #endif
 
-				if (!(creature_ptr->confused || creature_ptr->stun || IS_HALLUCINATION(creature_ptr)))
+				if (!(creature_ptr->confused || creature_ptr->timed_trait[TRAIT_STUN] || IS_HALLUCINATION(creature_ptr)))
 					creature_ptr->energy_use = 0;
 			}
 
@@ -2497,7 +2497,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				 * a wall _if_ you are confused, stunned or blind; but
 				 * typing mistakes should not cost you a turn...
 				 */
-				if (!(creature_ptr->confused || creature_ptr->stun || IS_HALLUCINATION(creature_ptr)))
+				if (!(creature_ptr->confused || creature_ptr->timed_trait[TRAIT_STUN] || IS_HALLUCINATION(creature_ptr)))
 					creature_ptr->energy_use = 0;
 			}
 		}
@@ -2524,7 +2524,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Normal movement */
 	if (oktomove && !pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x))
 	{
-		if (!(creature_ptr->confused || creature_ptr->stun || IS_HALLUCINATION(creature_ptr)))
+		if (!(creature_ptr->confused || creature_ptr->timed_trait[TRAIT_STUN] || IS_HALLUCINATION(creature_ptr)))
 		{
 			creature_ptr->energy_use = 0;
 		}

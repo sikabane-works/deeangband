@@ -78,7 +78,7 @@
 #define IS_BLIND(C)			((C)->blind > 0)
 #define IS_POISONED(C)		((C)->timed_trait[TRAIT_POISONED])
 #define IS_HALLUCINATION(C) ((C)->timed_trait[TRAIT_HALLUCINATION] > 0)
-#define IS_WOUND(C)			((C)->cut > 0)
+#define IS_WOUND(C)			((C)->timed_trait[TRAIT_CUT] > 0)
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \

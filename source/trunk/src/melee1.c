@@ -432,7 +432,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 			if (!has_trait(target_ptr, TRAIT_NO_STUN))
 			{
-				if (target_ptr->stun) // Get stunned
+				if (target_ptr->timed_trait[TRAIT_STUN]) // Get stunned
 				{
 					if(is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -453,7 +453,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 
 				/* Apply stun */
-				(void)set_stun(&creature_list[c_ptr->creature_idx], target_ptr->stun + tmp);
+				(void)set_stun(&creature_list[c_ptr->creature_idx], target_ptr->timed_trait[TRAIT_STUN] + tmp);
 			}
 			else
 			{
@@ -1052,7 +1052,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
 
 			/* keep the highest level attack available we found */
-			if ((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->stun && !attacker_ptr->confused)
+			if ((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->timed_trait[TRAIT_STUN] && !attacker_ptr->confused)
 			{
 				old_ptr = ma_ptr;
 
@@ -1169,7 +1169,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		{
 			if (attacker_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 			{
-				if (set_stun(&creature_list[c_ptr->creature_idx], stun_effect + target_ptr->stun))
+				if (set_stun(&creature_list[c_ptr->creature_idx], stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -1266,7 +1266,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	creature_desc(attacker_name, attacker_ptr, 0);
 
 	if (IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
-	    !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
+	    !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
@@ -1375,7 +1375,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->shero || !target_ptr->see_others))
+	if (!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->shero || !target_ptr->see_others))
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1904,7 +1904,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	ac = target_ptr->ac + target_ptr->to_ac;
 
 	/* Creature hits player */
-	if (!effect || check_hit(target_ptr, power, rlev, attacker_ptr->stun))
+	if (!effect || check_hit(target_ptr, power, rlev, attacker_ptr->timed_trait[TRAIT_STUN]))
 	{
 		/* Always disturbing */
 		disturb(player_ptr, 1, 0);
@@ -3558,7 +3558,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the stun */
-			if (k) (void)set_stun(target_ptr, target_ptr->stun + k);
+			if (k) (void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
 		}
 
 		if (explode)

@@ -1220,7 +1220,7 @@ static void prt_imitation(creature_type *creature_ptr)
 
 static void prt_cut(creature_type *creature_ptr)
 {
-	int c = creature_ptr->cut;
+	int c = creature_ptr->timed_trait[TRAIT_CUT];
 
 	if (c > 1000)
 	{
@@ -1295,7 +1295,7 @@ static void prt_cut(creature_type *creature_ptr)
 
 static void prt_stun(creature_type *creature_ptr)
 {
-	int s = creature_ptr->stun;
+	int s = creature_ptr->timed_trait[TRAIT_STUN];
 
 	if (s > 100)
 	{
@@ -3157,7 +3157,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	// Apply temporary "stun"
-	if (creature_ptr->stun > 50)
+	if (creature_ptr->timed_trait[TRAIT_STUN] > 50)
 	{
 		creature_ptr->to_hit[0] -= 20;
 		creature_ptr->to_hit[1] -= 20;
@@ -3172,7 +3172,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_damage[0] -= 20;
 		creature_ptr->dis_to_damage[1] -= 20;
 	}
-	else if (creature_ptr->stun)
+	else if (creature_ptr->timed_trait[TRAIT_STUN])
 	{
 		creature_ptr->to_hit[0] -= 5;
 		creature_ptr->to_hit[1] -= 5;

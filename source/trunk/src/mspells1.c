@@ -1625,7 +1625,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	/* Check for spell failure (inate attacks never fail) */
 	// TODO Distinction of spell failure_rate
-	if ((in_no_magic_dungeon || (caster_ptr->stun && one_in_(2)) || (randint0(100) < failrate)))
+	if ((in_no_magic_dungeon || (caster_ptr->timed_trait[TRAIT_STUN] && one_in_(2)) || (randint0(100) < failrate)))
 	{
 		disturb(player_ptr, 1, 0);
 		/* Message */

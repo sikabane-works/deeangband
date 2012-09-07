@@ -716,14 +716,14 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if (one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->cut + 200);
+				else if (one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + 200);
 				else if (one_in_(4))
 				{
 					if (!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
 						(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 2 + 
 						randint0(6));
 					else 
-						(void)set_stun(creature_ptr, creature_ptr->stun + 10 + 
+						(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
 						randint0(100));
 				}
 				else if (one_in_(3)) apply_disenchant(creature_ptr, 0);
@@ -3779,7 +3779,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
 		(void)set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint0(7) + 7, FALSE);
-		(void)set_stun(creature_ptr, creature_ptr->stun + randint1(25));
+		(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + randint1(25));
 	}
 }
 

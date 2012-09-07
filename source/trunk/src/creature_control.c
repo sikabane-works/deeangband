@@ -716,7 +716,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	if (creature_ptr->paralyzed) (void)set_paralyzed(creature_ptr, 0);
 	if (creature_ptr->timed_trait[TRAIT_FAST]) (void)set_fast(creature_ptr, 0, FALSE);
 	if (creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_slow(creature_ptr, 0, FALSE);
-	if (creature_ptr->stun) (void)set_stun(creature_ptr, 0);
+	if (creature_ptr->timed_trait[TRAIT_STUN]) (void)set_stun(creature_ptr, 0);
 	if (creature_ptr->confused) (void)set_confused(creature_ptr, 0);
 	if (creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_afraid(creature_ptr, 0);
 	if (creature_ptr->invuln) (void)set_invuln(creature_ptr, 0, FALSE);

@@ -257,7 +257,7 @@ info[i++] = "‚ ‚È‚½‚ÍoŒŒ‚µ‚Ä‚¢‚éB";
 #endif
 
 	}
-	if (creature_ptr->stun)
+	if (creature_ptr->timed_trait[TRAIT_STUN])
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í‚à‚¤‚ë‚¤‚Æ‚µ‚Ä‚¢‚éB";
@@ -2569,13 +2569,13 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 
 #ifdef JP
 			if (m_ptr->paralyzed) strcat(buf,"‡–° ");
-			if (m_ptr->stun) strcat(buf,"žNžO ");
+			if (m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"žNžO ");
 			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"‹°•| ");
 			if (m_ptr->confused) strcat(buf,"¬— ");
 			if (m_ptr->invuln) strcat(buf,"–³“G ");
 #else
 			if (m_ptr->paralyzed) strcat(buf,"sleeping ");
-			if (m_ptr->stun) strcat(buf,"stunned ");
+			if (m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"stunned ");
 			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"scared ");
 			if (m_ptr->confused) strcat(buf,"confused ");
 			if (m_ptr->invuln) strcat(buf,"invulnerable ");
@@ -3115,7 +3115,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					msg_print("You are bashed by rubble!");
 #endif
 					damage = diceroll(10, 4);
-					(void)set_stun(target_ptr, target_ptr->stun + randint1(50));
+					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 					break;
 				}
 				case 3:
@@ -3126,7 +3126,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					msg_print("You are crushed between the floor and ceiling!");
 #endif
 					damage = diceroll(10, 4);
-					(void)set_stun(target_ptr, target_ptr->stun + randint1(50));
+					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 					break;
 				}
 			}
@@ -5031,7 +5031,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	if (gameover) return FALSE;
 	if (user_ptr->confused || IS_BLIND(user_ptr) || user_ptr->paralyzed || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
-	if (randint0(200) < user_ptr->stun) return FALSE;
+	if (randint0(200) < user_ptr->timed_trait[TRAIT_STUN]) return FALSE;
 
 	if (!success && one_in_(3))
 	{

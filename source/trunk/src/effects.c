@@ -170,8 +170,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_AFRAID] = 0;          /* Timed -- Fear */
 	creature_ptr->timed_trait[TRAIT_HALLUCINATION] = 0;           /* Timed -- Hallucination */
 	creature_ptr->timed_trait[TRAIT_POISONED] = 0;        /* Timed -- Poisoned */
-	creature_ptr->cut = 0;             /* Timed -- Cut */
-	creature_ptr->stun = 0;            /* Timed -- Stun */
+	creature_ptr->timed_trait[TRAIT_CUT] = 0;             /* Timed -- Cut */
+	creature_ptr->timed_trait[TRAIT_STUN] = 0;            /* Timed -- Stun */
 
 	creature_ptr->protevil = 0;        /* Timed -- Protection */
 	creature_ptr->invuln = 0;          /* Timed -- Invulnerable */
@@ -4091,7 +4091,7 @@ bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->stun", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_STUN]", notice observable changes
  *
  * Note the special code to only notice "range" changes.
  */
@@ -4113,19 +4113,19 @@ bool set_stun(creature_type *creature_ptr, int v)
 	if (has_trait(creature_ptr, TRAIT_NO_STUN) || ((creature_ptr->class_idx == CLASS_BERSERKER) && (creature_ptr->lev > 34))) v = 0;
 
 	/* Knocked out */
-	if (creature_ptr->stun > 100)
+	if (creature_ptr->timed_trait[TRAIT_STUN] > 100)
 	{
 		old_aux = 3;
 	}
 
 	/* Heavy stun */
-	else if (creature_ptr->stun > 50)
+	else if (creature_ptr->timed_trait[TRAIT_STUN] > 50)
 	{
 		old_aux = 2;
 	}
 
 	/* Stun */
-	else if (creature_ptr->stun > 0)
+	else if (creature_ptr->timed_trait[TRAIT_STUN] > 0)
 	{
 		old_aux = 1;
 	}
@@ -4284,7 +4284,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->stun = v;
+	creature_ptr->timed_trait[TRAIT_STUN] = v;
 
 	/* No change */
 	if (!notice) return (FALSE);
@@ -4309,7 +4309,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->stun)
+		if (!creature_ptr->timed_trait[TRAIT_STUN])
 		{
 			mproc_add(creature_ptr, MTIMED_STUNNED);
 			notice = TRUE;
@@ -4319,7 +4319,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->stun)
+		if (creature_ptr->timed_trait[TRAIT_STUN])
 		{
 			mproc_remove(creature_ptr, MTIMED_STUNNED);
 			notice = TRUE;
@@ -4327,7 +4327,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->stun = v;
+	creature_ptr->timed_trait[TRAIT_STUN] = v;
 
 	return notice;
 
@@ -4354,43 +4354,43 @@ bool set_cut(creature_type *creature_ptr, int v)
 		v = 0;
 
 	/* Mortal wound */
-	if (creature_ptr->cut > 1000)
+	if (creature_ptr->timed_trait[TRAIT_CUT] > 1000)
 	{
 		old_aux = 7;
 	}
 
 	/* Deep gash */
-	else if (creature_ptr->cut > 200)
+	else if (creature_ptr->timed_trait[TRAIT_CUT] > 200)
 	{
 		old_aux = 6;
 	}
 
 	/* Severe cut */
-	else if (creature_ptr->cut > 100)
+	else if (creature_ptr->timed_trait[TRAIT_CUT] > 100)
 	{
 		old_aux = 5;
 	}
 
 	/* Nasty cut */
-	else if (creature_ptr->cut > 50)
+	else if (creature_ptr->timed_trait[TRAIT_CUT] > 50)
 	{
 		old_aux = 4;
 	}
 
 	/* Bad cut */
-	else if (creature_ptr->cut > 25)
+	else if (creature_ptr->timed_trait[TRAIT_CUT] > 25)
 	{
 		old_aux = 3;
 	}
 
 	/* Light cut */
-	else if (creature_ptr->cut > 10)
+	else if (creature_ptr->timed_trait[TRAIT_CUT] > 10)
 	{
 		old_aux = 2;
 	}
 
 	/* Graze */
-	else if (creature_ptr->cut > 0)
+	else if (creature_ptr->timed_trait[TRAIT_CUT] > 0)
 	{
 		old_aux = 1;
 	}
@@ -4590,7 +4590,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->cut = v;
+	creature_ptr->timed_trait[TRAIT_CUT] = v;
 
 	/* No change */
 	if (!notice) return (FALSE);
@@ -5492,7 +5492,7 @@ bool lose_all_info(creature_type *creature_ptr)
 void do_poly_wounds(creature_type *creature_ptr)
 {
 	/* Changed to always provide at least _some_ healing */
-	s16b wounds = creature_ptr->cut;
+	s16b wounds = creature_ptr->timed_trait[TRAIT_CUT];
 	s32b hit_p = (creature_ptr->mhp - creature_ptr->chp);
 	s16b change = diceroll(creature_ptr->lev, 5);
 	bool Nasty_effect = one_in_(5);
@@ -5526,7 +5526,7 @@ void do_poly_wounds(creature_type *creature_ptr)
 	}
 	else
 	{
-		set_cut(creature_ptr, creature_ptr->cut - (change / 2));
+		set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - (change / 2));
 	}
 }
 

@@ -595,7 +595,7 @@ static bool choose_kata(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if (creature_ptr->stun)
+	if (creature_ptr->timed_trait[TRAIT_STUN])
 	{
 #ifdef JP
 		msg_print("ˆÓŽ¯‚ª‚Í‚Á‚«‚è‚Æ‚µ‚È‚¢B");
@@ -752,9 +752,9 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	if (difficulty == 0) return 100;
 
 	/* Calculate difficulty */
-	if (creature_ptr->stun)
+	if (creature_ptr->timed_trait[TRAIT_STUN])
 	{
-		difficulty += creature_ptr->stun;
+		difficulty += creature_ptr->timed_trait[TRAIT_STUN];
 	}
 	else if (creature_ptr->lev > min_level)
 	{
@@ -844,9 +844,9 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 
 	if (difficulty)
 	{
-		if (creature_ptr->stun)
+		if (creature_ptr->timed_trait[TRAIT_STUN])
 		{
-			difficulty += creature_ptr->stun;
+			difficulty += creature_ptr->timed_trait[TRAIT_STUN];
 		}
 		else if (creature_ptr->lev > min_level)
 		{
