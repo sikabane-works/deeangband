@@ -652,11 +652,11 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]);
 	wr_s16b(creature_ptr->see_infra);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INFRA]);
-	wr_s16b(creature_ptr->oppose_fire);
-	wr_s16b(creature_ptr->oppose_cold);
-	wr_s16b(creature_ptr->oppose_acid);
-	wr_s16b(creature_ptr->oppose_elec);
-	wr_s16b(creature_ptr->oppose_pois);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_FIRE]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_COLD]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_ACID]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_ELEC]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_RES_POIS]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_TSUYOSHI]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_ESP]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);

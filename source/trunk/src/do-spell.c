@@ -9596,7 +9596,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if (stop)
 		{
-			if (!caster_ptr->oppose_acid)
+			if (!caster_ptr->timed_trait[TRAIT_RES_ACID])
 			{
 #ifdef JP
 				msg_print("酸への耐性が薄れた気がする。");
@@ -9605,7 +9605,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->oppose_elec)
+			if (!caster_ptr->timed_trait[TRAIT_RES_ELEC])
 			{
 #ifdef JP
 				msg_print("電撃への耐性が薄れた気がする。");
@@ -9614,7 +9614,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->oppose_fire)
+			if (!caster_ptr->timed_trait[TRAIT_RES_FIRE])
 			{
 #ifdef JP
 				msg_print("火への耐性が薄れた気がする。");
@@ -9623,7 +9623,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->oppose_cold)
+			if (!caster_ptr->timed_trait[TRAIT_RES_COLD])
 			{
 #ifdef JP
 				msg_print("冷気への耐性が薄れた気がする。");
@@ -9632,7 +9632,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->oppose_pois)
+			if (!caster_ptr->timed_trait[TRAIT_RES_POIS])
 			{
 #ifdef JP
 				msg_print("毒への耐性が薄れた気がする。");

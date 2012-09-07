@@ -1081,11 +1081,11 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_ALTER_REALITY]);
 	rd_s16b(&creature_ptr->see_infra);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_SEE_INFRA]);
-	rd_s16b(&creature_ptr->oppose_fire);
-	rd_s16b(&creature_ptr->oppose_cold);
-	rd_s16b(&creature_ptr->oppose_acid);
-	rd_s16b(&creature_ptr->oppose_elec);
-	rd_s16b(&creature_ptr->oppose_pois);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_FIRE]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_COLD]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_ACID]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_ELEC]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_POIS]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_TSUYOSHI]);
 
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_ESP]);

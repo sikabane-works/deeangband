@@ -1293,12 +1293,6 @@ struct creature_type
 	s16b ele_attack;	// Timed -- Elemental Attack 
 	s16b ele_immune;	// Timed -- Elemental Immune 
 
-	s16b oppose_acid;	// Timed -- oppose acid 
-	s16b oppose_elec;	// Timed -- oppose lightning 
-	s16b oppose_fire;	// Timed -- oppose heat 
-	s16b oppose_cold;	// Timed -- oppose cold 
-	s16b oppose_pois;	// Timed -- oppose poison 
-
 	s32b karmas_cur[MAX_KARMA];
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];

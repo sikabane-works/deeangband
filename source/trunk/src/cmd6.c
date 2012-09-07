@@ -1008,14 +1008,14 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_RESIST_HEAT:
-			if (set_oppose_fire(creature_ptr, creature_ptr->oppose_fire + randint1(10) + 10, FALSE))
+			if (set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_RESIST_COLD:
-			if (set_oppose_cold(creature_ptr, creature_ptr->oppose_cold + randint1(10) + 10, FALSE))
+			if (set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
@@ -1269,11 +1269,11 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_RESISTANCE:
-			(void)set_oppose_acid(creature_ptr, creature_ptr->oppose_acid + randint1(20) + 20, FALSE);
-			(void)set_oppose_elec(creature_ptr, creature_ptr->oppose_elec + randint1(20) + 20, FALSE);
-			(void)set_oppose_fire(creature_ptr, creature_ptr->oppose_fire + randint1(20) + 20, FALSE);
-			(void)set_oppose_cold(creature_ptr, creature_ptr->oppose_cold + randint1(20) + 20, FALSE);
-			(void)set_oppose_pois(creature_ptr, creature_ptr->oppose_pois + randint1(20) + 20, FALSE);
+			(void)set_oppose_acid(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ACID] + randint1(20) + 20, FALSE);
+			(void)set_oppose_elec(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ELEC] + randint1(20) + 20, FALSE);
+			(void)set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(20) + 20, FALSE);
+			(void)set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(20) + 20, FALSE);
+			(void)set_oppose_pois(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_POIS] + randint1(20) + 20, FALSE);
 			ident = TRUE;
 			break;
 

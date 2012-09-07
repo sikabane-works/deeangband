@@ -998,9 +998,9 @@ info[i++] = "あなたの手は赤く輝いている。";
 #endif
 
 	}
-	if (creature_ptr->oppose_acid)
+	if (creature_ptr->timed_trait[TRAIT_RES_ACID])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->oppose_acid);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_ACID]);
 #ifdef JP
 info[i++] = "あなたは酸への耐性を持っている。";
 #else
@@ -1008,9 +1008,9 @@ info[i++] = "あなたは酸への耐性を持っている。";
 #endif
 
 	}
-	if (creature_ptr->oppose_elec)
+	if (creature_ptr->timed_trait[TRAIT_RES_ELEC])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->oppose_elec);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_ELEC]);
 #ifdef JP
 info[i++] = "あなたは電撃への耐性を持っている。";
 #else
@@ -1018,9 +1018,9 @@ info[i++] = "あなたは電撃への耐性を持っている。";
 #endif
 
 	}
-	if (creature_ptr->oppose_fire)
+	if (creature_ptr->timed_trait[TRAIT_RES_FIRE])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->oppose_fire);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_FIRE]);
 #ifdef JP
 info[i++] = "あなたは火への耐性を持っている。";
 #else
@@ -1028,9 +1028,9 @@ info[i++] = "あなたは火への耐性を持っている。";
 #endif
 
 	}
-	if (creature_ptr->oppose_cold)
+	if (creature_ptr->timed_trait[TRAIT_RES_COLD])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->oppose_cold);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_COLD]);
 #ifdef JP
 info[i++] = "あなたは冷気への耐性を持っている。";
 #else
@@ -1038,9 +1038,9 @@ info[i++] = "あなたは冷気への耐性を持っている。";
 #endif
 
 	}
-	if (creature_ptr->oppose_pois)
+	if (creature_ptr->timed_trait[TRAIT_RES_POIS])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->oppose_pois);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_POIS]);
 #ifdef JP
 		info[i++] = "あなたは毒への耐性を持っている。";
 #else

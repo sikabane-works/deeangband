@@ -205,11 +205,11 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->action = ACTION_NONE;
 
 
-	creature_ptr->oppose_acid = 0;     /* Timed -- oppose acid */
-	creature_ptr->oppose_elec = 0;     /* Timed -- oppose lightning */
-	creature_ptr->oppose_fire = 0;     /* Timed -- oppose heat */
-	creature_ptr->oppose_cold = 0;     /* Timed -- oppose cold */
-	creature_ptr->oppose_pois = 0;     /* Timed -- oppose poison */
+	creature_ptr->timed_trait[TRAIT_RES_ACID] = 0;     /* Timed -- oppose acid */
+	creature_ptr->timed_trait[TRAIT_RES_ELEC] = 0;     /* Timed -- oppose lightning */
+	creature_ptr->timed_trait[TRAIT_RES_FIRE] = 0;     /* Timed -- oppose heat */
+	creature_ptr->timed_trait[TRAIT_RES_COLD] = 0;     /* Timed -- oppose cold */
+	creature_ptr->timed_trait[TRAIT_RES_POIS] = 0;     /* Timed -- oppose poison */
 
 	creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
 	creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
@@ -223,8 +223,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	while(creature_ptr->energy_need < 0) creature_ptr->energy_need += ENERGY_NEED();
 	creature_ptr->time_stopper = FALSE;
 
-	if (has_trait(creature_ptr, TRAIT_DEMON) && (creature_ptr->lev > 44)) creature_ptr->oppose_fire = 1;
-	if ((creature_ptr->class_idx == CLASS_NINJA) && (creature_ptr->lev > 44)) creature_ptr->oppose_pois = 1;
+	if (has_trait(creature_ptr, TRAIT_DEMON) && (creature_ptr->lev > 44)) creature_ptr->timed_trait[TRAIT_RES_FIRE] = 1;
+	if ((creature_ptr->class_idx == CLASS_NINJA) && (creature_ptr->lev > 44)) creature_ptr->timed_trait[TRAIT_RES_POIS] = 1;
 	if (creature_ptr->class_idx == CLASS_BERSERKER) creature_ptr->timed_trait[TRAIT_S_HERO] = 1;
 
 	if (creature_ptr->riding)
@@ -3737,7 +3737,7 @@ bool set_ele_immune(creature_type *creature_ptr, u32b immune_type, int v)
 
 
 /*
- * Set "creature_ptr->oppose_acid", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_RES_ACID]", notice observable changes
  */
 bool set_oppose_acid(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3751,9 +3751,9 @@ bool set_oppose_acid(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->oppose_acid && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_ACID] && !do_dec)
 		{
-			if (creature_ptr->oppose_acid > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_ACID] > v) return FALSE;
 		}
 		else if (!IS_OPPOSE_ACID(creature_ptr))
 		{
@@ -3772,7 +3772,7 @@ bool set_oppose_acid(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->oppose_acid && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
+		if (creature_ptr->timed_trait[TRAIT_RES_ACID] && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3788,7 +3788,7 @@ bool set_oppose_acid(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->oppose_acid = v;
+	creature_ptr->timed_trait[TRAIT_RES_ACID] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3808,7 +3808,7 @@ bool set_oppose_acid(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->oppose_elec", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_RES_ELEC]", notice observable changes
  */
 bool set_oppose_elec(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3822,9 +3822,9 @@ bool set_oppose_elec(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->oppose_elec && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_ELEC] && !do_dec)
 		{
-			if (creature_ptr->oppose_elec > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_ELEC] > v) return FALSE;
 		}
 		else if (!IS_OPPOSE_ELEC(creature_ptr))
 		{
@@ -3843,7 +3843,7 @@ bool set_oppose_elec(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->oppose_elec && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
+		if (creature_ptr->timed_trait[TRAIT_RES_ELEC] && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3859,7 +3859,7 @@ bool set_oppose_elec(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->oppose_elec = v;
+	creature_ptr->timed_trait[TRAIT_RES_ELEC] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3879,7 +3879,7 @@ bool set_oppose_elec(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->oppose_fire", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_RES_FIRE]", notice observable changes
  */
 bool set_oppose_fire(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3892,9 +3892,9 @@ bool set_oppose_fire(creature_type *creature_ptr, int v, bool do_dec)
 
 	if (v)
 	{
-		if (creature_ptr->oppose_fire && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_FIRE] && !do_dec)
 		{
-			if (creature_ptr->oppose_fire > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_FIRE] > v) return FALSE;
 		}
 		else if (!IS_OPPOSE_FIRE(creature_ptr))
 		{
@@ -3914,7 +3914,7 @@ bool set_oppose_fire(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->oppose_fire && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
+		if (creature_ptr->timed_trait[TRAIT_RES_FIRE] && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3930,7 +3930,7 @@ bool set_oppose_fire(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->oppose_fire = v;
+	creature_ptr->timed_trait[TRAIT_RES_FIRE] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -3950,7 +3950,7 @@ bool set_oppose_fire(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->oppose_cold", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_RES_COLD]", notice observable changes
  */
 bool set_oppose_cold(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3964,9 +3964,9 @@ bool set_oppose_cold(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->oppose_cold && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_COLD] && !do_dec)
 		{
-			if (creature_ptr->oppose_cold > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_COLD] > v) return FALSE;
 		}
 		else if (!IS_OPPOSE_COLD(creature_ptr))
 		{
@@ -3985,7 +3985,7 @@ bool set_oppose_cold(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->oppose_cold && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
+		if (creature_ptr->timed_trait[TRAIT_RES_COLD] && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -4000,7 +4000,7 @@ bool set_oppose_cold(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->oppose_cold = v;
+	creature_ptr->timed_trait[TRAIT_RES_COLD] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -4020,7 +4020,7 @@ bool set_oppose_cold(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->oppose_pois", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_RES_POIS]", notice observable changes
  */
 bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -4035,9 +4035,9 @@ bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->oppose_pois && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_RES_POIS] && !do_dec)
 		{
-			if (creature_ptr->oppose_pois > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_RES_POIS] > v) return FALSE;
 		}
 		else if (!IS_OPPOSE_POIS(creature_ptr))
 		{
@@ -4056,7 +4056,7 @@ bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->oppose_pois && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
+		if (creature_ptr->timed_trait[TRAIT_RES_POIS] && !music_singing(creature_ptr, MUSIC_RESIST) && !(creature_ptr->special_defense & KATA_MUSOU))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -4071,7 +4071,7 @@ bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->oppose_pois = v;
+	creature_ptr->timed_trait[TRAIT_RES_POIS] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);

@@ -2217,33 +2217,33 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Oppose Acid */
-	if (creature_ptr->oppose_acid)
+	if (creature_ptr->timed_trait[TRAIT_RES_ACID])
 	{
-		(void)set_oppose_acid(creature_ptr, creature_ptr->oppose_acid - 1, TRUE);
+		(void)set_oppose_acid(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ACID] - 1, TRUE);
 	}
 
 	/* Oppose Lightning */
-	if (creature_ptr->oppose_elec)
+	if (creature_ptr->timed_trait[TRAIT_RES_ELEC])
 	{
-		(void)set_oppose_elec(creature_ptr, creature_ptr->oppose_elec - 1, TRUE);
+		(void)set_oppose_elec(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ELEC] - 1, TRUE);
 	}
 
 	/* Oppose Fire */
-	if (creature_ptr->oppose_fire)
+	if (creature_ptr->timed_trait[TRAIT_RES_FIRE])
 	{
-		(void)set_oppose_fire(creature_ptr, creature_ptr->oppose_fire - 1, TRUE);
+		(void)set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] - 1, TRUE);
 	}
 
 	/* Oppose Cold */
-	if (creature_ptr->oppose_cold)
+	if (creature_ptr->timed_trait[TRAIT_RES_COLD])
 	{
-		(void)set_oppose_cold(creature_ptr, creature_ptr->oppose_cold - 1, TRUE);
+		(void)set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] - 1, TRUE);
 	}
 
 	/* Oppose Poison */
-	if (creature_ptr->oppose_pois)
+	if (creature_ptr->timed_trait[TRAIT_RES_POIS])
 	{
-		(void)set_oppose_pois(creature_ptr, creature_ptr->oppose_pois - 1, TRUE);
+		(void)set_oppose_pois(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_POIS] - 1, TRUE);
 	}
 
 	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES])
