@@ -571,7 +571,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 		{
-			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 10 + randint1(20));
+			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 10 + randint1(20));
 		}
 	}
 
@@ -720,7 +720,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 				else if (one_in_(4))
 				{
 					if (!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
-						(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 2 + 
+						(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + 
 						randint0(6));
 					else 
 						(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
@@ -816,7 +816,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 
 		/* Penalize some conditions */
 		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-		if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the difficulty */
 		j = i - object_ptr->pval;
@@ -1026,7 +1026,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 
 		/* Penalize some conditions */
 		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-		if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1700,7 +1700,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 		/* Penalize some conditions */
 		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-		if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1787,7 +1787,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 	/* Penalize some conditions */
 	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-	if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - object_ptr->pval;
@@ -1911,7 +1911,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	/* Penalize some conditions */
 	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-	if (creature_ptr->confused || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - power;
@@ -2183,7 +2183,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 
 		/* Hack -- Lose balance ala paralysis */
-		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 2 + randint0(2));
+		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + randint0(2));
 	}
 
 	/* Result */
@@ -2612,7 +2612,7 @@ void do_cmd_run(creature_type *creature_ptr)
 	int dir;
 
 	/* Hack -- no running when confused */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("¬—‚µ‚Ä‚¢‚Ä‘–‚ê‚È‚¢I");

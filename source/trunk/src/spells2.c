@@ -230,7 +230,7 @@ info[i++] = "‚ ‚È‚½‚Í–Ú‚ªŒ©‚¦‚È‚¢B";
 #endif
 
 	}
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB";
@@ -858,9 +858,9 @@ info[i++] = "‚ ‚È‚½‚Í–Ú‚ªŒ©‚¦‚È‚¢B";
 #endif
 
 	}
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->confused);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_CONFUSED]);
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB";
 #else
@@ -2201,7 +2201,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 		if (m_ptr->cdis < MAX_SIGHT * 2)
 		{
 			/* Wake up */
-			if (m_ptr->paralyzed)
+			if (m_ptr->timed_trait[TRAIT_PARALYZED])
 			{
 				(void)set_paralyzed(&creature_list[i], 0);
 				sleep = TRUE;
@@ -2280,7 +2280,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			msg_format("%^s is unaffected.", m_name);
 #endif
 		}
-		if (m_ptr->paralyzed)
+		if (m_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			(void)set_paralyzed(&creature_list[m_idx], 0);
 			if (m_ptr->see_others || m_ptr->hear_noise)
@@ -2568,16 +2568,16 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 			}
 
 #ifdef JP
-			if (m_ptr->paralyzed) strcat(buf,"‡–° ");
+			if (m_ptr->timed_trait[TRAIT_PARALYZED]) strcat(buf,"‡–° ");
 			if (m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"žNžO ");
 			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"‹°•| ");
-			if (m_ptr->confused) strcat(buf,"¬— ");
+			if (m_ptr->timed_trait[TRAIT_CONFUSED]) strcat(buf,"¬— ");
 			if (m_ptr->timed_trait[TRAIT_INVULNERABLE]) strcat(buf,"–³“G ");
 #else
-			if (m_ptr->paralyzed) strcat(buf,"sleeping ");
+			if (m_ptr->timed_trait[TRAIT_PARALYZED]) strcat(buf,"sleeping ");
 			if (m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"stunned ");
 			if (m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"scared ");
-			if (m_ptr->confused) strcat(buf,"confused ");
+			if (m_ptr->timed_trait[TRAIT_CONFUSED]) strcat(buf,"confused ");
 			if (m_ptr->timed_trait[TRAIT_INVULNERABLE]) strcat(buf,"invulnerable ");
 #endif
 			buf[strlen(buf)-1] = '\0';
@@ -2905,7 +2905,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			if (!has_trait(caster_ptr, TRAIT_NO_BLIND) && !caster_ptr->resist_lite)
 			{
 				/* Become blind */
-				(void)set_blind(caster_ptr, caster_ptr->blind + 10 + randint1(10));
+				(void)set_blind(caster_ptr, caster_ptr->timed_trait[TRAIT_BLIND_] + 10 + randint1(10));
 			}
 		}
 
@@ -3575,7 +3575,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if (has_trait(m_ptr, TRAIT_SMART)) chance = 100;
 
 			/* Sometimes creatures wake up */
-			if (m_ptr->paralyzed && (randint0(100) < chance))
+			if (m_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < chance))
 			{
 				/* Wake up! */
 				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
@@ -4694,9 +4694,9 @@ msg_print("’¤‘œ‚É‚È‚Á‚½‹C•ª‚¾I");
 #endif
 
 				if (has_trait(creature_ptr, TRAIT_FREE_ACTION))
-					set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(3));
+					set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(3));
 				else
-					set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(13));
+					set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(13));
 				stop_ty = TRUE;
 			}
 			if (!one_in_(6)) break;
@@ -5030,7 +5030,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if (!(user_ptr->special_defense & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
 
 	if (gameover) return FALSE;
-	if (user_ptr->confused || IS_BLIND(user_ptr) || user_ptr->paralyzed || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
+	if (user_ptr->timed_trait[TRAIT_CONFUSED] || IS_BLIND(user_ptr) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
 	if (randint0(200) < user_ptr->timed_trait[TRAIT_STUN]) return FALSE;
 
 	if (!success && one_in_(3))

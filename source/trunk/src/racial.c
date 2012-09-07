@@ -63,7 +63,7 @@ static bool do_cmd_archer(creature_type *creature_ptr)
 		sprintf(com, "Create [S]hots ?");
 #endif
 
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱してる！");
@@ -471,7 +471,7 @@ static bool choose_kamae(creature_type *creature_ptr)
 	int i;
 	char buf[80];
 
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -585,7 +585,7 @@ static bool choose_kata(creature_type *creature_ptr)
 	int i;
 	char buf[80];
 
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -744,7 +744,7 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	int stat = creature_ptr->stat_cur[pd_ptr->stat];
 
 	/* No chance for success */
-	if ((creature_ptr->lev < min_level) || creature_ptr->confused)
+	if ((creature_ptr->lev < min_level) || creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		return (0);
 	}
@@ -814,7 +814,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* Too confused */
-	else if (creature_ptr->confused)
+	else if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していてその能力は使えない。");
@@ -1212,7 +1212,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			handle_stuff();
 			do_cmd_cast(creature_ptr);
 			handle_stuff();
-			if (!creature_ptr->paralyzed && can_do_cmd_cast(creature_ptr))
+			if (!creature_ptr->timed_trait[TRAIT_PARALYZED] && can_do_cmd_cast(creature_ptr))
 				do_cmd_cast(creature_ptr);
 			break;
 		}
@@ -2514,7 +2514,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			handle_stuff();
 			do_cmd_cast(caster_ptr);
 			handle_stuff();
-			if (!caster_ptr->paralyzed && can_do_cmd_cast(caster_ptr))
+			if (!caster_ptr->timed_trait[TRAIT_PARALYZED] && can_do_cmd_cast(caster_ptr))
 				do_cmd_cast(caster_ptr);
 			break;
 		}
@@ -4421,7 +4421,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
+				(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_CONF);
 			update_smart_learn(caster_ptr, DRS_CONF);
@@ -4501,7 +4501,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_paralyzed(target_ptr, target_ptr->paralyzed + randint0(4) + 4);
+				(void)set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_HOLD);
 			update_smart_learn(caster_ptr, DRS_FREE);
@@ -5791,7 +5791,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 	num = 0;
 
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて特殊能力を使えません！");

@@ -675,7 +675,7 @@ msg_print("目が見えない！");
 		return;
 	}
 
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて読めない！");
@@ -1007,7 +1007,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	}
 
 	/* Not when confused */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて唱えられない！");
@@ -1338,7 +1338,7 @@ msg_print("An infernal sound echoed.");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage CON (possibly permanently) */
 		if (randint0(100) < 50)
@@ -1872,7 +1872,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	}
 	else
 	{
-		if (rider_ptr->confused)
+		if (rider_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 #ifdef JP
 			msg_print("混乱していて乗れない！");
@@ -1948,7 +1948,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			return FALSE;
 		}
 
-		if (steed_ptr->paralyzed)
+		if (steed_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			char steed_name[80];
 			creature_desc(steed_name, steed_ptr, 0);

@@ -1278,7 +1278,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 
 
 	/* not if confused */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");

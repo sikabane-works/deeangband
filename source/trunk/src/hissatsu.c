@@ -337,7 +337,7 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 
 
 	/* not if confused */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて集中できない！");
@@ -441,7 +441,7 @@ msg_print("目が見えない！");
 		return;
 	}
 
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて読めない！");

@@ -1807,7 +1807,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	bool		on_mirror = FALSE;
 
 	/* not if confused */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて集中できない！");
@@ -1992,7 +1992,7 @@ msg_print("あなたの頭は混乱した！");
 					msg_print("Your brain is addled!");
 #endif
 
-					set_confused(creature_ptr, creature_ptr->confused + randint1(8));
+					set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(8));
 				}
 				else if (b < 90)
 				{
@@ -2149,7 +2149,7 @@ msg_format("%sを集中しすぎて気を失ってしまった！",p);
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage WIS (possibly permanently) */
 		if (randint0(100) < 50)

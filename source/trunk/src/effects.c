@@ -164,9 +164,9 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_FAST] = 0;            /* Timed -- Fast */
 	creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] = 0;
 	creature_ptr->timed_trait[TRAIT_SLOW_] = 0;            /* Timed -- Slow */
-	creature_ptr->blind = 0;           /* Timed -- Blindness */
-	creature_ptr->paralyzed = 0;       /* Timed -- Paralysis */
-	creature_ptr->confused = 0;        /* Timed -- Confusion */
+	creature_ptr->timed_trait[TRAIT_BLIND_] = 0;           /* Timed -- Blindness */
+	creature_ptr->timed_trait[TRAIT_PARALYZED] = 0;       /* Timed -- Paralysis */
+	creature_ptr->timed_trait[TRAIT_CONFUSED] = 0;        /* Timed -- Confusion */
 	creature_ptr->timed_trait[TRAIT_AFRAID] = 0;          /* Timed -- Fear */
 	creature_ptr->timed_trait[TRAIT_HALLUCINATION] = 0;           /* Timed -- Hallucination */
 	creature_ptr->timed_trait[TRAIT_POISONED] = 0;        /* Timed -- Poisoned */
@@ -483,7 +483,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->blind = v;
+	creature_ptr->timed_trait[TRAIT_BLIND_] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -512,7 +512,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->confused", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_CONFUSED]", notice observable changes
  */
 bool set_confused(creature_type *creature_ptr, int v)
 {
@@ -528,7 +528,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->confused)
+		if (!creature_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -601,7 +601,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->confused)
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -617,7 +617,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->confused = v;
+	creature_ptr->timed_trait[TRAIT_CONFUSED] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -857,7 +857,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->paralyzed)
+		if (!creature_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -882,7 +882,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->paralyzed)
+		if (creature_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -898,7 +898,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->paralyzed = v;
+	creature_ptr->timed_trait[TRAIT_PARALYZED] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -926,7 +926,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->paralyzed)
+		if (!creature_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			mproc_add(creature_ptr, MTIMED_CSLEEP);
 			notice = TRUE;
@@ -936,7 +936,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->paralyzed)
+		if (creature_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			mproc_remove(creature_ptr, MTIMED_CSLEEP);
 			notice = TRUE;
@@ -944,7 +944,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->paralyzed = v;
+	creature_ptr->timed_trait[TRAIT_PARALYZED] = v;
 
 	if (!notice) return FALSE;
 
@@ -981,7 +981,7 @@ bool set_slept(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->slept)
+		if (!creature_ptr->timed_trait[TRAIT_SLEPT])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1006,7 +1006,7 @@ bool set_slept(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->slept)
+		if (creature_ptr->timed_trait[TRAIT_SLEPT])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1022,7 +1022,7 @@ bool set_slept(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->slept = v;
+	creature_ptr->timed_trait[TRAIT_SLEPT] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -1050,7 +1050,7 @@ bool set_slept(creature_type *creature_ptr, int v)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->slept)
+		if (!creature_ptr->timed_trait[TRAIT_SLEPT])
 		{
 			mproc_add(creature_ptr, MTIMED_CSLEEP);
 			notice = TRUE;
@@ -1060,7 +1060,7 @@ bool set_slept(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->slept)
+		if (creature_ptr->timed_trait[TRAIT_SLEPT])
 		{
 			mproc_remove(creature_ptr, MTIMED_CSLEEP);
 			notice = TRUE;
@@ -1068,7 +1068,7 @@ bool set_slept(creature_type *creature_ptr, int v)
 	}
 
 	/* Use the value */
-	creature_ptr->slept = v;
+	creature_ptr->timed_trait[TRAIT_SLEPT] = v;
 
 	if (!notice) return FALSE;
 
@@ -5835,9 +5835,9 @@ static void you_died(cptr hit_from)
 			{
 				char dummy[1024];
 #ifdef JP
-				sprintf(dummy, "%s%s%s", !player_ptr->paralyzed ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
+				sprintf(dummy, "%s%s%s", !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "’¤‘œó‘Ô‚Å" : "–ƒáƒó‘Ô‚Å", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "Œ¶Šo‚É˜c‚ñ‚¾" : "", hit_from);
 #else
-				sprintf(dummy, "%s%s", hit_from, !player_ptr->paralyzed ? "" : " while helpless");
+				sprintf(dummy, "%s%s", hit_from, !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : " while helpless");
 #endif
 				my_strcpy(gameover_from, dummy, sizeof gameover_from);
 			}

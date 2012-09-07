@@ -2307,7 +2307,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	{
 		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if (!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
@@ -2329,11 +2329,11 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	{
 		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if (!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
-			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(watcher_ptr, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
 		while (!saving_throw(watcher_ptr->skill_rob))
 		{

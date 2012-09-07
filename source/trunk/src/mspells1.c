@@ -1320,7 +1320,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	bool can_remember;
 
 	/* Cannot cast spells when confused */
-	if (caster_ptr->confused)
+	if (caster_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		reset_target(caster_ptr);
 		return (FALSE);
@@ -2980,7 +2980,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 			else
 			{
-				(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
+				(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_CONF);
 			update_smart_learn(caster_ptr, DRS_CONF);
@@ -3060,7 +3060,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 			else
 			{
-				(void)set_paralyzed(target_ptr, target_ptr->paralyzed + randint0(4) + 4);
+				(void)set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_HOLD);
 			update_smart_learn(caster_ptr, DRS_FREE);

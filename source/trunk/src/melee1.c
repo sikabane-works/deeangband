@@ -148,7 +148,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if (attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if (has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 			if (r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
-			if (target_ptr->paralyzed && target_ptr->see_others)
+			if (target_ptr->timed_trait[TRAIT_PARALYZED] && target_ptr->see_others)
 			{
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
@@ -1052,7 +1052,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
 
 			/* keep the highest level attack available we found */
-			if ((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->timed_trait[TRAIT_STUN] && !attacker_ptr->confused)
+			if ((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->timed_trait[TRAIT_STUN] && !attacker_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 				old_ptr = ma_ptr;
 
@@ -1250,7 +1250,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 				msg_format("%^s appears confused.", tar_name);
 #endif
 
-			(void)set_confused(&creature_list[c_ptr->creature_idx], target_ptr->confused + 10 + randint0(attacker_ptr->lev) / 5);
+			(void)set_confused(&creature_list[c_ptr->creature_idx], target_ptr->timed_trait[TRAIT_CONFUSED] + 10 + randint0(attacker_ptr->lev) / 5);
 		}
 	}
 }
@@ -1266,7 +1266,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	creature_desc(attacker_name, attacker_ptr, 0);
 
 	if (IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
-	    !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
+	    !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
@@ -1375,7 +1375,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
+	if (!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -2599,7 +2599,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
-				if (attacker_ptr->confused) break;
+				if (attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
 
 				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2607,7 +2607,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				obvious = TRUE;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
-				if (!target_ptr->paralyzed &&
+				if (!target_ptr->timed_trait[TRAIT_PARALYZED] &&
 					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
 					target_ptr->lev)))
 				{
@@ -2680,12 +2680,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
-				if (attacker_ptr->confused) break;
+				if (attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
 
 				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
-				if (!target_ptr->paralyzed &&
+				if (!target_ptr->timed_trait[TRAIT_PARALYZED] &&
 					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
 					target_ptr->lev)))
 				{
@@ -3008,7 +3008,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "confused" */
 				if (!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if (set_confused(target_ptr, target_ptr->confused + 3 + randint1(rlev)))
+					if (set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(rlev)))
 					{
 						obvious = TRUE;
 					}
@@ -3100,7 +3100,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if (!target_ptr->paralyzed)
+					if (!target_ptr->timed_trait[TRAIT_PARALYZED])
 					{
 						if (set_paralyzed(target_ptr, 3 + randint1(rlev)))
 						{

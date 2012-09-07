@@ -438,8 +438,8 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
 	if (IS_HALLUCINATION(creature_ptr)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
 	if (IS_BLIND(creature_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
-	if (creature_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
-	if (creature_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
+	if (creature_ptr->timed_trait[TRAIT_PARALYZED]) ADD_FLG(BAR_PARALYZE);		// Paralysis
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if (creature_ptr->timed_trait[TRAIT_POISONED]) ADD_FLG(BAR_POISONED);		// Posioned
 	if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
@@ -1416,7 +1416,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		if (m_ptr->timed_trait[TRAIT_INVULNERABLE]) attr = TERM_WHITE;
 
 		/* Asleep */
-		else if (m_ptr->paralyzed) attr = TERM_BLUE;
+		else if (m_ptr->timed_trait[TRAIT_PARALYZED]) attr = TERM_BLUE;
 
 		/* Afraid */
 		else if (m_ptr->timed_trait[TRAIT_AFRAID]) attr = TERM_VIOLET;

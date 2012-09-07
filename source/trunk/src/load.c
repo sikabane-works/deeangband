@@ -1046,9 +1046,9 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->sc);
 	rd_s16b(&creature_ptr->concent);
 
-	rd_s16b(&creature_ptr->blind);
-	rd_s16b(&creature_ptr->paralyzed);
-	rd_s16b(&creature_ptr->confused);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_BLIND_]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_PARALYZED]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_CONFUSED]);
 	rd_s16b(&creature_ptr->food);
 	rd_s16b(&creature_ptr->energy_need);
 

@@ -132,7 +132,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if (!has_trait(creature_ptr, TRAIT_NO_CONF))
 				{
-					if (set_confused(creature_ptr, creature_ptr->confused + randint0(10) + 10))
+					if (set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -156,7 +156,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 				{
-					if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(10) + 10))
+					if (set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -791,7 +791,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			}
 
 			(void)set_poisoned(creature_ptr, 0);
-			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 4);
+			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 			ident = TRUE;
 			break;
 
@@ -882,7 +882,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 					/* Remove the creature restriction */
 					reset_species_preps();
 				}
-				if (set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint0(4) + 4))
+				if (set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))
 				{
 					ident = TRUE;
 				}
@@ -2187,7 +2187,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 #endif
 		return;
 	}
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて読めない。");
@@ -2628,7 +2628,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->confused) chance = chance / 2;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
@@ -3152,7 +3152,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->confused) chance = chance / 2;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
@@ -3578,7 +3578,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->confused) chance = chance / 2;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	fail = lev+5;
 	if (chance > fail) fail -= (chance - fail)*2;
@@ -3973,7 +3973,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->confused) chance = chance / 2;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	fail = lev+5;
 	if (chance > fail) fail -= (chance - fail)*2;
@@ -5133,11 +5133,11 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 						/* Hack -- Bypass free action */
-						(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed +
+						(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] +
 							randint1(5 * oops + 1));
 
 						/* Confusing. */
-						(void)set_confused(creature_ptr, creature_ptr->confused +
+						(void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] +
 							randint1(5 * oops + 1));
 					}
 
@@ -5152,7 +5152,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				/* Confusing. */
-				if (one_in_(5)) (void)set_confused(creature_ptr, creature_ptr->confused +
+				if (one_in_(5)) (void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] +
 					randint1(10));
 
 				/* Exercise a little care... */
@@ -6638,7 +6638,7 @@ msg_print("明かりがないので、暗くて読めない。");
 
 				return;
 			}
-			if (creature_ptr->confused)
+			if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
 msg_print("混乱していて読めない！");
@@ -7150,7 +7150,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	bool use_charge = TRUE;
 
 	/* Not when confused */
-	if (!only_browse && creature_ptr->confused)
+	if (!only_browse && creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");

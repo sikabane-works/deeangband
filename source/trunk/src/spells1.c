@@ -1739,7 +1739,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
-	bool slept = (bool)target_ptr->paralyzed;
+	bool slept = (bool)target_ptr->timed_trait[TRAIT_PARALYZED];
 
 	// Can the player know about this effect?
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);
@@ -1895,7 +1895,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			if (seen) obvious = TRUE;
 
 			/* Already partially confused */
-			if (target_ptr->confused)
+			if (target_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
 				note = "‚Í‚³‚ç‚É¬—‚µ‚½‚æ‚¤‚¾B";
@@ -1903,7 +1903,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				note = " looks more confused.";
 #endif
 
-				tmp = target_ptr->confused + (do_conf / 2);
+				tmp = target_ptr->timed_trait[TRAIT_CONFUSED] + (do_conf / 2);
 			}
 
 			/* Was not confused */
@@ -2645,7 +2645,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				if (!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					set_confused(target_ptr, target_ptr->confused + randint1(5) + 5);
+					set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5) + 5);
 				}
 				if (one_in_(5))
 				{
@@ -2669,7 +2669,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if (!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					(void)set_confused(target_ptr, target_ptr->confused + randint0(20) + 10);
+					(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
 				}
 				if (!target_ptr->resist_chaos)
 				{
@@ -2756,7 +2756,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if (!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_confused(target_ptr, target_ptr->confused + randint1(20) + 10);
+				(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(20) + 10);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -3105,7 +3105,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				reset_species_preps();									// Remove the creature restriction
 			}
 
-			set_paralyzed(target_ptr, target_ptr->paralyzed + dam);
+			set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + dam);
 			dam = 0;
 			break;
 		}
@@ -3311,7 +3311,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					if (!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
-						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
+						(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 					}
 
 					if (!target_ptr->resist_chaos && one_in_(3))
@@ -3450,11 +3450,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 					if (!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
-						(void)set_confused(target_ptr, target_ptr->confused + randint0(4) + 4);
+						(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 					}
 					if (!has_trait(target_ptr, TRAIT_FREE_ACTION))
 					{
-						(void)set_paralyzed(target_ptr, target_ptr->paralyzed + randint0(4) + 4);
+						(void)set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 					}
 					(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 
@@ -3944,7 +3944,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							switch (randint1(4))
 							{
 								case 1:
-									set_confused(caster_ptr, caster_ptr->confused + 3 + randint1(dam));
+									set_confused(caster_ptr, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
 									break;
 								case 2:
 									set_stun(caster_ptr, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
@@ -3964,7 +3964,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 								}
 								default:
 									if (!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-										(void)set_paralyzed(caster_ptr, caster_ptr->paralyzed + randint1(dam));
+										(void)set_paralyzed(caster_ptr, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
 									break;
 							}
 						}
@@ -4222,7 +4222,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 								set_stun(caster_ptr, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
 								break;
 							case 2:
-								set_confused(caster_ptr, caster_ptr->confused + dam / 2);
+								set_confused(caster_ptr, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
 								break;
 							default:
 							{
@@ -5724,7 +5724,7 @@ msg_format("‚¤‚Ü‚­•ß‚Ü‚¦‚ç‚ê‚È‚©‚Á‚½B");
 				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				break;
 			}
-			if (target_ptr->paralyzed)
+			if (target_ptr->timed_trait[TRAIT_PARALYZED])
 			{
 #ifdef JP
 				note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
@@ -6094,7 +6094,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
-	bool slept = (bool)target_ptr->paralyzed;
+	bool slept = (bool)target_ptr->timed_trait[TRAIT_PARALYZED];
 
 	/* Can the player know about this effect? */
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);

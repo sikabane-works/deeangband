@@ -447,7 +447,7 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 				 */
 				if (has_trait(m_ptr, TRAIT_TPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
 				{
-					if (!m_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
+					if (!m_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 				}
 			}
 		}
@@ -485,7 +485,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 				 */
 				if (has_trait(creature_ptr, TRAIT_TPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
 				{
-					if (!creature_ptr->paralyzed) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, r_ptr->level, 0L);
+					if (!creature_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, r_ptr->level, 0L);
 				}
 			}
 		}
@@ -1612,7 +1612,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Awake creature */
-			if (c_ptr->creature_idx && m_ptr->paralyzed)
+			if (c_ptr->creature_idx && m_ptr->timed_trait[TRAIT_PARALYZED])
 			{
 				/* Reset sleep counter */
 				(void)set_paralyzed(m_ptr, 0);

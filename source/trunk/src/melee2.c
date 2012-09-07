@@ -1261,7 +1261,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 	if ((creature_ptr->food < PY_FOOD_FAINT))
 	{
 		// Faint occasionally
-		if (!creature_ptr->paralyzed && (randint0(100) < 10))
+		if (!creature_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < 10))
 		{
 			// Message
 #ifdef JP
@@ -1272,7 +1272,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 			disturb(player_ptr, 1, 0);
 
 			// Hack -- faint (bypass free action)
-			(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + 1 + randint0(5));
+			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 1 + randint0(5));
 		}
 
 		// Starve to death (slowly)
@@ -1556,7 +1556,7 @@ static void process_nonplayer(int m_idx)
 		}
 	}
 
-	if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->paralyzed)
+	if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
 		set_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
@@ -1656,7 +1656,7 @@ static void process_nonplayer(int m_idx)
 */
 
 	// Handle "sleep"
-	if (creature_ptr->paralyzed)
+	if (creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
 		// Handle non-aggravation - Still sleeping
 		if (!has_trait(player_ptr, TRAIT_ANTIPATHY)) return;
@@ -1771,7 +1771,7 @@ static void process_nonplayer(int m_idx)
 	mm[4] = mm[5] = mm[6] = mm[7] = 0;
 
 	// Confused -- 100% random
-	if (creature_ptr->confused || !aware)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || !aware)
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -2164,7 +2164,7 @@ static void process_nonplayer(int m_idx)
 			/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 			if (do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
-				if (!creature_ptr->confused)
+				if (!creature_ptr->timed_trait[TRAIT_CONFUSED])
 				{
 					if (!has_trait(creature_ptr, TRAIT_STUPID)) do_move = FALSE;
 					else
@@ -2208,7 +2208,7 @@ static void process_nonplayer(int m_idx)
 			if ((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
 				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
-				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->confused)
+				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 				if (!has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 				{
@@ -2225,7 +2225,7 @@ static void process_nonplayer(int m_idx)
 						/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 						else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 						{
-							if (creature_ptr->confused) return;
+							if (creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
 							else if (has_trait(creature_ptr, TRAIT_STUPID))
 							{
 								if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_STUPID);
@@ -2820,11 +2820,11 @@ void creature_process_init(void)
 		// Ignore "dead" creatures
 		if (!creature_ptr->species_idx) continue;
 
-		if (creature_ptr->paralyzed) mproc_add(creature_ptr, MTIMED_CSLEEP);
+		if (creature_ptr->timed_trait[TRAIT_PARALYZED]) mproc_add(creature_ptr, MTIMED_CSLEEP);
 		if (creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
 		if (creature_ptr->timed_trait[TRAIT_SLOW_]) mproc_add(creature_ptr, MTIMED_SLOW);
 		if (creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
-		if (creature_ptr->confused) mproc_add(creature_ptr, MTIMED_CONFUSED);
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED]) mproc_add(creature_ptr, MTIMED_CONFUSED);
 		if (creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
 		if (creature_ptr->timed_trait[TRAIT_INVULNERABLE]) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
@@ -2888,7 +2888,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				/* Creature wakes up "a little bit" */
 
 				/* Still asleep */
-				if (!set_paralyzed(creature_ptr, creature_ptr->paralyzed - d))
+				if (!set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] - d))
 				{
 					/* Notice the "not waking up" */
 					if (is_original_ap_and_seen(watcher_ptr, creature_ptr))
@@ -2948,7 +2948,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		set_confused(creature_ptr, creature_ptr->confused - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
+		set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_MONFEAR:

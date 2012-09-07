@@ -5768,7 +5768,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
-			if (m_ptr->paralyzed) continue;
+			if (m_ptr->timed_trait[TRAIT_PARALYZED]) continue;
 			if (!is_hostile(m_ptr)) continue;
 
 			r_ptr = &species_info[m_ptr->species_idx];
@@ -7419,7 +7419,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 
 	if (!only_browse)
 	{
-		if (creature_ptr->confused)
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 #ifdef JP
 			msg_print("¬—‚µ‚Ä‚¢‚Äì‹Æ‚Å‚«‚È‚¢I");

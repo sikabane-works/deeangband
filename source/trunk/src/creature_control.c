@@ -713,11 +713,11 @@ void delete_species_idx(creature_type *creature_ptr)
 	/* Hack -- count the number of "reproducers" */
 	if (has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro--;
 
-	if (creature_ptr->paralyzed) (void)set_paralyzed(creature_ptr, 0);
+	if (creature_ptr->timed_trait[TRAIT_PARALYZED]) (void)set_paralyzed(creature_ptr, 0);
 	if (creature_ptr->timed_trait[TRAIT_FAST]) (void)set_fast(creature_ptr, 0, FALSE);
 	if (creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_slow(creature_ptr, 0, FALSE);
 	if (creature_ptr->timed_trait[TRAIT_STUN]) (void)set_stun(creature_ptr, 0);
-	if (creature_ptr->confused) (void)set_confused(creature_ptr, 0);
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_confused(creature_ptr, 0);
 	if (creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_afraid(creature_ptr, 0);
 	if (creature_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_invuln(creature_ptr, 0, FALSE);
 
@@ -2351,7 +2351,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	{
 		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if (!watcher_ptr->resist_chaos && one_in_(3))
 		{
@@ -2371,11 +2371,11 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	{
 		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(watcher_ptr, watcher_ptr->confused + randint0(4) + 4);
+			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if (!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
-			(void)set_paralyzed(watcher_ptr, watcher_ptr->paralyzed + randint0(4) + 4);
+			(void)set_paralyzed(watcher_ptr, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
 		while (randint0(100) > watcher_ptr->skill_rob)
 			(void)do_dec_stat(watcher_ptr, STAT_INT);
@@ -3968,7 +3968,7 @@ msg_print("守りのルーンが壊れた！");
 	// TODO reimpelment frendly creature.
 
 	/* Assume no sleeping */
-	creature_ptr->paralyzed = 0;
+	creature_ptr->timed_trait[TRAIT_PARALYZED] = 0;
 
 	/* Enforce sleeping if needed */
 	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar)
@@ -4010,7 +4010,7 @@ msg_print("守りのルーンが壊れた！");
 /*TODO
 	if (is_self_ld_creature(creature_ptr))
 		update |= (PU_SPECIES_LITE);
-	else if (is_has_ld_creature(creature_ptr) && !creature_ptr->paralyzed)
+	else if (is_has_ld_creature(creature_ptr) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
 		update |= (PU_SPECIES_LITE);
 */
 

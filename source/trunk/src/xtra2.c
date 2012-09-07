@@ -3337,7 +3337,7 @@ p = "•ûŒü ('5'‚Åƒ^[ƒQƒbƒg‚Ö, '*'‚Åƒ^[ƒQƒbƒgÄ‘I‘ð, ESC‚Å’†’f)? ";
 	command_dir = dir;
 
 	/* Check for confusion */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		/* XXX XXX XXX */
 		/* Random direction */
@@ -3430,7 +3430,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		/* Standard confusion */
 		if (randint0(100) < 75)
@@ -3444,7 +3444,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		if (m_ptr->confused)
+		if (m_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Standard confusion */
 			if (randint0(100) < 75)
@@ -3468,7 +3468,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 	/* Notice confusion */
 	if (command_dir != dir)
 	{
-		if (creature_ptr->confused)
+		if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Warn the user */
 #ifdef JP
@@ -3483,7 +3483,7 @@ msg_print("‚ ‚È‚½‚Í¬—‚µ‚Ä‚¢‚éB");
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
 
 			creature_desc(m_name, m_ptr, 0);
-			if (m_ptr->confused)
+			if (m_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
 msg_format("%s‚Í¬—‚µ‚Ä‚¢‚éB", m_name);
@@ -3560,7 +3560,7 @@ if (!get_com("•ûŒü (ESC‚Å’†’f)? ", &ch, TRUE)) break;
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		/* Standard confusion */
 		if (randint0(100) < 75)
@@ -4934,7 +4934,7 @@ p = "•ûŒü ('5'‚Åƒ^[ƒQƒbƒg‚Ö, '*'‚Åƒ^[ƒQƒbƒgÄ‘I‘ð, ESC‚Å’†’f)? ";
 	command_dir = dir;
 
 	/* Check for confusion */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		/* XXX XXX XXX */
 		/* Random direction */

@@ -337,7 +337,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	/*** Check for "sensing" ***/
 
 	/* No sensing when confused */
-	if (creature_ptr->confused) return;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
 
 	/* Analyze the class */
 	switch (creature_ptr->class_idx)
@@ -570,7 +570,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	/*** Check for "sensing" ***/
 
 	/* No sensing when confused */
-	if (creature_ptr->confused) return;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
 
 	/* Analyze the class */
 	switch (creature_ptr->class_idx)
@@ -2127,15 +2127,15 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Paralysis */
-	if (creature_ptr->paralyzed)
+	if (creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
-		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed - dec_count);
+		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] - dec_count);
 	}
 
 	/* Confusion */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
-		(void)set_confused(creature_ptr, creature_ptr->confused - dec_count);
+		(void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] - dec_count);
 	}
 
 	/* Afraid */
@@ -2390,7 +2390,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 		if (!has_trait(creature_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(creature_ptr, creature_ptr->confused + randint0(20) + 15);
+			(void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 15);
 		}
 
 		if (!creature_ptr->resist_chaos)
@@ -5264,12 +5264,12 @@ static void pack_overflow(creature_type *creature_ptr)
 
 void do_creature_riding_control(creature_type *creature_ptr)
 {
-	if (creature_ptr->riding && !creature_ptr->confused && !IS_BLIND(creature_ptr))
+	if (creature_ptr->riding && !creature_ptr->timed_trait[TRAIT_CONFUSED] && !IS_BLIND(creature_ptr))
 	{
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-		if (m_ptr->paralyzed)
+		if (m_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			char m_name[80];
 
@@ -5305,11 +5305,11 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		if (m_ptr->confused)
+		if (m_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Hack -- Recover from confusion */
 			if (set_confused(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->confused - 1)))
+				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
 				char m_name[80];
 
@@ -5389,10 +5389,10 @@ void process_player(creature_type *creature_ptr)
 			/* Stop creature_ptr->resting */
 			if ((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp) &&
-			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
+			    !IS_BLIND(creature_ptr) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->timed_trait[TRAIT_STUN] && !IS_WOUND(creature_ptr) &&
-			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->paralyzed &&
+			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
 			    !creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 			{
@@ -5540,7 +5540,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		}
 
 		/* Paralyzed or Knocked Out */
-		else if (creature_ptr->paralyzed || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
+		else if (creature_ptr->timed_trait[TRAIT_PARALYZED] || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;

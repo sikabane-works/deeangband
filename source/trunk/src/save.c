@@ -614,9 +614,9 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->sc);
 	wr_s16b(creature_ptr->concent);
 
-	wr_s16b(creature_ptr->blind);
-	wr_s16b(creature_ptr->paralyzed);
-	wr_s16b(creature_ptr->confused);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_BLIND_]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_PARALYZED]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_CONFUSED]);
 	wr_s16b(creature_ptr->food);
 	wr_s16b(creature_ptr->energy_need);
 

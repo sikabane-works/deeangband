@@ -1285,11 +1285,6 @@ struct creature_type
 
 	s16b timed_trait[MAX_TRAITS];
 
-	s16b blind;			// Timed -- Blindness 
-	s16b paralyzed;		// Timed -- Paralysis
-	s16b slept;			// Timed -- Paralysis
-	s16b confused;		// Timed -- Confusion 
-
 	s16b ele_attack;	// Timed -- Elemental Attack 
 	s16b ele_immune;	// Timed -- Elemental Immune 
 

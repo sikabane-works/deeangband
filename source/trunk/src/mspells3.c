@@ -1884,7 +1884,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 
 
 	/* not if confused */
-	if (creature_ptr->confused)
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");
@@ -2006,7 +2006,7 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(creature_ptr, creature_ptr->paralyzed + randint1(5 * oops + 1));
+		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage CON (possibly permanently) */
 		if (randint0(100) < 50)
@@ -2042,7 +2042,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 	if (creature_ptr->action != ACTION_LEARN) return;
 	if (trait_index < 0) return; /* Paranoia */
 	if (creature_ptr->class_skills.old_skills.magic_num2[trait_index]) return;
-	if (creature_ptr->confused || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->timed_trait[TRAIT_STUN] || creature_ptr->paralyzed) return;
+	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_BLIND(creature_ptr) || IS_HALLUCINATION(creature_ptr) || creature_ptr->timed_trait[TRAIT_STUN] || creature_ptr->timed_trait[TRAIT_PARALYZED]) return;
 
 	if (randint1(creature_ptr->lev + 70) > trait_info[trait_index].base_level + 40)
 	{
