@@ -1302,8 +1302,6 @@ struct creature_type
 	s16b resist_magic;  // Timed Resist Magic (later) 
 	s16b tim_stealth;
 	s16b tim_sh_touki;
-	s16b tsubureru;
-	s16b magicdef;
 
 	// for mirror master 
 	s16b dustrobe;          // Timed -- Robe of dust 

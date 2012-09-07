@@ -854,7 +854,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->timed_trait[TRAIT_SHIELD]) return (TRUE);
 
 	/* Magic defence */
-	if (target_ptr->magicdef) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_MAGIC_DEF]) return (TRUE);
 
 	/* Multi Shadow */
 	if (target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return (TRUE);

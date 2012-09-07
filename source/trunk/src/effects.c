@@ -191,7 +191,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_AURA_FIRE] = 0;
 	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = 0;
 	creature_ptr->timed_trait[TRAIT_EYE_EYE] = 0;
-	creature_ptr->magicdef = 0;
+	creature_ptr->timed_trait[TRAIT_MAGIC_DEF] = 0;
 	creature_ptr->resist_magic = 0;
 	creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 0;
 	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
@@ -1550,7 +1550,7 @@ bool set_shield(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tsubureru", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_TSUBURERU]", notice observable changes
  */
 bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1564,11 +1564,11 @@ bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tsubureru && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_TSUBURERU] && !do_dec)
 		{
-			if (creature_ptr->tsubureru > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_TSUBURERU] > v) return FALSE;
 		}
-		else if (!creature_ptr->tsubureru)
+		else if (!creature_ptr->timed_trait[TRAIT_TSUBURERU])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1586,7 +1586,7 @@ bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tsubureru)
+		if (creature_ptr->timed_trait[TRAIT_TSUBURERU])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1602,7 +1602,7 @@ bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tsubureru = v;
+	creature_ptr->timed_trait[TRAIT_TSUBURERU] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -1626,7 +1626,7 @@ bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->magicdef", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_MAGIC_DEF]", notice observable changes
  */
 bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1640,11 +1640,11 @@ bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->magicdef && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF] && !do_dec)
 		{
-			if (creature_ptr->magicdef > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF] > v) return FALSE;
 		}
-		else if (!creature_ptr->magicdef)
+		else if (!creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1663,7 +1663,7 @@ bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->magicdef)
+		if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1678,7 +1678,7 @@ bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->magicdef = v;
+	creature_ptr->timed_trait[TRAIT_MAGIC_DEF] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

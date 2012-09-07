@@ -2377,7 +2377,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (creature_ptr->timed_trait[TRAIT_REFLECTING])
 		add_flag(flgs, TRAIT_REFLECTING);
 
-	if (creature_ptr->magicdef)
+	if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
 		add_flag(flgs, TRAIT_NO_BLIND);
 		add_flag(flgs, TRAIT_NO_CONF);

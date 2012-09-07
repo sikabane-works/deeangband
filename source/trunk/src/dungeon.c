@@ -2199,15 +2199,15 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Tsubureru */
-	if (creature_ptr->tsubureru)
+	if (creature_ptr->timed_trait[TRAIT_TSUBURERU])
 	{
-		(void)set_tsubureru(creature_ptr, creature_ptr->tsubureru - 1, TRUE);
+		(void)set_tsubureru(creature_ptr, creature_ptr->timed_trait[TRAIT_TSUBURERU] - 1, TRUE);
 	}
 
 	/* Magicdef */
-	if (creature_ptr->magicdef)
+	if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
-		(void)set_magicdef(creature_ptr, creature_ptr->magicdef - 1, TRUE);
+		(void)set_magicdef(creature_ptr, creature_ptr->timed_trait[TRAIT_MAGIC_DEF] - 1, TRUE);
 	}
 
 	/* Tsuyoshi */

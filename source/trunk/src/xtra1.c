@@ -453,8 +453,8 @@ static void prt_status(creature_type *creature_ptr)
 	if (IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
 	if (creature_ptr->timed_trait[TRAIT_S_HERO]) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
 	if (IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
-	if (creature_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
-	if (creature_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
+	if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF]) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
+	if (creature_ptr->timed_trait[TRAIT_TSUBURERU]) ADD_FLG(BAR_EXPAND);
 	if (creature_ptr->timed_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
 	if (creature_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
@@ -3208,7 +3208,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_hit_b += 10;
 	}
 
-	if (creature_ptr->magicdef)
+	if (creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
 		//TODO creature_ptr->resist_conf = TRUE;
@@ -3351,7 +3351,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_ac += 100;
 		creature_ptr->dis_to_ac += 100;
 	}
-	else if (creature_ptr->tsubureru || creature_ptr->timed_trait[TRAIT_SHIELD] || creature_ptr->magicdef) // Temporary shield
+	else if (creature_ptr->timed_trait[TRAIT_TSUBURERU] || creature_ptr->timed_trait[TRAIT_SHIELD] || creature_ptr->timed_trait[TRAIT_MAGIC_DEF]) // Temporary shield
 	{
 		creature_ptr->to_ac += 50;
 		creature_ptr->dis_to_ac += 50;
@@ -3383,7 +3383,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->kill_wall = TRUE;
 	}
 
-	if (creature_ptr->tsubureru)
+	if (creature_ptr->timed_trait[TRAIT_TSUBURERU])
 	{
 		creature_ptr->skill_rob /= 2;
 		creature_ptr->skill_eva /= 2;
@@ -3399,7 +3399,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
 	}
 
-	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] || creature_ptr->resist_magic || creature_ptr->magicdef)
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] || creature_ptr->resist_magic || creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
 		creature_ptr->skill_rob += 95 + creature_ptr->lev;
 		creature_ptr->skill_eva += 95 + creature_ptr->lev;

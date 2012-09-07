@@ -1097,8 +1097,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LEVITATION]);
 	rd_s16b(&creature_ptr->tim_sh_touki);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
-	rd_s16b(&creature_ptr->tsubureru);
-	rd_s16b(&creature_ptr->magicdef);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_TSUBURERU]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_MAGIC_DEF]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_NETH]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_TIME]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_MIMIC]);
