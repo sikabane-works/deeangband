@@ -1911,7 +1911,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 		/* Hack -- Apply "protection from evil" */
-		if ((target_ptr->protevil > 0) &&
+		if ((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) &&
 			is_enemy_of_good_creature(target_ptr) &&
 			(target_ptr->lev >= rlev) &&
 			((randint0(100) + target_ptr->lev) > 50))

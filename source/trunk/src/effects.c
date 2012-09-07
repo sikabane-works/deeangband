@@ -173,9 +173,9 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_CUT] = 0;             /* Timed -- Cut */
 	creature_ptr->timed_trait[TRAIT_STUN] = 0;            /* Timed -- Stun */
 
-	creature_ptr->protevil = 0;        /* Timed -- Protection */
+	creature_ptr->timed_trait[TRAIT_PROT_EVIL] = 0;        /* Timed -- Protection */
 	creature_ptr->timed_trait[TRAIT_INVULNERABLE] = 0;          /* Timed -- Invulnerable */
-	creature_ptr->ult_res = 0;
+	creature_ptr->timed_trait[TRAIT_ULTRA_RES] = 0;
 	creature_ptr->timed_trait[TRAIT_HERO] = 0;            /* Timed -- Heroism */
 	creature_ptr->timed_trait[TRAIT_S_HERO] = 0;           /* Timed -- Super Heroism */
 	creature_ptr->timed_trait[TRAIT_SHIELD] = 0;          /* Timed -- Shield Spell */
@@ -1933,7 +1933,7 @@ bool set_shero(creature_type *creature_ptr,  int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->protevil", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_PROT_EVIL]", notice observable changes
  */
 bool set_protevil(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1947,11 +1947,11 @@ bool set_protevil(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->protevil && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_PROT_EVIL] && !do_dec)
 		{
-			if (creature_ptr->protevil > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_PROT_EVIL] > v) return FALSE;
 		}
-		else if (!creature_ptr->protevil)
+		else if (!creature_ptr->timed_trait[TRAIT_PROT_EVIL])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1969,7 +1969,7 @@ bool set_protevil(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->protevil)
+		if (creature_ptr->timed_trait[TRAIT_PROT_EVIL])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1984,7 +1984,7 @@ bool set_protevil(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->protevil = v;
+	creature_ptr->timed_trait[TRAIT_PROT_EVIL] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -6824,11 +6824,11 @@ bool set_ultimate_res(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->ult_res && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] && !do_dec)
 		{
-			if (creature_ptr->ult_res > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] > v) return FALSE;
 		}
-		else if (!creature_ptr->ult_res)
+		else if (!creature_ptr->timed_trait[TRAIT_ULTRA_RES])
 		{
 #ifdef JP
 msg_print("あらゆることに対して耐性がついた気がする！");
@@ -6843,7 +6843,7 @@ msg_print("あらゆることに対して耐性がついた気がする！");
 	/* Shut */
 	else
 	{
-		if (creature_ptr->ult_res)
+		if (creature_ptr->timed_trait[TRAIT_ULTRA_RES])
 		{
 #ifdef JP
 msg_print("あらゆることに対する耐性が薄れた気がする。");
@@ -6856,7 +6856,7 @@ msg_print("あらゆることに対する耐性が薄れた気がする。");
 	}
 
 	/* Use the value */
-	creature_ptr->ult_res = v;
+	creature_ptr->timed_trait[TRAIT_ULTRA_RES] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

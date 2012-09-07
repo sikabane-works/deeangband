@@ -1290,8 +1290,6 @@ struct creature_type
 	s16b slept;			// Timed -- Paralysis
 	s16b confused;		// Timed -- Confusion 
 
-	s16b protevil;		// Timed -- Protection 
-	s16b ult_res;		// Timed -- Ultimate Resistance 
 	s16b ele_attack;	// Timed -- Elemental Attack 
 	s16b ele_immune;	// Timed -- Elemental Immune 
 

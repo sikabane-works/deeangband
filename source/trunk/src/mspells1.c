@@ -903,7 +903,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Ultimate resistance */
-	if (target_ptr->ult_res) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_ULTRA_RES]) return (TRUE);
 
 	/* Potion of Neo Tsuyosi special */
 	if (target_ptr->timed_trait[TRAIT_TSUYOSHI]) return (TRUE);

@@ -2157,9 +2157,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Protection from evil */
-	if (creature_ptr->protevil)
+	if (creature_ptr->timed_trait[TRAIT_PROT_EVIL])
 	{
-		(void)set_protevil(creature_ptr, creature_ptr->protevil - 1, TRUE);
+		(void)set_protevil(creature_ptr, creature_ptr->timed_trait[TRAIT_PROT_EVIL] - 1, TRUE);
 	}
 
 	/* Invulnerability */
@@ -2246,9 +2246,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 		(void)set_oppose_pois(creature_ptr, creature_ptr->oppose_pois - 1, TRUE);
 	}
 
-	if (creature_ptr->ult_res)
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES])
 	{
-		(void)set_ultimate_res(creature_ptr, creature_ptr->ult_res - 1, TRUE);
+		(void)set_ultimate_res(creature_ptr, creature_ptr->timed_trait[TRAIT_ULTRA_RES] - 1, TRUE);
 	}
 
 	/*** Poison and Stun and Cut ***/

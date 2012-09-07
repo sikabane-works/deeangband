@@ -1067,9 +1067,9 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_STUN]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_POISONED]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_HALLUCINATION]);
-	rd_s16b(&creature_ptr->protevil);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_PROT_EVIL]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_INVULNERABLE]);
-	rd_s16b(&creature_ptr->ult_res);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_ULTRA_RES]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_HERO]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_S_HERO]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_SHIELD]);

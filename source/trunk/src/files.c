@@ -2393,7 +2393,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	{
 		add_flag(flgs, TRAIT_AURA_FIRE);
 	}
-	if (creature_ptr->ult_res)
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES])
 	{
 		add_flag(flgs, TRAIT_FEARLESS);
 		add_flag(flgs, TRAIT_RES_LITE);

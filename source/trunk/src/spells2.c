@@ -455,7 +455,7 @@ info[i++] = "あなたは戦闘狂だ。";
 #endif
 
 	}
-	if (creature_ptr->protevil)
+	if (creature_ptr->timed_trait[TRAIT_PROT_EVIL])
 	{
 #ifdef JP
 info[i++] = "あなたは邪悪なる存在から守られている。";
@@ -928,9 +928,9 @@ info[i++] = "あなたは戦闘狂だ。";
 #endif
 
 	}
-	if (creature_ptr->protevil)
+	if (creature_ptr->timed_trait[TRAIT_PROT_EVIL])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->protevil);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_PROT_EVIL]);
 #ifdef JP
 info[i++] = "あなたは邪悪なる存在から守られている。";
 #else

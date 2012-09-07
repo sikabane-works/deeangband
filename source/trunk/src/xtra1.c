@@ -445,7 +445,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
 	if (creature_ptr->timed_trait[TRAIT_REGENERATE]) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
 	if (creature_ptr->timed_trait[TRAIT_SEE_INFRA]) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
-	if (creature_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
+	if (creature_ptr->timed_trait[TRAIT_PROT_EVIL]) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) ADD_FLG(BAR_WRAITH);		// Wraith form
 	if (creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
@@ -495,7 +495,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->resist_magic) ADD_FLG(BAR_REGMAGIC);
 
 	/* Ultimate-resistance */
-	if (creature_ptr->ult_res) ADD_FLG(BAR_ULTIMATE);
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE);
 
 	/* tim levitation */
 	if (creature_ptr->timed_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE);
@@ -3312,7 +3312,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->resist_fear = TRUE;
 	}
 
-	if (creature_ptr->ult_res || (creature_ptr->special_defense & KATA_MUSOU))
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] || (creature_ptr->special_defense & KATA_MUSOU))
 	{
 		//creature_ptr->see_inv = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
@@ -3399,7 +3399,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
 	}
 
-	if (creature_ptr->ult_res || creature_ptr->resist_magic || creature_ptr->magicdef)
+	if (creature_ptr->timed_trait[TRAIT_ULTRA_RES] || creature_ptr->resist_magic || creature_ptr->magicdef)
 	{
 		creature_ptr->skill_rob += 95 + creature_ptr->lev;
 		creature_ptr->skill_eva += 95 + creature_ptr->lev;
