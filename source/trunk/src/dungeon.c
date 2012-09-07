@@ -1992,7 +1992,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Mimic */
 	if (creature_ptr->timed_trait[TRAIT_MIMIC])
 	{
-		(void)set_mimic(creature_ptr, creature_ptr->timed_trait[TRAIT_MIMIC] - 1, creature_ptr->mimic_form, TRUE);
+		(void)set_mimic(creature_ptr, creature_ptr->timed_trait[TRAIT_MIMIC] - 1, creature_ptr->mimic_race_idx, TRUE);
 	}
 
 	/* Hack -- Hallucinating */

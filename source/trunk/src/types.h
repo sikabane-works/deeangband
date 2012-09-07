@@ -1305,10 +1305,6 @@ struct creature_type
 	s16b tsubureru;
 	s16b magicdef;
 
-	byte mimic_form;
-	s16b tim_sh_fire;
-	s16b tim_sh_holy;
-
 	// for mirror master 
 	s16b dustrobe;          // Timed -- Robe of dust 
 

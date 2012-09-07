@@ -198,7 +198,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_RES_NETH] = 0;
 	creature_ptr->timed_trait[TRAIT_RES_TIME] = 0;
 	creature_ptr->timed_trait[TRAIT_MIMIC] = 0;
-	creature_ptr->mimic_form = 0;
+	creature_ptr->mimic_race_idx = 0;
 	creature_ptr->timed_trait[TRAIT_REFLECTING] = 0;
 	creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] = 0;
 	creature_ptr->dustrobe = 0;
@@ -330,7 +330,7 @@ void dispel_creature(creature_type *creature_ptr)
 
 
 /*
- * Set "creature_ptr->timed_trait[TRAIT_MIMIC]", and "creature_ptr->mimic_form",
+ * Set "creature_ptr->timed_trait[TRAIT_MIMIC]", and "creature_ptr->mimic_race_idx",
  * notice observable changes
  */
 bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
@@ -345,11 +345,11 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->timed_trait[TRAIT_MIMIC] && (creature_ptr->mimic_form == p) && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_MIMIC] && (creature_ptr->mimic_race_idx == p) && !do_dec)
 		{
 			if (creature_ptr->timed_trait[TRAIT_MIMIC] > v) return FALSE;
 		}
-		else if (((!creature_ptr->timed_trait[TRAIT_MIMIC]) || (creature_ptr->mimic_form != p)))
+		else if (((!creature_ptr->timed_trait[TRAIT_MIMIC]) || (creature_ptr->mimic_race_idx != p)))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -359,7 +359,7 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 				msg_print("You feel that your body changes.");
 #endif
 			}
-			creature_ptr->mimic_form=p;
+			creature_ptr->mimic_race_idx=p;
 			notice = TRUE;
 		}
 	}
@@ -377,7 +377,7 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 				msg_print("You are no longer transformed.");
 #endif
 			}
-			creature_ptr->mimic_form=0;
+			creature_ptr->mimic_race_idx=0;
 			notice = TRUE;
 			p = 0;
 		}

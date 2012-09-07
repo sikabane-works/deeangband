@@ -5538,7 +5538,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 
 	case GF_LITE:
 		if (target_ptr->resist_lite) dam /= 2; /* Worst case of 4 / (d4 + 7) */
-		//TODO if (IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_form == MIMIC_VAMPIRE)) dam *= 2;
+		//TODO if (IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE)) dam *= 2;
 		if (IS_RACE(target_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
 
 		/*
@@ -5549,7 +5549,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case GF_DARK:
-		//TODO if (IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_form == MIMIC_VAMPIRE) || target_ptr->timed_trait[TRAIT_WRAITH_FORM])
+		//TODO if (IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE) || target_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		/*
 		{
 			dam = 0;

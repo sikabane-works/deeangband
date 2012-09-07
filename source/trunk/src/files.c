@@ -2522,9 +2522,9 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr
 	/* TODO 
 	if (IS_RACE(creature_ptr, RACE_LICH))
 		add_flag(flgs, TRAIT_RES_NETH);
-	if (creature_ptr->mimic_form == MIMIC_VAMPIRE || IS_RACE(creature_ptr, RACE_VAMPIRE))
+	if (creature_ptr->mimic_race_idx == MIMIC_VAMPIRE || IS_RACE(creature_ptr, RACE_VAMPIRE))
 		add_flag(flgs, TRAIT_RES_DARK);
-	if (creature_ptr->mimic_form == MIMIC_DEMON_LORD)
+	if (creature_ptr->mimic_race_idx == MIMIC_DEMON_LORD)
 		add_flag(flgs, TRAIT_RES_FIRE);
 	if (IS_RACE(creature_ptr, RACE_YEEK) && creature_ptr->lev > 19)
 		add_flag(flgs, TRAIT_RES_ACID);
@@ -2565,7 +2565,7 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_p
 
 	/*TODO
 	if (IS_RACE(creature_ptr, RACE_VAMPIRE) || IS_RACE(creature_ptr, RACE_S_FAIRY) ||
-	    (creature_ptr->mimic_form == MIMIC_VAMPIRE))
+	    (creature_ptr->mimic_race_idx == MIMIC_VAMPIRE))
 		add_flag(flgs, TRAIT_RES_LITE);
 	*/
 }

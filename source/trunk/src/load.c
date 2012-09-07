@@ -1101,7 +1101,6 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->magicdef);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_NETH]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_TIME]);
-	rd_byte(&creature_ptr->mimic_form);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_MIMIC]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_AURA_FIRE]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_HOLY_AURA]);

@@ -1432,10 +1432,10 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		}
 		}
 	}
-	else if (creature_ptr->mimic_form)
+	else if (creature_ptr->mimic_race_idx)
 	{
 		/*
-		switch (creature_ptr->mimic_form)
+		switch (creature_ptr->mimic_race_idx)
 		{
 		case MIMIC_DEMON:
 		case MIMIC_DEMON_LORD:
