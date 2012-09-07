@@ -839,7 +839,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 
 
 /*
- * Set "creature_ptr->paralyzed", notice observable changes
+ * Set "paralyzed", notice observable changes
  */
 bool set_paralyzed(creature_type *creature_ptr, int v)
 {
