@@ -480,16 +480,6 @@ void initialize_skill(creature_type *creature_ptr)
 
 }
 
-bool is_demon_species(species_type *species_ptr)
-{
-	if(IS_RACE(species_ptr, RACE_IMP) ||
-	   IS_RACE(species_ptr, RACE_DEMON) ||
-	   IS_RACE(species_ptr, RACE_BALROG))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 bool is_self_lite_1_creature(creature_type *creature_ptr)
 {
 	return has_trait(creature_ptr, TRAIT_SELF_LITE_1);	
