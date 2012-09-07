@@ -614,9 +614,6 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->sc);
 	wr_s16b(creature_ptr->concent);
 
-	wr_s16b(creature_ptr->timed_trait[TRAIT_BLIND_]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_PARALYZED]);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_CONFUSED]);
 	wr_s16b(creature_ptr->food);
 	wr_s16b(creature_ptr->energy_need);
 
@@ -641,9 +638,7 @@ static void wr_creature(creature_type *creature_ptr)
 
 	for (i = 0; i < MAX_KARMA; i++) wr_s32b(creature_ptr->karmas[i]);
 
-	wr_s16b(creature_ptr->timed_trait[TRAIT_FIRE_BRAND]);
 	wr_u32b(creature_ptr->special_attack);
-	wr_s16b(creature_ptr->timed_trait[TRAIT_IM_FIRE]);
 	wr_u32b(creature_ptr->special_defense);
 	wr_byte(creature_ptr->knowledge);
 	wr_byte(creature_ptr->autopick_autoregister);
