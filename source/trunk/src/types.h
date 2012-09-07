@@ -1283,7 +1283,7 @@ struct creature_type
 	s16b learned_spells;
 	s16b add_spells;
 
-	s16b timed_status[MAX_TRAITS];
+	s16b timed_trait[MAX_TRAITS];
 
 	s16b fast;			// Timed -- Fast 
 	s16b slow;			// Timed -- Slow 
