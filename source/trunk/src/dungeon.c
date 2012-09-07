@@ -2055,9 +2055,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed sh_touki */
-	if (creature_ptr->tim_sh_touki)
+	if (creature_ptr->timed_trait[TRAIT_AURA_MANA])
 	{
-		(void)set_tim_sh_touki(creature_ptr, creature_ptr->tim_sh_touki - 1, TRUE);
+		(void)set_tim_sh_touki(creature_ptr, creature_ptr->timed_trait[TRAIT_AURA_MANA] - 1, TRUE);
 	}
 
 	/* Timed sh_fire */
@@ -2115,9 +2115,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed Robe of dust */
-	if (creature_ptr->dustrobe)
+	if (creature_ptr->timed_trait[TRAIT_DUST_ROBE])
 	{
-		(void)set_dustrobe(creature_ptr, creature_ptr->dustrobe - 1, TRUE);
+		(void)set_dustrobe(creature_ptr, creature_ptr->timed_trait[TRAIT_DUST_ROBE] - 1, TRUE);
 	}
 
 	/* Timed infra-vision */

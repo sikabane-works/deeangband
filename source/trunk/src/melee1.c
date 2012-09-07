@@ -3663,7 +3663,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* by henkma */
-			if (target_ptr->dustrobe && !*dead && !IS_DEAD(target_ptr))
+			if (target_ptr->timed_trait[TRAIT_DUST_ROBE] && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
@@ -3729,7 +3729,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->tim_sh_touki && !*dead && !IS_DEAD(target_ptr))
+			if (target_ptr->timed_trait[TRAIT_AURA_MANA] && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{

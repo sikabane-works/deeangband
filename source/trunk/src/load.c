@@ -1095,7 +1095,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_PASS_WALL]);
 	rd_s16b(&creature_ptr->tim_stealth);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LEVITATION]);
-	rd_s16b(&creature_ptr->tim_sh_touki);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_AURA_MANA]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_TSUBURERU]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_MAGIC_DEF]);
@@ -1107,7 +1107,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_EYE_EYE]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_REFLECTING]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]);
-	rd_s16b(&creature_ptr->dustrobe);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_DUST_ROBE]);
 	rd_s16b(&creature_ptr->patron_idx);
 	rd_s16b(&creature_ptr->father_idx);
 	rd_s16b(&creature_ptr->mother_idx);

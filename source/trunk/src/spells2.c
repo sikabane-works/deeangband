@@ -601,7 +601,7 @@ info[i++] = "あなたは聖なるオーラに包まれている。";
 #endif
 
 	}
-	if (creature_ptr->tim_sh_touki)
+	if (creature_ptr->timed_trait[TRAIT_AURA_MANA])
 	{
 #ifdef JP
 info[i++] = "あなたは闘気のオーラに包まれている。";

@@ -665,7 +665,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->timed_trait[TRAIT_PASS_WALL]);
 	wr_s16b(creature_ptr->tim_stealth);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_LEVITATION]);
-	wr_s16b(creature_ptr->tim_sh_touki);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_AURA_MANA]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_TSUBURERU]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_MAGIC_DEF]);
@@ -679,7 +679,7 @@ static void wr_creature(creature_type *creature_ptr)
 	/* by henkma */
 	wr_s16b(creature_ptr->timed_trait[TRAIT_REFLECTING]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]);
-	wr_s16b(creature_ptr->dustrobe);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_DUST_ROBE]);
 
 	wr_s16b(creature_ptr->patron_idx);
 	wr_s16b(creature_ptr->father_idx);

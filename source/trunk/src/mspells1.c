@@ -860,7 +860,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return (TRUE);
 
 	/* Robe of dust */
-	if (target_ptr->dustrobe) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_DUST_ROBE]) return (TRUE);
 
 	/* Berserk Strength */
 	if (target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);

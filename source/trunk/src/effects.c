@@ -187,7 +187,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_ESP] = 0;
 	creature_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;     /* Timed -- Wraith Form */
 	creature_ptr->timed_trait[TRAIT_LEVITATION] = 0;
-	creature_ptr->tim_sh_touki = 0;
+	creature_ptr->timed_trait[TRAIT_AURA_MANA] = 0;
 	creature_ptr->timed_trait[TRAIT_AURA_FIRE] = 0;
 	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = 0;
 	creature_ptr->timed_trait[TRAIT_EYE_EYE] = 0;
@@ -201,7 +201,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->mimic_race_idx = 0;
 	creature_ptr->timed_trait[TRAIT_REFLECTING] = 0;
 	creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] = 0;
-	creature_ptr->dustrobe = 0;
+	creature_ptr->timed_trait[TRAIT_DUST_ROBE] = 0;
 	creature_ptr->action = ACTION_NONE;
 
 
@@ -2764,7 +2764,7 @@ bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_sh_touki", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_AURA_MANA]", notice observable changes
  */
 bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2778,11 +2778,11 @@ bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_sh_touki && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_AURA_MANA] && !do_dec)
 		{
-			if (creature_ptr->tim_sh_touki > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_AURA_MANA] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_sh_touki)
+		else if (!creature_ptr->timed_trait[TRAIT_AURA_MANA])
 		{
 #ifdef JP
 msg_print("体が闘気のオーラで覆われた。");
@@ -2797,7 +2797,7 @@ msg_print("体が闘気のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_sh_touki)
+		if (creature_ptr->timed_trait[TRAIT_AURA_MANA])
 		{
 #ifdef JP
 msg_print("闘気が消えた。");
@@ -2810,7 +2810,7 @@ msg_print("闘気が消えた。");
 	}
 
 	/* Use the value */
-	creature_ptr->tim_sh_touki = v;
+	creature_ptr->timed_trait[TRAIT_AURA_MANA] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -3270,7 +3270,7 @@ bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->dustrobe", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_DUST_ROBE]", notice observable changes
  */
 bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -3284,11 +3284,11 @@ bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->dustrobe && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_DUST_ROBE] && !do_dec)
 		{
-			if (creature_ptr->dustrobe > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_DUST_ROBE] > v) return FALSE;
 		}
-		else if (!creature_ptr->dustrobe)
+		else if (!creature_ptr->timed_trait[TRAIT_DUST_ROBE])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -3305,7 +3305,7 @@ bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->dustrobe)
+		if (creature_ptr->timed_trait[TRAIT_DUST_ROBE])
 		{
 #ifdef JP
 			if(is_seen(player_ptr, creature_ptr))
@@ -3321,7 +3321,7 @@ bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->dustrobe = v;
+	creature_ptr->timed_trait[TRAIT_DUST_ROBE] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

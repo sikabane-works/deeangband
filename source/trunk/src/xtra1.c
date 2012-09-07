@@ -502,7 +502,7 @@ static void prt_status(creature_type *creature_ptr)
 
 	if (creature_ptr->timed_trait[TRAIT_RES_NETH]) ADD_FLG(BAR_RESNETH);
 
-	if (creature_ptr->dustrobe) ADD_FLG(BAR_DUSTROBE);
+	if (creature_ptr->timed_trait[TRAIT_DUST_ROBE]) ADD_FLG(BAR_DUSTROBE);
 
 	/* Mahouken */
 	if (creature_ptr->special_attack & ATTACK_FIRE) ADD_FLG(BAR_ATTKFIRE);
@@ -517,7 +517,7 @@ static void prt_status(creature_type *creature_ptr)
 	/* tim stealth */
 	if (IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH);
 
-	if (creature_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
+	if (creature_ptr->timed_trait[TRAIT_AURA_MANA]) ADD_FLG(BAR_TOUKI);
 
 	/* Holy aura */
 	if (creature_ptr->timed_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
