@@ -2002,9 +2002,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	if (IS_BLIND(creature_ptr)) (void)set_blind(creature_ptr, IS_BLIND(creature_ptr) - dec_count);
 
 	/* Times see-invisible */
-	if (creature_ptr->tim_invis)
+	if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 	{
-		(void)set_tim_invis(creature_ptr, creature_ptr->tim_invis - 1, TRUE);
+		(void)set_tim_invis(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] - 1, TRUE);
 	}
 
 	if (multi_rew)
@@ -2037,9 +2037,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed infra-vision */
-	if (creature_ptr->tim_infra)
+	if (creature_ptr->timed_trait[TRAIT_SEE_INFRA])
 	{
-		(void)set_tim_infra(creature_ptr, creature_ptr->tim_infra - 1, TRUE);
+		(void)set_tim_infra(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INFRA] - 1, TRUE);
 	}
 
 	/* Timed stealth */
@@ -2181,9 +2181,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Super Heroism */
-	if (creature_ptr->shero)
+	if (creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
-		(void)set_shero(creature_ptr, creature_ptr->shero - 1, TRUE);
+		(void)set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] - 1, TRUE);
 	}
 
 	/* Blessed */
@@ -2193,9 +2193,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Shield */
-	if (creature_ptr->shield)
+	if (creature_ptr->timed_trait[TRAIT_SHIELD])
 	{
-		(void)set_shield(creature_ptr, creature_ptr->shield - 1, TRUE);
+		(void)set_shield(creature_ptr, creature_ptr->timed_trait[TRAIT_SHIELD] - 1, TRUE);
 	}
 
 	/* Tsubureru */
@@ -4589,7 +4589,7 @@ static void process_player_command(creature_type *creature_ptr)
 #endif
 					creature_ptr->energy_use = 0;
 				}
-				else if (creature_ptr->shero && (creature_ptr->class_idx != CLASS_BERSERKER))
+				else if (creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
 #ifdef JP
 					msg_format("‹¶ím‰»‚µ‚Ä‚¢‚Ä“ª‚ª‰ñ‚ç‚È‚¢I");

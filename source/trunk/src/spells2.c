@@ -446,7 +446,7 @@ info[i++] = "あなたはヒーロー気分だ。";
 #endif
 
 	}
-	if (creature_ptr->shero)
+	if (creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
 #ifdef JP
 info[i++] = "あなたは戦闘狂だ。";
@@ -464,7 +464,7 @@ info[i++] = "あなたは邪悪なる存在から守られている。";
 #endif
 
 	}
-	if (creature_ptr->shield)
+	if (creature_ptr->timed_trait[TRAIT_SHIELD])
 	{
 #ifdef JP
 info[i++] = "あなたは神秘のシールドで守られている。";
@@ -918,9 +918,9 @@ info[i++] = "あなたはヒーロー気分だ。";
 #endif
 
 	}
-	if (creature_ptr->shero)
+	if (creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->shero);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_S_HERO]);
 #ifdef JP
 info[i++] = "あなたは戦闘狂だ。";
 #else
@@ -938,9 +938,9 @@ info[i++] = "あなたは邪悪なる存在から守られている。";
 #endif
 
 	}
-	if (creature_ptr->shield)
+	if (creature_ptr->timed_trait[TRAIT_SHIELD])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->shield);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_SHIELD]);
 #ifdef JP
 info[i++] = "あなたは神秘のシールドで守られている。";
 #else

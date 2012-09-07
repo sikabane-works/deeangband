@@ -851,7 +851,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->timed_trait[TRAIT_WRAITH_FORM]) return (TRUE);
 
 	/* Shield */
-	if (target_ptr->shield) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_SHIELD]) return (TRUE);
 
 	/* Magic defence */
 	if (target_ptr->magicdef) return (TRUE);
@@ -863,7 +863,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (target_ptr->dustrobe) return (TRUE);
 
 	/* Berserk Strength */
-	if (target_ptr->shero && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
 
 	// Elemental resistances
 	if (has_trait(caster_ptr, TRAIT_BR_ACID))

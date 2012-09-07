@@ -2331,9 +2331,9 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	for (i = 0; i < TR_FLAG_SIZE; i++)
 		flgs[i] = 0L;
 
-	if (IS_HERO(creature_ptr) || creature_ptr->shero)
+	if (IS_HERO(creature_ptr) || creature_ptr->timed_trait[TRAIT_S_HERO])
 		add_flag(flgs, TRAIT_FEARLESS);
-	if (creature_ptr->tim_invis)
+	if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 		add_flag(flgs, TRAIT_SEE_INVISIBLE);
 	if (creature_ptr->timed_trait[TRAIT_REGENERATE])
 		add_flag(flgs, TRAIT_REGENERATE);

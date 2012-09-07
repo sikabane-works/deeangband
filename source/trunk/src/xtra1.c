@@ -441,21 +441,21 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->paralyzed) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if (creature_ptr->confused) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if (creature_ptr->timed_trait[TRAIT_POISONED]) ADD_FLG(BAR_POISONED);		// Posioned
-	if (creature_ptr->tim_invis) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
+	if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]) ADD_FLG(BAR_SENSEUNSEEN);	// Times see-invisible
 	if (IS_TIM_ESP(creature_ptr)) ADD_FLG(BAR_TELEPATHY);		// Timed esp
 	if (creature_ptr->timed_trait[TRAIT_REGENERATE]) ADD_FLG(BAR_REGENERATION);	// Timed regenerate
-	if (creature_ptr->tim_infra) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
+	if (creature_ptr->timed_trait[TRAIT_SEE_INFRA]) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
 	if (creature_ptr->protevil) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if (IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
 	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) ADD_FLG(BAR_WRAITH);		// Wraith form
 	if (creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
 	if (creature_ptr->timed_trait[TRAIT_REFLECTING]) ADD_FLG(BAR_REFLECTION);
 	if (IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
-	if (creature_ptr->shero) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
+	if (creature_ptr->timed_trait[TRAIT_S_HERO]) ADD_FLG(BAR_BERSERK);			// Super Heroism / berserk
 	if (IS_BLESSED(creature_ptr)) ADD_FLG(BAR_BLESSED);		// Blessed
 	if (creature_ptr->magicdef) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
 	if (creature_ptr->tsubureru) ADD_FLG(BAR_EXPAND);
-	if (creature_ptr->shield) ADD_FLG(BAR_STONESKIN);
+	if (creature_ptr->timed_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
 	if (creature_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
 	if (creature_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
@@ -2545,7 +2545,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 
 	/* Factor in the hero / superhero settings */
 	if (IS_HERO(creature_ptr)) mhp += 10;
-	if (creature_ptr->shero && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
+	if (creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER)) mhp += 30;
 	if (creature_ptr->tsuyoshi) mhp += 50;
 
 	/* Factor in the hex spell settings */
@@ -2827,7 +2827,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_ORDINARILY_BERSERK))
 	{
-		creature_ptr->shero = 1;
+		creature_ptr->timed_trait[TRAIT_S_HERO] = 1;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
 		creature_ptr->speed += 2;
 
@@ -3230,7 +3230,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	/* Temporary "Beserk" */
-	if (creature_ptr->shero)
+	if (creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
 		creature_ptr->to_hit[0] += 12;
 		creature_ptr->to_hit[1] += 12;
@@ -3277,13 +3277,13 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	/* Temporary see invisible */
-	if (creature_ptr->tim_invis)
+	if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 	{
 		//creature_ptr->see_inv = TRUE;
 	}
 
 	/* Temporary infravision boost */
-	if (creature_ptr->tim_infra)
+	if (creature_ptr->timed_trait[TRAIT_SEE_INFRA])
 	{
 		creature_ptr->see_infra+=3;
 	}
@@ -3307,7 +3307,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Hero/Shero -> Res fear */
-	if (IS_HERO(creature_ptr) || creature_ptr->shero)
+	if (IS_HERO(creature_ptr) || creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
 		//TODO creature_ptr->resist_fear = TRUE;
 	}
@@ -3351,7 +3351,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_ac += 100;
 		creature_ptr->dis_to_ac += 100;
 	}
-	else if (creature_ptr->tsubureru || creature_ptr->shield || creature_ptr->magicdef) // Temporary shield
+	else if (creature_ptr->tsubureru || creature_ptr->timed_trait[TRAIT_SHIELD] || creature_ptr->magicdef) // Temporary shield
 	{
 		creature_ptr->to_ac += 50;
 		creature_ptr->dis_to_ac += 50;

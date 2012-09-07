@@ -1375,7 +1375,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->shero || !target_ptr->see_others))
+	if (!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
 	{
 		char attacker_name[100];
 		char target_name[100];

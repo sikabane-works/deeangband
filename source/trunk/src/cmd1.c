@@ -2258,7 +2258,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
 		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->see_others || creature_ptr->timed_trait[TRAIT_STUN] ||
-		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->shero) &&
+		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->timed_trait[TRAIT_S_HERO]) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
 			/* Disturb the creature */

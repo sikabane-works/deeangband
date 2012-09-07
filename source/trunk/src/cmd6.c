@@ -971,14 +971,14 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_INFRAVISION:
-			if (set_tim_infra(creature_ptr, creature_ptr->tim_infra + 100 + randint1(100), FALSE))
+			if (set_tim_infra(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INFRA] + 100 + randint1(100), FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_DETECT_INVIS:
-			if (set_tim_invis(creature_ptr, creature_ptr->tim_invis + 12 + randint1(12), FALSE))
+			if (set_tim_invis(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] + 12 + randint1(12), FALSE))
 			{
 				ident = TRUE;
 			}
@@ -1029,7 +1029,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 
 		case SV_POTION_BESERK_STRENGTH:
 			if (set_afraid(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, creature_ptr->shero + randint1(25) + 25, FALSE)) ident = TRUE;
+			if (set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
 			if (heal_creature(creature_ptr, 30)) ident = TRUE;
 			break;
 

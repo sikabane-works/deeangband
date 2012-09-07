@@ -642,16 +642,16 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->invuln);
 	wr_s16b(creature_ptr->ult_res);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_HERO]);
-	wr_s16b(creature_ptr->shero);
-	wr_s16b(creature_ptr->shield);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_S_HERO]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_SHIELD]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_BLESSED]);
-	wr_s16b(creature_ptr->tim_invis);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]);
 	wr_s16b(creature_ptr->word_recall);
 	wr_byte(creature_ptr->recall_dungeon);
 
 	wr_s16b(creature_ptr->alter_reality);
 	wr_s16b(creature_ptr->see_infra);
-	wr_s16b(creature_ptr->tim_infra);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_SEE_INFRA]);
 	wr_s16b(creature_ptr->oppose_fire);
 	wr_s16b(creature_ptr->oppose_cold);
 	wr_s16b(creature_ptr->oppose_acid);

@@ -177,11 +177,11 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->invuln = 0;          /* Timed -- Invulnerable */
 	creature_ptr->ult_res = 0;
 	creature_ptr->timed_trait[TRAIT_HERO] = 0;            /* Timed -- Heroism */
-	creature_ptr->shero = 0;           /* Timed -- Super Heroism */
-	creature_ptr->shield = 0;          /* Timed -- Shield Spell */
+	creature_ptr->timed_trait[TRAIT_S_HERO] = 0;           /* Timed -- Super Heroism */
+	creature_ptr->timed_trait[TRAIT_SHIELD] = 0;          /* Timed -- Shield Spell */
 	creature_ptr->timed_trait[TRAIT_BLESSED] = 0;         /* Timed -- Blessed */
-	creature_ptr->tim_invis = 0;       /* Timed -- Invisibility */
-	creature_ptr->tim_infra = 0;       /* Timed -- Infra Vision */
+	creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] = 0;       /* Timed -- Invisibility */
+	creature_ptr->timed_trait[TRAIT_SEE_INFRA] = 0;       /* Timed -- Infra Vision */
 	creature_ptr->timed_trait[TRAIT_REGENERATE] = 0;       /* Timed -- Regeneration */
 	creature_ptr->tim_stealth = 0;     /* Timed -- Stealth */
 	creature_ptr->timed_trait[TRAIT_ESP] = 0;
@@ -225,7 +225,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 
 	if (has_trait(creature_ptr, TRAIT_DEMON) && (creature_ptr->lev > 44)) creature_ptr->oppose_fire = 1;
 	if ((creature_ptr->class_idx == CLASS_NINJA) && (creature_ptr->lev > 44)) creature_ptr->oppose_pois = 1;
-	if (creature_ptr->class_idx == CLASS_BERSERKER) creature_ptr->shero = 1;
+	if (creature_ptr->class_idx == CLASS_BERSERKER) creature_ptr->timed_trait[TRAIT_S_HERO] = 1;
 
 	if (creature_ptr->riding)
 	{
@@ -1474,7 +1474,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->shield", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_SHIELD]", notice observable changes
  */
 bool set_shield(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1488,11 +1488,11 @@ bool set_shield(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->shield && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_SHIELD] && !do_dec)
 		{
-			if (creature_ptr->shield > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_SHIELD] > v) return FALSE;
 		}
-		else if (!creature_ptr->shield)
+		else if (!creature_ptr->timed_trait[TRAIT_SHIELD])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1510,7 +1510,7 @@ bool set_shield(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->shield)
+		if (creature_ptr->timed_trait[TRAIT_SHIELD])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1526,7 +1526,7 @@ bool set_shield(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->shield = v;
+	creature_ptr->timed_trait[TRAIT_SHIELD] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -1854,7 +1854,7 @@ bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->shero", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_S_HERO]", notice observable changes
  */
 bool set_shero(creature_type *creature_ptr,  int v, bool do_dec)
 {
@@ -1869,11 +1869,11 @@ bool set_shero(creature_type *creature_ptr,  int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->shero && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_S_HERO] && !do_dec)
 		{
-			if (creature_ptr->shero > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_S_HERO] > v) return FALSE;
 		}
-		else if (!creature_ptr->shero)
+		else if (!creature_ptr->timed_trait[TRAIT_S_HERO])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1891,7 +1891,7 @@ bool set_shero(creature_type *creature_ptr,  int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->shero)
+		if (creature_ptr->timed_trait[TRAIT_S_HERO])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1907,7 +1907,7 @@ bool set_shero(creature_type *creature_ptr,  int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->shero = v;
+	creature_ptr->timed_trait[TRAIT_S_HERO] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -2311,7 +2311,7 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_invis", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]", notice observable changes
  */
 bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2325,11 +2325,11 @@ bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_invis && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] && !do_dec)
 		{
-			if (creature_ptr->tim_invis > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_invis)
+		else if (!creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2347,7 +2347,7 @@ bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_invis)
+		if (creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 		{
 
 			if(is_seen(player_ptr, creature_ptr))
@@ -2364,7 +2364,7 @@ bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_invis = v;
+	creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -2390,7 +2390,7 @@ bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_infra", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_SEE_INFRA]", notice observable changes
  */
 bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2404,11 +2404,11 @@ bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_infra && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_SEE_INFRA] && !do_dec)
 		{
-			if (creature_ptr->tim_infra > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_SEE_INFRA] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_infra)
+		else if (!creature_ptr->timed_trait[TRAIT_SEE_INFRA])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2425,7 +2425,7 @@ bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_infra)
+		if (creature_ptr->timed_trait[TRAIT_SEE_INFRA])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2441,7 +2441,7 @@ bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_infra = v;
+	creature_ptr->timed_trait[TRAIT_SEE_INFRA] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
