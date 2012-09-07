@@ -3391,7 +3391,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
-			visible = m_ptr->ml;
+			visible = m_ptr->see_others;
 
 			/* Note the collision */
 			hit_body = TRUE;
@@ -3433,7 +3433,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			}
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(creature_ptr, chance - cur_dis, armour, m_ptr->ml))
+			if (test_hit_fire(creature_ptr, chance - cur_dis, armour, m_ptr->see_others))
 			{
 				bool fear = FALSE;
 				int tdam = tdam_base;
@@ -3468,7 +3468,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					msg_format("The %s hits %s.", object_name, m_name);
 #endif
 
-					if (m_ptr->ml)
+					if (m_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
 						if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
@@ -3563,7 +3563,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					if (tdam > 0) anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
-					if (fear && m_ptr->ml)
+					if (fear && m_ptr->see_others)
 					{
 						char m_name[80];
 
@@ -4093,13 +4093,13 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
-			visible = m_ptr->ml;
+			visible = m_ptr->see_others;
 
 			/* Note the collision */
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_ac, m_ptr->ml))
+			if (test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_ac, m_ptr->see_others))
 			{
 				bool fear = FALSE;
 
@@ -4130,7 +4130,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					msg_format("The %s hits %s.", object_name, m_name);
 #endif
 
-					if (m_ptr->ml)
+					if (m_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
 						if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
@@ -4194,7 +4194,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 						anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
-					if (fear && m_ptr->ml)
+					if (fear && m_ptr->see_others)
 					{
 						char m_name[80];
 

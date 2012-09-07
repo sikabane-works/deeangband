@@ -2251,13 +2251,13 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		(!can_enter || !have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
 
 	/* Hack -- attack creatures */
-	if (c_ptr->creature_idx && (m_ptr->ml || can_enter || can_kill_walls))
+	if (c_ptr->creature_idx && (m_ptr->see_others || can_enter || can_kill_walls))
 	{
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if (!is_hostile(m_ptr) &&
-		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->ml || creature_ptr->stun ||
+		    !(creature_ptr->confused || IS_HALLUCINATION(creature_ptr) || !m_ptr->see_others || creature_ptr->stun ||
 		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->shero) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
@@ -2267,7 +2267,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			/* Extract creature name (or "it") */
 			creature_desc(m_name, m_ptr, 0);
 
-			if (m_ptr->ml)
+			if (m_ptr->see_others)
 			{
 				/* Auto-Recall if possible and visible */
 				if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
@@ -3003,7 +3003,7 @@ static bool run_test(creature_type *creature_ptr)
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Visible creature */
-			if (m_ptr->ml) return (TRUE);
+			if (m_ptr->see_others) return (TRUE);
 		}
 
 		/* Visible objects abort running */
@@ -3423,7 +3423,7 @@ static bool travel_test(creature_type *creature_ptr)
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Visible creature */
-			if (m_ptr->ml) return (TRUE);
+			if (m_ptr->see_others) return (TRUE);
 		}
 	}
 

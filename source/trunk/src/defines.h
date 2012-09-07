@@ -2605,14 +2605,14 @@
 
 // Hack -- Determine creature race appearance index is same as race index
 #define is_original_ap(A) (bool)(((A)->ap_species_idx == (A)->species_idx) ? TRUE : FALSE)
-#define is_original_ap_and_seen(WHO, A) (bool)((A)->ml && !(WHO)->image && ((A)->ap_species_idx == (A)->species_idx))
+#define is_original_ap_and_seen(WHO, A) (bool)((A)->see_others && !(WHO)->image && ((A)->ap_species_idx == (A)->species_idx))
 
 /*
  * Is the creature seen by the player?
  */
 // TODO Check using
 #define is_seen(B, A) \
-	((bool)((A)->ml && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
+	((bool)((A)->see_others && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 // Does creature exist here?

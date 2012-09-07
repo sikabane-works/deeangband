@@ -1304,7 +1304,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	bool blind = (IS_BLIND(target_ptr) ? TRUE : FALSE);
 
 	/* Extract the "see-able-ness" */
-	bool seen = (!blind && caster_ptr->ml);
+	bool seen = (!blind && caster_ptr->see_others);
 
 	bool maneable = player_has_los_bold(caster_ptr->fy, caster_ptr->fx);
 	bool learnable = (seen && maneable && !the_world);

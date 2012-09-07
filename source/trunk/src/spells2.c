@@ -2283,7 +2283,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		if (m_ptr->paralyzed)
 		{
 			(void)set_paralyzed(&creature_list[m_idx], 0);
-			if (m_ptr->ml || m_ptr->hear_noise)
+			if (m_ptr->see_others || m_ptr->hear_noise)
 			{
 #ifdef JP
 				msg_format("%^sが目を覚ました。", m_name);
@@ -2497,7 +2497,7 @@ bool probing(floor_type *floor_ptr)
 		if (!player_has_los_bold(m_ptr->fy, m_ptr->fx)) continue;
 
 		/* Probe visible creatures */
-		if (m_ptr->ml)
+		if (m_ptr->see_others)
 		{
 			char m_name[80];
 
@@ -2588,7 +2588,7 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 			play_window |= (PW_MESSAGE);
 			window_stuff();
 
-			if (m_ptr->ml) move_cursor_relative(m_ptr->fy, m_ptr->fx);
+			if (m_ptr->see_others) move_cursor_relative(m_ptr->fy, m_ptr->fx);
 			inkey();
 
 			Term_erase(0, 0, 255);
@@ -3581,7 +3581,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
 
 				/* Notice the "waking up" */
-				if (m_ptr->ml || m_ptr->hear_noise)
+				if (m_ptr->see_others || m_ptr->hear_noise)
 				{
 					char m_name[80];
 
@@ -5169,9 +5169,9 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		{
 #ifdef JP
 			msg_format("%s%sが立ちふさがっている！", tm_idx ? "別の" : "",
-				   m_ptr->ml ? "クリーチャー" : "何か");
+				   m_ptr->see_others ? "クリーチャー" : "何か");
 #else
-			msg_format("There is %s in the way!", m_ptr->ml ? (tm_idx ? "another creature" : "a creature") : "someone");
+			msg_format("There is %s in the way!", m_ptr->see_others ? (tm_idx ? "another creature" : "a creature") : "someone");
 #endif
 		}
 		else if (!creature_bold(creature_ptr, ty, tx))

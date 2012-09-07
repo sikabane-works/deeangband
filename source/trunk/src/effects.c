@@ -824,7 +824,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 
 		if (!notice) return FALSE;
 
-		if (creature_ptr->ml)
+		if (creature_ptr->see_others)
 		{
 			/* Update health bar as needed */
 			if (&creature_list[health_who] == creature_ptr) play_redraw |= (PR_HEALTH);
@@ -948,7 +948,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 
 	if (!notice) return FALSE;
 
-	if (creature_ptr->ml)
+	if (creature_ptr->see_others)
 	{
 		/* Update health bar as needed */
 		if (&creature_list[health_who] == creature_ptr) play_redraw |= (PR_HEALTH);
@@ -2096,7 +2096,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 
 	if (!notice) return FALSE;
 
-	if (creature_ptr->ml)
+	if (creature_ptr->see_others)
 	{
 		/* Update health bar as needed */
 		if (&creature_list[health_who] == creature_ptr) play_redraw |= (PR_HEALTH);
@@ -6163,7 +6163,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			if (r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
-			if ((target_ptr->ml && !IS_HALLUCINATION(attacker_ptr)) || has_trait(target_ptr, TRAIT_UNIQUE))
+			if ((target_ptr->see_others && !IS_HALLUCINATION(attacker_ptr)) || has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				/* Count kills this life */
 				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
@@ -6236,7 +6236,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 	
 			/* Death by physical attack -- invisible creature */
-			else if (!target_ptr->ml)
+			else if (!target_ptr->see_others)
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{

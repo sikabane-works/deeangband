@@ -1542,7 +1542,7 @@ struct creature_type
 	byte mflag;		// Extra creature flags 
 	byte mflag2;	// Extra creature flags 
 
-	bool ml;		// Creature is "visible" 
+	bool see_others;	// Creature is "visible" 
 
 	s16b target_y;		// Can attack !los player 
 	s16b target_x;		// Can attack !los player 

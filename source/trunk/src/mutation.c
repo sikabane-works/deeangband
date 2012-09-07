@@ -345,7 +345,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					msg_print("There's something in the way!");
 #endif
 
-					if (!m_ptr->ml || !is_pet(player_ptr, m_ptr)) melee_attack(creature_ptr, y, x, 0);
+					if (!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(creature_ptr, y, x, 0);
 					break;
 				}
 				else if (have_flag(f_ptr->flags, FF_TREE))

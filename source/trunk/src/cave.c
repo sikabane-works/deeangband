@@ -1227,7 +1227,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		creature_type *creature_ptr = &creature_list[cave_ptr->creature_idx];
 
 		/* Visible creature */
-		if (creature_ptr->ml)
+		if (creature_ptr->see_others)
 		{
 			species_type *species_ptr = &species_info[creature_ptr->ap_species_idx];
 
@@ -1767,7 +1767,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 			byte ta;
 			char tc;
 
-			if (cave_ptr->creature_idx && creature_list[cave_ptr->creature_idx].ml)
+			if (cave_ptr->creature_idx && creature_list[cave_ptr->creature_idx].see_others)
 			{
 				/* Determine what is there */
 				map_info(creature_ptr, ny, nx, &a, &c, &ta, &tc);

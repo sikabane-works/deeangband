@@ -1541,7 +1541,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 #endif
 			prt(buf, 0, 0);
 
-			if (m_ptr->ml)
+			if (m_ptr->see_others)
 				move_cursor_relative(m_ptr->fy, m_ptr->fx);
 
 			while (TRUE)
@@ -1884,7 +1884,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		steed_ptr = &creature_list[c_ptr->creature_idx];
 
-		if (!c_ptr->creature_idx || !steed_ptr->ml)
+		if (!c_ptr->creature_idx || !steed_ptr->see_others)
 		{
 #ifdef JP
 			msg_print("その場所にはクリーチャーはいません。");
@@ -2604,7 +2604,7 @@ void do_cmd_pet(creature_type *master_ptr)
 			else
 			{
 				cave_type *c_ptr = &floor_ptr->cave[target_row][target_col];
-				if (c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].ml))
+				if (c_ptr->creature_idx && (creature_list[c_ptr->creature_idx].see_others))
 				{
 					pet_t_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 					master_ptr->pet_follow_distance = PET_DESTROY_DIST;

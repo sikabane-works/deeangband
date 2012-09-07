@@ -5670,7 +5670,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 					if (!m_ptr->species_idx) continue;
 
 					/* Skip unseen creatures */
-					if (!m_ptr->ml) continue;
+					if (!m_ptr->see_others) continue;
 
 					/* Access the creature race */
 					r_ptr = &species_info[m_ptr->ap_species_idx];
@@ -5732,7 +5732,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 							m_ptr->mflag2 &= ~(MFLAG2_MARK);
 
 							/* Assume invisible */
-							m_ptr->ml = FALSE;
+							m_ptr->see_others = FALSE;
 
 							/* Update the creature */
 							update_creature_view(player_ptr, i, FALSE);

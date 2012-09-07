@@ -552,7 +552,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 {
 	int oldfy = creature_ptr->fy;
 	int oldfx = creature_ptr->fx;
-	bool old_ml = creature_ptr->ml;
+	bool old_ml = creature_ptr->see_others;
 	int old_cdis = creature_ptr->cdis;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -1618,7 +1618,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 				(void)set_paralyzed(m_ptr, 0);
 
 				/* Notice the "waking up" */
-				if (m_ptr->ml || m_ptr->hear_noise)
+				if (m_ptr->see_others || m_ptr->hear_noise)
 				{
 					/* Acquire the creature name */
 					creature_desc(m_name, m_ptr, 0);

@@ -1736,7 +1736,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	// Is the creature "seen"?
-	bool seen = target_ptr->ml;
+	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
 	bool slept = (bool)target_ptr->paralyzed;
@@ -2039,7 +2039,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		{
 			bool sad = FALSE;
 
-			if (is_pet(player_ptr, target_ptr) && !(target_ptr->ml))
+			if (is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
 				sad = TRUE;
 
 			/* Give detailed messages if destroyed */
@@ -2370,7 +2370,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	bool obvious = FALSE;
 
 	// Is the creature "seen"?
-	bool seen = target_ptr->ml;
+	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
 	bool do_poly = FALSE;	// Polymorph setting (true or false)	
@@ -3271,7 +3271,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						if (&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
-						if (caster_ptr->ml)
+						if (caster_ptr->see_others)
 						{
 #ifdef JP
 							msg_format("%^s‚Í‹C•ª‚ª—Ç‚³‚»‚¤‚¾B", caster_name);
@@ -6091,7 +6091,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	/* Is the creature "seen"? */
-	bool seen = target_ptr->ml;
+	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
 	bool slept = (bool)target_ptr->paralyzed;
@@ -6997,7 +6997,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 					    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-					    if (m_ptr->ml)
+					    if (m_ptr->see_others)
 					    {
 					      /* Hack -- auto-recall */
 					      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
@@ -7023,7 +7023,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 			    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-			    if (m_ptr->ml)
+			    if (m_ptr->see_others)
 			    {
 			      /* Hack -- auto-recall */
 			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
@@ -7155,7 +7155,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 			    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-			    if (m_ptr->ml)
+			    if (m_ptr->see_others)
 			    {
 			      /* Hack -- auto-recall */
 			      if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
@@ -7697,13 +7697,13 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			{
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
-				if (m_ptr->ml)
+				if (m_ptr->see_others)
 				{
 					/* Hack -- auto-recall */
 					if (!caster_ptr->image) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
-					if (m_ptr->ml) health_track(floor_ptr->cave[y][x].creature_idx);
+					if (m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx);
 				}
 			}
 		}

@@ -1822,7 +1822,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 
 	/* Can we "see" it (exists + forced, or visible + not unforced) */
-	seen = (creature_ptr && ((mode & MD_ASSUME_VISIBLE) || (!(mode & MD_ASSUME_HIDDEN) && creature_ptr->ml)));
+	seen = (creature_ptr && ((mode & MD_ASSUME_VISIBLE) || (!(mode & MD_ASSUME_HIDDEN) && creature_ptr->see_others)));
 
 	/* Sexed Pronouns (seen and allowed, or unseen and allowed) */
 	pron = (creature_ptr && ((seen && (mode & MD_PRON_VISIBLE)) || (!seen && (mode & MD_PRON_HIDDEN))));
@@ -2274,7 +2274,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		else power *= 2;
 
 		if (!IS_IN_THIS_FLOOR(m_ptr)) return;
-		if (!m_ptr->ml) return; // Cannot see it for some reason
+		if (!m_ptr->see_others) return; // Cannot see it for some reason
 		if (!has_trait(m_ptr, TRAIT_ELDRITCH_HORROR)) return; // oops
 		if (is_pet(player_ptr, m_ptr)) return; // Pet eldritch horrors are safe most of the time
 		if (randint1(100) > power) return;
@@ -2873,10 +2873,10 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	if (flag)
 	{
 		/* It was previously unseen */
-		if (!target_ptr->ml)
+		if (!target_ptr->see_others)
 		{
 			/* Mark as visible */
-			target_ptr->ml = TRUE;
+			target_ptr->see_others = TRUE;
 
 			/* Draw the creature */
 			lite_spot(floor_ptr, fy, fx);
@@ -2913,10 +2913,10 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	else
 	{
 		/* It was previously seen */
-		if (target_ptr->ml)
+		if (target_ptr->see_others)
 		{
 			/* Mark as not visible */
-			target_ptr->ml = FALSE;
+			target_ptr->see_others = FALSE;
 
 			/* Erase the creature */
 			lite_spot(floor_ptr, fy, fx);
@@ -3957,7 +3957,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 	if (mode & PM_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
 
 	/* Not visible */
-	creature_ptr->ml = FALSE;
+	creature_ptr->see_others = FALSE;
 
 	/* Pet? */
 	if (mode & PM_FORCE_PET)

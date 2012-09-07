@@ -3201,7 +3201,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 					m_ptr = &creature_list[c_ptr->creature_idx];
 
 					/* Hack -- attack creatures */
-					if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+					if (c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						melee_attack(caster_ptr, y, x, 0);
 				}
 			}
@@ -10838,7 +10838,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				m_ptr = &creature_list[c_ptr->creature_idx];
 	
 				/* Hack -- attack creatures */
-				if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+				if (c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 				{
 					if (!creature_living(m_ptr))
 					{

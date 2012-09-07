@@ -1492,7 +1492,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Hack -- attack creatures */
-			if (c_ptr->creature_idx && (m_ptr->ml || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+			if (c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 				melee_attack(creature_ptr, y, x, 0);
 		}
 		break;
@@ -1710,7 +1710,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 			update |= (PU_SPECIES_LITE);
 
-		if (m_ptr->ml)
+		if (m_ptr->see_others)
 		{
 			/* Auto-Recall if possible and visible */
 			if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);

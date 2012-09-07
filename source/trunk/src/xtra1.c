@@ -1379,7 +1379,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 
 
 	/* Tracking an unseen creature */
-	if (!m_ptr->ml)
+	if (!m_ptr->see_others)
 	{
 		/* Indicate that the creature health is "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");

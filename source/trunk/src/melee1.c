@@ -148,16 +148,16 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if (attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if (has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 			if (r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
-			if (target_ptr->paralyzed && target_ptr->ml)
+			if (target_ptr->paralyzed && target_ptr->see_others)
 			{
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
-			else if ((attacker_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->ml && !has_trait(target_ptr, TRAIT_RES_ALL))
+			else if ((attacker_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				fuiuchi = TRUE;
 			}
-			else if (target_ptr->afraid && target_ptr->ml)
+			else if (target_ptr->afraid && target_ptr->see_others)
 			{
 				stab_fleeing = TRUE;
 			}
@@ -217,7 +217,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		success_hit = one_in_(n);
 	}
 	else if ((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-	else success_hit = test_hit_melee(attacker_ptr, chance,  target_ptr->ac + target_ptr->to_ac, target_ptr->ml);
+	else success_hit = test_hit_melee(attacker_ptr, chance,  target_ptr->ac + target_ptr->to_ac, target_ptr->see_others);
 
 	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
@@ -902,7 +902,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	// Test for hit
-	if ((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->ml))
+	if ((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->see_others))
 	{
 		sound(SOUND_HIT); // Sound
 
@@ -1266,7 +1266,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	creature_desc(attacker_name, attacker_ptr, 0);
 
 	if (IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
-	    !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->ml))
+	    !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
@@ -1295,7 +1295,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 		creature_desc(attacker_name, attacker_ptr, 0);
 		creature_desc(target_name, target_ptr, 0);
 
-		if (target_ptr->ml) // Message
+		if (target_ptr->see_others) // Message
 		{
 #ifdef JP
 			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ðUŒ‚‚Å‚«‚È‚¢I", attacker_name, target_name);
@@ -1375,7 +1375,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->shero || !target_ptr->ml))
+	if (!is_hostile(target_ptr) && !(attacker_ptr->stun || attacker_ptr->confused || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->shero || !target_ptr->see_others))
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1507,7 +1507,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	if (target_ptr->ml)
+	if (target_ptr->see_others)
 	{
 		if (!IS_HALLUCINATION(attacker_ptr)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
 		health_track(c_ptr->creature_idx); // Track a new creature
@@ -1666,7 +1666,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 
 	// Hack -- delay fear messages
-	if (fear && target_ptr->ml && !dead)
+	if (fear && target_ptr->see_others && !dead)
 	{
 		sound(SOUND_FLEE); // Sound
 #ifdef JP
@@ -3447,7 +3447,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					//TODO if (target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 					/* Special message */
-					if (attacker_ptr->ml && did_heal)
+					if (attacker_ptr->see_others && did_heal)
 					{
 #ifdef JP
 						msg_format("%s‚Í‘Ì—Í‚ð‰ñ•œ‚µ‚½‚æ‚¤‚¾B", attacker_name);
@@ -3843,7 +3843,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBM_CHARGE:
 
 			/* Visible creatures */
-			if (attacker_ptr->ml)
+			if (attacker_ptr->see_others)
 			{
 				/* Disturbing */
 				disturb(player_ptr, 1, 0);
@@ -3920,7 +3920,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		if (target_ptr->tim_eyeeye) set_tim_eyeeye(target_ptr, target_ptr->tim_eyeeye-5, TRUE);
 	}
 
-	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->ml && (target_ptr->csp > 7))
+	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, attacker_ptr, 0);

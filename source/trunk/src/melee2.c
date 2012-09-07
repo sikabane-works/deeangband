@@ -1209,7 +1209,7 @@ static void creature_speaking(creature_type *creature_ptr)
 	char creature_name[100];
 
 	// Acquire the creature name/poss
-	if (creature_ptr->ml)
+	if (creature_ptr->see_others)
 		creature_desc(creature_name, creature_ptr, 0);
 	else
 #ifdef JP
@@ -1358,7 +1358,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 			if (multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if (creature_list[hack_m_idx_ii].ml && is_original_ap_and_seen(player_ptr, creature_ptr))
+				if (creature_list[hack_m_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
 				{
 					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1392,7 +1392,7 @@ static void do_scatting_creature(creature_type *creature_ptr)
 					{
 						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
 						{
-							if (creature_list[hack_m_idx_ii].ml) count++;
+							if (creature_list[hack_m_idx_ii].see_others) count++;
 						}
 					}
 
@@ -1413,7 +1413,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 	{
 		bool sad = FALSE;
 
-		if (is_pet(player_ptr, creature_ptr) && !(creature_ptr->ml))
+		if (is_pet(player_ptr, creature_ptr) && !(creature_ptr->see_others))
 			sad = TRUE;
 
 		if (see_m)
@@ -1459,7 +1459,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		bool aware = TRUE;
 
 		// Hack! "Cyber" creature makes noise...
-		if (creature_ptr->ap_species_idx == SPECIES_CYBER && one_in_(CYBERNOISE) && !creature_ptr->ml && (creature_ptr->cdis <= MAX_SIGHT))
+		if (creature_ptr->ap_species_idx == SPECIES_CYBER && one_in_(CYBERNOISE) && !creature_ptr->see_others && (creature_ptr->cdis <= MAX_SIGHT))
 		{
 			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
 #ifdef JP
@@ -1666,7 +1666,7 @@ static void process_nonplayer(int m_idx)
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		// Notice the "waking up"
-		if (creature_ptr->ml || creature_ptr->hear_noise)
+		if (creature_ptr->see_others || creature_ptr->hear_noise)
 		{
 			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
@@ -2386,7 +2386,7 @@ static void process_nonplayer(int m_idx)
 			}
 
 			/* Possible disturb */
-			if (creature_ptr->ml &&
+			if (creature_ptr->see_others &&
 			    (disturb_move ||
 			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
 			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)))
@@ -2441,7 +2441,7 @@ static void process_nonplayer(int m_idx)
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (creature_ptr->ml && creature_can_see_bold(player_ptr, ny, nx))
+						if (creature_ptr->see_others && creature_can_see_bold(player_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -2902,7 +2902,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				else
 				{
 					/* Notice the "waking up" */
-					if (creature_ptr->ml || creature_ptr->hear_noise)
+					if (creature_ptr->see_others || creature_ptr->hear_noise)
 					{
 						char m_name[80];
 

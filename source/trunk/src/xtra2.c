@@ -645,7 +645,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	int number = 0;
 
-	bool visible = ((dead_ptr->ml && !slayer_ptr->image) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
+	bool visible = ((dead_ptr->see_others && !slayer_ptr->image) || (has_trait(dead_ptr, TRAIT_UNIQUE)));
 
 	u32b mo_mode = 0L;
 
@@ -1692,7 +1692,7 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	if (IS_HALLUCINATION(creature_ptr)) return (FALSE);
 
 	/* Creature must be visible */
-	if (!m_ptr->ml) return (FALSE);
+	if (!m_ptr->see_others) return (FALSE);
 
 	if (creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
 
@@ -1797,9 +1797,9 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 	if (y[b] == player_ptr->fy && x[b] == player_ptr->fx) return FALSE;
 
 	/* Extract creature race */
-	if (ca_ptr->creature_idx && ma_ptr->ml) ap_ra_ptr = &species_info[ma_ptr->ap_species_idx];
+	if (ca_ptr->creature_idx && ma_ptr->see_others) ap_ra_ptr = &species_info[ma_ptr->ap_species_idx];
 	else ap_ra_ptr = NULL;
-	if (cb_ptr->creature_idx && mb_ptr->ml) ap_rb_ptr = &species_info[mb_ptr->ap_species_idx];
+	if (cb_ptr->creature_idx && mb_ptr->see_others) ap_rb_ptr = &species_info[mb_ptr->ap_species_idx];
 	else ap_rb_ptr = NULL;
 
 	if (ap_ra_ptr && !ap_rb_ptr) return TRUE;
@@ -1951,7 +1951,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Visible creatures */
-		if (m_ptr->ml) return (TRUE);
+		if (m_ptr->see_others) return (TRUE);
 	}
 
 	/* Scan all objects in the grid */
@@ -2202,7 +2202,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 
 	/* Actual creatures */
-	if (c_ptr->creature_idx && creature_list[c_ptr->creature_idx].ml)
+	if (c_ptr->creature_idx && creature_list[c_ptr->creature_idx].see_others)
 	{
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 		species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
