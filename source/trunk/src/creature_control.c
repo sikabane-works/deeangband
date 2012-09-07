@@ -2480,11 +2480,10 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 #else
 						msg_print("You are no longer fearless.");
 #endif
-
-						//TODO watcher_ptr->flags14 &= ~(RF14_FEARLESS);
+						lose_acquired_trait(watcher_ptr, TRAIT_FEARLESS);
 					}
 
-					//TODO watcher_ptr->flags13 |= RF13_COWARDICE;
+					get_acquired_trait(watcher_ptr, TRAIT_COWARDICE);
 					happened = TRUE;
 				}
 				break;
@@ -2506,7 +2505,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					//TODO watcher_ptr->flags13 |= RF13_HALLU;
+					get_acquired_trait(watcher_ptr, TRAIT_HALLU);
 					happened = TRUE;
 				}
 				break;
@@ -2519,7 +2518,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					//TODO watcher_ptr->flags13 |= RF13_BERS_RAGE;
+					get_acquired_trait(watcher_ptr, TRAIT_BERS_RAGE);
 					happened = TRUE;
 				}
 				break;
