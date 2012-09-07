@@ -72,7 +72,7 @@
 #define IS_OPPOSE_FIRE(C)	((C)->oppose_fire || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_COLD(C)	((C)->oppose_cold || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
 #define IS_OPPOSE_POIS(C)	((C)->oppose_pois || music_singing(C, MUSIC_RESIST) || (C->special_defense & KATA_MUSOU))
-#define IS_TIM_ESP(C)		((C)->tim_esp || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
+#define IS_TIM_ESP(C)		((C)->timed_trait[TRAIT_ESP] || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
 #define IS_TIM_STEALTH(C)	((C)->tim_stealth || music_singing(C, MUSIC_STEALTH))
 #define IS_LIGHTSPEED(C)	((C)->timed_trait[TRAIT_LIGHT_SPEED])
 #define IS_BLIND(C)			((C)->blind > 0)

@@ -2867,9 +2867,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
-			if (target_ptr->wraith_form && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if (target_ptr->timed_trait[TRAIT_WRAITH_FORM] && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				target_ptr->wraith_form = 0;
+				target_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;
 #ifdef JP
 				msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨¿“I‚È‰e‚Ì‘¶İ‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
 #else

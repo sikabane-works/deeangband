@@ -848,7 +848,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if (IS_INVULN(target_ptr)) return (TRUE);
 
 	/* Wraith form */
-	if (target_ptr->wraith_form) return (TRUE);
+	if (target_ptr->timed_trait[TRAIT_WRAITH_FORM]) return (TRUE);
 
 	/* Shield */
 	if (target_ptr->shield) return (TRUE);

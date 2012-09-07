@@ -2371,7 +2371,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_IM_FIRE);
 	if (creature_ptr->special_defense & DEFENSE_COLD)
 		add_flag(flgs, TRAIT_IM_COLD);
-	if (creature_ptr->wraith_form)
+	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		add_flag(flgs, TRAIT_REFLECTING);
 	/* by henkma */
 	if (creature_ptr->timed_trait[TRAIT_REFLECTING])
@@ -2542,7 +2542,7 @@ static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature
 	if (creature_ptr->special_defense & DEFENSE_ELEC) add_flag(flgs, TRAIT_RES_ELEC);
 	if (creature_ptr->special_defense & DEFENSE_FIRE) add_flag(flgs, TRAIT_RES_FIRE);
 	if (creature_ptr->special_defense & DEFENSE_COLD) add_flag(flgs, TRAIT_RES_COLD);
-	if (creature_ptr->wraith_form) add_flag(flgs, TRAIT_RES_DARK);
+	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) add_flag(flgs, TRAIT_RES_DARK);
 }
 
 static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)

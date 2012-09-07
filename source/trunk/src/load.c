@@ -1088,8 +1088,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->oppose_pois);
 	rd_s16b(&creature_ptr->tsuyoshi);
 
-	rd_s16b(&creature_ptr->tim_esp);
-	rd_s16b(&creature_ptr->wraith_form);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_ESP]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
 	rd_s16b(&creature_ptr->resist_magic);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_REGENERATE]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_PASS_WALL]);

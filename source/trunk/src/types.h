@@ -1307,9 +1307,6 @@ struct creature_type
 	s16b oppose_cold;	// Timed -- oppose cold 
 	s16b oppose_pois;	// Timed -- oppose poison 
 
-	s16b tim_esp;       // Timed ESP 
-	s16b wraith_form;   // Timed wraithform 
-
 	s16b resist_magic;  // Timed Resist Magic (later) 
 	s16b tim_stealth;
 	s16b tim_sh_touki;

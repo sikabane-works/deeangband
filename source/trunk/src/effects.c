@@ -184,8 +184,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->tim_infra = 0;       /* Timed -- Infra Vision */
 	creature_ptr->timed_trait[TRAIT_REGENERATE] = 0;       /* Timed -- Regeneration */
 	creature_ptr->tim_stealth = 0;     /* Timed -- Stealth */
-	creature_ptr->tim_esp = 0;
-	creature_ptr->wraith_form = 0;     /* Timed -- Wraith Form */
+	creature_ptr->timed_trait[TRAIT_ESP] = 0;
+	creature_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;     /* Timed -- Wraith Form */
 	creature_ptr->timed_trait[TRAIT_LEVITATION] = 0;
 	creature_ptr->tim_sh_touki = 0;
 	creature_ptr->tim_sh_fire = 0;
@@ -2003,7 +2003,7 @@ bool set_protevil(creature_type *creature_ptr, int v, bool do_dec)
 }
 
 /*
- * Set "creature_ptr->wraith_form", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_WRAITH_FORM]", notice observable changes
  */
 bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2017,11 +2017,11 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->wraith_form && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM] && !do_dec)
 		{
-			if (creature_ptr->wraith_form > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM] > v) return FALSE;
 		}
-		else if (!creature_ptr->wraith_form)
+		else if (!creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2048,7 +2048,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->wraith_form)
+		if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2073,7 +2073,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->wraith_form = v;
+	creature_ptr->timed_trait[TRAIT_WRAITH_FORM] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -2233,7 +2233,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->tim_esp", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_ESP]", notice observable changes
  */
 bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2247,9 +2247,9 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_esp && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_ESP] && !do_dec)
 		{
-			if (creature_ptr->tim_esp > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_ESP] > v) return FALSE;
 		}
 		else if (!IS_TIM_ESP(creature_ptr))
 		{
@@ -2269,7 +2269,7 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_esp && !music_singing(creature_ptr, MUSIC_MIND))
+		if (creature_ptr->timed_trait[TRAIT_ESP] && !music_singing(creature_ptr, MUSIC_MIND))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2285,7 +2285,7 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_esp = v;
+	creature_ptr->timed_trait[TRAIT_ESP] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -6163,7 +6163,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 		}
 
-		if (target_ptr->wraith_form)
+		if (target_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		{
 			if (damage_type == DAMAGE_FORCE)
 			{

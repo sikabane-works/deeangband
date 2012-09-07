@@ -658,8 +658,8 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->oppose_elec);
 	wr_s16b(creature_ptr->oppose_pois);
 	wr_s16b(creature_ptr->tsuyoshi);
-	wr_s16b(creature_ptr->tim_esp);
-	wr_s16b(creature_ptr->wraith_form);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_ESP]);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
 	wr_s16b(creature_ptr->resist_magic);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_REGENERATE]);
 	wr_s16b(creature_ptr->timed_trait[TRAIT_PASS_WALL]);

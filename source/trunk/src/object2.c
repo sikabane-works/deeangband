@@ -5545,11 +5545,11 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		 * Cannot use "ignore_wraith_form" strictly (for "random one damage")
 		 * "dam *= 2;" for later "dam /= 2"
 		 */
-		if (target_ptr->wraith_form) dam *= 2;
+		if (target_ptr->timed_trait[TRAIT_WRAITH_FORM]) dam *= 2;
 		break;
 
 	case GF_DARK:
-		//TODO if (IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_form == MIMIC_VAMPIRE) || target_ptr->wraith_form)
+		//TODO if (IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_form == MIMIC_VAMPIRE) || target_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		/*
 		{
 			dam = 0;
@@ -5659,7 +5659,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		break;
 	}
 
-	if (target_ptr->wraith_form && !ignore_wraith_form)
+	if (target_ptr->timed_trait[TRAIT_WRAITH_FORM] && !ignore_wraith_form)
 	{
 		dam /= 2;
 		if (!dam) dam = 1;
@@ -5724,7 +5724,7 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 			break;
 		}
 
-		if (check_wraith_form && target_ptr->wraith_form)
+		if (check_wraith_form && target_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		{
 			dam /= 2;
 			if (!dam) dam = 1;

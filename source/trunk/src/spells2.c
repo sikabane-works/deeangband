@@ -482,7 +482,7 @@ info[i++] = "あなたは現在傷つかない。";
 #endif
 
 	}
-	if (creature_ptr->wraith_form)
+	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 	{
 #ifdef JP
 info[i++] = "あなたは一時的に幽体化している。";
@@ -958,9 +958,9 @@ info[i++] = "無敵でいられる。";
 #endif
 
 	}
-	if (creature_ptr->wraith_form)
+	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 	{
-		info2[i]  = report_magics_aux(creature_ptr->wraith_form);
+		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
 #ifdef JP
 info[i++] = "幽体化できる。";
 #else

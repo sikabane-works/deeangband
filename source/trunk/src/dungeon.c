@@ -1860,7 +1860,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ğÄ‚«Å‚ª‚µ‚½I", object_name);
 	 */
 	if (!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if (!IS_INVULN(creature_ptr) && !creature_ptr->wraith_form && !creature_ptr->timed_trait[TRAIT_PASS_WALL] &&
+		if (!IS_INVULN(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WRAITH_FORM] && !creature_ptr->timed_trait[TRAIT_PASS_WALL] &&
 		    ((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;
@@ -2013,9 +2013,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed esp */
-	if (creature_ptr->tim_esp)
+	if (creature_ptr->timed_trait[TRAIT_ESP])
 	{
-		(void)set_tim_esp(creature_ptr, creature_ptr->tim_esp - 1, TRUE);
+		(void)set_tim_esp(creature_ptr, creature_ptr->timed_trait[TRAIT_ESP] - 1, TRUE);
 	}
 
 	/* Timed temporary elemental brands. -LM- */
@@ -2169,9 +2169,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Wraith form */
-	if (creature_ptr->wraith_form)
+	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 	{
-		(void)set_wraith_form(creature_ptr, creature_ptr->wraith_form - 1, TRUE);
+		(void)set_wraith_form(creature_ptr, creature_ptr->timed_trait[TRAIT_WRAITH_FORM] - 1, TRUE);
 	}
 
 	/* Heroism */
@@ -2723,7 +2723,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	if (has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
 	    one_in_(3000))
 	{
-		if (creature_ptr->tim_esp > 0)
+		if (creature_ptr->timed_trait[TRAIT_ESP] > 0)
 		{
 #ifdef JP
 			msg_print("¸_‚É‚à‚â‚ª‚©‚©‚Á‚½I");
