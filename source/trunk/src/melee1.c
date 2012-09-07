@@ -3697,7 +3697,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->tim_sh_holy && !*dead && !IS_DEAD(target_ptr))
+			if (target_ptr->timed_trait[TRAIT_HOLY_AURA] && !*dead && !IS_DEAD(target_ptr))
 			{
 				if (is_enemy_of_good_creature(target_ptr))
 				{

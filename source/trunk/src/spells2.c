@@ -592,7 +592,7 @@ info[i++] = "あなたは呪文や祈りを学ぶことができる。";
 
 	}
 
-	if (creature_ptr->tim_sh_holy)
+	if (creature_ptr->timed_trait[TRAIT_HOLY_AURA])
 	{
 #ifdef JP
 info[i++] = "あなたは聖なるオーラに包まれている。";

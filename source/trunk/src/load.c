@@ -1103,8 +1103,8 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_RES_TIME]);
 	rd_byte(&creature_ptr->mimic_form);
 	rd_s16b(&creature_ptr->tim_mimic);
-	rd_s16b(&creature_ptr->tim_sh_fire);
-	rd_s16b(&creature_ptr->tim_sh_holy);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_AURA_FIRE]);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_HOLY_AURA]);
 	rd_s16b(&creature_ptr->tim_eyeeye);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_REFLECTING]);
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]);

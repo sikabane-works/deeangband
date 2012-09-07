@@ -2389,7 +2389,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	{
 		add_flag(flgs, TRAIT_RES_NETH);
 	}
-	if (creature_ptr->tim_sh_fire)
+	if (creature_ptr->timed_trait[TRAIT_AURA_FIRE])
 	{
 		add_flag(flgs, TRAIT_AURA_FIRE);
 	}

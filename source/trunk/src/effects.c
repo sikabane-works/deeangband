@@ -188,8 +188,8 @@ void reset_tim_flags(creature_type *creature_ptr)
 	creature_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;     /* Timed -- Wraith Form */
 	creature_ptr->timed_trait[TRAIT_LEVITATION] = 0;
 	creature_ptr->tim_sh_touki = 0;
-	creature_ptr->tim_sh_fire = 0;
-	creature_ptr->tim_sh_holy = 0;
+	creature_ptr->timed_trait[TRAIT_AURA_FIRE] = 0;
+	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = 0;
 	creature_ptr->tim_eyeeye = 0;
 	creature_ptr->magicdef = 0;
 	creature_ptr->resist_magic = 0;
@@ -2830,7 +2830,7 @@ msg_print("闘気が消えた。");
 
 
 /*
- * Set "creature_ptr->tim_sh_fire", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_AURA_FIRE]", notice observable changes
  */
 bool set_tim_sh_fire(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2844,11 +2844,11 @@ bool set_tim_sh_fire(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_sh_fire && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_AURA_FIRE] && !do_dec)
 		{
-			if (creature_ptr->tim_sh_fire > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_AURA_FIRE] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_sh_fire)
+		else if (!creature_ptr->timed_trait[TRAIT_AURA_FIRE])
 		{
 #ifdef JP
 msg_print("体が炎のオーラで覆われた。");
@@ -2863,7 +2863,7 @@ msg_print("体が炎のオーラで覆われた。");
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_sh_fire)
+		if (creature_ptr->timed_trait[TRAIT_AURA_FIRE])
 		{
 #ifdef JP
 msg_print("炎のオーラが消えた。");
@@ -2876,7 +2876,7 @@ msg_print("炎のオーラが消えた。");
 	}
 
 	/* Use the value */
-	creature_ptr->tim_sh_fire = v;
+	creature_ptr->timed_trait[TRAIT_AURA_FIRE] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -2899,7 +2899,7 @@ msg_print("炎のオーラが消えた。");
 
 
 /*
- * Set "creature_ptr->tim_sh_holy", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_HOLY_AURA]", notice observable changes
  */
 bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -2913,11 +2913,11 @@ bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->tim_sh_holy && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_HOLY_AURA] && !do_dec)
 		{
-			if (creature_ptr->tim_sh_holy > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_HOLY_AURA] > v) return FALSE;
 		}
-		else if (!creature_ptr->tim_sh_holy)
+		else if (!creature_ptr->timed_trait[TRAIT_HOLY_AURA])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2934,7 +2934,7 @@ bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->tim_sh_holy)
+		if (creature_ptr->timed_trait[TRAIT_HOLY_AURA])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -2949,7 +2949,7 @@ bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->tim_sh_holy = v;
+	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = v;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);

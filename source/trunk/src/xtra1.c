@@ -512,7 +512,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
 	if (creature_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
-	if (creature_ptr->tim_sh_fire) ADD_FLG(BAR_SHFIRE);
+	if (creature_ptr->timed_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);
 
 	/* tim stealth */
 	if (IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH);
@@ -520,7 +520,7 @@ static void prt_status(creature_type *creature_ptr)
 	if (creature_ptr->tim_sh_touki) ADD_FLG(BAR_TOUKI);
 
 	/* Holy aura */
-	if (creature_ptr->tim_sh_holy) ADD_FLG(BAR_SHHOLY);
+	if (creature_ptr->timed_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
 
 	/* An Eye for an Eye */
 	if (creature_ptr->tim_eyeeye) ADD_FLG(BAR_EYEEYE);
@@ -3362,7 +3362,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->resist_neth = TRUE;
 	}
 
-	if (creature_ptr->tim_sh_fire)
+	if (creature_ptr->timed_trait[TRAIT_AURA_FIRE])
 	{
 		//TODO creature_ptr->sh_fire = TRUE;
 	}

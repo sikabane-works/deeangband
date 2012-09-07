@@ -2061,15 +2061,15 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Timed sh_fire */
-	if (creature_ptr->tim_sh_fire)
+	if (creature_ptr->timed_trait[TRAIT_AURA_FIRE])
 	{
-		(void)set_tim_sh_fire(creature_ptr, creature_ptr->tim_sh_fire - 1, TRUE);
+		(void)set_tim_sh_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_AURA_FIRE] - 1, TRUE);
 	}
 
 	/* Timed sh_holy */
-	if (creature_ptr->tim_sh_holy)
+	if (creature_ptr->timed_trait[TRAIT_HOLY_AURA])
 	{
-		(void)set_tim_sh_holy(creature_ptr, creature_ptr->tim_sh_holy - 1, TRUE);
+		(void)set_tim_sh_holy(creature_ptr, creature_ptr->timed_trait[TRAIT_HOLY_AURA] - 1, TRUE);
 	}
 
 	/* Timed eyeeye */
