@@ -632,7 +632,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(-1);
 
 	wr_s16b(creature_ptr->timed_trait[TRAIT_FAST]);
-	wr_s16b(creature_ptr->slow);
+	wr_s16b(creature_ptr->timed_trait[TRAIT_SLOW_]);
 	wr_s16b(creature_ptr->afraid);
 	wr_s16b(creature_ptr->cut);
 	wr_s16b(creature_ptr->stun);

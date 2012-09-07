@@ -163,7 +163,7 @@ void reset_tim_flags(creature_type *creature_ptr)
 {
 	creature_ptr->timed_trait[TRAIT_FAST] = 0;            /* Timed -- Fast */
 	creature_ptr->lightspeed = 0;
-	creature_ptr->slow = 0;            /* Timed -- Slow */
+	creature_ptr->timed_trait[TRAIT_SLOW_] = 0;            /* Timed -- Slow */
 	creature_ptr->blind = 0;           /* Timed -- Blindness */
 	creature_ptr->paralyzed = 0;       /* Timed -- Paralysis */
 	creature_ptr->confused = 0;        /* Timed -- Confusion */
@@ -1363,7 +1363,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->slow", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_SLOW_]", notice observable changes
  */
 bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 {
@@ -1380,11 +1380,11 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (creature_ptr->slow && !do_dec)
+		if (creature_ptr->timed_trait[TRAIT_SLOW_] && !do_dec)
 		{
-			if (creature_ptr->slow > v) return FALSE;
+			if (creature_ptr->timed_trait[TRAIT_SLOW_] > v) return FALSE;
 		}
-		else if (!creature_ptr->slow)
+		else if (!creature_ptr->timed_trait[TRAIT_SLOW_])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1402,7 +1402,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if (creature_ptr->slow)
+		if (creature_ptr->timed_trait[TRAIT_SLOW_])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1418,7 +1418,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->slow = v;
+	creature_ptr->timed_trait[TRAIT_SLOW_] = v;
 
 	/* Nothing to notice */
 	if (!notice) return (FALSE);
@@ -1443,7 +1443,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if (v)
 	{
-		if (!creature_ptr->slow)
+		if (!creature_ptr->timed_trait[TRAIT_SLOW_])
 		{
 			mproc_add(creature_ptr, MTIMED_SLOW);
 			notice = TRUE;
@@ -1453,7 +1453,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-	if (creature_ptr->slow)
+	if (creature_ptr->timed_trait[TRAIT_SLOW_])
 		{
 			mproc_remove(creature_ptr, MTIMED_SLOW);
 			notice = TRUE;
@@ -1461,7 +1461,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->slow = v;
+	creature_ptr->timed_trait[TRAIT_SLOW_] = v;
 
 	if (!notice) return FALSE;
 

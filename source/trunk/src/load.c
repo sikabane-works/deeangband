@@ -1061,7 +1061,7 @@ static void rd_creature(creature_type *creature_ptr)
 	}
 
 	rd_s16b(&creature_ptr->timed_trait[TRAIT_FAST]);
-	rd_s16b(&creature_ptr->slow);
+	rd_s16b(&creature_ptr->timed_trait[TRAIT_SLOW_]);
 	rd_s16b(&creature_ptr->afraid);
 	rd_s16b(&creature_ptr->cut);
 	rd_s16b(&creature_ptr->stun);

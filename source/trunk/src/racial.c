@@ -4458,7 +4458,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_slow(target_ptr, target_ptr->slow + randint0(4) + 4, FALSE);
+				(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 			}
 			learn_trait(target_ptr, TRAIT_SLOW);
 			update_smart_learn(caster_ptr, DRS_FREE);

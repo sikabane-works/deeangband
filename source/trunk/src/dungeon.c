@@ -2151,9 +2151,9 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Slow */
-	if (creature_ptr->slow)
+	if (creature_ptr->timed_trait[TRAIT_SLOW_])
 	{
-		(void)set_slow(creature_ptr, creature_ptr->slow - dec_count, TRUE);
+		(void)set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] - dec_count, TRUE);
 	}
 
 	/* Protection from evil */
@@ -2517,7 +2517,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("You feel more energetic.");
 #endif
 
-			if (creature_ptr->slow > 0)
+			if (creature_ptr->timed_trait[TRAIT_SLOW_] > 0)
 			{
 				set_slow(creature_ptr, 0, TRUE);
 			}
@@ -5392,7 +5392,7 @@ void process_player(creature_type *creature_ptr)
 			    !IS_BLIND(creature_ptr) && !creature_ptr->confused &&
 			    !creature_ptr->poisoned && !creature_ptr->afraid &&
 			    !creature_ptr->stun && !IS_WOUND(creature_ptr) &&
-			    !creature_ptr->slow && !creature_ptr->paralyzed &&
+			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->paralyzed &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->word_recall &&
 			    !creature_ptr->alter_reality)
 			{

@@ -2526,7 +2526,7 @@ bool probing(floor_type *floor_ptr)
 
 			speed = m_ptr->speed;
 			if (m_ptr->timed_trait[TRAIT_FAST]) speed += 10;
-			if (m_ptr->slow) speed -= 10;
+			if (m_ptr->timed_trait[TRAIT_SLOW_]) speed -= 10;
 
 			/* Get the creature's alignment */
 			/* TODO: New Alignment View */

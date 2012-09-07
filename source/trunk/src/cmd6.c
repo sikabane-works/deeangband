@@ -2246,7 +2246,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if (set_slow(creature_ptr, creature_ptr->slow + randint1(30) + 15, FALSE)) ident = TRUE;
+			if (set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 

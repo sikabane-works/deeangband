@@ -3778,7 +3778,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 #else
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
-		(void)set_slow(creature_ptr, creature_ptr->slow + randint0(7) + 7, FALSE);
+		(void)set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint0(7) + 7, FALSE);
 		(void)set_stun(creature_ptr, creature_ptr->stun + randint1(25));
 	}
 }
