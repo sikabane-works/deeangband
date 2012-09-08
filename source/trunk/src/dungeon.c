@@ -5129,7 +5129,7 @@ static bool creature_tsuri(int species_idx)
 
 void do_creature_mutation(creature_type *creature_ptr)
 {
-	if (creature_ptr->hack_mutation)
+	if (is_seen(player_ptr, creature_ptr) && creature_ptr->hack_mutation)
 	{
 #ifdef JP
 		msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
