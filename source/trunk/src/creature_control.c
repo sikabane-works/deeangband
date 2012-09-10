@@ -3769,26 +3769,20 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		if (randint1(BREAK_GLYPH) < (r_ptr->level+20))
 		{
-			/* Describe observable breakage */
-			if (c_ptr->info & CAVE_MARK)
+			if (c_ptr->info & CAVE_MARK) // Describe observable breakage
 			{
 #ifdef JP
-msg_print("守りのルーンが壊れた！");
+				msg_print("守りのルーンが壊れた！");
 #else
 				msg_print("The rune of protection is broken!");
 #endif
-
 			}
 
-			/* Forget the rune */
-			c_ptr->info &= ~(CAVE_MARK);
-
-			/* Break the rune */
-			c_ptr->info &= ~(CAVE_OBJECT);
+			c_ptr->info &= ~(CAVE_MARK);	// Forget the rune
+			c_ptr->info &= ~(CAVE_OBJECT);	// Break the rune
 			c_ptr->mimic = 0;
 
-			/* Notice */
-			//TODO note_spot(y, x);
+			//TODO note_spot(y, x);	// Notice
 		}
 		else return max_creature_idx;
 	}
@@ -3827,16 +3821,15 @@ msg_print("守りのルーンが壊れた！");
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
 
-	/* Unknown distance */
+	// Unknown distance
 	creature_ptr->cdis = 0;
 	reset_target(creature_ptr);
 	creature_ptr->nickname = 0;
 
-	/* Your pet summons its pet. */
+	// Your pet summons its pet.
 	if (summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
-		mode |= PM_FORCE_PET;
-		//TODO Parent Set
+		mode |= PM_FORCE_PET;	//TODO Parent Set
 		creature_ptr->parent_m_idx = 0;
 	}
 	else
@@ -3862,22 +3855,11 @@ msg_print("守りのルーンが壊れた！");
 
 	if (mode & PM_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
 
-	/* Not visible */
-	creature_ptr->see_others = FALSE;
+	if (!(mode & PM_NO_PET)) set_pet(summoner_ptr, creature_ptr); // Pet?
 
-	/* Pet? */
-	if (mode & PM_FORCE_PET)
-	{
-		set_pet(summoner_ptr, creature_ptr);
-	}
+	// TODO reimpelment Friendly Creature.
 
-	// TODO reimpelment frendly creature.
-
-	/* Assume no sleeping */
-	creature_ptr->timed_trait[TRAIT_PARALYZED] = 0;
-
-	/* Enforce sleeping if needed */
-	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar)
+	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
 	{
 		int val = r_ptr->sleep;
 		(void)set_paralyzed(&creature_list[c_ptr->creature_idx], (val * 2) + randint1(val * 10));
@@ -3885,16 +3867,10 @@ msg_print("守りのルーンが壊れた！");
 
 	if (mode & PM_HASTE) (void)set_fast(&creature_list[c_ptr->creature_idx], 100, FALSE);
 
-	/* Give a random starting energy */
-	if (!curse_of_Iluvatar)
-	{
-		creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
-	}
-	else
-	{
-		/* Nightmare creatures are more prepared */
-		creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
-	}
+	// Give a random starting energy
+	if (!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
+	// Nightmare creatures are more prepared
+	else creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
 
 	/* Force creature to wait for player, unless in Nightmare mode */
 	if (has_trait(creature_ptr, TRAIT_FORCE_SLEEP) && !curse_of_Iluvatar)
