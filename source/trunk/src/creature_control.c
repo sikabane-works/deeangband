@@ -1545,8 +1545,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		*/
 	}
 
-	/* Success */
-	return (0);
+	return (0);	// Success
 }
 
 static int mysqrt(int n)
@@ -1677,6 +1676,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		value = value - table[i].prob3; // Decrement
 	}
 	
+	/*
 	p = randint0(100); // Power boost
 
 	if (p < 60) // Try for a "harder" creature once (50%) or twice (10%)
@@ -1689,7 +1689,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 			value = value - table[i].prob3;		// Decrement
 		}
 
-		/* Keep the "best" one */
+		// Keep the "best" one
 		if (table[i].level < table[j].level) i = j;
 	}
 
@@ -1705,6 +1705,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 
 		if (table[i].level < table[j].level) i = j; // Keep the "best" one
 	}
+	*/
 
 	return (table[i].index); // Result
 }
@@ -4357,7 +4358,8 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	int species_idx;
 	
 	// Pick a creature
-	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL); 
+//	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL); 
+	get_species_num_prep(NULL, NULL, NULL, NULL); 
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 	if (!species_idx) return (FALSE);
 
