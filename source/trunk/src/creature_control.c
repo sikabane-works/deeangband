@@ -4247,7 +4247,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
  * when running a code profiler.
  *
  * Note the use of the new "creature allocation table" code to restrict
- * the "get_species_num(floor_ptr, )" function to "legal" escort types.
+ * the "get_species_num()" function to "legal" escort types.
  */
 bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, u32b mode)
 {
@@ -4271,16 +4271,10 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		{
 			int nx, ny, d = 8;
 
-			/* Pick a location */
-			scatter(floor_ptr, &ny, &nx, y, x, d, 0);
+			scatter(floor_ptr, &ny, &nx, y, x, d, 0);			// Pick a location
+			if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;	// Require empty grids
 
-			/* Require empty grids */
-			if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;
-
-			/* Prepare allocation table */
-			get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(ny, nx), place_creature_okay); // TODO
-			if(place_creature_one(summoner_ptr, floor_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx);
-				n++;
+			if(place_creature_one(summoner_ptr, floor_ptr, ny, nx, m_ptr->underling_id[i], MONEGO_NORMAL, mode) == max_creature_idx) n++;
 		}
 		m_ptr->underling_num[i] -= n;
 		i++;
