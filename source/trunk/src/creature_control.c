@@ -3665,83 +3665,12 @@ void deal_item(creature_type *creature_ptr)
 
 static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, int species_idx, int creature_ego_idx, u32b mode)
 {
-	/* Access the location */
 	cave_type		*c_ptr = &floor_ptr->cave[y][x];
-
 	creature_type	*creature_ptr;
-
 	species_type	*r_ptr = &species_info[species_idx];
-	creature_ego		*re_ptr;
-	race_type		*rpr_ptr;
+	creature_type cr;
 
 	cptr		name = (species_name + r_ptr->name);
-
-	int re_selected, rpr_selected, rpc_selected, rps_selected;
-
-	// Select Ego
-	re_ptr = NULL;
-	rpr_ptr = NULL;
-	re_selected = MONEGO_NONE;
-	rpr_selected = INDEX_NONE;
-	rpc_selected = INDEX_NONE;
-	rps_selected = INDEX_NONE;
-
-	if(creature_ego_idx == MONEGO_NORMAL)
-	{
-		/* TODO
-		if(has_trait_from_species(creature_ptr, TRAIT_FORCE_LESSER)){
-			int n;
-			n = rand_range(MONEGO_LESSER_FROM, MONEGO_LESSER_TO);
-			re_ptr = &re_info[n];
-			re_selected = n;
-		}
-		if(has_trait_from_species(creature_ptr, TRAIT_VARIABLE_SIZE))
-		{
-			re_selected = MONEGO_VARIABLE_SIZE;
-		}
-		*/
-	}
-	else{
-		re_selected = creature_ego_idx;
-	}
-
-	// set intelligence race
-	if (is_variable_race_species(r_ptr))
-	{
-		int n;
-		n = rand_range(RACE_HUMAN, RACE_GNOME);
-		rpr_ptr = &race_info[n];
-		rpr_selected = n;
-	}
-	else
-	{
-		rpr_ptr = &race_info[r_ptr->race_idx1];
-		rpr_selected = r_ptr->race_idx1;
-	}
-
-	// set class
-	if (is_variable_class_species(r_ptr))
-	{
-		int n;
-		n = rand_range(CLASS_WARRIOR, CLASS_PALADIN);
-		rpc_selected = n;
-	}
-	else
-	{
-		rpc_selected = r_ptr->class_idx;
-	}
-
-	// set character
-	if (is_variable_chara_species(r_ptr))
-	{
-		int n;
-		n = rand_range(CHARA_FUTUU, CHARA_NAMAKE);
-		rps_selected = n;
-	}
-	else
-	{
-		rps_selected = r_ptr->chara_idx;
-	}
 
 	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
 	if (floor_ptr->wild_mode){
@@ -3894,11 +3823,7 @@ msg_print("Žç‚è‚Ìƒ‹[ƒ“‚ª‰ó‚ê‚½I");
 
 	if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
 
-	{
-	creature_type cr;
 	creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
-	}
-
 	hack_m_idx_ii = c_ptr->creature_idx;
 
 	// No flags
