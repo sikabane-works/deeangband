@@ -1507,22 +1507,19 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	// Set the new hooks
-	creature_hook_type get_species_num_hook  = creature_hook;
-	creature_hook_type get_species_num2_hook = creature_hook2;
+	creature_hook_type  get_species_num_hook  = creature_hook;
+	creature_hook_type  get_species_num2_hook = creature_hook2;
 	creature_hook_type2 get_species_num3_hook = creature_hook3;
 
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
 	{
 		species_type	*r_ptr;
-		
-		/* Get the entry */
-		alloc_entry *entry = &alloc_species_table[i];
-
+		alloc_entry *entry = &alloc_species_table[i]; // Get the entry
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
 
-		/* Skip creatures which don't pass the restriction */
+		// Skip creatures which don't pass the restriction
 		if ((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
 		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
 			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
@@ -1536,16 +1533,16 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 			if (has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
 
-		/* Accept this creature */
-		entry->prob2 = entry->prob1;
+		entry->prob2 = entry->prob1; // Accept this creature
 
 		//TODO if((!inside_quest || is_fixed_quest_idx(inside_quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
+		/*
 		{
-
 			int hoge = entry->prob2 * dungeon_info[floor_ptr->dun_type].special_div;
 			entry->prob2 = hoge / 64;
 			if (randint0(64) < (hoge & 0x3f)) entry->prob2++;
 		}
+		*/
 	}
 
 	/* Success */
@@ -3854,8 +3851,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	}
 
 	if (mode & PM_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
-
-	if (!(mode & PM_NO_PET)) set_pet(summoner_ptr, creature_ptr); // Pet?
+	else if (summoner_ptr) set_pet(summoner_ptr, creature_ptr); // Pet?
 
 	// TODO reimpelment Friendly Creature.
 
@@ -4359,21 +4355,13 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x, u32b mode)
 {
 	int species_idx;
-
-	/* Prepare allocation table */
-	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL);
-
-	/* Pick a creature */
+	
+	// Pick a creature
+	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL); 
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
-
-	/* Handle failure */
 	if (!species_idx) return (FALSE);
 
-	// Attempt to place the creature
-	if (place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (TRUE);
-
-	// Oops
-	return (FALSE);
+	return place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
 }
 
 bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int x)
