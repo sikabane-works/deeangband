@@ -454,7 +454,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				int i;
 				for (i = 0; i < 8; i++)
 				{
-					summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, lvl, SUMMON_BIZARRE1, PM_FORCE_PET);
+					summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, lvl, SUMMON_BIZARRE1, PC_FORCE_PET);
 				}
 			}
 			break;

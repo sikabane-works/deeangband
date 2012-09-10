@@ -4669,7 +4669,7 @@ msg_print("エネルギーのうねりを感じた！");
 			(*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			if (!one_in_(6)) break;
 		case 7: case 8: case 9: case 18:
-			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			if (!one_in_(6)) break;
 		case 10: case 11: case 12:
 #ifdef JP
@@ -4748,23 +4748,23 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 	int i;
 	int count = 0;
 	int summon_lev;
-	u32b mode = PM_ALLOW_GROUP;
+	u32b mode = PC_ALLOW_GROUP;
 	bool pet = FALSE;
 
 	if (can_pet)
 	{
 		if (one_in_(4))
 		{
-			mode |= PM_FORCE_FRIENDLY;
+			mode |= PC_FORCE_FRIENDLY;
 		}
 		else
 		{
-			mode |= PM_FORCE_PET;
+			mode |= PC_FORCE_PET;
 			pet = TRUE;
 		}
 	}
 
-	if (!pet) mode |= PM_NO_PET;
+	if (!pet) mode |= PC_NO_PET;
 
 	summon_lev = (pet ? creature_ptr->lev * 2 / 3 + randint1(creature_ptr->lev / 2) : floor_ptr->floor_level);
 
@@ -4798,25 +4798,25 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 				break;
 			case 17:
 				if (can_pet) break;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_AMBERITES, (mode | PM_ALLOW_UNIQUE));
+				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
 				break;
 			case 18: case 19:
 				if (can_pet) break;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_UNIQUE, (mode | PM_ALLOW_UNIQUE));
+				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE));
 				break;
 			case 20: case 21:
-				if (!can_pet) mode |= PM_ALLOW_UNIQUE;
+				if (!can_pet) mode |= PC_ALLOW_UNIQUE;
 				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HI_UNDEAD, mode);
 				break;
 			case 22: case 23:
-				if (!can_pet) mode |= PM_ALLOW_UNIQUE;
+				if (!can_pet) mode |= PC_ALLOW_UNIQUE;
 				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HI_DRAGON, mode);
 				break;
 			case 24:
 				count += summon_specific((pet ? creature_ptr : NULL), y, x, 100, SUMMON_CYBER, mode);
 				break;
 			default:
-				if (!can_pet) mode |= PM_ALLOW_UNIQUE;
+				if (!can_pet) mode |= PC_ALLOW_UNIQUE;
 				count += summon_specific((pet ? creature_ptr : NULL), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
 		}
 	}
@@ -4830,11 +4830,11 @@ int summon_cyber(creature_type *summoner_ptr, int y, int x)
 	int i;
 	int max_cyber = (floor_ptr->floor_level / 50) + randint1(2);
 	int count = 0;
-	u32b mode = PM_ALLOW_GROUP;
+	u32b mode = PC_ALLOW_GROUP;
 
 	// Summoned by a creature
 	if (summoner_ptr)
-		if (is_pet(player_ptr, summoner_ptr)) mode |= PM_FORCE_PET;
+		if (is_pet(player_ptr, summoner_ptr)) mode |= PC_FORCE_PET;
 
 	if (max_cyber > 4) max_cyber = 4;
 

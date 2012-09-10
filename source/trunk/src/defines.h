@@ -2293,17 +2293,17 @@
 /*
  * Bit flags for the place_creature_???() (etc)
  */
-#define PM_ALLOW_SLEEP    0x00000001
-#define PM_ALLOW_GROUP    0x00000002
-#define PM_FORCE_FRIENDLY 0x00000004
-#define PM_FORCE_PET      0x00000008
-#define PM_NO_KAGE        0x00000010
-#define PM_NO_PET         0x00000020
-#define PM_ALLOW_UNIQUE   0x00000040
-#define PM_IGNORE_TERRAIN 0x00000080
-#define PM_HASTE          0x00000100
-#define PM_KAGE           0x00000200
-#define PM_MULTIPLY       0x00000400
+#define PC_ALLOW_SLEEP    0x00000001
+#define PC_ALLOW_GROUP    0x00000002
+#define PC_FORCE_FRIENDLY 0x00000004
+#define PC_FORCE_PET      0x00000008
+#define PC_NO_KAGE        0x00000010
+#define PC_NO_PET         0x00000020
+#define PC_ALLOW_UNIQUE   0x00000040
+#define PC_IGNORE_TERRAIN 0x00000080
+#define PC_HASTE          0x00000100
+#define PC_KAGE           0x00000200
+#define PC_MULTIPLY       0x00000400
 
 
 /* Bit flags for creature_desc() */

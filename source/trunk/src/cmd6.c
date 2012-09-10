@@ -1581,7 +1581,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1593,7 +1593,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1603,7 +1603,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_FORCE_PET)))
+			if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -1612,7 +1612,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_SUMMON_KIN:
 		{
-			if (summon_kin_player(creature_ptr, creature_ptr->lev, creature_ptr->fy, creature_ptr->fx, (PM_FORCE_PET | PM_ALLOW_GROUP)))
+			if (summon_kin_player(creature_ptr, creature_ptr->lev, creature_ptr->fy, creature_ptr->fx, (PC_FORCE_PET | PC_ALLOW_GROUP)))
 			{
 				ident = TRUE;
 			}
@@ -2260,7 +2260,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			for (k = 0; k < randint1(4); k++)
 			{
-				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -4756,7 +4756,7 @@ msg_print("暁の師団を召喚した。");
 				msg_print("You summon the Legion of the Dawn.");
 #endif
 
-				(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PM_ALLOW_GROUP | PM_FORCE_PET));
+				(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
 				object_ptr->timeout = 500 + randint1(500);
 				break;
 			}
@@ -5338,10 +5338,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_ARRYU:
 			{
-				u32b mode = PM_ALLOW_GROUP;
+				u32b mode = PC_ALLOW_GROUP;
 				bool pet = !one_in_(5);
-				if (pet) mode |= PM_FORCE_PET;
-				else mode |= PM_NO_PET;
+				if (pet) mode |= PC_FORCE_PET;
+				else mode |= PC_NO_PET;
 
 				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, ((creature_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
 				{
@@ -5388,7 +5388,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				cptr kakusan = "";
 #endif
 
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_SUKE, PM_FORCE_PET))
+				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『助さん』が現れた。");
@@ -5398,7 +5398,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 					count++;
 				}
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_KAKU, PM_FORCE_PET))
+				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_KAKU, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『格さん』が現れた。");
@@ -5560,9 +5560,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			case ART_JIZO:
 			{
-				u32b mode = PM_ALLOW_GROUP;
+				u32b mode = PC_ALLOW_GROUP;
 				bool pet = !one_in_(5);
-				if (pet) mode |= PM_FORCE_PET;
+				if (pet) mode |= PC_FORCE_PET;
 
 				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_JIZOTAKO, mode))
 				{
@@ -6363,7 +6363,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			if (!get_rep_dir2(creature_ptr, &dir)) return;
 			if (species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
 			{
-				if (place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PM_FORCE_PET | PM_NO_KAGE)))
+				if (place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
 				{
 					if (object_ptr->xtra3) creature_list[hack_m_idx_ii].speed = object_ptr->xtra3;
 					if (object_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = object_ptr->xtra5;

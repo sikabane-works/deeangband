@@ -2435,7 +2435,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		case ACT_SUMMON_ANIMAL:
 		{
-			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
 			object_ptr->timeout = 200 + (s16b)randint1(300);
 			break;
 		}
@@ -2448,7 +2448,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			msg_print("You summon a phantasmal servant.");
 #endif
 
-			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PM_ALLOW_GROUP | PM_FORCE_PET));
+			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
 			object_ptr->timeout = 200 + (s16b)randint1(200);
 			break;
 		}
@@ -2458,9 +2458,9 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			bool pet = one_in_(3);
 			u32b mode = 0L;
 
-			if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
-			if (pet) mode |= PM_FORCE_PET;
-			else mode |= PM_NO_PET;
+			if (!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+			if (pet) mode |= PC_FORCE_PET;
+			else mode |= PC_NO_PET;
 
 			if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, ((plev * 3) / 2), SUMMON_ELEMENTAL, mode))
 			{
@@ -2496,9 +2496,9 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			bool pet = one_in_(3);
 			u32b mode = 0L;
 
-			if (!(pet && (plev < 50))) mode |= PM_ALLOW_GROUP;
-			if (pet) mode |= PM_FORCE_PET;
-			else mode |= PM_NO_PET;
+			if (!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+			if (pet) mode |= PC_FORCE_PET;
+			else mode |= PC_NO_PET;
 
 			if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, ((plev * 3) / 2), SUMMON_DEMON, mode))
 			{
@@ -2536,9 +2536,9 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			type = (plev > 47 ? SUMMON_HI_UNDEAD : SUMMON_UNDEAD);
 
-			if (!pet || ((plev > 24) && one_in_(3))) mode |= PM_ALLOW_GROUP;
-			if (pet) mode |= PM_FORCE_PET;
-			else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
+			if (!pet || ((plev > 24) && one_in_(3))) mode |= PC_ALLOW_GROUP;
+			if (pet) mode |= PC_FORCE_PET;
+			else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
 			if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, ((plev * 3) / 2), type, mode))
 			{

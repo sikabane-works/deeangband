@@ -2274,7 +2274,7 @@ static int Term_xtra_win_delay(int v)
 	while (GetTickCount() < t)
 	{
 		/* Handle messages */
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		if (PeekMessage(&msg, NULL, 0, 0, PC_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);

@@ -1355,7 +1355,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 		if ((k < 4) && (!k || !randint0(k * SPECIES_MULT_ADJ)))
 		{
 			// Try to multiply
-			if (multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0)))
+			if (multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PC_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
 				if (creature_list[hack_m_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
@@ -1386,11 +1386,11 @@ static void do_scatting_creature(creature_type *creature_ptr)
 				{
 					int  k, count = 0;
 					int  rlev = ((creature_ptr->lev >= 1) ? creature_ptr->lev : 1);
-					u32b p_mode = is_pet(player_ptr, creature_ptr) ? PM_FORCE_PET : 0L;
+					u32b p_mode = is_pet(player_ptr, creature_ptr) ? PC_FORCE_PET : 0L;
 
 					for (k = 0; k < 6; k++)
 					{
-						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PM_ALLOW_GROUP | p_mode)))
+						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PC_ALLOW_GROUP | p_mode)))
 						{
 							if (creature_list[hack_m_idx_ii].see_others) count++;
 						}

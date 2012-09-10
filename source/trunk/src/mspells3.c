@@ -685,16 +685,16 @@ static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool succes
 
 	if (pet)
 	{
-		p_mode = PM_FORCE_PET;
+		p_mode = PC_FORCE_PET;
 		g_mode = 0;
 	}
 	else
 	{
-		p_mode = PM_NO_PET;
-		g_mode = PM_ALLOW_GROUP;
+		p_mode = PC_NO_PET;
+		g_mode = PC_ALLOW_GROUP;
 	}
 
-	if (!success || (randint1(50+plev) < plev/10)) u_mode = PM_ALLOW_UNIQUE;
+	if (!success || (randint1(50+plev) < plev/10)) u_mode = PC_ALLOW_UNIQUE;
 
 	/* spell code */
 	switch (spell)
@@ -1464,7 +1464,7 @@ msg_print("援軍を召喚した。");
 #endif
 		for (k = 0;k < 1; k++)
 		{
-			if (summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PM_FORCE_PET : 0L)))
+			if (summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PC_FORCE_PET : 0L)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1561,7 +1561,7 @@ msg_print("アリを召喚した。");
 			msg_print("You summon ants.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PM_ALLOW_GROUP | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1585,7 +1585,7 @@ msg_print("蜘蛛を召喚した。");
 			msg_print("You summon spiders.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PM_ALLOW_GROUP | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1609,7 +1609,7 @@ msg_print("ハウンドを召喚した。");
 			msg_print("You summon hounds.");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PM_ALLOW_GROUP | p_mode)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
 			{
 				if (!pet)
 #ifdef JP
@@ -1825,7 +1825,7 @@ msg_print("特別な強敵を召喚した！");
 			msg_print("You summon a special opponent!");
 #endif
 		for (k = 0;k < 1; k++)
-			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PM_ALLOW_UNIQUE)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 			{
 				count++;
 				if (!pet)
@@ -1836,7 +1836,7 @@ msg_print("Summoned special opponents are angry!");
 #endif
 			}
 		for (k = count;k < 1; k++)
-			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PM_ALLOW_UNIQUE)))
+			if (summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 			{
 				count++;
 				if (!pet)

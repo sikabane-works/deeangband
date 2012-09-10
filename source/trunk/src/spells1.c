@@ -1562,7 +1562,7 @@ msg_print("カチッと音がした！");
 					u32b mode = 0L;
 
 					if ((caster_ptr) && (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr)))
-						mode |= PM_FORCE_PET;
+						mode |= PC_FORCE_PET;
 
 					for (i = 0; i < object_ptr->number ; i++)
 					{
@@ -2216,10 +2216,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			case 19: case 20: case 21: case 22:
 			{
 				bool pet = !one_in_(3);
-				u32b mode = PM_ALLOW_GROUP;
+				u32b mode = PC_ALLOW_GROUP;
 
-				if (pet) mode |= PM_FORCE_PET;
-				else mode |= (PM_NO_PET | PM_FORCE_FRIENDLY);
+				if (pet) mode |= PC_FORCE_PET;
+				else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
 
 				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
 				if (!one_in_(6)) break;

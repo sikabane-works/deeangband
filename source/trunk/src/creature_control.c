@@ -1609,7 +1609,8 @@ static int mysqrt(int n)
  */
 s16b get_species_num(floor_type *floor_ptr, int level)
 {
-	int i, j, p, species_idx;
+	int i, species_idx;
+	//TODO int p, j;
 	long value, total;
 
 	species_type *r_ptr;
@@ -3669,7 +3670,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	creature_type cr;
 
 	cptr		name = (species_name + r_ptr->name);
-
 	
 	if (floor_ptr->wild_mode) // DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
 	{
@@ -3695,7 +3695,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		return (max_creature_idx);
 	}
 
-	if (!(mode & PM_IGNORE_TERRAIN))
+	if (!(mode & PC_IGNORE_TERRAIN))
 	{
 		if (pattern_tile(floor_ptr, y, x)) return max_creature_idx;	// Not on the Pattern
 
@@ -3785,22 +3785,16 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		else return max_creature_idx;
 	}
 
-	if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PM_KAGE;
+	if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PC_KAGE;
 
 	creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
 	hack_m_idx_ii = c_ptr->creature_idx;
 
-	// No flags
-	creature_ptr->mflag = 0;
-	creature_ptr->mflag2 = 0;
-
 	// Hack -- Appearance transfer
-	if (summoner_ptr && (mode & PM_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
+	if (summoner_ptr && (mode & PC_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
 		creature_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
-
-		// Hack -- Shadower spawns Shadower
-		if (summoner_ptr->mflag2 & MFLAG2_KAGE) creature_ptr->mflag2 |= MFLAG2_KAGE;
+		if (summoner_ptr->mflag2 & MFLAG2_KAGE) creature_ptr->mflag2 |= MFLAG2_KAGE; // Hack -- Shadower spawns Shadower
 	}
 
 	/* Sub-alignment of a creature */
@@ -3827,7 +3821,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	// Your pet summons its pet.
 	if (summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
-		mode |= PM_FORCE_PET;	//TODO Parent Set
+		mode |= PC_FORCE_PET;	//TODO Parent Set
 		creature_ptr->parent_m_idx = 0;
 	}
 	else
@@ -3845,24 +3839,24 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		if (summoner_ptr && (has_trait_species(r_ptr, TRAIT_UNIQUE)) && is_player(summoner_ptr))
 			creature_ptr->sub_align = SUB_ALIGN_NEUTRAL;
 	}
-	else if ((mode & PM_KAGE) && !(mode & PM_FORCE_PET))
+	else if ((mode & PC_KAGE) && !(mode & PC_FORCE_PET))
 	{
 		creature_ptr->ap_species_idx = SPECIES_KAGE;
 		creature_ptr->mflag2 |= MFLAG2_KAGE;
 	}
 
-	if (mode & PM_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
+	if (mode & PC_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
 	else if (summoner_ptr) set_pet(summoner_ptr, creature_ptr); // Pet?
 
 	// TODO reimpelment Friendly Creature.
 
-	if ((mode & PM_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
+	if ((mode & PC_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
 	{
 		int val = r_ptr->sleep;
 		(void)set_paralyzed(&creature_list[c_ptr->creature_idx], (val * 2) + randint1(val * 10));
 	}
 
-	if (mode & PM_HASTE) (void)set_fast(&creature_list[c_ptr->creature_idx], 100, FALSE);
+	if (mode & PC_HASTE) (void)set_fast(&creature_list[c_ptr->creature_idx], 100, FALSE);
 
 	// Give a random starting energy
 	if (!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
@@ -4264,7 +4258,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	species_type    *r_ptr = &species_info[species_idx];
 	creature_type   *m_ptr;
 
-	if (!(mode & PM_NO_KAGE) && one_in_(SHADOW_GENERATE_RATE)) mode |= PM_KAGE;
+	if (!(mode & PC_NO_KAGE) && one_in_(SHADOW_GENERATE_RATE)) mode |= PC_KAGE;
 
 	// Place one creature, or fail
 	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
@@ -4296,7 +4290,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	}
 
 	/* Require the "group" flag */
-	if (!(mode & PM_ALLOW_GROUP)) return (TRUE);
+	if (!(mode & PC_ALLOW_GROUP)) return (TRUE);
 
 	place_creature_m_idx = hack_m_idx_ii;
 
@@ -4414,7 +4408,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	{
 		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, SUMMON_KIN, PM_ALLOW_GROUP);
+		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, SUMMON_KIN, PC_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -4447,7 +4441,7 @@ bool alloc_guardian(floor_type *floor_ptr, bool def_val)
 			if (cave_empty_bold2(floor_ptr, oy, ox) && species_can_cross_terrain(floor_ptr->cave[oy][ox].feat, &species_info[guardian], 0))
 			{
 				/* Place the guardian */
-				if (place_creature_species(NULL, floor_ptr, oy, ox, guardian, (PM_ALLOW_GROUP | PM_NO_KAGE | PM_NO_PET))) return TRUE;
+				if (place_creature_species(NULL, floor_ptr, oy, ox, guardian, (PC_ALLOW_GROUP | PC_NO_KAGE | PC_NO_PET))) return TRUE;
 			}
 
 			/* One less try */
@@ -4524,7 +4518,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 	else
 	{
 		/* Attempt to place the creature, allow groups */
-		if (place_creature(NULL, floor_ptr, y, x, (mode | PM_ALLOW_GROUP))) return (TRUE);
+		if (place_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return (TRUE);
 
 	}
 
@@ -4607,7 +4601,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	/* Save the "summon" type */
 	summon_specific_type = type;
 
-	summon_unique_okay = (mode & PM_ALLOW_UNIQUE) ? TRUE : FALSE;
+	summon_unique_okay = (mode & PC_ALLOW_UNIQUE) ? TRUE : FALSE;
 
 	/* Prepare allocation table */
 	get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay);
@@ -4622,7 +4616,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 		return (FALSE);
 	}
 
-	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PM_NO_KAGE;
+	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */
 	if (!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode))
@@ -4649,7 +4643,7 @@ bool summon_named_creature(creature_type *creature_ptr, floor_type *floor_ptr, i
 	if (!creature_scatter(species_idx, &y, &x, floor_ptr, oy, ox, 2)) return FALSE;
 
 	/* Place it (allow groups) */
-	return place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, (mode | PM_NO_KAGE));
+	return place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, (mode | PC_NO_KAGE));
 }
 
 
@@ -4667,10 +4661,10 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	if (!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1))
 		return FALSE;
 
-	if (creature_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
+	if (creature_ptr->mflag2 & MFLAG2_NOPET) mode |= PC_NO_PET;
 
 	/* Create a new creature (awake, no groups) */
-	if (!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PM_NO_KAGE | PM_MULTIPLY)))
+	if (!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY)))
 		return FALSE;
 
 	/* Hack -- Transfer "clone" flag */

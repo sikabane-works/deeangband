@@ -2471,10 +2471,10 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
-		u32b mode = PM_ALLOW_GROUP;
+		u32b mode = PC_ALLOW_GROUP;
 
-		if (pet) mode |= PM_FORCE_PET;
-		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
+		if (pet) mode |= PC_FORCE_PET;
+		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
 		if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx,
 				    floor_ptr->floor_level, SUMMON_DEMON, mode))
@@ -2596,10 +2596,10 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(7000))
 	{
 		bool pet = one_in_(3);
-		u32b mode = PM_ALLOW_GROUP;
+		u32b mode = PC_ALLOW_GROUP;
 
-		if (pet) mode |= PM_FORCE_PET;
-		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
+		if (pet) mode |= PC_FORCE_PET;
+		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
 		if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL, mode))
 		{
@@ -2704,10 +2704,10 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		bool pet = one_in_(5);
-		u32b mode = PM_ALLOW_GROUP;
+		u32b mode = PC_ALLOW_GROUP;
 
-		if (pet) mode |= PM_FORCE_PET;
-		else mode |= (PM_ALLOW_UNIQUE | PM_NO_PET);
+		if (pet) mode |= PC_FORCE_PET;
+		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
 		if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON, mode))
 		{
@@ -3080,7 +3080,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		if ((creature_ptr->cursed & TRC_CALL_ANIMAL) && one_in_(2500))
 		{
 			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL,
-			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			    (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 			{
 				char object_name[MAX_NLEN];
 
@@ -3097,7 +3097,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		/* Call demon */
 		if ((creature_ptr->cursed & TRC_CALL_DEMON) && one_in_(1111))
 		{
-			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 			{
 				char object_name[MAX_NLEN];
 
@@ -3115,7 +3115,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		if ((creature_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
 		{
 			if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON,
-			    (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET)))
+			    (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 			{
 				char object_name[MAX_NLEN];
 
@@ -5159,7 +5159,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 				int y, x;
 				y = creature_ptr->fy+ddy[creature_ptr->tsuri_dir];
 				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
-				if (place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PM_NO_KAGE))
+				if (place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PC_NO_KAGE))
 				{
 					char m_name[80];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
@@ -6840,7 +6840,7 @@ void play_game(bool new_game)
 	if (new_game && ((player_ptr->class_idx == CLASS_CAVALRY) || (player_ptr->class_idx == CLASS_BEASTMASTER)))
 	{
 		int pet_species_idx = ((player_ptr->class_idx == CLASS_CAVALRY) ? SPECIES_HORSE : SPECIES_YASE_HORSE);
-		place_creature_species(player_ptr, GET_FLOOR_PTR(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PM_FORCE_PET | PM_NO_KAGE));
+		place_creature_species(player_ptr, GET_FLOOR_PTR(player_ptr), player_ptr->fy, player_ptr->fx - 1, pet_species_idx, (PC_FORCE_PET | PC_NO_KAGE));
 	}
 
 	play_loop();

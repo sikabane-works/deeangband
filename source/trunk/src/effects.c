@@ -6471,7 +6471,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				int dummy_x = target_ptr->fx;
 				u32b mode = 0L;
 	
-				if (is_pet(player_ptr, target_ptr)) mode |= PM_FORCE_PET;
+				if (is_pet(player_ptr, target_ptr)) mode |= PC_FORCE_PET;
 	
 				delete_species_idx(target_ptr);
 	

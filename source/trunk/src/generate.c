@@ -497,10 +497,10 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 		if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) &&
 		    (r_ptr->cur_num >= r_ptr->max_num)) continue;
 
-		mode = (PM_NO_KAGE | PM_NO_PET);
+		mode = (PC_NO_KAGE | PC_NO_PET);
 
 		if (!has_trait_species(r_ptr, TRAIT_FRIENDLY))
-			mode |= PM_ALLOW_GROUP;
+			mode |= PC_ALLOW_GROUP;
 
 		for (j = 0; j < (quest[i].max_num - quest[i].cur_num); j++)
 		{
@@ -1050,7 +1050,7 @@ static bool create_cave_structure(floor_type *floor_ptr)
 
 	// Put some creatures in the dungeon
 	i += randint1(8);
-	for (i = i + k; i > 0; i--) (void)alloc_creature(floor_ptr, player_ptr, 0, PM_ALLOW_SLEEP);
+	for (i = i + k; i > 0; i--) (void)alloc_creature(floor_ptr, player_ptr, 0, PC_ALLOW_SLEEP);
 
 	// Place some traps in the dungeon
 	alloc_object(floor_ptr, player_ptr, ALLOC_SET_BOTH, ALLOC_TYP_TRAP, randint1(k));
@@ -1175,7 +1175,7 @@ static void generate_floor_arena(floor_type *floor_ptr, int height, int width)
 
 	build_arena(floor_ptr, height, width);
 
-	place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx, (PM_NO_KAGE | PM_NO_PET));
+	place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 5, player_ptr->fx, arena_info[arena_number].species_idx, (PC_NO_KAGE | PC_NO_PET));
 }
 
 
@@ -1275,7 +1275,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 
 	for(i = 0; i < 4;i ++)
 	{
-		place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PM_NO_KAGE | PM_NO_PET));
+		place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PC_NO_KAGE | PC_NO_PET));
 		set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 

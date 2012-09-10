@@ -289,10 +289,10 @@ static bool use_mane(creature_type *creature_ptr, int spell)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int             dir;
 	int             plev = creature_ptr->lev;
-	u32b mode = (PM_ALLOW_GROUP | PM_FORCE_PET);
+	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	u32b u_mode = 0L;
 
-	if (randint1(50+plev) < plev/10) u_mode = PM_ALLOW_UNIQUE;
+	if (randint1(50+plev) < plev/10) u_mode = PC_ALLOW_UNIQUE;
 
 
 	/* spell code */
@@ -1052,7 +1052,7 @@ msg_print("援軍を召喚した。");
 #endif
 		for (k = 0;k < 4; k++)
 		{
-			(void)summon_kin_player(creature_ptr, plev, target_row, target_col, (PM_FORCE_PET | PM_ALLOW_GROUP));
+			(void)summon_kin_player(creature_ptr, plev, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
 		}
 		break;
 	}
@@ -1237,7 +1237,7 @@ msg_print("アンバーの王族を召喚した！");
 			msg_print("You summon Lords of Amber!");
 #endif
 		for (k = 0;k < 4; k++)
-			summon_specific(NULL, target_row, target_col, plev, SUMMON_AMBERITES, (mode | PM_ALLOW_UNIQUE));
+			summon_specific(NULL, target_row, target_col, plev, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
 		break;
 	}
 	case TRAIT_S_UNIQUE:
@@ -1250,7 +1250,7 @@ msg_print("特別な強敵を召喚した！");
 			msg_print("You summon special opponents!");
 #endif
 		for (k = 0;k < 4; k++)
-			if (summon_specific(NULL, target_row, target_col, plev, SUMMON_UNIQUE, (mode | PM_ALLOW_UNIQUE))) count++;
+			if (summon_specific(NULL, target_row, target_col, plev, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
 		for (k = count;k < 4; k++)
 			summon_specific(NULL, target_row, target_col, plev, SUMMON_HI_UNDEAD, (mode | u_mode));
 		break;

@@ -5333,9 +5333,9 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 		s16b next_object_idx = 0;
 
 		/* Get the creatures attitude */
-		if (is_friendly(player_ptr, m_ptr)) mode |= PM_FORCE_FRIENDLY;
-		if (is_pet(player_ptr, m_ptr)) mode |= PM_FORCE_PET;
-		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PM_NO_PET;
+		if (is_friendly(player_ptr, m_ptr)) mode |= PC_FORCE_FRIENDLY;
+		if (is_pet(player_ptr, m_ptr)) mode |= PC_FORCE_PET;
+		if (m_ptr->mflag2 & MFLAG2_NOPET) mode |= PC_NO_PET;
 
 		//TODO inventory process
 
@@ -5747,7 +5747,7 @@ msg_format("óêñ\Ç»ñÇñ@ÇÃÇΩÇﬂÇ…%sÇ™âÛÇÍÇΩÅI", object_name);
 
 bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, u32b mode)
 {
-	bool pet = (bool)(mode & PM_FORCE_PET);
-	if (!pet) mode |= PM_NO_PET;
+	bool pet = (bool)(mode & PC_FORCE_PET);
+	if (!pet) mode |= PC_NO_PET;
 	return summon_specific((pet ? creature_ptr : NULL), y, x, level, SUMMON_KIN, mode);
 }

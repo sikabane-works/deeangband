@@ -1776,7 +1776,7 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 	int i;
 
 	for (i = 0; i < num; i++)
-		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 }
 
 
@@ -1788,7 +1788,7 @@ static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
 static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 }
 
 
@@ -1800,7 +1800,7 @@ static void do_cmd_wiz_named(creature_type *creature_ptr, int species_idx)
 static void do_cmd_wiz_named_friendly(creature_type *creature_ptr, int species_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP | PM_FORCE_PET));
+	(void)summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, species_idx, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP | PC_FORCE_PET));
 }
 
 

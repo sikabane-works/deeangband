@@ -5157,7 +5157,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 					int num = 4 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_EAGLES, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 					}
 				}
 				break;
@@ -5189,7 +5189,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_GUARDIANS, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 					}
 				}
 				break;
@@ -5209,7 +5209,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_LOUSE, PM_ALLOW_GROUP);
+						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_LOUSE, PC_ALLOW_GROUP);
 					}
 				}
 				break;
@@ -5219,7 +5219,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 				for (k = 0; k < 4; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_KIN, PM_ALLOW_GROUP);
+					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_KIN, PC_ALLOW_GROUP);
 				}
 				break;
 			}
@@ -5274,7 +5274,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, rlev, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 #ifdef JP
 			if (blind && count) msg_print("何かが間近に現れた音がする。");
@@ -5302,7 +5302,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_6; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, rlev, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 #ifdef JP
 			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -5330,7 +5330,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_6; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANT, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANT, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -5358,7 +5358,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_6; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_SPIDER, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_SPIDER, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -5386,7 +5386,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HOUND, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HOUND, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -5414,7 +5414,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HYDRA, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HYDRA, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -5449,7 +5449,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < num; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANGEL, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANGEL, PC_ALLOW_GROUP);
 			}
 
 			if (count < 2)
@@ -5489,7 +5489,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DEMON, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DEMON, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("何かが間近に現れた音がする。");
@@ -5517,7 +5517,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("何かが間近に現れた音がする。");
@@ -5545,7 +5545,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DRAGON, PM_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DRAGON, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if (blind && count) msg_print("何かが間近に現れた音がする。");
@@ -5635,7 +5635,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 				for (k = 0; k < s_num_6; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_UNDEAD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 				}
 			}
 			if (blind && count)
@@ -5667,7 +5667,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_DRAGON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 			if (blind && count)
 			{
@@ -5700,7 +5700,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_AMBERITES, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 			if (blind && count)
 			{
@@ -5734,7 +5734,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNIQUE, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 
 			if (count) uniques_are_summoned = TRUE;
@@ -5746,7 +5746,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 
 			for (k = count; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, non_unique_type, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, rlev, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 
 			if (blind && count)

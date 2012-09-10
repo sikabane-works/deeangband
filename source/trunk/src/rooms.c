@@ -2565,28 +2565,28 @@ static bool build_type6(floor_type *floor_ptr)
 	}
 
 	/* Center creature */
-	place_creature_species(NULL, floor_ptr, yval, xval, what[7], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval, xval+1, what[6], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval, xval-1, what[6], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval-1, xval, what[6], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval+1, xval, what[6], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval-1, xval-1, what[5], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval+1, xval-1, what[5], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval-1, xval+1, what[5], PM_NO_KAGE);
-	place_creature_species(NULL, floor_ptr, yval+1, xval+1, what[5], PM_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval, xval, what[7], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval, xval+1, what[6], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval, xval-1, what[6], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval-1, xval, what[6], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval+1, xval, what[6], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval-1, xval-1, what[5], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval+1, xval-1, what[5], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval-1, xval+1, what[5], PC_NO_KAGE);
+	place_creature_species(NULL, floor_ptr, yval+1, xval+1, what[5], PC_NO_KAGE);
 
 	k = 2;
 	while(k <= y2 - yval|| k <= x2 - xval)
 	{
 		for(i = -k; i <= k; i++)
 		{
-			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_creature_species(NULL, floor_ptr, yval + i, xval - k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
-			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_creature_species(NULL, floor_ptr, yval + i, xval + k, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval - k >= x1) place_creature_species(NULL, floor_ptr, yval + i, xval - k, what[k<7 ? 7-k : 0], PC_NO_KAGE);
+			if(yval + i >= y1 && yval + i <= y2 && xval + k <= x2) place_creature_species(NULL, floor_ptr, yval + i, xval + k, what[k<7 ? 7-k : 0], PC_NO_KAGE);
 		}
 		for(i = -k + 1; i <= k - 1; i++)
 		{
-			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_creature_species(NULL, floor_ptr, yval - k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
-			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_creature_species(NULL, floor_ptr, yval + k, xval + i, what[k<7 ? 7-k : 0], PM_NO_KAGE);
+			if(yval - k >= y1 && xval + i >= x1 && xval + i <= x2) place_creature_species(NULL, floor_ptr, yval - k, xval + i, what[k<7 ? 7-k : 0], PC_NO_KAGE);
+			if(yval + k <= y2 && xval + i >= x1 && xval + i <= x2) place_creature_species(NULL, floor_ptr, yval + k, xval + i, what[k<7 ? 7-k : 0], PC_NO_KAGE);
 		}
 		k++;
 	}
@@ -2828,7 +2828,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '&':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
-					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					break;
 				}
@@ -2837,7 +2837,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '@':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 11;
-					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					break;
 				}
@@ -2846,7 +2846,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '9':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
-					place_creature(NULL, floor_ptr, y, x, PM_ALLOW_SLEEP);
+					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 7;
 					place_object(floor_ptr, y, x, AM_GOOD);
@@ -2858,7 +2858,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				case '8':
 				{
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
-					place_creature(NULL, floor_ptr, y, x, PM_ALLOW_SLEEP);
+					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 20;
 					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT);
@@ -2872,7 +2872,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					if (randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
-						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
@@ -4110,7 +4110,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Meanest creature + treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
-					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 20;
 					place_object(floor_ptr, y, x, AM_GOOD);
@@ -4120,7 +4120,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Mean creature +treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 20;
-					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 10;
 					place_object(floor_ptr, y, x, AM_GOOD);
@@ -4130,7 +4130,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Creature */
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
-					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 				}
 				else if (value < 17)
@@ -4160,7 +4160,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 				{
 					/* Creature and trap */
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
-					place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					place_trap(floor_ptr, y, x);
 				}
@@ -4170,7 +4170,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					if (randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
-						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
 					if (randint0(100) < 50)
@@ -4192,7 +4192,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* 20% creature, 40% trap, 20% object, 20% blank space */
 					if (randint0(100) < 20)
 					{
-						place_creature(NULL, floor_ptr, y, x, (PM_ALLOW_SLEEP | PM_ALLOW_GROUP));
+						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					}
 					else if (randint0(100) < 50)
 					{
@@ -5860,7 +5860,7 @@ static bool build_type13(floor_type *floor_ptr)
 	{
 		y = yval + placing[i][0];
 		x = xval + placing[i][1];
-		place_creature_species(NULL, floor_ptr, y, x, what[placing[i][2]], PM_NO_KAGE);
+		place_creature_species(NULL, floor_ptr, y, x, what[placing[i][2]], PC_NO_KAGE);
 	}
 
 	return TRUE;
@@ -6081,7 +6081,7 @@ static bool build_type15(floor_type *floor_ptr)
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
-				if (species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, PM_ALLOW_SLEEP);
+				if (species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, PC_ALLOW_SLEEP);
 
 				/* Walls around the breather */
 				for (dir2 = 0; dir2 < 8; dir2++)

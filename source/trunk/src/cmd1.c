@@ -1168,7 +1168,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
 			{
-				(void)summon_specific(0, y, x, floor_ptr->floor_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 
 			if (floor_ptr->floor_level > randint1(100)) /* No nasty effect for low levels */
@@ -1511,10 +1511,10 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 					/* Require line of projection */
 					if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
 
-					if (summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_EVIL, (PM_NO_PET)))
+					if (summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_EVIL, (PC_NO_PET)))
 						evil_idx = hack_m_idx_ii;
 
-					if (summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_GOOD, (PM_NO_PET)))
+					if (summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_GOOD, (PC_NO_PET)))
 					{
 						good_idx = hack_m_idx_ii;
 					}
@@ -1549,7 +1549,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 			num = 1 + floor_ptr->floor_level/20;
 			for (i = 0; i < num; i++)
 			{
-				(void)summon_specific(0, y, x, floor_ptr->floor_level, SUMMON_PIRANHAS, (PM_ALLOW_GROUP | PM_NO_PET));
+				(void)summon_specific(0, y, x, floor_ptr->floor_level, SUMMON_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
 			}
 			break;
 		}

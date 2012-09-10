@@ -591,7 +591,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			if (randint1(100) < floor_ptr->floor_level)
 				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			else
-				(void)summon_specific(0, y, x, mon_level, 0, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -605,7 +605,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 		for (i = 0; i < randint1(3) + 5; i++)
 		{
-			(void)summon_specific(0, y, x, mon_level, SUMMON_ELEMENTAL, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(void)summon_specific(0, y, x, mon_level, SUMMON_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -623,7 +623,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		for (i = 0; i < randint1(5) + object_ptr->pval / 5; i++)
 		{
-			(void)summon_specific(0, y, x, mon_level, SUMMON_BIRD, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+			(void)summon_specific(0, y, x, mon_level, SUMMON_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -642,7 +642,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
 				(void)fire_meteor(-1, GF_FIRE, y, x, 10, 5);
-				(void)summon_specific(0, y, x, mon_level, SUMMON_DEMON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -657,7 +657,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, SUMMON_DRAGON, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, SUMMON_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -672,7 +672,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(5) + 3; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, SUMMON_HYBRID, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, SUMMON_HYBRID, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -687,7 +687,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, SUMMON_VORTEX, (PM_ALLOW_GROUP | PM_ALLOW_UNIQUE | PM_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, SUMMON_VORTEX, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 	}
@@ -4228,7 +4228,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	{
 		j = 100;
 
-		if (!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PM_FORCE_PET : 0L)))
+		if (!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PC_FORCE_PET : 0L)))
 #ifdef JP
 msg_print("êlå`ÇÕîPÇ∂ã»Ç™ÇËç”ÇØéUÇ¡ÇƒÇµÇ‹Ç¡ÇΩÅI");
 #else
