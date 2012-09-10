@@ -2562,7 +2562,7 @@ void determine_random_questor(quest_type *quest_ptr)
 {
 	int          species_idx;
 	species_type *species_ptr;
-	int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
+	int traits[] = {TRAIT_UNIQUE, -1};
 
 	get_species_num_prep_new(NULL, traits, 0); // Prepare allocation table
 

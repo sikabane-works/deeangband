@@ -1446,6 +1446,7 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32
 	int i, j;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	species_type	*species_ptr;
+	bool skip;
 
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
@@ -1453,9 +1454,17 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32
 		alloc_entry *entry = &alloc_species_table[i];	// Get the entry
 
 		entry->prob2 = 0;
+		skip = FALSE;
 		species_ptr = &species_info[entry->index];
 
-		for(j = 0; trait_flags[j] < MAX_TRAITS && trait_flags[j] >= 0; j++) if(!has_trait_species(species_ptr, trait_flags[j])) continue;
+		for(j = 0; trait_flags[j] < MAX_TRAITS && trait_flags[j] >= 0; j++)
+			if(!has_trait_species(species_ptr, trait_flags[j]))
+			{
+				skip = TRUE;
+				break;
+			}
+
+		if(skip) continue;
 
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
 		{

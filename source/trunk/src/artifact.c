@@ -133,26 +133,15 @@ void one_low_esp(object_type *object_ptr)
 }
 
 
-
-/*
- * Choose one random resistance
- */
+// Choose one random resistance
 void one_resistance(object_type *object_ptr)
 {
-	if (one_in_(3))
-	{
-		one_ele_resistance(object_ptr);
-	}
-	else
-	{
-		one_high_resistance(object_ptr);
-	}
+	if (one_in_(3)) one_ele_resistance(object_ptr);
+	else one_high_resistance(object_ptr);
 }
 
 
-/*
- * Choose one random ability
- */
+// Choose one random ability
 void one_ability(object_type *object_ptr)
 {
 	switch (randint0(10))
@@ -171,7 +160,6 @@ void one_ability(object_type *object_ptr)
 		break;
 	}
 }
-
 
 static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr)
 {
