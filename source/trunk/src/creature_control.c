@@ -3670,7 +3670,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	creature_type cr;
 
 	cptr		name = (species_name + r_ptr->name);
-	
+
+	if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PC_KAGE;
+
 	if (floor_ptr->wild_mode) // DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
 	{
 		if (cheat_hear) msg_warning("[max_creature_idx: Wild mode]");
@@ -3785,8 +3787,6 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		else return max_creature_idx;
 	}
 
-	if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PC_KAGE;
-
 	creature_ptr = generate_creature(c_ptr, species_idx, &cr, GC_AUTO); 
 	hack_m_idx_ii = c_ptr->creature_idx;
 
@@ -3813,18 +3813,11 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
 
-	// Unknown distance
-	creature_ptr->cdis = 0;
-	reset_target(creature_ptr);
-	creature_ptr->nickname = 0;
-
 	// Your pet summons its pet.
 	if (summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
 		mode |= PC_FORCE_PET;	//TODO Parent Set
 	}
-
-	creature_ptr->parent_m_idx = 0;
 
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON))
 	{
