@@ -11,6 +11,7 @@
 
 /* Purpose: a simple random number generator -BEN- */
 
+#include "angband.h"
 #include "z-rand.h"
 
 
