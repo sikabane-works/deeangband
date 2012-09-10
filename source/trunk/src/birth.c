@@ -3499,8 +3499,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		strcpy(se[n].cap, sex_info[list[i]].title);
 		se[n].code = list[i];
 		se[n].key = '\0';
-		if(race_info[creature_ptr->race_idx1].sex_flag & (0x01 << list[i]) ||
-		   race_info[creature_ptr->race_idx2].sex_flag & (0x01 << list[i]))
+		if(race_info[creature_ptr->race_idx1].sex_flag & (0x01 << list[i]) || race_info[creature_ptr->race_idx2].sex_flag & (0x01 << list[i]))
 		{
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
