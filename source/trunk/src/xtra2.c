@@ -1579,7 +1579,7 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 	}
 
 	/* Display creature's level --- idea borrowed from ToME */
-	if (ap_r_ptr->r_tkills && !(m_ptr->mflag2 & MFLAG2_KAGE))
+	if (ap_r_ptr->r_tkills && !has_trait(m_ptr, TRAIT_KAGE))
 	{
 		if (cheat_hear)
 			return format("Lv%d, %s%s%s [Ego:%d]", ap_r_ptr->level, desc, attitude, clone, m_ptr->creature_ego_idx);
@@ -1812,9 +1812,9 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 		if (has_trait_species(ap_ra_ptr, TRAIT_UNIQUE) && !has_trait_species(ap_rb_ptr, TRAIT_UNIQUE)) return TRUE;
 		if (!has_trait_species(ap_ra_ptr, TRAIT_UNIQUE) && has_trait_species(ap_rb_ptr, TRAIT_UNIQUE)) return FALSE;
 
-		/* Shadowers first (‚ ‚â‚µ‚¢‰e) */
-		if ((ma_ptr->mflag2 & MFLAG2_KAGE) && !(mb_ptr->mflag2 & MFLAG2_KAGE)) return TRUE;
-		if (!(ma_ptr->mflag2 & MFLAG2_KAGE) && (mb_ptr->mflag2 & MFLAG2_KAGE)) return FALSE;
+		// Shadowers first
+		if ( has_trait(ma_ptr, TRAIT_KAGE) && !has_trait(mb_ptr, TRAIT_KAGE)) return TRUE;
+		if (!has_trait(ma_ptr, TRAIT_KAGE) &&  has_trait(mb_ptr, TRAIT_KAGE)) return FALSE;
 
  		/* Unknown creatures first */
 		if (!ap_ra_ptr->r_tkills && ap_rb_ptr->r_tkills) return TRUE;
@@ -2059,7 +2059,7 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
 		sprintf(buf,"**");
 		return;
 	}
-	else if (!ap_r_ptr->r_tkills || (target_ptr->mflag2 & MFLAG2_KAGE))
+	else if (!ap_r_ptr->r_tkills || has_trait(target_ptr, TRAIT_KAGE))
 	{
 		if (!wizard)
 		{

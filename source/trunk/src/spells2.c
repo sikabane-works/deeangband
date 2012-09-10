@@ -2515,8 +2515,7 @@ bool probing(floor_type *floor_ptr)
 
 			if (!is_original_ap(m_ptr))
 			{
-				if (m_ptr->mflag2 & MFLAG2_KAGE)
-					m_ptr->mflag2 &= ~(MFLAG2_KAGE);
+				if (has_trait(m_ptr, TRAIT_KAGE)) lose_acquired_trait(m_ptr, TRAIT_KAGE);
 
 				m_ptr->ap_species_idx = m_ptr->species_idx;
 				lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);

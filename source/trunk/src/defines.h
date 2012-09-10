@@ -2477,7 +2477,6 @@
 #define MFLAG_BORN      0x10    /* Creature is still being born */
 #define MFLAG_NICE      0x20    /* Creature is still being nice */
 
-#define MFLAG2_KAGE      0x01    /* Creature is kage */
 #define MFLAG2_NOPET     0x02    /* Cannot make creature pet */
 #define MFLAG2_NOGENO    0x04    /* Cannot genocide */
 #define MFLAG2_CHAMELEON 0x08    /* Creature is chameleon */

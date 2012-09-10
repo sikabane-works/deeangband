@@ -6290,11 +6290,11 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			if ((target_ptr->see_others && !IS_HALLUCINATION(attacker_ptr)) || has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				/* Count kills this life */
-				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
+				if (has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
 				else if (r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
 	
 				/* Count kills in all lives */
-				if ((target_ptr->mflag2 & MFLAG2_KAGE) && (species_info[SPECIES_KAGE].r_tkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_tkills++;
+				if (has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_tkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_tkills++;
 				else if (r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
 	
 				/* Hack -- Auto-recall */

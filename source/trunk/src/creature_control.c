@@ -3794,10 +3794,10 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (summoner_ptr && (mode & PC_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
 		creature_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
-		if (summoner_ptr->mflag2 & MFLAG2_KAGE) creature_ptr->mflag2 |= MFLAG2_KAGE; // Hack -- Shadower spawns Shadower
+		if (has_trait(summoner_ptr, TRAIT_KAGE)) get_acquired_trait(creature_ptr, TRAIT_KAGE); // Hack -- Shadower spawns Shadower
 	}
 
-	/* Sub-alignment of a creature */
+	// Sub-alignment of a creature
 	if (summoner_ptr && !is_player(summoner_ptr) && !(is_enemy_of_evil_creature(summoner_ptr) && is_enemy_of_good_creature(summoner_ptr)))
 		creature_ptr->sub_align = summoner_ptr->sub_align;
 	else
@@ -3822,12 +3822,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (summoner_ptr && !is_player(summoner_ptr) && is_pet(player_ptr, summoner_ptr))
 	{
 		mode |= PC_FORCE_PET;	//TODO Parent Set
-		creature_ptr->parent_m_idx = 0;
 	}
-	else
-	{
-		creature_ptr->parent_m_idx = 0;
-	}
+
+	creature_ptr->parent_m_idx = 0;
 
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON))
 	{
@@ -3842,7 +3839,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	else if ((mode & PC_KAGE) && !(mode & PC_FORCE_PET))
 	{
 		creature_ptr->ap_species_idx = SPECIES_KAGE;
-		creature_ptr->mflag2 |= MFLAG2_KAGE;
+		get_acquired_trait(creature_ptr, TRAIT_KAGE);
 	}
 
 	if (mode & PC_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
