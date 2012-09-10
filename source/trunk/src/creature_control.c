@@ -3672,82 +3672,54 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	cptr		name = (species_name + r_ptr->name);
 
-	/* DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!! */
-	if (floor_ptr->wild_mode){
-		if (cheat_hear)
-		{
-			msg_format("[max_creature_idx: Wild mode]");
-		}
+	
+	if (floor_ptr->wild_mode) // DO NOT PLACE A MONSTER IN THE SMALL SCALE WILDERNESS !!!
+	{
+		if (cheat_hear) msg_warning("[max_creature_idx: Wild mode]");
 		return max_creature_idx;
 	}
 
-	/* Verify location */
-	if (!in_bounds(floor_ptr, y, x)){
-		if (cheat_hear)
-		{
-			msg_format("[max_creature_idx: Invalid Location]");
-		}
+	if (!in_bounds(floor_ptr, y, x)) // Verify location
+	{
+		if (cheat_hear) msg_warning("[max_creature_idx: Invalid Location]");
 		return (max_creature_idx);
 	}
 
-	/* Paranoia */
-	if (!species_idx)
+	if (!species_idx) // Paranoia
 	{
-		if (cheat_hear)
-		{
-			msg_format("[max_creature_idx: Invalid Creature Race]");
-		}
+		if (cheat_hear) msg_format("[max_creature_idx: Invalid Creature Race]");
 		return (max_creature_idx);
 	}
 
-	/* Paranoia */
-	if (!r_ptr->name)
+	if (!r_ptr->name) // Paranoia
 	{
-		if (cheat_hear)
-		{
-			msg_format("[max_creature_idx: Invalid Creature Name]");
-		}
+		if (cheat_hear) msg_format("[max_creature_idx: Invalid Creature Name]");
 		return (max_creature_idx);
 	}
 
 	if (!(mode & PM_IGNORE_TERRAIN))
 	{
-		// Not on the Pattern
-		if (pattern_tile(floor_ptr, y, x)) return max_creature_idx;
+		if (pattern_tile(floor_ptr, y, x)) return max_creature_idx;	// Not on the Pattern
 
-		// Require empty space (if not ghostly)
-		if (!species_can_enter(floor_ptr, y, x, r_ptr, 0)){
-			if (cheat_hear)
-			{
-				msg_format("[max_creature_idx: Creature Can't Enter]");
-			}
+		if (!species_can_enter(floor_ptr, y, x, r_ptr, 0)) // Require empty space (if not ghostly)
+		{
+			if (cheat_hear) msg_format("[max_creature_idx: Creature Can't Enter]");
 			return max_creature_idx;
 		}
 	}
 
-	// TO DO DEBUG.
-	if (!floor_ptr->gamble_arena_mode)
+	if (!floor_ptr->gamble_arena_mode) // TO DO DEBUG.
 	{
 		/* Hack -- "unique" creatures must be "unique" */
-		if (((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL)) &&
-		    (r_ptr->cur_num >= r_ptr->max_num))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE) || r_ptr->cur_num >= r_ptr->max_num)
 		{
-			if (cheat_hear)
-			{
-				msg_format("[max_creature_idx: Unique creature must be unique.]");
-			}
-
-			/* Cannot create */
-			return (max_creature_idx);
+			if (cheat_hear) msg_format("[max_creature_idx: Unique creature must be unique.]");
+			return (max_creature_idx); // Cannot create
 		}
 
-		if (has_trait_species(r_ptr, TRAIT_UNIQUE2) &&
-		    (r_ptr->cur_num >= 1))
+		if (has_trait_species(r_ptr, TRAIT_UNIQUE2) && (r_ptr->cur_num >= 1))
 		{
-			if (cheat_hear)
-			{
-				msg_format("[max_creature_idx: Unique creature must be unique.]");
-			}
+			if (cheat_hear) msg_format("[max_creature_idx: Unique creature must be unique.]");
 			return (max_creature_idx);
 		}
 
