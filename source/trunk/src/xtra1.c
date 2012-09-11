@@ -5356,14 +5356,14 @@ s16b calc_rank(s32b align){
 	else          return (s16b)t;
 }
 
-/* get subrace */
+// get subrace
 bool get_subrace(creature_type *creature_ptr, int n)
 {
 	if(creature_ptr->sub_race[n / 32] & (0x01 << (n % 32))) return TRUE;
 	return FALSE;
 }
 
-/* set subrace */
+// set subrace
 void set_subrace(creature_type *creature_ptr, int n, bool b)
 {
 	unsigned int a = n;

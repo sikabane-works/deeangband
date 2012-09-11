@@ -51,7 +51,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 88
+#define VER_PATCH 89
 
 #define VER_EXTRA 0
 
@@ -2486,6 +2486,7 @@
 
 #define TR_FLAG_SIZE		((TR_FLAG_MAX - 1) / 32) + 1
 #define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
+#define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1
 #define AUTHORITY_FLAG_MAX	((MAX_AUTHORITY - 1) / 32) + 1
 
 #define TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */

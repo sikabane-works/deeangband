@@ -2542,14 +2542,8 @@ void creature_wipe(creature_type *creature_ptr)
 	creature_ptr->patron_idx = INDEX_NONE;
 	creature_ptr->realm1 = REALM_NONE;
 	creature_ptr->realm2 = REALM_NONE;
-	creature_ptr->sub_race[0] = 0x0;
-	creature_ptr->sub_race[1] = 0x0;
-	creature_ptr->sub_race[2] = 0x0;
-	creature_ptr->sub_race[3] = 0x0;
-	creature_ptr->sub_race[4] = 0x0;
-	creature_ptr->sub_race[5] = 0x0;
-	creature_ptr->sub_race[6] = 0x0;
-	creature_ptr->sub_race[7] = 0x0;
+
+	for(i = 0; i < RACE_FLAG_MAX; i++) creature_ptr->sub_race[i] = 0x0;
 
 	creature_ptr->total_winner = FALSE;
 

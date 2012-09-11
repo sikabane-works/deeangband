@@ -863,7 +863,7 @@ static void load_quick_start(species_type *species_ptr)
 	rd_s16b(&species_ptr->sex);
 	rd_s16b(&species_ptr->race_idx1);
 	rd_s16b(&species_ptr->race_idx2);
-	for (i = 0; i < 8; i++) rd_u32b(&species_ptr->sub_race[i]);
+	for (i = 0; i < RACE_FLAG_MAX; i++) rd_u32b(&species_ptr->sub_race[i]);
 	rd_s16b(&species_ptr->class_idx);
 	rd_s16b(&species_ptr->chara_idx);
 	rd_s16b(&species_ptr->realm1);
@@ -927,7 +927,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->race_idx1);
 	rd_s16b(&creature_ptr->race_idx2);
 	rd_s16b(&creature_ptr->mimic_race_idx);
-	for (i = 0; i < 8; i++) rd_u32b(&creature_ptr->sub_race[i]);
+	for (i = 0; i < RACE_FLAG_MAX; i++) rd_u32b(&creature_ptr->sub_race[i]);
 	rd_s16b(&creature_ptr->creature_ego_idx);
 	rd_s16b(&creature_ptr->class_idx);
 	rd_s16b(&creature_ptr->chara_idx);
