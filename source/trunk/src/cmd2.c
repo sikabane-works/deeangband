@@ -2986,9 +2986,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 
 				if (mult < 30) mult = 30;
 
-				if ((object_ptr->name1 == ART_BARD_ARROW) &&
-				    (target_ptr->species_idx == SPECIES_SMAUG) &&
-				    (get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_BARD))
+				if (has_trait_object(object_ptr, TRAIT_SLAY_SMAUG) && (target_ptr->species_idx == SPECIES_SMAUG) && has_trait(attacker_ptr, TRAIT_SLAY_SMAUG))
 					mult *= 5;
 			}
 

@@ -932,8 +932,6 @@
 #define ART_BLOOD               199
 #define ART_NUMAHOKO            202
 
-/* Hafted */
-#define ART_GROND               111
 #define ART_TOTILA              112
 #define ART_THUNDERFIST         113
 #define ART_BLOODSPIKE          114
@@ -967,7 +965,6 @@
 
 /* Bows */
 #define ART_BELTHRONDING        124
-#define ART_BARD                125
 #define ART_BRAND               126
 #define ART_CRIMSON             16
 #define ART_BUCKLAND            134
@@ -977,8 +974,6 @@
 #define ART_ROBIN_HOOD          221
 #define ART_HELLFIRE            222
 
-/* Arrows */
-#define ART_BARD_ARROW          153
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/
 
