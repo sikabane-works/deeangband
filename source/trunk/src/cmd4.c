@@ -7273,7 +7273,7 @@ static void do_cmd_knowledge_pets(creature_type *master_ptr)
 		if (is_pet(player_ptr, pet_ptr))
 		{
 			t_friends++;
-			creature_desc(pet_name, pet_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(pet_name, pet_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 			fprintf(fff, "%s (%s)\n", pet_name, look_mon_desc(pet_ptr, 0x00));
 		}
 	}

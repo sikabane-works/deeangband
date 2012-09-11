@@ -1582,7 +1582,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 #ifndef JP
 	/* Get the creature possessive ("his"/"her"/"its") */
-	creature_desc(m_poss, caster_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
+	creature_desc(m_poss, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE);
 #endif
 
 	switch (do_spell)
@@ -3453,7 +3453,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 							char m_name_self[80];
 
 							/* hisself */
-							creature_desc(m_name_self, caster_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+							creature_desc(m_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
 
 							msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
 #endif

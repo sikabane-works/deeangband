@@ -30,7 +30,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
-			creature_desc(aura_dam, target_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 #ifdef JP
 			msg_print("突然とても熱くなった！");
@@ -55,7 +55,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
-			creature_desc(aura_dam, target_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 #ifdef JP
 			msg_print("突然とても寒くなった！");
@@ -81,7 +81,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			aura_damage = diceroll(1 + (target_ptr->lev / 13), 1 + (target_ptr->lev / 7));
 
 			/* Hack -- Get the "died from" name */
-			creature_desc(aura_dam, target_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 			if (has_trait(attacker_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
 			if (IS_OPPOSE_ELEC(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
@@ -1873,7 +1873,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	creature_desc(target_name, target_ptr, 0);
 
 	/* Get the "died from" information (i.e. "a kobold") */
-	creature_desc(ddesc, attacker_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+	creature_desc(ddesc, attacker_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 	/* Assume no blink */
 	blinked = FALSE;
@@ -3912,7 +3912,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		char attacker_name_self[80];
 
 		/* hisself */
-		creature_desc(attacker_name_self, attacker_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(attacker_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif

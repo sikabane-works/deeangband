@@ -2307,17 +2307,17 @@
 
 
 /* Bit flags for creature_desc() */
-#define MD_OBJECTIVE       0x00000001 /* Objective (or Reflexive) */
-#define MD_POSSESSIVE      0x00000002 /* Possessive (or Reflexive) */
-#define MD_INDEF_HIDDEN    0x00000004 /* Use indefinites for hidden creatures ("something") */
-#define MD_INDEF_VISIBLE   0x00000008 /* Use indefinites for visible creatures ("a kobold") */
-#define MD_PRON_HIDDEN     0x00000010 /* Pronominalize hidden creatures */
-#define MD_PRON_VISIBLE    0x00000020 /* Pronominalize visible creatures */
-#define MD_ASSUME_HIDDEN   0x00000040 /* Assume the creature is hidden */
-#define MD_ASSUME_VISIBLE  0x00000080 /* Assume the creature is visible */
-#define MD_TRUE_NAME       0x00000100 /* Chameleon's true name */
-#define MD_IGNORE_HALLU    0x00000200 /* Ignore hallucination, and penetrate shape change */
-#define MD_IGNORE_EGO_DESC 0x00000400 /* Add ego description */
+#define CD_OBJECTIVE       0x00000001 /* Objective (or Reflexive) */
+#define CD_POSSESSIVE      0x00000002 /* Possessive (or Reflexive) */
+#define CD_INDEF_HIDDEN    0x00000004 /* Use indefinites for hidden creatures ("something") */
+#define CD_INDEF_VISIBLE   0x00000008 /* Use indefinites for visible creatures ("a kobold") */
+#define CD_PRON_HIDDEN     0x00000010 /* Pronominalize hidden creatures */
+#define CD_PRON_VISIBLE    0x00000020 /* Pronominalize visible creatures */
+#define CD_ASSUME_HIDDEN   0x00000040 /* Assume the creature is hidden */
+#define CD_ASSUME_VISIBLE  0x00000080 /* Assume the creature is visible */
+#define CD_TRUE_NAME       0x00000100 /* Chameleon's true name */
+#define CD_IGNORE_HALLU    0x00000200 /* Ignore hallucination, and penetrate shape change */
+#define CD_IGNORE_EGO_DESC 0x00000400 /* Add ego description */
 
 
 /*

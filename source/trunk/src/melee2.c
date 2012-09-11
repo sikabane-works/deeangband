@@ -1590,7 +1590,7 @@ static void process_nonplayer(int m_idx)
 
 		if (record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
 		{
-			creature_desc(creature_name, creature_ptr, MD_INDEF_VISIBLE);
+			creature_desc(creature_name, creature_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
@@ -1711,7 +1711,7 @@ static void process_nonplayer(int m_idx)
 	{
 		if (is_pet(player_ptr, creature_ptr) || see_m)
 		{
-			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? MD_ASSUME_VISIBLE : 0);
+			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? CD_ASSUME_VISIBLE : 0);
 #ifdef JP
 			msg_format("%^sÇÕìÀëRìGÇ…Ç‹ÇÌÇ¡ÇΩÅI", creature_name);
 #else
@@ -2432,7 +2432,7 @@ static void process_nonplayer(int m_idx)
 					object_desc(object_name, object_ptr, 0);
 
 					/* Acquire the creature name */
-					creature_desc(creature_name, creature_ptr, MD_INDEF_HIDDEN);
+					creature_desc(creature_name, creature_ptr, CD_INDEF_HIDDEN);
 
 					/* Only give a message for "take_item" */
 					if (do_take && has_trait(creature_ptr, TRAIT_STUPID) && one_in_(3))

@@ -6054,9 +6054,9 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	// for Player
 	int warning = (target_ptr->mhp * hitpoint_warn / 10);
 
-	if(attacker_ptr) creature_desc(atk_name, attacker_ptr, MD_TRUE_NAME);
+	if(attacker_ptr) creature_desc(atk_name, attacker_ptr, CD_TRUE_NAME);
 	else atk_name[0] = '\0';
-	if(target_ptr) creature_desc(tar_name, target_ptr, MD_TRUE_NAME);
+	if(target_ptr) creature_desc(tar_name, target_ptr, CD_TRUE_NAME);
 	else tar_name[0] = '\0';
 
 	if (!has_trait(target_ptr, TRAIT_KILL_EXP))
@@ -6302,7 +6302,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 	
 			/* Extract creature name */
-			creature_desc(tar_name, target_ptr, MD_TRUE_NAME);
+			creature_desc(tar_name, target_ptr, CD_TRUE_NAME);
 		
 			if (has_trait(target_ptr, TRAIT_CAN_SPEAK))
 			{

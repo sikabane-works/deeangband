@@ -4279,7 +4279,7 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 #endif
 			pet = TRUE;
 		}
-		creature_desc(pet_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		creature_desc(pet_name, m_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 		fprintf(fff, "%s\n", pet_name);
 	}
 

@@ -4894,7 +4894,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 							char caster_name_self[80];
 
 							// hisself 
-							creature_desc(caster_name_self, caster_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+							creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
 
 							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif

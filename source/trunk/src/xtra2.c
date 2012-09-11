@@ -677,7 +677,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	{
 		char m_name[80];
 
-		creature_desc(m_name, dead_ptr, MD_INDEF_VISIBLE);
+		creature_desc(m_name, dead_ptr, CD_INDEF_VISIBLE);
 		do_cmd_write_nikki(DIARY_NAMED_PET, 3, m_name);
 	}
 
@@ -750,7 +750,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 			char m_name[80];
 			
 			/* Extract creature name */
-			creature_desc(m_name, dead_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+			creature_desc(m_name, dead_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 			
 			do_cmd_write_nikki(DIARY_ARENA, arena_number, m_name);
 		}
@@ -2213,7 +2213,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		boring = FALSE;
 
 		/* Get the creature name ("a kobold") */
-		creature_desc(m_name, m_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		creature_desc(m_name, m_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 		/* Hack -- track this creature race */
 		species_type_track(m_ptr->ap_species_idx);

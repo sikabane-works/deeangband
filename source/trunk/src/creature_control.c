@@ -848,7 +848,7 @@ void compact_creatures(int size)
 			{
 				char m_name[80];
 
-				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
 			}
 
@@ -1743,26 +1743,26 @@ s16b get_species_num(floor_type *floor_ptr, int level)
  * so that "char desc[80];" is sufficiently large for any result.
  *
  * Mode Flags:
- *  MD_OBJECTIVE       --> Objective (or Reflexive)
- *  MD_POSSESSIVE      --> Possessive (or Reflexive)
- *  MD_INDEF_HIDDEN    --> Use indefinites for hidden creatures ("something")
- *  MD_INDEF_VISIBLE   --> Use indefinites for visible creatures ("a kobold")
- *  MD_PRON_HIDDEN     --> Pronominalize hidden creatures
- *  MD_PRON_VISIBLE    --> Pronominalize visible creatures
- *  MD_ASSUME_HIDDEN   --> Assume the creature is hidden
- *  MD_ASSUME_VISIBLE  --> Assume the creature is visible
- *  MD_TRUE_NAME       --> Chameleon's true name
- *  MD_IGNORE_HALLU    --> Ignore hallucination, and penetrate shape change
- *  MD_IGNORE_EGO_DESC --> Ignore Ego description
+ *  CD_OBJECTIVE       --> Objective (or Reflexive)
+ *  CD_POSSESSIVE      --> Possessive (or Reflexive)
+ *  CD_INDEF_HIDDEN    --> Use indefinites for hidden creatures ("something")
+ *  CD_INDEF_VISIBLE   --> Use indefinites for visible creatures ("a kobold")
+ *  CD_PRON_HIDDEN     --> Pronominalize hidden creatures
+ *  CD_PRON_VISIBLE    --> Pronominalize visible creatures
+ *  CD_ASSUME_HIDDEN   --> Assume the creature is hidden
+ *  CD_ASSUME_VISIBLE  --> Assume the creature is visible
+ *  CD_TRUE_NAME       --> Chameleon's true name
+ *  CD_IGNORE_HALLU    --> Ignore hallucination, and penetrate shape change
+ *  CD_IGNORE_EGO_DESC --> Ignore Ego description
  *
  * Useful Modes:
  *  0x00 --> Full nominative name ("the kobold") or "it"
- *  MD_INDEF_HIDDEN --> Full nominative name ("the kobold") or "something"
- *  MD_ASSUME_VISIBLE --> Genocide resistance name ("the kobold")
- *  MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE --> Killing name ("a kobold")
- *  MD_PRON_VISIBLE | MD_POSSESSIVE
+ *  CD_INDEF_HIDDEN --> Full nominative name ("the kobold") or "something"
+ *  CD_ASSUME_VISIBLE --> Genocide resistance name ("the kobold")
+ *  CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE --> Killing name ("a kobold")
+ *  CD_PRON_VISIBLE | CD_POSSESSIVE
  *    --> Possessive, genderized if visable ("his") or "its"
- *  MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE
+ *  CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE
  *    --> Reflexive, genderized if visable ("himself") or "itself"
  *
  */
@@ -1793,12 +1793,12 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 	species_ptr = &species_info[creature_ptr->ap_species_idx];
 
-	/* Mode of MD_TRUE_NAME will reveal Chameleon's true name */
-	if (mode & MD_TRUE_NAME) name = (species_name + real_species_ptr(creature_ptr)->name);
+	/* Mode of CD_TRUE_NAME will reveal Chameleon's true name */
+	if (mode & CD_TRUE_NAME) name = (species_name + real_species_ptr(creature_ptr)->name);
 	else name = (species_name + species_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
-	if (IS_HALLUCINATION(player_ptr) && !(mode & MD_IGNORE_HALLU))
+	if (IS_HALLUCINATION(player_ptr) && !(mode & CD_IGNORE_HALLU))
 	{
 		if (one_in_(2))
 		{
@@ -1830,10 +1830,10 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 
 	/* Can we "see" it (exists + forced, or visible + not unforced) */
-	seen = (creature_ptr && ((mode & MD_ASSUME_VISIBLE) || (!(mode & MD_ASSUME_HIDDEN) && creature_ptr->see_others)));
+	seen = (creature_ptr && ((mode & CD_ASSUME_VISIBLE) || (!(mode & CD_ASSUME_HIDDEN) && creature_ptr->see_others)));
 
 	/* Sexed Pronouns (seen and allowed, or unseen and allowed) */
-	pron = (creature_ptr && ((seen && (mode & MD_PRON_VISIBLE)) || (!seen && (mode & MD_PRON_HIDDEN))));
+	pron = (creature_ptr && ((seen && (mode & CD_PRON_VISIBLE)) || (!seen && (mode & CD_PRON_HIDDEN))));
 
 
 	/* First, try using pronouns, or describing hidden creatures */
@@ -1859,71 +1859,71 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 
 		/* Brute force: split on the possibilities */
-		switch (kind + (mode & (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE)))
+		switch (kind + (mode & (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE)))
 		{
 			/* Neuter, or unknown */
 #ifdef JP
 			case 0x00:                                                    res = "何か"; break;
-			case 0x00 + (MD_OBJECTIVE):                                   res = "何か"; break;
-			case 0x00 + (MD_POSSESSIVE):                                  res = "何かの"; break;
-			case 0x00 + (MD_POSSESSIVE | MD_OBJECTIVE):                   res = "何か自身"; break;
-			case 0x00 + (MD_INDEF_HIDDEN):                                res = "何か"; break;
-			case 0x00 + (MD_INDEF_HIDDEN | MD_OBJECTIVE):                 res = "何か"; break;
-			case 0x00 + (MD_INDEF_HIDDEN | MD_POSSESSIVE):                res = "何か"; break;
-			case 0x00 + (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE): res = "それ自身"; break;
+			case 0x00 + (CD_OBJECTIVE):                                   res = "何か"; break;
+			case 0x00 + (CD_POSSESSIVE):                                  res = "何かの"; break;
+			case 0x00 + (CD_POSSESSIVE | CD_OBJECTIVE):                   res = "何か自身"; break;
+			case 0x00 + (CD_INDEF_HIDDEN):                                res = "何か"; break;
+			case 0x00 + (CD_INDEF_HIDDEN | CD_OBJECTIVE):                 res = "何か"; break;
+			case 0x00 + (CD_INDEF_HIDDEN | CD_POSSESSIVE):                res = "何か"; break;
+			case 0x00 + (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE): res = "それ自身"; break;
 #else
 			case 0x00:                                                    res = "it"; break;
-			case 0x00 + (MD_OBJECTIVE):                                   res = "it"; break;
-			case 0x00 + (MD_POSSESSIVE):                                  res = "its"; break;
-			case 0x00 + (MD_POSSESSIVE | MD_OBJECTIVE):                   res = "itself"; break;
-			case 0x00 + (MD_INDEF_HIDDEN):                                res = "something"; break;
-			case 0x00 + (MD_INDEF_HIDDEN | MD_OBJECTIVE):                 res = "something"; break;
-			case 0x00 + (MD_INDEF_HIDDEN | MD_POSSESSIVE):                res = "something's"; break;
-			case 0x00 + (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE): res = "itself"; break;
+			case 0x00 + (CD_OBJECTIVE):                                   res = "it"; break;
+			case 0x00 + (CD_POSSESSIVE):                                  res = "its"; break;
+			case 0x00 + (CD_POSSESSIVE | CD_OBJECTIVE):                   res = "itself"; break;
+			case 0x00 + (CD_INDEF_HIDDEN):                                res = "something"; break;
+			case 0x00 + (CD_INDEF_HIDDEN | CD_OBJECTIVE):                 res = "something"; break;
+			case 0x00 + (CD_INDEF_HIDDEN | CD_POSSESSIVE):                res = "something's"; break;
+			case 0x00 + (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE): res = "itself"; break;
 #endif
 
 
 			/* Male (assume human if vague) */
 #ifdef JP
 			case 0x10:                                                    res = "彼"; break;
-			case 0x10 + (MD_OBJECTIVE):                                   res = "彼"; break;
-			case 0x10 + (MD_POSSESSIVE):                                  res = "彼の"; break;
-			case 0x10 + (MD_POSSESSIVE | MD_OBJECTIVE):                   res = "彼自身"; break;
-			case 0x10 + (MD_INDEF_HIDDEN):                                res = "誰か"; break;
-			case 0x10 + (MD_INDEF_HIDDEN | MD_OBJECTIVE):                 res = "誰か"; break;
-			case 0x10 + (MD_INDEF_HIDDEN | MD_POSSESSIVE):                res = "誰かの"; break;
-			case 0x10 + (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE): res = "彼自身"; break;
+			case 0x10 + (CD_OBJECTIVE):                                   res = "彼"; break;
+			case 0x10 + (CD_POSSESSIVE):                                  res = "彼の"; break;
+			case 0x10 + (CD_POSSESSIVE | CD_OBJECTIVE):                   res = "彼自身"; break;
+			case 0x10 + (CD_INDEF_HIDDEN):                                res = "誰か"; break;
+			case 0x10 + (CD_INDEF_HIDDEN | CD_OBJECTIVE):                 res = "誰か"; break;
+			case 0x10 + (CD_INDEF_HIDDEN | CD_POSSESSIVE):                res = "誰かの"; break;
+			case 0x10 + (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE): res = "彼自身"; break;
 #else
 			case 0x10:                                                    res = "he"; break;
-			case 0x10 + (MD_OBJECTIVE):                                   res = "him"; break;
-			case 0x10 + (MD_POSSESSIVE):                                  res = "his"; break;
-			case 0x10 + (MD_POSSESSIVE | MD_OBJECTIVE):                   res = "himself"; break;
-			case 0x10 + (MD_INDEF_HIDDEN):                                res = "someone"; break;
-			case 0x10 + (MD_INDEF_HIDDEN | MD_OBJECTIVE):                 res = "someone"; break;
-			case 0x10 + (MD_INDEF_HIDDEN | MD_POSSESSIVE):                res = "someone's"; break;
-			case 0x10 + (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE): res = "himself"; break;
+			case 0x10 + (CD_OBJECTIVE):                                   res = "him"; break;
+			case 0x10 + (CD_POSSESSIVE):                                  res = "his"; break;
+			case 0x10 + (CD_POSSESSIVE | CD_OBJECTIVE):                   res = "himself"; break;
+			case 0x10 + (CD_INDEF_HIDDEN):                                res = "someone"; break;
+			case 0x10 + (CD_INDEF_HIDDEN | CD_OBJECTIVE):                 res = "someone"; break;
+			case 0x10 + (CD_INDEF_HIDDEN | CD_POSSESSIVE):                res = "someone's"; break;
+			case 0x10 + (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE): res = "himself"; break;
 #endif
 
 
 			/* Female (assume human if vague) */
 #ifdef JP
 			case 0x20:                                                    res = "彼女"; break;
-			case 0x20 + (MD_OBJECTIVE):                                   res = "彼女"; break;
-			case 0x20 + (MD_POSSESSIVE):                                  res = "彼女の"; break;
-			case 0x20 + (MD_POSSESSIVE | MD_OBJECTIVE):                   res = "彼女自身"; break;
-			case 0x20 + (MD_INDEF_HIDDEN):                                res = "誰か"; break;
-			case 0x20 + (MD_INDEF_HIDDEN | MD_OBJECTIVE):                 res = "誰か"; break;
-			case 0x20 + (MD_INDEF_HIDDEN | MD_POSSESSIVE):                res = "誰かの"; break;
-			case 0x20 + (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE): res = "彼女自身"; break;
+			case 0x20 + (CD_OBJECTIVE):                                   res = "彼女"; break;
+			case 0x20 + (CD_POSSESSIVE):                                  res = "彼女の"; break;
+			case 0x20 + (CD_POSSESSIVE | CD_OBJECTIVE):                   res = "彼女自身"; break;
+			case 0x20 + (CD_INDEF_HIDDEN):                                res = "誰か"; break;
+			case 0x20 + (CD_INDEF_HIDDEN | CD_OBJECTIVE):                 res = "誰か"; break;
+			case 0x20 + (CD_INDEF_HIDDEN | CD_POSSESSIVE):                res = "誰かの"; break;
+			case 0x20 + (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE): res = "彼女自身"; break;
 #else
 			case 0x20:                                                    res = "she"; break;
-			case 0x20 + (MD_OBJECTIVE):                                   res = "her"; break;
-			case 0x20 + (MD_POSSESSIVE):                                  res = "her"; break;
-			case 0x20 + (MD_POSSESSIVE | MD_OBJECTIVE):                   res = "herself"; break;
-			case 0x20 + (MD_INDEF_HIDDEN):                                res = "someone"; break;
-			case 0x20 + (MD_INDEF_HIDDEN | MD_OBJECTIVE):                 res = "someone"; break;
-			case 0x20 + (MD_INDEF_HIDDEN | MD_POSSESSIVE):                res = "someone's"; break;
-			case 0x20 + (MD_INDEF_HIDDEN | MD_POSSESSIVE | MD_OBJECTIVE): res = "herself"; break;
+			case 0x20 + (CD_OBJECTIVE):                                   res = "her"; break;
+			case 0x20 + (CD_POSSESSIVE):                                  res = "her"; break;
+			case 0x20 + (CD_POSSESSIVE | CD_OBJECTIVE):                   res = "herself"; break;
+			case 0x20 + (CD_INDEF_HIDDEN):                                res = "someone"; break;
+			case 0x20 + (CD_INDEF_HIDDEN | CD_OBJECTIVE):                 res = "someone"; break;
+			case 0x20 + (CD_INDEF_HIDDEN | CD_POSSESSIVE):                res = "someone's"; break;
+			case 0x20 + (CD_INDEF_HIDDEN | CD_POSSESSIVE | CD_OBJECTIVE): res = "herself"; break;
 #endif
 		}
 
@@ -1933,7 +1933,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 
 	/* Handle visible creatures, "reflexive" request */
-	else if ((mode & (MD_POSSESSIVE | MD_OBJECTIVE)) == (MD_POSSESSIVE | MD_OBJECTIVE))
+	else if ((mode & (CD_POSSESSIVE | CD_OBJECTIVE)) == (CD_POSSESSIVE | CD_OBJECTIVE))
 	{
 		/* The creature is visible, so use its gender */
 #ifdef JP
@@ -1973,10 +1973,10 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if ((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(IS_HALLUCINATION(player_ptr) && !(mode & MD_IGNORE_HALLU)))
+		if ((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(IS_HALLUCINATION(player_ptr) && !(mode & CD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
-			if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & MD_TRUE_NAME))
+			if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & CD_TRUE_NAME))
 			{
 #ifdef JP
 				char *t;
@@ -2008,15 +2008,15 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 			else
 			{
-				if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
+				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
 				(void)strcat(desc, species_name + species_ptr->name);
-				if(!(mode & MD_IGNORE_EGO_DESC)
+				if(!(mode & CD_IGNORE_EGO_DESC)
 					) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 			}
 		}
 
 		/* It could be an indefinite creature */
-		else if (mode & MD_INDEF_VISIBLE)
+		else if (mode & CD_INDEF_VISIBLE)
 		{
 			/* XXX Check plurality for "some" */
 
@@ -2027,9 +2027,9 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
+			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
+			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
 
 		/* It could be a normal, definite, creature */
@@ -2050,9 +2050,9 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
+			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
 			(void)strcat(desc, species_name + species_ptr->name);
-			if(!(mode & MD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
+			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
 
 
@@ -2076,7 +2076,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 #endif
 		}
 
-		if ((mode & MD_IGNORE_HALLU) && (creature_ptr->mflag2 & MFLAG2_CHAMELEON))
+		if ((mode & CD_IGNORE_HALLU) && (creature_ptr->mflag2 & MFLAG2_CHAMELEON))
 		{
 			if (has_trait_species(species_ptr, TRAIT_UNIQUE))
 			{
@@ -2096,13 +2096,13 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			}
 		}
 
-		if ((mode & MD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
+		if ((mode & CD_IGNORE_HALLU) && !is_original_ap(creature_ptr))
 		{
 			strcat(desc, format("(%s)", species_name + species_info[creature_ptr->species_idx].name));
 		}
 
 		/* Handle the Possessive as a special afterthought */
-		if (mode & MD_POSSESSIVE)
+		if (mode & CD_POSSESSIVE)
 		{
 			/* XXX Check for trailing "s" */
 			
@@ -4008,7 +4008,7 @@ msg_print("爆発のルーンは解除された。");
 	}
 
 	//strcpy(creature_ptr->name, species_name + r_ptr->name);
-	creature_desc(creature_ptr->name, creature_ptr, MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+	creature_desc(creature_ptr->name, creature_ptr, CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 	/* Info for Wizard Mode*/
 	if (cheat_hear)

@@ -2259,7 +2259,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		{
 			char m_name[80];
 
-			creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 		}
 
@@ -2521,7 +2521,7 @@ bool probing(floor_type *floor_ptr)
 				lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
 			}
 			/* Get "the creature" or "something" */
-			creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_INDEF_HIDDEN);
+			creature_desc(m_name, m_ptr, CD_IGNORE_HALLU | CD_INDEF_HIDDEN);
 
 			speed = m_ptr->speed;
 			if (m_ptr->timed_trait[TRAIT_FAST]) speed += 10;
@@ -2734,7 +2734,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 					{
 						char m_name[80];
 
-						creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+						creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
 					}
 
@@ -3148,7 +3148,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				creature_type *m_ptr = &creature_list[m_idx];
 
 				/* Get the creature's real name */
-				creature_desc(m_name, m_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
 #ifdef JP
 				killer = format("%sÇÃãNÇ±ÇµÇΩínêk", m_name);
@@ -3281,7 +3281,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							{
 								char m2_name[80];
 
-								creature_desc(m2_name, m_ptr, MD_INDEF_VISIBLE);
+								creature_desc(m2_name, m_ptr, CD_INDEF_VISIBLE);
 								do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_EARTHQUAKE, m2_name);
 							}
 						}
@@ -3509,7 +3509,7 @@ void discharge_minion(creature_type *caster_ptr)
 		{
 			char m_name[80];
 
-			creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, m_name);
 		}
 

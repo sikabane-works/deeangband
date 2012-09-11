@@ -1524,7 +1524,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 		delete_this = FALSE;
 		kakunin = ((pet_ctr == creature_ptr->riding) || (m_ptr->nickname));
-		creature_desc(friend_name, m_ptr, MD_ASSUME_VISIBLE);
+		creature_desc(friend_name, m_ptr, CD_ASSUME_VISIBLE);
 
 		if (!all_pets)
 		{
@@ -1584,7 +1584,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 			{
 				char m_name[80];
 
-				creature_desc(m_name, m_ptr, MD_INDEF_VISIBLE);
+				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_DISMISS, m_name);
 			}
 
@@ -2067,7 +2067,7 @@ static void dobject_name_pet(creature_type *master_ptr)
 				{
 					char m_name[80];
 
-					creature_desc(m_name, pet_ptr, MD_INDEF_VISIBLE);
+					creature_desc(m_name, pet_ptr, CD_INDEF_VISIBLE);
 					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_NAME, m_name);
 				}
 			}
@@ -2077,7 +2077,7 @@ static void dobject_name_pet(creature_type *master_ptr)
 				{
 					char m_name[80];
 
-					creature_desc(m_name, pet_ptr, MD_INDEF_VISIBLE);
+					creature_desc(m_name, pet_ptr, CD_INDEF_VISIBLE);
 					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_UNNAME, m_name);
 				}
 				pet_ptr->nickname = 0;

@@ -1795,7 +1795,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 #ifndef JP
 	// Get the creature possessive ("his"/"her"/"its")
-	creature_desc(m_poss, target_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE);
+	creature_desc(m_poss, target_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE);
 #endif
 
 
@@ -2045,7 +2045,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			/* Give detailed messages if destroyed */
 			if (known && note)
 			{
-				creature_desc(target_name, target_ptr, MD_TRUE_NAME);
+				creature_desc(target_name, target_ptr, CD_TRUE_NAME);
 				if (see_s_msg)
 				{
 					msg_format("%^s%s", target_name, note);
@@ -2107,7 +2107,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		{
 			char m2_name[80];
 
-			creature_desc(m2_name, target_ptr, MD_INDEF_VISIBLE);
+			creature_desc(m2_name, target_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
 		}
 
@@ -3937,7 +3937,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					else
 					{
 						/* Injure +/- confusion */
-						creature_desc(killer, target_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+						creature_desc(killer, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
 						if (one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 						{
@@ -4073,7 +4073,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					else
 					{
 						/* Injure + mana drain */
-						creature_desc(killer, target_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+						creature_desc(killer, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 						if (!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 						{
 #ifdef JP
@@ -6226,7 +6226,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		char atk_name_self[80];
 
 		/* hisself */
-		creature_desc(atk_name_self, attacker_ptr, MD_PRON_VISIBLE | MD_POSSESSIVE | MD_OBJECTIVE);
+		creature_desc(atk_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
@@ -6830,7 +6830,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	{
 		x1 = caster_ptr->fx;
 		y1 = caster_ptr->fy;
-		creature_desc(who_name, caster_ptr, MD_IGNORE_HALLU | MD_ASSUME_VISIBLE | MD_INDEF_VISIBLE);
+		creature_desc(who_name, caster_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 	}
 
 
