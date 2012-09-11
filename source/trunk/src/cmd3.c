@@ -333,7 +333,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 		act = "You are wearing %s (%c).";
 #endif
 
-
 	object_desc(object_name, object_ptr, 0); // Describe the result
 	msg_format(act, object_name, index_to_label(slot)); // Message
 
@@ -356,6 +355,8 @@ void do_cmd_wield(creature_type *creature_ptr)
 	}
 
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA); // Recalculate bonuses
+	update_creature(creature_ptr, TRUE);
+
 	play_redraw |= (PR_EQUIPPY);
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 

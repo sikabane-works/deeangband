@@ -3638,16 +3638,14 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	chara_type *ch_ptr = &chara_info[creature_ptr->chara_idx];
 	player_sex *se_ptr = &sex_info[creature_ptr->sex];
 
-	/* XXX XXX XXX */
 	mode = (mode % DISPLAY_CR_STATUS_MAX);
 
-	/* Erase screen */
-	clear_from(0);
+	clear_from(0); // Erase screen
 
-	/* Standard */
+	// Standard
 	if (mode == DISPLAY_CR_STATUS_STANDARD)
 	{
-		/* Name, Sex, Race, Class */
+		// Name, Sex, Race, Class
 		if(creature_ptr->chara_idx != INDEX_NONE && creature_ptr->species_idx == SPECIES_STIGMATIC_ONE){ 
 #ifdef JP
 		if(!strcmp(creature_ptr->name, "à€ˆóŽÒ"))
@@ -3663,10 +3661,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			sprintf(tmp, "%s", creature_ptr->name);
 		}
 
-		if(wizard)
-		{
-			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_id, creature_ptr->fx, creature_ptr->fy, creature_ptr->name);
-		}
+		if(wizard) sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_id, creature_ptr->fx, creature_ptr->fy, creature_ptr->name);
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
@@ -3684,14 +3679,8 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 		authority_desc(buf, creature_ptr);
 		
-		if(buf[0] == '\0')
-		{
-			display_player_one_line(ENTRY_AUTH, "------", TERM_L_DARK);
-		}
-		else
-		{
-			display_player_one_line(ENTRY_AUTH, buf, TERM_L_BLUE);
-		}
+		if(buf[0] == '\0') display_player_one_line(ENTRY_AUTH, "------", TERM_L_DARK);
+		else display_player_one_line(ENTRY_AUTH, buf, TERM_L_BLUE);
 
 
 
