@@ -1498,7 +1498,7 @@ extern s16b calc_rank(s32b align);
 extern bool get_subrace(creature_type *creature_ptr, int n);
 extern void set_subrace(creature_type *creature_ptr, int n, bool b);
 extern cptr desc_race_name(creature_type *creature_ptr, u32b mode);
-extern cptr get_class_desc(creature_type *creature_ptr);
+extern cptr desc_class_name(creature_type *creature_ptr, u32b mode);
 
 
 /* effects.c */

@@ -3670,10 +3670,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(creature_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(creature_ptr, CD_SEX), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(creature_ptr, CD_SEX | CD_PURE_RACE), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
-		if(creature_ptr->class_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(creature_ptr), TERM_L_BLUE);
+		if(creature_ptr->class_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, desc_class_name(creature_ptr, CD_SUB_CLASS | CD_REALM), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_CLASS, "--------", TERM_L_DARK);
 
 		if(creature_ptr->patron_idx == INDEX_NONE)

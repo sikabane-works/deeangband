@@ -2132,7 +2132,7 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 	}
 
 	if(species_ptr->race_idx1 == INDEX_VARIABLE || species_ptr->race_idx2 == INDEX_VARIABLE){
-		strcpy(buf, desc_race_name(creature_ptr, 0));
+		strcpy(buf, desc_race_name(creature_ptr, mode));
 		if(strlen(buf))
 		{
 			(void)strcat(desc, buf);

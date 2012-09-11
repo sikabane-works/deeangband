@@ -1754,7 +1754,7 @@ static void put_initial_status(creature_type *creature_ptr)
 #endif
 	if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
-		race = desc_race_name(creature_ptr, CD_SEX);
+		race = desc_race_name(creature_ptr, CD_SEX | CD_PURE_RACE);
 		c_put_str(TERM_L_BLUE, race, 1, 9);
 	}
 
@@ -1765,7 +1765,7 @@ static void put_initial_status(creature_type *creature_ptr)
 #endif
 	if(creature_ptr->class_idx != INDEX_NONE)
 	{
-		cls = get_class_desc(creature_ptr);
+		cls = desc_class_name(creature_ptr, CD_SUB_CLASS | CD_REALM);
 		c_put_str(TERM_L_BLUE, cls, 2, 9);
 	}
 

@@ -2320,6 +2320,8 @@
 #define CD_IGNORE_EGO_DESC	0x00000400 // Add ego description
 #define CD_SEX				0x00000800 // Add sex description 
 #define CD_PURE_RACE		0x00001000 // Add pure race 
+#define CD_SUB_CLASS		0x00002000 // Add pure race 
+#define CD_REALM			0x00004000 // Add pure race 
 
 /*
  * Bit flags for object_desc()

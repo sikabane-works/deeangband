@@ -5532,31 +5532,37 @@ cptr desc_race_name(creature_type *creature_ptr, u32b mode){
 }
 
 
-cptr get_class_desc(creature_type *creature_ptr){
+cptr desc_class_name(creature_type *creature_ptr, u32b mode){
 	char name[80];
 	name[0] = '\0';
 
 	strcat(name, class_info[creature_ptr->class_idx].title);
 
-	if(has_trait(creature_ptr, TRAIT_PUELLA_MAGI))
+	if(mode & CD_SUB_CLASS)
 	{
+		if(has_trait(creature_ptr, TRAIT_PUELLA_MAGI))
+		{
 #if JP
-		strcat(name, "/–‚–@­—");
+			strcat(name, "/–‚–@­—");
 #else
-		strcat(name, "/Puella-Magi");
+			strcat(name, "/Puella-Magi");
 #endif
+		}
 	}
 
-	if(creature_ptr->realm1 != REALM_NONE && creature_ptr->realm1 < MAX_REALM)
+	if(mode & CD_REALM)
 	{
-		strcat(name, " (");
-		strcat(name, realm_names[creature_ptr->realm1]);
-		if(creature_ptr->realm2 != REALM_NONE && creature_ptr->realm2 < MAX_REALM)
+		if(creature_ptr->realm1 != REALM_NONE && creature_ptr->realm1 < MAX_REALM)
 		{
-			strcat(name, ", ");
-			strcat(name, realm_names[creature_ptr->realm2]);
+			strcat(name, " (");
+			strcat(name, realm_names[creature_ptr->realm1]);
+			if(creature_ptr->realm2 != REALM_NONE && creature_ptr->realm2 < MAX_REALM)
+			{
+				strcat(name, ", ");
+				strcat(name, realm_names[creature_ptr->realm2]);
+			}
+			strcat(name, ")");
 		}
-		strcat(name, ")");
 	}
 
 
