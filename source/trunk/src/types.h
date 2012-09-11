@@ -238,7 +238,8 @@ struct artifact_type
 
 	s16b ap_rate;		// AP rate
 
-	s16b charge;
+	s16b charge_const;
+	s16b charge_dice;
 };
 
 

@@ -2806,9 +2806,20 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_CHARGE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].charge = (s16b)b;
+				{
+					artifact_info[n].charge_const = (s16b)b;
+					artifact_info[n].charge_dice  = 0;
+				}
+				else if(sscanf(tmp, "%d+d%d", &b, &c) == 2)
+				{
+					artifact_info[n].charge_const = (s16b)b;
+					artifact_info[n].charge_dice  = (s16b)c;
+				}
 				else
-					artifact_info[n].charge = 0;
+				{
+					artifact_info[n].charge_const = 0;
+					artifact_info[n].charge_dice  = 0;
+				}
 				break;
 
 			default:
