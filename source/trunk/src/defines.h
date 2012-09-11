@@ -932,9 +932,6 @@
 #define ART_BLOOD               199
 #define ART_NUMAHOKO            202
 
-/* The sword of the Dawn */
-#define ART_DAWN                110
-
 /* Hafted */
 #define ART_GROND               111
 #define ART_TOTILA              112

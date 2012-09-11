@@ -4748,7 +4748,7 @@ if (get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_DAWN:
+			case TRAIT_SUMMON_DAWN_LEGION:
 			{
 #ifdef JP
 msg_print("‹Å‚Ìt’c‚ğ¢Š«‚µ‚½B");

@@ -1109,7 +1109,7 @@ return "アイス・ボール(100) : 200 ターン毎";
 #endif
 
 		}
-		case ART_DAWN:
+		case TRAIT_SUMMON_DAWN_LEGION:
 		{
 #ifdef JP
 return "暁の師団召喚 : 500+d500 ターン毎";
