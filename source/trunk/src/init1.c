@@ -2464,6 +2464,7 @@ enum ARTIFACT_INFO {
 	ARTIFACT_INFO_COMMENT,
 	ARTIFACT_INFO_SIZE_UPPER,
 	ARTIFACT_INFO_AP_RATE,
+	ARTIFACT_INFO_CHARGE,
 	ARTIFACT_INFO_CSV_COLUMNS,
 };
 
@@ -2500,6 +2501,7 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"COMMENT",
 	"SIZE_UPPER",
 	"AP_RATE",
+	"CHARGE",
 };
 
 
@@ -2780,6 +2782,13 @@ errr parse_artifact_csv(char *buf, header *head)
 					artifact_info[n].to_damage = (s16b)b;
 				else
 					artifact_info[n].to_damage = 0;
+				break;
+
+			case ARTIFACT_INFO_CHARGE:
+				if(sscanf(tmp, "%d", &b) == 1)
+					artifact_info[n].charge = (s16b)b;
+				else
+					artifact_info[n].charge = 0;
 				break;
 
 			default:

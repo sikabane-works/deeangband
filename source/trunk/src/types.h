@@ -234,6 +234,8 @@ struct artifact_type
 	s16b xtra5;			/* Extra info */
 
 	s16b ap_rate;		// AP rate
+
+	s16b charge;
 };
 
 
