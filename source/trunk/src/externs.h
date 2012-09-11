@@ -1077,7 +1077,7 @@ extern errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_fla
 extern void reset_species_preps(void);
 extern s16b get_species_num(floor_type *floor_ptr, int level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
-extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr);
+extern void creature_desc_ego_pre(char *desc, creature_type *creature_ptr, species_type *species_ptr, u32b mode);
 extern void creature_desc_ego_post(char *desc, creature_type *creature_ptr, species_type *species_ptr);
 extern int lore_do_probe(int species_idx);
 extern void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold);
@@ -1497,7 +1497,7 @@ extern bool heavy_armor(creature_type *creature_ptr);
 extern s16b calc_rank(s32b align);
 extern bool get_subrace(creature_type *creature_ptr, int n);
 extern void set_subrace(creature_type *creature_ptr, int n, bool b);
-extern cptr desc_race_name(creature_type *creature_ptr);
+extern cptr desc_race_name(creature_type *creature_ptr, u32b mode);
 extern cptr get_class_desc(creature_type *creature_ptr);
 
 

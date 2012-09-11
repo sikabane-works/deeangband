@@ -3670,7 +3670,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
-		if(creature_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(creature_ptr), TERM_L_BLUE);
+		if(creature_ptr->race_idx1 != INDEX_NONE) display_player_one_line(ENTRY_RACE, desc_race_name(creature_ptr, CD_SEX), TERM_L_BLUE);
 		else display_player_one_line(ENTRY_RACE, "--------", TERM_L_DARK);
 
 		if(creature_ptr->class_idx != INDEX_NONE) display_player_one_line(ENTRY_CLASS, get_class_desc(creature_ptr), TERM_L_BLUE);
@@ -4952,9 +4952,9 @@ static void dump_aux_race_history(creature_type *creature_ptr, FILE *fff)
 {
 
 #ifdef JP
-	fprintf(fff, "\n\n Ç†Ç»ÇΩÇÕ%sÇ∆ÇµÇƒê∂Ç‹ÇÍÇΩÅB", desc_race_name(&player_prev));
+	fprintf(fff, "\n\n Ç†Ç»ÇΩÇÕ%sÇ∆ÇµÇƒê∂Ç‹ÇÍÇΩÅB", desc_race_name(&player_prev, CD_SEX));
 #else
-	fprintf(fff, "\n\n You were born as %s.", desc_race_name(&player_prev));
+	fprintf(fff, "\n\n You were born as %s.", desc_race_name(&player_prev, CD_SEX));
 #endif
 
 	fputc('\n', fff);

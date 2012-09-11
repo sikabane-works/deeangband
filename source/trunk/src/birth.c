@@ -1754,7 +1754,7 @@ static void put_initial_status(creature_type *creature_ptr)
 #endif
 	if(creature_ptr->race_idx1 != INDEX_NONE)
 	{
-		race = desc_race_name(creature_ptr);
+		race = desc_race_name(creature_ptr, CD_SEX);
 		c_put_str(TERM_L_BLUE, race, 1, 9);
 	}
 

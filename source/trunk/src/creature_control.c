@@ -2008,7 +2008,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 			else
 			{
-				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
+				if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
 				(void)strcat(desc, species_name + species_ptr->name);
 				if(!(mode & CD_IGNORE_EGO_DESC)
 					) creature_desc_ego_post(desc, creature_ptr, species_ptr);
@@ -2027,7 +2027,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 			(void)strcpy(desc, is_a_vowel(name[0]) ? "an " : "a ");
 #endif
 
-			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
+			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
 			(void)strcat(desc, species_name + species_ptr->name);
 			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
@@ -2050,7 +2050,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 				(void)strcpy(desc, "the ");
 #endif
 
-			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr);
+			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_pre(desc, creature_ptr, species_ptr, mode);
 			(void)strcat(desc, species_name + species_ptr->name);
 			if(!(mode & CD_IGNORE_EGO_DESC)) creature_desc_ego_post(desc, creature_ptr, species_ptr);
 		}
@@ -2117,7 +2117,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 }
 
 
-void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type *species_ptr)
+void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type *species_ptr, u32b mode)
 {
 	if(species_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
@@ -2130,7 +2130,7 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 	}
 
 	if(species_ptr->race_idx1 == INDEX_VARIABLE || species_ptr->race_idx2 == INDEX_VARIABLE){
-		(void)strcat(desc, desc_race_name(creature_ptr));
+		(void)strcat(desc, desc_race_name(creature_ptr, CD_SEX));
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 #else
