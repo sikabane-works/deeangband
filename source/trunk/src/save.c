@@ -101,6 +101,8 @@ static void wr_object(object_type *object_ptr)
 	if (object_ptr->name1) flags |= SAVEFLAG_OBJECT_KIND_NAME1;
 	if (object_ptr->name2) flags |= SAVEFLAG_OBJECT_KIND_NAME2;
 	if (object_ptr->timeout) flags |= SAVEFLAG_OBJECT_KIND_TIMEOUT;
+	if (object_ptr->charge_const) flags2 |= SAVEFLAG_OBJECT_CHARGE_CONST;
+	if (object_ptr->charge_dice) flags2 |= SAVEFLAG_OBJECT_CHARGE_DICE;
 	if (object_ptr->to_hit) flags |= SAVEFLAG_OBJECT_KIND_TO_H;
 	if (object_ptr->to_damage) flags |= SAVEFLAG_OBJECT_KIND_TO_D;
 	if (object_ptr->to_ac) flags |= SAVEFLAG_OBJECT_KIND_TO_A;
@@ -180,6 +182,9 @@ static void wr_object(object_type *object_ptr)
 	if (flags & SAVEFLAG_OBJECT_KIND_NAME1) wr_byte(object_ptr->name1);
 	if (flags & SAVEFLAG_OBJECT_KIND_NAME2) wr_u16b(object_ptr->name2);
 	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) wr_s32b(object_ptr->timeout);
+
+	if (flags2 & SAVEFLAG_OBJECT_CHARGE_CONST) wr_s32b(object_ptr->charge_const);
+	if (flags2 & SAVEFLAG_OBJECT_CHARGE_DICE) wr_s32b(object_ptr->charge_dice);
 
 	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) wr_s16b(object_ptr->to_hit);
 	if (flags & SAVEFLAG_OBJECT_KIND_TO_D) wr_s16b(object_ptr->to_damage);

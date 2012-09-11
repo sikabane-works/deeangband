@@ -51,7 +51,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 89
+#define VER_PATCH 90
 
 #define VER_EXTRA 0
 
@@ -3580,6 +3580,8 @@ enum GRAPHICS_MODE
 
 #define SAVEFLAG_OBJECT_KIND_BOW_MUL	     0x01000000
 #define SAVEFLAG_OBJECT_KIND_BOW_ENERGY	     0x02000000
+#define SAVEFLAG_OBJECT_CHARGE_CONST		 0x04000000
+#define SAVEFLAG_OBJECT_CHARGE_DICE			 0x08000000
 
 /*
  * Flags for wr_creature()/rd_creature()

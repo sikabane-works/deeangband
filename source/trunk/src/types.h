@@ -652,6 +652,8 @@ struct object_type
 	byte dd, ds;		/* Damage dice/sides */
 
 	s32b timeout;		/* Timeout Counter */
+	s16b charge_const;
+	s16b charge_dice;
 
 	byte ident;			/* Special flags  */
 

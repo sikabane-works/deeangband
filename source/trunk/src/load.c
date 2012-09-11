@@ -295,6 +295,10 @@ static void rd_object(object_type *object_ptr)
 	else object_ptr->name2 = 0;
 	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) rd_s32b(&object_ptr->timeout);
 	else object_ptr->timeout = 0;
+	if (flags2 & SAVEFLAG_OBJECT_CHARGE_CONST) rd_s32b(&object_ptr->charge_const);
+	else object_ptr->timeout = 0;
+	if (flags2 & SAVEFLAG_OBJECT_CHARGE_DICE) rd_s32b(&object_ptr->charge_dice);
+	else object_ptr->timeout = 0;
 
 	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) rd_s16b(&object_ptr->to_hit);
 	else object_ptr->to_hit = 0;
