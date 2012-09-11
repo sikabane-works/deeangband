@@ -141,6 +141,9 @@ struct object_kind
 
 	s32b cost;			/* Object "base cost" */
 
+	s16b charge_const;
+	s16b charge_dice;
+
 	u32b flags[TR_FLAG_SIZE];	// Flags
 	traits_precondition add_creature_traits;
 

@@ -1989,6 +1989,7 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_RARITY,
 	OK_INFO_WEIGHT,
 	OK_INFO_COST,
+	OK_INFO_CHARGE,
 	OK_INFO_BASE_AC,
 	OK_INFO_BASE_EV,
 	OK_INFO_BASE_DAMAGE,
@@ -2032,6 +2033,7 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"RARITY",
 	"WEIGHT",
 	"COST",
+	"CHARGE",
 	"BASE_AC",
 	"BASE_EV",
 	"BASE_DAMAGE",
@@ -2395,6 +2397,24 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->ap_rate = (s16b)b;
 				else
 					object_kind_ptr->ap_rate = 100;
+				break;
+
+			case OK_INFO_CHARGE:
+				if(sscanf(tmp, "%d", &b) == 1)
+				{
+					object_kind_ptr->charge_const = (s16b)b;
+					object_kind_ptr->charge_dice  = 0;
+				}
+				else if(sscanf(tmp, "%d+d%d", &b, &c) == 2)
+				{
+					object_kind_ptr->charge_const = (s16b)b;
+					object_kind_ptr->charge_dice  = (s16b)c;
+				}
+				else
+				{
+					object_kind_ptr->charge_const = 0;
+					object_kind_ptr->charge_dice  = 0;
+				}
 				break;
 
 			default:

@@ -1837,6 +1837,10 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 
 	object_ptr->weight = k_ptr->weight;
 
+	// Charge time.
+	object_ptr->charge_const = k_ptr->charge_const;
+	object_ptr->charge_dice = k_ptr->charge_dice;
+
 	/* Hack -- worthless items are always "broken" */
 	if (object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);
 
