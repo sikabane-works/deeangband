@@ -809,7 +809,6 @@
 #define ART_TERROR              41
 #define ART_AMBER               42
 #define ART_NUMENOR             132
-#define ART_STONEMASK           146
 
 /* Cloaks */
 #define ART_JACK                43

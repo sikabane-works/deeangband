@@ -4376,7 +4376,7 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 
 			case ART_DOR:
 			case ART_TERROR:
-			case ART_STONEMASK:
+			//case ART_STONEMASK:
 			{
 				turn_creatures(creature_ptr, 40 + creature_ptr->lev);
 				object_ptr->timeout = 3 * (creature_ptr->lev + 10);

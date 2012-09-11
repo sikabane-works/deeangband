@@ -261,7 +261,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 		if (!get_check(dummy)) return;
 	}
 
-	if ((object_ptr->name1 == ART_STONEMASK) && object_is_known(object_ptr) &&
+	if (has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && object_is_known(object_ptr) &&
 		!has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_LICH) &&
 		!has_trait(creature_ptr, TRAIT_SKELETON) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
@@ -349,7 +349,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	}
 
 	// The Stone Mask make the player turn into a vampire!
-	if ((object_ptr->name1 == ART_STONEMASK) && !has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_NONLIVING))
+	if (has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && !has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
 		// TODO: ADD Vampire Flag 
 	}

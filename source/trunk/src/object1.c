@@ -1604,7 +1604,9 @@ return "信じ難いこと : 450+d450 ターン毎";
 #endif
 
 		}
-		case ART_DOR: case ART_TERROR: case ART_STONEMASK:
+		case ART_DOR:
+		case ART_TERROR:
+		//case ART_STONEMASK:
 		{
 #ifdef JP
 			return "全方向への恐怖の光線 : 3*(レベル+10) ターン毎";
@@ -2416,17 +2418,6 @@ info[i++] = "...ただし装備していなければならない。";
 info[i++] = "それは投げた時ペットに変化する。";
 #else
 		info[i++] = "It will transform into a pet when thrown.";
-#endif
-
-	}
-
-	/* Figurines, a hack */
-	if (object_ptr->name1 == ART_STONEMASK)
-	{
-#ifdef JP
-info[i++] = "それを装備した者は吸血鬼になる。";
-#else
-		info[i++] = "It makes you turn into a vampire permanently.";
 #endif
 
 	}
