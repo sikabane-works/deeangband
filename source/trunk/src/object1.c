@@ -1492,7 +1492,7 @@ return "エレメントのブレス (300), 士気高揚、祝福、耐性";
 #endif
 
 		}
-		case ART_GALADRIEL:
+		case TRAIT_ILLUMINATION:
 		{
 #ifdef JP
 return "イルミネーション : 10+d10 ターン毎";

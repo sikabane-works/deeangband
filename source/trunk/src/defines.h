@@ -728,7 +728,6 @@
 /*** Artifact indexes (see "lib/edit/artifact_info.txt") ***/
 
 // Lites
-#define ART_GALADRIEL            1
 #define ART_ELENDIL              2
 #define ART_JUDGE                3
 #define ART_EDISON               7

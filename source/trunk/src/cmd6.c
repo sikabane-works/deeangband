@@ -4062,7 +4062,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		/* Choose effect */
 		switch (object_ptr->name1)
 		{
-			case ART_GALADRIEL:
+			case TRAIT_ILLUMINATION:
 			{
 #ifdef JP
 				msg_print("аЮ—ћ•r‚©‚зђџ‚с‚ѕЊх‚Є‚ ‚У‚кЏo‚Ѕ...");
