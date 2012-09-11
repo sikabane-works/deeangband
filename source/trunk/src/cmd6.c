@@ -4138,27 +4138,8 @@ if (get_check("帰還の力を使いますか？"))
 				break;
 			}
 
-			case ART_INGWE:
+			case TRAIT_DISPEL_EVIL_1:
 			{
-#ifdef JP
-				msg_print("アミュレットは辺りを善のオーラで満たした...");
-#else
-				msg_print("The amulet floods the area with goodness...");
-#endif
-
-				dispel_evil(creature_ptr, creature_ptr->lev * 5);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case ART_YATA:
-			{
-#ifdef JP
-				msg_print("鏡は辺りを善のオーラで満たした...");
-#else
-				msg_print("The mirror floods the area with goodness...");
-#endif
-
 				dispel_evil(creature_ptr, creature_ptr->lev * 5);
 				object_ptr->timeout = randint0(200) + 200;
 				break;

@@ -1519,8 +1519,7 @@ return "体力と引き替えに千里眼と帰還 : 20+d20 ターン毎";
 #endif
 
 		}
-		case ART_INGWE:
-		case ART_YATA:
+		case TRAIT_DISPEL_EVIL_1:
 		{
 #ifdef JP
 return "邪悪退散(x5) : 200+d200 ターン毎";
