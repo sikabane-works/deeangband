@@ -2130,7 +2130,7 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 	}
 
 	if(species_ptr->race_idx1 == INDEX_VARIABLE || species_ptr->race_idx2 == INDEX_VARIABLE){
-		(void)strcat(desc, desc_race_name(creature_ptr, CD_SEX));
+		(void)strcat(desc, desc_race_name(creature_ptr, 0));
 #ifdef JP
 		(void)strcat(desc, "‚Ì");
 #else

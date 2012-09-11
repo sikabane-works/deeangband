@@ -5516,9 +5516,12 @@ cptr desc_race_name(creature_type *creature_ptr, u32b mode){
 
 	strcat(name, subname);
 
-	strcat(name, "(");
-	strcat(name, sex_info[creature_ptr->sex].title);
-	strcat(name, ")");
+	if(mode & CD_SEX)
+	{
+		strcat(name, "(");
+		strcat(name, sex_info[creature_ptr->sex].title);
+		strcat(name, ")");
+	}
 
 	return format("%s", name);
 }
