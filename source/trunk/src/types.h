@@ -270,6 +270,9 @@ struct ego_item_type
 	s16b max_stat[STAT_MAX];		// Maximum stat
 	s32b cost;			/* Ego-item "cost" */
 
+	s16b charge_const;
+	s16b charge_dice;
+
 	u32b flags[TR_FLAG_SIZE];	/* Ego-Item Flags */
 	traits_precondition add_creature_traits;
 

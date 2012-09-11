@@ -2870,6 +2870,7 @@ enum OBJECT_EGO {
 	OBJECT_EGO_ADD_CREATURE_TRAITS,
 	OBJECT_EGO_INFO_COMMENT,
 	OBJECT_EGO_INFO_AP_RATE,
+	OBJECT_EGO_INFO_CHARGE,
 	OBJECT_EGO_INFO_CSV_COLUMNS,
 };
 
@@ -2898,6 +2899,7 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"FLAG",
 	"ADD_CREATURE_TRAITS",
 	"COMMENT",
+	"CHARGE",
 	"AP_RATE",
 };
 
@@ -2905,7 +2907,7 @@ static int object_ego_info_csv_code[OBJECT_EGO_INFO_CSV_COLUMNS];
 errr parse_object_ego_csv(char *buf, header *head)
 {
 	int split[80], size[80];
-	int i, j, b;
+	int i, j, b, c;
 	char *s, *t;
 	char tmp[10000], nt[80];
 
@@ -3126,6 +3128,24 @@ errr parse_object_ego_csv(char *buf, header *head)
 					object_ego_info[n].ap_rate = (s16b)b;
 				else
 					object_ego_info[n].ap_rate = 0;
+				break;
+
+			case OBJECT_EGO_INFO_CHARGE:
+				if(sscanf(tmp, "%d", &b) == 1)
+				{
+					object_ego_info[n].charge_const = (s16b)b;
+					object_ego_info[n].charge_dice  = 0;
+				}
+				else if(sscanf(tmp, "%d+d%d", &b, &c) == 2)
+				{
+					object_ego_info[n].charge_const = (s16b)b;
+					object_ego_info[n].charge_dice  = (s16b)c;
+				}
+				else
+				{
+					object_ego_info[n].charge_const = 0;
+					object_ego_info[n].charge_dice  = 0;
+				}
 				break;
 
 			default:
