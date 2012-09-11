@@ -5467,16 +5467,21 @@ cptr desc_race_name(creature_type *creature_ptr, u32b mode){
 #endif
 	}
 
+	if(mode & CD_PURE_RACE)
 	if(IS_PURE(creature_ptr))
 	{
 		if(!name[0])
 		{
 #if JP
-			strcat(name, "ƒŒŒŽí‚Ì");
+
+			if(mode & CD_PURE_RACE) strcat(name, "ƒŒŒŽí‚Ì");
 #else
-			strcat(name, "Pure-blooded ");
-			strcat(name, sex_info[creature_ptr->sex].title);
-			strcat(name, " ");
+			if(mode & CD_PURE_RACE) strcat(name, "Pure-blooded ");
+			if(mode & CD_SEX)
+			{
+				strcat(name, sex_info[creature_ptr->sex].title);
+				strcat(name, " ");
+			}
 #endif
 		}
 		strcat(name, race_info[creature_ptr->race_idx1].title);

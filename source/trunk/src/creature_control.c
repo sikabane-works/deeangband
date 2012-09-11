@@ -2119,6 +2119,8 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 
 void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type *species_ptr, u32b mode)
 {
+	char buf[100];
+
 	if(species_ptr->chara_idx == INDEX_VARIABLE){
 #ifdef JP
 		(void)strcat(desc, chara_info[creature_ptr->chara_idx].title);
@@ -2130,12 +2132,16 @@ void creature_desc_ego_pre(char* desc, creature_type *creature_ptr, species_type
 	}
 
 	if(species_ptr->race_idx1 == INDEX_VARIABLE || species_ptr->race_idx2 == INDEX_VARIABLE){
-		(void)strcat(desc, desc_race_name(creature_ptr, 0));
+		strcpy(buf, desc_race_name(creature_ptr, 0));
+		if(strlen(buf))
+		{
+			(void)strcat(desc, buf);
 #ifdef JP
-		(void)strcat(desc, "‚Ì");
+			(void)strcat(desc, "‚Ì");
 #else
-		(void)strcat(desc, "'s ");
+			(void)strcat(desc, "'s ");
 #endif
+		}
 	}
 
 	if(has_trait(creature_ptr, TRAIT_VARIABLE_SIZE)){
