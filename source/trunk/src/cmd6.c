@@ -5539,7 +5539,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = randint0(225) + 225;
 				break;
 			}
-			case ART_JIZO:
+
+			case TRAIT_SUMMON_OCTOPUS:
 			{
 				u32b mode = PC_ALLOW_GROUP;
 				bool pet = !one_in_(5);
@@ -5567,18 +5568,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_FUNDIN:
-			{
-#ifdef JP
-				msg_print("鉄球は辺りを善のオーラで満たした...");
-#else
-				msg_print("The iron ball floods the area with goodness...");
-#endif
-
-				dispel_evil(creature_ptr, creature_ptr->lev * 5);
-				object_ptr->timeout = randint0(100) + 100;
-				break;
-			}
 
 			case ART_AESCULAPIUS:
 			{

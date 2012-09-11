@@ -1526,10 +1526,6 @@ return "邪悪退散(x5) : 200+d200 ターン毎";
 #else
 			return "dispel evil (x5) every 200+d200 turns";
 #endif
-
-		}
-		case ART_FUNDIN:
-		{
 #ifdef JP
 return "邪悪退散(x5) : 100+d100 ターン毎";
 #else
@@ -1537,6 +1533,7 @@ return "邪悪退散(x5) : 100+d100 ターン毎";
 #endif
 
 		}
+
 		case ART_CARLAMMAS:
 		case ART_HERMIT:
 		{
@@ -1822,10 +1819,10 @@ return "冷気の耐性 : 40+d40ターン毎";
 #endif
 
 		}
-		case ART_JIZO:
+		case TRAIT_SUMMON_OCTOPUS:
 		{
 #ifdef JP
-return "蛸の大群召喚 : 300+d150ターン毎";
+			return "蛸の大群召喚 : 300+d150ターン毎";
 #else
 			return "summon octopus every 300+d150 turns";
 #endif

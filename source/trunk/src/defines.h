@@ -958,8 +958,6 @@
 #define ART_AEGISFANG           208
 #define ART_HERMIT              209
 #define ART_GOTHMOG             212
-#define ART_JIZO                213
-#define ART_FUNDIN              214
 #define ART_AESCULAPIUS         225
 
 /* Bows */
