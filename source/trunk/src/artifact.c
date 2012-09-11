@@ -1956,7 +1956,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)lite_line(creature_ptr, dir);
-			object_ptr->timeout = 10;
 			break;
 		}
 
@@ -1970,7 +1969,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
-			object_ptr->timeout = 2;
 			break;
 		}
 
@@ -1984,7 +1982,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_POIS, dir, 12, 3);
-			object_ptr->timeout = (s16b)randint0(4) + 4;
 			break;
 		}
 
@@ -1998,7 +1995,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-			object_ptr->timeout = (s16b)randint0(5) + 5;
 			break;
 		}
 
@@ -2012,7 +2008,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
-			object_ptr->timeout = (s16b)randint0(6) + 6;
 			break;
 		}
 
@@ -2026,7 +2021,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-			object_ptr->timeout = (s16b)randint0(7) + 7;
 			break;
 		}
 
@@ -2040,7 +2034,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
-			object_ptr->timeout = (s16b)randint0(8) + 8;
 			break;
 		}
 
@@ -2054,7 +2047,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_COLD, dir, 48, 2);
-			object_ptr->timeout = 400;
 			break;
 		}
 
@@ -2068,7 +2060,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_FIRE, dir, 72, 2);
-			object_ptr->timeout = 400;
 			break;
 		}
 
@@ -2082,7 +2073,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			if (drain_life(creature_ptr, dir, 100))
-			object_ptr->timeout = (s16b)randint0(100) + 100;
 			break;
 		}
 
@@ -2096,7 +2086,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-			object_ptr->timeout = 300;
 			break;
 		}
 
@@ -2110,7 +2099,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_ELEC, dir, 100, 3);
-			object_ptr->timeout = 500;
 			break;
 		}
 
@@ -2124,7 +2112,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			drain_life(creature_ptr, dir, 120);
-			object_ptr->timeout = 400;
 			break;
 		}
 
@@ -2136,7 +2123,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 				if (drain_life(creature_ptr, dir, 50))
 				heal_creature(creature_ptr, 50);
 			}
-			object_ptr->timeout = 400;
 			break;
 		}
 
@@ -2150,7 +2136,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_ARROW, dir, 150);
-			object_ptr->timeout = (s16b)randint0(90) + 90;
 			break;
 		}
 
@@ -2164,7 +2149,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_FIRE, dir, 120, 3);
-			object_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
 		}
 
@@ -2178,7 +2162,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_COLD, dir, 200, 3);
-			object_ptr->timeout = (s16b)randint0(325) + 325;
 			break;
 		}
 
@@ -2192,7 +2175,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_ELEC, dir, 250, 3);
-			object_ptr->timeout = (s16b)randint0(425) + 425;
 			break;
 		}
 
@@ -2216,7 +2198,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 						melee_attack(creature_ptr, y, x, 0);
 				}
 			}
-			object_ptr->timeout = 250;
 			break;
 		}
 
@@ -2229,7 +2210,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 				heal_creature(creature_ptr, 100);
 			}
 
-			object_ptr->timeout = 400;
 			break;
 		}
 
@@ -2243,7 +2223,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			call_chaos(creature_ptr);
-			object_ptr->timeout = 350;
 			break;
 		}
 
@@ -2257,7 +2236,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			fire_ball(creature_ptr, GF_ROCKET, dir, 250 + plev*3, 2);
-			object_ptr->timeout = 400;
 			break;
 		}
 
@@ -2270,7 +2248,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			dispel_evil(creature_ptr, creature_ptr->lev * 5);
-			object_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}
 
@@ -2283,7 +2260,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			dispel_good(creature_ptr, creature_ptr->lev * 5);
-			object_ptr->timeout = (s16b)randint0(300) + 300;
 			break;
 		}
 
@@ -2297,7 +2273,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			fire_ball(creature_ptr, GF_MISSILE, dir, 300, 4);
-			object_ptr->timeout = 500;
 			break;
 		}
 
@@ -2313,7 +2288,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			confuse_creature(creature_ptr, dir, 20);
-			object_ptr->timeout = 15;
 			break;
 		}
 
@@ -2326,21 +2300,18 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			sleep_creatures_touch(creature_ptr);
-			object_ptr->timeout = 55;
 			break;
 		}
 
 		case ACT_QUAKE:
 		{
 			earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10);
-			object_ptr->timeout = 50;
 			break;
 		}
 
 		case ACT_TERROR:
 		{
 			turn_creatures(creature_ptr, 40 + creature_ptr->lev);
-			object_ptr->timeout = 3 * (creature_ptr->lev + 10);
 			break;
 		}
 
@@ -2348,7 +2319,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)fire_beam(creature_ptr, GF_AWAY_ALL, dir, plev);
-			object_ptr->timeout = 200;
 			break;
 		}
 
@@ -2363,7 +2333,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			}
-			object_ptr->timeout = 250 + (s16b)randint1(250);
 			break;
 		}
 
@@ -2376,7 +2345,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)symbol_genocide(creature_ptr, 200, TRUE);
-			object_ptr->timeout = 500;
 			break;
 		}
 
@@ -2389,7 +2357,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)mass_genocide(creature_ptr, 200, TRUE);
-			object_ptr->timeout = 1000;
 			break;
 		}
 
@@ -2399,7 +2366,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)charm_animal(creature_ptr, dir, plev);
-			object_ptr->timeout = 300;
 			break;
 		}
 
@@ -2407,7 +2373,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)control_one_undead(creature_ptr, dir, plev);
-			object_ptr->timeout = 333;
 			break;
 		}
 
@@ -2415,28 +2380,24 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)charm_creature(creature_ptr, dir, plev);
-			object_ptr->timeout = 400;
 			break;
 		}
 
 		case ACT_CHARM_ANIMALS:
 		{
 			(void)charm_animals(creature_ptr, plev * 2);
-			object_ptr->timeout = 500;
 			break;
 		}
 
 		case ACT_CHARM_OTHERS:
 		{
 			charm_creatures(creature_ptr, plev * 2);
-			object_ptr->timeout = 750;
 			break;
 		}
 
 		case ACT_SUMMON_ANIMAL:
 		{
 			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
-			object_ptr->timeout = 200 + (s16b)randint1(300);
 			break;
 		}
 
@@ -2449,7 +2410,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
-			object_ptr->timeout = 200 + (s16b)randint1(200);
 			break;
 		}
 
@@ -2487,7 +2447,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			}
 
-			object_ptr->timeout = 750;
 			break;
 		}
 
@@ -2524,7 +2483,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			}
 
-			object_ptr->timeout = 666 + (s16b)randint1(333);
 			break;
 		}
 
@@ -2564,7 +2522,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			}
 
-			object_ptr->timeout = 666 + (s16b)randint1(333);
 			break;
 		}
 
@@ -2574,7 +2531,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		{
 			(void)set_afraid(creature_ptr, 0);
 			(void)heal_creature(creature_ptr, 30);
-			object_ptr->timeout = 10;
 			break;
 		}
 
@@ -2588,7 +2544,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			heal_creature(creature_ptr, diceroll(4, 8));
 			(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
-			object_ptr->timeout = (s16b)randint0(3) + 3;
 			break;
 		}
 
@@ -2602,7 +2557,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			(void)set_afraid(creature_ptr, 0);
 			(void)set_poisoned(creature_ptr, 0);
-			object_ptr->timeout = 5;
 			break;
 		}
 
@@ -2615,7 +2569,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			restore_level(creature_ptr);
-			object_ptr->timeout = 450;
 			break;
 		}
 
@@ -2634,7 +2587,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			(void)do_res_stat(creature_ptr, STAT_CON);
 			(void)do_res_stat(creature_ptr, STAT_CHA);
 			(void)restore_level(creature_ptr);
-			object_ptr->timeout = 750;
 			break;
 		}
 
@@ -2654,7 +2606,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			(void)heal_creature(creature_ptr, 700);
 			(void)set_cut(creature_ptr, 0);
-			object_ptr->timeout = 250;
 			break;
 		}
 
@@ -2674,7 +2625,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			(void)heal_creature(creature_ptr, 1000);
 			(void)set_cut(creature_ptr, 0);
-			object_ptr->timeout = 888;
 			break;
 		}
 
@@ -2683,7 +2633,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		case ACT_ESP:
 		{
 			(void)set_tim_esp(creature_ptr, randint1(30) + 25, FALSE);
-			object_ptr->timeout = 200;
 			break;
 		}
 
@@ -2692,7 +2641,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			(void)set_afraid(creature_ptr, 0);
 			(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
 			(void)set_blessed(creature_ptr, randint1(50) + 50, FALSE);
-			object_ptr->timeout = 100 + (s16b)randint1(100);
 			break;
 		}
 
@@ -2706,7 +2654,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			k = 3 * creature_ptr->lev;
 			(void)set_protevil(creature_ptr, randint1(25) + k, FALSE);
-			object_ptr->timeout = (s16b)randint0(225) + 225;
 			break;
 		}
 
@@ -2723,7 +2670,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			(void)set_oppose_fire(creature_ptr, randint1(40) + 40, FALSE);
 			(void)set_oppose_cold(creature_ptr, randint1(40) + 40, FALSE);
 			(void)set_oppose_pois(creature_ptr, randint1(40) + 40, FALSE);
-			object_ptr->timeout = 200;
 			break;
 		}
 
@@ -2736,7 +2682,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
-			object_ptr->timeout = 250;
 			break;
 		}
 
@@ -2749,21 +2694,18 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)set_fast(creature_ptr, randint1(75) + 75, FALSE);
-			object_ptr->timeout = (s16b)randint0(200) + 200;
 			break;
 		}
 
 		case ACT_WRAITH:
 		{
 			set_wraith_form(creature_ptr, randint1(plev / 2) + (plev / 2), FALSE);
-			object_ptr->timeout = 1000;
 			break;
 		}
 
 		case ACT_INVULN:
 		{
 			(void)set_invuln(creature_ptr, randint1(8) + 8, FALSE);
-			object_ptr->timeout = 1000;
 			break;
 		}
 
@@ -2778,7 +2720,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			lite_area(creature_ptr, diceroll(2, 15), 3);
-			object_ptr->timeout = (s16b)randint0(10) + 10;
 			break;
 		}
 
@@ -2792,7 +2733,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			map_area(creature_ptr, DETECT_RAD_MAP);
 			lite_area(creature_ptr, diceroll(2, 15), 3);
-			object_ptr->timeout = (s16b)randint0(50) + 50;
 			break;
 		}
 
@@ -2811,7 +2751,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-			object_ptr->timeout = (s16b)randint0(55) + 55;
 			break;
 		}
 
@@ -2826,7 +2765,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 			probing(floor_ptr);
 			identify_fully(creature_ptr, FALSE);
-			object_ptr->timeout = 1000;
 			break;
 		}
 
@@ -2839,14 +2777,12 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			identify_fully(creature_ptr, FALSE);
-			object_ptr->timeout = 750;
 			break;
 		}
 
 		case ACT_ID_PLAIN:
 		{
 			if (!ident_spell(creature_ptr, FALSE)) return FALSE;
-			object_ptr->timeout = 10;
 			break;
 		}
 
@@ -2859,7 +2795,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			explosive_rune(creature_ptr);
-			object_ptr->timeout = 200;
 			break;
 		}
 
@@ -2872,14 +2807,12 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			warding_glyph(creature_ptr);
-			object_ptr->timeout = 400;
 			break;
 		}
 
 		case ACT_SATIATE:
 		{
 			(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
-			object_ptr->timeout = 200;
 			break;
 		}
 
@@ -2892,7 +2825,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			destroy_doors_touch(creature_ptr);
-			object_ptr->timeout = 10;
 			break;
 		}
 
@@ -2906,14 +2838,12 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			wall_to_mud(creature_ptr, dir);
-			object_ptr->timeout = 5;
 			break;
 		}
 
 		case ACT_RECHARGE:
 		{
 			recharge(creature_ptr, 130);
-			object_ptr->timeout = 70;
 			break;
 		}
 
@@ -2926,7 +2856,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)alchemy(creature_ptr);
-			object_ptr->timeout = 500;
 			break;
 		}
 
@@ -2939,7 +2868,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			if (!dimension_door(creature_ptr)) return FALSE;
-			object_ptr->timeout = 100;
 			break;
 		}
 
@@ -2953,7 +2881,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			teleport_player(creature_ptr, 100, 0L);
-			object_ptr->timeout = 45;
 			break;
 		}
 
@@ -2965,7 +2892,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			msg_print("It glows soft white...");
 #endif
 			if (!word_of_recall(creature_ptr)) return FALSE;
-			object_ptr->timeout = 200;
 			break;
 		}
 
@@ -2979,6 +2905,12 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			return FALSE;
 		}
+	}
+
+	if(object_ptr)
+	{
+		object_ptr->timeout = object_ptr->charge_const;
+		if(object_ptr->charge_dice) object_ptr->timeout += randint1(object_ptr->charge_dice);
 	}
 
 	return TRUE;
