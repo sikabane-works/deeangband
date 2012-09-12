@@ -3652,19 +3652,17 @@ msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
 		return;
 	}
 
-	/* Sound */
 	sound(SOUND_ZAP);
 
 	ident = rod_effect(creature_ptr, object_ptr->sval, dir, &use_charge, FALSE);
+	if (use_charge)
+	{
+		object_ptr->timeout += object_ptr->charge_const; // Increase the timeout
+		if(object_ptr->charge_dice) object_ptr->timeout += randint1(object_ptr->charge_dice);
+	}
 
-	/* Increase the timeout by the rod kind's pval. -LM- */
-	if (use_charge) object_ptr->timeout += k_ptr->pval;
-
-	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-
-	/* Tried the object */
-	object_tried(object_ptr);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);	// Combine / Reorder the pack (later)
+	object_tried(object_ptr);	// Tried the object
 
 	/* Successfully determined the object function */
 	if (ident && !object_is_aware(object_ptr))
