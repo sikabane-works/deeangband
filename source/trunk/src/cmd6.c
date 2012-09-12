@@ -4358,19 +4358,16 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 				break;
 			}
 
-			case ART_AMBER:
+			case TRAIT_REGAL_HEAL_OF_AMBER:
 			{
 #ifdef JP
-				msg_print("‰¤Š¥‚ª[‚¢ƒuƒ‹[‚É‹P‚¢‚½...");
 				msg_print("‘Ì“à‚É’g‚©‚¢ŒÛ“®‚ªŠ´‚¶‚ç‚ê‚é...");
 #else
-				msg_print("Your crown glows deep blue...");
 				msg_print("You feel a warm tingling inside...");
 #endif
 
 				(void)heal_creature(creature_ptr, 700);
 				(void)set_cut(creature_ptr, 0);
-				object_ptr->timeout = 250;
 				break;
 			}
 

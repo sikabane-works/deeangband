@@ -1465,15 +1465,6 @@ return "全感知 : 55+d55 ターン毎";
 #endif
 
 		}
-		case ART_AMBER:
-		{
-#ifdef JP
-return "体力回復(700) : 250 ターン毎";
-#else
-			return "heal (700) every 250 turns";
-#endif
-
-		}
 		case ART_RAZORBACK:
 		{
 #ifdef JP
