@@ -4123,18 +4123,16 @@ if (get_check("帰還の力を使いますか？"))
 			case TRAIT_DISPEL_EVIL_1:
 			{
 				dispel_evil(creature_ptr, creature_ptr->lev * 5);
-				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
 			case ART_FRAKIR:
 			{
 #ifdef JP
-msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
+				msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 #else
 				msg_print("You order Frakir to strangle your opponent.");
 #endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				if (drain_life(creature_ptr, dir, 100))
 				object_ptr->timeout = randint0(100) + 100;
