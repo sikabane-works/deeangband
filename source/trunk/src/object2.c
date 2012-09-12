@@ -7698,7 +7698,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	ego_item_type *e_ptr = &object_ego_info[ego_id];
 
 	object_ptr->name2 = ego_id;
-	if ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)) return;
+	if(has_trait_object(object_ptr, TRAIT_NO_EGO)) return;
 
 	object_ptr->charge_const = e_ptr->charge_const;
 	object_ptr->charge_dice = e_ptr->charge_dice;
