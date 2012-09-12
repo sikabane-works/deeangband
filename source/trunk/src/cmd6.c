@@ -4343,13 +4343,11 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_HOLHENNETH:
+			case TRAIT_DETECT_ALL:
 			{
 #ifdef JP
-				msg_print("ヘルメットが白く明るく輝いた...");
-				msg_print("心にイメージが浮かんできた...");
+				msg_print("脳裏に全てのイメージが浮かんできた...");
 #else
-				msg_print("Your helm glows bright white...");
 				msg_print("An image forms in your mind...");
 #endif
 

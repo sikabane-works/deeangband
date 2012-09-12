@@ -803,7 +803,6 @@
 #define ART_THENGEL             37
 #define ART_HAMMERHAND          38
 #define ART_DOR                 39
-#define ART_HOLHENNETH          40
 #define ART_TERROR              41
 #define ART_AMBER               42
 #define ART_NUMENOR             132

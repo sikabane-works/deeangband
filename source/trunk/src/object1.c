@@ -1456,15 +1456,6 @@ return "魔法の矢(150) : 90+d90 ターン毎";
 #endif
 
 		}
-		case ART_HOLHENNETH:
-		{
-#ifdef JP
-return "全感知 : 55+d55 ターン毎";
-#else
-			return "detection every 55+d55 turns";
-#endif
-
-		}
 		case ART_RAZORBACK:
 		{
 #ifdef JP
