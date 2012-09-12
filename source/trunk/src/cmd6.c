@@ -3709,17 +3709,10 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 {
 	u32b flgs[TR_FLAG_SIZE];
 
-	/* Not known */
-	if (!object_is_known(object_ptr)) return (FALSE);
-
-	/* Extract the flags */
-	object_flags(object_ptr, flgs);
-
-	/* Check activation flag */
-	if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);
-
-	/* Assume not */
-	return (FALSE);
+	if (!object_is_known(object_ptr)) return (FALSE);	// Not known
+	object_flags(object_ptr, flgs);						// Extract the flags
+	if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);	// TODO:Check activation flag
+	return (FALSE);	// Assume not
 }
 
 
@@ -3728,13 +3721,11 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
  */
 void ring_of_power(creature_type *creature_ptr, int dir)
 {
-	/* Pick a random effect */
-	switch (randint1(10))
+	switch (randint1(10))	// Pick a random effect
 	{
 		case 1:
 		case 2:
 		{
-			/* Message */
 #ifdef JP
 			msg_print("あなたは悪性のオーラに包み込まれた。");
 #else
@@ -3743,7 +3734,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 
 			sound(SOUND_EVIL);
 
-			/* Decrease all stats (permanently) */
+			// Decrease all stats (permanently)
 			(void)dec_stat(creature_ptr, STAT_STR, 50, TRUE);
 			(void)dec_stat(creature_ptr, STAT_INT, 50, TRUE);
 			(void)dec_stat(creature_ptr, STAT_WIS, 50, TRUE);
@@ -3751,7 +3742,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 			(void)dec_stat(creature_ptr, STAT_CON, 50, TRUE);
 			(void)dec_stat(creature_ptr, STAT_CHA, 50, TRUE);
 
-			/* Lose some experience (permanently) */
+			// Lose some experience (permanently)
 			creature_ptr->exp -= (creature_ptr->exp / 4);
 			creature_ptr->max_exp -= (creature_ptr->exp / 4);
 			check_experience(creature_ptr);
@@ -3761,17 +3752,14 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 
 		case 3:
 		{
-			/* Message */
+			// Message
 #ifdef JP
 			msg_print("あなたは強力なオーラに包み込まれた。");
 #else
 			msg_print("You are surrounded by a powerful aura.");
 #endif
-
-
-			/* Dispel creatures */
+			// Dispel creatures
 			dispel_creatures(creature_ptr, 1000);
-
 			break;
 		}
 
@@ -3779,9 +3767,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		case 5:
 		case 6:
 		{
-			/* Mana Ball */
-			fire_ball(creature_ptr, GF_MANA, dir, 600, 3);
-
+			fire_ball(creature_ptr, GF_MANA, dir, 600, 3);	// Mana Ball
 			break;
 		}
 
@@ -3790,9 +3776,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		case 9:
 		case 10:
 		{
-			/* Mana Bolt */
-			fire_bolt(creature_ptr, GF_MANA, dir, 500);
-
+			fire_bolt(creature_ptr, GF_MANA, dir, 500);		// Mana Bolt
 			break;
 		}
 	}
@@ -4213,8 +4197,7 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 				break;
 			}
 
-			case ART_POWER:
-			case ART_AHO:
+			case TRAIT_BIZARRE_THING_OF_THE_RING:
 			{
 #ifdef JP
 				msg_print("指輪は漆黒に輝いた...");
@@ -4224,7 +4207,6 @@ msg_print("あなたはフラキアに敵を締め殺すよう命じた。");
 
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				ring_of_power(creature_ptr, dir);
-				object_ptr->timeout = randint0(450) + 450;
 				break;
 			}
 

@@ -756,7 +756,6 @@
 #define ART_NENYA               11
 #define ART_VILYA               12
 #define ART_POWER               13
-#define ART_AHO                 14
 
 /* Dragon Scale */
 #define ART_RAZORBACK           129

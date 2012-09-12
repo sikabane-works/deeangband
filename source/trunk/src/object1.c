@@ -1590,16 +1590,6 @@ return "巨大サンダー・ボール(500) : 425+d425 ターン毎";
 #endif
 
 		}
-		case ART_POWER:
-		case ART_AHO:
-		{
-#ifdef JP
-return "信じ難いこと : 450+d450 ターン毎";
-#else
-			return "bizarre things every 450+d450 turns";
-#endif
-
-		}
 		case ART_DOR:
 		case ART_TERROR:
 		//case ART_STONEMASK:
