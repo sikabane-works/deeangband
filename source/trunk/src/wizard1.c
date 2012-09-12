@@ -1607,6 +1607,8 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	object_ptr->to_hit = a_ptr->to_hit;
 	object_ptr->to_damage = a_ptr->to_damage;
 	object_ptr->weight = a_ptr->weight;
+	object_ptr->charge_const = a_ptr->charge_const;
+	object_ptr->charge_dice = a_ptr->charge_dice;
 
 	/* Success */
 	return (TRUE);

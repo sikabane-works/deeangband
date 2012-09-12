@@ -3056,6 +3056,8 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	quest_ptr->xtra3 = a_ptr->xtra3;
 	quest_ptr->xtra4 = a_ptr->xtra4;
 	quest_ptr->xtra5 = a_ptr->xtra5;
+	quest_ptr->charge_const = a_ptr->charge_const;
+	quest_ptr->charge_dice = a_ptr->charge_dice;
 
 	/* Hack -- extract the "cursed" flag */
 	if (a_ptr->gen_flags & TRG_CURSED) quest_ptr->curse_flags |= (TRC_CURSED);

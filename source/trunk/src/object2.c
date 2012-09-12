@@ -3469,8 +3469,11 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		object_ptr->to_hit = a_ptr->to_hit;
 		object_ptr->to_damage = a_ptr->to_damage;
 		ave = a_ptr->size_lower + a_ptr->size_upper;
+
 		//TODO adjust weight if(object_ptr->fitting_size) object_ptr->weight = a_ptr->weight * ave / 5 * ave / 5;
 		object_ptr->weight = a_ptr->weight;
+		object_ptr->charge_const = a_ptr->charge_const;
+		object_ptr->charge_dice = a_ptr->charge_dice;
 
 		/* Hack -- extract the "broken" flag */
 		if (!a_ptr->cost) object_ptr->ident |= (IDENT_BROKEN);
@@ -7696,6 +7699,9 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 	object_ptr->name2 = ego_id;
 	if ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)) return;
+
+	object_ptr->charge_const = e_ptr->charge_const;
+	object_ptr->charge_dice = e_ptr->charge_dice;
 
 	// Hack -- obtain bonuses
 	if (e_ptr->max_to_hit)
