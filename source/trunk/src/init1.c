@@ -2532,6 +2532,7 @@ errr parse_artifact_csv(char *buf, header *head)
 	int i, j, b, c;
 	char *s, *t;
 	char tmp[10000], nt[80];
+	artifact_type *artifact_ptr;
 
 	if(get_split_offset(split, size, buf, ARTIFACT_INFO_CSV_COLUMNS, ',', '"')){
 		return PARSE_ERROR_GENERIC;
@@ -2567,7 +2568,7 @@ errr parse_artifact_csv(char *buf, header *head)
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize Artifact:%d]", n);
 
-
+		artifact_ptr = &artifact_info[n];
 		note(nt);
 
 		for(i = 1; i < ARTIFACT_INFO_CSV_COLUMNS; i++)
@@ -2582,7 +2583,7 @@ errr parse_artifact_csv(char *buf, header *head)
 			{
 
 			case ARTIFACT_INFO_NAME:
-				if(!add_name(&artifact_info[n].name, head, tmp))
+				if(!add_name(&artifact_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -2591,162 +2592,162 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_TVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].tval = (byte)b;
+					artifact_ptr->tval = (byte)b;
 				else
-					artifact_info[n].tval = 0;
+					artifact_ptr->tval = 0;
 				break;
 
 			case ARTIFACT_INFO_SVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].sval = (byte)b;
+					artifact_ptr->sval = (byte)b;
 				else
-					artifact_info[n].sval = 0;
+					artifact_ptr->sval = 0;
 				break;
 
 			case ARTIFACT_INFO_STR:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].stat[STAT_STR] = (byte)b;
+					artifact_ptr->stat[STAT_STR] = (byte)b;
 				else
-					artifact_info[n].stat[STAT_STR] = 0;
+					artifact_ptr->stat[STAT_STR] = 0;
 				break;
 
 			case ARTIFACT_INFO_INT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].stat[STAT_INT] = (byte)b;
+					artifact_ptr->stat[STAT_INT] = (byte)b;
 				else
-					artifact_info[n].stat[STAT_INT] = 0;
+					artifact_ptr->stat[STAT_INT] = 0;
 				break;
 
 			case ARTIFACT_INFO_WIS:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].stat[STAT_WIS] = (byte)b;
+					artifact_ptr->stat[STAT_WIS] = (byte)b;
 				else
-					artifact_info[n].stat[STAT_WIS] = 0;
+					artifact_ptr->stat[STAT_WIS] = 0;
 				break;
 
 			case ARTIFACT_INFO_DEX:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].stat[STAT_DEX] = (byte)b;
+					artifact_ptr->stat[STAT_DEX] = (byte)b;
 				else
-					artifact_info[n].stat[STAT_DEX] = 0;
+					artifact_ptr->stat[STAT_DEX] = 0;
 				break;
 
 			case ARTIFACT_INFO_CON:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].stat[STAT_CON] = (byte)b;
+					artifact_ptr->stat[STAT_CON] = (byte)b;
 				else
-					artifact_info[n].stat[STAT_CON] = 0;
+					artifact_ptr->stat[STAT_CON] = 0;
 				break;
 
 			case ARTIFACT_INFO_CHA:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].stat[STAT_CHA] = (byte)b;
+					artifact_ptr->stat[STAT_CHA] = (byte)b;
 				else
-					artifact_info[n].stat[STAT_CHA] = 0;
+					artifact_ptr->stat[STAT_CHA] = 0;
 				break;
 
 			case ARTIFACT_INFO_PVAL:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].pval = (byte)b;
+					artifact_ptr->pval = (byte)b;
 				else
-					artifact_info[n].pval = 0;
+					artifact_ptr->pval = 0;
 				break;
 
 			case ARTIFACT_INFO_DEPTH:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].level = (byte)b;
+					artifact_ptr->level = (byte)b;
 				else
-					artifact_info[n].level = 0;
+					artifact_ptr->level = 0;
 				break;
 
 			case ARTIFACT_INFO_RARITY:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].rarity = (byte)b;
+					artifact_ptr->rarity = (byte)b;
 				else
-					artifact_info[n].rarity = 0;
+					artifact_ptr->rarity = 0;
 				break;
 
 			case ARTIFACT_INFO_WEIGHT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].weight = (s16b)b;
+					artifact_ptr->weight = (s16b)b;
 				else
-					artifact_info[n].weight = 0;
+					artifact_ptr->weight = 0;
 				break;
 
 			case ARTIFACT_INFO_COST:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].cost = (s32b)b;
+					artifact_ptr->cost = (s32b)b;
 				else
-					artifact_info[n].cost = 0;
+					artifact_ptr->cost = 0;
 				break;
 
 			case ARTIFACT_INFO_SIZE_LOWER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].size_lower = (s16b)b;
+					artifact_ptr->size_lower = (s16b)b;
 				else
-					artifact_info[n].size_lower = 0;
+					artifact_ptr->size_lower = 0;
 				break;
 
 			case ARTIFACT_INFO_SIZE_UPPER:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].size_upper = (s16b)b;
+					artifact_ptr->size_upper = (s16b)b;
 				else
-					artifact_info[n].size_upper = 0;
+					artifact_ptr->size_upper = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].ac = (s16b)b;
+					artifact_ptr->ac = (s16b)b;
 				else
-					artifact_info[n].ac = 0;
+					artifact_ptr->ac = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_EV:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].ev = (s16b)b;
+					artifact_ptr->ev = (s16b)b;
 				else
-					artifact_info[n].ev = 0;
+					artifact_ptr->ev = 0;
 				break;
 
 			case ARTIFACT_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
-					artifact_info[n].dd = (byte)b;
-					artifact_info[n].ds = (byte)c;
+					artifact_ptr->dd = (byte)b;
+					artifact_ptr->ds = (byte)c;
 				}
 				else
 				{
-					artifact_info[n].dd = 0;
-					artifact_info[n].ds = 0;
+					artifact_ptr->dd = 0;
+					artifact_ptr->ds = 0;
 				}
 				break;
 
 			case ARTIFACT_INFO_PLUS_HIT:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_hit = (s16b)b;
+					artifact_ptr->to_hit = (s16b)b;
 				else
-					artifact_info[n].to_hit = 0;
+					artifact_ptr->to_hit = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_DAM:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_damage = (s16b)b;
+					artifact_ptr->to_damage = (s16b)b;
 				else
-					artifact_info[n].to_damage = 0;
+					artifact_ptr->to_damage = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_AC:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_ac = (s16b)b;
+					artifact_ptr->to_ac = (s16b)b;
 				else
-					artifact_info[n].to_ac = 0;
+					artifact_ptr->to_ac = 0;
 				break;
 
 			case ARTIFACT_INFO_PLUS_EV:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_ev = (s16b)b;
+					artifact_ptr->to_ev = (s16b)b;
 				else
-					artifact_info[n].to_ev = 0;
+					artifact_ptr->to_ev = 0;
 				break;
 
 			case ARTIFACT_INFO_FLAGS:
@@ -2768,7 +2769,7 @@ errr parse_artifact_csv(char *buf, header *head)
 						/* Parse this entry */
 						if (0 != grab_one_artifact_flag(&artifact_info[n], s))
 						{
-							if(0 != traits_precondition_splits(&artifact_info[n].add_creature_traits, s))
+							if(0 != traits_precondition_splits(&artifact_ptr->add_creature_traits, s))
 								return PARSE_ERROR_INVALID_FLAG;
 						}
 
@@ -2781,13 +2782,13 @@ errr parse_artifact_csv(char *buf, header *head)
 
 
 			case ARTIFACT_INFO_ADD_CREATURE_TRAITS:
-				if(0 != traits_precondition_splits(&artifact_info[n].add_creature_traits, tmp))
+				if(0 != traits_precondition_splits(&artifact_ptr->add_creature_traits, tmp))
 					return PARSE_ERROR_GENERIC;
 				break;
 
 			case ARTIFACT_INFO_DESCRIPTION:
 				/* Store the text */
-				if (!add_text(&artifact_info[n].text, head, tmp, TRUE))
+				if (!add_text(&artifact_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -2799,26 +2800,26 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_AP_RATE:
 				if(sscanf(tmp, "%d", &b) == 1)
-					artifact_info[n].to_damage = (s16b)b;
+					artifact_ptr->to_damage = (s16b)b;
 				else
-					artifact_info[n].to_damage = 0;
+					artifact_ptr->to_damage = 0;
 				break;
 
 			case ARTIFACT_INFO_CHARGE:
 				if(sscanf(tmp, "%d", &b) == 1)
 				{
-					artifact_info[n].charge_const = (s16b)b;
-					artifact_info[n].charge_dice  = 0;
+					artifact_ptr->charge_const = (s16b)b;
+					artifact_ptr->charge_dice  = 0;
 				}
 				else if(sscanf(tmp, "%d+d%d", &b, &c) == 2)
 				{
-					artifact_info[n].charge_const = (s16b)b;
-					artifact_info[n].charge_dice  = (s16b)c;
+					artifact_ptr->charge_const = (s16b)b;
+					artifact_ptr->charge_dice  = (s16b)c;
 				}
 				else
 				{
-					artifact_info[n].charge_const = 0;
-					artifact_info[n].charge_dice  = 0;
+					artifact_ptr->charge_const = 0;
+					artifact_ptr->charge_dice  = 0;
 				}
 				break;
 
