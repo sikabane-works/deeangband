@@ -942,7 +942,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_IGNORE_ELEC)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_FIRE)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_COLD)) total += 100;
-	if (have_flag(flgs, TR_ACTIVATE)) total += 100;
+	//TODO:TR_ACTIVATE if (have_flag(flgs, TR_ACTIVATE)) total += 100;
 	if (have_flag(flgs, TRAIT_DRAIN_EXP)) total -= 12500;
 	if (have_flag(flgs, TR_TELEPORT))
 	{
@@ -958,7 +958,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (object_ptr->curse_flags & TRC_DIVINE_CURSE) total -= 15000;
 
 	/* Also, give some extra for activatable powers... */
-	if (object_ptr->art_name && (have_flag(object_ptr->art_flags, TR_ACTIVATE)))
+	//TODO:TR_ACTIVATE if (object_ptr->art_name && (have_flag(object_ptr->art_flags, TR_ACTIVATE)))
 	{
 		int type = object_ptr->xtra2;
 
@@ -2580,37 +2580,37 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_WIZARD;
 						break;
 					case 15:
-						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
 						object_ptr->name2 = EGO_RING_HERO;
 						break;
 					case 16:
-						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
 						if (tmp > 8) object_ptr->name2 = EGO_RING_MANA_BALL;
 						else if (tmp > 4) object_ptr->name2 = EGO_RING_MANA_BOLT;
 						else object_ptr->name2 = EGO_RING_MAGIC_MIS;
 						break;
 					case 17:
-						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
 						if (!(have_flag(k_ptr->flags, TRAIT_RES_FIRE)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
 						if (tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_F;
 						else if (tmp > 3) object_ptr->name2 = EGO_RING_FIRE_BALL;
 						else object_ptr->name2 = EGO_RING_FIRE_BOLT;
 						break;
 					case 18:
-						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
 						if (!(have_flag(k_ptr->flags, TRAIT_RES_COLD)) && (have_flag(k_ptr->flags, TRAIT_RES_FIRE) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
 						if (tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_C;
 						else if (tmp > 3) object_ptr->name2 = EGO_RING_COLD_BALL;
 						else object_ptr->name2 = EGO_RING_COLD_BOLT;
 						break;
 					case 19:
-						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
 						if (!(have_flag(k_ptr->flags, TRAIT_RES_ELEC)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_FIRE) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
 						if (tmp > 4) object_ptr->name2 = EGO_RING_ELEC_BALL;
 						else object_ptr->name2 = EGO_RING_ELEC_BOLT;
 						break;
 					case 20:
-						if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if (have_flag(k_ptr->flags, TR_ACTIVATE)) break;
 						if (!(have_flag(k_ptr->flags, TRAIT_RES_ACID)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_FIRE))) break;
 						if (tmp > 4) object_ptr->name2 = EGO_RING_ACID_BALL;
 						else object_ptr->name2 = EGO_RING_ACID_BOLT;

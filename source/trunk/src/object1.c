@@ -159,22 +159,18 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		else if (add == ESSENCE_TMP_RES_ACID)
 		{
 			add_flag(flgs, TRAIT_RES_ACID);
-			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_TMP_RES_ELEC)
 		{
 			add_flag(flgs, TRAIT_RES_ELEC);
-			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_TMP_RES_FIRE)
 		{
 			add_flag(flgs, TRAIT_RES_FIRE);
-			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_TMP_RES_COLD)
 		{
 			add_flag(flgs, TRAIT_RES_COLD);
-			add_flag(flgs, TR_ACTIVATE);
 		}
 		else if (add == ESSENCE_SH_FIRE)
 		{
@@ -200,7 +196,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if (add == TRAIT_SHATTER)
 		{
-			add_flag(flgs, TR_ACTIVATE);
+			//TODO:TR_ACTIVATE add_flag(flgs, TR_ACTIVATE);
 		}
 	}
 }
@@ -343,11 +339,9 @@ cptr item_activation(object_type *object_ptr)
 	object_flags(object_ptr, flgs);
 
 	/* Require activation ability */
-#ifdef JP
-if (!(have_flag(flgs, TR_ACTIVATE))) return ("‚È‚µ");
-#else
-	if (!(have_flag(flgs, TR_ACTIVATE))) return ("nothing");
-#endif
+
+	//TODO not TR_ACTIVATE
+	return "None";
 
 
 
@@ -2354,10 +2348,11 @@ bool screen_object(object_type *object_ptr, u32b mode)
 	}
 
 	/* Mega-Hack -- describe activation */
-	if (have_flag(flgs, TR_ACTIVATE))
+
+	//TODO:TR_ACTIVATE
 	{
 #ifdef JP
-info[i++] = "Žn“®‚µ‚½‚Æ‚«‚ÌŒø‰Ê...";
+		info[i++] = "Žn“®‚µ‚½‚Æ‚«‚ÌŒø‰Ê...";
 #else
 		info[i++] = "It can be activated for...";
 #endif

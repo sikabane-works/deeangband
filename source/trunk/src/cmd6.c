@@ -3711,7 +3711,9 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 
 	if (!object_is_known(object_ptr)) return (FALSE);	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
-	if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);	// TODO:Check activation flag
+
+	// TODO:Check activation flag
+
 	return (FALSE);	// Assume not
 }
 
@@ -6461,11 +6463,9 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 
 				if (&creature_ptr->inventory[i] == object_ptr)
 				{
-					/* Extract the flags */
-					object_flags(object_ptr, flgs);
+					object_flags(object_ptr, flgs); // Extract the flags
 
-					/* Check activation flag */
-					if (have_flag(flgs, TR_ACTIVATE)) return (TRUE);
+					//TODO: TR_ACTIVATE
 				}
 			}
 		}
