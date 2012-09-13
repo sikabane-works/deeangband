@@ -937,7 +937,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_WARNING)) total += 2000;
 	if (have_flag(flgs, TRAIT_DEC_MANA)) total += 10000;
 	if (have_flag(flgs, TR_XTRA_MIGHT)) total += 2250;
-	if (have_flag(flgs, TR_XTRA_SHOTS)) total += 10000;
+	if (have_flag(flgs, TRAIT_EXTRA_SHOT)) total += 10000;
 	if (have_flag(flgs, TR_IGNORE_ACID)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_ELEC)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_FIRE)) total += 100;
@@ -6557,7 +6557,7 @@ static void drain_essence(creature_type *creature_ptr)
 	{
 		drain_value[STAT_STR] += 10;
 	}
-	if ((have_flag(old_flgs, TR_XTRA_SHOTS)) && !(have_flag(new_flgs, TR_XTRA_SHOTS)))
+	if ((have_flag(old_flgs, TRAIT_EXTRA_SHOT)) && !(have_flag(new_flgs, TRAIT_EXTRA_SHOT)))
 	{
 		drain_value[STAT_DEX] += 10;
 	}
