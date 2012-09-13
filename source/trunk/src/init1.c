@@ -208,6 +208,17 @@ static cptr class_flags[MAX_CLASS]=
 	"SOLDIER",
 };
 
+static cptr class_type_flags[]=
+{
+	"NONE",
+	"WARRIOR",
+	"MAGE",
+	"PRIEST",
+	"ROGUE",
+	"RANGER",
+	"PALADIN",
+};
+
 static cptr chara_flags[MAX_CHARA]=
 {
 	"ORDINARY",
@@ -3479,7 +3490,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					species_ptr->class_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, class_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
-				species_ptr->class_idx = (s16b)b;
+					species_ptr->class_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_PATRON:
@@ -3487,7 +3498,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					species_ptr->patron_idx = (s16b)b;
 				else 
 					if(grab_one_index(&b, NULL, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-				species_ptr->patron_idx = (s16b)b;
+					species_ptr->patron_idx = (s16b)b;
 				break;
 
 			case SPECIES_INFO_CHARA:
@@ -5219,6 +5230,8 @@ errr parse_class_info_csv(char *buf, header *head)
 			{
 
 				case CL_INFO_TYPE:
+					if(grab_one_index(&b, class_type_flags, tmp, FALSE)) return PARSE_ERROR_GENERIC;
+					class_ptr->type = (byte)b;
 					break;
 
 				case CL_INFO_RARITY:
