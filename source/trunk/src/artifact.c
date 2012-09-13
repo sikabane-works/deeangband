@@ -1507,9 +1507,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		}
 	}
 
-	/* A type was chosen... */
-	object_ptr->xtra2 = (byte_hack)type;
-	add_flag(object_ptr->art_flags, TR_ACTIVATE);
+	// A type was chosen...
+	add_flag(object_ptr->trait_flags, type);
 	object_ptr->timeout = 0;
 }
 

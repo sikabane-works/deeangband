@@ -1582,6 +1582,7 @@ return "この階にいるユニーククリーチャーを表示 : 200ターン毎";
 			return "list of the uniques on the level every 200 turns";
 #endif
 		}
+
 		case ART_STONE_LORE:
 		{
 #ifdef JP
