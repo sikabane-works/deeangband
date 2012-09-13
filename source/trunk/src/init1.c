@@ -5077,6 +5077,8 @@ errr parse_race_info_csv(char *buf, header *head)
 
 enum CLASS_INFO {
 	CL_INFO_ID,
+	CL_INFO_TYPE,
+	CL_INFO_RARERITY,
 	CL_INFO_NAME,
 	CL_INFO_E_NAME,
 	CL_INFO_STR,
@@ -5120,6 +5122,8 @@ enum CLASS_INFO {
 static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 {
 	"ID",
+	"TYPE",
+	"RARERITY",
 	"NAME",
 	"E_NAME",
 	"STR",
@@ -5215,6 +5219,13 @@ errr parse_class_info_csv(char *buf, header *head)
 
 			switch(cl_info_csv_code[i])
 			{
+
+				case CL_INFO_TYPE:
+					break;
+
+				case CL_INFO_RARERITY:
+					break;
+			
 				case CL_INFO_NAME:
 					if (!add_name(&class_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
