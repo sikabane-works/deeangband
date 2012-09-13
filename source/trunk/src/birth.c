@@ -3480,6 +3480,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
+	int id[MAX_SEXES], weight[MAX_SEXES];
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
 
 	if(species_ptr->sex != INDEX_VARIABLE)
@@ -3493,15 +3494,18 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		strcpy(se[n].cap, sex_info[list[i]].title);
 		se[n].code = list[i];
 		se[n].key = '\0';
+		id[n] = i;
 		if(race_info[creature_ptr->race_idx1].sex_flag & (0x01 << list[i]) || race_info[creature_ptr->race_idx2].sex_flag & (0x01 << list[i]))
 		{
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
+			weight[n] = 100;
 		}
 		else
 		{
 			se[n].d_color = TERM_RED;
 			se[n].l_color = TERM_L_RED;
+			weight[n] = 0;
 		}
 		n++;
 	}
@@ -3541,7 +3545,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 
 	if(npc)
 	{
-		creature_ptr->sex = se[randint0(4)].code;
+		creature_ptr->sex = uneven_rand(id, weight, MAX_SEXES);
 		return 0;
 	}
 
