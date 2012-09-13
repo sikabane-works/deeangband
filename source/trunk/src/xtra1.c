@@ -3439,6 +3439,16 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		creature_ptr->stat_add[STAT_CON] += object_ptr->stat_val[STAT_CON];
 		creature_ptr->stat_add[STAT_CHA] += object_ptr->stat_val[STAT_CHA];
 
+		if(has_trait_object(object_ptr, TRAIT_SEXY_EQUIPMENT) && has_trait(creature_ptr, TRAIT_SEXY_BONUS))
+		{
+			creature_ptr->stat_add[STAT_STR] += 3 * STAT_FRACTION;
+			creature_ptr->stat_add[STAT_INT] += 3 * STAT_FRACTION;
+			creature_ptr->stat_add[STAT_WIS] += 3 * STAT_FRACTION;
+			creature_ptr->stat_add[STAT_DEX] += 3 * STAT_FRACTION;
+			creature_ptr->stat_add[STAT_CON] += 3 * STAT_FRACTION;
+			creature_ptr->stat_add[STAT_CHA] += 3 * STAT_FRACTION;
+		}
+
 		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
 
 		/* Affect stealth */
