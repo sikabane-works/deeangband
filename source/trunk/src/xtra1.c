@@ -3415,7 +3415,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 	int bonus_to_hit, bonus_to_damage, slot;
 	u32b flgs[TR_FLAG_SIZE];
 	int default_hand = 1;
-	bool extra_shots = FALSE; // TODO
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -3473,9 +3472,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		{
 			//TODO adjust
 		}
-
-		/* Boost shots */
-		if (have_flag(flgs, TR_XTRA_SHOTS)) extra_shots++;
 
 		/* Various flags */
 		//TODO if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
@@ -4104,7 +4100,6 @@ static void set_melee_status(creature_type *creature_ptr)
 	int i, hold;
 	object_type *object_ptr, *weapon_ptr;
 	u32b flgs[TR_FLAG_SIZE];
-	int extra_shots = 0;
 	bool omoi;
 	int default_hand = 1;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
@@ -4210,7 +4205,6 @@ static void set_melee_status(creature_type *creature_ptr)
 			if (object_ptr->k_idx && !creature_ptr->heavy_shoot)
 			{
 				// TODO Extra shots
-				creature_ptr->num_fire += (extra_shots * 100);
 
 				/* Hack -- Rangers love Bows */
 				if ((creature_ptr->class_idx == CLASS_RANGER) &&
