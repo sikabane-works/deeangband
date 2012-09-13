@@ -1064,6 +1064,7 @@ struct class_type
 
 	byte type;
 	s16b rarity;
+	byte selectable;
 
 	s16b c_adj[6];		/* Class stat modifier */
 	s16b c_adj_b[6];	/* Class stat bonus */

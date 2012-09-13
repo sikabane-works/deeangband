@@ -5089,6 +5089,7 @@ errr parse_race_info_csv(char *buf, header *head)
 enum CLASS_INFO {
 	CL_INFO_ID,
 	CL_INFO_TYPE,
+	CL_INFO_SELECTABLE,
 	CL_INFO_RARITY,
 	CL_INFO_NAME,
 	CL_INFO_E_NAME,
@@ -5133,6 +5134,7 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"TYPE",
+	"SELECTABLE",
 	"RARITY",
 	"NAME",
 	"E_NAME",
@@ -5238,7 +5240,12 @@ errr parse_class_info_csv(char *buf, header *head)
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_ptr->rarity = (s16b)b;
 					break;
-			
+
+				case CL_INFO_SELECTABLE:
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+					class_ptr->selectable = (byte)b;
+					break;
+
 				case CL_INFO_NAME:
 					if (!add_name(&class_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;

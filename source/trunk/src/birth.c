@@ -3598,11 +3598,12 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
-		if(class_info[i].rarity > 0)
+		if(class_info[i].selectable)
 		{
 			strcpy(ce[n].cap, class_info[i].title);
 			id[n] = i;
-			weight[n] = 10000 / class_info[i].rarity;
+			if(class_info[i].rarity) weight[n] = 10000 / class_info[i].rarity;
+			else weight[n] = 0;
 			ce[n].code = i;
 			ce[n].key = '\0';
 			ce[n].d_color = TERM_L_DARK;
