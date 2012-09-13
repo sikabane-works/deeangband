@@ -3584,7 +3584,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
  */
 static bool get_creature_class(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int i, n;
+	int i, n, id[MAX_CLASS], weight[MAX_CLASS];
 	selection ce[MAX_CLASS+3];
 
 	if(species_ptr->class_idx != INDEX_VARIABLE)
@@ -3598,9 +3598,11 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
-		if(class_info[i].rarity != CLASS_RARITY_UNSELECTED)
+		if(class_info[i].rarity > 0)
 		{
 			strcpy(ce[n].cap, class_info[i].title);
+			id[n] = i;
+			weight[n] = 10000 / class_info[i].rarity;
 			ce[n].code = i;
 			ce[n].key = '\0';
 			ce[n].d_color = TERM_L_DARK;
@@ -3621,7 +3623,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	if(npc)
 	{
-		creature_ptr->class_idx = ce[randint0(n)].code;
+		creature_ptr->class_idx = uneven_rand(id, weight, n);
 		return 0;
 	}
 
