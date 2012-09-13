@@ -992,14 +992,14 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 			case 1:
 			case 2:
 			case 3:
-				add_flag(object_ptr->art_flags, TR_XTRA_MIGHT);
-				if (!one_in_(7)) remove_flag(object_ptr->trait_flags, TRAIT_EXTRA_SHOT);
+				add_flag(object_ptr->trait_flags, TRAIT_EXTRA_ATTACK_MIGHT);
+				if (!one_in_(7)) remove_flag(object_ptr->trait_flags, TRAIT_EXTRA_ATTACK_SPEED);
 				if (!artifact_bias && one_in_(9))
 					artifact_bias = BIAS_RANGER;
 				break;
 			default:
-				add_flag(object_ptr->trait_flags, TRAIT_EXTRA_SHOT);
-				if (!one_in_(7)) remove_flag(object_ptr->art_flags, TR_XTRA_MIGHT);
+				add_flag(object_ptr->trait_flags, TRAIT_EXTRA_ATTACK_SPEED);
+				if (!one_in_(7)) remove_flag(object_ptr->trait_flags, TRAIT_EXTRA_ATTACK_MIGHT);
 				if (!artifact_bias && one_in_(9))
 					artifact_bias = BIAS_RANGER;
 			break;

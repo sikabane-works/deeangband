@@ -3530,7 +3530,7 @@ info[i++] = "それはテレポートを邪魔する。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_XTRA_MIGHT))
+	if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT))
 	{
 #ifdef JP
 info[i++] = "それは矢／ボルト／弾をより強力に発射することができる。";
@@ -3539,7 +3539,7 @@ info[i++] = "それは矢／ボルト／弾をより強力に発射することができる。";
 #endif
 
 	}
-	if (have_flag(flgs, TRAIT_EXTRA_SHOT))
+	if (have_flag(flgs, TRAIT_EXTRA_ATTACK_SPEED))
 	{
 #ifdef JP
 info[i++] = "それは矢／ボルト／弾を非常に早く発射することができる。";

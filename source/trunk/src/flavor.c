@@ -640,8 +640,8 @@ static flag_insc_table flag_insc_misc[] =
 	{ "•‚", "Lv", TRAIT_LEVITATION, -1 },
 	{ "–¾", "Lu", TR_LITE, -1 },
 	{ "Œx", "Wr", TRAIT_WARNING, -1 },
-	{ "”{", "Xm", TR_XTRA_MIGHT, -1 },
-	{ "ŽË", "Xs", TRAIT_EXTRA_SHOT, -1 },
+	{ "”{", "Xm", TRAIT_EXTRA_ATTACK_MIGHT, -1 },
+	{ "ŽË", "Xs", TRAIT_EXTRA_ATTACK_SPEED, -1 },
 	{ "u", "Te", TR_TELEPORT, -1 },
 	{ "“{", "Ag", TRAIT_ANTIPATHY, -1 },
 	{ "j", "Bs", TRAIT_BLESSED_BRAND, -1 },
@@ -801,8 +801,8 @@ static flag_insc_table flag_insc_misc[] =
 	{ "Lv", TRAIT_LEVITATION, -1 },
 	{ "Lu", TR_LITE, -1 },
 	{ "Wr", TRAIT_WARNING, -1 },
-	{ "Xm", TR_XTRA_MIGHT, -1 },
-	{ "Xs", TRAIT_EXTRA_SHOT, -1 },
+	{ "Xm", TRAIT_EXTRA_ATTACK_MIGHT, -1 },
+	{ "Xs", TRAIT_EXTRA_ATTACK_SPEED, -1 },
 	{ "Te", TR_TELEPORT, -1 },
 	{ "Ag", TRAIT_ANTIPATHY, -1 },
 	{ "Bs", TRAIT_BLESSED_BRAND, -1 },
@@ -2317,7 +2317,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		power = object_ptr->bow_mul;
 
 		/* Apply the "Extra Might" flag */
-		if (have_flag(flgs, TR_XTRA_MIGHT)) power++;
+		if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT)) power++;
 
 		/* Append a special "damage" string */
 		t = object_desc_chr(t, ' ');

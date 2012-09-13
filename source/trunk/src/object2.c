@@ -936,8 +936,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_REGENERATE)) total += 2500;
 	if (have_flag(flgs, TRAIT_WARNING)) total += 2000;
 	if (have_flag(flgs, TRAIT_DEC_MANA)) total += 10000;
-	if (have_flag(flgs, TR_XTRA_MIGHT)) total += 2250;
-	if (have_flag(flgs, TRAIT_EXTRA_SHOT)) total += 10000;
+	if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT)) total += 2250;
+	if (have_flag(flgs, TRAIT_EXTRA_ATTACK_SPEED)) total += 10000;
 	if (have_flag(flgs, TR_IGNORE_ACID)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_ELEC)) total += 100;
 	if (have_flag(flgs, TR_IGNORE_FIRE)) total += 100;
@@ -6553,11 +6553,11 @@ static void drain_essence(creature_type *creature_ptr)
 	{
 		drain_value[STAT_INT] += 10;
 	}
-	if ((have_flag(old_flgs, TR_XTRA_MIGHT)) && !(have_flag(new_flgs, TR_XTRA_MIGHT)))
+	if ((have_flag(old_flgs, TRAIT_EXTRA_ATTACK_MIGHT)) && !(have_flag(new_flgs, TRAIT_EXTRA_ATTACK_MIGHT)))
 	{
 		drain_value[STAT_STR] += 10;
 	}
-	if ((have_flag(old_flgs, TRAIT_EXTRA_SHOT)) && !(have_flag(new_flgs, TRAIT_EXTRA_SHOT)))
+	if ((have_flag(old_flgs, TRAIT_EXTRA_ATTACK_SPEED)) && !(have_flag(new_flgs, TRAIT_EXTRA_ATTACK_SPEED)))
 	{
 		drain_value[STAT_DEX] += 10;
 	}

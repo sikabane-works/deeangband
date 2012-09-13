@@ -3474,7 +3474,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		}
 
 		/* Various flags */
-		//TODO if (have_flag(flgs, TR_XTRA_MIGHT))  creature_ptr->xtra_might = TRUE;
+		//TODO if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT))  creature_ptr->xtra_might = TRUE;
 
 		if (have_flag(flgs, TR_TELEPORT))
 		{

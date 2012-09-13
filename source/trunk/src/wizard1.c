@@ -870,8 +870,8 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_SLOW_DIGEST,        "íxè¡âª" },
 	{ TRAIT_REGENERATE,              "ã}ë¨âÒïú" },
 	{ TRAIT_WARNING,            "åxçê" },
-/*	{ TR_XTRA_MIGHT,         "ã≠óÕéÀåÇ" }, */
-	{ TRAIT_EXTRA_SHOT,         "í«â¡éÀåÇ" },        /* always +1? */
+	{ TRAIT_EXTRA_ATTACK_MIGHT,         "ã≠óÕéÀåÇ" }, 
+	{ TRAIT_EXTRA_ATTACK_SPEED,         "í«â¡éÀåÇ" },        /* always +1? */
 	{ TRAIT_DRAIN_EXP,          "åoå±ílãzé˚" },
 	{ TRAIT_ANTIPATHY,          "îΩä¥" },
 	{ TRAIT_BLESSED_BRAND,            "èjïü" },
@@ -888,8 +888,8 @@ static const flag_desc misc_flags3_desc[] =
 	{ TRAIT_SLOW_DIGEST,        "Slow Digestion" },
 	{ TRAIT_REGENERATE,              "Regeneration" },
 	{ TRAIT_WARNING,            "Warning" },
-/*	{ TR_XTRA_MIGHT,         "Extra Might" }, */
-	{ TRAIT_EXTRA_SHOT,         "+1 Extra Shot" },        /* always +1? */
+/*	{ TRAIT_EXTRA_ATTACK_MIGHT,         "Extra Might" }, */
+	{ TRAIT_EXTRA_ATTACK_SPEED,         "+1 Extra Shot" },        /* always +1? */
 	{ TRAIT_DRAIN_EXP,          "Drains Experience" },
 	{ TRAIT_ANTIPATHY,          "Aggravates" },
 	{ TRAIT_BLESSED_BRAND,            "Blessed Blade" },
