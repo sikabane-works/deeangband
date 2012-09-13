@@ -3501,19 +3501,6 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 
 	if(power >= ITEM_RANK_SPECIAL) create_artifact(owner_ptr, object_ptr, FALSE);
 
-	if ((object_ptr->tval == TV_SOFT_ARMOR) &&
-	    (object_ptr->sval == SV_ABUNAI_MIZUGI) &&
-	    (owner_ptr->chara_idx == CHARA_SEXY))
-	{
-		object_ptr->pval = 3;
-		add_flag(object_ptr->art_flags, STAT_STR);
-		add_flag(object_ptr->art_flags, STAT_INT);
-		add_flag(object_ptr->art_flags, STAT_WIS);
-		add_flag(object_ptr->art_flags, STAT_DEX);
-		add_flag(object_ptr->art_flags, STAT_CON);
-		add_flag(object_ptr->art_flags, STAT_CHA);
-	}
-
 	// Hack -- analyze ego-items
 	if (object_is_ego(object_ptr))
 	{
@@ -7776,8 +7763,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 		case EGO_DWARVEN:
 			object_ptr->weight = (2 * object_kind_info[object_ptr->k_idx].weight / 3);
 			object_ptr->ac = object_kind_info[object_ptr->k_idx].ac + 5;
-			if (one_in_(4))
-				add_flag(object_ptr->art_flags, STAT_CON);
+			if (one_in_(4)) object_ptr->stat_val[STAT_CON] = (s16b)randint1(MAX_RAND_STAT_VAL);
 			break;
 
 		case EGO_YOIYAMI:
@@ -7905,7 +7891,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if (one_in_(3))
 				add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);
 			if (one_in_(3))
-				add_flag(object_ptr->art_flags, STAT_DEX);
+				object_ptr->stat_val[STAT_DEX] = (s16b)randint1(MAX_RAND_STAT_VAL);
 			if (one_in_(5))
 				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			break;
