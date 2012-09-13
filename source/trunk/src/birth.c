@@ -3055,7 +3055,7 @@ void starting_point_detail(int code)
  */
 static int get_creature_first_race(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int     n, i;
+	int     n, i, weight[MAX_RACES], id[MAX_RACES];
 	selection se[MAX_RACES + 3];
 
 	if(species_ptr->race_idx1 != INDEX_VARIABLE)
@@ -3073,13 +3073,18 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 			se[n].key = '\0';
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
+			id[n] = i;
+			weight[n] = 1000;
+			if(race_info[i].race_category == RACE_RARELITY_UNCOMMON) weight[n] /= 5;
+			if(race_info[i].race_category == RACE_RARELITY_RARE) weight[n] /= 40;
+			if(race_info[i].race_category == RACE_RARELITY_LEGENDARY) weight[n] /= 200;
 			n++;
 		}
 	}
 
 	if(npc)
 	{
-		creature_ptr->race_idx1 = se[randint0(n)].code;
+		creature_ptr->race_idx1 = uneven_rand(id, weight, n);
 		return 0;
 	}
 
