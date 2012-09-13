@@ -536,13 +536,13 @@
 #define RC_ANCESTER       0x02
 
 /*
- * Class rarerity.
+ * Class rarity.
  */
-#define CLASS_RARELITY_COMMON       0
-#define CLASS_RARELITY_UNCOMMON     1
-#define CLASS_RARELITY_RARE         2
-#define CLASS_RARELITY_LEGENDARY    3
-#define CLASS_RARELITY_UNSELECTED   4
+#define CLASS_RARITY_COMMON       0
+#define CLASS_RARITY_UNCOMMON     1
+#define CLASS_RARITY_RARE         2
+#define CLASS_RARITY_LEGENDARY    3
+#define CLASS_RARITY_UNSELECTED   4
 
 
 #define RATE_OF_HALF_RACE       80

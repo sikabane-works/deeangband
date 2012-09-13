@@ -3066,7 +3066,7 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 
 	for (i = 0, n = 0; i < MAX_RACES; i++)
 	{
-		if(race_info[i].race_category < RACE_RARELITY_UNSELECTABLE)
+		if(race_info[i].race_category < RACE_RARITY_UNSELECTABLE)
 		{
 			strcpy(se[n].cap, race_name + race_info[i].name);
 			se[n].code = i;
@@ -3075,9 +3075,9 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 			se[n].l_color = TERM_WHITE;
 			id[n] = i;
 			weight[n] = 1000;
-			if(race_info[i].race_category == RACE_RARELITY_UNCOMMON) weight[n] /= 5;
-			if(race_info[i].race_category == RACE_RARELITY_RARE) weight[n] /= 40;
-			if(race_info[i].race_category == RACE_RARELITY_LEGENDARY) weight[n] /= 200;
+			if(race_info[i].race_category == RACE_RARITY_UNCOMMON) weight[n] /= 5;
+			if(race_info[i].race_category == RACE_RARITY_RARE) weight[n] /= 40;
+			if(race_info[i].race_category == RACE_RARITY_LEGENDARY) weight[n] /= 200;
 			n++;
 		}
 	}
@@ -3598,7 +3598,7 @@ static bool get_creature_class(creature_type *creature_ptr, species_type *specie
 
 	for (i = 0, n = 0; i < MAX_CLASS; i++)
 	{
-		if(class_info[i].rarelity != CLASS_RARELITY_UNSELECTED)
+		if(class_info[i].rarity != CLASS_RARITY_UNSELECTED)
 		{
 			strcpy(ce[n].cap, class_info[i].title);
 			ce[n].code = i;

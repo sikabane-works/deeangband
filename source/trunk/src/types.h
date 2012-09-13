@@ -956,7 +956,7 @@ struct race_type
 
 
 	byte race_category; /* Race Category */
-	byte rarelity;      /* Race Rarelity */
+	byte rarity;      /* Race Rarelity */
 	byte sex_flag;		/* Legal Sex */
 
 	s16b r_adj[6];		/* Racial stat bonuses(on main-race) */
@@ -1062,10 +1062,11 @@ struct class_type
 	u32b E_text;        /* English (offset) */
 #endif
 
+	byte type;
+	s16b rarity;
+
 	s16b c_adj[6];		/* Class stat modifier */
 	s16b c_adj_b[6];	/* Class stat bonus */
-
-	int rarelity;		/* Class rarelity */ 
 
 	s16b c_dis;			/* class disarming */
 	s16b c_dev;			/* class magic devices */
@@ -1141,7 +1142,7 @@ struct chara_type
 	u32b E_text;        /* English (offset) */
 #endif
 
-	s16b rarity;		/* chara rarerity (Over 100 was no selected on auto select) */
+	s16b rarity;		/* chara rarity (Over 100 was no selected on auto select) */
 
 	s16b a_adj[6];		/* chara stat bonuses */
 

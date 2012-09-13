@@ -5078,7 +5078,7 @@ errr parse_race_info_csv(char *buf, header *head)
 enum CLASS_INFO {
 	CL_INFO_ID,
 	CL_INFO_TYPE,
-	CL_INFO_RARERITY,
+	CL_INFO_RARITY,
 	CL_INFO_NAME,
 	CL_INFO_E_NAME,
 	CL_INFO_STR,
@@ -5093,7 +5093,6 @@ enum CLASS_INFO {
 	CL_INFO_A_DEX,
 	CL_INFO_A_CON,
 	CL_INFO_A_CHA,
-	CL_INFO_RARITY,
 	CL_INFO_C_DIS,
 	CL_INFO_C_DEV,
 	CL_INFO_C_SAV,
@@ -5123,7 +5122,7 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 {
 	"ID",
 	"TYPE",
-	"RARERITY",
+	"RARITY",
 	"NAME",
 	"E_NAME",
 	"STR",
@@ -5138,7 +5137,6 @@ static cptr cl_info_csv_list[CL_INFO_CSV_COLUMNS] =
 	"A_DEX",
 	"A_CON",
 	"A_CHA",
-	"RARITY",
 	"C_DIS",
 	"C_DEV",
 	"C_SAV",
@@ -5223,7 +5221,9 @@ errr parse_class_info_csv(char *buf, header *head)
 				case CL_INFO_TYPE:
 					break;
 
-				case CL_INFO_RARERITY:
+				case CL_INFO_RARITY:
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+					class_ptr->rarity = (s16b)b;
 					break;
 			
 				case CL_INFO_NAME:
@@ -5300,11 +5300,6 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					class_ptr->c_adj_b[STAT_CHA] = (s16b)b;
-
-				case CL_INFO_RARITY:
-					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					class_ptr->rarelity = (s16b)b;
-					break;
 
 				case CL_INFO_C_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
