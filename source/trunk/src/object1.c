@@ -2417,15 +2417,6 @@ info[i++] = "それは二刀流での命中率を向上させる。";
 
 	}
 
-	if (have_flag(flgs, TRAIT_EASY_SPELL))
-	{
-#ifdef JP
-info[i++] = "それは魔法の難易度を下げる。";
-#else
-		info[i++] = "It affects your ability to cast spells.";
-#endif
-	}
-
 	if (object_ptr->name2 == EGO_AMU_FOOL)
 	{
 #ifdef JP

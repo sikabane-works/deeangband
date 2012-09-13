@@ -3415,7 +3415,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 	int bonus_to_hit, bonus_to_damage, slot;
 	u32b flgs[TR_FLAG_SIZE];
 	int default_hand = 1;
-	bool down_saving = FALSE, extra_shots = FALSE; // TODO
+	bool extra_shots = FALSE; // TODO
 
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
@@ -3518,8 +3518,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(object_ptr->trait_flags, TRAIT_RES_TIME)) creature_ptr->resist_time += 1;
 
 		//if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
-		//if (object_ptr->name2 == EGO_AMU_FOOL) creature_ptr->heavy_spell = TRUE;
-		//if (object_ptr->name2 == EGO_AMU_NAIVETY) down_saving = TRUE;
 
 		if (object_ptr->curse_flags & TRC_LOW_MAGIC)
 		{
@@ -3659,13 +3657,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 				creature_ptr->dis_to_damage[default_hand] += bonus_to_damage;
 			}
 		}
-	}
-
-	if (down_saving)
-	{
-		creature_ptr->skill_rob -= creature_ptr->lev;
-		creature_ptr->skill_eva -= creature_ptr->lev;
-		creature_ptr->skill_vol -= creature_ptr->lev;
 	}
 
 }
