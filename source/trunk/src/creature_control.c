@@ -1018,14 +1018,6 @@ s16b creature_pop(void)
 }
 
 
-
-
-/*
- * Hack -- the "type" of the current "summon specific"
- */
-static int summon_specific_type = 0;
-
-
 /*
  * Hack -- the index of the summoning creature
  */
@@ -1035,7 +1027,7 @@ static int summon_specific_who = -1;
 static bool summon_unique_okay = FALSE;
 
 
-static bool summon_specific_aux(int species_idx)
+static bool summon_specific_aux(int species_idx, int summon_specific_type)
 {
 	species_type *r_ptr = &species_info[species_idx];
 	int okay = FALSE;
@@ -1361,7 +1353,8 @@ static bool restrict_creature_to_dungeon(int species_idx)
 	}
 
 	if (d_ptr->special_div >= 64) return TRUE;
-	if (summon_specific_type && !(d_ptr->flags1 & DF1_CHAMELEON)) return TRUE;
+
+	//TODO if (summon_specific_type && !(d_ptr->flags1 & DF1_CHAMELEON)) return TRUE;
 
 	/* TODO
 	switch (d_ptr->mode)
@@ -1446,7 +1439,7 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32
 
 		if(skip) continue;
 
-		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
+		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx) //TODO && summon_specific_type != SUMMON_GUARDIANS)
 		{
 			if (has_trait_species(species_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
 			if (has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
@@ -1481,7 +1474,7 @@ void reset_species_preps(void)
 }
 
 // Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3)
+errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type)
 {
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
@@ -1505,8 +1498,14 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
 			continue;
 
-		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx &&
-		    summon_specific_type != SUMMON_GUARDIANS)
+		if(!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
+		if((summon_specific_who < 0) && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
+		if(!(has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON))) continue;
+
+		if(!summon_specific_aux(i, summon_specific_type)) continue;
+
+
+		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
 		{
 			if (has_trait_species(r_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
 			if (has_trait_species(r_ptr, TRAIT_GUARDIAN))	continue;
@@ -3067,9 +3066,9 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 		chameleon_change_m_idx = m_idx;
 		if (old_unique)
-			get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL);
+			get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
 		else
-			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL);
+			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
 
 		if (old_unique)
 			level = species_info[SPECIES_CHAMELEON_K].level;
@@ -3199,7 +3198,7 @@ static int initial_r_appearance(int species_idx)
 	if (has_trait_species(&species_info[species_idx], TRAIT_TANUKI))
 		return species_idx;
 
-	get_species_num_prep(NULL, creature_hook_tanuki, NULL, NULL);
+	get_species_num_prep(NULL, creature_hook_tanuki, NULL, NULL, 0);
 
 	while (--attempts)
 	{
@@ -3301,7 +3300,7 @@ static void deal_food(creature_type *creature_ptr)
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
 	{
 		/* Prepare allocation table */
-		get_species_num_prep(NULL, creature_hook_human, NULL, NULL);
+		get_species_num_prep(NULL, creature_hook_human, NULL, NULL, 0);
 
 		for (i = rand_range(3,4); i > 0; i--)
 		{
@@ -4290,7 +4289,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			if (!cave_empty_bold2(floor_ptr, ny, nx)) continue;
 
 			/* Prepare allocation table */
-			get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(ny, nx), place_creature_okay); // TODO
+			get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(ny, nx), place_creature_okay, 0); // TODO
 
 			/* Pick a random race */
 			z = get_species_num(floor_ptr, r_ptr->level);
@@ -4323,7 +4322,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	
 	// Pick a creature
 //	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL); 
-	get_species_num_prep(NULL, NULL, NULL, NULL); 
+	get_species_num_prep(NULL, NULL, NULL, NULL, 0); 
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 	if (!species_idx) return (FALSE);
 
@@ -4340,7 +4339,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	int cx = x;
 
 	// Prepare allocation table
-	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL);
+	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL, 0);
 
 	while (--attempts)
 	{
@@ -4510,12 +4509,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 		if (creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE; // Friendly vs. opposite aligned normal or pet
 	}
 
-	if (!summon_specific_type) return (TRUE);	// Hack -- no specific type specified
-	if (!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
-	if ((summon_specific_who < 0) && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
-	if (has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
-
-	return (summon_specific_aux(species_idx));
+	return TRUE;
 }
 
 
@@ -4557,35 +4551,20 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	// Save the summoner
 	//summon_specific_who = who;
 
-	/* Save the "summon" type */
-	summon_specific_type = type;
-
 	summon_unique_okay = (mode & PC_ALLOW_UNIQUE) ? TRUE : FALSE;
 
 	/* Prepare allocation table */
-	get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay);
+	get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay, type);
 
 	/* Pick a creature, using the level calculation */
 	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
 
-	/* Handle failure */
-	if (!species_idx)
-	{
-		summon_specific_type = 0;
-		return (FALSE);
-	}
-
+	if (!species_idx) return (FALSE); // Handle failure
 	if ((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */
-	if (!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode))
-	{
-		summon_specific_type = 0;
-		return (FALSE);
-	}
+	if (!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (FALSE);
 
-	summon_specific_type = 0;
-	/* Success */
 	return (TRUE);
 }
 

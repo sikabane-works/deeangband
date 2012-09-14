@@ -1663,7 +1663,7 @@ void battle_creatures(void)
 		for(i = 0; i < 4; i++)
 		{
 			int species_idx, j;
-			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL);
+			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL, 0);
 
 			while (1)
 			{

@@ -1740,7 +1740,7 @@ static bool vault_aux_cthulhu(int species_idx)
 static void vault_prep_clone(floor_type *floor_ptr)
 {
 	/* Apply the creature restriction */
-	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL);
+	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL, 0);
 
 	/* Pick a race to clone */
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
@@ -1758,7 +1758,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	int species_idx;
 
 	/* Apply the creature restriction */
-	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL);
+	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL, 0);
 
 	/* Pick a race to clone */
 	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
@@ -2187,7 +2187,7 @@ static bool build_type5(floor_type *floor_ptr)
 	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL);
+	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -2406,7 +2406,7 @@ static bool build_type6(floor_type *floor_ptr)
 	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL);
+	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -5674,7 +5674,7 @@ static bool build_type13(floor_type *floor_ptr)
 	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
-	get_species_num_prep(NULL, n_ptr->hook_func, vault_aux_trapped_pit, NULL);
+	get_species_num_prep(NULL, n_ptr->hook_func, vault_aux_trapped_pit, NULL, 0);
 
 	align.sub_align = SUB_ALIGN_NEUTRAL;
 
@@ -6072,7 +6072,7 @@ static bool build_type15(floor_type *floor_ptr)
 			int dir1, dir2;
 
 			/* Prepare allocation table */
-			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL);
+			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL, 0);
 
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
@@ -6140,7 +6140,7 @@ static bool build_type15(floor_type *floor_ptr)
 			c_ptr->feat = feat_glass_wall;
 
 			/* Prepare allocation table */
-			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL);
+			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL, 0);
 
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 			if (species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
@@ -6202,7 +6202,7 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			/* Prepare allocation table */
-			get_species_num_prep(NULL, vault_aux_shards, NULL, NULL);
+			get_species_num_prep(NULL, vault_aux_shards, NULL, NULL, 0);
 
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
