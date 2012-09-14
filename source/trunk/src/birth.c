@@ -5061,6 +5061,11 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 
+	creature_ptr->d_attr = species_ptr->d_attr;
+	creature_ptr->d_char = species_ptr->d_char;
+	creature_ptr->x_char = species_ptr->x_char;
+	creature_ptr->x_attr = species_ptr->x_attr;
+
 	if(player_generate)
 	{
 		screen_save();

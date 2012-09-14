@@ -67,27 +67,17 @@
 #define NAME_BUFFER_SIZE 100
 
 /*
- * Number of grids in each block (vertically)
+ * Number of grids in each block (vertically & horizontally)
  * Probably hard-coded to 11, see "generate.c"
  */
 #define BLOCK_HGT	11
-
-/*
- * Number of grids in each block (horizontally)
- * Probably hard-coded to 11, see "generate.c"
- */
 #define BLOCK_WID	11
 
 /*
- * Number of grids in each panel (vertically)
- * Must be a multiple of BLOCK_HGT
+ * Number of grids in each panel (vertically & horizontally)
+ * Must be a multiple of BLOCK_HGT and BLOCK_WID
  */
 #define PANEL_HGT	11
-
-/*
- * Number of grids in each panel (horizontally)
- * Must be a multiple of BLOCK_WID
- */
 #define PANEL_WID	33
 
 // Number of grids used to display the dungeon (vertically and horizontally).

@@ -1045,13 +1045,13 @@ static bool summon_specific_aux(int species_idx)
 	{
 		case SUMMON_ANT:
 		{
-			okay = (r_ptr->d_char == 'a');
+			okay = IS_RACE(r_ptr, RACE_ANT);
 			break;
 		}
 
 		case SUMMON_SPIDER:
 		{
-			okay = (r_ptr->d_char == 'S');
+			okay = IS_RACE(r_ptr, RACE_SPIDER);
 			break;
 		}
 
@@ -1063,54 +1063,34 @@ static bool summon_specific_aux(int species_idx)
 
 		case SUMMON_HYDRA:
 		{
-			okay = (r_ptr->d_char == 'M');
+			okay = IS_RACE(r_ptr, RACE_HYDRA);
 			break;
 		}
 
 		case SUMMON_ANGEL:
 		{
-			okay = (r_ptr->d_char == 'A' && (is_enemy_of_good_species(r_ptr) || is_enemy_of_evil_species(r_ptr)));
+			okay = (r_ptr->d_char == 'A');
 			break;
 		}
 
 		case SUMMON_DEMON:
+		case SUMMON_HI_DEMON:
 		{
 			okay = has_trait_species(r_ptr, TRAIT_DEMON);
 			break;
 		}
 
 		case SUMMON_UNDEAD:
+		case SUMMON_HI_UNDEAD:
 		{
 			okay = has_trait_species(r_ptr, TRAIT_UNDEAD);
 			break;
 		}
 
 		case SUMMON_DRAGON:
-		{
-			okay = has_trait_species(r_ptr, TRAIT_DRAGON);
-			break;
-		}
-
-		case SUMMON_HI_UNDEAD:
-		{
-			okay = ((r_ptr->d_char == 'L') ||
-				(r_ptr->d_char == 'V') ||
-				(r_ptr->d_char == 'W'));
-			break;
-		}
-
 		case SUMMON_HI_DRAGON:
 		{
-			okay = (r_ptr->d_char == 'D');
-			break;
-		}
-
-		case SUMMON_HI_DEMON:
-		{
-			okay = (((r_ptr->d_char == 'U') ||
-				    (r_ptr->d_char == 'H') ||
-				    (r_ptr->d_char == 'B')) &&
-		  		    has_trait_species(r_ptr, TRAIT_DEMON)) ? TRUE : FALSE;
+			okay = has_trait_species(r_ptr, TRAIT_DRAGON);
 			break;
 		}
 
