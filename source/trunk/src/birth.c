@@ -3488,8 +3488,10 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 {
 	int i, n;
 	selection se[MAX_SEXES + 3];
-	int id[MAX_SEXES], weight[MAX_SEXES];
+	int id[MAX_SEXES + 1], weight1[MAX_SEXES + 1], weight2[MAX_SEXES];
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
+	int trait_list[MAX_SEXES] = {TRAIT_MALE, TRAIT_FEMALE, TRAIT_INTERSEX, TRAIT_NOSEX};
+	int left_per = 100;
 
 	if(species_ptr->sex != INDEX_VARIABLE)
 	{
@@ -3507,15 +3509,32 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		{
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
-			weight[n] = 100;
+			if(has_trait_species(species_ptr, trait_list[i]))
+			{
+				weight1[n] = species_ptr->flags.probability[trait_list[i]];
+				left_per -= weight1[n];
+			}
+			else weight1[n] = 0;
+			weight2[n] = 100;
 		}
 		else
 		{
 			se[n].d_color = TERM_RED;
 			se[n].l_color = TERM_L_RED;
-			weight[n] = 0;
+			weight1[n] = 0;
+			weight2[n] = 0;
 		}
 		n++;
+	}
+
+	if(npc)
+	{
+		id[n] = MAX_SEXES;
+		weight1[n] = left_per > 0 ? left_per: 0;
+		n++;
+		creature_ptr->sex = uneven_rand(id, weight1, n);
+		if(creature_ptr->sex == MAX_SEXES) creature_ptr->sex = (s16b)uneven_rand(id, weight2, n-1);
+		return 0;
 	}
 
 #if JP
@@ -3551,12 +3570,6 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	se[n].l_color = TERM_L_UMBER;
 	n++;
 
-	if(npc)
-	{
-		creature_ptr->sex = uneven_rand(id, weight, MAX_SEXES);
-		return 0;
-	}
-
 #if JP
 		put_str("性別を選択して下さい(赤字の性別には種族ペナルティがかかります):", 0, 0);
 #else
@@ -3572,7 +3585,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->sex = se[randint0(4)].code;
+		creature_ptr->sex = se[randint0(n)].code;
 		return 0;
 	}
 	else
