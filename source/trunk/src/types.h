@@ -1215,6 +1215,11 @@ struct creature_type
 	byte player;	// Player Flag 
 	byte stigmatic;	// Stigmatic of '@' Flag 
 
+	byte d_attr;			// Default creature attribute
+	byte d_char;			// Default creature character
+	byte x_attr;			// Desired creature attribute
+	byte x_char;			// Desired creature character
+
 	s16b oldpy;		// Previous player location -KMW- 
 	s16b oldpx;		// Previous player location -KMW- 
 

@@ -914,6 +914,12 @@ static void rd_creature(creature_type *creature_ptr)
 
 	rd_byte(&creature_ptr->player);
 	rd_byte(&creature_ptr->stigmatic);
+
+	rd_byte(&creature_ptr->d_attr);
+	rd_byte(&creature_ptr->d_char);
+	rd_byte(&creature_ptr->x_attr);
+	rd_byte(&creature_ptr->x_char);
+
 	rd_string(creature_ptr->name, sizeof(creature_ptr->name));
 
 	// Read the message
