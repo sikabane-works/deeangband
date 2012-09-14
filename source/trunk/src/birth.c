@@ -3049,13 +3049,10 @@ void starting_point_detail(int code)
 	}
 }
 
-
-/*
- * Creature race
- */
+// Creature first race
 static int get_creature_first_race(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int     n, i, weight[MAX_RACES], id[MAX_RACES];
+	int     n, i, lev, weight[MAX_RACES], id[MAX_RACES];
 	selection se[MAX_RACES + 3];
 
 	if(species_ptr->race_idx1 != INDEX_VARIABLE)
@@ -3074,10 +3071,16 @@ static int get_creature_first_race(creature_type *creature_ptr, species_type *sp
 			se[n].d_color = TERM_L_DARK;
 			se[n].l_color = TERM_WHITE;
 			id[n] = i;
-			weight[n] = 1000;
+			weight[n] = 100000;
 			if(race_info[i].race_category == RACE_RARITY_UNCOMMON) weight[n] /= 5;
 			if(race_info[i].race_category == RACE_RARITY_RARE) weight[n] /= 40;
 			if(race_info[i].race_category == RACE_RARITY_LEGENDARY) weight[n] /= 200;
+
+			for(lev = 0; lev < PY_MAX_LEVEL || creature_exp[lev] * 2 <= species_ptr->exp; lev++);
+			if(lev < race_info[i].lev) weight[n] /= ((race_info[i].lev - lev) * (race_info[i].lev - lev));  
+
+			if(species_ptr->dr < race_info[i].dr) weight[n] /= ((race_info[i].dr - species_ptr->dr) * (race_info[i].dr - species_ptr->dr));
+			if(weight[n] <= 0) weight[n] = 1;
 			n++;
 		}
 	}
@@ -4944,6 +4947,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	creature_ptr->species_idx = species_idx;
 	creature_ptr->ap_species_idx = species_idx;
 	creature_ptr->lev = 1;
+	creature_ptr->exp = creature_ptr->max_exp = species_ptr->exp;
 	creature_ptr->dr = species_ptr->dr;
 
 	if(flags & GC_PLAYER) creature_ptr->player = TRUE;
