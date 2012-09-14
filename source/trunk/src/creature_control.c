@@ -1040,7 +1040,7 @@ static bool summon_specific_aux(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	int okay = FALSE;
 
-	/* Check our requirements */
+	// Check our requirements
 	switch (summon_specific_type)
 	{
 		case SUMMON_ANT:
@@ -4502,28 +4502,17 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	species_type *r_ptr = &species_info[species_idx];
 
-	/* Hack - Only summon dungeon creatures */
-	if (!species_hook_dungeon(species_idx)) return (FALSE);
+	if (!species_hook_dungeon(species_idx)) return (FALSE); // Hack - Only summon dungeon creatures
 
-	/* Hack -- identify the summoning creature */
-	if (summon_specific_who > 0)
+	if (summon_specific_who > 0) // Hack -- identify the summoning creature
 	{
 		creature_type *m_ptr = &creature_list[summon_specific_who];
-
-		/* Do not summon enemies */
-
-		/* Friendly vs. opposite aligned normal or pet */
-		if (creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE;
+		if (creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE; // Friendly vs. opposite aligned normal or pet
 	}
 
-	/* Hack -- no specific type specified */
-	if (!summon_specific_type) return (TRUE);
-
+	if (!summon_specific_type) return (TRUE);	// Hack -- no specific type specified
 	if (!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
-
-	if ((summon_specific_who < 0) &&
-	    ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
-
+	if ((summon_specific_who < 0) && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) return FALSE;
 	if (has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON)) return TRUE;
 
 	return (summon_specific_aux(species_idx));
