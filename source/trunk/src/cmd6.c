@@ -5268,7 +5268,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				play_redraw |= (PR_STATE);
 				break;
 			}
-			case ART_JONES:
+			case TRAIT_TELEKINES:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 #ifdef JP
@@ -5278,7 +5278,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 
 				fetch(creature_ptr, dir, 500, TRUE);
-				object_ptr->timeout = randint0(25) + 25;
 				break;
 			}
 			case ART_ARRYU:

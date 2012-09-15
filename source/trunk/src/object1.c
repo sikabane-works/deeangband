@@ -1578,14 +1578,6 @@ return "魔力の嵐(400) : 250+d250ターン毎";
 			return "a mana storm every 250+d250 turns";
 #endif
 		}
-		case ART_JONES:
-		{
-#ifdef JP
-return "物体を引き寄せる(重量25kgまで) : 25+d25ターン毎";
-#else
-			return "a telekinesis (500 lb) every 25+d25 turns";
-#endif
-		}
 		case ART_ARRYU:
 		{
 #ifdef JP
