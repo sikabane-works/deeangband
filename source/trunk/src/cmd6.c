@@ -4456,7 +4456,7 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_CAMMITHRIM:
+			case TRAIT_MISSILE:
 			{
 #ifdef JP
 				msg_print("グローブが眩しいくらいに明るく輝いた...");

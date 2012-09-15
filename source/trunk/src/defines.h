@@ -810,8 +810,6 @@
 
 /* Gloves */
 #define ART_CAMBELEG            52
-#define ART_CAMMITHRIM          53
-#define ART_CORWIN              55
 #define ART_THANOS              58
 #define ART_FINGOLFIN           59
 
