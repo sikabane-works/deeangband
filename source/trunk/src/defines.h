@@ -897,7 +897,6 @@
 #define ART_AULE                117
 #define ART_NAR                 118
 #define ART_DEATHWREAKER        121
-#define ART_TURMIL              122
 #define ART_MJOLLNIR            136
 #define ART_XIAOLONG            145
 #define ART_NYOIBOU             157

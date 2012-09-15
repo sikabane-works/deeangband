@@ -1130,15 +1130,6 @@ return "巨大ファイア・ボール(120) : 15 ターン毎";
 #endif
 
 		}
-		case ART_TURMIL:
-		{
-#ifdef JP
-return "生命力吸収(90) : 70 ターン毎";
-#else
-			return "drain life (90) every 70 turns";
-#endif
-
-		}
 		case ART_CASPANION:
 		{
 #ifdef JP

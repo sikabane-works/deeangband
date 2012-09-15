@@ -4882,17 +4882,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_TURMIL:
+			case TRAIT_DRAIN_LIFE2:
 			{
-#ifdef JP
-				msg_print("ハンマーが白く輝いた...");
-#else
-				msg_print("Your hammer glows white...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 90);
-				object_ptr->timeout = 70;
 				break;
 			}
 
