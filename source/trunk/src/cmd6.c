@@ -5472,7 +5472,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_KESHO:
+			case TRAIT_SHIKO:
 			{
 #ifdef JP
 				msg_print("力強く四股を踏んだ。");

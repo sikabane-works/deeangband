@@ -773,7 +773,6 @@
 #define ART_NAMAKE_ARMOR        183
 #define ART_GHB                 192
 #define ART_DASAI               200
-#define ART_KESHO               204
 
 /* Shields */
 #define ART_THORIN              30

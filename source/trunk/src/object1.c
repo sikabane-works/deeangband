@@ -1735,18 +1735,9 @@ return "属性変更 : 3333 ターン毎";
 		case ART_NUMAHOKO:
 		{
 #ifdef JP
-return "ウォーター・ボール(200) : 250 ターン毎";
+			return "ウォーター・ボール(200) : 250 ターン毎";
 #else
 			return "water ball (200) every 250 turns";
-#endif
-
-		}
-		case ART_KESHO:
-		{
-#ifdef JP
-return "四股踏み : 100+d100ターン毎";
-#else
-			return "shiko every 100+d100 turns";
 #endif
 
 		}
@@ -1758,14 +1749,6 @@ return "冷気の耐性 : 40+d40ターン毎";
 			return "resist cold every 40+d40 turns";
 #endif
 
-		}
-		case TRAIT_SUMMON_OCTOPUS:
-		{
-#ifdef JP
-			return "蛸の大群召喚 : 300+d150ターン毎";
-#else
-			return "summon octopus every 300+d150 turns";
-#endif
 		}
 		case ART_NIGHT:
 		case ART_HELL:
