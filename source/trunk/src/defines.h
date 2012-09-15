@@ -893,7 +893,6 @@
 #define ART_THUNDERFIST         113
 #define ART_BLOODSPIKE          114
 #define ART_FIRESTAR            115
-#define ART_TARATOL             116
 #define ART_AULE                117
 #define ART_NAR                 118
 #define ART_DEATHWREAKER        121

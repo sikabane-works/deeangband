@@ -4849,19 +4849,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_TARATOL:
-			{
-#ifdef JP
-				msg_print("メイスがグリーンに明るく輝いた...");
-#else
-				msg_print("Your mace glows bright green...");
-#endif
-
-				(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(100) + 100;
-				break;
-			}
-
 			case TRAIT_IDENTIFY:
 			{
 				if (!ident_spell(creature_ptr, FALSE)) return;

@@ -1141,15 +1141,6 @@ return "帰還の詔 : 200 ターン毎";
 #endif
 
 		}
-		case ART_TARATOL:
-		{
-#ifdef JP
-return "スピード(20+d20ターン) : 100+d100 ターン毎";
-#else
-			return "haste self (20+d20 turns) every 100+d100 turns";
-#endif
-
-		}
 		case ART_EONWE:
 		{
 #ifdef JP
