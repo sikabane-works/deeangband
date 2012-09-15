@@ -5404,13 +5404,11 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_MATOI:
-			case ART_AEGISFANG:
+			case TRAIT_BECOME_HERO:
 			{
 				(void)set_afraid(creature_ptr, 0);
 				set_hero(creature_ptr, randint1(25)+25, FALSE);
 				heal_creature(creature_ptr, 10);
-				object_ptr->timeout = randint0(30) + 30;
 				break;
 			}
 

@@ -915,7 +915,6 @@
 #define ART_XIAOLONG            145
 #define ART_NYOIBOU             157
 #define ART_HYOUSIGI            169
-#define ART_MATOI               170
 #define ART_IRON_BALL           173
 #define ART_SAMSON              178
 #define ART_NAMAKE_HAMMER       181

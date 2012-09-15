@@ -1613,17 +1613,6 @@ return "拍子木を打ちならす : いつでも";
 #endif
 
 		}
-		case ART_MATOI:
-		case ART_AEGISFANG:
-		{
-#ifdef JP
-return "士気高揚 : 30+d30ターン毎";
-#else
-			return "heroism every 30+d30 turns";
-#endif
-
-		}
-
 		case ART_EARENDIL:
 		{
 #ifdef JP
