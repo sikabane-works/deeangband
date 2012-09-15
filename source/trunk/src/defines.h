@@ -820,7 +820,6 @@
 #define ART_PAURNIMMEN          185
 
 /* Boots */
-#define ART_FEANOR              60
 #define ART_FLORA               61
 #define ART_THROR               62
 #define ART_SHIVA_BOOTS         63
@@ -866,7 +865,6 @@
 #define ART_NOVA                137
 #define ART_CHARIOT             140
 #define ART_WORPAL_BLADE        142
-//#define ART_ZANTETSU            150
 #define ART_SOULCRUSH           154
 #define ART_HRUNTING            156
 #define ART_ANUBIS              158

@@ -1130,15 +1130,6 @@ return "巨大ファイア・ボール(120) : 15 ターン毎";
 #endif
 
 		}
-		case ART_FEANOR:
-		{
-#ifdef JP
-return "スピード(20+d20ターン) : 200 ターン毎";
-#else
-			return "haste self (20+d20 turns) every 200 turns";
-#endif
-
-		}
 		case ART_THEODEN:
 		{
 #ifdef JP

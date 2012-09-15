@@ -4540,16 +4540,14 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_FEANOR:
+			case TRAIT_FAST:
 			{
 #ifdef JP
 				msg_print("ブーツがグリーンに明るく輝いた...");
 #else
 				msg_print("Your boots glow bright green...");
 #endif
-
 				(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = 200;
 				break;
 			}
 
