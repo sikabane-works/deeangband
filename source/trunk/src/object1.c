@@ -1223,15 +1223,6 @@ return "刃先のファイア・ボルト : 999 ターン毎";
 #endif
 
 		}
-		case ART_CRIMSON:
-		{
-#ifdef JP
-return "ファイア！ : 15 ターン毎";
-#else
-			return "fire! every 15 turns";
-#endif
-
-		}
 		case ART_RUNESPEAR:
 		{
 #ifdef JP
@@ -1250,28 +1241,10 @@ return "アイス・ボール (100) : 200 ターン毎";
 #endif
 
 		}
-		case ART_DESTINY:
-		{
-#ifdef JP
-return "岩石溶解 : 5 ターン毎";
-#else
-			return "stone to mud every 5 turns";
-#endif
-
-		}
-		case ART_NAIN:
-		{
-#ifdef JP
-return "岩石溶解 : 2 ターン毎";
-#else
-			return "stone to mud every 2 turns";
-#endif
-
-		}
 		case ART_SOULKEEPER:
 		{
 #ifdef JP
-return "体力回復(1000) : 888 ターン毎";
+			return "体力回復(1000) : 888 ターン毎";
 #else
 			return "heal (1000) every 888 turns";
 #endif

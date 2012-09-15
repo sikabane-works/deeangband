@@ -4755,31 +4755,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_DESTINY:
+			case TRAIT_STONE_TO_MUD:
 			{
-#ifdef JP
-				msg_print("スピアが鼓動した...");
-#else
-				msg_print("Your spear pulsates...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				wall_to_mud(creature_ptr, dir);
-				object_ptr->timeout = 5;
-				break;
-			}
-
-			case ART_NAIN:
-			{
-#ifdef JP
-				msg_print("つるはしが鼓動した...");
-#else
-				msg_print("Your mattock pulsates...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				wall_to_mud(creature_ptr, dir);
-				object_ptr->timeout = 2;
 				break;
 			}
 
