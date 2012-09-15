@@ -888,7 +888,6 @@
 #define ART_NARSIL              191
 #define ART_KANNU               193
 #define ART_GRIMTOOTH           196
-#define ART_KAMUI               198
 #define ART_GOURYU              207
 #define ART_EOWYN               216
 

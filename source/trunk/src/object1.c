@@ -1260,15 +1260,6 @@ return "逃走 : 35 ターン毎";
 #endif
 
 		}
-		case ART_KAMUI:
-		{
-#ifdef JP
-return "テレポート : 25 ターン毎";
-#else
-			return "a teleport every 25 turns";
-#endif
-
-		}
 		case ART_RUNESPEAR:
 		{
 #ifdef JP

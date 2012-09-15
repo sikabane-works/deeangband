@@ -4683,10 +4683,9 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_KAMUI:
+			case TRAIT_TPORT:
 			{
 				teleport_player(creature_ptr, 222, 0L);
-				object_ptr->timeout = 25;
 				break;
 			}
 
