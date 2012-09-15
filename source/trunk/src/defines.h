@@ -865,7 +865,6 @@
 #define ART_EOWYN               216
 
 /* Polearms */
-#define ART_THEODEN             93
 #define ART_PAIN                94
 #define ART_OSONDIR             95
 #define ART_TIL                 96

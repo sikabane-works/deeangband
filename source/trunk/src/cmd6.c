@@ -4713,17 +4713,11 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_THEODEN:
+			case TRAIT_DRAIN_LIFE1:
 			{
-#ifdef JP
-				 msg_print("ƒAƒbƒNƒX‚Ìn‚ª•‚­‹P‚¢‚½...");
-#else
-				msg_print("Your axe blade glows black...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 120);
-				object_ptr->timeout = 400;
+				object_ptr->timeout = 100;
 				break;
 			}
 
