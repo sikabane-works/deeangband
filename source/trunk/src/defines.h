@@ -808,11 +808,6 @@
 #define ART_MOOK                205
 #define ART_HEAVENLY_MAIDEN     233
 
-/* Gloves */
-#define ART_CAMBELEG            52
-#define ART_THANOS              58
-#define ART_FINGOLFIN           59
-
 /* Boots */
 #define ART_FLORA               61
 #define ART_THROR               62

@@ -4524,17 +4524,15 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_FINGOLFIN:
+			case TRAIT_BO_MANA:
 			{
 #ifdef JP
 				msg_print("セスタスに魔法のトゲが現れた...");
 #else
 				msg_print("Your cesti grows magical spikes...");
 #endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ARROW, dir, 150);
-				object_ptr->timeout = randint0(90) + 90;
 				break;
 			}
 

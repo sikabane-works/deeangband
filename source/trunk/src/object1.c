@@ -1369,15 +1369,6 @@ return "パニック・クリーチャー : 15 ターン毎";
 #endif
 
 		}
-		case ART_FINGOLFIN:
-		{
-#ifdef JP
-return "魔法の矢(150) : 90+d90 ターン毎";
-#else
-			return "a magical arrow (150) every 90+d90 turns";
-#endif
-
-		}
 		case ART_RAZORBACK:
 		{
 #ifdef JP
