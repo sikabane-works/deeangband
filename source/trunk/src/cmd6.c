@@ -4756,16 +4756,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_EONWE:
+			case TRAIT_MASS_GENOCIDE:
 			{
-#ifdef JP
-				msg_print("アックスからひどく鋭い音が流れ出た...");
-#else
-				msg_print("Your axe lets out a long, shrill note...");
-#endif
-
 				(void)mass_genocide(creature_ptr, 200, TRUE);
-				object_ptr->timeout = 1000;
 				break;
 			}
 
