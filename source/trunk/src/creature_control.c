@@ -1498,12 +1498,11 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
 			continue;
 
-		if(!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
-		if((summon_specific_who < 0) && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
-		if(!(has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON))) continue;
+		//if(!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
+		//if((summon_specific_who < 0) && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
+		//if(!(has_trait_species(r_ptr, TRAIT_CHAMELEON) && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CHAMELEON))) continue;
 
-		if(!summon_specific_aux(i, summon_specific_type)) continue;
-
+		//if(!summon_specific_aux(i, summon_specific_type)) continue;
 
 		if (!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
 		{

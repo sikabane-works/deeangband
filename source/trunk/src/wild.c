@@ -372,56 +372,39 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	/* Prepare allocation table */
 	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
 
-	/* North border */
+	// North border
 	generate_area(floor_ptr, y - 1, x, TRUE, FALSE);
+	for (i = 1; i < MAX_WID - 1; i++) border.north[i] = floor_ptr->cave[MAX_HGT - 2][i].feat;
 
-	for (i = 1; i < MAX_WID - 1; i++)
-	{
-		border.north[i] = floor_ptr->cave[MAX_HGT - 2][i].feat;
-	}
-
-	/* South border */
+	// South border
 	generate_area(floor_ptr, y + 1, x, TRUE, FALSE);
+	for (i = 1; i < MAX_WID - 1; i++) border.south[i] = floor_ptr->cave[1][i].feat;
 
-	for (i = 1; i < MAX_WID - 1; i++)
-	{
-		border.south[i] = floor_ptr->cave[1][i].feat;
-	}
-
-	/* West border */
+	// West border
 	generate_area(floor_ptr, y, x - 1, TRUE, FALSE);
+	for (i = 1; i < MAX_HGT - 1; i++) border.west[i] = floor_ptr->cave[i][MAX_WID - 2].feat;
 
-	for (i = 1; i < MAX_HGT - 1; i++)
-	{
-		border.west[i] = floor_ptr->cave[i][MAX_WID - 2].feat;
-	}
-
-	/* East border */
+	// East border
 	generate_area(floor_ptr, y, x + 1, TRUE, FALSE);
+	for (i = 1; i < MAX_HGT - 1; i++) border.east[i] = floor_ptr->cave[i][1].feat;
 
-	for (i = 1; i < MAX_HGT - 1; i++)
-	{
-		border.east[i] = floor_ptr->cave[i][1].feat;
-	}
-
-	/* North west corner */
+	// North west corner
 	generate_area(floor_ptr, y - 1, x - 1, FALSE, TRUE);
 	border.north_west = floor_ptr->cave[MAX_HGT - 2][MAX_WID - 2].feat;
 
-	/* North east corner */
+	// North east corner
 	generate_area(floor_ptr, y - 1, x + 1, FALSE, TRUE);
 	border.north_east = floor_ptr->cave[MAX_HGT - 2][1].feat;
 
-	/* South west corner */
+	// South west corner
 	generate_area(floor_ptr, y + 1, x - 1, FALSE, TRUE);
 	border.south_west = floor_ptr->cave[1][MAX_WID - 2].feat;
 
-	/* South east corner */
+	// South east corner
 	generate_area(floor_ptr, y + 1, x + 1, FALSE, TRUE);
 	border.south_east = floor_ptr->cave[1][1].feat;
 
-
-	/* Create terrain of the current area */
+	// Create terrain of the current area
 	generate_area(floor_ptr, y, x, FALSE, FALSE);
 
 
@@ -489,23 +472,13 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 				if (!is_mirror_grid(c_ptr) && !have_flag(f_ptr->flags, FF_QUEST_ENTER) &&
 				    !have_flag(f_ptr->flags, FF_ENTRANCE))
 				{
-					/* Assume dark */
-					c_ptr->info &= ~(CAVE_GLOW);
-
-					/* Darken "boring" features */
-					if (!have_flag(f_ptr->flags, FF_REMEMBER))
-					{
-						/* Forget the grid */
-						c_ptr->info &= ~(CAVE_MARK);
-					}
+					c_ptr->info &= ~(CAVE_GLOW);	// Assume dark
+					if (!have_flag(f_ptr->flags, FF_REMEMBER)) c_ptr->info &= ~(CAVE_MARK);	// Darken "boring" features
 				}
 				else if (have_flag(f_ptr->flags, FF_ENTRANCE))
 				{
-					/* Assume lit */
-					c_ptr->info |= (CAVE_GLOW);
-
-					/* Hack -- Memorize lit grids if allowed */
-					if (view_perma_grids) c_ptr->info |= (CAVE_MARK);
+					c_ptr->info |= (CAVE_GLOW);		// Assume lite
+					if (view_perma_grids) c_ptr->info |= (CAVE_MARK);	// Hack -- Memorize lit grids if allowed
 				}
 			}
 		}
@@ -561,7 +534,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	/* subject_change_floor_dungeon = FALSE;*/
 
 
-	lim = (floor_ptr->generate_encounter==TRUE)?MIN_M_ALLOC_TN * 2:MIN_M_ALLOC_TN;
+	lim = (floor_ptr->generate_encounter==TRUE) ? MIN_M_ALLOC_TN * 2 : MIN_M_ALLOC_TN;
 
 	/* Make some residents */
 	for (i = 0; i < lim; i++)
