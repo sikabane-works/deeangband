@@ -911,7 +911,6 @@
 #define ART_ARRYU               164
 #define ART_AEGLOS              187
 #define ART_BLOOD               199
-#define ART_NUMAHOKO            202
 
 #define ART_TOTILA              112
 #define ART_THUNDERFIST         113

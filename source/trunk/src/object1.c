@@ -1732,15 +1732,6 @@ return "属性変更 : 3333 ターン毎";
 #endif
 
 		}
-		case ART_NUMAHOKO:
-		{
-#ifdef JP
-			return "ウォーター・ボール(200) : 250 ターン毎";
-#else
-			return "water ball (200) every 250 turns";
-#endif
-
-		}
 		case ART_MOOK:
 		{
 #ifdef JP

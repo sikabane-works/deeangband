@@ -4623,17 +4623,15 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 				break;
 			}
 
-			case ART_NUMAHOKO:
+			case TRAIT_BA_WATE:
 			{
 #ifdef JP
 				msg_print("–µ‚ª[‚¢ÂF‚ÉŒÛ“®‚µ‚Ä‚¢‚é...");
 #else
 				msg_print("Your dagger throbs deep blue...");
 #endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_WATER, dir, 200, 3);
-				object_ptr->timeout = 250;
 				break;
 			}
 
