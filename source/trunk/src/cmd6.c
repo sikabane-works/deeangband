@@ -4983,21 +4983,15 @@ msg_print("あなたの槍は電気でスパークしている...");
 					ty = target_row;
 				}
 
-				if (creature_ptr->class_idx == CLASS_ARCHER)
+				if (creature_ptr->class_idx == CLASS_ARCHER) // Extra shot at level
 				{
-					/* Extra shot at level 10 */
 					if (creature_ptr->lev >= 10) num++;
-
-					/* Extra shot at level 30 */
 					if (creature_ptr->lev >= 30) num++;
-
-					/* Extra shot at level 45 */
 					if (creature_ptr->lev >= 45) num++;
 				}
 
 				for (i = 0; i < num; i++)
 					project(creature_ptr, creature_ptr->lev/20+1, ty, tx, creature_ptr->lev*creature_ptr->lev*6/50, GF_ROCKET, flg, -1);
-				object_ptr->timeout = 15;
 				break;
 			}
 			case ART_PALANTIR:
