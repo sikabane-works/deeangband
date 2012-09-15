@@ -4689,24 +4689,17 @@ if (get_check("この階を去りますか？"))
 				break;
 			}
 
-			case ART_RINGIL:
+			case TRAIT_BA_COLD:
 			{
-#ifdef JP
-				msg_print("ソードが青く激しく輝いた...");
-#else
-				msg_print("Your sword glows an intense blue...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-				object_ptr->timeout = 200;
 				break;
 			}
 
 			case TRAIT_SUMMON_DAWN_LEGION:
 			{
 #ifdef JP
-msg_print("暁の師団を召喚した。");
+				msg_print("暁の師団を召喚した。");
 #else
 				msg_print("You summon the Legion of the Dawn.");
 #endif
@@ -5158,7 +5151,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_ICANUS:
+			//case ART_ICANUS:
 			{
 
 #ifdef JP

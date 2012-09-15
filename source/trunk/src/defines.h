@@ -850,7 +850,6 @@
 #define ART_GONDRICAM           79
 #define ART_CRISDURIAN          80
 #define ART_AGLARANG            81
-#define ART_RINGIL              82
 #define ART_ANDURIL             83
 #define ART_WEREWINDLE          84
 #define ART_CHAINSWORD          85
@@ -870,7 +869,6 @@
 #define ART_WORPAL_BLADE        142
 //#define ART_ZANTETSU            150
 #define ART_SOULCRUSH           154
-#define ART_FALIS               155
 #define ART_HRUNTING            156
 #define ART_ANUBIS              158
 #define ART_GURENKI             160
@@ -886,8 +884,6 @@
 #define ART_HAKABUSA            189
 #define ART_STORMBRINGER        190
 #define ART_NARSIL              191
-#define ART_KANNU               193
-#define ART_GRIMTOOTH           196
 #define ART_GOURYU              207
 #define ART_EOWYN               216
 

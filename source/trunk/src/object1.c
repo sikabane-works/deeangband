@@ -1094,15 +1094,6 @@ return "恐怖除去/毒消し : 5 ターン毎";
 #endif
 
 		}
-		case ART_RINGIL:
-		{
-#ifdef JP
-return "アイス・ボール(100) : 200 ターン毎";
-#else
-			return "frost ball (100) every 200 turns";
-#endif
-
-		}
 		case TRAIT_SUMMON_DAWN_LEGION:
 		{
 #ifdef JP
