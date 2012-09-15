@@ -4855,20 +4855,13 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_BRAND:
-			case ART_HELLFIRE:
-			{
-#ifdef JP
-				msg_print("クロスボウが深紅に輝いた...");
-#else
-				msg_print("Your crossbow glows deep red...");
-#endif
-
+			case TRAIT_ADD_FIRE_BRAND:
+			{ //TODO
 				(void)brand_bolts(creature_ptr);
-				object_ptr->timeout = 999;
 				break;
 			}
-			case ART_CRIMSON:
+
+			case TRAIT_CRIMSON_ROCKET:
 			{
 				int num = 1;
 				int i;
