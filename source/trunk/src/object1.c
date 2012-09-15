@@ -1177,15 +1177,6 @@ return "スピード(20+d20ターン) : 100+d100 ターン毎";
 #endif
 
 		}
-		case ART_ERIRIL:
-		{
-#ifdef JP
-return "鑑定 : 10 ターン毎";
-#else
-			return "identify every 10 turns";
-#endif
-
-		}
 		case ART_GANDALF:
 		{
 #ifdef JP

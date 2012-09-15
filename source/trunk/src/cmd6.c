@@ -4882,16 +4882,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_ERIRIL:
+			case TRAIT_IDENTIFY:
 			{
-#ifdef JP
-				msg_print("クォータースタッフが黄色く輝いた...");
-#else
-				msg_print("Your quarterstaff glows yellow...");
-#endif
-
 				if (!ident_spell(creature_ptr, FALSE)) return;
-				object_ptr->timeout = 10;
 				break;
 			}
 

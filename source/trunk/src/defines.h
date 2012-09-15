@@ -897,12 +897,10 @@
 #define ART_TARATOL             116
 #define ART_AULE                117
 #define ART_NAR                 118
-#define ART_ERIRIL              119
 #define ART_GANDALF             120
 #define ART_DEATHWREAKER        121
 #define ART_TURMIL              122
 #define ART_MJOLLNIR            136
-#define ART_WINBLOWS            139
 #define ART_XIAOLONG            145
 #define ART_NYOIBOU             157
 #define ART_HYOUSIGI            169
