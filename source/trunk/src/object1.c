@@ -1232,16 +1232,6 @@ return "ファイア！ : 15 ターン毎";
 #endif
 
 		}
-		case ART_KUSANAGI:
-		case ART_WEREWINDLE:
-		{
-#ifdef JP
-return "逃走 : 35 ターン毎";
-#else
-			return "a getaway every 35 turns";
-#endif
-
-		}
 		case ART_RUNESPEAR:
 		{
 #ifdef JP

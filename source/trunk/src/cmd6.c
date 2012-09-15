@@ -4643,8 +4643,7 @@ msg_print("“V‘‚Ì‰Ì‚ª•·‚±‚¦‚é...");
 				break;
 			}
 
-			case ART_KUSANAGI:
-			case ART_WEREWINDLE:
+			case TRAIT_GETAWAY:
 			{
 				switch (randint1(13))
 				{
@@ -4671,7 +4670,6 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 						subject_change_floor = TRUE;
 					}
 				}
-				object_ptr->timeout = 35;
 				break;
 			}
 
