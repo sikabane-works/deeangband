@@ -1121,15 +1121,6 @@ return "巨大ファイア・ボール(72) : 100 ターン毎";
 #endif
 
 		}
-		case ART_GOTHMOG:
-		{
-#ifdef JP
-return "巨大ファイア・ボール(120) : 15 ターン毎";
-#else
-			return "large fire ball (120) every 15 turns";
-#endif
-
-		}
 		case ART_CASPANION:
 		{
 #ifdef JP

@@ -909,7 +909,6 @@
 #define ART_G_HAMMER            195
 #define ART_AEGISFANG           208
 #define ART_HERMIT              209
-#define ART_GOTHMOG             212
 #define ART_AESCULAPIUS         225
 
 /* Bows */

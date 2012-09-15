@@ -4849,20 +4849,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_GOTHMOG:
-			{
-#ifdef JP
-				msg_print("ムチが深い赤色に輝いた...");
-#else
-				msg_print("Your whip glows deep red...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_FIRE, dir, 120, 3);
-				object_ptr->timeout = 15;
-				break;
-			}
-
 			case ART_TARATOL:
 			{
 #ifdef JP
