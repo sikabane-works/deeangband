@@ -1378,42 +1378,6 @@ return "マジック・ミサイル(2d6) : 2 ターン毎";
 #endif
 
 		}
-		case ART_PAURHACH:
-		{
-#ifdef JP
-return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
-#else
-			return "fire bolt (9d8) every 8+d8 turns";
-#endif
-
-		}
-		case ART_PAURNIMMEN:
-		{
-#ifdef JP
-return "アイス・ボルト(6d8) : 7+d7 ターン毎";
-#else
-			return "frost bolt (6d8) every 7+d7 turns";
-#endif
-
-		}
-		case ART_PAURAEGEN:
-		{
-#ifdef JP
-return "サンダー・ボルト(4d8) : 5+d5 ターン毎";
-#else
-			return "lightning bolt (4d8) every 5+d5 turns";
-#endif
-
-		}
-		case ART_PAURNEN:
-		{
-#ifdef JP
-return "アシッド・ボルト(5d8) : 6+d6 ターン毎";
-#else
-			return "acid bolt (5d8) every 6+d6 turns";
-#endif
-
-		}
 		case ART_FINGOLFIN:
 		{
 #ifdef JP

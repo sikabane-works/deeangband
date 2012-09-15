@@ -811,13 +811,9 @@
 /* Gloves */
 #define ART_CAMBELEG            52
 #define ART_CAMMITHRIM          53
-#define ART_PAURHACH            54
 #define ART_CORWIN              55
-#define ART_PAURAEGEN           56
-#define ART_PAURNEN             57
 #define ART_THANOS              58
 #define ART_FINGOLFIN           59
-#define ART_PAURNIMMEN          185
 
 /* Boots */
 #define ART_FLORA               61

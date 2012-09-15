@@ -4470,7 +4470,7 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_PAURHACH:
+			case TRAIT_BO_FIRE_MINI:
 			{
 #ifdef JP
 				msg_print("ガントレットが炎に覆われた...");
@@ -4484,21 +4484,19 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_PAURNIMMEN:
+			case TRAIT_BO_COLD_MINI:
 			{
 #ifdef JP
 				msg_print("ガントレットが冷気に覆われた...");
 #else
 				msg_print("Your gauntlets are covered in frost...");
 #endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-				object_ptr->timeout = randint0(7) + 7;
 				break;
 			}
 
-			case ART_PAURAEGEN:
+			case TRAIT_BO_ELEC_MINI:
 			{
 #ifdef JP
 				msg_print("ガントレットが火花に覆われた...");
@@ -4512,7 +4510,7 @@ msg_print("天国の歌が聞こえる...");
 				break;
 			}
 
-			case ART_PAURNEN:
+			case TRAIT_BO_ACID_MINI:
 			{
 #ifdef JP
 				msg_print("ガントレットが酸に覆われた...");
