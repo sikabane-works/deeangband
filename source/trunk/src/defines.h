@@ -897,7 +897,6 @@
 #define ART_TARATOL             116
 #define ART_AULE                117
 #define ART_NAR                 118
-#define ART_GANDALF             120
 #define ART_DEATHWREAKER        121
 #define ART_TURMIL              122
 #define ART_MJOLLNIR            136

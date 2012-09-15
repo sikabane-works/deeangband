@@ -4888,21 +4888,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_GANDALF:
-			{
-#ifdef JP
-				msg_print("杖が明るく輝いた...");
-#else
-				msg_print("Your quarterstaff glows brightly...");
-#endif
-
-				detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-				probing(floor_ptr);
-				identify_fully(creature_ptr, FALSE);
-				object_ptr->timeout = 100;
-				break;
-			}
-
 			case ART_TURMIL:
 			{
 #ifdef JP

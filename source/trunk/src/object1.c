@@ -1177,15 +1177,6 @@ return "スピード(20+d20ターン) : 100+d100 ターン毎";
 #endif
 
 		}
-		case ART_GANDALF:
-		{
-#ifdef JP
-return "調査、全感知、全鑑定 : 100 ターン毎";
-#else
-			return "probing, detection and full id every 100 turns";
-#endif
-
-		}
 		case ART_EONWE:
 		{
 #ifdef JP
