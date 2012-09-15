@@ -5164,6 +5164,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = randint0(120) + 120;
 				break;
 			}
+
 			case ART_HURIN:
 			{
 				(void)set_fast(creature_ptr, randint1(50) + 50, FALSE);
@@ -5173,6 +5174,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = randint0(200) + 100;
 				break;
 			}
+
 			case ART_GIL_GALAD:
 			{
 #ifdef JP
@@ -5185,6 +5187,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = 250;
 				break;
 			}
+
 			case ART_YENDOR:
 			{
 #ifdef JP
@@ -5196,6 +5199,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = 200;
 				break;
 			}
+
 			/*
 			case ART_MURAMASA:
 			{
@@ -5224,6 +5228,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 			*/
+
 			case ART_FLY_STONE:
 			{
 #ifdef JP
