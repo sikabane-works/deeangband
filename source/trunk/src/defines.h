@@ -762,17 +762,14 @@
 #define ART_CASPANION           25
 #define ART_GILES               168
 #define ART_MORLOK              203
-#define ART_VETERAN             206
 
 /* Soft Armour */
 #define ART_SHIVA_JACKET        26
 #define ART_HITHLOMIR           27
 #define ART_THALKETTOTH         28
-#define ART_HIMRING             127
 #define ART_ICANUS              131
 #define ART_NAMAKE_ARMOR        183
 #define ART_GHB                 192
-#define ART_DASAI               200
 
 /* Shields */
 #define ART_THORIN              30

@@ -1419,14 +1419,6 @@ return "クリーチャー恐慌 : 40+d40ターン毎";
 			return "frighten creatures every 40+d40 turns";
 #endif
 		}
-		case ART_HIMRING:
-		{
-#ifdef JP
-return "対邪悪結界 : 200+d200 ターン毎";
-#else
-			return "protection from evil every 200 + d200 turns";
-#endif
-		}
 		case ART_ICANUS:
 		{
 #ifdef JP

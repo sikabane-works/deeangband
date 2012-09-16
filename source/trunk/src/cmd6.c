@@ -5026,15 +5026,9 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_HIMRING:
+			case TRAIT_PROT_EVIL:
 			{
-#ifdef JP
-				msg_print("鈍い音が辺りを包みこんだ。");
-#else
-				msg_print("A shrill wailing sound surrounds you.");
-#endif
 				(void)set_protevil(creature_ptr, randint1(25) + creature_ptr->lev, FALSE);
-				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
