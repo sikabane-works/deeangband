@@ -5213,7 +5213,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_INROU:
+			case TRAIT_INROU:
 			{
 				int count = 0, i;
 				creature_type *m_ptr;
@@ -5278,7 +5278,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 					msg_print("Nothing happen.");
 #endif
 				}
-				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 

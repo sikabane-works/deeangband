@@ -1486,15 +1486,6 @@ return "ハウンド召喚 : 300+d150ターン毎";
 #endif
 
 		}
-		case ART_INROU:
-		{
-#ifdef JP
-return "例のアレ : 150+d150 ターン毎";
-#else
-			return "reveal your identity every 150+d150 turns";
-#endif
-
-		}
 		case ART_HYOUSIGI:
 		{
 #ifdef JP
