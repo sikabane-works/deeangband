@@ -5359,20 +5359,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_HERMIT:
-			{
-#ifdef JP
-				msg_print("ムチから鋭い音が流れ出た...");
-#else
-				msg_print("The whip lets out a shrill wail...");
-#endif
-
-				k = 3 * creature_ptr->lev;
-				(void)set_protevil(creature_ptr, randint1(25) + k, FALSE);
-				object_ptr->timeout = randint0(225) + 225;
-				break;
-			}
-
 			case TRAIT_SUMMON_OCTOPUS:
 			{
 				u32b mode = PC_ALLOW_GROUP;

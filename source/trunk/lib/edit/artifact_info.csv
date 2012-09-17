@@ -191,7 +191,7 @@ ID,NAME,E_NAME,TVAL,SVAL,STR,INT,WIS,DEX,CON,CHA,PVAL,AP_RATE,DEPTH,RARITY,WEIGH
 192,『GHB を倒したけどこんな嫌なＴシャツしか手に入らなかったよ！』,'I killed the GHB and all I got was this lousy t-shirt!',36,0,0,0,0,0,0,0,0,100,0,0,10,1,0,0,0,1,0,1d1,0,0,0,0,QUESTITEM|CAN_READ,,,,
 193,美髯公関羽の,of Guan Yu,23,22,0,0,0,0,0,0,3,100,60,60,320,200000,0,0,0,0,0,4d5,20,20,5,0,STR|DEX|CON|SLAY_EVIL|SLAY_HUMAN|VORPAL|SHOW_MODS,,豊かな髯を蓄えた義人・関羽はこの青龍刀で多くの豪傑を地に叩き伏せて来た。,,
 194,酒呑童子の,of Shuten-douji,21,16,0,0,0,0,0,0,6,100,40,40,350,100000,0,0,0,0,0,4d7,0,20,10,0,STR|FEARLESS,,大江山の鬼の首領たる酒呑童子の重い金棒だ。,,
-195,『ゴールデンハンマー』,'Golden Hammer',21,19,0,0,0,0,0,0,0,100,45,5,50,300000,0,0,0,0,0,2d6,0,0,0,0,,,このハンマーを用いると盗まれたアイテムが取り戻せるらしい。,,
+195,『ゴールデンハンマー』,'Golden Hammer',21,19,0,0,0,0,0,0,0,100,45,5,50,300000,0,0,0,0,0,2d6,0,0,0,0,SEIZING_ATTACK,,このハンマーを用いると盗まれたアイテムが取り戻せるらしい。,,
 196,『グリムトゥース』,'Grimtooth',23,4,0,0,0,0,0,0,1,100,7,15,12,25000,0,0,0,0,0,1d4,5,5,0,0,DEX|BLOWS|POIS_BRAND|SHOW_MODS|RETURNING_THROW,,,,
 197,ペルセウスの,of Perseus,34,3,0,0,0,0,0,0,2,100,30,10,65,45000,0,0,12,5,0,1d2,0,0,15,0,STR|RES_ACID|RES_COLD|FEARLESS|REFLECTING|SUSTAIN_STR,,蛇の髪を持つメドゥーサの石化の睨みも、この反射の盾の前には効果がなかった。,,
 198,抜け忍カムイの,of Kamui the Escapee,23,19,0,0,0,0,0,0,4,100,20,8,100,60000,25,0,0,0,0,2d9,15,2,0,0,DEX|STEALTH|SEARCH|RES_FIRE|POIS_BRAND|TPORT|SEE_INVISIBLE|SHOW_MODS|WARNING,,,,

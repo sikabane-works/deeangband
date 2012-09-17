@@ -733,7 +733,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				r_ptr = &species_info[target_ptr->species_idx];
 			}
 		}
-		else if (weapon_ptr->name1 == ART_G_HAMMER)
+		else if (has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))
 		{
 			creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 

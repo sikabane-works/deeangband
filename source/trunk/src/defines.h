@@ -896,7 +896,6 @@
 #define ART_BOLISHOI            188
 #define ART_SHUTEN_DOJI         194
 #define ART_G_HAMMER            195
-#define ART_HERMIT              209
 #define ART_AESCULAPIUS         225
 
 /* Bows */
