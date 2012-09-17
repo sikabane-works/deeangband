@@ -4108,20 +4108,6 @@ if (get_check("帰還の力を使いますか？"))
 				break;
 			}
 
-			case ART_CARLAMMAS:
-			{
-#ifdef JP
-				msg_print("アミュレットから鋭い音が流れ出た...");
-#else
-				msg_print("The amulet lets out a shrill wail...");
-#endif
-
-				k = 3 * creature_ptr->lev;
-				(void)set_protevil(creature_ptr, randint1(25) + k, FALSE);
-				object_ptr->timeout = randint0(225) + 225;
-				break;
-			}
-
 			case TRAIT_DISPEL_EVIL_1:
 			{
 				dispel_evil(creature_ptr, creature_ptr->lev * 5);
@@ -4292,7 +4278,7 @@ if (get_check("帰還の力を使いますか？"))
 			case ART_LOHENGRIN:
 			{
 #ifdef JP
-msg_print("天国の歌が聞こえる...");
+				msg_print("天国の歌が聞こえる...");
 #else
 				msg_print("A heavenly choir sings...");
 #endif

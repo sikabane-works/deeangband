@@ -1319,16 +1319,6 @@ return "邪悪退散(x5) : 100+d100 ターン毎";
 
 		}
 
-		case ART_CARLAMMAS:
-		case ART_HERMIT:
-		{
-#ifdef JP
-return "対邪悪結界 : 225+d225 ターン毎";
-#else
-			return "protection from evil every 225+d225 turns";
-#endif
-
-		}
 		case ART_FRAKIR:
 		{
 #ifdef JP

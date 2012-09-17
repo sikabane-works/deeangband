@@ -727,7 +727,6 @@
 
 // Amulets
 #define ART_CARLAMMAS            4
-#define ART_INGWE                5
 #define ART_DWARVES              6
 #define ART_FARAMIR              18
 #define ART_BOROMIR              143
