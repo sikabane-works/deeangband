@@ -887,10 +887,6 @@
 #define ART_THUNDERFIST         113
 #define ART_BLOODSPIKE          114
 #define ART_FIRESTAR            115
-#define ART_AULE                117
-#define ART_NAR                 118
-#define ART_DEATHWREAKER        121
-#define ART_MJOLLNIR            136
 #define ART_XIAOLONG            145
 #define ART_NYOIBOU             157
 #define ART_HYOUSIGI            169
@@ -900,7 +896,6 @@
 #define ART_BOLISHOI            188
 #define ART_SHUTEN_DOJI         194
 #define ART_G_HAMMER            195
-#define ART_AEGISFANG           208
 #define ART_HERMIT              209
 #define ART_AESCULAPIUS         225
 

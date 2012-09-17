@@ -3977,8 +3977,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		project_length = 0;  /* reset to default */
 	}
 
-	if ((quest_ptr->name1 == ART_MJOLLNIR) ||
-	    (quest_ptr->name1 == ART_AEGISFANG) || boomerang)
+	if (has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)
 		return_when_thrown = TRUE;
 
 	/* Reduce and describe creature_ptr->inventory */
@@ -4288,7 +4287,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 	{
 		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
-		bool super_boomerang = (((quest_ptr->name1 == ART_MJOLLNIR) || (quest_ptr->name1 == ART_AEGISFANG)) && boomerang);
+		bool super_boomerang = (has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) && boomerang);
 
 		j = -1;
 		if (boomerang) back_chance += 4 + randint1(5);
