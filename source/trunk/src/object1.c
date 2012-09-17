@@ -1103,24 +1103,6 @@ return "暁の師団召喚 : 500+d500 ターン毎";
 #endif
 
 		}
-		case ART_ANDURIL:
-		{
-#ifdef JP
-return "ファイア・ボール(72) : 400 ターン毎";
-#else
-			return "fire ball (72) every 400 turns";
-#endif
-
-		}
-		case ART_FIRESTAR:
-		{
-#ifdef JP
-return "巨大ファイア・ボール(72) : 100 ターン毎";
-#else
-			return "large fire ball (72) every 100 turns";
-#endif
-
-		}
 		case ART_CASPANION:
 		{
 #ifdef JP
@@ -1256,15 +1238,6 @@ return "魔力充填 : 70 ターン毎";
 return "テレポート : 45 ターン毎";
 #else
 			return "teleport every 45 turns";
-#endif
-
-		}
-		case ART_TOTILA:
-		{
-#ifdef JP
-return "パニック・クリーチャー : 15 ターン毎";
-#else
-			return "confuse creature every 15 turns";
 #endif
 
 		}

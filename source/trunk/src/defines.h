@@ -831,7 +831,6 @@
 #define ART_GONDRICAM           79
 #define ART_CRISDURIAN          80
 #define ART_AGLARANG            81
-#define ART_ANDURIL             83
 #define ART_CHAINSWORD          85
 #define ART_FORASGIL            86
 #define ART_CARETH              87
@@ -883,19 +882,14 @@
 #define ART_AEGLOS              187
 #define ART_BLOOD               199
 
-#define ART_TOTILA              112
 #define ART_THUNDERFIST         113
 #define ART_BLOODSPIKE          114
-#define ART_FIRESTAR            115
 #define ART_XIAOLONG            145
 #define ART_NYOIBOU             157
 #define ART_HYOUSIGI            169
 #define ART_IRON_BALL           173
-#define ART_SAMSON              178
 #define ART_NAMAKE_HAMMER       181
 #define ART_BOLISHOI            188
-#define ART_SHUTEN_DOJI         194
-#define ART_G_HAMMER            195
 #define ART_AESCULAPIUS         225
 
 /* Bows */

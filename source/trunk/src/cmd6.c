@@ -4683,20 +4683,6 @@ if (get_check("この階を去りますか？"))
 				break;
 			}
 
-			case ART_ANDURIL:
-			{
-#ifdef JP
-				msg_print("ソードが赤く激しく輝いた...");
-#else
-				msg_print("Your sword glows an intense red...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_FIRE, dir, 72, 2);
-				object_ptr->timeout = 400;
-				break;
-			}
-
 			case TRAIT_DRAIN_LIFE1:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
@@ -4798,31 +4784,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_TOTILA:
+			case TRAIT_PANIC_CREATURE:
 			{
-#ifdef JP
-				msg_print("フレイルが様々な色の火花を発した...");
-#else
-				msg_print("Your flail glows in scintillating colours...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				confuse_creature(creature_ptr, dir, 20);
-				object_ptr->timeout = 15;
-				break;
-			}
-
-			case ART_FIRESTAR:
-			{
-#ifdef JP
-				msg_print("モーニングスターから炎が吹き出した...");
-#else
-				msg_print("Your morning star rages in fire...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_FIRE, dir, 72, 3);
-				object_ptr->timeout = 100;
 				break;
 			}
 
