@@ -885,8 +885,6 @@
 #define ART_THUNDERFIST         113
 #define ART_BLOODSPIKE          114
 #define ART_XIAOLONG            145
-#define ART_NYOIBOU             157
-#define ART_HYOUSIGI            169
 #define ART_IRON_BALL           173
 #define ART_NAMAKE_HAMMER       181
 #define ART_BOLISHOI            188

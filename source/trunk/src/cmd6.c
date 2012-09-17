@@ -5230,7 +5230,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_HYOUSIGI:
+			case TRAIT_WOODEN_CRAPPING:
 			{
 #ifdef JP
 				msg_print("拍子木を打った。");

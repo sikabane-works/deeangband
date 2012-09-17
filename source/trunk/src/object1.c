@@ -1438,15 +1438,6 @@ return "ハウンド召喚 : 300+d150ターン毎";
 #endif
 
 		}
-		case ART_HYOUSIGI:
-		{
-#ifdef JP
-return "拍子木を打ちならす : いつでも";
-#else
-			return "beat wooden clappers every turn";
-#endif
-
-		}
 		case ART_EARENDIL:
 		{
 #ifdef JP
