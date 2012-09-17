@@ -1365,17 +1365,6 @@ return "巨大サンダー・ボール(500) : 425+d425 ターン毎";
 #endif
 
 		}
-		case ART_DOR:
-		case ART_TERROR:
-		//case ART_STONEMASK:
-		{
-#ifdef JP
-			return "全方向への恐怖の光線 : 3*(レベル+10) ターン毎";
-#else
-			return "rays of fear in every direction every 3*(level+10) turns";
-#endif
-
-		}
 		case ART_PALANTIR:
 		{
 #ifdef JP

@@ -4321,9 +4321,7 @@ if (get_check("‹AŠÒ‚Ì—Í‚ðŽg‚¢‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_DOR:
-			case ART_TERROR:
-			//case ART_STONEMASK:
+			case TRAIT_LAY_OF_FEAR:
 			{
 				turn_creatures(creature_ptr, 40 + creature_ptr->lev);
 				object_ptr->timeout = 3 * (creature_ptr->lev + 10);
