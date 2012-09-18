@@ -730,7 +730,6 @@
 #define ART_DWARVES              6
 #define ART_FARAMIR              18
 #define ART_BOROMIR              143
-#define ART_MAGATAMA             149
 #define ART_NIGHT                215
 #define ART_SACRED_KNIGHTS       217
 #define ART_HELL                 218
@@ -793,7 +792,6 @@
 #define ART_LUTHIEN             49
 #define ART_TUOR                50
 #define ART_MOOK                205
-#define ART_HEAVENLY_MAIDEN     233
 
 /* Boots */
 #define ART_FLORA               61
@@ -866,7 +864,6 @@
 #define ART_BARUKKHELED         106
 #define ART_WRATH               107
 #define ART_ULMO                108
-#define ART_AVAVIR              109
 #define ART_BENKEI              152
 #define ART_TAIKOBO             159
 #define ART_TONBO               161

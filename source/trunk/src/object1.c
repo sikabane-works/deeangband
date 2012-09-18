@@ -1094,27 +1094,7 @@ return "恐怖除去/毒消し : 5 ターン毎";
 #endif
 
 		}
-		case TRAIT_SUMMON_DAWN_LEGION:
-		{
-#ifdef JP
-return "暁の師団召喚 : 500+d500 ターン毎";
-#else
-			return "summon the Legion of the Dawn every 500+d500 turns";
-#endif
 
-		}
-
-		case ART_AVAVIR:
-		case ART_MAGATAMA:
-		case ART_HEAVENLY_MAIDEN:
-		{
-#ifdef JP
-return "帰還の詔 : 200 ターン毎";
-#else
-			return "word of recall every 200 turns";
-#endif
-
-		}
 		case ART_EONWE:
 		{
 #ifdef JP

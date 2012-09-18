@@ -4398,26 +4398,8 @@ if (get_check("‹AŠÒ‚Ì—Í‚ðŽg‚¢‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_HEAVENLY_MAIDEN:
-			{
-#ifdef JP
-				msg_print("ƒNƒ[ƒN‚ª_‚ç‚©‚­”’‚­‹P‚¢‚½...");
-#else
-				msg_print("Your cloak glows soft white...");
-#endif
-				if (!word_of_recall(creature_ptr)) return;
-				object_ptr->timeout = 200;
-				break;
-			}
-
 			case TRAIT_MISSILE:
 			{
-#ifdef JP
-				msg_print("ƒOƒ[ƒu‚ªá¿‚µ‚¢‚­‚ç‚¢‚É–¾‚é‚­‹P‚¢‚½...");
-#else
-				msg_print("Your gloves glow extremely brightly...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
 				object_ptr->timeout = 2;
@@ -4730,27 +4712,9 @@ msg_print("‚ ‚È‚½‚Ì‘„‚Í“d‹C‚ÅƒXƒp[ƒN‚µ‚Ä‚¢‚é...");
 				break;
 			}
 
-			case ART_AVAVIR:
+			case TRAIT_RECALL:
 			{
-#ifdef JP
-				msg_print("‘åŠ™‚ª_‚ç‚©‚­”’‚­‹P‚¢‚½...");
-#else
-				msg_print("Your scythe glows soft white...");
-#endif
 				if (!word_of_recall(creature_ptr)) return;
-				object_ptr->timeout = 200;
-				break;
-			}
-
-			case ART_MAGATAMA:
-			{
-#ifdef JP
-				msg_print("Œù‹Ê‚ª_‚ç‚©‚­”’‚­‹P‚¢‚½...");
-#else
-				msg_print("Your scythe glows soft white...");
-#endif
-				if (!word_of_recall(creature_ptr)) return;
-				object_ptr->timeout = 200;
 				break;
 			}
 

@@ -2989,6 +2989,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		get_bloody_moon_flags(object_ptr);
 	}
 
+	/*
 	if (object_ptr->name1 == ART_HEAVENLY_MAIDEN)
 	{
 		if (owner_ptr->sex != SEX_FEMALE)
@@ -2996,6 +2997,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 		}
 	}
+	*/
 
 	if (a_ptr->gen_flags & (TRG_XTRA_POWER)) give_power = TRUE;
 	if (a_ptr->gen_flags & (TRG_XTRA_H_RES)) give_resistance = TRUE;
