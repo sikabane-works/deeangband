@@ -4140,46 +4140,24 @@ if (get_check("帰還の力を使いますか？"))
 				break;
 			}
 
-			case ART_NARYA:
+			//case TRAIT_BA_FIRE_L:
 			{
-#ifdef JP
-				msg_print("指輪は深紅に輝いた...");
-#else
-				msg_print("The ring glows deep red...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_FIRE, dir, 300, 3);
-				object_ptr->timeout = randint0(225) + 225;
+				fire_ball(creature_ptr, GF_FIRE, dir, 400, 3);
 				break;
 			}
 
-			case ART_NENYA:
+			case TRAIT_BA_COLD_L:
 			{
-#ifdef JP
-				msg_print("指輪は白く明るく輝いた...");
-#else
-				msg_print("The ring glows bright white...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 400, 3);
-				object_ptr->timeout = randint0(325) + 325;
 				break;
 			}
 
-			case ART_VILYA:
-			case ART_GOURYU:
+			//case TRAIT_BA_ELEC_L:
 			{
-#ifdef JP
-				msg_format("%sは深いブルーに輝いた...", object_ptr->name1 == ART_VILYA ? "指輪" : "ソード");
-#else
-				msg_format("The %s glows deep blue...", object_ptr->name1 == ART_VILYA ? "ring" : "sword");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_ELEC, dir, 500, 3);
-				object_ptr->timeout = randint0(425) + 425;
+				fire_ball(creature_ptr, GF_ELEC, dir, 400, 3);
 				break;
 			}
 
@@ -4190,7 +4168,6 @@ if (get_check("帰還の力を使いますか？"))
 #else
 				msg_print("The ring glows intensely black...");
 #endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				ring_of_power(creature_ptr, dir);
 				break;

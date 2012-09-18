@@ -737,9 +737,6 @@
 /* Rings */
 #define ART_FRAKIR               8
 #define ART_TULKAS               9
-#define ART_NARYA               10
-#define ART_NENYA               11
-#define ART_VILYA               12
 #define ART_POWER               13
 
 /* Dragon Scale */

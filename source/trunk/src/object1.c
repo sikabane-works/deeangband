@@ -1246,34 +1246,6 @@ return "スピード(75+d75ターン) : 100+d100 ターン毎";
 #endif
 
 		}
-		case ART_NARYA:
-		{
-#ifdef JP
-return "巨大ファイア・ボール(300) : 225+d225 ターン毎";
-#else
-			return "large fire ball (300) every 225+d225 turns";
-#endif
-
-		}
-		case ART_NENYA:
-		{
-#ifdef JP
-return "巨大アイス・ボール(400) : 325+d325 ターン毎";
-#else
-			return "large frost ball (400) every 325+d325 turns";
-#endif
-
-		}
-		case ART_VILYA:
-		case ART_GOURYU:
-		{
-#ifdef JP
-return "巨大サンダー・ボール(500) : 425+d425 ターン毎";
-#else
-			return "large lightning ball (500) every 425+d425 turns";
-#endif
-
-		}
 		case ART_PALANTIR:
 		{
 #ifdef JP
