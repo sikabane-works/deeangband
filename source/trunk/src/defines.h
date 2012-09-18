@@ -752,12 +752,7 @@
 
 /* Hard Armour */
 #define ART_SOULKEEPER          19
-#define ART_ROHIRRIM            21
-#define ART_JULIAN              23
 #define ART_ARVEDUI             24
-#define ART_CASPANION           25
-#define ART_GILES               168
-#define ART_MORLOK              203
 
 /* Soft Armour */
 #define ART_SHIVA_JACKET        26

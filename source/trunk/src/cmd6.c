@@ -4294,7 +4294,7 @@ if (get_check("‹AŠÒ‚Ì—Í‚ğg‚¢‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_CASPANION:
+			case TRAIT_DESTROY_DOOR_TRAP:
 			{
 #ifdef JP
 				msg_print("ŠZ‚ªÔ‚­–¾‚é‚­‹P‚¢‚½...");

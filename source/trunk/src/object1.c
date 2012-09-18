@@ -1103,15 +1103,7 @@ return "暁の師団召喚 : 500+d500 ターン毎";
 #endif
 
 		}
-		case ART_CASPANION:
-		{
-#ifdef JP
-return "ドア/トラップ粉砕 : 10 ターン毎";
-#else
-			return "door and trap destruction every 10 turns";
-#endif
 
-		}
 		case ART_AVAVIR:
 		case ART_MAGATAMA:
 		case ART_HEAVENLY_MAIDEN:
