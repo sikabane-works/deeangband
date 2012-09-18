@@ -1357,14 +1357,6 @@ return "魔力の嵐(400) : 250+d250ターン毎";
 			return "a mana storm every 250+d250 turns";
 #endif
 		}
-		case ART_ARRYU:
-		{
-#ifdef JP
-return "ハウンド召喚 : 300+d150ターン毎";
-#else
-			return "summon hound every 300+d150 turns";
-#endif
-		}
 		case ART_GAEBOLG:
 		{
 #ifdef JP

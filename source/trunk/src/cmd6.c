@@ -5051,36 +5051,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			//case ART_ARRYU:
-			{
-				u32b mode = PC_ALLOW_GROUP;
-				bool pet = !one_in_(5);
-				if (pet) mode |= PC_FORCE_PET;
-				else mode |= PC_NO_PET;
-
-				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, ((creature_ptr->lev * 3) / 2), SUMMON_HOUND, mode))
-				{
-
-					if (pet)
-#ifdef JP
-						msg_print("ハウンドがあなたの下僕として出現した。");
-#else
-					msg_print("A group of hounds appear as your servant.");
-#endif
-
-					else
-#ifdef JP
-						msg_print("ハウンドはあなたに牙を向けている！");
-#else
-						msg_print("A group of hounds appear as your enemy!");
-#endif
-
-				}
-
-				object_ptr->timeout = 300 + randint1(150);
-				break;
-			}
-
 			case ART_GAEBOLG:
 			{
 #ifdef JP
