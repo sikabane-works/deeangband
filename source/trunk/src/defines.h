@@ -794,7 +794,6 @@
 #define ART_MOOK                205
 
 /* Boots */
-#define ART_FLORA               61
 #define ART_THROR               62
 #define ART_SHIVA_BOOTS         63
 #define ART_GLASS               165
@@ -825,7 +824,6 @@
 #define ART_CHAINSWORD          85
 #define ART_FORASGIL            86
 #define ART_CARETH              87
-#define ART_SOULSWORD           89
 #define ART_MERLIN              90
 #define ART_VORPAL_BLADE        92
 #define ART_HURIN               133
@@ -849,24 +847,16 @@
 #define ART_EOWYN               216
 
 /* Polearms */
-#define ART_PAIN                94
 #define ART_OSONDIR             95
 #define ART_TIL                 96
 #define ART_RUNESPEAR           97
 #define ART_DESTINY             98
-#define ART_HAGEN               99
 #define ART_EORLINGAS           100
-#define ART_DURIN               101
-#define ART_EONWE               102
-#define ART_BALLI               103
 #define ART_LOTHARANG           104
 #define ART_DWARVES_AXE         105
 #define ART_BARUKKHELED         106
 #define ART_WRATH               107
 #define ART_ULMO                108
-#define ART_BENKEI              152
-#define ART_TAIKOBO             159
-#define ART_TONBO               161
 #define ART_GAEBOLG             163
 #define ART_ARRYU               164
 #define ART_AEGLOS              187
@@ -881,14 +871,11 @@
 
 /* Bows */
 #define ART_BELTHRONDING        124
-#define ART_BRAND               126
 #define ART_CRIMSON             16
 #define ART_BUCKLAND            134
-#define ART_YOICHI              148
 #define ART_HARAD               180
 #define ART_NAMAKE_BOW          182
 #define ART_ROBIN_HOOD          221
-#define ART_HELLFIRE            222
 
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/

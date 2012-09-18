@@ -1085,25 +1085,7 @@ return "アイス・ボール(48) : 5+d5 ターン毎";
 #endif
 
 		}
-		case ART_FLORA:
-		{
-#ifdef JP
-return "恐怖除去/毒消し : 5 ターン毎";
-#else
-			return "remove fear and cure poison every 5 turns";
-#endif
 
-		}
-
-		case ART_EONWE:
-		{
-#ifdef JP
-return "周辺抹殺 : 1000 ターン毎";
-#else
-			return "mass genocide every 1000 turns";
-#endif
-
-		}
 		case ART_LOTHARANG:
 		{
 #ifdef JP

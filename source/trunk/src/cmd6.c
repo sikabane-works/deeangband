@@ -4483,17 +4483,15 @@ if (get_check("帰還の力を使いますか？"))
 				break;
 			}
 
-			case ART_FLORA:
+			case TRAIT_REMOVE_POISON:
 			{
-#ifdef JP
-				msg_print("ブーツが深いブルーに輝いた...");
-#else
-				msg_print("Your boots glow deep blue...");
-#endif
-
-				(void)set_afraid(creature_ptr, 0);
 				(void)set_poisoned(creature_ptr, 0);
-				object_ptr->timeout = 5;
+				break;
+			}
+
+			case TRAIT_REMOVE_FEAR:
+			{
+				(void)set_afraid(creature_ptr, 0);
 				break;
 			}
 
@@ -5007,7 +5005,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_TAIKOBO:
+			case TRAIT_FISHING:
 			{
 				int x, y;
 
@@ -5052,7 +5050,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 				fetch(creature_ptr, dir, 500, TRUE);
 				break;
 			}
-			case ART_ARRYU:
+
+			//case ART_ARRYU:
 			{
 				u32b mode = PC_ALLOW_GROUP;
 				bool pet = !one_in_(5);
