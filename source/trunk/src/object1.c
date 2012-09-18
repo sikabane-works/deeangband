@@ -1228,14 +1228,6 @@ return "スピード(75+d75ターン) : 100+d100 ターン毎";
 #endif
 
 		}
-		case ART_PALANTIR:
-		{
-#ifdef JP
-return "この階にいるユニーククリーチャーを表示 : 200ターン毎";
-#else
-			return "list of the uniques on the level every 200 turns";
-#endif
-		}
 
 		case ART_STONE_LORE:
 		{

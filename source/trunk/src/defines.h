@@ -718,8 +718,6 @@
 /*** Artifact indexes (see "lib/edit/artifact_info.txt") ***/
 
 // Lites
-#define ART_EDISON               7
-#define ART_PALANTIR             15
 #define ART_STONE_LORE           17
 #define ART_FLY_STONE            147
 

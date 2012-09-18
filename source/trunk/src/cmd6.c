@@ -4753,7 +4753,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 					project(creature_ptr, creature_ptr->lev/20+1, ty, tx, creature_ptr->lev*creature_ptr->lev*6/50, GF_ROCKET, flg, -1);
 				break;
 			}
-			case ART_PALANTIR:
+
+			case TRAIT_SEARCH_UNIQUE:
 			{
 				creature_type *m_ptr;
 				species_type *r_ptr;
@@ -4785,7 +4786,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 #endif
 					}
 				}
-				object_ptr->timeout = 200;
 				break;
 			}
 
