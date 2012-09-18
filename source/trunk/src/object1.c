@@ -1168,15 +1168,6 @@ return "アイス・ボール (100) : 200 ターン毎";
 #endif
 
 		}
-		case ART_LOHENGRIN:
-		{
-#ifdef JP
-return ("回復 (777)、癒し、士気高揚 : 300 ターン毎");
-#else
-			return ("heal (777), curing and heroism every 300 turns");
-#endif
-
-		}
 		case ART_JULIAN:
 		{
 #ifdef JP

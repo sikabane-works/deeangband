@@ -4275,14 +4275,8 @@ if (get_check("帰還の力を使いますか？"))
 				break;
 			}
 
-			case ART_LOHENGRIN:
+			case TRAIT_HEAVENLY_CHOIR:
 			{
-#ifdef JP
-				msg_print("天国の歌が聞こえる...");
-#else
-				msg_print("A heavenly choir sings...");
-#endif
-
 				(void)set_poisoned(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
 				(void)set_stun(creature_ptr, 0);
@@ -4291,7 +4285,6 @@ if (get_check("帰還の力を使いますか？"))
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
 				(void)heal_creature(creature_ptr, 777);
-				object_ptr->timeout = 300;
 				break;
 			}
 
