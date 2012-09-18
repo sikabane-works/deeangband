@@ -730,9 +730,7 @@
 #define ART_DWARVES              6
 #define ART_FARAMIR              18
 #define ART_BOROMIR              143
-#define ART_NIGHT                215
 #define ART_SACRED_KNIGHTS       217
-#define ART_HELL                 218
 #define ART_CHARMED              219
 #define ART_GOGO                 220
 

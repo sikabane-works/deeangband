@@ -2657,11 +2657,11 @@ static void calc_lite(creature_type *creature_ptr)
 			/* Extract the flags */
 			object_flags(object_ptr, flgs);
 
-			/* does this item glow? */
+			// does this item glow?
 			if (have_flag(flgs, TR_LITE))
 			{
-				if ((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
-				else creature_ptr->cur_lite++;
+				//TODO if ((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
+				creature_ptr->cur_lite++;
 			}
 		}
 

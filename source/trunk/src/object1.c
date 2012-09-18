@@ -1394,16 +1394,6 @@ return "冷気の耐性 : 40+d40ターン毎";
 #endif
 
 		}
-		case ART_NIGHT:
-		case ART_HELL:
-		{
-#ifdef JP
-return "暗黒の嵐(250) : 150+d150 ターン毎";
-#else
-			return "darkness storm (250) every 150+d150 turns";
-#endif
-
-		}
 		case ART_SACRED_KNIGHTS:
 		{
 #ifdef JP
@@ -2913,7 +2903,7 @@ info[i++] = "それは宙に浮くことを可能にする。";
 	}
 	if (have_flag(flgs, TR_LITE))
 	{
-		if ((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT))
+		if ((object_ptr->name2 == EGO_DARK))
 #ifdef JP
 info[i++] = "それは明かりの半径を狭める(半径に-1)。";
 #else

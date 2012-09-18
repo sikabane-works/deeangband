@@ -5266,30 +5266,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			//case ART_NIGHT:
-			{
-#ifdef JP
-				msg_print("アミュレットが深い闇に覆われた...");
-#else
-				msg_print("Your amulet is coverd in pitch-darkness...");
-#endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_DARK, dir, 250, 4);
-				object_ptr->timeout = randint0(150) + 150;
-				break;
-			}
-			case ART_HELL:
-			{
-#ifdef JP
-				msg_print("首輪が深い闇に覆われた...");
-#else
-				msg_print("Your collar harness is coverd in pitch-darkness...");
-#endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_DARK, dir, 250, 4);
-				object_ptr->timeout = randint0(150) + 150;
-				break;
-			}
 			case ART_SACRED_KNIGHTS:
 			{
 #ifdef JP
