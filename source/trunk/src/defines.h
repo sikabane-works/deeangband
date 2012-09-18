@@ -857,7 +857,6 @@
 #define ART_BARUKKHELED         106
 #define ART_WRATH               107
 #define ART_ULMO                108
-#define ART_GAEBOLG             163
 #define ART_AEGLOS              187
 #define ART_BLOOD               199
 

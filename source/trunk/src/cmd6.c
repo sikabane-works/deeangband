@@ -5051,17 +5051,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_GAEBOLG:
+			case TRAIT_STAR_BALL:
 			{
-#ifdef JP
-				msg_print("スピアは眩しく輝いた...");
-#else
-				msg_print("Your spear grows brightly...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_LITE, dir, 200, 3);
-				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
 
@@ -5273,7 +5266,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_NIGHT:
+			//case ART_NIGHT:
 			{
 #ifdef JP
 				msg_print("アミュレットが深い闇に覆われた...");
