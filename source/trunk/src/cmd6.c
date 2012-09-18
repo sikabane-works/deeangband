@@ -4259,19 +4259,10 @@ if (get_check("‹AŠÒ‚Ì—Í‚ðŽg‚¢‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_SOULKEEPER:
+			case TRAIT_TRUE_HEALING:
 			{
-#ifdef JP
-				msg_print("ŠZ‚ª”’‚­–¾‚é‚­‹P‚¢‚½...");
-				msg_print("‚Ð‚¶‚å‚¤‚É‹C•ª‚ª‚æ‚¢...");
-#else
-				msg_print("Your armor glows a bright white...");
-				msg_print("You feel much better...");
-#endif
-
 				(void)heal_creature(creature_ptr, 1000);
 				(void)set_cut(creature_ptr, 0);
-				object_ptr->timeout = 888;
 				break;
 			}
 
@@ -4296,14 +4287,7 @@ if (get_check("‹AŠÒ‚Ì—Í‚ðŽg‚¢‚Ü‚·‚©H"))
 
 			case TRAIT_DESTROY_DOOR_TRAP:
 			{
-#ifdef JP
-				msg_print("ŠZ‚ªÔ‚­–¾‚é‚­‹P‚¢‚½...");
-#else
-				msg_print("Your armor glows bright red...");
-#endif
-
 				destroy_doors_touch(creature_ptr);
-				object_ptr->timeout = 10;
 				break;
 			}
 
