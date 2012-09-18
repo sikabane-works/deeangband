@@ -1195,15 +1195,6 @@ return "エレメントのブレス (300), 士気高揚、祝福、耐性";
 #endif
 
 		}
-		case ART_JUDGE:
-		{
-#ifdef JP
-return "体力と引き替えに千里眼と帰還 : 20+d20 ターン毎";
-#else
-			return "clairvoyance and recall, draining you every 20+d20 turns";
-#endif
-
-		}
 		case TRAIT_DISPEL_EVIL_1:
 		{
 #ifdef JP

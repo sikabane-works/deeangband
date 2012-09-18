@@ -4071,7 +4071,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_JUDGE:
+			case TRAIT_JEWEL_OF_JUDGEMENT:
 			{
 #ifdef JP
 				msg_print("その宝石は赤く明るく光った！");
@@ -4093,7 +4093,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 
 #ifdef JP
-if (get_check("帰還の力を使いますか？"))
+				if (get_check("帰還の力を使いますか？"))
 #else
 				if (get_check("Activate recall? "))
 #endif

@@ -3190,7 +3190,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 	{
 		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
-		if (object_ptr->name1 == ART_JUDGE)
+		//TODO if (object_ptr->name1 == ART_JUDGE)
 		{
 #ifdef JP
 			if (object_is_known(object_ptr))
