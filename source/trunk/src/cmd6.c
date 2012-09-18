@@ -5232,12 +5232,10 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_BOLISHOI:
+			case TRAIT_CHARM_ANIMAL:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				(void)charm_animal(creature_ptr, dir, creature_ptr->lev);
-
-				object_ptr->timeout = 200;
 				break;
 			}
 

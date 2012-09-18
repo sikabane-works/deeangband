@@ -880,7 +880,6 @@
 #define ART_XIAOLONG            145
 #define ART_IRON_BALL           173
 #define ART_NAMAKE_HAMMER       181
-#define ART_BOLISHOI            188
 #define ART_AESCULAPIUS         225
 
 /* Bows */

@@ -1422,15 +1422,6 @@ return "癒し : 100ターン毎";
 
 		}
 
-		case ART_BOLISHOI:
-		{
-#ifdef JP
-return "動物魅了 : 200ターン毎";
-#else
-			return "charm animal every 200 turns";
-#endif
-
-		}
 		case ART_ARUNRUTH:
 		{
 #ifdef JP
