@@ -4059,17 +4059,15 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_ELENDIL:
+			case TRAIT_DETECT_MAP:
 			{
-#ifdef JP
-				msg_print("¯‚ªá¿‚µ‚­‹P‚¢‚½...");
-#else
-				msg_print("The star shines brightly...");
-#endif
-
 				map_area(creature_ptr, DETECT_RAD_MAP);
+				break;
+			}
+
+			case TRAIT_LIGHT_AREA:
+			{
 				lite_area(creature_ptr, diceroll(2, 15), 3);
-				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
 

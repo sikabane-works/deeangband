@@ -1195,15 +1195,6 @@ return "エレメントのブレス (300), 士気高揚、祝福、耐性";
 #endif
 
 		}
-		case ART_ELENDIL:
-		{
-#ifdef JP
-return "魔法の地図と光 : 50+d50 ターン毎";
-#else
-			return "magic mapping and light every 50+d50 turns";
-#endif
-
-		}
 		case ART_JUDGE:
 		{
 #ifdef JP
