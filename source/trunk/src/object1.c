@@ -1168,15 +1168,6 @@ return "アイス・ボール (100) : 200 ターン毎";
 #endif
 
 		}
-		case ART_JULIAN:
-		{
-#ifdef JP
-return "抹殺 : 500 ターン毎";
-#else
-			return "genocide every 500 turns";
-#endif
-
-		}
 		case ART_LUTHIEN:
 		{
 #ifdef JP

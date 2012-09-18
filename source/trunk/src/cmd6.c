@@ -4288,16 +4288,9 @@ if (get_check("‹AŠÒ‚Ì—Í‚ðŽg‚¢‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_JULIAN:
+			case TRAIT_SYMBOL_GENOCIDE:
 			{
-#ifdef JP
-				msg_print("ŠZ‚ª[‚¢ƒuƒ‹[‚É‹P‚¢‚½...");
-#else
-				msg_print("Your armor glows deep blue...");
-#endif
-
 				(void)symbol_genocide(creature_ptr, 200, TRUE);
-				object_ptr->timeout = 500;
 				break;
 			}
 

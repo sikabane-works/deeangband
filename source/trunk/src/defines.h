@@ -752,7 +752,6 @@
 
 /* Hard Armour */
 #define ART_SOULKEEPER          19
-#define ART_ISILDUR             20
 #define ART_ROHIRRIM            21
 #define ART_JULIAN              23
 #define ART_ARVEDUI             24
