@@ -799,12 +799,8 @@
 #define ART_BARUKKHELED         106
 #define ART_WRATH               107
 #define ART_ULMO                108
-#define ART_AEGLOS              187
 #define ART_BLOOD               199
 
-#define ART_THUNDERFIST         113
-#define ART_BLOODSPIKE          114
-#define ART_XIAOLONG            145
 #define ART_IRON_BALL           173
 #define ART_NAMAKE_HAMMER       181
 #define ART_AESCULAPIUS         225

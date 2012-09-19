@@ -2978,7 +2978,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	}
 	*/
 
-	if (object_ptr->name1 == ART_XIAOLONG)
+	if (has_trait_object(object_ptr, TRAIT_NEED_MONK_EQUIPMENT))
 	{
 		if (owner_ptr->class_idx == CLASS_MONK)
 			add_flag(object_ptr->art_flags, TR_BLOWS);
