@@ -4747,7 +4747,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_STONE_LORE:
+			case TRAIT_PERILOUS_INDENTIFY:
 			{
 #ifdef JP
 				msg_print("石が隠された秘密を写し出した．．．");

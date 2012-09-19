@@ -1203,14 +1203,6 @@ return "スピード(75+d75ターン) : 100+d100 ターン毎";
 
 		}
 
-		case ART_STONE_LORE:
-		{
-#ifdef JP
-return "危険を伴う鑑定 : いつでも";
-#else
-			return "perilous identify every turn";
-#endif
-		}
 		case ART_BOROMIR:
 		{
 #ifdef JP

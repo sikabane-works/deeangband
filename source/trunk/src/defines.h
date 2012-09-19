@@ -717,9 +717,6 @@
 
 /*** Artifact indexes (see "lib/edit/artifact_info.txt") ***/
 
-// Lites
-#define ART_STONE_LORE           17
-
 // Amulets
 #define ART_DWARVES              6
 #define ART_BOROMIR              143
