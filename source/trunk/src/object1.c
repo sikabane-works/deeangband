@@ -1205,15 +1205,6 @@ return "*‰ğô*‚Æ’²¸: ‚¢‚Â‚Å‚à";
 #endif
 
 		}
-		case ART_CHARMED:
-		{
-#ifdef JP
-return "–‚—Í•œŠˆ: 777 ƒ^[ƒ“–ˆ";
-#else
-			return "restore mana every 777 turns";
-#endif
-
-		}
 	}
 
 

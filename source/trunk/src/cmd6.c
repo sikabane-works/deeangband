@@ -5138,7 +5138,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)probing(floor_ptr);
 				break;
 			}
-			case ART_CHARMED:
+			case TRAIT_RESTORE_MANA:
 			{
 #ifdef JP
 				msg_print("ペンダントが青白く光った．．．");
