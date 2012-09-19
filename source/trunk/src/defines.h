@@ -734,10 +734,6 @@
 #define ART_SEIRYU              201
 
 /* Soft Armour */
-#define ART_SHIVA_JACKET        26
-#define ART_HITHLOMIR           27
-#define ART_THALKETTOTH         28
-#define ART_ICANUS              131
 #define ART_NAMAKE_ARMOR        183
 #define ART_GHB                 192
 
@@ -757,7 +753,6 @@
 #define ART_COLANNON            48
 #define ART_LUTHIEN             49
 #define ART_TUOR                50
-#define ART_MOOK                205
 
 /* Swords */
 #define ART_MAEDHROS            64

@@ -1041,15 +1041,6 @@ return "未定義";
 	switch (object_ptr->name1)
 	{
 
-		case ART_RILIA:
-		{
-#ifdef JP
-return "悪臭雲(12) : 4+d4 ターン毎";
-#else
-			return "stinking cloud (12) every 4+d4 turns";
-#endif
-
-		}
 		case ART_FIONA:
 		{
 #ifdef JP
@@ -1179,14 +1170,6 @@ return "クリーチャー恐慌 : 40+d40ターン毎";
 			return "frighten creatures every 40+d40 turns";
 #endif
 		}
-		case ART_ICANUS:
-		{
-#ifdef JP
-return "魔力の矢(120) : 120+d120 ターン毎";
-#else
-			return "a mana bolt (120) every 120+d120 turns";
-#endif
-		}
 		case ART_HURIN:
 		{
 #ifdef JP
@@ -1228,15 +1211,6 @@ return "アイス・ボルト(12d8) : 50 ターン毎";
 return "属性変更 : 3333 ターン毎";
 #else
 			return "change zokusei every 3333 turns";
-#endif
-
-		}
-		case ART_MOOK:
-		{
-#ifdef JP
-return "冷気の耐性 : 40+d40ターン毎";
-#else
-			return "resist cold every 40+d40 turns";
 #endif
 
 		}

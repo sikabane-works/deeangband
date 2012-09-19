@@ -4464,20 +4464,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_RILIA:
-			{
-#ifdef JP
-				msg_print("ƒ_ƒK[‚ª[‚¢—ÎF‚ÉŒÛ“®‚µ‚Ä‚¢‚é...");
-#else
-				msg_print("Your dagger throbs deep green...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_POIS, dir, 12, 3);
-				object_ptr->timeout = randint0(4) + 4;
-				break;
-			}
-
 			case TRAIT_BA_WATE:
 			{
 #ifdef JP
