@@ -751,12 +751,6 @@
 #define ART_PERSEUS             197
 
 /* Helms and Crowns */
-#define ART_INDRA               33
-#define ART_CHAOS               34
-#define ART_BERUTHIEL           35
-#define ART_THRANDUIL           36
-#define ART_THENGEL             37
-#define ART_HAMMERHAND          38
 #define ART_TERROR              41
 #define ART_AMBER               42
 #define ART_NUMENOR             132

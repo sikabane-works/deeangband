@@ -2949,7 +2949,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 {
 	bool give_resistance = FALSE, give_power = FALSE;
 
-	if (object_ptr->name1 == ART_TERROR) /* Terror Mask is for warriors... */
+	if (has_trait_object(object_ptr, TRAIT_NEED_WARRIOR_EQUIPMENT))
 	{
 		if (owner_ptr->class_idx == CLASS_WARRIOR || owner_ptr->class_idx == CLASS_ARCHER || owner_ptr->class_idx == CLASS_CAVALRY || owner_ptr->class_idx == CLASS_BERSERKER)
 		{
