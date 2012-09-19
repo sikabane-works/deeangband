@@ -207,7 +207,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (r_ptr->d_char == 'j'));
 
-	e_j_mukou = ((weapon_ptr->name1 == ART_EXCALIBUR_J) && (r_ptr->d_char == 'S'));
+	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (r_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
 	if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
