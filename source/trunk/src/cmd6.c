@@ -4470,48 +4470,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_NARTHANC:
-			{
-#ifdef JP
-				msg_print("ダガーが炎に覆われた...");
-#else
-				msg_print("Your dagger is covered in fire...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
-				object_ptr->timeout = randint0(8) + 8;
-				break;
-			}
-
-			case ART_NIMTHANC:
-			{
-#ifdef JP
-				msg_print("ダガーが冷気に覆われた...");
-#else
-				msg_print("Your dagger is covered in frost...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-				object_ptr->timeout = randint0(7) + 7;
-				break;
-			}
-
-			case ART_DETHANC:
-			{
-#ifdef JP
-				msg_print("ダガーが火花に覆われた...");
-#else
-				msg_print("Your dagger is covered in sparks...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-				object_ptr->timeout = randint0(5) + 5;
-				break;
-			}
-
 			case ART_RILIA:
 			{
 #ifdef JP

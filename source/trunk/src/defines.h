@@ -795,17 +795,12 @@
 
 /* Swords */
 #define ART_MAEDHROS            64
-#define ART_CAINE               65
-#define ART_NARTHANC            66
-#define ART_NIMTHANC            67
-#define ART_DETHANC             68
 #define ART_RILIA               69
 #define ART_FIONA               70
 #define ART_CALRIS              71
 #define ART_GRAYSWANDIR         72
 #define ART_GLAMDRING           73
 #define ART_NOTHUNG             74
-#define ART_ORCRIST             75
 #define ART_GURTHANG            76
 #define ART_ZARCUTHRA           77
 #define ART_TWILIGHT            78

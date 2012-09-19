@@ -1040,33 +1040,7 @@ return "未定義";
 	/* Some artifacts can be activated */
 	switch (object_ptr->name1)
 	{
-		case ART_NARTHANC:
-		{
-#ifdef JP
-return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
-#else
-			return "fire bolt (9d8) every 8+d8 turns";
-#endif
 
-		}
-		case ART_NIMTHANC:
-		{
-#ifdef JP
-return "アイス・ボルト(6d8) : 7+d7 ターン毎";
-#else
-			return "frost bolt (6d8) every 7+d7 turns";
-#endif
-
-		}
-		case ART_DETHANC:
-		{
-#ifdef JP
-return "サンダー・ボルト(4d8) : 5+d5 ターン毎";
-#else
-			return "lightning bolt (4d8) every 6+d6 turns";
-#endif
-
-		}
 		case ART_RILIA:
 		{
 #ifdef JP
