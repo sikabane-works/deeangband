@@ -1211,14 +1211,6 @@ return "ŠëŒ¯‚ğ”º‚¤ŠÓ’è : ‚¢‚Â‚Å‚à";
 			return "perilous identify every turn";
 #endif
 		}
-		case ART_FARAMIR:
-		{
-#ifdef JP
-return "ŠQ’‚Ì‹ìœ : 55+d55ƒ^[ƒ“–ˆ";
-#else
-			return "dispel small life every 55+d55 turns";
-#endif
-		}
 		case ART_BOROMIR:
 		{
 #ifdef JP

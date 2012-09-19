@@ -4828,7 +4828,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				object_ptr->timeout = randint0(40) + 40;
 				break;
 			}
-			case ART_FARAMIR:
+			case TRAIT_DISPEL_SMALL_LIFE:
 			{
 #ifdef JP
 				msg_print("あなたは害虫を一掃した。");
@@ -4843,20 +4843,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 			case TRAIT_PROT_EVIL:
 			{
 				(void)set_protevil(creature_ptr, randint1(25) + creature_ptr->lev, FALSE);
-				break;
-			}
-
-			//case ART_ICANUS:
-			{
-
-#ifdef JP
-				msg_print("ローブが純粋な魔力で震えた。");
-#else
-				msg_print("The robe pulsates with raw mana...");
-#endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_MANA, dir, 120);
-				object_ptr->timeout = randint0(120) + 120;
 				break;
 			}
 
