@@ -803,7 +803,6 @@
 
 #define ART_IRON_BALL           173
 #define ART_NAMAKE_HAMMER       181
-#define ART_AESCULAPIUS         225
 
 /* Bows */
 #define ART_BELTHRONDING        124

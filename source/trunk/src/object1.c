@@ -1214,26 +1214,8 @@ return "魔力復活: 777 ターン毎";
 #endif
 
 		}
-		case ART_AESCULAPIUS:
-		{
-#ifdef JP
-			return "全ステータスと経験値復活 : 750 ターン毎";
-#else
-			return "restore stats and life levels every 750 turns";
-#endif
-		}
 	}
 
-
-	if ((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_TSURIZAO))
-	{
-#ifdef JP
-return "釣りをする : いつでも";
-#else
-		return "fishing : every time";
-#endif
-
-	}
 
 	if (object_is_smith(object_ptr))
 	{

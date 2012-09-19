@@ -5108,14 +5108,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 
 
-			case ART_AESCULAPIUS:
+			case TRAIT_CURE_OF_AESCULAPIUS:
 			{
-#ifdef JP
-				msg_print("六尺棒は濃緑色に輝いている...");
-#else
-				msg_print("The jo staff glows a deep green...");
-#endif
-
 				(void)do_res_stat(creature_ptr, STAT_STR);
 				(void)do_res_stat(creature_ptr, STAT_INT);
 				(void)do_res_stat(creature_ptr, STAT_WIS);
@@ -5123,7 +5117,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)do_res_stat(creature_ptr, STAT_CON);
 				(void)do_res_stat(creature_ptr, STAT_CHA);
 				(void)restore_level(creature_ptr);
-				object_ptr->timeout = 750;
 				break;
 			}
 
