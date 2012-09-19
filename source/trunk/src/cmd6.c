@@ -4165,7 +4165,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_RAZORBACK:
+			case TRAIT_STAR_BALL2:
 			{
 				int num = diceroll(5, 3);
 				int y, x;
@@ -4191,11 +4191,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 						if (!creature_bold(creature_ptr, y, x)) break;
 					}
 
-					project(creature_ptr, 3, y, x, 150, GF_ELEC,
-							  (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+					project(creature_ptr, 3, y, x, 150, GF_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
 
-				object_ptr->timeout = 1000;
 				break;
 			}
 

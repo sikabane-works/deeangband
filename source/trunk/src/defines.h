@@ -729,7 +729,6 @@
 #define ART_POWER               13
 
 /* Dragon Scale */
-#define ART_RAZORBACK           129
 #define ART_BLADETURNER         130
 #define ART_SEIRYU              201
 

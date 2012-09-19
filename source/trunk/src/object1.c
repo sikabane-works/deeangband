@@ -1124,15 +1124,6 @@ return "テレポート : 45 ターン毎";
 #endif
 
 		}
-		case ART_RAZORBACK:
-		{
-#ifdef JP
-return "スター・ボール(150) : 1000 ターン毎";
-#else
-			return "star ball (150) every 1000 turns";
-#endif
-
-		}
 		case ART_BLADETURNER:
 		{
 #ifdef JP
