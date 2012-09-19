@@ -811,11 +811,7 @@
 
 /* Bows */
 #define ART_BELTHRONDING        124
-#define ART_CRIMSON             16
-#define ART_BUCKLAND            134
-#define ART_HARAD               180
 #define ART_NAMAKE_BOW          182
-#define ART_ROBIN_HOOD          221
 
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/

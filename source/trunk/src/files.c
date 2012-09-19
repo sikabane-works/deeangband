@@ -2232,6 +2232,8 @@ static void display_player_various(creature_type * creature_ptr)
 		shots = creature_ptr->num_fire * 100;
 		shot_frac = (shots * 100 / energy_fire) % 100;
 		shots = shots / energy_fire;
+
+		/* TODO
 		if (object_ptr->name1 == ART_CRIMSON)
 		{
 			shots = 1;
@@ -2243,6 +2245,7 @@ static void display_player_various(creature_type * creature_ptr)
 				if (creature_ptr->lev >= 45) shots++;
 			}
 		}
+		*/
 	}
 	else
 	{

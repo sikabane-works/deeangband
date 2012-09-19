@@ -48,10 +48,8 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	{
 		/* Success */
 #ifdef JP
-		if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
-			msg_print("なんだこの階段は！");
-		else
-			msg_print("上の階に登った。");
+		if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+		else msg_print("上の階に登った。");
 #else
 		msg_print("You enter the up staircase.");
 #endif
@@ -168,12 +166,9 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 	/* Success */
 #ifdef JP
-	if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
-		msg_print("なんだこの階段は！");
-	else if (up_num == floor_ptr->floor_level)
-		msg_print("地上に戻った。");
-	else
-		msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
+	if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+	else if (up_num == floor_ptr->floor_level) msg_print("地上に戻った。");
+	else msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
 #else
 	if (up_num == floor_ptr->floor_level)
 		msg_print("You go back to the surface.");
@@ -224,10 +219,8 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	else if (have_flag(f_ptr->flags, FF_QUEST))
 	{
 #ifdef JP
-		if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
-			msg_print("なんだこの階段は！");
-		else
-			msg_print("下の階に降りた。");
+		if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+		else msg_print("下の階に降りた。");
 #else
 			msg_print("You enter the down staircase.");
 #endif
@@ -332,10 +325,8 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				if ((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON))
-					msg_print("なんだこの階段は！");
-				else
-					msg_print("階段を下りて新たなる迷宮へと足を踏み入れた。");
+				if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+				else msg_print("階段を下りて新たなる迷宮へと足を踏み入れた。");
 #else
 				msg_print("You enter a maze of down staircases.");
 #endif

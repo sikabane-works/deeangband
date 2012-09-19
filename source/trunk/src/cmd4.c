@@ -5007,12 +5007,9 @@ void do_cmd_feeling(creature_type *creature_ptr)
 	}
 
 	// Display the feeling
-	if (has_trait(creature_ptr, TRAIT_GOOD_LUCK))
-		msg_print(do_cmd_feeling_text_lucky[creature_ptr->floor_feeling]);
-	else if (creature_ptr->chara_idx == CHARA_COMBAT || get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->name1 == ART_CRIMSON)
-		msg_print(do_cmd_feeling_text_combat[creature_ptr->floor_feeling]);
-	else
-		msg_print(do_cmd_feeling_text[creature_ptr->floor_feeling]);
+	if (has_trait(creature_ptr, TRAIT_GOOD_LUCK)) msg_print(do_cmd_feeling_text_lucky[creature_ptr->floor_feeling]);
+	else if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(do_cmd_feeling_text_combat[creature_ptr->floor_feeling]);
+	else msg_print(do_cmd_feeling_text[creature_ptr->floor_feeling]);
 }
 
 

@@ -647,7 +647,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 
 	/* Message */
 #ifdef JP
-	if ((object_ptr->name1 == ART_CRIMSON) && (creature_ptr->chara_idx == CHARA_COMBAT))
+	if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 	{
 		msg_format("こうして、%sは『クリムゾン』を手に入れた。", creature_ptr->name);
 		msg_print("しかし今、『混沌のサーペント』の放ったクリーチャーが、");
