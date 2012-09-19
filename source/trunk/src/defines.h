@@ -780,7 +780,6 @@
 #define ART_QUICKTHORN          174
 #define ART_TINYTHORN           175
 #define ART_ARUNRUTH            184
-#define ART_STORMBRINGER        190
 #define ART_NARSIL              191
 #define ART_GOURYU              207
 #define ART_EOWYN               216

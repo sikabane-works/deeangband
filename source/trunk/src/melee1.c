@@ -1387,7 +1387,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
 		{
-			if (attacker_ptr->inventory[i].name1 == ART_STORMBRINGER)
+			if (has_trait(attacker_ptr, TRAIT_STORM_BRINGER))
 			{
 				object_desc(weapon_name, &attacker_ptr->inventory[i], (OD_NAME_ONLY));
 				stormbringer = TRUE;

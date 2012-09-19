@@ -2240,11 +2240,6 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Get the creature */
 	m_ptr = &creature_list[c_ptr->creature_idx];
 
-	/*
-	if (creature_ptr->inventory[].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-	if (creature_ptr->inventory[].name1 == ART_STORMBRINGER) stormbringer = TRUE;
-	*/
-
 	/* Player can not walk through "walls"... */
 	/* unless in Shadow Form */
 	can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
