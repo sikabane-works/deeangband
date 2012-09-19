@@ -747,13 +747,6 @@
 #define ART_ANARION             32
 #define ART_GIL_GALAD           138
 #define ART_YATA                151
-#define ART_EARENDIL            186
-#define ART_PERSEUS             197
-
-/* Helms and Crowns */
-#define ART_TERROR              41
-#define ART_AMBER               42
-#define ART_NUMENOR             132
 
 /* Cloaks */
 #define ART_JACK                43

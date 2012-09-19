@@ -1213,16 +1213,6 @@ return "˜r—Í‚Ìã¸ : Šm—¦50%‚Å‰ó‚ê‚é";
 #endif
 		}
 		*/
-		case ART_EARENDIL:
-		{
-#ifdef JP
-return "–ü‚µ : 100ƒ^[ƒ“–ˆ";
-#else
-			return "curing every 100 turns";
-#endif
-
-		}
-
 		case ART_ARUNRUTH:
 		{
 #ifdef JP

@@ -5043,7 +5043,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_EARENDIL:
+			case TRAIT_CURING:
 			{
 				(void)set_poisoned(creature_ptr, 0);
 				(void)set_confused(creature_ptr, 0);
@@ -5051,8 +5051,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				(void)set_stun(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
 				(void)set_image(creature_ptr, 0);
-
-				object_ptr->timeout = 100;
 				break;
 			}
 
