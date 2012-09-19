@@ -725,7 +725,6 @@
 #define ART_GOGO                 220
 
 /* Rings */
-#define ART_FRAKIR               8
 #define ART_TULKAS               9
 #define ART_POWER               13
 
@@ -733,10 +732,6 @@
 #define ART_RAZORBACK           129
 #define ART_BLADETURNER         130
 #define ART_SEIRYU              201
-
-/* Hard Armour */
-#define ART_SOULKEEPER          19
-#define ART_ARVEDUI             24
 
 /* Soft Armour */
 #define ART_SHIVA_JACKET        26

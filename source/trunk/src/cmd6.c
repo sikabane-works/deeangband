@@ -4112,16 +4112,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_FRAKIR:
+			case TRAIT_STRANGLING:
 			{
-#ifdef JP
-				msg_print("‚ ‚È‚½‚Íƒtƒ‰ƒLƒA‚É“G‚ğ’÷‚ßE‚·‚æ‚¤–½‚¶‚½B");
-#else
-				msg_print("You order Frakir to strangle your opponent.");
-#endif
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				if (drain_life(creature_ptr, dir, 100))
-				object_ptr->timeout = randint0(100) + 100;
 				break;
 			}
 

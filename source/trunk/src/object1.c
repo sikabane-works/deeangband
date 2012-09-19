@@ -1087,15 +1087,6 @@ return "アイス・ボール (100) : 200 ターン毎";
 #endif
 
 		}
-		case ART_SOULKEEPER:
-		{
-#ifdef JP
-			return "体力回復(1000) : 888 ターン毎";
-#else
-			return "heal (1000) every 888 turns";
-#endif
-
-		}
 		case ART_LUTHIEN:
 		{
 #ifdef JP
@@ -1169,30 +1160,7 @@ return "エレメントのブレス (300), 士気高揚、祝福、耐性";
 #endif
 
 		}
-		case TRAIT_DISPEL_EVIL_1:
-		{
-#ifdef JP
-return "邪悪退散(x5) : 200+d200 ターン毎";
-#else
-			return "dispel evil (x5) every 200+d200 turns";
-#endif
-#ifdef JP
-return "邪悪退散(x5) : 100+d100 ターン毎";
-#else
-			return "dispel evil (x5) every 100+d100 turns";
-#endif
 
-		}
-
-		case ART_FRAKIR:
-		{
-#ifdef JP
-return "窒息攻撃(100) : 100+d100 ターン毎";
-#else
-			return "a strangling attack (100) every 100+d100 turns";
-#endif
-
-		}
 		case ART_TULKAS:
 		{
 #ifdef JP
