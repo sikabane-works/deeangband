@@ -4568,20 +4568,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_AEGLOS:
-			{
-#ifdef JP
-				msg_print("スピアが白く明るく輝いた...");
-#else
-				msg_print("Your spear glows a bright white...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_COLD, dir, 100, 3);
-				object_ptr->timeout = 200;
-				break;
-			}
-
 			case TRAIT_STONE_TO_MUD:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
