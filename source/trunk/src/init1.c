@@ -2489,7 +2489,6 @@ enum ARTIFACT_INFO {
 	ARTIFACT_INFO_PLUS_AC,
 	ARTIFACT_INFO_PLUS_EV,
 	ARTIFACT_INFO_FLAGS,
-	ARTIFACT_INFO_ADD_CREATURE_TRAITS,
 	ARTIFACT_INFO_DESCRIPTION,
 	ARTIFACT_INFO_E_DESCRIPTION,
 	ARTIFACT_INFO_COMMENT,
@@ -2526,7 +2525,6 @@ static cptr artifact_info_csv_list[ARTIFACT_INFO_CSV_COLUMNS] =
 	"PLUS_AC",
 	"PLUS_EV",
 	"FLAGS",
-	"ADD_CREATURE_TRAITS",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
 	"COMMENT",
@@ -2790,12 +2788,6 @@ errr parse_artifact_csv(char *buf, header *head)
 					break;
 
 				}
-
-
-			case ARTIFACT_INFO_ADD_CREATURE_TRAITS:
-				if(0 != traits_precondition_splits(&artifact_ptr->add_creature_traits, tmp))
-					return PARSE_ERROR_GENERIC;
-				break;
 
 			case ARTIFACT_INFO_DESCRIPTION:
 				/* Store the text */

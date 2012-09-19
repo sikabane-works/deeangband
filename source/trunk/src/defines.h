@@ -757,7 +757,6 @@
 #define ART_CELEGORM            31
 #define ART_ANARION             32
 #define ART_GIL_GALAD           138
-#define ART_YENDOR              141
 #define ART_YATA                151
 #define ART_EARENDIL            186
 #define ART_PERSEUS             197

@@ -1251,14 +1251,6 @@ return "眩しい光 : 250 ターン毎";
 			return "blinding light every 250 turns";
 #endif
 		}
-		case ART_YENDOR:
-		{
-#ifdef JP
-return "魔力充填 : 200 ターン毎";
-#else
-			return "recharge item every 200 turns";
-#endif
-		}
 		/*TODO
 		case ART_MURAMASA:
 		{

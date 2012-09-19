@@ -4883,7 +4883,7 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_YENDOR:
+			case TRAIT_MAGIC_CHARGE_EX:
 			{
 #ifdef JP
 				msg_print("カードが白く輝いた．．．");
@@ -4891,7 +4891,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 				msg_print("Your card gleams with blinding light...");
 #endif
 				if (!recharge(creature_ptr, 1000)) return;
-				object_ptr->timeout = 200;
 				break;
 			}
 
