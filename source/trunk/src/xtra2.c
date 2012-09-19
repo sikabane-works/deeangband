@@ -907,20 +907,13 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 			do
 			{
+				/*TODO namake series
 				switch (randint0(3))
 				{
-				case 0:
-					a_idx = ART_NAMAKE_HAMMER;
-					break;
-				case 1:
-					a_idx = ART_NAMAKE_BOW;
-					break;
-				case 2:
-					a_idx = ART_NAMAKE_ARMOR;
-					break;
 				}
+				*/
 
-				a_ptr = &artifact_info[a_idx];
+				a_ptr = &artifact_info[1];
 			}
 			while (a_ptr->cur_num);
 

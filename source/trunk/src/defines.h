@@ -732,7 +732,6 @@
 #define ART_SEIRYU              201
 
 /* Soft Armour */
-#define ART_NAMAKE_ARMOR        183
 #define ART_GHB                 192
 
 /* Shields */
@@ -801,11 +800,9 @@
 #define ART_BLOOD               199
 
 #define ART_IRON_BALL           173
-#define ART_NAMAKE_HAMMER       181
 
 /* Bows */
 #define ART_BELTHRONDING        124
-#define ART_NAMAKE_BOW          182
 
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/

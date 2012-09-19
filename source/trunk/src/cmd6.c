@@ -5148,14 +5148,14 @@ msg_print("あなたの槍は電気でスパークしている...");
 				if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
 				{
 					int i;
-					for (i = 0; i < EATER_EXT*2; i++)
+					for (i = 0; i < EATER_EXT * 2; i++)
 					{
 						creature_ptr->class_skills.old_skills.magic_num1[i] += (creature_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_CHARGE * 3 : creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE/3;
 						if (creature_ptr->class_skills.old_skills.magic_num1[i] > creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE) creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
 					}
-					for (; i < EATER_EXT*3; i++)
+					for (; i < EATER_EXT * 3; i++)
 					{
-						int k_idx = lookup_kind(TV_ROD, i-EATER_EXT*2);
+						int k_idx = lookup_kind(TV_ROD, i - EATER_EXT * 2);
 						creature_ptr->class_skills.old_skills.magic_num1[i] -= ((creature_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 						if (creature_ptr->class_skills.old_skills.magic_num1[i] < 0) creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
 					}
