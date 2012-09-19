@@ -719,10 +719,8 @@
 
 // Lites
 #define ART_STONE_LORE           17
-#define ART_FLY_STONE            147
 
 // Amulets
-#define ART_CARLAMMAS            4
 #define ART_DWARVES              6
 #define ART_FARAMIR              18
 #define ART_BOROMIR              143

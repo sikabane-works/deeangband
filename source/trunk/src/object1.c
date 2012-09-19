@@ -1261,14 +1261,6 @@ return "˜r—Í‚Ìã¸ : Šm—¦50%‚Å‰ó‚ê‚é";
 #endif
 		}
 		*/
-		case ART_FLY_STONE:
-		{
-#ifdef JP
-return "–‚—Í‚Ì—’(400) : 250+d250ƒ^[ƒ“–ˆ";
-#else
-			return "a mana storm every 250+d250 turns";
-#endif
-		}
 		case ART_EARENDIL:
 		{
 #ifdef JP

@@ -4923,20 +4923,6 @@ msg_print("あなたの槍は電気でスパークしている...");
 			}
 			*/
 
-			case ART_FLY_STONE:
-			{
-#ifdef JP
-				msg_print("石が青白く光った．．．");
-#else
-				msg_print("Your stone glows pale...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_MANA, dir, 400, 4);
-				object_ptr->timeout = randint0(250) + 250;
-				break;
-			}
-
 			case TRAIT_FISHING:
 			{
 				int x, y;
