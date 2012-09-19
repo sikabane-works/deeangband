@@ -5139,13 +5139,8 @@ msg_print("あなたの槍は電気でスパークしている...");
 				break;
 			}
 
-			case ART_MOOK:
+			case TRAIT_MAGIC_RES_COLD:
 			{
-#ifdef JP
-				msg_print("クロークが白く輝いた...");
-#else
-				msg_print("Your cloak grows white.");
-#endif
 				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
 				object_ptr->timeout = 40 + randint1(40);
 				break;

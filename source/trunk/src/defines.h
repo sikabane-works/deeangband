@@ -784,15 +784,6 @@
 #define ART_TUOR                50
 #define ART_MOOK                205
 
-/* Boots */
-#define ART_THROR               62
-#define ART_SHIVA_BOOTS         63
-#define ART_GLASS               165
-#define ART_GETA                210
-
-/* Digging */
-#define ART_NAIN                211
-
 /* Swords */
 #define ART_MAEDHROS            64
 #define ART_RILIA               69
