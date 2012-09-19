@@ -308,7 +308,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 
 				if (mult < 50) mult = 50;
 
-				if ((object_ptr->name1 == ART_NOTHUNG) && (target_ptr->species_idx == SPECIES_FAFNER))
+				if (has_trait_object(object_ptr, TRAIT_SLAY_FAFNER) && (target_ptr->species_idx == SPECIES_FAFNER))
 					mult *= 3;
 			}
 
