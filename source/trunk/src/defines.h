@@ -785,9 +785,6 @@
 #define ART_EOWYN               216
 
 /* Polearms */
-#define ART_OSONDIR             95
-#define ART_TIL                 96
-#define ART_RUNESPEAR           97
 #define ART_DESTINY             98
 #define ART_EORLINGAS           100
 #define ART_LOTHARANG           104

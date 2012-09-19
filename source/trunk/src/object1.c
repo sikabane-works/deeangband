@@ -1060,15 +1060,6 @@ return "傷の治癒(4d8) : 3+d3 ターン毎";
 #endif
 
 		}
-		case ART_RUNESPEAR:
-		{
-#ifdef JP
-return "サンダー・ボール (100) : 200 ターン毎";
-#else
-			return "lightning ball (100) every 200 turns";
-#endif
-
-		}
 		case ART_LUTHIEN:
 		{
 #ifdef JP

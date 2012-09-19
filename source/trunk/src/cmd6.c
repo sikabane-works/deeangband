@@ -4552,20 +4552,6 @@ if (get_check("この階を去りますか？"))
 				break;
 			}
 
-			case ART_RUNESPEAR:
-			{
-#ifdef JP
-msg_print("あなたの槍は電気でスパークしている...");
-#else
-				msg_print("Your spear crackles with electricity...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_ELEC, dir, 100, 3);
-				object_ptr->timeout = 200;
-				break;
-			}
-
 			case TRAIT_STONE_TO_MUD:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
