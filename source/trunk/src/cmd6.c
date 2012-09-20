@@ -4119,16 +4119,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_TULKAS:
+			case TRAIT_HASTE_2:
 			{
-#ifdef JP
-				msg_print("w—Ö‚Í–¾‚é‚­‹P‚¢‚½...");
-#else
-				msg_print("The ring glows brightly...");
-#endif
-
 				(void)set_fast(creature_ptr, randint1(75) + 75, FALSE);
-				object_ptr->timeout = randint0(150) + 150;
 				break;
 			}
 

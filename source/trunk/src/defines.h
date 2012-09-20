@@ -722,7 +722,6 @@
 #define ART_GOGO                 220
 
 /* Rings */
-#define ART_TULKAS               9
 #define ART_POWER               13
 
 /* Soft Armour */
@@ -738,7 +737,6 @@
 #define ART_TINYTHORN           175
 
 /* Polearms */
-#define ART_ULMO                108
 #define ART_BLOOD               199
 
 #define ART_IRON_BALL           173

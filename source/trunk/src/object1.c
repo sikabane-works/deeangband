@@ -1041,16 +1041,6 @@ return "未定義";
 	switch (object_ptr->name1)
 	{
 
-		case ART_TULKAS:
-		{
-#ifdef JP
-return "スピード(75+d75ターン) : 100+d100 ターン毎";
-#else
-			return "haste self (75+d75 turns) every 150+d150 turns";
-#endif
-
-		}
-
 		/*TODO
 		case ART_MURAMASA:
 		{
