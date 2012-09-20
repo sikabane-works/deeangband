@@ -735,8 +735,6 @@
 #define ART_JACK                43
 #define ART_COLLUIN             44
 #define ART_THINGOL             46
-#define ART_THORONGIL           47
-#define ART_COLANNON            48
 #define ART_LUTHIEN             49
 #define ART_TUOR                50
 

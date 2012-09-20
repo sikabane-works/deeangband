@@ -4296,19 +4296,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_COLANNON:
-			{
-#ifdef JP
-				msg_print("ƒNƒ[ƒN‚ª•Ó‚è‚Ì‹óŠÔ‚ð‚ä‚ª‚Ü‚¹‚½...");
-#else
-				msg_print("Your cloak twists space around you...");
-#endif
-
-				teleport_player(creature_ptr, 100, 0L);
-				object_ptr->timeout = 45;
-				break;
-			}
-
 			case ART_LUTHIEN:
 			{
 #ifdef JP

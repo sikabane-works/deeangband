@@ -1059,24 +1059,6 @@ return "テレポート・アウェイ : 150 ターン毎";
 #endif
 
 		}
-		case ART_THINGOL:
-		{
-#ifdef JP
-return "魔力充填 : 70 ターン毎";
-#else
-			return "recharge item I every 70 turns";
-#endif
-
-		}
-		case ART_COLANNON:
-		{
-#ifdef JP
-return "テレポート : 45 ターン毎";
-#else
-			return "teleport every 45 turns";
-#endif
-
-		}
 		case ART_TULKAS:
 		{
 #ifdef JP
