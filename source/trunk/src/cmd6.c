@@ -4197,22 +4197,15 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_BLADETURNER:
+			case TRAIT_ELEMENTAL_BREATH:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
-#ifdef JP
-				msg_print("あなたはエレメントのブレスを吐いた。");
-#else
-				msg_print("You breathe the elements.");
-#endif
-
 				fire_ball(creature_ptr, GF_MISSILE, dir, 300, 4);
-#ifdef JP
-				msg_print("鎧が様々な色に輝いた...");
-#else
-				msg_print("Your armor glows many colours...");
-#endif
-
+				break;
+			}
+			
+			case TRAIT_MULTI_BLESS_1:
+			{
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
 				(void)heal_creature(creature_ptr, 10);
@@ -4222,7 +4215,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)set_oppose_fire(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_cold(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_pois(creature_ptr, randint1(50) + 50, FALSE);
-				object_ptr->timeout = 400;
 				break;
 			}
 
