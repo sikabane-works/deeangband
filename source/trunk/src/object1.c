@@ -1041,15 +1041,6 @@ return "未定義";
 	switch (object_ptr->name1)
 	{
 
-		case ART_LUTHIEN:
-		{
-#ifdef JP
-return "経験値復活 : 450 ターン毎";
-#else
-			return "restore life levels every 450 turns";
-#endif
-
-		}
 		case ART_ULMO:
 		{
 #ifdef JP

@@ -4296,16 +4296,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_LUTHIEN:
+			case TRAIT_RESTORE_LEVEL:
 			{
-#ifdef JP
-				msg_print("ƒNƒ[ƒN‚ª[g‚É‹P‚¢‚½...");
-#else
-				msg_print("Your cloak glows a deep red...");
-#endif
-
 				restore_level(creature_ptr);
-				object_ptr->timeout = 450;
 				break;
 			}
 
