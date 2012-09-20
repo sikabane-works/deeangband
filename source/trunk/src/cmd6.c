@@ -4736,19 +4736,19 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_BOROMIR:
+			case TRAIT_FRIGHTEN_SOUND:
 			{
 				if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 				if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 #ifdef JP
-				msg_print("‚ ‚È‚½‚Í—Í‹­‚¢“Ë•—‚ð‚«–Â‚ç‚µ‚½BŽüˆÍ‚Ì“G‚ªk‚¦ã‚Á‚Ä‚¢‚é!");
+				msg_print("‚ ‚È‚½‚Í—Í‹­‚¢“Ë•—‚ð‚«–Â‚ç‚µ‚½B");
 #else
-				msg_print("You wind a mighty blast; your enemies tremble!");
+				msg_print("You wind a mighty blast.");
 #endif
 				(void)turn_creatures(creature_ptr, (3 * creature_ptr->lev / 2) + 10);
-				object_ptr->timeout = randint0(40) + 40;
 				break;
 			}
+
 			case TRAIT_DISPEL_SMALL_LIFE:
 			{
 #ifdef JP

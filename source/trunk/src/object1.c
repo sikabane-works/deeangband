@@ -1116,14 +1116,6 @@ return "スピード(75+d75ターン) : 100+d100 ターン毎";
 
 		}
 
-		case ART_BOROMIR:
-		{
-#ifdef JP
-return "クリーチャー恐慌 : 40+d40ターン毎";
-#else
-			return "frighten creatures every 40+d40 turns";
-#endif
-		}
 		/*TODO
 		case ART_MURAMASA:
 		{
