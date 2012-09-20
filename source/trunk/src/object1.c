@@ -1134,14 +1134,6 @@ return "クリーチャー恐慌 : 40+d40ターン毎";
 			return "frighten creatures every 40+d40 turns";
 #endif
 		}
-		case ART_HURIN:
-		{
-#ifdef JP
-return "士気高揚, スピード(50+d50ターン) : 100+d200 ターン毎";
-#else
-			return "hero and +10 to speed (50) every 100+200d turns";
-#endif
-		}
 		/*TODO
 		case ART_MURAMASA:
 		{

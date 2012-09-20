@@ -4789,16 +4789,6 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_HURIN:
-			{
-				(void)set_fast(creature_ptr, randint1(50) + 50, FALSE);
-				heal_creature(creature_ptr, 10);
-				set_afraid(creature_ptr, 0);
-				set_hero(creature_ptr, randint1(50) + 50, FALSE);
-				object_ptr->timeout = randint0(200) + 100;
-				break;
-			}
-
 			case TRAIT_BLAZING_LIGHT:
 			{
 				fire_ball(creature_ptr, GF_LITE, 0, 300, 6);
