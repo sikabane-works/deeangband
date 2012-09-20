@@ -4308,16 +4308,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_THINGOL:
+			case TRAIT_MAGIC_CHARGE_2:
 			{
-#ifdef JP
-				msg_print("クロークが黄色く明るく輝いた...");
-#else
-				msg_print("Your cloak glows bright yellow...");
-#endif
-
 				recharge(creature_ptr, 130);
-				object_ptr->timeout = 70;
 				break;
 			}
 
