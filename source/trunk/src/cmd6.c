@@ -5049,13 +5049,8 @@ if (get_check("この階を去りますか？"))
 				break;
 			}
 
-			case ART_SACRED_KNIGHTS:
+			case TRAIT_REMOVE_CURSE_2:
 			{
-#ifdef JP
-				msg_print("首飾りが真実を照らし出す...");
-#else
-				msg_print("Your amulet exhibits the truth...");
-#endif
 				if (remove_all_curse(creature_ptr))
 				{
 #ifdef JP
@@ -5064,9 +5059,8 @@ if (get_check("この階を去りますか？"))
 					msg_print("You feel as if someone is watching over you.");
 #endif
 				}
-				(void)probing(floor_ptr);
-				break;
 			}
+
 			case TRAIT_RESTORE_MANA:
 			{
 #ifdef JP

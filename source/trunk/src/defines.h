@@ -719,7 +719,6 @@
 
 // Amulets
 #define ART_DWARVES              6
-#define ART_SACRED_KNIGHTS       217
 #define ART_GOGO                 220
 
 /* Rings */

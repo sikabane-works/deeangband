@@ -1135,15 +1135,6 @@ return "‘®«•ÏX : 3333 ƒ^[ƒ“–ˆ";
 #endif
 
 		}
-		case ART_SACRED_KNIGHTS:
-		{
-#ifdef JP
-return "*‰ğô*‚Æ’²¸: ‚¢‚Â‚Å‚à";
-#else
-			return "dispel curse and probing every turn";
-#endif
-
-		}
 	}
 
 
