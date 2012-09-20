@@ -1051,15 +1051,6 @@ return "腕力の上昇 : 確率50%で壊れる";
 #endif
 		}
 		*/
-		case ART_BLOOD:
-		{
-#ifdef JP
-return "属性変更 : 3333 ターン毎";
-#else
-			return "change zokusei every 3333 turns";
-#endif
-
-		}
 	}
 
 

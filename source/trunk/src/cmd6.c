@@ -4904,7 +4904,7 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_BLOOD:
+			case TRAIT_CHANGE_BRAND:
 			{
 #ifdef JP
 				msg_print("Š™‚ª–¾‚é‚­‹P‚¢‚½...");
@@ -4912,7 +4912,6 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				msg_print("Your scythe glows brightly!");
 #endif
 				get_bloody_moon_flags(object_ptr);
-				object_ptr->timeout = 3333;
 				if (has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 				break;

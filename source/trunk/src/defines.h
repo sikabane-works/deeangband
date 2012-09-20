@@ -736,9 +736,6 @@
 #define ART_QUICKTHORN          174
 #define ART_TINYTHORN           175
 
-/* Polearms */
-#define ART_BLOOD               199
-
 #define ART_IRON_BALL           173
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/

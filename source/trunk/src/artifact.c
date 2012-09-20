@@ -2920,8 +2920,8 @@ void get_bloody_moon_flags(object_type *object_ptr)
 {
 	int dummy, i;
 
-	for (i = 0; i < TR_FLAG_SIZE; i++)
-		object_ptr->art_flags[i] = artifact_info[ART_BLOOD].flags[i];
+//TODO	for (i = 0; i < TR_FLAG_SIZE; i++)
+//		object_ptr->art_flags[i] = artifact_info[ART_BLOOD].flags[i];
 
 	dummy = randint1(2) + randint1(2);
 	for (i = 0; i < dummy; i++)
@@ -2984,10 +2984,11 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 			add_flag(object_ptr->art_flags, TR_BLOWS);
 	}
 
-	if (object_ptr->name1 == ART_BLOOD)
+	/*TODO if (object_ptr->name1 == ART_BLOOD)
 	{
 		get_bloody_moon_flags(object_ptr);
 	}
+	*/
 
 	/*
 	if (object_ptr->name1 == ART_HEAVENLY_MAIDEN)
