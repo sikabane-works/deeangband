@@ -4799,13 +4799,8 @@ if (get_check("この階を去りますか？"))
 				break;
 			}
 
-			case ART_GIL_GALAD:
+			case TRAIT_BLAZING_LIGHT:
 			{
-#ifdef JP
-				msg_print("シールドが眩しい光で輝いた．．．");
-#else
-				msg_print("Your shield gleams with blinding light...");
-#endif
 				fire_ball(creature_ptr, GF_LITE, 0, 300, 6);
 				confuse_creatures(creature_ptr, 3 * creature_ptr->lev / 2);
 				object_ptr->timeout = 250;

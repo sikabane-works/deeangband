@@ -1142,14 +1142,6 @@ return "士気高揚, スピード(50+d50ターン) : 100+d200 ターン毎";
 			return "hero and +10 to speed (50) every 100+200d turns";
 #endif
 		}
-		case ART_GIL_GALAD:
-		{
-#ifdef JP
-return "眩しい光 : 250 ターン毎";
-#else
-			return "blinding light every 250 turns";
-#endif
-		}
 		/*TODO
 		case ART_MURAMASA:
 		{

@@ -735,10 +735,6 @@
 #define ART_GHB                 192
 
 /* Shields */
-#define ART_THORIN              30
-#define ART_CELEGORM            31
-#define ART_ANARION             32
-#define ART_GIL_GALAD           138
 #define ART_YATA                151
 
 /* Cloaks */
