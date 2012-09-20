@@ -1069,15 +1069,6 @@ return "全耐性(20+d20ターン) : 111 ターン毎";
 #endif
 
 		}
-		case ART_HOLCOLLETH:
-		{
-#ifdef JP
-return "スリープ(II) : 55 ターン毎";
-#else
-			return "sleep II every 55 turns";
-#endif
-
-		}
 		case ART_THINGOL:
 		{
 #ifdef JP

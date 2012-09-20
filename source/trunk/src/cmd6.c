@@ -4302,23 +4302,13 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_HOLCOLLETH:
+			case TRAIT_SLEEP:
 			{
-#ifdef JP
-				msg_print("クロークが深いブルーに輝いた...");
-#else
-				msg_print("Your cloak glows deep blue...");
-#endif
-
 				sleep_creatures_touch(creature_ptr);
-				object_ptr->timeout = 55;
-
-
 				break;
 			}
 
-		
-	case ART_THINGOL:
+			case ART_THINGOL:
 			{
 #ifdef JP
 				msg_print("クロークが黄色く明るく輝いた...");
