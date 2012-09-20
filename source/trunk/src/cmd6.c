@@ -4495,17 +4495,10 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case ART_ULMO:
+			case TRAIT_TELE_AWAY:
 			{
-#ifdef JP
-				msg_print("ƒgƒ‰ƒCƒfƒ“ƒg‚ª[g‚É‹P‚¢‚½...");
-#else
-				msg_print("Your trident glows deep red...");
-#endif
-
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				teleport_creature(creature_ptr, dir);
-				object_ptr->timeout = 150;
 				break;
 			}
 

@@ -728,13 +728,9 @@
 /* Soft Armour */
 #define ART_GHB                 192
 
-/* Cloaks */
-#define ART_JACK                43
-
 /* Swords */
 #define ART_TWILIGHT            78
 #define ART_CHAINSWORD          85
-#define ART_MERLIN              90
 #define ART_VORPAL_BLADE        92
 #define ART_MUSASI_KATANA       171
 #define ART_MUSASI_WAKIZASI     172
@@ -742,7 +738,6 @@
 #define ART_TINYTHORN           175
 
 /* Polearms */
-#define ART_WRATH               107
 #define ART_ULMO                108
 #define ART_BLOOD               199
 

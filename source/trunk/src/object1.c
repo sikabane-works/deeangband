@@ -1041,15 +1041,6 @@ return "未定義";
 	switch (object_ptr->name1)
 	{
 
-		case ART_ULMO:
-		{
-#ifdef JP
-return "テレポート・アウェイ : 150 ターン毎";
-#else
-			return "teleport away every 150 turns";
-#endif
-
-		}
 		case ART_TULKAS:
 		{
 #ifdef JP
