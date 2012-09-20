@@ -748,12 +748,8 @@
 #define ART_TUOR                50
 
 /* Swords */
-#define ART_FIONA               70
-#define ART_GURTHANG            76
-#define ART_ZARCUTHRA           77
 #define ART_TWILIGHT            78
 #define ART_CHAINSWORD          85
-#define ART_CARETH              87
 #define ART_MERLIN              90
 #define ART_VORPAL_BLADE        92
 #define ART_MUSASI_KATANA       171

@@ -1041,16 +1041,6 @@ return "未定義";
 	switch (object_ptr->name1)
 	{
 
-		case ART_FIONA:
-		{
-#ifdef JP
-return "アイス・ボール(48) : 5+d5 ターン毎";
-#else
-			return "frost ball (48) every 5+d5 turns";
-#endif
-
-		}
-
 		case ART_LUTHIEN:
 		{
 #ifdef JP

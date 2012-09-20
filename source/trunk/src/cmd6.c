@@ -4474,20 +4474,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_FIONA:
-			{
-#ifdef JP
-				msg_print("ƒ_ƒK[‚ª—â‹C‚É•¢‚í‚ê‚½...");
-#else
-				msg_print("Your dagger is covered in frost...");
-#endif
-
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_COLD, dir, 48, 2);
-				object_ptr->timeout = randint0(5) + 5;
-				break;
-			}
-
 			case TRAIT_GETAWAY:
 			{
 				switch (randint1(13))
