@@ -779,26 +779,13 @@
 #define ART_MUSASI_WAKIZASI     172
 #define ART_QUICKTHORN          174
 #define ART_TINYTHORN           175
-#define ART_ARUNRUTH            184
-#define ART_NARSIL              191
-#define ART_GOURYU              207
-#define ART_EOWYN               216
 
 /* Polearms */
-#define ART_DESTINY             98
-#define ART_EORLINGAS           100
-#define ART_LOTHARANG           104
-#define ART_DWARVES_AXE         105
-#define ART_BARUKKHELED         106
 #define ART_WRATH               107
 #define ART_ULMO                108
 #define ART_BLOOD               199
 
 #define ART_IRON_BALL           173
-
-/* Bows */
-#define ART_BELTHRONDING        124
-
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/
 

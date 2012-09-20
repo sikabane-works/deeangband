@@ -4565,17 +4565,10 @@ if (get_check("この階を去りますか？"))
 				break;
 			}
 
-			case ART_LOTHARANG:
+			case TRAIT_CURE_HEAVY_WOUNDS:
 			{
-#ifdef JP
-				msg_print("バトル・アックスが深紫の光を放射した...");
-#else
-				msg_print("Your battle axe radiates deep purple...");
-#endif
-
 				heal_creature(creature_ptr, diceroll(4, 8));
 				(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
-				object_ptr->timeout = randint0(3) + 3;
 				break;
 			}
 
@@ -5014,19 +5007,6 @@ if (get_check("この階を去りますか？"))
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				(void)charm_animal(creature_ptr, dir, creature_ptr->lev);
-				break;
-			}
-
-			case ART_ARUNRUTH:
-			{
-#ifdef JP
-				msg_print("ソードが淡いブルーに輝いた...");
-#else
-				msg_print("Your sword glows a pale blue...");
-#endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(12, 8));
-				object_ptr->timeout = 50;
 				break;
 			}
 

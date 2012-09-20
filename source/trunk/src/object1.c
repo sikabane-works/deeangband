@@ -1051,15 +1051,6 @@ return "アイス・ボール(48) : 5+d5 ターン毎";
 
 		}
 
-		case ART_LOTHARANG:
-		{
-#ifdef JP
-return "傷の治癒(4d8) : 3+d3 ターン毎";
-#else
-			return "cure wounds (4d8) every 3+d3 turns";
-#endif
-
-		}
 		case ART_LUTHIEN:
 		{
 #ifdef JP
@@ -1169,15 +1160,6 @@ return "腕力の上昇 : 確率50%で壊れる";
 #endif
 		}
 		*/
-		case ART_ARUNRUTH:
-		{
-#ifdef JP
-return "アイス・ボルト(12d8) : 50 ターン毎";
-#else
-			return "frost bolt (12d8) every 50 turns";
-#endif
-
-		}
 		case ART_BLOOD:
 		{
 #ifdef JP
