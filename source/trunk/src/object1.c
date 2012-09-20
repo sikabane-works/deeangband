@@ -1059,16 +1059,6 @@ return "テレポート・アウェイ : 150 ターン毎";
 #endif
 
 		}
-		case ART_COLLUIN:
-		case ART_SEIRYU:
-		{
-#ifdef JP
-return "全耐性(20+d20ターン) : 111 ターン毎";
-#else
-			return "resistance (20+d20 turns) every 111 turns";
-#endif
-
-		}
 		case ART_THINGOL:
 		{
 #ifdef JP
@@ -1087,16 +1077,6 @@ return "テレポート : 45 ターン毎";
 #endif
 
 		}
-		case ART_BLADETURNER:
-		{
-#ifdef JP
-return "エレメントのブレス (300), 士気高揚、祝福、耐性";
-#else
-			return "breathe elements (300), hero, bless, and resistance";
-#endif
-
-		}
-
 		case ART_TULKAS:
 		{
 #ifdef JP

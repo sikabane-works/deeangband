@@ -4284,24 +4284,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			}
 
-			case ART_COLLUIN:
-			case ART_SEIRYU:
-			{
-#ifdef JP
-				msg_format("%sが様々な色に輝いた...", object_ptr->name1 == ART_COLLUIN ? "クローク" : "鎧");
-#else
-				msg_format("Your %s glows many colours...", object_ptr->name1 == ART_COLLUIN ? "cloak" : "armor");
-#endif
-
-				(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
-				(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
-				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
-				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-				(void)set_oppose_pois(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = 111;
-				break;
-			}
-
 			case TRAIT_SLEEP:
 			{
 				sleep_creatures_touch(creature_ptr);

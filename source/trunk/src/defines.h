@@ -725,10 +725,6 @@
 #define ART_TULKAS               9
 #define ART_POWER               13
 
-/* Dragon Scale */
-#define ART_BLADETURNER         130
-#define ART_SEIRYU              201
-
 /* Soft Armour */
 #define ART_GHB                 192
 
