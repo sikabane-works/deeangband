@@ -1323,7 +1323,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(8))
 				type = ACT_GENOCIDE;
 			else if (one_in_(13))
-				type = ACT_SUMMON_UNDEAD;
+				type = TRAIT_S_UNDEAD;
 			else if (one_in_(9))
 				type = ACT_VAMPIRE_2;
 			else if (one_in_(6))
@@ -1481,7 +1481,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_DIM_DOOR:
 				chance = 10;
 				break;
-			case ACT_SUMMON_UNDEAD:
+			case TRAIT_S_UNDEAD:
 			case TRAIT_S_DEMON:
 			case ACT_WRAITH:
 			case ACT_INVULN:
@@ -2288,7 +2288,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SUMMON_UNDEAD:
+		case TRAIT_S_UNDEAD:
 		{
 			bool pet = one_in_(3);
 			int type;

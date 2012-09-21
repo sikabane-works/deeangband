@@ -988,7 +988,6 @@
 #define ACT_SUMMON_ANIMAL       70
 #define ACT_SUMMON_PHANTOM      71
 #define ACT_SUMMON_ELEMENTAL    72
-#define ACT_SUMMON_UNDEAD       74
 /* 75 - 80 unused */
 #define ACT_CURE_LW             81
 #define ACT_CURE_MW             82

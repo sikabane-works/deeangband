@@ -593,15 +593,6 @@ return "エレメンタル召喚 : 750 ターン毎";
 #endif
 
 			}
-			case ACT_SUMMON_UNDEAD:
-			{
-#ifdef JP
-return "アンデッド召喚 : 666+d333 ターン毎";
-#else
-				return "summon undead every 666+d333 turns";
-#endif
-
-			}
 			case ACT_CURE_LW:
 			{
 #ifdef JP
