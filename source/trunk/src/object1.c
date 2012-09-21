@@ -854,7 +854,7 @@ return "次元の扉 : 100 ターン毎";
 #endif
 
 			}
-			case ACT_TELEPORT:
+			case TRAIT_TPORT:
 			{
 #ifdef JP
 return "テレポート (range 100) : 45 ターン毎";
