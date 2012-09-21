@@ -998,7 +998,6 @@
 /* 99 - 110 unused */
 #define ACT_LIGHT               111
 #define ACT_MAP_LIGHT           112
-#define ACT_DETECT_ALL          113
 #define ACT_DETECT_XTRA         114
 #define ACT_ID_FULL             115
 #define ACT_ID_PLAIN            116

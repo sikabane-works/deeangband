@@ -746,7 +746,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_DETECT_ALL:
+			case TRAIT_DETECT_ALL:
 			{
 #ifdef JP
 				return "全感知 : 55+d55 ターン毎";

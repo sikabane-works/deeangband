@@ -1349,7 +1349,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(4))
 				type = ACT_SLEEP;
 			else if (one_in_(3))
-				type = ACT_DETECT_ALL;
+				type = TRAIT_DETECT_ALL;
 			else if (one_in_(8))
 				type = ACT_ID_FULL;
 			else
@@ -1423,7 +1423,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_TELE_AWAY:
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
-			case ACT_DETECT_ALL:
+			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
 			case ACT_SATIATE:
 			case ACT_RECHARGE:
@@ -2538,7 +2538,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DETECT_ALL:
+		case TRAIT_DETECT_ALL:
 		{
 #ifdef JP
 			msg_print("”’‚­–¾‚é‚­‹P‚¢‚Ä‚¢‚é...");
