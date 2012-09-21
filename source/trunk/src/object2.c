@@ -1004,7 +1004,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_SUMMON_ANIMAL) total += 10000;
 		else if (type == ACT_SUMMON_PHANTOM) total += 12000;
 		else if (type == ACT_SUMMON_ELEMENTAL) total += 15000;
-		else if (type == ACT_SUMMON_DEMON) total += 20000;
+		else if (type == TRAIT_S_DEMON) total += 20000;
 		else if (type == ACT_SUMMON_UNDEAD) total += 20000;
 		else if (type == ACT_CURE_LW) total += 500;
 		else if (type == ACT_CURE_MW) total += 750;

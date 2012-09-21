@@ -1284,7 +1284,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_CHAOS:
 			chance = 50;
 			if (one_in_(6))
-				type = ACT_SUMMON_DEMON;
+				type = TRAIT_S_DEMON;
 			else
 				type = ACT_CALL_CHAOS;
 			break;
@@ -1482,7 +1482,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 10;
 				break;
 			case ACT_SUMMON_UNDEAD:
-			case ACT_SUMMON_DEMON:
+			case TRAIT_S_DEMON:
 			case ACT_WRAITH:
 			case ACT_INVULN:
 			case ACT_ALCHEMY:
@@ -2252,7 +2252,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SUMMON_DEMON:
+		case TRAIT_S_DEMON:
 		{
 			bool pet = one_in_(3);
 			u32b mode = 0L;

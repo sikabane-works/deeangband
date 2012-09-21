@@ -3938,7 +3938,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_CURE_1000:
 			case ACT_DIM_DOOR:
 			case ACT_SUMMON_UNDEAD:
-			case ACT_SUMMON_DEMON:
+			case TRAIT_S_DEMON:
 				lev = 80;
 				break;
 			case ACT_WRAITH:
