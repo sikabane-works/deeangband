@@ -620,7 +620,7 @@ return "恐怖除去/毒消し : 5 ターン毎";
 #endif
 
 			}
-			case ACT_REST_LIFE:
+			case TRAIT_RESTORE_LIFE:
 			{
 #ifdef JP
 return "経験値復活 : 450 ターン毎";

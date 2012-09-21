@@ -3894,7 +3894,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_TERROR:
 			case TRAIT_PROT_EVIL:
 			case ACT_ID_PLAIN:
-			case ACT_REST_LIFE:
+			case TRAIT_RESTORE_LIFE:
 			case TRAIT_HASTE:
 			case ACT_BANISH_EVIL:
 				lev = 40;
