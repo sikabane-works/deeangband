@@ -3915,7 +3915,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_VAMPIRE_2:
 			case TRAIT_BA_COLD:
 			case TRAIT_BA_ELEC:
-			case ACT_GENOCIDE:
+			case TRAIT_MASS_GENOCIDE:
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
 			case ACT_SUMMON_PHANTOM:

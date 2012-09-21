@@ -994,7 +994,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_TERROR) total += 2500;
 		else if (type == ACT_TELE_AWAY) total += 2000;
 		else if (type == ACT_BANISH_EVIL) total += 2000;
-		else if (type == ACT_GENOCIDE) total += 10000;
+		else if (type == TRAIT_MASS_GENOCIDE) total += 10000;
 		else if (type == ACT_MASS_GENO) total += 10000;
 		else if (type == ACT_CHARM_ANIMAL) total += 7500;
 		else if (type == ACT_CHARM_UNDEAD) total += 10000;

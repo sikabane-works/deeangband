@@ -503,7 +503,7 @@ return "邪悪消滅 : 250+d250 ターン毎";
 #endif
 
 			}
-			case ACT_GENOCIDE:
+			case TRAIT_MASS_GENOCIDE:
 			{
 #ifdef JP
 return "抹殺 : 500 ターン毎";
