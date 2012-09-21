@@ -1359,7 +1359,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_MAGE:
 			chance = 66;
 			if (one_in_(20))
-				type = ACT_SUMMON_ELEMENTAL;
+				type = TRAIT_S_ELEMENTAL;
 			else if (one_in_(10))
 				type = ACT_SUMMON_PHANTOM;
 			else if (one_in_(5))
@@ -1468,7 +1468,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_ROCKET:
 			case ACT_CHARM_ANIMALS:
 			case ACT_CHARM_OTHERS:
-			case ACT_SUMMON_ELEMENTAL:
+			case TRAIT_S_ELEMENTAL:
 			case ACT_CURE_700:
 			case ACT_SPEED:
 			case ACT_ID_FULL:
@@ -2215,7 +2215,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SUMMON_ELEMENTAL:
+		case TRAIT_S_ELEMENTAL:
 		{
 			bool pet = one_in_(3);
 			u32b mode = 0L;

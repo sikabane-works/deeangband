@@ -584,7 +584,7 @@ return "幻霊召喚 : 200+d200 ターン毎";
 #endif
 
 			}
-			case ACT_SUMMON_ELEMENTAL:
+			case TRAIT_S_ELEMENTAL:
 			{
 #ifdef JP
 return "エレメンタル召喚 : 750 ターン毎";

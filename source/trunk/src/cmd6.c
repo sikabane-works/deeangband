@@ -3919,7 +3919,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
 			case ACT_SUMMON_PHANTOM:
-			case ACT_SUMMON_ELEMENTAL:
+			case TRAIT_S_ELEMENTAL:
 			case ACT_RUNE_EXPLO:
 				lev = 60;
 				break;
