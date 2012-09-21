@@ -386,7 +386,7 @@ return "吸血ドレイン (3*50) : 400 ターン毎";
 #endif
 
 			}
-			case ACT_BO_MISS_2:
+			case TRAIT_BO_MANA:
 			{
 #ifdef JP
 return "矢 (150) : 90+d90 ターン毎";

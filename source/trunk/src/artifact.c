@@ -1436,7 +1436,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case ACT_DRAIN_2:
 			case ACT_VAMPIRE_1:
-			case ACT_BO_MISS_2:
+			case TRAIT_BO_MANA:
 			case TRAIT_BA_FIRE:
 			case ACT_REST_LIFE:
 				chance = 66;
@@ -1980,7 +1980,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_BO_MISS_2:
+		case TRAIT_BO_MANA:
 		{
 #ifdef JP
 			msg_print("–‚–@‚ÌƒgƒQ‚ªŒ»‚ê‚½...");
