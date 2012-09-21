@@ -692,7 +692,7 @@ return "全耐性 (期間 40+d40) : 200 ターン毎";
 #endif
 
 			}
-			case ACT_SPEED:
+			case TRAIT_HASTE:
 			{
 #ifdef JP
 return "加速 (期間 20+d20) : 250 ターン毎";

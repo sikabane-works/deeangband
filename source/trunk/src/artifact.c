@@ -1345,7 +1345,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_ROGUE:
 			chance = 101;
 			if (one_in_(50))
-				type = ACT_SPEED;
+				type = TRAIT_HASTE;
 			else if (one_in_(4))
 				type = ACT_SLEEP;
 			else if (one_in_(3))
@@ -1470,7 +1470,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_CHARM_OTHERS:
 			case TRAIT_S_ELEMENTAL:
 			case ACT_CURE_700:
-			case ACT_SPEED:
+			case TRAIT_HASTE:
 			case ACT_ID_FULL:
 			case ACT_RUNE_PROT:
 				chance = 25;
@@ -2475,7 +2475,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SPEED:
+		case TRAIT_HASTE:
 		{
 #ifdef JP
 			msg_print("ñæÇÈÇ≠óŒêFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");
