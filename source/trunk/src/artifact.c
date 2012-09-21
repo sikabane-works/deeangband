@@ -1297,7 +1297,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(12))
 				type = ACT_BANISH_EVIL;
 			else if (one_in_(11))
-				type = ACT_DISP_EVIL;
+				type = TRAIT_DISPEL_EVIL_1;
 			else if (one_in_(10))
 				type = ACT_PROT_EVIL;
 			else if (one_in_(9))
@@ -1337,7 +1337,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(8))
 				type = ACT_BANISH_EVIL;
 			else if (one_in_(4))
-				type = ACT_DISP_EVIL;
+				type = TRAIT_DISPEL_EVIL_1;
 			else
 				type = ACT_PROT_EVIL;
 			break;
@@ -1451,7 +1451,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_SUMMON_ANIMAL:
 				chance = 40;
 				break;
-			case ACT_DISP_EVIL:
+			case TRAIT_DISPEL_EVIL_1:
 			case TRAIT_BA_MANA:
 			case ACT_DISP_GOOD:
 			case ACT_BANISH_EVIL:
@@ -2054,7 +2054,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DISP_EVIL:
+		case TRAIT_DISPEL_EVIL_1:
 		{
 #ifdef JP
 			msg_print("ê_êπÇ»ïµàÕãCÇ™è[ñûÇµÇΩ...");

@@ -431,7 +431,7 @@ return "ロケット (120+level) : 400 ターン毎";
 #endif
 
 			}
-			case ACT_DISP_EVIL:
+			case TRAIT_DISPEL_EVIL_1:
 			{
 #ifdef JP
 return "邪悪退散 (level*5) : 300+d300 ターン毎";

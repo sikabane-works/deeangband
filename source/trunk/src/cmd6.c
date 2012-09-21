@@ -3905,7 +3905,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_WHIRLWIND:
 			case ACT_CHARM_ANIMAL:
 			case ACT_SUMMON_ANIMAL:
-			case ACT_DISP_EVIL:
+			case TRAIT_DISPEL_EVIL_1:
 			case ACT_DISP_GOOD:
 			case ACT_XTRA_SPEED:
 			case ACT_DETECT_XTRA:
