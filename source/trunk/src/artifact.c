@@ -1247,7 +1247,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_ELEC:
 			if (!one_in_(3))
 			{
-				type = ACT_BO_ELEC_1;
+				type = TRAIT_BO_ELEC;
 			}
 			else if (!one_in_(5))
 			{
@@ -1268,7 +1268,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_FIRE:
 			if (!one_in_(3))
 			{
-				type = ACT_BO_FIRE_1;
+				type = TRAIT_BO_FIRE;
 			}
 			else if (!one_in_(5))
 			{
@@ -1284,7 +1284,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_COLD:
 			chance = 101;
 			if (!one_in_(3))
-				type = ACT_BO_COLD_1;
+				type = TRAIT_BO_COLD;
 			else if (!one_in_(3))
 				type = ACT_BA_COLD_1;
 			else if (!one_in_(3))
@@ -1413,10 +1413,10 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_SUNLIGHT:
 			case TRAIT_MISSILE:
 			case ACT_BA_POIS_1:
-			case ACT_BO_ELEC_1:
-			case ACT_BO_ACID_1:
-			case ACT_BO_COLD_1:
-			case ACT_BO_FIRE_1:
+			case TRAIT_BO_ELEC:
+			case TRAIT_BO_ACID:
+			case TRAIT_BO_COLD:
+			case TRAIT_BO_FIRE:
 			case ACT_CONFUSE:
 			case ACT_SLEEP:
 			case ACT_QUAKE:
@@ -1968,58 +1968,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_ball(creature_ptr, GF_POIS, dir, 12, 3);
-			break;
-		}
-
-		case ACT_BO_ELEC_1:
-		{
-#ifdef JP
-			msg_print("‚»‚ê‚Í‰Î‰Ô‚É•¢‚í‚ê‚½...");
-#else
-			msg_print("It is covered in sparks...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-			break;
-		}
-
-		case ACT_BO_ACID_1:
-		{
-#ifdef JP
-			msg_print("‚»‚ê‚ÍŽ_‚É•¢‚í‚ê‚½...");
-#else
-			msg_print("It is covered in acid...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
-			break;
-		}
-
-		case ACT_BO_COLD_1:
-		{
-#ifdef JP
-			msg_print("‚»‚ê‚Í‘š‚É•¢‚í‚ê‚½...");
-#else
-			msg_print("It is covered in frost...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-			break;
-		}
-
-		case ACT_BO_FIRE_1:
-		{
-#ifdef JP
-			msg_print("‚»‚ê‚Í‰Š‚É•¢‚í‚ê‚½...");
-#else
-			msg_print("It is covered in fire...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
 			break;
 		}
 

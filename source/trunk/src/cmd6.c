@@ -3870,10 +3870,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_TELEPORT:
 				lev = 10;
 				break;
-			case ACT_BO_ELEC_1:
-			case ACT_BO_ACID_1:
-			case ACT_BO_COLD_1:
-			case ACT_BO_FIRE_1:
+			case TRAIT_BO_ELEC:
+			case TRAIT_BO_ACID:
+			case TRAIT_BO_COLD:
+			case TRAIT_BO_FIRE:
 			case ACT_MAP_LIGHT:
 			case ACT_STONE_MUD:
 			case ACT_CURE_MW:

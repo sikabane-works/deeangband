@@ -961,10 +961,6 @@
 
 /* Activation effects for random artifacts */
 #define ACT_BA_POIS_1           3
-#define ACT_BO_ELEC_1           4
-#define ACT_BO_ACID_1           5
-#define ACT_BO_COLD_1           6
-#define ACT_BO_FIRE_1           7
 #define ACT_BA_COLD_1           8
 #define ACT_BA_FIRE_1           9
 #define ACT_DRAIN_1             10

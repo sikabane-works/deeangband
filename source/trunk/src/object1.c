@@ -368,42 +368,6 @@ return "悪臭雲 (12), 半径 3 , 4+d4 ターン毎";
 #endif
 
 			}
-			case ACT_BO_ELEC_1:
-			{
-#ifdef JP
-return "サンダー・ボルト(4d8) : 5+d5 ターン毎";
-#else
-				return "lightning bolt (4d8) every 5+d5 turns";
-#endif
-
-			}
-			case ACT_BO_ACID_1:
-			{
-#ifdef JP
-return "アシッド・ボルト(5d8) : 6+d6 ターン毎";
-#else
-				return "acid bolt (5d8) every 6+d6 turns";
-#endif
-
-			}
-			case ACT_BO_COLD_1:
-			{
-#ifdef JP
-return "アイス・ボルト(6d8) : 7+d7 ターン毎";
-#else
-				return "frost bolt (6d8) every 7+d7 turns";
-#endif
-
-			}
-			case ACT_BO_FIRE_1:
-			{
-#ifdef JP
-return "ファイア・ボルト(9d8) : 8+d8 ターン毎";
-#else
-				return "fire bolt (9d8) every 8+d8 turns";
-#endif
-
-			}
 			case ACT_BA_COLD_1:
 			{
 #ifdef JP
