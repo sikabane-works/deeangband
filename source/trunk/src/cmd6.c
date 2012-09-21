@@ -3885,7 +3885,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
 			case ACT_DETECT_ALL:
-			case ACT_RECALL:
+			case TRAIT_RECALL:
 			case ACT_SATIATE:
 			case ACT_RECHARGE:
 				lev = 30;

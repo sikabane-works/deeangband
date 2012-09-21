@@ -1012,7 +1012,6 @@
 #define ACT_RECHARGE            122
 #define ACT_ALCHEMY             123
 #define ACT_DIM_DOOR            124
-#define ACT_RECALL              126
 /* 127 -> unused */
 
 /*** Object "tval" and "sval" codes ***/

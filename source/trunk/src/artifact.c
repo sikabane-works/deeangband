@@ -1424,7 +1424,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
 			case ACT_DETECT_ALL:
-			case ACT_RECALL:
+			case TRAIT_RECALL:
 			case ACT_SATIATE:
 			case ACT_RECHARGE:
 				chance = 85;
@@ -2686,7 +2686,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_RECALL:
+		case TRAIT_RECALL:
 		{
 #ifdef JP
 			msg_print("Ç‚ÇÌÇÁÇ©Ç»îíêFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");

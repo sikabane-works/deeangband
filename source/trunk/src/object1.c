@@ -863,7 +863,7 @@ return "テレポート (range 100) : 45 ターン毎";
 #endif
 
 			}
-			case ACT_RECALL:
+			case TRAIT_RECALL:
 			{
 #ifdef JP
 return "帰還の詔 : 200 ターン毎";
