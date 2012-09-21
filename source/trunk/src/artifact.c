@@ -1381,7 +1381,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(20))
 				type = ACT_CHARM_ANIMALS;
 			else if (one_in_(7))
-				type = ACT_SUMMON_ANIMAL;
+				type = TRAIT_S_ANIMAL;
 			else if (one_in_(6))
 				type = ACT_CHARM_ANIMAL;
 			else if (one_in_(4))
@@ -1448,7 +1448,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_CHARM_ANIMAL:
 				chance = 50;
 				break;
-			case ACT_SUMMON_ANIMAL:
+			case TRAIT_S_ANIMAL:
 				chance = 40;
 				break;
 			case TRAIT_DISPEL_EVIL_1:
@@ -2197,7 +2197,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SUMMON_ANIMAL:
+		case TRAIT_S_ANIMAL:
 		{
 			(void)summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
 			break;

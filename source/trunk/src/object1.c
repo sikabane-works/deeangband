@@ -566,7 +566,7 @@ return "周辺魅了 : 750 ターン毎";
 #endif
 
 			}
-			case ACT_SUMMON_ANIMAL:
+			case TRAIT_S_ANIMAL:
 			{
 #ifdef JP
 return "動物召喚 : 200+d300 ターン毎";
