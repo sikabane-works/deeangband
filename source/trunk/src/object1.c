@@ -674,7 +674,7 @@ return "士気高揚と祝福 (期間 50+d50) : 100+d100 ターン毎";
 #endif
 
 			}
-			case ACT_PROT_EVIL:
+			case TRAIT_PROT_EVIL:
 			{
 #ifdef JP
 return "対邪悪結界 (期間 level*3 + d25) : 225+d225 ターン毎";

@@ -3892,7 +3892,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			case TRAIT_BA_FIRE:
 			case ACT_TERROR:
-			case ACT_PROT_EVIL:
+			case TRAIT_PROT_EVIL:
 			case ACT_ID_PLAIN:
 			case ACT_REST_LIFE:
 			case ACT_SPEED:

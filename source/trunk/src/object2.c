@@ -1015,7 +1015,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_CURE_1000) total += 15000;
 		else if (type == ACT_ESP) total += 1500;
 		else if (type == ACT_BERSERK) total += 800;
-		else if (type == ACT_PROT_EVIL) total += 5000;
+		else if (type == TRAIT_PROT_EVIL) total += 5000;
 		else if (type == ACT_RESIST_ALL) total += 5000;
 		else if (type == ACT_SPEED) total += 15000;
 		else if (type == ACT_XTRA_SPEED) total += 25000;
