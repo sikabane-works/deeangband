@@ -3859,7 +3859,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		{
 			case TRAIT_SUNLIGHT:
 			case TRAIT_MISSILE:
-			case ACT_BA_POIS_1:
+			case TRAIT_BA_POIS:
 			case ACT_CONFUSE:
 			case ACT_SLEEP:
 			case ACT_CURE_LW:
@@ -3890,8 +3890,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_RECHARGE:
 				lev = 30;
 				break;
-			case ACT_BA_COLD_1:
-			case ACT_BA_FIRE_1:
+			case TRAIT_BA_FIRE:
 			case ACT_TERROR:
 			case ACT_PROT_EVIL:
 			case ACT_ID_PLAIN:
@@ -3902,8 +3901,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			case ACT_DRAIN_2:
 			case ACT_VAMPIRE_1:
-			case ACT_BO_MISS_2:
-			case ACT_BA_FIRE_2:
+			case TRAIT_BO_MANA:
 			case ACT_WHIRLWIND:
 			case ACT_CHARM_ANIMAL:
 			case ACT_SUMMON_ANIMAL:
@@ -3915,8 +3913,8 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				lev = 50;
 				break;
 			case ACT_VAMPIRE_2:
-			case ACT_BA_COLD_3:
-			case ACT_BA_ELEC_3:
+			case TRAIT_BA_COLD:
+			case TRAIT_BA_ELEC:
 			case ACT_GENOCIDE:
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
@@ -3936,7 +3934,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			case ACT_CALL_CHAOS:
 			case ACT_ROCKET:
-			case ACT_BA_MISS_3:
+			case TRAIT_BA_MANA:
 			case ACT_CURE_1000:
 			case ACT_DIM_DOOR:
 			case ACT_SUMMON_UNDEAD:

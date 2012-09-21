@@ -359,57 +359,12 @@ cptr item_activation(object_type *object_ptr)
 	{
 		switch (object_ptr->xtra2)
 		{
-			case ACT_BA_POIS_1:
-			{
-#ifdef JP
-return "悪臭雲 (12), 半径 3 , 4+d4 ターン毎";
-#else
-				return "stinking cloud (12), rad. 3, every 4+d4 turns";
-#endif
-
-			}
-			case ACT_BA_COLD_1:
-			{
-#ifdef JP
-return "アイス・ボール (48) : 400 ターン毎";
-#else
-				return "ball of cold (48) every 400 turns";
-#endif
-
-			}
-			case ACT_BA_FIRE_1:
-			{
-#ifdef JP
-return "ファイア・ボール (72) : 400 ターン毎";
-#else
-				return "ball of fire (72) every 400 turns";
-#endif
-
-			}
 			case ACT_DRAIN_1:
 			{
 #ifdef JP
 return "生命力吸収 (100) : 100+d100 ターン毎";
 #else
 				return "drain life (100) every 100+d100 turns";
-#endif
-
-			}
-			case ACT_BA_COLD_2:
-			{
-#ifdef JP
-return "アイス・ボール (100) : 300 ターン毎";
-#else
-				return "ball of cold (100) every 300 turns";
-#endif
-
-			}
-			case ACT_BA_ELEC_2:
-			{
-#ifdef JP
-return "サンダー・ボール (100) : 500 ターン毎";
-#else
-				return "ball of lightning (100) every 500 turns";
 #endif
 
 			}
@@ -437,33 +392,6 @@ return "吸血ドレイン (3*50) : 400 ターン毎";
 return "矢 (150) : 90+d90 ターン毎";
 #else
 				return "arrows (150) every 90+d90 turns";
-#endif
-
-			}
-			case ACT_BA_FIRE_2:
-			{
-#ifdef JP
-return "ファイア・ボール (120) : 225+d225 ターン毎";
-#else
-				return "fire ball (120) every 225+d225 turns";
-#endif
-
-			}
-			case ACT_BA_COLD_3:
-			{
-#ifdef JP
-return "アイス・ボール (200) : 325+d325 ターン毎";
-#else
-				return "ball of cold (200) every 325+d325 turns";
-#endif
-
-			}
-			case ACT_BA_ELEC_3:
-			{
-#ifdef JP
-return "サンダー・ボール (250) : 425+d425 ターン毎";
-#else
-				return "ball of lightning (250) every 425+d425 turns";
 #endif
 
 			}
@@ -509,15 +437,6 @@ return "ロケット (120+level) : 400 ターン毎";
 return "邪悪退散 (level*5) : 300+d300 ターン毎";
 #else
 				return "dispel evil (level*5) every 300+d300 turns";
-#endif
-
-			}
-			case ACT_BA_MISS_3:
-			{
-#ifdef JP
-return "エレメントのブレス (300) : 500 ターン毎";
-#else
-				return "elemental breath (300) every 500 turns";
 #endif
 
 			}

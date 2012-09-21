@@ -960,24 +960,15 @@
 #define EGO_AMU_NAIVETY         237
 
 /* Activation effects for random artifacts */
-#define ACT_BA_POIS_1           3
-#define ACT_BA_COLD_1           8
-#define ACT_BA_FIRE_1           9
 #define ACT_DRAIN_1             10
-#define ACT_BA_COLD_2           11
-#define ACT_BA_ELEC_2           12
 #define ACT_DRAIN_2             13
 #define ACT_VAMPIRE_1           14
 #define ACT_BO_MISS_2           15
-#define ACT_BA_FIRE_2           16
-#define ACT_BA_COLD_3           17
-#define ACT_BA_ELEC_3           18
 #define ACT_WHIRLWIND           19
 #define ACT_VAMPIRE_2           20
 #define ACT_CALL_CHAOS          21
 #define ACT_ROCKET              22
 #define ACT_DISP_EVIL           23
-#define ACT_BA_MISS_3           24
 #define ACT_DISP_GOOD           25
 /* 26 - 50 unused */
 #define ACT_CONFUSE             51

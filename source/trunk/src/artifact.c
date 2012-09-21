@@ -1249,19 +1249,15 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			{
 				type = TRAIT_BO_ELEC;
 			}
-			else if (!one_in_(5))
-			{
-				type = ACT_BA_ELEC_2;
-			}
 			else
 			{
-				type = ACT_BA_ELEC_3;
+				type = TRAIT_BA_ELEC;
 			}
 			chance = 101;
 			break;
 
 		case BIAS_POIS:
-			type = ACT_BA_POIS_1;
+			type = TRAIT_BA_POIS;
 			chance = 101;
 			break;
 
@@ -1270,13 +1266,9 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			{
 				type = TRAIT_BO_FIRE;
 			}
-			else if (!one_in_(5))
-			{
-				type = ACT_BA_FIRE_1;
-			}
 			else
 			{
-				type = ACT_BA_FIRE_2;
+				type = TRAIT_BA_FIRE;
 			}
 			chance = 101;
 			break;
@@ -1285,12 +1277,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			chance = 101;
 			if (!one_in_(3))
 				type = TRAIT_BO_COLD;
-			else if (!one_in_(3))
-				type = ACT_BA_COLD_1;
-			else if (!one_in_(3))
-				type = ACT_BA_COLD_2;
 			else
-				type = ACT_BA_COLD_3;
+				type = TRAIT_BA_COLD;
 			break;
 
 		case BIAS_CHAOS:
@@ -1412,7 +1400,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		{
 			case TRAIT_SUNLIGHT:
 			case TRAIT_MISSILE:
-			case ACT_BA_POIS_1:
+			case TRAIT_BA_POIS:
 			case TRAIT_BO_ELEC:
 			case TRAIT_BO_ACID:
 			case TRAIT_BO_COLD:
@@ -1431,8 +1419,6 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_TELEPORT:
 				chance = 101;
 				break;
-			case ACT_BA_COLD_1:
-			case ACT_BA_FIRE_1:
 			case ACT_DRAIN_1:
 			case ACT_TELE_AWAY:
 			case ACT_ESP:
@@ -1451,12 +1437,12 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_DRAIN_2:
 			case ACT_VAMPIRE_1:
 			case ACT_BO_MISS_2:
-			case ACT_BA_FIRE_2:
+			case TRAIT_BA_FIRE:
 			case ACT_REST_LIFE:
 				chance = 66;
 				break;
-			case ACT_BA_COLD_3:
-			case ACT_BA_ELEC_3:
+			case TRAIT_BA_COLD:
+			case TRAIT_BA_ELEC:
 			case ACT_WHIRLWIND:
 			case ACT_VAMPIRE_2:
 			case ACT_CHARM_ANIMAL:
@@ -1466,7 +1452,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 40;
 				break;
 			case ACT_DISP_EVIL:
-			case ACT_BA_MISS_3:
+			case TRAIT_BA_MANA:
 			case ACT_DISP_GOOD:
 			case ACT_BANISH_EVIL:
 			case ACT_GENOCIDE:
@@ -1957,46 +1943,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-
-		case ACT_BA_POIS_1:
-		{
-#ifdef JP
-			msg_print("それは濃緑色に脈動している...");
-#else
-			msg_print("It throbs deep green...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_POIS, dir, 12, 3);
-			break;
-		}
-
-		case ACT_BA_COLD_1:
-		{
-#ifdef JP
-			msg_print("それは霜に覆われた...");
-#else
-			msg_print("It is covered in frost...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_COLD, dir, 48, 2);
-			break;
-		}
-
-		case ACT_BA_FIRE_1:
-		{
-#ifdef JP
-			msg_print("それは赤く激しく輝いた...");
-#else
-			msg_print("It glows an intense red...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_FIRE, dir, 72, 2);
-			break;
-		}
-
 		case ACT_DRAIN_1:
 		{
 #ifdef JP
@@ -2007,32 +1953,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			if (drain_life(creature_ptr, dir, 100))
-			break;
-		}
-
-		case ACT_BA_COLD_2:
-		{
-#ifdef JP
-			msg_print("それは青く激しく輝いた...");
-#else
-			msg_print("It glows an intense blue...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-			break;
-		}
-
-		case ACT_BA_ELEC_2:
-		{
-#ifdef JP
-			msg_print("電気がパチパチ音を立てた...");
-#else
-			msg_print("It crackles with electricity...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_ELEC, dir, 100, 3);
 			break;
 		}
 
@@ -2070,45 +1990,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_bolt(creature_ptr, GF_ARROW, dir, 150);
-			break;
-		}
-
-		case ACT_BA_FIRE_2:
-		{
-#ifdef JP
-			msg_print("深赤色に輝いている...");
-#else
-			msg_print("It glows deep red...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_FIRE, dir, 120, 3);
-			break;
-		}
-
-		case ACT_BA_COLD_3:
-		{
-#ifdef JP
-			msg_print("明るく白色に輝いている...");
-#else
-			msg_print("It glows bright white...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_COLD, dir, 200, 3);
-			break;
-		}
-
-		case ACT_BA_ELEC_3:
-		{
-#ifdef JP
-			msg_print("深青色に輝いている...");
-#else
-			msg_print("It glows deep blue...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_ball(creature_ptr, GF_ELEC, dir, 250, 3);
 			break;
 		}
 
@@ -2194,19 +2075,6 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			dispel_good(creature_ptr, creature_ptr->lev * 5);
-			break;
-		}
-
-		case ACT_BA_MISS_3:
-		{
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("あなたはエレメントのブレスを吐いた。");
-#else
-			msg_print("You breathe the elements.");
-#endif
-
-			fire_ball(creature_ptr, GF_MISSILE, dir, 300, 4);
 			break;
 		}
 
