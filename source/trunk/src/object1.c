@@ -422,7 +422,7 @@ return "混沌召来 : 350 ターン毎"; /*nuke me*/
 #endif
 
 			}
-			case ACT_ROCKET:
+			case TRAIT_ROCKET:
 			{
 #ifdef JP
 return "ロケット (120+level) : 400 ターン毎";

@@ -1465,7 +1465,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 33;
 				break;
 			case ACT_CALL_CHAOS:
-			case ACT_ROCKET:
+			case TRAIT_ROCKET:
 			case ACT_CHARM_ANIMALS:
 			case ACT_CHARM_OTHERS:
 			case TRAIT_S_ELEMENTAL:
@@ -2041,7 +2041,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_ROCKET:
+		case TRAIT_ROCKET:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP

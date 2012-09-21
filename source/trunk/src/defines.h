@@ -967,7 +967,6 @@
 #define ACT_WHIRLWIND           19
 #define ACT_VAMPIRE_2           20
 #define ACT_CALL_CHAOS          21
-#define ACT_ROCKET              22
 #define ACT_DISP_EVIL           23
 #define ACT_DISP_GOOD           25
 /* 26 - 50 unused */
