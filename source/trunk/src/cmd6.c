@@ -3941,7 +3941,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_S_DEMON:
 				lev = 80;
 				break;
-			case ACT_WRAITH:
+			case TRAIT_WRAITH_FORM:
 			case ACT_INVULN:
 				lev = 100;
 				break;

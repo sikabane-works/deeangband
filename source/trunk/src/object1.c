@@ -710,7 +710,7 @@ return "加速 (期間 75+d75) : 200+d200 ターン毎";
 #endif
 
 			}
-			case ACT_WRAITH:
+			case TRAIT_WRAITH_FORM:
 			{
 #ifdef JP
 return "幽体化 (期間 level/2 + d(level/2)) : 1000 ターン毎";

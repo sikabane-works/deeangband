@@ -1315,7 +1315,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_NECROMANTIC:
 			chance = 101;
 			if (one_in_(66))
-				type = ACT_WRAITH;
+				type = TRAIT_WRAITH_FORM;
 			else if (one_in_(13))
 				type = ACT_DISP_GOOD;
 			else if (one_in_(9))
@@ -1483,7 +1483,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_S_UNDEAD:
 			case TRAIT_S_DEMON:
-			case ACT_WRAITH:
+			case TRAIT_WRAITH_FORM:
 			case ACT_INVULN:
 			case ACT_ALCHEMY:
 				chance = 5;
@@ -2499,7 +2499,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_WRAITH:
+		case TRAIT_WRAITH_FORM:
 		{
 			set_wraith_form(creature_ptr, randint1(plev / 2) + (plev / 2), FALSE);
 			break;
