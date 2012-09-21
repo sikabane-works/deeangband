@@ -359,15 +359,6 @@ cptr item_activation(object_type *object_ptr)
 	{
 		switch (object_ptr->xtra2)
 		{
-			case ACT_SUNLIGHT:
-			{
-#ifdef JP
-return "‘¾—zŒõü : 10 ƒ^[ƒ“–ˆ";
-#else
-				return "beam of sunlight every 10 turns";
-#endif
-
-			}
 			case ACT_BO_MISS_1:
 			{
 #ifdef JP

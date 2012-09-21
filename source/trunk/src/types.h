@@ -1572,6 +1572,7 @@ struct trait_type
 	s16b infra;
 	s16b hitd_m;
 	s16b exp;
+	s16b charge;	// Base Charge
 	s16b speed;
 	s32b text;
 	s32b E_text;

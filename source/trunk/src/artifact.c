@@ -1410,7 +1410,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		type = randint1(255);
 		switch (type)
 		{
-			case ACT_SUNLIGHT:
+			case TRAIT_SUNLIGHT:
 			case ACT_BO_MISS_1:
 			case ACT_BA_POIS_1:
 			case ACT_BO_ELEC_1:
@@ -1945,7 +1945,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 	/* Activate for attack */
 	switch (object_ptr->xtra2)
 	{
-		case ACT_SUNLIGHT:
+		case TRAIT_SUNLIGHT:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP

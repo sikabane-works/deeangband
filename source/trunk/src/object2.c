@@ -962,8 +962,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	{
 		int type = object_ptr->xtra2;
 
-		if (type == ACT_SUNLIGHT) total += 250;
-		else if (type == ACT_BO_MISS_1) total += 250;
+		//if (type == ACT_SUNLIGHT) total += 250;
+		if (type == ACT_BO_MISS_1) total += 250;
 		else if (type == ACT_BA_POIS_1) total += 300;
 		else if (type == ACT_BO_ELEC_1) total += 250;
 		else if (type == ACT_BO_ACID_1) total += 250;

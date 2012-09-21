@@ -746,22 +746,11 @@
 /* xxx */
 /* xxx */
 
-#define EGO_000
-#define EGO_001
-#define EGO_002
-#define EGO_003
-#define EGO_RESIST_ACID         4
-#define EGO_RESIST_ELEC         5
-#define EGO_RESIST_FIRE         6
-#define EGO_RESIST_COLD         7
 #define EGO_RESISTANCE          8
 #define EGO_ELVENKIND           9
 #define EGO_DWARVEN             10
 #define EGO_PERMANENCE          11
 #define EGO_YOIYAMI             12
-#define EGO_013
-#define EGO_014
-#define EGO_015
 
 /* Shields */
 #define EGO_ENDURE_ACID         16
@@ -802,11 +791,10 @@
 #define EGO_AURA_ELEC           47
 
 /* Gloves */
-#define EGO_FREE_ACTION         48
 #define EGO_SLAYING             49
 #define EGO_AGILITY             50
 #define EGO_POWER               51
-#define EGO_TWO_WEAPON             52
+#define EGO_TWO_WEAPON          52
 #define EGO_MAGIC_MASTERY       53
 #define EGO_WEAKNESS            54
 #define EGO_CLUMSINESS          55
@@ -972,7 +960,6 @@
 #define EGO_AMU_NAIVETY         237
 
 /* Activation effects for random artifacts */
-#define ACT_SUNLIGHT            1
 #define ACT_BO_MISS_1           2
 #define ACT_BA_POIS_1           3
 #define ACT_BO_ELEC_1           4

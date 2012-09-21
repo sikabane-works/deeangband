@@ -4171,6 +4171,7 @@ enum TRAIT_INFO
   TRAIT_INFO_MP_COST,
   TRAIT_INFO_USE_STAT,
   TRAIT_INFO_FAIL,
+  TRAIT_INFO_CHARGE,
   TRAIT_INFO_GET_DESC,
   TRAIT_INFO_E_GET_DESC,
   TRAIT_INFO_LOST_DESC,
@@ -4214,6 +4215,7 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"MP_COST",
 	"USE_STAT",
 	"FAIL",
+	"CHARGE",
 	"GET_DESC",
 	"E_GET_DESC",
 	"LOST_DESC",
@@ -4390,6 +4392,11 @@ errr parse_trait_csv(char *buf, header *head)
 				case TRAIT_INFO_EXP:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_info[n].exp = (s16b)b;
+				break;
+
+				case TRAIT_INFO_CHARGE:
+					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
+					trait_info[n].charge = (s16b)b;
 				break;
 
 				case TRAIT_INFO_FLAGS:

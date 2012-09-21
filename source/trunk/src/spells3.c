@@ -1452,7 +1452,7 @@ act = "‚Ír‚ğ‹‚ß‚Ä‚¢‚éI";
 			break;
 		case 10:
 #ifdef JP
-act = "‚Í“®•¨‚ÌŒŒ‚ğ‹‚ß‚Ä‚¢‚éI";
+			act = "‚Í“®•¨‚ÌŒŒ‚ğ‹‚ß‚Ä‚¢‚éI";
 #else
 			act = "seems to be looking for animals!";
 #endif
