@@ -960,7 +960,6 @@
 #define EGO_AMU_NAIVETY         237
 
 /* Activation effects for random artifacts */
-#define ACT_BO_MISS_1           2
 #define ACT_BA_POIS_1           3
 #define ACT_BO_ELEC_1           4
 #define ACT_BO_ACID_1           5

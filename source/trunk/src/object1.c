@@ -359,15 +359,6 @@ cptr item_activation(object_type *object_ptr)
 	{
 		switch (object_ptr->xtra2)
 		{
-			case ACT_BO_MISS_1:
-			{
-#ifdef JP
-return "マジック・ミサイル(2d6) : 2 ターン毎";
-#else
-				return "magic missile (2d6) every 2 turns";
-#endif
-
-			}
 			case ACT_BA_POIS_1:
 			{
 #ifdef JP

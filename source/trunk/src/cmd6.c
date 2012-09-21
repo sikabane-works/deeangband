@@ -3858,7 +3858,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		switch (object_ptr->xtra2)
 		{
 			case TRAIT_SUNLIGHT:
-			case ACT_BO_MISS_1:
+			case TRAIT_MISSILE:
 			case ACT_BA_POIS_1:
 			case ACT_CONFUSE:
 			case ACT_SLEEP:

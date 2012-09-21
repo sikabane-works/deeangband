@@ -1411,7 +1411,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		switch (type)
 		{
 			case TRAIT_SUNLIGHT:
-			case ACT_BO_MISS_1:
+			case TRAIT_MISSILE:
 			case ACT_BA_POIS_1:
 			case ACT_BO_ELEC_1:
 			case ACT_BO_ACID_1:
@@ -1953,23 +1953,10 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #else
 			msg_print("A line of sunlight appears.");
 #endif
-
 			(void)lite_line(creature_ptr, dir);
 			break;
 		}
 
-		case ACT_BO_MISS_1:
-		{
-#ifdef JP
-			msg_print("‚»‚ê‚Íá¿‚µ‚¢‚­‚ç‚¢‚É–¾‚é‚­‹P‚¢‚Ä‚¢‚é...");
-#else
-			msg_print("It glows extremely brightly...");
-#endif
-
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
-			break;
-		}
 
 		case ACT_BA_POIS_1:
 		{
