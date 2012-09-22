@@ -800,7 +800,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_DEST_DOOR:
+			case TRAIT_DESTROY_DOOR_TRAP:
 			{
 #ifdef JP
 return "ドア破壊 : 10 ターン毎";

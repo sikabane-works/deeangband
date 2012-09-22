@@ -1414,7 +1414,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BERSERK:
 			case ACT_LIGHT:
 			case ACT_MAP_LIGHT:
-			case ACT_DEST_DOOR:
+			case TRAIT_DESTROY_DOOR_TRAP:
 			case ACT_STONE_MUD:
 			case TRAIT_TPORT:
 				chance = 101;
@@ -2606,7 +2606,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DEST_DOOR:
+		case TRAIT_DESTROY_DOOR_TRAP:
 		{
 #ifdef JP
 			msg_print("ñæÇÈÇ¢ê‘êFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");

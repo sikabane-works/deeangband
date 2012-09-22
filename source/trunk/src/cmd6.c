@@ -3866,7 +3866,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_REMOVE_POISON:
 			case TRAIT_BERSERK:
 			case ACT_LIGHT:
-			case ACT_DEST_DOOR:
+			case TRAIT_DESTROY_DOOR_TRAP:
 			case TRAIT_TPORT:
 				lev = 10;
 				break;
