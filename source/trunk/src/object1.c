@@ -485,7 +485,7 @@ return "恐慌 : 3 * (level+10) ターン毎";
 #endif
 
 			}
-			case ACT_TELE_AWAY:
+			case TRAIT_TELE_AWAY:
 			{
 #ifdef JP
 return "テレポート・アウェイ : 150 ターン毎";

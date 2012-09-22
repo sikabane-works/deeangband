@@ -3881,7 +3881,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				lev = 20;
 				break;
 			case ACT_DRAIN_1:
-			case ACT_TELE_AWAY:
+			case TRAIT_TELE_AWAY:
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
 			case TRAIT_DETECT_ALL:

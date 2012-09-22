@@ -1420,7 +1420,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 101;
 				break;
 			case ACT_DRAIN_1:
-			case ACT_TELE_AWAY:
+			case TRAIT_TELE_AWAY:
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
 			case TRAIT_DETECT_ALL:
@@ -2117,7 +2117,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_TELE_AWAY:
+		case TRAIT_TELE_AWAY:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)fire_beam(creature_ptr, GF_AWAY_ALL, dir, plev);
