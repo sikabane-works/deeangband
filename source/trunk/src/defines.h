@@ -985,7 +985,6 @@
 #define ACT_REST_ALL            85
 /* 88 - 90 unused */
 #define ACT_ESP                 91
-#define ACT_BERSERK             92
 #define ACT_RESIST_ALL          94
 #define ACT_INVULN              98
 /* 99 - 110 unused */

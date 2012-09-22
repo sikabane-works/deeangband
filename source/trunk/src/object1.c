@@ -656,7 +656,7 @@ return "テレパシー (期間 25+d30) : 200 ターン毎";
 #endif
 
 			}
-			case ACT_BERSERK:
+			case TRAIT_BERSERK:
 			{
 #ifdef JP
 return "士気高揚と祝福 (期間 50+d50) : 100+d100 ターン毎";

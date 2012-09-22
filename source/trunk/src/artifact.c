@@ -1373,7 +1373,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(100))
 				type = ACT_INVULN;
 			else
-				type = ACT_BERSERK;
+				type = TRAIT_BERSERK;
 			break;
 
 		case BIAS_RANGER:
@@ -1411,7 +1411,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_CURE_LW:
 			case ACT_CURE_MW:
 			case TRAIT_REMOVE_POISON:
-			case ACT_BERSERK:
+			case TRAIT_BERSERK:
 			case ACT_LIGHT:
 			case ACT_MAP_LIGHT:
 			case ACT_DEST_DOOR:
@@ -2432,7 +2432,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_BERSERK:
+		case TRAIT_BERSERK:
 		{
 			(void)set_afraid(creature_ptr, 0);
 			(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
