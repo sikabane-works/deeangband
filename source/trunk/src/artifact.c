@@ -1317,7 +1317,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(66))
 				type = TRAIT_WRAITH_FORM;
 			else if (one_in_(13))
-				type = ACT_DISP_GOOD;
+				type = TRAIT_DISPEL_GOOD_1;
 			else if (one_in_(9))
 				type = TRAIT_MASS_GENOCIDE;
 			else if (one_in_(8))
@@ -1453,7 +1453,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_DISPEL_EVIL_1:
 			case TRAIT_BA_MANA:
-			case ACT_DISP_GOOD:
+			case TRAIT_DISPEL_GOOD_1:
 			case ACT_BANISH_EVIL:
 			case TRAIT_SYMBOL_GENOCIDE:
 			case TRAIT_MASS_GENOCIDE:
@@ -2066,7 +2066,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DISP_GOOD:
+		case TRAIT_DISPEL_GOOD_1:
 		{
 #ifdef JP
 			msg_print("é◊à´Ç»ïµàÕãCÇ™è[ñûÇµÇΩ...");
