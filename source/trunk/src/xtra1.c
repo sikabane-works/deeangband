@@ -3450,8 +3450,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
 
-		/* Affect stealth */
-		if (have_flag(flgs, TR_STEALTH)) creature_ptr->skill_stl += object_ptr->pval;
+		creature_ptr->skill_stl += object_ptr->pval;
 
 		/* Affect searching ability (factor of five) */
 		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_srh += (object_ptr->pval * 5);

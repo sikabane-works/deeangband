@@ -827,7 +827,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, STAT_CON)) total += (1500 * plusses);
 	if (have_flag(flgs, STAT_CHA)) total += (750 * plusses);
 	if (have_flag(flgs, TR_MAGIC_MASTERY)) total += (600 * plusses);
-	if (have_flag(flgs, TR_STEALTH)) total += (250 * plusses);
+	if (has_trait_object(object_ptr, TRAIT_STEALTH)) total += (250 * plusses);
 	if (have_flag(flgs, TR_SEARCH)) total += (100 * plusses);
 	if (have_flag(flgs, TR_INFRA)) total += (150 * plusses);
 	if (have_flag(flgs, TR_TUNNEL)) total += (175 * plusses);
@@ -1161,7 +1161,7 @@ s32b object_value_real(object_type *object_ptr)
 
 		/* Give credit for stealth and searching */
 		if (have_flag(flgs, TR_MAGIC_MASTERY)) value += (object_ptr->pval * 100);
-		if (have_flag(flgs, TR_STEALTH)) value += (object_ptr->pval * 100L);
+		if (has_trait_object(object_ptr, TRAIT_STEALTH)) value += (object_ptr->pval * 100L);
 		if (have_flag(flgs, TR_SEARCH)) value += (object_ptr->pval * 100L);
 
 		/* Give credit for infra-vision and tunneling */
@@ -5943,7 +5943,7 @@ static essence_type essence_info[] =
 	{STAT_CON, "ëœãvóÕ", 4, STAT_CON, 20},
 	{STAT_CHA, "ñ£óÕ", 4, STAT_CHA, 20},
 	{TR_MAGIC_MASTERY, "ñÇóÕéxîz", 4, TR_MAGIC_MASTERY, 20},
-	{TR_STEALTH, "âBñß", 4, TR_STEALTH, 40},
+	{TRAIT_STEALTH, "âBñß", 4, TRAIT_STEALTH, 40},
 	{TR_SEARCH, "íTçı", 4, TR_SEARCH, 15},
 	{TR_INFRA, "ê‘äOê¸éãóÕ", 4, TR_INFRA, 15},
 	{TR_TUNNEL, "çÃå@", 4, TR_TUNNEL, 15},
@@ -6054,7 +6054,7 @@ static essence_type essence_info[] =
 	{STAT_CON, "constitution", 4, STAT_CON, 20},
 	{STAT_CHA, "charisma", 4, STAT_CHA, 20},
 	{TR_MAGIC_MASTERY, "magic mastery", 4, TR_MAGIC_MASTERY, 20},
-	{TR_STEALTH, "stealth", 4, TR_STEALTH, 40},
+	{TRAIT_STEALTH, "stealth", 4, TRAIT_STEALTH, 40},
 	{TR_SEARCH, "serching", 4, TR_SEARCH, 15},
 	{TR_INFRA, "infravision", 4, TR_INFRA, 15},
 	{TR_TUNNEL, "digging", 4, TR_TUNNEL, 15},

@@ -629,14 +629,14 @@ static flag_desc pval_flags1_desc[] =
 {
 #ifdef JP
 	{ TR_MAGIC_MASTERY,    "魔法道具使用能力" },
-	{ TR_STEALTH,    "隠密" },
+	{ TRAIT_STEALTH,    "隠密" },
 	{ TR_SEARCH,     "探索" },
 	{ TR_INFRA,      "赤外線視力" },
 	{ TR_TUNNEL,     "採掘" },
 	{ TRAIT_BLOWS,      "攻撃回数" },
 	{ TR_SPEED,      "スピード" }
 #else
-	{ TR_STEALTH,    "Stealth" },
+	{ TRAIT_STEALTH,    "Stealth" },
 	{ TR_SEARCH,     "Searching" },
 	{ TR_INFRA,      "Infravision" },
 	{ TR_TUNNEL,     "Tunneling" },

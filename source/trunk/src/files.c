@@ -3055,7 +3055,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+ 1, col, "ÌŒ@        :", TR_TUNNEL, &f, 0, creature_ptr);
 	display_flag_aux(row+ 2, col, "ÔŠOü‹—Í  :", TR_INFRA, &f, 0, creature_ptr);
 	display_flag_aux(row+ 3, col, "–‚–@“¹‹ïx”z:", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
-	display_flag_aux(row+ 4, col, "‰B–§        :", TR_STEALTH, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "‰B–§        :", TRAIT_STEALTH, &f, 0, creature_ptr);
 	display_flag_aux(row+ 5, col, "’Tõ        :", TR_SEARCH, &f, 0, creature_ptr);
 
 	display_flag_aux(row+ 7, col, "æ”n        :", TR_RIDING, &f, 0, creature_ptr);
@@ -3074,7 +3074,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, creature_ptr);
 	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, creature_ptr);
 	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
-	display_flag_aux(row+ 4, col, "Add Stealth :", TR_STEALTH, &f, 0, creature_ptr);
+	display_flag_aux(row+ 4, col, "Add Stealth :", TRAIT_STEALTH, &f, 0, creature_ptr);
 	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, creature_ptr);
 
 	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, creature_ptr);

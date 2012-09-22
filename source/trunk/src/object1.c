@@ -707,7 +707,7 @@ info[i++] = "それは魔法道具使用能力に影響を及ぼす。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_STEALTH))
+	if (has_trait_object(object_ptr, TRAIT_STEALTH))
 	{
 #ifdef JP
 info[i++] = "それは隠密行動能力に影響を及ぼす。";

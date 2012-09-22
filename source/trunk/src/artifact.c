@@ -251,9 +251,9 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 		break;
 
 	case BIAS_ROGUE:
-		if (!(have_flag(object_ptr->art_flags, TR_STEALTH)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_STEALTH)))
 		{
-			add_flag(object_ptr->art_flags, TR_STEALTH);
+			add_flag(object_ptr->trait_flags, TRAIT_STEALTH);
 			if (one_in_(2)) return;
 		}
 		if (!(have_flag(object_ptr->art_flags, TR_SEARCH)))
@@ -364,7 +364,7 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 			artifact_bias = BIAS_CHR;
 		break;
 	case 13: case 14:
-		add_flag(object_ptr->art_flags, TR_STEALTH);
+		add_flag(object_ptr->trait_flags, TRAIT_STEALTH);
 		if (!artifact_bias && one_in_(3))
 			artifact_bias = BIAS_ROGUE;
 		break;
@@ -2729,7 +2729,7 @@ void get_bloody_moon_flags(object_type *object_ptr)
 	{
 		int tmp = randint0(11);
 		if (tmp < 6) add_flag(object_ptr->art_flags, STAT_STR + tmp);
-		else add_flag(object_ptr->art_flags, TR_STEALTH + tmp - 6);
+		else add_flag(object_ptr->art_flags, TRAIT_STEALTH + tmp - 6);
 	}
 }
 

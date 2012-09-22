@@ -589,7 +589,7 @@ static flag_insc_table flag_insc_plus[] =
 	{ "ëœ", "Cn", STAT_CON, -1 },
 	{ "ñ£", "Ch", STAT_CHA, -1 },
 	{ "ìπ", "Md", TR_MAGIC_MASTERY, -1 },
-	{ "âB", "Sl", TR_STEALTH, -1 },
+	{ "âB", "Sl", TRAIT_STEALTH, -1 },
 	{ "íT", "Sr", TR_SEARCH, -1 },
 	{ "ê‘", "If", TR_INFRA, -1 },
 	{ "å@", "Dg", TR_TUNNEL, -1 },
@@ -750,7 +750,7 @@ static flag_insc_table flag_insc_plus[] =
 	{ "Cn", STAT_CON, -1 },
 	{ "Ch", STAT_CHA, -1 },
 	{ "Md", TR_MAGIC_MASTERY, -1 },
-	{ "Sl", TR_STEALTH, -1 },
+	{ "Sl", TRAIT_STEALTH, -1 },
 	{ "Sr", TR_SEARCH, -1 },
 	{ "If", TR_INFRA, -1 },
 	{ "Dg", TR_TUNNEL, -1 },
@@ -2593,7 +2593,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Stealth */
-			else if (have_flag(flgs, TR_STEALTH))
+			else if (has_trait_object(object_ptr, TRAIT_STEALTH))
 			{
 				/* Dump " to stealth" */
 #ifdef JP
