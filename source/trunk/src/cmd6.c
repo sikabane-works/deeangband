@@ -5065,16 +5065,6 @@ if (get_check("この階を去りますか？"))
 			(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
 			object_ptr->timeout = randint0(50) + 50;
 			return;
-
-		case TRAIT_SHATTER:
-			earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
-			object_ptr->timeout = 100 + randint1(100);
-			
-			/* Window stuff */
-			play_window |= (PW_INVEN | PW_EQUIP);
-
-			/* Done */
-			return;
 		}
 	}
 
@@ -5257,11 +5247,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				object_ptr->timeout = randint1(100)+100;
-				break;
-			case EGO_RING_MANA_BALL:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_MANA, dir, 250, 2);
-				object_ptr->timeout = 300;
 				break;
 			case EGO_RING_DRAGON_F:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
