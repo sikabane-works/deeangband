@@ -1426,7 +1426,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
 			case TRAIT_SATIATE:
-			case ACT_RECHARGE:
+			case TRAIT_MAGIC_CHARGE_2:
 				chance = 85;
 				break;
 			case ACT_TERROR:
@@ -2631,7 +2631,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_RECHARGE:
+		case TRAIT_MAGIC_CHARGE_2:
 		{
 			recharge(creature_ptr, 130);
 			break;

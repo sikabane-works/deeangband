@@ -818,7 +818,7 @@ return "岩石溶解 : 5 ターン毎";
 #endif
 
 			}
-			case ACT_RECHARGE:
+			case TRAIT_MAGIC_CHARGE_2:
 			{
 #ifdef JP
 return "魔力充填 : 70 ターン毎";

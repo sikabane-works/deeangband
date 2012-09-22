@@ -3887,7 +3887,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
 			case TRAIT_SATIATE:
-			case ACT_RECHARGE:
+			case TRAIT_MAGIC_CHARGE_2:
 				lev = 30;
 				break;
 			case TRAIT_BA_FIRE:

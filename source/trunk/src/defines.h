@@ -995,7 +995,6 @@
 #define ACT_ID_PLAIN            116
 #define ACT_RUNE_PROT           118
 #define ACT_STONE_MUD           121
-#define ACT_RECHARGE            122
 #define ACT_ALCHEMY             123
 /* 127 -> unused */
 
