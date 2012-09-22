@@ -3875,7 +3875,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BO_COLD:
 			case TRAIT_BO_FIRE:
 			case ACT_MAP_LIGHT:
-			case ACT_STONE_MUD:
+			case TRAIT_STONE_TO_MUD:
 			case TRAIT_CURE_MEDIUM_WOUNDS:
 			case TRAIT_EARTHQUAKE:
 				lev = 20;

@@ -809,7 +809,7 @@ return "ドア破壊 : 10 ターン毎";
 #endif
 
 			}
-			case ACT_STONE_MUD:
+			case TRAIT_STONE_TO_MUD:
 			{
 #ifdef JP
 return "岩石溶解 : 5 ターン毎";

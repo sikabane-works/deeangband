@@ -975,7 +975,6 @@
 #define ACT_MAP_LIGHT           112
 #define ACT_DETECT_XTRA         114
 #define ACT_RUNE_PROT           118
-#define ACT_STONE_MUD           121
 #define ACT_ALCHEMY             123
 /* 127 -> unused */
 

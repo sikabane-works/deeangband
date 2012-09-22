@@ -1031,7 +1031,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_RUNE_PROT) total += 10000;
 		else if (type == TRAIT_SATIATE) total += 2000;
 		else if (type == TRAIT_DESTROY_DOOR_TRAP) total += 100;
-		else if (type == ACT_STONE_MUD) total += 1000;
+		else if (type == TRAIT_STONE_TO_MUD) total += 1000;
 		else if (type == TRAIT_MAGIC_CHARGE_2) total += 1000;
 		else if (type == ACT_ALCHEMY) total += 10000;
 		else if (type == TRAIT_DIMENSION_DOOR) total += 10000;
