@@ -960,8 +960,6 @@
 #define EGO_AMU_NAIVETY         237
 
 /* Activation effects for random artifacts */
-#define ACT_DRAIN_1             10
-#define ACT_DRAIN_2             13
 #define ACT_VAMPIRE_1           14
 #define ACT_VAMPIRE_2           20
 /* 26 - 50 unused */

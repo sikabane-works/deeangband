@@ -359,7 +359,7 @@ cptr item_activation(object_type *object_ptr)
 	{
 		switch (object_ptr->xtra2)
 		{
-			case ACT_DRAIN_1:
+			case TRAIT_DRAIN_LIFE1:
 			{
 #ifdef JP
 return "生命力吸収 (100) : 100+d100 ターン毎";
@@ -368,7 +368,7 @@ return "生命力吸収 (100) : 100+d100 ターン毎";
 #endif
 
 			}
-			case ACT_DRAIN_2:
+			case TRAIT_DRAIN_LIFE2:
 			{
 #ifdef JP
 return "生命力吸収(120) : 400 ターン毎";

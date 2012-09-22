@@ -3880,7 +3880,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_EARTHQUAKE:
 				lev = 20;
 				break;
-			case ACT_DRAIN_1:
+			case TRAIT_DRAIN_LIFE1:
 			case TRAIT_TELE_AWAY:
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
@@ -3899,7 +3899,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_BANISH_EVIL:
 				lev = 40;
 				break;
-			case ACT_DRAIN_2:
+			case TRAIT_DRAIN_LIFE2:
 			case ACT_VAMPIRE_1:
 			case TRAIT_BO_MANA:
 			case TRAIT_WHIRLWIND:
@@ -4462,7 +4462,6 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 120);
-				object_ptr->timeout = 100;
 				break;
 			}
 

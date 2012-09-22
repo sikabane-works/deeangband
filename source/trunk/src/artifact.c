@@ -1419,7 +1419,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_TPORT:
 				chance = 101;
 				break;
-			case ACT_DRAIN_1:
+			case TRAIT_DRAIN_LIFE1:
 			case TRAIT_TELE_AWAY:
 			case ACT_ESP:
 			case ACT_RESIST_ALL:
@@ -1434,7 +1434,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_IDENTIFY:
 				chance = 75;
 				break;
-			case ACT_DRAIN_2:
+			case TRAIT_DRAIN_LIFE2:
 			case ACT_VAMPIRE_1:
 			case TRAIT_BO_MANA:
 			case TRAIT_BA_FIRE:
@@ -1943,7 +1943,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DRAIN_1:
+		case TRAIT_DRAIN_LIFE1:
 		{
 #ifdef JP
 			msg_print("ÇªÇÍÇÕçïÇ≠ãPÇ¢ÇΩ...");
@@ -1956,7 +1956,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DRAIN_2:
+		case TRAIT_DRAIN_LIFE2:
 		{
 #ifdef JP
 			msg_print("çïÇ≠ãPÇ¢ÇƒÇ¢ÇÈ...");
