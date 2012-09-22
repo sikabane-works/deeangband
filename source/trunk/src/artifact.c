@@ -1371,7 +1371,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_WARRIOR:
 			chance = 80;
 			if (one_in_(100))
-				type = ACT_INVULN;
+				type = TRAIT_INVULNER;
 			else
 				type = TRAIT_BERSERK;
 			break;
@@ -1484,7 +1484,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_S_UNDEAD:
 			case TRAIT_S_DEMON:
 			case TRAIT_WRAITH_FORM:
-			case ACT_INVULN:
+			case TRAIT_INVULNER:
 			case ACT_ALCHEMY:
 				chance = 5;
 				break;
@@ -2493,7 +2493,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_INVULN:
+		case TRAIT_INVULNER:
 		{
 			(void)set_invuln(creature_ptr, randint1(8) + 8, FALSE);
 			break;

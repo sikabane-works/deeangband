@@ -710,7 +710,7 @@ return "幽体化 (期間 level/2 + d(level/2)) : 1000 ターン毎";
 #endif
 
 			}
-			case ACT_INVULN:
+			case TRAIT_INVULNER:
 			{
 #ifdef JP
 return "無敵化 (期間 8+d8) : 1000 ターン毎";

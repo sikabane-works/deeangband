@@ -971,7 +971,6 @@
 /* 88 - 90 unused */
 #define ACT_ESP                 91
 #define ACT_RESIST_ALL          94
-#define ACT_INVULN              98
 /* 99 - 110 unused */
 #define ACT_LIGHT               111
 #define ACT_MAP_LIGHT           112
