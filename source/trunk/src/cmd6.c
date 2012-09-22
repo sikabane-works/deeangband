@@ -3928,7 +3928,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_CHARM_OTHERS:
 			case TRAIT_HEAL:
 			case ACT_RUNE_PROT:
-			case ACT_ALCHEMY:
+			case TRAIT_MIDAS_TCH:
 			case ACT_REST_ALL:
 				lev = 70;
 				break;

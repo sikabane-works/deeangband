@@ -1485,7 +1485,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_S_DEMON:
 			case TRAIT_WRAITH_FORM:
 			case TRAIT_INVULNER:
-			case ACT_ALCHEMY:
+			case TRAIT_MIDAS_TCH:
 				chance = 5;
 				break;
 			default:
@@ -2637,7 +2637,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_ALCHEMY:
+		case TRAIT_MIDAS_TCH:
 		{
 #ifdef JP
 			msg_print("ñæÇÈÇ¢â©êFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");

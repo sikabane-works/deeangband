@@ -827,7 +827,7 @@ return "–‚—Í[“U : 70 ƒ^[ƒ“–ˆ";
 #endif
 
 			}
-			case ACT_ALCHEMY:
+			case TRAIT_MIDAS_TCH:
 			{
 #ifdef JP
 return "˜B‹àp : 500 ƒ^[ƒ“–ˆ";
