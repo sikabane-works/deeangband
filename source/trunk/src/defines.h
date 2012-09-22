@@ -963,7 +963,6 @@
 #define ACT_DRAIN_1             10
 #define ACT_DRAIN_2             13
 #define ACT_VAMPIRE_1           14
-#define ACT_WHIRLWIND           19
 #define ACT_VAMPIRE_2           20
 #define ACT_CALL_CHAOS          21
 #define ACT_DISP_GOOD           25

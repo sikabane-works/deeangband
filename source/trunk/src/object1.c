@@ -395,7 +395,7 @@ return "矢 (150) : 90+d90 ターン毎";
 #endif
 
 			}
-			case ACT_WHIRLWIND:
+			case TRAIT_WHIRLWIND:
 			{
 #ifdef JP
 return "カマイタチ : 250 ターン毎";

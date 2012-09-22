@@ -1443,7 +1443,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_BA_COLD:
 			case TRAIT_BA_ELEC:
-			case ACT_WHIRLWIND:
+			case TRAIT_WHIRLWIND:
 			case ACT_VAMPIRE_2:
 			case ACT_CHARM_ANIMAL:
 				chance = 50;
@@ -1993,7 +1993,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_WHIRLWIND:
+		case TRAIT_WHIRLWIND:
 		{
 			{
 				int y = 0, x = 0;
