@@ -719,7 +719,7 @@ info[i++] = "あなたのスピードは装備によって影響を受けている。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_BLOWS))
+	if (has_trait_object(object_ptr, TRAIT_BLOWS))
 	{
 #ifdef JP
 info[i++] = "あなたの攻撃速度は装備によって影響を受けている。";

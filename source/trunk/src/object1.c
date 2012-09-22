@@ -336,7 +336,7 @@ cptr item_activation(object_type *object_ptr)
 
 #ifdef JP
 	return "空気の息";
-	#else
+#else
 	return "breathe air";
 #endif
 
@@ -752,7 +752,7 @@ info[i++] = "それはスピードに影響を及ぼす。";
 #endif
 
 	}
-	if (have_flag(flgs, TR_BLOWS))
+	if (has_trait_object(object_ptr, TRAIT_BLOWS))
 	{
 #ifdef JP
 info[i++] = "それは打撃回数に影響を及ぼす。";

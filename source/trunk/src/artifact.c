@@ -388,7 +388,7 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 		if (object_ptr->tval == TV_BOW) random_plus(owner_ptr, object_ptr, artifact_bias);
 		else
 		{
-			add_flag(object_ptr->art_flags, TR_BLOWS);
+			add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
 			if (!artifact_bias && one_in_(11))
 				artifact_bias = BIAS_WARRIOR;
 		}
@@ -1748,7 +1748,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	if (has_pval)
 	{
 
-		if (have_flag(object_ptr->art_flags, TR_BLOWS))
+		if (have_flag(object_ptr->art_flags, TRAIT_BLOWS))
 		{
 			object_ptr->pval = (s16b)randint1(2);
 			if ((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA))
@@ -1817,7 +1817,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	{
 		object_ptr->to_hit = 0;
 		object_ptr->to_damage = 0;
-		remove_flag(object_ptr->art_flags, TR_BLOWS);
+		remove_flag(object_ptr->trait_flags, TRAIT_BLOWS);
 		remove_flag(object_ptr->art_flags, TR_FORCE_WEAPON);
 		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL);
 		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL);
@@ -2770,7 +2770,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	if (has_trait_object(object_ptr, TRAIT_NEED_MONK_EQUIPMENT))
 	{
 		if (owner_ptr->class_idx == CLASS_MONK)
-			add_flag(object_ptr->art_flags, TR_BLOWS);
+			add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
 	}
 
 	/*TODO if (object_ptr->name1 == ART_BLOOD)

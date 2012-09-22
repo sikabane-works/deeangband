@@ -580,7 +580,7 @@ typedef struct flag_insc_table
 #ifdef JP
 static flag_insc_table flag_insc_plus[] =
 {
-	{ "çU", "At", TR_BLOWS, -1 },
+	{ "çU", "At", TRAIT_BLOWS, -1 },
 	{ "ë¨", "Sp", TR_SPEED, -1 },
 	{ "òr", "St", STAT_STR, -1 },
 	{ "ím", "In", STAT_INT, -1 },
@@ -741,7 +741,7 @@ static flag_insc_table flag_insc_sust[] =
 #else
 static flag_insc_table flag_insc_plus[] =
 {
-	{ "At", TR_BLOWS, -1 },
+	{ "At", TRAIT_BLOWS, -1 },
 	{ "Sp", TR_SPEED, -1 },
 	{ "St", STAT_STR, -1 },
 	{ "In", STAT_INT, -1 },
@@ -2579,7 +2579,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Attack speed */
-			else if (have_flag(flgs, TR_BLOWS))
+			else if (has_trait_object(object_ptr, TRAIT_BLOWS))
 			{
 				/* Add " attack" */
 #ifdef JP

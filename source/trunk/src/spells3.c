@@ -5143,8 +5143,8 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	{
 		/* Cool */
 #ifdef JP
-msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！",
-"恐怖の暗黒オーラ", "武器", object_name);
+		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！",
+				"恐怖の暗黒オーラ", "武器", object_name);
 #else
 		msg_format("A %s tries to %s, but your %s resists the effects!",
 			   "terrible black aura", "surround your weapon", object_name);
@@ -5155,14 +5155,14 @@ msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！",
 	/* not artifact or failed save... */
 	else
 	{
-		/* Oops */
+		// Oops
 #ifdef JP
 if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 #else
 		if (!force) msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
 
-		/* Shatter the weapon */
+		// Shatter the weapon
 		object_ptr->name1 = 0;
 		object_ptr->name2 = EGO_SHATTERED;
 		object_ptr->to_hit = 0 - (s16b)randint1(5) - (s16b)randint1(5);
@@ -5172,21 +5172,12 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name
 		object_ptr->dd = 0;
 		object_ptr->ds = 0;
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
-			object_ptr->art_flags[i] = 0;
+		for (i = 0; i < TR_FLAG_SIZE; i++) object_ptr->art_flags[i] = 0;
 
-
-		/* Curse it */
-		object_ptr->curse_flags = TRC_CURSED;
-
-		/* Break it */
-		object_ptr->ident |= (IDENT_BROKEN);
-
-		/* Recalculate bonuses and mana */
-		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
-
-		/* Window stuff */
-		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+		object_ptr->curse_flags = TRC_CURSED;	// Curse it
+		object_ptr->ident |= (IDENT_BROKEN);	// Break it
+		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
+		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);	// Window stuff
 	}
 
 	/* Notice */
@@ -5221,7 +5212,7 @@ bool brand_bolts(creature_type *creature_ptr)
 
 		/* Message */
 #ifdef JP
-msg_print("クロスボウの矢が炎のオーラに包まれた！");
+		msg_print("クロスボウの矢が炎のオーラに包まれた！");
 #else
 		msg_print("Your bolts are covered in a fiery aura!");
 #endif

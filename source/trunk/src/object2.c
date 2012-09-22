@@ -833,7 +833,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TR_TUNNEL)) total += (175 * plusses);
 	if ((have_flag(flgs, TR_SPEED)) && (plusses > 0))
 		total += (10000 + (2500 * plusses));
-	if ((have_flag(flgs, TR_BLOWS)) && (plusses > 0))
+	if ((has_trait_object(object_ptr, TRAIT_BLOWS)) && (plusses > 0))
 		total += (10000 + (2500 * plusses));
 
 	tmp_cost = 0;
@@ -1169,7 +1169,7 @@ s32b object_value_real(object_type *object_ptr)
 		if (have_flag(flgs, TR_TUNNEL)) value += (object_ptr->pval * 50L);
 
 		/* Give credit for extra attacks */
-		if (have_flag(flgs, TR_BLOWS)) value += (object_ptr->pval * 5000L);
+		if (has_trait_object(object_ptr, TRAIT_BLOWS)) value += (object_ptr->pval * 5000L);
 
 		/* Give credit for speed bonus */
 		if (have_flag(flgs, TR_SPEED)) value += (object_ptr->pval * 10000L);
@@ -5948,7 +5948,7 @@ static essence_type essence_info[] =
 	{TR_INFRA, "ÔŠOüŽ‹—Í", 4, TR_INFRA, 15},
 	{TR_TUNNEL, "ÌŒ@", 4, TR_TUNNEL, 15},
 	{TR_SPEED, "ƒXƒs[ƒh", 4, TR_SPEED, 12},
-	{TR_BLOWS, "’Ç‰ÁUŒ‚", 1, TR_BLOWS, 20},
+	{TRAIT_BLOWS, "’Ç‰ÁUŒ‚", 1, TRAIT_BLOWS, 20},
 	{TRAIT_CHAOTIC_BRAND, "ƒJƒIƒXUŒ‚", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "‹zŒŒUŒ‚", 1, TRAIT_VAMPIRIC_BRAND, 60},
 	{TRAIT_SHATTER, "’nk”­“®", 7, TRAIT_SHATTER, 15},
@@ -6059,7 +6059,7 @@ static essence_type essence_info[] =
 	{TR_INFRA, "infravision", 4, TR_INFRA, 15},
 	{TR_TUNNEL, "digging", 4, TR_TUNNEL, 15},
 	{TR_SPEED, "speed", 4, TR_SPEED, 12},
-	{TR_BLOWS, "extra attack", 1, TR_BLOWS, 20},
+	{TRAIT_BLOWS, "extra attack", 1, TRAIT_BLOWS, 20},
 	{TRAIT_CHAOTIC_BRAND, "chaos brand", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "vampiric brand", 1, TRAIT_VAMPIRIC_BRAND, 60},
 	{TRAIT_SHATTER, "quake activation", 7, TRAIT_SHATTER, 15},
@@ -7116,7 +7116,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 #endif
 				return;
 			}
-			else if (es_ptr->add == TR_BLOWS)
+			else if (es_ptr->add == TRAIT_BLOWS)
 			{
 				if (object_ptr->pval > 1)
 				{
@@ -7723,7 +7723,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	// Hack -- obtain pval
 	if (e_ptr->max_pval)
 	{
-		if ((object_ptr->name2 == EGO_HA) && (have_flag(object_ptr->art_flags, TR_BLOWS)))
+		if ((object_ptr->name2 == EGO_HA) && (have_flag(object_ptr->art_flags, TRAIT_BLOWS)))
 		{
 			object_ptr->pval++;
 			if ((level > 60) && one_in_(3) && ((object_ptr->dd*(object_ptr->ds+1)) < 15)) object_ptr->pval++;
@@ -7786,12 +7786,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if (add_esp_strong(object_ptr)) add_esp_weak(object_ptr, TRUE);
 				else add_esp_weak(object_ptr, FALSE);
 			break;
-
-		case EGO_HA:
-			if (one_in_(4) && (level > 40))
-				add_flag(object_ptr->art_flags, TR_BLOWS);
-			break;
-
 					
 		case EGO_SHARPNESS:
 			object_ptr->pval = m_bonus(5, level) + 1;
@@ -7799,7 +7793,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_EARTHQUAKES:
 			if (one_in_(3) && (level > 60))
-				add_flag(object_ptr->art_flags, TR_BLOWS);
+				add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
 			else
 				object_ptr->pval = m_bonus(3, level);
 			break;

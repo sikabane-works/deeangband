@@ -3051,7 +3051,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 
 /*
 #ifdef JP
-	display_flag_aux(row+ 0, col, "’Ç‰ÁUŒ‚    :", TR_BLOWS, &f, 0, creature_ptr);
+	display_flag_aux(row+ 0, col, "’Ç‰ÁUŒ‚    :", TRAIT_BLOWS, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "ÌŒ@        :", TR_TUNNEL, &f, 0, creature_ptr);
 	display_flag_aux(row+ 2, col, "ÔŠOü‹—Í  :", TR_INFRA, &f, 0, creature_ptr);
 	display_flag_aux(row+ 3, col, "–‚–@“¹‹ïx”z:", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
@@ -3070,7 +3070,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+16, col, "”½Š´        :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "‘¾ŒÃ‚Ì‰…”O  :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #else
-	display_flag_aux(row+ 0, col, "Add Blows   :", TR_BLOWS, &f, 0, creature_ptr);
+	display_flag_aux(row+ 0, col, "Add Blows   :", TRAIT_BLOWS, &f, 0, creature_ptr);
 	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, creature_ptr);
 	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, creature_ptr);
 	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, creature_ptr);

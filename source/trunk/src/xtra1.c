@@ -3468,7 +3468,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if (have_flag(flgs, TR_SPEED)) creature_ptr->speed += object_ptr->pval;
 
 		/* Affect blows */
-		if (have_flag(flgs, TR_BLOWS))
+		if (has_trait_object(object_ptr, TRAIT_BLOWS))
 		{
 			//TODO adjust
 		}
