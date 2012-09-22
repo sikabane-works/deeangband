@@ -5124,71 +5124,6 @@ if (get_check("この階を去りますか？"))
 		/* Branch on the sub-type */
 		switch (object_ptr->sval)
 		{
-			case SV_DRAGON_BLUE:
-			{
-#ifdef JP
-				msg_print("あなたは稲妻のブレスを吐いた。");
-#else
-				msg_print("You breathe lightning.");
-#endif
-
-				fire_ball(creature_ptr, GF_ELEC, dir, 100, -2);
-				object_ptr->timeout = randint0(150) + 150;
-				break;
-			}
-
-			case SV_DRAGON_WHITE:
-			{
-#ifdef JP
-				msg_print("あなたは冷気のブレスを吐いた。");
-#else
-				msg_print("You breathe frost.");
-#endif
-
-				fire_ball(creature_ptr, GF_COLD, dir, 110, -2);
-				object_ptr->timeout = randint0(150) + 150;
-				break;
-			}
-
-			case SV_DRAGON_BLACK:
-			{
-#ifdef JP
-				msg_print("あなたは酸のブレスを吐いた。");
-#else
-				msg_print("You breathe acid.");
-#endif
-
-				fire_ball(creature_ptr, GF_ACID, dir, 130, -2);
-				object_ptr->timeout = randint0(150) + 150;
-				break;
-			}
-
-			case SV_DRAGON_GREEN:
-			{
-#ifdef JP
-				msg_print("あなたは毒ガスのブレスを吐いた。");
-#else
-				msg_print("You breathe poison gas.");
-#endif
-
-				fire_ball(creature_ptr, GF_POIS, dir, 150, -2);
-				object_ptr->timeout = randint0(180) + 180;
-				break;
-			}
-
-			case SV_DRAGON_RED:
-			{
-#ifdef JP
-				msg_print("あなたは火炎のブレスを吐いた。");
-#else
-				msg_print("You breathe fire.");
-#endif
-
-				fire_ball(creature_ptr, GF_FIRE, dir, 200, -2);
-				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
 			case SV_DRAGON_MULTIHUED:
 			{
 				chance = randint0(5);
@@ -5212,32 +5147,6 @@ if (get_check("この階を去りますか？"))
 					     ((chance == 4) ? GF_POIS : GF_FIRE)))),
 					  dir, 250, -2);
 				object_ptr->timeout = randint0(200) + 200;
-				break;
-			}
-
-			case SV_DRAGON_BRONZE:
-			{
-#ifdef JP
-				msg_print("あなたは混乱のブレスを吐いた。");
-#else
-				msg_print("You breathe confusion.");
-#endif
-
-				fire_ball(creature_ptr, GF_CONFUSION, dir, 120, -2);
-				object_ptr->timeout = randint0(180) + 180;
-				break;
-			}
-
-			case SV_DRAGON_GOLD:
-			{
-#ifdef JP
-				msg_print("あなたは轟音のブレスを吐いた。");
-#else
-				msg_print("You breathe sound.");
-#endif
-
-				fire_ball(creature_ptr, GF_SOUND, dir, 130, -2);
-				object_ptr->timeout = randint0(180) + 180;
 				break;
 			}
 
