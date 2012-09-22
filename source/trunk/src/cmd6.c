@@ -3900,7 +3900,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				lev = 40;
 				break;
 			case TRAIT_DRAIN_LIFE2:
-			case ACT_VAMPIRE_1:
+			case TRAIT_VAMPIRIC_DRAIN_1:
 			case TRAIT_BO_MANA:
 			case TRAIT_WHIRLWIND:
 			case ACT_CHARM_ANIMAL:
@@ -3912,7 +3912,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_IDENTIFY_TRUE:
 				lev = 50;
 				break;
-			case ACT_VAMPIRE_2:
+			case TRAIT_VAMPIRIC_DRAIN_2:
 			case TRAIT_BA_COLD:
 			case TRAIT_BA_ELEC:
 			case TRAIT_SYMBOL_GENOCIDE:

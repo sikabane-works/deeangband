@@ -976,13 +976,13 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		//else if (type == ACT_BA_COLD_2) total += 1250;
 		//else if (type == ACT_BA_ELEC_2) total += 1500;
 		else if (type == TRAIT_DRAIN_LIFE2) total += 750;
-		else if (type == ACT_VAMPIRE_1) total += 1000;
+		else if (type == TRAIT_VAMPIRIC_DRAIN_1) total += 1000;
 		//else if (type == TRAIT_BO_MANA) total += 1000;
 		//else if (type == ACT_BA_FIRE_2) total += 1750;
 		//else if (type == ACT_BA_COLD_3) total += 2500;
 		//else if (type == ACT_BA_ELEC_3) total += 2500;
 		else if (type == TRAIT_WHIRLWIND) total += 7500;
-		else if (type == ACT_VAMPIRE_2) total += 2500;
+		else if (type == TRAIT_VAMPIRIC_DRAIN_2) total += 2500;
 		else if (type == TRAIT_CALL_CHAOS) total += 5000;
 		else if (type == TRAIT_ROCKET) total += 5000;
 		else if (type == TRAIT_DISPEL_EVIL_1) total += 4000;

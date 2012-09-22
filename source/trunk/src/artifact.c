@@ -1325,11 +1325,11 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(13))
 				type = TRAIT_S_UNDEAD;
 			else if (one_in_(9))
-				type = ACT_VAMPIRE_2;
+				type = TRAIT_VAMPIRIC_DRAIN_2;
 			else if (one_in_(6))
 				type = ACT_CHARM_UNDEAD;
 			else
-				type = ACT_VAMPIRE_1;
+				type = TRAIT_VAMPIRIC_DRAIN_1;
 			break;
 
 		case BIAS_LAW:
@@ -1435,7 +1435,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 75;
 				break;
 			case TRAIT_DRAIN_LIFE2:
-			case ACT_VAMPIRE_1:
+			case TRAIT_VAMPIRIC_DRAIN_1:
 			case TRAIT_BO_MANA:
 			case TRAIT_BA_FIRE:
 			case TRAIT_RESTORE_LIFE:
@@ -1444,7 +1444,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BA_COLD:
 			case TRAIT_BA_ELEC:
 			case TRAIT_WHIRLWIND:
-			case ACT_VAMPIRE_2:
+			case TRAIT_VAMPIRIC_DRAIN_2:
 			case ACT_CHARM_ANIMAL:
 				chance = 50;
 				break;
@@ -1969,7 +1969,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_VAMPIRE_1:
+		case TRAIT_VAMPIRIC_DRAIN_1:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			for (dummy = 0; dummy < 3; dummy++)
@@ -2016,7 +2016,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_VAMPIRE_2:
+		case TRAIT_VAMPIRIC_DRAIN_2:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			for (dummy = 0; dummy < 3; dummy++)

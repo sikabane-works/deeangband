@@ -377,7 +377,7 @@ return "生命力吸収(120) : 400 ターン毎";
 #endif
 
 			}
-			case ACT_VAMPIRE_1:
+			case TRAIT_VAMPIRIC_DRAIN_1:
 			{
 #ifdef JP
 return "吸血ドレイン (3*50) : 400 ターン毎";
@@ -404,7 +404,7 @@ return "カマイタチ : 250 ターン毎";
 #endif
 
 			}
-			case ACT_VAMPIRE_2:
+			case TRAIT_VAMPIRIC_DRAIN_2:
 			{
 #ifdef JP
 return "吸血ドレイン (3*100) : 400 ターン毎";
