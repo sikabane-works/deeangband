@@ -983,7 +983,6 @@
 #define ACT_CURE_LW             81
 #define ACT_CURE_MW             82
 #define ACT_REST_ALL            85
-#define ACT_CURE_700            86
 /* 88 - 90 unused */
 #define ACT_ESP                 91
 #define ACT_BERSERK             92

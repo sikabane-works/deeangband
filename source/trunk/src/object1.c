@@ -629,7 +629,7 @@ return "全ステータスと経験値復活 : 750 ターン毎";
 #endif
 
 			}
-			case ACT_CURE_700:
+			case TRAIT_HEAL:
 			{
 #ifdef JP
 return "700 hp 回復 : 250 ターン毎";
