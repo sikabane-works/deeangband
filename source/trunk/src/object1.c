@@ -620,7 +620,7 @@ return "経験値復活 : 450 ターン毎";
 #endif
 
 			}
-			case ACT_REST_ALL:
+			case TRAIT_RESTORE_ALL:
 			{
 #ifdef JP
 return "全ステータスと経験値復活 : 750 ターン毎";

@@ -1305,7 +1305,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(8))
 				type = TRAIT_HEAL;
 			else if (one_in_(7))
-				type = ACT_REST_ALL;
+				type = TRAIT_RESTORE_ALL;
 			else if (one_in_(6))
 				type = TRAIT_RESTORE_LIFE;
 			else
@@ -1460,7 +1460,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
 			case TRAIT_S_PHANTOM:
-			case ACT_REST_ALL:
+			case TRAIT_RESTORE_ALL:
 			case TRAIT_EXPLOSIVE_RUNE:
 				chance = 33;
 				break;
@@ -2368,7 +2368,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_REST_ALL:
+		case TRAIT_RESTORE_ALL:
 		{
 #ifdef JP
 			msg_print("îZóŒêFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");

@@ -966,8 +966,6 @@
 #define ACT_CHARM_OTHER         67
 #define ACT_CHARM_ANIMALS       68
 #define ACT_CHARM_OTHERS        69
-/* 75 - 80 unused */
-#define ACT_REST_ALL            85
 /* 88 - 90 unused */
 #define ACT_ESP                 91
 #define ACT_RESIST_ALL          94

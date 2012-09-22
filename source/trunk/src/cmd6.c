@@ -3929,7 +3929,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_HEAL:
 			case TRAIT_PROTECT_RUNE:
 			case TRAIT_MIDAS_TCH:
-			case ACT_REST_ALL:
+			case TRAIT_RESTORE_ALL:
 				lev = 70;
 				break;
 			case TRAIT_CALL_CHAOS:
