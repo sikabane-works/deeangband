@@ -1476,7 +1476,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 25;
 				break;
 			case ACT_CURE_1000:
-			case ACT_XTRA_SPEED:
+			case TRAIT_HASTE_2:
 			case ACT_DETECT_XTRA:
 			case ACT_DIM_DOOR:
 				chance = 10;
@@ -2487,14 +2487,8 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_XTRA_SPEED:
+		case TRAIT_HASTE_2:
 		{
-#ifdef JP
-			msg_print("–¾‚é‚­‹P‚¢‚Ä‚¢‚é...");
-#else
-			msg_print("It glows brightly...");
-#endif
-
 			(void)set_fast(creature_ptr, randint1(75) + 75, FALSE);
 			break;
 		}

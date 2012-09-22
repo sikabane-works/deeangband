@@ -701,7 +701,7 @@ return "加速 (期間 20+d20) : 250 ターン毎";
 #endif
 
 			}
-			case ACT_XTRA_SPEED:
+			case TRAIT_HASTE_2:
 			{
 #ifdef JP
 return "加速 (期間 75+d75) : 200+d200 ターン毎";

@@ -993,7 +993,6 @@
 #define ACT_ESP                 91
 #define ACT_BERSERK             92
 #define ACT_RESIST_ALL          94
-#define ACT_XTRA_SPEED          96
 #define ACT_INVULN              98
 /* 99 - 110 unused */
 #define ACT_LIGHT               111
