@@ -1034,7 +1034,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_STONE_MUD) total += 1000;
 		else if (type == ACT_RECHARGE) total += 1000;
 		else if (type == ACT_ALCHEMY) total += 10000;
-		else if (type == ACT_DIM_DOOR) total += 10000;
+		else if (type == TRAIT_DIMENSION_DOOR) total += 10000;
 		else if (type == TRAIT_TPORT) total += 2000;
 		else if (type == TRAIT_RECALL) total += 7500;
 	}

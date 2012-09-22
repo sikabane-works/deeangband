@@ -1478,7 +1478,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_TRUE_HEALING:
 			case TRAIT_HASTE_2:
 			case ACT_DETECT_XTRA:
-			case ACT_DIM_DOOR:
+			case TRAIT_DIMENSION_DOOR:
 				chance = 10;
 				break;
 			case TRAIT_S_UNDEAD:
@@ -2649,7 +2649,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DIM_DOOR:
+		case TRAIT_DIMENSION_DOOR:
 		{
 #ifdef JP
 			msg_print("次元の扉が開いた。目的地を選んで下さい。");

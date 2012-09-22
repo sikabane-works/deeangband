@@ -836,7 +836,7 @@ return "錬金術 : 500 ターン毎";
 #endif
 
 			}
-			case ACT_DIM_DOOR:
+			case TRAIT_DIMENSION_DOOR:
 			{
 #ifdef JP
 return "次元の扉 : 100 ターン毎";

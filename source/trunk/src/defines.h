@@ -997,7 +997,6 @@
 #define ACT_STONE_MUD           121
 #define ACT_RECHARGE            122
 #define ACT_ALCHEMY             123
-#define ACT_DIM_DOOR            124
 /* 127 -> unused */
 
 /*** Object "tval" and "sval" codes ***/

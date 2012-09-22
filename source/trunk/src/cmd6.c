@@ -3936,7 +3936,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_ROCKET:
 			case TRAIT_BA_MANA:
 			case TRAIT_TRUE_HEALING:
-			case ACT_DIM_DOOR:
+			case TRAIT_DIMENSION_DOOR:
 			case TRAIT_S_UNDEAD:
 			case TRAIT_S_DEMON:
 				lev = 80;
