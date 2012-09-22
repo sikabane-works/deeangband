@@ -964,7 +964,6 @@
 #define ACT_CHARM_ANIMAL        65
 #define ACT_CHARM_UNDEAD        66
 #define ACT_CHARM_OTHER         67
-#define ACT_CHARM_ANIMALS       68
 #define ACT_CHARM_OTHERS        69
 /* 88 - 90 unused */
 #define ACT_ESP                 91

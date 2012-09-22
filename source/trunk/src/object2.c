@@ -999,7 +999,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_CHARM_ANIMAL) total += 7500;
 		else if (type == ACT_CHARM_UNDEAD) total += 10000;
 		else if (type == ACT_CHARM_OTHER) total += 10000;
-		else if (type == ACT_CHARM_ANIMALS) total += 12500;
+		else if (type == TRAIT_CHARM_ANIMAL) total += 12500;
 		else if (type == ACT_CHARM_OTHERS) total += 17500;
 		else if (type == TRAIT_S_ANIMAL) total += 10000;
 		else if (type == TRAIT_S_PHANTOM) total += 12000;

@@ -1379,7 +1379,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_RANGER:
 			chance = 101;
 			if (one_in_(20))
-				type = ACT_CHARM_ANIMALS;
+				type = TRAIT_CHARM_ANIMAL;
 			else if (one_in_(7))
 				type = TRAIT_S_ANIMAL;
 			else if (one_in_(6))
@@ -1466,7 +1466,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_CALL_CHAOS:
 			case TRAIT_ROCKET:
-			case ACT_CHARM_ANIMALS:
+			case TRAIT_CHARM_ANIMAL:
 			case ACT_CHARM_OTHERS:
 			case TRAIT_S_ELEMENTAL:
 			case TRAIT_HEAL:
@@ -2179,7 +2179,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_CHARM_ANIMALS:
+		case TRAIT_CHARM_ANIMAL:
 		{
 			(void)charm_animals(creature_ptr, plev * 2);
 			break;

@@ -539,7 +539,7 @@ return "クリーチャー魅了 : 400 ターン毎";
 #endif
 
 			}
-			case ACT_CHARM_ANIMALS:
+			case TRAIT_CHARM_ANIMAL:
 			{
 #ifdef JP
 return "動物友和 : 500 ターン毎";
