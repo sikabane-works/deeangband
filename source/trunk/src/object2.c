@@ -7756,11 +7756,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 	switch(ego_id)
 	{
-		case EGO_DWARVEN:
-			object_ptr->weight = (2 * object_kind_info[object_ptr->k_idx].weight / 3);
-			object_ptr->ac = object_kind_info[object_ptr->k_idx].ac + 5;
-			if (one_in_(4)) object_ptr->stat_val[STAT_CON] = (s16b)randint1(MAX_RAND_STAT_VAL);
-			break;
 
 		case EGO_YOIYAMI:
 			object_ptr->name2 = EGO_YOIYAMI;
@@ -7834,6 +7829,13 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 
 	//TODO:: XTRA_H_RES for levitation
+
+	if(has_trait_object(object_ptr, TRAIT_PHYSICAL_BOOST))
+	{
+		object_ptr->weight = (2 * object_kind_info[object_ptr->k_idx].weight / 3);
+		object_ptr->ac = object_kind_info[object_ptr->k_idx].ac + 5;
+		if (one_in_(4)) object_ptr->stat_val[STAT_CON] = (s16b)randint1(MAX_RAND_STAT_VAL);
+	}
 
 	if(has_trait_object(object_ptr, TRAIT_DICE_BOOST))
 	{
