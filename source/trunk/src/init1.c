@@ -2882,7 +2882,6 @@ enum OBJECT_EGO {
 	OBJECT_EGO_INFO_WEIGHT,
 	OBJECT_EGO_INFO_COST,
 	OBJECT_EGO_INFO_FLAG,
-	OBJECT_EGO_ADD_CREATURE_TRAITS,
 	OBJECT_EGO_INFO_COMMENT,
 	OBJECT_EGO_INFO_AP_RATE,
 	OBJECT_EGO_INFO_CHARGE,
@@ -2912,7 +2911,6 @@ static cptr object_ego_info_csv_list[OBJECT_EGO_INFO_CSV_COLUMNS] =
 	"WEIGHT",
 	"COST",
 	"FLAG",
-	"ADD_CREATURE_TRAITS",
 	"COMMENT",
 	"CHARGE",
 	"AP_RATE",
@@ -3130,11 +3128,6 @@ errr parse_object_ego_csv(char *buf, header *head)
 						/* Start the next entry */
 					s = t;
 				}
-				break;
-
-			case OBJECT_EGO_ADD_CREATURE_TRAITS:
-				if(0 != traits_precondition_splits(&object_ego_ptr->add_creature_traits, tmp))
-					return PARSE_ERROR_GENERIC;
 				break;
 
 			case OBJECT_EGO_INFO_COMMENT:
