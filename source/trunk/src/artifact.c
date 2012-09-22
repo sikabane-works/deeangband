@@ -1301,7 +1301,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(10))
 				type = TRAIT_PROT_EVIL;
 			else if (one_in_(9))
-				type = ACT_CURE_1000;
+				type = TRAIT_TRUE_HEALING;
 			else if (one_in_(8))
 				type = ACT_CURE_700;
 			else if (one_in_(7))
@@ -1475,7 +1475,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_RUNE_PROT:
 				chance = 25;
 				break;
-			case ACT_CURE_1000:
+			case TRAIT_TRUE_HEALING:
 			case TRAIT_HASTE_2:
 			case ACT_DETECT_XTRA:
 			case ACT_DIM_DOOR:
@@ -2411,7 +2411,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_CURE_1000:
+		case TRAIT_TRUE_HEALING:
 		{
 #ifdef JP
 			msg_print("”’‚­–¾‚é‚­‹P‚¢‚Ä‚¢‚é...");

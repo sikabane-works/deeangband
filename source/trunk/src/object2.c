@@ -1012,7 +1012,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == TRAIT_RESTORE_LIFE) total += 7500;
 		else if (type == ACT_REST_ALL) total += 15000;
 		else if (type == ACT_CURE_700) total += 10000;
-		else if (type == ACT_CURE_1000) total += 15000;
+		else if (type == TRAIT_TRUE_HEALING) total += 15000;
 		else if (type == ACT_ESP) total += 1500;
 		else if (type == ACT_BERSERK) total += 800;
 		else if (type == TRAIT_PROT_EVIL) total += 5000;

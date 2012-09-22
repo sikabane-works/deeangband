@@ -988,7 +988,6 @@
 #define ACT_CURE_POISON         83
 #define ACT_REST_ALL            85
 #define ACT_CURE_700            86
-#define ACT_CURE_1000           87
 /* 88 - 90 unused */
 #define ACT_ESP                 91
 #define ACT_BERSERK             92

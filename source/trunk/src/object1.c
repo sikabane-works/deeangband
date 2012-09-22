@@ -647,7 +647,7 @@ return "700 hp 回復 : 250 ターン毎";
 #endif
 
 			}
-			case ACT_CURE_1000:
+			case TRAIT_TRUE_HEALING:
 			{
 #ifdef JP
 return "1000 hp 回復 : 888 ターン毎";

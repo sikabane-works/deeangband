@@ -3935,7 +3935,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_CALL_CHAOS:
 			case TRAIT_ROCKET:
 			case TRAIT_BA_MANA:
-			case ACT_CURE_1000:
+			case TRAIT_TRUE_HEALING:
 			case ACT_DIM_DOOR:
 			case TRAIT_S_UNDEAD:
 			case TRAIT_S_DEMON:
