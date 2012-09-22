@@ -3862,7 +3862,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BA_POIS:
 			case ACT_CONFUSE:
 			case ACT_SLEEP:
-			case ACT_CURE_LW:
+			case TRAIT_CURE_LITE_WOUNDS:
 			case TRAIT_REMOVE_POISON:
 			case TRAIT_BERSERK:
 			case ACT_LIGHT:

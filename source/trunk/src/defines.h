@@ -978,7 +978,6 @@
 #define ACT_CHARM_OTHERS        69
 #define ACT_SUMMON_PHANTOM      71
 /* 75 - 80 unused */
-#define ACT_CURE_LW             81
 #define ACT_CURE_MW             82
 #define ACT_REST_ALL            85
 /* 88 - 90 unused */
