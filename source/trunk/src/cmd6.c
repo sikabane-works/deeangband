@@ -5349,56 +5349,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)heal_creature(creature_ptr, 10);
 				object_ptr->timeout = randint1(100)+100;
 				break;
-			case EGO_RING_MAGIC_MIS:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
-				object_ptr->timeout = 2;
-				break;
-			case EGO_RING_FIRE_BOLT:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
-				object_ptr->timeout = randint0(8) + 8;
-				break;
-			case EGO_RING_COLD_BOLT:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
-				object_ptr->timeout = randint0(7) + 7;
-				break;
-			case EGO_RING_ELEC_BOLT:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
-				object_ptr->timeout = randint0(5) + 5;
-				break;
-			case EGO_RING_ACID_BOLT:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
-				object_ptr->timeout = randint0(6) + 6;
-				break;
-			case EGO_RING_MANA_BOLT:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_bolt(creature_ptr, GF_MANA, dir, 120);
-				object_ptr->timeout = randint0(120)+120;
-				break;
-			case EGO_RING_FIRE_BALL:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_FIRE, dir, 100, 2);
-				object_ptr->timeout = randint0(80) + 80;
-				break;
-			case EGO_RING_COLD_BALL:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-				object_ptr->timeout = randint0(80) + 80;
-				break;
-			case EGO_RING_ELEC_BALL:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_ELEC, dir, 100, 2);
-				object_ptr->timeout = randint0(80) + 80;
-				break;
-			case EGO_RING_ACID_BALL:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				fire_ball(creature_ptr, GF_ACID, dir, 100, 2);
-				object_ptr->timeout = randint0(80) + 80;
-				break;
 			case EGO_RING_MANA_BALL:
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_MANA, dir, 250, 2);
