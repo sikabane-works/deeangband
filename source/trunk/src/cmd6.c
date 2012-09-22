@@ -5476,18 +5476,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev));
 				object_ptr->timeout = 200;
 				break;
-			case EGO_AMU_JUMP:
-				teleport_player(creature_ptr, 10, 0L);
-				object_ptr->timeout = randint0(10) + 10;
-				break;
-			case EGO_AMU_TELEPORT:
-				teleport_player(creature_ptr, 100, 0L);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			case EGO_AMU_D_DOOR:
-				(void)dimension_door(creature_ptr);
-				object_ptr->timeout = 200;
-				break;
 			case EGO_AMU_RES_FIRE_:
 				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
 				object_ptr->timeout = randint0(50) + 50;
