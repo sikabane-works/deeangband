@@ -1385,7 +1385,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(6))
 				type = ACT_CHARM_ANIMAL;
 			else if (one_in_(4))
-				type = ACT_RESIST_ALL;
+				type = TRAIT_MAGIC_RES_ELEMENT;
 			else if (one_in_(3))
 				type = TRAIT_SATIATE;
 			else
@@ -1422,7 +1422,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_DRAIN_LIFE1:
 			case TRAIT_TELE_AWAY:
 			case ACT_ESP:
-			case ACT_RESIST_ALL:
+			case TRAIT_MAGIC_RES_ELEMENT:
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
 			case TRAIT_SATIATE:
@@ -2453,7 +2453,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_RESIST_ALL:
+		case TRAIT_MAGIC_RES_ELEMENT:
 		{
 #ifdef JP
 			msg_print("ólÅXÇ»êFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");

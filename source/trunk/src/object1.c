@@ -674,7 +674,7 @@ return "対邪悪結界 (期間 level*3 + d25) : 225+d225 ターン毎";
 #endif
 
 			}
-			case ACT_RESIST_ALL:
+			case TRAIT_MAGIC_RES_ELEMENT:
 			{
 #ifdef JP
 return "全耐性 (期間 40+d40) : 200 ターン毎";

@@ -968,7 +968,6 @@
 #define ACT_CHARM_OTHERS        69
 /* 88 - 90 unused */
 #define ACT_ESP                 91
-#define ACT_RESIST_ALL          94
 
 /*** Object "tval" and "sval" codes ***/
 
