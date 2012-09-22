@@ -3915,7 +3915,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_VAMPIRE_2:
 			case TRAIT_BA_COLD:
 			case TRAIT_BA_ELEC:
-			case TRAIT_MASS_GENOCIDE:
+			case TRAIT_SYMBOL_GENOCIDE:
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
 			case ACT_SUMMON_PHANTOM:
@@ -3923,7 +3923,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_RUNE_EXPLO:
 				lev = 60;
 				break;
-			case ACT_MASS_GENO:
+			case TRAIT_MASS_GENOCIDE:
 			case ACT_CHARM_ANIMALS:
 			case ACT_CHARM_OTHERS:
 			case ACT_CURE_700:

@@ -972,7 +972,6 @@
 #define ACT_TERROR              54
 #define ACT_TELE_AWAY           55
 #define ACT_BANISH_EVIL         56
-#define ACT_MASS_GENO           58
 /* 59 - 64 unused */
 #define ACT_CHARM_ANIMAL        65
 #define ACT_CHARM_UNDEAD        66

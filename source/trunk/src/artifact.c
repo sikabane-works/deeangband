@@ -1319,9 +1319,9 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(13))
 				type = ACT_DISP_GOOD;
 			else if (one_in_(9))
-				type = ACT_MASS_GENO;
-			else if (one_in_(8))
 				type = TRAIT_MASS_GENOCIDE;
+			else if (one_in_(8))
+				type = TRAIT_SYMBOL_GENOCIDE;
 			else if (one_in_(13))
 				type = TRAIT_S_UNDEAD;
 			else if (one_in_(9))
@@ -1455,8 +1455,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BA_MANA:
 			case ACT_DISP_GOOD:
 			case ACT_BANISH_EVIL:
+			case TRAIT_SYMBOL_GENOCIDE:
 			case TRAIT_MASS_GENOCIDE:
-			case ACT_MASS_GENO:
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
 			case ACT_SUMMON_PHANTOM:
@@ -2138,19 +2138,13 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case TRAIT_MASS_GENOCIDE:
+		case TRAIT_SYMBOL_GENOCIDE:
 		{
-#ifdef JP
-			msg_print("ê[ê¬êFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");
-#else
-			msg_print("It glows deep blue...");
-#endif
-
 			(void)symbol_genocide(creature_ptr, 200, TRUE);
 			break;
 		}
 
-		case ACT_MASS_GENO:
+		case TRAIT_MASS_GENOCIDE:
 		{
 #ifdef JP
 			msg_print("Ç–Ç«Ç≠âsÇ¢âπÇ™ó¨ÇÍèoÇΩ...");

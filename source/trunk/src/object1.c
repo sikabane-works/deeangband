@@ -506,15 +506,6 @@ return "邪悪消滅 : 250+d250 ターン毎";
 			case TRAIT_MASS_GENOCIDE:
 			{
 #ifdef JP
-return "抹殺 : 500 ターン毎";
-#else
-				return "genocide every 500 turns";
-#endif
-
-			}
-			case ACT_MASS_GENO:
-			{
-#ifdef JP
 return "周辺抹殺 : 1000 ターン毎";
 #else
 				return "mass genocide every 1000 turns";
