@@ -990,7 +990,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		//else if (type == ACT_BA_MISS_3) total += 5000;
 		else if (type == ACT_CONFUSE) total += 500;
 		else if (type == ACT_SLEEP) total += 750;
-		else if (type == ACT_QUAKE) total += 600;
+		else if (type == TRAIT_EARTHQUAKE) total += 600;
 		else if (type == ACT_TERROR) total += 2500;
 		else if (type == ACT_TELE_AWAY) total += 2000;
 		else if (type == ACT_BANISH_EVIL) total += 2000;

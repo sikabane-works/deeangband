@@ -1407,7 +1407,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BO_FIRE:
 			case ACT_CONFUSE:
 			case ACT_SLEEP:
-			case ACT_QUAKE:
+			case TRAIT_EARTHQUAKE:
 			case ACT_CURE_LW:
 			case ACT_CURE_MW:
 			case ACT_CURE_POISON:
@@ -2105,7 +2105,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_QUAKE:
+		case TRAIT_EARTHQUAKE:
 		{
 			earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10);
 			break;

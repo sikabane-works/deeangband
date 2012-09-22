@@ -3877,7 +3877,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_MAP_LIGHT:
 			case ACT_STONE_MUD:
 			case ACT_CURE_MW:
-			case ACT_QUAKE:
+			case TRAIT_EARTHQUAKE:
 				lev = 20;
 				break;
 			case ACT_DRAIN_1:

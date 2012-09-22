@@ -969,7 +969,6 @@
 /* 26 - 50 unused */
 #define ACT_CONFUSE             51
 #define ACT_SLEEP               52
-#define ACT_QUAKE               53
 #define ACT_TERROR              54
 #define ACT_TELE_AWAY           55
 #define ACT_BANISH_EVIL         56

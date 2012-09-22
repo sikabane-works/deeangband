@@ -467,7 +467,7 @@ return "周囲のクリーチャーを眠らせる : 55 ターン毎";
 #endif
 
 			}
-			case ACT_QUAKE:
+			case TRAIT_EARTHQUAKE:
 			{
 #ifdef JP
 return "地震 (半径 10) : 50 ターン毎";
