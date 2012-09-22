@@ -5078,20 +5078,6 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 		}
 	}
 
-
-	if (object_ptr->name2 == EGO_TRUMP)
-	{
-		teleport_player(creature_ptr, 100, 0L);
-		object_ptr->timeout = 50 + randint1(50);
-
-		/* Window stuff */
-		play_window |= (PW_INVEN | PW_EQUIP);
-
-		/* Done */
-		return;
-	}
-
-
 	if (object_ptr->name2 == EGO_LITE_ILLUMINATION)
 	{
 		if (!object_ptr->xtra4 && ((object_ptr->sval == SV_LITE_TORCH) || (object_ptr->sval == SV_LITE_LANTERN)))
@@ -5125,20 +5111,6 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 		/* Done */
 		return;
 	}
-
-
-	if (object_ptr->name2 == EGO_JUMP)
-	{
-		teleport_player(creature_ptr, 10, 0L);
-		object_ptr->timeout = 10 + randint1(10);
-
-		/* Window stuff */
-		play_window |= (PW_INVEN | PW_EQUIP);
-
-		/* Done */
-		return;
-	}
-
 
 	/* Hack -- Dragon Scale Mail can be activated as well */
 	if (object_ptr->tval == TV_DRAG_ARMOR)
