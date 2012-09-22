@@ -5341,46 +5341,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		return;
 	}
 
-	else if (object_ptr->tval == TV_AMULET)
-	{
-		if (object_is_ego(object_ptr))
-		{
-			switch (object_ptr->name2)
-			{
-			case EGO_AMU_IDENT:
-				if (!ident_spell(creature_ptr, FALSE)) return;
-				object_ptr->timeout = 10;
-				break;
-			case EGO_AMU_CHARM:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev));
-				object_ptr->timeout = 200;
-				break;
-			case EGO_AMU_RES_FIRE_:
-				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			case EGO_AMU_RES_COLD_:
-				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			case EGO_AMU_RES_ELEC_:
-				(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			case EGO_AMU_RES_ACID_:
-				(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			case EGO_AMU_DETECTION:
-				detect_all(creature_ptr, DETECT_RAD_DEFAULT);
-				object_ptr->timeout = randint0(55)+55;
-				break;
-			}
-		}
-		return;
-	}
-
 	else if (object_ptr->tval == TV_WHISTLE)
 	{
 		if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
