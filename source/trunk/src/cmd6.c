@@ -3860,8 +3860,8 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_SUNLIGHT:
 			case TRAIT_MISSILE:
 			case TRAIT_BA_POIS:
-			case ACT_CONFUSE:
-			case ACT_SLEEP:
+			case TRAIT_CONFUSE_TOUCH:
+			case TRAIT_SLEEP_TOUCH:
 			case TRAIT_CURE_LIGHT_WOUNDS:
 			case TRAIT_REMOVE_POISON:
 			case TRAIT_BERSERK:

@@ -1347,7 +1347,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(50))
 				type = TRAIT_HASTE;
 			else if (one_in_(4))
-				type = ACT_SLEEP;
+				type = TRAIT_SLEEP_TOUCH;
 			else if (one_in_(3))
 				type = TRAIT_DETECT_ALL;
 			else if (one_in_(8))
@@ -1405,8 +1405,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BO_ACID:
 			case TRAIT_BO_COLD:
 			case TRAIT_BO_FIRE:
-			case ACT_CONFUSE:
-			case ACT_SLEEP:
+			case TRAIT_CONFUSE_TOUCH:
+			case TRAIT_SLEEP_TOUCH:
 			case TRAIT_EARTHQUAKE:
 			case TRAIT_CURE_LIGHT_WOUNDS:
 			case TRAIT_CURE_MEDIUM_WOUNDS:
@@ -2080,7 +2080,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		/* Activate for other offensive action */
 
-		case ACT_CONFUSE:
+		case TRAIT_CONFUSE_TOUCH:
 		{
 #ifdef JP
 			msg_print("様々な色の火花を発している...");
@@ -2093,7 +2093,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SLEEP:
+		case TRAIT_SLEEP_TOUCH:
 		{
 #ifdef JP
 			msg_print("深青色に輝いている...");

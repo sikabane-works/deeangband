@@ -449,7 +449,7 @@ return "善良退散 (level*5) : 300+d300 ターン毎";
 #endif
 
 			}
-			case ACT_CONFUSE:
+			case TRAIT_CONFUSE_TOUCH:
 			{
 #ifdef JP
 return "パニック・クリーチャー : 15 ターン毎";
@@ -458,7 +458,7 @@ return "パニック・クリーチャー : 15 ターン毎";
 #endif
 
 			}
-			case ACT_SLEEP:
+			case TRAIT_SLEEP_TOUCH:
 			{
 #ifdef JP
 return "周囲のクリーチャーを眠らせる : 55 ターン毎";
