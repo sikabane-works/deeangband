@@ -3886,7 +3886,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_RESIST_ALL:
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
-			case ACT_SATIATE:
+			case TRAIT_SATIATE:
 			case ACT_RECHARGE:
 				lev = 30;
 				break;
@@ -3920,7 +3920,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case ACT_CHARM_OTHER:
 			case ACT_SUMMON_PHANTOM:
 			case TRAIT_S_ELEMENTAL:
-			case ACT_RUNE_EXPLO:
+			case TRAIT_EXPLOSIVE_RUNE:
 				lev = 60;
 				break;
 			case TRAIT_MASS_GENOCIDE:

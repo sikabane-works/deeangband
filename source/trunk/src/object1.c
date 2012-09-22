@@ -773,7 +773,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_RUNE_EXPLO:
+			case TRAIT_EXPLOSIVE_RUNE:
 			{
 #ifdef JP
 				return "爆発のルーン : 200 ターン毎";
@@ -791,7 +791,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_SATIATE:
+			case TRAIT_SATIATE:
 			{
 #ifdef JP
 				return "空腹充足 : 200 ターン毎";

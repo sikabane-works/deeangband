@@ -1363,7 +1363,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(10))
 				type = ACT_SUMMON_PHANTOM;
 			else if (one_in_(5))
-				type = ACT_RUNE_EXPLO;
+				type = TRAIT_EXPLOSIVE_RUNE;
 			else
 				type = ACT_ESP;
 			break;
@@ -1387,7 +1387,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(4))
 				type = ACT_RESIST_ALL;
 			else if (one_in_(3))
-				type = ACT_SATIATE;
+				type = TRAIT_SATIATE;
 			else
 				type = TRAIT_REMOVE_POISON;
 			break;
@@ -1425,7 +1425,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_RESIST_ALL:
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
-			case ACT_SATIATE:
+			case TRAIT_SATIATE:
 			case ACT_RECHARGE:
 				chance = 85;
 				break;
@@ -1461,7 +1461,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_CHARM_OTHER:
 			case ACT_SUMMON_PHANTOM:
 			case ACT_REST_ALL:
-			case ACT_RUNE_EXPLO:
+			case TRAIT_EXPLOSIVE_RUNE:
 				chance = 33;
 				break;
 			case ACT_CALL_CHAOS:
@@ -2576,7 +2576,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_RUNE_EXPLO:
+		case TRAIT_EXPLOSIVE_RUNE:
 		{
 #ifdef JP
 			msg_print("ñæÇÈÇ¢ê‘êFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");
@@ -2600,7 +2600,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SATIATE:
+		case TRAIT_SATIATE:
 		{
 			(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 			break;
