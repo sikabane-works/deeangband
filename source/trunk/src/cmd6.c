@@ -3918,7 +3918,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_SYMBOL_GENOCIDE:
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
-			case ACT_SUMMON_PHANTOM:
+			case TRAIT_S_PHANTOM:
 			case TRAIT_S_ELEMENTAL:
 			case TRAIT_EXPLOSIVE_RUNE:
 				lev = 60;

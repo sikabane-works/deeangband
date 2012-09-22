@@ -1361,7 +1361,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(20))
 				type = TRAIT_S_ELEMENTAL;
 			else if (one_in_(10))
-				type = ACT_SUMMON_PHANTOM;
+				type = TRAIT_S_PHANTOM;
 			else if (one_in_(5))
 				type = TRAIT_EXPLOSIVE_RUNE;
 			else
@@ -1459,7 +1459,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_MASS_GENOCIDE:
 			case ACT_CHARM_UNDEAD:
 			case ACT_CHARM_OTHER:
-			case ACT_SUMMON_PHANTOM:
+			case TRAIT_S_PHANTOM:
 			case ACT_REST_ALL:
 			case TRAIT_EXPLOSIVE_RUNE:
 				chance = 33;
@@ -2197,7 +2197,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_SUMMON_PHANTOM:
+		case TRAIT_S_PHANTOM:
 		{
 #ifdef JP
 			msg_print("å∂óÏÇè¢ä´ÇµÇΩÅB");

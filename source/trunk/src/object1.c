@@ -566,7 +566,7 @@ return "動物召喚 : 200+d300 ターン毎";
 #endif
 
 			}
-			case ACT_SUMMON_PHANTOM:
+			case TRAIT_S_PHANTOM:
 			{
 #ifdef JP
 return "幻霊召喚 : 200+d200 ターン毎";
