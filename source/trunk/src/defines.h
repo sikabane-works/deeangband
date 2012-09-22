@@ -959,9 +959,6 @@
 #define EGO_AMU_DETECTION       236
 #define EGO_AMU_NAIVETY         237
 
-/* Activation effects for random artifacts */
-#define ACT_ESP                 91
-
 /*** Object "tval" and "sval" codes ***/
 
 

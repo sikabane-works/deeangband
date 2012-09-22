@@ -647,7 +647,7 @@ return "1000 hp 回復 : 888 ターン毎";
 #endif
 
 			}
-			case ACT_ESP:
+			case TRAIT_GET_ESP:
 			{
 #ifdef JP
 return "テレパシー (期間 25+d30) : 200 ターン毎";

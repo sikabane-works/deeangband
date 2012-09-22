@@ -1365,7 +1365,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(5))
 				type = TRAIT_EXPLOSIVE_RUNE;
 			else
-				type = ACT_ESP;
+				type = TRAIT_GET_ESP;
 			break;
 
 		case BIAS_WARRIOR:
@@ -1421,7 +1421,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_DRAIN_LIFE1:
 			case TRAIT_TELE_AWAY:
-			case ACT_ESP:
+			case TRAIT_GET_ESP:
 			case TRAIT_MAGIC_RES_ELEMENT:
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
@@ -2424,9 +2424,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		/* Activate for timed effect */
-
-		case ACT_ESP:
+		case TRAIT_GET_ESP:
 		{
 			(void)set_tim_esp(creature_ptr, randint1(30) + 25, FALSE);
 			break;

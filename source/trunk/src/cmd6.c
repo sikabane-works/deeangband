@@ -3882,7 +3882,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				break;
 			case TRAIT_DRAIN_LIFE1:
 			case TRAIT_TELE_AWAY:
-			case ACT_ESP:
+			case TRAIT_GET_ESP:
 			case TRAIT_MAGIC_RES_ELEMENT:
 			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
