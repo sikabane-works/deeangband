@@ -960,9 +960,6 @@
 #define EGO_AMU_NAIVETY         237
 
 /* Activation effects for random artifacts */
-/* 26 - 50 unused */
-#define ACT_TERROR              54
-#define ACT_BANISH_EVIL         56
 /* 59 - 64 unused */
 #define ACT_CHARM_ANIMAL        65
 #define ACT_CHARM_UNDEAD        66

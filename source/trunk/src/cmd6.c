@@ -3891,12 +3891,12 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				lev = 30;
 				break;
 			case TRAIT_BA_FIRE:
-			case ACT_TERROR:
+			case TRAIT_TERROR:
 			case TRAIT_PROT_EVIL:
 			case TRAIT_IDENTIFY:
 			case TRAIT_RESTORE_LIFE:
 			case TRAIT_HASTE:
-			case ACT_BANISH_EVIL:
+			case TRAIT_BANISH_EVIL:
 				lev = 40;
 				break;
 			case TRAIT_DRAIN_LIFE2:

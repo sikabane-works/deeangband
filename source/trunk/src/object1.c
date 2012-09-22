@@ -476,7 +476,7 @@ return "地震 (半径 10) : 50 ターン毎";
 #endif
 
 			}
-			case ACT_TERROR:
+			case TRAIT_TERROR:
 			{
 #ifdef JP
 return "恐慌 : 3 * (level+10) ターン毎";
@@ -494,7 +494,7 @@ return "テレポート・アウェイ : 150 ターン毎";
 #endif
 
 			}
-			case ACT_BANISH_EVIL:
+			case TRAIT_BANISH_EVIL:
 			{
 #ifdef JP
 return "邪悪消滅 : 250+d250 ターン毎";

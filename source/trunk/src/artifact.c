@@ -1295,7 +1295,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(13))
 				type = ACT_CHARM_UNDEAD;
 			else if (one_in_(12))
-				type = ACT_BANISH_EVIL;
+				type = TRAIT_BANISH_EVIL;
 			else if (one_in_(11))
 				type = TRAIT_DISPEL_EVIL_1;
 			else if (one_in_(10))
@@ -1335,7 +1335,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_LAW:
 			chance = 101;
 			if (one_in_(8))
-				type = ACT_BANISH_EVIL;
+				type = TRAIT_BANISH_EVIL;
 			else if (one_in_(4))
 				type = TRAIT_DISPEL_EVIL_1;
 			else
@@ -1429,7 +1429,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_MAGIC_CHARGE_2:
 				chance = 85;
 				break;
-			case ACT_TERROR:
+			case TRAIT_TERROR:
 			case TRAIT_PROT_EVIL:
 			case TRAIT_IDENTIFY:
 				chance = 75;
@@ -1454,7 +1454,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_DISPEL_EVIL_1:
 			case TRAIT_BA_MANA:
 			case TRAIT_DISPEL_GOOD_1:
-			case ACT_BANISH_EVIL:
+			case TRAIT_BANISH_EVIL:
 			case TRAIT_SYMBOL_GENOCIDE:
 			case TRAIT_MASS_GENOCIDE:
 			case ACT_CHARM_UNDEAD:
@@ -2111,7 +2111,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_TERROR:
+		case TRAIT_TERROR:
 		{
 			turn_creatures(creature_ptr, 40 + creature_ptr->lev);
 			break;
@@ -2124,7 +2124,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_BANISH_EVIL:
+		case TRAIT_BANISH_EVIL:
 		{
 			if (banish_evil(creature_ptr, 100))
 			{
