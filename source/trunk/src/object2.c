@@ -7756,11 +7756,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 	switch(ego_id)
 	{
-		case EGO_RESISTANCE:
-			if (one_in_(4))
-				add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
-			break;
-
 		case EGO_DWARVEN:
 			object_ptr->weight = (2 * object_kind_info[object_ptr->k_idx].weight / 3);
 			object_ptr->ac = object_kind_info[object_ptr->k_idx].ac + 5;
@@ -7814,21 +7809,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				add_flag(object_ptr->art_flags, TR_BLOWS);
 			break;
 
-		case EGO_DF:
-			if (one_in_(3))
-				add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
-			if (one_in_(3))
-				add_flag(object_ptr->trait_flags, TRAIT_WARNING);
-			break;
-
-		case EGO_BLESS_BLADE:
-			break;
-		case EGO_WEST:
-			if (one_in_(3))
-				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
-			break;
-		case EGO_ATTACKS:
-			break;
 		case EGO_SLAYING_WEAPON:
 			if (one_in_(3)) /* double damage */
 				object_ptr->dd *= 2;
@@ -7847,14 +7827,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				while (one_in_(object_ptr->ds));
 			}
 					
-			if (one_in_(5))
-			{
-				add_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND);
-			}
-			if (object_ptr->tval == TV_SWORD && one_in_(3))
-			{
-				add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
-			}
 			break;
 
 		case EGO_SHARPNESS:
@@ -7878,9 +7850,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 			break;
 
-		case EGO_PRISM:
-			break;
-
 		case EGO_TRUMP:
 			if (one_in_(5))
 				add_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
@@ -7897,14 +7866,10 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			break;
 
-		case EGO_DIGGING:
-			break;
-
 		case EGO_SLAY_HUMAN:
 			if (one_in_(2))
 				add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 			break;
-
 
 		case EGO_SLAYING_BOLT:
 			object_ptr->dd++;
