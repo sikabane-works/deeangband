@@ -7792,43 +7792,12 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				else add_esp_weak(object_ptr, FALSE);
 			break;
 
-		case EGO_BAT:
-			object_ptr->to_damage -= 6;
-			object_ptr->to_hit -= 6;
-			break;
-
-		case EGO_SLOW_DESCENT:
-			if (one_in_(2))
-			{
-				one_high_resistance(object_ptr);
-			}
-			break;
-
 		case EGO_HA:
 			if (one_in_(4) && (level > 40))
 				add_flag(object_ptr->art_flags, TR_BLOWS);
 			break;
 
-		case EGO_SLAYING_WEAPON:
-			if (one_in_(3)) /* double damage */
-				object_ptr->dd *= 2;
-			else
-			{
-				do
-				{
-					object_ptr->dd++;
-				}
-				while (one_in_(object_ptr->dd));
-						
-				do
-				{
-					object_ptr->ds++;
-				}
-				while (one_in_(object_ptr->ds));
-			}
 					
-			break;
-
 		case EGO_SHARPNESS:
 			object_ptr->pval = m_bonus(5, level) + 1;
 			break;
@@ -7875,6 +7844,28 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			object_ptr->dd++;
 			break;
 
+	}
+
+
+	//TODO:: XTRA_H_RES for levitation
+
+	if(has_trait_object(object_ptr, TRAIT_DICE_BOOST))
+	{
+		if (one_in_(3)) object_ptr->dd *= 2;
+		else
+		{
+			do
+			{
+				object_ptr->dd++;
+			}
+			while (one_in_(object_ptr->dd));
+						
+			do
+			{
+				object_ptr->ds++;
+			}
+			while (one_in_(object_ptr->ds));
+		}
 	}
 
 	// Weapon Boost
