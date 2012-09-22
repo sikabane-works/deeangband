@@ -1389,7 +1389,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(3))
 				type = ACT_SATIATE;
 			else
-				type = ACT_CURE_POISON;
+				type = TRAIT_REMOVE_POISON;
 			break;
 	}
 
@@ -1410,7 +1410,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_EARTHQUAKE:
 			case ACT_CURE_LW:
 			case ACT_CURE_MW:
-			case ACT_CURE_POISON:
+			case TRAIT_REMOVE_POISON:
 			case ACT_BERSERK:
 			case ACT_LIGHT:
 			case ACT_MAP_LIGHT:
@@ -2343,7 +2343,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_CURE_POISON:
+		case TRAIT_REMOVE_POISON:
 		{
 #ifdef JP
 			msg_print("ê[ê¬êFÇ…ãPÇ¢ÇƒÇ¢ÇÈ...");

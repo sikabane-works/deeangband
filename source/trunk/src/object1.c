@@ -602,7 +602,7 @@ return "4d8 hp & 傷回復 : 3+d3 ターン毎";
 #endif
 
 			}
-			case ACT_CURE_POISON:
+			case TRAIT_REMOVE_POISON:
 			{
 #ifdef JP
 return "恐怖除去/毒消し : 5 ターン毎";
