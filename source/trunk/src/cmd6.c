@@ -3893,7 +3893,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BA_FIRE:
 			case ACT_TERROR:
 			case TRAIT_PROT_EVIL:
-			case ACT_ID_PLAIN:
+			case TRAIT_IDENTIFY:
 			case TRAIT_RESTORE_LIFE:
 			case TRAIT_HASTE:
 			case ACT_BANISH_EVIL:
@@ -3909,7 +3909,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_DISPEL_GOOD_1:
 			case TRAIT_HASTE_2:
 			case ACT_DETECT_XTRA:
-			case ACT_ID_FULL:
+			case TRAIT_IDENTIFY_TRUE:
 				lev = 50;
 				break;
 			case ACT_VAMPIRE_2:

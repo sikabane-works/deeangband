@@ -755,7 +755,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_ID_FULL:
+			case TRAIT_IDENTIFY_TRUE:
 			{
 #ifdef JP
 				return "*鑑定* : 750 ターン毎";
@@ -764,7 +764,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_ID_PLAIN:
+			case TRAIT_IDENTIFY:
 			{
 #ifdef JP
 				return "鑑定 : 10 ターン毎";

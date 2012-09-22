@@ -1351,9 +1351,9 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(3))
 				type = TRAIT_DETECT_ALL;
 			else if (one_in_(8))
-				type = ACT_ID_FULL;
+				type = TRAIT_IDENTIFY_TRUE;
 			else
-				type = ACT_ID_PLAIN;
+				type = TRAIT_IDENTIFY;
 			break;
 
 		case BIAS_MAGE:
@@ -1431,7 +1431,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case ACT_TERROR:
 			case TRAIT_PROT_EVIL:
-			case ACT_ID_PLAIN:
+			case TRAIT_IDENTIFY:
 				chance = 75;
 				break;
 			case ACT_DRAIN_2:
@@ -1471,7 +1471,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_S_ELEMENTAL:
 			case TRAIT_HEAL:
 			case TRAIT_HASTE:
-			case ACT_ID_FULL:
+			case TRAIT_IDENTIFY_TRUE:
 			case ACT_RUNE_PROT:
 				chance = 25;
 				break;
@@ -2558,7 +2558,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_ID_FULL:
+		case TRAIT_IDENTIFY_TRUE:
 		{
 #ifdef JP
 			msg_print("â©êFÇ≠ãPÇ¢ÇƒÇ¢ÇÈ...");
@@ -2570,7 +2570,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_ID_PLAIN:
+		case TRAIT_IDENTIFY:
 		{
 			if (!ident_spell(creature_ptr, FALSE)) return FALSE;
 			break;

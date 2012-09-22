@@ -1025,8 +1025,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == ACT_MAP_LIGHT) total += 500;
 		else if (type == TRAIT_DETECT_ALL) total += 1000;
 		else if (type == ACT_DETECT_XTRA) total += 12500;
-		else if (type == ACT_ID_FULL) total += 10000;
-		else if (type == ACT_ID_PLAIN) total += 1250;
+		else if (type == TRAIT_IDENTIFY_TRUE) total += 10000;
+		else if (type == TRAIT_IDENTIFY) total += 1250;
 		else if (type == TRAIT_EXPLOSIVE_RUNE) total += 4000;
 		else if (type == ACT_RUNE_PROT) total += 10000;
 		else if (type == TRAIT_SATIATE) total += 2000;
