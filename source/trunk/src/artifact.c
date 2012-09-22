@@ -1412,7 +1412,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_CURE_MEDIUM_WOUNDS:
 			case TRAIT_REMOVE_POISON:
 			case TRAIT_BERSERK:
-			case ACT_LIGHT:
+			case TRAIT_ILLUMINATION:
 			case ACT_MAP_LIGHT:
 			case TRAIT_DESTROY_DOOR_TRAP:
 			case ACT_STONE_MUD:
@@ -2501,7 +2501,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		/* Activate for general purpose effect (detection etc.) */
 
-		case ACT_LIGHT:
+		case TRAIT_ILLUMINATION:
 		{
 #ifdef JP
 			msg_print("êüÇÒÇæåıÇ™Ç†Ç”ÇÍèoÇΩ...");

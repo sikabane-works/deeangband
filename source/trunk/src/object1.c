@@ -719,7 +719,7 @@ return "無敵化 (期間 8+d8) : 1000 ターン毎";
 #endif
 
 			}
-			case ACT_LIGHT:
+			case TRAIT_ILLUMINATION:
 			{
 #ifdef JP
 return "周辺照明 (ダメージ 2d15) : 10+d10 ターン毎";
