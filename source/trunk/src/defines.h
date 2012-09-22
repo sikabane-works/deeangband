@@ -964,7 +964,6 @@
 #define ACT_DRAIN_2             13
 #define ACT_VAMPIRE_1           14
 #define ACT_VAMPIRE_2           20
-#define ACT_CALL_CHAOS          21
 /* 26 - 50 unused */
 #define ACT_CONFUSE             51
 #define ACT_SLEEP               52

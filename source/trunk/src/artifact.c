@@ -1286,7 +1286,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			if (one_in_(6))
 				type = TRAIT_S_DEMON;
 			else
-				type = ACT_CALL_CHAOS;
+				type = TRAIT_CALL_CHAOS;
 			break;
 
 		case BIAS_PRIESTLY:
@@ -1464,7 +1464,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_EXPLOSIVE_RUNE:
 				chance = 33;
 				break;
-			case ACT_CALL_CHAOS:
+			case TRAIT_CALL_CHAOS:
 			case TRAIT_ROCKET:
 			case ACT_CHARM_ANIMALS:
 			case ACT_CHARM_OTHERS:
@@ -2029,7 +2029,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		}
 
 
-		case ACT_CALL_CHAOS:
+		case TRAIT_CALL_CHAOS:
 		{
 #ifdef JP
 			msg_print("ólÅXÇ»êFÇÃâŒâ‘Çî≠ÇµÇƒÇ¢ÇÈ...");

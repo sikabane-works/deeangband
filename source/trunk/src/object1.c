@@ -413,10 +413,10 @@ return "吸血ドレイン (3*100) : 400 ターン毎";
 #endif
 
 			}
-			case ACT_CALL_CHAOS:
+			case TRAIT_CALL_CHAOS:
 			{
 #ifdef JP
-return "混沌召来 : 350 ターン毎"; /*nuke me*/
+				return "混沌召来 : 350 ターン毎"; /*nuke me*/
 #else
 				return "call chaos every 350 turns";
 #endif
