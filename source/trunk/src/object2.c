@@ -996,11 +996,11 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == TRAIT_BANISH_EVIL) total += 2000;
 		else if (type == TRAIT_SYMBOL_GENOCIDE) total += 10000;
 		else if (type == TRAIT_MASS_GENOCIDE) total += 10000;
-		else if (type == ACT_CHARM_ANIMAL) total += 7500;
-		else if (type == ACT_CHARM_UNDEAD) total += 10000;
-		else if (type == ACT_CHARM_OTHER) total += 10000;
-		else if (type == TRAIT_CHARM_ANIMAL) total += 12500;
-		else if (type == ACT_CHARM_OTHERS) total += 17500;
+		else if (type == TRAIT_CHARM_ANIMAL) total += 7500;
+		else if (type == TRAIT_CHARM_UNDEAD) total += 10000;
+		else if (type == TRAIT_CHARM_OTHER) total += 10000;
+		else if (type == TRAIT_CHARM_ANIMALS) total += 12500;
+		else if (type == TRAIT_CHARM_OTHERS) total += 17500;
 		else if (type == TRAIT_S_ANIMAL) total += 10000;
 		else if (type == TRAIT_S_PHANTOM) total += 12000;
 		else if (type == TRAIT_S_ELEMENTAL) total += 15000;

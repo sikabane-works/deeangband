@@ -3903,7 +3903,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_VAMPIRIC_DRAIN_1:
 			case TRAIT_BO_MANA:
 			case TRAIT_WHIRLWIND:
-			case ACT_CHARM_ANIMAL:
+			case TRAIT_CHARM_ANIMAL:
 			case TRAIT_S_ANIMAL:
 			case TRAIT_DISPEL_EVIL_1:
 			case TRAIT_DISPEL_GOOD_1:
@@ -3916,16 +3916,16 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BA_COLD:
 			case TRAIT_BA_ELEC:
 			case TRAIT_SYMBOL_GENOCIDE:
-			case ACT_CHARM_UNDEAD:
-			case ACT_CHARM_OTHER:
+			case TRAIT_CHARM_UNDEAD:
+			case TRAIT_CHARM_OTHER:
 			case TRAIT_S_PHANTOM:
 			case TRAIT_S_ELEMENTAL:
 			case TRAIT_EXPLOSIVE_RUNE:
 				lev = 60;
 				break;
 			case TRAIT_MASS_GENOCIDE:
-			case TRAIT_CHARM_ANIMAL:
-			case ACT_CHARM_OTHERS:
+			case TRAIT_CHARM_ANIMALS:
+			case TRAIT_CHARM_OTHERS:
 			case TRAIT_HEAL:
 			case TRAIT_PROTECT_RUNE:
 			case TRAIT_MIDAS_TCH:
@@ -4894,7 +4894,7 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case TRAIT_CHARM_ANIMAL:
+			case TRAIT_CHARM_ANIMALS:
 			{
 				if (!get_aim_dir(creature_ptr, &dir)) return;
 				(void)charm_animal(creature_ptr, dir, creature_ptr->lev);

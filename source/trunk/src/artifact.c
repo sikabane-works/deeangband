@@ -1293,7 +1293,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			chance = 101;
 
 			if (one_in_(13))
-				type = ACT_CHARM_UNDEAD;
+				type = TRAIT_CHARM_UNDEAD;
 			else if (one_in_(12))
 				type = TRAIT_BANISH_EVIL;
 			else if (one_in_(11))
@@ -1327,7 +1327,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(9))
 				type = TRAIT_VAMPIRIC_DRAIN_2;
 			else if (one_in_(6))
-				type = ACT_CHARM_UNDEAD;
+				type = TRAIT_CHARM_UNDEAD;
 			else
 				type = TRAIT_VAMPIRIC_DRAIN_1;
 			break;
@@ -1379,11 +1379,11 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 		case BIAS_RANGER:
 			chance = 101;
 			if (one_in_(20))
-				type = TRAIT_CHARM_ANIMAL;
+				type = TRAIT_CHARM_ANIMALS;
 			else if (one_in_(7))
 				type = TRAIT_S_ANIMAL;
 			else if (one_in_(6))
-				type = ACT_CHARM_ANIMAL;
+				type = TRAIT_CHARM_ANIMAL;
 			else if (one_in_(4))
 				type = TRAIT_MAGIC_RES_ELEMENT;
 			else if (one_in_(3))
@@ -1445,7 +1445,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BA_ELEC:
 			case TRAIT_WHIRLWIND:
 			case TRAIT_VAMPIRIC_DRAIN_2:
-			case ACT_CHARM_ANIMAL:
+			case TRAIT_CHARM_ANIMAL:
 				chance = 50;
 				break;
 			case TRAIT_S_ANIMAL:
@@ -1457,8 +1457,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_BANISH_EVIL:
 			case TRAIT_SYMBOL_GENOCIDE:
 			case TRAIT_MASS_GENOCIDE:
-			case ACT_CHARM_UNDEAD:
-			case ACT_CHARM_OTHER:
+			case TRAIT_CHARM_UNDEAD:
+			case TRAIT_CHARM_OTHER:
 			case TRAIT_S_PHANTOM:
 			case TRAIT_RESTORE_ALL:
 			case TRAIT_EXPLOSIVE_RUNE:
@@ -1466,8 +1466,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_CALL_CHAOS:
 			case TRAIT_ROCKET:
-			case TRAIT_CHARM_ANIMAL:
-			case ACT_CHARM_OTHERS:
+			case TRAIT_CHARM_ANIMALS:
+			case TRAIT_CHARM_OTHERS:
 			case TRAIT_S_ELEMENTAL:
 			case TRAIT_HEAL:
 			case TRAIT_HASTE:
@@ -2158,34 +2158,34 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		/* Activate for summoning / charming */
 
-		case ACT_CHARM_ANIMAL:
+		case TRAIT_CHARM_ANIMAL:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)charm_animal(creature_ptr, dir, plev);
 			break;
 		}
 
-		case ACT_CHARM_UNDEAD:
+		case TRAIT_CHARM_UNDEAD:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)control_one_undead(creature_ptr, dir, plev);
 			break;
 		}
 
-		case ACT_CHARM_OTHER:
+		case TRAIT_CHARM_OTHER:
 		{
 			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			(void)charm_creature(creature_ptr, dir, plev);
 			break;
 		}
 
-		case TRAIT_CHARM_ANIMAL:
+		case TRAIT_CHARM_ANIMALS:
 		{
 			(void)charm_animals(creature_ptr, plev * 2);
 			break;
 		}
 
-		case ACT_CHARM_OTHERS:
+		case TRAIT_CHARM_OTHERS:
 		{
 			charm_creatures(creature_ptr, plev * 2);
 			break;

@@ -512,7 +512,7 @@ return "周辺抹殺 : 1000 ターン毎";
 #endif
 
 			}
-			case ACT_CHARM_ANIMAL:
+			case TRAIT_CHARM_ANIMAL:
 			{
 #ifdef JP
 return "動物魅了 : 300 ターン毎";
@@ -521,7 +521,7 @@ return "動物魅了 : 300 ターン毎";
 #endif
 
 			}
-			case ACT_CHARM_UNDEAD:
+			case TRAIT_CHARM_UNDEAD:
 			{
 #ifdef JP
 return "アンデッド従属 : 333 ターン毎";
@@ -530,7 +530,7 @@ return "アンデッド従属 : 333 ターン毎";
 #endif
 
 			}
-			case ACT_CHARM_OTHER:
+			case TRAIT_CHARM_OTHER:
 			{
 #ifdef JP
 return "クリーチャー魅了 : 400 ターン毎";
@@ -539,7 +539,7 @@ return "クリーチャー魅了 : 400 ターン毎";
 #endif
 
 			}
-			case TRAIT_CHARM_ANIMAL:
+			case TRAIT_CHARM_ANIMALS:
 			{
 #ifdef JP
 return "動物友和 : 500 ターン毎";
@@ -548,7 +548,7 @@ return "動物友和 : 500 ターン毎";
 #endif
 
 			}
-			case ACT_CHARM_OTHERS:
+			case TRAIT_CHARM_OTHERS:
 			{
 #ifdef JP
 return "周辺魅了 : 750 ターン毎";
