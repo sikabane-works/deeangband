@@ -5288,20 +5288,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)detect_creatures_normal(creature_ptr, 255);
 				object_ptr->timeout = 150;
 				break;
-			case EGO_RING_D_SPEED:
-				(void)set_fast(creature_ptr, randint1(30) + 15, FALSE);
-				object_ptr->timeout = 100;
-				break;
-			case EGO_RING_BERSERKER:
-				(void)set_afraid(creature_ptr, 0);
-				(void)set_shero(creature_ptr, randint1(25) + 25, FALSE);
-				object_ptr->timeout = randint0(75)+75;
-				break;
-			case EGO_RING_TELE_AWAY:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				teleport_creature(creature_ptr, dir);
-				object_ptr->timeout = 150;
-				break;
 			case EGO_RING_TRUE:
 			{
 				int v = randint1(25)+25;
