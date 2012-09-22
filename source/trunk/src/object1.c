@@ -584,7 +584,7 @@ return "エレメンタル召喚 : 750 ターン毎";
 #endif
 
 			}
-			case TRAIT_CURE_LITE_WOUNDS:
+			case TRAIT_CURE_LIGHT_WOUNDS:
 			{
 #ifdef JP
 return "恐怖除去 & 30 hp 回復 : 10 ターン毎";
@@ -593,7 +593,7 @@ return "恐怖除去 & 30 hp 回復 : 10 ターン毎";
 #endif
 
 			}
-			case ACT_CURE_MW:
+			case TRAIT_CURE_MEDIUM_WOUNDS:
 			{
 #ifdef JP
 return "4d8 hp & 傷回復 : 3+d3 ターン毎";

@@ -3862,7 +3862,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BA_POIS:
 			case ACT_CONFUSE:
 			case ACT_SLEEP:
-			case TRAIT_CURE_LITE_WOUNDS:
+			case TRAIT_CURE_LIGHT_WOUNDS:
 			case TRAIT_REMOVE_POISON:
 			case TRAIT_BERSERK:
 			case ACT_LIGHT:
@@ -3876,7 +3876,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BO_FIRE:
 			case ACT_MAP_LIGHT:
 			case ACT_STONE_MUD:
-			case ACT_CURE_MW:
+			case TRAIT_CURE_MEDIUM_WOUNDS:
 			case TRAIT_EARTHQUAKE:
 				lev = 20;
 				break;
@@ -4479,7 +4479,7 @@ if (get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 				break;
 			}
 
-			case TRAIT_CURE_HEAVY_WOUNDS:
+			case TRAIT_CURE_MEDIUM_WOUNDS:
 			{
 				heal_creature(creature_ptr, diceroll(4, 8));
 				(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);

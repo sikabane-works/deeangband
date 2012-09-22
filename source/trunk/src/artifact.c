@@ -1309,7 +1309,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			else if (one_in_(6))
 				type = TRAIT_RESTORE_LIFE;
 			else
-				type = ACT_CURE_MW;
+				type = TRAIT_CURE_MEDIUM_WOUNDS;
 			break;
 
 		case BIAS_NECROMANTIC:
@@ -1408,8 +1408,8 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case ACT_CONFUSE:
 			case ACT_SLEEP:
 			case TRAIT_EARTHQUAKE:
-			case TRAIT_CURE_LITE_WOUNDS:
-			case ACT_CURE_MW:
+			case TRAIT_CURE_LIGHT_WOUNDS:
+			case TRAIT_CURE_MEDIUM_WOUNDS:
 			case TRAIT_REMOVE_POISON:
 			case TRAIT_BERSERK:
 			case ACT_LIGHT:
@@ -2323,14 +2323,14 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		/* Activate for healing */
 
-		case TRAIT_CURE_LITE_WOUNDS:
+		case TRAIT_CURE_LIGHT_WOUNDS:
 		{
 			(void)set_afraid(creature_ptr, 0);
 			(void)heal_creature(creature_ptr, 30);
 			break;
 		}
 
-		case ACT_CURE_MW:
+		case TRAIT_CURE_MEDIUM_WOUNDS:
 		{
 #ifdef JP
 			msg_print("ê[éáêFÇÃåıÇî≠ÇµÇƒÇ¢ÇÈ...");
