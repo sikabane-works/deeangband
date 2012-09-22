@@ -971,9 +971,6 @@
 /* 88 - 90 unused */
 #define ACT_ESP                 91
 #define ACT_RESIST_ALL          94
-/* 99 - 110 unused */
-#define ACT_MAP_LIGHT           112
-/* 127 -> unused */
 
 /*** Object "tval" and "sval" codes ***/
 

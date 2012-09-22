@@ -728,7 +728,7 @@ return "周辺照明 (ダメージ 2d15) : 10+d10 ターン毎";
 #endif
 
 			}
-			case ACT_MAP_LIGHT:
+			case TRAIT_DETECT_MAP:
 			{
 #ifdef JP
 return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";

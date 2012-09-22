@@ -1022,7 +1022,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == TRAIT_WRAITH_FORM) total += 25000;
 		else if (type == TRAIT_INVULNER) total += 25000;
 		else if (type == TRAIT_ILLUMINATION) total += 150;
-		else if (type == ACT_MAP_LIGHT) total += 500;
+		else if (type == TRAIT_DETECT_MAP) total += 500;
 		else if (type == TRAIT_DETECT_ALL) total += 1000;
 		else if (type == TRAIT_DETECT_ALL) total += 12500;
 		else if (type == TRAIT_IDENTIFY_TRUE) total += 10000;
