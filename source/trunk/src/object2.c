@@ -7809,15 +7809,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				object_ptr->pval = m_bonus(3, level);
 			break;
 
-		case EGO_KILL_DRAGON:
-			if (one_in_(3))
-				add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
-			break;
-
-		case EGO_VAMPIRIC:
-			if (one_in_(5))
-				add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
-			break;
 
 		case EGO_TRUMP:
 			if (one_in_(5))
@@ -7833,11 +7824,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				object_ptr->stat_val[STAT_DEX] = (s16b)randint1(MAX_RAND_STAT_VAL);
 			if (one_in_(5))
 				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
-			break;
-
-		case EGO_SLAY_HUMAN:
-			if (one_in_(2))
-				add_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN);
 			break;
 
 		case EGO_SLAYING_BOLT:

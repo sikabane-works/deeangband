@@ -740,14 +740,6 @@
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/
 
-
-/* Nothing */
-/* xxx */
-/* xxx */
-/* xxx */
-
-#define EGO_RESISTANCE          8
-#define EGO_ELVENKIND           9
 #define EGO_DWARVEN             10
 #define EGO_PERMANENCE          11
 #define EGO_YOIYAMI             12
@@ -780,18 +772,8 @@
 #define EGO_UGLINESS            38
 #define EGO_SICKLINESS          39
 
-/* Cloaks */
-#define EGO_PROTECTION          40
-#define EGO_STEALTH             41
-#define EGO_AMAN                42
-#define EGO_AURA_FIRE           43
-#define EGO_ENVELOPING          44
-#define EGO_VULNERABILITY       45
-#define EGO_IRRITATION          46
-#define EGO_AURA_ELEC           47
 
 /* Gloves */
-#define EGO_SLAYING             49
 #define EGO_AGILITY             50
 #define EGO_POWER               51
 #define EGO_TWO_WEAPON          52
@@ -811,12 +793,9 @@
 
 /* Weapons */
 #define EGO_HA                  64
-#define EGO_DF                  65
-#define EGO_BLESS_BLADE         66
 #define EGO         67
 
 /* xxx */
-#define EGO_WEST                68
 #define EGO_ATTACKS             69
 #define EGO_SLAYING_WEAPON      70
 #define EGO_FORCE_WEAPON        71
