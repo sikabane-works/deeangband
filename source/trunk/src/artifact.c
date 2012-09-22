@@ -1472,7 +1472,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_HEAL:
 			case TRAIT_HASTE:
 			case TRAIT_IDENTIFY_TRUE:
-			case ACT_RUNE_PROT:
+			case TRAIT_PROTECT_RUNE:
 				chance = 25;
 				break;
 			case TRAIT_TRUE_HEALING:
@@ -2588,7 +2588,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_RUNE_PROT:
+		case TRAIT_PROTECT_RUNE:
 		{
 #ifdef JP
 			msg_print("ÉuÉãÅ[Ç…ñæÇÈÇ≠ãPÇ¢ÇƒÇ¢ÇÈ...");

@@ -1028,7 +1028,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if (type == TRAIT_IDENTIFY_TRUE) total += 10000;
 		else if (type == TRAIT_IDENTIFY) total += 1250;
 		else if (type == TRAIT_EXPLOSIVE_RUNE) total += 4000;
-		else if (type == ACT_RUNE_PROT) total += 10000;
+		else if (type == TRAIT_PROTECT_RUNE) total += 10000;
 		else if (type == TRAIT_SATIATE) total += 2000;
 		else if (type == TRAIT_DESTROY_DOOR_TRAP) total += 100;
 		else if (type == TRAIT_STONE_TO_MUD) total += 1000;

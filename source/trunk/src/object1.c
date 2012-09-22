@@ -782,7 +782,7 @@ return "周辺照明 (ダメージ 2d15) & 周辺マップ : 50+d50 ターン毎";
 #endif
 
 			}
-			case ACT_RUNE_PROT:
+			case TRAIT_PROTECT_RUNE:
 			{
 #ifdef JP
 				return "守りのルーン : 400 ターン毎";
