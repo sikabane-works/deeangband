@@ -973,7 +973,6 @@
 #define ACT_RESIST_ALL          94
 /* 99 - 110 unused */
 #define ACT_MAP_LIGHT           112
-#define ACT_DETECT_XTRA         114
 /* 127 -> unused */
 
 /*** Object "tval" and "sval" codes ***/

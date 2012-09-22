@@ -3908,7 +3908,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_DISPEL_EVIL_1:
 			case TRAIT_DISPEL_GOOD_1:
 			case TRAIT_HASTE_2:
-			case ACT_DETECT_XTRA:
+			//case TRAIT_DETECT_ALL:
 			case TRAIT_IDENTIFY_TRUE:
 				lev = 50;
 				break;

@@ -1477,7 +1477,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_TRUE_HEALING:
 			case TRAIT_HASTE_2:
-			case ACT_DETECT_XTRA:
+			//case TRAIT_DETECT_ALL:
 			case TRAIT_DIMENSION_DOOR:
 				chance = 10;
 				break;
@@ -2544,7 +2544,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			break;
 		}
 
-		case ACT_DETECT_XTRA:
+		//case TRAIT_DETECT_ALL:
 		{
 #ifdef JP
 			msg_print("–¾‚é‚­‹P‚¢‚Ä‚¢‚é...");
