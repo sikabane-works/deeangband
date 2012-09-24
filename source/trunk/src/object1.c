@@ -1831,10 +1831,10 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 		}
 	}
 
-	if (have_flag(flgs, TR_IGNORE_ACID) &&
-	    have_flag(flgs, TR_IGNORE_ELEC) &&
-	    have_flag(flgs, TR_IGNORE_FIRE) &&
-	    have_flag(flgs, TR_IGNORE_COLD))
+	if (have_flag(flgs, TRAIT_IGNORE_ACID) &&
+	    have_flag(flgs, TRAIT_IGNORE_ELEC) &&
+	    have_flag(flgs, TRAIT_IGNORE_FIRE) &&
+	    have_flag(flgs, TRAIT_IGNORE_COLD))
 	{
 #ifdef JP
 		info[i++] = "それは酸・電撃・火炎・冷気では傷つかない。";
@@ -1844,7 +1844,7 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 	}
 	else
 	{
-		if (have_flag(flgs, TR_IGNORE_ACID))
+		if (have_flag(flgs, TRAIT_IGNORE_ACID))
 		{
 #ifdef JP
 			info[i++] = "それは酸では傷つかない。";
@@ -1852,7 +1852,7 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 			info[i++] = "It cannot be harmed by acid.";
 #endif
 		}
-		if (have_flag(flgs, TR_IGNORE_ELEC))
+		if (have_flag(flgs, TRAIT_IGNORE_ELEC))
 		{
 #ifdef JP
 			info[i++] = "それは電撃では傷つかない。";
@@ -1860,7 +1860,7 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 			info[i++] = "It cannot be harmed by electricity.";
 #endif
 		}
-		if (have_flag(flgs, TR_IGNORE_FIRE))
+		if (have_flag(flgs, TRAIT_IGNORE_FIRE))
 		{
 #ifdef JP
 			info[i++] = "それは火炎では傷つかない。";
@@ -1868,7 +1868,7 @@ info[i++] = "それはあなたの魔力を吸い取る。";
 			info[i++] = "It cannot be harmed by fire.";
 #endif
 		}
-		if (have_flag(flgs, TR_IGNORE_COLD))
+		if (have_flag(flgs, TRAIT_IGNORE_COLD))
 		{
 #ifdef JP
 			info[i++] = "それは冷気では傷つかない。";

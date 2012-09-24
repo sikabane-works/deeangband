@@ -938,10 +938,10 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_DEC_MANA)) total += 10000;
 	if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT)) total += 2250;
 	if (have_flag(flgs, TRAIT_EXTRA_ATTACK_SPEED)) total += 10000;
-	if (have_flag(flgs, TR_IGNORE_ACID)) total += 100;
-	if (have_flag(flgs, TR_IGNORE_ELEC)) total += 100;
-	if (have_flag(flgs, TR_IGNORE_FIRE)) total += 100;
-	if (have_flag(flgs, TR_IGNORE_COLD)) total += 100;
+	if (have_flag(flgs, TRAIT_IGNORE_ACID)) total += 100;
+	if (have_flag(flgs, TRAIT_IGNORE_ELEC)) total += 100;
+	if (have_flag(flgs, TRAIT_IGNORE_FIRE)) total += 100;
+	if (have_flag(flgs, TRAIT_IGNORE_COLD)) total += 100;
 	//TODO:TR_ACTIVATE if (have_flag(flgs, TR_ACTIVATE)) total += 100;
 	if (have_flag(flgs, TRAIT_DRAIN_EXP)) total -= 12500;
 	if (have_flag(flgs, TR_TELEPORT))
@@ -7314,10 +7314,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		}
 		if (es_ptr->add == ESSENCE_SUSTAIN)
 		{
-			add_flag(object_ptr->art_flags, TR_IGNORE_ACID);
-			add_flag(object_ptr->art_flags, TR_IGNORE_ELEC);
-			add_flag(object_ptr->art_flags, TR_IGNORE_FIRE);
-			add_flag(object_ptr->art_flags, TR_IGNORE_COLD);
+			add_flag(object_ptr->art_flags, TRAIT_IGNORE_ACID);
+			add_flag(object_ptr->art_flags, TRAIT_IGNORE_ELEC);
+			add_flag(object_ptr->art_flags, TRAIT_IGNORE_FIRE);
+			add_flag(object_ptr->art_flags, TRAIT_IGNORE_COLD);
 		}
 		else
 		{

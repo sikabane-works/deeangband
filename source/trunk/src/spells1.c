@@ -1322,7 +1322,7 @@ note_kill = "óZÇØÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " melt!" : " melts!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_ACID)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_ACID)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1339,7 +1339,7 @@ note_kill = "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_ELEC)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1356,7 +1356,7 @@ note_kill = "îRÇ¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_FIRE)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1373,7 +1373,7 @@ note_kill = "ç”ÇØéUÇ¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
 #endif
 
 					do_kill = TRUE;
-					if (have_flag(flgs, TR_IGNORE_COLD)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1390,7 +1390,7 @@ note_kill = "îRÇ¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_FIRE)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				if (hates_elec(object_ptr))
 				{
@@ -1402,7 +1402,7 @@ note_kill = "âÛÇÍÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_ELEC)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1419,7 +1419,7 @@ note_kill = "îRÇ¶ÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_FIRE)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				if (hates_cold(object_ptr))
 				{
@@ -1431,7 +1431,7 @@ note_kill = "ç”ÇØéUÇ¡ÇƒÇµÇ‹Ç¡ÇΩÅI";
 					note_kill = (plural ? " shatter!" : " shatters!");
 #endif
 
-					if (have_flag(flgs, TR_IGNORE_COLD)) ignore = TRUE;
+					if (have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
 				}
 				break;
 			}

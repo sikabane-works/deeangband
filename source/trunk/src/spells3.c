@@ -4705,7 +4705,7 @@ int set_acid_destroy(object_type *object_ptr)
 	u32b flgs[TR_FLAG_SIZE];
 	if (!hates_acid(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
-	if (have_flag(flgs, TR_IGNORE_ACID)) return (FALSE);
+	if (have_flag(flgs, TRAIT_IGNORE_ACID)) return (FALSE);
 	return (TRUE);
 }
 
@@ -4718,7 +4718,7 @@ int set_elec_destroy(object_type *object_ptr)
 	u32b flgs[TR_FLAG_SIZE];
 	if (!hates_elec(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
-	if (have_flag(flgs, TR_IGNORE_ELEC)) return (FALSE);
+	if (have_flag(flgs, TRAIT_IGNORE_ELEC)) return (FALSE);
 	return (TRUE);
 }
 
@@ -4731,7 +4731,7 @@ int set_fire_destroy(object_type *object_ptr)
 	u32b flgs[TR_FLAG_SIZE];
 	if (!hates_fire(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
-	if (have_flag(flgs, TR_IGNORE_FIRE)) return (FALSE);
+	if (have_flag(flgs, TRAIT_IGNORE_FIRE)) return (FALSE);
 	return (TRUE);
 }
 
@@ -4744,7 +4744,7 @@ int set_cold_destroy(object_type *object_ptr)
 	u32b flgs[TR_FLAG_SIZE];
 	if (!hates_cold(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
-	if (have_flag(flgs, TR_IGNORE_COLD)) return (FALSE);
+	if (have_flag(flgs, TRAIT_IGNORE_COLD)) return (FALSE);
 	return (TRUE);
 }
 
@@ -4878,7 +4878,7 @@ static int minus_ac(creature_type *creature_ptr)
 	object_flags(object_ptr, flgs); // Extract the flags
 
 	// Object resists
-	if (have_flag(flgs, TR_IGNORE_ACID))
+	if (have_flag(flgs, TRAIT_IGNORE_ACID))
 	{
 #ifdef JP
 		msg_format("‚µ‚©‚µ%s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I", object_name);
@@ -5011,7 +5011,7 @@ s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	add_flag(object_ptr->art_flags, TR_IGNORE_ACID);
+	add_flag(object_ptr->art_flags, TRAIT_IGNORE_ACID);
 
 	if ((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{

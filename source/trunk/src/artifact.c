@@ -1778,10 +1778,10 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	}
 
 	/* Just to be sure */
-	add_flag(object_ptr->art_flags, TR_IGNORE_ACID);
-	add_flag(object_ptr->art_flags, TR_IGNORE_ELEC);
-	add_flag(object_ptr->art_flags, TR_IGNORE_FIRE);
-	add_flag(object_ptr->art_flags, TR_IGNORE_COLD);
+	add_flag(object_ptr->art_flags, TRAIT_IGNORE_ACID);
+	add_flag(object_ptr->art_flags, TRAIT_IGNORE_ELEC);
+	add_flag(object_ptr->art_flags, TRAIT_IGNORE_FIRE);
+	add_flag(object_ptr->art_flags, TRAIT_IGNORE_COLD);
 
 	total_flags = flag_cost(object_ptr, object_ptr->pval);
 	if (cheat_peek) msg_format("%ld", total_flags);
