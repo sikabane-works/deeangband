@@ -578,7 +578,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 				if (object_ptr->k_idx && !object_is_cursed(object_ptr))
 				{
 					object_flags(object_ptr, flgs);
-					if (have_flag(flgs, TR_TELEPORT))
+					if (have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
 					{
 						follow = TRUE;
 						break;

@@ -175,7 +175,7 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
 	if (one_in_(2)) add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 	if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_DRAIN_EXP);
-	if (one_in_(2)) add_flag(object_ptr->art_flags, TR_TELEPORT);
+	if (one_in_(2)) add_flag(object_ptr->trait_flags, TRAIT_PASSIVE_TELEPORT);
 	else if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_PREVENT_TELEPORT);
 
 	if ((creature_ptr->class_idx != CLASS_WARRIOR) && (creature_ptr->class_idx != CLASS_ARCHER) && (creature_ptr->class_idx != CLASS_CAVALRY) && (creature_ptr->class_idx != CLASS_BERSERKER) && (creature_ptr->class_idx != CLASS_SMITH) && one_in_(3))
@@ -784,9 +784,9 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 		break;
 
 	case BIAS_CHAOS:
-		if (!(have_flag(object_ptr->trait_flags, TR_TELEPORT)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_PASSIVE_TELEPORT)))
 		{
-			add_flag(object_ptr->trait_flags, TR_TELEPORT);
+			add_flag(object_ptr->trait_flags, TRAIT_PASSIVE_TELEPORT);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -865,7 +865,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			add_flag(object_ptr->trait_flags, TRAIT_REGENERATE);
 			break;
 		case 23:
-			add_flag(object_ptr->trait_flags, TR_TELEPORT);
+			add_flag(object_ptr->trait_flags, TRAIT_PASSIVE_TELEPORT);
 			break;
 		case 24:
 		case 25:

@@ -1715,7 +1715,7 @@ info[i++] = "それは恐怖感を引き起こす。";
 #endif
 
 	}
-	if ((have_flag(flgs, TR_TELEPORT)) || (object_ptr->curse_flags & TRC_TELEPORT))
+	if ((have_flag(flgs, TRAIT_PASSIVE_TELEPORT)) || (object_ptr->curse_flags & TRC_TELEPORT))
 	{
 #ifdef JP
 info[i++] = "それはランダムなテレポートを引き起こす。";

@@ -2956,7 +2956,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				/* Extract the item flags */
 				object_flags(object_ptr, flgs);
 
-				if (have_flag(flgs, TR_TELEPORT))
+				if (have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
 				{
 					/* {.} will stop random teleportation. */
 					if (!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '.'))

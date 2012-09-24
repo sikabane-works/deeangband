@@ -3066,7 +3066,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+12, col, "消費魔力減少:", TRAIT_DEC_MANA, &f, 0, creature_ptr);
 
 	display_flag_aux(row+14, col, "経験値減少  :", TRAIT_DRAIN_EXP, &f, 0, creature_ptr);
-	display_flag_aux(row+15, col, "乱テレポート:", TR_TELEPORT, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "乱テレポート:", TRAIT_PASSIVE_TELEPORT, &f, 0, creature_ptr);
 	display_flag_aux(row+16, col, "反感        :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "太古の怨念  :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #else
@@ -3085,7 +3085,7 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+12, col, "Econom. Mana:", TRAIT_DEC_MANA, &f, 0, creature_ptr);
 
 	display_flag_aux(row+14, col, "Drain Exp   :", TRAIT_DRAIN_EXP, &f, 0, creature_ptr);
-	display_flag_aux(row+15, col, "Rnd.Teleport:", TR_TELEPORT, &f, 0, creature_ptr);
+	display_flag_aux(row+15, col, "Rnd.Teleport:", TRAIT_PASSIVE_TELEPORT, &f, 0, creature_ptr);
 	display_flag_aux(row+16, col, "Aggravate   :", TRAIT_ANTIPATHY, &f, 0, creature_ptr);
 	display_flag_aux(row+17, col, "TY Curse    :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #endif

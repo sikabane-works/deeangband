@@ -1,37 +1,37 @@
 ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX,CON,CHA,PVAL,DEPTH,RARITY,WEIGHT,COST,CHARGE,FLAG,COMMENT
 4,耐酸の,of Resist Acid,BODY,16,100,,,,0,0,0,0,0,0,0,,0,12,0,1000,0,IGNORE_ACID|RES_ACID,"# File: e_info.txt#JZ# Zangband 日本語訳: 板倉#JZ# 「#J0#」で始まるコメントは日本語板 Angband のしとしんさんによる#JZ# もので、「#JZ#」で始まるコメントは日本語版 Zangband で新たに#JZ# 加わった項目です。日本語アングバンド同様、私（板倉）以外の方の#JZ# コメントにはその方の名前を記載しています。#JZ## This file is used to initialize the ""lib/raw/e_info.raw"" file, which is# used to initialize the ""ego-item"" information for the Angband game.# Do not modify this file unless you know exactly what you are doing,# unless you wish to risk possible system crashes and broken savefiles.# After modifying this file, delete the ""lib/raw/e_info.raw"" file.# The ego-item indexes are defined in ""defines.h"", and must not be changed.# Ego-items 1-63 are ""armor"", and 64-127 are ""weapons""# Note that every ""ego-item"" type has a different ""index"", and can only be# created from items that belong to a certain ""slot"" in the equipment, if# one assumes that ""ammo"" belongs to an imaginary slot (23).  However, it# is possible for several ""ego-item"" types to have the same ""textual name"",# such as with ""Armor of Resistance"" and ""HAND of Resistance"".# === Understanding e_info.txt ===# N: serial number : ego type# X: inventory slot : rating# C: max to-hit : max to-dam : max to-ac : pval# W: depth : rarity : weight : cost# F: flag | flag | etc# 'N' indicates the beginning of an entry. The serial number must# increase for each new item.# 'X' is for extra information - inventory slot and rating. Slots# range from 23 (for ammunition) to 35 (for boots). Rating affects# level feelings.# 'C' is for creation bonusses - maximum to-hit, to-dam, to-ac, and# pval. Cursed ego-items will negate the given value.# 'W' is for extra information. Depth is the depth the object is# normally found at, rarity determines how common the object is,# weight is in tenth-pounds and cost is the items value.# 'F' is for flags. These are fairly self-explanatory. As many F:# lines may be used as are needed to specify all the flags and flags# are separated by the '|' symbol.# Version stamp (required)### Body Armor ###"
 5,耐電の,of Resist Lightning,BODY,10,100,,,,0,0,0,0,0,0,0,,0,12,0,400,0,IGNORE_ELEC|RES_ELEC,
-6,耐火の,of Resist Fire,BODY,14,100,,,,0,0,0,0,0,0,0,,0,9,0,800,0,IGNORE_FIRE|RES_FIRE,
-7,耐冷の,of Resist Cold,BODY,12,100,,,,0,0,0,0,0,0,0,,0,9,0,600,0,IGNORE_COLD|RES_COLD,
+6,耐火の,of Resist Fire,BODY,14,100,,,,0,0,0,0,0,0,0,0,0,9,0,800,0,IGNORE_FIRE|RES_FIRE,
+7,耐冷の,of Resist Cold,BODY,12,100,,,,0,0,0,0,0,0,0,0,0,9,0,600,0,IGNORE_COLD|RES_COLD,
 8,全耐性の,of Resistance,BODY,20,100,0,0,10,0,0,0,0,0,0,0,0,0,18,0,12500,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES|RES_POIS:30%,# OnePower
 9,エルフの,of Elvenkind,BODY,25,100,0,0,10,0,0,0,0,0,0,0,3,0,18,0,15000,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,
 10,(ドワーフ),(Dwarven),BODY,5,100,0,0,12,0,0,0,0,0,0,0,3,0,18,0,1500,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|PHYSICAL_BOOST,# OnePower
 11,永続の,of Permanence,BODY,30,100,0,0,10,0,0,0,0,0,0,0,0,0,0,0,30000,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|XTRA_H_RES,
 12,宵闇の,of The Twilight,BODY,99,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,100000,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD|DUSK_ENCHANT,# 13 (unused)# 14 (unused)# 15 (unused)### HANDs ###
-16,耐酸の,of Resist Acid,HAND,16,100,,,,0,0,0,0,0,0,0,,0,18,0,1000,0,IGNORE_ACID|RES_ACID,
-17,耐電の,of Resist Lightning,HAND,10,100,,,,0,0,0,0,0,0,0,,0,7,0,400,0,IGNORE_ELEC|RES_ELEC,
-18,耐火の,of Resist Fire,HAND,14,100,,,,0,0,0,0,0,0,0,,0,9,0,800,0,IGNORE_FIRE|RES_FIRE,
-19,耐冷の,of Resist Cold,HAND,12,100,,,,0,0,0,0,0,0,0,,0,7,0,600,0,IGNORE_COLD|RES_COLD,
+16,耐酸の,of Resist Acid,HAND,16,100,,,,0,0,0,0,0,0,0,0,0,18,0,1000,0,IGNORE_ACID|RES_ACID,
+17,耐電の,of Resist Lightning,HAND,10,100,,,,0,0,0,0,0,0,0,0,0,7,0,400,0,IGNORE_ELEC|RES_ELEC,
+18,耐火の,of Resist Fire,HAND,14,100,,,,0,0,0,0,0,0,0,0,0,9,0,800,0,IGNORE_FIRE|RES_FIRE,
+19,耐冷の,of Resist Cold,HAND,12,100,,,,0,0,0,0,0,0,0,0,0,7,0,600,0,IGNORE_COLD|RES_COLD,
 20,全耐性の,of Resistance,HAND,20,100,0,0,10,0,0,0,0,0,0,0,0,0,18,0,12500,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,#JZ#
 21,反射の,of Reflection,HAND,20,100,0,0,5,0,0,0,0,0,0,0,0,0,18,0,8000,0,IGNORE_ELEC|IGNORE_ACID|IGNORE_COLD|IGNORE_FIRE,
 22,光と影の,of Night and Day,HAND,18,100,0,0,5,0,0,0,0,0,0,0,0,0,18,0,8000,0,RES_LITE|RES_DARK,### Crowns and Helms ###
-23,闇の,of Darkness,HEAD,6,100,,,,0,0,0,0,0,0,0,,0,18,0,800,0,LITE|RES_DARK,
-24,知能の,of Intelligence,HEAD,13,100,0,0,0,0,0,0,0,0,0,0,2,0,18,0,500,0,INT|SUSTAIN_INT,
-25,賢明の,of Wisdom,HEAD,13,100,0,0,0,0,0,0,0,0,0,0,2,0,18,0,500,0,WIS|SUSTAIN_WIS,
-26,美貌の,of Beauty,HEAD,8,100,0,0,0,0,0,0,0,0,0,0,4,0,18,0,1000,0,CHR|SUSTAIN_CHR,# OneAbility#J0##J0# 名前の訳は都々目さんによる#J0#
+23,闇の,of Darkness,HEAD,6,100,,,,0,0,0,0,0,0,0,0,0,18,0,800,0,LITE|RES_DARK,
+24,知能の,of Intelligence,HEAD,13,100,0,0,0,0,0,2,0,0,0,0,0,0,18,0,500,0,SUSTAIN_INT,
+25,賢明の,of Wisdom,HEAD,13,100,0,0,0,0,0,0,2,0,0,0,0,0,18,0,500,0,SUSTAIN_WIS,
+26,美貌の,of Beauty,HEAD,8,100,0,0,0,0,0,0,0,0,0,4,0,0,18,0,1000,0,SUSTAIN_CHR,# OneAbility#J0##J0# 名前の訳は都々目さんによる#J0#
 27,賢者の,of the Magi,HEAD,15,100,0,0,0,0,0,0,0,0,0,0,3,0,36,0,15000,0,XTRA_H_RES|XTRA_POWER,
-28,力の,of Might,HEAD,19,100,0,0,0,0,0,0,0,0,0,0,3,0,36,0,10000,0,STR|DEX|CON|FREE_ACTION|XTRA_H_RES|SUSTAIN_STR|SUSTAIN_DEX|SUSTAIN_CON,
+28,力の,of Might,HEAD,19,100,0,0,0,0,3,3,0,0,3,0,0,0,36,0,10000,0,STR|DEX|CON|FREE_ACTION|XTRA_H_RES|SUSTAIN_STR|SUSTAIN_DEX|SUSTAIN_CON,
 29,尊厳の,of Lordliness,HEAD,17,100,0,0,0,0,0,0,0,0,0,0,3,0,18,0,10000,0,WIS|CHR|XTRA_H_RES|SUSTAIN_INT|SUSTAIN_CHR,
 30,鋭敏の,of Seeing,HEAD,8,100,0,0,0,0,0,0,0,0,0,0,6,0,18,0,1000,0,SEARCH|NO_BLIND|SEE_INVISIBLE,
 31,赤外線視力の,of Infravision,HEAD,11,100,0,0,0,0,0,0,0,0,0,0,8,0,9,0,500,0,INFRA|HIDE_TYPE,
-32,光の,of Light,HEAD,6,100,,,,0,0,0,0,0,0,0,,0,18,0,500,0,LITE|RES_LITE,
-33,テレパシーの,of Telepathy,HEAD,20,100,,,,0,0,0,0,0,0,0,,0,18,0,15000,0,,#F:TELEPATHY
-34,急速回復の,of Regeneration,HEAD,10,100,,,,0,0,0,0,0,0,0,,0,36,0,1500,0,REGENERATE,
-35,テレポートの,of Teleportation,HEAD,0,100,,,,0,0,0,0,0,0,0,,0,36,0,0,0,TPORT,
-36,無知の,of Stupidity,HEAD,0,100,0,0,0,0,0,0,0,0,0,0,5,0,18,0,0,0,INT,
-37,愚鈍の,of Naivety,HEAD,0,100,0,0,0,0,0,0,0,0,0,0,5,0,18,0,0,0,WIS,
-38,醜悪の,of Ugliness,HEAD,0,100,0,0,0,0,0,0,0,0,0,0,5,0,36,0,0,0,CHR,
-39,疾病の,of Sickliness,HEAD,0,100,0,0,0,0,0,0,0,0,0,0,5,0,36,0,0,0,STR|DEX|CON,### Cloaks ###
+32,光の,of Light,HEAD,6,100,,,,0,0,0,0,0,0,0,0,0,18,0,500,0,LITE|RES_LITE,
+33,テレパシーの,of Telepathy,HEAD,20,100,,,,0,0,0,0,0,0,0,0,0,18,0,15000,0,,#F:TELEPATHY
+34,急速回復の,of Regeneration,HEAD,10,100,,,,0,0,0,0,0,0,0,0,0,36,0,1500,0,REGENERATE,
+35,テレポートの,of Teleportation,HEAD,0,100,,,,0,0,0,0,0,0,0,0,0,36,0,0,0,PASSIVE_TELEPORT,
+36,無知の,of Stupidity,HEAD,0,100,0,0,0,0,0,-5,0,0,0,0,0,0,18,0,0,0,,
+37,愚鈍の,of Naivety,HEAD,0,100,0,0,0,0,0,0,-5,0,0,0,0,0,18,0,0,0,,
+38,醜悪の,of Ugliness,HEAD,0,100,0,0,0,0,0,0,0,0,0,-5,0,0,36,0,0,0,,
+39,疾病の,of Sickliness,HEAD,0,100,0,0,0,0,-5,-5,-5,0,0,0,5,0,36,0,0,0,STR|DEX|CON,### Cloaks ###
 40,守りの,of Protection,OUTER,10,100,0,0,10,0,0,0,0,0,0,0,0,0,5,0,500,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,#J0##J0# 岸さんの訳です#J0#
 41,忍びの,of Stealth,OUTER,10,100,0,0,0,0,0,0,0,0,0,0,3,0,5,0,500,0,STEALTH,# OnePower
 42,至福の地アマンの,of Aman,OUTER,20,100,0,0,20,0,0,0,0,0,0,0,3,0,36,0,15000,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,"# Aura, Fire#JZ#"
@@ -52,7 +52,7 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX
 57,忍びの,of Stealth,FEET,16,100,0,0,0,0,0,0,0,0,0,0,3,0,6,0,500,0,STEALTH,
 58,麻痺知らずの,of Free Action,FEET,15,100,,,,0,0,0,0,0,0,0,,0,9,0,1000,0,FREE_ACTION,
 59,スピードの,of Speed,FEET,25,100,0,0,0,0,0,0,0,0,0,0,10,0,36,0,100000,0,SPEED|HIDE_TYPE,
-60,跳躍の,of Jumping,FEET,15,100,,,,0,0,0,0,0,0,0,,0,9,0,1000,0,ACTIVATE,
+60,跳躍の,of Jumping,FEET,15,100,,,,0,0,0,0,0,0,0,,0,9,0,1000,0,TPORT,
 61,騒音の,of Noise,FEET,0,100,,,,0,0,0,0,0,0,0,,0,36,0,0,0,ANTIPATHY,
 62,のろまの,of Slowness,FEET,0,100,0,0,0,0,0,0,0,0,0,0,5,0,36,0,0,0,SPEED,
 63,厄介者の,of Annoyance,FEET,0,100,0,0,0,0,0,0,0,0,0,0,10,0,36,0,0,0,SPEED|ANTIPATHY,### Weapons #### OneSustain
@@ -89,7 +89,7 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX
 95,*ドラゴンスレイヤー*の,of *Slay* Dragon,HAND,24,100,0,0,0,0,0,0,0,0,0,0,1,0,90,0,6000,0,CON|SLAY_DRAGON|KILL_DRAGON|XTRA_E_RES|XTRA_D_RES|RES_POIS:33%|SENSE_DRAGON,#JZ#
 96,(吸血),(Vampiric),HAND,25,100,,,,0,0,0,0,0,0,0,,0,18,0,10000,0,VAMPIRIC_BRAND|SLAY_HUMAN:40%|HOLD_LIFE,
 97,虹色の,of Prism,HAND,25,100,,,,0,0,0,0,0,0,0,,0,36,0,10000,0,IGNORE_FIRE|IGNORE_COLD|IGNORE_ELEC,#JZ#
-98,(トランプ),(Trump Weapon),HAND,22,100,4,4,0,0,0,0,0,0,0,0,2,0,18,0,7000,0,XTRA_H_RES|REGENERATE|SLOW_DIGEST|RES_NEXU|TPORT,#JZ#
+98,(トランプ),(Trump Weapon),HAND,22,100,4,4,0,0,0,0,0,0,0,0,2,0,18,0,7000,0,XTRA_H_RES|REGENERATE|SLOW_DIGEST|RES_NEXU|PASSIVE_TELEPORT,#JZ#
 99,(パターン),(Pattern Weapon),HAND,26,100,6,6,0,0,0,0,0,0,0,0,2,0,36,0,25000,0,FREE_ACTION|SEE_INVISIBLE|XTRA_H_RES,#J0##J0# 岸さんの訳です#J0#
 100,穴掘りの,of Digging,HAND,4,100,0,0,0,0,0,0,0,0,0,0,5,0,0,0,500,0,IGNORE_ACID|IGNORE_ELEC|IGNORE_FIRE|IGNORE_COLD,
 101,人喰いの,of Slay Human,HAND,10,100,,,,0,0,0,0,0,0,0,,0,23,0,2500,0,SLAY_HUMAN|KILL_HUMAN:33%,
@@ -157,7 +157,7 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX
 183,反感の,and Aggravate,RING,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,ANTIPATHY|CURSED|HEAVY_CURSE,
 184,怨念の,and Ancient Foul Curse,RING,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,TY_CURSE|CURSED|HEAVY_CURSE,
 185,耐時間逆転の,and Resist Time,RING,25,100,0,0,0,0,0,0,0,0,0,0,0,30,0,0,7500,0,RES_TIME,
-186,不安定の,and Random Teleportation,RING,3,100,0,0,0,0,0,0,0,0,0,0,0,30,0,0,100,0,TPORT,
+186,不安定の,and Random Teleportation,RING,3,100,0,0,0,0,0,0,0,0,0,0,0,30,0,0,100,0,PASSIVE_TELEPORT,
 187,アルビノの,and Albino,RING,0,100,0,0,20,0,0,0,0,0,0,0,3,0,0,0,0,0,CURSED|HEAVY_CURSE|CON,# Ego Amulet
 210,遅消化の,and Slow Digestion,AMULET,5,100,0,0,0,0,0,0,0,0,0,0,0,30,0,0,200,0,SLOW_DIGEST,
 211,暗視の,and Infravision,AMULET,5,100,0,0,0,0,0,0,0,0,0,0,3,30,0,0,500,0,INFRA,
@@ -172,7 +172,7 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX
 220,魅惑の,and Monster Turning,AMULET,15,100,0,0,0,0,0,0,0,0,0,0,0,40,0,0,2000,0,CHARM_OTHER,
 221,忍びの,and Stealth,AMULET,10,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,500,0,STEALTH,
 222,跳躍の,and Jumping,AMULET,5,100,0,0,0,0,0,0,0,0,0,0,0,5,0,0,500,0,BLINK,
-223,転移の,at Will,AMULET,5,100,0,0,0,0,0,0,0,0,0,0,0,10,0,0,1000,0,TPORT,
+223,転移の,at Will,AMULET,5,100,0,0,0,0,0,0,0,0,0,0,0,10,0,0,1000,0,PASSIVE_TELEPORT,
 224,次元の,and Dimension Door,AMULET,30,100,0,0,0,0,0,0,0,0,0,0,0,100,0,0,30000,0,DIMENSION_DOOR,
 225,(防衛者),(Defender),AMULET,25,100,0,0,8,0,0,0,0,0,0,0,4,0,0,0,20000,0,STEALTH|LEVITATION|FREE_ACTION|SEE_INVISIBLE|REGENERATE,
 226,耐火の,and Resist Fire,AMULET,5,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,500,0,RES_FIRE,

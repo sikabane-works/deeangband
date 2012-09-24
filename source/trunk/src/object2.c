@@ -944,7 +944,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_IGNORE_COLD)) total += 100;
 	//TODO:TR_ACTIVATE if (have_flag(flgs, TR_ACTIVATE)) total += 100;
 	if (have_flag(flgs, TRAIT_DRAIN_EXP)) total -= 12500;
-	if (have_flag(flgs, TR_TELEPORT))
+	if (have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
 	{
 		if (object_is_cursed(object_ptr))
 			total -= 7500;
@@ -2561,7 +2561,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_LITE;
 						break;
 					case 7: case 8:
-						if (have_flag(k_ptr->flags, TR_TELEPORT)) break;
+						if (have_flag(k_ptr->flags, TRAIT_PASSIVE_TELEPORT)) break;
 						object_ptr->name2 = EGO_RING_TELEPORT;
 						break;
 					case 9: case 10:
@@ -5997,7 +5997,7 @@ static essence_type essence_info[] =
 	{TRAIT_ESP, "テレパシー", 6, TRAIT_ESP, 15},
 	{TRAIT_SLOW_DIGEST, "遅消化", 3, TRAIT_SLOW_DIGEST, 15},
 	{TRAIT_REGENERATE, "急速回復", 3, TRAIT_REGENERATE, 20},
-	{TR_TELEPORT, "テレポート", 3, TR_TELEPORT, 25},
+	{TRAIT_PASSIVE_TELEPORT, "テレポート", 3, TRAIT_PASSIVE_TELEPORT, 25},
 
 	{TRAIT_SLAY_EVIL, "邪悪倍打", 5, TRAIT_SLAY_EVIL, 100},
 	{TRAIT_KILL_EVIL, "邪悪倍倍打", 0, TRAIT_SLAY_EVIL, 60},
@@ -6108,7 +6108,7 @@ static essence_type essence_info[] =
 	{TRAIT_ESP, "telepathy", 6, TRAIT_ESP, 15},
 	{TRAIT_SLOW_DIGEST, "slow digestion", 3, TRAIT_SLOW_DIGEST, 15},
 	{TRAIT_REGENERATE, "regeneration", 3, TRAIT_REGENERATE, 20},
-	{TR_TELEPORT, "teleport", 3, TR_TELEPORT, 25},
+	{TRAIT_PASSIVE_TELEPORT, "teleport", 3, TRAIT_PASSIVE_TELEPORT, 25},
 
 	{TRAIT_SLAY_EVIL, "slay evil", 5, TRAIT_SLAY_EVIL, 100},
 	{TRAIT_KILL_EVIL, "kill evil", 0, TRAIT_SLAY_EVIL, 60},

@@ -3475,7 +3475,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		/* Various flags */
 		//TODO if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT))  creature_ptr->xtra_might = TRUE;
 
-		if (have_flag(flgs, TR_TELEPORT))
+		if (have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
 		{
 			if (object_is_cursed(object_ptr)) creature_ptr->cursed |= TRC_TELEPORT;
 			else
