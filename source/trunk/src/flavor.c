@@ -213,7 +213,7 @@ static void shuffle_flavors(byte tval)
 		if (!k_ptr->flavor) continue;
 
 		/* Skip objects with a fixed flavor name */
-		if (have_flag(k_ptr->flags, TR_FIXED_FLAVOR)) continue;
+		if (have_flag(k_ptr->flags, TRAIT_FIXED_FLAVOR)) continue;
 
 		/* Remember k_idx */
 		k_idx_list[k_idx_list_num] = i;
@@ -1758,7 +1758,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Use full name from object_kind_info or artifact_info */
-	if (aware && have_flag(flgs, TR_FULL_NAME))
+	if (aware && have_flag(flgs, TRAIT_FULL_NAME))
 	{
 		if (known && object_ptr->name1) basenm = artifact_name + artifact_info[object_ptr->name1].name;
 		else basenm = kindname;
@@ -1923,7 +1923,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				t = object_desc_str(t, temp);
 		}
 		/* 伝説のアイテム */
-		else if (object_ptr->name1 && !have_flag(flgs, TR_FULL_NAME))
+		else if (object_ptr->name1 && !have_flag(flgs, TRAIT_FULL_NAME))
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 			/* '『' から始まらない伝説のアイテムの名前は最初に付加する */
@@ -2072,7 +2072,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */
-	if (known && !have_flag(flgs, TR_FULL_NAME))
+	if (known && !have_flag(flgs, TRAIT_FULL_NAME))
 	{
 		/* Is it a new random artifact ? */
 		if (object_ptr->art_name)
