@@ -826,12 +826,12 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, STAT_DEX)) total += (1500 * plusses);
 	if (have_flag(flgs, STAT_CON)) total += (1500 * plusses);
 	if (have_flag(flgs, STAT_CHA)) total += (750 * plusses);
-	if (have_flag(flgs, TR_MAGIC_MASTERY)) total += (600 * plusses);
+	if (have_flag(flgs, TRAIT_MAGIC_MASTERY)) total += (600 * plusses);
 	if (has_trait_object(object_ptr, TRAIT_STEALTH)) total += (250 * plusses);
-	if (have_flag(flgs, TR_SEARCH)) total += (100 * plusses);
-	if (have_flag(flgs, TR_INFRA)) total += (150 * plusses);
-	if (have_flag(flgs, TR_TUNNEL)) total += (175 * plusses);
-	if ((have_flag(flgs, TR_SPEED)) && (plusses > 0))
+	if (have_flag(flgs, TRAIT_SEARCH)) total += (100 * plusses);
+	if (have_flag(flgs, TRAIT_INFRA)) total += (150 * plusses);
+	if (have_flag(flgs, TRAIT_TUNNEL)) total += (175 * plusses);
+	if ((have_flag(flgs, TRAIT_SPEED)) && (plusses > 0))
 		total += (10000 + (2500 * plusses));
 	if ((has_trait_object(object_ptr, TRAIT_BLOWS)) && (plusses > 0))
 		total += (10000 + (2500 * plusses));
@@ -840,7 +840,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	count = 0;
 	if (have_flag(flgs, TRAIT_CHAOTIC_BRAND)) {total += 5000;count++;}
 	if (have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) {total += 6500;count++;}
-	if (have_flag(flgs, TR_FORCE_WEAPON)) {tmp_cost += 2500;count++;}
+	if (have_flag(flgs, TRAIT_FORCE_WEAPON)) {tmp_cost += 2500;count++;}
 	if (have_flag(flgs, TRAIT_KILL_ANIMAL)) {tmp_cost += 2800;count++;}
 	else if (have_flag(flgs, TRAIT_SLAY_ANIMAL)) {tmp_cost += 1800;count++;}
 	if (have_flag(flgs, TRAIT_KILL_EVIL)) {tmp_cost += 3300;count++;}
@@ -877,7 +877,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_SUSTAIN_DEX)) total += 850;
 	if (have_flag(flgs, TRAIT_SUSTAIN_CON)) total += 850;
 	if (have_flag(flgs, TRAIT_SUSTAIN_CHR)) total += 250;
-	if (have_flag(flgs, TR_RIDING)) total += 0;
+	if (have_flag(flgs, TRAIT_RIDING)) total += 0;
 	if (have_flag(flgs, TRAIT_EASY_SPELL)) total += 1500;
 	if (have_flag(flgs, TRAIT_THROW_MIGHTY)) total += 5000;
 	if (have_flag(flgs, TRAIT_FREE_ACTION)) total += 4500;
@@ -914,10 +914,10 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (have_flag(flgs, TRAIT_PREVENT_TELEPORT)) total -= 10000;
 	if (have_flag(flgs, TRAIT_ANTI_MAGIC)) total += 2500;
 	if (have_flag(flgs, TRAIT_TY_CURSE)) total -= 15000;
-	if (have_flag(flgs, TR_HIDE_TYPE)) total += 0;
-	if (have_flag(flgs, TR_SHOW_MODS)) total += 0;
+	if (have_flag(flgs, TRAIT_HIDE_TYPE)) total += 0;
+	if (have_flag(flgs, TRAIT_SHOW_MODS)) total += 0;
 	if (have_flag(flgs, TRAIT_LEVITATION)) total += 1250;
-	if (have_flag(flgs, TR_LITE)) total += 1250;
+	if (have_flag(flgs, TRAIT_LITE)) total += 1250;
 	if (have_flag(flgs, TRAIT_SEE_INVISIBLE)) total += 2000;
 	if (have_flag(flgs, TRAIT_ESP)) total += 20000;
 	if (have_flag(flgs, TRAIT_SENSE_ANIMAL)) total += 1000;
@@ -1160,19 +1160,19 @@ s32b object_value_real(object_type *object_ptr)
 		if (have_flag(flgs, STAT_CHA)) value += (object_ptr->pval * 200L);
 
 		/* Give credit for stealth and searching */
-		if (have_flag(flgs, TR_MAGIC_MASTERY)) value += (object_ptr->pval * 100);
+		if (have_flag(flgs, TRAIT_MAGIC_MASTERY)) value += (object_ptr->pval * 100);
 		if (has_trait_object(object_ptr, TRAIT_STEALTH)) value += (object_ptr->pval * 100L);
-		if (have_flag(flgs, TR_SEARCH)) value += (object_ptr->pval * 100L);
+		if (have_flag(flgs, TRAIT_SEARCH)) value += (object_ptr->pval * 100L);
 
 		/* Give credit for infra-vision and tunneling */
-		if (have_flag(flgs, TR_INFRA)) value += (object_ptr->pval * 50L);
-		if (have_flag(flgs, TR_TUNNEL)) value += (object_ptr->pval * 50L);
+		if (have_flag(flgs, TRAIT_INFRA)) value += (object_ptr->pval * 50L);
+		if (have_flag(flgs, TRAIT_TUNNEL)) value += (object_ptr->pval * 50L);
 
 		/* Give credit for extra attacks */
 		if (has_trait_object(object_ptr, TRAIT_BLOWS)) value += (object_ptr->pval * 5000L);
 
 		/* Give credit for speed bonus */
-		if (have_flag(flgs, TR_SPEED)) value += (object_ptr->pval * 10000L);
+		if (have_flag(flgs, TRAIT_SPEED)) value += (object_ptr->pval * 10000L);
 
 		break;
 	}
@@ -2557,7 +2557,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_REGEN;
 						break;
 					case 5: case 6:
-						if (have_flag(k_ptr->flags, TR_LITE)) break;
+						if (have_flag(k_ptr->flags, TRAIT_LITE)) break;
 						object_ptr->name2 = EGO_RING_LITE;
 						break;
 					case 7: case 8:
@@ -5942,12 +5942,12 @@ static essence_type essence_info[] =
 	{STAT_DEX, "Ší—p‚³", 4, STAT_DEX, 20},
 	{STAT_CON, "‘Ï‹v—Í", 4, STAT_CON, 20},
 	{STAT_CHA, "–£—Í", 4, STAT_CHA, 20},
-	{TR_MAGIC_MASTERY, "–‚—ÍŽx”z", 4, TR_MAGIC_MASTERY, 20},
+	{TRAIT_MAGIC_MASTERY, "–‚—ÍŽx”z", 4, TRAIT_MAGIC_MASTERY, 20},
 	{TRAIT_STEALTH, "‰B–§", 4, TRAIT_STEALTH, 40},
-	{TR_SEARCH, "’Tõ", 4, TR_SEARCH, 15},
-	{TR_INFRA, "ÔŠOüŽ‹—Í", 4, TR_INFRA, 15},
-	{TR_TUNNEL, "ÌŒ@", 4, TR_TUNNEL, 15},
-	{TR_SPEED, "ƒXƒs[ƒh", 4, TR_SPEED, 12},
+	{TRAIT_SEARCH, "’Tõ", 4, TRAIT_SEARCH, 15},
+	{TRAIT_INFRA, "ÔŠOüŽ‹—Í", 4, TRAIT_INFRA, 15},
+	{TRAIT_TUNNEL, "ÌŒ@", 4, TRAIT_TUNNEL, 15},
+	{TRAIT_SPEED, "ƒXƒs[ƒh", 4, TRAIT_SPEED, 12},
 	{TRAIT_BLOWS, "’Ç‰ÁUŒ‚", 1, TRAIT_BLOWS, 20},
 	{TRAIT_CHAOTIC_BRAND, "ƒJƒIƒXUŒ‚", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "‹zŒŒUŒ‚", 1, TRAIT_VAMPIRIC_BRAND, 60},
@@ -5992,7 +5992,7 @@ static essence_type essence_info[] =
 	{TRAIT_ANTI_MAGIC, "”½–‚–@", 3, TRAIT_ANTI_MAGIC, 15},
 	{TRAIT_WARNING, "Œx", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "•‚—V", 3, TRAIT_LEVITATION, 20},
-	{TR_LITE, "‰i‹vŒõŒ¹", 3, TR_LITE, 15},
+	{TRAIT_LITE, "‰i‹vŒõŒ¹", 3, TRAIT_LITE, 15},
 	{TRAIT_SEE_INVISIBLE, "‰ÂŽ‹“§–¾", 3, TRAIT_SEE_INVISIBLE, 20},
 	{TRAIT_ESP, "ƒeƒŒƒpƒV[", 6, TRAIT_ESP, 15},
 	{TRAIT_SLOW_DIGEST, "’xÁ‰»", 3, TRAIT_SLOW_DIGEST, 15},
@@ -6029,8 +6029,8 @@ static essence_type essence_info[] =
 	{TRAIT_SENSE_DRAGON, "—³ESP", 6, TRAIT_SLAY_DRAGON, 40},
 	{TRAIT_SENSE_HUMAN, "lŠÔESP", 6, TRAIT_SLAY_HUMAN, 40},
 
-	{ESSENCE_ATTACK, "UŒ‚", 10, TR_ES_ATTACK, 30},
-	{ESSENCE_AC, "–hŒä", 10, TR_ES_AC, 15},
+	{ESSENCE_ATTACK, "UŒ‚", 10, TRAIT_ES_ATTACK, 30},
+	{ESSENCE_AC, "–hŒä", 10, TRAIT_ES_AC, 15},
 	{ESSENCE_TMP_RES_ACID, "Ž_‘Ï«”­“®", 7, TRAIT_RES_ACID, 50},
 	{ESSENCE_TMP_RES_ELEC, "“dŒ‚‘Ï«”­“®", 7, TRAIT_RES_ELEC, 50},
 	{ESSENCE_TMP_RES_FIRE, "‰Î‰Š‘Ï«”­“®", 7, TRAIT_RES_FIRE, 50},
@@ -6040,7 +6040,7 @@ static essence_type essence_info[] =
 	{ESSENCE_SH_COLD, "—â‹CƒI[ƒ‰", 7, -1, 50},
 	{ESSENCE_RESISTANCE, "‘S‘Ï«", 2, -1, 150},
 	{ESSENCE_SUSTAIN, "‘•”õ•ÛŽ", 10, -1, 10},
-	{ESSENCE_SLAY_GLOVE, "ŽEC‚Ì¬Žè", 1, TR_ES_ATTACK, 200},
+	{ESSENCE_SLAY_GLOVE, "ŽEC‚Ì¬Žè", 1, TRAIT_ES_ATTACK, 200},
 
 	{-1, NULL, 0, -1, 0}
 };
@@ -6053,12 +6053,12 @@ static essence_type essence_info[] =
 	{STAT_DEX, "dexterity", 4, STAT_DEX, 20},
 	{STAT_CON, "constitution", 4, STAT_CON, 20},
 	{STAT_CHA, "charisma", 4, STAT_CHA, 20},
-	{TR_MAGIC_MASTERY, "magic mastery", 4, TR_MAGIC_MASTERY, 20},
+	{TRAIT_MAGIC_MASTERY, "magic mastery", 4, TRAIT_MAGIC_MASTERY, 20},
 	{TRAIT_STEALTH, "stealth", 4, TRAIT_STEALTH, 40},
-	{TR_SEARCH, "serching", 4, TR_SEARCH, 15},
-	{TR_INFRA, "infravision", 4, TR_INFRA, 15},
-	{TR_TUNNEL, "digging", 4, TR_TUNNEL, 15},
-	{TR_SPEED, "speed", 4, TR_SPEED, 12},
+	{TRAIT_SEARCH, "serching", 4, TRAIT_SEARCH, 15},
+	{TRAIT_INFRA, "infravision", 4, TRAIT_INFRA, 15},
+	{TRAIT_TUNNEL, "digging", 4, TRAIT_TUNNEL, 15},
+	{TRAIT_SPEED, "speed", 4, TRAIT_SPEED, 12},
 	{TRAIT_BLOWS, "extra attack", 1, TRAIT_BLOWS, 20},
 	{TRAIT_CHAOTIC_BRAND, "chaos brand", 1, TRAIT_CHAOTIC_BRAND, 15},
 	{TRAIT_VAMPIRIC_BRAND, "vampiric brand", 1, TRAIT_VAMPIRIC_BRAND, 60},
@@ -6103,7 +6103,7 @@ static essence_type essence_info[] =
 	{TRAIT_ANTI_MAGIC, "anti magic", 3, TRAIT_ANTI_MAGIC, 15},
 	{TRAIT_WARNING, "warning", 3, TRAIT_WARNING, 20},
 	{TRAIT_LEVITATION, "levitation", 3, TRAIT_LEVITATION, 20},
-	{TR_LITE, "permanent light", 3, TR_LITE, 15},
+	{TRAIT_LITE, "permanent light", 3, TRAIT_LITE, 15},
 	{TRAIT_SEE_INVISIBLE, "see invisible", 3, TRAIT_SEE_INVISIBLE, 20},
 	{TRAIT_ESP, "telepathy", 6, TRAIT_ESP, 15},
 	{TRAIT_SLOW_DIGEST, "slow digestion", 3, TRAIT_SLOW_DIGEST, 15},
@@ -6140,8 +6140,8 @@ static essence_type essence_info[] =
 	{TRAIT_SENSE_DRAGON, "sense dragon", 6, TRAIT_SLAY_DRAGON, 40},
 	{TRAIT_SENSE_HUMAN, "sense human", 6, TRAIT_SLAY_HUMAN, 40},
 
-	{ESSENCE_ATTACK, "weapon enchant", 10, TR_ES_ATTACK, 30},
-	{ESSENCE_AC, "armor enchant", 10, TR_ES_AC, 15},
+	{ESSENCE_ATTACK, "weapon enchant", 10, TRAIT_ES_ATTACK, 30},
+	{ESSENCE_AC, "armor enchant", 10, TRAIT_ES_AC, 15},
 	{ESSENCE_TMP_RES_ACID, "resist acid activation", 7, TRAIT_RES_ACID, 50},
 	{ESSENCE_TMP_RES_ELEC, "resist electricity activation", 7, TRAIT_RES_ELEC, 50},
 	{ESSENCE_TMP_RES_FIRE, "resist fire activation", 7, TRAIT_RES_FIRE, 50},
@@ -6151,7 +6151,7 @@ static essence_type essence_info[] =
 	{ESSENCE_SH_COLD, "sheath of coldness", 7, -1, 50},
 	{ESSENCE_RESISTANCE, "resistance", 2, -1, 150},
 	{ESSENCE_SUSTAIN, "elements proof", 10, -1, 10},
-	{ESSENCE_SLAY_GLOVE, "gauntlets of slaying", 1, TR_ES_ATTACK, 200},
+	{ESSENCE_SLAY_GLOVE, "gauntlets of slaying", 1, TRAIT_ES_ATTACK, 200},
 
 	{-1, NULL, 0, -1, 0}
 };
@@ -6537,7 +6537,7 @@ static void drain_essence(creature_type *creature_ptr)
 		}
 	}
 
-	if ((have_flag(old_flgs, TR_FORCE_WEAPON)) && !(have_flag(new_flgs, TR_FORCE_WEAPON)))
+	if ((have_flag(old_flgs, TRAIT_FORCE_WEAPON)) && !(have_flag(new_flgs, TRAIT_FORCE_WEAPON)))
 	{
 		drain_value[STAT_INT] += 5;
 		drain_value[STAT_WIS] += 5;
@@ -6568,14 +6568,14 @@ static void drain_essence(creature_type *creature_ptr)
 	}
 	if (object_is_weapon_ammo(object_ptr))
 	{
-		if (old_ds > object_ptr->ds) drain_value[TR_ES_ATTACK] += (old_ds-object_ptr->ds)*10;
+		if (old_ds > object_ptr->ds) drain_value[TRAIT_ES_ATTACK] += (old_ds-object_ptr->ds)*10;
 
-		if (old_dd > object_ptr->dd) drain_value[TR_ES_ATTACK] += (old_dd-object_ptr->dd)*10;
+		if (old_dd > object_ptr->dd) drain_value[TRAIT_ES_ATTACK] += (old_dd-object_ptr->dd)*10;
 	}
-	if (old_to_hit > object_ptr->to_hit) drain_value[TR_ES_ATTACK] += (old_to_hit-object_ptr->to_hit)*10;
-	if (old_to_damage > object_ptr->to_damage) drain_value[TR_ES_ATTACK] += (old_to_damage-object_ptr->to_damage)*10;
-	if (old_ac > object_ptr->ac) drain_value[TR_ES_AC] += (old_ac-object_ptr->ac)*10;
-	if (old_to_ac > object_ptr->to_ac) drain_value[TR_ES_AC] += (old_to_ac-object_ptr->to_ac)*10;
+	if (old_to_hit > object_ptr->to_hit) drain_value[TRAIT_ES_ATTACK] += (old_to_hit-object_ptr->to_hit)*10;
+	if (old_to_damage > object_ptr->to_damage) drain_value[TRAIT_ES_ATTACK] += (old_to_damage-object_ptr->to_damage)*10;
+	if (old_ac > object_ptr->ac) drain_value[TRAIT_ES_AC] += (old_ac-object_ptr->ac)*10;
+	if (old_to_ac > object_ptr->to_ac) drain_value[TRAIT_ES_AC] += (old_to_ac-object_ptr->to_ac)*10;
 
 	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
 	{

@@ -147,7 +147,7 @@ void one_ability(object_type *object_ptr)
 	switch (randint0(10))
 	{
 	case 0: add_flag(object_ptr->trait_flags, TRAIT_LEVITATION);     break;
-	case 1: add_flag(object_ptr->art_flags, TR_LITE);        break;
+	case 1: add_flag(object_ptr->art_flags, TRAIT_LITE);        break;
 	case 2: add_flag(object_ptr->trait_flags, TRAIT_SEE_INVISIBLE);   break;
 	case 3: add_flag(object_ptr->trait_flags, TRAIT_WARNING);     break;
 	case 4: add_flag(object_ptr->trait_flags, TRAIT_SLOW_DIGEST); break;
@@ -215,9 +215,9 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 			add_flag(object_ptr->art_flags, STAT_INT);
 			if (one_in_(2)) return;
 		}
-		if ((object_ptr->tval == TV_GLOVES) && !(have_flag(object_ptr->art_flags, TR_MAGIC_MASTERY)))
+		if ((object_ptr->tval == TV_GLOVES) && !(have_flag(object_ptr->art_flags, TRAIT_MAGIC_MASTERY)))
 		{
-			add_flag(object_ptr->art_flags, TR_MAGIC_MASTERY);
+			add_flag(object_ptr->art_flags, TRAIT_MAGIC_MASTERY);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -256,9 +256,9 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 			add_flag(object_ptr->trait_flags, TRAIT_STEALTH);
 			if (one_in_(2)) return;
 		}
-		if (!(have_flag(object_ptr->art_flags, TR_SEARCH)))
+		if (!(have_flag(object_ptr->art_flags, TRAIT_SEARCH)))
 		{
-			add_flag(object_ptr->art_flags, TR_SEARCH);
+			add_flag(object_ptr->art_flags, TRAIT_SEARCH);
 			if (one_in_(2)) return;
 		}
 		break;
@@ -369,20 +369,20 @@ static void random_plus(creature_type *owner_ptr, object_type * object_ptr, int 
 			artifact_bias = BIAS_ROGUE;
 		break;
 	case 15: case 16:
-		add_flag(object_ptr->art_flags, TR_SEARCH);
+		add_flag(object_ptr->art_flags, TRAIT_SEARCH);
 		if (!artifact_bias && one_in_(9))
 			artifact_bias = BIAS_RANGER;
 		break;
 	case 17: case 18:
-		add_flag(object_ptr->art_flags, TR_INFRA);
+		add_flag(object_ptr->art_flags, TRAIT_INFRA);
 		break;
 	case 19:
-		add_flag(object_ptr->art_flags, TR_SPEED);
+		add_flag(object_ptr->art_flags, TRAIT_SPEED);
 		if (!artifact_bias && one_in_(11))
 			artifact_bias = BIAS_ROGUE;
 		break;
 	case 20: case 21:
-		add_flag(object_ptr->art_flags, TR_TUNNEL);
+		add_flag(object_ptr->art_flags, TRAIT_TUNNEL);
 		break;
 	case 22: case 23:
 		if (object_ptr->tval == TV_BOW) random_plus(owner_ptr, object_ptr, artifact_bias);
@@ -792,9 +792,9 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 		break;
 
 	case BIAS_FIRE:
-		if (!(have_flag(object_ptr->trait_flags, TR_LITE)))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_LITE)))
 		{
-			add_flag(object_ptr->trait_flags, TR_LITE); /* Freebie */
+			add_flag(object_ptr->trait_flags, TRAIT_LITE); /* Freebie */
 		}
 		break;
 	}
@@ -845,7 +845,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 			break;
 		case 10:
 		case 11:
-			add_flag(object_ptr->trait_flags, TR_LITE);
+			add_flag(object_ptr->trait_flags, TRAIT_LITE);
 			break;
 		case 12:
 		case 13:
@@ -882,7 +882,7 @@ static void random_misc(creature_type *creature_ptr, object_type * object_ptr, i
 		case 29:
 		{
 			int bonus_h, bonus_d;
-			add_flag(object_ptr->trait_flags, TR_SHOW_MODS);
+			add_flag(object_ptr->trait_flags, TRAIT_SHOW_MODS);
 			bonus_h = 4 + (randint1(11));
 			bonus_d = 4 + (randint1(11));
 			if ((object_ptr->tval != TV_SWORD) && (object_ptr->tval != TV_POLEARM) && (object_ptr->tval != TV_HAFTED) && (object_ptr->tval != TV_DIGGING) && (object_ptr->tval != TV_GLOVES) && (object_ptr->tval != TV_RING))
@@ -1221,7 +1221,7 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 				artifact_bias = BIAS_NECROMANTIC;
 			break;
 		case 32:
-			add_flag(object_ptr->art_flags, TR_FORCE_WEAPON);
+			add_flag(object_ptr->art_flags, TRAIT_FORCE_WEAPON);
 			if (!artifact_bias)
 				artifact_bias = (one_in_(2) ? BIAS_MAGE : BIAS_PRIESTLY);
 			break;
@@ -1818,7 +1818,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		object_ptr->to_hit = 0;
 		object_ptr->to_damage = 0;
 		remove_flag(object_ptr->trait_flags, TRAIT_BLOWS);
-		remove_flag(object_ptr->art_flags, TR_FORCE_WEAPON);
+		remove_flag(object_ptr->art_flags, TRAIT_FORCE_WEAPON);
 		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL);
 		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL);
 		remove_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD);

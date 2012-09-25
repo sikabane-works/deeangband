@@ -628,20 +628,20 @@ static flag_desc stat_flags_desc[] =
 static flag_desc pval_flags1_desc[] =
 {
 #ifdef JP
-	{ TR_MAGIC_MASTERY,    "魔法道具使用能力" },
+	{ TRAIT_MAGIC_MASTERY,    "魔法道具使用能力" },
 	{ TRAIT_STEALTH,    "隠密" },
-	{ TR_SEARCH,     "探索" },
-	{ TR_INFRA,      "赤外線視力" },
-	{ TR_TUNNEL,     "採掘" },
+	{ TRAIT_SEARCH,     "探索" },
+	{ TRAIT_INFRA,      "赤外線視力" },
+	{ TRAIT_TUNNEL,     "採掘" },
 	{ TRAIT_BLOWS,      "攻撃回数" },
-	{ TR_SPEED,      "スピード" }
+	{ TRAIT_SPEED,      "スピード" }
 #else
 	{ TRAIT_STEALTH,    "Stealth" },
-	{ TR_SEARCH,     "Searching" },
-	{ TR_INFRA,      "Infravision" },
-	{ TR_TUNNEL,     "Tunneling" },
+	{ TRAIT_SEARCH,     "Searching" },
+	{ TRAIT_INFRA,      "Infravision" },
+	{ TRAIT_TUNNEL,     "Tunneling" },
 	{ TRAIT_BLOWS,      "Attacks" },
-	{ TR_SPEED,      "Speed" }
+	{ TRAIT_SPEED,      "Speed" }
 #endif
 };
 
@@ -713,7 +713,7 @@ static flag_desc brand_flags_desc[] =
 	{ TRAIT_COLD_BRAND,         "凍結" },
 	{ TRAIT_POIS_BRAND,         "毒殺" },
 
-	{ TR_FORCE_WEAPON,       "理力" },
+	{ TRAIT_FORCE_WEAPON,       "理力" },
 	{ TRAIT_CHAOTIC_BRAND,            "混沌" },
 	{ TRAIT_VAMPIRIC_BRAND,           "吸血" },
 	{ TRAIT_SHATTER,             "地震" },
@@ -725,7 +725,7 @@ static flag_desc brand_flags_desc[] =
 	{ TRAIT_COLD_BRAND,         "Frost Brand" },
 	{ TRAIT_POIS_BRAND,         "Poisoned" },
 
-	{ TR_FORCE_WEAPON,       "Force" },
+	{ TRAIT_FORCE_WEAPON,       "Force" },
 	{ TRAIT_CHAOTIC_BRAND,            "Mark of Chaos" },
 	{ TRAIT_VAMPIRIC_BRAND,           "Vampiric" },
 	{ TRAIT_SHATTER,             "Earthquake impact on hit" },
@@ -1227,7 +1227,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 	/*
 	 * Glowing artifacts -- small radius light.
 	 */
-	if (have_flag(flgs, TR_LITE))
+	if (have_flag(flgs, TRAIT_LITE))
 	{
 #ifdef JP
 		*misc_list++ = "永久光源(半径1)";

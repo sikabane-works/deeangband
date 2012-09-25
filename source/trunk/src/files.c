@@ -2343,7 +2343,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 	if (IS_TIM_ESP(creature_ptr))
 		add_flag(flgs, TRAIT_ESP);
 	if (IS_FAST(creature_ptr) || creature_ptr->timed_trait[TRAIT_SLOW_])
-		add_flag(flgs, TR_SPEED);
+		add_flag(flgs, TRAIT_SPEED);
 
 	if (IS_OPPOSE_ACID(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(creature_ptr, RACE_YEEK) && (creature_ptr->lev > 19)))
 		add_flag(flgs, TRAIT_RES_ACID);
@@ -2416,7 +2416,7 @@ static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_pt
 		add_flag(flgs, TRAIT_AURA_ELEC);
 		add_flag(flgs, TRAIT_AURA_COLD);
 		add_flag(flgs, TRAIT_LEVITATION);
-		add_flag(flgs, TR_LITE);
+		add_flag(flgs, TRAIT_LITE);
 		add_flag(flgs, TRAIT_SEE_INVISIBLE);
 		add_flag(flgs, TRAIT_ESP);
 		add_flag(flgs, TRAIT_SLOW_DIGEST);
@@ -2934,7 +2934,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+1, col, "âŒâäÉIÅ[Éâ:", TRAIT_AURA_FIRE, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "ìdãCÉIÅ[Éâ:", TRAIT_AURA_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "ó‚ãCÉIÅ[Éâ:", TRAIT_AURA_COLD, &f, 0, creature_ptr);
-	display_flag_aux(row+4, col, "â¡ë¨      :", TR_SPEED, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "â¡ë¨      :", TRAIT_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "ëœñÉ·É    :", TRAIT_FREE_ACTION, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "ìßñæëÃéãîF:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "åoå±ílï€éù:", TRAIT_HOLD_LIFE, &f, 0, creature_ptr);
@@ -2942,14 +2942,14 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+9, col, "íxè¡âª    :", TRAIT_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "ã}âÒïú    :", TRAIT_REGENERATE, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "ïÇóV      :", TRAIT_LEVITATION, &f, 0, creature_ptr);
-	display_flag_aux(row+12, col, "âiâìåıåπ  :", TR_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "âiâìåıåπ  :", TRAIT_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "éÙÇ¢      :", 0, &f, DP_CURSE, creature_ptr);
 #else
 	display_flag_aux(row+0, col, "Reflct    :", TRAIT_REFLECTING, &f, 0, creature_ptr);
 	display_flag_aux(row+1, col, "AuraFire  :", TRAIT_AURA_FIRE, &f, 0, creature_ptr);
 	display_flag_aux(row+2, col, "AuraElec  :", TRAIT_AURA_ELEC, &f, 0, creature_ptr);
 	display_flag_aux(row+3, col, "AuraCold  :", TRAIT_AURA_COLD, &f, 0, creature_ptr);
-	display_flag_aux(row+4, col, "Speed     :", TR_SPEED, &f, 0, creature_ptr);
+	display_flag_aux(row+4, col, "Speed     :", TRAIT_SPEED, &f, 0, creature_ptr);
 	display_flag_aux(row+5, col, "FreeAction:", TRAIT_FREE_ACTION, &f, 0, creature_ptr);
 	display_flag_aux(row+6, col, "SeeInvisi.:", TRAIT_SEE_INVISIBLE, &f, 0, creature_ptr);
 	display_flag_aux(row+7, col, "Hold Life :", TRAIT_HOLD_LIFE, &f, 0, creature_ptr);
@@ -2957,7 +2957,7 @@ static void display_creature_flag_info2(creature_type *creature_ptr)
 	display_flag_aux(row+9, col, "SlowDigest:", TRAIT_SLOW_DIGEST, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "Regene.   :", TRAIT_REGENERATE, &f, 0, creature_ptr);
 	display_flag_aux(row+11, col, "Levitation:", TRAIT_LEVITATION, &f, 0, creature_ptr);
-	display_flag_aux(row+12, col, "Perm Lite :", TR_LITE, &f, 0, creature_ptr);
+	display_flag_aux(row+12, col, "Perm Lite :", TRAIT_LITE, &f, 0, creature_ptr);
 	display_flag_aux(row+13, col, "Cursed    :", 0, &f, DP_CURSE, creature_ptr);
 #endif
 */
@@ -3052,13 +3052,13 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 /*
 #ifdef JP
 	display_flag_aux(row+ 0, col, "í«â¡çUåÇ    :", TRAIT_BLOWS, &f, 0, creature_ptr);
-	display_flag_aux(row+ 1, col, "çÃå@        :", TR_TUNNEL, &f, 0, creature_ptr);
-	display_flag_aux(row+ 2, col, "ê‘äOê¸éãóÕ  :", TR_INFRA, &f, 0, creature_ptr);
-	display_flag_aux(row+ 3, col, "ñÇñ@ìπãÔéxîz:", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "çÃå@        :", TRAIT_TUNNEL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "ê‘äOê¸éãóÕ  :", TRAIT_INFRA, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "ñÇñ@ìπãÔéxîz:", TRAIT_MAGIC_MASTERY, &f, 0, creature_ptr);
 	display_flag_aux(row+ 4, col, "âBñß        :", TRAIT_STEALTH, &f, 0, creature_ptr);
-	display_flag_aux(row+ 5, col, "íTçı        :", TR_SEARCH, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "íTçı        :", TRAIT_SEARCH, &f, 0, creature_ptr);
 
-	display_flag_aux(row+ 7, col, "èÊîn        :", TR_RIDING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 7, col, "èÊîn        :", TRAIT_RIDING, &f, 0, creature_ptr);
 	display_flag_aux(row+ 8, col, "ìäù±        :", TRAIT_THROW_MIGHTY, &f, 0, creature_ptr);
 	display_flag_aux(row+ 9, col, "èjïü        :", TRAIT_BLESSED_BRAND, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "îΩÉeÉåÉ|Å[Ég:", TRAIT_PREVENT_TELEPORT, &f, 0, creature_ptr);
@@ -3071,13 +3071,13 @@ static void display_creature_flag_info3(creature_type *creature_ptr)
 	display_flag_aux(row+17, col, "ëæå√ÇÃâÖîO  :", TRAIT_TY_CURSE, &f, 0, creature_ptr);
 #else
 	display_flag_aux(row+ 0, col, "Add Blows   :", TRAIT_BLOWS, &f, 0, creature_ptr);
-	display_flag_aux(row+ 1, col, "Add Tunnel  :", TR_TUNNEL, &f, 0, creature_ptr);
-	display_flag_aux(row+ 2, col, "Add Infra   :", TR_INFRA, &f, 0, creature_ptr);
-	display_flag_aux(row+ 3, col, "Add Device  :", TR_MAGIC_MASTERY, &f, 0, creature_ptr);
+	display_flag_aux(row+ 1, col, "Add Tunnel  :", TRAIT_TUNNEL, &f, 0, creature_ptr);
+	display_flag_aux(row+ 2, col, "Add Infra   :", TRAIT_INFRA, &f, 0, creature_ptr);
+	display_flag_aux(row+ 3, col, "Add Device  :", TRAIT_MAGIC_MASTERY, &f, 0, creature_ptr);
 	display_flag_aux(row+ 4, col, "Add Stealth :", TRAIT_STEALTH, &f, 0, creature_ptr);
-	display_flag_aux(row+ 5, col, "Add Search  :", TR_SEARCH, &f, 0, creature_ptr);
+	display_flag_aux(row+ 5, col, "Add Search  :", TRAIT_SEARCH, &f, 0, creature_ptr);
 
-	display_flag_aux(row+ 7, col, "Riding      :", TR_RIDING, &f, 0, creature_ptr);
+	display_flag_aux(row+ 7, col, "Riding      :", TRAIT_RIDING, &f, 0, creature_ptr);
 	display_flag_aux(row+ 8, col, "Throw       :", TRAIT_THROW_MIGHTY, &f, 0, creature_ptr);
 	display_flag_aux(row+ 9, col, "Blessed     :", TRAIT_BLESSED_BRAND, &f, 0, creature_ptr);
 	display_flag_aux(row+10, col, "No Teleport :", TRAIT_PREVENT_TELEPORT, &f, 0, creature_ptr);
@@ -3179,7 +3179,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_flag_aux(row+6, col, "ínêk      :", TRAIT_SHATTER, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+7, col, "ãzåå      :", TRAIT_VAMPIRIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+8, col, "ÉJÉIÉXå¯â :", TRAIT_CHAOTIC_BRAND, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+9, col, "óùóÕ      :", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+9, col, "óùóÕ      :", TRAIT_FORCE_WEAPON, &f, DP_WP, creature_ptr);
 #else
 	display_flag_aux(row, col, "Acid Brand:", TRAIT_ACID_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+1, col, "Elec Brand:", TRAIT_ELEC_BRAND, &f, DP_WP, creature_ptr);
@@ -3190,7 +3190,7 @@ static void display_creature_flag_info4(creature_type *creature_ptr)
 	display_flag_aux(row+6, col, "Quake     :", TRAIT_SHATTER, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+7, col, "Vampiric  :", TRAIT_VAMPIRIC_BRAND, &f, DP_WP, creature_ptr);
 	display_flag_aux(row+8, col, "Chaotic   :", TRAIT_CHAOTIC_BRAND, &f, DP_WP, creature_ptr);
-	display_flag_aux(row+9, col, "Force Wep.:", TR_FORCE_WEAPON, &f, DP_WP, creature_ptr);
+	display_flag_aux(row+9, col, "Force Wep.:", TRAIT_FORCE_WEAPON, &f, DP_WP, creature_ptr);
 #endif
 */
 }

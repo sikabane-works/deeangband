@@ -135,7 +135,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if ((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
-			remove_flag(flgs, TR_INFRA);
+			remove_flag(flgs, TRAIT_INFRA);
 		}
 		else if ((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
@@ -240,7 +240,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		}
 		else if ((object_ptr->name2 == EGO_LITE_INFRA) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
-			remove_flag(flgs, TR_INFRA);
+			remove_flag(flgs, TRAIT_INFRA);
 		}
 		else if ((object_ptr->name2 == EGO_LITE_EYE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
 		{
@@ -624,7 +624,7 @@ info[i++] = "‚»‚ê‚Í’·‚¢ƒ^[ƒ“–¾‚©‚è‚ðŽö‚¯‚éB";
 
 	/* And then describe it fully */
 
-	if (have_flag(flgs, TR_RIDING))
+	if (have_flag(flgs, TRAIT_RIDING))
 	{
 		if ((object_ptr->tval == TV_POLEARM) && ((object_ptr->sval == SV_LANCE) || (object_ptr->sval == SV_HEAVY_LANCE)))
 #ifdef JP
@@ -698,7 +698,7 @@ info[i++] = "‚»‚ê‚Í–£—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
 
 	}
 
-	if (have_flag(flgs, TR_MAGIC_MASTERY))
+	if (have_flag(flgs, TRAIT_MAGIC_MASTERY))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í–‚–@“¹‹ïŽg—p”\—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
@@ -716,7 +716,7 @@ info[i++] = "‚»‚ê‚Í‰B–§s“®”\—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SEARCH))
+	if (have_flag(flgs, TRAIT_SEARCH))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í’Tõ”\—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
@@ -725,7 +725,7 @@ info[i++] = "‚»‚ê‚Í’Tõ”\—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_INFRA))
+	if (have_flag(flgs, TRAIT_INFRA))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍÔŠOüŽ‹—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
@@ -734,7 +734,7 @@ info[i++] = "‚»‚ê‚ÍÔŠOüŽ‹—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_TUNNEL))
+	if (have_flag(flgs, TRAIT_TUNNEL))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍÌŒ@”\—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
@@ -743,7 +743,7 @@ info[i++] = "‚»‚ê‚ÍÌŒ@”\—Í‚É‰e‹¿‚ð‹y‚Ú‚·B";
 #endif
 
 	}
-	if (have_flag(flgs, TR_SPEED))
+	if (have_flag(flgs, TRAIT_SPEED))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍƒXƒs[ƒh‚É‰e‹¿‚ð‹y‚Ú‚·B";
@@ -1038,7 +1038,7 @@ info[i++] = "‚»‚ê‚ÍlŠÔ‚É‘Î‚µ‚Ä“Á‚É‹°‚é‚×‚«—Í‚ð”­Šö‚·‚éB";
 
 	}
 
-	if (have_flag(flgs, TR_FORCE_WEAPON))
+	if (have_flag(flgs, TRAIT_FORCE_WEAPON))
 	{
 #ifdef JP
 info[i++] = "‚»‚ê‚ÍŽg—pŽÒ‚Ì–‚—Í‚ðŽg‚Á‚ÄUŒ‚‚·‚éB";
@@ -1332,7 +1332,7 @@ info[i++] = "‚»‚ê‚Í’ˆ‚É•‚‚­‚±‚Æ‚ð‰Â”\‚É‚·‚éB";
 #endif
 
 	}
-	if (have_flag(flgs, TR_LITE))
+	if (have_flag(flgs, TRAIT_LITE))
 	{
 		if ((object_ptr->name2 == EGO_DARK))
 #ifdef JP

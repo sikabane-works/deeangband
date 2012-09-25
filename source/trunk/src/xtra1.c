@@ -2247,7 +2247,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		/* Normal gloves hurt mage-type spells */
 		if (object_ptr->k_idx &&
 		    !(have_flag(flgs, TRAIT_FREE_ACTION)) &&
-		    !(have_flag(flgs, TR_MAGIC_MASTERY)) &&
+		    !(have_flag(flgs, TRAIT_MAGIC_MASTERY)) &&
 		    !((have_flag(flgs, STAT_DEX)) && (object_ptr->pval > 0)))
 		{
 			/* Encumbered */
@@ -2658,7 +2658,7 @@ static void calc_lite(creature_type *creature_ptr)
 			object_flags(object_ptr, flgs);
 
 			// does this item glow?
-			if (have_flag(flgs, TR_LITE))
+			if (have_flag(flgs, TRAIT_LITE))
 			{
 				//TODO if ((object_ptr->name2 == EGO_DARK) || (object_ptr->name1 == ART_NIGHT)) creature_ptr->cur_lite--;
 				creature_ptr->cur_lite++;
@@ -3448,23 +3448,23 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			creature_ptr->stat_add[STAT_CHA] += 3 * STAT_FRACTION;
 		}
 
-		if (have_flag(flgs, TR_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
+		if (have_flag(flgs, TRAIT_MAGIC_MASTERY))    creature_ptr->skill_dev += 8 * object_ptr->pval;
 
 		creature_ptr->skill_stl += object_ptr->pval;
 
 		/* Affect searching ability (factor of five) */
-		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_srh += (object_ptr->pval * 5);
+		if (have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_srh += (object_ptr->pval * 5);
 
 		/* Affect searching frequency (factor of five) */
-		if (have_flag(flgs, TR_SEARCH)) creature_ptr->skill_fos += (object_ptr->pval * 5);
+		if (have_flag(flgs, TRAIT_SEARCH)) creature_ptr->skill_fos += (object_ptr->pval * 5);
 
 		/* Affect infravision */
-		if (have_flag(flgs, TR_INFRA)) creature_ptr->see_infra += object_ptr->pval;
+		if (have_flag(flgs, TRAIT_INFRA)) creature_ptr->see_infra += object_ptr->pval;
 
 		/* Affect digging (factor of 20) */
-		if (have_flag(flgs, TR_TUNNEL)) creature_ptr->skill_dig += (object_ptr->pval * 20);
+		if (have_flag(flgs, TRAIT_TUNNEL)) creature_ptr->skill_dig += (object_ptr->pval * 20);
 
-		if (have_flag(flgs, TR_SPEED)) creature_ptr->speed += object_ptr->pval;
+		if (have_flag(flgs, TRAIT_SPEED)) creature_ptr->speed += object_ptr->pval;
 
 		/* Affect blows */
 		if (has_trait_object(object_ptr, TRAIT_BLOWS))
@@ -4416,7 +4416,7 @@ static void set_melee_status(creature_type *creature_ptr)
 				creature_ptr->dis_to_hit[i] +=15;
 				creature_ptr->to_damaged[i] += 2;
 			}
-			else if (!(have_flag(flgs, TR_RIDING)))
+			else if (!(have_flag(flgs, TRAIT_RIDING)))
 			{
 				int penalty;
 				if (has_trait(creature_ptr, TRAIT_RODEO))

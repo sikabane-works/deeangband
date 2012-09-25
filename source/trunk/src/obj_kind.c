@@ -76,7 +76,7 @@ bool object_is_favorite(creature_type *creature_ptr, object_type *object_ptr)
 		object_flags_known(object_ptr, flgs);
 
 		/* Is it known to be suitable to using while riding? */
-		if (!(have_flag(flgs, TR_RIDING)))
+		if (!(have_flag(flgs, TRAIT_RIDING)))
 			return FALSE;
 
 		break;

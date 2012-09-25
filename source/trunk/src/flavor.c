@@ -581,18 +581,18 @@ typedef struct flag_insc_table
 static flag_insc_table flag_insc_plus[] =
 {
 	{ "U", "At", TRAIT_BLOWS, -1 },
-	{ "‘¬", "Sp", TR_SPEED, -1 },
+	{ "‘¬", "Sp", TRAIT_SPEED, -1 },
 	{ "˜r", "St", STAT_STR, -1 },
 	{ "’m", "In", STAT_INT, -1 },
 	{ "Œ«", "Wi", STAT_WIS, -1 },
 	{ "Ší", "Dx", STAT_DEX, -1 },
 	{ "‘Ï", "Cn", STAT_CON, -1 },
 	{ "–£", "Ch", STAT_CHA, -1 },
-	{ "“¹", "Md", TR_MAGIC_MASTERY, -1 },
+	{ "“¹", "Md", TRAIT_MAGIC_MASTERY, -1 },
 	{ "‰B", "Sl", TRAIT_STEALTH, -1 },
-	{ "’T", "Sr", TR_SEARCH, -1 },
-	{ "Ô", "If", TR_INFRA, -1 },
-	{ "Œ@", "Dg", TR_TUNNEL, -1 },
+	{ "’T", "Sr", TRAIT_SEARCH, -1 },
+	{ "Ô", "If", TRAIT_INFRA, -1 },
+	{ "Œ@", "Dg", TRAIT_TUNNEL, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -638,7 +638,7 @@ static flag_insc_table flag_insc_misc[] =
 	{ "’x", "Sd", TRAIT_SLOW_DIGEST, -1 },
 	{ "Šˆ", "Rg", TRAIT_REGENERATE, -1 },
 	{ "•‚", "Lv", TRAIT_LEVITATION, -1 },
-	{ "–¾", "Lu", TR_LITE, -1 },
+	{ "–¾", "Lu", TRAIT_LITE, -1 },
 	{ "Œx", "Wr", TRAIT_WARNING, -1 },
 	{ "”{", "Xm", TRAIT_EXTRA_ATTACK_MIGHT, -1 },
 	{ "ŽË", "Xs", TRAIT_EXTRA_ATTACK_SPEED, -1 },
@@ -670,7 +670,7 @@ static flag_insc_table flag_insc_brand[] =
 	{ "‹z", "V", TRAIT_VAMPIRIC_BRAND, -1 },
 	{ "k", "Q", TRAIT_SHATTER, -1 },
 	{ "Ø", "S", TRAIT_VORPAL, -1 },
-	{ "—", "M", TR_FORCE_WEAPON, -1 },
+	{ "—", "M", TRAIT_FORCE_WEAPON, -1 },
 	{ NULL, NULL, 0, -1 }
 };
 
@@ -742,18 +742,18 @@ static flag_insc_table flag_insc_sust[] =
 static flag_insc_table flag_insc_plus[] =
 {
 	{ "At", TRAIT_BLOWS, -1 },
-	{ "Sp", TR_SPEED, -1 },
+	{ "Sp", TRAIT_SPEED, -1 },
 	{ "St", STAT_STR, -1 },
 	{ "In", STAT_INT, -1 },
 	{ "Wi", STAT_WIS, -1 },
 	{ "Dx", STAT_DEX, -1 },
 	{ "Cn", STAT_CON, -1 },
 	{ "Ch", STAT_CHA, -1 },
-	{ "Md", TR_MAGIC_MASTERY, -1 },
+	{ "Md", TRAIT_MAGIC_MASTERY, -1 },
 	{ "Sl", TRAIT_STEALTH, -1 },
-	{ "Sr", TR_SEARCH, -1 },
-	{ "If", TR_INFRA, -1 },
-	{ "Dg", TR_TUNNEL, -1 },
+	{ "Sr", TRAIT_SEARCH, -1 },
+	{ "If", TRAIT_INFRA, -1 },
+	{ "Dg", TRAIT_TUNNEL, -1 },
 	{ NULL, 0, -1 }
 };
 
@@ -799,7 +799,7 @@ static flag_insc_table flag_insc_misc[] =
 	{ "Sd", TRAIT_SLOW_DIGEST, -1 },
 	{ "Rg", TRAIT_REGENERATE, -1 },
 	{ "Lv", TRAIT_LEVITATION, -1 },
-	{ "Lu", TR_LITE, -1 },
+	{ "Lu", TRAIT_LITE, -1 },
 	{ "Wr", TRAIT_WARNING, -1 },
 	{ "Xm", TRAIT_EXTRA_ATTACK_MIGHT, -1 },
 	{ "Xs", TRAIT_EXTRA_ATTACK_SPEED, -1 },
@@ -831,7 +831,7 @@ static flag_insc_table flag_insc_brand[] =
 	{ "V", TRAIT_VAMPIRIC_BRAND, -1 },
 	{ "Q", TRAIT_SHATTER, -1 },
 	{ "S", TRAIT_VORPAL, -1 },
-	{ "M", TR_FORCE_WEAPON, -1 },
+	{ "M", TRAIT_FORCE_WEAPON, -1 },
 	{ NULL, 0, -1 }
 };
 
@@ -2263,7 +2263,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* Display the item like a weapon */
-	if (have_flag(flgs, TR_SHOW_MODS)) show_weapon = TRUE;
+	if (have_flag(flgs, TRAIT_SHOW_MODS)) show_weapon = TRUE;
 
 	/* Display the item like a weapon */
 	if (object_is_smith(object_ptr) && (object_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE))
@@ -2562,13 +2562,13 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			t = object_desc_int(t, object_ptr->pval);
 
 			/* Do not display the "pval" flags */
-			if (have_flag(flgs, TR_HIDE_TYPE))
+			if (have_flag(flgs, TRAIT_HIDE_TYPE))
 			{
 				/* Nothing */
 			}
 
 			/* Speed */
-			else if (have_flag(flgs, TR_SPEED))
+			else if (have_flag(flgs, TRAIT_SPEED))
 			{
 				/* Dump " to speed" */
 #ifdef JP
@@ -2604,7 +2604,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Search */
-			else if (have_flag(flgs, TR_SEARCH))
+			else if (have_flag(flgs, TRAIT_SEARCH))
 			{
 				/* Dump " to searching" */
 #ifdef JP
@@ -2615,7 +2615,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Infravision */
-			else if (have_flag(flgs, TR_INFRA))
+			else if (have_flag(flgs, TRAIT_INFRA))
 			{
 				/* Dump " to infravision" */
 #ifdef JP
@@ -2630,7 +2630,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Hack -- Process Lanterns/Torches */
-		if (object_ptr->tval == TV_LITE && !have_flag(k_ptr->flags, TR_NO_LIMIT_LITE))
+		if (object_ptr->tval == TV_LITE && !have_flag(k_ptr->flags, TRAIT_NO_LIMIT_LITE))
 		{
 			/* Hack -- Turns of light for normal lites */
 #ifdef JP
