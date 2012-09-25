@@ -3396,7 +3396,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 
 
-							for (k = 0; k < 6; k++)
+							for (k = 0; k < STAT_MAX; k++)
 							{
 								target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 								if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;

@@ -979,9 +979,9 @@ static void rd_creature(creature_type *creature_ptr)
 	}
 
 	// Read the stat info
-	for (i = 0; i < 6; i++) rd_s16b(&creature_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&creature_ptr->stat_max_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&creature_ptr->stat_cur[i]);
+	for (i = 0; i < STAT_MAX; i++) rd_s16b(&creature_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; i++) rd_s16b(&creature_ptr->stat_max_max[i]);
+	for (i = 0; i < STAT_MAX; i++) rd_s16b(&creature_ptr->stat_cur[i]);
 
 	rd_s32b(&creature_ptr->au);
 

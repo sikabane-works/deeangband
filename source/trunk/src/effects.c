@@ -4910,7 +4910,8 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 	/* Cannot go above 18/100 */
 	if (value < creature_ptr->stat_mod_max_max[stat])
 	{
-		/* Gain one (sometimes two) points */
+
+		/*TODO  Gain one (sometimes two) points */
 		if (value < 18)
 		{
 			gain = ((randint0(100) < 75) ? 1 : 2);
