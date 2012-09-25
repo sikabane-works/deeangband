@@ -783,7 +783,7 @@ static s32b object_value_base(object_type *object_ptr)
 s32b flag_cost(object_type *object_ptr, int plusses)
 {
 	s32b total = 0;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	s32b tmp_cost;
 	int count;
 	int i;
@@ -795,7 +795,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	 * Exclude fixed flags of the base item.
 	 * pval bonuses of base item will be treated later.
 	 */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] &= ~(k_ptr->flags[i]);
 
 	/* Exclude fixed flags of the fixed artifact. */
@@ -803,7 +803,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	{
 		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			flgs[i] &= ~(a_ptr->flags[i]);
 	}
 
@@ -812,7 +812,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	{
 		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			flgs[i] &= ~(e_ptr->flags[i]);
 	}
 
@@ -1068,7 +1068,7 @@ s32b object_value_real(object_type *object_ptr)
 {
 	s32b value;
 
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
@@ -1116,7 +1116,7 @@ s32b object_value_real(object_type *object_ptr)
 		int i;
 		bool flag = FALSE;
 
-		for (i = 0; i < TR_FLAG_SIZE; i++) 
+		for (i = 0; i < TRAIT_FLAG_MAX; i++) 
 			if (object_ptr->art_flags[i]) flag = TRUE;
 
 		if (flag) value += flag_cost(object_ptr, object_ptr->pval);
@@ -1651,7 +1651,7 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 
 
 	/* Hack -- Identical art_flags! */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		if (object_ptr->art_flags[i] != j_ptr->art_flags[i]) return 0;
 
 	/* Hack -- Require identical "cursed" status */
@@ -5461,7 +5461,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	/* Search inventory */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		u32b flgs[TR_FLAG_SIZE];
+		u32b flgs[TRAIT_FLAG_MAX];
 		object_type *object_ptr = &caster_ptr->inventory[i];
 		if (!IS_EQUIPPED(object_ptr)) continue;
 
@@ -6405,7 +6405,7 @@ static void drain_essence(creature_type *creature_ptr)
 	int dec = 4;
 	bool observe = FALSE;
 	int old_ds, old_dd, old_to_hit, old_to_damage, old_ac, old_to_ac, old_pval, old_name2, old_timeout;
-	u32b old_flgs[TR_FLAG_SIZE], new_flgs[TR_FLAG_SIZE];
+	u32b old_flgs[TRAIT_FLAG_MAX], new_flgs[TRAIT_FLAG_MAX];
 	object_type *object_ptr;
 	cptr            q, s;
 	byte iy, ix, marked, number;
@@ -6504,10 +6504,10 @@ static void drain_essence(creature_type *creature_ptr)
 		essence_type *es_ptr = &essence_info[i];
 		int pval = 0;
 
-		if (es_ptr->add < TR_FLAG_MAX && is_pval_flag(es_ptr->add) && old_pval)
+		if (es_ptr->add < TRAIT_FLAG_MAX && is_pval_flag(es_ptr->add) && old_pval)
 			pval = (have_flag(new_flgs, es_ptr->add)) ? old_pval - object_ptr->pval : old_pval;
 
-		if (es_ptr->add < TR_FLAG_MAX &&
+		if (es_ptr->add < TRAIT_FLAG_MAX &&
 		    (!have_flag(new_flgs, es_ptr->add) || pval) &&
 		    have_flag(old_flgs, es_ptr->add))
 		{
@@ -7347,7 +7347,7 @@ static void erase_essence(creature_type *creature_ptr)
 	cptr q, s;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	/* Get an item */
 #ifdef JP

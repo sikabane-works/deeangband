@@ -133,7 +133,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	int             drain_result = 0, drain_heal = 0;
 	bool            can_drain = FALSE;
 	int             drain_left = MAX_VAMPIRIC_DRAIN;
-	u32b flgs[TR_FLAG_SIZE]; /* A massive hack -- life-draining weapons */
+	u32b flgs[TRAIT_FLAG_MAX]; /* A massive hack -- life-draining weapons */
 	bool            is_human = (r_ptr->d_char == 'p');
 	bool            is_lowlevel = (r_ptr->level < (attacker_ptr->lev - 15));
 	bool            zantetsu_mukou, e_j_mukou;

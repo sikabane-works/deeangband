@@ -103,13 +103,13 @@ void reset_visuals(void)
 /*
  * Obtain the "flags" for an item
  */
-void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
+void object_flags(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 {
 	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 	int i;
 
 	/* Base object */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = k_ptr->flags[i];
 
 	/* Artifact */
@@ -117,7 +117,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 	{
 		artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			flgs[i] = a_ptr->flags[i];
 	}
 
@@ -126,7 +126,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 	{
 		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			flgs[i] |= e_ptr->flags[i];
 
 		if ((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
@@ -145,14 +145,14 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 	}
 
 	/* Random artifact ! */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] |= object_ptr->art_flags[i];
 
 	if (object_is_smith(object_ptr))
 	{
 		int add = object_ptr->xtra3 - 1;
 
-		if (add < TR_FLAG_MAX)
+		if (add < TRAIT_FLAG_MAX)
 		{
 			add_flag(flgs, add);
 		}
@@ -206,7 +206,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 /*
  * Obtain the "flags" for an item which are known to the player
  */
-void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
+void object_flags_known(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 {
 	bool spoil = FALSE;
 	int i;
@@ -214,13 +214,13 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* Clear */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = 0;
 
 	if (!object_is_aware(object_ptr)) return;
 
 	/* Base object */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = k_ptr->flags[i];
 
 	/* Must be identified */
@@ -231,7 +231,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 	{
 		ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			flgs[i] |= e_ptr->flags[i];
 
 		if ((object_ptr->name2 == EGO_LITE_AURA_FIRE) && !object_ptr->xtra4 && (object_ptr->sval <= SV_LITE_LANTERN))
@@ -268,12 +268,12 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
-			for (i = 0; i < TR_FLAG_SIZE; i++)
+			for (i = 0; i < TRAIT_FLAG_MAX; i++)
 				flgs[i] = a_ptr->flags[i];
 		}
 
 		/* Random artifact ! */
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			flgs[i] |= object_ptr->art_flags[i];
 	}
 
@@ -281,7 +281,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TR_FLAG_SIZE])
 	{
 		int add = object_ptr->xtra3 - 1;
 
-		if (add < TR_FLAG_MAX)
+		if (add < TRAIT_FLAG_MAX)
 		{
 			add_flag(flgs, add);
 		}
@@ -350,7 +350,7 @@ bool screen_object(object_type *object_ptr, u32b mode)
 {
 	int                     i = 0, j, k;
 
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	char temp[70 * 20];
 	cptr            info[128];

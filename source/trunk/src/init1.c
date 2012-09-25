@@ -1962,7 +1962,7 @@ static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
 	int i;
 
 	/* Check flags */
-	for (i = 0; i < TR_FLAG_MAX; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
 		if (streq(what, object_kind_info_flags[i]))
 		{
@@ -2446,7 +2446,7 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 	int i;
 
 	/* Check flags */
-	for (i = 0; i < TR_FLAG_MAX; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
 		if (streq(what, object_kind_info_flags[i]))
 		{
@@ -2844,7 +2844,7 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 	int i;
 
 	/* Check flags */
-	for (i = 0; i < TR_FLAG_MAX; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
 		if (streq(what, object_kind_info_flags[i]))
 		{

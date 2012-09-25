@@ -1467,7 +1467,7 @@ static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
 	if (object_is_artifact_aux(object_ptr) || object_is_artifact_aux(j_ptr)) return (0);
 
 	/* Hack -- Identical art_flags! */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		if (object_ptr->art_flags[i] != j_ptr->art_flags[i]) return (0);
 
 	/* Hack -- Never stack "powerful" items */
@@ -1598,7 +1598,7 @@ static int store_check_num(store_type *st_ptr, object_type *object_ptr)
 
 static bool is_blessed(object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TRAIT_BLESSED_BRAND)) return (TRUE);
 	else return (FALSE);

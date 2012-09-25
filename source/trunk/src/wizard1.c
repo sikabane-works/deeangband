@@ -1017,7 +1017,7 @@ static void spoiler_underline(cptr str)
  *
  * The possibly updated description pointer is returned.
  */
-static cptr *spoiler_flag_aux(const u32b art_flags[TR_FLAG_SIZE],
+static cptr *spoiler_flag_aux(const u32b art_flags[TRAIT_FLAG_MAX],
 			      const flag_desc *flag_ptr,
 			      cptr *desc_ptr, const int n_elmnts)
 {
@@ -1051,7 +1051,7 @@ static void analyze_general(object_type *object_ptr, char *desc_ptr)
  */
 static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	cptr *affects_list;
 
@@ -1106,7 +1106,7 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 /* Note the slaying specialties of a weapon */
 static void analyze_slay(object_type *object_ptr, cptr *slay_list)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_flags(object_ptr, flgs);
 
@@ -1120,7 +1120,7 @@ static void analyze_slay(object_type *object_ptr, cptr *slay_list)
 /* Note an object's elemental brands */
 static void analyze_brand(object_type *object_ptr, cptr *brand_list)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_flags(object_ptr, flgs);
 
@@ -1135,7 +1135,7 @@ static void analyze_brand(object_type *object_ptr, cptr *brand_list)
 /* Note the resistances granted by an object */
 static void analyze_resist(object_type *object_ptr, cptr *resist_list)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_flags(object_ptr, flgs);
 
@@ -1150,7 +1150,7 @@ static void analyze_resist(object_type *object_ptr, cptr *resist_list)
 /* Note the immunities granted by an object */
 static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_flags(object_ptr, flgs);
 
@@ -1165,7 +1165,7 @@ static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 /* Note which stats an object sustains */
 static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_flags(object_ptr, flgs);
 
@@ -1202,7 +1202,7 @@ static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
  */
 static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_flags(object_ptr, flgs);
 

@@ -2233,7 +2233,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 	/* Only mages are affected */
 	if (magic_info[creature_ptr->class_idx].spell_xtra & MAGIC_GLOVE_REDUCE_MANA)
 	{
-		u32b flgs[TR_FLAG_SIZE];
+		u32b flgs[TRAIT_FLAG_MAX];
 
 		/* Assume player is not encumbered by gloves */
 		creature_ptr->cumber_glove = FALSE;
@@ -2592,7 +2592,7 @@ static void calc_lite(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Assume no light
@@ -3413,7 +3413,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 	int i;
 	object_type *object_ptr;
 	int bonus_to_hit, bonus_to_damage, slot;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	int default_hand = 1;
 
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -4098,7 +4098,7 @@ static void set_melee_status(creature_type *creature_ptr)
 {
 	int i, hold;
 	object_type *object_ptr, *weapon_ptr;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	bool omoi;
 	int default_hand = 1;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);

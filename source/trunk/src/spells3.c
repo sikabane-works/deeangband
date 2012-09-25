@@ -565,7 +565,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 		if (has_trait(creature_ptr, TRAIT_VTELEPORT) || (creature_ptr->class_idx == CLASS_IMITATOR)) follow = TRUE;
 		else
 		{
-			u32b flgs[TR_FLAG_SIZE];
+			u32b flgs[TRAIT_FLAG_MAX];
 			object_type *object_ptr;
 			int i;
 
@@ -3441,7 +3441,7 @@ bool bless_weapon(creature_type *creature_ptr)
 {
 	int             item;
 	object_type     *object_ptr;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
 
@@ -3631,7 +3631,7 @@ bool pulish_shield(creature_type *creature_ptr)
 {
 	int             item;
 	object_type     *object_ptr;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
 
@@ -4702,7 +4702,7 @@ bool hates_cold(object_type *object_ptr)
  */
 int set_acid_destroy(object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	if (!hates_acid(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TRAIT_IGNORE_ACID)) return (FALSE);
@@ -4715,7 +4715,7 @@ int set_acid_destroy(object_type *object_ptr)
  */
 int set_elec_destroy(object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	if (!hates_elec(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TRAIT_IGNORE_ELEC)) return (FALSE);
@@ -4728,7 +4728,7 @@ int set_elec_destroy(object_type *object_ptr)
  */
 int set_fire_destroy(object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	if (!hates_fire(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TRAIT_IGNORE_FIRE)) return (FALSE);
@@ -4741,7 +4741,7 @@ int set_fire_destroy(object_type *object_ptr)
  */
 int set_cold_destroy(object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	if (!hates_cold(object_ptr)) return (FALSE);
 	object_flags(object_ptr, flgs);
 	if (have_flag(flgs, TRAIT_IGNORE_COLD)) return (FALSE);
@@ -4858,7 +4858,7 @@ static int minus_ac(creature_type *creature_ptr)
 {
 	int i;
 	object_type *object_ptr = NULL;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	char object_name[MAX_NLEN];
 
 	// Pick a (possibly empty) inventory slot
@@ -5096,7 +5096,7 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 		object_ptr->dd = 0;
 		object_ptr->ds = 0;
 
-		for (i = 0; i < TR_FLAG_SIZE; i++)
+		for (i = 0; i < TRAIT_FLAG_MAX; i++)
 			object_ptr->art_flags[i] = 0;
 
 		/* Curse it */
@@ -5172,7 +5172,7 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name
 		object_ptr->dd = 0;
 		object_ptr->ds = 0;
 
-		for (i = 0; i < TR_FLAG_SIZE; i++) object_ptr->art_flags[i] = 0;
+		for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->art_flags[i] = 0;
 
 		object_ptr->curse_flags = TRC_CURSED;	// Curse it
 		object_ptr->ident |= (IDENT_BROKEN);	// Break it

@@ -2944,7 +2944,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			/* Scan the equipment with random teleport ability */
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
-				u32b flgs[TR_FLAG_SIZE];
+				u32b flgs[TRAIT_FLAG_MAX];
 				object_ptr = &creature_ptr->inventory[i];
 
 				// Skip no equip

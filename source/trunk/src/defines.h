@@ -51,7 +51,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 92
+#define VER_PATCH 93
 
 #define VER_EXTRA 0
 
@@ -2126,7 +2126,6 @@
 #define MFLAG2_SHOW      0x20    /* Creature is recently memorized */
 #define MFLAG2_MARK      0x40    /* Creature is currently memorized */
 
-#define TR_FLAG_SIZE		((TR_FLAG_MAX - 1) / 32) + 1
 #define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
 #define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1
 #define AUTHORITY_FLAG_MAX	((MAX_AUTHORITY - 1) / 32) + 1

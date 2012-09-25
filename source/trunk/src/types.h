@@ -144,7 +144,7 @@ struct object_kind
 	s16b charge_const;
 	s16b charge_dice;
 
-	u32b flags[TR_FLAG_SIZE];	// Flags
+	u32b flags[TRAIT_FLAG_MAX];	// Flags
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -217,7 +217,7 @@ struct artifact_type
 
 	s32b cost;			/* Artifact "cost" */
 
-	u32b flags[TR_FLAG_SIZE];       /* Artifact Flags */
+	u32b flags[TRAIT_FLAG_MAX];       /* Artifact Flags */
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -274,7 +274,7 @@ struct ego_item_type
 	s16b charge_const;
 	s16b charge_dice;
 
-	u32b flags[TR_FLAG_SIZE];	/* Ego-Item Flags */
+	u32b flags[TRAIT_FLAG_MAX];	/* Ego-Item Flags */
 	traits_precondition add_creature_traits;
 
 	u32b gen_flags;		/* flags for generate */
@@ -671,7 +671,7 @@ struct object_type
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
-	u32b art_flags[TR_FLAG_SIZE];		// Extra Flags for ego and artifacts
+	u32b art_flags[TRAIT_FLAG_MAX];		// Extra Flags for ego and artifacts
 	u32b trait_flags[TRAIT_FLAG_MAX];
 
 	u32b curse_flags;		// Flags for curse

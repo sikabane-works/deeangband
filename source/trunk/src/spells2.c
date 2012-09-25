@@ -35,7 +35,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	char v_string [MAX_KARMA] [128];
 	char s_string [6] [128];
 
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	object_type *object_ptr;
 
@@ -52,7 +52,7 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	Term_clear();
 
-	for (j = 0; j < TR_FLAG_SIZE; j++)
+	for (j = 0; j < TRAIT_FLAG_MAX; j++)
 		flgs[j] = 0L;
 
 	creature_ptr->knowledge |= (KNOW_STAT | KNOW_HPRATE);
@@ -76,7 +76,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	/* Acquire item flags from equipment */
 	for (k = 0; k < INVEN_TOTAL; k++)
 	{
-		u32b tflgs[TR_FLAG_SIZE];
+		u32b tflgs[TRAIT_FLAG_MAX];
 
 		object_ptr = &creature_ptr->inventory[k];
 		if(!IS_EQUIPPED(object_ptr)) continue;
@@ -88,7 +88,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		object_flags(object_ptr, tflgs);
 
 		/* Extract flags */
-		for (j = 0; j < TR_FLAG_SIZE; j++)
+		for (j = 0; j < TRAIT_FLAG_MAX; j++)
 			flgs[j] |= tflgs[j];
 	}
 

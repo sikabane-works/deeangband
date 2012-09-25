@@ -3815,7 +3815,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	int msec = delay_factor * delay_factor * delay_factor;
 
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	cptr q, s;
 	bool come_back = FALSE;
 	bool do_drop = TRUE;

@@ -2881,7 +2881,7 @@ sprintf(tmp_str, "１ターン: %d-%d ダメージ",
 static void compare_weapon_aux1(creature_type *creature_ptr, object_type *object_ptr, int col, int r)
 {
 	int mult = 60;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	int blow = 1;
 	bool print_force_weapon = FALSE;
 

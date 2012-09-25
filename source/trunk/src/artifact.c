@@ -1609,7 +1609,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	object_ptr->name1 = 0;
 	object_ptr->name2 = 0;
 
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		object_ptr->art_flags[i] |= object_kind_info[object_ptr->k_idx].flags[i];
 
 	if (object_ptr->pval) has_pval = TRUE;
@@ -2709,7 +2709,7 @@ void get_bloody_moon_flags(object_type *object_ptr)
 {
 	int dummy, i;
 
-//TODO	for (i = 0; i < TR_FLAG_SIZE; i++)
+//TODO	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 //		object_ptr->art_flags[i] = artifact_info[ART_BLOOD].flags[i];
 
 	dummy = randint1(2) + randint1(2);

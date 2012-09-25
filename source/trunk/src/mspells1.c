@@ -577,7 +577,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	bool        changed = FALSE;
 	int         curse_power = 0;
 	u32b        new_curse;
-	u32b oflgs[TR_FLAG_SIZE];
+	u32b oflgs[TRAIT_FLAG_MAX];
 	//TODO SELECT
 	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 	char object_name[MAX_NLEN];

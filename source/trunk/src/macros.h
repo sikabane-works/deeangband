@@ -3,7 +3,7 @@
  * Object flags
  *
  * Old variables for object flags such as flags1, flags2, and flags3
- * are obsolated.  Now single array flgs[TR_FLAG_SIZE] contains all
+ * are obsolated.  Now single array flgs[TRAIT_FLAG_MAX] contains all
  * object flags.  And each flag is refered by single index number
  * instead of a bit mask.
  *

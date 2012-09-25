@@ -106,7 +106,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	/* Extract the flags */
 	object_flags(object_ptr, flgs);

@@ -5910,7 +5910,7 @@ cptr inven_res_label =
 static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *j, byte tval, char *where)
 {
 	char object_name[MAX_NLEN];
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	if (!object_ptr->k_idx) return;
 	if (object_ptr->tval != tval) return;

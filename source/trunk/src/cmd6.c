@@ -3707,7 +3707,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
  */
 static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	if (!object_is_known(object_ptr)) return (FALSE);	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
@@ -5562,7 +5562,7 @@ void do_cmd_activate(creature_type *creature_ptr)
  */
 static bool item_tester_hook_use(creature_type *creature_ptr, object_type *object_ptr)
 {
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 
 	/* Ammo */
 	if (object_ptr->tval == creature_ptr->tval_ammo)

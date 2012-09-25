@@ -2326,12 +2326,12 @@ static void player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 }
 
 
-static void tim_player_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
+static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
 
 	// Clear
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = 0L;
 
 	if (IS_HERO(creature_ptr) || creature_ptr->timed_trait[TRAIT_S_HERO])
@@ -2484,18 +2484,18 @@ static void display_player_equippy(int y, int x, u16b mode, creature_type *creat
 	}
 }
 
-static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
+static void known_obj_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
 
 	/* Clear */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = 0L;
 
 	/* Check equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		u32b o_flgs[TR_FLAG_SIZE];
+		u32b o_flgs[TRAIT_FLAG_MAX];
 
 		object_type *object_ptr;
 
@@ -2514,12 +2514,12 @@ static void known_obj_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_
 	}
 }
 
-static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
+static void player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
 
 	/* Clear */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = 0L;
 
 	/* TODO 
@@ -2534,12 +2534,12 @@ static void player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr
 	*/
 }
 
-static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
+static void tim_player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
 
 	// Clear
-	for (i = 0; i < TR_FLAG_SIZE; i++) flgs[i] = 0L;
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
 	if (creature_ptr->special_defense & DEFENSE_ACID) add_flag(flgs, TRAIT_RES_ACID);
 	if (creature_ptr->special_defense & DEFENSE_ELEC) add_flag(flgs, TRAIT_RES_ELEC);
@@ -2548,12 +2548,12 @@ static void tim_player_immunity(u32b flgs[TR_FLAG_SIZE], creature_type *creature
 	if (creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) add_flag(flgs, TRAIT_RES_DARK);
 }
 
-static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_ptr)
+static void player_vuln_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)
 {
 	int i;
 
 	/* Clear */
-	for (i = 0; i < TR_FLAG_SIZE; i++)
+	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = 0L;
 
 	if (has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->special_defense & KATA_KOUKIJIN))
@@ -2578,12 +2578,12 @@ static void player_vuln_flags(u32b flgs[TR_FLAG_SIZE], creature_type *creature_p
  * A struct for storing misc. flags
  */
 typedef struct {
-	u32b player_flags[TR_FLAG_SIZE];
-	u32b tim_player_flags[TR_FLAG_SIZE];
-	u32b player_imm[TR_FLAG_SIZE];
-	u32b tim_player_imm[TR_FLAG_SIZE];
-	u32b player_vuln[TR_FLAG_SIZE];
-	u32b known_obj_imm[TR_FLAG_SIZE];
+	u32b player_flags[TRAIT_FLAG_MAX];
+	u32b tim_player_flags[TRAIT_FLAG_MAX];
+	u32b player_imm[TRAIT_FLAG_MAX];
+	u32b tim_player_imm[TRAIT_FLAG_MAX];
+	u32b player_vuln[TRAIT_FLAG_MAX];
+	u32b known_obj_imm[TRAIT_FLAG_MAX];
 } all_player_flags;
 
 
@@ -2610,7 +2610,7 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 	/* Check equipment */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		u32b flgs[TR_FLAG_SIZE];
+		u32b flgs[TRAIT_FLAG_MAX];
 		object_type *object_ptr;
 
 		/* Object */
@@ -3256,7 +3256,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 	int stat_col, stat;
 	int row, col;
 	object_type *object_ptr;
-	u32b flgs[TR_FLAG_SIZE];
+	u32b flgs[TRAIT_FLAG_MAX];
 	byte a;
 	char c;
 	char buf[80];
