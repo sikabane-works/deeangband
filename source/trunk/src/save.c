@@ -111,10 +111,6 @@ static void wr_object(object_type *object_ptr)
 	if (object_ptr->ds) flags |= SAVEFLAG_OBJECT_KIND_DS;
 	if (object_ptr->ident) flags |= SAVEFLAG_OBJECT_KIND_IDENT;
 	if (object_ptr->marked) flags |= SAVEFLAG_OBJECT_KIND_MARKED;
-	if (object_ptr->art_flags[0]) flags |= SAVEFLAG_OBJECT_KIND_ART_FLAGS0;
-	if (object_ptr->art_flags[1]) flags |= SAVEFLAG_OBJECT_KIND_ART_FLAGS1;
-	if (object_ptr->art_flags[2]) flags |= SAVEFLAG_OBJECT_KIND_ART_FLAGS2;
-	if (object_ptr->art_flags[3]) flags |= SAVEFLAG_OBJECT_KIND_ART_FLAGS3;
 	if (object_ptr->curse_flags) flags |= SAVEFLAG_OBJECT_KIND_CURSE_FLAGS;
 	if (object_ptr->held_m_idx) flags |= SAVEFLAG_OBJECT_KIND_HELD_M_IDX;
 	if (object_ptr->xtra1) flags |= SAVEFLAG_OBJECT_KIND_XTRA1;
@@ -201,9 +197,6 @@ static void wr_object(object_type *object_ptr)
 	if (flags & SAVEFLAG_OBJECT_KIND_IDENT) wr_byte(object_ptr->ident);
 
 	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) wr_byte(object_ptr->marked);
-
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) wr_u32b(object_ptr->art_flags[0]);
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) wr_u32b(object_ptr->art_flags[1]);
 
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) wr_u32b(object_ptr->trait_flags[0]);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) wr_u32b(object_ptr->trait_flags[1]);

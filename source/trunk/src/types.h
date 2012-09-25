@@ -671,7 +671,6 @@ struct object_type
 
 	byte feeling;          /* Game generated inscription number (eg, pseudo-id) */
 
-	u32b art_flags[TRAIT_FLAG_MAX];		// Extra Flags for ego and artifacts
 	u32b trait_flags[TRAIT_FLAG_MAX];
 
 	u32b curse_flags;		// Flags for curse

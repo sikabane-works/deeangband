@@ -2163,7 +2163,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 		}
 
 		// Verify totals
-		if ((sum > 42 + 5 * 6) && (sum < 57 + 5 * 6))
+		if ((sum > 42 + 5 * STAT_MAX) && (sum < 57 + 5 * STAT_MAX))
 		{
 			for(i = 0; i < STAT_MAX; i++) if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN) creature_ptr->stat_cur[i] = STAT_VALUE_MIN;
 			break;
@@ -2174,10 +2174,11 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 	}
 
 	for(i = 0; i < STAT_MAX; i++)
-	{
-		if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN) msg_print("Warning: Out Range Status Point.");
-	}
-
+		if(creature_ptr->stat_cur[i] < STAT_VALUE_MIN)
+		{
+			msg_warning("Warning: Out Range Status Point.");
+			break;
+		}
 }
 
 void get_max_stats(creature_type *creature_ptr)
@@ -2203,9 +2204,9 @@ void get_max_stats(creature_type *creature_ptr)
 	}
 
 	/* Acquire the stats */
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
-		j = STAT_VALUE_BASE_MAX_MAX + dice[i]*10;
+		j = STAT_VALUE_BASE_MAX_MAX + dice[i] * 10;
 		// Save that value
 		creature_ptr->stat_max_max[i] = j;
 		if (creature_ptr->stat_max[i] > j) creature_ptr->stat_max[i] = j;
@@ -5204,31 +5205,21 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 				}
 			}
 
-			if (autoroller)
-			{
-				/* Check and count acceptable stats */
-				for (i = 0; i < 6; i++)
+			if (autoroller) // Check and count acceptable stats
+			{				
+				for (i = 0; i < STAT_MAX; i++)
 				{
-					/* This stat is okay */
-					if (creature_ptr->stat_max[i] >= stat_limit[i])
-					{
-						stat_match[i]++;
-					}
-
-					/* This stat is not okay */
-					else
-					{
-						accept = FALSE;
-					}
+					if (creature_ptr->stat_max[i] >= stat_limit[i]) stat_match[i]++; // This stat is okay
+					else accept = FALSE; // This stat is not okay
 				}
 			}
 
 			/* Break if "happy" */
 			if (accept)
 			{
-				set_age(creature_ptr);            // Roll for age
-				set_exp(creature_ptr, species_ptr);                  // Roll for exp
-				set_height_weight(creature_ptr);  // Roll for height and weight
+				set_age(creature_ptr);				// Roll for age
+				set_exp(creature_ptr, species_ptr);	// Roll for exp
+				set_height_weight(creature_ptr);	// Roll for height and weight
 
 				set_underlings(creature_ptr, species_ptr);
 
@@ -5304,7 +5295,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 		/* Input loop */
 		while (TRUE)
 		{
-
 			set_experience(creature_ptr);
 			set_creature_bonuses(creature_ptr, FALSE);
 
@@ -5312,7 +5302,6 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			// Update stuff 
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA);
 			update_creature(creature_ptr, FALSE);
-
 
 			/* And start out fully healthy */
 			if (creature_ptr->species_idx == SPECIES_WOUNDED_BEAR)
@@ -5636,12 +5625,13 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	if (!fff) return;
 
 	roff_to_buf(race_text + race_info[creature_ptr->race_idx1].text, 78, temp, sizeof(temp));
-	fprintf(fff, "\n\n");
+
 #ifdef JP
-	fprintf(fff, "Ží‘°: %s\n", race_info[creature_ptr->race_idx1].title);
+	fprintf(fff, "\n\nŽí‘°: %s\n", race_info[creature_ptr->race_idx1].title);
 #else
-	fprintf(fff, "Race: %s\n", race_info[creature_ptr->race_idx1].title);
+	fprintf(fff, "\n\nRace: %s\n", race_info[creature_ptr->race_idx1].title);
 #endif
+
 	t = temp;
 	for (i = 0; i < 10; i++)
 	{

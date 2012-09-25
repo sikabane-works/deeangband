@@ -146,7 +146,7 @@ void object_flags(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 
 	/* Random artifact ! */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] |= object_ptr->art_flags[i];
+		flgs[i] |= object_ptr->trait_flags[i];
 
 	if (object_is_smith(object_ptr))
 	{
@@ -274,7 +274,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 
 		/* Random artifact ! */
 		for (i = 0; i < TRAIT_FLAG_MAX; i++)
-			flgs[i] |= object_ptr->art_flags[i];
+			flgs[i] |= object_ptr->trait_flags[i];
 	}
 
 	if (object_is_smith(object_ptr))

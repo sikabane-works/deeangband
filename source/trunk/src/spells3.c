@@ -5011,7 +5011,7 @@ s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	add_flag(object_ptr->art_flags, TRAIT_IGNORE_ACID);
+	add_flag(object_ptr->trait_flags, TRAIT_IGNORE_ACID);
 
 	if ((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{
@@ -5097,7 +5097,7 @@ msg_format("‹°•|‚ÌˆÃ•ƒI[ƒ‰‚ª‚ ‚È‚½‚Ì%s‚ð•ï‚Ýž‚ñ‚¾I", object_name);
 		object_ptr->ds = 0;
 
 		for (i = 0; i < TRAIT_FLAG_MAX; i++)
-			object_ptr->art_flags[i] = 0;
+			object_ptr->trait_flags[i] = 0;
 
 		/* Curse it */
 		object_ptr->curse_flags = TRC_CURSED;
@@ -5172,7 +5172,7 @@ if (!force) msg_format("‹°•|‚ÌˆÃ•ƒI[ƒ‰‚ª‚ ‚È‚½‚Ì%s‚ð•ï‚Ýž‚ñ‚¾I", object_name
 		object_ptr->dd = 0;
 		object_ptr->ds = 0;
 
-		for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->art_flags[i] = 0;
+		for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->trait_flags[i] = 0;
 
 		object_ptr->curse_flags = TRC_CURSED;	// Curse it
 		object_ptr->ident |= (IDENT_BROKEN);	// Break it

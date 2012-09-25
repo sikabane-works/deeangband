@@ -1466,9 +1466,9 @@ static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
 	/* Artifacts don't stack! */
 	if (object_is_artifact_aux(object_ptr) || object_is_artifact_aux(j_ptr)) return (0);
 
-	/* Hack -- Identical art_flags! */
+	/* Hack -- Identical trait_flags! */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		if (object_ptr->art_flags[i] != j_ptr->art_flags[i]) return (0);
+		if (object_ptr->trait_flags[i] != j_ptr->trait_flags[i]) return (0);
 
 	/* Hack -- Never stack "powerful" items */
 	if (object_ptr->xtra1 || j_ptr->xtra1) return (0);

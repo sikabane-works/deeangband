@@ -958,7 +958,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	if (object_ptr->curse_flags & TRC_DIVINE_CURSE) total -= 15000;
 
 	/* Also, give some extra for activatable powers... */
-	//TODO:TR_ACTIVATE if (object_ptr->art_name && (have_flag(object_ptr->art_flags, TR_ACTIVATE)))
+	//TODO:TR_ACTIVATE if (object_ptr->art_name && (have_flag(object_ptr->trait_flags, TR_ACTIVATE)))
 	{
 		int type = object_ptr->xtra2;
 
@@ -1117,7 +1117,7 @@ s32b object_value_real(object_type *object_ptr)
 		bool flag = FALSE;
 
 		for (i = 0; i < TRAIT_FLAG_MAX; i++) 
-			if (object_ptr->art_flags[i]) flag = TRUE;
+			if (object_ptr->trait_flags[i]) flag = TRUE;
 
 		if (flag) value += flag_cost(object_ptr, object_ptr->pval);
 	}
@@ -1650,9 +1650,9 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 	}
 
 
-	/* Hack -- Identical art_flags! */
+	/* Hack -- Identical trait_flags! */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		if (object_ptr->art_flags[i] != j_ptr->art_flags[i]) return 0;
+		if (object_ptr->trait_flags[i] != j_ptr->trait_flags[i]) return 0;
 
 	/* Hack -- Require identical "cursed" status */
 	if (object_ptr->curse_flags != j_ptr->curse_flags) return 0;
@@ -2695,8 +2695,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				if (object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
 				if (object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
 				if (object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
-				object_ptr->art_flags[0] = 0;
-				object_ptr->art_flags[1] = 0;
+				object_ptr->trait_flags[0] = 0;
+				object_ptr->trait_flags[1] = 0;
 				while(!object_ptr->name2)
 				{
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
@@ -2981,8 +2981,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				if (object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
 				if (object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
 				if (object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
-				object_ptr->art_flags[0] = 0;
-				object_ptr->art_flags[1] = 0;
+				object_ptr->trait_flags[0] = 0;
+				object_ptr->trait_flags[1] = 0;
 				while(!object_ptr->name2)
 				{
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
@@ -7314,10 +7314,10 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		}
 		if (es_ptr->add == ESSENCE_SUSTAIN)
 		{
-			add_flag(object_ptr->art_flags, TRAIT_IGNORE_ACID);
-			add_flag(object_ptr->art_flags, TRAIT_IGNORE_ELEC);
-			add_flag(object_ptr->art_flags, TRAIT_IGNORE_FIRE);
-			add_flag(object_ptr->art_flags, TRAIT_IGNORE_COLD);
+			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_ACID);
+			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_ELEC);
+			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_FIRE);
+			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_COLD);
 		}
 		else
 		{
@@ -7723,7 +7723,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	// Hack -- obtain pval
 	if (e_ptr->max_pval)
 	{
-		if ((object_ptr->name2 == EGO_HA) && (have_flag(object_ptr->art_flags, TRAIT_BLOWS)))
+		if ((object_ptr->name2 == EGO_HA) && (have_flag(object_ptr->trait_flags, TRAIT_BLOWS)))
 		{
 			object_ptr->pval++;
 			if ((level > 60) && one_in_(3) && ((object_ptr->dd*(object_ptr->ds+1)) < 15)) object_ptr->pval++;

@@ -176,17 +176,7 @@ static void prt_stat(creature_type *creature_ptr, int stat)
 		c_put_str(TERM_L_GREEN, tmp, ROW_STAT + stat, COL_STAT + 6);
 	}
 
-	/* Indicate natural maximum */
-	if (creature_ptr->stat_max[stat] == creature_ptr->stat_mod_max_max[stat])
-	{
-#ifdef JP
-		/* 日本語にかぶらないように表示位置を変更 */
-		put_str("!", ROW_STAT + stat, 5);
-#else
-		put_str("!", ROW_STAT + stat, 3);
-#endif
-
-	}
+	if (creature_ptr->stat_max[stat] == creature_ptr->stat_mod_max_max[stat]) put_str("!", ROW_STAT + stat, 5);
 }
 
 

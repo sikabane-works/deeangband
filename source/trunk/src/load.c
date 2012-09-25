@@ -329,10 +329,6 @@ static void rd_object(object_type *object_ptr)
 	else object_ptr->marked = 0;
 
 	// Object flags
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS0) rd_u32b(&object_ptr->art_flags[0]);
-	else object_ptr->art_flags[0] = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_FLAGS1) rd_u32b(&object_ptr->art_flags[1]);
-	else object_ptr->art_flags[1] = 0;
 
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&object_ptr->trait_flags[0]);
 	else object_ptr->trait_flags[0] = 0;

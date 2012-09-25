@@ -3386,10 +3386,7 @@ void deal_item(creature_type *creature_ptr)
 	creature_ptr->inven_cnt = 0;
 	creature_ptr->equip_cnt = 0;
 
-	for(i = 0; i < INVEN_TOTAL; i++)
-	{
-		object_wipe(&creature_ptr->inventory[i]);
-	}
+	for(i = 0; i < INVEN_TOTAL; i++) object_wipe(&creature_ptr->inventory[i]);
 
 	object_level = creature_ptr->lev * 2;
 
@@ -3608,8 +3605,7 @@ void deal_item(creature_type *creature_ptr)
 			object_prep(quest_ptr, lookup_kind(tv, sv), creature_ptr->size);
 
 			/* Assassins begin the game with a poisoned dagger */
-			if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE &&
-				creature_ptr->realm1 == REALM_DEATH)) /* Only assassins get a poisoned weapon */
+			if ((tv == TV_SWORD || tv == TV_HAFTED) && (creature_ptr->class_idx == CLASS_ROGUE && creature_ptr->realm1 == REALM_DEATH)) // Only assassins get a poisoned weapon
 			{
 				quest_ptr->name2 = EGO_BRAND_POIS;
 			}
@@ -3881,10 +3877,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if (has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro++;
 
 	/* Hack -- Notice new multi-hued creatures */
-	{
-		if (has_trait(creature_ptr, TRAIT_ATTR_MULTI) || has_trait(creature_ptr, TRAIT_SHAPECHANGER))
-			shimmer_creatures = TRUE;
-	}
+	if (has_trait(creature_ptr, TRAIT_ATTR_MULTI) || has_trait(creature_ptr, TRAIT_SHAPECHANGER)) shimmer_creatures = TRUE;
 
 /* TODO
 	if (watcher_ptr->warning && floor_ptr->generated)
