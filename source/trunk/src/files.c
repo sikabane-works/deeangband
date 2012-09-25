@@ -3537,76 +3537,6 @@ static void display_player_stat_info(creature_type *creature_ptr)
 		a = TERM_SLATE;
 		c = '.';
 
-		/* Mutations ... */
-		//TODO
-		if (creature_ptr->timed_trait[TRAIT_TSUYOSHI])
-		{
-			int dummy = 0;
-
-			if (stat == STAT_STR)
-			{
-				if (has_trait(creature_ptr, TRAIT_HYPER_STR)) dummy += 4;
-				if (has_trait(creature_ptr, TRAIT_PUNY)) dummy -= 4;
-				if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) dummy += 4;
-			}
-			else if (stat == STAT_WIS || stat == STAT_INT)
-			{
-				if (has_trait(creature_ptr, TRAIT_HYPER_INT)) dummy += 4;
-				if (has_trait(creature_ptr, TRAIT_MORONIC)) dummy -= 4;
-			}
-			else if (stat == STAT_DEX)
-			{
-				if (has_trait(creature_ptr, TRAIT_IRON_SKIN)) dummy -= 1;
-				if (has_trait(creature_ptr, TRAIT_LIMBER)) dummy += 3;
-				if (has_trait(creature_ptr, TRAIT_ARTHRITIS)) dummy -= 3;
-			}
-			else if (stat == STAT_CON)
-			{
-				if (has_trait(creature_ptr, TRAIT_RESILIENT)) dummy += 4;
-				if (has_trait(creature_ptr, TRAIT_XTRA_FAT)) dummy += 2;
-				if (has_trait(creature_ptr, TRAIT_ALBINO)) dummy -= 4;
-				if (has_trait(creature_ptr, TRAIT_FLESH_ROT)) dummy -= 2;
-				if (creature_ptr->timed_trait[TRAIT_TSUYOSHI]) dummy += 4;
-			}
-			else if (stat == STAT_CHA)
-			{
-				if (has_trait(creature_ptr, TRAIT_SILLY_VOI)) dummy -= 4;
-				if (has_trait(creature_ptr, TRAIT_BLANK_FAC)) dummy -= 1;
-				if (has_trait(creature_ptr, TRAIT_FLESH_ROT)) dummy -= 1;
-				if (has_trait(creature_ptr, TRAIT_SCALES)) dummy -= 1;
-				if (has_trait(creature_ptr, TRAIT_WART_SKIN)) dummy -= 2;
-				if (has_trait(creature_ptr, TRAIT_ILL_NORM)) dummy = 0;
-			}
-
-			/* Boost */
-			if (dummy)
-			{
-				/* Default */
-				c = '*';
-
-				/* Good */
-				if (dummy > 0)
-				{
-					/* Good */
-					a = TERM_L_GREEN;
-
-					/* Label boost */
-					if (dummy < 10) c = '0' + dummy;
-				}
-
-				/* Bad */
-				if (dummy < 0)
-				{
-					/* Bad */
-					a = TERM_RED;
-
-					/* Label boost */
-					if (dummy > -10) c = '0' - dummy;
-				}
-			}
-		}
-
-
 		/* Sustain */
 		if (have_flag(flgs, stat + TRAIT_SUSTAIN_STR))
 		{
@@ -3614,7 +3544,6 @@ static void display_player_stat_info(creature_type *creature_ptr)
 			a = TERM_GREEN;
 			c = 's';
 		}
-
 
 		/* Dump */
 		Term_putch(col, row + stat+1, a, c);

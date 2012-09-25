@@ -434,15 +434,15 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 432,SHORT_LEG,-1,-1,短い突起の足,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,0,0,0,0,0,,の足は短い突起だ。(加速-3) ,Your legs are short stubs (-3 speed). ,足が短い突起になってしまった！,Your legs turn into short stubs!,脚の長さが普通に戻った。,Your legs lengthen to normal.
 433,ELEC_TOUC,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,の血管には電流が流れている。 ,Electricity is running through your veins. ,血管を電流が流れ始めた！,Electricity starts running through you!,体を電流が流れなくなった。,Electricity stops running through you.
 434,FIRE_BODY,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,の体は炎につつまれている。 ,Your body is enveloped in flames. ,あなたの体は炎につつまれている。,Your body is enveloped in flames!,体が炎に包まれなくなった。,Your body is no longer enveloped in flames.
-435,WART_SKIN,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"の肌はイボに被われている。(魅力-2, AC+5) ","Your skin is covered with warts (-2 CHR, +5 AC). ",気持ち悪いイボイボが体中にできた！,Disgusting warts appear everywhere on you!,イボイボが消えた！,Your warts disappear!
-436,SCALES,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"の肌は鱗になっている。(魅力-1, AC+10) ","Your skin has turned into scales (-1 CHR, +10 AC). ",肌が黒い鱗に変わった！,Your skin turns into black scales!,鱗が消えた！,Your scales vanish!
-437,IRON_SKIN,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"の肌は鉄でできている。(器用-1, AC+25) ","Your skin is made of steel (-1 DEX, +25 AC). ",あなたの肌は鉄になった！,Your skin turns to steel!,肌が肉にもどった！,Your skin reverts to flesh!
+435,WART_SKIN,-1,-1,未定義,Undefined,0,0,0,0,0,0,-2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"の肌はイボに被われている。(魅力-2, AC+5) ","Your skin is covered with warts (-2 CHR, +5 AC). ",気持ち悪いイボイボが体中にできた！,Disgusting warts appear everywhere on you!,イボイボが消えた！,Your warts disappear!
+436,SCALES,-1,-1,未定義,Undefined,0,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"の肌は鱗になっている。(魅力-1, AC+10) ","Your skin has turned into scales (-1 CHR, +10 AC). ",肌が黒い鱗に変わった！,Your skin turns into black scales!,鱗が消えた！,Your scales vanish!
+437,IRON_SKIN,-1,-1,未定義,Undefined,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,"の肌は鉄でできている。(器用-1, AC+25) ","Your skin is made of steel (-1 DEX, +25 AC). ",あなたの肌は鉄になった！,Your skin turns to steel!,肌が肉にもどった！,Your skin reverts to flesh!
 438,WINGS,-1,-1,翼,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は羽を持っている。 ,You have wings. ,背中に羽が生えた。,You grow a pair of wings.,背中の羽根が取れ落ちた。,Your wings fall off.
 439,FEARLESS,-1,-1,恐れ知らず,Fearless,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は全く恐怖を感じない。 ,You are completely fearless. ,完全に怖れ知らずになった。,You become completely fearless.,再び恐怖を感じるようになった。,You begin to feel fear again.
 440,SEE_DARKNESS,-1,-1,完全暗視,See Darkness,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は完全な暗闇の中を見通すことができる。,You can see darkness completely.,,,,
 441,ESP,-1,-1,テレパシー,Telepathy,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,はテレパシーを持っている。 ,You are telepathic. ,テレパシーの能力を得た！,You develop a telepathic ability!,テレパシーの能力を失った！,You lose your telepathic ability!
-442,LIMBER,-1,-1,しなやかな肉体,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,の体は非常にしなやかだ。(器用+3) ,Your body is very limber (+3 DEX). ,筋肉がしなやかになった。,Your muscles become limber.,筋肉が硬くなった。,Your muscles stiffen.
-443,ARTHRITIS,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,はいつも関節に痛みを感じている。(器用-3) ,Your joints ache constantly (-3 DEX). ,関節が突然痛み出した。,Your joints suddenly hurt.,関節が痛くなくなった。,Your joints stop hurting.
+442,LIMBER,-1,-1,しなやかな肉体,Undefined,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,の体は非常にしなやかだ。(器用+3) ,Your body is very limber (+3 DEX). ,筋肉がしなやかになった。,Your muscles become limber.,筋肉が硬くなった。,Your muscles stiffen.
+443,ARTHRITIS,-1,-1,関節の痛み,Undefined,0,0,0,0,-3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,はいつも関節に痛みを感じている。(器用-3) ,Your joints ache constantly (-3 DEX). ,関節が突然痛み出した。,Your joints suddenly hurt.,関節が痛くなくなった。,Your joints stop hurting.
 444,BAD_LUCK,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は黒いオーラにつつまれている。,There is a black aura surrounding you. ,悪意に満ちた黒いオーラがあなたをとりまいた...,There is a malignant black aura surrounding you...,黒いオーラは渦巻いて消えた。,Your black aura swirls and fades.
 445,VULN_ELEM,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は元素の攻撃に弱い。 ,You are susceptible to damage from the elements. ,妙に無防備になった気がする。,You feel strangely exposed.,無防備な感じはなくなった。,You feel less exposed.
 446,MOTION,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,の動作は正確で力強い。(隠密+1) ,Your movements are precise and forceful (+1 STL). ,体の動作がより正確になった。,You move with new assurance.,動作の正確さがなくなった。,You move with less assurance.
@@ -610,7 +610,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 608,XXX0608,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 609,ALTER_REALITY,-1,-1,現実変容,Alter Reality,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 610,SEE_INFRA,-1,-1,拡張赤外線視力,Expand Seeing of InfraRed,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
-611,TSUYOSHI,-1,-1,つよしスペシャル,Tsuyoshi Special,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
+611,TSUYOSHI,-1,-1,つよしスペシャル,Tsuyoshi Special,0,4,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 612,WRAITH_FORM,-1,-1,幽体化,Wraith Form,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 613,RESIST_MAGIC,-1,-1,対魔法,Resist Magic,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
 614,STEALTH_PLUS,-1,-1,隠密の歌,Stealth Plus,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,
