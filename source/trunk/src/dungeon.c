@@ -2996,7 +2996,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			}
 		}
 		/* Make a chainsword noise */
-		if((creature_ptr->cursed & TRC_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
+		if(has_trait(creature_ptr, TRAIT_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
 		{
 			char noise[1024];
 #ifdef JP

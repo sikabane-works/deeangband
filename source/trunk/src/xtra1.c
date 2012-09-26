@@ -3418,7 +3418,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		object_flags(object_ptr, flgs);
 
 		creature_ptr->cursed |= (object_ptr->curse_flags[0] & (0xFFFFFFF0L));
-		if(object_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
 
 		// Affect stats
 		creature_ptr->stat_add[STAT_STR] += object_ptr->stat_val[STAT_STR];
