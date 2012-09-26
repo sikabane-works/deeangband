@@ -802,7 +802,7 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 		if(!object_ptr->k_idx) continue; // Skip non-objects
 		if(!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
-		if(have_flag(object_ptr->trait_flags, type)) return TRUE;
+		if(has_trait_object(object_ptr, type)) return TRUE;
 	}
 
 	return FALSE;
@@ -822,7 +822,8 @@ bool has_trait_species(species_type *species_ptr, int type)
 
 bool has_trait_object(object_type *object_ptr, int type)
 {
-	//TODO
+	if(have_flag(object_ptr->trait_flags, type)) return TRUE;
+	if(have_flag(object_ptr->curse_flags, type)) return TRUE;
 	return FALSE;
 }
 
