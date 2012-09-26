@@ -3007,8 +3007,8 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				msg_print(noise);
 			disturb(player_ptr, FALSE, FALSE);
 		}
-		/* TY Curse */
-		if((creature_ptr->cursed & TRC_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
+		// TY Curse
+		if(has_trait(creature_ptr, TRAIT_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
 		{
 			int count = 0;
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);

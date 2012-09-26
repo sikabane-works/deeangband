@@ -284,15 +284,6 @@ info[i++] = "‚ ‚È‚½‚ÍŒ¶Šo‚ðŒ©‚Ä‚¢‚éB";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_TY_CURSE)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚ÍŽ×ˆ«‚È‰…”O‚É•ï‚Ü‚ê‚Ä‚¢‚éB";
-#else
-		info[i++] = "You carry an ancient foul curse.";
-#endif
-
-	}
 	if(creature_ptr->cursed & TRC_DRAIN_EXP)
 	{
 #ifdef JP

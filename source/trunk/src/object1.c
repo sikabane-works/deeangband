@@ -1623,26 +1623,6 @@ info[i++] = "それは呪われている。";
 		}
 	}
 
-	if((have_flag(flgs, TRAIT_TY_CURSE)) || (object_ptr->curse_flags[0] & TRC_TY_CURSE))
-	{
-#ifdef JP
-info[i++] = "それは太古の禍々しい怨念が宿っている。";
-#else
-		info[i++] = "It carries an ancient foul curse.";
-#endif
-
-	}
-/*
-	if((have_flag(flgs, TRAIT_ANTIPATHY)) || (object_ptr->curse_flags[0] & TRC_AGGRAVATE))
-	{
-#ifdef JP
-info[i++] = "それは付近のクリーチャーを怒らせる。";
-#else
-		info[i++] = "It aggravates nearby creatures.";
-#endif
-
-	}
-*/
 	if((have_flag(flgs, TRAIT_DRAIN_EXP)) || (object_ptr->curse_flags[0] & TRC_DRAIN_EXP))
 	{
 #ifdef JP

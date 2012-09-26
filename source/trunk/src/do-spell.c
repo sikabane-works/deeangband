@@ -12315,7 +12315,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			object_flags(object_ptr, f);
 
 			creature_ptr->csp += (creature_ptr->lev / 5) + randint1(creature_ptr->lev / 5);
-			if(have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags[0] & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
+			if(has_trait(creature_ptr, TRAIT_TY_CURSE)) creature_ptr->csp += randint1(5);
 			if(creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
 
 			if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))

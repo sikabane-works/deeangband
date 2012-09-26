@@ -4389,7 +4389,7 @@ static void set_melee_status(creature_type *creature_ptr)
 				if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
 				if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
 				if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
-				if(object_ptr->curse_flags[0] & (TRC_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if(have_flag(object_ptr->curse_flags, TRAIT_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
 				if(hex_spelling(creature_ptr, HEX_RUNESWORD))
 				{
 					if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
