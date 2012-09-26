@@ -3417,7 +3417,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		/* Extract the item flags */
 		object_flags(object_ptr, flgs);
 
-		creature_ptr->cursed |= (object_ptr->curse_flags & (0xFFFFFFF0L));
+		creature_ptr->cursed |= (object_ptr->curse_flags[0] & (0xFFFFFFF0L));
 		if (object_ptr->name1 == ART_CHAINSWORD) creature_ptr->cursed |= TRC_CHAINSWORD;
 
 		// Affect stats
@@ -3504,7 +3504,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		//if (object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 
-		if (object_ptr->curse_flags & TRC_LOW_MAGIC)
+		if (object_ptr->curse_flags[0] & TRC_LOW_MAGIC)
 		{
 			if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 			{
@@ -3528,7 +3528,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_ac += object_ptr->to_ac;
 		if (object_is_known(object_ptr)) creature_ptr->dis_to_ac += object_ptr->to_ac;
 
-		if (object_ptr->curse_flags & TRC_LOW_MELEE)
+		if (object_ptr->curse_flags[0] & TRC_LOW_MELEE)
 		{
 			int slot = i - 0; //TODO 
 			if (slot < 2)
@@ -3559,7 +3559,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			}
 		}
 
-		if (object_ptr->curse_flags & TRC_LOW_AC)
+		if (object_ptr->curse_flags[0] & TRC_LOW_AC)
 		{
 			if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 			{
@@ -4389,7 +4389,7 @@ static void set_melee_status(creature_type *creature_ptr)
 				if (have_flag(object_ptr->trait_flags, TRAIT_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
 				if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
 				if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
-				if (object_ptr->curse_flags & (TRC_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if (object_ptr->curse_flags[0] & (TRC_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
 				if (hex_spelling(creature_ptr, HEX_RUNESWORD))
 				{
 					if (have_flag(object_ptr->trait_flags, TRAIT_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }

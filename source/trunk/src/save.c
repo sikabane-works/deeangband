@@ -111,7 +111,7 @@ static void wr_object(object_type *object_ptr)
 	if (object_ptr->ds) flags |= SAVEFLAG_OBJECT_KIND_DS;
 	if (object_ptr->ident) flags |= SAVEFLAG_OBJECT_KIND_IDENT;
 	if (object_ptr->marked) flags |= SAVEFLAG_OBJECT_KIND_MARKED;
-	if (object_ptr->curse_flags) flags |= SAVEFLAG_OBJECT_KIND_CURSE_FLAGS;
+	if (object_ptr->curse_flags[0]) flags |= SAVEFLAG_OBJECT_KIND_CURSE_FLAGS;
 	if (object_ptr->held_m_idx) flags |= SAVEFLAG_OBJECT_KIND_HELD_M_IDX;
 	if (object_ptr->xtra1) flags |= SAVEFLAG_OBJECT_KIND_XTRA1;
 	if (object_ptr->xtra2) flags |= SAVEFLAG_OBJECT_KIND_XTRA2;
@@ -219,7 +219,7 @@ static void wr_object(object_type *object_ptr)
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) wr_u32b(object_ptr->trait_flags[17]);
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) wr_u32b(object_ptr->trait_flags[18]);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) wr_u32b(object_ptr->curse_flags);
+	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) wr_u32b(object_ptr->curse_flags[0]);
 
 	/* Held by creature index */
 	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) wr_s16b(object_ptr->held_m_idx);

@@ -6676,7 +6676,7 @@ void calc_android_exp(creature_type *creature_ptr)
 
 		object_copy(quest_ptr, object_ptr);
 		quest_ptr->discount = 0;
-		quest_ptr->curse_flags = 0L;
+		quest_ptr->curse_flags[0] = 0L;
 
 		if (object_is_fixed_artifact(object_ptr))
 		{

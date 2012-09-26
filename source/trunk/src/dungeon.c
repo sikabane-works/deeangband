@@ -1554,7 +1554,7 @@ static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b fla
 		object_type *object_ptr = &creature_ptr->inventory[i];
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
-		if (object_ptr->curse_flags & flag)
+		if (object_ptr->curse_flags[0] & flag)
 		{
 			choices[number] = i;
 			number++;
@@ -3032,13 +3032,13 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			object_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_L_CURSE);
 
 			new_curse = get_curse(0, object_ptr);
-			if (!(object_ptr->curse_flags & new_curse))
+			if (!(object_ptr->curse_flags[0] & new_curse))
 			{
 				char object_name[MAX_NLEN];
 
 				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-				object_ptr->curse_flags |= new_curse;
+				object_ptr->curse_flags[0] |= new_curse;
 #ifdef JP
 				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
 #else
@@ -3058,13 +3058,13 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			object_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_H_CURSE);
 
 			new_curse = get_curse(1, object_ptr);
-			if (!(object_ptr->curse_flags & new_curse))
+			if (!(object_ptr->curse_flags[0] & new_curse))
 			{
 				char object_name[MAX_NLEN];
 
 				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-				object_ptr->curse_flags |= new_curse;
+				object_ptr->curse_flags[0] |= new_curse;
 #ifdef JP
 				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
 #else

@@ -2750,7 +2750,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 			add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
 			add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 			add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-			object_ptr->curse_flags |= get_curse(2, object_ptr);
+			object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 			return;
 		}
 	}
@@ -2853,9 +2853,9 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	if (a_ptr->gen_flags & TRG_CURSED) add_flag(quest_ptr->trait_flags, TRAIT_CURSED);
 	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(quest_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(quest_ptr->trait_flags, TRAIT_DIVINE_CURSE);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) quest_ptr->curse_flags |= get_curse(0, quest_ptr);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) quest_ptr->curse_flags |= get_curse(1, quest_ptr);
-	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) quest_ptr->curse_flags |= get_curse(2, quest_ptr);
+	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) quest_ptr->curse_flags[0] |= get_curse(0, quest_ptr);
+	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) quest_ptr->curse_flags[0] |= get_curse(1, quest_ptr);
+	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) quest_ptr->curse_flags[0] |= get_curse(2, quest_ptr);
 
 	random_artifact_resistance(creature_ptr, quest_ptr, a_ptr);
 	return TRUE;

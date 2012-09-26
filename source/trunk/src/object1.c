@@ -1623,7 +1623,7 @@ info[i++] = "それは呪われている。";
 		}
 	}
 
-	if ((have_flag(flgs, TRAIT_TY_CURSE)) || (object_ptr->curse_flags & TRC_TY_CURSE))
+	if ((have_flag(flgs, TRAIT_TY_CURSE)) || (object_ptr->curse_flags[0] & TRC_TY_CURSE))
 	{
 #ifdef JP
 info[i++] = "それは太古の禍々しい怨念が宿っている。";
@@ -1633,7 +1633,7 @@ info[i++] = "それは太古の禍々しい怨念が宿っている。";
 
 	}
 /*
-	if ((have_flag(flgs, TRAIT_ANTIPATHY)) || (object_ptr->curse_flags & TRC_AGGRAVATE))
+	if ((have_flag(flgs, TRAIT_ANTIPATHY)) || (object_ptr->curse_flags[0] & TRC_AGGRAVATE))
 	{
 #ifdef JP
 info[i++] = "それは付近のクリーチャーを怒らせる。";
@@ -1643,7 +1643,7 @@ info[i++] = "それは付近のクリーチャーを怒らせる。";
 
 	}
 */
-	if ((have_flag(flgs, TRAIT_DRAIN_EXP)) || (object_ptr->curse_flags & TRC_DRAIN_EXP))
+	if ((have_flag(flgs, TRAIT_DRAIN_EXP)) || (object_ptr->curse_flags[0] & TRC_DRAIN_EXP))
 	{
 #ifdef JP
 info[i++] = "それは経験値を吸い取る。";
@@ -1652,7 +1652,7 @@ info[i++] = "それは経験値を吸い取る。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_SLOW_REGEN)
+	if (object_ptr->curse_flags[0] & TRC_SLOW_REGEN)
 	{
 #ifdef JP
 info[i++] = "それは回復力を弱める。";
@@ -1661,7 +1661,7 @@ info[i++] = "それは回復力を弱める。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_ADD_L_CURSE)
+	if (object_ptr->curse_flags[0] & TRC_ADD_L_CURSE)
 	{
 #ifdef JP
 info[i++] = "それは弱い呪いを増やす。";
@@ -1670,7 +1670,7 @@ info[i++] = "それは弱い呪いを増やす。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_ADD_H_CURSE)
+	if (object_ptr->curse_flags[0] & TRC_ADD_H_CURSE)
 	{
 #ifdef JP
 info[i++] = "それは強力な呪いを増やす。";
@@ -1679,7 +1679,7 @@ info[i++] = "それは強力な呪いを増やす。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_CALL_ANIMAL)
+	if (object_ptr->curse_flags[0] & TRC_CALL_ANIMAL)
 	{
 #ifdef JP
 info[i++] = "それは動物を呼び寄せる。";
@@ -1688,7 +1688,7 @@ info[i++] = "それは動物を呼び寄せる。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_CALL_DEMON)
+	if (object_ptr->curse_flags[0] & TRC_CALL_DEMON)
 	{
 #ifdef JP
 info[i++] = "それは悪魔を呼び寄せる。";
@@ -1697,7 +1697,7 @@ info[i++] = "それは悪魔を呼び寄せる。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_CALL_DRAGON)
+	if (object_ptr->curse_flags[0] & TRC_CALL_DRAGON)
 	{
 #ifdef JP
 info[i++] = "それはドラゴンを呼び寄せる。";
@@ -1706,7 +1706,7 @@ info[i++] = "それはドラゴンを呼び寄せる。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_COWARDICE)
+	if (object_ptr->curse_flags[0] & TRC_COWARDICE)
 	{
 #ifdef JP
 info[i++] = "それは恐怖感を引き起こす。";
@@ -1715,7 +1715,7 @@ info[i++] = "それは恐怖感を引き起こす。";
 #endif
 
 	}
-	if ((have_flag(flgs, TRAIT_PASSIVE_TELEPORT)) || (object_ptr->curse_flags & TRC_TELEPORT))
+	if ((have_flag(flgs, TRAIT_PASSIVE_TELEPORT)) || (object_ptr->curse_flags[0] & TRC_TELEPORT))
 	{
 #ifdef JP
 info[i++] = "それはランダムなテレポートを引き起こす。";
@@ -1724,7 +1724,7 @@ info[i++] = "それはランダムなテレポートを引き起こす。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_LOW_MELEE)
+	if (object_ptr->curse_flags[0] & TRC_LOW_MELEE)
 	{
 #ifdef JP
 info[i++] = "それは攻撃を外しやすい。";
@@ -1733,7 +1733,7 @@ info[i++] = "それは攻撃を外しやすい。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_LOW_AC)
+	if (object_ptr->curse_flags[0] & TRC_LOW_AC)
 	{
 #ifdef JP
 info[i++] = "それは攻撃を受けやすい。";
@@ -1742,7 +1742,7 @@ info[i++] = "それは攻撃を受けやすい。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_LOW_MAGIC)
+	if (object_ptr->curse_flags[0] & TRC_LOW_MAGIC)
 	{
 #ifdef JP
 info[i++] = "それは魔法を唱えにくくする。";
@@ -1751,7 +1751,7 @@ info[i++] = "それは魔法を唱えにくくする。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_FAST_DIGEST)
+	if (object_ptr->curse_flags[0] & TRC_FAST_DIGEST)
 	{
 #ifdef JP
 info[i++] = "それはあなたの新陳代謝を速くする。";
@@ -1760,7 +1760,7 @@ info[i++] = "それはあなたの新陳代謝を速くする。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_DRAIN_HP)
+	if (object_ptr->curse_flags[0] & TRC_DRAIN_HP)
 	{
 #ifdef JP
 info[i++] = "それはあなたの体力を吸い取る。";
@@ -1769,7 +1769,7 @@ info[i++] = "それはあなたの体力を吸い取る。";
 #endif
 
 	}
-	if (object_ptr->curse_flags & TRC_DRAIN_MANA)
+	if (object_ptr->curse_flags[0] & TRC_DRAIN_MANA)
 	{
 #ifdef JP
 info[i++] = "それはあなたの魔力を吸い取る。";

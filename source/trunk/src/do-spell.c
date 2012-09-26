@@ -11615,7 +11615,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 					if (one_in_(666))
 					{
-						object_ptr->curse_flags |= (TRC_TY_CURSE);
+						object_ptr->curse_flags[0] |= (TRC_TY_CURSE);
 						if (one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
@@ -11630,7 +11630,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					}
 				}
 
-				object_ptr->curse_flags |= get_curse(power, object_ptr);
+				object_ptr->curse_flags[0] |= get_curse(power, object_ptr);
 			}
 
 			creature_ptr->creature_update |= (CRU_BONUS);
@@ -12080,7 +12080,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 					if (one_in_(666))
 					{
-						object_ptr->curse_flags |= (TRC_TY_CURSE);
+						object_ptr->curse_flags[0] |= (TRC_TY_CURSE);
 						if (one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
@@ -12096,7 +12096,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					}
 				}
 
-				object_ptr->curse_flags |= get_curse(power, object_ptr);
+				object_ptr->curse_flags[0] |= get_curse(power, object_ptr);
 			}
 
 			creature_ptr->creature_update |= (CRU_BONUS);
@@ -12315,7 +12315,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			object_flags(object_ptr, f);
 
 			creature_ptr->csp += (creature_ptr->lev / 5) + randint1(creature_ptr->lev / 5);
-			if (have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
+			if (have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags[0] & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
 			if (creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
 
 			if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
@@ -12331,7 +12331,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 					msg_print("Heavy curse vanished away.");
 #endif
-					object_ptr->curse_flags = 0L;
+					object_ptr->curse_flags[0] = 0L;
 				}
 			}
 			else if (have_flag(object_ptr->trait_flags, TRAIT_CURSED) && one_in_(3))
@@ -12341,7 +12341,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_print("Curse vanished away.");
 #endif
-				object_ptr->curse_flags = 0L;
+				object_ptr->curse_flags[0] = 0L;
 			}
 
 			add = FALSE;

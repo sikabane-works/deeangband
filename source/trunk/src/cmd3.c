@@ -491,7 +491,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #else
 			msg_print("Your divine power is exceeding curse. You teared a cursed equipment off calmly.");
 #endif
-			object_ptr->curse_flags = 0L;
+			object_ptr->curse_flags[0] = 0L;
 		}
 		else if (((have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && one_in_(7)) || one_in_(4))
 		{
@@ -502,7 +502,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #endif
 
 			object_ptr->ident |= (IDENT_SENSE);
-			object_ptr->curse_flags = 0L;
+			object_ptr->curse_flags[0] = 0L;
 			object_ptr->feeling = FEEL_NONE;
 			creature_ptr->creature_update |= (CRU_BONUS); // Recalculate the bonuses
 			play_window |= (PW_EQUIP); // Window stuff

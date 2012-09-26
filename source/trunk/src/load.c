@@ -369,8 +369,8 @@ static void rd_object(object_type *object_ptr)
 	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) rd_u32b(&object_ptr->trait_flags[18]);
 	else object_ptr->trait_flags[18] = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&object_ptr->curse_flags);
-	else object_ptr->curse_flags = 0;
+	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&object_ptr->curse_flags[0]);
+	else object_ptr->curse_flags[0] = 0;
 
 	/* Creature holding object */
 	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) rd_s16b(&object_ptr->held_m_idx);

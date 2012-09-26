@@ -2356,7 +2356,7 @@
  * Cursed items.
  */
 #define object_is_cursed(T) \
-	((T)->curse_flags)
+	((T)->curse_flags[0])
 
 
 /*

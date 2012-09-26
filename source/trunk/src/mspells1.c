@@ -621,10 +621,10 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	if (heavy_chance >= 50) curse_power++;
 
 	new_curse = get_curse(curse_power, object_ptr);
-	if (!(object_ptr->curse_flags & new_curse))
+	if (!(object_ptr->curse_flags[0] & new_curse))
 	{
 		changed = TRUE;
-		object_ptr->curse_flags |= new_curse;
+		object_ptr->curse_flags[0] |= new_curse;
 	}
 
 	if (changed)

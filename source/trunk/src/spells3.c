@@ -2171,7 +2171,7 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		}
 
 		/* Uncurse it */
-		object_ptr->curse_flags = 0L;
+		object_ptr->curse_flags[0] = 0L;
 
 		/* Hack -- Assume felt */
 		object_ptr->ident |= (IDENT_SENSE);
@@ -2368,7 +2368,7 @@ msg_print("かけられていた呪いが打ち破られた！");
 		msg_print("The curse is broken!");
 #endif
 
-		object_ptr->curse_flags = 0L;
+		object_ptr->curse_flags[0] = 0L;
 
 		object_ptr->ident |= (IDENT_SENSE);
 
@@ -3504,7 +3504,7 @@ msg_format("%s から邪悪なオーラが消えた。",
 
 
 		/* Uncurse it */
-		object_ptr->curse_flags = 0L;
+		object_ptr->curse_flags[0] = 0L;
 
 		/* Hack -- Assume felt */
 		object_ptr->ident |= (IDENT_SENSE);
