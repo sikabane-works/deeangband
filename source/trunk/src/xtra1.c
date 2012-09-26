@@ -3139,8 +3139,8 @@ static void set_state_bonuses(creature_type *creature_ptr)
 			if(!object_is_armour(object_ptr)) continue;
 			if(!object_is_cursed(object_ptr)) continue;
 			ac += 5;
-			if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) ac += 7;
-			if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) ac += 13;
+			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) ac += 7;
+			if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) ac += 13;
 			creature_ptr->to_ac += ac;
 			creature_ptr->dis_to_ac += ac;
 		}
@@ -3506,7 +3506,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if(object_ptr->curse_flags[0] & TRC_LOW_MAGIC)
 		{
-			if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 			{
 				creature_ptr->to_m_chance += 10;
 			}
@@ -3533,7 +3533,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			int slot = i - 0; //TODO 
 			if(slot < 2)
 			{
-				if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+				if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 				{
 					creature_ptr->to_hit[slot] -= 15;
 					if(object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit[slot] -= 15;
@@ -3546,7 +3546,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			}
 			else
 			{
-				if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+				if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 				{
 					creature_ptr->to_hit_b -= 15;
 					if(object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_hit_b -= 15;
@@ -3561,7 +3561,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if(object_ptr->curse_flags[0] & TRC_LOW_AC)
 		{
-			if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 			{
 				creature_ptr->to_ac -= 30;
 				if(object_ptr->ident & IDENT_MENTAL) creature_ptr->dis_to_ac -= 30;
@@ -4386,15 +4386,15 @@ static void set_melee_status(creature_type *creature_ptr)
 		{
 			if(object_is_cursed(object_ptr))
 			{
-				if(have_flag(object_ptr->trait_flags, TRAIT_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
-				if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
-				if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
+				if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
+				if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
 				if(object_ptr->curse_flags[0] & (TRC_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
 				if(hex_spelling(creature_ptr, HEX_RUNESWORD))
 				{
-					if(have_flag(object_ptr->trait_flags, TRAIT_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
-					if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_damage[i] += 7; creature_ptr->dis_to_damage[i] += 7; }
-					if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_damage[i] += 13; creature_ptr->dis_to_damage[i] += 13; }
+					if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
+					if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_damage[i] += 7; creature_ptr->dis_to_damage[i] += 7; }
+					if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_damage[i] += 13; creature_ptr->dis_to_damage[i] += 13; }
 				}
 			}
 		}

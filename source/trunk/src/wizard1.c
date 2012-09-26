@@ -1252,7 +1252,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 			*misc_list++ = "Ancient Curse";
 #endif
 		}
-		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "_ˆæ‚ÌŽô‚¢";
@@ -1260,7 +1260,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 			*misc_list++ = "Divinely Cursed";
 #endif
 		}
-		else if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+		else if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "‹­—Í‚ÈŽô‚¢";
@@ -1269,7 +1269,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 #endif
 		}
 /*		else */
-		else if(have_flag(object_ptr->trait_flags, TRAIT_CURSED))
+		else if(have_flag(object_ptr->curse_flags, TRAIT_CURSED))
 		{
 #ifdef JP
 			*misc_list++ = "Žô‚¢";

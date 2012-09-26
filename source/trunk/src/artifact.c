@@ -166,11 +166,11 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if(object_ptr->to_hit > 0) object_ptr->to_hit = 0 - (object_ptr->to_hit + (s16b)randint1(4));
 	if(object_ptr->to_damage > 0) object_ptr->to_damage = 0 - (object_ptr->to_damage + (s16b)randint1(4));
 
-	add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-	add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+	add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+	add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 	remove_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 
-	if(one_in_(4)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+	if(one_in_(4)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 	if(one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
 	if(one_in_(2)) add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 	if(one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_DRAIN_EXP);
@@ -2748,8 +2748,8 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		{
 			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 			add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
-			add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-			add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+			add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+			add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 			object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 			return;
 		}
@@ -2761,7 +2761,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		if(owner_ptr->class_idx != CLASS_SAMURAI)
 		{
 			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
-			add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+			add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 		}
 	}
 	*/
@@ -2850,9 +2850,9 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	quest_ptr->charge_dice = a_ptr->charge_dice;
 
 	/* Hack -- extract the "cursed" flag */
-	if(a_ptr->gen_flags & TRG_CURSED) add_flag(quest_ptr->trait_flags, TRAIT_CURSED);
-	if(a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(quest_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-	if(a_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(quest_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+	if(a_ptr->gen_flags & TRG_CURSED) add_flag(quest_ptr->curse_flags, TRAIT_CURSED);
+	if(a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(quest_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+	if(a_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(quest_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 	if(a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) quest_ptr->curse_flags[0] |= get_curse(0, quest_ptr);
 	if(a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) quest_ptr->curse_flags[0] |= get_curse(1, quest_ptr);
 	if(a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) quest_ptr->curse_flags[0] |= get_curse(2, quest_ptr);

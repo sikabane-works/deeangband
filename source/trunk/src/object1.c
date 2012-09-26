@@ -1586,7 +1586,7 @@ info[i++] = "それは神に祝福されている。";
 
 	if(object_is_cursed(object_ptr))
 	{
-		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 		{
 			char tx[80];
 			tx[0] = '\0';
@@ -1598,7 +1598,7 @@ info[i++] = "それは神に祝福されている。";
 			info[i++] = tx;
 
 		}
-		else if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+		else if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 		{
 #ifdef JP
 info[i++] = "それは強力な呪いがかけられている。";

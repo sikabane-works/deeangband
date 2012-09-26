@@ -11607,16 +11607,16 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
-				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if(one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+					if(one_in_(3)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 					if(one_in_(666))
 					{
-						object_ptr->curse_flags[0] |= (TRC_TY_CURSE);
-						if(one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+						add_flag(object_ptr->curse_flags, TRAIT_TY_CURSE);
+						if(one_in_(666)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
@@ -12072,16 +12072,16 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
-				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if(one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+					if(one_in_(3)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 					if(one_in_(666))
 					{
-						object_ptr->curse_flags[0] |= (TRC_TY_CURSE);
-						if(one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+						add_flag(object_ptr->curse_flags, TRAIT_TY_CURSE);
+						if(one_in_(666)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
@@ -12318,11 +12318,11 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			if(have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags[0] & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
 			if(creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
 
-			if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+			if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 			{
 				/* Nothing */
 			}
-			else if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+			else if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 			{
 				if(one_in_(7))
 				{
@@ -12334,7 +12334,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					object_ptr->curse_flags[0] = 0L;
 				}
 			}
-			else if(have_flag(object_ptr->trait_flags, TRAIT_CURSED) && one_in_(3))
+			else if(have_flag(object_ptr->curse_flags, TRAIT_CURSED) && one_in_(3))
 			{
 #ifdef JP
 				msg_print("ô‚¢‚ğ‘S‚Ä‹z‚¢æ‚Á‚½B");

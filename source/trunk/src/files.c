@@ -2629,9 +2629,9 @@ static void display_flag_aux(int row, int col, cptr header, int flag1, all_playe
 		/* Check flags */
 		if(mode & DP_CURSE)
 		{
-			if((mode & DP_CURSE) && have_flag(object_ptr->trait_flags, TRAIT_CURSED) && have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+			if((mode & DP_CURSE) && have_flag(object_ptr->curse_flags, TRAIT_CURSED) && have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 				c_put_str(TERM_WHITE, "+", row, col);
-			if((mode & DP_CURSE) && have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+			if((mode & DP_CURSE) && have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 				c_put_str(TERM_WHITE, "*", row, col);
 		}
 		else

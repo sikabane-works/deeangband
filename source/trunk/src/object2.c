@@ -953,9 +953,9 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	}
 	if(have_flag(flgs, TRAIT_ANTIPATHY)) total -= 10000;
 	if(have_flag(flgs, TRAIT_BLESSED_BRAND)) total += 750;
-	if(have_flag(object_ptr->trait_flags, TRAIT_CURSED)) total -= 5000;
-	if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) total -= 12500;
-	if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) total -= 15000;
+	if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) total -= 5000;
+	if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) total -= 12500;
+	if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) total -= 15000;
 
 	/* Also, give some extra for activatable powers... */
 	//TODO:TR_ACTIVATE if(object_ptr->art_name && (have_flag(object_ptr->trait_flags, TR_ACTIVATE)))
@@ -1844,9 +1844,9 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 	if(object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);
 
 	/* Hack -- cursed items are always "cursed" */
-	if(k_ptr->gen_flags & (TRG_CURSED)) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-	if(k_ptr->gen_flags & (TRG_HEAVY_CURSE)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-	if(k_ptr->gen_flags & (TRG_DIVINE_CURSE)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+	if(k_ptr->gen_flags & (TRG_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+	if(k_ptr->gen_flags & (TRG_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+	if(k_ptr->gen_flags & (TRG_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 	if(k_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
 	if(k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 	if(k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
@@ -2256,7 +2256,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2285,7 +2285,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2307,7 +2307,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					if(power < 0)
 					{
 						object_ptr->ident |= (IDENT_BROKEN);	// Broken
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);	// Cursed
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);	// Cursed
 						object_ptr->pval = 0 - (object_ptr->pval);	// Reverse pval
 						break;
 					}
@@ -2350,7 +2350,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2378,7 +2378,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 					/* Penalize */
 					object_ptr->pval = 0 - (1 + m_bonus(5, level));
@@ -2394,7 +2394,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 					/* Penalize */
 					object_ptr->to_ac = 0 - (5 + m_bonus(10, level));
@@ -2417,7 +2417,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonus */
 						object_ptr->to_damage = 0 - object_ptr->to_damage;
@@ -2439,7 +2439,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse tohit */
 						object_ptr->to_hit = 0 - object_ptr->to_hit;
@@ -2461,7 +2461,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse toac */
 						object_ptr->to_ac = 0 - object_ptr->to_ac;
@@ -2484,7 +2484,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->to_hit = 0 - object_ptr->to_hit;
@@ -2506,7 +2506,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - object_ptr->pval;
@@ -2520,7 +2520,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 					if(power > 0) power = 0 - power;
 					break;
@@ -2716,8 +2716,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				object_ptr->ident |= (IDENT_BROKEN);
 
 				/* Cursed */
-				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-				add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+				add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 			}
 			break;
 		}
@@ -2741,7 +2741,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - object_ptr->pval;
@@ -2763,7 +2763,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - object_ptr->pval;
@@ -2776,7 +2776,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				{
 					if(power < 0)
 					{
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 					}
 					break;
 				}
@@ -2800,7 +2800,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2831,7 +2831,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 					/* Penalize */
 					object_ptr->pval = 0 - ((s16b)randint1(5) + m_bonus(5, level));
@@ -2852,7 +2852,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - object_ptr->pval;
@@ -3001,8 +3001,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				object_ptr->ident |= (IDENT_BROKEN);
 
 				/* Cursed */
-				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-				add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+				add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 			}
 			break;
 		}
@@ -3056,7 +3056,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				object_ptr->ident |= (IDENT_BROKEN);
 
 				/* Cursed */
-				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 			}
 #endif
 			break;
@@ -3182,7 +3182,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			object_ptr->pval = i;
 
 			/* Some figurines are cursed */
-			if(one_in_(6)) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+			if(one_in_(6)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 			if(cheat_peek)
 			{
@@ -3470,9 +3470,9 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		if(!a_ptr->cost) object_ptr->ident |= (IDENT_BROKEN);
 
 		/* Hack -- extract the "cursed" flag */
-		if(a_ptr->gen_flags & TRG_CURSED) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-		if(a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-		if(a_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+		if(a_ptr->gen_flags & TRG_CURSED) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+		if(a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(a_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 		if(a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
 		if(a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 		if(a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
@@ -3501,9 +3501,9 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		if(!e_ptr->cost) object_ptr->ident |= (IDENT_BROKEN);
 
 		/* Hack -- acquire "cursed" flag */
-		if(e_ptr->gen_flags & TRG_CURSED) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-		if(e_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-		if(e_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+		if(e_ptr->gen_flags & TRG_CURSED) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+		if(e_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(e_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
 		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
@@ -3545,9 +3545,9 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		if(!object_kind_info[object_ptr->k_idx].cost) object_ptr->ident |= (IDENT_BROKEN);
 
 		// Hack -- acquire "cursed" flag
-		if(k_ptr->gen_flags & (TRG_CURSED)) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-		if(k_ptr->gen_flags & (TRG_HEAVY_CURSE)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-		if(k_ptr->gen_flags & (TRG_DIVINE_CURSE)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+		if(k_ptr->gen_flags & (TRG_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+		if(k_ptr->gen_flags & (TRG_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(k_ptr->gen_flags & (TRG_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 		if(k_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
 		if(k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 		if(k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
@@ -6461,7 +6461,7 @@ static void drain_essence(creature_type *creature_ptr)
 	old_pval = object_ptr->pval;
 	old_name2 = object_ptr->name2;
 	old_timeout = object_ptr->timeout;
-	if(have_flag(object_ptr->trait_flags, TRAIT_CURSED) || have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE) || have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) dec--;
+	if(have_flag(object_ptr->curse_flags, TRAIT_CURSED) || have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE) || have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) dec--;
 
 	if(have_flag(old_flgs, TRAIT_ANTIPATHY)) dec--;
 	if(have_flag(old_flgs, TRAIT_PREVENT_TELEPORT)) dec--;
@@ -7629,7 +7629,7 @@ void weapon_boost(object_type *object_ptr, int level, int power)
 		}
 
 		/* Cursed (if "bad") */
-		if(object_ptr->to_hit + object_ptr->to_damage < 0) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+		if(object_ptr->to_hit + object_ptr->to_damage < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 	}
 }
 
@@ -7667,7 +7667,7 @@ void armour_boost(object_type *object_ptr, int level, int power)
 		}
 
 		/* Cursed (if "bad") */
-		if(object_ptr->to_ac < 0) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 	}
 }
 

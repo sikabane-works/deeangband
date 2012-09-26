@@ -2158,15 +2158,15 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		if(!object_is_cursed(object_ptr)) continue;
 
 		/* Heavily Cursed Items need a special spell */
-		if(!all && (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))) continue;
+		if(!all && (have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))) continue;
 
 		/* Perma-Cursed Items can NEVER be uncursed */
-		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+		if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE))
 		{
 			/* Uncurse it */
-			remove_flag(object_ptr->trait_flags, TRAIT_CURSED);
-			remove_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-			remove_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+			remove_flag(object_ptr->curse_flags, TRAIT_CURSED);
+			remove_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+			remove_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
 			continue;
 		}
 
@@ -2360,7 +2360,7 @@ msg_format("%sを＄%d の金に変えた。", object_name, price);
  */
 static void break_curse(object_type *object_ptr)
 {
-	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && (randint0(100) < 25))
+	if(object_is_cursed(object_ptr) && !(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) && !(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (randint0(100) < 25))
 	{
 #ifdef JP
 msg_print("かけられていた呪いが打ち破られた！");
@@ -3480,8 +3480,8 @@ s = "祝福できる武器がありません。";
 
 	if(object_is_cursed(object_ptr))
 	{
-		if(((have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && (randint1(100) < 33)) ||
-		    (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)))
+		if(((have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) && (randint1(100) < 33)) ||
+		    (have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)))
 		{
 #ifdef JP
 msg_format("%sを覆う黒いオーラは祝福を跳ね返した！",
@@ -5102,7 +5102,7 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 			object_ptr->trait_flags[i] = 0;
 
 		/* Curse it */
-		add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+		add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 		/* Break it */
 		object_ptr->ident |= (IDENT_BROKEN);
@@ -5176,7 +5176,7 @@ if(!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name)
 
 		for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->trait_flags[i] = 0;
 
-		add_flag(object_ptr->trait_flags, TRAIT_CURSED);	// Curse it
+		add_flag(object_ptr->curse_flags, TRAIT_CURSED);	// Curse it
 		object_ptr->ident |= (IDENT_BROKEN);	// Break it
 		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);	// Window stuff
