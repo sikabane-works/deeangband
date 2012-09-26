@@ -1662,9 +1662,7 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 
 
 	/* Hack -- require semi-matching "inscriptions" */
-	if (object_ptr->inscription && j_ptr->inscription &&
-	    (object_ptr->inscription != j_ptr->inscription))
-		return 0;
+	if (object_ptr->inscription && j_ptr->inscription && (object_ptr->inscription != j_ptr->inscription)) return 0;
 
 	/* Hack -- normally require matching "inscriptions" */
 	if (!stack_force_notes && (object_ptr->inscription != j_ptr->inscription)) return 0;
@@ -2695,8 +2693,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				if (object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
 				if (object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
 				if (object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
-				object_ptr->trait_flags[0] = 0;
-				object_ptr->trait_flags[1] = 0;
 				while(!object_ptr->name2)
 				{
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
@@ -2981,8 +2977,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				if (object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
 				if (object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
 				if (object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
-				object_ptr->trait_flags[0] = 0;
-				object_ptr->trait_flags[1] = 0;
 				while(!object_ptr->name2)
 				{
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
@@ -5241,7 +5235,7 @@ void combine_pack(creature_type *creature_ptr)
 						creature_ptr->inven_cnt--;
 
 						/* Slide everything down */
-						for (k = i; k < INVEN_TOTAL; k++)
+						for (k = i; k < INVEN_TOTAL - 1; k++)
 						{
 							/* Structure copy */
 							creature_ptr->inventory[k] = creature_ptr->inventory[k+1];

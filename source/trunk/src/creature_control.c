@@ -3444,7 +3444,6 @@ void deal_item(creature_type *creature_ptr)
 	//TODO
 	// Food depend on traits_precondition
 	if(is_player(creature_ptr)) deal_food(creature_ptr);
-
 	if(is_player(creature_ptr)) deal_lite(creature_ptr);
 
 	if(IS_RACE(creature_ptr, RACE_BALROG))

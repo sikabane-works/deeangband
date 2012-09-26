@@ -5281,13 +5281,8 @@ void window_stuff(void)
  */
 void handle_stuff(void)
 {
-	/* Update stuff */
 	if (update) update_creature(player_ptr, TRUE);
-
-	/* Redraw stuff */
 	if (play_redraw) redraw_stuff();
-
-	/* Window stuff */
 	if (play_window) window_stuff();
 }
 
