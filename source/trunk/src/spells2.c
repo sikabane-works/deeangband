@@ -320,15 +320,6 @@ info[i++] = "あなたはドラゴンに狙われている。";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_COWARDICE)
-	{
-#ifdef JP
-info[i++] = "あなたは時々臆病になる。";
-#else
-		info[i++] = "You are subject to cowardice.";
-#endif
-
-	}
 	if(creature_ptr->cursed & TRC_TELEPORT)
 	{
 #ifdef JP

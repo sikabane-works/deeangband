@@ -1650,15 +1650,6 @@ info[i++] = "‚»‚ê‚Íƒhƒ‰ƒSƒ“‚ðŒÄ‚ÑŠñ‚¹‚éB";
 #endif
 
 	}
-	if(object_ptr->curse_flags[0] & TRC_COWARDICE)
-	{
-#ifdef JP
-info[i++] = "‚»‚ê‚Í‹°•|Š´‚ðˆø‚«‹N‚±‚·B";
-#else
-		info[i++] = "It makes you subject to cowardice.";
-#endif
-
-	}
 	if((have_flag(flgs, TRAIT_PASSIVE_TELEPORT)) || (object_ptr->curse_flags[0] & TRC_TELEPORT))
 	{
 #ifdef JP

@@ -3128,7 +3128,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				disturb(player_ptr, 0, 0);
 			}
 		}
-		if((creature_ptr->cursed & TRC_COWARDICE) && one_in_(1500))
+		if(has_trait(creature_ptr, TRAIT_COWARDICE) && one_in_(1500))
 		{
 			if(!has_trait(creature_ptr, TRAIT_FEARLESS))
 			{
