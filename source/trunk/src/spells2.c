@@ -293,24 +293,6 @@ info[i++] = "‚ ‚È‚½‚Ì‰ñ•œ—Í‚Í”ñí‚É’x‚¢B";
 #endif
 
 	}
-	if(has_trait(creature_ptr, TRAIT_ADD_L_CURSE))
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚ÌŽã‚¢Žô‚¢‚Í‘‚¦‚éB"; /* Žb’è“I -- henkma */
-#else
-		info[i++] = "Your weak curses multiply.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_ADD_H_CURSE)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Ì‹­‚¢Žô‚¢‚Í‘‚¦‚éB"; /* Žb’è“I -- henkma */
-#else
-		info[i++] = "Your heavy curses multiply.";
-#endif
-
-	}
 	if(creature_ptr->cursed & TRC_CALL_ANIMAL)
 	{
 #ifdef JP
