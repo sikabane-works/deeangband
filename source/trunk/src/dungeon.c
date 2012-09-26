@@ -3023,12 +3023,12 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			check_experience(creature_ptr);
 		}
 		/* Add light curse (Later) */
-		if((creature_ptr->cursed & TRC_ADD_L_CURSE) && one_in_(2000))
+		if((has_trait(creature_ptr, TRAIT_ADD_L_CURSE)) && one_in_(2000))
 		{
 			u32b new_curse;
 			object_type *object_ptr;
 
-			object_ptr = choose_cursed_obj_name(creature_ptr, TRC_ADD_L_CURSE);
+			object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_ADD_L_CURSE);
 
 			new_curse = get_curse(0, object_ptr);
 			if(!(object_ptr->curse_flags[0] & new_curse))

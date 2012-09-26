@@ -1623,24 +1623,6 @@ info[i++] = "‚»‚ê‚ÍŽô‚í‚ê‚Ä‚¢‚éB";
 		}
 	}
 
-	if(object_ptr->curse_flags[0] & TRC_ADD_L_CURSE)
-	{
-#ifdef JP
-info[i++] = "‚»‚ê‚ÍŽã‚¢Žô‚¢‚ð‘‚â‚·B";
-#else
-		info[i++] = "It adds weak curses.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_ADD_H_CURSE)
-	{
-#ifdef JP
-info[i++] = "‚»‚ê‚Í‹­—Í‚ÈŽô‚¢‚ð‘‚â‚·B";
-#else
-		info[i++] = "It adds heavy curses.";
-#endif
-
-	}
 	if(object_ptr->curse_flags[0] & TRC_CALL_ANIMAL)
 	{
 #ifdef JP
