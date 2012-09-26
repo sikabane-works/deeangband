@@ -3014,12 +3014,11 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 		}
 		/* Handle experience draining */
-		if(!has_trait(creature_ptr, TRAIT_ANDROID) && 
-			((creature_ptr->cursed & TRC_DRAIN_EXP) && one_in_(4)))
+		if(!has_trait(creature_ptr, TRAIT_ANDROID) &&  has_trait(creature_ptr, TRAIT_DRAIN_EXP) && one_in_(4))
 		{
-			creature_ptr->exp -= (creature_ptr->lev+1)/2;
+			creature_ptr->exp -= (creature_ptr->lev + 1) / 2;
 			if(creature_ptr->exp < 0) creature_ptr->exp = 0;
-			creature_ptr->max_exp -= (creature_ptr->lev+1)/2;
+			creature_ptr->max_exp -= (creature_ptr->lev + 1) / 2;
 			if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
 			check_experience(creature_ptr);
 		}

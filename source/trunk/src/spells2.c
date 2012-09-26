@@ -284,15 +284,6 @@ info[i++] = "あなたは幻覚を見ている。";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_DRAIN_EXP)
-	{
-#ifdef JP
-info[i++] = "あなたは経験値を吸われている。";
-#else
-		info[i++] = "You are drained.";
-#endif
-
-	}
 	if(creature_ptr->cursed & TRC_SLOW_REGEN)
 	{
 #ifdef JP

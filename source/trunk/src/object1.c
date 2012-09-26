@@ -1623,15 +1623,6 @@ info[i++] = "それは呪われている。";
 		}
 	}
 
-	if((have_flag(flgs, TRAIT_DRAIN_EXP)) || (object_ptr->curse_flags[0] & TRC_DRAIN_EXP))
-	{
-#ifdef JP
-info[i++] = "それは経験値を吸い取る。";
-#else
-		info[i++] = "It drains experience.";
-#endif
-
-	}
 	if(object_ptr->curse_flags[0] & TRC_SLOW_REGEN)
 	{
 #ifdef JP
