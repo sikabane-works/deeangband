@@ -2256,7 +2256,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2285,7 +2285,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2310,7 +2310,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2356,7 +2356,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
@@ -2384,7 +2384,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					object_ptr->curse_flags |= TRC_CURSED;
+					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 					/* Penalize */
 					object_ptr->pval = 0 - (1 + m_bonus(5, level));
@@ -2400,7 +2400,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					object_ptr->curse_flags |= TRC_CURSED;
+					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 					/* Penalize */
 					object_ptr->to_ac = 0 - (5 + m_bonus(10, level));
@@ -2423,7 +2423,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse bonus */
 						object_ptr->to_damage = 0 - object_ptr->to_damage;
@@ -2445,7 +2445,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse tohit */
 						object_ptr->to_hit = 0 - object_ptr->to_hit;
@@ -2467,7 +2467,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse toac */
 						object_ptr->to_ac = 0 - object_ptr->to_ac;
@@ -2490,7 +2490,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->to_hit = 0 - object_ptr->to_hit;
@@ -2512,7 +2512,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->ident |= (IDENT_BROKEN);
 
 						/* Cursed */
-						object_ptr->curse_flags |= TRC_CURSED;
+						add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - object_ptr->pval;
@@ -2526,7 +2526,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_ptr->ident |= (IDENT_BROKEN);
 
 					/* Cursed */
-					object_ptr->curse_flags |= TRC_CURSED;
+					add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 					if (power > 0) power = 0 - power;
 					break;
@@ -3186,7 +3186,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			object_ptr->pval = i;
 
 			/* Some figurines are cursed */
-			if (one_in_(6)) object_ptr->curse_flags |= TRC_CURSED;
+			if (one_in_(6)) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 			if (cheat_peek)
 			{
@@ -7632,7 +7632,7 @@ void weapon_boost(object_type *object_ptr, int level, int power)
 		}
 
 		/* Cursed (if "bad") */
-		if (object_ptr->to_hit + object_ptr->to_damage < 0) object_ptr->curse_flags |= TRC_CURSED;
+		if (object_ptr->to_hit + object_ptr->to_damage < 0) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 	}
 }
 
@@ -7670,7 +7670,7 @@ void armour_boost(object_type *object_ptr, int level, int power)
 		}
 
 		/* Cursed (if "bad") */
-		if (object_ptr->to_ac < 0) object_ptr->curse_flags |= TRC_CURSED;
+		if (object_ptr->to_ac < 0) add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 	}
 }
 

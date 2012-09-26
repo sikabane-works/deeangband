@@ -166,7 +166,8 @@ static void curse_artifact(creature_type *creature_ptr, object_type * object_ptr
 	if (object_ptr->to_hit > 0) object_ptr->to_hit = 0 - (object_ptr->to_hit + (s16b)randint1(4));
 	if (object_ptr->to_damage > 0) object_ptr->to_damage = 0 - (object_ptr->to_damage + (s16b)randint1(4));
 
-	object_ptr->curse_flags |= (TRC_HEAVY_CURSE | TRC_CURSED);
+	add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+	add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 	remove_flag(object_ptr->trait_flags, TRAIT_BLESSED_BRAND);
 
 	if (one_in_(4)) object_ptr->curse_flags |= TRC_DIVINE_CURSE;
@@ -2747,7 +2748,8 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		{
 			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 			add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
-			object_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
+			add_flag(object_ptr->trait_flags, TRAIT_CURSED);
+			add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 			object_ptr->curse_flags |= get_curse(2, object_ptr);
 			return;
 		}

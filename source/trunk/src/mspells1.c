@@ -609,14 +609,14 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 		if (!(object_ptr->curse_flags & TRC_HEAVY_CURSE))
 			changed = TRUE;
 		object_ptr->curse_flags |= TRC_HEAVY_CURSE;
-		object_ptr->curse_flags |= TRC_CURSED;
+		add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 		curse_power++;
 	}
 	else
 	{
 		if (!object_is_cursed(object_ptr))
 			changed = TRUE;
-		object_ptr->curse_flags |= TRC_CURSED;
+		add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 	}
 	if (heavy_chance >= 50) curse_power++;
 

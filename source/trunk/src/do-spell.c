@@ -11607,7 +11607,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
-				object_ptr->curse_flags |= (TRC_CURSED);
+				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
@@ -12072,7 +12072,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
-				object_ptr->curse_flags |= (TRC_CURSED);
+				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
@@ -12334,7 +12334,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					object_ptr->curse_flags = 0L;
 				}
 			}
-			else if ((object_ptr->curse_flags & (TRC_CURSED)) && one_in_(3))
+			else if (have_flag(object_ptr->trait_flags, TRAIT_CURSED) && one_in_(3))
 			{
 #ifdef JP
 				msg_print("ô‚¢‚ğ‘S‚Ä‹z‚¢æ‚Á‚½B");
