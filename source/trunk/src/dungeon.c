@@ -3110,14 +3110,14 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			}
 		}
 		/* Call dragon */
-		if((creature_ptr->cursed & TRC_CALL_DRAGON) && one_in_(800))
+		if((has_trait(creature_ptr, TRAIT_CALL_DRAGON)) && one_in_(800))
 		{
 			if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON,
 			    (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 			{
 				char object_name[MAX_NLEN];
 
-				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 				msg_format("%s‚ªƒhƒ‰ƒSƒ“‚ğˆø‚«Šñ‚¹‚½I", object_name);
 #else

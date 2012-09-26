@@ -284,42 +284,6 @@ info[i++] = "あなたは幻覚を見ている。";
 #endif
 
 	}
-	if(has_trait(creature_ptr, TRAIT_SLOW_REGEN))
-	{
-#ifdef JP
-info[i++] = "あなたの回復力は非常に遅い。";
-#else
-		info[i++] = "You regenerate slowly.";
-#endif
-
-	}
-	if(has_trait(creature_ptr, TRAIT_CALL_DEMON))
-	{
-#ifdef JP
-info[i++] = "あなたは悪魔に狙われている。";
-#else
-		info[i++] = "You attract demons.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_CALL_DRAGON)
-	{
-#ifdef JP
-info[i++] = "あなたはドラゴンに狙われている。";
-#else
-		info[i++] = "You attract dragons.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_TELEPORT)
-	{
-#ifdef JP
-info[i++] = "あなたの位置はひじょうに不安定だ。";
-#else
-		info[i++] = "Your position is very uncertain.";
-#endif
-
-	}
 	if(creature_ptr->cursed & TRC_LOW_MELEE)
 	{
 #ifdef JP
