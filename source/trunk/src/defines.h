@@ -2154,7 +2154,7 @@
 
 #define XXX_TRAIT_CURSED          0x00000001L
 #define XXX_TRC_HEAVY_CURSE         0x00000002L
-#define TRC_DIVINE_CURSE        0x00000004L
+#define XXX_TRC_DIVINE_CURSE        0x00000004L
 #define TRC_XXX1                0x00000008L
 #define TRC_TY_CURSE            0x00000010L
 #define TRC_AGGRAVATE           0x00000020L

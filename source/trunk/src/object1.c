@@ -1586,7 +1586,7 @@ info[i++] = "‚»‚ê‚Í_‚Éj•Ÿ‚³‚ê‚Ä‚¢‚éB";
 
 	if (object_is_cursed(object_ptr))
 	{
-		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
+		if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
 		{
 			char tx[80];
 			tx[0] = '\0';

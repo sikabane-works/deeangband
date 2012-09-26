@@ -3140,7 +3140,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 			if (!object_is_cursed(object_ptr)) continue;
 			ac += 5;
 			if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) ac += 7;
-			if (object_ptr->curse_flags & TRC_DIVINE_CURSE) ac += 13;
+			if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) ac += 13;
 			creature_ptr->to_ac += ac;
 			creature_ptr->dis_to_ac += ac;
 		}

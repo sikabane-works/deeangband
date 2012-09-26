@@ -462,9 +462,9 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 
 	if (object_is_cursed(object_ptr)) // Item is cursed
 	{
-		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
+		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
 		{
-			if (object_ptr->xtra1 >= creature_ptr->dr)
+			if(object_ptr->xtra1 >= creature_ptr->dr)
 			{
 #ifdef JP
 				msg_print("なんてこった！あなたは神域の力に呪われている！");
@@ -484,7 +484,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 			return;
 		}
 
-		if(object_ptr->curse_flags & TRC_DIVINE_CURSE && object_ptr->xtra1 < creature_ptr->dr)
+		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE) && object_ptr->xtra1 < creature_ptr->dr)
 		{
 #ifdef JP
 			msg_print("あなたの神域の力は呪いを凌駕している。あなたは平然と呪いの装備を外した。");

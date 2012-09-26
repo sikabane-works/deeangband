@@ -11616,7 +11616,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					if (one_in_(666))
 					{
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
-						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
+						if (one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
@@ -12081,7 +12081,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					if (one_in_(666))
 					{
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
-						if (one_in_(666)) object_ptr->curse_flags |= (TRC_DIVINE_CURSE);
+						if (one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
@@ -12318,7 +12318,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			if (have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
 			if (creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
 
-			if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
+			if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
 			{
 				/* Nothing */
 			}
