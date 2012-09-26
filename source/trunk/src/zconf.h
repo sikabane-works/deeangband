@@ -62,7 +62,7 @@
 #if defined(__MSDOS__) && !defined(MSDOS)
 #  define MSDOS
 #endif
-#if (defined(OS_2) || defined(__OS2__)) && !defined(OS2)
+#if(defined(OS_2) || defined(__OS2__)) && !defined(OS2)
 #  define OS2
 #endif
 #if defined(_WINDOWS) && !defined(WINDOWS)
@@ -73,7 +73,7 @@
 #    define WIN32
 #  endif
 #endif
-#if (defined(MSDOS) || defined(OS2) || defined(WINDOWS)) && !defined(WIN32)
+#if(defined(MSDOS) || defined(OS2) || defined(WINDOWS)) && !defined(WIN32)
 #  if !defined(__GNUC__) && !defined(__FLAT__) && !defined(__386__)
 #    ifndef SYS16BIT
 #      define SYS16BIT
@@ -187,7 +187,7 @@
 #      define FAR far
 #    endif
 #  endif
-#  if (defined(__SMALL__) || defined(__MEDIUM__))
+#  if(defined(__SMALL__) || defined(__MEDIUM__))
      /* Turbo C small or medium model */
 #    define SMALL_MEDIUM
 #    ifdef __BORLANDC__

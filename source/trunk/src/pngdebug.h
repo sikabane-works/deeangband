@@ -50,10 +50,10 @@
 #  endif
 
 #ifdef PNG_DEBUG
-#  if (PNG_DEBUG > 0)
+#  if(PNG_DEBUG > 0)
 #    if !defined(PNG_DEBUG_FILE) && defined(_MSC_VER)
 #      include <crtdbg.h>
-#      if (PNG_DEBUG > 1)
+#      if(PNG_DEBUG > 1)
 #        ifndef _DEBUG
 #          define _DEBUG
 #        endif
@@ -76,7 +76,7 @@
 #        define PNG_DEBUG_FILE stderr
 #      endif /* PNG_DEBUG_FILE */
 
-#      if (PNG_DEBUG > 1)
+#      if(PNG_DEBUG > 1)
 /* Note: ["%s"m PNG_STRING_NEWLINE] probably does not work on
  * non-ISO compilers
  */

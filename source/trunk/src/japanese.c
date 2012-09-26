@@ -61,7 +61,7 @@ void sindarin_to_kana(char *kana, const char *sindarin)
 
 	sprintf(kana, "%s$", sindarin);
 	for (idx = 0; kana[idx]; idx++)
-		if (isupper(kana[idx])) kana[idx] = tolower(kana[idx]);
+		if(isupper(kana[idx])) kana[idx] = tolower(kana[idx]);
 
 	for (idx = 0; s2j_table[idx].key1 != NULL; idx++)
 	{
@@ -73,7 +73,7 @@ void sindarin_to_kana(char *kana, const char *sindarin)
 
 		while (*src)
 		{
-			if (strncmp(src, pat1, len) == 0)
+			if(strncmp(src, pat1, len) == 0)
 			{
 				strcpy(dest, pat2);
 				src += len;
@@ -81,7 +81,7 @@ void sindarin_to_kana(char *kana, const char *sindarin)
 			}
 			else
 			{
-				if (iskanji(*src))
+				if(iskanji(*src))
 				{
 					*dest = *src;
 					src++;
@@ -241,11 +241,11 @@ void sjis2euc(char *str)
 	for (i = 0; i < len; i++)
 	{
 		c1 = str[i];
-		if (c1 & 0x80)
+		if(c1 & 0x80)
 		{
 			i++;
 			c2 = str[i];
-			if (c2 >= 0x9f)
+			if(c2 >= 0x9f)
 			{
 				c1 = c1 * 2 - (c1 >= 0xe0 ? 0xe0 : 0x60);
 				c2 += 2;
@@ -284,11 +284,11 @@ void euc2sjis(char *str)
 	for (i = 0; i < len; i++)
 	{
 		c1 = str[i];
-		if (c1 & 0x80)
+		if(c1 & 0x80)
 		{
 			i++;
 			c2 = str[i];
-			if (c1 % 2)
+			if(c1 % 2)
 			{
 				c1 = (c1 >> 1) + (c1 < 0xdf ? 0x31 : 0x71);
 				c2 -= 0x60 + (c2 < 0xe0);
@@ -335,44 +335,44 @@ byte codeconv(char *str)
 		c1 = str[i];
 
 		/* ASCII? */
-		if (!(c1 & 0x80)) continue;
+		if(!(c1 & 0x80)) continue;
 
 		/* Second byte */
 		i++;
 		c2 = str[i];
 
-		if (((0xa1 <= c1 && c1 <= 0xdf) || (0xfd <= c1 && c1 <= 0xfe)) &&
+		if(((0xa1 <= c1 && c1 <= 0xdf) || (0xfd <= c1 && c1 <= 0xfe)) &&
 		    (0xa1 <= c2 && c2 <= 0xfe))
 		{
 			/* Only EUC is allowed */
-			if (!code)
+			if(!code)
 			{
 				/* EUC */
 				code = 2;
 			}
 
 			/* Broken string? */
-			else if (code != 2)
+			else if(code != 2)
 			{
 				/* No conversion */
 				return 0;
 			}
 		}
 
-		else if (((0x81 <= c1 && c1 <= 0x9f) &&
+		else if(((0x81 <= c1 && c1 <= 0x9f) &&
 			  ((0x40 <= c2 && c2 <= 0x7e) || (0x80 <= c2 && c2 <= 0xfc))) ||
 			 ((0xe0 <= c1 && c1 <= 0xfc) &&
 			  (0x40 <= c2 && c2 <= 0x7e)))
 		{
 			/* Only SJIS is allowed */
-			if (!code)
+			if(!code)
 			{
 				/* SJIS */
 				code = 3;
 			}
 
 			/* Broken string? */
-			else if (code != 3)
+			else if(code != 3)
 			{
 				/* No conversion */
 				return 0;
@@ -410,9 +410,9 @@ bool iskanji2(cptr s, int x)
 
 	for (i = 0; i < x; i++)
 	{
-		if (iskanji(s[i])) i++;
+		if(iskanji(s[i])) i++;
 	}
-	if ((x == i) && iskanji(s[x])) return TRUE;
+	if((x == i) && iskanji(s[x])) return TRUE;
 
 	return FALSE;
 }

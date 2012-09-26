@@ -32,7 +32,7 @@ static void mane_info(creature_type *creature_ptr, char *p, int power, int dam)
 
 	strcpy(p, "");
 
-	if ((power > 2 && power < 41) || (power > 41 && power < 59) || (power == 75))
+	if((power > 2 && power < 41) || (power > 41 && power < 59) || (power == 75))
 		sprintf(p, " %s%d", s_dam, dam);
 	else
 	{
@@ -131,10 +131,10 @@ cptr            p = "能力";
 		else if( !get_com(out_val, &choice, TRUE) )break; 
 
 		/* Request redraw */
-		if ((choice == ' ') || (choice == '*') || (choice == '?'))
+		if((choice == ' ') || (choice == '*') || (choice == '?'))
 		{
 			/* Show the list */
-			if (!redraw)
+			if(!redraw)
 			{
 				char psi_desc[80];
 
@@ -168,12 +168,12 @@ put_str("失率 効果", y, x + 36);
 					chance = spell.manefail;
 
 					/* Reduce failure rate by "effective" level adjustment */
-					if (plev > spell.level) chance -= 3 * (plev - spell.level);
+					if(plev > spell.level) chance -= 3 * (plev - spell.level);
 
 					/* Reduce failure rate by INT/WIS adjustment */
 					chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
-					if (spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
+					if(spell.manedam) chance = chance * creature_ptr->mane_dam[i] / spell.manedam;
 
 					chance += creature_ptr->to_m_chance;
 
@@ -181,14 +181,14 @@ put_str("失率 効果", y, x + 36);
 					minfail = adj_mag_fail[creature_ptr->stat_ind[spell.use_stat]];
 
 					/* Minimum failure rate */
-					if (chance < minfail) chance = minfail;
+					if(chance < minfail) chance = minfail;
 
 					/* Stunning makes spells harder */
-					if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-					else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+					if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+					else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 					/* Always a 5 percent chance of working */
-					if (chance > 95) chance = 95;
+					if(chance > 95) chance = 95;
 
 					/* Get info */
 					mane_info(creature_ptr, comment, creature_ptr->mane_spell[i], (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]));
@@ -222,13 +222,13 @@ put_str("失率 効果", y, x + 36);
 		ask = isupper(choice);
 
 		/* Lowercase */
-		if (ask) choice = tolower(choice);
+		if(ask) choice = tolower(choice);
 
 		/* Extract request */
 		i = (islower(choice) ? A2I(choice) : -1);
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= num))
+		if((i < 0) || (i >= num))
 		{
 			bell();
 			continue;
@@ -238,7 +238,7 @@ put_str("失率 効果", y, x + 36);
 		spell = racial_powers[creature_ptr->mane_spell[i]];
 
 		/* Verify it */
-		if (ask)
+		if(ask)
 		{
 			char tmp_val[160];
 
@@ -251,7 +251,7 @@ put_str("失率 効果", y, x + 36);
 
 
 			/* Belay that order */
-			if (!get_check(tmp_val)) continue;
+			if(!get_check(tmp_val)) continue;
 		}
 
 		/* Stop the loop */
@@ -259,7 +259,7 @@ put_str("失率 効果", y, x + 36);
 	}
 
 	/* Restore the screen */
-	if (redraw) screen_load();
+	if(redraw) screen_load();
 
 	/* Show choices */
 	play_window |= (PW_SPELL);
@@ -268,7 +268,7 @@ put_str("失率 効果", y, x + 36);
 	window_stuff();
 
 	/* Abort if needed */
-	if (!flag) return (FALSE);
+	if(!flag) return (FALSE);
 
 	/* Save the choice */
 	(*sn) = i;
@@ -292,7 +292,7 @@ static bool use_mane(creature_type *creature_ptr, int spell)
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	u32b u_mode = 0L;
 
-	if (randint1(50+plev) < plev/10) u_mode = PC_ALLOW_UNIQUE;
+	if(randint1(50+plev) < plev/10) u_mode = PC_ALLOW_UNIQUE;
 
 
 	/* spell code */
@@ -312,16 +312,16 @@ msg_print("かん高い金切り声をあげた。");
 	{
 		int m_idx;
 
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if (!m_idx) break;
-		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+		if(!m_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 		dispel_creature(creature_ptr);
 		break;
 	}
 	case TRAIT_ROCKET:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ロケットを発射した。");
 #else
@@ -331,7 +331,7 @@ else msg_print("ロケットを発射した。");
 			fire_rocket(creature_ptr, GF_ROCKET, dir, damage, 2);
 		break;
 	case TRAIT_SHOOT:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("矢を放った。");
 #else
@@ -341,7 +341,7 @@ else msg_print("矢を放った。");
 			fire_bolt(creature_ptr, GF_ARROW, dir, damage);
 		break;
 	case TRAIT_BR_ACID:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("酸のブレスを吐いた。");
 #else
@@ -351,7 +351,7 @@ else msg_print("酸のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_ACID, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_ELEC:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("稲妻のブレスを吐いた。");
 #else
@@ -361,7 +361,7 @@ else msg_print("稲妻のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_ELEC, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_FIRE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("火炎のブレスを吐いた。");
 #else
@@ -371,7 +371,7 @@ else msg_print("火炎のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_FIRE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_COLD:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("冷気のブレスを吐いた。");
 #else
@@ -381,7 +381,7 @@ else msg_print("冷気のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_COLD, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_POIS:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ガスのブレスを吐いた。");
 #else
@@ -391,7 +391,7 @@ else msg_print("ガスのブレスを吐いた。");
 			fire_ball(creature_ptr, GF_POIS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_NETH:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄のブレスを吐いた。");
 #else
@@ -401,7 +401,7 @@ else msg_print("地獄のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_NETHER, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_LITE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("閃光のブレスを吐いた。");
 #else
@@ -411,7 +411,7 @@ else msg_print("閃光のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_LITE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_DARK:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒のブレスを吐いた。");
 #else
@@ -421,7 +421,7 @@ else msg_print("暗黒のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_DARK, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_CONF:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("混乱のブレスを吐いた。");
 #else
@@ -431,7 +431,7 @@ else msg_print("混乱のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_CONFUSION, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_SOUN:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("轟音のブレスを吐いた。");
 #else
@@ -441,7 +441,7 @@ else msg_print("轟音のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_SOUND, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_CHAO:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("カオスのブレスを吐いた。");
 #else
@@ -451,7 +451,7 @@ else msg_print("カオスのブレスを吐いた。");
 			fire_ball(creature_ptr, GF_CHAOS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_DISE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("劣化のブレスを吐いた。");
 #else
@@ -461,7 +461,7 @@ else msg_print("劣化のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_DISENCHANT, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_NEXU:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("因果混乱のブレスを吐いた。");
 #else
@@ -471,7 +471,7 @@ else msg_print("因果混乱のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_NEXUS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_TIME:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("時間逆転のブレスを吐いた。");
 #else
@@ -481,7 +481,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_TIME, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_INER:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("遅鈍のブレスを吐いた。");
 #else
@@ -491,7 +491,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_INERTIA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_GRAV:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("重力のブレスを吐いた。");
 #else
@@ -501,7 +501,7 @@ else msg_print("重力のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_GRAVITY, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_SHAR:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("破片のブレスを吐いた。");
 #else
@@ -511,7 +511,7 @@ else msg_print("破片のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_SHARDS, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_PLAS:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマのブレスを吐いた。");
 #else
@@ -521,7 +521,7 @@ else msg_print("プラズマのブレスを吐いた。");
 			fire_ball(creature_ptr, GF_PLASMA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_WALL:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("フォースのブレスを吐いた。");
 #else
@@ -531,7 +531,7 @@ else msg_print("フォースのブレスを吐いた。");
 			fire_ball(creature_ptr, GF_FORCE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_MANA:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力のブレスを吐いた。");
 #else
@@ -541,7 +541,7 @@ else msg_print("魔力のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_MANA, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BA_NUKE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射能球を放った。");
 #else
@@ -551,7 +551,7 @@ else msg_print("放射能球を放った。");
 			fire_ball(creature_ptr, GF_NUKE, dir, damage, 2);
 		break;
 	case TRAIT_BR_NUKE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("放射性廃棄物のブレスを吐いた。");
 #else
@@ -561,7 +561,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_NUKE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BA_CHAO:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("純ログルスを放った。");
 #else
@@ -571,7 +571,7 @@ else msg_print("純ログルスを放った。");
 			fire_ball(creature_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 	case TRAIT_BR_DISI:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("分解のブレスを吐いた。");
 #else
@@ -581,7 +581,7 @@ else msg_print("分解のブレスを吐いた。");
 			fire_ball(creature_ptr, GF_DISINTEGRATE, dir, damage, (plev > 35 ? -3 : -2));
 		break;
 	case TRAIT_BA_ACID:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボールの呪文を唱えた。");
 #else
@@ -591,7 +591,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 			fire_ball(creature_ptr, GF_ACID, dir, damage, 2);
 		break;
 	case TRAIT_BA_ELEC:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボールの呪文を唱えた。");
 #else
@@ -601,7 +601,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 			fire_ball(creature_ptr, GF_ELEC, dir, damage, 2);
 		break;
 	case TRAIT_BA_FIRE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボールの呪文を唱えた。");
 #else
@@ -611,7 +611,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 			fire_ball(creature_ptr, GF_FIRE, dir, damage, 2);
 		break;
 	case TRAIT_BA_COLD:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボールの呪文を唱えた。");
 #else
@@ -621,7 +621,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 			fire_ball(creature_ptr, GF_COLD, dir, damage, 2);
 		break;
 	case TRAIT_BA_POIS:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("悪臭雲の呪文を唱えた。");
 #else
@@ -631,7 +631,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 			fire_ball(creature_ptr, GF_POIS, dir, damage, 2);
 		break;
 	case TRAIT_BA_NETH:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄球の呪文を唱えた。");
 #else
@@ -641,7 +641,7 @@ else msg_print("地獄球の呪文を唱えた。");
 			fire_ball(creature_ptr, GF_NETHER, dir, damage, 2);
 		break;
 	case TRAIT_BA_WATE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("流れるような身振りをした。");
 #else
@@ -651,7 +651,7 @@ else msg_print("流れるような身振りをした。");
 			fire_ball(creature_ptr, GF_WATER, dir, damage, 4);
 		break;
 	case TRAIT_BA_MANA:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の嵐の呪文を念じた。");
 #else
@@ -661,7 +661,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 			fire_ball(creature_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case TRAIT_BA_DARK:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("暗黒の嵐の呪文を念じた。");
 #else
@@ -671,35 +671,35 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 			fire_ball(creature_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case TRAIT_DRAIN_MANA:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_DRAIN_MANA, dir, randint1(plev*3)+plev, 0);
 		break;
 	case TRAIT_MIND_BLAST:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
 	case TRAIT_BRAIN_SMASH:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_1:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_2:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_3:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_CAUSE_3, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_4:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball_hide(creature_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
 	case TRAIT_BO_ACID:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アシッド・ボルトの呪文を唱えた。");
 #else
@@ -709,7 +709,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_ACID, dir, damage);
 		break;
 	case TRAIT_BO_ELEC:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("サンダー・ボルトの呪文を唱えた。");
 #else
@@ -719,7 +719,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_ELEC, dir, damage);
 		break;
 	case TRAIT_BO_FIRE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ファイア・ボルトの呪文を唱えた。");
 #else
@@ -729,7 +729,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_FIRE, dir, damage);
 		break;
 	case TRAIT_BO_COLD:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("アイス・ボルトの呪文を唱えた。");
 #else
@@ -739,7 +739,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_COLD, dir, damage);
 		break;
 	case TRAIT_BA_LITE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("スターバーストの呪文を念じた。");
 #else
@@ -749,7 +749,7 @@ else msg_print("スターバーストの呪文を念じた。");
 			fire_ball(creature_ptr, GF_LITE, dir, damage, 4);
 		break;
 	case TRAIT_BO_NETH:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("地獄の矢の呪文を唱えた。");
 #else
@@ -759,7 +759,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_NETHER, dir, damage);
 		break;
 	case TRAIT_BO_WATE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("ウォーター・ボルトの呪文を唱えた。");
 #else
@@ -769,7 +769,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_WATER, dir, damage);
 		break;
 	case TRAIT_BO_MANA:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("魔力の矢の呪文を唱えた。");
 #else
@@ -779,7 +779,7 @@ else msg_print("魔力の矢の呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_MANA, dir, damage);
 		break;
 	case TRAIT_BO_PLAS:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("プラズマ・ボルトの呪文を唱えた。");
 #else
@@ -789,7 +789,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_PLASMA, dir, damage);
 		break;
 	case TRAIT_BO_ICEE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("極寒の矢の呪文を唱えた。");
 #else
@@ -799,7 +799,7 @@ else msg_print("極寒の矢の呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_ICE, dir, damage);
 		break;
 	case TRAIT_MISSILE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("マジック・ミサイルの呪文を唱えた。");
 #else
@@ -809,7 +809,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 			fire_bolt(creature_ptr, GF_MISSILE, dir, damage);
 		break;
 	case TRAIT_SCARE:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("恐ろしげな幻覚を作り出した。");
 #else
@@ -819,11 +819,11 @@ else msg_print("恐ろしげな幻覚を作り出した。");
 			fear_creature(creature_ptr, dir, plev+10);
 		break;
 	case TRAIT_BLIND:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		confuse_creature(creature_ptr, dir, plev * 2);
 		break;
 	case TRAIT_CONF:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("誘惑的な幻覚をつくり出した。");
 #else
@@ -833,11 +833,11 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 			confuse_creature(creature_ptr, dir, plev * 2);
 		break;
 	case TRAIT_SLOW:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		slow_creature(creature_ptr, dir);
 		break;
 	case TRAIT_HOLD:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		sleep_creature(creature_ptr, dir);
 		break;
 	case TRAIT_HASTE:
@@ -845,7 +845,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		break;
 	case TRAIT_HAND_DOOM:
 	{
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 else msg_print("<破滅の手>を放った！");
 #else
@@ -881,13 +881,13 @@ msg_print("無傷の球の呪文を唱えた。");
 		break;
 	case TRAIT_WORLD:
 		creature_ptr->time_stopper = TRUE;
-		if (damage == 1 || damage == 2)
+		if(damage == 1 || damage == 2)
 #ifdef JP
 			msg_print("「『ザ・ワールド』！時は止まった！」");
 #else
 			msg_print("You yell 'The World! Time has stopped!'");
 #endif
-		else if (damage == 3 || damage == 6)
+		else if(damage == 3 || damage == 6)
 #ifdef JP
 			msg_print("「時よ！」");
 #else
@@ -919,18 +919,18 @@ msg_print("無傷の球の呪文を唱えた。");
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
-		if (!floor_ptr->cave[target_row][target_col].creature_idx) break;
-		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
-		if (has_trait(m_ptr, TRAIT_RES_TELE))
+		if(has_trait(m_ptr, TRAIT_RES_TELE))
 		{
-			if ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+			if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
 			{
-				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
 				msg_format("%sには効果がなかった！", m_name);
 #else
@@ -939,9 +939,9 @@ msg_print("無傷の球の呪文を唱えた。");
 
 				break;
 			}
-			else if (r_ptr->level > randint1(100))
+			else if(r_ptr->level > randint1(100))
 			{
-				if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
 				msg_format("%sには耐性がある！", m_name);
 #else
@@ -961,7 +961,7 @@ msg_format("%sを引き戻した。", m_name);
 		break;
 	}
 	case TRAIT_TELE_AWAY:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		(void)fire_beam(creature_ptr, GF_AWAY_ALL, dir, plev);
 		break;
@@ -972,11 +972,11 @@ msg_format("%sを引き戻した。", m_name);
 		species_type *r_ptr;
 		char m_name[80];
 
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if (!target_m_idx) break;
-		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+		if(!target_m_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[target_m_idx];
 		r_ptr = &species_info[m_ptr->species_idx];
 		creature_desc(m_name, m_ptr, 0);
@@ -986,7 +986,7 @@ msg_format("%sを引き戻した。", m_name);
 		msg_format("You gesture at %^s's feet.", m_name);
 #endif
 
-		if (has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
+		if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
 			(has_trait(m_ptr, TRAIT_QUESTOR)) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
 #ifdef JP
@@ -999,7 +999,7 @@ msg_format("%sを引き戻した。", m_name);
 		break;
 	}
 	case TRAIT_PSY_SPEAR:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 #ifdef JP
 else msg_print("光の剣を放った。");
@@ -1017,7 +1017,7 @@ msg_print("暗闇の中で手を振った。");
 		(void)unlite_area(creature_ptr, 10, 3);
 		break;
 	case TRAIT_TRAPS:
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("呪文を唱えて邪悪に微笑んだ。");
 #else
@@ -1043,7 +1043,7 @@ msg_print("死者復活の呪文を唱えた。");
 	case TRAIT_S_KIN:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 
 #ifdef JP
 msg_print("援軍を召喚した。");
@@ -1060,13 +1060,13 @@ msg_print("援軍を召喚した。");
 	{
 		int k;
 		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("サイバーデーモンを召喚した！");
 #else
 			msg_print("You summon Cyberdemons!");
 #endif
-		if (max_cyber > 4) max_cyber = 4;
+		if(max_cyber > 4) max_cyber = 4;
 		for (k = 0;k < max_cyber; k++)
 			summon_specific(NULL, target_row, target_col, plev, SUMMON_CYBER, mode);
 		break;
@@ -1074,7 +1074,7 @@ msg_print("サイバーデーモンを召喚した！");
 	case TRAIT_S_MONSTER:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("仲間を召喚した。");
 #else
@@ -1087,7 +1087,7 @@ msg_print("仲間を召喚した。");
 	case TRAIT_S_MONSTERS:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("クリーチャーを召喚した！");
 #else
@@ -1100,7 +1100,7 @@ msg_print("クリーチャーを召喚した！");
 	case TRAIT_S_ANT:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("アリを召喚した。");
 #else
@@ -1113,7 +1113,7 @@ msg_print("アリを召喚した。");
 	case TRAIT_S_SPIDER:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("蜘蛛を召喚した。");
 #else
@@ -1126,7 +1126,7 @@ msg_print("蜘蛛を召喚した。");
 	case TRAIT_S_HOUND:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("ハウンドを召喚した。");
 #else
@@ -1139,7 +1139,7 @@ msg_print("ハウンドを召喚した。");
 	case TRAIT_S_HYDRA:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("ヒドラを召喚した。");
 #else
@@ -1152,7 +1152,7 @@ msg_print("ヒドラを召喚した。");
 	case TRAIT_S_ANGEL:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("天使を召喚した！");
 #else
@@ -1165,7 +1165,7 @@ msg_print("天使を召喚した！");
 	case TRAIT_S_DEMON:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("混沌の宮廷から悪魔を召喚した！");
 #else
@@ -1178,7 +1178,7 @@ msg_print("混沌の宮廷から悪魔を召喚した！");
 	case TRAIT_S_UNDEAD:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("アンデッドの強敵を召喚した！");
 #else
@@ -1191,7 +1191,7 @@ msg_print("アンデッドの強敵を召喚した！");
 	case TRAIT_S_DRAGON:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("ドラゴンを召喚した！");
 #else
@@ -1204,7 +1204,7 @@ msg_print("ドラゴンを召喚した！");
 	case TRAIT_S_HI_UNDEAD:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("強力なアンデッドを召喚した！");
 #else
@@ -1217,7 +1217,7 @@ msg_print("強力なアンデッドを召喚した！");
 	case TRAIT_S_HI_DRAGON:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("古代ドラゴンを召喚した！");
 #else
@@ -1230,7 +1230,7 @@ msg_print("古代ドラゴンを召喚した！");
 	case TRAIT_S_AMBERITES:
 	{
 		int k;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("アンバーの王族を召喚した！");
 #else
@@ -1243,14 +1243,14 @@ msg_print("アンバーの王族を召喚した！");
 	case TRAIT_S_UNIQUE:
 	{
 		int k, count = 0;
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 msg_print("特別な強敵を召喚した！");
 #else
 			msg_print("You summon special opponents!");
 #endif
 		for (k = 0;k < 4; k++)
-			if (summon_specific(NULL, target_row, target_col, plev, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
+			if(summon_specific(NULL, target_row, target_col, plev, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
 		for (k = count;k < 4; k++)
 			summon_specific(NULL, target_row, target_col, plev, SUMMON_HI_UNDEAD, (mode | u_mode));
 		break;
@@ -1278,7 +1278,7 @@ bool do_cmd_mane(creature_type *creature_ptr, bool baigaesi)
 
 
 	/* not if confused */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて集中できない！");
@@ -1289,7 +1289,7 @@ msg_print("混乱していて集中できない！");
 		return TRUE;
 	}
 
-	if (!creature_ptr->mane_num)
+	if(!creature_ptr->mane_num)
 	{
 #ifdef JP
 msg_print("まねられるものが何もない！");
@@ -1301,7 +1301,7 @@ msg_print("まねられるものが何もない！");
 	}
 
 	/* get power */
-	if (!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE;
+	if(!get_mane_power(creature_ptr, &n, baigaesi)) return FALSE;
 
 	spell = racial_powers[creature_ptr->mane_spell[n]];
 
@@ -1309,12 +1309,12 @@ msg_print("まねられるものが何もない！");
 	chance = spell.manefail;
 
 	/* Reduce failure rate by "effective" level adjustment */
-	if (plev > spell.level) chance -= 3 * (plev - spell.level);
+	if(plev > spell.level) chance -= 3 * (plev - spell.level);
 
 	/* Reduce failure rate by 1 stat and DEX adjustment */
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[spell.use_stat]] + adj_mag_stat[creature_ptr->stat_ind[STAT_DEX]] - 2) / 2;
 
-	if (spell.manedam) chance = chance * damage / spell.manedam;
+	if(spell.manedam) chance = chance * damage / spell.manedam;
 
 	chance += creature_ptr->to_m_chance;
 
@@ -1322,19 +1322,19 @@ msg_print("まねられるものが何もない！");
 	minfail = adj_mag_fail[creature_ptr->stat_ind[spell.use_stat]];
 
 	/* Minimum failure rate */
-	if (chance < minfail) chance = minfail;
+	if(chance < minfail) chance = minfail;
 
 	/* Stunning makes spells harder */
-	if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-	else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
 	/* Always a 5 percent chance of working */
-	if (chance > 95) chance = 95;
+	if(chance > 95) chance = 95;
 
 	/* Failed spell */
-	if (randint0(100) < chance)
+	if(randint0(100) < chance)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 msg_print("ものまねに失敗した！");
 #else
@@ -1350,7 +1350,7 @@ msg_print("ものまねに失敗した！");
 		/* Cast the spell */
 		cast = use_mane(creature_ptr, creature_ptr->mane_spell[n]);
 
-		if (!cast) return FALSE;
+		if(!cast) return FALSE;
 	}
 
 	creature_ptr->mane_num--;

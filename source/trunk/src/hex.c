@@ -21,14 +21,14 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 	for (i = 0; i < 32; i++)
 	{
 		u32b spell = 1L << i;
-		if (hex_spelling(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
+		if(hex_spelling(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 	}
 
 	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 	creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
 
 	/* Print message */
-	if (creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
+	if(creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
 
 	/* Redraw status */
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
@@ -48,7 +48,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 	int x = 20;
 	int sp[MAX_KEEP];
 
-	if (!hex_spelling_any(creature_ptr))
+	if(!hex_spelling_any(creature_ptr))
 	{
 #ifdef JP
 		msg_print("éÙï∂Çârè•ÇµÇƒÇ¢Ç‹ÇπÇÒÅB");
@@ -59,7 +59,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 	}
 
 	/* Stop all spells */
-	else if ((creature_ptr->class_skills.old_skills.magic_num2[0] == 1) || (creature_ptr->lev < 35))
+	else if((creature_ptr->class_skills.old_skills.magic_num2[0] == 1) || (creature_ptr->lev < 35))
 	{
 		return stop_hex_spell_all(creature_ptr);
 	}
@@ -82,7 +82,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 			prt("     ñºëO", y, x + 5);
 			for (spell = 0; spell < 32; spell++)
 			{
-				if (hex_spelling(creature_ptr, spell))
+				if(hex_spelling(creature_ptr, spell))
 				{
 					Term_erase(x, y + n + 1, 255);
 					put_str(format("%c)  %s", I2A(n), do_spell(creature_ptr, REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
@@ -90,22 +90,22 @@ bool stop_hex_spell(creature_type *creature_ptr)
 				}
 			}
 
-			if (!get_com(out_val, &choice, TRUE)) break;
-			if (isupper(choice)) choice = tolower(choice);
+			if(!get_com(out_val, &choice, TRUE)) break;
+			if(isupper(choice)) choice = tolower(choice);
 
-			if (choice == 'l')	/* All */
+			if(choice == 'l')	/* All */
 			{
 				screen_load();
 				return stop_hex_spell_all(creature_ptr);
 			}
-			if ((choice < I2A(0)) || (choice > I2A(creature_ptr->class_skills.old_skills.magic_num2[0] - 1))) continue;
+			if((choice < I2A(0)) || (choice > I2A(creature_ptr->class_skills.old_skills.magic_num2[0] - 1))) continue;
 			flag = TRUE;
 		}
 	}
 
 	screen_load();
 
-	if (flag)
+	if(flag)
 	{
 		int n = sp[A2I(choice)];
 
@@ -134,10 +134,10 @@ void check_hex(creature_type *creature_ptr)
 	bool res = FALSE;
 
 	/* Spells spelled by player */
-	if (creature_ptr->realm1 != REALM_HEX) return;
-	if (!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return;
+	if(creature_ptr->realm1 != REALM_HEX) return;
+	if(!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return;
 
-	if (creature_ptr->class_skills.old_skills.magic_num1[1])
+	if(creature_ptr->class_skills.old_skills.magic_num1[1])
 	{
 		creature_ptr->class_skills.old_skills.magic_num1[0] = creature_ptr->class_skills.old_skills.magic_num1[1];
 		creature_ptr->class_skills.old_skills.magic_num1[1] = 0;
@@ -145,7 +145,7 @@ void check_hex(creature_type *creature_ptr)
 	}
 
 	/* Stop all spells when anti-magic ability is given */
-	if (has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
+	if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
 		stop_hex_spell_all(creature_ptr);
 		return;
@@ -154,7 +154,7 @@ void check_hex(creature_type *creature_ptr)
 	need_mana = 0;
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(creature_ptr, spell))
+		if(hex_spelling(creature_ptr, spell))
 		{
 			s_ptr = &technic_info[REALM_HEX - MIN_TECHNIC][spell];
 			need_mana += mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_HEX);
@@ -169,7 +169,7 @@ void check_hex(creature_type *creature_ptr)
 
 
 	/* Not enough mana */
-	if (s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, need_mana, need_mana_frac) < 0)
+	if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, need_mana, need_mana_frac) < 0)
 	{
 		stop_hex_spell_all(creature_ptr);
 		return;
@@ -181,7 +181,7 @@ void check_hex(creature_type *creature_ptr)
 		s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), need_mana, need_mana_frac);
 
 		play_redraw |= PR_MANA;
-		if (res)
+		if(res)
 		{
 #ifdef JP
 			msg_print("ârè•ÇçƒäJÇµÇΩÅB");
@@ -207,22 +207,22 @@ void check_hex(creature_type *creature_ptr)
 	/* Gain experiences of spelling spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (!hex_spelling(creature_ptr, spell)) continue;
+		if(!hex_spelling(creature_ptr, spell)) continue;
 
-		if (creature_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
+		if(creature_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
 			creature_ptr->spell_exp[spell] += 5;
 		else if(creature_ptr->spell_exp[spell] < SPELL_EXP_SKILLED)
-		{ if (one_in_(2) && (floor_ptr->floor_level > 4) && ((floor_ptr->floor_level + 10) > creature_ptr->lev)) creature_ptr->spell_exp[spell] += 1; }
+		{ if(one_in_(2) && (floor_ptr->floor_level > 4) && ((floor_ptr->floor_level + 10) > creature_ptr->lev)) creature_ptr->spell_exp[spell] += 1; }
 		else if(creature_ptr->spell_exp[spell] < SPELL_EXP_EXPERT)
-		{ if (one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && ((floor_ptr->floor_level + 5) > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
+		{ if(one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && ((floor_ptr->floor_level + 5) > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
 		else if(creature_ptr->spell_exp[spell] < SPELL_EXP_MASTER)
-		{ if (one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
+		{ if(one_in_(5) && ((floor_ptr->floor_level + 5) > creature_ptr->lev) && (floor_ptr->floor_level > s_ptr->slevel)) creature_ptr->spell_exp[spell] += 1; }
 	}
 
 	/* Do any effects of continual spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if (hex_spelling(creature_ptr, spell))
+		if(hex_spelling(creature_ptr, spell))
 		{
 			do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
 		}
@@ -239,15 +239,15 @@ bool hex_spell_fully(creature_type *creature_ptr)
 	/* Paranoia */
 	k_max = MIN(k_max, MAX_KEEP);
 
-	if (creature_ptr->class_skills.old_skills.magic_num2[0] < k_max) return FALSE;
+	if(creature_ptr->class_skills.old_skills.magic_num2[0] < k_max) return FALSE;
 
 	return TRUE;
 }
 
 void revenge_spell(creature_type *creature_ptr)
 {
-	if (creature_ptr->realm1 != REALM_HEX) return;
-	if (creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) return;
+	if(creature_ptr->realm1 != REALM_HEX) return;
+	if(creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) return;
 
 	switch(creature_ptr->class_skills.old_skills.magic_num2[1])
 	{
@@ -259,8 +259,8 @@ void revenge_spell(creature_type *creature_ptr)
 
 void revenge_store(creature_type *creature_ptr, int dam)
 {
-	if (creature_ptr->realm1 != REALM_HEX) return;
-	if (creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) return;
+	if(creature_ptr->realm1 != REALM_HEX) return;
+	if(creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) return;
 
 	creature_ptr->class_skills.old_skills.magic_num1[2] += dam;
 }
@@ -270,8 +270,8 @@ bool teleport_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 {
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
-	if (!hex_spelling(cast_ptr, HEX_ANTI_TELE)) return FALSE;
-	if ((cast_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
+	if(!hex_spelling(cast_ptr, HEX_ANTI_TELE)) return FALSE;
+	if((cast_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
 }
@@ -279,16 +279,16 @@ bool teleport_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 
 bool magic_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 {
-	if (!hex_spelling(cast_ptr, HEX_ANTI_MAGIC)) return FALSE;
-	if ((cast_ptr->lev * 3 / 2) < randint1(target_ptr->lev * 2)) return FALSE;
+	if(!hex_spelling(cast_ptr, HEX_ANTI_MAGIC)) return FALSE;
+	if((cast_ptr->lev * 3 / 2) < randint1(target_ptr->lev * 2)) return FALSE;
 
 	return TRUE;
 }
 
 bool multiply_barrier(creature_type *creature_ptr, creature_type *target_ptr)
 {
-	if (!hex_spelling(creature_ptr, HEX_ANTI_MULTI)) return FALSE;
-	if (creature_ptr->lev < randint1(target_ptr->lev)) return FALSE;
+	if(!hex_spelling(creature_ptr, HEX_ANTI_MULTI)) return FALSE;
+	if(creature_ptr->lev < randint1(target_ptr->lev)) return FALSE;
 
 	return TRUE;
 }

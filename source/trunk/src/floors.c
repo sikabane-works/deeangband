@@ -53,22 +53,22 @@ void init_saved_floors(bool force)
 		safe_setuid_drop();
 
 		// Failed! 
-		if (fd < 0)
+		if(fd < 0)
 		{
-			if (!force)
+			if(!force)
 			{
 #ifdef JP
 				msg_print("エラー：古いテンポラリ・ファイルが残っています。");
 				msg_print("D\'angbandを二重に起動していないか確認してください。");
 				msg_print("過去にD\'angbandがクラッシュした場合は一時ファイルを");
 				msg_print("強制的に削除して実行を続けられます。");
-				if (!get_check("強制的に削除してもよろしいですか？")) quit("実行中止");
+				if(!get_check("強制的に削除してもよろしいですか？")) quit("実行中止");
 #else
 				msg_print("Error: There are old temporal files.");
 				msg_print("Make sure you are not running two game processes simultaneously.");
 				msg_print("If the temporal files are garbages of old crashed process, ");
 				msg_print("you can delete it safely.");
-				if (!get_check("Do you delete old temporal files? ")) quit("Aborted.");
+				if(!get_check("Do you delete old temporal files? ")) quit("Aborted.");
 #endif
 				force = TRUE;
 			}
@@ -109,7 +109,7 @@ void init_saved_floors(bool force)
 //
 static void kill_floor(floor_type *sf_ptr)
 {
-	if (!sf_ptr) return; // Paranoia
+	if(!sf_ptr) return; // Paranoia
 	// TODO
 }
 
@@ -124,10 +124,10 @@ s16b floor_pop(void)
 	int i;
 
 	// Find empty space
-	for (i = 1; i < MAX_FLOORS; i++) if (!floor_list[i].width || !floor_list[i].height) break;
+	for (i = 1; i < MAX_FLOORS; i++) if(!floor_list[i].width || !floor_list[i].height) break;
 
 	// Not found
-	if (i == MAX_FLOORS)
+	if(i == MAX_FLOORS)
 	{
 		int oldest = 1;
 		u32b oldest_visit = 0xffffffffL;
@@ -136,8 +136,8 @@ s16b floor_pop(void)
 		for (i = 1; i < MAX_FLOORS; i++)
 		{
 			floor_ptr = &floor_list[i];
-			if (floor_ptr == current_floor_ptr) continue; // Don't kill current floor
-			if (floor_ptr->visit_mark > oldest_visit) continue; // Don't kill newer
+			if(floor_ptr == current_floor_ptr) continue; // Don't kill current floor
+			if(floor_ptr->visit_mark > oldest_visit) continue; // Don't kill newer
 			oldest = i;
 			oldest_visit = floor_ptr->visit_mark;
 		}
@@ -149,7 +149,7 @@ s16b floor_pop(void)
 	}
 
 	// Increment number of floor_id
-	if (floor_max < MAX_SHORT) floor_max++;
+	if(floor_max < MAX_SHORT) floor_max++;
 	else floor_max = 1; // 32767 floor_ids are all used up!  Re-use ancient IDs
 
 	return i;
@@ -207,13 +207,13 @@ static void update_unique_artifact(s16b cur_floor_id)
 		creature_type *m_ptr = &creature_list[i];
 
 		// Skip dead creatures 
-		if (!m_ptr->species_idx) continue;
+		if(!m_ptr->species_idx) continue;
 
 		// Extract real creature race 
 		r_ptr = real_species_ptr(m_ptr);
 
 		// Memorize location of the unique creature 
-		if (has_trait_species(r_ptr, TRAIT_UNIQUE) || has_trait_species(r_ptr, TRAIT_NAZGUL))
+		if(has_trait_species(r_ptr, TRAIT_UNIQUE) || has_trait_species(r_ptr, TRAIT_NAZGUL))
 		{
 			r_ptr->floor_id = cur_floor_id;
 		}
@@ -225,10 +225,10 @@ static void update_unique_artifact(s16b cur_floor_id)
 		object_type *object_ptr = &object_list[i];
 
 		// Skip dead objects 
-		if (!object_ptr->k_idx) continue;
+		if(!object_ptr->k_idx) continue;
 
 		// Memorize location of the artifact 
-		if (object_is_fixed_artifact(object_ptr))
+		if(object_is_fixed_artifact(object_ptr))
 		{
 			artifact_info[object_ptr->name1].floor_id = cur_floor_id;
 		}
@@ -248,8 +248,8 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 	int ox = creature_ptr->fx;
 	int mover_idx = floor_ptr->cave[oy][ox].creature_idx;
 
-	if (!mover_idx) return; // Nothing to do if no creature
-	if (&creature_list[mover_idx] == creature_ptr) return; // it's yourself 
+	if(!mover_idx) return; // Nothing to do if no creature
+	if(&creature_list[mover_idx] == creature_ptr) return; // it's yourself 
 
 	while (TRUE) // Look until done
 	{
@@ -260,20 +260,20 @@ static void get_out_creature(floor_type *floor_ptr, creature_type *creature_ptr)
 		int nx = rand_spread(ox, dis);
 
 		tries++;
-		if (tries > 10000) return; // Stop after 1000 tries
+		if(tries > 10000) return; // Stop after 1000 tries
 
 		/*
 		 * Increase distance after doing enough tries
 		 * compared to area of possible space
 		 */
 		 
-		if (tries > 20 * dis * dis) dis++;
+		if(tries > 20 * dis * dis) dis++;
 
-		if (!in_bounds(floor_ptr, ny, nx)) continue; // Ignore illegal locations
-		if (!cave_empty_bold(floor_ptr, ny, nx)) continue; // Require "empty" floor space
-		if (is_glyph_grid(&floor_ptr->cave[ny][nx])) continue; // Hack -- no teleport onto glyph of warding
-		if (is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;
-		if (pattern_tile(floor_ptr, ny, nx)) continue; // ...nor onto the Pattern
+		if(!in_bounds(floor_ptr, ny, nx)) continue; // Ignore illegal locations
+		if(!cave_empty_bold(floor_ptr, ny, nx)) continue; // Require "empty" floor space
+		if(is_glyph_grid(&floor_ptr->cave[ny][nx])) continue; // Hack -- no teleport onto glyph of warding
+		if(is_explosive_rune_grid(&floor_ptr->cave[ny][nx])) continue;
+		if(pattern_tile(floor_ptr, ny, nx)) continue; // ...nor onto the Pattern
 
 		// ** It's a good place **
 
@@ -324,7 +324,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 
 			if(old_floor_ptr->base_level < new_floor_ptr->base_level)
 			{
-				if (have_flag(f_ptr->flags, FF_LESS) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
+				if(have_flag(f_ptr->flags, FF_LESS) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
 					ok = TRUE;
 
@@ -336,7 +336,7 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 
 			else if(old_floor_ptr->base_level > new_floor_ptr->base_level)
 			{
-				if (have_flag(f_ptr->flags, FF_MORE) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
+				if(have_flag(f_ptr->flags, FF_MORE) && have_flag(f_ptr->flags, FF_STAIRS) && !have_flag(f_ptr->flags, FF_SPECIAL))
 				{
 					ok = TRUE;
 
@@ -348,13 +348,13 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 
 			else
 			{
-				if (have_flag(f_ptr->flags, FF_BLDG))
+				if(have_flag(f_ptr->flags, FF_BLDG))
 				{
 					ok = TRUE;
 				}
 			}
 
-			if (ok && (num < 20))
+			if(ok && (num < 20))
 			{
 				x_table[num] = x;
 				y_table[num] = y;
@@ -363,11 +363,11 @@ static void locate_connected_stairs(creature_type *creature_ptr, cave_type *stai
 		}
 	}
 
-	if (sx)
+	if(sx)
 	{
 		move_creature(creature_ptr, new_floor_ptr, sy, sx, MCE_NO_ENTER); // Already fixed
 	}
-	else if (!num)
+	else if(!num)
 	{
 		if(!feat_uses_special(stair_ptr->feat)) stair_ptr->special = 0; // Mega Hack -- It's not the stairs you enter.  Disable it.
 		(void)new_creature_spot(new_floor_ptr, creature_ptr);
@@ -423,7 +423,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	// Search the quest creature index
 	for (i = 0; i < max_quests; i++)
 	{
-		if ((quest[i].status == QUEST_STATUS_TAKEN) && 
+		if((quest[i].status == QUEST_STATUS_TAKEN) && 
 			 ((quest[i].type == QUEST_TYPE_KILL_LEVEL) || (quest[i].type == QUEST_TYPE_RANDOM)) &&
 		     (quest[i].level == old_floor_ptr->floor_level) &&
 		     (old_floor_ptr->dun_type == quest[i].dungeon) &&
@@ -448,17 +448,17 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 		new_floor_ptr = &floor_list[floor_id];
 
 		// Choose random stairs
-		if (!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
+		if(!(flag & CFM_RAND_PLACE)) locate_connected_stairs(creature_ptr, stair_ptr, old_floor_ptr, new_floor_ptr, flag);
 
 		connect_cave_to(stair_ptr, floor_id, creature_ptr->fy, creature_ptr->fx);
 		//connect_cave_to(&new_floor_ptr->cave[player_ptr->fy][player_ptr->fx], old_floor_id, old_fy, old_fx);
 	}
 
-	if (stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
+	if(stair_ptr && !feat_uses_special(stair_ptr->feat)) stair_ptr->special = floor_id; // Connect from here
 
 	// If you can return, you need to save previous floor
 
-	if ((flag & CFM_SAVE_FLOORS) && !(flag & CFM_NO_RETURN))
+	if((flag & CFM_SAVE_FLOORS) && !(flag & CFM_NO_RETURN))
 	{
 		get_out_creature(new_floor_ptr, creature_ptr); // Get out of the my way!
 		old_floor_ptr->last_visit = turn; // Record the last visit turn of current floor
@@ -471,7 +471,7 @@ void move_floor(creature_type *creature_ptr, int dungeon_id, int world_y, int wo
 	}
 
 	// Arrive at random grid
-	if (flag & (CFM_RAND_PLACE)) (void)new_creature_spot(new_floor_ptr, creature_ptr);
+	if(flag & (CFM_RAND_PLACE)) (void)new_creature_spot(new_floor_ptr, creature_ptr);
 
 	reset_cave_creature_reference();
 }
@@ -492,13 +492,13 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 
 
 	// Forbid up staircases on Ironman mode 
-	if (ironman_downward) up = FALSE;
+	if(ironman_downward) up = FALSE;
 
 	// Forbid down staircases on quest level 
-	if (quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
+	if(quest_number(floor_ptr) || (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)) down = FALSE;
 
 	// No effect out of standard dungeon floor 
-	if (!floor_ptr->floor_level || (!up && !down) || (floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) ||
+	if(!floor_ptr->floor_level || (!up && !down) || (floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) ||
 	    floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 		// arena or quest 
@@ -511,7 +511,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	}
 
 	// Artifacts resists 
-	if (!cave_valid_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
+	if(!cave_valid_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx))
 	{
 #ifdef JP
 		msg_print("床上のアイテムが呪文を跳ね返した。");
@@ -529,21 +529,21 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 	sf_ptr = &floor_list[creature_ptr->floor_id];
 
 	// Paranoia 
-	if (!sf_ptr)
+	if(!sf_ptr)
 	{
 		sf_ptr = &floor_list[creature_ptr->floor_id]; // No floor id? -- Create now!
 	} 
 
 	// Choose randomly 
-	if (up && down)
+	if(up && down)
 	{
-		if (randint0(100) < 50) up = FALSE;
+		if(randint0(100) < 50) up = FALSE;
 		else down = FALSE;
 	}
 
 
 	// Search old stairs leading to the destination 
-	if (dest_floor_id)
+	if(dest_floor_id)
 	{
 		int x, y;
 
@@ -553,9 +553,9 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 			{
 				cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-				if (!c_ptr->special) continue;
-				if (feat_uses_special(c_ptr->feat)) continue;
-				if (c_ptr->special != dest_floor_id) continue;
+				if(!c_ptr->special) continue;
+				if(feat_uses_special(c_ptr->feat)) continue;
+				if(c_ptr->special != dest_floor_id) continue;
 
 				// Remove old stairs 
 				c_ptr->special = 0;
@@ -569,7 +569,7 @@ void stair_creation(creature_type *creature_ptr, floor_type *floor_ptr)
 
 
 	// Create a staircase
-	if (up)
+	if(up)
 	{
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx,
 			(dest_sf_ptr->last_visit && dest_sf_ptr->floor_level <= floor_ptr->floor_level - 2 && sf_ptr->dun_type == floor_ptr->dun_type &&

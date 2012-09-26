@@ -26,7 +26,7 @@ void do_cmd_inven(creature_type *creature_ptr)
 	command_wrk = FALSE;
 
 	/* Note that we are in "inventory" mode */
-	if (easy_floor) command_wrk = (USE_INVEN);
+	if(easy_floor) command_wrk = (USE_INVEN);
 
 	/* Save screen */
 	screen_save();
@@ -59,7 +59,7 @@ void do_cmd_inven(creature_type *creature_ptr)
 
 
 	/* Process "Escape" */
-	if (command_new == ESCAPE)
+	if(command_new == ESCAPE)
 	{
 		int wid, hgt;
 
@@ -92,7 +92,7 @@ void do_cmd_equip(creature_type *creature_ptr)
 	command_wrk = TRUE;
 
 	/* Note that we are in "equipment" mode */
-	if (easy_floor) command_wrk = (USE_EQUIP);
+	if(easy_floor) command_wrk = (USE_EQUIP);
 
 	/* Save the screen */
 	screen_save();
@@ -126,7 +126,7 @@ void do_cmd_equip(creature_type *creature_ptr)
 
 
 	/* Process "Escape" */
-	if (command_new == ESCAPE)
+	if(command_new == ESCAPE)
 	{
 		int wid, hgt;
 
@@ -152,11 +152,11 @@ void do_cmd_equip(creature_type *creature_ptr)
  */
 static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if ((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_ABUNAI_MIZUGI))
-		if (creature_ptr->sex == SEX_MALE) return FALSE;
+	if((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_ABUNAI_MIZUGI))
+		if(creature_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if (WIELD_SLOT(object_ptr) != INVEN_SLOT_INVENTORY) return (TRUE);
+	if(WIELD_SLOT(object_ptr) != INVEN_SLOT_INVENTORY) return (TRUE);
 
 	/* Assume not wearable */
 	return (FALSE);
@@ -166,7 +166,7 @@ static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *obje
 static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Check for a usable slot */
-	if (((object_ptr->tval >= TV_DIGGING) && (object_ptr->tval <= TV_SWORD)) ||
+	if(((object_ptr->tval >= TV_DIGGING) && (object_ptr->tval <= TV_SWORD)) ||
 	    (object_ptr->tval == TV_SHIELD) || (object_ptr->tval == TV_CAPTURE) ||
 	    (object_ptr->tval == TV_CARD)) return (TRUE);
 
@@ -177,7 +177,7 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 
 static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
+	if(WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
 	return (FALSE); // Assume not wearable
 }
 
@@ -192,7 +192,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	int need_switch_wielding = 0;
 
-	if (creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
@@ -203,9 +203,9 @@ void do_cmd_wield(creature_type *creature_ptr)
 	s = "You have nothing you can wear or wield.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
 
-	if (item >= 0) // pack
+	if(item >= 0) // pack
 		object_ptr = &creature_ptr->inventory[item];
 	else // floor
 		object_ptr = &object_list[0 - item];
@@ -222,7 +222,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 #endif
 
 	n = get_equip_slot(creature_ptr, object_kind_info[object_ptr->k_idx].slot, q, s);
-	if (!n) return;
+	if(!n) return;
 
 	// Recalculate bonuses
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
@@ -233,7 +233,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 
 	// Prevent wielding into a cursed slot
-	if (object_is_cursed(old_equipped_ptr))
+	if(object_is_cursed(old_equipped_ptr))
 	{
 		object_desc(object_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 
@@ -248,7 +248,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 		return; // Cancel the command
 	}
 
-	if (confirm_wear && ((object_is_cursed(object_ptr) && object_is_known(object_ptr)) ||
+	if(confirm_wear && ((object_is_cursed(object_ptr) && object_is_known(object_ptr)) ||
 		((object_ptr->ident & IDENT_SENSE) && (FEEL_BROKEN <= object_ptr->feeling) && (object_ptr->feeling <= FEEL_CURSED))))
 	{
 		char dummy[MAX_NLEN+80];
@@ -258,10 +258,10 @@ void do_cmd_wield(creature_type *creature_ptr)
 #else
 		sprintf(dummy, "Really use the %s {cursed}? ", object_name);
 #endif
-		if (!get_check(dummy)) return;
+		if(!get_check(dummy)) return;
 	}
 
-	if (has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && object_is_known(object_ptr) &&
+	if(has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && object_is_known(object_ptr) &&
 		!has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_LICH) &&
 		!has_trait(creature_ptr, TRAIT_SKELETON) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
@@ -273,10 +273,10 @@ void do_cmd_wield(creature_type *creature_ptr)
 		msg_format("%s will transforms you into a true vampire permanently when equiped.", object_name);
 		sprintf(dummy, "Do you become a vampire?");
 #endif
-		if (!get_check(dummy)) return;
+		if(!get_check(dummy)) return;
 	}
 
-	if (need_switch_wielding && !object_is_cursed(&creature_ptr->inventory[need_switch_wielding]))
+	if(need_switch_wielding && !object_is_cursed(&creature_ptr->inventory[need_switch_wielding]))
 	{
 		object_type *slot_object_ptr = old_equipped_ptr;
 		object_type *switch_object_ptr = &creature_ptr->inventory[need_switch_wielding];
@@ -295,9 +295,9 @@ void do_cmd_wield(creature_type *creature_ptr)
 	// Check if completed a quest
 	for (i = 0; i < max_quests; i++)
 	{
-		if ((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->name1))
+		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->name1))
 		{
-			if (record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
+			if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
 			quest[i].complev = (byte)creature_ptr->lev;
 #ifdef JP
@@ -309,7 +309,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 		}
 	}
 
-	if (creature_ptr->chara_idx == CHARA_MUNCHKIN)
+	if(creature_ptr->chara_idx == CHARA_MUNCHKIN)
 	{
 		identify_item(creature_ptr, object_ptr);
 		autopick_alter_item(creature_ptr, item, FALSE); // Auto-inscription
@@ -337,7 +337,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	msg_format(act, object_name, index_to_label(slot)); // Message
 
 	// Cursed!
-	if (object_is_cursed(object_ptr))
+	if(object_is_cursed(object_ptr))
 	{
 		// Warn the player
 #ifdef JP
@@ -349,7 +349,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 	}
 
 	// The Stone Mask make the player turn into a vampire!
-	if (has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && !has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_NONLIVING))
+	if(has_trait_object(object_ptr, TRAIT_VAMPIRIZE) && !has_trait(creature_ptr, TRAIT_VAMPIRE) && !has_trait(creature_ptr, TRAIT_NONLIVING))
 	{
 		// TODO: ADD Vampire Flag 
 	}
@@ -369,21 +369,21 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 	object_type *object_ptr, *new_object_ptr;
 	char object_name[MAX_NLEN];
 
-	if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && IS_EQUIPPED(&creature_ptr->inventory[item]) == 1)
+	if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_HAND && IS_EQUIPPED(&creature_ptr->inventory[item]) == 1)
 	{
-		if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2))
+		if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2))
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
 			object_desc(object_name, object_ptr, 0);
 
-			if (!object_is_cursed(object_ptr))
+			if(!object_is_cursed(object_ptr))
 			{
 				new_object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
 				object_copy(new_object_ptr, object_ptr);
 				set_inventory_weight(creature_ptr);
 				inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2), -((int)object_ptr->number));
 				inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2));
-				if (object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
+				if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", object_name);
 #else
@@ -398,7 +398,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 			}
 			else
 			{
-				if (object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
+				if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 					msg_format("%sを両手で構えた。", object_name);
 #else
@@ -407,21 +407,21 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 			}
 		}
 	}
-	else if (item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2))
+	else if(item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2))
 	{
 		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
-		if (object_ptr->k_idx) object_desc(object_name, object_ptr, 0);
+		if(object_ptr->k_idx) object_desc(object_name, object_ptr, 0);
 
-		if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) == 1)
+		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) == 1)
 		{
-			if (object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
+			if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 				msg_format("%sを両手で構えた。", object_name);
 #else
 				msg_format("You are wielding %s with both hands.", object_name);
 #endif
 		}
-		else if (!(empty_hands(creature_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(object_ptr))
+		else if(!(empty_hands(creature_ptr, FALSE) & EMPTY_HAND_RARM) && !object_is_cursed(object_ptr))
 		{
 			new_object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2);
 			object_copy(new_object_ptr, object_ptr);
@@ -444,7 +444,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr q, s;
 
-	if (creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	// Get an item
 #ifdef JP
@@ -455,12 +455,12 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 	s = "You are not wearing anything to take off.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
 
-	if (item >= 0) object_ptr = &creature_ptr->inventory[item]; // Get the item (in the pack)
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item]; // Get the item (in the pack)
 	else object_ptr = &object_list[0 - item]; // Get the item (on the floor)
 
-	if (object_is_cursed(object_ptr)) // Item is cursed
+	if(object_is_cursed(object_ptr)) // Item is cursed
 	{
 		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
 		{
@@ -474,7 +474,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 			return;
 			}
 		}
-		else if (creature_ptr->class_idx != CLASS_BERSERKER)
+		else if(creature_ptr->class_idx != CLASS_BERSERKER)
 		{
 #ifdef JP
 			msg_print("ふーむ、どうやら呪われているようだ。");
@@ -493,7 +493,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #endif
 			object_ptr->curse_flags[0] = 0L;
 		}
-		else if (((have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && one_in_(7)) || one_in_(4))
+		else if(((have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && one_in_(7)) || one_in_(4))
 		{
 #ifdef JP
 			msg_print("呪われた装備を力づくで剥がした！");
@@ -543,7 +543,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -557,10 +557,10 @@ void do_cmd_drop(creature_type *creature_ptr)
 	s = "You have nothing to drop.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -573,7 +573,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 
 	/* Hack -- Cannot remove cursed items */
-	if (IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
+	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -589,13 +589,13 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 
 	/* See how many items */
-	if (object_ptr->number > 1)
+	if(object_ptr->number > 1)
 	{
 		/* Get a quantity */
 		amt = get_quantity(NULL, object_ptr->number);
 
 		/* Allow user abort */
-		if (amt <= 0) return;
+		if(amt <= 0) return;
 	}
 
 
@@ -605,7 +605,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 	/* Drop (some of) the item */
 	inven_drop(creature_ptr, item, amt);
 
-	if (IS_EQUIPPED(object_ptr))
+	if(IS_EQUIPPED(object_ptr))
 	{
 		kamaenaoshi(creature_ptr, item);
 		calc_android_exp(creature_ptr);
@@ -617,7 +617,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 static bool high_level_book(object_type *object_ptr)
 {
-	if ((object_ptr->tval == TV_LIFE_BOOK) ||
+	if((object_ptr->tval == TV_LIFE_BOOK) ||
 	    (object_ptr->tval == TV_SORCERY_BOOK) ||
 	    (object_ptr->tval == TV_NATURE_BOOK) ||
 	    (object_ptr->tval == TV_CHAOS_BOOK) ||
@@ -629,7 +629,7 @@ static bool high_level_book(object_type *object_ptr)
 	    (object_ptr->tval == TV_MUSIC_BOOK) ||
 		(object_ptr->tval == TV_HEX_BOOK))
 	{
-		if (object_ptr->sval > 1)
+		if(object_ptr->sval > 1)
 			return TRUE;
 		else
 			return FALSE;
@@ -659,13 +659,13 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Hack -- force destruction */
-	if (command_arg > 0) force = TRUE;
+	if(command_arg > 0) force = TRUE;
 
 
 	/* Get an item */
@@ -677,10 +677,10 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	s = "You have nothing to destroy.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -692,7 +692,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	}
 
 	/* Verify unless quantity given beforehand */
-	if (!force && (confirm_destroy || (object_value(object_ptr) > 0)))
+	if(!force && (confirm_destroy || (object_value(object_ptr) > 0)))
 	{
 		object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
@@ -726,19 +726,19 @@ void do_cmd_destroy(creature_type *creature_ptr)
 			prt("", 0, 0);
 
 
-			if (i == 'y' || i == 'Y')
+			if(i == 'y' || i == 'Y')
 			{
 				break;
 			}
-			if (i == ESCAPE || i == 'n' || i == 'N')
+			if(i == ESCAPE || i == 'n' || i == 'N')
 			{
 				/* Cancel */
 				return;
 			}
-			if (i == 'A')
+			if(i == 'A')
 			{
 				/* Add an auto-destroy preference line */
-				if (autopick_autoregister(creature_ptr, object_ptr))
+				if(autopick_autoregister(creature_ptr, object_ptr))
 				{
 					/* Auto-destroy it */
 					autopick_alter_item(creature_ptr, item, TRUE);
@@ -751,13 +751,13 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	}
 
 	/* See how many items */
-	if (object_ptr->number > 1)
+	if(object_ptr->number > 1)
 	{
 		/* Get a quantity */
 		amt = get_quantity(NULL, object_ptr->number);
 
 		/* Allow user abort */
-		if (amt <= 0) return;
+		if(amt <= 0) return;
 	}
 
 
@@ -771,7 +771,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	creature_ptr->energy_use = 100;
 
 	/* Artifacts cannot be destroyed */
-	if (!can_player_destroy_object(creature_ptr, object_ptr))
+	if(!can_player_destroy_object(creature_ptr, object_ptr))
 	{
 		creature_ptr->energy_use = 0;
 
@@ -801,7 +801,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	reduce_charges(object_ptr, amt);
 
 	/* Eliminate the item (from the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -amt);
 		inven_item_describe(creature_ptr, item);
@@ -816,35 +816,35 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		floor_item_optimize(0 - item);
 	}
 
-	if (high_level_book(quest_ptr))
+	if(high_level_book(quest_ptr))
 	{
 		bool gain_expr = FALSE;
 
-		if (has_trait(creature_ptr, TRAIT_ANDROID))
+		if(has_trait(creature_ptr, TRAIT_ANDROID))
 		{
 		}
-		else if ((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_BERSERKER))
+		else if((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_BERSERKER))
 		{
 			gain_expr = TRUE;
 		}
-		else if (creature_ptr->class_idx == CLASS_PALADIN)
+		else if(creature_ptr->class_idx == CLASS_PALADIN)
 		{
-			if (is_good_realm(creature_ptr->realm1))
+			if(is_good_realm(creature_ptr->realm1))
 			{
-				if (!is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
+				if(!is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
 			}
 			else
 			{
-				if (is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
+				if(is_good_realm(tval2realm(quest_ptr->tval))) gain_expr = TRUE;
 			}
 		}
 
-		if (gain_expr && (creature_ptr->exp < CREATURE_MAX_EXP))
+		if(gain_expr && (creature_ptr->exp < CREATURE_MAX_EXP))
 		{
 			s32b tester_exp = creature_ptr->max_exp / 20;
-			if (tester_exp > 10000) tester_exp = 10000;
-			if (quest_ptr->sval < 3) tester_exp /= 4;
-			if (tester_exp<1) tester_exp = 1;
+			if(tester_exp > 10000) tester_exp = 10000;
+			if(quest_ptr->sval < 3) tester_exp /= 4;
+			if(tester_exp<1) tester_exp = 1;
 
 #ifdef JP
 msg_print("更に経験を積んだような気がする。");
@@ -856,7 +856,7 @@ msg_print("更に経験を積んだような気がする。");
 		}
 		}
 
-	if (IS_EQUIPPED(object_ptr)) calc_android_exp(creature_ptr);
+	if(IS_EQUIPPED(object_ptr)) calc_android_exp(creature_ptr);
 }
 
 
@@ -879,10 +879,10 @@ void do_cmd_observe(creature_type *creature_ptr)
 	s = "You have nothing to examine.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -895,7 +895,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 
 
 	/* Require full knowledge */
-	if (!(object_ptr->ident & IDENT_MENTAL))
+	if(!(object_ptr->ident & IDENT_MENTAL))
 	{
 #ifdef JP
 		msg_print("このアイテムについて特に知っていることはない。");
@@ -919,9 +919,9 @@ void do_cmd_observe(creature_type *creature_ptr)
 
 	/* Describe it fully */
 #ifdef JP
-	if (!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("特に変わったところはないようだ。");
+	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("特に変わったところはないようだ。");
 #else
-	if (!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
+	if(!screen_object(object_ptr, SCROBJ_FORCE_DETAIL)) msg_print("You see nothing special.");
 #endif
 
 }
@@ -949,10 +949,10 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	s = "You have nothing to un-inscribe.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -964,7 +964,7 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 	}
 
 	/* Nothing to remove */
-	if (!object_ptr->inscription)
+	if(!object_ptr->inscription)
 	{
 #ifdef JP
 		msg_print("このアイテムには消すべき銘がない。");
@@ -1022,10 +1022,10 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	s = "You have nothing to inscribe.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -1052,7 +1052,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	strcpy(out_val, "");
 
 	/* Use old inscription */
-	if (object_ptr->inscription)
+	if(object_ptr->inscription)
 	{
 		/* Start with the old inscription */
 		strcpy(out_val, quark_str(object_ptr->inscription));
@@ -1060,9 +1060,9 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 
 	/* Get a new inscription (possibly empty) */
 #ifdef JP
-	if (get_string("銘: ", out_val, 80))
+	if(get_string("銘: ", out_val, 80))
 #else
-	if (get_string("Inscription: ", out_val, 80))
+	if(get_string("Inscription: ", out_val, 80))
 #endif
 	{
 		/* Save the inscription */
@@ -1126,9 +1126,9 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 
 		sound(SOUND_ILLEGAL);
 #ifdef JP
-		if (!get_rnd_line("error_j.txt", 0, error_m))
+		if(!get_rnd_line("error_j.txt", 0, error_m))
 #else
-		if (!get_rnd_line("error.txt", 0, error_m))
+		if(!get_rnd_line("error.txt", 0, error_m))
 #endif
 		msg_print(error_m);
 		msg_print(NULL);
@@ -1159,10 +1159,10 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */
-	if (object_ptr->tval == TV_FLASK) return (TRUE);
+	if(object_ptr->tval == TV_FLASK) return (TRUE);
 
 	/* Laterns are okay */
-	if ((object_ptr->tval == TV_LITE) &&
+	if((object_ptr->tval == TV_LITE) &&
 	    (object_ptr->sval == SV_LITE_LANTERN)) return (TRUE);
 
 	/* Assume not okay */
@@ -1191,10 +1191,10 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	s = "You have no flasks of oil.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -1223,7 +1223,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 #endif
 
 	/* Comment */
-	if ((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->xtra4 > 0))
+	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->xtra4 > 0))
 	{
 		j_ptr->xtra4 = 0;
 #ifdef JP
@@ -1232,7 +1232,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 		msg_print("Your lamp has gone out!");
 #endif
 	}
-	else if ((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
+	else if((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
 	{
 		j_ptr->xtra4 = 0;
 #ifdef JP
@@ -1241,7 +1241,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 		msg_print("Curiously, your lamp doesn't light.");
 #endif
 	}
-	else if (j_ptr->xtra4 >= FUEL_LAMP)
+	else if(j_ptr->xtra4 >= FUEL_LAMP)
 	{
 		j_ptr->xtra4 = FUEL_LAMP;
 #ifdef JP
@@ -1253,7 +1253,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	}
 
 	/* Decrease the item (from the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
@@ -1279,7 +1279,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Torches are okay */
-	if ((object_ptr->tval == TV_LITE) &&
+	if((object_ptr->tval == TV_LITE) &&
 	    (object_ptr->sval == SV_LITE_TORCH)) return (TRUE);
 
 	/* Assume not okay */
@@ -1308,10 +1308,10 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	s = "You have no extra torches.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -1341,7 +1341,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 
 
 	/* Comment */
-	if ((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->xtra4 > 0))
+	if((object_ptr->name2 == EGO_LITE_DARKNESS) && (j_ptr->xtra4 > 0))
 	{
 		j_ptr->xtra4 = 0;
 #ifdef JP
@@ -1350,7 +1350,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 		msg_print("Your torch has gone out!");
 #endif
 	}
-	else if ((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
+	else if((object_ptr->name2 == EGO_LITE_DARKNESS) || (j_ptr->name2 == EGO_LITE_DARKNESS))
 	{
 		j_ptr->xtra4 = 0;
 #ifdef JP
@@ -1360,7 +1360,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 #endif
 	}
 	/* Over-fuel message */
-	else if (j_ptr->xtra4 >= FUEL_TORCH)
+	else if(j_ptr->xtra4 >= FUEL_TORCH)
 	{
 		j_ptr->xtra4 = FUEL_TORCH;
 #ifdef JP
@@ -1383,7 +1383,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	}
 
 	/* Decrease the item (from the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
@@ -1413,13 +1413,13 @@ void do_cmd_refill(creature_type *creature_ptr)
 	/* Get the light */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* It is nothing */
-	if (object_ptr->tval != TV_LITE)
+	if(object_ptr->tval != TV_LITE)
 	{
 #ifdef JP
 		msg_print("光源を装備していない。");
@@ -1430,13 +1430,13 @@ void do_cmd_refill(creature_type *creature_ptr)
 	}
 
 	/* It's a lamp */
-	else if (object_ptr->sval == SV_LITE_LANTERN)
+	else if(object_ptr->sval == SV_LITE_LANTERN)
 	{
 		do_cmd_refill_lamp(creature_ptr);
 	}
 
 	/* It's a torch */
-	else if (object_ptr->sval == SV_LITE_TORCH)
+	else if(object_ptr->sval == SV_LITE_TORCH)
 	{
 		do_cmd_refill_torch(creature_ptr);
 	}
@@ -1460,7 +1460,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 void do_cmd_target(creature_type *creature_ptr)
 {
 	/* Target set */
-	if (target_set(creature_ptr,TARGET_KILL))
+	if(target_set(creature_ptr,TARGET_KILL))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");
@@ -1490,7 +1490,7 @@ void do_cmd_target(creature_type *creature_ptr)
 void do_cmd_look(creature_type *creature_ptr)
 {
 	/* Look around */
-	if (target_set(creature_ptr, TARGET_LOOK))
+	if(target_set(creature_ptr, TARGET_LOOK))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");
@@ -1528,7 +1528,7 @@ void do_cmd_locate(creature_type *creature_ptr)
 	while (1)
 	{
 		/* Describe the location */
-		if ((y2 == y1) && (x2 == x1))
+		if((y2 == y1) && (x2 == x1))
 		{
 #ifdef JP
 			strcpy(tmp_val, "真上");
@@ -1571,20 +1571,20 @@ void do_cmd_locate(creature_type *creature_ptr)
 			char command;
 
 			/* Get a command (or Cancel) */
-			if (!get_com(out_val, &command, TRUE)) break;
+			if(!get_com(out_val, &command, TRUE)) break;
 
 			/* Extract the action (if any) */
 			dir = get_keymap_dir(command);
 
 			/* Error */
-			if (!dir) bell();
+			if(!dir) bell();
 		}
 
 		/* No direction */
-		if (!dir) break;
+		if(!dir) break;
 
 		/* Apply the motion */
-		if (change_panel(ddy[dir], ddx[dir]))
+		if(change_panel(ddy[dir], ddx[dir]))
 		{
 			y2 = panel_row_min;
 			x2 = panel_col_min;
@@ -1628,54 +1628,54 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 	int z1, z2;
 
 	/* Sort by player kills */
-	if (*why >= 4)
+	if(*why >= 4)
 	{
 		/* Extract player kills */
 		z1 = species_info[w1].r_pkills;
 		z2 = species_info[w2].r_pkills;
 
 		/* Compare player kills */
-		if (z1 < z2) return (TRUE);
-		if (z1 > z2) return (FALSE);
+		if(z1 < z2) return (TRUE);
+		if(z1 > z2) return (FALSE);
 	}
 
 
 	/* Sort by total kills */
-	if (*why >= 3)
+	if(*why >= 3)
 	{
 		/* Extract total kills */
 		z1 = species_info[w1].r_tkills;
 		z2 = species_info[w2].r_tkills;
 
 		/* Compare total kills */
-		if (z1 < z2) return (TRUE);
-		if (z1 > z2) return (FALSE);
+		if(z1 < z2) return (TRUE);
+		if(z1 > z2) return (FALSE);
 	}
 
 
 	/* Sort by creature level */
-	if (*why >= 2)
+	if(*why >= 2)
 	{
 		/* Extract levels */
 		z1 = species_info[w1].level;
 		z2 = species_info[w2].level;
 
 		/* Compare levels */
-		if (z1 < z2) return (TRUE);
-		if (z1 > z2) return (FALSE);
+		if(z1 < z2) return (TRUE);
+		if(z1 > z2) return (FALSE);
 	}
 
 
 	/* Sort by creature experience */
-	if (*why >= 1)
+	if(*why >= 1)
 	{
 		/* Extract experience */
 		z1 = species_info[w1].exp;
 		z2 = species_info[w2].exp;
 
 		/* Compare experience */
-		if (z1 < z2) return (TRUE);
-		if (z1 > z2) return (FALSE);
+		if(z1 < z2) return (TRUE);
+		if(z1 > z2) return (FALSE);
 	}
 
 
@@ -1738,19 +1738,19 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 
 	/* Get a character, or abort */
 #ifdef JP
-	if (!get_com("知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): ", &sym, FALSE)) return;
+	if(!get_com("知りたい文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^R乗馬,^M名前): ", &sym, FALSE)) return;
 #else
-	if (!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE)) return;
+	if(!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE)) return;
 #endif
 
 	/* Find that character info, and describe it */
 	for (i = 0; ident_info[i]; ++i)
 	{
-		if (sym == ident_info[i][0]) break;
+		if(sym == ident_info[i][0]) break;
 	}
 
 	/* Describe */
-	if (sym == KTRL('A'))
+	if(sym == KTRL('A'))
 	{
 		all = TRUE;
 #ifdef JP
@@ -1759,7 +1759,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		strcpy(buf, "Full creature list.");
 #endif
 	}
-	else if (sym == KTRL('U'))
+	else if(sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
 #ifdef JP
@@ -1768,7 +1768,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		strcpy(buf, "Unique creature list.");
 #endif
 	}
-	else if (sym == KTRL('N'))
+	else if(sym == KTRL('N'))
 	{
 		all = norm = TRUE;
 #ifdef JP
@@ -1777,7 +1777,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		strcpy(buf, "Non-unique creature list.");
 #endif
 	}
-	else if (sym == KTRL('R'))
+	else if(sym == KTRL('R'))
 	{
 		all = ride = TRUE;
 #ifdef JP
@@ -1787,13 +1787,13 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 #endif
 	}
 	/* XTRA HACK WHATSEARCH */
-	else if (sym == KTRL('M'))
+	else if(sym == KTRL('M'))
 	{
 		all = TRUE;
 #ifdef JP
-		if (!get_string("名前(英語の場合小文字で可)",temp, 70))
+		if(!get_string("名前(英語の場合小文字で可)",temp, 70))
 #else
-		if (!get_string("Enter name:",temp, 70))
+		if(!get_string("Enter name:",temp, 70))
 #endif
 		{
 			temp[0]=0;
@@ -1805,7 +1805,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		sprintf(buf, "Creatures with a name \"%s\"",temp);
 #endif
 	}
-	else if (ident_info[i])
+	else if(ident_info[i])
 	{
 		sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
 	}
@@ -1830,19 +1830,19 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		species_type *r_ptr = &species_info[i];
 
 		/* Nothing to recall */
-		if (!cheat_know && !r_ptr->r_sights) continue;
+		if(!cheat_know && !r_ptr->r_sights) continue;
 
 		/* Require non-unique creatures if needed */
-		if (norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require unique creatures if needed */
-		if (uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require ridable creatures if needed */
-		if (ride && !has_trait_species(r_ptr, TRAIT_RIDING)) continue;
+		if(ride && !has_trait_species(r_ptr, TRAIT_RIDING)) continue;
 
 		/* XTRA HACK WHATSEARCH */
-		if (temp[0])
+		if(temp[0])
 		{
 		  int xx;
 		  char temp2[80];
@@ -1850,9 +1850,9 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		  for (xx=0; temp[xx] && xx<80; xx++)
 		  {
 #ifdef JP
-		    if (iskanji( temp[xx])) { xx++; continue; }
+		    if(iskanji( temp[xx])) { xx++; continue; }
 #endif
-		    if (isupper(temp[xx])) temp[xx]=tolower(temp[xx]);
+		    if(isupper(temp[xx])) temp[xx]=tolower(temp[xx]);
 		  }
   
 #ifdef JP
@@ -1861,22 +1861,22 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		  strcpy(temp2, species_name+r_ptr->name);
 #endif
 		  for (xx=0; temp2[xx] && xx<80; xx++)
-		    if (isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
+		    if(isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
   
 #ifdef JP
-		  if (my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp) )
+		  if(my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp) )
 #else
-		  if (my_strstr(temp2, temp))
+		  if(my_strstr(temp2, temp))
 #endif
 			  who[n++]=i;
 		}
 
 		/* Collect "appropriate" creatures */
-		else if (all || (r_ptr->d_char == sym)) who[n++] = i;
+		else if(all || (r_ptr->d_char == sym)) who[n++] = i;
 	}
 
 	/* Nothing to recall */
-	if (!n)
+	if(!n)
 	{
 		/* Free the "who" array */
 		C_KILL(who, max_species_idx, u16b);
@@ -1905,14 +1905,14 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
 
 	/* Sort by kills (and level) */
-	if (query == 'k')
+	if(query == 'k')
 	{
 		why = 4;
 		query = 'y';
 	}
 
 	/* Catch "escape" */
-	if (query != 'y')
+	if(query != 'y')
 	{
 		/* Free the "who" array */
 		C_KILL(who, max_species_idx, u16b);
@@ -1921,7 +1921,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	}
 
 	/* Sort if needed */
-	if (why == 4)
+	if(why == 4)
 	{
 		/* Sort the array */
 		ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
@@ -1947,7 +1947,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		while (1)
 		{
 			/* Recall */
-			if (recall)
+			if(recall)
 			{
 				/* Save the screen */
 				screen_save();
@@ -1970,39 +1970,39 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 			query = inkey();
 
 			/* Unrecall */
-			if (recall)
+			if(recall)
 			{
 				/* Restore */
 				screen_load();
 			}
 
 			/* Normal commands */
-			if (query != 'r') break;
+			if(query != 'r') break;
 
 			/* Toggle recall */
 			recall = !recall;
 		}
 
 		/* Stop scanning */
-		if (query == ESCAPE) break;
+		if(query == ESCAPE) break;
 
 		/* Move to "prev" creature */
-		if (query == '-')
+		if(query == '-')
 		{
-			if (++i == n)
+			if(++i == n)
 			{
 				i = 0;
-				if (!expand_list) break;
+				if(!expand_list) break;
 			}
 		}
 
 		/* Move to "next" creature */
 		else
 		{
-			if (i-- == 0)
+			if(i-- == 0)
 			{
 				i = n - 1;
-				if (!expand_list) break;
+				if(!expand_list) break;
 			}
 		}
 	}

@@ -37,34 +37,34 @@ bool new_creature_spot(floor_type *floor_ptr, creature_type *creature_ptr)
 		c_ptr = &floor_ptr->cave[y][x];
 
 		// Must be a "naked" floor grid
-		if (c_ptr->creature_idx) continue;
-		if (floor_ptr->floor_level)
+		if(c_ptr->creature_idx) continue;
+		if(floor_ptr->floor_level)
 		{
 			f_ptr = &feature_info[c_ptr->feat];
 
-			if (max_attempts > 5000) /* Rule 1 */
+			if(max_attempts > 5000) /* Rule 1 */
 			{
-				if (!have_flag(f_ptr->flags, FF_FLOOR)) continue;
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) continue;
 			}
 			else // Rule 2
 			{
-				if (!have_flag(f_ptr->flags, FF_MOVE)) continue;
-				if (have_flag(f_ptr->flags, FF_HIT_TRAP)) continue;
+				if(!have_flag(f_ptr->flags, FF_MOVE)) continue;
+				if(have_flag(f_ptr->flags, FF_HIT_TRAP)) continue;
 			}
 
 			// Refuse to start on anti-teleport grids in dungeon
-			if (!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
+			if(!have_flag(f_ptr->flags, FF_TELEPORTABLE)) continue;
 		}
-		if (!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) continue;
-		if (!in_bounds(floor_ptr, y, x)) continue;
+		if(!creature_can_cross_terrain(creature_ptr, c_ptr->feat, 0)) continue;
+		if(!in_bounds(floor_ptr, y, x)) continue;
 
 		// Refuse to start on anti-teleport grids
-		if (c_ptr->info & (CAVE_ICKY)) continue;
+		if(c_ptr->info & (CAVE_ICKY)) continue;
 
 		break; // Done
 	}
 
-	if (max_attempts < 1) // (someone's comment) Should be -1, actually if we failed...
+	if(max_attempts < 1) // (someone's comment) Should be -1, actually if we failed...
 	{
 		msg_format("Warning: new creature spot failed...");
 		return FALSE;
@@ -87,37 +87,37 @@ void place_random_stairs(floor_type *floor_ptr, int y, int x)
 
 	/* Paranoia */
 	c_ptr = &floor_ptr->cave[y][x];
-	if (!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
+	if(!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
 
 	/* Town */
-	if (!floor_ptr->floor_level)
+	if(!floor_ptr->floor_level)
 		up_stairs = FALSE;
 
 	/* Ironman */
-	if (ironman_downward)
+	if(ironman_downward)
 		up_stairs = FALSE;
 
 	/* Bottom */
-	if (floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)
+	if(floor_ptr->floor_level >= dungeon_info[floor_ptr->dun_type].maxdepth)
 		down_stairs = FALSE;
 
 	/* Quest-level */
-	if (quest_number(floor_ptr) && (floor_ptr->floor_level > 1))
+	if(quest_number(floor_ptr) && (floor_ptr->floor_level > 1))
 		down_stairs = FALSE;
 
 	/* We can't place both */
-	if (down_stairs && up_stairs)
+	if(down_stairs && up_stairs)
 	{
 		/* Choose a staircase randomly */
-		if (randint0(100) < 50)
+		if(randint0(100) < 50)
 			up_stairs = FALSE;
 		else
 			down_stairs = FALSE;
 	}
 
 	/* Place the stairs */
-	if (up_stairs) place_up_stairs(floor_ptr, y, x);
-	else if (down_stairs) place_down_stairs(floor_ptr, y, x);
+	if(up_stairs) place_up_stairs(floor_ptr, y, x);
+	else if(down_stairs) place_down_stairs(floor_ptr, y, x);
 }
 
 
@@ -133,7 +133,7 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 	/* Initialize mimic info */
 	c_ptr->mimic = 0;
 
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
 		place_floor_bold(floor_ptr, y, x);
 		return;
@@ -147,34 +147,34 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 	tmp = randint0(1000);
 
 	/* Open doors (300/1000) */
-	if (tmp < 300)
+	if(tmp < 300)
 	{
 		/* Create open door */
 		feat = feat_door[type].open;
 	}
 
 	/* Broken doors (100/1000) */
-	else if (tmp < 400)
+	else if(tmp < 400)
 	{
 		/* Create broken door */
 		feat = feat_door[type].broken;
 	}
 
 	/* Secret doors (200/1000) */
-	else if (tmp < 600)
+	else if(tmp < 600)
 	{
 		/* Create secret door */
 		place_closed_door(floor_ptr, y, x, type);
 
-		if (type != DOOR_CURTAIN)
+		if(type != DOOR_CURTAIN)
 		{
 			/* Hide. If on the edge of room, use outer wall. */
 			c_ptr->mimic = room ? feat_wall_outer : fill_type[randint0(100)];
 
 			/* Floor type terrain cannot hide a door */
-			if (feat_supports_los(c_ptr->mimic) && !feat_supports_los(c_ptr->feat))
+			if(feat_supports_los(c_ptr->mimic) && !feat_supports_los(c_ptr->feat))
 			{
-				if (have_flag(feature_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(feature_info[c_ptr->mimic].flags, FF_CAN_FLY))
+				if(have_flag(feature_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(feature_info[c_ptr->mimic].flags, FF_CAN_FLY))
 				{
 					c_ptr->feat = one_in_(2) ? c_ptr->mimic : feat_floor_rand_table[randint0(100)];
 				}
@@ -186,9 +186,9 @@ void place_random_door(floor_type *floor_ptr, int y, int x, bool room)
 	/* Closed, locked, or stuck doors (400/1000) */
 	else place_closed_door(floor_ptr, y, x, type);
 
-	if (tmp < 400)
+	if(tmp < 400)
 	{
-		if (feat != feat_none)
+		if(feat != feat_none)
 		{
 			set_cave_feat(floor_ptr, y, x, feat);
 		}
@@ -210,7 +210,7 @@ void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 	int tmp;
 	s16b feat = feat_none;
 
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
 		place_floor_bold(floor_ptr, y, x);
 		return;
@@ -220,14 +220,14 @@ void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 	tmp = randint0(400);
 
 	/* Closed doors (300/400) */
-	if (tmp < 300)
+	if(tmp < 300)
 	{
 		/* Create closed door */
 		feat = feat_door[type].closed;
 	}
 
 	/* Locked doors (99/400) */
-	else if (tmp < 399)
+	else if(tmp < 399)
 	{
 		/* Create locked door */
 		feat = feat_locked_door_random(type);
@@ -240,7 +240,7 @@ void place_closed_door(floor_type *floor_ptr, int y, int x, int type)
 		feat = feat_jammed_door_random(type);
 	}
 
-	if (feat != feat_none)
+	if(feat != feat_none)
 	{
 		cave_set_feat(floor_ptr, y, x, feat);
 
@@ -265,7 +265,7 @@ void place_floor(floor_type *floor_ptr, int x1, int x2, int y1, int y2, bool lig
 		{
 			place_floor_bold(floor_ptr, y, x);
 			add_cave_info(floor_ptr, y, x, CAVE_ROOM);
-			if (light) add_cave_info(floor_ptr, y, x, CAVE_GLOW);
+			if(light) add_cave_info(floor_ptr, y, x, CAVE_GLOW);
 		}
 	}
 }
@@ -318,14 +318,14 @@ void vault_objects(floor_type *floor_ptr, int y, int x, int num)
 				j = rand_spread(y, 2);
 				k = rand_spread(x, 3);
 				dummy++;
-				if (!in_bounds(floor_ptr, j, k)) continue;
+				if(!in_bounds(floor_ptr, j, k)) continue;
 				break;
 			}
 
 
-			if (dummy >= SAFE_MAX_ATTEMPTS)
+			if(dummy >= SAFE_MAX_ATTEMPTS)
 			{
-				if (cheat_room)
+				if(cheat_room)
 				{
 #ifdef JP
 msg_print("警告！地下室のアイテムを配置できません！");
@@ -339,10 +339,10 @@ msg_print("警告！地下室のアイテムを配置できません！");
 
 			/* Require "clean" floor space */
 			c_ptr = &floor_ptr->cave[j][k];
-			if (!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
+			if(!is_floor_grid(c_ptr) || c_ptr->object_idx) continue;
 
 			/* Place an item */
-			if (randint0(100) < 75)
+			if(randint0(100) < 75)
 			{
 				place_object(floor_ptr, j, k, 0L);
 			}
@@ -379,13 +379,13 @@ void vault_trap_aux(floor_type *floor_ptr, int y, int x, int yd, int xd)
 			y1 = rand_spread(y, yd);
 			x1 = rand_spread(x, xd);
 			dummy++;
-			if (!in_bounds(floor_ptr, y1, x1)) continue;
+			if(!in_bounds(floor_ptr, y1, x1)) continue;
 			break;
 		}
 
-		if (dummy >= SAFE_MAX_ATTEMPTS)
+		if(dummy >= SAFE_MAX_ATTEMPTS)
 		{
-			if (cheat_room)
+			if(cheat_room)
 			{
 #ifdef JP
 msg_print("警告！地下室のトラップを配置できません！");
@@ -398,7 +398,7 @@ msg_print("警告！地下室のトラップを配置できません！");
 
 		/* Require "naked" floor grids */
 		c_ptr = &floor_ptr->cave[y1][x1];
-		if (!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
+		if(!is_floor_grid(c_ptr) || c_ptr->object_idx || c_ptr->creature_idx) continue;
 
 		/* Place the trap */
 		place_trap(floor_ptr, y1, x1);
@@ -444,7 +444,7 @@ void vault_creatures(floor_type *floor_ptr, int y1, int x1, int num)
 
 			/* Require "empty" floor grids */
 			c_ptr = &floor_ptr->cave[y][x];
-			if (!cave_empty_grid(c_ptr)) continue;
+			if(!cave_empty_grid(c_ptr)) continue;
 
 			/* Place the creature (allow groups) */
 			floor_ptr->creature_level = floor_ptr->base_level + 2;
@@ -465,9 +465,9 @@ void correct_dir(int *rdir, int *cdir, int y1, int x1, int y2, int x2)
 	*cdir = (x1 == x2) ? 0 : (x1 < x2) ? 1 : -1;
 
 	/* Never move diagonally */
-	if (*rdir && *cdir)
+	if(*rdir && *cdir)
 	{
-		if (randint0(100) < 50)
+		if(randint0(100) < 50)
 			*rdir = 0;
 		else
 			*cdir = 0;
@@ -492,8 +492,8 @@ void rand_dir(int *rdir, int *cdir)
 // Function that sees if a square is a floor.  (Includes range checking.)
 bool get_floor(floor_type *floor_ptr, int x, int y)
 {
-	if (!in_bounds(floor_ptr, y, x)) return (FALSE); // Out of bounds
-	if (is_floor_bold(floor_ptr, y, x)) return (TRUE); // Do the real check
+	if(!in_bounds(floor_ptr, y, x)) return (FALSE); // Out of bounds
+	if(is_floor_bold(floor_ptr, y, x)) return (TRUE); // Do the real check
 	return (FALSE);
 }
 
@@ -501,20 +501,20 @@ bool get_floor(floor_type *floor_ptr, int x, int y)
 /* Set a square to be floor.  (Includes range checking.) */
 void set_floor(floor_type *floor_ptr, int x, int y)
 {
-	if (!in_bounds(floor_ptr, y, x))
+	if(!in_bounds(floor_ptr, y, x))
 	{
 		/* Out of bounds */
 		return;
 	}
 
-	if (floor_ptr->cave[y][x].info & CAVE_ROOM)
+	if(floor_ptr->cave[y][x].info & CAVE_ROOM)
 	{
 		/* A room border don't touch. */
 		return;
 	}
 
 	/* Set to be floor if is a wall (don't touch lakes). */
-	if (is_extra_bold(floor_ptr, y, x))
+	if(is_extra_bold(floor_ptr, y, x))
 		place_floor_bold(floor_ptr, y, x);
 }
 
@@ -573,16 +573,16 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 	while ((row1 != row2) || (col1 != col2))
 	{
 		/* Mega-Hack -- Paranoia -- prevent infinite loops */
-		if (main_loop_count++ > 2000) return FALSE;
+		if(main_loop_count++ > 2000) return FALSE;
 
 		/* Allow bends in the tunnel */
-		if (randint0(100) < dun_tun_chg)
+		if(randint0(100) < dun_tun_chg)
 		{
 			/* Acquire the correct direction */
 			correct_dir(&row_dir, &col_dir, row1, col1, row2, col2);
 
 			/* Random direction */
-			if (randint0(100) < dun_tun_rnd)
+			if(randint0(100) < dun_tun_rnd)
 			{
 				rand_dir(&row_dir, &col_dir);
 			}
@@ -600,7 +600,7 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 			correct_dir(&row_dir, &col_dir, row1, col1, row2, col2);
 
 			/* Random direction */
-			if (randint0(100) < dun_tun_rnd)
+			if(randint0(100) < dun_tun_rnd)
 			{
 				rand_dir(&row_dir, &col_dir);
 			}
@@ -615,25 +615,25 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 		c_ptr = &floor_ptr->cave[tmp_row][tmp_col];
 
 		/* Avoid "solid" walls */
-		if (is_solid_grid(c_ptr)) continue;
+		if(is_solid_grid(c_ptr)) continue;
 
 		/* Pierce "outer" walls of rooms */
-		if (is_outer_grid(c_ptr))
+		if(is_outer_grid(c_ptr))
 		{
 			/* Acquire the "next" location */
 			y = tmp_row + row_dir;
 			x = tmp_col + col_dir;
 
 			/* Hack -- Avoid outer/solid walls */
-			if (is_outer_bold(floor_ptr, y, x)) continue;
-			if (is_solid_bold(floor_ptr, y, x)) continue;
+			if(is_outer_bold(floor_ptr, y, x)) continue;
+			if(is_solid_bold(floor_ptr, y, x)) continue;
 
 			/* Accept this location */
 			row1 = tmp_row;
 			col1 = tmp_col;
 
 			/* Save the wall location */
-			if (dungeon_ptr->wall_n < WALL_MAX)
+			if(dungeon_ptr->wall_n < WALL_MAX)
 			{
 				dungeon_ptr->wall[dungeon_ptr->wall_n].y = row1;
 				dungeon_ptr->wall[dungeon_ptr->wall_n].x = col1;
@@ -647,7 +647,7 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 				for (x = col1 - 1; x <= col1 + 1; x++)
 				{
 					/* Convert adjacent "outer" walls as "solid" walls */
-					if (is_outer_bold(floor_ptr, y, x))
+					if(is_outer_bold(floor_ptr, y, x))
 					{
 						/* Change the wall to a "solid" wall */
 						place_solid_noperm_bold(floor_ptr, y, x);
@@ -657,7 +657,7 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 		}
 
 		/* Travel quickly through rooms */
-		else if (c_ptr->info & (CAVE_ROOM))
+		else if(c_ptr->info & (CAVE_ROOM))
 		{
 			/* Accept the location */
 			row1 = tmp_row;
@@ -665,14 +665,14 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 		}
 
 		/* Tunnel through all other walls */
-		else if (is_extra_grid(c_ptr) || is_inner_grid(c_ptr) || is_solid_grid(c_ptr))
+		else if(is_extra_grid(c_ptr) || is_inner_grid(c_ptr) || is_solid_grid(c_ptr))
 		{
 			/* Accept this location */
 			row1 = tmp_row;
 			col1 = tmp_col;
 
 			/* Save the tunnel location */
-			if (dungeon_ptr->tunn_n < TUNN_MAX)
+			if(dungeon_ptr->tunn_n < TUNN_MAX)
 			{
 				dungeon_ptr->tunn[dungeon_ptr->tunn_n].y = row1;
 				dungeon_ptr->tunn[dungeon_ptr->tunn_n].x = col1;
@@ -692,10 +692,10 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 			col1 = tmp_col;
 
 			/* Collect legal door locations */
-			if (!door_flag)
+			if(!door_flag)
 			{
 				/* Save the door location */
-				if (dungeon_ptr->door_n < DOOR_MAX)
+				if(dungeon_ptr->door_n < DOOR_MAX)
 				{
 					dungeon_ptr->door[dungeon_ptr->door_n].y = row1;
 					dungeon_ptr->door[dungeon_ptr->door_n].x = col1;
@@ -708,18 +708,18 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 			}
 
 			/* Hack -- allow pre-emptive tunnel termination */
-			if (randint0(100) >= dun_tun_con)
+			if(randint0(100) >= dun_tun_con)
 			{
 				/* Distance between row1 and start_row */
 				tmp_row = row1 - start_row;
-				if (tmp_row < 0) tmp_row = (-tmp_row);
+				if(tmp_row < 0) tmp_row = (-tmp_row);
 
 				/* Distance between col1 and start_col */
 				tmp_col = col1 - start_col;
-				if (tmp_col < 0) tmp_col = (-tmp_col);
+				if(tmp_col < 0) tmp_col = (-tmp_col);
 
 				/* Terminate the tunnel */
-				if ((tmp_row > 10) || (tmp_col > 10)) break;
+				if((tmp_row > 10) || (tmp_col > 10)) break;
 			}
 		}
 	}
@@ -745,17 +745,17 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 
 	cave_type *c_ptr = &floor_ptr->cave[*y][*x];
 
-	if (!in_bounds(floor_ptr, *y, *x)) return TRUE;
+	if(!in_bounds(floor_ptr, *y, *x)) return TRUE;
 
-	if (is_inner_grid(c_ptr))
+	if(is_inner_grid(c_ptr))
 	{
 		return TRUE;
 	}
 
-	if (is_extra_bold(floor_ptr, *y,*x))
+	if(is_extra_bold(floor_ptr, *y,*x))
 	{
 		/* Save the tunnel location */
-		if (dungeon_ptr->tunn_n < TUNN_MAX)
+		if(dungeon_ptr->tunn_n < TUNN_MAX)
 		{
 			dungeon_ptr->tunn[dungeon_ptr->tunn_n].y = *y;
 			dungeon_ptr->tunn[dungeon_ptr->tunn_n].x = *x;
@@ -766,16 +766,16 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 		else return FALSE;
 	}
 
-	if (is_floor_bold(floor_ptr, *y, *x))
+	if(is_floor_bold(floor_ptr, *y, *x))
 	{
 		/* Don't do anything */
 		return TRUE;
 	}
 
-	if (is_outer_grid(c_ptr) && affectwall)
+	if(is_outer_grid(c_ptr) && affectwall)
 	{
 		/* Save the wall location */
-		if (dungeon_ptr->wall_n < WALL_MAX)
+		if(dungeon_ptr->wall_n < WALL_MAX)
 		{
 			dungeon_ptr->wall[dungeon_ptr->wall_n].y = *y;
 			dungeon_ptr->wall[dungeon_ptr->wall_n].x = *x;
@@ -789,7 +789,7 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 			for (i = *x - 1; i <= *x + 1; i++)
 			{
 				/* Convert adjacent "outer" walls as "solid" walls */
-				if (is_outer_bold(floor_ptr, j, i))
+				if(is_outer_bold(floor_ptr, j, i))
 				{
 					/* Change the wall to a "solid" wall */
 					place_solid_noperm_bold(floor_ptr, j, i);
@@ -805,7 +805,7 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 		return TRUE;
 	}
 
-	if (is_solid_grid(c_ptr) && affectwall)
+	if(is_solid_grid(c_ptr) && affectwall)
 	{
 		/* cannot place tunnel here - use a square to the side */
 
@@ -820,7 +820,7 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 			dy = randint0(3) - 1;
 			dx = randint0(3) - 1;
 
-			if (!in_bounds(floor_ptr, *y + dy, *x + dx))
+			if(!in_bounds(floor_ptr, *y + dy, *x + dx))
 			{
 				dx = 0;
 				dy = 0;
@@ -829,7 +829,7 @@ static bool set_tunnel(floor_type *floor_ptr, int *x, int *y, bool affectwall)
 			i--;
 		}
 
-		if (i == 0)
+		if(i == 0)
 		{
 			/* Failed for some reason: hack - ignore the solidness */
 			place_outer_grid(c_ptr);
@@ -901,22 +901,22 @@ static void short_seg_hack(floor_type *floor_ptr, int x1, int y1, int x2, int y2
 	int length;
 
 	/* Check for early exit */
-	if (!(*fail)) return;
+	if(!(*fail)) return;
 
 	length = distance(x1, y1, x2, y2);
 
 	count++;
 
-	if ((type == 1) && (length != 0))
+	if((type == 1) && (length != 0))
 	{
 
 		for (i = 0; i <= length; i++)
 		{
 			x = x1 + i * (x2 - x1) / length;
 			y = y1 + i * (y2 - y1) / length;
-			if (!set_tunnel(floor_ptr, &x, &y, TRUE))
+			if(!set_tunnel(floor_ptr, &x, &y, TRUE))
 			{
-				if (count > 50)
+				if(count > 50)
 				{
 					/* This isn't working - probably have an infinite loop */
 					*fail = FALSE;
@@ -929,21 +929,21 @@ static void short_seg_hack(floor_type *floor_ptr, int x1, int y1, int x2, int y2
 			}
 		}
 	}
-	else if ((type == 2) || (type == 3))
+	else if((type == 2) || (type == 3))
 	{
-		if (x1 < x2)
+		if(x1 < x2)
 		{
 			for (i = x1; i <= x2; i++)
 			{
 				x = i;
 				y = y1;
-				if (!set_tunnel(floor_ptr, &x, &y, TRUE))
+				if(!set_tunnel(floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(floor_ptr, x, y, i - 1, y1, 1, count, fail);
 					short_seg_hack(floor_ptr, x, y, i + 1, y1, 1, count, fail);
 				}
-				if ((type == 3) && ((x + y) % 2))
+				if((type == 3) && ((x + y) % 2))
 				{
 					create_cata_tunnel(floor_ptr, i, y1);
 				}
@@ -955,32 +955,32 @@ static void short_seg_hack(floor_type *floor_ptr, int x1, int y1, int x2, int y2
 			{
 				x = i;
 				y = y1;
-				if (!set_tunnel(floor_ptr, &x, &y, TRUE))
+				if(!set_tunnel(floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(floor_ptr, x, y, i - 1, y1, 1, count, fail);
 					short_seg_hack(floor_ptr, x, y, i + 1, y1, 1, count, fail);
 				}
-				if ((type == 3) && ((x + y) % 2))
+				if((type == 3) && ((x + y) % 2))
 				{
 					create_cata_tunnel(floor_ptr, i, y1);
 				}
 			}
 
 		}
-		if (y1 < y2)
+		if(y1 < y2)
 		{
 			for (i = y1; i <= y2; i++)
 			{
 				x = x2;
 				y = i;
-				if (!set_tunnel(floor_ptr, &x, &y, TRUE))
+				if(!set_tunnel(floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(floor_ptr, x, y, x2, i - 1, 1, count, fail);
 					short_seg_hack(floor_ptr, x, y, x2, i + 1, 1, count, fail);
 				}
-				if ((type == 3) && ((x + y) % 2))
+				if((type == 3) && ((x + y) % 2))
 				{
 					create_cata_tunnel(floor_ptr, x2, i);
 				}
@@ -992,13 +992,13 @@ static void short_seg_hack(floor_type *floor_ptr, int x1, int y1, int x2, int y2
 			{
 				x = x2;
 				y = i;
-				if (!set_tunnel(floor_ptr, &x, &y, TRUE))
+				if(!set_tunnel(floor_ptr, &x, &y, TRUE))
 				{
 					/* solid wall - so try to go around */
 					short_seg_hack(floor_ptr, x, y, x2, i - 1, 1, count, fail);
 					short_seg_hack(floor_ptr, x, y, x2, i + 1, 1, count, fail);
 				}
-				if ((type == 3) && ((x + y) % 2))
+				if((type == 3) && ((x + y) % 2))
 				{
 					create_cata_tunnel(floor_ptr, x2, i);
 				}
@@ -1030,7 +1030,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 
 	length = distance(x1, y1, x2, y2);
 
-	if (length > cutoff)
+	if(length > cutoff)
 	{
 		/*
 		* Divide path in half and call routine twice.
@@ -1049,14 +1049,14 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 		y3 = y1 + dy + changey;
 
 		/* See if in bounds - if not - do not perturb point */
-		if (!in_bounds(floor_ptr, y3, x3))
+		if(!in_bounds(floor_ptr, y3, x3))
 		{
 			x3 = (x1 + x2) / 2;
 			y3 = (y1 + y2) / 2;
 		}
 		/* cache c_ptr */
 		c_ptr = &floor_ptr->cave[y3][x3];
-		if (is_solid_grid(c_ptr))
+		if(is_solid_grid(c_ptr))
 		{
 			/* move midpoint a bit to avoid problem. */
 
@@ -1068,7 +1068,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 			{
 				dy = randint0(3) - 1;
 				dx = randint0(3) - 1;
-				if (!in_bounds(floor_ptr, y3 + dy, x3 + dx))
+				if(!in_bounds(floor_ptr, y3 + dy, x3 + dx))
 				{
 					dx = 0;
 					dy = 0;
@@ -1076,7 +1076,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 				i--;
 			}
 
-			if (i == 0)
+			if(i == 0)
 			{
 				/* Failed for some reason: hack - ignore the solidness */
 				place_outer_bold(floor_ptr, y3, x3);
@@ -1088,11 +1088,11 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 			c_ptr = &floor_ptr->cave[y3][x3];
 		}
 
-		if (is_floor_grid(c_ptr))
+		if(is_floor_grid(c_ptr))
 		{
-			if (build_tunnel2(floor_ptr, x1, y1, x3, y3, type, cutoff))
+			if(build_tunnel2(floor_ptr, x1, y1, x3, y3, type, cutoff))
 			{
-				if ((floor_ptr->cave[y3][x3].info & CAVE_ROOM) || (randint1(100) > 95))
+				if((floor_ptr->cave[y3][x3].info & CAVE_ROOM) || (randint1(100) > 95))
 				{
 					/* do second half only if works + if have hit a room */
 					retval = build_tunnel2(floor_ptr, x3, y3, x2, y2, type, cutoff);
@@ -1103,7 +1103,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 					retval = FALSE;
 
 					/* Save the door location */
-					if (dungeon_ptr->door_n < DOOR_MAX)
+					if(dungeon_ptr->door_n < DOOR_MAX)
 					{
 						dungeon_ptr->door[dungeon_ptr->door_n].y = y3;
 						dungeon_ptr->door[dungeon_ptr->door_n].x = x3;
@@ -1123,7 +1123,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 		else
 		{
 			/* tunnel through walls */
-			if (build_tunnel2(floor_ptr, x1, y1, x3, y3, type, cutoff))
+			if(build_tunnel2(floor_ptr, x1, y1, x3, y3, type, cutoff))
 			{
 				retval = build_tunnel2(floor_ptr, x3, y3, x2, y2, type, cutoff);
 				firstsuccede = TRUE;
@@ -1135,7 +1135,7 @@ bool build_tunnel2(floor_type *floor_ptr, int x1, int y1, int x2, int y2, int ty
 				firstsuccede = FALSE;
 			}
 		}
-		if (firstsuccede)
+		if(firstsuccede)
 		{
 			/* only do this if the first half has worked */
 			set_tunnel(floor_ptr, &x3, &y3, TRUE);

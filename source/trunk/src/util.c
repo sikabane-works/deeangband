@@ -36,9 +36,9 @@ int stricmp(cptr a, cptr b)
 	{
 		z1 = FORCEUPPER(*s1);
 		z2 = FORCEUPPER(*s2);
-		if (z1 < z2) return (-1);
-		if (z1 > z2) return (1);
-		if (!z1) return (0);
+		if(z1 < z2) return (-1);
+		if(z1 > z2) return (1);
+		if(!z1) return (0);
 	}
 }
 
@@ -73,9 +73,9 @@ int usleep(huge usecs)
 
 	/* Paranoia -- No excessive sleeping */
 #ifdef JP
-	if (usecs > 4000000L) core("不当な usleep() 呼び出し");
+	if(usecs > 4000000L) core("不当な usleep() 呼び出し");
 #else
-	if (usecs > 4000000L) core("Illegal usleep() call");
+	if(usecs > 4000000L) core("Illegal usleep() call");
 #endif
 
 
@@ -85,10 +85,10 @@ int usleep(huge usecs)
 	Timer.tv_usec = (usecs % 1000000L);
 
 	/* Wait for it */
-	if (select(nfds, no_fds, no_fds, no_fds, &Timer) < 0)
+	if(select(nfds, no_fds, no_fds, no_fds, &Timer) < 0)
 	{
 		/* Hack -- ignore interrupts */
-		if (errno != EINTR) return -1;
+		if(errno != EINTR) return -1;
 	}
 
 	/* Success */
@@ -115,7 +115,7 @@ void usespecies_name(char *buf, int id)
 	struct passwd *pw;
 
 	/* Look up the user name */
-	if ((pw = getpwuid(id)))
+	if((pw = getpwuid(id)))
 	{
 		(void)strcpy(buf, pw->pw_name);
 		buf[16] = '\0';
@@ -123,9 +123,9 @@ void usespecies_name(char *buf, int id)
 #ifdef CAPITALIZE_USER_NAME
 		/* Hack -- capitalize the user name */
 #ifdef JP
-		if (!iskanji(buf[0]))
+		if(!iskanji(buf[0]))
 #endif
-			if (islower(buf[0]))
+			if(islower(buf[0]))
 				buf[0] = toupper(buf[0]);
 #endif /* CAPITALIZE_USER_NAME */
 
@@ -202,10 +202,10 @@ errr path_parse(char *buf, int max, cptr file)
 	buf[0] = '\0';
 
 	/* No file? */
-	if (!file) return (-1);
+	if(!file) return (-1);
 
 	/* File needs no parsing */
-	if (file[0] != '~')
+	if(file[0] != '~')
 	{
 		(void)strnfmt(buf, max, "%s", file);
 		return (0);
@@ -218,10 +218,10 @@ errr path_parse(char *buf, int max, cptr file)
 	s = my_strstr(u, PATH_SEP);
 
 	/* Hack -- no long user names */
-	if (s && (s >= u + sizeof(user))) return (1);
+	if(s && (s >= u + sizeof(user))) return (1);
 
 	/* Extract a user name */
-	if (s)
+	if(s)
 	{
 		int i;
 		for (i = 0; u < s; ++i) user[i] = *u++;
@@ -230,17 +230,17 @@ errr path_parse(char *buf, int max, cptr file)
 	}
 
 	/* Look up the "current" user */
-	if (u[0] == '\0') u = getlogin();
+	if(u[0] == '\0') u = getlogin();
 
 	/* Look up a user (or "current" user) */
-	if (u) pw = getpwnam(u);
+	if(u) pw = getpwnam(u);
 	else pw = getpwuid(getuid());
 
 	/* Nothing found? */
-	if (!pw) return (1);
+	if(!pw) return (1);
 
 	/* Make use of the info */
-	if (s) strnfmt(buf, max, "%s%s", pw->pw_dir, s);
+	if(s) strnfmt(buf, max, "%s%s", pw->pw_dir, s);
 	else strnfmt(buf, max, "%s", pw->pw_dir);
 
 	/* Success */
@@ -319,21 +319,21 @@ static errr path_temp(char *buf, int max)
 errr path_build(char *buf, int max, cptr path, cptr file)
 {
 	/* Special file */
-	if (file[0] == '~')
+	if(file[0] == '~')
 	{
 		/* Use the file itself */
 		(void)strnfmt(buf, max, "%s", file);
 	}
 
 	/* Absolute file, on "normal" systems */
-	else if (prefix(file, PATH_SEP) && !streq(PATH_SEP, ""))
+	else if(prefix(file, PATH_SEP) && !streq(PATH_SEP, ""))
 	{
 		/* Use the file itself */
 		(void)strnfmt(buf, max, "%s", file);
 	}
 
 	/* No path given */
-	else if (!path[0])
+	else if(!path[0])
 	{
 		/* Use the file itself */
 		(void)strnfmt(buf, max, "%s", file);
@@ -365,10 +365,10 @@ FILE *my_fopen(cptr file, cptr mode)
 #endif
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(buf, 1024, file)) return (NULL);
+	if(path_parse(buf, 1024, file)) return (NULL);
 
 #if defined(MAC_MPW) || defined(MACH_O_CARBON)
-	if (my_strchr(mode, 'w'))
+	if(my_strchr(mode, 'w'))
 	{
 		/* setting file type/creator */
 		tempfff = fopen(buf, mode);
@@ -390,10 +390,10 @@ FILE *my_fopen(cptr file, cptr mode)
 errr my_fclose(FILE *fff)
 {
 	/* Require a file */
-	if (!fff) return (-1);
+	if(!fff) return (-1);
 
 	/* Close, check for error */
-	if (fclose(fff) == EOF) return (1);
+	if(fclose(fff) == EOF) return (1);
 
 	/* Success */
 	return (0);
@@ -416,7 +416,7 @@ FILE *my_fopen_temp(char *buf, int max)
 	fd = mkstemp(buf);
 
 	/* Check the file-descriptor */
-	if (fd < 0) return (NULL);
+	if(fd < 0) return (NULL);
 
 	/* Return a file stream */
 	return (fdopen(fd, "w"));
@@ -427,7 +427,7 @@ FILE *my_fopen_temp(char *buf, int max)
 FILE *my_fopen_temp(char *buf, int max)
 {
 	/* Generate a temporary filename */
-	if (path_temp(buf, max)) return (NULL);
+	if(path_temp(buf, max)) return (NULL);
 
 	/* Open the file */
 	return (my_fopen(buf, "w"));
@@ -452,7 +452,7 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 	char tmp[1024];
 
 	/* Read a line */
-	if (fgets(tmp, 1024, fff))
+	if(fgets(tmp, 1024, fff))
 	{
 		/* Convert weirdness */
 		for (s = tmp; *s; s++)
@@ -464,12 +464,12 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 			 * end of line, especially since the introduction of OS X.
 			 * MPW tools were also very tolerant to the Unix EOL.
 			 */
-			if (*s == '\r') *s = '\n';
+			if(*s == '\r') *s = '\n';
 
 #endif /* MACINTOSH || MACH_O_CARBON */
 
 			/* Handle newline */
-			if (*s == '\n')
+			if(*s == '\n')
 			{
 				/* Terminate */
 				buf[i] = '\0';
@@ -479,10 +479,10 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 			}
 
 			/* Handle tabs */
-			else if (*s == '\t')
+			else if(*s == '\t')
 			{
 				/* Hack -- require room */
-				if (i + 8 >= n) break;
+				if(i + 8 >= n) break;
 
 				/* Append a space */
 				buf[i++] = ' ';
@@ -492,28 +492,28 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 			}
 
 #ifdef JP
-			else if (iskanji(*s))
+			else if(iskanji(*s))
 			{
-				if (!s[1]) break;
+				if(!s[1]) break;
 				buf[i++] = *s++;
 				buf[i++] = *s;
 			}
 
 			/* 半角かなに対応 */
-			else if (iskana(*s))
+			else if(iskana(*s))
 			{
 				buf[i++] = *s;
-				if (i >= n) break;
+				if(i >= n) break;
 			}
 #endif
 			/* Handle printables */
-			else if (isprint(*s))
+			else if(isprint(*s))
 			{
 				/* Copy */
 				buf[i++] = *s;
 
 				/* Check length */
-				if (i >= n) break;
+				if(i >= n) break;
 			}
 		}
 		/* No newline character, but terminate */
@@ -558,26 +558,26 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			 * end of line, especially since the introduction of OS X.
 			 * MPW tools were also very tolerant to the Unix EOL.
 			 */
-			if (*s == '\r') *s = '\n';
+			if(*s == '\r') *s = '\n';
 
 #endif /* MACINTOSH || MACH_O_CARBON */
 
 			/* TODO
-			if (*s == enclosure && *(s + 1) == enclosure && !first_enclosure)
+			if(*s == enclosure && *(s + 1) == enclosure && !first_enclosure)
 			{
 				buf[i++] = *s++;
 				s++;
 			}
 			else 
 			*/	
-			if (*s == enclosure)
+			if(*s == enclosure)
 			{
 				enc_num++;
 				first_enclosure = FALSE;
 			}
 
 			/* Handle newline */
-			if (*s == '\n')
+			if(*s == '\n')
 			{
 				buf[i++] = *s++;
 				/* Temporary Terminate */
@@ -585,10 +585,10 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			}
 
 			/* Handle tabs */
-			else if (*s == '\t')
+			else if(*s == '\t')
 			{
 				/* Hack -- require room */
-				if (i + 8 >= n) break;
+				if(i + 8 >= n) break;
 
 				/* Append a space */
 				buf[i++] = ' ';
@@ -598,28 +598,28 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 			}
 
 #ifdef JP
-			else if (iskanji(*s))
+			else if(iskanji(*s))
 			{
-				if (!s[1]) break;
+				if(!s[1]) break;
 				buf[i++] = *s++;
 				buf[i++] = *s;
 			}
 
 			/* 半角かなに対応 */
-			else if (iskana(*s))
+			else if(iskana(*s))
 			{
 				buf[i++] = *s;
-				if (i >= n) break;
+				if(i >= n) break;
 			}
 #endif
 			/* Handle printables */
-			else if (isprint(*s))
+			else if(isprint(*s))
 			{
 				/* Copy */
 				buf[i++] = *s;
 
 				/* Check length */
-				if (i >= n) break;
+				if(i >= n) break;
 			}
 		}
 
@@ -713,7 +713,7 @@ errr fd_kill(cptr file)
 	char buf[1024];
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(buf, 1024, file)) return (-1);
+	if(path_parse(buf, 1024, file)) return (-1);
 
 	/* Remove */
 	(void)remove(buf);
@@ -732,10 +732,10 @@ errr fd_move(cptr file, cptr what)
 	char aux[1024];
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(buf, 1024, file)) return (-1);
+	if(path_parse(buf, 1024, file)) return (-1);
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(aux, 1024, what)) return (-1);
+	if(path_parse(aux, 1024, what)) return (-1);
 
 	/* Rename */
 	(void)rename(buf, aux);
@@ -756,18 +756,18 @@ errr fd_copy(cptr file, cptr what)
 	int src_fd, dst_fd;
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(buf, 1024, file)) return (-1);
+	if(path_parse(buf, 1024, file)) return (-1);
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(aux, 1024, what)) return (-1);
+	if(path_parse(aux, 1024, what)) return (-1);
 
 	/* Open source file */
 	src_fd = fd_open(buf, O_RDONLY);
-	if (src_fd < 0) return (-1);
+	if(src_fd < 0) return (-1);
 
 	/* Open destination file */
 	dst_fd = fd_open(aux, O_WRONLY|O_TRUNC|O_CREAT);
-	if (dst_fd < 0) return (-1);
+	if(dst_fd < 0) return (-1);
 
 	/* Copy */
 	while ((read_num = read(src_fd, buf, 1024)) > 0)
@@ -802,12 +802,12 @@ int fd_make(cptr file, int mode)
 	char buf[1024];
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(buf, 1024, file)) return (-1);
+	if(path_parse(buf, 1024, file)) return (-1);
 
 #ifdef BEN_HACK
 
 	/* Check for existance */
-	/* if (fd_close(fd_open(file, O_RDONLY | O_BINARY))) return (1); */
+	/* if(fd_close(fd_open(file, O_RDONLY | O_BINARY))) return (1); */
 
 	/* Mega-Hack -- Create the file */
 	(void)my_fclose(my_fopen(file, "wb"));
@@ -823,7 +823,7 @@ int fd_make(cptr file, int mode)
 		/* Create the file, fail if exists, write-only, binary */
 		fdes = open(buf, O_CREAT | O_EXCL | O_WRONLY | O_BINARY, mode);
 		/* Set creator and type if the file is successfully opened */
-		if (fdes >= 0) fsetfileinfo(buf, _fcreator, _ftype);
+		if(fdes >= 0) fsetfileinfo(buf, _fcreator, _ftype);
 		/* Return the descriptor */
 		return (fdes);
 	}
@@ -847,7 +847,7 @@ int fd_open(cptr file, int flags)
 	char buf[1024];
 
 	/* Hack -- Try to parse the path */
-	if (path_parse(buf, 1024, file)) return (-1);
+	if(path_parse(buf, 1024, file)) return (-1);
 
 	/* Attempt to open the file */
 	return (open(buf, flags | O_BINARY, 0));
@@ -865,7 +865,7 @@ errr fd_lock(int fd, int what)
 	what = what ? what : 0;
 
 	/* Verify the fd */
-	if (fd < 0) return (-1);
+	if(fd < 0) return (-1);
 
 #ifdef SET_UID
 
@@ -874,7 +874,7 @@ errr fd_lock(int fd, int what)
 #  if defined(F_ULOCK) && defined(F_LOCK)
 
 	/* Un-Lock */
-	if (what == F_UNLCK)
+	if(what == F_UNLCK)
 	{
 		/* Unlock it, Ignore errors */
 		lockf(fd, F_ULOCK, 0);
@@ -884,7 +884,7 @@ errr fd_lock(int fd, int what)
 	else
 	{
 		/* Lock the score file */
-		if (lockf(fd, F_LOCK, 0) != 0) return (1);
+		if(lockf(fd, F_LOCK, 0) != 0) return (1);
 	}
 
 #  endif
@@ -894,7 +894,7 @@ errr fd_lock(int fd, int what)
 #  if defined(LOCK_UN) && defined(LOCK_EX)
 
 	/* Un-Lock */
-	if (what == F_UNLCK)
+	if(what == F_UNLCK)
 	{
 		/* Unlock it, Ignore errors */
 		(void)flock(fd, LOCK_UN);
@@ -904,7 +904,7 @@ errr fd_lock(int fd, int what)
 	else
 	{
 		/* Lock the score file */
-		if (flock(fd, LOCK_EX) != 0) return (1);
+		if(flock(fd, LOCK_EX) != 0) return (1);
 	}
 
 #  endif
@@ -926,13 +926,13 @@ errr fd_seek(int fd, huge n)
 	huge p;
 
 	/* Verify fd */
-	if (fd < 0) return (-1);
+	if(fd < 0) return (-1);
 
 	/* Seek to the given position */
 	p = lseek(fd, n, SEEK_SET);
 
 	/* Failure */
-	if (p != n) return (1);
+	if(p != n) return (1);
 
 	/* Success */
 	return (0);
@@ -948,7 +948,7 @@ errr fd_chop(int fd, huge n)
 	n = n ? n : 0;
 
 	/* Verify the fd */
-	if (fd < 0) return (-1);
+	if(fd < 0) return (-1);
 
 #if defined(SUNOS) || defined(ULTRIX) || defined(NeXT)
 	/* Truncate */
@@ -966,7 +966,7 @@ errr fd_chop(int fd, huge n)
 errr fd_read(int fd, char *buf, huge n)
 {
 	/* Verify the fd */
-	if (fd < 0) return (-1);
+	if(fd < 0) return (-1);
 
 #ifndef SET_UID
 
@@ -974,7 +974,7 @@ errr fd_read(int fd, char *buf, huge n)
 	while (n >= 16384)
 	{
 		/* Read a piece */
-		if (read(fd, buf, 16384) != 16384) return (1);
+		if(read(fd, buf, 16384) != 16384) return (1);
 
 		/* Shorten the task */
 		buf += 16384;
@@ -986,7 +986,7 @@ errr fd_read(int fd, char *buf, huge n)
 #endif
 
 	/* Read the final piece */
-	if (read(fd, buf, n) != (int)n) return (1);
+	if(read(fd, buf, n) != (int)n) return (1);
 
 	/* Success */
 	return (0);
@@ -999,7 +999,7 @@ errr fd_read(int fd, char *buf, huge n)
 errr fd_write(int fd, cptr buf, huge n)
 {
 	/* Verify the fd */
-	if (fd < 0) return (-1);
+	if(fd < 0) return (-1);
 
 #ifndef SET_UID
 
@@ -1007,7 +1007,7 @@ errr fd_write(int fd, cptr buf, huge n)
 	while (n >= 16384)
 	{
 		/* Write a piece */
-		if (write(fd, buf, 16384) != 16384) return (1);
+		if(write(fd, buf, 16384) != 16384) return (1);
 
 		/* Shorten the task */
 		buf += 16384;
@@ -1019,7 +1019,7 @@ errr fd_write(int fd, cptr buf, huge n)
 #endif
 
 	/* Write the final piece */
-	if (write(fd, buf, n) != (int)n) return (1);
+	if(write(fd, buf, n) != (int)n) return (1);
 
 	/* Success */
 	return (0);
@@ -1032,7 +1032,7 @@ errr fd_write(int fd, cptr buf, huge n)
 errr fd_close(int fd)
 {
 	/* Verify the fd */
-	if (fd < 0) return (-1);
+	if(fd < 0) return (-1);
 
 	/* Close */
 	(void)close(fd);
@@ -1125,7 +1125,7 @@ static char hexify(uint i)
  */
 static int deoct(char c)
 {
-	if (isdigit(c)) return (D2I(c));
+	if(isdigit(c)) return (D2I(c));
 	return (0);
 }
 
@@ -1134,9 +1134,9 @@ static int deoct(char c)
  */
 static int dehex(char c)
 {
-	if (isdigit(c)) return (D2I(c));
-	if (islower(c)) return (A2I(c) + 10);
-	if (isupper(c)) return (A2I(tolower(c)) + 10);
+	if(isdigit(c)) return (D2I(c));
+	if(islower(c)) return (A2I(c) + 10);
+	if(isupper(c)) return (A2I(tolower(c)) + 10);
 	return (0);
 }
 
@@ -1151,9 +1151,9 @@ static int my_stricmp(cptr a, cptr b)
 	{
 		z1 = FORCEUPPER(*s1);
 		z2 = FORCEUPPER(*s2);
-		if (z1 < z2) return (-1);
-		if (z1 > z2) return (1);
-		if (!z1) return (0);
+		if(z1 < z2) return (-1);
+		if(z1 > z2) return (1);
+		if(!z1) return (0);
 	}
 }
 
@@ -1167,9 +1167,9 @@ static int my_strnicmp(cptr a, cptr b, int n)
 	{
 		z1 = FORCEUPPER(*s1);
 		z2 = FORCEUPPER(*s2);
-		if (z1 < z2) return (-1);
-		if (z1 > z2) return (1);
-		if (!z1) return (0);
+		if(z1 < z2) return (-1);
+		if(z1 > z2) return (1);
+		if(!z1) return (0);
 	}
 	return 0;
 }
@@ -1185,7 +1185,7 @@ static void triggespecies_text_to_acscii(char **bufptr, cptr *strptr)
 	int shiftstatus = 0;
 	cptr key_code;
 
-	if (macro_template == NULL)
+	if(macro_template == NULL)
 		return;
 	
 	for (i = 0; macro_modifier_chr[i]; i++)
@@ -1202,16 +1202,16 @@ static void triggespecies_text_to_acscii(char **bufptr, cptr *strptr)
 			if(!my_strnicmp(str, macro_modifiespecies_name[i], len))
 				break;
 		}
-		if (!macro_modifier_chr[i]) break;
+		if(!macro_modifier_chr[i]) break;
 		str += len;
 		mod_status[i] = TRUE;
-		if ('S' == macro_modifier_chr[i])
+		if('S' == macro_modifier_chr[i])
 			shiftstatus = 1;
 	}
 	for (i = 0; i < max_macrotrigger; i++)
 	{
 		len = strlen(macro_triggespecies_name[i]);
-		if (!my_strnicmp(str, macro_triggespecies_name[i], len) && ']' == str[len])
+		if(!my_strnicmp(str, macro_triggespecies_name[i], len) && ']' == str[len])
 		{
 			/* a trigger name found */
 			break;
@@ -1219,10 +1219,10 @@ static void triggespecies_text_to_acscii(char **bufptr, cptr *strptr)
 	}
 
 	/* Invalid trigger name? */
-	if (i == max_macrotrigger)
+	if(i == max_macrotrigger)
 	{
 		str = my_strchr(str, ']');
-		if (str)
+		if(str)
 		{
 			*s++ = (char)31;
 			*s++ = '\r';
@@ -1244,7 +1244,7 @@ static void triggespecies_text_to_acscii(char **bufptr, cptr *strptr)
 		{
 		case '&':
 			for (j = 0; macro_modifier_chr[j]; j++) {
-				if (mod_status[j])
+				if(mod_status[j])
 					*s++ = macro_modifier_chr[j];
 			}
 			break;
@@ -1280,99 +1280,99 @@ void text_to_acscii(char *buf, cptr str)
 	while (*str)
 	{
 		/* Backslash codes */
-		if (*str == '\\')
+		if(*str == '\\')
 		{
 			/* Skip the backslash */
 			str++;
 
 			/* Paranoia */
-			if (!(*str)) break;
+			if(!(*str)) break;
 
 			/* Macro Trigger */
-			if (*str == '[')
+			if(*str == '[')
 			{
 				triggespecies_text_to_acscii(&s, &str);
 			}
 			else
 
 			/* Hex-mode XXX */
-			if (*str == 'x')
+			if(*str == 'x')
 			{
 				*s = 16 * dehex(*++str);
 				*s++ += dehex(*++str);
 			}
 
 			/* Hack -- simple way to specify "backslash" */
-			else if (*str == '\\')
+			else if(*str == '\\')
 			{
 				*s++ = '\\';
 			}
 
 			/* Hack -- simple way to specify "caret" */
-			else if (*str == '^')
+			else if(*str == '^')
 			{
 				*s++ = '^';
 			}
 
 			/* Hack -- simple way to specify "space" */
-			else if (*str == 's')
+			else if(*str == 's')
 			{
 				*s++ = ' ';
 			}
 
 			/* Hack -- simple way to specify Escape */
-			else if (*str == 'e')
+			else if(*str == 'e')
 			{
 				*s++ = ESCAPE;
 			}
 
 			/* Backspace */
-			else if (*str == 'b')
+			else if(*str == 'b')
 			{
 				*s++ = '\b';
 			}
 
 			/* Newline */
-			else if (*str == 'n')
+			else if(*str == 'n')
 			{
 				*s++ = '\n';
 			}
 
 			/* Return */
-			else if (*str == 'r')
+			else if(*str == 'r')
 			{
 				*s++ = '\r';
 			}
 
 			/* Tab */
-			else if (*str == 't')
+			else if(*str == 't')
 			{
 				*s++ = '\t';
 			}
 
 			/* Octal-mode */
-			else if (*str == '0')
+			else if(*str == '0')
 			{
 				*s = 8 * deoct(*++str);
 				*s++ += deoct(*++str);
 			}
 
 			/* Octal-mode */
-			else if (*str == '1')
+			else if(*str == '1')
 			{
 				*s = 64 + 8 * deoct(*++str);
 				*s++ += deoct(*++str);
 			}
 
 			/* Octal-mode */
-			else if (*str == '2')
+			else if(*str == '2')
 			{
 				*s = 64 * 2 + 8 * deoct(*++str);
 				*s++ += deoct(*++str);
 			}
 
 			/* Octal-mode */
-			else if (*str == '3')
+			else if(*str == '3')
 			{
 				*s = 64 * 3 + 8 * deoct(*++str);
 				*s++ += deoct(*++str);
@@ -1383,7 +1383,7 @@ void text_to_acscii(char *buf, cptr str)
 		}
 
 		/* Normal Control codes */
-		else if (*str == '^')
+		else if(*str == '^')
 		{
 			str++;
 			*s++ = (*str++ & 037);
@@ -1409,7 +1409,7 @@ static bool trigger_ascii_to_text(char **bufptr, cptr *strptr)
 	int i;
 	cptr tmp;
 
-	if (macro_template == NULL)
+	if(macro_template == NULL)
 		return FALSE;
 
 	*s++ = '\\';
@@ -1437,19 +1437,19 @@ static bool trigger_ascii_to_text(char **bufptr, cptr *strptr)
 			key_code[j] = '\0';
 			break;
 		default:
-			if (ch != *str) return FALSE;
+			if(ch != *str) return FALSE;
 			str++;
 		}
 	}
-	if (*str++ != '\r') return FALSE;
+	if(*str++ != '\r') return FALSE;
 
 	for (i = 0; i < max_macrotrigger; i++)
 	{
-		if (!my_stricmp(key_code, macro_trigger_keycode[0][i])
+		if(!my_stricmp(key_code, macro_trigger_keycode[0][i])
 		    || !my_stricmp(key_code, macro_trigger_keycode[1][i]))
 			break;
 	}
-	if (i == max_macrotrigger)
+	if(i == max_macrotrigger)
 		return FALSE;
 
 	tmp = macro_triggespecies_name[i];
@@ -1476,7 +1476,7 @@ void ascii_to_text(char *buf, cptr str)
 		byte i = (byte)(*str++);
 
 		/* Macro Trigger */
-		if (i == 31)
+		if(i == 31)
 		{
 			if(!trigger_ascii_to_text(&s, &str))
 			{
@@ -1486,56 +1486,56 @@ void ascii_to_text(char *buf, cptr str)
 		}
 		else
 
-		if (i == ESCAPE)
+		if(i == ESCAPE)
 		{
 			*s++ = '\\';
 			*s++ = 'e';
 		}
-		else if (i == ' ')
+		else if(i == ' ')
 		{
 			*s++ = '\\';
 			*s++ = 's';
 		}
-		else if (i == '\b')
+		else if(i == '\b')
 		{
 			*s++ = '\\';
 			*s++ = 'b';
 		}
-		else if (i == '\t')
+		else if(i == '\t')
 		{
 			*s++ = '\\';
 			*s++ = 't';
 		}
-		else if (i == '\n')
+		else if(i == '\n')
 		{
 			*s++ = '\\';
 			*s++ = 'n';
 		}
-		else if (i == '\r')
+		else if(i == '\r')
 		{
 			*s++ = '\\';
 			*s++ = 'r';
 		}
-		else if (i == '^')
+		else if(i == '^')
 		{
 			*s++ = '\\';
 			*s++ = '^';
 		}
-		else if (i == '\\')
+		else if(i == '\\')
 		{
 			*s++ = '\\';
 			*s++ = '\\';
 		}
-		else if (i < 32)
+		else if(i < 32)
 		{
 			*s++ = '^';
 			*s++ = i + 64;
 		}
-		else if (i < 127)
+		else if(i < 127)
 		{
 			*s++ = i;
 		}
-		else if (i < (REALM_MAGIC_NUMBER * 2))
+		else if(i < (REALM_MAGIC_NUMBER * 2))
 		{
 			*s++ = '\\';
 			*s++ = '0';
@@ -1581,7 +1581,7 @@ sint macro_find_exact(cptr pat)
 	int i;
 
 	/* Nothing possible */
-	if (!macro__use[(byte)(pat[0])])
+	if(!macro__use[(byte)(pat[0])])
 	{
 		return (-1);
 	}
@@ -1590,7 +1590,7 @@ sint macro_find_exact(cptr pat)
 	for (i = 0; i < macro__num; ++i)
 	{
 		/* Skip macros which do not match the pattern */
-		if (!streq(macro__pat[i], pat)) continue;
+		if(!streq(macro__pat[i], pat)) continue;
 
 		/* Found one */
 		return (i);
@@ -1609,7 +1609,7 @@ static sint macro_find_check(cptr pat)
 	int i;
 
 	/* Nothing possible */
-	if (!macro__use[(byte)(pat[0])])
+	if(!macro__use[(byte)(pat[0])])
 	{
 		return (-1);
 	}
@@ -1618,7 +1618,7 @@ static sint macro_find_check(cptr pat)
 	for (i = 0; i < macro__num; ++i)
 	{
 		/* Skip macros which do not contain the pattern */
-		if (!prefix(macro__pat[i], pat)) continue;
+		if(!prefix(macro__pat[i], pat)) continue;
 
 		/* Found one */
 		return (i);
@@ -1637,7 +1637,7 @@ static sint macro_find_maybe(cptr pat)
 	int i;
 
 	/* Nothing possible */
-	if (!macro__use[(byte)(pat[0])])
+	if(!macro__use[(byte)(pat[0])])
 	{
 		return (-1);
 	}
@@ -1646,10 +1646,10 @@ static sint macro_find_maybe(cptr pat)
 	for (i = 0; i < macro__num; ++i)
 	{
 		/* Skip macros which do not contain the pattern */
-		if (!prefix(macro__pat[i], pat)) continue;
+		if(!prefix(macro__pat[i], pat)) continue;
 
 		/* Skip macros which exactly match the pattern XXX XXX */
-		if (streq(macro__pat[i], pat)) continue;
+		if(streq(macro__pat[i], pat)) continue;
 
 		/* Found one */
 		return (i);
@@ -1668,7 +1668,7 @@ static sint macro_find_ready(cptr pat)
 	int i, t, n = -1, s = -1;
 
 	/* Nothing possible */
-	if (!macro__use[(byte)(pat[0])])
+	if(!macro__use[(byte)(pat[0])])
 	{
 		return (-1);
 	}
@@ -1677,13 +1677,13 @@ static sint macro_find_ready(cptr pat)
 	for (i = 0; i < macro__num; ++i)
 	{
 		/* Skip macros which are not contained by the pattern */
-		if (!prefix(pat, macro__pat[i])) continue;
+		if(!prefix(pat, macro__pat[i])) continue;
 
 		/* Obtain the length of this macro */
 		t = strlen(macro__pat[i]);
 
 		/* Only track the "longest" pattern */
-		if ((n >= 0) && (s > t)) continue;
+		if((n >= 0) && (s > t)) continue;
 
 		/* Track the entry */
 		n = i;
@@ -1715,14 +1715,14 @@ errr macro_add(cptr pat, cptr act)
 
 
 	/* Paranoia -- require data */
-	if (!pat || !act) return (-1);
+	if(!pat || !act) return (-1);
 
 
 	/* Look for any existing macro */
 	n = macro_find_exact(pat);
 
 	/* Replace existing macro */
-	if (n >= 0)
+	if(n >= 0)
 	{
 		/* Free the old macro action */
 		string_free(macro__act[n]);
@@ -1788,7 +1788,7 @@ void bell(void)
 	Term_fresh();
 
 	/* Make a bell noise (if allowed) */
-	if (ring_bell) Term_xtra(TERM_XTRA_NOISE, 0);
+	if(ring_bell) Term_xtra(TERM_XTRA_NOISE, 0);
 
 	/* Flush the input (later!) */
 	flush();
@@ -1801,7 +1801,7 @@ void bell(void)
 void sound(int val)
 {
 	/* No sound */
-	if (!use_sound) return;
+	if(!use_sound) return;
 
 	/* Make a sound (if allowed) */
 	Term_xtra(TERM_XTRA_SOUND, val);
@@ -1839,10 +1839,10 @@ static char inkey_aux(void)
 	/* Hack : キー入力待ちで止まっているので、流れた行の記憶は不要。 */
 	num_more = 0;
 
-	if (parse_macro)
+	if(parse_macro)
 	{
 		/* Scan next keypress from macro action */
-		if (Term_inkey(&ch, FALSE, TRUE))
+		if(Term_inkey(&ch, FALSE, TRUE))
 		{
 			/* Over-flowed? Cancel macro action */
 			parse_macro = FALSE;
@@ -1856,16 +1856,16 @@ static char inkey_aux(void)
 
 
 	/* End "macro action" */
-	if (ch == 30) parse_macro = FALSE;
+	if(ch == 30) parse_macro = FALSE;
 
 	/* Inside "macro action" */
-	if (ch == 30) return (ch);
+	if(ch == 30) return (ch);
 
 	/* Inside "macro action" */
-	if (parse_macro) return (ch);
+	if(parse_macro) return (ch);
 
 	/* Inside "macro trigger" */
-	if (parse_under) return (ch);
+	if(parse_under) return (ch);
 
 	/* Save the first key, advance */
 	buf[p++] = ch;
@@ -1876,7 +1876,7 @@ static char inkey_aux(void)
 	k = macro_find_check(buf);
 
 	/* No macro pending */
-	if (k < 0) return (ch);
+	if(k < 0) return (ch);
 
 
 	/* Wait for a macro, or a timeout */
@@ -1886,10 +1886,10 @@ static char inkey_aux(void)
 		k = macro_find_maybe(buf);
 
 		/* No macro pending */
-		if (k < 0) break;
+		if(k < 0) break;
 
 		/* Check for (and remove) a pending key */
-		if (0 == Term_inkey(&ch, FALSE, TRUE))
+		if(0 == Term_inkey(&ch, FALSE, TRUE))
 		{
 			/* Append the key */
 			buf[p++] = ch;
@@ -1906,7 +1906,7 @@ static char inkey_aux(void)
 			w += 10;
 
 			/* Excessive delay */
-			if (w >= 100) break;
+			if(w >= 100) break;
 
 			/* Delay */
 			Term_xtra(TERM_XTRA_DELAY, w);
@@ -1918,13 +1918,13 @@ static char inkey_aux(void)
 	k = macro_find_ready(buf);
 
 	/* No macro available */
-	if (k < 0)
+	if(k < 0)
 	{
 		/* Push all the keys back on the queue */
 		while (p > 0)
 		{
 			/* Push the key, notice over-flow */
-			if (Term_key_push(buf[--p])) return (0);
+			if(Term_key_push(buf[--p])) return (0);
 		}
 
 		/* Wait for (and remove) a pending key */
@@ -1945,7 +1945,7 @@ static char inkey_aux(void)
 	while (p > n)
 	{
 		/* Push the key, notice over-flow */
-		if (Term_key_push(buf[--p])) return (0);
+		if(Term_key_push(buf[--p])) return (0);
 	}
 
 
@@ -1953,7 +1953,7 @@ static char inkey_aux(void)
 	parse_macro = TRUE;
 
 	/* Push the "end of macro action" key */
-	if (Term_key_push(30)) return (0);
+	if(Term_key_push(30)) return (0);
 
 
 	/* Access the macro action */
@@ -1966,7 +1966,7 @@ static char inkey_aux(void)
 	while (n > 0)
 	{
 		/* Push the key, notice over-flow */
-		if (Term_key_push(act[--n])) return (0);
+		if(Term_key_push(act[--n])) return (0);
 	}
 
 
@@ -1980,7 +1980,7 @@ static char inkey_aux(void)
  */
 static void forget_macro_action(void)
 {
-	if (!parse_macro) return;
+	if(!parse_macro) return;
 
 	/* Drop following macro action string */
 	while (TRUE)
@@ -1988,13 +1988,13 @@ static void forget_macro_action(void)
 		char ch;
 
 		/* End loop if no key ready */
-		if (Term_inkey(&ch, FALSE, TRUE)) break;
+		if(Term_inkey(&ch, FALSE, TRUE)) break;
 
 		/* End loop if no key ready */
-		if (ch == 0) break;
+		if(ch == 0) break;
 
 		/* End of "macro action" */
-		if (ch == 30) break;
+		if(ch == 30) break;
 	}
 
 	/* No longer inside "macro action" */
@@ -2084,7 +2084,7 @@ char inkey(void)
 	term *old = Term;
 
 	/* Hack -- Use the "inkey_next" pointer */
-	if (inkey_next && *inkey_next && !inkey_xtra)
+	if(inkey_next && *inkey_next && !inkey_xtra)
 	{
 		/* Get next character, and advance */
 		ch = *inkey_next++;
@@ -2100,7 +2100,7 @@ char inkey(void)
 	inkey_next = NULL;
 
 	/* Hack -- handle delayed "flush()" */
-	if (inkey_xtra)
+	if(inkey_xtra)
 	{
 		/* End "macro action" */
 		parse_macro = FALSE;
@@ -2117,7 +2117,7 @@ char inkey(void)
 	(void)Term_get_cursor(&v);
 
 	/* Show the cursor if waiting, except sometimes in "command" mode */
-	if (!inkey_scan && (!inkey_flag || hilite_player))
+	if(!inkey_scan && (!inkey_flag || hilite_player))
 	{
 		/* Show the cursor */
 		(void)Term_set_cursor(1);
@@ -2132,7 +2132,7 @@ char inkey(void)
 	while (!ch)
 	{
 		/* Hack -- Handle "inkey_scan" */
-		if (!inkey_base && inkey_scan &&
+		if(!inkey_base && inkey_scan &&
 			(0 != Term_inkey(&kk, FALSE, FALSE)))
 		{
 			break;
@@ -2140,7 +2140,7 @@ char inkey(void)
 
 
 		/* Hack -- Flush output once when no key ready */
-		if (!done && (0 != Term_inkey(&kk, FALSE, FALSE)))
+		if(!done && (0 != Term_inkey(&kk, FALSE, FALSE)))
 		{
 			/* Hack -- activate proper term */
 			Term_activate(old);
@@ -2163,15 +2163,15 @@ char inkey(void)
 
 
 		/* Hack -- Handle "inkey_base" */
-		if (inkey_base)
+		if(inkey_base)
 		{
 			int w = 0;
 
 			/* Wait forever */
-			if (!inkey_scan)
+			if(!inkey_scan)
 			{
 				/* Wait for (and remove) a pending key */
-				if (0 == Term_inkey(&ch, TRUE, TRUE))
+				if(0 == Term_inkey(&ch, TRUE, TRUE))
 				{
 					/* Done */
 					break;
@@ -2185,7 +2185,7 @@ char inkey(void)
 			while (TRUE)
 			{
 				/* Check for (and remove) a pending key */
-				if (0 == Term_inkey(&ch, FALSE, TRUE))
+				if(0 == Term_inkey(&ch, FALSE, TRUE))
 				{
 					/* Done */
 					break;
@@ -2198,7 +2198,7 @@ char inkey(void)
 					w += 10;
 
 					/* Excessive delay */
-					if (w >= 100) break;
+					if(w >= 100) break;
 
 					/* Delay */
 					Term_xtra(TERM_XTRA_DELAY, w);
@@ -2215,7 +2215,7 @@ char inkey(void)
 
 
 		/* Handle "control-right-bracket" */
-		if (ch == 29)
+		if(ch == 29)
 		{
 			/* Strip this key */
 			ch = 0;
@@ -2226,11 +2226,11 @@ char inkey(void)
 
 
 		/* Treat back-quote as escape */
-/*		if (ch == '`') ch = ESCAPE; */
+/*		if(ch == '`') ch = ESCAPE; */
 
 
 		/* End "macro trigger" */
-		if (parse_under && (ch <= 32))
+		if(parse_under && (ch <= 32))
 		{
 			/* Strip this key */
 			ch = 0;
@@ -2241,14 +2241,14 @@ char inkey(void)
 
 
 		/* Handle "control-caret" */
-		if (ch == 30)
+		if(ch == 30)
 		{
 			/* Strip this key */
 			ch = 0;
 		}
 
 		/* Handle "control-underscore" */
-		else if (ch == 31)
+		else if(ch == 31)
 		{
 			/* Strip this key */
 			ch = 0;
@@ -2258,7 +2258,7 @@ char inkey(void)
 		}
 
 		/* Inside "macro trigger" */
-		else if (parse_under)
+		else if(parse_under)
 		{
 			/* Strip this key */
 			ch = 0;
@@ -2327,11 +2327,11 @@ s16b quark_add(cptr str)
 	for (i = 1; i < quark__num; i++)
 	{
 		/* Check for equality */
-		if (streq(quark__str[i], str)) return (i);
+		if(streq(quark__str[i], str)) return (i);
 	}
 
 	/* Return "" when no room is available */
-	if (quark__num == QUARK_MAX) return 1;
+	if(quark__num == QUARK_MAX) return 1;
 
 	/* New maximal quark */
 	quark__num = i + 1;
@@ -2352,7 +2352,7 @@ cptr quark_str(s16b i)
 	cptr q;
 
 	/* Return NULL for an invalid index */
-	if ((i < 1) || (i >= quark__num)) return NULL;
+	if((i < 1) || (i >= quark__num)) return NULL;
 
 	/* Access the quark */
 	q = quark__str[i];
@@ -2399,7 +2399,7 @@ s16b message_num(void)
 	next = message__next;
 
 	/* Handle "wrap" */
-	if (next < last) next += MESSAGE_MAX;
+	if(next < last) next += MESSAGE_MAX;
 
 	/* Extract the space */
 	n = (next - last);
@@ -2420,7 +2420,7 @@ cptr message_str(int age)
 	cptr s;
 
 	/* Forgotten messages have no text */
-	if ((age < 0) || (age >= message_num())) return ("");
+	if((age < 0) || (age >= message_num())) return ("");
 
 	/* Acquire the "logical" index */
 	x = (message__next + MESSAGE_MAX - (age + 1)) % MESSAGE_MAX;
@@ -2451,16 +2451,16 @@ void message_add(cptr str)
 	/*** Step 1 -- Analyze the message ***/
 
 	/* Hack -- Ignore "non-messages" */
-	if (!str) return;
+	if(!str) return;
 
 	/* Message length */
 	n = strlen(str);
 
 	/* Important Hack -- Ignore "long" messages */
-	if (n >= MESSAGE_BUF / 4) return;
+	if(n >= MESSAGE_BUF / 4) return;
 
 	/* extra step -- split the message if n>80.   (added by Mogami) */
-	if (n > 80) {
+	if(n > 80) {
 #ifdef JP
 	  cptr t = str;
 
@@ -2469,11 +2469,11 @@ void message_add(cptr str)
 	      t++;
 	      n++;
 	    }
-	  if (n == 81) n = 79; /* 最後の文字が漢字半分 */
+	  if(n == 81) n = 79; /* 最後の文字が漢字半分 */
 #else
 	  for (n = 80; n > 60; n--)
-		  if (str[n] == ' ') break;
-	  if (n == 60)
+		  if(str[n] == ' ') break;
+	  if(n == 60)
 		  n = 80;
 #endif
 	  splitted2 = str + n;
@@ -2492,7 +2492,7 @@ void message_add(cptr str)
 	k = m / 4;
 
 	/* Limit number of messages to check */
-	if (k > MESSAGE_MAX / 32) k = MESSAGE_MAX / 32;
+	if(k > MESSAGE_MAX / 32) k = MESSAGE_MAX / 32;
 
 	/* Check previous message */
 	for (i = message__next; m; m--)
@@ -2505,13 +2505,13 @@ void message_add(cptr str)
 		cptr old;
 
 		/* Back up and wrap if needed */
-		if (i-- == 0) i = MESSAGE_MAX - 1;
+		if(i-- == 0) i = MESSAGE_MAX - 1;
 
 		/* Access the old string */
 		old = &message__buf[message__ptr[i]];
 
 		/* Skip small messages */
-		if (!old) continue;
+		if(!old) continue;
 
 		strcpy(buf, old);
 
@@ -2523,10 +2523,10 @@ void message_add(cptr str)
 		for (t = buf; *t && (*t != '<'); t++);
 #endif
 
-		if (*t)
+		if(*t)
 		{
 			/* Message is too small */
-			if (strlen(buf) < 6) break;
+			if(strlen(buf) < 6) break;
 
 			/* Drop the space */
 			*(t - 1) = '\0';
@@ -2536,7 +2536,7 @@ void message_add(cptr str)
 		}
 
 		/* Limit the multiplier to 1000 */
-		if (buf && streq(buf, str) && (j < 1000))
+		if(buf && streq(buf, str) && (j < 1000))
 		{
 			j++;
 
@@ -2551,7 +2551,7 @@ void message_add(cptr str)
 			/* Message length */
 			n = strlen(str);
 
-			if (!now_message) now_message++;
+			if(!now_message) now_message++;
 		}
 		else
 		{
@@ -2571,34 +2571,34 @@ void message_add(cptr str)
 		cptr old;
 
 		/* Back up and wrap if needed */
-		if (i-- == 0) i = MESSAGE_MAX - 1;
+		if(i-- == 0) i = MESSAGE_MAX - 1;
 
 		/* Stop before oldest message */
-		if (i == message__last) break;
+		if(i == message__last) break;
 
 		/* Extract "distance" from "head" */
 		q = (message__head + MESSAGE_BUF - message__ptr[i]) % MESSAGE_BUF;
 
 		/* Do not optimize over large distance */
-		if (q > MESSAGE_BUF / 2) continue;
+		if(q > MESSAGE_BUF / 2) continue;
 
 		/* Access the old string */
 		old = &message__buf[message__ptr[i]];
 
 		/* Compare */
-		if (!streq(old, str)) continue;
+		if(!streq(old, str)) continue;
 
 		/* Get the next message index, advance */
 		x = message__next++;
 
 		/* Handle wrap */
-		if (message__next == MESSAGE_MAX) message__next = 0;
+		if(message__next == MESSAGE_MAX) message__next = 0;
 
 		/* Kill last message if needed */
-		if (message__next == message__last) message__last++;
+		if(message__next == message__last) message__last++;
 
 		/* Handle wrap */
-		if (message__last == MESSAGE_MAX) message__last = 0;
+		if(message__last == MESSAGE_MAX) message__last = 0;
 
 		/* Assign the starting address */
 		message__ptr[x] = message__ptr[i];
@@ -2613,19 +2613,19 @@ void message_add(cptr str)
 	/*** Step 3 -- Ensure space before end of buffer ***/
 
 	/* Kill messages and Wrap if needed */
-	if (message__head + n + 1 >= MESSAGE_BUF)
+	if(message__head + n + 1 >= MESSAGE_BUF)
 	{
 		/* Kill all "dead" messages */
 		for (i = message__last; TRUE; i++)
 		{
 			/* Wrap if needed */
-			if (i == MESSAGE_MAX) i = 0;
+			if(i == MESSAGE_MAX) i = 0;
 
 			/* Stop before the new message */
-			if (i == message__next) break;
+			if(i == message__next) break;
 
 			/* Kill "dead" messages */
-			if (message__ptr[i] >= message__head)
+			if(message__ptr[i] >= message__head)
 			{
 				/* Track oldest message */
 				message__last = i + 1;
@@ -2633,7 +2633,7 @@ void message_add(cptr str)
 		}
 
 		/* Wrap "tail" if needed */
-		if (message__tail >= message__head) message__tail = 0;
+		if(message__tail >= message__head) message__tail = 0;
 
 		/* Start over */
 		message__head = 0;
@@ -2643,7 +2643,7 @@ void message_add(cptr str)
 	/*** Step 4 -- Ensure space before next message ***/
 
 	/* Kill messages if needed */
-	if (message__head + n + 1 > message__tail)
+	if(message__head + n + 1 > message__tail)
 	{
 		/* Grab new "tail" */
 		message__tail = message__head + n + 1;
@@ -2655,13 +2655,13 @@ void message_add(cptr str)
 		for (i = message__last; TRUE; i++)
 		{
 			/* Wrap if needed */
-			if (i == MESSAGE_MAX) i = 0;
+			if(i == MESSAGE_MAX) i = 0;
 
 			/* Stop before the new message */
-			if (i == message__next) break;
+			if(i == message__next) break;
 
 			/* Kill "dead" messages */
-			if ((message__ptr[i] >= message__head) &&
+			if((message__ptr[i] >= message__head) &&
 				(message__ptr[i] < message__tail))
 			{
 				/* Track oldest message */
@@ -2677,13 +2677,13 @@ void message_add(cptr str)
 	x = message__next++;
 
 	/* Handle wrap */
-	if (message__next == MESSAGE_MAX) message__next = 0;
+	if(message__next == MESSAGE_MAX) message__next = 0;
 
 	/* Kill last message if needed */
-	if (message__next == message__last) message__last++;
+	if(message__next == message__last) message__last++;
 
 	/* Handle wrap */
-	if (message__last == MESSAGE_MAX) message__last = 0;
+	if(message__last == MESSAGE_MAX) message__last = 0;
 
 
 
@@ -2707,7 +2707,7 @@ void message_add(cptr str)
 
 	/* recursively add splitted message (added by Mogami) */
  end_of_message_add:
-	if (splitted2 != NULL)
+	if(splitted2 != NULL)
 	  message_add(splitted2);
 }
 
@@ -2721,15 +2721,15 @@ static void msg_flush(int x)
 	byte a = TERM_L_BLUE;
 	bool nagasu = FALSE;
 
-	if ((auto_more && player_ptr && !player_ptr->now_damaged) || num_more < 0){
+	if((auto_more && player_ptr && !player_ptr->now_damaged) || num_more < 0){
 		int i;
 		for (i = 0; i < 8; i++)
 		{
-			if (angband_term[i] && (window_flag[i] & PW_MESSAGE)) break;
+			if(angband_term[i] && (window_flag[i] & PW_MESSAGE)) break;
 		}
-		if (i < 8)
+		if(i < 8)
 		{
-			if (num_more < angband_term[i]->hgt) nagasu = TRUE;
+			if(num_more < angband_term[i]->hgt) nagasu = TRUE;
 		}
 		else
 		{
@@ -2738,7 +2738,7 @@ static void msg_flush(int x)
 	}
 	if(player_ptr) player_ptr->now_damaged = FALSE;
 
-	if (!playing || !nagasu)
+	if(!playing || !nagasu)
 	{
 		/* Pause for response */
 #ifdef JP
@@ -2752,17 +2752,17 @@ static void msg_flush(int x)
 		while (1)
 		{
 			int cmd = inkey();
-			if (cmd == ESCAPE) {
+			if(cmd == ESCAPE) {
 			    num_more = -9999; /*auto_moreのとき、全て流す。 */
 			    break;
-			} else if (cmd == ' ') {
+			} else if(cmd == ' ') {
 			    num_more = 0; /*１画面だけ流す。 */
 			    break;
-			} else if ((cmd == '\n') || (cmd == '\r')) {
+			} else if((cmd == '\n') || (cmd == '\r')) {
 			    num_more--; /*１行だけ流す。 */
 			    break;
 			}
-			if (quick_messages) break;
+			if(quick_messages) break;
 			bell();
 		}
 	}
@@ -2804,10 +2804,10 @@ void msg_print(cptr msg)
 	char *t;
 	char buf[1024];
 
-	if (the_world) return;
+	if(the_world) return;
 
 	/* Hack -- Reset */
-	if (!msg_flag) {
+	if(!msg_flag) {
 		/* Clear the line */
 		Term_erase(0, 0, 255);
 		p = 0;
@@ -2817,7 +2817,7 @@ void msg_print(cptr msg)
 	n = (msg ? strlen(msg) : 0);
 
 	/* Hack -- flush when requested or needed */
-	if (p && (!msg || ((p + n) > 72)))
+	if(p && (!msg || ((p + n) > 72)))
 	{
 		/* Flush */
 		msg_flush(p);
@@ -2831,13 +2831,13 @@ void msg_print(cptr msg)
 
 
 	/* No message */
-	if (!msg) return;
+	if(!msg) return;
 
 	/* Paranoia */
-	if (n > 1000) return;
+	if(n > 1000) return;
 
 	/* Memorize the message */
-	if (character_generated) message_add(msg);
+	if(character_generated) message_add(msg);
 
 	/* Copy it */
 	strcpy(buf, msg);
@@ -2858,19 +2858,19 @@ void msg_print(cptr msg)
 		/* Find the "best" split point */
 		for (check = 0; check < 72; check++)
 		{
-			if (k_flag)
+			if(k_flag)
 			{
 				k_flag = FALSE;
 				continue;
 			}
 
 			/* Found a valid split point */
-			if (iskanji(t[check]))
+			if(iskanji(t[check]))
 			{
 				k_flag = TRUE;
 				split = check;
 			}
-			else if (t[check] == ' ')
+			else if(t[check] == ' ')
 			{
 				split = check;
 				wordlen = 0;
@@ -2878,7 +2878,7 @@ void msg_print(cptr msg)
 			else
 			{
 				wordlen++;
-				if (wordlen > 20)
+				if(wordlen > 20)
 					split = check;
 			}
 		}
@@ -2887,7 +2887,7 @@ void msg_print(cptr msg)
 		for (check = 40; check < 72; check++)
 		{
 			/* Found a valid split point */
-			if (t[check] == ' ') split = check;
+			if(t[check] == ' ') split = check;
 		}
 #endif
 
@@ -2904,7 +2904,7 @@ void msg_print(cptr msg)
 		msg_flush(split + 1);
 
 		/* Memorize the piece */
-		/* if (character_generated) message_add(t); */
+		/* if(character_generated) message_add(t); */
 
 		/* Restore the split character */
 		t[split] = oops;
@@ -2921,7 +2921,7 @@ void msg_print(cptr msg)
 	Term_putstr(p, 0, n, TERM_WHITE, t);
 
 	/* Memorize the tail */
-	/* if (character_generated) message_add(t); */
+	/* if(character_generated) message_add(t); */
 
 	/* Window stuff */
 	play_window |= (PW_MESSAGE);
@@ -2939,7 +2939,7 @@ void msg_print(cptr msg)
 
 
 	/* Optional refresh */
-	if (fresh_message) Term_fresh();
+	if(fresh_message) Term_fresh();
 }
 
 
@@ -2960,7 +2960,7 @@ void screen_save(void)
 	msg_print(NULL);
 
 	/* Save the screen (if legal) */
-	if (screen_depth++ == 0) Term_save();
+	if(screen_depth++ == 0) Term_save();
 }
 
 
@@ -2975,7 +2975,7 @@ void screen_load(void)
 	msg_print(NULL);
 
 	/* Load the screen (if legal) */
-	if (--screen_depth == 0) Term_load();
+	if(--screen_depth == 0) Term_load();
 }
 
 
@@ -3084,7 +3084,7 @@ void c_roff(byte a, cptr str)
 		int k_flag = iskanji(*s);
 #endif
 		/* Force wrap */
-		if (*s == '\n')
+		if(*s == '\n')
 		{
 			/* Wrap */
 			x = 0;
@@ -3109,9 +3109,9 @@ void c_roff(byte a, cptr str)
 
 		/* Wrap words as needed */
 #ifdef JP
-		if (( x >= ( (k_flag) ? w - 2 : w - 1 ) ) && (ch != ' '))
+		if(( x >= ( (k_flag) ? w - 2 : w - 1 ) ) && (ch != ' '))
 #else
-		if ((x >= w - 1) && (ch != ' '))
+		if((x >= w - 1) && (ch != ' '))
 #endif
 
 		{
@@ -3121,7 +3121,7 @@ void c_roff(byte a, cptr str)
 			char cv[256];
 
 			/* Wrap word */
-			if (x < w)
+			if(x < w)
 #ifdef JP
 			{
 			/* 現在が半角文字の場合 */
@@ -3135,12 +3135,12 @@ void c_roff(byte a, cptr str)
 					Term_what(i, y, &av[i], &cv[i]);
 
 					/* Break on space */
-					if (cv[i] == ' ') break;
+					if(cv[i] == ' ') break;
 
 					/* Track current word */
 					n = i;
 #ifdef JP
-					if (cv[i] == '(') break;
+					if(cv[i] == '(') break;
 #endif
 				}
 			}
@@ -3150,7 +3150,7 @@ void c_roff(byte a, cptr str)
 			{
 				/* 現在が全角文字のとき */
 				/* 文頭が「。」「、」等になるときは、その１つ前の語で改行 */
-				if (strncmp(s, "。", 2) == 0 || strncmp(s, "、", 2) == 0
+				if(strncmp(s, "。", 2) == 0 || strncmp(s, "、", 2) == 0
 #if 0                   /* 一般的には「ィ」「ー」は禁則の対象外 */
 					|| strncmp(s, "ィ", 2) == 0 || strncmp(s, "ー", 2) == 0
 #endif
@@ -3165,7 +3165,7 @@ void c_roff(byte a, cptr str)
 			}
 #endif
 			/* Special case */
-			if (n == 0) n = w;
+			if(n == 0) n = w;
 
 			/* Clear line */
 			Term_erase(n, y, 255);
@@ -3190,7 +3190,7 @@ void c_roff(byte a, cptr str)
 				Term_addch(av[i], cv[i]);
 
 				/* Advance (no wrap) */
-				if (++x > w) x = w;
+				if(++x > w) x = w;
 			}
 		}
 
@@ -3203,7 +3203,7 @@ void c_roff(byte a, cptr str)
 
 
 #ifdef JP
-		if (k_flag)
+		if(k_flag)
 		{
 			s++;
 			x++;
@@ -3212,7 +3212,7 @@ void c_roff(byte a, cptr str)
 		}
 #endif
 		/* Advance */
-		if (++x > w) x = w;
+		if(++x > w) x = w;
 	}
 }
 
@@ -3279,13 +3279,13 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 	Term_locate(&x, &y);
 
 	/* Paranoia -- check len */
-	if (len < 1) len = 1;
+	if(len < 1) len = 1;
 
 	/* Paranoia -- check column */
-	if ((x < 0) || (x >= 80)) x = 0;
+	if((x < 0) || (x >= 80)) x = 0;
 
 	/* Restrict the length */
-	if (x + len > 80) len = 80 - x;
+	if(x + len > 80) len = 80 - x;
 
 	/* Paranoia -- Clip the default entry */
 	buf[len] = '\0';
@@ -3318,18 +3318,18 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			color = TERM_WHITE;
 
 			/* No move at beginning of line */
-			if (0 == pos) break;
+			if(0 == pos) break;
 
 			while (TRUE)
 			{
 				int next_pos = i + 1;
 
 #ifdef JP
-				if (iskanji(buf[i])) next_pos++;
+				if(iskanji(buf[i])) next_pos++;
 #endif
 
 				/* Is there the cursor at next position? */ 
-				if (next_pos >= pos) break;
+				if(next_pos >= pos) break;
 
 				/* Move to next */
 				i = next_pos;
@@ -3347,11 +3347,11 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			color = TERM_WHITE;
 
 			/* No move at end of line */
-			if ('\0' == buf[pos]) break;
+			if('\0' == buf[pos]) break;
 
 #ifdef JP
 			/* Move right */
-			if (iskanji(buf[pos])) pos += 2;
+			if(iskanji(buf[pos])) pos += 2;
 			else pos++;
 #else
 			pos++;
@@ -3378,18 +3378,18 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			color = TERM_WHITE;
 
 			/* No move at beginning of line */
-			if (0 == pos) break;
+			if(0 == pos) break;
 
 			while (TRUE)
 			{
 				int next_pos = i + 1;
 
 #ifdef JP
-				if (iskanji(buf[i])) next_pos++;
+				if(iskanji(buf[i])) next_pos++;
 #endif
 
 				/* Is there the cursor at next position? */ 
-				if (next_pos >= pos) break;
+				if(next_pos >= pos) break;
 
 				/* Move to next */
 				i = next_pos;
@@ -3411,14 +3411,14 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			color = TERM_WHITE;
 
 			/* No move at end of line */
-			if ('\0' == buf[pos]) break;
+			if('\0' == buf[pos]) break;
 
 			/* Position of next character */
 			src = pos + 1;
 
 #ifdef JP
 			/* Next character is one more byte away */
-			if (iskanji(buf[pos])) src++;
+			if(iskanji(buf[pos])) src++;
 #endif
 
 			dst = pos;
@@ -3438,12 +3438,12 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			char c;
 
 			/* Ignore special keys */
-			if (skey & SKEY_MASK) break;
+			if(skey & SKEY_MASK) break;
 
 			/* Get a character code */
 			c = (char)skey;
 
-			if (color == TERM_YELLOW)
+			if(color == TERM_YELLOW)
 			{
 				/* Overwrite default string */
 				buf[0] = '\0';
@@ -3455,7 +3455,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 			/* Save right part of string */
 			strcpy(tmp, buf + pos);
 #ifdef JP
-			if (iskanji(c))
+			if(iskanji(c))
 			{
 				char next;
 
@@ -3463,7 +3463,7 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 				inkey_base = TRUE;
 				next = inkey();
 
-				if (pos + 1 < len)
+				if(pos + 1 < len)
 				{
 					buf[pos++] = c;
 					buf[pos++] = next;
@@ -3477,9 +3477,9 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 #endif
 			{
 #ifdef JP
-				if (pos < len && (isprint(c) || iskana(c)))
+				if(pos < len && (isprint(c) || iskana(c)))
 #else
-				if (pos < len && isprint(c))
+				if(pos < len && isprint(c))
 #endif
 				{
 					buf[pos++] = c;
@@ -3573,7 +3573,7 @@ bool get_check_strict(cptr prompt, int mode)
 	char buf[80];
 	bool flag = FALSE;
 
-	if (auto_more)
+	if(auto_more)
 	{
 		play_window |= PW_MESSAGE;
 		window_stuff();
@@ -3583,17 +3583,17 @@ bool get_check_strict(cptr prompt, int mode)
 	/* Paranoia XXX XXX XXX */
 	msg_print(NULL);
 
-	if (!rogue_like_commands)
+	if(!rogue_like_commands)
 		mode &= ~CHECK_OKAY_CANCEL;
 
 
 	/* Hack -- Build a "useful" prompt */
-	if (mode & CHECK_OKAY_CANCEL)
+	if(mode & CHECK_OKAY_CANCEL)
 	{
 		my_strcpy(buf, prompt, sizeof(buf)-15);
 		strcat(buf, "[(O)k/(C)ancel]");
 	}
-	else if (mode & CHECK_DEFAULT_Y)
+	else if(mode & CHECK_DEFAULT_Y)
 	{
 		my_strcpy(buf, prompt, sizeof(buf)-5);
 		strcat(buf, "[Y/n]");
@@ -3607,7 +3607,7 @@ bool get_check_strict(cptr prompt, int mode)
 	/* Prompt for it */
 	prt(buf, 0, 0);
 
-	if (!(mode & CHECK_NO_HISTORY) && playing)
+	if(!(mode & CHECK_NO_HISTORY) && playing)
 	{
 		/* HACK : Add the line to message buffer */
 		message_add(buf);
@@ -3620,23 +3620,23 @@ bool get_check_strict(cptr prompt, int mode)
 	{
 		i = inkey();
 
-		if (!(mode & CHECK_NO_ESCAPE))
+		if(!(mode & CHECK_NO_ESCAPE))
 		{
-			if (i == ESCAPE)
+			if(i == ESCAPE)
 			{
 				flag = FALSE;
 				break;
 			}
 		}
 
-		if (mode & CHECK_OKAY_CANCEL)
+		if(mode & CHECK_OKAY_CANCEL)
 		{
-			if (i == 'o' || i == 'O')
+			if(i == 'o' || i == 'O')
 			{
 				flag = TRUE;
 				break;
 			}
-			else if (i == 'c' || i == 'C')
+			else if(i == 'c' || i == 'C')
 			{
 				flag = FALSE;
 				break;
@@ -3644,19 +3644,19 @@ bool get_check_strict(cptr prompt, int mode)
 		}
 		else
 		{
-			if (i == 'y' || i == 'Y')
+			if(i == 'y' || i == 'Y')
 			{
 				flag = TRUE;
 				break;
 			}
-			else if (i == 'n' || i == 'N')
+			else if(i == 'n' || i == 'N')
 			{
 				flag = FALSE;
 				break;
 			}
 		}
 
-		if (mode & CHECK_DEFAULT_Y)
+		if(mode & CHECK_DEFAULT_Y)
 		{
 			flag = TRUE;
 			break;
@@ -3689,7 +3689,7 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	prt(prompt, 0, 0);
 
 	/* Get a key */
-	if (get_com_no_macros)
+	if(get_com_no_macros)
 		*command = inkey_special(FALSE);
 	else
 		*command = inkey();
@@ -3698,8 +3698,8 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	prt("", 0, 0);
 
 	/* Handle "cancel" */
-	if (*command == ESCAPE) return (FALSE);
-	if (z_escape && ((*command == 'z') || (*command == 'Z'))) return (FALSE);
+	if(*command == ESCAPE) return (FALSE);
+	if(z_escape && ((*command == 'z') || (*command == 'Z'))) return (FALSE);
 
 	/* Success */
 	return (TRUE);
@@ -3720,7 +3720,7 @@ s16b get_quantity(cptr prompt, int max)
 
 
 	/* Use "command_arg" */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Extract a number */
 		amt = command_arg;
@@ -3729,27 +3729,27 @@ s16b get_quantity(cptr prompt, int max)
 		command_arg = 0;
 
 		/* Enforce the maximum */
-		if (amt > max) amt = max;
+		if(amt > max) amt = max;
 
 		/* Use it */
 		return (amt);
 	}
 
 	/* Get the item index */
-	if ((max != 1) && repeat_pull(&amt))
+	if((max != 1) && repeat_pull(&amt))
 	{
 		/* Enforce the maximum */
-		if (amt > max) amt = max;
+		if(amt > max) amt = max;
 
 		/* Enforce the minimum */
-		if (amt < 0) amt = 0;
+		if(amt < 0) amt = 0;
 
 		/* Use it */
 		return (amt);
 	}
 
 	/* Build a prompt if needed */
-	if (!prompt)
+	if(!prompt)
 	{
 		/* Build a prompt */
 #ifdef JP
@@ -3785,21 +3785,21 @@ s16b get_quantity(cptr prompt, int max)
 	prt("", 0, 0);
 
 	/* Cancelled */
-	if (!res) return 0;
+	if(!res) return 0;
 
 	/* Extract a number */
 	amt = atoi(buf);
 
 	/* A letter means "all" */
-	if (isalpha(buf[0])) amt = max;
+	if(isalpha(buf[0])) amt = max;
 
 	/* Enforce the maximum */
-	if (amt > max) amt = max;
+	if(amt > max) amt = max;
 
 	/* Enforce the minimum */
-	if (amt < 0) amt = 0;
+	if(amt < 0) amt = 0;
 
-	if (amt) repeat_push(amt);
+	if(amt) repeat_push(amt);
 
 	/* Return the result */
 	return (amt);
@@ -4160,7 +4160,7 @@ static char inkey_from_menu(void)
 	bool kisuu;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	if (player_ptr->fy - panel_row_min > 10) basey = 2;
+	if(player_ptr->fy - panel_row_min > 10) basey = 2;
 	else basey = 13;
 	basex = 15;
 
@@ -4174,7 +4174,7 @@ static char inkey_from_menu(void)
 		int i;
 		char sub_cmd;
 		cptr menu_name;
-		if (!menu) old_num = num;
+		if(!menu) old_num = num;
 		put_str("+----------------------------------------------------+", basey, basex);
 		put_str("|                                                    |", basey+1, basex);
 		put_str("|                                                    |", basey+2, basex);
@@ -4186,21 +4186,21 @@ static char inkey_from_menu(void)
 		for(i = 0; i < 10; i++)
 		{
 			int hoge;
-			if (!menu_info[menu][i].cmd) break;
+			if(!menu_info[menu][i].cmd) break;
 			menu_name = menu_info[menu][i].name;
 			for(hoge = 0; ; hoge++)
 			{
-				if (!special_menu_info[hoge].name[0]) break;
-				if ((menu != special_menu_info[hoge].window) || (i != special_menu_info[hoge].number)) continue;
+				if(!special_menu_info[hoge].name[0]) break;
+				if((menu != special_menu_info[hoge].window) || (i != special_menu_info[hoge].number)) continue;
 				switch(special_menu_info[hoge].jouken)
 				{
 				case MENU_CLASS:
-					if (player_ptr->class_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
+					if(player_ptr->class_idx == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					break;
 				case MENU_WILD:
-					if (!floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
+					if(!floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 					{
-						if ((byte)floor_ptr->wild_mode == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
+						if((byte)floor_ptr->wild_mode == special_menu_info[hoge].jouken_naiyou) menu_name = special_menu_info[hoge].name;
 					}
 					break;
 				default:
@@ -4222,9 +4222,9 @@ static char inkey_from_menu(void)
 
 		/* Get a command */
 		sub_cmd = inkey();
-		if ((sub_cmd == ' ') || (sub_cmd == 'x') || (sub_cmd == 'X') || (sub_cmd == '\r') || (sub_cmd == '\n'))
+		if((sub_cmd == ' ') || (sub_cmd == 'x') || (sub_cmd == 'X') || (sub_cmd == '\r') || (sub_cmd == '\n'))
 		{
-			if (menu_info[menu][num].fin)
+			if(menu_info[menu][num].fin)
 			{
 				cmd = menu_info[menu][num].cmd;
 				use_menu = TRUE;
@@ -4238,9 +4238,9 @@ static char inkey_from_menu(void)
 				basex += 8;
 			}
 		}
-		else if ((sub_cmd == ESCAPE) || (sub_cmd == 'z') || (sub_cmd == 'Z') || (sub_cmd == '0'))
+		else if((sub_cmd == ESCAPE) || (sub_cmd == 'z') || (sub_cmd == 'Z') || (sub_cmd == '0'))
 		{
-			if (!menu)
+			if(!menu)
 			{
 				cmd = ESCAPE;
 				break;
@@ -4255,35 +4255,35 @@ static char inkey_from_menu(void)
 				screen_save();
 			}
 		}
-		else if ((sub_cmd == '2') || (sub_cmd == 'j') || (sub_cmd == 'J'))
+		else if((sub_cmd == '2') || (sub_cmd == 'j') || (sub_cmd == 'J'))
 		{
-			if (kisuu)
+			if(kisuu)
 			{
-				if (num % 2)
+				if(num % 2)
 					num = (num + 2) % (max_num - 1);
 				else
 					num = (num + 2) % (max_num + 1);
 			}
 			else num = (num + 2) % max_num;
 		}
-		else if ((sub_cmd == '8') || (sub_cmd == 'k') || (sub_cmd == 'K'))
+		else if((sub_cmd == '8') || (sub_cmd == 'k') || (sub_cmd == 'K'))
 		{
-			if (kisuu)
+			if(kisuu)
 			{
-				if (num % 2)
+				if(num % 2)
 					num = (num + max_num - 3) % (max_num - 1);
 				else
 					num = (num + max_num - 1) % (max_num + 1);
 			}
 			else num = (num + max_num - 2) % max_num;
 		}
-		else if ((sub_cmd == '4') || (sub_cmd == '6') || (sub_cmd == 'h') || (sub_cmd == 'H') || (sub_cmd == 'l') || (sub_cmd == 'L'))
+		else if((sub_cmd == '4') || (sub_cmd == '6') || (sub_cmd == 'h') || (sub_cmd == 'H') || (sub_cmd == 'l') || (sub_cmd == 'L'))
 		{
-			if ((num % 2) || (num == max_num - 1))
+			if((num % 2) || (num == max_num - 1))
 			{
 				num--;
 			}
-			else if (num < max_num - 1)
+			else if(num < max_num - 1)
 			{
 				num++;
 			}
@@ -4291,7 +4291,7 @@ static char inkey_from_menu(void)
 	}
 
 	screen_load();
-	if (!inkey_next) inkey_next = "";
+	if(!inkey_next) inkey_next = "";
 
 	return (cmd);
 }
@@ -4328,7 +4328,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 	int caretcmd = 0;
 #endif
 	/* Roguelike */
-	if (rogue_like_commands)
+	if(rogue_like_commands)
 	{
 		mode = KEYMAP_MODE_ROGUE;
 	}
@@ -4356,7 +4356,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 	while (1)
 	{
 		/* Hack -- auto-commands */
-		if (command_new)
+		if(command_new)
 		{
 			/* Flush messages */
 			msg_print(NULL);
@@ -4381,7 +4381,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 			/* Get a command */
 			cmd = inkey();
 
-			if (!shopping && command_menu && ((cmd == '\r') || (cmd == '\n') || (cmd == 'x') || (cmd == 'X'))
+			if(!shopping && command_menu && ((cmd == '\r') || (cmd == '\n') || (cmd == 'x') || (cmd == 'X'))
 			    && !keymap_act[mode][(byte)(cmd)])
 				cmd = inkey_from_menu();
 		}
@@ -4391,7 +4391,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 
 
 		/* Command Count */
-		if (cmd == '0')
+		if(cmd == '0')
 		{
 			int old_arg = command_arg;
 
@@ -4413,7 +4413,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 				cmd = inkey();
 
 				/* Simple editing (delete or backspace) */
-				if ((cmd == 0x7F) || (cmd == KTRL('H')))
+				if((cmd == 0x7F) || (cmd == KTRL('H')))
 				{
 					/* Delete a digit */
 					command_arg = command_arg / 10;
@@ -4428,10 +4428,10 @@ void request_command(creature_type *guest_ptr, int shopping)
 				}
 
 				/* Actual numeric data */
-				else if (cmd >= '0' && cmd <= '9')
+				else if(cmd >= '0' && cmd <= '9')
 				{
 					/* Stop count at 9999 */
-					if (command_arg >= 1000)
+					if(command_arg >= 1000)
 					{
 						/* Warn */
 						bell();
@@ -4464,7 +4464,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 			}
 
 			/* Hack -- Handle "zero" */
-			if (command_arg == 0)
+			if(command_arg == 0)
 			{
 				/* Default to 99 */
 				command_arg = 99;
@@ -4479,7 +4479,7 @@ void request_command(creature_type *guest_ptr, int shopping)
 			}
 
 			/* Hack -- Handle "old_arg" */
-			if (old_arg != 0)
+			if(old_arg != 0)
 			{
 				/* Restore old_arg */
 				command_arg = old_arg;
@@ -4494,13 +4494,13 @@ prt(format("回数: %d", command_arg), 0, 0);
 			}
 
 			/* Hack -- white-space means "enter command now" */
-			if ((cmd == ' ') || (cmd == '\n') || (cmd == '\r'))
+			if((cmd == ' ') || (cmd == '\n') || (cmd == '\r'))
 			{
 				/* Get a real command */
 #ifdef JP
-				if (!get_com("コマンド: ", (char *)&cmd, FALSE))
+				if(!get_com("コマンド: ", (char *)&cmd, FALSE))
 #else
-				if (!get_com("Command: ", (char *)&cmd, FALSE))
+				if(!get_com("Command: ", (char *)&cmd, FALSE))
 #endif
 
 				{
@@ -4515,7 +4515,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 
 
 		/* Allow "keymaps" to be bypassed */
-		if (cmd == '\\')
+		if(cmd == '\\')
 		{
 			/* Get a real command */
 #ifdef JP
@@ -4526,18 +4526,18 @@ prt(format("回数: %d", command_arg), 0, 0);
 
 
 			/* Hack -- bypass keymaps */
-			if (!inkey_next) inkey_next = "";
+			if(!inkey_next) inkey_next = "";
 		}
 
 
 		/* Allow "control chars" to be entered */
-		if (cmd == '^')
+		if(cmd == '^')
 		{
 			/* Get a new command and controlify it */
 #ifdef JP
-			if (get_com("CTRL: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
+			if(get_com("CTRL: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
 #else
-			if (get_com("Control: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
+			if(get_com("Control: ", (char *)&cmd, FALSE)) cmd = KTRL(cmd);
 #endif
 
 		}
@@ -4547,7 +4547,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 		act = keymap_act[mode][(byte)(cmd)];
 
 		/* Apply keymap if not inside a keymap already */
-		if (act && !inkey_next)
+		if(act && !inkey_next)
 		{
 			/* Install the keymap (limited buffer size) */
 			(void)strnfmt(request_command_buffer, 256, "%s", act);
@@ -4561,7 +4561,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 
 
 		/* Paranoia */
-		if (!cmd) continue;
+		if(!cmd) continue;
 
 
 		/* Use command */
@@ -4572,10 +4572,10 @@ prt(format("回数: %d", command_arg), 0, 0);
 	}
 
 	/* Hack -- Auto-repeat certain commands */
-	if (always_repeat && (command_arg <= 0))
+	if(always_repeat && (command_arg <= 0))
 	{
 		/* Hack -- auto repeat certain commands */
-		if (my_strchr("TBDoc+", (char)command_cmd))
+		if(my_strchr("TBDoc+", (char)command_cmd))
 		{
 			/* Repeat 99 times */
 			command_arg = 99;
@@ -4583,7 +4583,7 @@ prt(format("回数: %d", command_arg), 0, 0);
 	}
 
 	/* Shopping */
-	if (shopping == 1)
+	if(shopping == 1)
 	{
 		/* Convert */
 		switch (command_cmd)
@@ -4603,16 +4603,16 @@ prt(format("回数: %d", command_arg), 0, 0);
 	for (i = 0; i < 256; i++)
 	{
 		cptr s;
-		if ((s = keymap_act[mode][i]) != NULL)
+		if((s = keymap_act[mode][i]) != NULL)
 		{
-			if (*s == command_cmd && *(s+1) == 0)
+			if(*s == command_cmd && *(s+1) == 0)
 			{
 				caretcmd = i;
 				break;
 			}
 		}
 	}
-	if (!caretcmd)
+	if(!caretcmd)
 		caretcmd = command_cmd;
 #endif
 
@@ -4624,13 +4624,13 @@ prt(format("回数: %d", command_arg), 0, 0);
 		object_type *object_ptr = &guest_ptr->inventory[i];
 
 		/* Skip no equip */
-		if (!IS_EQUIPPED(object_ptr)) continue;
+		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if (!object_ptr->k_idx) continue;
+		if(!object_ptr->k_idx) continue;
 
 		/* No inscription */
-		if (!object_ptr->inscription) continue;
+		if(!object_ptr->inscription) continue;
 
 		/* Obtain the inscription */
 		s = quark_str(object_ptr->inscription);
@@ -4643,17 +4643,17 @@ prt(format("回数: %d", command_arg), 0, 0);
 		{
 			/* Check the "restriction" character */
 #ifdef JP
-			if ((s[1] == caretcmd) || (s[1] == '*'))
+			if((s[1] == caretcmd) || (s[1] == '*'))
 #else
-			if ((s[1] == command_cmd) || (s[1] == '*'))
+			if((s[1] == command_cmd) || (s[1] == '*'))
 #endif
 
 			{
 				/* Hack -- Verify command */
 #ifdef JP
-				if (!get_check("本当ですか? "))
+				if(!get_check("本当ですか? "))
 #else
-				if (!get_check("Are you sure? "))
+				if(!get_check("Are you sure? "))
 #endif
 
 				{
@@ -4718,10 +4718,10 @@ static bool insert_str(char *buf, cptr target, cptr insert)
 	buf = my_strstr(buf, target);
 
 	/* No target found */
-	if (!buf) return (FALSE);
+	if(!buf) return (FALSE);
 
 	/* Be sure we have an insertion string */
-	if (!insert) insert = "";
+	if(!insert) insert = "";
 
 	/* Extract some lengths */
 	t_len = strlen(target);
@@ -4732,19 +4732,19 @@ static bool insert_str(char *buf, cptr target, cptr insert)
 	len = i_len - t_len;
 
 	/* We need less space (for insert) */
-	if (len < 0)
+	if(len < 0)
 	{
 		for (i = t_len; i < b_len; ++i) buf[i+len] = buf[i];
 	}
 
 	/* We need more space (for insert) */
-	else if (len > 0)
+	else if(len > 0)
 	{
 		for (i = b_len-1; i >= t_len; --i) buf[i+len] = buf[i];
 	}
 
 	/* If movement occured, we need a new terminator */
-	if (len) buf[b_len+len] = '\0';
+	if(len) buf[b_len+len] = '\0';
 
 	/* Now copy the insertion string */
 	for (i = 0; i < i_len; ++i) buf[i] = insert[i];
@@ -4770,7 +4770,7 @@ int get_keymap_dir(char ch)
 	int d = 0;
 
 	/* Already a direction? */
-	if (isdigit(ch))
+	if(isdigit(ch))
 	{
 		d = D2I(ch);
 	}
@@ -4780,7 +4780,7 @@ int get_keymap_dir(char ch)
 		cptr act, s;
 
 		/* Roguelike */
-		if (rogue_like_commands)
+		if(rogue_like_commands)
 		{
 			mode = KEYMAP_MODE_ROGUE;
 		}
@@ -4795,19 +4795,19 @@ int get_keymap_dir(char ch)
 		act = keymap_act[mode][(byte)(ch)];
 
 		/* Analyze */
-		if (act)
+		if(act)
 		{
 			/* Convert to a direction */
 			for (s = act; *s; ++s)
 			{
 				/* Use any digits in keymap */
-				if (isdigit(*s)) d = D2I(*s);
+				if(isdigit(*s)) d = D2I(*s);
 			}
 		}
 	}
 
 	/* Paranoia */
-	if (d == 5) d = 0;
+	if(d == 5) d = 0;
 
 	/* Return direction */
 	return (d);
@@ -4829,7 +4829,7 @@ static int repeat__key[REPEAT_MAX];
 void repeat_push(int what)
 {
 	/* Too many keys */
-	if (repeat__cnt == REPEAT_MAX) return;
+	if(repeat__cnt == REPEAT_MAX) return;
 
 	/* Push the "stuff" */
 	repeat__key[repeat__cnt++] = what;
@@ -4842,7 +4842,7 @@ void repeat_push(int what)
 bool repeat_pull(int *what)
 {
 	/* All out of keys */
-	if (repeat__idx == repeat__cnt) return (FALSE);
+	if(repeat__idx == repeat__cnt) return (FALSE);
 
 	/* Grab the next key, advance */
 	*what = repeat__key[repeat__idx++];
@@ -4856,19 +4856,19 @@ void repeat_check(void)
 	int		what;
 
 	/* Ignore some commands */
-	if (command_cmd == ESCAPE) return;
-	if (command_cmd == ' ') return;
-	if (command_cmd == '\r') return;
-	if (command_cmd == '\n') return;
+	if(command_cmd == ESCAPE) return;
+	if(command_cmd == ' ') return;
+	if(command_cmd == '\r') return;
+	if(command_cmd == '\n') return;
 
 	/* Repeat Last Command */
-	if (command_cmd == 'n')
+	if(command_cmd == 'n')
 	{
 		/* Reset */
 		repeat__idx = 0;
 
 		/* Get the command */
-		if (repeat_pull(&what))
+		if(repeat_pull(&what))
 		{
 			/* Save the command */
 			command_cmd = what;
@@ -4944,11 +4944,11 @@ static tag_type median3(tag_type elements[], int left, int right)
 {
 	int center = (left + right) / 2;
 
-	if (elements[left].tag > elements[center].tag)
+	if(elements[left].tag > elements[center].tag)
 		swap(&elements[left], &elements[center]);
-	if (elements[left].tag > elements[right].tag)
+	if(elements[left].tag > elements[right].tag)
 		swap(&elements[left], &elements[right]);
-	if (elements[center].tag > elements[right].tag)
+	if(elements[center].tag > elements[right].tag)
 		swap(&elements[center], &elements[right]);
 
 	swap(&elements[center], &elements[right - 1]);
@@ -4973,7 +4973,7 @@ static void quicksort(tag_type elements[], int left, int right)
 	int i, j;
 	tag_type pivot;
 
-	if (left + CUTOFF <= right)
+	if(left + CUTOFF <= right)
 	{
 		pivot = median3(elements, left, right);
 
@@ -4984,7 +4984,7 @@ static void quicksort(tag_type elements[], int left, int right)
 			while (elements[++i].tag < pivot.tag);
 			while (elements[--j].tag > pivot.tag);
 
-			if (i < j)
+			if(i < j)
 				swap(&elements[i], &elements[j]);
 			else
 				break;
@@ -5131,10 +5131,10 @@ errr type_string(cptr str, uint len)
 	term *old = Term;
 
 	/* Paranoia - no string. */
-	if (!str) return -1;
+	if(!str) return -1;
 
 	/* Hack - calculate the string length here if none given. */
-	if (!len) len = strlen(str);
+	if(!len) len = strlen(str);
 
 	/* Activate the main window, as all pastes go there. */
 	Term_activate(term_screen);
@@ -5142,12 +5142,12 @@ errr type_string(cptr str, uint len)
 	for (s = str; s < str+len; s++)
 	{
 		/* Catch end of string */
-		if (*s == '\0') break;
+		if(*s == '\0') break;
 
 		err = Term_keypress(*s);
 
 		/* Catch errors */
-		if (err) break;
+		if(err) break;
 	}
 
 	/* Activate the original window. */
@@ -5181,25 +5181,25 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 #ifdef JP
 		kanji  = iskanji(ch[0]);
 
-		if (kanji)
+		if(kanji)
 		{
 			ch[1] = str[read_pt+1];
 			ch_len = 2;
 
-			if (strcmp(ch, "。") == 0 ||
+			if(strcmp(ch, "。") == 0 ||
 			    strcmp(ch, "、") == 0 ||
 			    strcmp(ch, "ィ") == 0 ||
 			    strcmp(ch, "ー") == 0)
 				kinsoku = TRUE;
 		}
-		else if (!isprint(ch[0]))
+		else if(!isprint(ch[0]))
 			ch[0] = ' ';
 #else
-		if (!isprint(ch[0]))
+		if(!isprint(ch[0]))
 			ch[0] = ' ';
 #endif
 
-		if (line_len + ch_len > maxlen - 1 || str[read_pt] == '\n')
+		if(line_len + ch_len > maxlen - 1 || str[read_pt] == '\n')
 		{
 			int word_len;
 
@@ -5207,16 +5207,16 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 			/* Space character at the end of the line need not to be printed. */
 			word_len = read_pt - word_punct;
 #ifdef JP
-			if (kanji && !kinsoku)
+			if(kanji && !kinsoku)
 				/* nothing */ ;
 			else
 #endif
-			if (ch[0] == ' ' || word_len >= line_len/2)
+			if(ch[0] == ' ' || word_len >= line_len/2)
 				read_pt++;
 			else
 			{
 				read_pt = word_punct;
-				if (str[word_punct] == ' ')
+				if(str[word_punct] == ' ')
 					read_pt++;
 				write_pt -= word_len;
 			}
@@ -5226,20 +5226,20 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
 			word_punct = read_pt;
 			continue;
 		}
-		if (ch[0] == ' ')
+		if(ch[0] == ' ')
 			word_punct = read_pt;
 #ifdef JP
-		if (!kinsoku) word_punct = read_pt;
+		if(!kinsoku) word_punct = read_pt;
 #endif
 
 		/* Not enough buffer size */
-		if ((size_t)(write_pt + 3) >= bufsize) break;
+		if((size_t)(write_pt + 3) >= bufsize) break;
 
 		tbuf[write_pt++] = ch[0];
 		line_len++;
 		read_pt++;
 #ifdef JP
-		if (kanji)
+		if(kanji)
 		{
 			tbuf[write_pt++] = ch[1];
 			line_len++;
@@ -5260,7 +5260,7 @@ void roff_to_buf(cptr str, int maxlen, char *tbuf, size_t bufsize)
  * not overlap.
  *
  * my_strcpy() returns strlen(src).  This makes checking for truncation
- * easy.  Example: if (my_strcpy(buf, src, sizeof(buf)) >= sizeof(buf)) ...;
+ * easy.  Example: if(my_strcpy(buf, src, sizeof(buf)) >= sizeof(buf)) ...;
  *
  * This function should be equivalent to the strlcpy() function in BSD.
  */
@@ -5272,16 +5272,16 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 	const char *s = src;
 	size_t len = 0;
 
-	if (bufsize > 0) {
+	if(bufsize > 0) {
 		/* reserve for NUL termination */
 		bufsize--;
 
 		/* Copy as many bytes as will fit */
 		while (*s && (len < bufsize))
 		{
-			if (iskanji(*s))
+			if(iskanji(*s))
 			{
-				if (len + 1 >= bufsize || !*(s+1)) break;
+				if(len + 1 >= bufsize || !*(s+1)) break;
 				*d++ = *s++;
 				*d++ = *s++;
 				len += 2;
@@ -5305,10 +5305,10 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 	size_t ret = len;
 
 	/* Paranoia */
-	if (bufsize == 0) return ret;
+	if(bufsize == 0) return ret;
 
 	/* Truncate */
-	if (len >= bufsize) len = bufsize - 1;
+	if(len >= bufsize) len = bufsize - 1;
 
 	/* Copy the string and terminate it */
 	(void)memcpy(buf, src, len);
@@ -5328,7 +5328,7 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
  *
  * my_strcat() returns strlen(buf) + strlen(src).  This makes checking for
  * truncation easy.  Example:
- * if (my_strcat(buf, src, sizeof(buf)) >= sizeof(buf)) ...;
+ * if(my_strcat(buf, src, sizeof(buf)) >= sizeof(buf)) ...;
  *
  * This function should be equivalent to the strlcat() function in BSD.
  */
@@ -5337,7 +5337,7 @@ size_t my_strcat(char *buf, const char *src, size_t bufsize)
 	size_t dlen = strlen(buf);
 
 	/* Is there room left in the buffer? */
-	if (dlen < bufsize - 1)
+	if(dlen < bufsize - 1)
 	{
 		/* Append as much as possible  */
 		return (dlen + my_strcpy(buf + dlen, src, bufsize - dlen));
@@ -5361,7 +5361,7 @@ char *my_strstr(const char *haystack, const char *needle)
 	int l1 = strlen(haystack);
 	int l2 = strlen(needle);
 
-	if (l1 >= l2)
+	if(l1 >= l2)
 	{
 		for(i = 0; i <= l1 - l2; i++)
 		{
@@ -5369,7 +5369,7 @@ char *my_strstr(const char *haystack, const char *needle)
 				return (char *)haystack + i;
 
 #ifdef JP
-			if (iskanji(*(haystack + i))) i++;
+			if(iskanji(*(haystack + i))) i++;
 #endif
 		}
 	}
@@ -5387,10 +5387,10 @@ char *my_strchr(const char *ptr, char ch)
 {
 	for ( ; *ptr != '\0'; ptr++)
 	{
-		if (*ptr == ch) return (char *)ptr;
+		if(*ptr == ch) return (char *)ptr;
 
 #ifdef JP
-		if (iskanji(*ptr)) ptr++;
+		if(iskanji(*ptr)) ptr++;
 #endif
 	}
 
@@ -5407,7 +5407,7 @@ void str_tolower(char *str)
 	for (; *str; str++)
 	{
 #ifdef JP
-		if (iskanji(*str))
+		if(iskanji(*str))
 		{
 			str++;
 			continue;
@@ -5488,12 +5488,12 @@ int inkey_special(bool numpad_cursor)
 	trig_len = strlen(inkey_macro_trigger_string);
 
 	/* Already known that no special key */
-	if (!trig_len) return (int)((unsigned char)key);
+	if(!trig_len) return (int)((unsigned char)key);
 
 	/*
 	 * Hack -- Ignore macro defined on ASCII characters.
 	 */
-	if (trig_len == 1 && parse_macro)
+	if(trig_len == 1 && parse_macro)
 	{
 		char c = inkey_macro_trigger_string[0];
 
@@ -5508,7 +5508,7 @@ int inkey_special(bool numpad_cursor)
 	ascii_to_text(buf, inkey_macro_trigger_string);
 
 	/* Check the prefix "\[" */
-	if (prefix(str, "\\["))
+	if(prefix(str, "\\["))
 	{
 		/* Skip "\[" */
 		str += 2;
@@ -5518,7 +5518,7 @@ int inkey_special(bool numpad_cursor)
 		{
 			for (i = 0; modifier_key_list[i].keyname; i++)
 			{
-				if (prefix(str, modifier_key_list[i].keyname))
+				if(prefix(str, modifier_key_list[i].keyname))
 				{
 					/* Get modifier key flag */
 					str += strlen(modifier_key_list[i].keyname);
@@ -5527,16 +5527,16 @@ int inkey_special(bool numpad_cursor)
 			}
 
 			/* No more modifier key found */
-			if (!modifier_key_list[i].keyname) break;
+			if(!modifier_key_list[i].keyname) break;
 		}
 
 		/* numpad_as_cursorkey option force numpad keys to input numbers */
-		if (!numpad_as_cursorkey) numpad_cursor = FALSE;
+		if(!numpad_as_cursorkey) numpad_cursor = FALSE;
 
 		/* Get a special key code */
 		for (i = 0; special_key_list[i].keyname; i++)
 		{
-			if ((!special_key_list[i].numpad || numpad_cursor) &&
+			if((!special_key_list[i].numpad || numpad_cursor) &&
 			    streq(str, special_key_list[i].keyname))
 			{
 				skey = special_key_list[i].keycode;
@@ -5545,7 +5545,7 @@ int inkey_special(bool numpad_cursor)
 		}
 
 		/* A special key found */
-		if (skey)
+		if(skey)
 		{
 			/* Cancel macro action on the queue */
 			forget_macro_action();
@@ -5596,7 +5596,7 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 	}
 
 	page_num = num <= h ? 1 : (num - 1) / h + 1;
-	if (num <= 0 || num <= default_se || w < 8) return -1;
+	if(num <= 0 || num <= default_se || w < 8) return -1;
 
 	se = default_se;
 
@@ -5656,18 +5656,18 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 			c_put_str(TERM_L_BLUE, buf, y+h, x);
 		}
 
-		if (detail) detail(se_ptr[se].code);
+		if(detail) detail(se_ptr[se].code);
 
 		c = inkey();
-		if (c == '2') se++;
-		if (c == '8') se--;
-		if (c == '6') se+=h;
-		if (c == '4') se-=h;
-		if (se < 0) se = 0;
-		if (se >= num) se = num - 1;
+		if(c == '2') se++;
+		if(c == '8') se--;
+		if(c == '6') se+=h;
+		if(c == '4') se-=h;
+		if(se < 0) se = 0;
+		if(se >= num) se = num - 1;
 
-		if (c == '\r') return se_ptr[se].code;
-		if (c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
+		if(c == '\r') return se_ptr[se].code;
+		if(c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
 		for (i = 0; i < num; i++)
 		{
 			if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;
@@ -5691,7 +5691,7 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 
 	for(i = 0; i <= num / 32; i++) ret[i] = 0;
 
-	if (num <= 0) return -1;
+	if(num <= 0) return -1;
 	
 	for(i = 0; i < w; i++)
 	{
@@ -5736,17 +5736,17 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 		sprintf(buf, "<= [%2d/%2d] =>", page, page_num);
 		c_put_str(TERM_L_BLUE, buf, y+h, x);
 
-		if (detail) detail(se_ptr[se].code);
+		if(detail) detail(se_ptr[se].code);
 
 		c = inkey();
-		if (c == '2') se++;
-		if (c == '8') se--;
-		if (c == '6') se+=h;
-		if (c == '4') se-=h;
-		if (se < 0) se = 0;
-		if (se >= num) se = num - 1;
+		if(c == '2') se++;
+		if(c == '8') se--;
+		if(c == '6') se+=h;
+		if(c == '4') se-=h;
+		if(se < 0) se = 0;
+		if(se >= num) se = num - 1;
 
-		if (c == '\r')
+		if(c == '\r')
 		{
 			if(ret[se/32] & (0x01 << se%32))
 			{
@@ -5759,12 +5759,12 @@ int get_multi_selection(selection *se_ptr, int num, int y, int x, int h, int w, 
 				selected_num++;
 			}
 		}
-		if (c == ESCAPE)
+		if(c == ESCAPE)
 		{
 			return selected_num;
 		}
 
-		if (c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
+		if(c >= 'a' && c < 'a' + h && !se_ptr[h*(page-1)+c-'a'].key) return se_ptr[h*(page-1)+c-'a'].code;
 		for (i = 0; i < num; i++)
 		{
 			if(se_ptr[i].key && se_ptr[i].key == c) return se_ptr[i].code;

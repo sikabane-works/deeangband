@@ -73,14 +73,14 @@ void set_height_weight(creature_type *creature_ptr)
 	   (IS_FEMALE(creature_ptr) && species_ptr->f_b_ht && species_ptr->f_b_wt) ||
 	   (species_ptr->m_b_ht && species_ptr->m_b_wt && species_ptr->f_b_ht && species_ptr->f_b_wt))
 	{
-		if (creature_ptr->sex == SEX_MALE)
+		if(creature_ptr->sex == SEX_MALE)
 		{
 			ave_b_ht = (int)(species_ptr->m_b_ht);
 			ave_m_ht = (int)(species_ptr->m_m_ht);
 			ave_b_wt = (int)(species_ptr->m_b_wt);
 			ave_m_wt = (int)(species_ptr->m_m_wt);
 		}
-		else if (creature_ptr->sex == SEX_FEMALE)
+		else if(creature_ptr->sex == SEX_FEMALE)
 		{
 			ave_b_ht = (int)(species_ptr->f_b_ht);
 			ave_m_ht = (int)(species_ptr->f_m_ht);
@@ -111,14 +111,14 @@ void set_height_weight(creature_type *creature_ptr)
 		female_ave_b_wt = (int)(IS_PURE(creature_ptr) ? race1_ptr->f_b_wt : (race1_ptr->f_b_wt + race2_ptr->f_b_wt) / 2);
 		female_ave_m_wt = (int)(IS_PURE(creature_ptr) ? race1_ptr->f_m_wt : race1_ptr->f_m_wt + race2_ptr->f_m_wt);
 
-		if (IS_MALE(creature_ptr))
+		if(IS_MALE(creature_ptr))
 		{
 			ave_b_ht = male_ave_b_ht;
 			ave_m_ht = male_ave_m_ht;
 			ave_b_wt = male_ave_b_wt;
 			ave_m_wt = male_ave_m_wt;
 		}
-		else if (IS_FEMALE(creature_ptr))
+		else if(IS_FEMALE(creature_ptr))
 		{
 			ave_b_ht = female_ave_b_ht;
 			ave_m_ht = female_ave_m_ht;
@@ -143,7 +143,7 @@ void set_height_weight(creature_type *creature_ptr)
 		ave_m_wt = 5;
 	}
 
-	if (creature_ptr->creature_ego_idx == MONEGO_VARIABLE_SIZE)
+	if(creature_ptr->creature_ego_idx == MONEGO_VARIABLE_SIZE)
 	{
 		int rate = randint0(400);
 		ave_m_ht = 0;
@@ -182,7 +182,7 @@ int calc_expfact_sp(species_type *species_ptr)
 {
 	int expfact;
 
-	if (has_trait_raw(&species_ptr->flags, TRAIT_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
+	if(has_trait_raw(&species_ptr->flags, TRAIT_ANDROID)) expfact = race_info[species_ptr->race_idx1].r_exp;
 	else 
 	{
 		if(IS_PURE(species_ptr))
@@ -198,7 +198,7 @@ int calc_expfact_sp(species_type *species_ptr)
 
 	}
 
-	if (has_trait_raw(&species_ptr->flags, TRAIT_WANT_LIGHT_WEIGHT) && has_trait_raw(&species_ptr->flags, TRAIT_AGILE_RACE))
+	if(has_trait_raw(&species_ptr->flags, TRAIT_WANT_LIGHT_WEIGHT) && has_trait_raw(&species_ptr->flags, TRAIT_AGILE_RACE))
 		expfact -= 15;
 
 	return expfact;
@@ -207,7 +207,7 @@ int calc_expfact_sp(species_type *species_ptr)
 // Set Current Experience factor
 void set_expfact(creature_type *creature_ptr)
 {
-	if (has_trait(creature_ptr, TRAIT_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
+	if(has_trait(creature_ptr, TRAIT_ANDROID)) creature_ptr->expfact = race_info[creature_ptr->race_idx1].r_exp;
 	else {
 		if(IS_PURE(creature_ptr))
 		{
@@ -222,7 +222,7 @@ void set_expfact(creature_type *creature_ptr)
 
 	}
 
-	if (has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && has_trait(creature_ptr, TRAIT_AGILE_RACE))
+	if(has_trait(creature_ptr, TRAIT_WANT_LIGHT_WEIGHT) && has_trait(creature_ptr, TRAIT_AGILE_RACE))
 		creature_ptr->expfact -= 15;
 }
 
@@ -296,7 +296,7 @@ void set_base_hp(creature_type *creature_ptr)
 		}
 
 		/* Require "valid" hitpoints at highest level */
-		if ((creature_ptr->base_hp[PY_MAX_LEVEL - 1] >= min_value) &&
+		if((creature_ptr->base_hp[PY_MAX_LEVEL - 1] >= min_value) &&
 		    (creature_ptr->base_hp[PY_MAX_LEVEL - 1] <= max_value)) break;
 	}
 }
@@ -360,7 +360,7 @@ static s16b calc_creature_standard_size(species_type * mr_ptr){
 		tmpht = mr_ptr->m_b_ht;
 		tmpwt = mr_ptr->m_b_wt;
 	}
-	else if (IS_FEMALE(mr_ptr))
+	else if(IS_FEMALE(mr_ptr))
 	{
 		tmpht = mr_ptr->f_b_ht;
 		tmpwt = mr_ptr->f_b_wt;
@@ -390,21 +390,21 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	size = calc_creature_standard_size(mr_ptr);
 
 	dice = size >= 10 ? 5 + size / 2 : size;
-	if (mr_ptr->race_idx1 != INDEX_NONE)
+	if(mr_ptr->race_idx1 != INDEX_NONE)
 		dice += race_info[mr_ptr->race_idx1].r_mhp;
-	if (mr_ptr->class_idx == CLASS_SORCERER)
+	if(mr_ptr->class_idx == CLASS_SORCERER)
 		dice /= 2;
-	if (mr_ptr->class_idx != INDEX_NONE)
+	if(mr_ptr->class_idx != INDEX_NONE)
 		dice += class_info[mr_ptr->class_idx].c_mhp;
-	if (mr_ptr->chara_idx != INDEX_NONE)
+	if(mr_ptr->chara_idx != INDEX_NONE)
 		dice += chara_info[mr_ptr->chara_idx].a_mhp;
 
 	con_p = mr_ptr->stat_max[STAT_CON] / STAT_FRACTION - 3;
-	if (con_p < 0) con_p = 0;
+	if(con_p < 0) con_p = 0;
 
 	bonus = ((int)(adj_con_mhp[con_p]) - 128) * num / 4;
 
-	if (mr_ptr->dr >= 1)
+	if(mr_ptr->dr >= 1)
 	{
 		result[0] = num * dice + bonus;
 	}
@@ -412,7 +412,7 @@ void estimate_enemy_hp(species_type *mr_ptr, int *result)
 	{
 		result[0] = num * (dice + 1) / 2 + bonus;
 	}
-	if (result[0] < 1) result[0] = 1;
+	if(result[0] < 1) result[0] = 1;
 	result[1] = num;
 	result[2] = dice;
 	result[3] = bonus;
@@ -460,8 +460,8 @@ void initialize_skill(creature_type *creature_ptr)
 
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
 	{
-		if (tmp_cls == CLASS_SORCERER) creature_ptr->spell_exp[i] = SPELL_EXP_MASTER;
-		else if (tmp_cls == CLASS_RED_MAGE) creature_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
+		if(tmp_cls == CLASS_SORCERER) creature_ptr->spell_exp[i] = SPELL_EXP_MASTER;
+		else if(tmp_cls == CLASS_RED_MAGE) creature_ptr->spell_exp[i] = SPELL_EXP_SKILLED;
 		else creature_ptr->spell_exp[i] = SPELL_EXP_UNSKILLED;
 	}
 
@@ -470,7 +470,7 @@ void initialize_skill(creature_type *creature_ptr)
 //		for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 //			creature_ptr->weapon_exp[i][j] = skill_info[tmp_cls].w_start[i][j];
 
-//	if ((creature_ptr->chara_idx == CHARA_SEXY) && (creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
+//	if((creature_ptr->chara_idx == CHARA_SEXY) && (creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] < WEAPON_EXP_BEGINNER))
 //	{
 //		creature_ptr->weapon_exp[TV_HAFTED-TV_WEAPON_BEGIN][SV_WHIP] = WEAPON_EXP_BEGINNER;
 //	}
@@ -800,8 +800,8 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 	for(i = 0; i <= INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
-		if (!object_ptr->k_idx) continue; // Skip non-objects
-		if (!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
+		if(!object_ptr->k_idx) continue; // Skip non-objects
+		if(!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
 		if(have_flag(object_ptr->trait_flags, type)) return TRUE;
 	}
 
@@ -883,12 +883,12 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_LITE:
-		if (has_trait(creature_ptr, TRAIT_HURT_LITE))
+		if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 		{
 #ifdef JP
-			if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
+			if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
 #else
-			if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("The light scorches your flesh!");
+			if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("The light scorches your flesh!");
 #endif
 			t *= 2;
 		}
@@ -954,7 +954,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_GRAVITY:
-		if (has_trait(creature_ptr, TRAIT_CAN_FLY)) t = (t * 2) / 3;
+		if(has_trait(creature_ptr, TRAIT_CAN_FLY)) t = (t * 2) / 3;
 		break;
 
 	case GF_HOLY_FIRE:
@@ -975,7 +975,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case GF_DISINTEGRATE:
-		if (has_trait(creature_ptr, TRAIT_HURT_ROCK)) t *= 2;
+		if(has_trait(creature_ptr, TRAIT_HURT_ROCK)) t *= 2;
 		break;
 
 	case GF_ROCKET:
@@ -996,14 +996,14 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	}
 
 	/* TODO Multishadow
-	if (!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+	if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 	{
-		if ((!(double_resist || creature_ptr->resist_acid)) &&
+		if((!(double_resist || creature_ptr->resist_acid)) &&
 		    one_in_(HURT_CHANCE))
 			(void)do_dec_stat(creature_ptr, STAT_CHA);
 
 		// If any armor gets hit, defend the player
-		if (minus_ac(creature_ptr)) dam = (dam + 1) / 2;
+		if(minus_ac(creature_ptr)) dam = (dam + 1) / 2;
 	}
 	*/
 
@@ -1424,8 +1424,8 @@ int count_melee_slot(creature_type *creature_ptr)
 int calc_weapon_melee_cost(creature_type *creature_ptr, object_type *weapon_ptr)
 {
 	int ind = weapon_ptr->weight * 100 / calc_equipping_weight_limit(creature_ptr) / 5;
-	if (ind < 0) ind = 0;
-	if (ind > PERCENTAGE / 5) ind = PERCENTAGE / 5;
+	if(ind < 0) ind = 0;
+	if(ind > PERCENTAGE / 5) ind = PERCENTAGE / 5;
 	return (adj_dex_action_point[creature_ptr->stat_ind[STAT_DEX]] * adj_weight_action_point[ind]) / 1000;
 }
 
@@ -1451,7 +1451,7 @@ int calc_action_power(creature_type *creature_ptr)
 	point = creature_ptr->skill_thn / 4;
 
 	// Hex - extra mights gives to action_point
-	if (hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING))
+	if(hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING))
 	{ 
 		point += (point * 6 / 5);
 	}

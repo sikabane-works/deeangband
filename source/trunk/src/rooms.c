@@ -77,7 +77,7 @@ static byte room_build_order[ROOM_T_MAX] = {
 
 static void place_locked_door(floor_type *floor_ptr, int y, int x)
 {
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
 		place_floor_bold(floor_ptr, y, x);
 	}
@@ -91,7 +91,7 @@ static void place_locked_door(floor_type *floor_ptr, int y, int x)
 
 static void place_secret_door(floor_type *floor_ptr, int y, int x, int type)
 {
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_DOORS)
 	{
 		place_floor_bold(floor_ptr, y, x);
 	}
@@ -99,7 +99,7 @@ static void place_secret_door(floor_type *floor_ptr, int y, int x, int type)
 	{
 		cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-		if (type == DOOR_DEFAULT)
+		if(type == DOOR_DEFAULT)
 		{
 			type = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
 			        one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
@@ -109,15 +109,15 @@ static void place_secret_door(floor_type *floor_ptr, int y, int x, int type)
 		/* Create secret door */
 		place_closed_door(floor_ptr, y, x, type);
 
-		if (type != DOOR_CURTAIN)
+		if(type != DOOR_CURTAIN)
 		{
 			/* Hide by inner wall because this is used in rooms only */
 			c_ptr->mimic = feat_wall_inner;
 
 			/* Floor type terrain cannot hide a door */
-			if (feat_supports_los(c_ptr->mimic) && !feat_supports_los(c_ptr->feat))
+			if(feat_supports_los(c_ptr->mimic) && !feat_supports_los(c_ptr->feat))
 			{
-				if (have_flag(feature_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(feature_info[c_ptr->mimic].flags, FF_CAN_FLY))
+				if(have_flag(feature_info[c_ptr->mimic].flags, FF_MOVE) || have_flag(feature_info[c_ptr->mimic].flags, FF_CAN_FLY))
 				{
 					c_ptr->feat = one_in_(2) ? c_ptr->mimic : feat_floor_rand_table[randint0(100)];
 				}
@@ -196,7 +196,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 		new_is_floor = get_floor(floor_ptr, x, y1 - 1);
 
 		/* Increment counter if they are different */
-		if (new_is_floor != old_is_floor) count++;
+		if(new_is_floor != old_is_floor) count++;
 
 		old_is_floor = new_is_floor;
 	}
@@ -207,7 +207,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 		new_is_floor = get_floor(floor_ptr, x2 + 1, y);
 
 		/* increment counter if they are different */
-		if (new_is_floor != old_is_floor) count++;
+		if(new_is_floor != old_is_floor) count++;
 
 		old_is_floor = new_is_floor;
 	}
@@ -218,7 +218,7 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 		new_is_floor = get_floor(floor_ptr, x, y2 + 1);
 
 		/* increment counter if they are different */
-		if (new_is_floor != old_is_floor) count++;
+		if(new_is_floor != old_is_floor) count++;
 
 		old_is_floor = new_is_floor;
 	}
@@ -229,13 +229,13 @@ static void check_room_boundary(floor_type *floor_ptr, int x1, int y1, int x2, i
 		new_is_floor = get_floor(floor_ptr, x1 - 1, y);
 
 		/* increment counter if they are different */
-		if (new_is_floor != old_is_floor) count++;
+		if(new_is_floor != old_is_floor) count++;
 
 		old_is_floor = new_is_floor;
 	}
 
 	/* If all the same, or only one connection exit. */
-	if (count <= 2) return;
+	if(count <= 2) return;
 
 
 	/* Tunnel around the room so to prevent problems with caves */
@@ -259,17 +259,17 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 	int by1, bx1, by2, bx2, by, bx;
 
 	/* Itty-bitty rooms must shift about within their rectangle */
-	if (blocks_wide < 3)
+	if(blocks_wide < 3)
 	{
-		if ((blocks_wide == 2) && (block_x % 3) == 2)
+		if((blocks_wide == 2) && (block_x % 3) == 2)
 			return FALSE;
 	}
 
 	/* Rooms with width divisible by 3 must be fitted to a rectangle. */
-	else if ((blocks_wide % 3) == 0)
+	else if((blocks_wide % 3) == 0)
 	{
 		/* Must be aligned to the left edge of a 11x33 rectangle. */
-		if ((block_x % 3) != 0)
+		if((block_x % 3) != 0)
 			return FALSE;
 	}
 
@@ -280,20 +280,20 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 	else
 	{
 		/* Shift towards left edge of dungeon. */
-		if (block_x + (blocks_wide / 2) <= dungeon_ptr->col_rooms / 2)
+		if(block_x + (blocks_wide / 2) <= dungeon_ptr->col_rooms / 2)
 		{
-			if (((block_x % 3) == 2) && ((blocks_wide % 3) == 2))
+			if(((block_x % 3) == 2) && ((blocks_wide % 3) == 2))
 				return FALSE;
-			if ((block_x % 3) == 1)
+			if((block_x % 3) == 1)
 				return FALSE;
 		}
 
 		/* Shift toward right edge of dungeon. */
 		else
 		{
-			if (((block_x % 3) == 2) && ((blocks_wide % 3) == 2))
+			if(((block_x % 3) == 2) && ((blocks_wide % 3) == 2))
 				return FALSE;
-			if ((block_x % 3) == 1)
+			if((block_x % 3) == 1)
 				return FALSE;
 		}
 	}
@@ -305,15 +305,15 @@ static bool find_space_aux(int blocks_high, int blocks_wide, int block_y, int bl
 	bx2 = block_x + blocks_wide;
 
 	/* Never run off the screen */
-	if ((by1 < 0) || (by2 > dungeon_ptr->row_rooms)) return FALSE;
-	if ((bx1 < 0) || (bx2 > dungeon_ptr->col_rooms)) return FALSE;
+	if((by1 < 0) || (by2 > dungeon_ptr->row_rooms)) return FALSE;
+	if((bx1 < 0) || (bx2 > dungeon_ptr->col_rooms)) return FALSE;
 	
 	/* Verify available space */
 	for (by = by1; by < by2; by++)
 	{
 		for (bx = bx1; bx < bx2; bx++)
 		{
-			if (dungeon_ptr->room_map[by][bx])
+			if(dungeon_ptr->room_map[by][bx])
 			{
 				return FALSE;
 			}
@@ -351,8 +351,8 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	int blocks_wide = 1 + ((width - 1) / BLOCK_WID);
 
 	/* There are no way to allocate such huge space */
-	if (dungeon_ptr->row_rooms < blocks_high) return FALSE;
-	if (dungeon_ptr->col_rooms < blocks_wide) return FALSE;
+	if(dungeon_ptr->row_rooms < blocks_high) return FALSE;
+	if(dungeon_ptr->col_rooms < blocks_wide) return FALSE;
 
 	/* Initiallize */
 	candidates = 0;
@@ -362,7 +362,7 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	{
 		for (block_x = dungeon_ptr->col_rooms - blocks_wide; block_x >= 0; block_x--)
 		{
-			if (find_space_aux(blocks_high, blocks_wide, block_y, block_x))
+			if(find_space_aux(blocks_high, blocks_wide, block_y, block_x))
 			{
 				/* Find a valid place */
 				candidates++;
@@ -371,13 +371,13 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	}
 
 	/* No place! */
-	if (!candidates)
+	if(!candidates)
 	{
 		return FALSE;
 	}
 
 	/* Normal dungeon */
-	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE))
+	if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE))
 	{
 		/* Choose a random one */
 		pick = randint1(candidates);
@@ -395,16 +395,16 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	{
 		for (block_x = dungeon_ptr->col_rooms - blocks_wide; block_x >= 0; block_x--)
 		{
-			if (find_space_aux(blocks_high, blocks_wide, block_y, block_x))
+			if(find_space_aux(blocks_high, blocks_wide, block_y, block_x))
 			{
 				pick--;
 
 				/* This one is picked? */
-				if (!pick) break;
+				if(!pick) break;
 			}
 		}
 
-		if (!pick) break;
+		if(!pick) break;
 	}
 
 	/* Extract blocks */
@@ -423,7 +423,7 @@ static bool find_space(floor_type *floor_ptr, int *y, int *x, int height, int wi
 	(*x) = ((bx1 + bx2) * BLOCK_WID) / 2;
 
 	/* Save the room location */
-	if (dungeon_ptr->cent_n < CENT_MAX)
+	if(dungeon_ptr->cent_n < CENT_MAX)
 	{
 		dungeon_ptr->cent[dungeon_ptr->cent_n].y = *y;
 		dungeon_ptr->cent[dungeon_ptr->cent_n].x = *x;
@@ -499,7 +499,7 @@ static bool build_type1(floor_type *floor_ptr)
 	ysize = y1 + y2 + 1;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2))
+	if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2))
 	{
 		/* Limit to the minimum room size, and retry */
 		y1 = 1;
@@ -511,7 +511,7 @@ static bool build_type1(floor_type *floor_ptr)
 		ysize = y1 + y2 + 1;
 
 		/* Find and reserve some space in the dungeon.  Get center of room. */
-		if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+		if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 	}
 
 	/* Choose lite or dark */
@@ -531,7 +531,7 @@ static bool build_type1(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -552,7 +552,7 @@ static bool build_type1(floor_type *floor_ptr)
 	}
 
 	/* Hack -- Occasional curtained room */
-	if (curtain && (y2 - y1 > 2) && (x2 - x1 > 2))
+	if(curtain && (y2 - y1 > 2) && (x2 - x1 > 2))
 	{
 		for (y = y1; y <= y2; y++)
 		{
@@ -576,7 +576,7 @@ static bool build_type1(floor_type *floor_ptr)
 
 
 	/* Hack -- Occasional pillar room */
-	if (one_in_(20))
+	if(one_in_(20))
 	{
 		for (y = y1; y <= y2; y += 2)
 		{
@@ -589,9 +589,9 @@ static bool build_type1(floor_type *floor_ptr)
 	}
 
 	/* Hack -- Occasional room with four pillars */
-	else if (one_in_(20))
+	else if(one_in_(20))
 	{
-		if ((y1 + 4 < y2) && (x1 + 4 < x2))
+		if((y1 + 4 < y2) && (x1 + 4 < x2))
 		{
 			c_ptr = &floor_ptr->cave[y1 + 1][x1 + 1];
 			place_inner_grid(c_ptr);
@@ -608,7 +608,7 @@ static bool build_type1(floor_type *floor_ptr)
 	}
 
 	/* Hack -- Occasional ragged-edge room */
-	else if (one_in_(50))
+	else if(one_in_(50))
 	{
 		for (y = y1 + 2; y <= y2 - 2; y += 2)
 		{
@@ -626,18 +626,18 @@ static bool build_type1(floor_type *floor_ptr)
 		}
 	}
 	/* Hack -- Occasional divided room */
-	else if (one_in_(50))
+	else if(one_in_(50))
 	{
 		bool curtain2 = (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
 			one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 2 : 128);
 
-		if (randint1(100) < 50)
+		if(randint1(100) < 50)
 		{
 			/* Horizontal wall */
 			for (x = x1; x <= x2; x++)
 			{
 				place_inner_bold(floor_ptr, yval, x);
-				if (curtain2) floor_ptr->cave[yval][x].feat = feat_door[DOOR_CURTAIN].closed;
+				if(curtain2) floor_ptr->cave[yval][x].feat = feat_door[DOOR_CURTAIN].closed;
 			}
 
 			/* Prevent edge of wall from being tunneled */
@@ -650,7 +650,7 @@ static bool build_type1(floor_type *floor_ptr)
 			for (y = y1; y <= y2; y++)
 			{
 				place_inner_bold(floor_ptr, y, xval);
-				if (curtain2) floor_ptr->cave[y][xval].feat = feat_door[DOOR_CURTAIN].closed;
+				if(curtain2) floor_ptr->cave[y][xval].feat = feat_door[DOOR_CURTAIN].closed;
 			}
 
 			/* Prevent edge of wall from being tunneled */
@@ -659,7 +659,7 @@ static bool build_type1(floor_type *floor_ptr)
 		}
 
 		place_random_door(floor_ptr, yval, xval, TRUE);
-		if (curtain2) floor_ptr->cave[yval][xval].feat = feat_door[DOOR_CURTAIN].closed;
+		if(curtain2) floor_ptr->cave[yval][xval].feat = feat_door[DOOR_CURTAIN].closed;
 	}
 
 	if(one_in_(2)){
@@ -687,7 +687,7 @@ static bool build_type2(floor_type *floor_ptr)
 	cave_type   *c_ptr;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, 25, 25)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, 25, 25)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -714,7 +714,7 @@ static bool build_type2(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -726,7 +726,7 @@ static bool build_type2(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -822,7 +822,7 @@ static bool build_type3(floor_type *floor_ptr)
 	dx = rand_range(3, 9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, dy*2+3, dx*2+3)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, dy*2+3, dx*2+3)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -856,7 +856,7 @@ static bool build_type3(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -868,7 +868,7 @@ static bool build_type3(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -989,12 +989,12 @@ static bool build_type3(floor_type *floor_ptr)
 		case 3:
 		{
 			/* Occasionally pinch the center shut */
-			if (one_in_(3))
+			if(one_in_(3))
 			{
 				/* Pinch the east/west sides */
 				for (y = y1b; y <= y2b; y++)
 				{
-					if (y == yval) continue;
+					if(y == yval) continue;
 					c_ptr = &floor_ptr->cave[y][x1a - 1];
 					place_inner_grid(c_ptr);
 					c_ptr = &floor_ptr->cave[y][x2a + 1];
@@ -1004,7 +1004,7 @@ static bool build_type3(floor_type *floor_ptr)
 				/* Pinch the north/south sides */
 				for (x = x1a; x <= x2a; x++)
 				{
-					if (x == xval) continue;
+					if(x == xval) continue;
 					c_ptr = &floor_ptr->cave[y1b - 1][x];
 					place_inner_grid(c_ptr);
 					c_ptr = &floor_ptr->cave[y2b + 1][x];
@@ -1012,7 +1012,7 @@ static bool build_type3(floor_type *floor_ptr)
 				}
 
 				/* Sometimes shut using secret doors */
-				if (one_in_(3))
+				if(one_in_(3))
 				{
 					int door_type = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
 						one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
@@ -1026,7 +1026,7 @@ static bool build_type3(floor_type *floor_ptr)
 			}
 
 			/* Occasionally put a "plus" in the center */
-			else if (one_in_(3))
+			else if(one_in_(3))
 			{
 				c_ptr = &floor_ptr->cave[yval][xval];
 				place_inner_grid(c_ptr);
@@ -1041,7 +1041,7 @@ static bool build_type3(floor_type *floor_ptr)
 			}
 
 			/* Occasionally put a pillar in the center */
-			else if (one_in_(3))
+			else if(one_in_(3))
 			{
 				c_ptr = &floor_ptr->cave[yval][xval];
 				place_inner_grid(c_ptr);
@@ -1077,7 +1077,7 @@ static bool build_type4(floor_type *floor_ptr)
 	y = 10 + rand_range(0, 40);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -1090,7 +1090,7 @@ static bool build_type4(floor_type *floor_ptr)
 	x2 = xval + x/2;
 
 	/* Describe */
-	if (cheat_room)
+	if(cheat_room)
 	{
 		/* Room type */
 		msg_format("[Large Room(%d,%d-%d,%d)]", x1, y1, x2, y2);
@@ -1104,7 +1104,7 @@ static bool build_type4(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -1186,7 +1186,7 @@ static bool build_type4(floor_type *floor_ptr)
 			{
 				for (x = xval -  1; x <= xval + 1; x++)
 				{
-					if ((x == xval) && (y == yval)) continue;
+					if((x == xval) && (y == yval)) continue;
 					c_ptr = &floor_ptr->cave[y][x];
 					place_inner_grid(c_ptr);
 				}
@@ -1205,7 +1205,7 @@ static bool build_type4(floor_type *floor_ptr)
 			vault_creatures(floor_ptr, yval, xval, randint1(3) + 2);
 
 			/* Object (80%) */
-			if (randint0(100) < 80)
+			if(randint0(100) < 80)
 			{
 				place_object(floor_ptr, yval, xval, 0L);
 			}
@@ -1245,7 +1245,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Occasionally, two more Large Inner Pillars */
-			if (one_in_(2))
+			if(one_in_(2))
 			{
 				tmp = randint1(2);
 				for (y = yval - 1; y <= yval + 1; y++)
@@ -1264,7 +1264,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Occasionally, some Inner rooms */
-			if (one_in_(3))
+			if(one_in_(3))
 			{
 				int door_type = ((dungeon_info[floor_ptr->dun_type].flags1 & DF1_CURTAIN) &&
 					one_in_((dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE) ? 16 : 256)) ? DOOR_CURTAIN :
@@ -1294,8 +1294,8 @@ static bool build_type4(floor_type *floor_ptr)
 				vault_creatures(floor_ptr, yval, xval + 2, randint1(2));
 
 				/* Objects */
-				if (one_in_(3)) place_object(floor_ptr, yval, xval - 2, 0L);
-				if (one_in_(3)) place_object(floor_ptr, yval, xval + 2, 0L);
+				if(one_in_(3)) place_object(floor_ptr, yval, xval - 2, 0L);
+				if(one_in_(3)) place_object(floor_ptr, yval, xval + 2, 0L);
 			}
 
 			break;
@@ -1318,7 +1318,7 @@ static bool build_type4(floor_type *floor_ptr)
 			{
 				for (x = x1; x <= x2; x++)
 				{
-					if (0x1 & (x + y))
+					if(0x1 & (x + y))
 					{
 						c_ptr = &floor_ptr->cave[y][x];
 						place_inner_grid(c_ptr);
@@ -1360,7 +1360,7 @@ static bool build_type4(floor_type *floor_ptr)
 			}
 
 			/* Doors into the rooms */
-			if (randint0(100) < 50)
+			if(randint0(100) < 50)
 			{
 				int i = randint1(10);
 				place_secret_door(floor_ptr, y1 - 1, xval - i, door_type);
@@ -1446,15 +1446,15 @@ static bool vault_aux_jelly(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Also decline evil jellies (like death molds and shoggoths) */
-	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
+	if(is_enemy_of_good_species(r_ptr)) return (FALSE);
 
 	/* Require icky thing, jelly, mold, or mushroom */
-	if (!my_strchr("ijm,", r_ptr->d_char)) return (FALSE);
+	if(!my_strchr("ijm,", r_ptr->d_char)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1468,8 +1468,8 @@ static bool vault_aux_animal(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
 
-	if (!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
-	if (!has_trait_species(r_ptr, TRAIT_ANIMAL)) return (FALSE);	// Require "animal" flag
+	if(!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
+	if(!has_trait_species(r_ptr, TRAIT_ANIMAL)) return (FALSE);	// Require "animal" flag
 
 	/* Okay */
 	return (TRUE);
@@ -1484,10 +1484,10 @@ static bool vault_aux_undead(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require Undead */
-	if (!has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
+	if(!has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1510,17 +1510,17 @@ static bool vault_aux_chapel_g(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
-	if ((species_idx == SPECIES_A_GOLD) || (species_idx == SPECIES_A_SILVER)) return (FALSE);
+	if(is_enemy_of_good_species(r_ptr)) return (FALSE);
+	if((species_idx == SPECIES_A_GOLD) || (species_idx == SPECIES_A_SILVER)) return (FALSE);
 
 	/* Require "priest" or Angel */
 
-	if (r_ptr->d_char == 'A') return TRUE;
+	if(r_ptr->d_char == 'A') return TRUE;
 
 	for (i = 0; chapel_list[i]; i++)
-		if (species_idx == chapel_list[i]) return TRUE;
+		if(species_idx == chapel_list[i]) return TRUE;
 
 	return FALSE;
 }
@@ -1534,10 +1534,10 @@ static bool vault_aux_kennel(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require a Zephyr Hound or a dog */
-	if (!my_strchr("CZ", r_ptr->d_char)) return (FALSE);
+	if(!my_strchr("CZ", r_ptr->d_char)) return (FALSE);
   
 	/* Okay */
 	return (TRUE);
@@ -1552,10 +1552,10 @@ static bool vault_aux_mimic(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require mimic */
-	if (!my_strchr("!$&(/=?[\\|", r_ptr->d_char)) return (FALSE);
+	if(!my_strchr("!$&(/=?[\\|", r_ptr->d_char)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1567,7 +1567,7 @@ static bool vault_aux_mimic(int species_idx)
 static bool vault_aux_clone(int species_idx)
 {
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	return (species_idx == vault_aux_race);
 }
@@ -1581,14 +1581,14 @@ static bool vault_aux_symbol_e(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
-	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
+	if(is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
 	/* Decline incorrect symbol */
-	if (r_ptr->d_char != vault_aux_char) return (FALSE);
+	if(r_ptr->d_char != vault_aux_char) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1603,14 +1603,14 @@ static bool vault_aux_symbol_g(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
-	if (is_enemy_of_good_species(r_ptr)) return (FALSE);
+	if(is_enemy_of_good_species(r_ptr)) return (FALSE);
 
 	/* Decline incorrect symbol */
-	if (r_ptr->d_char != vault_aux_char) return (FALSE);
+	if(r_ptr->d_char != vault_aux_char) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1624,9 +1624,9 @@ static bool vault_aux_orc(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
-	if (!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
-	if (!has_trait_species(species_ptr, TRAIT_ORC)) return (FALSE);		// Require orc
-	if (has_trait_species(species_ptr, TRAIT_UNDEAD)) return (FALSE);					// Decline undead
+	if(!vault_creature_okay(species_idx)) return (FALSE);			// Validate the creature
+	if(!has_trait_species(species_ptr, TRAIT_ORC)) return (FALSE);		// Require orc
+	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return (FALSE);					// Decline undead
 
 	return (TRUE); // Okay
 }
@@ -1639,9 +1639,9 @@ static bool vault_aux_troll(int species_idx)
 {
 	species_type *species_ptr = &species_info[species_idx];
 
-	if (!vault_creature_okay(species_idx)) return (FALSE);				// Validate the creature
-	if (has_trait_species(species_ptr, TRAIT_TROLL)) return (FALSE);	// Require troll
-	if (has_trait_species(species_ptr, TRAIT_UNDEAD)) return (FALSE);					// Decline undead
+	if(!vault_creature_okay(species_idx)) return (FALSE);				// Validate the creature
+	if(has_trait_species(species_ptr, TRAIT_TROLL)) return (FALSE);	// Require troll
+	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return (FALSE);					// Decline undead
 
 	return (TRUE); // Okay
 }
@@ -1655,15 +1655,15 @@ static bool vault_aux_giant(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require giant */
-	if (!has_trait_species(r_ptr, TRAIT_GIANT)) return (FALSE);
+	if(!has_trait_species(r_ptr, TRAIT_GIANT)) return (FALSE);
 
-	if (is_enemy_of_evil_species(r_ptr)) return (FALSE);
+	if(is_enemy_of_evil_species(r_ptr)) return (FALSE);
 
 	/* Decline undead */
-	if (has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1678,16 +1678,16 @@ static bool vault_aux_dragon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	/* Require dragon */
-	if (!has_trait_species(r_ptr, TRAIT_DRAGON)) return (FALSE);
+	if(!has_trait_species(r_ptr, TRAIT_DRAGON)) return (FALSE);
 
 	/* Hack -- Require correct "breath attack" */
-	//TODO if (r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);
+	//TODO if(r_ptr->flags4 != vault_aux_dragon_mask4) return (FALSE);
 
 	/* Decline undead */
-	if (has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_UNDEAD)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1702,12 +1702,12 @@ static bool vault_aux_demon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Require demon */
-	if (!has_trait_species(r_ptr, TRAIT_DEMON)) return (FALSE);
+	if(!has_trait_species(r_ptr, TRAIT_DEMON)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1722,12 +1722,12 @@ static bool vault_aux_cthulhu(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
-	if (has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
 	/* Require eldritch horror */
-	if (!has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR)) return (FALSE);
+	if(!has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR)) return (FALSE);
 
 	/* Okay */
 	return (TRUE);
@@ -1860,11 +1860,11 @@ static bool vault_aux_dark_elf(int species_idx)
 	};
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return FALSE;
+	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require dark elves */
 	for (i = 0; dark_elf_list[i]; i++)
-		if (species_idx == dark_elf_list[i]) return TRUE;
+		if(species_idx == dark_elf_list[i]) return TRUE;
 
 	/* Assume not */
 	return FALSE;
@@ -1894,13 +1894,13 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 	for (n_ptr = l_ptr, total = 0, count = 0; TRUE; n_ptr++, count++)
 	{
 		/* Note end */
-		if (!n_ptr->name) break;
+		if(!n_ptr->name) break;
 
 		/* Ignore excessive depth */
-		if (n_ptr->level > floor_ptr->floor_level) continue;
+		if(n_ptr->level > floor_ptr->floor_level) continue;
 
 		/* Not matched with pit/nest flag */
-		if (!(allow_flag_mask & (1L << count))) continue;
+		if(!(allow_flag_mask & (1L << count))) continue;
 
 		/* Count this possibility */
 		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
@@ -1913,19 +1913,19 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 	for (n_ptr = l_ptr, total = 0, count = 0; TRUE; n_ptr++, count++)
 	{
 		/* Note end */
-		if (!n_ptr->name) break;
+		if(!n_ptr->name) break;
 
 		/* Ignore excessive depth */
-		if (n_ptr->level > floor_ptr->floor_level) continue;
+		if(n_ptr->level > floor_ptr->floor_level) continue;
 
 		/* Not matched with pit/nest flag */
-		if (!(allow_flag_mask & (1L << count))) continue;
+		if(!(allow_flag_mask & (1L << count))) continue;
 
 		/* Count this possibility */
 		total += n_ptr->chance * MAX_DEPTH / (MIN(floor_ptr->floor_level, MAX_DEPTH - 1) - n_ptr->level + 5);
 
 		/* Found the type */
-		if (tmp < total) break;
+		if(tmp < total) break;
 	}
 
 	return n_ptr->name ? count : -1;
@@ -2025,7 +2025,7 @@ static cptr pit_subtype_string(int type, bool nest)
 
 	inner_buf[0] = '\0'; /* Init string */
 
-	if (nest) /* Nests */
+	if(nest) /* Nests */
 	{
 		switch (type)
 		{
@@ -2110,16 +2110,16 @@ static bool ang_sort_comp_nest_info(vptr u, vptr v, int a, int b)
 	z2 = nest_info[b].used;
 
 	/* Compare used status */
-	if (z1 < z2) return FALSE;
-	if (z1 > z2) return TRUE;
+	if(z1 < z2) return FALSE;
+	if(z1 > z2) return TRUE;
 
 	/* Compare levels */
-	if (r1_ptr->level < r2_ptr->level) return TRUE;
-	if (r1_ptr->level > r2_ptr->level) return FALSE;
+	if(r1_ptr->level < r2_ptr->level) return TRUE;
+	if(r1_ptr->level > r2_ptr->level) return FALSE;
 
 	/* Compare experience */
-	if (r1_ptr->exp < r2_ptr->exp) return TRUE;
-	if (r1_ptr->exp > r2_ptr->exp) return FALSE;
+	if(r1_ptr->exp < r2_ptr->exp) return TRUE;
+	if(r1_ptr->exp > r2_ptr->exp) return FALSE;
 
 	/* Compare indexes */
 	return w1 <= w2;
@@ -2179,12 +2179,12 @@ static bool build_type5(floor_type *floor_ptr)
 	vault_aux_type *n_ptr;
 
 	/* No type available */
-	if (cur_nest_type < 0) return FALSE;
+	if(cur_nest_type < 0) return FALSE;
 
 	n_ptr = &nest_types[cur_nest_type];
 
 	/* Process a preparation function if necessary */
-	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
+	if(n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
 	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
@@ -2204,18 +2204,18 @@ static bool build_type5(floor_type *floor_ptr)
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
-			if (creature_has_hostile_align(&align, player_ptr)) continue;
+			if(creature_has_hostile_align(&align, player_ptr)) continue;
 
 			/* Accept this creature */
 			break;
 		}
 
 		/* Notice failure */
-		if (!species_idx || !attempts) return FALSE;
+		if(!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
+		if(is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
+		if(is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		nest_info[i].species_idx = species_idx;
 		nest_info[i].used = FALSE;
@@ -2227,7 +2227,7 @@ static bool build_type5(floor_type *floor_ptr)
 	y += 9;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Large room */
 	y1 = yval - y/2;
@@ -2303,7 +2303,7 @@ static bool build_type5(floor_type *floor_ptr)
 	}
 
 	/* Describe */
-	if (cheat_room)
+	if(cheat_room)
 	{
 		/* Room type */
 		msg_format("[Creature nest(%d,%d-%d,%d)(%s%s)]", x1, y1, x2, y2, n_ptr->name, pit_subtype_string(cur_nest_type, TRUE));
@@ -2326,18 +2326,18 @@ static bool build_type5(floor_type *floor_ptr)
 		}
 	}
 
-	if (cheat_room && cheat_hear)
+	if(cheat_room && cheat_hear)
 	{
 		ang_sort(nest_info, NULL, NUM_NEST_SPECIES_TYPE, ang_sort_comp_nest_info, ang_sort_swap_nest_info);
 
 		/* Dump the entries (prevent multi-printing) */
 		for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 		{
-			if (!nest_info[i].used) break;
+			if(!nest_info[i].used) break;
 			for (; i < NUM_NEST_SPECIES_TYPE - 1; i++)
 			{
-				if (nest_info[i].species_idx != nest_info[i + 1].species_idx) break;
-				if (!nest_info[i + 1].used) break;
+				if(nest_info[i].species_idx != nest_info[i + 1].species_idx) break;
+				if(!nest_info[i + 1].used) break;
 			}
 			msg_print(species_name + species_info[nest_info[i].species_idx].name);
 		}
@@ -2398,12 +2398,12 @@ static bool build_type6(floor_type *floor_ptr)
 	vault_aux_type *n_ptr;
 
 	/* No type available */
-	if (cur_pit_type < 0) return FALSE;
+	if(cur_pit_type < 0) return FALSE;
 
 	n_ptr = &pit_types[cur_pit_type];
 
 	/* Process a preparation function if necessary */
-	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
+	if(n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
 	get_species_num_prep(NULL, n_ptr->hook_func, NULL, NULL, 0);
@@ -2423,18 +2423,18 @@ static bool build_type6(floor_type *floor_ptr)
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
-			if (creature_has_hostile_align(&align, player_ptr)) continue;
+			if(creature_has_hostile_align(&align, player_ptr)) continue;
 
 			/* Accept this creature */
 			break;
 		}
 
 		/* Notice failure */
-		if (!species_idx || !attempts) return FALSE;
+		if(!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
+		if(is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
+		if(is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
 	}
@@ -2445,7 +2445,7 @@ static bool build_type6(floor_type *floor_ptr)
 	y += 9;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, y+2, x+2)) return FALSE;
 
 	/* Large room */
 	y1 = yval - y/2;
@@ -2531,7 +2531,7 @@ static bool build_type6(floor_type *floor_ptr)
 			int p2 = species_info[what[i2]].level;
 
 			/* Bubble */
-			if (p1 > p2)
+			if(p1 > p2)
 			{
 				int tmp = what[i1];
 				what[i1] = what[i2];
@@ -2541,7 +2541,7 @@ static bool build_type6(floor_type *floor_ptr)
 	}
 
 	/* Message */
-	if (cheat_room)
+	if(cheat_room)
 	{
 		/* Room type */
 #ifdef JP
@@ -2557,7 +2557,7 @@ static bool build_type6(floor_type *floor_ptr)
 		/* Every other entry */
 		what[i] = what[i * 2];
 
-		if (cheat_hear)
+		if(cheat_hear)
 		{
 			/* Message */
 			msg_print(species_name + species_info[what[i]].name);
@@ -2618,7 +2618,7 @@ static void coord_trans(int *x, int *y, int xoffset, int yoffset, int transno)
 		*y = temp;
 	}
 
-	if (transno / 4)
+	if(transno / 4)
 	{
 		/* Reflect depending on status of 3rd bit. */
 		*x = -(*x);
@@ -2655,7 +2655,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			coord_trans(&i, &j, xoffset, yoffset, transno);
 
 			/* Extract the location */
-			if (transno % 2 == 0)
+			if(transno % 2 == 0)
 			{
 				/* no swap of x/y */
 				x = xval - (xmax / 2) + i;
@@ -2669,7 +2669,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			}
 
 			/* Hack -- skip "non-grids" */
-			if (*t == ' ') continue;
+			if(*t == ' ') continue;
 
 			/* Access the grid */
 			c_ptr = &floor_ptr->cave[y][x];
@@ -2715,7 +2715,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 
 				/* Treasure/trap */
 			case '*':
-				if (randint0(100) < 75)
+				if(randint0(100) < 75)
 				{
 					place_object(floor_ptr, y, x, 0L);
 				}
@@ -2733,7 +2733,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				/* Secret glass doors */
 			case '-':
 				place_secret_door(floor_ptr, y, x, DOOR_GLASS_DOOR);
-				if (is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
+				if(is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
 				break;
 
 				/* Curtains */
@@ -2805,7 +2805,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			coord_trans(&i, &j, xoffset, yoffset, transno);
 
 			/* Extract the location */
-			if (transno % 2 == 0)
+			if(transno % 2 == 0)
 			{
 				/* no swap of x/y */
 				x = xval - (xmax / 2) + i;
@@ -2819,7 +2819,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			}
 
 			/* Hack -- skip "non-grids" */
-			if (*t == ' ') continue;
+			if(*t == ' ') continue;
 
 			/* Analyze the symbol */
 			switch (*t)
@@ -2869,13 +2869,13 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 				/* Creature and/or object */
 				case ',':
 				{
-					if (randint0(100) < 50)
+					if(randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
-					if (randint0(100) < 50)
+					if(randint0(100) < 50)
 					{
 						floor_ptr->object_level = floor_ptr->base_level + 7;
 						place_object(floor_ptr, y, x, 0L);
@@ -2909,13 +2909,13 @@ static bool build_type7(floor_type *floor_ptr)
 		v_ptr = &vault_info[randint0(max_vault_idx)];
 
 		/* Accept the first lesser vault */
-		if (v_ptr->typ == 7) break;
+		if(v_ptr->typ == 7) break;
 	}
 
 	/* No lesser vault found */
-	if (dummy >= SAFE_MAX_ATTEMPTS)
+	if(dummy >= SAFE_MAX_ATTEMPTS)
 	{
-		if (cheat_room)
+		if(cheat_room)
 		{
 #ifdef JP
 			msg_print("警告！小さな地下室を配置できません！");
@@ -2934,7 +2934,7 @@ static bool build_type7(floor_type *floor_ptr)
 	y = v_ptr->hgt;
 
 	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if (x + 2 > floor_ptr->height - 2)
+	if(x + 2 > floor_ptr->height - 2)
 	{
 		/* Forbid 90 or 270 degree ratation */
 		transno &= ~1;
@@ -2942,7 +2942,7 @@ static bool build_type7(floor_type *floor_ptr)
 
 	coord_trans(&x, &y, 0, 0, transno);
 
-	if (x < 0)
+	if(x < 0)
 	{
 		xoffset = -x - 1;
 	}
@@ -2951,7 +2951,7 @@ static bool build_type7(floor_type *floor_ptr)
 		xoffset = 0;
 	}
 
-	if (y < 0)
+	if(y < 0)
 	{
 		yoffset = -y - 1;
 	}
@@ -2961,7 +2961,7 @@ static bool build_type7(floor_type *floor_ptr)
 	}
 
 	// Find and reserve some space in the dungeon.  Get center of room.
-	if (!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, abs(y), abs(x))) return FALSE;
 
 #ifdef FORCE_V_IDX
 	v_ptr = &vault_info[2];
@@ -2969,9 +2969,9 @@ static bool build_type7(floor_type *floor_ptr)
 
 	/* Message */
 #ifdef JP
-	if (cheat_room) msg_format("小さな地下室(%s)", vault_name + v_ptr->name);
+	if(cheat_room) msg_format("小さな地下室(%s)", vault_name + v_ptr->name);
 #else
-	if (cheat_room) msg_format("Lesser vault (%s)", vault_name + v_ptr->name);
+	if(cheat_room) msg_format("Lesser vault (%s)", vault_name + v_ptr->name);
 #endif
 
 	/* Hack -- Build the vault */
@@ -3000,13 +3000,13 @@ static bool build_type8(floor_type *floor_ptr)
 		v_ptr = &vault_info[randint0(max_vault_idx)];
 
 		/* Accept the first greater vault */
-		if (v_ptr->typ == 8) break;
+		if(v_ptr->typ == 8) break;
 	}
 
 	/* No greater vault found */
-	if (dummy >= SAFE_MAX_ATTEMPTS)
+	if(dummy >= SAFE_MAX_ATTEMPTS)
 	{
-		if (cheat_room)
+		if(cheat_room)
 		{
 #ifdef JP
 			msg_print("警告！巨大な地下室を配置できません！");
@@ -3025,7 +3025,7 @@ static bool build_type8(floor_type *floor_ptr)
 	y = v_ptr->hgt;
 
 	/* Some huge vault cannot be ratated to fit in the dungeon */
-	if (x+2 > floor_ptr->height-2)
+	if(x+2 > floor_ptr->height-2)
 	{
 		/* Forbid 90 or 270 degree ratation */
 		transno &= ~1;
@@ -3033,7 +3033,7 @@ static bool build_type8(floor_type *floor_ptr)
 
 	coord_trans(&x, &y, 0, 0, transno);
 
-	if (x < 0)
+	if(x < 0)
 	{
 		xoffset = - x - 1;
 	}
@@ -3042,7 +3042,7 @@ static bool build_type8(floor_type *floor_ptr)
 		xoffset = 0;
 	}
 
-	if (y < 0)
+	if(y < 0)
 	{
 		yoffset = - y - 1;
 	}
@@ -3058,7 +3058,7 @@ static bool build_type8(floor_type *floor_ptr)
 	 * prevent generation of vaults with no-entrance.
 	 */
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, abs(y) + 2, abs(x) + 2)) return FALSE;
 
 #ifdef FORCE_V_IDX
 	v_ptr = &vault_info[76 + randint1(3)];
@@ -3066,9 +3066,9 @@ static bool build_type8(floor_type *floor_ptr)
 
 	/* Message */
 #ifdef JP
-	if (cheat_room) msg_format("巨大な地下室(%s)", vault_name + v_ptr->name);
+	if(cheat_room) msg_format("巨大な地下室(%s)", vault_name + v_ptr->name);
 #else
-	if (cheat_room) msg_format("Greater vault (%s)", vault_name + v_ptr->name);
+	if(cheat_room) msg_format("Greater vault (%s)", vault_name + v_ptr->name);
 #endif
 
 	// Hack -- Build the vault
@@ -3117,7 +3117,7 @@ static fill_data_type fill_data;
 static void store_height(floor_type *floor_ptr, int x, int y, int val)
 {
 	/* if on boundary set val > cutoff so walls are not as square */
-	if (((x == fill_data.xmin) || (y == fill_data.ymin) ||
+	if(((x == fill_data.xmin) || (y == fill_data.ymin) ||
 	     (x == fill_data.xmax) || (y == fill_data.ymax)) &&
 	    (val <= fill_data.c1)) val = fill_data.c1 + 1;
 
@@ -3202,10 +3202,10 @@ static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int y
 	ysize = ysiz;
 
 	/* Paranoia about size of the system of caves */
-	if (xsize > 254) xsize = 254;
-	if (xsize < 4) xsize = 4;
-	if (ysize > 254) ysize = 254;
-	if (ysize < 4) ysize = 4;
+	if(xsize > 254) xsize = 254;
+	if(xsize < 4) xsize = 4;
+	if(ysize > 254) ysize = 254;
+	if(ysize < 4) ysize = 4;
 
 	/* get offsets to middle of array */
 	xhsize = xsize / 2;
@@ -3290,9 +3290,9 @@ static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int y
 				jj = j / 256 + fill_data.ymin;
 
 				/* Test square */
-				if (floor_ptr->cave[jj][ii].feat == -1)
+				if(floor_ptr->cave[jj][ii].feat == -1)
 				{
-					if (xhstep2 > grd)
+					if(xhstep2 > grd)
 					{
 						/* If greater than 'grid' level then is random */
 						store_height(floor_ptr, ii, jj, randint1(maxsize));
@@ -3320,9 +3320,9 @@ static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int y
 				jj = j / 256 + fill_data.ymin;
 
 				/* Test square */
-				if (floor_ptr->cave[jj][ii].feat == -1)
+				if(floor_ptr->cave[jj][ii].feat == -1)
 				{
-					if (xhstep2 > grd)
+					if(xhstep2 > grd)
 					{
 						/* If greater than 'grid' level then is random */
 						store_height(floor_ptr, ii, jj, randint1(maxsize));
@@ -3349,9 +3349,9 @@ static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int y
 				jj = j / 256 + fill_data.ymin;
 
 				/* Test square */
-				if (floor_ptr->cave[jj][ii].feat == -1)
+				if(floor_ptr->cave[jj][ii].feat == -1)
 				{
-					if (xhstep2 > grd)
+					if(xhstep2 > grd)
 					{
 						/* If greater than 'grid' level then is random */
 						store_height(floor_ptr, ii, jj, randint1(maxsize));
@@ -3386,7 +3386,7 @@ static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, 
 	 * function used to convert from height-map back to the
 	 *  normal angband cave format
 	 */
-	if (floor_ptr->cave[y][x].info & CAVE_ICKY)
+	if(floor_ptr->cave[y][x].info & CAVE_ICKY)
 	{
 		/* already done */
 		return FALSE;
@@ -3397,10 +3397,10 @@ static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, 
 		floor_ptr->cave[y][x].info|= (CAVE_ICKY);
 
 		/* Use cutoffs c1-c3 to allocate regions of floor /water/ lava etc. */
-		if (floor_ptr->cave[y][x].feat <= c1)
+		if(floor_ptr->cave[y][x].feat <= c1)
 		{
 			/* 25% of the time use the other tile : it looks better this way */
-			if (randint1(100) < 75)
+			if(randint1(100) < 75)
 			{
 				floor_ptr->cave[y][x].feat = feat1;
 				floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
@@ -3415,10 +3415,10 @@ static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, 
 				return TRUE;
 			}
 		}
-		else if (floor_ptr->cave[y][x].feat <= c2)
+		else if(floor_ptr->cave[y][x].feat <= c2)
 		{
 			/* 25% of the time use the other tile : it looks better this way */
-			if (randint1(100) < 75)
+			if(randint1(100) < 75)
 			{
 				floor_ptr->cave[y][x].feat = feat2;
 				floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
@@ -3433,7 +3433,7 @@ static bool hack_isnt_wall(floor_type *floor_ptr, int y, int x, int c1, int c2, 
 				return TRUE;
 			}
 		}
-		else if (floor_ptr->cave[y][x].feat <= c3)
+		else if(floor_ptr->cave[y][x].feat <= c3)
 		{
 			floor_ptr->cave[y][x].feat = feat3;
 			floor_ptr->cave[y][x].info &= ~(CAVE_MASK);
@@ -3480,7 +3480,7 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 		tx = temp_x[flow_head];
 
 		/* Forget that entry */
-		if (++flow_head == TEMP_MAX) flow_head = 0;
+		if(++flow_head == TEMP_MAX) flow_head = 0;
 
 		/* Add the "children" */
 		for (d = 0; d < 8; d++)
@@ -3492,7 +3492,7 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 			i = tx + ddx_ddd[d];
 
 			/* Paranoia Don't leave the cave */
-			if (!in_bounds(floor_ptr, j, i))
+			if(!in_bounds(floor_ptr, j, i))
 			{
 				/* affect boundary */
 				floor_ptr->cave[j][i].info |= CAVE_ICKY;
@@ -3500,11 +3500,11 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 			}
 
 			/* If within bounds */
-			else if ((i > fill_data.xmin) && (i < fill_data.xmax)
+			else if((i > fill_data.xmin) && (i < fill_data.xmax)
 				&& (j > fill_data.ymin) && (j < fill_data.ymax))
 			{
 				/* If not a wall or floor done before */
-				if (hack_isnt_wall(floor_ptr, j, i,
+				if(hack_isnt_wall(floor_ptr, j, i,
 					fill_data.c1, fill_data.c2, fill_data.c3,
 					fill_data.feat1, fill_data.feat2, fill_data.feat3,
 					fill_data.info1, fill_data.info2, fill_data.info3))
@@ -3514,10 +3514,10 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 					temp_x[flow_tail] = i;
 
 					/* Advance the queue */
-					if (++flow_tail == TEMP_MAX) flow_tail = 0;
+					if(++flow_tail == TEMP_MAX) flow_tail = 0;
 
 					/* Hack -- Overflow by forgetting new entry */
-					if (flow_tail == flow_head)
+					if(flow_tail == flow_head)
 					{
 						flow_tail = old_head;
 					}
@@ -3573,7 +3573,7 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	cave_fill(floor_ptr, (byte)y0, (byte)x0);
 
 	/* if tally too small, try again */
-	if (fill_data.amount < 10)
+	if(fill_data.amount < 10)
 	{
 		/* too small - clear area and try again later */
 		for (x = 0; x <= xsize; ++x)
@@ -3595,11 +3595,11 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	for (i = 0; i <= xsize; ++i)
 	{
 		/* top boundary */
-		if ((floor_ptr->cave[0 + y0 - yhsize][i + x0 - xhsize].info & CAVE_ICKY) && (room))
+		if((floor_ptr->cave[0 + y0 - yhsize][i + x0 - xhsize].info & CAVE_ICKY) && (room))
 		{
 			/* Next to a 'filled' region? - set to be room walls */
 			place_outer_bold(floor_ptr, y0 + 0 - yhsize, x0 + i - xhsize);
-			if (light) floor_ptr->cave[y0 + 0 - yhsize][x0 + i - xhsize].info |= (CAVE_GLOW);
+			if(light) floor_ptr->cave[y0 + 0 - yhsize][x0 + i - xhsize].info |= (CAVE_GLOW);
 			floor_ptr->cave[y0 + 0 - yhsize][x0 + i - xhsize].info |= (CAVE_ROOM);
 			place_outer_bold(floor_ptr, y0 + 0 - yhsize, x0 + i - xhsize);
 		}
@@ -3610,11 +3610,11 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 		}
 
 		/* bottom boundary */
-		if ((floor_ptr->cave[ysize + y0 - yhsize][i + x0 - xhsize].info & CAVE_ICKY) && (room))
+		if((floor_ptr->cave[ysize + y0 - yhsize][i + x0 - xhsize].info & CAVE_ICKY) && (room))
 		{
 			/* Next to a 'filled' region? - set to be room walls */
 			place_outer_bold(floor_ptr, y0 + ysize - yhsize, x0 + i - xhsize);
-			if (light) floor_ptr->cave[y0 + ysize - yhsize][x0 + i - xhsize].info|=(CAVE_GLOW);
+			if(light) floor_ptr->cave[y0 + ysize - yhsize][x0 + i - xhsize].info|=(CAVE_GLOW);
 			floor_ptr->cave[y0 + ysize - yhsize][x0 + i - xhsize].info|=(CAVE_ROOM);
 			place_outer_bold(floor_ptr, y0 + ysize - yhsize, x0 + i - xhsize);
 		}
@@ -3633,11 +3633,11 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	for (i = 1; i < ysize; ++i)
 	{
 		/* left boundary */
-		if ((floor_ptr->cave[i + y0 - yhsize][0 + x0 - xhsize].info & CAVE_ICKY) && room)
+		if((floor_ptr->cave[i + y0 - yhsize][0 + x0 - xhsize].info & CAVE_ICKY) && room)
 		{
 			/* room boundary */
 			place_outer_bold(floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
-			if (light) floor_ptr->cave[y0 + i - yhsize][x0 + 0 - xhsize].info |= (CAVE_GLOW);
+			if(light) floor_ptr->cave[y0 + i - yhsize][x0 + 0 - xhsize].info |= (CAVE_GLOW);
 			floor_ptr->cave[y0 + i - yhsize][x0 + 0 - xhsize].info |= (CAVE_ROOM);
 			place_outer_bold(floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
 		}
@@ -3647,11 +3647,11 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 			place_extra_bold(floor_ptr, y0 + i - yhsize, x0 + 0 - xhsize);
 		}
 		/* right boundary */
-		if ((floor_ptr->cave[i + y0 - yhsize][xsize + x0 - xhsize].info & CAVE_ICKY) && room)
+		if((floor_ptr->cave[i + y0 - yhsize][xsize + x0 - xhsize].info & CAVE_ICKY) && room)
 		{
 			/* room boundary */
 			place_outer_bold(floor_ptr, y0 + i - yhsize, x0 + xsize - xhsize);
-			if (light) floor_ptr->cave[y0 + i - yhsize][x0 + xsize - xhsize].info |= (CAVE_GLOW);
+			if(light) floor_ptr->cave[y0 + i - yhsize][x0 + xsize - xhsize].info |= (CAVE_GLOW);
 			floor_ptr->cave[y0 + i - yhsize][x0 + xsize - xhsize].info |= (CAVE_ROOM);
 			place_outer_bold(floor_ptr, y0 + i - yhsize, x0 + xsize - xhsize);
 		}
@@ -3672,23 +3672,23 @@ static bool generate_fracave(floor_type *floor_ptr, int y0, int x0, int xsize, i
 	{
 		for (y = 1; y < ysize; ++y)
 		{
-			if (is_floor_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize) &&
+			if(is_floor_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize) &&
 			    (floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY))
 			{
 				/* Clear the icky flag in the filled region */
 				floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~CAVE_ICKY;
 
 				/* Set appropriate flags */
-				if (light) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_GLOW);
-				if (room) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_ROOM);
+				if(light) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_GLOW);
+				if(room) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_ROOM);
 			}
-			else if (is_outer_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize) &&
+			else if(is_outer_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize) &&
 				 (floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY))
 			{
 				/* Walls */
 				floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY);
-				if (light) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_GLOW);
-				if (room)
+				if(light) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_GLOW);
+				if(room)
 				{
 					floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= (CAVE_ROOM);
 				}
@@ -3736,14 +3736,14 @@ static bool build_type9(floor_type *floor_ptr)
 	ysize = randint1(20) * 2 + 6;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
+	if(!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
 	{
 		/* Limit to the minimum room size, and retry */
 		xsize = 8;
 		ysize = 8;
 
 		/* Find and reserve some space in the dungeon.  Get center of room. */
-		if (!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
+		if(!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1))
 		{
 			/*
 			 * Still no space?!
@@ -3756,7 +3756,7 @@ static bool build_type9(floor_type *floor_ptr)
 	light = done = FALSE;
 	room = TRUE;
 
-	if ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	while (!done)
 	{
@@ -3793,7 +3793,7 @@ void build_cavern(floor_type *floor_ptr)
 	bool done, light;
 
 	light = done = FALSE;
-	if ((floor_ptr->floor_level <= randint1(50)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((floor_ptr->floor_level <= randint1(50)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	/* Make a cave the size of the dungeon */
 	xsize = floor_ptr->width - 1;
@@ -3905,7 +3905,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 	cave_fill(floor_ptr, (byte)y0, (byte)x0);
 
 	/* if tally too small, try again */
-	if (fill_data.amount < 10)
+	if(fill_data.amount < 10)
 	{
 		/* too small -clear area and try again later */
 		for (x = 0; x <= xsize; ++x)
@@ -3949,7 +3949,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 		for (y = 1; y < ysize; ++y)
 		{
 			/* Fill unconnected regions with granite */
-			if ((!(floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY)) ||
+			if((!(floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info & CAVE_ICKY)) ||
 				is_outer_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize))
 				place_extra_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize);
 
@@ -3957,9 +3957,9 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 			floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info &= ~(CAVE_ICKY | CAVE_ROOM);
 
 			/* Light lava */
-			if (cave_have_flag_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize, FF_LAVA))
+			if(cave_have_flag_bold(floor_ptr, y0 + y - yhsize, x0 + x - xhsize, FF_LAVA))
 			{
-				if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= CAVE_GLOW;
+				if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) floor_ptr->cave[y0 + y - yhsize][x0 + x - xhsize].info |= CAVE_GLOW;
 			}
 		}
 	}
@@ -3978,7 +3978,7 @@ void build_lake(floor_type *floor_ptr, int type)
 	int c1, c2, c3;
 
 	/* paranoia - exit if lake type out of range. */
-	if ((type < LAKE_T_LAVA) || (type > LAKE_T_FIRE_VAULT))
+	if((type < LAKE_T_LAVA) || (type > LAKE_T_FIRE_VAULT))
 	{
 		msg_format("Invalid lake type (%d)", type);
 		return;
@@ -4031,7 +4031,7 @@ void build_lake(floor_type *floor_ptr, int type)
 static void add_door(floor_type *floor_ptr, int x, int y)
 {
 	/* Need to have a wall in the center square */
-	if (!is_outer_bold(floor_ptr, y, x)) return;
+	if(!is_outer_bold(floor_ptr, y, x)) return;
 
 	/* look at:
 	 *  x#x
@@ -4042,7 +4042,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 	 *  .=floor, #=wall
 	 */
 
-	if (is_floor_bold(floor_ptr, y-1,x) && is_floor_bold(floor_ptr, y+1,x) &&
+	if(is_floor_bold(floor_ptr, y-1,x) && is_floor_bold(floor_ptr, y+1,x) &&
 	    (is_outer_bold(floor_ptr, y, x - 1) && is_outer_bold(floor_ptr, y, x + 1)))
 	{
 		/* secret door */
@@ -4062,7 +4062,7 @@ static void add_door(floor_type *floor_ptr, int x, int y)
 	 *  where x = don't care
 	 *  .=floor, #=wall
 	 */
-	if (is_outer_bold(floor_ptr, y - 1, x) && is_outer_bold(floor_ptr, y + 1, x) &&
+	if(is_outer_bold(floor_ptr, y - 1, x) && is_outer_bold(floor_ptr, y + 1, x) &&
 	    is_floor_bold(floor_ptr, y,x-1) && is_floor_bold(floor_ptr, y,x+1))
 	{
 		/* secret door */
@@ -4099,14 +4099,14 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 			value = ((((s32b)(distance(cx, cy, x, y))) * 100) / size) + randint1(10) - difficulty;
 
 			/* hack- empty square part of the time */
-			if ((randint1(100) - difficulty * 3) > 50) value = 20;
+			if((randint1(100) - difficulty * 3) > 50) value = 20;
 
 			 /* if floor, shallow water and lava */
-			if (is_floor_bold(floor_ptr, y, x) ||
+			if(is_floor_bold(floor_ptr, y, x) ||
 			    (cave_have_flag_bold(floor_ptr, y, x, FF_PLACE) && cave_have_flag_bold(floor_ptr, y, x, FF_DROP)))
 			{
 				/* The smaller 'value' is, the better the stuff */
-				if (value < 0)
+				if(value < 0)
 				{
 					/* Meanest creature + treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 40;
@@ -4116,7 +4116,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					place_object(floor_ptr, y, x, AM_GOOD);
 					floor_ptr->object_level = floor_ptr->base_level;
 				}
-				else if (value < 5)
+				else if(value < 5)
 				{
 					/* Mean creature +treasure */
 					floor_ptr->creature_level = floor_ptr->base_level + 20;
@@ -4126,14 +4126,14 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					place_object(floor_ptr, y, x, AM_GOOD);
 					floor_ptr->object_level = floor_ptr->base_level;
 				}
-				else if (value < 10)
+				else if(value < 10)
 				{
 					/* Creature */
 					floor_ptr->creature_level = floor_ptr->base_level + 9;
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 				}
-				else if (value < 17)
+				else if(value < 17)
 				{
 					/* Intentional Blank space */
 
@@ -4144,10 +4144,10 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					 * the density of stuff in the vault.)
 					 */
 				}
-				else if (value < 23)
+				else if(value < 23)
 				{
 					/* Object or trap */
-					if (randint0(100) < 25)
+					if(randint0(100) < 25)
 					{
 						place_object(floor_ptr, y, x, 0L);
 					}
@@ -4156,7 +4156,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 						place_trap(floor_ptr, y, x);
 					}
 				}
-				else if (value < 30)
+				else if(value < 30)
 				{
 					/* Creature and trap */
 					floor_ptr->creature_level = floor_ptr->base_level + 5;
@@ -4164,23 +4164,23 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					floor_ptr->creature_level = floor_ptr->base_level;
 					place_trap(floor_ptr, y, x);
 				}
-				else if (value < 40)
+				else if(value < 40)
 				{
 					/* Creature or object */
-					if (randint0(100) < 50)
+					if(randint0(100) < 50)
 					{
 						floor_ptr->creature_level = floor_ptr->base_level + 3;
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 						floor_ptr->creature_level = floor_ptr->base_level;
 					}
-					if (randint0(100) < 50)
+					if(randint0(100) < 50)
 					{
 						floor_ptr->object_level = floor_ptr->base_level + 7;
 						place_object(floor_ptr, y, x, 0L);
 						floor_ptr->object_level = floor_ptr->base_level;
 					}
 				}
-				else if (value < 50)
+				else if(value < 50)
 				{
 					/* Trap */
 					place_trap(floor_ptr, y, x);
@@ -4190,15 +4190,15 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* Various Stuff */
 
 					/* 20% creature, 40% trap, 20% object, 20% blank space */
-					if (randint0(100) < 20)
+					if(randint0(100) < 20)
 					{
 						place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					}
-					else if (randint0(100) < 50)
+					else if(randint0(100) < 50)
 					{
 						place_trap(floor_ptr, y, x);
 					}
-					else if (randint0(100) < 50)
+					else if(randint0(100) < 50)
 					{
 						place_object(floor_ptr, y, x, 0L);
 					}
@@ -4237,7 +4237,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	int yhsize = ysize / 2;
 
 
-	if (cheat_room) msg_print("Bubble Vault");
+	if(cheat_room) msg_print("Bubble Vault");
 
 	/* Allocate center of bubbles */
 	center[0].x = (byte)randint1(xsize - 3) + 1;
@@ -4258,7 +4258,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			for (j = 0; j < i; j++)
 			{
 				/* rough test to see if there is an overlap */
-				if ((x == center[j].x) && (y == center[j].y)) done = FALSE;
+				if((x == center[j].x) && (y == center[j].y)) done = FALSE;
 			}
 		}
 
@@ -4300,7 +4300,7 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			min1 = distance(x, y, center[0].x, center[0].y);
 			min2 = distance(x, y, center[1].x, center[1].y);
 
-			if (min1 > min2)
+			if(min1 > min2)
 			{
 				/* swap if in wrong order */
 				temp = min1;
@@ -4313,19 +4313,19 @@ static void build_bubble_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			{
 				temp = distance(x, y, center[i].x, center[i].y);
 
-				if (temp < min1)
+				if(temp < min1)
 				{
 					/* smallest */
 					min2 = min1;
 					min1 = temp;
 				}
-				else if (temp < min2)
+				else if(temp < min2)
 				{
 					/* second smallest */
 					min2 = temp;
 				}
 			}
-			if (((min2 - min1) <= 2) && (!(min1 < 3)))
+			if(((min2 - min1) <= 2) && (!(min1 < 3)))
 			{
 				/* Boundary at midpoint+ not at inner region of bubble */
 				place_outer_noperm_bold(floor_ptr, y0 - yhsize + y, x0 - xhsize + x);
@@ -4365,10 +4365,10 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 	int x, y, i, xsize, ysize, temp;
 
 	/* Check if rectangle has no width */
-	if ((x1 == x2) || (y1 == y2)) return;
+	if((x1 == x2) || (y1 == y2)) return;
 
 	/* initialize */
-	if (x1 > x2)
+	if(x1 > x2)
 	{
 		/* Swap boundaries if in wrong order */
 		temp = x1;
@@ -4376,7 +4376,7 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 		x2 = temp;
 	}
 
-	if (y1 > y2)
+	if(y1 > y2)
 	{
 		/* Swap boundaries if in wrong order */
 		temp = y1;
@@ -4412,7 +4412,7 @@ static void build_room(floor_type *floor_ptr, int x1, int x2, int y1, int y2)
 	{
 		for (y = 1; y < ysize; y++)
 		{
-			if (is_extra_bold(floor_ptr, y1+y, x1+x))
+			if(is_extra_bold(floor_ptr, y1+y, x1+x))
 			{
 				/* clear the untouched region */
 				place_floor_bold(floor_ptr, y1 + y, x1 + x);
@@ -4438,7 +4438,7 @@ static void build_room_vault(floor_type *floor_ptr, int x0, int y0, int xsize, i
 	xhsize = xsize / 2;
 	yhsize = ysize / 2;
 
-	if (cheat_room) msg_print("Room Vault");
+	if(cheat_room) msg_print("Room Vault");
 
 	/* fill area so don't get problems with arena levels */
 	for (x1 = 0; x1 < xsize; x1++)
@@ -4489,7 +4489,7 @@ static void build_cave_vault(floor_type *floor_ptr, int x0, int y0, int xsiz, in
 	xsize = xhsize * 2;
 	ysize = yhsize * 2;
 
-	if (cheat_room) msg_print("Cave Vault");
+	if(cheat_room) msg_print("Cave Vault");
 
 	light = done = FALSE;
 	room = TRUE;
@@ -4559,7 +4559,7 @@ static void r_visit(floor_type *floor_ptr, int y1, int x1, int y2, int x2, int n
 	place_floor_bold(floor_ptr, y, x);
 
 	/* setup order of adjacent node visits */
-	if (one_in_(3))
+	if(one_in_(3))
 	{
 		/* pick a random ordering */
 		for (i = 0; i < 4; i++)
@@ -4594,7 +4594,7 @@ static void r_visit(floor_type *floor_ptr, int y1, int x1, int y2, int x2, int n
 		{
 			case 0:
 				/* (0,+) - check for bottom boundary */
-				if ((node / m < n - 1) && (visited[node + m] == 0))
+				if((node / m < n - 1) && (visited[node + m] == 0))
 				{
 					place_floor_bold(floor_ptr, y + 1, x);
 					r_visit(floor_ptr, y1, x1, y2, x2, node + m, dir, visited);
@@ -4602,7 +4602,7 @@ static void r_visit(floor_type *floor_ptr, int y1, int x1, int y2, int x2, int n
 				break;
 			case 1:
 				/* (0,-) - check for top boundary */
-				if ((node / m > 0) && (visited[node - m] == 0))
+				if((node / m > 0) && (visited[node - m] == 0))
 				{
 					place_floor_bold(floor_ptr, y - 1, x);
 					r_visit(floor_ptr, y1, x1, y2, x2, node - m, dir, visited);
@@ -4610,7 +4610,7 @@ static void r_visit(floor_type *floor_ptr, int y1, int x1, int y2, int x2, int n
 				break;
 			case 2:
 				/* (+,0) - check for right boundary */
-				if ((node % m < m - 1) && (visited[node + 1] == 0))
+				if((node % m < m - 1) && (visited[node + 1] == 0))
 				{
 					place_floor_bold(floor_ptr, y, x + 1);
 					r_visit(floor_ptr, y1, x1, y2, x2, node + 1, dir, visited);
@@ -4618,7 +4618,7 @@ static void r_visit(floor_type *floor_ptr, int y1, int x1, int y2, int x2, int n
 				break;
 			case 3:
 				/* (-,0) - check for left boundary */
-				if ((node % m > 0) && (visited[node - 1] == 0))
+				if((node % m > 0) && (visited[node - 1] == 0))
 				{
 					place_floor_bold(floor_ptr, y, x - 1);
 					r_visit(floor_ptr, y1, x1, y2, x2, node - 1, dir, visited);
@@ -4636,7 +4636,7 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 	bool light;
 	cave_type *c_ptr;
 
-	if (cheat_room && is_vault) msg_print("Maze Vault");
+	if(cheat_room && is_vault) msg_print("Maze Vault");
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && is_vault && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -4657,12 +4657,12 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 		{
 			c_ptr = &floor_ptr->cave[y][x];
 			c_ptr->info |= CAVE_ROOM;
-			if (is_vault) c_ptr->info |= CAVE_ICKY;
-			if ((x == x1 - 1) || (x == x2 + 1) || (y == y1 - 1) || (y == y2 + 1))
+			if(is_vault) c_ptr->info |= CAVE_ICKY;
+			if((x == x1 - 1) || (x == x2 + 1) || (y == y1 - 1) || (y == y2 + 1))
 			{
 				place_outer_grid(c_ptr);
 			}
-			else if (!is_vault)
+			else if(!is_vault)
 			{
 				place_extra_grid(c_ptr);
 			}
@@ -4670,7 +4670,7 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 			{
 				place_inner_grid(c_ptr);
 			}
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -4686,7 +4686,7 @@ void build_maze_vault(floor_type *floor_ptr, int x0, int y0, int xsize, int ysiz
 	r_visit(floor_ptr, y1, x1, y2, x2, randint0(num_vertices), 0, visited);
 
 	/* Fill with creatures and treasure, low difficulty */
-	if (is_vault) fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(5));
+	if(is_vault) fill_treasure(floor_ptr, x1, x2, y1, y2, randint1(5));
 
 	C_KILL(visited, num_vertices, int);
 }
@@ -4706,7 +4706,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	int m, n, num_vertices;
 	int *visited;
 
-	if (cheat_room) msg_print("Mini Checker Board Vault");
+	if(cheat_room) msg_print("Mini Checker Board Vault");
 
 	/* Pick a random room size */
 	dy = ysize / 2 - 1;
@@ -4721,7 +4721,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	/* generate the room */
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
-		if (!in_bounds(floor_ptr, y1-2,x)) break;
+		if(!in_bounds(floor_ptr, y1-2,x)) break;
 
 		floor_ptr->cave[y1-2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4730,7 +4730,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 	for (x = x1 - 2; x <= x2 + 2; x++)
 	{
-		if (!in_bounds(floor_ptr, y2+2,x)) break;
+		if(!in_bounds(floor_ptr, y2+2,x)) break;
 
 		floor_ptr->cave[y2+2][x].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4739,7 +4739,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
 	{
-		if (!in_bounds(floor_ptr, y,x1-2)) break;
+		if(!in_bounds(floor_ptr, y,x1-2)) break;
 
 		floor_ptr->cave[y][x1-2].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4748,7 +4748,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 
 	for (y = y1 - 2; y <= y2 + 2; y++)
 	{
-		if (!in_bounds(floor_ptr, y,x2+2)) break;
+		if(!in_bounds(floor_ptr, y,x2+2)) break;
 
 		floor_ptr->cave[y][x2+2].info |= (CAVE_ROOM | CAVE_ICKY);
 
@@ -4787,7 +4787,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 		{
 			total = x - x1 + y - y1;
 			/* If total is odd- and is a floor then make a wall */
-			if ((total % 2 == 1) && is_floor_bold(floor_ptr, y, x))
+			if((total % 2 == 1) && is_floor_bold(floor_ptr, y, x))
 			{
 				place_inner_bold(floor_ptr, y, x);
 			}
@@ -4795,7 +4795,7 @@ static void build_mini_c_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	}
 
 	/* Make a couple of entrances */
-	if (one_in_(2))
+	if(one_in_(2))
 	{
 		/* left and right */
 		y = randint1(dy) + dy / 2;
@@ -4836,17 +4836,17 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 	xsize = x2 - x1;
 	ysize = y2 - y1;
 
-	if ((power < 3) && (xsize > 12) && (ysize > 12))
+	if((power < 3) && (xsize > 12) && (ysize > 12))
 	{
 		/* Need outside wall +keep */
 		choice = 1;
 	}
 	else
 	{
-		if (power < 10)
+		if(power < 10)
 		{
 			/* Make rooms + subdivide */
-			if ((randint1(10) > 2) && (xsize < 8) && (ysize < 8))
+			if((randint1(10) > 2) && (xsize < 8) && (ysize < 8))
 			{
 				choice = 4;
 			}
@@ -4885,7 +4885,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 			}
 
 			/* Make a couple of entrances */
-			if (one_in_(2))
+			if(one_in_(2))
 			{
 				/* left and right */
 				y = randint1(ysize) + y1;
@@ -4930,7 +4930,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 		case 4:
 		{
 			/* Try to build a room */
-			if ((xsize < 3) || (ysize < 3))
+			if((xsize < 3) || (ysize < 3))
 			{
 				for (y = y1; y < y2; y++)
 				{
@@ -4962,7 +4962,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 			/* Make a door */
 			y = randint1(ysize - 3) + y1 + 1;
 
-			if (one_in_(2))
+			if(one_in_(2))
 			{
 				/* left */
 				place_floor_bold(floor_ptr, y, x1 + 1);
@@ -4980,7 +4980,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 		case 2:
 		{
 			/* Try and divide vertically */
-			if (xsize < 3)
+			if(xsize < 3)
 			{
 				/* Too small */
 				for (y = y1; y < y2; y++)
@@ -5001,7 +5001,7 @@ static void build_recursive_room(floor_type *floor_ptr, int x1, int y1, int x2, 
 		case 3:
 		{
 			/* Try and divide horizontally */
-			if (ysize < 3)
+			if(ysize < 3)
 			{
 				/* Too small */
 				for (y = y1; y < y2; y++)
@@ -5045,7 +5045,7 @@ static void build_castle_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	y2 = y0 + dy;
 	x2 = x0 + dx;
 
-	if (cheat_room) msg_print("Castle Vault");
+	if(cheat_room) msg_print("Castle Vault");
 
 	/* generate the room */
 	for (y = y1 - 1; y <= y2 + 1; y++)
@@ -5077,44 +5077,44 @@ static void add_outer_wall(floor_type *floor_ptr, int x, int y, int light, int x
 	feature_type *f_ptr;
 	int i, j;
 
-	if (!in_bounds(floor_ptr, y, x)) return;
+	if(!in_bounds(floor_ptr, y, x)) return;
 
 	c_ptr = &floor_ptr->cave[y][x];
 
 	/* hack- check to see if square has been visited before
 	* if so, then exit (use room flag to do this) */
-	if (c_ptr->info & CAVE_ROOM) return;
+	if(c_ptr->info & CAVE_ROOM) return;
 
 	/* set room flag */
 	c_ptr->info |= CAVE_ROOM;
 
 	f_ptr = &feature_info[c_ptr->feat];
 
-	if (is_floor_bold(floor_ptr, y, x))
+	if(is_floor_bold(floor_ptr, y, x))
 	{
 		for (i = -1; i <= 1; i++)
 		{
 			for (j = -1; j <= 1; j++)
 			{
-				if ((x + i >= x1) && (x + i <= x2) &&
+				if((x + i >= x1) && (x + i <= x2) &&
 					 (y + j >= y1) && (y + j <= y2))
 				{
 					add_outer_wall(floor_ptr, x + i, y + j, light, x1, y1, x2, y2);
-					if (light) c_ptr->info |= CAVE_GLOW;
+					if(light) c_ptr->info |= CAVE_GLOW;
 				}
 			}
 		}
 	}
-	else if (is_extra_bold(floor_ptr, y, x))
+	else if(is_extra_bold(floor_ptr, y, x))
 	{
 		/* Set bounding walls */
 		place_outer_bold(floor_ptr, y, x);
-		if (light) c_ptr->info |= CAVE_GLOW;
+		if(light) c_ptr->info |= CAVE_GLOW;
 	}
-	else if (permanent_wall(f_ptr))
+	else if(permanent_wall(f_ptr))
 	{
 		/* Set bounding walls */
-		if (light) c_ptr->info |= CAVE_GLOW;
+		if(light) c_ptr->info |= CAVE_GLOW;
 	}
 }
 
@@ -5138,8 +5138,8 @@ static int dist2(int x1, int y1, int x2, int y2,
 	 */
 
 	/* h1-h4 are constants that describe the metric */
-	if (dx >= 2 * dy) return (dx + (dy * h1) / h2);
-	if (dy >= 2 * dx) return (dy + (dx * h1) / h2);
+	if(dx >= 2 * dy) return (dx + (dy * h1) / h2);
+	if(dy >= 2 * dx) return (dy + (dx * h1) / h2);
 	return (((dx + dy) * 128) / 181 +
 		(dx * dx / (dy * h3) + dy * dy / (dx * h3)) * h4);
 	/* 128/181 is approx. 1/sqrt(2) */
@@ -5162,10 +5162,10 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	h3 = randint1(32);
 	h4 = randint1(32) - 16;
 
-	if (cheat_room) msg_print("Target Vault");
+	if(cheat_room) msg_print("Target Vault");
 
 	/* work out outer radius */
-	if (xsize > ysize)
+	if(xsize > ysize)
 	{
 		rad = ysize / 2;
 	}
@@ -5185,7 +5185,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			/* Vault - so is "icky" */
 			floor_ptr->cave[y][x].info |= CAVE_ICKY;
 
-			if (dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
+			if(dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
 			{
 				/* inside- so is floor */
 				place_floor_bold(floor_ptr, y, x);
@@ -5197,7 +5197,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 			}
 
 			/* proper boundary for arena */
-			if (((y + rad) == y0) || ((y - rad) == y0) ||
+			if(((y + rad) == y0) || ((y - rad) == y0) ||
 			    ((x + rad) == x0) || ((x - rad) == x0))
 			{
 				place_extra_bold(floor_ptr, y, x);
@@ -5213,7 +5213,7 @@ static void build_target_vault(floor_type *floor_ptr, int x0, int y0, int xsize,
 	{
 		for (y = y0 - rad / 2; y <= y0 + rad / 2; y++)
 		{
-			if (dist2(y0, x0, y, x, h1, h2, h3, h4) == rad / 2)
+			if(dist2(y0, x0, y, x, h1, h2, h3, h4) == rad / 2)
 			{
 				/* Make an internal wall */
 				place_inner_bold(floor_ptr, y, x);
@@ -5283,7 +5283,7 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 	int type;
 
 
-	if (cheat_room) msg_print("Elemental Vault");
+	if(cheat_room) msg_print("Elemental Vault");
 
 	/* round to make sizes even */
 	xhsize = xsiz / 2;
@@ -5291,17 +5291,17 @@ static void build_elemental_vault(floor_type *floor_ptr, int x0, int y0, int xsi
 	xsize = xhsize * 2;
 	ysize = yhsize * 2;
 
-	if (floor_ptr->floor_level < 25)
+	if(floor_ptr->floor_level < 25)
 	{
 		/* Earth vault  (Rubble) */
 		type = LAKE_T_EARTH_VAULT;
 	}
-	else if (floor_ptr->floor_level < 50)
+	else if(floor_ptr->floor_level < 50)
 	{
 		/* Air vault (Trees) */
 		type = LAKE_T_AIR_VAULT;
 	}
-	else if (floor_ptr->floor_level < 75)
+	else if(floor_ptr->floor_level < 75)
 	{
 		/* Water vault (shallow water) */
 		type = LAKE_T_WATER_VAULT;
@@ -5371,7 +5371,7 @@ static bool build_type10(floor_type *floor_ptr)
 	ysize = randint1(20) + 12;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
+	if(!find_space(floor_ptr, &y0, &x0, ysize + 1, xsize + 1)) return FALSE;
 
 	/* Select type of vault */
 #ifdef ALLOW_CAVERNS_AND_LAKES
@@ -5426,24 +5426,24 @@ static bool build_type11(floor_type *floor_ptr)
 	int light = FALSE;
 
 	/* Occasional light */
-	if ((randint1(floor_ptr->floor_level) <= 15) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((randint1(floor_ptr->floor_level) <= 15) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	rad = randint0(23);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
+	if(!find_space(floor_ptr, &y0, &x0, rad * 2 + 1, rad * 2 + 1)) return FALSE;
 
 	/* Make circular floor */
 	for (x = x0 - rad; x <= x0 + rad; x++)
 	{
 		for (y = y0 - rad; y <= y0 + rad; y++)
 		{
-			if (distance(y0, x0, y, x) <= rad - 1)
+			if(distance(y0, x0, y, x) <= rad - 1)
 			{
 				/* inside- so is floor */
 				place_floor_bold(floor_ptr, y, x);
 			}
-			else if (distance(y0, x0, y, x) <= rad + 1)
+			else if(distance(y0, x0, y, x) <= rad + 1)
 			{
 				/* make granite outside so arena works */
 				place_extra_bold(floor_ptr, y, x);
@@ -5479,12 +5479,12 @@ static bool build_type12(floor_type *floor_ptr)
 	h4 = randint1(32) - 16;
 
 	/* Occasional light */
-	if ((randint1(floor_ptr->floor_level) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
+	if((randint1(floor_ptr->floor_level) <= 5) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)) light = TRUE;
 
 	rad = randint1(9);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
+	if(!find_space(floor_ptr, &y0, &x0, rad * 2 + 3, rad * 2 + 3)) return FALSE;
 
 	/* Make floor */
 	for (x = x0 - rad; x <= x0 + rad; x++)
@@ -5494,12 +5494,12 @@ static bool build_type12(floor_type *floor_ptr)
 			/* clear room flag */
 			floor_ptr->cave[y][x].info &= ~(CAVE_ROOM);
 
-			if (dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
+			if(dist2(y0, x0, y, x, h1, h2, h3, h4) <= rad - 1)
 			{
 				/* inside - so is floor */
 				place_floor_bold(floor_ptr, y, x);
 			}
-			else if (distance(y0, x0, y, x) < 3)
+			else if(distance(y0, x0, y, x) < 3)
 			{
 				place_floor_bold(floor_ptr, y, x);
 			}
@@ -5510,7 +5510,7 @@ static bool build_type12(floor_type *floor_ptr)
 			}
 
 			/* proper boundary for arena */
-			if (((y + rad) == y0) || ((y - rad) == y0) ||
+			if(((y + rad) == y0) || ((y - rad) == y0) ||
 			    ((x + rad) == x0) || ((x - rad) == x0))
 			{
 				place_extra_bold(floor_ptr, y, x);
@@ -5526,7 +5526,7 @@ static bool build_type12(floor_type *floor_ptr)
 	{
 		for (y = y0 - 2; y <= y0 + 2; y++)
 		{
-			if (!is_floor_bold(floor_ptr, y, x))
+			if(!is_floor_bold(floor_ptr, y, x))
 			{
 				/* Wall in the way */
 				emptyflag = FALSE;
@@ -5534,7 +5534,7 @@ static bool build_type12(floor_type *floor_ptr)
 		}
 	}
 
-	if (emptyflag && one_in_(2))
+	if(emptyflag && one_in_(2))
 	{
 		/* Build the vault */
 		build_small_room(floor_ptr, x0, y0);
@@ -5565,10 +5565,10 @@ static bool vault_aux_trapped_pit(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	// Validate the creature
-	if (!vault_creature_okay(species_idx)) return (FALSE);
+	if(!vault_creature_okay(species_idx)) return (FALSE);
 
 	// No wall passing creature
-	if (has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return (FALSE);
+	if(has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return (FALSE);
 
 	// Okay
 	return (TRUE);
@@ -5663,15 +5663,15 @@ static bool build_type13(floor_type *floor_ptr)
 	vault_aux_type *n_ptr;
 
 	/* Only in Angband */
-	if (floor_ptr->dun_type != DUNGEON_ANGBAND) return FALSE;
+	if(floor_ptr->dun_type != DUNGEON_ANGBAND) return FALSE;
 
 	/* No type available */
-	if (cur_pit_type < 0) return FALSE;
+	if(cur_pit_type < 0) return FALSE;
 
 	n_ptr = &pit_types[cur_pit_type];
 
 	/* Process a preparation function if necessary */
-	if (n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
+	if(n_ptr->prep_func) (*(n_ptr->prep_func))(floor_ptr);
 
 	/* Prepare allocation table */
 	get_species_num_prep(NULL, n_ptr->hook_func, vault_aux_trapped_pit, NULL, 0);
@@ -5691,24 +5691,24 @@ static bool build_type13(floor_type *floor_ptr)
 			r_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
-			if (creature_has_hostile_align(&align, player_ptr)) continue;
+			if(creature_has_hostile_align(&align, player_ptr)) continue;
 
 			/* Accept this creature */
 			break;
 		}
 
 		/* Notice failure */
-		if (!species_idx || !attempts) return FALSE;
+		if(!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if (is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if (is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
+		if(is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
+		if(is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
 	}
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, 13, 25)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, 13, 25)) return FALSE;
 
 	/* Large room */
 	y1 = yval - 5;
@@ -5779,7 +5779,7 @@ static bool build_type13(floor_type *floor_ptr)
 	}
 
 	/* Random corridor */
-	if (one_in_(2))
+	if(one_in_(2))
 	{
 		for (y = y1; y <= yval; y++)
 		{
@@ -5823,7 +5823,7 @@ static bool build_type13(floor_type *floor_ptr)
 			int p2 = species_info[what[i2]].level;
 
 			/* Bubble */
-			if (p1 > p2)
+			if(p1 > p2)
 			{
 				int tmp = what[i1];
 				what[i1] = what[i2];
@@ -5833,7 +5833,7 @@ static bool build_type13(floor_type *floor_ptr)
 	}
 
 	/* Message */
-	if (cheat_room)
+	if(cheat_room)
 	{
 		/* Room type */
 #ifdef JP
@@ -5849,7 +5849,7 @@ static bool build_type13(floor_type *floor_ptr)
 		/* Every other entry */
 		what[i] = what[i * 2];
 
-		if (cheat_hear)
+		if(cheat_hear)
 		{
 			/* Message */
 			msg_print(species_name + species_info[what[i]].name);
@@ -5892,7 +5892,7 @@ static bool build_type14(floor_type *floor_ptr)
 	ysize = y1 + y2 + 1;
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -5913,7 +5913,7 @@ static bool build_type14(floor_type *floor_ptr)
 			c_ptr = &floor_ptr->cave[y][x];
 			place_floor_grid(c_ptr);
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -5933,8 +5933,8 @@ static bool build_type14(floor_type *floor_ptr)
 		place_outer_grid(c_ptr);
 	}
 
-	if (floor_ptr->floor_level < 30 + randint1(30))
-		if (one_in_(3)) trap = feat_trap_piranha;
+	if(floor_ptr->floor_level < 30 + randint1(30))
+		if(one_in_(3)) trap = feat_trap_piranha;
 		else if(one_in_(2)) trap = feat_trap_acid_flow;
 		else trap = feat_trap_poison_flow;
 	else
@@ -5946,7 +5946,7 @@ static bool build_type14(floor_type *floor_ptr)
 	c_ptr->feat = trap;
 
 	/* Message */
-	if (cheat_room)
+	if(cheat_room)
 	{
 #ifdef JP
 		msg_format("%sの部屋(バグ頻発？)", feature_name + feature_info[trap].name);
@@ -5967,16 +5967,16 @@ static bool vault_aux_lite(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return FALSE;
+	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require lite attack */
-	if (!has_trait_raw(&r_ptr->flags, TRAIT_BR_LITE) && !has_trait_raw(&r_ptr->flags, TRAIT_BA_LITE)) return FALSE;
+	if(!has_trait_raw(&r_ptr->flags, TRAIT_BR_LITE) && !has_trait_raw(&r_ptr->flags, TRAIT_BA_LITE)) return FALSE;
 
 	/* No wall passing creatures */
-	if (has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
+	if(has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
 
 	/* No disintegrating creatures */
-	if (has_trait_raw(&r_ptr->flags, TRAIT_BR_DISI)) return FALSE;
+	if(has_trait_raw(&r_ptr->flags, TRAIT_BR_DISI)) return FALSE;
 
 	return TRUE;
 }
@@ -5989,10 +5989,10 @@ static bool vault_aux_shards(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
-	if (!vault_creature_okay(species_idx)) return FALSE;
+	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require shards breath attack */
-	if (!has_trait_raw(&r_ptr->flags, TRAIT_BR_SHAR)) return FALSE;
+	if(!has_trait_raw(&r_ptr->flags, TRAIT_BR_SHAR)) return FALSE;
 
 	return TRUE;
 }
@@ -6021,7 +6021,7 @@ static bool build_type15(floor_type *floor_ptr)
 	ysize = rand_range(7, 18);
 
 	/* Find and reserve some space in the dungeon.  Get center of room. */
-	if (!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
+	if(!find_space(floor_ptr, &yval, &xval, ysize + 2, xsize + 2)) return FALSE;
 
 	/* Choose lite or dark */
 	light = ((floor_ptr->floor_level <= randint1(25)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS));
@@ -6041,7 +6041,7 @@ static bool build_type15(floor_type *floor_ptr)
 			place_floor_grid(c_ptr);
 			c_ptr->feat = feat_glass_floor;
 			c_ptr->info |= (CAVE_ROOM);
-			if (light) c_ptr->info |= (CAVE_GLOW);
+			if(light) c_ptr->info |= (CAVE_GLOW);
 		}
 	}
 
@@ -6081,7 +6081,7 @@ static bool build_type15(floor_type *floor_ptr)
 
 				y = yval + 2 * ddy_ddd[dir1];
 				x = xval + 2 * ddx_ddd[dir1];
-				if (species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, PC_ALLOW_SLEEP);
+				if(species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, PC_ALLOW_SLEEP);
 
 				/* Walls around the breather */
 				for (dir2 = 0; dir2 < 8; dir2++)
@@ -6109,7 +6109,7 @@ static bool build_type15(floor_type *floor_ptr)
 			x = xval + 2 * ddx_ddd[dir1];
 			place_secret_door(floor_ptr, y, x, DOOR_GLASS_DOOR);
 			c_ptr = &floor_ptr->cave[y][x];
-			if (is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
+			if(is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
 
 			/* Place a potion */
 			//TODO get_obj_num_hook = kind_is_potion;
@@ -6143,7 +6143,7 @@ static bool build_type15(floor_type *floor_ptr)
 			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL, 0);
 
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
-			if (species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
+			if(species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
 
 			/* Walls around the breather */
 			for (dir1 = 0; dir1 < 8; dir1++)
@@ -6211,11 +6211,11 @@ static bool build_type15(floor_type *floor_ptr)
 
 				y = yval + ddy_ddd[dir1];
 				x = xval + ddx_ddd[dir1];
-				if (species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, 0L);
+				if(species_idx) place_creature_species(NULL, floor_ptr, y, x, species_idx, 0L);
 			}
 
 			/* Place two potions */
-			if (one_in_(2))
+			if(one_in_(2))
 			{
 				//TODO get_obj_num_hook = kind_is_potion;
 				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART);
@@ -6239,7 +6239,7 @@ static bool build_type15(floor_type *floor_ptr)
 	}
 
 	/* Message */
-	if (cheat_room)
+	if(cheat_room)
 	{
 #ifdef JP
 		msg_print("ガラスの部屋");
@@ -6319,7 +6319,7 @@ bool generate_rooms(floor_type *floor_ptr)
 	for (i = 0; i < ROOM_T_MAX; i++)
 	{
 		/* No rooms allowed above their minimum depth. */
-		if (floor_ptr->floor_level < room_infobject_ptr[i].min_level)
+		if(floor_ptr->floor_level < room_infobject_ptr[i].min_level)
 		{
 			prob_list[i] = 0;
 		}
@@ -6334,17 +6334,17 @@ bool generate_rooms(floor_type *floor_ptr)
 	 */
 
 	/* Ironman sees only Greater Vaults */
-	if (ironman_rooms && !((dungeon_info[floor_ptr->dun_type].flags1 & (DF1_BEGINNER | DF1_CHAMELEON | DF1_SMALLEST))))
+	if(ironman_rooms && !((dungeon_info[floor_ptr->dun_type].flags1 & (DF1_BEGINNER | DF1_CHAMELEON | DF1_SMALLEST))))
 	{
 		for (i = 0; i < ROOM_T_MAX; i++)
 		{
-			if (i == ROOM_T_GREATER_VAULT) prob_list[i] = 1;
+			if(i == ROOM_T_GREATER_VAULT) prob_list[i] = 1;
 			else prob_list[i] = 0;
 		}
 	}
 
 	/* Forbidden vaults */
-	else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_VAULT)
+	else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_VAULT)
 	{
 		prob_list[ROOM_T_LESSER_VAULT] = 0;
 		prob_list[ROOM_T_GREATER_VAULT] = 0;
@@ -6353,7 +6353,7 @@ bool generate_rooms(floor_type *floor_ptr)
 
 
 	/* NO_CAVE dungeon (Castle)*/
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_CAVE)
 	{
 		MOVE_PLIST(ROOM_T_NORMAL, ROOM_T_FRACAVE);
 		MOVE_PLIST(ROOM_T_INNER_FEAT, ROOM_T_CRYPT);
@@ -6361,19 +6361,19 @@ bool generate_rooms(floor_type *floor_ptr)
 	}
 
 	/* CAVE dungeon (Orc cave etc.) */
-	else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_CAVE)
+	else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_CAVE)
 	{
 		MOVE_PLIST(ROOM_T_FRACAVE, ROOM_T_NORMAL);
 	}
 
 	/* No caves when a (random) cavern exists: they look bad */
-	else if (dungeon_ptr->cavern || dungeon_ptr->empty_level)
+	else if(dungeon_ptr->cavern || dungeon_ptr->empty_level)
 	{
 		prob_list[ROOM_T_FRACAVE] = 0;
 	}
 
 	/* Forbidden glass rooms */
-	if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_ROOM))
+	if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_GLASS_ROOM))
 	{
 		prob_list[ROOM_T_GLASS] = 0;
 	}
@@ -6401,12 +6401,12 @@ bool generate_rooms(floor_type *floor_ptr)
 		/* Get room_type randomly */
 		for (room_type = 0; room_type < ROOM_T_MAX; room_type++)
 		{
-			if (rand < prob_list[room_type]) break;
+			if(rand < prob_list[room_type]) break;
 			else rand -= prob_list[room_type];
 		}
 
 		/* Paranoia */
-		if (room_type >= ROOM_T_MAX) room_type = ROOM_T_NORMAL;
+		if(room_type >= ROOM_T_MAX) room_type = ROOM_T_NORMAL;
 
 		/* Increase the number of rooms of that type we should build. */
 		room_num[room_type]++;
@@ -6447,13 +6447,13 @@ bool generate_rooms(floor_type *floor_ptr)
 			int room_type = room_build_order[i];
 
 			/* Go next if none available */
-			if (!room_num[room_type]) continue;
+			if(!room_num[room_type]) continue;
 
 			/* Use up one unit */
 			room_num[room_type]--;
 
 			/* Build the room. */
-			if (room_build(floor_ptr, room_type))
+			if(room_build(floor_ptr, room_type))
 			{
 				/* Increase the room built count. */
 				rooms_built++;
@@ -6468,7 +6468,7 @@ bool generate_rooms(floor_type *floor_ptr)
 				case ROOM_T_TRAP_PIT:
 
 					/* Avoid too many creatures */
-					if (++crowded >= 2)
+					if(++crowded >= 2)
 					{
 						room_num[ROOM_T_PIT] = 0;
 						room_num[ROOM_T_NEST] = 0;
@@ -6479,12 +6479,12 @@ bool generate_rooms(floor_type *floor_ptr)
 		}
 
 		/* End loop if no room remain */
-		if (!remain) break;
+		if(!remain) break;
 	}
 
-	if (rooms_built < 1) return FALSE;
+	if(rooms_built < 1) return FALSE;
 
-	if (cheat_room)
+	if(cheat_room)
 	{
 #ifdef JP
 		msg_format("部屋数: %d", rooms_built);

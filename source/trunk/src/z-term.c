@@ -411,7 +411,7 @@ static errr term_win_copy(term_win *s, term_win *f, int w, int h)
 errr Term_user(int n)
 {
 	/* Verify the hook */
-	if (!Term->user_hook) return (-1);
+	if(!Term->user_hook) return (-1);
 
 	/* Call the hook */
 	return ((*Term->user_hook)(n));
@@ -423,7 +423,7 @@ errr Term_user(int n)
 errr Term_xtra(int n, int v)
 {
 	/* Verify the hook */
-	if (!Term->xtra_hook) return (-1);
+	if(!Term->xtra_hook) return (-1);
 
 	/* Call the hook */
 	return ((*Term->xtra_hook)(n, v));
@@ -524,7 +524,7 @@ void Term_queue_char(int x, int y, byte a, char c, byte ta, char tc)
 	char *scr_tcc = &scrn->tc[y][x];
 
 	/* Hack -- Ignore non-changes */
-	if ((*scr_aa == a) && (*scr_cc == c) &&
+	if((*scr_aa == a) && (*scr_cc == c) &&
 		 (*scr_taa == ta) && (*scr_tcc == tc)) return;
 
 	/* Save the "literal" information */
@@ -535,20 +535,20 @@ void Term_queue_char(int x, int y, byte a, char c, byte ta, char tc)
 	*scr_tcc = tc;
 
 	/* Check for new min/max row info */
-	if (y < Term->y1) Term->y1 = y;
-	if (y > Term->y2) Term->y2 = y;
+	if(y < Term->y1) Term->y1 = y;
+	if(y > Term->y2) Term->y2 = y;
 
 	/* Check for new min/max col info for this row */
-	if (x < Term->x1[y]) Term->x1[y] = x;
-	if (x > Term->x2[y]) Term->x2[y] = x;
+	if(x < Term->x1[y]) Term->x1[y] = x;
+	if(x > Term->x2[y]) Term->x2[y] = x;
 
 #ifdef JP
-	if (((scrn->a[y][x] & AF_BIGTILE2) == AF_BIGTILE2) ||
+	if(((scrn->a[y][x] & AF_BIGTILE2) == AF_BIGTILE2) ||
 	    (scrn->a[y][x] & AF_KANJI2))
 #else
-	if ((scrn->a[y][x] & AF_BIGTILE2) == AF_BIGTILE2)
+	if((scrn->a[y][x] & AF_BIGTILE2) == AF_BIGTILE2)
 #endif
-		if ((x - 1) < Term->x1[y]) Term->x1[y]--;
+		if((x - 1) < Term->x1[y]) Term->x1[y]--;
 }
 
 
@@ -584,14 +584,14 @@ void Term_queue_bigchar(int x, int y, byte a, char c, byte ta, char tc)
 	char c2;
 
 	/* If non bigtile mode, call orginal function */
-	if (!use_bigtile)
+	if(!use_bigtile)
 	{
 		Term_queue_char(x, y, a, c, ta, tc);
 		return;
 	}
 
 	/* A tile becomes a Bigtile */
-	if ((a & AF_TILE1) && (c & 0x80))
+	if((a & AF_TILE1) && (c & 0x80))
 	{
 		/* Mark it as a Bigtile */
 		a2 = AF_BIGTILE2;
@@ -599,7 +599,7 @@ void Term_queue_bigchar(int x, int y, byte a, char c, byte ta, char tc)
 		c2 = -1;
 
 		/* Ignore non-tile background */
-		if (!((ta & AF_TILE1) && (tc & 0x80)))
+		if(!((ta & AF_TILE1) && (tc & 0x80)))
 		{
 			ta = 0;
 			tc = 0;
@@ -611,7 +611,7 @@ void Term_queue_bigchar(int x, int y, byte a, char c, byte ta, char tc)
 	 * Use a multibyte character instead of a dirty pair of ASCII
 	 * characters.
 	 */
-	else if (' ' <= c) /* isprint(c) */
+	else if(' ' <= c) /* isprint(c) */
 	{
 		c2 = ascii_to_zenkaku[2 * (c - ' ') + 1];
 		c = ascii_to_zenkaku[2 * (c - ' ')];
@@ -659,7 +659,7 @@ void Term_queue_line(int x, int y, int n, byte *a, char *c, byte *ta, char *tc)
 	while (n--)
 	{
 		/* Hack -- Ignore non-changes */
-		if ((*scr_aa == *a) && (*scr_cc == *c) &&
+		if((*scr_aa == *a) && (*scr_cc == *c) &&
 			(*scr_taa == *ta) && (*scr_tcc == *tc))
 		{
 			x++;
@@ -683,7 +683,7 @@ void Term_queue_line(int x, int y, int n, byte *a, char *c, byte *ta, char *tc)
 		*scr_cc++ = *c++;
 
 		/* Track minimum changed column */
-		if (x1 < 0) x1 = x;
+		if(x1 < 0) x1 = x;
 
 		/* Track maximum changed column */
 		x2 = x;
@@ -692,15 +692,15 @@ void Term_queue_line(int x, int y, int n, byte *a, char *c, byte *ta, char *tc)
 	}
 
 	/* Expand the "change area" as needed */
-	if (x1 >= 0)
+	if(x1 >= 0)
 	{
 		/* Check for new min/max row info */
-		if (y < Term->y1) Term->y1 = y;
-		if (y > Term->y2) Term->y2 = y;
+		if(y < Term->y1) Term->y1 = y;
+		if(y > Term->y2) Term->y2 = y;
 
 		/* Check for new min/max col info in this row */
-		if (x1 < Term->x1[y]) Term->x1[y] = x1;
-		if (x2 > Term->x2[y]) Term->x2[y] = x2;
+		if(x1 < Term->x1[y]) Term->x1[y] = x1;
+		if(x2 > Term->x2[y]) Term->x2[y] = x2;
 	}
 }
 
@@ -734,13 +734,13 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 
 #ifdef JP
 	/* 表示文字なし */
-	if (n == 0 || *s == 0) return;
+	if(n == 0 || *s == 0) return;
 	/*
 	 * 全角文字の右半分から文字を表示する場合、
 	 * 重なった文字の左部分を消去。
 	 * 表示開始位置が左端でないと仮定。
 	 */
-	if ((scr_aa[x] & AF_KANJI2) && (scr_aa[x] & AF_BIGTILE2) != AF_BIGTILE2)
+	if((scr_aa[x] & AF_KANJI2) && (scr_aa[x] & AF_BIGTILE2) != AF_BIGTILE2)
 	{
 		scr_cc[x - 1] = ' ';
 		scr_aa[x - 1] &= AF_KANJIC;
@@ -754,7 +754,7 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 		/* 特殊文字としてMSBが立っている可能性がある */
 		/* その場合attrのMSBも立っているのでこれで識別する */
 /* check */
-		if (!(a & AF_TILE1) && iskanji(*s))
+		if(!(a & AF_TILE1) && iskanji(*s))
 		{
 			char nc1 = *s++;
 			char nc2 = *s;
@@ -788,7 +788,7 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 		char otc = scr_tcc[x];
 
 		/* Hack -- Ignore non-changes */
-		if ((oa == a) && (oc == *s) && (ota == 0) && (otc == 0)) continue;
+		if((oa == a) && (oc == *s) && (ota == 0) && (otc == 0)) continue;
 
 		/* Save the "literal" information */
 		scr_aa[x] = a;
@@ -798,7 +798,7 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 		scr_tcc[x] = 0;
 
 		/* Note the "range" of window updates */
-		if (x1 < 0) x1 = x;
+		if(x1 < 0) x1 = x;
 		x2 = x;
 #ifdef JP
 	}
@@ -815,25 +815,25 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 
 		int w, h;
 		Term_get_size(&w, &h);
-		if (x != w && !(scr_aa[x] & AF_TILE1) && (scr_aa[x] & AF_KANJI2))
+		if(x != w && !(scr_aa[x] & AF_TILE1) && (scr_aa[x] & AF_KANJI2))
 		{
 			scr_cc[x] = ' ';
 			scr_aa[x] &= AF_KANJIC;
-			if (x1 < 0) x1 = x;
+			if(x1 < 0) x1 = x;
 			x2 = x;
 		}
 	}
 #endif
 	/* Expand the "change area" as needed */
-	if (x1 >= 0)
+	if(x1 >= 0)
 	{
 		/* Check for new min/max row info */
-		if (y < Term->y1) Term->y1 = y;
-		if (y > Term->y2) Term->y2 = y;
+		if(y < Term->y1) Term->y1 = y;
+		if(y > Term->y2) Term->y2 = y;
 
 		/* Check for new min/max col info in this row */
-		if (x1 < Term->x1[y]) Term->x1[y] = x1;
-		if (x2 > Term->x2[y]) Term->x2[y] = x2;
+		if(x1 < Term->x1[y]) Term->x1[y] = x1;
+		if(x2 > Term->x2[y]) Term->x2[y] = x2;
 	}
 }
 
@@ -898,7 +898,7 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 		nc = scr_cc[x];
 
 #ifdef JP
-		if (kanji)
+		if(kanji)
 		{
 			/* 全角文字２バイト目 */
 			kanji = 0;
@@ -921,17 +921,17 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 
 		/* Handle unchanged grids */
 #ifdef JP
-		if ((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc)
+		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc)
 		    &&(!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
 				  scr_cc[x + 1] == old_cc[x + 1] &&
 				  scr_taa[x + 1] == old_taa[x + 1] &&
 				  scr_tcc[x + 1] == old_tcc[x + 1])))
 #else
-		if ((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
+		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
 #endif
 		{
 			/* Flush */
-			if (fn)
+			if(fn)
 			{
 				/* Draw pending attr/char pairs */
 				(void)((*Term->pict_hook)(fx, y, fn,
@@ -961,11 +961,11 @@ static void Term_fresh_row_pict(int y, int x1, int x2)
 		old_tcc[x] = ntc;
 
 		/* Restart and Advance */
-		if (fn++ == 0) fx = x;
+		if(fn++ == 0) fx = x;
 	}
 
 	/* Flush */
-	if (fn)
+	if(fn)
 	{
 		/* Draw pending attr/char pairs */
 		(void)((*Term->pict_hook)(fx, y, fn, &scr_aa[fx], &scr_cc[fx], &scr_taa[fx], &scr_tcc[fx]));
@@ -1034,7 +1034,7 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		nc = scr_cc[x];
 
 #ifdef JP
-		if (kanji)
+		if(kanji)
 		{
 			/* 全角文字２バイト目 */
 			kanji = 0;
@@ -1057,20 +1057,20 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 
 		/* Handle unchanged grids */
 #ifdef JP
-		if ((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc)&&
+		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc)&&
 		    (!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
 				scr_cc[x + 1] == old_cc[x + 1] &&
 				scr_taa[x + 1] == old_taa[x + 1] &&
 				scr_tcc[x + 1] == old_tcc[x + 1])))
 #else
-		if ((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
+		if((na == oa) && (nc == oc) && (nta == ota) && (ntc == otc))
 #endif
 		{
 			/* Flush */
-			if (fn)
+			if(fn)
 			{
 				/* Draw pending chars (normal) */
-				if (fa || always_text)
+				if(fa || always_text)
 				{
 					(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 				}
@@ -1106,16 +1106,16 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		old_tcc[x] = ntc;
 
 		/* 2nd byte of bigtile */
-		if ((na & AF_BIGTILE2) == AF_BIGTILE2) continue;
+		if((na & AF_BIGTILE2) == AF_BIGTILE2) continue;
 
 		/* Handle high-bit attr/chars */
-		if ((na & AF_TILE1) && (nc & 0x80))
+		if((na & AF_TILE1) && (nc & 0x80))
 		{
 			/* Flush */
-			if (fn)
+			if(fn)
 			{
 				/* Draw pending chars (normal) */
-				if (fa || always_text)
+				if(fa || always_text)
 				{
 					(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 				}
@@ -1139,17 +1139,17 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 
 		/* Notice new color */
 #ifdef JP
-		if (fa != (na & AF_KANJIC))
+		if(fa != (na & AF_KANJIC))
 #else
-		if (fa != na)
+		if(fa != na)
 #endif
 
 		{
 			/* Flush */
-			if (fn)
+			if(fn)
 			{
 				/* Draw the pending chars */
-				if (fa || always_text)
+				if(fa || always_text)
 				{
 					(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 				}
@@ -1174,14 +1174,14 @@ static void Term_fresh_row_both(int y, int x1, int x2)
 		}
 
 		/* Restart and Advance */
-		if (fn++ == 0) fx = x;
+		if(fn++ == 0) fx = x;
 	}
 
 	/* Flush */
-	if (fn)
+	if(fn)
 	{
 		/* Draw pending chars (normal) */
-		if (fa || always_text)
+		if(fa || always_text)
 		{
 			(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 		}
@@ -1233,9 +1233,9 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 	int kanji = 0;
 
 	for (x = 0; x < x1; x++)
-		if (!(old_aa[x] & AF_TILE1) && iskanji(old_cc[x]))
+		if(!(old_aa[x] & AF_TILE1) && iskanji(old_cc[x]))
 		{
-			if (x == x1 - 1)
+			if(x == x1 - 1)
 			{
 				x1--;
 				break;
@@ -1256,7 +1256,7 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 		nc = scr_cc[x];
 
 #ifdef JP
-		if (kanji)
+		if(kanji)
 		{
 			/* 全角文字２バイト目 */
 			kanji = 0;
@@ -1272,19 +1272,19 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 #endif
 		/* Handle unchanged grids */
 #ifdef JP
-		if ((na == oa) && (nc == oc) &&
+		if((na == oa) && (nc == oc) &&
 		    (!kanji || (scr_aa[x + 1] == old_aa[x + 1] &&
 				scr_cc[x + 1] == old_cc[x + 1])))
 #else
-		if ((na == oa) && (nc == oc))
+		if((na == oa) && (nc == oc))
 #endif
 
 		{
 			/* Flush */
-			if (fn)
+			if(fn)
 			{
 				/* Draw pending chars (normal) */
-				if (fa || always_text)
+				if(fa || always_text)
 				{
 					(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 				}
@@ -1318,17 +1318,17 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 
 		/* Notice new color */
 #ifdef JP
-		if (fa != (na & AF_KANJIC))
+		if(fa != (na & AF_KANJIC))
 #else
-		if (fa != na)
+		if(fa != na)
 #endif
 
 		{
 			/* Flush */
-			if (fn)
+			if(fn)
 			{
 				/* Draw the pending chars */
-				if (fa || always_text)
+				if(fa || always_text)
 				{
 					(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 				}
@@ -1353,14 +1353,14 @@ static void Term_fresh_row_text(int y, int x1, int x2)
 		}
 
 		/* Restart and Advance */
-		if (fn++ == 0) fx = x;
+		if(fn++ == 0) fx = x;
 	}
 
 	/* Flush */
-	if (fn)
+	if(fn)
 	{
 		/* Draw pending chars (normal) */
-		if (fa || always_text)
+		if(fa || always_text)
 		{
 			(void)((*Term->text_hook)(fx, y, fn, fa, &scr_cc[fx]));
 		}
@@ -1504,11 +1504,11 @@ errr Term_fresh(void)
 
 
 	/* Do nothing unless "mapped" */
-	if (!Term->mapped_flag) return (1);
+	if(!Term->mapped_flag) return (1);
 
 
 	/* Trivial Refresh */
-	if ((y1 > y2) &&
+	if((y1 > y2) &&
 	    (scr->cu == old->cu) &&
 	    (scr->cv == old->cv) &&
 	    (scr->cx == old->cx) &&
@@ -1521,7 +1521,7 @@ errr Term_fresh(void)
 
 
 	/* Handle "total erase" */
-	if (Term->total_erase)
+	if(Term->total_erase)
 	{
 		byte na = Term->attr_blank;
 		char nc = Term->char_blank;
@@ -1571,10 +1571,10 @@ errr Term_fresh(void)
 
 
 	/* Cursor update -- Erase old Cursor */
-	if (Term->soft_cursor)
+	if(Term->soft_cursor)
 	{
 		/* Cursor was visible */
-		if (!old->cu && old->cv)
+		if(!old->cu && old->cv)
 		{
 			int csize = 1;
 			int tx = old->cx;
@@ -1590,24 +1590,24 @@ errr Term_fresh(void)
 			char otc = old_tcc[tx];
 
 #ifdef JP
-			if (tx + 1 < Term->wid && !(old_aa[tx] & AF_TILE1)
+			if(tx + 1 < Term->wid && !(old_aa[tx] & AF_TILE1)
 			    && iskanji(old_cc[tx]))
 				csize = 2;
 #endif
 			/* Hack -- use "Term_pict()" always */
-			if (Term->always_pict)
+			if(Term->always_pict)
 			{
 				(void)((*Term->pict_hook)(tx, ty, csize, &old_aa[tx], &old_cc[tx], &ota, &otc));
 			}
 
 			/* Hack -- use "Term_pict()" sometimes */
-			else if (Term->higher_pict && (old_aa[tx] & AF_TILE1) && (old_cc[tx] & 0x80))
+			else if(Term->higher_pict && (old_aa[tx] & AF_TILE1) && (old_cc[tx] & 0x80))
 			{
 				(void)((*Term->pict_hook)(tx, ty, 1, &old_aa[tx], &old_cc[tx], &ota, &otc));
 			}
 
 			/* Hack -- restore the actual character */
-			else if (old_aa[tx] || Term->always_text)
+			else if(old_aa[tx] || Term->always_text)
 			{
 				(void)((*Term->text_hook)(tx, ty, csize, (unsigned char) (old_aa[tx] & 0xf), &old_cc[tx]));
 			}
@@ -1624,7 +1624,7 @@ errr Term_fresh(void)
 	else
 	{
 		/* Cursor will be invisible */
-		if (scr->cu || !scr->cv)
+		if(scr->cu || !scr->cv)
 		{
 			/* Make the cursor invisible */
 			Term_xtra(TERM_XTRA_SHAPE, 0);
@@ -1633,16 +1633,16 @@ errr Term_fresh(void)
 
 
 	/* Something to update */
-	if (y1 <= y2)
+	if(y1 <= y2)
 	{
 		/* Handle "icky corner" */
-		if (Term->icky_corner)
+		if(Term->icky_corner)
 		{
 			/* Avoid the corner */
-			if (y2 >= h - 1)
+			if(y2 >= h - 1)
 			{
 				/* Avoid the corner */
-				if (Term->x2[h - 1] > w - 2)
+				if(Term->x2[h - 1] > w - 2)
 				{
 					/* Avoid the corner */
 					Term->x2[h - 1] = w - 2;
@@ -1658,17 +1658,17 @@ errr Term_fresh(void)
 			int x2 = Term->x2[y];
 
 			/* Flush each "modified" row */
-			if (x1 <= x2)
+			if(x1 <= x2)
 			{
 				/* Always use "Term_pict()" */
-				if (Term->always_pict)
+				if(Term->always_pict)
 				{
 					/* Flush the row */
 					Term_fresh_row_pict(y, x1, x2);
 				}
 
 				/* Sometimes use "Term_pict()" */
-				else if (Term->higher_pict)
+				else if(Term->higher_pict)
 				{
 					/* Flush the row */
 					Term_fresh_row_both(y, x1, x2);
@@ -1686,7 +1686,7 @@ errr Term_fresh(void)
 				Term->x2[y] = 0;
 
 				/* Hack -- Flush that row (if allowed) */
-				if (!Term->never_frosh) Term_xtra(TERM_XTRA_FROSH, y);
+				if(!Term->never_frosh) Term_xtra(TERM_XTRA_FROSH, y);
 			}
 		}
 
@@ -1697,18 +1697,18 @@ errr Term_fresh(void)
 
 
 	/* Cursor update -- Show new Cursor */
-	if (Term->soft_cursor)
+	if(Term->soft_cursor)
 	{
 		/* Draw the cursor */
-		if (!scr->cu && scr->cv)
+		if(!scr->cu && scr->cv)
 		{
 #ifdef JP
-			if ((scr->cx + 1 < w) &&
+			if((scr->cx + 1 < w) &&
 			    ((old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2 ||
 			     (!(old->a[scr->cy][scr->cx] & AF_TILE1) &&
 			      iskanji(old->c[scr->cy][scr->cx]))))
 #else
-			if ((scr->cx + 1 < w) && (old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2)
+			if((scr->cx + 1 < w) && (old->a[scr->cy][scr->cx + 1] & AF_BIGTILE2) == AF_BIGTILE2)
 #endif
 			{
 				/* Double width cursor for the Bigtile mode */
@@ -1726,7 +1726,7 @@ errr Term_fresh(void)
 	else
 	{
 		/* The cursor is useless, hide it */
-		if (scr->cu)
+		if(scr->cu)
 		{
 			/* Paranoia -- Put the cursor NEAR where it belongs */
 			(void)((*Term->curs_hook)(w - 1, scr->cy));
@@ -1736,7 +1736,7 @@ errr Term_fresh(void)
 		}
 
 		/* The cursor is invisible, hide it */
-		else if (!scr->cv)
+		else if(!scr->cv)
 		{
 			/* Paranoia -- Put the cursor where it belongs */
 			(void)((*Term->curs_hook)(scr->cx, scr->cy));
@@ -1783,7 +1783,7 @@ errr Term_fresh(void)
 errr Term_set_cursor(int v)
 {
 	/* Already done */
-	if (Term->scr->cv == v) return (1);
+	if(Term->scr->cv == v) return (1);
 
 	/* Change */
 	Term->scr->cv = v;
@@ -1804,8 +1804,8 @@ errr Term_gotoxy(int x, int y)
 	int h = Term->hgt;
 
 	/* Verify */
-	if ((x < 0) || (x >= w)) return (-1);
-	if ((y < 0) || (y >= h)) return (-1);
+	if((x < 0) || (x >= w)) return (-1);
+	if((y < 0) || (y >= h)) return (-1);
 
 	/* Remember the cursor */
 	Term->scr->cx = x;
@@ -1830,11 +1830,11 @@ errr Term_draw(int x, int y, byte a, char c)
 	int h = Term->hgt;
 
 	/* Verify location */
-	if ((x < 0) || (x >= w)) return (-1);
-	if ((y < 0) || (y >= h)) return (-1);
+	if((x < 0) || (x >= w)) return (-1);
+	if((y < 0) || (y >= h)) return (-1);
 
 	/* Paranoia -- illegal char */
-	if (!c) return (-2);
+	if(!c) return (-2);
 
 	/* Queue it for later */
 	Term_queue_char(x, y, a, c, 0, 0);
@@ -1865,10 +1865,10 @@ errr Term_addch(byte a, char c)
 	int w = Term->wid;
 
 	/* Handle "unusable" cursor */
-	if (Term->scr->cu) return (-1);
+	if(Term->scr->cu) return (-1);
 
 	/* Paranoia -- no illegal chars */
-	if (!c) return (-2);
+	if(!c) return (-2);
 
 	/* Queue the given character for display */
 	Term_queue_char(Term->scr->cx, Term->scr->cy, a, c, 0, 0);
@@ -1877,7 +1877,7 @@ errr Term_addch(byte a, char c)
 	Term->scr->cx++;
 
 	/* Success */
-	if (Term->scr->cx < w) return (0);
+	if(Term->scr->cx < w) return (0);
 
 	/* Note "Useless" cursor */
 	Term->scr->cu = 1;
@@ -1897,13 +1897,13 @@ errr Term_addch(byte a, char c)
  */
 errr Term_add_bigch(byte a, char c)
 {
-	if (!use_bigtile) return Term_addch(a, c);
+	if(!use_bigtile) return Term_addch(a, c);
 
 	/* Handle "unusable" cursor */
-	if (Term->scr->cu) return (-1);
+	if(Term->scr->cu) return (-1);
 
 	/* Paranoia -- no illegal chars */
-	if (!c) return (-2);
+	if(!c) return (-2);
 
 	/* Queue the given character for display */
 	Term_queue_bigchar(Term->scr->cx, Term->scr->cy, a, c, 0, 0);
@@ -1912,7 +1912,7 @@ errr Term_add_bigch(byte a, char c)
 	Term->scr->cx += 2;
 
 	/* Success */
-	if (Term->scr->cx < Term->wid) return (0);
+	if(Term->scr->cx < Term->wid) return (0);
 
 	/* Note "Useless" cursor */
 	Term->scr->cu = 1;
@@ -1950,7 +1950,7 @@ errr Term_addstr(int n, byte a, cptr s)
 	errr res = 0;
 
 	/* Handle "unusable" cursor */
-	if (Term->scr->cu) return (-1);
+	if(Term->scr->cu) return (-1);
 
 	/* Obtain maximal length */
 	k = (n < 0) ? (w + 1) : n;
@@ -1959,7 +1959,7 @@ errr Term_addstr(int n, byte a, cptr s)
 	for (n = 0; (n < k) && s[n]; n++) /* loop */;
 
 	/* React to reaching the edge of the screen */
-	if (Term->scr->cx + n >= w) res = n = w - Term->scr->cx;
+	if(Term->scr->cx + n >= w) res = n = w - Term->scr->cx;
 
 	/* Queue the first "n" characters for display */
 	Term_queue_chars(Term->scr->cx, Term->scr->cy, n, a, s);
@@ -1968,7 +1968,7 @@ errr Term_addstr(int n, byte a, cptr s)
 	Term->scr->cx += n;
 
 	/* Hack -- Notice "Useless" cursor */
-	if (res) Term->scr->cu = 1;
+	if(res) Term->scr->cu = 1;
 
 	/* Success (usually) */
 	return (res);
@@ -1983,10 +1983,10 @@ errr Term_putch(int x, int y, byte a, char c)
 	errr res;
 
 	/* Move first */
-	if ((res = Term_gotoxy(x, y)) != 0) return (res);
+	if((res = Term_gotoxy(x, y)) != 0) return (res);
 
 	/* Then add the char */
-	if ((res = Term_addch(a, c)) != 0) return (res);
+	if((res = Term_addch(a, c)) != 0) return (res);
 
 	/* Success */
 	return (0);
@@ -2001,10 +2001,10 @@ errr Term_putstr(int x, int y, int n, byte a, cptr s)
 	errr res;
 
 	/* Move first */
-	if ((res = Term_gotoxy(x, y)) != 0) return (res);
+	if((res = Term_gotoxy(x, y)) != 0) return (res);
 
 	/* Then add the string */
-	if ((res = Term_addstr(n, a, s)) != 0) return (res);
+	if((res = Term_addstr(n, a, s)) != 0) return (res);
 
 	/* Success */
 	return (0);
@@ -2024,16 +2024,16 @@ errr Term_putstr_v(int x, int y, int n, byte a, cptr s)
 	for (i = 0; i < n && s[i] != 0; i++)
 	{
 	  /* Move first */
-	  if ((res = Term_gotoxy(x, y0)) != 0) return (res);
+	  if((res = Term_gotoxy(x, y0)) != 0) return (res);
 
-	  if (iskanji(s[i]))
+	  if(iskanji(s[i]))
 	  {
-	    if ((res = Term_addstr(2, a, &s[i])) != 0) return (res);
+	    if((res = Term_addstr(2, a, &s[i])) != 0) return (res);
 	    i++;
 	    y0++;
-	    if (s[i] == 0) break;
+	    if(s[i] == 0) break;
 	  } else {
-	    if ((res = Term_addstr(1, a, &s[i])) != 0) return (res);
+	    if((res = Term_addstr(1, a, &s[i])) != 0) return (res);
 	    y0++;
 	  }
 	}
@@ -2066,10 +2066,10 @@ errr Term_erase(int x, int y, int n)
 	char *scr_tcc;
 
 	/* Place cursor */
-	if (Term_gotoxy(x, y)) return (-1);
+	if(Term_gotoxy(x, y)) return (-1);
 
 	/* Force legal size */
-	if (x + n > w) n = w - x;
+	if(x + n > w) n = w - x;
 
 	/* Fast access */
 	scr_aa = Term->scr->a[y];
@@ -2083,10 +2083,10 @@ errr Term_erase(int x, int y, int n)
 	 * 全角文字の右半分から文字を表示する場合、
 	 * 重なった文字の左部分を消去。
 	 */
-	if (n > 0 && (((scr_aa[x] & AF_KANJI2) && !(scr_aa[x] & AF_TILE1))
+	if(n > 0 && (((scr_aa[x] & AF_KANJI2) && !(scr_aa[x] & AF_TILE1))
 		      || (scr_aa[x] & AF_BIGTILE2) == AF_BIGTILE2))
 #else
-	if (n > 0 && (scr_aa[x] & AF_BIGTILE2) == AF_BIGTILE2)
+	if(n > 0 && (scr_aa[x] & AF_BIGTILE2) == AF_BIGTILE2)
 #endif
 	{
 		x--;
@@ -2100,7 +2100,7 @@ errr Term_erase(int x, int y, int n)
 		int oc = scr_cc[x];
 
 		/* Hack -- Ignore "non-changes" */
-		if ((oa == na) && (oc == nc)) continue;
+		if((oa == na) && (oc == nc)) continue;
 
 #ifdef JP
 		/*
@@ -2110,7 +2110,7 @@ errr Term_erase(int x, int y, int n)
 		 * 2001/04/29 -- Habu
 		 * 行の右端の場合はこの処理をしないように修正。
 		 */
-		if ((oa & AF_KANJI1) && (i + 1) == n && x != w - 1)
+		if((oa & AF_KANJI1) && (i + 1) == n && x != w - 1)
 			n++;
 #endif
 		/* Save the "literal" information */
@@ -2121,22 +2121,22 @@ errr Term_erase(int x, int y, int n)
 		scr_tcc[x] = 0;
 
 		/* Track minimum changed column */
-		if (x1 < 0) x1 = x;
+		if(x1 < 0) x1 = x;
 
 		/* Track maximum changed column */
 		x2 = x;
 	}
 
 	/* Expand the "change area" as needed */
-	if (x1 >= 0)
+	if(x1 >= 0)
 	{
 		/* Check for new min/max row info */
-		if (y < Term->y1) Term->y1 = y;
-		if (y > Term->y2) Term->y2 = y;
+		if(y < Term->y1) Term->y1 = y;
+		if(y > Term->y2) Term->y2 = y;
 
 		/* Check for new min/max col info in this row */
-		if (x1 < Term->x1[y]) Term->x1[y] = x1;
-		if (x2 > Term->x2[y]) Term->x2[y] = x2;
+		if(x1 < Term->x1[y]) Term->x1[y] = x1;
+		if(x2 > Term->x2[y]) Term->x2[y] = x2;
 	}
 
 	/* Success */
@@ -2230,10 +2230,10 @@ errr Term_redraw_section(int x1, int y1, int x2, int y2)
 	char *c_ptr;
 
 	/* Bounds checking */
-	if (y2 >= Term->hgt) y2 = Term->hgt - 1;
-	if (x2 >= Term->wid) x2 = Term->wid - 1;
-	if (y1 < 0) y1 = 0;
-	if (x1 < 0) x1 = 0;
+	if(y2 >= Term->hgt) y2 = Term->hgt - 1;
+	if(x2 >= Term->wid) x2 = Term->wid - 1;
+	if(y1 < 0) y1 = 0;
+	if(x1 < 0) x1 = 0;
 
 	/* Set y limits */
 	Term->y1 = y1;
@@ -2246,14 +2246,14 @@ errr Term_redraw_section(int x1, int y1, int x2, int y2)
 		int x1j = x1;
 		int x2j = x2;
    
-		if (x1j > 0)
+		if(x1j > 0)
 		{
-			if (Term->scr->a[i][x1j] & AF_KANJI2) x1j--;
+			if(Term->scr->a[i][x1j] & AF_KANJI2) x1j--;
 		}
    
-		if (x2j < Term->wid - 1)
+		if(x2j < Term->wid - 1)
 		{
-			if (Term->scr->a[i][x2j] & AF_KANJI1) x2j++;
+			if(Term->scr->a[i][x2j] & AF_KANJI1) x2j++;
 		}
    
 		Term->x1[i] = x1j;
@@ -2331,7 +2331,7 @@ errr Term_locate(int *x, int *y)
 	(*y) = Term->scr->cy;
 
 	/* Warn about "useless" cursor */
-	if (Term->scr->cu) return (1);
+	if(Term->scr->cu) return (1);
 
 	/* Success */
 	return (0);
@@ -2349,8 +2349,8 @@ errr Term_what(int x, int y, byte *a, char *c)
 	int h = Term->hgt;
 
 	/* Verify location */
-	if ((x < 0) || (x >= w)) return (-1);
-	if ((y < 0) || (y >= h)) return (-1);
+	if((x < 0) || (x >= w)) return (-1);
+	if((y < 0) || (y >= h)) return (-1);
 
 	/* Direct access */
 	(*a) = Term->scr->a[y][x];
@@ -2388,16 +2388,16 @@ errr Term_flush(void)
 errr Term_keypress(int k)
 {
 	/* Hack -- Refuse to enqueue non-keys */
-	if (!k) return (-1);
+	if(!k) return (-1);
 
 	/* Store the char, advance the queue */
 	Term->key_queue[Term->key_head++] = k;
 
 	/* Circular queue, handle wrap */
-	if (Term->key_head == Term->key_size) Term->key_head = 0;
+	if(Term->key_head == Term->key_size) Term->key_head = 0;
 
 	/* Success (unless overflow) */
-	if (Term->key_head != Term->key_tail) return (0);
+	if(Term->key_head != Term->key_tail) return (0);
 
 	/* Problem */
 	return (1);
@@ -2410,16 +2410,16 @@ errr Term_keypress(int k)
 errr Term_key_push(int k)
 {
 	/* Hack -- Refuse to enqueue non-keys */
-	if (!k) return (-1);
+	if(!k) return (-1);
 
 	/* Hack -- Overflow may induce circular queue */
-	if (Term->key_tail == 0) Term->key_tail = Term->key_size;
+	if(Term->key_tail == 0) Term->key_tail = Term->key_size;
 
 	/* Back up, Store the char */
 	Term->key_queue[--Term->key_tail] = k;
 
 	/* Success (unless overflow) */
-	if (Term->key_head != Term->key_tail) return (0);
+	if(Term->key_head != Term->key_tail) return (0);
 
 	/* Problem */
 	return (1);
@@ -2449,14 +2449,14 @@ errr Term_inkey(char *ch, bool wait, bool take)
 #endif
 
 	/* Hack -- get bored */
-	if (!Term->never_bored)
+	if(!Term->never_bored)
 	{
 		/* Process random events */
 		Term_xtra(TERM_XTRA_BORED, 0);
 	}
 
 	/* Wait */
-	if (wait)
+	if(wait)
 	{
 		/* Process pending events while necessary */
 		while (Term->key_head == Term->key_tail)
@@ -2470,7 +2470,7 @@ errr Term_inkey(char *ch, bool wait, bool take)
 	else
 	{
 		/* Process pending events if necessary */
-		if (Term->key_head == Term->key_tail)
+		if(Term->key_head == Term->key_tail)
 		{
 			/* Process events (do not wait) */
 			Term_xtra(TERM_XTRA_EVENT, FALSE);
@@ -2478,13 +2478,13 @@ errr Term_inkey(char *ch, bool wait, bool take)
 	}
 
 	/* No keys are ready */
-	if (Term->key_head == Term->key_tail) return (1);
+	if(Term->key_head == Term->key_tail) return (1);
 
 	/* Extract the next keypress */
 	(*ch) = Term->key_queue[Term->key_tail];
 
 	/* If requested, advance the queue, wrap around if necessary */
-	if (take && (++Term->key_tail == Term->key_size)) Term->key_tail = 0;
+	if(take && (++Term->key_tail == Term->key_size)) Term->key_tail = 0;
 
 	/* Success */
 	return (0);
@@ -2506,7 +2506,7 @@ errr Term_save(void)
 	int h = Term->hgt;
 
 	/* Create */
-	if (!Term->mem)
+	if(!Term->mem)
 	{
 		/* Allocate window */
 		MAKE(Term->mem, term_win);
@@ -2536,7 +2536,7 @@ errr Term_load(void)
 	int h = Term->hgt;
 
 	/* Create */
-	if (!Term->mem)
+	if(!Term->mem)
 	{
 		/* Allocate window */
 		MAKE(Term->mem, term_win);
@@ -2579,7 +2579,7 @@ errr Term_exchange(void)
 
 
 	/* Create */
-	if (!Term->tmp)
+	if(!Term->tmp)
 	{
 		/* Allocate window */
 		MAKE(Term->tmp, term_win);
@@ -2629,14 +2629,14 @@ errr Term_resize(int w, int h)
 	term_win *hold_tmp;
 
 	/* Resizing is forbidden */
-	if (Term->fixed_shape) return (-1);
+	if(Term->fixed_shape) return (-1);
 
 	/* Ignore illegal changes */
-	if ((w < 1) || (h < 1)) return (-1);
+	if((w < 1) || (h < 1)) return (-1);
 
 
 	/* Ignore non-changes */
-	if ((Term->wid == w) && (Term->hgt == h) && (arg_bigtile == use_bigtile))
+	if((Term->wid == w) && (Term->hgt == h) && (arg_bigtile == use_bigtile))
 		return (1);
 
 	use_bigtile = arg_bigtile;
@@ -2684,7 +2684,7 @@ errr Term_resize(int w, int h)
 	term_win_copy(Term->scr, hold_scr, wid, hgt);
 
 	/* If needed */
-	if (hold_mem)
+	if(hold_mem)
 	{
 		/* Create new window */
 		MAKE(Term->mem, term_win);
@@ -2697,7 +2697,7 @@ errr Term_resize(int w, int h)
 	}
 
 	/* If needed */
-	if (hold_tmp)
+	if(hold_tmp)
 	{
 		/* Create new window */
 		MAKE(Term->tmp, term_win);
@@ -2720,8 +2720,8 @@ errr Term_resize(int w, int h)
 	KILL(hold_old, term_win);
 
 	/* Illegal cursor */
-	if (Term->old->cx >= w) Term->old->cu = 1;
-	if (Term->old->cy >= h) Term->old->cu = 1;
+	if(Term->old->cx >= w) Term->old->cu = 1;
+	if(Term->old->cy >= h) Term->old->cu = 1;
 
 	/* Nuke */
 	term_win_nuke(hold_scr, Term->wid, Term->hgt);
@@ -2730,11 +2730,11 @@ errr Term_resize(int w, int h)
 	KILL(hold_scr, term_win);
 
 	/* Illegal cursor */
-	if (Term->scr->cx >= w) Term->scr->cu = 1;
-	if (Term->scr->cy >= h) Term->scr->cu = 1;
+	if(Term->scr->cx >= w) Term->scr->cu = 1;
+	if(Term->scr->cy >= h) Term->scr->cu = 1;
 
 	/* If needed */
-	if (hold_mem)
+	if(hold_mem)
 	{
 		/* Nuke */
 		term_win_nuke(hold_mem, Term->wid, Term->hgt);
@@ -2743,12 +2743,12 @@ errr Term_resize(int w, int h)
 		KILL(hold_mem, term_win);
 
 		/* Illegal cursor */
-		if (Term->mem->cx >= w) Term->mem->cu = 1;
-		if (Term->mem->cy >= h) Term->mem->cu = 1;
+		if(Term->mem->cx >= w) Term->mem->cu = 1;
+		if(Term->mem->cy >= h) Term->mem->cu = 1;
 	}
 
 	/* If needed */
-	if (hold_tmp)
+	if(hold_tmp)
 	{
 		/* Nuke */
 		term_win_nuke(hold_tmp, Term->wid, Term->hgt);
@@ -2757,8 +2757,8 @@ errr Term_resize(int w, int h)
 		KILL(hold_tmp, term_win);
 
 		/* Illegal cursor */
-		if (Term->tmp->cx >= w) Term->tmp->cu = 1;
-		if (Term->tmp->cy >= h) Term->tmp->cu = 1;
+		if(Term->tmp->cx >= w) Term->tmp->cu = 1;
+		if(Term->tmp->cy >= h) Term->tmp->cu = 1;
 	}
 
 	/* Save new size */
@@ -2781,7 +2781,7 @@ errr Term_resize(int w, int h)
 	Term->y2 = h - 1;
 
 	/* Execute the "resize_hook" hook, if available */
-	if (Term->resize_hook)
+	if(Term->resize_hook)
 	{
 		Term->resize_hook();
 	}
@@ -2804,16 +2804,16 @@ errr Term_resize(int w, int h)
 errr Term_activate(term *t)
 {
 	/* Hack -- already done */
-	if (Term == t) return (1);
+	if(Term == t) return (1);
 
 	/* Deactivate the old Term */
-	if (Term) Term_xtra(TERM_XTRA_LEVEL, 0);
+	if(Term) Term_xtra(TERM_XTRA_LEVEL, 0);
 
 	/* Hack -- Call the special "init" hook */
-	if (t && !t->active_flag)
+	if(t && !t->active_flag)
 	{
 		/* Call the "init" hook */
-		if (t->init_hook) (*t->init_hook)(t);
+		if(t->init_hook) (*t->init_hook)(t);
 
 		/* Remember */
 		t->active_flag = TRUE;
@@ -2826,7 +2826,7 @@ errr Term_activate(term *t)
 	Term = t;
 
 	/* Activate the new Term */
-	if (Term) Term_xtra(TERM_XTRA_LEVEL, 1);
+	if(Term) Term_xtra(TERM_XTRA_LEVEL, 1);
 
 	/* Success */
 	return (0);
@@ -2844,10 +2844,10 @@ errr term_nuke(term *t)
 
 
 	/* Hack -- Call the special "nuke" hook */
-	if (t->active_flag)
+	if(t->active_flag)
 	{
 		/* Call the "nuke" hook */
-		if (t->nuke_hook) (*t->nuke_hook)(t);
+		if(t->nuke_hook) (*t->nuke_hook)(t);
 
 		/* Remember */
 		t->active_flag = FALSE;
@@ -2870,7 +2870,7 @@ errr term_nuke(term *t)
 	KILL(t->scr, term_win);
 
 	/* If needed */
-	if (t->mem)
+	if(t->mem)
 	{
 		/* Nuke "memorized" */
 		term_win_nuke(t->mem, w, h);
@@ -2880,7 +2880,7 @@ errr term_nuke(term *t)
 	}
 
 	/* If needed */
-	if (t->tmp)
+	if(t->tmp)
 	{
 		/* Nuke "temporary" */
 		term_win_nuke(t->tmp, w, h);

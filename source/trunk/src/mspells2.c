@@ -26,26 +26,26 @@ static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x
 	bool friend = is_pet(player_ptr, caster_ptr);
 
 	grid_n = project_path(grid_g, MAX_RANGE, floor_ptr, y1, x1, y2, x2, PROJECT_THRU); // Check the projection path
-	if (!grid_n) return (FALSE); // No grid is ever projectable from itself
+	if(!grid_n) return (FALSE); // No grid is ever projectable from itself
 
 	for (i = 0; i < grid_n; i++)
 	{
 		y = GRID_Y(grid_g[i]);
 		x = GRID_X(grid_g[i]);
 
-		if (y == y2 && x == x2)
+		if(y == y2 && x == x2)
 			hit2 = TRUE;
-		else if (friend && floor_ptr->cave[y][x].creature_idx > 0 &&
+		else if(friend && floor_ptr->cave[y][x].creature_idx > 0 &&
 			 !are_mutual_enemies(caster_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]))
 		{
 			/* Friends don't shoot friends */
 			return FALSE;
 		}
 
-		if (friend && creature_bold(target_ptr, y, x))
+		if(friend && creature_bold(target_ptr, y, x))
 			return FALSE;
 	}
-	if (!hit2)
+	if(!hit2)
 		return FALSE;
 	return TRUE;
 }
@@ -96,20 +96,20 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 		int ny = GRID_Y(grid_g[i]);
 		int nx = GRID_X(grid_g[i]);
 
-		if (flg & PROJECT_DISI)
+		if(flg & PROJECT_DISI)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (cave_stop_disintegration(floor_ptr, ny, nx)) break;
+			if(cave_stop_disintegration(floor_ptr, ny, nx)) break;
 		}
-		else if (flg & PROJECT_LOS)
+		else if(flg & PROJECT_LOS)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_los_bold(floor_ptr, ny, nx)) break;
+			if(!cave_los_bold(floor_ptr, ny, nx)) break;
 		}
 		else
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
+			if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
 		}
 
 		/* Save the "blast epicenter" */
@@ -119,22 +119,22 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 
 	grid_n = i;
 
-	if (!grid_n)
+	if(!grid_n)
 	{
-		if (flg & PROJECT_DISI)
+		if(flg & PROJECT_DISI)
 		{
-			if (in_disintegration_range(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (in_disintegration_range(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
+			if(in_disintegration_range(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
+			if(in_disintegration_range(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
-		else if (flg & PROJECT_LOS)
+		else if(flg & PROJECT_LOS)
 		{
-			if (los(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (los(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
+			if(los(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
+			if(los(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 		else
 		{
-			if (projectable(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
-			if (projectable(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
+			if(projectable(floor_ptr, y1, x1, y2, x2) && (distance(y1, x1, y2, x2) <= rad)) hit2 = TRUE;
+			if(projectable(floor_ptr, y1, x1, target_ptr->fy, target_ptr->fx) && (distance(y1, x1, target_ptr->fy, target_ptr->fx) <= rad)) hityou = TRUE;
 		}
 	}
 	else
@@ -147,13 +147,13 @@ static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int
 			y = gy[i];
 			x = gx[i];
 
-			if ((y == y2) && (x == x2)) hit2 = TRUE;
-			if (creature_bold(target_ptr, y, x)) hityou = TRUE;
+			if((y == y2) && (x == x2)) hit2 = TRUE;
+			if(creature_bold(target_ptr, y, x)) hityou = TRUE;
 		}
 	}
 
-	if (!hit2) return FALSE;
-	if (friend && hityou) return FALSE;
+	if(!hit2) return FALSE;
+	if(friend && hityou) return FALSE;
 
 	return TRUE;
 }
@@ -177,7 +177,7 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 		sx = GRID_X(path_g[i]);
 
 		/* Hack -- Balls explode before reaching walls */
-		if (!cave_have_flag_bold(floor_ptr, sy, sx, FF_PROJECT)) break;
+		if(!cave_have_flag_bold(floor_ptr, sy, sx, FF_PROJECT)) break;
 
 		*ty = sy;
 		*tx = sx;
@@ -190,12 +190,12 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 static bool dispel_check_creature(creature_type *target_ptr)
 {
 	/* Invulnabilty */
-	if (target_ptr->timed_trait[TRAIT_INVULNERABLE]) return TRUE;
+	if(target_ptr->timed_trait[TRAIT_INVULNERABLE]) return TRUE;
 
 	/* Speed */
-	if (target_ptr->speed < 135)
+	if(target_ptr->speed < 135)
 	{
-		if (target_ptr->timed_trait[TRAIT_FAST]) return TRUE;
+		if(target_ptr->timed_trait[TRAIT_FAST]) return TRUE;
 	}
 
 	/*TODO  Riding creature */

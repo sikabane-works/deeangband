@@ -29,7 +29,7 @@ bool lose_trait(creature_type *creature_ptr, int choose_mut)
 
 void dump_traits(creature_type *creature_ptr, FILE *OutFile)
 {
-	if (!OutFile) return;
+	if(!OutFile) return;
 
 	//TODO
 }
@@ -62,7 +62,7 @@ void do_cmd_knowledge_traits(creature_type *creature_ptr)
 	fff = my_fopen_temp(file_name, 1024);
 
 	/* Dump the mutations to file */
-	if (fff) dump_traits(creature_ptr, fff);
+	if(fff) dump_traits(creature_ptr, fff);
 
 	/* Close the file */
 	my_fclose(fff);
@@ -83,7 +83,7 @@ int count_bits(u32b x)
 {
 	int n = 0;
 
-	if (x) do
+	if(x) do
 	{
 		n++;
 	}
@@ -115,20 +115,20 @@ int calc_regenerate_mod(creature_type *creature_ptr)
 	 * only 5% decrease per additional mutation
 	 */
 
-	if (creature_ptr->chara_idx == CHARA_LUCKY) count--;
-	if (has_trait(creature_ptr, TRAIT_KALEIDOSCOPIC_RACE))
+	if(creature_ptr->chara_idx == CHARA_LUCKY) count--;
+	if(has_trait(creature_ptr, TRAIT_KALEIDOSCOPIC_RACE))
 	{
 		count -= 10;
 		mod = 5;
 	}
 
 	/* No negative modifier */
-	if (count <= 0) return 100;
+	if(count <= 0) return 100;
 
 	regen = 100 - count * mod;
 
 	/* Max. 90% decrease in regeneration speed */
-	if (regen < 10) regen = 10;
+	if(regen < 10) regen = 10;
 
 	return (regen);
 }
@@ -136,8 +136,8 @@ int calc_regenerate_mod(creature_type *creature_ptr)
 
 void mutation_stop_mouth(creature_type *creature_ptr)
 {
-	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
 
@@ -150,7 +150,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 	switch (power)
 	{
 		case TRAIT_SPIT_ACID:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("酸を吐きかけた...");
@@ -162,7 +162,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_BR_FIRE:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("あなたは火炎のブレスを吐いた...");
@@ -174,7 +174,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_HYPN_GAZE:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("あなたの目は幻惑的になった...");
 #else
@@ -185,7 +185,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_TELEKINES:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("集中している...");
 #else
@@ -206,7 +206,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_MIND_BLST:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("集中している...");
 #else
@@ -232,14 +232,14 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				cave_type *c_ptr;
 
 				/* Only works on adjacent creatures */
-				if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
+				if(!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
 				mutation_stop_mouth(creature_ptr);
 
-				if (!(c_ptr->creature_idx))
+				if(!(c_ptr->creature_idx))
 				{
 #ifdef JP
 					msg_print("何もない場所に噛みついた！");
@@ -259,9 +259,9 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 				dummy = lvl * 2;
 
-				if (drain_life(creature_ptr, dir, dummy))
+				if(drain_life(creature_ptr, dir, dummy))
 				{
-					if (creature_ptr->food < PY_FOOD_FULL)
+					if(creature_ptr->food < PY_FOOD_FULL)
 						/* No heal if we are "full" */
 						(void)heal_creature(creature_ptr, dummy);
 					else
@@ -276,7 +276,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					/* Don't ever get more than "Full" this way */
 					/* But if we ARE Gorged,  it won't cure us */
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
-					if (creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
+					if(creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
 						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
 				}
 				else
@@ -309,7 +309,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				cave_type *c_ptr;
 				feature_type *f_ptr, *mimic_f_ptr;
 
-				if (!get_rep_dir2(creature_ptr,&dir)) return FALSE;
+				if(!get_rep_dir2(creature_ptr,&dir)) return FALSE;
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
@@ -318,7 +318,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 				mutation_stop_mouth(creature_ptr);
 
-				if (!have_flag(mimic_f_ptr->flags, FF_HURT_ROCK))
+				if(!have_flag(mimic_f_ptr->flags, FF_HURT_ROCK))
 				{
 #ifdef JP
 					msg_print("この地形は食べられない。");
@@ -327,7 +327,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #endif
 					break;
 				}
-				else if (have_flag(f_ptr->flags, FF_PERMANENT))
+				else if(have_flag(f_ptr->flags, FF_PERMANENT))
 				{
 #ifdef JP
 					msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_f_ptr->name);
@@ -336,7 +336,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #endif
 					break;
 				}
-				else if (c_ptr->creature_idx)
+				else if(c_ptr->creature_idx)
 				{
 					creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 #ifdef JP
@@ -345,10 +345,10 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					msg_print("There's something in the way!");
 #endif
 
-					if (!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(creature_ptr, y, x, 0);
+					if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(creature_ptr, y, x, 0);
 					break;
 				}
-				else if (have_flag(f_ptr->flags, FF_TREE))
+				else if(have_flag(f_ptr->flags, FF_TREE))
 				{
 #ifdef JP
 					msg_print("木の味は好きじゃない！");
@@ -357,7 +357,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #endif
 					break;
 				}
-				else if (have_flag(f_ptr->flags, FF_GLASS))
+				else if(have_flag(f_ptr->flags, FF_GLASS))
 				{
 #ifdef JP
 					msg_print("ガラスの味は好きじゃない！");
@@ -366,11 +366,11 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #endif
 					break;
 				}
-				else if (have_flag(f_ptr->flags, FF_DOOR) || have_flag(f_ptr->flags, FF_CAN_DIG))
+				else if(have_flag(f_ptr->flags, FF_DOOR) || have_flag(f_ptr->flags, FF_CAN_DIG))
 				{
 					(void)set_food(creature_ptr, creature_ptr->food + 3000);
 				}
-				else if (have_flag(f_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(f_ptr->flags, FF_HAS_GOLD))
+				else if(have_flag(f_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(f_ptr->flags, FF_HAS_GOLD))
 				{
 					(void)set_food(creature_ptr, creature_ptr->food + 5000);
 				}
@@ -394,7 +394,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case TRAIT_SWAP_POS:
 			project_length = -1;
-			if (!get_aim_dir(creature_ptr, &dir))
+			if(!get_aim_dir(creature_ptr, &dir))
 			{
 				project_length = 0;
 				return FALSE;
@@ -421,8 +421,8 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				{
 					object_type *object_ptr = &creature_ptr->inventory[i];
 
-					if (!object_ptr->k_idx) continue;
-					if (!object_is_cursed(object_ptr)) continue;
+					if(!object_ptr->k_idx) continue;
+					if(!object_is_cursed(object_ptr)) continue;
 
 					object_ptr->feeling = FEEL_CURSED;
 				}
@@ -437,15 +437,15 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case TRAIT_POLYMORPH:
 #ifdef JP
-			if (!get_check("変身します。よろしいですか？")) return FALSE;
+			if(!get_check("変身します。よろしいですか？")) return FALSE;
 #else
-			if (!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
+			if(!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
 #endif
 			do_poly_self(creature_ptr);
 			break;
 
 		case TRAIT_MIDAS_TCH:
-			if (!alchemy(creature_ptr)) return FALSE;
+			if(!alchemy(creature_ptr)) return FALSE;
 			break;
 
 		/* Summon pet molds around the player */
@@ -464,27 +464,27 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				int num = lvl / 10;
 				int dur = randint1(20) + 20;
 
-				if (randint0(5) < num)
+				if(randint0(5) < num)
 				{
 					(void)set_oppose_acid(creature_ptr, dur, FALSE);
 					num--;
 				}
-				if (randint0(4) < num)
+				if(randint0(4) < num)
 				{
 					(void)set_oppose_elec(creature_ptr, dur, FALSE);
 					num--;
 				}
-				if (randint0(3) < num)
+				if(randint0(3) < num)
 				{
 					(void)set_oppose_fire(creature_ptr, dur, FALSE);
 					num--;
 				}
-				if (randint0(2) < num)
+				if(randint0(2) < num)
 				{
 					(void)set_oppose_cold(creature_ptr, dur, FALSE);
 					num--;
 				}
-				if (num)
+				if(num)
 				{
 					(void)set_oppose_pois(creature_ptr, dur, FALSE);
 					num--;
@@ -497,7 +497,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_EAT_MAGIC:
-			if (!eat_magic(creature_ptr, creature_ptr->lev * 2)) return FALSE;
+			if(!eat_magic(creature_ptr, creature_ptr->lev * 2)) return FALSE;
 			break;
 
 		case TRAIT_WEIGH_MAG:
@@ -521,13 +521,13 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			{
 				int x, y;
 
-				if (!get_rep_dir2(creature_ptr,&dir)) return FALSE;
+				if(!get_rep_dir2(creature_ptr,&dir)) return FALSE;
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
-				if (floor_ptr->cave[y][x].creature_idx)
+				if(floor_ptr->cave[y][x].creature_idx)
 				{
 					melee_attack(creature_ptr, y, x, 0);
-					if (randint0(creature_ptr->skill_dis) < 7)
+					if(randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 						msg_print("うまく逃げられなかった。");
 #else
@@ -555,12 +555,12 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_LASER_EYE:
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			fire_beam(creature_ptr, GF_LITE, dir, 2 * lvl);
 			break;
 
 		case TRAIT_RECALL:
-			if (!word_of_recall(creature_ptr)) return FALSE;
+			if(!word_of_recall(creature_ptr)) return FALSE;
 			break;
 
 		case TRAIT_BANISH:
@@ -570,12 +570,12 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				creature_type *m_ptr;
 				species_type *r_ptr;
 
-				if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
+				if(!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				if (!c_ptr->creature_idx)
+				if(!c_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("邪悪な存在を感じとれません！");
@@ -589,14 +589,14 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				m_ptr = &creature_list[c_ptr->creature_idx];
 				r_ptr = &species_info[m_ptr->species_idx];
 
-				if (is_enemy_of_good_species(r_ptr) &&
+				if(is_enemy_of_good_species(r_ptr) &&
 				    !(has_trait_species(r_ptr, TRAIT_QUESTOR)) &&
 				    !(has_trait_species(r_ptr, TRAIT_UNIQUE)) &&
 				    !floor_ptr->fight_arena_mode && !floor_ptr->quest &&
 					(r_ptr->level < randint1(creature_ptr->lev+50)) &&
 					!(m_ptr->mflag2 & MFLAG2_NOGENO))
 				{
-					if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
+					if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 					{
 						char m_name[80];
 
@@ -621,7 +621,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					msg_print("Your invocation is ineffectual!");
 #endif
 
-					if (one_in_(13)) m_ptr->mflag2 |= MFLAG2_NOGENO;
+					if(one_in_(13)) m_ptr->mflag2 |= MFLAG2_NOGENO;
 				}
 			}
 			break;
@@ -631,12 +631,12 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				int x, y;
 				cave_type *c_ptr;
 
-				if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
+				if(!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 				y = creature_ptr->fy + ddy[dir];
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				if (!c_ptr->creature_idx)
+				if(!c_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("あなたは何もない場所で手を振った。");
@@ -653,7 +653,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
 		case 3: /* TRAIT_LAUNCHER */
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
-			if (!do_cmd_throw_aux(creature_ptr, 2 + lvl / 40, FALSE, 0)) return FALSE;
+			if(!do_cmd_throw_aux(creature_ptr, 2 + lvl / 40, FALSE, 0)) return FALSE;
 			break;
 
 		default:

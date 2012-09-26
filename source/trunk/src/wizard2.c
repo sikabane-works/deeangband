@@ -33,9 +33,9 @@ void strip_name(char *buf, int k_idx)
 	for (t = buf; *str; str++)
 	{
 #ifdef JP
-		if (iskanji(*str)) {*t++ = *str++; *t++ = *str; continue;}
+		if(iskanji(*str)) {*t++ = *str++; *t++ = *str; continue;}
 #endif
-		if (*str != '~') *t++ = *str;
+		if(*str != '~') *t++ = *str;
 	}
 
 	/* Terminate the new name */
@@ -66,7 +66,7 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 	handle_stuff();
 
 	/* Message */
-	if (display)
+	if(display)
 	{
 #ifdef JP
 		msg_format("現在の体力ランクは %d/100 です。", percent);
@@ -96,7 +96,7 @@ static bool wiz_dimension_door(creature_type *creature_ptr)
 {
 	int	x = 0, y = 0;
 
-	if (!tgt_pt(creature_ptr, &x, &y)) return FALSE;
+	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 
 	teleport_creature_to(creature_ptr, y, x, TELEPORT_NONMAGICAL);
 
@@ -113,7 +113,7 @@ static void wiz_drop_named_art(creature_type* creature_ptr)
 	char tmp_val[20] = "";
 	int i = 0;
 	// Ask for a level
-	if (!get_string("Artifact ID: ", tmp_val, 10)) return;
+	if(!get_string("Artifact ID: ", tmp_val, 10)) return;
 	i = atoi(tmp_val);
 
 	// Create the artifact
@@ -134,7 +134,7 @@ static void do_cmd_summon_horde(creature_type *summoner_ptr)
 	while (--attempts)
 	{
 		scatter(floor_ptr, &wy, &wx, summoner_ptr->fy, summoner_ptr->fx, 3, 0);
-		if (cave_empty_bold(floor_ptr, wy, wx)) break;
+		if(cave_empty_bold(floor_ptr, wy, wx)) break;
 	}
 
 	(void)alloc_horde(summoner_ptr, floor_ptr, wy, wx);
@@ -153,7 +153,7 @@ static void prt_binary(u32b flags, int row, int col)
 	for (i = bitmask = 1; i <= 32; i++, bitmask *= 2)
 	{
 		/* Dump set bits */
-		if (flags & bitmask)
+		if(flags & bitmask)
 		{
 			Term_putch(col++, row, TERM_BLUE, '*');
 		}
@@ -201,11 +201,11 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 		{
 			int prob = 0;
 
-			if (table[j].level <= i)
+			if(table[j].level <= i)
 			{
 				prob = table[j].prob1 * GREAT_OBJ * K_MAX_DEPTH;
 			}
-			else if (table[j].level - 1 > 0)
+			else if(table[j].level - 1 > 0)
 			{
 				prob = table[j].prob1 * i * K_MAX_DEPTH / (table[j].level - 1);
 			}
@@ -218,7 +218,7 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 			total_frac += prob % (GREAT_OBJ * K_MAX_DEPTH);
 
 			/* Accumulate probabilities */
-			if ((k_ptr->tval == tval) && (k_ptr->sval == sval))
+			if((k_ptr->tval == tval) && (k_ptr->sval == sval))
 			{
 				home = k_ptr->level;
 				rarity[i] += prob;
@@ -230,27 +230,27 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 	/* Find maxima */
 	for (i = 0; i < K_MAX_DEPTH; i++)
 	{
-		if (rarity[i] > maxr) maxr = rarity[i];
-		if (total[i] > maxt) maxt = total[i];
+		if(rarity[i] > maxr) maxr = rarity[i];
+		if(total[i] > maxt) maxt = total[i];
 	}
 
-	if (maxr / (GREAT_OBJ * K_MAX_DEPTH) != 0)
+	if(maxr / (GREAT_OBJ * K_MAX_DEPTH) != 0)
 		ratio = maxt / (maxr / (GREAT_OBJ * K_MAX_DEPTH));
 	else
 		ratio = 99999L;
 
 	/* Simulate a log graph */
-	if (ratio > 1000)
+	if(ratio > 1000)
 	{
 		c = TERM_L_WHITE;
 		r = "+-uncommon-+";
 	}
-	if (ratio > 3000)
+	if(ratio > 3000)
 	{
 		c = TERM_SLATE;
 		r = "+---rare---+";
 	}
-	if (ratio > 32768L)
+	if(ratio > 32768L)
 	{
 		c = TERM_L_DARK;
 		r = "+-VeryRare-+";
@@ -276,11 +276,11 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 		}
 
 		/* Track maximum */
-		if (display[i] > maxd) maxd = display[i];
+		if(display[i] > maxd) maxd = display[i];
 	}
 
 	/* Normalize */
-	if (maxd > 10) for (i = 0; i < 22; i++)
+	if(maxd > 10) for (i = 0; i < 22; i++)
 	{
 		display[i] = display[i] - maxd + 10;
 	}
@@ -292,11 +292,11 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 
 		prt(format("%d", (i * K_MAX_DEPTH / 220) % 10), row + i + 1, col);
 
-		if (display[i] <= 0) 
+		if(display[i] <= 0) 
 			continue;
 
 		/* Note the level */
-		if ((i * K_MAX_DEPTH / 22 <= home) && (home < (i + 1) * K_MAX_DEPTH / 22))
+		if((i * K_MAX_DEPTH / 22 <= home) && (home < (i + 1) * K_MAX_DEPTH / 22))
 		{
 			c_prt(TERM_RED, format("%.*s", display[i], "**********"), row + i + 1, col + 1);
 		}
@@ -317,7 +317,7 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 static void do_cmd_wiz_bamf(creature_type *caster_ptr)
 {
 	/* Must have a target */
-	if (!target_who) return;
+	if(!target_who) return;
 
 	/* Teleport to the target */
 	teleport_creature_to(caster_ptr, target_row, target_col, TELEPORT_NONMAGICAL);
@@ -347,14 +347,14 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 		sprintf(tmp_val, "%d", creature_ptr->stat_max[i]);
 
 		/* Query */
-		if (!get_string(ppp, tmp_val, 3)) return;
+		if(!get_string(ppp, tmp_val, 3)) return;
 
 		/* Extract */
 		tmp_int = atoi(tmp_val);
 
 		/* Verify */
-		if (tmp_int > creature_ptr->stat_mod_max_max[i]) tmp_int = creature_ptr->stat_mod_max_max[i];
-		else if (tmp_int < 3) tmp_int = 3;
+		if(tmp_int > creature_ptr->stat_mod_max_max[i]) tmp_int = creature_ptr->stat_mod_max_max[i];
+		else if(tmp_int < 3) tmp_int = 3;
 
 		/* Save it */
 		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = tmp_int;
@@ -366,17 +366,17 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	/* Query */
 #ifdef JP
-	if (!get_string("熟練度: ", tmp_val, 9)) return;
+	if(!get_string("熟練度: ", tmp_val, 9)) return;
 #else
-	if (!get_string("Proficiency: ", tmp_val, 9)) return;
+	if(!get_string("Proficiency: ", tmp_val, 9)) return;
 #endif
 
 	/* Extract */
 	tmp_s16b = atoi(tmp_val);
 
 	/* Verify */
-	if (tmp_s16b < WEAPON_EXP_UNSKILLED) tmp_s16b = WEAPON_EXP_UNSKILLED;
-	if (tmp_s16b > WEAPON_EXP_MASTER) tmp_s16b = WEAPON_EXP_MASTER;
+	if(tmp_s16b < WEAPON_EXP_UNSKILLED) tmp_s16b = WEAPON_EXP_UNSKILLED;
+	if(tmp_s16b > WEAPON_EXP_MASTER) tmp_s16b = WEAPON_EXP_MASTER;
 
 	/*
 	for (j = 0; j <= TV_WEAPON_END - TV_WEAPON_BEGIN; j++)
@@ -384,7 +384,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 		for (i = 0;i < (REALM_MAGIC_NUMBER * 2);i++)
 		{
 			creature_ptr->weapon_exp[j][i] = tmp_s16b;
-			if (creature_ptr->weapon_exp[j][i] > skill_info[creature_ptr->class_idx].w_max[j][i]) creature_ptr->weapon_exp[j][i] = skill_info[creature_ptr->class_idx].w_max[j][i];
+			if(creature_ptr->weapon_exp[j][i] > skill_info[creature_ptr->class_idx].w_max[j][i]) creature_ptr->weapon_exp[j][i] = skill_info[creature_ptr->class_idx].w_max[j][i];
 		}
 	}
 	*/
@@ -392,7 +392,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	for (j = 0; j < 10; j++)
 	{
 		creature_ptr->skill_exp[j] = tmp_s16b;
-		if (creature_ptr->skill_exp[j] > skill_info[creature_ptr->class_idx].s_max[j]) creature_ptr->skill_exp[j] = skill_info[creature_ptr->class_idx].s_max[j];
+		if(creature_ptr->skill_exp[j] > skill_info[creature_ptr->class_idx].s_max[j]) creature_ptr->skill_exp[j] = skill_info[creature_ptr->class_idx].s_max[j];
 	}
 
 	for (j = 0; j < 32; j++)
@@ -404,13 +404,13 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->au));
 
 	/* Query */
-	if (!get_string("Gold: ", tmp_val, 9)) return;
+	if(!get_string("Gold: ", tmp_val, 9)) return;
 
 	/* Extract */
 	tmp_long = atol(tmp_val);
 
 	/* Verify */
-	if (tmp_long < 0) tmp_long = 0L;
+	if(tmp_long < 0) tmp_long = 0L;
 
 	/* Save */
 	creature_ptr->au = tmp_long;
@@ -420,15 +420,15 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->max_exp));
 
 	/* Query */
-	if (!get_string("Experience: ", tmp_val, 9)) return;
+	if(!get_string("Experience: ", tmp_val, 9)) return;
 
 	/* Extract */
 	tmp_long = atol(tmp_val);
 
 	/* Verify */
-	if (tmp_long < 0) tmp_long = 0L;
+	if(tmp_long < 0) tmp_long = 0L;
 
-	if (!has_trait(creature_ptr, TRAIT_ANDROID))
+	if(!has_trait(creature_ptr, TRAIT_ANDROID))
 	{
 		/* Save */
 		creature_ptr->max_exp = tmp_long;
@@ -437,18 +437,18 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	/* Query */
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->dr));
-	if (!get_string("Devine Rank: ", tmp_val, 2)) return;
+	if(!get_string("Devine Rank: ", tmp_val, 2)) return;
 	tmp_int = atoi(tmp_val);
 
-	if (tmp_int < -1) tmp_int = -1;
-	if (tmp_int > 30) tmp_int = 30;
+	if(tmp_int < -1) tmp_int = -1;
+	if(tmp_int > 30) tmp_int = 30;
 	creature_ptr->dr = tmp_int;
 
 	check_experience(creature_ptr);
 
 	/* Query */
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->authority[0]));
-	if (!get_string("Authority: ", tmp_val, 2)) return;
+	if(!get_string("Authority: ", tmp_val, 2)) return;
 	creature_ptr->authority[0] = atoi(tmp_val);
 
 }
@@ -708,16 +708,16 @@ static int wiz_create_itemtype(void)
 	max_num = num;
 
 	/* Choose! */
-	if (!get_com("Get what type of object? ", &ch, FALSE)) return (0);
+	if(!get_com("Get what type of object? ", &ch, FALSE)) return (0);
 
 	/* Analyze choice */
 	for (num = 0; num < max_num; num++)
 	{
-		if (listsym[num] == ch) break;
+		if(listsym[num] == ch) break;
 	}
 
 	/* Bail out if choice is illegal */
-	if ((num < 0) || (num >= max_num)) return (0);
+	if((num < 0) || (num >= max_num)) return (0);
 
 	/* Base object type chosen, fill in tval */
 	tval = tvals[num].tval;
@@ -735,7 +735,7 @@ static int wiz_create_itemtype(void)
 		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Analyze matching items */
-		if (k_ptr->tval == tval)
+		if(k_ptr->tval == tval)
 		{
 			/* Prepare it */
 			row = 2 + (num % 20);
@@ -758,16 +758,16 @@ static int wiz_create_itemtype(void)
 	max_num = num;
 
 	/* Choose! */
-	if (!get_com(format("What Kind of %s? ", tval_desc), &ch, FALSE)) return (0);
+	if(!get_com(format("What Kind of %s? ", tval_desc), &ch, FALSE)) return (0);
 
 	/* Analyze choice */
 	for (num = 0; num < max_num; num++)
 	{
-		if (listsym[num] == ch) break;
+		if(listsym[num] == ch) break;
 	}
 
 	/* Bail out if choice is "illegal" */
-	if ((num < 0) || (num >= max_num)) return (0);
+	if((num < 0) || (num >= max_num)) return (0);
 
 	/* And return successful */
 	return (choice[num]);
@@ -784,29 +784,29 @@ static void wiz_tweak_item(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(object_ptr)) return;
+	if(object_is_artifact(object_ptr)) return;
 
 	p = "Enter new 'pval' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->pval);
-	if (!get_string(p, tmp_val, 5)) return;
+	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->pval = atoi(tmp_val);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_ac' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_ac);
-	if (!get_string(p, tmp_val, 5)) return;
+	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_ac = atoi(tmp_val);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_hit' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_hit);
-	if (!get_string(p, tmp_val, 5)) return;
+	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_hit = atoi(tmp_val);
 	wiz_display_item(object_ptr);
 
 	p = "Enter new 'to_damage' setting: ";
 	sprintf(tmp_val, "%d", object_ptr->to_damage);
-	if (!get_string(p, tmp_val, 5)) return;
+	if(!get_string(p, tmp_val, 5)) return;
 	object_ptr->to_damage = atoi(tmp_val);
 	wiz_display_item(object_ptr);
 }
@@ -826,7 +826,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 
 
 	/* Hack -- leave artifacts alone */
-	if (object_is_artifact(object_ptr)) return;
+	if(object_is_artifact(object_ptr)) return;
 
 
 	/* Get local object */
@@ -843,10 +843,10 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		wiz_display_item(quest_ptr);
 
 		/* Ask wizard what to do. */
-		if (!get_com("[a]ccept, [w]orthless, [c]ursed, [n]ormal, [g]ood, [e]xcellent, [s]pecial? ", &ch, FALSE))
+		if(!get_com("[a]ccept, [w]orthless, [c]ursed, [n]ormal, [g]ood, [e]xcellent, [s]pecial? ", &ch, FALSE))
 		{
 			/* Preserve wizard-generated artifacts */
-			if (object_is_fixed_artifact(quest_ptr))
+			if(object_is_fixed_artifact(quest_ptr))
 			{
 				artifact_info[quest_ptr->name1].cur_num = 0;
 				quest_ptr->name1 = 0;
@@ -857,14 +857,14 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		}
 
 		/* Create/change it! */
-		if (ch == 'A' || ch == 'a')
+		if(ch == 'A' || ch == 'a')
 		{
 			changed = TRUE;
 			break;
 		}
 
 		/* Preserve wizard-generated artifacts */
-		if (object_is_fixed_artifact(quest_ptr))
+		if(object_is_fixed_artifact(quest_ptr))
 		{
 			artifact_info[quest_ptr->name1].cur_num = 0;
 			quest_ptr->name1 = 0;
@@ -914,7 +914,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 				apply_magic(caster_ptr, quest_ptr, floor_ptr->floor_level, AM_GOOD | AM_GREAT | AM_SPECIAL, 0);
 
 				/* Failed to create artifact; make a random one */
-				if (!object_is_artifact(quest_ptr)) create_artifact(caster_ptr, quest_ptr, FALSE);
+				if(!object_is_artifact(quest_ptr)) create_artifact(caster_ptr, quest_ptr, FALSE);
 				break;
 			}
 		}
@@ -926,7 +926,7 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 
 
 	/* Notice change */
-	if (changed)
+	if(changed)
 	{
 		/* Apply changes */
 		object_copy(object_ptr, quest_ptr);
@@ -972,7 +972,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
-	if (object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0;
+	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 0;
 
 
 	/* Interact */
@@ -984,19 +984,19 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 		wiz_display_item(object_ptr);
 
 		/* Get choices */
-		if (!get_com(pmt, &ch, FALSE)) break;
+		if(!get_com(pmt, &ch, FALSE)) break;
 
-		if (ch == 'n' || ch == 'N')
+		if(ch == 'n' || ch == 'N')
 		{
 			mode = 0L;
 			quality = "normal";
 		}
-		else if (ch == 'g' || ch == 'G')
+		else if(ch == 'g' || ch == 'G')
 		{
 			mode = AM_GOOD;
 			quality = "good";
 		}
-		else if (ch == 'e' || ch == 'E')
+		else if(ch == 'e' || ch == 'E')
 		{
 			mode = AM_GOOD | AM_GREAT;
 			quality = "excellent";
@@ -1007,7 +1007,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 		}
 
 		sprintf(tmp_val, "%ld", test_roll);
-		if (get_string(p, tmp_val, 10)) test_roll = atol(tmp_val);
+		if(get_string(p, tmp_val, 10)) test_roll = atol(tmp_val);
 		test_roll = MAX(1, test_roll);
 
 		/* Let us know what we are doing */
@@ -1021,13 +1021,13 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 		for (i = 0; i <= test_roll; i++)
 		{
 			/* Output every few rolls */
-			if ((i < 100) || (i % 100 == 0))
+			if((i < 100) || (i % 100 == 0))
 			{
 				/* Do not wait */
 				inkey_scan = TRUE;
 
 				/* Allow interupt */
-				if (inkey())
+				if(inkey())
 				{
 					/* Flush */
 					flush();
@@ -1052,18 +1052,18 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL);
 
 			/* XXX XXX XXX Mega-Hack -- allow multiple artifacts */
-			if (object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->name1].cur_num = 0;
+			if(object_is_fixed_artifact(quest_ptr)) artifact_info[quest_ptr->name1].cur_num = 0;
 
 
 			/* Test for the same tval and sval. */
-			if ((object_ptr->tval) != (quest_ptr->tval)) continue;
-			if ((object_ptr->sval) != (quest_ptr->sval)) continue;
+			if((object_ptr->tval) != (quest_ptr->tval)) continue;
+			if((object_ptr->sval) != (quest_ptr->sval)) continue;
 
 			/* One more correct item */
 			correct++;
 
 			/* Check for match */
-			if ((quest_ptr->pval == object_ptr->pval) &&
+			if((quest_ptr->pval == object_ptr->pval) &&
 				 (quest_ptr->to_ac == object_ptr->to_ac) &&
 				 (quest_ptr->to_hit == object_ptr->to_hit) &&
 				 (quest_ptr->to_damage == object_ptr->to_damage) &&
@@ -1073,7 +1073,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			}
 
 			/* Check for better */
-			else if ((quest_ptr->pval >= object_ptr->pval) &&
+			else if((quest_ptr->pval >= object_ptr->pval) &&
 						(quest_ptr->to_ac >= object_ptr->to_ac) &&
 						(quest_ptr->to_hit >= object_ptr->to_hit) &&
 						(quest_ptr->to_damage >= object_ptr->to_damage))
@@ -1082,7 +1082,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 			}
 
 			/* Check for worse */
-			else if ((quest_ptr->pval <= object_ptr->pval) &&
+			else if((quest_ptr->pval <= object_ptr->pval) &&
 						(quest_ptr->to_ac <= object_ptr->to_ac) &&
 						(quest_ptr->to_hit <= object_ptr->to_hit) &&
 						(quest_ptr->to_damage <= object_ptr->to_damage))
@@ -1104,7 +1104,7 @@ static void wiz_statistics(creature_type *creature_ptr, object_type *object_ptr)
 
 
 	/* Hack -- Normally only make a single artifact */
-	if (object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 1;
+	if(object_is_fixed_artifact(object_ptr)) artifact_info[object_ptr->name1].cur_num = 1;
 }
 
 
@@ -1119,7 +1119,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 
 
 	/* Never duplicate artifacts */
-	if (object_is_artifact(object_ptr)) return;
+	if(object_is_artifact(object_ptr)) return;
 
 	/* Store old quantity. -LM- */
 	tmp_qnt = object_ptr->number;
@@ -1128,20 +1128,20 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 	sprintf(tmp_val, "%d", object_ptr->number);
 
 	/* Query */
-	if (get_string("Quantity: ", tmp_val, 2))
+	if(get_string("Quantity: ", tmp_val, 2))
 	{
 		/* Extract */
 		tmp_int = atoi(tmp_val);
 
 		/* Paranoia */
-		if (tmp_int < 1) tmp_int = 1;
-		if (tmp_int > 99) tmp_int = 99;
+		if(tmp_int < 1) tmp_int = 1;
+		if(tmp_int > 99) tmp_int = 99;
 
 		/* Accept modifications */
 		object_ptr->number = tmp_int;
 	}
 
-	if (object_ptr->tval == TV_ROD)
+	if(object_ptr->tval == TV_ROD)
 	{
 		object_ptr->pval = object_ptr->pval * object_ptr->number / tmp_qnt;
 	}
@@ -1162,15 +1162,15 @@ static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 
 		for (i = 0; i < 32; i++)
 		{
-			if ((0x00000001 << i) & f4) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
+			if((0x00000001 << i) & f4) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
 		}
 		for (; i < (REALM_MAGIC_NUMBER * 2); i++)
 		{
-			if ((0x00000001 << (i - 32)) & f5) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
+			if((0x00000001 << (i - 32)) & f5) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
 		}
 		for (; i < 96; i++)
 		{
-			if ((0x00000001 << (i - 64)) & f6) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
+			if((0x00000001 << (i - 64)) & f6) creature_ptr->class_skills.old_skills.magic_num2[i] = 1;
 		}
 	}
 }
@@ -1201,10 +1201,10 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	/* Get an item */
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -1237,34 +1237,34 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		wiz_display_item(quest_ptr);
 
 		/* Get choice */
-		if (!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE))
+		if(!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE))
 		{
 			changed = FALSE;
 			break;
 		}
 
-		if (ch == 'A' || ch == 'a')
+		if(ch == 'A' || ch == 'a')
 		{
 			changed = TRUE;
 			break;
 		}
 
-		if (ch == 's' || ch == 'S')
+		if(ch == 's' || ch == 'S')
 		{
 			wiz_statistics(creature_ptr, quest_ptr);
 		}
 
-		if (ch == 'r' || ch == 'r')
+		if(ch == 'r' || ch == 'r')
 		{
 			wiz_reroll_item(creature_ptr, quest_ptr);
 		}
 
-		if (ch == 't' || ch == 'T')
+		if(ch == 't' || ch == 'T')
 		{
 			wiz_tweak_item(creature_ptr, quest_ptr);
 		}
 
-		if (ch == 'q' || ch == 'Q')
+		if(ch == 'q' || ch == 'Q')
 		{
 			wiz_quantity_item(creature_ptr, quest_ptr);
 		}
@@ -1276,13 +1276,13 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 
 
 	/* Accept change */
-	if (changed)
+	if(changed)
 	{
 		/* Message */
 		msg_print("Changes accepted.");
 
 		/* Recalcurate object's weight */
-		if (item >= 0)
+		if(item >= 0)
 		{
 			set_inventory_weight(creature_ptr);
 		}
@@ -1338,9 +1338,9 @@ static void wiz_create_item(creature_type *creature_ptr)
 
 
 	/* Return if failed */
-	if (!k_idx) return;
+	if(!k_idx) return;
 
-	if (object_kind_info[k_idx].gen_flags & TRG_INSTA_ART)
+	if(object_kind_info[k_idx].gen_flags & TRG_INSTA_ART)
 	{
 		int i;
 
@@ -1348,10 +1348,10 @@ static void wiz_create_item(creature_type *creature_ptr)
 		for (i = 1; i < max_artifact_idx; i++)
 		{
 			/* Ignore incorrect tval */
-			if (artifact_info[i].tval != object_kind_info[k_idx].tval) continue;
+			if(artifact_info[i].tval != object_kind_info[k_idx].tval) continue;
 
 			/* Ignore incorrect sval */
-			if (artifact_info[i].sval != object_kind_info[k_idx].sval) continue;
+			if(artifact_info[i].sval != object_kind_info[k_idx].sval) continue;
 
 			/* Create this artifact */
 			(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx);
@@ -1397,7 +1397,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	(void)restore_level(creature_ptr);
 
 	/* Heal the player */
-	if (creature_ptr->chp < creature_ptr->mhp)
+	if(creature_ptr->chp < creature_ptr->mhp)
 	{
 		creature_ptr->chp = creature_ptr->mhp;
 		creature_ptr->chp_frac = 0;
@@ -1410,7 +1410,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	}
 
 	/* Restore mana */
-	if (creature_ptr->csp < creature_ptr->msp)
+	if(creature_ptr->csp < creature_ptr->msp)
 	{
 		creature_ptr->csp = creature_ptr->msp;
 		creature_ptr->csp_frac = 0;
@@ -1495,27 +1495,27 @@ static void do_cmd_wiz_creature_list(void)
 			k = inkey();
 
 			// Exit
-			if (k == ESCAPE) break;
+			if(k == ESCAPE) break;
 
 			// Change name
-			if (k == 'c') set_creature_name(FALSE, &creature_list[i]);
+			if(k == 'c') set_creature_name(FALSE, &creature_list[i]);
 
 			// File dump
-			else if (k == 'f')
+			else if(k == 'f')
 			{
 				sprintf(tmp, "%s.txt", player_base);
 #ifdef JP
-				if (get_string("ファイル名: ", tmp, 80))
+				if(get_string("ファイル名: ", tmp, 80))
 #else
-				if (get_string("File name: ", tmp, 80))
+				if(get_string("File name: ", tmp, 80))
 #endif
 				{
-					if (tmp[0] && (tmp[0] != ' ')) file_character(tmp);
+					if(tmp[0] && (tmp[0] != ' ')) file_character(tmp);
 				}
 			}
 
 			// Toggle mode
-			else if (k == 'h') mode = (mode++ % 9);
+			else if(k == 'h') mode = (mode++ % 9);
 
 			// Oops
 			else bell();
@@ -1664,7 +1664,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 	int depth = 0, wx, wy, dungeon_id = 0;
 
 	// Ask for level
-	if (command_arg <= 0)
+	if(command_arg <= 0)
 	{
 		char	ppp[80];
 
@@ -1674,17 +1674,17 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		// Ask for a level
 		sprintf(ppp, "Jump which dungeon : ");
 		sprintf(tmp_val, "%d", dungeon_id);
-		if (!get_string(ppp, tmp_val, 2)) return;
+		if(!get_string(ppp, tmp_val, 2)) return;
 
 		tmp_dungeon_level = atoi(tmp_val);
-		if (!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_dungeon_idx)) tmp_dungeon_level = DUNGEON_DOD;
+		if(!dungeon_info[tmp_dungeon_level].maxdepth || (tmp_dungeon_level > max_dungeon_idx)) tmp_dungeon_level = DUNGEON_DOD;
 
 		// Prompt
 		sprintf(ppp, "Jump to level (0, %d-%d): ", dungeon_info[tmp_dungeon_level].mindepth, dungeon_info[tmp_dungeon_level].maxdepth);
 		sprintf(tmp_val, "%d", depth);
 
 		// Ask for a level
-		if (!get_string(ppp, tmp_val, 10)) return;
+		if(!get_string(ppp, tmp_val, 10)) return;
 
 		// Extract request
 		command_arg = atoi(tmp_val);
@@ -1692,13 +1692,13 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 		dungeon_id = tmp_dungeon_level;
 	}
 
-	if (command_arg < dungeon_info[floor_ptr->dun_type].mindepth) command_arg = 0;
-	if (command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[dungeon_id].maxdepth;
+	if(command_arg < dungeon_info[floor_ptr->dun_type].mindepth) command_arg = 0;
+	if(command_arg > dungeon_info[floor_ptr->dun_type].maxdepth) command_arg = dungeon_info[dungeon_id].maxdepth;
 
 	// Accept request
 	msg_format("You jump to dungeon level %d.", command_arg);
 
-	if (autosave_l) do_cmd_save_game(TRUE);
+	if(autosave_l) do_cmd_save_game(TRUE);
 
 	// Change level
 	depth = command_arg;
@@ -1707,13 +1707,13 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	//prepare_change_floor_mode(creature_ptr, CFM_RAND_PLACE);
 
-	if (!floor_ptr->floor_level) dungeon_id = 0;
+	if(!floor_ptr->floor_level) dungeon_id = 0;
 	floor_ptr->fight_arena_mode = FALSE;
 	//TODO floor_ptr->wild_mode = FALSE;
 
 	leave_quest_check(creature_ptr);
 
-	if (record_stair) do_cmd_write_nikki(DIARY_WIZ_TELE,0,NULL);
+	if(record_stair) do_cmd_write_nikki(DIARY_WIZ_TELE,0,NULL);
 
 	creature_ptr->energy_use = 0;
 
@@ -1754,7 +1754,7 @@ static void do_cmd_wiz_learn(void)
 		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Induce awareness */
-		if (k_ptr->level <= command_arg)
+		if(k_ptr->level <= command_arg)
 		{
 			/* Get local object */
 			quest_ptr = &forge;
@@ -1819,15 +1819,15 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Paranoia -- Skip dead creatures */
-		if (!m_ptr->species_idx) continue;
+		if(!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
-		if (i == creature_ptr->riding) continue;
+		if(i == creature_ptr->riding) continue;
 
 		/* Delete nearby creatures */
-		if (m_ptr->cdis <= MAX_SIGHT)
+		if(m_ptr->cdis <= MAX_SIGHT)
 		{
-			if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
+			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
 				char m_name[80];
 
@@ -1854,12 +1854,12 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 		creature_type *m_ptr = &creature_list[i];
 
 		/* Paranoia -- Skip dead creatures */
-		if (!m_ptr->species_idx) continue;
+		if(!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
-		if (i == creature_ptr->riding) continue;
+		if(i == creature_ptr->riding) continue;
 
-		if (record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
+		if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{
 			char m_name[80];
 
@@ -1885,7 +1885,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	int          tmp_feat, tmp_mimic;
 	int          y, x;
 
-	if (!tgt_pt(creature_ptr, &x, &y)) return;
+	if(!tgt_pt(creature_ptr, &x, &y)) return;
 
 	c_ptr = &floor_ptr->cave[y][x];
 
@@ -1894,40 +1894,40 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 
 	/* Query */
 #ifdef JP
-	if (!get_string("地形: ", tmp_val, 3)) return;
+	if(!get_string("地形: ", tmp_val, 3)) return;
 #else
-	if (!get_string("Feature: ", tmp_val, 3)) return;
+	if(!get_string("Feature: ", tmp_val, 3)) return;
 #endif
 
 	/* Extract */
 	tmp_feat = atoi(tmp_val);
-	if (tmp_feat < 0) tmp_feat = 0;
-	else if (tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
+	if(tmp_feat < 0) tmp_feat = 0;
+	else if(tmp_feat >= max_feature_idx) tmp_feat = max_feature_idx - 1;
 
 	/* Default */
 	sprintf(tmp_val, "%d", prev_mimic);
 
 	/* Query */
 #ifdef JP
-	if (!get_string("地形 (mimic): ", tmp_val, 3)) return;
+	if(!get_string("地形 (mimic): ", tmp_val, 3)) return;
 #else
-	if (!get_string("Feature (mimic): ", tmp_val, 3)) return;
+	if(!get_string("Feature (mimic): ", tmp_val, 3)) return;
 #endif
 
 	/* Extract */
 	tmp_mimic = atoi(tmp_val);
-	if (tmp_mimic < 0) tmp_mimic = 0;
-	else if (tmp_mimic >= max_feature_idx) tmp_mimic = max_feature_idx - 1;
+	if(tmp_mimic < 0) tmp_mimic = 0;
+	else if(tmp_mimic >= max_feature_idx) tmp_mimic = max_feature_idx - 1;
 
 	cave_set_feat(floor_ptr, y, x, tmp_feat);
 	c_ptr->mimic = tmp_mimic;
 
 	f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
-	if (have_flag(f_ptr->flags, FF_GLYPH) ||
+	if(have_flag(f_ptr->flags, FF_GLYPH) ||
 	    have_flag(f_ptr->flags, FF_MINOR_GLYPH))
 		c_ptr->info |= (CAVE_OBJECT);
-	else if (have_flag(f_ptr->flags, FF_MIRROR))
+	else if(have_flag(f_ptr->flags, FF_MIRROR))
 		c_ptr->info |= (CAVE_GLOW | CAVE_OBJECT);
 
 	/* Notice */
@@ -1967,7 +1967,7 @@ static void do_cmd_dump_options(void)
 	fff = my_fopen(buf, "a");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 #ifdef JP
 		msg_format("ファイル %s を開けませんでした。", buf);
@@ -1987,7 +1987,7 @@ static void do_cmd_dump_options(void)
 	for (i = 0; option_info[i].o_desc; i++)
 	{
 		option_type *ot_ptr = &option_info[i];
-		if (ot_ptr->o_var) exist[ot_ptr->o_set][ot_ptr->o_bit] = i + 1;
+		if(ot_ptr->o_var) exist[ot_ptr->o_set][ot_ptr->o_bit] = i + 1;
 	}
 
 	fprintf(fff, "[Option bits usage on D\'angband %d.%d.%d]\n\n",
@@ -2000,7 +2000,7 @@ static void do_cmd_dump_options(void)
 	{
 		for (j = 0; j < NUM_O_BIT; j++)
 		{
-			if (exist[i][j])
+			if(exist[i][j])
 			{
 				option_type *ot_ptr = &option_info[exist[i][j] - 1];
 				fprintf(fff, "  %d -  %02d (%4d) %s\n",
@@ -2130,7 +2130,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Blue Mage Only */
 	case 'E':
-		if (creature_ptr->class_idx == CLASS_BLUE_MAGE)
+		if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 		{
 			do_cmd_wiz_blue_mage(creature_ptr);
 		}
@@ -2148,7 +2148,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	// Good Objects
 	case 'g':
-		if (command_arg <= 0) command_arg = 1;
+		if(command_arg <= 0) command_arg = 1;
 		acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, command_arg, FALSE, TRUE);
 		break;
 
@@ -2240,7 +2240,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Summon Random Creature(s) */
 	case 's':
-		if (command_arg <= 0) command_arg = 1;
+		if(command_arg <= 0) command_arg = 1;
 		do_cmd_wiz_summon(creature_ptr, command_arg);
 		break;
 
@@ -2256,13 +2256,13 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	/* Very Good Objects */
 	case 'v':
-		if (command_arg <= 0) command_arg = 1;
+		if(command_arg <= 0) command_arg = 1;
 		acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
 	/* Very Good Objects 2*/
 	case 'V':
-		if (command_arg <= 0) command_arg = 1;
+		if(command_arg <= 0) command_arg = 1;
 		{
 			char tmp_val[10], tmp_val2[10];
 			int tmp_int, tmp_int2;
@@ -2272,8 +2272,8 @@ void do_cmd_debug(creature_type *creature_ptr)
 			tmp_val2[0] = '\0';
 
 			/* Query */
-			if (!get_string("Ego Num:", tmp_val, 3)) return;
-			if (!get_string("Kind Num:", tmp_val2, 3)) return;
+			if(!get_string("Ego Num:", tmp_val, 3)) return;
+			if(!get_string("Kind Num:", tmp_val2, 3)) return;
 
 			tmp_int = atoi(tmp_val);
 			tmp_int2 = atoi(tmp_val2);

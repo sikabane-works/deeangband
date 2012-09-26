@@ -334,7 +334,7 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int powe
       {
 	int boost = creature_ptr->class_skills.old_skills.magic_num1[0];
 
-	if (heavy_armor(creature_ptr)) boost /= 2;
+	if(heavy_armor(creature_ptr)) boost /= 2;
 
 	switch (power)
 	  {
@@ -525,13 +525,13 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
       *sn = (-1);
 
 	/* Get the spell, if available */
-	if (repeat_pull(sn))
+	if(repeat_pull(sn))
 	{
 		/* Hack -- If requested INVEN_FORCE(1111), pull again */
-		if (*sn == INVEN_FORCE) repeat_pull(sn);
+		if(*sn == INVEN_FORCE) repeat_pull(sn);
 
 		/* Verify the spell */
-		if (mind_ptr->info[*sn].min_lev <= plev)
+		if(mind_ptr->info[*sn].min_lev <= plev)
 		{
 			/* Success */
 			return (TRUE);
@@ -546,14 +546,14 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 
       for (i = 0; i < MAX_MIND_POWERS; i++)
 	{
-	  if (mind_ptr->info[i].min_lev <= plev)
+	  if(mind_ptr->info[i].min_lev <= plev)
 	    {
 	      num++;
 	    }
 	}
 
       /* Build a prompt (accept all spells) */
-      if (only_browse)
+      if(only_browse)
 	{
 #ifdef JP
 	  (void) strnfmt(out_val, 78, "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？",
@@ -572,7 +572,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		p, I2A(0), I2A(num - 1), p);
 	}
 
-	if (use_menu && !only_browse) screen_save();
+	if(use_menu && !only_browse) screen_save();
 	/* Get a spell from the user */
 
 	choice= (always_show_list || use_menu) ? ESCAPE:1 ;
@@ -581,13 +581,13 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		if(choice==ESCAPE) choice = ' '; 
 		else if( !get_com(out_val, &choice, TRUE) )break;
 
-		if (use_menu && choice != ' ')
+		if(use_menu && choice != ' ')
 		{
 			switch(choice)
 			{
 				case '0':
 				{
-					if (!only_browse) screen_load();
+					if(!only_browse) screen_load();
 					return (FALSE);
 				}
 
@@ -617,13 +617,13 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 					break;
 				}
 			}
-			if (menu_line > num) menu_line -= num;
+			if(menu_line > num) menu_line -= num;
 		}
 		/* Request redraw */
-		if ((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
+		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 		{
 			/* Show the list */
-			if (!redraw || use_menu)
+			if(!redraw || use_menu)
 			{
 				char psi_desc[80];
 				bool has_weapon[2];
@@ -632,7 +632,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 				redraw = TRUE;
 
 				/* Save the screen */
-				if (!only_browse && !use_menu) screen_save();
+				if(!only_browse && !use_menu) screen_save();
 
 				/* Display a list of spells */
 				prt("", y, x);
@@ -658,12 +658,12 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 					/* Access the spell */
 					spell = mind_ptr->info[i];
 
-					if (spell.min_lev > plev)   break;
+					if(spell.min_lev > plev)   break;
 
 					chance = spell.fail;
 
 					mana_cost = spell.mana_cost;
-					if (chance)
+					if(chance)
 					{
 
 						/* Reduce failure rate by "effective" level adjustment */
@@ -672,14 +672,14 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						/* Reduce failure rate by INT/WIS adjustment */
 						chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 
-						if (use_mind == MIND_KI)
+						if(use_mind == MIND_KI)
 						{
-							if (heavy_armor(creature_ptr)) chance += 20;
-							if (creature_ptr->icky_wield[0]) chance += 20;
-							else if (has_weapon[0]) chance += 10;
-							if (creature_ptr->icky_wield[1]) chance += 20;
-							else if (has_weapon[1]) chance += 10;
-							if (i == 5)
+							if(heavy_armor(creature_ptr)) chance += 20;
+							if(creature_ptr->icky_wield[0]) chance += 20;
+							else if(has_weapon[0]) chance += 10;
+							if(creature_ptr->icky_wield[1]) chance += 20;
+							else if(has_weapon[1]) chance += 10;
+							if(i == 5)
 							{
 								int j;
 								for (j = 0; j < creature_ptr->class_skills.old_skills.magic_num1[0] / 50; j++)
@@ -688,7 +688,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						}
 
 						/* Not enough mana to cast */
-						if ((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU) && (mana_cost > creature_ptr->csp))
+						if((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU) && (mana_cost > creature_ptr->csp))
 						{
 							chance += 5 * (mana_cost - creature_ptr->csp);
 						}
@@ -699,31 +699,31 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						minfail = adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]];
 
 						/* Minimum failure rate */
-						if (chance < minfail) chance = minfail;
+						if(chance < minfail) chance = minfail;
 
 						/* Stunning makes spells harder */
-						if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-						else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+						if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+						else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
-						if (use_mind == MIND_KI)
+						if(use_mind == MIND_KI)
 						{
-							if (heavy_armor(creature_ptr)) chance += 5;
-							if (creature_ptr->icky_wield[0]) chance += 5;
-							if (creature_ptr->icky_wield[1]) chance += 5;
+							if(heavy_armor(creature_ptr)) chance += 5;
+							if(creature_ptr->icky_wield[0]) chance += 5;
+							if(creature_ptr->icky_wield[1]) chance += 5;
 						}
 						/* Always a 5 percent chance of working */
-						if (chance > 95) chance = 95;
+						if(chance > 95) chance = 95;
 					}
 
 					/* Get info */
 					mindcraft_info(creature_ptr, comment, use_mind, i);
 
-					if (use_menu)
+					if(use_menu)
 					{
 #ifdef JP
-						if (i == (menu_line-1)) strcpy(psi_desc, "  》 ");
+						if(i == (menu_line-1)) strcpy(psi_desc, "  》 ");
 #else
-						if (i == (menu_line-1)) strcpy(psi_desc, "  >  ");
+						if(i == (menu_line-1)) strcpy(psi_desc, "  >  ");
 #endif
 						else strcpy(psi_desc, "     ");
 					}
@@ -747,7 +747,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 			}
 
 			/* Hide the list */
-			else if (!only_browse)
+			else if(!only_browse)
 			{
 				/* Hide list */
 				redraw = FALSE;
@@ -760,20 +760,20 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 			continue;
 		}
 
-		if (!use_menu)
+		if(!use_menu)
 		{
 			/* Note verify */
 			ask = isupper(choice);
 
 			/* Lowercase */
-			if (ask) choice = tolower(choice);
+			if(ask) choice = tolower(choice);
 
 			/* Extract request */
 			i = (islower(choice) ? A2I(choice) : -1);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= num))
+		if((i < 0) || (i >= num))
 		{
 			bell();
 			continue;
@@ -783,7 +783,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 		spell = mind_ptr->info[i];
 
 		/* Verify it */
-		if (ask)
+		if(ask)
 		{
 			char tmp_val[160];
 
@@ -796,7 +796,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 
 
 			/* Belay that order */
-			if (!get_check(tmp_val)) continue;
+			if(!get_check(tmp_val)) continue;
 		}
 
 		/* Stop the loop */
@@ -804,7 +804,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 	}
 
 	/* Restore the screen */
-	if (redraw && !only_browse) screen_load();
+	if(redraw && !only_browse) screen_load();
 
 	/* Show choices */
 	play_window |= (PW_SPELL);
@@ -813,7 +813,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 	window_stuff();
 
 	/* Abort if needed */
-	if (!flag) return (FALSE);
+	if(!flag) return (FALSE);
 
 	/* Save the choice */
 	(*sn) = i;
@@ -839,18 +839,18 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 	switch (spell)
 	{
 	case 0:   /* Precog */
-		if (plev > 44)
+		if(plev > 44)
 		{
 			wiz_lite(floor_ptr, creature_ptr, FALSE);
 		}
-		else if (plev > 19)
+		else if(plev > 19)
 			map_area(creature_ptr, DETECT_RAD_MAP);
 
-		if (plev < 30)
+		if(plev < 30)
 		{
 			b = detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
-			if (plev > 14) b |= detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
-			if (plev > 4)  {
+			if(plev > 14) b |= detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
+			if(plev > 4)  {
 				b |= detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
 				b |= detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
 			}
@@ -860,21 +860,21 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 			b = detect_all(creature_ptr, DETECT_RAD_DEFAULT);
 		}
 
-		if ((plev > 24) && (plev < 40))
+		if((plev > 24) && (plev < 40))
 			set_tim_esp(creature_ptr, plev, FALSE);
 
 #ifdef JP
-if (!b) msg_print("安全な気がする。");
+if(!b) msg_print("安全な気がする。");
 #else
-		if (!b) msg_print("You feel safe.");
+		if(!b) msg_print("You feel safe.");
 #endif
 
 		break;
 	case 1:
 		/* Mindblast */
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		if (randint1(100) < plev * 2)
+		if(randint1(100) < plev * 2)
 			fire_beam(creature_ptr, GF_PSI, dir, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)));
 		else
 			fire_ball(creature_ptr, GF_PSI, dir, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
@@ -889,9 +889,9 @@ if (!b) msg_print("安全な気がする。");
 		break;
 	case 4:
 		/* Domination */
-		if (plev < 30)
+		if(plev < 30)
 		{
-			if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 			fire_ball(creature_ptr, GF_DOMINATION, dir, plev, 0);
 		}
@@ -902,7 +902,7 @@ if (!b) msg_print("安全な気がする。");
 		break;
 	case 5:
 		/* Fist of Force  ---  not 'true' TK  */
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		fire_ball(creature_ptr, GF_TELEKINESIS, dir, diceroll(8 + ((plev - 5) / 4), 8),
 			(plev > 20 ? (plev - 20) / 8 + 1 : 0));
@@ -910,15 +910,15 @@ if (!b) msg_print("安全な気がする。");
 	case 6:
 		/* Character Armour */
 		set_shield(creature_ptr, plev, FALSE);
-		if (plev > 14) set_oppose_acid(creature_ptr, plev, FALSE);
-		if (plev > 19) set_oppose_fire(creature_ptr, plev, FALSE);
-		if (plev > 24) set_oppose_cold(creature_ptr, plev, FALSE);
-		if (plev > 29) set_oppose_elec(creature_ptr, plev, FALSE);
-		if (plev > 34) set_oppose_pois(creature_ptr, plev, FALSE);
+		if(plev > 14) set_oppose_acid(creature_ptr, plev, FALSE);
+		if(plev > 19) set_oppose_fire(creature_ptr, plev, FALSE);
+		if(plev > 24) set_oppose_cold(creature_ptr, plev, FALSE);
+		if(plev > 29) set_oppose_elec(creature_ptr, plev, FALSE);
+		if(plev > 34) set_oppose_pois(creature_ptr, plev, FALSE);
 		break;
 	case 7:
 		/* Psychometry */
-		if (plev < 25)
+		if(plev < 25)
 			return psychometry(creature_ptr);
 		else
 			return ident_spell(creature_ptr, FALSE);
@@ -930,7 +930,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		msg_print("Mind-warping forces emanate from your brain!");
 #endif
 
-		if (plev < 25)
+		if(plev < 25)
 			project(creature_ptr, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx,
 			(plev * 3), GF_PSI, PROJECT_KILL, -1);
 		else
@@ -945,7 +945,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		 * Only heal when Adrenalin Channeling is not active. We check
 		 * that by checking if the player isn't fast and 'heroed' atm.
 		 */
-		if (!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr))
+		if(!IS_FAST(creature_ptr) || !IS_HERO(creature_ptr))
 		{
 			heal_creature(creature_ptr, plev);
 		}
@@ -957,30 +957,30 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		break;
 	case 10:
 		/* Telekinesis */
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		fetch(creature_ptr, dir, plev * 15, FALSE);
 
 		break;
 	case 11:
 		/* Psychic Drain */
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		b = diceroll(plev / 2, 6);
 
 		/* This is always a radius-0 ball now */
-		if (fire_ball(creature_ptr, GF_PSI_DRAIN, dir, b, 0))
+		if(fire_ball(creature_ptr, GF_PSI_DRAIN, dir, b, 0))
 			creature_ptr->energy_need += (s16b)randint1(150);
 		break;
 	case 12:
 		/* psycho-spear */
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		fire_beam(creature_ptr, GF_PSY_SPEAR, dir, randint1(plev*3)+plev*3);
 		break;
 	case 13:
 	{
-		if (creature_ptr->time_stopper)
+		if(creature_ptr->time_stopper)
 		{
 #ifdef JP
 			msg_print("既に時は止まっている。");
@@ -1036,13 +1036,13 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	int             plev = creature_ptr->lev;
 	int             boost = creature_ptr->class_skills.old_skills.magic_num1[0];
 
-	if (heavy_armor(creature_ptr)) boost /= 2;
+	if(heavy_armor(creature_ptr)) boost /= 2;
 
 	/* spell code */
 	switch (spell)
 	{
 	case 0:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball(creature_ptr, GF_MISSILE, dir, diceroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
@@ -1053,7 +1053,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 3:
 		project_length = plev / 8 + 3;
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		fire_beam(creature_ptr, GF_MISSILE, dir, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5));
 		break;
@@ -1068,7 +1068,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 #endif
 		creature_ptr->class_skills.old_skills.magic_num1[0] += (70 + plev);
 		creature_ptr->creature_update |= (CRU_BONUS);
-		if (randint1(creature_ptr->class_skills.old_skills.magic_num1[0]) > (plev * 4 + 120))
+		if(randint1(creature_ptr->class_skills.old_skills.magic_num1[0]) > (plev * 4 + 120))
 		{
 #ifdef JP
 			msg_print("気が暴走した！");
@@ -1091,13 +1091,13 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	{
 		int y, x, dam;
 		project_length = 1;
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
 		dam = diceroll(8 + ((plev - 5) / 4) + boost / 12, 8);
 		fire_beam(creature_ptr, GF_MISSILE, dir, dam);
-		if (floor_ptr->cave[y][x].creature_idx)
+		if(floor_ptr->cave[y][x].creature_idx)
 		{
 			int i;
 			int ty = y, tx = x;
@@ -1109,7 +1109,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 
 			creature_desc(m_name, m_ptr, 0);
 
-			if (randint1(r_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
+			if(randint1(r_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
 			{
 #ifdef JP
 				msg_format("%sは飛ばされなかった。", m_name);
@@ -1123,14 +1123,14 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 				{
 					y += ddy[dir];
 					x += ddx[dir];
-					if (cave_empty_bold(floor_ptr, y, x))
+					if(cave_empty_bold(floor_ptr, y, x))
 					{
 						ty = y;
 						tx = x;
 					}
 					else break;
 				}
-				if ((ty != oy) || (tx != ox))
+				if((ty != oy) || (tx != ox))
 				{
 #ifdef JP
 					msg_format("%sを吹き飛ばした！", m_name);
@@ -1146,7 +1146,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 					lite_spot(floor_ptr, oy, ox);
 					lite_spot(floor_ptr, ty, tx);
 
-					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
+					if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 						update |= (PU_SPECIES_LITE);
 				}
 			}
@@ -1154,18 +1154,18 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	}
 	case 8:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball(creature_ptr, GF_MISSILE, dir, diceroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
 		break;
 	case 9:
 	{
 		int m_idx;
 
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if (!m_idx) break;
-		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+		if(!m_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 		dispel_creature(creature_ptr);
 		break;
 	}
@@ -1175,9 +1175,9 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		bool success = FALSE;
 
 		for (i = 0; i < 1 + boost/100; i++)
-			if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_PHANTOM, PC_FORCE_PET))
+			if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_PHANTOM, PC_FORCE_PET))
 				success = TRUE;
-		if (success)
+		if(success)
 		{
 #ifdef JP
 msg_print("御用でございますが、御主人様？");
@@ -1199,7 +1199,7 @@ msg_print("御用でございますが、御主人様？");
 		fire_ball(creature_ptr, GF_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
 		break;
 	case 12:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		fire_beam(creature_ptr, GF_MANA, dir, diceroll(10 + (plev / 2) + boost * 3 / 10, 15));
 		break;
@@ -1276,8 +1276,8 @@ msg_format("There are too many mirrors to control!");
 	  }
 	  break;
 	case 2:
-	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
-	  if ( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
+	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
 	    fire_beam(creature_ptr, GF_LITE, dir,diceroll(3+((plev-1)/5),4));
 	  }
 	  else {
@@ -1302,12 +1302,12 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* banishing mirror */
 	case 7:
-	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 	  (void)fire_beam(creature_ptr, GF_AWAY_ALL, dir , plev);
 	  break;
 	/* mirror clashing */
 	case 8:
-	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 	  fire_ball(creature_ptr, GF_SHARDS, dir, diceroll(8 + ((plev - 5) / 4), 8),
 		    (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 	  break;
@@ -1315,7 +1315,7 @@ msg_format("There are too many mirrors to control!");
 	case 9:
 	  for(x=0;x<floor_ptr->width;x++){
 	    for(y=0;y<floor_ptr->height;y++){
-	      if (is_mirror_grid(&floor_ptr->cave[y][x])) {
+	      if(is_mirror_grid(&floor_ptr->cave[y][x])) {
 				project(creature_ptr,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 	      }
 	    }
@@ -1323,7 +1323,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* seeker ray */
 	case 10:
-	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 	  fire_beam(creature_ptr, GF_SEEKER,dir, diceroll(11+(plev-5)/4,8));
 	  break;
 	/* seal of mirror */
@@ -1339,7 +1339,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* super ray */
 	case 13:
-	  if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 	  fire_beam(creature_ptr, GF_SUPER_RAY,dir, 150+randint1(2*plev));
 	  break;
 	/* illusion light */
@@ -1423,7 +1423,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 1:
 	{
-		if (creature_ptr->riding)
+		if(creature_ptr->riding)
 		{
 #ifdef JP
 			msg_print("乗馬中には無理だ。");
@@ -1433,13 +1433,13 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			return FALSE;
 		}
 
-		if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
+		if(!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 
-		if (dir == 5) return FALSE;
+		if(dir == 5) return FALSE;
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
 
-		if (!floor_ptr->cave[y][x].creature_idx)
+		if(!floor_ptr->cave[y][x].creature_idx)
 		{
 #ifdef JP
 			msg_print("その方向にはクリーチャーはいません。");
@@ -1451,13 +1451,13 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 		melee_attack(creature_ptr, y, x, 0);
 
-		if (!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
+		if(!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 			break;
 
 		y += ddy[dir];
 		x += ddx[dir];
 
-		if (creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
+		if(creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
 		{
 			msg_print(NULL);
 
@@ -1468,7 +1468,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 	}
 	case 2:
 	{
-		if (!get_rep_dir2(creature_ptr, &dir)) return FALSE;
+		if(!get_rep_dir2(creature_ptr, &dir)) return FALSE;
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
 		walk_creature(creature_ptr, dir, easy_disarm, TRUE);
@@ -1492,7 +1492,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Hack -- attack creatures */
-			if (c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+			if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 				melee_attack(creature_ptr, y, x, 0);
 		}
 		break;
@@ -1526,18 +1526,18 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		(void)unlite_area(creature_ptr, 0, 3);
 		break;
 	case 1:
-		if (plev > 44)
+		if(plev > 44)
 		{
 			wiz_lite(floor_ptr, creature_ptr, TRUE);
 		}
 		detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
-		if (plev > 4)
+		if(plev > 4)
 		{
 			detect_traps(creature_ptr, DETECT_RAD_DEFAULT, TRUE);
 			detect_doors(creature_ptr, DETECT_RAD_DEFAULT);
 			detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 		}
-		if (plev > 14)
+		if(plev > 14)
 		{
 			detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT);
 		}
@@ -1549,7 +1549,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 	}
 	case 3:
 	{
-		if (!(creature_ptr->special_defense & NINJA_KAWARIMI))
+		if(!(creature_ptr->special_defense & NINJA_KAWARIMI))
 		{
 #ifdef JP
 			msg_print("敵の攻撃に対して敏感になった。");
@@ -1569,13 +1569,13 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 	}
 	case 5:
 	{
-		if (!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
+		if(!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
-		if (floor_ptr->cave[y][x].creature_idx)
+		if(floor_ptr->cave[y][x].creature_idx)
 		{
 			melee_attack(creature_ptr, y, x, 0);
-			if (randint0(creature_ptr->skill_dis) < 7)
+			if(randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 msg_print("うまく逃げられなかった。");
 #else
@@ -1600,7 +1600,7 @@ msg_print("その方向にはクリーチャーはいません。");
 	}
 	case 6:
 	{
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		(void)stasis_creature(creature_ptr, dir);
 		break;
 	}
@@ -1625,15 +1625,15 @@ msg_print("その方向にはクリーチャーはいません。");
 
 			for (slot = 0; slot < INVEN_TOTAL; slot++)
 			{
-				if (creature_ptr->inventory[slot].tval == TV_SPIKE) break;
+				if(creature_ptr->inventory[slot].tval == TV_SPIKE) break;
 			}
-			if (slot == INVEN_TOTAL)
+			if(slot == INVEN_TOTAL)
 			{
 #ifdef JP
-				if (!i) msg_print("くさびを持っていない。");
+				if(!i) msg_print("くさびを持っていない。");
 				else msg_print("くさびがなくなった。");
 #else
-				if (!i) msg_print("You have no Iron Spikes.");
+				if(!i) msg_print("You have no Iron Spikes.");
 				else msg_print("You have no more Iron Spikes.");
 #endif
 				return FALSE;
@@ -1656,12 +1656,12 @@ msg_print("その方向にはクリーチャーはいません。");
 		u16b path_g[512];
 		int ty,tx;
 
-		if (!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
 		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if (!m_idx) break;
-		if (m_idx == creature_ptr->riding) break;
-		if (!player_has_los_bold(target_row, target_col)) break;
-		if (!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
+		if(!m_idx) break;
+		if(m_idx == creature_ptr->riding) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_row, target_col)) break;
 		m_ptr = &creature_list[m_idx];
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
@@ -1678,7 +1678,7 @@ msg_print("その方向にはクリーチャーはいません。");
 			int nx = GRID_X(path_g[i]);
 			cave_type *c_ptr = &floor_ptr->cave[ny][nx];
 
-			if (in_bounds(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&
+			if(in_bounds(floor_ptr, ny, nx) && cave_empty_bold(floor_ptr, ny, nx) &&
 			    !(c_ptr->info & CAVE_OBJECT) && !pattern_tile(floor_ptr, ny, nx))
 			{
 				ty = ny;
@@ -1707,13 +1707,13 @@ msg_print("その方向にはクリーチャーはいません。");
 		/* Redraw the new grid */
 		lite_spot(floor_ptr, ty, tx);
 
-		if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
+		if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 			update |= (PU_SPECIES_LITE);
 
-		if (m_ptr->see_others)
+		if(m_ptr->see_others)
 		{
 			/* Auto-Recall if possible and visible */
-			if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
+			if(!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
 
 			/* Track a new creature */
 			health_track(m_idx);
@@ -1722,12 +1722,12 @@ msg_print("その方向にはクリーチャーはいません。");
 		break;
 	}
 	case 13:
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		fire_ball(creature_ptr, GF_OLD_CONF, dir, plev*3, 3);
 		break;
 	case 14:
 		project_length = -1;
-		if (!get_aim_dir(creature_ptr, &dir))
+		if(!get_aim_dir(creature_ptr, &dir))
 		{
 			project_length = 0;
 			return FALSE;
@@ -1763,7 +1763,7 @@ msg_print("その方向にはクリーチャーはいません。");
 			{
 				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-				if (!creature_bold(creature_ptr, y, x)) break;
+				if(!creature_bold(creature_ptr, y, x)) break;
 			}
 			project(creature_ptr, 0, y, x, diceroll(6 + plev / 8, 10), typ,
 				(PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
@@ -1807,7 +1807,7 @@ void do_cmd_mind(creature_type *creature_ptr)
 	bool		on_mirror = FALSE;
 
 	/* not if confused */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて集中できない！");
@@ -1819,7 +1819,7 @@ msg_print("混乱していて集中できない！");
 	}
 
 	/* get power */
-	if (!get_mind_power(creature_ptr, &n, FALSE)) return;
+	if(!get_mind_power(creature_ptr, &n, FALSE)) return;
 
 #ifdef JP
 	switch(creature_ptr->class_idx)
@@ -1848,14 +1848,14 @@ msg_print("混乱していて集中できない！");
 	chance = spell.fail;
 
 	mana_cost = spell.mana_cost;
-	if (use_mind == MIND_KI)
+	if(use_mind == MIND_KI)
 	{
-		if (heavy_armor(creature_ptr)) chance += 20;
-		if (creature_ptr->icky_wield[0]) chance += 20;
-		else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) chance += 10;
-		if (creature_ptr->icky_wield[1]) chance += 20;
-		else if (get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) chance += 10;
-		if (n == 5)
+		if(heavy_armor(creature_ptr)) chance += 20;
+		if(creature_ptr->icky_wield[0]) chance += 20;
+		else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) chance += 10;
+		if(creature_ptr->icky_wield[1]) chance += 20;
+		else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) chance += 10;
+		if(n == 5)
 		{
 			int j;
 			for (j = 0; j < creature_ptr->class_skills.old_skills.magic_num1[0] / 50; j++)
@@ -1864,9 +1864,9 @@ msg_print("混乱していて集中できない！");
 	}
 
 	/* Verify "dangerous" spells */
-	if ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
+	if((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
 	{
-		if (mana_cost > creature_ptr->chp)
+		if(mana_cost > creature_ptr->chp)
 		{
 #ifdef JP
 msg_print("ＨＰが足りません。");
@@ -1876,7 +1876,7 @@ msg_print("ＨＰが足りません。");
 			return;
 		}
 	}
-	else if (mana_cost > creature_ptr->csp)
+	else if(mana_cost > creature_ptr->csp)
 	{
 		/* Warning */
 #ifdef JP
@@ -1886,18 +1886,18 @@ msg_print("ＭＰが足りません。");
 #endif
 
 
-		if (!over_exert) return;
+		if(!over_exert) return;
 
 		/* Verify */
 #ifdef JP
-if (!get_check("それでも挑戦しますか? ")) return;
+if(!get_check("それでも挑戦しますか? ")) return;
 #else
-		if (!get_check("Attempt it anyway? ")) return;
+		if(!get_check("Attempt it anyway? ")) return;
 #endif
 
 	}
 
-	if (chance)
+	if(chance)
 	{
 		/* Reduce failure rate by "effective" level adjustment */
 		chance -= 3 * (plev - spell.min_lev);
@@ -1908,7 +1908,7 @@ if (!get_check("それでも挑戦しますか? ")) return;
 		chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 
 		/* Not enough mana to cast */
-		if ((mana_cost > creature_ptr->csp) && (use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
+		if((mana_cost > creature_ptr->csp) && (use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
 		{
 			chance += 5 * (mana_cost - creature_ptr->csp);
 		}
@@ -1917,27 +1917,27 @@ if (!get_check("それでも挑戦しますか? ")) return;
 		minfail = adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]];
 
 		/* Minimum failure rate */
-		if (chance < minfail) chance = minfail;
+		if(chance < minfail) chance = minfail;
 
 		/* Stunning makes spells harder */
-		if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-		else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+		if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+		else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
-		if (use_mind == MIND_KI)
+		if(use_mind == MIND_KI)
 		{
-			if (heavy_armor(creature_ptr)) chance += 5;
-			if (creature_ptr->icky_wield[0]) chance += 5;
-			if (creature_ptr->icky_wield[1]) chance += 5;
+			if(heavy_armor(creature_ptr)) chance += 5;
+			if(creature_ptr->icky_wield[0]) chance += 5;
+			if(creature_ptr->icky_wield[1]) chance += 5;
 		}
 	}
 
 	/* Always a 5 percent chance of working */
-	if (chance > 95) chance = 95;
+	if(chance > 95) chance = 95;
 
 	/* Failed spell */
-	if (randint0(100) < chance)
+	if(randint0(100) < chance)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 msg_format("%sの集中に失敗した！",p);
 #else
@@ -1946,9 +1946,9 @@ msg_format("%sの集中に失敗した！",p);
 
 		sound(SOUND_FAIL);
 
-		if ((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
+		if((use_mind != MIND_BERSERKER) && (use_mind != MIND_NINJUTSU))
 		{
-			if ((use_mind == MIND_KI) && (n != 5) && creature_ptr->class_skills.old_skills.magic_num1[0])
+			if((use_mind == MIND_KI) && (n != 5) && creature_ptr->class_skills.old_skills.magic_num1[0])
 			{
 #ifdef JP
 				msg_print("気が散ってしまった．．．");
@@ -1958,13 +1958,13 @@ msg_format("%sの集中に失敗した！",p);
 				creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 			}
 
-			if (randint1(100) < (chance / 2))
+			if(randint1(100) < (chance / 2))
 			{
 				/* Backfire */
 			  b = randint1(100);
 
 			  if( use_mind == MIND_MINDCRAFTER ){
-				if (b < 5)
+				if(b < 5)
 				{
 #ifdef JP
 msg_print("なんてこった！頭の中が真っ白になった！");
@@ -1974,7 +1974,7 @@ msg_print("なんてこった！頭の中が真っ白になった！");
 
 					lose_all_info(creature_ptr);
 				}
-				else if (b < 15)
+				else if(b < 15)
 				{
 #ifdef JP
 msg_print("奇妙な光景が目の前で踊っている...");
@@ -1984,7 +1984,7 @@ msg_print("奇妙な光景が目の前で踊っている...");
 
 					set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
 				}
-				else if (b < 45)
+				else if(b < 45)
 				{
 #ifdef JP
 msg_print("あなたの頭は混乱した！");
@@ -1994,7 +1994,7 @@ msg_print("あなたの頭は混乱した！");
 
 					set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(8));
 				}
-				else if (b < 90)
+				else if(b < 90)
 				{
 					set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + randint1(8));
 				}
@@ -2014,11 +2014,11 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 				}
 			  }
 			  if( use_mind == MIND_MIRROR_MASTER ){
-				if (b < 51)
+				if(b < 51)
 				{
 				  /* Nothing has happen */
 				}
-				else if (b < 81)
+				else if(b < 81)
 				{
 #ifdef JP
 msg_print("鏡の世界の干渉を受けた！");
@@ -2027,7 +2027,7 @@ msg_print("鏡の世界の干渉を受けた！");
 #endif
 					teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
 				}
-				else if (b < 96)
+				else if(b < 96)
 				{
 #ifdef JP
 msg_print("まわりのものがキラキラ輝いている！");
@@ -2091,7 +2091,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 			return;
 		}
 
-		if (!cast) return;
+		if(!cast) return;
 	}
 
 
@@ -2103,7 +2103,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 	  if( n==3 || n==5 || n==7 || n==16 )creature_ptr->energy_use = 50;
 	}
 
-	if ((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
+	if((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
 	{
 #ifdef JP
 		take_hit(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "過度の集中", NULL, -1);
@@ -2115,15 +2115,15 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 	}
 
 	/* Sufficient mana */
-	else if (mana_cost <= old_csp)
+	else if(mana_cost <= old_csp)
 	{
 		/* Use some mana */
 		creature_ptr->csp -= mana_cost;
 
 		/* Limit */
-		if (creature_ptr->csp < 0) creature_ptr->csp = 0;
+		if(creature_ptr->csp < 0) creature_ptr->csp = 0;
 
-		if ((use_mind == MIND_MINDCRAFTER) && (n == 13))
+		if((use_mind == MIND_MINDCRAFTER) && (n == 13))
 		{
 			/* No mana left */
 			creature_ptr->csp = 0;
@@ -2137,7 +2137,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 		int oops = mana_cost - old_csp;
 
 		/* No mana left */
-		if ((creature_ptr->csp - mana_cost) < 0) creature_ptr->csp_frac = 0;
+		if((creature_ptr->csp - mana_cost) < 0) creature_ptr->csp_frac = 0;
 		creature_ptr->csp = MAX(0, creature_ptr->csp - mana_cost);
 
 		/* Message */
@@ -2152,7 +2152,7 @@ msg_format("%sを集中しすぎて気を失ってしまった！",p);
 		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage WIS (possibly permanently) */
-		if (randint0(100) < 50)
+		if(randint0(100) < 50)
 		{
 			bool perm = (randint0(100) < 25);
 
@@ -2189,11 +2189,11 @@ void do_cmd_mind_browse(creature_type *creature_ptr)
 	char temp[62*5];
 	int use_mind = 0;
 
-	if (creature_ptr->class_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
-	else if (creature_ptr->class_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
-	else if (creature_ptr->class_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
-	else if (creature_ptr->class_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
-	else if (creature_ptr->class_idx == CLASS_MIRROR_MASTER)
+	if(creature_ptr->class_idx == CLASS_MINDCRAFTER) use_mind = MIND_MINDCRAFTER;
+	else if(creature_ptr->class_idx == CLASS_FORCETRAINER) use_mind = MIND_KI;
+	else if(creature_ptr->class_idx == CLASS_BERSERKER) use_mind = MIND_BERSERKER;
+	else if(creature_ptr->class_idx == CLASS_NINJA) use_mind = MIND_NINJUTSU;
+	else if(creature_ptr->class_idx == CLASS_MIRROR_MASTER)
 	  use_mind = MIND_MIRROR_MASTER;
 
 	screen_save();
@@ -2201,7 +2201,7 @@ void do_cmd_mind_browse(creature_type *creature_ptr)
 	while(1)
 	{
 		/* get power */
-		if (!get_mind_power(creature_ptr, &n, TRUE))
+		if(!get_mind_power(creature_ptr, &n, TRUE))
 		{
 			screen_load();
 			return;

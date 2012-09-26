@@ -5,13 +5,13 @@ int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev)
 	int chance = 0;
 	int hit_power = creature_ptr->skill_thn + (creature_ptr->to_hit[0] + to_hit) * BTH_PLUS_ADJ;
 
-	if (hit_power <= 0) return 5;
+	if(hit_power <= 0) return 5;
 
 	chance = 100 - ((ev * 75) / hit_power);
 
-	if (chance > 95) chance = 95;
-	if (chance < 5) chance = 5;
-	if (creature_ptr->chara_idx == CHARA_NAMAKE)
+	if(chance > 95) chance = 95;
+	if(chance < 5) chance = 5;
+	if(creature_ptr->chara_idx == CHARA_NAMAKE)
 		chance = (chance * 19 + 9) / 20;
 	return chance;
 }
@@ -25,12 +25,12 @@ bool test_hit_melee(creature_type *attacker_ptr, int chance, int ev, int vis)
 	int k;
 
 	k = randint0(100);	// Percentile dice
-	if (k < 10) return (k < 5); // Hack -- Instant miss or hit
-	if (has_trait(attacker_ptr, TRAIT_MISS_MELEE) && (one_in_(20))) return (FALSE);
-	if (chance <= 0) return (FALSE);	// Wimpy attack never hits
+	if(k < 10) return (k < 5); // Hack -- Instant miss or hit
+	if(has_trait(attacker_ptr, TRAIT_MISS_MELEE) && (one_in_(20))) return (FALSE);
+	if(chance <= 0) return (FALSE);	// Wimpy attack never hits
 
-	if (!vis) chance = (chance + 1) / 2;	// Penalize invisible targets
-	if (randint0(chance) < (ev * 3 / 4)) return (FALSE);	// Power must defeat armor
+	if(!vis) chance = (chance + 1) / 2;	// Penalize invisible targets
+	if(randint0(chance) < (ev * 3 / 4)) return (FALSE);	// Power must defeat armor
 	return (TRUE);	// Assume hit
 }
 
@@ -48,12 +48,12 @@ s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int d
 	i = (weight + (meichuu * 3 + plus * 5) + (creature_ptr->lev * 3));
 
 	/* Chance */
-	if ((randint1((creature_ptr->class_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
+	if((randint1((creature_ptr->class_idx == CLASS_NINJA) ? 4444 : 5000) <= i) || (mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN))
 	{
 		k = weight + randint1(650);
-		if ((mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN)) k+= randint1(650);
+		if((mode == HISSATSU_MAJIN) || (mode == HISSATSU_3DAN)) k+= randint1(650);
 
-		if (k < 400)
+		if(k < 400)
 		{
 #ifdef JP
 			msg_print("手ごたえがあった！");
@@ -63,7 +63,7 @@ s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int d
 
 			dam = 2 * dam + 5;
 		}
-		else if (k < 700)
+		else if(k < 700)
 		{
 #ifdef JP
 			msg_print("かなりの手ごたえがあった！");
@@ -73,7 +73,7 @@ s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int d
 
 			dam = 2 * dam + 10;
 		}
-		else if (k < 900)
+		else if(k < 900)
 		{
 #ifdef JP
 			msg_print("会心の一撃だ！");
@@ -83,7 +83,7 @@ s16b test_critial_melee(creature_type *creature_ptr, int weight, int plus, int d
 
 			dam = 3 * dam + 15;
 		}
-		else if (k < 1300)
+		else if(k < 1300)
 		{
 #ifdef JP
 			msg_print("最高の会心の一撃だ！");

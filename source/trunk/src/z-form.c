@@ -125,7 +125,7 @@
  * For example: "(void)strnfmt(buf, 16, "%s", txt);" will have a similar
  * effect as "strncpy(buf, txt, 16); buf[15] = '\0';".
  *
- * For example: "if (strnfmt(buf, 16, "%s", txt) < 16) ..." will have
+ * For example: "if(strnfmt(buf, 16, "%s", txt) < 16) ..." will have
  * a similar effect as "strcpy(buf, txt)" but with bounds checking.
  *
  * For example: "s = buf; s += vstrnfmt(s, -1, ...); ..." will allow
@@ -168,7 +168,7 @@ static uint vstrnfmt_aux_dflt(char *buf, uint max, cptr fmt, vptr arg)
 	/* Pointer display */
 	sprintf(tmp, "<<%p>>", arg);
 	len = strlen(tmp);
-	if (len >= max) len = max - 1;
+	if(len >= max) len = max - 1;
 	tmp[len] = '\0';
 	strcpy(buf, tmp);
 	return (len);
@@ -256,10 +256,10 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 
 
 	/* Mega-Hack -- treat "illegal" length as "infinite" */
-	if (!max) max = 32767;
+	if(!max) max = 32767;
 
 	/* Mega-Hack -- treat "no format" as "empty string" */
-	if (!fmt) fmt = "";
+	if(!fmt) fmt = "";
 
 
 	/* Begin the buffer */
@@ -272,13 +272,13 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 	while (TRUE)
 	{
 		/* All done */
-		if (!*s) break;
+		if(!*s) break;
 
 		/* Normal character */
-		if (*s != '%')
+		if(*s != '%')
 		{
 			/* Check total length */
-			if (n == max-1) break;
+			if(n == max-1) break;
 
 			/* Save the character */
 			buf[n++] = *s++;
@@ -291,10 +291,10 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		s++;
 
 		/* Pre-process "%%" */
-		if (*s == '%')
+		if(*s == '%')
 		{
 			/* Check total length */
-			if (n == max-1) break;
+			if(n == max-1) break;
 
 			/* Save the percent */
 			buf[n++] = '%';
@@ -307,7 +307,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		}
 
 		/* Pre-process "%n" */
-		if (*s == 'n')
+		if(*s == 'n')
 		{
 			int *arg;
 
@@ -325,7 +325,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		}
 
 		/* Hack -- Pre-process "%r" */
-		if (*s == 'r')
+		if(*s == 'r')
 		{
 			/* Extract the next argument, and save it (globally) */
 			vstrnfmt_aux = va_arg(vp, vstrnfmt_aux_func);
@@ -354,7 +354,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		while (TRUE)
 		{
 			/* Error -- format sequence is not terminated */
-			if (!*s)
+			if(!*s)
 			{
 				/* Terminate the buffer */
 				buf[0] = '\0';
@@ -364,7 +364,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			}
 
 			/* Error -- format sequence may be too long */
-			if (q > 100)
+			if(q > 100)
 			{
 				/* Terminate the buffer */
 				buf[0] = '\0';
@@ -374,10 +374,10 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			}
 
 			/* Handle "alphabetic" chars */
-			if (isalpha(*s))
+			if(isalpha(*s))
 			{
 				/* Hack -- handle "long" request */
-				if (*s == 'l')
+				if(*s == 'l')
 				{
 					/* Save the character */
 					aux[q++] = *s++;
@@ -387,7 +387,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				}
 
 				/* Mega-Hack -- handle "extra-long" request */
-				else if (*s == 'L')
+				else if(*s == 'L')
 				{
 					/* Error -- illegal format char */
 					buf[0] = '\0';
@@ -411,7 +411,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			else
 			{
 				/* Hack -- Handle 'star' (for "variable length" argument) */
-				if (*s == '*')
+				if(*s == '*')
 				{
 					int arg;
 
@@ -429,7 +429,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				}
 
 				/* Mega-Hack -- Handle 'caret' (for "uppercase" request) */
-				else if (*s == '^')
+				else if(*s == '^')
 				{
 					/* Note the "xtra" flag */
 					do_xtra = TRUE;
@@ -475,7 +475,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			/* Signed Integers -- standard format */
 			case 'd': case 'i':
 			{
-				if (do_long)
+				if(do_long)
 				{
 					long arg;
 
@@ -503,7 +503,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			/* Unsigned Integers -- various formats */
 			case 'u': case 'o': case 'x': case 'X':
 			{
-				if (do_long)
+				if(do_long)
 				{
 					unsigned long arg;
 
@@ -570,7 +570,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				arg = va_arg(vp, cptr);
 
 				/* Hack -- convert NULL to EMPTY */
-				if (!arg) arg = "";
+				if(!arg) arg = "";
 
 				/* Prevent buffer overflows */
 				strncpy(arg2, arg, 1024);
@@ -613,19 +613,19 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 
 
 #ifdef JP
-		for (q = 0; tmp[q]; q++) if (iskanji(tmp[q])) { do_xtra=FALSE;break;} 
+		for (q = 0; tmp[q]; q++) if(iskanji(tmp[q])) { do_xtra=FALSE;break;} 
 #endif
 		/* Mega-Hack -- handle "capitilization" */
-		if (do_xtra)
+		if(do_xtra)
 		{
 			/* Now append "tmp" to "buf" */
 			for (q = 0; tmp[q]; q++)
 			{
 				/* Notice first non-space */
-				if (!isspace(tmp[q]))
+				if(!isspace(tmp[q]))
 				{
 					/* Capitalize if possible */
-					if (islower(tmp[q]))
+					if(islower(tmp[q]))
 						tmp[q] = toupper(tmp[q]);
 
 					/* Done */
@@ -638,7 +638,7 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 		for (q = 0; tmp[q]; q++)
 		{
 			/* Check total length */
-			if (n == max-1) break;
+			if(n == max-1) break;
 
 			/* Save the character */
 			buf[n++] = tmp[q];
@@ -664,14 +664,14 @@ char *vformat(cptr fmt, va_list vp)
 	static huge format_len = 0;
 
 	/* Initial allocation */
-	if (!format_buf)
+	if(!format_buf)
 	{
 		format_len = 1024;
 		C_MAKE(format_buf, format_len, char);
 	}
 
 	/* Null format yields last result */
-	if (!fmt) return (format_buf);
+	if(!fmt) return (format_buf);
 
 	/* Keep going until successful */
 	while (1)
@@ -682,7 +682,7 @@ char *vformat(cptr fmt, va_list vp)
 		len = vstrnfmt(format_buf, format_len, fmt, vp);
 
 		/* Success */
-		if (len < format_len-1) break;
+		if(len < format_len-1) break;
 
 		/* Grow the buffer */
 		C_KILL(format_buf, format_len, char);

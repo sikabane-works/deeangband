@@ -89,7 +89,7 @@ static void note(cptr msg)
 	prt(msg, y, 0);
 
 	/* Advance one line (wrap if needed) */
-	if (++y >= 24) y = 2;
+	if(++y >= 24) y = 2;
 
 	/* Flush it */
 	Term_fresh();
@@ -98,20 +98,20 @@ static void note(cptr msg)
 static bool older_than(byte major, byte minor, byte patch, byte extra)
 {
 	/* Much older, or much more recent */
-	if (ver_major < major) return (TRUE);
-	if (ver_major > major) return (FALSE);
+	if(ver_major < major) return (TRUE);
+	if(ver_major > major) return (FALSE);
 
 	/* Distinctly older, or distinctly more recent */
-	if (ver_minor < minor) return (TRUE);
-	if (ver_minor > minor) return (FALSE);
+	if(ver_minor < minor) return (TRUE);
+	if(ver_minor > minor) return (FALSE);
 
 	/* Barely older, or barely more recent */
-	if (ver_patch < patch) return (TRUE);
-	if (ver_patch > patch) return (FALSE);
+	if(ver_patch < patch) return (TRUE);
+	if(ver_patch > patch) return (FALSE);
 
 	/* Barely older, or barely more recent */
-	if (ver_extra < extra) return (TRUE);
-	if (ver_extra > extra) return (FALSE);
+	if(ver_extra < extra) return (TRUE);
+	if(ver_extra > extra) return (FALSE);
 
 	/* Identical versions */
 	return (FALSE);
@@ -186,10 +186,10 @@ static void rd_string(char *str, int max)
 		rd_byte(&tmp8u);
 
 		/* Collect string while legal */
-		if (i < max) str[i] = tmp8u;
+		if(i < max) str[i] = tmp8u;
 
 		/* End of string */
-		if (!tmp8u) break;
+		if(!tmp8u) break;
 	}
 
 	/* Terminate */
@@ -220,7 +220,7 @@ static void rd_string(char *str, int max)
 		byte code = codeconv(str);
 
 		/* 漢字コードが判明したら、それを記録 */
-		if (code) kanji_code = code;
+		if(code) kanji_code = code;
 
 		break;
 	}
@@ -275,145 +275,145 @@ static void rd_object(object_type *object_ptr)
 	object_ptr->sval = k_ptr->sval;
 
 	/* Special pval */
-	if (flags & SAVEFLAG_OBJECT_KIND_PVAL) rd_s16b(&object_ptr->pval);
+	if(flags & SAVEFLAG_OBJECT_KIND_PVAL) rd_s16b(&object_ptr->pval);
 	else object_ptr->pval = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) rd_byte(&object_ptr->discount);
+	if(flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) rd_byte(&object_ptr->discount);
 	else object_ptr->discount = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_NUMBER) rd_byte(&object_ptr->number);
+	if(flags & SAVEFLAG_OBJECT_KIND_NUMBER) rd_byte(&object_ptr->number);
 	else object_ptr->number = 1;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_VOLUME) rd_s32b(&object_ptr->volume);
+	if(flags & SAVEFLAG_OBJECT_KIND_VOLUME) rd_s32b(&object_ptr->volume);
 	else object_ptr->volume = 0;
 
 	rd_s16b(&object_ptr->weight);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_NAME1) rd_byte(&object_ptr->name1);
+	if(flags & SAVEFLAG_OBJECT_KIND_NAME1) rd_byte(&object_ptr->name1);
 	else object_ptr->name1 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_NAME2) rd_s16b(&object_ptr->name2);
+	if(flags & SAVEFLAG_OBJECT_KIND_NAME2) rd_s16b(&object_ptr->name2);
 	else object_ptr->name2 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) rd_s32b(&object_ptr->timeout);
+	if(flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) rd_s32b(&object_ptr->timeout);
 	else object_ptr->timeout = 0;
-	if (flags2 & SAVEFLAG_OBJECT_CHARGE_CONST) rd_s16b(&object_ptr->charge_const);
+	if(flags2 & SAVEFLAG_OBJECT_CHARGE_CONST) rd_s16b(&object_ptr->charge_const);
 	else object_ptr->timeout = 0;
-	if (flags2 & SAVEFLAG_OBJECT_CHARGE_DICE) rd_s16b(&object_ptr->charge_dice);
+	if(flags2 & SAVEFLAG_OBJECT_CHARGE_DICE) rd_s16b(&object_ptr->charge_dice);
 	else object_ptr->timeout = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) rd_s16b(&object_ptr->to_hit);
+	if(flags & SAVEFLAG_OBJECT_KIND_TO_H) rd_s16b(&object_ptr->to_hit);
 	else object_ptr->to_hit = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_D) rd_s16b(&object_ptr->to_damage);
+	if(flags & SAVEFLAG_OBJECT_KIND_TO_D) rd_s16b(&object_ptr->to_damage);
 	else object_ptr->to_damage = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_A) rd_s16b(&object_ptr->to_ac);
+	if(flags & SAVEFLAG_OBJECT_KIND_TO_A) rd_s16b(&object_ptr->to_ac);
 	else object_ptr->to_ac = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_E) rd_s16b(&object_ptr->to_ev);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TO_E) rd_s16b(&object_ptr->to_ev);
 	else object_ptr->to_ev = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_MUL) rd_s16b(&object_ptr->bow_mul);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_BOW_MUL) rd_s16b(&object_ptr->bow_mul);
 	else object_ptr->bow_mul = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_ENERGY) rd_s16b(&object_ptr->bow_energy);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_BOW_ENERGY) rd_s16b(&object_ptr->bow_energy);
 	else object_ptr->bow_energy = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_AC) rd_s16b(&object_ptr->ac);
+	if(flags & SAVEFLAG_OBJECT_KIND_AC) rd_s16b(&object_ptr->ac);
 	else object_ptr->ac = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_EV) rd_s16b(&object_ptr->ev);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_EV) rd_s16b(&object_ptr->ev);
 	else object_ptr->ev = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_DD) rd_byte(&object_ptr->dd);
+	if(flags & SAVEFLAG_OBJECT_KIND_DD) rd_byte(&object_ptr->dd);
 	else object_ptr->dd = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_DS) rd_byte(&object_ptr->ds);
+	if(flags & SAVEFLAG_OBJECT_KIND_DS) rd_byte(&object_ptr->ds);
 	else object_ptr->ds = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_IDENT) rd_byte(&object_ptr->ident);
+	if(flags & SAVEFLAG_OBJECT_KIND_IDENT) rd_byte(&object_ptr->ident);
 	else object_ptr->ident = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) rd_byte(&object_ptr->marked);
+	if(flags & SAVEFLAG_OBJECT_KIND_MARKED) rd_byte(&object_ptr->marked);
 	else object_ptr->marked = 0;
 
 	// Object flags
 
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&object_ptr->trait_flags[0]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) rd_u32b(&object_ptr->trait_flags[0]);
 	else object_ptr->trait_flags[0] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) rd_u32b(&object_ptr->trait_flags[1]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) rd_u32b(&object_ptr->trait_flags[1]);
 	else object_ptr->trait_flags[1] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) rd_u32b(&object_ptr->trait_flags[2]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) rd_u32b(&object_ptr->trait_flags[2]);
 	else object_ptr->trait_flags[2] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) rd_u32b(&object_ptr->trait_flags[3]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) rd_u32b(&object_ptr->trait_flags[3]);
 	else object_ptr->trait_flags[3] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) rd_u32b(&object_ptr->trait_flags[4]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) rd_u32b(&object_ptr->trait_flags[4]);
 	else object_ptr->trait_flags[4] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) rd_u32b(&object_ptr->trait_flags[5]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) rd_u32b(&object_ptr->trait_flags[5]);
 	else object_ptr->trait_flags[5] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) rd_u32b(&object_ptr->trait_flags[6]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) rd_u32b(&object_ptr->trait_flags[6]);
 	else object_ptr->trait_flags[6] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) rd_u32b(&object_ptr->trait_flags[7]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) rd_u32b(&object_ptr->trait_flags[7]);
 	else object_ptr->trait_flags[7] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) rd_u32b(&object_ptr->trait_flags[8]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) rd_u32b(&object_ptr->trait_flags[8]);
 	else object_ptr->trait_flags[8] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) rd_u32b(&object_ptr->trait_flags[9]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) rd_u32b(&object_ptr->trait_flags[9]);
 	else object_ptr->trait_flags[9] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) rd_u32b(&object_ptr->trait_flags[10]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) rd_u32b(&object_ptr->trait_flags[10]);
 	else object_ptr->trait_flags[10] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) rd_u32b(&object_ptr->trait_flags[11]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) rd_u32b(&object_ptr->trait_flags[11]);
 	else object_ptr->trait_flags[11] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) rd_u32b(&object_ptr->trait_flags[12]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) rd_u32b(&object_ptr->trait_flags[12]);
 	else object_ptr->trait_flags[12] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) rd_u32b(&object_ptr->trait_flags[13]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) rd_u32b(&object_ptr->trait_flags[13]);
 	else object_ptr->trait_flags[13] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) rd_u32b(&object_ptr->trait_flags[14]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) rd_u32b(&object_ptr->trait_flags[14]);
 	else object_ptr->trait_flags[14] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) rd_u32b(&object_ptr->trait_flags[15]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) rd_u32b(&object_ptr->trait_flags[15]);
 	else object_ptr->trait_flags[15] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) rd_u32b(&object_ptr->trait_flags[16]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) rd_u32b(&object_ptr->trait_flags[16]);
 	else object_ptr->trait_flags[16] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) rd_u32b(&object_ptr->trait_flags[17]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) rd_u32b(&object_ptr->trait_flags[17]);
 	else object_ptr->trait_flags[17] = 0;
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) rd_u32b(&object_ptr->trait_flags[18]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) rd_u32b(&object_ptr->trait_flags[18]);
 	else object_ptr->trait_flags[18] = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&object_ptr->curse_flags[0]);
+	if(flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) rd_u32b(&object_ptr->curse_flags[0]);
 	else object_ptr->curse_flags[0] = 0;
 
 	/* Creature holding object */
-	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) rd_s16b(&object_ptr->held_m_idx);
+	if(flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) rd_s16b(&object_ptr->held_m_idx);
 	else object_ptr->held_m_idx = 0;
 
 	/* Special powers */
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA1) rd_byte(&object_ptr->xtra1);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA1) rd_byte(&object_ptr->xtra1);
 	else object_ptr->xtra1 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA2) rd_byte(&object_ptr->xtra2);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA2) rd_byte(&object_ptr->xtra2);
 	else object_ptr->xtra2 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA3) rd_byte(&object_ptr->xtra3);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA3) rd_byte(&object_ptr->xtra3);
 	else object_ptr->xtra3 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA4) rd_s16b(&object_ptr->xtra4);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA4) rd_s16b(&object_ptr->xtra4);
 	else object_ptr->xtra4 = 0;
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA5) rd_s16b(&object_ptr->xtra5);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA5) rd_s16b(&object_ptr->xtra5);
 	else object_ptr->xtra5 = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_FEELING) rd_byte(&object_ptr->feeling);
+	if(flags & SAVEFLAG_OBJECT_KIND_FEELING) rd_byte(&object_ptr->feeling);
 	else object_ptr->feeling = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_INSCRIPTION)
+	if(flags & SAVEFLAG_OBJECT_KIND_INSCRIPTION)
 	{
 		rd_string(buf, sizeof(buf));
 		object_ptr->inscription = quark_add(buf);
 	}
 	else object_ptr->inscription = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_NAME)
+	if(flags & SAVEFLAG_OBJECT_KIND_ART_NAME)
 	{
 		rd_string(buf, sizeof(buf));
 		object_ptr->art_name = quark_add(buf);
 	}
 	else object_ptr->art_name = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CREATER) rd_s16b(&object_ptr->creater_idx);
+	if(flags & SAVEFLAG_OBJECT_KIND_CREATER) rd_s16b(&object_ptr->creater_idx);
 	else object_ptr->art_name = 0;
 
-	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) rd_byte(&object_ptr->equipped_slot_type);
-	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) rd_byte(&object_ptr->equipped_slot_num);
+	if(flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) rd_byte(&object_ptr->equipped_slot_type);
+	if(flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) rd_byte(&object_ptr->equipped_slot_num);
 
-	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) rd_s16b(&object_ptr->size_upper);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) rd_s16b(&object_ptr->size_lower);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) rd_s16b(&object_ptr->to_size);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) rd_s16b(&object_ptr->size_upper);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) rd_s16b(&object_ptr->size_lower);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) rd_s16b(&object_ptr->to_size);
 
 }
 
@@ -449,17 +449,17 @@ static errr rd_inventory(creature_type *creature_ptr)
 		u16b n;
 
 		rd_u16b(&n); // Get the next item index
-		if (n == 0xFFFF) break; // Nope, we reached the end
+		if(n == 0xFFFF) break; // Nope, we reached the end
 
 		object_ptr = &forge;
 		object_wipe(object_ptr);
 		rd_object(object_ptr);
 
 		// Hack -- verify item
-		if (!object_ptr->k_idx)
+		if(!object_ptr->k_idx)
 			return (53);
 
-		if (IS_EQUIPPED(object_ptr)) // Wield equipment
+		if(IS_EQUIPPED(object_ptr)) // Wield equipment
 		{
 			object_ptr->marked |= OM_TOUCHED;						// Player touches it
 			object_copy(&creature_ptr->inventory[n], object_ptr);	// Copy object
@@ -467,7 +467,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 			creature_ptr->equip_cnt++;								// One more item
 		}
 
-		else if (creature_ptr->inven_cnt == INVEN_TOTAL)			// Warning -- backpack is full
+		else if(creature_ptr->inven_cnt == INVEN_TOTAL)			// Warning -- backpack is full
 		{
 #ifdef JP
 			note("ERR54: クリーチャーの持ち物の中のアイテムが多すぎる！");
@@ -508,7 +508,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 
 #define MOVE_RF3_TO_RFR(R_PTR,RF3,RFR) \
 {\
-	if ((R_PTR)->r_flags3 & (RF3)) \
+	if((R_PTR)->r_flags3 & (RF3)) \
 	{ \
 		(R_PTR)->r_flags3 &= ~(RF3); \
 		(R_PTR)->r_flags10 |= (RFR); \
@@ -517,7 +517,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 
 #define RF4_BR_TO_RFR(R_PTR,RF4_BR,RFR) \
 {\
-	if ((R_PTR)->r_flags4 & (RF4_BR)) \
+	if((R_PTR)->r_flags4 & (RF4_BR)) \
 	{ \
 		(R_PTR)->r_flags10 |= (RFR); \
 	} \
@@ -561,7 +561,7 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 		j_ptr = &st_ptr->stock[slot];
 
 		/* The home acts just like the player */
-		if (object_similar(j_ptr, object_ptr))
+		if(object_similar(j_ptr, object_ptr))
 		{
 			/* Save the new number of items */
 			object_absorb(j_ptr, object_ptr);
@@ -572,7 +572,7 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 	}
 
 	/* No space? */
-	if (st_ptr->stock_num >= STORE_INVEN_MAX * 10) {
+	if(st_ptr->stock_num >= STORE_INVEN_MAX * 10) {
 		return;
 	}
 
@@ -582,7 +582,7 @@ static void store_item_load(store_type *st_ptr, object_type *object_ptr)
 	/* Check existing slots to see if we must "slide" */
 	for (slot = 0; slot < st_ptr->stock_num; slot++)
 	{
-		if (object_sort_comp(player_ptr, object_ptr, value, &st_ptr->stock[slot])) break;
+		if(object_sort_comp(player_ptr, object_ptr, value, &st_ptr->stock[slot])) break;
 	}
 
 	/* Slide the others up */
@@ -650,10 +650,10 @@ static errr rd_store(store_type *st_ptr)
 		rd_object(quest_ptr);
 
 		/* Acquire valid items */
-		if (st_ptr->stock_num < st_ptr->stock_size)
+		if(st_ptr->stock_num < st_ptr->stock_size)
 		{
 			int k;
-			if (sort)
+			if(sort)
 			{
 				store_item_load(st_ptr, quest_ptr);
 			}
@@ -756,8 +756,8 @@ static void rd_options(void)
 
 	rd_u16b(&c);
 
-	if (c & 0x0002) wizard = TRUE;
-	if (c & 0x0004) unique_play = TRUE;
+	if(c & 0x0002) wizard = TRUE;
+	if(c & 0x0004) unique_play = TRUE;
 
 	cheat_peek = (c & 0x0100) ? TRUE : FALSE;
 	cheat_hear = (c & 0x0200) ? TRUE : FALSE;
@@ -783,13 +783,13 @@ static void rd_options(void)
 		for (i = 0; i < 32; i++)
 		{
 			/* Process valid flags */
-			if (mask[n] & (1L << i))
+			if(mask[n] & (1L << i))
 			{
 				/* Process valid flags */
-				if (option_mask[n] & (1L << i))
+				if(option_mask[n] & (1L << i))
 				{
 					/* Set */
-					if (flag[n] & (1L << i))
+					if(flag[n] & (1L << i))
 					{
 						/* Set */
 						option_flag[n] |= (1L << i);
@@ -826,13 +826,13 @@ static void rd_options(void)
 		for (i = 0; i < 32; i++)
 		{
 			/* Process valid flags */
-			if (mask[n] & (1L << i))
+			if(mask[n] & (1L << i))
 			{
 				/* Process valid flags */
-				if (window_mask[n] & (1L << i))
+				if(window_mask[n] & (1L << i))
 				{
 					/* Set */
-					if (flag[n] & (1L << i))
+					if(flag[n] & (1L << i))
 					{
 						/* Set */
 						window_flag[n] |= (1L << i);
@@ -920,7 +920,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	// Read the message
 	rd_string(buf, sizeof buf);
-	if (buf[0]) creature_ptr->last_message = string_make(buf);
+	if(buf[0]) creature_ptr->last_message = string_make(buf);
 
 	for (i = 0; i < HISTORY_ROW; i++)
 	{
@@ -964,7 +964,7 @@ static void rd_creature(creature_type *creature_ptr)
 
 	// Read the inventory
 	r = rd_inventory(creature_ptr);
-	if (r)
+	if(r)
 	{
 #ifdef JP
 		note(format("[ERR:%d] ID[%d]「%s」の持ち物情報を読み込むことができません ", r, creature_ptr->creature_idx, creature_ptr->name));
@@ -998,7 +998,7 @@ static void rd_creature(creature_type *creature_ptr)
 	// Read creature's HP array
 
 	rd_u16b(&tmp16u);
-	if (tmp16u > PY_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
+	if(tmp16u > PY_MAX_LEVEL) note(format("Too many (%u) hitpoint entries!", tmp16u));
 	for (i = 0; i < tmp16u; i++) rd_s16b(&creature_ptr->base_hp[i]);
 
 	for (i = 0; i < 8; i++) rd_s32b(&creature_ptr->authority[i]);
@@ -1021,7 +1021,7 @@ static void rd_creature(creature_type *creature_ptr)
 		for (i = 0; i < 108; i++) rd_byte(&creature_ptr->class_skills.old_skills.magic_num2[i]);
 	}
 
-	if (music_singing_any(creature_ptr)) creature_ptr->action = ACTION_SING;
+	if(music_singing_any(creature_ptr)) creature_ptr->action = ACTION_SING;
 
 	rd_s16b(&creature_ptr->old_realm);
 
@@ -1047,7 +1047,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->max_plv);
 
 	// Repair maximum player level
-	if (creature_ptr->max_plv < creature_ptr->lev) creature_ptr->max_plv = creature_ptr->lev;
+	if(creature_ptr->max_plv < creature_ptr->lev) creature_ptr->max_plv = creature_ptr->lev;
 
 	rd_s16b(&creature_ptr->sc);
 	rd_s16b(&creature_ptr->concent);
@@ -1075,8 +1075,8 @@ static void rd_creature(creature_type *creature_ptr)
 	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 
 	rd_u32b(&creature_ptr->special_attack);
-	if (creature_ptr->special_attack & KAMAE_MASK) creature_ptr->action = ACTION_KAMAE;
-	else if (creature_ptr->special_attack & KATA_MASK) creature_ptr->action = ACTION_KATA;
+	if(creature_ptr->special_attack & KAMAE_MASK) creature_ptr->action = ACTION_KAMAE;
+	else if(creature_ptr->special_attack & KATA_MASK) creature_ptr->action = ACTION_KATA;
 	rd_u32b(&creature_ptr->special_defense);
 	rd_byte(&creature_ptr->knowledge);
 
@@ -1159,7 +1159,7 @@ static void rd_extra(void)
 	for(i = 0; i < max; i++)
 	{
 		rd_s16b(&max_dlv[i]);
-		if (max_dlv[i] > dungeon_info[i].maxdepth) max_dlv[i] = dungeon_info[i].maxdepth;
+		if(max_dlv[i] > dungeon_info[i].maxdepth) max_dlv[i] = dungeon_info[i].maxdepth;
 	}
 
 	/* Hack -- the two "special seeds" */
@@ -1343,13 +1343,13 @@ static errr rd_floor(floor_type *floor_ptr)
 			c_ptr->special = cave_templete_ptr[id].special;
 
 			/* Advance/Wrap */
-			if (++x >= xmax)
+			if(++x >= xmax)
 			{
 				/* Wrap */
 				x = 0;
 
 				/* Advance/Wrap */
-				if (++y >= ymax) break;
+				if(++y >= ymax) break;
 			}
 		}
 	}
@@ -1540,7 +1540,7 @@ static errr rd_savefile_new_aux(void)
 #ifdef JP
 note("乱数情報をロードしました");
 #else
-	if (arg_fiddle) note("Loaded Randomizer Info");
+	if(arg_fiddle) note("Loaded Randomizer Info");
 #endif
 
 	// Then the options
@@ -1548,7 +1548,7 @@ note("乱数情報をロードしました");
 #ifdef JP
 	note("オプションをロードしました");
 #else
-	if (arg_fiddle) note("Loaded Option Flags");
+	if(arg_fiddle) note("Loaded Option Flags");
 #endif
 
 	// Then the "messages"
@@ -1556,16 +1556,16 @@ note("乱数情報をロードしました");
 #ifdef JP
 	note("メッセージをロードしました");
 #else
-	if (arg_fiddle) note("Loaded Messages");
+	if(arg_fiddle) note("Loaded Messages");
 #endif
 
 	for (i = 0; i < max_species_idx; i++)
 	{
 		species_type *r_ptr = &species_info[i]; // Access that creature
 		r_ptr->max_num = 100; // Hack -- Reset the death counter
-		if (has_trait_species(r_ptr, TRAIT_UNIQUE)) r_ptr->max_num = 1;
+		if(has_trait_species(r_ptr, TRAIT_UNIQUE)) r_ptr->max_num = 1;
 
-		else if (has_trait_species(r_ptr, TRAIT_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
+		else if(has_trait_species(r_ptr, TRAIT_NAZGUL)) r_ptr->max_num = MAX_NAZGUL_NUM; // Hack -- Non-unique Nazguls are semi-unique
 	}
 
 	// Unique creatures
@@ -1575,7 +1575,7 @@ note("乱数情報をロードしました");
 
 	// Read the creature count
 	rd_u16b(&limit);
-	if (limit > max_creature_idx) return 161;
+	if(limit > max_creature_idx) return 161;
 
 	//TODO
 	player_ptr = &creature_list[1];
@@ -1597,7 +1597,7 @@ note("乱数情報をロードしました");
 	rd_u16b(&tmp16u);
 
 	// Incompatible save files
-	if (tmp16u > max_object_kind_idx)
+	if(tmp16u > max_object_kind_idx)
 	{
 #ifdef JP
 		note(format("アイテムの種類が多すぎる(%u)！", tmp16u));
@@ -1625,7 +1625,7 @@ note("乱数情報をロードしました");
 	rd_u16b(&limit);
 
 	/* Verify maximum */
-	if (limit > max_object_idx) return 151;
+	if(limit > max_object_idx) return 151;
 
 	/* Read the dungeon items */
 	for (i = 1; i < limit; i++)
@@ -1646,7 +1646,7 @@ note("乱数情報をロードしました");
 #ifdef JP
 	note(format("アイテムの記録をロードしました:%u", tmp16u));
 #else
-	if (arg_fiddle) note("Loaded Object Memory");
+	if(arg_fiddle) note("Loaded Object Memory");
 #endif
 
 	/* Init the wilderness seeds */
@@ -1668,7 +1668,7 @@ note("乱数情報をロードしました");
 		rd_u16b(&max_towns_load);
 
 		/* Incompatible save files */
-		if (max_towns_load > max_towns)
+		if(max_towns_load > max_towns)
 		{
 #ifdef JP
 note(format("町が多すぎる(%u)！", max_towns_load));
@@ -1687,7 +1687,7 @@ note(format("町が多すぎる(%u)！", max_towns_load));
 		rd_byte(&max_rquests_load);
 
 		/* Incompatible save files */
-		if (max_quests_load > max_quests)
+		if(max_quests_load > max_quests)
 		{
 #ifdef JP
 note(format("クエストが多すぎる(%u)！", max_quests_load));
@@ -1703,14 +1703,14 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 		for (i = 0; i < max_quests_load; i++)
 		{
-			if (i < max_quests)
+			if(i < max_quests)
 			{
 				rd_s16b(&quest[i].status);
 				rd_s16b(&quest[i].level);
 				rd_byte(&quest[i].complev);
 
 				/* Load quest status if quest is running */
-				if ((quest[i].status == QUEST_STATUS_TAKEN) ||
+				if((quest[i].status == QUEST_STATUS_TAKEN) ||
 				    (quest[i].status == QUEST_STATUS_COMPLETED) ||
 				    (i >= MIN_RANDOM_QUEST) && (i <= (MIN_RANDOM_QUEST + max_rquests_load)))
 				{
@@ -1721,7 +1721,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					/* Load quest creature index */
 					rd_s16b(&quest[i].species_idx);
 
-					if ((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))
+					if((quest[i].type == QUEST_TYPE_RANDOM) && (!quest[i].species_idx))
 					{
 						determine_random_questor(&quest[i]);
 					}
@@ -1729,7 +1729,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					/* Load quest item index */
 					rd_s16b(&quest[i].k_idx);
 
-					if (quest[i].k_idx)
+					if(quest[i].k_idx)
 						artifact_info[quest[i].k_idx].gen_flags |= TRG_QUESTITEM;
 
 					rd_byte(&quest[i].flags);
@@ -1760,7 +1760,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		rd_s32b(&wild_y_size);
 
 		/* Incompatible save files */
-		if ((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
+		if((wild_x_size > max_wild_x) || (wild_y_size > max_wild_y))
 		{
 #ifdef JP
 			note(format("荒野が大きすぎる(X:%u/%u) (Y:%u/%u)！", wild_x_size, max_wild_x, wild_y_size, max_wild_y));
@@ -1794,14 +1794,14 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 #ifdef JP
 	note("クエスト情報をロードしました");
 #else
-	if (arg_fiddle) note("Loaded Quests");
+	if(arg_fiddle) note("Loaded Quests");
 #endif
 
 	/* Load the Artifacts */
 	rd_u16b(&tmp16u);
 
 	/* Incompatible save files */
-	if (tmp16u > max_artifact_idx)
+	if(tmp16u > max_artifact_idx)
 	{
 #ifdef JP
 		note(format("伝説のアイテムが多すぎる(%u)！", tmp16u));
@@ -1821,20 +1821,20 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 #ifdef JP
 	note("伝説のアイテムをロードしました");
 #else
-	if (arg_fiddle) note("Loaded Artifacts");
+	if(arg_fiddle) note("Loaded Artifacts");
 #endif
 
 	/* Read the extra stuff */
 	rd_extra();
-	if (player_ptr->energy_need < -999) player_ptr->time_stopper = TRUE;
+	if(player_ptr->energy_need < -999) player_ptr->time_stopper = TRUE;
 
 #ifdef JP
 	note("特別情報をロードしました");
 #else
-	if (arg_fiddle) note("Loaded extra information");
+	if(arg_fiddle) note("Loaded extra information");
 #endif
 
-	if (player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
+	if(player_ptr->class_idx == CLASS_MINDCRAFTER) player_ptr->add_spells = 0;
 
 	/* Read number of towns */
 	rd_u16b(&max_towns);
@@ -1846,9 +1846,9 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 	for(i = 0; i < max_st_idx; i++) rd_store(&st_list[i]);
 
 	rd_string(buf, sizeof(buf));
-	if (buf[0]) screen_dump = string_make(buf);
+	if(buf[0]) screen_dump = string_make(buf);
 
-	if (!gameover)	// I'm not dead yet...
+	if(!gameover)	// I'm not dead yet...
 	{
 		// Dead players have no dungeon
 #ifdef JP
@@ -1857,7 +1857,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		note("Restoring Dungeon...");
 #endif
 
-		if (rd_floors())
+		if(rd_floors())
 		{
 #ifdef JP
 			note("ダンジョンデータ読み込み失敗");
@@ -1875,7 +1875,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 	n_v_check = v_check; // Save the checksum
 	rd_u32b(&o_v_check); // Read the old checksum
-	if (o_v_check != n_v_check) // Verify
+	if(o_v_check != n_v_check) // Verify
 	{
 #ifdef JP
 		note("チェックサムがおかしい");
@@ -1889,7 +1889,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 	rd_u32b(&o_x_check); // Read the checksum
 
 	// Verify
-	if (o_x_check != n_x_check)
+	if(o_x_check != n_x_check)
 	{
 #ifdef JP
 		note("エンコードされたチェックサムがおかしい");
@@ -1918,9 +1918,9 @@ errr rd_savefile_new(void)
 	fff = my_fopen(savefile, "rb"); // The savefile is a binary file
 	safe_setuid_drop(); // Drop permissions
 
-	if (!fff) return (-1);
+	if(!fff) return (-1);
 	err = rd_savefile_new_aux();
-	if (ferror(fff)) err = -1;
+	if(ferror(fff)) err = -1;
 	my_fclose(fff);
 
 

@@ -120,7 +120,7 @@ static errr init_buffer(void)
 	ring.wptr = ring.rptr = ring.inlen = 0;
 	fresh_queue.time[0] = 0;
 	ring.buf = malloc(RINGBUF_SIZE);
-	if (ring.buf == NULL) return (-1);
+	if(ring.buf == NULL) return (-1);
 
 	return (0);
 }
@@ -147,21 +147,21 @@ static errr insert_ringbuf(char *buf)
 	int len;
 	len = strlen(buf) + 1; /* +1は終端文字分 */
 
-	if (movie_mode)
+	if(movie_mode)
 	{
 		fd_write(movie_fd, buf, len);
 #ifdef CHUUKEI
-		if (!chuukei_server) return 0;
+		if(!chuukei_server) return 0;
 #else
 		return 0;
 #endif
 	}
 
 	/* バッファをオーバー */
-	if (ring.inlen + len >= RINGBUF_SIZE)
+	if(ring.inlen + len >= RINGBUF_SIZE)
 	{
 #ifdef CHUUKEI
-		if (chuukei_server) disable_chuukei_server();
+		if(chuukei_server) disable_chuukei_server();
 		else chuukei_client = FALSE;
 
 		prt("送受信バッファが溢れました。サーバとの接続を切断します。", 0, 0);
@@ -173,7 +173,7 @@ static errr insert_ringbuf(char *buf)
 	}
 
 	/* バッファの終端までに収まる */
-	if (ring.wptr + len < RINGBUF_SIZE)
+	if(ring.wptr + len < RINGBUF_SIZE)
 	{
 		memcpy(ring.buf + ring.wptr, buf, len);
 		ring.wptr += len;
@@ -202,9 +202,9 @@ void flush_ringbuf(void)
 	fd_set fdset;
 	struct timeval tv;
 
-	if (!chuukei_server) return;
+	if(!chuukei_server) return;
 
-	if (ring.inlen == 0) return;
+	if(ring.inlen == 0) return;
 
 	tv.tv_sec = 0;
 	tv.tv_usec = 0;
@@ -223,14 +223,14 @@ void flush_ringbuf(void)
 		select(sd+1, (fd_set *)NULL, &tmp_fdset, (fd_set *)NULL, &tv);
 
 		/* 書き込めなければ戻る */
-		if (FD_ISSET(sd, &tmp_fdset) == 0) break;
+		if(FD_ISSET(sd, &tmp_fdset) == 0) break;
 
 		result = send(sd, ring.buf + ring.rptr, ((ring.wptr > ring.rptr ) ? ring.wptr : RINGBUF_SIZE) - ring.rptr, 0);
 
-		if (result <= 0)
+		if(result <= 0)
 		{
 			/* サーバとの接続断？ */
-			if (chuukei_server) disable_chuukei_server();
+			if(chuukei_server) disable_chuukei_server();
 
 			prt("サーバとの接続が切断されました。", 0, 0);
 			inkey();
@@ -242,13 +242,13 @@ void flush_ringbuf(void)
 		ring.rptr += result;
 		ring.inlen -= result;
 
-		if (ring.rptr == RINGBUF_SIZE) ring.rptr = 0;
-		if (ring.inlen == 0) break;
+		if(ring.rptr == RINGBUF_SIZE) ring.rptr = 0;
+		if(ring.inlen == 0) break;
 	}
 #else
-	if (!chuukei_server) return;
+	if(!chuukei_server) return;
 
-	if (ring.inlen == 0) return;
+	if(ring.inlen == 0) return;
 
 	while (1)
 	{
@@ -257,10 +257,10 @@ void flush_ringbuf(void)
 		/* ソケットにデータを書き込めるかどうか調べる */
 		result = OTSnd(ep, ring.buf + ring.rptr, ((ring.wptr > ring.rptr ) ? ring.wptr : RINGBUF_SIZE) - ring.rptr, 0);
 
-		if (result <= 0)
+		if(result <= 0)
 		{
 			/* サーバとの接続断？ */
-			if (chuukei_server) disable_chuukei_server();
+			if(chuukei_server) disable_chuukei_server();
 
 			prt("サーバとの接続が切断されました。", 0, 0);
 			inkey();
@@ -272,8 +272,8 @@ void flush_ringbuf(void)
 		ring.rptr += result;
 		ring.inlen -= result;
 
-		if (ring.rptr == RINGBUF_SIZE) ring.rptr = 0;
-		if (ring.inlen == 0) break;
+		if(ring.rptr == RINGBUF_SIZE) ring.rptr = 0;
+		if(ring.inlen == 0) break;
 	}
 #endif
 }
@@ -287,7 +287,7 @@ static int read_chuukei_prf(cptr prfeature_name)
 	path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA, prfeature_name);
 	fp = my_fopen(buf, "r");
 
-	if (!fp) return (-1);
+	if(!fp) return (-1);
 
 	/* 初期化 */
 	server_port = -1;
@@ -297,20 +297,20 @@ static int read_chuukei_prf(cptr prfeature_name)
 	while (0 == my_fgets(fp, buf, sizeof(buf)))
 	{
 		/* サーバ名 */
-		if (!strncmp(buf, "server:", 7))
+		if(!strncmp(buf, "server:", 7))
 		{
 			strncpy(servespecies_name, buf + 7, MAX_HOSTNAME - 1);
 			servespecies_name[MAX_HOSTNAME - 1] = '\0';
 		}
 
 		/* ポート番号 */
-		if (!strncmp(buf, "port:", 5))
+		if(!strncmp(buf, "port:", 5))
 		{
 			server_port = atoi(buf + 5);
 		}
 
 		/* ディレイ */
-		if (!strncmp(buf, "delay:", 6))
+		if(!strncmp(buf, "delay:", 6))
 		{
 			browse_delay = atoi(buf + 6);
 		}
@@ -319,7 +319,7 @@ static int read_chuukei_prf(cptr prfeature_name)
 	my_fclose(fp);
 
 	/* prfファイルが完全でない */
-	if (server_port == -1 || servespecies_name[0] == 0) return (-1);
+	if(server_port == -1 || servespecies_name[0] == 0) return (-1);
 
 	return (0);
 }
@@ -336,20 +336,20 @@ int connect_chuukei_server(char *prfeature_name)
 	struct sockaddr_in ask;
 	struct hostent *hp;
 
-	if (read_chuukei_prf(prfeature_name) < 0)
+	if(read_chuukei_prf(prfeature_name) < 0)
 	{
 		printf("Wrong prf file\n");
 		return (-1);
 	}
 
-	if (init_buffer() < 0)
+	if(init_buffer() < 0)
 	{
 		printf("Malloc error\n");
 		return (-1);
 	}
 
 #ifdef WINDOWS
-	if (WSAStartup(wVersionRequested, &wsaData))
+	if(WSAStartup(wVersionRequested, &wsaData))
 	{
 		msg_print("Report: WSAStartup failed.");
 		return (-1);
@@ -358,14 +358,14 @@ int connect_chuukei_server(char *prfeature_name)
 
 	printf("server = %s\nport = %d\n", servespecies_name, server_port);
 
-	if ((hp = gethostbyname(servespecies_name)) != NULL)
+	if((hp = gethostbyname(servespecies_name)) != NULL)
 	{
 		memset(&ask, 0, sizeof(ask));
 		memcpy(&ask.sin_addr, hp->h_addr_list[0], hp->h_length);
 	}
 	else
 	{
-		if ((ask.sin_addr.s_addr=inet_addr(servespecies_name)) == 0)
+		if((ask.sin_addr.s_addr=inet_addr(servespecies_name)) == 0)
 		{
 			printf("Bad hostname\n");
 			return (-1);
@@ -376,16 +376,16 @@ int connect_chuukei_server(char *prfeature_name)
 	ask.sin_port = htons((unsigned short)server_port);
 
 #ifndef WINDOWS
-	if ((sd=socket(PF_INET,SOCK_STREAM, 0)) < 0)
+	if((sd=socket(PF_INET,SOCK_STREAM, 0)) < 0)
 #else
-	if ((sd=socket(PF_INET,SOCK_STREAM, 0)) == INVALID_SOCKET)
+	if((sd=socket(PF_INET,SOCK_STREAM, 0)) == INVALID_SOCKET)
 #endif
 	{
 		printf("Can't create socket\n");
 		return (-1);
 	}
 
-	if (connect(sd, (struct sockaddr *)&ask, sizeof(ask)) < 0)
+	if(connect(sd, (struct sockaddr *)&ask, sizeof(ask)) < 0)
 	{
 		close(sd);
 		printf("Can't connect %s port %d\n", servespecies_name, server_port);
@@ -402,7 +402,7 @@ int connect_chuukei_server(char *prfeature_name)
 	Boolean			bind	= false;
 	OSStatus 	junk;
 
-	if (read_chuukei_prf(prfeature_name) < 0){
+	if(read_chuukei_prf(prfeature_name) < 0){
 		printf("Wrong prf file\n");
 		return (-1);
 	}
@@ -427,10 +427,10 @@ int connect_chuukei_server(char *prfeature_name)
 	inet_services = OTOpenInternetServices(kDefaultInternetServicesPath, 0, &err);
 #endif
 	
-	if (err == noErr) {
+	if(err == noErr) {
 		err = OTInetStringToAddress(inet_services, (char *)servespecies_name, &response);
 		
-		if (err == noErr) {
+		if(err == noErr) {
 			host_addr = response.addrs[0];
 		} else {
 			printf("Bad hostname\n");
@@ -442,11 +442,11 @@ int connect_chuukei_server(char *prfeature_name)
 		ep = (void *)OTOpenEndpoint(OTCreateConfiguration(kTCPName), 0, nil, &err);
 #endif
 
-		if (err == noErr) {
+		if(err == noErr) {
 			err = OTBind(ep, nil, nil);
 			bind = (err == noErr);
 	    }
-	    if (err == noErr){
+	    if(err == noErr){
 		OTInitInetAddress(&inAddr, server_port, host_addr);
 			
 			sndCall.addr.len 	= sizeof(InetAddress);				
@@ -465,7 +465,7 @@ int connect_chuukei_server(char *prfeature_name)
 		}
 		
 		err = OTSetSynchronous(ep);
-		if (err == noErr)		
+		if(err == noErr)		
 			err = OTSetBlocking(ep);
 		
 	}
@@ -475,11 +475,11 @@ int connect_chuukei_server(char *prfeature_name)
 			OTUnbind(ep);
 		}
 		/* Clean up. */
-		if (ep != kOTInvalidEndpointRef) {
+		if(ep != kOTInvalidEndpointRef) {
 			OTCloseProvider(ep);
 			ep = nil;
 		}
-		if (inet_services != nil) {
+		if(inet_services != nil) {
 			OTCloseProvider(inet_services);
 			inet_services = nil;
 		}
@@ -499,9 +499,9 @@ static bool string_is_repeat(char *str, int len)
 	char c = str[0];
 	int i;
 
-	if (len < 2) return (FALSE);
+	if(len < 2) return (FALSE);
 #ifdef JP
-	if (iskanji(c)) return (FALSE);
+	if(iskanji(c)) return (FALSE);
 #endif
 
 	for (i = 1; i < len; i++)
@@ -524,7 +524,7 @@ static errr send_text_to_chuukei_server(int x, int y, int len, byte col, cptr st
 	strncpy(buf2, str, len);
 	buf2[len] = '\0';
 
-	if (len == 1)
+	if(len == 1)
 	{
 		sprintf(buf, "s%c%c%c%c", x+1, y+1, col, buf2[0]);
 	}
@@ -564,13 +564,13 @@ static errr send_xtra_to_chuukei_server(int n, int v)
 {
 	char buf[1024];
 
-	if (n == TERM_XTRA_CLEAR || n == TERM_XTRA_FRESH || n == TERM_XTRA_SHAPE)
+	if(n == TERM_XTRA_CLEAR || n == TERM_XTRA_FRESH || n == TERM_XTRA_SHAPE)
 	{
 		sprintf(buf, "x%c", n+1);
 		
 		insert_ringbuf(buf);
 		
-		if (n == TERM_XTRA_FRESH)
+		if(n == TERM_XTRA_FRESH)
 		{
 			sprintf(buf, "d%ld", get_current_time() - epoch_time);
 			insert_ringbuf(buf);
@@ -578,7 +578,7 @@ static errr send_xtra_to_chuukei_server(int n, int v)
 	}
 
 	/* Verify the hook */
-	if (!old_xtra_hook) return -1;
+	if(!old_xtra_hook) return -1;
 
 	return (*old_xtra_hook)(n, v);
 }
@@ -637,11 +637,11 @@ void prepare_movie_hooks(void)
 	char buf[1024];
 	char tmp[80];
 
-	if (movie_mode)
+	if(movie_mode)
 	{
 		movie_mode = 0;
 #ifdef CHUUKEI
-		if (!chuukei_server) disable_chuukei_server();
+		if(!chuukei_server) disable_chuukei_server();
 #else
 		disable_chuukei_server();
 #endif
@@ -656,9 +656,9 @@ void prepare_movie_hooks(void)
 	{
 		sprintf(tmp, "%s.amv", player_base);
 #ifdef JP
-		if (get_string("ムービー記録ファイル: ", tmp, 80))
+		if(get_string("ムービー記録ファイル: ", tmp, 80))
 #else
-		if (get_string("Movie file name: ", tmp, 80))
+		if(get_string("Movie file name: ", tmp, 80))
 #endif
 		{
 			int fd;
@@ -668,7 +668,7 @@ void prepare_movie_hooks(void)
 			fd = fd_open(buf, O_RDONLY);
 
 			/* Existing file */
-			if (fd >= 0)
+			if(fd >= 0)
 			{
 				char out_val[160];
 
@@ -683,7 +683,7 @@ void prepare_movie_hooks(void)
 #endif
 
 				/* Ask */
-				if (!get_check(out_val)) return;
+				if(!get_check(out_val)) return;
 
 				movie_fd = fd_open(buf, O_WRONLY | O_TRUNC);
 			}
@@ -692,7 +692,7 @@ void prepare_movie_hooks(void)
 				movie_fd = fd_make(buf, 0644);
 			}
 
-			if (!movie_fd)
+			if(!movie_fd)
 			{
 #ifdef JP
 				msg_print("ファイルを開けません！");
@@ -704,7 +704,7 @@ void prepare_movie_hooks(void)
 
 			movie_mode = 1;
 #ifdef CHUUKEI
-			if (!chuukei_server) prepare_chuukei_hooks();
+			if(!chuukei_server) prepare_chuukei_hooks();
 #else
 			prepare_chuukei_hooks();
 #endif
@@ -719,7 +719,7 @@ static int handle_timestamp_data(int timestamp)
 	long current_time = get_current_time();
 
 	/* 描画キューは空かどうか？ */
-	if (fresh_queue.tail == fresh_queue.next)
+	if(fresh_queue.tail == fresh_queue.next)
 	{
 		/* バッファリングし始めの時間を保存しておく */
 		epoch_time = current_time;
@@ -735,7 +735,7 @@ static int handle_timestamp_data(int timestamp)
 	/* キューの最後尾に到達したら先頭に戻す */
 	fresh_queue.tail %= FRESH_QUEUE_SIZE;
 
-	if (fresh_queue.tail == fresh_queue.next)
+	if(fresh_queue.tail == fresh_queue.next)
 	{
 		/* 描画キュー溢れ */
 		prt("描画タイミングキューが溢れました。サーバとの接続を切断します。", 0, 0);
@@ -746,7 +746,7 @@ static int handle_timestamp_data(int timestamp)
 	}
 
 	/* プレイ側とのディレイを調整 */
-	if (time_diff != current_time - timestamp)
+	if(time_diff != current_time - timestamp)
 	{
 		long old_time_diff = time_diff;
 		time_diff = current_time - timestamp;
@@ -763,7 +763,7 @@ static int handle_movie_timestamp_data(int timestamp)
 	static int initialized = FALSE;
 
 	/* 描画キューは空かどうか？ */
-	if (!initialized)
+	if(!initialized)
 	{
 		/* バッファリングし始めの時間を保存しておく */
 		epoch_time = get_current_time();
@@ -795,7 +795,7 @@ static int read_sock(void)
 	/* 前回残ったデータの後につづけて配信サーバからデータ受信 */
 	recv_bytes = recv(sd, recv_buf + remain_bytes, RECVBUF_SIZE - remain_bytes, 0);
 
-	if (recv_bytes <= 0)
+	if(recv_bytes <= 0)
 		return -1;
 
 	/* 前回残ったデータ量に今回読んだデータ量を追加 */
@@ -804,16 +804,16 @@ static int read_sock(void)
 	for (i = 0; i < remain_bytes; i ++)
 	{
 		/* データのくぎり('\0')を探す */
-		if (recv_buf[i] == '\0')
+		if(recv_buf[i] == '\0')
 		{
 			/* 'd'で始まるデータ(タイムスタンプ)の場合は
 			   描画キューに保存する処理を呼ぶ */
-			if ((recv_buf[0] == 'd') &&
+			if((recv_buf[0] == 'd') &&
 			    (handle_timestamp_data(atoi(recv_buf + 1)) < 0))
 				return -1;
 
 			/* 受信データを保存 */
-			if (insert_ringbuf(recv_buf) < 0) 
+			if(insert_ringbuf(recv_buf) < 0) 
 				return -1;
 
 			/* 次のデータ移行をrecv_bufの先頭に移動 */
@@ -837,7 +837,7 @@ static int read_movie_file(void)
 
 	recv_bytes = read(movie_fd, recv_buf + remain_bytes, RECVBUF_SIZE - remain_bytes);
 
-	if (recv_bytes <= 0)
+	if(recv_bytes <= 0)
 		return -1;
 
 	/* 前回残ったデータ量に今回読んだデータ量を追加 */
@@ -846,16 +846,16 @@ static int read_movie_file(void)
 	for (i = 0; i < remain_bytes; i ++)
 	{
 		/* データのくぎり('\0')を探す */
-		if (recv_buf[i] == '\0')
+		if(recv_buf[i] == '\0')
 		{
 			/* 'd'で始まるデータ(タイムスタンプ)の場合は
 			   描画キューに保存する処理を呼ぶ */
-			if ((recv_buf[0] == 'd') &&
+			if((recv_buf[0] == 'd') &&
 			    (handle_movie_timestamp_data(atoi(recv_buf + 1)) < 0))
 				return -1;
 
 			/* 受信データを保存 */
-			if (insert_ringbuf(recv_buf) < 0) 
+			if(insert_ringbuf(recv_buf) < 0) 
 				return -1;
 
 			/* 次のデータ移行をrecv_bufの先頭に移動 */
@@ -875,19 +875,19 @@ static int read_movie_file(void)
 static void win2unix(int col, char *buf)
 {
 	char kabe;
-	if ( col == 9 ) kabe = '%';
+	if( col == 9 ) kabe = '%';
 	else            kabe = '#';
 
 	while (*buf)
 	{
 #ifdef JP
-		if (iskanji(*buf))
+		if(iskanji(*buf))
 		{
 			buf += 2;
 			continue;
 		}
 #endif
-		if (*buf == 127) *buf = kabe;
+		if(*buf == 127) *buf = kabe;
 		else if(*buf == 31) *buf = '.';
 		buf++;
 	}
@@ -902,11 +902,11 @@ static bool get_nextbuf(char *buf)
 	{
 		*ptr = ring.buf[ring.rptr ++];
 		ring.inlen --;
-		if (ring.rptr == RINGBUF_SIZE) ring.rptr = 0;
-		if (*ptr++ == '\0') break;
+		if(ring.rptr == RINGBUF_SIZE) ring.rptr = 0;
+		if(*ptr++ == '\0') break;
 	}
 
-	if (buf[0] == 'd') return (FALSE);
+	if(buf[0] == 'd') return (FALSE);
 
 	return (TRUE);
 }
@@ -921,11 +921,11 @@ static void update_term_size(int x, int y, int len)
 	ny = oy;
 
 	/* 横方向のチェック */
-	if (x + len > ox) nx = x + len;
+	if(x + len > ox) nx = x + len;
 	/* 縦方向のチェック */
-	if (y + 1 > oy) ny = y + 1;
+	if(y + 1 > oy) ny = y + 1;
 
-	if (nx != ox || ny != oy) Term_resize(nx, ny);
+	if(nx != ox || ny != oy) Term_resize(nx, ny);
 }
 
 static bool flush_ringbuf_client(void)
@@ -933,10 +933,10 @@ static bool flush_ringbuf_client(void)
 	char buf[1024];
 
 	/* 書くデータなし */
-	if (fresh_queue.next == fresh_queue.tail) return (FALSE);
+	if(fresh_queue.next == fresh_queue.tail) return (FALSE);
 
 	/* まだ書くべき時でない */
-	if (fresh_queue.time[fresh_queue.next] > get_current_time() - epoch_time) return (FALSE);
+	if(fresh_queue.time[fresh_queue.next] > get_current_time() - epoch_time) return (FALSE);
 
 	/* 時間情報(区切り)が得られるまで書く */
 	while (get_nextbuf(buf))
@@ -949,7 +949,7 @@ static bool flush_ringbuf_client(void)
 
 		sscanf(buf, "%c%c%c%c%c", &id, &tmp1, &tmp2, &tmp3, &tmp4);
 		x = tmp1-1; y = tmp2-1; len = tmp3; col = tmp4;
-		if (id == 's')
+		if(id == 's')
 		{
 			col = tmp3;
 			mesg = &buf[4];
@@ -1002,7 +1002,7 @@ static bool flush_ringbuf_client(void)
 			break;
 
 		case 'x':
-			if (x == TERM_XTRA_CLEAR) Term_clear();
+			if(x == TERM_XTRA_CLEAR) Term_clear();
 			(void)((*angband_term[0]->xtra_hook)(x, 0));
 			break;
 
@@ -1018,7 +1018,7 @@ static bool flush_ringbuf_client(void)
 	}
 
 	fresh_queue.next++;
-	if (fresh_queue.next == FRESH_QUEUE_SIZE) fresh_queue.next = 0;
+	if(fresh_queue.next == FRESH_QUEUE_SIZE) fresh_queue.next = 0;
 	return (TRUE);
 }
 
@@ -1044,26 +1044,26 @@ void browse_chuukei()
 		fd_set tmp_fdset;
 		struct timeval tmp_tv;
 
-		if (flush_ringbuf_client()) continue;
+		if(flush_ringbuf_client()) continue;
 
 		tmp_fdset = fdset;
 		tmp_tv = tv;
 
 		/* ソケットにデータが来ているかどうか調べる */
 		select(sd+1, &tmp_fdset, (fd_set *)NULL, (fd_set *)NULL, &tmp_tv);
-		if (FD_ISSET(sd, &tmp_fdset) == 0)
+		if(FD_ISSET(sd, &tmp_fdset) == 0)
 		{
 			Term_xtra(TERM_XTRA_FLUSH, 0);
 			continue;
 		}
 
-		if (read_sock() < 0)
+		if(read_sock() < 0)
 		{
 			chuukei_client = FALSE;
 		}
 
 		/* 接続が切れた状態で書くべきデータがなくなっていたら終了 */
-		if (!chuukei_client && fresh_queue.next == fresh_queue.tail ) break;
+		if(!chuukei_client && fresh_queue.next == fresh_queue.tail ) break;
 	}
 #else
 	Term_clear();
@@ -1075,7 +1075,7 @@ void browse_chuukei()
 		UInt32	unreadData = 0;
 		int n;
 
-		if (flush_ringbuf_client()) continue;
+		if(flush_ringbuf_client()) continue;
 
 		/* ソケットにデータが来ているかどうか調べる */
 
@@ -1084,13 +1084,13 @@ void browse_chuukei()
 			Term_xtra(TERM_XTRA_FLUSH, 0);
 			continue;
 		}
-		if (read_sock() < 0)
+		if(read_sock() < 0)
 		{
 			chuukei_client = FALSE;
 		}
 
 		/* 接続が切れた状態で書くべきデータがなくなっていたら終了 */
-		if (!chuukei_client && fresh_queue.next == fresh_queue.tail ) break;
+		if(!chuukei_client && fresh_queue.next == fresh_queue.tail ) break;
 	}
 #endif /*MACINTOSH*/
 }
@@ -1123,7 +1123,7 @@ void browse_movie(void)
 	{
 		while (fresh_queue.next != fresh_queue.tail)
 		{
-			if (!flush_ringbuf_client())
+			if(!flush_ringbuf_client())
 			{
 				Term_xtra(TERM_XTRA_FLUSH, 0);
 

@@ -224,7 +224,7 @@ typedef PNG_CONST png_uint_16p FAR * png_const_uint_16pp;
 /* Just a little check that someone hasn't tried to define something
  * contradictory.
  */
-#if (PNG_ZBUF_SIZE > 65536L) && defined(PNG_MAX_MALLOC_64K)
+#if(PNG_ZBUF_SIZE > 65536L) && defined(PNG_MAX_MALLOC_64K)
 #  undef PNG_ZBUF_SIZE
 #  define PNG_ZBUF_SIZE 65536L
 #endif
@@ -322,7 +322,7 @@ typedef PNG_CONST png_uint_16p FAR * png_const_uint_16pp;
     */
 #  include <float.h>
 
-#  if (defined(__MWERKS__) && defined(macintosh)) || defined(applec) || \
+#  if(defined(__MWERKS__) && defined(macintosh)) || defined(applec) || \
     defined(THINK_C) || defined(__SC__) || defined(TARGET_OS_MAC)
      /* We need to check that <math.h> hasn't already been included earlier
       * as it seems it doesn't agree with <fp.h>, yet we should really use

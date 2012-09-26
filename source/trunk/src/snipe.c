@@ -92,7 +92,7 @@ snipe_power snipe_powers[MAX_SNIPE_POWERS] =
 
 static bool snipe_concentrate(creature_type *creature_ptr)
 {
-	if ((int)creature_ptr->concent < (2 + (creature_ptr->lev + 5) / 10)) creature_ptr->concent++;
+	if((int)creature_ptr->concent < (2 + (creature_ptr->lev + 5) / 10)) creature_ptr->concent++;
 
 #ifdef JP
 	msg_format("集中した。(集中度 %d)", creature_ptr->concent);
@@ -115,7 +115,7 @@ static bool snipe_concentrate(creature_type *creature_ptr)
 
 void reset_concentration(creature_type *creature_ptr, bool msg)
 {
-	if (msg)
+	if(msg)
 	{
 #ifdef JP
 		msg_print("集中力が途切れてしまった。");
@@ -168,8 +168,8 @@ void display_snipe_list(creature_type *creature_ptr)
 	{
 		/* Access the available spell */
 		spell = snipe_powers[i];
-		if (spell.min_lev > plev) continue;
-		if (spell.mana_cost > (int)creature_ptr->concent) continue;
+		if(spell.min_lev > plev) continue;
+		if(spell.mana_cost > (int)creature_ptr->concent) continue;
 
 		/* Dump the spell */
 		sprintf(psi_desc, "  %c) %-30s%2d %4d",
@@ -220,10 +220,10 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 	/* Repeat previous command */
 	/* Get the spell, if available */
-	if (repeat_pull(sn))
+	if(repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if ((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
+		if((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
 		{
 			/* Success */
 			return (TRUE);
@@ -238,7 +238,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 	for (i = 0; i < MAX_SNIPE_POWERS; i++)
 	{
-		if ((snipe_powers[i].min_lev <= plev) &&
+		if((snipe_powers[i].min_lev <= plev) &&
 			((only_browse) || (snipe_powers[i].mana_cost <= (int)creature_ptr->concent)))
 		{
 			num = i;
@@ -246,7 +246,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	}
 
 	/* Build a prompt (accept all spells) */
-	if (only_browse)
+	if(only_browse)
 	{
 #ifdef JP
 		(void)strnfmt(out_val, 78, "(%^s %c-%c, '*'で一覧, ESC) どの%sについて知りますか？",
@@ -273,10 +273,10 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		else if( !get_com(out_val, &choice, FALSE) )break; 
 
 		/* Request redraw */
-		if ((choice == ' ') || (choice == '*') || (choice == '?'))
+		if((choice == ' ') || (choice == '*') || (choice == '?'))
 		{
 			/* Show the list */
-			if (!redraw)
+			if(!redraw)
 			{
 				char psi_desc[80];
 
@@ -284,16 +284,16 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 				redraw = TRUE;
 
 				/* Save the screen */
-				if (!only_browse) screen_save();
+				if(!only_browse) screen_save();
 
 				/* Display a list of spells */
 				prt("", y, x);
 #ifdef JP
 				put_str("名前", y, x + 5);
-				if (only_browse) put_str("Lv   集中度", y, x + 35);
+				if(only_browse) put_str("Lv   集中度", y, x + 35);
 #else
 				put_str("Name", y, x + 5);
-				if (only_browse) put_str("Lv Pow", y, x + 35);
+				if(only_browse) put_str("Lv Pow", y, x + 35);
 #endif
 
 				/* Dump the spells */
@@ -303,11 +303,11 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 					/* Access the spell */
 					spell = snipe_powers[i];
-					if (spell.min_lev > plev) continue;
-					if (!only_browse && (spell.mana_cost > (int)creature_ptr->concent)) continue;
+					if(spell.min_lev > plev) continue;
+					if(!only_browse && (spell.mana_cost > (int)creature_ptr->concent)) continue;
 
 					/* Dump the spell --(-- */
-					if (only_browse)
+					if(only_browse)
 						sprintf(psi_desc, "  %c) %-30s%2d %4d",
 							I2A(i), spell.name,	spell.min_lev, spell.mana_cost);
 					else
@@ -326,7 +326,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 				redraw = FALSE;
 
 				/* Restore the screen */
-				if (!only_browse) screen_load();
+				if(!only_browse) screen_load();
 			}
 
 			/* Redo asking */
@@ -337,13 +337,13 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		ask = isupper(choice);
 
 		/* Lowercase */
-		if (ask) choice = tolower(choice);
+		if(ask) choice = tolower(choice);
 
 		/* Extract request */
 		i = (islower(choice) ? A2I(choice) : -1);
 
 		/* Totally Illegal */
-		if ((i < 0) || (i > num) || 
+		if((i < 0) || (i > num) || 
 			(!only_browse &&(snipe_powers[i].mana_cost > (int)creature_ptr->concent)))
 		{
 			bell();
@@ -354,7 +354,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		spell = snipe_powers[i];
 
 		/* Verify it */
-		if (ask)
+		if(ask)
 		{
 			char tmp_val[160];
 
@@ -366,7 +366,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 #endif
 
 			/* Belay that order */
-			if (!get_check(tmp_val)) continue;
+			if(!get_check(tmp_val)) continue;
 		}
 
 		/* Stop the loop */
@@ -374,7 +374,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	}
 
 	/* Restore the screen */
-	if (redraw && !only_browse) screen_load();
+	if(redraw && !only_browse) screen_load();
 
 	/* Show choices */
 	play_window |= (PW_SPELL);
@@ -383,7 +383,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	window_stuff();
 
 	/* Abort if needed */
-	if (!flag) return (FALSE);
+	if(!flag) return (FALSE);
 
 	/* Save the choice */
 	(*sn) = i;
@@ -403,75 +403,75 @@ int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_pt
 	switch (creature_ptr->snipe_type)
 	{
 	case SP_LITE:
-		if (has_trait(m_ptr, TRAIT_HURT_LITE))
+		if(has_trait(m_ptr, TRAIT_HURT_LITE))
 		{
 			int n = 20 + creature_ptr->concent;
 			reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_FIRE:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_FIRE_RATE);
-		if (!has_trait(m_ptr, TRAIT_RES_FIRE))
+		if(!has_trait(m_ptr, TRAIT_RES_FIRE))
 		{
 			int n = 15 + (creature_ptr->concent * 3);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_COLD:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_COLD_RATE);
-		if (!has_trait(m_ptr, TRAIT_RES_COLD))
+		if(!has_trait(m_ptr, TRAIT_RES_COLD))
 		{
 			int n = 15 + (creature_ptr->concent * 3);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_ELEC:
 		reveal_creature_info(m_ptr, INFO_TYPE_RESIST_ELEC_RATE);
-		if (!has_trait(m_ptr, TRAIT_RES_ELEC))
+		if(!has_trait(m_ptr, TRAIT_RES_ELEC))
 		{
 			int n = 18 + (creature_ptr->concent * 4);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_KILL_WALL:
-		if (has_trait(m_ptr, TRAIT_HURT_ROCK))
+		if(has_trait(m_ptr, TRAIT_HURT_ROCK))
 		{
 			int n = 15 + (creature_ptr->concent * 2);
 			reveal_creature_info(m_ptr, TRAIT_HURT_ROCK);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
-		else if (has_trait(m_ptr, TRAIT_NONLIVING))
+		else if(has_trait(m_ptr, TRAIT_NONLIVING))
 		{
 			int n = 15 + (creature_ptr->concent * 2);
 			reveal_creature_info(m_ptr, TRAIT_NONLIVING);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_EVILNESS:
-		if (is_enemy_of_evil_creature(m_ptr))
+		if(is_enemy_of_evil_creature(m_ptr))
 		{
 			int n = 15 + (creature_ptr->concent * 4);
 			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_HOLYNESS:
-		if (is_enemy_of_good_creature(m_ptr))
+		if(is_enemy_of_good_creature(m_ptr))
 		{
 			int n = 12 + (creature_ptr->concent * 3);
 			reveal_creature_info(m_ptr, INFO_TYPE_ALIGNMENT);
 
-			if (has_trait(m_ptr, TRAIT_HURT_LITE))
+			if(has_trait(m_ptr, TRAIT_HURT_LITE))
 			{
 				n += (creature_ptr->concent * 3);
 				reveal_creature_info(m_ptr, TRAIT_HURT_LITE);
 			}
-			if (mult < n) mult = n;
+			if(mult < n) mult = n;
 		}
 		break;
 	case SP_FINAL:
-		if (mult < 50) mult = 50;
+		if(mult < 50) mult = 50;
 		break;
 	}
 
@@ -487,7 +487,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	bool flag = FALSE;
 	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
-	if (object_ptr->tval != TV_BOW)
+	if(object_ptr->tval != TV_BOW)
 	{
 #ifdef JP
 		msg_print("弓を装備していない！");
@@ -501,7 +501,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	switch (spell)
 	{
 	case 0: /* Concentration */
-		if (!snipe_concentrate(creature_ptr)) return (FALSE);
+		if(!snipe_concentrate(creature_ptr)) return (FALSE);
 		creature_ptr->energy_use = 100;
 		return (TRUE);
 	case 1: creature_ptr->snipe_type = SP_LITE; break;
@@ -549,7 +549,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 
 
 	/* not if confused */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて集中できない！");
@@ -560,7 +560,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	}
 
 	/* not if hullucinated */
-	if (IS_HALLUCINATION(creature_ptr))
+	if(IS_HALLUCINATION(creature_ptr))
 	{
 #ifdef JP
 		msg_print("幻覚が見えて集中できない！");
@@ -571,7 +571,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	}
 
 	/* not if stuned */
-	if (creature_ptr->timed_trait[TRAIT_STUN])
+	if(creature_ptr->timed_trait[TRAIT_STUN])
 	{
 #ifdef JP
 		msg_print("頭が朦朧としていて集中できない！");
@@ -582,7 +582,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	}
 
 	/* get power */
-	if (!get_snipe_power(creature_ptr, &n, FALSE)) return;
+	if(!get_snipe_power(creature_ptr, &n, FALSE)) return;
 
 	spell = snipe_powers[n];
 
@@ -591,7 +591,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	/* Cast the spell */
 	cast = cast_sniper_spell(creature_ptr, n);
 
-	if (!cast) return;
+	if(!cast) return;
 
 	/* Redraw mana */
 	play_redraw |= (PR_HP | PR_MANA);
@@ -616,7 +616,7 @@ void do_cmd_snipe_browse(creature_type *creature_ptr)
 	while(1)
 	{
 		/* get power */
-		if (!get_snipe_power(creature_ptr, &n, TRUE))
+		if(!get_snipe_power(creature_ptr, &n, TRUE))
 		{
 			screen_load();
 			return;

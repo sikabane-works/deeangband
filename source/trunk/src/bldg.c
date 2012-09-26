@@ -17,17 +17,17 @@ static bool leave_bldg = FALSE;
 
 static bool is_owner(creature_type *creature_ptr, building_type *bldg)
 {
-	if (bldg->member_class[creature_ptr->class_idx] == BUILDING_OWNER)
+	if(bldg->member_class[creature_ptr->class_idx] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
 
-	if (bldg->member_race[creature_ptr->race_idx1] == BUILDING_OWNER)
+	if(bldg->member_race[creature_ptr->race_idx1] == BUILDING_OWNER)
 	{
 		return (TRUE);
 	}
 
-	if ((is_magic(creature_ptr->realm1) && (bldg->member_realm[creature_ptr->realm1] == BUILDING_OWNER)) ||
+	if((is_magic(creature_ptr->realm1) && (bldg->member_realm[creature_ptr->realm1] == BUILDING_OWNER)) ||
 		(is_magic(creature_ptr->realm2) && (bldg->member_realm[creature_ptr->realm2] == BUILDING_OWNER)))
 	{
 		return (TRUE);
@@ -39,30 +39,30 @@ static bool is_owner(creature_type *creature_ptr, building_type *bldg)
 
 static bool is_member(creature_type *creature_ptr, building_type *bldg)
 {
-	if (bldg->member_class[creature_ptr->class_idx])
+	if(bldg->member_class[creature_ptr->class_idx])
 	{
 		return (TRUE);
 	}
 
-	if (bldg->member_race[creature_ptr->race_idx1])
+	if(bldg->member_race[creature_ptr->race_idx1])
 	{
 		return (TRUE);
 	}
 
-	if ((is_magic(creature_ptr->realm1) && bldg->member_realm[creature_ptr->realm1]) ||
+	if((is_magic(creature_ptr->realm1) && bldg->member_realm[creature_ptr->realm1]) ||
 	    (is_magic(creature_ptr->realm2) && bldg->member_realm[creature_ptr->realm2]))
 	{
 		return (TRUE);
 	}
 
 
-	if (creature_ptr->class_idx == CLASS_SORCERER)
+	if(creature_ptr->class_idx == CLASS_SORCERER)
 	{
 		int i;
 		bool OK = FALSE;
 		for (i = 0; i < MAX_MAGIC; i++)
 		{
-			if (bldg->member_realm[i+1]) OK = TRUE;
+			if(bldg->member_realm[i+1]) OK = TRUE;
 		}
 		return OK;
 	}
@@ -112,17 +112,17 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 
 	for (i = 0; i < 8; i++)
 	{
-		if (bldg->letters[i])
+		if(bldg->letters[i])
 		{
-			if (bldg->action_restr[i] == 0)
+			if(bldg->action_restr[i] == 0)
 			{
-				if ((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
+				if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
 					(!is_owner(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
 				}
-				else if (is_owner(creature_ptr, bldg))
+				else if(is_owner(creature_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -141,9 +141,9 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 #endif
 				}
 			}
-			else if (bldg->action_restr[i] == 1)
+			else if(bldg->action_restr[i] == 1)
 			{
-				if (!is_member(creature_ptr, bldg))
+				if(!is_member(creature_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
@@ -153,13 +153,13 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 #endif
 
 				}
-				else if ((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
+				else if((is_owner(creature_ptr, bldg) && (bldg->member_costs[i] == 0)) ||
 					(is_member(creature_ptr, bldg) && (bldg->other_costs[i] == 0)))
 				{
 					action_color = TERM_WHITE;
 					buff[0] = '\0';
 				}
-				else if (is_owner(creature_ptr, bldg))
+				else if(is_owner(creature_ptr, bldg))
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -182,7 +182,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 			}
 			else
 			{
-				if (!is_owner(creature_ptr, bldg))
+				if(!is_owner(creature_ptr, bldg))
 				{
 					action_color = TERM_L_DARK;
 #ifdef JP
@@ -192,7 +192,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
 #endif
 
 				}
-				else if (bldg->member_costs[i] != 0)
+				else if(bldg->member_costs[i] != 0)
 				{
 					action_color = TERM_YELLOW;
 #ifdef JP
@@ -233,7 +233,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 	switch (cmd)
 	{
 		case BUILDING_FUNCTION_ARENA:
-			if (arena_number == MAX_ARENA_MONS)
+			if(arena_number == MAX_ARENA_MONS)
 			{
 				clear_bldg(5, 19);
 #ifdef JP
@@ -258,9 +258,9 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 				msg_print(NULL);
 				arena_number++;
 			}
-			else if (arena_number > MAX_ARENA_MONS)
+			else if(arena_number > MAX_ARENA_MONS)
 			{
-				if (arena_number < MAX_ARENA_MONS+2)
+				if(arena_number < MAX_ARENA_MONS+2)
 				{
 #ifdef JP
 					msg_print("君のために最強の挑戦者を用意しておいた。");
@@ -270,9 +270,9 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 
 					msg_print(NULL);
 #ifdef JP
-					if (get_check("挑戦するかね？"))
+					if(get_check("挑戦するかね？"))
 #else
-					if (get_check("Do you fight? "))
+					if(get_check("Do you fight? "))
 #endif
 					{
 						arena_settled = FALSE;
@@ -301,7 +301,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 					msg_print(NULL);
 				}
 			}
-			else if (creature_ptr->riding && (creature_ptr->class_idx != CLASS_BEASTMASTER) && (creature_ptr->class_idx != CLASS_CAVALRY))
+			else if(creature_ptr->riding && (creature_ptr->class_idx != CLASS_BEASTMASTER) && (creature_ptr->class_idx != CLASS_CAVALRY))
 			{
 #ifdef JP
 				msg_print("ペットに乗ったままではアリーナへ入れさせてもらえなかった。");
@@ -321,14 +321,14 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			break;
 
 		case BUILDING_FUNCTION_POSTER:
-			if (arena_number == MAX_ARENA_MONS)
+			if(arena_number == MAX_ARENA_MONS)
 #ifdef JP
 				msg_print("あなたは勝利者だ。 アリーナでのセレモニーに参加しなさい。");
 #else
 				msg_print("You are victorious. Enter the arena for the ceremony.");
 #endif
 
-			else if (arena_number > MAX_ARENA_MONS)
+			else if(arena_number > MAX_ARENA_MONS)
 			{
 #ifdef JP
 				msg_print("あなたはすべての敵に勝利した。");
@@ -565,7 +565,7 @@ static bool find_card_num(int num)
 {
 	int i;
 	for (i = 0; i < 5; i++)
-		if (NUM_OF(cards[i]) == num && !IS_JOKER(cards[i])) return TRUE;
+		if(NUM_OF(cards[i]) == num && !IS_JOKER(cards[i])) return TRUE;
 	return FALSE;
 }
 
@@ -576,7 +576,7 @@ static bool yaku_check_flush(void)
 
 	suit = IS_JOKER(cards[0]) ? SUIT_OF(cards[1]) : SUIT_OF(cards[0]);
 	for (i = 0; i < 5; i++){
-		if (SUIT_OF(cards[i]) != suit){
+		if(SUIT_OF(cards[i]) != suit){
 		  if(have_joker() && !joker_is_used)
 		    joker_is_used = TRUE;
 		  else
@@ -595,38 +595,38 @@ static int yaku_check_straight(void)
 	/* get lowest */
 	for (i = 0; i < 5; i++)
 	{
-		if (NUM_OF(cards[i]) < lowest && !IS_JOKER(cards[i]))
+		if(NUM_OF(cards[i]) < lowest && !IS_JOKER(cards[i]))
 			lowest = NUM_OF(cards[i]);
 	}
 	
-	if (yaku_check_flush())
+	if(yaku_check_flush())
 	{
 	  if( lowest == 0 ){
 		for (i = 0; i < 4; i++)
 		{
-			if (!find_card_num(9 + i)){
+			if(!find_card_num(9 + i)){
 				if( have_joker() && !joker_is_used )
 				  joker_is_used = TRUE;
 				else
 				  break;
 			}
 		}
-		if (i == 4) return 3; /* Wow! Royal Flush!!! */
+		if(i == 4) return 3; /* Wow! Royal Flush!!! */
 	  }
 	  if( lowest == 9 ){
 		for (i = 0; i < 3; i++)
 		{
-			if (!find_card_num(10 + i))
+			if(!find_card_num(10 + i))
 				break;
 		}
-		if (i == 3 && have_joker()) return 3; /* Wow! Royal Flush!!! */
+		if(i == 3 && have_joker()) return 3; /* Wow! Royal Flush!!! */
 	  }
 	}
 
 	joker_is_used = FALSE;
 	for (i = 0; i < 5; i++)
 	{
-		if (!find_card_num(lowest + i)){
+		if(!find_card_num(lowest + i)){
 		  if( have_joker() && !joker_is_used )
 		    joker_is_used = TRUE;
 		  else
@@ -634,7 +634,7 @@ static int yaku_check_straight(void)
 		}
 	}
 	
-	if (yaku_check_flush())
+	if(yaku_check_flush())
 		return 2; /* Straight Flush */
 
 	return 1;
@@ -651,8 +651,8 @@ static int yaku_check_pair(void)
 	{
 		for (i2 = i+1; i2 < 5; i2++)
 		{
-			if (IS_JOKER(cards[i]) || IS_JOKER(cards[i2])) continue;
-			if (NUM_OF(cards[i]) == NUM_OF(cards[i2]))
+			if(IS_JOKER(cards[i]) || IS_JOKER(cards[i2])) continue;
+			if(NUM_OF(cards[i]) == NUM_OF(cards[i2]))
 				matching++;
 		}
 	}
@@ -725,7 +725,7 @@ static int yaku_check(void)
 		break;
 	}
 
-	if (yaku_check_flush())
+	if(yaku_check_flush())
 	{
 
 #ifdef JP
@@ -774,7 +774,7 @@ static int yaku_check(void)
 #endif
 		return ODDS_4C;
 	case 7:
-		if (!NUM_OF(cards[0]) || !NUM_OF(cards[1]))
+		if(!NUM_OF(cards[0]) || !NUM_OF(cards[1]))
 		{
 #ifdef JP
 			c_put_str(TERM_YELLOW, "ファイブエース",  4,  3);
@@ -804,7 +804,7 @@ static void display_kaeruka(int hoge, int kaeruka[])
 	char col = TERM_WHITE;
 	for (i = 0; i < 5; i++)
 	{
-		if (i == hoge) col = TERM_YELLOW;
+		if(i == hoge) col = TERM_YELLOW;
 		else if(kaeruka[i]) col = TERM_WHITE;
 		else col = TERM_L_BLUE;
 #ifdef JP
@@ -819,7 +819,7 @@ static void display_kaeruka(int hoge, int kaeruka[])
 			c_put_str(col, " Stay ", 14,  5+i*16);
 #endif
 	}
-	if (hoge > 4) col = TERM_YELLOW;
+	if(hoge > 4) col = TERM_YELLOW;
 	else col = TERM_WHITE;
 #ifdef JP
 	c_put_str(col, "決定", 16,  38);
@@ -828,7 +828,7 @@ static void display_kaeruka(int hoge, int kaeruka[])
 #endif
 
 	/* Hilite current option */
-	if (hoge < 5) move_cursor(14, 5+hoge*16);
+	if(hoge < 5) move_cursor(14, 5+hoge*16);
 	else move_cursor(16, 38);
 }
 
@@ -1112,29 +1112,29 @@ static int do_poker(void)
 
 	while (!done)
 	{
-		if (kakikae) display_kaeruka(k+kettei*5, kaeruka);
+		if(kakikae) display_kaeruka(k+kettei*5, kaeruka);
 		kakikae = FALSE;
 		cmd = inkey();
 		switch (cmd)
 		{
 		case '6': case 'l': case 'L': case KTRL('F'):
-			if (!kettei) k = (k+1)%5;
+			if(!kettei) k = (k+1)%5;
 			else {k = 0;kettei = FALSE;}
 			kakikae = TRUE;
 			break;
 		case '4': case 'h': case 'H': case KTRL('B'):
-			if (!kettei) k = (k+4)%5;
+			if(!kettei) k = (k+4)%5;
 			else {k = 4;kettei = FALSE;}
 			kakikae = TRUE;
 			break;
 		case '2': case 'j': case 'J': case KTRL('N'):
-			if (!kettei) {kettei = TRUE;kakikae = TRUE;}
+			if(!kettei) {kettei = TRUE;kakikae = TRUE;}
 			break;
 		case '8': case 'k': case 'K': case KTRL('P'):
-			if (kettei) {kettei = FALSE;kakikae = TRUE;}
+			if(kettei) {kettei = FALSE;kakikae = TRUE;}
 			break;
 		case ' ': case '\r':
-			if (kettei) done = TRUE;
+			if(kettei) done = TRUE;
 			else {kaeruka[k] = !kaeruka[k];kakikae = TRUE;}
 			break;
 		default:
@@ -1145,7 +1145,7 @@ static int do_poker(void)
 	prt("",0,0);
 
 	for (i = 0; i < 5; i++)
-		if (kaeruka[i] == 1) cards[i] = deck[deck_ptr++]; /* soshite toru */
+		if(kaeruka[i] == 1) cards[i] = deck[deck_ptr++]; /* soshite toru */
 
 	display_cards();
 	
@@ -1172,7 +1172,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 	screen_save();
 
-	if (cmd == BUILDING_FUNCTION_GAMBLE_RULES)
+	if(cmd == BUILDING_FUNCTION_GAMBLE_RULES)
 	{
 		// Peruse the gambling help file
 #ifdef JP
@@ -1185,7 +1185,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 	else
 	{
 		/* No money */
-		if (creature_ptr->au < 1)
+		if(creature_ptr->au < 1)
 		{
 #ifdef JP
 			msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
@@ -1218,7 +1218,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 		 * Use get_string() because we may need more than
 		 * the s16b value returned by get_quantity().
 		 */
-		if (get_string(tmp_str, out_val, 32))
+		if(get_string(tmp_str, out_val, 32))
 		{
 			/* Strip spaces */
 			for (p = out_val; *p == ' '; p++);
@@ -1226,7 +1226,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 			/* Get the wager */
 			wager = atol(p);
 
-			if (wager > creature_ptr->au)
+			if(wager > creature_ptr->au)
 			{
 #ifdef JP
 				msg_print("おい！金が足りないじゃないか！出ていけ！");
@@ -1238,7 +1238,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				screen_load();
 				return (FALSE);
 			}
-			else if (wager > maxbet)
+			else if(wager > maxbet)
 			{
 #ifdef JP
 				msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
@@ -1248,7 +1248,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 				wager = maxbet;
 			}
-			else if (wager < 1)
+			else if(wager < 1)
 			{
 #ifdef JP
 				msg_print("ＯＫ、１ゴールドからはじめよう。");
@@ -1319,7 +1319,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 #endif
 
 					prt(tmp_str, 11, 14);
-					if (((choice > roll1) && (choice < roll2)) ||
+					if(((choice > roll1) && (choice < roll2)) ||
 						((choice < roll1) && (choice > roll2)))
 						win = TRUE;
 					break;
@@ -1344,9 +1344,9 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 						 roll2, roll3);
 					prt(tmp_str, 7, 5);
-					if ((roll3 == 7) || (roll3 == 11))
+					if((roll3 == 7) || (roll3 == 11))
 						win = TRUE;
-					else if ((roll3 == 2) || (roll3 == 3) || (roll3 == 12))
+					else if((roll3 == 2) || (roll3 == 3) || (roll3 == 12))
 						win = FALSE;
 					else
 						do
@@ -1370,9 +1370,9 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 								 roll1, roll2, roll3);
 							prt(tmp_str, 8, 5);
-							if (roll3 == choice)
+							if(roll3 == choice)
 								win = TRUE;
-							else if (roll3 == 7)
+							else if(roll3 == 7)
 								win = FALSE;
 						} while ((win != TRUE) && (win != FALSE));
 					break;
@@ -1397,7 +1397,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 					for (p = out_val; isspace(*p); p++);
 					choice = atol(p);
-					if (choice < 0)
+					if(choice < 0)
 					{
 #ifdef JP
 						msg_print("0番にしとくぜ。");
@@ -1407,7 +1407,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 						choice = 0;
 					}
-					else if (choice > 9)
+					else if(choice > 9)
 					{
 #ifdef JP
 						msg_print("ＯＫ、9番にしとくぜ。");
@@ -1429,7 +1429,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					prt(tmp_str, 13, 3);
 					prt("", 9, 0);
 					prt("*", 9, (3 * roll1 + 5));
-					if (roll1 == choice)
+					if(roll1 == choice)
 						win = TRUE;
 					break;
 
@@ -1451,7 +1451,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					roll1 = randint1(21);
 					for (i=6;i>0;i--)
 					{
-						if ((roll1-i) < 1)
+						if((roll1-i) < 1)
 						{
 							roll1 = 7-i;
 							break;
@@ -1461,7 +1461,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					roll2 = randint1(21);
 					for (i=6;i>0;i--)
 					{
-						if ((roll2-i) < 1)
+						if((roll2-i) < 1)
 						{
 							roll2 = 7-i;
 							break;
@@ -1471,7 +1471,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					choice = randint1(21);
 					for (i=6;i>0;i--)
 					{
-						if ((choice-i) < 1)
+						if((choice-i) < 1)
 						{
 							choice = 7-i;
 							break;
@@ -1483,7 +1483,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					display_fruit(8,  3, roll1 - 1);
 					display_fruit(8, 12, roll2 - 1);
 					display_fruit(8, 21, choice - 1);
-					if ((roll1 == roll2) && (roll2 == choice))
+					if((roll1 == roll2) && (roll2 == choice))
 					{
 						win = TRUE;
 						switch(roll1)
@@ -1502,7 +1502,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 							odds = 1000;break;
 						}
 					}
-					else if ((roll1 == 1) && (roll2 == 1))
+					else if((roll1 == 1) && (roll2 == 1))
 					{
 						win = TRUE;
 						odds = 2;
@@ -1511,11 +1511,11 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				case BUILDING_FUNCTION_POKER:
 					win = FALSE;
 					odds = do_poker();
-					if (odds) win = TRUE;
+					if(odds) win = TRUE;
 					break;
 				}
 
-				if (win)
+				if(win)
 				{
 #ifdef JP
 					prt("あなたの勝ち", 16, 37);
@@ -1560,7 +1560,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 				prt("", 16, 37);
 				prt("", 17, 37);
 				prt("", 18, 37);
-				if (wager > creature_ptr->au)
+				if(wager > creature_ptr->au)
 				{
 #ifdef JP
 					msg_print("おい！金が足りないじゃないか！ここから出て行け！");
@@ -1579,7 +1579,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 			Rand_quick = FALSE;
 
 			prt("", 18, 37);
-			if (creature_ptr->au >= oldgold)
+			if(creature_ptr->au >= oldgold)
 			{
 #ifdef JP
 				msg_print("「今回は儲けたな！でも次はこっちが勝ってやるからな、絶対に！」");
@@ -1609,19 +1609,19 @@ static bool vault_aux_battle(int species_idx)
 
 	species_type *species_ptr = &species_info[species_idx];
 	
-	if (has_trait_species(species_ptr, TRAIT_UNIQUE)) return (FALSE); // Decline unique creatures
-	if (has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return (FALSE);
-	if (has_trait_species(species_ptr, TRAIT_MULTIPLY)) return (FALSE);
-	if (has_trait_species(species_ptr, TRAIT_QUANTUM)) return (FALSE);
-	if (has_trait_species(species_ptr, TRAIT_AQUATIC)) return (FALSE);
-	if (has_trait_species(species_ptr, TRAIT_CHAMELEON)) return (FALSE);
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return (FALSE); // Decline unique creatures
+	if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return (FALSE);
+	if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) return (FALSE);
+	if(has_trait_species(species_ptr, TRAIT_QUANTUM)) return (FALSE);
+	if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return (FALSE);
+	if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) return (FALSE);
 
 	for (i = 0; i < 4; i++)
 	{
-		if (species_ptr->blow[i].method == RBM_EXPLODE) return (FALSE);
-		if (species_ptr->blow[i].effect != RBE_DR_MANA) dam += species_ptr->blow[i].d_dice;
+		if(species_ptr->blow[i].method == RBM_EXPLODE) return (FALSE);
+		if(species_ptr->blow[i].effect != RBE_DR_MANA) dam += species_ptr->blow[i].d_dice;
 	}
-	if (!dam && 
+	if(!dam && 
 		!(has_bolt_flags(&species_ptr->flags) || has_beam_flags(&species_ptr->flags) ||
 		  has_ball_flags(&species_ptr->flags) || has_breath_flags(&species_ptr->flags)))
 			return (FALSE);
@@ -1642,15 +1642,15 @@ void battle_creatures(void)
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 
 	for (i = 0; i < max_dungeon_idx; i++)
-		if (max_dl < max_dlv[i]) max_dl = max_dlv[i];
+		if(max_dl < max_dlv[i]) max_dl = max_dlv[i];
 
 	ave_creature_level = randint1(MIN(max_dl, 122))+5;
-	if (randint0(100) < 60)
+	if(randint0(100) < 60)
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_creature_level = MAX(i, ave_creature_level);
 	}
-	if (randint0(100) < 30)
+	if(randint0(100) < 30)
 	{
 		i = randint1(MIN(max_dl, 122))+5;
 		ave_creature_level = MAX(i, ave_creature_level);
@@ -1670,21 +1670,21 @@ void battle_creatures(void)
 				floor_ptr->gamble_arena_mode = TRUE;
 				species_idx = get_species_num(current_floor_ptr, ave_creature_level);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
-				if (!species_idx) continue;
+				if(!species_idx) continue;
 
-				if (has_trait_species(&species_info[species_idx], TRAIT_UNIQUE) || has_trait_species(&species_info[species_idx], TRAIT_UNIQUE2))
+				if(has_trait_species(&species_info[species_idx], TRAIT_UNIQUE) || has_trait_species(&species_info[species_idx], TRAIT_UNIQUE2))
 				{
-					if ((species_info[species_idx].level + 10) > ave_creature_level) continue;
+					if((species_info[species_idx].level + 10) > ave_creature_level) continue;
 				}
 
 				for (j = 0; j < i; j++)
 					if(species_idx == battle_mon[j]) break;
-				if (j<i) continue;
+				if(j<i) continue;
 
 				break;
 			}
 			battle_mon[i] = species_idx;
-			if (species_info[species_idx].level < 45) tekitou = TRUE;
+			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
 		for (i = 0; i < 4; i++)
@@ -1699,21 +1699,21 @@ void battle_creatures(void)
 
 			power[i] = 3;
 
-			if (r_ptr->speed > 0)
+			if(r_ptr->speed > 0)
 				power[i] = power[i] * (r_ptr->speed * 2) / 100;
-			if (r_ptr->speed < 0)
+			if(r_ptr->speed < 0)
 				power[i] = power[i] * (r_ptr->speed - 20) / 100;
-			if (num_taisei > 2)
+			if(num_taisei > 2)
 				power[i] = power[i] * (num_taisei*2+5) / 10;
-			else if (has_trait_raw(&r_ptr->flags, TRAIT_INVULNER))
+			else if(has_trait_raw(&r_ptr->flags, TRAIT_INVULNER))
 				power[i] = power[i] * 4 / 3;
-			else if (has_trait_raw(&r_ptr->flags, TRAIT_HEAL))
+			else if(has_trait_raw(&r_ptr->flags, TRAIT_HEAL))
 				power[i] = power[i] * 4 / 3;
-			else if (has_trait_raw(&r_ptr->flags, TRAIT_DRAIN_MANA))
+			else if(has_trait_raw(&r_ptr->flags, TRAIT_DRAIN_MANA))
 				power[i] = power[i] * 11 / 10;
-			if (has_trait_raw(&r_ptr->flags, TRAIT_RAND_25))
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RAND_25))
 				power[i] = power[i] * 9 / 10;
-			if (has_trait_raw(&r_ptr->flags, TRAIT_RAND_50))
+			if(has_trait_raw(&r_ptr->flags, TRAIT_RAND_50))
 				power[i] = power[i] * 9 / 10;
 
 			if(power[i] <= 0) power[i] = 1;
@@ -1722,12 +1722,12 @@ void battle_creatures(void)
 		for (i=0;i<4;i++)
 		{
 			power[i] = total*60/power[i];
-			if (tekitou && ((power[i] < 160) || power[i] > 1500)) break;
-			if ((power[i] < 160) && randint0(20)) break;
-			if (power[i] < 101) power[i] = 100 + randint1(5);
+			if(tekitou && ((power[i] < 160) || power[i] > 1500)) break;
+			if((power[i] < 160) && randint0(20)) break;
+			if(power[i] < 101) power[i] = 100 + randint1(5);
 			mon_odds[i] = power[i];
 		}
-		if (i == 4) break;
+		if(i == 4) break;
 	}
 }
 
@@ -1739,7 +1739,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 	cptr p;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if ((turn - old_battle) > TURNS_PER_TICK * 250)
+	if((turn - old_battle) > TURNS_PER_TICK * 250)
 	{
 		battle_creatures();
 		old_battle = turn;
@@ -1748,7 +1748,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 	screen_save();
 
 	/* No money */
-	if (creature_ptr->au < 1)
+	if(creature_ptr->au < 1)
 	{
 #ifdef JP
 		msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
@@ -1793,12 +1793,12 @@ static bool kakutoujou(creature_type *creature_ptr)
 		{
 			i = inkey();
 
-			if (i == ESCAPE)
+			if(i == ESCAPE)
 			{
 				screen_load();
 				return FALSE;
 			}
-			if (i >= '1' && i <= '4')
+			if(i >= '1' && i <= '4')
 			{
 				sel_creature = i-'1';
 				battle_odds = mon_odds[sel_creature];
@@ -1809,7 +1809,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 		clear_bldg(4, 4);
 		for(i = 0; i < 4; i++)
-			if (i != sel_creature) clear_bldg(i + 5, i + 5);
+			if(i != sel_creature) clear_bldg(i + 5, i + 5);
 
 		maxbet = creature_ptr->lev * 200;
 
@@ -1829,7 +1829,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 		 * Use get_string() because we may need more than
 		 * the s16b value returned by get_quantity().
 		 */
-		if (get_string(tmp_str, out_val, 32))
+		if(get_string(tmp_str, out_val, 32))
 		{
 			/* Strip spaces */
 			for (p = out_val; *p == ' '; p++);
@@ -1837,7 +1837,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 			/* Get the wager */
 			wager = atol(p);
 
-			if (wager > creature_ptr->au)
+			if(wager > creature_ptr->au)
 			{
 #ifdef JP
 msg_print("おい！金が足りないじゃないか！出ていけ！");
@@ -1849,7 +1849,7 @@ msg_print("おい！金が足りないじゃないか！出ていけ！");
 				screen_load();
 				return (FALSE);
 			}
-			else if (wager > maxbet)
+			else if(wager > maxbet)
 			{
 #ifdef JP
 msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
@@ -1859,7 +1859,7 @@ msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
 
 				wager = maxbet;
 			}
-			else if (wager < 1)
+			else if(wager < 1)
 			{
 #ifdef JP
 msg_print("ＯＫ、１ゴールドでいこう。");
@@ -1965,7 +1965,7 @@ static void shoukinkubi(void)
 		cptr done_mark;
 		species_type *r_ptr = &species_info[(kubi_species_idx[i] > 10000 ? kubi_species_idx[i] - 10000 : kubi_species_idx[i])];
 
-		if (kubi_species_idx[i] > 10000)
+		if(kubi_species_idx[i] > 10000)
 		{
 			color = TERM_RED;
 #ifdef JP
@@ -1983,7 +1983,7 @@ static void shoukinkubi(void)
 		c_prt(color, format("%s %s", species_name + r_ptr->name, done_mark), y+7, 10);
 
 		y = (y+1) % 10;
-		if (!y && (i < MAX_BOUNTY -1))
+		if(!y && (i < MAX_BOUNTY -1))
 		{
 #ifdef JP
 			prt("何かキーを押してください", 0, 0);
@@ -2012,7 +2012,7 @@ static bool kankin(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Living Tsuchinoko worthes $1000000 */
-		if ((object_ptr->tval == TV_CAPTURE) && (object_ptr->pval == SPECIES_TSUCHINOKO))
+		if((object_ptr->tval == TV_CAPTURE) && (object_ptr->pval == SPECIES_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -2021,7 +2021,7 @@ static bool kankin(creature_type *creature_ptr)
 #else
 			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
-			if (get_check(buf))
+			if(get_check(buf))
 			{
 #ifdef JP
 				msg_format("賞金 %ld＄を手に入れた。", 1000000L * object_ptr->number);
@@ -2043,7 +2043,7 @@ static bool kankin(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Corpse of Tsuchinoko worthes $200000 */
-		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (object_ptr->pval == SPECIES_TSUCHINOKO))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (object_ptr->pval == SPECIES_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -2052,7 +2052,7 @@ static bool kankin(creature_type *creature_ptr)
 #else
 			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
-			if (get_check(buf))
+			if(get_check(buf))
 			{
 #ifdef JP
 				msg_format("賞金 %ld＄を手に入れた。", 200000L * object_ptr->number);
@@ -2074,7 +2074,7 @@ static bool kankin(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Bones of Tsuchinoko worthes $100000 */
-		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->pval == SPECIES_TSUCHINOKO))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (object_ptr->pval == SPECIES_TSUCHINOKO))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -2083,7 +2083,7 @@ static bool kankin(creature_type *creature_ptr)
 #else
 			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
-			if (get_check(buf))
+			if(get_check(buf))
 			{
 #ifdef JP
 				msg_format("賞金 %ld＄を手に入れた。", 100000L * object_ptr->number);
@@ -2103,7 +2103,7 @@ static bool kankin(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
-		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_CORPSE) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -2112,7 +2112,7 @@ static bool kankin(creature_type *creature_ptr)
 #else
 			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
-			if (get_check(buf))
+			if(get_check(buf))
 			{
 #ifdef JP
 				msg_format("賞金 %ld＄を手に入れた。", (species_info[today_mon].level * 50 + 100) * object_ptr->number);
@@ -2133,7 +2133,7 @@ static bool kankin(creature_type *creature_ptr)
 	{
 		object_ptr = &creature_ptr->inventory[i];
 
-		if ((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
+		if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON) && (streq(species_name + species_info[object_ptr->pval].name, species_name + species_info[today_mon].name)))
 		{
 			char buf[MAX_NLEN+20];
 			object_desc(object_name, object_ptr, 0);
@@ -2142,7 +2142,7 @@ static bool kankin(creature_type *creature_ptr)
 #else
 			sprintf(buf, "Convert %s into money? ",object_name);
 #endif
-			if (get_check(buf))
+			if(get_check(buf))
 			{
 #ifdef JP
 				msg_format("賞金 %ld＄を手に入れた。", (species_info[today_mon].level * 30 + 60) * object_ptr->number);
@@ -2165,7 +2165,7 @@ static bool kankin(creature_type *creature_ptr)
 		for (i = INVEN_TOTAL-1; i >= 0; i--)
 		{
 			object_ptr = &creature_ptr->inventory[i];
-			if ((object_ptr->tval == TV_CORPSE) && (object_ptr->pval == kubi_species_idx[j]))
+			if((object_ptr->tval == TV_CORPSE) && (object_ptr->pval == kubi_species_idx[j]))
 			{
 				char buf[MAX_NLEN+20];
 				int num, k, item_new;
@@ -2177,7 +2177,7 @@ static bool kankin(creature_type *creature_ptr)
 #else
 				sprintf(buf, "Hand %s over? ",object_name);
 #endif
-				if (!get_check(buf)) continue;
+				if(!get_check(buf)) continue;
 
 				/* Hand it first */
 				inven_item_increase(creature_ptr, i, -object_ptr->number);
@@ -2189,7 +2189,7 @@ static bool kankin(creature_type *creature_ptr)
 				// Count number of unique corpses already handed
 				for (num = 0, k = 0; k < MAX_BOUNTY; k++)
 				{
-					if (kubi_species_idx[k] >= 10000) num++;
+					if(kubi_species_idx[k] >= 10000) num++;
 				}
 
 #ifdef JP
@@ -2227,7 +2227,7 @@ static bool kankin(creature_type *creature_ptr)
 		}
 	}
 
-	if (!change)
+	if(!change)
 	{
 #ifdef JP
 		msg_print("賞金を得られそうなものは持っていなかった。");
@@ -2250,19 +2250,19 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 	// Describe it
 #ifndef JP
-	if (!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
+	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
 		sprintf(m_name, "%s %s", (is_a_vowel(desc[0]) ? "an" : "a"), desc);
 	else
 #endif
 		sprintf(m_name, "%s", desc);
 
-	if (!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
+	if(!has_trait_species(eldritch_ptr, TRAIT_UNIQUE))
 	{
 		if(has_trait_species(eldritch_ptr, TRAIT_FRIENDLY)) power /= 2;
 	}
 	else power *= 2;
 
-	if (new_saving_throw(watcher_ptr, SAVING_VOLITION, power))
+	if(new_saving_throw(watcher_ptr, SAVING_VOLITION, power))
 	{
 #ifdef JP
 		msg_format("夢の中で%sに追いかけられた。", m_name);
@@ -2272,7 +2272,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		return;
 	}
 
-	if (IS_HALLUCINATION(watcher_ptr))
+	if(IS_HALLUCINATION(watcher_ptr))
 	{
 		// Something silly happens...
 #ifdef JP
@@ -2282,7 +2282,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 #endif
 		funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 
-		if (one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
+		if(one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
 			watcher_ptr->timed_trait[TRAIT_HALLUCINATION] = watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(eldritch_ptr->level);
@@ -2303,13 +2303,13 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
 	/* Mind blast */
-	if (!new_saving_throw(watcher_ptr, SAVING_VOLITION, power))
+	if(!new_saving_throw(watcher_ptr, SAVING_VOLITION, power))
 	{
-		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
+		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
-		if (!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
+		if(!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
@@ -2317,7 +2317,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 
 	/* Lose int & wis */
-	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if(!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
 		do_dec_stat(watcher_ptr, STAT_INT);
 		do_dec_stat(watcher_ptr, STAT_WIS);
@@ -2325,13 +2325,13 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 
 	/* Brain smash */
-	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if(!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (!has_trait(watcher_ptr, TRAIT_NO_CONF))
+		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
 			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
-		if (!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
+		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
 			(void)set_paralyzed(watcher_ptr, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
@@ -2343,7 +2343,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		{
 			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		}
-		if (!watcher_ptr->resist_chaos)
+		if(!watcher_ptr->resist_chaos)
 		{
 			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
@@ -2352,9 +2352,9 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 
 
 	/* Amnesia */
-	if (!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if(!saving_throw(watcher_ptr->skill_rob * 100 / power))
 	{
-		if (lose_all_info(watcher_ptr))
+		if(lose_all_info(watcher_ptr))
 		{
 #ifdef JP
 msg_print("あまりの恐怖に全てのことを忘れてしまった！");
@@ -2381,9 +2381,9 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		{
 			case 1:
 			{
-				if (!has_trait(watcher_ptr, TRAIT_MORONIC))
+				if(!has_trait(watcher_ptr, TRAIT_MORONIC))
 				{
-					if ((watcher_ptr->stat_use[STAT_INT] <= STAT_VALUE_MIN) && (watcher_ptr->stat_use[STAT_WIS] < STAT_VALUE_MIN))
+					if((watcher_ptr->stat_use[STAT_INT] <= STAT_VALUE_MIN) && (watcher_ptr->stat_use[STAT_WIS] < STAT_VALUE_MIN))
 					{
 #ifdef JP
 						msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
@@ -2400,7 +2400,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 #endif
 					}
 
-					if (has_trait(watcher_ptr, TRAIT_HYPER_INT))
+					if(has_trait(watcher_ptr, TRAIT_HYPER_INT))
 					{
 #ifdef JP
 						msg_print("あなたの脳は生体コンピュータではなくなった。");
@@ -2418,7 +2418,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 			}
 			case 2:
 			{
-				if (!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
+				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
 #ifdef JP
 msg_print("あなたはパラノイアになった！");
@@ -2428,7 +2428,7 @@ msg_print("あなたはパラノイアになった！");
 
 
 					/* Duh, the following should never happen, but anyway... */
-					if (has_trait(watcher_ptr, TRAIT_FEARLESS))
+					if(has_trait(watcher_ptr, TRAIT_FEARLESS))
 					{
 #ifdef JP
 msg_print("あなたはもう恐れ知らずではなくなった。");
@@ -2445,7 +2445,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 			}
 			case 3:
 			{
-				if (!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
+				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
 msg_print("幻覚をひき起こす精神錯乱に陥った！");
@@ -2460,7 +2460,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 			}
 			default:
 			{
-				if (!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
+				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
 #ifdef JP
 msg_print("激烈な感情の発作におそわれるようになった！");
@@ -2495,7 +2495,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 	switch (cmd)
 	{
 		case BUILDING_FUNCTION_FOOD: /* Buy food & drink */
-			if (creature_ptr->food >= PY_FOOD_FULL)
+			if(creature_ptr->food >= PY_FOOD_FULL)
 			{
 #ifdef JP
 				msg_print("今は満腹だ。");
@@ -2515,7 +2515,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			break;
 
 		case BUILDING_FUNCTION_REST: /* Rest for the night */
-			if ((creature_ptr->timed_trait[TRAIT_POISONED]) || IS_WOUND(creature_ptr))
+			if((creature_ptr->timed_trait[TRAIT_POISONED]) || IS_WOUND(creature_ptr))
 			{
 #ifdef JP
 				msg_print("あなたに必要なのは部屋ではなく、治療者です。");
@@ -2539,22 +2539,22 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #ifdef JP
 				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "宿屋に泊まった。");
 #else
-				if ((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over daytime at the inn.");
+				if((prev_hour >= 6) && (prev_hour <= 17)) do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over daytime at the inn.");
 				else do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over night at the inn.");
 #endif
 				turn = (turn / (TURNS_PER_TICK*TOWN_DAWN/2) + 1) * (TURNS_PER_TICK*TOWN_DAWN/2);
-				if (current_floor_ptr->floor_turn < current_floor_ptr->floor_turn_limit)
+				if(current_floor_ptr->floor_turn < current_floor_ptr->floor_turn_limit)
 				{
 					current_floor_ptr->floor_turn += MIN(turn - oldturn, TURNS_PER_TICK*250);
-					if (current_floor_ptr->floor_turn > current_floor_ptr->floor_turn_limit) current_floor_ptr->floor_turn = current_floor_ptr->floor_turn_limit;
+					if(current_floor_ptr->floor_turn > current_floor_ptr->floor_turn_limit) current_floor_ptr->floor_turn = current_floor_ptr->floor_turn_limit;
 				}
 
 				prevent_turn_overflow(creature_ptr);
 
-				if ((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
+				if((prev_hour >= 18) && (prev_hour <= 23)) do_cmd_write_nikki(DIARY_HIGAWARI, 0, NULL);
 				creature_ptr->chp = creature_ptr->mhp;
 
-				if (curse_of_Iluvatar)
+				if(curse_of_Iluvatar)
 				{
 					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
 
@@ -2572,7 +2572,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					{
 						have_nightmare(creature_ptr, get_species_num(current_floor_ptr, MAX_DEPTH));
 
-						if (!one_in_(3)) break;
+						if(!one_in_(3)) break;
 					}
 
 					/* Remove the creature restriction */
@@ -2594,14 +2594,14 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
 
-					if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
+					if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 					{
 						int i;
 						for (i = 0; i < MAGIC_EATER_SKILL_MAX; i++)
 							creature_ptr->class_skills.magic_eater.current_charge[i] = creature_ptr->class_skills.magic_eater.max_charge[i] * EATER_CHARGE;
 					}
 
-					if ((prev_hour >= 6) && (prev_hour <= 17))
+					if((prev_hour >= 6) && (prev_hour <= 17))
 					{
 #ifdef JP
 						msg_print("あなたはリフレッシュして目覚め、夕方を迎えた。");
@@ -2630,9 +2630,9 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				char Rumor[1024];
 
 #ifdef JP
-				if (!get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10))
+				if(!get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10))
 #else
-				if (!get_rnd_line("rumors.txt", 0, Rumor))
+				if(!get_rnd_line("rumors.txt", 0, Rumor))
 #endif
 
 					msg_format("%s", Rumor);
@@ -2695,7 +2695,7 @@ static void castle_quest(creature_type *creature_ptr)
 	q_index = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].special;
 
 	/* Is there a quest available at the building? */
-	if (!q_index)
+	if(!q_index)
 	{
 #ifdef JP
 put_str("今のところクエストはありません。", 8, 3);
@@ -2709,7 +2709,7 @@ put_str("今のところクエストはありません。", 8, 3);
 	quest_ptr = &quest[q_index];
 
 	/* Quest is completed */
-	if (quest_ptr->status == QUEST_STATUS_COMPLETED)
+	if(quest_ptr->status == QUEST_STATUS_COMPLETED)
 	{
 		/* Rewarded quest */
 		quest_ptr->status = QUEST_STATUS_REWARDED;
@@ -2719,7 +2719,7 @@ put_str("今のところクエストはありません。", 8, 3);
 		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Failed quest */
-	else if (quest_ptr->status == QUEST_STATUS_FAILED)
+	else if(quest_ptr->status == QUEST_STATUS_FAILED)
 	{
 		get_questinfo(q_index);
 
@@ -2729,7 +2729,7 @@ put_str("今のところクエストはありません。", 8, 3);
 		creature_ptr->reinit_wilderness = TRUE;
 	}
 	/* Quest is still unfinished */
-	else if (quest_ptr->status == QUEST_STATUS_TAKEN)
+	else if(quest_ptr->status == QUEST_STATUS_TAKEN)
 	{
 #ifdef JP
 put_str("あなたは現在のクエストを終了させていません！", 8, 3);
@@ -2751,12 +2751,12 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 
 	}
 	/* No quest yet */
-	else if (quest_ptr->status == QUEST_STATUS_UNTAKEN)
+	else if(quest_ptr->status == QUEST_STATUS_UNTAKEN)
 	{
 		/* Assign a new quest */
-		if (quest_ptr->type == QUEST_TYPE_KILL_ANY_LEVEL)
+		if(quest_ptr->type == QUEST_TYPE_KILL_ANY_LEVEL)
 		{
-			if (quest_ptr->species_idx == 0)
+			if(quest_ptr->species_idx == 0)
 			{
 				/* Random creature at least 5 - 10 levels out of deep */
 				quest_ptr->species_idx = get_species_num(floor_ptr, quest_ptr->level + 4 + randint1(6));
@@ -2770,10 +2770,10 @@ put_str("クエストを終わらせたら戻って来て下さい。", 12, 3);
 				species_ptr = &species_info[quest_ptr->species_idx];
 			}
 
-			if (quest_ptr->max_num == 0)
+			if(quest_ptr->max_num == 0)
 			{
 				/* Random creature number */
-				if (randint1(10) > 7)
+				if(randint1(10) > 7)
 					quest_ptr->max_num = 1;
 				else
 					quest_ptr->max_num = (s16b)randint1(3) + 1;
@@ -2794,9 +2794,9 @@ msg_format("クエスト: %sを %d体倒す", name,quest_ptr->max_num);
 		}
 
 #ifdef JP
-		if (!get_check(format("このクエストを受諾しますか？")))
+		if(!get_check(format("このクエストを受諾しますか？")))
 #else
-		if (!get_check(format("Accept this quest? ")))
+		if(!get_check(format("Accept this quest? ")))
 #endif
 		{
 			clear_bldg(4, 18);
@@ -2888,7 +2888,7 @@ static void compare_weapon_aux1(creature_type *creature_ptr, object_type *object
 	/* Get the flags of the weapon */
 	object_flags(object_ptr, flgs);
 
-	if ((creature_ptr->class_idx != CLASS_SAMURAI) && have_flag(flgs, TRAIT_FORCE_WEAPON) && (creature_ptr->csp > (object_ptr->dd * object_ptr->ds / 5)))
+	if((creature_ptr->class_idx != CLASS_SAMURAI) && have_flag(flgs, TRAIT_FORCE_WEAPON) && (creature_ptr->csp > (object_ptr->dd * object_ptr->ds / 5)))
 	{
 		mult = mult * 7 / 2;
 		print_force_weapon = TRUE;
@@ -2896,59 +2896,59 @@ static void compare_weapon_aux1(creature_type *creature_ptr, object_type *object
 
 	/* Print the relevant lines */
 #ifdef JP
-	if (print_force_weapon)     compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 1*mult, "理力:", TERM_L_BLUE);
-	if (have_flag(flgs, TRAIT_KILL_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "動物:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "動物:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "邪悪:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "邪悪:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "善良:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "善良:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "人間:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "人間:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "不死:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "不死:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "悪魔:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "悪魔:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "オーク:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "オーク:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "トロル:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "トロル:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "巨人:", TERM_YELLOW);
-	 else if (have_flag(flgs, TRAIT_SLAY_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "巨人:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "竜:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "竜:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_ACID_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "酸属性:", TERM_RED);
-	if (have_flag(flgs, TRAIT_ELEC_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "電属性:", TERM_RED);
-	if (have_flag(flgs, TRAIT_FIRE_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "炎属性:", TERM_RED);
-	if (have_flag(flgs, TRAIT_COLD_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "冷属性:", TERM_RED);
-	if (have_flag(flgs, TRAIT_POIS_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "毒属性:", TERM_RED);
+	if(print_force_weapon)     compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 1*mult, "理力:", TERM_L_BLUE);
+	if(have_flag(flgs, TRAIT_KILL_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "動物:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "動物:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "邪悪:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "邪悪:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "善良:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "善良:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "人間:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "人間:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "不死:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "不死:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "悪魔:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "悪魔:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "オーク:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "オーク:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "トロル:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "トロル:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "巨人:", TERM_YELLOW);
+	 else if(have_flag(flgs, TRAIT_SLAY_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "巨人:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "竜:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "竜:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_ACID_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "酸属性:", TERM_RED);
+	if(have_flag(flgs, TRAIT_ELEC_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "電属性:", TERM_RED);
+	if(have_flag(flgs, TRAIT_FIRE_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "炎属性:", TERM_RED);
+	if(have_flag(flgs, TRAIT_COLD_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "冷属性:", TERM_RED);
+	if(have_flag(flgs, TRAIT_POIS_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "毒属性:", TERM_RED);
 #else
-	if (print_force_weapon)     compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 1*mult, "Force  :", TERM_L_BLUE);
-	if (have_flag(flgs, TRAIT_KILL_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "Animals:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Animals:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "Evil:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "Evil:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "Good:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "Good:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "Human:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Human:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Undead:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Undead:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Demons:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Demons:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Orcs:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Orcs:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Trolls:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Trolls:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Giants:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Giants:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_KILL_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Dragons:", TERM_YELLOW);
-	else if (have_flag(flgs, TRAIT_SLAY_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Dragons:", TERM_YELLOW);
-	if (have_flag(flgs, TRAIT_ACID_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Acid:", TERM_RED);
-	if (have_flag(flgs, TRAIT_ELEC_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Elec:", TERM_RED);
-	if (have_flag(flgs, TRAIT_FIRE_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Fire:", TERM_RED);
-	if (have_flag(flgs, TRAIT_COLD_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Cold:", TERM_RED);
-	if (have_flag(flgs, TRAIT_POIS_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Poison:", TERM_RED);
+	if(print_force_weapon)     compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 1*mult, "Force  :", TERM_L_BLUE);
+	if(have_flag(flgs, TRAIT_KILL_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "Animals:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_ANIMAL)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Animals:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "Evil:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_EVIL))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "Evil:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 7*mult/2, "Good:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_GOOD))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 2*mult, "Good:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 4*mult, "Human:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_HUMAN))   compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Human:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Undead:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_UNDEAD)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Undead:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Demons:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_DEMON))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Demons:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Orcs:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_ORC))    compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Orcs:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Trolls:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_TROLL))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Trolls:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Giants:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_GIANT))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Giants:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_KILL_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult, "Dragons:", TERM_YELLOW);
+	else if(have_flag(flgs, TRAIT_SLAY_DRAGON)) compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 3*mult, "Dragons:", TERM_YELLOW);
+	if(have_flag(flgs, TRAIT_ACID_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Acid:", TERM_RED);
+	if(have_flag(flgs, TRAIT_ELEC_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Elec:", TERM_RED);
+	if(have_flag(flgs, TRAIT_FIRE_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Fire:", TERM_RED);
+	if(have_flag(flgs, TRAIT_COLD_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Cold:", TERM_RED);
+	if(have_flag(flgs, TRAIT_POIS_BRAND))  compare_weapon_aux2(creature_ptr, object_ptr, blow, r++, col, 5*mult/2, "Poison:", TERM_RED);
 #endif
 
 }
@@ -3028,7 +3028,7 @@ static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *obje
 		}
 		case TV_SWORD:
 		{
-			if (object_ptr->sval != SV_DOKUBARI) return (TRUE);
+			if(object_ptr->sval != SV_DOKUBARI) return (TRUE);
 		}
 	}
 
@@ -3087,7 +3087,7 @@ static bool compare_weapons(creature_type *creature_ptr)
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
 	{
 		screen_load();
 		return (FALSE);
@@ -3108,7 +3108,7 @@ s = "比べるものがありません。";
 	s = "You have nothing to compare.";
 #endif
 
-	if (!get_item(creature_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
+	if(!get_item(creature_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
 	{
 		screen_load();
 		return (FALSE);
@@ -3121,7 +3121,7 @@ s = "比べるものがありません。";
 	clear_bldg(0, 22);
 
 	/* Copy first weapon into the weapon slot (if it's not already there) */
-	if (o1_ptr != i_ptr)
+	if(o1_ptr != i_ptr)
 		object_copy(i_ptr, o1_ptr);
 
 	set_creature_bonuses(creature_ptr, TRUE); // Get the new values
@@ -3131,7 +3131,7 @@ s = "比べるものがありません。";
 	compare_weapon_aux1(creature_ptr, o1_ptr, 2, row + 8);
 
 	/* Copy second weapon into the weapon slot (if it's not already there) */
-	if (o2_ptr != i_ptr)
+	if(o2_ptr != i_ptr)
 		object_copy(i_ptr, o2_ptr);
 	else
 		object_copy(i_ptr, &orig_weapon);
@@ -3208,7 +3208,7 @@ static bool eval_ac(int iAC)
 	char buf[80*20], *t;
 
 	/* AC lower than zero has no effect */
-	if (iAC < 0) iAC = 0;
+	if(iAC < 0) iAC = 0;
 
 	/* ダメージ軽減率を計算 */
 	protection = 100 * MIN(iAC, 150) / 250;
@@ -3302,12 +3302,12 @@ static bool resize_item(creature_type *creature_ptr)
 	s = "You have nothing to resize.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return (FALSE);
 	object_ptr = &creature_ptr->inventory[item];
 	value = object_value(object_ptr) / 5;
 
 	// Check if the player has enough money
-	if (creature_ptr->au < value)
+	if(creature_ptr->au < value)
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -3342,9 +3342,9 @@ static bool resize_item(creature_type *creature_ptr)
 
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
 #ifdef JP
-		if (get_check(format("%sの改良には $%d かかります、よろしいですか？", tmp_str, value)))
+		if(get_check(format("%sの改良には $%d かかります、よろしいですか？", tmp_str, value)))
 #else
-		if (get_check(format("To improve %s cost $%d, all right?", tmp_str, value)))
+		if(get_check(format("To improve %s cost $%d, all right?", tmp_str, value)))
 #endif
 		{
 			if(creature_ptr->size > object_ptr->fitting_size + object_ptr->to_size)
@@ -3401,13 +3401,13 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	s = "You have nothing to improve.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return (FALSE);
 
 	/* Get the item (in the pack) */
 	object_ptr = &creature_ptr->inventory[item];
 
 	/* Check if the player has enough money */
-	if (creature_ptr->au < (cost * object_ptr->number))
+	if(creature_ptr->au < (cost * object_ptr->number))
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -3422,9 +3422,9 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	/* Enchant to hit */
 	for (i = 0; i < to_hit; i++)
 	{
-		if (object_ptr->to_hit < maxenchant)
+		if(object_ptr->to_hit < maxenchant)
 		{
-			if (enchant(creature_ptr, object_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
+			if(enchant(creature_ptr, object_ptr, 1, (ENCH_TOHIT | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3435,9 +3435,9 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	/* Enchant to damage */
 	for (i = 0; i < to_damageam; i++)
 	{
-		if (object_ptr->to_damage < maxenchant)
+		if(object_ptr->to_damage < maxenchant)
 		{
-			if (enchant(creature_ptr, object_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
+			if(enchant(creature_ptr, object_ptr, 1, (ENCH_TODAM | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3448,9 +3448,9 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	/* Enchant to AC */
 	for (i = 0; i < to_ac; i++)
 	{
-		if (object_ptr->to_ac < maxenchant)
+		if(object_ptr->to_ac < maxenchant)
 		{
-			if (enchant(creature_ptr, object_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
+			if(enchant(creature_ptr, object_ptr, 1, (ENCH_TOAC | ENCH_FORCE)))
 			{
 				okay = TRUE;
 				break;
@@ -3459,10 +3459,10 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	}
 
 	/* Failure */
-	if (!okay)
+	if(!okay)
 	{
 		/* Flush */
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 
 		/* Message */
 #ifdef JP
@@ -3533,10 +3533,10 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -3554,7 +3554,7 @@ s = "魔力を充填すべきアイテムがない。";
 	 * the level of the item or the number of charges.
 	 */
 	/* The item must be "known" */
-	if (!object_is_known(object_ptr))
+	if(!object_is_known(object_ptr))
 	{
 #ifdef JP
 msg_format("充填する前に鑑定されている必要があります！");
@@ -3564,7 +3564,7 @@ msg_format("充填する前に鑑定されている必要があります！");
 
 		msg_print(NULL);
 
-		if ((creature_ptr->au >= 50) &&
+		if((creature_ptr->au >= 50) &&
 #ifdef JP
 get_check("＄50で鑑定しますか？ "))
 #else
@@ -3603,9 +3603,9 @@ msg_format("%s です。", tmp_str);
 	lev = object_kind_info[object_ptr->k_idx].level;
 
 	/* Price for a rod */
-	if (object_ptr->tval == TV_ROD)
+	if(object_ptr->tval == TV_ROD)
 	{
-		if (object_ptr->timeout > 0)
+		if(object_ptr->timeout > 0)
 		{
 			/* Fully recharge */
 			price = (lev * 50 * object_ptr->timeout) / k_ptr->pval;
@@ -3623,7 +3623,7 @@ msg_format("それは再充填する必要はありません。");
 			return;
 		}
 	}
-	else if (object_ptr->tval == TV_STAFF)
+	else if(object_ptr->tval == TV_STAFF)
 	{
 		/* Price per charge ( = double the price paid by shopkeepers for the charge) */
 		price = (object_kind_info[object_ptr->k_idx].cost / 10) * object_ptr->number;
@@ -3641,10 +3641,10 @@ msg_format("それは再充填する必要はありません。");
 	}
 
 	/* Limit the number of charges for wands and staffs */
-	if (object_ptr->tval == TV_WAND
+	if(object_ptr->tval == TV_WAND
 		&& (object_ptr->pval / object_ptr->number >= k_ptr->pval))
 	{
-		if (object_ptr->number > 1)
+		if(object_ptr->number > 1)
 		{
 #ifdef JP
 msg_print("この魔法棒はもう充分に充填されています。");
@@ -3662,9 +3662,9 @@ msg_print("この魔法棒はもう充分に充填されています。");
 		}
 		return;
 	}
-	else if (object_ptr->tval == TV_STAFF && object_ptr->pval >= k_ptr->pval)
+	else if(object_ptr->tval == TV_STAFF && object_ptr->pval >= k_ptr->pval)
 	{
-		if (object_ptr->number > 1)
+		if(object_ptr->number > 1)
 		{
 #ifdef JP
 msg_print("この杖はもう充分に充填されています。");
@@ -3684,7 +3684,7 @@ msg_print("この杖はもう充分に充填されています。");
 	}
 
 	/* Check if the player has enough money */
-	if (creature_ptr->au < price)
+	if(creature_ptr->au < price)
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
 #ifdef JP
@@ -3696,13 +3696,13 @@ msg_format("%sを再充填するには＄%d 必要です！", tmp_str,price );
 		return;
 	}
 
-	if (object_ptr->tval == TV_ROD)
+	if(object_ptr->tval == TV_ROD)
 	{
 #ifdef JP
-if (get_check(format("そのロッドを＄%d で再充填しますか？",
+if(get_check(format("そのロッドを＄%d で再充填しますか？",
  price)))
 #else
-		if (get_check(format("Recharge the %s for %d gold? ",
+		if(get_check(format("Recharge the %s for %d gold? ",
 			((object_ptr->number > 1) ? "rods" : "rod"), price)))
 #endif
 
@@ -3717,7 +3717,7 @@ if (get_check(format("そのロッドを＄%d で再充填しますか？",
 	}
 	else
 	{
-		if (object_ptr->tval == TV_STAFF)
+		if(object_ptr->tval == TV_STAFF)
 			max_charges = k_ptr->pval - object_ptr->pval;
 		else
 			max_charges = object_ptr->number * k_ptr->pval - object_ptr->pval;
@@ -3732,7 +3732,7 @@ charges = get_quantity(format("一回分＄%d で何回分充填しますか？",
 			      price), MIN(creature_ptr->au / price, max_charges));
 
 		/* Do nothing */
-		if (charges < 1) return;
+		if(charges < 1) return;
 
 		/* Get the new price */
 		price *= charges;
@@ -3801,10 +3801,10 @@ static void building_recharge_all(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 				
 		/* skip non magic device */
-		if (object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
+		if(object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
 
 		/* need identified */
-		if (!object_is_known(object_ptr)) total_cost += 50;
+		if(!object_is_known(object_ptr)) total_cost += 50;
 
 		/* Extract the object "level" */
 		lev = object_kind_info[object_ptr->k_idx].level;
@@ -3841,10 +3841,10 @@ static void building_recharge_all(creature_type *creature_ptr)
 		}
 
 		/* if price <= 0 then item have enough charge */
-		if (price > 0) total_cost += price;
+		if(price > 0) total_cost += price;
 	}
 
-	if (!total_cost)
+	if(!total_cost)
 	{
 #ifdef JP
 		msg_print("充填する必要はありません。");
@@ -3857,7 +3857,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	}
 
 	/* Check if the player has enough money */
-	if (creature_ptr->au < total_cost)
+	if(creature_ptr->au < total_cost)
 	{
 #ifdef JP
 		msg_format("すべてのアイテムを再充填するには＄%d 必要です！", total_cost );
@@ -3870,9 +3870,9 @@ static void building_recharge_all(creature_type *creature_ptr)
 	}
 
 #ifdef JP
-	if (!get_check(format("すべてのアイテムを ＄%d で再充填しますか？",  total_cost))) return;
+	if(!get_check(format("すべてのアイテムを ＄%d で再充填しますか？",  total_cost))) return;
 #else
-	if (!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
+	if(!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
 #endif
 
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -3881,10 +3881,10 @@ static void building_recharge_all(creature_type *creature_ptr)
 		k_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* skip non magic device */
-		if (object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
+		if(object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
 
 		/* Identify it */
-		if (!object_is_known(object_ptr))
+		if(!object_is_known(object_ptr))
 		{
 			identify_item(creature_ptr, object_ptr);
 
@@ -3899,12 +3899,12 @@ static void building_recharge_all(creature_type *creature_ptr)
 			object_ptr->timeout = 0;
 			break;
 		case TV_STAFF:
-			if (object_ptr->pval < k_ptr->pval) object_ptr->pval = k_ptr->pval;
+			if(object_ptr->pval < k_ptr->pval) object_ptr->pval = k_ptr->pval;
 			/* We no longer think the item is empty */
 			object_ptr->ident &= ~(IDENT_EMPTY);
 			break;
 		case TV_WAND:
-			if (object_ptr->pval < object_ptr->number * k_ptr->pval)
+			if(object_ptr->pval < object_ptr->number * k_ptr->pval)
 				object_ptr->pval = object_ptr->number * k_ptr->pval;
 			/* We no longer think the item is empty */
 			object_ptr->ident &= ~(IDENT_EMPTY);
@@ -3941,7 +3941,7 @@ bool tele_town(creature_type *creature_ptr)
 	int num = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (floor_ptr->floor_level)
+	if(floor_ptr->floor_level)
 	{
 #ifdef JP
 		msg_print("この魔法は地上でしか使えない！");
@@ -3951,7 +3951,7 @@ bool tele_town(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if (floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
+	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
 #ifdef JP
 		msg_print("この魔法は外でしか使えない！");
@@ -3968,14 +3968,14 @@ bool tele_town(creature_type *creature_ptr)
 	{
 		char buf[80];
 
-		if ((i == NO_TOWN) || (i == floor_ptr->town_num) || !(creature_ptr->visit & (1L << (i-1)))) continue;
+		if((i == NO_TOWN) || (i == floor_ptr->town_num) || !(creature_ptr->visit & (1L << (i-1)))) continue;
 
 		sprintf(buf,"%c) %-20s", I2A(i-1), town[i].name);
 		prt(buf, 5+i, 5);
 		num++;
 	}
 
-	if (!num)
+	if(!num)
 	{
 #ifdef JP
 		msg_print("まだ行けるところがない。");
@@ -3997,13 +3997,13 @@ bool tele_town(creature_type *creature_ptr)
 	{
 		i = inkey();
 
-		if (i == ESCAPE)
+		if(i == ESCAPE)
 		{
 			screen_load();
 			return FALSE;
 		}
-		else if ((i < 'a') || (i > ('a'+max_towns-2))) continue;
-		else if (((i-'a'+1) == floor_ptr->town_num) || ((i-'a'+1) == NO_TOWN) || !(creature_ptr->visit & (1L << (i-'a')))) continue;
+		else if((i < 'a') || (i > ('a'+max_towns-2))) continue;
+		else if(((i-'a'+1) == floor_ptr->town_num) || ((i-'a'+1) == NO_TOWN) || !(creature_ptr->visit & (1L << (i-'a')))) continue;
 		break;
 	}
 
@@ -4061,9 +4061,9 @@ static bool research_creature(creature_type *creature_ptr)
 
 	/* Get a character, or abort */
 #ifdef JP
-if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
+if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前):", &sym, FALSE)) 
 #else
-	if (!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
+	if(!get_com("Enter character to be identified(^A:All,^U:Uniqs,^N:Non uniqs,^M:Name): ", &sym, FALSE))
 #endif
 
 	{
@@ -4076,11 +4076,11 @@ if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前
 	/* Find that character info, and describe it */
 	for (i = 0; ident_info[i]; ++i)
 	{
-		if (sym == ident_info[i][0]) break;
+		if(sym == ident_info[i][0]) break;
 	}
 
 		/* XTRA HACK WHATSEARCH */
-	if (sym == KTRL('A'))
+	if(sym == KTRL('A'))
 	{
 		all = TRUE;
 #ifdef JP
@@ -4089,7 +4089,7 @@ if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前
 		strcpy(buf, "Full creature list.");
 #endif
 	}
-	else if (sym == KTRL('U'))
+	else if(sym == KTRL('U'))
 	{
 		all = uniq = TRUE;
 #ifdef JP
@@ -4098,7 +4098,7 @@ if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前
 		strcpy(buf, "Unique creature list.");
 #endif
 	}
-	else if (sym == KTRL('N'))
+	else if(sym == KTRL('N'))
 	{
 		all = norm = TRUE;
 #ifdef JP
@@ -4107,13 +4107,13 @@ if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前
 		strcpy(buf, "Non-unique creature list.");
 #endif
 	}
-	else if (sym == KTRL('M'))
+	else if(sym == KTRL('M'))
 	{
 		all = TRUE;
 #ifdef JP
-		if (!get_string("名前(英語の場合小文字で可)",temp, 70))
+		if(!get_string("名前(英語の場合小文字で可)",temp, 70))
 #else
-		if (!get_string("Enter name:",temp, 70))
+		if(!get_string("Enter name:",temp, 70))
 #endif
 		{
 			temp[0]=0;
@@ -4129,7 +4129,7 @@ if (!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前
 		sprintf(buf, "Creatures with a name \"%s\"",temp);
 #endif
 	}
-	else if (ident_info[i])
+	else if(ident_info[i])
 	{
 		sprintf(buf, "%c - %s.", sym, ident_info[i] + 2);
 	}
@@ -4156,17 +4156,17 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 		species_type *r_ptr = &species_info[i];
 
 		/* Empty creature */
-		if (!r_ptr->name) continue;
+		if(!r_ptr->name) continue;
 
 		/* XTRA HACK WHATSEARCH */
 		/* Require non-unique creatures if needed */
-		if (norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require unique creatures if needed */
-		if (uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
 
 		/* 名前検索 */
-		if (temp[0])
+		if(temp[0])
 		{
 			int xx;
 			char temp2[80];
@@ -4174,13 +4174,13 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 			for (xx = 0; temp[xx] && xx < 80; xx++)
 			{
 #ifdef JP
-				if (iskanji(temp[xx]))
+				if(iskanji(temp[xx]))
 				{
 					xx++;
 					continue;
 				}
 #endif
-				if (isupper(temp[xx])) temp[xx] = tolower(temp[xx]);
+				if(isupper(temp[xx])) temp[xx] = tolower(temp[xx]);
 			}
   
 #ifdef JP
@@ -4189,20 +4189,20 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 			strcpy(temp2, species_name + r_ptr->name);
 #endif
 			for (xx = 0; temp2[xx] && xx < 80; xx++)
-				if (isupper(temp2[xx])) temp2[xx] = tolower(temp2[xx]);
+				if(isupper(temp2[xx])) temp2[xx] = tolower(temp2[xx]);
 
 #ifdef JP
-			if (my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp))
+			if(my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp))
 #else
-			if (my_strstr(temp2, temp))
+			if(my_strstr(temp2, temp))
 #endif
 				who[n++] = i;
 		}
-		else if (all || (r_ptr->d_char == sym)) who[n++] = i;
+		else if(all || (r_ptr->d_char == sym)) who[n++] = i;
 	}
 
 	/* Nothing to recall */
-	if (!n)
+	if(!n)
 	{
 		/* Free the "who" array */
 		C_KILL(who, max_species_idx, u16b);
@@ -4218,7 +4218,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 	query = 'y';
 
 	/* Sort if needed */
-	if (why)
+	if(why)
 	{
 		/* Sort the array */
 		ang_sort(who, &why, n, ang_sort_comp_hook, ang_sort_swap_hook);
@@ -4227,7 +4227,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 
 	/* Start at the end */
 	/* XTRA HACK REMEMBEspecies_idx */
-	if (old_sym == sym && old_i < n) i = old_i;
+	if(old_sym == sym && old_i < n) i = old_i;
 	else i = n - 1;
 
 	notpicked = TRUE;
@@ -4253,7 +4253,7 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 		while (1)
 		{
 			/* Recall */
-			if (recall)
+			if(recall)
 			{
 				/*** Recall on screen ***/
 
@@ -4279,32 +4279,32 @@ Term_addstr(-1, TERM_WHITE, " ['r'思い出, ' 'で続行, ESC]");
 			query = inkey();
 
 			/* Normal commands */
-			if (query != 'r') break;
+			if(query != 'r') break;
 
 			/* Toggle recall */
 			recall = !recall;
 		}
 
 		/* Stop scanning */
-		if (query == ESCAPE) break;
+		if(query == ESCAPE) break;
 
 		/* Move to "prev" creature */
-		if (query == '-')
+		if(query == '-')
 		{
-			if (++i == n)
+			if(++i == n)
 			{
 				i = 0;
-				if (!expand_list) break;
+				if(!expand_list) break;
 			}
 		}
 
 		/* Move to "next" creature */
 		else
 		{
-			if (i-- == 0)
+			if(i-- == 0)
 			{
 				i = n - 1;
-				if (!expand_list) break;
+				if(!expand_list) break;
 			}
 		}
 	}
@@ -4337,13 +4337,13 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	msg_flag = FALSE;
 	msg_print(NULL);
 
-	if (is_owner(creature_ptr, bldg))
+	if(is_owner(creature_ptr, bldg))
 		bcost = bldg->member_costs[i];
 	else
 		bcost = bldg->other_costs[i];
 
 	/* action restrictions */
-	if (((bldg->action_restr[i] == 1) && !is_member(creature_ptr, bldg)) ||
+	if(((bldg->action_restr[i] == 1) && !is_member(creature_ptr, bldg)) ||
 	    ((bldg->action_restr[i] == 2) && !is_owner(creature_ptr, bldg)))
 	{
 #ifdef JP
@@ -4355,7 +4355,7 @@ msg_print("それを選択する権利はありません！");
 	}
 
 	/* check gold (HACK - Recharge uses variable costs) */
-	if ((bact != BUILDING_FUNCTION_RECHARGE) &&
+	if((bact != BUILDING_FUNCTION_RECHARGE) &&
 	    (((bldg->member_costs[i] > creature_ptr->au) && is_owner(creature_ptr, bldg)) ||
 	     ((bldg->other_costs[i] > creature_ptr->au) && !is_owner(creature_ptr, bldg))))
 	{
@@ -4437,11 +4437,11 @@ msg_print("お金が足りません！");
 		break;
 	case BUILDING_FUNCTION_IDENTS: /* needs work */
 #ifdef JP
-		if (!get_check("持ち物を全て鑑定してよろしいですか？")) break;
+		if(!get_check("持ち物を全て鑑定してよろしいですか？")) break;
 		identify_pack(creature_ptr);
 		msg_print(" 持ち物全てが鑑定されました。");
 #else
-		if (!get_check("Do you pay for identify all your possession? ")) break;
+		if(!get_check("Do you pay for identify all your possession? ")) break;
 		identify_pack(creature_ptr);
 		msg_print("Your possessions have been identified.");
 #endif
@@ -4464,12 +4464,12 @@ msg_print("お金が足りません！");
 		paid = TRUE;
 		break;
 	case BUILDING_FUNCTION_RESTORE: /* needs work */
-		if (do_res_stat(creature_ptr, STAT_STR)) paid = TRUE;
-		if (do_res_stat(creature_ptr, STAT_INT)) paid = TRUE;
-		if (do_res_stat(creature_ptr, STAT_WIS)) paid = TRUE;
-		if (do_res_stat(creature_ptr, STAT_DEX)) paid = TRUE;
-		if (do_res_stat(creature_ptr, STAT_CON)) paid = TRUE;
-		if (do_res_stat(creature_ptr, STAT_CHA)) paid = TRUE;
+		if(do_res_stat(creature_ptr, STAT_STR)) paid = TRUE;
+		if(do_res_stat(creature_ptr, STAT_INT)) paid = TRUE;
+		if(do_res_stat(creature_ptr, STAT_WIS)) paid = TRUE;
+		if(do_res_stat(creature_ptr, STAT_DEX)) paid = TRUE;
+		if(do_res_stat(creature_ptr, STAT_CON)) paid = TRUE;
+		if(do_res_stat(creature_ptr, STAT_CHA)) paid = TRUE;
 		break;
 	case BUILDING_FUNCTION_ENCHANT_ARROWS:
 		//TODO item_tester_hook = item_tester_hook_ammo;
@@ -4479,7 +4479,7 @@ msg_print("お金が足りません！");
 		enchant_item(creature_ptr, bcost, 1, 1, 0, TV_BOW);
 		break;
 	case BUILDING_FUNCTION_RECALL:
-		if (recall_player(creature_ptr, 1)) paid = TRUE;
+		if(recall_player(creature_ptr, 1)) paid = TRUE;
 		break;
 	case BUILDING_FUNCTION_TELEPORT_LEVEL:
 	{
@@ -4493,12 +4493,12 @@ msg_print("お金が足りません！");
 		select_dungeon = choose_dungeon("teleport", 4, 0);
 #endif
 		show_building(creature_ptr, bldg);
-		if (!select_dungeon) return;
+		if(!select_dungeon) return;
 
 		max_depth = dungeon_info[select_dungeon].maxdepth;
 
 		/* Limit depth in Angband */
-		if (select_dungeon == DUNGEON_ANGBAND)
+		if(select_dungeon == DUNGEON_ANGBAND)
 		{
 			if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
 		}
@@ -4509,12 +4509,12 @@ msg_print("お金が足りません！");
 		amt = get_quantity(format("Teleport to which level of %s? ", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
 #endif
 
-		if (amt > 0)
+		if(amt > 0)
 		{
 			creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 1;
 			creature_ptr->recall_dungeon = select_dungeon;
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
-			if (record_maxdepth)
+			if(record_maxdepth)
 #ifdef JP
 				do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "トランプタワーで");
 #else
@@ -4567,14 +4567,14 @@ msg_print("お金が足りません！");
 		break;
 	}
 
-	if (paid)
+	if(paid)
 	{
 		creature_ptr->au -= bcost;
 	}
 
 
 	/* Winner? */
-	if (quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
+	if(quest[QUEST_AOY].status == QUEST_STATUS_REWARDED)
 	{
 		/* Total winner */
 		creature_ptr->total_winner = TRUE;
@@ -4588,7 +4588,7 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if ((creature_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_trait(creature_ptr, TRAIT_CHAOS_GIFT))
+		if((creature_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_trait(creature_ptr, TRAIT_CHAOS_GIFT))
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
@@ -4633,7 +4633,7 @@ void do_cmd_quest(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	creature_ptr->energy_use = 100;
 
-	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
+	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
 #ifdef JP
 		msg_print("ここにはクエストの入口はない。");
@@ -4647,14 +4647,14 @@ void do_cmd_quest(creature_type *creature_ptr)
 	{
 #ifdef JP
 		msg_print("ここにはクエストへの入口があります。");
-		if (!get_check("クエストに入りますか？")) return;
-		if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
+		if(!get_check("クエストに入りますか？")) return;
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 			msg_print("『とにかく入ってみようぜぇ。』");
-		if (has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
+		if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 			msg_print("『全滅してやるぞ！』");
 #else
 		msg_print("There is an entry of a quest.");
-		if (!get_check("Do you enter? ")) return;
+		if(!get_check("Do you enter? ")) return;
 #endif
 
 		// Player enters a new quest
@@ -4680,7 +4680,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	creature_ptr->energy_use = 100;
 
-	if (!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
+	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{
 #ifdef JP
 		msg_print("ここには建物はない。");
@@ -4698,7 +4698,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	/* Don't re-init the wilderness */
 	creature_ptr->reinit_wilderness = FALSE;
 
-	if ((which == 2) && (arena_number < 0))
+	if((which == 2) && (arena_number < 0))
 	{
 #ifdef JP
 		msg_print("「敗者に用はない。」");
@@ -4707,9 +4707,9 @@ void do_cmd_bldg(creature_type *creature_ptr)
 #endif
 		return;
 	}
-	else if ((which == 2) && floor_ptr->fight_arena_mode)
+	else if((which == 2) && floor_ptr->fight_arena_mode)
 	{
-		if (!arena_settled)
+		if(!arena_settled)
 		{
 #ifdef JP
 			prt("ゲートは閉まっている。クリーチャーがあなたを待っている！", 0, 0);
@@ -4731,7 +4731,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 		return;
 	}
-	else if (floor_ptr->gamble_arena_mode)
+	else if(floor_ptr->gamble_arena_mode)
 	{
 		subject_change_floor = TRUE;
 		floor_ptr->gamble_arena_mode = FALSE;
@@ -4770,7 +4770,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 		command = inkey();
 
-		if (command == ESCAPE)
+		if(command == ESCAPE)
 		{
 			leave_bldg = TRUE;
 			floor_ptr->fight_arena_mode = FALSE;
@@ -4780,9 +4780,9 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 		for (i = 0; i < 8; i++)
 		{
-			if (bldg->letters[i])
+			if(bldg->letters[i])
 			{
-				if (bldg->letters[i] == command)
+				if(bldg->letters[i] == command)
 				{
 					validcmd = TRUE;
 					break;
@@ -4790,7 +4790,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 			}
 		}
 
-		if (validcmd)
+		if(validcmd)
 			bldg_process_player_command(creature_ptr, bldg, i);
 
 		/* Notice stuff */
@@ -4805,7 +4805,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	msg_print(NULL);
 
 	/* Reinit wilderness to activate quests ... */
-	if (creature_ptr->reinit_wilderness)
+	if(creature_ptr->reinit_wilderness)
 	{
 		subject_change_floor = TRUE;
 	}
@@ -4872,19 +4872,19 @@ void quest_discovery(int q_idx)
 	char            name[80];
 
 	/* No quest index */
-	if (!q_idx) return;
+	if(!q_idx) return;
 
 	strcpy(name, (species_name + species_ptr->name));
 
 	msg_print(find_quest[rand_range(0, 4)]);
 	msg_print(NULL);
 
-	if (q_num == 1)
+	if(q_num == 1)
 	{
 		/* Unique */
 
 		/* Hack -- "unique" creatures must be "unique" */
-		if (has_trait_species(species_ptr, TRAIT_UNIQUE) && (0 == species_ptr->max_num))
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE) && (0 == species_ptr->max_num))
 		{
 #ifdef JP
 			msg_print("この階は以前は誰かによって守られていたようだ…。");
@@ -4925,13 +4925,13 @@ int quest_number(floor_type *floor_ptr)
 	int i;
 
 	// Check quests
-	if (floor_ptr->quest) floor_ptr->quest;
+	if(floor_ptr->quest) floor_ptr->quest;
 	
 	for (i = 0; i < max_quests; i++)
 	{
-		if (quest[i].status != QUEST_STATUS_TAKEN) continue;
+		if(quest[i].status != QUEST_STATUS_TAKEN) continue;
 
-		if ((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
+		if((quest[i].type == QUEST_TYPE_KILL_LEVEL) &&
 			!(quest[i].flags & QUEST_FLAG_PRESET) &&
 			(quest[i].level == floor_ptr->floor_level) &&
 		    (quest[i].dungeon == floor_ptr->dun_type))
@@ -4951,11 +4951,11 @@ int random_quest_number(floor_type *floor_ptr)
 {
 	int i;
 
-	if (floor_ptr->dun_type != DUNGEON_DOD) return 0;
+	if(floor_ptr->dun_type != DUNGEON_DOD) return 0;
 
 	for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 	{
-		if ((quest[i].type == QUEST_TYPE_RANDOM) &&
+		if((quest[i].type == QUEST_TYPE_RANDOM) &&
 		    (quest[i].status == QUEST_STATUS_TAKEN) &&
 			(quest[i].level == floor_ptr->floor_level) &&
 		    (quest[i].dungeon == DUNGEON_DOD))

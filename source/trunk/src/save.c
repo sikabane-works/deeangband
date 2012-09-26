@@ -94,66 +94,66 @@ static void wr_object(object_type *object_ptr)
 	u32b flags  = 0x00000000;
 	u32b flags2 = 0x00000000;
 
-	if (object_ptr->pval) flags |= SAVEFLAG_OBJECT_KIND_PVAL;
-	if (object_ptr->discount) flags |= SAVEFLAG_OBJECT_KIND_DISCOUNT;
-	if (object_ptr->number != 1) flags |= SAVEFLAG_OBJECT_KIND_NUMBER;
-	if (object_ptr->volume) flags |= SAVEFLAG_OBJECT_KIND_VOLUME;
-	if (object_ptr->name1) flags |= SAVEFLAG_OBJECT_KIND_NAME1;
-	if (object_ptr->name2) flags |= SAVEFLAG_OBJECT_KIND_NAME2;
-	if (object_ptr->timeout) flags |= SAVEFLAG_OBJECT_KIND_TIMEOUT;
-	if (object_ptr->charge_const) flags2 |= SAVEFLAG_OBJECT_CHARGE_CONST;
-	if (object_ptr->charge_dice) flags2 |= SAVEFLAG_OBJECT_CHARGE_DICE;
-	if (object_ptr->to_hit) flags |= SAVEFLAG_OBJECT_KIND_TO_H;
-	if (object_ptr->to_damage) flags |= SAVEFLAG_OBJECT_KIND_TO_D;
-	if (object_ptr->to_ac) flags |= SAVEFLAG_OBJECT_KIND_TO_A;
-	if (object_ptr->ac) flags |= SAVEFLAG_OBJECT_KIND_AC;
-	if (object_ptr->dd) flags |= SAVEFLAG_OBJECT_KIND_DD;
-	if (object_ptr->ds) flags |= SAVEFLAG_OBJECT_KIND_DS;
-	if (object_ptr->ident) flags |= SAVEFLAG_OBJECT_KIND_IDENT;
-	if (object_ptr->marked) flags |= SAVEFLAG_OBJECT_KIND_MARKED;
-	if (object_ptr->curse_flags[0]) flags |= SAVEFLAG_OBJECT_KIND_CURSE_FLAGS;
-	if (object_ptr->held_m_idx) flags |= SAVEFLAG_OBJECT_KIND_HELD_M_IDX;
-	if (object_ptr->xtra1) flags |= SAVEFLAG_OBJECT_KIND_XTRA1;
-	if (object_ptr->xtra2) flags |= SAVEFLAG_OBJECT_KIND_XTRA2;
-	if (object_ptr->xtra3) flags |= SAVEFLAG_OBJECT_KIND_XTRA3;
-	if (object_ptr->xtra4) flags |= SAVEFLAG_OBJECT_KIND_XTRA4;
-	if (object_ptr->xtra5) flags |= SAVEFLAG_OBJECT_KIND_XTRA5;
-	if (object_ptr->feeling) flags |= SAVEFLAG_OBJECT_KIND_FEELING;
-	if (object_ptr->inscription) flags |= SAVEFLAG_OBJECT_KIND_INSCRIPTION;
-	if (object_ptr->art_name) flags |= SAVEFLAG_OBJECT_KIND_ART_NAME;
-	if (object_ptr->creater_idx) flags |= SAVEFLAG_OBJECT_KIND_CREATER;
-	if (object_ptr->equipped_slot_type) flags |= SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE;
-	if (object_ptr->equipped_slot_num) flags |= SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM;
-	if (object_ptr->to_ev) flags2 |= SAVEFLAG_OBJECT_KIND_TO_E;
-	if (object_ptr->ev) flags2 |= SAVEFLAG_OBJECT_KIND_EV;
-	if (object_ptr->size_upper) flags2 |= SAVEFLAG_OBJECT_KIND_SIZE_UPPER;
-	if (object_ptr->size_lower) flags2 |= SAVEFLAG_OBJECT_KIND_SIZE_LOWER;
-	if (object_ptr->to_size) flags2 |= SAVEFLAG_OBJECT_KIND_TO_SIZE;
-	if (object_ptr->bow_mul) flags2 |= SAVEFLAG_OBJECT_KIND_BOW_MUL;
-	if (object_ptr->bow_mul) flags2 |= SAVEFLAG_OBJECT_KIND_BOW_ENERGY;
+	if(object_ptr->pval) flags |= SAVEFLAG_OBJECT_KIND_PVAL;
+	if(object_ptr->discount) flags |= SAVEFLAG_OBJECT_KIND_DISCOUNT;
+	if(object_ptr->number != 1) flags |= SAVEFLAG_OBJECT_KIND_NUMBER;
+	if(object_ptr->volume) flags |= SAVEFLAG_OBJECT_KIND_VOLUME;
+	if(object_ptr->name1) flags |= SAVEFLAG_OBJECT_KIND_NAME1;
+	if(object_ptr->name2) flags |= SAVEFLAG_OBJECT_KIND_NAME2;
+	if(object_ptr->timeout) flags |= SAVEFLAG_OBJECT_KIND_TIMEOUT;
+	if(object_ptr->charge_const) flags2 |= SAVEFLAG_OBJECT_CHARGE_CONST;
+	if(object_ptr->charge_dice) flags2 |= SAVEFLAG_OBJECT_CHARGE_DICE;
+	if(object_ptr->to_hit) flags |= SAVEFLAG_OBJECT_KIND_TO_H;
+	if(object_ptr->to_damage) flags |= SAVEFLAG_OBJECT_KIND_TO_D;
+	if(object_ptr->to_ac) flags |= SAVEFLAG_OBJECT_KIND_TO_A;
+	if(object_ptr->ac) flags |= SAVEFLAG_OBJECT_KIND_AC;
+	if(object_ptr->dd) flags |= SAVEFLAG_OBJECT_KIND_DD;
+	if(object_ptr->ds) flags |= SAVEFLAG_OBJECT_KIND_DS;
+	if(object_ptr->ident) flags |= SAVEFLAG_OBJECT_KIND_IDENT;
+	if(object_ptr->marked) flags |= SAVEFLAG_OBJECT_KIND_MARKED;
+	if(object_ptr->curse_flags[0]) flags |= SAVEFLAG_OBJECT_KIND_CURSE_FLAGS;
+	if(object_ptr->held_m_idx) flags |= SAVEFLAG_OBJECT_KIND_HELD_M_IDX;
+	if(object_ptr->xtra1) flags |= SAVEFLAG_OBJECT_KIND_XTRA1;
+	if(object_ptr->xtra2) flags |= SAVEFLAG_OBJECT_KIND_XTRA2;
+	if(object_ptr->xtra3) flags |= SAVEFLAG_OBJECT_KIND_XTRA3;
+	if(object_ptr->xtra4) flags |= SAVEFLAG_OBJECT_KIND_XTRA4;
+	if(object_ptr->xtra5) flags |= SAVEFLAG_OBJECT_KIND_XTRA5;
+	if(object_ptr->feeling) flags |= SAVEFLAG_OBJECT_KIND_FEELING;
+	if(object_ptr->inscription) flags |= SAVEFLAG_OBJECT_KIND_INSCRIPTION;
+	if(object_ptr->art_name) flags |= SAVEFLAG_OBJECT_KIND_ART_NAME;
+	if(object_ptr->creater_idx) flags |= SAVEFLAG_OBJECT_KIND_CREATER;
+	if(object_ptr->equipped_slot_type) flags |= SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE;
+	if(object_ptr->equipped_slot_num) flags |= SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM;
+	if(object_ptr->to_ev) flags2 |= SAVEFLAG_OBJECT_KIND_TO_E;
+	if(object_ptr->ev) flags2 |= SAVEFLAG_OBJECT_KIND_EV;
+	if(object_ptr->size_upper) flags2 |= SAVEFLAG_OBJECT_KIND_SIZE_UPPER;
+	if(object_ptr->size_lower) flags2 |= SAVEFLAG_OBJECT_KIND_SIZE_LOWER;
+	if(object_ptr->to_size) flags2 |= SAVEFLAG_OBJECT_KIND_TO_SIZE;
+	if(object_ptr->bow_mul) flags2 |= SAVEFLAG_OBJECT_KIND_BOW_MUL;
+	if(object_ptr->bow_mul) flags2 |= SAVEFLAG_OBJECT_KIND_BOW_ENERGY;
 
-	if (object_ptr->trait_flags[0]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0;
-	if (object_ptr->trait_flags[1]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1;
-	if (object_ptr->trait_flags[2]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2;
-	if (object_ptr->trait_flags[3]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3;
-	if (object_ptr->trait_flags[4]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4;
+	if(object_ptr->trait_flags[0]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0;
+	if(object_ptr->trait_flags[1]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1;
+	if(object_ptr->trait_flags[2]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2;
+	if(object_ptr->trait_flags[3]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3;
+	if(object_ptr->trait_flags[4]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4;
 
-	if (object_ptr->trait_flags[5]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5;
-	if (object_ptr->trait_flags[6]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6;
-	if (object_ptr->trait_flags[7]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7;
-	if (object_ptr->trait_flags[8]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8;
-	if (object_ptr->trait_flags[9]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9;
+	if(object_ptr->trait_flags[5]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5;
+	if(object_ptr->trait_flags[6]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6;
+	if(object_ptr->trait_flags[7]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7;
+	if(object_ptr->trait_flags[8]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8;
+	if(object_ptr->trait_flags[9]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9;
 
-	if (object_ptr->trait_flags[10]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10;
-	if (object_ptr->trait_flags[11]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11;
-	if (object_ptr->trait_flags[12]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12;
-	if (object_ptr->trait_flags[13]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13;
-	if (object_ptr->trait_flags[14]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14;
+	if(object_ptr->trait_flags[10]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10;
+	if(object_ptr->trait_flags[11]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11;
+	if(object_ptr->trait_flags[12]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12;
+	if(object_ptr->trait_flags[13]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13;
+	if(object_ptr->trait_flags[14]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14;
 
-	if (object_ptr->trait_flags[15]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15;
-	if (object_ptr->trait_flags[16]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16;
-	if (object_ptr->trait_flags[17]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17;
-	if (object_ptr->trait_flags[18]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18;
+	if(object_ptr->trait_flags[15]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15;
+	if(object_ptr->trait_flags[16]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16;
+	if(object_ptr->trait_flags[17]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17;
+	if(object_ptr->trait_flags[18]) flags2 |= SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18;
 
 	/*** Item save flags ***/
 	wr_u32b(flags);
@@ -167,84 +167,84 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->fy);
 	wr_byte(object_ptr->fx);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_PVAL) wr_s16b(object_ptr->pval);
+	if(flags & SAVEFLAG_OBJECT_KIND_PVAL) wr_s16b(object_ptr->pval);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) wr_byte(object_ptr->discount);
-	if (flags & SAVEFLAG_OBJECT_KIND_NUMBER) wr_byte(object_ptr->number);
-	if (flags & SAVEFLAG_OBJECT_KIND_VOLUME) wr_s32b(object_ptr->volume);
+	if(flags & SAVEFLAG_OBJECT_KIND_DISCOUNT) wr_byte(object_ptr->discount);
+	if(flags & SAVEFLAG_OBJECT_KIND_NUMBER) wr_byte(object_ptr->number);
+	if(flags & SAVEFLAG_OBJECT_KIND_VOLUME) wr_s32b(object_ptr->volume);
 
 	wr_s16b(object_ptr->weight);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_NAME1) wr_byte(object_ptr->name1);
-	if (flags & SAVEFLAG_OBJECT_KIND_NAME2) wr_u16b(object_ptr->name2);
-	if (flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) wr_s32b(object_ptr->timeout);
+	if(flags & SAVEFLAG_OBJECT_KIND_NAME1) wr_byte(object_ptr->name1);
+	if(flags & SAVEFLAG_OBJECT_KIND_NAME2) wr_u16b(object_ptr->name2);
+	if(flags & SAVEFLAG_OBJECT_KIND_TIMEOUT) wr_s32b(object_ptr->timeout);
 
-	if (flags2 & SAVEFLAG_OBJECT_CHARGE_CONST) wr_s32b(object_ptr->charge_const);
-	if (flags2 & SAVEFLAG_OBJECT_CHARGE_DICE) wr_s32b(object_ptr->charge_dice);
+	if(flags2 & SAVEFLAG_OBJECT_CHARGE_CONST) wr_s32b(object_ptr->charge_const);
+	if(flags2 & SAVEFLAG_OBJECT_CHARGE_DICE) wr_s32b(object_ptr->charge_dice);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_H) wr_s16b(object_ptr->to_hit);
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_D) wr_s16b(object_ptr->to_damage);
-	if (flags & SAVEFLAG_OBJECT_KIND_TO_A) wr_s16b(object_ptr->to_ac);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_E) wr_s16b(object_ptr->to_ev);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_MUL) wr_s16b(object_ptr->bow_mul);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_BOW_ENERGY) wr_s16b(object_ptr->bow_energy);
+	if(flags & SAVEFLAG_OBJECT_KIND_TO_H) wr_s16b(object_ptr->to_hit);
+	if(flags & SAVEFLAG_OBJECT_KIND_TO_D) wr_s16b(object_ptr->to_damage);
+	if(flags & SAVEFLAG_OBJECT_KIND_TO_A) wr_s16b(object_ptr->to_ac);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TO_E) wr_s16b(object_ptr->to_ev);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_BOW_MUL) wr_s16b(object_ptr->bow_mul);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_BOW_ENERGY) wr_s16b(object_ptr->bow_energy);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_AC) wr_s16b(object_ptr->ac);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_EV) wr_s16b(object_ptr->ev);
-	if (flags & SAVEFLAG_OBJECT_KIND_DD) wr_byte(object_ptr->dd);
-	if (flags & SAVEFLAG_OBJECT_KIND_DS) wr_byte(object_ptr->ds);
+	if(flags & SAVEFLAG_OBJECT_KIND_AC) wr_s16b(object_ptr->ac);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_EV) wr_s16b(object_ptr->ev);
+	if(flags & SAVEFLAG_OBJECT_KIND_DD) wr_byte(object_ptr->dd);
+	if(flags & SAVEFLAG_OBJECT_KIND_DS) wr_byte(object_ptr->ds);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_IDENT) wr_byte(object_ptr->ident);
+	if(flags & SAVEFLAG_OBJECT_KIND_IDENT) wr_byte(object_ptr->ident);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_MARKED) wr_byte(object_ptr->marked);
+	if(flags & SAVEFLAG_OBJECT_KIND_MARKED) wr_byte(object_ptr->marked);
 
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) wr_u32b(object_ptr->trait_flags[0]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) wr_u32b(object_ptr->trait_flags[1]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) wr_u32b(object_ptr->trait_flags[2]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) wr_u32b(object_ptr->trait_flags[3]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) wr_u32b(object_ptr->trait_flags[4]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) wr_u32b(object_ptr->trait_flags[5]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) wr_u32b(object_ptr->trait_flags[6]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) wr_u32b(object_ptr->trait_flags[7]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) wr_u32b(object_ptr->trait_flags[8]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) wr_u32b(object_ptr->trait_flags[9]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS0) wr_u32b(object_ptr->trait_flags[0]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS1) wr_u32b(object_ptr->trait_flags[1]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS2) wr_u32b(object_ptr->trait_flags[2]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS3) wr_u32b(object_ptr->trait_flags[3]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS4) wr_u32b(object_ptr->trait_flags[4]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS5) wr_u32b(object_ptr->trait_flags[5]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS6) wr_u32b(object_ptr->trait_flags[6]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS7) wr_u32b(object_ptr->trait_flags[7]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS8) wr_u32b(object_ptr->trait_flags[8]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS9) wr_u32b(object_ptr->trait_flags[9]);
 
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) wr_u32b(object_ptr->trait_flags[10]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) wr_u32b(object_ptr->trait_flags[11]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) wr_u32b(object_ptr->trait_flags[12]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) wr_u32b(object_ptr->trait_flags[13]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) wr_u32b(object_ptr->trait_flags[14]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) wr_u32b(object_ptr->trait_flags[15]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) wr_u32b(object_ptr->trait_flags[16]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) wr_u32b(object_ptr->trait_flags[17]);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) wr_u32b(object_ptr->trait_flags[18]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS10) wr_u32b(object_ptr->trait_flags[10]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS11) wr_u32b(object_ptr->trait_flags[11]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS12) wr_u32b(object_ptr->trait_flags[12]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS13) wr_u32b(object_ptr->trait_flags[13]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS14) wr_u32b(object_ptr->trait_flags[14]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS15) wr_u32b(object_ptr->trait_flags[15]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS16) wr_u32b(object_ptr->trait_flags[16]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS17) wr_u32b(object_ptr->trait_flags[17]);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TRAIT_FLAGS18) wr_u32b(object_ptr->trait_flags[18]);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) wr_u32b(object_ptr->curse_flags[0]);
+	if(flags & SAVEFLAG_OBJECT_KIND_CURSE_FLAGS) wr_u32b(object_ptr->curse_flags[0]);
 
 	/* Held by creature index */
-	if (flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) wr_s16b(object_ptr->held_m_idx);
+	if(flags & SAVEFLAG_OBJECT_KIND_HELD_M_IDX) wr_s16b(object_ptr->held_m_idx);
 
 	/* Extra information */
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA1) wr_byte(object_ptr->xtra1);
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA2) wr_byte(object_ptr->xtra2);
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA3) wr_byte(object_ptr->xtra3);
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA4) wr_s16b(object_ptr->xtra4);
-	if (flags & SAVEFLAG_OBJECT_KIND_XTRA5) wr_s16b(object_ptr->xtra5);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA1) wr_byte(object_ptr->xtra1);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA2) wr_byte(object_ptr->xtra2);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA3) wr_byte(object_ptr->xtra3);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA4) wr_s16b(object_ptr->xtra4);
+	if(flags & SAVEFLAG_OBJECT_KIND_XTRA5) wr_s16b(object_ptr->xtra5);
 
 	/* Feelings */
-	if (flags & SAVEFLAG_OBJECT_KIND_FEELING) wr_byte(object_ptr->feeling);
+	if(flags & SAVEFLAG_OBJECT_KIND_FEELING) wr_byte(object_ptr->feeling);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_INSCRIPTION) wr_string(quark_str(object_ptr->inscription));
-	if (flags & SAVEFLAG_OBJECT_KIND_ART_NAME) wr_string(quark_str(object_ptr->art_name));
+	if(flags & SAVEFLAG_OBJECT_KIND_INSCRIPTION) wr_string(quark_str(object_ptr->inscription));
+	if(flags & SAVEFLAG_OBJECT_KIND_ART_NAME) wr_string(quark_str(object_ptr->art_name));
 
-	if (flags & SAVEFLAG_OBJECT_KIND_CREATER) wr_s16b(object_ptr->creater_idx);
+	if(flags & SAVEFLAG_OBJECT_KIND_CREATER) wr_s16b(object_ptr->creater_idx);
 
-	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) wr_byte(object_ptr->equipped_slot_type);
-	if (flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) wr_byte(object_ptr->equipped_slot_num);
+	if(flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_TYPE) wr_byte(object_ptr->equipped_slot_type);
+	if(flags & SAVEFLAG_OBJECT_KIND_EQUIPPED_SLOT_NUM) wr_byte(object_ptr->equipped_slot_num);
 
-	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) wr_s16b(object_ptr->size_upper);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) wr_s16b(object_ptr->size_lower);
-	if (flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) wr_s16b(object_ptr->to_size);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_SIZE_UPPER) wr_s16b(object_ptr->size_upper);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_SIZE_LOWER) wr_s16b(object_ptr->size_lower);
+	if(flags2 & SAVEFLAG_OBJECT_KIND_TO_SIZE) wr_s16b(object_ptr->to_size);
 }
 
 
@@ -257,8 +257,8 @@ static void wr_xtra(int k_idx)
 
 	object_kind *k_ptr = &object_kind_info[k_idx];
 
-	if (k_ptr->aware) tmp8u |= 0x01;
-	if (k_ptr->tried) tmp8u |= 0x02;
+	if(k_ptr->aware) tmp8u |= 0x01;
+	if(k_ptr->tried) tmp8u |= 0x02;
 
 	wr_byte(tmp8u);
 }
@@ -368,16 +368,16 @@ static void wr_options(void)
 
 	c = 0;
 
-	if (wizard) c |= 0x0002;
-	if (unique_play) c |= 0x0004;
+	if(wizard) c |= 0x0002;
+	if(unique_play) c |= 0x0004;
 
-	if (cheat_peek) c |= 0x0100;
-	if (cheat_hear) c |= 0x0200;
-	if (cheat_room) c |= 0x0400;
-	if (cheat_xtra) c |= 0x0800;
-	if (cheat_know) c |= 0x1000;
-	if (cheat_live) c |= 0x2000;
-	if (cheat_save) c |= 0x4000;
+	if(cheat_peek) c |= 0x0100;
+	if(cheat_hear) c |= 0x0200;
+	if(cheat_room) c |= 0x0400;
+	if(cheat_xtra) c |= 0x0800;
+	if(cheat_know) c |= 0x1000;
+	if(cheat_live) c |= 0x2000;
+	if(cheat_save) c |= 0x4000;
 
 	wr_u16b(c);
 
@@ -395,10 +395,10 @@ static void wr_options(void)
 		int ob = option_info[i].o_bit;
 
 		/* Process real entries */
-		if (option_info[i].o_var)
+		if(option_info[i].o_var)
 		{
 			/* Set */
-			if (*option_info[i].o_var)
+			if(*option_info[i].o_var)
 			{
 				/* Set */
 				option_flag[os] |= (1L << ob);
@@ -535,7 +535,7 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)	// Write the inventory
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
-		if (!object_ptr->k_idx) continue;	// Skip non-objects
+		if(!object_ptr->k_idx) continue;	// Skip non-objects
 		wr_u16b((u16b)i);	// Dump index
 		wr_object(object_ptr);	// Dump object
 	}
@@ -698,7 +698,7 @@ static void wr_extra(void)
 	byte tmp8u;
 
 	wr_creature(&player_prev);
-	if (noscore) quick_ok = FALSE;
+	if(noscore) quick_ok = FALSE;
 	wr_byte((byte) quick_ok);
 
 	for (i = 0; i < MAX_BOUNTY; i++)
@@ -863,7 +863,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 			for (i = 0; i < num_temp; i++)
 			{
-				if (template[i].info == c_ptr->info &&
+				if(template[i].info == c_ptr->info &&
 				    template[i].feat == c_ptr->feat &&
 				    template[i].mimic == c_ptr->mimic &&
 				    template[i].special == c_ptr->special)
@@ -875,10 +875,10 @@ static void wr_floor(floor_type *floor_ptr)
 			}
 
 			/* Are there same one? */
-			if (i < num_temp) continue;
+			if(i < num_temp) continue;
 
 			/* If the max_num_temp is too small, increase it. */
-			if (num_temp >= max_num_temp)
+			if(num_temp >= max_num_temp)
 			{
 				cave_template_type *old_template = template;
 
@@ -937,7 +937,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 			for (i = 0; i < num_temp; i++)
 			{
-				if (template[i].info == c_ptr->info &&
+				if(template[i].info == c_ptr->info &&
 				    template[i].feat == c_ptr->feat &&
 				    template[i].mimic == c_ptr->mimic &&
 				    template[i].special == c_ptr->special)
@@ -948,7 +948,7 @@ static void wr_floor(floor_type *floor_ptr)
 			tmp16u = i;
 
 			/* If the run is broken, or too full, flush it */
-			if ((tmp16u != prev_u16b) || (count == MAX_UCHAR))
+			if((tmp16u != prev_u16b) || (count == MAX_UCHAR))
 			{
 				wr_byte((byte)count);
 
@@ -973,7 +973,7 @@ static void wr_floor(floor_type *floor_ptr)
 	}
 
 	/* Flush the data (if any) */
-	if (count)
+	if(count)
 	{
 		wr_byte((byte)count);
 
@@ -1118,7 +1118,7 @@ static bool wr_savefile_new(void)
 
 	// Dump the number of "messages"
 	tmp16u = message_num();
-	if (compress_savefile && (tmp16u > 40)) tmp16u = 40;
+	if(compress_savefile && (tmp16u > 40)) tmp16u = 40;
 	wr_u16b(tmp16u);
 
 	
@@ -1165,7 +1165,7 @@ static bool wr_savefile_new(void)
 		wr_byte(quest[i].complev);
 
 		/* Save quest status if quest is running */
-		if (quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_COMPLETED || !is_fixed_quest_idx(i))
+		if(quest[i].status == QUEST_STATUS_TAKEN || quest[i].status == QUEST_STATUS_COMPLETED || !is_fixed_quest_idx(i))
 		{
 			wr_s16b(quest[i].cur_num);
 			wr_s16b(quest[i].max_num);
@@ -1223,7 +1223,7 @@ static bool wr_savefile_new(void)
 			wr_store(&st_list[i]);
 
 	/* Write screen dump for sending score */
-	if (screen_dump && (wait_report_score || !gameover))
+	if(screen_dump && (wait_report_score || !gameover))
 	{
 		wr_string(screen_dump);
 	}
@@ -1232,11 +1232,11 @@ static bool wr_savefile_new(void)
 		wr_string("");
 	}
 
-	if (!gameover)	if (!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
+	if(!gameover)	if(!wr_floors(player_ptr)) return FALSE;	// Dump the dungeon
 
 	wr_u32b(v_stamp);	// Write the "value check-sum"
 	wr_u32b(x_stamp);	// Write the "encoded checksum"
-	if (ferror(fff) || (fflush(fff) == EOF)) return FALSE;	// Error in save
+	if(ferror(fff) || (fflush(fff) == EOF)) return FALSE;	// Error in save
 
 	/*** Dump the creatures ***/
 
@@ -1279,7 +1279,7 @@ static bool save_player_aux(char *name)
 	safe_setuid_drop();
 
 	/* File is okay */
-	if (fd >= 0)
+	if(fd >= 0)
 	{
 		/* Close the "fd" */
 		(void)fd_close(fd);
@@ -1294,20 +1294,20 @@ static bool save_player_aux(char *name)
 		safe_setuid_drop();
 
 		/* Successful open */
-		if (fff)
+		if(fff)
 		{
 			/* Write the savefile */
-			if (wr_savefile_new()) ok = TRUE;
+			if(wr_savefile_new()) ok = TRUE;
 
 			/* Attempt to close it */
-			if (my_fclose(fff)) ok = FALSE;
+			if(my_fclose(fff)) ok = FALSE;
 		}
 
 		/* Grab permissions */
 		safe_setuid_grab();
 
 		/* Remove "broken" files */
-		if (!ok) (void)fd_kill(name);
+		if(!ok) (void)fd_kill(name);
 
 		/* Drop permissions */
 		safe_setuid_drop();
@@ -1315,7 +1315,7 @@ static bool save_player_aux(char *name)
 
 
 	/* Failure */
-	if (!ok) return (FALSE);
+	if(!ok) return (FALSE);
 
 	counts_write(0, playtime);
 
@@ -1365,7 +1365,7 @@ bool save_player(void)
 	update_playtime();
 
 	/* Attempt to save the player */
-	if (save_player_aux(safe))
+	if(save_player_aux(safe))
 	{
 		char temp[1024];
 
@@ -1476,14 +1476,14 @@ int load_player(void)
 	gameover = FALSE;
 
 	/* Allow empty savefile name */
-	if (!savefile[0]) return 0;
+	if(!savefile[0]) return 0;
 
 #if !defined(MACINTOSH) && !defined(WINDOWS) && !defined(VM)
 
 	/* XXX XXX XXX Fix this */
 
 	/* Verify the existance of the savefile */
-	if (access(savefile, 0) < 0)
+	if(access(savefile, 0) < 0)
 	{
 		/* Give a message */
 #ifdef JP
@@ -1504,7 +1504,7 @@ int load_player(void)
 #ifdef VERIFY_SAVEFILE
 
 	/* Verify savefile usage */
-	if (!err)
+	if(!err)
 	{
 		FILE *fkk;
 
@@ -1518,7 +1518,7 @@ int load_player(void)
 		fkk = my_fopen(temp, "r");
 
 		/* Oops, lock exists */
-		if (fkk)
+		if(fkk)
 		{
 			/* Close the file */
 			my_fclose(fkk);
@@ -1550,25 +1550,25 @@ int load_player(void)
 
 
 	/* Okay */
-	if (!err)
+	if(!err)
 	{
 		/* Open the savefile */
 		fd = fd_open(savefile, O_RDONLY);
 
 		/* No file */
-		if (fd < 0) err = -1;
+		if(fd < 0) err = -1;
 
 		/* Message (below) */
 #ifdef JP
-		if (err) what = "セーブファイルを開けません。";
+		if(err) what = "セーブファイルを開けません。";
 #else
-		if (err) what = "Cannot open savefile";
+		if(err) what = "Cannot open savefile";
 #endif
 
 	}
 
 	/* Process file */
-	if (!err)
+	if(!err)
 	{
 
 #ifdef VERIFY_TIMESTAMP
@@ -1577,13 +1577,13 @@ int load_player(void)
 #endif
 
 		/* Read the first four bytes */
-		if (fd_read(fd, (char*)(vvv), 4)) err = -1;
+		if(fd_read(fd, (char*)(vvv), 4)) err = -1;
 
 		/* What */
 #ifdef JP
-		if (err) what = "セーブファイルを読めません。";
+		if(err) what = "セーブファイルを読めません。";
 #else
-		if (err) what = "Cannot read savefile";
+		if(err) what = "Cannot read savefile";
 #endif
 
 
@@ -1592,7 +1592,7 @@ int load_player(void)
 	}
 
 	/* Process file */
-	if (!err)
+	if(!err)
 	{
 
 		/* Extract version */
@@ -1610,34 +1610,34 @@ int load_player(void)
 
 		/* Message (below) */
 #ifdef JP
-		if (err) what = "セーブファイルを解析出来ません。";
+		if(err) what = "セーブファイルを解析出来ません。";
 #else
-		if (err) what = "Cannot parse savefile";
+		if(err) what = "Cannot parse savefile";
 #endif
 
 	}
 
 	/* Paranoia */
-	if (!err)
+	if(!err)
 	{
 		/* Invalid turn */
-		if (!turn) err = -1;
+		if(!turn) err = -1;
 
 		/* Message (below) */
 #ifdef JP
-		if (err) what = "セーブファイルが壊れています";
+		if(err) what = "セーブファイルが壊れています";
 #else
-		if (err) what = "Broken savefile";
+		if(err) what = "Broken savefile";
 #endif
 
 	}
 
 #ifdef VERIFY_TIMESTAMP
 	/* Verify timestamp */
-	if (!err && !arg_wizard)
+	if(!err && !arg_wizard)
 	{
 		/* Hack -- Verify the timestamp */
-		if (sf_when > (statbuf.st_ctime + 100) ||
+		if(sf_when > (statbuf.st_ctime + 100) ||
 		    sf_when < (statbuf.st_ctime - 100))
 		{
 			/* Message */
@@ -1655,10 +1655,10 @@ int load_player(void)
 #endif
 
 	// Okay
-	if (!err)
+	if(!err)
 	{
 		// Give a conversion warning
-		if ((VER_MAJOR != z_major) || (VER_MINOR != z_minor) || (VER_PATCH != z_patch))
+		if((VER_MAJOR != z_major) || (VER_MINOR != z_minor) || (VER_PATCH != z_patch))
 		{
 #ifdef JP
 			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", z_major , z_minor, z_patch);
@@ -1669,10 +1669,10 @@ int load_player(void)
 		}
 
 		/* Player is dead */
-		if (gameover)
+		if(gameover)
 		{
 			/* Cheat death */
-			if (arg_wizard)
+			if(arg_wizard)
 			{
 				/* A character was loaded */
 				character_loaded = TRUE;
@@ -1695,9 +1695,9 @@ int load_player(void)
 		character_loaded = TRUE;
 		{
 			u32b tmp = counts_read(2);
-			if (tmp > game_load_count)
+			if(tmp > game_load_count)
 				game_load_count = tmp;
-			if (counts_read(0) > playtime || counts_read(1) == playtime)
+			if(counts_read(0) > playtime || counts_read(1) == playtime)
 				counts_write(2, ++game_load_count);
 			counts_write(1, playtime);
 		}
@@ -1710,7 +1710,7 @@ int load_player(void)
 #ifdef VERIFY_SAVEFILE
 
 	/* Verify savefile usage */
-	if (TRUE)
+	if(TRUE)
 	{
 		char temp[1024];
 

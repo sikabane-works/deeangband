@@ -29,13 +29,13 @@ static FILE *fff = NULL;
 static cptr attr_to_text(species_type *species_ptr)
 {
 #ifdef JP000
-	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "透明な";
-	if (has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "万色の";
-	if (has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "準ランダムな";
+	if(has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "透明な";
+	if(has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "万色の";
+	if(has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "準ランダムな";
 #else
-	if (has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "Clear";
-	if (has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "Multi";
-	if (has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "S.Rand";
+	if(has_trait_species(species_ptr, TRAIT_ATTR_CLEAR))	return "Clear";
+	if(has_trait_species(species_ptr, TRAIT_ATTR_MULTI))	return "Multi";
+	if(has_trait_species(species_ptr, TRAIT_ATTR_SEMIRAND))	return "S.Rand";
 #endif
 
 	switch (species_ptr->d_attr)
@@ -292,7 +292,7 @@ static void kind_info(char *buf, char *dam, char *wgt, int *lev, s32b *val, int 
 
 
 	/* Hack */
-	if (!buf || !dam || !wgt) return;
+	if(!buf || !dam || !wgt) return;
 
 
 	/* Description (too brief) */
@@ -377,7 +377,7 @@ static void spoil_obj_desc(cptr fname)
 	fff = my_fopen(buf, "w");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
 		return;
@@ -399,9 +399,9 @@ static void spoil_obj_desc(cptr fname)
 	for (i = 0; TRUE; i++)
 	{
 		/* Write out the group title */
-		if (group_item[i].name)
+		if(group_item[i].name)
 		{
-			if (n)
+			if(n)
 			{
 				/* Hack -- bubble-sort by cost and then level */
 				for (s = 0; s < n - 1; s++)
@@ -420,7 +420,7 @@ static void spoil_obj_desc(cptr fname)
 						kind_info(NULL, NULL, NULL, &e1, &t1, who[i1]);
 						kind_info(NULL, NULL, NULL, &e2, &t2, who[i2]);
 
-						if ((t1 > t2) || ((t1 == t2) && (e1 > e2)))
+						if((t1 > t2) || ((t1 == t2) && (e1 > e2)))
 						{
 							int tmp = who[i1];
 							who[i1] = who[i2];
@@ -450,7 +450,7 @@ static void spoil_obj_desc(cptr fname)
 			}
 
 			/* Notice the end */
-			if (!group_item[i].tval) break;
+			if(!group_item[i].tval) break;
 
 			/* Start a new set */
 			group_start = i;
@@ -462,10 +462,10 @@ static void spoil_obj_desc(cptr fname)
 			object_kind *k_ptr = &object_kind_info[k];
 
 			/* Skip wrong tval's */
-			if (k_ptr->tval != group_item[i].tval) continue;
+			if(k_ptr->tval != group_item[i].tval) continue;
 
 			/* Hack -- Skip instant-artifacts */
-			if (k_ptr->gen_flags & (TRG_INSTA_ART)) continue;
+			if(k_ptr->gen_flags & (TRG_INSTA_ART)) continue;
 
 			/* Save the index */
 			who[n++] = k;
@@ -474,7 +474,7 @@ static void spoil_obj_desc(cptr fname)
 
 
 	/* Check for errors */
-	if (ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff))
 	{
 		msg_print("Cannot close spoiler file.");
 		return;
@@ -1025,7 +1025,7 @@ static cptr *spoiler_flag_aux(const u32b trait_flags[TRAIT_FLAG_MAX],
 
 	for (i = 0; i < n_elmnts; ++i)
 	{
-		if (have_flag(trait_flags, flag_ptr[i].flag))
+		if(have_flag(trait_flags, flag_ptr[i].flag))
 		{
 			*desc_ptr++ = flag_ptr[i].desc;
 		}
@@ -1056,7 +1056,7 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 	cptr *affects_list;
 
 	/* If pval == 0, there is nothing to do. */
-	if (!object_ptr->pval)
+	if(!object_ptr->pval)
 	{
 		/* An "empty" pval description indicates that pval == 0 */
 		pval_ptr->pval_desc[0] = '\0';
@@ -1072,7 +1072,7 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 	sprintf(pval_ptr->pval_desc, "%s%d", POSITIZE(object_ptr->pval), object_ptr->pval);
 
 	/* First, check to see if the pval affects all stats */
-	if (have_flag(flgs, STAT_STR) && have_flag(flgs, STAT_INT) &&
+	if(have_flag(flgs, STAT_STR) && have_flag(flgs, STAT_INT) &&
 	    have_flag(flgs, STAT_WIS) && have_flag(flgs, STAT_DEX) &&
 	    have_flag(flgs, STAT_CON) && have_flag(flgs, STAT_CHA))
 	{
@@ -1084,7 +1084,7 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 	}
 
 	/* Are any stats affected? */
-	else if (have_flag(flgs, STAT_STR) || have_flag(flgs, STAT_INT) ||
+	else if(have_flag(flgs, STAT_STR) || have_flag(flgs, STAT_INT) ||
 		 have_flag(flgs, STAT_WIS) || have_flag(flgs, STAT_DEX) ||
 		 have_flag(flgs, STAT_CON) || have_flag(flgs, STAT_CHA))
 	{
@@ -1170,7 +1170,7 @@ static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 	object_flags(object_ptr, flgs);
 
 	/* Simplify things if an item sustains all stats */
-	if (have_flag(flgs, TRAIT_SUSTAIN_STR) && have_flag(flgs, TRAIT_SUSTAIN_INT) &&
+	if(have_flag(flgs, TRAIT_SUSTAIN_STR) && have_flag(flgs, TRAIT_SUSTAIN_INT) &&
 	    have_flag(flgs, TRAIT_SUSTAIN_WIS) && have_flag(flgs, TRAIT_SUSTAIN_DEX) &&
 	    have_flag(flgs, TRAIT_SUSTAIN_CON) && have_flag(flgs, TRAIT_SUSTAIN_CHR))
 	{
@@ -1182,7 +1182,7 @@ static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 	}
 
 	/* Should we bother? */
-	else if (have_flag(flgs, TRAIT_SUSTAIN_STR) || have_flag(flgs, TRAIT_SUSTAIN_INT) ||
+	else if(have_flag(flgs, TRAIT_SUSTAIN_STR) || have_flag(flgs, TRAIT_SUSTAIN_INT) ||
 		 have_flag(flgs, TRAIT_SUSTAIN_WIS) || have_flag(flgs, TRAIT_SUSTAIN_DEX) ||
 		 have_flag(flgs, TRAIT_SUSTAIN_CON) || have_flag(flgs, TRAIT_SUSTAIN_CHR))
 	{
@@ -1215,7 +1215,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 	/*
 	 * Artifact lights -- large radius light.
 	 */
-	if ((object_ptr->tval == TV_LITE) && object_is_fixed_artifact(object_ptr))
+	if((object_ptr->tval == TV_LITE) && object_is_fixed_artifact(object_ptr))
 	{
 #ifdef JP
 		*misc_list++ = "永久光源(半径3)";
@@ -1227,7 +1227,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 	/*
 	 * Glowing artifacts -- small radius light.
 	 */
-	if (have_flag(flgs, TRAIT_LITE))
+	if(have_flag(flgs, TRAIT_LITE))
 	{
 #ifdef JP
 		*misc_list++ = "永久光源(半径1)";
@@ -1242,9 +1242,9 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 	 * being "lightly cursed".
 	 */
 
-/*	if (object_is_cursed(object_ptr)) */
+/*	if(object_is_cursed(object_ptr)) */
 	{
-		if (have_flag(flgs, TRAIT_TY_CURSE))
+		if(have_flag(flgs, TRAIT_TY_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "太古の怨念";
@@ -1252,7 +1252,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 			*misc_list++ = "Ancient Curse";
 #endif
 		}
-		if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+		if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "神域の呪い";
@@ -1260,7 +1260,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 			*misc_list++ = "Divinely Cursed";
 #endif
 		}
-		else if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+		else if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "強力な呪い";
@@ -1269,7 +1269,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 #endif
 		}
 /*		else */
-		else if (have_flag(object_ptr->trait_flags, TRAIT_CURSED))
+		else if(have_flag(object_ptr->trait_flags, TRAIT_CURSED))
 		{
 #ifdef JP
 			*misc_list++ = "呪い";
@@ -1295,31 +1295,31 @@ static void analyze_addition(object_type *object_ptr, char *addition)
 	strcpy(addition, "");
 
 #ifdef JP
-	if ((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "能力and耐性");
-	else if (a_ptr->gen_flags & TRG_XTRA_POWER)
+	if((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "能力and耐性");
+	else if(a_ptr->gen_flags & TRG_XTRA_POWER)
 	{
 		strcat(addition, "能力");
-		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2でand耐性)");
+		if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2でand耐性)");
 	}
-	else if (a_ptr->gen_flags & TRG_XTRA_H_RES)
+	else if(a_ptr->gen_flags & TRG_XTRA_H_RES)
 	{
 		strcat(addition, "耐性");
-		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2でand能力)");
+		if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2でand能力)");
 	}
-	else if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "能力or耐性");
+	else if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "能力or耐性");
 #else
-	if ((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "Ability and Resistance");
-	else if (a_ptr->gen_flags & TRG_XTRA_POWER)
+	if((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "Ability and Resistance");
+	else if(a_ptr->gen_flags & TRG_XTRA_POWER)
 	{
 		strcat(addition, "Ability");
-		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(plus Resistance about 1/2)");
+		if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(plus Resistance about 1/2)");
 	}
-	else if (a_ptr->gen_flags & TRG_XTRA_H_RES)
+	else if(a_ptr->gen_flags & TRG_XTRA_H_RES)
 	{
 		strcat(addition, "Resistance");
-		if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(plus Ability about 1/2)");
+		if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(plus Ability about 1/2)");
 	}
-	else if (a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "Ability or Resistance");
+	else if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "Ability or Resistance");
 #endif
 }
 
@@ -1421,13 +1421,13 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 	char line[MAX_LINE_LEN+1], buf[80];
 
 	/* Ignore an empty list */
-	if (*list == NULL) return;
+	if(*list == NULL) return;
 
 	/* This function always indents */
 	strcpy(line, INDENT1);
 
 	/* Create header (if one was given) */
-	if (header && (header[0]))
+	if(header && (header[0]))
 	{
 		strcat(line, header);
 		strcat(line, " ");
@@ -1449,7 +1449,7 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 		 * a space and adjust the buffer length
 		 */
 
-		if (list[1])
+		if(list[1])
 		{
 			sprintf(buf + buf_len, "%c ", separator);
 			buf_len += 2;
@@ -1460,7 +1460,7 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 		 * buffer to the line and adjust the line length accordingly.
 		 */
 
-		if (line_len + buf_len <= MAX_LINE_LEN)
+		if(line_len + buf_len <= MAX_LINE_LEN)
 		{
 			strcat(line, buf);
 			line_len += buf_len;
@@ -1473,7 +1473,7 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 			 * Don't print a trailing list separator but do print a trailing
 			 * item separator.
 			 */
-			if (line_len > 1 && line[line_len - 1] == ' '
+			if(line_len > 1 && line[line_len - 1] == ' '
 			    && line[line_len - 2] == LIST_SEP)
 			{
 				/* Ignore space and separator */
@@ -1499,7 +1499,7 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 		}
 
 		/* Advance, with break */
-		if (!*++list) break;
+		if(!*++list) break;
 	}
 
 	/* Write what's left to the spoiler file */
@@ -1519,7 +1519,7 @@ static void spoiler_print_art(obj_desc_list *art_ptr)
 	fprintf(fff, "%s\n", art_ptr->description);
 
 	/* An "empty" pval description indicates that the pval affects nothing */
-	if (pval_ptr->pval_desc[0])
+	if(pval_ptr->pval_desc[0])
 	{
 		/* Mention the effects of pval */
 #ifdef JP
@@ -1547,7 +1547,7 @@ static void spoiler_print_art(obj_desc_list *art_ptr)
 #endif
 	spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
 
-	if (art_ptr->addition[0])
+	if(art_ptr->addition[0])
 	{
 #ifdef JP
 		fprintf(fff, "%s追加: %s\n", INDENT1, art_ptr->addition);
@@ -1557,7 +1557,7 @@ static void spoiler_print_art(obj_desc_list *art_ptr)
 	}
 
 	/* Write out the possible activation at the primary indention level */
-	if (art_ptr->activation)
+	if(art_ptr->activation)
 	{
 #ifdef JP
 		fprintf(fff, "%s発動: %s\n", INDENT1, art_ptr->activation);
@@ -1582,13 +1582,13 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 
 
 	/* Ignore "empty" artifacts */
-	if (!a_ptr->name) return FALSE;
+	if(!a_ptr->name) return FALSE;
 
 	/* Acquire the "kind" index */
 	i = lookup_kind(a_ptr->tval, a_ptr->sval);
 
 	/* Oops */
-	if (!i) return (FALSE);
+	if(!i) return (FALSE);
 
 	/* Create the artifact */
 	object_prep(object_ptr, i, ITEM_FREE_SIZE);
@@ -1640,7 +1640,7 @@ static void spoil_artifact(cptr fname)
 	fff = my_fopen(buf, "w");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
 		return;
@@ -1653,7 +1653,7 @@ static void spoil_artifact(cptr fname)
 	for (i = 0; group_artifact[i].tval; i++)
 	{
 		/* Write out the group title */
-		if (group_artifact[i].name)
+		if(group_artifact[i].name)
 		{
 			spoiler_blanklines(2);
 			spoiler_underline(group_artifact[i].name);
@@ -1666,7 +1666,7 @@ static void spoil_artifact(cptr fname)
 			artifact_type *a_ptr = &artifact_info[j];
 
 			/* We only want objects in the current group */
-			if (a_ptr->tval != group_artifact[i].tval) continue;
+			if(a_ptr->tval != group_artifact[i].tval) continue;
 
 			/* Get local object */
 			quest_ptr = &forge;
@@ -1675,7 +1675,7 @@ static void spoil_artifact(cptr fname)
 			object_wipe(quest_ptr);
 
 			/* Attempt to "forge" the artifact */
-			if (!make_fake_artifact(quest_ptr, j)) continue;
+			if(!make_fake_artifact(quest_ptr, j)) continue;
 
 			/* Analyze the artifact */
 			object_analyze(quest_ptr, &artifact);
@@ -1686,7 +1686,7 @@ static void spoil_artifact(cptr fname)
 	}
 
 	/* Check for errors */
-	if (ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff))
 	{
 		msg_print("Cannot close spoiler file.");
 		return;
@@ -1742,7 +1742,7 @@ static void spoil_species_desc(cptr fname)
 	fff = my_fopen(buf, "w");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
 		return;
@@ -1772,7 +1772,7 @@ static void spoil_species_desc(cptr fname)
 		species_type *species_ptr = &species_info[i];
 
 		/* Use that creature */
-		if (species_ptr->name) who[n++] = i;
+		if(species_ptr->name) who[n++] = i;
 	}
 
 	/* Sort the array by dungeon depth of creatures */
@@ -1787,15 +1787,15 @@ static void spoil_species_desc(cptr fname)
 
 		sprintf(id, "%5d ", who[i]);
 
-		//TODOif (is_shadow_species(species_ptr)) continue;
+		//TODOif(is_shadow_species(species_ptr)) continue;
 		/* Get the "name" */
 		/*
-		else if (has_trait_species(species_ptr, TRAIT_QUESTOR))
+		else if(has_trait_species(species_ptr, TRAIT_QUESTOR))
 		{
 			sprintf(nam, "[Q] %s", name);
 		}
 		*/
-		if (has_trait_species(species_ptr, TRAIT_UNIQUE))
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 		{
 			sprintf(nam, "[U] %s", name);
 		}
@@ -1819,7 +1819,7 @@ static void spoil_species_desc(cptr fname)
 		sprintf(rar, "%d", species_ptr->rarity);
 
 		/* Speed */
-		if (species_ptr->speed >= 0)
+		if(species_ptr->speed >= 0)
 		{
 			sprintf(spd, "+%d", (species_ptr->speed));
 		}
@@ -1895,7 +1895,7 @@ static void spoil_species_desc(cptr fname)
 		//TODO:: EstimateHP
 		estimate_enemy_hp(species_ptr, hpdata);
 		sprintf(hp, "%5d", hpdata[0]);
-		if (species_ptr->dr >= 1)
+		if(species_ptr->dr >= 1)
 		{
 			sprintf(hp_desc, "(%dx%d%+d)", hpdata[1], hpdata[2], hpdata[3]);
 		}
@@ -1911,7 +1911,7 @@ static void spoil_species_desc(cptr fname)
 			tmpht = species_ptr->m_b_ht;
 			tmpwt = species_ptr->m_b_wt;
 		}
-		else if (IS_FEMALE(species_ptr))
+		else if(IS_FEMALE(species_ptr))
 		{
 			tmpht = species_ptr->f_b_ht;
 			tmpwt = species_ptr->f_b_wt;
@@ -2051,7 +2051,7 @@ static void spoil_species_desc(cptr fname)
 	C_KILL(who, max_species_idx, s16b);
 
 	/* Check for errors */
-	if (ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff))
 	{
 		msg_print("Cannot close spoiler file.");
 		return;
@@ -2099,18 +2099,18 @@ static void spoil_out(cptr str)
 	static bool waiting_output = FALSE;
 
 	/* Special handling for "new sequence" */
-	if (!str)
+	if(!str)
 	{
-		if (waiting_output)
+		if(waiting_output)
 		{
 			fputs(roff_waiting_buf, fff);
 			waiting_output = FALSE;
 		}
 
-		if (roff_p != roff_buf) roff_p--;
+		if(roff_p != roff_buf) roff_p--;
 		while (*roff_p == ' ' && roff_p != roff_buf) roff_p--;
 
-		if (roff_p == roff_buf) fprintf(fff, "\n");
+		if(roff_p == roff_buf) fprintf(fff, "\n");
 		else
 		{
 			*(roff_p + 1) = '\0';
@@ -2134,30 +2134,30 @@ static void spoil_out(cptr str)
 		bool wrap = (ch == '\n');
 
 #ifdef JP
-		if (!isprint(ch) && !k_flag && !iskanji_flag) ch = ' ';
+		if(!isprint(ch) && !k_flag && !iskanji_flag) ch = ' ';
 		iskanji_flag = k_flag && !iskanji_flag;
 #else
-		if (!isprint(ch)) ch = ' ';
+		if(!isprint(ch)) ch = ' ';
 #endif
 
-		if (waiting_output)
+		if(waiting_output)
 		{
 			fputs(roff_waiting_buf, fff);
-			if (!wrap) fputc('\n', fff);
+			if(!wrap) fputc('\n', fff);
 			waiting_output = FALSE;
 		}
 
-		if (!wrap)
+		if(!wrap)
 		{
 #ifdef JP
-			if (roff_p >= roff_buf + (k_flag ? 74 : 75)) wrap = TRUE;
-			else if ((ch == ' ') && (roff_p >= roff_buf + (k_flag ? 72 : 73))) wrap = TRUE;
+			if(roff_p >= roff_buf + (k_flag ? 74 : 75)) wrap = TRUE;
+			else if((ch == ' ') && (roff_p >= roff_buf + (k_flag ? 72 : 73))) wrap = TRUE;
 #else
-			if (roff_p >= roff_buf + 75) wrap = TRUE;
-			else if ((ch == ' ') && (roff_p >= roff_buf + 73)) wrap = TRUE;
+			if(roff_p >= roff_buf + 75) wrap = TRUE;
+			else if((ch == ' ') && (roff_p >= roff_buf + 73)) wrap = TRUE;
 #endif
 
-			if (wrap)
+			if(wrap)
 			{
 #ifdef JP
 				bool k_flag_local;
@@ -2169,30 +2169,30 @@ static void spoil_out(cptr str)
 
 				for (; *tail; tail++)
 				{
-					if (*tail == ' ') continue;
+					if(*tail == ' ') continue;
 
 #ifdef JP
 					k_flag_local = iskanji((unsigned char)(*tail));
-					if (isprint(*tail) || k_flag_local || iskanji_flag_local) break;
+					if(isprint(*tail) || k_flag_local || iskanji_flag_local) break;
 					iskanji_flag_local = k_flag_local && !iskanji_flag_local;
 #else
-					if (isprint(*tail)) break;
+					if(isprint(*tail)) break;
 #endif
 				}
 
-				if (!*tail) waiting_output = TRUE;
+				if(!*tail) waiting_output = TRUE;
 			}
 		}
 
 		/* Handle line-wrap */
-		if (wrap)
+		if(wrap)
 		{
 			*roff_p = '\0';
 			r = roff_p;
 #ifdef JP
 			cbak = ' ';
 #endif
-			if (roff_s && (ch != ' '))
+			if(roff_s && (ch != ' '))
 			{
 #ifdef JP
 				cbak = *roff_s;
@@ -2200,34 +2200,34 @@ static void spoil_out(cptr str)
 				*roff_s = '\0';
 				r = roff_s + 1;
 			}
-			if (!waiting_output) fprintf(fff, "%s\n", roff_buf);
+			if(!waiting_output) fprintf(fff, "%s\n", roff_buf);
 			else strcpy(roff_waiting_buf, roff_buf);
 			roff_s = NULL;
 			roff_p = roff_buf;
 #ifdef JP
-			if (cbak != ' ') *roff_p++ = cbak;
+			if(cbak != ' ') *roff_p++ = cbak;
 #endif
 			while (*r) *roff_p++ = *r++;
 		}
 
 		/* Save the char */
-		if ((roff_p > roff_buf) || (ch != ' '))
+		if((roff_p > roff_buf) || (ch != ' '))
 		{
 #ifdef JP
-			if (!k_flag)
+			if(!k_flag)
 			{
-				if ((ch == ' ') || (ch == '(')) roff_s = roff_p;
+				if((ch == ' ') || (ch == '(')) roff_s = roff_p;
 			}
 			else
 			{
-				if (iskanji_flag &&
+				if(iskanji_flag &&
 				    strncmp(str, "。", 2) != 0 &&
 				    strncmp(str, "、", 2) != 0 &&
 				    strncmp(str, "ィ", 2) != 0 &&
 				    strncmp(str, "ー", 2) != 0) roff_s = roff_p;
 			}
 #else
-			if (ch == ' ') roff_s = roff_p;
+			if(ch == ' ') roff_s = roff_p;
 #endif
 
 			*roff_p++ = ch;
@@ -2272,7 +2272,7 @@ static void spoil_species_info(cptr fname)
 	fff = my_fopen(buf, "w");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
 		return;
@@ -2295,7 +2295,7 @@ static void spoil_species_info(cptr fname)
 		species_type *species_ptr = &species_info[i];
 
 		/* Use that creature */
-		if (species_ptr->name) who[n++] = i;
+		if(species_ptr->name) who[n++] = i;
 	}
 
 	/* Sort the array by dungeon depth of creatures */
@@ -2310,8 +2310,8 @@ static void spoil_species_info(cptr fname)
 		species_type *species_ptr = &species_info[who[l]];
 
 		// TODO: Prefix
-		if (has_trait_species(species_ptr, TRAIT_QUESTOR)) spoil_out("[Q] ");
-		if (has_trait_species(species_ptr, TRAIT_UNIQUE)) spoil_out("[U] ");
+		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) spoil_out("[Q] ");
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) spoil_out("[U] ");
 
 		{
 #ifndef JP
@@ -2357,7 +2357,7 @@ static void spoil_species_info(cptr fname)
 		spoil_out(buf);
 
 		/* Speed */
-		if (species_ptr->speed >= 0)
+		if(species_ptr->speed >= 0)
 		{
 			sprintf(buf, "Spd:+%d  ", (species_ptr->speed));
 		}
@@ -2424,7 +2424,7 @@ static void spoil_species_info(cptr fname)
 	C_KILL(who, max_species_idx, s16b);
 
 	/* Check for errors */
-	if (ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff))
 	{
 		msg_print("Cannot close spoiler file.");
 		return;
@@ -2444,12 +2444,12 @@ static void spoil_species_info(cptr fname)
 static bool int_n_cmp(int *a, int *b, int length)
 {
 	/* Null-string comparation is always TRUE */
-	if (!length) return TRUE;
+	if(!length) return TRUE;
 
 	do
 	{
-		if (*a != *(b++)) return FALSE;
-		if (!(*(a++))) break;
+		if(*a != *(b++)) return FALSE;
+		if(!(*(a++))) break;
 	}
 	while (--length);
 
@@ -2469,9 +2469,9 @@ static bool is_partial_tree(int *tree, int *partial_tree)
 
 	while (*tree)
 	{
-		if (*(tree++) == pt_head)
+		if(*(tree++) == pt_head)
 		{
-			if (int_n_cmp(tree, partial_tree, pt_len)) return TRUE;
+			if(int_n_cmp(tree, partial_tree, pt_len)) return TRUE;
 		}
 	}
 
@@ -2495,16 +2495,16 @@ static bool ang_sort_comp_evol_tree(vptr u, vptr v, int a, int b)
 	(void)v;
 
 	/* Used tree first */
-	if (w1 && !w2) return TRUE;
-	if (!w1 && w2) return FALSE;
+	if(w1 && !w2) return TRUE;
+	if(!w1 && w2) return FALSE;
 
 	/* Sort by creature level */
-	if (r1_ptr->level < r2_ptr->level) return TRUE;
-	if (r1_ptr->level > r2_ptr->level) return FALSE;
+	if(r1_ptr->level < r2_ptr->level) return TRUE;
+	if(r1_ptr->level > r2_ptr->level) return FALSE;
 
 	/* Sort by creature experience */
-	if (r1_ptr->exp < r2_ptr->exp) return TRUE;
-	if (r1_ptr->exp > r2_ptr->exp) return FALSE;
+	if(r1_ptr->exp < r2_ptr->exp) return TRUE;
+	if(r1_ptr->exp > r2_ptr->exp) return FALSE;
 
 	/* Compare indexes */
 	return w1 <= w2;
@@ -2549,7 +2549,7 @@ static void spoil_species_evol(cptr fname)
 	fff = my_fopen(buf, "w");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
 	    return;
@@ -2574,7 +2574,7 @@ static void spoil_species_evol(cptr fname)
 		r_ptr = &species_info[i];
 
 		/* No evolution */
-		if (!r_ptr->next_exp) continue;
+		if(!r_ptr->next_exp) continue;
 
 		/* Trace evolution */
 		n = 0;
@@ -2591,18 +2591,18 @@ static void spoil_species_evol(cptr fname)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Not evolution tree */
-		if (!evol_tree[i][0]) continue;
+		if(!evol_tree[i][0]) continue;
 
 		for (j = 1; j < max_species_idx; j++)
 		{
 			/* Same tree */
-			if (i == j) continue;
+			if(i == j) continue;
 
 			/* Not evolution tree */
-			if (!evol_tree[j][0]) continue;
+			if(!evol_tree[j][0]) continue;
 
 			/* Is evolution tree[i] is part of [j]? */
-			if (is_partial_tree(evol_tree[j], evol_tree[i]))
+			if(is_partial_tree(evol_tree[j], evol_tree[i]))
 			{
 				/* Remove this evolution tree */
 				evol_tree[i][0] = 0;
@@ -2622,7 +2622,7 @@ static void spoil_species_evol(cptr fname)
 		species_idx = evol_tree[i][0];
 
 		/* No evolution or removed evolution tree */
-		if (!species_idx) continue;
+		if(!species_idx) continue;
 
 		/* Trace the evolution tree */
 		r_ptr = &species_info[species_idx];
@@ -2656,7 +2656,7 @@ static void spoil_species_evol(cptr fname)
 	C_KILL(evol_tree, max_species_idx, int *);
 
 	/* Check for errors */
-	if (ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff))
 	{
 		msg_print("Cannot close spoiler file.");
 		return;
@@ -2785,7 +2785,7 @@ static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_pt
 	fprintf(fff, "%s\n", art_ptr->description);
 	
 	/* unidentified */
-	if (!(object_ptr->ident & (IDENT_MENTAL)))
+	if(!(object_ptr->ident & (IDENT_MENTAL)))
 	{
 #ifdef JP
 		fprintf(fff, "%s不明\n",INDENT1);
@@ -2795,7 +2795,7 @@ static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_pt
 	}
 	else {
 		/* An "empty" pval description indicates that the pval affects nothing */
-		if (pval_ptr->pval_desc[0])
+		if(pval_ptr->pval_desc[0])
 		{
 			/* Mention the effects of pval */
 #ifdef JP
@@ -2824,7 +2824,7 @@ static void spoiler_print_randart(object_type *object_ptr, obj_desc_list *art_pt
 		spoiler_outlist("", art_ptr->misc_magic, LIST_SEP);
 
 		/* Write out the possible activation at the primary indention level */
-		if (art_ptr->activation)
+		if(art_ptr->activation)
 		{
 #ifdef JP
 			fprintf(fff, "%s発動: %s\n", INDENT1, art_ptr->activation);
@@ -2843,7 +2843,7 @@ static void spoil_random_artifact_aux(object_type *object_ptr, int i)
 {
 	obj_desc_list artifact;
 
-	if (!object_is_known(object_ptr) || !object_ptr->art_name
+	if(!object_is_known(object_ptr) || !object_ptr->art_name
 		|| object_ptr->tval != group_artifact[i].tval)
 		return;
 
@@ -2877,7 +2877,7 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 	fff = my_fopen(buf, "w");
 
 	/* Oops */
-	if (!fff)
+	if(!fff)
 	{
 		msg_print("Cannot create list file.");
 		return;
@@ -2895,7 +2895,7 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 		{
 			/* Skip no equip */
 			quest_ptr = &creature_ptr->inventory[i];
-			if (!IS_EQUIPPED(quest_ptr)) continue;
+			if(!IS_EQUIPPED(quest_ptr)) continue;
 			spoil_random_artifact_aux(quest_ptr, j);
 		}
 
@@ -2928,7 +2928,7 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 	}
 
 	/* Check for errors */
-	if (ferror(fff) || my_fclose(fff))
+	if(ferror(fff) || my_fclose(fff))
 	{
 		msg_print("Cannot close list file.");
 		return;

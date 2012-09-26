@@ -117,7 +117,7 @@ void set_proxy(char *default_url, int default_port)
 	/* ファイルから設定を読む。 */
 	fp = my_fopen(buf, "r");
 
-	if (!fp)
+	if(!fp)
 	{
 		/* ファイルが存在しない場合はデフォルトを設定 */
 		proxy = default_url;
@@ -127,7 +127,7 @@ void set_proxy(char *default_url, int default_port)
 
 	while (my_fgets(fp, buf, sizeof(buf))==0)
 	{
-		if (buf[0] != '#' && buf[0] != '\0') break;
+		if(buf[0] != '#' && buf[0] != '\0') break;
 	}
 
 	my_fclose(fp);
@@ -137,7 +137,7 @@ void set_proxy(char *default_url, int default_port)
 
 	/* "http://" から始まっている場合はその部分をカットする。 */
 #if defined(WINDOWS)
-	if (!strnicmp(s, "http://", 7))
+	if(!strnicmp(s, "http://", 7))
 	{
 		s += 7;
 	}
@@ -145,15 +145,15 @@ void set_proxy(char *default_url, int default_port)
 	strncpy( tmp , s , 7 );
 	for ( i = 0 ; i < 7 ; i++ )
 	{
-		if ( isalpha(tmp[i]) )
+		if( isalpha(tmp[i]) )
 			tmp[i]= tolower(tmp[i]);
 	}
-	if (!strncmp(s, "http://", 7))
+	if(!strncmp(s, "http://", 7))
 	{
 		s += 7;
 	}
 #else
-	if (!strncasecmp(s, "http://", 7))
+	if(!strncasecmp(s, "http://", 7))
 	{
 		s += 7;
 	}
@@ -167,7 +167,7 @@ void set_proxy(char *default_url, int default_port)
 	--len;
 	while (len > 0 && isdigit(s[len]))
 		--len;
-	if (len > 0 && s[len] == ':' && s[len + 1] != '\0')
+	if(len > 0 && s[len] == ':' && s[len + 1] != '\0')
 	{
 		s[len] = '\0';
 		strcpy(proxy, s);
@@ -182,7 +182,7 @@ void set_proxy(char *default_url, int default_port)
 	/* プロキシのアドレスをproxyにコピー */
 	strcpy(proxy, s);
 
-	if (proxy_port == 0)
+	if(proxy_port == 0)
 		proxy_port = 80;
 }
 
@@ -199,7 +199,7 @@ int soc_write(int sd, char *buf, size_t sz)
 
 	while (nleft > 0) {
 		nwritten = send(sd, buf, nleft, 0);
-		if (nwritten <= 0)
+		if(nwritten <= 0)
 			return (nwritten);
 		nleft -= nwritten;
 		buf += nwritten;
@@ -275,15 +275,15 @@ int connect_server(int timeout, const char *host, int port)
 	val.it_value.tv_usec = 0;
 
 	/* タイムアウト、もしくは中断した時の処理。 */
-	if ((ret = sigsetjmp(env,1)) != 0)
+	if((ret = sigsetjmp(env,1)) != 0)
 	{
 #ifdef JP
-		if (ret == SIGALRM)
+		if(ret == SIGALRM)
 			errstr = "エラー: タイムアウト";
 		else
 			errstr = "エラー: インタラプト";
 #else
-		if (ret == SIGALRM)
+		if(ret == SIGALRM)
 			errstr = "Error : time out";
 		else
 			errstr = "Error : interupted";
@@ -301,9 +301,9 @@ int connect_server(int timeout, const char *host, int port)
 #endif
 
 	/* プロキシが設定されていればプロキシに繋ぐ */
-	if (proxy && proxy[0])
+	if(proxy && proxy[0])
 	{
-		if ((hp = gethostbyname(proxy)) == NULL)
+		if((hp = gethostbyname(proxy)) == NULL)
 		{
 #ifdef JP
 			errstr = "エラー: プロキシのアドレスが不正です";
@@ -316,7 +316,7 @@ int connect_server(int timeout, const char *host, int port)
 			return -1;
 		}
 	}
-	else if ((hp = gethostbyname(host)) == NULL)
+	else if((hp = gethostbyname(host)) == NULL)
 	{
 #ifdef JP
 		errstr = "エラー: サーバのアドレスが不正です";
@@ -340,7 +340,7 @@ int connect_server(int timeout, const char *host, int port)
 		to.sin_port = htons((unsigned short int)port);
 
 #ifndef WINDOWS
-	if ((sd = socket(PF_INET, SOCK_STREAM, 0)) < 0)
+	if((sd = socket(PF_INET, SOCK_STREAM, 0)) < 0)
 #else
 	if  ((sd = socket(PF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET)
 #endif
@@ -354,7 +354,7 @@ int connect_server(int timeout, const char *host, int port)
 		return -1;
 	}
 
-	if (connect(sd, (struct sockaddr *)&to, sizeof(to)) < 0)
+	if(connect(sd, (struct sockaddr *)&to, sizeof(to)) < 0)
 	{
 #ifdef JP
 		errstr = "エラー: サーバに接続できません";
@@ -394,9 +394,9 @@ int connect_server(int timeout, const char *host, int port)
 	inet_services = OTOpenInternetServices(kDefaultInternetServicesPath, 0, &err);
 #endif 
 	
-	if (err == noErr) {
+	if(err == noErr) {
 		
-		if (proxy && proxy[0])
+		if(proxy && proxy[0])
 		{
 			err = OTInetStringToAddress(inet_services, proxy, &response);
 		}
@@ -405,7 +405,7 @@ int connect_server(int timeout, const char *host, int port)
 			err = OTInetStringToAddress(inet_services, (char *)host, &response);
 		}
 		
-		if (err == noErr)
+		if(err == noErr)
 		{
 			host_addr = response.addrs[0];
 		}
@@ -420,14 +420,14 @@ int connect_server(int timeout, const char *host, int port)
 		ep = (void *)OTOpenEndpoint(OTCreateConfiguration(kTCPName), 0, nil, &err);
 #endif
 
-		if (err == noErr)
+		if(err == noErr)
 		{
 			err = OTBind(ep, nil, nil);
 			bind = (err == noErr);
 		}
-		if (err == noErr)
+		if(err == noErr)
 		{
-			if (proxy && proxy[0] && proxy_port)
+			if(proxy && proxy[0] && proxy_port)
 				OTInitInetAddress(&inAddr, proxy_port, host_addr);
 			else
 				OTInitInetAddress(&inAddr, port, host_addr);
@@ -442,26 +442,26 @@ int connect_server(int timeout, const char *host, int port)
 			
 			err = OTConnect(ep, &sndCall, NULL);
 			
-			if (err != noErr)
+			if(err != noErr)
 			{
 				errstr = "error: cannot connect score server!\n";
 			}
 		}
 	}
 	
-	if ( err != noErr )
+	if( err != noErr )
 	{
-		if ( bind )
+		if( bind )
 		{
 			OTUnbind(ep);
 		}
 		/* Clean up. */
-		if (ep != kOTInvalidEndpointRef)
+		if(ep != kOTInvalidEndpointRef)
 		{
 			OTCloseProvider(ep);
 			ep = nil;
 		}
-		if (inet_services != nil)
+		if(inet_services != nil)
 		{
 			OTCloseProvider(inet_services);
 			inet_services = nil;
@@ -480,12 +480,12 @@ int disconnect_server(int sd)
 #if defined(WINDOWS)
 	return closesocket(sd);
 #elif defined(MACINTOSH)
-	if (ep != kOTInvalidEndpointRef)
+	if(ep != kOTInvalidEndpointRef)
 	{
 		OTCloseProvider(ep);
 	}
 	
-	if (inet_services != nil)
+	if(inet_services != nil)
 	{
 		OTCloseProvider(inet_services);
 	}

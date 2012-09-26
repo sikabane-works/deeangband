@@ -95,7 +95,7 @@ void Rand_state_init(u32b seed)
 	{
 		/* Acquire the next index */
 		j = Rand_place + 1;
-		if (j == RAND_DEG) j = 0;
+		if(j == RAND_DEG) j = 0;
 
 		/* Update the table, extract an entry */
 		Rand_state[j] += Rand_state[Rand_place];
@@ -122,13 +122,13 @@ s32b Rand_div(u32b m)
 	u32b r, n;
 
 	/* Hack -- simple case */
-	if (m <= 1) return (0);
+	if(m <= 1) return (0);
 
 	/* Partition size */
 	n = (0x10000000 / m);
 
 	/* Use a simple RNG */
-	if (Rand_quick)
+	if(Rand_quick)
 	{
 		/* Wait for it */
 		while (1)
@@ -140,7 +140,7 @@ s32b Rand_div(u32b m)
 			r = (r >> 4) / n;
 
 			/* Done */
-			if (r < m) break;
+			if(r < m) break;
 		}
 	}
 
@@ -154,7 +154,7 @@ s32b Rand_div(u32b m)
 
 			/* Acquire the next index */
 			j = Rand_place + 1;
-			if (j == RAND_DEG) j = 0;
+			if(j == RAND_DEG) j = 0;
 
 			/* Update the table, extract an entry */
 			r = (Rand_state[j] += Rand_state[Rand_place]);
@@ -166,7 +166,7 @@ s32b Rand_div(u32b m)
 			Rand_place = j;
 
 			/* Done */
-			if (r < m) break;
+			if(r < m) break;
 		}
 	}
 
@@ -259,7 +259,7 @@ s16b randnor(int mean, int stand)
 	s16b high = RANDNOR_NUM;
 
 	/* Paranoia */
-	if (stand < 1) return (mean);
+	if(stand < 1) return (mean);
 
 	/* Roll for probability */
 	tmp = (s16b)randint0(32768);
@@ -270,7 +270,7 @@ s16b randnor(int mean, int stand)
 		int mid = (low + high) >> 1;
 
 		/* Move right if forced */
-		if (randnor_table[mid] < tmp)
+		if(randnor_table[mid] < tmp)
 		{
 			low = mid + 1;
 		}
@@ -286,7 +286,7 @@ s16b randnor(int mean, int stand)
 	offset = (s16b)((long)stand * (long)low / RANDNOR_STD);
 
 	/* One half should be negative */
-	if (randint0(100) < 50) return (mean - offset);
+	if(randint0(100) < 50) return (mean - offset);
 
 	/* One half should be positive */
 	return (mean + offset);
@@ -323,16 +323,16 @@ s32b div_round(s32b n, s32b d)
         s32b tmp;
 
         /* Refuse to divide by zero */
-        if (!d) return (n);
+        if(!d) return (n);
 
         /* Division */
         tmp = n / d;
 
         /* Rounding */
-        if ((ABS(n) % ABS(d)) > randint0(ABS(d)))
+        if((ABS(n) % ABS(d)) > randint0(ABS(d)))
         {
                 /* Increase the absolute value */
-                if (n * d > 0L) tmp += 1L;
+                if(n * d > 0L) tmp += 1L;
                 else            tmp -= 1L;
         }
 
@@ -368,7 +368,7 @@ u32b Rand_simple(u32b m)
 	/* Use "simple" RNG */
 	Rand_quick = TRUE;
 
-	if (initialized)
+	if(initialized)
 	{
 		/* Use stored seed */
 		Rand_value = simple_rand_value;
@@ -405,13 +405,13 @@ int uneven_rand(int *id_list, int *weight_list, int num)
 	long value, total = 0L;
 	
 	for (i = 0; i < num; i++)
-		if (weight_list[i] > 0) total += weight_list[i];
+		if(weight_list[i] > 0) total += weight_list[i];
 
 	value = randint0(total - 1);
 
 	for (i = 0; i < num; i++)
 	{
-		if (weight_list[i])
+		if(weight_list[i])
 		{
 			value -= weight_list[i];
 			if(value < 0) return id_list[i];

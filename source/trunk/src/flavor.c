@@ -107,7 +107,7 @@ void get_table_name_aux(char *out_string)
 
 	strcpy(out_string, "");
 
-	if (randint1(3) == 2)
+	if(randint1(3) == 2)
 	{
 		while (testcounter--)
 			strcat(out_string, syllables[randint0(MAX_SYLLABLES)]);
@@ -207,13 +207,13 @@ static void shuffle_flavors(byte tval)
 		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip non-Rings */
-		if (k_ptr->tval != tval) continue;
+		if(k_ptr->tval != tval) continue;
 
 		/* Paranoia -- Skip objects without flavor */
-		if (!k_ptr->flavor) continue;
+		if(!k_ptr->flavor) continue;
 
 		/* Skip objects with a fixed flavor name */
-		if (have_flag(k_ptr->flags, TRAIT_FIXED_FLAVOR)) continue;
+		if(have_flag(k_ptr->flags, TRAIT_FIXED_FLAVOR)) continue;
 
 		/* Remember k_idx */
 		k_idx_list[k_idx_list_num] = i;
@@ -286,7 +286,7 @@ void flavor_init(void)
 		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip objects without flavor name */
-		if (!k_ptr->flavospecies_name) continue;
+		if(!k_ptr->flavospecies_name) continue;
 
 		/*
 		 * Initialize flavor index to itself
@@ -329,10 +329,10 @@ void flavor_init(void)
 		object_kind *k_ptr = &object_kind_info[i];
 
 		/* Skip "empty" objects */
-		if (!k_ptr->name) continue;
+		if(!k_ptr->name) continue;
 
 		/* No flavor yields aware */
-		if (!k_ptr->flavor) k_ptr->aware = TRUE;
+		if(!k_ptr->flavor) k_ptr->aware = TRUE;
 
 		/* Check for "easily known" */
 		k_ptr->easy_know = object_easy_know(i);
@@ -495,7 +495,7 @@ char *object_desc_kosuu(char *t, object_type *object_ptr)
       }
       default:
       {
-	  if (object_ptr->number < 10)
+	  if(object_ptr->number < 10)
 	  {
 	      t = object_desc_str(t, "つ");
 	  }
@@ -520,7 +520,7 @@ static char *object_desc_int(char *t, sint v)
 	uint p, n;
 
 	/* Negative */
-	if (v < 0)
+	if(v < 0)
 	{
 		/* Take the absolute value */
 		n = 0 - v;
@@ -914,7 +914,7 @@ static char *inscribe_flags_aux(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MA
 
 	while (fi_ptr->english)
 	{
-		if (have_flag(flgs, fi_ptr->flag) &&
+		if(have_flag(flgs, fi_ptr->flag) &&
 		    (fi_ptr->except_flag == -1 || !have_flag(flgs, fi_ptr->except_flag)))
 #ifdef JP
 			ADD_INSC(kanji ? fi_ptr->japanese : fi_ptr->english);
@@ -935,7 +935,7 @@ static bool have_flag_of(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MAX])
 {
 	while (fi_ptr->english)
 	{
-		if (have_flag(flgs, fi_ptr->flag) &&
+		if(have_flag(flgs, fi_ptr->flag) &&
 		   (fi_ptr->except_flag == -1 || !have_flag(flgs, fi_ptr->except_flag)))
 			return (TRUE);
 		fi_ptr++;
@@ -954,7 +954,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 
 
 	/* Remove obvious flags */
-	if (!all)
+	if(!all)
 	{
 		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 		int j;
@@ -963,7 +963,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 		for (j = 0; j < TRAIT_FLAG_MAX; j++)
 			flgs[j] &= ~k_ptr->flags[j];
 
-		if (object_is_fixed_artifact(object_ptr))
+		if(object_is_fixed_artifact(object_ptr))
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 					
@@ -971,7 +971,7 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 				flgs[j] &= ~a_ptr->flags[j];
 		}
 
-		if (object_is_ego(object_ptr))
+		if(object_is_ego(object_ptr))
 		{
 			ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 					
@@ -982,17 +982,17 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 
 
 	/* Plusses */
-	if (have_flag_of(flag_insc_plus, flgs))
+	if(have_flag_of(flag_insc_plus, flgs))
 	{
-		if (kanji)
+		if(kanji)
 			ADD_INSC("+");
 	}
 	ptr = inscribe_flags_aux(flag_insc_plus, flgs, kanji, ptr);
 
 	/* Immunity */
-	if (have_flag_of(flag_insc_immune, flgs))
+	if(have_flag_of(flag_insc_immune, flgs))
 	{
-		if (!kanji && ptr != prev_ptr)
+		if(!kanji && ptr != prev_ptr)
 		{
 			ADD_INSC(";");
 			prev_ptr = ptr;
@@ -1002,11 +1002,11 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 	ptr = inscribe_flags_aux(flag_insc_immune, flgs, kanji, ptr);
 
 	/* Resistance */
-	if (have_flag_of(flag_insc_resistance, flgs))
+	if(have_flag_of(flag_insc_resistance, flgs))
 	{
-		if (kanji)
+		if(kanji)
 			ADD_INSC("r");
-		else if (ptr != prev_ptr)
+		else if(ptr != prev_ptr)
 		{
 			ADD_INSC(";");
 			prev_ptr = ptr;
@@ -1015,9 +1015,9 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 	ptr = inscribe_flags_aux(flag_insc_resistance, flgs, kanji, ptr);
 
 	/* Misc Ability */
-	if (have_flag_of(flag_insc_misc, flgs))
+	if(have_flag_of(flag_insc_misc, flgs))
 	{
-		if (ptr != prev_ptr)
+		if(ptr != prev_ptr)
 		{
 			ADD_INSC(";");
 			prev_ptr = ptr;
@@ -1026,31 +1026,31 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 	ptr = inscribe_flags_aux(flag_insc_misc, flgs, kanji, ptr);
 
 	/* Aura */
-	if (have_flag_of(flag_insc_aura, flgs))
+	if(have_flag_of(flag_insc_aura, flgs))
 	{
 		ADD_INSC("[");
 	}
 	ptr = inscribe_flags_aux(flag_insc_aura, flgs, kanji, ptr);
 
 	/* Brand Weapon */
-	if (have_flag_of(flag_insc_brand, flgs))
+	if(have_flag_of(flag_insc_brand, flgs))
 		ADD_INSC("|");
 	ptr = inscribe_flags_aux(flag_insc_brand, flgs, kanji, ptr);
 
 	/* Kill Weapon */
-	if (have_flag_of(flag_insc_kill, flgs))
+	if(have_flag_of(flag_insc_kill, flgs))
 		ADD_INSC("/X");
 	ptr = inscribe_flags_aux(flag_insc_kill, flgs, kanji, ptr);
 
 	/* Slay Weapon */
-	if (have_flag_of(flag_insc_slay, flgs))
+	if(have_flag_of(flag_insc_slay, flgs))
 		ADD_INSC("/");
 	ptr = inscribe_flags_aux(flag_insc_slay, flgs, kanji, ptr);
 
 	/* Esp */
-	if (kanji)
+	if(kanji)
 	{
-		if (have_flag_of(flag_insc_esp1, flgs) ||
+		if(have_flag_of(flag_insc_esp1, flgs) ||
 		    have_flag_of(flag_insc_esp2, flgs))
 			ADD_INSC("~");
 		ptr = inscribe_flags_aux(flag_insc_esp1, flgs, kanji, ptr);
@@ -1058,16 +1058,16 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 	}
 	else
 	{
-		if (have_flag_of(flag_insc_esp1, flgs))
+		if(have_flag_of(flag_insc_esp1, flgs))
 			ADD_INSC("~");
 		ptr = inscribe_flags_aux(flag_insc_esp1, flgs, kanji, ptr);
-		if (have_flag_of(flag_insc_esp2, flgs))
+		if(have_flag_of(flag_insc_esp2, flgs))
 			ADD_INSC("~");
 		ptr = inscribe_flags_aux(flag_insc_esp2, flgs, kanji, ptr);
 	}
 
 	/* sustain */
-	if (have_flag_of(flag_insc_sust, flgs))
+	if(have_flag_of(flag_insc_sust, flgs))
 	{
 		ADD_INSC("(");
 	}
@@ -1088,14 +1088,14 @@ static void get_inscription(char *buff, object_type *object_ptr)
 	char *ptr = buff;
 
 	/* Not fully identified */
-	if (!(object_ptr->ident & IDENT_MENTAL))
+	if(!(object_ptr->ident & IDENT_MENTAL))
 	{
 		/* Copy until end of line or '#' */
 		while (*insc)
 		{
-			if (*insc == '#') break;
+			if(*insc == '#') break;
 #ifdef JP
-			if (iskanji(*insc)) *buff++ = *insc++;
+			if(iskanji(*insc)) *buff++ = *insc++;
 #endif
 			*buff++ = *insc++;
 		}
@@ -1108,20 +1108,20 @@ static void get_inscription(char *buff, object_type *object_ptr)
 	for (; *insc; insc++)
 	{
 		/* Ignore fake artifact inscription */
-		if (*insc == '#') break;
+		if(*insc == '#') break;
 
 		/* {%} will be automatically converted */
-		else if ('%' == *insc)
+		else if('%' == *insc)
 		{
 			bool kanji = FALSE;
 			bool all;
 			cptr start = ptr;
 
 			/* check for too long inscription */
-			if (ptr >= buff + MAX_NLEN) continue;
+			if(ptr >= buff + MAX_NLEN) continue;
 
 #ifdef JP
-			if ('%' == insc[1])
+			if('%' == insc[1])
 			{
 				insc++;
 				kanji = FALSE;
@@ -1131,7 +1131,7 @@ static void get_inscription(char *buff, object_type *object_ptr)
 				kanji = TRUE;
 			}
 #endif
-			if ('a' == insc[1] && 'l' == insc[2] && 'l' == insc[3])
+			if('a' == insc[1] && 'l' == insc[2] && 'l' == insc[3])
 			{
 				all = TRUE;
 				insc += 3;
@@ -1143,7 +1143,7 @@ static void get_inscription(char *buff, object_type *object_ptr)
 
 			ptr = get_ability_abbreviation(ptr, object_ptr, kanji, all);
 
-			if (ptr == start)
+			if(ptr == start)
 				ADD_INSC(" ");
 		}
 		else
@@ -1244,16 +1244,16 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	object_flags(object_ptr, flgs);
 
 	/* See if the object is "aware" */
-	if (object_is_aware(object_ptr)) aware = TRUE;
+	if(object_is_aware(object_ptr)) aware = TRUE;
 
 	/* See if the object is "known" */
-	if (object_is_known(object_ptr)) known = TRUE;
+	if(object_is_known(object_ptr)) known = TRUE;
 
 	/* Allow flavors to be hidden when aware */
-	if (aware && ((mode & OD_NO_FLAVOR) || plain_descriptions)) flavor = FALSE;
+	if(aware && ((mode & OD_NO_FLAVOR) || plain_descriptions)) flavor = FALSE;
 
 	/* Object is in the inventory of a store or spoiler */
-	if ((mode & OD_STORE) || (object_ptr->ident & IDENT_STORE))
+	if((mode & OD_STORE) || (object_ptr->ident & IDENT_STORE))
 	{
 		/* Don't show flavors */
 		flavor = FALSE;
@@ -1264,7 +1264,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Force to be flavor name only */
-	if (mode & OD_FORCE_FLAVOR)
+	if(mode & OD_FORCE_FLAVOR)
 	{
 		aware = FALSE;
 		flavor = TRUE;
@@ -1295,9 +1295,9 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		{
 			species_type *r_ptr = &species_info[object_ptr->pval];
 
-			if (known)
+			if(known)
 			{
-				if (!object_ptr->pval)
+				if(!object_ptr->pval)
 				{
 #ifdef JP
 					modstr = " (空)";
@@ -1313,7 +1313,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #else
 					cptr t = species_name + r_ptr->name;
 
-					if (!has_trait_species(r_ptr, TRAIT_UNIQUE))
+					if(!has_trait_species(r_ptr, TRAIT_UNIQUE))
 					{
 						sprintf(tmp_val2, " (%s%s)", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1342,7 +1342,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #else
 			cptr t = species_name + r_ptr->name;
 
-			if (!has_trait_species(r_ptr, TRAIT_UNIQUE))
+			if(!has_trait_species(r_ptr, TRAIT_UNIQUE))
 			{
 				sprintf(tmp_val2, "%s%s", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1368,7 +1368,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #ifdef JP
 			basenm = "#%";
 #else
-			if (has_trait_species(r_ptr, TRAIT_UNIQUE))
+			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
 				basenm = "& % of #";
 			else
 				basenm = "& # %";
@@ -1417,22 +1417,22 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_AMULET:
 		{
 			/* Known artifacts */
-			if (aware)
+			if(aware)
 			{
-				if (object_is_fixed_artifact(object_ptr)) break;
-				if (k_ptr->gen_flags & TRG_INSTA_ART) break;
+				if(object_is_fixed_artifact(object_ptr)) break;
+				if(k_ptr->gen_flags & TRG_INSTA_ART) break;
 			}
 
 			/* Color the object */
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%のアミュレット";
-			else if (aware) basenm = "%の#アミュレット";
+			if(!flavor)    basenm = "%のアミュレット";
+			else if(aware) basenm = "%の#アミュレット";
 			else            basenm = "#アミュレット";
 #else
-			if (!flavor)    basenm = "& Amulet~ of %";
-			else if (aware) basenm = "& # Amulet~ of %";
+			if(!flavor)    basenm = "& Amulet~ of %";
+			else if(aware) basenm = "& # Amulet~ of %";
 			else            basenm = "& # Amulet~";
 #endif
 
@@ -1443,26 +1443,26 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_RING:
 		{
 			/* Known artifacts */
-			if (aware)
+			if(aware)
 			{
-				if (object_is_fixed_artifact(object_ptr)) break;
-				if (k_ptr->gen_flags & TRG_INSTA_ART) break;
+				if(object_is_fixed_artifact(object_ptr)) break;
+				if(k_ptr->gen_flags & TRG_INSTA_ART) break;
 			}
 
 			/* Color the object */
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%の指輪";
-			else if (aware) basenm = "%の#指輪";
+			if(!flavor)    basenm = "%の指輪";
+			else if(aware) basenm = "%の#指輪";
 			else            basenm = "#指輪";
 #else
-			if (!flavor)    basenm = "& Ring~ of %";
-			else if (aware) basenm = "& # Ring~ of %";
+			if(!flavor)    basenm = "& Ring~ of %";
+			else if(aware) basenm = "& # Ring~ of %";
 			else            basenm = "& # Ring~";
 #endif
 
-			if (!k_ptr->to_hit && !k_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
+			if(!k_ptr->to_hit && !k_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
 
 			break;
 		}
@@ -1478,12 +1478,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%の杖";
-			else if (aware) basenm = "%の#杖";
+			if(!flavor)    basenm = "%の杖";
+			else if(aware) basenm = "%の#杖";
 			else            basenm = "#杖";
 #else
-			if (!flavor)    basenm = "& Staff~ of %";
-			else if (aware) basenm = "& # Staff~ of %";
+			if(!flavor)    basenm = "& Staff~ of %";
+			else if(aware) basenm = "& # Staff~ of %";
 			else            basenm = "& # Staff~";
 #endif
 
@@ -1496,12 +1496,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%の魔法棒";
-			else if (aware) basenm = "%の#魔法棒";
+			if(!flavor)    basenm = "%の魔法棒";
+			else if(aware) basenm = "%の#魔法棒";
 			else            basenm = "#魔法棒";
 #else
-			if (!flavor)    basenm = "& Wand~ of %";
-			else if (aware) basenm = "& # Wand~ of %";
+			if(!flavor)    basenm = "& Wand~ of %";
+			else if(aware) basenm = "& # Wand~ of %";
 			else            basenm = "& # Wand~";
 #endif
 
@@ -1514,12 +1514,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%のロッド";
-			else if (aware) basenm = "%の#ロッド";
+			if(!flavor)    basenm = "%のロッド";
+			else if(aware) basenm = "%の#ロッド";
 			else            basenm = "#ロッド";
 #else
-			if (!flavor)    basenm = "& Rod~ of %";
-			else if (aware) basenm = "& # Rod~ of %";
+			if(!flavor)    basenm = "& Rod~ of %";
+			else if(aware) basenm = "& # Rod~ of %";
 			else            basenm = "& # Rod~";
 #endif
 
@@ -1532,12 +1532,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%の巻物";
-			else if (aware) basenm = "「#」と書かれた%の巻物";
+			if(!flavor)    basenm = "%の巻物";
+			else if(aware) basenm = "「#」と書かれた%の巻物";
 			else            basenm = "「#」と書かれた巻物";
 #else
-			if (!flavor)    basenm = "& Scroll~ of %";
-			else if (aware) basenm = "& Scroll~ titled \"#\" of %";
+			if(!flavor)    basenm = "& Scroll~ of %";
+			else if(aware) basenm = "& Scroll~ titled \"#\" of %";
 			else            basenm = "& Scroll~ titled \"#\"";
 #endif
 
@@ -1550,12 +1550,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%の薬";
-			else if (aware) basenm = "%の#薬";
+			if(!flavor)    basenm = "%の薬";
+			else if(aware) basenm = "%の#薬";
 			else            basenm = "#薬";
 #else
-			if (!flavor)    basenm = "& Potion~ of %";
-			else if (aware) basenm = "& # Potion~ of %";
+			if(!flavor)    basenm = "& Potion~ of %";
+			else if(aware) basenm = "& # Potion~ of %";
 			else            basenm = "& # Potion~";
 #endif
 
@@ -1565,18 +1565,18 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_FOOD:
 		{
 			/* Ordinary food is "boring" */
-			if (!k_ptr->flavospecies_name) break;
+			if(!k_ptr->flavospecies_name) break;
 
 			/* Color the object */
 			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
 
 #ifdef JP
-			if (!flavor)    basenm = "%のキノコ";
-			else if (aware) basenm = "%の#キノコ";
+			if(!flavor)    basenm = "%のキノコ";
+			else if(aware) basenm = "%の#キノコ";
 			else            basenm = "#キノコ";
 #else
-			if (!flavor)    basenm = "& Mushroom~ of %";
-			else if (aware) basenm = "& # Mushroom~ of %";
+			if(!flavor)    basenm = "& Mushroom~ of %";
+			else if(aware) basenm = "& # Mushroom~ of %";
 			else            basenm = "& # Mushroom~";
 #endif
 
@@ -1758,9 +1758,9 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Use full name from object_kind_info or artifact_info */
-	if (aware && have_flag(flgs, TRAIT_FULL_NAME))
+	if(aware && have_flag(flgs, TRAIT_FULL_NAME))
 	{
-		if (known && object_ptr->name1) basenm = artifact_name + artifact_info[object_ptr->name1].name;
+		if(known && object_ptr->name1) basenm = artifact_name + artifact_info[object_ptr->name1].name;
 		else basenm = kindname;
 	}
 
@@ -1768,17 +1768,17 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	t = tmp_val;
 
 #ifdef JP
-	if (basenm[0] == '&')
+	if(basenm[0] == '&')
 		s = basenm + 2;
 	else
 		s = basenm;
 
 	/* No prefix */
-	if (mode & OD_OMIT_PREFIX)
+	if(mode & OD_OMIT_PREFIX)
 	{
 		/* Nothing */
 	}
-	else if (object_ptr->number > 1)
+	else if(object_ptr->number > 1)
 	{
 		t = object_desc_kosuu(t, object_ptr);
 		t = object_desc_str(t, "の ");
@@ -1787,41 +1787,41 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	/* 英語の場合アーティファクトは The が付くので分かるが
 	 * 日本語では分からないのでマークをつける 
 	 */
-	if (known)
+	if(known)
 	{
-		if (object_is_fixed_artifact(object_ptr)) t = object_desc_str(t, "★");
-		else if (object_ptr->art_name) t = object_desc_str(t, "☆");
+		if(object_is_fixed_artifact(object_ptr)) t = object_desc_str(t, "★");
+		else if(object_ptr->art_name) t = object_desc_str(t, "☆");
 	}
 
 #else
 
 	/* The object "expects" a "number" */
-	if (basenm[0] == '&')
+	if(basenm[0] == '&')
 	{
 		/* Skip the ampersand (and space) */
 		s = basenm + 2;
 
 		/* No prefix */
-		if (mode & OD_OMIT_PREFIX)
+		if(mode & OD_OMIT_PREFIX)
 		{
 			/* Nothing */
 		}
 
 		/* Hack -- None left */
-		else if (object_ptr->number <= 0)
+		else if(object_ptr->number <= 0)
 		{
 			t = object_desc_str(t, "no more ");
 		}
 
 		/* Extract the number */
-		else if (object_ptr->number > 1)
+		else if(object_ptr->number > 1)
 		{
 			t = object_desc_num(t, object_ptr->number);
 			t = object_desc_chr(t, ' ');
 		}
 
 		/* Hack -- The only one of its kind */
-		else if ((known && object_is_artifact(object_ptr)) ||
+		else if((known && object_is_artifact(object_ptr)) ||
 		         ((object_ptr->tval == TV_CORPSE) &&
 		          (has_trait_species(species_info[object_ptr->pval], TRAIT_UNIQUE))))
 		{
@@ -1840,7 +1840,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			default:  vowel = is_a_vowel(*s); break;
 			}
 
-			if (vowel)
+			if(vowel)
 			{
 				/* A single one, with a vowel */
 				t = object_desc_str(t, "an ");
@@ -1860,26 +1860,26 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		s = basenm;
 
 		/* No pref */
-		if (mode & OD_OMIT_PREFIX)
+		if(mode & OD_OMIT_PREFIX)
 		{
 			/* Nothing */
 		}
 
 		/* Hack -- all gone */
-		else if (object_ptr->number <= 0)
+		else if(object_ptr->number <= 0)
 		{
 			t = object_desc_str(t, "no more ");
 		}
 
 		/* Prefix a number if required */
-		else if (object_ptr->number > 1)
+		else if(object_ptr->number > 1)
 		{
 			t = object_desc_num(t, object_ptr->number);
 			t = object_desc_chr(t, ' ');
 		}
 
 		/* Hack -- The only one of its kind */
-		else if (known && object_is_artifact(object_ptr))
+		else if(known && object_is_artifact(object_ptr))
 		{
 			t = object_desc_str(t, "The ");
 		}
@@ -1896,44 +1896,44 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	/* while (*s == '~') s++; */
 
 #ifdef JP
-	if (object_is_smith(object_ptr))
+	if(object_is_smith(object_ptr))
 	{
 		//TODO
 		t = object_desc_str(t, format("%sの", species_name + species_info[object_ptr->creater_idx].name));
 	}
 
 	/* 伝説のアイテム、名のあるアイテムの名前を付加する */
-	if (known)
+	if(known)
 	{
 		/* ランダム・アーティファクト */
-		if (object_ptr->art_name)
+		if(object_ptr->art_name)
 		{
 			cptr temp = quark_str(object_ptr->art_name);
 
 			/* '『' から始まらない伝説のアイテムの名前は最初に付加する */
 			/* 英語版のセーブファイルから来た 'of XXX' は,「XXXの」と表示する */
-			if (strncmp(temp, "of ", 3) == 0)
+			if(strncmp(temp, "of ", 3) == 0)
 			{
 				t = object_desc_str(t, &temp[3]);
 				t = object_desc_str(t, "の");
 			}
-			else if ((strncmp(temp, "『", 2) != 0) &&
+			else if((strncmp(temp, "『", 2) != 0) &&
 				 (strncmp(temp, "《", 2) != 0) &&
 				 (temp[0] != '\''))
 				t = object_desc_str(t, temp);
 		}
 		/* 伝説のアイテム */
-		else if (object_ptr->name1 && !have_flag(flgs, TRAIT_FULL_NAME))
+		else if(object_ptr->name1 && !have_flag(flgs, TRAIT_FULL_NAME))
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 			/* '『' から始まらない伝説のアイテムの名前は最初に付加する */
-			if (strncmp(artifact_name + a_ptr->name, "『", 2) != 0)
+			if(strncmp(artifact_name + a_ptr->name, "『", 2) != 0)
 			{
 				t = object_desc_str(t, artifact_name + a_ptr->name);
 			}
 		}
 		/* 名のあるアイテム */
-		else if (object_is_ego(object_ptr))
+		else if(object_is_ego(object_ptr))
 		{
 			ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 			t = object_desc_str(t, object_egobject_name + e_ptr->name);
@@ -1945,14 +1945,14 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	for (s0 = NULL; *s || s0; )
 	{
 		/* The end of the flavour/kind string. */
-		if (!*s)
+		if(!*s)
 		{
 			s = s0 + 1;
 			s0 = NULL;
 		}
 
 		/* Begin to append the modifier (flavor) */
-		else if ((*s == '#') && !s0)
+		else if((*s == '#') && !s0)
 		{
 			s0 = s;
 			s = modstr;
@@ -1962,7 +1962,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Begin to append the kind name */
-		else if ((*s == '%') && !s0)
+		else if((*s == '%') && !s0)
 		{
 			s0 = s;
 			s = kindname;
@@ -1973,17 +1973,17 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 #ifndef JP
 		/* Pluralizer */
-		else if (*s == '~')
+		else if(*s == '~')
 		{
 			/* Add a plural if needed */
-			if (!(mode & OD_NO_PLURAL) && (object_ptr->number != 1))
+			if(!(mode & OD_NO_PLURAL) && (object_ptr->number != 1))
 			{
 				char k = t[-1];
 
 				/* XXX XXX XXX Mega-Hack */
 
 				/* Hack -- "Cutlass-es" and "Torch-es" */
-				if ((k == 's') || (k == 'h')) *t++ = 'e';
+				if((k == 's') || (k == 'h')) *t++ = 'e';
 
 				/* Add an 's' */
 				*t++ = 's';
@@ -2006,20 +2006,20 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 #ifdef JP
 	/* '『'から始まる伝説のアイテムの名前は最後に付加する */
-	if (known)
+	if(known)
 	{
 		/* ランダムアーティファクトの名前はセーブファイルに記録
 		   されるので、英語版の名前もそれらしく変換する */
-		if (object_ptr->art_name)
+		if(object_ptr->art_name)
 		{
 			char temp[256];
 			int itemp;
 			strcpy(temp, quark_str(object_ptr->art_name));
 			/* MEGA HACK by ita */
-			if (strncmp(temp, "『", 2) == 0 ||
+			if(strncmp(temp, "『", 2) == 0 ||
 			    strncmp(temp, "《", 2) == 0)
 				t = object_desc_str(t, temp);
-			else if (temp[0] == '\'')
+			else if(temp[0] == '\'')
 			{
 				itemp = strlen(temp);
 				temp[itemp - 1] = 0;
@@ -2028,29 +2028,29 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				t = object_desc_str(t, "』");
 			}
 		}
-		else if (object_is_fixed_artifact(object_ptr))
+		else if(object_is_fixed_artifact(object_ptr))
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
-			if (strncmp(artifact_name + a_ptr->name, "『", 2) == 0)
+			if(strncmp(artifact_name + a_ptr->name, "『", 2) == 0)
 			{
 				t = object_desc_str(t, artifact_name + a_ptr->name);
 			}
 		}
-		else if (object_ptr->inscription)
+		else if(object_ptr->inscription)
 		{
 			cptr str = quark_str(object_ptr->inscription);
 
 			while(*str)
 			{
-				if (iskanji(*str))
+				if(iskanji(*str))
 				{
 					str += 2;
 					continue;
 				}
-				if (*str == '#') break;
+				if(*str == '#') break;
 				str++;
 			}
-			if (*str)
+			if(*str)
 			{
 				/* Find the '#' */
 				cptr str = my_strchr(quark_str(object_ptr->inscription), '#');
@@ -2063,7 +2063,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 	}
 #else
-	if (object_is_smith(owner_ptr, object_ptr))
+	if(object_is_smith(owner_ptr, object_ptr))
 	{
 		if(!object_ptr->creater_idx)
 			t = object_desc_str(t,format(" of %s the Smith", owner_ptr->name));
@@ -2072,17 +2072,17 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Hack -- Append "Artifact" or "Special" names */
-	if (known && !have_flag(flgs, TRAIT_FULL_NAME))
+	if(known && !have_flag(flgs, TRAIT_FULL_NAME))
 	{
 		/* Is it a new random artifact ? */
-		if (object_ptr->art_name)
+		if(object_ptr->art_name)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_str(t, quark_str(object_ptr->art_name));
 		}
 
 		/* Grab any artifact name */
-		else if (object_is_fixed_artifact(object_ptr))
+		else if(object_is_fixed_artifact(object_ptr))
 		{
 			artifact_type *a_ptr = &artifact_info[object_ptr->name1];
 
@@ -2093,7 +2093,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		/* Grab any ego-item name */
 		else
 		{
-			if (object_is_ego(object_ptr))
+			if(object_is_ego(object_ptr))
 			{
 				ego_item_type *e_ptr = &object_ego_info[object_ptr->name2];
 
@@ -2101,7 +2101,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				t = object_desc_str(t, object_egobject_name + e_ptr->name);
 			}
 
-			if (object_ptr->inscription && my_strchr(quark_str(object_ptr->inscription), '#'))
+			if(object_ptr->inscription && my_strchr(quark_str(object_ptr->inscription), '#'))
 			{
 				/* Find the '#' */
 				cptr str = my_strchr(quark_str(object_ptr->inscription), '#');
@@ -2116,19 +2116,19 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* No more details wanted */
-	if (mode & OD_NAME_ONLY) goto object_desc_done;
+	if(mode & OD_NAME_ONLY) goto object_desc_done;
 
 	/* Hack -- Chests must be described in detail */
-	if (object_ptr->tval == TV_CHEST)
+	if(object_ptr->tval == TV_CHEST)
 	{
 		/* Not searched yet */
-		if (!known)
+		if(!known)
 		{
 			/* Nothing */
 		}
 
 		/* May be "empty" */
-		else if (!object_ptr->pval)
+		else if(!object_ptr->pval)
 		{
 #ifdef JP
 			t = object_desc_str(t, "(空)");
@@ -2138,9 +2138,9 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* May be "disarmed" */
-		else if (object_ptr->pval < 0)
+		else if(object_ptr->pval < 0)
 		{
-			if (chest_traps[0 - object_ptr->pval])
+			if(chest_traps[0 - object_ptr->pval])
 			{
 #ifdef JP
 				t = object_desc_str(t, "(解除済)");
@@ -2263,20 +2263,20 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* Display the item like a weapon */
-	if (have_flag(flgs, TRAIT_SHOW_MODS)) show_weapon = TRUE;
+	if(have_flag(flgs, TRAIT_SHOW_MODS)) show_weapon = TRUE;
 
 	/* Display the item like a weapon */
-	if (object_is_smith(object_ptr) && (object_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE))
+	if(object_is_smith(object_ptr) && (object_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE))
 		show_weapon = TRUE;
 
 	/* Display the item like a weapon */
-	if (object_ptr->to_hit && object_ptr->to_damage) show_weapon = TRUE;
+	if(object_ptr->to_hit && object_ptr->to_damage) show_weapon = TRUE;
 
 	/* Display the item like armour */
-	if (object_ptr->ac) show_armour = TRUE;
+	if(object_ptr->ac) show_armour = TRUE;
 
 	/* Fitting Size */
-	if (object_ptr->size_lower && object_ptr->size_upper)
+	if(object_ptr->size_lower && object_ptr->size_upper)
 	{
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, f1);
@@ -2317,7 +2317,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		power = object_ptr->bow_mul;
 
 		/* Apply the "Extra Might" flag */
-		if (have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT)) power++;
+		if(have_flag(flgs, TRAIT_EXTRA_ATTACK_MIGHT)) power++;
 
 		/* Append a special "damage" string */
 		t = object_desc_chr(t, ' ');
@@ -2332,10 +2332,10 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* Add the weapon bonuses */
-	if (known)
+	if(known)
 	{
 		/* Show the tohit/todam on request */
-		if (show_weapon)
+		if(show_weapon)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
@@ -2346,7 +2346,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Show the tohit if needed */
-		else if (object_ptr->to_hit)
+		else if(object_ptr->to_hit)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
@@ -2355,7 +2355,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Show the todam if needed */
-		else if (object_ptr->to_damage)
+		else if(object_ptr->to_damage)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
@@ -2368,20 +2368,20 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	bow_ptr = &owner_ptr->inventory[BOW];
 
 	// If have a firing weapon + ammo matches bow
-	if (bow_ptr->k_idx && (object_ptr->tval == owner_ptr->tval_ammo))
+	if(bow_ptr->k_idx && (object_ptr->tval == owner_ptr->tval_ammo))
 	{
 		int avgdam = object_ptr->dd * (object_ptr->ds + 1) * 10 / 2;
 		int tmul = bow_ptr->bow_mul;
 		s16b energy_fire = bow_ptr->bow_energy;
 
 		// See if the bow is "known" - then set damage bonus
-		if (object_is_known(bow_ptr)) avgdam += (bow_ptr->to_damage * 10);
+		if(object_is_known(bow_ptr)) avgdam += (bow_ptr->to_damage * 10);
 
 		// Effect of ammo
-		if (known) avgdam += (object_ptr->to_damage * 10);
+		if(known) avgdam += (object_ptr->to_damage * 10);
 
 		// Get extra "power" from "extra might"
-		if (owner_ptr->xtra_might) tmul++;
+		if(owner_ptr->xtra_might) tmul++;
 
 		tmul = tmul * (100 + (int)(adj_str_to_damage[owner_ptr->stat_ind[STAT_STR]]) - 128);
 
@@ -2391,9 +2391,9 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 		// Get extra damage from concentration
 		
-		if (owner_ptr->concent) avgdam = boost_concentration_damage(owner_ptr, avgdam);
+		if(owner_ptr->concent) avgdam = boost_concentration_damage(owner_ptr, avgdam);
 
-		if (avgdam < 0) avgdam = 0;
+		if(avgdam < 0) avgdam = 0;
 
 		// Display (shot damage/ avg damage)
 		t = object_desc_chr(t, ' ');
@@ -2401,7 +2401,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		t = object_desc_num(t, avgdam);
 		t = object_desc_chr(t, '/');
 
-		if (owner_ptr->num_fire == 0)
+		if(owner_ptr->num_fire == 0)
 		{
 			t = object_desc_chr(t, '0');
 		}
@@ -2415,7 +2415,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 		t = object_desc_chr(t, p2);
 	}
-	else if ((owner_ptr->class_idx == CLASS_NINJA) && (object_ptr->tval == TV_SPIKE))
+	else if((owner_ptr->class_idx == CLASS_NINJA) && (object_ptr->tval == TV_SPIKE))
 	{
 		int avgdam = has_trait(owner_ptr, TRAIT_THROW_MIGHTY) ? (1 + 3) : 1;
 		s16b energy_fire = 100 - owner_ptr->lev;
@@ -2437,10 +2437,10 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 */
 
 	/* Add the armor bonuses */
-	if (known)
+	if(known)
 	{
 		/* Show the armor class info */
-		if (show_armour)
+		if(show_armour)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, b1);
@@ -2453,7 +2453,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* No base armor, but does increase armor */
-		else if (object_ptr->to_ac)
+		else if(object_ptr->to_ac)
 		{
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, b1);
@@ -2465,7 +2465,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Hack -- always show base armor */
-	else if (show_armour)
+	else if(show_armour)
 	{
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, b1);
@@ -2477,23 +2477,23 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* No more details wanted */
-	if (mode & OD_NAME_AND_ENCHANT) goto object_desc_done;
+	if(mode & OD_NAME_AND_ENCHANT) goto object_desc_done;
 
 
-	if (known) /* Known item only */
+	if(known) /* Known item only */
 	{
 		/*
 		 * Hack -- Wands and Staffs have charges.  Make certain how many charges
 		 * a stack of staffs really has is clear. -LM-
 		 */
-		if (((object_ptr->tval == TV_STAFF) || (object_ptr->tval == TV_WAND)))
+		if(((object_ptr->tval == TV_STAFF) || (object_ptr->tval == TV_WAND)))
 		{
 			/* Dump " (N charges)" */
 			t = object_desc_chr(t, ' ');
 			t = object_desc_chr(t, p1);
 
 			/* Clear explaination for staffs. */
-			if ((object_ptr->tval == TV_STAFF) && (object_ptr->number > 1))
+			if((object_ptr->tval == TV_STAFF) && (object_ptr->number > 1))
 			{
 				t = object_desc_num(t, object_ptr->number);
 				t = object_desc_str(t, "x ");
@@ -2503,7 +2503,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			t = object_desc_str(t, "回分");
 #else
 			t = object_desc_str(t, " charge");
-			if (object_ptr->pval != 1) t = object_desc_chr(t, 's');
+			if(object_ptr->pval != 1) t = object_desc_chr(t, 's');
 #endif
 
 			t = object_desc_chr(t, p2);
@@ -2511,15 +2511,15 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		/* Hack -- Rods have a "charging" indicator.  Now that stacks of rods may
 		 * be in any state of charge or discharge, this now includes a number. -LM-
 		 */
-		else if (object_ptr->tval == TV_ROD)
+		else if(object_ptr->tval == TV_ROD)
 		{
 			/* Hack -- Dump " (# charging)" if relevant */
-			if (object_ptr->timeout)
+			if(object_ptr->timeout)
 			{
 				/* Stacks of rods display an exact count of charging rods. */
-				if (object_ptr->number > 1)
+				if(object_ptr->number > 1)
 				{
-					if (k_ptr->pval == 0) k_ptr->pval = 1; // Paranoia.
+					if(k_ptr->pval == 0) k_ptr->pval = 1; // Paranoia.
 
 					/* Find out how many rods are charging, by dividing
 					 * current timeout by each rod's maximum timeout.
@@ -2527,7 +2527,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 					 * very discharged stacks as merely fully discharged.
 					 */
 					power = (object_ptr->timeout + (k_ptr->pval - 1)) / k_ptr->pval;
-					if (power > object_ptr->number) power = object_ptr->number;
+					if(power > object_ptr->number) power = object_ptr->number;
 
 					/* Display prettily. */
 					t = object_desc_str(t, " (");
@@ -2552,7 +2552,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Dump "pval" flags for wearable items */
-		if (have_pval_flags(flgs))
+		if(have_pval_flags(flgs))
 		{
 			/* Start the display */
 			t = object_desc_chr(t, ' ');
@@ -2562,13 +2562,13 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			t = object_desc_int(t, object_ptr->pval);
 
 			/* Do not display the "pval" flags */
-			if (have_flag(flgs, TRAIT_HIDE_TYPE))
+			if(have_flag(flgs, TRAIT_HIDE_TYPE))
 			{
 				/* Nothing */
 			}
 
 			/* Speed */
-			else if (have_flag(flgs, TRAIT_SPEED))
+			else if(have_flag(flgs, TRAIT_SPEED))
 			{
 				/* Dump " to speed" */
 #ifdef JP
@@ -2579,7 +2579,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Attack speed */
-			else if (has_trait_object(object_ptr, TRAIT_BLOWS))
+			else if(has_trait_object(object_ptr, TRAIT_BLOWS))
 			{
 				/* Add " attack" */
 #ifdef JP
@@ -2588,12 +2588,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				t = object_desc_str(t, " attack");
 
 				/* Add "attacks" */
-				if (ABS(object_ptr->pval) != 1) t = object_desc_chr(t, 's');
+				if(ABS(object_ptr->pval) != 1) t = object_desc_chr(t, 's');
 #endif
 			}
 
 			/* Stealth */
-			else if (has_trait_object(object_ptr, TRAIT_STEALTH))
+			else if(has_trait_object(object_ptr, TRAIT_STEALTH))
 			{
 				/* Dump " to stealth" */
 #ifdef JP
@@ -2604,7 +2604,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Search */
-			else if (have_flag(flgs, TRAIT_SEARCH))
+			else if(have_flag(flgs, TRAIT_SEARCH))
 			{
 				/* Dump " to searching" */
 #ifdef JP
@@ -2615,7 +2615,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Infravision */
-			else if (have_flag(flgs, TRAIT_INFRA))
+			else if(have_flag(flgs, TRAIT_INFRA))
 			{
 				/* Dump " to infravision" */
 #ifdef JP
@@ -2630,7 +2630,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Hack -- Process Lanterns/Torches */
-		if (object_ptr->tval == TV_LITE && !have_flag(k_ptr->flags, TRAIT_NO_LIMIT_LITE))
+		if(object_ptr->tval == TV_LITE && !have_flag(k_ptr->flags, TRAIT_NO_LIMIT_LITE))
 		{
 			/* Hack -- Turns of light for normal lites */
 #ifdef JP
@@ -2639,7 +2639,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			t = object_desc_str(t, " (with ");
 #endif
 
-			if (object_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->xtra4 * 2);
+			if(object_ptr->name2 == EGO_LITE_LONG) t = object_desc_num(t, object_ptr->xtra4 * 2);
 			else t = object_desc_num(t, object_ptr->xtra4);
 #ifdef JP
 			t = object_desc_str(t, "ターンの寿命)");
@@ -2649,7 +2649,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Indicate charging objects, but not rods. */
-		if (object_ptr->timeout && (object_ptr->tval != TV_ROD))
+		if(object_ptr->timeout && (object_ptr->tval != TV_ROD))
 		{
 			/* Hack -- Dump " (charging)" if relevant */
 #ifdef JP
@@ -2662,16 +2662,16 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* No more details wanted */
-	if (mode & OD_OMIT_INSCRIPTION) goto object_desc_done;
+	if(mode & OD_OMIT_INSCRIPTION) goto object_desc_done;
 
 
 	/* Prepare real inscriptions in a buffer */
 	tmp_val2[0] = '\0';
 
 	/* Auto abbreviation inscribe */
-	if ((abbrev_extra || abbrev_all) && (object_ptr->ident & IDENT_MENTAL))
+	if((abbrev_extra || abbrev_all) && (object_ptr->ident & IDENT_MENTAL))
 	{
-		if (!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '%'))
+		if(!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '%'))
 		{
 			bool kanji, all;
 
@@ -2687,11 +2687,11 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Use the standard inscription if available */
-	if (object_ptr->inscription)
+	if(object_ptr->inscription)
 	{
 		char buff[1024];
 
-		if (tmp_val2[0]) strcat(tmp_val2, ", ");
+		if(tmp_val2[0]) strcat(tmp_val2, ", ");
 
 		/* Get inscription and convert {%} */
 		get_inscription(buff, object_ptr);
@@ -2705,13 +2705,13 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	fake_insc_buf[0] = '\0';
 
 	/* Use the game-generated "feeling" otherwise, if available */
-	if (object_ptr->feeling)
+	if(object_ptr->feeling)
 	{
 		strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
 	}
 
 	/* Note "cursed" if the item is known to be cursed */
-	else if (object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE)))
+	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE)))
 	{
 #ifdef JP
 		strcpy(fake_insc_buf, "呪われている");
@@ -2721,7 +2721,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Note "unidentified" if the item is unidentified */
-	else if (((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
+	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))
 		 && aware && !known
 		 && !(object_ptr->ident & IDENT_SENSE))
@@ -2734,7 +2734,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Mega-Hack -- note empty wands/staffs */
-	else if (!known && (object_ptr->ident & IDENT_EMPTY))
+	else if(!known && (object_ptr->ident & IDENT_EMPTY))
 	{
 #ifdef JP
 		strcpy(fake_insc_buf, "空");
@@ -2744,7 +2744,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Note "tried" if the object has been tested unsuccessfully */
-	else if (!aware && object_is_tried(object_ptr))
+	else if(!aware && object_is_tried(object_ptr))
 	{
 #ifdef JP
 		strcpy(fake_insc_buf, "未判明");
@@ -2754,15 +2754,15 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 
 	/* Note the discount, if any */
-	if (object_ptr->discount)
+	if(object_ptr->discount)
 	{
 		/* Hidden by real inscription unless in a store */
-		if (!tmp_val2[0] || (object_ptr->ident & IDENT_STORE))
+		if(!tmp_val2[0] || (object_ptr->ident & IDENT_STORE))
 		{
 			char discount_num_buf[4];
 
 			/* Append to other fake inscriptions if any */
-			if (fake_insc_buf[0]) strcat(fake_insc_buf, ", ");
+			if(fake_insc_buf[0]) strcat(fake_insc_buf, ", ");
 
 			(void)object_desc_num(discount_num_buf, object_ptr->discount);
 			strcat(fake_insc_buf, discount_num_buf);
@@ -2776,27 +2776,27 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 
 	/* Append the inscription, if any */
-	if (fake_insc_buf[0] || tmp_val2[0])
+	if(fake_insc_buf[0] || tmp_val2[0])
 	{
 		/* Append the inscription */
 		t = object_desc_chr(t, ' ');
 		t = object_desc_chr(t, c1);
 
 		/* Append fake inscriptions */
-		if (fake_insc_buf[0])
+		if(fake_insc_buf[0])
 		{
 			t = object_desc_str(t, fake_insc_buf);
 		}
 
 		/* Append a separater */
-		if (fake_insc_buf[0] && tmp_val2[0])
+		if(fake_insc_buf[0] && tmp_val2[0])
 		{
 			t = object_desc_chr(t, ',');
 			t = object_desc_chr(t, ' ');
 		}
 
 		/* Append real inscriptions */
-		if (tmp_val2[0])
+		if(tmp_val2[0])
 		{
 			t = object_desc_str(t, tmp_val2);
 		}

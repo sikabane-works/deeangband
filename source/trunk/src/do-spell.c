@@ -11,11 +11,11 @@
 static cptr info_string_dice(cptr str, int dice, int sides, int base)
 {
 	/* Fix value */
-	if (!dice)
+	if(!dice)
 		return format("%s%d", str, base);
 
 	/* Dice only */
-	else if (!base)
+	else if(!base)
 		return format("%s%dd%d", str, dice, sides);
 
 	/* Dice plus base value */
@@ -174,10 +174,10 @@ static cptr info_weight(int weight)
  */
 static int beam_chance(creature_type *creature_ptr)
 {
-	if (creature_ptr->class_idx == CLASS_MAGE)
+	if(creature_ptr->class_idx == CLASS_MAGE)
 		return creature_ptr->lev;
 
-	if (creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER)
+	if(creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER)
 		return creature_ptr->lev + 10;
 
 	return creature_ptr->lev / 2;
@@ -196,18 +196,18 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int 
 	bool success = FALSE;
 
 	/* Default level */
-	if (!lev) lev = plev * 2 / 3 + randint1(plev / 2);
+	if(!lev) lev = plev * 2 / 3 + randint1(plev / 2);
 
-	if (pet)
+	if(pet)
 	{
 		/* Become pet */
 		mode |= PC_FORCE_PET;
 
 		/* Only sometimes allow unique creature */
-		if (mode & PC_ALLOW_UNIQUE)
+		if(mode & PC_ALLOW_UNIQUE)
 		{
 			/* Forbid often */
-			if (randint1(50 + plev) >= plev / 10)
+			if(randint1(50 + plev) >= plev / 10)
 				mode &= ~PC_ALLOW_UNIQUE;
 		}
 
@@ -225,11 +225,11 @@ static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int 
 
 	for (i = 0; i < num; i++)
 	{
-		if (summon_specific(creature_ptr, y, x, lev, type, mode))
+		if(summon_specific(creature_ptr, y, x, lev, type, mode))
 			success = TRUE;
 	}
 
-	if (!success)
+	if(!success)
 	{
 #ifdef JP
 		msg_print("誰もあなたのカードの呼び声に答えない。");
@@ -256,9 +256,9 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	// TODO: add Karma of Fortune feature.
 	int vir = 0;
 
-	if (vir)
+	if(vir)
 	{
-		if (creature_ptr->karmas[vir - 1] > 0)
+		if(creature_ptr->karmas[vir - 1] > 0)
 		{
 			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
 		}
@@ -268,7 +268,7 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 		}
 	}
 
-	if (die > 100)
+	if(die > 100)
 	{
 #ifdef JP
 		msg_print("あなたは力がみなぎるのを感じた！");
@@ -277,47 +277,47 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 #endif
 	}
 
-	if (die < 8) clone_creature(creature_ptr, dir);
-	else if (die < 14) speed_other_creature(creature_ptr, dir);
-	else if (die < 26) heal_other_creature(creature_ptr, dir, diceroll(4, 6));
-	else if (die < 31) poly_creature(creature_ptr, dir);
-	else if (die < 36)
+	if(die < 8) clone_creature(creature_ptr, dir);
+	else if(die < 14) speed_other_creature(creature_ptr, dir);
+	else if(die < 26) heal_other_creature(creature_ptr, dir, diceroll(4, 6));
+	else if(die < 31) poly_creature(creature_ptr, dir);
+	else if(die < 36)
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir,
 				  diceroll(3 + ((plev - 1) / 5), 4));
-	else if (die < 41) confuse_creature(creature_ptr, dir, plev);
-	else if (die < 46) fire_ball(creature_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
-	else if (die < 51) (void)lite_line(creature_ptr, dir);
-	else if (die < 56)
+	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
+	else if(die < 46) fire_ball(creature_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
+	else if(die < 51) (void)lite_line(creature_ptr, dir);
+	else if(die < 56)
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir,
 				  diceroll(3 + ((plev - 5) / 4), 8));
-	else if (die < 61)
+	else if(die < 61)
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_COLD, dir,
 				  diceroll(5 + ((plev - 5) / 4), 8));
-	else if (die < 66)
+	else if(die < 66)
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_ACID, dir,
 				  diceroll(6 + ((plev - 5) / 4), 8));
-	else if (die < 71)
+	else if(die < 71)
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir,
 				  diceroll(8 + ((plev - 5) / 4), 8));
-	else if (die < 76) drain_life(creature_ptr, dir, 75);
-	else if (die < 81) fire_ball(creature_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
-	else if (die < 86) fire_ball(creature_ptr, GF_ACID, dir, 40 + plev, 2);
-	else if (die < 91) fire_ball(creature_ptr, GF_ICE, dir, 70 + plev, 3);
-	else if (die < 96) fire_ball(creature_ptr, GF_FIRE, dir, 80 + plev, 3);
-	else if (die < 101) drain_life(creature_ptr, dir, 100 + plev);
-	else if (die < 104)
+	else if(die < 76) drain_life(creature_ptr, dir, 75);
+	else if(die < 81) fire_ball(creature_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
+	else if(die < 86) fire_ball(creature_ptr, GF_ACID, dir, 40 + plev, 2);
+	else if(die < 91) fire_ball(creature_ptr, GF_ICE, dir, 70 + plev, 3);
+	else if(die < 96) fire_ball(creature_ptr, GF_FIRE, dir, 80 + plev, 3);
+	else if(die < 101) drain_life(creature_ptr, dir, 100 + plev);
+	else if(die < 104)
 	{
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	}
-	else if (die < 106)
+	else if(die < 106)
 	{
 		(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	}
-	else if (die < 108)
+	else if(die < 108)
 	{
 		symbol_genocide(creature_ptr, plev+50, TRUE);
 	}
-	else if (die < 110) dispel_creatures(creature_ptr, 120);
+	else if(die < 110) dispel_creatures(creature_ptr, 120);
 	else // RARE
 	{
 		dispel_creatures(creature_ptr, 150);
@@ -336,9 +336,9 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
 
-	if (vir)
+	if(vir)
 	{
-		if (creature_ptr->karmas[vir - 1] > 0)
+		if(creature_ptr->karmas[vir - 1] > 0)
 		{
 			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
 		}
@@ -354,7 +354,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	msg_print("You call on the power of the dead...");
 #endif
 
-	if (die > 100)
+	if(die > 100)
 	{
 #ifdef JP
 		msg_print("あなたはおどろおどろしい力のうねりを感じた！");
@@ -364,7 +364,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	}
 
 
-	if (die < 8)
+	if(die < 8)
 	{
 #ifdef JP
 		msg_print("なんてこった！あなたの周りの地面から朽ちた人影が立ち上がってきた！");
@@ -374,7 +374,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 
 		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
-	else if (die < 14)
+	else if(die < 14)
 	{
 #ifdef JP
 		msg_print("名状し難い邪悪な存在があなたの心を通り過ぎて行った...");
@@ -384,7 +384,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 
 		set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + randint1(4) + 4);
 	}
-	else if (die < 26)
+	else if(die < 26)
 	{
 #ifdef JP
 		msg_print("あなたの頭に大量の幽霊たちの騒々しい声が押し寄せてきた...");
@@ -394,84 +394,84 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 
 		set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(4) + 4);
 	}
-	else if (die < 31)
+	else if(die < 31)
 	{
 		poly_creature(creature_ptr, dir);
 	}
-	else if (die < 36)
+	else if(die < 36)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir,
 				  diceroll(3 + ((plev - 1) / 5), 4));
 	}
-	else if (die < 41)
+	else if(die < 41)
 	{
 		confuse_creature(creature_ptr, dir, plev);
 	}
-	else if (die < 46)
+	else if(die < 46)
 	{
 		fire_ball(creature_ptr, GF_POIS, dir, 20 + (plev / 2), 3);
 	}
-	else if (die < 51)
+	else if(die < 51)
 	{
 		(void)lite_line(creature_ptr, dir);
 	}
-	else if (die < 56)
+	else if(die < 56)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir,
 				  diceroll(3+((plev-5)/4),8));
 	}
-	else if (die < 61)
+	else if(die < 61)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_COLD, dir,
 				  diceroll(5+((plev-5)/4),8));
 	}
-	else if (die < 66)
+	else if(die < 66)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_ACID, dir,
 				  diceroll(6+((plev-5)/4),8));
 	}
-	else if (die < 71)
+	else if(die < 71)
 	{
 		fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir,
 				  diceroll(8+((plev-5)/4),8));
 	}
-	else if (die < 76)
+	else if(die < 76)
 	{
 		drain_life(creature_ptr, dir, 75);
 	}
-	else if (die < 81)
+	else if(die < 81)
 	{
 		fire_ball(creature_ptr, GF_ELEC, dir, 30 + plev / 2, 2);
 	}
-	else if (die < 86)
+	else if(die < 86)
 	{
 		fire_ball(creature_ptr, GF_ACID, dir, 40 + plev, 2);
 	}
-	else if (die < 91)
+	else if(die < 91)
 	{
 		fire_ball(creature_ptr, GF_ICE, dir, 70 + plev, 3);
 	}
-	else if (die < 96)
+	else if(die < 96)
 	{
 		fire_ball(creature_ptr, GF_FIRE, dir, 80 + plev, 3);
 	}
-	else if (die < 101)
+	else if(die < 101)
 	{
 		drain_life(creature_ptr, dir, 100 + plev);
 	}
-	else if (die < 104)
+	else if(die < 104)
 	{
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
 	}
-	else if (die < 106)
+	else if(die < 106)
 	{
 		(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
 	}
-	else if (die < 108)
+	else if(die < 108)
 	{
 		symbol_genocide(creature_ptr, plev+50, TRUE);
 	}
-	else if (die < 110)
+	else if(die < 110)
 	{
 		dispel_creatures(creature_ptr, 120);
 	}
@@ -483,7 +483,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		heal_creature(creature_ptr, 300);
 	}
 
-	if (die < 31)
+	if(die < 31)
 	{
 #ifdef JP
 		msg_print("陰欝な声がクスクス笑う。「もうすぐおまえは我々の仲間になるだろう。弱き者よ。」");
@@ -500,8 +500,8 @@ void wild_magic(creature_type *creature_ptr, int spell)
 	int type = SUMMON_BIZARRE1 + randint0(6);
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (type < SUMMON_BIZARRE1) type = SUMMON_BIZARRE1;
-	else if (type > SUMMON_BIZARRE6) type = SUMMON_BIZARRE6;
+	if(type < SUMMON_BIZARRE1) type = SUMMON_BIZARRE1;
+	else if(type > SUMMON_BIZARRE6) type = SUMMON_BIZARRE6;
 
 	switch (randint1(spell) + randint1(8) + 1)
 	{
@@ -607,7 +607,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 	int i;
 
 	// Card sharks and high mages get a level bonus
-	if ((creature_ptr->class_idx == CLASS_ROGUE) ||
+	if((creature_ptr->class_idx == CLASS_ROGUE) ||
 	    (creature_ptr->class_idx == CLASS_HIGH_MAGE) ||
 	    (creature_ptr->class_idx == CLASS_SORCERER))
 		die = (randint1(110)) + plev / 5;
@@ -615,9 +615,9 @@ static void cast_shuffle(creature_type *creature_ptr)
 		die = randint1(120);
 
 
-	if (vir)
+	if(vir)
 	{
-		if (creature_ptr->karmas[vir - 1] > 0)
+		if(creature_ptr->karmas[vir - 1] > 0)
 		{
 			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
 		}
@@ -633,7 +633,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 	msg_print("You shuffle the deck and draw a card...");
 #endif
 
-	if (die < 7)
+	if(die < 7)
 	{
 #ifdef JP
 		msg_print("なんてこった！《死》だ！");
@@ -644,7 +644,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		for (i = 0; i < randint1(3); i++)
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 	}
-	else if (die < 14)
+	else if(die < 14)
 	{
 #ifdef JP
 		msg_print("なんてこった！《悪魔》だ！");
@@ -654,7 +654,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
-	else if (die < 18)
+	else if(die < 18)
 	{
 		int count = 0;
 #ifdef JP
@@ -665,7 +665,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		activate_ty_curse(creature_ptr, FALSE, &count);
 	}
-	else if (die < 22)
+	else if(die < 22)
 	{
 #ifdef JP
 		msg_print("《不調和の剣》だ。");
@@ -675,7 +675,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		aggravate_creatures(creature_ptr);
 	}
-	else if (die < 26)
+	else if(die < 26)
 	{
 #ifdef JP
 		msg_print("《愚者》だ。");
@@ -686,7 +686,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		do_dec_stat(creature_ptr, STAT_INT);
 		do_dec_stat(creature_ptr, STAT_WIS);
 	}
-	else if (die < 30)
+	else if(die < 30)
 	{
 #ifdef JP
 		msg_print("奇妙なクリーチャーの絵だ。");
@@ -696,7 +696,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		trump_summoning(creature_ptr, 1, FALSE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), (32 + randint1(6)), PC_ALLOW_GROUP | PC_ALLOW_UNIQUE);
 	}
-	else if (die < 33)
+	else if(die < 33)
 	{
 #ifdef JP
 		msg_print("《月》だ。");
@@ -706,7 +706,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		unlite_area(creature_ptr, 10, 3);
 	}
-	else if (die < 38)
+	else if(die < 38)
 	{
 #ifdef JP
 		msg_print("《運命の輪》だ。");
@@ -716,7 +716,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		wild_magic(creature_ptr, randint0(32));
 	}
-	else if (die < 40)
+	else if(die < 40)
 	{
 #ifdef JP
 		msg_print("テレポート・カードだ。");
@@ -726,7 +726,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
 	}
-	else if (die < 42)
+	else if(die < 42)
 	{
 #ifdef JP
 		msg_print("《正義》だ。");
@@ -736,7 +736,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		set_blessed(creature_ptr, creature_ptr->lev, FALSE);
 	}
-	else if (die < 47)
+	else if(die < 47)
 	{
 #ifdef JP
 		msg_print("テレポート・カードだ。");
@@ -746,7 +746,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 	}
-	else if (die < 52)
+	else if(die < 52)
 	{
 #ifdef JP
 		msg_print("テレポート・カードだ。");
@@ -756,7 +756,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
 	}
-	else if (die < 60)
+	else if(die < 60)
 	{
 #ifdef JP
 		msg_print("《塔》だ。");
@@ -766,7 +766,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		wall_breaker(creature_ptr);
 	}
-	else if (die < 72)
+	else if(die < 72)
 	{
 #ifdef JP
 		msg_print("《節制》だ。");
@@ -776,7 +776,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		sleep_creatures_touch(creature_ptr);
 	}
-	else if (die < 80)
+	else if(die < 80)
 	{
 #ifdef JP
 		msg_print("《塔》だ。");
@@ -786,7 +786,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
 	}
-	else if (die < 82)
+	else if(die < 82)
 	{
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
@@ -796,7 +796,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE1, 0L);
 	}
-	else if (die < 84)
+	else if(die < 84)
 	{
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
@@ -806,7 +806,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE2, 0L);
 	}
-	else if (die < 86)
+	else if(die < 86)
 	{
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
@@ -816,7 +816,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE4, 0L);
 	}
-	else if (die < 88)
+	else if(die < 88)
 	{
 #ifdef JP
 		msg_print("友好的なクリーチャーの絵だ。");
@@ -826,7 +826,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE5, 0L);
 	}
-	else if (die < 96)
+	else if(die < 96)
 	{
 #ifdef JP
 		msg_print("《恋人》だ。");
@@ -834,10 +834,10 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the Lovers.");
 #endif
 
-		if (get_aim_dir(creature_ptr, &dir))
+		if(get_aim_dir(creature_ptr, &dir))
 			charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
 	}
-	else if (die < 101)
+	else if(die < 101)
 	{
 #ifdef JP
 		msg_print("《隠者》だ。");
@@ -847,7 +847,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 
 		wall_stone(creature_ptr);
 	}
-	else if (die < 111)
+	else if(die < 111)
 	{
 #ifdef JP
 		msg_print("《審判》だ。");
@@ -858,7 +858,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		remove_all_acquired_traits(creature_ptr);
 		do_cmd_rerate(creature_ptr, FALSE);
 	}
-	else if (die < 120)
+	else if(die < 120)
 	{
 #ifdef JP
 		msg_print("《太陽》だ。");
@@ -876,10 +876,10 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the World.");
 #endif
 
-		if (creature_ptr->exp < CREATURE_MAX_EXP)
+		if(creature_ptr->exp < CREATURE_MAX_EXP)
 		{
 			s32b ee = (creature_ptr->exp / 25) + 1;
-			if (ee > 5000) ee = 5000;
+			if(ee > 5000) ee = 5000;
 #ifdef JP
 			msg_print("更に経験を積んだような気がする。");
 #else
@@ -917,16 +917,16 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 			/* Approximate distance */
 			d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 
-			if (d >= 9) continue;
+			if(d >= 9) continue;
 
-			if (!in_bounds(floor_ptr, y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)
+			if(!in_bounds(floor_ptr, y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)
 			    || !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 
 			/* Valid position */
 			break;
 		}
 
-		if (count > 20) continue;
+		if(count > 20) continue;
 
 		project(caster_ptr, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 	}
@@ -942,14 +942,14 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 	int dir, i;
 	int b = 10 + randint1(10);
 
-	if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
 	tx = creature_ptr->fx + 99 * ddx[dir];
 	ty = creature_ptr->fy + 99 * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
-	if ((dir == 5) && target_okay(creature_ptr))
+	if((dir == 5) && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
@@ -961,20 +961,20 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 	while (1)
 	{
 		/* Hack -- Stop at the target */
-		if ((y == ty) && (x == tx)) break;
+		if((y == ty) && (x == tx)) break;
 
 		ny = y;
 		nx = x;
 		mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Stop at maximum range */
-		if (MAX_RANGE <= distance(creature_ptr->fy, creature_ptr->fx, ny, nx)) break;
+		if(MAX_RANGE <= distance(creature_ptr->fy, creature_ptr->fx, ny, nx)) break;
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
+		if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT)) break;
 
 		/* Stopped by creatures */
-		if ((dir != 5) && floor_ptr->cave[ny][nx].creature_idx != 0) break;
+		if((dir != 5) && floor_ptr->cave[ny][nx].creature_idx != 0) break;
 
 		/* Save the new location */
 		x = nx;
@@ -1000,13 +1000,13 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 			/* Approximate distance */
 			d = (dy > dx) ? (dy + (dx >> 1)) : (dx + (dy >> 1));
 			/* Within the radius */
-			if (d < 5) break;
+			if(d < 5) break;
 		}
 
-		if (count < 0) continue;
+		if(count < 0) continue;
 
 		/* Cannot penetrate perm walls */
-		if (!in_bounds(floor_ptr, y, x) ||
+		if(!in_bounds(floor_ptr, y, x) ||
 		    cave_stop_disintegration(floor_ptr, y, x) ||
 		    !in_disintegration_range(floor_ptr, ty, tx, y, x))
 			continue;
@@ -1024,11 +1024,11 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 static bool item_tester_offer(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */
-	if (object_ptr->tval != TV_CORPSE) return (FALSE);
+	if(object_ptr->tval != TV_CORPSE) return (FALSE);
 
-	if (object_ptr->sval != SV_CORPSE) return (FALSE);
+	if(object_ptr->sval != SV_CORPSE) return (FALSE);
 
-	if (my_strchr("pht", species_info[object_ptr->pval].d_char)) return (TRUE);
+	if(my_strchr("pht", species_info[object_ptr->pval].d_char)) return (TRUE);
 
 	/* Assume not okay */
 	return (FALSE);
@@ -1053,10 +1053,10 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	q = "Sacrifice which corpse? ";
 	s = "You have nothing to scrifice.";
 #endif
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -1069,7 +1069,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 
 	summon_lev = plev * 2 / 3 + species_info[object_ptr->pval].level;
 
-	if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 	{
 #ifdef JP
 		msg_print("硫黄の悪臭が充満した。");
@@ -1085,7 +1085,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 #endif
 
 		/* Decrease the item (from the pack) */
-		if (item >= 0)
+		if(item >= 0)
 		{
 			inven_item_increase(creature_ptr, item, -1);
 			inven_item_describe(creature_ptr, item);
@@ -1142,10 +1142,10 @@ static void start_singing(creature_type *creature_ptr, int spell, int song)
  */
 void stop_singing(creature_type *creature_ptr)
 {
-	if (creature_ptr->class_idx != CLASS_BARD) return;
+	if(creature_ptr->class_idx != CLASS_BARD) return;
 
  	/* Are there interupted song? */
-	if (creature_ptr->class_skills.old_skills.magic_num1[1])
+	if(creature_ptr->class_skills.old_skills.magic_num1[1])
 	{
 		/* Forget interupted song */
 		creature_ptr->class_skills.old_skills.magic_num1[1] = 0;
@@ -1153,10 +1153,10 @@ void stop_singing(creature_type *creature_ptr)
 	}
 
 	/* The player is singing? */
-	if (!creature_ptr->class_skills.old_skills.magic_num1[0]) return;
+	if(!creature_ptr->class_skills.old_skills.magic_num1[0]) return;
 
 	/* Hack -- if called from set_action(creature_ptr, ), avoid recursive loop */
-	if (creature_ptr->action == ACTION_SING) set_action(creature_ptr, ACTION_NONE);
+	if(creature_ptr->action == ACTION_SING) set_action(creature_ptr, ACTION_NONE);
 
 	/* Message text of each song or etc. */
 	do_spell(creature_ptr, REALM_MUSIC, creature_ptr->class_skills.old_skills.magic_num2[0], SPELL_STOP);
@@ -1188,20 +1188,20 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "軽傷の治癒";
-		if (desc) return "怪我と体力を少し回復させる。";
+		if(name) return "軽傷の治癒";
+		if(desc) return "怪我と体力を少し回復させる。";
 #else
-		if (name) return "Cure Light Wounds";
-		if (desc) return "Heals cut and HP a little.";
+		if(name) return "Cure Light Wounds";
+		if(desc) return "Heals cut and HP a little.";
 #endif
     
 		{
 			int dice = 2;
 			int sides = 10;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10);
@@ -1211,19 +1211,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "祝福";
-		if (desc) return "一定時間、命中率とACにボーナスを得る。";
+		if(name) return "祝福";
+		if(desc) return "一定時間、命中率とACにボーナスを得る。";
 #else
-		if (name) return "Bless";
-		if (desc) return "Gives bonus to hit and AC for a few turns.";
+		if(name) return "Bless";
+		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
     
 		{
 			int base = 12;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_blessed(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -1232,22 +1232,22 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "軽傷";
-		if (desc) return "1体のクリーチャーに小ダメージを与える。抵抗されると無効。";
+		if(name) return "軽傷";
+		if(desc) return "1体のクリーチャーに小ダメージを与える。抵抗されると無効。";
 #else
-		if (name) return "Cause Light Wounds";
-		if (desc) return "Wounds a creature a little unless resisted.";
+		if(name) return "Cause Light Wounds";
+		if(desc) return "Wounds a creature a little unless resisted.";
 #endif
     
 		{
 			int dice = 3 + (plev - 1) / 5;
 			int sides = 4;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, diceroll(dice, sides), 0);
 			}
 		}
@@ -1255,11 +1255,11 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "光の召喚";
-		if (desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
+		if(name) return "光の召喚";
+		if(desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
 #else
-		if (name) return "Call Light";
-		if (desc) return "Lights up nearby area and the inside of a room permanently.";
+		if(name) return "Call Light";
+		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
     
 		{
@@ -1267,9 +1267,9 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev / 2;
 			int rad = plev / 10 + 1;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				lite_area(creature_ptr, diceroll(dice, sides), rad);
 			}
@@ -1278,19 +1278,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "罠 & 隠し扉感知";
-		if (desc) return "近くの全ての罠と扉と階段を感知する。";
+		if(name) return "罠 & 隠し扉感知";
+		if(desc) return "近くの全ての罠と扉と階段を感知する。";
 #else
-		if (name) return "Detect Doors & Traps";
-		if (desc) return "Detects traps, doors, and stairs in your vicinity.";
+		if(name) return "Detect Doors & Traps";
+		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_traps(creature_ptr, rad, TRUE);
 				detect_doors(creature_ptr, rad);
@@ -1301,20 +1301,20 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "重傷の治癒";
-		if (desc) return "怪我と体力を中程度回復させる。";
+		if(name) return "重傷の治癒";
+		if(desc) return "怪我と体力を中程度回復させる。";
 #else
-		if (name) return "Cure Medium Wounds";
-		if (desc) return "Heals cut and HP more.";
+		if(name) return "Cure Medium Wounds";
+		if(desc) return "Heals cut and HP more.";
 #endif
     
 		{
 			int dice = 4;
 			int sides = 10;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 20);
@@ -1324,15 +1324,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "解毒";
-		if (desc) return "体内の毒を取り除く。";
+		if(name) return "解毒";
+		if(desc) return "体内の毒を取り除く。";
 #else
-		if (name) return "Cure Poison";
-		if (desc) return "Cure poison status.";
+		if(name) return "Cure Poison";
+		if(desc) return "Cure poison status.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_poisoned(creature_ptr, 0);
 			}
@@ -1341,15 +1341,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "空腹充足";
-		if (desc) return "満腹にする。";
+		if(name) return "空腹充足";
+		if(desc) return "満腹にする。";
 #else
-		if (name) return "Satisfy Hunger";
-		if (desc) return "Satisfies hunger.";
+		if(name) return "Satisfy Hunger";
+		if(desc) return "Satisfies hunger.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_food(creature_ptr, PY_FOOD_MAX - 1);
 			}
@@ -1358,17 +1358,17 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "解呪";
-		if (desc) return "アイテムにかかった弱い呪いを解除する。";
+		if(name) return "解呪";
+		if(desc) return "アイテムにかかった弱い呪いを解除する。";
 #else
-		if (name) return "Remove Curse";
-		if (desc) return "Removes normal curses from equipped items.";
+		if(name) return "Remove Curse";
+		if(desc) return "Removes normal curses from equipped items.";
 #endif
 
 		{
-			if (cast)
+			if(cast)
 			{
-				if (remove_curse(creature_ptr))
+				if(remove_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1382,22 +1382,22 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "重傷";
-		if (desc) return "1体のクリーチャーに中ダメージを与える。抵抗されると無効。";
+		if(name) return "重傷";
+		if(desc) return "1体のクリーチャーに中ダメージを与える。抵抗されると無効。";
 #else
-		if (name) return "Cause Medium Wounds";
-		if (desc) return "Wounds a creature unless resisted.";
+		if(name) return "Cause Medium Wounds";
+		if(desc) return "Wounds a creature unless resisted.";
 #endif
     
 		{
 			int sides = 8 + (plev - 5) / 4;
 			int dice = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, diceroll(sides, dice), 0);
 			}
 		}
@@ -1405,20 +1405,20 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "致命傷の治癒";
-		if (desc) return "体力を大幅に回復させ、負傷と朦朧状態も全快する。";
+		if(name) return "致命傷の治癒";
+		if(desc) return "体力を大幅に回復させ、負傷と朦朧状態も全快する。";
 #else
-		if (name) return "Cure Critical Wounds";
-		if (desc) return "Heals cut, stun and HP greatly.";
+		if(name) return "Cure Critical Wounds";
+		if(desc) return "Heals cut, stun and HP greatly.";
 #endif
     
 		{
 			int dice = 8;
 			int sides = 10;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_stun(creature_ptr, 0);
@@ -1429,19 +1429,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "耐熱耐寒";
-		if (desc) return "一定時間、火炎と冷気に対する耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐熱耐寒";
+		if(desc) return "一定時間、火炎と冷気に対する耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Heat and Cold";
-		if (desc) return "Gives resistance to fire and cold. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Resist Heat and Cold";
+		if(desc) return "Gives resistance to fire and cold. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
 				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
@@ -1451,19 +1451,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "周辺感知";
-		if (desc) return "周辺の地形を感知する。";
+		if(name) return "周辺感知";
+		if(desc) return "周辺の地形を感知する。";
 #else
-		if (name) return "Sense Surroundings";
-		if (desc) return "Maps nearby area.";
+		if(name) return "Sense Surroundings";
+		if(desc) return "Maps nearby area.";
 #endif
     
 		{
 			int rad = DETECT_RAD_MAP;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				map_area(creature_ptr, rad);
 			}
@@ -1472,15 +1472,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "パニック・アンデッド";
-		if (desc) return "視界内のアンデッドを恐怖させる。抵抗されると無効。";
+		if(name) return "パニック・アンデッド";
+		if(desc) return "視界内のアンデッドを恐怖させる。抵抗されると無効。";
 #else
-		if (name) return "Turn Undead";
-		if (desc) return "Attempts to scare undead creatures in sight.";
+		if(name) return "Turn Undead";
+		if(desc) return "Attempts to scare undead creatures in sight.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				turn_undead(creature_ptr);
 			}
@@ -1489,19 +1489,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "体力回復";
-		if (desc) return "極めて強力な回復呪文で、負傷と朦朧状態も全快する。";
+		if(name) return "体力回復";
+		if(desc) return "極めて強力な回復呪文で、負傷と朦朧状態も全快する。";
 #else
-		if (name) return "Healing";
-		if (desc) return "Much powerful healing magic, and heals cut and stun completely.";
+		if(name) return "Healing";
+		if(desc) return "Much powerful healing magic, and heals cut and stun completely.";
 #endif
     
 		{
 			int heal = 300;
 
-			if (info) return info_heal(0, 0, heal);
+			if(info) return info_heal(0, 0, heal);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, heal);
 				set_stun(creature_ptr, 0);
@@ -1512,15 +1512,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "結界の紋章";
-		if (desc) return "自分のいる床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
+		if(name) return "結界の紋章";
+		if(desc) return "自分のいる床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
 #else
-		if (name) return "Glyph of Warding";
-		if (desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
+		if(name) return "Glyph of Warding";
+		if(desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				warding_glyph(creature_ptr);
 			}
@@ -1529,17 +1529,17 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "*解呪*";
-		if (desc) return "アイテムにかかった強力な呪いを解除する。";
+		if(name) return "*解呪*";
+		if(desc) return "アイテムにかかった強力な呪いを解除する。";
 #else
-		if (name) return "Dispel Curse";
-		if (desc) return "Removes normal and heavy curse from equipped items.";
+		if(name) return "Dispel Curse";
+		if(desc) return "Removes normal and heavy curse from equipped items.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (remove_all_curse(creature_ptr))
+				if(remove_all_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -1553,37 +1553,37 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "鑑識";
-		if (desc) return "アイテムを識別する。";
+		if(name) return "鑑識";
+		if(desc) return "アイテムを識別する。";
 #else
-		if (name) return "Perception";
-		if (desc) return "Identifies an item.";
+		if(name) return "Perception";
+		if(desc) return "Identifies an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!ident_spell(creature_ptr, FALSE)) return NULL;
+				if(!ident_spell(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 18:
 #ifdef JP
-		if (name) return "アンデッド退散";
-		if (desc) return "視界内の全てのアンデッドにダメージを与える。";
+		if(name) return "アンデッド退散";
+		if(desc) return "視界内の全てのアンデッドにダメージを与える。";
 #else
-		if (name) return "Dispel Undead";
-		if (desc) return "Damages all undead creatures in sight.";
+		if(name) return "Dispel Undead";
+		if(desc) return "Damages all undead creatures in sight.";
 #endif
     
 		{
 			int dice = 1;
 			int sides = plev * 5;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_undead(creature_ptr, diceroll(dice, sides));
 			}
@@ -1592,19 +1592,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "凪の刻";
-		if (desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
+		if(name) return "凪の刻";
+		if(desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
 #else
-		if (name) return "Day of the Dove";
-		if (desc) return "Attempts to charm all creatures in sight.";
+		if(name) return "Day of the Dove";
+		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
     
 		{
 			int power = plev * 2;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				charm_creatures(creature_ptr, power);
 			}
@@ -1613,22 +1613,22 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "致命傷";
-		if (desc) return "1体のクリーチャーに大ダメージを与える。抵抗されると無効。";
+		if(name) return "致命傷";
+		if(desc) return "1体のクリーチャーに大ダメージを与える。抵抗されると無効。";
 #else
-		if (name) return "Cause Critical Wounds";
-		if (desc) return "Wounds a creature critically unless resisted.";
+		if(name) return "Cause Critical Wounds";
+		if(desc) return "Wounds a creature critically unless resisted.";
 #endif
     
 		{
 			int dice = 5 + (plev - 5) / 3;
 			int sides = 15;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_ball_hide(creature_ptr, GF_WOUNDS, dir, diceroll(dice, sides), 0);
 			}
 		}
@@ -1636,42 +1636,42 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "帰還の詔";
-		if (desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
+		if(name) return "帰還の詔";
+		if(desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
 #else
-		if (name) return "Word of Recall";
-		if (desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
+		if(name) return "Word of Recall";
+		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
-			if (cast)
+			if(cast)
 			{
-				if (!word_of_recall(creature_ptr)) return NULL;
+				if(!word_of_recall(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 22:
 #ifdef JP
-		if (name) return "真実の祭壇";
-		if (desc) return "現在の階を再構成する。";
+		if(name) return "真実の祭壇";
+		if(desc) return "現在の階を再構成する。";
 #else
-		if (name) return "Alter Reality";
-		if (desc) return "Recreates current dungeon level.";
+		if(name) return "Alter Reality";
+		if(desc) return "Recreates current dungeon level.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				alter_reality(creature_ptr);
 			}
@@ -1680,19 +1680,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "真・結界";
-		if (desc) return "自分のいる床と周囲8マスの床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
+		if(name) return "真・結界";
+		if(desc) return "自分のいる床と周囲8マスの床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
 #else
-		if (name) return "Warding True";
-		if (desc) return "Creates glyphs in all adjacent squares and under you.";
+		if(name) return "Warding True";
+		if(desc) return "Creates glyphs in all adjacent squares and under you.";
 #endif
     
 		{
 			int rad = 1;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				warding_glyph(creature_ptr);
 				glyph_creation(creature_ptr);
@@ -1702,15 +1702,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "不毛化";
-		if (desc) return "この階の増殖するクリーチャーが増殖できなくなる。";
+		if(name) return "不毛化";
+		if(desc) return "この階の増殖するクリーチャーが増殖できなくなる。";
 #else
-		if (name) return "Sterilization";
-		if (desc) return "Prevents any breeders on current level from breeding.";
+		if(name) return "Sterilization";
+		if(desc) return "Prevents any breeders on current level from breeding.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				floor_ptr->num_repro += MAX_REPRO;
 			}
@@ -1719,19 +1719,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "全感知";
-		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
+		if(name) return "全感知";
+		if(desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
-		if (name) return "Detection";
-		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
+		if(name) return "Detection";
+		if(desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
 
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_all(creature_ptr, rad);
 			}
@@ -1740,19 +1740,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "アンデッド消滅";
-		if (desc) return "自分の周囲にいるアンデッドを現在の階から消し去る。抵抗されると無効。";
+		if(name) return "アンデッド消滅";
+		if(desc) return "自分の周囲にいるアンデッドを現在の階から消し去る。抵抗されると無効。";
 #else
-		if (name) return "Annihilate Undead";
-		if (desc) return "Eliminates all nearby undead creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
+		if(name) return "Annihilate Undead";
+		if(desc) return "Eliminates all nearby undead creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
     
 		{
 			int power = plev + 50;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				mass_genocide_undead(creature_ptr, power, TRUE);
 			}
@@ -1761,15 +1761,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "千里眼";
-		if (desc) return "その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。";
+		if(name) return "千里眼";
+		if(desc) return "その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。";
 #else
-		if (name) return "Clairvoyance";
-		if (desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
+		if(name) return "Clairvoyance";
+		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				wiz_lite(floor_ptr, creature_ptr, FALSE);
 			}
@@ -1778,15 +1778,15 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "全復活";
-		if (desc) return "すべてのステータスと経験値を回復する。";
+		if(name) return "全復活";
+		if(desc) return "すべてのステータスと経験値を回復する。";
 #else
-		if (name) return "Restoration";
-		if (desc) return "Restores all stats and experience.";
+		if(name) return "Restoration";
+		if(desc) return "Restores all stats and experience.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				do_res_stat(creature_ptr, STAT_STR);
 				do_res_stat(creature_ptr, STAT_INT);
@@ -1801,19 +1801,19 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "*体力回復*";
-		if (desc) return "最強の治癒の魔法で、負傷と朦朧状態も全快する。";
+		if(name) return "*体力回復*";
+		if(desc) return "最強の治癒の魔法で、負傷と朦朧状態も全快する。";
 #else
-		if (name) return "Healing True";
-		if (desc) return "The greatest healing magic. Heals all HP, cut and stun.";
+		if(name) return "Healing True";
+		if(desc) return "The greatest healing magic. Heals all HP, cut and stun.";
 #endif
     
 		{
 			int heal = 2000;
 
-			if (info) return info_heal(0, 0, heal);
+			if(info) return info_heal(0, 0, heal);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, heal);
 				set_stun(creature_ptr, 0);
@@ -1824,36 +1824,36 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "聖なるビジョン";
-		if (desc) return "アイテムの持つ能力を完全に知る。";
+		if(name) return "聖なるビジョン";
+		if(desc) return "アイテムの持つ能力を完全に知る。";
 #else
-		if (name) return "Holy Vision";
-		if (desc) return "*Identifies* an item.";
+		if(name) return "Holy Vision";
+		if(desc) return "*Identifies* an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!identify_fully(creature_ptr, FALSE)) return NULL;
+				if(!identify_fully(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 31:
 #ifdef JP
-		if (name) return "究極の耐性";
-		if (desc) return "一定時間、あらゆる耐性を付け、ACと魔法防御能力を上昇させる。";
+		if(name) return "究極の耐性";
+		if(desc) return "一定時間、あらゆる耐性を付け、ACと魔法防御能力を上昇させる。";
 #else
-		if (name) return "Ultimate Resistance";
-		if (desc) return "Gives ultimate resistance, bonus to AC and speed.";
+		if(name) return "Ultimate Resistance";
+		if(desc) return "Gives ultimate resistance, bonus to AC and speed.";
 #endif
     
 		{
 			int base = plev / 2;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				int v = randint1(base) + base;
 				set_fast(creature_ptr, v, FALSE);
@@ -1887,19 +1887,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "クリーチャー感知";
-		if (desc) return "近くの全ての見えるクリーチャーを感知する。";
+		if(name) return "クリーチャー感知";
+		if(desc) return "近くの全ての見えるクリーチャーを感知する。";
 #else
-		if (name) return "Detect Creatures";
-		if (desc) return "Detects all creatures in your vicinity unless invisible.";
+		if(name) return "Detect Creatures";
+		if(desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_normal(creature_ptr, rad);
 			}
@@ -1908,19 +1908,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "ショート・テレポート";
-		if (desc) return "近距離のテレポートをする。";
+		if(name) return "ショート・テレポート";
+		if(desc) return "近距離のテレポートをする。";
 #else
-		if (name) return "Phase Door";
-		if (desc) return "Teleport short distance.";
+		if(name) return "Phase Door";
+		if(desc) return "Teleport short distance.";
 #endif
     
 		{
 			int range = 10;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -1929,19 +1929,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "罠と扉感知";
-		if (desc) return "近くの全ての扉と罠を感知する。";
+		if(name) return "罠と扉感知";
+		if(desc) return "近くの全ての扉と罠を感知する。";
 #else
-		if (name) return "Detect Doors and Traps";
-		if (desc) return "Detects traps, doors, and stairs in your vicinity.";
+		if(name) return "Detect Doors and Traps";
+		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_traps(creature_ptr, rad, TRUE);
 				detect_doors(creature_ptr, rad);
@@ -1952,11 +1952,11 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "ライト・エリア";
-		if (desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
+		if(name) return "ライト・エリア";
+		if(desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
 #else
-		if (name) return "Light Area";
-		if (desc) return "Lights up nearby area and the inside of a room permanently.";
+		if(name) return "Light Area";
+		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
     
 		{
@@ -1964,9 +1964,9 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev / 2;
 			int rad = plev / 10 + 1;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				lite_area(creature_ptr, diceroll(dice, sides), rad);
 			}
@@ -1975,21 +1975,21 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "パニック・クリーチャー";
-		if (desc) return "クリーチャー1体を混乱させる。抵抗されると無効。";
+		if(name) return "パニック・クリーチャー";
+		if(desc) return "クリーチャー1体を混乱させる。抵抗されると無効。";
 #else
-		if (name) return "Confuse Creature";
-		if (desc) return "Attempts to confuse a creature.";
+		if(name) return "Confuse Creature";
+		if(desc) return "Attempts to confuse a creature.";
 #endif
     
 		{
 			int power = (plev * 3) / 2;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				confuse_creature(creature_ptr, dir, power);
 			}
@@ -1998,19 +1998,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "テレポート";
-		if (desc) return "遠距離のテレポートをする。";
+		if(name) return "テレポート";
+		if(desc) return "遠距離のテレポートをする。";
 #else
-		if (name) return "Teleport";
-		if (desc) return "Teleport long distance.";
+		if(name) return "Teleport";
+		if(desc) return "Teleport long distance.";
 #endif
     
 		{
 			int range = plev * 5;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -2019,21 +2019,21 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "スリープ・クリーチャー";
-		if (desc) return "クリーチャー1体を眠らせる。抵抗されると無効。";
+		if(name) return "スリープ・クリーチャー";
+		if(desc) return "クリーチャー1体を眠らせる。抵抗されると無効。";
 #else
-		if (name) return "Sleep Creature";
-		if (desc) return "Attempts to sleep a creature.";
+		if(name) return "Sleep Creature";
+		if(desc) return "Attempts to sleep a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				sleep_creature(creature_ptr, dir);
 			}
@@ -2042,40 +2042,40 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "魔力充填";
-		if (desc) return "杖/魔法棒の充填回数を増やすか、充填中のロッドの充填時間を減らす。";
+		if(name) return "魔力充填";
+		if(desc) return "杖/魔法棒の充填回数を増やすか、充填中のロッドの充填時間を減らす。";
 #else
-		if (name) return "Recharging";
-		if (desc) return "Recharges staffs, wands or rods.";
+		if(name) return "Recharging";
+		if(desc) return "Recharges staffs, wands or rods.";
 #endif
     
 		{
 			int power = plev * 4;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!recharge(creature_ptr, power)) return NULL;
+				if(!recharge(creature_ptr, power)) return NULL;
 			}
 		}
 		break;
 
 	case 8:
 #ifdef JP
-		if (name) return "魔法の地図";
-		if (desc) return "周辺の地形を感知する。";
+		if(name) return "魔法の地図";
+		if(desc) return "周辺の地形を感知する。";
 #else
-		if (name) return "Magic Mapping";
-		if (desc) return "Maps nearby area.";
+		if(name) return "Magic Mapping";
+		if(desc) return "Maps nearby area.";
 #endif
     
 		{
 			int rad = DETECT_RAD_MAP;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				map_area(creature_ptr, rad);
 			}
@@ -2084,38 +2084,38 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "鑑定";
-		if (desc) return "アイテムを識別する。";
+		if(name) return "鑑定";
+		if(desc) return "アイテムを識別する。";
 #else
-		if (name) return "Identify";
-		if (desc) return "Identifies an item.";
+		if(name) return "Identify";
+		if(desc) return "Identifies an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!ident_spell(creature_ptr, FALSE)) return NULL;
+				if(!ident_spell(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 10:
 #ifdef JP
-		if (name) return "スロウ・クリーチャー";
-		if (desc) return "クリーチャー1体を減速さる。抵抗されると無効。";
+		if(name) return "スロウ・クリーチャー";
+		if(desc) return "クリーチャー1体を減速さる。抵抗されると無効。";
 #else
-		if (name) return "Slow Creature";
-		if (desc) return "Attempts to slow a creature.";
+		if(name) return "Slow Creature";
+		if(desc) return "Attempts to slow a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				slow_creature(creature_ptr, dir);
 			}
@@ -2124,19 +2124,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "周辺スリープ";
-		if (desc) return "視界内の全てのクリーチャーを眠らせる。抵抗されると無効。";
+		if(name) return "周辺スリープ";
+		if(desc) return "視界内の全てのクリーチャーを眠らせる。抵抗されると無効。";
 #else
-		if (name) return "Mass Sleep";
-		if (desc) return "Attempts to sleep all creatures in sight.";
+		if(name) return "Mass Sleep";
+		if(desc) return "Attempts to sleep all creatures in sight.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				sleep_creatures(creature_ptr);
 			}
@@ -2145,21 +2145,21 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "テレポート・クリーチャー";
-		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
+		if(name) return "テレポート・クリーチャー";
+		if(desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
-		if (name) return "Teleport Away";
-		if (desc) return "Teleports all creatures on the line away unless resisted.";
+		if(name) return "Teleport Away";
+		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_beam(creature_ptr, GF_AWAY_ALL, dir, power);
 			}
@@ -2168,20 +2168,20 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "スピード";
-		if (desc) return "一定時間、加速する。";
+		if(name) return "スピード";
+		if(desc) return "一定時間、加速する。";
 #else
-		if (name) return "Haste Self";
-		if (desc) return "Hastes you for a while.";
+		if(name) return "Haste Self";
+		if(desc) return "Hastes you for a while.";
 #endif
     
 		{
 			int base = plev;
 			int sides = 20 + plev;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_fast(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -2190,19 +2190,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "真・感知";
-		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
+		if(name) return "真・感知";
+		if(desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
-		if (name) return "Detection True";
-		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
+		if(name) return "Detection True";
+		if(desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_all(creature_ptr, rad);
 			}
@@ -2211,36 +2211,36 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "真・鑑定";
-		if (desc) return "アイテムの持つ能力を完全に知る。";
+		if(name) return "真・鑑定";
+		if(desc) return "アイテムの持つ能力を完全に知る。";
 #else
-		if (name) return "Identify True";
-		if (desc) return "*Identifies* an item.";
+		if(name) return "Identify True";
+		if(desc) return "*Identifies* an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!identify_fully(creature_ptr, FALSE)) return NULL;
+				if(!identify_fully(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 16:
 #ifdef JP
-		if (name) return "物体と財宝感知";
-		if (desc) return "近くの全てのアイテムと財宝を感知する。";
+		if(name) return "物体と財宝感知";
+		if(desc) return "近くの全てのアイテムと財宝を感知する。";
 #else
-		if (name) return "Detect items and Treasure";
-		if (desc) return "Detects all treasures and items in your vicinity.";
+		if(name) return "Detect items and Treasure";
+		if(desc) return "Detects all treasures and items in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_objects_normal(creature_ptr, rad);
 				detect_treasure(creature_ptr, rad);
@@ -2251,21 +2251,21 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "チャーム・クリーチャー";
-		if (desc) return "クリーチャー1体を魅了する。抵抗されると無効。";
+		if(name) return "チャーム・クリーチャー";
+		if(desc) return "クリーチャー1体を魅了する。抵抗されると無効。";
 #else
-		if (name) return "Charm Creature";
-		if (desc) return "Attempts to charm a creature.";
+		if(name) return "Charm Creature";
+		if(desc) return "Attempts to charm a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				charm_creature(creature_ptr, dir, power);
 			}
@@ -2274,20 +2274,20 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "精神感知";
-		if (desc) return "一定時間、テレパシー能力を得る。";
+		if(name) return "精神感知";
+		if(desc) return "一定時間、テレパシー能力を得る。";
 #else
-		if (name) return "Sense Minds";
-		if (desc) return "Gives telepathy for a while.";
+		if(name) return "Sense Minds";
+		if(desc) return "Gives telepathy for a while.";
 #endif
     
 		{
 			int base = 25;
 			int sides = 30;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -2296,32 +2296,32 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "街移動";
-		if (desc) return "街へ移動する。地上にいるときしか使えない。";
+		if(name) return "街移動";
+		if(desc) return "街へ移動する。地上にいるときしか使えない。";
 #else
-		if (name) return "Teleport to town";
-		if (desc) return "Teleport to a town which you choose in a moment. Can only be used outdoors.";
+		if(name) return "Teleport to town";
+		if(desc) return "Teleport to a town which you choose in a moment. Can only be used outdoors.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!tele_town(creature_ptr)) return NULL;
+				if(!tele_town(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 20:
 #ifdef JP
-		if (name) return "自己分析";
-		if (desc) return "現在の自分の状態を完全に知る。";
+		if(name) return "自己分析";
+		if(desc) return "現在の自分の状態を完全に知る。";
 #else
-		if (name) return "Self Knowledge";
-		if (desc) return "Gives you useful info regarding your current resistances, the powers of your weapon and maximum limits of your stats.";
+		if(name) return "Self Knowledge";
+		if(desc) return "Gives you useful info regarding your current resistances, the powers of your weapon and maximum limits of your stats.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				creature_knowledge(creature_ptr);
 			}
@@ -2330,20 +2330,20 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "テレポート・レベル";
-		if (desc) return "瞬時に上か下の階にテレポートする。";
+		if(name) return "テレポート・レベル";
+		if(desc) return "瞬時に上か下の階にテレポートする。";
 #else
-		if (name) return "Teleport Level";
-		if (desc) return "Teleport to up or down stairs in a moment.";
+		if(name) return "Teleport Level";
+		if(desc) return "Teleport to up or down stairs in a moment.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
-				if (!get_check("本当に他の階にテレポートしますか？")) return NULL;
+				if(!get_check("本当に他の階にテレポートしますか？")) return NULL;
 #else
-				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
+				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
 				teleport_level(creature_ptr, 0);
 			}
@@ -2352,41 +2352,41 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "帰還の呪文";
-		if (desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
+		if(name) return "帰還の呪文";
+		if(desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
 #else
-		if (name) return "Word of Recall";
-		if (desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
+		if(name) return "Word of Recall";
+		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
-			if (cast)
+			if(cast)
 			{
-				if (!word_of_recall(creature_ptr)) return NULL;
+				if(!word_of_recall(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 23:
 #ifdef JP
-		if (name) return "次元の扉";
-		if (desc) return "短距離内の指定した場所にテレポートする。";
+		if(name) return "次元の扉";
+		if(desc) return "短距離内の指定した場所にテレポートする。";
 #else
-		if (name) return "Dimension Door";
-		if (desc) return "Teleport to given location.";
+		if(name) return "Dimension Door";
+		if(desc) return "Teleport to given location.";
 #endif
     
 		{
 			int range = plev / 2 + 10;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("次元の扉が開いた。目的地を選んで下さい。");
@@ -2394,22 +2394,22 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You open a dimensional gate. Choose a destination.");
 #endif
 
-				if (!dimension_door(creature_ptr)) return NULL;
+				if(!dimension_door(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 24:
 #ifdef JP
-		if (name) return "調査";
-		if (desc) return "クリーチャーの属性、残り体力、最大体力、スピード、正体を知る。";
+		if(name) return "調査";
+		if(desc) return "クリーチャーの属性、残り体力、最大体力、スピード、正体を知る。";
 #else
-		if (name) return "Probing";
-		if (desc) return "Proves all creatures' alignment, HP, speed and their true character.";
+		if(name) return "Probing";
+		if(desc) return "Proves all creatures' alignment, HP, speed and their true character.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				probing(GET_FLOOR_PTR(creature_ptr));
 			}
@@ -2418,11 +2418,11 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "爆発のルーン";
-		if (desc) return "自分のいる床の上に、クリーチャーが通ると爆発してダメージを与えるルーンを描く。";
+		if(name) return "爆発のルーン";
+		if(desc) return "自分のいる床の上に、クリーチャーが通ると爆発してダメージを与えるルーンを描く。";
 #else
-		if (name) return "Explosive Rune";
-		if (desc) return "Sets a glyph under you. The glyph will explode when a creature moves on it.";
+		if(name) return "Explosive Rune";
+		if(desc) return "Sets a glyph under you. The glyph will explode when a creature moves on it.";
 #endif
     
 		{
@@ -2430,9 +2430,9 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 7;
 			int base = plev;
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
 				explosive_rune(creature_ptr);
 			}
@@ -2441,21 +2441,21 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "念動力";
-		if (desc) return "アイテムを自分の足元へ移動させる。";
+		if(name) return "念動力";
+		if(desc) return "アイテムを自分の足元へ移動させる。";
 #else
-		if (name) return "Telekinesis";
-		if (desc) return "Pulls a distant item close to you.";
+		if(name) return "Telekinesis";
+		if(desc) return "Pulls a distant item close to you.";
 #endif
     
 		{
 			int weight = plev * 15;
 
-			if (info) return info_weight(weight);
+			if(info) return info_weight(weight);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fetch(creature_ptr, dir, weight, FALSE);
 			}
@@ -2464,25 +2464,25 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "千里眼";
-		if (desc) return "その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。さらに、一定時間テレパシー能力を得る。";
+		if(name) return "千里眼";
+		if(desc) return "その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。さらに、一定時間テレパシー能力を得る。";
 #else
-		if (name) return "Clairvoyance";
-		if (desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
+		if(name) return "Clairvoyance";
+		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
     
 		{
 			int base = 25;
 			int sides = 30;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 
 				wiz_lite(floor_ptr, creature_ptr, FALSE);
 
-				if (!has_trait(creature_ptr, TRAIT_ESP))
+				if(!has_trait(creature_ptr, TRAIT_ESP))
 				{
 					set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 				}
@@ -2492,19 +2492,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "魅了の視線";
-		if (desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
+		if(name) return "魅了の視線";
+		if(desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
 #else
-		if (name) return "Charm creatures";
-		if (desc) return "Attempts to charm all creatures in sight.";
+		if(name) return "Charm creatures";
+		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
     
 		{
 			int power = plev * 2;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				charm_creatures(creature_ptr, power);
 			}
@@ -2513,36 +2513,36 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "錬金術";
-		if (desc) return "アイテム1つをお金に変える。";
+		if(name) return "錬金術";
+		if(desc) return "アイテム1つをお金に変える。";
 #else
-		if (name) return "Alchemy";
-		if (desc) return "Turns an item into 1/3 of its value in gold.";
+		if(name) return "Alchemy";
+		if(desc) return "Turns an item into 1/3 of its value in gold.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!alchemy(creature_ptr)) return NULL;
+				if(!alchemy(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 30:
 #ifdef JP
-		if (name) return "怪物追放";
-		if (desc) return "視界内の全てのクリーチャーをテレポートさせる。抵抗されると無効。";
+		if(name) return "怪物追放";
+		if(desc) return "視界内の全てのクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
-		if (name) return "Banishment";
-		if (desc) return "Teleports all creatures in sight away unless resisted.";
+		if(name) return "Banishment";
+		if(desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
     
 		{
 			int power = plev * 4;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				banish_creatures(creature_ptr, power);
 			}
@@ -2551,19 +2551,19 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "無傷の球";
-		if (desc) return "一定時間、ダメージを受けなくなるバリアを張る。切れた瞬間に少しターンを消費するので注意。";
+		if(name) return "無傷の球";
+		if(desc) return "一定時間、ダメージを受けなくなるバリアを張る。切れた瞬間に少しターンを消費するので注意。";
 #else
-		if (name) return "Globe of Invulnerability";
-		if (desc) return "Generates barrier which completely protect you from almost all damages. Takes a few your turns when the barrier breaks or duration time is exceeded.";
+		if(name) return "Globe of Invulnerability";
+		if(desc) return "Generates barrier which completely protect you from almost all damages. Takes a few your turns when the barrier breaks or duration time is exceeded.";
 #endif
     
 		{
 			int base = 4;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_invuln(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -2599,19 +2599,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "クリーチャー感知";
-		if (desc) return "近くの全ての見えるクリーチャーを感知する。";
+		if(name) return "クリーチャー感知";
+		if(desc) return "近くの全ての見えるクリーチャーを感知する。";
 #else
-		if (name) return "Detect Creatures";
-		if (desc) return "Detects all creatures in your vicinity unless invisible.";
+		if(name) return "Detect Creatures";
+		if(desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_normal(caster_ptr, rad);
 			}
@@ -2620,11 +2620,11 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "稲妻";
-		if (desc) return "電撃の短いビームを放つ。";
+		if(name) return "稲妻";
+		if(desc) return "電撃の短いビームを放つ。";
 #else
-		if (name) return "Lightning";
-		if (desc) return "Fires a short beam of lightning.";
+		if(name) return "Lightning";
+		if(desc) return "Fires a short beam of lightning.";
 #endif
     
 		{
@@ -2632,13 +2632,13 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 4;
 			int range = plev / 6 + 2;
 
-			if (info) return format("%s%dd%d %s%d", s_dam, dice, sides, s_rng, range);
+			if(info) return format("%s%dd%d %s%d", s_dam, dice, sides, s_rng, range);
 
-			if (cast)
+			if(cast)
 			{
 				project_length = range;
 
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				fire_beam(caster_ptr, GF_ELEC, dir, diceroll(dice, sides));
 			}
@@ -2647,19 +2647,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "罠と扉感知";
-		if (desc) return "近くの全ての罠と扉を感知する。";
+		if(name) return "罠と扉感知";
+		if(desc) return "近くの全ての罠と扉を感知する。";
 #else
-		if (name) return "Detect Doors and Traps";
-		if (desc) return "Detects traps, doors, and stairs in your vicinity.";
+		if(name) return "Detect Doors and Traps";
+		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_traps(caster_ptr, rad, TRUE);
 				detect_doors(caster_ptr, rad);
@@ -2670,15 +2670,15 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "食糧生成";
-		if (desc) return "食料を一つ作り出す。";
+		if(name) return "食糧生成";
+		if(desc) return "食料を一つ作り出す。";
 #else
-		if (name) return "Produce Food";
-		if (desc) return "Produces a Ration of Food.";
+		if(name) return "Produce Food";
+		if(desc) return "Produces a Ration of Food.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				object_type forge, *quest_ptr = &forge;
 
@@ -2699,11 +2699,11 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "日の光";
-		if (desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
+		if(name) return "日の光";
+		if(desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
 #else
-		if (name) return "Daylight";
-		if (desc) return "Lights up nearby area and the inside of a room permanently.";
+		if(name) return "Daylight";
+		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
     
 		{
@@ -2711,13 +2711,13 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = plev / 2;
 			int rad = (plev / 10) + 1;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				lite_area(caster_ptr, diceroll(dice, sides), rad);
 
-				if (has_trait(caster_ptr, TRAIT_HURT_LITE) && !caster_ptr->resist_lite)
+				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !caster_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("日の光があなたの肉体を焦がした！");
@@ -2737,21 +2737,21 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "動物習し";
-		if (desc) return "動物1体を魅了する。抵抗されると無効。";
+		if(name) return "動物習し";
+		if(desc) return "動物1体を魅了する。抵抗されると無効。";
 #else
-		if (name) return "Animal Taming";
-		if (desc) return "Attempts to charm an animal.";
+		if(name) return "Animal Taming";
+		if(desc) return "Attempts to charm an animal.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				charm_animal(caster_ptr, dir, power);
 			}
@@ -2760,19 +2760,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "環境への耐性";
-		if (desc) return "一定時間、冷気、炎、電撃に対する耐性を得る。装備による耐性に累積する。";
+		if(name) return "環境への耐性";
+		if(desc) return "一定時間、冷気、炎、電撃に対する耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Environment";
-		if (desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Resist Environment";
+		if(desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_cold(caster_ptr, randint1(base) + base, FALSE);
 				set_oppose_fire(caster_ptr, randint1(base) + base, FALSE);
@@ -2783,20 +2783,20 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "傷と毒治療";
-		if (desc) return "怪我を全快させ、毒を体から完全に取り除き、体力を少し回復させる。";
+		if(name) return "傷と毒治療";
+		if(desc) return "怪我を全快させ、毒を体から完全に取り除き、体力を少し回復させる。";
 #else
-		if (name) return "Cure Wounds & Poison";
-		if (desc) return "Heals all cut and poison status. Heals HP a little.";
+		if(name) return "Cure Wounds & Poison";
+		if(desc) return "Heals all cut and poison status. Heals HP a little.";
 #endif
     
 		{
 			int dice = 2;
 			int sides = 8;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
 				set_cut(caster_ptr, 0);
@@ -2807,11 +2807,11 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "岩石溶解";
-		if (desc) return "壁を溶かして床にする。";
+		if(name) return "岩石溶解";
+		if(desc) return "壁を溶かして床にする。";
 #else
-		if (name) return "Stone to Mud";
-		if (desc) return "Turns one rock square to mud.";
+		if(name) return "Stone to Mud";
+		if(desc) return "Turns one rock square to mud.";
 #endif
     
 		{
@@ -2819,11 +2819,11 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 30;
 			int base = 20;
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				wall_to_mud(caster_ptr, dir);
 			}
@@ -2832,22 +2832,22 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "アイス・ボルト";
-		if (desc) return "冷気のボルトもしくはビームを放つ。";
+		if(name) return "アイス・ボルト";
+		if(desc) return "冷気のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Frost Bolt";
-		if (desc) return "Fires a bolt or beam of cold.";
+		if(name) return "Frost Bolt";
+		if(desc) return "Fires a bolt or beam of cold.";
 #endif
     
 		{
 			int dice = 3 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 				fire_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_COLD, dir, diceroll(dice, sides));
 			}
 		}
@@ -2855,20 +2855,20 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "自然の覚醒";
-		if (desc) return "周辺の地形を感知し、近くの罠、扉、階段、全てのクリーチャーを感知する。";
+		if(name) return "自然の覚醒";
+		if(desc) return "周辺の地形を感知し、近くの罠、扉、階段、全てのクリーチャーを感知する。";
 #else
-		if (name) return "Nature Awareness";
-		if (desc) return "Maps nearby area. Detects all creatures, traps, doors and stairs.";
+		if(name) return "Nature Awareness";
+		if(desc) return "Maps nearby area. Detects all creatures, traps, doors and stairs.";
 #endif
     
 		{
 			int rad1 = DETECT_RAD_MAP;
 			int rad2 = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(MAX(rad1, rad2));
+			if(info) return info_radius(MAX(rad1, rad2));
 
-			if (cast)
+			if(cast)
 			{
 				map_area(caster_ptr, rad1);
 				detect_traps(caster_ptr, rad2, TRUE);
@@ -2881,22 +2881,22 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "ファイア・ボルト";
-		if (desc) return "火炎のボルトもしくはビームを放つ。";
+		if(name) return "ファイア・ボルト";
+		if(desc) return "火炎のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Fire Bolt";
-		if (desc) return "Fires a bolt or beam of fire.";
+		if(name) return "Fire Bolt";
+		if(desc) return "Fires a bolt or beam of fire.";
 #endif
     
 		{
 			int dice = 5 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 				fire_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_FIRE, dir, diceroll(dice, sides));
 			}
 		}
@@ -2904,22 +2904,22 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "太陽光線";
-		if (desc) return "光線を放つ。光りを嫌うクリーチャーに効果がある。";
+		if(name) return "太陽光線";
+		if(desc) return "光線を放つ。光りを嫌うクリーチャーに効果がある。";
 #else
-		if (name) return "Ray of Sunlight";
-		if (desc) return "Fires a beam of light which damages to light-sensitive creatures.";
+		if(name) return "Ray of Sunlight";
+		if(desc) return "Fires a beam of light which damages to light-sensitive creatures.";
 #endif
     
 		{
 			int dice = 6;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 #ifdef JP
 				msg_print("太陽光線が現れた。");
 #else
@@ -2933,19 +2933,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "足かせ";
-		if (desc) return "視界内の全てのクリーチャーを減速させる。抵抗されると無効。";
+		if(name) return "足かせ";
+		if(desc) return "視界内の全てのクリーチャーを減速させる。抵抗されると無効。";
 #else
-		if (name) return "Entangle";
-		if (desc) return "Attempts to slow all creatures in sight.";
+		if(name) return "Entangle";
+		if(desc) return "Attempts to slow all creatures in sight.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				slow_creatures(caster_ptr);
 			}
@@ -2954,17 +2954,17 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "動物召喚";
-		if (desc) return "動物を1体召喚する。";
+		if(name) return "動物召喚";
+		if(desc) return "動物を1体召喚する。";
 #else
-		if (name) return "Summon Animal";
-		if (desc) return "Summons an animal.";
+		if(name) return "Summon Animal";
+		if(desc) return "Summons an animal.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
+				if(!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("動物は現れなかった。");
@@ -2979,19 +2979,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "薬草治療";
-		if (desc) return "体力を大幅に回復させ、負傷、朦朧状態、毒から全快する。";
+		if(name) return "薬草治療";
+		if(desc) return "体力を大幅に回復させ、負傷、朦朧状態、毒から全快する。";
 #else
-		if (name) return "Herbal Healing";
-		if (desc) return "Heals HP greatly. And heals cut, stun and poison completely.";
+		if(name) return "Herbal Healing";
+		if(desc) return "Heals HP greatly. And heals cut, stun and poison completely.";
 #endif
     
 		{
 			int heal = 500;
 
-			if (info) return info_heal(0, 0, heal);
+			if(info) return info_heal(0, 0, heal);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(caster_ptr, heal);
 				set_stun(caster_ptr, 0);
@@ -3003,15 +3003,15 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "階段生成";
-		if (desc) return "自分のいる位置に階段を作る。";
+		if(name) return "階段生成";
+		if(desc) return "自分のいる位置に階段を作る。";
 #else
-		if (name) return "Stair Building";
-		if (desc) return "Creates a stair which goes down or up.";
+		if(name) return "Stair Building";
+		if(desc) return "Creates a stair which goes down or up.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				stair_creation(caster_ptr, floor_ptr);
 			}
@@ -3020,20 +3020,20 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "肌石化";
-		if (desc) return "一定時間、ACを上昇させる。";
+		if(name) return "肌石化";
+		if(desc) return "一定時間、ACを上昇させる。";
 #else
-		if (name) return "Stone Skin";
-		if (desc) return "Gives bonus to AC for a while.";
+		if(name) return "Stone Skin";
+		if(desc) return "Gives bonus to AC for a while.";
 #endif
     
 		{
 			int base = 20;
 			int sides = 30;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_shield(caster_ptr, randint1(sides) + base, FALSE);
 			}
@@ -3042,19 +3042,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "真・耐性";
-		if (desc) return "一定時間、酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。";
+		if(name) return "真・耐性";
+		if(desc) return "一定時間、酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resistance True";
-		if (desc) return "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Resistance True";
+		if(desc) return "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_acid(caster_ptr, randint1(base) + base, FALSE);
 				set_oppose_elec(caster_ptr, randint1(base) + base, FALSE);
@@ -3067,15 +3067,15 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "森林創造";
-		if (desc) return "周囲に木を作り出す。";
+		if(name) return "森林創造";
+		if(desc) return "周囲に木を作り出す。";
 #else
-		if (name) return "Forest Creation";
-		if (desc) return "Creates trees in all adjacent squares.";
+		if(name) return "Forest Creation";
+		if(desc) return "Creates trees in all adjacent squares.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				tree_creation(caster_ptr);
 			}
@@ -3084,19 +3084,19 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "動物友和";
-		if (desc) return "視界内の全ての動物を魅了する。抵抗されると無効。";
+		if(name) return "動物友和";
+		if(desc) return "視界内の全ての動物を魅了する。抵抗されると無効。";
 #else
-		if (name) return "Animal Friendship";
-		if (desc) return "Attempts to charm all animals in sight.";
+		if(name) return "Animal Friendship";
+		if(desc) return "Attempts to charm all animals in sight.";
 #endif
     
 		{
 			int power = plev * 2;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				charm_animals(caster_ptr, power);
 			}
@@ -3105,32 +3105,32 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "試金石";
-		if (desc) return "アイテムの持つ能力を完全に知る。";
+		if(name) return "試金石";
+		if(desc) return "アイテムの持つ能力を完全に知る。";
 #else
-		if (name) return "Stone Tell";
-		if (desc) return "*Identifies* an item.";
+		if(name) return "Stone Tell";
+		if(desc) return "*Identifies* an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!identify_fully(caster_ptr, FALSE)) return NULL;
+				if(!identify_fully(caster_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 22:
 #ifdef JP
-		if (name) return "石の壁";
-		if (desc) return "自分の周囲に花崗岩の壁を作る。";
+		if(name) return "石の壁";
+		if(desc) return "自分の周囲に花崗岩の壁を作る。";
 #else
-		if (name) return "Wall of Stone";
-		if (desc) return "Creates granite walls in all adjacent squares.";
+		if(name) return "Wall of Stone";
+		if(desc) return "Creates granite walls in all adjacent squares.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				wall_stone(caster_ptr);
 			}
@@ -3139,36 +3139,36 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "腐食防止";
-		if (desc) return "アイテムを酸で傷つかないよう加工する。";
+		if(name) return "腐食防止";
+		if(desc) return "アイテムを酸で傷つかないよう加工する。";
 #else
-		if (name) return "Protect from Corrosion";
-		if (desc) return "Makes an equipment acid-proof.";
+		if(name) return "Protect from Corrosion";
+		if(desc) return "Makes an equipment acid-proof.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!rustproof(caster_ptr)) return NULL;
+				if(!rustproof(caster_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 24:
 #ifdef JP
-		if (name) return "地震";
-		if (desc) return "周囲のダンジョンを揺らし、壁と床をランダムに入れ変える。";
+		if(name) return "地震";
+		if(desc) return "周囲のダンジョンを揺らし、壁と床をランダムに入れ変える。";
 #else
-		if (name) return "Earthquake";
-		if (desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
+		if(name) return "Earthquake";
+		if(desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
 #endif
     
 		{
 			int rad = 10;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, rad);
 			}
@@ -3177,15 +3177,15 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "カマイタチ";
-		if (desc) return "全方向に向かって攻撃する。";
+		if(name) return "カマイタチ";
+		if(desc) return "全方向に向かって攻撃する。";
 #else
-		if (name) return "Cyclone";
-		if (desc) return "Attacks all adjacent creatures.";
+		if(name) return "Cyclone";
+		if(desc) return "Attacks all adjacent creatures.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				int y = 0, x = 0;
 				cave_type       *c_ptr;
@@ -3201,7 +3201,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 					m_ptr = &creature_list[c_ptr->creature_idx];
 
 					/* Hack -- attack creatures */
-					if (c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+					if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						melee_attack(caster_ptr, y, x, 0);
 				}
 			}
@@ -3210,22 +3210,22 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "ブリザード";
-		if (desc) return "巨大な冷気の球を放つ。";
+		if(name) return "ブリザード";
+		if(desc) return "巨大な冷気の球を放つ。";
 #else
-		if (name) return "Blizzard";
-		if (desc) return "Fires a huge ball of cold.";
+		if(name) return "Blizzard";
+		if(desc) return "Fires a huge ball of cold.";
 #endif
     
 		{
 			int dam = 70 + plev * 3 / 2;
 			int rad = plev / 12 + 1;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				fire_ball(caster_ptr, GF_COLD, dir, dam, rad);
 			}
@@ -3234,22 +3234,22 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "稲妻嵐";
-		if (desc) return "巨大な電撃の球を放つ。";
+		if(name) return "稲妻嵐";
+		if(desc) return "巨大な電撃の球を放つ。";
 #else
-		if (name) return "Lightning Storm";
-		if (desc) return "Fires a huge electric ball.";
+		if(name) return "Lightning Storm";
+		if(desc) return "Fires a huge electric ball.";
 #endif
     
 		{
 			int dam = 90 + plev * 3 / 2;
 			int rad = plev / 12 + 1;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 				fire_ball(caster_ptr, GF_ELEC, dir, dam, rad);
 				break;
 			}
@@ -3258,22 +3258,22 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "渦潮";
-		if (desc) return "巨大な水の球を放つ。";
+		if(name) return "渦潮";
+		if(desc) return "巨大な水の球を放つ。";
 #else
-		if (name) return "Whirlpool";
-		if (desc) return "Fires a huge ball of water.";
+		if(name) return "Whirlpool";
+		if(desc) return "Fires a huge ball of water.";
 #endif
     
 		{
 			int dam = 100 + plev * 3 / 2;
 			int rad = plev / 12 + 1;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 				fire_ball(caster_ptr, GF_WATER, dir, dam, rad);
 			}
 		}
@@ -3281,25 +3281,25 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "陽光召喚";
-		if (desc) return "自分を中心とした光の球を発生させる。さらに、その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。";
+		if(name) return "陽光召喚";
+		if(desc) return "自分を中心とした光の球を発生させる。さらに、その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。";
 #else
-		if (name) return "Call Sunlight";
-		if (desc) return "Generates ball of light centered on you. Maps and lights whole dungeon level. Knows all objects location.";
+		if(name) return "Call Sunlight";
+		if(desc) return "Generates ball of light centered on you. Maps and lights whole dungeon level. Knows all objects location.";
 #endif
     
 		{
 			int dam = 150;
 			int rad = 8;
 
-			if (info) return info_damage(0, 0, dam/2);
+			if(info) return info_damage(0, 0, dam/2);
 
-			if (cast)
+			if(cast)
 			{
 				fire_ball(caster_ptr, GF_LITE, 0, dam, rad);
 				wiz_lite(floor_ptr, caster_ptr, FALSE);
 
-				if (has_trait(caster_ptr, TRAIT_HURT_LITE) && !caster_ptr->resist_lite)
+				if(has_trait(caster_ptr, TRAIT_HURT_LITE) && !caster_ptr->resist_lite)
 				{
 #ifdef JP
 					msg_print("日光があなたの肉体を焦がした！");
@@ -3319,15 +3319,15 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "精霊の刃";
-		if (desc) return "武器に炎か冷気の属性をつける。";
+		if(name) return "精霊の刃";
+		if(desc) return "武器に炎か冷気の属性をつける。";
 #else
-		if (name) return "Elemental Branding";
-		if (desc) return "Makes current weapon fire or frost branded.";
+		if(name) return "Elemental Branding";
+		if(desc) return "Makes current weapon fire or frost branded.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(caster_ptr, randint0(2));
 			}
@@ -3336,11 +3336,11 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "自然の脅威";
-		if (desc) return "近くの全てのクリーチャーにダメージを与え、地震を起こし、自分を中心とした分解の球を発生させる。";
+		if(name) return "自然の脅威";
+		if(desc) return "近くの全てのクリーチャーにダメージを与え、地震を起こし、自分を中心とした分解の球を発生させる。";
 #else
-		if (name) return "Nature's Wrath";
-		if (desc) return "Damages all creatures in sight. Makes quake. Generates disintegration ball centered on you.";
+		if(name) return "Nature's Wrath";
+		if(desc) return "Damages all creatures in sight. Makes quake. Generates disintegration ball centered on you.";
 #endif
     
 		{
@@ -3349,9 +3349,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			int b_rad = 1 + plev / 12;
 			int q_rad = 20 + plev / 2;
 
-			if (info) return format("%s%d+%d", s_dam, d_dam, b_dam/2);
+			if(info) return format("%s%d+%d", s_dam, d_dam, b_dam/2);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_creatures(caster_ptr, d_dam);
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
@@ -3387,22 +3387,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "マジック・ミサイル";
-		if (desc) return "弱い魔法の矢を放つ。";
+		if(name) return "マジック・ミサイル";
+		if(desc) return "弱い魔法の矢を放つ。";
 #else
-		if (name) return "Magic Missile";
-		if (desc) return "Fires a weak bolt of magic.";
+		if(name) return "Magic Missile";
+		if(desc) return "Fires a weak bolt of magic.";
 #endif
     
 		{
 			int dice = 3 + ((plev - 1) / 5);
 			int sides = 4;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir, diceroll(dice, sides));
 			}
@@ -3411,19 +3411,19 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "トラップ/ドア破壊";
-		if (desc) return "隣接する罠と扉を破壊する。";
+		if(name) return "トラップ/ドア破壊";
+		if(desc) return "隣接する罠と扉を破壊する。";
 #else
-		if (name) return "Trap / Door Destruction";
-		if (desc) return "Destroys all traps in adjacent squares.";
+		if(name) return "Trap / Door Destruction";
+		if(desc) return "Destroys all traps in adjacent squares.";
 #endif
     
 		{
 			int rad = 1;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				destroy_doors_touch(creature_ptr);
 			}
@@ -3432,11 +3432,11 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "閃光";
-		if (desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
+		if(name) return "閃光";
+		if(desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
 #else
-		if (name) return "Flash of Light";
-		if (desc) return "Lights up nearby area and the inside of a room permanently.";
+		if(name) return "Flash of Light";
+		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
     
 		{
@@ -3444,9 +3444,9 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev / 2;
 			int rad = (plev / 10) + 1;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				lite_area(creature_ptr, diceroll(dice, sides), rad);
 			}
@@ -3455,17 +3455,17 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "混乱の手";
-		if (desc) return "相手を混乱させる攻撃をできるようにする。";
+		if(name) return "混乱の手";
+		if(desc) return "相手を混乱させる攻撃をできるようにする。";
 #else
-		if (name) return "Touch of Confusion";
-		if (desc) return "Attempts to confuse the next creature that you hit.";
+		if(name) return "Touch of Confusion";
+		if(desc) return "Attempts to confuse the next creature that you hit.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!(creature_ptr->special_attack & ATTACK_CONFUSE))
+				if(!(creature_ptr->special_attack & ATTACK_CONFUSE))
 				{
 #ifdef JP
 					msg_print("あなたの手は光り始めた。");
@@ -3482,11 +3482,11 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "魔力炸裂";
-		if (desc) return "魔法の球を放つ。";
+		if(name) return "魔力炸裂";
+		if(desc) return "魔法の球を放つ。";
 #else
-		if (name) return "Mana Burst";
-		if (desc) return "Fires a ball of magic.";
+		if(name) return "Mana Burst";
+		if(desc) return "Fires a ball of magic.";
 #endif
     
 		{
@@ -3495,17 +3495,17 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
+			if(has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
 
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_MISSILE, dir, diceroll(dice, sides) + base, rad);
 
@@ -3520,22 +3520,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "ファイア・ボルト";
-		if (desc) return "炎のボルトもしくはビームを放つ。";
+		if(name) return "ファイア・ボルト";
+		if(desc) return "炎のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Fire Bolt";
-		if (desc) return "Fires a bolt or beam of fire.";
+		if(name) return "Fire Bolt";
+		if(desc) return "Fires a bolt or beam of fire.";
 #endif
     
 		{
 			int dice = 8 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir, diceroll(dice, sides));
 			}
@@ -3544,22 +3544,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "力の拳";
-		if (desc) return "ごく小さな分解の球を放つ。";
+		if(name) return "力の拳";
+		if(desc) return "ごく小さな分解の球を放つ。";
 #else
-		if (name) return "Fist of Force";
-		if (desc) return "Fires a tiny ball of disintegration.";
+		if(name) return "Fist of Force";
+		if(desc) return "Fires a tiny ball of disintegration.";
 #endif
     
 		{
 			int dice = 8 + ((plev - 5) / 4);
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_DISINTEGRATE, dir,
 					diceroll(dice, sides), 0);
@@ -3569,19 +3569,19 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "テレポート";
-		if (desc) return "遠距離のテレポートをする。";
+		if(name) return "テレポート";
+		if(desc) return "遠距離のテレポートをする。";
 #else
-		if (name) return "Teleport Self";
-		if (desc) return "Teleport long distance.";
+		if(name) return "Teleport Self";
+		if(desc) return "Teleport long distance.";
 #endif
     
 		{
 			int range = plev * 5;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -3590,20 +3590,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "ワンダー";
-		if (desc) return "クリーチャーにランダムな効果を与える。";
+		if(name) return "ワンダー";
+		if(desc) return "クリーチャーにランダムな効果を与える。";
 #else
-		if (name) return "Wonder";
-		if (desc) return "Fires something with random effects.";
+		if(name) return "Wonder";
+		if(desc) return "Fires something with random effects.";
 #endif
     
 		{
-			if (info) return s_random;
+			if(info) return s_random;
 
-			if (cast)
+			if(cast)
 			{
 
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				cast_wonder(creature_ptr, dir);
 			}
@@ -3612,22 +3612,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "カオス・ボルト";
-		if (desc) return "カオスのボルトもしくはビームを放つ。";
+		if(name) return "カオス・ボルト";
+		if(desc) return "カオスのボルトもしくはビームを放つ。";
 #else
-		if (name) return "Chaos Bolt";
-		if (desc) return "Fires a bolt or ball of chaos.";
+		if(name) return "Chaos Bolt";
+		if(desc) return "Fires a bolt or ball of chaos.";
 #endif
     
 		{
 			int dice = 10 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_CHAOS, dir, diceroll(dice, sides));
 			}
@@ -3636,20 +3636,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "ソニック・ブーム";
-		if (desc) return "自分を中心とした轟音の球を発生させる。";
+		if(name) return "ソニック・ブーム";
+		if(desc) return "自分を中心とした轟音の球を発生させる。";
 #else
-		if (name) return "Sonic Boom";
-		if (desc) return "Generates a ball of sound centered on you.";
+		if(name) return "Sonic Boom";
+		if(desc) return "Generates a ball of sound centered on you.";
 #endif
     
 		{
 			int dam = 60 + plev;
 			int rad = plev / 10 + 2;
 
-			if (info) return info_damage(0, 0, dam/2);
+			if(info) return info_damage(0, 0, dam/2);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("ドーン！部屋が揺れた！");
@@ -3664,22 +3664,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "破滅の矢";
-		if (desc) return "純粋な魔力のビームを放つ。";
+		if(name) return "破滅の矢";
+		if(desc) return "純粋な魔力のビームを放つ。";
 #else
-		if (name) return "Doom Bolt";
-		if (desc) return "Fires a beam of pure mana.";
+		if(name) return "Doom Bolt";
+		if(desc) return "Fires a beam of pure mana.";
 #endif
     
 		{
 			int dice = 11 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_beam(creature_ptr, GF_MANA, dir, diceroll(dice, sides));
 			}
@@ -3688,22 +3688,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "ファイア・ボール";
-		if (desc) return "炎の球を放つ。";
+		if(name) return "ファイア・ボール";
+		if(desc) return "炎の球を放つ。";
 #else
-		if (name) return "Fire Ball";
-		if (desc) return "Fires a ball of fire.";
+		if(name) return "Fire Ball";
+		if(desc) return "Fires a ball of fire.";
 #endif
     
 		{
 			int dam = plev + 55;
 			int rad = 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_FIRE, dir, dam, rad);
 			}
@@ -3712,21 +3712,21 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "テレポート・アウェイ";
-		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
+		if(name) return "テレポート・アウェイ";
+		if(desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
-		if (name) return "Teleport Other";
-		if (desc) return "Teleports all creatures on the line away unless resisted.";
+		if(name) return "Teleport Other";
+		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_beam(creature_ptr, GF_AWAY_ALL, dir, power);
 			}
@@ -3735,18 +3735,18 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "破壊の言葉";
-		if (desc) return "周辺のアイテム、クリーチャー、地形を破壊する。";
+		if(name) return "破壊の言葉";
+		if(desc) return "周辺のアイテム、クリーチャー、地形を破壊する。";
 #else
-		if (name) return "Word of Destruction";
-		if (desc) return "Destroy everything in nearby area.";
+		if(name) return "Word of Destruction";
+		if(desc) return "Destroy everything in nearby area.";
 #endif
     
 		{
 			int base = 12;
 			int sides = 4;
 
-			if (cast)
+			if(cast)
 			{
 				destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, base + randint1(sides), FALSE);
 			}
@@ -3755,22 +3755,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "ログルス発動";
-		if (desc) return "巨大なカオスの球を放つ。";
+		if(name) return "ログルス発動";
+		if(desc) return "巨大なカオスの球を放つ。";
 #else
-		if (name) return "Invoke Logrus";
-		if (desc) return "Fires a huge ball of chaos.";
+		if(name) return "Invoke Logrus";
+		if(desc) return "Fires a huge ball of chaos.";
 #endif
     
 		{
 			int dam = plev * 2 + 99;
 			int rad = plev / 5;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_CHAOS, dir, dam, rad);
 			}
@@ -3779,21 +3779,21 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "他者変容";
-		if (desc) return "クリーチャー1体を変身させる。抵抗されると無効。";
+		if(name) return "他者変容";
+		if(desc) return "クリーチャー1体を変身させる。抵抗されると無効。";
 #else
-		if (name) return "Polymorph Other";
-		if (desc) return "Attempts to polymorph a creature.";
+		if(name) return "Polymorph Other";
+		if(desc) return "Attempts to polymorph a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				poly_creature(creature_ptr, dir);
 			}
@@ -3802,20 +3802,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "連鎖稲妻";
-		if (desc) return "全方向に対して電撃のビームを放つ。";
+		if(name) return "連鎖稲妻";
+		if(desc) return "全方向に対して電撃のビームを放つ。";
 #else
-		if (name) return "Chain Lightning";
-		if (desc) return "Fires lightning beams in all directions.";
+		if(name) return "Chain Lightning";
+		if(desc) return "Fires lightning beams in all directions.";
 #endif
     
 		{
 			int dice = 5 + plev / 10;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				for (dir = 0; dir <= 9; dir++)
 					fire_beam(creature_ptr, GF_ELEC, dir, diceroll(dice, sides));
@@ -3825,43 +3825,43 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "魔力封入";
-		if (desc) return "杖/魔法棒の充填回数を増やすか、充填中のロッドの充填時間を減らす。";
+		if(name) return "魔力封入";
+		if(desc) return "杖/魔法棒の充填回数を増やすか、充填中のロッドの充填時間を減らす。";
 #else
-		if (name) return "Arcane Binding";
-		if (desc) return "Recharges staffs, wands or rods.";
+		if(name) return "Arcane Binding";
+		if(desc) return "Recharges staffs, wands or rods.";
 #endif
     
 		{
 			int power = 90;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!recharge(creature_ptr, power)) return NULL;
+				if(!recharge(creature_ptr, power)) return NULL;
 			}
 		}
 		break;
 
 	case 19:
 #ifdef JP
-		if (name) return "原子分解";
-		if (desc) return "巨大な分解の球を放つ。";
+		if(name) return "原子分解";
+		if(desc) return "巨大な分解の球を放つ。";
 #else
-		if (name) return "Disintegrate";
-		if (desc) return "Fires a huge ball of disintegration.";
+		if(name) return "Disintegrate";
+		if(desc) return "Fires a huge ball of disintegration.";
 #endif
     
 		{
 			int dam = plev + 70;
 			int rad = 3 + plev / 40;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_DISINTEGRATE, dir, dam, rad);
 			}
@@ -3870,20 +3870,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "現実変容";
-		if (desc) return "現在の階を再構成する。";
+		if(name) return "現実変容";
+		if(desc) return "現在の階を再構成する。";
 #else
-		if (name) return "Alter Reality";
-		if (desc) return "Recreates current dungeon level.";
+		if(name) return "Alter Reality";
+		if(desc) return "Recreates current dungeon level.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				alter_reality(creature_ptr);
 			}
@@ -3892,22 +3892,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "マジック・ロケット";
-		if (desc) return "ロケットを発射する。";
+		if(name) return "マジック・ロケット";
+		if(desc) return "ロケットを発射する。";
 #else
-		if (name) return "Magic Rocket";
-		if (desc) return "Fires a magic rocket.";
+		if(name) return "Magic Rocket";
+		if(desc) return "Fires a magic rocket.";
 #endif
     
 		{
 			int dam = 120 + plev * 2;
 			int rad = 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 #ifdef JP
 				msg_print("ロケット発射！");
@@ -3922,15 +3922,15 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "混沌の刃";
-		if (desc) return "武器にカオスの属性をつける。";
+		if(name) return "混沌の刃";
+		if(desc) return "武器にカオスの属性をつける。";
 #else
-		if (name) return "Chaos Branding";
-		if (desc) return "Makes current weapon a Chaotic weapon.";
+		if(name) return "Chaos Branding";
+		if(desc) return "Makes current weapon a Chaotic weapon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, 2);
 			}
@@ -3939,24 +3939,24 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "悪魔召喚";
-		if (desc) return "悪魔を1体召喚する。";
+		if(name) return "悪魔召喚";
+		if(desc) return "悪魔を1体召喚する。";
 #else
-		if (name) return "Summon Demon";
-		if (desc) return "Summons a demon.";
+		if(name) return "Summon Demon";
+		if(desc) return "Summons a demon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				u32b mode = 0L;
 				bool pet = !one_in_(3);
 
-				if (pet) mode |= PC_FORCE_PET;
+				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
-				if (!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
+				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("硫黄の悪臭が充満した。");
@@ -3964,7 +3964,7 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 					msg_print("The area fills with a stench of sulphur and brimstone.");
 #endif
 
-					if (pet)
+					if(pet)
 					{
 #ifdef JP
 						msg_print("「ご用でございますか、ご主人様」");
@@ -3987,22 +3987,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "重力光線";
-		if (desc) return "重力のビームを放つ。";
+		if(name) return "重力光線";
+		if(desc) return "重力のビームを放つ。";
 #else
-		if (name) return "Beam of Gravity";
-		if (desc) return "Fires a beam of gravity.";
+		if(name) return "Beam of Gravity";
+		if(desc) return "Fires a beam of gravity.";
 #endif
     
 		{
 			int dice = 9 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_beam(creature_ptr, GF_GRAVITY, dir, diceroll(dice, sides));
 			}
@@ -4011,20 +4011,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "流星群";
-		if (desc) return "自分の周辺に隕石を落とす。";
+		if(name) return "流星群";
+		if(desc) return "自分の周辺に隕石を落とす。";
 #else
-		if (name) return "Meteor Swarm";
-		if (desc) return "Makes meteor balls fall down to nearby random locations.";
+		if(name) return "Meteor Swarm";
+		if(desc) return "Makes meteor balls fall down to nearby random locations.";
 #endif
     
 		{
 			int dam = plev * 2;
 			int rad = 2;
 
-			if (info) return info_multi_damage(dam);
+			if(info) return info_multi_damage(dam);
 
-			if (cast)
+			if(cast)
 			{
 				cast_meteor(creature_ptr, dam, rad);
 			}
@@ -4033,20 +4033,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "焔の一撃";
-		if (desc) return "自分を中心とした超巨大な炎の球を発生させる。";
+		if(name) return "焔の一撃";
+		if(desc) return "自分を中心とした超巨大な炎の球を発生させる。";
 #else
-		if (name) return "Flame Strike";
-		if (desc) return "Generate a huge ball of fire centered on you.";
+		if(name) return "Flame Strike";
+		if(desc) return "Generate a huge ball of fire centered on you.";
 #endif
     
 		{
 			int dam = 300 + 3 * plev;
 			int rad = 8;
 
-			if (info) return info_damage(0, 0, dam/2);
+			if(info) return info_damage(0, 0, dam/2);
 
-			if (cast)
+			if(cast)
 			{
 				fire_ball(creature_ptr, GF_FIRE, 0, dam, rad);
 			}
@@ -4055,17 +4055,17 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "混沌召来";
-		if (desc) return "ランダムな属性の球やビームを発生させる。";
+		if(name) return "混沌召来";
+		if(desc) return "ランダムな属性の球やビームを発生させる。";
 #else
-		if (name) return "Call Chaos";
-		if (desc) return "Generate random kind of balls or beams.";
+		if(name) return "Call Chaos";
+		if(desc) return "Generate random kind of balls or beams.";
 #endif
     
 		{
-			if (info) return format("%s150 / 250", s_dam);
+			if(info) return format("%s150 / 250", s_dam);
 
-			if (cast)
+			if(cast)
 			{
 				call_chaos(creature_ptr);
 			}
@@ -4074,20 +4074,20 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "自己変容";
-		if (desc) return "自分を変身させようとする。";
+		if(name) return "自己変容";
+		if(desc) return "自分を変身させようとする。";
 #else
-		if (name) return "Polymorph Self";
-		if (desc) return "Polymorphs yourself.";
+		if(name) return "Polymorph Self";
+		if(desc) return "Polymorphs yourself.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
-				if (!get_check("変身します。よろしいですか？")) return NULL;
+				if(!get_check("変身します。よろしいですか？")) return NULL;
 #else
-				if (!get_check("You will polymorph yourself. Are you sure? ")) return NULL;
+				if(!get_check("You will polymorph yourself. Are you sure? ")) return NULL;
 #endif
 				do_poly_self(creature_ptr);
 			}
@@ -4096,22 +4096,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "魔力の嵐";
-		if (desc) return "非常に強力で巨大な純粋な魔力の球を放つ。";
+		if(name) return "魔力の嵐";
+		if(desc) return "非常に強力で巨大な純粋な魔力の球を放つ。";
 #else
-		if (name) return "Mana Storm";
-		if (desc) return "Fires an extremely powerful huge ball of pure mana.";
+		if(name) return "Mana Storm";
+		if(desc) return "Fires an extremely powerful huge ball of pure mana.";
 #endif
     
 		{
 			int dam = 300 + plev * 4;
 			int rad = 4;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_MANA, dir, dam, rad);
 			}
@@ -4120,22 +4120,22 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "ログルスのブレス";
-		if (desc) return "非常に強力なカオスの球を放つ。";
+		if(name) return "ログルスのブレス";
+		if(desc) return "非常に強力なカオスの球を放つ。";
 #else
-		if (name) return "Breathe Logrus";
-		if (desc) return "Fires an extremely powerful ball of chaos.";
+		if(name) return "Breathe Logrus";
+		if(desc) return "Fires an extremely powerful ball of chaos.";
 #endif
     
 		{
 			int dam = creature_ptr->chp;
 			int rad = 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_CHAOS, dir, dam, rad);
 			}
@@ -4144,17 +4144,17 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "虚無召来";
-		if (desc) return "自分に周囲に向かって、ロケット、純粋な魔力の球、放射性廃棄物の球を放つ。ただし、壁に隣接して使用すると広範囲を破壊する。";
+		if(name) return "虚無召来";
+		if(desc) return "自分に周囲に向かって、ロケット、純粋な魔力の球、放射性廃棄物の球を放つ。ただし、壁に隣接して使用すると広範囲を破壊する。";
 #else
-		if (name) return "Call the Void";
-		if (desc) return "Fires rockets, mana balls and nuclear waste balls in all directions each unless you are not adjacent to any walls. Otherwise *destroys* huge area.";
+		if(name) return "Call the Void";
+		if(desc) return "Fires rockets, mana balls and nuclear waste balls in all directions each unless you are not adjacent to any walls. Otherwise *destroys* huge area.";
 #endif
     
 		{
-			if (info) return format("%s3 * 175", s_dam);
+			if(info) return format("%s3 * 175", s_dam);
 
-			if (cast)
+			if(cast)
 			{
 				call_the_void(creature_ptr);
 			}
@@ -4188,19 +4188,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "無生命感知";
-		if (desc) return "近くの生命のないクリーチャーを感知する。";
+		if(name) return "無生命感知";
+		if(desc) return "近くの生命のないクリーチャーを感知する。";
 #else
-		if (name) return "Detect Unlife";
-		if (desc) return "Detects all nonliving creatures in your vicinity.";
+		if(name) return "Detect Unlife";
+		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_nonliving(creature_ptr, rad);
 			}
@@ -4209,11 +4209,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "呪殺弾";
-		if (desc) return "ごく小さな邪悪な力を持つボールを放つ。善良なクリーチャーには大きなダメージを与える。";
+		if(name) return "呪殺弾";
+		if(desc) return "ごく小さな邪悪な力を持つボールを放つ。善良なクリーチャーには大きなダメージを与える。";
 #else
-		if (name) return "Malediction";
-		if (desc) return "Fires a tiny ball of evil power which hurts good creatures greatly.";
+		if(name) return "Malediction";
+		if(desc) return "Fires a tiny ball of evil power which hurts good creatures greatly.";
 #endif
     
 		{
@@ -4221,11 +4221,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 4;
 			int rad = 0;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				/*
 				 * A radius-0 ball may (1) be aimed at
@@ -4237,16 +4237,16 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 				fire_ball(creature_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides), rad);
 
-				if (one_in_(5))
+				if(one_in_(5))
 				{
 					/* Special effect first */
 					int effect = randint1(1000);
 
-					if (effect == 666)
+					if(effect == 666)
 						fire_ball_hide(creature_ptr, GF_DEATH_RAY, dir, plev * 200, 0);
-					else if (effect < 500)
+					else if(effect < 500)
 						fire_ball_hide(creature_ptr, GF_TURN_ALL, dir, plev, 0);
-					else if (effect < 800)
+					else if(effect < 800)
 						fire_ball_hide(creature_ptr, GF_OLD_CONF, dir, plev, 0);
 					else
 						fire_ball_hide(creature_ptr, GF_STUN, dir, plev, 0);
@@ -4257,19 +4257,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "邪悪感知";
-		if (desc) return "近くの邪悪なクリーチャーを感知する。";
+		if(name) return "邪悪感知";
+		if(desc) return "近くの邪悪なクリーチャーを感知する。";
 #else
-		if (name) return "Detect Evil";
-		if (desc) return "Detects all evil creatures in your vicinity.";
+		if(name) return "Detect Evil";
+		if(desc) return "Detects all evil creatures in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_evil(creature_ptr, rad);
 			}
@@ -4278,22 +4278,22 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "悪臭雲";
-		if (desc) return "毒の球を放つ。";
+		if(name) return "悪臭雲";
+		if(desc) return "毒の球を放つ。";
 #else
-		if (name) return "Stinking Cloud";
-		if (desc) return "Fires a ball of poison.";
+		if(name) return "Stinking Cloud";
+		if(desc) return "Fires a ball of poison.";
 #endif
     
 		{
 			int dam = 10 + plev / 2;
 			int rad = 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_POIS, dir, dam, rad);
 			}
@@ -4302,21 +4302,21 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "黒い眠り";
-		if (desc) return "1体のクリーチャーを眠らせる。抵抗されると無効。";
+		if(name) return "黒い眠り";
+		if(desc) return "1体のクリーチャーを眠らせる。抵抗されると無効。";
 #else
-		if (name) return "Black Sleep";
-		if (desc) return "Attempts to sleep a creature.";
+		if(name) return "Black Sleep";
+		if(desc) return "Attempts to sleep a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				sleep_creature(creature_ptr, dir);
 			}
@@ -4325,19 +4325,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "耐毒";
-		if (desc) return "一定時間、毒への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐毒";
+		if(desc) return "一定時間、毒への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Poison";
-		if (desc) return "Gives resistance to poison. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Poison";
+		if(desc) return "Gives resistance to poison. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_pois(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -4346,21 +4346,21 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "恐慌";
-		if (desc) return "クリーチャー1体を恐怖させ、朦朧させる。抵抗されると無効。";
+		if(name) return "恐慌";
+		if(desc) return "クリーチャー1体を恐怖させ、朦朧させる。抵抗されると無効。";
 #else
-		if (name) return "Horrify";
-		if (desc) return "Attempts to scare and stun a creature.";
+		if(name) return "Horrify";
+		if(desc) return "Attempts to scare and stun a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fear_creature(creature_ptr, dir, power);
 				stun_creature(creature_ptr, dir, power);
@@ -4370,21 +4370,21 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "アンデッド従属";
-		if (desc) return "アンデッド1体を魅了する。抵抗されると無効。";
+		if(name) return "アンデッド従属";
+		if(desc) return "アンデッド1体を魅了する。抵抗されると無効。";
 #else
-		if (name) return "Enslave Undead";
-		if (desc) return "Attempts to charm an undead creature.";
+		if(name) return "Enslave Undead";
+		if(desc) return "Attempts to charm an undead creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				control_one_undead(creature_ptr, dir, power);
 			}
@@ -4393,11 +4393,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "エントロピーの球";
-		if (desc) return "生命のある者に効果のある球を放つ。";
+		if(name) return "エントロピーの球";
+		if(desc) return "生命のある者に効果のある球を放つ。";
 #else
-		if (name) return "Orb of Entropy";
-		if (desc) return "Fires a ball which damages living creatures.";
+		if(name) return "Orb of Entropy";
+		if(desc) return "Fires a ball which damages living creatures.";
 #endif
     
 		{
@@ -4406,17 +4406,17 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
+			if(has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
 
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_OLD_DRAIN, dir, diceroll(dice, dice) + base, rad);
 			}
@@ -4425,22 +4425,22 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "地獄の矢";
-		if (desc) return "地獄のボルトもしくはビームを放つ。";
+		if(name) return "地獄の矢";
+		if(desc) return "地獄のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Nether Bolt";
-		if (desc) return "Fires a bolt or beam of nether.";
+		if(name) return "Nether Bolt";
+		if(desc) return "Fires a bolt or beam of nether.";
 #endif
     
 		{
 			int dice = 8 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_NETHER, dir, diceroll(dice, sides));
 			}
@@ -4449,20 +4449,20 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "殺戮雲";
-		if (desc) return "自分を中心とした毒の球を発生させる。";
+		if(name) return "殺戮雲";
+		if(desc) return "自分を中心とした毒の球を発生させる。";
 #else
-		if (name) return "Cloud kill";
-		if (desc) return "Generate a ball of poison centered on you.";
+		if(name) return "Cloud kill";
+		if(desc) return "Generate a ball of poison centered on you.";
 #endif
     
 		{
 			int dam = (30 + plev) * 2;
 			int rad = plev / 10 + 2;
 
-			if (info) return info_damage(0, 0, dam/2);
+			if(info) return info_damage(0, 0, dam/2);
 
-			if (cast)
+			if(cast)
 			{
 				project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
@@ -4471,21 +4471,21 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "クリーチャー消滅";
-		if (desc) return "クリーチャー1体を消し去る。経験値やアイテムは手に入らない。抵抗されると無効。";
+		if(name) return "クリーチャー消滅";
+		if(desc) return "クリーチャー1体を消し去る。経験値やアイテムは手に入らない。抵抗されると無効。";
 #else
-		if (name) return "Genocide One";
-		if (desc) return "Attempts to vanish a creature.";
+		if(name) return "Genocide One";
+		if(desc) return "Attempts to vanish a creature.";
 #endif
     
 		{
 			int power = plev + 50;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball_hide(creature_ptr, GF_GENOCIDE, dir, power, 0);
 			}
@@ -4494,15 +4494,15 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "毒の刃";
-		if (desc) return "武器に毒の属性をつける。";
+		if(name) return "毒の刃";
+		if(desc) return "武器に毒の属性をつける。";
 #else
-		if (name) return "Poison Branding";
-		if (desc) return "Makes current weapon poison branded.";
+		if(name) return "Poison Branding";
+		if(desc) return "Makes current weapon poison branded.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, 3);
 			}
@@ -4511,11 +4511,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "吸血ドレイン";
-		if (desc) return "クリーチャー1体から生命力を吸いとる。吸いとった生命力によって満腹度が上がる。";
+		if(name) return "吸血ドレイン";
+		if(desc) return "クリーチャー1体から生命力を吸いとる。吸いとった生命力によって満腹度が上がる。";
 #else
-		if (name) return "Vampiric Drain";
-		if (desc) return "Absorbs some HP from a creature and gives them to you. You will also gain nutritional sustenance from this.";
+		if(name) return "Vampiric Drain";
+		if(desc) return "Absorbs some HP from a creature and gives them to you. You will also gain nutritional sustenance from this.";
 #endif
     
 		{
@@ -4523,15 +4523,15 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev * 2;
 			int base = plev * 2;
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
 				int dam = base + diceroll(dice, sides);
 
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
-				if (drain_life(creature_ptr, dir, dam))
+				if(drain_life(creature_ptr, dir, dam))
 				{
 					heal_creature(creature_ptr, dam);
 
@@ -4549,7 +4549,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 					dam = creature_ptr->food + MIN(5000, 100 * dam);
 
 					/* Not gorged already */
-					if (creature_ptr->food < PY_FOOD_MAX)
+					if(creature_ptr->food < PY_FOOD_MAX)
 						set_food(creature_ptr, dam >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dam);
 				}
 			}
@@ -4558,15 +4558,15 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "反魂の術";
-		if (desc) return "周囲の死体や骨を生き返す。";
+		if(name) return "反魂の術";
+		if(desc) return "周囲の死体や骨を生き返す。";
 #else
-		if (name) return "Animate dead";
-		if (desc) return "Resurrects nearby corpse and skeletons. And makes these your pets.";
+		if(name) return "Animate dead";
+		if(desc) return "Resurrects nearby corpse and skeletons. And makes these your pets.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				animate_dead(NULL, creature_ptr->fy, creature_ptr->fx);
 			}
@@ -4575,19 +4575,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "抹殺";
-		if (desc) return "指定した文字のクリーチャーを現在の階から消し去る。抵抗されると無効。";
+		if(name) return "抹殺";
+		if(desc) return "指定した文字のクリーチャーを現在の階から消し去る。抵抗されると無効。";
 #else
-		if (name) return "Genocide";
-		if (desc) return "Eliminates an entire class of creature, exhausting you.  Powerful or unique creatures may resist.";
+		if(name) return "Genocide";
+		if(desc) return "Eliminates an entire class of creature, exhausting you.  Powerful or unique creatures may resist.";
 #endif
     
 		{
 			int power = plev+50;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				symbol_genocide(creature_ptr, power, TRUE);
 			}
@@ -4596,19 +4596,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "狂戦士化";
-		if (desc) return "狂戦士化し、恐怖を除去する。";
+		if(name) return "狂戦士化";
+		if(desc) return "狂戦士化し、恐怖を除去する。";
 #else
-		if (name) return "Berserk";
-		if (desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
+		if(name) return "Berserk";
+		if(desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
 #endif
     
 		{
 			int base = 25;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_shero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
@@ -4619,19 +4619,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "悪霊召喚";
-		if (desc) return "ランダムで様々な効果が起こる。";
+		if(name) return "悪霊召喚";
+		if(desc) return "ランダムで様々な効果が起こる。";
 #else
-		if (name) return "Invoke Spirits";
-		if (desc) return "Causes random effects.";
+		if(name) return "Invoke Spirits";
+		if(desc) return "Causes random effects.";
 #endif
     
 		{
-			if (info) return s_random;
+			if(info) return s_random;
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				cast_invoke_spirits(creature_ptr, dir);
 			}
@@ -4640,22 +4640,22 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "暗黒の矢";
-		if (desc) return "暗黒のボルトもしくはビームを放つ。";
+		if(name) return "暗黒の矢";
+		if(desc) return "暗黒のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Dark Bolt";
-		if (desc) return "Fires a bolt or beam of darkness.";
+		if(name) return "Dark Bolt";
+		if(desc) return "Fires a bolt or beam of darkness.";
 #endif
     
 		{
 			int dice = 4 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_DARK, dir, diceroll(dice, sides));
 			}
@@ -4664,11 +4664,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "狂乱戦士";
-		if (desc) return "狂戦士化し、恐怖を除去し、加速する。";
+		if(name) return "狂乱戦士";
+		if(desc) return "狂戦士化し、恐怖を除去し、加速する。";
 #else
-		if (name) return "Battle Frenzy";
-		if (desc) return "Gives another bonus to hit and HP, immunity to fear for a while. Hastes you. But decreases AC.";
+		if(name) return "Battle Frenzy";
+		if(desc) return "Gives another bonus to hit and HP, immunity to fear for a while. Hastes you. But decreases AC.";
 #endif
     
 		{
@@ -4676,9 +4676,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			int sp_base = plev / 2;
 			int sp_sides = 20 + plev / 2;
 
-			if (info) return info_duration(b_base, b_base);
+			if(info) return info_duration(b_base, b_base);
 
-			if (cast)
+			if(cast)
 			{
 				set_shero(creature_ptr, randint1(25) + 25, FALSE);
 				heal_creature(creature_ptr, 30);
@@ -4690,15 +4690,15 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "吸血の刃";
-		if (desc) return "武器に吸血の属性をつける。";
+		if(name) return "吸血の刃";
+		if(desc) return "武器に吸血の属性をつける。";
 #else
-		if (name) return "Vampiric Branding";
-		if (desc) return "Makes current weapon Vampiric.";
+		if(name) return "Vampiric Branding";
+		if(desc) return "Makes current weapon Vampiric.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, 4);
 			}
@@ -4707,27 +4707,27 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "真・吸血";
-		if (desc) return "クリーチャー1体から生命力を吸いとる。吸いとった生命力によって体力が回復する。";
+		if(name) return "真・吸血";
+		if(desc) return "クリーチャー1体から生命力を吸いとる。吸いとった生命力によって体力が回復する。";
 #else
-		if (name) return "Vampirism True";
-		if (desc) return "Fires 3 bolts. Each of the bolts absorbs some HP from a creature and gives them to you.";
+		if(name) return "Vampirism True";
+		if(desc) return "Fires 3 bolts. Each of the bolts absorbs some HP from a creature and gives them to you.";
 #endif
     
 		{
 			int dam = 100;
 
-			if (info) return format("%s3*%d", s_dam, dam);
+			if(info) return format("%s3*%d", s_dam, dam);
 
-			if (cast)
+			if(cast)
 			{
 				int i;
 
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				for (i = 0; i < 3; i++)
 				{
-					if (drain_life(creature_ptr, dir, dam))
+					if(drain_life(creature_ptr, dir, dam))
 						heal_creature(creature_ptr, dam);
 				}
 			}
@@ -4736,19 +4736,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "死の言魂";
-		if (desc) return "視界内の生命のあるクリーチャーにダメージを与える。";
+		if(name) return "死の言魂";
+		if(desc) return "視界内の生命のあるクリーチャーにダメージを与える。";
 #else
-		if (name) return "Nether Wave";
-		if (desc) return "Damages all living creatures in sight.";
+		if(name) return "Nether Wave";
+		if(desc) return "Damages all living creatures in sight.";
 #endif
     
 		{
 			int sides = plev * 3;
 
-			if (info) return info_damage(1, sides, 0);
+			if(info) return info_damage(1, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_living(creature_ptr, randint1(sides));
 			}
@@ -4757,22 +4757,22 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "暗黒の嵐";
-		if (desc) return "巨大な暗黒の球を放つ。";
+		if(name) return "暗黒の嵐";
+		if(desc) return "巨大な暗黒の球を放つ。";
 #else
-		if (name) return "Darkness Storm";
-		if (desc) return "Fires a huge ball of darkness.";
+		if(name) return "Darkness Storm";
+		if(desc) return "Fires a huge ball of darkness.";
 #endif
     
 		{
 			int dam = 100 + plev * 2;
 			int rad = 4;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_DARK, dir, dam, rad);
 			}
@@ -4781,17 +4781,17 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "死の光線";
-		if (desc) return "死の光線を放つ。";
+		if(name) return "死の光線";
+		if(desc) return "死の光線を放つ。";
 #else
-		if (name) return "Death Ray";
-		if (desc) return "Fires a beam of death.";
+		if(name) return "Death Ray";
+		if(desc) return "Fires a beam of death.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				death_ray(creature_ptr, dir);
 			}
@@ -4800,15 +4800,15 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "死者召喚";
-		if (desc) return "1体のアンデッドを召喚する。";
+		if(name) return "死者召喚";
+		if(desc) return "1体のアンデッドを召喚する。";
 #else
-		if (name) return "Raise the Dead";
-		if (desc) return "Summons an undead creature.";
+		if(name) return "Raise the Dead";
+		if(desc) return "Summons an undead creature.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				int type;
 				bool pet = one_in_(3);
@@ -4816,13 +4816,13 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 				type = (plev > 47 ? SUMMON_HI_UNDEAD : SUMMON_UNDEAD);
 
-				if (!pet || (pet && (plev > 24) && one_in_(3)))
+				if(!pet || (pet && (plev > 24) && one_in_(3)))
 					mode |= PC_ALLOW_GROUP;
 
-				if (pet) mode |= PC_FORCE_PET;
+				if(pet) mode |= PC_FORCE_PET;
 				else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, type, mode))
+				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("冷たい風があなたの周りに吹き始めた。それは腐敗臭を運んでいる...");
@@ -4831,7 +4831,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 
-					if (pet)
+					if(pet)
 					{
 #ifdef JP
 						msg_print("古えの死せる者共があなたに仕えるため土から甦った！");
@@ -4855,23 +4855,23 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "死者の秘伝";
-		if (desc) return "アイテムを1つ識別する。レベルが高いとアイテムの能力を完全に知ることができる。";
+		if(name) return "死者の秘伝";
+		if(desc) return "アイテムを1つ識別する。レベルが高いとアイテムの能力を完全に知ることができる。";
 #else
-		if (name) return "Esoteria";
-		if (desc) return "Identifies an item. Or *identifies* an item at higher level.";
+		if(name) return "Esoteria";
+		if(desc) return "Identifies an item. Or *identifies* an item at higher level.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (randint1(50) > plev)
+				if(randint1(50) > plev)
 				{
-					if (!ident_spell(creature_ptr, FALSE)) return NULL;
+					if(!ident_spell(creature_ptr, FALSE)) return NULL;
 				}
 				else
 				{
-					if (!identify_fully(creature_ptr, FALSE)) return NULL;
+					if(!identify_fully(creature_ptr, FALSE)) return NULL;
 				}
 			}
 		}
@@ -4879,19 +4879,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "吸血鬼変化";
-		if (desc) return "一定時間、吸血鬼に変化する。変化している間は本来の種族の能力を失い、代わりに吸血鬼としての能力を得る。";
+		if(name) return "吸血鬼変化";
+		if(desc) return "一定時間、吸血鬼に変化する。変化している間は本来の種族の能力を失い、代わりに吸血鬼としての能力を得る。";
 #else
-		if (name) return "Polymorph Vampire";
-		if (desc) return "Mimic a vampire for a while. Loses abilities of original race and gets abilities as a vampire.";
+		if(name) return "Polymorph Vampire";
+		if(desc) return "Mimic a vampire for a while. Loses abilities of original race and gets abilities as a vampire.";
 #endif
     
 		{
 			int base = 10 + plev / 2;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				//TODO set_mimic(creature_ptr, base + randint1(base), MIMIC_VAMPIRE, FALSE);
 			}
@@ -4900,15 +4900,15 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "生命力復活";
-		if (desc) return "失った経験値を回復する。";
+		if(name) return "生命力復活";
+		if(desc) return "失った経験値を回復する。";
 #else
-		if (name) return "Restore Life";
-		if (desc) return "Restore lost experience.";
+		if(name) return "Restore Life";
+		if(desc) return "Restore lost experience.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				restore_level(creature_ptr);
 			}
@@ -4917,19 +4917,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "周辺抹殺";
-		if (desc) return "自分の周囲にいるクリーチャーを現在の階から消し去る。抵抗されると無効。";
+		if(name) return "周辺抹殺";
+		if(desc) return "自分の周囲にいるクリーチャーを現在の階から消し去る。抵抗されると無効。";
 #else
-		if (name) return "Mass Genocide";
-		if (desc) return "Eliminates all nearby creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
+		if(name) return "Mass Genocide";
+		if(desc) return "Eliminates all nearby creatures, exhausting you.  Powerful or unique creatures may be able to resist.";
 #endif
     
 		{
 			int power = plev + 50;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				mass_genocide(creature_ptr, power, TRUE);
 			}
@@ -4938,22 +4938,22 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "地獄の劫火";
-		if (desc) return "邪悪な力を持つ宝珠を放つ。善良なクリーチャーには大きなダメージを与える。";
+		if(name) return "地獄の劫火";
+		if(desc) return "邪悪な力を持つ宝珠を放つ。善良なクリーチャーには大きなダメージを与える。";
 #else
-		if (name) return "Hellfire";
-		if (desc) return "Fires a powerful ball of evil power. Hurts good creatures greatly.";
+		if(name) return "Hellfire";
+		if(desc) return "Fires a powerful ball of evil power. Hurts good creatures greatly.";
 #endif
     
 		{
 			int dam = 666;
 			int rad = 3;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_HELL_FIRE, dir, dam, rad);
 #ifdef JP
@@ -4967,19 +4967,19 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "幽体化";
-		if (desc) return "一定時間、壁を通り抜けることができ受けるダメージが軽減される幽体の状態に変身する。";
+		if(name) return "幽体化";
+		if(desc) return "一定時間、壁を通り抜けることができ受けるダメージが軽減される幽体の状態に変身する。";
 #else
-		if (name) return "Wraithform";
-		if (desc) return "Becomes wraith form which gives ability to pass walls and makes all damages half.";
+		if(name) return "Wraithform";
+		if(desc) return "Becomes wraith form which gives ability to pass walls and makes all damages half.";
 #endif
     
 		{
 			int base = plev / 2;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_wraith_form(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -5012,19 +5012,19 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "ショート・テレポート";
-		if (desc) return "近距離のテレポートをする。";
+		if(name) return "ショート・テレポート";
+		if(desc) return "近距離のテレポートをする。";
 #else
-		if (name) return "Phase Door";
-		if (desc) return "Teleport short distance.";
+		if(name) return "Phase Door";
+		if(desc) return "Teleport short distance.";
 #endif
     
 		{
 			int range = 10;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -5033,15 +5033,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "蜘蛛のカード";
-		if (desc) return "蜘蛛を召喚する。";
+		if(name) return "蜘蛛のカード";
+		if(desc) return "蜘蛛を召喚する。";
 #else
-		if (name) return "Trump Spiders";
-		if (desc) return "Summons spiders.";
+		if(name) return "Trump Spiders";
+		if(desc) return "Summons spiders.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたは蜘蛛のカードに集中する...");
@@ -5049,9 +5049,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an spider...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_SPIDER, PC_ALLOW_GROUP))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_SPIDER, PC_ALLOW_GROUP))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚された蜘蛛は怒っている！");
@@ -5066,17 +5066,17 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "シャッフル";
-		if (desc) return "カードの占いをする。";
+		if(name) return "シャッフル";
+		if(desc) return "カードの占いをする。";
 #else
-		if (name) return "Shuffle";
-		if (desc) return "Causes random effects.";
+		if(name) return "Shuffle";
+		if(desc) return "Causes random effects.";
 #endif
     
 		{
-			if (info) return s_random;
+			if(info) return s_random;
 
-			if (cast)
+			if(cast)
 			{
 				cast_shuffle(creature_ptr);
 			}
@@ -5085,36 +5085,36 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "フロア・リセット";
-		if (desc) return "最深階を変更する。";
+		if(name) return "フロア・リセット";
+		if(desc) return "最深階を変更する。";
 #else
-		if (name) return "Reset Recall";
-		if (desc) return "Resets the 'deepest' level for recall spell.";
+		if(name) return "Reset Recall";
+		if(desc) return "Resets the 'deepest' level for recall spell.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!reset_recall(creature_ptr)) return NULL;
+				if(!reset_recall(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 4:
 #ifdef JP
-		if (name) return "テレポート";
-		if (desc) return "遠距離のテレポートをする。";
+		if(name) return "テレポート";
+		if(desc) return "遠距離のテレポートをする。";
 #else
-		if (name) return "Teleport";
-		if (desc) return "Teleport long distance.";
+		if(name) return "Teleport";
+		if(desc) return "Teleport long distance.";
 #endif
     
 		{
 			int range = plev * 4;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -5123,20 +5123,20 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "感知のカード";
-		if (desc) return "一定時間、テレパシー能力を得る。";
+		if(name) return "感知のカード";
+		if(desc) return "一定時間、テレパシー能力を得る。";
 #else
-		if (name) return "Trump Spying";
-		if (desc) return "Gives telepathy for a while.";
+		if(name) return "Trump Spying";
+		if(desc) return "Gives telepathy for a while.";
 #endif
     
 		{
 			int base = 25;
 			int sides = 30;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -5145,21 +5145,21 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "テレポート・クリーチャー";
-		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
+		if(name) return "テレポート・クリーチャー";
+		if(desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
-		if (name) return "Teleport Away";
-		if (desc) return "Teleports all creatures on the line away unless resisted.";
+		if(name) return "Teleport Away";
+		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_beam(creature_ptr, GF_AWAY_ALL, dir, power);
 			}
@@ -5168,15 +5168,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "動物のカード";
-		if (desc) return "1体の動物を召喚する。";
+		if(name) return "動物のカード";
+		if(desc) return "1体の動物を召喚する。";
 #else
-		if (name) return "Trump Animals";
-		if (desc) return "Summons an animal.";
+		if(name) return "Trump Animals";
+		if(desc) return "Summons an animal.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 				int type = (!fail ? SUMMON_ANIMAL_RANGER : SUMMON_ANIMAL);
 
@@ -5186,9 +5186,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an animal...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, type, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, type, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚された動物は怒っている！");
@@ -5203,21 +5203,21 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "移動のカード";
-		if (desc) return "アイテムを自分の足元へ移動させる。";
+		if(name) return "移動のカード";
+		if(desc) return "アイテムを自分の足元へ移動させる。";
 #else
-		if (name) return "Trump Reach";
-		if (desc) return "Pulls a distant item close to you.";
+		if(name) return "Trump Reach";
+		if(desc) return "Pulls a distant item close to you.";
 #endif
     
 		{
 			int weight = plev * 15;
 
-			if (info) return info_weight(weight);
+			if(info) return info_weight(weight);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fetch(creature_ptr, dir, weight, FALSE);
 			}
@@ -5226,22 +5226,22 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "カミカゼのカード";
-		if (desc) return "複数の爆発するクリーチャーを召喚する。";
+		if(name) return "カミカゼのカード";
+		if(desc) return "複数の爆発するクリーチャーを召喚する。";
 #else
-		if (name) return "Trump Kamikaze";
-		if (desc) return "Summons creatures which explode by itself.";
+		if(name) return "Trump Kamikaze";
+		if(desc) return "Summons creatures which explode by itself.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 				int x, y;
 				int type;
 
-				if (cast)
+				if(cast)
 				{
-					if (!target_set(creature_ptr, TARGET_KILL)) return NULL;
+					if(!target_set(creature_ptr, TARGET_KILL)) return NULL;
 					x = target_col;
 					y = target_row;
 				}
@@ -5252,7 +5252,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 					y = creature_ptr->fy;
 				}
 
-				if (creature_ptr->class_idx == CLASS_BEASTMASTER)
+				if(creature_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_KAMIKAZE_LIVING;
 				else
 					type = SUMMON_KAMIKAZE;
@@ -5263,9 +5263,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if (trump_summoning(creature_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
+				if(trump_summoning(creature_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたクリーチャーは怒っている！");
@@ -5280,20 +5280,20 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "幻霊召喚";
-		if (desc) return "1体の幽霊を召喚する。";
+		if(name) return "幻霊召喚";
+		if(desc) return "1体の幽霊を召喚する。";
 #else
-		if (name) return "Phantasmal Servant";
-		if (desc) return "Summons a ghost.";
+		if(name) return "Phantasmal Servant";
+		if(desc) return "Summons a ghost.";
 #endif
     
 		{
 			/* Phantasmal Servant is not summoned as enemy when failed */
-			if (cast)
+			if(cast)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
 				{
 #ifdef JP
 					msg_print("御用でございますか、御主人様？");
@@ -5307,15 +5307,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "スピード・クリーチャー";
-		if (desc) return "クリーチャー1体を加速させる。";
+		if(name) return "スピード・クリーチャー";
+		if(desc) return "クリーチャー1体を加速させる。";
 #else
-		if (name) return "Haste Creature";
-		if (desc) return "Hastes a creature.";
+		if(name) return "Haste Creature";
+		if(desc) return "Hastes a creature.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				bool result;
 
@@ -5328,7 +5328,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
 
-				if (!result) return NULL;
+				if(!result) return NULL;
 
 				speed_other_creature(creature_ptr, dir);
 			}
@@ -5337,20 +5337,20 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "テレポート・レベル";
-		if (desc) return "瞬時に上か下の階にテレポートする。";
+		if(name) return "テレポート・レベル";
+		if(desc) return "瞬時に上か下の階にテレポートする。";
 #else
-		if (name) return "Teleport Level";
-		if (desc) return "Teleport to up or down stairs in a moment.";
+		if(name) return "Teleport Level";
+		if(desc) return "Teleport to up or down stairs in a moment.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
-				if (!get_check("本当に他の階にテレポートしますか？")) return NULL;
+				if(!get_check("本当に他の階にテレポートしますか？")) return NULL;
 #else
-				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
+				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
 				teleport_level(creature_ptr, 0);
 			}
@@ -5359,19 +5359,19 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "次元の扉";
-		if (desc) return "短距離内の指定した場所にテレポートする。";
+		if(name) return "次元の扉";
+		if(desc) return "短距離内の指定した場所にテレポートする。";
 #else
-		if (name) return "Dimension Door";
-		if (desc) return "Teleport to given location.";
+		if(name) return "Dimension Door";
+		if(desc) return "Teleport to given location.";
 #endif
     
 		{
 			int range = plev / 2 + 10;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("次元の扉が開いた。目的地を選んで下さい。");
@@ -5379,48 +5379,48 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You open a dimensional gate. Choose a destination.");
 #endif
 
-				if (!dimension_door(creature_ptr)) return NULL;
+				if(!dimension_door(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 14:
 #ifdef JP
-		if (name) return "帰還の呪文";
-		if (desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
+		if(name) return "帰還の呪文";
+		if(desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
 #else
-		if (name) return "Word of Recall";
-		if (desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
+		if(name) return "Word of Recall";
+		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
-			if (cast)
+			if(cast)
 			{
-				if (!word_of_recall(creature_ptr)) return NULL;
+				if(!word_of_recall(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 15:
 #ifdef JP
-		if (name) return "怪物追放";
-		if (desc) return "視界内の全てのクリーチャーをテレポートさせる。抵抗されると無効。";
+		if(name) return "怪物追放";
+		if(desc) return "視界内の全てのクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
-		if (name) return "Banish";
-		if (desc) return "Teleports all creatures in sight away unless resisted.";
+		if(name) return "Banish";
+		if(desc) return "Teleports all creatures in sight away unless resisted.";
 #endif
     
 		{
 			int power = plev * 4;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				banish_creatures(creature_ptr, power);
 			}
@@ -5429,15 +5429,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "位置交換のカード";
-		if (desc) return "1体のクリーチャーと位置を交換する。";
+		if(name) return "位置交換のカード";
+		if(desc) return "1体のクリーチャーと位置を交換する。";
 #else
-		if (name) return "Swap Position";
-		if (desc) return "Swap positions of you and a creature.";
+		if(name) return "Swap Position";
+		if(desc) return "Swap positions of you and a creature.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				bool result;
 
@@ -5449,7 +5449,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				/* Restore range to default */
 				project_length = 0;
 
-				if (!result) return NULL;
+				if(!result) return NULL;
 
 				teleport_swap(creature_ptr, dir);
 			}
@@ -5458,15 +5458,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "アンデッドのカード";
-		if (desc) return "1体のアンデッドを召喚する。";
+		if(name) return "アンデッドのカード";
+		if(desc) return "1体のアンデッドを召喚する。";
 #else
-		if (name) return "Trump Undead";
-		if (desc) return "Summons an undead creature.";
+		if(name) return "Trump Undead";
+		if(desc) return "Summons an undead creature.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたはアンデッドのカードに集中する...");
@@ -5474,9 +5474,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an undead creature...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_UNDEAD, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_UNDEAD, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたアンデッドは怒っている！");
@@ -5491,15 +5491,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "爬虫類のカード";
-		if (desc) return "1体のヒドラを召喚する。";
+		if(name) return "爬虫類のカード";
+		if(desc) return "1体のヒドラを召喚する。";
 #else
-		if (name) return "Trump Reptiles";
-		if (desc) return "Summons a hydra.";
+		if(name) return "Trump Reptiles";
+		if(desc) return "Summons a hydra.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたは爬虫類のカードに集中する...");
@@ -5507,9 +5507,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a reptile...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HYDRA, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HYDRA, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚された爬虫類は怒っている！");
@@ -5524,15 +5524,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "クリーチャーのカード";
-		if (desc) return "複数のクリーチャーを召喚する。";
+		if(name) return "クリーチャーのカード";
+		if(desc) return "複数のクリーチャーを召喚する。";
 #else
-		if (name) return "Trump Creatures";
-		if (desc) return "Summons some creatures.";
+		if(name) return "Trump Creatures";
+		if(desc) return "Summons some creatures.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 				int type;
 
@@ -5542,14 +5542,14 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if (creature_ptr->class_idx == CLASS_BEASTMASTER)
+				if(creature_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_LIVING;
 				else
 					type = 0;
 
-				if (trump_summoning(creature_ptr, (1 + (plev - 15)/ 10), !fail, creature_ptr->fy, creature_ptr->fx, 0, type, 0L))
+				if(trump_summoning(creature_ptr, (1 + (plev - 15)/ 10), !fail, creature_ptr->fy, creature_ptr->fx, 0, type, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたクリーチャーは怒っている！");
@@ -5565,15 +5565,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "ハウンドのカード";
-		if (desc) return "1グループのハウンドを召喚する。";
+		if(name) return "ハウンドのカード";
+		if(desc) return "1グループのハウンドを召喚する。";
 #else
-		if (name) return "Trump Hounds";
-		if (desc) return "Summons a group of hounds.";
+		if(name) return "Trump Hounds";
+		if(desc) return "Summons a group of hounds.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたはハウンドのカードに集中する...");
@@ -5581,9 +5581,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a hound...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HOUND, PC_ALLOW_GROUP))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HOUND, PC_ALLOW_GROUP))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたハウンドは怒っている！");
@@ -5598,15 +5598,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "トランプの刃";
-		if (desc) return "武器にトランプの属性をつける。";
+		if(name) return "トランプの刃";
+		if(desc) return "武器にトランプの属性をつける。";
 #else
-		if (name) return "Trump Branding";
-		if (desc) return "Makes current weapon a Trump weapon.";
+		if(name) return "Trump Branding";
+		if(desc) return "Makes current weapon a Trump weapon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, 5);
 			}
@@ -5615,19 +5615,19 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "人間トランプ";
-		if (desc) return "ランダムにテレポートする突然変異か、自分の意思でテレポートする突然変異が身につく。";
+		if(name) return "人間トランプ";
+		if(desc) return "ランダムにテレポートする突然変異か、自分の意思でテレポートする突然変異が身につく。";
 #else
-		if (name) return "Living Trump";
-		if (desc) return "Gives mutation which makes you teleport randomly or makes you able to teleport at will.";
+		if(name) return "Living Trump";
+		if(desc) return "Gives mutation which makes you teleport randomly or makes you able to teleport at will.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				int mutation;
 
-				if (one_in_(7))
+				if(one_in_(7))
 					/* Teleport control */
 					mutation = 12;
 				else
@@ -5635,7 +5635,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if (gain_trait(creature_ptr, mutation, TRUE))
+				if(gain_trait(creature_ptr, mutation, TRUE))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");
@@ -5649,15 +5649,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "サイバーデーモンのカード";
-		if (desc) return "1体のサイバーデーモンを召喚する。";
+		if(name) return "サイバーデーモンのカード";
+		if(desc) return "1体のサイバーデーモンを召喚する。";
 #else
-		if (name) return "Trump Cyberdemon";
-		if (desc) return "Summons a cyber demon.";
+		if(name) return "Trump Cyberdemon";
+		if(desc) return "Summons a cyber demon.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたはサイバーデーモンのカードに集中する...");
@@ -5665,9 +5665,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a Cyberdemon...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_CYBER, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_CYBER, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたサイバーデーモンは怒っている！");
@@ -5682,19 +5682,19 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "予見のカード";
-		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
+		if(name) return "予見のカード";
+		if(desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
-		if (name) return "Trump Divination";
-		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
+		if(name) return "Trump Divination";
+		if(desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_all(creature_ptr, rad);
 			}
@@ -5703,36 +5703,36 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "知識のカード";
-		if (desc) return "アイテムの持つ能力を完全に知る。";
+		if(name) return "知識のカード";
+		if(desc) return "アイテムの持つ能力を完全に知る。";
 #else
-		if (name) return "Trump Lore";
-		if (desc) return "*Identifies* an item.";
+		if(name) return "Trump Lore";
+		if(desc) return "*Identifies* an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!identify_fully(creature_ptr, FALSE)) return NULL;
+				if(!identify_fully(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 26:
 #ifdef JP
-		if (name) return "回復クリーチャー";
-		if (desc) return "クリーチャー1体の体力を回復させる。";
+		if(name) return "回復クリーチャー";
+		if(desc) return "クリーチャー1体の体力を回復させる。";
 #else
-		if (name) return "Heal Creature";
-		if (desc) return "Heal a creature.";
+		if(name) return "Heal Creature";
+		if(desc) return "Heal a creature.";
 #endif
     
 		{
 			int heal = plev * 10 + 200;
 
-			if (info) return info_heal(0, 0, heal);
+			if(info) return info_heal(0, 0, heal);
 
-			if (cast)
+			if(cast)
 			{
 				bool result;
 
@@ -5745,7 +5745,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
 
-				if (!result) return NULL;
+				if(!result) return NULL;
 
 				heal_other_creature(creature_ptr, dir, heal);
 			}
@@ -5754,15 +5754,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "ドラゴンのカード";
-		if (desc) return "1体のドラゴンを召喚する。";
+		if(name) return "ドラゴンのカード";
+		if(desc) return "1体のドラゴンを召喚する。";
 #else
-		if (name) return "Trump Dragon";
-		if (desc) return "Summons a dragon.";
+		if(name) return "Trump Dragon";
+		if(desc) return "Summons a dragon.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたはドラゴンのカードに集中する...");
@@ -5770,9 +5770,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a dragon...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_DRAGON, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_DRAGON, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたドラゴンは怒っている！");
@@ -5787,20 +5787,20 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "隕石のカード";
-		if (desc) return "自分の周辺に隕石を落とす。";
+		if(name) return "隕石のカード";
+		if(desc) return "自分の周辺に隕石を落とす。";
 #else
-		if (name) return "Trump Meteor";
-		if (desc) return "Makes meteor balls fall down to nearby random locations.";
+		if(name) return "Trump Meteor";
+		if(desc) return "Makes meteor balls fall down to nearby random locations.";
 #endif
     
 		{
 			int dam = plev * 2;
 			int rad = 2;
 
-			if (info) return info_multi_damage(dam);
+			if(info) return info_multi_damage(dam);
 
-			if (cast)
+			if(cast)
 			{
 				cast_meteor(creature_ptr, dam, rad);
 			}
@@ -5809,15 +5809,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "デーモンのカード";
-		if (desc) return "1体の悪魔を召喚する。";
+		if(name) return "デーモンのカード";
+		if(desc) return "1体の悪魔を召喚する。";
 #else
-		if (name) return "Trump Demon";
-		if (desc) return "Summons a demon.";
+		if(name) return "Trump Demon";
+		if(desc) return "Summons a demon.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたはデーモンのカードに集中する...");
@@ -5825,9 +5825,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a demon...");
 #endif
 
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_DEMON, 0L))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_DEMON, 0L))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚されたデーモンは怒っている！");
@@ -5842,15 +5842,15 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "地獄のカード";
-		if (desc) return "1体の上級アンデッドを召喚する。";
+		if(name) return "地獄のカード";
+		if(desc) return "1体の上級アンデッドを召喚する。";
 #else
-		if (name) return "Trump Greater Undead";
-		if (desc) return "Summons a greater undead.";
+		if(name) return "Trump Greater Undead";
+		if(desc) return "Summons a greater undead.";
 #endif
     
 		{
-			if (cast || fail)
+			if(cast || fail)
 			{
 #ifdef JP
 				msg_print("あなたは強力なアンデッドのカードに集中する...");
@@ -5858,9 +5858,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a greater undead being...");
 #endif
 				/* May allow unique depend on level and dice roll */
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HI_UNDEAD, PC_ALLOW_UNIQUE))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HI_UNDEAD, PC_ALLOW_UNIQUE))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚された上級アンデッドは怒っている！");
@@ -5875,19 +5875,19 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "古代ドラゴンのカード";
-		if (desc) return "1体の古代ドラゴンを召喚する。";
+		if(name) return "古代ドラゴンのカード";
+		if(desc) return "1体の古代ドラゴンを召喚する。";
 #else
-		if (name) return "Trump Ancient Dragon";
-		if (desc) return "Summons an ancient dragon.";
+		if(name) return "Trump Ancient Dragon";
+		if(desc) return "Summons an ancient dragon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				int type;
 
-				if (creature_ptr->class_idx == CLASS_BEASTMASTER)
+				if(creature_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_HI_DRAGON_LIVING;
 				else
 					type = SUMMON_HI_DRAGON;
@@ -5899,9 +5899,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 				/* May allow unique depend on level and dice roll */
-				if (trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
+				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
 				{
-					if (fail)
+					if(fail)
 					{
 #ifdef JP
 						msg_print("召喚された古代ドラゴンは怒っている！");
@@ -5934,22 +5934,22 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "電撃";
-		if (desc) return "電撃のボルトもしくはビームを放つ。";
+		if(name) return "電撃";
+		if(desc) return "電撃のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Zap";
-		if (desc) return "Fires a bolt or beam of lightning.";
+		if(name) return "Zap";
+		if(desc) return "Fires a bolt or beam of lightning.";
 #endif
     
 		{
 			int dice = 3 + (plev - 1) / 5;
 			int sides = 3;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir, diceroll(dice, sides));
 			}
@@ -5958,17 +5958,17 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "魔法の施錠";
-		if (desc) return "扉に鍵をかける。";
+		if(name) return "魔法の施錠";
+		if(desc) return "扉に鍵をかける。";
 #else
-		if (name) return "Wizard Lock";
-		if (desc) return "Locks a door.";
+		if(name) return "Wizard Lock";
+		if(desc) return "Locks a door.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				wizard_lock(creature_ptr, dir);
 			}
@@ -5977,19 +5977,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "透明体感知";
-		if (desc) return "近くの透明なクリーチャーを感知する。";
+		if(name) return "透明体感知";
+		if(desc) return "近くの透明なクリーチャーを感知する。";
 #else
-		if (name) return "Detect Invisibility";
-		if (desc) return "Detects all invisible creatures in your vicinity.";
+		if(name) return "Detect Invisibility";
+		if(desc) return "Detects all invisible creatures in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_invis(creature_ptr, rad);
 			}
@@ -5998,19 +5998,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "クリーチャー感知";
-		if (desc) return "近くの全ての見えるクリーチャーを感知する。";
+		if(name) return "クリーチャー感知";
+		if(desc) return "近くの全ての見えるクリーチャーを感知する。";
 #else
-		if (name) return "Detect Creatures";
-		if (desc) return "Detects all creatures in your vicinity unless invisible.";
+		if(name) return "Detect Creatures";
+		if(desc) return "Detects all creatures in your vicinity unless invisible.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_normal(creature_ptr, rad);
 			}
@@ -6019,19 +6019,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "ショート・テレポート";
-		if (desc) return "近距離のテレポートをする。";
+		if(name) return "ショート・テレポート";
+		if(desc) return "近距離のテレポートをする。";
 #else
-		if (name) return "Blink";
-		if (desc) return "Teleport short distance.";
+		if(name) return "Blink";
+		if(desc) return "Teleport short distance.";
 #endif
     
 		{
 			int range = 10;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -6040,11 +6040,11 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "ライト・エリア";
-		if (desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
+		if(name) return "ライト・エリア";
+		if(desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
 #else
-		if (name) return "Light Area";
-		if (desc) return "Lights up nearby area and the inside of a room permanently.";
+		if(name) return "Light Area";
+		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
     
 		{
@@ -6052,9 +6052,9 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = plev / 2;
 			int rad = plev / 10 + 1;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				lite_area(creature_ptr, diceroll(dice, sides), rad);
 			}
@@ -6063,17 +6063,17 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "罠と扉 破壊";
-		if (desc) return "一直線上の全ての罠と扉を破壊する。";
+		if(name) return "罠と扉 破壊";
+		if(desc) return "一直線上の全ての罠と扉を破壊する。";
 #else
-		if (name) return "Trap & Door Destruction";
-		if (desc) return "Fires a beam which destroy traps and doors.";
+		if(name) return "Trap & Door Destruction";
+		if(desc) return "Fires a beam which destroy traps and doors.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				destroy_door(creature_ptr, dir);
 			}
@@ -6082,20 +6082,20 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "軽傷の治癒";
-		if (desc) return "怪我と体力を少し回復させる。";
+		if(name) return "軽傷の治癒";
+		if(desc) return "怪我と体力を少し回復させる。";
 #else
-		if (name) return "Cure Light Wounds";
-		if (desc) return "Heals cut and HP a little.";
+		if(name) return "Cure Light Wounds";
+		if(desc) return "Heals cut and HP a little.";
 #endif
     
 		{
 			int dice = 2;
 			int sides = 8;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10);
@@ -6105,19 +6105,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "罠と扉 感知";
-		if (desc) return "近くの全ての罠と扉と階段を感知する。";
+		if(name) return "罠と扉 感知";
+		if(desc) return "近くの全ての罠と扉と階段を感知する。";
 #else
-		if (name) return "Detect Doors & Traps";
-		if (desc) return "Detects traps, doors, and stairs in your vicinity.";
+		if(name) return "Detect Doors & Traps";
+		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_traps(creature_ptr, rad, TRUE);
 				detect_doors(creature_ptr, rad);
@@ -6128,15 +6128,15 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "燃素";
-		if (desc) return "光源に燃料を補給する。";
+		if(name) return "燃素";
+		if(desc) return "光源に燃料を補給する。";
 #else
-		if (name) return "Phlogiston";
-		if (desc) return "Adds more turns of light to a lantern or torch.";
+		if(name) return "Phlogiston";
+		if(desc) return "Adds more turns of light to a lantern or torch.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				phlogiston(creature_ptr);
 			}
@@ -6145,19 +6145,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "財宝感知";
-		if (desc) return "近くの財宝を感知する。";
+		if(name) return "財宝感知";
+		if(desc) return "近くの財宝を感知する。";
 #else
-		if (name) return "Detect Treasure";
-		if (desc) return "Detects all treasures in your vicinity.";
+		if(name) return "Detect Treasure";
+		if(desc) return "Detects all treasures in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_treasure(creature_ptr, rad);
 				detect_objects_gold(creature_ptr, rad);
@@ -6167,19 +6167,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "魔法 感知";
-		if (desc) return "近くの魔法がかかったアイテムを感知する。";
+		if(name) return "魔法 感知";
+		if(desc) return "近くの魔法がかかったアイテムを感知する。";
 #else
-		if (name) return "Detect Enchantment";
-		if (desc) return "Detects all magical items in your vicinity.";
+		if(name) return "Detect Enchantment";
+		if(desc) return "Detects all magical items in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_objects_magic(creature_ptr, rad);
 			}
@@ -6188,19 +6188,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "アイテム感知";
-		if (desc) return "近くの全てのアイテムを感知する。";
+		if(name) return "アイテム感知";
+		if(desc) return "近くの全てのアイテムを感知する。";
 #else
-		if (name) return "Detect Objects";
-		if (desc) return "Detects all items in your vicinity.";
+		if(name) return "Detect Objects";
+		if(desc) return "Detects all items in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_objects_normal(creature_ptr, rad);
 			}
@@ -6209,15 +6209,15 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "解毒";
-		if (desc) return "毒を体内から完全に取り除く。";
+		if(name) return "解毒";
+		if(desc) return "毒を体内から完全に取り除く。";
 #else
-		if (name) return "Cure Poison";
-		if (desc) return "Cures poison status.";
+		if(name) return "Cure Poison";
+		if(desc) return "Cures poison status.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_poisoned(creature_ptr, 0);
 			}
@@ -6226,19 +6226,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "耐冷";
-		if (desc) return "一定時間、冷気への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐冷";
+		if(desc) return "一定時間、冷気への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Cold";
-		if (desc) return "Gives resistance to cold. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Cold";
+		if(desc) return "Gives resistance to cold. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6247,19 +6247,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "耐火";
-		if (desc) return "一定時間、炎への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐火";
+		if(desc) return "一定時間、炎への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Fire";
-		if (desc) return "Gives resistance to fire. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Fire";
+		if(desc) return "Gives resistance to fire. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6268,19 +6268,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "耐電";
-		if (desc) return "一定時間、電撃への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐電";
+		if(desc) return "一定時間、電撃への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Lightning";
-		if (desc) return "Gives resistance to electricity. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Lightning";
+		if(desc) return "Gives resistance to electricity. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_elec(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6289,19 +6289,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "耐酸";
-		if (desc) return "一定時間、酸への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐酸";
+		if(desc) return "一定時間、酸への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Acid";
-		if (desc) return "Gives resistance to acid. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Acid";
+		if(desc) return "Gives resistance to acid. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_acid(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6310,20 +6310,20 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "重傷の治癒";
-		if (desc) return "怪我と体力を中程度回復させる。";
+		if(name) return "重傷の治癒";
+		if(desc) return "怪我と体力を中程度回復させる。";
 #else
-		if (name) return "Cure Medium Wounds";
-		if (desc) return "Heals cut and HP more.";
+		if(name) return "Cure Medium Wounds";
+		if(desc) return "Heals cut and HP more.";
 #endif
     
 		{
 			int dice = 4;
 			int sides = 8;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
@@ -6333,19 +6333,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "テレポート";
-		if (desc) return "遠距離のテレポートをする。";
+		if(name) return "テレポート";
+		if(desc) return "遠距離のテレポートをする。";
 #else
-		if (name) return "Teleport";
-		if (desc) return "Teleport long distance.";
+		if(name) return "Teleport";
+		if(desc) return "Teleport long distance.";
 #endif
     
 		{
 			int range = plev * 5;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -6354,28 +6354,28 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "鑑定";
-		if (desc) return "アイテムを識別する。";
+		if(name) return "鑑定";
+		if(desc) return "アイテムを識別する。";
 #else
-		if (name) return "Identify";
-		if (desc) return "Identifies an item.";
+		if(name) return "Identify";
+		if(desc) return "Identifies an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!ident_spell(creature_ptr, FALSE)) return NULL;
+				if(!ident_spell(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 21:
 #ifdef JP
-		if (name) return "岩石溶解";
-		if (desc) return "壁を溶かして床にする。";
+		if(name) return "岩石溶解";
+		if(desc) return "壁を溶かして床にする。";
 #else
-		if (name) return "Stone to Mud";
-		if (desc) return "Turns one rock square to mud.";
+		if(name) return "Stone to Mud";
+		if(desc) return "Turns one rock square to mud.";
 #endif
     
 		{
@@ -6383,11 +6383,11 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 			int sides = 30;
 			int base = 20;
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				wall_to_mud(creature_ptr, dir);
 			}
@@ -6396,22 +6396,22 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "閃光";
-		if (desc) return "光線を放つ。光りを嫌うクリーチャーに効果がある。";
+		if(name) return "閃光";
+		if(desc) return "光線を放つ。光りを嫌うクリーチャーに効果がある。";
 #else
-		if (name) return "Ray of Light";
-		if (desc) return "Fires a beam of light which damages to light-sensitive creatures.";
+		if(name) return "Ray of Light";
+		if(desc) return "Fires a beam of light which damages to light-sensitive creatures.";
 #endif
     
 		{
 			int dice = 6;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 #ifdef JP
 				msg_print("光線が放たれた。");
@@ -6426,15 +6426,15 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "空腹充足";
-		if (desc) return "満腹にする。";
+		if(name) return "空腹充足";
+		if(desc) return "満腹にする。";
 #else
-		if (name) return "Satisfy Hunger";
-		if (desc) return "Satisfies hunger.";
+		if(name) return "Satisfy Hunger";
+		if(desc) return "Satisfies hunger.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_food(creature_ptr, PY_FOOD_MAX - 1);
 			}
@@ -6443,19 +6443,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "透明視認";
-		if (desc) return "一定時間、透明なものが見えるようになる。";
+		if(name) return "透明視認";
+		if(desc) return "一定時間、透明なものが見えるようになる。";
 #else
-		if (name) return "See Invisible";
-		if (desc) return "Gives see invisible for a while.";
+		if(name) return "See Invisible";
+		if(desc) return "Gives see invisible for a while.";
 #endif
     
 		{
 			int base = 24;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6464,17 +6464,17 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "エレメンタル召喚";
-		if (desc) return "1体のエレメンタルを召喚する。";
+		if(name) return "エレメンタル召喚";
+		if(desc) return "1体のエレメンタルを召喚する。";
 #else
-		if (name) return "Conjure Elemental";
-		if (desc) return "Summons an elemental.";
+		if(name) return "Conjure Elemental";
+		if(desc) return "Summons an elemental.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("エレメンタルは現れなかった。");
@@ -6488,20 +6488,20 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "テレポート・レベル";
-		if (desc) return "瞬時に上か下の階にテレポートする。";
+		if(name) return "テレポート・レベル";
+		if(desc) return "瞬時に上か下の階にテレポートする。";
 #else
-		if (name) return "Teleport Level";
-		if (desc) return "Teleport to up or down stairs in a moment.";
+		if(name) return "Teleport Level";
+		if(desc) return "Teleport to up or down stairs in a moment.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
-				if (!get_check("本当に他の階にテレポートしますか？")) return NULL;
+				if(!get_check("本当に他の階にテレポートしますか？")) return NULL;
 #else
-				if (!get_check("Are you sure? (Teleport Level)")) return NULL;
+				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
 				teleport_level(creature_ptr, 0);
 			}
@@ -6510,21 +6510,21 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "テレポート・クリーチャー";
-		if (desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
+		if(name) return "テレポート・クリーチャー";
+		if(desc) return "クリーチャーをテレポートさせるビームを放つ。抵抗されると無効。";
 #else
-		if (name) return "Teleport Away";
-		if (desc) return "Teleports all creatures on the line away unless resisted.";
+		if(name) return "Teleport Away";
+		if(desc) return "Teleports all creatures on the line away unless resisted.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_beam(creature_ptr, GF_AWAY_ALL, dir, power);
 			}
@@ -6533,24 +6533,24 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "元素の球";
-		if (desc) return "炎、電撃、冷気、酸のどれかの球を放つ。";
+		if(name) return "元素の球";
+		if(desc) return "炎、電撃、冷気、酸のどれかの球を放つ。";
 #else
-		if (name) return "Elemental Ball";
-		if (desc) return "Fires a ball of some elements.";
+		if(name) return "Elemental Ball";
+		if(desc) return "Fires a ball of some elements.";
 #endif
     
 		{
 			int dam = 75 + plev;
 			int rad = 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
 				int type;
 
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				switch (randint1(4))
 				{
@@ -6567,19 +6567,19 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "全感知";
-		if (desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
+		if(name) return "全感知";
+		if(desc) return "近くの全てのクリーチャー、罠、扉、階段、財宝、そしてアイテムを感知する。";
 #else
-		if (name) return "Detection";
-		if (desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
+		if(name) return "Detection";
+		if(desc) return "Detects all creatures, traps, doors, stairs, treasures and items in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_all(creature_ptr, rad);
 			}
@@ -6588,46 +6588,46 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "帰還の呪文";
-		if (desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
+		if(name) return "帰還の呪文";
+		if(desc) return "地上にいるときはダンジョンの最深階へ、ダンジョンにいるときは地上へと移動する。";
 #else
-		if (name) return "Word of Recall";
-		if (desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
+		if(name) return "Word of Recall";
+		if(desc) return "Recalls player from dungeon to town, or from town to the deepest level of dungeon.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
-			if (cast)
+			if(cast)
 			{
-				if (!word_of_recall(creature_ptr)) return NULL;
+				if(!word_of_recall(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 31:
 #ifdef JP
-		if (name) return "千里眼";
-		if (desc) return "その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。さらに、一定時間テレパシー能力を得る。";
+		if(name) return "千里眼";
+		if(desc) return "その階全体を永久に照らし、ダンジョン内すべてのアイテムを感知する。さらに、一定時間テレパシー能力を得る。";
 #else
-		if (name) return "Clairvoyance";
-		if (desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
+		if(name) return "Clairvoyance";
+		if(desc) return "Maps and lights whole dungeon level. Knows all objects location. And gives telepathy for a while.";
 #endif
     
 		{
 			int base = 25;
 			int sides = 30;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				wiz_lite(floor_ptr, creature_ptr, FALSE);
 
-				if (!has_trait(creature_ptr, TRAIT_ESP))
+				if(!has_trait(creature_ptr, TRAIT_ESP))
 				{
 					set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 				}
@@ -6653,19 +6653,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "赤外線視力";
-		if (desc) return "一定時間、赤外線視力が増強される。";
+		if(name) return "赤外線視力";
+		if(desc) return "一定時間、赤外線視力が増強される。";
 #else
-		if (name) return "Infravision";
-		if (desc) return "Gives infravision for a while.";
+		if(name) return "Infravision";
+		if(desc) return "Gives infravision for a while.";
 #endif
     
 		{
 			int base = 100;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_infra(creature_ptr, base + randint1(base), FALSE);
 			}
@@ -6674,19 +6674,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "回復力強化";
-		if (desc) return "一定時間、回復力が増強される。";
+		if(name) return "回復力強化";
+		if(desc) return "一定時間、回復力が増強される。";
 #else
-		if (name) return "Regeneration";
-		if (desc) return "Gives regeneration ability for a while.";
+		if(name) return "Regeneration";
+		if(desc) return "Gives regeneration ability for a while.";
 #endif
     
 		{
 			int base = 80;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_regen(creature_ptr, base + randint1(base), FALSE);
 			}
@@ -6695,15 +6695,15 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "空腹充足";
-		if (desc) return "満腹になる。";
+		if(name) return "空腹充足";
+		if(desc) return "満腹になる。";
 #else
-		if (name) return "Satisfy Hunger";
-		if (desc) return "Satisfies hunger.";
+		if(name) return "Satisfy Hunger";
+		if(desc) return "Satisfies hunger.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_food(creature_ptr, PY_FOOD_MAX - 1);
 			}
@@ -6712,19 +6712,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "耐冷気";
-		if (desc) return "一定時間、冷気への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐冷気";
+		if(desc) return "一定時間、冷気への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Cold";
-		if (desc) return "Gives resistance to cold. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Cold";
+		if(desc) return "Gives resistance to cold. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6733,19 +6733,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "耐火炎";
-		if (desc) return "一定時間、炎への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐火炎";
+		if(desc) return "一定時間、炎への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Fire";
-		if (desc) return "Gives resistance to fire. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Fire";
+		if(desc) return "Gives resistance to fire. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6754,19 +6754,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "士気高揚";
-		if (desc) return "一定時間、ヒーロー気分になる。";
+		if(name) return "士気高揚";
+		if(desc) return "一定時間、ヒーロー気分になる。";
 #else
-		if (name) return "Heroism";
-		if (desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
+		if(name) return "Heroism";
+		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
     
 		{
 			int base = 25;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
@@ -6777,19 +6777,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "耐電撃";
-		if (desc) return "一定時間、電撃への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐電撃";
+		if(desc) return "一定時間、電撃への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Lightning";
-		if (desc) return "Gives resistance to electricity. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Lightning";
+		if(desc) return "Gives resistance to electricity. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_elec(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6798,19 +6798,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "耐酸";
-		if (desc) return "一定時間、酸への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐酸";
+		if(desc) return "一定時間、酸への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Acid";
-		if (desc) return "Gives resistance to acid. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Acid";
+		if(desc) return "Gives resistance to acid. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_acid(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6819,19 +6819,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "透明視認";
-		if (desc) return "一定時間、透明なものが見えるようになる。";
+		if(name) return "透明視認";
+		if(desc) return "一定時間、透明なものが見えるようになる。";
 #else
-		if (name) return "See Invisibility";
-		if (desc) return "Gives see invisible for a while.";
+		if(name) return "See Invisibility";
+		if(desc) return "Gives see invisible for a while.";
 #endif
     
 		{
 			int base = 24;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6840,17 +6840,17 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "解呪";
-		if (desc) return "アイテムにかかった弱い呪いを解除する。";
+		if(name) return "解呪";
+		if(desc) return "アイテムにかかった弱い呪いを解除する。";
 #else
-		if (name) return "Remove Curse";
-		if (desc) return "Removes normal curses from equipped items.";
+		if(name) return "Remove Curse";
+		if(desc) return "Removes normal curses from equipped items.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (remove_curse(creature_ptr))
+				if(remove_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -6864,19 +6864,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "耐毒";
-		if (desc) return "一定時間、毒への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐毒";
+		if(desc) return "一定時間、毒への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Poison";
-		if (desc) return "Gives resistance to poison. This resistance can be added to which from equipment for more powerful resistance.";
+		if(name) return "Resist Poison";
+		if(desc) return "Gives resistance to poison. This resistance can be added to which from equipment for more powerful resistance.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_pois(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -6885,19 +6885,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "狂戦士化";
-		if (desc) return "狂戦士化し、恐怖を除去する。";
+		if(name) return "狂戦士化";
+		if(desc) return "狂戦士化し、恐怖を除去する。";
 #else
-		if (name) return "Berserk";
-		if (desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
+		if(name) return "Berserk";
+		if(desc) return "Gives bonus to hit and HP, immunity to fear for a while. But decreases AC.";
 #endif
     
 		{
 			int base = 25;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_shero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
@@ -6908,15 +6908,15 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "自己分析";
-		if (desc) return "現在の自分の状態を完全に知る。";
+		if(name) return "自己分析";
+		if(desc) return "現在の自分の状態を完全に知る。";
 #else
-		if (name) return "Self Knowledge";
-		if (desc) return "Gives you useful info regarding your current resistances, the powers of your weapon and maximum limits of your stats.";
+		if(name) return "Self Knowledge";
+		if(desc) return "Gives you useful info regarding your current resistances, the powers of your weapon and maximum limits of your stats.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				creature_knowledge(creature_ptr);
 			}
@@ -6925,20 +6925,20 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "対邪悪結界";
-		if (desc) return "邪悪なクリーチャーの攻撃を防ぐバリアを張る。";
+		if(name) return "対邪悪結界";
+		if(desc) return "邪悪なクリーチャーの攻撃を防ぐバリアを張る。";
 #else
-		if (name) return "Protection from Evil";
-		if (desc) return "Gives aura which protect you from evil creature's physical attack.";
+		if(name) return "Protection from Evil";
+		if(desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
     
 		{
 			int base = 3 * plev;
 			int sides = 25;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_protevil(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -6947,15 +6947,15 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "癒し";
-		if (desc) return "毒、朦朧状態、負傷を全快させ、幻覚を直す。";
+		if(name) return "癒し";
+		if(desc) return "毒、朦朧状態、負傷を全快させ、幻覚を直す。";
 #else
-		if (name) return "Cure";
-		if (desc) return "Heals poison, stun, cut and hallucination completely.";
+		if(name) return "Cure";
+		if(desc) return "Heals poison, stun, cut and hallucination completely.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_poisoned(creature_ptr, 0);
 				set_stun(creature_ptr, 0);
@@ -6967,41 +6967,41 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "魔法剣";
-		if (desc) return "一定時間、武器に冷気、炎、電撃、酸、毒のいずれかの属性をつける。武器を持たないと使えない。";
+		if(name) return "魔法剣";
+		if(desc) return "一定時間、武器に冷気、炎、電撃、酸、毒のいずれかの属性をつける。武器を持たないと使えない。";
 #else
-		if (name) return "Mana Branding";
-		if (desc) return "Makes current weapon some elemental branded. You must wield weapons.";
+		if(name) return "Mana Branding";
+		if(desc) return "Makes current weapon some elemental branded. You must wield weapons.";
 #endif
     
 		{
 			int base = plev / 2;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!choose_ele_attack(creature_ptr)) return NULL;
+				if(!choose_ele_attack(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 16:
 #ifdef JP
-		if (name) return "テレパシー";
-		if (desc) return "一定時間、テレパシー能力を得る。";
+		if(name) return "テレパシー";
+		if(desc) return "一定時間、テレパシー能力を得る。";
 #else
-		if (name) return "Telepathy";
-		if (desc) return "Gives telepathy for a while.";
+		if(name) return "Telepathy";
+		if(desc) return "Gives telepathy for a while.";
 #endif
     
 		{
 			int base = 25;
 			int sides = 30;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -7010,20 +7010,20 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "肌石化";
-		if (desc) return "一定時間、ACを上昇させる。";
+		if(name) return "肌石化";
+		if(desc) return "一定時間、ACを上昇させる。";
 #else
-		if (name) return "Stone Skin";
-		if (desc) return "Gives bonus to AC for a while.";
+		if(name) return "Stone Skin";
+		if(desc) return "Gives bonus to AC for a while.";
 #endif
     
 		{
 			int base = 30;
 			int sides = 20;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_shield(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -7032,19 +7032,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "全耐性";
-		if (desc) return "一定時間、酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。";
+		if(name) return "全耐性";
+		if(desc) return "一定時間、酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resistance";
-		if (desc) return "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Resistance";
+		if(desc) return "Gives resistance to fire, cold, electricity, acid and poison for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_acid(creature_ptr, randint1(base) + base, FALSE);
 				set_oppose_elec(creature_ptr, randint1(base) + base, FALSE);
@@ -7057,20 +7057,20 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "スピード";
-		if (desc) return "一定時間、加速する。";
+		if(name) return "スピード";
+		if(desc) return "一定時間、加速する。";
 #else
-		if (name) return "Haste Self";
-		if (desc) return "Hastes you for a while.";
+		if(name) return "Haste Self";
+		if(desc) return "Hastes you for a while.";
 #endif
     
 		{
 			int base = plev;
 			int sides = 20 + plev;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_fast(creature_ptr, randint1(sides) + base, FALSE);
 			}
@@ -7079,19 +7079,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "壁抜け";
-		if (desc) return "一定時間、半物質化し壁を通り抜けられるようになる。";
+		if(name) return "壁抜け";
+		if(desc) return "一定時間、半物質化し壁を通り抜けられるようになる。";
 #else
-		if (name) return "Walk through Wall";
-		if (desc) return "Gives ability to pass walls for a while.";
+		if(name) return "Walk through Wall";
+		if(desc) return "Gives ability to pass walls for a while.";
 #endif
     
 		{
 			int base = plev / 2;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_kabenuke(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -7100,15 +7100,15 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "盾磨き";
-		if (desc) return "盾に反射の属性をつける。";
+		if(name) return "盾磨き";
+		if(desc) return "盾に反射の属性をつける。";
 #else
-		if (name) return "Polish Shield";
-		if (desc) return "Makes a shield a shield of reflection.";
+		if(name) return "Polish Shield";
+		if(desc) return "Makes a shield a shield of reflection.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				pulish_shield(creature_ptr);
 			}
@@ -7117,17 +7117,17 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "ゴーレム製造";
-		if (desc) return "1体のゴーレムを製造する。";
+		if(name) return "ゴーレム製造";
+		if(desc) return "1体のゴーレムを製造する。";
 #else
-		if (name) return "Create Golem";
-		if (desc) return "Creates a golem.";
+		if(name) return "Create Golem";
+		if(desc) return "Creates a golem.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_GOLEM, PC_FORCE_PET))
+				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_GOLEM, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ゴーレムを作った。");
@@ -7149,19 +7149,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "魔法の鎧";
-		if (desc) return "一定時間、魔法防御力とACが上がり、混乱と盲目の耐性、反射能力、麻痺知らず、浮遊を得る。";
+		if(name) return "魔法の鎧";
+		if(desc) return "一定時間、魔法防御力とACが上がり、混乱と盲目の耐性、反射能力、麻痺知らず、浮遊を得る。";
 #else
-		if (name) return "Magical armor";
-		if (desc) return "Gives resistance to magic, bonus to AC, resistance to confusion, blindness, reflection, free action and levitation for a while.";
+		if(name) return "Magical armor";
+		if(desc) return "Gives resistance to magic, bonus to AC, resistance to confusion, blindness, reflection, free action and levitation for a while.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_magicdef(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -7170,34 +7170,34 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "装備無力化";
-		if (desc) return "武器・防具にかけられたあらゆる魔力を完全に解除する。";
+		if(name) return "装備無力化";
+		if(desc) return "武器・防具にかけられたあらゆる魔力を完全に解除する。";
 #else
-		if (name) return "Remove Enchantment";
-		if (desc) return "Removes all magics completely from any weapon or armor.";
+		if(name) return "Remove Enchantment";
+		if(desc) return "Removes all magics completely from any weapon or armor.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!mundane_spell(creature_ptr, TRUE)) return NULL;
+				if(!mundane_spell(creature_ptr, TRUE)) return NULL;
 			}
 		}
 		break;
 
 	case 25:
 #ifdef JP
-		if (name) return "呪い粉砕";
-		if (desc) return "アイテムにかかった強力な呪いを解除する。";
+		if(name) return "呪い粉砕";
+		if(desc) return "アイテムにかかった強力な呪いを解除する。";
 #else
-		if (name) return "Remove All Curse";
-		if (desc) return "Removes normal and heavy curse from equipped items.";
+		if(name) return "Remove All Curse";
+		if(desc) return "Removes normal and heavy curse from equipped items.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (remove_all_curse(creature_ptr))
+				if(remove_all_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -7211,66 +7211,66 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "完全なる知識";
-		if (desc) return "アイテムの持つ能力を完全に知る。";
+		if(name) return "完全なる知識";
+		if(desc) return "アイテムの持つ能力を完全に知る。";
 #else
-		if (name) return "Knowledge True";
-		if (desc) return "*Identifies* an item.";
+		if(name) return "Knowledge True";
+		if(desc) return "*Identifies* an item.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!identify_fully(creature_ptr, FALSE)) return NULL;
+				if(!identify_fully(creature_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
 
 	case 27:
 #ifdef JP
-		if (name) return "武器強化";
-		if (desc) return "武器の命中率修正とダメージ修正を強化する。";
+		if(name) return "武器強化";
+		if(desc) return "武器の命中率修正とダメージ修正を強化する。";
 #else
-		if (name) return "Enchant Weapon";
-		if (desc) return "Attempts to increase +to-hit, +to-dam of a weapon.";
+		if(name) return "Enchant Weapon";
+		if(desc) return "Attempts to increase +to-hit, +to-dam of a weapon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!enchant_spell(creature_ptr, randint0(4) + 1, randint0(4) + 1, 0)) return NULL;
+				if(!enchant_spell(creature_ptr, randint0(4) + 1, randint0(4) + 1, 0)) return NULL;
 			}
 		}
 		break;
 
 	case 28:
 #ifdef JP
-		if (name) return "防具強化";
-		if (desc) return "鎧の防御修正を強化する。";
+		if(name) return "防具強化";
+		if(desc) return "鎧の防御修正を強化する。";
 #else
-		if (name) return "Enchant Armor";
-		if (desc) return "Attempts to increase +AC of an armor.";
+		if(name) return "Enchant Armor";
+		if(desc) return "Attempts to increase +AC of an armor.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!enchant_spell(creature_ptr, 0, 0, randint0(3) + 2)) return NULL;
+				if(!enchant_spell(creature_ptr, 0, 0, randint0(3) + 2)) return NULL;
 			}
 		}
 		break;
 
 	case 29:
 #ifdef JP
-		if (name) return "武器属性付与";
-		if (desc) return "武器にランダムに属性をつける。";
+		if(name) return "武器属性付与";
+		if(desc) return "武器にランダムに属性をつける。";
 #else
-		if (name) return "Brand Weapon";
-		if (desc) return "Makes current weapon a random ego weapon.";
+		if(name) return "Brand Weapon";
+		if(desc) return "Makes current weapon a random ego weapon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, randint0(18));
 			}
@@ -7279,19 +7279,19 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "人間トランプ";
-		if (desc) return "ランダムにテレポートする突然変異か、自分の意思でテレポートする突然変異が身につく。";
+		if(name) return "人間トランプ";
+		if(desc) return "ランダムにテレポートする突然変異か、自分の意思でテレポートする突然変異が身につく。";
 #else
-		if (name) return "Living Trump";
-		if (desc) return "Gives mutation which makes you teleport randomly or makes you able to teleport at will.";
+		if(name) return "Living Trump";
+		if(desc) return "Gives mutation which makes you teleport randomly or makes you able to teleport at will.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				int mutation;
 
-				if (one_in_(7))
+				if(one_in_(7))
 					/* Teleport control */
 					mutation = 12;
 				else
@@ -7299,7 +7299,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if (gain_trait(creature_ptr, mutation, TRUE))
+				if(gain_trait(creature_ptr, mutation, TRUE))
 				{
 #ifdef JP
 					msg_print("あなたは生きているカードに変わった。");
@@ -7313,21 +7313,21 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "属性への免疫";
-		if (desc) return "一定時間、冷気、炎、電撃、酸のいずれかに対する免疫を得る。";
+		if(name) return "属性への免疫";
+		if(desc) return "一定時間、冷気、炎、電撃、酸のいずれかに対する免疫を得る。";
 #else
-		if (name) return "Immunity";
-		if (desc) return "Gives an immunity to fire, cold, electricity or acid for a while.";
+		if(name) return "Immunity";
+		if(desc) return "Gives an immunity to fire, cold, electricity or acid for a while.";
 #endif
     
 		{
 			int base = 13;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!choose_ele_immune(creature_ptr, base + randint1(base))) return NULL;
+				if(!choose_ele_immune(creature_ptr, base + randint1(base))) return NULL;
 			}
 		}
 		break;
@@ -7357,22 +7357,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "マジック・ミサイル";
-		if (desc) return "弱い魔法の矢を放つ。";
+		if(name) return "マジック・ミサイル";
+		if(desc) return "弱い魔法の矢を放つ。";
 #else
-		if (name) return "Magic Missile";
-		if (desc) return "Fires a weak bolt of magic.";
+		if(name) return "Magic Missile";
+		if(desc) return "Fires a weak bolt of magic.";
 #endif
     
 		{
 			int dice = 3 + (plev - 1) / 5;
 			int sides = 4;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir, diceroll(dice, sides));
 			}
@@ -7381,19 +7381,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "無生命感知";
-		if (desc) return "近くの生命のないクリーチャーを感知する。";
+		if(name) return "無生命感知";
+		if(desc) return "近くの生命のないクリーチャーを感知する。";
 #else
-		if (name) return "Detect Unlife";
-		if (desc) return "Detects all nonliving creatures in your vicinity.";
+		if(name) return "Detect Unlife";
+		if(desc) return "Detects all nonliving creatures in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_nonliving(creature_ptr, rad);
 			}
@@ -7402,19 +7402,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "邪なる祝福";
-		if (desc) return "一定時間、命中率とACにボーナスを得る。";
+		if(name) return "邪なる祝福";
+		if(desc) return "一定時間、命中率とACにボーナスを得る。";
 #else
-		if (name) return "Evil Bless";
-		if (desc) return "Gives bonus to hit and AC for a few turns.";
+		if(name) return "Evil Bless";
+		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
     
 		{
 			int base = 12;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_blessed(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -7423,19 +7423,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "耐火炎";
-		if (desc) return "一定時間、炎への耐性を得る。装備による耐性に累積する。";
+		if(name) return "耐火炎";
+		if(desc) return "一定時間、炎への耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Resist Fire";
-		if (desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Resist Fire";
+		if(desc) return "Gives resistance to fire, cold and electricity for a while. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -7444,21 +7444,21 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "恐慌";
-		if (desc) return "クリーチャー1体を恐怖させ、朦朧させる。抵抗されると無効。";
+		if(name) return "恐慌";
+		if(desc) return "クリーチャー1体を恐怖させ、朦朧させる。抵抗されると無効。";
 #else
-		if (name) return "Horrify";
-		if (desc) return "Attempts to scare and stun a creature.";
+		if(name) return "Horrify";
+		if(desc) return "Attempts to scare and stun a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fear_creature(creature_ptr, dir, power);
 				stun_creature(creature_ptr, dir, power);
@@ -7468,22 +7468,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "地獄の矢";
-		if (desc) return "地獄のボルトもしくはビームを放つ。";
+		if(name) return "地獄の矢";
+		if(desc) return "地獄のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Nether Bolt";
-		if (desc) return "Fires a bolt or beam of nether.";
+		if(name) return "Nether Bolt";
+		if(desc) return "Fires a bolt or beam of nether.";
 #endif
     
 		{
 			int dice = 6 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_NETHER, dir, diceroll(dice, sides));
 			}
@@ -7492,17 +7492,17 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "古代の死霊召喚";
-		if (desc) return "古代の死霊を召喚する。";
+		if(name) return "古代の死霊召喚";
+		if(desc) return "古代の死霊を召喚する。";
 #else
-		if (name) return "Summon Manes";
-		if (desc) return "Summons a manes.";
+		if(name) return "Summon Manes";
+		if(desc) return "Summons a manes.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("古代の死霊は現れなかった。");
@@ -7516,11 +7516,11 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "地獄の焔";
-		if (desc) return "邪悪な力を持つボールを放つ。善良なクリーチャーには大きなダメージを与える。";
+		if(name) return "地獄の焔";
+		if(desc) return "邪悪な力を持つボールを放つ。善良なクリーチャーには大きなダメージを与える。";
 #else
-		if (name) return "Hellish Flame";
-		if (desc) return "Fires a ball of evil power. Hurts good creatures greatly.";
+		if(name) return "Hellish Flame";
+		if(desc) return "Fires a ball of evil power. Hurts good creatures greatly.";
 #endif
     
 		{
@@ -7529,7 +7529,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (creature_ptr->class_idx == CLASS_MAGE ||
+			if(creature_ptr->class_idx == CLASS_MAGE ||
 			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
 			    creature_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
@@ -7537,11 +7537,11 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 				base = plev + plev / 4;
 
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides) + base, rad);
 			}
@@ -7550,21 +7550,21 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "デーモン支配";
-		if (desc) return "悪魔1体を魅了する。抵抗されると無効";
+		if(name) return "デーモン支配";
+		if(desc) return "悪魔1体を魅了する。抵抗されると無効";
 #else
-		if (name) return "Dominate Demon";
-		if (desc) return "Attempts to charm a demon.";
+		if(name) return "Dominate Demon";
+		if(desc) return "Attempts to charm a demon.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				control_one_demon(creature_ptr, dir, power);
 			}
@@ -7573,19 +7573,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "ビジョン";
-		if (desc) return "周辺の地形を感知する。";
+		if(name) return "ビジョン";
+		if(desc) return "周辺の地形を感知する。";
 #else
-		if (name) return "Vision";
-		if (desc) return "Maps nearby area.";
+		if(name) return "Vision";
+		if(desc) return "Maps nearby area.";
 #endif
     
 		{
 			int rad = DETECT_RAD_MAP;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				map_area(creature_ptr, rad);
 			}
@@ -7594,19 +7594,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "耐地獄";
-		if (desc) return "一定時間、地獄への耐性を得る。";
+		if(name) return "耐地獄";
+		if(desc) return "一定時間、地獄への耐性を得る。";
 #else
-		if (name) return "Resist Nether";
-		if (desc) return "Gives resistance to nether for a while.";
+		if(name) return "Resist Nether";
+		if(desc) return "Gives resistance to nether for a while.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_res_nether(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -7615,22 +7615,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "プラズマ・ボルト";
-		if (desc) return "プラズマのボルトもしくはビームを放つ。";
+		if(name) return "プラズマ・ボルト";
+		if(desc) return "プラズマのボルトもしくはビームを放つ。";
 #else
-		if (name) return "Plasma bolt";
-		if (desc) return "Fires a bolt or beam of plasma.";
+		if(name) return "Plasma bolt";
+		if(desc) return "Fires a bolt or beam of plasma.";
 #endif
     
 		{
 			int dice = 11 + (plev - 5) / 4;
 			int sides = 8;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_PLASMA, dir, diceroll(dice, sides));
 			}
@@ -7639,22 +7639,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "ファイア・ボール";
-		if (desc) return "炎の球を放つ。";
+		if(name) return "ファイア・ボール";
+		if(desc) return "炎の球を放つ。";
 #else
-		if (name) return "Fire Ball";
-		if (desc) return "Fires a ball of fire.";
+		if(name) return "Fire Ball";
+		if(desc) return "Fires a ball of fire.";
 #endif
     
 		{
 			int dam = plev + 55;
 			int rad = 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_FIRE, dir, dam, rad);
 			}
@@ -7663,15 +7663,15 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "炎の刃";
-		if (desc) return "武器に炎の属性をつける。";
+		if(name) return "炎の刃";
+		if(desc) return "武器に炎の属性をつける。";
 #else
-		if (name) return "Fire Branding";
-		if (desc) return "Makes current weapon fire branded.";
+		if(name) return "Fire Branding";
+		if(desc) return "Makes current weapon fire branded.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, 1);
 			}
@@ -7680,22 +7680,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "地獄球";
-		if (desc) return "大きな地獄の球を放つ。";
+		if(name) return "地獄球";
+		if(desc) return "大きな地獄の球を放つ。";
 #else
-		if (name) return "Nether Ball";
-		if (desc) return "Fires a huge ball of nether.";
+		if(name) return "Nether Ball";
+		if(desc) return "Fires a huge ball of nether.";
 #endif
     
 		{
 			int dam = plev * 3 / 2 + 100;
 			int rad = plev / 20 + 2;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_NETHER, dir, dam, rad);
 			}
@@ -7704,24 +7704,24 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "デーモン召喚";
-		if (desc) return "悪魔1体を召喚する。";
+		if(name) return "デーモン召喚";
+		if(desc) return "悪魔1体を召喚する。";
 #else
-		if (name) return "Summon Demon";
-		if (desc) return "Summons a demon.";
+		if(name) return "Summon Demon";
+		if(desc) return "Summons a demon.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				bool pet = !one_in_(3);
 				u32b mode = 0L;
 
-				if (pet) mode |= PC_FORCE_PET;
+				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
-				if (!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
+				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("硫黄の悪臭が充満した。");
@@ -7730,7 +7730,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 
-					if (pet)
+					if(pet)
 					{
 #ifdef JP
 						msg_print("「ご用でございますか、ご主人様」");
@@ -7762,20 +7762,20 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "悪魔の目";
-		if (desc) return "一定時間、テレパシー能力を得る。";
+		if(name) return "悪魔の目";
+		if(desc) return "一定時間、テレパシー能力を得る。";
 #else
-		if (name) return "Devilish Eye";
-		if (desc) return "Gives telepathy for a while.";
+		if(name) return "Devilish Eye";
+		if(desc) return "Gives telepathy for a while.";
 #endif
     
 		{
 			int base = 30;
 			int sides = 25;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_esp(creature_ptr, randint1(base) + sides, FALSE);
 			}
@@ -7784,19 +7784,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "悪魔のクローク";
-		if (desc) return "恐怖を取り除き、一定時間、炎と冷気の耐性、炎のオーラを得る。耐性は装備による耐性に累積する。";
+		if(name) return "悪魔のクローク";
+		if(desc) return "恐怖を取り除き、一定時間、炎と冷気の耐性、炎のオーラを得る。耐性は装備による耐性に累積する。";
 #else
-		if (name) return "Devil Cloak";
-		if (desc) return "Removes fear. Gives resistance to fire and cold, and aura of fire. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Devil Cloak";
+		if(desc) return "Removes fear. Gives resistance to fire and cold, and aura of fire. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				int dur = randint1(base) + base;
 					
@@ -7811,20 +7811,20 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "溶岩流";
-		if (desc) return "自分を中心とした炎の球を作り出し、床を溶岩に変える。";
+		if(name) return "溶岩流";
+		if(desc) return "自分を中心とした炎の球を作り出し、床を溶岩に変える。";
 #else
-		if (name) return "The Flow of Lava";
-		if (desc) return "Generates a ball of fire centered on you which transforms floors to magma.";
+		if(name) return "The Flow of Lava";
+		if(desc) return "Generates a ball of fire centered on you which transforms floors to magma.";
 #endif
     
 		{
 			int dam = (55 + plev) * 2;
 			int rad = 3;
 
-			if (info) return info_damage(0, 0, dam/2);
+			if(info) return info_damage(0, 0, dam/2);
 
-			if (cast)
+			if(cast)
 			{
 				fire_ball(creature_ptr, GF_FIRE, 0, dam, rad);
 				fire_ball_hide(creature_ptr, GF_LAVA_FLOW, 0, 2 + randint1(2), rad);
@@ -7834,22 +7834,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "プラズマ球";
-		if (desc) return "プラズマの球を放つ。";
+		if(name) return "プラズマ球";
+		if(desc) return "プラズマの球を放つ。";
 #else
-		if (name) return "Plasma Ball";
-		if (desc) return "Fires a ball of plasma.";
+		if(name) return "Plasma Ball";
+		if(desc) return "Fires a ball of plasma.";
 #endif
     
 		{
 			int dam = plev * 3 / 2 + 80;
 			int rad = 2 + plev / 40;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_PLASMA, dir, dam, rad);
 			}
@@ -7858,19 +7858,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "悪魔変化";
-		if (desc) return "一定時間、悪魔に変化する。変化している間は本来の種族の能力を失い、代わりに悪魔としての能力を得る。";
+		if(name) return "悪魔変化";
+		if(desc) return "一定時間、悪魔に変化する。変化している間は本来の種族の能力を失い、代わりに悪魔としての能力を得る。";
 #else
-		if (name) return "Polymorph Demon";
-		if (desc) return "Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.";
+		if(name) return "Polymorph Demon";
+		if(desc) return "Mimic a demon for a while. Loses abilities of original race and gets abilities as a demon.";
 #endif
     
 		{
 			int base = 10 + plev / 2;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				//TODO set_mimic(creature_ptr, base + randint1(base), MIMIC_DEMON, FALSE);
 			}
@@ -7879,20 +7879,20 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "地獄の波動";
-		if (desc) return "視界内の全てのクリーチャーにダメージを与える。善良なクリーチャーに特に大きなダメージを与える。";
+		if(name) return "地獄の波動";
+		if(desc) return "視界内の全てのクリーチャーにダメージを与える。善良なクリーチャーに特に大きなダメージを与える。";
 #else
-		if (name) return "Nather Wave";
-		if (desc) return "Damages all creatures in sight. Hurts good creatures greatly.";
+		if(name) return "Nather Wave";
+		if(desc) return "Damages all creatures in sight. Hurts good creatures greatly.";
 #endif
     
 		{
 			int sides1 = plev * 2;
 			int sides2 = plev * 2;
 
-			if (info) return format("%sd%d+d%d", s_dam, sides1, sides2);
+			if(info) return format("%sd%d+d%d", s_dam, sides1, sides2);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_creatures(creature_ptr, randint1(sides1));
 				dispel_good(creature_ptr, randint1(sides2));
@@ -7902,22 +7902,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "サキュバスの接吻";
-		if (desc) return "因果混乱の球を放つ。";
+		if(name) return "サキュバスの接吻";
+		if(desc) return "因果混乱の球を放つ。";
 #else
-		if (name) return "Kiss of Succubus";
-		if (desc) return "Fires a ball of nexus.";
+		if(name) return "Kiss of Succubus";
+		if(desc) return "Fires a ball of nexus.";
 #endif
     
 		{
 			int dam = 100 + plev * 2;
 			int rad = 4;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_ball(creature_ptr, GF_NEXUS, dir, dam, rad);
 			}
 		}
@@ -7925,17 +7925,17 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "破滅の手";
-		if (desc) return "破滅の手を放つ。食らったクリーチャーはそのときのHPの半分前後のダメージを受ける。";
+		if(name) return "破滅の手";
+		if(desc) return "破滅の手を放つ。食らったクリーチャーはそのときのHPの半分前後のダメージを受ける。";
 #else
-		if (name) return "Doom Hand";
-		if (desc) return "Attempts to make a creature's HP almost half.";
+		if(name) return "Doom Hand";
+		if(desc) return "Attempts to make a creature's HP almost half.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 #ifdef JP
 				else msg_print("<破滅の手>を放った！");
 #else
@@ -7949,19 +7949,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "士気高揚";
-		if (desc) return "一定時間、ヒーロー気分になる。";
+		if(name) return "士気高揚";
+		if(desc) return "一定時間、ヒーロー気分になる。";
 #else
-		if (name) return "Raise the Morale";
-		if (desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
+		if(name) return "Raise the Morale";
+		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
     
 		{
 			int base = 25;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
@@ -7972,19 +7972,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "不滅の肉体";
-		if (desc) return "一定時間、時間逆転への耐性を得る。";
+		if(name) return "不滅の肉体";
+		if(desc) return "一定時間、時間逆転への耐性を得る。";
 #else
-		if (name) return "Immortal Body";
-		if (desc) return "Gives resistance to time for a while.";
+		if(name) return "Immortal Body";
+		if(desc) return "Gives resistance to time for a while.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_res_time(creature_ptr, randint1(base)+base, FALSE);
 			}
@@ -7993,11 +7993,11 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "狂気の円環";
-		if (desc) return "自分を中心としたカオスの球、混乱の球を発生させ、近くのクリーチャーを魅了する。";
+		if(name) return "狂気の円環";
+		if(desc) return "自分を中心としたカオスの球、混乱の球を発生させ、近くのクリーチャーを魅了する。";
 #else
-		if (name) return "Insanity Circle";
-		if (desc) return "Generate balls of chaos, confusion and charm centered on you.";
+		if(name) return "Insanity Circle";
+		if(desc) return "Generate balls of chaos, confusion and charm centered on you.";
 #endif
     
 		{
@@ -8005,9 +8005,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			int power = 20 + plev;
 			int rad = 3 + plev / 20;
 
-			if (info) return format("%s%d+%d", s_dam, dam/2, dam/2);
+			if(info) return format("%s%d+%d", s_dam, dam/2, dam/2);
 
-			if (cast)
+			if(cast)
 			{
 				fire_ball(creature_ptr, GF_CHAOS, 0, dam, rad);
 				fire_ball(creature_ptr, GF_CONFUSION, 0, dam, rad);
@@ -8018,15 +8018,15 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "ペット爆破";
-		if (desc) return "全てのペットを強制的に爆破させる。";
+		if(name) return "ペット爆破";
+		if(desc) return "全てのペットを強制的に爆破させる。";
 #else
-		if (name) return "Explode Pets";
-		if (desc) return "Makes all pets explode.";
+		if(name) return "Explode Pets";
+		if(desc) return "Makes all pets explode.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				discharge_minion(creature_ptr);
 			}
@@ -8035,39 +8035,39 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "グレーターデーモン召喚";
-		if (desc) return "上級デーモンを召喚する。召喚するには人間('p','h','t'で表されるクリーチャー)の死体を捧げなければならない。";
+		if(name) return "グレーターデーモン召喚";
+		if(desc) return "上級デーモンを召喚する。召喚するには人間('p','h','t'で表されるクリーチャー)の死体を捧げなければならない。";
 #else
-		if (name) return "Summon Greater Demon";
-		if (desc) return "Summons greater demon. It need to sacrifice a corpse of human ('p','h' or 't').";
+		if(name) return "Summon Greater Demon";
+		if(desc) return "Summons greater demon. It need to sacrifice a corpse of human ('p','h' or 't').";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!cast_summon_greater_demon(creature_ptr)) return NULL;
+				if(!cast_summon_greater_demon(creature_ptr)) return NULL;
 			}
 		}
 		break;
 
 	case 29:
 #ifdef JP
-		if (name) return "地獄嵐";
-		if (desc) return "超巨大な地獄の球を放つ。";
+		if(name) return "地獄嵐";
+		if(desc) return "超巨大な地獄の球を放つ。";
 #else
-		if (name) return "Nether Storm";
-		if (desc) return "Generate a huge ball of nether.";
+		if(name) return "Nether Storm";
+		if(desc) return "Generate a huge ball of nether.";
 #endif
     
 		{
 			int dam = plev * 15;
 			int rad = plev / 5;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_NETHER, dir, dam, rad);
 			}
@@ -8076,22 +8076,22 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "血の呪い";
-		if (desc) return "自分がダメージを受けることによって対象に呪いをかけ、ダメージを与え様々な効果を引き起こす。";
+		if(name) return "血の呪い";
+		if(desc) return "自分がダメージを受けることによって対象に呪いをかけ、ダメージを与え様々な効果を引き起こす。";
 #else
-		if (name) return "Bloody Curse";
-		if (desc) return "Puts blood curse which damages and causes various effects on a creature. You also take damage.";
+		if(name) return "Bloody Curse";
+		if(desc) return "Puts blood curse which damages and causes various effects on a creature. You also take damage.";
 #endif
     
 		{
 			int dam = 600;
 			int rad = 0;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball_hide(creature_ptr, GF_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
@@ -8105,19 +8105,19 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "魔王変化";
-		if (desc) return "悪魔の王に変化する。変化している間は本来の種族の能力を失い、代わりに悪魔の王としての能力を得、壁を破壊しながら歩く。";
+		if(name) return "魔王変化";
+		if(desc) return "悪魔の王に変化する。変化している間は本来の種族の能力を失い、代わりに悪魔の王としての能力を得、壁を破壊しながら歩く。";
 #else
-		if (name) return "Polymorph Demonlord";
-		if (desc) return "Mimic a demon lord for a while. Loses abilities of original race and gets great abilities as a demon lord. Even hard walls can't stop your walking.";
+		if(name) return "Polymorph Demonlord";
+		if(desc) return "Mimic a demon lord for a while. Loses abilities of original race and gets great abilities as a demon lord. Even hard walls can't stop your walking.";
 #endif
     
 		{
 			int base = 15;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				//TODO set_mimic(creature_ptr, base + randint1(base), MIMIC_DEMON_LORD, FALSE);
 			}
@@ -8145,22 +8145,22 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "懲罰";
-		if (desc) return "電撃のボルトもしくはビームを放つ。";
+		if(name) return "懲罰";
+		if(desc) return "電撃のボルトもしくはビームを放つ。";
 #else
-		if (name) return "Punishment";
-		if (desc) return "Fires a bolt or beam of lightning.";
+		if(name) return "Punishment";
+		if(desc) return "Fires a bolt or beam of lightning.";
 #endif
     
 		{
 			int dice = 3 + (plev - 1) / 5;
 			int sides = 4;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir, diceroll(dice, sides));
 			}
@@ -8169,19 +8169,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "邪悪存在感知";
-		if (desc) return "近くの邪悪なクリーチャーを感知する。";
+		if(name) return "邪悪存在感知";
+		if(desc) return "近くの邪悪なクリーチャーを感知する。";
 #else
-		if (name) return "Detect Evil";
-		if (desc) return "Detects all evil creatures in your vicinity.";
+		if(name) return "Detect Evil";
+		if(desc) return "Detects all evil creatures in your vicinity.";
 #endif
     
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cast)
+			if(cast)
 			{
 				detect_creatures_evil(creature_ptr, rad);
 			}
@@ -8190,15 +8190,15 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "恐怖除去";
-		if (desc) return "恐怖を取り除く。";
+		if(name) return "恐怖除去";
+		if(desc) return "恐怖を取り除く。";
 #else
-		if (name) return "Remove Fear";
-		if (desc) return "Removes fear.";
+		if(name) return "Remove Fear";
+		if(desc) return "Removes fear.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_afraid(creature_ptr, 0);
 			}
@@ -8207,21 +8207,21 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "威圧";
-		if (desc) return "クリーチャー1体を恐怖させる。抵抗されると無効。";
+		if(name) return "威圧";
+		if(desc) return "クリーチャー1体を恐怖させる。抵抗されると無効。";
 #else
-		if (name) return "Scare Creature";
-		if (desc) return "Attempts to scare a creature.";
+		if(name) return "Scare Creature";
+		if(desc) return "Attempts to scare a creature.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fear_creature(creature_ptr, dir, power);
 			}
@@ -8230,19 +8230,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "聖域";
-		if (desc) return "隣接した全てのクリーチャーを眠らせる。抵抗されると無効。";
+		if(name) return "聖域";
+		if(desc) return "隣接した全てのクリーチャーを眠らせる。抵抗されると無効。";
 #else
-		if (name) return "Sanctuary";
-		if (desc) return "Attempts to sleep creatures in the adjacent squares.";
+		if(name) return "Sanctuary";
+		if(desc) return "Attempts to sleep creatures in the adjacent squares.";
 #endif
     
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
 				sleep_creatures_touch(creature_ptr);
 			}
@@ -8251,19 +8251,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "入口";
-		if (desc) return "中距離のテレポートをする。";
+		if(name) return "入口";
+		if(desc) return "中距離のテレポートをする。";
 #else
-		if (name) return "Portal";
-		if (desc) return "Teleport medium distance.";
+		if(name) return "Portal";
+		if(desc) return "Teleport medium distance.";
 #endif
     
 		{
 			int range = 25 + plev / 2;
 
-			if (info) return info_range(range);
+			if(info) return info_range(range);
 
-			if (cast)
+			if(cast)
 			{
 				teleport_player(creature_ptr, range, 0L);
 			}
@@ -8272,22 +8272,22 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "スターダスト";
-		if (desc) return "ターゲット付近に閃光のボルトを連射する。";
+		if(name) return "スターダスト";
+		if(desc) return "ターゲット付近に閃光のボルトを連射する。";
 #else
-		if (name) return "Star Dust";
-		if (desc) return "Fires many bolts of light near the target.";
+		if(name) return "Star Dust";
+		if(desc) return "Fires many bolts of light near the target.";
 #endif
     
 		{
 			int dice = 3 + (plev - 1) / 9;
 			int sides = 2;
 
-			if (info) return info_multi_damage_dice(dice, sides);
+			if(info) return info_multi_damage_dice(dice, sides);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_blast(creature_ptr, GF_LITE, dir, dice, sides, 10, 3);
 			}
 		}
@@ -8295,15 +8295,15 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "身体浄化";
-		if (desc) return "傷、毒、朦朧から全快する。";
+		if(name) return "身体浄化";
+		if(desc) return "傷、毒、朦朧から全快する。";
 #else
-		if (name) return "Purify";
-		if (desc) return "Heals all cut, stun and poison status.";
+		if(name) return "Purify";
+		if(desc) return "Heals all cut, stun and poison status.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				set_cut(creature_ptr, 0);
 				set_poisoned(creature_ptr, 0);
@@ -8314,21 +8314,21 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "邪悪飛ばし";
-		if (desc) return "邪悪なクリーチャー1体をテレポートさせる。抵抗されると無効。";
+		if(name) return "邪悪飛ばし";
+		if(desc) return "邪悪なクリーチャー1体をテレポートさせる。抵抗されると無効。";
 #else
-		if (name) return "Scatter Evil";
-		if (desc) return "Attempts to teleport an evil creature away.";
+		if(name) return "Scatter Evil";
+		if(desc) return "Attempts to teleport an evil creature away.";
 #endif
     
 		{
 			int power = MAX_SIGHT * 5;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_ball(creature_ptr, GF_AWAY_EVIL, dir, power, 0);
 			}
 		}
@@ -8336,11 +8336,11 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "聖なる光球";
-		if (desc) return "聖なる力をもつ宝珠を放つ。邪悪なクリーチャーに対して大きなダメージを与えるが、善良なクリーチャーには効果がない。";
+		if(name) return "聖なる光球";
+		if(desc) return "聖なる力をもつ宝珠を放つ。邪悪なクリーチャーに対して大きなダメージを与えるが、善良なクリーチャーには効果がない。";
 #else
-		if (name) return "Holy Orb";
-		if (desc) return "Fires a ball with holy power. Hurts evil creatures greatly, but don't effect good creatures.";
+		if(name) return "Holy Orb";
+		if(desc) return "Fires a ball with holy power. Hurts evil creatures greatly, but don't effect good creatures.";
 #endif
     
 		{
@@ -8349,7 +8349,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if (creature_ptr->class_idx == CLASS_PRIEST ||
+			if(creature_ptr->class_idx == CLASS_PRIEST ||
 			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
 			    creature_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
@@ -8357,11 +8357,11 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				base = plev + plev / 4;
 
 
-			if (info) return info_damage(dice, sides, base);
+			if(info) return info_damage(dice, sides, base);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_HOLY_FIRE, dir, diceroll(dice, sides) + base, rad);
 			}
@@ -8370,20 +8370,20 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "悪魔払い";
-		if (desc) return "視界内の全てのアンデッド及び悪魔にダメージを与え、邪悪なクリーチャーを恐怖させる。";
+		if(name) return "悪魔払い";
+		if(desc) return "視界内の全てのアンデッド及び悪魔にダメージを与え、邪悪なクリーチャーを恐怖させる。";
 #else
-		if (name) return "Exorcism";
-		if (desc) return "Damages all undead and demons in sight, and scares all evil creatures in sight.";
+		if(name) return "Exorcism";
+		if(desc) return "Damages all undead and demons in sight, and scares all evil creatures in sight.";
 #endif
     
 		{
 			int sides = plev;
 			int power = plev;
 
-			if (info) return info_damage(1, sides, 0);
+			if(info) return info_damage(1, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_undead(creature_ptr, randint1(sides));
 				dispel_demons(creature_ptr, randint1(sides));
@@ -8394,17 +8394,17 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "解呪";
-		if (desc) return "アイテムにかかった弱い呪いを解除する。";
+		if(name) return "解呪";
+		if(desc) return "アイテムにかかった弱い呪いを解除する。";
 #else
-		if (name) return "Remove Curse";
-		if (desc) return "Removes normal curses from equipped items.";
+		if(name) return "Remove Curse";
+		if(desc) return "Removes normal curses from equipped items.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (remove_curse(creature_ptr))
+				if(remove_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8418,19 +8418,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "透明視認";
-		if (desc) return "一定時間、透明なものが見えるようになる。";
+		if(name) return "透明視認";
+		if(desc) return "一定時間、透明なものが見えるようになる。";
 #else
-		if (name) return "Sense Unseen";
-		if (desc) return "Gives see invisible for a while.";
+		if(name) return "Sense Unseen";
+		if(desc) return "Gives see invisible for a while.";
 #endif
     
 		{
 			int base = 24;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -8439,20 +8439,20 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "対邪悪結界";
-		if (desc) return "邪悪なクリーチャーの攻撃を防ぐバリアを張る。";
+		if(name) return "対邪悪結界";
+		if(desc) return "邪悪なクリーチャーの攻撃を防ぐバリアを張る。";
 #else
-		if (name) return "Protection from Evil";
-		if (desc) return "Gives aura which protect you from evil creature's physical attack.";
+		if(name) return "Protection from Evil";
+		if(desc) return "Gives aura which protect you from evil creature's physical attack.";
 #endif
     
 		{
 			int base = 25;
 			int sides = 3 * plev;
 
-			if (info) return info_duration(base, sides);
+			if(info) return info_duration(base, sides);
 
-			if (cast)
+			if(cast)
 			{
 				set_protevil(creature_ptr, randint1(sides) + sides, FALSE);
 			}
@@ -8461,21 +8461,21 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "裁きの雷";
-		if (desc) return "強力な電撃のボルトを放つ。";
+		if(name) return "裁きの雷";
+		if(desc) return "強力な電撃のボルトを放つ。";
 #else
-		if (name) return "Judgment Thunder";
-		if (desc) return "Fires a powerful bolt of lightning.";
+		if(name) return "Judgment Thunder";
+		if(desc) return "Fires a powerful bolt of lightning.";
 #endif
     
 		{
 			int dam = plev * 5;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				fire_bolt(creature_ptr, GF_ELEC, dir, dam);
 			}
 		}
@@ -8483,11 +8483,11 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "聖なる御言葉";
-		if (desc) return "視界内の邪悪な存在に大きなダメージを与え、体力を回復し、毒、恐怖、朦朧状態、負傷から全快する。";
+		if(name) return "聖なる御言葉";
+		if(desc) return "視界内の邪悪な存在に大きなダメージを与え、体力を回復し、毒、恐怖、朦朧状態、負傷から全快する。";
 #else
-		if (name) return "Holy Word";
-		if (desc) return "Damages all evil creatures in sight, heals HP somewhat, and completely heals poison, fear, stun and cut status.";
+		if(name) return "Holy Word";
+		if(desc) return "Damages all evil creatures in sight, heals HP somewhat, and completely heals poison, fear, stun and cut status.";
 #endif
     
 		{
@@ -8495,12 +8495,12 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int heal = 100;
 
 #ifdef JP
-			if (info) return format("損:1d%d/回%d", dam_sides, heal);
+			if(info) return format("損:1d%d/回%d", dam_sides, heal);
 #else
-			if (info) return format("dam:d%d/h%d", dam_sides, heal);
+			if(info) return format("dam:d%d/h%d", dam_sides, heal);
 #endif
 
-			if (cast)
+			if(cast)
 			{
 				dispel_evil(creature_ptr, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
@@ -8514,17 +8514,17 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "開かれた道";
-		if (desc) return "一直線上の全ての罠と扉を破壊する。";
+		if(name) return "開かれた道";
+		if(desc) return "一直線上の全ての罠と扉を破壊する。";
 #else
-		if (name) return "Unbarring Ways";
-		if (desc) return "Fires a beam which destroy traps and doors.";
+		if(name) return "Unbarring Ways";
+		if(desc) return "Fires a beam which destroy traps and doors.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				destroy_door(creature_ptr, dir);
 			}
@@ -8533,21 +8533,21 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "封魔";
-		if (desc) return "邪悪なクリーチャーの動きを止める。";
+		if(name) return "封魔";
+		if(desc) return "邪悪なクリーチャーの動きを止める。";
 #else
-		if (name) return "Arrest";
-		if (desc) return "Attempts to paralyze an evil creature.";
+		if(name) return "Arrest";
+		if(desc) return "Attempts to paralyze an evil creature.";
 #endif
     
 		{
 			int power = plev * 2;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 				stasis_evil(creature_ptr, dir);
 			}
 		}
@@ -8555,19 +8555,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "聖なるオーラ";
-		if (desc) return "一定時間、邪悪なクリーチャーを傷つける聖なるオーラを得る。";
+		if(name) return "聖なるオーラ";
+		if(desc) return "一定時間、邪悪なクリーチャーを傷つける聖なるオーラを得る。";
 #else
-		if (name) return "Holy Aura";
-		if (desc) return "Gives aura of holy power which injures evil creatures which attacked you for a while.";
+		if(name) return "Holy Aura";
+		if(desc) return "Gives aura of holy power which injures evil creatures which attacked you for a while.";
 #endif
     
 		{
 			int base = 20;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_sh_holy(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -8576,19 +8576,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "アンデッド&悪魔退散";
-		if (desc) return "視界内の全てのアンデッド及び悪魔にダメージを与える。";
+		if(name) return "アンデッド&悪魔退散";
+		if(desc) return "視界内の全てのアンデッド及び悪魔にダメージを与える。";
 #else
-		if (name) return "Dispel Undead & Demons";
-		if (desc) return "Damages all undead and demons in sight.";
+		if(name) return "Dispel Undead & Demons";
+		if(desc) return "Damages all undead and demons in sight.";
 #endif
     
 		{
 			int sides = plev * 4;
 
-			if (info) return info_damage(1, sides, 0);
+			if(info) return info_damage(1, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_undead(creature_ptr, randint1(sides));
 				dispel_demons(creature_ptr, randint1(sides));
@@ -8598,19 +8598,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "邪悪退散";
-		if (desc) return "視界内の全ての邪悪なクリーチャーにダメージを与える。";
+		if(name) return "邪悪退散";
+		if(desc) return "視界内の全ての邪悪なクリーチャーにダメージを与える。";
 #else
-		if (name) return "Dispel Evil";
-		if (desc) return "Damages all evil creatures in sight.";
+		if(name) return "Dispel Evil";
+		if(desc) return "Damages all evil creatures in sight.";
 #endif
     
 		{
 			int sides = plev * 4;
 
-			if (info) return info_damage(1, sides, 0);
+			if(info) return info_damage(1, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 				dispel_evil(creature_ptr, randint1(sides));
 			}
@@ -8619,15 +8619,15 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "聖なる刃";
-		if (desc) return "通常の武器に滅邪の属性をつける。";
+		if(name) return "聖なる刃";
+		if(desc) return "通常の武器に滅邪の属性をつける。";
 #else
-		if (name) return "Holy Blade";
-		if (desc) return "Makes current weapon especially deadly against evil creatures.";
+		if(name) return "Holy Blade";
+		if(desc) return "Makes current weapon especially deadly against evil creatures.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				brand_weapon(creature_ptr, 13);
 			}
@@ -8636,22 +8636,22 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "スターバースト";
-		if (desc) return "巨大な閃光の球を放つ。";
+		if(name) return "スターバースト";
+		if(desc) return "巨大な閃光の球を放つ。";
 #else
-		if (name) return "Star Burst";
-		if (desc) return "Fires a huge ball of powerful light.";
+		if(name) return "Star Burst";
+		if(desc) return "Fires a huge ball of powerful light.";
 #endif
     
 		{
 			int dam = 100 + plev * 2;
 			int rad = 4;
 
-			if (info) return info_damage(0, 0, dam);
+			if(info) return info_damage(0, 0, dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
 
 				fire_ball(creature_ptr, GF_LITE, dir, dam, rad);
 			}
@@ -8660,26 +8660,26 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "天使召喚";
-		if (desc) return "天使を1体召喚する。";
+		if(name) return "天使召喚";
+		if(desc) return "天使を1体召喚する。";
 #else
-		if (name) return "Summon Angel";
-		if (desc) return "Summons an angel.";
+		if(name) return "Summon Angel";
+		if(desc) return "Summons an angel.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				bool pet = !one_in_(3);
 				u32b mode = 0L;
 
-				if (pet) mode |= PC_FORCE_PET;
+				if(pet) mode |= PC_FORCE_PET;
 				else mode |= PC_NO_PET;
-				if (!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
+				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if (summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
+				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
 				{
-					if (pet)
+					if(pet)
 					{
 #ifdef JP
 						msg_print("「ご用でございますか、ご主人様」");
@@ -8702,19 +8702,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "士気高揚";
-		if (desc) return "一定時間、ヒーロー気分になる。";
+		if(name) return "士気高揚";
+		if(desc) return "一定時間、ヒーロー気分になる。";
 #else
-		if (name) return "Heroism";
-		if (desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
+		if(name) return "Heroism";
+		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
     
 		{
 			int base = 25;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
@@ -8725,17 +8725,17 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "呪い退散";
-		if (desc) return "アイテムにかかった強力な呪いを解除する。";
+		if(name) return "呪い退散";
+		if(desc) return "アイテムにかかった強力な呪いを解除する。";
 #else
-		if (name) return "Dispel Curse";
-		if (desc) return "Removes normal and heavy curse from equipped items.";
+		if(name) return "Dispel Curse";
+		if(desc) return "Removes normal and heavy curse from equipped items.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
-				if (remove_all_curse(creature_ptr))
+				if(remove_all_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -8749,21 +8749,21 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "邪悪追放";
-		if (desc) return "視界内の全ての邪悪なクリーチャーをテレポートさせる。抵抗されると無効。";
+		if(name) return "邪悪追放";
+		if(desc) return "視界内の全ての邪悪なクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
-		if (name) return "Banish Evil";
-		if (desc) return "Teleports all evil creatures in sight away unless resisted.";
+		if(name) return "Banish Evil";
+		if(desc) return "Teleports all evil creatures in sight away unless resisted.";
 #endif
     
 		{
 			int power = 100;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cast)
+			if(cast)
 			{
-				if (banish_evil(creature_ptr, power))
+				if(banish_evil(creature_ptr, power))
 				{
 #ifdef JP
 					msg_print("神聖な力が邪悪を打ち払った！");
@@ -8778,18 +8778,18 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "ハルマゲドン";
-		if (desc) return "周辺のアイテム、クリーチャー、地形を破壊する。";
+		if(name) return "ハルマゲドン";
+		if(desc) return "周辺のアイテム、クリーチャー、地形を破壊する。";
 #else
-		if (name) return "Armageddon";
-		if (desc) return "Destroy everything in nearby area.";
+		if(name) return "Armageddon";
+		if(desc) return "Destroy everything in nearby area.";
 #endif
     
 		{
 			int base = 12;
 			int sides = 4;
 
-			if (cast)
+			if(cast)
 			{
 				destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, base + randint1(sides), FALSE);
 			}
@@ -8798,19 +8798,19 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "目には目を";
-		if (desc) return "一定時間、自分がダメージを受けたときに攻撃を行ったクリーチャーに対して同等のダメージを与える。";
+		if(name) return "目には目を";
+		if(desc) return "一定時間、自分がダメージを受けたときに攻撃を行ったクリーチャーに対して同等のダメージを与える。";
 #else
-		if (name) return "An Eye for an Eye";
-		if (desc) return "Gives special aura for a while. When you are attacked by a creature, the creature are injured with same amount of damage as you take.";
+		if(name) return "An Eye for an Eye";
+		if(desc) return "Gives special aura for a while. When you are attacked by a creature, the creature are injured with same amount of damage as you take.";
 #endif
     
 		{
 			int base = 10;
 
-			if (info) return info_duration(base, base);
+			if(info) return info_duration(base, base);
 
-			if (cast)
+			if(cast)
 			{
 				set_tim_eyeeye(creature_ptr, randint1(base) + base, FALSE);
 			}
@@ -8819,33 +8819,33 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "神の怒り";
-		if (desc) return "ターゲットの周囲に分解の球を多数落とす。";
+		if(name) return "神の怒り";
+		if(desc) return "ターゲットの周囲に分解の球を多数落とす。";
 #else
-		if (name) return "Wrath of the God";
-		if (desc) return "Drops many balls of disintegration near the target.";
+		if(name) return "Wrath of the God";
+		if(desc) return "Drops many balls of disintegration near the target.";
 #endif
     
 		{
 			int dam = plev * 3 + 25;
 			int rad = 2;
 
-			if (info) return info_multi_damage(dam);
+			if(info) return info_multi_damage(dam);
 
-			if (cast)
+			if(cast)
 			{
-				if (!cast_wrath_of_the_god(creature_ptr, dam, rad)) return NULL;
+				if(!cast_wrath_of_the_god(creature_ptr, dam, rad)) return NULL;
 			}
 		}
 		break;
 
 	case 30:
 #ifdef JP
-		if (name) return "神威";
-		if (desc) return "隣接するクリーチャーに聖なるダメージを与え、視界内のクリーチャーにダメージ、減速、朦朧、混乱、恐怖、眠りを与える。さらに体力を回復する。";
+		if(name) return "神威";
+		if(desc) return "隣接するクリーチャーに聖なるダメージを与え、視界内のクリーチャーにダメージ、減速、朦朧、混乱、恐怖、眠りを与える。さらに体力を回復する。";
 #else
-		if (name) return "Divine Intervention";
-		if (desc) return "Damages all adjacent creatures with holy power. Damages and attempt to slow, stun, confuse, scare and freeze all creatures in sight. And heals HP.";
+		if(name) return "Divine Intervention";
+		if(desc) return "Damages all adjacent creatures with holy power. Damages and attempt to slow, stun, confuse, scare and freeze all creatures in sight. And heals HP.";
 #endif
     
 		{
@@ -8855,12 +8855,12 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			int power = plev * 4;
 
 #ifdef JP
-			if (info) return format("回%d/損%d+%d", heal, d_dam, b_dam/2);
+			if(info) return format("回%d/損%d+%d", heal, d_dam, b_dam/2);
 #else
-			if (info) return format("h%d/dm%d+%d", heal, d_dam, b_dam/2);
+			if(info) return format("h%d/dm%d+%d", heal, d_dam, b_dam/2);
 #endif
 
-			if (cast)
+			if(cast)
 			{
 				project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
 				dispel_creatures(creature_ptr, d_dam);
@@ -8876,15 +8876,15 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "聖戦";
-		if (desc) return "視界内の善良なクリーチャーをペットにしようとし、ならなかった場合及び善良でないクリーチャーを恐怖させる。さらに多数の加速された騎士を召喚し、ヒーロー、祝福、加速、対邪悪結界を得る。";
+		if(name) return "聖戦";
+		if(desc) return "視界内の善良なクリーチャーをペットにしようとし、ならなかった場合及び善良でないクリーチャーを恐怖させる。さらに多数の加速された騎士を召喚し、ヒーロー、祝福、加速、対邪悪結界を得る。";
 #else
-		if (name) return "Crusade";
-		if (desc) return "Attempts to charm all good creatures in sight, and scare all non-charmed creatures, and summons great number of knights, and gives heroism, bless, speed and protection from evil.";
+		if(name) return "Crusade";
+		if(desc) return "Attempts to charm all good creatures in sight, and scare all non-charmed creatures, and summons great number of knights, and gives heroism, bless, speed and protection from evil.";
 #endif
     
 		{
-			if (cast)
+			if(cast)
 			{
 				int base = 25;
 				int sp_sides = 20 + plev;
@@ -8900,9 +8900,9 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 					while (attempt--)
 					{
 						scatter(floor_ptr, &my, &mx, creature_ptr->fy, creature_ptr->fx, 4, 0);
-						if (cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
+						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
 					}
-					if (attempt < 0) continue;
+					if(attempt < 0) continue;
 					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				}
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
@@ -8943,17 +8943,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "遅鈍の歌";
-		if (desc) return "視界内の全てのクリーチャーを減速させる。抵抗されると無効。";
+		if(name) return "遅鈍の歌";
+		if(desc) return "視界内の全てのクリーチャーを減速させる。抵抗されると無効。";
 #else
-		if (name) return "Song of Holding";
-		if (desc) return "Attempts to slow all creatures in sight.";
+		if(name) return "Song of Holding";
+		if(desc) return "Attempts to slow all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("ゆっくりとしたメロディを口ずさみ始めた．．．");
@@ -8966,9 +8966,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cont)
+			if(cont)
 			{
 				slow_creatures(caster_ptr);
 			}
@@ -8977,17 +8977,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "祝福の歌";
-		if (desc) return "命中率とACのボーナスを得る。";
+		if(name) return "祝福の歌";
+		if(desc) return "命中率とACのボーナスを得る。";
 #else
-		if (name) return "Song of Blessing";
-		if (desc) return "Gives bonus to hit and AC for a few turns.";
+		if(name) return "Song of Blessing";
+		if(desc) return "Gives bonus to hit and AC for a few turns.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("厳かなメロディを奏で始めた．．．");
@@ -8997,9 +8997,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_BLESS);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_BLESSED])
+			if(!caster_ptr->timed_trait[TRAIT_BLESSED])
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");
@@ -9013,25 +9013,25 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "崩壊の音色";
-		if (desc) return "轟音のボルトを放つ。";
+		if(name) return "崩壊の音色";
+		if(desc) return "轟音のボルトを放つ。";
 #else
-		if (name) return "Wrecking Note";
-		if (desc) return "Fires a bolt of sound.";
+		if(name) return "Wrecking Note";
+		if(desc) return "Fires a bolt of sound.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
 		{
 			int dice = 4 + (plev - 1) / 5;
 			int sides = 4;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				fire_bolt(caster_ptr, GF_SOUND, dir, diceroll(dice, sides));
 			}
@@ -9040,17 +9040,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "朦朧の旋律";
-		if (desc) return "視界内の全てのクリーチャーを朦朧させる。抵抗されると無効。";
+		if(name) return "朦朧の旋律";
+		if(desc) return "視界内の全てのクリーチャーを朦朧させる。抵抗されると無効。";
 #else
-		if (name) return "Stun Pattern";
-		if (desc) return "Attempts to stun all creatures in sight.";
+		if(name) return "Stun Pattern";
+		if(desc) return "Attempts to stun all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("眩惑させるメロディを奏で始めた．．．");
@@ -9064,9 +9064,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = plev / 10;
 			int sides = 2;
 
-			if (info) return info_power_dice(dice, sides);
+			if(info) return info_power_dice(dice, sides);
 
-			if (cont)
+			if(cont)
 			{
 				stun_creatures(caster_ptr, diceroll(dice, sides));
 			}
@@ -9076,17 +9076,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "生命の流れ";
-		if (desc) return "体力を少し回復させる。";
+		if(name) return "生命の流れ";
+		if(desc) return "体力を少し回復させる。";
 #else
-		if (name) return "Flow of Life";
-		if (desc) return "Heals HP a little.";
+		if(name) return "Flow of Life";
+		if(desc) return "Heals HP a little.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("歌を通して体に活気が戻ってきた．．．");
@@ -9100,9 +9100,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 2;
 			int sides = 6;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cont)
+			if(cont)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
 			}
@@ -9112,24 +9112,24 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "太陽の歌";
-		if (desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
+		if(name) return "太陽の歌";
+		if(desc) return "光源が照らしている範囲か部屋全体を永久に明るくする。";
 #else
-		if (name) return "Song of the Sun";
-		if (desc) return "Lights up nearby area and the inside of a room permanently.";
+		if(name) return "Song of the Sun";
+		if(desc) return "Lights up nearby area and the inside of a room permanently.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
 		{
 			int dice = 2;
 			int sides = plev / 2;
 			int rad = plev / 10 + 1;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("光り輝く歌が辺りを照らした。");
@@ -9144,17 +9144,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "恐怖の歌";
-		if (desc) return "視界内の全てのクリーチャーを恐怖させる。抵抗されると無効。";
+		if(name) return "恐怖の歌";
+		if(desc) return "視界内の全てのクリーチャーを恐怖させる。抵抗されると無効。";
 #else
-		if (name) return "Song of Fear";
-		if (desc) return "Attempts to scare all creatures in sight.";
+		if(name) return "Song of Fear";
+		if(desc) return "Attempts to scare all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("おどろおどろしいメロディを奏で始めた．．．");
@@ -9167,9 +9167,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cont)
+			if(cont)
 			{
 				project_hack(caster_ptr, GF_TURN_ALL, power);
 			}
@@ -9179,17 +9179,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "戦いの歌";
-		if (desc) return "ヒーロー気分になる。";
+		if(name) return "戦いの歌";
+		if(desc) return "ヒーロー気分になる。";
 #else
-		if (name) return "Heroic Ballad";
-		if (desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
+		if(name) return "Heroic Ballad";
+		if(desc) return "Removes fear, and gives bonus to hit and 10 more HP for a while.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("激しい戦いの歌を歌った．．．");
@@ -9206,9 +9206,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_HERO);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_HERO])
+			if(!caster_ptr->timed_trait[TRAIT_HERO])
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9224,17 +9224,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "霊的知覚";
-		if (desc) return "近くの罠/扉/階段を感知する。レベル15で全てのクリーチャー、20で財宝とアイテムを感知できるようになる。レベル25で周辺の地形を感知し、40でその階全体を永久に照らし、ダンジョン内のすべてのアイテムを感知する。この効果は歌い続けることで順に起こる。";
+		if(name) return "霊的知覚";
+		if(desc) return "近くの罠/扉/階段を感知する。レベル15で全てのクリーチャー、20で財宝とアイテムを感知できるようになる。レベル25で周辺の地形を感知し、40でその階全体を永久に照らし、ダンジョン内のすべてのアイテムを感知する。この効果は歌い続けることで順に起こる。";
 #else
-		if (name) return "Clairaudience";
-		if (desc) return "Detects traps, doors and stairs in your vicinity. And detects all creatures at level 15, treasures and items at level 20. Maps nearby area at level 25. Lights and know the whole level at level 40. These effects occurs by turns while this song continues.";
+		if(name) return "Clairaudience";
+		if(desc) return "Detects traps, doors and stairs in your vicinity. And detects all creatures at level 15, treasures and items at level 20. Maps nearby area at level 25. Lights and know the whole level at level 40. These effects occurs by turns while this song continues.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("静かな音楽が感覚を研ぎ澄まさせた．．．");
@@ -9251,42 +9251,42 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int rad = DETECT_RAD_DEFAULT;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cont)
+			if(cont)
 			{
 				int count = caster_ptr->class_skills.old_skills.magic_num1[2];
 
-				if (count >= 19) wiz_lite(floor_ptr, caster_ptr, FALSE);
-				if (count >= 11)
+				if(count >= 19) wiz_lite(floor_ptr, caster_ptr, FALSE);
+				if(count >= 11)
 				{
 					map_area(caster_ptr, rad);
-					if (plev > 39 && count < 19)
+					if(plev > 39 && count < 19)
 						caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 				}
-				if (count >= 6)
+				if(count >= 6)
 				{
 					/* There are too many hidden treasure.  So... */
 					/* detect_treasure(rad); */
 					detect_objects_gold(caster_ptr, rad);
 					detect_objects_normal(caster_ptr, rad);
 
-					if (plev > 24 && count < 11)
+					if(plev > 24 && count < 11)
 						caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 				}
-				if (count >= 3)
+				if(count >= 3)
 				{
 					detect_creatures_invis(caster_ptr, rad);
 					detect_creatures_normal(caster_ptr, rad);
 
-					if (plev > 19 && count < 6)
+					if(plev > 19 && count < 6)
 						caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 				}
 				detect_traps(caster_ptr, rad, TRUE);
 				detect_doors(caster_ptr, rad);
 				detect_stairs(caster_ptr, rad);
 
-				if (plev > 14 && count < 3)
+				if(plev > 14 && count < 3)
 					caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 			}
 		}
@@ -9295,17 +9295,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "魂の歌";
-		if (desc) return "視界内の全てのクリーチャーに対して精神攻撃を行う。";
+		if(name) return "魂の歌";
+		if(desc) return "視界内の全てのクリーチャーに対して精神攻撃を行う。";
 #else
-		if (name) return "Soul Shriek";
-		if (desc) return "Damages all creatures in sight with PSI damages.";
+		if(name) return "Soul Shriek";
+		if(desc) return "Damages all creatures in sight with PSI damages.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("精神を捻じ曲げる歌を歌った．．．");
@@ -9319,9 +9319,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 1;
 			int sides = plev * 3 / 2;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cont)
+			if(cont)
 			{
 				project_hack(caster_ptr, GF_PSI, diceroll(dice, sides));
 			}
@@ -9331,17 +9331,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "知識の歌";
-		if (desc) return "自分のいるマスと隣りのマスに落ちているアイテムを鑑定する。";
+		if(name) return "知識の歌";
+		if(desc) return "自分のいるマスと隣りのマスに落ちているアイテムを鑑定する。";
 #else
-		if (name) return "Song of Lore";
-		if (desc) return "Identifies all items which are in the adjacent squares.";
+		if(name) return "Song of Lore";
+		if(desc) return "Identifies all items which are in the adjacent squares.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("この世界の知識が流れ込んできた．．．");
@@ -9354,13 +9354,13 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int rad = 1;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
 			/*
 			 * 歌の開始時にも効果発動：
 			 * MP不足で鑑定が発動される前に歌が中断してしまうのを防止。
 			 */
-			if (cont || cast)
+			if(cont || cast)
 			{
 				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
 			}
@@ -9370,17 +9370,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "隠遁の歌";
-		if (desc) return "隠密行動能力を上昇させる。";
+		if(name) return "隠遁の歌";
+		if(desc) return "隠密行動能力を上昇させる。";
 #else
-		if (name) return "Hiding Tune";
-		if (desc) return "Gives improved stealth.";
+		if(name) return "Hiding Tune";
+		if(desc) return "Gives improved stealth.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("あなたの姿が景色にとけこんでいった．．．");
@@ -9390,9 +9390,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_STEALTH);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_STEALTH_PLUS])
+			if(!caster_ptr->timed_trait[TRAIT_STEALTH_PLUS])
 			{
 #ifdef JP
 				msg_print("姿がはっきりと見えるようになった。");
@@ -9406,17 +9406,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "幻影の旋律";
-		if (desc) return "視界内の全てのクリーチャーを混乱させる。抵抗されると無効。";
+		if(name) return "幻影の旋律";
+		if(desc) return "視界内の全てのクリーチャーを混乱させる。抵抗されると無効。";
 #else
-		if (name) return "Illusion Pattern";
-		if (desc) return "Attempts to confuse all creatures in sight.";
+		if(name) return "Illusion Pattern";
+		if(desc) return "Attempts to confuse all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("辺り一面に幻影が現れた．．．");
@@ -9429,9 +9429,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev * 2;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cont)
+			if(cont)
 			{
 				confuse_creatures(caster_ptr, power);
 			}
@@ -9441,17 +9441,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "破滅の叫び";
-		if (desc) return "視界内の全てのクリーチャーに対して轟音攻撃を行う。";
+		if(name) return "破滅の叫び";
+		if(desc) return "視界内の全てのクリーチャーに対して轟音攻撃を行う。";
 #else
-		if (name) return "Doomcall";
-		if (desc) return "Damages all creatures in sight with booming sound.";
+		if(name) return "Doomcall";
+		if(desc) return "Damages all creatures in sight with booming sound.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("轟音が響いた．．．");
@@ -9465,9 +9465,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 10 + plev / 5;
 			int sides = 7;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cont)
+			if(cont)
 			{
 				project_hack(caster_ptr, GF_SOUND, diceroll(dice, sides));
 			}
@@ -9477,18 +9477,18 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "フィリエルの歌";
-		if (desc) return "周囲の死体や骨を生き返す。";
+		if(name) return "フィリエルの歌";
+		if(desc) return "周囲の死体や骨を生き返す。";
 #else
-		if (name) return "Firiel's Song";
-		if (desc) return "Resurrects nearby corpse and skeletons. And makes these your pets.";
+		if(name) return "Firiel's Song";
+		if(desc) return "Resurrects nearby corpse and skeletons. And makes these your pets.";
 #endif
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("生命と復活のテーマを奏で始めた．．．");
@@ -9503,17 +9503,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "旅の仲間";
-		if (desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
+		if(name) return "旅の仲間";
+		if(desc) return "視界内の全てのクリーチャーを魅了する。抵抗されると無効。";
 #else
-		if (name) return "Fellowship Chant";
-		if (desc) return "Attempts to charm all creatures in sight.";
+		if(name) return "Fellowship Chant";
+		if(desc) return "Attempts to charm all creatures in sight.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("安らかなメロディを奏で始めた．．．");
@@ -9527,9 +9527,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 10 + plev / 15;
 			int sides = 6;
 
-			if (info) return info_power_dice(dice, sides);
+			if(info) return info_power_dice(dice, sides);
 
-			if (cont)
+			if(cont)
 			{
 				charm_creatures(caster_ptr, diceroll(dice, sides));
 			}
@@ -9539,17 +9539,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "分解音波";
-		if (desc) return "壁を掘り進む。自分の足元のアイテムは蒸発する。";
+		if(name) return "分解音波";
+		if(desc) return "壁を掘り進む。自分の足元のアイテムは蒸発する。";
 #else
-		if (name) return "Sound of disintegration";
-		if (desc) return "Makes you be able to burrow into walls. Objects under your feet evaporate.";
+		if(name) return "Sound of disintegration";
+		if(desc) return "Makes you be able to burrow into walls. Objects under your feet evaporate.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("粉砕するメロディを奏で始めた．．．");
@@ -9564,7 +9564,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			 * 歌の開始時にも効果発動：
 			 * MP不足で効果が発動される前に歌が中断してしまうのを防止。
 			 */
-			if (cont || cast)
+			if(cont || cast)
 			{
 				project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx,
 					0, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM | PROJECT_HIDE, -1);
@@ -9574,17 +9574,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "元素耐性";
-		if (desc) return "酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。";
+		if(name) return "元素耐性";
+		if(desc) return "酸、電撃、炎、冷気、毒に対する耐性を得る。装備による耐性に累積する。";
 #else
-		if (name) return "Finrod's Resistance";
-		if (desc) return "Gives resistance to fire, cold, electricity, acid and poison. These resistances can be added to which from equipment for more powerful resistances.";
+		if(name) return "Finrod's Resistance";
+		if(desc) return "Gives resistance to fire, cold, electricity, acid and poison. These resistances can be added to which from equipment for more powerful resistances.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("元素の力に対する忍耐の歌を歌った。");
@@ -9594,9 +9594,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_RESIST);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_RES_ACID])
+			if(!caster_ptr->timed_trait[TRAIT_RES_ACID])
 			{
 #ifdef JP
 				msg_print("酸への耐性が薄れた気がする。");
@@ -9605,7 +9605,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->timed_trait[TRAIT_RES_ELEC])
+			if(!caster_ptr->timed_trait[TRAIT_RES_ELEC])
 			{
 #ifdef JP
 				msg_print("電撃への耐性が薄れた気がする。");
@@ -9614,7 +9614,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->timed_trait[TRAIT_RES_FIRE])
+			if(!caster_ptr->timed_trait[TRAIT_RES_FIRE])
 			{
 #ifdef JP
 				msg_print("火への耐性が薄れた気がする。");
@@ -9623,7 +9623,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->timed_trait[TRAIT_RES_COLD])
+			if(!caster_ptr->timed_trait[TRAIT_RES_COLD])
 			{
 #ifdef JP
 				msg_print("冷気への耐性が薄れた気がする。");
@@ -9632,7 +9632,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			}
 
-			if (!caster_ptr->timed_trait[TRAIT_RES_POIS])
+			if(!caster_ptr->timed_trait[TRAIT_RES_POIS])
 			{
 #ifdef JP
 				msg_print("毒への耐性が薄れた気がする。");
@@ -9646,17 +9646,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "ホビットのメロディ";
-		if (desc) return "加速する。";
+		if(name) return "ホビットのメロディ";
+		if(desc) return "加速する。";
 #else
-		if (name) return "Hobbit Melodies";
-		if (desc) return "Hastes you.";
+		if(name) return "Hobbit Melodies";
+		if(desc) return "Hastes you.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("軽快な歌を口ずさみ始めた．．．");
@@ -9666,9 +9666,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_SPEED);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_FAST])
+			if(!caster_ptr->timed_trait[TRAIT_FAST])
 			{
 #ifdef JP
 				msg_print("動きの素早さがなくなったようだ。");
@@ -9682,23 +9682,23 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 19:
 #ifdef JP
-		if (name) return "歪んだ世界";
-		if (desc) return "近くのクリーチャーをテレポートさせる。抵抗されると無効。";
+		if(name) return "歪んだ世界";
+		if(desc) return "近くのクリーチャーをテレポートさせる。抵抗されると無効。";
 #else
-		if (name) return "World Contortion";
-		if (desc) return "Teleports all nearby creatures away unless resisted.";
+		if(name) return "World Contortion";
+		if(desc) return "Teleports all nearby creatures away unless resisted.";
 #endif
     
 		{
 			int rad = plev / 15 + 1;
 			int power = plev * 3 + 1;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("歌が空間を歪めた．．．");
@@ -9713,17 +9713,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "退散の歌";
-		if (desc) return "視界内の全てのクリーチャーにダメージを与える。邪悪なクリーチャーに特に大きなダメージを与える。";
+		if(name) return "退散の歌";
+		if(desc) return "視界内の全てのクリーチャーにダメージを与える。邪悪なクリーチャーに特に大きなダメージを与える。";
 #else
-		if (name) return "Dispelling chant";
-		if (desc) return "Damages all creatures in sight. Hurts evil creatures greatly.";
+		if(name) return "Dispelling chant";
+		if(desc) return "Damages all creatures in sight. Hurts evil creatures greatly.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("耐えられない不協和音が敵を責め立てた．．．");
@@ -9737,9 +9737,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int m_sides = plev * 3;
 			int e_sides = plev * 3;
 
-			if (info) return format("%s1d%d+1d%d", s_dam, m_sides, e_sides);
+			if(info) return format("%s1d%d+1d%d", s_dam, m_sides, e_sides);
 
-			if (cont)
+			if(cont)
 			{
 				dispel_creatures(caster_ptr, randint1(m_sides));
 				dispel_evil(caster_ptr, randint1(e_sides));
@@ -9749,17 +9749,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "サルマンの甘言";
-		if (desc) return "視界内の全てのクリーチャーを減速させ、眠らせようとする。抵抗されると無効。";
+		if(name) return "サルマンの甘言";
+		if(desc) return "視界内の全てのクリーチャーを減速させ、眠らせようとする。抵抗されると無効。";
 #else
-		if (name) return "The Voice of Saruman";
-		if (desc) return "Attempts to slow and sleep all creatures in sight.";
+		if(name) return "The Voice of Saruman";
+		if(desc) return "Attempts to slow and sleep all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("優しく、魅力的な歌を口ずさみ始めた．．．");
@@ -9772,9 +9772,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cont)
+			if(cont)
 			{
 				slow_creatures(caster_ptr);
 				sleep_creatures(caster_ptr);
@@ -9785,25 +9785,25 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "嵐の音色";
-		if (desc) return "轟音のビームを放つ。";
+		if(name) return "嵐の音色";
+		if(desc) return "轟音のビームを放つ。";
 #else
-		if (name) return "Song of the Tempest";
-		if (desc) return "Fires a beam of sound.";
+		if(name) return "Song of the Tempest";
+		if(desc) return "Fires a beam of sound.";
 #endif
     
 		{
 			int dice = 15 + (plev - 1) / 2;
 			int sides = 10;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				fire_beam(caster_ptr, GF_SOUND, dir, diceroll(dice, sides));
 			}
@@ -9812,23 +9812,23 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "もう一つの世界";
-		if (desc) return "現在の階を再構成する。";
+		if(name) return "もう一つの世界";
+		if(desc) return "現在の階を再構成する。";
 #else
-		if (name) return "Ambarkanta";
-		if (desc) return "Recreates current dungeon level.";
+		if(name) return "Ambarkanta";
+		if(desc) return "Recreates current dungeon level.";
 #endif
     
 		{
 			int base = 15;
 			int sides = 20;
 
-			if (info) return info_delay(base, sides);
+			if(info) return info_delay(base, sides);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("周囲が変化し始めた．．．");
@@ -9843,17 +9843,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 24:
 #ifdef JP
-		if (name) return "破壊の旋律";
-		if (desc) return "周囲のダンジョンを揺らし、壁と床をランダムに入れ変える。";
+		if(name) return "破壊の旋律";
+		if(desc) return "周囲のダンジョンを揺らし、壁と床をランダムに入れ変える。";
 #else
-		if (name) return "Wrecking Pattern";
-		if (desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
+		if(name) return "Wrecking Pattern";
+		if(desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
 #endif
 
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("破壊的な歌が響きわたった．．．");
@@ -9866,9 +9866,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int rad = 10;
 
-			if (info) return info_radius(rad);
+			if(info) return info_radius(rad);
 
-			if (cont)
+			if(cont)
 			{
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 			}
@@ -9879,17 +9879,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "停滞の歌";
-		if (desc) return "視界内の全てのクリーチャーを麻痺させようとする。抵抗されると無効。";
+		if(name) return "停滞の歌";
+		if(desc) return "視界内の全てのクリーチャーを麻痺させようとする。抵抗されると無効。";
 #else
-		if (name) return "Stationary Shriek";
-		if (desc) return "Attempts to freeze all creatures in sight.";
+		if(name) return "Stationary Shriek";
+		if(desc) return "Attempts to freeze all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("ゆっくりとしたメロディを奏で始めた．．．");
@@ -9902,9 +9902,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			int power = plev * 4;
 
-			if (info) return info_power(power);
+			if(info) return info_power(power);
 
-			if (cont)
+			if(cont)
 			{
 				stasis_creatures(caster_ptr, power);
 			}
@@ -9914,18 +9914,18 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "守りの歌";
-		if (desc) return "自分のいる床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
+		if(name) return "守りの歌";
+		if(desc) return "自分のいる床の上に、クリーチャーが通り抜けたり召喚されたりすることができなくなるルーンを描く。";
 #else
-		if (name) return "Endurance";
-		if (desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
+		if(name) return "Endurance";
+		if(desc) return "Sets a glyph on the floor beneath you. Creatures cannot attack you if you are on a glyph, but can try to break glyph.";
 #endif
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("歌が神聖な場を作り出した．．．");
@@ -9940,17 +9940,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "英雄の詩";
-		if (desc) return "加速し、ヒーロー気分になり、視界内の全てのクリーチャーにダメージを与える。";
+		if(name) return "英雄の詩";
+		if(desc) return "加速し、ヒーロー気分になり、視界内の全てのクリーチャーにダメージを与える。";
 #else
-		if (name) return "The Hero's Poem";
-		if (desc) return "Hastes you. Gives heroism. Damages all creatures in sight.";
+		if(name) return "The Hero's Poem";
+		if(desc) return "Hastes you. Gives heroism. Damages all creatures in sight.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("英雄の歌を口ずさんだ．．．");
@@ -9966,9 +9966,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_SHERO);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_HERO])
+			if(!caster_ptr->timed_trait[TRAIT_HERO])
 			{
 #ifdef JP
 				msg_print("ヒーローの気分が消え失せた。");
@@ -9979,7 +9979,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				caster_ptr->creature_update |= (CRU_HP);
 			}
 
-			if (!caster_ptr->timed_trait[TRAIT_FAST])
+			if(!caster_ptr->timed_trait[TRAIT_FAST])
 			{
 #ifdef JP
 				msg_print("動きの素早さがなくなったようだ。");
@@ -9993,9 +9993,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 1;
 			int sides = plev * 3;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
-			if (cont)
+			if(cont)
 			{
 				dispel_creatures(caster_ptr, diceroll(dice, sides));
 			}
@@ -10004,17 +10004,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "ヤヴァンナの助け";
-		if (desc) return "強力な回復の歌で、負傷と朦朧状態も全快する。";
+		if(name) return "ヤヴァンナの助け";
+		if(desc) return "強力な回復の歌で、負傷と朦朧状態も全快する。";
 #else
-		if (name) return "Relief of Yavanna";
-		if (desc) return "Powerful healing song. Also heals cut and stun completely.";
+		if(name) return "Relief of Yavanna";
+		if(desc) return "Powerful healing song. Also heals cut and stun completely.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("歌を通して体に活気が戻ってきた．．．");
@@ -10028,9 +10028,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int dice = 15;
 			int sides = 10;
 
-			if (info) return info_heal(dice, sides, 0);
+			if(info) return info_heal(dice, sides, 0);
 
-			if (cont)
+			if(cont)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
 				set_stun(caster_ptr, 0);
@@ -10042,18 +10042,18 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "再生の歌";
-		if (desc) return "すべてのステータスと経験値を回復する。";
+		if(name) return "再生の歌";
+		if(desc) return "すべてのステータスと経験値を回復する。";
 #else
-		if (name) return "Goddess' rebirth";
-		if (desc) return "Restores all stats and experience.";
+		if(name) return "Goddess' rebirth";
+		if(desc) return "Restores all stats and experience.";
 #endif
     
 		{
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
 #ifdef JP
 				msg_print("暗黒の中に光と美をふりまいた。体が元の活力を取り戻した。");
@@ -10073,11 +10073,11 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "サウロンの魔術";
-		if (desc) return "非常に強力でごく小さい轟音の球を放つ。";
+		if(name) return "サウロンの魔術";
+		if(desc) return "非常に強力でごく小さい轟音の球を放つ。";
 #else
-		if (name) return "Wizardry of Sauron";
-		if (desc) return "Fires an extremely powerful tiny ball of sound.";
+		if(name) return "Wizardry of Sauron";
+		if(desc) return "Fires an extremely powerful tiny ball of sound.";
 #endif
     
 		{
@@ -10085,14 +10085,14 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = 10;
 			int rad = 0;
 
-			if (info) return info_damage(dice, sides, 0);
+			if(info) return info_damage(dice, sides, 0);
 
 			/* Stop singing before start another */
-			if (cast || fail) stop_singing(caster_ptr);
+			if(cast || fail) stop_singing(caster_ptr);
 
-			if (cast)
+			if(cast)
 			{
-				if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				fire_ball(caster_ptr, GF_SOUND, dir, diceroll(dice, sides), rad);
 			}
@@ -10101,17 +10101,17 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "フィンゴルフィンの挑戦";
-		if (desc) return "ダメージを受けなくなるバリアを張る。";
+		if(name) return "フィンゴルフィンの挑戦";
+		if(desc) return "ダメージを受けなくなるバリアを張る。";
 #else
-		if (name) return "Fingolfin's Challenge";
-		if (desc) return "Generates barrier which completely protect you from almost all damages. Takes a few your turns when the barrier breaks.";
+		if(name) return "Fingolfin's Challenge";
+		if(desc) return "Generates barrier which completely protect you from almost all damages. Takes a few your turns when the barrier breaks.";
 #endif
     
 		/* Stop singing before start another */
-		if (cast || fail) stop_singing(caster_ptr);
+		if(cast || fail) stop_singing(caster_ptr);
 
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 				msg_print("フィンゴルフィンの冥王への挑戦を歌った．．．");
@@ -10131,9 +10131,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				start_singing(caster_ptr, spell, MUSIC_INVULN);
 		}
 
-		if (stop)
+		if(stop)
 		{
-			if (!caster_ptr->timed_trait[TRAIT_INVULNERABLE])
+			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE])
 			{
 #ifdef JP
 				msg_print("無敵ではなくなった。");
@@ -10172,17 +10172,17 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	{
 	case 0:
 #ifdef JP
-		if (name) return "飛飯綱";
-		if (desc) return "2マス離れたところにいるクリーチャーを攻撃する。";
+		if(name) return "飛飯綱";
+		if(desc) return "2マス離れたところにいるクリーチャーを攻撃する。";
 #else
-		if (name) return "Tobi-Izuna";
-		if (desc) return "Attacks a two squares distant creature.";
+		if(name) return "Tobi-Izuna";
+		if(desc) return "Attacks a two squares distant creature.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			project_length = 2;
-			if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+			if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 			project_hook(caster_ptr, GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
 		}
@@ -10190,31 +10190,31 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "五月雨斬り";
-		if (desc) return "3方向に対して攻撃する。";
+		if(name) return "五月雨斬り";
+		if(desc) return "3方向に対して攻撃する。";
 #else
-		if (name) return "3-Way Attack";
-		if (desc) return "Attacks in 3 directions in one time.";
+		if(name) return "3-Way Attack";
+		if(desc) return "Attacks in 3 directions in one time.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int cdir;
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			for (cdir = 0;cdir < 8; cdir++)
 			{
-				if (cdd[cdir] == dir) break;
+				if(cdd[cdir] == dir) break;
 			}
 
-			if (cdir == 8) return NULL;
+			if(cdir == 8) return NULL;
 
 			y = caster_ptr->fy + ddy_cdd[cdir];
 			x = caster_ptr->fx + ddx_cdd[cdir];
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, 0);
 			else
 #ifdef JP
@@ -10224,7 +10224,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			y = caster_ptr->fy + ddy_cdd[(cdir + 7) % 8];
 			x = caster_ptr->fx + ddx_cdd[(cdir + 7) % 8];
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, 0);
 			else
 #ifdef JP
@@ -10234,7 +10234,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			y = caster_ptr->fy + ddy_cdd[(cdir + 1) % 8];
 			x = caster_ptr->fx + ddx_cdd[(cdir + 1) % 8];
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, 0);
 			else
 #ifdef JP
@@ -10247,39 +10247,39 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "ブーメラン";
-		if (desc) return "武器を手元に戻ってくるように投げる。戻ってこないこともある。";
+		if(name) return "ブーメラン";
+		if(desc) return "武器を手元に戻ってくるように投げる。戻ってこないこともある。";
 #else
-		if (name) return "Boomerang";
-		if (desc) return "Throws current weapon. And it'll return to your hand unless failed.";
+		if(name) return "Boomerang";
+		if(desc) return "Throws current weapon. And it'll return to your hand unless failed.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
-			if (!do_cmd_throw_aux(caster_ptr, 1, TRUE, 0)) return NULL;
+			if(!do_cmd_throw_aux(caster_ptr, 1, TRUE, 0)) return NULL;
 		}
 		break;
 
 	case 3:
 #ifdef JP
-		if (name) return "焔霊";
-		if (desc) return "火炎耐性のないクリーチャーに大ダメージを与える。";
+		if(name) return "焔霊";
+		if(desc) return "火炎耐性のないクリーチャーに大ダメージを与える。";
 #else
-		if (name) return "Burning Strike";
-		if (desc) return "Attacks a creature with more damage unless it has resistance to fire.";
+		if(name) return "Burning Strike";
+		if(desc) return "Attacks a creature with more damage unless it has resistance to fire.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_FIRE);
 			else
 			{
@@ -10295,14 +10295,14 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "殺気感知";
-		if (desc) return "近くの思考することができるクリーチャーを感知する。";
+		if(name) return "殺気感知";
+		if(desc) return "近くの思考することができるクリーチャーを感知する。";
 #else
-		if (name) return "Detect Ferocity";
-		if (desc) return "Detects all creatures except mindless in your vicinity.";
+		if(name) return "Detect Ferocity";
+		if(desc) return "Detects all creatures except mindless in your vicinity.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			detect_creatures_mind(caster_ptr, DETECT_RAD_DEFAULT);
 		}
@@ -10310,24 +10310,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "みね打ち";
-		if (desc) return "相手にダメージを与えないが、朦朧とさせる。";
+		if(name) return "みね打ち";
+		if(desc) return "相手にダメージを与えないが、朦朧とさせる。";
 #else
-		if (name) return "Strike to Stun";
-		if (desc) return "Attempts to stun a creature in the adjacent.";
+		if(name) return "Strike to Stun";
+		if(desc) return "Attempts to stun a creature in the adjacent.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_MINEUCHI);
 			else
 			{
@@ -10343,16 +10343,16 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "カウンター";
-		if (desc) return "相手に攻撃されたときに反撃する。反撃するたびにMPを消費。";
+		if(name) return "カウンター";
+		if(desc) return "相手に攻撃されたときに反撃する。反撃するたびにMPを消費。";
 #else
-		if (name) return "Counter";
-		if (desc) return "Prepares to counterattack. When attack by a creature, strikes back using SP each time.";
+		if(name) return "Counter";
+		if(desc) return "Prepares to counterattack. When attack by a creature, strikes back using SP each time.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
-			if (caster_ptr->riding)
+			if(caster_ptr->riding)
 			{
 #ifdef JP
 				msg_print("乗馬中には無理だ。");
@@ -10372,18 +10372,18 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "払い抜け";
-		if (desc) return "攻撃した後、反対側に抜ける。";
+		if(name) return "払い抜け";
+		if(desc) return "攻撃した後、反対側に抜ける。";
 #else
-		if (name) return "Harainuke";
-		if (desc) return "Attacks creature with your weapons normally, then move through counter side of the creature.";
+		if(name) return "Harainuke";
+		if(desc) return "Attacks creature with your weapons normally, then move through counter side of the creature.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (caster_ptr->riding)
+			if(caster_ptr->riding)
 			{
 #ifdef JP
 				msg_print("乗馬中には無理だ。");
@@ -10393,13 +10393,13 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				return NULL;
 			}
 	
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
 	
-			if (dir == 5) return NULL;
+			if(dir == 5) return NULL;
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 	
-			if (!floor_ptr->cave[y][x].creature_idx)
+			if(!floor_ptr->cave[y][x].creature_idx)
 			{
 #ifdef JP
 				msg_print("その方向にはクリーチャーはいません。");
@@ -10411,13 +10411,13 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 			melee_attack(caster_ptr, y, x, 0);
 	
-			if (!creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
+			if(!creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 				break;
 	
 			y += ddy[dir];
 			x += ddx[dir];
 	
-			if (creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
+			if(creature_can_cross_terrain(caster_ptr, floor_ptr->cave[y][x].feat, 0) && !is_trap(floor_ptr->cave[y][x].feat) && !floor_ptr->cave[y][x].creature_idx)
 			{
 				msg_print(NULL);
 	
@@ -10429,24 +10429,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 8:
 #ifdef JP
-		if (name) return "サーペンツタン";
-		if (desc) return "毒耐性のないクリーチャーに大ダメージを与える。";
+		if(name) return "サーペンツタン";
+		if(desc) return "毒耐性のないクリーチャーに大ダメージを与える。";
 #else
-		if (name) return "Serpent's Tongue";
-		if (desc) return "Attacks a creature with more damage unless it has resistance to poison.";
+		if(name) return "Serpent's Tongue";
+		if(desc) return "Attacks a creature with more damage unless it has resistance to poison.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_POISON);
 			else
 			{
@@ -10462,24 +10462,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "斬魔剣弐の太刀";
-		if (desc) return "生命のない邪悪なクリーチャーに大ダメージを与えるが、他のクリーチャーには全く効果がない。";
+		if(name) return "斬魔剣弐の太刀";
+		if(desc) return "生命のない邪悪なクリーチャーに大ダメージを与えるが、他のクリーチャーには全く効果がない。";
 #else
-		if (name) return "Zammaken";
-		if (desc) return "Attacks an evil unliving creature with great damage. No effect to other  creatures.";
+		if(name) return "Zammaken";
+		if(desc) return "Attacks an evil unliving creature with great damage. No effect to other  creatures.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_ZANMA);
 			else
 			{
@@ -10495,24 +10495,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "裂風剣";
-		if (desc) return "攻撃した相手を後方へ吹き飛ばす。";
+		if(name) return "裂風剣";
+		if(desc) return "攻撃した相手を後方へ吹き飛ばす。";
 #else
-		if (name) return "Wind Blast";
-		if (desc) return "Attacks an adjacent creature, and blow it away.";
+		if(name) return "Wind Blast";
+		if(desc) return "Attacks an adjacent creature, and blow it away.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, 0);
 			else
 			{
@@ -10523,11 +10523,11 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 				return NULL;
 			}
-			if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 				return "";
 			}
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				int i;
 				int ty = y, tx = x;
@@ -10542,14 +10542,14 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					y += ddy[dir];
 					x += ddx[dir];
-					if (cave_empty_bold(floor_ptr, y, x))
+					if(cave_empty_bold(floor_ptr, y, x))
 					{
 						ty = y;
 						tx = x;
 					}
 					else break;
 				}
-				if ((ty != oy) || (tx != ox))
+				if((ty != oy) || (tx != ox))
 				{
 #ifdef JP
 					msg_format("%sを吹き飛ばした！", m_name);
@@ -10565,7 +10565,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					lite_spot(floor_ptr, oy, ox);
 					lite_spot(floor_ptr, ty, tx);
 	
-					if (is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
+					if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
 						caster_ptr->creature_update |= (PU_SPECIES_LITE);
 				}
 			}
@@ -10574,49 +10574,49 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "刀匠の目利き";
-		if (desc) return "武器・防具を1つ識別する。レベル45以上で武器・防具の能力を完全に知ることができる。";
+		if(name) return "刀匠の目利き";
+		if(desc) return "武器・防具を1つ識別する。レベル45以上で武器・防具の能力を完全に知ることができる。";
 #else
-		if (name) return "Judge";
-		if (desc) return "Identifies a weapon or armor. Or *identifies* these at level 45.";
+		if(name) return "Judge";
+		if(desc) return "Identifies a weapon or armor. Or *identifies* these at level 45.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
-			if (plev > 44)
+			if(plev > 44)
 			{
-				if (!identify_fully(caster_ptr, TRUE)) return NULL;
+				if(!identify_fully(caster_ptr, TRUE)) return NULL;
 			}
 			else
 			{
-				if (!ident_spell(caster_ptr, TRUE)) return NULL;
+				if(!ident_spell(caster_ptr, TRUE)) return NULL;
 			}
 		}
 		break;
 
 	case 12:
 #ifdef JP
-		if (name) return "破岩斬";
-		if (desc) return "岩を壊し、岩石系のクリーチャーに大ダメージを与える。";
+		if(name) return "破岩斬";
+		if(desc) return "岩を壊し、岩石系のクリーチャーに大ダメージを与える。";
 #else
-		if (name) return "Rock Smash";
-		if (desc) return "Breaks rock. Or greatly damage a creature made by rocks.";
+		if(name) return "Rock Smash";
+		if(desc) return "Breaks rock. Or greatly damage a creature made by rocks.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_HAGAN);
 	
-			if (!cave_have_flag_bold(floor_ptr, y, x, FF_HURT_ROCK)) break;
+			if(!cave_have_flag_bold(floor_ptr, y, x, FF_HURT_ROCK)) break;
 	
 			/* Destroy the feature */
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
@@ -10628,24 +10628,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "乱れ雪月花";
-		if (desc) return "攻撃回数が増え、冷気耐性のないクリーチャーに大ダメージを与える。";
+		if(name) return "乱れ雪月花";
+		if(desc) return "攻撃回数が増え、冷気耐性のないクリーチャーに大ダメージを与える。";
 #else
-		if (name) return "Midare-Setsugekka";
-		if (desc) return "Attacks a creature with increased number of attacks and more damage unless it has resistance to cold.";
+		if(name) return "Midare-Setsugekka";
+		if(desc) return "Attacks a creature with increased number of attacks and more damage unless it has resistance to cold.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_COLD);
 			else
 			{
@@ -10661,24 +10661,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "急所突き";
-		if (desc) return "クリーチャーを一撃で倒す攻撃を繰り出す。失敗すると1点しかダメージを与えられない。";
+		if(name) return "急所突き";
+		if(desc) return "クリーチャーを一撃で倒す攻撃を繰り出す。失敗すると1点しかダメージを与えられない。";
 #else
-		if (name) return "Spot Aiming";
-		if (desc) return "Attempts to kill a creature instantly. If failed cause only 1HP of damage.";
+		if(name) return "Spot Aiming";
+		if(desc) return "Attempts to kill a creature instantly. If failed cause only 1HP of damage.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_KYUSHO);
 			else
 			{
@@ -10694,24 +10694,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "魔神斬り";
-		if (desc) return "会心の一撃で攻撃する。攻撃がかわされやすい。";
+		if(name) return "魔神斬り";
+		if(desc) return "会心の一撃で攻撃する。攻撃がかわされやすい。";
 #else
-		if (name) return "Majingiri";
-		if (desc) return "Attempts to attack with critical hit. But this attack is easy to evade for a creature.";
+		if(name) return "Majingiri";
+		if(desc) return "Attempts to attack with critical hit. But this attack is easy to evade for a creature.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_MAJIN);
 			else
 			{
@@ -10727,24 +10727,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 16:
 #ifdef JP
-		if (name) return "捨て身";
-		if (desc) return "強力な攻撃を繰り出す。次のターンまでの間、食らうダメージが増える。";
+		if(name) return "捨て身";
+		if(desc) return "強力な攻撃を繰り出す。次のターンまでの間、食らうダメージが増える。";
 #else
-		if (name) return "Desperate Attack";
-		if (desc) return "Attacks with all of your power. But all damages you take will be doubled for one turn.";
+		if(name) return "Desperate Attack";
+		if(desc) return "Attacks with all of your power. But all damages you take will be doubled for one turn.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_SUTEMI);
 			else
 			{
@@ -10761,24 +10761,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "雷撃鷲爪斬";
-		if (desc) return "電撃耐性のないクリーチャーに非常に大きいダメージを与える。";
+		if(name) return "雷撃鷲爪斬";
+		if(desc) return "電撃耐性のないクリーチャーに非常に大きいダメージを与える。";
 #else
-		if (name) return "Lightning Eagle";
-		if (desc) return "Attacks a creature with more damage unless it has resistance to electricity.";
+		if(name) return "Lightning Eagle";
+		if(desc) return "Attacks a creature with more damage unless it has resistance to electricity.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_ELEC);
 			else
 			{
@@ -10794,36 +10794,36 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "入身";
-		if (desc) return "素早く相手に近寄り攻撃する。";
+		if(name) return "入身";
+		if(desc) return "素早く相手に近寄り攻撃する。";
 #else
-		if (name) return "Rush Attack";
-		if (desc) return "Steps close to a creature and attacks at a time.";
+		if(name) return "Rush Attack";
+		if(desc) return "Steps close to a creature and attacks at a time.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
-			if (!rush_attack(caster_ptr, NULL)) return NULL;
+			if(!rush_attack(caster_ptr, NULL)) return NULL;
 		}
 		break;
 
 	case 19:
 #ifdef JP
-		if (name) return "赤流渦";
-		if (desc) return "自分自身も傷を作りつつ、その傷が深いほど大きい威力で全方向の敵を攻撃できる。生きていないクリーチャーには効果がない。";
+		if(name) return "赤流渦";
+		if(desc) return "自分自身も傷を作りつつ、その傷が深いほど大きい威力で全方向の敵を攻撃できる。生きていないクリーチャーには効果がない。";
 #else
-		if (name) return "Bloody Maelstrom";
-		if (desc) return "Attacks all adjacent creatures with power corresponding to your cut status. Then increases your cut status. No effect to unliving creatures.";
+		if(name) return "Bloody Maelstrom";
+		if(desc) return "Attacks all adjacent creatures with power corresponding to your cut status. Then increases your cut status. No effect to unliving creatures.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y = 0, x = 0;
 
 			cave_type       *c_ptr;
 			creature_type    *m_ptr;
 	
-			if (caster_ptr->timed_trait[TRAIT_CUT] < 300)
+			if(caster_ptr->timed_trait[TRAIT_CUT] < 300)
 				set_cut(caster_ptr, caster_ptr->timed_trait[TRAIT_CUT] + 300);
 			else
 				set_cut(caster_ptr, caster_ptr->timed_trait[TRAIT_CUT] * 2);
@@ -10838,9 +10838,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				m_ptr = &creature_list[c_ptr->creature_idx];
 	
 				/* Hack -- attack creatures */
-				if (c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+				if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 				{
-					if (!creature_living(m_ptr))
+					if(!creature_living(m_ptr))
 					{
 						char m_name[80];
 	
@@ -10859,24 +10859,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "激震撃";
-		if (desc) return "地震を起こす。";
+		if(name) return "激震撃";
+		if(desc) return "地震を起こす。";
 #else
-		if (name) return "Earthquake Blow";
-		if (desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
+		if(name) return "Earthquake Blow";
+		if(desc) return "Shakes dungeon structure, and results in random swapping of floors and walls.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y,x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_QUAKE);
 			else
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
@@ -10885,19 +10885,19 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "地走り";
-		if (desc) return "衝撃波のビームを放つ。";
+		if(name) return "地走り";
+		if(desc) return "衝撃波のビームを放つ。";
 #else
-		if (name) return "Crack";
-		if (desc) return "Fires a beam of shock wave.";
+		if(name) return "Crack";
+		if(desc) return "Fires a beam of shock wave.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int total_damage = 0, basedam, i;
 			u32b flgs[TRAIT_FLAG_MAX];
 			object_type *object_ptr;
-			if (!get_aim_dir(caster_ptr, &dir)) return NULL;
+			if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 #ifdef JP
 			msg_print("武器を大きく振り下ろした。");
 #else
@@ -10907,18 +10907,18 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int damage;
 	
-				if (!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
+				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
 				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
 				damage = object_ptr->to_damage * 100;
 				object_flags(object_ptr, flgs);
-				if ((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
+				if((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
 				{
 					/* vorpal blade */
 					basedam *= 5;
 					basedam /= 3;
 				}
-				else if (have_flag(flgs, TRAIT_VORPAL))
+				else if(have_flag(flgs, TRAIT_VORPAL))
 				{
 					/* vorpal flag only */
 					basedam *= 11;
@@ -10926,7 +10926,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 				damage += basedam;
 				total_damage += damage / 200;
-				if (i) total_damage = total_damage*7/10;
+				if(i) total_damage = total_damage*7/10;
 			}
 			fire_beam(caster_ptr, GF_FORCE, dir, total_damage);
 		}
@@ -10934,14 +10934,14 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "気迫の雄叫び";
-		if (desc) return "視界内の全クリーチャーに対して轟音の攻撃を行う。さらに、近くにいるクリーチャーを怒らせる。";
+		if(name) return "気迫の雄叫び";
+		if(desc) return "視界内の全クリーチャーに対して轟音の攻撃を行う。さらに、近くにいるクリーチャーを怒らせる。";
 #else
-		if (name) return "War Cry";
-		if (desc) return "Damages all creatures in sight with sound. Aggravate nearby creatures.";
+		if(name) return "War Cry";
+		if(desc) return "Damages all creatures in sight with sound. Aggravate nearby creatures.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("雄叫びをあげた！");
@@ -10955,19 +10955,19 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "無双三段";
-		if (desc) return "強力な3段攻撃を繰り出す。";
+		if(name) return "無双三段";
+		if(desc) return "強力な3段攻撃を繰り出す。";
 #else
-		if (name) return "Musou-Sandan";
-		if (desc) return "Attacks with powerful 3 strikes.";
+		if(name) return "Musou-Sandan";
+		if(desc) return "Attacks with powerful 3 strikes.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int i;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			for (i = 0; i < 3; i++)
 			{
@@ -10981,7 +10981,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				x = caster_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 	
-				if (c_ptr->creature_idx)
+				if(c_ptr->creature_idx)
 					melee_attack(caster_ptr, y, x, HISSATSU_3DAN);
 				else
 				{
@@ -10993,13 +10993,13 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 					return NULL;
 				}
 	
-				if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+				if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 				{
 					return "";
 				}
 	
 				/* Creature is dead? */
-				if (!c_ptr->creature_idx) break;
+				if(!c_ptr->creature_idx) break;
 	
 				ny = y + ddy[dir];
 				nx = x + ddx[dir];
@@ -11007,10 +11007,10 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				m_ptr = &creature_list[m_idx];
 	
 				/* Creature cannot move back? */
-				if (!creature_can_enter(ny, nx, m_ptr, 0))
+				if(!creature_can_enter(ny, nx, m_ptr, 0))
 				{
 					/* -more- */
-					if (i < 2) msg_print(NULL);
+					if(i < 2) msg_print(NULL);
 					continue;
 				}
 	
@@ -11028,10 +11028,10 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				lite_spot(floor_ptr, ny, nx);
 	
 				/* Player can move forward? */
-				if (creature_can_cross_terrain(caster_ptr, c_ptr->feat, 0))
+				if(creature_can_cross_terrain(caster_ptr, c_ptr->feat, 0))
 				{
 					/* Move the player */
-					if (!move_creature(caster_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP)) break;
+					if(!move_creature(caster_ptr, NULL, y, x, MCE_FORGET_FLOW | MCE_HANDLE_STUFF | MCE_DONT_PICKUP)) break;
 				}
 				else
 				{
@@ -11039,31 +11039,31 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 
 				/* -more- */
-				if (i < 2) msg_print(NULL);
+				if(i < 2) msg_print(NULL);
 			}
 		}
 		break;
 
 	case 24:
 #ifdef JP
-		if (name) return "吸血鬼の牙";
-		if (desc) return "攻撃した相手の体力を吸いとり、自分の体力を回復させる。生命を持たないクリーチャーには通じない。";
+		if(name) return "吸血鬼の牙";
+		if(desc) return "攻撃した相手の体力を吸いとり、自分の体力を回復させる。生命を持たないクリーチャーには通じない。";
 #else
-		if (name) return "Vampire's Fang";
-		if (desc) return "Attacks with vampiric strikes which absorbs HP from a creature and gives them to you. No effect to unliving creatures.";
+		if(name) return "Vampire's Fang";
+		if(desc) return "Attacks with vampiric strikes which absorbs HP from a creature and gives them to you. No effect to unliving creatures.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_DRAIN);
 			else
 			{
@@ -11079,14 +11079,14 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "幻惑";
-		if (desc) return "視界内の起きている全クリーチャーに朦朧、混乱、眠りを与えようとする。";
+		if(name) return "幻惑";
+		if(desc) return "視界内の起きている全クリーチャーに朦朧、混乱、眠りを与えようとする。";
 #else
-		if (name) return "Moon Dazzling";
-		if (desc) return "Attempts to stun, confuse and sleep all waking creatures.";
+		if(name) return "Moon Dazzling";
+		if(desc) return "Attempts to stun, confuse and sleep all waking creatures.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("武器を不規則に揺らした．．．");
@@ -11101,14 +11101,14 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "百人斬り";
-		if (desc) return "連続して入身でクリーチャーを攻撃する。攻撃するたびにMPを消費。MPがなくなるか、クリーチャーを倒せなかったら百人斬りは終了する。";
+		if(name) return "百人斬り";
+		if(desc) return "連続して入身でクリーチャーを攻撃する。攻撃するたびにMPを消費。MPがなくなるか、クリーチャーを倒せなかったら百人斬りは終了する。";
 #else
-		if (name) return "Hundred Slaughter";
-		if (desc) return "Performs a series of rush attacks. The series continues while killing each creature in a time and SP remains.";
+		if(name) return "Hundred Slaughter";
+		if(desc) return "Performs a series of rush attacks. The series continues while killing each creature in a time and SP remains.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			const int mana_cost_per_creature = 8;
 			bool new = TRUE;
@@ -11116,8 +11116,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 			do
 			{
-				if (!rush_attack(caster_ptr, &mdeath)) break;
-				if (new)
+				if(!rush_attack(caster_ptr, &mdeath)) break;
+				if(new)
 				{
 					/* Reserve needed mana point */
 					caster_ptr->csp -= technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
@@ -11126,7 +11126,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				else
 					caster_ptr->csp -= mana_cost_per_creature;
 
-				if (!mdeath) break;
+				if(!mdeath) break;
 				command_dir = 0;
 
 				play_redraw |= PR_MANA;
@@ -11134,7 +11134,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			}
 			while (caster_ptr->csp > mana_cost_per_creature);
 
-			if (new) return NULL;
+			if(new) return NULL;
 	
 			/* Restore reserved mana */
 			caster_ptr->csp += technic_info[REALM_HISSATSU - MIN_TECHNIC][26].smana;
@@ -11143,20 +11143,20 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "天翔龍閃";
-		if (desc) return "視界内の場所を指定して、その場所と自分の間にいる全クリーチャーを攻撃し、その場所に移動する。";
+		if(name) return "天翔龍閃";
+		if(desc) return "視界内の場所を指定して、その場所と自分の間にいる全クリーチャーを攻撃し、その場所に移動する。";
 #else
-		if (name) return "Dragonic Flash";
-		if (desc) return "Runs toward given location while attacking all creatures on the path.";
+		if(name) return "Dragonic Flash";
+		if(desc) return "Runs toward given location while attacking all creatures on the path.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!tgt_pt(caster_ptr, &x, &y)) return NULL;
+			if(!tgt_pt(caster_ptr, &x, &y)) return NULL;
 
-			if (!cave_player_teleportable_bold(caster_ptr, y, x, 0L) ||
+			if(!cave_player_teleportable_bold(caster_ptr, y, x, 0L) ||
 			    (distance(y, x, caster_ptr->fy, caster_ptr->fx) > MAX_SIGHT / 2) ||
 			    !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x))
 			{
@@ -11167,7 +11167,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 				break;
 			}
-			if (has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT))
+			if(has_trait(caster_ptr, TRAIT_PREVENT_TELEPORT))
 			{
 #ifdef JP
 				msg_print("不思議な力がテレポートを防いだ！");
@@ -11184,26 +11184,26 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "二重の剣撃";
-		if (desc) return "1ターンで2度攻撃を行う。";
+		if(name) return "二重の剣撃";
+		if(desc) return "1ターンで2度攻撃を行う。";
 #else
-		if (name) return "Twin Slash";
-		if (desc) return "double attacks at a time.";
+		if(name) return "Twin Slash";
+		if(desc) return "double attacks at a time.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int x, y;
 	
-			if (!get_rep_dir(caster_ptr, &dir, FALSE)) return NULL;
+			if(!get_rep_dir(caster_ptr, &dir, FALSE)) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				melee_attack(caster_ptr, y, x, 0);
-				if (floor_ptr->cave[y][x].creature_idx)
+				if(floor_ptr->cave[y][x].creature_idx)
 				{
 					handle_stuff();
 					melee_attack(caster_ptr, y, x, 0);
@@ -11223,27 +11223,27 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "虎伏絶刀勢";
-		if (desc) return "強力な攻撃を行い、近くの場所にも効果が及ぶ。";
+		if(name) return "虎伏絶刀勢";
+		if(desc) return "強力な攻撃を行い、近くの場所にも効果が及ぶ。";
 #else
-		if (name) return "Kofuku-Zettousei";
-		if (desc) return "Performs a powerful attack which even effect nearby creatures.";
+		if(name) return "Kofuku-Zettousei";
+		if(desc) return "Performs a powerful attack which even effect nearby creatures.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int total_damage = 0, basedam, i;
 			int y, x;
 			u32b flgs[TRAIT_FLAG_MAX];
 			object_type *object_ptr;
 	
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
 #ifdef JP
 				msg_print("なぜか攻撃することができない。");
@@ -11260,18 +11260,18 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			for (i = 0; i < 2; i++)
 			{
 				int damage;
-				if (!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
+				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
 				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
 				damage = object_ptr->to_damage * 100;
 				object_flags(object_ptr, flgs);
-				if ((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
+				if((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
 				{
 					/* vorpal blade */
 					basedam *= 5;
 					basedam /= 3;
 				}
-				else if (have_flag(flgs, TRAIT_VORPAL))
+				else if(have_flag(flgs, TRAIT_VORPAL))
 				{
 					/* vorpal flag only */
 					basedam *= 11;
@@ -11287,24 +11287,24 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "慶雲鬼忍剣";
-		if (desc) return "自分もダメージをくらうが、相手に非常に大きなダメージを与える。アンデッドには特に効果がある。";
+		if(name) return "慶雲鬼忍剣";
+		if(desc) return "自分もダメージをくらうが、相手に非常に大きなダメージを与える。アンデッドには特に効果がある。";
 #else
-		if (name) return "Keiun-Kininken";
-		if (desc) return "Attacks a creature with extremely powerful damage. But you also takes some damages. Hurts a undead creature greatly.";
+		if(name) return "Keiun-Kininken";
+		if(desc) return "Attacks a creature with extremely powerful damage. But you also takes some damages. Hurts a undead creature greatly.";
 #endif
     
-		if (cast)
+		if(cast)
 		{
 			int y, x;
 
-			if (!get_rep_dir2(caster_ptr, &dir)) return NULL;
-			if (dir == 5) return NULL;
+			if(!get_rep_dir2(caster_ptr, &dir)) return NULL;
+			if(dir == 5) return NULL;
 
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if (floor_ptr->cave[y][x].creature_idx)
+			if(floor_ptr->cave[y][x].creature_idx)
 				melee_attack(caster_ptr, y, x, HISSATSU_UNDEAD);
 			else
 			{
@@ -11325,20 +11325,20 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "切腹";
-		if (desc) return "「武士道とは、死ぬことと見つけたり。」";
+		if(name) return "切腹";
+		if(desc) return "「武士道とは、死ぬことと見つけたり。」";
 #else
-		if (name) return "Harakiri";
-		if (desc) return "'Busido is found in death'";
+		if(name) return "Harakiri";
+		if(desc) return "'Busido is found in death'";
 #endif
 
-		if (cast)
+		if(cast)
 		{
 			int i;
 #ifdef JP
-	if (!get_check("本当に自殺しますか？")) return NULL;
+	if(!get_check("本当に自殺しますか？")) return NULL;
 #else
-			if (!get_check("Do you really want to commit suicide? ")) return NULL;
+			if(!get_check("Do you really want to commit suicide? ")) return NULL;
 #endif
 				/* Special Verification for suicide */
 #ifdef JP
@@ -11350,8 +11350,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			flush();
 			i = inkey();
 			prt("", 0, 0);
-			if (i != '@') return NULL;
-			if (caster_ptr->total_winner)
+			if(i != '@') return NULL;
+			if(caster_ptr->total_winner)
 			{
 				take_hit(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
 				caster_ptr->total_winner = TRUE;
@@ -11417,15 +11417,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	/*** 1st book (0-7) ***/
 	case 0:
 #ifdef JP
-		if (name) return "邪なる祝福";
-		if (desc) return "祝福により攻撃精度と防御力が上がる。";
+		if(name) return "邪なる祝福";
+		if(desc) return "祝福により攻撃精度と防御力が上がる。";
 #else
-		if (name) return "Evily blessing";
-		if (desc) return "Attempts to increase +to_hit of a weapon and AC";
+		if(name) return "Evily blessing";
+		if(desc) return "Attempts to increase +to_hit of a weapon and AC";
 #endif
-		if (cast)
+		if(cast)
 		{
-			if (!creature_ptr->timed_trait[TRAIT_BLESSED])
+			if(!creature_ptr->timed_trait[TRAIT_BLESSED])
 			{
 #ifdef JP
 				msg_print("高潔な気分になった！");
@@ -11434,9 +11434,9 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 			}
 		}
-		if (stop)
+		if(stop)
 		{
-			if (!creature_ptr->timed_trait[TRAIT_BLESSED])
+			if(!creature_ptr->timed_trait[TRAIT_BLESSED])
 			{
 #ifdef JP
 				msg_print("高潔な気分が消え失せた。");
@@ -11449,14 +11449,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 1:
 #ifdef JP
-		if (name) return "軽傷の治癒";
-		if (desc) return "HPや傷を少し回復させる。";
+		if(name) return "軽傷の治癒";
+		if(desc) return "HPや傷を少し回復させる。";
 #else
-		if (name) return "Cure light wounds";
-		if (desc) return "Heals cut and HP a little.";
+		if(name) return "Cure light wounds";
+		if(desc) return "Heals cut and HP a little.";
 #endif
-		if (info) return info_heal(1, 10, 0);
-		if (cast)
+		if(info) return info_heal(1, 10, 0);
+		if(cast)
 		{
 #ifdef JP
 			msg_print("気分が良くなってくる。");
@@ -11464,7 +11464,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel better and better.");
 #endif
 		}
-		if (cast || cont)
+		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(1, 10));
 			set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10);
@@ -11473,13 +11473,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 2:
 #ifdef JP
-		if (name) return "悪魔のオーラ";
-		if (desc) return "炎のオーラを身にまとい、回復速度が速くなる。";
+		if(name) return "悪魔のオーラ";
+		if(desc) return "炎のオーラを身にまとい、回復速度が速くなる。";
 #else
-		if (name) return "Demonic aura";
-		if (desc) return "Gives fire aura and regeneration.";
+		if(name) return "Demonic aura";
+		if(desc) return "Gives fire aura and regeneration.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("体が炎のオーラで覆われた。");
@@ -11487,7 +11487,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You have enveloped by fiery aura!");
 #endif
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("炎のオーラが消え去った。");
@@ -11499,15 +11499,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 3:
 #ifdef JP
-		if (name) return "悪臭霧";
-		if (desc) return "視界内のクリーチャーに微弱量の毒のダメージを与える。";
+		if(name) return "悪臭霧";
+		if(desc) return "視界内のクリーチャーに微弱量の毒のダメージを与える。";
 #else
-		if (name) return "Stinking mist";
-		if (desc) return "Deals few damages of poison to all creatures in your sight.";
+		if(name) return "Stinking mist";
+		if(desc) return "Deals few damages of poison to all creatures in your sight.";
 #endif
 		power = plev / 2 + 5;
-		if (info) return info_damage(1, power, 0);
-		if (cast || cont)
+		if(info) return info_damage(1, power, 0);
+		if(cast || cont)
 		{
 			project_hack(creature_ptr, GF_POIS, randint1(power));
 		}
@@ -11515,13 +11515,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 4:
 #ifdef JP
-		if (name) return "腕力強化";
-		if (desc) return "術者の腕力を上昇させる。";
+		if(name) return "腕力強化";
+		if(desc) return "術者の腕力を上昇させる。";
 #else
-		if (name) return "Extra might";
-		if (desc) return "Attempts to increase your strength.";
+		if(name) return "Extra might";
+		if(desc) return "Attempts to increase your strength.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("何だか力が湧いて来る。");
@@ -11533,13 +11533,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 5:
 #ifdef JP
-		if (name) return "武器呪縛";
-		if (desc) return "装備している武器を呪う。";
+		if(name) return "武器呪縛";
+		if(desc) return "装備している武器を呪う。";
 #else
-		if (name) return "Curse weapon";
-		if (desc) return "Curses your weapon.";
+		if(name) return "Curse weapon";
+		if(desc) return "Curses your weapon.";
 #endif
-		if (cast)
+		if(cast)
 		{
 			int item;
 			char *q, *s;
@@ -11555,19 +11555,19 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			s = "You wield no weapons.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow, 0)) return FALSE;
+			if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_weapon_except_bow, 0)) return FALSE;
 
 			object_ptr = &creature_ptr->inventory[item];
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			object_flags(object_ptr, f);
 
 #ifdef JP
-			if (!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
+			if(!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
 #else
-			if (!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
+			if(!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
 #endif
 
-			if (!one_in_(3) &&
+			if(!one_in_(3) &&
 				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
 #ifdef JP
@@ -11575,22 +11575,22 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("%s resists the effect.", object_name);
 #endif
-				if (one_in_(3))
+				if(one_in_(3))
 				{
-					if (object_ptr->to_damage > 0)
+					if(object_ptr->to_damage > 0)
 					{
 						object_ptr->to_damage -= randint1(3) % 2;
-						if (object_ptr->to_damage < 0) object_ptr->to_damage = 0;
+						if(object_ptr->to_damage < 0) object_ptr->to_damage = 0;
 					}
-					if (object_ptr->to_hit > 0)
+					if(object_ptr->to_hit > 0)
 					{
 						object_ptr->to_hit -= randint1(3) % 2;
-						if (object_ptr->to_hit < 0) object_ptr->to_hit = 0;
+						if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
 					}
-					if (object_ptr->to_ac > 0)
+					if(object_ptr->to_ac > 0)
 					{
 						object_ptr->to_ac -= randint1(3) % 2;
-						if (object_ptr->to_ac < 0) object_ptr->to_ac = 0;
+						if(object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
 #ifdef JP
 					msg_format("%s は劣化してしまった。", object_name);
@@ -11609,14 +11609,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
-				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
+				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-					if (one_in_(666))
+					if(one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+					if(one_in_(666))
 					{
 						object_ptr->curse_flags[0] |= (TRC_TY_CURSE);
-						if (one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+						if(one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_VORPAL);
@@ -11640,14 +11640,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 6:
 #ifdef JP
-		if (name) return "邪悪感知";
-		if (desc) return "周囲の邪悪なクリーチャーを感知する。";
+		if(name) return "邪悪感知";
+		if(desc) return "周囲の邪悪なクリーチャーを感知する。";
 #else
-		if (name) return "Evil detection";
-		if (desc) return "Detects evil creatures.";
+		if(name) return "Evil detection";
+		if(desc) return "Detects evil creatures.";
 #endif
-		if (info) return info_range(MAX_SIGHT);
-		if (cast)
+		if(info) return info_range(MAX_SIGHT);
+		if(cast)
 		{
 #ifdef JP
 			msg_print("邪悪な生物の存在を感じ取ろうとした。");
@@ -11659,20 +11659,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 7:
 #ifdef JP
-		if (name) return "我慢";
-		if (desc) return "数ターン攻撃を耐えた後、受けたダメージを地獄の業火として周囲に放出する。";
+		if(name) return "我慢";
+		if(desc) return "数ターン攻撃を耐えた後、受けたダメージを地獄の業火として周囲に放出する。";
 #else
-		if (name) return "Patience";
-		if (desc) return "Bursts hell fire strongly after patients any damage while few turns.";
+		if(name) return "Patience";
+		if(desc) return "Bursts hell fire strongly after patients any damage while few turns.";
 #endif
 		power = MIN(200, (creature_ptr->class_skills.old_skills.magic_num1[2] * 2));
-		if (info) return info_damage(0, 0, power);
-		if (cast)
+		if(info) return info_damage(0, 0, power);
+		if(cast)
 		{
 			int a = 3 - (creature_ptr->speed - 100) / 10;
 			int r = 3 + randint1(3) + MAX(0, MIN(3, a));
 
-			if (creature_ptr->class_skills.old_skills.magic_num2[2] > 0)
+			if(creature_ptr->class_skills.old_skills.magic_num2[2] > 0)
 			{
 #ifdef JP
 				msg_print("すでに我慢をしている。");
@@ -11692,25 +11692,25 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 			add = FALSE;
 		}
-		if (cont)
+		if(cont)
 		{
 			int rad = 2 + (power / 50);
 
 			creature_ptr->class_skills.old_skills.magic_num2[2]--;
 
-			if ((creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) || (power >= 200))
+			if((creature_ptr->class_skills.old_skills.magic_num2[2] <= 0) || (power >= 200))
 			{
 #ifdef JP
 				msg_print("我慢が解かれた！");
 #else
 				msg_print("Time for end of patioence!");
 #endif
-				if (power)
+				if(power)
 				{
 					project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, power, GF_HELL_FIRE,
 						(PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
-				if (wizard)
+				if(wizard)
 				{
 #ifdef JP
 					msg_format("%d点のダメージを返した。", power);
@@ -11730,13 +11730,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	/*** 2nd book (8-15) ***/
 	case 8:
 #ifdef JP
-		if (name) return "氷の鎧";
-		if (desc) return "氷のオーラを身にまとい、防御力が上昇する。";
+		if(name) return "氷の鎧";
+		if(desc) return "氷のオーラを身にまとい、防御力が上昇する。";
 #else
-		if (name) return "Ice armor";
-		if (desc) return "Gives fire aura and bonus to AC.";
+		if(name) return "Ice armor";
+		if(desc) return "Gives fire aura and bonus to AC.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("体が氷の鎧で覆われた。");
@@ -11744,7 +11744,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You have enveloped by ice armor!");
 #endif
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("氷の鎧が消え去った。");
@@ -11756,14 +11756,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 9:
 #ifdef JP
-		if (name) return "重傷の治癒";
-		if (desc) return "体力や傷を多少回復させる。";
+		if(name) return "重傷の治癒";
+		if(desc) return "体力や傷を多少回復させる。";
 #else
-		if (name) return "Cure serious wounds";
-		if (desc) return "Heals cut and HP more.";
+		if(name) return "Cure serious wounds";
+		if(desc) return "Heals cut and HP more.";
 #endif
-		if (info) return info_heal(2, 10, 0);
-		if (cast)
+		if(info) return info_heal(2, 10, 0);
+		if(cast)
 		{
 #ifdef JP
 			msg_print("気分が良くなってくる。");
@@ -11771,7 +11771,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel better and better.");
 #endif
 		}
-		if (cast || cont)
+		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(2, 10));
 			set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 10);
@@ -11780,13 +11780,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 10:
 #ifdef JP
-		if (name) return "薬品吸入";
-		if (desc) return "呪文詠唱を中止することなく、薬の効果を得ることができる。";
+		if(name) return "薬品吸入";
+		if(desc) return "呪文詠唱を中止することなく、薬の効果を得ることができる。";
 #else
-		if (name) return "Inhail potion";
-		if (desc) return "Quaffs a potion without canceling of casting a spell.";
+		if(name) return "Inhail potion";
+		if(desc) return "Quaffs a potion without canceling of casting a spell.";
 #endif
-		if (cast)
+		if(cast)
 		{
 			creature_ptr->class_skills.old_skills.magic_num1[0] |= (1L << HEX_INHAIL);
 			do_cmd_quaff_potion(creature_ptr);
@@ -11797,15 +11797,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 11:
 #ifdef JP
-		if (name) return "吸血霧";
-		if (desc) return "視界内のクリーチャーに微弱量の生命力吸収のダメージを与える。与えたダメージの分、体力が回復する。";
+		if(name) return "吸血霧";
+		if(desc) return "視界内のクリーチャーに微弱量の生命力吸収のダメージを与える。与えたダメージの分、体力が回復する。";
 #else
-		if (name) return "Vampiric mist";
-		if (desc) return "Deals few dameges of drain life to all creatures in your sight.";
+		if(name) return "Vampiric mist";
+		if(desc) return "Deals few dameges of drain life to all creatures in your sight.";
 #endif
 		power = (plev / 2) + 5;
-		if (info) return info_damage(1, power, 0);
-		if (cast || cont)
+		if(info) return info_damage(1, power, 0);
+		if(cast || cont)
 		{
 			project_hack(creature_ptr, GF_OLD_DRAIN, randint1(power));
 		}
@@ -11813,24 +11813,24 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 12:
 #ifdef JP
-		if (name) return "魔剣化";
-		if (desc) return "武器の攻撃力を上げる。切れ味を得、呪いに応じて与えるダメージが上昇し、善良なクリーチャーに対するダメージが2倍になる。";
+		if(name) return "魔剣化";
+		if(desc) return "武器の攻撃力を上げる。切れ味を得、呪いに応じて与えるダメージが上昇し、善良なクリーチャーに対するダメージが2倍になる。";
 #else
-		if (name) return "Swords to runeswords";
-		if (desc) return "Gives vorpal ability to your weapon. Increases damages by your weapon acccording to curse of your weapon.";
+		if(name) return "Swords to runeswords";
+		if(desc) return "Gives vorpal ability to your weapon. Increases damages by your weapon acccording to curse of your weapon.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("あなたの武器が黒く輝いた。");
 #else
-			if (!empty_hands(creature_ptr, FALSE))
+			if(!empty_hands(creature_ptr, FALSE))
 				msg_print("Your weapons glow bright black.");
 			else
 				msg_print("Your weapon glows bright black.");
 #endif
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("武器の輝きが消え去った。");
@@ -11842,13 +11842,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 13:
 #ifdef JP
-		if (name) return "混乱の手";
-		if (desc) return "攻撃した際クリーチャーを混乱させる。";
+		if(name) return "混乱の手";
+		if(desc) return "攻撃した際クリーチャーを混乱させる。";
 #else
-		if (name) return "Touch of confusion";
-		if (desc) return "Confuses a creature when you attack.";
+		if(name) return "Touch of confusion";
+		if(desc) return "Confuses a creature when you attack.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("あなたの手が赤く輝き始めた。");
@@ -11856,7 +11856,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("Your hands glow bright red.");
 #endif
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("手の輝きがなくなった。");
@@ -11868,13 +11868,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 14:
 #ifdef JP
-		if (name) return "肉体強化";
-		if (desc) return "術者の腕力、器用さ、耐久力を上昇させる。攻撃回数の上限を 1 増加させる。";
+		if(name) return "肉体強化";
+		if(desc) return "術者の腕力、器用さ、耐久力を上昇させる。攻撃回数の上限を 1 増加させる。";
 #else
-		if (name) return "Building up";
-		if (desc) return "Attempts to increases your strength, dexterity and constitusion.";
+		if(name) return "Building up";
+		if(desc) return "Attempts to increases your strength, dexterity and constitusion.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("身体が強くなった気がした。");
@@ -11886,15 +11886,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 15:
 #ifdef JP
-		if (name) return "反テレポート結界";
-		if (desc) return "視界内のクリーチャーのテレポートを阻害するバリアを張る。";
+		if(name) return "反テレポート結界";
+		if(desc) return "視界内のクリーチャーのテレポートを阻害するバリアを張る。";
 #else
-		if (name) return "Anti teleport barrier";
-		if (desc) return "Obstructs all teleportations by creatures in your sight.";
+		if(name) return "Anti teleport barrier";
+		if(desc) return "Obstructs all teleportations by creatures in your sight.";
 #endif
 		power = plev * 3 / 2;
-		if (info) return info_power(power);
-		if (cast)
+		if(info) return info_power(power);
+		if(cast)
 		{
 #ifdef JP
 			msg_print("テレポートを防ぐ呪いをかけた。");
@@ -11907,13 +11907,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	/*** 3rd book (16-23) ***/
 	case 16:
 #ifdef JP
-		if (name) return "衝撃のクローク";
-		if (desc) return "電気のオーラを身にまとい、動きが速くなる。";
+		if(name) return "衝撃のクローク";
+		if(desc) return "電気のオーラを身にまとい、動きが速くなる。";
 #else
-		if (name) return "Cloak of shock";
-		if (desc) return "Gives lightning aura and a bonus to speed.";
+		if(name) return "Cloak of shock";
+		if(desc) return "Gives lightning aura and a bonus to speed.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("体が稲妻のオーラで覆われた。");
@@ -11921,7 +11921,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You have enveloped by electrical aura!");
 #endif
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("稲妻のオーラが消え去った。");
@@ -11933,14 +11933,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 17:
 #ifdef JP
-		if (name) return "致命傷の治癒";
-		if (desc) return "体力や傷を回復させる。";
+		if(name) return "致命傷の治癒";
+		if(desc) return "体力や傷を回復させる。";
 #else
-		if (name) return "Cure critical wounds";
-		if (desc) return "Heals cut and HP greatry.";
+		if(name) return "Cure critical wounds";
+		if(desc) return "Heals cut and HP greatry.";
 #endif
-		if (info) return info_heal(4, 10, 0);
-		if (cast)
+		if(info) return info_heal(4, 10, 0);
+		if(cast)
 		{
 #ifdef JP
 			msg_print("気分が良くなってくる。");
@@ -11948,7 +11948,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel better and better.");
 #endif
 		}
-		if (cast || cont)
+		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(4, 10));
 			set_stun(creature_ptr, 0);
@@ -11959,30 +11959,30 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 18:
 #ifdef JP
-		if (name) return "呪力封入";
-		if (desc) return "魔法の道具に魔力を再充填する。";
+		if(name) return "呪力封入";
+		if(desc) return "魔法の道具に魔力を再充填する。";
 #else
-		if (name) return "Recharging";
-		if (desc) return "Recharges a magic device.";
+		if(name) return "Recharging";
+		if(desc) return "Recharges a magic device.";
 #endif
 		power = plev * 2;
-		if (info) return info_power(power);
-		if (cast)
+		if(info) return info_power(power);
+		if(cast)
 		{
-			if (!recharge(creature_ptr, power)) return NULL;
+			if(!recharge(creature_ptr, power)) return NULL;
 			add = FALSE;
 		}
 		break;
 
 	case 19:
 #ifdef JP
-		if (name) return "死者復活";
-		if (desc) return "死体を蘇らせてペットにする。";
+		if(name) return "死者復活";
+		if(desc) return "死体を蘇らせてペットにする。";
 #else
-		if (name) return "Animate Dead";
-		if (desc) return "Raises corpses and skeletons from dead.";
+		if(name) return "Animate Dead";
+		if(desc) return "Raises corpses and skeletons from dead.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("死者への呼びかけを始めた。");
@@ -11990,7 +11990,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You start to call deads.!");
 #endif
 		}
-		if (cast || cont)
+		if(cast || cont)
 		{
 			animate_dead(NULL, creature_ptr->fy, creature_ptr->fx);
 		}
@@ -11998,13 +11998,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 20:
 #ifdef JP
-		if (name) return "防具呪縛";
-		if (desc) return "装備している防具に呪いをかける。";
+		if(name) return "防具呪縛";
+		if(desc) return "装備している防具に呪いをかける。";
 #else
-		if (name) return "Curse armor";
-		if (desc) return "Curse a piece of armour that you wielding.";
+		if(name) return "Curse armor";
+		if(desc) return "Curse a piece of armour that you wielding.";
 #endif
-		if (cast)
+		if(cast)
 		{
 			int item;
 			char *q, *s;
@@ -12020,19 +12020,19 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			s = "You wield no piece of armours.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_is_armour2, 0)) return FALSE;
+			if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_is_armour2, 0)) return FALSE;
 
 			object_ptr = &creature_ptr->inventory[item];
 			object_desc(object_name, object_ptr, OD_NAME_ONLY);
 			object_flags(object_ptr, f);
 
 #ifdef JP
-			if (!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
+			if(!get_check(format("本当に %s を呪いますか？", object_name))) return FALSE;
 #else
-			if (!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
+			if(!get_check(format("Do you curse %s, really？", object_name))) return FALSE;
 #endif
 
-			if (!one_in_(3) &&
+			if(!one_in_(3) &&
 				(object_is_artifact(object_ptr) || have_flag(f, TRAIT_BLESSED_BRAND)))
 			{
 #ifdef JP
@@ -12040,22 +12040,22 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				msg_format("%s resists the effect.", object_name);
 #endif
-				if (one_in_(3))
+				if(one_in_(3))
 				{
-					if (object_ptr->to_damage > 0)
+					if(object_ptr->to_damage > 0)
 					{
 						object_ptr->to_damage -= randint1(3) % 2;
-						if (object_ptr->to_damage < 0) object_ptr->to_damage = 0;
+						if(object_ptr->to_damage < 0) object_ptr->to_damage = 0;
 					}
-					if (object_ptr->to_hit > 0)
+					if(object_ptr->to_hit > 0)
 					{
 						object_ptr->to_hit -= randint1(3) % 2;
-						if (object_ptr->to_hit < 0) object_ptr->to_hit = 0;
+						if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
 					}
-					if (object_ptr->to_ac > 0)
+					if(object_ptr->to_ac > 0)
 					{
 						object_ptr->to_ac -= randint1(3) % 2;
-						if (object_ptr->to_ac < 0) object_ptr->to_ac = 0;
+						if(object_ptr->to_ac < 0) object_ptr->to_ac = 0;
 					}
 #ifdef JP
 					msg_format("%s は劣化してしまった。", object_name);
@@ -12074,14 +12074,14 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
-				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
+				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
-					if (one_in_(666))
+					if(one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+					if(one_in_(666))
 					{
 						object_ptr->curse_flags[0] |= (TRC_TY_CURSE);
-						if (one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
+						if(one_in_(666)) add_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 
 						add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 						add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
@@ -12106,18 +12106,18 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 21:
 #ifdef JP
-		if (name) return "影のクローク";
-		if (desc) return "影のオーラを身にまとい、敵に影のダメージを与える。";
+		if(name) return "影のクローク";
+		if(desc) return "影のオーラを身にまとい、敵に影のダメージを与える。";
 #else
-		if (name) return "Cloak of shadow";
-		if (desc) return "Gives aura of shadow.";
+		if(name) return "Cloak of shadow";
+		if(desc) return "Gives aura of shadow.";
 #endif
-		if (cast)
+		if(cast)
 		{
 			//TODO: GET outer equipment.
 			object_type *object_ptr = &creature_ptr->inventory[0];
 
-			if (!object_ptr->k_idx)
+			if(!object_ptr->k_idx)
 			{
 #ifdef JP
 				msg_print("クロークを身につけていない！");
@@ -12126,7 +12126,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				return NULL;
 			}
-			else if (!object_is_cursed(object_ptr))
+			else if(!object_is_cursed(object_ptr))
 			{
 #ifdef JP
 				msg_print("クロークは呪われていない！");
@@ -12144,20 +12144,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 			}
 		}
-		if (cont)
+		if(cont)
 		{
 			//TODO: GET outer Equipment
 			object_type *object_ptr = &creature_ptr->inventory[0];
 
-			if ((!object_ptr->k_idx) || (!object_is_cursed(object_ptr)))
+			if((!object_ptr->k_idx) || (!object_is_cursed(object_ptr)))
 			{
 				do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 				creature_ptr->class_skills.old_skills.magic_num1[0] &= ~(1L << spell);
 				creature_ptr->class_skills.old_skills.magic_num2[0]--;
-				if (!creature_ptr->class_skills.old_skills.magic_num2[0]) set_action(creature_ptr, ACTION_NONE);
+				if(!creature_ptr->class_skills.old_skills.magic_num2[0]) set_action(creature_ptr, ACTION_NONE);
 			}
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("影のオーラが消え去った。");
@@ -12169,15 +12169,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 22:
 #ifdef JP
-		if (name) return "苦痛を魔力に";
-		if (desc) return "視界内のクリーチャーに精神ダメージ与え、魔力を吸い取る。";
+		if(name) return "苦痛を魔力に";
+		if(desc) return "視界内のクリーチャーに精神ダメージ与え、魔力を吸い取る。";
 #else
-		if (name) return "Pains to mana";
-		if (desc) return "Deals psychic damages to all creatures in sight, and drains some mana.";
+		if(name) return "Pains to mana";
+		if(desc) return "Deals psychic damages to all creatures in sight, and drains some mana.";
 #endif
 		power = plev * 3 / 2;
-		if (info) return info_damage(1, power, 0);
-		if (cast || cont)
+		if(info) return info_damage(1, power, 0);
+		if(cast || cont)
 		{
 			project_hack(creature_ptr, GF_PSI_DRAIN, randint1(power));
 		}
@@ -12185,13 +12185,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 23:
 #ifdef JP
-		if (name) return "目には目を";
-		if (desc) return "打撃や魔法で受けたダメージを、攻撃元のクリーチャーにも与える。";
+		if(name) return "目には目を";
+		if(desc) return "打撃や魔法で受けたダメージを、攻撃元のクリーチャーにも与える。";
 #else
-		if (name) return "Eye for an eye";
-		if (desc) return "Returns same damage which you got to the creature which damaged you.";
+		if(name) return "Eye for an eye";
+		if(desc) return "Returns same damage which you got to the creature which damaged you.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("復讐したい欲望にかられた。");
@@ -12204,13 +12204,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	/*** 4th book (24-31) ***/
 	case 24:
 #ifdef JP
-		if (name) return "反増殖結界";
-		if (desc) return "その階の増殖するクリーチャーの増殖を阻止する。";
+		if(name) return "反増殖結界";
+		if(desc) return "その階の増殖するクリーチャーの増殖を阻止する。";
 #else
-		if (name) return "Anti multiply barrier";
-		if (desc) return "Obstructs all multiplying by creatures in entire floor.";
+		if(name) return "Anti multiply barrier";
+		if(desc) return "Obstructs all multiplying by creatures in entire floor.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("増殖を阻止する呪いをかけた。");
@@ -12222,13 +12222,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 25:
 #ifdef JP
-		if (name) return "生命力復活";
-		if (desc) return "経験値を徐々に復活し、減少した能力値を回復させる。";
+		if(name) return "生命力復活";
+		if(desc) return "経験値を徐々に復活し、減少した能力値を回復させる。";
 #else
-		if (name) return "Restore life";
-		if (desc) return "Restores life energy and status.";
+		if(name) return "Restore life";
+		if(desc) return "Restores life energy and status.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("生命力が戻り始めた。");
@@ -12236,16 +12236,16 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			msg_print("You feel your life energy starting to return.");
 #endif
 		}
-		if (cast || cont)
+		if(cast || cont)
 		{
 			bool flag = FALSE;
 			int d = (creature_ptr->max_exp - creature_ptr->exp);
 			int r = (creature_ptr->exp / 20);
 			int i;
 
-			if (d > 0)
+			if(d > 0)
 			{
-				if (d < r)
+				if(d < r)
 					creature_ptr->exp = creature_ptr->max_exp;
 				else
 					creature_ptr->exp += r;
@@ -12257,17 +12257,17 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			}
 			for (i = STAT_STR; i < 6; i ++)
 			{
-				if (creature_ptr->stat_cur[i] < creature_ptr->stat_max[i])
+				if(creature_ptr->stat_cur[i] < creature_ptr->stat_max[i])
 				{
 					creature_ptr->stat_cur[i] += 10;
-					if (creature_ptr->stat_cur[i] > creature_ptr->stat_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_max[i];
+					if(creature_ptr->stat_cur[i] > creature_ptr->stat_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_max[i];
 					creature_ptr->creature_update |= (CRU_BONUS); // Recalculate bonuses
 
 					flag = TRUE;
 				}
 			}
 
-			if (!flag)
+			if(!flag)
 			{
 #ifdef JP
 				msg_format("%sの呪文の詠唱をやめた。", do_spell(creature_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
@@ -12275,8 +12275,8 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_format("Finish casting '%^s'.", do_spell(creature_ptr, REALM_HEX, HEX_RESTORE, SPELL_NAME));
 #endif
 				creature_ptr->class_skills.old_skills.magic_num1[0] &= ~(1L << HEX_RESTORE);
-				if (cont) creature_ptr->class_skills.old_skills.magic_num2[0]--;
-				if (creature_ptr->class_skills.old_skills.magic_num2) creature_ptr->action = ACTION_NONE;
+				if(cont) creature_ptr->class_skills.old_skills.magic_num2[0]--;
+				if(creature_ptr->class_skills.old_skills.magic_num2) creature_ptr->action = ACTION_NONE;
 
 				/* Redraw status */
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
@@ -12289,13 +12289,13 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 26:
 #ifdef JP
-		if (name) return "呪力吸収";
-		if (desc) return "呪われた武器の呪いを吸収して魔力を回復する。";
+		if(name) return "呪力吸収";
+		if(desc) return "呪われた武器の呪いを吸収して魔力を回復する。";
 #else
-		if (name) return "Drain curse power";
-		if (desc) return "Drains curse on your weapon and heals SP a little.";
+		if(name) return "Drain curse power";
+		if(desc) return "Drains curse on your weapon and heals SP a little.";
 #endif
-		if (cast)
+		if(cast)
 		{
 			int item;
 			char *s, *q;
@@ -12309,22 +12309,22 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			s = "You have no cursed equipment.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed, 0)) return FALSE;
+			if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_cursed, 0)) return FALSE;
 
 			object_ptr = &creature_ptr->inventory[item];
 			object_flags(object_ptr, f);
 
 			creature_ptr->csp += (creature_ptr->lev / 5) + randint1(creature_ptr->lev / 5);
-			if (have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags[0] & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
-			if (creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
+			if(have_flag(f, TRAIT_TY_CURSE) || (object_ptr->curse_flags[0] & TRC_TY_CURSE)) creature_ptr->csp += randint1(5);
+			if(creature_ptr->csp > creature_ptr->msp) creature_ptr->csp = creature_ptr->msp;
 
-			if (have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
+			if(have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE))
 			{
 				/* Nothing */
 			}
-			else if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
+			else if(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 			{
-				if (one_in_(7))
+				if(one_in_(7))
 				{
 #ifdef JP
 					msg_print("呪いを全て吸い取った。");
@@ -12334,7 +12334,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 					object_ptr->curse_flags[0] = 0L;
 				}
 			}
-			else if (have_flag(object_ptr->trait_flags, TRAIT_CURSED) && one_in_(3))
+			else if(have_flag(object_ptr->trait_flags, TRAIT_CURSED) && one_in_(3))
 			{
 #ifdef JP
 				msg_print("呪いを全て吸い取った。");
@@ -12350,24 +12350,24 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 27:
 #ifdef JP
-		if (name) return "吸血の刃";
-		if (desc) return "吸血属性で攻撃する。";
+		if(name) return "吸血の刃";
+		if(desc) return "吸血属性で攻撃する。";
 #else
-		if (name) return "Swords to vampires";
-		if (desc) return "Gives vampiric ability to your weapon.";
+		if(name) return "Swords to vampires";
+		if(desc) return "Gives vampiric ability to your weapon.";
 #endif
-		if (cast)
+		if(cast)
 		{
 #ifdef JP
 			msg_print("あなたの武器が血を欲している。");
 #else
-			if (!empty_hands(creature_ptr, FALSE))
+			if(!empty_hands(creature_ptr, FALSE))
 				msg_print("Your weapons want more blood now.");
 			else
 				msg_print("Your weapon wants more blood now.");
 #endif
 		}
-		if (stop)
+		if(stop)
 		{
 #ifdef JP
 			msg_print("武器の渇望が消え去った。");
@@ -12379,15 +12379,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 28:
 #ifdef JP
-		if (name) return "朦朧の言葉";
-		if (desc) return "視界内のクリーチャーを朦朧とさせる。";
+		if(name) return "朦朧の言葉";
+		if(desc) return "視界内のクリーチャーを朦朧とさせる。";
 #else
-		if (name) return "Word of stun";
-		if (desc) return "Stuns all creatures in your sight.";
+		if(name) return "Word of stun";
+		if(desc) return "Stuns all creatures in your sight.";
 #endif
 		power = plev * 4;
-		if (info) return info_power(power);
-		if (cast || cont)
+		if(info) return info_power(power);
+		if(cast || cont)
 		{
 			stun_creatures(creature_ptr, power);
 		}
@@ -12395,20 +12395,20 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 29:
 #ifdef JP
-		if (name) return "影移動";
-		if (desc) return "クリーチャーの隣のマスに瞬間移動する。";
+		if(name) return "影移動";
+		if(desc) return "クリーチャーの隣のマスに瞬間移動する。";
 #else
-		if (name) return "Moving into shadow";
-		if (desc) return "Teleports you close to a creature.";
+		if(name) return "Moving into shadow";
+		if(desc) return "Teleports you close to a creature.";
 #endif
-		if (cast)
+		if(cast)
 		{
 			int i, y, x, dir;
 			bool flag;
 
 			for (i = 0; i < 3; i++)
 			{
-				if (!tgt_pt(creature_ptr, &x, &y)) return FALSE;
+				if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
 
 				flag = FALSE;
 
@@ -12416,11 +12416,11 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				{
 					int dy = y + ddy_ddd[dir];
 					int dx = x + ddx_ddd[dir];
-					if (dir == 5) continue;
+					if(dir == 5) continue;
 					if(floor_ptr->cave[dy][dx].creature_idx) flag = TRUE;
 				}
 
-				if (!cave_empty_bold(floor_ptr, y, x) || (floor_ptr->cave[y][x].info & CAVE_ICKY) ||
+				if(!cave_empty_bold(floor_ptr, y, x) || (floor_ptr->cave[y][x].info & CAVE_ICKY) ||
 					(distance(y, x, creature_ptr->fy, creature_ptr->fx) > plev + 2))
 				{
 #ifdef JP
@@ -12433,7 +12433,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				break;
 			}
 
-			if (flag && randint0(plev * plev / 2))
+			if(flag && randint0(plev * plev / 2))
 			{
 				teleport_creature_to(creature_ptr, y, x, 0L);
 			}
@@ -12453,15 +12453,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 30:
 #ifdef JP
-		if (name) return "反魔法結界";
-		if (desc) return "視界内のクリーチャーの魔法を阻害するバリアを張る。";
+		if(name) return "反魔法結界";
+		if(desc) return "視界内のクリーチャーの魔法を阻害するバリアを張る。";
 #else
-		if (name) return "Anti magic barrier";
-		if (desc) return "Obstructs all magic spell of creatures in your sight.";
+		if(name) return "Anti magic barrier";
+		if(desc) return "Obstructs all magic spell of creatures in your sight.";
 #endif
 		power = plev * 3 / 2;
-		if (info) return info_power(power);
-		if (cast)
+		if(info) return info_power(power);
+		if(cast)
 		{
 #ifdef JP
 			msg_print("魔法を防ぐ呪いをかけた。");
@@ -12473,21 +12473,21 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 	case 31:
 #ifdef JP
-		if (name) return "復讐の宣告";
-		if (desc) return "数ターン後にそれまで受けたダメージに応じた威力の地獄の劫火の弾を放つ。";
+		if(name) return "復讐の宣告";
+		if(desc) return "数ターン後にそれまで受けたダメージに応じた威力の地獄の劫火の弾を放つ。";
 #else
-		if (name) return "Revenge sentence";
-		if (desc) return "Fires  a ball of hell fire to try revenging after few turns.";
+		if(name) return "Revenge sentence";
+		if(desc) return "Fires  a ball of hell fire to try revenging after few turns.";
 #endif
 		power = creature_ptr->class_skills.old_skills.magic_num1[2];
-		if (info) return info_damage(0, 0, power);
-		if (cast)
+		if(info) return info_damage(0, 0, power);
+		if(cast)
 		{
 			int r;
 			int a = 3 - (creature_ptr->speed - 100) / 10;
 			r = 1 + randint1(2) + MAX(0, MIN(3, a));
 
-			if (creature_ptr->class_skills.old_skills.magic_num2[2] > 0)
+			if(creature_ptr->class_skills.old_skills.magic_num2[2] > 0)
 			{
 #ifdef JP
 				msg_print("すでに復讐は宣告済みだ。");
@@ -12506,15 +12506,15 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 			add = FALSE;
 		}
-		if (cont)
+		if(cont)
 		{
 			creature_ptr->class_skills.old_skills.magic_num2[2]--;
 
-			if (creature_ptr->class_skills.old_skills.magic_num2[2] <= 0)
+			if(creature_ptr->class_skills.old_skills.magic_num2[2] <= 0)
 			{
 				int dir;
 
-				if (power)
+				if(power)
 				{
 					command_dir = 0;
 
@@ -12530,7 +12530,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 					fire_ball(creature_ptr, GF_HELL_FIRE, dir, power, 1);
 
-					if (wizard)
+					if(wizard)
 					{
 #ifdef JP
 						msg_format("%d点のダメージを返した。", power);
@@ -12554,17 +12554,17 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 	}
 
 	/* start casting */
-	if ((cast) && (add))
+	if((cast) && (add))
 	{
 		/* add spell */
 		creature_ptr->class_skills.old_skills.magic_num1[0] |= 1L << (spell);
 		creature_ptr->class_skills.old_skills.magic_num2[0]++;
 
-		if (creature_ptr->action != ACTION_SPELL) set_action(creature_ptr, ACTION_SPELL);
+		if(creature_ptr->action != ACTION_SPELL) set_action(creature_ptr, ACTION_SPELL);
 	}
 
 	/* Redraw status */
-	if (!info)
+	if(!info)
 	{
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 		play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);

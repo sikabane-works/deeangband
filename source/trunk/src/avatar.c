@@ -288,7 +288,7 @@ void dump_karmas(creature_type *creature_ptr, FILE *OutFile)
 {
 	int v_nr = 0;
 
-	if (!OutFile) return;
+	if(!OutFile) return;
 
 	for (v_nr = 0; v_nr < MAX_KARMA; v_nr++)
 	{

@@ -21,9 +21,9 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 	int aura_damage = 0;
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	if (has_trait(target_ptr, TRAIT_AURA_FIRE))
+	if(has_trait(target_ptr, TRAIT_AURA_FIRE))
 	{
-		if (!has_trait(attacker_ptr, TRAIT_IM_FIRE))
+		if(!has_trait(attacker_ptr, TRAIT_IM_FIRE))
 		{
 			char aura_dam[80];
 
@@ -41,14 +41,14 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			aura_damage = calc_damage(attacker_ptr, aura_damage, GF_FIRE, FALSE);
 			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
-			if (is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
 			handle_stuff();
 		}
 	}
 
-	if (has_trait(target_ptr, TRAIT_AURA_COLD))
+	if(has_trait(target_ptr, TRAIT_AURA_COLD))
 	{
-		if (!has_trait(attacker_ptr, TRAIT_IM_COLD))
+		if(!has_trait(attacker_ptr, TRAIT_IM_COLD))
 		{
 			char aura_dam[80];
 
@@ -63,18 +63,18 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			msg_print("You are suddenly very cold!");
 #endif
 
-			if (IS_OPPOSE_COLD(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (attacker_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
+			if(IS_OPPOSE_COLD(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if(attacker_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
 			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
 			handle_stuff();
 		}
 	}
 
-	if (has_trait(target_ptr, TRAIT_AURA_ELEC))
+	if(has_trait(target_ptr, TRAIT_AURA_ELEC))
 	{
-		if (!has_trait(attacker_ptr, TRAIT_IM_ELEC))
+		if(!has_trait(attacker_ptr, TRAIT_IM_ELEC))
 		{
 			char aura_dam[80];
 
@@ -83,9 +83,9 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			/* Hack -- Get the "died from" name */
 			creature_desc(aura_dam, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-			if (has_trait(attacker_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
-			if (IS_OPPOSE_ELEC(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
-			if (attacker_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
+			if(has_trait(attacker_ptr, TRAIT_ANDROID)) aura_damage += aura_damage / 3;
+			if(IS_OPPOSE_ELEC(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
+			if(attacker_ptr->resist_elec) aura_damage = (aura_damage + 2) / 3;
 
 #ifdef JP
 			msg_print("電撃をくらった！");
@@ -94,7 +94,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 #endif
 
 			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
-			if (is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
 			handle_stuff();
 		}
 	}
@@ -142,22 +142,22 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if (get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) > hand && !attacker_ptr->icky_wield[hand])
+		if(get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) > hand && !attacker_ptr->icky_wield[hand])
 		{
 			int tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
-			if (attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
-			if (has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
-			if (r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
-			if (target_ptr->timed_trait[TRAIT_PARALYZED] && target_ptr->see_others)
+			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
+			if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
+			if(r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
+			if(target_ptr->timed_trait[TRAIT_PARALYZED] && target_ptr->see_others)
 			{
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
-			else if ((attacker_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
+			else if((attacker_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				fuiuchi = TRUE;
 			}
-			else if (target_ptr->timed_trait[TRAIT_AFRAID] && target_ptr->see_others)
+			else if(target_ptr->timed_trait[TRAIT_AFRAID] && target_ptr->see_others)
 			{
 				stab_fleeing = TRUE;
 			}
@@ -167,22 +167,22 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 	object_desc(weapon_name, weapon_ptr, OD_NAME_ONLY);
 
-	if (object_is_melee_weapon(attacker_ptr, weapon_ptr))
+	if(object_is_melee_weapon(attacker_ptr, weapon_ptr))
 	{
 		// Weapon skill mastering
-		if ((r_ptr->level + 10) > attacker_ptr->lev && attacker_ptr->class_idx != INDEX_NONE)
+		if((r_ptr->level + 10) > attacker_ptr->lev && attacker_ptr->class_idx != INDEX_NONE)
 		{
 			int tval = attacker_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
 			int sval = attacker_ptr->inventory[hand].sval;
 			/*
 			int now_exp = attacker_ptr->weapon_exp[tval][sval];
-			if (now_exp < skill_info[attacker_ptr->class_idx].w_max[tval][sval])
+			if(now_exp < skill_info[attacker_ptr->class_idx].w_max[tval][sval])
 			{
 				int amount = 0;
-				if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
-				else if (now_exp < WEAPON_EXP_SKILLED) amount = 10;
-				else if ((now_exp < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19)) amount = 1;
-				else if ((attacker_ptr->lev > 34) && one_in_(2)) amount = 1;
+				if(now_exp < WEAPON_EXP_BEGINNER) amount = 80;
+				else if(now_exp < WEAPON_EXP_SKILLED) amount = 10;
+				else if((now_exp < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19)) amount = 1;
+				else if((attacker_ptr->lev > 34) && one_in_(2)) amount = 1;
 				attacker_ptr->weapon_exp[tval][sval] += amount;
 				attacker_ptr->creature_update |= (CRU_BONUS);
 			}
@@ -200,50 +200,50 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// Calculate the "attack quality"
 	bonus = attacker_ptr->to_hit[hand] + weapon_ptr->to_hit;
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
-	if (mode == HISSATSU_IAI) chance += 60;
-	if (attacker_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
+	if(mode == HISSATSU_IAI) chance += 60;
+	if(attacker_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
 
-	if (attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
+	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
 	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (r_ptr->d_char == 'j'));
 
 	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (r_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
-	if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+	if(((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 	{
 		int n = count_melee_slot(attacker_ptr);
-		if (mode == HISSATSU_3DAN) n *= 2;
+		if(mode == HISSATSU_3DAN) n *= 2;
 		success_hit = one_in_(n);
 	}
-	else if ((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
+	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
 	else success_hit = test_hit_melee(attacker_ptr, chance,  target_ptr->ac + target_ptr->to_ac, target_ptr->see_others);
 
-	if (mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
+	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
 	// Test for hit
-	if (success_hit)
+	if(success_hit)
 	{
 		int vorpal_chance = ((weapon_ptr->name1 == ART_VORPAL_BLADE) || (weapon_ptr->name1 == ART_CHAINSWORD)) ? 2 : 4;
 		sound(SOUND_HIT);
 		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 		{
 #ifdef JP
-			if (backstab)			msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", attacker_name, target_name);
-			else if (fuiuchi)		msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", attacker_name, target_name);
-			else if (stab_fleeing)	msg_format("%sは逃げる%sを背中から突き刺した！", attacker_name, target_name);
+			if(backstab)			msg_format("%sは冷酷にも眠っている無力な%sを突き刺した！", attacker_name, target_name);
+			else if(fuiuchi)		msg_format("%sは不意を突いて%sに強烈な一撃を喰らわせた！", attacker_name, target_name);
+			else if(stab_fleeing)	msg_format("%sは逃げる%sを背中から突き刺した！", attacker_name, target_name);
 #else
-			if (backstab)
+			if(backstab)
 			{
 				//TODO
 				msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
 			}
-			else if (fuiuchi)
+			else if(fuiuchi)
 			{
 				//TODO
 				msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
 			}
-			else if (stab_fleeing)
+			else if(stab_fleeing)
 			{
 				//TODO
 				msg_format("%s backstab the fleeing %s!", attacker_name, target_name);
@@ -257,68 +257,68 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		object_flags(weapon_ptr, flgs);
 
 		// Select a chaotic effect (50% chance)
-		if ((have_flag(flgs, TRAIT_CHAOTIC_BRAND)) && one_in_(2))
+		if((have_flag(flgs, TRAIT_CHAOTIC_BRAND)) && one_in_(2))
 		{
-			if (one_in_(10))
+			if(one_in_(10))
 			{
-				if (randint1(5) < 3)   chaos_effect = 1; // Vampiric (20%)
-				else if (one_in_(250)) chaos_effect = 2; // Quake (0.12%)
-				else if (!one_in_(10)) chaos_effect = 3; // Confusion (26.892%)
-				else if (one_in_(2))   chaos_effect = 4; // Teleport away (1.494%)
+				if(randint1(5) < 3)   chaos_effect = 1; // Vampiric (20%)
+				else if(one_in_(250)) chaos_effect = 2; // Quake (0.12%)
+				else if(!one_in_(10)) chaos_effect = 3; // Confusion (26.892%)
+				else if(one_in_(2))   chaos_effect = 4; // Teleport away (1.494%)
 				else                   chaos_effect = 5; // Polymorph (1.494%)
 			}
 		}
 
 		// Vampiric drain
-		if ((have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(attacker_ptr, HEX_VAMP_BLADE))
+		if((have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(attacker_ptr, HEX_VAMP_BLADE))
 		{
 			// Only drain "living" creatures
-			if (creature_living(target_ptr)) can_drain = TRUE;
+			if(creature_living(target_ptr)) can_drain = TRUE;
 			else can_drain = FALSE;
 		}
 
-		if ((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || hex_spelling(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+		if((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || hex_spelling(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 			vorpal_cut = TRUE;
 		else vorpal_cut = FALSE;
 
 		// Handle normal weapon
-		if (weapon_ptr->k_idx)
+		if(weapon_ptr->k_idx)
 		{
 			k = diceroll(weapon_ptr->dd + attacker_ptr->to_damaged[hand], weapon_ptr->ds + attacker_ptr->to_damages[hand]);
 			k = tot_dam_aux(attacker_ptr, weapon_ptr, k, target_ptr, mode, FALSE);
 
-			if (backstab)			k *= (3 + (attacker_ptr->lev / 20));
-			else if (fuiuchi)		k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
-			else if (stab_fleeing)	k = (3 * k) / 2;
+			if(backstab)			k *= (3 + (attacker_ptr->lev / 20));
+			else if(fuiuchi)		k = k * (5 + (attacker_ptr->lev * 2 / 25)) / 2;
+			else if(stab_fleeing)	k = (3 * k) / 2;
 
-			if ((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
+			if((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
 			{
 				do_quake = TRUE;
 			}
 
-			if ((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
+			if((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
 				k = test_critial_melee(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
 
 			drain_result = k;
 
-			if (vorpal_cut)
+			if(vorpal_cut)
 			{
 				int mult = 2;
 
-				if ((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
+				if((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
 #ifdef JP
-					if (!get_rnd_line("chainswd_j.txt", 0, chainsword_noise))
+					if(!get_rnd_line("chainswd_j.txt", 0, chainsword_noise))
 #else
-					if (!get_rnd_line("chainswd.txt", 0, chainsword_noise))
+					if(!get_rnd_line("chainswd.txt", 0, chainsword_noise))
 #endif
 					{
 						msg_print(chainsword_noise);
 					}
 				}
 
-				if (weapon_ptr->name1 == ART_VORPAL_BLADE)
+				if(weapon_ptr->name1 == ART_VORPAL_BLADE)
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -346,7 +346,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				k *= mult;
 
 				// Ouch!
-				if ((has_trait(target_ptr, TRAIT_RES_ALL) ? k / 100 : k) > target_ptr->chp)
+				if((has_trait(target_ptr, TRAIT_RES_ALL) ? k / 100 : k) > target_ptr->chp)
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -392,16 +392,16 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		k += attacker_ptr->to_damage[hand];
 		drain_result += attacker_ptr->to_damage[hand];
 
-		if ((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
-		if ((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
-		if ((mode == HISSATSU_SEKIRYUKA) && !IS_WOUND(attacker_ptr)) k /= 2;
-		if (k < 0) k = 0; // No negative damage
-		if ((mode == HISSATSU_ZANMA) && !(!creature_living(target_ptr) && is_enemy_of_good_creature(target_ptr)))
+		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
+		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
+		if((mode == HISSATSU_SEKIRYUKA) && !IS_WOUND(attacker_ptr)) k /= 2;
+		if(k < 0) k = 0; // No negative damage
+		if((mode == HISSATSU_ZANMA) && !(!creature_living(target_ptr) && is_enemy_of_good_creature(target_ptr)))
 		{
 			k = 0;
 		}
 
-		if (zantetsu_mukou)
+		if(zantetsu_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -412,7 +412,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			k = 0;
 		}
 
-		if (e_j_mukou)
+		if(e_j_mukou)
 		{
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -423,16 +423,16 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			k /= 2;
 		}
 
-		if (mode == HISSATSU_MINEUCHI)
+		if(mode == HISSATSU_MINEUCHI)
 		{
 			int tmp = (10 + randint1(15) + attacker_ptr->lev / 5);
 
 			k = 0;
 			anger_creature(attacker_ptr, target_ptr);
 
-			if (!has_trait(target_ptr, TRAIT_NO_STUN))
+			if(!has_trait(target_ptr, TRAIT_NO_STUN))
 			{
-				if (target_ptr->timed_trait[TRAIT_STUN]) // Get stunned
+				if(target_ptr->timed_trait[TRAIT_STUN]) // Get stunned
 				{
 					if(is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -468,9 +468,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		// Modify the damage
 		k = invuln_damage_mod(target_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((attacker_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
-		if (((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+		if(((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
 		{
-			if ((randint1(randint1(r_ptr->level / 7)+5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
+			if((randint1(randint1(r_ptr->level / 7)+5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
@@ -482,9 +482,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else k = 1;
 		}
-		else if ((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && !attacker_ptr->icky_wield[hand] && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
+		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && !attacker_ptr->icky_wield[hand] && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
-			if (one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
+			if(one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 			{
 				k *= 5;
 				drain_result *= 2;
@@ -496,9 +496,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 			}
 
-			else if (((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
+			else if(((target_ptr->chp < target_ptr->mhp/2) && one_in_(10)) || ((one_in_(666) || ((backstab || fuiuchi) && one_in_(11))) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2)))
 			{
-				if (has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_UNIQUE2) || (target_ptr->chp >= target_ptr->mhp/2))
+				if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_UNIQUE2) || (target_ptr->chp >= target_ptr->mhp/2))
 				{
 					k = MAX(k*5, target_ptr->chp/2);
 					drain_result *= 2;
@@ -531,14 +531,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 
 		// Complex message
-		if (wizard || cheat_xtra)
+		if(wizard || cheat_xtra)
 		{
 			msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
 		}
 
-		if (k <= 0) can_drain = FALSE;
+		if(k <= 0) can_drain = FALSE;
 
-		if (drain_result > target_ptr->chp)
+		if(drain_result > target_ptr->chp)
 			drain_result = target_ptr->chp;
 
 		take_hit(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
@@ -546,11 +546,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(gameover);
 		{
 			*mdeath = TRUE;
-			if ((attacker_ptr->class_idx == CLASS_BERSERKER) && attacker_ptr->energy_use)
+			if((attacker_ptr->class_idx == CLASS_BERSERKER) && attacker_ptr->energy_use)
 			{
 				//TODO
 			}
-			if (has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT) && is_lowlevel)
+			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT) && is_lowlevel)
 				if(is_player(attacker_ptr))
 #ifdef JP
 					msg_print("またつまらぬものを斬ってしまった．．．");
@@ -560,31 +560,31 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 
 		// Anger the creature
-		if (k > 0) anger_creature(attacker_ptr, target_ptr);
+		if(k > 0) anger_creature(attacker_ptr, target_ptr);
 
 		touch_zap_player(attacker_ptr, target_ptr);
 
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
 
-		if (can_drain && (drain_result > 0))
+		if(can_drain && (drain_result > 0))
 		{
-			if (has_trait_object(weapon_ptr, TRAIT_MURAMASA))
+			if(has_trait_object(weapon_ptr, TRAIT_MURAMASA))
 			{
-				if (is_human)
+				if(is_human)
 				{
 					int to_hit = weapon_ptr->to_hit;
 					int to_damage = weapon_ptr->to_damage;
 					int i, flag;
 
 					flag = 1;
-					for (i = 0; i < to_hit + 3; i++) if (one_in_(4)) flag = 0;
-					if (flag) to_hit++;
+					for (i = 0; i < to_hit + 3; i++) if(one_in_(4)) flag = 0;
+					if(flag) to_hit++;
 
 					flag = 1;
-					for (i = 0; i < to_damage + 3; i++) if (one_in_(4)) flag = 0;
-					if (flag) to_damage++;
+					for (i = 0; i < to_damage + 3; i++) if(one_in_(4)) flag = 0;
+					if(flag) to_damage++;
 
-					if (weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
+					if(weapon_ptr->to_hit != to_hit || weapon_ptr->to_damage != to_damage)
 					{
 						if(is_seen(player_ptr, attacker_ptr))
 #ifdef JP
@@ -599,14 +599,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else
 			{
-				if (drain_result > 5) // Did we really hurt it?
+				if(drain_result > 5) // Did we really hurt it?
 				{
 					drain_heal = diceroll(2, drain_result / 6);
 
 					// Hex
-					if (hex_spelling(attacker_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
+					if(hex_spelling(attacker_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
-					if (cheat_xtra)
+					if(cheat_xtra)
 					{
 #ifdef JP
 						msg_format("Draining left: %d", drain_left);
@@ -616,9 +616,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 					}
 
-					if (drain_left)
+					if(drain_left)
 					{
-						if (drain_heal < drain_left)
+						if(drain_heal < drain_left)
 						{
 							drain_left -= drain_heal;
 						}
@@ -628,7 +628,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 							drain_left = 0;
 						}
 
-						if (drain_msg)
+						if(drain_msg)
 						{
 							if(is_seen(player_ptr, attacker_ptr))
 #ifdef JP
@@ -648,22 +648,22 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 			target_ptr->mhp -= (k+7)/8;
-			if (target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
-			if (target_ptr->mhp < 1) target_ptr->mhp = 1;
+			if(target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
+			if(target_ptr->mhp < 1) target_ptr->mhp = 1;
 			weak = TRUE;
 		}
 		can_drain = FALSE;
 		drain_result = 0;
 
-		if (chaos_effect == 4)
+		if(chaos_effect == 4)
 		{
 			bool resists_tele = FALSE;
 
-			if (has_trait(target_ptr, TRAIT_RES_TELE))
+			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if (has_trait(target_ptr, TRAIT_UNIQUE))
+				if(has_trait(target_ptr, TRAIT_UNIQUE))
 				{
-					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					msg_format("%^sには効果がなかった。", target_name);
 #else
@@ -672,9 +672,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 					resists_tele = TRUE;
 				}
-				else if (r_ptr->level > randint1(100))
+				else if(r_ptr->level > randint1(100))
 				{
-					if (is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					msg_format("%^sは抵抗力を持っている！", target_name);
 #else
@@ -685,7 +685,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 			}
 
-			if (!resists_tele)
+			if(!resists_tele)
 			{
 #ifdef JP
 				msg_format("%^sは消えた！", target_name);
@@ -698,12 +698,12 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
-		else if ((chaos_effect == 5) && (randint1(90) > r_ptr->level))
+		else if((chaos_effect == 5) && (randint1(90) > r_ptr->level))
 		{
-			if (!(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) &&
+			if(!(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) &&
 				!has_trait(target_ptr, TRAIT_RES_CHAO))
 			{
-				if (polymorph_creature(attacker_ptr, y, x))
+				if(polymorph_creature(attacker_ptr, y, x))
 				{
 #ifdef JP
 					msg_format("%^sは変化した！", target_name);
@@ -733,7 +733,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				r_ptr = &species_info[target_ptr->species_idx];
 			}
 		}
-		else if (has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))
+		else if(has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))
 		{
 			creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 
@@ -747,7 +747,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		backstab = FALSE; /* Clumsy! */
 		fuiuchi = FALSE; /* Clumsy! */
 
-		if ((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
+		if((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE) && one_in_(3))
 		{
 
 			/* Sound */
@@ -796,7 +796,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	fuiuchi = FALSE;
 
 
-	if (weak && !(*mdeath))
+	if(weak && !(*mdeath))
 	{
 #ifdef JP
 		msg_format("%sは弱くなったようだ。", target_name);
@@ -806,10 +806,10 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 
 	// Mega-Hack -- apply earthquake brand
-	if (do_quake)
+	if(do_quake)
 	{
 		earthquake(target_ptr, attacker_ptr->fy, attacker_ptr->fx, 10);
-		if (!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
+		if(!floor_ptr->cave[y][x].creature_idx) *mdeath = TRUE;
 	}
 
 }
@@ -902,7 +902,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 
 	// Test for hit
-	if ((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->see_others))
+	if((!has_trait(target_ptr, TRAIT_QUANTUM) || !randint0(2)) && test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->see_others))
 	{
 		sound(SOUND_HIT); // Sound
 
@@ -916,17 +916,17 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		k = diceroll(ddd, dss);
 		k = test_critial_melee(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 		k += attacker_ptr->to_damage_m;
-		if (k < 0) k = 0;
+		if(k < 0) k = 0;
 		k = invuln_damage_mod(target_ptr, k, FALSE);
 
 		// Complex message
-		if (wizard)
+		if(wizard)
 		{
 			msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
 		}
 
 		// Anger the creature
-		if (k > 0) anger_creature(attacker_ptr, target_ptr);
+		if(k > 0) anger_creature(attacker_ptr, target_ptr);
 
 		// Damage, check for fear and mdeath
 		switch (attack)
@@ -990,7 +990,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		case CLASS_MONK:
 		case CLASS_FORCETRAINER:
 		case CLASS_BERSERKER:
-			if ((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
+			if((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
 			break;
 	}
 
@@ -1000,24 +1000,24 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 	strcpy(weapon_name, "bare hand");
 #endif
 
-	if ((r_ptr->level + 10) > attacker_ptr->lev)
+	if((r_ptr->level + 10) > attacker_ptr->lev)
 	{
 		// Matrial arts skill mastering
-		if (attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
+		if(attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
 		{
-			if (attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_BEGINNER)
+			if(attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_BEGINNER)
 				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 40;
-			else if ((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_SKILLED))
+			else if((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_SKILLED))
 				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 5;
-			else if ((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19))
+			else if((attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19))
 				attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
-			else if ((attacker_ptr->lev > 34))
-				if (one_in_(3)) attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
+			else if((attacker_ptr->lev > 34))
+				if(one_in_(3)) attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] += 1;
 			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
 
-	if (monk_attack)
+	if(monk_attack)
 	{
 		int special_effect = 0, stun_effect = 0, times = 0, max_times;
 		int min_level = 1;
@@ -1025,18 +1025,18 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		int resist_stun = 0;
 		int weight = 8;
 
-		if (has_trait(target_ptr, TRAIT_UNIQUE)) resist_stun += 88;
-		if (has_trait(target_ptr, TRAIT_NO_STUN)) resist_stun += 66;
-		if (has_trait(target_ptr, TRAIT_NO_CONF)) resist_stun += 33;
-		if (has_trait(target_ptr, TRAIT_NO_SLEEP)) resist_stun += 33;
-		if (has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING))
+		if(has_trait(target_ptr, TRAIT_UNIQUE)) resist_stun += 88;
+		if(has_trait(target_ptr, TRAIT_NO_STUN)) resist_stun += 66;
+		if(has_trait(target_ptr, TRAIT_NO_CONF)) resist_stun += 33;
+		if(has_trait(target_ptr, TRAIT_NO_SLEEP)) resist_stun += 33;
+		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING))
 			resist_stun += 66;
 
-		if (attacker_ptr->special_defense & KAMAE_BYAKKO)
+		if(attacker_ptr->special_defense & KAMAE_BYAKKO)
 			max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
-		else if (attacker_ptr->special_defense & KAMAE_SUZAKU)
+		else if(attacker_ptr->special_defense & KAMAE_SUZAKU)
 			max_times = 1;
-		else if (attacker_ptr->special_defense & KAMAE_GENBU)
+		else if(attacker_ptr->special_defense & KAMAE_GENBU)
 			max_times = 1;
 		else
 			max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
@@ -1046,17 +1046,17 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			do
 			{
 				ma_ptr = &ma_blows[randint0(MAX_MA)];
-				if ((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
+				if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (ma_ptr->min_level > 1)) min_level = ma_ptr->min_level + 3;
 				else min_level = ma_ptr->min_level;
 			}
 			while ((min_level > attacker_ptr->lev) || (randint1(attacker_ptr->lev) < ma_ptr->chance));
 
 			/* keep the highest level attack available we found */
-			if ((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->timed_trait[TRAIT_STUN] && !attacker_ptr->timed_trait[TRAIT_CONFUSED])
+			if((ma_ptr->min_level > old_ptr->min_level) && !attacker_ptr->timed_trait[TRAIT_STUN] && !attacker_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 				old_ptr = ma_ptr;
 
-				if (wizard && cheat_xtra)
+				if(wizard && cheat_xtra)
 				{
 #ifdef JP
 					msg_print("攻撃を再選択しました。");
@@ -1071,14 +1071,14 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		if (attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
+		if(attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
 		k = diceroll(ma_ptr->dd + attacker_ptr->to_damaged[hand], ma_ptr->ds + attacker_ptr->to_damages[hand]);
-		if (attacker_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
+		if(attacker_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
 
-		if (ma_ptr->effect == MA_KNEE)
+		if(ma_ptr->effect == MA_KNEE)
 		{
-			if (IS_MALE(target_ptr))
+			if(IS_MALE(target_ptr))
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
@@ -1100,9 +1100,9 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		else if (ma_ptr->effect == MA_SLOW)
+		else if(ma_ptr->effect == MA_SLOW)
 		{
-			if (!((has_trait_species(r_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
+			if(!((has_trait_species(r_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
@@ -1119,7 +1119,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		}
 		else
 		{
-			if (ma_ptr->effect)
+			if(ma_ptr->effect)
 			{
 				stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
 			}
@@ -1127,16 +1127,16 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
 		}
 
-		if (attacker_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
-		if ((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->class_skills.old_skills.magic_num1[0]))
+		if(attacker_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
+		if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->class_skills.old_skills.magic_num1[0]))
 		{
 			weight += (attacker_ptr->class_skills.old_skills.magic_num1[0]/30);
-			if (weight > 20) weight = 20;
+			if(weight > 20) weight = 20;
 		}
 
 		k = test_critial_melee(attacker_ptr, attacker_ptr->lev * weight, min_level, k, attacker_ptr->to_hit[0], 0);
 
-		if ((special_effect == MA_KNEE) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
+		if((special_effect == MA_KNEE) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
 #ifdef JP
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^sは苦痛にうめいている！", tar_name);
@@ -1148,9 +1148,9 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			resist_stun /= 3;
 		}
 
-		else if ((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
+		else if((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if (!has_trait(target_ptr, TRAIT_UNIQUE) &&
+			if(!has_trait(target_ptr, TRAIT_UNIQUE) &&
 			    (randint1(attacker_ptr->lev) > r_ptr->level) &&
 			    target_ptr->speed > 60)
 			{
@@ -1165,11 +1165,11 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		if (stun_effect && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
+		if(stun_effect && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if (attacker_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
+			if(attacker_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 			{
-				if (set_stun(&creature_list[c_ptr->creature_idx], stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
+				if(set_stun(&creature_list[c_ptr->creature_idx], stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -1202,10 +1202,10 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
 	// Confusion attack
-	//TODO if ((attacker_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(attacker_ptr, HEX_CONFUSION))
+	//TODO if((attacker_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(attacker_ptr, HEX_CONFUSION))
 	{
 		// Cancel glowing hands
-		if (attacker_ptr->special_attack & ATTACK_CONFUSE)
+		if(attacker_ptr->special_attack & ATTACK_CONFUSE)
 		{
 			attacker_ptr->special_attack &= ~(ATTACK_CONFUSE);
 			if(is_seen(player_ptr, attacker_ptr))
@@ -1219,9 +1219,9 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 
 		// Confuse the creature
-		if (has_trait(target_ptr, TRAIT_NO_CONF))
+		if(has_trait(target_ptr, TRAIT_NO_CONF))
 		{
-			if (is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 
 			if(is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -1231,7 +1231,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 
 		}
-		else if (randint0(100) < r_ptr->level)
+		else if(randint0(100) < r_ptr->level)
 		{
 			if(is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -1265,13 +1265,13 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	char attacker_name[100];
 	creature_desc(attacker_name, attacker_ptr, 0);
 
-	if (IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
+	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
 	    !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
 		{
-			if (has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT))
+			if(has_trait(attacker_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
 #ifdef JP
 				msg_format("%sは思わず叫んだ。「拙者、おなごは斬れぬ！」", attacker_name);
@@ -1288,14 +1288,14 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 
 static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (attacker_ptr->timed_trait[TRAIT_AFRAID]) // Handle player fear
+	if(attacker_ptr->timed_trait[TRAIT_AFRAID]) // Handle player fear
 	{
 		char attacker_name[100];
 		char target_name[100];
 		creature_desc(attacker_name, attacker_ptr, 0);
 		creature_desc(target_name, target_ptr, 0);
 
-		if (target_ptr->see_others) // Message
+		if(target_ptr->see_others) // Message
 		{
 #ifdef JP
 			msg_format("%sは怯えていて%sを攻撃できない！", attacker_name, target_name);
@@ -1324,18 +1324,18 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 
 static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (count_melee_slot(attacker_ptr))
+	if(count_melee_slot(attacker_ptr))
 	{
-		if ((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MULTI_WEAPON]) && ((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] - 1000) / 200 < target_ptr->lev))
+		if((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MULTI_WEAPON]) && ((attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] - 1000) / 200 < target_ptr->lev))
 		{
-			if (attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_BEGINNER)
+			if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_BEGINNER)
 				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 80;
 			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_SKILLED)
 				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 4;
 			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_EXPERT)
 				attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
 			else if(attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] < WEAPON_EXP_MASTER)
-				if (one_in_(3)) attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
+				if(one_in_(3)) attacker_ptr->skill_exp[SKILL_MULTI_WEAPON] += 1;
 			attacker_ptr->creature_update |= (CRU_BONUS);
 		}
 	}
@@ -1343,24 +1343,24 @@ static void gain_two_fencing_skill(creature_type *attacker_ptr, creature_type *t
 
 static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (attacker_ptr->riding)
+	if(attacker_ptr->riding)
 	{
 		int cur = attacker_ptr->skill_exp[SKILL_RIDING];
 		int max = skill_info[attacker_ptr->class_idx].s_max[SKILL_RIDING];
 
-		if (cur < max)
+		if(cur < max)
 		{
 			int ridinglevel = species_info[creature_list[attacker_ptr->riding].species_idx].level;
 			int targetlevel = target_ptr->lev;
 			int inc = 0;
 
-			if ((cur / 200 - 5) < targetlevel)
+			if((cur / 200 - 5) < targetlevel)
 				inc += 1;
 
 			// Extra experience
-			if ((cur / 100) < ridinglevel)
+			if((cur / 100) < ridinglevel)
 			{
-				if ((cur / 100 + 15) < ridinglevel)
+				if((cur / 100 + 15) < ridinglevel)
 					inc += 1 + (ridinglevel - (cur / 100 + 15));
 				else
 					inc += 1;
@@ -1375,7 +1375,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
+	if(!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1387,7 +1387,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
 		{
-			if (has_trait(attacker_ptr, TRAIT_STORM_BRINGER))
+			if(has_trait(attacker_ptr, TRAIT_STORM_BRINGER))
 			{
 				object_desc(weapon_name, &attacker_ptr->inventory[i], (OD_NAME_ONLY));
 				stormbringer = TRUE;
@@ -1396,7 +1396,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 		}
 
 		// Attack by Storm-Bringer
-		if (stormbringer)
+		if(stormbringer)
 		{
 #ifdef JP
 			msg_format("%sは強欲に%sを攻撃した！", weapon_name, target_name);
@@ -1404,12 +1404,12 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 			msg_format("%s greedily attacks %s!", weapon_name, target_name);
 #endif
 		}
-		else if (attacker_ptr->class_idx != CLASS_BERSERKER && is_player(attacker_ptr))
+		else if(attacker_ptr->class_idx != CLASS_BERSERKER && is_player(attacker_ptr))
 		{
 #ifdef JP
-			if (!get_check("本当に攻撃しますか？"))
+			if(!get_check("本当に攻撃しますか？"))
 #else
-			if (!get_check("Really hit it? "))
+			if(!get_check("Really hit it? "))
 #endif
 			{
 #ifdef JP
@@ -1427,7 +1427,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 
 static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if (target_ptr->special_defense & KATA_IAI)
+	if(target_ptr->special_defense & KATA_IAI)
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1438,7 +1438,7 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 #else
 		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
 #endif
-		if (melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
+		if(melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
 	return FALSE;
@@ -1447,7 +1447,7 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 
 static bool melee_limitation_field(floor_type *floor_ptr)
 {
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 	{
 #ifdef JP
 		msg_print("なぜか攻撃することができない。");
@@ -1507,9 +1507,9 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 		return FALSE;
 	}
 
-	if (target_ptr->see_others)
+	if(target_ptr->see_others)
 	{
-		if (!IS_HALLUCINATION(attacker_ptr)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		if(!IS_HALLUCINATION(attacker_ptr)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
 		health_track(c_ptr->creature_idx); // Track a new creature
 	}
 
@@ -1612,7 +1612,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			case MELEE_TYPE_WEAPON_6TH:
 			case MELEE_TYPE_WEAPON_7TH:
 			case MELEE_TYPE_WEAPON_8TH:
-				if (attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
+				if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
 				break;
 
 			case MELEE_TYPE_SPECIAL_1ST:
@@ -1666,7 +1666,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 
 	// Hack -- delay fear messages
-	if (fear && target_ptr->see_others && !dead)
+	if(fear && target_ptr->see_others && !dead)
 	{
 		sound(SOUND_FLEE); // Sound
 #ifdef JP
@@ -1676,7 +1676,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 #endif
 	}
 
-	if ((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
+	if((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
 	{
 		set_action(attacker_ptr, ACTION_NONE);
 	}
@@ -1698,26 +1698,26 @@ static int creature_critical(int dice, int sides, int dam)
 	int total = dice * sides;
 
 	/* Must do at least 95% of perfect */
-	if (dam < total * 19 / 20) return (0);
+	if(dam < total * 19 / 20) return (0);
 
 	/* Weak blows rarely work */
-	if ((dam < 20) && (randint0(100) >= dam)) return (0);
+	if((dam < 20) && (randint0(100) >= dam)) return (0);
 
 	/* Perfect damage */
-	if ((dam >= total) && (dam >= 40)) max++;
+	if((dam >= total) && (dam >= 40)) max++;
 
 	/* Super-charge */
-	if (dam >= 20)
+	if(dam >= 20)
 	{
 		while (randint0(100) < 2) max++;
 	}
 
 	/* Critical damage */
-	if (dam > 45) return (6 + max);
-	if (dam > 33) return (5 + max);
-	if (dam > 25) return (4 + max);
-	if (dam > 18) return (3 + max);
-	if (dam > 11) return (2 + max);
+	if(dam > 45) return (6 + max);
+	if(dam > 33) return (5 + max);
+	if(dam > 25) return (4 + max);
+	if(dam > 18) return (3 + max);
+	if(dam > 11) return (2 + max);
 	return (1 + max);
 }
 
@@ -1737,20 +1737,20 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 	/* Percentile dice */
 	k = randint0(100);
 
-	if (stun && one_in_(2)) return FALSE;
+	if(stun && one_in_(2)) return FALSE;
 
 	/* Hack -- Always miss or hit */
-	if (k < 10) return (k < 5);
+	if(k < 10) return (k < 5);
 
 	/* Calculate the "attack quality" */
 	i = (power + (level * 3));
 
 	/* Total armor */
 	ac = target_ptr->ac + target_ptr->to_ac;
-	if (target_ptr->special_attack & ATTACK_SUIKEN) ac += (target_ptr->lev * 2);
+	if(target_ptr->special_attack & ATTACK_SUIKEN) ac += (target_ptr->lev * 2);
 
 	/* Power and Level compete against Armor */
-	if ((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
+	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
 
 	/* Assume miss */
 	return (FALSE);
@@ -1857,12 +1857,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 
 	/* Not allowed to attack */
-	if (has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
+	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
 
-	if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
 
 	/* ...nor if friendly */
-	if (!is_hostile(attacker_ptr)) return FALSE;
+	if(!is_hostile(attacker_ptr)) return FALSE;
 
 	/* Extract the effective creature level */
 	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
@@ -1880,22 +1880,22 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 	/* Hack -- no more attacks */
-	if (!method) return FALSE;
+	if(!method) return FALSE;
 
-	if (is_pet(player_ptr, attacker_ptr) && (has_trait_species(r_ptr, TRAIT_UNIQUE)) && (method == RBM_EXPLODE))
+	if(is_pet(player_ptr, attacker_ptr) && (has_trait_species(r_ptr, TRAIT_UNIQUE)) && (method == RBM_EXPLODE))
 	{
 		method = RBM_HIT;
 		d_dice /= 10;
 	}
 
 	/* Stop if player is dead or gone */
-	if (!playing || IS_DEAD(target_ptr)) return FALSE;
-	if (distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
+	if(!playing || IS_DEAD(target_ptr)) return FALSE;
+	if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
 
 	/* Handle "leaving" */
-	if (subject_change_floor) return FALSE;
+	if(subject_change_floor) return FALSE;
 
-	if (method == RBM_SHOOT) return FALSE;
+	if(method == RBM_SHOOT) return FALSE;
 
 	/* Extract the attack "power" */
 	power = mbe_info[effect].power;
@@ -1904,24 +1904,24 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	ac = target_ptr->ac + target_ptr->to_ac;
 
 	/* Creature hits player */
-	if (!effect || check_hit(target_ptr, power, rlev, attacker_ptr->timed_trait[TRAIT_STUN]))
+	if(!effect || check_hit(target_ptr, power, rlev, attacker_ptr->timed_trait[TRAIT_STUN]))
 	{
 		/* Always disturbing */
 		disturb(player_ptr, 1, 0);
 
 
 		/* Hack -- Apply "protection from evil" */
-		if ((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) &&
+		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) &&
 			is_enemy_of_good_creature(target_ptr) &&
 			(target_ptr->lev >= rlev) &&
 			((randint0(100) + target_ptr->lev) > 50))
 		{
 			/* Remember the Evil-ness */
-			//TODO if (is_original_ap_and_seen(target_ptr, attacker_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
 
 			/* Message */
 #ifdef JP
-			if (abbreviate)
+			if(abbreviate)
 				msg_format("撃退した。");
 			else
 				msg_format("%^sは撃退された。", attacker_name);
@@ -2321,7 +2321,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #ifdef JP
 				abbreviate = 4;
 #endif
-				if (attacker_ptr->species_idx == SPECIES_JAIAN)
+				if(attacker_ptr->species_idx == SPECIES_JAIAN)
 				{
 #ifdef JP
 					switch(randint1(15))
@@ -2374,7 +2374,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if (one_in_(3))
+					if(one_in_(3))
 #ifdef JP
 						act = "は♪僕らは楽しい家族♪と歌っている。";
 					else
@@ -2392,9 +2392,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 
 		/* Message */
-		if (act)
+		if(act)
 		{
-			if (do_silly_attack)
+			if(do_silly_attack)
 			{
 #ifdef JP
 				abbreviate = -1;
@@ -2402,17 +2402,17 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				act = silly_attacks[randint0(MAX_SILLY_ATTACK)];
 			}
 #ifdef JP
-			if (abbreviate == 0)
+			if(abbreviate == 0)
 				msg_format("%^sは%sを%s", attacker_name, target_name, act);
-			else if (abbreviate == 1)
+			else if(abbreviate == 1)
 				msg_format("%^sは%sに%s", attacker_name, target_name, act);
-			else if (abbreviate == 2)
+			else if(abbreviate == 2)
 				msg_format("%^sは%sの%s", attacker_name, target_name, act);
-			else if (abbreviate == 3)
+			else if(abbreviate == 3)
 				msg_format("%^sは%sに向け%s", attacker_name, target_name, act);
-			else if (abbreviate == 4)
+			else if(abbreviate == 4)
 				msg_format("%^s%s", attacker_name, act);
-			else /* if (abbreviate == -1) */
+			else /* if(abbreviate == -1) */
 				msg_format("%s", act);
 			abbreviate = -1;/*２回目以降は省略 */
 #else
@@ -2430,7 +2430,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		* Skip the effect when exploding, since the explosion
 		* already causes the effect.
 		*/
-		if (explode)
+		if(explode)
 			damage = 0;
 		/* Apply appropriate damage */
 		switch (effect)
@@ -2448,7 +2448,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_SUPERHURT:
 			{
-				if (((randint1(rlev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(((randint1(rlev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 					int tmp_damage = damage - (damage * ((ac < 150) ? ac : 150) / 250);
 #ifdef JP
@@ -2481,12 +2481,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_POISON:
 			{
-				if (explode) break;
+				if(explode) break;
 
 				/* Take "poison" effect */
-				if (!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if (set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
+					if(set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
 					{
 						obvious = TRUE;
 					}
@@ -2503,13 +2503,13 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_UN_BONUS:
 			{
-				if (explode) break;
+				if(explode) break;
 
 				/* Allow complete resist */
-				if (!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 					/* Apply disenchantment */
-					if (apply_disenchant(target_ptr, 0))
+					if(apply_disenchant(target_ptr, 0))
 					{
 						/* Hack -- Update AC */
 						update_creature(target_ptr, TRUE);
@@ -2531,7 +2531,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Find an item */
 				for (k = 0; k < 10; k++)
@@ -2543,10 +2543,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if (!object_ptr->k_idx) continue;
+					if(!object_ptr->k_idx) continue;
 
 					/* Drain charged wands/staffs */
-					if (((object_ptr->tval == TV_STAFF) ||
+					if(((object_ptr->tval == TV_STAFF) ||
 						(object_ptr->tval == TV_WAND)) &&
 						(object_ptr->pval))
 					{
@@ -2573,8 +2573,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						attacker_ptr->chp += heal;
 
 						/* Redraw (later) if needed */
-						//TODO if (&magic_info[health_who] == attacker_ptr) play_redraw |= (PR_HEALTH);
-						//if (&magic_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
+						//TODO if(&magic_info[health_who] == attacker_ptr) play_redraw |= (PR_HEALTH);
+						//if(&magic_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Uncharge */
 						object_ptr->pval = 0;
@@ -2599,15 +2599,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
-				if (attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
+				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Obvious */
 				obvious = TRUE;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
-				if (!target_ptr->timed_trait[TRAIT_PARALYZED] &&
+				if(!target_ptr->timed_trait[TRAIT_PARALYZED] &&
 					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
 					target_ptr->lev)))
 				{
@@ -2620,18 +2620,18 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 					/* Occasional blink anyway */
-					if (randint0(3)) blinked = TRUE;
+					if(randint0(3)) blinked = TRUE;
 				}
 
 				/* Eat gold */
 				else
 				{
 					gold = (target_ptr->au / 10) + randint1(25);
-					if (gold < 2) gold = 2;
-					if (gold > 5000) gold = (target_ptr->au / 20) + randint1(3000);
-					if (gold > target_ptr->au) gold = target_ptr->au;
+					if(gold < 2) gold = 2;
+					if(gold > 5000) gold = (target_ptr->au / 20) + randint1(3000);
+					if(gold > target_ptr->au) gold = target_ptr->au;
 					target_ptr->au -= gold;
-					if (gold <= 0)
+					if(gold <= 0)
 					{
 #ifdef JP
 						msg_print("しかし何も盗まれなかった。");
@@ -2640,7 +2640,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 
 					}
-					else if (target_ptr->au)
+					else if(target_ptr->au)
 					{
 #ifdef JP
 						msg_print("財布が軽くなった気がする。");
@@ -2680,12 +2680,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
-				if (attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
+				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
-				if (!target_ptr->timed_trait[TRAIT_PARALYZED] &&
+				if(!target_ptr->timed_trait[TRAIT_PARALYZED] &&
 					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
 					target_ptr->lev)))
 				{
@@ -2719,10 +2719,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if (!object_ptr->k_idx) continue;
+					if(!object_ptr->k_idx) continue;
 
 					/* Skip artifacts */
-					if (object_is_artifact(object_ptr)) continue;
+					if(object_is_artifact(object_ptr)) continue;
 
 					/* Get a description */
 					object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
@@ -2742,7 +2742,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_idx = object_pop();
 
 					/* Success */
-					if (object_idx)
+					if(object_idx)
 					{
 						object_type *j_ptr;
 
@@ -2759,7 +2759,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						* maximum timeouts or charges between those
 						* stolen and those missed. -LM-
 						*/
-						if ((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
+						if((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
 						{
 							j_ptr->pval = object_ptr->pval / object_ptr->number;
 							object_ptr->pval -= j_ptr->pval;
@@ -2794,7 +2794,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Steal some food */
 				for (k = 0; k < 10; k++)
@@ -2806,10 +2806,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if (!object_ptr->k_idx) continue;
+					if(!object_ptr->k_idx) continue;
 
 					/* Skip non-food objects */
-					if ((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue;
+					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue;
 
 					/* Get a description */
 					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -2848,17 +2848,17 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Drain fuel */
-				if ((object_ptr->xtra4 > 0) && (!object_is_fixed_artifact(object_ptr)))
+				if((object_ptr->xtra4 > 0) && (!object_is_fixed_artifact(object_ptr)))
 				{
 					/* Reduce fuel */
 					object_ptr->xtra4 -= (250 + (s16b)randint1(250));
-					if (object_ptr->xtra4 < 1) object_ptr->xtra4 = 1;
+					if(object_ptr->xtra4 < 1) object_ptr->xtra4 = 1;
 
 					/* Notice */
-					if (!IS_BLIND(target_ptr))
+					if(!IS_BLIND(target_ptr))
 					{
 #ifdef JP
 						msg_print("明かりが暗くなってしまった。");
@@ -2878,7 +2878,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_ACID:
 			{
-				if (explode) break;
+				if(explode) break;
 				/* Obvious */
 				obvious = TRUE;
 
@@ -2903,7 +2903,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_ELEC:
 			{
-				if (explode) break;
+				if(explode) break;
 				/* Obvious */
 				obvious = TRUE;
 
@@ -2926,7 +2926,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_FIRE:
 			{
-				if (explode) break;
+				if(explode) break;
 				/* Obvious */
 				obvious = TRUE;
 
@@ -2949,7 +2949,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_COLD:
 			{
-				if (explode) break;
+				if(explode) break;
 				/* Obvious */
 				obvious = TRUE;
 
@@ -2975,15 +2975,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr)) break;
+				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "blind" */
-				if (!has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if (set_blind(target_ptr, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
+					if(set_blind(target_ptr, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
 					{
 #ifdef JP
-						if (attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
+						if(attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
 #else
 						/* nanka */
 #endif
@@ -2999,16 +2999,16 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_CONFUSE:
 			{
-				if (explode) break;
+				if(explode) break;
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr)) break;
+				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "confused" */
-				if (!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if (set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(rlev)))
+					if(set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(rlev)))
 					{
 						obvious = TRUE;
 					}
@@ -3025,14 +3025,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr)) break;
+				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "afraid" */
-				if ((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 					/* Do nothing */
 				}
-				else if (has_trait(target_ptr, TRAIT_FEARLESS))
+				else if(has_trait(target_ptr, TRAIT_FEARLESS))
 				{
 #ifdef JP
 					msg_print("しかし恐怖に侵されなかった！");
@@ -3042,7 +3042,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
-				else if (randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
+				else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{
 #ifdef JP
 					msg_print("しかし恐怖に侵されなかった！");
@@ -3054,7 +3054,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if (set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
+					if(set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
 					{
 						obvious = TRUE;
 					}
@@ -3071,14 +3071,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr)) break;
+				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "paralyzed" */
-				if ((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 					/* Do nothing */
 				}
-				else if (has_trait(target_ptr, TRAIT_FREE_ACTION))
+				else if(has_trait(target_ptr, TRAIT_FREE_ACTION))
 				{
 #ifdef JP
 					msg_print("しかし効果がなかった！");
@@ -3088,7 +3088,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
-				else if (randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
+				else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{
 #ifdef JP
 					msg_print("しかし効力を跳ね返した！");
@@ -3100,9 +3100,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if (!target_ptr->timed_trait[TRAIT_PARALYZED])
+					if(!target_ptr->timed_trait[TRAIT_PARALYZED])
 					{
-						if (set_paralyzed(target_ptr, 3 + randint1(rlev)))
+						if(set_paralyzed(target_ptr, 3 + randint1(rlev)))
 						{
 							obvious = TRUE;
 						}
@@ -3120,10 +3120,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stat) */
-				if (do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
 
 				break;
 			}
@@ -3133,10 +3133,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stat) */
-				if (do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
 
 				break;
 			}
@@ -3146,10 +3146,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stat) */
-				if (do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
 
 				break;
 			}
@@ -3159,10 +3159,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stat) */
-				if (do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
 
 				break;
 			}
@@ -3172,10 +3172,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stat) */
-				if (do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
 
 				break;
 			}
@@ -3185,10 +3185,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stat) */
-				if (do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
 
 				break;
 			}
@@ -3198,15 +3198,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Damage (stats) */
-				if (do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
-				if (do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
-				if (do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
-				if (do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
-				if (do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
-				if (do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
+				if(do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
 
 				break;
 			}
@@ -3223,7 +3223,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Radius 8 earthquake centered at the creature */
-				if (damage > 23 || explode)
+				if(damage > 23 || explode)
 				{
 					//TODO earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 				}
@@ -3241,7 +3241,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				(void)drain_exp(target_ptr, d, d / 10, 95);
 				break;
@@ -3257,7 +3257,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				(void)drain_exp(target_ptr, d, d / 10, 90);
 				break;
@@ -3273,7 +3273,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				(void)drain_exp(target_ptr, d, d / 10, 75);
 				break;
@@ -3289,7 +3289,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				(void)drain_exp(target_ptr, d, d / 10, 50);
 				break;
@@ -3300,23 +3300,23 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Take "poison" effect */
-				if (!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
+				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 				{
-					if (set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
+					if(set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
 					{
 						obvious = TRUE;
 					}
 				}
 
 				/* Damage CON (10% chance)*/
-				if ((randint1(100) < 11) && !has_trait(target_ptr, TRAIT_ANDROID))
+				if((randint1(100) < 11) && !has_trait(target_ptr, TRAIT_ANDROID))
 				{
 					/* 1% chance for perm. damage */
 					bool perm = one_in_(10);
-					if (dec_stat(target_ptr, STAT_CON, randint1(10), perm))
+					if(dec_stat(target_ptr, STAT_CON, randint1(10), perm))
 					{
 #ifdef JP
 						msg_print("病があなたを蝕んでいる気がする。");
@@ -3332,14 +3332,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 		case RBE_TIME:
 			{
-				if (explode) break;
-				if (!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(explode) break;
+				if(!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 					switch (randint1(10))
 					{
 					case 1: case 2: case 3: case 4: case 5:
 						{
-							if (has_trait(target_ptr, TRAIT_ANDROID)) break;
+							if(has_trait(target_ptr, TRAIT_ANDROID)) break;
 #ifdef JP
 							msg_print("人生が逆戻りした気がする。");
 #else
@@ -3382,7 +3382,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 							target_ptr->stat_cur[stat] = (target_ptr->stat_cur[stat] * 3) / 4;
-							if (target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
+							if(target_ptr->stat_cur[stat] < 3) target_ptr->stat_cur[stat] = 3;
 							target_ptr->creature_update |= (CRU_BONUS);
 							break;
 						}
@@ -3399,7 +3399,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 							for (k = 0; k < STAT_MAX; k++)
 							{
 								target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
-								if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+								if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 							}
 							target_ptr->creature_update |= (CRU_BONUS);
 							break;
@@ -3421,7 +3421,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if (IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
@@ -3432,22 +3432,22 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					break;
 				}
 
-				if ((damage > 5) && !resist_drain)
+				if((damage > 5) && !resist_drain)
 				{
 					bool did_heal = FALSE;
 
-					if (attacker_ptr->chp < attacker_ptr->mhp) did_heal = TRUE;
+					if(attacker_ptr->chp < attacker_ptr->mhp) did_heal = TRUE;
 
 					/* Heal */
 					attacker_ptr->chp += diceroll(4, damage / 6);
-					if (attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
+					if(attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
 
 					/* Redraw (later) if needed */
-					//TODO if (health_who == m_idx) play_redraw |= (PR_HEALTH);
-					//TODO if (target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
+					//TODO if(health_who == m_idx) play_redraw |= (PR_HEALTH);
+					//TODO if(target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 					/* Special message */
-					if (attacker_ptr->see_others && did_heal)
+					if(attacker_ptr->see_others && did_heal)
 					{
 #ifdef JP
 						msg_format("%sは体力を回復したようだ。", attacker_name);
@@ -3465,7 +3465,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				if ((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
@@ -3479,7 +3479,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					/* Take damage */
 					target_ptr->csp -= damage;
-					if (target_ptr->csp < 0)
+					if(target_ptr->csp < 0)
 					{
 						target_ptr->csp = 0;
 						target_ptr->csp_frac = 0;
@@ -3496,10 +3496,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 
 		/* Hack -- only one of cut or stun */
-		if (do_cut && do_stun)
+		if(do_cut && do_stun)
 		{
 			/* Cancel cut */
-			if (randint0(100) < 50)
+			if(randint0(100) < 50)
 			{
 				do_cut = 0;
 			}
@@ -3512,7 +3512,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 
 		/* Handle cut */
-		if (do_cut)
+		if(do_cut)
 		{
 			int k = 0;
 
@@ -3533,11 +3533,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the cut */
-			if (k) (void)set_cut(target_ptr, IS_WOUND(target_ptr) + k);
+			if(k) (void)set_cut(target_ptr, IS_WOUND(target_ptr) + k);
 		}
 
 		/* Handle stun */
-		if (do_stun)
+		if(do_stun)
 		{
 			int k = 0;
 
@@ -3558,10 +3558,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the stun */
-			if (k) (void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
+			if(k) (void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
 		}
 
-		if (explode)
+		if(explode)
 		{
 			sound(SOUND_EXPLODE);
 
@@ -3573,11 +3573,11 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 		}
 
-		if (touched)
+		if(touched)
 		{
-			if (has_trait(target_ptr, TRAIT_AURA_FIRE) && !*dead && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_FIRE) && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, TRAIT_RES_SHAR))
+				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3599,14 +3599,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					//if (is_original_ap_and_seen(target_ptr, attacker_ptr))
+					//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
 					//TODO 	r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 				}
 			}
 
-			if (has_trait(target_ptr, TRAIT_AURA_ELEC) && !*dead && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_ELEC) && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, TRAIT_RES_ELEC))
+				if(!has_trait(attacker_ptr, TRAIT_RES_ELEC))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3628,14 +3628,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					//TODO if (is_original_ap_and_seen(target_ptr, attacker_ptr))
+					//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr))
 					//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
 				}
 			}
 
-			if (has_trait(target_ptr, TRAIT_AURA_COLD) && !*dead && !IS_DEAD(target_ptr))
+			if(has_trait(target_ptr, TRAIT_AURA_COLD) && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, TRAIT_RES_COLD))
+				if(!has_trait(attacker_ptr, TRAIT_RES_COLD))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3657,15 +3657,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					//TODO if (is_original_ap_and_seen(target_ptr, attacker_ptr))
+					//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr))
 					//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
 				}
 			}
 
 			/* by henkma */
-			if (target_ptr->timed_trait[TRAIT_DUST_ROBE] && !*dead && !IS_DEAD(target_ptr))
+			if(target_ptr->timed_trait[TRAIT_DUST_ROBE] && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, TRAIT_RES_SHAR))
+				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3687,21 +3687,21 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					//if (is_original_ap_and_seen(target_ptr, attacker_ptr))
+					//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
 					//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
 				}
 
-				if (is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
+				if(is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
 				{
 					teleport_player(target_ptr, 10, 0L);
 				}
 			}
 
-			if (target_ptr->timed_trait[TRAIT_HOLY_AURA] && !*dead && !IS_DEAD(target_ptr))
+			if(target_ptr->timed_trait[TRAIT_HOLY_AURA] && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (is_enemy_of_good_creature(target_ptr))
+				if(is_enemy_of_good_creature(target_ptr))
 				{
-					if (!has_trait(attacker_ptr, TRAIT_RES_ALL))
+					if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 					{
 						int dam = diceroll(2, 6);
 
@@ -3729,9 +3729,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (target_ptr->timed_trait[TRAIT_AURA_MANA] && !*dead && !IS_DEAD(target_ptr))
+			if(target_ptr->timed_trait[TRAIT_AURA_MANA] && !*dead && !IS_DEAD(target_ptr))
 			{
-				if (!has_trait(attacker_ptr, TRAIT_RES_ALL))
+				if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{
 					int dam = diceroll(2, 6);
 
@@ -3757,14 +3757,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if (hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
+			if(hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
 			{
 				int dam = 1;
 				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
 
-				if (!has_trait(attacker_ptr, TRAIT_RES_DARK))
+				if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
 				{
-					if (object_ptr->k_idx)
+					if(object_ptr->k_idx)
 					{
 						int basedam = ((object_ptr->dd + target_ptr->to_damaged[0]) * (object_ptr->ds + target_ptr->to_damages[0] + 1));
 						dam = basedam / 2 + object_ptr->to_damage + target_ptr->to_damage[0];
@@ -3772,7 +3772,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					/* Cursed armor makes damages doubled */
 					object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 1);
-					if ((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
+					if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
 
 					/* Modify the damage */
 					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
@@ -3805,7 +3805,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					for (j = 0; j < 4; j++)
 					{
 					object_ptr = &target_ptr->inventory[typ[j][0]];
-					if ((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
+					if((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
 					project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
 					}
 					}
@@ -3843,14 +3843,14 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBM_CHARGE:
 
 			/* Visible creatures */
-			if (attacker_ptr->see_others)
+			if(attacker_ptr->see_others)
 			{
 				/* Disturbing */
 				disturb(player_ptr, 1, 0);
 
 				/* Message */
 #ifdef JP
-				if (abbreviate)
+				if(abbreviate)
 					msg_format("%sかわした。", (target_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "");
 				else
 					msg_format("%s%^sの攻撃をかわした。", (target_ptr->special_attack & ATTACK_SUIKEN) ? "奇妙な動きで" : "", attacker_name);
@@ -3868,24 +3868,24 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 	/* Analyze "visible" creatures only */
-	if (is_original_ap_and_seen(target_ptr, attacker_ptr) && !do_silly_attack)
+	if(is_original_ap_and_seen(target_ptr, attacker_ptr) && !do_silly_attack)
 	{
 		/* Count "obvious" attacks (and ones that cause damage) */
-		if (obvious || damage || (r_ptr->r_blows[ap_cnt] > 10))
+		if(obvious || damage || (r_ptr->r_blows[ap_cnt] > 10))
 		{
 			/* Count attacks of this type */
-			if (r_ptr->r_blows[ap_cnt] < MAX_UCHAR)
+			if(r_ptr->r_blows[ap_cnt] < MAX_UCHAR)
 			{
 				r_ptr->r_blows[ap_cnt]++;
 			}
 		}
 	}
 
-	if (target_ptr->riding && damage)
+	if(target_ptr->riding && damage)
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
-		if (do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
+		if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 		{
 #ifdef JP
 			msg_format("%^sから落ちてしまった！", attacker_name);
@@ -3895,15 +3895,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 	}
 
-	if (target_ptr->special_defense & NINJA_KAWARIMI)
+	if(target_ptr->special_defense & NINJA_KAWARIMI)
 	{
-		if (kawarimi(target_ptr, FALSE)) return TRUE;
+		if(kawarimi(target_ptr, FALSE)) return TRUE;
 	}
 
 	/* Hex - revenge damage stored */
 	revenge_store(target_ptr, get_damage);
 
-	if ((target_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(target_ptr, HEX_EYE_FOR_EYE))
+	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(target_ptr, HEX_EYE_FOR_EYE))
 		&& get_damage > 0 && !IS_DEAD(target_ptr))
 	{
 #ifdef JP
@@ -3917,10 +3917,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
 		project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if (target_ptr->timed_trait[TRAIT_EYE_EYE]) set_tim_eyeeye(target_ptr, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_tim_eyeeye(target_ptr, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
-	if ((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
+	if((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, attacker_ptr, 0);
@@ -3939,9 +3939,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	}
 
 	/* Blink away */
-	if (blinked && !*dead && !IS_DEAD(target_ptr))
+	if(blinked && !*dead && !IS_DEAD(target_ptr))
 	{
-		if (teleport_barrier(target_ptr, attacker_ptr))
+		if(teleport_barrier(target_ptr, attacker_ptr))
 		{
 #ifdef JP
 			msg_print("泥棒は笑って逃げ...ようとしたがバリアに防がれた。");
@@ -3962,12 +3962,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 	/* Always notice cause of death */
-	if (IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
+	if(IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
 	{
 		r_ptr->r_deaths++;
 	}
 
-	if (target_ptr->special_defense & KATA_IAI)
+	if(target_ptr->special_defense & KATA_IAI)
 	{
 		set_action(target_ptr, ACTION_NONE);
 	}
@@ -3998,7 +3998,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(100 * target_ptr->chp / target_ptr->mhp < 10) prob = prob * 3 / 2; 
 		if(prob > 95) prob = 95;
 
-		if (attacker_ptr->size > target_ptr->size && randint0(100) < prob)
+		if(attacker_ptr->size > target_ptr->size && randint0(100) < prob)
 		{
 			int k;
 #ifdef JP
@@ -4008,7 +4008,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 #endif
 			k = diceroll(attacker_ptr->size - target_ptr->size, attacker_ptr->size - target_ptr->size);
 			take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
-			if (wizard)
+			if(wizard)
 			{
 				msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
 			}

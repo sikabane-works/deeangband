@@ -34,19 +34,19 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 
 	creature_type *t_ptr;
 
-	if (riding_t_m_idx && creature_bold(creature_ptr, m_ptr->fy, m_ptr->fx))
+	if(riding_t_m_idx && creature_bold(creature_ptr, m_ptr->fy, m_ptr->fx))
 	{
 		y = creature_list[riding_t_m_idx].fy;
 		x = creature_list[riding_t_m_idx].fx;
 	}
-	else if (is_pet(player_ptr, m_ptr) && pet_t_m_idx)
+	else if(is_pet(player_ptr, m_ptr) && pet_t_m_idx)
 	{
 		y = creature_list[pet_t_m_idx].fy;
 		x = creature_list[pet_t_m_idx].fx;
 	}
 	else
 	{
-		if (floor_ptr->gamble_arena_mode)
+		if(floor_ptr->gamble_arena_mode)
 		{
 			start = randint1(creature_max-1) + creature_max;
 			if(randint0(2)) plus = -1;
@@ -58,50 +58,50 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 		{
 			int dummy = (i % creature_max);
 
-			if (!dummy) continue;
+			if(!dummy) continue;
 
 			t_idx = dummy;
 			t_ptr = &creature_list[t_idx];
 
 			/* The creature itself isn't a target */
-			if (t_ptr == m_ptr) continue;
+			if(t_ptr == m_ptr) continue;
 
 			/* Paranoia -- Skip dead creatures */
-			if (!t_ptr->species_idx) continue;
+			if(!t_ptr->species_idx) continue;
 
-			if (is_pet(player_ptr, m_ptr))
+			if(is_pet(player_ptr, m_ptr))
 			{
 				/* Hack -- only fight away from player */
-				if (creature_ptr->pet_follow_distance < 0)
+				if(creature_ptr->pet_follow_distance < 0)
 				{
 					/* No fighting near player */
-					if (t_ptr->cdis <= (0 - creature_ptr->pet_follow_distance))
+					if(t_ptr->cdis <= (0 - creature_ptr->pet_follow_distance))
 					{
 						continue;
 					}
 				}
 				/* Hack -- no fighting away from player */
-				else if ((m_ptr->cdis < t_ptr->cdis) &&
+				else if((m_ptr->cdis < t_ptr->cdis) &&
 							(t_ptr->cdis > creature_ptr->pet_follow_distance))
 				{
 					continue;
 				}
 
-				if (r_ptr->aaf < t_ptr->cdis) continue;
+				if(r_ptr->aaf < t_ptr->cdis) continue;
 			}
 
 			/* Creature must be 'an enemy' */
-			if (!are_mutual_enemies(m_ptr, t_ptr)) continue;
+			if(!are_mutual_enemies(m_ptr, t_ptr)) continue;
 
 			/* Creature must be projectable if we can't pass through walls */
-			if ((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || has_trait(creature_ptr, TRAIT_PASS_WALL))) ||
+			if((has_trait(m_ptr, TRAIT_PASS_WALL) && ((m_idx != creature_ptr->riding) || has_trait(creature_ptr, TRAIT_PASS_WALL))) ||
 			    (has_trait(m_ptr, TRAIT_KILL_WALL) && (m_idx != creature_ptr->riding)))
 			{
-				if (!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+				if(!in_disintegration_range(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
 			else
 			{
-				if (!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+				if(!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
 
 			/* OK -- we've got a target */
@@ -110,7 +110,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 
 			break;
 		}
-		if (!x && !y) return FALSE;
+		if(!x && !y) return FALSE;
 	}
 
 	/* Extract the direction */
@@ -118,56 +118,56 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 	y -= m_ptr->fy;
 
 	/* North */
-	if ((y < 0) && (x == 0))
+	if((y < 0) && (x == 0))
 	{
 		mm[0] = 8;
 		mm[1] = 7;
 		mm[2] = 9;
 	}
 	/* South */
-	else if ((y > 0) && (x == 0))
+	else if((y > 0) && (x == 0))
 	{
 		mm[0] = 2;
 		mm[1] = 1;
 		mm[2] = 3;
 	}
 	/* East */
-	else if ((x > 0) && (y == 0))
+	else if((x > 0) && (y == 0))
 	{
 		mm[0] = 6;
 		mm[1] = 9;
 		mm[2] = 3;
 	}
 	/* West */
-	else if ((x < 0) && (y == 0))
+	else if((x < 0) && (y == 0))
 	{
 		mm[0] = 4;
 		mm[1] = 7;
 		mm[2] = 1;
 	}
 	/* North-West */
-	else if ((y < 0) && (x < 0))
+	else if((y < 0) && (x < 0))
 	{
 		mm[0] = 7;
 		mm[1] = 4;
 		mm[2] = 8;
 	}
 	/* North-East */
-	else if ((y < 0) && (x > 0))
+	else if((y < 0) && (x > 0))
 	{
 		mm[0] = 9;
 		mm[1] = 6;
 		mm[2] = 8;
 	}
 	/* South-West */
-	else if ((y > 0) && (x < 0))
+	else if((y > 0) && (x < 0))
 	{
 		mm[0] = 1;
 		mm[1] = 4;
 		mm[2] = 2;
 	}
 	/* South-East */
-	else if ((y > 0) && (x > 0))
+	else if((y > 0) && (x > 0))
 	{
 		mm[0] = 3;
 		mm[1] = 6;
@@ -204,7 +204,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	u32b p_val, m_val;
 
 	/* Friends can be commanded to avoid the player */
-	if (is_pet(player_ptr, m_ptr))
+	if(is_pet(player_ptr, m_ptr))
 	{
 		/* Are we trying to avoid the player? */
 		return ((creature_ptr->pet_follow_distance < 0) &&
@@ -212,13 +212,13 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Keep creatures from running too far away */
-	if (m_ptr->cdis > MAX_SIGHT + 5) return (FALSE);
+	if(m_ptr->cdis > MAX_SIGHT + 5) return (FALSE);
 
 	/* All "afraid" creatures will run away */
-	if (m_ptr->timed_trait[TRAIT_AFRAID]) return (TRUE);
+	if(m_ptr->timed_trait[TRAIT_AFRAID]) return (TRUE);
 
 	/* Nearby creatures will not become terrified */
-	if (m_ptr->cdis <= 5) return (FALSE);
+	if(m_ptr->cdis <= 5) return (FALSE);
 
 	/* Examine player power (level) */
 	p_lev = creature_ptr->lev;
@@ -227,8 +227,8 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	m_lev = r_ptr->level + (m_idx & 0x08) + 25;
 
 	/* Optimize extreme cases below */
-	if (m_lev > p_lev + 4) return (FALSE);
-	if (m_lev + 4 <= p_lev) return (TRUE);
+	if(m_lev > p_lev + 4) return (FALSE);
+	if(m_lev + 4 <= p_lev) return (TRUE);
 
 	/* Examine player health */
 	p_chp = creature_ptr->chp;
@@ -243,7 +243,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	m_val = (m_lev * m_mhp) + (m_chp << 2); /* div m_mhp */
 
 	/* Strong players scare strong creatures */
-	if (p_val * m_mhp > m_val * p_mhp) return (TRUE);
+	if(p_val * m_mhp > m_val * p_mhp) return (TRUE);
 
 	/* Assume no terror */
 	return (FALSE);
@@ -268,14 +268,14 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	x1 = creature_ptr->fx;
 
 	/* Creature can already cast spell to player */
-	if (projectable(floor_ptr, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
+	if(projectable(floor_ptr, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
 	now_cost = floor_ptr->cave[y1][x1].cost;
-	if (now_cost == 0) now_cost = 999;
+	if(now_cost == 0) now_cost = 999;
 
 	/* Can creature bash or open doors? */
-	if (has_trait(creature_ptr, TRAIT_BASH_DOOR) || has_trait(creature_ptr, TRAIT_OPEN_DOOR))
+	if(has_trait(creature_ptr, TRAIT_BASH_DOOR) || has_trait(creature_ptr, TRAIT_OPEN_DOOR))
 	{
 		can_open_door = TRUE;
 	}
@@ -290,32 +290,32 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(floor_ptr, y, x)) continue;
+		if(!in_bounds2(floor_ptr, y, x)) continue;
 
 		/* Simply move to player */
-		if (creature_bold(player_ptr, y, x)) return (FALSE);
+		if(creature_bold(player_ptr, y, x)) return (FALSE);
 
 		c_ptr = &floor_ptr->cave[y][x];
 
 		cost = c_ptr->cost;
 
 		/* Creature cannot kill or pass walls */
-		if (!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL))) ||
+		if(!((has_trait(creature_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL))) ||
 			  (has_trait(creature_ptr, TRAIT_KILL_WALL) && (m_idx != player_ptr->riding))))
 		{
-			if (cost == 0) continue;
-			if (!can_open_door && is_closed_door(c_ptr->feat)) continue;
+			if(cost == 0) continue;
+			if(!can_open_door && is_closed_door(c_ptr->feat)) continue;
 		}
 
 		/* Hack -- for kill or pass wall creature.. */
-		if (cost == 0) cost = 998;
+		if(cost == 0) cost = 998;
 
-		if (now_cost < cost) continue;
+		if(now_cost < cost) continue;
 
-		if (!projectable(floor_ptr, x, y, player_ptr->fy, player_ptr->fx)) continue;
+		if(!projectable(floor_ptr, x, y, player_ptr->fy, player_ptr->fx)) continue;
 
 		/* Accept louder sounds */
-		if (best < cost) continue;
+		if(best < cost) continue;
 		best = cost;
 
 		(*yp) = y1 + ddy_ddd[i];
@@ -323,7 +323,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	}
 
 	/* No legal move (?) */
-	if (best == 999) return (FALSE);
+	if(best == 999) return (FALSE);
 
 	/* Success */
 	return (TRUE);
@@ -364,40 +364,40 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
 
 	/* Can creature cast attack spell? */
-	if (has_attack_skill_flags(&r_ptr->flags))
+	if(has_attack_skill_flags(&r_ptr->flags))
 	{
 		/* Can move spell castable grid? */
-		if (get_moves_aux2(m_idx, yp, xp)) return (TRUE);
+		if(get_moves_aux2(m_idx, yp, xp)) return (TRUE);
 	}
 
 	/* Creature can't flow */
-	if (no_flow) return (FALSE);
+	if(no_flow) return (FALSE);
 
 	/* Creature can go through rocks */
-	if (has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return (FALSE);
-	if (has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
+	if(has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return (FALSE);
+	if(has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
 
 	/* Creature location */
 	y1 = nonplayer_ptr->fy;
 	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
-	if (player_has_los_bold(y1, x1) && projectable(floor_ptr, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
+	if(player_has_los_bold(y1, x1) && projectable(floor_ptr, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
 	/* Creature grid */
 	c_ptr = &floor_ptr->cave[y1][x1];
 
 	/* If we can hear noises, advance towards them */
-	if (c_ptr->cost)
+	if(c_ptr->cost)
 	{
 		best = 999;
 	}
 
 	/* Otherwise, try to follow a scent trail */
-	else if (c_ptr->when)
+	else if(c_ptr->when)
 	{
 		/* Too old smell */
-		if (floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
+		if(floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
 
 		use_scent = TRUE;
 		best = 0;
@@ -417,17 +417,17 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		x = x1 + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(floor_ptr, y, x)) continue;
+		if(!in_bounds2(floor_ptr, y, x)) continue;
 
 		c_ptr = &floor_ptr->cave[y][x];
 
 		/* We're following a scent trail */
-		if (use_scent)
+		if(use_scent)
 		{
 			int when = c_ptr->when;
 
 			/* Accept younger scent */
-			if (best > when) continue;
+			if(best > when) continue;
 			best = when;
 		}
 
@@ -436,12 +436,12 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 		{
 			int cost;
 
-			if (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) || has_trait(nonplayer_ptr, TRAIT_BASH_DOOR))
+			if(has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) || has_trait(nonplayer_ptr, TRAIT_BASH_DOOR))
 				cost = c_ptr->dist;
 			else cost = c_ptr->cost;
 
 			/* Accept louder sounds */
-			if ((cost == 0) || (best < cost)) continue;
+			if((cost == 0) || (best < cost)) continue;
 			best = cost;
 		}
 
@@ -451,7 +451,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	}
 
 	/* No legal move (?) */
-	if (best == 999 || best == 0) return (FALSE);
+	if(best == 999 || best == 0) return (FALSE);
 
 	/* Success */
 	return (TRUE);
@@ -492,10 +492,10 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 		x = fx + ddx_ddd[i];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(floor_ptr, y, x)) continue;
+		if(!in_bounds2(floor_ptr, y, x)) continue;
 
 		/* Don't move toward player */
-		/* if (floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
+		/* if(floor_ptr->cave[y][x].dist < 3) continue; */ /* Hmm.. Need it? */
 
 		/* Calculate distance of this grid from our destination */
 		dis = distance(y, x, y1, x1);
@@ -504,10 +504,10 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 		s = 5000 / (dis + 3) - 500 / (floor_ptr->cave[y][x].dist + 1);
 
 		/* No negative scores */
-		if (s < 0) s = 0;
+		if(s < 0) s = 0;
 
 		/* Ignore lower scores */
-		if (s < score) continue;
+		if(s < score) continue;
 
 		/* Save the score and time */
 		score = s;
@@ -518,7 +518,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	}
 
 	/* No legal move (?) */
-	if (score == -1) return (FALSE);
+	if(score == -1) return (FALSE);
 
 	/* Find deltas */
 	(*yp) = fy - gy;
@@ -708,31 +708,31 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if (!in_bounds(floor_ptr, y, x)) continue;
+			if(!in_bounds(floor_ptr, y, x)) continue;
 
 			c_ptr = &floor_ptr->cave[y][x];
 
 			/* Skip locations in a wall */
-			if (!creature_can_cross_terrain(m_ptr, c_ptr->feat, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
+			if(!creature_can_cross_terrain(m_ptr, c_ptr->feat, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if creatures can flow) */
-			if (!(m_ptr->mflag2 & MFLAG2_NOFLOW))
+			if(!(m_ptr->mflag2 & MFLAG2_NOFLOW))
 			{
 				/* Ignore grids very far from the player */
-				if (c_ptr->dist == 0) continue;
+				if(c_ptr->dist == 0) continue;
 
 				/* Ignore too-distant grids */
-				if (c_ptr->dist > floor_ptr->cave[fy][fx].dist + 2 * d) continue;
+				if(c_ptr->dist > floor_ptr->cave[fy][fx].dist + 2 * d) continue;
 			}
 
 			/* Check for absence of shot (more or less) */
-			if (!projectable(floor_ptr, avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
+			if(!projectable(floor_ptr, avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, avoid_target_ptr->fy, avoid_target_ptr->fx);
 
 				/* Remember if further than previous */
-				if (dis > gdis)
+				if(dis > gdis)
 				{
 					gy = y;
 					gx = x;
@@ -742,7 +742,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 		}
 
 		/* Check for success */
-		if (gdis > 0)
+		if(gdis > 0)
 		{
 			/* Good location */
 			(*yp) = fy - gy;
@@ -796,19 +796,19 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			x = fx + dx;
 
 			/* Skip illegal locations */
-			if (!in_bounds(floor_ptr, y, x)) continue;
+			if(!in_bounds(floor_ptr, y, x)) continue;
 
 			/* Skip occupied locations */
-			if (!creature_can_enter(y, x, m_ptr, 0)) continue;
+			if(!creature_can_enter(y, x, m_ptr, 0)) continue;
 
 			/* Check for hidden, available grid */
-			if (!projectable(floor_ptr, player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
+			if(!projectable(floor_ptr, player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, player_ptr->fy, player_ptr->fx);
 
 				/* Remember if closer than previous */
-				if (dis < gdis && dis >= 2)
+				if(dis < gdis && dis >= 2)
 				{
 					gy = y;
 					gx = x;
@@ -818,7 +818,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 		}
 
 		/* Check for success */
-		if (gdis < 999)
+		if(gdis < 999)
 		{
 			/* Good location */
 			(*yp) = fy - gy;
@@ -852,12 +852,12 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL)));
 
 	/* Counter attack to an enemy creature */
-	if (!will_run && nonplayer_ptr->target_y)
+	if(!will_run && nonplayer_ptr->target_y)
 	{
 		int t_m_idx = floor_ptr->cave[nonplayer_ptr->target_y][nonplayer_ptr->target_x].creature_idx;
 
 		/* The creature must be an enemy, and in LOS */
-		if (t_m_idx &&
+		if(t_m_idx &&
 		    are_mutual_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
 		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
 		    projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
@@ -869,7 +869,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		}
 	}
 
-	if (!done && !will_run && is_hostile(nonplayer_ptr) && has_trait(nonplayer_ptr, TRAIT_FRIENDS) &&
+	if(!done && !will_run && is_hostile(nonplayer_ptr) && has_trait(nonplayer_ptr, TRAIT_FRIENDS) &&
 	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
 	    (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
@@ -877,7 +877,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	 * Animal packs try to get the player out of corridors
 	 * (...unless they can move through walls -- TY)
 	 */
-		if (has_trait(nonplayer_ptr, TRAIT_ANIMAL) && !can_pass_wall &&
+		if(has_trait(nonplayer_ptr, TRAIT_ANIMAL) && !can_pass_wall &&
 			 !has_trait(nonplayer_ptr, TRAIT_BASH_DOOR))
 		{
 			int i, room = 0;
@@ -888,12 +888,12 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				int xx = player_ptr->fx + ddx_ddd[i];
 				int yy = player_ptr->fy + ddy_ddd[i];
 
-				if (!in_bounds2(floor_ptr, yy, xx)) continue;
+				if(!in_bounds2(floor_ptr, yy, xx)) continue;
 
 				c_ptr = &floor_ptr->cave[yy][xx];
 
 				/* Check grid */
-				if (creature_can_cross_terrain(player_ptr, c_ptr->feat, 0))
+				if(creature_can_cross_terrain(player_ptr, c_ptr->feat, 0))
 				{
 					/* One more room grid */
 					room++;
@@ -901,21 +901,21 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			}
 
 			/* TODO
-			if (floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
-			if (!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
+			if(floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
+			if(!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
 			*/
 
 			/* Not in a room and strong player */
-			if (room < (8 * (player_ptr->chp + player_ptr->csp)) /
+			if(room < (8 * (player_ptr->chp + player_ptr->csp)) /
 			    (player_ptr->mhp + player_ptr->msp))
 			{
 				/* Find hiding place */
-				if (find_hiding(player_ptr, m_idx, &y, &x)) done = TRUE;
+				if(find_hiding(player_ptr, m_idx, &y, &x)) done = TRUE;
 			}
 		}
 
 		/* Creature groups try to surround the player */
-		if (!done && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
+		if(!done && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < 3))
 		{
 			int i;
 
@@ -927,7 +927,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 				x2 = player_ptr->fx + ddx_ddd[(m_idx + i) & 7];
 
 				/* Already there? */
-				if ((nonplayer_ptr->fy == y2) && (nonplayer_ptr->fx == x2))
+				if((nonplayer_ptr->fy == y2) && (nonplayer_ptr->fx == x2))
 				{
 					/* Attack the player */
 					y2 = player_ptr->fy;
@@ -936,10 +936,10 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 					break;
 				}
 
-				if (!in_bounds2(floor_ptr, y2, x2)) continue;
+				if(!in_bounds2(floor_ptr, y2, x2)) continue;
 
 				/* Ignore filled grids */
-				if (!creature_can_enter(y2, x2, nonplayer_ptr, 0)) continue;
+				if(!creature_can_enter(y2, x2, nonplayer_ptr, 0)) continue;
 
 				/* Try to fill this hole */
 				break;
@@ -954,7 +954,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		}
 	}
 
-	if (!done)
+	if(!done)
 
 	{
 		/* Flow towards the player */
@@ -968,30 +968,30 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	/* Apply fear if possible and necessary */
-	if (is_pet(player_ptr, nonplayer_ptr) && will_run)
+	if(is_pet(player_ptr, nonplayer_ptr) && will_run)
 	{
 		/* XXX XXX Not very "smart" */
 		y = (-y), x = (-x);
 	}
 	else
 	{
-		if (!done && will_run)
+		if(!done && will_run)
 		{
 			int tmp_x = (-x);
 			int tmp_y = (-y);
 
 			/* Try to find safe place */
-			if (find_safety(player_ptr, m_idx, &y, &x))
+			if(find_safety(player_ptr, m_idx, &y, &x))
 			{
 				/* Attempt to avoid the player */
-				if (!no_flow)
+				if(!no_flow)
 				{
 					/* Adjust movement */
-					if (get_fear_moves_aux(m_idx, &y, &x)) done = TRUE;
+					if(get_fear_moves_aux(m_idx, &y, &x)) done = TRUE;
 				}
 			}
 
-			if (!done)
+			if(!done)
 			{
 				/* This is not a very "smart" method XXX XXX */
 				y = tmp_y;
@@ -1002,7 +1002,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 
 	/* Check for no move */
-	if (!x && !y) return (FALSE);
+	if(!x && !y) return (FALSE);
 
 
 	/* Extract the "absolute distances" */
@@ -1010,19 +1010,19 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	ay = ABS(y);
 
 	/* Do something weird */
-	if (y < 0) move_val += 8;
-	if (x > 0) move_val += 4;
+	if(y < 0) move_val += 8;
+	if(x > 0) move_val += 4;
 
 	/* Prevent the diamond maneuvre */
-	if (ay > (ax << 1)) move_val += 2;
-	else if (ax > (ay << 1)) move_val++;
+	if(ay > (ax << 1)) move_val += 2;
+	else if(ax > (ay << 1)) move_val++;
 
 	/* Extract some directions */
 	switch (move_val)
 	{
 	case 0:
 		mm[0] = 9;
-		if (ay > ax)
+		if(ay > ax)
 		{
 			mm[1] = 8;
 			mm[2] = 6;
@@ -1040,7 +1040,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	case 1:
 	case 9:
 		mm[0] = 6;
-		if (y < 0)
+		if(y < 0)
 		{
 			mm[1] = 3;
 			mm[2] = 9;
@@ -1058,7 +1058,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	case 2:
 	case 6:
 		mm[0] = 8;
-		if (x < 0)
+		if(x < 0)
 		{
 			mm[1] = 9;
 			mm[2] = 7;
@@ -1075,7 +1075,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		break;
 	case 4:
 		mm[0] = 7;
-		if (ay > ax)
+		if(ay > ax)
 		{
 			mm[1] = 8;
 			mm[2] = 4;
@@ -1093,7 +1093,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	case 5:
 	case 13:
 		mm[0] = 4;
-		if (y < 0)
+		if(y < 0)
 		{
 			mm[1] = 1;
 			mm[2] = 7;
@@ -1110,7 +1110,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		break;
 	case 8:
 		mm[0] = 3;
-		if (ay > ax)
+		if(ay > ax)
 		{
 			mm[1] = 2;
 			mm[2] = 6;
@@ -1128,7 +1128,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	case 10:
 	case 14:
 		mm[0] = 2;
-		if (x < 0)
+		if(x < 0)
 		{
 			mm[1] = 3;
 			mm[2] = 1;
@@ -1145,7 +1145,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		break;
 	case 12:
 		mm[0] = 1;
-		if (ay > ax)
+		if(ay > ax)
 		{
 			mm[1] = 2;
 			mm[2] = 4;
@@ -1174,16 +1174,16 @@ static int check_hit2(int power, int level, int ac, int stun)
 	/* Percentile dice */
 	k = randint0(100);
 
-	if (stun && one_in_(2)) return FALSE;
+	if(stun && one_in_(2)) return FALSE;
 
 	/* Hack -- Always miss or hit */
-	if (k < 10) return (k < 5);
+	if(k < 10) return (k < 5);
 
 	/* Calculate the "attack quality" */
 	i = (power + (level * 3));
 
 	/* Power and Level compete against Armor */
-	if ((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
+	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
 
 	/* Assume miss */
 	return (FALSE);
@@ -1209,7 +1209,7 @@ static void creature_speaking(creature_type *creature_ptr)
 	char creature_name[100];
 
 	// Acquire the creature name/poss
-	if (creature_ptr->see_others)
+	if(creature_ptr->see_others)
 		creature_desc(creature_name, creature_ptr, 0);
 	else
 #ifdef JP
@@ -1219,19 +1219,19 @@ static void creature_speaking(creature_type *creature_ptr)
 #endif
 
 	/* Select the file for creature quotes */
-	if (creature_ptr->timed_trait[TRAIT_AFRAID])
+	if(creature_ptr->timed_trait[TRAIT_AFRAID])
 #ifdef JP
 		filename = "monfear_j.txt";
 #else
 		filename = "monfear.txt";
 #endif
-	else if (is_pet(player_ptr, creature_ptr))
+	else if(is_pet(player_ptr, creature_ptr))
 #ifdef JP
 		filename = "monpet_j.txt";
 #else
 		filename = "monpet.txt";
 #endif
-	else if (is_friendly(player_ptr, creature_ptr))
+	else if(is_friendly(player_ptr, creature_ptr))
 #ifdef JP
 		filename = "monfrien_j.txt";
 #else
@@ -1244,7 +1244,7 @@ static void creature_speaking(creature_type *creature_ptr)
 		filename = "monspeak.txt";
 #endif
 	/* Get the creature line */
-	if (get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
+	if(get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
 	{
 		/* Say something */
 #ifdef JP
@@ -1258,10 +1258,10 @@ static void creature_speaking(creature_type *creature_ptr)
 
 static void creature_lack_food(creature_type *creature_ptr)
 {
-	if ((creature_ptr->food < PY_FOOD_FAINT))
+	if((creature_ptr->food < PY_FOOD_FAINT))
 	{
 		// Faint occasionally
-		if (!creature_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < 10))
+		if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < 10))
 		{
 			// Message
 #ifdef JP
@@ -1276,16 +1276,16 @@ static void creature_lack_food(creature_type *creature_ptr)
 		}
 
 		// Starve to death (slowly)
-		if (creature_ptr->food < PY_FOOD_STARVE)
+		if(creature_ptr->food < PY_FOOD_STARVE)
 		{
 			// Calculate damage
 			int dam = (PY_FOOD_STARVE - creature_ptr->food) / 10;
 
 			// Take damage
 #ifdef JP
-			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "飢え", NULL, -1);
+			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "飢え", NULL, -1);
 #else
-			if (!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
+			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
 #endif
 		}
 	}
@@ -1295,28 +1295,28 @@ static void creature_food_digest(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (!floor_ptr->gamble_arena_mode)
+	if(!floor_ptr->gamble_arena_mode)
 	{
 		// Digest quickly when gorged
-		if (creature_ptr->food >= PY_FOOD_MAX)
+		if(creature_ptr->food >= PY_FOOD_MAX)
 			(void)set_food(creature_ptr, creature_ptr->food - 100);
 
 		// Digest normally -- Every 50 game turns
-		else if (!(turn % (TURNS_PER_TICK * 5)))
+		else if(!(turn % (TURNS_PER_TICK * 5)))
 		{
 			// Basic digestion rate based on speed
 			int digestion = SPEED_TO_ENERGY(creature_ptr->speed);
 
 			// Regeneration takes more food
-			if (has_trait(creature_ptr, TRAIT_REGENERATE)) digestion += 20;
-			if (creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) digestion += 20;
-			if (creature_ptr->cursed & TRC_FAST_DIGEST) digestion += 30;
+			if(has_trait(creature_ptr, TRAIT_REGENERATE)) digestion += 20;
+			if(creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) digestion += 20;
+			if(creature_ptr->cursed & TRC_FAST_DIGEST) digestion += 30;
 
 			// Slow digestion takes less food
-			if (has_trait(creature_ptr, TRAIT_SLOW_DIGEST)) digestion -= 5;
+			if(has_trait(creature_ptr, TRAIT_SLOW_DIGEST)) digestion -= 5;
 
-			if (digestion < 1) digestion = 1;     // Minimal digestion
-			if (digestion > 100) digestion = 100; // Maximal digestion
+			if(digestion < 1) digestion = 1;     // Minimal digestion
+			if(digestion > 100) digestion = 100; // Maximal digestion
 
 			// Digest some food
 			(void)set_food(creature_ptr, creature_ptr->food - digestion);
@@ -1327,7 +1327,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 static void do_multiply_creature(creature_type *creature_ptr)
 {
 	// Attempt to "multiply" if able and allowed
-	if (has_trait(creature_ptr, TRAIT_MULTIPLY))
+	if(has_trait(creature_ptr, TRAIT_MULTIPLY))
 	{
 		floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 		int k, y, x;
@@ -1342,23 +1342,23 @@ static void do_multiply_creature(creature_type *creature_ptr)
 			for (x = ox - 1; x <= ox + 1; x++)
 			{
 				/* Ignore locations off of edge */
-				if (!in_bounds2(floor_ptr, y, x)) continue;
+				if(!in_bounds2(floor_ptr, y, x)) continue;
 
-				if (floor_ptr->cave[y][x].creature_idx) k++;
+				if(floor_ptr->cave[y][x].creature_idx) k++;
 			}
 		}
 
 		/* Hex */
-		if (multiply_barrier(player_ptr, creature_ptr)) k = 8;
+		if(multiply_barrier(player_ptr, creature_ptr)) k = 8;
 
 		/* Hack -- multiply slower in crowded areas */
-		if ((k < 4) && (!k || !randint0(k * SPECIES_MULT_ADJ)))
+		if((k < 4) && (!k || !randint0(k * SPECIES_MULT_ADJ)))
 		{
 			// Try to multiply
-			if (multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PC_FORCE_PET : 0)))
+			if(multiply_creature(creature_ptr, FALSE, (is_pet(player_ptr, creature_ptr) ? PC_FORCE_PET : 0)))
 			{
 				/* Take note if visible */
-				if (creature_list[hack_m_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
+				if(creature_list[hack_m_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
 				{
 					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
@@ -1375,14 +1375,14 @@ static void do_scatting_creature(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
-	if (has_trait(creature_ptr, TRAIT_SPECIAL))
+	if(has_trait(creature_ptr, TRAIT_SPECIAL))
 	{
 		/* Hack -- Ohmu scatters molds! */
-		if (creature_ptr->species_idx == SPECIES_OHMU)
+		if(creature_ptr->species_idx == SPECIES_OHMU)
 		{
-			if (!floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
+			if(!floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
 			{
-				if (species_ptr->freq_spell && (randint1(100) <= species_ptr->freq_spell))
+				if(species_ptr->freq_spell && (randint1(100) <= species_ptr->freq_spell))
 				{
 					int  k, count = 0;
 					int  rlev = ((creature_ptr->lev >= 1) ? creature_ptr->lev : 1);
@@ -1390,13 +1390,13 @@ static void do_scatting_creature(creature_type *creature_ptr)
 
 					for (k = 0; k < 6; k++)
 					{
-						if (summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PC_ALLOW_GROUP | p_mode)))
+						if(summon_specific(creature_ptr, creature_ptr->fy, creature_ptr->fx, rlev, SUMMON_BIZARRE1, (PC_ALLOW_GROUP | p_mode)))
 						{
-							if (creature_list[hack_m_idx_ii].see_others) count++;
+							if(creature_list[hack_m_idx_ii].see_others) count++;
 						}
 					}
 
-					if (count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_SPECIAL);
+					if(count && is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_SPECIAL);
 				}
 			}
 		}
@@ -1409,14 +1409,14 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 	bool see_m = is_seen(player_ptr, creature_ptr);
 
 	// Sometimes die
-	if (!randint0(QUANTUM_CREATURE_VANISH_CHANCE) && !has_trait(creature_ptr, TRAIT_UNIQUE))
+	if(!randint0(QUANTUM_CREATURE_VANISH_CHANCE) && !has_trait(creature_ptr, TRAIT_UNIQUE))
 	{
 		bool sad = FALSE;
 
-		if (is_pet(player_ptr, creature_ptr) && !(creature_ptr->see_others))
+		if(is_pet(player_ptr, creature_ptr) && !(creature_ptr->see_others))
 			sad = TRUE;
 
-		if (see_m)
+		if(see_m)
 		{
 			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
@@ -1433,7 +1433,7 @@ static void do_quantum_creature_feature(creature_type *creature_ptr)
 		// Delete the creature
 		delete_species_idx(creature_ptr);
 
-		if (sad)
+		if(sad)
 		{
 #ifdef JP
 			msg_print("少しの間悲しい気分になった。");
@@ -1451,7 +1451,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (!floor_ptr->gamble_arena_mode)
+	if(!floor_ptr->gamble_arena_mode)
 	{
 		floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 		int oy = creature_ptr->fy;
@@ -1459,9 +1459,9 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		bool aware = TRUE;
 
 		// Hack! "Cyber" creature makes noise...
-		if (creature_ptr->ap_species_idx == SPECIES_CYBER && one_in_(CYBERNOISE) && !creature_ptr->see_others && (creature_ptr->cdis <= MAX_SIGHT))
+		if(creature_ptr->ap_species_idx == SPECIES_CYBER && one_in_(CYBERNOISE) && !creature_ptr->see_others && (creature_ptr->cdis <= MAX_SIGHT))
 		{
-			if (disturb_minor) disturb(player_ptr, FALSE, FALSE);
+			if(disturb_minor) disturb(player_ptr, FALSE, FALSE);
 #ifdef JP
 			msg_print("重厚な足音が聞こえた。");
 #else
@@ -1470,7 +1470,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		}
 
 		// Some creatures can speak
-		if (has_trait(creature_ptr, TRAIT_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
+		if(has_trait(creature_ptr, TRAIT_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
 		{
 			creature_speaking(creature_ptr);
 		}
@@ -1542,9 +1542,9 @@ static void process_nonplayer(int m_idx)
 
 	if(current_floor_ptr != floor_ptr) return;
 
-	if (is_riding_mon && !has_trait(creature_ptr, TRAIT_CAN_FLY))
+	if(is_riding_mon && !has_trait(creature_ptr, TRAIT_CAN_FLY))
 	{
-		if (do_thrown_from_riding(player_ptr, 0, TRUE))
+		if(do_thrown_from_riding(player_ptr, 0, TRUE))
 		{
 #ifdef JP
 			msg_print("地面に落とされた。");
@@ -1556,28 +1556,28 @@ static void process_nonplayer(int m_idx)
 		}
 	}
 
-	if ((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
+	if((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
 		set_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
 	}
 
 	// Players hidden in shadow are almost imperceptable. -LM-
-	if (player_ptr->special_defense & NINJA_S_STEALTH)
+	if(player_ptr->special_defense & NINJA_S_STEALTH)
 	{
 		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stl + 10) * 4;
-		if (player_ptr->monlite) tmp /= 3;
-		if (has_trait(player_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
-		if (creature_ptr->lev > (player_ptr->lev + 10)) tmp /= 3;
+		if(player_ptr->monlite) tmp /= 3;
+		if(has_trait(player_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
+		if(creature_ptr->lev > (player_ptr->lev + 10)) tmp /= 3;
 		// Low-level creatures will find it difficult to locate the player.
-		if (randint0(tmp) > (creature_ptr->lev * 2 + 20)) aware = FALSE;
+		if(randint0(tmp) > (creature_ptr->lev * 2 + 20)) aware = FALSE;
 	}
 
 	// Are there its parent?
-	if (creature_ptr->parent_m_idx && !creature_list[creature_ptr->parent_m_idx].species_idx)
+	if(creature_ptr->parent_m_idx && !creature_list[creature_ptr->parent_m_idx].species_idx)
 	{
 		// Its parent have gone, it also goes away.
-		if (see_m)
+		if(see_m)
 		{
 			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
@@ -1588,7 +1588,7 @@ static void process_nonplayer(int m_idx)
 #endif
 		}
 
-		if (record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
+		if(record_named_pet && is_pet(player_ptr, creature_ptr) && creature_ptr->nickname)
 		{
 			creature_desc(creature_name, creature_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
@@ -1601,20 +1601,20 @@ static void process_nonplayer(int m_idx)
 	}
 
 // TODO SYURYUUDAN's Process
-//	if (creature_ptr->species_idx == SPECIES_SHURYUUDAN)
+//	if(creature_ptr->species_idx == SPECIES_SHURYUUDAN)
 //		melee_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
 // TODO Riding pinch
 /*
-	if ((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !floor_ptr->gamble_arena_mode)
+	if((is_pet(player_ptr, creature_ptr) || is_friendly(player_ptr, creature_ptr)) && (has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) && !floor_ptr->gamble_arena_mode)
 	{
 		static int riding_pinch = 0;
 
-		if (creature_ptr->chp < creature_ptr->mhp/3)
+		if(creature_ptr->chp < creature_ptr->mhp/3)
 		{
 			creature_desc(creature_name, creature_ptr, 0);
 
-			if (is_riding_mon && riding_pinch < 2)
+			if(is_riding_mon && riding_pinch < 2)
 			{
 #ifdef JP
 				msg_format("%sは傷の痛さの余りあなたの束縛から逃れようとしている。", creature_name);
@@ -1631,7 +1631,7 @@ static void process_nonplayer(int m_idx)
 #else
 				msg_format("%^s succeeded to escape from your restriction!", creature_name);
 #endif
-				if (do_thrown_from_riding(player_ptr, -1, FALSE))
+				if(do_thrown_from_riding(player_ptr, -1, FALSE))
 				{
 #ifdef JP
 					msg_print("地面に落とされた。");
@@ -1650,23 +1650,23 @@ static void process_nonplayer(int m_idx)
 		else
 		{
 			// Reset the counter
-			if (is_riding_mon) riding_pinch = 0;
+			if(is_riding_mon) riding_pinch = 0;
 		}
 	}
 */
 
 	// Handle "sleep"
-	if (creature_ptr->timed_trait[TRAIT_PARALYZED])
+	if(creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
 		// Handle non-aggravation - Still sleeping
-		if (!has_trait(player_ptr, TRAIT_ANTIPATHY)) return;
+		if(!has_trait(player_ptr, TRAIT_ANTIPATHY)) return;
 
 		// Handle aggravation
 		// Reset sleep counter
 		(void)set_paralyzed(&creature_list[m_idx], 0);
 
 		// Notice the "waking up"
-		if (creature_ptr->see_others || creature_ptr->hear_noise)
+		if(creature_ptr->see_others || creature_ptr->hear_noise)
 		{
 			// Acquire the creature name
 			creature_desc(creature_name, creature_ptr, 0);
@@ -1680,7 +1680,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Hack -- Count the wakings */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr) && (r_ptr->r_wake < MAX_UCHAR))
+		if(is_original_ap_and_seen(player_ptr, creature_ptr) && (r_ptr->r_wake < MAX_UCHAR))
 		{
 			r_ptr->r_wake++;
 		}
@@ -1688,16 +1688,16 @@ static void process_nonplayer(int m_idx)
 
 	//TODO move old player feature of stun.
 
-	if (is_riding_mon)
+	if(is_riding_mon)
 	{
 		player_ptr->creature_update |= (CRU_BONUS);
 	}
 
 	// No one wants to be your friend if you're aggravating
-	if (is_friendly(player_ptr, creature_ptr) && (has_trait(player_ptr, TRAIT_ANTIPATHY))) gets_angry = TRUE;
+	if(is_friendly(player_ptr, creature_ptr) && (has_trait(player_ptr, TRAIT_ANTIPATHY))) gets_angry = TRUE;
 
 	/* Paranoia... no pet uniques outside wizard mode -- TY */
-	if (is_pet(player_ptr, creature_ptr) &&
+	if(is_pet(player_ptr, creature_ptr) &&
 	    (((has_trait(creature_ptr, TRAIT_UNIQUE) || has_trait(creature_ptr, TRAIT_NAZGUL)) &&
 	      creature_has_hostile_align(creature_ptr, player_ptr))
 	     || (has_trait(creature_ptr, TRAIT_RES_ALL))))
@@ -1705,11 +1705,11 @@ static void process_nonplayer(int m_idx)
 		gets_angry = TRUE;
 	}
 
-	if (floor_ptr->gamble_arena_mode) gets_angry = FALSE;
+	if(floor_ptr->gamble_arena_mode) gets_angry = FALSE;
 
-	if (gets_angry)
+	if(gets_angry)
 	{
-		if (is_pet(player_ptr, creature_ptr) || see_m)
+		if(is_pet(player_ptr, creature_ptr) || see_m)
 		{
 			creature_desc(creature_name, creature_ptr, is_pet(player_ptr, creature_ptr) ? CD_ASSUME_VISIBLE : 0);
 #ifdef JP
@@ -1727,17 +1727,17 @@ static void process_nonplayer(int m_idx)
 	ox = creature_ptr->fx;
 
 	// Try to cast spell occasionally
-	if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
+	if(r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
 	{
 		bool counterattack = FALSE;
 
 		/* Give priority to counter attack? */
-		if (creature_ptr->target_y)
+		if(creature_ptr->target_y)
 		{
 			int t_m_idx = floor_ptr->cave[creature_ptr->target_y][creature_ptr->target_x].creature_idx;
 
 			/* The creature must be an enemy, and projectable */
-			if (t_m_idx &&
+			if(t_m_idx &&
 			    are_mutual_enemies(creature_ptr, &creature_list[t_m_idx]) &&
 			    projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
 			{
@@ -1745,24 +1745,24 @@ static void process_nonplayer(int m_idx)
 			}
 		}
 
-		if (!counterattack)
+		if(!counterattack)
 		{
 			//TODO:Target Select
 			/* Attempt to cast a spell */
-			if (aware && make_attack_spell(creature_ptr, player_ptr)) return;
+			if(aware && make_attack_spell(creature_ptr, player_ptr)) return;
 
 			/*
 			 * Attempt to cast a spell at an enemy other than the player
 			 * (may slow the game a smidgeon, but I haven't noticed.)
 			 */
-			if (make_attack_spell(creature_ptr, player_ptr)) return;
+			if(make_attack_spell(creature_ptr, player_ptr)) return;
 		}
 		else
 		{
 			//TODO:Target Select
-			if (make_attack_spell(creature_ptr, player_ptr)) return;
+			if(make_attack_spell(creature_ptr, player_ptr)) return;
 
-			if (aware && make_attack_spell(creature_ptr, player_ptr)) return;
+			if(aware && make_attack_spell(creature_ptr, player_ptr)) return;
 		}
 	}
 
@@ -1771,45 +1771,45 @@ static void process_nonplayer(int m_idx)
 	mm[4] = mm[5] = mm[6] = mm[7] = 0;
 
 	// Confused -- 100% random
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || !aware)
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || !aware)
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 75% random movement */
-	else if (has_trait(creature_ptr, TRAIT_RAND_25) && has_trait(creature_ptr, TRAIT_RAND_50) && (randint0(100) < 75))
+	else if(has_trait(creature_ptr, TRAIT_RAND_25) && has_trait(creature_ptr, TRAIT_RAND_50) && (randint0(100) < 75))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
+		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
+		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 50% random movement */
-	else if (has_trait(creature_ptr, TRAIT_RAND_50) && (randint0(100) < 50))
+	else if(has_trait(creature_ptr, TRAIT_RAND_50) && (randint0(100) < 50))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
+		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* 25% random movement */
-	else if (has_trait(creature_ptr, TRAIT_RAND_25) && (randint0(100) < 25))
+	else if(has_trait(creature_ptr, TRAIT_RAND_25) && (randint0(100) < 25))
 	{
 		/* Memorize flags */
-		if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
+		if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_25);
 
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 	}
 
 	/* Can't reach player - find something else to hit */
-	else if (has_trait(creature_ptr, TRAIT_NEVER_MOVE) && (creature_ptr->cdis > 1))
+	else if(has_trait(creature_ptr, TRAIT_NEVER_MOVE) && (creature_ptr->cdis > 1))
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1821,7 +1821,7 @@ static void process_nonplayer(int m_idx)
 	}
 
 	/* Pets will follow the player */
-	else if (is_pet(player_ptr, creature_ptr))
+	else if(is_pet(player_ptr, creature_ptr))
 	{
 		/* Are we trying to avoid the player? */
 		bool avoid = ((player_ptr->pet_follow_distance < 0) &&
@@ -1837,16 +1837,16 @@ static void process_nonplayer(int m_idx)
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
 
 		/* Look for an enemy */
-		if (!get_enemy_dir(player_ptr, m_idx, mm))
+		if(!get_enemy_dir(player_ptr, m_idx, mm))
 		{
 			/* Find the player if necessary */
-			if (avoid || lonely || distant)
+			if(avoid || lonely || distant)
 			{
 				/* Remember the leash length */
 				int dis = player_ptr->pet_follow_distance;
 
 				/* Hack -- adjust follow distance temporarily */
-				if (player_ptr->pet_follow_distance > PET_SEEK_DIST)
+				if(player_ptr->pet_follow_distance > PET_SEEK_DIST)
 				{
 					player_ptr->pet_follow_distance = PET_SEEK_DIST;
 				}
@@ -1861,7 +1861,7 @@ static void process_nonplayer(int m_idx)
 	}
 
 	/* Friendly creature movement */
-	else if (!is_hostile(creature_ptr))
+	else if(!is_hostile(creature_ptr))
 	{
 		/* by default, move randomly */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
@@ -1873,7 +1873,7 @@ static void process_nonplayer(int m_idx)
 	else
 	{
 		/* Logical moves, may do nothing */
-		if (!get_moves(m_idx, player_ptr, mm)) return;
+		if(!get_moves(m_idx, player_ptr, mm)) return;
 	}
 
 	/* Assume nothing */
@@ -1899,14 +1899,14 @@ static void process_nonplayer(int m_idx)
 		d = mm[i];
 
 		/* Hack -- allow "randomized" motion */
-		if (d == 5) d = ddd[randint0(8)];
+		if(d == 5) d = ddd[randint0(8)];
 
 		/* Get the destination */
 		ny = oy + ddy[d];
 		nx = ox + ddx[d];
 
 		/* Ignore locations off of edge */
-		if (!in_bounds2(floor_ptr, ny, nx)) continue;
+		if(!in_bounds2(floor_ptr, ny, nx)) continue;
 
 		/* Access that cave grid */
 		c_ptr = &floor_ptr->cave[ny][nx];
@@ -1917,39 +1917,39 @@ static void process_nonplayer(int m_idx)
 		y_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Hack -- player 'in' wall */
-		if (creature_bold(player_ptr, ny, nx))
+		if(creature_bold(player_ptr, ny, nx))
 		{
 			do_move = TRUE;
 		}
 
 		/* Possibly a creature to attack */
-		else if (c_ptr->creature_idx)
+		else if(c_ptr->creature_idx)
 		{
 			do_move = TRUE;
 		}
 
 		/* Creature destroys walls (and doors) */
-		else if (has_trait(creature_ptr, TRAIT_KILL_WALL) &&
+		else if(has_trait(creature_ptr, TRAIT_KILL_WALL) &&
 		         (can_cross ? !have_flag(f_ptr->flags, FF_LOS) : !is_riding_mon) &&
 		         have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT) &&
 		         check_hp_for_feat_destruction(f_ptr, creature_ptr))
 		{
 			/* Eat through walls/doors/rubble */
 			do_move = TRUE;
-			if (!can_cross) must_alter_to_move = TRUE;
+			if(!can_cross) must_alter_to_move = TRUE;
 
 			/* Creature destroyed a wall (later) */
 			did_kill_wall = TRUE;
 		}
 
 		/* Floor is open? */
-		else if (can_cross)
+		else if(can_cross)
 		{
 			/* Go ahead and move */
 			do_move = TRUE;
 
 			/* Creature moves through walls (and doors) */
-			if (has_trait(creature_ptr, TRAIT_PASS_WALL) && (!is_riding_mon || has_trait(player_ptr, TRAIT_PASS_WALL)) &&
+			if(has_trait(creature_ptr, TRAIT_PASS_WALL) && (!is_riding_mon || has_trait(player_ptr, TRAIT_PASS_WALL)) &&
 			    have_flag(f_ptr->flags, FF_CAN_PASS))
 			{
 				/* Creature went through a wall */
@@ -1958,7 +1958,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Handle doors and secret doors */
-		else if (is_closed_door(c_ptr->feat))
+		else if(is_closed_door(c_ptr->feat))
 		{
 			bool may_bash = TRUE;
 
@@ -1966,11 +1966,11 @@ static void process_nonplayer(int m_idx)
 			do_move = FALSE;
 
 			/* Creature can open doors. */
-			if (has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
+			if(has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_OPEN) &&
 				 (!is_pet(player_ptr, creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Closed doors */
-				if (!f_ptr->power)
+				if(!f_ptr->power)
 				{
 					/* The door is open */
 					did_open_door = TRUE;
@@ -1986,7 +1986,7 @@ static void process_nonplayer(int m_idx)
 				else
 				{
 					/* Try to unlock it XXX XXX XXX */
-					if (randint0(creature_ptr->chp / 10) > f_ptr->power)
+					if(randint0(creature_ptr->chp / 10) > f_ptr->power)
 					{
 						/* Unlock the door */
 						cave_alter_feat(floor_ptr, ny, nx, FF_DISARM);
@@ -2001,14 +2001,14 @@ static void process_nonplayer(int m_idx)
 			}
 
 			/* Stuck doors -- attempt to bash them down if allowed */
-			if (may_bash && has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
+			if(may_bash && has_trait(creature_ptr, TRAIT_BASH_DOOR) && have_flag(f_ptr->flags, FF_BASH) &&
 				(!is_pet(player_ptr, creature_ptr) || (player_ptr->pet_extra_flags & PF_OPEN_DOORS)))
 			{
 				/* Attempt to Bash XXX XXX XXX */
-				if (check_hp_for_feat_destruction(f_ptr, creature_ptr) && (randint0(creature_ptr->chp / 10) > f_ptr->power))
+				if(check_hp_for_feat_destruction(f_ptr, creature_ptr) && (randint0(creature_ptr->chp / 10) > f_ptr->power))
 				{
 					/* Message */
-					if (have_flag(f_ptr->flags, FF_GLASS))
+					if(have_flag(f_ptr->flags, FF_GLASS))
 #ifdef JP
 						msg_print("ガラスが砕ける音がした！");
 #else
@@ -2022,7 +2022,7 @@ static void process_nonplayer(int m_idx)
 #endif
 
 					/* Disturb (sometimes) */
-					if (disturb_minor) disturb(player_ptr, 0, 0);
+					if(disturb_minor) disturb(player_ptr, 0, 0);
 
 					/* The door was bashed open */
 					did_bash_door = TRUE;
@@ -2035,19 +2035,19 @@ static void process_nonplayer(int m_idx)
 
 
 			/* Deal with doors in the way */
-			if (did_open_door || did_bash_door)
+			if(did_open_door || did_bash_door)
 			{
 				/* Break down the door */
-				if (did_bash_door && ((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
+				if(did_bash_door && ((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS)))
 				{
 					cave_alter_feat(floor_ptr, ny, nx, FF_BASH);
 
-					if (!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
+					if(!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
 						update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
+						if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
 						return;
 					}
@@ -2067,16 +2067,16 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Hack -- check for Glyph of Warding */
-		if (do_move && is_glyph_grid(c_ptr) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx))
+		if(do_move && is_glyph_grid(c_ptr) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
 
 			/* Break the ward */
-			if (!is_pet(player_ptr, creature_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
+			if(!is_pet(player_ptr, creature_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
 			{
 				/* Describe observable breakage */
-				if (c_ptr->info & CAVE_MARK)
+				if(c_ptr->info & CAVE_MARK)
 				{
 #ifdef JP
 					msg_print("守りのルーンが壊れた！");
@@ -2099,20 +2099,20 @@ static void process_nonplayer(int m_idx)
 				note_spot(floor_ptr, ny, nx);
 			}
 		}
-		else if (do_move && is_explosive_rune_grid(c_ptr) &&
+		else if(do_move && is_explosive_rune_grid(c_ptr) &&
 			 !(has_trait(creature_ptr, TRAIT_NEVER_BLOW) && creature_bold(player_ptr, ny, nx)))
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
 
 			/* Break the ward */
-			if (!is_pet(player_ptr, creature_ptr))
+			if(!is_pet(player_ptr, creature_ptr))
 			{
 				/* Break the ward */
-				if (randint1(BREAK_MINOR_GLYPH) > r_ptr->level)
+				if(randint1(BREAK_MINOR_GLYPH) > r_ptr->level)
 				{
 					/* Describe observable breakage */
-					if (c_ptr->info & CAVE_MARK)
+					if(c_ptr->info & CAVE_MARK)
 					{
 #ifdef JP
 						msg_print("ルーンが爆発した！");
@@ -2142,40 +2142,40 @@ static void process_nonplayer(int m_idx)
 				note_spot(floor_ptr, ny, nx);
 				lite_spot(floor_ptr, ny, nx);
 
-				if (!creature_ptr->species_idx) return;
+				if(!creature_ptr->species_idx) return;
 				/* Allow movement */
 				do_move = TRUE;
 			}
 		}
 
 		/* The player is in the way */
-		if (do_move && creature_bold(player_ptr, ny, nx))
+		if(do_move && creature_bold(player_ptr, ny, nx))
 		{
 			/* Some creatures never attack */
-			if (has_trait(creature_ptr, TRAIT_NEVER_BLOW))
+			if(has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 			{
 				/* Hack -- memorize lack of attacks */
-				if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_BLOW);
+				if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_BLOW);
 
 				/* Do not move */
 				do_move = FALSE;
 			}
 
 			/* In anti-melee dungeon, stupid or confused creature takes useless turn */
-			if (do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if(do_move && (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
-				if (!creature_ptr->timed_trait[TRAIT_CONFUSED])
+				if(!creature_ptr->timed_trait[TRAIT_CONFUSED])
 				{
-					if (!has_trait(creature_ptr, TRAIT_STUPID)) do_move = FALSE;
+					if(!has_trait(creature_ptr, TRAIT_STUPID)) do_move = FALSE;
 					else
 					{
-						if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
+						if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_RAND_50);
 					}
 				}
 			}
 
 			/* The player is in the way.  Attack him. */
-			if (do_move)
+			if(do_move)
 			{
 				melee_attack(creature_ptr, ny, nx, 0);
 
@@ -2184,7 +2184,7 @@ static void process_nonplayer(int m_idx)
 
 				//TODO: Change melee process
 				/*
-				if (!player_ptr->riding || one_in_(2))
+				if(!player_ptr->riding || one_in_(2))
 				{
 					(void)make_attack_normal(m_idx);
 
@@ -2197,7 +2197,7 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* A creature is in the way */
-		if (do_move && c_ptr->creature_idx)
+		if(do_move && c_ptr->creature_idx)
 		{
 			species_type *z_ptr = &species_info[y_ptr->species_idx];
 
@@ -2205,30 +2205,30 @@ static void process_nonplayer(int m_idx)
 			do_move = FALSE;
 
 			/* Attack 'enemies' */
-			if ((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
+			if((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
 				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
 				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
-				if (!has_trait(creature_ptr, TRAIT_NEVER_BLOW))
+				if(!has_trait(creature_ptr, TRAIT_NEVER_BLOW))
 				{
-					if (has_trait(creature_ptr, TRAIT_KILL_BODY))
+					if(has_trait(creature_ptr, TRAIT_KILL_BODY))
 					{
-						//TODO if (is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
+						//TODO if(is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
 
 					/* attack */
-					if (y_ptr->species_idx && (y_ptr->chp >= 0))
+					if(y_ptr->species_idx && (y_ptr->chp >= 0))
 					{
-						if (melee_attack(creature_ptr, ny, nx, 0)) return;
+						if(melee_attack(creature_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused creature takes useless turn */
-						else if (dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
+						else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 						{
-							if (creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
-							else if (has_trait(creature_ptr, TRAIT_STUPID))
+							if(creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
+							else if(has_trait(creature_ptr, TRAIT_STUPID))
 							{
-								if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_STUPID);
+								if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_STUPID);
 								return;
 							}
 						}
@@ -2237,7 +2237,7 @@ static void process_nonplayer(int m_idx)
 			}
 
 			/* Push past weaker creatures (unless leaving a wall) */
-			else if (has_trait(creature_ptr, TRAIT_MOVE_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_MOVE) &&
+			else if(has_trait(creature_ptr, TRAIT_MOVE_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_MOVE) &&
 				(r_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
 				creature_can_cross_terrain(y_ptr, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, 0))
@@ -2255,16 +2255,16 @@ static void process_nonplayer(int m_idx)
 			}
 		}
 
-		if (is_riding_mon)
+		if(is_riding_mon)
 		{
-			if (!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].timed_trait[TRAIT_AFRAID]) do_move = FALSE;
+			if(!player_ptr->riding_two_handed && !creature_list[player_ptr->riding].timed_trait[TRAIT_AFRAID]) do_move = FALSE;
 		}
 
-		if (did_kill_wall && do_move)
+		if(did_kill_wall && do_move)
 		{
-			if (one_in_(GRINDNOISE))
+			if(one_in_(GRINDNOISE))
 			{
-				if (have_flag(f_ptr->flags, FF_GLASS))
+				if(have_flag(f_ptr->flags, FF_GLASS))
 #ifdef JP
 					msg_print("何かの砕ける音が聞こえる。");
 #else
@@ -2280,12 +2280,12 @@ static void process_nonplayer(int m_idx)
 
 			cave_alter_feat(floor_ptr, ny, nx, FF_HURT_DISI);
 
-			if (!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
+			if(!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
 				update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-				if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
+				if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 
 				return;
 			}
@@ -2299,9 +2299,9 @@ static void process_nonplayer(int m_idx)
 			do_turn = TRUE;
 		}
 
-		if (must_alter_to_move && has_trait(creature_ptr, TRAIT_AQUATIC))
+		if(must_alter_to_move && has_trait(creature_ptr, TRAIT_AQUATIC))
 		{
-			if (!creature_can_cross_terrain(creature_ptr, c_ptr->feat, is_riding_mon ? CEM_RIDING : 0))
+			if(!creature_can_cross_terrain(creature_ptr, c_ptr->feat, is_riding_mon ? CEM_RIDING : 0))
 			{
 				/* Assume no move allowed */
 				do_move = FALSE;
@@ -2314,43 +2314,43 @@ static void process_nonplayer(int m_idx)
 		 * to allow creatures to attack an enemy,
 		 * even if it can't enter the terrain.
 		 */
-		if (do_move && !can_cross && !did_kill_wall && !did_bash_door)
+		if(do_move && !can_cross && !did_kill_wall && !did_bash_door)
 		{
 			/* Assume no move allowed */
 			do_move = FALSE;
 		}
 
 		/* Some creatures never move */
-		if (do_move && has_trait(creature_ptr, TRAIT_NEVER_MOVE))
+		if(do_move && has_trait(creature_ptr, TRAIT_NEVER_MOVE))
 		{
 			/* Hack -- memorize lack of moves */
-			if (is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_MOVE);
+			if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_NEVER_MOVE);
 
 			/* Do not move */
 			do_move = FALSE;
 		}
 
 		/* Creature has been allowed move */
-		if (do_move)
+		if(do_move)
 		{
 			/* Take a turn */
 			do_turn = TRUE;
 
-			if (have_flag(f_ptr->flags, FF_TREE))
+			if(have_flag(f_ptr->flags, FF_TREE))
 			{
-				if (!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_WILD_WOOD))
+				if(!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_WILD_WOOD))
 				{
 					creature_ptr->energy_need += ENERGY_NEED();
 				}
 			}
 
-			if (!is_riding_mon)
+			if(!is_riding_mon)
 			{
 				/* Hack -- Update the old location */
 				floor_ptr->cave[oy][ox].creature_idx = c_ptr->creature_idx;
 
 				/* Mega-Hack -- move the old creature, if any */
-				if (c_ptr->creature_idx)
+				if(c_ptr->creature_idx)
 				{
 					/* Move the old creature */
 					y_ptr->fy = oy;
@@ -2382,22 +2382,22 @@ static void process_nonplayer(int m_idx)
 				/* sound(SOUND_WALK); */
 
 				/* Move the player */
-				if (!move_creature(player_ptr, NULL, ny, nx, MCE_DONT_PICKUP)) break;
+				if(!move_creature(player_ptr, NULL, ny, nx, MCE_DONT_PICKUP)) break;
 			}
 
 			/* Possible disturb */
-			if (creature_ptr->see_others &&
+			if(creature_ptr->see_others &&
 			    (disturb_move ||
 			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
 			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)))
 			{
 				/* Disturb */
-				if (is_hostile(creature_ptr))
+				if(is_hostile(creature_ptr))
 					disturb(player_ptr, 0, 0);
 			}
 
 			/* Take or Kill objects on the floor */
-			if (c_ptr->object_idx && (has_trait(creature_ptr, TRAIT_TAKE_ITEM) || has_trait(creature_ptr, TRAIT_KILL_ITEM)) &&
+			if(c_ptr->object_idx && (has_trait(creature_ptr, TRAIT_TAKE_ITEM) || has_trait(creature_ptr, TRAIT_KILL_ITEM)) &&
 			    (!is_pet(player_ptr, creature_ptr) || ((player_ptr->pet_extra_flags & PF_PICKUP_ITEMS) && has_trait(creature_ptr, TRAIT_TAKE_ITEM))))
 			{
 				s16b this_object_idx, next_object_idx;
@@ -2414,17 +2414,17 @@ static void process_nonplayer(int m_idx)
 					/* Acquire next object */
 					next_object_idx = object_ptr->next_object_idx;
 
-					if (do_take)
+					if(do_take)
 					{
 						/* Skip gold */
-						if (object_ptr->tval == TV_GOLD) continue;
+						if(object_ptr->tval == TV_GOLD) continue;
 
 						/*
 						 * Skip "real" corpses and statues, to avoid extreme
 						 * silliness like a novice rogue pockets full of statues
 						 * and corpses.
 						 */
-						if ((object_ptr->tval == TV_CORPSE) ||
+						if((object_ptr->tval == TV_CORPSE) ||
 						    (object_ptr->tval == TV_STATUE)) continue;
 					}
 
@@ -2435,13 +2435,13 @@ static void process_nonplayer(int m_idx)
 					creature_desc(creature_name, creature_ptr, CD_INDEF_HIDDEN);
 
 					/* Only give a message for "take_item" */
-					if (do_take && has_trait(creature_ptr, TRAIT_STUPID) && one_in_(3))
+					if(do_take && has_trait(creature_ptr, TRAIT_STUPID) && one_in_(3))
 					{
 						/* Take note */
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (creature_ptr->see_others && creature_can_see_bold(player_ptr, ny, nx))
+						if(creature_ptr->see_others && creature_can_see_bold(player_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -2453,13 +2453,13 @@ static void process_nonplayer(int m_idx)
 					}
 
 					/* Pick up the item */
-					else if (do_take)
+					else if(do_take)
 					{
 						/* Take note */
 						did_take_item = TRUE;
 
 						/* Describe observable situations */
-						if (creature_can_see_bold(player_ptr, ny, nx))
+						if(creature_can_see_bold(player_ptr, ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -2483,13 +2483,13 @@ static void process_nonplayer(int m_idx)
 					}
 
 					/* Destroy the item if not a pet */
-					else if (!is_pet(player_ptr, creature_ptr))
+					else if(!is_pet(player_ptr, creature_ptr))
 					{
 						/* Take note */
 						did_kill_item = TRUE;
 
 						/* Describe observable situations */
-						if (player_has_los_bold(ny, nx))
+						if(player_has_los_bold(ny, nx))
 						{
 							/* Dump a message */
 #ifdef JP
@@ -2507,27 +2507,27 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Stop when done */
-		if (do_turn) break;
+		if(do_turn) break;
 	}
 
 	/*
 	 *  Forward movements failed, but now received LOS attack!
 	 *  Try to flow by smell.
 	 */
-	if (player_ptr->no_flowed && i > 2 &&  creature_ptr->target_y)
+	if(player_ptr->no_flowed && i > 2 &&  creature_ptr->target_y)
 		creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
-	if (!do_turn && !do_move && !creature_ptr->timed_trait[TRAIT_AFRAID] && !is_riding_mon && aware)
+	if(!do_turn && !do_move && !creature_ptr->timed_trait[TRAIT_AFRAID] && !is_riding_mon && aware)
 	{
 		// Try to cast spell again
-		if (r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
-			if (make_attack_spell(creature_ptr, player_ptr)) return;
+		if(r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
+			if(make_attack_spell(creature_ptr, player_ptr)) return;
 	}
 
 
 	/* Notice changes in view */
-	if (do_view)
+	if(do_view)
 	{
 		/* Update some things */
 		update |= (PU_FLOW);
@@ -2537,7 +2537,7 @@ static void process_nonplayer(int m_idx)
 	}
 
 	/* Notice changes in view */
-	if (do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
+	if(do_move && (is_self_ld_creature(creature_ptr) || is_darken_creature(creature_ptr))
 		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !floor_ptr->gamble_arena_mode))
 	{
 		/* Update some things */
@@ -2545,28 +2545,28 @@ static void process_nonplayer(int m_idx)
 	}
 
 	/* Learn things from observable creature */
-	if (is_original_ap_and_seen(player_ptr, creature_ptr))
+	if(is_original_ap_and_seen(player_ptr, creature_ptr))
 	{
 		/* Creature opened a door */
-		if (did_open_door) reveal_creature_info(creature_ptr, TRAIT_OPEN_DOOR);
+		if(did_open_door) reveal_creature_info(creature_ptr, TRAIT_OPEN_DOOR);
 
 		/* Creature bashed a door */
-		if (did_bash_door) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
+		if(did_bash_door) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
 		/* Creature tried to pick something up */
-		if (did_take_item) reveal_creature_info(creature_ptr, TRAIT_TAKE_ITEM);
+		if(did_take_item) reveal_creature_info(creature_ptr, TRAIT_TAKE_ITEM);
 
 		/* Creature tried to crush something */
-		if (did_kill_item) reveal_creature_info(creature_ptr, TRAIT_KILL_ITEM);
+		if(did_kill_item) reveal_creature_info(creature_ptr, TRAIT_KILL_ITEM);
 
 		/* Creature pushed past another creature */
-		if (did_move_body) reveal_creature_info(creature_ptr, TRAIT_MOVE_BODY);
+		if(did_move_body) reveal_creature_info(creature_ptr, TRAIT_MOVE_BODY);
 
 		/* Creature passed through a wall */
-		if (did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_PASS_WALL);
+		if(did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_PASS_WALL);
 
 		/* Creature destroyed a wall */
-		if (did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
+		if(did_pass_wall) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 	}
 
 }
@@ -2584,28 +2584,28 @@ static void process_creature(int i)
 	floor_type  *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	// Ignore dead or out of floot creatures
-	if (!IS_IN_THIS_FLOOR(creature_ptr)) return;
-	if (!is_player(creature_ptr) && floor_ptr->wild_mode) return;
+	if(!IS_IN_THIS_FLOOR(creature_ptr)) return;
+	if(!is_player(creature_ptr) && floor_ptr->wild_mode) return;
 
 	// Handle "fresh" creatures
-	if (creature_ptr->mflag & MFLAG_BORN)
+	if(creature_ptr->mflag & MFLAG_BORN)
 	{
 		creature_ptr->mflag &= ~(MFLAG_BORN);
 		return;
 	}
 
-	if (creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
+	if(creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
 
 	// Access the location
 	fx = creature_ptr->fx;
 	fy = creature_ptr->fy;
 
 	// Flow by smell is allowed
-	if (!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
+	if(!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
 
 	test = FALSE; // Assume no move
 
-	if (is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
+	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
 #ifdef JP
 		msg_print("何かが聞こえた。");
@@ -2619,23 +2619,23 @@ static void process_creature(int i)
 
 
 	// Handle "sensing radius"
-	if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
+	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
 		test = TRUE;
 
 	// Handle "sight" and "aggravation"
-	else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY)))
+	else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY)))
 		test = TRUE;
 
-	else if (creature_ptr->target_y) test = TRUE;
+	else if(creature_ptr->target_y) test = TRUE;
 
 	// Do nothing
-	if (!test) return;
+	if(!test) return;
 
 	speed = creature_ptr->speed;
 
-	if (curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
+	if(curse_of_Iluvatar) speed += 5; // Creatures move quickly in curse of Iluvatar mode
 	creature_ptr->energy_need -= SPEED_TO_ENERGY(speed); // Give this creature some energy
-	if (creature_ptr->energy_need > 0) return; // Not enough energy to move
+	if(creature_ptr->energy_need > 0) return; // Not enough energy to move
 
 	hack_m_idx = i; // Save global index
 
@@ -2651,7 +2651,7 @@ static void process_creature(int i)
 
 	do_creature_speaking(creature_ptr);
 
-	if (has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
+	if(has_trait(creature_ptr, TRAIT_QUANTUM)) do_quantum_creature_feature(creature_ptr); // Quantum creatures are odd
 
 	if(is_player(creature_ptr)) process_player(creature_ptr); // Process the player
 	else if(current_floor_ptr == floor_ptr)
@@ -2663,7 +2663,7 @@ static void process_creature(int i)
 	reset_target(creature_ptr);
 
 	// Give up flow_by_smell when it might useless
-	if (player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
+	if(player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
 
 	return;
 }
@@ -2726,7 +2726,7 @@ void process_creatures(void)
 	old_species_window_idx = species_window_idx;
 
 	/* Acquire knowledge */
-	if (species_window_idx)
+	if(species_window_idx)
 	{
 		/* Acquire current creature */
 		species_ptr = &species_info[species_window_idx];
@@ -2746,20 +2746,20 @@ void process_creatures(void)
 	{
 		process_creature(i);
 
-		if (!playing || gameover) break; // Hack -- notice death or departure
-		if (subject_change_floor) break; // Notice leaving
+		if(!playing || gameover) break; // Hack -- notice death or departure
+		if(subject_change_floor) break; // Notice leaving
 	}
 
 	hack_m_idx = 0; // Reset global index
 
 	/* Tracking a creature race (the same one we were before) */
-	if (species_window_idx && (species_window_idx == old_species_window_idx))
+	if(species_window_idx && (species_window_idx == old_species_window_idx))
 	{
 		/* Acquire creature race */
 		species_ptr = &species_info[species_window_idx];
 
 		/* Check for knowledge change */
-		if (
+		if(
 			(old_r_blows0 != species_ptr->r_blows[0]) ||
 			(old_r_blows1 != species_ptr->r_blows[1]) ||
 			(old_r_blows2 != species_ptr->r_blows[2]) ||
@@ -2780,7 +2780,7 @@ int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
 
 	for (i = mproc_max[mproc_type] - 1; i >= 0; i--)
 	{
-		if (cur_mproc_list[i] == creature_ptr) return i;
+		if(cur_mproc_list[i] == creature_ptr) return i;
 	}
 
 	return -1;
@@ -2789,14 +2789,14 @@ int get_mproc_idx(creature_type *creature_ptr, int mproc_type)
 
 void mproc_add(creature_type *creature_ptr, int mproc_type)
 {
-	if (mproc_max[mproc_type] < max_creature_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = creature_ptr;
+	if(mproc_max[mproc_type] < max_creature_idx) mproc_list[mproc_type][mproc_max[mproc_type]++] = creature_ptr;
 }
 
 
 void mproc_remove(creature_type *creature_ptr, int mproc_type)
 {
 	int mproc_idx = get_mproc_idx(creature_ptr, mproc_type);
-	if (mproc_idx >= 0) mproc_list[mproc_type][mproc_idx] = mproc_list[mproc_type][--mproc_max[mproc_type]];
+	if(mproc_idx >= 0) mproc_list[mproc_type][mproc_idx] = mproc_list[mproc_type][--mproc_max[mproc_type]];
 }
 
 
@@ -2818,15 +2818,15 @@ void creature_process_init(void)
 		creature_ptr = &creature_list[i];
 
 		// Ignore "dead" creatures
-		if (!creature_ptr->species_idx) continue;
+		if(!creature_ptr->species_idx) continue;
 
-		if (creature_ptr->timed_trait[TRAIT_PARALYZED]) mproc_add(creature_ptr, MTIMED_CSLEEP);
-		if (creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
-		if (creature_ptr->timed_trait[TRAIT_SLOW_]) mproc_add(creature_ptr, MTIMED_SLOW);
-		if (creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
-		if (creature_ptr->timed_trait[TRAIT_CONFUSED]) mproc_add(creature_ptr, MTIMED_CONFUSED);
-		if (creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
-		if (creature_ptr->timed_trait[TRAIT_INVULNERABLE]) mproc_add(creature_ptr, MTIMED_INVULNER);
+		if(creature_ptr->timed_trait[TRAIT_PARALYZED]) mproc_add(creature_ptr, MTIMED_CSLEEP);
+		if(creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
+		if(creature_ptr->timed_trait[TRAIT_SLOW_]) mproc_add(creature_ptr, MTIMED_SLOW);
+		if(creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED]) mproc_add(creature_ptr, MTIMED_CONFUSED);
+		if(creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
+		if(creature_ptr->timed_trait[TRAIT_INVULNERABLE]) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}
 }
 
@@ -2846,36 +2846,36 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		bool test = FALSE;
 
 		/* calculate the "player noise" */
-		if (mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));
+		if(mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));
 
 
 		/* Hack -- Require proximity */
-		if (creature_ptr->cdis < AAF_LIMIT)
+		if(creature_ptr->cdis < AAF_LIMIT)
 		{
 			/* Handle "sensing radius" */
-			if (creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
+			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
 			{
 				/* We may wake up */
 				test = TRUE;
 			}
 
 			/* Handle "sight" and "aggravation" */
-			else if ((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(creature_ptr->fy, creature_ptr->fx)))
+			else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(creature_ptr->fy, creature_ptr->fx)))
 			{
 				/* We may wake up */
 				test = TRUE;
 			}
 		}
 
-		if (test)
+		if(test)
 		{
 			u32b notice = randint0(1024);
 
 			/* Nightmare creatures are more alert */
-			if (curse_of_Iluvatar) notice /= 2;
+			if(curse_of_Iluvatar) notice /= 2;
 
 			/* Hack -- See if creature "notices" player */
-			if ((notice * notice * notice) <= csleep_noise)
+			if((notice * notice * notice) <= csleep_noise)
 			{
 				/* Hack -- amount of "waking" */
 				/* Wake up faster near the player */
@@ -2883,18 +2883,18 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 				/* Hack -- amount of "waking" is affected by speed of player */
 				d = (d * SPEED_TO_ENERGY(watcher_ptr->speed)) / 10;
-				if (d < 0) d = 1;
+				if(d < 0) d = 1;
 
 				/* Creature wakes up "a little bit" */
 
 				/* Still asleep */
-				if (!set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] - d))
+				if(!set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] - d))
 				{
 					/* Notice the "not waking up" */
-					if (is_original_ap_and_seen(watcher_ptr, creature_ptr))
+					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))
 					{
 						/* Hack -- Count the ignores */
-						if (r_ptr->r_ignore < MAX_UCHAR) r_ptr->r_ignore++;
+						if(r_ptr->r_ignore < MAX_UCHAR) r_ptr->r_ignore++;
 					}
 				}
 
@@ -2902,7 +2902,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				else
 				{
 					/* Notice the "waking up" */
-					if (creature_ptr->see_others || creature_ptr->hear_noise)
+					if(creature_ptr->see_others || creature_ptr->hear_noise)
 					{
 						char m_name[80];
 
@@ -2917,10 +2917,10 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 #endif
 					}
 
-					if (is_original_ap_and_seen(watcher_ptr, creature_ptr))
+					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))
 					{
 						/* Hack -- Count the wakings */
-						if (r_ptr->r_wake < MAX_UCHAR) r_ptr->r_wake++;
+						if(r_ptr->r_wake < MAX_UCHAR) r_ptr->r_wake++;
 					}
 				}
 			}
@@ -2995,13 +2995,13 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		char m_name[80];
 		creature_desc(m_name, m_ptr, 0);
 
-		if (who == 1)
+		if(who == 1)
 #ifdef JP
 			msg_print("「『ザ・ワールド』！時は止まった！」");
 #else
 			msg_format("%s yells 'The World! Time has stopped!'", m_name);
 #endif
-		else if (who == 3)
+		else if(who == 3)
 #ifdef JP
 			msg_print("「時よ！」");
 #else
@@ -3015,7 +3015,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	// This creature cast spells
 	the_world = hack_m_idx;
 
-	if (vs_player) do_cmd_redraw();
+	if(vs_player) do_cmd_redraw();
 
 	while(num--)
 	{
@@ -3025,19 +3025,19 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		reset_target(m_ptr);
 
 		/* Notice stuff */
-		if (player_ptr->creature_update) notice_stuff(player_ptr);
+		if(player_ptr->creature_update) notice_stuff(player_ptr);
 
 		/* Update stuff */
-		if (update) update_creature(player_ptr, TRUE);
+		if(update) update_creature(player_ptr, TRUE);
 
 		/* Redraw stuff */
-		if (play_redraw) redraw_stuff();
+		if(play_redraw) redraw_stuff();
 
 		/* Redraw stuff */
-		if (play_window) window_stuff();
+		if(play_window) window_stuff();
 
 		/* Delay */
-		if (vs_player) Term_xtra(TERM_XTRA_DELAY, 500);
+		if(vs_player) Term_xtra(TERM_XTRA_DELAY, 500);
 	}
 
 	/* Redraw map */
@@ -3050,7 +3050,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	the_world = 0;
-	if (vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
+	if(vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
 	{
 #ifdef JP
 		msg_print("「時は動きだす…」");

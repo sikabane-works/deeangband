@@ -181,7 +181,7 @@
  * compiler-specific macros to the values required to change the calling
  * conventions of the various functions.
  */
-#if ( defined(_Windows) || defined(_WINDOWS) || defined(WIN32) ||\
+#if( defined(_Windows) || defined(_WINDOWS) || defined(WIN32) ||\
       defined(_WIN32) || defined(__WIN32__) || defined(__CYGWIN__) ) &&\
     ( defined(_X86_) || defined(_X64_) || defined(_M_IX86) ||\
       defined(_M_X64) || defined(_M_IA64) )
@@ -222,7 +222,7 @@
    ERROR: PNG_USER_PRIVATEBUILD must be defined if PNGAPI is changed
 #  endif
 
-#  if (defined(_MSC_VER) && _MSC_VER < 800) ||\
+#  if(defined(_MSC_VER) && _MSC_VER < 800) ||\
       (defined(__BORLANDC__) && __BORLANDC__ < 0x500)
     /* older Borland and MSC
      * compilers used '__export' and required this to be after
@@ -240,7 +240,7 @@
 #  endif /* compiler */
 
 #else /* !Windows/x86 */
-#  if (defined(__IBMC__) || defined(__IBMCPP__)) && defined(__OS2__)
+#  if(defined(__IBMC__) || defined(__IBMCPP__)) && defined(__OS2__)
 #    define PNGAPI _System
 #  else /* !Windows/x86 && !OS/2 */
     /* Use the defaults, or define PNG*API on the command line (but
@@ -369,7 +369,7 @@
 #      define PNG_NORETURN __declspec(noreturn)
 #    endif
 #    ifndef PNG_ALLOCATED
-#      if (_MSC_VER >= 1400)
+#      if(_MSC_VER >= 1400)
 #        define PNG_ALLOCATED __declspec(restrict)
 #      endif
 #    endif
@@ -476,7 +476,7 @@ typedef size_t png_size_t;
   /* GRR:  why is Cygwin in here?  Cygwin is not Borland C... */
 #  if !defined(__WIN32__) && !defined(__FLAT__) && !defined(__CYGWIN__)
 #    define PNG_MAX_MALLOC_64K /* only used in build */
-#    if (LDATA != 1)
+#    if(LDATA != 1)
 #      ifndef FAR
 #        define FAR __far
 #      endif
@@ -584,7 +584,7 @@ typedef char            FAR * FAR * FAR * png_charppp;
       * actually 16 bits, in that case png_malloc must have an argument with a
       * bigger size to accomodate the requirements of the library.
       */
-#    if (defined(_Windows) || defined(_WINDOWS) || defined(_WINDOWS_)) && \
+#    if(defined(_Windows) || defined(_WINDOWS) || defined(_WINDOWS_)) && \
         (!defined(INT_MAX) || INT_MAX <= 0x7ffffffeL)
        typedef DWORD         png_alloc_size_t;
 #    else

@@ -180,7 +180,7 @@ void init_file_paths(char *path)
 #ifdef NeXT
 
 	/* Allow "fat binary" usage with NeXT */
-	if (TRUE)
+	if(TRUE)
 	{
 		cptr next = NULL;
 
@@ -201,7 +201,7 @@ void init_file_paths(char *path)
 # endif
 
 		/* Use special directory */
-		if (next)
+		if(next)
 		{
 			/* Forget the old path name */
 			string_free(ANGBAND_DIR_DATA);
@@ -290,20 +290,20 @@ static errr check_modification_date(int fd, cptr template_file)
 	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, template_file);
 
 	/* Access stats on text file */
-	if (stat(buf, &txt_stat))
+	if(stat(buf, &txt_stat))
 	{
 		/* No text file - continue */
 	}
 
 	/* Access stats on raw file */
-	else if (fstat(fd, &raw_stat))
+	else if(fstat(fd, &raw_stat))
 	{
 		/* Error */
 		return (-1);
 	}
 
 	/* Ensure text file is not newer than raw file */
-	else if (txt_stat.st_mtime > raw_stat.st_mtime)
+	else if(txt_stat.st_mtime > raw_stat.st_mtime)
 	{
 		/* Reprocess text file */
 		return (-1);
@@ -327,7 +327,7 @@ static errr init_info_raw(int fd, header *head)
 	header test;
 
 	/* Read and Verify the header */
-	if (fd_read(fd, (char*)(&test), sizeof(header)) ||
+	if(fd_read(fd, (char*)(&test), sizeof(header)) ||
 	    (test.v_major != head->v_major) ||
 	    (test.v_minor != head->v_minor) ||
 	    (test.v_patch != head->v_patch) ||
@@ -352,7 +352,7 @@ static errr init_info_raw(int fd, header *head)
 	fd_read(fd, head->infobject_ptr, head->info_size);
 
 
-	if (head->name_size)
+	if(head->name_size)
 	{
 		/* Allocate the "*_name" array */
 		C_MAKE(head->name_ptr, head->name_size, char);
@@ -362,7 +362,7 @@ static errr init_info_raw(int fd, header *head)
 	}
 
 
-	if (head->text_size)
+	if(head->text_size)
 	{
 		/* Allocate the "*_text" array */
 		C_MAKE(head->text_ptr, head->text_size, char);
@@ -372,7 +372,7 @@ static errr init_info_raw(int fd, header *head)
 	}
 
 
-	if (head->tag_size)
+	if(head->tag_size)
 	{
 		/* Allocate the "*_tag" array */
 		C_MAKE(head->tag_ptr, head->tag_size, char);
@@ -440,7 +440,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	fd = fd_open(buf, O_RDONLY);
 
 	/* Process existing "raw" file */
-	if (fd >= 0)
+	if(fd >= 0)
 	{
 #ifdef CHECK_MODIFICATION_TIME
 
@@ -449,7 +449,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 #endif /* CHECK_MODIFICATION_TIME */
 
 		/* Attempt to parse the "raw" file */
-		if (!err)
+		if(!err)
 			err = init_info_raw(fd, head);
 
 		/* Close it */
@@ -457,7 +457,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	}
 
 	/* Do we have to parse the *.csv file? */
-	if (err)
+	if(err)
 	{
 		/*** Make the fake arrays ***/
 
@@ -465,16 +465,16 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		C_MAKE(head->infobject_ptr, head->info_size, char);
 
 		/* Hack -- make "fake" arrays */
-		if (name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
-		if (text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
-		if (tmp)  C_MAKE(head->tmp_ptr, FAKE_TMP_BUFFER_SIZE, char);
-		if (tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
+		if(name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
+		if(text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if(tmp)  C_MAKE(head->tmp_ptr, FAKE_TMP_BUFFER_SIZE, char);
+		if(tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
 
-		if (info) (*info) = head->infobject_ptr;
-		if (name) (*name) = head->name_ptr;
-		if (text) (*text) = head->text_ptr;
-		if (tmp)  (*tmp)  = head->tmp_ptr;
-		if (tag)  (*tag)  = head->tag_ptr;
+		if(info) (*info) = head->infobject_ptr;
+		if(name) (*name) = head->name_ptr;
+		if(text) (*text) = head->text_ptr;
+		if(tmp)  (*tmp)  = head->tmp_ptr;
+		if(tag)  (*tag)  = head->tag_ptr;
 
 		/*** Load the ascii template file ***/
 		path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, format("%s.csv", filename)); // Build the filename
@@ -482,9 +482,9 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 		/* Parse it */
 #ifdef JP
-		if (!fp) quit(format("'%s.csv'ファイルをオープンできません。", filename));
+		if(!fp) quit(format("'%s.csv'ファイルをオープンできません。", filename));
 #else
-		if (!fp) quit(format("Cannot open '%s.csv' file.", filename));
+		if(!fp) quit(format("Cannot open '%s.csv' file.", filename));
 #endif
 
 		// Parse the file
@@ -500,7 +500,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		my_fclose(fp);
 
 		/* Errors */
-		if (err)
+		if(err)
 		{
 			cptr oops;
 
@@ -533,7 +533,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 		/*** Make final retouch on fake tags ***/
 
-		if (head->retouch)
+		if(head->retouch)
 		{
 			(*head->retouch)(head);
 		}
@@ -564,7 +564,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		safe_setuid_drop();
 
 		/* Dump to the file */
-		if (fd >= 0)
+		if(fd >= 0)
 		{
 			/* Dump it */
 			fd_write(fd, (cptr)(head), head->head_size);
@@ -592,9 +592,9 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 		//TODO C_KILL(head->infobject_ptr, head->info_size, char);
 
 		/* Hack -- Free the "fake" arrays */
-		if (name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
-		if (text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
-		if (tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
+		if(name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
+		if(text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if(tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
 
 		/*** Load the binary image file ***/
 
@@ -611,9 +611,9 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 		/* Process existing "raw" file */
 #ifdef JP
-		if (fd < 0) quit(format("'%s_j.raw'ファイルをロードできません。", filename));
+		if(fd < 0) quit(format("'%s_j.raw'ファイルをロードできません。", filename));
 #else
-		if (fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
+		if(fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
 #endif
 
 
@@ -625,17 +625,17 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 
 		/* Error */
 #ifdef JP
-		if (err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
+		if(err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
 #else
-		if (err) quit(format("Cannot parse '%s.raw' file.", filename));
+		if(err) quit(format("Cannot parse '%s.raw' file.", filename));
 #endif
 
 	}
 
-	if (info) (*info) = head->infobject_ptr;
-	if (name) (*name) = head->name_ptr;
-	if (text) (*text) = head->text_ptr;
-	if (tag)  (*tag)  = head->tag_ptr;
+	if(info) (*info) = head->infobject_ptr;
+	if(name) (*name) = head->name_ptr;
+	if(text) (*text) = head->text_ptr;
+	if(tag)  (*tag)  = head->tag_ptr;
 
 	/* Success */
 	return (0);
@@ -679,7 +679,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 	fd = fd_open(buf, O_RDONLY);
 
 	/* Process existing "raw" file */
-	if (fd >= 0)
+	if(fd >= 0)
 	{
 #ifdef CHECK_MODIFICATION_TIME
 
@@ -688,7 +688,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 #endif /* CHECK_MODIFICATION_TIME */
 
 		/* Attempt to parse the "raw" file */
-		if (!err)
+		if(!err)
 			err = init_info_raw(fd, head);
 
 		/* Close it */
@@ -697,7 +697,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 
 	/* Do we have to parse the *.txt file? */
-	if (err)
+	if(err)
 	{
 		/*** Make the fake arrays ***/
 
@@ -705,14 +705,14 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		C_MAKE(head->infobject_ptr, head->info_size, char);
 
 		/* Hack -- make "fake" arrays */
-		if (name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
-		if (text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
-		if (tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
+		if(name) C_MAKE(head->name_ptr, FAKE_NAME_SIZE, char);
+		if(text) C_MAKE(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if(tag)  C_MAKE(head->tag_ptr, FAKE_TAG_SIZE, char);
 
-		if (info) (*info) = head->infobject_ptr;
-		if (name) (*name) = head->name_ptr;
-		if (text) (*text) = head->text_ptr;
-		if (tag)  (*tag)  = head->tag_ptr;
+		if(info) (*info) = head->infobject_ptr;
+		if(name) (*name) = head->name_ptr;
+		if(text) (*text) = head->text_ptr;
+		if(tag)  (*tag)  = head->tag_ptr;
 
 		/*** Load the ascii template file ***/
 
@@ -725,9 +725,9 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		/* Parse it */
 #ifdef JP
-		if (!fp) quit(format("'%s.txt'ファイルをオープンできません。", filename));
+		if(!fp) quit(format("'%s.txt'ファイルをオープンできません。", filename));
 #else
-		if (!fp) quit(format("Cannot open '%s.txt' file.", filename));
+		if(!fp) quit(format("Cannot open '%s.txt' file.", filename));
 #endif
 
 
@@ -738,7 +738,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		my_fclose(fp);
 
 		// Errors
-		if (err)
+		if(err)
 		{
 			cptr oops;
 
@@ -773,7 +773,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		/*** Make final retouch on fake tags ***/
 
-		if (head->retouch)
+		if(head->retouch)
 		{
 			(*head->retouch)(head);
 		}
@@ -805,7 +805,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		safe_setuid_drop();
 
 		/* Dump to the file */
-		if (fd >= 0)
+		if(fd >= 0)
 		{
 			/* Dump it */
 			fd_write(fd, (cptr)(head), head->head_size);
@@ -833,9 +833,9 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 		C_KILL(head->infobject_ptr, head->info_size, char);
 
 		/* Hack -- Free the "fake" arrays */
-		if (name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
-		if (text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
-		if (tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
+		if(name) C_KILL(head->name_ptr, FAKE_NAME_SIZE, char);
+		if(text) C_KILL(head->text_ptr, FAKE_TEXT_SIZE, char);
+		if(tag)  C_KILL(head->tag_ptr, FAKE_TAG_SIZE, char);
 
 
 		/*** Load the binary image file ***/
@@ -853,9 +853,9 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		/* Process existing "raw" file */
 #ifdef JP
-		if (fd < 0) quit(format("'%s_j.raw'ファイルをロードできません。", filename));
+		if(fd < 0) quit(format("'%s_j.raw'ファイルをロードできません。", filename));
 #else
-		if (fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
+		if(fd < 0) quit(format("Cannot load '%s.raw' file.", filename));
 #endif
 
 
@@ -867,17 +867,17 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 
 		/* Error */
 #ifdef JP
-		if (err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
+		if(err) quit(format("'%s_j.raw'ファイルを解析できません。", filename));
 #else
-		if (err) quit(format("Cannot parse '%s.raw' file.", filename));
+		if(err) quit(format("Cannot parse '%s.raw' file.", filename));
 #endif
 
 	}
 
-	if (info) (*info) = head->infobject_ptr;
-	if (name) (*name) = head->name_ptr;
-	if (text) (*text) = head->text_ptr;
-	if (tag)  (*tag)  = head->tag_ptr;
+	if(info) (*info) = head->infobject_ptr;
+	if(name) (*name) = head->name_ptr;
+	if(text) (*text) = head->text_ptr;
+	if(tag)  (*tag)  = head->tag_ptr;
 
 	/* Success */
 	return (0);
@@ -1249,7 +1249,7 @@ s16b feature_tag_to_index_in_init(cptr str)
 {
 	s16b feat = feature_tag_to_index(str);
 
-	if (feat < 0) feat_tag_is_not_found = TRUE;
+	if(feat < 0) feat_tag_is_not_found = TRUE;
 
 	return feat;
 }
@@ -1282,20 +1282,20 @@ static errr init_feat_variables(void)
 	for (i = 1; i < MAX_LJ_DOORS; i++)
 	{
 		s16b door = feature_tag_to_index(format("LOCKED_DOOR_%d", i));
-		if (door < 0) break;
+		if(door < 0) break;
 		feat_door[DOOR_DOOR].locked[i - 1] = door;
 	}
-	if (i == 1) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+	if(i == 1) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 	feat_door[DOOR_DOOR].num_locked = i - 1;
 
 	/* Jammed doors */
 	for (i = 0; i < MAX_LJ_DOORS; i++)
 	{
 		s16b door = feature_tag_to_index(format("JAMMED_DOOR_%d", i));
-		if (door < 0) break;
+		if(door < 0) break;
 		feat_door[DOOR_DOOR].jammed[i] = door;
 	}
-	if (!i) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+	if(!i) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 	feat_door[DOOR_DOOR].num_jammed = i;
 
 	/* Glass doors */
@@ -1307,20 +1307,20 @@ static errr init_feat_variables(void)
 	for (i = 1; i < MAX_LJ_DOORS; i++)
 	{
 		s16b door = feature_tag_to_index(format("LOCKED_GLASS_DOOR_%d", i));
-		if (door < 0) break;
+		if(door < 0) break;
 		feat_door[DOOR_GLASS_DOOR].locked[i - 1] = door;
 	}
-	if (i == 1) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+	if(i == 1) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 	feat_door[DOOR_GLASS_DOOR].num_locked = i - 1;
 
 	/* Jammed glass doors */
 	for (i = 0; i < MAX_LJ_DOORS; i++)
 	{
 		s16b door = feature_tag_to_index(format("JAMMED_GLASS_DOOR_%d", i));
-		if (door < 0) break;
+		if(door < 0) break;
 		feat_door[DOOR_GLASS_DOOR].jammed[i] = door;
 	}
-	if (!i) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+	if(!i) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 	feat_door[DOOR_GLASS_DOOR].num_jammed = i;
 
 	/* Curtains */
@@ -1470,13 +1470,13 @@ static errr init_other(void)
 		int ob = option_info[i].o_bit;
 
 		/* Set the "default" options */
-		if (option_info[i].o_var)
+		if(option_info[i].o_var)
 		{
 			/* Accept */
 			option_mask[os] |= (1L << ob);
 
 			/* Set */
-			if (option_info[i].o_norm)
+			if(option_info[i].o_norm)
 			{
 				/* Set */
 				option_flag[os] |= (1L << ob);
@@ -1498,7 +1498,7 @@ static errr init_other(void)
 		for (i = 0; i < 32; i++)
 		{
 			/* Accept */
-			if (window_flag_desc[i])
+			if(window_flag_desc[i])
 			{
 				/* Accept */
 				window_mask[n] |= (1L << i);
@@ -1542,7 +1542,7 @@ static errr init_object_alloc(void)
 	(void)C_WIPE(&num, MAX_DEPTH, s16b); // Clear the "num" array
 
 	// Free the old "alloc_kind_table" (if it exists)
-	if (alloc_kind_table) C_KILL(alloc_kind_table, alloc_kind_size, alloc_entry);
+	if(alloc_kind_table) C_KILL(alloc_kind_table, alloc_kind_size, alloc_entry);
 
 	alloc_kind_size = 0; // Size of "alloc_kind_table"
 
@@ -1552,7 +1552,7 @@ static errr init_object_alloc(void)
 		
 		for (j = 0; j < 4; j++) // Scan allocation pairs
 		{
-			if (k_ptr->chance[j]) // Count the "legal" entries
+			if(k_ptr->chance[j]) // Count the "legal" entries
 			{
 				alloc_kind_size++;	// Count the entries
 				num[k_ptr->locale[j]]++; // Group by level
@@ -1565,9 +1565,9 @@ static errr init_object_alloc(void)
 
 	// Paranoia
 #ifdef JP
-	if (!num[0]) quit("町のアイテムがない！");
+	if(!num[0]) quit("町のアイテムがない！");
 #else
-	if (!num[0]) quit("No town objects!");
+	if(!num[0]) quit("No town objects!");
 #endif
 
 	/*** Initialize object allocation info ***/
@@ -1587,7 +1587,7 @@ static errr init_object_alloc(void)
 		for (j = 0; j < 4; j++)
 		{
 			/* Count the "legal" entries */
-			if (k_ptr->chance[j])
+			if(k_ptr->chance[j])
 			{
 				int p, x, y, z;
 
@@ -1656,7 +1656,7 @@ static errr init_alloc(void)
 		r_ptr = &species_info[(int)elements[i].pointer];
 
 		/* Count valid pairs */
-		if (r_ptr->rarity)
+		if(r_ptr->rarity)
 		{
 			int p, x;
 
@@ -1818,7 +1818,7 @@ void init_angband(void)
 	fd = fd_open(buf, O_RDONLY);
 
 	/* Failure */
-	if (fd < 0)
+	if(fd < 0)
 	{
 		char why[1024];
 
@@ -1855,7 +1855,7 @@ void init_angband(void)
 	fp = my_fopen(buf, "r");
 
 	/* Dump */
-	if (fp)
+	if(fp)
 	{
 		int i = 0;
 
@@ -1885,7 +1885,7 @@ void init_angband(void)
 	fd = fd_open(buf, O_RDONLY);
 
 	/* Failure */
-	if (fd < 0)
+	if(fd < 0)
 	{
 		/* File type is "DATA" */
 		FILE_TYPE(FILE_TYPE_DATA);
@@ -1900,7 +1900,7 @@ void init_angband(void)
 		safe_setuid_drop();
 
 		/* Failure */
-		if (fd < 0)
+		if(fd < 0)
 		{
 			char why[1024];
 
@@ -1924,101 +1924,101 @@ void init_angband(void)
 
 	/* Initialize misc. values */
 	note("[Initializing values... (misc)]");
-	if (init_misc()) quit("Cannot initialize misc. values");
+	if(init_misc()) quit("Cannot initialize misc. values");
 
 	// Initialize creature flags
 	note("[Initializing values... (creature flags)]");
-	if (init_trait_csv()) quit("Cannot creature flags");
+	if(init_trait_csv()) quit("Cannot creature flags");
 
 	// Initialize authority info
 	note("[Initializing arrays... (authorities)]");
-	if (init_authority_info()) quit("Cannot initialize authorities");
+	if(init_authority_info()) quit("Cannot initialize authorities");
 
 	/* Initialize feature info */
 	note("[Initializing arrays... (features)]");
-	if (init_feature_info()) quit("Cannot initialize features");
-	if (init_feat_variables()) quit("Cannot initialize features");
+	if(init_feature_info()) quit("Cannot initialize features");
+	if(init_feat_variables()) quit("Cannot initialize features");
 
 	/* Initialize object info */
 	note("[Initializing arrays... (objects)]");
-	if (init_object_kind_info()) quit("Cannot initialize objects");
+	if(init_object_kind_info()) quit("Cannot initialize objects");
 
 	/* Initialize artifact info */
 	note("[Initializing arrays... (artifacts)]");
-	if (init_artifact_info()) quit("Cannot initialize artifacts");
+	if(init_artifact_info()) quit("Cannot initialize artifacts");
 
 	/* Initialize ego-item info */
 	note("[Initializing arrays... (ego-items)]");
-	if (init_object_ego_info()) quit("Cannot initialize ego-items");
+	if(init_object_ego_info()) quit("Cannot initialize ego-items");
 
 	/* Initialize race info */
 	note("[Initializing arrays... (races)]");
-	if (init_race_info()) quit("Cannot initialize races");
+	if(init_race_info()) quit("Cannot initialize races");
 
 	/* Initialize class info */
 	note("[Initializing arrays... (classes)]");
-	if (init_class_info()) quit("Cannot initialize classes");
+	if(init_class_info()) quit("Cannot initialize classes");
 
 	/* Initialize character info */
 	note("[Initializing arrays... (characters)]");
-	if (init_chara_info()) quit("Cannot initialize characters");
+	if(init_chara_info()) quit("Cannot initialize characters");
 
 	/* Initialize creature info */
 	note("[Initializing arrays... (species)]");
-	if (init_species_info_csv()) quit("Cannot initialize species");
+	if(init_species_info_csv()) quit("Cannot initialize species");
 
 	/* Initialize creature ego info */	note("[Initializing arrays... (creature's ego)]");
-	if (init_re_info()) quit("Cannot initialize creature's ego");
+	if(init_re_info()) quit("Cannot initialize creature's ego");
 
 	/* Initialize store info */	note("[Initializing arrays... (store)]");
-	if (init_store_pre_info_csv()) quit("Cannot initialize creature's ego");
+	if(init_store_pre_info_csv()) quit("Cannot initialize creature's ego");
 
 	/* Initialize dungeon info */
 	note("[Initializing arrays... (dungeon)]");
-	if (init_dungeon_info()) quit("Cannot initialize dungeon");
+	if(init_dungeon_info()) quit("Cannot initialize dungeon");
 	{
 		int i;
 		for (i = 1; i < max_dungeon_idx; i++)
 		{
-			if (dungeon_info[i].final_guardian)
+			if(dungeon_info[i].final_guardian)
 				species_info[dungeon_info[i].final_guardian].flags.add_lev[TRAIT_GUARDIAN] = 1;
 		}
 	}
 
 	/* Initialize magic info */
 	note("[Initializing arrays... (magic)]");
-	if (init_magic_info()) quit("Cannot initialize magic");
+	if(init_magic_info()) quit("Cannot initialize magic");
 
 	/* Initialize weapon_exp info */
 	note("[Initializing arrays... (skill)]");
-	if (init_skill_info()) quit("Cannot initialize skill");
+	if(init_skill_info()) quit("Cannot initialize skill");
 
 	/* Initialize wilderness array */
 	note("[Initializing arrays... (wilderness)]");
-	if (init_wilderness()) quit("Cannot initialize wilderness");
+	if(init_wilderness()) quit("Cannot initialize wilderness");
 
 	/* Initialize town array */
 	note("[Initializing arrays... (towns)]");
-	if (init_towns()) quit("Cannot initialize towns");
+	if(init_towns()) quit("Cannot initialize towns");
 
 	/* Initialize building array */
 	note("[Initializing arrays... (buildings)]");
-	if (init_buildings()) quit("Cannot initialize buildings");
+	if(init_buildings()) quit("Cannot initialize buildings");
 
 	/* Initialize quest array */
 	note("[Initializing arrays... (quests)]");
-	if (init_quests()) quit("Cannot initialize quests");
+	if(init_quests()) quit("Cannot initialize quests");
 
 	note("[Initializing arrays... (vaults)]");
-	if (init_vault_info()) quit("Cannot initialize vaults");
+	if(init_vault_info()) quit("Cannot initialize vaults");
 
 	/* Initialize some other arrays */
 	note("[Initializing arrays... (other)]");
-	if (init_other()) quit("Cannot initialize other stuff");
+	if(init_other()) quit("Cannot initialize other stuff");
 
 	/* Initialize some other arrays */
 	note("[Initializing arrays... (alloc)]");
-	if (init_alloc()) quit("Cannot initialize alloc stuff");
+	if(init_alloc()) quit("Cannot initialize alloc stuff");
 
 	/*** Load default user pref files ***/
 

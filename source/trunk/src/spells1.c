@@ -89,7 +89,7 @@ static byte mh_attr(int max)
 static byte spell_color(int type)
 {
 	/* Check if A.B.'s new graphics should be used (rr9) */
-	if (streq(ANGBAND_GRAF, "new"))
+	if(streq(ANGBAND_GRAF, "new"))
 	{
 		/* Analyze */
 		switch (type)
@@ -161,7 +161,7 @@ static byte spell_color(int type)
 		cptr s = quark_str(gf_color[type]);
 
 		/* Oops */
-		if (!s) return (TERM_WHITE);
+		if(!s) return (TERM_WHITE);
 
 		/* Pick a random color */
 		c = s[randint0(strlen(s))];
@@ -171,7 +171,7 @@ static byte spell_color(int type)
 
 		/* Invalid color (note check for < 0 removed, gave a silly
 		 * warning because bytes are always >= 0 -- RG) */
-		if (a > 15) return (TERM_WHITE);
+		if(a > 15) return (TERM_WHITE);
 
 		/* Use this color */
 		return (a);
@@ -199,19 +199,19 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 	char c;
 
 	/* No motion (*) */
-	if ((ny == y) && (nx == x)) base = 0x30;
+	if((ny == y) && (nx == x)) base = 0x30;
 
 	/* Vertical (|) */
-	else if (nx == x) base = 0x40;
+	else if(nx == x) base = 0x40;
 
 	/* Horizontal (-) */
-	else if (ny == y) base = 0x50;
+	else if(ny == y) base = 0x50;
 
 	/* Diagonal (/) */
-	else if ((ny - y) == (x - nx)) base = 0x60;
+	else if((ny - y) == (x - nx)) base = 0x60;
 
 	/* Diagonal (\) */
-	else if ((ny - y) == (nx - x)) base = 0x70;
+	else if((ny - y) == (nx - x)) base = 0x70;
 
 	/* Weird (*) */
 	else base = 0x30;
@@ -263,7 +263,7 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
  * perhaps make use of the "vinfo" array (above).  XXX XXX XXX
  *
  * This function returns the number of grids (if any) in the path.  This
- * function will return zero if and only if (y1,x1) and (y2,x2) are equal.
+ * function will return zero if and only if(y1,x1) and (y2,x2) are equal.
  *
  * This algorithm is similar to, but slightly different from, the one used
  * by "update_view_los()", and very different from the one used by "los()".
@@ -291,11 +291,11 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 	int m;
 
 	/* No path necessary (or allowed) */
-	if ((x1 == x2) && (y1 == y2)) return (0);
+	if((x1 == x2) && (y1 == y2)) return (0);
 
 
 	/* Analyze "dy" */
-	if (y2 < y1)
+	if(y2 < y1)
 	{
 		ay = (y1 - y2);
 		sy = -1;
@@ -307,7 +307,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 	}
 
 	/* Analyze "dx" */
-	if (x2 < x1)
+	if(x2 < x1)
 	{
 		ax = (x1 - x2);
 		sx = -1;
@@ -326,7 +326,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 	full = half << 1;
 
 	/* Vertical */
-	if (ay > ax)
+	if(ay > ax)
 	{
 		/* Let m = ((dx/dy) * full) = (dx * dx * 2) */
 		m = ax * ax * 2;
@@ -337,7 +337,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 
 		frac = m;
 
-		if (frac > half)
+		if(frac > half)
 		{
 			/* Advance (X) part 2 */
 			x += sx;
@@ -356,45 +356,45 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			gp[n++] = GRID(y, x);
 
 			/* Hack -- Check maximum range */
-			if ((n + (k >> 1)) >= range) break;
+			if((n + (k >> 1)) >= range) break;
 
 			/* Sometimes stop at destination grid */
-			if (!(flg & (PROJECT_THRU)))
+			if(!(flg & (PROJECT_THRU)))
 			{
-				if ((x == x2) && (y == y2)) break;
+				if((x == x2) && (y == y2)) break;
 			}
 
-			if (flg & (PROJECT_DISI))
+			if(flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
+				if((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
 			}
-			else if (flg & (PROJECT_LOS))
+			else if(flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
+				if((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
 			}
-			else if (!(flg & (PROJECT_PATH)))
+			else if(!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
+				if((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial creatures/players */
-			if (flg & (PROJECT_STOP))
+			if(flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
+				if((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
 					break;
 			}
 
-			if (!in_bounds(floor_ptr, y, x)) break;
+			if(!in_bounds(floor_ptr, y, x)) break;
 
 			/* Slant */
-			if (m)
+			if(m)
 			{
 				/* Advance (X) part 1 */
 				frac += m;
 
 				/* Horizontal change */
-				if (frac > half)
+				if(frac > half)
 				{
 					/* Advance (X) part 2 */
 					x += sx;
@@ -413,7 +413,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 	}
 
 	/* Horizontal */
-	else if (ax > ay)
+	else if(ax > ay)
 	{
 		/* Let m = ((dy/dx) * full) = (dy * dy * 2) */
 		m = ay * ay * 2;
@@ -425,7 +425,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 		frac = m;
 
 		/* Vertical change */
-		if (frac > half)
+		if(frac > half)
 		{
 			/* Advance (Y) part 2 */
 			y += sy;
@@ -444,45 +444,45 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			gp[n++] = GRID(y, x);
 
 			/* Hack -- Check maximum range */
-			if ((n + (k >> 1)) >= range) break;
+			if((n + (k >> 1)) >= range) break;
 
 			/* Sometimes stop at destination grid */
-			if (!(flg & (PROJECT_THRU)))
+			if(!(flg & (PROJECT_THRU)))
 			{
-				if ((x == x2) && (y == y2)) break;
+				if((x == x2) && (y == y2)) break;
 			}
 
-			if (flg & (PROJECT_DISI))
+			if(flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
+				if((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
 			}
-			else if (flg & (PROJECT_LOS))
+			else if(flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
+				if((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
 			}
-			else if (!(flg & (PROJECT_PATH)))
+			else if(!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
+				if((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial creatures/players */
-			if (flg & (PROJECT_STOP))
+			if(flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
+				if((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
 					break;
 			}
 
-			if (!in_bounds(floor_ptr, y, x)) break;
+			if(!in_bounds(floor_ptr, y, x)) break;
 
 			/* Slant */
-			if (m)
+			if(m)
 			{
 				/* Advance (Y) part 1 */
 				frac += m;
 
 				/* Vertical change */
-				if (frac > half)
+				if(frac > half)
 				{
 					/* Advance (Y) part 2 */
 					y += sy;
@@ -514,36 +514,36 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 			gp[n++] = GRID(y, x);
 
 			/* Hack -- Check maximum range */
-			if ((n + (n >> 1)) >= range) break;
+			if((n + (n >> 1)) >= range) break;
 
 			/* Sometimes stop at destination grid */
-			if (!(flg & (PROJECT_THRU)))
+			if(!(flg & (PROJECT_THRU)))
 			{
-				if ((x == x2) && (y == y2)) break;
+				if((x == x2) && (y == y2)) break;
 			}
 
-			if (flg & (PROJECT_DISI))
+			if(flg & (PROJECT_DISI))
 			{
-				if ((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
+				if((n > 0) && cave_stop_disintegration(floor_ptr, y, x)) break;
 			}
-			else if (flg & (PROJECT_LOS))
+			else if(flg & (PROJECT_LOS))
 			{
-				if ((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
+				if((n > 0) && !cave_los_bold(floor_ptr, y, x)) break;
 			}
-			else if (!(flg & (PROJECT_PATH)))
+			else if(!(flg & (PROJECT_PATH)))
 			{
 				/* Always stop at non-initial wall grids */
-				if ((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
+				if((n > 0) && !cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) break;
 			}
 
 			/* Sometimes stop at non-initial creatures/players */
-			if (flg & (PROJECT_STOP))
+			if(flg & (PROJECT_STOP))
 			{
-				if ((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
+				if((n > 0) && EXIST_CREATURE(floor_ptr, y, x))
 					break;
 			}
 
-			if (!in_bounds(floor_ptr, y, x)) break;
+			if(!in_bounds(floor_ptr, y, x)) break;
 
 			/* Advance (Y) */
 			y += sy;
@@ -600,7 +600,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 	dam = (dam + r) / (r + 1);
 
 
-	if (have_flag(f_ptr->flags, FF_TREE))
+	if(have_flag(f_ptr->flags, FF_TREE))
 	{
 		cptr message;
 		switch (typ)
@@ -659,7 +659,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		default:
 			message = NULL;break;
 		}
-		if (message)
+		if(message)
 		{
 #ifdef JP
 			msg_format("木は%s。", message);
@@ -669,7 +669,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			cave_set_feat(floor_ptr, y, x, one_in_(3) ? feat_brake : feat_grass);
 
 			/* Observe */
-			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
+			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
 		}
 	}
 
@@ -715,23 +715,23 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_KILL_TRAP:
 		{
 			/* Reveal secret doors */
-			if (is_hidden_door(c_ptr))
+			if(is_hidden_door(c_ptr))
 			{
 				/* Pick a door */
 				disclose_grid(floor_ptr, y, x);
 
 				/* Check line of sight */
-				if (known)
+				if(known)
 				{
 					obvious = TRUE;
 				}
 			}
 
 			/* Destroy traps */
-			if (is_trap(c_ptr->feat))
+			if(is_trap(c_ptr->feat))
 			{
 				/* Check line of sight */
-				if (known)
+				if(known)
 				{
 #ifdef JP
 					msg_print("まばゆい閃光が走った！");
@@ -747,7 +747,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			}
 
 			/* Locked doors are unlocked */
-			if (is_closed_door(c_ptr->feat) && f_ptr->power && have_flag(f_ptr->flags, FF_OPEN))
+			if(is_closed_door(c_ptr->feat) && f_ptr->power && have_flag(f_ptr->flags, FF_OPEN))
 			{
 				s16b old_feat = c_ptr->feat;
 
@@ -755,7 +755,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				cave_alter_feat(floor_ptr, y, x, FF_DISARM);
 
 				/* Check line of sound */
-				if (known && (old_feat != c_ptr->feat))
+				if(known && (old_feat != c_ptr->feat))
 				{
 #ifdef JP
 					msg_print("カチッと音がした！");
@@ -768,7 +768,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if (!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
+			if(!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -785,10 +785,10 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_KILL_DOOR:
 		{
 			/* Destroy all doors and traps */
-			if (is_trap(c_ptr->feat) || have_flag(f_ptr->flags, FF_DOOR))
+			if(is_trap(c_ptr->feat) || have_flag(f_ptr->flags, FF_DOOR))
 			{
 				/* Check line of sight */
-				if (known)
+				if(known)
 				{
 					/* Message */
 #ifdef JP
@@ -805,7 +805,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if (!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
+			if(!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -820,7 +820,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 
 		case GF_JAM_DOOR: /* Jams a door (as if with a spike) */
 		{
-			if (have_flag(f_ptr->flags, FF_SPIKE))
+			if(have_flag(f_ptr->flags, FF_SPIKE))
 			{
 				s16b old_mimic = c_ptr->mimic;
 				feature_type *mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
@@ -836,7 +836,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				lite_spot(floor_ptr, y, x);
 
 				/* Check line of sight */
-				if (known && have_flag(mimic_f_ptr->flags, FF_OPEN))
+				if(known && have_flag(mimic_f_ptr->flags, FF_OPEN))
 				{
 					/* Message */
 #ifdef JP
@@ -854,10 +854,10 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		/* Destroy walls (and doors) */
 		case GF_KILL_WALL:
 		{
-			if (have_flag(f_ptr->flags, FF_HURT_ROCK))
+			if(have_flag(f_ptr->flags, FF_HURT_ROCK))
 			{
 				/* Message */
-				if (known && (c_ptr->info & (CAVE_MARK)))
+				if(known && (c_ptr->info & (CAVE_MARK)))
 				{
 #ifdef JP
 					msg_format("%sが溶けて泥になった！", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
@@ -882,16 +882,16 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_MAKE_DOOR:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(floor_ptr, y, x)) break;
+			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
-			if (creature_bold(aimer_ptr, y, x)) break;
+			if(creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(floor_ptr, y, x, feat_door[DOOR_DOOR].closed);
 
 			/* Observe */
-			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
+			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
 
 			break;
 		}
@@ -909,16 +909,16 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_MAKE_TREE:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(floor_ptr, y, x)) break;
+			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
-			if (creature_bold(aimer_ptr, y, x)) break;
+			if(creature_bold(aimer_ptr, y, x)) break;
 
 			/* Create a closed door */
 			cave_set_feat(floor_ptr, y, x, feat_tree);
 
 			/* Observe */
-			if (c_ptr->info & (CAVE_MARK)) obvious = TRUE;
+			if(c_ptr->info & (CAVE_MARK)) obvious = TRUE;
 
 
 			break;
@@ -927,7 +927,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_MAKE_GLYPH:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(floor_ptr, y, x)) break;
+			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Create a glyph */
 			c_ptr->info |= CAVE_OBJECT;
@@ -945,10 +945,10 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_STONE_WALL:
 		{
 			/* Require a "naked" floor grid */
-			if (!cave_naked_bold(floor_ptr, y, x)) break;
+			if(!cave_naked_bold(floor_ptr, y, x)) break;
 
 			/* Not on the player */
-			if (creature_bold(aimer_ptr, y, x)) break;
+			if(creature_bold(aimer_ptr, y, x)) break;
 
 			/* Place a wall */
 			cave_set_feat(floor_ptr, y, x, feat_granite);
@@ -960,19 +960,19 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_LAVA_FLOW:
 		{
 			/* Ignore permanent grid */
-			if (have_flag(f_ptr->flags, FF_PERMANENT)) break;
+			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
 
 			/* Shallow Lava */
-			if (dam == 1)
+			if(dam == 1)
 			{
 				/* Ignore grid without enough space */
-				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow lava */
 				cave_set_feat(floor_ptr, y, x, feat_shallow_lava);
 			}
 			/* Deep Lava */
-			else if (dam)
+			else if(dam)
 			{
 				/* Place a deep lava */
 				cave_set_feat(floor_ptr, y, x, feat_deep_lava);
@@ -983,19 +983,19 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_WATER_FLOW:
 		{
 			/* Ignore permanent grid */
-			if (have_flag(f_ptr->flags, FF_PERMANENT)) break;
+			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
 
 			/* Shallow Water */
-			if (dam == 1)
+			if(dam == 1)
 			{
 				/* Ignore grid without enough space */
-				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
 				cave_set_feat(floor_ptr, y, x, feat_shallow_water);
 			}
 			/* Deep Water */
-			else if (dam)
+			else if(dam)
 			{
 				/* Place a deep water */
 				cave_set_feat(floor_ptr, y, x, feat_deep_water);
@@ -1008,7 +1008,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_LITE:
 		{
 			/* Turn on the light */
-			if (!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
+			if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
 			{
 				c_ptr->info |= (CAVE_GLOW);
 
@@ -1021,15 +1021,15 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				update_local_illumination(floor_ptr, y, x);
 
 				/* Observe */
-				if (creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
+				if(creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
+				if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 
-				if (aimer_ptr->special_defense & NINJA_S_STEALTH)
+				if(aimer_ptr->special_defense & NINJA_S_STEALTH)
 				{
-					if (creature_bold(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
+					if(creature_bold(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
 				}
 			}
 
@@ -1044,20 +1044,20 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			int j;
 
 			/* Turn off the light. */
-			if (do_dark)
+			if(do_dark)
 			{
-				if (floor_ptr->floor_level || !is_daytime())
+				if(floor_ptr->floor_level || !is_daytime())
 				{
 					for (j = 0; j < 9; j++)
 					{
 						int by = y + ddy_ddd[j];
 						int bx = x + ddx_ddd[j];
 
-						if (in_bounds2(floor_ptr, by, bx))
+						if(in_bounds2(floor_ptr, by, bx))
 						{
 							cave_type *cc_ptr = &floor_ptr->cave[by][bx];
 
-							if (have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
+							if(have_flag(feature_info[get_feat_mimic(cc_ptr)].flags, FF_GLOW))
 							{
 								do_dark = FALSE;
 								break;
@@ -1065,13 +1065,13 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 						}
 					}
 
-					if (!do_dark) break;
+					if(!do_dark) break;
 				}
 
 				c_ptr->info &= ~(CAVE_GLOW);
 
 				/* Hack -- Forget "boring" grids */
-				if (!have_flag(f_ptr->flags, FF_REMEMBER))
+				if(!have_flag(f_ptr->flags, FF_REMEMBER))
 				{
 					/* Forget */
 					c_ptr->info &= ~(CAVE_MARK);
@@ -1086,11 +1086,11 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				update_local_illumination(floor_ptr, y, x);
 
 				/* Notice */
-				if (creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
+				if(creature_can_see_bold(aimer_ptr, y, x)) obvious = TRUE;
 
 				/* Mega-Hack -- Update the creature in the affected grid */
 				/* This allows "spear of light" (etc) to work "correctly" */
-				if (c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
+				if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 			}
 
 			/* All done */
@@ -1100,7 +1100,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_SHARDS:
 		case GF_ROCKET:
 		{
-			if (is_mirror_grid(c_ptr))
+			if(is_mirror_grid(c_ptr))
 			{
 #ifdef JP
 				msg_print("鏡が割れた！");
@@ -1112,10 +1112,10 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
-			if (have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
+			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
 			{
 				/* Message */
-				if (known && (c_ptr->info & CAVE_MARK))
+				if(known && (c_ptr->info & CAVE_MARK))
 				{
 #ifdef JP
 					msg_format("%sが割れた！", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
@@ -1136,7 +1136,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 
 		case GF_SOUND:
 		{
-			if (is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
+			if(is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
 #ifdef JP
 				msg_print("鏡が割れた！");
@@ -1148,10 +1148,10 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
-			if (have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
+			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
 			{
 				/* Message */
-				if (known && (c_ptr->info & CAVE_MARK))
+				if(known && (c_ptr->info & CAVE_MARK))
 				{
 #ifdef JP
 					msg_format("%sが割れた！", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
@@ -1173,12 +1173,12 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_DISINTEGRATE:
 		{
 			/* Destroy mirror/glyph */
-			if (is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr))
+			if(is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr))
 				remove_mirror(player_ptr, y, x);
 
 			/* Permanent features don't get effect */
 			/* But not protect creatures and other objects */
-			if (have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT))
+			if(have_flag(f_ptr->flags, FF_HURT_DISI) && !have_flag(f_ptr->flags, FF_PERMANENT))
 			{
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
@@ -1191,19 +1191,19 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_ACID_FLOW:
 		{
 			/* Ignore permanent grid */
-			if (have_flag(f_ptr->flags, FF_PERMANENT)) break;
+			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
 
 			/* Shallow Water */
-			if (dam == 1)
+			if(dam == 1)
 			{
 				/* Ignore grid without enough space */
-				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
 				cave_set_feat(floor_ptr, y, x, feat_shallow_acid);
 			}
 			/* Deep Water */
-			else if (dam)
+			else if(dam)
 			{
 				/* Place a deep water */
 				cave_set_feat(floor_ptr, y, x, feat_deep_acid);
@@ -1214,19 +1214,19 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		case GF_POISON_FLOW:
 		{
 			/* Ignore permanent grid */
-			if (have_flag(f_ptr->flags, FF_PERMANENT)) break;
+			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
 
 			/* Shallow Water */
-			if (dam == 1)
+			if(dam == 1)
 			{
 				/* Ignore grid without enough space */
-				if (!have_flag(f_ptr->flags, FF_FLOOR)) break;
+				if(!have_flag(f_ptr->flags, FF_FLOOR)) break;
 
 				/* Place a shallow water */
 				cave_set_feat(floor_ptr, y, x, feat_shallow_poison);
 			}
 			/* Deep Water */
-			else if (dam)
+			else if(dam)
 			{
 				/* Place a deep water */
 				cave_set_feat(floor_ptr, y, x, feat_deep_poison);
@@ -1305,7 +1305,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		object_flags(object_ptr, flgs);
 
 		/* Check for artifact */
-		if (object_is_artifact(object_ptr)) is_art = TRUE;
+		if(object_is_artifact(object_ptr)) is_art = TRUE;
 
 		/* Analyze the type */
 		switch (typ)
@@ -1313,7 +1313,7 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 			/* Acid -- Lots of things */
 			case GF_ACID:
 			{
-				if (hates_acid(object_ptr))
+				if(hates_acid(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1322,7 +1322,7 @@ note_kill = "融けてしまった！";
 					note_kill = (plural ? " melt!" : " melts!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_ACID)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_ACID)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1330,7 +1330,7 @@ note_kill = "融けてしまった！";
 			/* Elec -- Rings and Wands */
 			case GF_ELEC:
 			{
-				if (hates_elec(object_ptr))
+				if(hates_elec(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1339,7 +1339,7 @@ note_kill = "壊れてしまった！";
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1347,7 +1347,7 @@ note_kill = "壊れてしまった！";
 			/* Fire -- Flammable objects */
 			case GF_FIRE:
 			{
-				if (hates_fire(object_ptr))
+				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1356,7 +1356,7 @@ note_kill = "燃えてしまった！";
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1364,7 +1364,7 @@ note_kill = "燃えてしまった！";
 			/* Cold -- potions and flasks */
 			case GF_COLD:
 			{
-				if (hates_cold(object_ptr))
+				if(hates_cold(object_ptr))
 				{
 #ifdef JP
 note_kill = "砕け散ってしまった！";
@@ -1373,7 +1373,7 @@ note_kill = "砕け散ってしまった！";
 #endif
 
 					do_kill = TRUE;
-					if (have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1381,7 +1381,7 @@ note_kill = "砕け散ってしまった！";
 			/* Fire + Elec */
 			case GF_PLASMA:
 			{
-				if (hates_fire(object_ptr))
+				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1390,9 +1390,9 @@ note_kill = "燃えてしまった！";
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
-				if (hates_elec(object_ptr))
+				if(hates_elec(object_ptr))
 				{
 					ignore = FALSE;
 					do_kill = TRUE;
@@ -1402,7 +1402,7 @@ note_kill = "壊れてしまった！";
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_ELEC)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1410,7 +1410,7 @@ note_kill = "壊れてしまった！";
 			/* Fire + Cold */
 			case GF_METEOR:
 			{
-				if (hates_fire(object_ptr))
+				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1419,9 +1419,9 @@ note_kill = "燃えてしまった！";
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_FIRE)) ignore = TRUE;
 				}
-				if (hates_cold(object_ptr))
+				if(hates_cold(object_ptr))
 				{
 					ignore = FALSE;
 					do_kill = TRUE;
@@ -1431,7 +1431,7 @@ note_kill = "砕け散ってしまった！";
 					note_kill = (plural ? " shatter!" : " shatters!");
 #endif
 
-					if (have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
+					if(have_flag(flgs, TRAIT_IGNORE_COLD)) ignore = TRUE;
 				}
 				break;
 			}
@@ -1442,7 +1442,7 @@ note_kill = "砕け散ってしまった！";
 			case GF_FORCE:
 			case GF_SOUND:
 			{
-				if (hates_cold(object_ptr))
+				if(hates_cold(object_ptr))
 				{
 #ifdef JP
 note_kill = "砕け散ってしまった！";
@@ -1491,8 +1491,8 @@ note_kill = "壊れてしまった！";
 				note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
 
-				if (have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) ignore = TRUE;
-				else if ((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
+				if(have_flag(object_ptr->trait_flags, TRAIT_RES_CHAO)) ignore = TRUE;
+				else if((object_ptr->tval == TV_SCROLL) && (object_ptr->sval == SV_SCROLL_CHAOS)) ignore = TRUE;
 				break;
 			}
 
@@ -1500,7 +1500,7 @@ note_kill = "壊れてしまった！";
 			case GF_HOLY_FIRE:
 			case GF_HELL_FIRE:
 			{
-				if (object_is_cursed(object_ptr))
+				if(object_is_cursed(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
@@ -1527,10 +1527,10 @@ note_kill = "壊れてしまった！";
 			case GF_KILL_DOOR:
 			{
 				/* Chests are noticed only if trapped or locked */
-				if (object_ptr->tval == TV_CHEST)
+				if(object_ptr->tval == TV_CHEST)
 				{
 					/* Disarm/Unlock traps */
-					if (object_ptr->pval > 0)
+					if(object_ptr->pval > 0)
 					{
 						/* Disarm or Unlock */
 						object_ptr->pval = (0 - object_ptr->pval);
@@ -1539,7 +1539,7 @@ note_kill = "壊れてしまった！";
 						object_known(object_ptr);
 
 						/* Notice */
-						if (known && (object_ptr->marked & OM_FOUND))
+						if(known && (object_ptr->marked & OM_FOUND))
 						{
 #ifdef JP
 msg_print("カチッと音がした！");
@@ -1556,20 +1556,20 @@ msg_print("カチッと音がした！");
 			}
 			case GF_ANIM_DEAD:
 			{
-				if (object_ptr->tval == TV_CORPSE)
+				if(object_ptr->tval == TV_CORPSE)
 				{
 					int i;
 					u32b mode = 0L;
 
-					if ((caster_ptr) && (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr)))
+					if((caster_ptr) && (is_player(caster_ptr) || is_pet(player_ptr, caster_ptr)))
 						mode |= PC_FORCE_PET;
 
 					for (i = 0; i < object_ptr->number ; i++)
 					{
-						if (((object_ptr->sval == SV_CORPSE) && (randint1(100) > 80)) ||
+						if(((object_ptr->sval == SV_CORPSE) && (randint1(100) > 80)) ||
 						    ((object_ptr->sval == SV_SKELETON) && (randint1(100) > 60)))
 						{
-							if (!note_kill)
+							if(!note_kill)
 							{
 #ifdef JP
 note_kill = "灰になった。";
@@ -1580,7 +1580,7 @@ note_kill = "灰になった。";
 							continue;
 						}
 /*TODO
-						else if (summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode))
+						else if(summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode))
 						{
 #ifdef JP
 note_kill = "生き返った。";
@@ -1589,7 +1589,7 @@ note_kill = "生き返った。";
 #endif
 						}
 */
-						else if (!note_kill)
+						else if(!note_kill)
 						{
 #ifdef JP
 note_kill = "灰になった。";
@@ -1607,20 +1607,20 @@ note_kill = "灰になった。";
 
 
 		/* Attempt to destroy the object */
-		if (do_kill)
+		if(do_kill)
 		{
 			/* Effect "observed" */
-			if (known && (object_ptr->marked & OM_FOUND))
+			if(known && (object_ptr->marked & OM_FOUND))
 			{
 				obvious = TRUE;
 				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 			}
 
 			/* Artifacts, and other objects, get to resist */
-			if (is_art || ignore)
+			if(is_art || ignore)
 			{
 				/* Observe the resist */
-				if (known && (object_ptr->marked & OM_FOUND))
+				if(known && (object_ptr->marked & OM_FOUND))
 				{
 #ifdef JP
 msg_format("%sは影響を受けない！",
@@ -1637,7 +1637,7 @@ msg_format("%sは影響を受けない！",
 			else
 			{
 				/* Describe if needed */
-				if (known && (object_ptr->marked & OM_FOUND) && note_kill)
+				if(known && (object_ptr->marked & OM_FOUND) && note_kill)
 				{
 #ifdef JP
 msg_format("%sは%s", object_name, note_kill);
@@ -1655,7 +1655,7 @@ msg_format("%sは%s", object_name, note_kill);
 				delete_object_idx(this_object_idx);
 
 				/* Potions produce effects when 'shattered' */
-				if (is_potion)
+				if(is_potion)
 				{
 					//TODO (void)potion_smash_effect(who, y, x, k_idx);
 				}
@@ -1775,17 +1775,17 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	int caster_lev = caster_ptr->lev * 2;
 
 	// Nobody here
-	if (!c_ptr->creature_idx) return (FALSE);
+	if(!c_ptr->creature_idx) return (FALSE);
 
 	// Never affect projector
-	if (target_ptr == caster_ptr) return (FALSE);
+	if(target_ptr == caster_ptr) return (FALSE);
 
-	if ((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
-	if (sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return FALSE;
+	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
+	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return FALSE;
 
 	// Don't affect already death creatures
 	// Prevents problems with chain reactions of exploding creatures
-	if (target_ptr->chp < 0) return (FALSE);
+	if(target_ptr->chp < 0) return (FALSE);
 
 	// Reduce damage by distance
 	dam = (dam + r) / (r + 1);
@@ -1799,7 +1799,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 #endif
 
 
-	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
+	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 
 	// Analyze the damage type
 	switch (typ)
@@ -1819,33 +1819,33 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 
 	/* Absolutely no effect */
-	if (skipped) return (FALSE);
+	if(skipped) return (FALSE);
 
 	/* "Unique" creatures cannot be polymorphed */
-	if (has_trait(target_ptr, TRAIT_UNIQUE)) do_poly = FALSE;
+	if(has_trait(target_ptr, TRAIT_UNIQUE)) do_poly = FALSE;
 
 	/* Quest creatures cannot be polymorphed */
-	if (has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE;
+	if(has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE;
 
-	if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
+	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" creatures can only be "killed" by the player. */
-	if ((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
+	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
 	{
-		if (caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
+		if(caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}
 
 	/* Modify the damage */
 	tmp = dam;
 	dam = invuln_damage_mod(target_ptr, dam, (bool)(typ == GF_PSY_SPEAR));
 #ifdef JP
-	if ((tmp > 0) && (dam == 0)) note = "はダメージを受けていない。";
+	if((tmp > 0) && (dam == 0)) note = "はダメージを受けていない。";
 #else
-	if ((tmp > 0) && (dam == 0)) note = " is unharmed.";
+	if((tmp > 0) && (dam == 0)) note = " is unharmed.";
 #endif
 
 	/* Check for death */
-	if (dam > target_ptr->chp)
+	if(dam > target_ptr->chp)
 	{
 		/* Extract method of death */
 		note = note_dies;
@@ -1853,14 +1853,14 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	else
 	{
 		/* Sound and Impact resisters never stun */
-		if (do_stun &&
+		if(do_stun &&
 		    !(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_RES_WALL)) && !has_trait(target_ptr, TRAIT_NO_STUN))
 		{
 			/* Obvious */
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* Get stunned */
-			if (target_ptr->timed_trait[TRAIT_STUN])
+			if(target_ptr->timed_trait[TRAIT_STUN])
 			{
 #ifdef JP
 				note = "はひどくもうろうとした。";
@@ -1889,13 +1889,13 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		}
 
 		/* Confusion and Chaos resisters (and sleepers) never confuse */
-		if (do_conf && !has_trait(target_ptr, TRAIT_NO_CONF) && !has_trait(target_ptr, TRAIT_RES_CHAO))
+		if(do_conf && !has_trait(target_ptr, TRAIT_NO_CONF) && !has_trait(target_ptr, TRAIT_RES_CHAO))
 		{
 			/* Obvious */
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* Already partially confused */
-			if (target_ptr->timed_trait[TRAIT_CONFUSED])
+			if(target_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
 				note = "はさらに混乱したようだ。";
@@ -1925,14 +1925,14 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			get_angry = TRUE;
 		}
 
-		if (do_time)
+		if(do_time)
 		{
 			/* Obvious */
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (do_time >= target_ptr->mhp) do_time = target_ptr->mhp - 1;
+			if(do_time >= target_ptr->mhp) do_time = target_ptr->mhp - 1;
 
-			if (do_time)
+			if(do_time)
 			{
 #ifdef JP
 				note = "は弱くなったようだ。";
@@ -1940,18 +1940,18 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				note = " seems weakened.";
 #endif
 				target_ptr->mhp -= do_time;
-				if ((target_ptr->chp - dam) > target_ptr->mhp) dam = target_ptr->chp - target_ptr->mhp;
+				if((target_ptr->chp - dam) > target_ptr->mhp) dam = target_ptr->chp - target_ptr->mhp;
 			}
 			get_angry = TRUE;
 		}
 
 		/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
-		if (do_poly && (randint1(90) > species_ptr->level))
+		if(do_poly && (randint1(90) > species_ptr->level))
 		{
-			if (polymorph_creature(player_ptr, y, x))
+			if(polymorph_creature(player_ptr, y, x))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Creature polymorphs */
 #ifdef JP
@@ -1981,10 +1981,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		}
 
 		/* Handle "teleport" */
-		if (do_dist)
+		if(do_dist)
 		{
 			/* Obvious */
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* Message */
 #ifdef JP
@@ -2006,7 +2006,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		}
 
 		/* Fear */
-		if (do_fear)
+		if(do_fear)
 		{
 			/* Set fear */
 			(void)set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
@@ -2016,17 +2016,17 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		}
 	}
 
-	if (typ == GF_DRAIN_MANA)
+	if(typ == GF_DRAIN_MANA)
 	{
 		/* Drain mana does nothing */
 	}
 
 	/* If another creature did the damage, hurt the creature by hand */
-	else if (caster_ptr != caster_ptr)
+	else if(caster_ptr != caster_ptr)
 	{
 		/* Redraw (later) if needed */
-		if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-		if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+		if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+		if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the creature up */
 		(void)set_paralyzed(target_ptr, 0);
@@ -2035,18 +2035,18 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		target_ptr->chp -= dam;
 
 		/* Dead creature */
-		if (target_ptr->chp < 0)
+		if(target_ptr->chp < 0)
 		{
 			bool sad = FALSE;
 
-			if (is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
+			if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
 				sad = TRUE;
 
 			/* Give detailed messages if destroyed */
-			if (known && note)
+			if(known && note)
 			{
 				creature_desc(target_name, target_ptr, CD_TRUE_NAME);
-				if (see_s_msg)
+				if(see_s_msg)
 				{
 					msg_format("%^s%s", target_name, note);
 				}
@@ -2057,7 +2057,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			}
 
 			//TODO
-			//if (caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
+			//if(caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
 
 			/* Generate treasure, etc */
 			creature_dead_effect(player_ptr, target_ptr, FALSE);
@@ -2065,7 +2065,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			/* Delete the creature */
 			delete_species_idx(target_ptr);
 
-			if (sad)
+			if(sad)
 			{
 #ifdef JP
 				msg_print("少し悲しい気分がした。");
@@ -2079,10 +2079,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		else
 		{
 			/* Give detailed messages if visible or destroyed */
-			if (note && seen_msg) msg_format("%^s%s", target_name, note);
+			if(note && seen_msg) msg_format("%^s%s", target_name, note);
 
 			/* Hack -- Pain message */
-			else if (see_s_msg)
+			else if(see_s_msg)
 			{
 				message_pain(c_ptr->creature_idx, dam);
 			}
@@ -2091,19 +2091,19 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				player_ptr->hear_noise = TRUE; // check all creature
 			}
 
-			if (do_sleep) (void)set_paralyzed(target_ptr, do_sleep); // Hack -- handle sleep
+			if(do_sleep) (void)set_paralyzed(target_ptr, do_sleep); // Hack -- handle sleep
 		}
 	}
 
-	else if (heal_leper)
+	else if(heal_leper)
 	{
 #ifdef JP
-		if (seen_msg) msg_print("不潔な病人は病気が治った！");
+		if(seen_msg) msg_print("不潔な病人は病気が治った！");
 #else
-		if (seen_msg) msg_print("The Mangy looking leper is healed!");
+		if(seen_msg) msg_print("The Mangy looking leper is healed!");
 #endif
 
-		if (record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
+		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 		{
 			char m2_name[80];
 
@@ -2126,10 +2126,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		if(target_ptr->species_idx != 0)
 		{
 			/* HACK - anger the creature before showing the sleep message */
-			if (do_sleep) anger_creature(caster_ptr, target_ptr);
+			if(do_sleep) anger_creature(caster_ptr, target_ptr);
 
 			/* Give detailed messages if visible or destroyed */
-			if (note && seen_msg)
+			if(note && seen_msg)
 #ifdef JP
 				msg_format("%s%s", target_name, note);
 #else
@@ -2138,21 +2138,21 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 
 			/* Hack -- Pain message */
-			else if (known && (dam || !do_fear))
+			else if(known && (dam || !do_fear))
 			{
 				message_pain(c_ptr->creature_idx, dam);
 			}
 
 			/* Anger creatures */
-			if (((dam > 0) || get_angry) && !do_sleep)
+			if(((dam > 0) || get_angry) && !do_sleep)
 				anger_creature(caster_ptr, target_ptr);
 
 			/* Hack -- handle sleep */
-			if (do_sleep) (void)set_paralyzed(target_ptr, do_sleep);
+			if(do_sleep) (void)set_paralyzed(target_ptr, do_sleep);
 		}
 	}
 
-	if ((typ == GF_BLOOD_CURSE) && one_in_(4))
+	if((typ == GF_BLOOD_CURSE) && one_in_(4))
 	{
 		int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 		int count = 0;
@@ -2161,7 +2161,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			switch (randint1(28))
 			{
 			case 1: case 2:
-				if (!count)
+				if(!count)
 				{
 #ifdef JP
 					msg_print("地面が揺れた...");
@@ -2170,10 +2170,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 #endif
 
 					earthquake(player_ptr, ty, tx, 4 + randint0(4));
-					if (!one_in_(6)) break;
+					if(!one_in_(6)) break;
 				}
 			case 3: case 4: case 5: case 6:
-				if (!count)
+				if(!count)
 				{
 					int dam = diceroll(10, 10);
 #ifdef JP
@@ -2183,10 +2183,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 #endif
 
 					project(0, 8, ty,tx, dam, GF_MANA, curse_flg, -1);
-					if (!one_in_(6)) break;
+					if(!one_in_(6)) break;
 				}
 			case 7: case 8:
-				if (!count)
+				if(!count)
 				{
 #ifdef JP
 					msg_print("空間が歪んだ！");
@@ -2194,9 +2194,9 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 					msg_print("Space warps about you!");
 #endif
 
-					if (target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
-					if (one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-					if (!one_in_(6)) break;
+					if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
+					if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+					if(!one_in_(6)) break;
 				}
 			case 9: case 10: case 11:
 #ifdef JP
@@ -2206,39 +2206,39 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 #endif
 
 				project(0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
-				if (!one_in_(6)) break;
+				if(!one_in_(6)) break;
 			case 12: case 13: case 14: case 15: case 16:
 				aggravate_creatures(caster_ptr);
-				if (!one_in_(6)) break;
+				if(!one_in_(6)) break;
 			case 17: case 18:
 				count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-				if (!one_in_(6)) break;
+				if(!one_in_(6)) break;
 			case 19: case 20: case 21: case 22:
 			{
 				bool pet = !one_in_(3);
 				u32b mode = PC_ALLOW_GROUP;
 
-				if (pet) mode |= PC_FORCE_PET;
+				if(pet) mode |= PC_FORCE_PET;
 				else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
 
 				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
-				if (!one_in_(6)) break;
+				if(!one_in_(6)) break;
 			}
 			case 23: case 24: case 25:
-				if (has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
+				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
 #ifdef JP
 msg_print("生命力が体から吸い取られた気がする！");
 #else
 				msg_print("You feel your life draining away...");
 #endif
 
-				if (has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
+				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
 				else lose_exp(caster_ptr, caster_ptr->exp / 16);
-				if (!one_in_(6)) break;
+				if(!one_in_(6)) break;
 			case 26: case 27: case 28:
 			{
 				int i = 0;
-				if (one_in_(13))
+				if(one_in_(13))
 				{
 					while (i < 6)
 					{
@@ -2262,7 +2262,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 		while (one_in_(5));
 	}
 
-	if (floor_ptr->gamble_arena_mode)
+	if(floor_ptr->gamble_arena_mode)
 	{
 		health_track(c_ptr->creature_idx);
 		play_redraw |= (PR_HEALTH);
@@ -2272,42 +2272,42 @@ msg_print("生命力が体から吸い取られた気がする！");
 	/* XXX XXX XXX Verify this code */
 
 	/* Update the creature */
-	if (target_ptr->species_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
+	if(target_ptr->species_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 
 	/* Redraw the creature grid */
 	lite_spot(floor_ptr, y, x);
 
 
 	/* Update creature recall window */
-	if ((species_window_idx == target_ptr->species_idx) && (seen || !target_ptr->species_idx))
+	if((species_window_idx == target_ptr->species_idx) && (seen || !target_ptr->species_idx))
 	{
 		/* Window stuff */
 		play_window |= (PW_MONSTER);
 	}
 
-	if ((dam > 0) && !is_pet(player_ptr, target_ptr) && !is_friendly(player_ptr, target_ptr))
+	if((dam > 0) && !is_pet(player_ptr, target_ptr) && !is_friendly(player_ptr, target_ptr))
 	{
-		if (caster_ptr == caster_ptr)
+		if(caster_ptr == caster_ptr)
 		{
-			if (!(flg & PROJECT_NO_HANGEKI))
+			if(!(flg & PROJECT_NO_HANGEKI))
 			{
 				set_target(target_ptr, creature_target_y, creature_target_x);
 			}
 		}
-		else if ((caster_ptr != caster_ptr) && is_pet(player_ptr, caster_ptr) && !creature_bold(target_ptr, target_ptr->target_y, target_ptr->target_x))
+		else if((caster_ptr != caster_ptr) && is_pet(player_ptr, caster_ptr) && !creature_bold(target_ptr, target_ptr->target_y, target_ptr->target_x))
 		{
 			set_target(target_ptr, caster_ptr->fy, caster_ptr->fx);
 		}
 	}
 
-	if (player_ptr->riding && (player_ptr->riding == c_ptr->creature_idx) && (dam > 0))
+	if(player_ptr->riding && (player_ptr->riding == c_ptr->creature_idx) && (dam > 0))
 	{
-		if (target_ptr->chp > target_ptr->mhp/3) dam = (dam + 1) / 2;
+		if(target_ptr->chp > target_ptr->mhp/3) dam = (dam + 1) / 2;
 		do_thrown_from_ridingdam_m = (dam > 200) ? 200 : dam;
 	}
 
 
-	if (photo)
+	if(photo)
 	{
 		object_type *quest_ptr;
 		object_type forge;
@@ -2430,7 +2430,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	}
 
 	// If the player is blind, be more descriptive
-	if (blind) fuzzy = TRUE;
+	if(blind) fuzzy = TRUE;
 
 	// Analyze the damage
 	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
@@ -2440,9 +2440,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_ACID:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("酸で攻撃された！");
+			if(fuzzy) msg_print("酸で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by acid!");
+			if(fuzzy) msg_print("You are hit by acid!");
 #endif
 			get_damage = acid_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2451,9 +2451,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_FIRE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("火炎で攻撃された！");
+			if(fuzzy) msg_print("火炎で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by fire!");
+			if(fuzzy) msg_print("You are hit by fire!");
 #endif
 			get_damage = fire_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2462,9 +2462,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_COLD:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("冷気で攻撃された！");
+			if(fuzzy) msg_print("冷気で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by cold!");
+			if(fuzzy) msg_print("You are hit by cold!");
 #endif
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2473,9 +2473,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_ELEC:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("電撃で攻撃された！");
+			if(fuzzy) msg_print("電撃で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by lightning!");
+			if(fuzzy) msg_print("You are hit by lightning!");
 #endif
 			get_damage = elec_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2485,13 +2485,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
-			if (fuzzy) msg_print("毒で攻撃された！");
+			if(fuzzy) msg_print("毒で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by poison!");
+			if(fuzzy) msg_print("You are hit by poison!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
-			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 			}
@@ -2502,17 +2502,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
-			if (fuzzy) msg_print("放射能で攻撃された！");
+			if(fuzzy) msg_print("放射能で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by radiation!");
+			if(fuzzy) msg_print("You are hit by radiation!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
-			if (!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 
-				if (one_in_(5)) /* 6 */
+				if(one_in_(5)) /* 6 */
 				{
 #ifdef JP
 					msg_print("奇形的な変身を遂げた！");
@@ -2520,13 +2520,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					msg_print("You undergo a freakish metamorphosis!");
 #endif
 
-					if (one_in_(4)) /* 4 */
+					if(one_in_(4)) /* 4 */
 						do_poly_self(target_ptr);
 					else
 						mutate_creature(target_ptr);
 				}
 
-				if (one_in_(6))
+				if(one_in_(6))
 				{
 					inven_damage(target_ptr, set_acid_destroy, 2);
 				}
@@ -2537,9 +2537,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_MISSILE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
+			if(fuzzy) msg_print("何かで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something!");
+			if(fuzzy) msg_print("You are hit by something!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2548,9 +2548,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_HOLY_FIRE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
+			if(fuzzy) msg_print("何かで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something!");
+			if(fuzzy) msg_print("You are hit by something!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2559,9 +2559,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_HELL_FIRE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
+			if(fuzzy) msg_print("何かで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something!");
+			if(fuzzy) msg_print("You are hit by something!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2571,11 +2571,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 
 #ifdef JP
-			if (fuzzy) msg_print("何か鋭いもので攻撃された！");
+			if(fuzzy) msg_print("何か鋭いもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something sharp!");
+			if(fuzzy) msg_print("You are hit by something sharp!");
 #endif
-			else if (has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
+			else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
 #ifdef JP
 				msg_print("矢を斬り捨てた！");
@@ -2592,20 +2592,20 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_PLASMA:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かとても熱いもので攻撃された！");
+			if(fuzzy) msg_print("何かとても熱いもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something *HOT*!");
+			if(fuzzy) msg_print("You are hit by something *HOT*!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
-			if (!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
 				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
 			}
 
-			if (!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
+			if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
 			{
 				inven_damage(target_ptr, set_acid_destroy, 3);
 			}
@@ -2616,12 +2616,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_NETHER:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("地獄の力で攻撃された！");
+			if(fuzzy) msg_print("地獄の力で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by nether forces!");
+			if(fuzzy) msg_print("You are hit by nether forces!");
 #endif
 
-			if (!target_ptr->resist_neth && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_neth && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
@@ -2632,22 +2632,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_WATER:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か湿ったもので攻撃された！");
+			if(fuzzy) msg_print("何か湿ったもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something wet!");
+			if(fuzzy) msg_print("You are hit by something wet!");
 #endif
 
-			if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				if (!target_ptr->resist_sound)
+				if(!target_ptr->resist_sound)
 				{
 					set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(40));
 				}
-				if (!has_trait(target_ptr, TRAIT_NO_CONF))
+				if(!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
 					set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5) + 5);
 				}
-				if (one_in_(5))
+				if(one_in_(5))
 				{
 					inven_damage(target_ptr, set_cold_destroy, 3);
 				}
@@ -2660,21 +2660,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_CHAOS:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("無秩序の波動で攻撃された！");
+			if(fuzzy) msg_print("無秩序の波動で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by a wave of anarchy!");
+			if(fuzzy) msg_print("You are hit by a wave of anarchy!");
 #endif
 
-			if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				if (!has_trait(target_ptr, TRAIT_NO_CONF))
+				if(!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
 					(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
 				}
-				if (!target_ptr->resist_chaos)
+				if(!target_ptr->resist_chaos)
 				{
 					(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint1(10));
-					if (one_in_(3))
+					if(one_in_(3))
 					{
 #ifdef JP
 						msg_print("あなたの身体はカオスの力で捻じ曲げられた！");
@@ -2685,12 +2685,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						(void)gain_trait(target_ptr, 0, TRUE);
 					}
 				}
-				if (!target_ptr->resist_neth && !target_ptr->resist_chaos)
+				if(!target_ptr->resist_neth && !target_ptr->resist_chaos)
 				{
 					drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
 				}
 
-				if (!target_ptr->resist_chaos || one_in_(9))
+				if(!target_ptr->resist_chaos || one_in_(9))
 				{
 					inven_damage(target_ptr, set_elec_destroy, 2);
 					inven_damage(target_ptr, set_fire_destroy, 2);
@@ -2704,17 +2704,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_SHARDS:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か鋭いもので攻撃された！");
+			if(fuzzy) msg_print("何か鋭いもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something sharp!");
+			if(fuzzy) msg_print("You are hit by something sharp!");
 #endif
 
-			if (!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + dam);
 			}
 
-			if (!target_ptr->resist_shard || one_in_(13))
+			if(!target_ptr->resist_shard || one_in_(13))
 			{
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}
@@ -2726,18 +2726,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_SOUND:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("轟音で攻撃された！");
+			if(fuzzy) msg_print("轟音で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by a loud noise!");
+			if(fuzzy) msg_print("You are hit by a loud noise!");
 #endif
 
-			if (!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
 				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
 			}
 
-			if (!target_ptr->resist_sound || one_in_(13))
+			if(!target_ptr->resist_sound || one_in_(13))
 			{
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}
@@ -2749,12 +2749,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_CONFUSION:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か混乱するもので攻撃された！");
+			if(fuzzy) msg_print("何か混乱するもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something puzzling!");
+			if(fuzzy) msg_print("You are hit by something puzzling!");
 #endif
 
-			if (!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(20) + 10);
 			}
@@ -2765,12 +2765,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_DISENCHANT:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かさえないもので攻撃された！");
+			if(fuzzy) msg_print("何かさえないもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something static!");
+			if(fuzzy) msg_print("You are hit by something static!");
 #endif
 
-			if (!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)apply_disenchant(target_ptr, 0);
 			}
@@ -2781,12 +2781,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_NEXUS:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か奇妙なもので攻撃された！");
+			if(fuzzy) msg_print("何か奇妙なもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something strange!");
+			if(fuzzy) msg_print("You are hit by something strange!");
 #endif
 
-			if (!target_ptr->resist_nexus && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_nexus && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				apply_nexus(caster_ptr);
 			}
@@ -2797,12 +2797,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_FORCE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("運動エネルギーで攻撃された！");
+			if(fuzzy) msg_print("運動エネルギーで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by kinetic force!");
+			if(fuzzy) msg_print("You are hit by kinetic force!");
 #endif
 
-			if (!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
 			}
@@ -2813,22 +2813,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_ROCKET:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("爆発があった！");
+			if(fuzzy) msg_print("爆発があった！");
 #else
-			if (fuzzy) msg_print("There is an explosion!");
+			if(fuzzy) msg_print("There is an explosion!");
 #endif
 
-			if (!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
 			}
 
-			else if (!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			else if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + (dam / 2));
 			}
 
-			if (!target_ptr->resist_shard || one_in_(12))
+			if(!target_ptr->resist_shard || one_in_(12))
 			{
 				inven_damage(target_ptr, set_cold_destroy, 3);
 			}
@@ -2840,12 +2840,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_INERTIA:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か遅いもので攻撃された！");
+			if(fuzzy) msg_print("何か遅いもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something slow!");
+			if(fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if (!target_ptr->resist_inertia && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
+			if(!target_ptr->resist_inertia && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
@@ -2855,19 +2855,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_LITE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
+			if(fuzzy) msg_print("何かで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something!");
+			if(fuzzy) msg_print("You are hit by something!");
 #endif
 
-			else if (!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
-			if (target_ptr->timed_trait[TRAIT_WRAITH_FORM] && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(target_ptr->timed_trait[TRAIT_WRAITH_FORM] && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				target_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;
 #ifdef JP
@@ -2886,12 +2886,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_DARK:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
+			if(fuzzy) msg_print("何かで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something!");
+			if(fuzzy) msg_print("You are hit by something!");
 #endif
 
-			if (!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
@@ -2902,18 +2902,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_TIME:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("過去からの衝撃に攻撃された！");
+			if(fuzzy) msg_print("過去からの衝撃に攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by a blast from the past!");
+			if(fuzzy) msg_print("You are hit by a blast from the past!");
 #endif
 
-			if (!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				switch (randint1(10))
 				{
 					case 1: case 2: case 3: case 4: case 5:
 					{
-						if (has_trait(target_ptr, TRAIT_ANDROID)) break;
+						if(has_trait(target_ptr, TRAIT_ANDROID)) break;
 #ifdef JP
 						msg_format("%sの時の流れが逆戻りしたようだ。", target_name);
 #else
@@ -2954,7 +2954,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
-						if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+						if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 						target_ptr->creature_update |= (CRU_BONUS);
 						break;
 					}
@@ -2971,7 +2971,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						for (k = 0; k < 6; k++)
 						{
 							target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
-							if (target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+							if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 						}
 						target_ptr->creature_update |= (CRU_BONUS);
 						break;
@@ -2987,26 +2987,26 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_GRAVITY:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か重いもので攻撃された！");
+			if(fuzzy) msg_print("何か重いもので攻撃された！");
 			msg_print("周辺の重力がゆがんだ。");
 #else
-			if (fuzzy) msg_print("You are hit by something heavy!");
+			if(fuzzy) msg_print("You are hit by something heavy!");
 			msg_print("Gravity warps around you.");
 #endif
 
-			if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
-				if (!has_trait(target_ptr, TRAIT_CAN_FLY))
+				if(!has_trait(target_ptr, TRAIT_CAN_FLY))
 					(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
-				if (!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
+				if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
 					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
 				}
 			}
 
-			if (!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
+			if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -3015,9 +3015,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_DISINTEGRATE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("純粋なエネルギーで攻撃された！");
+			if(fuzzy) msg_print("純粋なエネルギーで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by pure energy!");
+			if(fuzzy) msg_print("You are hit by pure energy!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -3026,9 +3026,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_OLD_HEAL:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何らかの攻撃によって気分がよくなった。");
+			if(fuzzy) msg_print("何らかの攻撃によって気分がよくなった。");
 #else
-			if (fuzzy) msg_print("You are hit by something invigorating!");
+			if(fuzzy) msg_print("You are hit by something invigorating!");
 #endif
 
 			(void)set_paralyzed(target_ptr, 0);
@@ -3038,8 +3038,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(void)heal_creature(target_ptr, dam);
 
 			// Redraw (later) if needed
-			if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-			if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
 			get_damage = 0;
 			break;
@@ -3048,9 +3048,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_OLD_SPEED:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かで攻撃された！");
+			if(fuzzy) msg_print("何かで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something!");
+			if(fuzzy) msg_print("You are hit by something!");
 #endif
 
 			(void)set_fast(target_ptr, target_ptr->timed_trait[TRAIT_FAST] + randint1(5), FALSE);
@@ -3061,12 +3061,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_OLD_SLOW:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か遅いもので攻撃された！");
+			if(fuzzy) msg_print("何か遅いもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something slow!");
+			if(fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3085,14 +3085,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		case GF_OLD_SLEEP:
 		{
-			if (has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
+			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 #ifdef JP
-			if (fuzzy) msg_print("眠ってしまった！");
+			if(fuzzy) msg_print("眠ってしまった！");
 #else
-			if (fuzzy) msg_print("You fall asleep!");
+			if(fuzzy) msg_print("You fall asleep!");
 #endif
 
-			if (curse_of_Iluvatar)
+			if(curse_of_Iluvatar)
 			{
 				int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
 #ifdef JP
@@ -3115,9 +3115,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_SUPER_RAY:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("魔法のオーラで攻撃された！");
+			if(fuzzy) msg_print("魔法のオーラで攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by an aura of magic!");
+			if(fuzzy) msg_print("You are hit by an aura of magic!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -3127,9 +3127,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_PSY_SPEAR:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("エネルギーの塊で攻撃された！");
+			if(fuzzy) msg_print("エネルギーの塊で攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by an energy!");
+			if(fuzzy) msg_print("You are hit by an energy!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, killer, NULL, spell);
 			break;
@@ -3138,15 +3138,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_METEOR:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何かが空からあなたの頭上に落ちてきた！");
+			if(fuzzy) msg_print("何かが空からあなたの頭上に落ちてきた！");
 #else
-			if (fuzzy) msg_print("Something falls from the sky on you!");
+			if(fuzzy) msg_print("Something falls from the sky on you!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-			if (!target_ptr->resist_shard || one_in_(13))
+			if(!target_ptr->resist_shard || one_in_(13))
 			{
-				if (!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
+				if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
 				inven_damage(target_ptr, set_cold_destroy, 2);
 			}
 
@@ -3157,27 +3157,27 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_ICE:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か鋭く冷たいもので攻撃された！");
+			if(fuzzy) msg_print("何か鋭く冷たいもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something sharp and cold!");
+			if(fuzzy) msg_print("You are hit by something sharp and cold!");
 #endif
 
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 
-			if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				if (!target_ptr->resist_shard)
+				if(!target_ptr->resist_shard)
 				{
 					(void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + diceroll(5, 8));
 				}
-				if (!target_ptr->resist_sound)
+				if(!target_ptr->resist_sound)
 				{
 					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(15));
 				}
 
-				if ((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
+				if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
 				{
-					if (!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
+					if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
 				}
 			}
 
@@ -3188,9 +3188,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_DEATH_RAY:
 		{
 #ifdef JP
-			if (fuzzy) msg_print("何か非常に冷たいもので攻撃された！");
+			if(fuzzy) msg_print("何か非常に冷たいもので攻撃された！");
 #else
-			if (fuzzy) msg_print("You are hit by something extremely cold!");
+			if(fuzzy) msg_print("You are hit by something extremely cold!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -3202,7 +3202,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Drain mana
 		case GF_DRAIN_MANA:
 		{
-			if ((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
@@ -3210,9 +3210,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_print("The attack hits Shadow, you are unharmed!");
 #endif
 			}
-			else if (target_ptr->csp)
+			else if(target_ptr->csp)
 			{
-				if (has_trait(target_ptr, TRAIT_RES_ALL))
+				if(has_trait(target_ptr, TRAIT_RES_ALL))
 				{
 #ifdef JP
 					note = "には完全な耐性がある！";
@@ -3227,15 +3227,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				// Basic message
 #ifdef JP
-				if (caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
+				if(caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
 				else msg_print("精神エネルギーを吸い取られてしまった！");
 #else
-				if (caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
+				if(caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
 				else msg_print("Your psychic energy is drawn!");
 #endif
 
 				/* Full drain */
-				if (dam >= target_ptr->csp)
+				if(dam >= target_ptr->csp)
 				{
 					dam = target_ptr->csp;
 					target_ptr->csp = 0;
@@ -3257,21 +3257,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
 
-				if (caster_ptr != NULL)
+				if(caster_ptr != NULL)
 				{
 					/* Heal the creature */
-					if (caster_ptr->chp < caster_ptr->mhp)
+					if(caster_ptr->chp < caster_ptr->mhp)
 					{
 						/* Heal */
 						caster_ptr->chp += (6 * dam);
-						if (caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
+						if(caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
 
 						/* Redraw (later) if needed */
-						if (&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-						if (&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+						if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+						if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Special message */
-						if (caster_ptr->see_others)
+						if(caster_ptr->see_others)
 						{
 #ifdef JP
 							msg_format("%^sは気分が良さそうだ。", caster_name);
@@ -3290,7 +3290,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Mind blast */
 		case GF_MIND_BLAST:
 		{
-			if ((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3301,7 +3301,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("霊的エネルギーで精神が攻撃された。");
@@ -3309,18 +3309,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					msg_print("Your mind is blasted by psyonic energy.");
 #endif
 
-					if (!has_trait(target_ptr, TRAIT_NO_CONF))
+					if(!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
 						(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 					}
 
-					if (!target_ptr->resist_chaos && one_in_(3))
+					if(!target_ptr->resist_chaos && one_in_(3))
 					{
 						(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
 					}
 
 					target_ptr->csp -= 50;
-					if (target_ptr->csp < 0)
+					if(target_ptr->csp < 0)
 					{
 						target_ptr->csp = 0;
 						target_ptr->csp_frac = 0;
@@ -3335,15 +3335,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Mind blast
 		case GF_MIND_BLAST:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 			// Message
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+			if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
+			if(caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3356,14 +3356,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
+			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
 			   (species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
 			{
 				// Memorize a flag
-				if (has_trait(target_ptr, TRAIT_NO_CONF))
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3372,9 +3372,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				dam = 0;
 			}
-			else if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -3382,9 +3382,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				dam = 0;
 			}
-			else if (has_trait(target_ptr, TRAIT_WEIRD_MIND))
+			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
 			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -3402,7 +3402,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note_dies = " collapses, a mindless husk.";
 #endif
 
-				if (caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
+				if(caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
 				else do_conf = randint0(8) + 8;
 			}
 			break;
@@ -3413,7 +3413,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
 		{
-			if ((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3424,7 +3424,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("霊的エネルギーで精神が攻撃された。");
@@ -3433,7 +3433,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					target_ptr->csp -= 100;
-					if (target_ptr->csp < 0)
+					if(target_ptr->csp < 0)
 					{
 						target_ptr->csp = 0;
 						target_ptr->csp_frac = 0;
@@ -3442,17 +3442,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if (!has_trait(target_ptr, TRAIT_NO_BLIND))
+					if(!has_trait(target_ptr, TRAIT_NO_BLIND))
 					{
 						(void)set_blind(target_ptr, IS_BLIND(target_ptr) + 8 + randint0(8));
 					}
-					if (!has_trait(target_ptr, TRAIT_NO_CONF))
+					if(!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
 						(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 					}
-					if (!has_trait(target_ptr, TRAIT_FREE_ACTION))
+					if(!has_trait(target_ptr, TRAIT_FREE_ACTION))
 					{
 						(void)set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 					}
@@ -3463,7 +3463,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob)))
 						(void)do_dec_stat(target_ptr, STAT_WIS);
 
-					if (!target_ptr->resist_chaos)
+					if(!target_ptr->resist_chaos)
 					{
 						(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
 					}
@@ -3474,15 +3474,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Brain smash
 		case GF_BRAIN_SMASH:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 			// Message
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+			if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
 #else
-			if (caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
+			if(caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3495,14 +3495,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw 
-			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
+			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
 				 (species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
 			{
 				// Memorize a flag
-				if (has_trait(target_ptr, TRAIT_NO_CONF))
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3511,9 +3511,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				dam = 0;
 			}
-			else if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 #ifdef JP
 				note = "には完全な耐性がある！";
 #else
@@ -3521,9 +3521,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				dam = 0;
 			}
-			else if (has_trait(target_ptr, TRAIT_WEIRD_MIND))
+			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
 			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
 #ifdef JP
 				note = "には耐性がある。";
 #else
@@ -3541,7 +3541,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note_dies = " collapses, a mindless husk.";
 #endif
 
-				if (caster_ptr != caster_ptr)
+				if(caster_ptr != caster_ptr)
 				{
 					do_conf = randint0(4) + 4;
 					do_stun = randint0(4) + 4;
@@ -3560,7 +3560,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 1 */
 		case GF_CAUSE_1:
 		{
-			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3572,7 +3572,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			{
 				//TODO curse_equipment
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 15, 0);
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 15, 0);
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			}
 			break;
@@ -3580,15 +3580,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_CAUSE_1:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 			// Message
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
+			if(caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
+			if(caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3601,7 +3601,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+			if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3616,7 +3616,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 2 */
 		case GF_CAUSE_2:
 		{
-			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3627,7 +3627,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			}
 			break;
@@ -3635,15 +3635,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_CAUSE_2:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 			// Message/
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
+			if(caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
+			if(caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3656,7 +3656,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+			if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3671,7 +3671,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 3 */
 		case GF_CAUSE_3:
 		{
-			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -3682,7 +3682,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			}
 			break;
@@ -3690,15 +3690,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_CAUSE_3:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 			// Message
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
+			if(caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
+			if(caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3711,7 +3711,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if (randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+			if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3726,7 +3726,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
-			if ((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("しかし秘孔を跳ね返した！");
@@ -3738,21 +3738,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			{
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
 			}
 			break;
 		}
 		/*
 		case GF_CAUSE_4:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 #ifdef JP
-			if (caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
+			if(caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
 #else
-			if (caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
+			if(caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
 #endif
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3765,7 +3765,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			// Attempt a saving throw
-			if ((randint0(100 + (caster_power / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
+			if((randint0(100 + (caster_power / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -3781,7 +3781,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
 		{
-			if ((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_format("しかし効力を跳ね返した！");
@@ -3792,7 +3792,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if (!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("あなたは命が薄まっていくように感じた！");
@@ -3804,16 +3804,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
-				if (target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
+				if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
 			}
 			break;
 		}
 		/* project_creature_aux2()
 		case GF_HAND_DOOM:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3825,7 +3825,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if (has_trait(target_ptr, TRAIT_UNIQUE))
+			if(has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -3836,12 +3836,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if ((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
+				if((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
 				   (((caster_power / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
 				{
 					dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
 
-					if (target_ptr->chp < dam) dam = target_ptr->chp - 1;
+					if(target_ptr->chp < dam) dam = target_ptr->chp - 1;
 				}
 				else
 				{
@@ -3859,21 +3859,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		case GF_PSI:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* PSI only works if the creature can see you! -- RG */
-			if (!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
+			if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%sはあなたが見えないので影響されない！", target_name);
+				if(seen_msg) msg_format("%sはあなたが見えないので影響されない！", target_name);
 #else
-				if (seen_msg) msg_format("%^s can't see you, and isn't affected!", target_name);
+				if(seen_msg) msg_format("%^s can't see you, and isn't affected!", target_name);
 #endif
 				skipped = TRUE;
 				break;
 			}
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -3884,7 +3884,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 				dam = 0;
 #ifdef JP
@@ -3892,10 +3892,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				note = " is immune!";
 #endif
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 
 			}
-			else if (has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
+			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
 			         has_trait(target_ptr, TRAIT_ANIMAL) ||
 			         (species_ptr->level > randint1(3 * dam)))
 			{
@@ -3911,7 +3911,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (has_trait_species(species_ptr, TRAIT_UNDEAD) && 
+				if(has_trait_species(species_ptr, TRAIT_UNDEAD) && 
 					 has_trait_species(species_ptr, TRAIT_DEMON) &&
 				    (species_ptr->level > caster_ptr->lev / 2) &&
 				    one_in_(2))
@@ -3925,7 +3925,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -3939,7 +3939,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						/* Injure +/- confusion */
 						creature_desc(killer, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, killer, NULL, -1);  /* has already been /3 */
-						if (one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+						if(one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 						{
 							switch (randint1(4))
 							{
@@ -3951,7 +3951,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 									break;
 								case 3:
 								{
-									if (has_trait(target_ptr, TRAIT_FEARLESS))
+									if(has_trait(target_ptr, TRAIT_FEARLESS))
 #ifdef JP
 										note = "には効果がなかった。";
 #else
@@ -3963,7 +3963,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 									break;
 								}
 								default:
-									if (!has_trait(caster_ptr, TRAIT_FREE_ACTION))
+									if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
 										(void)set_paralyzed(caster_ptr, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
 									break;
 							}
@@ -3973,7 +3973,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 			}
 
-			if ((dam > 0) && one_in_(4))
+			if((dam > 0) && one_in_(4))
 			{
 				switch (randint1(4))
 				{
@@ -4009,9 +4009,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		case GF_PSI_DRAIN:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4022,7 +4022,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 				dam = 0;
 #ifdef JP
@@ -4032,7 +4032,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			}
-			else if (has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
+			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
 			         has_trait(target_ptr, TRAIT_ANIMAL) ||
 			         (species_ptr->level > randint1(3 * dam)))
 			{
@@ -4048,7 +4048,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (has_trait_species(species_ptr, TRAIT_UNDEAD) &&
+				if(has_trait_species(species_ptr, TRAIT_UNDEAD) &&
 					 has_trait_species(species_ptr, TRAIT_DEMON) &&
 				     (species_ptr->level > caster_ptr->lev / 2) &&
 				     (one_in_(2)))
@@ -4062,7 +4062,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					/* Saving throw */
-					if ((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 #ifdef JP
 						msg_print("あなたは効力を跳ね返した！");
@@ -4074,7 +4074,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					{
 						/* Injure + mana drain */
 						creature_desc(killer, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-						if (!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+						if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 						{
 #ifdef JP
 							msg_print("超能力パワーを吸いとられた！");
@@ -4083,7 +4083,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 							caster_ptr->csp -= diceroll(5, dam) / 2;
-							if (caster_ptr->csp < 0) caster_ptr->csp = 0;
+							if(caster_ptr->csp < 0) caster_ptr->csp = 0;
 							play_redraw |= PR_MANA;
 							play_window |= (PW_SPELL);
 						}
@@ -4092,7 +4092,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					dam = 0;
 				}
 			}
-			else if (dam > 0)
+			else if(dam > 0)
 			{
 				int b = diceroll(5, dam) / 4;
 #ifdef JP
@@ -4121,9 +4121,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		case GF_TELEKINESIS:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4134,9 +4134,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if (one_in_(4))
+			if(one_in_(4))
 			{
-				if (player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
+				if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
 				else do_dist = 7;
 			}
 
@@ -4144,7 +4144,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_stun = diceroll((caster_power / 20) + 3 , dam) + 1;
 
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > 5 + randint1(dam)))
 			{
 				/* Resist */
@@ -4158,11 +4158,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		case GF_DOMINATION:
 		{
-			if (!is_hostile(target_ptr)) break;
+			if(!is_hostile(target_ptr)) break;
 
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4174,13 +4174,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			/* Attempt a saving throw */
-			if (has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
+			if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (has_trait(target_ptr, TRAIT_NO_CONF))
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 
 				/* Resist */
@@ -4190,7 +4190,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				 * Powerful demons & undead can turn a mindcrafter's
 				 * attacks back on them
 				 */
-				if (has_trait_species(species_ptr, TRAIT_UNDEAD) &&
+				if(has_trait_species(species_ptr, TRAIT_UNDEAD) &&
 					has_trait_species(species_ptr, TRAIT_DEMON) &&
 				    (species_ptr->level > caster_ptr->lev / 2) &&
 				    (one_in_(2)))
@@ -4204,7 +4204,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					/* Saving throw */
-					if (randint0(100 + species_ptr->level/2) < caster_ptr->skill_rob)
+					if(randint0(100 + species_ptr->level/2) < caster_ptr->skill_rob)
 					{
 #ifdef JP
 						msg_print("しかし効力を跳ね返した！");
@@ -4226,7 +4226,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 								break;
 							default:
 							{
-								if (has_trait(target_ptr, TRAIT_FEARLESS))
+								if(has_trait(target_ptr, TRAIT_FEARLESS))
 #ifdef JP
 									note = "には効果がなかった。";
 #else
@@ -4253,7 +4253,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				if ((dam > 29) && (randint1(100) < dam))
+				if((dam > 29) && (randint1(100) < dam))
 				{
 #ifdef JP
 					note = "があなたに隷属した。";
@@ -4287,9 +4287,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Drain Life */
 		case GF_OLD_DRAIN:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -4300,9 +4300,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if (!species_living(species_ptr))
+			if(!species_living(species_ptr))
 			{
-				if (is_original_ap_and_seen(caster_ptr, target_ptr))
+				if(is_original_ap_and_seen(caster_ptr, target_ptr))
 					 has_trait(target_ptr, INFO_TYPE_RACE);
 
 #ifdef JP
@@ -4323,9 +4323,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Polymorph creature (Use "dam" as "power") */
 		case GF_OLD_POLY:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4340,7 +4340,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_poly = TRUE;
 
 			/* Powerful creatures can resist */
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -4364,9 +4364,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Clone creatures (Ignore "dam") */
 		case GF_OLD_CLONE:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if ((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
+			if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -4380,7 +4380,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				target_ptr->chp = target_ptr->mhp;
 
 				/* Attempt to clone. */
-				if (multiply_creature(&creature_list[c_ptr->creature_idx], TRUE, 0L))
+				if(multiply_creature(&creature_list[c_ptr->creature_idx], TRUE, 0L))
 				{
 #ifdef JP
 					note = "が分裂した！";
@@ -4401,26 +4401,26 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Heal Creature (use "dam" as amount of healing) */
 		case GF_STAR_HEAL:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* Wake up */
 			(void)set_paralyzed(target_ptr, 0);
 
-			if (target_ptr->mhp < target_ptr->mmhp)
+			if(target_ptr->mhp < target_ptr->mmhp)
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%^sの強さが戻った。", target_name);
+				if(seen_msg) msg_format("%^sの強さが戻った。", target_name);
 #else
-				if (seen_msg) msg_format("%^s recovers %s vitality.", target_name, m_poss);
+				if(seen_msg) msg_format("%^s recovers %s vitality.", target_name, m_poss);
 #endif
 				target_ptr->mhp = target_ptr->mmhp;
 			}
 
-			if (!dam)
+			if(!dam)
 			{
 				/* Redraw (later) if needed */
-				if (health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-				if (player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+				if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+				if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 				break;
 			}
 
@@ -4430,9 +4430,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Sleep (Use "dam" as "power") */
 		case GF_STASIS_EVIL:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4444,7 +4444,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    !(is_enemy_of_good_creature(target_ptr)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -4476,9 +4476,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Sleep (Use "dam" as "power") */
 		case GF_STASIS:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4490,7 +4490,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
@@ -4527,21 +4527,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// TODO: Add Karma of Fortune feature.
 			vir = 0;
 
-			if (vir)
+			if(vir)
 			{
 				dam += caster_ptr->karmas[vir-1]/10;
 			}
 
 			// TODO: Add Karma feature.
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4554,19 +4554,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if (has_trait(target_ptr, TRAIT_QUESTOR) ||
+			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
 			    has_trait(target_ptr, TRAIT_NO_CONF) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
-				if (has_trait(target_ptr, TRAIT_NO_CONF))
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 
 				/* Resist */
@@ -4579,9 +4579,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				obvious = FALSE;
 
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "はあなたに敵意を抱いている！";
@@ -4589,7 +4589,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
 			else
 			{
@@ -4611,21 +4611,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_CONTROL_UNDEAD:
 		{
 			int vir = 0;
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			// TODO: Add Karma feature.
-			if (vir)
+			if(vir)
 			{
 				dam += caster_ptr->karmas[vir-1]/10;
 			}
 
 			// TODO: Add Karma feature.
-			if (vir)
+			if(vir)
 			{
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4637,11 +4637,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
+			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			  (!has_trait_species(species_ptr, TRAIT_UNDEAD)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -4654,9 +4654,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "はあなたに敵意を抱いている！";
@@ -4664,7 +4664,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
 			else
 			{
@@ -4686,21 +4686,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_CONTROL_DEMON:
 		{
 			int vir;
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam += caster_ptr->karmas[vir-1]/10;
 			}
 
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4712,11 +4712,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
+			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			  (!has_trait_species(species_ptr, TRAIT_DEMON)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -4729,9 +4729,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "はあなたに敵意を抱いている！";
@@ -4739,7 +4739,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
 			else
 			{
@@ -4764,21 +4764,21 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// TODO: Add Karma feature.
 
 
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam += caster_ptr->karmas[vir-1]/10;
 			}
 
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4790,20 +4790,20 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ( has_trait(target_ptr, TRAIT_QUESTOR) ||
+			if( has_trait(target_ptr, TRAIT_QUESTOR) ||
 			    !has_trait(target_ptr, TRAIT_ANIMAL) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (has_trait(target_ptr, TRAIT_NO_CONF))
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 
 				/* Resist */
@@ -4815,9 +4815,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "はあなたに敵意を抱いている！";
@@ -4825,7 +4825,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
 			else
 			{
@@ -4852,29 +4852,29 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// TODO: Add Karma feature.
 
 			vir = 0;
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			dam += (adj_chr_chm[caster_ptr->stat_ind[STAT_CHA]]);
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam -= caster_ptr->karmas[vir-1]/10;
 			}
 
 			vir = 0;
-			if (vir)
+			if(vir)
 			{
 				dam -= caster_ptr->karmas[vir-1]/20;
 			}
 
-			if (has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 30;
-			if (dam < 1) dam = 1;
+			if(has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 30;
+			if(dam < 1) dam = 1;
 #ifdef JP
 			msg_format("%sを見つめた。",target_name);
 #else
 			msg_format("You stare into %s.", target_name);
 #endif
-			if ((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4886,11 +4886,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
+			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				 !creature_living(target_ptr) ||
 				 ((species_ptr->level+10) > randint1(dam)))
@@ -4904,9 +4904,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
-			else if (has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
 #ifdef JP
 				note = "はあなたに敵意を抱いている！";
@@ -4914,7 +4914,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 			}
 			else
 			{
@@ -4935,9 +4935,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Confusion (Use "dam" as "power") */
 		case GF_OLD_CONF:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4952,14 +4952,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_conf = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if (has_trait(target_ptr, TRAIT_UNIQUE) ||
+			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 			    has_trait(target_ptr, TRAIT_NO_CONF) ||
 			   (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
-				if (has_trait(target_ptr, TRAIT_NO_CONF))
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 
 				/* Resist */
@@ -4982,9 +4982,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		case GF_STUN:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4998,7 +4998,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_stun = diceroll((caster_power / 20) + 3 , (dam)) + 1;
 
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Resist */
@@ -5022,24 +5022,24 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Lite, but only hurts susceptible creatures */
 		case GF_LITE_WEAK:
 		{
-			if (!dam)
+			if(!dam)
 			{
 				skipped = TRUE;
 				break;
 			}
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				dam = 0;
 				break;
 			}
 			/* Hurt by light */
-			if (has_trait(target_ptr, TRAIT_HURT_LITE))
+			if(has_trait(target_ptr, TRAIT_HURT_LITE))
 			{
 				/* Obvious effect */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -5066,19 +5066,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Stone to Mud */
 		case GF_KILL_WALL:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				dam = 0;
 				break;
 			}
 			/* Hurt by rock remover */
-			if (has_trait(target_ptr, TRAIT_HURT_ROCK))
+			if(has_trait(target_ptr, TRAIT_HURT_ROCK))
 			{
 				/* Notice effect */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
 
 				/* Cute little message */
 #ifdef JP
@@ -5106,15 +5106,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
-			if (has_trait_species(species_ptr, TRAIT_UNDEAD))
+			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
 			{
 				bool resists_tele = FALSE;
 
-				if (has_trait(target_ptr, TRAIT_RES_TELE))
+				if(has_trait(target_ptr, TRAIT_RES_TELE))
 				{
-					if ((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
-						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 						note = "には効果がなかった！";
 #else
@@ -5123,9 +5123,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 						resists_tele = TRUE;
 					}
-					else if (species_ptr->level > randint1(100))
+					else if(species_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 						note = "には耐性がある！";
 #else
@@ -5136,10 +5136,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 				}
 
-				if (!resists_tele)
+				if(!resists_tele)
 				{
-					if (seen) obvious = TRUE;
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+					if(seen) obvious = TRUE;
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 					do_dist = dam;
 				}
 			}
@@ -5161,15 +5161,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		case GF_AWAY_EVIL:
 		{
 			/* Only affect evil */
-			if (is_enemy_of_good_creature(target_ptr))
+			if(is_enemy_of_good_creature(target_ptr))
 			{
 				bool resists_tele = FALSE;
 
-				if (has_trait(target_ptr, TRAIT_RES_TELE))
+				if(has_trait(target_ptr, TRAIT_RES_TELE))
 				{
-					if ((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
-						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 note = "には効果がなかった！";
 #else
@@ -5178,9 +5178,9 @@ note = "には効果がなかった！";
 
 						resists_tele = TRUE;
 					}
-					else if (species_ptr->level > randint1(100))
+					else if(species_ptr->level > randint1(100))
 					{
-						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 note = "には耐性がある！";
 #else
@@ -5191,10 +5191,10 @@ note = "には耐性がある！";
 					}
 				}
 
-				if (!resists_tele)
+				if(!resists_tele)
 				{
-					if (seen) obvious = TRUE;
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+					if(seen) obvious = TRUE;
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 					do_dist = dam;
 				}
 			}
@@ -5216,11 +5216,11 @@ note = "には耐性がある！";
 		case GF_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
-			if (has_trait(target_ptr, TRAIT_RES_TELE))
+			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if ((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					note = "には効果がなかった！";
 #else
@@ -5229,9 +5229,9 @@ note = "には耐性がある！";
 
 					resists_tele = TRUE;
 				}
-				else if (species_ptr->level > randint1(100))
+				else if(species_ptr->level > randint1(100))
 				{
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					note = "には耐性がある！";
 #else
@@ -5242,10 +5242,10 @@ note = "には耐性がある！";
 				}
 			}
 
-			if (!resists_tele)
+			if(!resists_tele)
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Prepare to teleport */
 				do_dist = dam;
@@ -5260,25 +5260,25 @@ note = "には耐性がある！";
 		/* Turn undead (Use "dam" as "power") */
 		case GF_TURN_UNDEAD:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				break;
 			}
 			/* Only affect undead */
-			if (has_trait_species(species_ptr, TRAIT_UNDEAD))
+			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				/* Apply some fear */
 				do_fear = diceroll(3, (dam / 2)) + 1;
 
 				/* Attempt a saving throw */
-				if (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+				if(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 				{
 					/* No obvious effect */
 #ifdef JP
@@ -5308,25 +5308,25 @@ note = "には耐性がある！";
 		/* Turn evil (Use "dam" as "power") */
 		case GF_TURN_EVIL:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				break;
 			}
 			/* Only affect evil */
-			if (is_enemy_of_good_creature(target_ptr))
+			if(is_enemy_of_good_creature(target_ptr))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Apply some fear */
 				do_fear = diceroll(3, (dam / 2)) + 1;
 
 				/* Attempt a saving throw */
-				if (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+				if(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 				{
 					/* No obvious effect */
 #ifdef JP
@@ -5356,19 +5356,19 @@ note = "には耐性がある！";
 		/* Turn creature (Use "dam" as "power") */
 		case GF_TURN_ALL:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				break;
 			}
 			/* Obvious */
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* Apply some fear */
 			do_fear = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			    (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -5392,20 +5392,20 @@ note = "には耐性がある！";
 		/* Dispel undead */
 		case GF_DISP_UNDEAD:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
 				break;
 			}
 			/* Only affect undead */
-			if (has_trait_species(species_ptr, TRAIT_UNDEAD))
+			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				/* Message */
 #ifdef JP
@@ -5434,20 +5434,20 @@ note = "には耐性がある！";
 		/* Dispel evil */
 		case GF_DISP_EVIL:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
 				break;
 			}
 			/* Only affect evil */
-			if (is_enemy_of_good_creature(target_ptr))
+			if(is_enemy_of_good_creature(target_ptr))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Message */
 #ifdef JP
@@ -5475,20 +5475,20 @@ note = "には耐性がある！";
 		/* Dispel good */
 		case GF_DISP_GOOD:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
 				break;
 			}
 			/* Only affect good */
-			if (is_enemy_of_evil_creature(target_ptr))
+			if(is_enemy_of_evil_creature(target_ptr))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 
 				/* Message */
 #ifdef JP
@@ -5516,17 +5516,17 @@ note = "には耐性がある！";
 		/* Dispel living */
 		case GF_DISP_LIVING:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
 				break;
 			}
 			/* Only affect non-undead */
-			if (creature_living(target_ptr))
+			if(creature_living(target_ptr))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Message */
 #ifdef JP
@@ -5555,20 +5555,20 @@ note = "には耐性がある！";
 		/* Dispel demons */
 		case GF_DISP_DEMON:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
 				break;
 			}
 			/* Only affect demons */
-			if (has_trait_species(species_ptr, TRAIT_DEMON))
+			if(has_trait_species(species_ptr, TRAIT_DEMON))
 			{
 				/* Obvious */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Learn about type */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
 				/* Message */
 #ifdef JP
@@ -5596,14 +5596,14 @@ note = "には耐性がある！";
 		/* Dispel creature */
 		case GF_DISP_ALL:
 		{
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
 				break;
 			}
 			/* Obvious */
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
 			/* Message */
 #ifdef JP
@@ -5622,7 +5622,7 @@ note = "には耐性がある！";
 		case GF_CAPTURE:
 		{
 			int nokori_hp;
-			if ((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
+			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
 			    (has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP
@@ -5634,13 +5634,13 @@ note = "には耐性がある！";
 				break;
 			}
 
-			if (is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
-			else if ((has_trait(caster_ptr, TRAIT_DOMINATE_LIVE) || has_trait(caster_ptr, TRAIT_DOMINATE_LIVES)) && creature_living(target_ptr))
+			if(is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
+			else if((has_trait(caster_ptr, TRAIT_DOMINATE_LIVE) || has_trait(caster_ptr, TRAIT_DOMINATE_LIVES)) && creature_living(target_ptr))
 				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
 			else
 				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
 
-			if (target_ptr->chp >= nokori_hp)
+			if(target_ptr->chp >= nokori_hp)
 			{
 #ifdef JP
 				msg_format("もっと弱らせないと。");
@@ -5649,18 +5649,18 @@ note = "には耐性がある！";
 #endif
 				skipped = TRUE;
 			}
-			else if (target_ptr->chp < randint0(nokori_hp))
+			else if(target_ptr->chp < randint0(nokori_hp))
 			{
-				if (target_ptr->mflag2 & MFLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
+				if(target_ptr->mflag2 & MFLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
 #ifdef JP
 				msg_format("%sを捕えた！",target_name);
 #else
 				msg_format("You capture %^s!", target_name);
 #endif
 				//TODO: capture creature status
-				if (c_ptr->creature_idx == player_ptr->riding)
+				if(c_ptr->creature_idx == player_ptr->riding)
 				{
-					if (do_thrown_from_riding(player_ptr, -1, FALSE))
+					if(do_thrown_from_riding(player_ptr, -1, FALSE))
 					{
 #ifdef JP
 						msg_print("地面に落とされた。");
@@ -5699,9 +5699,9 @@ msg_format("うまく捕まえられなかった。");
 			int effect = 0;
 			bool done = TRUE;
 
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5712,7 +5712,7 @@ msg_format("うまく捕まえられなかった。");
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if (has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5721,10 +5721,10 @@ msg_format("うまく捕まえられなかった。");
 #endif
 				dam = 0;
 				skipped = TRUE;
-				//TODO if (is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags2 |= (RF2_EMPTY_MIND);
+				//TODO if(is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				break;
 			}
-			if (target_ptr->timed_trait[TRAIT_PARALYZED])
+			if(target_ptr->timed_trait[TRAIT_PARALYZED])
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5736,15 +5736,15 @@ msg_format("うまく捕まえられなかった。");
 				break;
 			}
 
-			if (one_in_(5)) effect = 1;
-			else if (one_in_(4)) effect = 2;
-			else if (one_in_(3)) effect = 3;
+			if(one_in_(5)) effect = 1;
+			else if(one_in_(4)) effect = 2;
+			else if(one_in_(3)) effect = 3;
 			else done = FALSE;
 
-			if (effect == 1)
+			if(effect == 1)
 			{
 				/* Powerful creatures can resist */
-				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 #ifdef JP
@@ -5759,7 +5759,7 @@ msg_format("うまく捕まえられなかった。");
 				/* Normal creatures slow down */
 				else
 				{
-					if (set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + 50, FALSE))
+					if(set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + 50, FALSE))
 					{
 #ifdef JP
 						note = "の動きが遅くなった。";
@@ -5770,12 +5770,12 @@ msg_format("うまく捕まえられなかった。");
 				}
 			}
 
-			else if (effect == 2)
+			else if(effect == 2)
 			{
 				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
-				if ((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Resist */
@@ -5792,17 +5792,17 @@ msg_format("うまく捕まえられなかった。");
 				}
 			}
 
-			else if (effect == 3)
+			else if(effect == 3)
 			{
 				/* Attempt a saving throw */
-				if (has_trait(target_ptr, TRAIT_UNIQUE) ||
+				if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 				    has_trait(target_ptr, TRAIT_NO_SLEEP) ||
 				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Memorize a flag */
-					if (has_trait(target_ptr, TRAIT_NO_SLEEP))
+					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
 					{
-						if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_SLEEP);
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_SLEEP);
 					}
 
 					/* No obvious effect */
@@ -5827,7 +5827,7 @@ msg_format("うまく捕まえられなかった。");
 				}
 			}
 
-			if (!done)
+			if(!done)
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5844,9 +5844,9 @@ msg_format("うまく捕まえられなかった。");
 		/* GENOCIDE */
 		case GF_GENOCIDE:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -5859,15 +5859,15 @@ msg_format("うまく捕まえられなかった。");
 			}
 
 #ifdef JP
-			if (genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "クリーチャー消滅"))
+			if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "クリーチャー消滅"))
 #else
-			if (genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
+			if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
 #endif
 			{
 #ifdef JP
-				if (seen_msg) msg_format("%sは消滅した！", target_name);
+				if(seen_msg) msg_format("%sは消滅した！", target_name);
 #else
-				if (seen_msg) msg_format("%^s disappered!", target_name);
+				if(seen_msg) msg_format("%^s disappered!", target_name);
 #endif
 				//TODO return TRUE;
 			}
@@ -5879,18 +5879,18 @@ msg_format("うまく捕まえられなかった。");
 		case GF_PHOTO:
 		{
 #ifdef JP
-			if (is_player(caster_ptr)) msg_format("%sを写真に撮った。", target_name);
+			if(is_player(caster_ptr)) msg_format("%sを写真に撮った。", target_name);
 #else
-			if (is_player(caster_ptr)) msg_format("You take a photograph of %s.", target_name);
+			if(is_player(caster_ptr)) msg_format("You take a photograph of %s.", target_name);
 #endif
 			/* Hurt by light */
-			if (has_trait(target_ptr, TRAIT_HURT_LITE))
+			if(has_trait(target_ptr, TRAIT_HURT_LITE))
 			{
 				/* Obvious effect */
-				if (seen) obvious = TRUE;
+				if(seen) obvious = TRUE;
 
 				/* Memorize the effects */
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 
 				/* Special effect */
 #ifdef JP
@@ -5918,9 +5918,9 @@ msg_format("うまく捕まえられなかった。");
 		/* blood curse */
 		case GF_BLOOD_CURSE:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -5937,15 +5937,15 @@ msg_format("うまく捕まえられなかった。");
 		case GF_CRUSADE:
 		{
 			bool success = FALSE;
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (is_enemy_of_evil_creature(target_ptr) && !floor_ptr->fight_arena_mode)
+			if(is_enemy_of_evil_creature(target_ptr) && !floor_ptr->fight_arena_mode)
 			{
-				if (has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 50;
-				if (dam < 1) dam = 1;
+				if(has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 50;
+				if(dam < 1) dam = 1;
 
 				/* No need to tame your pet */
-				if (is_pet(player_ptr, target_ptr))
+				if(is_pet(player_ptr, target_ptr))
 				{
 #ifdef JP
 					note = "の動きが速くなった。";
@@ -5958,14 +5958,14 @@ msg_format("うまく捕まえられなかった。");
 				}
 
 				/* Attempt a saving throw */
-				else if ((has_trait(target_ptr, TRAIT_QUESTOR)) ||
+				else if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 				    (has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				    (target_ptr->mflag2 & MFLAG2_NOPET) ||
 				    (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					 ((species_ptr->level+10) > randint1(dam)))
 				{
 					/* Resist */
-					if (one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+					if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
 				}
 				else
 				{
@@ -5979,18 +5979,18 @@ msg_format("うまく捕まえられなかった。");
 					(void)set_fast(target_ptr, target_ptr->timed_trait[TRAIT_FAST] + 100, FALSE);
 
 					/* Learn about type */
-					if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 					success = TRUE;
 				}
 			}
 
-			if (!success)
+			if(!success)
 			{
-				if (!has_trait(target_ptr, TRAIT_FEARLESS))
+				if(!has_trait(target_ptr, TRAIT_FEARLESS))
 				{
 					do_fear = randint1(90)+10;
 				}
-				if (is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_FEARLESS);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_FEARLESS);
 			}
 
 			/* No "real" damage */
@@ -6000,9 +6000,9 @@ msg_format("うまく捕まえられなかった。");
 
 		case GF_WOUNDS:
 		{
-			if (seen) obvious = TRUE;
+			if(seen) obvious = TRUE;
 
-			if (has_trait(target_ptr, TRAIT_RES_ALL))
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 #ifdef JP
 				note = "には完全な耐性がある！";
@@ -6015,7 +6015,7 @@ msg_format("うまく捕まえられなかった。");
 			}
 
 			/* Attempt a saving throw */
-			if (randint0(100 + dam) < (species_ptr->level + 50))
+			if(randint0(100 + dam) < (species_ptr->level + 50))
 			{
 
 #ifdef JP
@@ -6150,34 +6150,34 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 
 	/* Player is not here */
-	if (!creature_bold(player_ptr, y, x)) return (FALSE);
+	if(!creature_bold(player_ptr, y, x)) return (FALSE);
 
-	if ((player_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
+	if((player_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
-		if (kawarimi(player_ptr, TRUE)) return FALSE;
+		if(kawarimi(player_ptr, TRUE)) return FALSE;
 	}
 
 	/* Player cannot hurt himself */
-	if (is_player(attacker_ptr)) return (FALSE);
-	if (attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
+	if(is_player(attacker_ptr)) return (FALSE);
+	if(attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
-	if ((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->special_defense & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->special_defense & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;
 
 #ifdef JP
-		if (blind) msg_print("何かが跳ね返った！");
-		else if (player_ptr->special_defense & KATA_FUUJIN) msg_print("風の如く武器を振るって弾き返した！");
+		if(blind) msg_print("何かが跳ね返った！");
+		else if(player_ptr->special_defense & KATA_FUUJIN) msg_print("風の如く武器を振るって弾き返した！");
 		else msg_print("攻撃が跳ね返った！");
 #else
-		if (blind) msg_print("Something bounces!");
+		if(blind) msg_print("Something bounces!");
 		else msg_print("The attack bounces!");
 #endif
 
 
 		/* Choose 'new' target */
-		if (!is_player(attacker_ptr))
+		if(!is_player(attacker_ptr))
 		{
 			do
 			{
@@ -6187,7 +6187,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 			}
 			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, player_ptr->fy, player_ptr->fx, t_y, t_x));
 
-			if (max_attempts < 1)
+			if(max_attempts < 1)
 			{
 				t_y = attacker_ptr->fy;
 				t_x = attacker_ptr->fx;
@@ -6207,7 +6207,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	/* XXX XXX XXX */
 	/* Limit maximum damage */
-	if (dam > 1600) dam = 1600;
+	if(dam > 1600) dam = 1600;
 
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
@@ -6217,7 +6217,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	/* Hex - revenge damage stored */
 	revenge_store(player_ptr, get_damage);
 
-	if ((player_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
+	if((player_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
 		&& (get_damage > 0) && !gameover && (attacker_ptr != NULL))
 	{
 #ifdef JP
@@ -6231,10 +6231,10 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
 		project(0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if (player_ptr->timed_trait[TRAIT_EYE_EYE]) set_tim_eyeeye(player_ptr, player_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+		if(player_ptr->timed_trait[TRAIT_EYE_EYE]) set_tim_eyeeye(player_ptr, player_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
-	if (player_ptr->riding && dam > 0)
+	if(player_ptr->riding && dam > 0)
 	{
 		do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
 	}
@@ -6244,7 +6244,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	disturb(player_ptr, 1, 0);
 
 
-	if ((player_ptr->special_defense & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
+	if((player_ptr->special_defense & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
 		(void)kawarimi(player_ptr, FALSE);
 	}
@@ -6271,7 +6271,7 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 	int pd = distance(y1, x1, y, x);
 	int nd = distance(y1, x1, y2, x2);
 
-	if (pd > nd) return distance(y, x, y2, x2);
+	if(pd > nd) return distance(y, x, y2, x2);
 
 	/* Component of P on N */
 	nd = ((nd) ? ((py * ny + px * nx) / nd) : 0);
@@ -6321,22 +6321,22 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 	/* Handle adjacent (or identical) grids */
-	if ((ax < 2) && (ay < 2)) return (TRUE);
+	if((ax < 2) && (ay < 2)) return (TRUE);
 
 
 	/* Paranoia -- require "safe" origin */
-	/* if (!in_bounds(floor_ptr, y1, x1)) return (FALSE); */
+	/* if(!in_bounds(floor_ptr, y1, x1)) return (FALSE); */
 
 
 	/* Directly South/North */
-	if (!dx)
+	if(!dx)
 	{
 		/* South -- check for walls */
-		if (dy > 0)
+		if(dy > 0)
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if (cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
 			}
 		}
 
@@ -6345,7 +6345,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if (cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
 			}
 		}
 
@@ -6354,14 +6354,14 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 	}
 
 	/* Directly East/West */
-	if (!dy)
+	if(!dy)
 	{
 		/* East -- check for walls */
-		if (dx > 0)
+		if(dx > 0)
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if (cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
 			}
 		}
 
@@ -6370,7 +6370,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if (cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
 			}
 		}
 
@@ -6385,20 +6385,20 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 	/* Vertical "knights" */
-	if (ax == 1)
+	if(ax == 1)
 	{
-		if (ay == 2)
+		if(ay == 2)
 		{
-			if (!cave_stop_disintegration(floor_ptr, y1 + sy, x1)) return (TRUE);
+			if(!cave_stop_disintegration(floor_ptr, y1 + sy, x1)) return (TRUE);
 		}
 	}
 
 	/* Horizontal "knights" */
-	else if (ay == 1)
+	else if(ay == 1)
 	{
-		if (ax == 2)
+		if(ax == 2)
 		{
-			if (!cave_stop_disintegration(floor_ptr, y1, x1 + sx)) return (TRUE);
+			if(!cave_stop_disintegration(floor_ptr, y1, x1 + sx)) return (TRUE);
 		}
 	}
 
@@ -6411,7 +6411,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 	/* Travel horizontally */
-	if (ax >= ay)
+	if(ax >= ay)
 	{
 		/* Let m = dy / dx * 2 * (dy * dx) = 2 * dy * dy */
 		qy = ay * ay;
@@ -6420,7 +6420,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		tx = x1 + sx;
 
 		/* Consider the special case where slope == 1. */
-		if (qy == f2)
+		if(qy == f2)
 		{
 			ty = y1 + sy;
 			qy -= f1;
@@ -6434,18 +6434,18 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+			if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 
 			qy += m;
 
-			if (qy < f2)
+			if(qy < f2)
 			{
 				tx += sx;
 			}
-			else if (qy > f2)
+			else if(qy > f2)
 			{
 				ty += sy;
-				if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 				qy -= f1;
 				tx += sx;
 			}
@@ -6467,7 +6467,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 		ty = y1 + sy;
 
-		if (qx == f2)
+		if(qx == f2)
 		{
 			tx = x1 + sx;
 			qx -= f1;
@@ -6481,18 +6481,18 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+			if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 
 			qx += m;
 
-			if (qx < f2)
+			if(qx < f2)
 			{
 				ty += sy;
 			}
-			else if (qx > f2)
+			else if(qx > f2)
 			{
 				tx += sx;
-				if (cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
 				qx -= f1;
 				ty += sy;
 			}
@@ -6526,14 +6526,14 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 	{
 		int x, y;
 
-		if ((0 < dist) && (path_n < dist))
+		if((0 < dist) && (path_n < dist))
 		{
 			int ny = GRID_Y(path_g[path_n]);
 			int nx = GRID_X(path_g[path_n]);
 			int nd = distance(ny, nx, y1, x1);
 
 			/* Get next base point */
-			if (bdis >= nd)
+			if(bdis >= nd)
 			{
 				by = ny;
 				bx = nx;
@@ -6550,28 +6550,28 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 				for (x = bx - cdis; x <= bx + cdis; x++)
 				{
 					/* Ignore "illegal" locations */
-					if (!in_bounds(floor_ptr, y, x)) continue;
+					if(!in_bounds(floor_ptr, y, x)) continue;
 
 					/* Enforce a circular "ripple" */
-					if (distance(y1, x1, y, x) != bdis) continue;
+					if(distance(y1, x1, y, x) != bdis) continue;
 
 					/* Enforce an arc */
-					if (distance(by, bx, y, x) != cdis) continue;
+					if(distance(by, bx, y, x) != cdis) continue;
 
 					switch (typ)
 					{
 					case GF_LITE:
 					case GF_LITE_WEAK:
 						/* Lights are stopped by opaque terrains */
-						if (!los(floor_ptr, by, bx, y, x)) continue;
+						if(!los(floor_ptr, by, bx, y, x)) continue;
 						break;
 					case GF_DISINTEGRATE:
 						/* Disintegration are stopped only by perma-walls */
-						if (!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
+						if(!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
 						break;
 					default:
 						/* Ball explosions are stopped by walls */
-						if (!projectable(floor_ptr, by, bx, y, x)) continue;
+						if(!projectable(floor_ptr, by, bx, y, x)) continue;
 						break;
 					}
 
@@ -6809,7 +6809,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	creature_target_x = player_ptr->fx;
 
 	/* Hack -- Jump to target */
-	if (flg & (PROJECT_JUMP))
+	if(flg & (PROJECT_JUMP))
 	{
 		x1 = x;
 		y1 = y;
@@ -6843,20 +6843,20 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Hack -- verify stuff */
-	if (flg & (PROJECT_THRU))
+	if(flg & (PROJECT_THRU))
 	{
-		if ((x1 == x2) && (y1 == y2))
+		if((x1 == x2) && (y1 == y2))
 		{
 			flg &= ~(PROJECT_THRU);
 		}
 	}
 
 	/* Handle a breath attack */
-	if (rad < 0)
+	if(rad < 0)
 	{
 		rad = 0 - rad;
 		breath = TRUE;
-		if (flg & PROJECT_HIDE) old_hide = TRUE;
+		if(flg & PROJECT_HIDE) old_hide = TRUE;
 		flg |= PROJECT_HIDE;
 	}
 
@@ -6871,7 +6871,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	dist = 0;
 
 	/* Collect beam grids */
-	if (flg & (PROJECT_BEAM))
+	if(flg & (PROJECT_BEAM))
 	{
 		gy[grids] = y;
 		gx[grids] = x;
@@ -6882,11 +6882,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	{
 	case GF_LITE:
 	case GF_LITE_WEAK:
-		if (breath || (flg & PROJECT_BEAM)) flg |= (PROJECT_LOS);
+		if(breath || (flg & PROJECT_BEAM)) flg |= (PROJECT_LOS);
 		break;
 	case GF_DISINTEGRATE:
 		flg |= (PROJECT_GRID);
-		if (breath || (flg & PROJECT_BEAM)) flg |= (PROJECT_DISI);
+		if(breath || (flg & PROJECT_BEAM)) flg |= (PROJECT_DISI);
 		break;
 	}
 
@@ -6927,10 +6927,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 			/* Only do visuals if requested */
-			if (!blind && !(flg & (PROJECT_HIDE)))
+			if(!blind && !(flg & (PROJECT_HIDE)))
 			{
 				/* Only do visuals if the player can "see" the bolt */
-				if (panel_contains(y, x) && player_has_los_bold(y, x))
+				if(panel_contains(y, x) && player_has_los_bold(y, x))
 				{
 					u16b p;
 
@@ -6947,13 +6947,13 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					/* Visual effects */
 					print_rel(caster_ptr, c, a, y, x);
 					move_cursor_relative(y, x);
-					/*if (fresh_before)*/ Term_fresh();
+					/*if(fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
 					lite_spot(floor_ptr, y, x);
-					/*if (fresh_before)*/ Term_fresh();
+					/*if(fresh_before)*/ Term_fresh();
 
 					/* Display "beam" grids */
-					if (flg & (PROJECT_BEAM))
+					if(flg & (PROJECT_BEAM))
 					{
 						/* Obtain the explosion pict */
 						p = bolt_pict(y, x, y, x, typ);
@@ -6971,7 +6971,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 
 				/* Hack -- delay anyway for consistency */
-				else if (visual)
+				else if(visual)
 				{
 					/* Delay for consistency */
 					Term_xtra(TERM_XTRA_DELAY, msec);
@@ -6997,10 +6997,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 					    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-					    if (m_ptr->see_others)
+					    if(m_ptr->see_others)
 					    {
 					      /* Hack -- auto-recall */
-					      if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+					      if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 					      /* Hack - auto-track */
 					      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -7023,10 +7023,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 			    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-			    if (m_ptr->see_others)
+			    if(m_ptr->see_others)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+			      if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -7064,10 +7064,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 			/* Only do visuals if requested */
-			if (!blind && !(flg & (PROJECT_HIDE)))
+			if(!blind && !(flg & (PROJECT_HIDE)))
 			{
 				/* Only do visuals if the player can "see" the bolt */
-				if (panel_contains(y, x) && player_has_los_bold(y, x))
+				if(panel_contains(y, x) && player_has_los_bold(y, x))
 				{
 					u16b p;
 
@@ -7084,13 +7084,13 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					/* Visual effects */
 					print_rel(caster_ptr, c, a, y, x);
 					move_cursor_relative(y, x);
-					/*if (fresh_before)*/ Term_fresh();
+					/*if(fresh_before)*/ Term_fresh();
 					Term_xtra(TERM_XTRA_DELAY, msec);
 					lite_spot(floor_ptr, y, x);
-					/*if (fresh_before)*/ Term_fresh();
+					/*if(fresh_before)*/ Term_fresh();
 
 					/* Display "beam" grids */
-					if (flg & (PROJECT_BEAM))
+					if(flg & (PROJECT_BEAM))
 					{
 						/* Obtain the explosion pict */
 						p = bolt_pict(y, x, y, x, typ);
@@ -7108,14 +7108,14 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 
 				/* Hack -- delay anyway for consistency */
-				else if (visual)
+				else if(visual)
 				{
 					/* Delay for consistency */
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
 			if(project_o(caster_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
-			if (!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
+			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
 				break;
@@ -7155,10 +7155,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 			    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-			    if (m_ptr->see_others)
+			    if(m_ptr->see_others)
 			    {
 			      /* Hack -- auto-recall */
-			      if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+			      if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 			      /* Hack - auto-track */
 			      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
@@ -7179,20 +7179,20 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if (flg & PROJECT_DISI)
+		if(flg & PROJECT_DISI)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
+			if(cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
 		}
-		else if (flg & PROJECT_LOS)
+		else if(flg & PROJECT_LOS)
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_los_bold(floor_ptr, ny, nx) && (rad > 0)) break;
+			if(!cave_los_bold(floor_ptr, ny, nx) && (rad > 0)) break;
 		}
 		else
 		{
 			/* Hack -- Balls explode before reaching walls */
-			if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
+			if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
 		}
 
 		/* Advance */
@@ -7200,7 +7200,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		x = nx;
 
 		/* Collect beam grids */
-		if (flg & (PROJECT_BEAM))
+		if(flg & (PROJECT_BEAM))
 		{
 			gy[grids] = y;
 			gx[grids] = x;
@@ -7208,10 +7208,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		}
 
 		/* Only do visuals if requested */
-		if (!blind && !(flg & (PROJECT_HIDE | PROJECT_FAST)))
+		if(!blind && !(flg & (PROJECT_HIDE | PROJECT_FAST)))
 		{
 			/* Only do visuals if the player can "see" the bolt */
-			if (panel_contains(y, x) && player_has_los_bold(y, x))
+			if(panel_contains(y, x) && player_has_los_bold(y, x))
 			{
 				u16b p;
 
@@ -7228,13 +7228,13 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				/* Visual effects */
 				print_rel(caster_ptr, c, a, y, x);
 				move_cursor_relative(y, x);
-				/*if (fresh_before)*/ Term_fresh();
+				/*if(fresh_before)*/ Term_fresh();
 				Term_xtra(TERM_XTRA_DELAY, msec);
 				lite_spot(floor_ptr, y, x);
-				/*if (fresh_before)*/ Term_fresh();
+				/*if(fresh_before)*/ Term_fresh();
 
 				/* Display "beam" grids */
-				if (flg & (PROJECT_BEAM))
+				if(flg & (PROJECT_BEAM))
 				{
 					/* Obtain the explosion pict */
 					p = bolt_pict(y, x, y, x, typ);
@@ -7252,7 +7252,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Hack -- delay anyway for consistency */
-			else if (visual)
+			else if(visual)
 			{
 				/* Delay for consistency */
 				Term_xtra(TERM_XTRA_DELAY, msec);
@@ -7266,11 +7266,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	by = y;
 	bx = x;
 
-	if (breath && !path_n)
+	if(breath && !path_n)
 	{
 		breath = FALSE;
 		gm_rad = rad;
-		if (!old_hide)
+		if(!old_hide)
 		{
 			flg &= ~(PROJECT_HIDE);
 		}
@@ -7288,10 +7288,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	project_length = 0;
 
 	/* If we found a "target", explode there */
-	if (dist <= MAX_RANGE)
+	if(dist <= MAX_RANGE)
 	{
 		/* Mega-Hack -- remove the final "beam" grid */
-		if ((flg & (PROJECT_BEAM)) && (grids > 0)) grids--;
+		if((flg & (PROJECT_BEAM)) && (grids > 0)) grids--;
 
 		/*
 		 * Create a conical breath attack
@@ -7303,7 +7303,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		 *         ***
 		 */
 
-		if (breath)
+		if(breath)
 		{
 			flg &= ~(PROJECT_HIDE);
 
@@ -7320,25 +7320,25 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					for (x = bx - dist; x <= bx + dist; x++)
 					{
 						/* Ignore "illegal" locations */
-						if (!in_bounds2(floor_ptr, y, x)) continue;
+						if(!in_bounds2(floor_ptr, y, x)) continue;
 
 						/* Enforce a "circular" explosion */
-						if (distance(by, bx, y, x) != dist) continue;
+						if(distance(by, bx, y, x) != dist) continue;
 
 						switch (typ)
 						{
 						case GF_LITE:
 						case GF_LITE_WEAK:
 							/* Lights are stopped by opaque terrains */
-							if (!los(floor_ptr, by, bx, y, x)) continue;
+							if(!los(floor_ptr, by, bx, y, x)) continue;
 							break;
 						case GF_DISINTEGRATE:
 							/* Disintegration are stopped only by perma-walls */
-							if (!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
+							if(!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
 							break;
 						default:
 							/* Ball explosions are stopped by walls */
-							if (!projectable(floor_ptr, by, bx, y, x)) continue;
+							if(!projectable(floor_ptr, by, bx, y, x)) continue;
 							break;
 						}
 
@@ -7356,11 +7356,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	}
 
 	/* Speed -- ignore "non-explosions" */
-	if (!grids) return (FALSE);
+	if(!grids) return (FALSE);
 
 
 	/* Display the "blast area" if requested */
-	if (!blind && !(flg & (PROJECT_HIDE)))
+	if(!blind && !(flg & (PROJECT_HIDE)))
 	{
 		/* Then do the "blast", from inside out */
 		for (t = 0; t <= gm_rad; t++)
@@ -7373,7 +7373,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				x = gx[i];
 
 				/* Only do visuals if the player can "see" the blast */
-				if (panel_contains(y, x) && player_has_los_bold(y, x))
+				if(panel_contains(y, x) && player_has_los_bold(y, x))
 				{
 					u16b p;
 
@@ -7398,17 +7398,17 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			move_cursor_relative(by, bx);
 
 			/* Flush each "radius" seperately */
-			/*if (fresh_before)*/ Term_fresh();
+			/*if(fresh_before)*/ Term_fresh();
 
 			/* Delay (efficiently) */
-			if (visual || drawn)
+			if(visual || drawn)
 			{
 				Term_xtra(TERM_XTRA_DELAY, msec);
 			}
 		}
 
 		/* Flush the erasing */
-		if (drawn)
+		if(drawn)
 		{
 			/* Erase the explosion drawn above */
 			for (i = 0; i < grids; i++)
@@ -7418,7 +7418,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				x = gx[i];
 
 				/* Hack -- Erase if needed */
-				if (panel_contains(y, x) && player_has_los_bold(y, x))
+				if(panel_contains(y, x) && player_has_los_bold(y, x))
 				{
 					//TODO!
 					lite_spot(floor_ptr, y, x);
@@ -7429,16 +7429,16 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			move_cursor_relative(by, bx);
 
 			/* Flush the explosion */
-			/*if (fresh_before)*/ Term_fresh();
+			/*if(fresh_before)*/ Term_fresh();
 		}
 	}
 
 
 	/* Update stuff if needed */
-	if (update) update_creature(player_ptr, TRUE);
+	if(update) update_creature(player_ptr, TRUE);
 
 
-	if (flg & PROJECT_KILL)
+	if(flg & PROJECT_KILL)
 	{
 		//TODO
 		if(caster_ptr)
@@ -7454,7 +7454,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Check features */
-	if (flg & (PROJECT_GRID))
+	if(flg & (PROJECT_GRID))
 	{
 		/* Start with "dist" of zero */
 		dist = 0;
@@ -7463,33 +7463,33 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		for (i = 0; i < grids; i++)
 		{
 			/* Hack -- Notice new "dist" values */
-			if (gm[dist+1] == i) dist++;
+			if(gm[dist+1] == i) dist++;
 
 			/* Get the grid location */
 			y = gy[i];
 			x = gx[i];
 
 			/* Find the closest point in the blast */
-			if (breath)
+			if(breath)
 			{
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				if (project_f(caster_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if(project_f(caster_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				if (project_f(caster_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if(project_f(caster_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
 
 	/* Update stuff if needed */
-	if (update) update_creature(player_ptr, TRUE);
+	if(update) update_creature(player_ptr, TRUE);
 
 	/* Check objects */
-	if (flg & (PROJECT_ITEM))
+	if(flg & (PROJECT_ITEM))
 	{
 		/* Start with "dist" of zero */
 		dist = 0;
@@ -7498,31 +7498,31 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		for (i = 0; i < grids; i++)
 		{
 			/* Hack -- Notice new "dist" values */
-			if (gm[dist+1] == i) dist++;
+			if(gm[dist+1] == i) dist++;
 
 			/* Get the grid location */
 			y = gy[i];
 			x = gx[i];
 
 			/* Find the closest point in the blast */
-			if (breath)
+			if(breath)
 			{
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the object in the grid */
-				if (project_o(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if(project_o(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the object in the grid */
-				if (project_o(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if(project_o(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
 
 
 	/* Check creatures */
-	if (flg & (PROJECT_KILL))
+	if(flg & (PROJECT_KILL))
 	{
 		/* Mega-Hack */
 		project_m_n = 0;
@@ -7538,19 +7538,19 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			int effective_dist;
 
 			/* Hack -- Notice new "dist" values */
-			if (gm[dist + 1] == i) dist++;
+			if(gm[dist + 1] == i) dist++;
 
 			/* Get the grid location */
 			y = gy[i];
 			x = gx[i];
 
 			/* A single bolt may be reflected */
-			if (grids <= 1)
+			if(grids <= 1)
 			{
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
-				if ((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_trait(m_ptr, TRAIT_REFLECTING) &&
+				if((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_trait(m_ptr, TRAIT_REFLECTING) &&
 				    ((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
 				    ((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{
@@ -7566,27 +7566,27 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					}
 					while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, y, x, t_y, t_x));
 
-					if (max_attempts < 1)
+					if(max_attempts < 1)
 					{
 						t_y = y_saver;
 						t_x = x_saver;
 					}
 
-					if (is_seen(player_ptr, m_ptr))
+					if(is_seen(player_ptr, m_ptr))
 					{
 #ifdef JP
-						if ((m_ptr->species_idx == SPECIES_KENSHIROU) || (m_ptr->species_idx == SPECIES_RAOU))
+						if((m_ptr->species_idx == SPECIES_KENSHIROU) || (m_ptr->species_idx == SPECIES_RAOU))
 							msg_print("「北斗神拳奥義・二指真空把！」");
-						else if (m_ptr->species_idx == SPECIES_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
+						else if(m_ptr->species_idx == SPECIES_DIO) msg_print("ディオ・ブランドーは指一本で攻撃を弾き返した！");
 						else msg_print("攻撃は跳ね返った！");
 #else
 						msg_print("The attack bounces!");
 #endif
 					}
-					if (is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_REFLECTING);
+					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_REFLECTING);
 
 					/* Reflected bolts randomly target either one */
-					if (creature_bold(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
+					if(creature_bold(player_ptr, y, x) || one_in_(2)) flg &= ~(PROJECT_PLAYER);
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
@@ -7599,7 +7599,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 			/* Find the closest point in the blast */
-			if (breath)
+			if(breath)
 			{
 				effective_dist = dist_to_line(y, x, y1, x1, by, bx);
 			}
@@ -7610,12 +7610,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 			/* There is the riding player on this creature */
-			if (caster_ptr && player_ptr->riding && creature_bold(caster_ptr, y, x))
+			if(caster_ptr && player_ptr->riding && creature_bold(caster_ptr, y, x))
 			{
 				/* Aimed on the player */
-				if (flg & PROJECT_PLAYER)
+				if(flg & PROJECT_PLAYER)
 				{
-					if (flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
+					if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
 					{
 						/*
 						 * A beam or bolt is well aimed
@@ -7638,7 +7638,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				 * This grid is the original target.
 				 * Or aimed on your horse.
 				 */
-				else if (((y == y2) && (x == x2)) || (flg & PROJECT_AIMED))
+				else if(((y == y2) && (x == x2)) || (flg & PROJECT_AIMED))
 				{
 					/* Hit the mount with full damage */
 				}
@@ -7653,9 +7653,9 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				 * A beam or bolt will hit either
 				 * player or mount.  Choose randomly.
 				 */
-				else if (flg & (PROJECT_BEAM | PROJECT_REFLECTABLE))
+				else if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE))
 				{
-					if (one_in_(2))
+					if(one_in_(2))
 					{
 						/* Hit the mount with full damage */
 					}
@@ -7681,29 +7681,29 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Affect the creature in the grid */
-			if (project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, monspell)) notice = TRUE;
+			if(project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, monspell)) notice = TRUE;
 		}
 
 
 		/* Player affected one creature (without "jumping") */
-		if (is_player(caster_ptr) && (project_m_n == 1) && !jump)
+		if(is_player(caster_ptr) && (project_m_n == 1) && !jump)
 		{
 			/* Location */
 			x = project_m_x;
 			y = project_m_y;
 
 			/* Track if possible */
-			if (floor_ptr->cave[y][x].creature_idx > 0)
+			if(floor_ptr->cave[y][x].creature_idx > 0)
 			{
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
-				if (m_ptr->see_others)
+				if(m_ptr->see_others)
 				{
 					/* Hack -- auto-recall */
-					if (!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+					if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
 					/* Hack - auto-track */
-					if (m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx);
+					if(m_ptr->see_others) health_track(floor_ptr->cave[y][x].creature_idx);
 				}
 			}
 		}
@@ -7711,7 +7711,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 
 	/* Check player */
-	if (flg & (PROJECT_KILL))
+	if(flg & (PROJECT_KILL))
 	{
 		/* Start with "dist" of zero */
 		dist = 0;
@@ -7722,17 +7722,17 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			int effective_dist;
 
 			/* Hack -- Notice new "dist" values */
-			if (gm[dist+1] == i) dist++;
+			if(gm[dist+1] == i) dist++;
 
 			/* Get the grid location */
 			y = gy[i];
 			x = gx[i];
 
 			/* Affect the player? */
-			if (!creature_bold(player_ptr, y, x)) continue;
+			if(!creature_bold(player_ptr, y, x)) continue;
 
 			/* Find the closest point in the blast */
-			if (breath)
+			if(breath)
 			{
 				effective_dist = dist_to_line(y, x, y1, x1, by, bx);
 			}
@@ -7742,10 +7742,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Target may be your horse */
-			if (player_ptr->riding)
+			if(player_ptr->riding)
 			{
 				/* Aimed on the player */
-				if (flg & PROJECT_PLAYER)
+				if(flg & PROJECT_PLAYER)
 				{
 					/* Hit the player with full damage */
 				}
@@ -7761,7 +7761,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				 *
 				 * Or aimed on your horse.
 				 */
-				else if (flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
+				else if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
 				{
 					/*
 					 * A beam or bolt is well aimed
@@ -7781,19 +7781,19 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 
 			/* Affect the player */
-			if (project_creature(caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, TRUE, monspell)) notice = TRUE;
+			if(project_creature(caster_ptr, who_name, effective_dist, y, x, dam, typ, flg, TRUE, monspell)) notice = TRUE;
 		}
 	}
 
-	if (player_ptr->riding)
+	if(player_ptr->riding)
 	{
 		char m_name[80];
 
 		creature_desc(m_name, &creature_list[player_ptr->riding], 0);
 
-		if (do_thrown_from_ridingdam_m > 0)
+		if(do_thrown_from_ridingdam_m > 0)
 		{
-			if (do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE))
+			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE))
 			{
 #ifdef JP
 msg_format("%^sに振り落とされた！", m_name);
@@ -7802,7 +7802,7 @@ msg_format("%^sに振り落とされた！", m_name);
 #endif
 			}
 		}
-		if (player_ptr->riding && do_thrown_from_ridingdam_p > 0)
+		if(player_ptr->riding && do_thrown_from_ridingdam_p > 0)
 		{
 			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_p, FALSE))
 			{
@@ -7896,14 +7896,14 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
 					if(!(IS_BLIND(caster_ptr))
 					   && panel_contains(y,x)){
 					  p = bolt_pict(y,x,y,x, GF_MANA );
 					  print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);
 					  move_cursor_relative(y, x);
-					  /*if (fresh_before)*/ Term_fresh();
+					  /*if(fresh_before)*/ Term_fresh();
 					  Term_xtra(TERM_XTRA_DELAY, msec);
 					}
 				}
@@ -7919,7 +7919,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_f(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -7934,7 +7934,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_o(caster_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -7949,7 +7949,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			    centersign*( (point_x[2]-x)*(point_y[0]-y)
 					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if (player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_MANA,
 					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}

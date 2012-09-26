@@ -81,12 +81,12 @@ static BUF* buf_new(void)
 {
 	BUF *p;
 
-	if ((p = malloc(sizeof(BUF))) == NULL)
+	if((p = malloc(sizeof(BUF))) == NULL)
 		return NULL;
 
 	p->size = 0;
 	p->max_size = BUFSIZE;
-	if ((p->data = malloc(BUFSIZE)) == NULL)
+	if((p->data = malloc(BUFSIZE)) == NULL)
 	{
 		free(p);
 		return NULL;
@@ -105,7 +105,7 @@ static int buf_append(BUF *buf, const char *data, size_t size)
 	while (buf->size + size > buf->max_size)
 	{
 		char *tmp;
-		if ((tmp = malloc(buf->max_size * 2)) == NULL) return -1;
+		if((tmp = malloc(buf->max_size * 2)) == NULL) return -1;
 
 		memcpy(tmp, buf->data, buf->max_size);
 		free(buf->data);
@@ -132,7 +132,7 @@ static int buf_sprintf(BUF *buf, const char *fmt, ...)
 
 	if(!tmpbuf) return -1;
 
-#if ('\r' == 0x0a && '\n' == 0x0d)
+#if('\r' == 0x0a && '\n' == 0x0d)
 	{
 		/*
 		 * Originally '\r'= CR (= 0x0d) and '\n'= LF (= 0x0a)
@@ -147,7 +147,7 @@ static int buf_sprintf(BUF *buf, const char *fmt, ...)
 		char *ptr;
 		for (ptr = tmpbuf; *ptr; ptr++)
 		{
-			if (0x0d == *ptr) *ptr = 0x0a;
+			if(0x0d == *ptr) *ptr = 0x0a;
 		}
 	}
 #endif
@@ -192,7 +192,7 @@ static int buf_search(BUF *buf, const char *str)
 
 	ret = my_strstr(buf->data, str);
 
-	if (!ret) return -1;
+	if(!ret) return -1;
 
 	return ret - buf->data;
 }
@@ -201,11 +201,11 @@ static BUF * buf_subbuf(BUF *buf, int pos1, size_t sz)
 {
 	BUF *ret;
 
-	if (pos1 < 0) return NULL;
+	if(pos1 < 0) return NULL;
 
 	ret = buf_new();
 
-	if (sz <= 0) sz = buf->size - pos1;
+	if(sz <= 0) sz = buf->size - pos1;
 
 	buf_append(ret, buf->data + pos1, sz);
 
@@ -241,7 +241,7 @@ static errr make_dump(BUF* dumpbuf)
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);
-	if (!fff)
+	if(!fff)
 	{
 #ifdef JP
 		msg_format("一時ファイル %s を作成できませんでした。", file_name);
@@ -307,9 +307,9 @@ cptr make_screen_dump(void)
 
 	/* Alloc buffer */
 	screen_buf = buf_new();
-	if (screen_buf == NULL) return (NULL);
+	if(screen_buf == NULL) return (NULL);
 
-	if (old_use_graphics)
+	if(old_use_graphics)
 	{
 		/* Clear -more- prompt first */
 		msg_print(NULL);
@@ -331,7 +331,7 @@ cptr make_screen_dump(void)
 	for (y = 0; y < hgt; y++)
 	{
 		/* Start the row */
-		if (y != 0)
+		if(y != 0)
 			buf_sprintf(screen_buf, "\n");
 
 		/* Dump each row */
@@ -354,7 +354,7 @@ cptr make_screen_dump(void)
 			}
 
 			a = a & 0x0F;
-			if ((y == 0 && x == 0) || a != old_a) {
+			if((y == 0 && x == 0) || a != old_a) {
 				rv = angband_color_table[a][1];
 				gv = angband_color_table[a][2];
 				bv = angband_color_table[a][3];
@@ -362,7 +362,7 @@ cptr make_screen_dump(void)
 					    ((y == 0 && x == 0) ? "" : "</font>"), rv, gv, bv);
 				old_a = a;
 			}
-			if (cc)
+			if(cc)
 				buf_sprintf(screen_buf, "%s", cc);
 			else
 				buf_sprintf(screen_buf, "%c", c);
@@ -374,7 +374,7 @@ cptr make_screen_dump(void)
 		buf_sprintf(screen_buf, html_foot[i]);
 
 	/* Screen dump size is too big ? */
-	if (screen_buf->size + 1> SCREEN_BUF_SIZE)
+	if(screen_buf->size + 1> SCREEN_BUF_SIZE)
 	{
 		ret = NULL;
 	}
@@ -389,7 +389,7 @@ cptr make_screen_dump(void)
 	/* Free buffer */
 	buf_delete(screen_buf);
 
-	if (old_use_graphics)
+	if(old_use_graphics)
 	{
 		use_graphics = TRUE;
 		reset_visuals();
@@ -458,14 +458,14 @@ errr report_score(creature_type *player_ptr)
 
 	make_dump(score);
 
-	if (screen_dump)
+	if(screen_dump)
 	{
 		buf_sprintf(score, "-----screen shot-----\n");
 		buf_append(score, screen_dump, strlen(screen_dump));
 	}
 	
 #ifdef WINDOWS
-	if (WSAStartup(wVersionRequested, &wsaData))
+	if(WSAStartup(wVersionRequested, &wsaData))
 	{
 		msg_print("Report: WSAStartup failed.");
 		goto report_end;
@@ -478,7 +478,7 @@ errr report_score(creature_type *player_ptr)
 #else
 	err = InitOpenTransport();
 #endif
-	if (err != noErr)
+	if(err != noErr)
 	{
 		msg_print("Report: OpenTransport failed.");
 		return 1;
@@ -504,7 +504,7 @@ errr report_score(creature_type *player_ptr)
 		sd = connect_server(HTTP_TIMEOUT, SCORE_SERVER, SCORE_PORT);
 
 
-		if (!(sd < 0)) break;
+		if(!(sd < 0)) break;
 #ifdef JP
 		sprintf(buff, "スコア・サーバへの接続に失敗しました。(%s)", soc_err());
 #else
@@ -514,9 +514,9 @@ errr report_score(creature_type *player_ptr)
 		(void)inkey();
 		
 #ifdef JP
-		if (!get_check_strict("もう一度接続を試みますか? ", CHECK_NO_HISTORY))
+		if(!get_check_strict("もう一度接続を試みますか? ", CHECK_NO_HISTORY))
 #else
-		if (!get_check_strict("Try again? ", CHECK_NO_HISTORY))
+		if(!get_check_strict("Try again? ", CHECK_NO_HISTORY))
 #endif
 		{
 			err = 1;

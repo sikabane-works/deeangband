@@ -85,14 +85,14 @@ struct png_info_def
 #if defined(PNG_gAMA_SUPPORTED)
    /* The gAMA chunk describes the gamma characteristics of the system
     * on which the image was created, normally in the range [1.0, 2.5].
-    * Data is valid if (valid & PNG_INFO_gAMA) is non-zero.
+    * Data is valid if(valid & PNG_INFO_gAMA) is non-zero.
     */
    png_fixed_point gamma;
 #endif
 
 #ifdef PNG_sRGB_SUPPORTED
     /* GR-P, 0.96a */
-    /* Data valid if (valid & PNG_INFO_sRGB) non-zero. */
+    /* Data valid if(valid & PNG_INFO_sRGB) non-zero. */
    png_byte srgb_intent; /* sRGB rendering intent [0, 1, 2, or 3] */
 #endif
 
@@ -136,7 +136,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
     * for the data are in the range [0, 255], ranging from fully transparent
     * to fully opaque, respectively.  For non-paletted images, there is a
     * single color specified that should be treated as fully transparent.
-    * Data is valid if (valid & PNG_INFO_tRNS) is non-zero.
+    * Data is valid if(valid & PNG_INFO_tRNS) is non-zero.
     */
    png_bytep trans_alpha;    /* alpha values for paletted image */
    png_color_16 trans_color; /* transparent color for non-palette image */
@@ -147,7 +147,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
     * display program does not have its own background color and the image
     * is needs to composited onto a background before display.  The colors
     * in "background" are normally in the same color space/depth as the
-    * pixel data.  Data is valid if (valid & PNG_INFO_bKGD) is non-zero.
+    * pixel data.  Data is valid if(valid & PNG_INFO_bKGD) is non-zero.
     */
    png_color_16 background;
 #endif
@@ -156,7 +156,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
    /* The oFFs chunk gives the offset in "offset_unit_type" units rightwards
     * and downwards from the top-left corner of the display, page, or other
     * application-specific co-ordinate space.  See the PNG_OFFSET_ defines
-    * below for the unit types.  Valid if (valid & PNG_INFO_oFFs) non-zero.
+    * below for the unit types.  Valid if(valid & PNG_INFO_oFFs) non-zero.
     */
    png_int_32 x_offset; /* x offset on page */
    png_int_32 y_offset; /* y offset on page */
@@ -166,7 +166,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
 #ifdef PNG_pHYs_SUPPORTED
    /* The pHYs chunk gives the physical pixel density of the image for
     * display or printing in "phys_unit_type" units (see PNG_RESOLUTION_
-    * defines below).  Data is valid if (valid & PNG_INFO_pHYs) is non-zero.
+    * defines below).  Data is valid if(valid & PNG_INFO_pHYs) is non-zero.
     */
    png_uint_32 x_pixels_per_unit; /* horizontal pixel density */
    png_uint_32 y_pixels_per_unit; /* vertical pixel density */
@@ -177,7 +177,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
    /* The hIST chunk contains the relative frequency or importance of the
     * various palette entries, so that a viewer can intelligently select a
     * reduced-color palette, if required.  Data is an array of "num_palette"
-    * values in the range [0,65535]. Data valid if (valid & PNG_INFO_hIST)
+    * values in the range [0,65535]. Data valid if(valid & PNG_INFO_hIST)
     * is non-zero.
     */
    png_uint_16p hist;
@@ -188,7 +188,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
     * on which the PNG was created.  This data allows the viewer to do gamut
     * mapping of the input image to ensure that the viewer sees the same
     * colors in the image as the creator.  Values are in the range
-    * [0.0, 0.8].  Data valid if (valid & PNG_INFO_cHRM) non-zero.
+    * [0.0, 0.8].  Data valid if(valid & PNG_INFO_cHRM) non-zero.
     */
    png_fixed_point x_white;
    png_fixed_point y_white;
@@ -210,7 +210,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
     * defines below, and the PNG-Group's PNG extensions document for a
     * complete description of the transformations and how they should be
     * implemented, and for a description of the ASCII parameter strings.
-    * Data values are valid if (valid & PNG_INFO_pCAL) non-zero.
+    * Data values are valid if(valid & PNG_INFO_pCAL) non-zero.
     */
    png_charp pcal_purpose;  /* pCAL chunk description string */
    png_int_32 pcal_X0;      /* minimum value */
@@ -250,7 +250,7 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
     * subject matter of the graphic.  The chunk contains a unit specification
     * a byte value, and two ASCII strings representing floating-point
     * values.  The values are width and height corresponsing to one pixel
-    * in the image.  Data values are valid if (valid & PNG_INFO_sCAL) is
+    * in the image.  Data values are valid if(valid & PNG_INFO_sCAL) is
     * non-zero.
     */
    png_byte scal_unit;         /* unit of physical scale */
@@ -259,9 +259,9 @@ defined(PNG_READ_BACKGROUND_SUPPORTED)
 #endif
 
 #ifdef PNG_INFO_IMAGE_SUPPORTED
-   /* Memory has been allocated if (valid & PNG_ALLOCATED_INFO_ROWS)
+   /* Memory has been allocated if(valid & PNG_ALLOCATED_INFO_ROWS)
       non-zero */
-   /* Data valid if (valid & PNG_INFO_IDAT) non-zero */
+   /* Data valid if(valid & PNG_INFO_IDAT) non-zero */
    png_bytepp row_pointers;        /* the image bits */
 #endif
 

@@ -26,13 +26,13 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 	int up_num = 0;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Verify stairs */
-	if (!have_flag(f_ptr->flags, FF_LESS))
+	if(!have_flag(f_ptr->flags, FF_LESS))
 	{
 #ifdef JP
 		msg_print("ここには上り階段が見当たらない。");
@@ -44,11 +44,11 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 
 	/* Quest up stairs */
-	if (have_flag(f_ptr->flags, FF_QUEST))
+	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 		/* Success */
 #ifdef JP
-		if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
 		else msg_print("上の階に登った。");
 #else
 		msg_print("You enter the up staircase.");
@@ -59,13 +59,13 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		floor_ptr->quest = c_ptr->special;
 
 		/* Activate the quest */
-		if (!quest[floor_ptr->quest].status)
+		if(!quest[floor_ptr->quest].status)
 		{
 			quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;
 		}
 
 		/* Leaving a quest */
-		if (!floor_ptr->quest)
+		if(!floor_ptr->quest)
 		{
 			floor_ptr->floor_level = 0;
 		}
@@ -80,7 +80,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		return;
 	}
 
-	if (!floor_ptr->floor_level)
+	if(!floor_ptr->floor_level)
 	{
 		go_up = TRUE;
 	}
@@ -89,17 +89,17 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		quest_type *quest_ptr = &quest[floor_ptr->quest];
 
 		/* Confirm leaving from once only quest */
-		if (confirm_quest && floor_ptr->quest &&
+		if(confirm_quest && floor_ptr->quest &&
 		    (quest_ptr->type == QUEST_TYPE_RANDOM ||
 		     (quest_ptr->flags & QUEST_FLAG_ONCE &&
 		      quest_ptr->status != QUEST_STATUS_COMPLETED)))
 		{
 #ifdef JP
 			msg_print("この階を一度去ると二度と戻って来られません。");
-			if (get_check("本当にこの階を去りますか？")) go_up = TRUE;
+			if(get_check("本当にこの階を去りますか？")) go_up = TRUE;
 #else
 			msg_print("You can't come back here once you leave this floor.");
-			if (get_check("Really leave this floor? ")) go_up = TRUE;
+			if(get_check("Really leave this floor? ")) go_up = TRUE;
 #endif
 		}
 		else
@@ -109,15 +109,15 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 
 	/* Cancel the command */
-	if (!go_up) return;
+	if(!go_up) return;
 
 	/* Hack -- take a turn */
 	creature_ptr->energy_use = 100;
 
-	if (autosave_l) do_cmd_save_game(TRUE);
+	if(autosave_l) do_cmd_save_game(TRUE);
 
 	/* For a random quest */
-	if (floor_ptr->quest &&
+	if(floor_ptr->quest &&
 	    quest[floor_ptr->quest].type == QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check(creature_ptr);
@@ -126,7 +126,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	}
 
 	/* For a fixed quest */
-	if (floor_ptr->quest &&
+	if(floor_ptr->quest &&
 	    quest[floor_ptr->quest].type != QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check(creature_ptr);
@@ -140,7 +140,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	else
 	{
 		/* New depth */
-		if (have_flag(f_ptr->flags, FF_SHAFT))
+		if(have_flag(f_ptr->flags, FF_SHAFT))
 		{
 			// Create a way back
 			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 2, floor_ptr,  CFM_SAVE_FLOORS);
@@ -154,23 +154,23 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		}
 
 		/* Get out from current dungeon */
-		if (floor_ptr->floor_level - up_num < dungeon_info[floor_ptr->dun_type].mindepth)
+		if(floor_ptr->floor_level - up_num < dungeon_info[floor_ptr->dun_type].mindepth)
 			up_num = floor_ptr->floor_level;
 	}
 
 #ifdef JP
-	if (record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "階段を上った");
+	if(record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "階段を上った");
 #else
-	if (record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "climbed up the stairs to");
+	if(record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "climbed up the stairs to");
 #endif
 
 	/* Success */
 #ifdef JP
-	if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
-	else if (up_num == floor_ptr->floor_level) msg_print("地上に戻った。");
+	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+	else if(up_num == floor_ptr->floor_level) msg_print("地上に戻った。");
 	else msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
 #else
-	if (up_num == floor_ptr->floor_level)
+	if(up_num == floor_ptr->floor_level)
 		msg_print("You go back to the surface.");
 	else
 		msg_print("You enter a maze of up staircases.");
@@ -190,13 +190,13 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	bool fall_trap = FALSE;
 	int down_num = 0;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Verify stairs */
-	if (!have_flag(f_ptr->flags, FF_MORE))
+	if(!have_flag(f_ptr->flags, FF_MORE))
 	{
 #ifdef JP
 		msg_print("ここには下り階段が見当たらない。");
@@ -207,19 +207,19 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		return;
 	}
 
-	if (have_flag(f_ptr->flags, FF_TRAP)) fall_trap = TRUE;
+	if(have_flag(f_ptr->flags, FF_TRAP)) fall_trap = TRUE;
 
 	/* Quest entrance */
-	if (have_flag(f_ptr->flags, FF_QUEST_ENTER))
+	if(have_flag(f_ptr->flags, FF_QUEST_ENTER))
 	{
 		do_cmd_quest(creature_ptr);
 	}
 
 	/* Quest down stairs */
-	else if (have_flag(f_ptr->flags, FF_QUEST))
+	else if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 #ifdef JP
-		if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
 		else msg_print("下の階に降りた。");
 #else
 			msg_print("You enter the down staircase.");
@@ -238,11 +238,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	{
 		int target_dungeon = 0;
 
-		if (!floor_ptr->floor_level)
+		if(!floor_ptr->floor_level)
 		{
 			target_dungeon = have_flag(f_ptr->flags, FF_ENTRANCE) ? c_ptr->special : DUNGEON_ANGBAND;
 
-			if (ironman_downward && (target_dungeon != DUNGEON_ANGBAND))
+			if(ironman_downward && (target_dungeon != DUNGEON_ANGBAND))
 			{
 #ifdef JP
 				msg_print("ダンジョンの入口は塞がれている！");
@@ -251,14 +251,14 @@ void do_cmd_go_down(creature_type *creature_ptr)
 #endif
 				return;
 			}
-			if (!max_dlv[target_dungeon])
+			if(!max_dlv[target_dungeon])
 			{
 #ifdef JP
 				msg_format("ここには%sの入り口(%d階相当)があります", dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
-				if (!get_check("本当にこのダンジョンに入りますか？")) return;
+				if(!get_check("本当にこのダンジョンに入りますか？")) return;
 #else
 				msg_format("There is the entrance of %s (Danger level: %d)", dungeon_name + dungeon_info[target_dungeon].name, dungeon_info[target_dungeon].mindepth);
-				if (!get_check("Do you really get in this dungeon? ")) return;
+				if(!get_check("Do you really get in this dungeon? ")) return;
 #endif
 			}
 
@@ -277,31 +277,31 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		/* Hack -- take a turn */
 		creature_ptr->energy_use = 100;
 
-		if (autosave_l) do_cmd_save_game(TRUE);
+		if(autosave_l) do_cmd_save_game(TRUE);
 
 		/* Go down */
-		if (have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;
+		if(have_flag(f_ptr->flags, FF_SHAFT)) down_num += 2;
 		else down_num += 1;
 
-		if (!floor_ptr->floor_level)
+		if(!floor_ptr->floor_level)
 		{
 			/* Enter the dungeon just now */
 			creature_ptr->enter_dungeon = TRUE;
 			down_num = dungeon_info[floor_ptr->dun_type].mindepth;
 		}
 
-		if (record_stair)
+		if(record_stair)
 		{
 #ifdef JP
-			if (fall_trap) do_cmd_write_nikki(DIARY_STAIR, down_num, "落とし戸に落ちた");
+			if(fall_trap) do_cmd_write_nikki(DIARY_STAIR, down_num, "落とし戸に落ちた");
 			else do_cmd_write_nikki(DIARY_STAIR, down_num, "階段を下りた");
 #else
-			if (fall_trap) do_cmd_write_nikki(DIARY_STAIR, down_num, "fell through a trap door");
+			if(fall_trap) do_cmd_write_nikki(DIARY_STAIR, down_num, "fell through a trap door");
 			else do_cmd_write_nikki(DIARY_STAIR, down_num, "climbed down the stairs to");
 #endif
 		}
 
-		if (fall_trap)
+		if(fall_trap)
 		{
 #ifdef JP
 			msg_print("わざと落とし戸に落ちた。");
@@ -312,7 +312,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		else
 		{
 			/* Success */
-			if (target_dungeon)
+			if(target_dungeon)
 			{
 /*
 #ifdef JP
@@ -325,7 +325,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				if (has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
+				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
 				else msg_print("階段を下りて新たなる迷宮へと足を踏み入れた。");
 #else
 				msg_print("You enter a maze of down staircases.");
@@ -335,13 +335,13 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 		subject_change_floor = TRUE; // Leaving
 
-		if (fall_trap)
+		if(fall_trap)
 		{
 			move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 1, floor_ptr, CFM_RAND_PLACE | CFM_RAND_CONNECT);
 		}
 		else
 		{
-			if (have_flag(f_ptr->flags, FF_SHAFT))
+			if(have_flag(f_ptr->flags, FF_SHAFT))
 			{
 				move_floor(creature_ptr, (byte)target_dungeon, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth + 2, floor_ptr, 0);
 			}
@@ -361,7 +361,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 void do_cmd_search(creature_type *creature_ptr)
 {
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -393,8 +393,8 @@ static s16b chest_check(floor_type *floor_ptr, int y, int x)
 		object_ptr = &object_list[this_object_idx];    // Acquire object
 		next_object_idx = object_ptr->next_object_idx; // Acquire next object
 		/* Skip unknown chests XXX XXX */
-		/* if (!(object_ptr->marked & OM_FOUND)) continue; */
-		if (object_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
+		/* if(!(object_ptr->marked & OM_FOUND)) continue; */
+		if(object_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
 	}
 
 	return (0); // No chest
@@ -431,7 +431,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	/* Determine how much to drop (see above) */
 	number = (object_ptr->sval % SV_CHEST_MIN_LARGE) * 2;
 
-	if (object_ptr->sval == SV_CHEST_KANDUME)
+	if(object_ptr->sval == SV_CHEST_KANDUME)
 	{
 		number = 5;
 		small = FALSE;
@@ -445,7 +445,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 	}
 
 	/* Zero pval means empty chest */
-	if (!object_ptr->pval) number = 0;
+	if(!object_ptr->pval) number = 0;
 
 	/* Drop some objects (non-chests) */
 	for (; number > 0; --number)
@@ -457,11 +457,11 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		object_wipe(quest_ptr);
 
 		// Small chests often drop gold
-		if (small && (randint0(100) < 25)) if (!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
-		else if (!make_object(quest_ptr, mode, TRG_NO_CHEST, floor_ptr->object_level, NULL)) continue; // Make object
+		if(small && (randint0(100) < 25)) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
+		else if(!make_object(quest_ptr, mode, TRG_NO_CHEST, floor_ptr->object_level, NULL)) continue; // Make object
 
 		/* If chest scatters its contents, pick any floor square. */
-		if (scatter)
+		if(scatter)
 		{
 			int i;
 			for (i = 0; i < 200; i++)
@@ -471,7 +471,7 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 				x = randint0(MAX_WID);
 
 				/* Must be an empty floor. */
-				if (!cave_empty_bold(floor_ptr, y, x)) continue;
+				if(!cave_empty_bold(floor_ptr, y, x)) continue;
 
 					drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
 				break;
@@ -502,13 +502,13 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	int mon_level = object_ptr->xtra3;
 
 	/* Ignore disarmed chests */
-	if (object_ptr->pval <= 0) return;
+	if(object_ptr->pval <= 0) return;
 
 	/* Obtain the traps */
 	trap = chest_traps[object_ptr->pval];
 
 	/* Lose strength */
-	if (trap & (CHEST_LOSE_STR))
+	if(trap & (CHEST_LOSE_STR))
 	{
 #ifdef JP
 		msg_print("仕掛けられていた小さな針に刺されてしまった！");
@@ -522,7 +522,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Lose constitution */
-	if (trap & (CHEST_LOSE_CON))
+	if(trap & (CHEST_LOSE_CON))
 	{
 #ifdef JP
 		msg_print("仕掛けられていた小さな針に刺されてしまった！");
@@ -536,7 +536,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Poison */
-	if (trap & (CHEST_POISON))
+	if(trap & (CHEST_POISON))
 	{
 #ifdef JP
 		msg_print("突如吹き出した緑色のガスに包み込まれた！");
@@ -544,14 +544,14 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		msg_print("A puff of green gas surrounds you!");
 #endif
 
-		if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
+		if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 		{
 			(void)set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + 10 + randint1(20));
 		}
 	}
 
 	/* Paralyze */
-	if (trap & (CHEST_PARALYZE))
+	if(trap & (CHEST_PARALYZE))
 	{
 #ifdef JP
 		msg_print("突如吹き出した黄色いガスに包み込まれた！");
@@ -560,14 +560,14 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 
 
-		if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
+		if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 		{
 			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 10 + randint1(20));
 		}
 	}
 
 	/* Summon creatures */
-	if (trap & (CHEST_SUMMON))
+	if(trap & (CHEST_SUMMON))
 	{
 		int num = 2 + randint1(3);
 #ifdef JP
@@ -579,7 +579,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		for (i = 0; i < num; i++)
 		{
-			if (randint1(100) < floor_ptr->floor_level)
+			if(randint1(100) < floor_ptr->floor_level)
 				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			else
 				(void)summon_specific(0, y, x, mon_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
@@ -587,7 +587,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Elemental summon. */
-	if (trap & (CHEST_E_SUMMON))
+	if(trap & (CHEST_E_SUMMON))
 	{
 #ifdef JP
 		msg_print("宝を守るためにエレメンタルが現れた！");
@@ -601,7 +601,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Force clouds, then summon birds. */
-	if (trap & (CHEST_BIRD_STORM))
+	if(trap & (CHEST_BIRD_STORM))
 	{
 #ifdef JP
 		msg_print("鳥の群れがあなたを取り巻いた！");
@@ -619,10 +619,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Various colorful summonings. */
-	if (trap & (CHEST_H_SUMMON))
+	if(trap & (CHEST_H_SUMMON))
 	{
 		/* Summon demons. */
-		if (one_in_(4))
+		if(one_in_(4))
 		{
 #ifdef JP
 			msg_print("炎と硫黄の雲の中に悪魔が姿を現した！");
@@ -638,7 +638,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		}
 
 		/* Summon dragons. */
-		else if (one_in_(3))
+		else if(one_in_(3))
 		{
 #ifdef JP
 			msg_print("暗闇にドラゴンの影がぼんやりと現れた！");
@@ -653,7 +653,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		}
 
 		/* Summon hybrids. */
-		else if (one_in_(2))
+		else if(one_in_(2))
 		{
 #ifdef JP
 			msg_print("奇妙な姿の怪物が襲って来た！");
@@ -684,7 +684,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Dispel player. */
-	if ((trap & (CHEST_RUNES_OF_EVIL)) && object_ptr->k_idx)
+	if((trap & (CHEST_RUNES_OF_EVIL)) && object_ptr->k_idx)
 	{
 		/* Determine how many nasty tricks can be played. */
 		int nasty_tricks_count = 4 + randint0(3);
@@ -700,25 +700,25 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		for (; nasty_tricks_count > 0; nasty_tricks_count--)
 		{
 			/* ...but a high saving throw does help a little. */
-			if (randint1(100+object_ptr->pval*2) > creature_ptr->skill_rob)
+			if(randint1(100+object_ptr->pval*2) > creature_ptr->skill_rob)
 			{
 #ifdef JP
-				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "破滅のトラップの宝箱", NULL, -1);
+				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "破滅のトラップの宝箱", NULL, -1);
 #else
-				if (one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
+				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if (one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + 200);
-				else if (one_in_(4))
+				else if(one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + 200);
+				else if(one_in_(4))
 				{
-					if (!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
+					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
 						(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + 
 						randint0(6));
 					else 
 						(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
 						randint0(100));
 				}
-				else if (one_in_(3)) apply_disenchant(creature_ptr, 0);
-				else if (one_in_(2))
+				else if(one_in_(3)) apply_disenchant(creature_ptr, 0);
+				else if(one_in_(2))
 				{
 					(void)do_dec_stat(creature_ptr, STAT_STR);
 					(void)do_dec_stat(creature_ptr, STAT_DEX);
@@ -733,7 +733,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Aggravate creatures. */
-	if (trap & (CHEST_ALARM))
+	if(trap & (CHEST_ALARM))
 	{
 #ifdef JP
 		msg_print("けたたましい音が鳴り響いた！");
@@ -744,7 +744,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	}
 
 	/* Explode */
-	if ((trap & (CHEST_EXPLODE)) && object_ptr->k_idx)
+	if((trap & (CHEST_EXPLODE)) && object_ptr->k_idx)
 	{
 #ifdef JP
 		msg_print("突然、箱が爆発した！");
@@ -764,7 +764,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 	}
 	/* Scatter contents. */
-	if ((trap & (CHEST_SCATTER)) && object_ptr->k_idx)
+	if((trap & (CHEST_SCATTER)) && object_ptr->k_idx)
 	{
 #ifdef JP
 		msg_print("宝箱の中身はダンジョンじゅうに散乱した！");
@@ -797,7 +797,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	creature_ptr->energy_use = 100;
 
 	/* Attempt to unlock it */
-	if (object_ptr->pval > 0)
+	if(object_ptr->pval > 0)
 	{
 		/* Assume locked, and thus not open */
 		flag = FALSE;
@@ -806,17 +806,17 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-		if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if(IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the difficulty */
 		j = i - object_ptr->pval;
 
 		/* Always have a small chance of success */
-		if (j < 2) j = 2;
+		if(j < 2) j = 2;
 
 		/* Success -- May still have traps */
-		if (randint0(100) < j)
+		if(randint0(100) < j)
 		{
 #ifdef JP
 			msg_print("鍵をはずした。");
@@ -833,7 +833,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		{
 			/* We may continue repeating */
 			more = TRUE;
-			if (flush_failure) flush();
+			if(flush_failure) flush();
 #ifdef JP
 			msg_print("鍵をはずせなかった。");
 #else
@@ -844,7 +844,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	}
 
 	/* Allowed to open */
-	if (flag)
+	if(flag)
 	{
 		/* Apply chest traps, if any */
 		chest_trap(creature_ptr, y, x, object_idx);
@@ -882,7 +882,7 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
 		s16b feat;
 
 		/* if not searching under player continue */
-		if ((d == 8) && !under) continue;
+		if((d == 8) && !under) continue;
 
 		/* Extract adjacent (legal) location */
 		yy = creature_ptr->fy + ddy_ddd[d];
@@ -892,13 +892,13 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
 		c_ptr = &floor_ptr->cave[yy][xx];
 
 		/* Must have knowledge */
-		if (!(c_ptr->info & (CAVE_MARK))) continue;
+		if(!(c_ptr->info & (CAVE_MARK))) continue;
 
 		/* Feature code (applying "mimic" field) */
 		feat = get_feat_mimic(c_ptr);
 
 		/* Not looking for this feature */
-		if (!((*test)(feat))) continue;
+		if(!((*test)(feat))) continue;
 
 		/* OK */
 		++count;
@@ -933,16 +933,16 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 		int yy = creature_ptr->fy + ddy_ddd[d];
 		int xx = creature_ptr->fx + ddx_ddd[d];
 
-		if ((object_idx = chest_check(floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
+		if((object_idx = chest_check(floor_ptr, yy, xx)) == 0) continue; // No (visible) chest is there
 
 		/* Grab the object */
 		object_ptr = &object_list[object_idx];
 
 		/* Already open */
-		if (object_ptr->pval == 0) continue;
+		if(object_ptr->pval == 0) continue;
 
 		/* No (known) traps here */
-		if (trapped && (!object_is_known(object_ptr) ||
+		if(trapped && (!object_is_known(object_ptr) ||
 			!chest_traps[object_ptr->pval])) continue;
 
 		/* OK */
@@ -970,7 +970,7 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
 	dx = x - creature_ptr->fx;
 
 	/* Paranoia */
-	if (ABS(dx) > 1 || ABS(dy) > 1) return (0);
+	if(ABS(dx) > 1 || ABS(dy) > 1) return (0);
 
 	return d[dx + 1][dy + 1];
 }
@@ -998,7 +998,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	/* Seeing true feature code (ignore mimic) */
 
 	/* Jammed door */
-	if (!have_flag(f_ptr->flags, FF_OPEN))
+	if(!have_flag(f_ptr->flags, FF_OPEN))
 	{
 		/* Stuck */
 #ifdef JP
@@ -1010,14 +1010,14 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Locked door */
-	else if (f_ptr->power)
+	else if(f_ptr->power)
 	{
 		/* Disarm factor */
 		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-		if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if(IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1026,10 +1026,10 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		j = i - (j * 4);
 
 		/* Always have a small chance of success */
-		if (j < 2) j = 2;
+		if(j < 2) j = 2;
 
 		/* Success */
-		if (randint0(100) < j)
+		if(randint0(100) < j)
 		{
 #ifdef JP
 			msg_print("鍵をはずした。");
@@ -1045,7 +1045,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			/* Failure */
-			if (flush_failure) flush();
+			if(flush_failure) flush();
 
 			/* Message */
 #ifdef JP
@@ -1088,13 +1088,13 @@ void do_cmd_open(creature_type *creature_ptr)
 	bool more = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Option: Pick a direction */
-	if (easy_open)
+	if(easy_open)
 	{
 		int num_doors, num_chests;
 
@@ -1105,16 +1105,16 @@ void do_cmd_open(creature_type *creature_ptr)
 		num_chests = count_chests(creature_ptr, &y, &x, FALSE);
 
 		/* See if only one target */
-		if (num_doors || num_chests)
+		if(num_doors || num_chests)
 		{
 			bool too_many = (num_doors && num_chests) || (num_doors > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
+			if(!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
 		}
 	}
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -1127,7 +1127,7 @@ void do_cmd_open(creature_type *creature_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(creature_ptr, &dir, TRUE))
+	if(get_rep_dir(creature_ptr, &dir, TRUE))
 	{
 		s16b feat;
 		cave_type *c_ptr;
@@ -1145,7 +1145,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		object_idx = chest_check(floor_ptr, y, x); // Check for chest
 
 		/* Nothing useful */
-		if (!have_flag(feature_info[feat].flags, FF_OPEN) && !object_idx)
+		if(!have_flag(feature_info[feat].flags, FF_OPEN) && !object_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -1157,7 +1157,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		}
 
 		/* Creature in the way */
-		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
+		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;
@@ -1175,7 +1175,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		}
 
 		/* Handle chests */
-		else if (object_idx)
+		else if(object_idx)
 		{
 			/* Open the chest */
 			more = do_cmd_open_chest(creature_ptr, y, x, object_idx);
@@ -1190,7 +1190,7 @@ void do_cmd_open(creature_type *creature_ptr)
 	}
 
 	/* Cancel repeat unless we may continue */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -1215,12 +1215,12 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 	/* Seeing true feature code (ignore mimic) */
 
 	/* Open door */
-	if (have_flag(feature_info[old_feat].flags, FF_CLOSE))
+	if(have_flag(feature_info[old_feat].flags, FF_CLOSE))
 	{
 		s16b closed_feat = feat_state(floor_ptr, old_feat, FF_CLOSE);
 
 		/* Hack -- object in the way */
-		if ((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
+		if((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
 		    (closed_feat != old_feat) && !have_flag(feature_info[closed_feat].flags, FF_DROP))
 		{
 			/* Message */
@@ -1236,7 +1236,7 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 			cave_alter_feat(floor_ptr, y, x, FF_CLOSE);
 
 			/* Broken door */
-			if (old_feat == c_ptr->feat)
+			if(old_feat == c_ptr->feat)
 			{
 				/* Message */
 #ifdef JP
@@ -1266,23 +1266,23 @@ void do_cmd_close(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	// Option: Pick a direction
-	if (easy_open)
+	if(easy_open)
 	{
 		// Count open doors
-		if (count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
+		if(count_dt(creature_ptr, &y, &x, is_open, FALSE) == 1)
 		{
 			command_dir = coords_to_damageir(creature_ptr, y, x);
 		}
 	}
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -1295,7 +1295,7 @@ void do_cmd_close(creature_type *creature_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
@@ -1311,7 +1311,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Require open/broken door */
-		if (!have_flag(feature_info[feat].flags, FF_CLOSE))
+		if(!have_flag(feature_info[feat].flags, FF_CLOSE))
 		{
 			/* Message */
 #ifdef JP
@@ -1322,7 +1322,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		}
 
 		/* Creature in the way */
-		else if (c_ptr->creature_idx)
+		else if(c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;
@@ -1347,7 +1347,7 @@ void do_cmd_close(creature_type *creature_ptr)
 	}
 
 	/* Cancel repeat unless we may continue */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -1360,7 +1360,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 	/* Must have knowledge */
-	if (!(c_ptr->info & CAVE_MARK))
+	if(!(c_ptr->info & CAVE_MARK))
 	{
 		/* Message */
 #ifdef JP
@@ -1374,7 +1374,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Must be a wall/door/etc */
-	if (!cave_have_flag_grid(c_ptr, FF_TUNNEL))
+	if(!cave_have_flag_grid(c_ptr, FF_TUNNEL))
 	{
 		/* Message */
 #ifdef JP
@@ -1411,7 +1411,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	bool more = FALSE;
 
 	/* Verify legality */
-	if (!do_cmd_tunnel_test(creature_ptr, y, x)) return (FALSE);
+	if(!do_cmd_tunnel_test(creature_ptr, y, x)) return (FALSE);
 
 	/* Take a turn */
 	creature_ptr->energy_use = 100;
@@ -1429,10 +1429,10 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	/* Sound */
 	sound(SOUND_DIG);
 
-	if (have_flag(f_ptr->flags, FF_PERMANENT))
+	if(have_flag(f_ptr->flags, FF_PERMANENT))
 	{
 		/* Titanium */
-		if (have_flag(mimic_f_ptr->flags, FF_PERMANENT))
+		if(have_flag(mimic_f_ptr->flags, FF_PERMANENT))
 		{
 #ifdef JP
 			msg_print("この岩は硬すぎて掘れないようだ。");
@@ -1453,10 +1453,10 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Dig or tunnel */
-	else if (have_flag(f_ptr->flags, FF_CAN_DIG))
+	else if(have_flag(f_ptr->flags, FF_CAN_DIG))
 	{
 		/* Dig */
-		if (creature_ptr->skill_dig > randint0(20 * power))
+		if(creature_ptr->skill_dig > randint0(20 * power))
 		{
 			/* Message */
 #ifdef JP
@@ -1489,17 +1489,17 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		bool tree = have_flag(mimic_f_ptr->flags, FF_TREE);
 
 		/* Tunnel */
-		if (creature_ptr->skill_dig > power + randint0(40 * power))
+		if(creature_ptr->skill_dig > power + randint0(40 * power))
 		{
 #ifdef JP
-			if (tree) msg_format("%sを切り払った。", name);
+			if(tree) msg_format("%sを切り払った。", name);
 			else
 			{
 				msg_print("穴を掘り終えた。");
 				update |= (PU_FLOW);
 			}
 #else
-			if (tree) msg_format("You have cleared away the %s.", name);
+			if(tree) msg_format("You have cleared away the %s.", name);
 			else
 			{
 				msg_print("You have finished the tunnel.");
@@ -1508,7 +1508,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 #endif
 
 			/* Sound */
-			if (have_flag(f_ptr->flags, FF_GLASS)) sound(SOUND_GLASS);
+			if(have_flag(f_ptr->flags, FF_GLASS)) sound(SOUND_GLASS);
 
 			/* Remove the feature */
 			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
@@ -1518,7 +1518,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		/* Keep trying */
 		else
 		{
-			if (tree)
+			if(tree)
 			{
 				/* We may continue chopping */
 #ifdef JP
@@ -1527,7 +1527,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 				msg_format("You chop away at the %s.", name);
 #endif
 				/* Occasional Search XXX XXX */
-				if (randint0(100) < 25) search(creature_ptr);
+				if(randint0(100) < 25) search(creature_ptr);
 			}
 			else
 			{
@@ -1543,10 +1543,10 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		}
 	}
 
-	if (is_hidden_door(c_ptr))
+	if(is_hidden_door(c_ptr))
 	{
 		/* Occasional Search XXX XXX */
-		if (randint0(100) < 25) search(creature_ptr);
+		if(randint0(100) < 25) search(creature_ptr);
 	}
 
 	/* Result */
@@ -1571,20 +1571,20 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 	s16b feat;
 	bool more = FALSE;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	// Allow repeated command
-	if (command_arg)
+	if(command_arg)
 	{
 		command_rep = command_arg - 1; // Set repeat count
 		play_redraw |= (PR_STATE); // Redraw the state
 		command_arg = 0; // Cancel the arg
 	}
 
-	if (get_rep_dir(creature_ptr, &dir,FALSE)) // Get a direction to tunnel, or Abort
+	if(get_rep_dir(creature_ptr, &dir,FALSE)) // Get a direction to tunnel, or Abort
 	{
 		// Get location
 		y = creature_ptr->fy + ddy[dir];
@@ -1597,7 +1597,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* No tunnelling through doors */
-		if (have_flag(feature_info[feat].flags, FF_DOOR))
+		if(have_flag(feature_info[feat].flags, FF_DOOR))
 		{
 			/* Message */
 #ifdef JP
@@ -1608,7 +1608,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		}
 
 		/* No tunnelling through most features */
-		else if (!have_flag(feature_info[feat].flags, FF_TUNNEL))
+		else if(!have_flag(feature_info[feat].flags, FF_TUNNEL))
 		{
 #ifdef JP
 			msg_print("そこは掘れない。");
@@ -1618,7 +1618,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		}
 
 		/* A creature is in the way */
-		else if (c_ptr->creature_idx)
+		else if(c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;
@@ -1643,7 +1643,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 	}
 
 	/* Cancel repetition unless we can continue */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 /*
@@ -1665,14 +1665,14 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	/* Must be a closed door */
-	if (!is_closed_door(c_ptr->feat))
+	if(!is_closed_door(c_ptr->feat))
 	{
 		/* Nope */
 		return (FALSE);
 	}
 
 	/* Jammed door */
-	if (!have_flag(f_ptr->flags, FF_OPEN))
+	if(!have_flag(f_ptr->flags, FF_OPEN))
 	{
 		/* Stuck */
 #ifdef JP
@@ -1684,14 +1684,14 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Locked door */
-	else if (f_ptr->power)
+	else if(f_ptr->power)
 	{
 		/* Disarm factor */
 		i = creature_ptr->skill_dis;
 
 		/* Penalize some conditions */
-		if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-		if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if(IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1700,10 +1700,10 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		j = i - (j * 4);
 
 		/* Always have a small chance of success */
-		if (j < 2) j = 2;
+		if(j < 2) j = 2;
 
 		/* Success */
-		if (randint0(100) < j)
+		if(randint0(100) < j)
 		{
 			/* Message */
 #ifdef JP
@@ -1726,7 +1726,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		else
 		{
 			/* Failure */
-			if (flush_failure) flush();
+			if(flush_failure) flush();
 
 			/* Message */
 #ifdef JP
@@ -1777,17 +1777,17 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	i = creature_ptr->skill_dis;
 
 	/* Penalize some conditions */
-	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+	if(IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - object_ptr->pval;
 
 	/* Always have a small chance of success */
-	if (j < 2) j = 2;
+	if(j < 2) j = 2;
 
 	/* Must find the trap first. */
-	if (!object_is_known(object_ptr))
+	if(!object_is_known(object_ptr))
 	{
 #ifdef JP
 		msg_print("トラップが見あたらない。");
@@ -1798,7 +1798,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	}
 
 	/* Already disarmed/unlocked */
-	else if (object_ptr->pval <= 0)
+	else if(object_ptr->pval <= 0)
 	{
 #ifdef JP
 		msg_print("箱にはトラップが仕掛けられていない。");
@@ -1809,7 +1809,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	}
 
 	/* No traps to find. */
-	else if (!chest_traps[object_ptr->pval])
+	else if(!chest_traps[object_ptr->pval])
 	{
 #ifdef JP
 		msg_print("箱にはトラップが仕掛けられていない。");
@@ -1820,7 +1820,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	}
 
 	/* Success (get a lot of experience) */
-	else if (randint0(100) < j)
+	else if(randint0(100) < j)
 	{
 #ifdef JP
 		msg_print("箱に仕掛けられていたトラップを解除した。");
@@ -1833,11 +1833,11 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 	}
 
 	/* Failure -- Keep trying */
-	else if ((i > 5) && (randint1(i) > 5))
+	else if((i > 5) && (randint1(i) > 5))
 	{
 		/* We may keep trying */
 		more = TRUE;
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("箱のトラップ解除に失敗した。");
 #else
@@ -1901,17 +1901,17 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	creature_ptr->energy_use = 100;
 
 	/* Penalize some conditions */
-	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+	if(IS_BLIND(creature_ptr) || no_lite(creature_ptr)) i = i / 10;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - power;
 
 	/* Always have a small chance of success */
-	if (j < 2) j = 2;
+	if(j < 2) j = 2;
 
 	/* Success */
-	if (randint0(100) < j)
+	if(randint0(100) < j)
 	{
 		/* Message */
 #ifdef JP
@@ -1931,10 +1931,10 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	}
 
 	/* Failure -- Keep trying */
-	else if ((i > 5) && (randint1(i) > 5))
+	else if((i > 5) && (randint1(i) > 5))
 	{
 		/* Failure */
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 
 		/* Message */
 #ifdef JP
@@ -1975,13 +1975,13 @@ void do_cmd_disarm(creature_type *creature_ptr)
 	s16b object_idx;
 	bool more = FALSE;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Option: Pick a direction */
-	if (easy_disarm)
+	if(easy_disarm)
 	{
 		int num_traps, num_chests;
 
@@ -1992,16 +1992,16 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		num_chests = count_chests(creature_ptr, &y, &x, TRUE);
 
 		/* See if only one target */
-		if (num_traps || num_chests)
+		if(num_traps || num_chests)
 		{
 			bool too_many = (num_traps && num_chests) || (num_traps > 1) ||
 			    (num_chests > 1);
-			if (!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
+			if(!too_many) command_dir = coords_to_damageir(creature_ptr, y, x);
 		}
 	}
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -2014,7 +2014,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 	}
 
 	/* Get a direction (or abort) */
-	if (get_rep_dir(creature_ptr, &dir,TRUE))
+	if(get_rep_dir(creature_ptr, &dir,TRUE))
 	{
 		cave_type *c_ptr;
 		s16b feat;
@@ -2032,7 +2032,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		object_idx = chest_check(floor_ptr, y, x); // Check for chests
 
 		/* Disarm a trap */
-		if (!is_trap(feat) && !object_idx)
+		if(!is_trap(feat) && !object_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -2044,7 +2044,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		}
 
 		/* Creature in the way */
-		else if (c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
+		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Message */
 #ifdef JP
@@ -2059,7 +2059,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		}
 
 		/* Disarm chest */
-		else if (object_idx)
+		else if(object_idx)
 		{
 			/* Disarm the chest */
 			more = do_cmd_disarm_chest(creature_ptr, y, x, object_idx);
@@ -2074,7 +2074,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 	}
 
 	/* Cancel repeat unless told not to */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2112,13 +2112,13 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Compare bash power to door power XXX XXX XXX */
 	temp = (bash - (temp * 10));
 
-	if (creature_ptr->class_idx == CLASS_BERSERKER) temp *= 2;
+	if(creature_ptr->class_idx == CLASS_BERSERKER) temp *= 2;
 
 	/* Hack -- always have a chance */
-	if (temp < 1) temp = 1;
+	if(temp < 1) temp = 1;
 
 	/* Hack -- attempt to bash down the door */
-	if (randint0(100) < temp)
+	if(randint0(100) < temp)
 	{
 		/* Message */
 #ifdef JP
@@ -2131,7 +2131,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 		sound(have_flag(f_ptr->flags, FF_GLASS) ? SOUND_GLASS : SOUND_OPENDOOR);
 
 		/* Break down the door */
-		if ((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
+		if((randint0(100) < 50) || (feat_state(floor_ptr, c_ptr->feat, FF_OPEN) == c_ptr->feat) || have_flag(f_ptr->flags, FF_GLASS))
 		{
 			cave_alter_feat(floor_ptr, y, x, FF_BASH);
 		}
@@ -2147,7 +2147,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	}
 
 	/* Saving throw against stun */
-	else if (randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] +
+	else if(randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] +
 		 creature_ptr->lev)
 	{
 		/* Message */
@@ -2203,13 +2203,13 @@ void do_cmd_bash(creature_type *creature_ptr)
 	cave_type	*c_ptr;
 	bool		more = FALSE;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -2222,7 +2222,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		s16b feat;
 
@@ -2237,7 +2237,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Nothing useful */
-		if (!have_flag(feature_info[feat].flags, FF_BASH))
+		if(!have_flag(feature_info[feat].flags, FF_BASH))
 		{
 			/* Message */
 #ifdef JP
@@ -2249,7 +2249,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		}
 
 		/* Creature in the way */
-		else if (c_ptr->creature_idx)
+		else if(c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;
@@ -2275,7 +2275,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 	}
 
 	/* Unless valid action taken, cancel bash */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2297,13 +2297,13 @@ void do_cmd_alter(creature_type *creature_ptr)
 	bool		more = FALSE;
 
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -2316,7 +2316,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 	}
 
 	/* Get a direction */
-	if (get_rep_dir(creature_ptr, &dir,TRUE))
+	if(get_rep_dir(creature_ptr, &dir,TRUE))
 	{
 		s16b feat;
 		feature_type *f_ptr;
@@ -2336,38 +2336,38 @@ void do_cmd_alter(creature_type *creature_ptr)
 		creature_ptr->energy_use = 100;
 
 		/* Attack creatures */
-		if (c_ptr->creature_idx)
+		if(c_ptr->creature_idx)
 		{
 			/* Attack */
 			melee_attack(creature_ptr, y, x, 0);
 		}
 
 		/* Locked doors */
-		else if (have_flag(f_ptr->flags, FF_OPEN))
+		else if(have_flag(f_ptr->flags, FF_OPEN))
 		{
 			more = do_cmd_open_aux(creature_ptr, y, x);
 		}
 
 		/* Bash jammed doors */
-		else if (have_flag(f_ptr->flags, FF_BASH))
+		else if(have_flag(f_ptr->flags, FF_BASH))
 		{
 			more = do_cmd_bash_aux(creature_ptr, y, x, dir);
 		}
 
 		/* Tunnel through walls */
-		else if (have_flag(f_ptr->flags, FF_TUNNEL))
+		else if(have_flag(f_ptr->flags, FF_TUNNEL))
 		{
 			more = do_cmd_tunnel_aux(creature_ptr, y, x);
 		}
 
 		/* Close open doors */
-		else if (have_flag(f_ptr->flags, FF_CLOSE))
+		else if(have_flag(f_ptr->flags, FF_CLOSE))
 		{
 			more = do_cmd_close_aux(creature_ptr, y, x);
 		}
 
 		/* Disarm traps */
-		else if (have_flag(f_ptr->flags, FF_DISARM))
+		else if(have_flag(f_ptr->flags, FF_DISARM))
 		{
 			more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
 		}
@@ -2386,7 +2386,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 	}
 
 	/* Cancel repetition unless we can continue */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2405,10 +2405,10 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if (!object_ptr->k_idx) continue;
+		if(!object_ptr->k_idx) continue;
 
 		/* Check the "tval" code */
-		if (object_ptr->tval == TV_SPIKE)
+		if(object_ptr->tval == TV_SPIKE)
 		{
 			/* Save the spike index */
 			(*ip) = i;
@@ -2430,13 +2430,13 @@ void do_cmd_spike(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		int y, x, item;
 		cave_type *c_ptr;
@@ -2453,7 +2453,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 
 		/* Require closed door */
-		if (!have_flag(feature_info[feat].flags, FF_SPIKE))
+		if(!have_flag(feature_info[feat].flags, FF_SPIKE))
 		{
 			/* Message */
 #ifdef JP
@@ -2465,7 +2465,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		}
 
 		/* Get a spike */
-		else if (!get_spike(creature_ptr, &item))
+		else if(!get_spike(creature_ptr, &item))
 		{
 			/* Message */
 #ifdef JP
@@ -2476,7 +2476,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		}
 
 		/* Is a creature in the way? */
-		else if (c_ptr->creature_idx)
+		else if(c_ptr->creature_idx)
 		{
 			/* Take a turn */
 			creature_ptr->energy_use = 100;
@@ -2525,7 +2525,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -2538,19 +2538,19 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Take a turn */
 		creature_ptr->energy_use = 100;
 
-		if ((dir != 5) && (creature_ptr->special_defense & KATA_MUSOU))
+		if((dir != 5) && (creature_ptr->special_defense & KATA_MUSOU))
 		{
 			set_action(creature_ptr, ACTION_NONE);
 		}
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
-		if (floor_ptr->wild_mode) creature_ptr->energy_use *= ((MAX_HGT + MAX_WID) / 2);
-		if (creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_use = creature_ptr->energy_use * (45-(creature_ptr->lev/2)) / 100;
+		if(floor_ptr->wild_mode) creature_ptr->energy_use *= ((MAX_HGT + MAX_WID) / 2);
+		if(creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_use = creature_ptr->energy_use * (45-(creature_ptr->lev/2)) / 100;
 
 		/* Actually move the character */
 		walk_creature(creature_ptr, dir, pickup, FALSE);
@@ -2560,14 +2560,14 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Hack again -- Is there a special encounter ??? */
-	if (floor_ptr->wild_mode && !cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
+	if(floor_ptr->wild_mode && !cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
 	{
 
 		int tmp = 120 + creature_ptr->lev*10 - wilderness[creature_ptr->fy][creature_ptr->fx].level + 5;
 
-		if (tmp < 1) 
+		if(tmp < 1) 
 			tmp = 1;
-		if (((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
+		if(((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
 		{
 			/* Inform the player of his horrible fate :=) */
 #ifdef JP
@@ -2590,7 +2590,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Cancel repeat unless we may continue */
-	if (!more) disturb(player_ptr, 0, 0);
+	if(!more) disturb(player_ptr, 0, 0);
 }
 
 
@@ -2603,7 +2603,7 @@ void do_cmd_run(creature_type *creature_ptr)
 	int dir;
 
 	/* Hack -- no running when confused */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて走れない！");
@@ -2614,13 +2614,13 @@ void do_cmd_run(creature_type *creature_ptr)
 		return;
 	}
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Get a "repeated" direction */
-	if (get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Hack -- Set the run counter */
 		creature_ptr->running = (command_arg ? command_arg : 1000);
@@ -2641,7 +2641,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	u32b mpe_mode = MCE_STAYING | MCE_ENERGY_USE;
 
 	/* Allow repeated command */
-	if (command_arg)
+	if(command_arg)
 	{
 		/* Set repeat count */
 		command_rep = command_arg - 1;
@@ -2656,7 +2656,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	/* Take a turn */
 	creature_ptr->energy_use = 100;
 
-	if (pickup) mpe_mode |= MCE_DO_PICKUP;
+	if(pickup) mpe_mode |= MCE_DO_PICKUP;
 	(void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
 }
 
@@ -2670,16 +2670,16 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	set_action(creature_ptr, ACTION_NONE);
 
-	if ((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->class_skills.old_skills.magic_num1[0] || creature_ptr->class_skills.old_skills.magic_num1[1]))
+	if((creature_ptr->class_idx == CLASS_BARD) && (creature_ptr->class_skills.old_skills.magic_num1[0] || creature_ptr->class_skills.old_skills.magic_num1[1]))
 	{
 		stop_singing(creature_ptr);
 	}
 
 	/* Hex */
-	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Prompt for time if needed */
-	if (command_arg <= 0)
+	if(command_arg <= 0)
 	{
 #ifdef JP
 		cptr p = "休憩 (0-9999, '*' で HP/MP全快, '&' で必要なだけ): ";
@@ -2694,16 +2694,16 @@ void do_cmd_rest(creature_type *creature_ptr)
 		strcpy(out_val, "&");
 
 		/* Ask for duration */
-		if (!get_string(p, out_val, 4)) return;
+		if(!get_string(p, out_val, 4)) return;
 
 		/* Rest until done */
-		if (out_val[0] == '&')
+		if(out_val[0] == '&')
 		{
 			command_arg = (-2);
 		}
 
 		/* Rest a lot */
-		else if (out_val[0] == '*')
+		else if(out_val[0] == '*')
 		{
 			command_arg = (-1);
 		}
@@ -2712,15 +2712,15 @@ void do_cmd_rest(creature_type *creature_ptr)
 		else
 		{
 			command_arg = atoi(out_val);
-			if (command_arg <= 0) return;
+			if(command_arg <= 0) return;
 		}
 	}
 
 
 	/* Paranoia */
-	if (command_arg > 9999) command_arg = 9999;
+	if(command_arg > 9999) command_arg = 9999;
 
-	if (creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
+	if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	/* Take a turn XXX XXX XXX (?) */
 	creature_ptr->energy_use = 100;
@@ -2753,15 +2753,15 @@ static int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 	int archer_bonus = (creature_ptr->class_idx == CLASS_ARCHER ? (creature_ptr->lev-1)/7 + 4: 0);
 
 	/* Examine the snipe type */
-	if (creature_ptr->snipe_type)
+	if(creature_ptr->snipe_type)
 	{
-		if (creature_ptr->snipe_type == SP_KILL_WALL) return (100);
-		if (creature_ptr->snipe_type == SP_EXPLODE) return (100);
-		if (creature_ptr->snipe_type == SP_PIERCE) return (100);
-		if (creature_ptr->snipe_type == SP_FINAL) return (100);
-		if (creature_ptr->snipe_type == SP_NEEDLE) return (100);
-		if (creature_ptr->snipe_type == SP_EVILNESS) return (40);
-		if (creature_ptr->snipe_type == SP_HOLYNESS) return (40);
+		if(creature_ptr->snipe_type == SP_KILL_WALL) return (100);
+		if(creature_ptr->snipe_type == SP_EXPLODE) return (100);
+		if(creature_ptr->snipe_type == SP_PIERCE) return (100);
+		if(creature_ptr->snipe_type == SP_FINAL) return (100);
+		if(creature_ptr->snipe_type == SP_NEEDLE) return (100);
+		if(creature_ptr->snipe_type == SP_EVILNESS) return (40);
+		if(creature_ptr->snipe_type == SP_HOLYNESS) return (40);
 	}
 
 	/* Examine the item type */
@@ -2811,246 +2811,246 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 		case TV_BOLT:
 		{
 			/* Slay Animal */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL)) &&
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL)) &&
 			    has_trait(target_ptr, TRAIT_ANIMAL))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 17) mult = 17;
+				if(mult < 17) mult = 17;
 			}
 
 			/* Kill Animal */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_ANIMAL)) &&
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_ANIMAL)) &&
 			    has_trait(target_ptr, TRAIT_ANIMAL))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 27) mult = 27;
+				if(mult < 27) mult = 27;
 			}
 
 			/* Slay Evil */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL)) &&
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL)) &&
 			    is_enemy_of_good_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 15) mult = 15;
+				if(mult < 15) mult = 15;
 			}
 
 			/* Kill Evil */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_EVIL)) &&
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_EVIL)) &&
 			    is_enemy_of_good_creature(target_ptr))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 25) mult = 25;
+				if(mult < 25) mult = 25;
 			}
 
 			/* Slay Human */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN)) &&
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN)) &&
 			    (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 17) mult = 17;
+				if(mult < 17) mult = 17;
 			}
 
 			/* Kill Human */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_HUMAN)) &&
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_HUMAN)) &&
 			    (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 27) mult = 27;
+				if(mult < 27) mult = 27;
 			}
 
 			/* Slay Undead */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 20) mult = 20;
+				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Undead */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 30) mult = 30;
+				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Demon */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 20) mult = 20;
+				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Demon */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 30) mult = 30;
+				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Orc */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC)) && has_trait(target_ptr, TRAIT_ORC))
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 20) mult = 20;
+				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Orc */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_ORC)) && has_trait(target_ptr, TRAIT_ORC))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 30) mult = 30;
+				if(mult < 30) mult = 30;
 			}
 
 			// Slay Troll
-			if (have_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
+			if(have_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 20) mult = 20;
+				if(mult < 20) mult = 20;
 			}
 
 			// Kill Troll
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_TROLL)) && has_trait(target_ptr, TRAIT_TROLL))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_TROLL)) && has_trait(target_ptr, TRAIT_TROLL))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 30) mult = 30;
+				if(mult < 30) mult = 30;
 			}
 
 			// Slay Giant
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 20) mult = 20;
+				if(mult < 20) mult = 20;
 			}
 
 			// Kill Giant
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 30) mult = 30;
+				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Dragon  */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 20) mult = 20;
+				if(mult < 20) mult = 20;
 			}
 
 			/* Execute Dragon */
-			if ((have_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
-				if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 
-				if (mult < 30) mult = 30;
+				if(mult < 30) mult = 30;
 
-				if (has_trait_object(object_ptr, TRAIT_SLAY_SMAUG) && (target_ptr->species_idx == SPECIES_SMAUG) && has_trait(attacker_ptr, TRAIT_SLAY_SMAUG))
+				if(has_trait_object(object_ptr, TRAIT_SLAY_SMAUG) && (target_ptr->species_idx == SPECIES_SMAUG) && has_trait(attacker_ptr, TRAIT_SLAY_SMAUG))
 					mult *= 5;
 			}
 
 			/* Brand (Acid) */
-			if (have_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND))
+			if(have_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ACID_RATE);
 
-				if (!has_trait(target_ptr, TRAIT_RES_ACID))
+				if(!has_trait(target_ptr, TRAIT_RES_ACID))
 				{
-					if (mult < 17) mult = 17;
+					if(mult < 17) mult = 17;
 				}
 			}
 
 			/* Brand (Elec) */
-			if (have_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND))
+			if(have_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
-				if (!has_trait(target_ptr, TRAIT_RES_ELEC))
+				if(!has_trait(target_ptr, TRAIT_RES_ELEC))
 				{
-					if (mult < 17) mult = 17;
+					if(mult < 17) mult = 17;
 				}
 			}
 
 			/* Brand (Fire) */
-			if (have_flag(object_ptr->trait_flags, TRAIT_FIRE_BRAND))
+			if(have_flag(object_ptr->trait_flags, TRAIT_FIRE_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_FIRE_RATE);
 
 				/* Notice immunity */
-				if (!has_trait(target_ptr, TRAIT_RES_FIRE))
+				if(!has_trait(target_ptr, TRAIT_RES_FIRE))
 				{
-					if (has_trait(target_ptr, TRAIT_HURT_FIRE))
+					if(has_trait(target_ptr, TRAIT_HURT_FIRE))
 					{
-						if (mult < 25) mult = 25;
-						if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+						if(mult < 25) mult = 25;
+						if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 							reveal_creature_info(target_ptr, TRAIT_HURT_FIRE);
 					}
-					else if (mult < 17) mult = 17;
+					else if(mult < 17) mult = 17;
 				}
 			}
 
 			/* Brand (Cold) */
-			if (have_flag(object_ptr->trait_flags, TRAIT_COLD_BRAND))
+			if(have_flag(object_ptr->trait_flags, TRAIT_COLD_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_COLD_RATE);
 
 				/* Otherwise, take the damage */
-				if (!has_trait(target_ptr, TRAIT_RES_COLD))
+				if(!has_trait(target_ptr, TRAIT_RES_COLD))
 				{
-					if (has_trait(target_ptr, TRAIT_HURT_COLD))
+					if(has_trait(target_ptr, TRAIT_HURT_COLD))
 					{
-						if (mult < 25) mult = 25;
-						if (is_original_ap_and_seen(attacker_ptr, target_ptr))
+						if(mult < 25) mult = 25;
+						if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 							reveal_creature_info(target_ptr, TRAIT_HURT_COLD);
 					}
-					else if (mult < 17) mult = 17;
+					else if(mult < 17) mult = 17;
 				}
 			}
 
 			/* Brand (Poison) */
-			if (have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND))
+			if(have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);
 
-				if (!has_trait(target_ptr, TRAIT_RES_POIS))
+				if(!has_trait(target_ptr, TRAIT_RES_POIS))
 				{
-					if (mult < 17) mult = 17;
+					if(mult < 17) mult = 17;
 				}
 			}
 
-			if ((have_flag(object_ptr->trait_flags, TRAIT_FORCE_WEAPON)) && (attacker_ptr->csp > (attacker_ptr->msp / 30)))
+			if((have_flag(object_ptr->trait_flags, TRAIT_FORCE_WEAPON)) && (attacker_ptr->csp > (attacker_ptr->msp / 30)))
 			{
 				attacker_ptr->csp -= (1+(attacker_ptr->msp / 30));
 				play_redraw |= (PR_MANA);
@@ -3061,7 +3061,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 	}
 
 	/* Sniper */
-	if (attacker_ptr->snipe_type) mult = tot_dam_aux_snipe(attacker_ptr, mult, target_ptr);
+	if(attacker_ptr->snipe_type) mult = tot_dam_aux_snipe(attacker_ptr, mult, target_ptr);
 
 	/* Return the total damage */
 	return (tdam * mult / 10);
@@ -3120,7 +3120,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	bool stick_to = FALSE;
 
 	/* Access the item (if in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -3130,7 +3130,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Cannot shot a single arrow twice */
-	if ((creature_ptr->snipe_type == SP_DOUBLE) && (object_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
+	if((creature_ptr->snipe_type == SP_DOUBLE) && (object_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;
 
 	/* Describe the object */
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
@@ -3148,7 +3148,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	bonus = (creature_ptr->to_hit_b + object_ptr->to_hit + j_ptr->to_hit);
 
 	/* TODO
-	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
+	if((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 		chance = (creature_ptr->skill_thb + (creature_ptr->weapon_exp[0][j_ptr->sval] / 400 + bonus) * BTH_PLUS_ADJ);
 	else
 		chance = (creature_ptr->skill_thb + ((creature_ptr->weapon_exp[0][j_ptr->sval] - (WEAPON_EXP_MASTER / 2)) / 200 + bonus) * BTH_PLUS_ADJ);
@@ -3158,7 +3158,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	tmul = j_ptr->bow_mul;
 
 	/* Get extra "power" from "extra might" */
-	//TODO if (creature_ptr->xtra_might) tmul++;
+	//TODO if(creature_ptr->xtra_might) tmul++;
 
 	tmul = tmul * (100 + (int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) - 128);
 
@@ -3168,9 +3168,9 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	/* Base range */
 	tdis = 13 + tmul/80;
-	if ((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
+	if((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 	{
-		if (creature_ptr->concent)
+		if(creature_ptr->concent)
 			tdis -= (5 - (creature_ptr->concent + 1) / 2);
 		else
 			tdis -= 5;
@@ -3179,11 +3179,11 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	project_length = tdis + 1;
 
 	/* Get a direction (or cancel) */
-	if (!get_aim_dir(creature_ptr, &dir))
+	if(!get_aim_dir(creature_ptr, &dir))
 	{
 		creature_ptr->energy_use = 0;
 
-		if (creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
+		if(creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
 
 		/* need not to reset project_length (already did)*/
 
@@ -3195,7 +3195,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	ty = creature_ptr->fy + 99 * ddy[dir];
 
 	/* Check for "target request" */
-	if ((dir == 5) && target_okay(creature_ptr))
+	if((dir == 5) && target_okay(creature_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
@@ -3207,7 +3207,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	project_length = 0; /* reset to default */
 
 	/* Don't shoot at my feet */
-	if (tx == creature_ptr->fx && ty == creature_ptr->fy)
+	if(tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
 		creature_ptr->energy_use = 0;
 
@@ -3222,7 +3222,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	creature_ptr->is_fired = TRUE;
 
 	/* Sniper - Difficult to shot twice at 1 turn */
-	if (creature_ptr->snipe_type == SP_DOUBLE)  creature_ptr->concent = (creature_ptr->concent + 1) / 2;
+	if(creature_ptr->snipe_type == SP_DOUBLE)  creature_ptr->concent = (creature_ptr->concent + 1) / 2;
 
 	/* Sniper - Repeat shooting when double shots */
 	for (i = 0; i < ((creature_ptr->snipe_type == SP_DOUBLE) ? 2 : 1); i++)
@@ -3242,7 +3242,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	quest_ptr->number = 1;
 
 	/* Reduce and describe creature_ptr->inventory */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
@@ -3275,7 +3275,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		cave_type *c_ptr;
 
 		/* Hack -- Stop at the target */
-		if ((y == ty) && (x == tx)) break;
+		if((y == ty) && (x == tx)) break;
 
 		/* Calculate the new location (see "project()") */
 		ny = y;
@@ -3283,16 +3283,16 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Shatter Arrow */
-		if (creature_ptr->snipe_type == SP_KILL_WALL)
+		if(creature_ptr->snipe_type == SP_KILL_WALL)
 		{
 			c_ptr = &floor_ptr->cave[ny][nx];
 
-			if (cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
+			if(cave_have_flag_grid(c_ptr, FF_HURT_ROCK) && !c_ptr->creature_idx)
 			{
 #ifdef JP
-				if (c_ptr->info & (CAVE_MARK)) msg_print("岩が砕け散った。");
+				if(c_ptr->info & (CAVE_MARK)) msg_print("岩が砕け散った。");
 #else
-				if (c_ptr->info & (CAVE_MARK)) msg_print("Wall rocks were shattered.");
+				if(c_ptr->info & (CAVE_MARK)) msg_print("Wall rocks were shattered.");
 #endif
 				/* Forget the wall */
 				c_ptr->info &= ~(CAVE_MARK);
@@ -3308,12 +3308,12 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && !floor_ptr->cave[ny][nx].creature_idx) break;
+		if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && !floor_ptr->cave[ny][nx].creature_idx) break;
 
 		/* Advance the distance */
 		cur_dis++;
 
-		if (creature_ptr->snipe_type == SP_LITE) // Sniper
+		if(creature_ptr->snipe_type == SP_LITE) // Sniper
 		{
 			floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 			note_spot(floor_ptr, ny, nx);
@@ -3321,7 +3321,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		}
 
 		/* The player can see the (on screen) missile */
-		if (panel_contains(ny, nx) && creature_can_see_bold(creature_ptr, ny, nx))
+		if(panel_contains(ny, nx) && creature_can_see_bold(creature_ptr, ny, nx))
 		{
 			char c = object_char(quest_ptr);
 			byte a = object_attr(quest_ptr);
@@ -3343,14 +3343,14 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		}
 
 		/* Sniper */
-		if (creature_ptr->snipe_type == SP_KILL_TRAP)
+		if(creature_ptr->snipe_type == SP_KILL_TRAP)
 		{
 			project(creature_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
 		/* Sniper */
-		if (creature_ptr->snipe_type == SP_EVILNESS)
+		if(creature_ptr->snipe_type == SP_EVILNESS)
 		{
 			floor_ptr->cave[ny][nx].info &= ~(CAVE_GLOW | CAVE_MARK);
 
@@ -3371,7 +3371,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 
 		/* Creature here, Try to hit it */
-		if (floor_ptr->cave[y][x].creature_idx)
+		if(floor_ptr->cave[y][x].creature_idx)
 		{
 			int armour;
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -3385,26 +3385,26 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			/* Note the collision */
 			hit_body = TRUE;
 
-			if ((m_ptr->lev + 10) > creature_ptr->lev)
+			if((m_ptr->lev + 10) > creature_ptr->lev)
 			{
 				/*
 				int now_exp = creature_ptr->weapon_exp[0][j_ptr->sval];
-				if (now_exp < skill_info[creature_ptr->class_idx].w_max[0][j_ptr->sval])
+				if(now_exp < skill_info[creature_ptr->class_idx].w_max[0][j_ptr->sval])
 				{
 					int amount = 0;
-					if (now_exp < WEAPON_EXP_BEGINNER) amount = 80;
-					else if (now_exp < WEAPON_EXP_SKILLED) amount = 25;
-					else if ((now_exp < WEAPON_EXP_EXPERT) && (creature_ptr->lev > 19)) amount = 10;
-					else if (creature_ptr->lev > 34) amount = 2;
+					if(now_exp < WEAPON_EXP_BEGINNER) amount = 80;
+					else if(now_exp < WEAPON_EXP_SKILLED) amount = 25;
+					else if((now_exp < WEAPON_EXP_EXPERT) && (creature_ptr->lev > 19)) amount = 10;
+					else if(creature_ptr->lev > 34) amount = 2;
 					creature_ptr->weapon_exp[0][j_ptr->sval] += amount;
 					creature_ptr->creature_update |= (CRU_BONUS);
 				}
 				*/
 			}
 
-			if (creature_ptr->riding)
+			if(creature_ptr->riding)
 			{
-				if ((creature_ptr->skill_exp[SKILL_RIDING] < skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING])
+				if((creature_ptr->skill_exp[SKILL_RIDING] < skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING])
 					&& ((creature_ptr->skill_exp[SKILL_RIDING] - (RIDING_EXP_BEGINNER * 2)) / 200 < species_info[creature_list[creature_ptr->riding].species_idx].level)
 					&& one_in_(2))
 				{
@@ -3415,23 +3415,23 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 			/* Some shots have hit bonus */
 			armour = m_ptr->ac + m_ptr->to_ac;
-			if (creature_ptr->concent)
+			if(creature_ptr->concent)
 			{
 				armour *= (10 - creature_ptr->concent);
 				armour /= 10;
 			}
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(creature_ptr, chance - cur_dis, armour, m_ptr->see_others))
+			if(test_hit_fire(creature_ptr, chance - cur_dis, armour, m_ptr->see_others))
 			{
 				bool fear = FALSE;
 				int tdam = tdam_base;
 
 				/* Get extra damage from concentration */
-				if (creature_ptr->concent) tdam = boost_concentration_damage(creature_ptr, tdam);
+				if(creature_ptr->concent) tdam = boost_concentration_damage(creature_ptr, tdam);
 
 				/* Handle unseen creature */
-				if (!visible)
+				if(!visible)
 				{
 					/* Invisible creature */
 #ifdef JP
@@ -3457,19 +3457,19 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					msg_format("The %s hits %s.", object_name, m_name);
 #endif
 
-					if (m_ptr->see_others)
+					if(m_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
-						if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
+						if(!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
 					}
 				}
 
-				if (creature_ptr->snipe_type == SP_NEEDLE)
+				if(creature_ptr->snipe_type == SP_NEEDLE)
 				{
-					if ((randint1(randint1(m_ptr->lev / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
+					if((randint1(randint1(m_ptr->lev / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
 						&& !has_trait(m_ptr, TRAIT_UNIQUE) && !has_trait(m_ptr, TRAIT_UNIQUE2))
 					{
 						char m_name[80];
@@ -3493,17 +3493,17 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
 
 					/* No negative damage */
-					if (tdam < 0) tdam = 0;
+					if(tdam < 0) tdam = 0;
 
 					/* Modify the damage */
 					tdam = invuln_damage_mod(m_ptr, tdam, FALSE);
 				}
 
 				// Wizard message
-				if (wizard || cheat_xtra) msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
+				if(wizard || cheat_xtra) msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 
 				/* Sniper */
-				if (creature_ptr->snipe_type == SP_EXPLODE)
+				if(creature_ptr->snipe_type == SP_EXPLODE)
 				{
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
@@ -3513,7 +3513,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Sniper */
-				if (creature_ptr->snipe_type == SP_HOLYNESS)
+				if(creature_ptr->snipe_type == SP_HOLYNESS)
 				{
 					floor_ptr->cave[ny][nx].info |= (CAVE_GLOW);
 
@@ -3531,7 +3531,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
 				{
 					/* STICK TO */
-					if (object_is_fixed_artifact(quest_ptr))
+					if(object_is_fixed_artifact(quest_ptr))
 					{
 						char m_name[80];
 
@@ -3549,10 +3549,10 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
-					if (tdam > 0) anger_creature(creature_ptr, m_ptr);
+					if(tdam > 0) anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
-					if (fear && m_ptr->see_others)
+					if(fear && m_ptr->see_others)
 					{
 						char m_name[80];
 
@@ -3574,7 +3574,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					set_target(m_ptr, creature_ptr->fy, creature_ptr->fx);
 
 					/* Sniper */
-					if (creature_ptr->snipe_type == SP_RUSH)
+					if(creature_ptr->snipe_type == SP_RUSH)
 					{
 						int n = randint1(5) + 3;
 						int m_idx = c_ptr->creature_idx;
@@ -3584,19 +3584,19 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 							int ox = nx;
 							int oy = ny;
 
-							if (!n) break;
+							if(!n) break;
 
 							/* Calculate the new location (see "project()") */
 							mmove2(&ny, &nx, creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 							/* Stopped by wilderness boundary */
-							if (!in_bounds2(floor_ptr, ny, nx)) break;
+							if(!in_bounds2(floor_ptr, ny, nx)) break;
 
 							/* Stopped by walls/doors */
-							if (!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
+							if(!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[ny][nx].feat, 0)) break;
 
 							/* Stopped by creatures */
-							if (!cave_empty_bold(floor_ptr, ny, nx)) break;
+							if(!cave_empty_bold(floor_ptr, ny, nx)) break;
 
 							floor_ptr->cave[ny][nx].creature_idx = m_idx;
 							floor_ptr->cave[oy][ox].creature_idx = 0;
@@ -3623,7 +3623,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			}
 
 			/* Sniper */
-			if (creature_ptr->snipe_type == SP_PIERCE)
+			if(creature_ptr->snipe_type == SP_PIERCE)
 			{
 				if(creature_ptr->concent < 1) break;
 				creature_ptr->concent--;
@@ -3638,20 +3638,20 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Chance of breakage (during attacks) */
 	j = (hit_body ? breakage_chance(creature_ptr, quest_ptr) : 0);
 
-	if (stick_to)
+	if(stick_to)
 	{
 		int m_idx = floor_ptr->cave[y][x].creature_idx;
 		creature_type *m_ptr = &creature_list[m_idx];
 		int object_idx = object_pop();
 
-		if (!object_idx)
+		if(!object_idx)
 		{
 #ifdef JP
 			msg_format("%sはどこかへ行った。", object_name);
 #else
 			msg_format("The %s have gone to somewhere.", object_name);
 #endif
-			if (object_is_fixed_artifact(quest_ptr))
+			if(object_is_fixed_artifact(quest_ptr))
 			{
 				artifact_info[j_ptr->name1].cur_num = 0;
 			}
@@ -3676,7 +3676,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Carry object */
 		//TODO
 	}
-	else if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
+	else if(cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 	{
 		/* Drop (or break) near that location */
 		(void)drop_near(floor_ptr, quest_ptr, j, y, x);
@@ -3691,7 +3691,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Sniper - Loose his/her concentration after any shot */
-	if (creature_ptr->concent) reset_concentration(creature_ptr, FALSE);
+	if(creature_ptr->concent) reset_concentration(creature_ptr, FALSE);
 }
 
 
@@ -3707,7 +3707,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	/* Require a launcher */
-	if (!j_ptr->tval)
+	if(!j_ptr->tval)
 	{
 #ifdef JP
 		msg_print("射撃用の武器を持っていない。");
@@ -3718,7 +3718,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 		return;
 	}
 
-	if (j_ptr->sval == SV_CRIMSON)
+	if(j_ptr->sval == SV_CRIMSON)
 	{
 #ifdef JP
 		msg_print("この武器は発動して使うもののようだ。");
@@ -3730,7 +3730,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	}
 
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -3744,7 +3744,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	s = "You have nothing to fire.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, creature_ptr->tval_ammo))
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, creature_ptr->tval_ammo))
 	{
 		flush();
 		return;
@@ -3753,14 +3753,14 @@ void do_cmd_fire(creature_type *creature_ptr)
 	/* Fire the item */
 	do_cmd_fire_aux(creature_ptr, item, j_ptr);
 
-	if (!creature_ptr->is_fired || creature_ptr->class_idx != CLASS_SNIPER) return;
+	if(!creature_ptr->is_fired || creature_ptr->class_idx != CLASS_SNIPER) return;
 
 	/* Sniper actions after some shootings */
-	if (creature_ptr->snipe_type == SP_AWAY)
+	if(creature_ptr->snipe_type == SP_AWAY)
 	{
 		teleport_player(creature_ptr, 10 + (creature_ptr->concent * 2), 0L);
 	}
-	if (creature_ptr->snipe_type == SP_FINAL)
+	if(creature_ptr->snipe_type == SP_FINAL)
 	{
 #ifdef JP
 		msg_print("射撃の反動が体を襲った。");
@@ -3775,7 +3775,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 
 static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if ((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return (TRUE);
+	if((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return (TRUE);
 
 	/* Assume not */
 	return (FALSE);
@@ -3821,16 +3821,16 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	bool do_drop = TRUE;
 
 
-	if (creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->special_defense & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-	if (shuriken)
+	if(shuriken)
 	{
 		item = shuriken;
 	}
-	else if (boomerang)
+	else if(boomerang)
 	{
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 		{
@@ -3842,7 +3842,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			s = "You have nothing to throw.";
 #endif
 
-			if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang, 0))
+			if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_boomerang, 0))
 			{
 				flush();
 				return FALSE;
@@ -3860,7 +3860,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		s = "You have nothing to throw.";
 #endif
 
-		if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang, 0))
+		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), item_tester_hook_boomerang, 0))
 		{
 			flush();
 			return FALSE;
@@ -3868,7 +3868,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 
 	/* Access the item (if in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -3879,7 +3879,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 
 	/* Item is cursed */
-	if (object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
+	if(object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
 	{
 		/* Oops */
 #ifdef JP
@@ -3892,9 +3892,9 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		return FALSE;
 	}
 
-	if (floor_ptr->fight_arena_mode && !boomerang)
+	if(floor_ptr->fight_arena_mode && !boomerang)
 	{
-		if (object_ptr->tval != TV_SPIKE)
+		if(object_ptr->tval != TV_SPIKE)
 		{
 #ifdef JP
 			msg_print("アリーナではアイテムを使えない！");
@@ -3926,7 +3926,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Description */
 	object_desc(object_name, quest_ptr, OD_OMIT_PREFIX);
 
-	if (has_trait(creature_ptr, TRAIT_THROW_MIGHTY)) mult += 3;
+	if(has_trait(creature_ptr, TRAIT_THROW_MIGHTY)) mult += 3;
 
 	/* Extract a "distance multiplier" */
 	/* Changed for 'launcher' mutation */
@@ -3934,15 +3934,15 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	/* Enforce a minimum "weight" of one pound */
 	div = ((quest_ptr->weight > 10) ? quest_ptr->weight : 10);
-	if ((have_flag(flgs, TRAIT_THROW_MIGHTY)) || boomerang) div /= 2;
+	if((have_flag(flgs, TRAIT_THROW_MIGHTY)) || boomerang) div /= 2;
 
 	/* Hack -- Distance -- Reward strength, penalize weight */
 	tdis = (adj_str_blow[creature_ptr->stat_ind[STAT_STR]] + 20) * mul / div;
 
 	/* Max distance of 10-18 */
-	if (tdis > mul) tdis = mul;
+	if(tdis > mul) tdis = mul;
 
-	if (shuriken)
+	if(shuriken)
 	{
 		ty = randint0(101)-50+creature_ptr->fy;
 		tx = randint0(101)-50+creature_ptr->fx;
@@ -3952,14 +3952,14 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		project_length = tdis + 1;
 
 		/* Get a direction (or cancel) */
-		if (!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		/* Predict the "target" location */
 		tx = creature_ptr->fx + 99 * ddx[dir];
 		ty = creature_ptr->fy + 99 * ddy[dir];
 
 		/* Check for "target request" */
-		if ((dir == 5) && target_okay(creature_ptr))
+		if((dir == 5) && target_okay(creature_ptr))
 		{
 			tx = target_col;
 			ty = target_row;
@@ -3968,14 +3968,14 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		project_length = 0;  /* reset to default */
 	}
 
-	if (has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)
+	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)
 		return_when_thrown = TRUE;
 
 	/* Reduce and describe creature_ptr->inventory */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
-		if (!return_when_thrown)
+		if(!return_when_thrown)
 			inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 	}
@@ -3986,7 +3986,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		floor_item_increase(0 - item, -1);
 		floor_item_optimize(0 - item);
 	}
-	if (IS_EQUIPPED(object_ptr))
+	if(IS_EQUIPPED(object_ptr))
 	{
 		equiped_item = TRUE;
 		play_redraw |= (PR_EQUIPPY);
@@ -3996,7 +3996,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	creature_ptr->energy_use = 100;
 
 	/* Rogue and Ninja gets bonus */
-	if ((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_NINJA))
+	if((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_NINJA))
 		creature_ptr->energy_use -= creature_ptr->lev;
 
 	/* Start at the player */
@@ -4007,15 +4007,15 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	/* Hack -- Handle stuff */
 	handle_stuff();
 
-	if ((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TRAIT_THROW_MIGHTY)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;
+	if((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TRAIT_THROW_MIGHTY)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;
 	else shuriken = FALSE;
 
 	/* Chance of hitting */
-	if (have_flag(flgs, TRAIT_THROW_MIGHTY)) chance = ((creature_ptr->skill_tht) +
+	if(have_flag(flgs, TRAIT_THROW_MIGHTY)) chance = ((creature_ptr->skill_tht) +
 		((creature_ptr->to_hit_b + quest_ptr->to_hit) * BTH_PLUS_ADJ));
 	else chance = (creature_ptr->skill_tht + (creature_ptr->to_hit_b * BTH_PLUS_ADJ));
 
-	if (shuriken) chance *= 2;
+	if(shuriken) chance *= 2;
 
 	/* Save the old location */
 	prev_y = y;
@@ -4025,7 +4025,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	for (cur_dis = 0; cur_dis <= tdis; )
 	{
 		/* Hack -- Stop at the target */
-		if ((y == ty) && (x == tx)) break;
+		if((y == ty) && (x == tx)) break;
 
 		/* Calculate the new location (see "project()") */
 		ny[cur_dis] = y;
@@ -4033,14 +4033,14 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		mmove2(&ny[cur_dis], &nx[cur_dis], creature_ptr->fy, creature_ptr->fx, ty, tx);
 
 		/* Stopped by walls/doors */
-		if (!cave_have_flag_bold(floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
+		if(!cave_have_flag_bold(floor_ptr, ny[cur_dis], nx[cur_dis], FF_PROJECT))
 		{
 			hit_wall = TRUE;
-			if ((quest_ptr->tval == TV_FIGURINE) || object_is_potion(creature_ptr, quest_ptr) || !floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
+			if((quest_ptr->tval == TV_FIGURINE) || object_is_potion(creature_ptr, quest_ptr) || !floor_ptr->cave[ny[cur_dis]][nx[cur_dis]].creature_idx) break;
 		}
 
 		/* The player can see the (on screen) missile */
-		if (panel_contains(ny[cur_dis], nx[cur_dis]) && creature_can_see_bold(creature_ptr, ny[cur_dis], nx[cur_dis]))
+		if(panel_contains(ny[cur_dis], nx[cur_dis]) && creature_can_see_bold(creature_ptr, ny[cur_dis], nx[cur_dis]))
 		{
 			char c = object_char(quest_ptr);
 			byte a = object_attr(quest_ptr);
@@ -4073,7 +4073,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		cur_dis++;
 
 		/* Creature here, Try to hit it */
-		if (floor_ptr->cave[y][x].creature_idx)
+		if(floor_ptr->cave[y][x].creature_idx)
 		{
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
@@ -4087,12 +4087,12 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */
-			if (test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_ac, m_ptr->see_others))
+			if(test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_ac, m_ptr->see_others))
 			{
 				bool fear = FALSE;
 
 				/* Handle unseen creature */
-				if (!visible)
+				if(!visible)
 				{
 					/* Invisible creature */
 #ifdef JP
@@ -4118,10 +4118,10 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					msg_format("The %s hits %s.", object_name, m_name);
 #endif
 
-					if (m_ptr->see_others)
+					if(m_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
-						if (!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
+						if(!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
@@ -4133,16 +4133,16 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				/* Apply special damage XXX XXX XXX */
 				tdam = tot_dam_aux(creature_ptr, quest_ptr, tdam, m_ptr, 0, TRUE);
 				tdam = critical_shot(creature_ptr, quest_ptr->weight, quest_ptr->to_hit, tdam);
-				if (quest_ptr->to_damage > 0)
+				if(quest_ptr->to_damage > 0)
 					tdam += quest_ptr->to_damage;
 				else
 					tdam += -quest_ptr->to_damage;
 
-				if (boomerang)
+				if(boomerang)
 				{
 					tdam += creature_ptr->to_damage_m;
 				}
-				else if (have_flag(flgs, TRAIT_THROW_MIGHTY))
+				else if(have_flag(flgs, TRAIT_THROW_MIGHTY))
 				{
 					tdam *= (3+mult);
 					tdam += creature_ptr->to_damage_m;
@@ -4151,19 +4151,19 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				{
 					tdam *= mult;
 				}
-				if (shuriken)
+				if(shuriken)
 				{
 					tdam += ((creature_ptr->lev+30)*(creature_ptr->lev+30)-900)/55;
 				}
 
 				/* No negative damage */
-				if (tdam < 0) tdam = 0;
+				if(tdam < 0) tdam = 0;
 
 				/* Modify the damage */
 				tdam = invuln_damage_mod(m_ptr, tdam, FALSE);
 
 				/* Complex message */
-				if (wizard)
+				if(wizard)
 				{
 					msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 				}
@@ -4178,11 +4178,11 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
-					if ((tdam > 0) && !object_is_potion(creature_ptr, quest_ptr))
+					if((tdam > 0) && !object_is_potion(creature_ptr, quest_ptr))
 						anger_creature(creature_ptr, m_ptr);
 
 					/* Take note */
-					if (fear && m_ptr->see_others)
+					if(fear && m_ptr->see_others)
 					{
 						char m_name[80];
 
@@ -4212,18 +4212,18 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	j = (hit_body ? breakage_chance(creature_ptr, quest_ptr) : 0);
 
 	/* Figurines transform */
-	if ((quest_ptr->tval == TV_FIGURINE) && !(floor_ptr->fight_arena_mode))
+	if((quest_ptr->tval == TV_FIGURINE) && !(floor_ptr->fight_arena_mode))
 	{
 		j = 100;
 
-		if (!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PC_FORCE_PET : 0L)))
+		if(!(summon_named_creature(0, floor_ptr, y, x, quest_ptr->pval, !(object_is_cursed(quest_ptr)) ? PC_FORCE_PET : 0L)))
 #ifdef JP
 msg_print("人形は捻じ曲がり砕け散ってしまった！");
 #else
 			msg_print("The Figurine writhes and then shatters.");
 #endif
 
-		else if (object_is_cursed(quest_ptr))
+		else if(object_is_cursed(quest_ptr))
 #ifdef JP
 msg_print("これはあまり良くない気がする。");
 #else
@@ -4234,9 +4234,9 @@ msg_print("これはあまり良くない気がする。");
 
 
 	/* Potions smash open */
-	if (object_is_potion(creature_ptr, quest_ptr))
+	if(object_is_potion(creature_ptr, quest_ptr))
 	{
-		if (hit_body || hit_wall || (randint1(100) < j))
+		if(hit_body || hit_wall || (randint1(100) < j))
 		{
 			/* Message */
 #ifdef JP
@@ -4246,12 +4246,12 @@ msg_print("これはあまり良くない気がする。");
 #endif
 
 
-			if (potion_smash_effect(0, y, x, quest_ptr->k_idx))
+			if(potion_smash_effect(0, y, x, quest_ptr->k_idx))
 			{
 				creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 
 				/* ToDo (Robert): fix the invulnerability */
-				if (floor_ptr->cave[y][x].creature_idx &&
+				if(floor_ptr->cave[y][x].creature_idx &&
 				    is_friendly(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]) &&
 				    !m_ptr->timed_trait[TRAIT_INVULNERABLE])
 				{
@@ -4274,22 +4274,22 @@ msg_print("これはあまり良くない気がする。");
 		}
 	}
 
-	if (return_when_thrown)
+	if(return_when_thrown)
 	{
 		int back_chance = randint1(30) + 20 + ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) - 128);
 		char o2_name[MAX_NLEN];
 		bool super_boomerang = (has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) && boomerang);
 
 		j = -1;
-		if (boomerang) back_chance += 4 + randint1(5);
-		if (super_boomerang) back_chance += 100;
+		if(boomerang) back_chance += 4 + randint1(5);
+		if(super_boomerang) back_chance += 100;
 		object_desc(o2_name, quest_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 		if((back_chance > 30) && (!one_in_(100) || super_boomerang))
 		{
 			for (i = cur_dis - 1; i > 0; i--)
 			{
-				if (panel_contains(ny[i], nx[i]) && creature_can_see_bold(creature_ptr, ny[i], nx[i]))
+				if(panel_contains(ny[i], nx[i]) && creature_can_see_bold(creature_ptr, ny[i], nx[i]))
 				{
 					char c = object_char(quest_ptr);
 					byte a = object_attr(quest_ptr);
@@ -4319,7 +4319,7 @@ msg_print("これはあまり良くない気がする。");
 			}
 			else
 			{
-				if (item >= 0)
+				if(item >= 0)
 				{
 #ifdef JP
 					msg_format("%sを受け損ねた！", o2_name);
@@ -4349,9 +4349,9 @@ msg_print("これはあまり良くない気がする。");
 		}
 	}
 
-	if (come_back)
+	if(come_back)
 	{
-		if (GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_ARMS)
+		if(GET_INVEN_SLOT_TYPE(creature_ptr, item) == INVEN_SLOT_ARMS)
 		{
 			/* Access the wield slot */
 			object_ptr = &creature_ptr->inventory[item];
@@ -4377,16 +4377,16 @@ msg_print("これはあまり良くない気がする。");
 		}
 		do_drop = FALSE;
 	}
-	else if (equiped_item)
+	else if(equiped_item)
 	{
 		kamaenaoshi(creature_ptr, item);
 		calc_android_exp(creature_ptr);
 	}
 
 	/* Drop (or break) near that location */
-	if (do_drop)
+	if(do_drop)
 	{
-		if (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
+		if(cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 		{
 			/* Drop (or break) near that location */
 			(void)drop_near(floor_ptr, quest_ptr, j, y, x);
@@ -4448,18 +4448,18 @@ static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bo
 	n = n % TRAVEL_UNABLE;
 
 	/* Ignore out of bounds */
-	if (!in_bounds(floor_ptr, y, x)) return wall;
+	if(!in_bounds(floor_ptr, y, x)) return wall;
 
 	/* Ignore "pre-stamped" entries */
-	if (travel.cost[y][x] != TRAVEL_UNABLE) return wall;
+	if(travel.cost[y][x] != TRAVEL_UNABLE) return wall;
 
 	/* Ignore "walls" and "rubble" (include "secret doors") */
-	if (have_flag(f_ptr->flags, FF_WALL) ||
+	if(have_flag(f_ptr->flags, FF_WALL) ||
 		have_flag(f_ptr->flags, FF_CAN_DIG) ||
 		(have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic) ||
 		(!have_flag(f_ptr->flags, FF_MOVE) && have_flag(f_ptr->flags, FF_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_FLY)))
 	{
-		if (!wall) return wall;
+		if(!wall) return wall;
 	}
 	else
 	{
@@ -4468,17 +4468,17 @@ static bool travel_flow_aux(creature_type *creature_ptr, int y, int x, int n, bo
 
 	/* Save the flow cost */
 	travel.cost[y][x] = n;
-	if (wall) travel.cost[y][x] += TRAVEL_UNABLE;
+	if(wall) travel.cost[y][x] += TRAVEL_UNABLE;
 
 	/* Enqueue that entry */
 	temp2_y[flow_head] = y;
 	temp2_x[flow_head] = x;
 
 	/* Advance the queue */
-	if (++flow_head == MAX_SHORT) flow_head = 0;
+	if(++flow_head == MAX_SHORT) flow_head = 0;
 
 	/* Hack -- notice overflow by forgetting new entry */
-	if (flow_head == flow_tail) flow_head = old_head;
+	if(flow_head == flow_tail) flow_head = old_head;
 
 	return wall;
 }
@@ -4494,7 +4494,7 @@ static void travel_flow(creature_type *creature_ptr, int ty, int tx)
 	/* Reset the "queue" */
 	flow_head = flow_tail = 0;
 
-	if (!have_flag(f_ptr->flags, FF_MOVE)) wall = TRUE;
+	if(!have_flag(f_ptr->flags, FF_MOVE)) wall = TRUE;
 
 	/* Add the player's grid to the queue */
 	wall = travel_flow_aux(creature_ptr, ty, tx, 0, wall);
@@ -4507,7 +4507,7 @@ static void travel_flow(creature_type *creature_ptr, int ty, int tx)
 		x = temp2_x[flow_tail];
 
 		/* Forget that entry */
-		if (++flow_tail == MAX_SHORT) flow_tail = 0;
+		if(++flow_tail == MAX_SHORT) flow_tail = 0;
 
 		/* Add the "children" */
 		for (d = 0; d < 8; d++)
@@ -4528,9 +4528,9 @@ void do_cmd_travel(creature_type *creature_ptr)
 	feature_type *f_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (!tgt_pt(creature_ptr, &x, &y)) return;
+	if(!tgt_pt(creature_ptr, &x, &y)) return;
 
-	if ((x == creature_ptr->fx) && (y == creature_ptr->fy))
+	if((x == creature_ptr->fx) && (y == creature_ptr->fy))
 	{
 #ifdef JP
 		msg_print("すでにそこにいます！");
@@ -4542,7 +4542,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 
 	f_ptr = &feature_info[floor_ptr->cave[y][x].feat];
 
-	if ((floor_ptr->cave[y][x].info & CAVE_MARK) &&
+	if((floor_ptr->cave[y][x].info & CAVE_MARK) &&
 		(have_flag(f_ptr->flags, FF_WALL) ||
 			have_flag(f_ptr->flags, FF_CAN_DIG) ||
 			(have_flag(f_ptr->flags, FF_DOOR) && floor_ptr->cave[y][x].mimic)))
@@ -4575,7 +4575,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 
 	for (i = 1; i <= 9; i++)
 	{
-		if ((sx == ddx[i]) && (sy == ddy[i])) travel.dir = i;
+		if((sx == ddx[i]) && (sy == ddy[i])) travel.dir = i;
 	}
 }
 #endif

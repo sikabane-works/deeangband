@@ -60,11 +60,11 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-	if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -87,16 +87,16 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	/* Object level */
 	lev = object_kind_info[object_ptr->k_idx].level;
 
-	if (object_ptr->tval == TV_FOOD)
+	if(object_ptr->tval == TV_FOOD)
 	{
 		/* Analyze the food */
 		switch (object_ptr->sval)
 		{
 			case SV_FOOD_POISON:
 			{
-				if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
+				if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 				{
-					if (set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(10) + 10))
+					if(set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -106,9 +106,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_BLINDNESS:
 			{
-				if (!has_trait(creature_ptr, TRAIT_NO_BLIND))
+				if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
 				{
-					if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(200) + 200))
+					if(set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(200) + 200))
 					{
 						ident = TRUE;
 					}
@@ -118,9 +118,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_PARANOIA:
 			{
-				if (!has_trait(creature_ptr, TRAIT_FEARLESS))
+				if(!has_trait(creature_ptr, TRAIT_FEARLESS))
 				{
-					if (set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + randint0(10) + 10))
+					if(set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -130,9 +130,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CONFUSION:
 			{
-				if (!has_trait(creature_ptr, TRAIT_NO_CONF))
+				if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 				{
-					if (set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(10) + 10))
+					if(set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -142,9 +142,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_HALLUCINATION:
 			{
-				if (!creature_ptr->resist_chaos)
+				if(!creature_ptr->resist_chaos)
 				{
-					if (set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(250) + 250))
+					if(set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(250) + 250))
 					{
 						ident = TRUE;
 					}
@@ -154,9 +154,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_PARALYSIS:
 			{
-				if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
+				if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 				{
-					if (set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 10))
+					if(set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -244,54 +244,54 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_POISON:
 			{
-				if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+				if(set_poisoned(creature_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_BLINDNESS:
 			{
-				if (set_blind(creature_ptr, 0)) ident = TRUE;
+				if(set_blind(creature_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_PARANOIA:
 			{
-				if (set_afraid(creature_ptr, 0)) ident = TRUE;
+				if(set_afraid(creature_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_CONFUSION:
 			{
-				if (set_confused(creature_ptr, 0)) ident = TRUE;
+				if(set_confused(creature_ptr, 0)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_CURE_SERIOUS:
 			{
-				if (heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
+				if(heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORE_STR:
 			{
-				if (do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORE_CON:
 			{
-				if (do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
 				break;
 			}
 
 			case SV_FOOD_RESTORING:
 			{
-				if (do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
-				if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
-				if (do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
-				if (do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
-				if (do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
-				if (do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
+				if(do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 				break;
 			}
 
@@ -383,10 +383,10 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	/* We have tried it */
-	if (object_ptr->tval == TV_FOOD) object_tried(object_ptr);
+	if(object_ptr->tval == TV_FOOD) object_tried(object_ptr);
 
 	/* The player is now aware of the object */
-	if (ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
@@ -397,7 +397,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 
 	/* Food can feed the player */
-	if (has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
+	if(has_trait(creature_ptr, TRAIT_BLOOD_DRINKER))
 	{
 		// Reduced nutritional benefit
 		(void)set_food(creature_ptr, creature_ptr->food + (object_ptr->pval / 10));
@@ -407,7 +407,7 @@ msg_print("あなたのような者にとって食糧など僅かな栄養にしかならない。");
 		msg_print("Mere victuals hold scant sustenance for a being such as yourself.");
 #endif
 
-		if (creature_ptr->food < PY_FOOD_ALERT)   // Hungry
+		if(creature_ptr->food < PY_FOOD_ALERT)   // Hungry
 #ifdef JP
 msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #else
@@ -415,11 +415,11 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 
 	}
-	else if (has_trait(creature_ptr, TRAIT_UNDEAD) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
+	else if(has_trait(creature_ptr, TRAIT_UNDEAD) && (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND))
 	{
 		cptr staff;
 
-		if (object_ptr->tval == TV_STAFF &&
+		if(object_ptr->tval == TV_STAFF &&
 		    (item < 0) && (object_ptr->number > 1))
 		{
 #ifdef JP
@@ -437,7 +437,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 
 		/* "Eat" charges */
-		if (object_ptr->pval == 0)
+		if(object_ptr->pval == 0)
 		{
 #ifdef JP
 			msg_format("この%sにはもう魔力が残っていない。", staff);
@@ -467,7 +467,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		set_food(creature_ptr, creature_ptr->food + 5000);
 
 		/* XXX Hack -- unstack if necessary */
-		if (object_ptr->tval == TV_STAFF &&
+		if(object_ptr->tval == TV_STAFF &&
 		    (item >= 0) && (object_ptr->number > 1))
 		{
 			object_type forge;
@@ -499,7 +499,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		}
 
 		/* Describe charges in the pack */
-		if (item >= 0)
+		if(item >= 0)
 		{
 			inven_item_charges(creature_ptr, item);
 		}
@@ -516,7 +516,7 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 		/* Don't eat a staff/wand itself */
 		return;
 	}
-	else if (has_trait(creature_ptr, TRAIT_DEMON) &&
+	else if(has_trait(creature_ptr, TRAIT_DEMON) &&
 		 (object_ptr->tval == TV_CORPSE && object_ptr->sval == SV_CORPSE &&
 		  my_strchr("pht", species_info[object_ptr->pval].d_char)))
 	{
@@ -532,10 +532,10 @@ msg_print("あなたの飢えは新鮮な血によってのみ満たされる！");
 #endif
 		(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 	}
-	else if (has_trait(creature_ptr, TRAIT_SKELETON))
+	else if(has_trait(creature_ptr, TRAIT_SKELETON))
 	{
 
-		if (!((object_ptr->sval == SV_FOOD_WAYBREAD) ||
+		if(!((object_ptr->sval == SV_FOOD_WAYBREAD) ||
 		      (object_ptr->sval < SV_FOOD_BISCUIT)))
 		{
 			object_type forge;
@@ -564,7 +564,7 @@ msg_print("食べ物がアゴを素通りして落ち、消えた！");
 
 		}
 	}
-	else if (has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
+	else if(has_trait(creature_ptr, TRAIT_NONLIVING) || has_trait(creature_ptr, TRAIT_UNDEAD) || has_trait(creature_ptr, TRAIT_DEMON))
 	{
 #ifdef JP
 msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
@@ -574,7 +574,7 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 
 		set_food(creature_ptr, creature_ptr->food + ((object_ptr->pval) / 20));
 	}
-	else if (object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
+	else if(object_ptr->tval == TV_FOOD && object_ptr->sval == SV_FOOD_WAYBREAD)
 	{
 		/* Waybread is always fully satisfying. */
 		set_food(creature_ptr, MAX(creature_ptr->food, PY_FOOD_MAX - 1));
@@ -586,7 +586,7 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
 	}
 
 	/* Destroy a food in the pack */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
@@ -608,17 +608,17 @@ msg_print("生者の食物はあなたにとってほとんど栄養にならない。");
  */
 static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (object_ptr->tval==TV_FOOD) return TRUE;
+	if(object_ptr->tval==TV_FOOD) return TRUE;
 
-	if (has_trait(creature_ptr, TRAIT_UNDEAD))
+	if(has_trait(creature_ptr, TRAIT_UNDEAD))
 	{
-		if (object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND)
+		if(object_ptr->tval == TV_STAFF || object_ptr->tval == TV_WAND)
 			return TRUE;
 	}
 
-	else if (has_trait(creature_ptr, TRAIT_DEMON))
+	else if(has_trait(creature_ptr, TRAIT_DEMON))
 	{
-		if (object_ptr->tval == TV_CORPSE &&
+		if(object_ptr->tval == TV_CORPSE &&
 		    object_ptr->sval == SV_CORPSE &&
 		    my_strchr("pht", species_info[object_ptr->pval].d_char))
 			return TRUE;
@@ -638,7 +638,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 	cptr        q, s;
 
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -652,7 +652,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 	s = "You have nothing to eat.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_eatable, 0)) return;
 
 	/* Eat the object */
 	do_cmd_eat_food_aux(creature_ptr, item);
@@ -673,9 +673,9 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	// Take a turn
 	creature_ptr->energy_use = 100;
 
-	if (creature_ptr->time_stopper)
+	if(creature_ptr->time_stopper)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("瓶から水が流れ出てこない！");
 #else
@@ -686,14 +686,14 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-	if (hex_spelling_any(creature_ptr))
+	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if(hex_spelling_any(creature_ptr))
 	{
-		if (!hex_spelling(creature_ptr, HEX_INHAIL)) stop_hex_spell_all(creature_ptr);
+		if(!hex_spelling(creature_ptr, HEX_INHAIL)) stop_hex_spell_all(creature_ptr);
 	}
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -714,7 +714,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	quest_ptr->number = 1;
 
 	/* Reduce and describe creature_ptr->inventory */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
@@ -740,7 +740,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	lev = object_kind_info[quest_ptr->k_idx].level;
 
 	/* Analyze the potion */
-	if (quest_ptr->tval == TV_POTION)
+	if(quest_ptr->tval == TV_POTION)
 	{
 		switch (quest_ptr->sval)
 		{
@@ -774,7 +774,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 #endif
 
 		case SV_POTION_SLOWNESS:
-			if (set_slow(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
+			if(set_slow(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			break;
 
 		case SV_POTION_SALT_WATER:
@@ -784,7 +784,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			msg_print("The potion makes you vomit!");
 #endif
 
-			if (!has_trait(creature_ptr, TRAIT_NONLIVING))
+			if(!has_trait(creature_ptr, TRAIT_NONLIVING))
 			{
 				/* Only living creatures get thirsty */
 				(void)set_food(creature_ptr, PY_FOOD_STARVE - 1);
@@ -796,9 +796,9 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_POISON:
-			if (!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
+			if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 			{
-				if (set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(15) + 10))
+				if(set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(15) + 10))
 				{
 					ident = TRUE;
 				}
@@ -806,9 +806,9 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_BLINDNESS:
-			if (!has_trait(creature_ptr, TRAIT_NO_BLIND))
+			if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
 			{
-				if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(100) + 100))
+				if(set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(100) + 100))
 				{
 					ident = TRUE;
 				}
@@ -816,28 +816,28 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_CONFUSION:
-			if (!has_trait(creature_ptr, TRAIT_NO_CONF))
+			if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 			{
 				creature_ptr->special_attack |= ATTACK_SUIKEN;
-				if (set_confused(creature_ptr, randint0(20) + 15))
+				if(set_confused(creature_ptr, randint0(20) + 15))
 				{
 					ident = TRUE;
 				}
 			}
 
-			if (!creature_ptr->resist_chaos)
+			if(!creature_ptr->resist_chaos)
 			{
-				if (one_in_(2))
+				if(one_in_(2))
 				{
-					if (set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150))
+					if(set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150))
 					{
 						ident = TRUE;
 					}
 				}
-				if (one_in_(13) && (creature_ptr->class_idx != CLASS_MONK))
+				if(one_in_(13) && (creature_ptr->class_idx != CLASS_MONK))
 				{
 					ident = TRUE;
-					if (one_in_(3)) lose_all_info(creature_ptr);
+					if(one_in_(3)) lose_all_info(creature_ptr);
 					else wiz_dark(floor_ptr, creature_ptr);
 					(void)teleport_player_aux(creature_ptr, 100, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 					wiz_dark(floor_ptr, creature_ptr);
@@ -854,7 +854,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_SLEEP:
-			if (!has_trait(creature_ptr, TRAIT_FREE_ACTION))
+			if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
 		msg_print("あなたは眠ってしまった。");
@@ -863,7 +863,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 #endif
 
 
-				if (curse_of_Iluvatar)
+				if(curse_of_Iluvatar)
 				{
 					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
 
@@ -882,7 +882,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 					/* Remove the creature restriction */
 					reset_species_preps();
 				}
-				if (set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))
+				if(set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))
 				{
 					ident = TRUE;
 				}
@@ -890,7 +890,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_LOSE_MEMORIES:
-			if (!has_trait(creature_ptr, TRAIT_HOLD_LIFE) && (creature_ptr->exp > 0))
+			if(!has_trait(creature_ptr, TRAIT_HOLD_LIFE) && (creature_ptr->exp > 0))
 			{
 #ifdef JP
 				msg_print("過去の記憶が薄れていく気がする。");
@@ -921,27 +921,27 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_DEC_STR:
-			if (do_dec_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if(do_dec_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_INT:
-			if (do_dec_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if(do_dec_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_WIS:
-			if (do_dec_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if(do_dec_stat(creature_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_DEX:
-			if (do_dec_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if(do_dec_stat(creature_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CON:
-			if (do_dec_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if(do_dec_stat(creature_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_DEC_CHR:
-			if (do_dec_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+			if(do_dec_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_DETONATIONS:
@@ -971,35 +971,35 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_INFRAVISION:
-			if (set_tim_infra(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INFRA] + 100 + randint1(100), FALSE))
+			if(set_tim_infra(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INFRA] + 100 + randint1(100), FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_DETECT_INVIS:
-			if (set_tim_invis(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] + 12 + randint1(12), FALSE))
+			if(set_tim_invis(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] + 12 + randint1(12), FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if (set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] / 2)) ident = TRUE;
+			if(set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] / 2)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_POISON:
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_BOLDNESS:
-			if (set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_afraid(creature_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_SPEED:
-			if (!creature_ptr->timed_trait[TRAIT_FAST])
+			if(!creature_ptr->timed_trait[TRAIT_FAST])
 			{
-				if (set_fast(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
+				if(set_fast(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
 			}
 			else
 			{
@@ -1008,74 +1008,74 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_RESIST_HEAT:
-			if (set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(10) + 10, FALSE))
+			if(set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_RESIST_COLD:
-			if (set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(10) + 10, FALSE))
+			if(set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_HEROISM:
-			if (set_afraid(creature_ptr, 0)) ident = TRUE;
-			if (set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (heal_creature(creature_ptr, 10)) ident = TRUE;
+			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
+			if(heal_creature(creature_ptr, 10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
-			if (set_afraid(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
-			if (heal_creature(creature_ptr, 30)) ident = TRUE;
+			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
+			if(heal_creature(creature_ptr, 30)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_LIGHT:
-			if (heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
-			if (heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
-			if (heal_creature(creature_ptr, diceroll(6, 8))) ident = TRUE;
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, diceroll(6, 8))) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_HEALING:
-			if (heal_creature(creature_ptr, 300)) ident = TRUE;
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, 300)) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_STAR_HEALING:
-			if (heal_creature(creature_ptr, 1200)) ident = TRUE;
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, 1200)) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_LIFE:
@@ -1105,19 +1105,19 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_RESTORE_MANA:
-			if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
+			if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 			{
 				int i;
 				for (i = 0; i < EATER_EXT*2; i++)
 				{
 					creature_ptr->class_skills.old_skills.magic_num1[i] += (creature_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_CHARGE * 3 : creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE/3;
-					if (creature_ptr->class_skills.old_skills.magic_num1[i] > creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE) creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
+					if(creature_ptr->class_skills.old_skills.magic_num1[i] > creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE) creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
 				}
 				for (; i < EATER_EXT*3; i++)
 				{
 					int k_idx = lookup_kind(TV_ROD, i-EATER_EXT*2);
 					creature_ptr->class_skills.old_skills.magic_num1[i] -= ((creature_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
-					if (creature_ptr->class_skills.old_skills.magic_num1[i] < 0) creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
+					if(creature_ptr->class_skills.old_skills.magic_num1[i] < 0) creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
 				}
 #ifdef JP
 				msg_print("頭がハッキリとした。");
@@ -1127,7 +1127,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 				play_window |= (PW_PLAYER);
 				ident = TRUE;
 			}
-			else if (creature_ptr->csp < creature_ptr->msp)
+			else if(creature_ptr->csp < creature_ptr->msp)
 			{
 				creature_ptr->csp = creature_ptr->msp;
 				creature_ptr->csp_frac = 0;
@@ -1142,68 +1142,68 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 				play_window |= (PW_SPELL);
 				ident = TRUE;
 			}
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_RESTORE_EXP:
-			if (restore_level(creature_ptr)) ident = TRUE;
+			if(restore_level(creature_ptr)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_STR:
-			if (do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_INT:
-			if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_WIS:
-			if (do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_DEX:
-			if (do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CON:
-			if (do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_CHR:
-			if (do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_STR:
-			if (do_inc_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_INT:
-			if (do_inc_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_WIS:
-			if (do_inc_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_WIS)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_DEX:
-			if (do_inc_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_DEX)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CON:
-			if (do_inc_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_CON)) ident = TRUE;
 			break;
 
 		case SV_POTION_INC_CHR:
-			if (do_inc_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_AUGMENTATION:
-			if (do_inc_stat(creature_ptr, STAT_STR)) ident = TRUE;
-			if (do_inc_stat(creature_ptr, STAT_INT)) ident = TRUE;
-			if (do_inc_stat(creature_ptr, STAT_WIS)) ident = TRUE;
-			if (do_inc_stat(creature_ptr, STAT_DEX)) ident = TRUE;
-			if (do_inc_stat(creature_ptr, STAT_CON)) ident = TRUE;
-			if (do_inc_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if(do_inc_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 
 		case SV_POTION_ENLIGHTENMENT:
@@ -1252,11 +1252,11 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_EXPERIENCE:
-			if (has_trait(creature_ptr, TRAIT_ANDROID)) break;
-			if (creature_ptr->exp < CREATURE_MAX_EXP)
+			if(has_trait(creature_ptr, TRAIT_ANDROID)) break;
+			if(creature_ptr->exp < CREATURE_MAX_EXP)
 			{
 				s32b ee = (creature_ptr->exp / 2) + 10;
-				if (ee > 100000L) ee = 100000L;
+				if(ee > 100000L) ee = 100000L;
 #ifdef JP
 				msg_print("更に経験を積んだような気がする。");
 #else
@@ -1278,13 +1278,13 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_CURING:
-			if (heal_creature(creature_ptr, 50)) ident = TRUE;
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_image(creature_ptr, 0)) ident = TRUE;
+			if(heal_creature(creature_ptr, 50)) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_image(creature_ptr, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_INVULNERABILITY:
@@ -1315,7 +1315,7 @@ msg_print("「オクレ兄さん！」");
 			msg_print(NULL);
 			creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
 			(void)set_tsuyoshi(creature_ptr, 0, TRUE);
-			if (!creature_ptr->resist_chaos)
+			if(!creature_ptr->resist_chaos)
 			{
 				(void)set_image(creature_ptr, 50 + randint1(50));
 			}
@@ -1324,23 +1324,23 @@ msg_print("「オクレ兄さん！」");
 		
 		case SV_POTION_POLYMORPH:
 			//TODO
-			if (one_in_(23)) do_cmd_rerate(creature_ptr, FALSE);
+			if(one_in_(23)) do_cmd_rerate(creature_ptr, FALSE);
 			else
 			{
 				do
 				{
-					if (one_in_(2))
+					if(one_in_(2))
 					{
 						if(gain_trait(creature_ptr, 0, TRUE)) ident = TRUE;
 					}
-					else if (lose_trait(creature_ptr, 0)) ident = TRUE;
+					else if(lose_trait(creature_ptr, 0)) ident = TRUE;
 				} while(!ident || one_in_(2));
 			}
 			break;
 		}
 	}
 
-	if (has_trait(creature_ptr, TRAIT_SKELETON))
+	if(has_trait(creature_ptr, TRAIT_SKELETON))
 	{
 #ifdef JP
 msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
@@ -1358,7 +1358,7 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 	object_tried(quest_ptr);
 
 	/* An identification was made */
-	if (ident && !object_is_aware(quest_ptr))
+	if(ident && !object_is_aware(quest_ptr))
 	{
 		object_aware(quest_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
@@ -1370,7 +1370,7 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
 
 	if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
-		if (quest_ptr->tval == TV_FLASK)
+		if(quest_ptr->tval == TV_FLASK)
 		{
 #ifdef JP
 			msg_print("オイルを補給した。");
@@ -1420,11 +1420,11 @@ msg_print("液体の一部はあなたのアゴを素通りして落ちた！");
  */
 static bool item_tester_hook_quaff(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if (object_ptr->tval == TV_POTION) return TRUE;
+	if(object_ptr->tval == TV_POTION) return TRUE;
 
-	if (has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
+	if(has_trait(creature_ptr, TRAIT_FLASK_DRINKER))
 	{
-		if (object_ptr->tval == TV_FLASK && object_ptr->sval == SV_FLASK_OIL)
+		if(object_ptr->tval == TV_FLASK && object_ptr->sval == SV_FLASK_OIL)
 			return TRUE;
 	}
 
@@ -1440,7 +1440,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1454,7 +1454,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 	s = "You have no potions to quaff.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_quaff, 0)) return;
 
 	/* Quaff the potion */
 	do_cmd_quaff_potion_aux(creature_ptr, item);
@@ -1478,7 +1478,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -1493,9 +1493,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	/* Take a turn */
 	creature_ptr->energy_use = 100;
 
-	if (creature_ptr->time_stopper)
+	if(creature_ptr->time_stopper)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("止まった時の中ではうまく働かないようだ。");
 #else
@@ -1506,7 +1506,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		return;
 	}
 
-	if (creature_ptr->class_idx == CLASS_BERSERKER)
+	if(creature_ptr->class_idx == CLASS_BERSERKER)
 	{
 #ifdef JP
 		msg_print("巻物なんて読めない。");
@@ -1516,10 +1516,10 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		return;
 	}
 
-	if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 
 	/* Hex */
-	if (hex_spelling_any(creature_ptr) && ((creature_ptr->lev < 35) || hex_spell_fully(creature_ptr))) stop_hex_spell_all(creature_ptr);
+	if(hex_spelling_any(creature_ptr) && ((creature_ptr->lev < 35) || hex_spell_fully(creature_ptr))) stop_hex_spell_all(creature_ptr);
 
 	/* Not identified yet */
 	ident = FALSE;
@@ -1530,18 +1530,18 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	/* Assume the scroll will get used up */
 	used_up = TRUE;
 
-	if (object_ptr->tval == TV_SCROLL)
+	if(object_ptr->tval == TV_SCROLL)
 	{
 	/* Analyze the scroll */
 	switch (object_ptr->sval)
 	{
 		case SV_SCROLL_DARKNESS:
 		{
-			if (!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
+			if(!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
 			{
 				(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5));
 			}
-			if (unlite_area(creature_ptr, 10, 3)) ident = TRUE;
+			if(unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
 
@@ -1560,20 +1560,20 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_CURSE_ARMOR:
 		{
-			if (curse_armor(creature_ptr)) ident = TRUE;
+			if(curse_armor(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_CURSE_WEAPON:
 		{
 			k = 0;
-			if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1))
+			if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1))
 			{
 				k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
-				if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 2) && one_in_(2)) k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+				if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 2) && one_in_(2)) k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
 			}
-			else if (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 2)) k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
-			if (k && curse_weapon(creature_ptr, FALSE, k)) ident = TRUE;
+			else if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 2)) k = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+			if(k && curse_weapon(creature_ptr, FALSE, k)) ident = TRUE;
 			break;
 		}
 
@@ -1581,7 +1581,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1593,7 +1593,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1603,7 +1603,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_SUMMON_PET:
 		{
-			if (summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+			if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 			{
 				ident = TRUE;
 			}
@@ -1612,7 +1612,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_SUMMON_KIN:
 		{
-			if (summon_kin_player(creature_ptr, creature_ptr->lev, creature_ptr->fy, creature_ptr->fx, (PC_FORCE_PET | PC_ALLOW_GROUP)))
+			if(summon_kin_player(creature_ptr, creature_ptr->lev, creature_ptr->fy, creature_ptr->fx, (PC_FORCE_PET | PC_ALLOW_GROUP)))
 			{
 				ident = TRUE;
 			}
@@ -1621,7 +1621,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_TRAP_CREATION:
 		{
-			if (trap_creation(creature_ptr, creature_ptr->fy, creature_ptr->fx)) ident = TRUE;
+			if(trap_creation(creature_ptr, creature_ptr->fy, creature_ptr->fx)) ident = TRUE;
 			break;
 		}
 
@@ -1648,28 +1648,28 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_WORD_OF_RECALL:
 		{
-			if (!word_of_recall(creature_ptr)) used_up = FALSE;
+			if(!word_of_recall(creature_ptr)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_IDENTIFY:
 		{
-			if (!ident_spell(creature_ptr, FALSE)) used_up = FALSE;
+			if(!ident_spell(creature_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_IDENTIFY:
 		{
-			if (!identify_fully(creature_ptr, FALSE)) used_up = FALSE;
+			if(!identify_fully(creature_ptr, FALSE)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_REMOVE_CURSE:
 		{
-			if (remove_curse(creature_ptr))
+			if(remove_curse(creature_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -1684,7 +1684,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_STAR_REMOVE_CURSE:
 		{
-			if (remove_all_curse(creature_ptr))
+			if(remove_all_curse(creature_ptr))
 			{
 #ifdef JP
 				msg_print("誰かに見守られているような気がする。");
@@ -1699,41 +1699,41 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_ENCHANT_ARMOR:
 		{
 			ident = TRUE;
-			if (!enchant_spell(creature_ptr, 0, 0, 1)) used_up = FALSE;
+			if(!enchant_spell(creature_ptr, 0, 0, 1)) used_up = FALSE;
 			break;
 		}
 
 		case SV_SCROLL_ENCHANT_WEAPON_TO_HIT:
 		{
-			if (!enchant_spell(creature_ptr, 1, 0, 0)) used_up = FALSE;
+			if(!enchant_spell(creature_ptr, 1, 0, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_ENCHANT_WEAPON_TO_DAM:
 		{
-			if (!enchant_spell(creature_ptr, 0, 1, 0)) used_up = FALSE;
+			if(!enchant_spell(creature_ptr, 0, 1, 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ENCHANT_ARMOR:
 		{
-			if (!enchant_spell(creature_ptr, 0, 0, randint1(3) + 2)) used_up = FALSE;
+			if(!enchant_spell(creature_ptr, 0, 0, randint1(3) + 2)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_ENCHANT_WEAPON:
 		{
-			if (!enchant_spell(creature_ptr, randint1(3), randint1(3), 0)) used_up = FALSE;
+			if(!enchant_spell(creature_ptr, randint1(3), randint1(3), 0)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_RECHARGING:
 		{
-			if (!recharge(creature_ptr, 130)) used_up = FALSE;
+			if(!recharge(creature_ptr, 130)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -1741,13 +1741,13 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_MUNDANITY:
 		{
 			ident = TRUE;
-			if (!mundane_spell(creature_ptr, FALSE)) used_up = FALSE;
+			if(!mundane_spell(creature_ptr, FALSE)) used_up = FALSE;
 			break;
 		}
 
 		case SV_SCROLL_LIGHT:
 		{
-			if (lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
+			if(lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -1760,63 +1760,63 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_DETECT_GOLD:
 		{
-			if (detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_ITEM:
 		{
-			if (detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_TRAP:
 		{
-			if (detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
+			if(detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_DOOR:
 		{
-			if (detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_DETECT_INVIS:
 		{
-			if (detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_SATISFY_HUNGER:
 		{
-			if (set_food(creature_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
+			if(set_food(creature_ptr, PY_FOOD_MAX - 1)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_BLESSING:
 		{
-			if (set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(12) + 6, FALSE)) ident = TRUE;
+			if(set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(12) + 6, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_CHANT:
 		{
-			if (set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(24) + 12, FALSE)) ident = TRUE;
+			if(set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(24) + 12, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_PRAYER:
 		{
-			if (set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(48) + 24, FALSE)) ident = TRUE;
+			if(set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(48) + 24, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_MONSTER_CONFUSION:
 		{
-			if (!(creature_ptr->special_attack & ATTACK_CONFUSE))
+			if(!(creature_ptr->special_attack & ATTACK_CONFUSE))
 			{
 #ifdef JP
 				msg_print("手が輝き始めた。");
@@ -1834,7 +1834,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
 		{
 			k = 3 * creature_ptr->lev;
-			if (set_protevil(creature_ptr, creature_ptr->timed_trait[TRAIT_PROT_EVIL] + randint1(25) + k, FALSE)) ident = TRUE;
+			if(set_protevil(creature_ptr, creature_ptr->timed_trait[TRAIT_PROT_EVIL] + randint1(25) + k, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -1847,13 +1847,13 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_TRAP_DOOR_DESTRUCTION:
 		{
-			if (destroy_doors_touch(creature_ptr)) ident = TRUE;
+			if(destroy_doors_touch(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_STAR_DESTRUCTION:
 		{
-			if (destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
+			if(destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -1868,13 +1868,13 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_DISPEL_UNDEAD:
 		{
-			if (dispel_undead(creature_ptr, 80)) ident = TRUE;
+			if(dispel_undead(creature_ptr, 80)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_SPELL:
 		{
-			if ((creature_ptr->class_idx == CLASS_WARRIOR) ||
+			if((creature_ptr->class_idx == CLASS_WARRIOR) ||
 				(creature_ptr->class_idx == CLASS_IMITATOR) ||
 				(creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
 				(creature_ptr->class_idx == CLASS_SORCERER) ||
@@ -1928,7 +1928,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		{
 			fire_ball(creature_ptr, GF_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
-			if (!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || has_trait(creature_ptr, TRAIT_IM_FIRE)))
+			if(!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || has_trait(creature_ptr, TRAIT_IM_FIRE)))
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
 #else
@@ -1942,7 +1942,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_ICE:
 		{
 			fire_ball(creature_ptr, GF_ICE, 0, 777, 4);
-			if (!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || has_trait(creature_ptr, TRAIT_IM_COLD)))
+			if(!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || has_trait(creature_ptr, TRAIT_IM_COLD)))
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
 #else
@@ -1956,7 +1956,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_CHAOS:
 		{
 			fire_ball(creature_ptr, GF_CHAOS, 0, 1000, 4);
-			if (!creature_ptr->resist_chaos)
+			if(!creature_ptr->resist_chaos)
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
 #else
@@ -2014,9 +2014,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 			/* An error occured */
 #ifdef JP
-			if (err) strcpy(Rumor, "嘘の噂もある。");
+			if(err) strcpy(Rumor, "嘘の噂もある。");
 #else
-			if (err) strcpy(Rumor, "Some rumors are wrong.");
+			if(err) strcpy(Rumor, "Some rumors are wrong.");
 #endif
 
 
@@ -2042,19 +2042,19 @@ msg_print("巻物は煙を立てて消え去った！");
 		case SV_SCROLL_ARTIFACT:
 		{
 			ident = TRUE;
-			if (!artifact_scroll(creature_ptr)) used_up = FALSE;
+			if(!artifact_scroll(creature_ptr)) used_up = FALSE;
 			break;
 		}
 
 		case SV_SCROLL_RESET_RECALL:
 		{
 			ident = TRUE;
-			if (!reset_recall(creature_ptr)) used_up = FALSE;
+			if(!reset_recall(creature_ptr)) used_up = FALSE;
 			break;
 		}
 	}
 	}
-	else if (object_ptr->name1 == ART_GHB)
+	else if(object_ptr->name1 == ART_GHB)
 	{
 #ifdef JP
 		msg_print("私は苦労して『グレーター・ヘル=ビースト』を倒した。");
@@ -2065,7 +2065,7 @@ msg_print("巻物は煙を立てて消え去った！");
 #endif
 		used_up = FALSE;
 	}
-	else if (object_ptr->name1 == ART_POWER)
+	else if(object_ptr->name1 == ART_POWER)
 	{
 #ifdef JP
 		msg_print("「一つの指輪は全てを統べ、");
@@ -2086,7 +2086,7 @@ msg_print("巻物は煙を立てて消え去った！");
 #endif
 		used_up = FALSE;
 	}
-	else if (object_ptr->tval==TV_PARCHMENT)
+	else if(object_ptr->tval==TV_PARCHMENT)
 	{
 		cptr q;
 		char object_name[MAX_NLEN];
@@ -2120,7 +2120,7 @@ msg_print("巻物は煙を立てて消え去った！");
 	object_tried(object_ptr);
 
 	/* An identification was made */
-	if (ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
@@ -2131,7 +2131,7 @@ msg_print("巻物は煙を立てて消え去った！");
 
 
 	/* Hack -- allow certain scrolls to be "preserved" */
-	if (!used_up)
+	if(!used_up)
 	{
 		return;
 	}
@@ -2139,7 +2139,7 @@ msg_print("巻物は煙を立てて消え去った！");
 	sound(SOUND_SCROLL);
 
 	/* Destroy a scroll in the pack */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
@@ -2162,13 +2162,13 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* Check some conditions */
-	if (IS_BLIND(creature_ptr))
+	if(IS_BLIND(creature_ptr))
 	{
 #ifdef JP
 		msg_print("目が見えない。");
@@ -2178,7 +2178,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 
 		return;
 	}
-	if (no_lite(creature_ptr))
+	if(no_lite(creature_ptr))
 	{
 #ifdef JP
 		msg_print("明かりがないので、暗くて読めない。");
@@ -2187,7 +2187,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 #endif
 		return;
 	}
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 		msg_print("混乱していて読めない。");
@@ -2206,10 +2206,10 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	s = "You have no scrolls to read.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -2236,23 +2236,23 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 	{
 		case SV_STAFF_DARKNESS:
 		{
-			if (!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
+			if(!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
 			{
-				if (set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5))) ident = TRUE;
+				if(set_blind(creature_ptr, IS_BLIND(creature_ptr) + 3 + randint1(5))) ident = TRUE;
 			}
-			if (unlite_area(creature_ptr, 10, 3)) ident = TRUE;
+			if(unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if (set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HASTE_MONSTERS:
 		{
-			if (speed_creatures(creature_ptr)) ident = TRUE;
+			if(speed_creatures(creature_ptr)) ident = TRUE;
 			break;
 		}
 
@@ -2260,7 +2260,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			for (k = 0; k < randint1(4); k++)
 			{
-				if (summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -2277,16 +2277,16 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_IDENTIFY:
 		{
-			if (!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
+			if(!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_REMOVE_CURSE:
 		{
-			if (remove_curse(creature_ptr))
+			if(remove_curse(creature_ptr))
 			{
-				if (magic)
+				if(magic)
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -2294,7 +2294,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 					msg_print("You feel as if someone is watching over you.");
 #endif
 				}
-				else if (!IS_BLIND(creature_ptr))
+				else if(!IS_BLIND(creature_ptr))
 				{
 #ifdef JP
 					msg_print("杖は一瞬ブルーに輝いた...");
@@ -2314,7 +2314,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			int y, x;
 			int attempts;
 
-			if (!IS_BLIND(creature_ptr) && !magic)
+			if(!IS_BLIND(creature_ptr) && !magic)
 			{
 #ifdef JP
 				msg_print("杖の先が明るく輝いた...");
@@ -2331,9 +2331,9 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				{
 					scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-					if (!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
+					if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 
-					if (!creature_bold(creature_ptr, y, x)) break;
+					if(!creature_bold(creature_ptr, y, x)) break;
 				}
 
 				project(creature_ptr, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
@@ -2345,7 +2345,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_LITE:
 		{
-			if (lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
+			if(lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -2358,74 +2358,74 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_DETECT_GOLD:
 		{
-			if (detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_treasure(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_objects_gold(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_ITEM:
 		{
-			if (detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_objects_normal(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_TRAP:
 		{
-			if (detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
+			if(detect_traps(creature_ptr, DETECT_RAD_DEFAULT, known)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_DOOR:
 		{
-			if (detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_INVIS:
 		{
-			if (detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_DETECT_EVIL:
 		{
-			if (detect_creatures_evil(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_creatures_evil(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_CURE_LIGHT:
 		{
-			if (heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_CURING:
 		{
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_image(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_image(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HEALING:
 		{
-			if (heal_creature(creature_ptr, 300)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, 300)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_THE_MAGI:
 		{
-			if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
-			if (creature_ptr->csp < creature_ptr->msp)
+			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if(creature_ptr->csp < creature_ptr->msp)
 			{
 				creature_ptr->csp = creature_ptr->msp;
 				creature_ptr->csp_frac = 0;
@@ -2440,25 +2440,25 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
 			}
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLEEP_MONSTERS:
 		{
-			if (sleep_creatures(creature_ptr)) ident = TRUE;
+			if(sleep_creatures(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SLOW_MONSTERS:
 		{
-			if (slow_creatures(creature_ptr)) ident = TRUE;
+			if(slow_creatures(creature_ptr)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_SPEED:
 		{
-			if (set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -2471,26 +2471,26 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_DISPEL_EVIL:
 		{
-			if (dispel_evil(creature_ptr, 80)) ident = TRUE;
+			if(dispel_evil(creature_ptr, 80)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_POWER:
 		{
-			if (dispel_creatures(creature_ptr, 150)) ident = TRUE;
+			if(dispel_creatures(creature_ptr, 150)) ident = TRUE;
 			break;
 		}
 
 		case SV_STAFF_HOLINESS:
 		{
-			if (dispel_evil(creature_ptr, 150)) ident = TRUE;
+			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
-			if (set_protevil(creature_ptr, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_afraid(creature_ptr, 0)) ident = TRUE;
-			if (heal_creature(creature_ptr, 50)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_protevil(creature_ptr, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(heal_creature(creature_ptr, 50)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			break;
 		}
 
@@ -2503,7 +2503,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_EARTHQUAKES:
 		{
-			if (earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10))
+			if(earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 10))
 				ident = TRUE;
 			else
 #ifdef JP
@@ -2518,7 +2518,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_DESTRUCTION:
 		{
-			if (destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
+			if(destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 
 			break;
@@ -2526,7 +2526,7 @@ msg_print("ダンジョンが揺れた。");
 
 		case SV_STAFF_ANIMATE_DEAD:
 		{
-			if (animate_dead(NULL, creature_ptr->fy, creature_ptr->fx))
+			if(animate_dead(NULL, creature_ptr->fy, creature_ptr->fx))
 				ident = TRUE;
 
 			break;
@@ -2541,7 +2541,7 @@ msg_print("ダンジョンが揺れた。");
 #endif
 			project(creature_ptr, 5, creature_ptr->fy, creature_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
-			if ((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
+			if((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
 				(void)take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
@@ -2592,7 +2592,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -2605,7 +2605,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 
 	/* Mega-Hack -- refuse to use a pile from the ground */
-	if ((item < 0) && (object_ptr->number > 1))
+	if((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
 		msg_print("まずは杖を拾わなければ。");
@@ -2622,26 +2622,26 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
-	if (lev > 50) lev = 50 + (lev - 50)/2;
+	if(lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
 
 	/* Give everyone a (slight) chance */
-	if ((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1))
+	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1))
 	{
 		chance = USE_DEVICE;
 	}
 
-	if (creature_ptr->time_stopper)
+	if(creature_ptr->time_stopper)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("止まった時の中ではうまく働かないようだ。");
 #else
@@ -2653,9 +2653,9 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
+	if((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("杖をうまく使えなかった。");
 #else
@@ -2667,9 +2667,9 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Notice empty staffs */
-	if (object_ptr->pval <= 0)
+	if(object_ptr->pval <= 0)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("この杖にはもう魔力が残っていない。");
 #else
@@ -2699,7 +2699,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	object_tried(object_ptr);
 
 	/* An identification was made */
-	if (ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
@@ -2710,14 +2710,14 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 
 	/* Hack -- some uses are "free" */
-	if (!use_charge) return;
+	if(!use_charge) return;
 
 
 	/* Use a single charge */
 	object_ptr->pval--;
 
 	/* XXX Hack -- unstack if necessary */
-	if ((item >= 0) && (object_ptr->number > 1))
+	if((item >= 0) && (object_ptr->number > 1))
 	{
 		object_type forge;
 		object_type *quest_ptr;
@@ -2749,7 +2749,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Describe charges in the pack */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_charges(creature_ptr, item);
 	}
@@ -2767,7 +2767,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2781,7 +2781,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 	s = "You have no staff to use.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
 
 	do_cmd_use_staff_aux(creature_ptr, item);
 }
@@ -2792,23 +2792,23 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 	int ident = FALSE;
 
 	/* XXX Hack -- Wand of wonder can do anything before it */
-	if (sval == SV_WAND_WONDER)
+	if(sval == SV_WAND_WONDER)
 	{
 		// TODO: add Karma of Fortune feature.
 		int vir = 0;
 		sval = randint0(SV_WAND_WONDER);
 
-		if (vir)
+		if(vir)
 		{
-			if (creature_ptr->karmas[vir - 1] > 0)
+			if(creature_ptr->karmas[vir - 1] > 0)
 			{
 				while (randint1(300) < creature_ptr->karmas[vir - 1]) sval++;
-				if (sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
+				if(sval > SV_WAND_COLD_BALL) sval = randint0(4) + SV_WAND_ACID_BALL;
 			}
 			else
 			{
 				while (randint1(300) < (0-creature_ptr->karmas[vir - 1])) sval--;
-				if (sval < SV_WAND_HEAL_OTHER_CREATURE) sval = randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
+				if(sval < SV_WAND_HEAL_OTHER_CREATURE) sval = randint0(3) + SV_WAND_HEAL_OTHER_CREATURE;
 			}
 		}
 	}
@@ -2818,43 +2818,43 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 	{
 		case SV_WAND_HEAL_OTHER_CREATURE:
 		{
-			if (heal_other_creature(creature_ptr, dir, diceroll(10, 10))) ident = TRUE;
+			if(heal_other_creature(creature_ptr, dir, diceroll(10, 10))) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_HASTE_MONSTER:
 		{
-			if (speed_other_creature(creature_ptr, dir)) ident = TRUE;
+			if(speed_other_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_CLONE_MONSTER:
 		{
-			if (clone_creature(creature_ptr, dir)) ident = TRUE;
+			if(clone_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_TELEPORT_AWAY:
 		{
-			if (teleport_creature(creature_ptr, dir)) ident = TRUE;
+			if(teleport_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DISARMING:
 		{
-			if (disarm_trap(creature_ptr, dir)) ident = TRUE;
+			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_TRAP_DOOR_DEST:
 		{
-			if (destroy_door(creature_ptr, dir)) ident = TRUE;
+			if(destroy_door(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_STONE_TO_MUD:
 		{
-			if (wall_to_mud(creature_ptr, dir)) ident = TRUE;
+			if(wall_to_mud(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -2873,37 +2873,37 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_SLEEP_MONSTER:
 		{
-			if (sleep_creature(creature_ptr, dir)) ident = TRUE;
+			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_SLOW_MONSTER:
 		{
-			if (slow_creature(creature_ptr, dir)) ident = TRUE;
+			if(slow_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_CONFUSE_MONSTER:
 		{
-			if (confuse_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
+			if(confuse_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FEAR_MONSTER:
 		{
-			if (fear_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
+			if(fear_creature(creature_ptr, dir, creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAIN_LIFE:
 		{
-			if (drain_life(creature_ptr, dir, 80 + creature_ptr->lev)) ident = TRUE;
+			if(drain_life(creature_ptr, dir, 80 + creature_ptr->lev)) ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_POLYMORPH:
 		{
-			if (poly_creature(creature_ptr, dir)) ident = TRUE;
+			if(poly_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -2930,7 +2930,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_CHARM_MONSTER:
 		{
-			if (charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
+			if(charm_creature(creature_ptr, dir, MAX(20, creature_ptr->lev)))
 			ident = TRUE;
 			break;
 		}
@@ -3106,7 +3106,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	bool old_target_pet = target_pet;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -3118,7 +3118,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Mega-Hack -- refuse to aim a pile from the ground */
-	if ((item < 0) && (object_ptr->number > 1))
+	if((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
 		msg_print("まずは魔法棒を拾わなければ。");
@@ -3131,10 +3131,10 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 
 	/* Allow direction to be cancelled for free */
-	if (object_is_aware(object_ptr) && (object_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
+	if(object_is_aware(object_ptr) && (object_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
 				      || object_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
-	if (!get_aim_dir(creature_ptr, &dir))
+	if(!get_aim_dir(creature_ptr, &dir))
 	{
 		target_pet = old_target_pet;
 		return;
@@ -3146,26 +3146,26 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 	/* Get the level */
 	lev = object_kind_info[object_ptr->k_idx].level;
-	if (lev > 50) lev = 50 + (lev - 50)/2;
+	if(lev > 50) lev = 50 + (lev - 50)/2;
 
 	/* Base chance of success */
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
 
 	/* Give everyone a (slight) chance */
-	if ((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1))
+	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1))
 	{
 		chance = USE_DEVICE;
 	}
 
-	if (creature_ptr->time_stopper)
+	if(creature_ptr->time_stopper)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("止まった時の中ではうまく働かないようだ。");
 #else
@@ -3177,9 +3177,9 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Roll for usage */
-	if ((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
+	if((chance < USE_DEVICE) || (randint1(chance) < USE_DEVICE) || (creature_ptr->class_idx == CLASS_BERSERKER))
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("魔法棒をうまく使えなかった。");
 #else
@@ -3191,9 +3191,9 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* The wand is already empty! */
-	if (object_ptr->pval <= 0)
+	if(object_ptr->pval <= 0)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("この魔法棒にはもう魔力が残っていない。");
 #else
@@ -3221,7 +3221,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	object_tried(object_ptr);
 
 	/* Apply identification */
-	if (ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
@@ -3235,7 +3235,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	object_ptr->pval--;
 
 	/* Describe the charges in the pack */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		inven_item_charges(creature_ptr, item);
 	}
@@ -3253,7 +3253,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	int     item;
 	cptr    q, s;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -3267,7 +3267,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	s = "You have no wand to aim.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_WAND)) return;
 
 	/* Aim the wand */
 	do_cmd_aim_wand_aux(creature_ptr, item);
@@ -3286,34 +3286,34 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 	{
 		case SV_ROD_DETECT_TRAP:
 		{
-			if (detect_traps(creature_ptr, DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
+			if(detect_traps(creature_ptr, DETECT_RAD_DEFAULT, (bool)(dir ? FALSE : TRUE))) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DETECT_DOOR:
 		{
-			if (detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
-			if (detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_doors(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
+			if(detect_stairs(creature_ptr, DETECT_RAD_DEFAULT)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_IDENTIFY:
 		{
-			if (!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
+			if(!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_RECALL:
 		{
-			if (!word_of_recall(creature_ptr)) *use_charge = FALSE;
+			if(!word_of_recall(creature_ptr)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ILLUMINATION:
 		{
-			if (lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
+			if(lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
 		}
 
@@ -3340,58 +3340,58 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_CURING:
 		{
-			if (set_blind(creature_ptr, 0)) ident = TRUE;
-			if (set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if (set_confused(creature_ptr, 0)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_image(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_blind(creature_ptr, 0)) ident = TRUE;
+			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_image(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_HEALING:
 		{
-			if (heal_creature(creature_ptr, 500)) ident = TRUE;
-			if (set_stun(creature_ptr, 0)) ident = TRUE;
-			if (set_cut(creature_ptr, 0)) ident = TRUE;
-			if (set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(heal_creature(creature_ptr, 500)) ident = TRUE;
+			if(set_stun(creature_ptr, 0)) ident = TRUE;
+			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_RESTORATION:
 		{
-			if (restore_level(creature_ptr)) ident = TRUE;
-			if (do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
-			if (do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
-			if (do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
-			if (do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
-			if (do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
-			if (do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+			if(restore_level(creature_ptr)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
+			if(do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_SPEED:
 		{
-			if (set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_PESTICIDE:
 		{
-			if (dispel_creatures(creature_ptr, 4)) ident = TRUE;
+			if(dispel_creatures(creature_ptr, 4)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_TELEPORT_AWAY:
 		{
-			if (teleport_creature(creature_ptr, dir)) ident = TRUE;
+			if(teleport_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DISARMING:
 		{
-			if (disarm_trap(creature_ptr, dir)) ident = TRUE;
+			if(disarm_trap(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3410,25 +3410,25 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_SLEEP_MONSTER:
 		{
-			if (sleep_creature(creature_ptr, dir)) ident = TRUE;
+			if(sleep_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_SLOW_MONSTER:
 		{
-			if (slow_creature(creature_ptr, dir)) ident = TRUE;
+			if(slow_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_DRAIN_LIFE:
 		{
-			if (drain_life(creature_ptr, dir, 70 + 3 * creature_ptr->lev / 2)) ident = TRUE;
+			if(drain_life(creature_ptr, dir, 70 + 3 * creature_ptr->lev / 2)) ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_POLYMORPH:
 		{
-			if (poly_creature(creature_ptr, dir)) ident = TRUE;
+			if(poly_creature(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3497,7 +3497,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_STONE_TO_MUD:
 		{
-			if (wall_to_mud(creature_ptr, dir)) ident = TRUE;
+			if(wall_to_mud(creature_ptr, dir)) ident = TRUE;
 			break;
 		}
 
@@ -3534,7 +3534,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	object_kind *k_ptr;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -3547,7 +3547,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 
 	/* Mega-Hack -- refuse to zap a pile from the ground */
-	if ((item < 0) && (object_ptr->number > 1))
+	if((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
 		msg_print("まずはロッドを拾わなければ。");
@@ -3560,11 +3560,11 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 
 	/* Get a direction (unless KNOWN not to need it) */
-	if (((object_ptr->sval >= SV_ROD_MIN_DIRECTION) && (object_ptr->sval != SV_ROD_HAVOC) && (object_ptr->sval != SV_ROD_AGGRAVATE) && (object_ptr->sval != SV_ROD_PESTICIDE)) ||
+	if(((object_ptr->sval >= SV_ROD_MIN_DIRECTION) && (object_ptr->sval != SV_ROD_HAVOC) && (object_ptr->sval != SV_ROD_AGGRAVATE) && (object_ptr->sval != SV_ROD_PESTICIDE)) ||
 	     !object_is_aware(object_ptr))
 	{
 		/* Get a direction, allow cancel */
-		if (!get_aim_dir(creature_ptr, &dir)) return;
+		if(!get_aim_dir(creature_ptr, &dir)) return;
 	}
 
 
@@ -3578,17 +3578,17 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	fail = lev+5;
-	if (chance > fail) fail -= (chance - fail)*2;
+	if(chance > fail) fail -= (chance - fail)*2;
 	else chance -= (fail - chance)*2;
-	if (fail < USE_DEVICE) fail = USE_DEVICE;
-	if (chance < USE_DEVICE) chance = USE_DEVICE;
+	if(fail < USE_DEVICE) fail = USE_DEVICE;
+	if(chance < USE_DEVICE) chance = USE_DEVICE;
 
-	if (creature_ptr->time_stopper)
+	if(creature_ptr->time_stopper)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("止まった時の中ではうまく働かないようだ。");
 #else
@@ -3599,22 +3599,22 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	if (creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
-	else if (chance > fail)
+	if(creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
+	else if(chance > fail)
 	{
-		if (randint0(chance*2) < fail) success = FALSE;
+		if(randint0(chance*2) < fail) success = FALSE;
 		else success = TRUE;
 	}
 	else
 	{
-		if (randint0(fail*2) < chance) success = TRUE;
+		if(randint0(fail*2) < chance) success = TRUE;
 		else success = FALSE;
 	}
 
 	/* Roll for usage */
-	if (!success)
+	if(!success)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("うまくロッドを使えなかった。");
 #else
@@ -3628,9 +3628,9 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	k_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* A single rod is still charging */
-	if ((object_ptr->number == 1) && (object_ptr->timeout))
+	if((object_ptr->number == 1) && (object_ptr->timeout))
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("このロッドはまだ魔力を充填している最中だ。");
 #else
@@ -3640,9 +3640,9 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 	/* A stack of rods lacks enough energy. */
-	else if ((object_ptr->number > 1) && (object_ptr->timeout > k_ptr->pval * (object_ptr->number - 1)))
+	else if((object_ptr->number > 1) && (object_ptr->timeout > k_ptr->pval * (object_ptr->number - 1)))
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 msg_print("そのロッドはまだ充填中です。");
 #else
@@ -3655,7 +3655,7 @@ msg_print("そのロッドはまだ充填中です。");
 	sound(SOUND_ZAP);
 
 	ident = rod_effect(creature_ptr, object_ptr->sval, dir, &use_charge, FALSE);
-	if (use_charge)
+	if(use_charge)
 	{
 		object_ptr->timeout += object_ptr->charge_const; // Increase the timeout
 		if(object_ptr->charge_dice) object_ptr->timeout += randint1(object_ptr->charge_dice);
@@ -3665,7 +3665,7 @@ msg_print("そのロッドはまだ充填中です。");
 	object_tried(object_ptr);	// Tried the object
 
 	/* Successfully determined the object function */
-	if (ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr))
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
@@ -3681,7 +3681,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	int item;
 	cptr q, s;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -3695,7 +3695,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	s = "You have no rod to zap.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
 
 	/* Zap the rod */
 	do_cmd_zap_rod_aux(creature_ptr, item);
@@ -3709,7 +3709,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 {
 	u32b flgs[TRAIT_FLAG_MAX];
 
-	if (!object_is_known(object_ptr)) return (FALSE);	// Not known
+	if(!object_is_known(object_ptr)) return (FALSE);	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
 
 	// TODO:Check activation flag
@@ -3800,17 +3800,17 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 	/* Unused */
 	(void)v;
 
-	if (m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
-	if (m_ptr2->nickname && !m_ptr1->nickname) return FALSE;
+	if(m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
+	if(m_ptr2->nickname && !m_ptr1->nickname) return FALSE;
 
-	if (has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return TRUE;
-	if (has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return FALSE;
+	if(has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return TRUE;
+	if(has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return FALSE;
 
-	if (r_ptr1->level > r_ptr2->level) return TRUE;
-	if (r_ptr2->level > r_ptr1->level) return FALSE;
+	if(r_ptr1->level > r_ptr2->level) return TRUE;
+	if(r_ptr2->level > r_ptr1->level) return FALSE;
 
-	if (m_ptr1->chp > m_ptr2->chp) return TRUE;
-	if (m_ptr2->chp > m_ptr1->chp) return FALSE;
+	if(m_ptr1->chp > m_ptr2->chp) return TRUE;
+	if(m_ptr2->chp > m_ptr1->chp) return FALSE;
 	
 	return w1 <= w2;
 }
@@ -3834,7 +3834,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -3852,8 +3852,8 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	lev = object_kind_info[object_ptr->k_idx].level;
 
 	/* Hack -- use artifact level instead */
-	if (object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level;
-	else if (object_ptr->art_name)
+	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level;
+	else if(object_ptr->art_name)
 	{
 		switch (object_ptr->xtra2)
 		{
@@ -3949,23 +3949,23 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				lev = 0;
 		}
 	}
-	else if (((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
+	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
 
 	/* Base chance of success */
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
 
 	fail = lev+5;
-	if (chance > fail) fail -= (chance - fail)*2;
+	if(chance > fail) fail -= (chance - fail)*2;
 	else chance -= (fail - chance)*2;
-	if (fail < USE_DEVICE) fail = USE_DEVICE;
-	if (chance < USE_DEVICE) chance = USE_DEVICE;
+	if(fail < USE_DEVICE) fail = USE_DEVICE;
+	if(chance < USE_DEVICE) chance = USE_DEVICE;
 
-	if (creature_ptr->time_stopper)
+	if(creature_ptr->time_stopper)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("止まった時の中ではうまく働かないようだ。");
 #else
@@ -3976,22 +3976,22 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	if (creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
-	else if (chance > fail)
+	if(creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
+	else if(chance > fail)
 	{
-		if (randint0(chance*2) < fail) success = FALSE;
+		if(randint0(chance*2) < fail) success = FALSE;
 		else success = TRUE;
 	}
 	else
 	{
-		if (randint0(fail*2) < chance) success = TRUE;
+		if(randint0(fail*2) < chance) success = TRUE;
 		else success = FALSE;
 	}
 
 	/* Roll for usage */
-	if (!success)
+	if(!success)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 		msg_print("うまく始動させることができなかった。");
 #else
@@ -4003,7 +4003,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Check the recharge */
-	if (object_ptr->timeout)
+	if(object_ptr->timeout)
 	{
 #ifdef JP
 		msg_print("それは微かに音を立て、輝き、消えた...");
@@ -4027,7 +4027,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	sound(SOUND_ZAP);
 
 
-	if (object_ptr->art_name && object_ptr->xtra2)
+	if(object_ptr->art_name && object_ptr->xtra2)
 	{
 		(void)activate_random_artifact(creature_ptr, object_ptr);
 
@@ -4039,7 +4039,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Artifacts */
-	else if (object_is_fixed_artifact(object_ptr))
+	else if(object_is_fixed_artifact(object_ptr))
 	{
 		/* Choose effect */
 		switch (object_ptr->name1)
@@ -4091,9 +4091,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)detect_stairs(creature_ptr, DETECT_RAD_DEFAULT);
 
 #ifdef JP
-				if (get_check("帰還の力を使いますか？"))
+				if(get_check("帰還の力を使いますか？"))
 #else
-				if (get_check("Activate recall? "))
+				if(get_check("Activate recall? "))
 #endif
 
 				{
@@ -4112,8 +4112,8 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_STRANGLING:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
-				if (drain_life(creature_ptr, dir, 100))
+				if(!get_aim_dir(creature_ptr, &dir)) return;
+				if(drain_life(creature_ptr, dir, 100))
 				break;
 			}
 
@@ -4125,21 +4125,21 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			//case TRAIT_BA_FIRE_L:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 400, 3);
 				break;
 			}
 
 			case TRAIT_BA_COLD_L:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 400, 3);
 				break;
 			}
 
 			//case TRAIT_BA_ELEC_L:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_ELEC, dir, 400, 3);
 				break;
 			}
@@ -4151,7 +4151,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("The ring glows intensely black...");
 #endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				ring_of_power(creature_ptr, dir);
 				break;
 			}
@@ -4177,9 +4177,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					{
 						scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
-						if (!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
+						if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 
-						if (!creature_bold(creature_ptr, y, x)) break;
+						if(!creature_bold(creature_ptr, y, x)) break;
 					}
 
 					project(creature_ptr, 3, y, x, 150, GF_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
@@ -4190,7 +4190,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_ELEMENTAL_BREATH:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_MISSILE, dir, 300, 4);
 				break;
 			}
@@ -4295,7 +4295,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_MISSILE:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_MISSILE, dir, diceroll(2, 6));
 				object_ptr->timeout = 2;
 				break;
@@ -4309,7 +4309,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				msg_print("Your gauntlets are covered in fire...");
 #endif
 
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_FIRE, dir, diceroll(9, 8));
 				object_ptr->timeout = randint0(8) + 8;
 				break;
@@ -4322,7 +4322,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("Your gauntlets are covered in frost...");
 #endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_COLD, dir, diceroll(6, 8));
 				break;
 			}
@@ -4335,7 +4335,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				msg_print("Your gauntlets are covered in sparks...");
 #endif
 
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ELEC, dir, diceroll(4, 8));
 				object_ptr->timeout = randint0(5) + 5;
 				break;
@@ -4349,7 +4349,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				msg_print("Your gauntlets are covered in acid...");
 #endif
 
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ACID, dir, diceroll(5, 8));
 				object_ptr->timeout = randint0(6) + 6;
 				break;
@@ -4362,7 +4362,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("Your cesti grows magical spikes...");
 #endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_bolt(creature_ptr, GF_ARROW, dir, 150);
 				break;
 			}
@@ -4397,7 +4397,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("Your dagger throbs deep blue...");
 #endif
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_WATER, dir, 200, 3);
 				break;
 			}
@@ -4417,13 +4417,13 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					break;
 				default:
 #ifdef JP
-if (get_check("この階を去りますか？"))
+if(get_check("この階を去りますか？"))
 #else
-					if (get_check("Leave this level? "))
+					if(get_check("Leave this level? "))
 #endif
 
 					{
-						if (autosave_l) do_cmd_save_game(TRUE);
+						if(autosave_l) do_cmd_save_game(TRUE);
 
 						/* Leaving */
 						subject_change_floor = TRUE;
@@ -4440,7 +4440,7 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_BA_COLD:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
 				break;
 			}
@@ -4460,14 +4460,14 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_DRAIN_LIFE1:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 120);
 				break;
 			}
 
 			case TRAIT_STONE_TO_MUD:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				wall_to_mud(creature_ptr, dir);
 				break;
 			}
@@ -4487,33 +4487,33 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_TELE_AWAY:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				teleport_creature(creature_ptr, dir);
 				break;
 			}
 
 			case TRAIT_RECALL:
 			{
-				if (!word_of_recall(creature_ptr)) return;
+				if(!word_of_recall(creature_ptr)) return;
 				break;
 			}
 
 			case TRAIT_PANIC_CREATURE:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				confuse_creature(creature_ptr, dir, 20);
 				break;
 			}
 
 			case TRAIT_IDENTIFY:
 			{
-				if (!ident_spell(creature_ptr, FALSE)) return;
+				if(!ident_spell(creature_ptr, FALSE)) return;
 				break;
 			}
 
 			case TRAIT_DRAIN_LIFE2:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				drain_life(creature_ptr, dir, 90);
 				break;
 			}
@@ -4536,24 +4536,24 @@ if (get_check("この階を去りますか？"))
 				msg_print("I'll fire CRIMSON! SEKKAKUDAKARA!");
 #endif
 
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 
 				/* Use the given direction */
 				tx = creature_ptr->fx + 99 * ddx[dir];
 				ty = creature_ptr->fy + 99 * ddy[dir];
 
 				/* Hack -- Use an actual "target" */
-				if ((dir == 5) && target_okay(creature_ptr))
+				if((dir == 5) && target_okay(creature_ptr))
 				{
 					tx = target_col;
 					ty = target_row;
 				}
 
-				if (creature_ptr->class_idx == CLASS_ARCHER) // Extra shot at level
+				if(creature_ptr->class_idx == CLASS_ARCHER) // Extra shot at level
 				{
-					if (creature_ptr->lev >= 10) num++;
-					if (creature_ptr->lev >= 30) num++;
-					if (creature_ptr->lev >= 45) num++;
+					if(creature_ptr->lev >= 10) num++;
+					if(creature_ptr->lev >= 30) num++;
+					if(creature_ptr->lev >= 45) num++;
 				}
 
 				for (i = 0; i < num; i++)
@@ -4580,7 +4580,7 @@ if (get_check("この階を去りますか？"))
 					m_ptr = &creature_list[i];
 
 					/* Ignore "dead" creatures */
-					if (!m_ptr->species_idx) continue;
+					if(!m_ptr->species_idx) continue;
 
 					r_ptr = &species_info[m_ptr->species_idx];
 
@@ -4603,12 +4603,12 @@ if (get_check("この階を去りますか？"))
 #else
 				msg_print("The stone reveals hidden mysteries...");
 #endif
-				if (!ident_spell(creature_ptr, FALSE)) return;
+				if(!ident_spell(creature_ptr, FALSE)) return;
 
-				if (magic_info[creature_ptr->class_idx].spell_book)
+				if(magic_info[creature_ptr->class_idx].spell_book)
 				{
 					/* Sufficient mana */
-					if (20 <= creature_ptr->csp)
+					if(20 <= creature_ptr->csp)
 					{
 						/* Use some mana */
 						creature_ptr->csp -= 20;
@@ -4650,11 +4650,11 @@ if (get_check("この階を去りますか？"))
 #endif
 
 				/* Confusing. */
-				if (one_in_(5)) (void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] +
+				if(one_in_(5)) (void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] +
 					randint1(10));
 
 				/* Exercise a little care... */
-				if (one_in_(20))
+				if(one_in_(20))
 #ifdef JP
 					take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "危険な秘密", NULL, -1);
 #else
@@ -4666,8 +4666,8 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_FRIGHTEN_SOUND:
 			{
-				if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-				if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+				if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+				if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 #ifdef JP
 				msg_print("あなたは力強い突風を吹き鳴らした。");
 #else
@@ -4710,7 +4710,7 @@ if (get_check("この階を去りますか？"))
 #else
 				msg_print("Your card gleams with blinding light...");
 #endif
-				if (!recharge(creature_ptr, 1000)) return;
+				if(!recharge(creature_ptr, 1000)) return;
 				break;
 			}
 
@@ -4718,9 +4718,9 @@ if (get_check("この階を去りますか？"))
 			case ART_MURAMASA:
 			{
 #ifdef JP
-				if (get_check("本当に使いますか？"))
+				if(get_check("本当に使いますか？"))
 #else
-				if (get_check("Are you sure?!"))
+				if(get_check("Are you sure?!"))
 #endif
 				{
 #ifdef JP
@@ -4729,7 +4729,7 @@ if (get_check("この階を去りますか？"))
 					msg_print("The Muramasa pulsates...");
 #endif
 					do_inc_stat(creature_ptr, STAT_STR);
-					if (one_in_(2))
+					if(one_in_(2))
 					{
 #ifdef JP
 						msg_print("村正は壊れた！");
@@ -4747,11 +4747,11 @@ if (get_check("この階を去りますか？"))
 			{
 				int x, y;
 
-				if (!get_rep_dir2(creature_ptr, &dir)) return;
+				if(!get_rep_dir2(creature_ptr, &dir)) return;
 				y = creature_ptr->fy+ddy[dir];
 				x = creature_ptr->fx+ddx[dir];
 				creature_ptr->tsuri_dir = dir;
-				if (!cave_have_flag_bold(floor_ptr, y, x, FF_WATER))
+				if(!cave_have_flag_bold(floor_ptr, y, x, FF_WATER))
 				{
 #ifdef JP
 					msg_print("そこは水辺ではない。");
@@ -4760,7 +4760,7 @@ if (get_check("この階を去りますか？"))
 #endif
 					return;
 				}
-				else if (floor_ptr->cave[y][x].creature_idx)
+				else if(floor_ptr->cave[y][x].creature_idx)
 				{
 					char m_name[80];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
@@ -4778,7 +4778,7 @@ if (get_check("この階を去りますか？"))
 			}
 			case TRAIT_TELEKINES:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 #ifdef JP
 				msg_print("ムチを伸ばした。");
 #else
@@ -4791,7 +4791,7 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_STAR_BALL:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_LITE, dir, 200, 3);
 				break;
 			}
@@ -4804,7 +4804,7 @@ if (get_check("この階を去りますか？"))
 				cptr kakusan = "";
 #endif
 
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
+				if(summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『助さん』が現れた。");
@@ -4814,7 +4814,7 @@ if (get_check("この階を去りますか？"))
 #endif
 					count++;
 				}
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_KAKU, PC_FORCE_PET))
+				if(summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_KAKU, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("『格さん』が現れた。");
@@ -4824,21 +4824,21 @@ if (get_check("この階を去りますか？"))
 #endif
 					count++;
 				}
-				if (!count)
+				if(!count)
 				{
 					for (i = creature_max - 1; i > 0; i--)
 					{
 						m_ptr = &creature_list[i];
-						if (!m_ptr->species_idx) continue;
-						if (!((m_ptr->species_idx == SPECIES_SUKE) || (m_ptr->species_idx == SPECIES_KAKU))) continue;
-						if (!los(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
-						if (!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
+						if(!m_ptr->species_idx) continue;
+						if(!((m_ptr->species_idx == SPECIES_SUKE) || (m_ptr->species_idx == SPECIES_KAKU))) continue;
+						if(!los(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
+						if(!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, creature_ptr->fy, creature_ptr->fx)) continue;
 						count++;
 						break;
 					}
 				}
 
-				if (count)
+				if(count)
 				{
 #ifdef JP
 					msg_print("「者ども、ひかえおろう！！！このお方をどなたとこころえる。」");
@@ -4896,7 +4896,7 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_CHARM_ANIMALS:
 			{
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				(void)charm_animal(creature_ptr, dir, creature_ptr->lev);
 				break;
 			}
@@ -4909,7 +4909,7 @@ if (get_check("この階を去りますか？"))
 				msg_print("Your scythe glows brightly!");
 #endif
 				get_bloody_moon_flags(object_ptr);
-				if (has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
+				if(has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 				break;
 			}
@@ -4939,11 +4939,11 @@ if (get_check("この階を去りますか？"))
 			{
 				u32b mode = PC_ALLOW_GROUP;
 				bool pet = !one_in_(5);
-				if (pet) mode |= PC_FORCE_PET;
+				if(pet) mode |= PC_FORCE_PET;
 
-				if (summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_JIZOTAKO, mode))
+				if(summon_named_creature(0, floor_ptr, creature_ptr->fy, creature_ptr->fx, SPECIES_JIZOTAKO, mode))
 				{
-					if (pet)
+					if(pet)
 #ifdef JP
 						msg_print("蛸があなたの下僕として出現した。");
 #else
@@ -4978,7 +4978,7 @@ if (get_check("この階を去りますか？"))
 
 			case TRAIT_REMOVE_CURSE_2:
 			{
-				if (remove_all_curse(creature_ptr))
+				if(remove_all_curse(creature_ptr))
 				{
 #ifdef JP
 					msg_print("誰かに見守られているような気がする。");
@@ -4995,19 +4995,19 @@ if (get_check("この階を去りますか？"))
 #else
 				msg_print("Your pendant glows pale...");
 #endif
-				if (creature_ptr->class_idx == CLASS_MAGIC_EATER)
+				if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
 				{
 					int i;
 					for (i = 0; i < EATER_EXT * 2; i++)
 					{
 						creature_ptr->class_skills.old_skills.magic_num1[i] += (creature_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_CHARGE * 3 : creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE/3;
-						if (creature_ptr->class_skills.old_skills.magic_num1[i] > creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE) creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
+						if(creature_ptr->class_skills.old_skills.magic_num1[i] > creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE) creature_ptr->class_skills.old_skills.magic_num1[i] = creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_CHARGE;
 					}
 					for (; i < EATER_EXT * 3; i++)
 					{
 						int k_idx = lookup_kind(TV_ROD, i - EATER_EXT * 2);
 						creature_ptr->class_skills.old_skills.magic_num1[i] -= ((creature_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : creature_ptr->class_skills.old_skills.magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
-						if (creature_ptr->class_skills.old_skills.magic_num1[i] < 0) creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
+						if(creature_ptr->class_skills.old_skills.magic_num1[i] < 0) creature_ptr->class_skills.old_skills.magic_num1[i] = 0;
 					}
 #ifdef JP
 					msg_print("頭がハッキリとした。");
@@ -5016,7 +5016,7 @@ if (get_check("この階を去りますか？"))
 #endif
 					play_window |= (PW_PLAYER);
 				}
-				else if (creature_ptr->csp < creature_ptr->msp)
+				else if(creature_ptr->csp < creature_ptr->msp)
 				{
 					creature_ptr->csp = creature_ptr->msp;
 					creature_ptr->csp_frac = 0;
@@ -5042,7 +5042,7 @@ if (get_check("この階を去りますか？"))
 		return;
 	}
 
-	if (object_is_smith(object_ptr))
+	if(object_is_smith(object_ptr))
 	{
 		switch (object_ptr->xtra3-1)
 		{
@@ -5068,9 +5068,9 @@ if (get_check("この階を去りますか？"))
 		}
 	}
 
-	if (object_ptr->name2 == EGO_LITE_ILLUMINATION)
+	if(object_ptr->name2 == EGO_LITE_ILLUMINATION)
 	{
-		if (!object_ptr->xtra4 && ((object_ptr->sval == SV_LITE_TORCH) || (object_ptr->sval == SV_LITE_LANTERN)))
+		if(!object_ptr->xtra4 && ((object_ptr->sval == SV_LITE_TORCH) || (object_ptr->sval == SV_LITE_LANTERN)))
 		{
 #ifdef JP
 			msg_print("燃料がない。");
@@ -5090,7 +5090,7 @@ if (get_check("この階を去りますか？"))
 	}
 
 
-	if (object_ptr->name2 == EGO_EARTHQUAKES)
+	if(object_ptr->name2 == EGO_EARTHQUAKES)
 	{
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
 		object_ptr->timeout = 100 + randint1(100);
@@ -5103,13 +5103,13 @@ if (get_check("この階を去りますか？"))
 	}
 
 	/* Hack -- Dragon Scale Mail can be activated as well */
-	if (object_ptr->tval == TV_DRAG_ARMOR)
+	if(object_ptr->tval == TV_DRAG_ARMOR)
 	{
 		/* Get a direction for breathing (or abort) */
-		if (!get_aim_dir(creature_ptr, &dir)) return;
+		if(!get_aim_dir(creature_ptr, &dir)) return;
 
-		if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-		if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+		if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 		/* Branch on the sub-type */
 		switch (object_ptr->sval)
@@ -5234,9 +5234,9 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		return;
 	}
 
-	else if (object_ptr->tval == TV_RING)
+	else if(object_ptr->tval == TV_RING)
 	{
-		if (object_is_ego(object_ptr))
+		if(object_is_ego(object_ptr))
 		{
 			bool success = TRUE;
 
@@ -5249,9 +5249,9 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				object_ptr->timeout = randint1(100)+100;
 				break;
 			case EGO_RING_DRAGON_F:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_FIRE, dir, 200, -2);
-				if (object_ptr->sval == SV_RING_FLAMES)
+				if(object_ptr->sval == SV_RING_FLAMES)
 				{
 					(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
 					object_ptr->timeout = 200;
@@ -5259,9 +5259,9 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				else object_ptr->timeout = 250;
 				break;
 			case EGO_RING_DRAGON_C:
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 				fire_ball(creature_ptr, GF_COLD, dir, 200, -2);
-				if (object_ptr->sval == SV_RING_ICE)
+				if(object_ptr->sval == SV_RING_ICE)
 				{
 					(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
 					object_ptr->timeout = 200;
@@ -5293,11 +5293,11 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				success = FALSE;
 				break;
 			}
-			if (success) return;
+			if(success) return;
 		}
 
 		/* Get a direction for breathing (or abort) */
-		if (!get_aim_dir(creature_ptr, &dir)) return;
+		if(!get_aim_dir(creature_ptr, &dir)) return;
 
 		switch (object_ptr->sval)
 		{
@@ -5341,10 +5341,10 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		return;
 	}
 
-	else if (object_ptr->tval == TV_WHISTLE)
+	else if(object_ptr->tval == TV_WHISTLE)
 	{
-		if (music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-		if (hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+		if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 		{
 			int pet_ctr, i;
 			u16b *who;
@@ -5357,7 +5357,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			/* Process the creatures (backwards) */
 			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
 			{
-				if (is_pet(player_ptr, &creature_list[pet_ctr]) && (creature_ptr->riding != pet_ctr))
+				if(is_pet(player_ptr, &creature_list[pet_ctr]) && (creature_ptr->riding != pet_ctr))
 				  who[max_pet++] = pet_ctr;
 			}
 
@@ -5376,13 +5376,13 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		object_ptr->timeout = 100+randint1(100);
 		return;
 	}
-	else if (object_ptr->tval == TV_CAPTURE)
+	else if(object_ptr->tval == TV_CAPTURE)
 	{
 		if(!object_ptr->pval)
 		{
 			bool old_target_pet = target_pet;
 			target_pet = TRUE;
-			if (!get_aim_dir(creature_ptr, &dir))
+			if(!get_aim_dir(creature_ptr, &dir))
 			{
 				target_pet = old_target_pet;
 				return;
@@ -5394,19 +5394,19 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				//TODO: Capture creature status.
 
 				/*
-				if (cap_nickname)
+				if(cap_nickname)
 				{
 					cptr t;
 					char *s;
 					char buf[80] = "";
 
-					if (object_ptr->inscription)
+					if(object_ptr->inscription)
 						strcpy(buf, quark_str(object_ptr->inscription));
 					s = buf;
 					for (s = buf;*s && (*s != '#'); s++)
 					{
 #ifdef JP
-						if (iskanji(*s)) s++;
+						if(iskanji(*s)) s++;
 #endif
 					}
 					*s = '#';
@@ -5438,16 +5438,16 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		else
 		{
 			bool success = FALSE;
-			if (!get_rep_dir2(creature_ptr, &dir)) return;
-			if (species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
+			if(!get_rep_dir2(creature_ptr, &dir)) return;
+			if(species_can_enter(floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], &species_info[object_ptr->pval], 0))
 			{
-				if (place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
+				if(place_creature_species(creature_ptr, floor_ptr, creature_ptr->fy + ddy[dir], creature_ptr->fx + ddx[dir], object_ptr->pval, (PC_FORCE_PET | PC_NO_KAGE)))
 				{
-					if (object_ptr->xtra3) creature_list[hack_m_idx_ii].speed = object_ptr->xtra3;
-					if (object_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = object_ptr->xtra5;
-					if (object_ptr->xtra4) creature_list[hack_m_idx_ii].chp = object_ptr->xtra4;
+					if(object_ptr->xtra3) creature_list[hack_m_idx_ii].speed = object_ptr->xtra3;
+					if(object_ptr->xtra5) creature_list[hack_m_idx_ii].mmhp = object_ptr->xtra5;
+					if(object_ptr->xtra4) creature_list[hack_m_idx_ii].chp = object_ptr->xtra4;
 					creature_list[hack_m_idx_ii].mhp = creature_list[hack_m_idx_ii].mmhp;
-					if (object_ptr->inscription)
+					if(object_ptr->inscription)
 					{
 						char buf[80];
 						cptr t;
@@ -5459,17 +5459,17 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 						for (t = quark_str(object_ptr->inscription);*t && (*t != '#'); t++)
 						{
 #ifdef JP
-							if (iskanji(*t)) t++;
+							if(iskanji(*t)) t++;
 #endif
 						}
-						if (*t)
+						if(*t)
 						{
 							char *s = buf;
 							t++;
 #ifdef JP
 							/* nothing */
 #else
-							if (*t =='\'')
+							if(*t =='\'')
 							{
 								t++;
 								quote = TRUE;
@@ -5484,7 +5484,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 #ifdef JP
 							/* nothing */
 #else
-							if (quote && *(s-1) =='\'')
+							if(quote && *(s-1) =='\'')
 								s--;
 #endif
 							*s = '\0';
@@ -5508,7 +5508,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 					success = TRUE;
 				}
 			}
-			if (!success)
+			if(!success)
 #ifdef JP
 				msg_print("おっと、解放に失敗した。");
 #else
@@ -5534,7 +5534,7 @@ void do_cmd_activate(creature_type *creature_ptr)
 	cptr    q, s;
 
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -5550,7 +5550,7 @@ void do_cmd_activate(creature_type *creature_ptr)
 	s = "You have nothing to activate.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), item_tester_hook_activate, 0)) return;
 
 	/* Activate the item */
 	do_cmd_activate_aux(creature_ptr, item);
@@ -5565,7 +5565,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 	u32b flgs[TRAIT_FLAG_MAX];
 
 	/* Ammo */
-	if (object_ptr->tval == creature_ptr->tval_ammo)
+	if(object_ptr->tval == creature_ptr->tval_ammo)
 		return (TRUE);
 
 	/* Useable object */
@@ -5587,14 +5587,14 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 			int i;
 
 			/* Not known */
-			if (!object_is_known(object_ptr)) return (FALSE);
+			if(!object_is_known(object_ptr)) return (FALSE);
 
 			/* HACK - only items from the equipment can be activated */
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
 				if(!IS_EQUIPPED(object_ptr)) continue;
 
-				if (&creature_ptr->inventory[i] == object_ptr)
+				if(&creature_ptr->inventory[i] == object_ptr)
 				{
 					object_flags(object_ptr, flgs); // Extract the flags
 
@@ -5619,7 +5619,7 @@ void do_cmd_use(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr        q, s;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -5633,10 +5633,10 @@ s = "使えるものがありません。";
 	s = "You have nothing to use.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -5694,7 +5694,7 @@ s = "使えるものがありません。";
 		case TV_SCROLL:
 		{
 			/* Check some conditions */
-			if (IS_BLIND(creature_ptr))
+			if(IS_BLIND(creature_ptr))
 			{
 #ifdef JP
 msg_print("目が見えない。");
@@ -5704,7 +5704,7 @@ msg_print("目が見えない。");
 
 				return;
 			}
-			if (no_lite(creature_ptr))
+			if(no_lite(creature_ptr))
 			{
 #ifdef JP
 msg_print("明かりがないので、暗くて読めない。");
@@ -5714,7 +5714,7 @@ msg_print("明かりがないので、暗くて読めない。");
 
 				return;
 			}
-			if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+			if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
 msg_print("混乱していて読めない！");
@@ -5759,20 +5759,20 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	int menu_line = (use_menu ? 1 : 0);
 	int sn;
 
-	if (repeat_pull(&sn))
+	if(repeat_pull(&sn))
 	{
 		/* Verify the spell */
-		if (sn >= EATER_EXT*2 && !(creature_ptr->class_skills.old_skills.magic_num1[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (creature_ptr->class_skills.old_skills.magic_num2[sn] - 1) * EATER_ROD_CHARGE))
+		if(sn >= EATER_EXT*2 && !(creature_ptr->class_skills.old_skills.magic_num1[sn] > object_kind_info[lookup_kind(TV_ROD, sn-EATER_EXT*2)].pval * (creature_ptr->class_skills.old_skills.magic_num2[sn] - 1) * EATER_ROD_CHARGE))
 			return sn;
-		else if (sn < EATER_EXT*2 && !(creature_ptr->class_skills.old_skills.magic_num1[sn] < EATER_CHARGE))
+		else if(sn < EATER_EXT*2 && !(creature_ptr->class_skills.old_skills.magic_num1[sn] < EATER_CHARGE))
 			return sn;
 	}
 
 	for (i = 0; i < 108; i++)
 	{
-		if (creature_ptr->class_skills.old_skills.magic_num2[i]) break;
+		if(creature_ptr->class_skills.old_skills.magic_num2[i]) break;
 	}
-	if (i == 108)
+	if(i == 108)
 	{
 #ifdef JP
 		msg_print("魔法を覚えていない！");
@@ -5782,7 +5782,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		return -1;
 	}
 
-	if (use_menu)
+	if(use_menu)
 	{
 		screen_save();
 
@@ -5821,12 +5821,12 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			case 'x':
 			case 'X':
 				ext = (menu_line-1)*EATER_EXT;
-				if (menu_line == 1) tval = TV_STAFF;
-				else if (menu_line == 2) tval = TV_WAND;
+				if(menu_line == 1) tval = TV_STAFF;
+				else if(menu_line == 2) tval = TV_WAND;
 				else tval = TV_ROD;
 				break;
 			}
-			if (menu_line > 3) menu_line -= 3;
+			if(menu_line > 3) menu_line -= 3;
 		}
 		screen_load();
 	}
@@ -5835,26 +5835,26 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	while (TRUE)
 	{
 #ifdef JP
-		if (!get_com("[A] 杖, [B] 魔法棒, [C] ロッド:", &choice, TRUE))
+		if(!get_com("[A] 杖, [B] 魔法棒, [C] ロッド:", &choice, TRUE))
 #else
-		if (!get_com("[A] staff, [B] wand, [C] rod:", &choice, TRUE))
+		if(!get_com("[A] staff, [B] wand, [C] rod:", &choice, TRUE))
 #endif
 		{
 			return -1;
 		}
-		if (choice == 'A' || choice == 'a')
+		if(choice == 'A' || choice == 'a')
 		{
 			ext = 0;
 			tval = TV_STAFF;
 			break;
 		}
-		if (choice == 'B' || choice == 'b')
+		if(choice == 'B' || choice == 'b')
 		{
 			ext = EATER_EXT;
 			tval = TV_WAND;
 			break;
 		}
-		if (choice == 'C' || choice == 'c')
+		if(choice == 'C' || choice == 'c')
 		{
 			ext = EATER_EXT*2;
 			tval = TV_ROD;
@@ -5864,13 +5864,13 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	}
 	for (i = ext; i < ext + EATER_EXT; i++)
 	{
-		if (creature_ptr->class_skills.old_skills.magic_num2[i])
+		if(creature_ptr->class_skills.old_skills.magic_num2[i])
 		{
-			if (use_menu) menu_line = i-ext+1;
+			if(use_menu) menu_line = i-ext+1;
 			break;
 		}
 	}
-	if (i == ext+EATER_EXT)
+	if(i == ext+EATER_EXT)
 	{
 #ifdef JP
 		msg_print("その種類の魔法は覚えていない！");
@@ -5899,7 +5899,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	while (!flag)
 	{
 		/* Show the list */
-		if (request_list || use_menu)
+		if(request_list || use_menu)
 		{
 			byte y, x = 0;
 			int ctr, chance;
@@ -5925,13 +5925,13 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			/* Print list */
 			for (ctr = 0; ctr < EATER_EXT; ctr++)
 			{
-				if (!creature_ptr->class_skills.old_skills.magic_num2[ctr+ext]) continue;
+				if(!creature_ptr->class_skills.old_skills.magic_num2[ctr+ext]) continue;
 
 				k_idx = lookup_kind(tval, ctr);
 
-				if (use_menu)
+				if(use_menu)
 				{
-					if (ctr == (menu_line-1))
+					if(ctr == (menu_line-1))
 #ifdef JP
 						strcpy(dummy, "》");
 #else
@@ -5944,7 +5944,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				else
 				{
 					char letter;
-					if (ctr < 26)
+					if(ctr < 26)
 						letter = I2A(ctr);
 					else
 						letter = '0' + ctr - 26;
@@ -5956,25 +5956,25 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				chance = level * 4 / 5 + 20;
 				chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 				level /= 2;
-				if (creature_ptr->lev > level)
+				if(creature_ptr->lev > level)
 				{
 					chance -= 3 * (creature_ptr->lev - level);
 				}
 				chance = mod_spell_chance_1(creature_ptr, chance);
 				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 				/* Stunning makes spells harder */
-				if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-				else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+				if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+				else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
-				if (chance > 95) chance = 95;
+				if(chance > 95) chance = 95;
 
 				chance = mod_spell_chance_2(creature_ptr, chance);
 
 				col = TERM_WHITE;
 
-				if (k_idx)
+				if(k_idx)
 				{
-					if (tval == TV_ROD)
+					if(tval == TV_ROD)
 					{
 						strcat(dummy, format(
 #ifdef JP
@@ -5986,12 +5986,12 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 							       creature_ptr->class_skills.old_skills.magic_num1[ctr+ext] ? 
 							       (creature_ptr->class_skills.old_skills.magic_num1[ctr+ext] - 1) / (EATER_ROD_CHARGE * object_kind_info[k_idx].pval) +1 : 0, 
 							       creature_ptr->class_skills.old_skills.magic_num2[ctr+ext], chance));
-						if (creature_ptr->class_skills.old_skills.magic_num1[ctr+ext] > object_kind_info[k_idx].pval * (creature_ptr->class_skills.old_skills.magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
+						if(creature_ptr->class_skills.old_skills.magic_num1[ctr+ext] > object_kind_info[k_idx].pval * (creature_ptr->class_skills.old_skills.magic_num2[ctr+ext]-1) * EATER_ROD_CHARGE) col = TERM_RED;
 					}
 					else
 					{
 						strcat(dummy, format(" %-22.22s    %2d/%2d %3d%%", object_kind_name + object_kind_info[k_idx].name, (s16b)(creature_ptr->class_skills.old_skills.magic_num1[ctr+ext]/EATER_CHARGE), creature_ptr->class_skills.old_skills.magic_num2[ctr+ext], chance));
-						if (creature_ptr->class_skills.old_skills.magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
+						if(creature_ptr->class_skills.old_skills.magic_num1[ctr+ext] < EATER_CHARGE) col = TERM_RED;
 					}
 				}
 				else
@@ -6000,9 +6000,9 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			}
 		}
 
-		if (!get_com(out_val, &choice, FALSE)) break;
+		if(!get_com(out_val, &choice, FALSE)) break;
 
-		if (use_menu && choice != ' ')
+		if(use_menu && choice != ' ')
 		{
 			switch (choice)
 			{
@@ -6019,7 +6019,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					do
 					{
 						menu_line += EATER_EXT - 1;
-						if (menu_line > EATER_EXT) menu_line -= EATER_EXT;
+						if(menu_line > EATER_EXT) menu_line -= EATER_EXT;
 					} while(!creature_ptr->class_skills.old_skills.magic_num2[menu_line+ext-1]);
 					break;
 				}
@@ -6031,7 +6031,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					do
 					{
 						menu_line++;
-						if (menu_line > EATER_EXT) menu_line -= EATER_EXT;
+						if(menu_line > EATER_EXT) menu_line -= EATER_EXT;
 					} while(!creature_ptr->class_skills.old_skills.magic_num2[menu_line+ext-1]);
 					break;
 				}
@@ -6044,8 +6044,8 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				case 'L':
 				{
 					bool reverse = FALSE;
-					if ((choice == '4') || (choice == 'h') || (choice == 'H')) reverse = TRUE;
-					if (menu_line > EATER_EXT/2)
+					if((choice == '4') || (choice == 'h') || (choice == 'H')) reverse = TRUE;
+					if(menu_line > EATER_EXT/2)
 					{
 						menu_line -= EATER_EXT/2;
 						reverse = TRUE;
@@ -6053,15 +6053,15 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					else menu_line+=EATER_EXT/2;
 					while(!creature_ptr->class_skills.old_skills.magic_num2[menu_line+ext-1])
 					{
-						if (reverse)
+						if(reverse)
 						{
 							menu_line--;
-							if (menu_line < 2) reverse = FALSE;
+							if(menu_line < 2) reverse = FALSE;
 						}
 						else
 						{
 							menu_line++;
-							if (menu_line > EATER_EXT-1) reverse = TRUE;
+							if(menu_line > EATER_EXT-1) reverse = TRUE;
 						}
 					}
 					break;
@@ -6079,13 +6079,13 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		}
 
 		/* Request redraw */
-		if (use_menu && ask) continue;
+		if(use_menu && ask) continue;
 
 		/* Request redraw */
-		if (!use_menu && ((choice == ' ') || (choice == '*') || (choice == '?')))
+		if(!use_menu && ((choice == ' ') || (choice == '*') || (choice == '?')))
 		{
 			/* Hide the list */
-			if (request_list)
+			if(request_list)
 			{
 				/* Hide list */
 				request_list = FALSE;
@@ -6101,15 +6101,15 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 			continue;
 		}
 
-		if (!use_menu)
+		if(!use_menu)
 		{
-			if (isalpha(choice))
+			if(isalpha(choice))
 			{
 				/* Note verify */
 				ask = (isupper(choice));
 
 				/* Lowercase */
-				if (ask) choice = tolower(choice);
+				if(ask) choice = tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);
@@ -6123,16 +6123,16 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i > EATER_EXT) || !creature_ptr->class_skills.old_skills.magic_num2[i+ext])
+		if((i < 0) || (i > EATER_EXT) || !creature_ptr->class_skills.old_skills.magic_num2[i+ext])
 		{
 			bell();
 			continue;
 		}
 
-		if (!only_browse)
+		if(!only_browse)
 		{
 			/* Verify it */
-			if (ask)
+			if(ask)
 			{
 				char tmp_val[160];
 
@@ -6144,11 +6144,11 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 #endif
 
 				/* Belay that order */
-				if (!get_check(tmp_val)) continue;
+				if(!get_check(tmp_val)) continue;
 			}
-			if (tval == TV_ROD)
+			if(tval == TV_ROD)
 			{
-				if (creature_ptr->class_skills.old_skills.magic_num1[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (creature_ptr->class_skills.old_skills.magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
+				if(creature_ptr->class_skills.old_skills.magic_num1[ext+i]  > object_kind_info[lookup_kind(tval, i)].pval * (creature_ptr->class_skills.old_skills.magic_num2[ext+i] - 1) * EATER_ROD_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法はまだ充填している最中だ。");
@@ -6156,13 +6156,13 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					msg_print("The magic are still charging.");
 #endif
 					msg_print(NULL);
-					if (use_menu) ask = TRUE;
+					if(use_menu) ask = TRUE;
 					continue;
 				}
 			}
 			else
 			{
-				if (creature_ptr->class_skills.old_skills.magic_num1[ext+i] < EATER_CHARGE)
+				if(creature_ptr->class_skills.old_skills.magic_num1[ext+i] < EATER_CHARGE)
 				{
 #ifdef JP
 					msg_print("その魔法は使用回数が切れている。");
@@ -6170,7 +6170,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 					msg_print("The magic has no charges left.");
 #endif
 					msg_print(NULL);
-					if (use_menu) ask = TRUE;
+					if(use_menu) ask = TRUE;
 					continue;
 				}
 			}
@@ -6211,7 +6211,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 	/* Restore the screen */
 	screen_load();
 
-	if (!flag) return -1;
+	if(!flag) return -1;
 	repeat_push(ext+i);
 	return ext+i;
 }
@@ -6226,7 +6226,7 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	bool use_charge = TRUE;
 
 	/* Not when confused */
-	if (!only_browse && creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(!only_browse && creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("混乱していて唱えられない！");
@@ -6238,13 +6238,13 @@ msg_print("混乱していて唱えられない！");
 	}
 
 	item = select_magic_eater(creature_ptr, only_browse);
-	if (item == -1)
+	if(item == -1)
 	{
 		creature_ptr->energy_use = 0;
 		return;
 	}
-	if (item >= EATER_EXT*2) {tval = TV_ROD;sval = item - EATER_EXT*2;}
-	else if (item >= EATER_EXT) {tval = TV_WAND;sval = item - EATER_EXT;}
+	if(item >= EATER_EXT*2) {tval = TV_ROD;sval = item - EATER_EXT*2;}
+	else if(item >= EATER_EXT) {tval = TV_WAND;sval = item - EATER_EXT;}
 	else {tval = TV_STAFF;sval = item;}
 	k_idx = lookup_kind(tval, sval);
 
@@ -6252,23 +6252,23 @@ msg_print("混乱していて唱えられない！");
 	chance = level * 4 / 5 + 20;
 	chance -= 3 * (adj_mag_stat[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]] - 1);
 	level /= 2;
-	if (creature_ptr->lev > level)
+	if(creature_ptr->lev > level)
 	{
 		chance -= 3 * (creature_ptr->lev - level);
 	}
 	chance = mod_spell_chance_1(creature_ptr, chance);
 	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 	/* Stunning makes spells harder */
-	if (creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-	else if (creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
+	else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
 
-	if (chance > 95) chance = 95;
+	if(chance > 95) chance = 95;
 
 	chance = mod_spell_chance_2(creature_ptr, chance);
 
-	if (randint0(100) < chance)
+	if(randint0(100) < chance)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 
 #ifdef JP
 msg_print("呪文をうまく唱えられなかった！");
@@ -6285,25 +6285,25 @@ msg_print("呪文をうまく唱えられなかった！");
 	{
 		int dir = 0;
 
-		if (tval == TV_ROD)
+		if(tval == TV_ROD)
 		{
-			if ((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
-				if (!get_aim_dir(creature_ptr, &dir)) return;
+			if((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
+				if(!get_aim_dir(creature_ptr, &dir)) return;
 			rod_effect(creature_ptr, sval, dir, &use_charge, TRUE);
-			if (!use_charge) return;
+			if(!use_charge) return;
 		}
-		else if (tval == TV_WAND)
+		else if(tval == TV_WAND)
 		{
-			if (!get_aim_dir(creature_ptr, &dir)) return;
+			if(!get_aim_dir(creature_ptr, &dir)) return;
 			wand_effect(creature_ptr, sval, dir, TRUE);
 		}
 		else
 		{
 			staff_effect(creature_ptr, sval, &use_charge, TRUE, TRUE);
-			if (!use_charge) return;
+			if(!use_charge) return;
 		}
 	}
 	creature_ptr->energy_use = 100;
-	if (tval == TV_ROD) creature_ptr->class_skills.old_skills.magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
+	if(tval == TV_ROD) creature_ptr->class_skills.old_skills.magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
 	else creature_ptr->class_skills.old_skills.magic_num1[item] -= EATER_CHARGE;
 }

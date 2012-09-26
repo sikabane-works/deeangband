@@ -53,10 +53,10 @@ cptr            p = "ïKéEåï";
 	*sn = (-1);
 
 	/* Get the spell, if available */
-	if (repeat_pull(sn))
+	if(repeat_pull(sn))
 	{
 		/* Verify the spell */
-		if (technic_info[TECHNIC_HISSATSU][*sn].slevel <= plev)
+		if(technic_info[TECHNIC_HISSATSU][*sn].slevel <= plev)
 		{
 			/* Success */
 			return (TRUE);
@@ -71,7 +71,7 @@ cptr            p = "ïKéEåï";
 
 	for (i = 0; i < 32; i++)
 	{
-		if (technic_info[TECHNIC_HISSATSU][i].slevel <= PY_MAX_LEVEL)
+		if(technic_info[TECHNIC_HISSATSU][i].slevel <= PY_MAX_LEVEL)
 		{
 			sentaku[num] = i;
 			num++;
@@ -87,7 +87,7 @@ cptr            p = "ïKéEåï";
 #endif
 		       p, I2A(0), "abcdefghijklmnopqrstuvwxyz012345"[num-1], p);
 
-	if (use_menu) screen_save();
+	if(use_menu) screen_save();
 
 	/* Get a spell from the user */
 
@@ -97,7 +97,7 @@ cptr            p = "ïKéEåï";
 		if(choice==ESCAPE) choice = ' '; 
 		else if( !get_com(out_val, &choice, FALSE) )break;
 
-		if (use_menu && choice != ' ')
+		if(use_menu && choice != ' ')
 		{
 			switch(choice)
 			{
@@ -114,7 +114,7 @@ cptr            p = "ïKéEåï";
 					do
 					{
 						menu_line += 31;
-						if (menu_line > 32) menu_line -= 32;
+						if(menu_line > 32) menu_line -= 32;
 					} while(!(creature_ptr->spell_learned1 & (1L << (menu_line-1))));
 					break;
 				}
@@ -126,7 +126,7 @@ cptr            p = "ïKéEåï";
 					do
 					{
 						menu_line++;
-						if (menu_line > 32) menu_line -= 32;
+						if(menu_line > 32) menu_line -= 32;
 					} while(!(creature_ptr->spell_learned1 & (1L << (menu_line-1))));
 					break;
 				}
@@ -139,8 +139,8 @@ cptr            p = "ïKéEåï";
 				case 'L':
 				{
 					bool reverse = FALSE;
-					if ((choice == '4') || (choice == 'h') || (choice == 'H')) reverse = TRUE;
-					if (menu_line > 16)
+					if((choice == '4') || (choice == 'h') || (choice == 'H')) reverse = TRUE;
+					if(menu_line > 16)
 					{
 						menu_line -= 16;
 						reverse = TRUE;
@@ -148,15 +148,15 @@ cptr            p = "ïKéEåï";
 					else menu_line+=16;
 					while(!(creature_ptr->spell_learned1 & (1L << (menu_line-1))))
 					{
-						if (reverse)
+						if(reverse)
 						{
 							menu_line--;
-							if (menu_line < 2) reverse = FALSE;
+							if(menu_line < 2) reverse = FALSE;
 						}
 						else
 						{
 							menu_line++;
-							if (menu_line > 31) reverse = TRUE;
+							if(menu_line > 31) reverse = TRUE;
 						}
 					}
 					break;
@@ -174,10 +174,10 @@ cptr            p = "ïKéEåï";
 			}
 		}
 		/* Request redraw */
-		if ((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
+		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 		{
 			/* Show the list */
-			if (!redraw || use_menu)
+			if(!redraw || use_menu)
 			{
 				char psi_desc[80];
 				int line;
@@ -186,7 +186,7 @@ cptr            p = "ïKéEåï";
 				redraw = TRUE;
 
 				/* Save the screen */
-				if (!use_menu) screen_save();
+				if(!use_menu) screen_save();
 
 				/* Display a list of spells */
 				prt("", y, x);
@@ -201,16 +201,16 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 				{
 					spell = technic_info[TECHNIC_HISSATSU][i];
 
-					if (spell.slevel > PY_MAX_LEVEL) continue;
+					if(spell.slevel > PY_MAX_LEVEL) continue;
 					line++;
-					if (!(creature_ptr->spell_learned1 >> i)) break;
+					if(!(creature_ptr->spell_learned1 >> i)) break;
 
 					/* Access the spell */
-					if (spell.slevel > plev)   continue;
-					if (!(creature_ptr->spell_learned1 & (1L << i))) continue;
-					if (use_menu)
+					if(spell.slevel > plev)   continue;
+					if(!(creature_ptr->spell_learned1 & (1L << i))) continue;
+					if(use_menu)
 					{
-						if (i == (menu_line-1))
+						if(i == (menu_line-1))
 #ifdef JP
 							strcpy(psi_desc, "  Åt");
 #else
@@ -222,7 +222,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 					else
 					{
 						char letter;
-						if (line <= 26)
+						if(line <= 26)
 							letter = I2A(line-1);
 						else
 							letter = '0' + line - 27;
@@ -252,15 +252,15 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 			continue;
 		}
 
-		if (!use_menu)
+		if(!use_menu)
 		{
-			if (isalpha(choice))
+			if(isalpha(choice))
 			{
 				/* Note verify */
 				ask = (isupper(choice));
 
 				/* Lowercase */
-				if (ask) choice = tolower(choice);
+				if(ask) choice = tolower(choice);
 
 				/* Extract request */
 				i = (islower(choice) ? A2I(choice) : -1);
@@ -274,7 +274,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		}
 
 		/* Totally Illegal */
-		if ((i < 0) || (i >= 32) || !(creature_ptr->spell_learned1 & (1 << sentaku[i])))
+		if((i < 0) || (i >= 32) || !(creature_ptr->spell_learned1 & (1 << sentaku[i])))
 		{
 			bell();
 			continue;
@@ -283,7 +283,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		j = sentaku[i];
 
 		/* Verify it */
-		if (ask)
+		if(ask)
 		{
 			char tmp_val[160];
 
@@ -296,7 +296,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 
 			/* Belay that order */
-			if (!get_check(tmp_val)) continue;
+			if(!get_check(tmp_val)) continue;
 		}
 
 		/* Stop the loop */
@@ -304,7 +304,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 	}
 
 	/* Restore the screen */
-	if (redraw) screen_load();
+	if(redraw) screen_load();
 
 	/* Show choices */
 	play_window |= (PW_SPELL);
@@ -314,7 +314,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 
 	/* Abort if needed */
-	if (!flag) return (FALSE);
+	if(!flag) return (FALSE);
 
 	/* Save the choice */
 	(*sn) = j;
@@ -337,7 +337,7 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 
 
 	/* not if confused */
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("ç¨óêÇµÇƒÇ¢ÇƒèWíÜÇ≈Ç´Ç»Ç¢ÅI");
@@ -347,9 +347,9 @@ msg_print("ç¨óêÇµÇƒÇ¢ÇƒèWíÜÇ≈Ç´Ç»Ç¢ÅI");
 
 		return;
 	}
-	if (!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
+	if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 #ifdef JP
 msg_print("ïêäÌÇéùÇΩÇ»Ç¢Ç∆ïKéEãZÇÕégÇ¶Ç»Ç¢ÅI");
 #else
@@ -358,7 +358,7 @@ msg_print("ïêäÌÇéùÇΩÇ»Ç¢Ç∆ïKéEãZÇÕégÇ¶Ç»Ç¢ÅI");
 
 		return;
 	}
-	if (!creature_ptr->spell_learned1)
+	if(!creature_ptr->spell_learned1)
 	{
 #ifdef JP
 msg_print("âΩÇ‡ãZÇímÇÁÇ»Ç¢ÅB");
@@ -369,20 +369,20 @@ msg_print("âΩÇ‡ãZÇímÇÁÇ»Ç¢ÅB");
 		return;
 	}
 
-	if (creature_ptr->special_defense & KATA_MASK)
+	if(creature_ptr->special_defense & KATA_MASK)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
 	/* get power */
-	if (!get_hissatsu_power(creature_ptr, &n)) return;
+	if(!get_hissatsu_power(creature_ptr, &n)) return;
 
 	spell = technic_info[TECHNIC_HISSATSU][n];
 
 	/* Verify "dangerous" spells */
-	if (spell.smana > creature_ptr->csp)
+	if(spell.smana > creature_ptr->csp)
 	{
-		if (flush_failure) flush();
+		if(flush_failure) flush();
 		/* Warning */
 #ifdef JP
 msg_print("ÇlÇoÇ™ë´ÇËÇ‹ÇπÇÒÅB");
@@ -396,7 +396,7 @@ msg_print("ÇlÇoÇ™ë´ÇËÇ‹ÇπÇÒÅB");
 	sound(SOUND_ZAP);
 
 	/* Cast the spell */
-	if (!do_spell(creature_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
+	if(!do_spell(creature_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
 
 	/* Take a turn */
 	creature_ptr->energy_use = 100;
@@ -405,7 +405,7 @@ msg_print("ÇlÇoÇ™ë´ÇËÇ‹ÇπÇÒÅB");
 	creature_ptr->csp -= spell.smana;
 
 	/* Limit */
-	if (creature_ptr->csp < 0) creature_ptr->csp = 0;
+	if(creature_ptr->csp < 0) creature_ptr->csp = 0;
 
 	/* Redraw mana */
 	play_redraw |= (PR_MANA);
@@ -425,12 +425,12 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	bool gain = FALSE;
 
-	if (creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-	if (IS_BLIND(creature_ptr) || no_lite(creature_ptr))
+	if(IS_BLIND(creature_ptr) || no_lite(creature_ptr))
 	{
 #ifdef JP
 msg_print("ñ⁄Ç™å©Ç¶Ç»Ç¢ÅI");
@@ -441,7 +441,7 @@ msg_print("ñ⁄Ç™å©Ç¶Ç»Ç¢ÅI");
 		return;
 	}
 
-	if (creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
 msg_print("ç¨óêÇµÇƒÇ¢Çƒì«ÇﬂÇ»Ç¢ÅI");
@@ -452,7 +452,7 @@ msg_print("ç¨óêÇµÇƒÇ¢Çƒì«ÇﬂÇ»Ç¢ÅI");
 		return;
 	}
 
-	if (!(creature_ptr->new_spells))
+	if(!(creature_ptr->new_spells))
 	{
 #ifdef JP
 msg_print("êVÇµÇ¢ïKéEãZÇäoÇ¶ÇÈÇ±Ç∆ÇÕÇ≈Ç´Ç»Ç¢ÅI");
@@ -487,10 +487,10 @@ s = "ì«ÇﬂÇÈèëÇ™Ç»Ç¢ÅB";
 	s = "You have no books that you can read.";
 #endif
 
-	if (!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
 
 	/* Get the item (in the pack) */
-	if (item >= 0)
+	if(item >= 0)
 	{
 		object_ptr = &creature_ptr->inventory[item];
 	}
@@ -503,8 +503,8 @@ s = "ì«ÇﬂÇÈèëÇ™Ç»Ç¢ÅB";
 
 	for (i = object_ptr->sval * 8; i < object_ptr->sval * 8 + 8; i++)
 	{
-		if (creature_ptr->spell_learned1 & (1L << i)) continue;
-		if (technic_info[TECHNIC_HISSATSU][i].slevel > creature_ptr->lev) continue;
+		if(creature_ptr->spell_learned1 & (1L << i)) continue;
+		if(technic_info[TECHNIC_HISSATSU][i].slevel > creature_ptr->lev) continue;
 
 		creature_ptr->spell_learned1 |= (1L << i);
 		creature_ptr->spell_worked1 |= (1L << i);
@@ -516,14 +516,14 @@ s = "ì«ÇﬂÇÈèëÇ™Ç»Ç¢ÅB";
 		for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 		{
 			/* Stop at the first empty space */
-			if (creature_ptr->spell_order[j] == 99) break;
+			if(creature_ptr->spell_order[j] == 99) break;
 		}
 		creature_ptr->spell_order[j] = i;
 		gain = TRUE;
 	}
 
 	/* No gain ... */
-	if (!gain)
+	if(!gain)
 #ifdef JP
 		msg_print("âΩÇ‡äoÇ¶ÇÁÇÍÇ»Ç©Ç¡ÇΩÅB");
 #else

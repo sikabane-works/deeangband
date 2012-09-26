@@ -827,25 +827,25 @@ static cptr store_pre_info_flags[] =
 static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
 {
 	/* Hack -- Verify space */
-	if (head->text_size + strlen(buf) + 8 > FAKE_TEXT_SIZE)
+	if(head->text_size + strlen(buf) + 8 > FAKE_TEXT_SIZE)
 		return (FALSE);
 
 	/* New text? */
-	if (*offset == 0)
+	if(*offset == 0)
 	{
 		/* Advance and save the text index */
 		*offset = ++head->text_size;
 	}
 
 	/* Additional text */
-	else if (normal_text)
+	else if(normal_text)
 	{
 		/*
 		 * If neither the end of the last line nor
 		 * the beginning of current line is not a space,
 		 * fill up a space as a correct separator of two words.
 		 */
-		if (head->text_size > 0 &&
+		if(head->text_size > 0 &&
 #ifdef JP
 		    (*(head->text_ptr + head->text_size - 1) != ' ') &&
 		    ((head->text_size == 1) || !iskanji(*(head->text_ptr + head->text_size - 2))) && 
@@ -884,11 +884,11 @@ static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
 static bool add_name(u32b *offset, header *head, cptr buf)
 {
 	/* Hack -- Verify space */
-	if (head->name_size + strlen(buf) + 8 > FAKE_NAME_SIZE)
+	if(head->name_size + strlen(buf) + 8 > FAKE_NAME_SIZE)
 		return (FALSE);
 
 	/* New name? */
-	if (*offset == 0)
+	if(*offset == 0)
 	{
 		/* Advance and save the name index */
 		*offset = ++head->name_size;
@@ -909,11 +909,11 @@ static bool add_name(u32b *offset, header *head, cptr buf)
 static bool add_tmp(u32b *offset, header *head, cptr buf)
 {
 	/* Hack -- Verify space */
-	if (head->tmp_size + strlen(buf) + 8 > FAKE_TMP_BUFFER_SIZE)
+	if(head->tmp_size + strlen(buf) + 8 > FAKE_TMP_BUFFER_SIZE)
 		return (FALSE);
 
 	/* New name? */
-	if (*offset == 0)
+	if(*offset == 0)
 	{
 		/* Advance and save the name index */
 		*offset = ++head->tmp_size;
@@ -945,14 +945,14 @@ static bool add_tag(s16b *offset, header *head, cptr buf)
 	for (i = 1; i < head->tag_size; i += strlen(&head->tag_ptr[i]) + 1)
 	{
 		/* Found it */
-		if (streq(&head->tag_ptr[i], buf)) break;
+		if(streq(&head->tag_ptr[i], buf)) break;
 	}
 
 	/* There was no existing tag */
-	if (i >= head->tag_size)
+	if(i >= head->tag_size)
 	{
 		/* Hack -- Verify space */
-		if (head->tag_size + strlen(buf) + 8 > FAKE_TAG_SIZE)
+		if(head->tag_size + strlen(buf) + 8 > FAKE_TAG_SIZE)
 			return FALSE;
 
 		/* Append chars to the tags */
@@ -1034,21 +1034,21 @@ errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 		error_line++;
 
 		/* Skip comments and blank lines */
-		if (!buf[0] || (buf[0] == '#')) continue;
+		if(!buf[0] || (buf[0] == '#')) continue;
 
 		/* Verify correct "colon" format */
-		if (buf[1] != ':') return (PARSE_ERROR_GENERIC);
+		if(buf[1] != ':') return (PARSE_ERROR_GENERIC);
 
 
 		/* Hack -- Process 'V' for "Version" */
-		if (buf[0] == 'V')
+		if(buf[0] == 'V')
 		{
 			/* ignore */
 			continue;
 		}
 
 		/* Mega Hack -- Calculate Check Sum */
-		if (buf[0] != 'N' && buf[0] != 'D')
+		if(buf[0] != 'N' && buf[0] != 'D')
 		{
 			int i;
 			for (i = 0; buf[i]; i++)
@@ -1059,14 +1059,14 @@ errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 		}
 
 		/* Parse the line */
-		if ((err = (*parse_info_txt_line)(buf, head)) != 0)
+		if((err = (*parse_info_txt_line)(buf, head)) != 0)
 			return (err);
 	}
 
 
 	/* Complete the "name" and "text" sizes */
-	if (head->name_size) head->name_size++;
-	if (head->text_size) head->text_size++;
+	if(head->name_size) head->name_size++;
+	if(head->text_size) head->text_size++;
 
 	/* Success */
 	return PARSE_ERROR_NONE;
@@ -1098,20 +1098,20 @@ errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 	while (0 == my_fgets_csv(fp, buf, 65536, '"'))
 	{
 		// Skip comments and blank lines
-		if (!buf[0] || (buf[0] == '#')) continue;
+		if(!buf[0] || (buf[0] == '#')) continue;
 
 		i++;
 
 		// Parse the line
-		if ((err = (*parse_info_txt_line)(buf, head)) != 0)
+		if((err = (*parse_info_txt_line)(buf, head)) != 0)
 			return (err);
 	}
 
 	sprintf(nt, "CSV Line:%d", i);
 	note(nt);
 	/* Complete the "name" and "text" sizes */
-	if (head->name_size) head->name_size++;
-	if (head->text_size) head->text_size++;
+	if(head->name_size) head->name_size++;
+	if(head->text_size) head->text_size++;
 
 	/* Success */
 	return PARSE_ERROR_NONE;
@@ -1132,28 +1132,28 @@ errr parse_vault_info(char *buf, header *head)
 	static vault_type *v_ptr = NULL;
 
 	/* Process 'N' for "New/Number/Name" */
-	if (buf[0] == 'N')
+	if(buf[0] == 'N')
 	{
 		/* Find the colon before the name */
 		s = my_strchr(buf+2, ':');
 
 		/* Verify that colon */
-		if (!s) return PARSE_ERROR_GENERIC;
+		if(!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 
 		/* Paranoia -- require a name */
-		if (!*s) return PARSE_ERROR_GENERIC;
+		if(!*s) return PARSE_ERROR_GENERIC;
 
 		/* Get the index */
 		i = atoi(buf+2);
 
 		/* Verify information */
-		if (i <= error_idx) return (4);
+		if(i <= error_idx) return (4);
 
 		/* Verify information */
-		if (i >= head->info_num) return (2);
+		if(i >= head->info_num) return (2);
 
 		/* Save the index */
 		error_idx = i;
@@ -1162,29 +1162,29 @@ errr parse_vault_info(char *buf, header *head)
 		v_ptr = &vault_info[i];
 
 		/* Store the name */
-		if (!add_name(&v_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_name(&v_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 
 	/* There better be a current v_ptr */
-	else if (!v_ptr) return (3);
+	else if(!v_ptr) return (3);
 
 	/* Process 'D' for "Description" */
-	else if (buf[0] == 'D')
+	else if(buf[0] == 'D')
 	{
 		/* Acquire the text */
 		s = buf+2;
 
 		/* Store the text */
-		if (!add_text(&v_ptr->text, head, s, FALSE)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_text(&v_ptr->text, head, s, FALSE)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 
 	/* Process 'X' for "Extra info" (one line only) */
-	else if (buf[0] == 'X')
+	else if(buf[0] == 'X')
 	{
 		int typ, rat, hgt, wid;
 
 		/* Scan for the values */
-		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
+		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
 			&typ, &rat, &hgt, &wid)) return PARSE_ERROR_GENERIC;
 
 		/* Save the values */
@@ -1215,16 +1215,16 @@ errr parse_skill_info(char *buf, header *head)
 
 
 	/* Process 'N' for "New/Number/Name" */
-	if (buf[0] == 'N')
+	if(buf[0] == 'N')
 	{
 		/* Get the index */
 		i = atoi(buf+2);
 
 			/* Verify information */
-		if (i <= error_idx) return (4);
+		if(i <= error_idx) return (4);
 
 		/* Verify information */
-		if (i >= head->info_num) return (2);
+		if(i >= head->info_num) return (2);
 
 		/* Save the index */
 		error_idx = i;
@@ -1234,10 +1234,10 @@ errr parse_skill_info(char *buf, header *head)
 	}
 
 	/* There better be a current s_ptr */
-	else if (!s_ptr) return (3);
+	else if(!s_ptr) return (3);
 
 	/* Process 'W' for "Weapon exp" */
-	else if (buf[0] == 'W')
+	else if(buf[0] == 'W')
 	{
 		int tval, sval, start, max;
 		const s16b exp_conv_table[] =
@@ -1247,10 +1247,10 @@ errr parse_skill_info(char *buf, header *head)
 		};
 
 		/* Scan for the values */
-		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
+		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
 				&tval, &sval, &start, &max)) return PARSE_ERROR_GENERIC;
 
-		if (start < EXP_LEVEL_UNSKILLED || start > EXP_LEVEL_MASTER
+		if(start < EXP_LEVEL_UNSKILLED || start > EXP_LEVEL_MASTER
 			|| max < EXP_LEVEL_UNSKILLED || max > EXP_LEVEL_MASTER) return (8);
 
 		/* Save the values */
@@ -1259,15 +1259,15 @@ errr parse_skill_info(char *buf, header *head)
 	}
 
 	/* Process 'S' for "Skill exp" */
-	else if (buf[0] == 'S')
+	else if(buf[0] == 'S')
 	{
 		int num, start, max;
 
 		/* Scan for the values */
-		if (3 != sscanf(buf+2, "%d:%d:%d",
+		if(3 != sscanf(buf+2, "%d:%d:%d",
 				&num, &start, &max)) return PARSE_ERROR_GENERIC;
 
-		if (start < WEAPON_EXP_UNSKILLED || start > WEAPON_EXP_MASTER
+		if(start < WEAPON_EXP_UNSKILLED || start > WEAPON_EXP_MASTER
 			|| max < WEAPON_EXP_UNSKILLED || max > WEAPON_EXP_MASTER) return (8);
 
 		/* Save the values */
@@ -1301,16 +1301,16 @@ errr parse_magic_info(char *buf, header *head)
 
 
 	/* Process 'N' for "New/Number/Name" */
-	if (buf[0] == 'N')
+	if(buf[0] == 'N')
 	{
 		/* Get the index */
 		i = atoi(buf+2);
 
 			/* Verify information */
-		if (i <= error_idx) return (4);
+		if(i <= error_idx) return (4);
 
 		/* Verify information */
-		if (i >= head->info_num) return (2);
+		if(i >= head->info_num) return (2);
 
 		/* Save the index */
 		error_idx = i;
@@ -1320,10 +1320,10 @@ errr parse_magic_info(char *buf, header *head)
 	}
 
 	/* There better be a current m_ptr */
-	else if (!m_ptr) return (3);
+	else if(!m_ptr) return (3);
 
 	/* Process 'I' for "Info" (one line only) */
-	else if (buf[0] == 'I')
+	else if(buf[0] == 'I')
 	{
 		char *book, *stat;
 		int xtra, type, first, weight;
@@ -1332,18 +1332,18 @@ errr parse_magic_info(char *buf, header *head)
 		s = my_strchr(buf+2, ':');
 
 		/* Verify that colon */
-		if (!s) return PARSE_ERROR_GENERIC;
+		if(!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 
 		book = buf+2;
 
-		if (streq(book, "SORCERY")) m_ptr->spell_book = TV_SORCERY_BOOK;
-		else if (streq(book, "LIFE")) m_ptr->spell_book = TV_LIFE_BOOK;
-		else if (streq(book, "MUSIC")) m_ptr->spell_book = TV_MUSIC_BOOK;
-		else if (streq(book, "HISSATSU")) m_ptr->spell_book = TV_HISSATSU_BOOK;
-		else if (streq(book, "NONE")) m_ptr->spell_book = 0;
+		if(streq(book, "SORCERY")) m_ptr->spell_book = TV_SORCERY_BOOK;
+		else if(streq(book, "LIFE")) m_ptr->spell_book = TV_LIFE_BOOK;
+		else if(streq(book, "MUSIC")) m_ptr->spell_book = TV_MUSIC_BOOK;
+		else if(streq(book, "HISSATSU")) m_ptr->spell_book = TV_HISSATSU_BOOK;
+		else if(streq(book, "NONE")) m_ptr->spell_book = 0;
 		else return PARSE_ERROR_INVALID_FLAG;
 
 		stat = s;
@@ -1352,22 +1352,22 @@ errr parse_magic_info(char *buf, header *head)
 		s = my_strchr(s, ':');
 
 		/* Verify that colon */
-		if (!s) return PARSE_ERROR_GENERIC;
+		if(!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 
-		if (streq(stat, "STR")) m_ptr->spell_stat = STAT_STR;
-		else if (streq(stat, "INT")) m_ptr->spell_stat = STAT_INT;
-		else if (streq(stat, "WIS")) m_ptr->spell_stat = STAT_WIS;
-		else if (streq(stat, "DEX")) m_ptr->spell_stat = STAT_DEX;
-		else if (streq(stat, "CON")) m_ptr->spell_stat = STAT_CON;
-		else if (streq(stat, "CHR")) m_ptr->spell_stat = STAT_CHA;
+		if(streq(stat, "STR")) m_ptr->spell_stat = STAT_STR;
+		else if(streq(stat, "INT")) m_ptr->spell_stat = STAT_INT;
+		else if(streq(stat, "WIS")) m_ptr->spell_stat = STAT_WIS;
+		else if(streq(stat, "DEX")) m_ptr->spell_stat = STAT_DEX;
+		else if(streq(stat, "CON")) m_ptr->spell_stat = STAT_CON;
+		else if(streq(stat, "CHR")) m_ptr->spell_stat = STAT_CHA;
 		else return PARSE_ERROR_INVALID_FLAG;
 
 
 		/* Scan for the values */
-		if (4 != sscanf(s, "%x:%d:%d:%d",
+		if(4 != sscanf(s, "%x:%d:%d:%d",
 				(uint *)&xtra, &type, &first, &weight))	return PARSE_ERROR_GENERIC;
 
 		m_ptr->spell_xtra = xtra;
@@ -1378,22 +1378,22 @@ errr parse_magic_info(char *buf, header *head)
 
 
 	/* Process 'R' for "Realm" (one line only) */
-	else if (buf[0] == 'R')
+	else if(buf[0] == 'R')
 	{
 		/* Scan for the values */
-		if (2 != sscanf(buf+2, "%d:%d",
+		if(2 != sscanf(buf+2, "%d:%d",
 				&realm, &readable)) return PARSE_ERROR_GENERIC;
 
 		magic_idx = 0;
 	}
 
-	else if (buf[0] == 'T')
+	else if(buf[0] == 'T')
 	{
 		int level, mana, fail, exp;
 
-		if (!readable) return PARSE_ERROR_GENERIC;
+		if(!readable) return PARSE_ERROR_GENERIC;
 		/* Scan for the values */
-		if (4 != sscanf(buf+2, "%d:%d:%d:%d",
+		if(4 != sscanf(buf+2, "%d:%d:%d:%d",
 				&level, &mana, &fail, &exp)) return PARSE_ERROR_GENERIC;
 
 		m_ptr->info[realm][magic_idx].slevel = level;
@@ -1422,7 +1422,7 @@ static errr grab_one_flag(u32b *flags, cptr names[], cptr what)
 	/* Check flags */
 	for (i = 0; i < 32; i++)
 	{
-		if (streq(what, names[i]))
+		if(streq(what, names[i]))
 		{
 			*flags |= (1L << i);
 			return PARSE_ERROR_NONE;
@@ -1455,7 +1455,7 @@ static errr grab_one_index(int *n, cptr names[], cptr what, bool common_none)
 	/* Check flags */
 	for (; names[i]; i++)
 	{
-		if (streq(what, names[i]))
+		if(streq(what, names[i]))
 		{
 			*n = i;
 			return PARSE_ERROR_NONE;
@@ -1479,7 +1479,7 @@ static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char 
 		for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t);
 
 		/* Nuke and skip any dividers */
-		if (*t)
+		if(*t)
 		{
 			*t++ = '\0';
 			while (*t == ' ' || *t == '|' || *t == '\n') t++;
@@ -1508,7 +1508,7 @@ static errr traits_precondition_splits(traits_precondition *flags_pre_ptr, char 
 		}
 
 		/* Parse this entry */
-		if (grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
+		if(grab_one_trait(flags_pre_ptr, flagname, (byte)b, (byte)c, (byte)prob) != 0)
 			return (PARSE_ERROR_INVALID_FLAG);
 
 		/* Start the next entry */
@@ -1525,7 +1525,7 @@ static errr grab_one_trait(traits_precondition *cf_ptr, cptr what, byte add, byt
 	/* Check flags */
 	for (i = 0; i < MAX_TRAITS; i++)
 	{
-		if (streq(what, trait_info[i].id2))
+		if(streq(what, trait_info[i].id2))
 		{
 			cf_ptr->add_lev[i] = add;
 			cf_ptr->remove_lev[i] = remove;
@@ -1547,7 +1547,7 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < FF_FLAG_MAX; i++)
 	{
-		if (streq(what, feature_info_flags[i]))
+		if(streq(what, feature_info_flags[i]))
 		{
 			add_flag(f_ptr->flags, i);
 			return PARSE_ERROR_NONE;
@@ -1577,7 +1577,7 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 	/* Check flags */
 	for (i = 0; i < FF_FLAG_MAX; i++)
 	{
-		if (streq(what, feature_info_flags[i]))
+		if(streq(what, feature_info_flags[i]))
 		{
 			f_ptr->state[count].action = i;
 			return PARSE_ERROR_NONE;
@@ -1610,12 +1610,12 @@ errr parse_feature_info(char *buf, header *head)
 
 
 	/* Process 'N' for "New/Number/Name" */
-	if (buf[0] == 'N')
+	if(buf[0] == 'N')
 	{
 		/* Find the colon before the name */
 		s = my_strchr(buf+2, ':');
 
-		if (s)
+		if(s)
 		{
 			/* Nuke the colon, advance to the name */
 			*s++ = '\0';
@@ -1625,10 +1625,10 @@ errr parse_feature_info(char *buf, header *head)
 		i = atoi(buf+2);
 
 		/* Verify information */
-		if (i <= error_idx) return (4);
+		if(i <= error_idx) return (4);
 
 		/* Verify information */
-		if (i >= head->info_num) return (2);
+		if(i >= head->info_num) return (2);
 
 		/* Save the index */
 		error_idx = i;
@@ -1637,10 +1637,10 @@ errr parse_feature_info(char *buf, header *head)
 		f_ptr = &feature_info[i];
 
 		/* Tag name is given */
-		if (s)
+		if(s)
 		{
 			/* Store the tag */
-			if (!add_tag(&f_ptr->tag, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
+			if(!add_tag(&f_ptr->tag, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 		}
 
 		/* Default "mimic" */
@@ -1654,42 +1654,42 @@ errr parse_feature_info(char *buf, header *head)
 	}
 
 	/* There better be a current f_ptr */
-	else if (!f_ptr) return (3);
+	else if(!f_ptr) return (3);
 
 #ifdef JP
-	else if (buf[0] == 'J')
+	else if(buf[0] == 'J')
 	{
 		/* Store the name */
-		if (!add_name(&f_ptr->name, head, buf+2)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_name(&f_ptr->name, head, buf+2)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 
-	else if (buf[0] == 'E')
+	else if(buf[0] == 'E')
 	{
 		/* Ignore english name */
 	}
 #else
-	else if (buf[0] == 'J')
+	else if(buf[0] == 'J')
 	{
 		/* Ignore Japanese name */
 	}
 
-	else if (buf[0] == 'E')
+	else if(buf[0] == 'E')
 	{
 		/* Acquire the Text */
 		s = buf+2;
 
 		/* Store the name */
-		if (!add_name(&f_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_name(&f_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 #endif
 
 
 	/* Process 'M' for "Mimic" (one line only) */
-	else if (buf[0] == 'M')
+	else if(buf[0] == 'M')
 	{
 		s16b offset;
 
-		if (!add_tag(&offset, head, buf + 2)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_tag(&offset, head, buf + 2)) return PARSE_ERROR_OUT_OF_MEMORY;
 
 		/* Record a fake tag index */
 		f_ptr->mimic = -offset;
@@ -1697,17 +1697,17 @@ errr parse_feature_info(char *buf, header *head)
 
 
 	/* Process 'G' for "Graphics" (one line only) */
-	else if (buf[0] == 'G')
+	else if(buf[0] == 'G')
 	{
 		int j;
 		byte s_attr;
 		char char_tmp[F_LIT_MAX];
 
 		/* Paranoia */
-		if (buf[1] != ':') return PARSE_ERROR_GENERIC;
-		if (!buf[2]) return PARSE_ERROR_GENERIC;
-		if (buf[3] != ':') return PARSE_ERROR_GENERIC;
-		if (!buf[4]) return PARSE_ERROR_GENERIC;
+		if(buf[1] != ':') return PARSE_ERROR_GENERIC;
+		if(!buf[2]) return PARSE_ERROR_GENERIC;
+		if(buf[3] != ':') return PARSE_ERROR_GENERIC;
+		if(!buf[4]) return PARSE_ERROR_GENERIC;
 
 		/* Extract the char */
 		char_tmp[F_LIT_STANDARD] = buf[2];
@@ -1716,27 +1716,27 @@ errr parse_feature_info(char *buf, header *head)
 		s_attr = color_char_to_acttr(buf[4]);
 
 		/* Paranoia */
-		if (s_attr > 127) return PARSE_ERROR_GENERIC;
+		if(s_attr > 127) return PARSE_ERROR_GENERIC;
 
 		/* Save the standard values */
 		f_ptr->d_attr[F_LIT_STANDARD] = s_attr;
 		f_ptr->d_char[F_LIT_STANDARD] = char_tmp[F_LIT_STANDARD];
 
 		/* Is this feature supports lighting? */
-		if (buf[5] == ':')
+		if(buf[5] == ':')
 		{
 			/* G:c:a:LIT (default) */
 			apply_default_feat_lighting(f_ptr->d_attr, f_ptr->d_char);
 
 			/* G:c:a:lc:la:dc:da */
-			if (!streq(buf + 6, "LIT"))
+			if(!streq(buf + 6, "LIT"))
 			{
 				char attr_lite_tmp[F_LIT_MAX - F_LIT_NS_BEGIN];
 
-				if ((F_LIT_MAX - F_LIT_NS_BEGIN) * 2 != sscanf(buf + 6, "%c:%c:%c:%c",
+				if((F_LIT_MAX - F_LIT_NS_BEGIN) * 2 != sscanf(buf + 6, "%c:%c:%c:%c",
 					&char_tmp[F_LIT_LITE], &attr_lite_tmp[F_LIT_LITE - F_LIT_NS_BEGIN],
 					&char_tmp[F_LIT_DARK], &attr_lite_tmp[F_LIT_DARK - F_LIT_NS_BEGIN])) return 1;
-				if (buf[F_LIT_MAX * 4 + 1]) return 1;
+				if(buf[F_LIT_MAX * 4 + 1]) return 1;
 
 				for (j = F_LIT_NS_BEGIN; j < F_LIT_MAX; j++)
 				{
@@ -1752,14 +1752,14 @@ errr parse_feature_info(char *buf, header *head)
 					default:
 						/* Extract the color */
 						f_ptr->d_attr[j] = color_char_to_acttr(attr_lite_tmp[j - F_LIT_NS_BEGIN]);
-						if (f_ptr->d_attr[j] > 127) return 1;
+						if(f_ptr->d_attr[j] > 127) return 1;
 						break;
 					}
 					f_ptr->d_char[j] = char_tmp[j];
 				}
 			}
 		}
-		else if (!buf[5])
+		else if(!buf[5])
 		{
 			for (j = F_LIT_NS_BEGIN; j < F_LIT_MAX; j++)
 			{
@@ -1771,7 +1771,7 @@ errr parse_feature_info(char *buf, header *head)
 	}
 
 	/* Hack -- Process 'F' for flags */
-	else if (buf[0] == 'F')
+	else if(buf[0] == 'F')
 	{
 		/* Parse every entry textually */
 		for (s = buf + 2; *s; )
@@ -1780,14 +1780,14 @@ errr parse_feature_info(char *buf, header *head)
 			for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
 
 			/* Nuke and skip any dividers */
-			if (*t)
+			if(*t)
 			{
 				*t++ = '\0';
 				while (*t == ' ' || *t == '|') t++;
 			}
 
 			/* XXX XXX XXX Hack -- Read feature subtype */
-			if (1 == sscanf(s, "SUBTYPE_%d", &i))
+			if(1 == sscanf(s, "SUBTYPE_%d", &i))
 			{
 				/* Extract a "subtype" */
 				f_ptr->subtype =  i;
@@ -1800,7 +1800,7 @@ errr parse_feature_info(char *buf, header *head)
 			}
 
 			/* XXX XXX XXX Hack -- Read feature power */
-			if (1 == sscanf(s, "POWER_%d", &i))
+			if(1 == sscanf(s, "POWER_%d", &i))
 			{
 				/* Extract a "power" */
 				f_ptr->power =  i;
@@ -1813,7 +1813,7 @@ errr parse_feature_info(char *buf, header *head)
 			}
 
 			/* Parse this entry */
-			if (0 != grab_one_feat_flag(f_ptr, s)) return (PARSE_ERROR_INVALID_FLAG);
+			if(0 != grab_one_feat_flag(f_ptr, s)) return (PARSE_ERROR_INVALID_FLAG);
 
 			/* Start the next entry */
 			s = t;
@@ -1821,38 +1821,38 @@ errr parse_feature_info(char *buf, header *head)
 	}
 
 	/* Process 'W' for "More Info" (one line only) */
-	else if (buf[0] == 'W')
+	else if(buf[0] == 'W')
 	{
 		int priority;
 
 		/* Scan for the value */
-		if (1 != sscanf(buf+2, "%d", &priority)) return (PARSE_ERROR_GENERIC);
+		if(1 != sscanf(buf+2, "%d", &priority)) return (PARSE_ERROR_GENERIC);
 
 		/* Save the value */
 		f_ptr->priority = priority;
 	}
 
 	/* Process 'K' for "States" (up to four lines + default (which cannot be last)) */
-	else if (buf[0] == 'K')
+	else if(buf[0] == 'K')
 	{
 		s16b offset;
 
 		/* Find the next empty state slot (if any) */
-		for (i = 0; i < MAX_FEAT_STATES; i++) if (f_ptr->state[i].action == FF_FLAG_MAX) break;
+		for (i = 0; i < MAX_FEAT_STATES; i++) if(f_ptr->state[i].action == FF_FLAG_MAX) break;
 
 		/* Oops, no more slots */
-		if (i == MAX_FEAT_STATES) return PARSE_ERROR_GENERIC;
+		if(i == MAX_FEAT_STATES) return PARSE_ERROR_GENERIC;
 
 		/* Analyze the first field */
 		for (s = t = buf+2; *t && (*t != ':'); t++) /* loop */;
 
 		/* Terminate the field (if necessary) */
-		if (*t == ':') *t++ = '\0';
+		if(*t == ':') *t++ = '\0';
 
 		/* Is this default entry? */
-		if (streq(s, "DESTROYED"))
+		if(streq(s, "DESTROYED"))
 		{
-			if (!add_tag(&offset, head, t)) return PARSE_ERROR_OUT_OF_MEMORY;
+			if(!add_tag(&offset, head, t)) return PARSE_ERROR_OUT_OF_MEMORY;
 
 			/* Record a fake tag index */
 			f_ptr->destroyed = -offset;
@@ -1863,9 +1863,9 @@ errr parse_feature_info(char *buf, header *head)
 			f_ptr->state[i].action = 0;
 
 			/* Parse this entry */
-			if (0 != grab_one_feat_action(f_ptr, s, i)) return PARSE_ERROR_INVALID_FLAG;
+			if(0 != grab_one_feat_action(f_ptr, s, i)) return PARSE_ERROR_INVALID_FLAG;
 
-			if (!add_tag(&offset, head, t)) return PARSE_ERROR_OUT_OF_MEMORY;
+			if(!add_tag(&offset, head, t)) return PARSE_ERROR_OUT_OF_MEMORY;
 
 			/* Record a fake tag index */
 			f_ptr->state[i].result = -offset;
@@ -1890,7 +1890,7 @@ s16b feature_tag_to_index(cptr str)
 	/* Search for real index corresponding to this fake tag */
 	for (i = 0; i < f_head.info_num; i++)
 	{
-		if (streq(feature_tag + feature_info[i].tag, str))
+		if(streq(feature_tag + feature_info[i].tag, str))
 		{
 			/* Return the index */
 			return (s16b)i;
@@ -1910,12 +1910,12 @@ static void search_real_feat(s16b *feat)
 	int i;
 
 	/* Don't convert non-fake tag */
-	if (*feat >= 0) return;
+	if(*feat >= 0) return;
 
 	/* Search for real index corresponding to this fake tag */
 	for (i = 0; i < f_head.info_num; i++)
 	{
-		if ((-(*feat)) == feature_info[i].tag)
+		if((-(*feat)) == feature_info[i].tag)
 		{
 			/* Record real index */
 			*feat = (s16b)i;
@@ -1964,14 +1964,14 @@ static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
-		if (streq(what, object_kind_info_flags[i]))
+		if(streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(k_ptr->flags, i);
 			return PARSE_ERROR_NONE;
 		}
 	}
 
-	if (grab_one_flag(&k_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
+	if(grab_one_flag(&k_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return PARSE_ERROR_NONE;
 
 	/* Error */
@@ -2323,10 +2323,10 @@ errr parse_object_kind_csv(char *buf, header *head)
 					s = my_strchr(s+1, ':');
 
 						/* If the slash is "nearby", use it */
-					if (t && (!s || t < s))
+					if(t && (!s || t < s))
 					{
 						int chance = atoi(t+1);
-						if (chance > 0) object_kind_ptr->chance[j] = chance;
+						if(chance > 0) object_kind_ptr->chance[j] = chance;
 					}
 				}
 				break;
@@ -2346,14 +2346,14 @@ errr parse_object_kind_csv(char *buf, header *head)
 					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
 
 						/* Nuke and skip any dividers */
-					if (*t)
+					if(*t)
 					{
 						*t++ = '\0';
 						while (*t == ' ' || *t == '|') t++;
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_object_kind_flag(&object_kind_info[n], s))
+					if(0 != grab_one_object_kind_flag(&object_kind_info[n], s))
 					{
 						if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, s))
 							return PARSE_ERROR_INVALID_FLAG;
@@ -2366,7 +2366,7 @@ errr parse_object_kind_csv(char *buf, header *head)
 
 			case OK_INFO_DESCRIPTION:
 				// Store the text
-				if (!add_text(&object_kind_ptr->text, head, tmp, TRUE))
+				if(!add_text(&object_kind_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -2448,14 +2448,14 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
-		if (streq(what, object_kind_info_flags[i]))
+		if(streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(a_ptr->flags, i);
 			return PARSE_ERROR_NONE;
 		}
 	}
 
-	if (grab_one_flag(&a_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
+	if(grab_one_flag(&a_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return PARSE_ERROR_NONE;
 
 	/* Error */
@@ -2769,14 +2769,14 @@ errr parse_artifact_csv(char *buf, header *head)
 						/* Find the end of this entry */
 						for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
 						/* Nuke and skip any dividers */
-						if (*t)
+						if(*t)
 						{
 							*t++ = '\0';
 							while (*t == ' ' || *t == '|') t++;
 						}
 
 						/* Parse this entry */
-						if (0 != grab_one_artifact_flag(&artifact_info[n], s))
+						if(0 != grab_one_artifact_flag(&artifact_info[n], s))
 						{
 							if(0 != traits_precondition_splits(&artifact_ptr->add_creature_traits, s))
 								return PARSE_ERROR_INVALID_FLAG;
@@ -2791,7 +2791,7 @@ errr parse_artifact_csv(char *buf, header *head)
 
 			case ARTIFACT_INFO_DESCRIPTION:
 				/* Store the text */
-				if (!add_text(&artifact_ptr->text, head, tmp, TRUE))
+				if(!add_text(&artifact_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -2846,14 +2846,14 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 	{
-		if (streq(what, object_kind_info_flags[i]))
+		if(streq(what, object_kind_info_flags[i]))
 		{
 			add_flag(e_ptr->flags, i);
 			return PARSE_ERROR_NONE;
 		}
 	}
 
-	if (grab_one_flag(&e_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
+	if(grab_one_flag(&e_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
 		return PARSE_ERROR_NONE;
 
 	/* Error */
@@ -3112,14 +3112,14 @@ errr parse_object_ego_csv(char *buf, header *head)
 					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
 
 						/* Nuke and skip any dividers */
-					if (*t)
+					if(*t)
 					{
 						*t++ = '\0';
 						while (*t == ' ' || *t == '|') t++;
 					}
 
 						/* Parse this entry */
-					if (0 != grab_one_ego_item_flag(&object_ego_info[n], s))
+					if(0 != grab_one_ego_item_flag(&object_ego_info[n], s))
 					{
 						if(0 != traits_precondition_splits(&object_ego_ptr->add_creature_traits, s))
 							return PARSE_ERROR_INVALID_FLAG;
@@ -3173,7 +3173,7 @@ errr parse_object_ego_csv(char *buf, header *head)
  */
 static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 {
-	if (grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0)
+	if(grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0)
 		return PARSE_ERROR_NONE;
 
 	/* Oops */
@@ -3220,7 +3220,7 @@ static int grab_one_authority_flag(species_type *r_ptr, cptr what)
 	/* Check flags */
 	for (i = 0; i < max_authorities_idx; i++)
 	{
-		if (streq(what, authority_info[i].id_e))
+		if(streq(what, authority_info[i].id_e))
 		{
 			return i;
 		}
@@ -3429,17 +3429,17 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_NAME:
 #if JP
-				if (!add_name(&species_ptr->name, head, tmp))
+				if(!add_name(&species_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case SPECIES_INFO_E_NAME:
 #if JP
-				if (!add_name(&species_ptr->E_name, head, tmp))
+				if(!add_name(&species_ptr->E_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_name(&species_ptr->name, head, tmp))
+				if(!add_name(&species_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
@@ -3658,7 +3658,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				while(offset < num) {
 					int am = 0, ae = 0;
 
-					if (k == 4)
+					if(k == 4)
 						return PARSE_ERROR_GENERIC;
 
 					for(s = &tmp[offset]; *s != '\n' && *s != '\0'; s++);
@@ -3676,13 +3676,13 @@ errr parse_species_info_csv(char *buf, header *head)
 					}
 
 					/* Analyze the method */
-					for (am = 0; species_info_blow_method[am]; am++) if (streq(atk_method, species_info_blow_method[am])) break;
-					if (!species_info_blow_method[am])
+					for (am = 0; species_info_blow_method[am]; am++) if(streq(atk_method, species_info_blow_method[am])) break;
+					if(!species_info_blow_method[am])
 						return PARSE_ERROR_GENERIC;
 
 					/* Analyze effect */
-					for (ae = 0; species_info_blow_effect[ae]; ae++) if (streq(atk_effect, species_info_blow_effect[ae])) break;
-					if (!species_info_blow_effect[ae])
+					for (ae = 0; species_info_blow_effect[ae]; ae++) if(streq(atk_effect, species_info_blow_effect[ae])) break;
+					if(!species_info_blow_effect[ae])
 						return PARSE_ERROR_GENERIC;
 
 					/* Save the method */
@@ -3706,9 +3706,9 @@ errr parse_species_info_csv(char *buf, header *head)
 				offset = 0;
 				k = 0;
 				while(tmp[offset]) {
-					if (3 != sscanf(tmp + offset, "%d:%dd%d", &id, &num, &side)) return PARSE_ERROR_GENERIC;		
+					if(3 != sscanf(tmp + offset, "%d:%dd%d", &id, &num, &side)) return PARSE_ERROR_GENERIC;		
 
-					if (k == MAX_UNDERLINGS) return PARSE_ERROR_GENERIC;
+					if(k == MAX_UNDERLINGS) return PARSE_ERROR_GENERIC;
 
 					species_ptr->underling_id[k] = id;
 					species_ptr->underling_d_num[k] = num;
@@ -3725,7 +3725,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				while(tmp[offset]) {
 					id = tval = sval = prob = ego = 0;
 					flags = 0;
-					if (4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
+					if(4 == sscanf(tmp + offset, "%d:%d:%d:%d", &id, &tval, &sval, &prob)) {}
 					else if(2 == sscanf(tmp + offset, "ART:%d:%d%%", &id, &prob)) {}
 					else if(3 == sscanf(tmp + offset, "NORMAL:%d:%d:%d%%", &tval, &sval, &prob))
 					{
@@ -3745,7 +3745,7 @@ errr parse_species_info_csv(char *buf, header *head)
 					}
 					else return PARSE_ERROR_GENERIC;		
 
-					if (k == INVEN_TOTAL) return PARSE_ERROR_GENERIC;
+					if(k == INVEN_TOTAL) return PARSE_ERROR_GENERIC;
 
 					species_ptr->artifact_id[k] = id;
 					species_ptr->artifact_ego[k] = ego;
@@ -3769,12 +3769,12 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_DESCRIPTION:
-				if (!add_text(&species_ptr->text, head, tmp, TRUE))
+				if(!add_text(&species_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case SPECIES_INFO_E_DESCRIPTION:
-				if (!add_text(&species_ptr->E_text, head, tmp, TRUE))
+				if(!add_text(&species_ptr->E_text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -3786,14 +3786,14 @@ errr parse_species_info_csv(char *buf, header *head)
 					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t); // loop
 
 					// Nuke and skip any dividers
-					if (*t)
+					if(*t)
 					{
 						*t++ = '\0';
 						while ((*t == ' ') || (*t == '|') || (*t == '\n')) t++;
 					}
 
 					// Parse this entry
-					if ((b = grab_one_authority_flag(&species_info[n], s)) < 0) return PARSE_ERROR_INVALID_FLAG;
+					if((b = grab_one_authority_flag(&species_info[n], s)) < 0) return PARSE_ERROR_INVALID_FLAG;
 					species_ptr->authority[b / 32] |= (0x0001 << (b % 32));
 
 					// Start the next entry
@@ -3894,19 +3894,19 @@ errr parse_re_info(char *buf, header *head)
 	static creature_ego *re_ptr = NULL;
 
 	/* Process 'N' for "New/Number/Name" */
-	if (buf[0] == 'N')
+	if(buf[0] == 'N')
 	{
 		/* Find the colon before the name */
 		s = my_strchr(buf+2, ':');
 
 			/* Verify that colon */
-		if (!s) return PARSE_ERROR_GENERIC;
+		if(!s) return PARSE_ERROR_GENERIC;
 
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 #ifdef JP
 		/* Paranoia -- require a name */
-		if (!*s) return PARSE_ERROR_GENERIC;
+		if(!*s) return PARSE_ERROR_GENERIC;
 #endif
 
 		/* Get the index */
@@ -3914,10 +3914,10 @@ errr parse_re_info(char *buf, header *head)
 
 
 		/* Verify information */
-		if (i < error_idx) return (4);
+		if(i < error_idx) return (4);
 
 		/* Verify information */
-		if (i >= head->info_num) return (2);
+		if(i >= head->info_num) return (2);
 
 		/* Save the index */
 		error_idx = i;
@@ -3927,40 +3927,40 @@ errr parse_re_info(char *buf, header *head)
 		re_ptr->name = 0;
 #ifdef JP
 		/* Store the name */
-		if (!add_name(&re_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_name(&re_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 	}
 
 	/* There better be a current r_ptr */
-	else if (!re_ptr) return (3);
+	else if(!re_ptr) return (3);
 
 #ifdef JP
 	/* ‰pŒê–¼‚ð“Ç‚Þƒ‹[ƒ`ƒ“‚ð’Ç‰Á */
 	/* 'E' ‚©‚çŽn‚Ü‚és‚Í‰pŒê–¼ */
-	else if (buf[0] == 'E')
+	else if(buf[0] == 'E')
 	{
 		/* Acquire the Text */
 		s = buf+2;
 
 		/* Store the name */
-		if (!add_name(&re_ptr->E_name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_name(&re_ptr->E_name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 #else
-	else if (buf[0] == 'E')
+	else if(buf[0] == 'E')
 	{
 		/* Acquire the Text */
 		s = buf+2;
 
 		/* Store the name */
-		if (!add_name(&re_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
+		if(!add_name(&re_ptr->name, head, s)) return PARSE_ERROR_OUT_OF_MEMORY;
 	}
 #endif
 
 	/*stat*/
-	else if (buf[0] == 'S')
+	else if(buf[0] == 'S')
 	{
 		int k[6];
-		if (6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
+		if(6 != sscanf(buf+2, "%d:%d:%d:%d:%d:%d",
 				&k[0], &k[1], &k[2], &k[3], &k[4], &k[5])) return PARSE_ERROR_GENERIC;
 		
 		re_ptr->stat[STAT_STR] = k[0];
@@ -4063,17 +4063,17 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 
 			case ST_INFO_NAME:
 #if JP
-				if (!add_name(&store_pre_info[n].name, head, tmp))
+				if(!add_name(&store_pre_info[n].name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
 			case ST_INFO_E_NAME:
 #if JP
-				if (!add_name(&store_pre_info[n].E_name, head, tmp))
+				if(!add_name(&store_pre_info[n].E_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_name(&store_pre_info[n].name, head, tmp))
+				if(!add_name(&store_pre_info[n].name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
@@ -4104,14 +4104,14 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 					for (t = s; *t && (*t != ' ') && (*t != '\n') && (*t != '|'); ++t) /* loop */;
 
 					/* Nuke and skip any dividers */
-					if (*t)
+					if(*t)
 					{
 						*t++ = '\0';
 						while (*t == ' ' || *t == '|' || *t == '\n') t++;
 					}
 
 					/* Parse this entry */
-					if (0 != grab_store_flag(&store_pre_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
+					if(0 != grab_store_flag(&store_pre_info[n], s)) return (PARSE_ERROR_INVALID_FLAG);
 
 					/* Start the next entry */
 					s = t;
@@ -4402,12 +4402,12 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_DESCRIPTION:
-					if (!add_text(&trait_info[n].text, head, tmp, TRUE))
+					if(!add_text(&trait_info[n].text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case TRAIT_INFO_E_DESCRIPTION:
-					if (!add_text(&trait_info[n].E_text, head, tmp, TRUE))
+					if(!add_text(&trait_info[n].E_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -4438,12 +4438,12 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_USE_STAT:
 					if(sscanf(tmp, "%d", &b) != 1) {
-						if (streq(tmp, "STR")) trait_info[n].use_stat = STAT_STR;
-						else if (streq(tmp, "INT")) trait_info[n].use_stat = STAT_INT;
-						else if (streq(tmp, "WIS")) trait_info[n].use_stat = STAT_WIS;
-						else if (streq(tmp, "DEX")) trait_info[n].use_stat = STAT_DEX;
-						else if (streq(tmp, "CON")) trait_info[n].use_stat = STAT_CON;
-						else if (streq(tmp, "CHA")) trait_info[n].use_stat = STAT_CHA;
+						if(streq(tmp, "STR")) trait_info[n].use_stat = STAT_STR;
+						else if(streq(tmp, "INT")) trait_info[n].use_stat = STAT_INT;
+						else if(streq(tmp, "WIS")) trait_info[n].use_stat = STAT_WIS;
+						else if(streq(tmp, "DEX")) trait_info[n].use_stat = STAT_DEX;
+						else if(streq(tmp, "CON")) trait_info[n].use_stat = STAT_CON;
+						else if(streq(tmp, "CHA")) trait_info[n].use_stat = STAT_CHA;
 						else return PARSE_ERROR_INVALID_FLAG;
 					}
 					trait_info[n].use_stat = (s16b)b;
@@ -4455,25 +4455,25 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_GET_DESC:
-					if (!add_text(&trait_info[n].get_text, head, tmp, TRUE))
+					if(!add_text(&trait_info[n].get_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_E_GET_DESC:
-					if (!add_text(&trait_info[n].E_get_text, head, tmp, TRUE))
+					if(!add_text(&trait_info[n].E_get_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_LOST_DESC:
-					if (!add_text(&trait_info[n].lost_text, head, tmp, TRUE))
+					if(!add_text(&trait_info[n].lost_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_E_LOST_DESC:
-					if (!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
+					if(!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
@@ -4717,16 +4717,16 @@ errr parse_race_info_csv(char *buf, header *head)
 
 			case RC_INFO_NAME:
 
-				if (!add_name(&race_ptr->name, head, tmp))
+				if(!add_name(&race_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case RC_INFO_E_NAME:
 #if JP
-				if (!add_name(&race_ptr->E_name, head, tmp))
+				if(!add_name(&race_ptr->E_name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_name(&race_ptr->name, head, tmp))
+				if(!add_name(&race_ptr->name, head, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
@@ -5002,17 +5002,17 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_DESCRIPTION:
-				if (!add_text(&race_ptr->text, head, tmp, TRUE))
+				if(!add_text(&race_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 
 			case RC_INFO_E_DESCRIPTION:
 #if JP
-				if (!add_text(&race_ptr->E_text, head, tmp, TRUE))
+				if(!add_text(&race_ptr->E_text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!add_text(&race_ptr->text, head, tmp, TRUE))
+				if(!add_text(&race_ptr->text, head, tmp, TRUE))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
@@ -5239,16 +5239,16 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_NAME:
-					if (!add_name(&class_ptr->name, head, tmp))
+					if(!add_name(&class_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_NAME:
 #if JP
-					if (!add_name(&class_ptr->E_name, head, tmp))
+					if(!add_name(&class_ptr->E_name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-					if (!add_name(&class_ptr->name, head, tmp))
+					if(!add_name(&class_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
@@ -5414,12 +5414,12 @@ errr parse_class_info_csv(char *buf, header *head)
 					break;
 
 				case CL_INFO_DESCRIPTION:
-					if (!add_text(&class_ptr->text, head, tmp, TRUE))
+					if(!add_text(&class_ptr->text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CL_INFO_E_DESCRIPTION:
-					if (!add_text(&class_ptr->E_text, head, tmp, TRUE))
+					if(!add_text(&class_ptr->E_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
@@ -5548,16 +5548,16 @@ errr parse_chara_info_csv(char *buf, header *head)
 			switch(ch_info_csv_code[i])
 			{
 				case CH_INFO_NAME:
-					if (!add_name(&chara_ptr->name, head, tmp))
+					if(!add_name(&chara_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CH_INFO_E_NAME:
 #if JP
-					if (!add_name(&chara_ptr->E_name, head, tmp))
+					if(!add_name(&chara_ptr->E_name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-					if (!add_name(&chara_ptr->name, head, tmp))
+					if(!add_name(&chara_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 					break;
@@ -5663,12 +5663,12 @@ errr parse_chara_info_csv(char *buf, header *head)
 					break;
 
 				case CH_INFO_DESCRIPTION:
-					if (!add_text(&chara_ptr->text, head, tmp, TRUE))
+					if(!add_text(&chara_ptr->text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case CH_INFO_E_DESCRIPTION:
-					if (!add_text(&chara_ptr->E_text, head, tmp, TRUE))
+					if(!add_text(&chara_ptr->E_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
@@ -5685,7 +5685,7 @@ errr parse_chara_info_csv(char *buf, header *head)
  */
 static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 {
-	if (grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
+	if(grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
 		return PARSE_ERROR_NONE;
 
 	/* Oops */
@@ -5838,12 +5838,12 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 			switch(du_info_csv_code[i])
 			{
 				case DU_INFO_NAME:
-					if (!add_name(&dungeon_ptr->name, head, tmp))
+					if(!add_name(&dungeon_ptr->name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_E_NAME:
-					if (!add_name(&dungeon_ptr->E_name, head, tmp))
+					if(!add_name(&dungeon_ptr->E_name, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
@@ -5858,17 +5858,17 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_TEXT:
-					if (!add_name(&dungeon_ptr->text, head, tmp))
+					if(!add_name(&dungeon_ptr->text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_E_TEXT:
-					if (!add_name(&dungeon_ptr->E_text, head, tmp))
+					if(!add_name(&dungeon_ptr->E_text, head, tmp))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case DU_INFO_FEAT_PROB_FLOOR:
-					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
+					if(tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
 					dungeon_ptr->floor[0].feat = feature_tag_to_index(zz[0]);
 					dungeon_ptr->floor[0].percent = atoi(zz[1]);
 					dungeon_ptr->floor[1].feat = feature_tag_to_index(zz[2]);
@@ -5878,7 +5878,7 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 					break;
 
 				case DU_INFO_FEAT_PROB_FILL:
-					if (tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
+					if(tokenize(tmp, DUNGEON_FEAT_PROB_NUM * 2, zz, 0) != (DUNGEON_FEAT_PROB_NUM * 2)) return PARSE_ERROR_GENERIC; // Scan for the values
 					dungeon_ptr->fill[0].feat = feature_tag_to_index(zz[0]);
 					dungeon_ptr->fill[0].percent = atoi(zz[1]);
 					dungeon_ptr->fill[1].feat = feature_tag_to_index(zz[2]);
@@ -5889,22 +5889,22 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 
 				case DU_INFO_OUTER_WALL:
 					dungeon_ptr->outer_wall = feature_tag_to_index(tmp);
-					if (dungeon_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					if(dungeon_ptr->outer_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_INNER_WALL:
 					dungeon_ptr->inner_wall = feature_tag_to_index(tmp);
-					if (dungeon_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					if(dungeon_ptr->inner_wall < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_STREAM1:
 					dungeon_ptr->stream1 = feature_tag_to_index(tmp);
-					if (dungeon_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					if(dungeon_ptr->stream1 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_STREAM2:
 					dungeon_ptr->stream2 = feature_tag_to_index(tmp);
-					if (dungeon_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					if(dungeon_ptr->stream2 < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 					break;
 
 				case DU_INFO_MINDEPTH:
@@ -5958,14 +5958,14 @@ errr parse_dungeon_info_csv(char *buf, header *head)
 						for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
 
 						/* Nuke and skip any dividers */
-						if (*t)
+						if(*t)
 						{
 							*t++ = '\0';
 							while (*t == ' ' || *t == '|') t++;
 						}
 
 						/* Parse this entry */
-						if (0 != grab_one_dungeon_flag(dungeon_ptr, s)) return PARSE_ERROR_INVALID_FLAG;
+						if(0 != grab_one_dungeon_flag(dungeon_ptr, s)) return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 						s = t;
@@ -6172,15 +6172,15 @@ errr parse_authority_info_csv(char *buf, header *head)
 			{
 			case AU_INFO_NAME:
 
-				if (!strcpy(authority_info[n].title, tmp))
+				if(!strcpy(authority_info[n].title, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 			case AU_INFO_E_NAME:
 #if JP
-				if (!strcpy(authority_info[n].E_title, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!strcpy(authority_info[n].E_title, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #else
-				if (!strcpy(&authority_info[n].title, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
+				if(!strcpy(&authority_info[n].title, tmp)) return PARSE_ERROR_OUT_OF_MEMORY;
 #endif
 				break;
 
@@ -6340,7 +6340,7 @@ errr parse_authority_info_csv(char *buf, header *head)
 				break;
 
 			case AU_INFO_ID_E:
-				if (!strcpy(authority_info[n].id_e, tmp))
+				if(!strcpy(authority_info[n].id_e, tmp))
 					return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
@@ -6405,10 +6405,10 @@ static errr parse_line_feature(char *buf, u32b flags)
 	char *zz[9];
 
 
-	if (flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
+	if(flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 	/* Tokenize the line */
-	if ((num = tokenize(buf+2, 9, zz, 0)) > 1)
+	if((num = tokenize(buf+2, 9, zz, 0)) > 1)
 	{
 		/* Letter to assign */
 		int index = zz[0][0];
@@ -6432,22 +6432,22 @@ static errr parse_line_feature(char *buf, u32b flags)
 				/* Fall through */
 			/* Trap */
 			case 8:
-				if ((zz[7][0] == '*') && !zz[7][1])
+				if((zz[7][0] == '*') && !zz[7][1])
 				{
 					letter[index].random |= RANDOM_TRAP;
 				}
 				else
 				{
 					letter[index].trap = feature_tag_to_index(zz[7]);
-					if (letter[index].trap < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					if(letter[index].trap < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 				}
 				/* Fall through */
 			/* Artifact */
 			case 7:
-				if (zz[6][0] == '*')
+				if(zz[6][0] == '*')
 				{
 					letter[index].random |= RANDOM_ARTIFACT;
-					if (zz[6][1]) letter[index].artifact = atoi(zz[6] + 1);
+					if(zz[6][1]) letter[index].artifact = atoi(zz[6] + 1);
 				}
 				else
 				{
@@ -6456,10 +6456,10 @@ static errr parse_line_feature(char *buf, u32b flags)
 				/* Fall through */
 			/* Ego-item */
 			case 6:
-				if (zz[5][0] == '*')
+				if(zz[5][0] == '*')
 				{
 					letter[index].random |= RANDOM_EGO;
-					if (zz[5][1]) letter[index].ego = atoi(zz[5] + 1);
+					if(zz[5][1]) letter[index].ego = atoi(zz[5] + 1);
 				}
 				else
 				{
@@ -6468,10 +6468,10 @@ static errr parse_line_feature(char *buf, u32b flags)
 				/* Fall through */
 			/* Object */
 			case 5:
-				if (zz[4][0] == '*')
+				if(zz[4][0] == '*')
 				{
 					letter[index].random |= RANDOM_OBJECT;
-					if (zz[4][1]) letter[index].object = atoi(zz[4] + 1);
+					if(zz[4][1]) letter[index].object = atoi(zz[4] + 1);
 				}
 				else
 				{
@@ -6480,14 +6480,14 @@ static errr parse_line_feature(char *buf, u32b flags)
 				/* Fall through */
 			/* Creature */
 			case 4:
-				if (zz[3][0] == '*')
+				if(zz[3][0] == '*')
 				{
 					letter[index].random |= RANDOM_MONSTER;
-					if (zz[3][1]) letter[index].creature = atoi(zz[3] + 1);
+					if(zz[3][1]) letter[index].creature = atoi(zz[3] + 1);
 				}
-				else if (zz[3][0] == 'c')
+				else if(zz[3][0] == 'c')
 				{
-					if (!zz[3][1]) return PARSE_ERROR_GENERIC;
+					if(!zz[3][1]) return PARSE_ERROR_GENERIC;
 					letter[index].creature = - atoi(zz[3] + 1);
 				}
 				else
@@ -6501,14 +6501,14 @@ static errr parse_line_feature(char *buf, u32b flags)
 				/* Fall through */
 			/* Feature */
 			case 2:
-				if ((zz[1][0] == '*') && !zz[1][1])
+				if((zz[1][0] == '*') && !zz[1][1])
 				{
 					letter[index].random |= RANDOM_FEATURE;
 				}
 				else
 				{
 					letter[index].feature = feature_tag_to_index(zz[1]);
-					if (letter[index].feature < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
+					if(letter[index].feature < 0) return PARSE_ERROR_UNDEFINED_TERRAIN_TAG;
 				}
 				break;
 		}
@@ -6531,11 +6531,11 @@ static errr parse_line_building(char *buf)
 	char *s;
 
 #ifdef JP
-	if (buf[2] == '$')
+	if(buf[2] == '$')
 		return PARSE_ERROR_NONE;
 	s = buf + 2;
 #else
-	if (buf[2] != '$')
+	if(buf[2] != '$')
 		return PARSE_ERROR_NONE;
 	s = buf + 3;
 #endif
@@ -6546,13 +6546,13 @@ static errr parse_line_building(char *buf)
 	s = my_strchr(s, ':');
 
 	/* Verify that colon */
-	if (!s) return PARSE_ERROR_GENERIC;
+	if(!s) return PARSE_ERROR_GENERIC;
 
 	/* Nuke the colon, advance to the sub-index */
 	*s++ = '\0';
 
 	/* Paranoia -- require a sub-index */
-	if (!*s) return PARSE_ERROR_GENERIC;
+	if(!*s) return PARSE_ERROR_GENERIC;
 
 	/* Building definition sub-index */
 	switch (s[0])
@@ -6560,7 +6560,7 @@ static errr parse_line_building(char *buf)
 		/* Building name, owner, race */
 		case 'N':
 		{
-			if (tokenize(s + 2, 3, zz, 0) == 3)
+			if(tokenize(s + 2, 3, zz, 0) == 3)
 			{
 				/* Name of the building */
 				strcpy(building[index].name, zz[0]);
@@ -6581,7 +6581,7 @@ static errr parse_line_building(char *buf)
 		case 'A':
 		{
 			int num;
-			if ((num = tokenize(s + 2, 8, zz, 0)) >= 7)
+			if((num = tokenize(s + 2, 8, zz, 0)) >= 7)
 			{
 				/* Index of the action */
 				int action_index = atoi(zz[0]);
@@ -6654,7 +6654,7 @@ static errr parse_line_building(char *buf)
 		/* Building Realms */
 		case 'M':
 		{
-			if (tokenize(s+2, MAX_MAGIC, zz, 0) == MAX_MAGIC)
+			if(tokenize(s+2, MAX_MAGIC, zz, 0) == MAX_MAGIC)
 			{
 				for (i = 0; i < MAX_MAGIC; i++)
 				{
@@ -6726,33 +6726,33 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 
 	/* Skip "empty" lines */
-	if (!buf[0]) return PARSE_ERROR_NONE;
+	if(!buf[0]) return PARSE_ERROR_NONE;
 
 	/* Skip "blank" lines */
-	if (isspace(buf[0])) return PARSE_ERROR_NONE;
+	if(isspace(buf[0])) return PARSE_ERROR_NONE;
 
 	/* Skip comments */
-	if (buf[0] == '#') return PARSE_ERROR_NONE;
+	if(buf[0] == '#') return PARSE_ERROR_NONE;
 
 	/* Require "?:*" format */
-	if (buf[1] != ':') return PARSE_ERROR_GENERIC;
+	if(buf[1] != ':') return PARSE_ERROR_GENERIC;
 
 
 	/* Process "%:<fname>" */
-	if (buf[0] == '%')
+	if(buf[0] == '%')
 	{
 		// Attempt to Process the given file
 		return (process_dungeon_file(floor_ptr, buf + 2, ymin, xmin, ymax, xmax, flags, quest_id));
 	}
 
 	/* Process "F:<letter>:<terrain>:<cave_info>:<creature>:<object>:<ego>:<artifact>:<trap>:<special>" -- info for dungeon grid */
-	if (buf[0] == 'F')
+	if(buf[0] == 'F')
 	{
 		return parse_line_feature(buf, flags);
 	}
 
 	/* Process "D:<dungeon>" -- info for the cave grids */
-	else if (buf[0] == 'D')
+	else if(buf[0] == 'D')
 	{
 		object_type object_type_body;
 
@@ -6762,7 +6762,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Length of the text */
 		int len = strlen(s);
 
-		if (flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
+		if(flags & INIT_ONLY_BUILDINGS) return PARSE_ERROR_NONE;
 
 		for (*x = xmin, i = 0; ((*x < xmax) && (i < len)); (*x)++, s++, i++)
 		{
@@ -6782,24 +6782,24 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].feature);
 
 			/* Only the features */
-			if (flags & INIT_ONLY_FEATURES) continue;
+			if(flags & INIT_ONLY_FEATURES) continue;
 
 			/* Cave info */
 			c_ptr->info = letter[idx].cave_info;
 
 			/* Create a creature */
-			if (random & RANDOM_MONSTER)
+			if(random & RANDOM_MONSTER)
 			{
 				floor_ptr->creature_level = floor_ptr->base_level + creature_index;
 				place_creature(NULL, floor_ptr, *y, *x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 				floor_ptr->creature_level = floor_ptr->base_level;
 			}
-			else if (creature_index)
+			else if(creature_index)
 			{
 				int old_cur_num, old_max_num;
 				bool clone = FALSE;
 
-				if (creature_index < 0)
+				if(creature_index < 0)
 				{
 					creature_index = -creature_index;
 					clone = TRUE;
@@ -6808,7 +6808,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				old_max_num = species_info[creature_index].max_num;
 
 				/* Make alive again */
-				if (has_trait_species(&species_info[creature_index], TRAIT_UNIQUE))
+				if(has_trait_species(&species_info[creature_index], TRAIT_UNIQUE))
 				{
 					species_info[creature_index].cur_num = 0;
 					species_info[creature_index].max_num = 1;
@@ -6816,9 +6816,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				/* Make alive again */
 				/* Hack -- Non-unique Nazguls are semi-unique */
-				else if (has_trait_raw(&species_info[creature_index].flags, TRAIT_NAZGUL))
+				else if(has_trait_raw(&species_info[creature_index].flags, TRAIT_NAZGUL))
 				{
-					if (species_info[creature_index].cur_num == species_info[creature_index].max_num)
+					if(species_info[creature_index].cur_num == species_info[creature_index].max_num)
 					{
 						species_info[creature_index].max_num++;
 					}
@@ -6826,7 +6826,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				/* Place it */
 				place_creature_species(NULL, floor_ptr, *y, *x, creature_index, (PC_ALLOW_SLEEP | PC_NO_KAGE));
-				if (clone)
+				if(clone)
 				{
 					/* clone */
 					creature_list[hack_m_idx_ii].smart |= SM_CLONED;
@@ -6838,7 +6838,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			}
 
 			/* Object (and possible trap) */
-			if ((random & RANDOM_OBJECT) && (random & RANDOM_TRAP))
+			if((random & RANDOM_OBJECT) && (random & RANDOM_TRAP))
 			{
 				floor_ptr->object_level = floor_ptr->base_level + object_index;
 
@@ -6846,7 +6846,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				 * Random trap and random treasure defined
 				 * 25% chance for trap and 75% chance for object
 				 */
-				if (randint0(100) < 75)
+				if(randint0(100) < 75)
 				{
 					place_object(floor_ptr, *y, *x, 0L);
 				}
@@ -6857,14 +6857,14 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				floor_ptr->object_level = floor_ptr->base_level;
 			}
-			else if (random & RANDOM_OBJECT)
+			else if(random & RANDOM_OBJECT)
 			{
 				floor_ptr->object_level = floor_ptr->base_level + object_index;
 
 				/* Create an out of deep object */
-				if (randint0(100) < 75)
+				if(randint0(100) < 75)
 					place_object(floor_ptr, *y, *x, 0L);
-				else if (randint0(100) < 80)
+				else if(randint0(100) < 80)
 					place_object(floor_ptr, *y, *x, AM_GOOD);
 				else
 					place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT);
@@ -6872,17 +6872,17 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				floor_ptr->object_level = floor_ptr->base_level;
 			}
 			/* Random trap */
-			else if (random & RANDOM_TRAP)
+			else if(random & RANDOM_TRAP)
 			{
 				place_trap(floor_ptr, *y, *x);
 			}
 			/* Hidden trap (or door) */
-			else if (letter[idx].trap)
+			else if(letter[idx].trap)
 			{
 				c_ptr->mimic = c_ptr->feat;
 				c_ptr->feat = conv_dungeon_feat(floor_ptr, letter[idx].trap);
 			}
-			else if (object_index)
+			else if(object_index)
 			{
 				/* Get local object */
 				object_type *object_ptr = &object_type_body;
@@ -6890,7 +6890,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				/* Create the item */
 				object_prep(object_ptr, object_index, ITEM_FREE_SIZE);
 
-				if (object_ptr->tval == TV_GOLD)
+				if(object_ptr->tval == TV_GOLD)
 				{
 					make_gold(floor_ptr, object_ptr, letter[idx].special, object_index - OBJ_GOLD_LIST);
 				}
@@ -6902,9 +6902,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			}
 
 			/* Artifact */
-			if (artifact_index)
+			if(artifact_index)
 			{
-				if (artifact_info[artifact_index].cur_num)
+				if(artifact_info[artifact_index].cur_num)
 				{
 					int k_idx = lookup_kind(TV_SCROLL, SV_SCROLL_ACQUIREMENT);
 					object_type forge;
@@ -6918,7 +6918,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				else
 				{
 					/* Create the artifact */
-					if (drop_named_art(player_ptr, artifact_index, *y, *x))
+					if(drop_named_art(player_ptr, artifact_index, *y, *x))
 						artifact_info[artifact_index].cur_num = 1;
 				}
 			}
@@ -6933,35 +6933,35 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	}
 
 	/* Process "Q:<number>:<command>:... -- quest info */
-	else if (buf[0] == 'Q')
+	else if(buf[0] == 'Q')
 	{
 		int num;
 		quest_type *quest_ptr;
 #ifdef JP
-		if (buf[2] == '$')
+		if(buf[2] == '$')
 			return PARSE_ERROR_NONE;
 		num = tokenize(buf + 2, 33, zz, 0);
 #else
-		if (buf[2] != '$')
+		if(buf[2] != '$')
 			return PARSE_ERROR_NONE;
 		num = tokenize(buf + 3, 33, zz, 0);
 #endif
 
 		/* Have we enough parameters? */
-		if (num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
+		if(num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
 		/* Get the quest */
 		quest_ptr = &(quest[atoi(zz[0])]);
 
 		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
-		if (zz[1][0] == 'Q')
+		if(zz[1][0] == 'Q')
 		{
-			if (flags & INIT_ASSIGN)
+			if(flags & INIT_ASSIGN)
 			{
 				species_type *r_ptr;
 				artifact_type *a_ptr;
 
-				if (num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
+				if(num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
 				quest_ptr->type    = atoi(zz[2]);
 				quest_ptr->num_mon = atoi(zz[3]);
@@ -6972,11 +6972,11 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				quest_ptr->k_idx   = atoi(zz[8]);
 				quest_ptr->dungeon = atoi(zz[9]);
 
-				if (num > 10)
+				if(num > 10)
 					quest_ptr->flags  = atoi(zz[10]);
 
 				r_ptr = &species_info[quest_ptr->species_idx];
-				//if (has_trait_species(r_ptr, TRAIT_UNIQUE))
+				//if(has_trait_species(r_ptr, TRAIT_UNIQUE))
 					//TODO r_ptr->flags1 |= RF1_QUESTOR;
 
 				a_ptr = &artifact_info[quest_ptr->k_idx];
@@ -6986,9 +6986,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		}
 
 		/* Process "Q:<q_index>:N:<name>" -- quest name */
-		else if (zz[1][0] == 'N')
+		else if(zz[1][0] == 'N')
 		{
-			if (flags & (INIT_ASSIGN | INIT_SHOW_TEXT))
+			if(flags & (INIT_ASSIGN | INIT_SHOW_TEXT))
 			{
 				strcpy(quest_ptr->name, zz[2]);
 			}
@@ -6997,9 +6997,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		}
 
 		/* Process "Q:<q_index>:T:<text>" -- quest description line */
-		else if (zz[1][0] == 'T')
+		else if(zz[1][0] == 'T')
 		{
-			if (flags & INIT_SHOW_TEXT)
+			if(flags & INIT_SHOW_TEXT)
 			{
 				strcpy(questp_text[questp_text_line], zz[2]);
 				questp_text_line++;
@@ -7010,27 +7010,27 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	}
 
 	/* Process "W:<command>: ..." -- info for the wilderness */
-	else if (buf[0] == 'W')
+	else if(buf[0] == 'W')
 	{
 		return parse_line_wilderness(buf, ymin, xmin, ymax, xmax, y, x);
 	}
 
 	/* Process "P:<y>:<x>" -- player position */
-	else if (buf[0] == 'P')
+	else if(buf[0] == 'P')
 	{
-		if (flags & INIT_CREATE_DUNGEON)
+		if(flags & INIT_CREATE_DUNGEON)
 		{
-			if (tokenize(buf + 2, 2, zz, 0) == 2)
+			if(tokenize(buf + 2, 2, zz, 0) == 2)
 			{
 				int panels_x, panels_y;
 
 				/* Hack - Set the dungeon size */
 				panels_y = (*y / SCREEN_HGT);
-				if (*y % SCREEN_HGT) panels_y++;
+				if(*y % SCREEN_HGT) panels_y++;
 				floor_ptr->height = panels_y * SCREEN_HGT;
 
 				panels_x = (*x / SCREEN_WID);
-				if (*x % SCREEN_WID) panels_x++;
+				if(*x % SCREEN_WID) panels_x++;
 				floor_ptr->width = panels_x * SCREEN_WID;
 
 				/* Assume illegal panel */
@@ -7038,7 +7038,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				panel_col_min = floor_ptr->width;
 
 				/* Place player in a quest level */
-				if (quest)
+				if(quest)
 				{
 					int y, x;
 
@@ -7052,7 +7052,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 					player_ptr->fx = x;
 				}
 				/* Place player in the town */
-				else if (!player_ptr->oldpx && !player_ptr->oldpy)
+				else if(!player_ptr->oldpx && !player_ptr->oldpy)
 				{
 					player_ptr->oldpy = atoi(zz[0]);
 					player_ptr->oldpx = atoi(zz[1]);
@@ -7064,13 +7064,13 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	}
 
 	/* Process "B:<Index>:<Command>:..." -- Building definition */
-	else if (buf[0] == 'B')
+	else if(buf[0] == 'B')
 	{
 		return parse_line_building(buf);
 	}
 
 	/* Process "R:<RaceRate>" -- set Race Bias */
-	else if (buf[0] == 'R')
+	else if(buf[0] == 'R')
 	{
 		char *zz[MAX_RACES];
 		int n;
@@ -7089,27 +7089,27 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 	}
 
 	/* Process "M:<type>:<maximum>" -- set maximum values */
-	else if (buf[0] == 'M')
+	else if(buf[0] == 'M')
 	{
-		if (tokenize(buf+2, 2, zz, 0) == 2)
+		if(tokenize(buf+2, 2, zz, 0) == 2)
 		{
 			/* Maximum towns */
-			if (zz[0][0] == 'T')
+			if(zz[0][0] == 'T')
 			{
 				max_towns = atoi(zz[1]);
 			}
 
 			/* Maximum quests */
-			else if (zz[0][0] == 'Q')
+			else if(zz[0][0] == 'Q')
 			{
 				max_quests = atoi(zz[1]);
 			}
 
 			/* Maximum species_idx */
-			else if (zz[0][0] == 'R')
+			else if(zz[0][0] == 'R')
 			{
 				/* Maximum species_idx */
-				if (zz[0][1] == 'E')
+				if(zz[0][1] == 'E')
 				{
 					max_creature_ego_idx = atoi(zz[1]);
 				}
@@ -7120,28 +7120,28 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			}
 
 			/* Maximum k_idx */
-			else if (zz[0][0] == 'K')
+			else if(zz[0][0] == 'K')
 			{
 				max_object_kind_idx = atoi(zz[1]);
 			}
 
 			/* Maximum v_idx */
-			else if (zz[0][0] == 'V')
+			else if(zz[0][0] == 'V')
 			{
 				max_vault_idx = atoi(zz[1]);
 			}
 
 			/* Maximum f_idx */
-			else if (zz[0][0] == 'F')
+			else if(zz[0][0] == 'F')
 			{
 				max_feature_idx = atoi(zz[1]);
 			}
 
 			/* Maximum a_idx */
-			else if (zz[0][0] == 'A')
+			else if(zz[0][0] == 'A')
 			{
 				/* Maximum species_idx */
-				if (zz[0][1] == 'U')
+				if(zz[0][1] == 'U')
 				{
 					max_authorities_idx = atoi(zz[1]);
 				}
@@ -7152,51 +7152,51 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			}
 
 			/* Maximum e_idx */
-			else if (zz[0][0] == 'E')
+			else if(zz[0][0] == 'E')
 			{
 				max_object_ego_idx = atoi(zz[1]);
 			}
 
 			/* Maximum d_idx */
-			else if (zz[0][0] == 'D')
+			else if(zz[0][0] == 'D')
 			{
 				max_dungeon_idx = atoi(zz[1]); 
 			}
 
 			/* Maximum object_idx */
-			else if (zz[0][0] == 'O')
+			else if(zz[0][0] == 'O')
 			{
 				max_object_idx = atoi(zz[1]);
 			}
 
 			/* Maximum m_idx */
-			else if (zz[0][0] == 'M')
+			else if(zz[0][0] == 'M')
 			{
 				max_creature_idx = atoi(zz[1]);
 			}
 
 			/* Maximum m_idx */
-			else if (zz[0][0] == 'C')
+			else if(zz[0][0] == 'C')
 			{
 				max_trait_idx = atoi(zz[1]);
 			}
 
 			/* Wilderness size */
-			else if (zz[0][0] == 'W')
+			else if(zz[0][0] == 'W')
 			{
 				/* Maximum wild_x_size */
-				if (zz[0][1] == 'X')
+				if(zz[0][1] == 'X')
 					max_wild_x = atoi(zz[1]);
 				/* Maximum wild_y_size */
-				if (zz[0][1] == 'Y')
+				if(zz[0][1] == 'Y')
 					max_wild_y = atoi(zz[1]);
 			}
 
 			/* Maximum species_idx */
-			else if (zz[0][0] == 'S')
+			else if(zz[0][0] == 'S')
 			{
 				/* Maximum species_idx */
-				if (zz[0][1] == 'T')
+				if(zz[0][1] == 'T')
 				{
 					max_store_idx = atoi(zz[1]);
 				}
@@ -7238,7 +7238,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 	v = "?o?o?";
 
 	/* Analyze */
-	if (*s == b1)
+	if(*s == b1)
 	{
 		const char *p;
 		const char *t;
@@ -7250,64 +7250,64 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 		t = process_dungeon_file_expr(floor_ptr, &s, &f);
 
 		/* Oops */
-		if (!*t)
+		if(!*t)
 		{
 			/* Nothing */
 		}
 
 		/* Function: IOR */
-		else if (streq(t, "IOR"))
+		else if(streq(t, "IOR"))
 		{
 			v = "0";
 			while (*s && (f != b2))
 			{
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
-				if (*t && !streq(t, "0")) v = "1";
+				if(*t && !streq(t, "0")) v = "1";
 			}
 		}
 
 		/* Function: AND */
-		else if (streq(t, "AND"))
+		else if(streq(t, "AND"))
 		{
 			v = "1";
 			while (*s && (f != b2))
 			{
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
-				if (*t && streq(t, "0")) v = "0";
+				if(*t && streq(t, "0")) v = "0";
 			}
 		}
 
 		/* Function: NOT */
-		else if (streq(t, "NOT"))
+		else if(streq(t, "NOT"))
 		{
 			v = "1";
 			while (*s && (f != b2))
 			{
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
-				if (*t && streq(t, "1")) v = "0";
+				if(*t && streq(t, "1")) v = "0";
 			}
 		}
 
 		/* Function: EQU */
-		else if (streq(t, "EQU"))
+		else if(streq(t, "EQU"))
 		{
 			v = "0";
-			if (*s && (f != b2))
+			if(*s && (f != b2))
 			{
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
 			while (*s && (f != b2))
 			{
 				p = process_dungeon_file_expr(floor_ptr, &s, &f);
-				if (streq(t, p)) v = "1";
+				if(streq(t, p)) v = "1";
 			}
 		}
 
 		/* Function: LEQ */
-		else if (streq(t, "LEQ"))
+		else if(streq(t, "LEQ"))
 		{
 			v = "1";
-			if (*s && (f != b2))
+			if(*s && (f != b2))
 			{
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
@@ -7315,15 +7315,15 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			{
 				p = t;
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
-				if (*t && atoi(p) > atoi(t)) v = "0";
+				if(*t && atoi(p) > atoi(t)) v = "0";
 			}
 		}
 
 		/* Function: GEQ */
-		else if (streq(t, "GEQ"))
+		else if(streq(t, "GEQ"))
 		{
 			v = "1";
-			if (*s && (f != b2))
+			if(*s && (f != b2))
 			{
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 			}
@@ -7333,7 +7333,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 				t = process_dungeon_file_expr(floor_ptr, &s, &f);
 
 				/* Compare two numbers instead of string */
-				if (*t && atoi(p) < atoi(t)) v = "0";
+				if(*t && atoi(p) < atoi(t)) v = "0";
 			}
 		}
 
@@ -7347,10 +7347,10 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 		}
 
 		/* Verify ending */
-		if (f != b2) v = "?x?x?";
+		if(f != b2) v = "?x?x?";
 
 		/* Extract final and Terminate */
-		if ((f = *s) != '\0') *s++ = '\0';
+		if((f = *s) != '\0') *s++ = '\0';
 	}
 
 	/* Other */
@@ -7360,7 +7360,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #ifdef JP
 		while (iskanji(*s) || (isprint(*s) && !my_strchr(" []", *s)))
 		{
-			if (iskanji(*s)) s++;
+			if(iskanji(*s)) s++;
 			s++;
 		}
 #else
@@ -7368,33 +7368,33 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 #endif
 
 		/* Extract final and Terminate */
-		if ((f = *s) != '\0') *s++ = '\0';
+		if((f = *s) != '\0') *s++ = '\0';
 
 		// Variable
-		if (*b == '$')
+		if(*b == '$')
 		{
 			// System
-			if (streq(b+1, "SYS"))
+			if(streq(b+1, "SYS"))
 			{
 				v = ANGBAND_SYS;
 			}
 
 			// Graphics
-			else if (streq(b+1, "GRAF"))
+			else if(streq(b+1, "GRAF"))
 			{
 				v = ANGBAND_GRAF;
 			}
 
-			else if (streq(b+1, "MONOCHROME"))
+			else if(streq(b+1, "MONOCHROME"))
 			{
-				if (arg_monochrome)
+				if(arg_monochrome)
 					v = "ON";
 				else
 					v = "OFF";
 			}
 
 			// Race1
-			else if (streq(b+1, "RACE1"))
+			else if(streq(b+1, "RACE1"))
 			{
 #ifdef JP
 				v = race_info[player_ptr->race_idx1].E_title;
@@ -7404,7 +7404,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			// Race2
-			else if (streq(b+1, "RACE2"))
+			else if(streq(b+1, "RACE2"))
 			{
 #ifdef JP
 				v = race_info[player_ptr->race_idx2].E_title;
@@ -7414,7 +7414,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			// Class
-			else if (streq(b+1, "CLASS"))
+			else if(streq(b+1, "CLASS"))
 			{
 #ifdef JP
 				v = class_info[player_ptr->class_idx].E_title;
@@ -7424,7 +7424,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			// First realm
-			else if (streq(b+1, "REALM1"))
+			else if(streq(b+1, "REALM1"))
 			{
 #ifdef JP
 				v = E_realm_names[player_ptr->realm1];
@@ -7434,7 +7434,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			// Second realm
-			else if (streq(b+1, "REALM2"))
+			else if(streq(b+1, "REALM2"))
 			{
 #ifdef JP
 				v = E_realm_names[player_ptr->realm2];
@@ -7444,14 +7444,14 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			// Player name
-			else if (streq(b+1, "PLAYER"))
+			else if(streq(b+1, "PLAYER"))
 			{
 				static char tmp_playespecies_name[128];
 				char *pn, *tpn;
 				for (pn = player_ptr->name, tpn = tmp_playespecies_name; *pn; pn++, tpn++)
 				{
 #ifdef JP
-					if (iskanji(*pn))
+					if(iskanji(*pn))
 					{
 						*(tpn++) = *(pn++);
 						*tpn = *pn;
@@ -7465,35 +7465,35 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			/* Town */
-			else if (streq(b+1, "TOWN"))
+			else if(streq(b+1, "TOWN"))
 			{
 				sprintf(tmp, "%d", floor_ptr->town_num);
 				v = tmp;
 			}
 
 			/* Level */
-			else if (streq(b+1, "LEVEL"))
+			else if(streq(b+1, "LEVEL"))
 			{
 				sprintf(tmp, "%d", player_ptr->lev);
 				v = tmp;
 			}
 
 			/* Current quest number */
-			else if (streq(b+1, "QUEST_NUMBER"))
+			else if(streq(b+1, "QUEST_NUMBER"))
 			{
 				sprintf(tmp, "%d", floor_list[player_ptr->floor_id].quest);
 				v = tmp;
 			}
 
 			/* Number of last quest */
-			else if (streq(b+1, "LEAVING_QUEST"))
+			else if(streq(b+1, "LEAVING_QUEST"))
 			{
 				sprintf(tmp, "%d", leaving_quest);
 				v = tmp;
 			}
 
 			/* Quest status */
-			else if (prefix(b+1, "QUEST"))
+			else if(prefix(b+1, "QUEST"))
 			{
 				/* "QUEST" uses a special parameter to determine the number of the quest */
 				sprintf(tmp, "%d", quest[atoi(b+6)].status);
@@ -7501,7 +7501,7 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			/* Random */
-			else if (prefix(b+1, "RANDOM"))
+			else if(prefix(b+1, "RANDOM"))
 			{
 				/* "RANDOM" uses a special parameter to determine the number of the quest */
 				sprintf(tmp, "%d", (int)(seed_town%atoi(b+7)));
@@ -7509,13 +7509,13 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 
 			/* Variant name */
-			else if (streq(b+1, "VARIANT"))
+			else if(streq(b+1, "VARIANT"))
 			{
 				v = variant;
 			}
 
 			/* Wilderness */
-			else if (streq(b+1, "WILDERNESS"))
+			else if(streq(b+1, "WILDERNESS"))
 			{
 				sprintf(tmp, "NORMAL");
 				v = tmp;
@@ -7551,23 +7551,23 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 
 	path_build(buf, sizeof(buf), ANGBAND_DIR_EDIT, name);	// Build the filename
 	fp = my_fopen(buf, "r");	// Open the file
-	if (!fp) return (-1);		// No such file
+	if(!fp) return (-1);		// No such file
 
 	while (0 == my_fgets(fp, buf, sizeof(buf)))	// Process the file
 	{
 		num++;	// Count lines
 
 		/* Skip "empty" lines */
-		if (!buf[0]) continue;
+		if(!buf[0]) continue;
 
 		/* Skip "blank" lines */
-		if (isspace(buf[0])) continue;
+		if(isspace(buf[0])) continue;
 
 		/* Skip comments */
-		if (buf[0] == '#') continue;
+		if(buf[0] == '#') continue;
 
 		/* Process "?:<expr>" */
-		if ((buf[0] == '?') && (buf[1] == ':'))
+		if((buf[0] == '?') && (buf[1] == ':'))
 		{
 			char f;
 			cptr v;
@@ -7587,16 +7587,16 @@ errr process_dungeon_file(floor_type *floor_ptr, cptr name, int ymin, int xmin, 
 		}
 
 		/* Apply conditionals */
-		if (bypass) continue;
+		if(bypass) continue;
 
 		// Process the line
 		err = process_dungeon_file_aux(floor_ptr, buf, ymin, xmin, ymax, xmax, &y, &x, flags, quest_id);
 
-		if (err) break;
+		if(err) break;
 	}
 
 	// Errors
-	if (err)
+	if(err)
 	{
 		cptr oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 		msg_format("Error %d (%s) at line %d of '%s'.", err, oops, num, name);
@@ -7635,7 +7635,7 @@ void write_species_info_txt(void)
 
 	int mode = -1;
 
-	if (!fff) return;
+	if(!fff) return;
 
 	fprintf(fff, "# File: species_info.txt (autogenerated)\n\n");
 
@@ -7656,16 +7656,16 @@ void write_species_info_txt(void)
 		r_ptr = &species_info[i];
 
 		/* Ignore empty creatures */
-		if (!strlen(species_name + r_ptr->name)) continue;
+		if(!strlen(species_name + r_ptr->name)) continue;
 
 		/* Ignore useless creatures */
-		if (i && !r_ptr->speed) continue;
+		if(i && !r_ptr->speed) continue;
 
 		/* Write a note if necessary */
-		if (i && (!r_ptr->level != !mode))
+		if(i && (!r_ptr->level != !mode))
 		{
 			/* Note the town */
-			if (!r_ptr->level)
+			if(!r_ptr->level)
 			{
 				fprintf(fff, "\n##### Town creatures #####\n\n");
 			}
@@ -7711,7 +7711,7 @@ void write_species_info_txt(void)
 			b_ptr = &(r_ptr->blow[j]);
 
 			/* Stop when done */
-			if (!b_ptr->method) break;
+			if(!b_ptr->method) break;
 
 			/* Write the blows */
 			fprintf(fff, "B:%s:%s:%dd%d\n", species_info_blow_method[b_ptr->method],
@@ -7723,14 +7723,14 @@ void write_species_info_txt(void)
 		for (fc = 0, j = 0; j < 32 * 3; j++)
 		{
 			/* Check this flag */
-			if (f_ptr[j / 32] & (1L << (j % 32))) flags[fc++] = n_ptr[j / 32][j % 32];
+			if(f_ptr[j / 32] & (1L << (j % 32))) flags[fc++] = n_ptr[j / 32][j % 32];
 		}
 
 		/* Extract the extra flags */
 		for (j = 32 * 6; j < 32 * 10; j++)
 		{
 			/* Check this flag */
-			if (f_ptr[j / 32] & (1L << (j % 32))) flags[fc++] = n_ptr[j / 32][j % 32];
+			if(f_ptr[j / 32] & (1L << (j % 32))) flags[fc++] = n_ptr[j / 32][j % 32];
 		}
 
 		/* Write the flags */
@@ -7760,7 +7760,7 @@ void write_species_info_txt(void)
 		}
 
 		/* Write Spells if applicable */
-		if (r_ptr->freq_spell)
+		if(r_ptr->freq_spell)
 		{
 			/* Write the frequency */
 			fprintf(fff, "S:1_IN_%d | \n", 100 / r_ptr->freq_spell);
@@ -7769,7 +7769,7 @@ void write_species_info_txt(void)
 			for (fc = 0, j = 96; j < 192; j++)
 			{
 				/* Check this flag */
-				if (f_ptr[j / 32] & (1L << (j % 32))) flags[fc++] = n_ptr[j / 32][j % 32];
+				if(f_ptr[j / 32] & (1L << (j % 32))) flags[fc++] = n_ptr[j / 32][j % 32];
 			}
 
 			/* Write the flags */
