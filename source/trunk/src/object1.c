@@ -1623,33 +1623,6 @@ info[i++] = "それは呪われている。";
 		}
 	}
 
-	if(object_ptr->curse_flags[0] & TRC_CALL_ANIMAL)
-	{
-#ifdef JP
-info[i++] = "それは動物を呼び寄せる。";
-#else
-		info[i++] = "It attracts animals.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_CALL_DEMON)
-	{
-#ifdef JP
-info[i++] = "それは悪魔を呼び寄せる。";
-#else
-		info[i++] = "It attracts demons.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_CALL_DRAGON)
-	{
-#ifdef JP
-info[i++] = "それはドラゴンを呼び寄せる。";
-#else
-		info[i++] = "It attracts dragons.";
-#endif
-
-	}
 	if((have_flag(flgs, TRAIT_PASSIVE_TELEPORT)) || (object_ptr->curse_flags[0] & TRC_TELEPORT))
 	{
 #ifdef JP

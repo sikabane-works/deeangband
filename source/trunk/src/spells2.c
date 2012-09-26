@@ -293,15 +293,6 @@ info[i++] = "‚ ‚È‚½‚Ì‰ñ•œ—Í‚Í”ñí‚É’x‚¢B";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_CALL_ANIMAL)
-	{
-#ifdef JP
-info[i++] = "‚ ‚È‚½‚Í“®•¨‚É‘_‚í‚ê‚Ä‚¢‚éB";
-#else
-		info[i++] = "You attract animals.";
-#endif
-
-	}
 	if(creature_ptr->cursed & TRC_CALL_DEMON)
 	{
 #ifdef JP
