@@ -3481,7 +3481,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 				else
 				{
 					/* Controlled random teleportation */
-					creature_ptr->cursed |= TRC_TELEPORT_SELF;
+					//TODO creature_ptr->cursed |= TRAIT_TELEPORT_SELF;
 				}
 			}
 		}
@@ -4747,7 +4747,7 @@ static void fix_creature_status(creature_type *creature_ptr)
 	 // Hack -- aura of fire also provides light
 	//TODO if(creature_ptr->sh_fire) creature_ptr->lite = TRUE;
 
-	if(creature_ptr->cursed & TRC_TELEPORT) creature_ptr->cursed &= ~(TRC_TELEPORT_SELF);
+	if(has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) creature_ptr->cursed &= ~(TRAIT_PASSIVE_TELEPORT);
 
 	if((IS_RACE(creature_ptr, RACE_S_FAIRY)) && has_trait(creature_ptr, TRAIT_ANTIPATHY))
 	{

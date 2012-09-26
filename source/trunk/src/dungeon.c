@@ -2935,7 +2935,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
 		 * can actually be useful!
 		 */
-		if((creature_ptr->cursed & TRC_TELEPORT_SELF) && one_in_(200))
+		if((has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) && one_in_(200))
 		{
 			char object_name[MAX_NLEN];
 			object_type *object_ptr;
