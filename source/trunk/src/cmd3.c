@@ -493,7 +493,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #endif
 			object_ptr->curse_flags = 0L;
 		}
-		else if (((object_ptr->curse_flags & TRC_HEAVY_CURSE) && one_in_(7)) || one_in_(4))
+		else if (((have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && one_in_(7)) || one_in_(4))
 		{
 #ifdef JP
 			msg_print("ô‚í‚ê‚½‘•”õ‚ğ—Í‚Ã‚­‚Å”‚ª‚µ‚½I");

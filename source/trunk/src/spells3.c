@@ -2158,7 +2158,7 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		if (!object_is_cursed(object_ptr)) continue;
 
 		/* Heavily Cursed Items need a special spell */
-		if (!all && (object_ptr->curse_flags & TRC_HEAVY_CURSE)) continue;
+		if (!all && (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))) continue;
 
 		/* Perma-Cursed Items can NEVER be uncursed */
 		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
@@ -2360,7 +2360,7 @@ msg_format("%s‚ð%d ‚Ì‹à‚É•Ï‚¦‚½B", object_name, price);
  */
 static void break_curse(object_type *object_ptr)
 {
-	if (object_is_cursed(object_ptr) && !(object_ptr->curse_flags & TRC_DIVINE_CURSE) && !(object_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint0(100) < 25))
+	if (object_is_cursed(object_ptr) && !(object_ptr->curse_flags & TRC_DIVINE_CURSE) && !(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && (randint0(100) < 25))
 	{
 #ifdef JP
 msg_print("‚©‚¯‚ç‚ê‚Ä‚¢‚½Žô‚¢‚ª‘Å‚¿”j‚ç‚ê‚½I");
@@ -3480,7 +3480,7 @@ s = "j•Ÿ‚Å‚«‚é•Ší‚ª‚ ‚è‚Ü‚¹‚ñB";
 
 	if (object_is_cursed(object_ptr))
 	{
-		if (((object_ptr->curse_flags & TRC_HEAVY_CURSE) && (randint1(100) < 33)) ||
+		if (((have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)) && (randint1(100) < 33)) ||
 		    (object_ptr->curse_flags & TRC_DIVINE_CURSE))
 		{
 #ifdef JP

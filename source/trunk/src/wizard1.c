@@ -1260,7 +1260,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 			*misc_list++ = "Divinely Cursed";
 #endif
 		}
-		else if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+		else if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 		{
 #ifdef JP
 			*misc_list++ = "‹­—Í‚ÈŽô‚¢";

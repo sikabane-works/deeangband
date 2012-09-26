@@ -2761,7 +2761,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		if (owner_ptr->class_idx != CLASS_SAMURAI)
 		{
 			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
-			object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+			add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 		}
 	}
 	*/
@@ -2851,7 +2851,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 
 	/* Hack -- extract the "cursed" flag */
 	if (a_ptr->gen_flags & TRG_CURSED) add_flag(quest_ptr->trait_flags, TRAIT_CURSED);
-	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) quest_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(quest_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) quest_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) quest_ptr->curse_flags |= get_curse(0, quest_ptr);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) quest_ptr->curse_flags |= get_curse(1, quest_ptr);

@@ -1598,7 +1598,7 @@ info[i++] = "‚»‚ê‚Í_‚Éj•Ÿ‚³‚ê‚Ä‚¢‚éB";
 			info[i++] = tx;
 
 		}
-		else if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+		else if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 		{
 #ifdef JP
 info[i++] = "‚»‚ê‚Í‹­—Í‚Èô‚¢‚ª‚©‚¯‚ç‚ê‚Ä‚¢‚éB";

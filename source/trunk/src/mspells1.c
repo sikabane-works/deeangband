@@ -606,9 +606,9 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	if ((randint1(100) <= heavy_chance) &&
 	    (object_is_artifact(object_ptr) || object_is_ego(object_ptr)))
 	{
-		if (!(object_ptr->curse_flags & TRC_HEAVY_CURSE))
+		if (!(have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE)))
 			changed = TRUE;
-		object_ptr->curse_flags |= TRC_HEAVY_CURSE;
+		add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 		add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 		curse_power++;
 	}

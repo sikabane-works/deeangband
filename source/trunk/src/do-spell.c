@@ -11612,7 +11612,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if (one_in_(3)) object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+					if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 					if (one_in_(666))
 					{
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
@@ -12077,7 +12077,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				if (object_is_artifact(object_ptr) || object_is_ego(object_ptr))
 				{
 
-					if (one_in_(3)) object_ptr->curse_flags |= (TRC_HEAVY_CURSE);
+					if (one_in_(3)) add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 					if (one_in_(666))
 					{
 						object_ptr->curse_flags |= (TRC_TY_CURSE);
@@ -12322,7 +12322,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				/* Nothing */
 			}
-			else if (object_ptr->curse_flags & TRC_HEAVY_CURSE)
+			else if (have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE))
 			{
 				if (one_in_(7))
 				{
