@@ -3142,7 +3142,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			}
 		}
 		/* Teleport player */
-		if((creature_ptr->cursed & TRC_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
+		if(has_trait(creature_ptr, TRAIT_RANDOM_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
 

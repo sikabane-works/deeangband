@@ -1623,16 +1623,6 @@ info[i++] = "それは呪われている。";
 		}
 	}
 
-	if((have_flag(flgs, TRAIT_PASSIVE_TELEPORT)) || (object_ptr->curse_flags[0] & TRC_TELEPORT))
-	{
-#ifdef JP
-info[i++] = "それはランダムなテレポートを引き起こす。";
-#else
-		info[i++] = "It induces random teleportation.";
-#endif
-
-	}
-
 	/* Describe about this kind of object instead of THIS fake object */
 	if(mode & SCROBJ_FAKE_OBJECT)
 	{

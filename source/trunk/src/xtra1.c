@@ -3467,7 +3467,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if(have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
 		{
-			if(object_is_cursed(object_ptr)) creature_ptr->cursed |= TRC_TELEPORT;
+			if(object_is_cursed(object_ptr)) add_flag(object_ptr->curse_flags, TRAIT_RANDOM_TELEPORT);
 			else
 			{
 				cptr insc = quark_str(object_ptr->inscription);
