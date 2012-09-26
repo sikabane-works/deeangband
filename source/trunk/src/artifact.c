@@ -2747,8 +2747,7 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		{
 			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 			add_flag(object_ptr->trait_flags, TRAIT_TY_CURSE);
-			object_ptr->curse_flags |=
-			    (TRC_CURSED | TRC_HEAVY_CURSE);
+			object_ptr->curse_flags |= (TRC_CURSED | TRC_HEAVY_CURSE);
 			object_ptr->curse_flags |= get_curse(2, object_ptr);
 			return;
 		}
