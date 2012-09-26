@@ -1632,60 +1632,6 @@ info[i++] = "それはランダムなテレポートを引き起こす。";
 #endif
 
 	}
-	if(object_ptr->curse_flags[0] & TRC_LOW_MELEE)
-	{
-#ifdef JP
-info[i++] = "それは攻撃を外しやすい。";
-#else
-		info[i++] = "It causes you to miss blows.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_LOW_AC)
-	{
-#ifdef JP
-info[i++] = "それは攻撃を受けやすい。";
-#else
-		info[i++] = "It helps your enemies' blows.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_LOW_MAGIC)
-	{
-#ifdef JP
-info[i++] = "それは魔法を唱えにくくする。";
-#else
-		info[i++] = "It encumbers you while spellcasting.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_FAST_DIGEST)
-	{
-#ifdef JP
-info[i++] = "それはあなたの新陳代謝を速くする。";
-#else
-		info[i++] = "It speeds your metabolism.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_DRAIN_HP)
-	{
-#ifdef JP
-info[i++] = "それはあなたの体力を吸い取る。";
-#else
-		info[i++] = "It drains you.";
-#endif
-
-	}
-	if(object_ptr->curse_flags[0] & TRC_DRAIN_MANA)
-	{
-#ifdef JP
-info[i++] = "それはあなたの魔力を吸い取る。";
-#else
-		info[i++] = "It drains your mana.";
-#endif
-
-	}
 
 	/* Describe about this kind of object instead of THIS fake object */
 	if(mode & SCROBJ_FAKE_OBJECT)

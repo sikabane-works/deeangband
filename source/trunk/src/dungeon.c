@@ -3150,11 +3150,11 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
 		/* Handle HP draining */
-		if((creature_ptr->cursed & TRC_DRAIN_HP) && one_in_(666))
+		if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
 		{
 			char object_name[MAX_NLEN];
 
-			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%sÇÕÇ†Ç»ÇΩÇÃëÃóÕÇãzé˚ÇµÇΩÅI", object_name);
 #else
@@ -3163,11 +3163,11 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
 		}
 		/* Handle mana draining */
-		if((creature_ptr->cursed & TRC_DRAIN_MANA) && creature_ptr->csp && one_in_(666))
+		if((has_trait(creature_ptr, TRAIT_DRAIN_MANA)) && creature_ptr->csp && one_in_(666))
 		{
 			char object_name[MAX_NLEN];
 
-			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRC_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%sÇÕÇ†Ç»ÇΩÇÃñÇóÕÇãzé˚ÇµÇΩÅI", object_name);
 #else

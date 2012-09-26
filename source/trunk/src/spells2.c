@@ -284,60 +284,6 @@ info[i++] = "あなたは幻覚を見ている。";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_LOW_MELEE)
-	{
-#ifdef JP
-info[i++] = "あなたの武器は攻撃を外しやすい。";
-#else
-		info[i++] = "Your weapon causes you to miss blows.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_LOW_AC)
-	{
-#ifdef JP
-info[i++] = "あなたは攻撃を受けやすい。";
-#else
-		info[i++] = "You are subject to be hit.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_LOW_MAGIC)
-	{
-#ifdef JP
-info[i++] = "あなたは魔法を失敗しやすい。";
-#else
-		info[i++] = "You are subject to fail spellcasting.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_FAST_DIGEST)
-	{
-#ifdef JP
-info[i++] = "あなたはすぐお腹がへる。";
-#else
-		info[i++] = "You have a good appetite.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_DRAIN_HP)
-	{
-#ifdef JP
-info[i++] = "あなたは体力を吸われている。";
-#else
-		info[i++] = "You are drained.";
-#endif
-
-	}
-	if(creature_ptr->cursed & TRC_DRAIN_MANA)
-	{
-#ifdef JP
-info[i++] = "あなたは魔力を吸われている。";
-#else
-		info[i++] = "You brain is drained.";
-#endif
-
-	}
 	if(IS_BLESSED(creature_ptr))
 	{
 #ifdef JP

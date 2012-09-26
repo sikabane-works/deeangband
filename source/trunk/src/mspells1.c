@@ -565,8 +565,8 @@ u32b get_curse(int power, object_type *object_ptr)
 		{
 			if(new_curse & TRC_HEAVY_MASK) continue;
 		}
-		if(new_curse == TRC_LOW_MELEE && !object_is_weapon(object_ptr)) continue;
-		if(new_curse == TRC_LOW_AC && !object_is_armour(object_ptr)) continue;
+		if(new_curse == TRAIT_LOW_MELEE && !object_is_weapon(object_ptr)) continue;
+		if(new_curse == TRAIT_LOW_AC && !object_is_armour(object_ptr)) continue;
 		break;
 	}
 	return new_curse;

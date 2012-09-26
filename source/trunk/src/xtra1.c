@@ -3504,7 +3504,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		//if(object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
 
-		if(object_ptr->curse_flags[0] & TRC_LOW_MAGIC)
+		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC))
 		{
 			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 			{
@@ -3528,7 +3528,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_ac += object_ptr->to_ac;
 		if(object_is_known(object_ptr)) creature_ptr->dis_to_ac += object_ptr->to_ac;
 
-		if(object_ptr->curse_flags[0] & TRC_LOW_MELEE)
+		if(has_trait(creature_ptr, TRAIT_LOW_MELEE))
 		{
 			int slot = i - 0; //TODO 
 			if(slot < 2)
@@ -3559,7 +3559,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 			}
 		}
 
-		if(object_ptr->curse_flags[0] & TRC_LOW_AC)
+		if(has_trait(creature_ptr, TRAIT_LOW_AC))
 		{
 			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
 			{
