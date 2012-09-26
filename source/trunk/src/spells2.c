@@ -284,7 +284,7 @@ info[i++] = "‚ ‚È‚½‚ÍŒ¶Šo‚ğŒ©‚Ä‚¢‚éB";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_SLOW_REGEN)
+	if(has_trait(creature_ptr, TRAIT_SLOW_REGEN))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Ì‰ñ•œ—Í‚Í”ñí‚É’x‚¢B";

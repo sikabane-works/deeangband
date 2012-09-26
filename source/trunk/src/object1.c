@@ -1623,15 +1623,6 @@ info[i++] = "‚»‚ê‚ÍŽô‚í‚ê‚Ä‚¢‚éB";
 		}
 	}
 
-	if(object_ptr->curse_flags[0] & TRC_SLOW_REGEN)
-	{
-#ifdef JP
-info[i++] = "‚»‚ê‚Í‰ñ•œ—Í‚ðŽã‚ß‚éB";
-#else
-		info[i++] = "It slows your regenerative powers.";
-#endif
-
-	}
 	if(object_ptr->curse_flags[0] & TRC_ADD_L_CURSE)
 	{
 #ifdef JP

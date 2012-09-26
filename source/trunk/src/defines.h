@@ -2159,7 +2159,7 @@
 #define XXX_TRC_TY_CURSE            0x00000010L
 #define XXX_TRC_AGGRAVATE           0x00000020L
 #define XXX_TRC_DRAIN_EXP           0x00000040L
-#define TRC_SLOW_REGEN          0x00000080L
+#define XXX_TRC_SLOW_REGEN          0x00000080L
 #define TRC_ADD_L_CURSE         0x00000100L
 #define TRC_ADD_H_CURSE         0x00000200L
 #define TRC_CALL_ANIMAL         0x00000400L
