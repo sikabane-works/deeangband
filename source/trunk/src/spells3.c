@@ -2165,8 +2165,8 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		{
 			/* Uncurse it */
 			remove_flag(object_ptr->trait_flags, TRAIT_CURSED);
-			remove_flag(object_ptr->trait_flags, TRC_HEAVY_CURSE);
-			remove_flag(object_ptr->trait_flags, TRC_DIVINE_CURSE);
+			remove_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
+			remove_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE);
 			continue;
 		}
 

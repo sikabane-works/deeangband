@@ -2717,7 +2717,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 				/* Cursed */
 				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-				add_flag(object_ptr->trait_flags, TRC_HEAVY_CURSE);
+				add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 			}
 			break;
 		}
@@ -3002,7 +3002,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 				/* Cursed */
 				add_flag(object_ptr->trait_flags, TRAIT_CURSED);
-				add_flag(object_ptr->trait_flags, TRC_HEAVY_CURSE);
+				add_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE);
 			}
 			break;
 		}
@@ -6461,7 +6461,7 @@ static void drain_essence(creature_type *creature_ptr)
 	old_pval = object_ptr->pval;
 	old_name2 = object_ptr->name2;
 	old_timeout = object_ptr->timeout;
-	if (have_flag(object_ptr->trait_flags, TRAIT_CURSED) || have_flag(object_ptr->trait_flags, TRC_HEAVY_CURSE) || have_flag(object_ptr->trait_flags, TRC_DIVINE_CURSE)) dec--;
+	if (have_flag(object_ptr->trait_flags, TRAIT_CURSED) || have_flag(object_ptr->trait_flags, TRAIT_HEAVY_CURSE) || have_flag(object_ptr->trait_flags, TRAIT_DIVINE_CURSE)) dec--;
 
 	if (have_flag(old_flgs, TRAIT_ANTIPATHY)) dec--;
 	if (have_flag(old_flgs, TRAIT_PREVENT_TELEPORT)) dec--;
