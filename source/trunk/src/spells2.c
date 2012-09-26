@@ -293,7 +293,7 @@ info[i++] = "‚ ‚È‚½‚Ì‰ñ•œ—Í‚Í”ñí‚É’x‚¢B";
 #endif
 
 	}
-	if(creature_ptr->cursed & TRC_CALL_DEMON)
+	if(has_trait(creature_ptr, TRAIT_CALL_DEMON))
 	{
 #ifdef JP
 info[i++] = "‚ ‚È‚½‚Íˆ«–‚‚É‘_‚í‚ê‚Ä‚¢‚éB";
