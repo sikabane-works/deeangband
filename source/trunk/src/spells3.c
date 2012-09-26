@@ -2164,7 +2164,9 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		if (object_ptr->curse_flags & TRC_DIVINE_CURSE)
 		{
 			/* Uncurse it */
-			object_ptr->curse_flags &= (TRC_CURSED | TRC_HEAVY_CURSE | TRC_DIVINE_CURSE);
+			remove_flag(object_ptr->trait_flags, TRAIT_CURSED);
+			remove_flag(object_ptr->trait_flags, TRC_HEAVY_CURSE);
+			remove_flag(object_ptr->trait_flags, TRC_DIVINE_CURSE);
 			continue;
 		}
 
@@ -5100,7 +5102,7 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 			object_ptr->trait_flags[i] = 0;
 
 		/* Curse it */
-		object_ptr->curse_flags = TRC_CURSED;
+		add_flag(object_ptr->trait_flags, TRAIT_CURSED);
 
 		/* Break it */
 		object_ptr->ident |= (IDENT_BROKEN);
@@ -5174,7 +5176,7 @@ if (!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name
 
 		for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->trait_flags[i] = 0;
 
-		object_ptr->curse_flags = TRC_CURSED;	// Curse it
+		add_flag(object_ptr->trait_flags, TRAIT_CURSED);	// Curse it
 		object_ptr->ident |= (IDENT_BROKEN);	// Break it
 		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);	// Window stuff

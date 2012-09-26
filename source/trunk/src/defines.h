@@ -2152,7 +2152,7 @@
 
 #define MAX_CURSE 17
 
-#define TRC_CURSED              0x00000001L
+#define XXX_TRAIT_CURSED          0x00000001L
 #define TRC_HEAVY_CURSE         0x00000002L
 #define TRC_DIVINE_CURSE        0x00000004L
 #define TRC_XXX1                0x00000008L

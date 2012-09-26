@@ -1269,7 +1269,7 @@ static void analyze_misc_magic(object_type *object_ptr, cptr *misc_list)
 #endif
 		}
 /*		else */
-		else if (object_ptr->curse_flags & TRC_CURSED)
+		else if (have_flag(object_ptr->trait_flags, TRAIT_CURSED))
 		{
 #ifdef JP
 			*misc_list++ = "Žô‚¢";

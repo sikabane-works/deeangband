@@ -2850,7 +2850,7 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	quest_ptr->charge_dice = a_ptr->charge_dice;
 
 	/* Hack -- extract the "cursed" flag */
-	if (a_ptr->gen_flags & TRG_CURSED) quest_ptr->curse_flags |= (TRC_CURSED);
+	if (a_ptr->gen_flags & TRG_CURSED) add_flag(quest_ptr->trait_flags, TRAIT_CURSED);
 	if (a_ptr->gen_flags & TRG_HEAVY_CURSE) quest_ptr->curse_flags |= (TRC_HEAVY_CURSE);
 	if (a_ptr->gen_flags & TRG_DIVINE_CURSE) quest_ptr->curse_flags |= (TRC_DIVINE_CURSE);
 	if (a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) quest_ptr->curse_flags |= get_curse(0, quest_ptr);
