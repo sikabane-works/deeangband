@@ -2588,7 +2588,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				}
 				else
 				{
-					set_blind(creature_ptr, 0);
+					set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 					set_confused(creature_ptr, 0);
 					creature_ptr->timed_trait[TRAIT_STUN] = 0;
 					creature_ptr->chp = creature_ptr->mhp;
@@ -4457,7 +4457,7 @@ msg_print("お金が足りません！");
 	case BUILDING_FUNCTION_HEALING: /* needs work */
 		heal_creature(creature_ptr, 200);
 		set_poisoned(creature_ptr, 0);
-		set_blind(creature_ptr, 0);
+		set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 		set_confused(creature_ptr, 0);
 		set_cut(creature_ptr, 0);
 		set_stun(creature_ptr, 0);

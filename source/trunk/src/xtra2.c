@@ -4207,7 +4207,7 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 
 			restore_level(creature_ptr);
 			(void)set_poisoned(creature_ptr, 0);
-			(void)set_blind(creature_ptr, 0);
+			(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 			(void)set_confused(creature_ptr, 0);
 			(void)set_image(creature_ptr, 0);
 			(void)set_stun(creature_ptr, 0);

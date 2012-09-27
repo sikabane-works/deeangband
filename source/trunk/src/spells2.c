@@ -2652,7 +2652,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			if(!has_trait(caster_ptr, TRAIT_NO_BLIND) && !caster_ptr->resist_lite)
 			{
 				/* Become blind */
-				(void)set_blind(caster_ptr, caster_ptr->timed_trait[TRAIT_BLIND_] + 10 + randint1(10));
+				(void)set_timed_effect(caster_ptr, TRAIT_BLIND, caster_ptr->timed_trait[TRAIT_BLIND_] + 10 + randint1(10));
 			}
 		}
 

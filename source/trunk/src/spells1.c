@@ -2862,7 +2862,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
+				(void)set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -2893,7 +2893,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_blind(target_ptr, IS_BLIND(target_ptr) + randint1(5) + 2);
+				(void)set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -3446,7 +3446,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					if(!has_trait(target_ptr, TRAIT_NO_BLIND))
 					{
-						(void)set_blind(target_ptr, IS_BLIND(target_ptr) + 8 + randint0(8));
+						(void)set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + 8 + randint0(8));
 					}
 					if(!has_trait(target_ptr, TRAIT_NO_CONF))
 					{

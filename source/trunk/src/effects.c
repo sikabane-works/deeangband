@@ -12,7 +12,7 @@
 
 #include "angband.h"
 
-bool set_timed_effect(creature_type *creature_ptr, int v, int type)
+bool set_timed_effect(creature_type *creature_ptr, int type, int v)
 {
 	bool notice = FALSE;
 
@@ -456,6 +456,7 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
  * Note that blindness is currently the only thing which can affect
  * "creature_can_see_bold()".
  */
+#if 0
 bool set_blind(creature_type *creature_ptr, int v)
 {
 	bool notice = FALSE;
@@ -551,7 +552,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 	/* Result */
 	return (TRUE);
 }
-
+#endif
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_CONFUSED]", notice observable changes

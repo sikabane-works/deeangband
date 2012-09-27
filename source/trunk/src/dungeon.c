@@ -846,7 +846,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		(void)set_image(creature_ptr, 0);
 		(void)set_stun(creature_ptr, 0);
 		(void)set_cut(creature_ptr, 0);
-		(void)set_blind(creature_ptr, 0);
+		(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 		(void)set_afraid(creature_ptr, 0);
 		(void)do_res_stat(creature_ptr, STAT_STR);
 		(void)do_res_stat(creature_ptr, STAT_INT);
@@ -1999,7 +1999,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	if(IS_HALLUCINATION(creature_ptr)) (void)set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) - dec_count);
 
 	/* Blindness */
-	if(IS_BLIND(creature_ptr)) (void)set_blind(creature_ptr, IS_BLIND(creature_ptr) - dec_count);
+	if(IS_BLIND(creature_ptr)) (void)set_timed_effect(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) - dec_count);
 
 	/* Times see-invisible */
 	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
@@ -6164,7 +6164,7 @@ static void cheat_death(void)
 	gameover = FALSE;
 
 	/* Hack -- Healing */
-	(void)set_blind(player_ptr, 0);
+	(void)set_timed_effect(player_ptr, TRAIT_BLIND, 0);
 	(void)set_confused(player_ptr, 0);
 	(void)set_poisoned(player_ptr, 0);
 	(void)set_afraid(player_ptr, 0);

@@ -1367,7 +1367,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 			if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
 			{
-				(void)set_blind(creature_ptr, IS_BLIND(creature_ptr) + randint0(50) + 25);
+				(void)set_timed_effect(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) + randint0(50) + 25);
 			}
 			break;
 		}

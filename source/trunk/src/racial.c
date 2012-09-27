@@ -1619,7 +1619,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				(void)set_image(creature_ptr, 0);
 				(void)set_stun(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
-				(void)set_blind(creature_ptr, 0);
+				(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_afraid(creature_ptr, 0);
 				(void)do_res_stat(creature_ptr, STAT_STR);
 				(void)do_res_stat(creature_ptr, STAT_INT);
@@ -2869,7 +2869,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				(void)set_image(caster_ptr, 0);
 				(void)set_stun(caster_ptr, 0);
 				(void)set_cut(caster_ptr, 0);
-				(void)set_blind(caster_ptr, 0);
+				(void)set_timed_effect(caster_ptr, TRAIT_BLIND, 0);
 				(void)set_afraid(caster_ptr, 0);
 				(void)do_res_stat(caster_ptr, STAT_STR);
 				(void)do_res_stat(caster_ptr, STAT_INT);
@@ -4378,7 +4378,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_blind(target_ptr, 12 + randint0(4));
+				(void)set_timed_effect(target_ptr, TRAIT_BLIND, 12 + randint0(4));
 			}
 			learn_trait(target_ptr, TRAIT_BLIND);
 			update_smart_learn(caster_ptr, DRS_BLIND);

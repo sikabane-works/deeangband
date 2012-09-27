@@ -2980,7 +2980,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "blind" */
 				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_blind(target_ptr, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
+					if(set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + 10 + randint1(rlev)))
 					{
 #ifdef JP
 						if(attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
