@@ -2135,7 +2135,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Confusion */
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
-		(void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] - dec_count);
+		(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] - dec_count);
 	}
 
 	/* Afraid */
@@ -2390,7 +2390,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 		if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 15);
+			(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 15);
 		}
 
 		if(!creature_ptr->resist_chaos)
@@ -5306,8 +5306,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(m_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Hack -- Recover from confusion */
-			if(set_confused(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
+			if(set_timed_effect(m_ptr, TRAIT_CONFUSED, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
 				char m_name[80];
 
@@ -6165,7 +6164,7 @@ static void cheat_death(void)
 
 	/* Hack -- Healing */
 	(void)set_timed_effect(player_ptr, TRAIT_BLIND, 0);
-	(void)set_confused(player_ptr, 0);
+	(void)set_timed_effect(player_ptr, TRAIT_CONFUSED, 0);
 	(void)set_poisoned(player_ptr, 0);
 	(void)set_afraid(player_ptr, 0);
 	(void)set_paralyzed(player_ptr, 0);

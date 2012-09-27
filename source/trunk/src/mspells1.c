@@ -2980,7 +2980,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 			else
 			{
-				(void)set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+				(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_CONF);
 			update_smart_learn(caster_ptr, DRS_CONF);

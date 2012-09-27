@@ -1250,7 +1250,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 				msg_format("%^s appears confused.", tar_name);
 #endif
 
-			(void)set_confused(&creature_list[c_ptr->creature_idx], target_ptr->timed_trait[TRAIT_CONFUSED] + 10 + randint0(attacker_ptr->lev) / 5);
+			(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 10 + randint0(attacker_ptr->lev) / 5);
 		}
 	}
 }
@@ -3008,7 +3008,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "confused" */
 				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_confused(target_ptr, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(rlev)))
+					if(set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(rlev)))
 					{
 						obvious = TRUE;
 					}

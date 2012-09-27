@@ -1508,7 +1508,7 @@ extern void reset_tim_flags(creature_type *creature_ptr);
 extern void dispel_creature(creature_type *creature_ptr);
 extern bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec);
 //extern bool set_blind(creature_type *creature_ptr, int v);
-extern bool set_confused(creature_type *creature_ptr, int v);
+//extern bool set_confused(creature_type *creature_ptr, int v);
 extern bool set_poisoned(creature_type *creature_ptr, int v);
 extern bool set_afraid(creature_type *creature_ptr, int v);
 extern bool set_paralyzed(creature_type *creature_ptr, int v);

@@ -1422,7 +1422,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 
 	/* Cure stuff */
 	(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
-	(void)set_confused(creature_ptr, 0);
+	(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
 	(void)set_poisoned(creature_ptr, 0);
 	(void)set_afraid(creature_ptr, 0);
 	(void)set_paralyzed(creature_ptr, 0);

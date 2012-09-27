@@ -557,6 +557,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_CONFUSED]", notice observable changes
  */
+#if 0
 bool set_confused(creature_type *creature_ptr, int v)
 {
 	bool notice = FALSE;
@@ -677,6 +678,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*

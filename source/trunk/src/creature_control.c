@@ -717,7 +717,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_FAST]) (void)set_fast(creature_ptr, 0, FALSE);
 	if(creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_slow(creature_ptr, 0, FALSE);
 	if(creature_ptr->timed_trait[TRAIT_STUN]) (void)set_stun(creature_ptr, 0);
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_confused(creature_ptr, 0);
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
 	if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_afraid(creature_ptr, 0);
 	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_invuln(creature_ptr, 0, FALSE);
 
@@ -2343,7 +2343,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+			(void)set_timed_effect(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if(!watcher_ptr->resist_chaos && one_in_(3))
 		{
@@ -2363,7 +2363,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_confused(watcher_ptr, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+			(void)set_timed_effect(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{

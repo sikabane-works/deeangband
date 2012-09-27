@@ -132,7 +132,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 				{
-					if(set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(10) + 10))
+					if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -262,7 +262,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_CONFUSION:
 			{
-				if(set_confused(creature_ptr, 0)) ident = TRUE;
+				if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 				break;
 			}
 
@@ -819,7 +819,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 			{
 				creature_ptr->special_attack |= ATTACK_SUIKEN;
-				if(set_confused(creature_ptr, randint0(20) + 15))
+				if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, randint0(20) + 15))
 				{
 					ident = TRUE;
 				}
@@ -1043,7 +1043,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_CURE_SERIOUS:
 			if(heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
 			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
@@ -1051,7 +1051,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_CURE_CRITICAL:
 			if(heal_creature(creature_ptr, diceroll(6, 8))) ident = TRUE;
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -1061,7 +1061,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_HEALING:
 			if(heal_creature(creature_ptr, 300)) ident = TRUE;
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -1071,7 +1071,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_STAR_HEALING:
 			if(heal_creature(creature_ptr, 1200)) ident = TRUE;
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -1088,7 +1088,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			restore_level(creature_ptr);
 			(void)set_poisoned(creature_ptr, 0);
 			(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
-			(void)set_confused(creature_ptr, 0);
+			(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
 			(void)set_image(creature_ptr, 0);
 			(void)set_stun(creature_ptr, 0);
 			(void)set_cut(creature_ptr, 0);
@@ -1281,7 +1281,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_image(creature_ptr, 0)) ident = TRUE;
@@ -2405,7 +2405,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_image(creature_ptr, 0)) ident = TRUE;
@@ -3342,7 +3342,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		{
 			if(set_timed_effect(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
-			if(set_confused(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_image(creature_ptr, 0)) ident = TRUE;
@@ -4221,7 +4221,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)set_poisoned(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
 				(void)set_stun(creature_ptr, 0);
-				(void)set_confused(creature_ptr, 0);
+				(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_afraid(creature_ptr, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
@@ -4635,7 +4635,7 @@ if(get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 							randint1(5 * oops + 1));
 
 						/* Confusing. */
-						(void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] +
+						(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] +
 							randint1(5 * oops + 1));
 					}
 
@@ -4650,7 +4650,7 @@ if(get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 #endif
 
 				/* Confusing. */
-				if(one_in_(5)) (void)set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] +
+				if(one_in_(5)) (void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] +
 					randint1(10));
 
 				/* Exercise a little care... */
@@ -4886,7 +4886,7 @@ if(get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 			case TRAIT_CURING:
 			{
 				(void)set_poisoned(creature_ptr, 0);
-				(void)set_confused(creature_ptr, 0);
+				(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_stun(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);

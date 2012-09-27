@@ -2948,7 +2948,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_CONFUSED:
 		/* Reduce the confusion */
-		set_confused(creature_ptr, creature_ptr->timed_trait[TRAIT_CONFUSED] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
+		set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_MONFEAR:
