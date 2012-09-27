@@ -1367,7 +1367,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 			if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
 			{
-				(void)set_timed_effect(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) + randint0(50) + 25);
+				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) + randint0(50) + 25);
 			}
 			break;
 		}
@@ -1382,7 +1382,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 			if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 			{
-				(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
+				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
 			}
 			break;
 		}

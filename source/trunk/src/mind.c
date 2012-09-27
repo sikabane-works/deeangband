@@ -1992,7 +1992,7 @@ msg_print("‚ ‚È‚½‚Ì“ª‚Í¬—‚µ‚½I");
 					msg_print("Your brain is addled!");
 #endif
 
-					set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(8));
+					set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(8));
 				}
 				else if(b < 90)
 				{

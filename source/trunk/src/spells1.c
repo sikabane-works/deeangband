@@ -1919,7 +1919,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			}
 
 			/* Apply confusion */
-			(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, tmp);
+			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, tmp);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -2645,7 +2645,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				if(!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5) + 5);
+					set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5) + 5);
 				}
 				if(one_in_(5))
 				{
@@ -2669,7 +2669,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if(!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
-					(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
+					(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
 				}
 				if(!target_ptr->resist_chaos)
 				{
@@ -2756,7 +2756,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(20) + 10);
+				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(20) + 10);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2862,7 +2862,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -2893,7 +2893,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -3033,7 +3033,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			(void)set_paralyzed(target_ptr, 0);
 			(void)set_stun(target_ptr, 0);
-			(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
 			(void)set_afraid(target_ptr, 0);
 			(void)heal_creature(target_ptr, dam);
 
@@ -3311,7 +3311,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					if(!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
-						(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+						(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 					}
 
 					if(!target_ptr->resist_chaos && one_in_(3))
@@ -3446,11 +3446,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					if(!has_trait(target_ptr, TRAIT_NO_BLIND))
 					{
-						(void)set_timed_effect(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + 8 + randint0(8));
+						(void)set_timed_trait(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + 8 + randint0(8));
 					}
 					if(!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
-						(void)set_timed_effect(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+						(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 					}
 					if(!has_trait(target_ptr, TRAIT_FREE_ACTION))
 					{
@@ -3944,7 +3944,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							switch (randint1(4))
 							{
 								case 1:
-									set_timed_effect(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
+									set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
 									break;
 								case 2:
 									set_stun(caster_ptr, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
@@ -4222,7 +4222,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 								set_stun(caster_ptr, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
 								break;
 							case 2:
-								set_timed_effect(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
+								set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
 								break;
 							default:
 							{

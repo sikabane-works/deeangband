@@ -846,7 +846,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		(void)set_image(creature_ptr, 0);
 		(void)set_stun(creature_ptr, 0);
 		(void)set_cut(creature_ptr, 0);
-		(void)set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 		(void)set_afraid(creature_ptr, 0);
 		(void)do_res_stat(creature_ptr, STAT_STR);
 		(void)do_res_stat(creature_ptr, STAT_INT);
@@ -1999,7 +1999,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	if(IS_HALLUCINATION(creature_ptr)) (void)set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) - dec_count);
 
 	/* Blindness */
-	if(IS_BLIND(creature_ptr)) (void)set_timed_effect(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) - dec_count);
+	if(IS_BLIND(creature_ptr)) (void)set_timed_trait(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) - dec_count);
 
 	/* Times see-invisible */
 	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
@@ -2135,7 +2135,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Confusion */
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
-		(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] - dec_count);
+		(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] - dec_count);
 	}
 
 	/* Afraid */
@@ -2390,7 +2390,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 		if(!has_trait(creature_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 15);
+			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 15);
 		}
 
 		if(!creature_ptr->resist_chaos)
@@ -5306,7 +5306,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(m_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Hack -- Recover from confusion */
-			if(set_timed_effect(m_ptr, TRAIT_CONFUSED, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
+			if(set_timed_trait(m_ptr, TRAIT_CONFUSED, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
 				char m_name[80];
 
@@ -6163,14 +6163,7 @@ static void cheat_death(void)
 	gameover = FALSE;
 
 	/* Hack -- Healing */
-	(void)set_timed_effect(player_ptr, TRAIT_BLIND, 0);
-	(void)set_timed_effect(player_ptr, TRAIT_CONFUSED, 0);
-	(void)set_poisoned(player_ptr, 0);
-	(void)set_afraid(player_ptr, 0);
-	(void)set_paralyzed(player_ptr, 0);
-	(void)set_image(player_ptr, 0);
-	(void)set_stun(player_ptr, 0);
-	(void)set_cut(player_ptr, 0);
+	reset_timed_trait(player_ptr);
 
 	/* Hack -- Prevent starvation */
 	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
@@ -6392,7 +6385,7 @@ static void accidental_death(void)
 		player_ptr->chp = 0;
 		player_ptr->chp_frac = 0;
 		arena_settled = TRUE;
-		reset_tim_flags(player_ptr);
+		reset_timed_trait(player_ptr);
 
 		//prepare_change_floor_mode(player_ptr, CFM_SAVE_FLOORS | CFM_RAND_CONNECT); // Leave through the exit
 

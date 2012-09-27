@@ -2,6 +2,7 @@
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+ * 2012 modified by Deskull for D'angband
  *
  * This software may be copied and distributed for educational, research,
  * and not for profit purposes provided that this copyright and statement
@@ -12,7 +13,7 @@
 
 #include "angband.h"
 
-bool set_timed_effect(creature_type *creature_ptr, int type, int v)
+bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 {
 	bool notice = FALSE;
 
@@ -201,86 +202,28 @@ void set_action(creature_type *creature_ptr, int typ)
 }
 
 /* reset timed flags */
-void reset_tim_flags(creature_type *creature_ptr)
+void reset_timed_trait(creature_type *creature_ptr)
 {
-	creature_ptr->timed_trait[TRAIT_FAST] = 0;            /* Timed -- Fast */
-	creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] = 0;
-	creature_ptr->timed_trait[TRAIT_SLOW_] = 0;            /* Timed -- Slow */
-	creature_ptr->timed_trait[TRAIT_BLIND_] = 0;           /* Timed -- Blindness */
-	creature_ptr->timed_trait[TRAIT_PARALYZED] = 0;       /* Timed -- Paralysis */
-	creature_ptr->timed_trait[TRAIT_CONFUSED] = 0;        /* Timed -- Confusion */
-	creature_ptr->timed_trait[TRAIT_AFRAID] = 0;          /* Timed -- Fear */
-	creature_ptr->timed_trait[TRAIT_HALLUCINATION] = 0;           /* Timed -- Hallucination */
-	creature_ptr->timed_trait[TRAIT_POISONED] = 0;        /* Timed -- Poisoned */
-	creature_ptr->timed_trait[TRAIT_CUT] = 0;             /* Timed -- Cut */
-	creature_ptr->timed_trait[TRAIT_STUN] = 0;            /* Timed -- Stun */
+	int i;
+	for(i = 0; i <= MAX_TRAITS; i++) creature_ptr->timed_trait[i] = 0;
 
-	creature_ptr->timed_trait[TRAIT_PROT_EVIL] = 0;        /* Timed -- Protection */
-	creature_ptr->timed_trait[TRAIT_INVULNERABLE] = 0;          /* Timed -- Invulnerable */
-	creature_ptr->timed_trait[TRAIT_ULTRA_RES] = 0;
-	creature_ptr->timed_trait[TRAIT_HERO] = 0;            /* Timed -- Heroism */
-	creature_ptr->timed_trait[TRAIT_S_HERO] = 0;           /* Timed -- Super Heroism */
-	creature_ptr->timed_trait[TRAIT_SHIELD] = 0;          /* Timed -- Shield Spell */
-	creature_ptr->timed_trait[TRAIT_BLESSED] = 0;         /* Timed -- Blessed */
-	creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] = 0;       /* Timed -- Invisibility */
-	creature_ptr->timed_trait[TRAIT_SEE_INFRA] = 0;       /* Timed -- Infra Vision */
-	creature_ptr->timed_trait[TRAIT_REGENERATE] = 0;       /* Timed -- Regeneration */
-	creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] = 0;     /* Timed -- Stealth */
-	creature_ptr->timed_trait[TRAIT_ESP] = 0;
-	creature_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;     /* Timed -- Wraith Form */
-	creature_ptr->timed_trait[TRAIT_LEVITATION] = 0;
-	creature_ptr->timed_trait[TRAIT_AURA_MANA] = 0;
-	creature_ptr->timed_trait[TRAIT_AURA_FIRE] = 0;
-	creature_ptr->timed_trait[TRAIT_HOLY_AURA] = 0;
-	creature_ptr->timed_trait[TRAIT_EYE_EYE] = 0;
-	creature_ptr->timed_trait[TRAIT_MAGIC_DEF] = 0;
-	creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] = 0;
-	creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 0;
-	creature_ptr->timed_trait[TRAIT_PASS_WALL] = 0;
-	creature_ptr->timed_trait[TRAIT_RES_NETH] = 0;
-	creature_ptr->timed_trait[TRAIT_RES_TIME] = 0;
-	creature_ptr->timed_trait[TRAIT_MIMIC] = 0;
 	creature_ptr->mimic_race_idx = 0;
-	creature_ptr->timed_trait[TRAIT_REFLECTING] = 0;
-	creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] = 0;
-	creature_ptr->timed_trait[TRAIT_DUST_ROBE] = 0;
 	creature_ptr->action = ACTION_NONE;
-
-
-	creature_ptr->timed_trait[TRAIT_RES_ACID] = 0;     /* Timed -- oppose acid */
-	creature_ptr->timed_trait[TRAIT_RES_ELEC] = 0;     /* Timed -- oppose lightning */
-	creature_ptr->timed_trait[TRAIT_RES_FIRE] = 0;     /* Timed -- oppose heat */
-	creature_ptr->timed_trait[TRAIT_RES_COLD] = 0;     /* Timed -- oppose cold */
-	creature_ptr->timed_trait[TRAIT_RES_POIS] = 0;     /* Timed -- oppose poison */
-
-	creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
-	creature_ptr->timed_trait[TRAIT_ALTER_REALITY] = 0;
 	creature_ptr->sutemi = FALSE;
 	creature_ptr->counter = FALSE;
-	creature_ptr->timed_trait[TRAIT_FIRE_BRAND] = 0;
-	creature_ptr->timed_trait[TRAIT_IM_FIRE] = 0;
 	creature_ptr->special_attack = 0L;
 	creature_ptr->special_defense = 0L;
-
-	while(creature_ptr->energy_need < 0) creature_ptr->energy_need += ENERGY_NEED();
 	creature_ptr->time_stopper = FALSE;
 
-	if(has_trait(creature_ptr, TRAIT_DEMON) && (creature_ptr->lev > 44)) creature_ptr->timed_trait[TRAIT_RES_FIRE] = 1;
-	if((creature_ptr->class_idx == CLASS_NINJA) && (creature_ptr->lev > 44)) creature_ptr->timed_trait[TRAIT_RES_POIS] = 1;
-	if(creature_ptr->class_idx == CLASS_BERSERKER) creature_ptr->timed_trait[TRAIT_S_HERO] = 1;
-
-	if(creature_ptr->riding)
-	{
-		(void)set_fast(&creature_list[creature_ptr->riding], 0, FALSE);
-		(void)set_slow(&creature_list[creature_ptr->riding], 0, FALSE);
-		(void)set_invuln(&creature_list[creature_ptr->riding], 0, FALSE);
-	}
+	while(creature_ptr->energy_need < 0) creature_ptr->energy_need += ENERGY_NEED();
 
 	if(creature_ptr->class_idx == CLASS_BARD)
 	{
 		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
 		creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
 	}
+
+	if(creature_ptr->riding) reset_timed_trait(&creature_list[creature_ptr->riding]);
 }
 
 

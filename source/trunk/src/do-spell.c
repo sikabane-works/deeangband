@@ -392,7 +392,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		msg_print("Your head is invaded by a horde of gibbering spectral voices...");
 #endif
 
-		set_timed_effect(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(4) + 4);
+		set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(4) + 4);
 	}
 	else if(die < 31)
 	{

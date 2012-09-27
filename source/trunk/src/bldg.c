@@ -276,7 +276,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 #endif
 					{
 						arena_settled = FALSE;
-						reset_tim_flags(creature_ptr);
+						reset_timed_trait(creature_ptr);
 
 						subject_change_floor = TRUE;
 						leave_bldg = TRUE;
@@ -313,7 +313,7 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			else
 			{
 				arena_settled = FALSE;
-				reset_tim_flags(creature_ptr);
+				reset_timed_trait(creature_ptr);
 
 				subject_change_floor = TRUE;
 				leave_bldg = TRUE;
@@ -1874,7 +1874,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 			battle_odds = MAX(wager+1, wager * battle_odds / 100);
 			kakekin = wager;
 			creature_ptr->au -= wager;
-			reset_tim_flags(creature_ptr);
+			reset_timed_trait(creature_ptr);
 
 			floor_ptr->gamble_arena_mode = TRUE;
 			subject_change_floor = TRUE;
@@ -2307,7 +2307,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_timed_effect(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+			(void)set_timed_trait(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if(!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
@@ -2329,7 +2329,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
-			(void)set_timed_effect(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+			(void)set_timed_trait(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
 		}
 		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
@@ -2588,8 +2588,8 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				}
 				else
 				{
-					set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
-					set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
+					set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
+					set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 					creature_ptr->timed_trait[TRAIT_STUN] = 0;
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
@@ -4457,8 +4457,8 @@ msg_print("お金が足りません！");
 	case BUILDING_FUNCTION_HEALING: /* needs work */
 		heal_creature(creature_ptr, 200);
 		set_poisoned(creature_ptr, 0);
-		set_timed_effect(creature_ptr, TRAIT_BLIND, 0);
-		set_timed_effect(creature_ptr, TRAIT_CONFUSED, 0);
+		set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
+		set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 		set_cut(creature_ptr, 0);
 		set_stun(creature_ptr, 0);
 		paid = TRUE;
