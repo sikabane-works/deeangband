@@ -1235,7 +1235,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 	case TRAIT_SCARE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("恐ろしげな幻覚を作り出した。");
+		else msg_print("恐ろしげな幻覚を作り出した。");
 #else
 			else msg_print("You cast a fearful illusion.");
 #endif

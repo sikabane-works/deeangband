@@ -1502,6 +1502,7 @@ extern cptr desc_class_name(creature_type *creature_ptr, u32b mode);
 
 
 /* effects.c */
+extern bool set_timed_effect(creature_type *creature_ptr, int v, int type);
 extern void set_action(creature_type *creature_ptr, int typ);
 extern void reset_tim_flags(creature_type *creature_ptr);
 extern void dispel_creature(creature_type *creature_ptr);
