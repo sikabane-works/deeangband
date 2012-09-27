@@ -2136,11 +2136,11 @@
 #define XXX_TRG_ONE_SUSTAIN         0x00000008L     /* One sustain */
 #define XXX_TRG_XTRA_RES_OR_POWER   0x00000010L     /* Extra resistance or power */
 #define XXX_TRG_XTRA_H_RES          0x00000020L     /* Extra high resistance */
-#define TRG_XTRA_E_RES          0x00000040L     /* Extra element resistance */
-#define TRG_XTRA_L_RES          0x00000080L     /* Extra lordly resistance */
-#define TRG_XTRA_D_RES          0x00000100L     /* Extra dragon resistance */
-#define TRG_XTRA_RES            0x00000200L     /* Extra resistance */
-#define TRG_CURSED              0x00000400L     /* Item is Cursed */
+#define XXX_TRG_XTRA_E_RES          0x00000040L     /* Extra element resistance */
+#define XXX_TRG_XTRA_L_RES          0x00000080L     /* Extra lordly resistance */
+#define XXX_TRG_XTRA_D_RES          0x00000100L     /* Extra dragon resistance */
+#define XXX_TRG_XTRA_RES            0x00000200L     /* Extra resistance */
+#define XXX_TRG_CURSED              0x00000400L     /* Item is Cursed */
 #define TRG_HEAVY_CURSE         0x00000800L     /* Item is Heavily Cursed */
 #define TRG_DIVINE_CURSE        0x00001000L     /* Item is Perma Cursed */
 #define TRG_RANDOM_CURSE0       0x00002000L     /* Item is Random Cursed */
