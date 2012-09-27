@@ -432,7 +432,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 		case TRAIT_BERSERK:
 			(void)set_shero(creature_ptr, randint1(25) + 25, FALSE);
 			(void)heal_creature(creature_ptr, 30);
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			break;
 
 		case TRAIT_POLYMORPH:

@@ -2894,7 +2894,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 			else
 			{
-				(void)set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
+				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_SCARE);
 			update_smart_learn(caster_ptr, DRS_FEAR);
@@ -3201,7 +3201,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			if(caster_ptr->timed_trait[TRAIT_AFRAID])
 			{
 				/* Cancel fear */
-				(void)set_afraid(caster_ptr, 0);
+				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
 				/* Message */
 #ifdef JP

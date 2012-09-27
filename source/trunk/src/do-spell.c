@@ -382,7 +382,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		msg_print("An unnamable evil brushes against your mind...");
 #endif
 
-		set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + randint1(4) + 4);
+		set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + randint1(4) + 4);
 	}
 	else if(die < 26)
 	{
@@ -4612,7 +4612,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_shero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -4682,7 +4682,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_shero(creature_ptr, randint1(25) + 25, FALSE);
 				heal_creature(creature_ptr, 30);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				set_fast(creature_ptr, randint1(sp_sides) + sp_base, FALSE);
 			}
 		}
@@ -6770,7 +6770,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -6901,7 +6901,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_shero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -7803,7 +7803,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 				set_oppose_fire(creature_ptr, dur, FALSE);
 				set_oppose_cold(creature_ptr, dur, FALSE);
 				set_tim_sh_fire(creature_ptr, dur, FALSE);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				break;
 			}
 		}
@@ -7965,7 +7965,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -8200,7 +8200,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -8504,7 +8504,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				dispel_evil(creature_ptr, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
@@ -8718,7 +8718,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -8909,7 +8909,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				set_blessed(creature_ptr, randint1(base) + base, FALSE);
 				set_fast(creature_ptr, randint1(sp_sides) + sp_base, FALSE);
 				set_protevil(creature_ptr, randint1(base) + base, FALSE);
-				set_afraid(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -9198,7 +9198,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 			(void)heal_creature(caster_ptr, 10);
-			(void)set_afraid(caster_ptr, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
 			/* Recalculate hitpoints */
 			caster_ptr->creature_update |= (CRU_HP);
@@ -9958,7 +9958,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			msg_print("You chant a powerful, heroic call to arms...");
 #endif
 			(void)heal_creature(caster_ptr, 10);
-			(void)set_afraid(caster_ptr, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
 			/* Recalculate hitpoints */
 			caster_ptr->creature_update |= (CRU_HP);

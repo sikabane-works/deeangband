@@ -847,7 +847,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		(void)set_stun(creature_ptr, 0);
 		(void)set_cut(creature_ptr, 0);
 		(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-		(void)set_afraid(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 		(void)do_res_stat(creature_ptr, STAT_STR);
 		(void)do_res_stat(creature_ptr, STAT_INT);
 		(void)do_res_stat(creature_ptr, STAT_WIS);
@@ -2141,7 +2141,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Afraid */
 	if(creature_ptr->timed_trait[TRAIT_AFRAID])
 	{
-		(void)set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] - dec_count);
+		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] - dec_count);
 	}
 
 	/* Fast */
@@ -2337,7 +2337,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 		(void)set_shero(creature_ptr, 10 + randint1(creature_ptr->lev), FALSE);
-		(void)set_afraid(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_COWARDICE) && (randint1(3000) == 13))
@@ -2351,7 +2351,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("It's so dark... so scary!");
 #endif
 
-			set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
+			set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
 		}
 	}
 
@@ -3138,7 +3138,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				msg_print("It's so dark... so scary!");
 #endif
 
-				set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
+				set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
 			}
 		}
 		/* Teleport player */
@@ -5325,8 +5325,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(m_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			/* Hack -- Recover from fear */
-			if(set_afraid(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
+			if(set_afraid(m_ptr, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
 				char m_name[80];
 

@@ -938,7 +938,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		break;
 	case 9:
 		/* Adrenaline */
-		set_afraid(creature_ptr, 0);
+		set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 		set_stun(creature_ptr, 0);
 
 		/*

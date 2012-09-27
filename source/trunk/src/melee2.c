@@ -2953,7 +2953,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_MONFEAR:
 		/* Reduce the fear */
-		set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
+		set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] - randint1(species_info[creature_ptr->species_idx].level / 20 + 1));
 		break;
 
 	case MTIMED_INVULNER:

@@ -120,7 +120,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if(!has_trait(creature_ptr, TRAIT_FEARLESS))
 				{
-					if(set_afraid(creature_ptr, creature_ptr->timed_trait[TRAIT_AFRAID] + randint0(10) + 10))
+					if(set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -256,7 +256,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_PARANOIA:
 			{
-				if(set_afraid(creature_ptr, 0)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 				break;
 			}
 
@@ -993,7 +993,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_BOLDNESS:
-			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_SPEED:
@@ -1022,13 +1022,13 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_HEROISM:
-			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 			if(set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
-			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 			if(set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 30)) ident = TRUE;
 			break;
@@ -2487,7 +2487,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			k = 3 * creature_ptr->lev;
 			if(set_protevil(creature_ptr, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
-			if(set_afraid(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -4197,7 +4197,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			
 			case TRAIT_MULTI_BLESS_1:
 			{
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				(void)set_blessed(creature_ptr, randint1(50) + 50, FALSE);
@@ -4223,7 +4223,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)set_stun(creature_ptr, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
 				(void)heal_creature(creature_ptr, 777);
 				break;
@@ -4386,7 +4386,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_REMOVE_FEAR:
 			{
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				break;
 			}
 
@@ -4877,7 +4877,7 @@ if(get_check("この階を去りますか？"))
 
 			case TRAIT_BECOME_HERO:
 			{
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				set_hero(creature_ptr, randint1(25)+25, FALSE);
 				heal_creature(creature_ptr, 10);
 				break;
@@ -4921,7 +4921,7 @@ if(get_check("この階を去りますか？"))
 #else
 				msg_print("You stamp. (as if you are in a ring.)");
 #endif
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, randint1(20) + 20, FALSE);
 				dispel_evil(creature_ptr, creature_ptr->lev * 3);
 				object_ptr->timeout = 100 + randint1(100);
@@ -5243,7 +5243,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			switch (object_ptr->name2)
 			{
 			case EGO_RING_HERO:
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				object_ptr->timeout = randint1(100)+100;
@@ -5276,7 +5276,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case EGO_RING_TRUE:
 			{
 				int v = randint1(25)+25;
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, v, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				(void)set_blessed(creature_ptr, v, FALSE);

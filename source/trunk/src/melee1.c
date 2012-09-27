@@ -3054,7 +3054,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else
 				{
-					if(set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
+					if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
 					{
 						obvious = TRUE;
 					}

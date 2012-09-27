@@ -6481,7 +6481,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	if(target_ptr->timed_trait[TRAIT_AFRAID] && (damage > 0))
 	{
 		/* Cure fear */
-		if(set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] - randint1(damage)))
+		if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] - randint1(damage)))
 		{
 			/* No more fear */
 			fear = FALSE;
@@ -6509,7 +6509,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	{
 		/* XXX XXX XXX Hack -- Add some timed fear */
 		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
-		(void)set_afraid(target_ptr, (randint1(10) +
+		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, (randint1(10) +
 			(((damage >= target_ptr->chp) && (percentage > 7)) ?
 			20 : ((11 - percentage) * 5))));
 	}

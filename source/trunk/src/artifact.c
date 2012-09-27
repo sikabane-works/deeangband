@@ -2324,7 +2324,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		case TRAIT_CURE_LIGHT_WOUNDS:
 		{
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			(void)heal_creature(creature_ptr, 30);
 			break;
 		}
@@ -2350,7 +2350,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			msg_print("It glows deep blue...");
 #endif
 
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			break;
 		}
@@ -2431,7 +2431,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		case TRAIT_BERSERK:
 		{
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
 			(void)set_blessed(creature_ptr, randint1(50) + 50, FALSE);
 			break;

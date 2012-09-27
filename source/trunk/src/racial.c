@@ -1582,7 +1582,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You play tough.");
 #endif
 
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			break;
 
 		case RACE_TROLL:
@@ -1592,7 +1592,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("RAAAGH!");
 #endif
 
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
 			(void)heal_creature(creature_ptr, 30);
 			break;
@@ -1620,7 +1620,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				(void)set_stun(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-				(void)set_afraid(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)do_res_stat(creature_ptr, STAT_STR);
 				(void)do_res_stat(creature_ptr, STAT_INT);
 				(void)do_res_stat(creature_ptr, STAT_WIS);
@@ -1638,7 +1638,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("Raaagh!");
 #endif
 
-			(void)set_afraid(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
 			(void)heal_creature(creature_ptr, 30);
 			break;
@@ -2870,7 +2870,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				(void)set_stun(caster_ptr, 0);
 				(void)set_cut(caster_ptr, 0);
 				(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-				(void)set_afraid(caster_ptr, 0);
+				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 				(void)do_res_stat(caster_ptr, STAT_STR);
 				(void)do_res_stat(caster_ptr, STAT_INT);
 				(void)do_res_stat(caster_ptr, STAT_WIS);
@@ -2887,7 +2887,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #else
 			msg_print("Raaagh!");
 #endif
-			(void)set_afraid(caster_ptr, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 			(void)set_shero(caster_ptr, 10 + randint1(plev), FALSE);
 			(void)heal_creature(caster_ptr, 30);
 			break;
@@ -4335,7 +4335,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_afraid(target_ptr, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
+				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_SCARE);
 			update_smart_learn(caster_ptr, DRS_FEAR);
@@ -4642,7 +4642,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			if(caster_ptr->timed_trait[TRAIT_AFRAID])
 			{
 				// Cancel fear 
-				(void)set_afraid(caster_ptr, 0);
+				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
 				// Message 
 #ifdef JP
