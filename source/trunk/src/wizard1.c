@@ -1295,8 +1295,8 @@ static void analyze_addition(object_type *object_ptr, char *addition)
 	strcpy(addition, "");
 
 #ifdef JP
-	if((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "能力and耐性");
-	else if(a_ptr->gen_flags & TRG_XTRA_POWER)
+	if((have_flag(a_ptr->flags, TRAIT_XTRA_POWER)) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "能力and耐性");
+	else if(have_flag(a_ptr->flags, TRAIT_XTRA_POWER))
 	{
 		strcat(addition, "能力");
 		if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(1/2でand耐性)");
@@ -1308,8 +1308,8 @@ static void analyze_addition(object_type *object_ptr, char *addition)
 	}
 	else if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "能力or耐性");
 #else
-	if((a_ptr->gen_flags & TRG_XTRA_POWER) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "Ability and Resistance");
-	else if(a_ptr->gen_flags & TRG_XTRA_POWER)
+	if((have_flag(a_ptr->flag, TRAIT_XTRA_POWER)) && (a_ptr->gen_flags & TRG_XTRA_H_RES)) strcat(addition, "Ability and Resistance");
+	else if(have_flag(a_ptr->flag, TRAIT_XTRA_POWER))
 	{
 		strcat(addition, "Ability");
 		if(a_ptr->gen_flags & TRG_XTRA_RES_OR_POWER) strcat(addition, "(plus Resistance about 1/2)");

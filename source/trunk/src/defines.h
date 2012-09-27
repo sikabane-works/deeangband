@@ -2130,9 +2130,9 @@
 #define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1
 #define AUTHORITY_FLAG_MAX	((MAX_AUTHORITY - 1) / 32) + 1
 
-#define TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
+#define XXX_TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
 #define TRG_QUESTITEM           0x00000002L     /* quest level item -KMW- */
-#define TRG_XTRA_POWER          0x00000004L     /* Extra power */
+#define XXX_TRG_XTRA_POWER          0x00000004L     /* Extra power */
 #define TRG_ONE_SUSTAIN         0x00000008L     /* One sustain */
 #define TRG_XTRA_RES_OR_POWER   0x00000010L     /* Extra resistance or power */
 #define TRG_XTRA_H_RES          0x00000020L     /* Extra high resistance */
