@@ -394,7 +394,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if((mode == HISSATSU_SUTEMI) || (mode == HISSATSU_3DAN)) k *= 2;
 		if((mode == HISSATSU_SEKIRYUKA) && !creature_living(target_ptr)) k = 0;
-		if((mode == HISSATSU_SEKIRYUKA) && !IS_WOUND(attacker_ptr)) k /= 2;
+		if((mode == HISSATSU_SEKIRYUKA) && !GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT)) k /= 2;
 		if(k < 0) k = 0; // No negative damage
 		if((mode == HISSATSU_ZANMA) && !(!creature_living(target_ptr) && is_enemy_of_good_creature(target_ptr)))
 		{
@@ -3533,7 +3533,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the cut */
-			if(k) (void)set_cut(target_ptr, IS_WOUND(target_ptr) + k);
+			if(k) (void)set_cut(target_ptr, GET_TIMED_TRAIT(target_ptr, TRAIT_CUT) + k);
 		}
 
 		/* Handle stun */

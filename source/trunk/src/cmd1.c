@@ -452,7 +452,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 				if(mult == 10) mult = 40;
 				else if(mult < 60) mult = MIN(60, mult+30);
 			}
-			if((mode == HISSATSU_SEKIRYUKA) && IS_WOUND(attacker_ptr) && creature_living(attacker_ptr))
+			if((mode == HISSATSU_SEKIRYUKA) && GET_TIMED_TRAIT(attacker_ptr, TRAIT_CUT) && creature_living(attacker_ptr))
 			{
 				int tmp = MIN(100, MAX(10, attacker_ptr->timed_trait[TRAIT_CUT] / 10));
 				if(mult < tmp) mult = tmp;

@@ -61,7 +61,8 @@
 #define hex_spelling(USER, X) \
 	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
 
-// Temporary flags macro
+#define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
+
 #define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_SLOW(C)			((C)->timed_trait[TRAIT_SLOW_])
 #define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || music_singing(C, MUSIC_INVULN))
@@ -78,7 +79,6 @@
 #define IS_BLIND(C)			((C)->timed_trait[TRAIT_BLIND_] > 0)
 #define IS_POISONED(C)		((C)->timed_trait[TRAIT_POISONED])
 #define IS_HALLUCINATION(C) ((C)->timed_trait[TRAIT_HALLUCINATION] > 0)
-#define IS_WOUND(C)			((C)->timed_trait[TRAIT_CUT] > 0)
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \

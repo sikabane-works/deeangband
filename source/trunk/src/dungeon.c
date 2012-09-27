@@ -832,7 +832,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 
 	if(!pattern_tile(floor_ptr, creature_ptr->fy, creature_ptr->fx)) return FALSE;
 
-	if((IS_RACE(creature_ptr, RACE_AMBERITE)) && (IS_WOUND(creature_ptr)) && one_in_(10))
+	if((IS_RACE(creature_ptr, RACE_AMBERITE)) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT)) && one_in_(10))
 	{
 		wreck_the_pattern(floor_ptr, creature_ptr);
 	}
@@ -1595,7 +1595,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	}
 
 	/* Take damage from cuts */
-	if(IS_WOUND(creature_ptr) && !IS_INVULN(creature_ptr))
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) && !IS_INVULN(creature_ptr))
 	{
 		int dam;
 
@@ -1965,7 +1965,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
 
 	/* Poisoned or cut yields no healing */
 	if(creature_ptr->timed_trait[TRAIT_POISONED]) regen_amount = 0;
-	if(IS_WOUND(creature_ptr)) regen_amount = 0;
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT)) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if(cave_no_regen) regen_amount = 0;
@@ -2272,7 +2272,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Cut */
-	if(IS_WOUND(creature_ptr))
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
 
@@ -5389,7 +5389,7 @@ void process_player(creature_type *creature_ptr)
 			    (creature_ptr->csp >= creature_ptr->msp) &&
 			    !IS_BLIND(creature_ptr) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
-			    !creature_ptr->timed_trait[TRAIT_STUN] && !IS_WOUND(creature_ptr) &&
+			    !creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
 			    !creature_ptr->timed_trait[TRAIT_ALTER_REALITY])

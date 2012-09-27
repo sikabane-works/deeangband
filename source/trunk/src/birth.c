@@ -5241,15 +5241,12 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			/* Update display occasionally */
 			if(flag)
 			{
-				/* Dump data */
-				birth_put_stats(creature_ptr);
-
-				/* Dump round */
-				put_str(format("%10ld", auto_round), 10, col+20);
+				
+				birth_put_stats(creature_ptr);	// Dump data
+				put_str(format("%10ld", auto_round), 10, col+20);	// Dump round
 
 #ifdef AUTOROLLER_DELAY
-				/* Delay 1/10 second */
-				if(flag) Term_xtra(TERM_XTRA_DELAY, 10);
+				if(flag) Term_xtra(TERM_XTRA_DELAY, 10);	// Delay 1/10 second
 #endif
 
 				/* Make sure they see everything */
