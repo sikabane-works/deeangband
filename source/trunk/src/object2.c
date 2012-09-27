@@ -573,7 +573,7 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		if(flag & GON_OUTER && k_ptr->tval != TV_CLOAK) continue;
 		if(flag & GON_RING && k_ptr->tval != TV_RING) continue;
 		if(flag & GON_AMULET && k_ptr->tval != TV_AMULET) continue;
-		if(flag & GON_UNCURSED && have_flag(k_ptr->flags, TRAIT_CURSED) || (k_ptr->gen_flags & TRG_HEAVY_CURSE)) continue;
+		if(flag & GON_UNCURSED && have_flag(k_ptr->flags, TRAIT_CURSED) || have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) continue;
 
 		if(flag & TRG_NO_CHEST && (k_ptr->tval == TV_CHEST)) continue;
 
@@ -1845,11 +1845,11 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 
 	/* Hack -- cursed items are always "cursed" */
 	if(have_flag(k_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-	if(k_ptr->gen_flags & (TRG_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-	if(k_ptr->gen_flags & (TRG_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-	if(k_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
-	if(k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
-	if(k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
+	if(have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+	if(have_flag(k_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+	if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+	if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+	if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
 	if(((object_ptr->tval == TV_CLOAK)      && (object_ptr->sval == SV_ELVEN_CLOAK)) ||
 	    ((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_KUROSHOUZOKU)))
@@ -3470,11 +3470,11 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 
 		/* Hack -- extract the "cursed" flag */
 		if(have_flag(a_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-		if(a_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-		if(a_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-		if(a_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
-		if(a_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
-		if(a_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
+		if(have_flag(a_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(have_flag(a_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+		if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+		if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+		if(have_flag(a_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
 
 		/* Cheat -- peek at the item */
@@ -3501,11 +3501,11 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 
 		/* Hack -- acquire "cursed" flag */
 		if(have_flag(e_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-		if(e_ptr->gen_flags & TRG_HEAVY_CURSE) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-		if(e_ptr->gen_flags & TRG_DIVINE_CURSE) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
-		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
-		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(have_flag(e_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+		if(have_flag(e_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
 		if(have_flag(e_ptr->flags, TRAIT_ONE_SUSTAIN)) one_sustain(object_ptr);
 		if(have_flag(e_ptr->flags, TRAIT_XTRA_POWER)) one_ability(object_ptr);
@@ -3545,11 +3545,11 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 
 		// Hack -- acquire "cursed" flag
 		if(have_flag(k_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-		if(k_ptr->gen_flags & (TRG_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-		if(k_ptr->gen_flags & (TRG_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-		if(k_ptr->gen_flags & (TRG_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
-		if(k_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
-		if(k_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
+		if(have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(have_flag(k_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+		if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+		if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+		if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 	}
 
 
