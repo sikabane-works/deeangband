@@ -4598,7 +4598,7 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 		creature_ptr->inven_cnt--;
 
 		/* Slide everything down */
-		for (i = item; i < INVEN_TOTAL; i++)
+		for (i = item; i < INVEN_TOTAL - 1; i++)
 		{
 			/* Structure copy */
 			creature_ptr->inventory[i] = creature_ptr->inventory[i+1];
