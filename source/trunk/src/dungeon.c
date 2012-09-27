@@ -842,7 +842,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		(void)set_poisoned(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 		(void)set_image(creature_ptr, 0);
 		(void)set_stun(creature_ptr, 0);
 		(void)set_cut(creature_ptr, 0);
@@ -2259,7 +2259,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
 
 		/* Apply some healing */
-		(void)set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] - adjust);
+		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] - adjust);
 	}
 
 	/* Stun */

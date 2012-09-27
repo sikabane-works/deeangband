@@ -229,46 +229,7 @@ void reset_timed_trait(creature_type *creature_ptr)
 
 void dispel_creature(creature_type *creature_ptr)
 {
-	(void)set_fast(creature_ptr, 0, TRUE);
-	(void)set_lightspeed(creature_ptr, 0, TRUE);
-	(void)set_slow(creature_ptr, 0, TRUE);
-	(void)set_shield(creature_ptr, 0, TRUE);
-	(void)set_blessed(creature_ptr, 0, TRUE);
-	(void)set_tsuyoshi(creature_ptr, 0, TRUE);
-	(void)set_hero(creature_ptr, 0, TRUE);
-	(void)set_shero(creature_ptr, 0, TRUE);
-	(void)set_protevil(creature_ptr, 0, TRUE);
-	(void)set_invuln(creature_ptr, 0, TRUE);
-	(void)set_wraith_form(creature_ptr, 0, TRUE);
-	(void)set_kabenuke(creature_ptr, 0, TRUE);
-	(void)set_tim_res_nether(creature_ptr, 0, TRUE);
-	(void)set_tim_res_time(creature_ptr, 0, TRUE);
-	/* by henkma */
-	(void)set_tim_reflect(creature_ptr, 0,TRUE);
-	(void)set_multishadow(creature_ptr, 0,TRUE);
-	(void)set_dustrobe(creature_ptr, 0,TRUE);
-
-	(void)set_tim_invis(creature_ptr, 0, TRUE);
-	(void)set_tim_infra(creature_ptr, 0, TRUE);
-	(void)set_tim_esp(creature_ptr, 0, TRUE);
-	(void)set_tim_regen(creature_ptr, 0, TRUE);
-	(void)set_tim_stealth(creature_ptr, 0, TRUE);
-	(void)set_tim_levitation(creature_ptr, 0, TRUE);
-	(void)set_tim_sh_touki(creature_ptr, 0, TRUE);
-	(void)set_tim_sh_fire(creature_ptr, 0, TRUE);
-	(void)set_tim_sh_holy(creature_ptr, 0, TRUE);
-	(void)set_tim_eyeeye(creature_ptr, 0, TRUE);
-	(void)set_magicdef(creature_ptr, 0, TRUE);
-	(void)set_resist_magic(creature_ptr, 0, TRUE);
-	(void)set_oppose_acid(creature_ptr, 0, TRUE);
-	(void)set_oppose_elec(creature_ptr, 0, TRUE);
-	(void)set_oppose_fire(creature_ptr, 0, TRUE);
-	(void)set_oppose_cold(creature_ptr, 0, TRUE);
-	(void)set_oppose_pois(creature_ptr, 0, TRUE);
-	(void)set_ultimate_res(creature_ptr, 0, TRUE);
-	(void)set_mimic(creature_ptr, 0, 0, TRUE);
-	(void)set_ele_attack(creature_ptr, 0, 0);
-	(void)set_ele_immune(creature_ptr, 0, 0);
+	reset_timed_trait(creature_ptr);
 
 	/* Cancel glowing hands */
 	if(creature_ptr->special_attack & ATTACK_CONFUSE)
@@ -627,6 +588,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_POISONED]", notice observable changes
  */
+#if 0
 bool set_poisoned(creature_type *creature_ptr, int v)
 {
 	bool notice = FALSE;
@@ -690,6 +652,7 @@ bool set_poisoned(creature_type *creature_ptr, int v)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*

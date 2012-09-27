@@ -1334,7 +1334,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_poisoned(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			}
 		}
 		break;
@@ -2800,7 +2800,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
 				set_cut(caster_ptr, 0);
-				set_poisoned(caster_ptr, 0);
+				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 			}
 		}
 		break;
@@ -2996,7 +2996,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 				heal_creature(caster_ptr, heal);
 				set_stun(caster_ptr, 0);
 				set_cut(caster_ptr, 0);
-				set_poisoned(caster_ptr, 0);
+				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 			}
 		}
 		break;
@@ -6219,7 +6219,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_poisoned(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			}
 		}
 		break;
@@ -6957,7 +6957,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_poisoned(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
 				set_image(creature_ptr, 0);
@@ -8306,7 +8306,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				set_cut(creature_ptr, 0);
-				set_poisoned(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_stun(creature_ptr, 0);
 			}
 		}
@@ -8505,7 +8505,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				dispel_evil(creature_ptr, randint1(dam_sides));
 				heal_creature(creature_ptr, heal);
 				set_afraid(creature_ptr, 0);
-				set_poisoned(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
 			}
@@ -11953,7 +11953,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			heal_creature(creature_ptr, diceroll(4, 10));
 			set_stun(creature_ptr, 0);
 			set_cut(creature_ptr, 0);
-			set_poisoned(creature_ptr, 0);
+			set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 		}
 		break;
 

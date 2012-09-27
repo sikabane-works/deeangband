@@ -4456,7 +4456,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		break;
 	case BUILDING_FUNCTION_HEALING: /* needs work */
 		heal_creature(creature_ptr, 200);
-		set_poisoned(creature_ptr, 0);
+		set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 		set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 		set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 		set_cut(creature_ptr, 0);

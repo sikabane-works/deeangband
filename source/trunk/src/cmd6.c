@@ -96,7 +96,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 				{
-					if(set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(10) + 10))
+					if(set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -244,7 +244,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 			case SV_FOOD_CURE_POISON:
 			{
-				if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 				break;
 			}
 
@@ -346,7 +346,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				msg_print("That tastes good.");
 #endif
 
-				(void)set_poisoned(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				(void)heal_creature(creature_ptr, diceroll(4, 8));
 				ident = TRUE;
 				break;
@@ -790,7 +790,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 				(void)set_food(creature_ptr, PY_FOOD_STARVE - 1);
 			}
 
-			(void)set_poisoned(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 			ident = TRUE;
 			break;
@@ -798,7 +798,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_POISON:
 			if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 			{
-				if(set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(15) + 10))
+				if(set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(15) + 10))
 				{
 					ident = TRUE;
 				}
@@ -985,11 +985,11 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if(set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] / 2)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] / 2)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_POISON:
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_BOLDNESS:
@@ -1052,7 +1052,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(heal_creature(creature_ptr, diceroll(6, 8))) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
@@ -1062,7 +1062,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(heal_creature(creature_ptr, 300)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
@@ -1072,7 +1072,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(heal_creature(creature_ptr, 1200)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
@@ -1086,7 +1086,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 #endif
 
 			restore_level(creature_ptr);
-			(void)set_poisoned(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 			(void)set_image(creature_ptr, 0);
@@ -1280,7 +1280,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_CURING:
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -2404,7 +2404,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		case SV_STAFF_CURING:
 		{
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -2486,7 +2486,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
 			if(set_protevil(creature_ptr, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_afraid(creature_ptr, 0)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
@@ -3341,7 +3341,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		case SV_ROD_CURING:
 		{
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_poisoned(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
@@ -4218,7 +4218,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_HEAVENLY_CHOIR:
 			{
-				(void)set_poisoned(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				(void)set_cut(creature_ptr, 0);
 				(void)set_stun(creature_ptr, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
@@ -4380,7 +4380,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_REMOVE_POISON:
 			{
-				(void)set_poisoned(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				break;
 			}
 
@@ -4885,7 +4885,7 @@ if(get_check("Ç±ÇÃäKÇãéÇËÇ‹Ç∑Ç©ÅH"))
 
 			case TRAIT_CURING:
 			{
-				(void)set_poisoned(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_stun(creature_ptr, 0);

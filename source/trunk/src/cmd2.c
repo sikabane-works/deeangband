@@ -546,7 +546,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 		{
-			(void)set_poisoned(creature_ptr, creature_ptr->timed_trait[TRAIT_POISONED] + 10 + randint1(20));
+			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + 10 + randint1(20));
 		}
 	}
 

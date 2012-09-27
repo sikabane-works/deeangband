@@ -2486,7 +2486,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take "poison" effect */
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
+					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
 					{
 						obvious = TRUE;
 					}
@@ -3305,7 +3305,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take "poison" effect */
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 				{
-					if(set_poisoned(target_ptr, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
+					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
 					{
 						obvious = TRUE;
 					}
