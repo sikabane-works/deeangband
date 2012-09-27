@@ -552,7 +552,7 @@ u32b get_curse(int power, object_type *object_ptr)
 
 	while(1)
 	{
-		new_curse = (1 << (randint0(MAX_CURSE)+4));
+		new_curse = (1 << (randint0(MAX_CURSE) + 4));
 		if(power == 2)
 		{
 			if(!(new_curse & TRC_HEAVY_MASK)) continue;

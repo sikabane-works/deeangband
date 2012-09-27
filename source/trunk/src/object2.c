@@ -575,7 +575,7 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		if(flag & GON_AMULET && k_ptr->tval != TV_AMULET) continue;
 		if(flag & GON_UNCURSED && have_flag(k_ptr->flags, TRAIT_CURSED) || have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) continue;
 
-		if(flag & TRG_NO_CHEST && (k_ptr->tval == TV_CHEST)) continue;
+		if(flag == TRAIT_NO_CHEST && (k_ptr->tval == TV_CHEST)) continue;
 
 		table[i].prob3 = table[i].prob2; // Accept
 		total += table[i].prob3; // Total

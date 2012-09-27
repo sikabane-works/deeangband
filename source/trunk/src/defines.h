@@ -2130,26 +2130,6 @@
 #define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1
 #define AUTHORITY_FLAG_MAX	((MAX_AUTHORITY - 1) / 32) + 1
 
-#define XXX_TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
-#define XXX_TRG_QUESTITEM           0x00000002L     /* quest level item -KMW- */
-#define XXX_TRG_XTRA_POWER          0x00000004L     /* Extra power */
-#define XXX_TRG_ONE_SUSTAIN         0x00000008L     /* One sustain */
-#define XXX_TRG_XTRA_RES_OR_POWER   0x00000010L     /* Extra resistance or power */
-#define XXX_TRG_XTRA_H_RES          0x00000020L     /* Extra high resistance */
-#define XXX_TRG_XTRA_E_RES          0x00000040L     /* Extra element resistance */
-#define XXX_TRG_XTRA_L_RES          0x00000080L     /* Extra lordly resistance */
-#define XXX_TRG_XTRA_D_RES          0x00000100L     /* Extra dragon resistance */
-#define XXX_TRG_XTRA_RES            0x00000200L     /* Extra resistance */
-#define XXX_TRG_CURSED              0x00000400L     /* Item is Cursed */
-#define TRG_HEAVY_CURSE         0x00000800L     /* Item is Heavily Cursed */
-#define TRG_DIVINE_CURSE        0x00001000L     /* Item is Perma Cursed */
-#define TRG_RANDOM_CURSE0       0x00002000L     /* Item is Random Cursed */
-#define TRG_RANDOM_CURSE1       0x00004000L     /* Item is Random Cursed */
-#define TRG_RANDOM_CURSE2       0x00008000L     /* Item is Random Cursed */
-#define TRG_NO_LIMIT_LITE       0x00010000L     /* Item is no limit light */
-#define TRG_NO_CHEST            0x00010000L     /* No generate chest */
-
-
 #define MAX_CURSE 17
 
 #define TRC_SPECIAL_MASK (TRAIT_TY_CURSE) 
