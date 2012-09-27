@@ -2133,7 +2133,7 @@
 #define XXX_TRG_INSTA_ART           0x00000001L     /* Item must be an artifact */
 #define TRG_QUESTITEM           0x00000002L     /* quest level item -KMW- */
 #define XXX_TRG_XTRA_POWER          0x00000004L     /* Extra power */
-#define TRG_ONE_SUSTAIN         0x00000008L     /* One sustain */
+#define XXX_TRG_ONE_SUSTAIN         0x00000008L     /* One sustain */
 #define XXX_TRG_XTRA_RES_OR_POWER   0x00000010L     /* Extra resistance or power */
 #define TRG_XTRA_H_RES          0x00000020L     /* Extra high resistance */
 #define TRG_XTRA_E_RES          0x00000040L     /* Extra element resistance */

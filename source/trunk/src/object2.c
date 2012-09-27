@@ -3508,7 +3508,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
 		if(e_ptr->gen_flags & (TRG_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
-		if(e_ptr->gen_flags & (TRG_ONE_SUSTAIN)) one_sustain(object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_ONE_SUSTAIN)) one_sustain(object_ptr);
 		if(have_flag(e_ptr->flags, TRAIT_XTRA_POWER)) one_ability(object_ptr);
 		if(e_ptr->gen_flags & (TRG_XTRA_H_RES)) one_high_resistance(object_ptr);
 		if(e_ptr->gen_flags & (TRG_XTRA_E_RES)) one_ele_resistance(object_ptr);
