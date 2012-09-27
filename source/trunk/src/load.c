@@ -1729,9 +1729,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 					/* Load quest item index */
 					rd_s16b(&quest[i].k_idx);
 
-					if(quest[i].k_idx)
-						artifact_info[quest[i].k_idx].gen_flags |= TRG_QUESTITEM;
-
+					if(quest[i].k_idx) add_flag(artifact_info[quest[i].k_idx].flags, TRAIT_QUESTITEM);
 					rd_byte(&quest[i].flags);
 					rd_byte(&quest[i].dungeon);
 				}

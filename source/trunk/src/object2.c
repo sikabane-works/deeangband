@@ -2005,7 +2005,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *object_
 		/* Cannot make an artifact twice */
 		if(a_ptr->cur_num) continue;
 
-		if(a_ptr->gen_flags & TRG_QUESTITEM) continue;
+		if(have_flag(a_ptr->flags, TRAIT_QUESTITEM)) continue;
 		if(!have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
 		/* XXX XXX Enforce minimum "depth" (loosely) */
@@ -2077,8 +2077,7 @@ static bool make_artifact(creature_type *owner_ptr, object_type *object_ptr)
 		/* Cannot make an artifact twice */
 		if(a_ptr->cur_num) continue;
 
-		if(a_ptr->gen_flags & TRG_QUESTITEM) continue;
-
+		if(have_flag(a_ptr->flags, TRAIT_QUESTITEM)) continue;
 		if(have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
 		/* Must have the correct fields */
@@ -3510,11 +3509,11 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 
 		if(have_flag(e_ptr->flags, TRAIT_ONE_SUSTAIN)) one_sustain(object_ptr);
 		if(have_flag(e_ptr->flags, TRAIT_XTRA_POWER)) one_ability(object_ptr);
-		if(e_ptr->gen_flags & (TRG_XTRA_H_RES)) one_high_resistance(object_ptr);
-		if(e_ptr->gen_flags & (TRG_XTRA_E_RES)) one_ele_resistance(object_ptr);
-		if(e_ptr->gen_flags & (TRG_XTRA_D_RES)) one_dragon_ele_resistance(object_ptr);
-		if(e_ptr->gen_flags & (TRG_XTRA_L_RES)) one_lordly_high_resistance(object_ptr);
-		if(e_ptr->gen_flags & (TRG_XTRA_RES)) one_resistance(object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_XTRA_H_RES)) one_high_resistance(object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_XTRA_E_RES)) one_ele_resistance(object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_XTRA_D_RES)) one_dragon_ele_resistance(object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_XTRA_L_RES)) one_lordly_high_resistance(object_ptr);
+		if(have_flag(e_ptr->flags, TRAIT_XTRA_RES)) one_resistance(object_ptr);
 
 		/* Hack -- apply extra penalties if needed */
 		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr))

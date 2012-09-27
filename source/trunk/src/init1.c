@@ -6980,7 +6980,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 					//TODO r_ptr->flags1 |= RF1_QUESTOR;
 
 				a_ptr = &artifact_info[quest_ptr->k_idx];
-				a_ptr->gen_flags |= TRG_QUESTITEM;
+				add_flag(a_ptr->flags, TRAIT_QUESTITEM);
 			}
 			return PARSE_ERROR_NONE;
 		}
