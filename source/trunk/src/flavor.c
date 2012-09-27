@@ -1420,7 +1420,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			if(aware)
 			{
 				if(object_is_fixed_artifact(object_ptr)) break;
-				if(k_ptr->gen_flags & TRG_INSTA_ART) break;
+				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
 
 			/* Color the object */
@@ -1446,7 +1446,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			if(aware)
 			{
 				if(object_is_fixed_artifact(object_ptr)) break;
-				if(k_ptr->gen_flags & TRG_INSTA_ART) break;
+				if(has_trait_object(object_ptr, TRAIT_INSTA_ART)) break;
 			}
 
 			/* Color the object */

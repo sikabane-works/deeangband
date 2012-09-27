@@ -1340,7 +1340,7 @@ static void wiz_create_item(creature_type *creature_ptr)
 	/* Return if failed */
 	if(!k_idx) return;
 
-	if(object_kind_info[k_idx].gen_flags & TRG_INSTA_ART)
+	if(have_flag(object_kind_info[k_idx].flags, TRAIT_INSTA_ART))
 	{
 		int i;
 

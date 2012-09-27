@@ -693,7 +693,7 @@ void object_aware(object_type *object_ptr)
 	/* Fully aware of the effects */
 	object_kind_info[object_ptr->k_idx].aware = TRUE;
 
-	if(mihanmei && !(object_kind_info[object_ptr->k_idx].gen_flags & TRG_INSTA_ART) && record_ident &&
+	if(mihanmei && !has_trait_object(object_ptr, TRAIT_INSTA_ART) && record_ident &&
 	   !gameover && ((object_ptr->tval >= TV_AMULET && object_ptr->tval <= TV_POTION) || (object_ptr->tval == TV_FOOD)))
 	{
 		object_type forge;
@@ -2006,7 +2006,7 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *object_
 		if(a_ptr->cur_num) continue;
 
 		if(a_ptr->gen_flags & TRG_QUESTITEM) continue;
-		if(!(a_ptr->gen_flags & TRG_INSTA_ART)) continue;
+		if(!have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
 		/* XXX XXX Enforce minimum "depth" (loosely) */
 		if(a_ptr->level > floor_ptr->floor_level)
@@ -2079,7 +2079,7 @@ static bool make_artifact(creature_type *owner_ptr, object_type *object_ptr)
 
 		if(a_ptr->gen_flags & TRG_QUESTITEM) continue;
 
-		if(a_ptr->gen_flags & TRG_INSTA_ART) continue;
+		if(have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
 		/* Must have the correct fields */
 		if(a_ptr->tval != object_ptr->tval) continue;
