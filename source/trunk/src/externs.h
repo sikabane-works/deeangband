@@ -1516,7 +1516,7 @@ extern bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec);
 //extern bool set_image(creature_type *creature_ptr, int v);
 //extern bool set_fast(creature_type *creature_ptr, int v, bool do_dec);
 //extern bool set_slow(creature_type *creature_ptr, int v, bool do_dec);
-extern bool set_shield(creature_type *creature_ptr, int v, bool do_dec);
+//extern bool set_shield(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_blessed(creature_type *creature_ptr, int v, bool do_dec);

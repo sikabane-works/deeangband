@@ -2195,7 +2195,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Shield */
 	if(creature_ptr->timed_trait[TRAIT_SHIELD])
 	{
-		(void)set_shield(creature_ptr, creature_ptr->timed_trait[TRAIT_SHIELD] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, creature_ptr->timed_trait[TRAIT_SHIELD] - 1, TRUE);
 	}
 
 	/* Tsubureru */
