@@ -7802,7 +7802,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 					
 				set_oppose_fire(creature_ptr, dur, FALSE);
 				set_oppose_cold(creature_ptr, dur, FALSE);
-				set_tim_sh_fire(creature_ptr, dur, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_AURA_FIRE, dur, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				break;
 			}

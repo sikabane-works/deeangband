@@ -2738,6 +2738,7 @@ msg_print("闘気が消えた。");
 /*
  * Set "creature_ptr->timed_trait[TRAIT_AURA_FIRE]", notice observable changes
  */
+#if 0
 bool set_tim_sh_fire(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2802,6 +2803,7 @@ msg_print("炎のオーラが消えた。");
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
