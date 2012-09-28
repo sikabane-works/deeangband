@@ -1204,7 +1204,7 @@ msg_print("御用でございますが、御主人様？");
 		fire_beam(creature_ptr, GF_MANA, dir, diceroll(10 + (plev / 2) + boost * 3 / 10, 15));
 		break;
 	case 13:
-		set_lightspeed(creature_ptr, randint1(16) + 16 + boost / 20, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
 		break;
 	default:
 #ifdef JP

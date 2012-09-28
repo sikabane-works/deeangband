@@ -1168,6 +1168,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]", notice observable changes
  */
+#if 0
 bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1238,6 +1239,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*

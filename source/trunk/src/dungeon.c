@@ -5438,7 +5438,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 	/* Fast */
 	if(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED])
 	{
-		(void)set_lightspeed(creature_ptr, creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_LIGHT_SPEED, creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] - 1, TRUE);
 	}
 	if((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->class_skills.old_skills.magic_num1[0]))
 	{

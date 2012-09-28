@@ -1528,7 +1528,7 @@ extern bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec);
-extern bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec);
+//extern bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_sh_fire(creature_type *creature_ptr, int v, bool do_dec);
