@@ -2153,7 +2153,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Slow */
 	if(creature_ptr->timed_trait[TRAIT_SLOW_])
 	{
-		(void)set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] - dec_count, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] - dec_count, TRUE);
 	}
 
 	/* Protection from evil */
@@ -2506,7 +2506,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			}
 			else
 			{
-				set_slow(creature_ptr, randint1(30) + 10, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, randint1(30) + 10, FALSE);
 			}
 		}
 		else
@@ -2519,7 +2519,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 			if(creature_ptr->timed_trait[TRAIT_SLOW_] > 0)
 			{
-				set_slow(creature_ptr, 0, TRUE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, 0, TRUE);
 			}
 			else
 			{

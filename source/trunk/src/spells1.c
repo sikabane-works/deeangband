@@ -2845,7 +2845,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(fuzzy) msg_print("You are hit by something slow!");
 #endif
 
-			if(!target_ptr->resist_inertia && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
+			if(!target_ptr->resist_inertia && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
 		}
@@ -2998,7 +2998,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
 				if(!has_trait(target_ptr, TRAIT_CAN_FLY))
-					(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
+					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 				if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
@@ -3077,7 +3077,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
+				(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 			}
 			get_damage = 0;
 			break;
@@ -3456,7 +3456,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					{
 						(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 					}
-					(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
+					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 
 					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob)))
 						(void)do_dec_stat(target_ptr, STAT_INT);
@@ -3551,7 +3551,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					do_conf = randint0(8) + 8;
 					do_stun = randint0(8) + 8;
 				}
-				(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + 10, FALSE);
+				(void)set_timed_trait(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + 10, FALSE);
 			}
 			break;
 		}
@@ -5759,7 +5759,7 @@ msg_format("‚¤‚Ü‚­•ß‚Ü‚¦‚ç‚ê‚È‚©‚Á‚½B");
 				/* Normal creatures slow down */
 				else
 				{
-					if(set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + 50, FALSE))
+					if(set_timed_trait_aux(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + 50, FALSE))
 					{
 #ifdef JP
 						note = "‚Ì“®‚«‚ª’x‚­‚È‚Á‚½B";

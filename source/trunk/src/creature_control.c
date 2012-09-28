@@ -715,7 +715,7 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) (void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
 	if(creature_ptr->timed_trait[TRAIT_FAST]) (void)set_timed_trait(creature_ptr, TRAIT_FAST, 0);
-	if(creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_slow(creature_ptr, 0, FALSE);
+	if(creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, 0, FALSE);
 	if(creature_ptr->timed_trait[TRAIT_STUN]) (void)set_stun(creature_ptr, 0);
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 	if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
@@ -3825,7 +3825,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, (val * 2) + randint1(val * 10));
 	}
 
-	if(mode & PC_HASTE) (void)set_timed_trait(creature_ptr, TRAIT_FAST, 100);
+	if(mode & PC_HASTE) (void)set_timed_trait_aux(creature_ptr, TRAIT_FAST, 100, FALSE);
 
 	// Give a random starting energy
 	if(!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);

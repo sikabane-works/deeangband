@@ -1245,6 +1245,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_SLOW_]", notice observable changes
  */
+#if 0
 bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -1351,6 +1352,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 
 	}
 }
+#endif
 
 
 /*

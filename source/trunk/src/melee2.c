@@ -2935,7 +2935,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_SLOW:
 		/* Reduce by one, note if expires */
-		set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] - 1, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] - 1, FALSE);
 		break;
 
 	case MTIMED_STUNNED:

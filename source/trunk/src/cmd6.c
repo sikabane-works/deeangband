@@ -774,7 +774,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 #endif
 
 		case SV_POTION_SLOWNESS:
-			if(set_slow(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, randint1(25) + 15, FALSE)) ident = TRUE;
 			break;
 
 		case SV_POTION_SALT_WATER:
@@ -2246,7 +2246,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if(set_slow(creature_ptr, creature_ptr->timed_trait[TRAIT_SLOW_] + randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
