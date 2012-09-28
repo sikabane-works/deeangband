@@ -4899,7 +4899,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
 							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_tim_eyeeye(target_ptr, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 						}
 
 						if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);

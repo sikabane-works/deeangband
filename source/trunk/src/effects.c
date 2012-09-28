@@ -2809,6 +2809,7 @@ msg_print("‰Š‚ÌƒI[ƒ‰‚ªÁ‚¦‚½B");
 /*
  * Set "creature_ptr->timed_trait[TRAIT_HOLY_AURA]", notice observable changes
  */
+#if 0
 bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2877,6 +2878,7 @@ bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 

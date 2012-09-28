@@ -3917,7 +3917,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
 		project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_tim_eyeeye(target_ptr, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
 	if((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))

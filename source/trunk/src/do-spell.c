@@ -8569,7 +8569,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_sh_holy(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_HOLY_AURA, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8812,7 +8812,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_eyeeye(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_EYE_EYE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
