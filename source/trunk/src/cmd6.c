@@ -1834,7 +1834,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
 		{
 			k = 3 * creature_ptr->lev;
-			if(set_protevil(creature_ptr, creature_ptr->timed_trait[TRAIT_PROT_EVIL] + randint1(25) + k, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, creature_ptr->timed_trait[TRAIT_PROT_EVIL] + randint1(25) + k, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -2485,7 +2485,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if(dispel_evil(creature_ptr, 150)) ident = TRUE;
 			k = 3 * creature_ptr->lev;
-			if(set_protevil(creature_ptr, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, (magic ? 0 : creature_ptr->timed_trait[TRAIT_PROT_EVIL]) + randint1(25) + k, FALSE)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
@@ -4691,7 +4691,7 @@ if(get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 
 			case TRAIT_PROT_EVIL:
 			{
-				(void)set_protevil(creature_ptr, randint1(25) + creature_ptr->lev, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, randint1(25) + creature_ptr->lev, FALSE);
 				break;
 			}
 

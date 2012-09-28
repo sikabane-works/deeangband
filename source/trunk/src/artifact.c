@@ -2446,7 +2446,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			k = 3 * creature_ptr->lev;
-			(void)set_protevil(creature_ptr, randint1(25) + k, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, randint1(25) + k, FALSE);
 			break;
 		}
 

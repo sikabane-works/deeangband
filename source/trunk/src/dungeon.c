@@ -2159,7 +2159,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Protection from evil */
 	if(creature_ptr->timed_trait[TRAIT_PROT_EVIL])
 	{
-		(void)set_protevil(creature_ptr, creature_ptr->timed_trait[TRAIT_PROT_EVIL] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, creature_ptr->timed_trait[TRAIT_PROT_EVIL] - 1, TRUE);
 	}
 
 	/* Invulnerability */
