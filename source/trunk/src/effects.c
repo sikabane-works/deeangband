@@ -1748,6 +1748,7 @@ bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_S_HERO]", notice observable changes
  */
+#if 0
 bool set_shero(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -1822,6 +1823,7 @@ bool set_shero(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*

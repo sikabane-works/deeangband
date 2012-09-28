@@ -1593,7 +1593,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 
 			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(plev), FALSE);
 			(void)heal_creature(creature_ptr, 30);
 			break;
 
@@ -1639,7 +1639,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 
 			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-			(void)set_shero(creature_ptr, 10 + randint1(plev), FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(plev), FALSE);
 			(void)heal_creature(creature_ptr, 30);
 			break;
 
@@ -2888,7 +2888,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("Raaagh!");
 #endif
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			(void)set_shero(caster_ptr, 10 + randint1(plev), FALSE);
+			(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 10 + randint1(plev), FALSE);
 			(void)heal_creature(caster_ptr, 30);
 			break;
 

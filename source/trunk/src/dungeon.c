@@ -2183,7 +2183,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Super Heroism */
 	if(creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
-		(void)set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, creature_ptr->timed_trait[TRAIT_S_HERO] - 1, TRUE);
 	}
 
 	/* Blessed */
@@ -2336,7 +2336,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print("You feel a fit of rage coming over you!");
 #endif
 
-		(void)set_shero(creature_ptr, 10 + randint1(creature_ptr->lev), FALSE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(creature_ptr->lev), FALSE);
 		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 	}
 

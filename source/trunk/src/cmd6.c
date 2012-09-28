@@ -1029,7 +1029,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 
 		case SV_POTION_BESERK_STRENGTH:
 			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, creature_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, creature_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 30)) ident = TRUE;
 			break;
 
@@ -1037,7 +1037,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_SERIOUS:
@@ -1045,7 +1045,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_CURE_CRITICAL:
@@ -1055,7 +1055,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_HEALING:
@@ -1065,7 +1065,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_STAR_HEALING:
@@ -1075,7 +1075,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_LIFE:
@@ -1098,7 +1098,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			(void)do_res_stat(creature_ptr, STAT_WIS);
 			(void)do_res_stat(creature_ptr, STAT_INT);
 			(void)do_res_stat(creature_ptr, STAT_CHA);
-			(void)set_shero(creature_ptr, 0,TRUE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE);
 			update_creature(creature_ptr, TRUE);
 			heal_creature(creature_ptr, 5000);
 			ident = TRUE;
@@ -1142,7 +1142,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 				play_window |= (PW_SPELL);
 				ident = TRUE;
 			}
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
 		case SV_POTION_RESTORE_EXP:
@@ -2397,7 +2397,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		case SV_STAFF_CURE_LIGHT:
 		{
 			if(heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2409,7 +2409,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2418,7 +2418,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(heal_creature(creature_ptr, 300)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -2440,7 +2440,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
 			}
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -3346,7 +3346,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 
@@ -3355,7 +3355,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			if(heal_creature(creature_ptr, 500)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
 

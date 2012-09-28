@@ -4610,7 +4610,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_shero(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
@@ -4680,7 +4680,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_shero(creature_ptr, randint1(25) + 25, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
 				heal_creature(creature_ptr, 30);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
@@ -6899,7 +6899,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_shero(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 30);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}

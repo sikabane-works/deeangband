@@ -430,7 +430,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		case TRAIT_BERSERK:
-			(void)set_shero(creature_ptr, randint1(25) + 25, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
 			(void)heal_creature(creature_ptr, 30);
 			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			break;
