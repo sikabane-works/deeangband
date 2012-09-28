@@ -871,7 +871,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 #else
 			msg_print("You cast a Globe of Invulnerability.");
 #endif
-		(void)set_invuln(creature_ptr, randint1(7) + 7, FALSE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
 		break;
 	case TRAIT_BLINK:
 		teleport_player(creature_ptr, 10, 0L);

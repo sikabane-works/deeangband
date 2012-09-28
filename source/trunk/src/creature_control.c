@@ -719,7 +719,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_STUN]) (void)set_stun(creature_ptr, 0);
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 	if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_invuln(creature_ptr, 0, FALSE);
+	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, 0, FALSE);
 
 
 	/* Hack -- remove target creature */

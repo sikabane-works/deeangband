@@ -2957,7 +2957,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		break;
 
 	case MTIMED_INVULNER:
-		set_invuln(creature_ptr, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
+		set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
 		break;
 	}
 }

@@ -3237,7 +3237,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 
 			}
 
-			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_invuln(caster_ptr, randint1(4) + 4, FALSE);
+			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
 			break;
 		}
 

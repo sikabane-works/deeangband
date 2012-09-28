@@ -2492,7 +2492,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		case TRAIT_INVULNER:
 		{
-			(void)set_invuln(creature_ptr, randint1(8) + 8, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
 			break;
 		}
 

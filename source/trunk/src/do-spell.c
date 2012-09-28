@@ -2565,7 +2565,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_invuln(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(base) + base, FALSE);
 			}
 		}
 		break;

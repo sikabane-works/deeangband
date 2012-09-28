@@ -2165,7 +2165,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Invulnerability */
 	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE])
 	{
-		(void)set_invuln(creature_ptr, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
 	}
 
 	/* Wraith form */
@@ -2839,7 +2839,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 		msg_print(NULL);
-		(void)set_invuln(creature_ptr, randint1(8) + 8, FALSE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
 	}
 	if(has_trait(creature_ptr, TRAIT_SP_TO_HP_PASSIVE) && one_in_(2000))
 	{

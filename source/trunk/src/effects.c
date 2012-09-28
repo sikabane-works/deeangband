@@ -1995,6 +1995,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_INVULNERABLE]", notice observable changes
  */
+#if 0
 bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2126,7 +2127,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 	return TRUE;
 	}
 }
-
+#endif
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_ESP]", notice observable changes
