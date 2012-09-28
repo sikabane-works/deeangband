@@ -23,7 +23,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 
 	if(v)
 	{
-		if(!creature_ptr->timed_trait[TRAIT_POISONED])
+		if(!creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -34,7 +34,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 	}
 	else
 	{
-		if(creature_ptr->timed_trait[TRAIT_POISONED])
+		if(creature_ptr->timed_trait[type])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -54,6 +54,50 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 	return (TRUE);	// Result
 }
 
+bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_dec)
+{
+	bool notice = FALSE;
+
+	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v; // Hack -- Force good values
+
+	if(IS_DEAD(creature_ptr)) return FALSE;
+
+	if(v)
+	{
+		if(creature_ptr->timed_trait[type] && !do_dec)
+		{
+			if(creature_ptr->timed_trait[type] > v) return FALSE;
+		}
+		if(!creature_ptr->timed_trait[type])
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+				//TODO message
+			}
+			notice = TRUE;
+		}
+	}
+	else
+	{
+		if(creature_ptr->timed_trait[type])
+		{
+			if(is_seen(player_ptr, creature_ptr))
+			{
+				//TODO message
+			}
+			notice = TRUE;
+		}
+	}
+
+	creature_ptr->timed_trait[type] = v; // Use the value
+
+	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
+	if(!notice) return (FALSE);	// Nothing to notice
+	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
+	handle_stuff();	// Handle stuff
+	
+	return (TRUE);	// Result
+}
 
 void set_action(creature_type *creature_ptr, int typ)
 {
@@ -658,6 +702,7 @@ bool set_poisoned(creature_type *creature_ptr, int v)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_AFRAID]", notice observable changes
  */
+#if 0
 bool set_afraid(creature_type *creature_ptr, int v)
 {
 	bool notice = FALSE;
@@ -787,6 +832,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 	}
 
 }
+#endif
 
 
 /*
