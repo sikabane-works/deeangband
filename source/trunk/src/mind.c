@@ -1049,7 +1049,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		(void)lite_area(creature_ptr, diceroll(2, (plev / 2)), (plev / 10) + 1);
 		break;
 	case 2:
-		set_tim_levitation(creature_ptr, randint1(30) + 30 + boost / 5, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
 		project_length = plev / 8 + 3;
@@ -1607,7 +1607,7 @@ msg_print("その方向にはクリーチャーはいません。");
 	case 7:
 		return ident_spell(creature_ptr, FALSE);
 	case 8:
-		set_tim_levitation(creature_ptr, randint1(20) + 20, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_LEVITATION, randint1(20) + 20, FALSE);
 		break;
 	case 9:
 		fire_ball(creature_ptr, GF_FIRE, 0, 50+plev, plev/10+2);

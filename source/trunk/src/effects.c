@@ -2445,6 +2445,7 @@ bool set_tim_regen(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_STEALTH_PLUS]", notice observable changes
  */
+#if 0
 bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2515,6 +2516,7 @@ bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif 
 
 
 bool set_superstealth(creature_type *creature_ptr, bool set)
@@ -2598,6 +2600,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_LEVITATION]", notice observable changes
  */
+#if 0
 bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2662,7 +2665,7 @@ bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
-
+#endif
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_AURA_MANA]", notice observable changes
