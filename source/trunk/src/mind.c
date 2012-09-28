@@ -1058,7 +1058,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		fire_beam(creature_ptr, GF_MISSILE, dir, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5));
 		break;
 	case 4:
-		set_resist_magic(creature_ptr, randint1(20) + 20 + boost / 5, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
 		break;
 	case 5:
 #ifdef JP
@@ -1334,8 +1334,8 @@ msg_format("There are too many mirrors to control!");
 	case 12:
 	  tmp = 20+randint1(20);
 	  set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, tmp, FALSE);
-	  if( plev > 31 )set_tim_reflect(creature_ptr, tmp, FALSE);
-	  if( plev > 39 )set_resist_magic(creature_ptr, tmp,FALSE);
+	  if(plev > 31) set_tim_reflect(creature_ptr, tmp, FALSE);
+	  if(plev > 39) set_timed_trait_aux(creature_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 	  break;
 	/* super ray */
 	case 13:

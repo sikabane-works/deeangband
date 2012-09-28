@@ -2885,6 +2885,7 @@ bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_EYE_EYE]", notice observable changes
  */
+#if 0
 bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2955,12 +2956,13 @@ bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
-
+#endif
 
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]", notice observable changes
  */
+#if 0
 bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -3030,6 +3032,7 @@ bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
