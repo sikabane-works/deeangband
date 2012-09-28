@@ -143,13 +143,13 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		if(have_flag(f_ptr->flags, FF_SHAFT))
 		{
 			// Create a way back
-			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 2, floor_ptr,  CFM_SAVE_FLOORS);
+			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 2, floor_ptr, CFM_SAVE_FLOORS);
 			up_num = 2;
 		}
 		else
 		{
 			// Create a way back
-			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 1, floor_ptr,  CFM_SAVE_FLOORS);
+			move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, creature_ptr->depth - 1, floor_ptr, CFM_SAVE_FLOORS);
 			up_num = 1;
 		}
 
@@ -4087,7 +4087,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */
-			if(test_hit_fire(creature_ptr, chance - cur_dis,  m_ptr->ac + m_ptr->to_ac, m_ptr->see_others))
+			if(test_hit_fire(creature_ptr, chance - cur_dis, m_ptr->ac + m_ptr->to_ac, m_ptr->see_others))
 			{
 				bool fear = FALSE;
 

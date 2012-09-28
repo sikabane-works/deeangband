@@ -109,151 +109,151 @@ typedef struct
 static grouper group_item[] =
 {
 #ifdef JP
-	{ TV_SHOT,          "射撃物" },
+	{ TV_SHOT, "射撃物" },
 #else
-	{ TV_SHOT,          "Ammo" },
+	{ TV_SHOT, "Ammo" },
 #endif
 
-	{ TV_ARROW,         NULL },
-	{ TV_BOLT,          NULL },
+	{ TV_ARROW, NULL },
+	{ TV_BOLT, NULL },
 
 #ifdef JP
-	{ TV_BOW,           "弓" },
+	{ TV_BOW, "弓" },
 #else
-	{ TV_BOW,           "Bows" },
-#endif
-
-#ifdef JP
-	{ TV_DIGGING,       "武器" },
-#else
-	{ TV_DIGGING,       "Weapons" },
-#endif
-
-	{ TV_POLEARM,       NULL },
-	{ TV_HAFTED,        NULL },
-	{ TV_SWORD,         NULL },
-
-#ifdef JP
-	{ TV_SOFT_ARMOR,    "防具 (体)" },
-#else
-	{ TV_SOFT_ARMOR,    "Armour (Body)" },
-#endif
-
-	{ TV_HARD_ARMOR,    NULL },
-	{ TV_DRAG_ARMOR,    NULL },
-
-#ifdef JP
-	{ TV_BOOTS,         "防具 (その他)" },
-#else
-	{ TV_BOOTS,         "Armour (Misc)" },
-#endif
-
-	{ TV_GLOVES,        NULL },
-	{ TV_HELM,          NULL },
-	{ TV_CROWN,         NULL },
-	{ TV_SHIELD,        NULL },
-	{ TV_CLOAK,         NULL },
-
-#ifdef JP
-	{ TV_LITE,          "光源" },
-	{ TV_AMULET,        "アミュレット" },
-	{ TV_RING,          "指輪" },
-#else
-	{ TV_LITE,          "Light Sources" },
-	{ TV_AMULET,        "Amulets" },
-	{ TV_RING,          "Rings" },
+	{ TV_BOW, "Bows" },
 #endif
 
 #ifdef JP
-	{ TV_STAFF,         "杖" },
-	{ TV_WAND,          "魔法棒" },
-	{ TV_ROD,           "ロッド" },
+	{ TV_DIGGING, "武器" },
 #else
-	{ TV_STAFF,         "Staffs" },
-	{ TV_WAND,          "Wands" },
-	{ TV_ROD,           "Rods" },
+	{ TV_DIGGING, "Weapons" },
+#endif
+
+	{ TV_POLEARM, NULL },
+	{ TV_HAFTED, NULL },
+	{ TV_SWORD, NULL },
+
+#ifdef JP
+	{ TV_SOFT_ARMOR, "防具 (体)" },
+#else
+	{ TV_SOFT_ARMOR, "Armour (Body)" },
+#endif
+
+	{ TV_HARD_ARMOR, NULL },
+	{ TV_DRAG_ARMOR, NULL },
+
+#ifdef JP
+	{ TV_BOOTS, "防具 (その他)" },
+#else
+	{ TV_BOOTS, "Armour (Misc)" },
+#endif
+
+	{ TV_GLOVES, NULL },
+	{ TV_HELM, NULL },
+	{ TV_CROWN, NULL },
+	{ TV_SHIELD, NULL },
+	{ TV_CLOAK, NULL },
+
+#ifdef JP
+	{ TV_LITE, "光源" },
+	{ TV_AMULET, "アミュレット" },
+	{ TV_RING, "指輪" },
+#else
+	{ TV_LITE, "Light Sources" },
+	{ TV_AMULET, "Amulets" },
+	{ TV_RING, "Rings" },
 #endif
 
 #ifdef JP
-	{ TV_SCROLL,        "巻物" },
-	{ TV_POTION,        "薬" },
-	{ TV_FOOD,          "食料" },
+	{ TV_STAFF, "杖" },
+	{ TV_WAND, "魔法棒" },
+	{ TV_ROD, "ロッド" },
 #else
-	{ TV_SCROLL,        "Scrolls" },
-	{ TV_POTION,        "Potions" },
-	{ TV_FOOD,          "Food" },
+	{ TV_STAFF, "Staffs" },
+	{ TV_WAND, "Wands" },
+	{ TV_ROD, "Rods" },
 #endif
 
 #ifdef JP
-	{ TV_LIFE_BOOK,     "魔法書 (生命)" },
-	{ TV_SORCERY_BOOK,  "魔法書 (仙術)" },
-	{ TV_NATURE_BOOK,   "魔法書 (自然)" },
-	{ TV_CHAOS_BOOK,    "魔法書 (カオス)" },
-	{ TV_DEATH_BOOK,    "魔法書 (暗黒)" },
-	{ TV_TRUMP_BOOK,    "魔法書 (トランプ)" },
-	{ TV_ARCANE_BOOK,   "魔法書 (秘術)" },
-	{ TV_CRAFT_BOOK,    "魔法書 (匠)" },
-	{ TV_DAEMON_BOOK,   "魔法書 (悪魔)" },
-	{ TV_CRUSADE_BOOK,  "魔法書 (破邪)" },
-	{ TV_MUSIC_BOOK,    "歌集" },
+	{ TV_SCROLL, "巻物" },
+	{ TV_POTION, "薬" },
+	{ TV_FOOD, "食料" },
+#else
+	{ TV_SCROLL, "Scrolls" },
+	{ TV_POTION, "Potions" },
+	{ TV_FOOD, "Food" },
+#endif
+
+#ifdef JP
+	{ TV_LIFE_BOOK, "魔法書 (生命)" },
+	{ TV_SORCERY_BOOK, "魔法書 (仙術)" },
+	{ TV_NATURE_BOOK, "魔法書 (自然)" },
+	{ TV_CHAOS_BOOK, "魔法書 (カオス)" },
+	{ TV_DEATH_BOOK, "魔法書 (暗黒)" },
+	{ TV_TRUMP_BOOK, "魔法書 (トランプ)" },
+	{ TV_ARCANE_BOOK, "魔法書 (秘術)" },
+	{ TV_CRAFT_BOOK, "魔法書 (匠)" },
+	{ TV_DAEMON_BOOK, "魔法書 (悪魔)" },
+	{ TV_CRUSADE_BOOK, "魔法書 (破邪)" },
+	{ TV_MUSIC_BOOK, "歌集" },
 	{ TV_HISSATSU_BOOK, "武芸の書" },
-	{ TV_HEX_BOOK,      "魔法書 (呪術)" },
+	{ TV_HEX_BOOK, "魔法書 (呪術)" },
 #else
-	{ TV_LIFE_BOOK,     "Books (Life)" },
-	{ TV_SORCERY_BOOK,  "Books (Sorcery)" },
-	{ TV_NATURE_BOOK,   "Books (Nature)" },
-	{ TV_CHAOS_BOOK,    "Books (Chaos)" },
-	{ TV_DEATH_BOOK,    "Books (Death)" },
-	{ TV_TRUMP_BOOK,    "Books (Trump)" },
-	{ TV_ARCANE_BOOK,   "Books (Arcane)" },
-	{ TV_CRAFT_BOOK,    "Books (Craft)" },
-	{ TV_DAEMON_BOOK,   "Books (Daemon)" },
-	{ TV_CRUSADE_BOOK,  "Books (Crusade)" },
-	{ TV_MUSIC_BOOK,    "Song Books" },
+	{ TV_LIFE_BOOK, "Books (Life)" },
+	{ TV_SORCERY_BOOK, "Books (Sorcery)" },
+	{ TV_NATURE_BOOK, "Books (Nature)" },
+	{ TV_CHAOS_BOOK, "Books (Chaos)" },
+	{ TV_DEATH_BOOK, "Books (Death)" },
+	{ TV_TRUMP_BOOK, "Books (Trump)" },
+	{ TV_ARCANE_BOOK, "Books (Arcane)" },
+	{ TV_CRAFT_BOOK, "Books (Craft)" },
+	{ TV_DAEMON_BOOK, "Books (Daemon)" },
+	{ TV_CRUSADE_BOOK, "Books (Crusade)" },
+	{ TV_MUSIC_BOOK, "Song Books" },
 	{ TV_HISSATSU_BOOK, "Books (Kendo)" },
-	{ TV_HEX_BOOK,      "Books (Hex)" },
+	{ TV_HEX_BOOK, "Books (Hex)" },
 #endif
 
 #ifdef JP
-	{ TV_WHISTLE,       "笛" },
-	{ TV_CAPTURE,       "キャプチャー・ボール" },
-	{ TV_CARD,          "エクスプレスカード" },
-	{ TV_WHEEL,         "車輪" },
+	{ TV_WHISTLE, "笛" },
+	{ TV_CAPTURE, "キャプチャー・ボール" },
+	{ TV_CARD, "エクスプレスカード" },
+	{ TV_WHEEL, "車輪" },
 
 #else
-	{ TV_WHISTLE,       "Whistle" },
-	{ TV_CAPTURE,       "Capture Ball" },
-	{ TV_CARD,          "Express Card" },
-	{ TV_WHEEL,         "Wheel" },
+	{ TV_WHISTLE, "Whistle" },
+	{ TV_CAPTURE, "Capture Ball" },
+	{ TV_CARD, "Express Card" },
+	{ TV_WHEEL, "Wheel" },
 #endif
 
 #ifdef JP
-	{ TV_CHEST,         "箱" },
+	{ TV_CHEST, "箱" },
 #else
-	{ TV_CHEST,         "Chests" },
+	{ TV_CHEST, "Chests" },
 #endif
 
 #ifdef JP
-	{ TV_FIGURINE,      "人形" },
-	{ TV_STATUE,        "像" },
-	{ TV_CORPSE,        "死体" },
+	{ TV_FIGURINE, "人形" },
+	{ TV_STATUE, "像" },
+	{ TV_CORPSE, "死体" },
 #else
-	{ TV_FIGURINE,      "Magical Figurines" },
-	{ TV_STATUE,        "Statues" },
-	{ TV_CORPSE,        "Corpses" },
+	{ TV_FIGURINE, "Magical Figurines" },
+	{ TV_STATUE, "Statues" },
+	{ TV_CORPSE, "Corpses" },
 #endif
 
 #ifdef JP
-	{ TV_SKELETON,      "その他" },
+	{ TV_SKELETON, "その他" },
 #else
-	{ TV_SKELETON,      "Misc" },
+	{ TV_SKELETON, "Misc" },
 #endif
 
-	{ TV_BOTTLE,        NULL },
-	{ TV_JUNK,          NULL },
-	{ TV_SPIKE,         NULL },
-	{ TV_FLASK,         NULL },
-	{ TV_PARCHMENT,     NULL },
+	{ TV_BOTTLE, NULL },
+	{ TV_JUNK, NULL },
+	{ TV_SPIKE, NULL },
+	{ TV_FLASK, NULL },
+	{ TV_PARCHMENT, NULL },
 
 	{ 0, "" }
 };
@@ -520,53 +520,53 @@ static void spoil_obj_desc(cptr fname)
 static grouper group_artifact[] =
 {
 #ifdef JP
-	{ TV_SWORD,             "刀剣" },
-	{ TV_POLEARM,           "槍/斧" },
-	{ TV_HAFTED,            "鈍器" },
-	{ TV_DIGGING,           "シャベル/つるはし" },
-	{ TV_BOW,               "飛び道具" },
-	{ TV_ARROW,             "矢" },
+	{ TV_SWORD, "刀剣" },
+	{ TV_POLEARM, "槍/斧" },
+	{ TV_HAFTED, "鈍器" },
+	{ TV_DIGGING, "シャベル/つるはし" },
+	{ TV_BOW, "飛び道具" },
+	{ TV_ARROW, "矢" },
 
-	{ TV_SOFT_ARMOR,        "鎧" },
-	{ TV_HARD_ARMOR,        NULL },
-	{ TV_DRAG_ARMOR,        NULL },
+	{ TV_SOFT_ARMOR, "鎧" },
+	{ TV_HARD_ARMOR, NULL },
+	{ TV_DRAG_ARMOR, NULL },
 
-	{ TV_CLOAK,             "クローク" },
-	{ TV_SHIELD,            "盾" },
-	{ TV_CARD,              NULL },
-	{ TV_WHEEL,             NULL },
-	{ TV_HELM,              "兜/冠" },
-	{ TV_CROWN,             NULL },
-	{ TV_GLOVES,            "籠手" },
-	{ TV_BOOTS,             "靴" },
+	{ TV_CLOAK, "クローク" },
+	{ TV_SHIELD, "盾" },
+	{ TV_CARD, NULL },
+	{ TV_WHEEL, NULL },
+	{ TV_HELM, "兜/冠" },
+	{ TV_CROWN, NULL },
+	{ TV_GLOVES, "籠手" },
+	{ TV_BOOTS, "靴" },
 
-	{ TV_LITE,              "光源" },
-	{ TV_AMULET,            "アミュレット" },
-	{ TV_RING,              "指輪" },
+	{ TV_LITE, "光源" },
+	{ TV_AMULET, "アミュレット" },
+	{ TV_RING, "指輪" },
 #else
-	{ TV_SWORD,             "Edged Weapons" },
-	{ TV_POLEARM,           "Polearms" },
-	{ TV_HAFTED,            "Hafted Weapons" },
-	{ TV_DIGGING,           "Shovels/Picks" },
-	{ TV_BOW,               "Bows" },
-	{ TV_ARROW,             "Ammo" },
+	{ TV_SWORD, "Edged Weapons" },
+	{ TV_POLEARM, "Polearms" },
+	{ TV_HAFTED, "Hafted Weapons" },
+	{ TV_DIGGING, "Shovels/Picks" },
+	{ TV_BOW, "Bows" },
+	{ TV_ARROW, "Ammo" },
 
-	{ TV_SOFT_ARMOR,        "Body Armor" },
-	{ TV_HARD_ARMOR,        NULL },
-	{ TV_DRAG_ARMOR,        NULL },
+	{ TV_SOFT_ARMOR, "Body Armor" },
+	{ TV_HARD_ARMOR, NULL },
+	{ TV_DRAG_ARMOR, NULL },
 
-	{ TV_CLOAK,             "Cloaks" },
-	{ TV_SHIELD,            "Shields" },
-	{ TV_CARD,              NULL },
-	{ TV_WHEEL,             NULL },
-	{ TV_HELM,              "Helms/Crowns" },
-	{ TV_CROWN,             NULL },
-	{ TV_GLOVES,            "Gloves" },
-	{ TV_BOOTS,             "Boots" },
+	{ TV_CLOAK, "Cloaks" },
+	{ TV_SHIELD, "Shields" },
+	{ TV_CARD, NULL },
+	{ TV_WHEEL, NULL },
+	{ TV_HELM, "Helms/Crowns" },
+	{ TV_CROWN, NULL },
+	{ TV_GLOVES, "Gloves" },
+	{ TV_BOOTS, "Boots" },
 
-	{ TV_LITE,              "Light Sources" },
-	{ TV_AMULET,            "Amulets" },
-	{ TV_RING,              "Rings" },
+	{ TV_LITE, "Light Sources" },
+	{ TV_AMULET, "Amulets" },
+	{ TV_RING, "Rings" },
 #endif
 
 	{ 0, NULL }
@@ -604,19 +604,19 @@ struct flag_desc
 static flag_desc stat_flags_desc[] =
 {
 #ifdef JP
-	{ STAT_STR,        "腕力" },
-	{ STAT_INT,        "知能" },
-	{ STAT_WIS,        "賢さ" },
-	{ STAT_DEX,        "器用さ" },
-	{ STAT_CON,        "耐久力" },
-	{ STAT_CHA,        "魅力" }
+	{ STAT_STR, "腕力" },
+	{ STAT_INT, "知能" },
+	{ STAT_WIS, "賢さ" },
+	{ STAT_DEX, "器用さ" },
+	{ STAT_CON, "耐久力" },
+	{ STAT_CHA, "魅力" }
 #else
-	{ STAT_STR,        "STR" },
-	{ STAT_INT,        "INT" },
-	{ STAT_WIS,        "WIS" },
-	{ STAT_DEX,        "DEX" },
-	{ STAT_CON,        "CON" },
-	{ STAT_CHA,        "CHR" }
+	{ STAT_STR, "STR" },
+	{ STAT_INT, "INT" },
+	{ STAT_WIS, "WIS" },
+	{ STAT_DEX, "DEX" },
+	{ STAT_CON, "CON" },
+	{ STAT_CHA, "CHR" }
 #endif
 };
 
@@ -628,20 +628,20 @@ static flag_desc stat_flags_desc[] =
 static flag_desc pval_flags1_desc[] =
 {
 #ifdef JP
-	{ TRAIT_MAGIC_MASTERY,    "魔法道具使用能力" },
-	{ TRAIT_STEALTH,    "隠密" },
-	{ TRAIT_SEARCH,     "探索" },
-	{ TRAIT_INFRA,      "赤外線視力" },
-	{ TRAIT_TUNNEL,     "採掘" },
-	{ TRAIT_BLOWS,      "攻撃回数" },
-	{ TRAIT_SPEED,      "スピード" }
+	{ TRAIT_MAGIC_MASTERY, "魔法道具使用能力" },
+	{ TRAIT_STEALTH, "隠密" },
+	{ TRAIT_SEARCH, "探索" },
+	{ TRAIT_INFRA, "赤外線視力" },
+	{ TRAIT_TUNNEL, "採掘" },
+	{ TRAIT_BLOWS, "攻撃回数" },
+	{ TRAIT_SPEED, "スピード" }
 #else
-	{ TRAIT_STEALTH,    "Stealth" },
-	{ TRAIT_SEARCH,     "Searching" },
-	{ TRAIT_INFRA,      "Infravision" },
-	{ TRAIT_TUNNEL,     "Tunneling" },
-	{ TRAIT_BLOWS,      "Attacks" },
-	{ TRAIT_SPEED,      "Speed" }
+	{ TRAIT_STEALTH, "Stealth" },
+	{ TRAIT_SEARCH, "Searching" },
+	{ TRAIT_INFRA, "Infravision" },
+	{ TRAIT_TUNNEL, "Tunneling" },
+	{ TRAIT_BLOWS, "Attacks" },
+	{ TRAIT_SPEED, "Speed" }
 #endif
 };
 
@@ -652,47 +652,47 @@ static flag_desc pval_flags1_desc[] =
 static flag_desc slay_flags_desc[] =
 {
 #ifdef JP
-	{ TRAIT_SLAY_ANIMAL,        "動物" },
-	{ TRAIT_KILL_ANIMAL,        "*動物*" },
-	{ TRAIT_SLAY_EVIL,          "邪悪" },
-	{ TRAIT_KILL_EVIL,          "*邪悪*" },
-	{ TRAIT_SLAY_GOOD,          "善良" },
-	{ TRAIT_KILL_GOOD,          "*善良*" },
-	{ TRAIT_SLAY_HUMAN,         "人間" },
-	{ TRAIT_KILL_HUMAN,         "*人間*" },
-	{ TRAIT_SLAY_UNDEAD,        "アンデッド" },
-	{ TRAIT_KILL_UNDEAD,        "*アンデッド*" },
-	{ TRAIT_SLAY_DEMON,         "悪魔" },
-	{ TRAIT_KILL_DEMON,         "*悪魔*" },
-	{ TRAIT_SLAY_ORC,           "オーク" },
-	{ TRAIT_KILL_ORC,           "*オーク*" },
-	{ TRAIT_SLAY_TROLL,         "トロル" },
-	{ TRAIT_KILL_TROLL,         "*トロル*" },
-	{ TRAIT_SLAY_GIANT,         "巨人" },
-	{ TRAIT_KILL_GIANT,         "*巨人*" },
-	{ TRAIT_SLAY_DRAGON,        "ドラゴン" },
-	{ TRAIT_KILL_DRAGON,        "*ドラゴン*" },
+	{ TRAIT_SLAY_ANIMAL, "動物" },
+	{ TRAIT_KILL_ANIMAL, "*動物*" },
+	{ TRAIT_SLAY_EVIL, "邪悪" },
+	{ TRAIT_KILL_EVIL, "*邪悪*" },
+	{ TRAIT_SLAY_GOOD, "善良" },
+	{ TRAIT_KILL_GOOD, "*善良*" },
+	{ TRAIT_SLAY_HUMAN, "人間" },
+	{ TRAIT_KILL_HUMAN, "*人間*" },
+	{ TRAIT_SLAY_UNDEAD, "アンデッド" },
+	{ TRAIT_KILL_UNDEAD, "*アンデッド*" },
+	{ TRAIT_SLAY_DEMON, "悪魔" },
+	{ TRAIT_KILL_DEMON, "*悪魔*" },
+	{ TRAIT_SLAY_ORC, "オーク" },
+	{ TRAIT_KILL_ORC, "*オーク*" },
+	{ TRAIT_SLAY_TROLL, "トロル" },
+	{ TRAIT_KILL_TROLL, "*トロル*" },
+	{ TRAIT_SLAY_GIANT, "巨人" },
+	{ TRAIT_KILL_GIANT, "*巨人*" },
+	{ TRAIT_SLAY_DRAGON, "ドラゴン" },
+	{ TRAIT_KILL_DRAGON, "*ドラゴン*" },
 #else
-	{ TRAIT_SLAY_ANIMAL,        "Animal" },
-	{ TRAIT_KILL_ANIMAL,        "XAnimal" },
-	{ TRAIT_SLAY_EVIL,          "Evil" },
-	{ TRAIT_KILL_EVIL,          "XEvil" },
-	{ TRAIT_SLAY_GOOD,          "Good" },
-	{ TRAIT_KILL_GOOD,          "XGood" },
-	{ TRAIT_SLAY_HUMAN,         "Human" },
-	{ TRAIT_KILL_HUMAN,         "XHuman" },
-	{ TRAIT_SLAY_UNDEAD,        "Undead" },
-	{ TRAIT_KILL_UNDEAD,        "XUndead" },
-	{ TRAIT_SLAY_DEMON,         "Demon" },
-	{ TRAIT_KILL_DEMON,         "XDemon" },
-	{ TRAIT_SLAY_ORC,           "Orc" },
-	{ TRAIT_KILL_ORC,           "XOrc" },
-	{ TRAIT_SLAY_TROLL,         "Troll" },
-	{ TRAIT_KILL_TROLL,         "XTroll" },
-	{ TRAIT_SLAY_GIANT,         "Giant" },
-	{ TRAIT_KILL_GIANT,         "Xgiant" },
-	{ TRAIT_SLAY_DRAGON,        "Dragon" },
-	{ TRAIT_KILL_DRAGON,        "Xdragon" }
+	{ TRAIT_SLAY_ANIMAL, "Animal" },
+	{ TRAIT_KILL_ANIMAL, "XAnimal" },
+	{ TRAIT_SLAY_EVIL, "Evil" },
+	{ TRAIT_KILL_EVIL, "XEvil" },
+	{ TRAIT_SLAY_GOOD, "Good" },
+	{ TRAIT_KILL_GOOD, "XGood" },
+	{ TRAIT_SLAY_HUMAN, "Human" },
+	{ TRAIT_KILL_HUMAN, "XHuman" },
+	{ TRAIT_SLAY_UNDEAD, "Undead" },
+	{ TRAIT_KILL_UNDEAD, "XUndead" },
+	{ TRAIT_SLAY_DEMON, "Demon" },
+	{ TRAIT_KILL_DEMON, "XDemon" },
+	{ TRAIT_SLAY_ORC, "Orc" },
+	{ TRAIT_KILL_ORC, "XOrc" },
+	{ TRAIT_SLAY_TROLL, "Troll" },
+	{ TRAIT_KILL_TROLL, "XTroll" },
+	{ TRAIT_SLAY_GIANT, "Giant" },
+	{ TRAIT_KILL_GIANT, "Xgiant" },
+	{ TRAIT_SLAY_DRAGON, "Dragon" },
+	{ TRAIT_KILL_DRAGON, "Xdragon" }
 #endif
 };
 
@@ -707,29 +707,29 @@ static flag_desc slay_flags_desc[] =
 static flag_desc brand_flags_desc[] =
 {
 #ifdef JP
-	{ TRAIT_ACID_BRAND,         "溶解" },
-	{ TRAIT_ELEC_BRAND,         "電撃" },
-	{ TRAIT_FIRE_BRAND,         "焼棄" },
-	{ TRAIT_COLD_BRAND,         "凍結" },
-	{ TRAIT_POIS_BRAND,         "毒殺" },
+	{ TRAIT_ACID_BRAND, "溶解" },
+	{ TRAIT_ELEC_BRAND, "電撃" },
+	{ TRAIT_FIRE_BRAND, "焼棄" },
+	{ TRAIT_COLD_BRAND, "凍結" },
+	{ TRAIT_POIS_BRAND, "毒殺" },
 
-	{ TRAIT_FORCE_WEAPON,       "理力" },
-	{ TRAIT_CHAOTIC_BRAND,            "混沌" },
-	{ TRAIT_VAMPIRIC_BRAND,           "吸血" },
-	{ TRAIT_SHATTER,             "地震" },
-	{ TRAIT_VORPAL,             "切れ味" },
+	{ TRAIT_FORCE_WEAPON, "理力" },
+	{ TRAIT_CHAOTIC_BRAND, "混沌" },
+	{ TRAIT_VAMPIRIC_BRAND, "吸血" },
+	{ TRAIT_SHATTER, "地震" },
+	{ TRAIT_VORPAL, "切れ味" },
 #else
-	{ TRAIT_ACID_BRAND,         "Acid Brand" },
-	{ TRAIT_ELEC_BRAND,         "Lightning Brand" },
-	{ TRAIT_FIRE_BRAND,         "Flame Tongue" },
-	{ TRAIT_COLD_BRAND,         "Frost Brand" },
-	{ TRAIT_POIS_BRAND,         "Poisoned" },
+	{ TRAIT_ACID_BRAND, "Acid Brand" },
+	{ TRAIT_ELEC_BRAND, "Lightning Brand" },
+	{ TRAIT_FIRE_BRAND, "Flame Tongue" },
+	{ TRAIT_COLD_BRAND, "Frost Brand" },
+	{ TRAIT_POIS_BRAND, "Poisoned" },
 
-	{ TRAIT_FORCE_WEAPON,       "Force" },
-	{ TRAIT_CHAOTIC_BRAND,            "Mark of Chaos" },
-	{ TRAIT_VAMPIRIC_BRAND,           "Vampiric" },
-	{ TRAIT_SHATTER,             "Earthquake impact on hit" },
-	{ TRAIT_VORPAL,             "Very sharp" },
+	{ TRAIT_FORCE_WEAPON, "Force" },
+	{ TRAIT_CHAOTIC_BRAND, "Mark of Chaos" },
+	{ TRAIT_VAMPIRIC_BRAND, "Vampiric" },
+	{ TRAIT_SHATTER, "Earthquake impact on hit" },
+	{ TRAIT_VORPAL, "Very sharp" },
 #endif
 };
 
@@ -740,39 +740,39 @@ static flag_desc brand_flags_desc[] =
 static const flag_desc resist_flags_desc[] =
 {
 #ifdef JP
-	{ TRAIT_RES_ACID,   "酸" },
-	{ TRAIT_RES_ELEC,   "電撃" },
-	{ TRAIT_RES_FIRE,   "火炎" },
-	{ TRAIT_RES_COLD,   "冷気" },
-	{ TRAIT_RES_POIS,   "毒" },
-	{ TRAIT_FEARLESS,   "恐怖"},
-	{ TRAIT_RES_LITE,   "閃光" },
-	{ TRAIT_RES_DARK,   "暗黒" },
-	{ TRAIT_NO_BLIND,  "盲目" },
-	{ TRAIT_NO_CONF,   "混乱" },
-	{ TRAIT_RES_SOUN,  "轟音" },
+	{ TRAIT_RES_ACID, "酸" },
+	{ TRAIT_RES_ELEC, "電撃" },
+	{ TRAIT_RES_FIRE, "火炎" },
+	{ TRAIT_RES_COLD, "冷気" },
+	{ TRAIT_RES_POIS, "毒" },
+	{ TRAIT_FEARLESS, "恐怖"},
+	{ TRAIT_RES_LITE, "閃光" },
+	{ TRAIT_RES_DARK, "暗黒" },
+	{ TRAIT_NO_BLIND, "盲目" },
+	{ TRAIT_NO_CONF, "混乱" },
+	{ TRAIT_RES_SOUN, "轟音" },
 	{ TRAIT_RES_SHAR, "破片" },
 	{ TRAIT_RES_NETH, "地獄" },
-	{ TRAIT_RES_NEXU,  "因果混乱" },
-	{ TRAIT_RES_CHAO,  "カオス" },
-	{ TRAIT_RES_DISE,  "劣化" },
+	{ TRAIT_RES_NEXU, "因果混乱" },
+	{ TRAIT_RES_CHAO, "カオス" },
+	{ TRAIT_RES_DISE, "劣化" },
 #else
-	{ TRAIT_RES_ACID,   "Acid" },
-	{ TRAIT_RES_ELEC,   "Lightning" },
-	{ TRAIT_RES_FIRE,   "Fire" },
-	{ TRAIT_RES_COLD,   "Cold" },
-	{ TRAIT_RES_POIS,   "Poison" },
-	{ TRAIT_FEARLESS,   "Fear"},
-	{ TRAIT_RES_LITE,   "Light" },
-	{ TRAIT_RES_DARK,   "Dark" },
-	{ TRAIT_NO_BLIND,  "Blindness" },
-	{ TRAIT_NO_CONF,   "Confusion" },
-	{ TRAIT_RES_SOUN,  "Sound" },
+	{ TRAIT_RES_ACID, "Acid" },
+	{ TRAIT_RES_ELEC, "Lightning" },
+	{ TRAIT_RES_FIRE, "Fire" },
+	{ TRAIT_RES_COLD, "Cold" },
+	{ TRAIT_RES_POIS, "Poison" },
+	{ TRAIT_FEARLESS, "Fear"},
+	{ TRAIT_RES_LITE, "Light" },
+	{ TRAIT_RES_DARK, "Dark" },
+	{ TRAIT_NO_BLIND, "Blindness" },
+	{ TRAIT_NO_CONF, "Confusion" },
+	{ TRAIT_RES_SOUN, "Sound" },
 	{ TRAIT_RES_SHAR, "Shards" },
 	{ TRAIT_RES_NETH, "Nether" },
-	{ TRAIT_RES_NEXU,  "Nexus" },
-	{ TRAIT_RES_CHAO,  "Chaos" },
-	{ TRAIT_RES_DISE,  "Disenchantment" },
+	{ TRAIT_RES_NEXU, "Nexus" },
+	{ TRAIT_RES_CHAO, "Chaos" },
+	{ TRAIT_RES_DISE, "Disenchantment" },
 #endif
 };
 
@@ -783,15 +783,15 @@ static const flag_desc resist_flags_desc[] =
 static const flag_desc immune_flags_desc[] =
 {
 #ifdef JP
-	{ TRAIT_IM_ACID,    "酸" },
-	{ TRAIT_IM_ELEC,    "電撃" },
-	{ TRAIT_IM_FIRE,    "火炎" },
-	{ TRAIT_IM_COLD,    "冷気" },
+	{ TRAIT_IM_ACID, "酸" },
+	{ TRAIT_IM_ELEC, "電撃" },
+	{ TRAIT_IM_FIRE, "火炎" },
+	{ TRAIT_IM_COLD, "冷気" },
 #else
-	{ TRAIT_IM_ACID,    "Acid" },
-	{ TRAIT_IM_ELEC,    "Lightning" },
-	{ TRAIT_IM_FIRE,    "Fire" },
-	{ TRAIT_IM_COLD,    "Cold" },
+	{ TRAIT_IM_ACID, "Acid" },
+	{ TRAIT_IM_ELEC, "Lightning" },
+	{ TRAIT_IM_FIRE, "Fire" },
+	{ TRAIT_IM_COLD, "Cold" },
 #endif
 };
 
@@ -802,19 +802,19 @@ static const flag_desc immune_flags_desc[] =
 static const flag_desc sustain_flags_desc[] =
 {
 #ifdef JP
-	{ TRAIT_SUSTAIN_STR,   "腕力" },
-	{ TRAIT_SUSTAIN_INT,   "知能" },
-	{ TRAIT_SUSTAIN_WIS,   "賢さ" },
-	{ TRAIT_SUSTAIN_DEX,   "器用さ" },
-	{ TRAIT_SUSTAIN_CON,   "耐久力" },
-	{ TRAIT_SUSTAIN_CHR,   "魅力" },
+	{ TRAIT_SUSTAIN_STR, "腕力" },
+	{ TRAIT_SUSTAIN_INT, "知能" },
+	{ TRAIT_SUSTAIN_WIS, "賢さ" },
+	{ TRAIT_SUSTAIN_DEX, "器用さ" },
+	{ TRAIT_SUSTAIN_CON, "耐久力" },
+	{ TRAIT_SUSTAIN_CHR, "魅力" },
 #else
-	{ TRAIT_SUSTAIN_STR,   "STR" },
-	{ TRAIT_SUSTAIN_INT,   "INT" },
-	{ TRAIT_SUSTAIN_WIS,   "WIS" },
-	{ TRAIT_SUSTAIN_DEX,   "DEX" },
-	{ TRAIT_SUSTAIN_CON,   "CON" },
-	{ TRAIT_SUSTAIN_CHR,   "CHR" },
+	{ TRAIT_SUSTAIN_STR, "STR" },
+	{ TRAIT_SUSTAIN_INT, "INT" },
+	{ TRAIT_SUSTAIN_WIS, "WIS" },
+	{ TRAIT_SUSTAIN_DEX, "DEX" },
+	{ TRAIT_SUSTAIN_CON, "CON" },
+	{ TRAIT_SUSTAIN_CHR, "CHR" },
 #endif
 };
 
@@ -825,15 +825,15 @@ static const flag_desc sustain_flags_desc[] =
 static const flag_desc misc_flags2_desc[] =
 {
 #ifdef JP
-	{ TRAIT_THROW_MIGHTY,      "投擲" },
-	{ TRAIT_REFLECTING,    "反射" },
-	{ TRAIT_FREE_ACTION,   "麻痺知らず" },
-	{ TRAIT_HOLD_LIFE,  "生命力維持" },
+	{ TRAIT_THROW_MIGHTY, "投擲" },
+	{ TRAIT_REFLECTING, "反射" },
+	{ TRAIT_FREE_ACTION, "麻痺知らず" },
+	{ TRAIT_HOLD_LIFE, "生命力維持" },
 #else
-	{ TRAIT_THROW_MIGHTY,      "Throwing" },
-	{ TRAIT_REFLECTING,    "Reflection" },
-	{ TRAIT_FREE_ACTION,   "Free Action" },
-	{ TRAIT_HOLD_LIFE,  "Hold Life" },
+	{ TRAIT_THROW_MIGHTY, "Throwing" },
+	{ TRAIT_REFLECTING, "Reflection" },
+	{ TRAIT_FREE_ACTION, "Free Action" },
+	{ TRAIT_HOLD_LIFE, "Hold Life" },
 #endif
 };
 
@@ -847,53 +847,53 @@ static const flag_desc misc_flags2_desc[] =
 static const flag_desc misc_flags3_desc[] =
 {
 #ifdef JP
-	{ TRAIT_AURA_FIRE,            "火炎オーラ" },
-	{ TRAIT_AURA_ELEC,            "電撃オーラ" },
-	{ TRAIT_AURA_COLD,            "冷気オーラ" },
-	{ TRAIT_PREVENT_TELEPORT,            "反テレポート" },
-	{ TRAIT_ANTI_MAGIC,           "反魔法" },
-	{ TRAIT_LEVITATION,            "浮遊" },
-	{ TRAIT_SEE_INVISIBLE,          "可視透明" },
-	{ TRAIT_ESP,          "テレパシー" },
-	{ TRAIT_SENSE_ANIMAL,             "動物感知" },
-	{ TRAIT_SENSE_UNDEAD,             "不死感知" },
-	{ TRAIT_SENSE_DEMON,              "悪魔感知" },
-	{ TRAIT_SENSE_ORC,                "オーク感知" },
-	{ TRAIT_SENSE_TROLL,              "トロル感知" },
-	{ TRAIT_SENSE_GIANT,              "巨人感知" },
-	{ TRAIT_SENSE_DRAGON,             "ドラゴン感知" },
-	{ TRAIT_SENSE_HUMAN,              "人間感知" },
-	{ TRAIT_SENSE_EVIL,               "邪悪感知" },
-	{ TRAIT_SENSE_GOOD,               "善良感知" },
-	{ TRAIT_SENSE_NONLIVING,          "無生物感知" },
-	{ TRAIT_SENSE_UNIQUE,             "ユニーク感知" },
-	{ TRAIT_SLOW_DIGEST,        "遅消化" },
-	{ TRAIT_REGENERATE,              "急速回復" },
-	{ TRAIT_WARNING,            "警告" },
-	{ TRAIT_EXTRA_ATTACK_MIGHT,         "強力射撃" }, 
-	{ TRAIT_EXTRA_ATTACK_SPEED,         "追加射撃" },        /* always +1? */
-	{ TRAIT_DRAIN_EXP,          "経験値吸収" },
-	{ TRAIT_ANTIPATHY,          "反感" },
-	{ TRAIT_BLESSED_BRAND,            "祝福" },
-	{ TRAIT_DEC_MANA,           "消費魔力減少" },
+	{ TRAIT_AURA_FIRE, "火炎オーラ" },
+	{ TRAIT_AURA_ELEC, "電撃オーラ" },
+	{ TRAIT_AURA_COLD, "冷気オーラ" },
+	{ TRAIT_PREVENT_TELEPORT, "反テレポート" },
+	{ TRAIT_ANTI_MAGIC, "反魔法" },
+	{ TRAIT_LEVITATION, "浮遊" },
+	{ TRAIT_SEE_INVISIBLE, "可視透明" },
+	{ TRAIT_ESP, "テレパシー" },
+	{ TRAIT_SENSE_ANIMAL, "動物感知" },
+	{ TRAIT_SENSE_UNDEAD, "不死感知" },
+	{ TRAIT_SENSE_DEMON, "悪魔感知" },
+	{ TRAIT_SENSE_ORC,  "オーク感知" },
+	{ TRAIT_SENSE_TROLL, "トロル感知" },
+	{ TRAIT_SENSE_GIANT, "巨人感知" },
+	{ TRAIT_SENSE_DRAGON, "ドラゴン感知" },
+	{ TRAIT_SENSE_HUMAN, "人間感知" },
+	{ TRAIT_SENSE_EVIL, "邪悪感知" },
+	{ TRAIT_SENSE_GOOD, "善良感知" },
+	{ TRAIT_SENSE_NONLIVING, "無生物感知" },
+	{ TRAIT_SENSE_UNIQUE, "ユニーク感知" },
+	{ TRAIT_SLOW_DIGEST, "遅消化" },
+	{ TRAIT_REGENERATE, "急速回復" },
+	{ TRAIT_WARNING, "警告" },
+	{ TRAIT_EXTRA_ATTACK_MIGHT, "強力射撃" }, 
+	{ TRAIT_EXTRA_ATTACK_SPEED, "追加射撃" }, /* always +1? */
+	{ TRAIT_DRAIN_EXP, "経験値吸収" },
+	{ TRAIT_ANTIPATHY, "反感" },
+	{ TRAIT_BLESSED_BRAND, "祝福" },
+	{ TRAIT_DEC_MANA, "消費魔力減少" },
 #else
-	{ TRAIT_AURA_FIRE,            "Fiery Aura" },
-	{ TRAIT_AURA_ELEC,            "Electric Aura" },
-	{ TRAIT_AURA_COLD,            "Coldly Aura" },
-	{ TRAIT_PREVENT_TELEPORT,            "Prevent Teleportation" },
-	{ TRAIT_ANTI_MAGIC,           "Anti-Magic" },
-	{ TRAIT_LEVITATION,            "Levitation" },
-	{ TRAIT_SEE_INVISIBLE,          "See Invisible" },
-	{ TRAIT_ESP,          "ESP" },
-	{ TRAIT_SLOW_DIGEST,        "Slow Digestion" },
-	{ TRAIT_REGENERATE,              "Regeneration" },
-	{ TRAIT_WARNING,            "Warning" },
-/*	{ TRAIT_EXTRA_ATTACK_MIGHT,         "Extra Might" }, */
-	{ TRAIT_EXTRA_ATTACK_SPEED,         "+1 Extra Shot" },        /* always +1? */
-	{ TRAIT_DRAIN_EXP,          "Drains Experience" },
-	{ TRAIT_ANTIPATHY,          "Aggravates" },
-	{ TRAIT_BLESSED_BRAND,            "Blessed Blade" },
-	{ TRAIT_DEC_MANA,           "Decrease Mana Consumption Rate" },
+	{ TRAIT_AURA_FIRE, "Fiery Aura" },
+	{ TRAIT_AURA_ELEC, "Electric Aura" },
+	{ TRAIT_AURA_COLD, "Coldly Aura" },
+	{ TRAIT_PREVENT_TELEPORT, "Prevent Teleportation" },
+	{ TRAIT_ANTI_MAGIC, "Anti-Magic" },
+	{ TRAIT_LEVITATION, "Levitation" },
+	{ TRAIT_SEE_INVISIBLE, "See Invisible" },
+	{ TRAIT_ESP, "ESP" },
+	{ TRAIT_SLOW_DIGEST, "Slow Digestion" },
+	{ TRAIT_REGENERATE, "Regeneration" },
+	{ TRAIT_WARNING, "Warning" },
+/*	{ TRAIT_EXTRA_ATTACK_MIGHT, "Extra Might" }, */
+	{ TRAIT_EXTRA_ATTACK_SPEED, "+1 Extra Shot" }, /* always +1? */
+	{ TRAIT_DRAIN_EXP, "Drains Experience" },
+	{ TRAIT_ANTIPATHY, "Aggravates" },
+	{ TRAIT_BLESSED_BRAND, "Blessed Blade" },
+	{ TRAIT_DEC_MANA, "Decrease Mana Consumption Rate" },
 #endif
 };
 
@@ -1758,7 +1758,7 @@ static void spoil_species_desc(cptr fname)
 
 	/* Dump the header */
 	fprintf(fff, "%5s     %-38.38s%8s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%6s %-11.11s %-64s\n",
-		"ID", "Name",     "Lev", "Div", "Rar", "Spd", "ST", "IN", "WI", "DE", "CO", "CH",
+		"ID", "Name", "Lev", "Div", "Rar", "Spd", "ST", "IN", "WI", "DE", "CO", "CH",
 		"Hp", "Ac", "Ht", "Wt", "Siz", "Visual Info", "Trait");
 	fprintf(fff, "%5s %-42.42s%8s%4s%4s%4s%3s%3s%3s%3s%3s%3s%21s%6s%7s%7s%6s %11.11s %-64s\n",
 		"-----","--------", "-------", "---", "---", "---", "--", "--", "--", "--", "--", "--",
@@ -1923,12 +1923,12 @@ static void spoil_species_desc(cptr fname)
 		}
 
 		//TODOif(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(ht, "----");
-		if(tmpht < 1000) sprintf(ht, "%dcm",  tmpht);
+		if(tmpht < 1000) sprintf(ht, "%dcm", tmpht);
 		else if(tmpht < 1000000) sprintf(ht, "%dm ", tmpht / 100);
 		else sprintf(ht, "%dkm", tmpht / 100000);
 
 		//TODOif(is_variable_race_species(species_ptr) | is_variable_size_species(species_ptr)) sprintf(wt, "----");
-		if(tmpwt < 10000) sprintf(wt, "%dkg",  tmpwt);
+		if(tmpwt < 10000) sprintf(wt, "%dkg", tmpwt);
 		else if(tmpwt < 10000000) sprintf(wt, "%dt ", tmpwt / 1000);
 		else sprintf(wt, "%dKt", tmpwt / 1000000);
 
@@ -2370,14 +2370,14 @@ static void spoil_species_info(cptr fname)
 		/* Height and Weight */
 		spoil_out("Height:");
 		tmpht = (species_ptr->m_b_ht + species_ptr->f_b_ht) / 2;
-		if(tmpht < 1000) sprintf(buf, "%dcm  ",  tmpht);
+		if(tmpht < 1000) sprintf(buf, "%dcm  ", tmpht);
 		else if(tmpht < 1000000) sprintf(buf, "%dm   ", tmpht / 100);
 		else sprintf(buf, "%dkm  ", tmpht / 100000);
 		spoil_out(buf);
 
 		spoil_out("Weight:");
 		tmpht = (species_ptr->m_b_wt + species_ptr->f_b_wt) / 2;
-		if(tmpht < 10000) sprintf(buf, "%dkg  ",  tmpht);
+		if(tmpht < 10000) sprintf(buf, "%dkg  ", tmpht);
 		else if(tmpht < 10000000) sprintf(buf, "%dt   ", tmpht / 1000);
 		else sprintf(buf, "%dKt  ", tmpht / 1000000);
 		spoil_out(buf);

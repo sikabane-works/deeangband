@@ -1766,19 +1766,19 @@ static void do_cmd_options_cheat(cptr info)
 
 static option_type autosave_info[2] =
 {
-	{ &autosave_l,      FALSE, 255, 0x01, 0x00,
+	{ &autosave_l, FALSE, 255, 0x01, 0x00,
 #ifdef JP
-	    "autosave_l",    "新しい階に入る度に自動セーブする" },
+	    "autosave_l", "新しい階に入る度に自動セーブする" },
 #else
-	    "autosave_l",    "Autosave when entering new levels" },
+	    "autosave_l", "Autosave when entering new levels" },
 #endif
 
 
-	{ &autosave_t,      FALSE, 255, 0x02, 0x00,
+	{ &autosave_t, FALSE, 255, 0x02, 0x00,
 #ifdef JP
-	    "autosave_t",   "一定ターン毎に自動セーブする" },
+	    "autosave_t", "一定ターン毎に自動セーブする" },
 #else
-	    "autosave_t",   "Timed autosave" },
+	    "autosave_t", "Timed autosave" },
 #endif
 
 };
@@ -1851,9 +1851,9 @@ static void do_cmd_options_autosave(cptr info)
 		}
 
 #ifdef JP
-		prt(format("自動セーブの頻度： %d ターン毎",  autosave_freq), 5, 0);
+		prt(format("自動セーブの頻度： %d ターン毎", autosave_freq), 5, 0);
 #else
-		prt(format("Timed autosave frequency: every %d turns",  autosave_freq), 5, 0);
+		prt(format("Timed autosave frequency: every %d turns", autosave_freq), 5, 0);
 #endif
 
 

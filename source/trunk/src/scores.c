@@ -933,7 +933,7 @@ void kingly(creature_type *player_ptr)
 	put_str("#", cy - 11, cx - 1);
 	put_str("#####", cy - 10, cx - 3);
 	put_str("#", cy - 9, cx - 1);
-	put_str(",,,  $$$  ,,,", cy - 8, cx - 7);
+	put_str(",,, $$$  ,,,", cy - 8, cx - 7);
 	put_str(",,=$   \"$$$$$\"   $=,,", cy - 7, cx - 11);
 	put_str(",$$        $$$        $$,", cy - 6, cx - 13);
 	put_str("*>         <*>         <*", cy - 5, cx - 13);

@@ -139,7 +139,7 @@ ANGBAND MENU
 	/*
 	POPUP "ヘルプ(&H)"
 	{
-		MENUITEM "一般(&G)",       901
+		MENUITEM "一般(&G)", 901
 		MENUITEM "スポイラー(&S)", 902
 	}
 	*/

@@ -1856,7 +1856,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				int v = randint1(base) + base;
-				set_fast(creature_ptr, v, FALSE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, v);
 				set_oppose_acid(creature_ptr, v, FALSE);
 				set_oppose_elec(creature_ptr, v, FALSE);
 				set_oppose_fire(creature_ptr, v, FALSE);
@@ -2183,7 +2183,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_fast(creature_ptr, randint1(sides) + base, FALSE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sides) + base);
 			}
 		}
 		break;
@@ -4683,7 +4683,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 				set_shero(creature_ptr, randint1(25) + 25, FALSE);
 				heal_creature(creature_ptr, 30);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				set_fast(creature_ptr, randint1(sp_sides) + sp_base, FALSE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 			}
 		}
 		break;
@@ -7072,7 +7072,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_fast(creature_ptr, randint1(sides) + base, FALSE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sides) + base);
 			}
 		}
 		break;
@@ -8907,7 +8907,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				}
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
 				set_blessed(creature_ptr, randint1(base) + base, FALSE);
-				set_fast(creature_ptr, randint1(sp_sides) + sp_base, FALSE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 				set_protevil(creature_ptr, randint1(base) + base, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}

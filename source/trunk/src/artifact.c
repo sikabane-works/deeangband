@@ -2474,13 +2474,13 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			msg_print("It glows bright green...");
 #endif
 
-			(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
+			(void)set_timed_trait(creature_ptr, TRAIT_FAST, randint1(20) + 20);
 			break;
 		}
 
 		case TRAIT_HASTE_2:
 		{
-			(void)set_fast(creature_ptr, randint1(75) + 75, FALSE);
+			(void)set_timed_trait(creature_ptr, TRAIT_FAST, randint1(75) + 75);
 			break;
 		}
 

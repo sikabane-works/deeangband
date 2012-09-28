@@ -2123,7 +2123,7 @@ void identify_pack(creature_type *creature_ptr)
  */
 static int enchant_table[16] =
 {
-	0, 10,  50, 100, 200,
+	0, 10, 50, 100, 200,
 	300, 400, 500, 650, 800,
 	950, 987, 993, 995, 998,
 	1000

@@ -37,21 +37,21 @@ static room_info_type room_info_normal[ROOM_T_MAX] =
 	/* Depth */
 	/*  0  10  20  30  40  50  60  70  80  90 100  min limit */
 
-	{{999,900,800,700,600,500,400,300,200,100,  0},  0}, /*NORMAL   */
-	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  1}, /*OVERLAP  */
-	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*CROSS    */
-	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100},  3}, /*INNER_F  */
-	{{  0,  1,  1,  1,  2,  3,  5,  6,  8, 10, 13}, 10}, /*NEST     */
-	{{  0,  1,  1,  2,  3,  4,  6,  8, 10, 13, 16}, 10}, /*PIT      */
-	{{  0,  1,  1,  1,  2,  2,  3,  5,  6,  8, 10}, 10}, /*LESSER_V */
-	{{  0,  0,  1,  1,  1,  2,  2,  2,  3,  3,  4}, 20}, /*GREATER_V*/
+	{{999,900,800,700,600,500,400,300,200,100, 0}, 0}, /*NORMAL   */
+	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 1}, /*OVERLAP  */
+	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 3}, /*CROSS    */
+	{{  1, 10, 20, 30, 40, 50, 60, 70, 80, 90,100}, 3}, /*INNER_F  */
+	{{  0, 1, 1, 1, 2, 3, 5, 6, 8, 10, 13}, 10}, /*NEST     */
+	{{  0, 1, 1, 2, 3, 4, 6, 8, 10, 13, 16}, 10}, /*PIT      */
+	{{  0, 1, 1, 1, 2, 2, 3, 5, 6, 8, 10}, 10}, /*LESSER_V */
+	{{  0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 4}, 20}, /*GREATER_V*/
 	{{  0,100,200,300,400,500,600,700,800,900,999}, 10}, /*FRACAVE  */
-	{{  0,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2}, 10}, /*RANDOM_V */
-	{{  0,  4,  8, 12, 16, 20, 24, 28, 32, 36, 40},  3}, /*OVAL     */
-	{{  1,  6, 12, 18, 24, 30, 36, 42, 48, 54, 60}, 10}, /*CRYPT    */
-	{{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP_PIT */
-	{{  0,  0,  1,  1,  1,  2,  3,  4,  5,  6,  8}, 20}, /*TRAP     */
-	{{  0,  0,  0,  0,  1,  1,  1,  2,  2,  2,  2}, 40}, /*GLASS    */
+	{{  0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2}, 10}, /*RANDOM_V */
+	{{  0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40}, 3}, /*OVAL     */
+	{{  1, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60}, 10}, /*CRYPT    */
+	{{  0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 8}, 20}, /*TRAP_PIT */
+	{{  0, 0, 1, 1, 1, 2, 3, 4, 5, 6, 8}, 20}, /*TRAP     */
+	{{  0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2}, 40}, /*GLASS    */
 };
 
 
@@ -1934,58 +1934,58 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 static vault_aux_type nest_types[] =
 {
 #ifdef JP
-	{"クローン",     vault_aux_clone,    vault_prep_clone,   5, 3},
-	{"ゼリー",       vault_aux_jelly,    NULL,               5, 6},
+	{"クローン", vault_aux_clone, vault_prep_clone, 5, 3},
+	{"ゼリー", vault_aux_jelly, NULL, 5, 6},
 	{"シンボル(善)", vault_aux_symbol_g, vault_prep_symbol, 25, 2},
 	{"シンボル(悪)", vault_aux_symbol_e, vault_prep_symbol, 25, 2},
-	{"ミミック",     vault_aux_mimic,    NULL,              30, 4},
-	{"狂気",         vault_aux_cthulhu,  NULL,              70, 2},
-	{"犬小屋",       vault_aux_kennel,   NULL,              45, 4},
-	{"動物園",       vault_aux_animal,   NULL,              35, 5},
-	{"教会",         vault_aux_chapel_g, NULL,              75, 4},
-	{"アンデッド",   vault_aux_undead,   NULL,              75, 5},
-	{NULL,           NULL,               NULL,               0, 0},
+	{"ミミック", vault_aux_mimic, NULL, 30, 4},
+	{"狂気", vault_aux_cthulhu, NULL, 70, 2},
+	{"犬小屋", vault_aux_kennel, NULL, 45, 4},
+	{"動物園", vault_aux_animal, NULL, 35, 5},
+	{"教会", vault_aux_chapel_g, NULL, 75, 4},
+	{"アンデッド", vault_aux_undead, NULL, 75, 5},
+	{NULL, NULL, NULL, 0, 0},
 #else
-	{"clone",        vault_aux_clone,    vault_prep_clone,   5, 3},
-	{"jelly",        vault_aux_jelly,    NULL,               5, 6},
-	{"symbol good",  vault_aux_symbol_g, vault_prep_symbol, 25, 2},
-	{"symbol evil",  vault_aux_symbol_e, vault_prep_symbol, 25, 2},
-	{"mimic",        vault_aux_mimic,    NULL,              30, 4},
-	{"lovecraftian", vault_aux_cthulhu,  NULL,              70, 2},
-	{"kennel",       vault_aux_kennel,   NULL,              45, 4},
-	{"animal",       vault_aux_animal,   NULL,              35, 5},
-	{"chapel",       vault_aux_chapel_g, NULL,              75, 4},
-	{"undead",       vault_aux_undead,   NULL,              75, 5},
-	{NULL,           NULL,               NULL,               0, 0},
+	{"clone", vault_aux_clone, vault_prep_clone, 5, 3},
+	{"jelly", vault_aux_jelly, NULL, 5, 6},
+	{"symbol good", vault_aux_symbol_g, vault_prep_symbol, 25, 2},
+	{"symbol evil", vault_aux_symbol_e, vault_prep_symbol, 25, 2},
+	{"mimic", vault_aux_mimic, NULL, 30, 4},
+	{"lovecraftian", vault_aux_cthulhu, NULL, 70, 2},
+	{"kennel", vault_aux_kennel, NULL, 45, 4},
+	{"animal", vault_aux_animal, NULL, 35, 5},
+	{"chapel", vault_aux_chapel_g, NULL, 75, 4},
+	{"undead", vault_aux_undead, NULL, 75, 5},
+	{NULL, NULL, NULL, 0, 0},
 #endif
 };
 
 static vault_aux_type pit_types[] =
 {
 #ifdef JP
-	{"オーク",       vault_aux_orc,      NULL,               5, 6},
-	{"トロル",       vault_aux_troll,    NULL,              20, 6},
-	{"ジャイアント", vault_aux_giant,    NULL,              50, 6},
-	{"狂気",         vault_aux_cthulhu,  NULL,              80, 2},
+	{"オーク", vault_aux_orc, NULL, 5, 6},
+	{"トロル", vault_aux_troll, NULL, 20, 6},
+	{"ジャイアント", vault_aux_giant, NULL, 50, 6},
+	{"狂気", vault_aux_cthulhu, NULL, 80, 2},
 	{"シンボル(善)", vault_aux_symbol_g, vault_prep_symbol, 70, 1},
 	{"シンボル(悪)", vault_aux_symbol_e, vault_prep_symbol, 70, 1},
-	{"教会",         vault_aux_chapel_g, NULL,              65, 2},
-	{"ドラゴン",     vault_aux_dragon,   vault_prep_dragon, 70, 6},
-	{"デーモン",     vault_aux_demon,    NULL,              80, 6},
-	{"ダークエルフ", vault_aux_dark_elf, NULL,              45, 4},
-	{NULL,           NULL,               NULL,               0, 0},
+	{"教会", vault_aux_chapel_g, NULL, 65, 2},
+	{"ドラゴン", vault_aux_dragon, vault_prep_dragon, 70, 6},
+	{"デーモン", vault_aux_demon, NULL, 80, 6},
+	{"ダークエルフ", vault_aux_dark_elf, NULL, 45, 4},
+	{NULL, NULL, NULL, 0, 0},
 #else
-	{"orc",          vault_aux_orc,      NULL,               5, 6},
-	{"troll",        vault_aux_troll,    NULL,              20, 6},
-	{"giant",        vault_aux_giant,    NULL,              50, 6},
-	{"lovecraftian", vault_aux_cthulhu,  NULL,              80, 2},
-	{"symbol good",  vault_aux_symbol_g, vault_prep_symbol, 70, 1},
-	{"symbol evil",  vault_aux_symbol_e, vault_prep_symbol, 70, 1},
-	{"chapel",       vault_aux_chapel_g, NULL,              65, 2},
-	{"dragon",       vault_aux_dragon,   vault_prep_dragon, 70, 6},
-	{"demon",        vault_aux_demon,    NULL,              80, 6},
-	{"dark elf",     vault_aux_dark_elf, NULL,              45, 4},
-	{NULL,           NULL,               NULL,               0, 0},
+	{"orc", vault_aux_orc, NULL, 5, 6},
+	{"troll", vault_aux_troll, NULL, 20, 6},
+	{"giant", vault_aux_giant, NULL, 50, 6},
+	{"lovecraftian", vault_aux_cthulhu, NULL, 80, 2},
+	{"symbol good", vault_aux_symbol_g, vault_prep_symbol, 70, 1},
+	{"symbol evil", vault_aux_symbol_e, vault_prep_symbol, 70, 1},
+	{"chapel", vault_aux_chapel_g, NULL, 65, 2},
+	{"dragon", vault_aux_dragon, vault_prep_dragon, 70, 6},
+	{"demon", vault_aux_demon, NULL, 80, 6},
+	{"dark elf", vault_aux_dark_elf, NULL, 45, 4},
+	{NULL, NULL, NULL, 0, 0},
 #endif
 };
 

@@ -217,7 +217,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		success_hit = one_in_(n);
 	}
 	else if((attacker_ptr->class_idx == CLASS_NINJA) && ((backstab || fuiuchi) && !has_trait(target_ptr, TRAIT_RES_ALL))) success_hit = TRUE;
-	else success_hit = test_hit_melee(attacker_ptr, chance,  target_ptr->ac + target_ptr->to_ac, target_ptr->see_others);
+	else success_hit = test_hit_melee(attacker_ptr, chance, target_ptr->ac + target_ptr->to_ac, target_ptr->see_others);
 
 	if(mode == HISSATSU_MAJIN && one_in_(2)) success_hit = FALSE;
 
@@ -3796,7 +3796,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 					int typ[4][2] = {
 					{ INVEN_SLOT_HEAD, GF_OLD_CONF },
-					{ INVEN_SLOT_HAND,  GF_OLD_SLEEP },
+					{ INVEN_SLOT_HAND, GF_OLD_SLEEP },
 					{ INVEN_SLOT_ARM, GF_TURN_ALL },
 					{ INVEN_SLOT_FEET, GF_OLD_SLOW }
 					};

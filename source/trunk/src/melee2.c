@@ -2930,7 +2930,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 
 	case MTIMED_FAST:
 		/* Reduce by one, note if expires */
-		set_fast(creature_ptr, creature_ptr->timed_trait[TRAIT_FAST] - 1, FALSE);
+		set_timed_trait(creature_ptr, TRAIT_FAST, creature_ptr->timed_trait[TRAIT_FAST] - 1);
 		break;
 
 	case MTIMED_SLOW:

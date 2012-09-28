@@ -1808,7 +1808,7 @@ static cptr simplify_list[][2] =
 	{"ÇÃñÇñ@èë", ""},
 	{NULL, NULL}
 #else
-	{"^Ring of ",   "="},
+	{"^Ring of ", "="},
 	{"^Amulet of ", "\""},
 	{"^Scroll of ", "?"},
 	{"^Scroll titled ", "?"},
@@ -1817,12 +1817,12 @@ static cptr simplify_list[][2] =
 	{"^Staff of " , "_"},
 	{"^Potion of ", "!"},
 	{" Spellbook ",""},
-	{"^Book of ",   ""},
-	{" Magic [",   "["},
-	{" Book [",    "["},
-	{" Arts [",    "["},
-	{"^Set of ",    ""},
-	{"^Pair of ",   ""},
+	{"^Book of ", ""},
+	{" Magic [", "["},
+	{" Book [", "["},
+	{" Arts [", "["},
+	{"^Set of ", ""},
+	{"^Pair of ", ""},
 	{NULL, NULL}
 #endif
 };

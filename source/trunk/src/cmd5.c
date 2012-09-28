@@ -1109,7 +1109,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 	/* Ask for a spell */
 #ifdef JP
-	if(!get_spell(creature_ptr, &spell,  
+	if(!get_spell(creature_ptr, &spell, 
 				((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "ârè•Ç∑ÇÈ" : (magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK) ? "âÃÇ§" : "è•Ç¶ÇÈ"), 
 		       sval, TRUE, realm))
 	{

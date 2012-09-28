@@ -274,7 +274,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					/* Gain nutritional sustenance: 150/hp drained */
 					/* A Food ration gives 5000 food points (by contrast) */
 					/* Don't ever get more than "Full" this way */
-					/* But if we ARE Gorged,  it won't cure us */
+					/* But if we ARE Gorged, it won't cure us */
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
 					if(creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
 						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);

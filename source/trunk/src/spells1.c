@@ -3053,7 +3053,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(fuzzy) msg_print("You are hit by something!");
 #endif
 
-			(void)set_fast(target_ptr, target_ptr->timed_trait[TRAIT_FAST] + randint1(5), FALSE);
+			(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + randint1(5));
 			get_damage = 0;
 			break;
 		}
@@ -5953,7 +5953,7 @@ msg_format("‚¤‚Ü‚­•ß‚Ü‚¦‚ç‚ê‚È‚©‚Á‚½B");
 					note = " starts moving faster.";
 #endif
 
-					(void)set_fast(target_ptr, target_ptr->timed_trait[TRAIT_FAST] + 100, FALSE);
+					(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + 100);
 					success = TRUE;
 				}
 
@@ -5976,7 +5976,7 @@ msg_format("‚¤‚Ü‚­•ß‚Ü‚¦‚ç‚ê‚È‚©‚Á‚½B");
 #endif
 
 					set_pet(caster_ptr, target_ptr);
-					(void)set_fast(target_ptr, target_ptr->timed_trait[TRAIT_FAST] + 100, FALSE);
+					(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + 100);
 
 					/* Learn about type */
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);

@@ -4131,7 +4131,7 @@ errr parse_store_pre_info_csv(char *buf, header *head)
 enum TRAIT_INFO
 {
   TRAIT_INFO_ID,
-  TRAIT_INFO_ID2,    
+  TRAIT_INFO_ID2, 
   TRAIT_INFO_NAME,
   TRAIT_INFO_E_NAME,
   TRAIT_INFO_STR,

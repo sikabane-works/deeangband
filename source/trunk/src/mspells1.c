@@ -1175,14 +1175,14 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 {
 	int i;
 	int tonari;
-	static int tonari_y[4][8] = {{-1, -1, -1,  0,  0,  1,  1,  1},
-			                     {-1, -1, -1,  0,  0,  1,  1,  1},
-			                     { 1,  1,  1,  0,  0, -1, -1, -1},
-			                     { 1,  1,  1,  0,  0, -1, -1, -1}};
-	static int tonari_x[4][8] = {{-1,  0,  1, -1,  1, -1,  0,  1},
-			                     { 1,  0, -1,  1, -1,  1,  0, -1},
-			                     {-1,  0,  1, -1,  1, -1,  0,  1},
-			                     { 1,  0, -1,  1, -1,  1,  0, -1}};
+	static int tonari_y[4][8] = {{-1, -1, -1, 0, 0, 1, 1, 1},
+			                     {-1, -1, -1, 0, 0, 1, 1, 1},
+			                     { 1, 1, 1, 0, 0, -1, -1, -1},
+			                     { 1, 1, 1, 0, 0, -1, -1, -1}};
+	static int tonari_x[4][8] = {{-1, 0, 1, -1, 1, -1, 0, 1},
+			                     { 1, 0, -1, 1, -1, 1, 0, -1},
+			                     {-1, 0, 1, -1, 1, -1, 0, 1},
+			                     { 1, 0, -1, 1, -1, 1, 0, -1}};
 	floor_type *floor_ptr = GET_FLOOR_PTR(base_ptr);
 
 	if(m_ptr->fy < base_ptr->fy && m_ptr->fx < base_ptr->fx) tonari = 0;
@@ -3090,7 +3090,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 			}
 
 			/* Allow quick speed increases to base+10 */
-			if(set_fast(caster_ptr, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
+			if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100))
 			{
 #ifdef JP
 				msg_format("%^sの動きが速くなった。", m_name);

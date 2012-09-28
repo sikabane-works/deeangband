@@ -1508,7 +1508,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					// Gain nutritional sustenance: 150/hp drained
 					// A Food ration gives 5000 food points (by contrast)
 					// Don't ever get more than "Full" this way
-					// But if we ARE Gorged,  it won't cure us
+					// But if we ARE Gorged, it won't cure us
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
 					if(creature_ptr->food < PY_FOOD_MAX)   /* Not gorged already
 						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
@@ -2050,7 +2050,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					// Gain nutritional sustenance: 150/hp drained
 					// A Food ration gives 5000 food points (by contrast)
 					// Don't ever get more than "Full" this way
-					// But if we ARE Gorged,  it won't cure us
+					// But if we ARE Gorged, it won't cure us
 					dummy = creature_ptr->food + MIN(5000, 100 * dummy);
 					if(creature_ptr->food < PY_FOOD_MAX)   // Not gorged already
 						(void)set_food(creature_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
@@ -2786,7 +2786,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 					// Gain nutritional sustenance: 150/hp drained
 					// A Food ration gives 5000 food points (by contrast)
 					// Don't ever get more than "Full" this way
-					// But if we ARE Gorged,  it won't cure us
+					// But if we ARE Gorged, it won't cure us
 					dummy = caster_ptr->food + MIN(5000, 100 * dummy);
 					if(caster_ptr->food < PY_FOOD_MAX) // Not gorged already
 						(void)set_food(caster_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dummy);
@@ -4531,7 +4531,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 
 			// Allow quick speed increases to base+10 
-			if(set_fast(caster_ptr, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
+			if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
 			{
 #ifdef JP
 				msg_format("%^sの動きが速くなった。", caster_name);

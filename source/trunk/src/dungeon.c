@@ -1356,7 +1356,7 @@ msg_format("%s‚©‚ç‚Í“Á‚É•Ï‚í‚Á‚½Ž–‚ÍŠ´‚¶‚Æ‚ê‚È‚©‚Á‚½B", object_name);
 
 #ifdef JP
 msg_format("%s‚Í%s‚Æ‚¢‚¤Š´‚¶‚ª‚·‚é...",
-    object_name,  game_inscriptions[feel]);
+    object_name, game_inscriptions[feel]);
 #else
 	msg_format("You feel that the %s %s %s...",
 			   object_name, ((object_ptr->number == 1) ? "is" : "are"),
@@ -2147,7 +2147,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Fast */
 	if(creature_ptr->timed_trait[TRAIT_FAST])
 	{
-		(void)set_fast(creature_ptr, creature_ptr->timed_trait[TRAIT_FAST] - 1, TRUE);
+		(void)set_timed_trait(creature_ptr, TRAIT_FAST, creature_ptr->timed_trait[TRAIT_FAST] - 1);
 	}
 
 	/* Slow */
@@ -2502,7 +2502,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 			if(creature_ptr->timed_trait[TRAIT_FAST] > 0)
 			{
-				set_fast(creature_ptr, 0, TRUE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, 0);
 			}
 			else
 			{
@@ -2523,7 +2523,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			}
 			else
 			{
-				set_fast(creature_ptr, randint1(30) + 10, FALSE);
+				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 10);
 			}
 		}
 		msg_print(NULL);

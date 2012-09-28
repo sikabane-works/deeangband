@@ -2648,7 +2648,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 			else sprintf(f_idx_str, "%d", c_ptr->feat);
 #ifdef JP
 			sprintf(out_val, "%s%s%s%s[%s] info:%4x f_idx:%x Dist:%d Cost:%d When:%d (X%d,Y%d)",
-				s1, name, s2, s3, info,   c_ptr->info, f_idx_str, c_ptr->dist, c_ptr->cost, c_ptr->when, x, y);
+				s1, name, s2, s3, info, c_ptr->info, f_idx_str, c_ptr->dist, c_ptr->cost, c_ptr->when, x, y);
 #else
 			sprintf(out_val, "%s%s%s%s [%s] %x %s %d %d %d (%d,%d)", s1, s2, s3, name, info, c_ptr->info, f_idx_str, c_ptr->dist, c_ptr->cost, c_ptr->when, y, x);
 #endif

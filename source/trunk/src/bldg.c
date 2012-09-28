@@ -701,23 +701,23 @@ static int yaku_check(void)
 	switch(yaku_check_straight()){
 	case 3: /* RF! */
 #ifdef JP
-		c_put_str(TERM_YELLOW, "ロイヤルストレートフラッシュ",  4,  3);
+		c_put_str(TERM_YELLOW, "ロイヤルストレートフラッシュ", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Royal Flush",  4,  3);
+		c_put_str(TERM_YELLOW, "Royal Flush", 4, 3);
 #endif
 		return ODDS_RF;
 	case 2: /* SF! */
 #ifdef JP
-		c_put_str(TERM_YELLOW, "ストレートフラッシュ",  4,  3);
+		c_put_str(TERM_YELLOW, "ストレートフラッシュ", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Straight Flush",  4,  3);
+		c_put_str(TERM_YELLOW, "Straight Flush", 4, 3);
 #endif
 		return ODDS_SF;
 	case 1:
 #ifdef JP
-		c_put_str(TERM_YELLOW, "ストレート",  4,  3);
+		c_put_str(TERM_YELLOW, "ストレート", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Straight",  4,  3);
+		c_put_str(TERM_YELLOW, "Straight", 4, 3);
 #endif
 		return ODDS_ST;
 	default:
@@ -729,9 +729,9 @@ static int yaku_check(void)
 	{
 
 #ifdef JP
-	c_put_str(TERM_YELLOW, "フラッシュ",  4,  3);
+	c_put_str(TERM_YELLOW, "フラッシュ", 4, 3);
 #else
-	c_put_str(TERM_YELLOW, "Flush",  4,  3);
+	c_put_str(TERM_YELLOW, "Flush", 4, 3);
 #endif
 		return ODDS_FL;
 	}
@@ -740,55 +740,55 @@ static int yaku_check(void)
 	{
 	case 1:
 #ifdef JP
-		c_put_str(TERM_YELLOW, "ワンペア",  4,  3);
+		c_put_str(TERM_YELLOW, "ワンペア", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "One pair",  4,  3);
+		c_put_str(TERM_YELLOW, "One pair", 4, 3);
 #endif
 		return 0;
 	case 2:
 #ifdef JP
-		c_put_str(TERM_YELLOW, "ツーペア",  4,  3);
+		c_put_str(TERM_YELLOW, "ツーペア", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Two pair",  4,  3);
+		c_put_str(TERM_YELLOW, "Two pair", 4, 3);
 #endif
 		return ODDS_2P;
 	case 3:
 #ifdef JP
-		c_put_str(TERM_YELLOW, "スリーカード",  4,  3);
+		c_put_str(TERM_YELLOW, "スリーカード", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Three of a kind",  4,  3);
+		c_put_str(TERM_YELLOW, "Three of a kind", 4, 3);
 #endif
 		return ODDS_3C;
 	case 4:
 #ifdef JP
-		c_put_str(TERM_YELLOW, "フルハウス",  4,  3);
+		c_put_str(TERM_YELLOW, "フルハウス", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Full house",  4,  3);
+		c_put_str(TERM_YELLOW, "Full house", 4, 3);
 #endif
 		return ODDS_FH;
 	case 6:
 #ifdef JP
-		c_put_str(TERM_YELLOW, "フォーカード",  4,  3);
+		c_put_str(TERM_YELLOW, "フォーカード", 4, 3);
 #else
-		c_put_str(TERM_YELLOW, "Four of a kind",  4,  3);
+		c_put_str(TERM_YELLOW, "Four of a kind", 4, 3);
 #endif
 		return ODDS_4C;
 	case 7:
 		if(!NUM_OF(cards[0]) || !NUM_OF(cards[1]))
 		{
 #ifdef JP
-			c_put_str(TERM_YELLOW, "ファイブエース",  4,  3);
+			c_put_str(TERM_YELLOW, "ファイブエース", 4, 3);
 #else
-			c_put_str(TERM_YELLOW, "Five ace",  4,  3);
+			c_put_str(TERM_YELLOW, "Five ace", 4, 3);
 #endif
 			return ODDS_5A;
 		}
 		else
 		{
 #ifdef JP
-			c_put_str(TERM_YELLOW, "ファイブカード",  4,  3);
+			c_put_str(TERM_YELLOW, "ファイブカード", 4, 3);
 #else
-			c_put_str(TERM_YELLOW, "Five of a kind",  4,  3);
+			c_put_str(TERM_YELLOW, "Five of a kind", 4, 3);
 #endif
 			return ODDS_5C;
 		}
@@ -809,22 +809,22 @@ static void display_kaeruka(int hoge, int kaeruka[])
 		else col = TERM_L_BLUE;
 #ifdef JP
 		if(kaeruka[i])
-			c_put_str(col, "かえる", 14,  5+i*16);
+			c_put_str(col, "かえる", 14, 5+i*16);
 		else
-			c_put_str(col, "のこす", 14,  5+i*16);
+			c_put_str(col, "のこす", 14, 5+i*16);
 #else
 		if(kaeruka[i])
-			c_put_str(col, "Change", 14,  5+i*16);
+			c_put_str(col, "Change", 14, 5+i*16);
 		else
-			c_put_str(col, " Stay ", 14,  5+i*16);
+			c_put_str(col, " Stay ", 14, 5+i*16);
 #endif
 	}
 	if(hoge > 4) col = TERM_YELLOW;
 	else col = TERM_WHITE;
 #ifdef JP
-	c_put_str(col, "決定", 16,  38);
+	c_put_str(col, "決定", 16, 38);
 #else
-	c_put_str(col, "Sure", 16,  38);
+	c_put_str(col, "Sure", 16, 38);
 #endif
 
 	/* Hilite current option */
@@ -1044,9 +1044,9 @@ static void display_cards(void)
 	for (i = 0; i < 5; i++)
 	{
 #ifdef JP
-		prt("┏━━━━━━┓",  5,  i*16);
+		prt("┏━━━━━━┓", 5, i*16);
 #else
-		prt(" +------------+ ",  5,  i*16);
+		prt(" +------------+ ", 5, i*16);
 #endif
 	}
 
@@ -1055,27 +1055,27 @@ static void display_cards(void)
 		for (j = 0; j < 7; j++)
 		{
 #ifdef JP
-			prt("┃",  j+6,  i*16);
+			prt("┃", j+6, i*16);
 #else
-			prt(" |",  j+6,  i*16);
+			prt(" |", j+6, i*16);
 #endif
 			if(IS_JOKER(cards[i]))
-				c_put_str(TERM_VIOLET, joker_grph[j],  j+6,  2+i*16);
+				c_put_str(TERM_VIOLET, joker_grph[j], j+6, 2+i*16);
 			else
-				c_put_str(suitcolor[SUIT_OF(cards[i])], format(card_grph[NUM_OF(cards[i])][j], suit[SUIT_OF(cards[i])], suit[SUIT_OF(cards[i])]),  j+6,  2+i*16);
+				c_put_str(suitcolor[SUIT_OF(cards[i])], format(card_grph[NUM_OF(cards[i])][j], suit[SUIT_OF(cards[i])], suit[SUIT_OF(cards[i])]), j+6, 2+i*16);
 #ifdef JP
-			prt("┃",  j+6,  i*16+14);
+			prt("┃", j+6, i*16+14);
 #else
-			prt("| ",  j+6,  i*16+14);
+			prt("| ", j+6, i*16+14);
 #endif
 		}
 	}
 	for (i = 0; i < 5; i++)
 	{
 #ifdef JP
-		prt("┗━━━━━━┛", 13,  i*16);
+		prt("┗━━━━━━┛", 13, i*16);
 #else
-		prt(" +------------+ ", 13,  i*16);
+		prt(" +------------+ ", 13, i*16);
 #endif
 	}
 }
@@ -1480,7 +1480,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					}
 					put_str("/--------------------------\\", 7, 2);
 					prt("\\--------------------------/", 17, 2);
-					display_fruit(8,  3, roll1 - 1);
+					display_fruit(8, 3, roll1 - 1);
 					display_fruit(8, 12, roll2 - 1);
 					display_fruit(8, 21, choice - 1);
 					if((roll1 == roll2) && (roll2 == choice))
@@ -3870,7 +3870,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	}
 
 #ifdef JP
-	if(!get_check(format("すべてのアイテムを ＄%d で再充填しますか？",  total_cost))) return;
+	if(!get_check(format("すべてのアイテムを ＄%d で再充填しますか？", total_cost))) return;
 #else
 	if(!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
 #endif

@@ -1013,6 +1013,7 @@ bool set_image(creature_type *creature_ptr, int v)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_FAST]", notice observable changes
  */
+#if 0
 bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -1115,6 +1116,7 @@ bool set_fast(creature_type *creature_ptr, int v, bool do_dec)
 
 	}
 }
+#endif
 
 
 /*
@@ -1686,7 +1688,7 @@ bool set_hero(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_S_HERO]", notice observable changes
  */
-bool set_shero(creature_type *creature_ptr,  int v, bool do_dec)
+bool set_shero(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
 
@@ -5801,8 +5803,8 @@ static void you_died(cptr hit_from)
 					int i, len;
 					int w = Term->wid;
 					int h = Term->hgt;
-					int msg_pos_x[9] = {  5,  7,  9, 12,  14,  17,  19,  21, 23};
-					int msg_pos_y[9] = {  3,  4,  5,  4,   5,   4,   5,   6,  4};
+					int msg_pos_x[9] = {  5, 7, 9, 12, 14, 17, 19, 21, 23};
+					int msg_pos_y[9] = {  3, 4, 5, 4, 5, 4, 5, 6, 4};
 					cptr str;
 					char* str2;
 	
@@ -6864,9 +6866,9 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	num = (creature_ptr->lev - 20) / 5;
 
 #ifdef JP
-		      c_prt(TERM_RED,    "        a) ÄŠü", 2, 14);
+		      c_prt(TERM_RED, "        a) ÄŠü", 2, 14);
 #else
-		      c_prt(TERM_RED,    "        a) Fire Brand", 2, 14);
+		      c_prt(TERM_RED, "        a) Fire Brand", 2, 14);
 #endif
 
 #ifdef JP
@@ -6877,9 +6879,9 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	else prt("", 3, 14);
 
 #ifdef JP
-	if(num >= 3) c_prt(TERM_GREEN,  "        c) “ÅŽE", 4, 14);
+	if(num >= 3) c_prt(TERM_GREEN, "        c) “ÅŽE", 4, 14);
 #else
-	if(num >= 3) c_prt(TERM_GREEN,  "        c) Poison Brand", 4, 14);
+	if(num >= 3) c_prt(TERM_GREEN, "        c) Poison Brand", 4, 14);
 #endif
 	else prt("", 4, 14);
 
@@ -6891,9 +6893,9 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	else prt("", 5, 14);
 
 #ifdef JP
-	if(num >= 5) c_prt(TERM_BLUE,   "        e) “dŒ‚", 6, 14);
+	if(num >= 5) c_prt(TERM_BLUE, "        e) “dŒ‚", 6, 14);
 #else
-	if(num >= 5) c_prt(TERM_BLUE,   "        e) Elec Brand", 6, 14);
+	if(num >= 5) c_prt(TERM_BLUE, "        e) Elec Brand", 6, 14);
 #endif
 	else prt("", 6, 14);
 
@@ -6947,9 +6949,9 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 	screen_save();
 
 #ifdef JP
-	c_prt(TERM_RED,    "        a) ‰Î‰Š", 2, 14);
+	c_prt(TERM_RED, "        a) ‰Î‰Š", 2, 14);
 #else
-	c_prt(TERM_RED,    "        a) Immune Fire", 2, 14);
+	c_prt(TERM_RED, "        a) Immune Fire", 2, 14);
 #endif
 
 #ifdef JP
@@ -6965,9 +6967,9 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 #endif
 
 #ifdef JP
-	c_prt(TERM_BLUE,   "        d) “dŒ‚", 5, 14);
+	c_prt(TERM_BLUE, "        d) “dŒ‚", 5, 14);
 #else
-	c_prt(TERM_BLUE,   "        d) Immune Elec", 5, 14);
+	c_prt(TERM_BLUE, "        d) Immune Elec", 5, 14);
 #endif
 
 

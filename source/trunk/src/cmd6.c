@@ -999,11 +999,11 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_SPEED:
 			if(!creature_ptr->timed_trait[TRAIT_FAST])
 			{
-				if(set_fast(creature_ptr, randint1(25) + 15, FALSE)) ident = TRUE;
+				if(set_timed_trait(creature_ptr, TRAIT_FAST, randint1(25) + 15)) ident = TRUE;
 			}
 			else
 			{
-				(void)set_fast(creature_ptr, creature_ptr->timed_trait[TRAIT_FAST] + 5, FALSE);
+				(void)set_timed_trait(creature_ptr, TRAIT_FAST, creature_ptr->timed_trait[TRAIT_FAST] + 5);
 			}
 			break;
 
@@ -2458,7 +2458,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SPEED:
 		{
-			if(set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 15)) ident = TRUE;
 			break;
 		}
 
@@ -3373,7 +3373,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_SPEED:
 		{
-			if(set_fast(creature_ptr, randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 15)) ident = TRUE;
 			break;
 		}
 
@@ -4119,7 +4119,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 			case TRAIT_HASTE_2:
 			{
-				(void)set_fast(creature_ptr, randint1(75) + 75, FALSE);
+				(void)set_timed_trait(creature_ptr, TRAIT_FAST, randint1(75) + 75);
 				break;
 			}
 
@@ -4374,7 +4374,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 				msg_print("Your boots glow bright green...");
 #endif
-				(void)set_fast(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait(creature_ptr, TRAIT_FAST, randint1(20) + 20);
 				break;
 			}
 

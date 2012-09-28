@@ -1263,7 +1263,7 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		sleep_creature(caster_ptr, dir);
 		break;
 	case TRAIT_HASTE:
-		(void)set_fast(caster_ptr, randint1(20 + plev) + plev, FALSE);
+		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + plev) + plev);
 		break;
 	case TRAIT_HAND_DOOM:
 	{

@@ -1962,7 +1962,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 		{
 			if(!is_pet(player_ptr, m_ptr))
 			{
-				(void)set_fast(m_ptr, m_ptr->timed_trait[TRAIT_FAST] + 100, FALSE);
+				(void)set_timed_trait(m_ptr, TRAIT_FAST, m_ptr->timed_trait[TRAIT_FAST] + 100);
 				speed = TRUE;
 			}
 		}
@@ -2294,13 +2294,13 @@ bool probing(floor_type *floor_ptr)
 			/* Describe the creature */
 #ifdef JP
 sprintf(buf,"%s ‘®«:%s «•Ê:%s HP:%d/%d AC:%d ‘¬“x:%s%d ˜r:%d ’m:%d Œ«:%d Ší:%d ‘Ï:%d –£:%d ŒoŒ±:",
-		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
+		m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
 		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
 		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #else
 sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:",
-		m_name, align, sex, m_ptr->chp, m_ptr->mhp,  m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
+		m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
 		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
 		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
@@ -4291,13 +4291,13 @@ void call_chaos(creature_type *creature_ptr)
 
 	int hurt_types[31] =
 	{
-		GF_ELEC,      GF_POIS,    GF_ACID,    GF_COLD,
-		GF_FIRE,      GF_MISSILE, GF_ARROW,   GF_PLASMA,
-		GF_HOLY_FIRE, GF_WATER,   GF_LITE,    GF_DARK,
-		GF_FORCE,     GF_INERTIA, GF_MANA,    GF_METEOR,
-		GF_ICE,       GF_CHAOS,   GF_NETHER,  GF_DISENCHANT,
-		GF_SHARDS,    GF_SOUND,   GF_NEXUS,   GF_CONFUSION,
-		GF_TIME,      GF_GRAVITY, GF_ROCKET,  GF_NUKE,
+		GF_ELEC, GF_POIS, GF_ACID, GF_COLD,
+		GF_FIRE, GF_MISSILE, GF_ARROW, GF_PLASMA,
+		GF_HOLY_FIRE, GF_WATER, GF_LITE, GF_DARK,
+		GF_FORCE, GF_INERTIA, GF_MANA, GF_METEOR,
+		GF_ICE, GF_CHAOS, GF_NETHER, GF_DISENCHANT,
+		GF_SHARDS, GF_SOUND, GF_NEXUS, GF_CONFUSION,
+		GF_TIME, GF_GRAVITY, GF_ROCKET, GF_NUKE,
 		GF_HELL_FIRE, GF_DISINTEGRATE, GF_PSY_SPEAR
 	};
 
