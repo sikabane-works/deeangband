@@ -2432,7 +2432,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 		case TRAIT_BERSERK:
 		{
 			(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-			(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
 			(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
 			break;
 		}

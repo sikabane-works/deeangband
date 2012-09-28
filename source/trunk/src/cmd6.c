@@ -1023,7 +1023,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 
 		case SV_POTION_HEROISM:
 			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
-			if(set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_HERO, creature_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
 			if(heal_creature(creature_ptr, 10)) ident = TRUE;
 			break;
 
@@ -4198,7 +4198,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_MULTI_BLESS_1:
 			{
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
 				(void)set_oppose_acid(creature_ptr, randint1(50) + 50, FALSE);
@@ -4224,7 +4224,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(25) + 25, FALSE);
 				(void)heal_creature(creature_ptr, 777);
 				break;
 			}
@@ -4878,7 +4878,7 @@ if(get_check("この階を去りますか？"))
 			case TRAIT_BECOME_HERO:
 			{
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				set_hero(creature_ptr, randint1(25)+25, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(25)+25, FALSE);
 				heal_creature(creature_ptr, 10);
 				break;
 			}
@@ -4922,7 +4922,7 @@ if(get_check("この階を去りますか？"))
 				msg_print("You stamp. (as if you are in a ring.)");
 #endif
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_hero(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
 				dispel_evil(creature_ptr, creature_ptr->lev * 3);
 				object_ptr->timeout = 100 + randint1(100);
 				break;
@@ -5244,7 +5244,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 			case EGO_RING_HERO:
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_hero(creature_ptr, randint1(25) + 25, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(25) + 25, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				object_ptr->timeout = randint1(100)+100;
 				break;
@@ -5277,7 +5277,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 				int v = randint1(25)+25;
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_hero(creature_ptr, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, v, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, v, FALSE);
 				(void)set_oppose_acid(creature_ptr, v, FALSE);

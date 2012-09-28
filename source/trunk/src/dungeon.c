@@ -2177,7 +2177,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Heroism */
 	if(creature_ptr->timed_trait[TRAIT_HERO])
 	{
-		(void)set_hero(creature_ptr, creature_ptr->timed_trait[TRAIT_HERO] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, creature_ptr->timed_trait[TRAIT_HERO] - 1, TRUE);
 	}
 
 	/* Super Heroism */

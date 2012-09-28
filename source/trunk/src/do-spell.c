@@ -6768,7 +6768,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_hero(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
@@ -7963,7 +7963,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_hero(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
@@ -8716,7 +8716,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_hero(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				heal_creature(creature_ptr, 10);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 			}
@@ -8905,7 +8905,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 					if(attempt < 0) continue;
 					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				}
-				set_hero(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 				set_protevil(creature_ptr, randint1(base) + base, FALSE);

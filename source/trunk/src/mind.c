@@ -951,7 +951,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		}
 
 		b = 10 + randint1((plev * 3) / 2);
-		set_hero(creature_ptr, b, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_HERO, b, FALSE);
 		/* Haste */
 		(void)set_timed_trait(creature_ptr, TRAIT_FAST, b);
 		break;
