@@ -1437,7 +1437,7 @@ msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
 					/* Remove the creature restriction */
 					reset_species_preps();
 				}
-				(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 5);
+				(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 5);
 			}
 			break;
 		}
@@ -2257,7 +2257,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
 			/* Disturb the creature */
-			(void)set_paralyzed(m_ptr, 0);
+			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 
 			/* Extract creature name (or "it") */
 			creature_desc(m_name, m_ptr, 0);

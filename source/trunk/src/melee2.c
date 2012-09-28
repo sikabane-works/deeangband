@@ -1272,7 +1272,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 			disturb(player_ptr, 1, 0);
 
 			// Hack -- faint (bypass free action)
-			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 1 + randint0(5));
+			(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 1 + randint0(5));
 		}
 
 		// Starve to death (slowly)
@@ -1663,7 +1663,7 @@ static void process_nonplayer(int m_idx)
 
 		// Handle aggravation
 		// Reset sleep counter
-		(void)set_paralyzed(&creature_list[m_idx], 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
 
 		// Notice the "waking up"
 		if(creature_ptr->see_others || creature_ptr->hear_noise)
@@ -2249,7 +2249,7 @@ static void process_nonplayer(int m_idx)
 				did_move_body = TRUE;
 
 				/* Wake up the moved creature */
-				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
 
 				/* XXX XXX XXX Message */
 			}
@@ -2888,7 +2888,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 				/* Creature wakes up "a little bit" */
 
 				/* Still asleep */
-				if(!set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] - d))
+				if(!set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] - d))
 				{
 					/* Notice the "not waking up" */
 					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))

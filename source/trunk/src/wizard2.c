@@ -1425,7 +1425,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 	(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 	(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-	(void)set_paralyzed(creature_ptr, 0);
+	(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
 	(void)set_image(creature_ptr, 0);
 	(void)set_stun(creature_ptr, 0);
 	(void)set_cut(creature_ptr, 0);

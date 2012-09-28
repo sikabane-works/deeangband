@@ -156,7 +156,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 				{
-					if(set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 10))
+					if(set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 10))
 					{
 						ident = TRUE;
 					}
@@ -791,7 +791,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			}
 
 			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 4);
+			(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 			ident = TRUE;
 			break;
 
@@ -882,7 +882,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 					/* Remove the creature restriction */
 					reset_species_preps();
 				}
-				if(set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))
+				if(set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))
 				{
 					ident = TRUE;
 				}
@@ -4631,7 +4631,7 @@ if(get_check("‚±‚ÌŠK‚ð‹Ž‚è‚Ü‚·‚©H"))
 #endif
 
 						/* Hack -- Bypass free action */
-						(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] +
+						(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] +
 							randint1(5 * oops + 1));
 
 						/* Confusing. */

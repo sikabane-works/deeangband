@@ -792,6 +792,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 /*
  * Set "paralyzed", notice observable changes
  */
+#if 0
 bool set_paralyzed(creature_type *creature_ptr, int v)
 {
 	bool notice = FALSE;
@@ -912,6 +913,7 @@ bool set_paralyzed(creature_type *creature_ptr, int v)
 
 	}
 }
+#endif
 
 /*
  * Set "slept", notice observable changes
@@ -6024,7 +6026,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	}
 
 	/* Wake it up */
-	(void)set_paralyzed(target_ptr, 0);
+	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 
 	if(attacker_ptr)
 	{

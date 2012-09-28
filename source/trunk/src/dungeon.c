@@ -2129,7 +2129,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Paralysis */
 	if(creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
-		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] - dec_count);
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] - dec_count);
 	}
 
 	/* Confusion */
@@ -5272,7 +5272,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			char m_name[80];
 
 			/* Recover fully */
-			(void)set_paralyzed(&creature_list[creature_ptr->riding], 0);
+			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 
 			/* Acquire the creature name */
 			creature_desc(m_name, m_ptr, 0);
@@ -5325,7 +5325,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(m_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			/* Hack -- Recover from fear */
-			if(set_afraid(m_ptr, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
+			if(set_timed_trait(m_ptr, TRAIT_AFRAID, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
 				char m_name[80];
 

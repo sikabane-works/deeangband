@@ -2006,7 +2006,7 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage CON (possibly permanently) */
 		if(randint0(100) < 50)

@@ -1338,7 +1338,7 @@ msg_print("An infernal sound echoed.");
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage CON (possibly permanently) */
 		if(randint0(100) < 50)
@@ -1952,7 +1952,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		{
 			char steed_name[80];
 			creature_desc(steed_name, steed_ptr, 0);
-			(void)set_paralyzed(steed_ptr, 0);
+			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0);
 #ifdef JP
 			msg_format("%s‚ð‹N‚±‚µ‚½B", steed_name);
 #else

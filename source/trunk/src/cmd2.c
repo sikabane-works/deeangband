@@ -562,7 +562,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 		{
-			(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 10 + randint1(20));
+			(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 10 + randint1(20));
 		}
 	}
 
@@ -711,7 +711,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 				else if(one_in_(4))
 				{
 					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
-						(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + 
+						(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + 
 						randint0(6));
 					else 
 						(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
@@ -2174,7 +2174,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 
 		/* Hack -- Lose balance ala paralysis */
-		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + randint0(2));
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + randint0(2));
 	}
 
 	/* Result */

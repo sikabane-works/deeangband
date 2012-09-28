@@ -2029,7 +2029,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 
 		/* Wake the creature up */
-		(void)set_paralyzed(target_ptr, 0);
+		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 
 		/* Hurt the creature */
 		target_ptr->chp -= dam;
@@ -2091,7 +2091,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				player_ptr->hear_noise = TRUE; // check all creature
 			}
 
-			if(do_sleep) (void)set_paralyzed(target_ptr, do_sleep); // Hack -- handle sleep
+			if(do_sleep) (void)set_timed_trait(target_ptr, TRAIT_PARALYZED, do_sleep); // Hack -- handle sleep
 		}
 	}
 
@@ -2148,7 +2148,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				anger_creature(caster_ptr, target_ptr);
 
 			/* Hack -- handle sleep */
-			if(do_sleep) (void)set_paralyzed(target_ptr, do_sleep);
+			if(do_sleep) (void)set_timed_trait(target_ptr, TRAIT_PARALYZED, do_sleep);
 		}
 	}
 
@@ -3031,7 +3031,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(fuzzy) msg_print("You are hit by something invigorating!");
 #endif
 
-			(void)set_paralyzed(target_ptr, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 			(void)set_stun(target_ptr, 0);
 			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
 			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, 0);
@@ -3105,7 +3105,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				reset_species_preps();									// Remove the creature restriction
 			}
 
-			set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + dam);
+			set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + dam);
 			dam = 0;
 			break;
 		}
@@ -3454,7 +3454,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 					if(!has_trait(target_ptr, TRAIT_FREE_ACTION))
 					{
-						(void)set_paralyzed(target_ptr, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+						(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 					}
 					(void)set_slow(target_ptr, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
 
@@ -3964,7 +3964,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 								}
 								default:
 									if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-										(void)set_paralyzed(caster_ptr, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
+										(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
 									break;
 							}
 						}
@@ -4404,7 +4404,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(seen) obvious = TRUE;
 
 			/* Wake up */
-			(void)set_paralyzed(target_ptr, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 
 			if(target_ptr->mhp < target_ptr->mmhp)
 			{

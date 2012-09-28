@@ -1951,7 +1951,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 			/* Wake up */
 			if(m_ptr->timed_trait[TRAIT_PARALYZED])
 			{
-				(void)set_paralyzed(&creature_list[i], 0);
+				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 				sleep = TRUE;
 			}
 			if(!is_pet(player_ptr, m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
@@ -2030,7 +2030,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		}
 		if(m_ptr->timed_trait[TRAIT_PARALYZED])
 		{
-			(void)set_paralyzed(&creature_list[m_idx], 0);
+			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 			if(m_ptr->see_others || m_ptr->hear_noise)
 			{
 #ifdef JP
@@ -3008,7 +3008,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					damage = (sn ? diceroll(4, 8) : (m_ptr->chp + 1));
 
 					/* Creature is certainly awake */
-					(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
+					(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 
 					/* Apply damage directly */
 					m_ptr->chp -= damage;
@@ -3325,7 +3325,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			if(m_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < chance))
 			{
 				/* Wake up! */
-				(void)set_paralyzed(&creature_list[c_ptr->creature_idx], 0);
+				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 
 				/* Notice the "waking up" */
 				if(m_ptr->see_others || m_ptr->hear_noise)
@@ -3992,7 +3992,7 @@ msg_print("Ž¸”s‚µ‚½B");
 	target_ptr = &creature_list[c_ptr->creature_idx];
 	r_ptr = &species_info[target_ptr->species_idx];
 
-	(void)set_paralyzed(target_ptr, 0);
+	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 
 	if(has_trait(target_ptr, TRAIT_RES_TELE))
 	{
@@ -4441,9 +4441,9 @@ msg_print("’¤‘œ‚É‚È‚Á‚½‹C•ª‚¾I");
 #endif
 
 				if(has_trait(creature_ptr, TRAIT_FREE_ACTION))
-					set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(3));
+					set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(3));
 				else
-					set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(13));
+					set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(13));
 				stop_ty = TRUE;
 			}
 			if(!one_in_(6)) break;

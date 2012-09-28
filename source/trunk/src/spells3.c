@@ -1615,7 +1615,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 			if(c_ptr->creature_idx && m_ptr->timed_trait[TRAIT_PARALYZED])
 			{
 				/* Reset sleep counter */
-				(void)set_paralyzed(m_ptr, 0);
+				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 
 				/* Notice the "waking up" */
 				if(m_ptr->see_others || m_ptr->hear_noise)

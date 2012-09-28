@@ -713,7 +713,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	/* Hack -- count the number of "reproducers" */
 	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro--;
 
-	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) (void)set_paralyzed(creature_ptr, 0);
+	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) (void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
 	if(creature_ptr->timed_trait[TRAIT_FAST]) (void)set_fast(creature_ptr, 0, FALSE);
 	if(creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_slow(creature_ptr, 0, FALSE);
 	if(creature_ptr->timed_trait[TRAIT_STUN]) (void)set_stun(creature_ptr, 0);
@@ -2367,7 +2367,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		}
 		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
-			(void)set_paralyzed(watcher_ptr, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+			(void)set_timed_trait(watcher_ptr, TRAIT_PARALYZED, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
 		while (randint0(100) > watcher_ptr->skill_rob)
 			(void)do_dec_stat(watcher_ptr, STAT_INT);
@@ -3822,7 +3822,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if((mode & PC_ALLOW_SLEEP) && r_ptr->sleep && !curse_of_Iluvatar) // Enforce sleeping if needed
 	{
 		int val = r_ptr->sleep;
-		(void)set_paralyzed(&creature_list[c_ptr->creature_idx], (val * 2) + randint1(val * 10));
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, (val * 2) + randint1(val * 10));
 	}
 
 	if(mode & PC_HASTE) (void)set_fast(&creature_list[c_ptr->creature_idx], 100, FALSE);

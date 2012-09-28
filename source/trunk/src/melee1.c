@@ -191,7 +191,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	}
 
 	// Disturb the creature
-	(void)set_paralyzed(target_ptr, 0);
+	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 
 	// Extract attacker and target name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);
@@ -1313,7 +1313,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 #endif
 		}
 
-		(void)set_paralyzed(target_ptr, 0); // Disturb the creature
+		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0); // Disturb the creature
 		return TRUE; // Done
 	}
 
@@ -3102,7 +3102,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					if(!target_ptr->timed_trait[TRAIT_PARALYZED])
 					{
-						if(set_paralyzed(target_ptr, 3 + randint1(rlev)))
+						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(rlev)))
 						{
 							obvious = TRUE;
 						}

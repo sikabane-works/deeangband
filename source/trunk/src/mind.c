@@ -1696,7 +1696,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		m_ptr->fx = tx;
 
 		/* Wake the creature up */
-		(void)set_paralyzed(&creature_list[m_idx], 0);
+		(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 
 		/* Update the creature (new location) */
 		update_creature_view(player_ptr, m_idx, TRUE);
@@ -2149,7 +2149,7 @@ msg_format("%sを集中しすぎて気を失ってしまった！",p);
 
 
 		/* Hack -- Bypass free action */
-		(void)set_paralyzed(creature_ptr, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
+		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
 
 		/* Damage WIS (possibly permanently) */
 		if(randint0(100) < 50)

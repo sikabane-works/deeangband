@@ -2333,7 +2333,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
 		{
-			(void)set_paralyzed(watcher_ptr, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+			(void)set_timed_trait(watcher_ptr, TRAIT_PARALYZED, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
 		while (!saving_throw(watcher_ptr->skill_rob))
 		{
