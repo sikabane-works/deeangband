@@ -1985,301 +1985,33 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
  */
 static void process_world_aux_timeout(creature_type *creature_ptr)
 {
+	int i;
 	const int dec_count = 1;
 
-	/*** Timeout Various Things ***/
+	//*** Timeout Various Things ***//
 
-	/* Mimic */
-	if(creature_ptr->timed_trait[TRAIT_MIMIC])
-	{
-		(void)set_mimic(creature_ptr, creature_ptr->timed_trait[TRAIT_MIMIC] - 1, creature_ptr->mimic_race_idx, TRUE);
-	}
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(creature_ptr->timed_trait[i] > 0)
+			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count);
 
-	/* Hack -- Hallucinating */
-	if(IS_HALLUCINATION(creature_ptr)) (void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) - dec_count);
+	//*** Poison and Stun and Cut ***//
 
-	/* Blindness */
-	if(IS_BLIND(creature_ptr)) (void)set_timed_trait(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) - dec_count);
-
-	/* Times see-invisible */
-	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_SEE_INVISIBLE, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] - 1, TRUE);
-	}
-
-	if(multi_rew)
-	{
-		multi_rew = FALSE;
-	}
-
-	/* Timed esp */
-	if(creature_ptr->timed_trait[TRAIT_ESP])
-	{
-		(void)set_tim_esp(creature_ptr, creature_ptr->timed_trait[TRAIT_ESP] - 1, TRUE);
-	}
-
-	/* Timed temporary elemental brands. -LM- */
-	if(creature_ptr->timed_trait[TRAIT_FIRE_BRAND])
-	{
-		creature_ptr->timed_trait[TRAIT_FIRE_BRAND]--;
-
-		/* Clear all temporary elemental brands. */
-		if(!creature_ptr->timed_trait[TRAIT_FIRE_BRAND]) set_ele_attack(creature_ptr, 0, 0);
-	}
-
-	/* Timed temporary elemental immune. -LM- */
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE])
-	{
-		creature_ptr->timed_trait[TRAIT_IM_FIRE]--;
-
-		/* Clear all temporary elemental brands. */
-		if(!creature_ptr->timed_trait[TRAIT_IM_FIRE]) set_ele_immune(creature_ptr, 0, 0);
-	}
-
-	/* Timed infra-vision */
-	if(creature_ptr->timed_trait[TRAIT_SEE_INFRA])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_SEE_INFRA, creature_ptr->timed_trait[TRAIT_SEE_INFRA] - 1, TRUE);
-	}
-
-	/* Timed stealth */
-	if(creature_ptr->timed_trait[TRAIT_STEALTH_PLUS])
-	{
-		(void)set_tim_stealth(creature_ptr, creature_ptr->timed_trait[TRAIT_STEALTH_PLUS] - 1, TRUE);
-	}
-
-	/* Timed levitation */
-	if(creature_ptr->timed_trait[TRAIT_LEVITATION])
-	{
-		(void)set_tim_levitation(creature_ptr, creature_ptr->timed_trait[TRAIT_LEVITATION] - 1, TRUE);
-	}
-
-	/* Timed sh_touki */
-	if(creature_ptr->timed_trait[TRAIT_AURA_MANA])
-	{
-		(void)set_tim_sh_touki(creature_ptr, creature_ptr->timed_trait[TRAIT_AURA_MANA] - 1, TRUE);
-	}
-
-	/* Timed sh_fire */
-	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE])
-	{
-		(void)set_tim_sh_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_AURA_FIRE] - 1, TRUE);
-	}
-
-	/* Timed sh_holy */
-	if(creature_ptr->timed_trait[TRAIT_HOLY_AURA])
-	{
-		(void)set_tim_sh_holy(creature_ptr, creature_ptr->timed_trait[TRAIT_HOLY_AURA] - 1, TRUE);
-	}
-
-	/* Timed eyeeye */
-	if(creature_ptr->timed_trait[TRAIT_EYE_EYE])
-	{
-		(void)set_tim_eyeeye(creature_ptr, creature_ptr->timed_trait[TRAIT_EYE_EYE] - 1, TRUE);
-	}
-
-	/* Timed resist-magic */
-	if(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC])
-	{
-		(void)set_resist_magic(creature_ptr, creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] - 1, TRUE);
-	}
-
-	/* Timed regeneration */
-	if(creature_ptr->timed_trait[TRAIT_REGENERATE])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_REGENERATE, creature_ptr->timed_trait[TRAIT_REGENERATE] - 1, TRUE);
-	}
-
-	/* Timed resist nether */
-	if(creature_ptr->timed_trait[TRAIT_RES_NETH])
-	{
-		(void)set_tim_res_nether(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_NETH] - 1, TRUE);
-	}
-
-	/* Timed resist time */
-	if(creature_ptr->timed_trait[TRAIT_RES_TIME])
-	{
-		(void)set_tim_res_time(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_TIME] - 1, TRUE);
-	}
-
-	/* Timed reflect */
-	if(creature_ptr->timed_trait[TRAIT_REFLECTING])
-	{
-		(void)set_tim_reflect(creature_ptr, creature_ptr->timed_trait[TRAIT_REFLECTING] - 1, TRUE);
-	}
-
-	/* Multi-shadow */
-	if(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW])
-	{
-		(void)set_multishadow(creature_ptr, creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] - 1, TRUE);
-	}
-
-	/* Timed Robe of dust */
-	if(creature_ptr->timed_trait[TRAIT_DUST_ROBE])
-	{
-		(void)set_dustrobe(creature_ptr, creature_ptr->timed_trait[TRAIT_DUST_ROBE] - 1, TRUE);
-	}
-
-	/* Timed infra-vision */
-	if(creature_ptr->timed_trait[TRAIT_PASS_WALL])
-	{
-		(void)set_kabenuke(creature_ptr, creature_ptr->timed_trait[TRAIT_PASS_WALL] - 1, TRUE);
-	}
-
-	/* Paralysis */
-	if(creature_ptr->timed_trait[TRAIT_PARALYZED])
-	{
-		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] - dec_count);
-	}
-
-	/* Confusion */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
-	{
-		(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] - dec_count);
-	}
-
-	/* Afraid */
-	if(creature_ptr->timed_trait[TRAIT_AFRAID])
-	{
-		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] - dec_count);
-	}
-
-	/* Fast */
-	if(creature_ptr->timed_trait[TRAIT_FAST])
-	{
-		(void)set_timed_trait(creature_ptr, TRAIT_FAST, creature_ptr->timed_trait[TRAIT_FAST] - 1);
-	}
-
-	/* Slow */
-	if(creature_ptr->timed_trait[TRAIT_SLOW_])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] - dec_count, TRUE);
-	}
-
-	/* Protection from evil */
-	if(creature_ptr->timed_trait[TRAIT_PROT_EVIL])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_PROT_EVIL, creature_ptr->timed_trait[TRAIT_PROT_EVIL] - 1, TRUE);
-	}
-
-	/* Invulnerability */
-	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, creature_ptr->timed_trait[TRAIT_INVULNERABLE] - 1, TRUE);
-	}
-
-	/* Wraith form */
-	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
-	{
-		(void)set_wraith_form(creature_ptr, creature_ptr->timed_trait[TRAIT_WRAITH_FORM] - 1, TRUE);
-	}
-
-	/* Heroism */
-	if(creature_ptr->timed_trait[TRAIT_HERO])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, creature_ptr->timed_trait[TRAIT_HERO] - 1, TRUE);
-	}
-
-	/* Super Heroism */
-	if(creature_ptr->timed_trait[TRAIT_S_HERO])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, creature_ptr->timed_trait[TRAIT_S_HERO] - 1, TRUE);
-	}
-
-	/* Blessed */
-	if(creature_ptr->timed_trait[TRAIT_BLESSED])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->timed_trait[TRAIT_BLESSED] - 1, TRUE);
-	}
-
-	/* Shield */
-	if(creature_ptr->timed_trait[TRAIT_SHIELD])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, creature_ptr->timed_trait[TRAIT_SHIELD] - 1, TRUE);
-	}
-
-	/* Tsubureru */
-	if(creature_ptr->timed_trait[TRAIT_TSUBURERU])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_TSUBURERU, creature_ptr->timed_trait[TRAIT_TSUBURERU] - 1, TRUE);
-	}
-
-	/* Magicdef */
-	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_DEF, creature_ptr->timed_trait[TRAIT_MAGIC_DEF] - 1, TRUE);
-	}
-
-	/* Tsuyoshi */
-	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI])
-	{
-		(void)set_tsuyoshi(creature_ptr, creature_ptr->timed_trait[TRAIT_TSUYOSHI] - 1, TRUE);
-	}
-
-	/* Oppose Acid */
-	if(creature_ptr->timed_trait[TRAIT_RES_ACID])
-	{
-		(void)set_oppose_acid(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ACID] - 1, TRUE);
-	}
-
-	/* Oppose Lightning */
-	if(creature_ptr->timed_trait[TRAIT_RES_ELEC])
-	{
-		(void)set_oppose_elec(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ELEC] - 1, TRUE);
-	}
-
-	/* Oppose Fire */
-	if(creature_ptr->timed_trait[TRAIT_RES_FIRE])
-	{
-		(void)set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] - 1, TRUE);
-	}
-
-	/* Oppose Cold */
-	if(creature_ptr->timed_trait[TRAIT_RES_COLD])
-	{
-		(void)set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] - 1, TRUE);
-	}
-
-	/* Oppose Poison */
-	if(creature_ptr->timed_trait[TRAIT_RES_POIS])
-	{
-		(void)set_oppose_pois(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_POIS] - 1, TRUE);
-	}
-
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES])
-	{
-		(void)set_ultimate_res(creature_ptr, creature_ptr->timed_trait[TRAIT_ULTRA_RES] - 1, TRUE);
-	}
-
-	/*** Poison and Stun and Cut ***/
-
-	/* Poison */
 	if(creature_ptr->timed_trait[TRAIT_POISONED])
 	{
-		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
-
-		/* Apply some healing */
+		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
 		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] - adjust);
 	}
 
-	/* Stun */
 	if(creature_ptr->timed_trait[TRAIT_STUN])
 	{
-		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
-
-		/* Apply some healing */
+		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
 		(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] - adjust);
 	}
 
-	/* Cut */
 	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT))
 	{
-		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]] + 1;
-
-		/* Hack -- Truly "mortal" wound */
+		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
 		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) adjust = 0;
-
-		/* Apply some healing */
 		(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - adjust);
 	}
 }
