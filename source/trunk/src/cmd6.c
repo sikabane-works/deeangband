@@ -1798,19 +1798,19 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_BLESSING:
 		{
-			if(set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(12) + 6, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(12) + 6, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_CHANT:
 		{
-			if(set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(24) + 12, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(24) + 12, FALSE)) ident = TRUE;
 			break;
 		}
 
 		case SV_SCROLL_HOLY_PRAYER:
 		{
-			if(set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(48) + 24, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->timed_trait[TRAIT_BLESSED] + randint1(48) + 24, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -4200,7 +4200,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, randint1(50) + 50, FALSE);
 				(void)heal_creature(creature_ptr, 10);
-				(void)set_blessed(creature_ptr, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
 				(void)set_oppose_acid(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_elec(creature_ptr, randint1(50) + 50, FALSE);
 				(void)set_oppose_fire(creature_ptr, randint1(50) + 50, FALSE);
@@ -5279,7 +5279,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				(void)set_hero(creature_ptr, v, FALSE);
 				(void)heal_creature(creature_ptr, 10);
-				(void)set_blessed(creature_ptr, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, v, FALSE);
 				(void)set_oppose_acid(creature_ptr, v, FALSE);
 				(void)set_oppose_elec(creature_ptr, v, FALSE);
 				(void)set_oppose_fire(creature_ptr, v, FALSE);

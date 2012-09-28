@@ -2189,7 +2189,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Blessed */
 	if(creature_ptr->timed_trait[TRAIT_BLESSED])
 	{
-		(void)set_blessed(creature_ptr, creature_ptr->timed_trait[TRAIT_BLESSED] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->timed_trait[TRAIT_BLESSED] - 1, TRUE);
 	}
 
 	/* Shield */

@@ -1592,6 +1592,7 @@ bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_BLESSED]", notice observable changes
  */
+#if 0
 bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -1662,6 +1663,7 @@ bool set_blessed(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*

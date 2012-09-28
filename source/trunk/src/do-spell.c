@@ -734,7 +734,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's Justice.");
 #endif
 
-		set_blessed(creature_ptr, creature_ptr->lev, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->lev, FALSE);
 	}
 	else if(die < 47)
 	{
@@ -1225,7 +1225,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_blessed(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7416,7 +7416,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_blessed(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8906,7 +8906,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				}
 				set_hero(creature_ptr, randint1(base) + base, FALSE);
-				set_blessed(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 				set_protevil(creature_ptr, randint1(base) + base, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
