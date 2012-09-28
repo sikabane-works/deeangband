@@ -2004,7 +2004,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Times see-invisible */
 	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 	{
-		(void)set_tim_invis(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_SEE_INVISIBLE, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] - 1, TRUE);
 	}
 
 	if(multi_rew)

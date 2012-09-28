@@ -2210,6 +2210,7 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE]", notice observable changes
  */
+#if 0
 bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2284,7 +2285,7 @@ bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
-
+#endif 
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_SEE_INFRA]", notice observable changes

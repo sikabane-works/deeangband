@@ -6457,7 +6457,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6833,7 +6833,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8432,7 +8432,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_invis(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SEE_INVISIBLE, randint1(base) + base, FALSE);
 			}
 		}
 		break;

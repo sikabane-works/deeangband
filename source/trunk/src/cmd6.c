@@ -978,7 +978,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_DETECT_INVIS:
-			if(set_tim_invis(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] + 12 + randint1(12), FALSE))
+			if(set_timed_trait_aux(creature_ptr, TRAIT_SEE_INVISIBLE, creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE] + 12 + randint1(12), FALSE))
 			{
 				ident = TRUE;
 			}
