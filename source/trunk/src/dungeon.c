@@ -2039,7 +2039,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Timed infra-vision */
 	if(creature_ptr->timed_trait[TRAIT_SEE_INFRA])
 	{
-		(void)set_tim_infra(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INFRA] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_SEE_INFRA, creature_ptr->timed_trait[TRAIT_SEE_INFRA] - 1, TRUE);
 	}
 
 	/* Timed stealth */

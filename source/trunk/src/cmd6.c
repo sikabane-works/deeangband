@@ -971,7 +971,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_INFRAVISION:
-			if(set_tim_infra(creature_ptr, creature_ptr->timed_trait[TRAIT_SEE_INFRA] + 100 + randint1(100), FALSE))
+			if(set_timed_trait_aux(creature_ptr, TRAIT_SEE_INFRA, creature_ptr->timed_trait[TRAIT_SEE_INFRA] + 100 + randint1(100), FALSE))
 			{
 				ident = TRUE;
 			}
