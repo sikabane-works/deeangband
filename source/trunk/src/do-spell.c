@@ -7163,7 +7163,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_magicdef(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_DEF, randint1(base) + base, FALSE);
 			}
 		}
 		break;

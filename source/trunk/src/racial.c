@@ -2108,7 +2108,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_KUTAR:
-			(void)set_tsubureru(creature_ptr, randint1(20) + 30, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
 			break;
 
 /*TODO
@@ -3023,7 +3023,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			break;
 
 		case TRAIT_EXPAND_HLIZN:
-			(void)set_tsubureru(caster_ptr, randint1(20) + 30, FALSE);
+			(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
 			break;
 
 		case TRAIT_RAY_GUN:

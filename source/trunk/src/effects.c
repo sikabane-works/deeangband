@@ -1436,6 +1436,7 @@ bool set_shield(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_TSUBURERU]", notice observable changes
  */
+#if 0
 bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -1506,12 +1507,14 @@ bool set_tsubureru(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_MAGIC_DEF]", notice observable changes
  */
+#if 0
 bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -1582,6 +1585,7 @@ bool set_magicdef(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 
