@@ -1085,7 +1085,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		else return TRUE;
 		break;
 	case 6:
-		set_tim_sh_touki(creature_ptr, randint1(plev / 2) + 15 + boost / 7, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_AURA_MANA, randint1(plev / 2) + 15 + boost / 7, FALSE);
 		break;
 	case 7:
 	{

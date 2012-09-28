@@ -1530,7 +1530,7 @@ extern bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec);
 //extern bool set_tim_stealth(creature_type *creature_ptr, int v, bool do_dec);
 //extern bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec);
 //extern bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec);
-extern bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec);
+//extern bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_sh_fire(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_sh_holy(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tim_eyeeye(creature_type *creature_ptr, int v, bool do_dec);

@@ -2670,6 +2670,7 @@ bool set_tim_levitation(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_AURA_MANA]", notice observable changes
  */
+#if 0
 bool set_tim_sh_touki(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2731,6 +2732,7 @@ msg_print("ì¨ãCÇ™è¡Ç¶ÇΩÅB");
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
