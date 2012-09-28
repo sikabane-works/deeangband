@@ -1982,7 +1982,7 @@ msg_print("Šï–­‚ÈŒõŒi‚ª–Ú‚Ì‘O‚Å—x‚Á‚Ä‚¢‚é...");
 					msg_print("Weird visions seem to dance before your eyes...");
 #endif
 
-					set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
+					set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
 				}
 				else if(b < 45)
 				{
@@ -2035,7 +2035,7 @@ msg_print("‚Ü‚í‚è‚Ì‚à‚Ì‚ªƒLƒ‰ƒLƒ‰‹P‚¢‚Ä‚¢‚éI");
 					msg_print("Your brain is addled!");
 #endif
 
-					set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
+					set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
 				}
 				else
 				{

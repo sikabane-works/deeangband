@@ -2673,7 +2673,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				if(!target_ptr->resist_chaos)
 				{
-					(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint1(10));
+					(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint1(10));
 					if(one_in_(3))
 					{
 #ifdef JP
@@ -3316,7 +3316,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					if(!target_ptr->resist_chaos && one_in_(3))
 					{
-						(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
+						(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
 					}
 
 					target_ptr->csp -= 50;
@@ -3465,7 +3465,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					if(!target_ptr->resist_chaos)
 					{
-						(void)set_image(target_ptr, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
+						(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
 					}
 				}
 			}

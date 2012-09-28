@@ -144,7 +144,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if(!creature_ptr->resist_chaos)
 				{
-					if(set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(250) + 250))
+					if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(250) + 250))
 					{
 						ident = TRUE;
 					}
@@ -829,7 +829,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			{
 				if(one_in_(2))
 				{
-					if(set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150))
+					if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150))
 					{
 						ident = TRUE;
 					}
@@ -1089,7 +1089,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-			(void)set_image(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 			(void)set_stun(creature_ptr, 0);
 			(void)set_cut(creature_ptr, 0);
 			(void)do_res_stat(creature_ptr, STAT_STR);
@@ -1284,7 +1284,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_image(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
 			break;
 
 		case SV_POTION_INVULNERABILITY:
@@ -1301,7 +1301,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_NEO_TSUYOSHI:
-			(void)set_image(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 			(void)set_tsuyoshi(creature_ptr, creature_ptr->timed_trait[TRAIT_TSUYOSHI] + randint1(100) + 100, FALSE);
 			ident = TRUE;
 			break;
@@ -1317,7 +1317,7 @@ msg_print("「オクレ兄さん！」");
 			(void)set_tsuyoshi(creature_ptr, 0, TRUE);
 			if(!creature_ptr->resist_chaos)
 			{
-				(void)set_image(creature_ptr, 50 + randint1(50));
+				(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 50 + randint1(50));
 			}
 			ident = TRUE;
 			break;
@@ -2408,7 +2408,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_image(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
 			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -3345,7 +3345,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_stun(creature_ptr, 0)) ident = TRUE;
 			if(set_cut(creature_ptr, 0)) ident = TRUE;
-			if(set_image(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
 			if(set_shero(creature_ptr, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -4890,7 +4890,7 @@ if(get_check("この階を去りますか？"))
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_stun(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
-				(void)set_image(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 				break;
 			}
 

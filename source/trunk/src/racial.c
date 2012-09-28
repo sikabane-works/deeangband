@@ -1616,7 +1616,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 
 				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-				(void)set_image(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 				(void)set_stun(creature_ptr, 0);
 				(void)set_cut(creature_ptr, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
@@ -2866,7 +2866,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #endif
 
 				(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-				(void)set_image(caster_ptr, 0);
+				(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
 				(void)set_stun(caster_ptr, 0);
 				(void)set_cut(caster_ptr, 0);
 				(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);

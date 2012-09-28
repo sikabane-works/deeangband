@@ -2347,7 +2347,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		}
 		if(!watcher_ptr->resist_chaos && one_in_(3))
 		{
-			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
+			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2375,7 +2375,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		if(!watcher_ptr->resist_chaos)
 		{
-			(void)set_image(watcher_ptr, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
+			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
 		}
 		return;
 	}

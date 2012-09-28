@@ -843,7 +843,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	{
 	case PATTERN_TILE_END:
 		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-		(void)set_image(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 		(void)set_stun(creature_ptr, 0);
 		(void)set_cut(creature_ptr, 0);
 		(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
@@ -1996,7 +1996,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	}
 
 	/* Hack -- Hallucinating */
-	if(IS_HALLUCINATION(creature_ptr)) (void)set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) - dec_count);
+	if(IS_HALLUCINATION(creature_ptr)) (void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) - dec_count);
 
 	/* Blindness */
 	if(IS_BLIND(creature_ptr)) (void)set_timed_trait(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) - dec_count);
@@ -2421,7 +2421,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 					msg_print("Thishcischs GooDSChtuff!");
 #endif
 
-					(void)set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150);
+					(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150);
 				}
 			}
 		}
@@ -2433,7 +2433,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
-			(void)set_image(creature_ptr, IS_HALLUCINATION(creature_ptr) + randint0(50) + 20);
+			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(50) + 20);
 		}
 	}
 

@@ -6960,7 +6960,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_stun(creature_ptr, 0);
 				set_cut(creature_ptr, 0);
-				set_image(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 			}
 		}
 		break;
