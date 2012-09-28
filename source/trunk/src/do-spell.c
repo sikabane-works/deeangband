@@ -6688,7 +6688,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_regen(creature_ptr, base + randint1(base), FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_REGENERATE, base + randint1(base), FALSE);
 			}
 		}
 		break;

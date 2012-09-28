@@ -2087,7 +2087,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	/* Timed regeneration */
 	if(creature_ptr->timed_trait[TRAIT_REGENERATE])
 	{
-		(void)set_tim_regen(creature_ptr, creature_ptr->timed_trait[TRAIT_REGENERATE] - 1, TRUE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_REGENERATE, creature_ptr->timed_trait[TRAIT_REGENERATE] - 1, TRUE);
 	}
 
 	/* Timed resist nether */
