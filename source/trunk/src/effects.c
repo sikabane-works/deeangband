@@ -3038,6 +3038,7 @@ bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_REFLECTING]", notice observable changes
  */
+#if 0
 bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -3107,7 +3108,7 @@ bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
-
+#endif
 
 /*
  * Set "creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]", notice observable changes

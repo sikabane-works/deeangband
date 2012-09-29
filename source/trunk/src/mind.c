@@ -1334,7 +1334,7 @@ msg_format("There are too many mirrors to control!");
 	case 12:
 	  tmp = 20+randint1(20);
 	  set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, tmp, FALSE);
-	  if(plev > 31) set_tim_reflect(creature_ptr, tmp, FALSE);
+	  if(plev > 31) set_timed_trait_aux(creature_ptr, TRAIT_REFLECTING, tmp, FALSE);
 	  if(plev > 39) set_timed_trait_aux(creature_ptr, TRAIT_RESIST_MAGIC, tmp, FALSE);
 	  break;
 	/* super ray */
