@@ -7093,7 +7093,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_kabenuke(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_PASS_WALL, randint1(base) + base, FALSE);
 			}
 		}
 		break;

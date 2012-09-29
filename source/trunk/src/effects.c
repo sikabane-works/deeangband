@@ -3264,6 +3264,7 @@ bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_REGENERATE]", notice observable changes
  */
+#if 0
 bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -3333,6 +3334,7 @@ bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec)

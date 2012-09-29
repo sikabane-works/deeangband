@@ -1740,7 +1740,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		explosive_rune(creature_ptr);
 		break;
 	case 16:
-		(void)set_kabenuke(creature_ptr, randint1(plev/2) + plev/2, FALSE);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
 		set_oppose_acid(creature_ptr, plev, FALSE);
 		break;
 	case 17:
