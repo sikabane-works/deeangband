@@ -1537,7 +1537,7 @@ extern bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec);
 //extern bool set_resist_magic(creature_type *creature_ptr, int v, bool do_dec);
 //extern bool set_tim_reflect(creature_type *creature_ptr, int v, bool do_dec);
 //extern bool set_multishadow(creature_type *creature_ptr, int v, bool do_dec);
-extern bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec);
+//extern bool set_dustrobe(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_ele_attack(creature_type *creature_ptr, u32b attack_type, int v);
