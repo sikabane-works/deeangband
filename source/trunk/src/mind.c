@@ -1378,7 +1378,7 @@ msg_format("There are too many mirrors to control!");
 		return word_of_recall(creature_ptr);
 	/* multi-shadow */
 	case 18:
-	  set_multishadow(creature_ptr, 6+randint1(6),FALSE);
+	  set_timed_trait_aux(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6),FALSE);
 	  break;
 	/* binding field */
 	case 19:
@@ -1771,7 +1771,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		break;
 	}
 	case 19:
-		set_multishadow(creature_ptr, 6+randint1(6), FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 		break;
 	default:
 #ifdef JP
