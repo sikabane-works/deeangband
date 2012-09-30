@@ -2425,7 +2425,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 
 		case TRAIT_GET_ESP:
 		{
-			(void)set_tim_esp(creature_ptr, randint1(30) + 25, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
 			break;
 		}
 

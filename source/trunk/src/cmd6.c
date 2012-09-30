@@ -1302,7 +1302,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 
 		case SV_POTION_NEO_TSUYOSHI:
 			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
-			(void)set_tsuyoshi(creature_ptr, creature_ptr->timed_trait[TRAIT_TSUYOSHI] + randint1(100) + 100, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_TSUYOSHI, creature_ptr->timed_trait[TRAIT_TSUYOSHI] + randint1(100) + 100, FALSE);
 			ident = TRUE;
 			break;
 
@@ -1314,7 +1314,7 @@ msg_print("「オクレ兄さん！」");
 #endif
 			msg_print(NULL);
 			creature_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
-			(void)set_tsuyoshi(creature_ptr, 0, TRUE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_TSUYOSHI, 0, TRUE);
 			if(!creature_ptr->resist_chaos)
 			{
 				(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 50 + randint1(50));

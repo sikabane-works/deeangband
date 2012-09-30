@@ -2289,7 +2289,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -2484,7 +2484,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 				if(!has_trait(creature_ptr, TRAIT_ESP))
 				{
-					set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
+					set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 				}
 			}
 		}
@@ -5138,7 +5138,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -6629,7 +6629,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 				if(!has_trait(creature_ptr, TRAIT_ESP))
 				{
-					set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
+					set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 				}
 			}
 		}
@@ -7003,7 +7003,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_esp(creature_ptr, randint1(sides) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -7777,7 +7777,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_tim_esp(creature_ptr, randint1(base) + sides, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(base) + sides, FALSE);
 			}
 		}
 		break;

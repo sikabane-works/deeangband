@@ -987,7 +987,7 @@ bool set_image(creature_type *creature_ptr, int v)
 	/* Open */
 	if(v)
 	{
-		set_tsuyoshi(creature_ptr, 0, TRUE);
+		set_timed_trait_aux(creature_ptr, TRAIT_TSUYOSHI, 0, TRUE);
 		if(!IS_HALLUCINATION(creature_ptr))
 		{
 			if(is_seen(player_ptr, creature_ptr))
@@ -2132,6 +2132,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 /*
  * Set "creature_ptr->timed_trait[TRAIT_ESP]", notice observable changes
  */
+#if 0
 bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -2205,6 +2206,7 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
@@ -3336,7 +3338,7 @@ bool set_kabenuke(creature_type *creature_ptr, int v, bool do_dec)
 }
 #endif
 
-
+#if 0
 bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec)
 {
 	bool notice = FALSE;
@@ -3413,12 +3415,14 @@ bool set_tsuyoshi(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
  * Set a temporary elemental brand.  Clear all other brands.  Print status 
  * messages. -LM-
  */
+#if 0
 bool set_ele_attack(creature_type *creature_ptr, u32b attack_type, int v)
 {
 	/* Hack -- Force good values */
@@ -3537,6 +3541,7 @@ bool set_ele_attack(creature_type *creature_ptr, u32b attack_type, int v)
 
 	return (TRUE);
 }
+#endif
 
 
 /*
@@ -7001,15 +7006,15 @@ bool choose_ele_attack(creature_type *creature_ptr)
 	choice = inkey();
 
 	if((choice == 'a') || (choice == 'A')) 
-		set_ele_attack(creature_ptr, ATTACK_FIRE, creature_ptr->lev/2 + randint1(creature_ptr->lev/2));
+		set_timed_trait_aux(creature_ptr, TRAIT_FIRE_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'b') || (choice == 'B')) && (num >= 2))
-		set_ele_attack(creature_ptr, ATTACK_COLD, creature_ptr->lev/2 + randint1(creature_ptr->lev/2));
+		set_timed_trait_aux(creature_ptr, TRAIT_COLD_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'c') || (choice == 'C')) && (num >= 3))
-		set_ele_attack(creature_ptr, ATTACK_POIS, creature_ptr->lev/2 + randint1(creature_ptr->lev/2));
+		set_timed_trait_aux(creature_ptr, TRAIT_ELEC_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'd') || (choice == 'D')) && (num >= 4))
-		set_ele_attack(creature_ptr, ATTACK_ACID, creature_ptr->lev/2 + randint1(creature_ptr->lev/2));
+		set_timed_trait_aux(creature_ptr, TRAIT_ACID_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else if(((choice == 'e') || (choice == 'E')) && (num >= 5))
-		set_ele_attack(creature_ptr, ATTACK_ELEC, creature_ptr->lev/2 + randint1(creature_ptr->lev/2));
+		set_timed_trait_aux(creature_ptr, TRAIT_POIS_BRAND, creature_ptr->lev/2 + randint1(creature_ptr->lev/2), FALSE);
 	else
 	{
 #ifdef JP

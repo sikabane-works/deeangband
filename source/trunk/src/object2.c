@@ -4568,7 +4568,11 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
 				if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 				{
 					/* Clear all temporary elemental brands */
-					set_ele_attack(creature_ptr, 0, 0);
+					set_timed_trait_aux(creature_ptr, TRAIT_FIRE_BRAND, 0, 0);
+					set_timed_trait_aux(creature_ptr, TRAIT_COLD_BRAND, 0, 0);
+					set_timed_trait_aux(creature_ptr, TRAIT_ELEC_BRAND, 0, 0);
+					set_timed_trait_aux(creature_ptr, TRAIT_ACID_BRAND, 0, 0);
+					set_timed_trait_aux(creature_ptr, TRAIT_POIS_BRAND, 0, 0);
 				}
 			}
 		}

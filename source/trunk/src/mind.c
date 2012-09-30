@@ -861,7 +861,7 @@ static bool cast_mindcrafter_spell(creature_type *creature_ptr, int spell)
 		}
 
 		if((plev > 24) && (plev < 40))
-			set_tim_esp(creature_ptr, plev, FALSE);
+			set_timed_trait_aux(creature_ptr, TRAIT_ESP, plev, FALSE);
 
 #ifdef JP
 if(!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
@@ -1252,7 +1252,7 @@ static bool cast_mirror_spell(creature_type *creature_ptr, int spell)
 	  tmp = is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ? 4 : 0;
 	  if( plev + tmp > 4) detect_creatures_normal(creature_ptr, DETECT_RAD_DEFAULT);
 	  if( plev + tmp > 18) detect_creatures_invis(creature_ptr, DETECT_RAD_DEFAULT);
-	  if( plev + tmp > 28) set_tim_esp(creature_ptr, plev,FALSE);
+	  if( plev + tmp > 28) set_timed_trait_aux(creature_ptr, TRAIT_ESP, plev,FALSE);
 	  if( plev + tmp > 38) map_area(creature_ptr, DETECT_RAD_MAP);
 	  if( tmp == 0 && plev < 5 ){
 #ifdef JP

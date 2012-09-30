@@ -2463,7 +2463,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("Your mind feels cloudy!");
 #endif
 
-			set_tim_esp(creature_ptr, 0, TRUE);
+			set_timed_trait_aux(creature_ptr, TRAIT_ESP, 0, TRUE);
 		}
 		else
 		{
@@ -2473,7 +2473,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("Your mind expands!");
 #endif
 
-			set_tim_esp(creature_ptr, creature_ptr->lev, FALSE);
+			set_timed_trait_aux(creature_ptr, TRAIT_ESP, creature_ptr->lev, FALSE);
 		}
 	}
 	if(has_trait(creature_ptr, TRAIT_NAUSEA) && !has_trait(creature_ptr, TRAIT_SLOW_DIGEST) &&
