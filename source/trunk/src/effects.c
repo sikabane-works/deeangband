@@ -3548,7 +3548,8 @@ bool set_ele_attack(creature_type *creature_ptr, u32b attack_type, int v)
  * Set a temporary elemental brand.  Clear all other brands.  Print status 
  * messages. -LM-
  */
-bool set_ele_immune(creature_type *creature_ptr, u32b immune_type, int v)
+#if 0
+bool set_timed_trait_aux(creature_ptr, TRAIT_IM_, creature_type *creature_ptr, u32b immune_type, int v)
 {
 	/* Hack -- Force good values */
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
@@ -3659,6 +3660,7 @@ bool set_ele_immune(creature_type *creature_ptr, u32b immune_type, int v)
 
 	return (TRUE);
 }
+#endif
 
 
 /*
@@ -7081,13 +7083,13 @@ bool choose_ele_immune(creature_type *creature_ptr, int turn)
 	choice = inkey();
 
 	if((choice == 'a') || (choice == 'A')) 
-		set_ele_immune(creature_ptr, DEFENSE_FIRE, turn);
+		set_timed_trait_aux(creature_ptr, TRAIT_IM_FIRE, turn, FALSE);
 	else if((choice == 'b') || (choice == 'B'))
-		set_ele_immune(creature_ptr, DEFENSE_COLD, turn);
+		set_timed_trait_aux(creature_ptr, TRAIT_IM_COLD, turn, FALSE);
 	else if((choice == 'c') || (choice == 'C'))
-		set_ele_immune(creature_ptr, DEFENSE_ACID, turn);
+		set_timed_trait_aux(creature_ptr, TRAIT_IM_ACID, turn, FALSE);
 	else if((choice == 'd') || (choice == 'D'))
-		set_ele_immune(creature_ptr, DEFENSE_ELEC, turn);
+		set_timed_trait_aux(creature_ptr, TRAIT_IM_ELEC, turn, FALSE);
 	else
 	{
 #ifdef JP
