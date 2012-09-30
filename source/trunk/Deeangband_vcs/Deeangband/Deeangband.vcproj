@@ -409,6 +409,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\trait.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\util.c"
 				>
 			</File>

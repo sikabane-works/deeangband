@@ -3731,7 +3731,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 
 	switch (k_ptr->sval)
 	{
-		case SV_POTION_SALT_WATER:
+		case TRAIT_SALT_WATER:
 		case SV_POTION_SLIME_MOLD:
 		case SV_POTION_LOSE_MEMORIES:
 		case SV_POTION_DEC_STR:

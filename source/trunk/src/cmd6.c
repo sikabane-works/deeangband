@@ -777,7 +777,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, randint1(25) + 15, FALSE)) ident = TRUE;
 			break;
 
-		case SV_POTION_SALT_WATER:
+		case TRAIT_SALT_WATER:
 #ifdef JP
 			msg_print("Ç§Ç•ÅIévÇÌÇ∏ìfÇ¢ÇƒÇµÇ‹Ç¡ÇΩÅB");
 #else

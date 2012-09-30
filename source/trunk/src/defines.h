@@ -1547,7 +1547,7 @@
 #define SV_POTION_SLIME_MOLD             2
 /* xxx (fixed color) */
 #define SV_POTION_SLOWNESS               4
-#define SV_POTION_SALT_WATER             5
+//#define SV_POTION_SALT_WATER             5
 #define SV_POTION_POISON                 6
 #define SV_POTION_BLINDNESS              7
 /* xxx */

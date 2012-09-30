@@ -5,6 +5,7 @@ AUTOMAKE_OPTIONS = foreign
 bin_PROGRAMS = deeangband
 
 deeangband_SOURCES = \
+	trait.c \
 	z-util.c z-virt.c z-form.c z-rand.c z-term.c \
 	variable.c tables.c util.c cave.c creature.c \
 	kajitips.h object1.c object2.c monster1.c monster2.c \
