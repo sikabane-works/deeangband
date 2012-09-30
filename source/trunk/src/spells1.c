@@ -1882,7 +1882,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 			}
 
 			/* Apply stun */
-			(void)set_stun(target_ptr, tmp);
+			(void)set_timed_trait(target_ptr, TRAIT_STUN, tmp);
 
 			/* Get angry */
 			get_angry = TRUE;
@@ -2602,7 +2602,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
-				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
+				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
 			}
 
 			if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
@@ -2641,7 +2641,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if(!target_ptr->resist_sound)
 				{
-					set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(40));
+					set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(40));
 				}
 				if(!has_trait(target_ptr, TRAIT_NO_CONF))
 				{
@@ -2734,7 +2734,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
+				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
 			}
 
 			if(!target_ptr->resist_sound || one_in_(13))
@@ -2804,7 +2804,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
+				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -2820,7 +2820,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
+				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
 			}
 
 			else if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -3002,7 +3002,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				{
 					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
+					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
 				}
 			}
 
@@ -3032,7 +3032,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
-			(void)set_stun(target_ptr, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_STUN, 0);
 			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
 			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, 0);
 			(void)heal_creature(target_ptr, dam);
@@ -3172,7 +3172,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				if(!target_ptr->resist_sound)
 				{
-					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(15));
+					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(15));
 				}
 
 				if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
@@ -3947,7 +3947,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 									set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
 									break;
 								case 2:
-									set_stun(caster_ptr, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
+									set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
 									break;
 								case 3:
 								{
@@ -4219,7 +4219,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						switch (randint1(4))
 						{
 							case 1:
-								set_stun(caster_ptr, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
+								set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
 								break;
 							case 2:
 								set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);

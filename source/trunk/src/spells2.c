@@ -2862,7 +2862,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					msg_print("You are bashed by rubble!");
 #endif
 					damage = diceroll(10, 4);
-					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 					break;
 				}
 				case 3:
@@ -2873,7 +2873,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					msg_print("You are crushed between the floor and ceiling!");
 #endif
 					damage = diceroll(10, 4);
-					(void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 					break;
 				}
 			}

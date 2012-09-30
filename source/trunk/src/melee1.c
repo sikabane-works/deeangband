@@ -453,7 +453,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				}
 
 				/* Apply stun */
-				(void)set_stun(&creature_list[c_ptr->creature_idx], target_ptr->timed_trait[TRAIT_STUN] + tmp);
+				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + tmp);
 			}
 			else
 			{
@@ -1169,7 +1169,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		{
 			if(attacker_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
 			{
-				if(set_stun(&creature_list[c_ptr->creature_idx], stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
+				if(set_timed_trait(target_ptr, TRAIT_STUN, stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
 				{
 					if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -3558,7 +3558,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the stun */
-			if(k) (void)set_stun(target_ptr, target_ptr->timed_trait[TRAIT_STUN] + k);
+			if(k) (void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
 		}
 
 		if(explode)

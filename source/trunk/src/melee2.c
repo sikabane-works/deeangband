@@ -2942,7 +2942,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 	{
 		int rlev = species_info[creature_ptr->species_idx].level;
 		/* Recover from stun */
-		set_stun(creature_ptr, (randint0(10000) <= rlev * rlev) ? 0 : (creature_ptr->timed_trait[TRAIT_STUN] - 1));
+		set_timed_trait(creature_ptr, TRAIT_STUN, (randint0(10000) <= rlev * rlev) ? 0 : (creature_ptr->timed_trait[TRAIT_STUN] - 1));
 		break;
 	}
 

@@ -844,7 +844,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	case PATTERN_TILE_END:
 		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 		(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
-		(void)set_stun(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 		(void)set_cut(creature_ptr, 0);
 		(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
@@ -2005,7 +2005,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_STUN])
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
-		(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] - adjust);
+		(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] - adjust);
 	}
 
 	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT))
@@ -5018,8 +5018,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(m_ptr->timed_trait[TRAIT_STUN])
 		{
 			/* Hack -- Recover from stun */
-			if(set_stun(&creature_list[creature_ptr->riding],
-				(randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_STUN] - 1)))
+			if(set_timed_trait(m_ptr, TRAIT_STUN, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_STUN] - 1)))
 			{
 				char m_name[80];
 

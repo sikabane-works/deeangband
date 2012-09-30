@@ -862,7 +862,7 @@ msg_print("©•ª‚Ì‚É”O‚ğW’†‚µ‚½B");
 			msg_print("You concentrate on your wounds!");
 #endif
 		(void)heal_creature(creature_ptr, plev*6);
-		(void)set_stun(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 		(void)set_cut(creature_ptr, 0);
 		break;
 	case TRAIT_INVULNER:

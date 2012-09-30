@@ -714,7 +714,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 						(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + 
 						randint0(6));
 					else 
-						(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
+						(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
 						randint0(100));
 				}
 				else if(one_in_(3)) apply_disenchant(creature_ptr, 0);
@@ -3768,7 +3768,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
 		(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] + randint0(7) + 7, FALSE);
-		(void)set_stun(creature_ptr, creature_ptr->timed_trait[TRAIT_STUN] + randint1(25));
+		(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + randint1(25));
 	}
 }
 

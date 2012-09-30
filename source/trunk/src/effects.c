@@ -4023,6 +4023,7 @@ bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
  *
  * Note the special code to only notice "range" changes.
  */
+#if 0
 bool set_stun(creature_type *creature_ptr, int v)
 {
 	int old_aux, new_aux;
@@ -4261,6 +4262,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 	}
 }
+#endif
 
 
 /*

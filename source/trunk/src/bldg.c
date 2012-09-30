@@ -4460,7 +4460,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 		set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 		set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 		set_cut(creature_ptr, 0);
-		set_stun(creature_ptr, 0);
+		set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 		paid = TRUE;
 		break;
 	case BUILDING_FUNCTION_RESTORE: /* needs work */
