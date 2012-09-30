@@ -293,7 +293,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 223,リンゴジュース,薄茶色の,Apple Juice,Light Brown,!,U,INVENTORY,POTION,0,0,0,0,0,0,1,250,0,0,1,100,1,0,0,0,0,0,1d1,0,0,0,0,0,0/1,FIXED_FLAVOR,,それは甘くてサッパリしているジュースである。,It tastes sweet.,
 222,スライムモルドジュース,よどんだ緑の,Slime Mold Juice,Icky Green,!,g,INVENTORY,POTION,0,0,0,0,0,0,2,400,0,0,1,100,2,0,0,0,0,0,1d1,0,0,0,0,0,0/1,FIXED_FLAVOR,,それは不気味な味のするジュースである。,It tastes weird.,
 250,のろま,青く輝く,Slowness,Metallic Blue,!,b,INVENTORY,POTION,0,0,0,0,0,0,4,50,1,0,1,100,0,0,0,0,0,0,1d1,0,0,0,0,0,1/1,,,それは飲むと一時的に減速する。,It slows you down temporarily when you quaff it.,
-255,塩水,オレンジ斑の,Salt Water,Orange Speckled,!,o,INVENTORY,POTION,0,0,0,0,0,0,5,0,0,0,1,100,0,0,0,0,0,0,1d1,0,0,0,0,0,0/1,,,それは飲むと餓死寸前になり麻痺するが、毒を癒す。,"It makes you nearly faint from hunger and paralyzes you, but it cures poison when you quaff it.",
+255,塩水,オレンジ斑の,Salt Water,Orange Speckled,!,o,INVENTORY,POTION,0,0,0,0,0,0,5,0,0,0,1,100,0,0,0,0,0,0,1d1,0,0,0,0,0,0/1,SALT_WATER,,それは飲むと餓死寸前になり麻痺するが、毒を癒す。,"It makes you nearly faint from hunger and paralyzes you, but it cures poison when you quaff it.",
 248,毒,薄い緑色の,Poison,Light Green,!,G,INVENTORY,POTION,0,0,0,0,0,0,6,0,3,0,1,100,0,0,0,0,0,0,1d1,0,0,0,0,0,3/1,,,それは飲むと毒に冒される。,It poisons you when you quaff it.,
 246,盲目,藍色の,Blindness,Indigo,!,v,INVENTORY,POTION,0,0,0,0,0,0,7,0,0,0,1,100,0,0,0,0,0,0,1d1,0,0,0,0,0,0/1,,,それは飲むと盲目になる。,It blinds you when you quaff it.,#JZ#
 247,酔っ払い,薄い青色の,Booze,Light Blue,!,B,INVENTORY,POTION,0,0,0,0,0,0,9,50,0,0,1,100,0,0,0,0,0,0,1d1,0,0,0,0,0,0/1,,,それは飲むと混乱し、幻覚に侵される。修行僧が飲むと酔拳を使えるらしい。,"It confuses and hallucinates you when you quaff it. If you are a monk, you may be a drunken master.",
