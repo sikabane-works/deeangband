@@ -1008,14 +1008,14 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_RESIST_HEAT:
-			if(set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(10) + 10, FALSE))
+			if(set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
 			break;
 
 		case SV_POTION_RESIST_COLD:
-			if(set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(10) + 10, FALSE))
+			if(set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(10) + 10, FALSE))
 			{
 				ident = TRUE;
 			}
@@ -1269,11 +1269,11 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 
 		case SV_POTION_RESISTANCE:
-			(void)set_oppose_acid(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ACID] + randint1(20) + 20, FALSE);
-			(void)set_oppose_elec(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_ELEC] + randint1(20) + 20, FALSE);
-			(void)set_oppose_fire(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(20) + 20, FALSE);
-			(void)set_oppose_cold(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(20) + 20, FALSE);
-			(void)set_oppose_pois(creature_ptr, creature_ptr->timed_trait[TRAIT_RES_POIS] + randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, creature_ptr->timed_trait[TRAIT_RES_ACID] + randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, creature_ptr->timed_trait[TRAIT_RES_ELEC] + randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, creature_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, creature_ptr->timed_trait[TRAIT_RES_COLD] + randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, creature_ptr->timed_trait[TRAIT_RES_POIS] + randint1(20) + 20, FALSE);
 			ident = TRUE;
 			break;
 
@@ -4201,11 +4201,11 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
-				(void)set_oppose_acid(creature_ptr, randint1(50) + 50, FALSE);
-				(void)set_oppose_elec(creature_ptr, randint1(50) + 50, FALSE);
-				(void)set_oppose_fire(creature_ptr, randint1(50) + 50, FALSE);
-				(void)set_oppose_cold(creature_ptr, randint1(50) + 50, FALSE);
-				(void)set_oppose_pois(creature_ptr, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(50) + 50, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
 				break;
 			}
 
@@ -4930,7 +4930,7 @@ if(get_check("この階を去りますか？"))
 
 			case TRAIT_MAGIC_RES_COLD:
 			{
-				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 				object_ptr->timeout = 40 + randint1(40);
 				break;
 			}
@@ -5047,22 +5047,22 @@ if(get_check("この階を去りますか？"))
 		switch (object_ptr->xtra3-1)
 		{
 		case ESSENCE_TMP_RES_ACID:
-			(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(20) + 20, FALSE);
 			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case ESSENCE_TMP_RES_ELEC:
-			(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(20) + 20, FALSE);
 			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case ESSENCE_TMP_RES_FIRE:
-			(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
 			object_ptr->timeout = randint0(50) + 50;
 			return;
 
 		case ESSENCE_TMP_RES_COLD:
-			(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 			object_ptr->timeout = randint0(50) + 50;
 			return;
 		}
@@ -5253,7 +5253,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				fire_ball(creature_ptr, GF_FIRE, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_FLAMES)
 				{
-					(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
 					object_ptr->timeout = 200;
 				}
 				else object_ptr->timeout = 250;
@@ -5263,7 +5263,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				fire_ball(creature_ptr, GF_COLD, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_ICE)
 				{
-					(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 					object_ptr->timeout = 200;
 				}
 				else object_ptr->timeout = 250;
@@ -5280,11 +5280,11 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, v, FALSE);
 				(void)heal_creature(creature_ptr, 10);
 				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, v, FALSE);
-				(void)set_oppose_acid(creature_ptr, v, FALSE);
-				(void)set_oppose_elec(creature_ptr, v, FALSE);
-				(void)set_oppose_fire(creature_ptr, v, FALSE);
-				(void)set_oppose_cold(creature_ptr, v, FALSE);
-				(void)set_oppose_pois(creature_ptr, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
 				(void)set_ultimate_res(creature_ptr, v, FALSE);
 				object_ptr->timeout = 777;
 				break;
@@ -5304,7 +5304,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case SV_RING_ACID:
 			{
 				fire_ball(creature_ptr, GF_ACID, dir, 100, 2);
-				(void)set_oppose_acid(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(20) + 20, FALSE);
 				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
@@ -5312,7 +5312,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case SV_RING_ICE:
 			{
 				fire_ball(creature_ptr, GF_COLD, dir, 100, 2);
-				(void)set_oppose_cold(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
@@ -5320,7 +5320,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case SV_RING_FLAMES:
 			{
 				fire_ball(creature_ptr, GF_FIRE, dir, 100, 2);
-				(void)set_oppose_fire(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
 				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}
@@ -5328,7 +5328,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			case SV_RING_ELEC:
 			{
 				fire_ball(creature_ptr, GF_ELEC, dir, 100, 2);
-				(void)set_oppose_elec(creature_ptr, randint1(20) + 20, FALSE);
+				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(20) + 20, FALSE);
 				object_ptr->timeout = randint0(50) + 50;
 				break;
 			}

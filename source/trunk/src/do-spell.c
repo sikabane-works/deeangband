@@ -1443,8 +1443,8 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -1857,11 +1857,11 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int v = randint1(base) + base;
 				set_timed_trait(creature_ptr, TRAIT_FAST, v);
-				set_oppose_acid(creature_ptr, v, FALSE);
-				set_oppose_elec(creature_ptr, v, FALSE);
-				set_oppose_fire(creature_ptr, v, FALSE);
-				set_oppose_cold(creature_ptr, v, FALSE);
-				set_oppose_pois(creature_ptr, v, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
 				set_ultimate_res(creature_ptr, v, FALSE);
 			}
 		}
@@ -2774,9 +2774,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_cold(caster_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(caster_ptr, randint1(base) + base, FALSE);
-				set_oppose_elec(caster_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -3056,11 +3056,11 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_acid(caster_ptr, randint1(base) + base, FALSE);
-				set_oppose_elec(caster_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(caster_ptr, randint1(base) + base, FALSE);
-				set_oppose_cold(caster_ptr, randint1(base) + base, FALSE);
-				set_oppose_pois(caster_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -4339,7 +4339,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_pois(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6240,7 +6240,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6261,7 +6261,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6282,7 +6282,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_elec(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6303,7 +6303,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_acid(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6726,7 +6726,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6747,7 +6747,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6791,7 +6791,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_elec(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6812,7 +6812,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_acid(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -6878,7 +6878,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_pois(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7046,11 +7046,11 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_acid(creature_ptr, randint1(base) + base, FALSE);
-				set_oppose_elec(creature_ptr, randint1(base) + base, FALSE);
-				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
-				set_oppose_cold(creature_ptr, randint1(base) + base, FALSE);
-				set_oppose_pois(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7437,7 +7437,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_oppose_fire(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7800,8 +7800,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int dur = randint1(base) + base;
 					
-				set_oppose_fire(creature_ptr, dur, FALSE);
-				set_oppose_cold(creature_ptr, dur, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_AURA_FIRE, dur, FALSE);
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				break;

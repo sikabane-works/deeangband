@@ -910,11 +910,11 @@ if(!b) msg_print("安全な気がする。");
 	case 6:
 		/* Character Armour */
 		set_timed_trait_aux(creature_ptr, TRAIT_SHIELD, plev, FALSE);
-		if(plev > 14) set_oppose_acid(creature_ptr, plev, FALSE);
-		if(plev > 19) set_oppose_fire(creature_ptr, plev, FALSE);
-		if(plev > 24) set_oppose_cold(creature_ptr, plev, FALSE);
-		if(plev > 29) set_oppose_elec(creature_ptr, plev, FALSE);
-		if(plev > 34) set_oppose_pois(creature_ptr, plev, FALSE);
+		if(plev > 14) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
+		if(plev > 19) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
+		if(plev > 24) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, plev, FALSE);
+		if(plev > 29) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, plev, FALSE);
+		if(plev > 34) set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, plev, FALSE);
 		break;
 	case 7:
 		/* Psychometry */
@@ -1612,7 +1612,7 @@ msg_print("その方向にはクリーチャーはいません。");
 	case 9:
 		fire_ball(creature_ptr, GF_FIRE, 0, 50+plev, plev/10+2);
 		teleport_player(creature_ptr, 30, 0L);
-		set_oppose_fire(creature_ptr, plev, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, plev, FALSE);
 		break;
 	case 10:
 		return rush_attack(creature_ptr, NULL);
@@ -1741,7 +1741,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		break;
 	case 16:
 		(void)set_timed_trait_aux(creature_ptr, TRAIT_PASS_WALL, randint1(plev/2) + plev/2, FALSE);
-		set_oppose_acid(creature_ptr, plev, FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, plev, FALSE);
 		break;
 	case 17:
 		fire_ball(creature_ptr, GF_POIS, 0, 75+plev*2/3, plev/5+2);

@@ -2458,11 +2458,11 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 			msg_print("It glows many colours...");
 #endif
 
-			(void)set_oppose_acid(creature_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_elec(creature_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_fire(creature_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_cold(creature_ptr, randint1(40) + 40, FALSE);
-			(void)set_oppose_pois(creature_ptr, randint1(40) + 40, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(40) + 40, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(40) + 40, FALSE);
+			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE);
 			break;
 		}
 

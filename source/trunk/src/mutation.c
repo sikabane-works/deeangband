@@ -466,27 +466,27 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 				if(randint0(5) < num)
 				{
-					(void)set_oppose_acid(creature_ptr, dur, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, dur, FALSE);
 					num--;
 				}
 				if(randint0(4) < num)
 				{
-					(void)set_oppose_elec(creature_ptr, dur, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, dur, FALSE);
 					num--;
 				}
 				if(randint0(3) < num)
 				{
-					(void)set_oppose_fire(creature_ptr, dur, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
 					num--;
 				}
 				if(randint0(2) < num)
 				{
-					(void)set_oppose_cold(creature_ptr, dur, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
 					num--;
 				}
 				if(num)
 				{
-					(void)set_oppose_pois(creature_ptr, dur, FALSE);
+					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, dur, FALSE);
 					num--;
 				}
 			}

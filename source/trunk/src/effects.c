@@ -3662,7 +3662,7 @@ bool set_timed_trait_aux(creature_ptr, TRAIT_IM_, creature_type *creature_ptr, u
 }
 #endif
 
-
+#if 0
 /*
  * Set "creature_ptr->timed_trait[TRAIT_RES_ACID]", notice observable changes
  */
@@ -4015,6 +4015,7 @@ bool set_oppose_pois(creature_type *creature_ptr, int v, bool do_dec)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
