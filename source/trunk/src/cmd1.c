@@ -1074,7 +1074,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 					dam = dam * 2;
-					(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
+					(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
 				}
 
 				/* Take the damage */
@@ -1131,7 +1131,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 
 					dam = dam * 2;
-					(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
+					(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
 
 					if(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr))
 					{

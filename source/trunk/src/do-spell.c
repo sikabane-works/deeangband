@@ -1204,7 +1204,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10);
+				set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - 10);
 			}
 		}
 		break;
@@ -1317,7 +1317,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 20);
+				set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 20);
 			}
 		}
 		break;
@@ -1422,7 +1422,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				set_cut(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			}
 		}
 		break;
@@ -1505,7 +1505,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				heal_creature(creature_ptr, heal);
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				set_cut(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			}
 		}
 		break;
@@ -1817,7 +1817,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				heal_creature(creature_ptr, heal);
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				set_cut(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			}
 		}
 		break;
@@ -2799,7 +2799,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_cut(caster_ptr, 0);
+				set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 			}
 		}
@@ -2995,7 +2995,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				heal_creature(caster_ptr, heal);
 				set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-				set_cut(caster_ptr, 0);
+				set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 				set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 			}
 		}
@@ -6098,7 +6098,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10);
+				set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - 10);
 			}
 		}
 		break;
@@ -6326,7 +6326,7 @@ static cptr do_arcane_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
+				set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
 			}
 		}
 		break;
@@ -6959,7 +6959,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				set_cut(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 				set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 			}
 		}
@@ -8305,7 +8305,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				set_cut(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 			}
@@ -8507,7 +8507,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				set_cut(creature_ptr, 0);
+				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			}
 		}
 		break;
@@ -10034,7 +10034,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
 				set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-				set_cut(caster_ptr, 0);
+				set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 			}
 		}
 
@@ -10824,9 +10824,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			creature_type    *m_ptr;
 	
 			if(caster_ptr->timed_trait[TRAIT_CUT] < 300)
-				set_cut(caster_ptr, caster_ptr->timed_trait[TRAIT_CUT] + 300);
+				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] + 300);
 			else
-				set_cut(caster_ptr, caster_ptr->timed_trait[TRAIT_CUT] * 2);
+				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] * 2);
 	
 			for (dir = 0; dir < 8; dir++)
 			{
@@ -11467,7 +11467,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(1, 10));
-			set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10);
+			set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - 10);
 		}
 		break;
 
@@ -11774,7 +11774,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(2, 10));
-			set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 10);
+			set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 10);
 		}
 		break;
 
@@ -11952,7 +11952,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			heal_creature(creature_ptr, diceroll(4, 10));
 			set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-			set_cut(creature_ptr, 0);
+			set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 		}
 		break;

@@ -3533,7 +3533,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 
 			/* Apply the cut */
-			if(k) (void)set_cut(target_ptr, GET_TIMED_TRAIT(target_ptr, TRAIT_CUT) + k);
+			if(k) (void)set_timed_trait(target_ptr, TRAIT_CUT, GET_TIMED_TRAIT(target_ptr, TRAIT_CUT) + k);
 		}
 
 		/* Handle stun */

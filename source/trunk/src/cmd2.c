@@ -707,7 +707,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if(one_in_(5)) (void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + 200);
+				else if(one_in_(5)) (void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + 200);
 				else if(one_in_(4))
 				{
 					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 

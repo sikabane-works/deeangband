@@ -2338,7 +2338,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			heal_creature(creature_ptr, diceroll(4, 8));
-			(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
+			(void)set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
 			break;
 		}
 
@@ -2400,7 +2400,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)heal_creature(creature_ptr, 700);
-			(void)set_cut(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			break;
 		}
 
@@ -2419,7 +2419,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 #endif
 
 			(void)heal_creature(creature_ptr, 1000);
-			(void)set_cut(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			break;
 		}
 

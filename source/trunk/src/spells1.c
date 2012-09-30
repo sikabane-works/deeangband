@@ -2711,7 +2711,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + dam);
+				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + dam);
 			}
 
 			if(!target_ptr->resist_shard || one_in_(13))
@@ -2825,7 +2825,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			else if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + (dam / 2));
+				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + (dam / 2));
 			}
 
 			if(!target_ptr->resist_shard || one_in_(12))
@@ -3168,7 +3168,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if(!target_ptr->resist_shard)
 				{
-					(void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + diceroll(5, 8));
+					(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(5, 8));
 				}
 				if(!target_ptr->resist_sound)
 				{
@@ -3738,7 +3738,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			{
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_cut(target_ptr, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
 			}
 			break;
 		}

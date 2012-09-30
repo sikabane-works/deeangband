@@ -863,7 +863,7 @@ msg_print("©•ª‚Ì‚É”O‚ğW’†‚µ‚½B");
 #endif
 		(void)heal_creature(creature_ptr, plev*6);
 		(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-		(void)set_cut(creature_ptr, 0);
+		(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 		break;
 	case TRAIT_INVULNER:
 #ifdef JP

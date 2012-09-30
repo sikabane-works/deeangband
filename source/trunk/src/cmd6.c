@@ -954,7 +954,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 #endif
 
 			(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + 75);
-			(void)set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] + 5000);
+			(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + 5000);
 			ident = TRUE;
 			break;
 
@@ -1036,7 +1036,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 		case SV_POTION_CURE_LIGHT:
 			if(heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -1044,7 +1044,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -1054,7 +1054,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -1064,7 +1064,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -1074,7 +1074,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 
@@ -1091,7 +1091,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-			(void)set_cut(creature_ptr, 0);
+			(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			(void)do_res_stat(creature_ptr, STAT_STR);
 			(void)do_res_stat(creature_ptr, STAT_CON);
 			(void)do_res_stat(creature_ptr, STAT_DEX);
@@ -1283,7 +1283,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
 			break;
 
@@ -2407,7 +2407,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
@@ -2417,7 +2417,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if(heal_creature(creature_ptr, 300)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -2490,7 +2490,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 			if(heal_creature(creature_ptr, 50)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			break;
 		}
 
@@ -3344,7 +3344,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
@@ -3354,7 +3354,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 		{
 			if(heal_creature(creature_ptr, 500)) ident = TRUE;
 			if(set_timed_trait(creature_ptr, TRAIT_STUN, 0)) ident = TRUE;
-			if(set_cut(creature_ptr, 0)) ident = TRUE;
+			if(set_timed_trait(creature_ptr, TRAIT_CUT, 0)) ident = TRUE;
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
 		}
@@ -4212,14 +4212,14 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_TRUE_HEALING:
 			{
 				(void)heal_creature(creature_ptr, 1000);
-				(void)set_cut(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 				break;
 			}
 
 			case TRAIT_HEAVENLY_CHOIR:
 			{
 				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-				(void)set_cut(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
@@ -4271,7 +4271,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #endif
 
 				(void)heal_creature(creature_ptr, 700);
-				(void)set_cut(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 				break;
 			}
 
@@ -4481,7 +4481,7 @@ if(get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 			case TRAIT_CURE_MEDIUM_WOUNDS:
 			{
 				heal_creature(creature_ptr, diceroll(4, 8));
-				(void)set_cut(creature_ptr, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
+				(void)set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
 				break;
 			}
 
@@ -4889,7 +4889,7 @@ if(get_check("‚±‚ÌŠK‚ğ‹‚è‚Ü‚·‚©H"))
 				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				(void)set_cut(creature_ptr, 0);
+				(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 				(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 				break;
 			}

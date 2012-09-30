@@ -4270,6 +4270,7 @@ bool set_stun(creature_type *creature_ptr, int v)
  *
  * Note the special code to only notice "range" changes.
  */
+#if 0
 bool set_cut(creature_type *creature_ptr, int v)
 {
 	int old_aux, new_aux;
@@ -4540,6 +4541,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 	/* Result */
 	return (TRUE);
 }
+#endif
 
 
 /*
@@ -5453,11 +5455,11 @@ void do_poly_wounds(creature_type *creature_ptr)
 #endif
 		}
 
-		set_cut(creature_ptr, change);
+		set_timed_trait(creature_ptr, TRAIT_CUT, change);
 	}
 	else
 	{
-		set_cut(creature_ptr, creature_ptr->timed_trait[TRAIT_CUT] - (change / 2));
+		set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - (change / 2));
 	}
 }
 
