@@ -4458,7 +4458,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			}
 			else
 			{
-				(void)set_timed_trait(target_ptr, TRAIT_SLOW_, target_ptr->timed_trait[TRAIT_SLOW_] + randint0(4) + 4, FALSE);
+				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
 			}
 			learn_trait(target_ptr, TRAIT_SLOW);
 			update_smart_learn(caster_ptr, DRS_FREE);
@@ -4706,7 +4706,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 			break;
 		}
 
-		case TRAIT_TPORT:
+		case TRAIT_ACTIVE_TELEPORT:
 		{
 			disturb(player_ptr, 1, 0);
 			if(teleport_barrier(target_ptr, caster_ptr))

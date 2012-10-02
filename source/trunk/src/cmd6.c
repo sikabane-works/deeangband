@@ -774,7 +774,7 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 #endif
 
 		case SV_POTION_SLOWNESS:
-			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, randint1(25) + 15, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW, randint1(25) + 15, FALSE)) ident = TRUE;
 			break;
 
 		case TRAIT_SALT_WATER:
@@ -2246,7 +2246,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 
 		case SV_STAFF_SLOWNESS:
 		{
-			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] + randint1(30) + 15, FALSE)) ident = TRUE;
+			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint1(30) + 15, FALSE)) ident = TRUE;
 			break;
 		}
 
@@ -3867,7 +3867,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case TRAIT_BERSERK:
 			case TRAIT_ILLUMINATION:
 			case TRAIT_DESTROY_DOOR_TRAP:
-			case TRAIT_TPORT:
+			case TRAIT_ACTIVE_TELEPORT:
 				lev = 10;
 				break;
 			case TRAIT_BO_ELEC:
@@ -4432,7 +4432,7 @@ if(get_check("Ç±ÇÃäKÇãéÇËÇ‹Ç∑Ç©ÅH"))
 				break;
 			}
 
-			case TRAIT_TPORT:
+			case TRAIT_ACTIVE_TELEPORT:
 			{
 				teleport_player(creature_ptr, 222, 0L);
 				break;

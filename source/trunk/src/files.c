@@ -2342,7 +2342,7 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 		add_flag(flgs, TRAIT_REGENERATE);
 	if(IS_TIM_ESP(creature_ptr))
 		add_flag(flgs, TRAIT_ESP);
-	if(IS_FAST(creature_ptr) || creature_ptr->timed_trait[TRAIT_SLOW_])
+	if(IS_FAST(creature_ptr) || creature_ptr->timed_trait[TRAIT_SLOW])
 		add_flag(flgs, TRAIT_SPEED);
 
 	if(IS_OPPOSE_ACID(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(creature_ptr, RACE_YEEK) && (creature_ptr->lev > 19)))

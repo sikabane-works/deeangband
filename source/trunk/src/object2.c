@@ -1035,7 +1035,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if(type == TRAIT_MAGIC_CHARGE_2) total += 1000;
 		else if(type == TRAIT_MIDAS_TCH) total += 10000;
 		else if(type == TRAIT_DIMENSION_DOOR) total += 10000;
-		else if(type == TRAIT_TPORT) total += 2000;
+		else if(type == TRAIT_ACTIVE_TELEPORT) total += 2000;
 		else if(type == TRAIT_RECALL) total += 7500;
 	}
 

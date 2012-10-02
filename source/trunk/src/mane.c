@@ -876,7 +876,7 @@ msg_print("–³‚Ì‹…‚Ìô•¶‚ğ¥‚¦‚½B");
 	case TRAIT_BLINK:
 		teleport_player(creature_ptr, 10, 0L);
 		break;
-	case TRAIT_TPORT:
+	case TRAIT_ACTIVE_TELEPORT:
 		teleport_player(creature_ptr, plev * 5, 0L);
 		break;
 	case TRAIT_WORLD:

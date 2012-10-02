@@ -64,7 +64,7 @@
 #define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
 
 #define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
-#define IS_SLOW(C)			((C)->timed_trait[TRAIT_SLOW_])
+#define IS_SLOW(C)			((C)->timed_trait[TRAIT_SLOW])
 #define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C)			((C)->timed_trait[TRAIT_HERO] || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
 #define IS_BLESSED(C)		((C)->timed_trait[TRAIT_BLESSED] || music_singing(C, MUSIC_BLESS) || hex_spelling(C, HEX_BLESS))
@@ -76,7 +76,7 @@
 #define IS_TIM_ESP(C)		((C)->timed_trait[TRAIT_ESP] || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
 #define IS_TIM_STEALTH(C)	((C)->timed_trait[TRAIT_STEALTH_PLUS] || music_singing(C, MUSIC_STEALTH))
 #define IS_LIGHTSPEED(C)	((C)->timed_trait[TRAIT_LIGHT_SPEED])
-#define IS_BLIND(C)			((C)->timed_trait[TRAIT_BLIND_] > 0)
+#define IS_BLIND(C)			((C)->timed_trait[TRAIT_BLIND] > 0)
 #define IS_POISONED(C)		((C)->timed_trait[TRAIT_POISONED])
 #define IS_HALLUCINATION(C) ((C)->timed_trait[TRAIT_HALLUCINATION] > 0)
 

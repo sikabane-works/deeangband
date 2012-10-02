@@ -1913,7 +1913,7 @@ msg_format("%s‚ª‚ ‚È‚½‚Ì“÷‘Ì‚ðÄ‚«Å‚ª‚µ‚½I", object_name);
 		// Regeneration ability
 		if(has_trait(creature_ptr, TRAIT_REGENERATE)) regen_amount = regen_amount * 2;
 		if(creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) regen_amount /= 2;
-		if(has_trait(creature_ptr, TRAIT_SLOW_REGEN)) regen_amount /= 5;
+		if(has_trait(creature_ptr, TRAIT_SLOWREGEN)) regen_amount /= 5;
 	}
 
 	/* Searching or Resting */
@@ -2238,7 +2238,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			}
 			else
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, randint1(30) + 10, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 			}
 		}
 		else
@@ -2249,9 +2249,9 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			msg_print("You feel more energetic.");
 #endif
 
-			if(creature_ptr->timed_trait[TRAIT_SLOW_] > 0)
+			if(creature_ptr->timed_trait[TRAIT_SLOW] > 0)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, 0, TRUE);
+				set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, TRUE);
 			}
 			else
 			{
@@ -5119,7 +5119,7 @@ void process_player(creature_type *creature_ptr)
 			    !IS_BLIND(creature_ptr) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
-			    !creature_ptr->timed_trait[TRAIT_SLOW_] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
+			    !creature_ptr->timed_trait[TRAIT_SLOW] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
 			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
 			    !creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 			{

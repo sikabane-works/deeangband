@@ -1243,7 +1243,7 @@ bool set_lightspeed(creature_type *creature_ptr, int v, bool do_dec)
 
 
 /*
- * Set "creature_ptr->timed_trait[TRAIT_SLOW_]", notice observable changes
+ * Set "creature_ptr->timed_trait[TRAIT_SLOW]", notice observable changes
  */
 #if 0
 bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
@@ -1261,11 +1261,11 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if(v)
 	{
-		if(creature_ptr->timed_trait[TRAIT_SLOW_] && !do_dec)
+		if(creature_ptr->timed_trait[TRAIT_SLOW] && !do_dec)
 		{
-			if(creature_ptr->timed_trait[TRAIT_SLOW_] > v) return FALSE;
+			if(creature_ptr->timed_trait[TRAIT_SLOW] > v) return FALSE;
 		}
-		else if(!creature_ptr->timed_trait[TRAIT_SLOW_])
+		else if(!creature_ptr->timed_trait[TRAIT_SLOW])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1283,7 +1283,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-		if(creature_ptr->timed_trait[TRAIT_SLOW_])
+		if(creature_ptr->timed_trait[TRAIT_SLOW])
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -1299,7 +1299,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_SLOW_] = v;
+	creature_ptr->timed_trait[TRAIT_SLOW] = v;
 
 	/* Nothing to notice */
 	if(!notice) return (FALSE);
@@ -1324,7 +1324,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Open */
 	if(v)
 	{
-		if(!creature_ptr->timed_trait[TRAIT_SLOW_])
+		if(!creature_ptr->timed_trait[TRAIT_SLOW])
 		{
 			mproc_add(creature_ptr, MTIMED_SLOW);
 			notice = TRUE;
@@ -1334,7 +1334,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	/* Shut */
 	else
 	{
-	if(creature_ptr->timed_trait[TRAIT_SLOW_])
+	if(creature_ptr->timed_trait[TRAIT_SLOW])
 		{
 			mproc_remove(creature_ptr, MTIMED_SLOW);
 			notice = TRUE;
@@ -1342,7 +1342,7 @@ bool set_slow(creature_type *creature_ptr, int v, bool do_dec)
 	}
 
 	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_SLOW_] = v;
+	creature_ptr->timed_trait[TRAIT_SLOW] = v;
 
 	if(!notice) return FALSE;
 

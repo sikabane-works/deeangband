@@ -118,7 +118,6 @@ bool activate_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-
 		case TRAIT_CALL_CHAOS:
 		{
 #ifdef JP
@@ -750,7 +749,7 @@ bool activate_active_trait(creature_type *user_ptr, int id)
 		}
 
 
-		case TRAIT_TPORT:
+		case TRAIT_ACTIVE_TELEPORT:
 		{
 #ifdef JP
 			msg_print("周りの空間が歪んでいる...");

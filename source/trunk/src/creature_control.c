@@ -715,7 +715,7 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) (void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
 	if(creature_ptr->timed_trait[TRAIT_FAST]) (void)set_timed_trait(creature_ptr, TRAIT_FAST, 0);
-	if(creature_ptr->timed_trait[TRAIT_SLOW_]) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, 0, FALSE);
+	if(creature_ptr->timed_trait[TRAIT_SLOW]) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, FALSE);
 	if(creature_ptr->timed_trait[TRAIT_STUN]) (void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
 	if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);

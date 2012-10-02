@@ -1429,7 +1429,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
 	(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 	(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-	(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, 0, TRUE);
+	(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, TRUE);
 
 	/* No longer hungry */
 	(void)set_food(creature_ptr, PY_FOOD_MAX - 1);

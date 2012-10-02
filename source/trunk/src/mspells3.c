@@ -216,7 +216,7 @@ static void learnedungeon_info(creature_type *creature_ptr, char *p, int power)
 		case TRAIT_BLINK:
 			sprintf(p, " %s10", s_range);
 			break;
-		case TRAIT_TPORT:
+		case TRAIT_ACTIVE_TELEPORT:
 			sprintf(p, " %s%d", s_range, plev * 5);
 			break;
 		case TRAIT_PSY_SPEAR:
@@ -1298,7 +1298,7 @@ msg_print("ñ≥èùÇÃãÖÇÃéÙï∂Çè•Ç¶ÇΩÅB");
 	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
 		break;
-	case TRAIT_TPORT:
+	case TRAIT_ACTIVE_TELEPORT:
 		teleport_player(caster_ptr, plev * 5, 0L);
 		break;
 	case TRAIT_WORLD:

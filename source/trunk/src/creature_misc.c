@@ -1209,7 +1209,7 @@ bool has_intelligence_skill_flags(traits_precondition *flags_pre_ptr)
 	if(has_trait_raw(flags_pre_ptr, TRAIT_BLIND)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_SCARE)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_BLINK)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TPORT)) return TRUE;	
+	if(has_trait_raw(flags_pre_ptr, TRAIT_ACTIVE_TELEPORT)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_LEVEL)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_TELE_AWAY)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_HEAL)) return TRUE;	
@@ -1223,7 +1223,7 @@ bool has_riding_disable_skill_flags(traits_precondition *flags_pre_ptr)
 {
 	if(has_trait_raw(flags_pre_ptr, TRAIT_SHRIEK)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_BLINK)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TPORT)) return TRUE;	
+	if(has_trait_raw(flags_pre_ptr, TRAIT_ACTIVE_TELEPORT)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_TRAPS)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_DARKNESS)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_SPECIAL)) return TRUE;	
@@ -1268,7 +1268,7 @@ bool has_indirect_skill_flags(traits_precondition *flags_pre_ptr)
 	if(has_trait_raw(flags_pre_ptr, TRAIT_INVULNER)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_BLINK)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_WORLD)) return TRUE;	
-	if(has_trait_raw(flags_pre_ptr, TRAIT_TPORT)) return TRUE;	
+	if(has_trait_raw(flags_pre_ptr, TRAIT_ACTIVE_TELEPORT)) return TRUE;	
 	if(has_trait_raw(flags_pre_ptr, TRAIT_ANIM_DEAD)) return TRUE;	
 	return FALSE;
 }

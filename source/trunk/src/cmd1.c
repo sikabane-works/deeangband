@@ -1250,7 +1250,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
 #endif
 
-				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW_, creature_ptr->timed_trait[TRAIT_SLOW_] + randint0(20) + 20, FALSE);
+				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint0(20) + 20, FALSE);
 			}
 			else
 			{

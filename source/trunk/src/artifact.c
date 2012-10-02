@@ -1415,7 +1415,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_DETECT_MAP:
 			case TRAIT_DESTROY_DOOR_TRAP:
 			case TRAIT_STONE_TO_MUD:
-			case TRAIT_TPORT:
+			case TRAIT_ACTIVE_TELEPORT:
 				chance = 101;
 				break;
 			case TRAIT_DRAIN_LIFE1:
@@ -1923,7 +1923,7 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int plev = creature_ptr->lev;
-	int k, dir, dummy = 0;
+	int dummy = 0;
 
 	if(!object_ptr->art_name) return FALSE; /* oops? */
 

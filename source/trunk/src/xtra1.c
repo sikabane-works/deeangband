@@ -1105,12 +1105,12 @@ static void prt_speed(creature_type *creature_ptr)
 		if(creature_ptr->riding)
 		{
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-			if(m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->timed_trait[TRAIT_SLOW_]) attr = TERM_L_BLUE;
-			else if(m_ptr->timed_trait[TRAIT_SLOW_] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
+			if(m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_L_BLUE;
+			else if(m_ptr->timed_trait[TRAIT_SLOW] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
 			else attr = TERM_GREEN;
 		}
-		else if((is_fast && !creature_ptr->timed_trait[TRAIT_SLOW_]) || creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) attr = TERM_YELLOW;
-		else if(creature_ptr->timed_trait[TRAIT_SLOW_] && !is_fast) attr = TERM_VIOLET;
+		else if((is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) || creature_ptr->timed_trait[TRAIT_LIGHT_SPEED]) attr = TERM_YELLOW;
+		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_GREEN;
 #ifdef JP
 		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "æ”n" : "‰Á‘¬"), i);
@@ -1126,12 +1126,12 @@ static void prt_speed(creature_type *creature_ptr)
 		if(creature_ptr->riding)
 		{
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
-			if(m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->timed_trait[TRAIT_SLOW_]) attr = TERM_L_BLUE;
-			else if(m_ptr->timed_trait[TRAIT_SLOW_] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
+			if(m_ptr->timed_trait[TRAIT_FAST] && !m_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_L_BLUE;
+			else if(m_ptr->timed_trait[TRAIT_SLOW] && !m_ptr->timed_trait[TRAIT_FAST]) attr = TERM_VIOLET;
 			else attr = TERM_RED;
 		}
-		else if(is_fast && !creature_ptr->timed_trait[TRAIT_SLOW_]) attr = TERM_YELLOW;
-		else if(creature_ptr->timed_trait[TRAIT_SLOW_] && !is_fast) attr = TERM_VIOLET;
+		else if(is_fast && !creature_ptr->timed_trait[TRAIT_SLOW]) attr = TERM_YELLOW;
+		else if(creature_ptr->timed_trait[TRAIT_SLOW] && !is_fast) attr = TERM_VIOLET;
 		else attr = TERM_L_UMBER;
 #ifdef JP
 		sprintf(buf, "%s(%+d)", (creature_ptr->riding ? "æ”n" : "Œ¸‘¬"), i);
@@ -3249,7 +3249,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 
 	if(IS_FAST(creature_ptr)) creature_ptr->speed += 10;
 	if(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] && !creature_ptr->riding) creature_ptr->speed += 40;
-	if(creature_ptr->timed_trait[TRAIT_SLOW_]) creature_ptr->speed -= 10;
+	if(creature_ptr->timed_trait[TRAIT_SLOW]) creature_ptr->speed -= 10;
 	//TODO if(IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 
 	if(creature_ptr->timed_trait[TRAIT_IM_FIRE])
@@ -3306,7 +3306,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	{
 		//creature_ptr->see_inv = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
-		//creature_ptr->timed_trait[TRAIT_SLOW_]_digest = TRUE;
+		//creature_ptr->timed_trait[TRAIT_SLOW]_digest = TRUE;
 		//creature_ptr->regenerate = TRUE;
 		//creature_ptr->levitation = TRUE;
 		//creature_ptr->hold_life = TRUE;
@@ -3480,7 +3480,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 				else
 				{
 					/* Controlled random teleportation */
-					//TODO creature_ptr->cursed |= TRAIT_TELEPORT_SELF;
+					//TODO creature_ptr->cursed |= TRAIT_ACTIVE_TELEPORT_SELF;
 				}
 			}
 		}
@@ -4678,7 +4678,7 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
 	if(steed_ptr->timed_trait[TRAIT_FAST]) creature_ptr->speed += 10;
-	if(steed_ptr->timed_trait[TRAIT_SLOW_]) creature_ptr->speed -= 10;
+	if(steed_ptr->timed_trait[TRAIT_SLOW]) creature_ptr->speed -= 10;
 	riding_levitation = has_trait_species(riding_r_ptr, TRAIT_CAN_FLY) ? TRUE : FALSE;
 
 	//TODO if(is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;

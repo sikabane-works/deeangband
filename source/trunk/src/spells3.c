@@ -445,7 +445,7 @@ void teleport_player(creature_type *creature_ptr, int dis, u32b mode)
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if(has_trait(m_ptr, TRAIT_TPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
+				if(has_trait(m_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(m_ptr, TRAIT_RES_TELE))
 				{
 					if(!m_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->lev, 0L);
 				}
@@ -483,7 +483,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 				 * The latter limitation is to avoid
 				 * totally unkillable suckers...
 				 */
-				if(has_trait(creature_ptr, TRAIT_TPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
+				if(has_trait(creature_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
 				{
 					if(!creature_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, r_ptr->level, 0L);
 				}
