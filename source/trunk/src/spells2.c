@@ -304,47 +304,26 @@ info[i++] = "あなたはひじょうに注意深く周囲を見渡している。";
 
 static int report_magics_aux(int dur)
 {
-	if(dur <= 5)
-	{
-		return 0;
-	}
-	else if(dur <= 10)
-	{
-		return 1;
-	}
-	else if(dur <= 20)
-	{
-		return 2;
-	}
-	else if(dur <= 50)
-	{
-		return 3;
-	}
-	else if(dur <= 100)
-	{
-		return 4;
-	}
-	else if(dur <= 200)
-	{
-		return 5;
-	}
-	else
-	{
-		return 6;
-	}
+	if(dur <= 5) return 0;
+	else if(dur <= 10) return 1;
+	else if(dur <= 20) return 2;
+	else if(dur <= 50) return 3;
+	else if(dur <= 100) return 4;
+	else if(dur <= 200) return 5;
+	else return 6;
 }
 
 static cptr report_magic_durations[] =
 {
 #ifdef JP
-"ごく短い間",
-"少しの間",
-"しばらくの間",
-"多少長い間",
-"長い間",
-"非常に長い間",
-"信じ難いほど長い間",
-"クリーチャーを攻撃するまで"
+	"ごく短い間",
+	"少しの間",
+	"しばらくの間",
+	"多少長い間",
+	"長い間",
+	"非常に長い間",
+	"信じ難いほど長い間",
+	"クリーチャーを攻撃するまで"
 #else
 	"for a short time",
 	"for a little while",
@@ -355,7 +334,6 @@ static cptr report_magic_durations[] =
 	"for an incredibly long time",
 	"until you hit a creature"
 #endif
-
 };
 
 
@@ -368,208 +346,6 @@ void report_magics(creature_type *creature_ptr)
 	char    Dummy[80];
 	cptr    info[128];
 	int     info2[128];
-
-
-	if(IS_BLIND(creature_ptr))
-	{
-		info2[i]  = report_magics_aux(IS_BLIND(creature_ptr));
-#ifdef JP
-info[i++] = "あなたは目が見えない。";
-#else
-		info[i++] = "You cannot see";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_CONFUSED]);
-#ifdef JP
-info[i++] = "あなたは混乱している。";
-#else
-		info[i++] = "You are confused";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_AFRAID])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_AFRAID]);
-#ifdef JP
-info[i++] = "あなたは恐怖に侵されている。";
-#else
-		info[i++] = "You are terrified";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_POISONED])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_POISONED]);
-#ifdef JP
-info[i++] = "あなたは毒に侵されている。";
-#else
-		info[i++] = "You are poisoned";
-#endif
-
-	}
-	if(IS_HALLUCINATION(creature_ptr))
-	{
-		info2[i]  = report_magics_aux(IS_HALLUCINATION(creature_ptr));
-#ifdef JP
-info[i++] = "あなたは幻覚を見ている。";
-#else
-		info[i++] = "You are hallucinating";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_BLESSED])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_BLESSED]);
-#ifdef JP
-info[i++] = "あなたは公正さを感じている。";
-#else
-		info[i++] = "You feel rightous";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_HERO])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_HERO]);
-#ifdef JP
-info[i++] = "あなたはヒーロー気分だ。";
-#else
-		info[i++] = "You feel heroic";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_S_HERO])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_S_HERO]);
-#ifdef JP
-info[i++] = "あなたは戦闘狂だ。";
-#else
-		info[i++] = "You are in a battle rage";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_PROT_EVIL])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_PROT_EVIL]);
-#ifdef JP
-info[i++] = "あなたは邪悪なる存在から守られている。";
-#else
-		info[i++] = "You are protected from evil";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_SHIELD])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_SHIELD]);
-#ifdef JP
-info[i++] = "あなたは神秘のシールドで守られている。";
-#else
-		info[i++] = "You are protected by a mystic shield";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_INVULNERABLE]);
-#ifdef JP
-info[i++] = "無敵でいられる。";
-#else
-		info[i++] = "You are invulnerable";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]);
-#ifdef JP
-info[i++] = "幽体化できる。";
-#else
-		info[i++] = "You are incorporeal";
-#endif
-
-	}
-	if(creature_ptr->special_attack & ATTACK_CONFUSE)
-	{
-		info2[i]  = 7;
-#ifdef JP
-info[i++] = "あなたの手は赤く輝いている。";
-#else
-		info[i++] = "Your hands are glowing dull red.";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_WORD_RECALL]);
-#ifdef JP
-		info[i++] = "この後帰還の詔を発動する。";
-#else
-		info[i++] = "You are waiting to be recalled";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]);
-#ifdef JP
-		info[i++] = "この後現実変容が発動する。";
-#else
-		info[i++] = "You waiting to be altered";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_RES_ACID])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_ACID]);
-#ifdef JP
-info[i++] = "あなたは酸への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to acid";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_RES_ELEC])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_ELEC]);
-#ifdef JP
-info[i++] = "あなたは電撃への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to lightning";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_RES_FIRE])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_FIRE]);
-#ifdef JP
-info[i++] = "あなたは火への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to fire";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_RES_COLD])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_COLD]);
-#ifdef JP
-info[i++] = "あなたは冷気への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to cold";
-#endif
-
-	}
-	if(creature_ptr->timed_trait[TRAIT_RES_POIS])
-	{
-		info2[i]  = report_magics_aux(creature_ptr->timed_trait[TRAIT_RES_POIS]);
-#ifdef JP
-		info[i++] = "あなたは毒への耐性を持っている。";
-#else
-		info[i++] = "You are resistant to poison";
-#endif
-
-	}
 
 	/* Save the screen */
 	screen_save();
