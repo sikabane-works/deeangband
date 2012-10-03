@@ -1924,22 +1924,13 @@ bool activate_random_artifact(creature_type *creature_ptr, object_type *object_p
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int plev = creature_ptr->lev;
 	int dummy = 0;
+	int i;
 
 	if(!object_ptr->art_name) return FALSE; /* oops? */
 
-	/* Activate for attack */
-	switch (object_ptr->xtra2)
+	for(i = 0; i < MAX_TRAITS; i++)
 	{
-		default:
-		{
-#ifdef JP
-			msg_format("Unknown activation effect: %d.", object_ptr->xtra2);
-#else
-			msg_format("Unknown activation effect: %d.", object_ptr->xtra2);
-#endif
-
-			return FALSE;
-		}
+		if(0) activate_active_trait(creature_ptr, i);
 	}
 
 	if(object_ptr)

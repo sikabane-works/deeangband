@@ -1907,3 +1907,7 @@ extern void do_creature_mutation(creature_type *creature_ptr);
 extern void do_creature_fishing(creature_type *creature_ptr);
 extern void gamble_arena_limitation(void);
 extern void do_creature_riding_control(creature_type *creature_ptr);
+
+// trait.c
+
+extern bool activate_active_trait(creature_type *user_ptr, int id);
