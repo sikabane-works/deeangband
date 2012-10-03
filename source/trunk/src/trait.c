@@ -79,7 +79,7 @@ bool activate_active_trait(creature_type *user_ptr, int id)
 #endif
 
 			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			fire_bolt(user_ptr, GF_ARROW, dir, 150);
+			cast_bolt(user_ptr, GF_ARROW, dir, 150);
 			break;
 		}
 
@@ -139,7 +139,7 @@ bool activate_active_trait(creature_type *user_ptr, int id)
 			msg_print("You launch a rocket!");
 #endif
 
-			fire_ball(user_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
+			cast_ball(user_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
 			break;
 		}
 
@@ -209,7 +209,7 @@ bool activate_active_trait(creature_type *user_ptr, int id)
 		case TRAIT_TELE_AWAY:
 		{
 			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			(void)fire_beam(user_ptr, GF_AWAY_ALL, dir, user_level);
+			(void)cast_beam(user_ptr, GF_AWAY_ALL, dir, user_level);
 			break;
 		}
 

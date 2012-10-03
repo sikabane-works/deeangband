@@ -1750,17 +1750,17 @@ void call_the_void(creature_type *creature_ptr)
 	{
 		for (i = 1; i < 10; i++)
 		{
-			if(i - 5) fire_ball(creature_ptr, GF_ROCKET, i, 175, 2);
+			if(i - 5) cast_ball(creature_ptr, GF_ROCKET, i, 175, 2);
 		}
 
 		for (i = 1; i < 10; i++)
 		{
-			if(i - 5) fire_ball(creature_ptr, GF_MANA, i, 175, 3);
+			if(i - 5) cast_ball(creature_ptr, GF_MANA, i, 175, 3);
 		}
 
 		for (i = 1; i < 10; i++)
 		{
-			if(i - 5) fire_ball(creature_ptr, GF_NUKE, i, 175, 4);
+			if(i - 5) cast_ball(creature_ptr, GF_NUKE, i, 175, 4);
 		}
 	}
 

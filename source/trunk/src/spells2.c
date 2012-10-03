@@ -135,7 +135,7 @@ void creature_knowledge(creature_type *creature_ptr)
 	info[i++] = "";
 
 
-	if(creature_ptr->player)
+	if(is_player(creature_ptr))
 	{
 #ifdef JP
 		info[i++] = "あなたはプレイヤーである。";
@@ -3328,7 +3328,7 @@ msg_print("暗闇が辺りを覆った。");
  * Allow "target" mode to pass over creatures
  * Affect grids, objects, and creatures
  */
-bool fire_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
+bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
@@ -3386,7 +3386,7 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
  * Allow "target" mode to pass over creatures
  * Affect grids, objects, and creatures
  */
-bool fire_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
+bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
@@ -3596,7 +3596,7 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
  * Stop if we hit a creature, as a "bolt".
  * Affect creatures and grids (not objects).
  */
-bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
+bool cast_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID;
 	return (project_hook(caster_ptr, typ, dir, dam, flg));
@@ -3608,7 +3608,7 @@ bool fire_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
  * Pass through creatures, as a "beam".
  * Affect creatures, grids and objects.
  */
-bool fire_beam(creature_type *caster_ptr, int typ, int dir, int dam)
+bool cast_beam(creature_type *caster_ptr, int typ, int dir, int dam)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
 	return (project_hook(caster_ptr, typ, dir, dam, flg));
@@ -3618,15 +3618,15 @@ bool fire_beam(creature_type *caster_ptr, int typ, int dir, int dam)
 /*
  * Cast a bolt spell, or rarely, a beam spell
  */
-bool fire_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
+bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
 {
 	if(randint0(100) < prob)
 	{
-		return (fire_beam(caster_ptr, typ, dir, dam));
+		return (cast_beam(caster_ptr, typ, dir, dam));
 	}
 	else
 	{
-		return (fire_bolt(caster_ptr, typ, dir, dam));
+		return (cast_bolt(caster_ptr, typ, dir, dam));
 	}
 }
 
@@ -3706,13 +3706,13 @@ bool sleep_creature(creature_type *caster_ptr, int dir)
 
 bool stasis_creature(creature_type *caster_ptr, int dir)
 {
-	return (fire_ball_hide(caster_ptr, GF_STASIS, dir, caster_ptr->lev*2, 0));
+	return (cast_ball_hide(caster_ptr, GF_STASIS, dir, caster_ptr->lev*2, 0));
 }
 
 
 bool stasis_evil(creature_type *caster_ptr, int dir)
 {
-	return (fire_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
+	return (cast_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
 }
 
 
@@ -3861,23 +3861,23 @@ void call_chaos(creature_type *creature_ptr)
 			if(dummy - 5)
 			{
 				if(line_chaos)
-					fire_beam(creature_ptr, Chaos_type, dummy, 150);
+					cast_beam(creature_ptr, Chaos_type, dummy, 150);
 				else
-					fire_ball(creature_ptr, Chaos_type, dummy, 150, 2);
+					cast_ball(creature_ptr, Chaos_type, dummy, 150, 2);
 			}
 		}
 	}
 	else if(one_in_(3))
 	{
-		fire_ball(creature_ptr, Chaos_type, 0, 500, 8);
+		cast_ball(creature_ptr, Chaos_type, 0, 500, 8);
 	}
 	else
 	{
 		if(!get_aim_dir(creature_ptr, &dir)) return;
 		if(line_chaos)
-			fire_beam(creature_ptr, Chaos_type, dir, 250);
+			cast_beam(creature_ptr, Chaos_type, dir, 250);
 		else
-			fire_ball(creature_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
+			cast_ball(creature_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
 	}
 }
 

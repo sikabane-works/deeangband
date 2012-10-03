@@ -2180,7 +2180,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 		msg_print(NULL);
-		fire_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
+		cast_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_PROD_MANA) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(9000))
@@ -2196,7 +2196,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		flush();
 		msg_print(NULL);
 		(void)get_hack_dir(creature_ptr, &dire);
-		fire_ball(creature_ptr, GF_MANA, dire, creature_ptr->lev * 2, 3);
+		cast_ball(creature_ptr, GF_MANA, dire, creature_ptr->lev * 2, 3);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_ATT_DEMON) &&
@@ -2356,7 +2356,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 		msg_print(NULL);
-		fire_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
+		cast_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
 	}
 	if(has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))
 	{

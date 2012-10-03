@@ -4182,7 +4182,7 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 			msg_print("'Suffer, pathetic fool!'");
 #endif
 
-			fire_ball(creature_ptr, GF_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
+			cast_ball(creature_ptr, GF_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 #ifdef JP
 			reward = "•ª‰ğ‚Ì‹…‚ª”­¶‚µ‚½B";

@@ -158,7 +158,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			msg_print("You spit acid...");
 #endif
 
-			fire_ball(creature_ptr, GF_ACID, dir, lvl, 1 + (lvl / 30));
+			cast_ball(creature_ptr, GF_ACID, dir, lvl, 1 + (lvl / 30));
 			break;
 
 		case TRAIT_BR_FIRE:
@@ -170,7 +170,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			msg_print("You breathe fire...");
 #endif
 
-			fire_ball(creature_ptr, GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
+			cast_ball(creature_ptr, GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
 			break;
 
 		case TRAIT_HYPN_GAZE:
@@ -213,7 +213,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			msg_print("You concentrate...");
 #endif
 
-			fire_bolt(creature_ptr, GF_PSI, dir, diceroll(3 + ((lvl - 1) / 5), 3));
+			cast_bolt(creature_ptr, GF_PSI, dir, diceroll(3 + ((lvl - 1) / 5), 3));
 			break;
 
 		case TRAIT_RADIATION:
@@ -223,7 +223,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			msg_print("Radiation flows from your body!");
 #endif
 
-			fire_ball(creature_ptr, GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
+			cast_ball(creature_ptr, GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
 			break;
 
 		case TRAIT_VAMPIRISM:
@@ -405,7 +405,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case TRAIT_SHRIEK:
 			mutation_stop_mouth(creature_ptr);
-			(void)fire_ball(creature_ptr, GF_SOUND, 0, 2 * lvl, 8);
+			(void)cast_ball(creature_ptr, GF_SOUND, 0, 2 * lvl, 8);
 			(void)aggravate_creatures(creature_ptr);
 			break;
 
@@ -556,7 +556,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case TRAIT_LASER_EYE:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_beam(creature_ptr, GF_LITE, dir, 2 * lvl);
+			cast_beam(creature_ptr, GF_LITE, dir, 2 * lvl);
 			break;
 
 		case TRAIT_RECALL:
@@ -646,7 +646,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 					break;
 				}
-				fire_bolt(creature_ptr, GF_COLD, dir, 2 * lvl);
+				cast_bolt(creature_ptr, GF_COLD, dir, 2 * lvl);
 			}
 			break;
 

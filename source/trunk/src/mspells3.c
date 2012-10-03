@@ -752,7 +752,7 @@ msg_print("矢を放った。");
 				damage = diceroll(object_ptr->dd, object_ptr->ds)+ object_ptr->to_damage;
 				if(damage < 1) damage = 1;
 			}
-			fire_bolt(caster_ptr, GF_ARROW, dir, damage);
+			cast_bolt(caster_ptr, GF_ARROW, dir, damage);
 		}
 		break;
 	}
@@ -764,7 +764,7 @@ else msg_print("酸のブレスを吐いた。");
 			else msg_print("You breathe acid.");
 #endif
 		damage = hp / 3;
-		fire_ball(caster_ptr, GF_ACID, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_ACID, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -774,7 +774,7 @@ else msg_print("稲妻のブレスを吐いた。");
 			else msg_print("You breathe lightning.");
 #endif
 		damage = hp / 3;
-		fire_ball(caster_ptr, GF_ELEC, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_ELEC, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -784,7 +784,7 @@ else msg_print("火炎のブレスを吐いた。");
 			else msg_print("You breathe fire.");
 #endif
 		damage = hp / 3;
-		fire_ball(caster_ptr, GF_FIRE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_FIRE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -794,7 +794,7 @@ else msg_print("冷気のブレスを吐いた。");
 			else msg_print("You breathe frost.");
 #endif
 		damage = hp / 3;
-		fire_ball(caster_ptr, GF_COLD, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_COLD, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -804,7 +804,7 @@ else msg_print("ガスのブレスを吐いた。");
 			else msg_print("You breathe gas.");
 #endif
 		damage = hp / 3;
-		fire_ball(caster_ptr, GF_POIS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_POIS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -814,7 +814,7 @@ else msg_print("地獄のブレスを吐いた。");
 			else msg_print("You breathe nether.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_NETHER, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_NETHER, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -824,7 +824,7 @@ else msg_print("閃光のブレスを吐いた。");
 			else msg_print("You breathe light.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_LITE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_LITE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -834,7 +834,7 @@ else msg_print("暗黒のブレスを吐いた。");
 			else msg_print("You breathe darkness.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_DARK, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_DARK, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -844,7 +844,7 @@ else msg_print("混乱のブレスを吐いた。");
 			else msg_print("You breathe confusion.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_CONFUSION, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_SOUN:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -854,7 +854,7 @@ else msg_print("轟音のブレスを吐いた。");
 			else msg_print("You breathe sound.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_SOUND, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_SOUND, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -864,7 +864,7 @@ else msg_print("カオスのブレスを吐いた。");
 			else msg_print("You breathe chaos.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_CHAOS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -874,7 +874,7 @@ else msg_print("劣化のブレスを吐いた。");
 			else msg_print("You breathe disenchantment.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_DISENCHANT, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -884,7 +884,7 @@ else msg_print("因果混乱のブレスを吐いた。");
 			else msg_print("You breathe nexus.");
 #endif
 		damage = MIN(hp / 3, 250);
-		fire_ball(caster_ptr, GF_NEXUS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -894,7 +894,7 @@ else msg_print("時間逆転のブレスを吐いた。");
 			else msg_print("You breathe time.");
 #endif
 		damage = MIN(hp / 3, 150);
-		fire_ball(caster_ptr, GF_TIME, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_TIME, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_INER:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -904,7 +904,7 @@ else msg_print("遅鈍のブレスを吐いた。");
 			else msg_print("You breathe inertia.");
 #endif
 		damage = MIN(hp / 6, 200);
-		fire_ball(caster_ptr, GF_INERTIA, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_GRAV:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -914,7 +914,7 @@ else msg_print("重力のブレスを吐いた。");
 			else msg_print("You breathe gravity.");
 #endif
 		damage = MIN(hp / 3, 200);
-		fire_ball(caster_ptr, GF_GRAVITY, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_SHAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -924,7 +924,7 @@ else msg_print("破片のブレスを吐いた。");
 			else msg_print("You breathe shards.");
 #endif
 		damage = hp / 6;
-		fire_ball(caster_ptr, GF_SHARDS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -934,7 +934,7 @@ else msg_print("プラズマのブレスを吐いた。");
 			else msg_print("You breathe plasma.");
 #endif
 		damage = MIN(hp / 6, 150);
-		fire_ball(caster_ptr, GF_PLASMA, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_WALL:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -944,7 +944,7 @@ else msg_print("フォースのブレスを吐いた。");
 			else msg_print("You breathe force.");
 #endif
 		damage = MIN(hp / 6, 200);
-		fire_ball(caster_ptr, GF_FORCE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_FORCE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -955,7 +955,7 @@ else msg_print("魔力のブレスを吐いた。");
 #endif
 		
 		damage = MIN(hp / 3, 250);
-		fire_ball(caster_ptr, GF_MANA, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_MANA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -965,7 +965,7 @@ else msg_print("放射能球を放った。");
 			else msg_print("You cast a ball of radiation.");
 #endif
 		damage = plev * 2 + diceroll(10, 6);
-		fire_ball(caster_ptr, GF_NUKE, dir, damage, 2);
+		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
 	case TRAIT_BR_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -975,7 +975,7 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 			else msg_print("You breathe toxic waste.");
 #endif
 		damage = hp / 3;
-		fire_ball(caster_ptr, GF_NUKE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_NUKE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -985,7 +985,7 @@ else msg_print("純ログルスを放った。");
 			else msg_print("You invoke a raw Logrus.");
 #endif
 		damage = plev * 4 + diceroll(10, 10);
-		fire_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
+		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 	case TRAIT_BR_DISI:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -995,7 +995,7 @@ else msg_print("分解のブレスを吐いた。");
 			else msg_print("You breathe disintegration.");
 #endif
 		damage = MIN(hp / 6, 150);
-		fire_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1005,7 +1005,7 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 			else msg_print("You cast an acid ball.");
 #endif
 		damage = randint1(plev * 6) + 15;
-		fire_ball(caster_ptr, GF_ACID, dir, damage, 2);
+		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
 	case TRAIT_BA_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1015,7 +1015,7 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 			else msg_print("You cast a lightning ball.");
 #endif
 		damage = randint1(plev * 3) + 8;
-		fire_ball(caster_ptr, GF_ELEC, dir, damage, 2);
+		cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
 		break;
 	case TRAIT_BA_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1025,7 +1025,7 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 			else msg_print("You cast a fire ball.");
 #endif
 		damage = randint1(plev * 7) + 10;
-		fire_ball(caster_ptr, GF_FIRE, dir, damage, 2);
+		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
 		break;
 	case TRAIT_BA_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1035,7 +1035,7 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 			else msg_print("You cast a frost ball.");
 #endif
 		damage = randint1(plev * 3) + 10;
-		fire_ball(caster_ptr, GF_COLD, dir, damage, 2);
+		cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
 		break;
 	case TRAIT_BA_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1045,7 +1045,7 @@ else msg_print("悪臭雲の呪文を唱えた。");
 			else msg_print("You cast a stinking cloud.");
 #endif
 		damage = diceroll(12,2);
-		fire_ball(caster_ptr, GF_POIS, dir, damage, 2);
+		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
 	case TRAIT_BA_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1055,7 +1055,7 @@ else msg_print("地獄球の呪文を唱えた。");
 			else msg_print("You cast a nether ball.");
 #endif
 		damage = plev * 2 + 50 + diceroll(10, 10);
-		fire_ball(caster_ptr, GF_NETHER, dir, damage, 2);
+		cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
 	case TRAIT_BA_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1065,7 +1065,7 @@ else msg_print("流れるような身振りをした。");
 			else msg_print("You gesture fluidly.");
 #endif
 		damage = randint1(plev * 4) + 50;
-		fire_ball(caster_ptr, GF_WATER, dir, damage, 4);
+		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
 	case TRAIT_BA_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1075,7 +1075,7 @@ else msg_print("魔力の嵐の呪文を念じた。");
 			else msg_print("You invoke a mana storm.");
 #endif
 		damage = plev * 8 + 50 + diceroll(10, 10);
-		fire_ball(caster_ptr, GF_MANA, dir, damage, 4);
+		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case TRAIT_BA_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1085,41 +1085,41 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 			else msg_print("You invoke a darkness storm.");
 #endif
 		damage = plev * 8 + 50 + diceroll(10, 10);
-		fire_ball(caster_ptr, GF_DARK, dir, damage, 4);
+		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case TRAIT_DRAIN_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		fire_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(plev)+plev, 0);
+		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(plev)+plev, 0);
 		break;
 	case TRAIT_MIND_BLAST:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(7, 7);
-		fire_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
+		cast_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(12, 12);
-		fire_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
+		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_1:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(3, 8);
-		fire_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
+		cast_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_2:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(8, 8);
-		fire_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
+		cast_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_3:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(10, 15);
-		fire_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
+		cast_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_4:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(15, 15);
-		fire_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
+		cast_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1129,7 +1129,7 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 			else msg_print("You cast an acid bolt.");
 #endif
 		damage = diceroll(7, 8) + plev * 2 / 3;
-		fire_bolt(caster_ptr, GF_ACID, dir, damage);
+		cast_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
 	case TRAIT_BO_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1139,7 +1139,7 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 			else msg_print("You cast a lightning bolt.");
 #endif
 		damage = diceroll(4, 8) + plev * 2 / 3;
-		fire_bolt(caster_ptr, GF_ELEC, dir, damage);
+		cast_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
 	case TRAIT_BO_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1149,7 +1149,7 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 			else msg_print("You cast a fire bolt.");
 #endif
 		damage = diceroll(9, 8) + plev * 2 / 3;
-		fire_bolt(caster_ptr, GF_FIRE, dir, damage);
+		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
 	case TRAIT_BO_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1159,7 +1159,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 			else msg_print("You cast a frost bolt.");
 #endif
 		damage = diceroll(6, 8) + plev * 2 / 3;
-		fire_bolt(caster_ptr, GF_COLD, dir, damage);
+		cast_bolt(caster_ptr, GF_COLD, dir, damage);
 		break;
 	case TRAIT_BA_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1170,7 +1170,7 @@ msg_print("スターバーストの呪文を念じた。");
 			msg_print("You invoke a starburst.");
 #endif
 		damage = plev * 8 + 50 + diceroll(10, 10);
-		fire_ball(caster_ptr, GF_LITE, dir, damage, 4);
+		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
 	case TRAIT_BO_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1180,7 +1180,7 @@ else msg_print("地獄の矢の呪文を唱えた。");
 			else msg_print("You cast a nether bolt.");
 #endif
 		damage = 30 + diceroll(5, 5) + plev * 8 / 3;
-		fire_bolt(caster_ptr, GF_NETHER, dir, damage);
+		cast_bolt(caster_ptr, GF_NETHER, dir, damage);
 		break;
 	case TRAIT_BO_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1190,7 +1190,7 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 			else msg_print("You cast a water bolt.");
 #endif
 		damage = diceroll(10, 10) + plev * 2;
-		fire_bolt(caster_ptr, GF_WATER, dir, damage);
+		cast_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
 	case TRAIT_BO_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1200,7 +1200,7 @@ else msg_print("魔力の矢の呪文を唱えた。");
 			else msg_print("You cast a mana bolt.");
 #endif
 		damage = randint1(plev * 7) + 50;
-		fire_bolt(caster_ptr, GF_MANA, dir, damage);
+		cast_bolt(caster_ptr, GF_MANA, dir, damage);
 		break;
 	case TRAIT_BO_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1210,7 +1210,7 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 			else msg_print("You cast a plasma bolt.");
 #endif
 		damage = 10 + diceroll(8, 7) + plev * 2;
-		fire_bolt(caster_ptr, GF_PLASMA, dir, damage);
+		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
 	case TRAIT_BO_ICEE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1220,7 +1220,7 @@ else msg_print("極寒の矢の呪文を唱えた。");
 			else msg_print("You cast a ice bolt.");
 #endif
 		damage = diceroll(6, 6) + plev * 2;
-		fire_bolt(caster_ptr, GF_ICE, dir, damage);
+		cast_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
 	case TRAIT_MISSILE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1230,7 +1230,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 			else msg_print("You cast a magic missile.");
 #endif
 		damage = diceroll(2, 6) + plev * 2 / 3;
-		fire_bolt(caster_ptr, GF_MISSILE, dir, damage);
+		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
 	case TRAIT_SCARE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1274,7 +1274,7 @@ else msg_print("<破滅の手>を放った！");
 		else msg_print("You invoke the Hand of Doom!");
 #endif
 
-		fire_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 3, 0);
+		cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 3, 0);
 		break;
 	}
 	case TRAIT_HEAL:
@@ -1376,7 +1376,7 @@ msg_format("%sを引き戻した。", m_name);
 	case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
-		(void)fire_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
+		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
 		break;
 	case TRAIT_TELE_LEVEL:
 	{
@@ -1420,7 +1420,7 @@ else msg_print("光の剣を放った。");
 			else msg_print("You throw a psycho-spear.");
 #endif
 		damage = randint1(plev * 3) + 100;
-		(void)fire_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
+		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
 	case TRAIT_DARKNESS:
 #ifdef JP

@@ -996,7 +996,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_PALADIN:
 		{
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			fire_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
+			cast_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
 			          dir, plev * 3);
 			break;
 		}
@@ -1160,7 +1160,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 				project_length = 1;
-				fire_beam(creature_ptr, GF_PHOTO, dir, 1);
+				cast_beam(creature_ptr, GF_PHOTO, dir, 1);
 			}
 			else if(command == -4)
 			{
@@ -1179,7 +1179,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(command == -3)
 			{
 				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-				(void)fire_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
+				(void)cast_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
 			}
 			else if(command == -4)
 			{
@@ -1449,7 +1449,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
 #endif
 
-			fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
+			cast_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
 			break;
 		}
 		case MIMIC_VAMPIRE:
@@ -1676,7 +1676,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You throw a huge boulder.");
 #endif
 
-			fire_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
+			cast_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
 			break;
 
 		case RACE_YEEK:
@@ -1700,8 +1700,8 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You spit acid.");
 #endif
 
-			if(plev < 25) fire_bolt(creature_ptr, GF_ACID, dir, plev);
-			else fire_ball(creature_ptr, GF_ACID, dir, plev, 2);
+			if(plev < 25) cast_bolt(creature_ptr, GF_ACID, dir, plev);
+			else cast_ball(creature_ptr, GF_ACID, dir, plev, 2);
 			break;
 
 		case RACE_KOBOLD:
@@ -1712,7 +1712,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You throw a dart of poison.");
 #endif
 
-			fire_bolt(creature_ptr, GF_POIS, dir, plev);
+			cast_bolt(creature_ptr, GF_POIS, dir, plev);
 			break;
 
 		case RACE_NIBELUNG:
@@ -1735,7 +1735,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You cast a magic missile.");
 #endif
 
-			fire_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
+			cast_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
 			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
@@ -1942,7 +1942,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_format("You breathe %s.", Type_desc);
 #endif
 
-				fire_ball(creature_ptr, Type, dir, plev * 2,
+				cast_ball(creature_ptr, Type, dir, plev * 2,
 				    -(plev / 15) - 1);
 			}
 			break;
@@ -1955,7 +1955,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You concentrate and your eyes glow red...");
 #endif
 
-			fire_bolt(creature_ptr, GF_PSI, dir, plev);
+			cast_bolt(creature_ptr, GF_PSI, dir, plev);
 			break;
 
 		case RACE_IMP:
@@ -1968,7 +1968,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You cast a ball of fire.");
 #endif
 
-				fire_ball(creature_ptr, GF_FIRE, dir, plev, 2);
+				cast_ball(creature_ptr, GF_FIRE, dir, plev, 2);
 			}
 			else
 			{
@@ -1978,7 +1978,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You cast a bolt of fire.");
 #endif
 
-				fire_bolt(creature_ptr, GF_FIRE, dir, plev);
+				cast_bolt(creature_ptr, GF_FIRE, dir, plev);
 			}
 			break;
 
@@ -2103,7 +2103,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
 #endif
 
-				fire_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
+				cast_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
 			}
 			break;
 
@@ -2121,7 +2121,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your ray gun.");
 #endif
-				fire_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
+				cast_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
 			}
 			else if(plev < 25)
 			{
@@ -2130,7 +2130,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your blaster.");
 #endif
-				fire_bolt(creature_ptr, GF_MISSILE, dir, plev);
+				cast_bolt(creature_ptr, GF_MISSILE, dir, plev);
 			}
 			else if(plev < 35)
 			{
@@ -2139,7 +2139,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your bazooka.");
 #endif
-				fire_ball(creature_ptr, GF_MISSILE, dir, plev * 2, 2);
+				cast_ball(creature_ptr, GF_MISSILE, dir, plev * 2, 2);
 			}
 			else if(plev < 45)
 			{
@@ -2148,7 +2148,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				fire_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
+				cast_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
 			}
 			else
 			{
@@ -2288,7 +2288,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		case TRAIT_HELL_LANCE:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			fire_beam(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, plev * 3);
+			cast_beam(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, plev * 3);
 			break;
 		}
 
@@ -2456,7 +2456,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			project_length = 1;
-			fire_beam(caster_ptr, GF_PHOTO, dir, 1);
+			cast_beam(caster_ptr, GF_PHOTO, dir, 1);
 			break;
 		}
 
@@ -2476,7 +2476,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 		case TRAIT_DOMINATE_LIVE:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			(void)fire_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
+			(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
 			break;
 		}
 
@@ -2915,7 +2915,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("You throw a huge boulder.");
 #endif
 
-			fire_bolt(caster_ptr, GF_MISSILE, dir, (3 * plev) / 2);
+			cast_bolt(caster_ptr, GF_MISSILE, dir, (3 * plev) / 2);
 			break;
 
 		case TRAIT_SHRIEK:
@@ -2939,8 +2939,8 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("You spit acid.");
 #endif
 
-			if(plev < 25) fire_bolt(caster_ptr, GF_ACID, dir, plev);
-			else fire_ball(caster_ptr, GF_ACID, dir, plev, 2);
+			if(plev < 25) cast_bolt(caster_ptr, GF_ACID, dir, plev);
+			else cast_ball(caster_ptr, GF_ACID, dir, plev, 2);
 			break;
 
 		case TRAIT_POISON_DART:
@@ -2951,7 +2951,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("You throw a dart of poison.");
 #endif
 
-			fire_bolt(caster_ptr, GF_POIS, dir, plev);
+			cast_bolt(caster_ptr, GF_POIS, dir, plev);
 			break;
 
 		case TRAIT_MISSILE:
@@ -2962,7 +2962,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("You cast a magic missile.");
 #endif
 
-			fire_bolt_or_beam(caster_ptr, 10, GF_MISSILE, dir,
+			cast_bolt_or_beam(caster_ptr, 10, GF_MISSILE, dir,
 			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
@@ -2984,7 +2984,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("You concentrate and your eyes glow red...");
 #endif
 
-			fire_bolt(caster_ptr, GF_PSI, dir, plev);
+			cast_bolt(caster_ptr, GF_PSI, dir, plev);
 			break;
 
 		case TRAIT_FIRE_BALL:
@@ -2995,7 +2995,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				msg_print("You cast a ball of fire.");
 #endif
 
-				fire_ball(caster_ptr, GF_FIRE, dir, plev, 2);
+				cast_ball(caster_ptr, GF_FIRE, dir, plev, 2);
 			}
 			break;
 
@@ -3007,7 +3007,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				msg_print("You cast a bolt of fire.");
 #endif
 
-				fire_bolt(caster_ptr, GF_FIRE, dir, plev);
+				cast_bolt(caster_ptr, GF_FIRE, dir, plev);
 			}
 			break;
 
@@ -3034,7 +3034,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #else
 				msg_print("You fire your ray gun.");
 #endif
-				fire_bolt(caster_ptr, GF_MISSILE, dir, (plev+1) / 2);
+				cast_bolt(caster_ptr, GF_MISSILE, dir, (plev+1) / 2);
 			}
 			break;
 
@@ -3046,7 +3046,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #else
 				msg_print("You fire your blaster.");
 #endif
-				fire_bolt(caster_ptr, GF_MISSILE, dir, plev);
+				cast_bolt(caster_ptr, GF_MISSILE, dir, plev);
 			}
 			break;
 
@@ -3058,7 +3058,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #else
 				msg_print("You fire your bazooka.");
 #endif
-				fire_ball(caster_ptr, GF_MISSILE, dir, plev * 2, 2);
+				cast_ball(caster_ptr, GF_MISSILE, dir, plev * 2, 2);
 			}
 			break;
 
@@ -3070,7 +3070,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				fire_beam(caster_ptr, GF_MISSILE, dir, plev * 2);
+				cast_beam(caster_ptr, GF_MISSILE, dir, plev * 2);
 			}
 			break;
 
@@ -5184,7 +5184,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
 #else
 						msg_print("Water blew off from the ground!");
 #endif
-						fire_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
+						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
 					}
 
 					for (k = 0; k < num; k++)

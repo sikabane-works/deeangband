@@ -3743,7 +3743,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
 #else
 						msg_print("Water blew off from the ground!");
 #endif
-						fire_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
+						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
 					}
 
 					for (k = 0; k < num; k++)
