@@ -1922,16 +1922,10 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 bool activate_random_artifact(creature_type *creature_ptr, object_type *object_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int plev = creature_ptr->lev;
-	int dummy = 0;
 	int i;
 
-	if(!object_ptr->art_name) return FALSE; /* oops? */
-
 	for(i = 0; i < MAX_TRAITS; i++)
-	{
-		if(0) activate_active_trait(creature_ptr, i);
-	}
+		if(trait_info[i].is_spell && have_flag(object_ptr->trait_flags, i)) activate_active_trait(creature_ptr, i);
 
 	if(object_ptr)
 	{
