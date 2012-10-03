@@ -1919,7 +1919,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 }
 
 
-bool activate_random_artifact(creature_type *creature_ptr, object_type *object_ptr)
+bool activate_object(creature_type *creature_ptr, object_type *object_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
