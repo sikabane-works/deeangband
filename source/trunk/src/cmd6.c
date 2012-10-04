@@ -776,24 +776,6 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			break;
 #endif
 
-		case TRAIT_SALT_WATER:
-#ifdef JP
-			msg_print("‚¤‚¥IŽv‚í‚¸“f‚¢‚Ä‚µ‚Ü‚Á‚½B");
-#else
-			msg_print("The potion makes you vomit!");
-#endif
-
-			if(!has_trait(creature_ptr, TRAIT_NONLIVING))
-			{
-				/* Only living creatures get thirsty */
-				(void)set_food(creature_ptr, PY_FOOD_STARVE - 1);
-			}
-
-			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-			(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 4);
-			ident = TRUE;
-			break;
-
 		case SV_POTION_POISON:
 			if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
 			{

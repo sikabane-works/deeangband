@@ -1743,6 +1743,18 @@ if(get_check("この階を去りますか？"))
 				break;
 			}
 
+		case TRAIT_SALT_WATER:
+#ifdef JP
+			msg_print("うぇ！思わず吐いてしまった。");
+#else
+			msg_print("The potion makes you vomit!");
+#endif
+
+			if(!has_trait(user_ptr, TRAIT_NONLIVING)) (void)set_food(user_ptr, PY_FOOD_STARVE - 1); // Only living creatures get thirsty
+
+			(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
+			(void)set_timed_trait(user_ptr, TRAIT_PARALYZED, user_ptr->timed_trait[TRAIT_PARALYZED] + 4);
+			break;
 
 
 		default:
