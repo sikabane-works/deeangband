@@ -365,7 +365,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 159,耐久力維持,サファイアの,Sustain Constitution,Sapphire,=,b,RING,RING,0,0,0,0,0,0,13,0,30,0,0,100,750,0,0,0,0,0,1d1,0,0,0,0,0,30/1,SUSTAIN_CON,,,
 160,器用さ維持,虎目石の,Sustain Dexterity,Tiger Eye,=,y,RING,RING,0,0,0,0,0,0,14,0,30,0,0,100,750,0,0,0,0,0,1d1,0,0,0,0,0,30/1,SUSTAIN_DEX,,,
 161,魅力維持,トパーズの,Sustain Charisma,Topaz,=,y,RING,RING,0,0,0,0,0,0,15,0,30,0,0,100,500,0,0,0,0,0,1d1,0,0,0,0,0,30/1,SUSTAIN_CHR,,,
-153,守り,オパールの,Protection,Opal,=,W,RING,RING,0,0,0,0,0,0,16,0,10,0,0,100,500,0,0,0,0,0,1d1,0,0,0,0,0,10/1,,,,
+153,守り,オパールの,Protection,Opal,=,W,RING,RING,0,0,0,0,0,0,16,0,10,0,0,100,500,0,0,0,0,0,1d1,0,0,20,0,0,10/1,,,,
 147,酸,ジャスパーの,Acid,Jasper,=,u,RING,RING,0,0,0,0,0,0,17,0,35,0,0,100,3000,0,0,0,0,0,0d0,0,0,15,0,0,50/1,IGNORE_ACID|ACTIVATE|RES_ACID,,,
 146,火炎,ひすいの,Flames,Jade,=,G,RING,RING,0,0,0,0,0,0,18,0,35,0,0,100,3000,0,0,0,0,0,0d0,0,0,15,0,0,50/1,IGNORE_FIRE|ACTIVATE|RES_FIRE,,,
 148,氷,青瑠璃の,Ice,Lapis Lazuli,=,b,RING,RING,0,0,0,0,0,0,19,0,35,0,0,100,3000,0,0,0,0,0,0d0,0,0,15,0,0,50/1,IGNORE_COLD|ACTIVATE|RES_COLD,,,
@@ -397,7 +397,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 432,耐劣化,ミスリルの,Disenchantment Resistance,Mithril,=,B,RING,RING,0,0,0,0,0,0,45,0,90,0,0,100,15000,0,0,0,0,0,1d1,0,0,0,0,0,90/10,RES_DISE,,,#JZ#
 433,耐カオス,黒玉の,Chaos Resistance,Jet,=,D,RING,RING,0,0,0,0,0,0,46,0,50,0,0,100,13000,0,0,0,0,0,1d1,0,0,0,0,0,50/2,RES_CHAO|NO_CONF,,,#JZ#
 434,耐盲目,婚約,Blindness Resistance,Engagement,=,y,RING,RING,0,0,0,0,0,0,47,0,60,0,0,100,7500,0,0,0,0,0,1d1,0,0,0,0,0,60/2,NO_BLIND,,,#JZ#
-435,王者の加護,アダマンタイトの,Lordly Protection,Adamantite,=,v,RING,RING,0,0,0,0,0,0,48,0,100,0,0,100,100000,0,0,0,0,0,1d1,0,0,0,0,0,100/8,RES_DISE|RES_POIS|HOLD_LIFE|FREE_ACTION,,,#JZ#
+435,王者の加護,アダマンタイトの,Lordly Protection,Adamantite,=,v,RING,RING,0,0,0,0,0,0,48,0,100,0,0,100,100000,0,0,0,0,0,1d1,0,0,25,0,0,100/8,RES_DISE|RES_POIS|HOLD_LIFE|FREE_ACTION,,,#JZ#
 436,追加攻撃,針金の,Extra Attacks,Wire,=,u,RING,RING,0,0,0,0,0,0,49,0,50,0,0,100,100000,0,0,0,0,0,1d1,0,0,0,0,0,50/2,BLOWS,,,
 586,腐れの指輪,金有垢の,& Ring~,Plain Goldarn,=,y,RING,RING,0,0,0,0,0,0,50,0,100,0,0,100,0,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART|FIXED_FLAVOR,,,
 596,追加射撃,スカラベの,Extra Shots,Scarab,=,G,RING,RING,0,0,0,0,0,0,51,0,50,0,0,100,20000,0,0,0,0,0,1d1,0,0,0,0,0,50/2,XTRA_SHOTS,,,

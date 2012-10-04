@@ -2264,11 +2264,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				case SV_RING_SHOTS:
-				{
-					break;
-				}
-
 				/* Strength, Constitution, Dexterity, Intelligence */
 				case SV_RING_STR:
 				case SV_RING_CON:
@@ -2324,9 +2319,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						one_lordly_high_resistance(object_ptr);
 					}
 					while (one_in_(4));
-
-					/* Bonus to armor class */
-					object_ptr->to_ac = 10 + (s16b)randint1(5) + m_bonus(10, level);
 				}
 				break;
 
@@ -2358,18 +2350,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Flames, Acid, Ice */
-				case SV_RING_FLAMES:
-				case SV_RING_ACID:
-				case SV_RING_ICE:
-				case SV_RING_ELEC:
-				{
-					/* Bonus to armor class */
-					object_ptr->to_ac = 5 + (s16b)randint1(5) + m_bonus(10, level);
-					break;
-				}
-
-				/* Weakness, Stupidity */
+				// Weakness, Stupidity
 				case SV_RING_WEAKNESS:
 				case SV_RING_STUPIDITY:
 				{
