@@ -18,7 +18,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 	floor_type *floor_ptr = GET_FLOOR_PTR(user_ptr);
 	int user_level = user_ptr->lev;
 
-
 	switch(id)
 	{
 	case TRAIT_SUNLIGHT:
@@ -47,17 +46,9 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		}
 
 	case TRAIT_DRAIN_LIFE2:
-		{
-#ifdef JP
-			msg_print("黒く輝いている...");
-#else
-			msg_print("It glows black...");
-#endif
-
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			drain_life(user_ptr, dir, 120);
-			break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		drain_life(user_ptr, dir, 120);
+		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
 		{
@@ -144,30 +135,12 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		}
 
 	case TRAIT_DISPEL_EVIL_1:
-		{
-#ifdef JP
-			msg_print("神聖な雰囲気が充満した...");
-#else
-			msg_print("It floods the area with goodness...");
-#endif
-
-			dispel_evil(user_ptr, user_ptr->lev * 5);
-			break;
-		}
+		dispel_evil(user_ptr, user_ptr->lev * 5);
+		break;
 
 	case TRAIT_DISPEL_GOOD_1:
-		{
-#ifdef JP
-			msg_print("邪悪な雰囲気が充満した...");
-#else
-			msg_print("It floods the area with evil...");
-#endif
-
-			dispel_good(user_ptr, user_ptr->lev * 5);
-			break;
-		}
-
-		/* Activate for other offensive action */
+		dispel_good(user_ptr, user_ptr->lev * 5);
+		break;
 
 	case TRAIT_CONFUSE_TOUCH:
 		{
@@ -495,46 +468,22 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		}
 
 	case TRAIT_TRUE_HEALING:
-		{
-#ifdef JP
-			msg_print("白く明るく輝いている...");
-#else
-			msg_print("It glows a bright white...");
-#endif
-
-#ifdef JP
-			msg_print("ひじょうに気分がよい...");
-#else
-			msg_print("You feel much better...");
-#endif
-
-			(void)heal_creature(user_ptr, 1000);
-			(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
-			break;
-		}
+		(void)heal_creature(user_ptr, 1000);
+		(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
+		break;
 
 	case TRAIT_GET_ESP:
-		{
-			(void)set_timed_trait_aux(user_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
-			break;
-		}
+		(void)set_timed_trait_aux(user_ptr, TRAIT_ESP, randint1(30) + 25, FALSE);
+		break;
 
 	case TRAIT_BERSERK:
-		{
-			(void)set_timed_trait(user_ptr, TRAIT_AFRAID, 0);
-			(void)set_timed_trait_aux(user_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
-			(void)set_timed_trait_aux(user_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
-			break;
-		}
+		(void)set_timed_trait(user_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(user_ptr, TRAIT_HERO, randint1(50) + 50, FALSE);
+		(void)set_timed_trait_aux(user_ptr, TRAIT_BLESSED, randint1(50) + 50, FALSE);
+		break;
 
 	case TRAIT_PROT_EVIL:
 		{
-#ifdef JP
-			msg_print("鋭い音が流れ出た...");
-#else
-			msg_print("It lets out a shrill wail...");
-#endif
-
 			k = 3 * user_ptr->lev;
 			(void)set_timed_trait_aux(user_ptr, TRAIT_PROT_EVIL, randint1(25) + k, FALSE);
 			break;
@@ -542,12 +491,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 
 	case TRAIT_MAGIC_RES_ELEMENT:
 		{
-#ifdef JP
-			msg_print("様々な色に輝いている...");
-#else
-			msg_print("It glows many colours...");
-#endif
-
 			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE);
 			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE);
 			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_FIRE, randint1(40) + 40, FALSE);
@@ -586,32 +529,13 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		/* Activate for general purpose effect (detection etc.) */
-
 	case TRAIT_ILLUMINATION:
-		{
-#ifdef JP
-			msg_print("澄んだ光があふれ出た...");
-#else
-			msg_print("It wells with clear light...");
-#endif
-
-			lite_area(user_ptr, diceroll(2, 15), 3);
-			break;
-		}
+		lite_area(user_ptr, diceroll(2, 15), 3);
+		break;
 
 	case TRAIT_DETECT_MAP:
-		{
-#ifdef JP
-			msg_print("眩しく輝いた...");
-#else
-			msg_print("It shines brightly...");
-#endif
-
-			map_area(user_ptr, DETECT_RAD_MAP);
-			lite_area(user_ptr, diceroll(2, 15), 3);
-			break;
-		}
+		map_area(user_ptr, DETECT_RAD_MAP);
+		break;
 
 	case TRAIT_DETECT_ALL:
 		detect_all(user_ptr, DETECT_RAD_DEFAULT);
@@ -734,24 +658,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_ILLUMINATION:
-		{
-#ifdef JP
-			msg_print("玻璃瓶から澄んだ光があふれ出た...");
-#else
-			msg_print("The phial wells with clear light...");
-#endif
-
-			lite_area(user_ptr, diceroll(2, 15), 3);
-			break;
-		}
-
-		//case TRAIT_DETECT_MAP:
-		{
-			map_area(user_ptr, DETECT_RAD_MAP);
-			break;
-		}
-
 	case TRAIT_LIGHT_AREA:
 		{
 			lite_area(user_ptr, diceroll(2, 15), 3);
@@ -792,23 +698,11 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_DISPEL_EVIL_1:
-		{
-			dispel_evil(user_ptr, user_ptr->lev * 5);
-			break;
-		}
-
 	case TRAIT_STRANGLING:
 		{
 			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
 			if(drain_life(user_ptr, dir, 100))
 				break;
-		}
-
-		//case TRAIT_HASTE_2:
-		{
-			(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(75) + 75);
-			break;
 		}
 
 		//case TRAIT_BA_FIRE_L:
@@ -894,13 +788,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_FIRE, randint1(50) + 50, FALSE);
 			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_COLD, randint1(50) + 50, FALSE);
 			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_POIS, randint1(50) + 50, FALSE);
-			break;
-		}
-
-		//case TRAIT_TRUE_HEALING:
-		{
-			(void)heal_creature(user_ptr, 1000);
-			(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
 			break;
 		}
 
@@ -1173,19 +1060,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_IDENTIFY:
-		{
-			if(!ident_spell(user_ptr, FALSE)) return FALSE;
-			break;
-		}
-
-		//case TRAIT_DRAIN_LIFE2:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			drain_life(user_ptr, dir, 90);
-			break;
-		}
-
 	case TRAIT_ADD_FIRE_BRAND:
 		{ //TODO
 			(void)brand_bolts(user_ptr);
@@ -1352,12 +1226,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			msg_print("You exterminate small life.");
 #endif
 			(void)dispel_creatures(user_ptr, 4);
-			break;
-		}
-
-		//case TRAIT_PROT_EVIL:
-		{
-			(void)set_timed_trait_aux(user_ptr, TRAIT_PROT_EVIL, randint1(25) + user_ptr->lev, FALSE);
 			break;
 		}
 
@@ -1707,6 +1575,12 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		(void)set_timed_trait(user_ptr, TRAIT_PARALYZED, user_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 		break;
 
+	//case TRAIT_DETECT_MAP:
+		{
+			map_area(user_ptr, DETECT_RAD_MAP);
+			lite_area(user_ptr, diceroll(2, 15), 3);
+			break;
+		}
 
 	default:
 		{
