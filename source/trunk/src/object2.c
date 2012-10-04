@@ -2568,21 +2568,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Amulet of the Magi -- never cursed */
-				case SV_AMULET_THE_MAGI:
-				{
-					object_ptr->pval = (s16b)randint1(5) + m_bonus(5, level);
-					object_ptr->to_ac = (s16b)randint1(5) + m_bonus(5, level);
-
-					/* gain one low ESP */
-					add_esp_weak(object_ptr, FALSE);
-
-					/* Mention the item */
-					if(cheat_peek) object_mention(object_ptr);
-
-					break;
-				}
-
 				/* Amulet of Doom -- always cursed */
 				case SV_AMULET_DOOM:
 				{
