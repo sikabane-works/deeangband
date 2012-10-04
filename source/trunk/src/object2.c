@@ -2301,28 +2301,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				}
 				break;
 
-				/* Searching */
-				case SV_RING_SEARCHING:
-				{
-					/* Bonus to searching */
-					object_ptr->pval = 1 + m_bonus(5, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse pval */
-						object_ptr->pval = 0 - (object_ptr->pval);
-					}
-
-					break;
-				}
-
 			}
 			if((one_in_(400) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79))
 			    || (power > 2)) /* power > 2 is debug only */
@@ -2542,27 +2520,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 						/* Reverse bonuses */
 						object_ptr->pval = 0 - object_ptr->pval;
-					}
-
-					break;
-				}
-
-				/* Amulet of searching */
-				case SV_AMULET_SEARCHING:
-				{
-					object_ptr->pval = (s16b)randint1(2) + m_bonus(4, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonuses */
-						object_ptr->pval = 0 - (object_ptr->pval);
 					}
 
 					break;
