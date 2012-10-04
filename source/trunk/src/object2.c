@@ -2380,59 +2380,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Ring of Protection */
-				case SV_RING_PROTECTION:
-				{
-					/* Bonus to armor class */
-					object_ptr->to_ac = 5 + (s16b)randint1(8) + m_bonus(10, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse toac */
-						object_ptr->to_ac = 0 - object_ptr->to_ac;
-					}
-
-					break;
-				}
-
-				case SV_RING_MUSCLE:
-				{
-					object_ptr->pval = 1 + m_bonus(3, level);
-					if(one_in_(4)) object_ptr->pval++;
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonuses */
-						object_ptr->pval = 0 - object_ptr->pval;
-					}
-
-					break;
-				}
-				case SV_RING_AGGRAVATION:
-				{
-					/* Broken */
-					object_ptr->ident |= (IDENT_BROKEN);
-
-					/* Cursed */
-					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-					if(power > 0) power = 0 - power;
-					break;
-				}
 			}
 			if((one_in_(400) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79))
 			    || (power > 2)) /* power > 2 is debug only */
