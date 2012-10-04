@@ -17,6 +17,10 @@ bool do_active_trait(creature_type *user_ptr, int id)
 	int k, dir, dummy;
 	floor_type *floor_ptr = GET_FLOOR_PTR(user_ptr);
 	int user_level = user_ptr->lev;
+	int damage = 0;
+	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
+	u32b u_mode = 0L;
+	if(randint1(50 + user_level) < user_level / 10) u_mode = PC_ALLOW_UNIQUE;
 
 	switch(id)
 	{
@@ -1300,6 +1304,967 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
 		(void)set_timed_trait(user_ptr, TRAIT_PARALYZED, user_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 		break;
+
+
+	case TRAIT_SHRIEK:
+#ifdef JP
+msg_print("かん高い金切り声をあげた。");
+#else
+		msg_print("You make a high pitched shriek.");
+#endif
+
+		aggravate_creatures(user_ptr);
+		break;
+
+	case TRAIT_DISPEL:
+	{
+		int m_idx;
+
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+		if(!m_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
+		dispel_creature(user_ptr);
+		break;
+	}
+
+	//TODO case TRAIT_ROCKET:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("ロケットを発射した。");
+#else
+			else msg_print("You fire a rocket.");
+#endif
+		
+			fire_rocket(user_ptr, GF_ROCKET, dir, damage, 2);
+		break;
+
+	case TRAIT_SHOOT:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("矢を放った。");
+#else
+			else msg_print("You fire an arrow.");
+#endif
+		
+			cast_bolt(user_ptr, GF_ARROW, dir, damage);
+		break;
+	case TRAIT_BR_ACID:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("酸のブレスを吐いた。");
+#else
+			else msg_print("You breathe acid.");
+#endif
+		
+			cast_ball(user_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_ELEC:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("稲妻のブレスを吐いた。");
+#else
+			else msg_print("You breathe lightning.");
+#endif
+		
+			cast_ball(user_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_FIRE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("火炎のブレスを吐いた。");
+#else
+			else msg_print("You breathe fire.");
+#endif
+		
+			cast_ball(user_ptr, GF_FIRE, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_COLD:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("冷気のブレスを吐いた。");
+#else
+			else msg_print("You breathe frost.");
+#endif
+		
+			cast_ball(user_ptr, GF_COLD, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_POIS:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("ガスのブレスを吐いた。");
+#else
+			else msg_print("You breathe gas.");
+#endif
+		
+			cast_ball(user_ptr, GF_POIS, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_NETH:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("地獄のブレスを吐いた。");
+#else
+			else msg_print("You breathe nether.");
+#endif
+		
+			cast_ball(user_ptr, GF_NETHER, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_LITE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("閃光のブレスを吐いた。");
+#else
+			else msg_print("You breathe light.");
+#endif
+		
+			cast_ball(user_ptr, GF_LITE, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_DARK:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("暗黒のブレスを吐いた。");
+#else
+			else msg_print("You breathe darkness.");
+#endif
+		
+			cast_ball(user_ptr, GF_DARK, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_CONF:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("混乱のブレスを吐いた。");
+#else
+			else msg_print("You breathe confusion.");
+#endif
+		
+			cast_ball(user_ptr, GF_CONFUSION, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_SOUN:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("轟音のブレスを吐いた。");
+#else
+			else msg_print("You breathe sound.");
+#endif
+		
+			cast_ball(user_ptr, GF_SOUND, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_CHAO:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("カオスのブレスを吐いた。");
+#else
+			else msg_print("You breathe chaos.");
+#endif
+		
+			cast_ball(user_ptr, GF_CHAOS, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_DISE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("劣化のブレスを吐いた。");
+#else
+			else msg_print("You breathe disenchantment.");
+#endif
+		
+			cast_ball(user_ptr, GF_DISENCHANT, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_NEXU:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("因果混乱のブレスを吐いた。");
+#else
+			else msg_print("You breathe nexus.");
+#endif
+		
+			cast_ball(user_ptr, GF_NEXUS, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_TIME:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("時間逆転のブレスを吐いた。");
+#else
+			else msg_print("You breathe time.");
+#endif
+		
+			cast_ball(user_ptr, GF_TIME, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_INER:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("遅鈍のブレスを吐いた。");
+#else
+			else msg_print("You breathe inertia.");
+#endif
+		
+			cast_ball(user_ptr, GF_INERTIA, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_GRAV:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("重力のブレスを吐いた。");
+#else
+			else msg_print("You breathe gravity.");
+#endif
+		
+			cast_ball(user_ptr, GF_GRAVITY, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_SHAR:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("破片のブレスを吐いた。");
+#else
+			else msg_print("You breathe shards.");
+#endif
+		
+			cast_ball(user_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_PLAS:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("プラズマのブレスを吐いた。");
+#else
+			else msg_print("You breathe plasma.");
+#endif
+		
+			cast_ball(user_ptr, GF_PLASMA, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_WALL:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("フォースのブレスを吐いた。");
+#else
+			else msg_print("You breathe force.");
+#endif
+		
+			cast_ball(user_ptr, GF_FORCE, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BR_MANA:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("魔力のブレスを吐いた。");
+#else
+			else msg_print("You breathe mana.");
+#endif
+		
+			cast_ball(user_ptr, GF_MANA, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BA_NUKE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("放射能球を放った。");
+#else
+			else msg_print("You cast a ball of radiation.");
+#endif
+		
+			cast_ball(user_ptr, GF_NUKE, dir, damage, 2);
+		break;
+	case TRAIT_BR_NUKE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("放射性廃棄物のブレスを吐いた。");
+#else
+			else msg_print("You breathe toxic waste.");
+#endif
+		
+			cast_ball(user_ptr, GF_NUKE, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BA_CHAO:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("純ログルスを放った。");
+#else
+			else msg_print("You invoke a raw Logrus.");
+#endif
+		
+			cast_ball(user_ptr, GF_CHAOS, dir, damage, 4);
+		break;
+	case TRAIT_BR_DISI:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("分解のブレスを吐いた。");
+#else
+			else msg_print("You breathe disintegration.");
+#endif
+		
+			cast_ball(user_ptr, GF_DISINTEGRATE, dir, damage, (user_level > 35 ? -3 : -2));
+		break;
+	case TRAIT_BA_ACID:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("アシッド・ボールの呪文を唱えた。");
+#else
+			else msg_print("You cast an acid ball.");
+#endif
+		
+			cast_ball(user_ptr, GF_ACID, dir, damage, 2);
+		break;
+	case TRAIT_BA_ELEC:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("サンダー・ボールの呪文を唱えた。");
+#else
+			else msg_print("You cast a lightning ball.");
+#endif
+		
+			cast_ball(user_ptr, GF_ELEC, dir, damage, 2);
+		break;
+	case TRAIT_BA_FIRE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("ファイア・ボールの呪文を唱えた。");
+#else
+			else msg_print("You cast a fire ball.");
+#endif
+		
+			cast_ball(user_ptr, GF_FIRE, dir, damage, 2);
+		break;
+	//case TRAIT_BA_COLD:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("アイス・ボールの呪文を唱えた。");
+#else
+			else msg_print("You cast a frost ball.");
+#endif
+		
+			cast_ball(user_ptr, GF_COLD, dir, damage, 2);
+		break;
+	case TRAIT_BA_POIS:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("悪臭雲の呪文を唱えた。");
+#else
+			else msg_print("You cast a stinking cloud.");
+#endif
+		
+			cast_ball(user_ptr, GF_POIS, dir, damage, 2);
+		break;
+	case TRAIT_BA_NETH:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("地獄球の呪文を唱えた。");
+#else
+			else msg_print("You cast a nether ball.");
+#endif
+		
+			cast_ball(user_ptr, GF_NETHER, dir, damage, 2);
+		break;
+	//case TRAIT_BA_WATE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("流れるような身振りをした。");
+#else
+			else msg_print("You gesture fluidly.");
+#endif
+		
+			cast_ball(user_ptr, GF_WATER, dir, damage, 4);
+		break;
+	case TRAIT_BA_MANA:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("魔力の嵐の呪文を念じた。");
+#else
+			else msg_print("You invoke a mana storm.");
+#endif
+		
+			cast_ball(user_ptr, GF_MANA, dir, damage, 4);
+		break;
+	case TRAIT_BA_DARK:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("暗黒の嵐の呪文を念じた。");
+#else
+			else msg_print("You invoke a darkness storm.");
+#endif
+		
+			cast_ball(user_ptr, GF_DARK, dir, damage, 4);
+		break;
+	case TRAIT_DRAIN_MANA:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_DRAIN_MANA, dir, randint1(user_level*3)+user_level, 0);
+		break;
+	case TRAIT_MIND_BLAST:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_MIND_BLAST, dir, damage, 0);
+		break;
+	case TRAIT_BRAIN_SMASH:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_BRAIN_SMASH, dir, damage, 0);
+		break;
+	case TRAIT_CAUSE_1:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_CAUSE_1, dir, damage, 0);
+		break;
+	case TRAIT_CAUSE_2:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_CAUSE_2, dir, damage, 0);
+		break;
+	case TRAIT_CAUSE_3:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_CAUSE_3, dir, damage, 0);
+		break;
+	case TRAIT_CAUSE_4:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball_hide(user_ptr, GF_CAUSE_4, dir, damage, 0);
+		break;
+	case TRAIT_BO_ACID:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("アシッド・ボルトの呪文を唱えた。");
+#else
+			else msg_print("You cast an acid bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_ACID, dir, damage);
+		break;
+	case TRAIT_BO_ELEC:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("サンダー・ボルトの呪文を唱えた。");
+#else
+			else msg_print("You cast a lightning bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_ELEC, dir, damage);
+		break;
+	case TRAIT_BO_FIRE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("ファイア・ボルトの呪文を唱えた。");
+#else
+			else msg_print("You cast a fire bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_FIRE, dir, damage);
+		break;
+	case TRAIT_BO_COLD:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("アイス・ボルトの呪文を唱えた。");
+#else
+			else msg_print("You cast a frost bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_COLD, dir, damage);
+		break;
+	case TRAIT_BA_LITE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("スターバーストの呪文を念じた。");
+#else
+			else msg_print("You invoke a starburst.");
+#endif
+		
+			cast_ball(user_ptr, GF_LITE, dir, damage, 4);
+		break;
+	case TRAIT_BO_NETH:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("地獄の矢の呪文を唱えた。");
+#else
+			else msg_print("You cast a nether bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_NETHER, dir, damage);
+		break;
+	case TRAIT_BO_WATE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("ウォーター・ボルトの呪文を唱えた。");
+#else
+			else msg_print("You cast a water bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_WATER, dir, damage);
+		break;
+	//case TRAIT_BO_MANA:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("魔力の矢の呪文を唱えた。");
+#else
+			else msg_print("You cast a mana bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_MANA, dir, damage);
+		break;
+	case TRAIT_BO_PLAS:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("プラズマ・ボルトの呪文を唱えた。");
+#else
+			else msg_print("You cast a plasma bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_PLASMA, dir, damage);
+		break;
+	case TRAIT_BO_ICEE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("極寒の矢の呪文を唱えた。");
+#else
+			else msg_print("You cast a ice bolt.");
+#endif
+		
+			cast_bolt(user_ptr, GF_ICE, dir, damage);
+		break;
+	//case TRAIT_MISSILE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("マジック・ミサイルの呪文を唱えた。");
+#else
+			else msg_print("You cast a magic missile.");
+#endif
+		
+			cast_bolt(user_ptr, GF_MISSILE, dir, damage);
+		break;
+	case TRAIT_SCARE:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("恐ろしげな幻覚を作り出した。");
+#else
+			else msg_print("You cast a fearful illusion.");
+#endif
+		
+			fear_creature(user_ptr, dir, user_level+10);
+		break;
+	case TRAIT_BLIND:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		confuse_creature(user_ptr, dir, user_level * 2);
+		break;
+	case TRAIT_CONF:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("誘惑的な幻覚をつくり出した。");
+#else
+			else msg_print("You cast a mesmerizing illusion.");
+#endif
+		
+			confuse_creature(user_ptr, dir, user_level * 2);
+		break;
+	case TRAIT_SLOW:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		slow_creature(user_ptr, dir);
+		break;
+	case TRAIT_HOLD:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		sleep_creature(user_ptr, dir);
+		break;
+	//case TRAIT_HASTE:
+		(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
+		break;
+	case TRAIT_HAND_DOOM:
+	{
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("<破滅の手>を放った！");
+#else
+		else msg_print("You invoke the Hand of Doom!");
+#endif
+
+		cast_ball_hide(user_ptr, GF_HAND_DOOM, dir, 200, 0);
+		break;
+	}
+	//case TRAIT_HEAL:
+#ifdef JP
+msg_print("自分の傷に念を集中した。");
+#else
+			msg_print("You concentrate on your wounds!");
+#endif
+		(void)heal_creature(user_ptr, user_level*6);
+		(void)set_timed_trait(user_ptr, TRAIT_STUN, 0);
+		(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
+		break;
+	//case TRAIT_INVULNER:
+#ifdef JP
+msg_print("無傷の球の呪文を唱えた。");
+#else
+			msg_print("You cast a Globe of Invulnerability.");
+#endif
+		(void)set_timed_trait_aux(user_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
+		break;
+	case TRAIT_BLINK:
+		teleport_player(user_ptr, 10, 0L);
+		break;
+	//case TRAIT_ACTIVE_TELEPORT:
+		teleport_player(user_ptr, user_level * 5, 0L);
+		break;
+	case TRAIT_WORLD:
+		user_ptr->time_stopper = TRUE;
+		if(damage == 1 || damage == 2)
+#ifdef JP
+			msg_print("「『ザ・ワールド』！時は止まった！」");
+#else
+			msg_print("You yell 'The World! Time has stopped!'");
+#endif
+		else if(damage == 3 || damage == 6)
+#ifdef JP
+			msg_print("「時よ！」");
+#else
+			msg_print("You yell 'Time!'");
+#endif
+		else
+			msg_print("hek!");
+		msg_print(NULL);
+
+		/* Hack */
+		user_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
+
+		/* Redraw map */
+		play_redraw |= (PR_MAP);
+
+		// Update creatures
+		update |= (PU_MONSTERS);
+
+		/* Window stuff */
+		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+
+		handle_stuff();
+		break;
+	case TRAIT_SPECIAL:
+		break;
+	case TRAIT_TELE_TO:
+	{
+		creature_type *m_ptr;
+		species_type *r_ptr;
+		char m_name[80];
+
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
+		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
+		r_ptr = &species_info[m_ptr->species_idx];
+		creature_desc(m_name, m_ptr, 0);
+		if(has_trait(m_ptr, TRAIT_RES_TELE))
+		{
+			if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+			{
+				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+#ifdef JP
+				msg_format("%sには効果がなかった！", m_name);
+#else
+				msg_format("%s is unaffected!", m_name);
+#endif
+
+				break;
+			}
+			else if(r_ptr->level > randint1(100))
+			{
+				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+#ifdef JP
+				msg_format("%sには耐性がある！", m_name);
+#else
+				msg_format("%s resists!", m_name);
+#endif
+
+				break;
+			}
+		}
+#ifdef JP
+msg_format("%sを引き戻した。", m_name);
+#else
+		msg_format("You command %s to return.", m_name);
+#endif
+
+		teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, user_ptr, user_ptr->fy, user_ptr->fx, 100, TELEPORT_PASSIVE);
+		break;
+	}
+	//case TRAIT_TELE_AWAY:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+
+		(void)cast_beam(user_ptr, GF_AWAY_ALL, dir, user_level);
+		break;
+	case TRAIT_TELE_LEVEL:
+	{
+		int target_m_idx;
+		creature_type *m_ptr;
+		species_type *r_ptr;
+		char m_name[80];
+
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+		if(!target_m_idx) break;
+		if(!player_has_los_bold(target_row, target_col)) break;
+		if(!projectable(floor_ptr, user_ptr->fy, user_ptr->fx, target_row, target_col)) break;
+		m_ptr = &creature_list[target_m_idx];
+		r_ptr = &species_info[m_ptr->species_idx];
+		creature_desc(m_name, m_ptr, 0);
+#ifdef JP
+		msg_format("%^sの足を指さした。", m_name);
+#else
+		msg_format("You gesture at %^s's feet.", m_name);
+#endif
+
+		if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
+			(has_trait(m_ptr, TRAIT_QUESTOR)) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
+		{
+#ifdef JP
+			msg_print("しかし効果がなかった！");
+#else
+			msg_format("%^s is unaffected!", m_name);
+#endif
+		}
+		else teleport_level(user_ptr, target_m_idx);
+		break;
+	}
+	case TRAIT_PSY_SPEAR:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+
+#ifdef JP
+else msg_print("光の剣を放った。");
+#else
+			else msg_print("You throw a psycho-spear.");
+#endif
+		(void)cast_beam(user_ptr, GF_PSY_SPEAR, dir, damage);
+		break;
+	case TRAIT_DARKNESS:
+#ifdef JP
+msg_print("暗闇の中で手を振った。");
+#else
+			msg_print("You gesture in shadow.");
+#endif
+		(void)unlite_area(user_ptr, 10, 3);
+		break;
+	case TRAIT_TRAPS:
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("呪文を唱えて邪悪に微笑んだ。");
+#else
+			msg_print("You cast a spell and cackles evilly.");
+#endif
+		trap_creation(user_ptr, target_row, target_col);
+		break;
+	case TRAIT_FORGET:
+#ifdef JP
+msg_print("しかし何も起きなかった。");
+#else
+			msg_print("Nothing happen.");
+#endif
+		break;
+	case TRAIT_ANIM_DEAD:
+#ifdef JP
+msg_print("死者復活の呪文を唱えた。");
+#else
+		msg_print("You cast a animate dead.");
+#endif
+		(void)animate_dead(NULL, user_ptr->fy, user_ptr->fx);
+		break;
+	case TRAIT_S_KIN:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+
+#ifdef JP
+msg_print("援軍を召喚した。");
+#else
+			msg_print("You summon minions.");
+#endif
+		for (k = 0;k < 4; k++)
+		{
+			(void)summon_kin_player(user_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
+		}
+		break;
+	}
+	case TRAIT_S_CYBER:
+	{
+		int k;
+		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("サイバーデーモンを召喚した！");
+#else
+			msg_print("You summon Cyberdemons!");
+#endif
+		if(max_cyber > 4) max_cyber = 4;
+		for (k = 0;k < max_cyber; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_CYBER, mode);
+		break;
+	}
+	case TRAIT_S_MONSTER:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("仲間を召喚した。");
+#else
+			msg_print("You summon help.");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
+		break;
+	}
+	case TRAIT_S_MONSTERS:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("クリーチャーを召喚した！");
+#else
+			msg_print("You summon creatures!");
+#endif
+		for (k = 0;k < 6; k++)
+			summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
+		break;
+	}
+	case TRAIT_S_ANT:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("アリを召喚した。");
+#else
+			msg_print("You summon ants.");
+#endif
+		for (k = 0;k < 6; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANT, mode);
+		break;
+	}
+	case TRAIT_S_SPIDER:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("蜘蛛を召喚した。");
+#else
+			msg_print("You summon spiders.");
+#endif
+		for (k = 0;k < 6; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_SPIDER, mode);
+		break;
+	}
+	case TRAIT_S_HOUND:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("ハウンドを召喚した。");
+#else
+			msg_print("You summon hounds.");
+#endif
+		for (k = 0;k < 4; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HOUND, mode);
+		break;
+	}
+	case TRAIT_S_HYDRA:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("ヒドラを召喚した。");
+#else
+			msg_print("You summon hydras.");
+#endif
+		for (k = 0;k < 4; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HYDRA, mode);
+		break;
+	}
+	case TRAIT_S_ANGEL:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("天使を召喚した！");
+#else
+			msg_print("You summon angel!");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANGEL, mode);
+		break;
+	}
+	//case TRAIT_S_DEMON:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("混沌の宮廷から悪魔を召喚した！");
+#else
+			msg_print("You summon a demon from the Courts of Chaos!");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
+		break;
+	}
+	//case TRAIT_S_UNDEAD:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("アンデッドの強敵を召喚した！");
+#else
+			msg_print("You summon an undead adversary!");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
+		break;
+	}
+	case TRAIT_S_DRAGON:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("ドラゴンを召喚した！");
+#else
+			msg_print("You summon dragon!");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
+		break;
+	}
+	case TRAIT_S_HI_UNDEAD:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("強力なアンデッドを召喚した！");
+#else
+			msg_print("You summon greater undead!");
+#endif
+		for (k = 0;k < 6; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+		break;
+	}
+	case TRAIT_S_HI_DRAGON:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("古代ドラゴンを召喚した！");
+#else
+			msg_print("You summon ancient dragons!");
+#endif
+		for (k = 0;k < 4; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
+		break;
+	}
+	case TRAIT_S_AMBERITES:
+	{
+		int k;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("アンバーの王族を召喚した！");
+#else
+			msg_print("You summon Lords of Amber!");
+#endif
+		for (k = 0;k < 4; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
+		break;
+	}
+	case TRAIT_S_UNIQUE:
+	{
+		int k, count = 0;
+		if(!target_set(user_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("特別な強敵を召喚した！");
+#else
+			msg_print("You summon special opponents!");
+#endif
+		for (k = 0; k < 4; k++)
+			if(summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
+		for (k = count; k < 4; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+		break;
+	}
 
 	default:
 		{
