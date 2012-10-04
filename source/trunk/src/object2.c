@@ -2234,6 +2234,7 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
 static void generate_process_ring_amulet(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
 {
 	if(has_trait_object(object_ptr, TRAIT_LOW_ESP)) one_low_esp(object_ptr);
+	if(has_trait_object(object_ptr, TRAIT_XTRA_H_RES)) one_high_resistance(object_ptr);
 
 	/* Apply magic (good or bad) according to type */
 	switch (object_ptr->tval)
@@ -2545,13 +2546,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 					break;
 				}
-
-				case SV_AMULET_RESISTANCE:
-				{
-					if(one_in_(5)) one_high_resistance(object_ptr);
-					if(one_in_(5)) add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
-				}
-				break;
 
 				/* Amulet of searching */
 				case SV_AMULET_SEARCHING:
