@@ -1450,12 +1450,6 @@ void reduce_charges(object_type *object_ptr, int amt)
  */
 
 /*
- * A "stack" of items is limited to less than or equal to 99 items (hard-coded).
- */
-#define MAX_STACK_SIZE 99
-
-
-/*
  *  Determine if an item can partly absorb a second item.
  *  Return maximum number of stack.
  */
@@ -2819,12 +2813,10 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			if(cheat_peek)
 			{
 #ifdef JP
-				msg_format("%s‚ÌŽ€‘Ì, [‚³ +%d",
+				msg_format("%s‚ÌŽ€‘Ì, [‚³ +%d", species_name + r_ptr->name, check - 1);
 #else
-				msg_format("Corpse of %s, depth +%d",
+				msg_format("Corpse of %s, depth +%d", species_name + r_ptr->name, check - 1);
 #endif
-
-							  species_name + r_ptr->name, check - 1);
 			}
 
 			object_aware(object_ptr);
@@ -2860,7 +2852,6 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 #else
 				msg_format("Statue of %s", species_name + r_ptr->name);
 #endif
-
 			}
 			object_aware(object_ptr);
 			object_known(object_ptr);
@@ -2872,17 +2863,11 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 		{
 			byte obj_level = object_kind_info[object_ptr->k_idx].level;
 
-			/* Hack -- skip ruined chests */
-			if(obj_level <= 0) break;
-
-			/* Hack -- pick a "difficulty" */
-			object_ptr->pval = (s16b)randint1(obj_level);
+			if(obj_level <= 0) break;	// Hack -- skip ruined chests
+			object_ptr->pval = (s16b)randint1(obj_level);	// Hack -- pick a "difficulty"
 			if(object_ptr->sval == SV_CHEST_KANDUME) object_ptr->pval = 6;
-
 			object_ptr->xtra3 = floor_ptr->floor_level + 5;
-
-			/* Never exceed "difficulty" of 55 to 59 */
-			if(object_ptr->pval > 55) object_ptr->pval = 55 + (byte)randint0(5);
+			if(object_ptr->pval > 55) object_ptr->pval = 55 + (byte)randint0(5);	// Never exceed "difficulty" of 55 to 59
 
 			break;
 		}

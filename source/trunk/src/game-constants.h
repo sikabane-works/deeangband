@@ -6,6 +6,9 @@
 // Maximum number of random tries
 #define MAX_TRIES 10000
 
+// A "stack" of items is limited to less than or equal to 99 items (hard-coded).
+#define MAX_STACK_SIZE 99
+
 // 1/x chance of reducing stats (for elemental attacks)
 #define HURT_CHANCE 16
 
