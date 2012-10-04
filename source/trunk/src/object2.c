@@ -2266,30 +2266,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Strength, Constitution, Dexterity, Intelligence */
-				case SV_RING_STR:
-				case SV_RING_CON:
-				case SV_RING_DEX:
-				{
-					/* Stat bonus */
-					object_ptr->pval = 1 + m_bonus(5, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse pval */
-						object_ptr->pval = 0 - (object_ptr->pval);
-					}
-
-					break;
-				}
-
 				/* Ring of Speed! */
 				case SV_RING_SPEED:
 				{
@@ -2342,23 +2318,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
 					}
-
-					break;
-				}
-
-				// Weakness, Stupidity
-				case SV_RING_WEAKNESS:
-				case SV_RING_STUPIDITY:
-				{
-					/* Broken */
-					object_ptr->ident |= (IDENT_BROKEN);
-
-					/* Cursed */
-					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-					/* Penalize */
-					object_ptr->pval = 0 - (1 + m_bonus(5, level));
-					if(power > 0) power = 0 - power;
 
 					break;
 				}
