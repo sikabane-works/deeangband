@@ -4272,22 +4272,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				(void)detect_creatures_normal(creature_ptr, 255);
 				object_ptr->timeout = 150;
 				break;
-			case EGO_RING_TRUE:
-			{
-				int v = randint1(25)+25;
-				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, v, FALSE);
-				(void)heal_creature(creature_ptr, 10);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, v, FALSE);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, v, FALSE);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, v, FALSE);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
-				(void)set_ultimate_res(creature_ptr, v, FALSE);
-				object_ptr->timeout = 777;
-				break;
-			}
+
 			default:
 				success = FALSE;
 				break;

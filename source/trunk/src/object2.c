@@ -109,31 +109,23 @@ void delete_object_idx(int object_idx)
 	object_type *j_ptr;
 	floor_type *floor_ptr;
 
-	/* Excise */
-	excise_object_idx(object_idx);
+	excise_object_idx(object_idx);	// Excise
 
-	/* Object */
+	// Object
 	j_ptr = &object_list[object_idx];
 	floor_ptr = GET_FLOOR_PTR(j_ptr);
 
-	/* Dungeon floor */
+	// Dungeon floor
 	if(!(j_ptr->held_m_idx))
 	{
 		int y, x;
-
-		/* Location */
 		y = j_ptr->fy;
 		x = j_ptr->fx;
-
-		/* Visual update */
-		lite_spot(floor_ptr, y, x);
+		lite_spot(floor_ptr, y, x);	// Visual update
 	}
 
-	/* Wipe the object */
-	object_wipe(j_ptr);
-
-	/* Count objects */
-	object_cnt--;
+	object_wipe(j_ptr);	// Wipe the object
+	object_cnt--;		// Count objects
 }
 
 
@@ -143,39 +135,24 @@ void delete_object_idx(int object_idx)
 void delete_object(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
-
 	s16b this_object_idx, next_object_idx = 0;
 
+	if(!in_bounds(floor_ptr, y, x)) return;	// Refuse "illegal" locations
+	c_ptr = &floor_ptr->cave[y][x];			// Grid
 
-	/* Refuse "illegal" locations */
-	if(!in_bounds(floor_ptr, y, x)) return;
-
-	/* Grid */
-	c_ptr = &floor_ptr->cave[y][x];
-
-	/* Scan all objects in the grid */
+	// Scan all objects in the grid
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *object_ptr;
+		object_ptr = &object_list[this_object_idx];		// Acquire object
+		next_object_idx = object_ptr->next_object_idx;	// Acquire next object
 
-		/* Acquire object */
-		object_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
-		next_object_idx = object_ptr->next_object_idx;
-
-		/* Wipe the object */
-		object_wipe(object_ptr);
-
-		/* Count objects */
-		object_cnt--;
+		object_wipe(object_ptr);	// Wipe the object
+		object_cnt--;				// Count objects
 	}
 
-	/* Objects are gone */
-	c_ptr->object_idx = 0;
-
-	/* Visual update */
-	lite_spot(floor_ptr, y, x);
+	c_ptr->object_idx = 0;		// Objects are gone
+	lite_spot(floor_ptr, y, x);	// Visual update
 }
 
 
@@ -2466,38 +2443,14 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 		case TV_AMULET:
 		{
-			/* Analyze */
-			switch (object_ptr->sval)
-			{
-				/* Amulet of brilliance */
-				case SV_AMULET_BRILLIANCE:
-				{
-					object_ptr->pval = 1 + m_bonus(3, level);
-					if(one_in_(4)) object_ptr->pval++;
 
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonuses */
-						object_ptr->pval = 0 - object_ptr->pval;
-					}
-
-					break;
-				}
-			}
-			if((one_in_(150) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79))
-			    || (power > 2)) /* power > 2 is debug only */
+			if((one_in_(150) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79)) || (power > 2)) /* power > 2 is debug only */
 			{
 				object_ptr->pval = MIN(object_ptr->pval, 4);
 				/* Randart amulet */
 				create_artifact(creature_ptr, object_ptr, FALSE);
 			}
+
 			else if((power == 2) && one_in_(2))
 			{
 				while(!object_ptr->name2)
