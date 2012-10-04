@@ -739,6 +739,9 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 	/* Object level */
 	lev = object_kind_info[quest_ptr->k_idx].level;
 
+
+	//TODO:by trait
+
 	/* Analyze the potion */
 	if(quest_ptr->tval == TV_POTION)
 	{
@@ -772,10 +775,6 @@ static void do_cmd_quaff_potion_aux(creature_type *creature_ptr, int item)
 			ident = TRUE;
 			break;
 #endif
-
-		case SV_POTION_SLOWNESS:
-			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW, randint1(25) + 15, FALSE)) ident = TRUE;
-			break;
 
 		case TRAIT_SALT_WATER:
 #ifdef JP
