@@ -125,6 +125,10 @@ struct object_kind
 
 	s16b stat_val[STAT_MAX]; // Stat
 
+	s16b search;
+	s16b stealth;
+	s16b magic_mastery;
+
 	s16b to_hit;			/* Bonus to hit */
 	s16b to_damage;			/* Bonus to damage */
 	s16b to_ac;			/* Bonus to armor */
