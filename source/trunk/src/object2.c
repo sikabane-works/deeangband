@@ -2322,23 +2322,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* WOE, Stupidity */
-				case SV_RING_WOE:
-				{
-					/* Broken */
-					object_ptr->ident |= (IDENT_BROKEN);
-
-					/* Cursed */
-					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-					/* Penalize */
-					object_ptr->to_ac = 0 - (5 + m_bonus(10, level));
-					object_ptr->pval = 0 - (1 + m_bonus(5, level));
-					if(power > 0) power = 0 - power;
-
-					break;
-				}
-
 			}
 			if((one_in_(400) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79))
 			    || (power > 2)) /* power > 2 is debug only */
