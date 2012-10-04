@@ -5344,7 +5344,7 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 /*
  * Restores any drained experience
  */
-bool restore_level(creature_type *creature_ptr)
+bool restore_exp(creature_type *creature_ptr)
 {
 	/* Restore experience */
 	if(creature_ptr->exp < creature_ptr->max_exp)

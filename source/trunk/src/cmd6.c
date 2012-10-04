@@ -1066,7 +1066,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			msg_print("You feel life flow through your body!");
 #endif
 
-			restore_level(user_ptr);
+			restore_exp(user_ptr);
 			(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(user_ptr, TRAIT_BLIND, 0);
 			(void)set_timed_trait(user_ptr, TRAIT_CONFUSED, 0);
@@ -1127,7 +1127,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			break;
 
 		case SV_POTION_RESTORE_EXP:
-			if(restore_level(user_ptr)) ident = TRUE;
+			if(restore_exp(user_ptr)) ident = TRUE;
 			break;
 
 		case SV_POTION_RES_STR:
@@ -3342,7 +3342,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_RESTORATION:
 		{
-			if(restore_level(creature_ptr)) ident = TRUE;
+			if(restore_exp(creature_ptr)) ident = TRUE;
 			if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
 			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
 			if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;

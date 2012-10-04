@@ -2,6 +2,7 @@
 
 /*
  * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+ * 2012 Modified by Deskull
  *
  * This software may be copied and distributed for educational, research,
  * and not for profit purposes provided that this copyright and statement
@@ -4205,7 +4206,7 @@ msg_format("%s‚Ìº‚ª–Â‚è‹¿‚¢‚½:",
 			msg_print("'Rise, my servant!'");
 #endif
 
-			restore_level(creature_ptr);
+			restore_exp(creature_ptr);
 			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);

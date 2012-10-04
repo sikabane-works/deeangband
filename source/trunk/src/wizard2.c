@@ -1394,7 +1394,7 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	(void)res_stat(creature_ptr, STAT_CHA);
 
 	/* Restore the level */
-	(void)restore_level(creature_ptr);
+	(void)restore_exp(creature_ptr);
 
 	/* Heal the player */
 	if(creature_ptr->chp < creature_ptr->mhp)

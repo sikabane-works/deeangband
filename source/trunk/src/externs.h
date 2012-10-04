@@ -1557,7 +1557,7 @@ extern bool heal_creature(creature_type *creature_ptr, int num);
 extern bool do_dec_stat(creature_type *creature_ptr, int stat);
 extern bool do_res_stat(creature_type *creature_ptr, int stat);
 extern bool do_inc_stat(creature_type *creature_ptr, int stat);
-extern bool restore_level(creature_type *creature_ptr);
+extern bool restore_exp(creature_type *creature_ptr);
 extern bool lose_all_info(creature_type *creature_ptr);
 extern void gain_exp_64(creature_type *creature_ptr, s32b amount, u32b amount_frac);
 extern void gain_exp(creature_type *creature_ptr, s32b amount);

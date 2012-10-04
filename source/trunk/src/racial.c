@@ -1627,7 +1627,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				(void)do_res_stat(creature_ptr, STAT_DEX);
 				(void)do_res_stat(creature_ptr, STAT_CON);
 				(void)do_res_stat(creature_ptr, STAT_CHA);
-				(void)restore_level(creature_ptr);
+				(void)restore_exp(creature_ptr);
 			}
 			break;
 
@@ -1991,7 +1991,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You attempt to restore your lost energies.");
 #endif
 
-			(void)restore_level(creature_ptr);
+			(void)restore_exp(creature_ptr);
 			break;
 
 		case RACE_VAMPIRE:
@@ -2877,7 +2877,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 				(void)do_res_stat(caster_ptr, STAT_DEX);
 				(void)do_res_stat(caster_ptr, STAT_CON);
 				(void)do_res_stat(caster_ptr, STAT_CHA);
-				(void)restore_level(caster_ptr);
+				(void)restore_exp(caster_ptr);
 			}
 			break;
 
@@ -2973,7 +2973,7 @@ static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
 			msg_print("You attempt to restore your lost energies.");
 #endif
 
-			(void)restore_level(caster_ptr);
+			(void)restore_exp(caster_ptr);
 			break;
 
 		case TRAIT_MIND_BLAST:

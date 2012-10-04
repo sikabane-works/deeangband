@@ -854,7 +854,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 		(void)do_res_stat(creature_ptr, STAT_DEX);
 		(void)do_res_stat(creature_ptr, STAT_CON);
 		(void)do_res_stat(creature_ptr, STAT_CHA);
-		(void)restore_level(creature_ptr);
+		(void)restore_exp(creature_ptr);
 		(void)heal_creature(creature_ptr, 1000);
 
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);

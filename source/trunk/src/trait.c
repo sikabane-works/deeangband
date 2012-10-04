@@ -62,17 +62,9 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		}
 
 	case TRAIT_BO_MANA:
-		{
-#ifdef JP
-			msg_print("魔法のトゲが現れた...");
-#else
-			msg_print("It grows magical spikes...");
-#endif
-
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			cast_bolt(user_ptr, GF_ARROW, dir, 150);
-			break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_bolt(user_ptr, GF_ARROW, dir, 150);
+		break;
 
 	case TRAIT_WHIRLWIND:
 		{
@@ -383,89 +375,43 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		/* Activate for healing */
-
 	case TRAIT_CURE_LIGHT_WOUNDS:
-		{
-			(void)set_timed_trait(user_ptr, TRAIT_AFRAID, 0);
-			(void)heal_creature(user_ptr, 30);
-			break;
-		}
+		(void)heal_creature(user_ptr, diceroll(2, 8));
+		break;
 
 	case TRAIT_CURE_MEDIUM_WOUNDS:
-		{
-#ifdef JP
-			msg_print("深紫色の光を発している...");
-#else
-			msg_print("It radiates deep purple...");
-#endif
-
-			heal_creature(user_ptr, diceroll(4, 8));
-			(void)set_timed_trait(user_ptr, TRAIT_CUT, (user_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
-			break;
-		}
+		heal_creature(user_ptr, diceroll(4, 8));
+		(void)set_timed_trait(user_ptr, TRAIT_CUT, (user_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
+		break;
 
 	case TRAIT_REMOVE_POISON:
-		{
-#ifdef JP
-			msg_print("深青色に輝いている...");
-#else
-			msg_print("It glows deep blue...");
-#endif
-
-			(void)set_timed_trait(user_ptr, TRAIT_AFRAID, 0);
-			(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
-			break;
-		}
+		(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
+		break;
 
 	case TRAIT_RESTORE_LIFE:
-		{
-#ifdef JP
-			msg_print("深紅に輝いている...");
-#else
-			msg_print("It glows a deep red...");
-#endif
-
-			restore_level(user_ptr);
-			break;
-		}
+		(void)restore_exp(user_ptr);
+		break;
 
 	case TRAIT_RESTORE_ALL:
-		{
-#ifdef JP
-			msg_print("濃緑色に輝いている...");
-#else
-			msg_print("It glows a deep green...");
-#endif
+		(void)do_res_stat(user_ptr, STAT_STR);
+		(void)do_res_stat(user_ptr, STAT_INT);
+		(void)do_res_stat(user_ptr, STAT_WIS);
+		(void)do_res_stat(user_ptr, STAT_DEX);
+		(void)do_res_stat(user_ptr, STAT_CON);
+		(void)do_res_stat(user_ptr, STAT_CHA);
+		(void)restore_exp(user_ptr);
+		break;
 
-			(void)do_res_stat(user_ptr, STAT_STR);
-			(void)do_res_stat(user_ptr, STAT_INT);
-			(void)do_res_stat(user_ptr, STAT_WIS);
-			(void)do_res_stat(user_ptr, STAT_DEX);
-			(void)do_res_stat(user_ptr, STAT_CON);
-			(void)do_res_stat(user_ptr, STAT_CHA);
-			(void)restore_level(user_ptr);
-			break;
-		}
+	//TODO Remove duplicated process
+	case TRAIT_REGAL_HEAL_OF_AMBER:
+		(void)heal_creature(user_ptr, 700);
+		(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
+		break;
 
 	case TRAIT_HEAL:
-		{
-#ifdef JP
-			msg_print("深青色に輝いている...");
-#else
-			msg_print("It glows deep blue...");
-#endif
-
-#ifdef JP
-			msg_print("体内に暖かい鼓動が感じられる...");
-#else
-			msg_print("You feel a warm tingling inside...");
-#endif
-
-			(void)heal_creature(user_ptr, 700);
-			(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
-			break;
-		}
+		(void)heal_creature(user_ptr, 700);
+		(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
+		break;
 
 	case TRAIT_TRUE_HEALING:
 		(void)heal_creature(user_ptr, 1000);
@@ -483,51 +429,42 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		break;
 
 	case TRAIT_PROT_EVIL:
-		{
-			k = 3 * user_ptr->lev;
-			(void)set_timed_trait_aux(user_ptr, TRAIT_PROT_EVIL, randint1(25) + k, FALSE);
-			break;
-		}
+		(void)set_timed_trait_aux(user_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * user_ptr->lev, FALSE);
+		break;
 
 	case TRAIT_MAGIC_RES_ELEMENT:
-		{
-			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE);
-			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE);
-			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_FIRE, randint1(40) + 40, FALSE);
-			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_COLD, randint1(40) + 40, FALSE);
-			(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE);
-			break;
-		}
+		(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_ACID, randint1(40) + 40, FALSE);
+		(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_ELEC, randint1(40) + 40, FALSE);
+		(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_FIRE, randint1(40) + 40, FALSE);
+		(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_COLD, randint1(40) + 40, FALSE);
+		(void)set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE);
+		break;
+
+	//TODO Remove duplicated process
+	case TRAIT_FAST:
+		(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(20) + 20);
+		break;
 
 	case TRAIT_HASTE:
-		{
-#ifdef JP
-			msg_print("明るく緑色に輝いている...");
-#else
-			msg_print("It glows bright green...");
-#endif
-
-			(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(20) + 20);
-			break;
-		}
+		(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(20) + 20);
+		break;
 
 	case TRAIT_HASTE_2:
-		{
-			(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(75) + 75);
-			break;
-		}
+		(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(75) + 75);
+		break;
 
 	case TRAIT_WRAITH_FORM:
-		{
-			set_wraith_form(user_ptr, randint1(user_level / 2) + (user_level / 2), FALSE);
-			break;
-		}
+		set_wraith_form(user_ptr, randint1(user_level / 2) + (user_level / 2), FALSE);
+		break;
 
 	case TRAIT_INVULNER:
-		{
-			(void)set_timed_trait_aux(user_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
-			break;
-		}
+		(void)set_timed_trait_aux(user_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
+		break;
+
+	//TODO Remove duplicated process
+	case TRAIT_LIGHT_AREA:
+		lite_area(user_ptr, diceroll(2, 15), 3);
+		break;
 
 	case TRAIT_ILLUMINATION:
 		lite_area(user_ptr, diceroll(2, 15), 3);
@@ -550,132 +487,58 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		break;
 
 	case TRAIT_EXPLOSIVE_RUNE:
-		{
-#ifdef JP
-			msg_print("明るい赤色に輝いている...");
-#else
-			msg_print("It glows bright red...");
-#endif
-
-			explosive_rune(user_ptr);
-			break;
-		}
+		explosive_rune(user_ptr);
+		break;
 
 	case TRAIT_PROTECT_RUNE:
-		{
-#ifdef JP
-			msg_print("ブルーに明るく輝いている...");
-#else
-			msg_print("It glows light blue...");
-#endif
-
-			warding_glyph(user_ptr);
-			break;
-		}
+		warding_glyph(user_ptr);
+		break;
 
 	case TRAIT_SATIATE:
-		{
-			(void)set_food(user_ptr, PY_FOOD_MAX - 1);
-			break;
-		}
+		(void)set_food(user_ptr, PY_FOOD_MAX - 1);
+		break;
 
 	case TRAIT_DESTROY_DOOR_TRAP:
-		{
-#ifdef JP
-			msg_print("明るい赤色に輝いている...");
-#else
-			msg_print("It glows bright red...");
-#endif
-
-			destroy_doors_touch(user_ptr);
-			break;
-		}
+		destroy_doors_touch(user_ptr);
+		break;
 
 	case TRAIT_STONE_TO_MUD:
-		{
-#ifdef JP
-			msg_print("鼓動している...");
-#else
-			msg_print("It pulsates...");
-#endif
-
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			wall_to_mud(user_ptr, dir);
-			break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		wall_to_mud(user_ptr, dir);
+		break;
 
 	case TRAIT_MAGIC_CHARGE_2:
-		{
-			recharge(user_ptr, 130);
-			break;
-		}
+		recharge(user_ptr, 130);
+		break;
 
 	case TRAIT_MIDAS_TCH:
-		{
-#ifdef JP
-			msg_print("明るい黄色に輝いている...");
-#else
-			msg_print("It glows bright yellow...");
-#endif
-
-			(void)alchemy(user_ptr);
-			break;
-		}
+		(void)alchemy(user_ptr);
+		break;
 
 	case TRAIT_DIMENSION_DOOR:
-		{
-#ifdef JP
-			msg_print("次元の扉が開いた。目的地を選んで下さい。");
-#else
-			msg_print("You open a dimensional gate. Choose a destination.");
-#endif
-
-			if(!dimension_door(user_ptr)) return FALSE;
-			break;
-		}
-
+		if(!dimension_door(user_ptr)) return FALSE;
+		break;
 
 	case TRAIT_ACTIVE_TELEPORT:
-		{
-#ifdef JP
-			msg_print("周りの空間が歪んでいる...");
-#else
-			msg_print("It twists space around you...");
-#endif
-
-			teleport_player(user_ptr, 100, 0L);
-			break;
-		}
+		teleport_player(user_ptr, 100, 0L);
+		break;
 
 	case TRAIT_RECALL:
-		{
-#ifdef JP
-			msg_print("やわらかな白色に輝いている...");
-#else
-			msg_print("It glows soft white...");
-#endif
-			if(!word_of_recall(user_ptr)) return FALSE;
-			break;
-		}
-
-	case TRAIT_LIGHT_AREA:
-		{
-			lite_area(user_ptr, diceroll(2, 15), 3);
-			break;
-		}
+		if(!word_of_recall(user_ptr)) return FALSE;
+		break;
 
 	case TRAIT_JEWEL_OF_JUDGEMENT:
 		{
 #ifdef JP
-			msg_print("その宝石は赤く明るく光った！");
+			msg_print("宝石は赤く明るく光った！");
 #else
 			msg_print("The Jewel flashes bright red!");
 #endif
 
 			wiz_lite(floor_ptr, user_ptr, FALSE);
 #ifdef JP
-			msg_print("その宝石はあなたの体力を奪った...");
-			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(3,8), "審判の宝石", NULL, -1);
+			msg_print("宝石はあなたの体力を奪った...");
+			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "審判の宝石", NULL, -1);
 #else
 			msg_print("The Jewel drains your vitality...");
 			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "the Jewel of Judgement", NULL, -1);
@@ -690,7 +553,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 #else
 			if(get_check("Activate recall? "))
 #endif
-
 			{
 				(void)word_of_recall(user_ptr);
 			}
@@ -705,52 +567,36 @@ bool do_active_trait(creature_type *user_ptr, int id)
 				break;
 		}
 
-		//case TRAIT_BA_FIRE_L:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			cast_ball(user_ptr, GF_FIRE, dir, 400, 3);
-			break;
-		}
+	case TRAIT_BA_FIRE_L:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball(user_ptr, GF_FIRE, dir, 400, 3);
+		break;
 
 	case TRAIT_BA_COLD_L:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			cast_ball(user_ptr, GF_COLD, dir, 400, 3);
-			break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball(user_ptr, GF_COLD, dir, 400, 3);
+		break;
 
-		//case TRAIT_BA_ELEC_L:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			cast_ball(user_ptr, GF_ELEC, dir, 400, 3);
-			break;
-		}
+	case TRAIT_BA_ELEC_L:
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		cast_ball(user_ptr, GF_ELEC, dir, 400, 3);
+		break;
 
 	case TRAIT_BIZARRE_THING_OF_THE_RING:
-		{
-#ifdef JP
-			msg_print("指輪は漆黒に輝いた...");
-#else
-			msg_print("The ring glows intensely black...");
-#endif
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			ring_of_power(user_ptr, dir);
-			break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		ring_of_power(user_ptr, dir);
+		break;
 
 	case TRAIT_STAR_BALL2:
 		{
 			int num = diceroll(5, 3);
 			int y, x;
 			int attempts;
-
 #ifdef JP
 			msg_print("鎧が稲妻で覆われた...");
 #else
 			msg_print("Your armor is surrounded by lightning...");
 #endif
-
-
 			for (k = 0; k < num; k++)
 			{
 				attempts = 1000;
@@ -804,34 +650,9 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_SYMBOL_GENOCIDE:
-		{
-			(void)symbol_genocide(user_ptr, 200, TRUE);
-			break;
-		}
-
-		//case TRAIT_DESTROY_DOOR_TRAP:
-		{
-			destroy_doors_touch(user_ptr);
-			break;
-		}
-
 	case TRAIT_LAY_OF_FEAR:
 		{
 			turn_creatures(user_ptr, 40 + user_ptr->lev);
-			break;
-		}
-
-	case TRAIT_REGAL_HEAL_OF_AMBER:
-		{
-#ifdef JP
-			msg_print("体内に暖かい鼓動が感じられる...");
-#else
-			msg_print("You feel a warm tingling inside...");
-#endif
-
-			(void)heal_creature(user_ptr, 700);
-			(void)set_timed_trait(user_ptr, TRAIT_CUT, 0);
 			break;
 		}
 
@@ -849,7 +670,7 @@ bool do_active_trait(creature_type *user_ptr, int id)
 
 	case TRAIT_RESTORE_LEVEL:
 		{
-			restore_level(user_ptr);
+			restore_exp(user_ptr);
 			break;
 		}
 
@@ -908,35 +729,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 
 			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
 			cast_bolt(user_ptr, GF_ACID, dir, diceroll(5, 8));
-			break;
-		}
-
-		//case TRAIT_BO_MANA:
-		{
-#ifdef JP
-			msg_print("セスタスに魔法のトゲが現れた...");
-#else
-			msg_print("Your cesti grows magical spikes...");
-#endif
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			cast_bolt(user_ptr, GF_ARROW, dir, 150);
-			break;
-		}
-
-	case TRAIT_FAST:
-		{
-#ifdef JP
-			msg_print("ブーツがグリーンに明るく輝いた...");
-#else
-			msg_print("Your boots glow bright green...");
-#endif
-			(void)set_timed_trait(user_ptr, TRAIT_FAST, randint1(20) + 20);
-			break;
-		}
-
-		//case TRAIT_REMOVE_POISON:
-		{
-			(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
 			break;
 		}
 
@@ -1020,36 +812,10 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_STONE_TO_MUD:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			wall_to_mud(user_ptr, dir);
-			break;
-		}
-
-		//case TRAIT_MASS_GENOCIDE:
-		{
-			(void)mass_genocide(user_ptr, 200, TRUE);
-			break;
-		}
-
-		//case TRAIT_CURE_MEDIUM_WOUNDS:
-		{
-			heal_creature(user_ptr, diceroll(4, 8));
-			(void)set_timed_trait(user_ptr, TRAIT_CUT, (user_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
-			break;
-		}
-
 		//case TRAIT_TELE_AWAY:
 		{
 			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
 			teleport_creature(user_ptr, dir);
-			break;
-		}
-
-		//case TRAIT_RECALL:
-		{
-			if(!word_of_recall(user_ptr)) return FALSE;
 			break;
 		}
 
@@ -1501,7 +1267,7 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			(void)do_res_stat(user_ptr, STAT_DEX);
 			(void)do_res_stat(user_ptr, STAT_CON);
 			(void)do_res_stat(user_ptr, STAT_CHA);
-			(void)restore_level(user_ptr);
+			(void)restore_exp(user_ptr);
 			break;
 		}
 
