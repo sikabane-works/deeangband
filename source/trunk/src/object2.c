@@ -2267,16 +2267,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				case SV_RING_LORDLY:
-				{
-					do
-					{
-						one_lordly_high_resistance(object_ptr);
-					}
-					while (one_in_(4));
-				}
-				break;
-
 			}
 			if((one_in_(400) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79))
 			    || (power > 2)) /* power > 2 is debug only */
