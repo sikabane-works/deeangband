@@ -1426,7 +1426,6 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 			case TRAIT_TELE_AWAY:
 			case TRAIT_GET_ESP:
 			case TRAIT_MAGIC_RES_ELEMENT:
-			case TRAIT_DETECT_ALL:
 			case TRAIT_RECALL:
 			case TRAIT_SATIATE:
 			case TRAIT_MAGIC_CHARGE_2:
@@ -1452,6 +1451,7 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				chance = 50;
 				break;
 			case TRAIT_S_ANIMAL:
+			case TRAIT_DETECT_ALL:
 				chance = 40;
 				break;
 			case TRAIT_DISPEL_EVIL_1:
@@ -1480,7 +1480,6 @@ static void give_activation_power(object_type *object_ptr, int artifact_bias)
 				break;
 			case TRAIT_TRUE_HEALING:
 			case TRAIT_HASTE_2:
-			//case TRAIT_DETECT_ALL:
 			case TRAIT_DIMENSION_DOOR:
 				chance = 10;
 				break;
@@ -1929,7 +1928,7 @@ bool activate_object(creature_type *creature_ptr, object_type *object_ptr)
 	int i;
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(trait_info[i].is_spell && have_flag(object_ptr->trait_flags, i)) activate_active_trait(creature_ptr, i);
+		if(trait_info[i].is_spell && have_flag(object_ptr->trait_flags, i)) do_active_trait(creature_ptr, i);
 
 	if(object_ptr)
 	{

@@ -1910,4 +1910,4 @@ extern void do_creature_riding_control(creature_type *creature_ptr);
 
 // trait.c
 
-extern bool activate_active_trait(creature_type *user_ptr, int id);
+extern bool do_active_trait(creature_type *user_ptr, int id);
