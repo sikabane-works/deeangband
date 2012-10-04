@@ -2233,6 +2233,8 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
  */
 static void generate_process_ring_amulet(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
 {
+	if(has_trait_object(object_ptr, TRAIT_LOW_ESP)) one_low_esp(object_ptr);
+
 	/* Apply magic (good or bad) according to type */
 	switch (object_ptr->tval)
 	{
@@ -2321,12 +2323,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					while (one_in_(4));
 				}
 				break;
-
-				case SV_RING_WARNING:
-				{
-					if(one_in_(3)) one_low_esp(object_ptr);
-					break;
-				}
 
 				/* Searching */
 				case SV_RING_SEARCHING:
@@ -2707,29 +2703,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			/* Analyze */
 			switch (object_ptr->sval)
 			{
-				/* Amulet of wisdom/charisma */
-				case SV_AMULET_INTELLIGENCE:
-				case SV_AMULET_WISDOM:
-				case SV_AMULET_CHARISMA:
-				{
-					object_ptr->pval = 1 + m_bonus(5, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonuses */
-						object_ptr->pval = 0 - object_ptr->pval;
-					}
-
-					break;
-				}
-
 				/* Amulet of brilliance */
 				case SV_AMULET_BRILLIANCE:
 				{
