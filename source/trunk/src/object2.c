@@ -2568,23 +2568,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Amulet of Doom -- always cursed */
-				case SV_AMULET_DOOM:
-				{
-					/* Broken */
-					object_ptr->ident |= (IDENT_BROKEN);
-
-					/* Cursed */
-					add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-					/* Penalize */
-					object_ptr->pval = 0 - ((s16b)randint1(5) + m_bonus(5, level));
-					object_ptr->to_ac = 0 - ((s16b)randint1(5) + m_bonus(5, level));
-					if(power > 0) power = 0 - power;
-
-					break;
-				}
-
 				case SV_AMULET_MAGIC_MASTERY:
 				{
 					object_ptr->pval = 1 + m_bonus(4, level);
