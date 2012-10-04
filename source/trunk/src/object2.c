@@ -2267,30 +2267,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Ring of Speed! */
-				case SV_RING_SPEED:
-				{
-					/* Base speed (1 to 10) */
-					object_ptr->pval = (s16b)randint1(5) + m_bonus(5, level);
-
-					/* Super-charge the ring */
-					while (randint0(100) < 50) object_ptr->pval++;
-
-					/* Cursed Ring */
-					if(power < 0)
-					{
-						object_ptr->ident |= (IDENT_BROKEN);	// Broken
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);	// Cursed
-						object_ptr->pval = 0 - (object_ptr->pval);	// Reverse pval
-						break;
-					}
-
-					/* Mention the item */
-					if(cheat_peek) object_mention(object_ptr);
-
-					break;
-				}
-
 				case SV_RING_LORDLY:
 				{
 					do
@@ -2508,26 +2484,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				{
 					object_ptr->pval = 1 + m_bonus(3, level);
 					if(one_in_(4)) object_ptr->pval++;
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonuses */
-						object_ptr->pval = 0 - object_ptr->pval;
-					}
-
-					break;
-				}
-
-				case SV_AMULET_MAGIC_MASTERY:
-				{
-					object_ptr->pval = 1 + m_bonus(4, level);
 
 					/* Cursed */
 					if(power < 0)

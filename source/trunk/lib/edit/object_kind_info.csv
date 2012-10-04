@@ -22,7 +22,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 616,印籠,ドラゴンの爪の,& Inro~,Dragon's claw,"""",G,AMULET,AMULET,0,0,0,0,0,0,0,0,0,0,20,0,50,0,1,100,100000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,
 624,知能,数珠の,Intelligence,Rosary,"""",G,AMULET,AMULET,0,0,6,0,0,0,0,0,0,0,21,0,20,0,1,100,500,0,0,0,0,0,1d1,0,0,0,0,0,20/1,INT|HIDE_TYPE,,,
 625,賢さ,ひすいの,Wisdom,Jade,"""",g,AMULET,AMULET,0,0,0,6,0,0,0,0,0,0,22,0,20,0,1,100,500,0,0,0,0,0,1d1,0,0,0,0,0,20/1,WIS|HIDE_TYPE,,,
-644,魔法道具支配,ミスリルの,Magic Device Mastery,Mithril,"""",B,AMULET,AMULET,0,0,0,0,0,0,0,0,0,0,23,0,35,0,1,100,1000,0,0,0,0,0,1d1,0,0,0,0,0,35/4,MAGIC_MASTERY|HIDE_TYPE,,,
+644,魔法道具支配,ミスリルの,Magic Device Mastery,Mithril,"""",B,AMULET,AMULET,0,0,0,0,0,0,0,0,5,0,23,0,35,0,1,100,1000,0,0,0,0,0,1d1,0,0,0,0,0,35/4,MAGIC_MASTERY|HIDE_TYPE,,,
 652,アミュレット,ルビーの,& Amulet~,Ruby,"""",r,AMULET,AMULET,0,0,0,0,0,0,0,0,0,0,24,0,50,0,1,100,25000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,
 659,首飾り,エメラルドの,& Amulet~,Emerald,"""",g,AMULET,AMULET,0,0,0,0,0,0,0,0,0,0,25,0,50,0,0,100,77777,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,
 660,首輪,サファイアの,& Collar Harness~,Sapphire,"""",b,AMULET,AMULET,0,0,0,0,0,0,0,0,0,0,26,0,50,0,13,100,66666,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,
@@ -380,7 +380,7 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 152,精度,縞めのうの,Accuracy,Onyx,=,R,RING,RING,0,0,0,0,0,0,0,0,0,0,28,0,20,0,0,100,500,0,0,0,0,0,0d0,22,0,0,0,0,20/1,,,,
 151,ダメージ,ムーンストーンの,Damage,Moonstone,=,W,RING,RING,0,0,0,0,0,0,0,0,0,0,29,0,20,0,0,100,500,0,0,0,0,0,0d0,0,22,0,0,0,20/1,,,,
 162,殺戮,トルコ石の,Slaying,Turquoise,=,B,RING,RING,0,0,0,0,0,0,0,0,0,0,30,0,40,0,0,100,1000,0,0,0,0,0,0d0,18,18,0,0,0,40/1,SHOW_MODS,,,##### Amulets ######JZ#
-136,スピード,緑柱石の,Speed,Beryl,=,G,RING,RING,0,0,0,0,0,0,0,0,0,0,31,0,80,0,0,100,50000,0,0,0,0,0,1d1,0,0,0,0,0,80/1,SPEED|HIDE_TYPE,,,
+136,スピード,緑柱石の,Speed,Beryl,=,G,RING,RING,0,0,0,0,0,0,0,0,0,15,31,0,80,0,0,100,50000,0,0,0,0,0,1d1,0,0,0,0,0,80/1,SPEED|HIDE_TYPE,,,
 506,指輪,ディリシウムの,& Ring~,Dilithium,=,W,RING,RING,0,0,0,0,0,0,0,0,0,0,32,0,50,0,0,100,65000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,# The Ring of Tulkas -- see artifact list
 507,指輪,木の,& Ring~,Wooden,=,u,RING,RING,0,0,0,0,0,0,0,0,0,0,33,0,70,0,0,100,150000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,# The Ring of Power (Narya) -- see artifact list
 508,力の指輪,蛇の,& Ring~,Serpent,=,g,RING,RING,0,0,0,0,0,0,0,0,0,0,34,0,80,0,0,100,100000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,# The Ring of Power (Nenya) -- see artifact list
