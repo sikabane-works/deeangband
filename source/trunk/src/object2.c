@@ -2725,15 +2725,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				case SV_AMULET_NO_MAGIC: case SV_AMULET_NO_TELE:
-				{
-					if(power < 0)
-					{
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-					}
-					break;
-				}
-
 				case SV_AMULET_RESISTANCE:
 				{
 					if(one_in_(5)) one_high_resistance(object_ptr);
