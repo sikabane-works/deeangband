@@ -4295,44 +4295,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			if(success) return;
 		}
 
-		/* Get a direction for breathing (or abort) */
-		if(!get_aim_dir(creature_ptr, &dir)) return;
-
-		switch (object_ptr->sval)
-		{
-			case SV_RING_ACID:
-			{
-				cast_ball(creature_ptr, GF_ACID, dir, 100, 2);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			}
-
-			case SV_RING_ICE:
-			{
-				cast_ball(creature_ptr, GF_COLD, dir, 100, 2);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			}
-
-			case SV_RING_FLAMES:
-			{
-				cast_ball(creature_ptr, GF_FIRE, dir, 100, 2);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			}
-
-			case SV_RING_ELEC:
-			{
-				cast_ball(creature_ptr, GF_ELEC, dir, 100, 2);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(20) + 20, FALSE);
-				object_ptr->timeout = randint0(50) + 50;
-				break;
-			}
-		}
-
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
