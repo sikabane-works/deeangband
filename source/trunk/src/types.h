@@ -128,6 +128,7 @@ struct object_kind
 	s16b search;
 	s16b stealth;
 	s16b magic_mastery;
+	s16b speed;
 
 	s16b to_hit;			/* Bonus to hit */
 	s16b to_damage;			/* Bonus to damage */
