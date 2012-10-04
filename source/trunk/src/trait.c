@@ -33,17 +33,9 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		}
 
 	case TRAIT_DRAIN_LIFE1:
-		{
-#ifdef JP
-			msg_print("それは黒く輝いた...");
-#else
-			msg_print("It glows black...");
-#endif
-
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			if(drain_life(user_ptr, dir, 100))
-				break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		drain_life(user_ptr, dir, 100);
+		break;
 
 	case TRAIT_DRAIN_LIFE2:
 		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
@@ -166,17 +158,18 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		}
 
 	case TRAIT_TERROR:
-		{
-			turn_creatures(user_ptr, 40 + user_ptr->lev);
-			break;
-		}
+		turn_creatures(user_ptr, 40 + user_ptr->lev);
+		break;
 
 	case TRAIT_TELE_AWAY:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			(void)cast_beam(user_ptr, GF_AWAY_ALL, dir, user_level);
-			break;
-		}
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		(void)cast_beam(user_ptr, GF_AWAY_ALL, dir, user_level);
+		break;
+
+	//case TRAIT_TELE_AWAY: TODO:Implement new trait
+		if(!get_aim_dir(user_ptr, &dir)) return FALSE;
+		teleport_creature(user_ptr, dir);
+		break;
 
 	case TRAIT_BANISH_EVIL:
 		{
@@ -662,12 +655,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_MAGIC_CHARGE_2:
-		{
-			recharge(user_ptr, 130);
-			break;
-		}
-
 	case TRAIT_RESTORE_LEVEL:
 		{
 			restore_exp(user_ptr);
@@ -780,12 +767,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_ACTIVE_TELEPORT:
-		{
-			teleport_player(user_ptr, 222, 0L);
-			break;
-		}
-
 	case TRAIT_BA_COLD:
 		{
 			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
@@ -802,20 +783,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 #endif
 
 			(void)summon_specific(NULL, user_ptr->fy, user_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
-			break;
-		}
-
-		//case TRAIT_DRAIN_LIFE1:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			drain_life(user_ptr, dir, 120);
-			break;
-		}
-
-		//case TRAIT_TELE_AWAY:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			teleport_creature(user_ptr, dir);
 			break;
 		}
 
@@ -1193,13 +1160,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_CHARM_ANIMALS:
-		{
-			if(!get_aim_dir(user_ptr, &dir)) return FALSE;
-			(void)charm_animal(user_ptr, dir, user_ptr->lev);
-			break;
-		}
-
 	case TRAIT_CHANGE_BRAND:
 		{
 #ifdef JP
@@ -1340,13 +1300,6 @@ bool do_active_trait(creature_type *user_ptr, int id)
 		(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
 		(void)set_timed_trait(user_ptr, TRAIT_PARALYZED, user_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 		break;
-
-	//case TRAIT_DETECT_MAP:
-		{
-			map_area(user_ptr, DETECT_RAD_MAP);
-			lite_area(user_ptr, diceroll(2, 15), 3);
-			break;
-		}
 
 	default:
 		{
