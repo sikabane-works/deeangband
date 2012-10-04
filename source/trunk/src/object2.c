@@ -2380,50 +2380,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					break;
 				}
 
-				/* Ring of damage */
-				case SV_RING_DAMAGE:
-				{
-					/* Bonus to damage */
-					object_ptr->to_damage = 1 + (s16b)randint1(5) + m_bonus(16, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonus */
-						object_ptr->to_damage = 0 - object_ptr->to_damage;
-					}
-
-					break;
-				}
-
-				/* Ring of Accuracy */
-				case SV_RING_ACCURACY:
-				{
-					/* Bonus to hit */
-					object_ptr->to_hit = 1 + (s16b)randint1(5) + m_bonus(16, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse tohit */
-						object_ptr->to_hit = 0 - object_ptr->to_hit;
-					}
-
-					break;
-				}
-
 				/* Ring of Protection */
 				case SV_RING_PROTECTION:
 				{
@@ -2441,30 +2397,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 						/* Reverse toac */
 						object_ptr->to_ac = 0 - object_ptr->to_ac;
-					}
-
-					break;
-				}
-
-				/* Ring of Slaying */
-				case SV_RING_SLAYING:
-				{
-					/* Bonus to damage and to hit */
-					object_ptr->to_damage = (s16b)randint1(5) + m_bonus(12, level);
-					object_ptr->to_hit = (s16b)randint1(5) + m_bonus(12, level);
-
-					/* Cursed */
-					if(power < 0)
-					{
-						/* Broken */
-						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
-						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse bonuses */
-						object_ptr->to_hit = 0 - object_ptr->to_hit;
-						object_ptr->to_damage = 0 - object_ptr->to_damage;
 					}
 
 					break;

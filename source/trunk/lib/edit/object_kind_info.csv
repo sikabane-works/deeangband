@@ -377,9 +377,9 @@ ID,NAME,UI_NAME,E_NAME,E_UI_NAME,SYMBOL,COLOR,SLOT,TVAL,STR,INT,WIS,DEX,CON,CHA,
 135,電撃,めのうの,Lightning,Azurite,=,B,RING,RING,0,0,0,0,0,0,25,0,35,0,0,100,3000,0,0,0,0,0,0d0,0,0,15,0,0,50/1,RES_ELEC|IGNORE_ELEC|ACTIVATE,,,
 133,器用さ,アメジストの,Dexterity,Amethyst,=,v,RING,RING,0,0,0,0,0,0,26,0,30,0,0,100,500,0,0,0,0,0,1d1,0,0,0,0,0,30/1,DEX|HIDE_TYPE,,,
 134,耐久力,アクアマリンの,Constitution,Aquamarine,=,B,RING,RING,0,0,0,0,0,0,27,0,30,0,0,100,500,0,0,0,0,0,1d1,0,0,0,0,0,30/1,CON|HIDE_TYPE,,,
-152,精度,縞めのうの,Accuracy,Onyx,=,R,RING,RING,0,0,0,0,0,0,28,0,20,0,0,100,500,0,0,0,0,0,0d0,1,0,0,0,0,20/1,,,,
-151,ダメージ,ムーンストーンの,Damage,Moonstone,=,W,RING,RING,0,0,0,0,0,0,29,0,20,0,0,100,500,0,0,0,0,0,0d0,0,1,0,0,0,20/1,,,,
-162,殺戮,トルコ石の,Slaying,Turquoise,=,B,RING,RING,0,0,0,0,0,0,30,0,40,0,0,100,1000,0,0,0,0,0,0d0,1,1,0,0,0,40/1,SHOW_MODS,,,##### Amulets ######JZ#
+152,精度,縞めのうの,Accuracy,Onyx,=,R,RING,RING,0,0,0,0,0,0,28,0,20,0,0,100,500,0,0,0,0,0,0d0,22,0,0,0,0,20/1,,,,
+151,ダメージ,ムーンストーンの,Damage,Moonstone,=,W,RING,RING,0,0,0,0,0,0,29,0,20,0,0,100,500,0,0,0,0,0,0d0,0,22,0,0,0,20/1,,,,
+162,殺戮,トルコ石の,Slaying,Turquoise,=,B,RING,RING,0,0,0,0,0,0,30,0,40,0,0,100,1000,0,0,0,0,0,0d0,18,18,0,0,0,40/1,SHOW_MODS,,,##### Amulets ######JZ#
 136,スピード,緑柱石の,Speed,Beryl,=,G,RING,RING,0,0,0,0,0,0,31,0,80,0,0,100,50000,0,0,0,0,0,1d1,0,0,0,0,0,80/1,SPEED|HIDE_TYPE,,,
 506,指輪,ディリシウムの,& Ring~,Dilithium,=,W,RING,RING,0,0,0,0,0,0,32,0,50,0,0,100,65000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,# The Ring of Tulkas -- see artifact list
 507,指輪,木の,& Ring~,Wooden,=,u,RING,RING,0,0,0,0,0,0,33,0,70,0,0,100,150000,0,0,0,0,0,1d1,0,0,0,0,0,,INSTA_ART,,,# The Ring of Power (Narya) -- see artifact list
