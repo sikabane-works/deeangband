@@ -44,11 +44,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SUNLIGHT:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("太陽光線が放たれた。");
-#else
-			msg_print("A line of sunlight appears.");
-#endif
 			(void)lite_line(caster_ptr, dir);
 			break;
 		}
@@ -116,55 +111,44 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_CALL_CHAOS:
 		{
-#ifdef JP
-			msg_print("様々な色の火花を発している...");
-#else
-			msg_print("It glows in scintillating colours...");
-#endif
-
 			call_chaos(caster_ptr);
 			break;
 		}
 
 	case TRAIT_ROCKET:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		msg_print("ロケットを発射した！");
-#else
-		msg_print("You launch a rocket!");
-#endif
 		cast_ball(caster_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
 		break;
 
-	//case TRAIT_ROCKET:
 	/*
 		disturb(player_ptr, 1, 0);
-#ifdef JP
-		if(blind) msg_format("%^sが何かを射った。", caster_name);
-#else
-		if(blind) msg_format("%^s shoots something.", caster_name);
-#endif
-
-#ifdef JP
-		else msg_format("%^sがロケットを発射した。", caster_name);
-#else
-		else msg_format("%^s fires a rocket.", caster_name);
-#endif
 		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
 	*/
 
-	//case TRAIT_ROCKET:
+	/*
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ロケットを発射した。");
-#else
-		else msg_print("You fire a rocket.");
-#endif
 		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
-	break;
+		break;
+	*/
+
+	/*
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		else
+			damage = hp / 4;
+			fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
+		break;
+	*/
+
+	/*
+		disturb(player_ptr, 1, 0);
+		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
+		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
+		update_smart_learn(caster_ptr, DRS_SHARD);
+		break;
+	*/
 
 	case TRAIT_DISPEL_EVIL_1:
 		dispel_evil(caster_ptr, caster_ptr->lev * 5);
@@ -5771,27 +5755,6 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_ROCKET:
-		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを射った。", m_name);
-#else
-			if(blind) msg_format("%^s shoots something.", m_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがロケットを発射した。", m_name);
-#else
-			else msg_format("%^s fires a rocket.", m_name);
-#endif
-
-			dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-			breath(y, x, caster_ptr, GF_ROCKET,
-				dam, 2, FALSE, TRAIT_ROCKET, learnable);
-			update_smart_learn(caster_ptr, DRS_SHARD);
-			break;
-		}
 
 		case TRAIT_SHOOT:
 		{
@@ -8416,17 +8379,6 @@ msg_print("かん高い金切り声をあげた。");
 		dispel_creature(&creature_list[m_idx]);
 		break;
 	}
-	case TRAIT_ROCKET:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		else
-#ifdef JP
-msg_print("ロケットを発射した。");
-#else
-			msg_print("You fire a rocket.");
-#endif
-		damage = hp / 4;
-			fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
-		break;
 	case TRAIT_SHOOT:
 	{
 		object_type *object_ptr = NULL;
