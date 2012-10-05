@@ -1183,8 +1183,13 @@ extern void set_inventory_weight(creature_type *creature_ptr);
 
 
 /* racial.c */
+extern void racial_stop_mouth(creature_type *creature_ptr);
 extern bool gain_magic(creature_type *creature_ptr);
 extern void do_cmd_racial_power(creature_type *creature_ptr);
+extern bool choose_kamae(creature_type *creature_ptr);
+extern bool choose_kata(creature_type *creature_ptr);
+extern bool can_do_cmd_cast(creature_type *creature_ptr);
+extern bool do_cmd_archer(creature_type *creature_ptr);
 
 /* save.c */
 extern bool save_player(void);
