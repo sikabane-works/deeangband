@@ -2180,20 +2180,40 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon hounds.");
 #endif
-			for (k = 0;k < 4; k++)
+			for (k = 0; k < 4; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HOUND, mode);
 			break;
 		}
+
 	case TRAIT_S_HYDRA:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("ヒドラを召喚した。");
-#else
-			msg_print("You summon hydras.");
-#endif
-			for (k = 0;k < 4; k++)
+			for (k = 0; k < 4; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HYDRA, mode);
+			break;
+		}
+		{
+			for (k = 0; k < s_num_4; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, PC_ALLOW_GROUP);
+			}
+
+			break;
+		}
+		{
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
+			{
+				if(!pet)
+#ifdef JP
+					msg_print("召喚されたヒドラは怒っている！");
+#else
+					msg_print("Summoned hydras are angry!");
+#endif
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
 			break;
 		}
 
@@ -5595,29 +5615,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_HYDRA:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法でヒドラを召喚した。", caster_name);
-#else
-			else msg_format("%^s magically summons hydras.", caster_name);
-#endif
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, PC_ALLOW_GROUP);
-			}
-
-			break;
-		}
-
 
 	case TRAIT_S_DEMON:
 		{
@@ -7877,29 +7874,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_HYDRA:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法でヒドラを召喚した。", target_name);
-#else
-			else msg_format("%^s magically summons hydras.", target_name);
-#endif
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, PC_ALLOW_GROUP);
-			}
-
-			break;
-		}
-
 
 	case TRAIT_S_DEMON:
 		{
@@ -8845,28 +8819,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-	case TRAIT_S_HYDRA:
-		{
-#ifdef JP
-			msg_print("ヒドラを召喚した。");
-#else
-			msg_print("You summon a hydras.");
-#endif
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
-			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたヒドラは怒っている！");
-#else
-					msg_print("Summoned hydras are angry!");
-#endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+
 
 	case TRAIT_S_DEMON:
 		{
