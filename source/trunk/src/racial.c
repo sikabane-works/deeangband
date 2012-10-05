@@ -2174,24 +2174,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 }
 
 
-static bool do_racial_power_aux_new(creature_type *caster_ptr, s32b command)
-{
-	s16b        plev = caster_ptr->lev;
-	int         dir = 0;
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	char caster_name[100];
-
-	creature_desc(caster_name, caster_ptr, 0);
-
-	switch (command)
-	{
-
-	}
-}
-
-
-
-
 /*
  * Allow user to choose a power (racial / mutation) to activate
  */
@@ -2463,11 +2445,7 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 	switch (racial_aux(creature_ptr, &power_desc[i]))
 	{
 	case 1:
-		if(power_desc[i].number < 0)
-			cast = do_racial_power_aux(creature_ptr, power_desc[i].number);
-		else
-			cast = mutation_power_aux(creature_ptr,power_desc[i].number);
-		break;
+		cast = do_active_trait(creature_ptr, power_desc[i].number);
 	case 0:
 		cast = FALSE;
 		break;
