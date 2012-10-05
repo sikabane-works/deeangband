@@ -2098,7 +2098,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 	case TRAIT_S_KIN:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 
 #ifdef JP
@@ -2114,7 +2113,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_CYBER:
 		{
-			int k;
 			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
@@ -2140,7 +2138,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_MONSTERS:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("クリーチャーを召喚した！");
@@ -2153,7 +2150,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_ANT:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("アリを召喚した。");
@@ -2166,7 +2162,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_SPIDER:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("蜘蛛を召喚した。");
@@ -2179,7 +2174,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_HOUND:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("ハウンドを召喚した。");
@@ -2192,7 +2186,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_HYDRA:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("ヒドラを召喚した。");
@@ -2228,55 +2221,54 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_S_NAZGUL:
+		{
+			int cy = y;
+			int cx = x;
+
+			for (k = 0; k < 30; k++)
 			{
-				int cy = y;
-				int cx = x;
-
-				for (k = 0; k < 30; k++)
+				if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
 				{
-					if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
+					int j;
+					for (j = 100; j > 0; j--)
 					{
-						int j;
-						for (j = 100; j > 0; j--)
-						{
-							scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
-							if(cave_empty_bold(floor_ptr, cy, cx)) break;
-						}
-						if(!j) break;
+						scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
+						if(cave_empty_bold(floor_ptr, cy, cx)) break;
 					}
-					if(!cave_empty_bold(floor_ptr, cy, cx)) continue;
-
-					if(summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
-					{
-						y = cy;
-						x = cx;
-						count++;
-						if(count == 1)
-#ifdef JP
-							msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
-#else
-							msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
-#endif
-						else
-#ifdef JP
-							msg_format("「同じく%d号、ナズグル・ブラック！」", count);
-#else
-							msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
-#endif
-						msg_print(NULL);
-					}
+					if(!j) break;
 				}
+				if(!cave_empty_bold(floor_ptr, cy, cx)) continue;
+
+				if(summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
+				{
+					y = cy;
+					x = cx;
+					count++;
+					if(count == 1)
 #ifdef JP
-				msg_format("「%d人そろって、リングレンジャー！」", count);
+						msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
 #else
-				msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
+						msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
 #endif
-				msg_print(NULL);
+					else
+#ifdef JP
+						msg_format("「同じく%d号、ナズグル・ブラック！」", count);
+#else
+						msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
+#endif
+					msg_print(NULL);
+				}
 			}
+#ifdef JP
+			msg_format("「%d人そろって、リングレンジャー！」", count);
+#else
+			msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
+#endif
+			msg_print(NULL);
+		}
 
 	case TRAIT_S_HI_UNDEAD:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 
 			for (k = 0;k < 6; k++)
@@ -2324,26 +2316,25 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚された上級アンデッドは怒っている！");
+					msg_print("召喚された上級アンデッドは怒っている！");
 #else
-						msg_print("Summoned greater undeads are angry!");
+					msg_print("Summoned greater undeads are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 
 
 	case TRAIT_S_HI_DRAGON:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 
 			for (k = 0;k < 4; k++)
@@ -2386,26 +2377,25 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚された古代ドラゴンは怒っている！");
+					msg_print("召喚された古代ドラゴンは怒っている！");
 #else
-						msg_print("Summoned ancient dragons are angry!");
+					msg_print("Summoned ancient dragons are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 
 
 	case TRAIT_S_AMBERITES:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 			for (k = 0; k < 4; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
 			break;
@@ -2444,20 +2434,20 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたアンバーの王族は怒っている！");
+					msg_print("召喚されたアンバーの王族は怒っている！");
 #else
-						msg_print("Summoned Lords of Amber are angry!");
+					msg_print("Summoned Lords of Amber are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 
 	case TRAIT_S_UNIQUE:
@@ -2540,32 +2530,32 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You summon a special opponent!");
 #endif
-					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
+				{
+					count++;
+					if(!pet)
+#ifdef JP
+						msg_print("召喚されたユニーク・クリーチャーは怒っている！");
+#else
+						msg_print("Summoned special opponents are angry!");
+#endif
+				}
+				for (k = count;k < 1; k++)
+					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 					{
 						count++;
 						if(!pet)
 #ifdef JP
-							msg_print("召喚されたユニーク・クリーチャーは怒っている！");
+							msg_print("召喚された上級アンデッドは怒っている！");
 #else
-							msg_print("Summoned special opponents are angry!");
+							msg_print("Summoned greater undeads are angry!");
 #endif
 					}
-					for (k = count;k < 1; k++)
-						if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
-						{
-							count++;
-							if(!pet)
-#ifdef JP
-								msg_print("召喚された上級アンデッドは怒っている！");
-#else
-								msg_print("Summoned greater undeads are angry!");
-#endif
-						}
-						if(!count)
-						{
-							no_trump = TRUE;
-						}
-						break;
+					if(!count)
+					{
+						no_trump = TRUE;
+					}
+					break;
 			}
 
 
@@ -4947,8 +4937,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_SPECIAL:
 		{
-		int k;
-
 
 		switch (caster_ptr->species_idx)
 		{
@@ -7286,9 +7274,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_SPECIAL:
 		{
-			int k;
-
-
 			switch (caster_ptr->species_idx)
 			{
 			case SPECIES_OHMU:
@@ -8765,7 +8750,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 	case TRAIT_S_KIN:
 		{
-			int k;
 #ifdef JP
 			msg_print("援軍を召喚した。");
 #else
@@ -8790,7 +8774,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_CYBER:
 		{
-			int k;
 #ifdef JP
 			msg_print("サイバーデーモンを召喚した！");
 #else
@@ -8814,30 +8797,28 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_MONSTER:
 		{
-			int k;
 #ifdef JP
 			msg_print("仲間を召喚した。");
 #else
 			msg_print("You summon help.");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたクリーチャーは怒っている！");
+					msg_print("召喚されたクリーチャーは怒っている！");
 #else
-						msg_print("The summoned creature is angry!");
+					msg_print("The summoned creature is angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_MONSTERS:
 		{
-			int k;
 #ifdef JP
 			msg_print("クリーチャーを召喚した！");
 #else
@@ -8861,217 +8842,209 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_ANT:
 		{
-			int k;
 #ifdef JP
 			msg_print("アリを召喚した。");
 #else
 			msg_print("You summon ants.");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたアリは怒っている！");
+					msg_print("召喚されたアリは怒っている！");
 #else
-						msg_print("Summoned ants are angry!");
+					msg_print("Summoned ants are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_SPIDER:
 		{
-			int k;
 #ifdef JP
 			msg_print("蜘蛛を召喚した。");
 #else
 			msg_print("You summon spiders.");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚された蜘蛛は怒っている！");
+					msg_print("召喚された蜘蛛は怒っている！");
 #else
-						msg_print("Summoned spiders are angry!");
+					msg_print("Summoned spiders are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_HOUND:
 		{
-			int k;
 #ifdef JP
 			msg_print("ハウンドを召喚した。");
 #else
 			msg_print("You summon hounds.");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたハウンドは怒っている！");
+					msg_print("召喚されたハウンドは怒っている！");
 #else
-						msg_print("Summoned hounds are angry!");
+					msg_print("Summoned hounds are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_HYDRA:
 		{
-			int k;
 #ifdef JP
 			msg_print("ヒドラを召喚した。");
 #else
 			msg_print("You summon a hydras.");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたヒドラは怒っている！");
+					msg_print("召喚されたヒドラは怒っている！");
 #else
-						msg_print("Summoned hydras are angry!");
+					msg_print("Summoned hydras are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_ANGEL:
 		{
-			int k;
 #ifdef JP
 			msg_print("天使を召喚した！");
 #else
 			msg_print("You summon an angel!");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚された天使は怒っている！");
+					msg_print("召喚された天使は怒っている！");
 #else
-						msg_print("Summoned angels are angry!");
+					msg_print("Summoned angels are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_DEMON:
 		{
-			int k;
 #ifdef JP
 			msg_print("混沌の宮廷から悪魔を召喚した！");
 #else
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたデーモンは怒っている！");
+					msg_print("召喚されたデーモンは怒っている！");
 #else
-						msg_print("Summoned demons are angry!");
+					msg_print("Summoned demons are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_UNDEAD:
 		{
-			int k;
 #ifdef JP
 			msg_print("アンデッドの強敵を召喚した！");
 #else
 			msg_print("You summon an undead adversary!");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたアンデッドは怒っている！");
+					msg_print("召喚されたアンデッドは怒っている！");
 #else
-						msg_print("Summoned undeads are angry!");
+					msg_print("Summoned undeads are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 	case TRAIT_S_DRAGON:
 		{
-			int k;
 #ifdef JP
 			msg_print("ドラゴンを召喚した！");
 #else
 			msg_print("You summon a dragon!");
 #endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたドラゴンは怒っている！");
+					msg_print("召喚されたドラゴンは怒っている！");
 #else
-						msg_print("Summoned dragons are angry!");
+					msg_print("Summoned dragons are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 #endif
-	}
+		}
 
 	default:
 		{
 			msg_warning("Undefined active trait.");
 		}
 
-		}
+	}
 
-		if(kichigai_talk)
-		{
-			/*
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-			msg_print("やりやがったな！");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-			msg_print("弱いものいじめはやめるんだ！");
-			*/
-		}
+	if(kichigai_talk)
+	{
+		/*
+		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
+		msg_print("やりやがったな！");
+		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+		msg_print("弱いものいじめはやめるんだ！");
+		*/
+	}
 
-		if(summoned)
-		{
+	if(summoned)
+	{
 #ifdef JP
-			if(blind && count) msg_print("何かが間近に現れた音がする。");
+		if(blind && count) msg_print("何かが間近に現れた音がする。");
 #else
-			if(blind && count) msg_print("You hear something appear nearby.");
+		if(blind && count) msg_print("You hear something appear nearby.");
 #endif
-		}
+	}
 
-		return FALSE;
+	return FALSE;
 }
 
