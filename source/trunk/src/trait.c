@@ -411,10 +411,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_format("%^s magically summons an undead adversary!", caster_name);
 		#endif
 
-		for (k = 0; k < 1; k++)
-		{
 		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNDEAD, PC_ALLOW_GROUP);
-		}
 
 		break;
 		}
@@ -5404,10 +5401,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_format("%^s magically summons help!", caster_name);
 		#endif
 
-		for (k = 0; k < 1; k++)
-		{
 		count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		}
 
 		break;
 		}
@@ -5572,10 +5566,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_format("%^s magically summons a demon from the Courts of Chaos!", caster_name);
 		#endif
 
-		for (k = 0; k < 1; k++)
-		{
 		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DEMON, PC_ALLOW_GROUP);
-		}
 
 		break;
 		}
@@ -5596,10 +5587,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_format("%^s magically summons a dragon!", caster_name);
 		#endif
 
-		for (k = 0; k < 1; k++)
-		{
 		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
-		}
 
 		break;
 		}
@@ -7845,10 +7833,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s magically summons help!", target_name);
 #endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
+			count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 
 			break;
 		}
@@ -8014,10 +7999,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s magically summons a demon from the Courts of Chaos!", target_name);
 #endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DEMON, PC_ALLOW_GROUP);
-			}
+			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DEMON, PC_ALLOW_GROUP);
 
 			break;
 		}
@@ -8037,10 +8019,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s magically summons an undead adversary!", target_name);
 #endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNDEAD, PC_ALLOW_GROUP);
-			}
+			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNDEAD, PC_ALLOW_GROUP);
 
 			break;
 		}
@@ -8060,10 +8039,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s magically summons a dragon!", target_name);
 #endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
-			}
+			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
 
 			break;
 		}
