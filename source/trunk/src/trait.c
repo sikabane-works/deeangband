@@ -2236,22 +2236,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_HI_UNDEAD:
-		{
-			int k;
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("強力なアンデッドを召喚した！");
-#else
-			msg_print("You summon greater undead!");
-#endif
-			for (k = 0;k < 6; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
-			break;
-		}
-
-		{
-			if(((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
+	case TRAIT_S_NAZGUL:
 			{
 				int cy = y;
 				int cx = x;
@@ -2310,7 +2295,22 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 				msg_print(NULL);
 			}
-			else
+
+	case TRAIT_S_HI_UNDEAD:
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+			msg_print("強力なアンデッドを召喚した！");
+#else
+			msg_print("You summon greater undead!");
+#endif
+			for (k = 0;k < 6; k++)
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+			break;
+		}
+
+		{
 			{
 #ifdef JP
 				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
