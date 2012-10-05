@@ -14,8 +14,8 @@
 
 bool do_active_trait(creature_type *caster_ptr, int id)
 {
-	creature_type *target_ptr;
-	char caster_name[100], target_name[100];
+	creature_type *target_ptr = NULL;
+	char caster_name[100] = "何か", target_name[100] = "何か";
 	int k, dir, dummy;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int user_level = caster_ptr->lev;
@@ -332,15 +332,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		//TODO
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("混沌の宮廷から悪魔を召喚した！");
 #else
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
-			for (k = 0;k < 1; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
+			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
 			break;
 		}
 
@@ -385,15 +383,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 		//TODO
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("アンデッドの強敵を召喚した！");
 #else
 			msg_print("You summon an undead adversary!");
 #endif
-			for (k = 0;k < 1; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
+			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
 			break;
 		}
 		//TODO
@@ -2133,15 +2129,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_MONSTER:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("仲間を召喚した。");
 #else
 			msg_print("You summon help.");
 #endif
-			for (k = 0;k < 1; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
+			summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
 			break;
 		}
 	case TRAIT_S_MONSTERS:
@@ -2211,28 +2205,25 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 	case TRAIT_S_ANGEL:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("天使を召喚した！");
 #else
 			msg_print("You summon angel!");
 #endif
-			for (k = 0;k < 1; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANGEL, mode);
+			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANGEL, mode);
 			break;
 		}
+
 	case TRAIT_S_DRAGON:
 		{
-			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
 			msg_print("ドラゴンを召喚した！");
 #else
 			msg_print("You summon dragon!");
 #endif
-			for (k = 0;k < 1; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
+			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
 			break;
 		}
 
@@ -2333,13 +2324,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-			int k;
-#ifdef JP
-			msg_print("強力なアンデッドを召喚した！");
-#else
-			msg_print("You summon a greater undead!");
-#endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
 				{
 					if(!pet)
@@ -2402,13 +2386,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-			int k;
-#ifdef JP
-			msg_print("古代ドラゴンを召喚した！");
-#else
-			msg_print("You summon an ancient dragon!");
-#endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
 				{
 					if(!pet)
@@ -2467,8 +2444,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-			int k;
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
 				{
 					if(!pet)
@@ -2565,7 +2540,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You summon a special opponent!");
 #endif
-				for (k = 0;k < 1; k++)
 					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 					{
 						count++;
@@ -8797,7 +8771,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon minions.");
 #endif
-			for (k = 0;k < 1; k++)
 			{
 				if(summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PC_FORCE_PET : 0L)))
 				{
@@ -8847,7 +8820,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon help.");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
 				{
 					if(!pet)
@@ -8895,7 +8867,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon ants.");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
 				{
 					if(!pet)
@@ -8919,7 +8890,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon spiders.");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
 				{
 					if(!pet)
@@ -8943,7 +8913,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon hounds.");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
 				{
 					if(!pet)
@@ -8967,7 +8936,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon a hydras.");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
 				{
 					if(!pet)
@@ -8991,7 +8959,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon an angel!");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
 				{
 					if(!pet)
@@ -9015,7 +8982,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
 				{
 					if(!pet)
@@ -9039,7 +9005,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon an undead adversary!");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
 				{
 					if(!pet)
@@ -9063,7 +9028,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You summon a dragon!");
 #endif
-			for (k = 0;k < 1; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
 				{
 					if(!pet)
