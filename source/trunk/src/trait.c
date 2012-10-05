@@ -2251,6 +2251,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
 			break;
 		}
+
 	case TRAIT_S_HI_DRAGON:
 		{
 			int k;
@@ -2263,6 +2264,77 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			for (k = 0;k < 4; k++)
 				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
 			break;
+		}
+
+		{
+		for (k = 0; k < s_num_4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		if(blind && count)
+		{
+		#ifdef JP
+		msg_print("多くの力強いものが間近に現れた音が聞こえる。");
+		#else
+		msg_print("You hear many powerful things appear nearby.");
+		#endif
+
+		}
+		break;
+		}
+
+		{
+			
+#ifdef JP
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
+#else
+			if(blind) msg_format("%^s mumbles.", target_name);
+#endif
+
+#ifdef JP
+			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", target_name);
+#else
+			else msg_format("%^s magically summons ancient dragons!", target_name);
+#endif
+
+			for (k = 0; k < s_num_4; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+			}
+			if(blind && count)
+			{
+#ifdef JP
+				msg_print("多くの力強いものが間近に現れた音が聞こえる。");
+#else
+				msg_print("You hear many powerful things appear nearby.");
+#endif
+
+			}
+			break;
+		}
+
+		{
+			int k;
+#ifdef JP
+			msg_print("古代ドラゴンを召喚した！");
+#else
+			msg_print("You summon an ancient dragon!");
+#endif
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
+				{
+					if(!pet)
+#ifdef JP
+						msg_print("召喚された古代ドラゴンは怒っている！");
+#else
+						msg_print("Summoned ancient dragons are angry!");
+#endif
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
 		}
 
 
@@ -5727,36 +5799,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 		}
 
-		case TRAIT_S_HI_DRAGON:
-		{
-		
-		#ifdef JP
-		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-		#else
-		if(blind) msg_format("%^s mumbles.", caster_name);
-		#endif
-
-		#ifdef JP
-		else msg_format("%^sが魔法で古代ドラゴンを召喚した！", caster_name);
-		#else
-		else msg_format("%^s magically summons ancient dragons!", caster_name);
-		#endif
-
-		for (k = 0; k < s_num_4; k++)
-		{
-		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		}
-		if(blind && count)
-		{
-		#ifdef JP
-		msg_print("多くの力強いものが間近に現れた音が聞こえる。");
-		#else
-		msg_print("You hear many powerful things appear nearby.");
-		#endif
-
-		}
-		break;
-		}
 
 		*/
 
@@ -8292,36 +8334,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_HI_DRAGON:
-		{
-			
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", target_name);
-#else
-			else msg_format("%^s magically summons ancient dragons!", target_name);
-#endif
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("多くの力強いものが間近に現れた音が聞こえる。");
-#else
-				msg_print("You hear many powerful things appear nearby.");
-#endif
-
-			}
-			break;
-		}
 
 	case TRAIT_SHRIEK:
 #ifdef JP
@@ -9381,32 +9393,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				}
 				break;
 		}
-	case TRAIT_S_HI_DRAGON:
-		{
-			int k;
-#ifdef JP
-			msg_print("古代ドラゴンを召喚した！");
-#else
-			msg_print("You summon an ancient dragon!");
-#endif
-			for (k = 0;k < 1; k++)
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
-				{
-					if(!pet)
-#ifdef JP
-						msg_print("召喚された古代ドラゴンは怒っている！");
-#else
-						msg_print("Summoned ancient dragons are angry!");
-#endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
-		}
-
-
 
 #endif
 		}
