@@ -279,32 +279,6 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 	return (TRUE);
 }
 
-
-/*
- * do_cmd_cast calls this function if the player's class
- * is 'imitator'.
- */
-static bool use_mane(creature_type *user_ptr, int spell)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(user_ptr);
-	//int             dir;
-	int             plev = user_ptr->lev;
-	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
-	u32b u_mode = 0L;
-	if(randint1(50+plev) < plev/10) u_mode = PC_ALLOW_UNIQUE;
-
-
-	/* spell code */
-	switch (spell)
-	{
-	default:
-		msg_print("hoge?");
-	}
-
-	return TRUE;
-}
-
-
 /*
  * do_cmd_cast calls this function if the player's class
  * is 'imitator'.
@@ -388,10 +362,7 @@ msg_print("‚à‚Ì‚Ü‚Ë‚ÉŽ¸”s‚µ‚½I");
 	else
 	{
 		sound(SOUND_ZAP);
-
-		/* Cast the spell */
-		cast = use_mane(creature_ptr, creature_ptr->mane_spell[n]);
-
+		cast = do_active_trait(creature_ptr, creature_ptr->mane_spell[n]);
 		if(!cast) return FALSE;
 	}
 
