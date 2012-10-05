@@ -43,6 +43,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	creature_desc(caster_name, caster_ptr, 0);
 
+	if(!is_player(caster_ptr)) disturb(player_ptr, 1, 0);
+
 	if(!blind)
 	{
 		//TODO message
@@ -2262,18 +2264,65 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
 			break;
 		}
+
+
 	case TRAIT_S_AMBERITES:
 		{
 			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("アンバーの王族を召喚した！");
-#else
-			msg_print("You summon Lords of Amber!");
-#endif
-			for (k = 0;k < 4; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
+			for (k = 0; k < 4; k++) summon_specific(NULL, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
 			break;
+		}
+
+		{
+
+		for (k = 0; k < s_num_4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		if(blind && count)
+		{
+		#ifdef JP
+		msg_print("不死の者が近くに現れるのが聞こえた。");
+		#else
+		msg_print("You hear immortal beings appear nearby.");
+		#endif
+
+		}
+		break;
+		}
+
+		{
+			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+			if(blind && count)
+			{
+#ifdef JP
+				msg_print("不死の者が近くに現れるのが聞こえた。");
+#else
+				msg_print("You hear immortal beings appear nearby.");
+#endif
+
+			}
+			break;
+		}
+
+		{
+			int k;
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
+				{
+					if(!pet)
+#ifdef JP
+						msg_print("召喚されたアンバーの王族は怒っている！");
+#else
+						msg_print("Summoned Lords of Amber are angry!");
+#endif
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
 		}
 
 	case TRAIT_S_UNIQUE:
@@ -5709,38 +5758,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 		}
 
-		case TRAIT_S_AMBERITES:
-		{
-		disturb(player_ptr, 1, 0);
-		#ifdef JP
-		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-		#else
-		if(blind) msg_format("%^s mumbles.", caster_name);
-		#endif
-
-		#ifdef JP
-		else msg_format("%^sがアンバーの王族を召喚した！", caster_name);
-		#else
-		else msg_format("%^s magically summons Lords of Amber!", caster_name);
-		#endif
-
-
-
-		for (k = 0; k < s_num_4; k++)
-		{
-		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-		}
-		if(blind && count)
-		{
-		#ifdef JP
-		msg_print("不死の者が近くに現れるのが聞こえた。");
-		#else
-		msg_print("You hear immortal beings appear nearby.");
-		#endif
-
-		}
-		break;
-		}
 		*/
 
 
@@ -8306,40 +8323,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_AMBERITES:
-		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアンバーの王族を召喚した！", target_name);
-#else
-			else msg_format("%^s magically summons Lords of Amber!", target_name);
-#endif
-
-
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("不死の者が近くに現れるのが聞こえた。");
-#else
-				msg_print("You hear immortal beings appear nearby.");
-#endif
-
-			}
-			break;
-		}
-
-
 	case TRAIT_SHRIEK:
 #ifdef JP
 		msg_print("かん高い金切り声をあげた。");
@@ -9422,29 +9405,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				}
 				break;
 		}
-	case TRAIT_S_AMBERITES:
-		{
-			int k;
-#ifdef JP
-			msg_print("アンバーの王族を召喚した！");
-#else
-			msg_print("You summon a Lord of Amber!");
-#endif
-			for (k = 0;k < 1; k++)
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
-				{
-					if(!pet)
-#ifdef JP
-						msg_print("召喚されたアンバーの王族は怒っている！");
-#else
-						msg_print("Summoned Lords of Amber are angry!");
-#endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+
+
+
 #endif
 		}
 
