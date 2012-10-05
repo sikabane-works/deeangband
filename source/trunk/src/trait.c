@@ -136,7 +136,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 		/*
-		disturb(player_ptr, 1, 0);
+		
 		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
@@ -158,7 +158,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		*/
 
 		/*
-		disturb(player_ptr, 1, 0);
+		
 		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
@@ -394,7 +394,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		//TODO
 		/*
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -1367,7 +1367,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		/*TODO case TRAIT_DISPEL:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
 		else msg_format("%^sは魔力消去の呪文を念じた。", caster_name);
@@ -2346,7 +2346,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		bool uniques_are_summoned = FALSE;
 		int non_unique_type = SUMMON_HI_UNDEAD;
 
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -2389,7 +2389,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			bool uniques_are_summoned = FALSE;
 			int non_unique_type = SUMMON_HI_UNDEAD;
 
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -3289,7 +3289,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_SHOOT:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが奇妙な音を発した。", caster_name);
 		#else
@@ -3311,7 +3311,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_ACID:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3332,7 +3332,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_ELEC:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3353,7 +3353,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_FIRE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3374,7 +3374,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_COLD:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3395,7 +3395,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_POIS:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3416,7 +3416,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_NETH:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3437,7 +3437,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_LITE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3458,7 +3458,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_DARK:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3479,7 +3479,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_CONF:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3500,7 +3500,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_SOUN:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		if(caster_ptr->species_idx == SPECIES_JAIAN)
 		#ifdef JP
 		msg_format("「ボォエ～～～～～～」");
@@ -3527,7 +3527,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_CHAO:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3548,7 +3548,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_DISE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3569,7 +3569,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_NEXU:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3590,7 +3590,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_TIME:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3610,7 +3610,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_INER:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3630,7 +3630,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_GRAV:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3650,7 +3650,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_SHAR:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		if(caster_ptr->species_idx == SPECIES_BOTEI)
 		#ifdef JP
 		msg_format("「ボ帝ビルカッター！！！」");
@@ -3677,7 +3677,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_PLAS:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3697,7 +3697,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_WALL:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3717,7 +3717,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_MANA:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3736,7 +3736,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_NUKE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3757,7 +3757,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_NUKE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3778,7 +3778,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_CHAO:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが恐ろしげにつぶやいた。", caster_name);
 		#else
@@ -3799,7 +3799,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BR_DISI:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
 		#else
@@ -3820,7 +3820,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_ACID:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3841,7 +3841,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_ELEC:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3862,7 +3862,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_FIRE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 
 		if(caster_ptr->species_idx == SPECIES_ROLENTO)
 		{
@@ -3901,7 +3901,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_COLD:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3922,7 +3922,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_POIS:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3943,7 +3943,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_NETH:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3964,7 +3964,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_WATE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -3990,7 +3990,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_MANA:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
 		#else
@@ -4010,7 +4010,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_DARK:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
 		#else
@@ -4032,7 +4032,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_DRAIN_MANA:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 
 		dam = (randint1(user_level) / 2) + 1;
 		breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
@@ -4043,7 +4043,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_MIND_BLAST:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		if(!seen)
 		{
 		#ifdef JP
@@ -4071,7 +4071,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BRAIN_SMASH:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		if(!seen)
 		{
 		#ifdef JP
@@ -4099,7 +4099,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_CAUSE_1:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4120,7 +4120,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_CAUSE_2:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4141,7 +4141,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_CAUSE_3:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かを大声で叫んだ。", caster_name);
 		#else
@@ -4162,7 +4162,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_CAUSE_4:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", caster_name);
 		#else
@@ -4183,7 +4183,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_ACID:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4206,7 +4206,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_ELEC:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4229,7 +4229,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_FIRE:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4252,7 +4252,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_COLD:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4274,7 +4274,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_BA_LITE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
 		#else
@@ -4296,7 +4296,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_NETH:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4319,7 +4319,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_WATE:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4341,7 +4341,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_MANA:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4363,7 +4363,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_PLAS:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4385,7 +4385,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BO_ICEE:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4408,7 +4408,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_MISSILE:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4430,7 +4430,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_SCARE:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", caster_name);
 		#else
@@ -4473,7 +4473,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BLIND:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4516,7 +4516,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_CONF:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", caster_name);
 		#else
@@ -4559,7 +4559,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_SLOW:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		msg_format("%^sがあなたの筋力を吸い取ろうとした！", caster_name);
 		#else
@@ -4596,7 +4596,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_HOLD:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -4638,7 +4638,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_HASTE:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		if(blind)
 		{
 		#ifdef JP
@@ -4673,7 +4673,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_HAND_DOOM:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		msg_format("%^sが<破滅の手>を放った！", caster_name);
 		#else
@@ -4686,7 +4686,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_HEAL:
 		{
-		disturb(player_ptr, 1, 0);
+		
 
 		// Message 
 		if(blind)
@@ -4784,7 +4784,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_INVULNER:
 		{
-		disturb(player_ptr, 1, 0);
+		
 
 		// Message 
 		if(!seen)
@@ -4812,7 +4812,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_ACTIVE_TELEPORT:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		if(teleport_barrier(target_ptr, caster_ptr))
 		{
 		#ifdef JP
@@ -4836,7 +4836,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_WORLD:
 		{
 		int who = 0;
-		disturb(player_ptr, 1, 0);
+		
 		if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
 		else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
 		dam = who;
@@ -4848,7 +4848,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 		int k;
 
-		disturb(player_ptr, 1, 0);
+		
 		switch (caster_ptr->species_idx)
 		{
 		case SPECIES_OHMU:
@@ -4943,7 +4943,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		default:
 		if(r_ptr->d_char == 'B')
 		{
-		disturb(player_ptr, 1, 0);
+		
 		if(one_in_(3) || !direct)
 		{
 		#ifdef JP
@@ -5020,7 +5020,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_TELE_TO:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		msg_format("%^sがあなたを引き戻した。", caster_name);
 		#else
@@ -5035,7 +5035,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_TELE_AWAY:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		msg_format("%^sにテレポートさせられた。", caster_name);
 
@@ -5055,7 +5055,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_TELE_LEVEL:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", caster_name);
 		#else
@@ -5098,7 +5098,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_PSY_SPEAR:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5119,7 +5119,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_DARKNESS:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5145,7 +5145,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_TRAPS:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", caster_name);
 		#else
@@ -5166,7 +5166,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_FORGET:
 		{
 		if(!direct) return (FALSE);
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		msg_format("%^sがあなたの記憶を消去しようとしている。", caster_name);
 		#else
@@ -5198,7 +5198,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_ANIM_DEAD:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5216,7 +5216,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_KIN:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
 		{
 		#ifdef JP
@@ -5338,7 +5338,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_CYBER:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5363,7 +5363,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_MONSTER:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5391,7 +5391,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_MONSTERS:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5419,7 +5419,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_ANT:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5447,7 +5447,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_SPIDER:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5475,7 +5475,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_HOUND:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5503,7 +5503,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_HYDRA:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5533,7 +5533,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 		int num = 1;
 
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5578,7 +5578,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_DEMON:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5607,7 +5607,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_DRAGON:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5635,7 +5635,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_HI_UNDEAD:
 		{
-		disturb(player_ptr, 1, 0);
+		
 
 		if(((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
 		{
@@ -5729,7 +5729,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_S_HI_DRAGON:
 		{
-		disturb(player_ptr, 1, 0);
+		
 		#ifdef JP
 		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
 		#else
@@ -5764,7 +5764,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #if 0
 	case TRAIT_SHRIEK:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			msg_format("%^sがかん高い金切り声をあげた。", target_name);
 #else
@@ -5778,7 +5778,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_DISPEL:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 			else msg_format("%^sが魔力消去の呪文を念じた。", target_name);
@@ -5803,7 +5803,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SHOOT:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが奇妙な音を発した。", target_name);
 #else
@@ -5825,7 +5825,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_ACID:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5846,7 +5846,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_ELEC:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5867,7 +5867,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_FIRE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5888,7 +5888,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_COLD:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5909,7 +5909,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_POIS:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5930,7 +5930,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_NETH:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5951,7 +5951,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_LITE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5972,7 +5972,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_DARK:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -5993,7 +5993,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_CONF:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6014,7 +6014,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_SOUN:
 		{
-			disturb(player_ptr, 1, 0);
+			
 			if(caster_ptr->species_idx == SPECIES_JAIAN)
 #ifdef JP
 				msg_format("「ボォエ～～～～～～」");
@@ -6041,7 +6041,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_CHAO:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6062,7 +6062,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_DISE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6083,7 +6083,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_NEXU:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6104,7 +6104,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_TIME:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6124,7 +6124,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_INER:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6144,7 +6144,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_GRAV:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6164,7 +6164,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_SHAR:
 		{
-			disturb(player_ptr, 1, 0);
+			
 			if(caster_ptr->species_idx == SPECIES_BOTEI)
 #ifdef JP
 				msg_format("「ボ帝ビルカッター！！！」");
@@ -6191,7 +6191,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_PLAS:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6211,7 +6211,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_WALL:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6231,7 +6231,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_MANA:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6250,7 +6250,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_NUKE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6271,7 +6271,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_NUKE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6292,7 +6292,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_CHAO:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが恐ろしげにつぶやいた。", target_name);
 #else
@@ -6313,7 +6313,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_DISI:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
@@ -6334,7 +6334,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_ACID:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6355,7 +6355,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_ELEC:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6376,7 +6376,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_FIRE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 
 			if(caster_ptr->species_idx == SPECIES_ROLENTO)
 			{
@@ -6415,7 +6415,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_COLD:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6436,7 +6436,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_POIS:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6457,7 +6457,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_NETH:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6478,7 +6478,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_WATE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6504,7 +6504,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_MANA:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
@@ -6524,7 +6524,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_DARK:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
@@ -6546,7 +6546,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_DRAIN_MANA:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 
 			dam = (randint1(user_level) / 2) + 1;
 			breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
@@ -6557,7 +6557,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_MIND_BLAST:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 			if(!seen)
 			{
 #ifdef JP
@@ -6585,7 +6585,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BRAIN_SMASH:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 			if(!seen)
 			{
 #ifdef JP
@@ -6613,7 +6613,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_CAUSE_1:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6634,7 +6634,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_CAUSE_2:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6655,7 +6655,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_CAUSE_3:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かを大声で叫んだ。", target_name);
 #else
@@ -6676,7 +6676,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_CAUSE_4:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", target_name);
 #else
@@ -6697,7 +6697,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_ACID:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6720,7 +6720,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_ELEC:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6743,7 +6743,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_FIRE:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6766,7 +6766,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_COLD:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6788,7 +6788,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_LITE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
@@ -6810,7 +6810,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_NETH:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6833,7 +6833,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_WATE:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6855,7 +6855,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_MANA:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6877,7 +6877,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_PLAS:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6899,7 +6899,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BO_ICEE:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6922,7 +6922,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_MISSILE:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -6944,7 +6944,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SCARE:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", target_name);
 #else
@@ -6987,7 +6987,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BLIND:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7030,7 +7030,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_CONF:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", target_name);
 #else
@@ -7073,7 +7073,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SLOW:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			msg_format("%^sがあなたの筋力を吸い取ろうとした！", target_name);
 #else
@@ -7110,7 +7110,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HOLD:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7152,7 +7152,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_HASTE:
 		{
-			disturb(player_ptr, 1, 0);
+			
 			if(blind)
 			{
 #ifdef JP
@@ -7187,7 +7187,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HAND_DOOM:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			msg_format("%^sが<破滅の手>を放った！", target_name);
 #else
@@ -7200,7 +7200,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_HEAL:
 		{
-			disturb(player_ptr, 1, 0);
+			
 
 			// Message
 			if(blind)
@@ -7298,7 +7298,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_INVULNER:
 		{
-			disturb(player_ptr, 1, 0);
+			
 
 			/* Message */
 			if(!seen)
@@ -7326,7 +7326,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BLINK:
 		{
-			disturb(player_ptr, 1, 0);
+			
 			if(teleport_barrier(target_ptr, caster_ptr))
 			{
 #ifdef JP
@@ -7350,7 +7350,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_ACTIVE_TELEPORT:
 		{
-			disturb(player_ptr, 1, 0);
+			
 			if(teleport_barrier(target_ptr, caster_ptr))
 			{
 #ifdef JP
@@ -7374,7 +7374,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_WORLD:
 		{
 			int who = 0;
-			disturb(player_ptr, 1, 0);
+			
 			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
 			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
 			dam = who;
@@ -7386,7 +7386,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int k;
 
-			disturb(player_ptr, 1, 0);
+			
 			switch (caster_ptr->species_idx)
 			{
 			case SPECIES_OHMU:
@@ -7481,7 +7481,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			default:
 				if(r_ptr->d_char == 'B')
 				{
-					disturb(player_ptr, 1, 0);
+					
 					if(one_in_(3) || !direct)
 					{
 #ifdef JP
@@ -7558,7 +7558,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TELE_TO:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			msg_format("%^sがあなたを引き戻した。", target_name);
 #else
@@ -7573,7 +7573,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TELE_AWAY:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			msg_format("%^sにテレポートさせられた。", target_name);
 
@@ -7593,7 +7593,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TELE_LEVEL:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", target_name);
 #else
@@ -7636,7 +7636,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_PSY_SPEAR:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7657,7 +7657,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_DARKNESS:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7683,7 +7683,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TRAPS:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", target_name);
 #else
@@ -7704,7 +7704,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_FORGET:
 		{
 			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			msg_format("%^sがあなたの記憶を消去しようとしている。", target_name);
 #else
@@ -7736,7 +7736,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_ANIM_DEAD:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7754,7 +7754,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_KIN:
 		{
-			disturb(player_ptr, 1, 0);
+			
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
 			{
 #ifdef JP
@@ -7876,7 +7876,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_CYBER:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7901,7 +7901,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_MONSTER:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7929,7 +7929,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_MONSTERS:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7957,7 +7957,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_ANT:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -7985,7 +7985,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_SPIDER:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8013,7 +8013,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_HOUND:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8041,7 +8041,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_HYDRA:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8071,7 +8071,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int num = 1;
 
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8116,7 +8116,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_DEMON:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8144,7 +8144,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_UNDEAD:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8172,7 +8172,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_DRAGON:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
@@ -8200,7 +8200,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_HI_UNDEAD:
 		{
-			disturb(player_ptr, 1, 0);
+			
 
 			if(((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
 			{
@@ -8294,7 +8294,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_HI_DRAGON:
 		{
-			disturb(player_ptr, 1, 0);
+			
 #ifdef JP
 			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
