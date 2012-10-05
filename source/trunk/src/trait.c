@@ -21,6 +21,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	int damage = 0;
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	u32b u_mode = 0L;
+
+	bool blind;
+
 	if(randint1(50 + user_level) < user_level / 10) u_mode = PC_ALLOW_UNIQUE;
 
 	creature_desc(caster_name, caster_ptr, 0);
