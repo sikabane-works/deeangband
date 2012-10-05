@@ -245,11 +245,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_S_ANIMAL:
-		(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_S_PHANTOM:
-		(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_S_ELEMENTAL:
@@ -335,7 +335,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
 			for (k = 0;k < 1; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
 			break;
 		}
 
@@ -388,7 +388,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon an undead adversary!");
 #endif
 			for (k = 0;k < 1; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
 			break;
 		}
 		//TODO
@@ -822,7 +822,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon the Legion of the Dawn.");
 #endif
 
-			(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
+			(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
 			break;
 		}
 
@@ -2131,7 +2131,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 			if(max_cyber > 4) max_cyber = 4;
 			for (k = 0;k < max_cyber; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_CYBER, mode);
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 			break;
 		}
 	case TRAIT_S_MONSTER:
@@ -2144,7 +2144,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon help.");
 #endif
 			for (k = 0;k < 1; k++)
-				summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
 			break;
 		}
 	case TRAIT_S_MONSTERS:
@@ -2157,7 +2157,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon creatures!");
 #endif
 			for (k = 0;k < 6; k++)
-				summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
 			break;
 		}
 	case TRAIT_S_ANT:
@@ -2170,7 +2170,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon ants.");
 #endif
 			for (k = 0;k < 6; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANT, mode);
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANT, mode);
 			break;
 		}
 	case TRAIT_S_SPIDER:
@@ -2183,7 +2183,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon spiders.");
 #endif
 			for (k = 0;k < 6; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_SPIDER, mode);
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_SPIDER, mode);
 			break;
 		}
 	case TRAIT_S_HOUND:
@@ -2196,7 +2196,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon hounds.");
 #endif
 			for (k = 0;k < 4; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HOUND, mode);
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HOUND, mode);
 			break;
 		}
 	case TRAIT_S_HYDRA:
@@ -2209,7 +2209,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon hydras.");
 #endif
 			for (k = 0;k < 4; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HYDRA, mode);
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HYDRA, mode);
 			break;
 		}
 	case TRAIT_S_ANGEL:
@@ -2222,7 +2222,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon angel!");
 #endif
 			for (k = 0;k < 1; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANGEL, mode);
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANGEL, mode);
 			break;
 		}
 	case TRAIT_S_DRAGON:
@@ -2235,7 +2235,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon dragon!");
 #endif
 			for (k = 0;k < 1; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
 			break;
 		}
 	case TRAIT_S_HI_UNDEAD:
@@ -2248,7 +2248,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon greater undead!");
 #endif
 			for (k = 0;k < 6; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
 			break;
 		}
 
@@ -2262,7 +2262,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You summon ancient dragons!");
 #endif
 			for (k = 0;k < 4; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
 			break;
 		}
 
@@ -2342,7 +2342,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0; k < 4; k++) summon_specific(NULL, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
+			for (k = 0; k < 4; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
 			break;
 		}
 
@@ -2401,36 +2401,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int k, count = 0;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("特別な強敵を召喚した！");
-#else
-			msg_print("You summon special opponents!");
-#endif
+
 			for (k = 0; k < 4; k++)
-				if(summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
+				if(summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
 			for (k = count; k < 4; k++)
-				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
 			break;
 		}
 
-		//case TRAIT_S_UNIQUE:
 		{
 		bool uniques_are_summoned = FALSE;
 		int non_unique_type = SUMMON_HI_UNDEAD;
-
 		
-		#ifdef JP
-		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-		#else
-		if(blind) msg_format("%^s mumbles.", caster_name);
-		#endif
-
-		#ifdef JP
-		else msg_format("%^sが魔法で特別な強敵を召喚した！", caster_name);
-		#else
-		else msg_format("%^s magically summons special opponents!", caster_name);
-		#endif
-
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 
 		if(count) uniques_are_summoned = TRUE;
@@ -2460,19 +2442,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			bool uniques_are_summoned = FALSE;
 			int non_unique_type = SUMMON_HI_UNDEAD;
-
-			
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法で特別な強敵を召喚した！", target_name);
-#else
-			else msg_format("%^s magically summons special opponents!", target_name);
-#endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
