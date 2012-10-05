@@ -14,13 +14,26 @@
 
 bool do_active_trait(creature_type *caster_ptr, int id)
 {
-	char caster_name[100];
+	char caster_name[100], target_name[100];
 	int k, dir, dummy;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int user_level = caster_ptr->lev;
 	int damage = 0;
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	u32b u_mode = 0L;
+
+	int s_num_4 = 4;
+	int s_num_6 = 6;
+
+	int count = 0;
+
+	int x = 0, y = 0;
+
+	bool g_mode = FALSE;
+	bool p_mode = FALSE;
+	bool pet = FALSE;
+	bool no_trump = FALSE;
+	int summon_lev = 0;
 
 	// process flags
 	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
@@ -120,35 +133,35 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		cast_ball(caster_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
 		break;
 
-	/*
+		/*
 		disturb(player_ptr, 1, 0);
 		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
-	*/
+		*/
 
-	/*
+		/*
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
 		break;
-	*/
+		*/
 
-	/*
+		/*
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
-			damage = hp / 4;
-			fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
+		damage = hp / 4;
+		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
 		break;
-	*/
+		*/
 
-	/*
+		/*
 		disturb(player_ptr, 1, 0);
 		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
-	*/
+		*/
 
 	case TRAIT_DISPEL_EVIL_1:
 		dispel_evil(caster_ptr, caster_ptr->lev * 5);
@@ -180,7 +193,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
 		break;
 
-	//case TRAIT_TELE_AWAY: TODO:Implement new trait
+		//case TRAIT_TELE_AWAY: TODO:Implement new trait
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		teleport_creature(caster_ptr, dir);
 		break;
@@ -310,19 +323,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	//TODO
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		//TODO
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("混沌の宮廷から悪魔を召喚した！");
+			msg_print("混沌の宮廷から悪魔を召喚した！");
 #else
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
-		break;
-	}
+			for (k = 0;k < 1; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
+			break;
+		}
 
 
 	case TRAIT_S_UNDEAD:
@@ -363,48 +376,48 @@ msg_print("混沌の宮廷から悪魔を召喚した！");
 
 			break;
 		}
-	//TODO
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		//TODO
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("アンデッドの強敵を召喚した！");
+			msg_print("アンデッドの強敵を召喚した！");
 #else
 			msg_print("You summon an undead adversary!");
 #endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
-		break;
-	}
-	//TODO
-	/*
-		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons an undead adversary!", caster_name);
-#endif
-
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear something appear nearby.");
-#endif
-
+			for (k = 0;k < 1; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
 			break;
 		}
-	*/
+		//TODO
+		/*
+		{
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
+
+		#ifdef JP
+		else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons an undead adversary!", caster_name);
+		#endif
+
+		for (k = 0; k < 1; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNDEAD, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("何かが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear something appear nearby.");
+		#endif
+
+		break;
+		}
+		*/
 
 	case TRAIT_CURE_LIGHT_WOUNDS:
 		(void)heal_creature(caster_ptr, diceroll(2, 8));
@@ -433,7 +446,7 @@ msg_print("アンデッドの強敵を召喚した！");
 		(void)restore_exp(caster_ptr);
 		break;
 
-	//TODO Remove duplicated process
+		//TODO Remove duplicated process
 	case TRAIT_REGAL_HEAL_OF_AMBER:
 		(void)heal_creature(caster_ptr, 700);
 		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
@@ -465,7 +478,7 @@ msg_print("アンデッドの強敵を召喚した！");
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(40) + 40, FALSE);
 		break;
 
-	//TODO Remove duplicated process
+		//TODO Remove duplicated process
 	case TRAIT_FAST:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20);
 		break;
@@ -486,7 +499,7 @@ msg_print("アンデッドの強敵を召喚した！");
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
 		break;
 
-	//TODO Remove duplicated process
+		//TODO Remove duplicated process
 	case TRAIT_LIGHT_AREA:
 		lite_area(caster_ptr, diceroll(2, 15), 3);
 		break;
@@ -1053,12 +1066,12 @@ msg_print("アンデッドの強敵を召喚した！");
 			}
 			else if(floor_ptr->cave[y][x].creature_idx)
 			{
-				char m_name[80];
-				creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
+				char target_name[80];
+				creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
-				msg_format("%sが邪魔だ！", m_name);
+				msg_format("%sが邪魔だ！", target_name);
 #else
-				msg_format("%^s is stand in your way.", m_name);
+				msg_format("%^s is stand in your way.", target_name);
 #endif
 				caster_ptr->energy_use = 0;
 				return FALSE;
@@ -1324,7 +1337,7 @@ msg_print("アンデッドの強敵を召喚した！");
 		aggravate_creatures(caster_ptr);
 		break;
 
-	//TODO case TRAIT_SHRIEK:
+		//TODO case TRAIT_SHRIEK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		racial_stop_mouth(caster_ptr);
 #ifdef JP
@@ -1337,376 +1350,376 @@ msg_print("アンデッドの強敵を召喚した！");
 
 
 	case TRAIT_DISPEL:
-	{
-		int m_idx;
+		{
+			int m_idx;
 
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if(!m_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		dispel_creature(caster_ptr);
-		break;
-	}
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!m_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			dispel_creature(caster_ptr);
+			break;
+		}
 
-	/*TODO case TRAIT_DISPEL:
-	{
+		/*TODO case TRAIT_DISPEL:
+		{
 		if(!direct) return (FALSE);
 		disturb(player_ptr, 1, 0);
-#ifdef JP
+		#ifdef JP
 		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
 		else msg_format("%^sは魔力消去の呪文を念じた。", caster_name);
-#else
+		#else
 		if(blind) msg_format("%^s mumbles powerfully.", caster_name);
 		else msg_format("%^s invokes a dispel magic.", caster_name);
-#endif
+		#endif
 		dispel_creature(target_ptr);
 		if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
 
 		learn_trait(target_ptr, TRAIT_DISPEL);
 		break;
-	}
-	*/
+		}
+		*/
 
 	case TRAIT_SHOOT:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("矢を放った。");
+		else msg_print("矢を放った。");
 #else
-			else msg_print("You fire an arrow.");
+		else msg_print("You fire an arrow.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_ARROW, dir, damage);
+
+		cast_bolt(caster_ptr, GF_ARROW, dir, damage);
 		break;
 	case TRAIT_BR_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("酸のブレスを吐いた。");
+		else msg_print("酸のブレスを吐いた。");
 #else
-			else msg_print("You breathe acid.");
+		else msg_print("You breathe acid.");
 #endif
-		
-			cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("稲妻のブレスを吐いた。");
+		else msg_print("稲妻のブレスを吐いた。");
 #else
-			else msg_print("You breathe lightning.");
+		else msg_print("You breathe lightning.");
 #endif
-		
-			cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("火炎のブレスを吐いた。");
+		else msg_print("火炎のブレスを吐いた。");
 #else
-			else msg_print("You breathe fire.");
+		else msg_print("You breathe fire.");
 #endif
-		
-			cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("冷気のブレスを吐いた。");
+		else msg_print("冷気のブレスを吐いた。");
 #else
-			else msg_print("You breathe frost.");
+		else msg_print("You breathe frost.");
 #endif
-		
-			cast_ball(caster_ptr, GF_COLD, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_COLD, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ガスのブレスを吐いた。");
+		else msg_print("ガスのブレスを吐いた。");
 #else
-			else msg_print("You breathe gas.");
+		else msg_print("You breathe gas.");
 #endif
-		
-			cast_ball(caster_ptr, GF_POIS, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_POIS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("地獄のブレスを吐いた。");
+		else msg_print("地獄のブレスを吐いた。");
 #else
-			else msg_print("You breathe nether.");
+		else msg_print("You breathe nether.");
 #endif
-		
-			cast_ball(caster_ptr, GF_NETHER, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_NETHER, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("閃光のブレスを吐いた。");
+		else msg_print("閃光のブレスを吐いた。");
 #else
-			else msg_print("You breathe light.");
+		else msg_print("You breathe light.");
 #endif
-		
-			cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("暗黒のブレスを吐いた。");
+		else msg_print("暗黒のブレスを吐いた。");
 #else
-			else msg_print("You breathe darkness.");
+		else msg_print("You breathe darkness.");
 #endif
-		
-			cast_ball(caster_ptr, GF_DARK, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_DARK, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("混乱のブレスを吐いた。");
+		else msg_print("混乱のブレスを吐いた。");
 #else
-			else msg_print("You breathe confusion.");
+		else msg_print("You breathe confusion.");
 #endif
-		
-			cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_SOUN:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("轟音のブレスを吐いた。");
+		else msg_print("轟音のブレスを吐いた。");
 #else
-			else msg_print("You breathe sound.");
+		else msg_print("You breathe sound.");
 #endif
-		
-			cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("カオスのブレスを吐いた。");
+		else msg_print("カオスのブレスを吐いた。");
 #else
-			else msg_print("You breathe chaos.");
+		else msg_print("You breathe chaos.");
 #endif
-		
-			cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("劣化のブレスを吐いた。");
+		else msg_print("劣化のブレスを吐いた。");
 #else
-			else msg_print("You breathe disenchantment.");
+		else msg_print("You breathe disenchantment.");
 #endif
-		
-			cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("因果混乱のブレスを吐いた。");
+		else msg_print("因果混乱のブレスを吐いた。");
 #else
-			else msg_print("You breathe nexus.");
+		else msg_print("You breathe nexus.");
 #endif
-		
-			cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("時間逆転のブレスを吐いた。");
+		else msg_print("時間逆転のブレスを吐いた。");
 #else
-			else msg_print("You breathe time.");
+		else msg_print("You breathe time.");
 #endif
-		
-			cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_INER:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("遅鈍のブレスを吐いた。");
+		else msg_print("遅鈍のブレスを吐いた。");
 #else
-			else msg_print("You breathe inertia.");
+		else msg_print("You breathe inertia.");
 #endif
-		
-			cast_ball(caster_ptr, GF_INERTIA, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_GRAV:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("重力のブレスを吐いた。");
+		else msg_print("重力のブレスを吐いた。");
 #else
-			else msg_print("You breathe gravity.");
+		else msg_print("You breathe gravity.");
 #endif
-		
-			cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_SHAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("破片のブレスを吐いた。");
+		else msg_print("破片のブレスを吐いた。");
 #else
-			else msg_print("You breathe shards.");
+		else msg_print("You breathe shards.");
 #endif
-		
-			cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("プラズマのブレスを吐いた。");
+		else msg_print("プラズマのブレスを吐いた。");
 #else
-			else msg_print("You breathe plasma.");
+		else msg_print("You breathe plasma.");
 #endif
-		
-			cast_ball(caster_ptr, GF_PLASMA, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_WALL:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("フォースのブレスを吐いた。");
+		else msg_print("フォースのブレスを吐いた。");
 #else
-			else msg_print("You breathe force.");
+		else msg_print("You breathe force.");
 #endif
-		
-			cast_ball(caster_ptr, GF_FORCE, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_FORCE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BR_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("魔力のブレスを吐いた。");
+		else msg_print("魔力のブレスを吐いた。");
 #else
-			else msg_print("You breathe mana.");
+		else msg_print("You breathe mana.");
 #endif
-		
-			cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BA_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("放射能球を放った。");
+		else msg_print("放射能球を放った。");
 #else
-			else msg_print("You cast a ball of radiation.");
+		else msg_print("You cast a ball of radiation.");
 #endif
-		
-			cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
 	case TRAIT_BR_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("放射性廃棄物のブレスを吐いた。");
+		else msg_print("放射性廃棄物のブレスを吐いた。");
 #else
-			else msg_print("You breathe toxic waste.");
+		else msg_print("You breathe toxic waste.");
 #endif
-		
-			cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("純ログルスを放った。");
+		else msg_print("純ログルスを放った。");
 #else
-			else msg_print("You invoke a raw Logrus.");
+		else msg_print("You invoke a raw Logrus.");
 #endif
-		
-			cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
+
+		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 	case TRAIT_BR_DISI:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("分解のブレスを吐いた。");
+		else msg_print("分解のブレスを吐いた。");
 #else
-			else msg_print("You breathe disintegration.");
+		else msg_print("You breathe disintegration.");
 #endif
-		
-			cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (user_level > 35 ? -3 : -2));
+
+		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 	case TRAIT_BA_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アシッド・ボールの呪文を唱えた。");
+		else msg_print("アシッド・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast an acid ball.");
+		else msg_print("You cast an acid ball.");
 #endif
-		
-			cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
 	case TRAIT_BA_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("サンダー・ボールの呪文を唱えた。");
+		else msg_print("サンダー・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast a lightning ball.");
+		else msg_print("You cast a lightning ball.");
 #endif
-		
-			cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
 		break;
 	case TRAIT_BA_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ファイア・ボールの呪文を唱えた。");
+		else msg_print("ファイア・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast a fire ball.");
+		else msg_print("You cast a fire ball.");
 #endif
-		
-			cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
 		break;
-	//case TRAIT_BA_COLD:
+		//case TRAIT_BA_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アイス・ボールの呪文を唱えた。");
+		else msg_print("アイス・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast a frost ball.");
+		else msg_print("You cast a frost ball.");
 #endif
-		
-			cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
 		break;
 	case TRAIT_BA_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("悪臭雲の呪文を唱えた。");
+		else msg_print("悪臭雲の呪文を唱えた。");
 #else
-			else msg_print("You cast a stinking cloud.");
+		else msg_print("You cast a stinking cloud.");
 #endif
-		
-			cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
 	case TRAIT_BA_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("地獄球の呪文を唱えた。");
+		else msg_print("地獄球の呪文を唱えた。");
 #else
-			else msg_print("You cast a nether ball.");
+		else msg_print("You cast a nether ball.");
 #endif
-		
-			cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
+
+		cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
-	//case TRAIT_BA_WATE:
+		//case TRAIT_BA_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("流れるような身振りをした。");
+		else msg_print("流れるような身振りをした。");
 #else
-			else msg_print("You gesture fluidly.");
+		else msg_print("You gesture fluidly.");
 #endif
-		
-			cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
+
+		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
 	case TRAIT_BA_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("魔力の嵐の呪文を念じた。");
+		else msg_print("魔力の嵐の呪文を念じた。");
 #else
-			else msg_print("You invoke a mana storm.");
+		else msg_print("You invoke a mana storm.");
 #endif
-		
-			cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
+
+		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case TRAIT_BA_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("暗黒の嵐の呪文を念じた。");
+		else msg_print("暗黒の嵐の呪文を念じた。");
 #else
-			else msg_print("You invoke a darkness storm.");
+		else msg_print("You invoke a darkness storm.");
 #endif
-		
-			cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
+
+		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case TRAIT_DRAIN_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1716,7 +1729,7 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
-	//TODO case TRAIT_MIND_BLAST:
+		//TODO case TRAIT_MIND_BLAST:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 		msg_print("あなたは集中し、目が赤く輝いた...");
@@ -1749,122 +1762,122 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アシッド・ボルトの呪文を唱えた。");
+		else msg_print("アシッド・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast an acid bolt.");
+		else msg_print("You cast an acid bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_ACID, dir, damage);
+
+		cast_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
 	case TRAIT_BO_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("サンダー・ボルトの呪文を唱えた。");
+		else msg_print("サンダー・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a lightning bolt.");
+		else msg_print("You cast a lightning bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_ELEC, dir, damage);
+
+		cast_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
 	case TRAIT_BO_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ファイア・ボルトの呪文を唱えた。");
+		else msg_print("ファイア・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a fire bolt.");
+		else msg_print("You cast a fire bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_FIRE, dir, damage);
+
+		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
 	case TRAIT_BO_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アイス・ボルトの呪文を唱えた。");
+		else msg_print("アイス・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a frost bolt.");
+		else msg_print("You cast a frost bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_COLD, dir, damage);
+
+		cast_bolt(caster_ptr, GF_COLD, dir, damage);
 		break;
 	case TRAIT_BA_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("スターバーストの呪文を念じた。");
+		else msg_print("スターバーストの呪文を念じた。");
 #else
-			else msg_print("You invoke a starburst.");
+		else msg_print("You invoke a starburst.");
 #endif
-		
-			cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
+
+		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
 	case TRAIT_BO_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("地獄の矢の呪文を唱えた。");
+		else msg_print("地獄の矢の呪文を唱えた。");
 #else
-			else msg_print("You cast a nether bolt.");
+		else msg_print("You cast a nether bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_NETHER, dir, damage);
+
+		cast_bolt(caster_ptr, GF_NETHER, dir, damage);
 		break;
 	case TRAIT_BO_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ウォーター・ボルトの呪文を唱えた。");
+		else msg_print("ウォーター・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a water bolt.");
+		else msg_print("You cast a water bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_WATER, dir, damage);
+
+		cast_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
-	//case TRAIT_BO_MANA:
+		//case TRAIT_BO_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("魔力の矢の呪文を唱えた。");
+		else msg_print("魔力の矢の呪文を唱えた。");
 #else
-			else msg_print("You cast a mana bolt.");
+		else msg_print("You cast a mana bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_MANA, dir, damage);
+
+		cast_bolt(caster_ptr, GF_MANA, dir, damage);
 		break;
 	case TRAIT_BO_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("プラズマ・ボルトの呪文を唱えた。");
+		else msg_print("プラズマ・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a plasma bolt.");
+		else msg_print("You cast a plasma bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
+
+		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
 	case TRAIT_BO_ICEE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("極寒の矢の呪文を唱えた。");
+		else msg_print("極寒の矢の呪文を唱えた。");
 #else
-			else msg_print("You cast a ice bolt.");
+		else msg_print("You cast a ice bolt.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_ICE, dir, damage);
+
+		cast_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
-	//case TRAIT_MISSILE:
+		//case TRAIT_MISSILE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("マジック・ミサイルの呪文を唱えた。");
+		else msg_print("マジック・ミサイルの呪文を唱えた。");
 #else
-			else msg_print("You cast a magic missile.");
+		else msg_print("You cast a magic missile.");
 #endif
-		
-			cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
+
+		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
 	case TRAIT_SCARE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("恐ろしげな幻覚を作り出した。");
+		else msg_print("恐ろしげな幻覚を作り出した。");
 #else
-			else msg_print("You cast a fearful illusion.");
+		else msg_print("You cast a fearful illusion.");
 #endif
-		
-			fear_creature(caster_ptr, dir, user_level+10);
+
+		fear_creature(caster_ptr, dir, user_level+10);
 		break;
 	case TRAIT_BLIND:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1873,12 +1886,12 @@ else msg_print("恐ろしげな幻覚を作り出した。");
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("誘惑的な幻覚をつくり出した。");
+		else msg_print("誘惑的な幻覚をつくり出した。");
 #else
-			else msg_print("You cast a mesmerizing illusion.");
+		else msg_print("You cast a mesmerizing illusion.");
 #endif
-		
-			confuse_creature(caster_ptr, dir, user_level * 2);
+
+		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
 	case TRAIT_SLOW:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1888,43 +1901,43 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		sleep_creature(caster_ptr, dir);
 		break;
-	//case TRAIT_HASTE:
+		//case TRAIT_HASTE:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
 		break;
 	case TRAIT_HAND_DOOM:
-	{
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		{
+			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("<破滅の手>を放った！");
+			else msg_print("<破滅の手>を放った！");
 #else
-		else msg_print("You invoke the Hand of Doom!");
+			else msg_print("You invoke the Hand of Doom!");
 #endif
 
-		cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
-		break;
-	}
-	//case TRAIT_HEAL:
+			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
+			break;
+		}
+		//case TRAIT_HEAL:
 #ifdef JP
-msg_print("自分の傷に念を集中した。");
+		msg_print("自分の傷に念を集中した。");
 #else
-			msg_print("You concentrate on your wounds!");
+		msg_print("You concentrate on your wounds!");
 #endif
 		(void)heal_creature(caster_ptr, user_level*6);
 		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
 		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 		break;
-	//case TRAIT_INVULNER:
+		//case TRAIT_INVULNER:
 #ifdef JP
-msg_print("無傷の球の呪文を唱えた。");
+		msg_print("無傷の球の呪文を唱えた。");
 #else
-			msg_print("You cast a Globe of Invulnerability.");
+		msg_print("You cast a Globe of Invulnerability.");
 #endif
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
 		break;
 	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
 		break;
-	//case TRAIT_ACTIVE_TELEPORT:
+		//case TRAIT_ACTIVE_TELEPORT:
 		teleport_player(caster_ptr, user_level * 5, 0L);
 		break;
 	case TRAIT_WORLD:
@@ -1962,324 +1975,451 @@ msg_print("無傷の球の呪文を唱えた。");
 	case TRAIT_SPECIAL:
 		break;
 	case TRAIT_TELE_TO:
-	{
-		creature_type *m_ptr;
-		species_type *r_ptr;
-		char m_name[80];
-
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
-		r_ptr = &species_info[m_ptr->species_idx];
-		creature_desc(m_name, m_ptr, 0);
-		if(has_trait(m_ptr, TRAIT_RES_TELE))
 		{
-			if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+			creature_type *m_ptr;
+			species_type *r_ptr;
+			char target_name[80];
+
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
+			r_ptr = &species_info[m_ptr->species_idx];
+			creature_desc(target_name, m_ptr, 0);
+			if(has_trait(m_ptr, TRAIT_RES_TELE))
 			{
-				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+				if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+				{
+					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
-				msg_format("%sには効果がなかった！", m_name);
+					msg_format("%sには効果がなかった！", target_name);
 #else
-				msg_format("%s is unaffected!", m_name);
+					msg_format("%s is unaffected!", target_name);
 #endif
 
-				break;
-			}
-			else if(r_ptr->level > randint1(100))
-			{
-				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+					break;
+				}
+				else if(r_ptr->level > randint1(100))
+				{
+					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
-				msg_format("%sには耐性がある！", m_name);
+					msg_format("%sには耐性がある！", target_name);
 #else
-				msg_format("%s resists!", m_name);
+					msg_format("%s resists!", target_name);
 #endif
 
-				break;
+					break;
+				}
 			}
+#ifdef JP
+			msg_format("%sを引き戻した。", target_name);
+#else
+			msg_format("You command %s to return.", target_name);
+#endif
+
+			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+			break;
 		}
-#ifdef JP
-msg_format("%sを引き戻した。", m_name);
-#else
-		msg_format("You command %s to return.", m_name);
-#endif
-
-		teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
-		break;
-	}
-	//case TRAIT_TELE_AWAY:
+		//case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
 		break;
 	case TRAIT_TELE_LEVEL:
-	{
-		int target_m_idx;
-		creature_type *m_ptr;
-		species_type *r_ptr;
-		char m_name[80];
-
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if(!target_m_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		m_ptr = &creature_list[target_m_idx];
-		r_ptr = &species_info[m_ptr->species_idx];
-		creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-		msg_format("%^sの足を指さした。", m_name);
-#else
-		msg_format("You gesture at %^s's feet.", m_name);
-#endif
-
-		if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
-			(has_trait(m_ptr, TRAIT_QUESTOR)) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
 		{
+			int target_m_idx;
+			creature_type *m_ptr;
+			species_type *r_ptr;
+			char target_name[80];
+
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!target_m_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			m_ptr = &creature_list[target_m_idx];
+			r_ptr = &species_info[m_ptr->species_idx];
+			creature_desc(target_name, m_ptr, 0);
 #ifdef JP
-			msg_print("しかし効果がなかった！");
+			msg_format("%^sの足を指さした。", target_name);
 #else
-			msg_format("%^s is unaffected!", m_name);
+			msg_format("You gesture at %^s's feet.", target_name);
 #endif
+
+			if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
+				(has_trait(m_ptr, TRAIT_QUESTOR)) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
+			{
+#ifdef JP
+				msg_print("しかし効果がなかった！");
+#else
+				msg_format("%^s is unaffected!", target_name);
+#endif
+			}
+			else teleport_level(caster_ptr, target_m_idx);
+			break;
 		}
-		else teleport_level(caster_ptr, target_m_idx);
-		break;
-	}
 	case TRAIT_PSY_SPEAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 #ifdef JP
-else msg_print("光の剣を放った。");
+		else msg_print("光の剣を放った。");
 #else
-			else msg_print("You throw a psycho-spear.");
+		else msg_print("You throw a psycho-spear.");
 #endif
 		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
 	case TRAIT_DARKNESS:
 #ifdef JP
-msg_print("暗闇の中で手を振った。");
+		msg_print("暗闇の中で手を振った。");
 #else
-			msg_print("You gesture in shadow.");
+		msg_print("You gesture in shadow.");
 #endif
 		(void)unlite_area(caster_ptr, 10, 3);
 		break;
 	case TRAIT_TRAPS:
 		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("呪文を唱えて邪悪に微笑んだ。");
+		msg_print("呪文を唱えて邪悪に微笑んだ。");
 #else
-			msg_print("You cast a spell and cackles evilly.");
+		msg_print("You cast a spell and cackles evilly.");
 #endif
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
 	case TRAIT_FORGET:
 #ifdef JP
-msg_print("しかし何も起きなかった。");
+		msg_print("しかし何も起きなかった。");
 #else
-			msg_print("Nothing happen.");
+		msg_print("Nothing happen.");
 #endif
 		break;
 	case TRAIT_ANIM_DEAD:
 #ifdef JP
-msg_print("死者復活の呪文を唱えた。");
+		msg_print("死者復活の呪文を唱えた。");
 #else
 		msg_print("You cast a animate dead.");
 #endif
 		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 		break;
 	case TRAIT_S_KIN:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 
 #ifdef JP
-msg_print("援軍を召喚した。");
+			msg_print("援軍を召喚した。");
 #else
 			msg_print("You summon minions.");
 #endif
-		for (k = 0;k < 4; k++)
-		{
-			(void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
+			for (k = 0;k < 4; k++)
+			{
+				(void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
+			}
+			break;
 		}
-		break;
-	}
 	case TRAIT_S_CYBER:
-	{
-		int k;
-		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("サイバーデーモンを召喚した！");
+			msg_print("サイバーデーモンを召喚した！");
 #else
 			msg_print("You summon Cyberdemons!");
 #endif
-		if(max_cyber > 4) max_cyber = 4;
-		for (k = 0;k < max_cyber; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_CYBER, mode);
-		break;
-	}
+			if(max_cyber > 4) max_cyber = 4;
+			for (k = 0;k < max_cyber; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_CYBER, mode);
+			break;
+		}
 	case TRAIT_S_MONSTER:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("仲間を召喚した。");
+			msg_print("仲間を召喚した。");
 #else
 			msg_print("You summon help.");
 #endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
-		break;
-	}
+			for (k = 0;k < 1; k++)
+				summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
+			break;
+		}
 	case TRAIT_S_MONSTERS:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("クリーチャーを召喚した！");
+			msg_print("クリーチャーを召喚した！");
 #else
 			msg_print("You summon creatures!");
 #endif
-		for (k = 0;k < 6; k++)
-			summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
-		break;
-	}
+			for (k = 0;k < 6; k++)
+				summon_specific(NULL, target_row, target_col, user_level, 0, (mode | u_mode));
+			break;
+		}
 	case TRAIT_S_ANT:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("アリを召喚した。");
+			msg_print("アリを召喚した。");
 #else
 			msg_print("You summon ants.");
 #endif
-		for (k = 0;k < 6; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANT, mode);
-		break;
-	}
+			for (k = 0;k < 6; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANT, mode);
+			break;
+		}
 	case TRAIT_S_SPIDER:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("蜘蛛を召喚した。");
+			msg_print("蜘蛛を召喚した。");
 #else
 			msg_print("You summon spiders.");
 #endif
-		for (k = 0;k < 6; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_SPIDER, mode);
-		break;
-	}
+			for (k = 0;k < 6; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_SPIDER, mode);
+			break;
+		}
 	case TRAIT_S_HOUND:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("ハウンドを召喚した。");
+			msg_print("ハウンドを召喚した。");
 #else
 			msg_print("You summon hounds.");
 #endif
-		for (k = 0;k < 4; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HOUND, mode);
-		break;
-	}
+			for (k = 0;k < 4; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HOUND, mode);
+			break;
+		}
 	case TRAIT_S_HYDRA:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("ヒドラを召喚した。");
+			msg_print("ヒドラを召喚した。");
 #else
 			msg_print("You summon hydras.");
 #endif
-		for (k = 0;k < 4; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HYDRA, mode);
-		break;
-	}
+			for (k = 0;k < 4; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HYDRA, mode);
+			break;
+		}
 	case TRAIT_S_ANGEL:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("天使を召喚した！");
+			msg_print("天使を召喚した！");
 #else
 			msg_print("You summon angel!");
 #endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANGEL, mode);
-		break;
-	}
+			for (k = 0;k < 1; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANGEL, mode);
+			break;
+		}
 	case TRAIT_S_DRAGON:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("ドラゴンを召喚した！");
+			msg_print("ドラゴンを召喚した！");
 #else
 			msg_print("You summon dragon!");
 #endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
-		break;
-	}
+			for (k = 0;k < 1; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
+			break;
+		}
 	case TRAIT_S_HI_UNDEAD:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("強力なアンデッドを召喚した！");
+			msg_print("強力なアンデッドを召喚した！");
 #else
 			msg_print("You summon greater undead!");
 #endif
-		for (k = 0;k < 6; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
-		break;
-	}
+			for (k = 0;k < 6; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+			break;
+		}
 	case TRAIT_S_HI_DRAGON:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("古代ドラゴンを召喚した！");
+			msg_print("古代ドラゴンを召喚した！");
 #else
 			msg_print("You summon ancient dragons!");
 #endif
-		for (k = 0;k < 4; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
-		break;
-	}
+			for (k = 0;k < 4; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
+			break;
+		}
 	case TRAIT_S_AMBERITES:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("アンバーの王族を召喚した！");
+			msg_print("アンバーの王族を召喚した！");
 #else
 			msg_print("You summon Lords of Amber!");
 #endif
-		for (k = 0;k < 4; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
-		break;
-	}
+			for (k = 0;k < 4; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
+			break;
+		}
+
 	case TRAIT_S_UNIQUE:
-	{
-		int k, count = 0;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		{
+			int k, count = 0;
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("特別な強敵を召喚した！");
+			msg_print("特別な強敵を召喚した！");
 #else
 			msg_print("You summon special opponents!");
 #endif
-		for (k = 0; k < 4; k++)
-			if(summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
-		for (k = count; k < 4; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+			for (k = 0; k < 4; k++)
+				if(summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
+			for (k = count; k < 4; k++)
+				summon_specific(NULL, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+			break;
+		}
+
+		//case TRAIT_S_UNIQUE:
+		{
+		bool uniques_are_summoned = FALSE;
+		int non_unique_type = SUMMON_HI_UNDEAD;
+
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
+
+		#ifdef JP
+		else msg_format("%^sが魔法で特別な強敵を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons special opponents!", caster_name);
+		#endif
+
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+
+		if(count) uniques_are_summoned = TRUE;
+
+		if((caster_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
+		non_unique_type = 0;
+		else if(caster_ptr->sub_align & SUB_ALIGN_GOOD)
+		non_unique_type = SUMMON_ANGEL;
+
+		for (k = count; k < s_num_4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+
+		if(blind && count)
+		{
+		#ifdef JP
+		msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
+		#else
+		msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
+		#endif
+		}
 		break;
-	}
 
 
-		case TRAIT_SWORD_DANCING:
+	//case TRAIT_S_UNIQUE:
+		{
+			bool uniques_are_summoned = FALSE;
+			int non_unique_type = SUMMON_HI_UNDEAD;
+
+			disturb(player_ptr, 1, 0);
+#ifdef JP
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
+#else
+			if(blind) msg_format("%^s mumbles.", target_name);
+#endif
+
+#ifdef JP
+			else msg_format("%^sが魔法で特別な強敵を召喚した！", target_name);
+#else
+			else msg_format("%^s magically summons special opponents!", target_name);
+#endif
+
+			for (k = 0; k < s_num_4; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+			}
+
+			if(count) uniques_are_summoned = TRUE;
+
+			if((caster_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
+				non_unique_type = 0;
+			else if(caster_ptr->sub_align & SUB_ALIGN_GOOD)
+				non_unique_type = SUMMON_ANGEL;
+
+			for (k = count; k < s_num_4; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+			}
+
+			if(blind && count)
+			{
+#ifdef JP
+				msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
+#else
+				msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
+#endif
+			}
+			break;
+		}
+
+	//case TRAIT_S_UNIQUE:
+		{
+			int k, count = 0;
+#ifdef JP
+			msg_print("特別な強敵を召喚した！");
+#else
+			msg_print("You summon a special opponent!");
+#endif
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
+				{
+					count++;
+					if(!pet)
+#ifdef JP
+						msg_print("召喚されたユニーク・クリーチャーは怒っている！");
+#else
+						msg_print("Summoned special opponents are angry!");
+#endif
+				}
+				for (k = count;k < 1; k++)
+					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
+					{
+						count++;
+						if(!pet)
+#ifdef JP
+							msg_print("召喚された上級アンデッドは怒っている！");
+#else
+							msg_print("Summoned greater undeads are angry!");
+#endif
+					}
+					if(!count)
+					{
+						no_trump = TRUE;
+					}
+					break;
+		}
+
+
+	case TRAIT_SWORD_DANCING:
 		{
 			int y = 0, x = 0, i;
 			cave_type       *c_ptr;
@@ -2306,7 +2446,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_STOP_HEX:
+	case TRAIT_STOP_HEX:
 		{
 			bool retval = stop_hex_spell(caster_ptr);
 			if(retval) caster_ptr->energy_use = 10;
@@ -2314,19 +2454,19 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_EAT_MAGIC:
+	case TRAIT_EAT_MAGIC:
 		{
 			if(!eat_magic(caster_ptr, caster_ptr->lev * 2)) return FALSE;
 			break;
 		}
 
-		case TRAIT_BLESS_WEAPON:
+	case TRAIT_BLESS_WEAPON:
 		{
 			if(!bless_weapon(caster_ptr)) return FALSE;
 			break;
 		}
 
-		case TRAIT_EVOCATION:
+	case TRAIT_EVOCATION:
 		{
 			(void)dispel_creatures(caster_ptr, user_level * 4);
 			turn_creatures(caster_ptr, user_level * 4);
@@ -2334,7 +2474,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_PANIC_HIT:
+	case TRAIT_PANIC_HIT:
 		{
 			int x, y;
 
@@ -2365,7 +2505,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_SCAN_CREATURE:
+	case TRAIT_SCAN_CREATURE:
 		{
 #ifdef JP
 			msg_print("敵を調査した...");
@@ -2376,37 +2516,37 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_HOLY_LANCE:
-		case TRAIT_HELL_LANCE:
+	case TRAIT_HOLY_LANCE:
+	case TRAIT_HELL_LANCE:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_beam(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, user_level * 3);
 			break;
 		}
 
-		case TRAIT_HP_TO_SP_ACTIVE:
+	case TRAIT_HP_TO_SP_ACTIVE:
 		{
 #ifdef JP
-				int gain_sp = take_hit(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
+			int gain_sp = take_hit(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
 #else
-				int gain_sp = take_hit(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
+			int gain_sp = take_hit(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
-				if(gain_sp)
+			if(gain_sp)
+			{
+				caster_ptr->csp += gain_sp;
+				if(caster_ptr->csp > caster_ptr->msp)
 				{
-					caster_ptr->csp += gain_sp;
-					if(caster_ptr->csp > caster_ptr->msp)
-					{
-						caster_ptr->csp = caster_ptr->msp;
-						caster_ptr->csp_frac = 0;
-					}
+					caster_ptr->csp = caster_ptr->msp;
+					caster_ptr->csp_frac = 0;
 				}
-				else
+			}
+			else
 #ifdef JP
-					msg_print("変換に失敗した。");
+				msg_print("変換に失敗した。");
 #else
-					msg_print("You failed to convert.");
+				msg_print("You failed to convert.");
 #endif
-				break;
+			break;
 
 			// Redraw mana and hp
 			play_redraw |= (PR_HP | PR_MANA);
@@ -2414,18 +2554,18 @@ msg_print("特別な強敵を召喚した！");
 
 		}
 
-		case TRAIT_SP_TO_HP_ACTIVE:
+	case TRAIT_SP_TO_HP_ACTIVE:
 		{
-				if(caster_ptr->csp >= caster_ptr->lev / 5)
-				{
-					caster_ptr->csp -= caster_ptr->lev / 5;
-					heal_creature(caster_ptr, caster_ptr->lev);
-				}
-				else
+			if(caster_ptr->csp >= caster_ptr->lev / 5)
+			{
+				caster_ptr->csp -= caster_ptr->lev / 5;
+				heal_creature(caster_ptr, caster_ptr->lev);
+			}
+			else
 #ifdef JP
-					msg_print("変換に失敗した。");
+				msg_print("変換に失敗した。");
 #else
-					msg_print("You failed to convert.");
+				msg_print("You failed to convert.");
 #endif
 
 			// Redraw mana and hp
@@ -2433,7 +2573,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_CONFUSING_LIGHT:
+	case TRAIT_CONFUSING_LIGHT:
 		{
 #ifdef JP
 			msg_print("辺りを睨んだ...");
@@ -2448,7 +2588,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_DOUBLE_ATTACK:
+	case TRAIT_DOUBLE_ATTACK:
 		{
 			if(!(empty_hands(caster_ptr, TRUE) & EMPTY_HAND_RARM))
 			{
@@ -2515,7 +2655,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_CLEAR_MIND:
+	case TRAIT_CLEAR_MIND:
 		{
 			if(caster_ptr->total_friends)
 			{
@@ -2544,7 +2684,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_TAKE_PHOTO:
+	case TRAIT_TAKE_PHOTO:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			project_length = 1;
@@ -2552,39 +2692,39 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_DOUBLE_REVENGE:
+	case TRAIT_DOUBLE_REVENGE:
 		{
 			handle_stuff();
 			if(!do_cmd_mane(caster_ptr, TRUE)) return FALSE;
 			break;
 		}
 
-		case TRAIT_DOMINATE_LIVE:
+	case TRAIT_DOMINATE_LIVE:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
 			break;
 		}
 
-		case TRAIT_DOMINATE_LIVES:
+	case TRAIT_DOMINATE_LIVES:
 		{
 			project_hack(caster_ptr, GF_CONTROL_LIVING, caster_ptr->lev);
 			break;
 		}
 
-		case TRAIT_CREATE_AMMO:
+	case TRAIT_CREATE_AMMO:
 		{
 			if(!do_cmd_archer(caster_ptr)) return FALSE;
 			break;
 		}
 
-		case TRAIT_ABSORB_MAGIC:
+	case TRAIT_ABSORB_MAGIC:
 		{
 			if(!gain_magic(caster_ptr)) return FALSE;
 			break;
 		}
 
-		case TRAIT_STOP_SINGING:
+	case TRAIT_STOP_SINGING:
 		{
 			// Singing is already stopped
 			if(!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
@@ -2594,7 +2734,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_DOUBLE_MAGIC:
+	case TRAIT_DOUBLE_MAGIC:
 		{
 			if(!can_do_cmd_cast(caster_ptr)) return FALSE;
 			handle_stuff();
@@ -2605,46 +2745,46 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_POSTURE2:
+	case TRAIT_POSTURE2:
 		{
-				int max_csp = MAX(caster_ptr->msp*4, caster_ptr->lev*5+5);
+			int max_csp = MAX(caster_ptr->msp*4, caster_ptr->lev*5+5);
 
-				if(caster_ptr->total_friends)
-				{
+			if(caster_ptr->total_friends)
+			{
 #ifdef JP
-					msg_print("今はペットを操ることに集中していないと。");
+				msg_print("今はペットを操ることに集中していないと。");
 #else
-					msg_print("You need concentration on the pets now.");
+				msg_print("You need concentration on the pets now.");
 #endif
-					return FALSE;
-				}
-				if(caster_ptr->special_defense & KATA_MASK)
-				{
+				return FALSE;
+			}
+			if(caster_ptr->special_defense & KATA_MASK)
+			{
 #ifdef JP
-					msg_print("今は構えに集中している。");
+				msg_print("今は構えに集中している。");
 #else
-					msg_print("You need concentration on your form.");
+				msg_print("You need concentration on your form.");
 #endif
-					return FALSE;
-				}
+				return FALSE;
+			}
 #ifdef JP
-				msg_print("精神を集中して気合いを溜めた。");
+			msg_print("精神を集中して気合いを溜めた。");
 #else
-				msg_print("You concentrate to charge your power.");
+			msg_print("You concentrate to charge your power.");
 #endif
 
-				caster_ptr->csp += caster_ptr->msp / 2;
-				if(caster_ptr->csp >= max_csp)
-				{
-					caster_ptr->csp = max_csp;
-					caster_ptr->csp_frac = 0;
-				}
+			caster_ptr->csp += caster_ptr->msp / 2;
+			if(caster_ptr->csp >= max_csp)
+			{
+				caster_ptr->csp = max_csp;
+				caster_ptr->csp_frac = 0;
+			}
 
-				// Redraw mana
-				play_redraw |= (PR_MANA);
+			// Redraw mana
+			play_redraw |= (PR_MANA);
 		}
 
-		case TRAIT_LEARNING:
+	case TRAIT_LEARNING:
 		{
 			if(caster_ptr->action == ACTION_LEARN)
 			{
@@ -2658,7 +2798,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_POSTURE:
+	case TRAIT_POSTURE:
 		{
 			if(!get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND))
 			{
@@ -2674,11 +2814,11 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_RODEO:
+	case TRAIT_RODEO:
 		{
 			char steed_name[80];
 			creature_type *steed_ptr;
-			int rlev;
+			int user_level;
 
 			if(caster_ptr->riding)
 			{
@@ -2698,13 +2838,13 @@ msg_print("特別な強敵を召喚した！");
 			msg_format("You ride on %s.",steed_name);
 #endif
 			if(is_pet(player_ptr, steed_ptr)) break;
-			rlev = steed_ptr->lev;
-			if(has_trait(steed_ptr, TRAIT_UNIQUE)) rlev = rlev * 3 / 2;
-			if(rlev > 60) rlev = 60+(rlev-60)/2;
-			if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + caster_ptr->lev * 2 / 3) > rlev)
-			    && one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
-			    && !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
-			    && (rlev < caster_ptr->lev * 3 / 2 + randint0(caster_ptr->lev / 5)))
+			user_level = steed_ptr->lev;
+			if(has_trait(steed_ptr, TRAIT_UNIQUE)) user_level = user_level * 3 / 2;
+			if(user_level > 60) user_level = 60+(user_level-60)/2;
+			if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + caster_ptr->lev * 2 / 3) > user_level)
+				&& one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
+				&& !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
+				&& (user_level < caster_ptr->lev * 3 / 2 + randint0(caster_ptr->lev / 5)))
 			{
 #ifdef JP
 				msg_format("%sを手なずけた。",steed_name);
@@ -2729,53 +2869,53 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_BREAK_MIRROR:
+	case TRAIT_BREAK_MIRROR:
 		{
 			remove_all_mirrors(caster_ptr, GET_FLOOR_PTR(caster_ptr), TRUE); // Explode all mirrors
 			break;
 		}
 
-		case TRAIT_MIRROR_CONC:
+	case TRAIT_MIRROR_CONC:
 		{
-				if(caster_ptr->total_friends)
-				{
+			if(caster_ptr->total_friends)
+			{
 #ifdef JP
-					msg_print("今はペットを操ることに集中していないと。");
+				msg_print("今はペットを操ることに集中していないと。");
 #else
-					msg_print("You need concentration on the pets now.");
+				msg_print("You need concentration on the pets now.");
 #endif
-					return FALSE;
-				}
-				if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
-				{
+				return FALSE;
+			}
+			if(is_mirror_grid(&floor_ptr->cave[caster_ptr->fy][caster_ptr->fx]))
+			{
 #ifdef JP
-					msg_print("少し頭がハッキリした。");
+				msg_print("少し頭がハッキリした。");
 #else
-					msg_print("You feel your head clear a little.");
+				msg_print("You feel your head clear a little.");
 #endif
 
-					caster_ptr->csp += (5 + caster_ptr->lev * caster_ptr->lev / 100);
-					if(caster_ptr->csp >= caster_ptr->msp)
-					{
-						caster_ptr->csp = caster_ptr->msp;
-						caster_ptr->csp_frac = 0;
-					}
-
-					// Redraw mana
-					play_redraw |= (PR_MANA);
-				}
-				else
+				caster_ptr->csp += (5 + caster_ptr->lev * caster_ptr->lev / 100);
+				if(caster_ptr->csp >= caster_ptr->msp)
 				{
-#ifdef JP
-					msg_print("鏡の上でないと集中できない！");
-#else
-					msg_print("Here are not any mirrors!");
-#endif
+					caster_ptr->csp = caster_ptr->msp;
+					caster_ptr->csp_frac = 0;
 				}
+
+				// Redraw mana
+				play_redraw |= (PR_MANA);
+			}
+			else
+			{
+#ifdef JP
+				msg_print("鏡の上でないと集中できない！");
+#else
+				msg_print("Here are not any mirrors!");
+#endif
+			}
 			break;
 		}
 
-		case TRAIT_QUICK_WALK:
+	case TRAIT_QUICK_WALK:
 		{
 			if(caster_ptr->action == ACTION_HAYAGAKE)
 			{
@@ -2803,7 +2943,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_VAMPIRISM:
+	case TRAIT_VAMPIRISM:
 		{
 			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 			{
@@ -2876,2803 +3016,2758 @@ msg_print("特別な強敵を召喚した！");
 			break;
 		}
 
-		case TRAIT_DETECT_DOOR_TRAP:
+	case TRAIT_DETECT_DOOR_TRAP:
 #ifdef JP
-			msg_print("周囲を調べた。");
+		msg_print("周囲を調べた。");
 #else
-			msg_print("You examine your surroundings.");
+		msg_print("You examine your surroundings.");
 #endif
 
-			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
-			(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
-			(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
-			break;
+		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
+		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
+		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
 
 
-		case TRAIT_CREATE_FOOD:
-			{
-				object_type *quest_ptr;
-				object_type forge;
+	case TRAIT_CREATE_FOOD:
+		{
+			object_type *quest_ptr;
+			object_type forge;
 
-				// Get local object 
-				quest_ptr = &forge;
+			// Get local object 
+			quest_ptr = &forge;
 
-				// Create the food ration 
-				object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
+			// Create the food ration 
+			object_prep(quest_ptr, lookup_kind(TV_FOOD, SV_FOOD_RATION), ITEM_FREE_SIZE);
 
-				// Drop the object from heaven 
-				(void)drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx);
+			// Drop the object from heaven 
+			(void)drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx);
 #ifdef JP
-				msg_print("食事を料理して作った。");
+			msg_print("食事を料理して作った。");
 #else
-				msg_print("You cook some food.");
+			msg_print("You cook some food.");
 #endif
 
-			}
-			break;
+		}
+		break;
 
-		case TRAIT_SHADOW_SHIFT:
-			{
+	case TRAIT_SHADOW_SHIFT:
+		{
 #ifdef JP
-				msg_print("あなたは歩き周り始めた。");
+			msg_print("あなたは歩き周り始めた。");
 #else
-				msg_print("You start walking around. ");
+			msg_print("You start walking around. ");
 #endif
-				alter_reality(caster_ptr);
-			}
+			alter_reality(caster_ptr);
+		}
 
-		case TRAIT_PATTERN_WALK:
-			{
+	case TRAIT_PATTERN_WALK:
+		{
 #ifdef JP
-				msg_print("あなたは「パターン」を心に描いてその上を歩いた...");
+			msg_print("あなたは「パターン」を心に描いてその上を歩いた...");
 #else
-				msg_print("You picture the Pattern in your mind and walk it...");
+			msg_print("You picture the Pattern in your mind and walk it...");
 #endif
 
-				(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-				(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
-				(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-				(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-				(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-				(void)do_res_stat(caster_ptr, STAT_STR);
-				(void)do_res_stat(caster_ptr, STAT_INT);
-				(void)do_res_stat(caster_ptr, STAT_WIS);
-				(void)do_res_stat(caster_ptr, STAT_DEX);
-				(void)do_res_stat(caster_ptr, STAT_CON);
-				(void)do_res_stat(caster_ptr, STAT_CHA);
-				(void)restore_exp(caster_ptr);
-			}
-			break;
-
-		case TRAIT_BERSERK:
-#ifdef JP
-			msg_print("うぉぉおお！");
-#else
-			msg_print("Raaagh!");
-#endif
+			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 10 + randint1(user_level), FALSE);
-			(void)heal_creature(caster_ptr, 30);
-			break;
+			(void)do_res_stat(caster_ptr, STAT_STR);
+			(void)do_res_stat(caster_ptr, STAT_INT);
+			(void)do_res_stat(caster_ptr, STAT_WIS);
+			(void)do_res_stat(caster_ptr, STAT_DEX);
+			(void)do_res_stat(caster_ptr, STAT_CON);
+			(void)do_res_stat(caster_ptr, STAT_CHA);
+			(void)restore_exp(caster_ptr);
+		}
+		break;
 
-		case TRAIT_THROW_BOULDER:
+	case TRAIT_BERSERK:
+#ifdef JP
+		msg_print("うぉぉおお！");
+#else
+		msg_print("Raaagh!");
+#endif
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 10 + randint1(user_level), FALSE);
+		(void)heal_creature(caster_ptr, 30);
+		break;
+
+	case TRAIT_THROW_BOULDER:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+#ifdef JP
+		msg_print("巨大な岩を投げた。");
+#else
+		msg_print("You throw a huge boulder.");
+#endif
+
+		cast_bolt(caster_ptr, GF_MISSILE, dir, (3 * user_level) / 2);
+		break;
+
+	case TRAIT_SPIT_ACID:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		racial_stop_mouth(caster_ptr);
+#ifdef JP
+		msg_print("酸を吐いた。");
+#else
+		msg_print("You spit acid.");
+#endif
+
+		if(user_level < 25) cast_bolt(caster_ptr, GF_ACID, dir, user_level);
+		else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
+		break;
+
+	case TRAIT_POISON_DART:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+#ifdef JP
+		msg_print("毒のダーツを投げた。");
+#else
+		msg_print("You throw a dart of poison.");
+#endif
+
+		cast_bolt(caster_ptr, GF_POIS, dir, user_level);
+		break;
+
+	case TRAIT_MISSILE:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+#ifdef JP
+		msg_print("マジック・ミサイルを放った。");
+#else
+		msg_print("You cast a magic missile.");
+#endif
+		cast_bolt_or_beam(caster_ptr, 10, GF_MISSILE, dir, diceroll(3 + ((user_level - 1) / 5), 4));
+		break;
+
+	case TRAIT_FIRE_BALL:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+#ifdef JP
+		msg_print("ファイア・ボールを放った。");
+#else
+		msg_print("You cast a ball of fire.");
+#endif
+		cast_ball(caster_ptr, GF_FIRE, dir, user_level, 2);
+		break;
+
+	case TRAIT_FIRE_BOLT:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+#ifdef JP
+		msg_print("ファイア・ボルトを放った。");
+#else
+		msg_print("You cast a bolt of fire.");
+#endif
+
+		cast_bolt(caster_ptr, GF_FIRE, dir, user_level);
+		break;
+
+	case TRAIT_HOLDING_DUST:
+#ifdef JP
+		msg_print("あなたは魔法の粉を投げつけた...");
+#else
+		msg_print("You throw some magic dust...");
+#endif
+		if(user_level < 25) sleep_creatures_touch(caster_ptr);
+		else (void)sleep_creatures(caster_ptr);
+		break;
+
+	case TRAIT_EXPAND_HLIZN:
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
+		break;
+
+	case TRAIT_RAY_GUN:
+		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-			msg_print("巨大な岩を投げた。");
+			msg_print("レイガンを発射した。");
 #else
-			msg_print("You throw a huge boulder.");
+			msg_print("You fire your ray gun.");
 #endif
+			cast_bolt(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
+		}
+		break;
 
-			cast_bolt(caster_ptr, GF_MISSILE, dir, (3 * user_level) / 2);
-			break;
-
-		case TRAIT_SPIT_ACID:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			racial_stop_mouth(caster_ptr);
-#ifdef JP
-			msg_print("酸を吐いた。");
-#else
-			msg_print("You spit acid.");
-#endif
-
-			if(user_level < 25) cast_bolt(caster_ptr, GF_ACID, dir, user_level);
-			else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
-			break;
-
-		case TRAIT_POISON_DART:
+	case TRAIT_BLASTER:
+		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-			msg_print("毒のダーツを投げた。");
+			msg_print("ブラスターを発射した。");
 #else
-			msg_print("You throw a dart of poison.");
+			msg_print("You fire your blaster.");
 #endif
+			cast_bolt(caster_ptr, GF_MISSILE, dir, user_level);
+		}
+		break;
 
-			cast_bolt(caster_ptr, GF_POIS, dir, user_level);
-			break;
-
-		case TRAIT_MISSILE:
+	case TRAIT_BAZOOKA:
+		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-			msg_print("マジック・ミサイルを放った。");
+			msg_print("バズーカを発射した。");
 #else
-			msg_print("You cast a magic missile.");
+			msg_print("You fire your bazooka.");
 #endif
-			cast_bolt_or_beam(caster_ptr, 10, GF_MISSILE, dir, diceroll(3 + ((user_level - 1) / 5), 4));
-			break;
+			cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
+		}
+		break;
 
-		case TRAIT_FIRE_BALL:
+	case TRAIT_BEAM_CANNON:
+		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-			msg_print("ファイア・ボールを放った。");
+			msg_print("ビームキャノンを発射した。");
 #else
-			msg_print("You cast a ball of fire.");
+			msg_print("You fire a beam cannon.");
 #endif
-			cast_ball(caster_ptr, GF_FIRE, dir, user_level, 2);
-			break;
+			cast_beam(caster_ptr, GF_MISSILE, dir, user_level * 2);
+		}
+		break;
 
-		case TRAIT_FIRE_BOLT:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	case TRAIT_SCARE_CREATURE:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		racial_stop_mouth(caster_ptr);
 #ifdef JP
-				msg_print("ファイア・ボルトを放った。");
+		msg_print("あなたはおどろおどろしい叫び声をあげた！");
 #else
-				msg_print("You cast a bolt of fire.");
+		msg_print("You emit an eldritch howl!");
 #endif
 
-				cast_bolt(caster_ptr, GF_FIRE, dir, user_level);
-			break;
-
-		case TRAIT_HOLDING_DUST:
-#ifdef JP
-			msg_print("あなたは魔法の粉を投げつけた...");
-#else
-			msg_print("You throw some magic dust...");
-#endif
-			if(user_level < 25) sleep_creatures_touch(caster_ptr);
-			else (void)sleep_creatures(caster_ptr);
-			break;
-
-		case TRAIT_EXPAND_HLIZN:
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUBURERU, randint1(20) + 30, FALSE);
-			break;
-
-		case TRAIT_RAY_GUN:
-			{
-				if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-				msg_print("レイガンを発射した。");
-#else
-				msg_print("You fire your ray gun.");
-#endif
-				cast_bolt(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
-			}
-			break;
-
-		case TRAIT_BLASTER:
-			{
-				if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-				msg_print("ブラスターを発射した。");
-#else
-				msg_print("You fire your blaster.");
-#endif
-				cast_bolt(caster_ptr, GF_MISSILE, dir, user_level);
-			}
-			break;
-
-		case TRAIT_BAZOOKA:
-			{
-				if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-				msg_print("バズーカを発射した。");
-#else
-				msg_print("You fire your bazooka.");
-#endif
-				cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
-			}
-			break;
-
-		case TRAIT_BEAM_CANNON:
-			{
-				if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-				msg_print("ビームキャノンを発射した。");
-#else
-				msg_print("You fire a beam cannon.");
-#endif
-				cast_beam(caster_ptr, GF_MISSILE, dir, user_level * 2);
-			}
-			break;
-
-		case TRAIT_SCARE_CREATURE:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			racial_stop_mouth(caster_ptr);
-#ifdef JP
-			msg_print("あなたはおどろおどろしい叫び声をあげた！");
-#else
-			msg_print("You emit an eldritch howl!");
-#endif
-
-			(void)fear_creature(caster_ptr, dir, user_level);
-			break;
+		(void)fear_creature(caster_ptr, dir, user_level);
+		break;
 
 		/*
 		case TRAIT_SHOOT:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが奇妙な音を発した。", caster_name);
-#else
-			if(blind) msg_format("%^s makes a strange noise.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが奇妙な音を発した。", caster_name);
+		#else
+		if(blind) msg_format("%^s makes a strange noise.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが矢を放った。", caster_name);
-#else
-			else msg_format("%^s fires an arrow.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが矢を放った。", caster_name);
+		#else
+		else msg_format("%^s fires an arrow.", caster_name);
+		#endif
 
-			//TODO Fix damage calc.
-			dam = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			bolt(caster_ptr, target_ptr, GF_ARROW, dam, TRAIT_SHOOT, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		//TODO Fix damage calc.
+		dam = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
+		bolt(caster_ptr, target_ptr, GF_ARROW, dam, TRAIT_SHOOT, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BR_ACID:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが酸のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes acid.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが酸のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes acid.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ACID, dam, 0, TRUE, TRAIT_BR_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
+		dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_ACID, dam, 0, TRUE, TRAIT_BR_ACID, learnable);
+		update_smart_learn(caster_ptr, DRS_ACID);
+		break;
 		}
 
 		case TRAIT_BR_ELEC:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが稲妻のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes lightning.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが稲妻のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes lightning.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ELEC, dam,0, TRUE, TRAIT_BR_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
-			break;
+		dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_ELEC, dam,0, TRUE, TRAIT_BR_ELEC, learnable);
+		update_smart_learn(caster_ptr, DRS_ELEC);
+		break;
 		}
 
 		case TRAIT_BR_FIRE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが火炎のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes fire.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが火炎のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes fire.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_FIRE, dam,0, TRUE, TRAIT_BR_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
+		dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_FIRE, dam,0, TRUE, TRAIT_BR_FIRE, learnable);
+		update_smart_learn(caster_ptr, DRS_FIRE);
+		break;
 		}
 
 		case TRAIT_BR_COLD:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが冷気のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes frost.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが冷気のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes frost.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_COLD, dam,0, TRUE, TRAIT_BR_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			break;
+		dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_COLD, dam,0, TRUE, TRAIT_BR_COLD, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		break;
 		}
 
 		case TRAIT_BR_POIS:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがガスのブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes gas.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがガスのブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes gas.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_POIS, dam, 0, TRUE, TRAIT_BR_POIS, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
+		dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_POIS, dam, 0, TRUE, TRAIT_BR_POIS, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
+		break;
 		}
 
 		case TRAIT_BR_NETH:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが地獄のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes nether.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが地獄のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes nether.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_NETHER, dam,0, TRUE, TRAIT_BR_NETH, learnable);
-			update_smart_learn(caster_ptr, DRS_NETH);
-			break;
+		dam = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_NETHER, dam,0, TRUE, TRAIT_BR_NETH, learnable);
+		update_smart_learn(caster_ptr, DRS_NETH);
+		break;
 		}
 
 		case TRAIT_BR_LITE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが閃光のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes light.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが閃光のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes light.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, dam,0, TRUE, TRAIT_BR_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
+		dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+		breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, dam,0, TRUE, TRAIT_BR_LITE, learnable);
+		update_smart_learn(caster_ptr, DRS_LITE);
+		break;
 		}
 
 		case TRAIT_BR_DARK:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが暗黒のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes darkness.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが暗黒のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes darkness.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DARK, dam,0, TRUE, TRAIT_BR_DARK, learnable);
-			update_smart_learn(caster_ptr, DRS_DARK);
-			break;
+		dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_DARK, dam,0, TRUE, TRAIT_BR_DARK, learnable);
+		update_smart_learn(caster_ptr, DRS_DARK);
+		break;
 		}
 
 		case TRAIT_BR_CONF:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが混乱のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes confusion.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが混乱のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes confusion.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CONFUSION, dam,0, TRUE, TRAIT_BR_CONF, learnable);
-			update_smart_learn(caster_ptr, DRS_CONF);
-			break;
+		dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_CONFUSION, dam,0, TRUE, TRAIT_BR_CONF, learnable);
+		update_smart_learn(caster_ptr, DRS_CONF);
+		break;
 		}
 
 		case TRAIT_BR_SOUN:
 		{
-			disturb(player_ptr, 1, 0);
-			if(caster_ptr->species_idx == SPECIES_JAIAN)
-#ifdef JP
-				msg_format("「ボォエ～～～～～～」");
-#else
-				msg_format("'Booooeeeeee'");
-#endif
-#ifdef JP
-				else if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-				else if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		if(caster_ptr->species_idx == SPECIES_JAIAN)
+		#ifdef JP
+		msg_format("「ボォエ～～～～～～」");
+		#else
+		msg_format("'Booooeeeeee'");
+		#endif
+		#ifdef JP
+		else if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		else if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが轟音のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes sound.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが轟音のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes sound.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, dam,0, TRUE, TRAIT_BR_SOUN, learnable);
-			update_smart_learn(caster_ptr, DRS_SOUND);
-			break;
+		dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_SOUND, dam,0, TRUE, TRAIT_BR_SOUN, learnable);
+		update_smart_learn(caster_ptr, DRS_SOUND);
+		break;
 		}
 
 		case TRAIT_BR_CHAO:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがカオスのブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes chaos.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがカオスのブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes chaos.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, dam,0, TRUE, TRAIT_BR_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
+		dam = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_CHAOS, dam,0, TRUE, TRAIT_BR_CHAO, learnable);
+		update_smart_learn(caster_ptr, DRS_CHAOS);
+		break;
 		}
 
 		case TRAIT_BR_DISE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが劣化のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes disenchantment.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが劣化のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes disenchantment.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, dam,0, TRUE, TRAIT_BR_DISE, learnable);
-			update_smart_learn(caster_ptr, DRS_DISEN);
-			break;
+		dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_DISENCHANT, dam,0, TRUE, TRAIT_BR_DISE, learnable);
+		update_smart_learn(caster_ptr, DRS_DISEN);
+		break;
 		}
 
 		case TRAIT_BR_NEXU:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが因果混乱のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes nexus.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが因果混乱のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes nexus.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, dam,0, TRUE, TRAIT_BR_NEXU, learnable);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
+		dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_NEXUS, dam,0, TRUE, TRAIT_BR_NEXU, learnable);
+		update_smart_learn(caster_ptr, DRS_NEXUS);
+		break;
 		}
 
 		case TRAIT_BR_TIME:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが時間逆転のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes time.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが時間逆転のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes time.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_TIME, dam,0, TRUE, TRAIT_BR_TIME, learnable);
-			break;
+		dam = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_TIME, dam,0, TRUE, TRAIT_BR_TIME, learnable);
+		break;
 		}
 
 		case TRAIT_BR_INER:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが遅鈍のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes inertia.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが遅鈍のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes inertia.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_INERTIA, dam,0, TRUE, TRAIT_BR_INER, learnable);
-			break;
+		dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_INERTIA, dam,0, TRUE, TRAIT_BR_INER, learnable);
+		break;
 		}
 
 		case TRAIT_BR_GRAV:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが重力のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes gravity.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが重力のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes gravity.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_GRAVITY, dam,0, TRUE, TRAIT_BR_GRAV, learnable);
-			break;
+		dam = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_GRAVITY, dam,0, TRUE, TRAIT_BR_GRAV, learnable);
+		break;
 		}
 
 		case TRAIT_BR_SHAR:
 		{
-			disturb(player_ptr, 1, 0);
-			if(caster_ptr->species_idx == SPECIES_BOTEI)
-#ifdef JP
-				msg_format("「ボ帝ビルカッター！！！」");
-#else
-				msg_format("'Boty-Build cutter!!!'");
-#endif
-#ifdef JP
-			else if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			else if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		if(caster_ptr->species_idx == SPECIES_BOTEI)
+		#ifdef JP
+		msg_format("「ボ帝ビルカッター！！！」");
+		#else
+		msg_format("'Boty-Build cutter!!!'");
+		#endif
+		#ifdef JP
+		else if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		else if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが破片のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes shards.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが破片のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes shards.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, dam,0, TRUE, TRAIT_BR_SHAR, learnable);
-			update_smart_learn(caster_ptr, DRS_SHARD);
-			break;
+		dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_SHARDS, dam,0, TRUE, TRAIT_BR_SHAR, learnable);
+		update_smart_learn(caster_ptr, DRS_SHARD);
+		break;
 		}
 
 		case TRAIT_BR_PLAS:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがプラズマのブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes plasma.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがプラズマのブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes plasma.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_PLASMA, dam,0, TRUE, TRAIT_BR_PLAS, learnable);
-			break;
+		dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_PLASMA, dam,0, TRUE, TRAIT_BR_PLAS, learnable);
+		break;
 		}
 
 		case TRAIT_BR_WALL:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがフォースのブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes force.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがフォースのブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes force.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_FORCE, dam,0, TRUE, TRAIT_BR_WALL, learnable);
-			break;
+		dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_FORCE, dam,0, TRUE, TRAIT_BR_WALL, learnable);
+		break;
 		}
 
 		case TRAIT_BR_MANA:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔力のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes mana.", caster_name);
-#endif
-			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_MANA, dam,0, TRUE, TRAIT_BR_MANA, learnable);
-			break;
+		#ifdef JP
+		else msg_format("%^sが魔力のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes mana.", caster_name);
+		#endif
+		dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_MANA, dam,0, TRUE, TRAIT_BR_MANA, learnable);
+		break;
 		}
 
 		case TRAIT_BA_NUKE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが放射能球を放った。", caster_name);
-#else
-			else msg_format("%^s casts a ball of radiation.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが放射能球を放った。", caster_name);
+		#else
+		else msg_format("%^s casts a ball of radiation.", caster_name);
+		#endif
 
-			dam = (rlev + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, TRAIT_BA_NUKE, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
+		dam = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, TRAIT_BA_NUKE, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
+		break;
 		}
 
 		case TRAIT_BR_NUKE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが放射性廃棄物のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes toxic waste.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが放射性廃棄物のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes toxic waste.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NUKE, dam,0, TRUE, TRAIT_BR_NUKE, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
+		dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_NUKE, dam,0, TRUE, TRAIT_BR_NUKE, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
+		break;
 		}
 
 		case TRAIT_BA_CHAO:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが恐ろしげにつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles frighteningly.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが恐ろしげにつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles frighteningly.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが純ログルスを放った。", caster_name);
-#else
-			else msg_format("%^s invokes a raw Logrus.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが純ログルスを放った。", caster_name);
+		#else
+		else msg_format("%^s invokes a raw Logrus.", caster_name);
+		#endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, TRAIT_BA_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
+		dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
+		breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, TRAIT_BA_CHAO, learnable);
+		update_smart_learn(caster_ptr, DRS_CHAOS);
+		break;
 		}
 
 		case TRAIT_BR_DISI:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
+		#else
+		if(blind) msg_format("%^s breathes.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが分解のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes disintegration.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが分解のブレスを吐いた。", caster_name);
+		#else
+		else msg_format("%^s breathes disintegration.", caster_name);
+		#endif
 
-			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISINTEGRATE, dam,0, TRUE, TRAIT_BR_DISI, learnable);
-			break;
+		dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_DISINTEGRATE, dam,0, TRUE, TRAIT_BR_DISI, learnable);
+		break;
 		}
 
 
 		case TRAIT_BA_ACID:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-else msg_format("%^sがアシッド・ボールの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts an acid ball.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがアシッド・ボールの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts an acid ball.", caster_name);
+		#endif
 
-			dam = (randint1(rlev * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, TRAIT_BA_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
+		dam = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, TRAIT_BA_ACID, learnable);
+		update_smart_learn(caster_ptr, DRS_ACID);
+		break;
 		}
 
 		case TRAIT_BA_ELEC:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a lightning ball.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a lightning ball.", caster_name);
+		#endif
 
-			dam = (randint1(rlev * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, TRAIT_BA_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
-			break;
+		dam = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, TRAIT_BA_ELEC, learnable);
+		update_smart_learn(caster_ptr, DRS_ELEC);
+		break;
 		}
 
 		case TRAIT_BA_FIRE:
 		{
-			disturb(player_ptr, 1, 0);
+		disturb(player_ptr, 1, 0);
 
-			if(caster_ptr->species_idx == SPECIES_ROLENTO)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%sが何かを投げた。", caster_name);
-				else 
-					msg_format("%sは手榴弾を投げた。", caster_name);
-#else
-				if(blind)
-					msg_format("%^s throws something.", caster_name);
-				else
-					msg_format("%^s throws a hand grenade.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(caster_ptr->species_idx == SPECIES_ROLENTO)
+		{
+		#ifdef JP
+		if(blind)
+		msg_format("%sが何かを投げた。", caster_name);
+		else 
+		msg_format("%sは手榴弾を投げた。", caster_name);
+		#else
+		if(blind)
+		msg_format("%^s throws something.", caster_name);
+		else
+		msg_format("%^s throws a hand grenade.", caster_name);
+		#endif
+		}
+		else
+		{
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-				else msg_format("%^sがファイア・ボールの呪文を唱えた。", caster_name);
-#else
-				else msg_format("%^s casts a fire ball.", caster_name);
-#endif
-			}
+		#ifdef JP
+		else msg_format("%^sがファイア・ボールの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a fire ball.", caster_name);
+		#endif
+		}
 
-			dam = (randint1(rlev * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, TRAIT_BA_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
+		dam = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, TRAIT_BA_FIRE, learnable);
+		update_smart_learn(caster_ptr, DRS_FIRE);
+		break;
 		}
 
 		case TRAIT_BA_COLD:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがアイス・ボールの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a frost ball.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがアイス・ボールの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a frost ball.", caster_name);
+		#endif
 
-			dam = (randint1(rlev * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, TRAIT_BA_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			break;
+		dam = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, TRAIT_BA_COLD, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		break;
 		}
 
 		case TRAIT_BA_POIS:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが悪臭雲の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a stinking cloud.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが悪臭雲の呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a stinking cloud.", caster_name);
+		#endif
 
-			dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, TRAIT_BA_POIS, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
+		dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, TRAIT_BA_POIS, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
+		break;
 		}
 
 		case TRAIT_BA_NETH:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが地獄球の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a nether ball.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが地獄球の呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a nether ball.", caster_name);
+		#endif
 
-			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, TRAIT_BA_NETH, learnable);
-			update_smart_learn(caster_ptr, DRS_NETH);
-			break;
+		dam = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
+		breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, TRAIT_BA_NETH, learnable);
+		update_smart_learn(caster_ptr, DRS_NETH);
+		break;
 		}
 
 		case TRAIT_BA_WATE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが流れるような身振りをした。", caster_name);
-#else
-			else msg_format("%^s gestures fluidly.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが流れるような身振りをした。", caster_name);
+		#else
+		else msg_format("%^s gestures fluidly.", caster_name);
+		#endif
 
-#ifdef JP
-			msg_print("あなたは渦巻きに飲み込まれた。");
-#else
-			msg_print("You are engulfed in a whirlpool.");
-#endif
+		#ifdef JP
+		msg_print("あなたは渦巻きに飲み込まれた。");
+		#else
+		msg_print("You are engulfed in a whirlpool.");
+		#endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, TRAIT_BA_WATE, learnable);
-			break;
+		dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
+		breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, TRAIT_BA_WATE, learnable);
+		break;
 		}
 
 		case TRAIT_BA_MANA:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles powerfully.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔力の嵐の呪文を念じた。", caster_name);
-#else
-			else msg_format("%^s invokes a mana storm.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔力の嵐の呪文を念じた。", caster_name);
+		#else
+		else msg_format("%^s invokes a mana storm.", caster_name);
+		#endif
 
-			dam = (rlev * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, TRAIT_BA_MANA, learnable);
-			break;
+		dam = (user_level * 4) + 50 + diceroll(10, 10);
+		breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, TRAIT_BA_MANA, learnable);
+		break;
 		}
 
 		case TRAIT_BA_DARK:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles powerfully.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが暗黒の嵐の呪文を念じた。", caster_name);
-#else
-			else msg_format("%^s invokes a darkness storm.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが暗黒の嵐の呪文を念じた。", caster_name);
+		#else
+		else msg_format("%^s invokes a darkness storm.", caster_name);
+		#endif
 
-			dam = (rlev * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, TRAIT_BA_DARK, learnable);
-			update_smart_learn(caster_ptr, DRS_DARK);
-			break;
+		dam = (user_level * 4) + 50 + diceroll(10, 10);
+		breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, TRAIT_BA_DARK, learnable);
+		update_smart_learn(caster_ptr, DRS_DARK);
+		break;
 		}
 
 		case TRAIT_DRAIN_MANA:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
 
-			dam = (randint1(rlev) / 2) + 1;
-			breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
-			update_smart_learn(caster_ptr, DRS_MANA);
-			break;
+		dam = (randint1(user_level) / 2) + 1;
+		breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
+		update_smart_learn(caster_ptr, DRS_MANA);
+		break;
 		}
 
 		case TRAIT_MIND_BLAST:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-			if(!seen)
-			{
-#ifdef JP
-				msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
-				msg_print("You feel something focusing on your mind.");
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		if(!seen)
+		{
+		#ifdef JP
+		msg_print("何かがあなたの精神に念を放っているようだ。");
+		#else
+		msg_print("You feel something focusing on your mind.");
+		#endif
 
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがあなたの瞳をじっとにらんでいる。", caster_name);
-#else
-				msg_format("%^s gazes deep into your eyes.", caster_name);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sがあなたの瞳をじっとにらんでいる。", caster_name);
+		#else
+		msg_format("%^s gazes deep into your eyes.", caster_name);
+		#endif
 
-			}
+		}
 
-			dam = diceroll(7, 7);
-			breath(y, x, caster_ptr, GF_MIND_BLAST, dam, 0, FALSE, TRAIT_MIND_BLAST, learnable);
-			break;
+		dam = diceroll(7, 7);
+		breath(y, x, caster_ptr, GF_MIND_BLAST, dam, 0, FALSE, TRAIT_MIND_BLAST, learnable);
+		break;
 		}
 
 		case TRAIT_BRAIN_SMASH:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-			if(!seen)
-			{
-#ifdef JP
-				msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
-				msg_print("You feel something focusing on your mind.");
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		if(!seen)
+		{
+		#ifdef JP
+		msg_print("何かがあなたの精神に念を放っているようだ。");
+		#else
+		msg_print("You feel something focusing on your mind.");
+		#endif
 
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがあなたの瞳をじっと見ている。", caster_name);
-#else
-				msg_format("%^s looks deep into your eyes.", caster_name);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sがあなたの瞳をじっと見ている。", caster_name);
+		#else
+		msg_format("%^s looks deep into your eyes.", caster_name);
+		#endif
 
-			}
+		}
 
-			dam = diceroll(12, 12);
-			breath(y, x, caster_ptr, GF_BRAIN_SMASH, dam, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
-			break;
+		dam = diceroll(12, 12);
+		breath(y, x, caster_ptr, GF_BRAIN_SMASH, dam, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
+		break;
 		}
 
 		case TRAIT_CAUSE_1:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがあなたを指さして呪った。", caster_name);
-#else
-			else msg_format("%^s points at you and curses.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがあなたを指さして呪った。", caster_name);
+		#else
+		else msg_format("%^s points at you and curses.", caster_name);
+		#endif
 
-			dam = diceroll(3, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_1, dam, 0, FALSE, TRAIT_CAUSE_1, learnable);
-			break;
+		dam = diceroll(3, 8);
+		breath(y, x, caster_ptr, GF_CAUSE_1, dam, 0, FALSE, TRAIT_CAUSE_1, learnable);
+		break;
 		}
 
 		case TRAIT_CAUSE_2:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがあなたを指さして恐ろしげに呪った。", caster_name);
-#else
-			else msg_format("%^s points at you and curses horribly.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがあなたを指さして恐ろしげに呪った。", caster_name);
+		#else
+		else msg_format("%^s points at you and curses horribly.", caster_name);
+		#endif
 
-			dam = diceroll(8, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_2, dam, 0, FALSE, TRAIT_CAUSE_2, learnable);
-			break;
+		dam = diceroll(8, 8);
+		breath(y, x, caster_ptr, GF_CAUSE_2, dam, 0, FALSE, TRAIT_CAUSE_2, learnable);
+		break;
 		}
 
 		case TRAIT_CAUSE_3:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを大声で叫んだ。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles loudly.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かを大声で叫んだ。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles loudly.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", caster_name);
-#else
-			else msg_format("%^s points at you, incanting terribly!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", caster_name);
+		#else
+		else msg_format("%^s points at you, incanting terribly!", caster_name);
+		#endif
 
-			dam = diceroll(10, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_3, dam, 0, FALSE, TRAIT_CAUSE_3, learnable);
-			break;
+		dam = diceroll(10, 15);
+		breath(y, x, caster_ptr, GF_CAUSE_3, dam, 0, FALSE, TRAIT_CAUSE_3, learnable);
+		break;
 		}
 
 		case TRAIT_CAUSE_4:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", caster_name);
-#else
-			if(blind) msg_format("%^s screams the word 'DIE!'", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", caster_name);
+		#else
+		if(blind) msg_format("%^s screams the word 'DIE!'", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", caster_name);
-#else
-			else msg_format("%^s points at you, screaming the word DIE!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", caster_name);
+		#else
+		else msg_format("%^s points at you, screaming the word DIE!", caster_name);
+		#endif
 
-			dam = diceroll(15, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_4, dam, 0, FALSE, TRAIT_CAUSE_4, learnable);
-			break;
+		dam = diceroll(15, 15);
+		breath(y, x, caster_ptr, GF_CAUSE_4, dam, 0, FALSE, TRAIT_CAUSE_4, learnable);
+		break;
 		}
 
 		case TRAIT_BO_ACID:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a acid bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a acid bolt.", caster_name);
+		#endif
 
-			dam = (diceroll(7, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ACID, dam, TRAIT_BO_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		bolt(caster_ptr, target_ptr, GF_ACID, dam, TRAIT_BO_ACID, learnable);
+		update_smart_learn(caster_ptr, DRS_ACID);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_ELEC:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a lightning bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a lightning bolt.", caster_name);
+		#endif
 
-			dam = (diceroll(4, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ELEC, dam, TRAIT_BO_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		bolt(caster_ptr, target_ptr, GF_ELEC, dam, TRAIT_BO_ELEC, learnable);
+		update_smart_learn(caster_ptr, DRS_ELEC);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_FIRE:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがファイア・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a fire bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがファイア・ボルトの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a fire bolt.", caster_name);
+		#endif
 
-			dam = (diceroll(9, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_FIRE, dam, TRAIT_BO_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		bolt(caster_ptr, target_ptr, GF_FIRE, dam, TRAIT_BO_FIRE, learnable);
+		update_smart_learn(caster_ptr, DRS_FIRE);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_COLD:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがアイス・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a frost bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがアイス・ボルトの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a frost bolt.", caster_name);
+		#endif
 
-			dam = (diceroll(6, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_COLD, dam, TRAIT_BO_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		bolt(caster_ptr, target_ptr, GF_COLD, dam, TRAIT_BO_COLD, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BA_LITE:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles powerfully.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがスターバーストの呪文を念じた。", caster_name);
-#else
-			else msg_format("%^s invokes a starburst.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがスターバーストの呪文を念じた。", caster_name);
+		#else
+		else msg_format("%^s invokes a starburst.", caster_name);
+		#endif
 
-			dam = (rlev * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_LITE, dam, 4, FALSE, TRAIT_BA_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
+		dam = (user_level * 4) + 50 + diceroll(10, 10);
+		breath(y, x, caster_ptr, GF_LITE, dam, 4, FALSE, TRAIT_BA_LITE, learnable);
+		update_smart_learn(caster_ptr, DRS_LITE);
+		break;
 		}
 
 		case TRAIT_BO_NETH:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが地獄の矢の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a nether bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが地獄の矢の呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a nether bolt.", caster_name);
+		#endif
 
-			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-			bolt(caster_ptr, target_ptr, GF_NETHER, dam, TRAIT_BO_NETH, learnable);
-			update_smart_learn(caster_ptr, DRS_NETH);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
+		bolt(caster_ptr, target_ptr, GF_NETHER, dam, TRAIT_BO_NETH, learnable);
+		update_smart_learn(caster_ptr, DRS_NETH);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_WATE:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a water bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a water bolt.", caster_name);
+		#endif
 
-			dam = diceroll(10, 10) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, dam, TRAIT_BO_WATE, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+		bolt(caster_ptr, target_ptr, GF_WATER, dam, TRAIT_BO_WATE, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_MANA:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔力の矢の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a mana bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔力の矢の呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a mana bolt.", caster_name);
+		#endif
 
-			dam = randint1(rlev * 7 / 2) + 50;
-			bolt(caster_ptr, target_ptr, GF_MANA, dam, TRAIT_BO_MANA, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = randint1(user_level * 7 / 2) + 50;
+		bolt(caster_ptr, target_ptr, GF_MANA, dam, TRAIT_BO_MANA, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_PLAS:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a plasma bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a plasma bolt.", caster_name);
+		#endif
 
-			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, TRAIT_BO_PLAS, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+		bolt(caster_ptr, target_ptr, GF_PLASMA, dam, TRAIT_BO_PLAS, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_BO_ICEE:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが極寒の矢の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts an ice bolt.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが極寒の矢の呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts an ice bolt.", caster_name);
+		#endif
 
-			dam = diceroll(6, 6) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, dam, TRAIT_BO_ICEE, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+		bolt(caster_ptr, target_ptr, GF_ICE, dam, TRAIT_BO_ICEE, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_MISSILE:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a magic missile.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a magic missile.", caster_name);
+		#endif
 
-			dam = diceroll(2, 6) + (rlev / 3);
-			bolt(caster_ptr, target_ptr, GF_MISSILE, dam, TRAIT_MISSILE, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
+		dam = diceroll(2, 6) + (user_level / 3);
+		bolt(caster_ptr, target_ptr, GF_MISSILE, dam, TRAIT_MISSILE, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
+		break;
 		}
 
 		case TRAIT_SCARE:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles, and you hear scary noises.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles, and you hear scary noises.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが恐ろしげな幻覚を作り出した。", caster_name);
-#else
-			else msg_format("%^s casts a fearful illusion.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが恐ろしげな幻覚を作り出した。", caster_name);
+		#else
+		else msg_format("%^s casts a fearful illusion.", caster_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_FEARLESS))
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
+		if(has_trait(target_ptr, TRAIT_FEARLESS))
+		{
+		#ifdef JP
+		msg_print("しかし恐怖に侵されなかった。");
+		#else
+		msg_print("You refuse to be frightened.");
+		#endif
 
-			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
+		}
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_print("しかし恐怖に侵されなかった。");
+		#else
+		msg_print("You refuse to be frightened.");
+		#endif
 
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_SCARE);
-			update_smart_learn(caster_ptr, DRS_FEAR);
-			break;
+		}
+		else
+		{
+		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
+		}
+		learn_trait(target_ptr, TRAIT_SCARE);
+		update_smart_learn(caster_ptr, DRS_FEAR);
+		break;
 		}
 
 		case TRAIT_BLIND:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが呪文を唱えてあなたの目をくらました！", caster_name);
-#else
-			else msg_format("%^s casts a spell, burning your eyes!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが呪文を唱えてあなたの目をくらました！", caster_name);
+		#else
+		else msg_format("%^s casts a spell, burning your eyes!", caster_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_NO_BLIND))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
+		if(has_trait(target_ptr, TRAIT_NO_BLIND))
+		{
+		#ifdef JP
+		msg_print("しかし効果がなかった！");
+		#else
+		msg_print("You are unaffected!");
+		#endif
 
-			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+		}
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_print("しかし効力を跳ね返した！");
+		#else
+		msg_print("You resist the effects!");
+		#endif
 
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
-			}
-			learn_trait(target_ptr, TRAIT_BLIND);
-			update_smart_learn(caster_ptr, DRS_BLIND);
-			break;
+		}
+		else
+		{
+		(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
+		}
+		learn_trait(target_ptr, TRAIT_BLIND);
+		update_smart_learn(caster_ptr, DRS_BLIND);
+		break;
 		}
 
 		case TRAIT_CONF:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles, and you hear puzzling noises.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles, and you hear puzzling noises.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが誘惑的な幻覚を作り出した。", caster_name);
-#else
-			else msg_format("%^s creates a mesmerising illusion.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが誘惑的な幻覚を作り出した。", caster_name);
+		#else
+		else msg_format("%^s creates a mesmerising illusion.", caster_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
+		if(has_trait(target_ptr, TRAIT_NO_CONF))
+		{
+		#ifdef JP
+		msg_print("しかし幻覚にはだまされなかった。");
+		#else
+		msg_print("You disbelieve the feeble spell.");
+		#endif
 
-			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
+		}
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_print("しかし幻覚にはだまされなかった。");
+		#else
+		msg_print("You disbelieve the feeble spell.");
+		#endif
 
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_CONF);
-			update_smart_learn(caster_ptr, DRS_CONF);
-			break;
+		}
+		else
+		{
+		(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+		}
+		learn_trait(target_ptr, TRAIT_CONF);
+		update_smart_learn(caster_ptr, DRS_CONF);
+		break;
 		}
 
 		case TRAIT_SLOW:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_format("%^sがあなたの筋力を吸い取ろうとした！", caster_name);
-#else
-			msg_format("%^s drains power from your muscles!", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		msg_format("%^sがあなたの筋力を吸い取ろうとした！", caster_name);
+		#else
+		msg_format("%^s drains power from your muscles!", caster_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
+		if(has_trait(target_ptr, TRAIT_FREE_ACTION))
+		{
+		#ifdef JP
+		msg_print("しかし効果がなかった！");
+		#else
+		msg_print("You are unaffected!");
+		#endif
 
-			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+		}
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_print("しかし効力を跳ね返した！");
+		#else
+		msg_print("You resist the effects!");
+		#endif
 
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-			}
-			learn_trait(target_ptr, TRAIT_SLOW);
-			update_smart_learn(caster_ptr, DRS_FREE);
-			break;
+		}
+		else
+		{
+		(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
+		}
+		learn_trait(target_ptr, TRAIT_SLOW);
+		update_smart_learn(caster_ptr, DRS_FREE);
+		break;
 		}
 
 		case TRAIT_HOLD:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがあなたの目をじっと見つめた！", caster_name);
-#else
-			else msg_format("%^s stares deep into your eyes!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがあなたの目をじっと見つめた！", caster_name);
+		#else
+		else msg_format("%^s stares deep into your eyes!", caster_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
+		if(has_trait(target_ptr, TRAIT_FREE_ACTION))
+		{
+		#ifdef JP
+		msg_print("しかし効果がなかった！");
+		#else
+		msg_print("You are unaffected!");
+		#endif
 
-			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_format("しかし効力を跳ね返した！");
-#else
-				msg_format("You resist the effects!");
-#endif
+		}
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_format("しかし効力を跳ね返した！");
+		#else
+		msg_format("You resist the effects!");
+		#endif
 
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_HOLD);
-			update_smart_learn(caster_ptr, DRS_FREE);
-			break;
+		}
+		else
+		{
+		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+		}
+		learn_trait(target_ptr, TRAIT_HOLD);
+		update_smart_learn(caster_ptr, DRS_FREE);
+		break;
 		}
 
 		case TRAIT_HASTE:
 		{
-			disturb(player_ptr, 1, 0);
-			if(blind)
-			{
-#ifdef JP
-				msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		if(blind)
+		{
+		#ifdef JP
+		msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		msg_format("%^s mumbles.", caster_name);
+		#endif
 
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが自分の体に念を送った。", caster_name);
-#else
-				msg_format("%^s concentrates on %s body.", caster_name, m_poss);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sが自分の体に念を送った。", caster_name);
+		#else
+		msg_format("%^s concentrates on %s body.", caster_name, m_poss);
+		#endif
 
-			}
+		}
 
-			// Allow quick speed increases to base+10 
-			if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
-			{
-#ifdef JP
-				msg_format("%^sの動きが速くなった。", caster_name);
-#else
-				msg_format("%^s starts moving faster.", caster_name);
-#endif
-			}
-			break;
+		// Allow quick speed increases to base+10 
+		if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
+		{
+		#ifdef JP
+		msg_format("%^sの動きが速くなった。", caster_name);
+		#else
+		msg_format("%^s starts moving faster.", caster_name);
+		#endif
+		}
+		break;
 		}
 
 		case TRAIT_HAND_DOOM:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_format("%^sが<破滅の手>を放った！", caster_name);
-#else
-			msg_format("%^s invokes the Hand of Doom!", caster_name);
-#endif
-			dam = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(y, x, caster_ptr, GF_HAND_DOOM, dam, 0, FALSE, TRAIT_HAND_DOOM, learnable);
-			break;
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		msg_format("%^sが<破滅の手>を放った！", caster_name);
+		#else
+		msg_format("%^s invokes the Hand of Doom!", caster_name);
+		#endif
+		dam = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
+		breath(y, x, caster_ptr, GF_HAND_DOOM, dam, 0, FALSE, TRAIT_HAND_DOOM, learnable);
+		break;
 		}
 
 		case TRAIT_HEAL:
 		{
-			disturb(player_ptr, 1, 0);
+		disturb(player_ptr, 1, 0);
 
-			// Message 
-			if(blind)
-			{
-#ifdef JP
-				msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				msg_format("%^s mumbles.", caster_name);
-#endif
+		// Message 
+		if(blind)
+		{
+		#ifdef JP
+		msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		msg_format("%^s mumbles.", caster_name);
+		#endif
 
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが自分の傷に集中した。", caster_name);
-#else
-				msg_format("%^s concentrates on %s wounds.", caster_name, m_poss);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sが自分の傷に集中した。", caster_name);
+		#else
+		msg_format("%^s concentrates on %s wounds.", caster_name, m_poss);
+		#endif
 
-			}
+		}
 
-			// Heal some 
-			caster_ptr->chp += (rlev * 6);
+		// Heal some 
+		caster_ptr->chp += (user_level * 6);
 
-			// Fully healed 
-			if(caster_ptr->chp >= caster_ptr->mhp)
-			{
-				// Fully healed 
-				caster_ptr->chp = caster_ptr->mhp;
+		// Fully healed 
+		if(caster_ptr->chp >= caster_ptr->mhp)
+		{
+		// Fully healed 
+		caster_ptr->chp = caster_ptr->mhp;
 
-				// Message 
-				if(seen)
-				{
-#ifdef JP
-					msg_format("%^sは完全に治った！", caster_name);
-#else
-					msg_format("%^s looks completely healed!", caster_name);
-#endif
+		// Message 
+		if(seen)
+		{
+		#ifdef JP
+		msg_format("%^sは完全に治った！", caster_name);
+		#else
+		msg_format("%^s looks completely healed!", caster_name);
+		#endif
 
-				}
-				else
-				{
-#ifdef JP
-					msg_format("%^sは完全に治ったようだ！", caster_name);
-#else
-					msg_format("%^s sounds completely healed!", caster_name);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sは完全に治ったようだ！", caster_name);
+		#else
+		msg_format("%^s sounds completely healed!", caster_name);
+		#endif
 
-				}
-			}
+		}
+		}
 
-			// Partially healed 
-			else
-			{
-				// Message 
-				if(seen)
-				{
-#ifdef JP
-					msg_format("%^sは体力を回復したようだ。", caster_name);
-#else
-					msg_format("%^s looks healthier.", caster_name);
-#endif
+		// Partially healed 
+		else
+		{
+		// Message 
+		if(seen)
+		{
+		#ifdef JP
+		msg_format("%^sは体力を回復したようだ。", caster_name);
+		#else
+		msg_format("%^s looks healthier.", caster_name);
+		#endif
 
-				}
-				else
-				{
-#ifdef JP
-					msg_format("%^sは体力を回復したようだ。", caster_name);
-#else
-					msg_format("%^s sounds healthier.", caster_name);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sは体力を回復したようだ。", caster_name);
+		#else
+		msg_format("%^s sounds healthier.", caster_name);
+		#endif
 
-				}
-			}
+		}
+		}
 
-			// Redraw (later) if needed 
-			if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-			if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+		// Redraw (later) if needed 
+		if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+		if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
-			// Cancel fear 
-			if(caster_ptr->timed_trait[TRAIT_AFRAID])
-			{
-				// Cancel fear 
-				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		// Cancel fear 
+		if(caster_ptr->timed_trait[TRAIT_AFRAID])
+		{
+		// Cancel fear 
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
-				// Message 
-#ifdef JP
-				msg_format("%^sは勇気を取り戻した。", caster_name);
-#else
-				msg_format("%^s recovers %s courage.", caster_name, m_poss);
-#endif
-			}
-			break;
+		// Message 
+		#ifdef JP
+		msg_format("%^sは勇気を取り戻した。", caster_name);
+		#else
+		msg_format("%^s recovers %s courage.", caster_name, m_poss);
+		#endif
+		}
+		break;
 		}
 
 		case TRAIT_INVULNER:
 		{
-			disturb(player_ptr, 1, 0);
+		disturb(player_ptr, 1, 0);
 
-			// Message 
-			if(!seen)
-			{
-#ifdef JP
-				msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-				msg_format("%^s mumbles powerfully.", caster_name);
-#endif
+		// Message 
+		if(!seen)
+		{
+		#ifdef JP
+		msg_format("%^sが何かを力強くつぶやいた。", caster_name);
+		#else
+		msg_format("%^s mumbles powerfully.", caster_name);
+		#endif
 
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%sは無傷の球の呪文を唱えた。", caster_name);
-#else
-				msg_format("%^s casts a Globe of Invulnerability.", caster_name);
-#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%sは無傷の球の呪文を唱えた。", caster_name);
+		#else
+		msg_format("%^s casts a Globe of Invulnerability.", caster_name);
+		#endif
 
-			}
+		}
 
-			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
-			break;
+		if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
+		break;
 		}
 
 		case TRAIT_ACTIVE_TELEPORT:
 		{
-			disturb(player_ptr, 1, 0);
-			if(teleport_barrier(target_ptr, caster_ptr))
-			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", caster_name);
-#else
-				msg_format("Magic barrier obstructs teleporting of %^s.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがテレポートした。", caster_name);
-#else
-				msg_format("%^s teleports away.", caster_name);
-#endif
-				teleport_away_followable(caster_ptr);
-			}
-			break;
+		disturb(player_ptr, 1, 0);
+		if(teleport_barrier(target_ptr, caster_ptr))
+		{
+		#ifdef JP
+		msg_format("魔法のバリアが%^sのテレポートを邪魔した。", caster_name);
+		#else
+		msg_format("Magic barrier obstructs teleporting of %^s.", caster_name);
+		#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_format("%^sがテレポートした。", caster_name);
+		#else
+		msg_format("%^s teleports away.", caster_name);
+		#endif
+		teleport_away_followable(caster_ptr);
+		}
+		break;
 		}
 
 		case TRAIT_WORLD:
 		{
-			int who = 0;
-			disturb(player_ptr, 1, 0);
-			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
-			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
-			dam = who;
-			if(!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
-			break;
+		int who = 0;
+		disturb(player_ptr, 1, 0);
+		if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
+		else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
+		dam = who;
+		if(!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
+		break;
 		}
 
 		case TRAIT_SPECIAL:
 		{
-			int k;
+		int k;
 
-			disturb(player_ptr, 1, 0);
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_OHMU:
-				// Moved to process_nonplayer(), like multiplication 
-				return FALSE;
+		disturb(player_ptr, 1, 0);
+		switch (caster_ptr->species_idx)
+		{
+		case SPECIES_OHMU:
+		// Moved to process_nonplayer(), like multiplication 
+		return FALSE;
 
-			case SPECIES_BANORLUPART:
-				{
-					int dummy_hp = (caster_ptr->chp + 1) / 2;
-					int dummy_mhp = caster_ptr->mhp/2;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
+		case SPECIES_BANORLUPART:
+		{
+		int dummy_hp = (caster_ptr->chp + 1) / 2;
+		int dummy_mhp = caster_ptr->mhp/2;
+		int dummy_y = caster_ptr->fy;
+		int dummy_x = caster_ptr->fx;
 
-					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+		if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
+		delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
+		summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
+		creature_list[hack_m_idx_ii].chp = dummy_hp;
+		creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+		summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
+		creature_list[hack_m_idx_ii].chp = dummy_hp;
+		creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
-#ifdef JP
-					msg_print("『バーノール・ルパート』が分裂した！");
-#else
-					msg_print("Banor=Rupart splits in two person!");
-#endif
+		#ifdef JP
+		msg_print("『バーノール・ルパート』が分裂した！");
+		#else
+		msg_print("Banor=Rupart splits in two person!");
+		#endif
 
-					break;
-				}
+		break;
+		}
 
-			case SPECIES_BANOR:
-			case SPECIES_LUPART:
-				{
-					int dummy_hp = 0;
-					int dummy_mhp = 0;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
+		case SPECIES_BANOR:
+		case SPECIES_LUPART:
+		{
+		int dummy_hp = 0;
+		int dummy_mhp = 0;
+		int dummy_y = caster_ptr->fy;
+		int dummy_x = caster_ptr->fx;
 
-					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
-					for (k = 1; k < creature_max; k++)
-					{
-						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
-						{
-							dummy_hp += creature_list[k].chp;
-							dummy_mhp += creature_list[k].mhp;
-							if(creature_list[k].species_idx != caster_ptr->species_idx)
-							{
-								dummy_y = creature_list[k].fy;
-								dummy_x = creature_list[k].fx;
-							}
-							delete_species_idx(&creature_list[k]);
-						}
-					}
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+		if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
+		for (k = 1; k < creature_max; k++)
+		{
+		if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
+		{
+		dummy_hp += creature_list[k].chp;
+		dummy_mhp += creature_list[k].mhp;
+		if(creature_list[k].species_idx != caster_ptr->species_idx)
+		{
+		dummy_y = creature_list[k].fy;
+		dummy_x = creature_list[k].fx;
+		}
+		delete_species_idx(&creature_list[k]);
+		}
+		}
+		summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
+		creature_list[hack_m_idx_ii].chp = dummy_hp;
+		creature_list[hack_m_idx_ii].mhp = dummy_mhp;
 
-#ifdef JP
-					msg_print("『バーノール』と『ルパート』が合体した！");
-#else
-					msg_print("Banor and Rupart combine into one!");
-#endif
+		#ifdef JP
+		msg_print("『バーノール』と『ルパート』が合体した！");
+		#else
+		msg_print("Banor and Rupart combine into one!");
+		#endif
 
-					break;
-				}
+		break;
+		}
 
-			case SPECIES_ROLENTO:
-#ifdef JP
-				if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
-				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
-#else
-				if(blind) msg_format("%^s spreads something.", caster_name);
-				else msg_format("%^s throws some hand grenades.", caster_name);
-#endif
+		case SPECIES_ROLENTO:
+		#ifdef JP
+		if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
+		else msg_format("%^sは手榴弾をばらまいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s spreads something.", caster_name);
+		else msg_format("%^s throws some hand grenades.", caster_name);
+		#endif
 
-				{
-					int num = 1 + randint1(3);
+		{
+		int num = 1 + randint1(3);
 
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-					}
-				}
-#ifdef JP
-				if(blind && count) msg_print("多くのものが間近にばらまかれる音がする。");
-#else
-				if(blind && count) msg_print("You hear many things are scattered nearby.");
-#endif
-				break;
+		for (k = 0; k < num; k++)
+		{
+		count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
+		}
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近にばらまかれる音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things are scattered nearby.");
+		#endif
+		break;
 
-			default:
-				if(r_ptr->d_char == 'B')
-				{
-					disturb(player_ptr, 1, 0);
-					if(one_in_(3) || !direct)
-					{
-#ifdef JP
-						msg_format("%^sは突然視界から消えた!", caster_name);
-#else
-						msg_format("%^s suddenly go out of your sight!", caster_name);
-#endif
-						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						update |= (PU_MONSTERS);
-					}
-					else
-					{
-						int get_damage = 0;
+		default:
+		if(r_ptr->d_char == 'B')
+		{
+		disturb(player_ptr, 1, 0);
+		if(one_in_(3) || !direct)
+		{
+		#ifdef JP
+		msg_format("%^sは突然視界から消えた!", caster_name);
+		#else
+		msg_format("%^s suddenly go out of your sight!", caster_name);
+		#endif
+		teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
+		update |= (PU_MONSTERS);
+		}
+		else
+		{
+		int get_damage = 0;
 
-#ifdef JP
-						msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
-#else
-						msg_format("%^s holds you, and drops from the sky.", caster_name);
-#endif
-						dam = diceroll(4, 8);
-						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+		#ifdef JP
+		msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+		#else
+		msg_format("%^s holds you, and drops from the sky.", caster_name);
+		#endif
+		dam = diceroll(4, 8);
+		teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
-						sound(SOUND_FALL);
+		sound(SOUND_FALL);
 
-						if(has_trait(target_ptr, TRAIT_CAN_FLY))
-						{
-#ifdef JP
-							msg_print("あなたは静かに着地した。");
-#else
-							msg_print("You float gently down to the ground.");
-#endif
-						}
-						else
-						{
-#ifdef JP
-							msg_print("あなたは地面に叩きつけられた。");
-#else
-							msg_print("You crashed into the ground.");
-#endif
-							dam += diceroll(6, 8);
-						}
+		if(has_trait(target_ptr, TRAIT_CAN_FLY))
+		{
+		#ifdef JP
+		msg_print("あなたは静かに着地した。");
+		#else
+		msg_print("You float gently down to the ground.");
+		#endif
+		}
+		else
+		{
+		#ifdef JP
+		msg_print("あなたは地面に叩きつけられた。");
+		#else
+		msg_print("You crashed into the ground.");
+		#endif
+		dam += diceroll(6, 8);
+		}
 
-						// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-						   -- henkma
-						 
-						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, caster_name, NULL, -1);
-						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
-						{
-#ifdef JP
-							msg_format("攻撃が%s自身を傷つけた！", caster_name);
-#else
-							char caster_name_self[80];
+		// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
+		-- henkma
 
-							// hisself 
-							creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+		get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, caster_name, NULL, -1);
+		if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
+		{
+		#ifdef JP
+		msg_format("攻撃が%s自身を傷つけた！", caster_name);
+		#else
+		char caster_name_self[80];
 
-							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
-							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-						}
+		// hisself 
+		creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
 
-						if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
-					}
-					break;
-				}
+		msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
+		#endif
+		project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+		}
 
-				// Something is wrong 
-				else return FALSE;
-			}
-			break;
+		if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+		}
+		break;
+		}
+
+		// Something is wrong 
+		else return FALSE;
+		}
+		break;
 		}
 
 		case TRAIT_TELE_TO:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_format("%^sがあなたを引き戻した。", caster_name);
-#else
-			msg_format("%^s commands you to return.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		msg_format("%^sがあなたを引き戻した。", caster_name);
+		#else
+		msg_format("%^s commands you to return.", caster_name);
+		#endif
 
-			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
-			learn_trait(target_ptr, TRAIT_TELE_TO);
-			break;
+		teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
+		learn_trait(target_ptr, TRAIT_TELE_TO);
+		break;
 		}
 
 		case TRAIT_TELE_AWAY:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_format("%^sにテレポートさせられた。", caster_name);
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		msg_format("%^sにテレポートさせられた。", caster_name);
 
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("くっそ～");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("なんて事をするんだ！");
-#else
-			msg_format("%^s teleports you away.", caster_name);
-#endif
+		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
+		msg_print("くっそ～");
+		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+		msg_print("なんて事をするんだ！");
+		#else
+		msg_format("%^s teleports you away.", caster_name);
+		#endif
 
-			learn_trait(target_ptr, TRAIT_TELE_AWAY);
-			teleport_player_away(caster_ptr, 100);
-			break;
+		learn_trait(target_ptr, TRAIT_TELE_AWAY);
+		teleport_player_away(caster_ptr, 100);
+		break;
 		}
 
 		case TRAIT_TELE_LEVEL:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles strangely.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles strangely.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがあなたの足を指さした。", caster_name);
-#else
-			else msg_format("%^s gestures at your feet.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがあなたの足を指さした。", caster_name);
+		#else
+		else msg_format("%^s gestures at your feet.", caster_name);
+		#endif
 
-			if(target_ptr->resist_nexus)
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
+		if(target_ptr->resist_nexus)
+		{
+		#ifdef JP
+		msg_print("しかし効果がなかった！");
+		#else
+		msg_print("You are unaffected!");
+		#endif
 
-			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+		}
+		else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_print("しかし効力を跳ね返した！");
+		#else
+		msg_print("You resist the effects!");
+		#endif
 
-			}
-			else
-			{
-				teleport_level(target_ptr, 0);
-			}
-			learn_trait(target_ptr, TRAIT_TELE_LEVEL);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
+		}
+		else
+		{
+		teleport_level(target_ptr, 0);
+		}
+		learn_trait(target_ptr, TRAIT_TELE_LEVEL);
+		update_smart_learn(caster_ptr, DRS_NEXUS);
+		break;
 		}
 
 		case TRAIT_PSY_SPEAR:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが光の剣を放った。", caster_name);
-#else
-			else msg_format("%^s throw a Psycho-Spear.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが光の剣を放った。", caster_name);
+		#else
+		else msg_format("%^s throw a Psycho-Spear.", caster_name);
+		#endif
 
-			dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
-			beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, TRAIT_PSY_SPEAR, learnable);
-			break;
+		dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
+		beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, TRAIT_PSY_SPEAR, learnable);
+		break;
 		}
 
 		case TRAIT_DARKNESS:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else if(can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", caster_name);
-			else msg_format("%^sが暗闇の中で手を振った。", caster_name);
-#else
-			else if(can_use_lite_area) msg_format("%^s cast a spell to light up.", caster_name);
-			else msg_format("%^s gestures in shadow.", caster_name);
-#endif
+		#ifdef JP
+		else if(can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", caster_name);
+		else msg_format("%^sが暗闇の中で手を振った。", caster_name);
+		#else
+		else if(can_use_lite_area) msg_format("%^s cast a spell to light up.", caster_name);
+		else msg_format("%^s gestures in shadow.", caster_name);
+		#endif
 
-			if(can_use_lite_area) (void)lite_area(caster_ptr, 0, 3);
-			else
-			{
-				learn_trait(target_ptr, TRAIT_DARKNESS);
-				(void)unlite_area(caster_ptr, 0, 3);
-			}
-			break;
+		if(can_use_lite_area) (void)lite_area(caster_ptr, 0, 3);
+		else
+		{
+		learn_trait(target_ptr, TRAIT_DARKNESS);
+		(void)unlite_area(caster_ptr, 0, 3);
+		}
+		break;
 		}
 
 		case TRAIT_TRAPS:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles, and then cackles evilly.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles, and then cackles evilly.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", caster_name);
-#else
-			else msg_format("%^s casts a spell and cackles evilly.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", caster_name);
+		#else
+		else msg_format("%^s casts a spell and cackles evilly.", caster_name);
+		#endif
 
-			learn_trait(target_ptr, TRAIT_TRAPS);
-			(void)trap_creation(caster_ptr, y, x);
-			break;
+		learn_trait(target_ptr, TRAIT_TRAPS);
+		(void)trap_creation(caster_ptr, y, x);
+		break;
 		}
 
 		case TRAIT_FORGET:
 		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_format("%^sがあなたの記憶を消去しようとしている。", caster_name);
-#else
-			msg_format("%^s tries to blank your mind.", caster_name);
-#endif
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		msg_format("%^sがあなたの記憶を消去しようとしている。", caster_name);
+		#else
+		msg_format("%^s tries to blank your mind.", caster_name);
+		#endif
 
 
-			if(randint0(100 + rlev/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+		if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+		{
+		#ifdef JP
+		msg_print("しかし効力を跳ね返した！");
+		#else
+		msg_print("You resist the effects!");
+		#endif
 
-			}
-			else if(lose_all_info(target_ptr))
-			{
-#ifdef JP
-				msg_print("記憶が薄れてしまった。");
-#else
-				msg_print("Your memories fade away.");
-#endif
+		}
+		else if(lose_all_info(target_ptr))
+		{
+		#ifdef JP
+		msg_print("記憶が薄れてしまった。");
+		#else
+		msg_print("Your memories fade away.");
+		#endif
 
-			}
-			learn_trait(target_ptr, TRAIT_FORGET);
-			break;
+		}
+		learn_trait(target_ptr, TRAIT_FORGET);
+		break;
 		}
 
-	case TRAIT_ANIM_DEAD:
+		case TRAIT_ANIM_DEAD:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが死者復活の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a spell to revive corpses.", caster_name);
-#endif
-			animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
-			break;
+		#ifdef JP
+		else msg_format("%^sが死者復活の呪文を唱えた。", caster_name);
+		#else
+		else msg_format("%^s casts a spell to revive corpses.", caster_name);
+		#endif
+		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
+		break;
 		}
 
 		case TRAIT_S_KIN:
 		{
-			disturb(player_ptr, 1, 0);
-			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sがダンジョンの主を召喚した。", caster_name);
-#else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons guardians of dungeons.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sは魔法で%sを召喚した。",
-					caster_name,
-					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"手下" : "仲間"));
-#else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons %s %s.",
-					caster_name, m_poss,
-					has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"minions" : "kin"));
-#endif
-			}
+		disturb(player_ptr, 1, 0);
+		if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
+		{
+		#ifdef JP
+		if(blind)
+		msg_format("%^sが何かをつぶやいた。", caster_name);
+		else
+		msg_format("%^sがダンジョンの主を召喚した。", caster_name);
+		#else
+		if(blind)
+		msg_format("%^s mumbles.", caster_name);
+		else
+		msg_format("%^s magically summons guardians of dungeons.", caster_name);
+		#endif
+		}
+		else
+		{
+		#ifdef JP
+		if(blind)
+		msg_format("%^sが何かをつぶやいた。", caster_name);
+		else
+		msg_format("%^sは魔法で%sを召喚した。",
+		caster_name,
+		(has_trait(caster_ptr, TRAIT_UNIQUE) ?
+		"手下" : "仲間"));
+		#else
+		if(blind)
+		msg_format("%^s mumbles.", caster_name);
+		else
+		msg_format("%^s magically summons %s %s.",
+		caster_name, m_poss,
+		has_trait(caster_ptr, TRAIT_UNIQUE) ?
+		"minions" : "kin"));
+		#endif
+		}
 
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_MENELDOR:
-			case SPECIES_GWAIHIR:
-			case SPECIES_THORONDOR:
-				{
-					int num = 4 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
+		switch (caster_ptr->species_idx)
+		{
+		case SPECIES_MENELDOR:
+		case SPECIES_GWAIHIR:
+		case SPECIES_THORONDOR:
+		{
+		int num = 4 + randint1(3);
+		for (k = 0; k < num; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		}
+		break;
 
-			case SPECIES_RICHARD_STOLENMAN:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
-					}
-				}
-				break;
+		case SPECIES_RICHARD_STOLENMAN:
+		{
+		int num = 2 + randint1(3);
+		for (k = 0; k < num; k++)
+		{
+		count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
+		}
+		}
+		break;
 
-			case SPECIES_SERPENT:
-			case SPECIES_ZOMBI_SERPENT:
-				{
-					int num = 2 + randint1(3);
+		case SPECIES_SERPENT:
+		case SPECIES_ZOMBI_SERPENT:
+		{
+		int num = 2 + randint1(3);
 
-					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
-					{
-#ifdef JP
-						msg_print("地面から水が吹き出した！");
-#else
-						msg_print("Water blew off from the ground!");
-#endif
-						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
-					}
+		if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
+		{
+		#ifdef JP
+		msg_print("地面から水が吹き出した！");
+		#else
+		msg_print("Water blew off from the ground!");
+		#endif
+		cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
+		}
 
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
+		for (k = 0; k < num; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		}
+		break;
 
-			case SPECIES_CALDARM:
-				{
-					int num = randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-					}
-				}
-				break;
+		case SPECIES_CALDARM:
+		{
+		int num = randint1(3);
+		for (k = 0; k < num; k++)
+		{
+		count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
+		}
+		}
+		break;
 
-			case SPECIES_LOUSY:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_LOUSE, PC_ALLOW_GROUP);
-					}
-				}
-				break;
+		case SPECIES_LOUSY:
+		{
+		int num = 2 + randint1(3);
+		for (k = 0; k < num; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_LOUSE, PC_ALLOW_GROUP);
+		}
+		}
+		break;
 
-			default:
-				//summon_kin_type = r_ptr->d_char; // Big hack 
+		default:
+		//summon_kin_type = r_ptr->d_char; // Big hack 
 
-				for (k = 0; k < 4; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_KIN, PC_ALLOW_GROUP);
-				}
-				break;
-			}
-#ifdef JP
-			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear many things appear nearby.");
-#endif
+		for (k = 0; k < 4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_KIN, PC_ALLOW_GROUP);
+		}
+		break;
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_CYBER:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがサイバーデーモンを召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons Cyberdemons!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがサイバーデーモンを召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons Cyberdemons!", caster_name);
+		#endif
 
-#ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
-#endif
+		#ifdef JP
+		if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
+		#else
+		if(blind && count) msg_print("You hear heavy steps nearby.");
+		#endif
 
-			summon_cyber(caster_ptr, y, x);
-			break;
+		summon_cyber(caster_ptr, y, x);
+		break;
 		}
 
 		case TRAIT_S_MONSTER:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法で仲間を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons help!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法で仲間を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons help!", caster_name);
+		#endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-#ifdef JP
-			if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear something appear nearby.");
-#endif
+		for (k = 0; k < 1; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		#ifdef JP
+		if(blind && count) msg_print("何かが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear something appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_MONSTERS:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法でクリーチャーを召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons creatures!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法でクリーチャーを召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons creatures!", caster_name);
+		#endif
 
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-#ifdef JP
-			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear many things appear nearby.");
-#endif
+		for (k = 0; k < s_num_6; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_ANT:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法でアリを召喚した。", caster_name);
-#else
-			else msg_format("%^s magically summons ants.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法でアリを召喚した。", caster_name);
+		#else
+		else msg_format("%^s magically summons ants.", caster_name);
+		#endif
 
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANT, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear many things appear nearby.");
-#endif
+		for (k = 0; k < s_num_6; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_SPIDER:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法でクモを召喚した。", caster_name);
-#else
-			else msg_format("%^s magically summons spiders.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法でクモを召喚した。", caster_name);
+		#else
+		else msg_format("%^s magically summons spiders.", caster_name);
+		#endif
 
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_SPIDER, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear many things appear nearby.");
-#endif
+		for (k = 0; k < s_num_6; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_SPIDER, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_HOUND:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法でハウンドを召喚した。", caster_name);
-#else
-			else msg_format("%^s magically summons hounds.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法でハウンドを召喚した。", caster_name);
+		#else
+		else msg_format("%^s magically summons hounds.", caster_name);
+		#endif
 
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HOUND, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear many things appear nearby.");
-#endif
+		for (k = 0; k < s_num_4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HOUND, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_HYDRA:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法でヒドラを召喚した。", caster_name);
-#else
-			else msg_format("%^s magically summons hydras.", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法でヒドラを召喚した。", caster_name);
+		#else
+		else msg_format("%^s magically summons hydras.", caster_name);
+		#endif
 
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HYDRA, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear many things appear nearby.");
-#endif
+		for (k = 0; k < s_num_4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear many things appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_ANGEL:
 		{
-			int num = 1;
+		int num = 1;
 
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法で天使を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons an angel!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法で天使を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons an angel!", caster_name);
+		#endif
 
-			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
-			{
-				num += r_ptr->level/40;
-			}
+		if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+		{
+		num += r_ptr->level/40;
+		}
 
-			for (k = 0; k < num; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANGEL, PC_ALLOW_GROUP);
-			}
+		for (k = 0; k < num; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
+		}
 
-			if(count < 2)
-			{
-#ifdef JP
-				if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-				if(blind && count) msg_print("You hear something appear nearby.");
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_print("多くのものが間近に現れた音がする。");
-#else
-				if(blind) msg_print("You hear many things appear nearby.");
-#endif
-			}
+		if(count < 2)
+		{
+		#ifdef JP
+		if(blind && count) msg_print("何かが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear something appear nearby.");
+		#endif
+		}
+		else
+		{
+		#ifdef JP
+		if(blind) msg_print("多くのものが間近に現れた音がする。");
+		#else
+		if(blind) msg_print("You hear many things appear nearby.");
+		#endif
+		}
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_DEMON:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons a demon from the Courts of Chaos!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons a demon from the Courts of Chaos!", caster_name);
+		#endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DEMON, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear something appear nearby.");
-#endif
+		for (k = 0; k < 1; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DEMON, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("何かが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear something appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 
 		case TRAIT_S_DRAGON:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法でドラゴンを召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons a dragon!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法でドラゴンを召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons a dragon!", caster_name);
+		#endif
 
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DRAGON, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear something appear nearby.");
-#endif
+		for (k = 0; k < 1; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
+		}
+		#ifdef JP
+		if(blind && count) msg_print("何かが間近に現れた音がする。");
+		#else
+		if(blind && count) msg_print("You hear something appear nearby.");
+		#endif
 
-			break;
+		break;
 		}
 
 		case TRAIT_S_HI_UNDEAD:
 		{
-			disturb(player_ptr, 1, 0);
+		disturb(player_ptr, 1, 0);
 
-			if(((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
-			{
-				int cy = y;
-				int cx = x;
+		if(((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
+		{
+		int cy = y;
+		int cx = x;
 
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-				else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", caster_name);
-#else
-				else msg_format("%^s magically summons rangers of Nazgul!", caster_name);
-#endif
-				msg_print(NULL);
+		#ifdef JP
+		else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons rangers of Nazgul!", caster_name);
+		#endif
+		msg_print(NULL);
 
-				for (k = 0; k < 30; k++)
-				{
-					if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
-					{
-						int j;
-						for (j = 100; j > 0; j--)
-						{
-							scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
-							if(cave_empty_bold(floor_ptr, cy, cx)) break;
-						}
-						if(!j) break;
-					}
-					if(!cave_empty_bold(floor_ptr, cy, cx)) continue;
+		for (k = 0; k < 30; k++)
+		{
+		if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
+		{
+		int j;
+		for (j = 100; j > 0; j--)
+		{
+		scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
+		if(cave_empty_bold(floor_ptr, cy, cx)) break;
+		}
+		if(!j) break;
+		}
+		if(!cave_empty_bold(floor_ptr, cy, cx)) continue;
 
-					if(summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
-					{
-						y = cy;
-						x = cx;
-						count++;
-						if(count == 1)
-#ifdef JP
-							msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
-#else
-							msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
-#endif
-						else
-#ifdef JP
-							msg_format("「同じく%d号、ナズグル・ブラック！」", count);
-#else
-							msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
-#endif
-						msg_print(NULL);
-					}
-				}
-#ifdef JP
-				msg_format("「%d人そろって、リングレンジャー！」", count);
-#else
-				msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
-#endif
-				msg_print(NULL);
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		if(summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
+		{
+		y = cy;
+		x = cx;
+		count++;
+		if(count == 1)
+		#ifdef JP
+		msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
+		#else
+		msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
+		#endif
+		else
+		#ifdef JP
+		msg_format("「同じく%d号、ナズグル・ブラック！」", count);
+		#else
+		msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
+		#endif
+		msg_print(NULL);
+		}
+		}
+		#ifdef JP
+		msg_format("「%d人そろって、リングレンジャー！」", count);
+		#else
+		msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
+		#endif
+		msg_print(NULL);
+		}
+		else
+		{
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-				else msg_format("%^sが魔法で強力なアンデッドを召喚した！", caster_name);
-#else
-				else msg_format("%^s magically summons greater undead!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法で強力なアンデッドを召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons greater undead!", caster_name);
+		#endif
 
-				for (k = 0; k < s_num_6; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-				}
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("間近で何か多くのものが這い回る音が聞こえる。");
-#else
-				msg_print("You hear many creepy things appear nearby.");
-#endif
+		for (k = 0; k < s_num_6; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		}
+		if(blind && count)
+		{
+		#ifdef JP
+		msg_print("間近で何か多くのものが這い回る音が聞こえる。");
+		#else
+		msg_print("You hear many creepy things appear nearby.");
+		#endif
 
-			}
-			break;
+		}
+		break;
 		}
 
 		case TRAIT_S_HI_DRAGON:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons ancient dragons!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sが魔法で古代ドラゴンを召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons ancient dragons!", caster_name);
+		#endif
 
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("多くの力強いものが間近に現れた音が聞こえる。");
-#else
-				msg_print("You hear many powerful things appear nearby.");
-#endif
+		for (k = 0; k < s_num_4; k++)
+		{
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		if(blind && count)
+		{
+		#ifdef JP
+		msg_print("多くの力強いものが間近に現れた音が聞こえる。");
+		#else
+		msg_print("You hear many powerful things appear nearby.");
+		#endif
 
-			}
-			break;
+		}
+		break;
 		}
 
 		case TRAIT_S_AMBERITES:
 		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		disturb(player_ptr, 1, 0);
+		#ifdef JP
+		if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+		#else
+		if(blind) msg_format("%^s mumbles.", caster_name);
+		#endif
 
-#ifdef JP
-			else msg_format("%^sがアンバーの王族を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons Lords of Amber!", caster_name);
-#endif
+		#ifdef JP
+		else msg_format("%^sがアンバーの王族を召喚した！", caster_name);
+		#else
+		else msg_format("%^s magically summons Lords of Amber!", caster_name);
+		#endif
 
 
 
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("不死の者が近くに現れるのが聞こえた。");
-#else
-				msg_print("You hear immortal beings appear nearby.");
-#endif
-
-			}
-			break;
-		}
-
-		case TRAIT_S_UNIQUE:
+		for (k = 0; k < s_num_4; k++)
 		{
-			bool uniques_are_summoned = FALSE;
-			int non_unique_type = SUMMON_HI_UNDEAD;
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		}
+		if(blind && count)
+		{
+		#ifdef JP
+		msg_print("不死の者が近くに現れるのが聞こえた。");
+		#else
+		msg_print("You hear immortal beings appear nearby.");
+		#endif
 
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
+		}
+		break;
+		}
+		*/
 
-#ifdef JP
-			else msg_format("%^sが魔法で特別な強敵を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons special opponents!", caster_name);
-#endif
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-
-			if(count) uniques_are_summoned = TRUE;
-
-			if((caster_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
-				non_unique_type = 0;
-			else if(caster_ptr->sub_align & SUB_ALIGN_GOOD)
-				non_unique_type = SUMMON_ANGEL;
-
-			for (k = count; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-
-			if(blind && count)
-			{
-#ifdef JP
-				msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
-#else
-				msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
-#endif
-			}
-			break;
-
-			*/
 
 #if 0
-		case TRAIT_SHRIEK:
+	case TRAIT_SHRIEK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-msg_format("%^sがかん高い金切り声をあげた。", m_name);
+			msg_format("%^sがかん高い金切り声をあげた。", target_name);
 #else
-			msg_format("%^s makes a high pitched shriek.", m_name);
+			msg_format("%^s makes a high pitched shriek.", target_name);
 #endif
 
 			aggravate_creatures(caster_ptr);
 			break;
 		}
 
-		case TRAIT_DISPEL:
+	case TRAIT_DISPEL:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
-			else msg_format("%^sが魔力消去の呪文を念じた。", m_name);
+			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
+			else msg_format("%^sが魔力消去の呪文を念じた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles powerfully.", m_name);
-			else msg_format("%^s invokes a dispel magic.", m_name);
+			if(blind) msg_format("%^s mumbles powerfully.", target_name);
+			else msg_format("%^s invokes a dispel magic.", target_name);
 #endif
 			dispel_creature(target_ptr);
 			if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
@@ -5688,20 +5783,20 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 		}
 
 
-		case TRAIT_SHOOT:
+	case TRAIT_SHOOT:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが奇妙な音を発した。", m_name);
+			if(blind) msg_format("%^sが奇妙な音を発した。", target_name);
 #else
-			if(blind) msg_format("%^s makes a strange noise.", m_name);
+			if(blind) msg_format("%^s makes a strange noise.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが矢を放った。", m_name);
+			else msg_format("%^sが矢を放った。", target_name);
 #else
-			else msg_format("%^s fires an arrow.", m_name);
+			else msg_format("%^s fires an arrow.", target_name);
 #endif
 
 			//TODO Fix damage calc.
@@ -5711,19 +5806,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_ACID:
+	case TRAIT_BR_ACID:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが酸のブレスを吐いた。", m_name);
+			else msg_format("%^sが酸のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes acid.", m_name);
+			else msg_format("%^s breathes acid.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
@@ -5732,19 +5827,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_ELEC:
+	case TRAIT_BR_ELEC:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが稲妻のブレスを吐いた。", m_name);
+			else msg_format("%^sが稲妻のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes lightning.", m_name);
+			else msg_format("%^s breathes lightning.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
@@ -5753,19 +5848,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_FIRE:
+	case TRAIT_BR_FIRE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが火炎のブレスを吐いた。", m_name);
+			else msg_format("%^sが火炎のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes fire.", m_name);
+			else msg_format("%^s breathes fire.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
@@ -5774,19 +5869,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_COLD:
+	case TRAIT_BR_COLD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが冷気のブレスを吐いた。", m_name);
+			else msg_format("%^sが冷気のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes frost.", m_name);
+			else msg_format("%^s breathes frost.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
@@ -5795,19 +5890,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_POIS:
+	case TRAIT_BR_POIS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがガスのブレスを吐いた。", m_name);
+			else msg_format("%^sがガスのブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes gas.", m_name);
+			else msg_format("%^s breathes gas.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
@@ -5816,19 +5911,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_NETH:
+	case TRAIT_BR_NETH:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが地獄のブレスを吐いた。", m_name);
+			else msg_format("%^sが地獄のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes nether.", m_name);
+			else msg_format("%^s breathes nether.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
@@ -5837,19 +5932,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_LITE:
+	case TRAIT_BR_LITE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが閃光のブレスを吐いた。", m_name);
+			else msg_format("%^sが閃光のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes light.", m_name);
+			else msg_format("%^s breathes light.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
@@ -5858,19 +5953,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_DARK:
+	case TRAIT_BR_DARK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが暗黒のブレスを吐いた。", m_name);
+			else msg_format("%^sが暗黒のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes darkness.", m_name);
+			else msg_format("%^s breathes darkness.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
@@ -5879,19 +5974,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_CONF:
+	case TRAIT_BR_CONF:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが混乱のブレスを吐いた。", m_name);
+			else msg_format("%^sが混乱のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes confusion.", m_name);
+			else msg_format("%^s breathes confusion.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
@@ -5900,7 +5995,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_SOUN:
+	case TRAIT_BR_SOUN:
 		{
 			disturb(player_ptr, 1, 0);
 			if(caster_ptr->species_idx == SPECIES_JAIAN)
@@ -5910,15 +6005,15 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 				msg_format("'Booooeeeeee'");
 #endif
 #ifdef JP
-				else if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			else if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-				else if(blind) msg_format("%^s breathes.", m_name);
+			else if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが轟音のブレスを吐いた。", m_name);
+			else msg_format("%^sが轟音のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes sound.", m_name);
+			else msg_format("%^s breathes sound.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
@@ -5927,19 +6022,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_CHAO:
+	case TRAIT_BR_CHAO:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがカオスのブレスを吐いた。", m_name);
+			else msg_format("%^sがカオスのブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes chaos.", m_name);
+			else msg_format("%^s breathes chaos.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
@@ -5948,19 +6043,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_DISE:
+	case TRAIT_BR_DISE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが劣化のブレスを吐いた。", m_name);
+			else msg_format("%^sが劣化のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes disenchantment.", m_name);
+			else msg_format("%^s breathes disenchantment.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
@@ -5969,19 +6064,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_NEXU:
+	case TRAIT_BR_NEXU:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが因果混乱のブレスを吐いた。", m_name);
+			else msg_format("%^sが因果混乱のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes nexus.", m_name);
+			else msg_format("%^s breathes nexus.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
@@ -5990,19 +6085,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_TIME:
+	case TRAIT_BR_TIME:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが時間逆転のブレスを吐いた。", m_name);
+			else msg_format("%^sが時間逆転のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes time.", m_name);
+			else msg_format("%^s breathes time.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
@@ -6010,19 +6105,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_INER:
+	case TRAIT_BR_INER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが遅鈍のブレスを吐いた。", m_name);
+			else msg_format("%^sが遅鈍のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes inertia.", m_name);
+			else msg_format("%^s breathes inertia.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
@@ -6030,19 +6125,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_GRAV:
+	case TRAIT_BR_GRAV:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが重力のブレスを吐いた。", m_name);
+			else msg_format("%^sが重力のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes gravity.", m_name);
+			else msg_format("%^s breathes gravity.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
@@ -6050,7 +6145,7 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_SHAR:
+	case TRAIT_BR_SHAR:
 		{
 			disturb(player_ptr, 1, 0);
 			if(caster_ptr->species_idx == SPECIES_BOTEI)
@@ -6060,15 +6155,15 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 				msg_format("'Boty-Build cutter!!!'");
 #endif
 #ifdef JP
-			else if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			else if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			else if(blind) msg_format("%^s breathes.", m_name);
+			else if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが破片のブレスを吐いた。", m_name);
+			else msg_format("%^sが破片のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes shards.", m_name);
+			else msg_format("%^s breathes shards.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
@@ -6077,19 +6172,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_PLAS:
+	case TRAIT_BR_PLAS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがプラズマのブレスを吐いた。", m_name);
+			else msg_format("%^sがプラズマのブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes plasma.", m_name);
+			else msg_format("%^s breathes plasma.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
@@ -6097,19 +6192,19 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_WALL:
+	case TRAIT_BR_WALL:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがフォースのブレスを吐いた。", m_name);
+			else msg_format("%^sがフォースのブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes force.", m_name);
+			else msg_format("%^s breathes force.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
@@ -6117,59 +6212,59 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BR_MANA:
+	case TRAIT_BR_MANA:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔力のブレスを吐いた。", m_name);
+			else msg_format("%^sが魔力のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes mana.", m_name);
+			else msg_format("%^s breathes mana.", target_name);
 #endif
 			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
 			breath(y, x, caster_ptr, GF_MANA, dam,0, TRUE, TRAIT_BR_MANA, learnable);
 			break;
 		}
 
-		case TRAIT_BA_NUKE:
+	case TRAIT_BA_NUKE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが放射能球を放った。", m_name);
+			else msg_format("%^sが放射能球を放った。", target_name);
 #else
-			else msg_format("%^s casts a ball of radiation.", m_name);
+			else msg_format("%^s casts a ball of radiation.", target_name);
 #endif
 
-			dam = (rlev + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, TRAIT_BA_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
 
-		case TRAIT_BR_NUKE:
+	case TRAIT_BR_NUKE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが放射性廃棄物のブレスを吐いた。", m_name);
+			else msg_format("%^sが放射性廃棄物のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes toxic waste.", m_name);
+			else msg_format("%^s breathes toxic waste.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
@@ -6178,40 +6273,40 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 			break;
 		}
 
-		case TRAIT_BA_CHAO:
+	case TRAIT_BA_CHAO:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが恐ろしげにつぶやいた。", m_name);
+			if(blind) msg_format("%^sが恐ろしげにつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles frighteningly.", m_name);
+			if(blind) msg_format("%^s mumbles frighteningly.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが純ログルスを放った。", m_name);
+			else msg_format("%^sが純ログルスを放った。", target_name);
 #else
-			else msg_format("%^s invokes a raw Logrus.", m_name);
+			else msg_format("%^s invokes a raw Logrus.", target_name);
 #endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (rlev * 3) : (rlev * 2))+ diceroll(10, 10);
+			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, TRAIT_BA_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
 
-		case TRAIT_BR_DISI:
+	case TRAIT_BR_DISI:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", m_name);
+			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
 #else
-			if(blind) msg_format("%^s breathes.", m_name);
+			if(blind) msg_format("%^s breathes.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが分解のブレスを吐いた。", m_name);
+			else msg_format("%^sが分解のブレスを吐いた。", target_name);
 #else
-			else msg_format("%^s breathes disintegration.", m_name);
+			else msg_format("%^s breathes disintegration.", target_name);
 #endif
 
 			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
@@ -6220,49 +6315,49 @@ msg_format("%^sがかん高い金切り声をあげた。", m_name);
 		}
 
 
-		case TRAIT_BA_ACID:
+	case TRAIT_BA_ACID:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがアシッド・ボールの呪文を唱えた。", m_name);
+			else msg_format("%^sがアシッド・ボールの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts an acid ball.", m_name);
+			else msg_format("%^s casts an acid ball.", target_name);
 #endif
 
-			dam = (randint1(rlev * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, TRAIT_BA_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
 
-		case TRAIT_BA_ELEC:
+	case TRAIT_BA_ELEC:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name);
+			else msg_format("%^sがサンダー・ボールの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a lightning ball.", m_name);
+			else msg_format("%^s casts a lightning ball.", target_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, TRAIT_BA_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
 
-		case TRAIT_BA_FIRE:
+	case TRAIT_BA_FIRE:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -6270,71 +6365,71 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			{
 #ifdef JP
 				if(blind)
-					msg_format("%sが何かを投げた。", m_name);
+					msg_format("%sが何かを投げた。", target_name);
 				else 
-					msg_format("%sは手榴弾を投げた。", m_name);
+					msg_format("%sは手榴弾を投げた。", target_name);
 #else
 				if(blind)
-					msg_format("%^s throws something.", m_name);
+					msg_format("%^s throws something.", target_name);
 				else
-					msg_format("%^s throws a hand grenade.", m_name);
+					msg_format("%^s throws a hand grenade.", target_name);
 #endif
 			}
 			else
 			{
 #ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+				if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-				if(blind) msg_format("%^s mumbles.", m_name);
+				if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-				else msg_format("%^sがファイア・ボールの呪文を唱えた。", m_name);
+				else msg_format("%^sがファイア・ボールの呪文を唱えた。", target_name);
 #else
-				else msg_format("%^s casts a fire ball.", m_name);
+				else msg_format("%^s casts a fire ball.", target_name);
 #endif
 			}
 
-			dam = (randint1(rlev * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, TRAIT_BA_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			break;
 		}
 
-		case TRAIT_BA_COLD:
+	case TRAIT_BA_COLD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがアイス・ボールの呪文を唱えた。", m_name);
+			else msg_format("%^sがアイス・ボールの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a frost ball.", m_name);
+			else msg_format("%^s casts a frost ball.", target_name);
 #endif
 
-			dam = (randint1(rlev * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, TRAIT_BA_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
 
-		case TRAIT_BA_POIS:
+	case TRAIT_BA_POIS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが悪臭雲の呪文を唱えた。", m_name);
+			else msg_format("%^sが悪臭雲の呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a stinking cloud.", m_name);
+			else msg_format("%^s casts a stinking cloud.", target_name);
 #endif
 
 			dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
@@ -6343,40 +6438,40 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_BA_NETH:
+	case TRAIT_BA_NETH:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが地獄球の呪文を唱えた。", m_name);
+			else msg_format("%^sが地獄球の呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a nether ball.", m_name);
+			else msg_format("%^s casts a nether ball.", target_name);
 #endif
 
-			dam = 50 + diceroll(10, 10) + (rlev * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
+			dam = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
 			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, TRAIT_BA_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
 
-		case TRAIT_BA_WATE:
+	case TRAIT_BA_WATE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが流れるような身振りをした。", m_name);
+			else msg_format("%^sが流れるような身振りをした。", target_name);
 #else
-			else msg_format("%^s gestures fluidly.", m_name);
+			else msg_format("%^s gestures fluidly.", target_name);
 #endif
 
 #ifdef JP
@@ -6385,64 +6480,64 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			msg_print("You are engulfed in a whirlpool.");
 #endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(rlev * 3) : randint1(rlev * 2)) + 50;
+			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
 			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, TRAIT_BA_WATE, learnable);
 			break;
 		}
 
-		case TRAIT_BA_MANA:
+	case TRAIT_BA_MANA:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles powerfully.", m_name);
+			if(blind) msg_format("%^s mumbles powerfully.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔力の嵐の呪文を念じた。", m_name);
+			else msg_format("%^sが魔力の嵐の呪文を念じた。", target_name);
 #else
-			else msg_format("%^s invokes a mana storm.", m_name);
+			else msg_format("%^s invokes a mana storm.", target_name);
 #endif
 
-			dam = (rlev * 4) + 50 + diceroll(10, 10);
+			dam = (user_level * 4) + 50 + diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, TRAIT_BA_MANA, learnable);
 			break;
 		}
 
-		case TRAIT_BA_DARK:
+	case TRAIT_BA_DARK:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles powerfully.", m_name);
+			if(blind) msg_format("%^s mumbles powerfully.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが暗黒の嵐の呪文を念じた。", m_name);
+			else msg_format("%^sが暗黒の嵐の呪文を念じた。", target_name);
 #else
-			else msg_format("%^s invokes a darkness storm.", m_name);
+			else msg_format("%^s invokes a darkness storm.", target_name);
 #endif
 
-			dam = (rlev * 4) + 50 + diceroll(10, 10);
+			dam = (user_level * 4) + 50 + diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, TRAIT_BA_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
 		}
 
-		case TRAIT_DRAIN_MANA:
+	case TRAIT_DRAIN_MANA:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 
-			dam = (randint1(rlev) / 2) + 1;
+			dam = (randint1(user_level) / 2) + 1;
 			breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_MANA);
 			break;
 		}
 
-		case TRAIT_MIND_BLAST:
+	case TRAIT_MIND_BLAST:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -6458,9 +6553,9 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			else
 			{
 #ifdef JP
-				msg_format("%^sがあなたの瞳をじっとにらんでいる。", m_name);
+				msg_format("%^sがあなたの瞳をじっとにらんでいる。", target_name);
 #else
-				msg_format("%^s gazes deep into your eyes.", m_name);
+				msg_format("%^s gazes deep into your eyes.", target_name);
 #endif
 
 			}
@@ -6470,7 +6565,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_BRAIN_SMASH:
+	case TRAIT_BRAIN_SMASH:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
@@ -6486,9 +6581,9 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			else
 			{
 #ifdef JP
-				msg_format("%^sがあなたの瞳をじっと見ている。", m_name);
+				msg_format("%^sがあなたの瞳をじっと見ている。", target_name);
 #else
-				msg_format("%^s looks deep into your eyes.", m_name);
+				msg_format("%^s looks deep into your eyes.", target_name);
 #endif
 
 			}
@@ -6498,20 +6593,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_CAUSE_1:
+	case TRAIT_CAUSE_1:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがあなたを指さして呪った。", m_name);
+			else msg_format("%^sがあなたを指さして呪った。", target_name);
 #else
-			else msg_format("%^s points at you and curses.", m_name);
+			else msg_format("%^s points at you and curses.", target_name);
 #endif
 
 			dam = diceroll(3, 8);
@@ -6519,20 +6614,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_CAUSE_2:
+	case TRAIT_CAUSE_2:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがあなたを指さして恐ろしげに呪った。", m_name);
+			else msg_format("%^sがあなたを指さして恐ろしげに呪った。", target_name);
 #else
-			else msg_format("%^s points at you and curses horribly.", m_name);
+			else msg_format("%^s points at you and curses horribly.", target_name);
 #endif
 
 			dam = diceroll(8, 8);
@@ -6540,20 +6635,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_CAUSE_3:
+	case TRAIT_CAUSE_3:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かを大声で叫んだ。", m_name);
+			if(blind) msg_format("%^sが何かを大声で叫んだ。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles loudly.", m_name);
+			if(blind) msg_format("%^s mumbles loudly.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", m_name);
+			else msg_format("%^sがあなたを指さして恐ろしげに呪文を唱えた！", target_name);
 #else
-			else msg_format("%^s points at you, incanting terribly!", m_name);
+			else msg_format("%^s points at you, incanting terribly!", target_name);
 #endif
 
 			dam = diceroll(10, 15);
@@ -6561,20 +6656,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_CAUSE_4:
+	case TRAIT_CAUSE_4:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", m_name);
+			if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", target_name);
 #else
-			if(blind) msg_format("%^s screams the word 'DIE!'", m_name);
+			if(blind) msg_format("%^s screams the word 'DIE!'", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", m_name);
+			else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", target_name);
 #else
-			else msg_format("%^s points at you, screaming the word DIE!", m_name);
+			else msg_format("%^s points at you, screaming the word DIE!", target_name);
 #endif
 
 			dam = diceroll(15, 15);
@@ -6582,267 +6677,267 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_BO_ACID:
+	case TRAIT_BO_ACID:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a acid bolt.", m_name);
+			else msg_format("%^s casts a acid bolt.", target_name);
 #endif
 
-			dam = (diceroll(7, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ACID, dam, TRAIT_BO_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_ELEC:
+	case TRAIT_BO_ELEC:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがサンダー・ボルトの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a lightning bolt.", m_name);
+			else msg_format("%^s casts a lightning bolt.", target_name);
 #endif
 
-			dam = (diceroll(4, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_ELEC, dam, TRAIT_BO_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_FIRE:
+	case TRAIT_BO_FIRE:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがファイア・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがファイア・ボルトの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a fire bolt.", m_name);
+			else msg_format("%^s casts a fire bolt.", target_name);
 #endif
 
-			dam = (diceroll(9, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_FIRE, dam, TRAIT_BO_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_COLD:
+	case TRAIT_BO_COLD:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがアイス・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがアイス・ボルトの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a frost bolt.", m_name);
+			else msg_format("%^s casts a frost bolt.", target_name);
 #endif
 
-			dam = (diceroll(6, 8) + (rlev / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			dam = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			bolt(caster_ptr, target_ptr, GF_COLD, dam, TRAIT_BO_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BA_LITE:
+	case TRAIT_BA_LITE:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles powerfully.", m_name);
+			if(blind) msg_format("%^s mumbles powerfully.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがスターバーストの呪文を念じた。", m_name);
+			else msg_format("%^sがスターバーストの呪文を念じた。", target_name);
 #else
-			else msg_format("%^s invokes a starburst.", m_name);
+			else msg_format("%^s invokes a starburst.", target_name);
 #endif
 
-			dam = (rlev * 4) + 50 + diceroll(10, 10);
+			dam = (user_level * 4) + 50 + diceroll(10, 10);
 			breath(y, x, caster_ptr, GF_LITE, dam, 4, FALSE, TRAIT_BA_LITE, learnable);
 			update_smart_learn(caster_ptr, DRS_LITE);
 			break;
 		}
 
-		case TRAIT_BO_NETH:
+	case TRAIT_BO_NETH:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが地獄の矢の呪文を唱えた。", m_name);
+			else msg_format("%^sが地獄の矢の呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a nether bolt.", m_name);
+			else msg_format("%^s casts a nether bolt.", target_name);
 #endif
 
-			dam = 30 + diceroll(5, 5) + (rlev * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
+			dam = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
 			bolt(caster_ptr, target_ptr, GF_NETHER, dam, TRAIT_BO_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_WATE:
+	case TRAIT_BO_WATE:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a water bolt.", m_name);
+			else msg_format("%^s casts a water bolt.", target_name);
 #endif
 
-			dam = diceroll(10, 10) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			dam = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_WATER, dam, TRAIT_BO_WATE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_MANA:
+	case TRAIT_BO_MANA:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔力の矢の呪文を唱えた。", m_name);
+			else msg_format("%^sが魔力の矢の呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a mana bolt.", m_name);
+			else msg_format("%^s casts a mana bolt.", target_name);
 #endif
 
-			dam = randint1(rlev * 7 / 2) + 50;
+			dam = randint1(user_level * 7 / 2) + 50;
 			bolt(caster_ptr, target_ptr, GF_MANA, dam, TRAIT_BO_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_PLAS:
+	case TRAIT_BO_PLAS:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", m_name);
+			else msg_format("%^sがプラズマ・ボルトの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a plasma bolt.", m_name);
+			else msg_format("%^s casts a plasma bolt.", target_name);
 #endif
 
-			dam = 10 + diceroll(8, 7) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			dam = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, TRAIT_BO_PLAS, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_BO_ICEE:
+	case TRAIT_BO_ICEE:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが極寒の矢の呪文を唱えた。", m_name);
+			else msg_format("%^sが極寒の矢の呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts an ice bolt.", m_name);
+			else msg_format("%^s casts an ice bolt.", target_name);
 #endif
 
-			dam = diceroll(6, 6) + (rlev * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			dam = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
 			bolt(caster_ptr, target_ptr, GF_ICE, dam, TRAIT_BO_ICEE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_MISSILE:
+	case TRAIT_MISSILE:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", m_name);
+			else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a magic missile.", m_name);
+			else msg_format("%^s casts a magic missile.", target_name);
 #endif
 
-			dam = diceroll(2, 6) + (rlev / 3);
+			dam = diceroll(2, 6) + (user_level / 3);
 			bolt(caster_ptr, target_ptr, GF_MISSILE, dam, TRAIT_MISSILE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
-		case TRAIT_SCARE:
+	case TRAIT_SCARE:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles, and you hear scary noises.", m_name);
+			if(blind) msg_format("%^s mumbles, and you hear scary noises.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが恐ろしげな幻覚を作り出した。", m_name);
+			else msg_format("%^sが恐ろしげな幻覚を作り出した。", target_name);
 #else
-			else msg_format("%^s casts a fearful illusion.", m_name);
+			else msg_format("%^s casts a fearful illusion.", target_name);
 #endif
 
 			if(has_trait(target_ptr, TRAIT_FEARLESS))
@@ -6854,7 +6949,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 #endif
 
 			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_print("しかし恐怖に侵されなかった。");
@@ -6872,20 +6967,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_BLIND:
+	case TRAIT_BLIND:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが呪文を唱えてあなたの目をくらました！", m_name);
+			else msg_format("%^sが呪文を唱えてあなたの目をくらました！", target_name);
 #else
-			else msg_format("%^s casts a spell, burning your eyes!", m_name);
+			else msg_format("%^s casts a spell, burning your eyes!", target_name);
 #endif
 
 			if(has_trait(target_ptr, TRAIT_NO_BLIND))
@@ -6897,7 +6992,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 #endif
 
 			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -6915,20 +7010,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_CONF:
+	case TRAIT_CONF:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles, and you hear puzzling noises.", m_name);
+			if(blind) msg_format("%^s mumbles, and you hear puzzling noises.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが誘惑的な幻覚を作り出した。", m_name);
+			else msg_format("%^sが誘惑的な幻覚を作り出した。", target_name);
 #else
-			else msg_format("%^s creates a mesmerising illusion.", m_name);
+			else msg_format("%^s creates a mesmerising illusion.", target_name);
 #endif
 
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -6940,7 +7035,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 #endif
 
 			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_print("しかし幻覚にはだまされなかった。");
@@ -6958,14 +7053,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_SLOW:
+	case TRAIT_SLOW:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			msg_format("%^sがあなたの筋力を吸い取ろうとした！", m_name);
+			msg_format("%^sがあなたの筋力を吸い取ろうとした！", target_name);
 #else
-			msg_format("%^s drains power from your muscles!", m_name);
+			msg_format("%^s drains power from your muscles!", target_name);
 #endif
 
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
@@ -6977,7 +7072,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 #endif
 
 			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -6995,20 +7090,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_HOLD:
+	case TRAIT_HOLD:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがあなたの目をじっと見つめた！", m_name);
+			else msg_format("%^sがあなたの目をじっと見つめた！", target_name);
 #else
-			else msg_format("%^s stares deep into your eyes!", m_name);
+			else msg_format("%^s stares deep into your eyes!", target_name);
 #endif
 
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
@@ -7020,7 +7115,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 #endif
 
 			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_format("しかし効力を跳ね返した！");
@@ -7038,24 +7133,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_HASTE:
+	case TRAIT_HASTE:
 		{
 			disturb(player_ptr, 1, 0);
 			if(blind)
 			{
 #ifdef JP
-				msg_format("%^sが何かをつぶやいた。", m_name);
+				msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-				msg_format("%^s mumbles.", m_name);
+				msg_format("%^s mumbles.", target_name);
 #endif
 
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%^sが自分の体に念を送った。", m_name);
+				msg_format("%^sが自分の体に念を送った。", target_name);
 #else
-				msg_format("%^s concentrates on %s body.", m_name, m_poss);
+				msg_format("%^s concentrates on %s body.", target_name, m_poss);
 #endif
 
 			}
@@ -7064,29 +7159,29 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100))
 			{
 #ifdef JP
-				msg_format("%^sの動きが速くなった。", m_name);
+				msg_format("%^sの動きが速くなった。", target_name);
 #else
-				msg_format("%^s starts moving faster.", m_name);
+				msg_format("%^s starts moving faster.", target_name);
 #endif
 			}
 			break;
 		}
 
-		case TRAIT_HAND_DOOM:
+	case TRAIT_HAND_DOOM:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			msg_format("%^sが<破滅の手>を放った！", m_name);
+			msg_format("%^sが<破滅の手>を放った！", target_name);
 #else
-			msg_format("%^s invokes the Hand of Doom!", m_name);
+			msg_format("%^s invokes the Hand of Doom!", target_name);
 #endif
 			dam = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
 			breath(y, x, caster_ptr, GF_HAND_DOOM, dam, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
 
-		case TRAIT_HEAL:
+	case TRAIT_HEAL:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -7094,24 +7189,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			if(blind)
 			{
 #ifdef JP
-				msg_format("%^sが何かをつぶやいた。", m_name);
+				msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-				msg_format("%^s mumbles.", m_name);
+				msg_format("%^s mumbles.", target_name);
 #endif
 
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%^sが自分の傷に集中した。", m_name);
+				msg_format("%^sが自分の傷に集中した。", target_name);
 #else
-				msg_format("%^s concentrates on %s wounds.", m_name, m_poss);
+				msg_format("%^s concentrates on %s wounds.", target_name, m_poss);
 #endif
 
 			}
 
 			/* Heal some */
-			caster_ptr->chp += (rlev * 6);
+			caster_ptr->chp += (user_level * 6);
 
 			/* Fully healed */
 			if(caster_ptr->chp >= caster_ptr->mhp)
@@ -7123,18 +7218,18 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 				if(seen)
 				{
 #ifdef JP
-					msg_format("%^sは完全に治った！", m_name);
+					msg_format("%^sは完全に治った！", target_name);
 #else
-					msg_format("%^s looks completely healed!", m_name);
+					msg_format("%^s looks completely healed!", target_name);
 #endif
 
 				}
 				else
 				{
 #ifdef JP
-					msg_format("%^sは完全に治ったようだ！", m_name);
+					msg_format("%^sは完全に治ったようだ！", target_name);
 #else
-					msg_format("%^s sounds completely healed!", m_name);
+					msg_format("%^s sounds completely healed!", target_name);
 #endif
 
 				}
@@ -7147,18 +7242,18 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 				if(seen)
 				{
 #ifdef JP
-					msg_format("%^sは体力を回復したようだ。", m_name);
+					msg_format("%^sは体力を回復したようだ。", target_name);
 #else
-					msg_format("%^s looks healthier.", m_name);
+					msg_format("%^s looks healthier.", target_name);
 #endif
 
 				}
 				else
 				{
 #ifdef JP
-					msg_format("%^sは体力を回復したようだ。", m_name);
+					msg_format("%^sは体力を回復したようだ。", target_name);
 #else
-					msg_format("%^s sounds healthier.", m_name);
+					msg_format("%^s sounds healthier.", target_name);
 #endif
 
 				}
@@ -7176,15 +7271,15 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 
 				/* Message */
 #ifdef JP
-				msg_format("%^sは勇気を取り戻した。", m_name);
+				msg_format("%^sは勇気を取り戻した。", target_name);
 #else
-				msg_format("%^s recovers %s courage.", m_name, m_poss);
+				msg_format("%^s recovers %s courage.", target_name, m_poss);
 #endif
 			}
 			break;
 		}
 
-		case TRAIT_INVULNER:
+	case TRAIT_INVULNER:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -7192,18 +7287,18 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			if(!seen)
 			{
 #ifdef JP
-				msg_format("%^sが何かを力強くつぶやいた。", m_name);
+				msg_format("%^sが何かを力強くつぶやいた。", target_name);
 #else
-				msg_format("%^s mumbles powerfully.", m_name);
+				msg_format("%^s mumbles powerfully.", target_name);
 #endif
 
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%sは無傷の球の呪文を唱えた。", m_name);
+				msg_format("%sは無傷の球の呪文を唱えた。", target_name);
 #else
-				msg_format("%^s casts a Globe of Invulnerability.", m_name);
+				msg_format("%^s casts a Globe of Invulnerability.", target_name);
 #endif
 
 			}
@@ -7212,23 +7307,23 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_BLINK:
+	case TRAIT_BLINK:
 		{
 			disturb(player_ptr, 1, 0);
 			if(teleport_barrier(target_ptr, caster_ptr))
 			{
 #ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", m_name);
+				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
 #else
-				msg_format("Magic barrier obstructs teleporting of %^s.", m_name);
+				msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
 #endif
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%^sが瞬時に消えた。", m_name);
+				msg_format("%^sが瞬時に消えた。", target_name);
 #else
-				msg_format("%^s blinks away.", m_name);
+				msg_format("%^s blinks away.", target_name);
 #endif
 				teleport_away(caster_ptr, 10, 0L);
 				update |= (PU_MONSTERS);
@@ -7236,30 +7331,30 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_ACTIVE_TELEPORT:
+	case TRAIT_ACTIVE_TELEPORT:
 		{
 			disturb(player_ptr, 1, 0);
 			if(teleport_barrier(target_ptr, caster_ptr))
 			{
 #ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", m_name);
+				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
 #else
-				msg_format("Magic barrier obstructs teleporting of %^s.", m_name);
+				msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
 #endif
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%^sがテレポートした。", m_name);
+				msg_format("%^sがテレポートした。", target_name);
 #else
-				msg_format("%^s teleports away.", m_name);
+				msg_format("%^s teleports away.", target_name);
 #endif
 				teleport_away_followable(caster_ptr);
 			}
 			break;
 		}
 
-		case TRAIT_WORLD:
+	case TRAIT_WORLD:
 		{
 			int who = 0;
 			disturb(player_ptr, 1, 0);
@@ -7270,7 +7365,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_SPECIAL:
+	case TRAIT_SPECIAL:
 		{
 			int k;
 
@@ -7344,11 +7439,11 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 
 			case SPECIES_ROLENTO:
 #ifdef JP
-				if(blind) msg_format("%^sが何か大量に投げた。", m_name);
-				else msg_format("%^sは手榴弾をばらまいた。", m_name);
+				if(blind) msg_format("%^sが何か大量に投げた。", target_name);
+				else msg_format("%^sは手榴弾をばらまいた。", target_name);
 #else
-				if(blind) msg_format("%^s spreads something.", m_name);
-				else msg_format("%^s throws some hand grenades.", m_name);
+				if(blind) msg_format("%^s spreads something.", target_name);
+				else msg_format("%^s throws some hand grenades.", target_name);
 #endif
 
 				{
@@ -7373,9 +7468,9 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 					if(one_in_(3) || !direct)
 					{
 #ifdef JP
-						msg_format("%^sは突然視界から消えた!", m_name);
+						msg_format("%^sは突然視界から消えた!", target_name);
 #else
-						msg_format("%^s suddenly go out of your sight!", m_name);
+						msg_format("%^s suddenly go out of your sight!", target_name);
 #endif
 						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
 						update |= (PU_MONSTERS);
@@ -7385,9 +7480,9 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 						int get_damage = 0;
 
 #ifdef JP
-						msg_format("%^sがあなたを掴んで空中から投げ落とした。", m_name);
+						msg_format("%^sがあなたを掴んで空中から投げ落とした。", target_name);
 #else
-						msg_format("%^s holds you, and drops from the sky.", m_name);
+						msg_format("%^s holds you, and drops from the sky.", target_name);
 #endif
 						dam = diceroll(4, 8);
 						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
@@ -7413,20 +7508,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 						}
 
 						/* Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-						   -- henkma
-						 */
-						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, m_name, NULL, -1);
+						-- henkma
+						*/
+						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, target_name, NULL, -1);
 						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 						{
 #ifdef JP
-							msg_format("攻撃が%s自身を傷つけた！", m_name);
+							msg_format("攻撃が%s自身を傷つけた！", target_name);
 #else
-							char m_name_self[80];
+							char target_name_self[80];
 
 							/* hisself */
-							creature_desc(m_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+							creature_desc(target_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
 
-							msg_format("The attack of %s has wounded %s!", m_name, m_name_self);
+							msg_format("The attack of %s has wounded %s!", target_name, target_name_self);
 #endif
 							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
@@ -7443,14 +7538,14 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_TELE_TO:
+	case TRAIT_TELE_TO:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			msg_format("%^sがあなたを引き戻した。", m_name);
+			msg_format("%^sがあなたを引き戻した。", target_name);
 #else
-			msg_format("%^s commands you to return.", m_name);
+			msg_format("%^s commands you to return.", target_name);
 #endif
 
 			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
@@ -7458,19 +7553,19 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_TELE_AWAY:
+	case TRAIT_TELE_AWAY:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			msg_format("%^sにテレポートさせられた。", m_name);
+			msg_format("%^sにテレポートさせられた。", target_name);
 
 			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
 				msg_print("くっそ～");
 			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
 				msg_print("なんて事をするんだ！");
 #else
-			msg_format("%^s teleports you away.", m_name);
+			msg_format("%^s teleports you away.", target_name);
 #endif
 
 			learn_trait(target_ptr, TRAIT_TELE_AWAY);
@@ -7478,20 +7573,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_TELE_LEVEL:
+	case TRAIT_TELE_LEVEL:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles strangely.", m_name);
+			if(blind) msg_format("%^s mumbles strangely.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがあなたの足を指さした。", m_name);
+			else msg_format("%^sがあなたの足を指さした。", target_name);
 #else
-			else msg_format("%^s gestures at your feet.", m_name);
+			else msg_format("%^s gestures at your feet.", target_name);
 #endif
 
 			if(target_ptr->resist_nexus)
@@ -7503,7 +7598,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 #endif
 
 			}
-			else if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7521,43 +7616,43 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_PSY_SPEAR:
+	case TRAIT_PSY_SPEAR:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが光の剣を放った。", m_name);
+			else msg_format("%^sが光の剣を放った。", target_name);
 #else
-			else msg_format("%^s throw a Psycho-Spear.", m_name);
+			else msg_format("%^s throw a Psycho-Spear.", target_name);
 #endif
 
-			dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(rlev * 2) + 150) : (randint1(rlev * 3 / 2) + 100);
+			dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
 			beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, TRAIT_PSY_SPEAR, learnable);
 			break;
 		}
 
-		case TRAIT_DARKNESS:
+	case TRAIT_DARKNESS:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else if(can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", m_name);
-			else msg_format("%^sが暗闇の中で手を振った。", m_name);
+			else if(can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", target_name);
+			else msg_format("%^sが暗闇の中で手を振った。", target_name);
 #else
-			else if(can_use_lite_area) msg_format("%^s cast a spell to light up.", m_name);
-			else msg_format("%^s gestures in shadow.", m_name);
+			else if(can_use_lite_area) msg_format("%^s cast a spell to light up.", target_name);
+			else msg_format("%^s gestures in shadow.", target_name);
 #endif
 
 			if(can_use_lite_area) (void)lite_area(caster_ptr, 0, 3);
@@ -7569,19 +7664,19 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_TRAPS:
+	case TRAIT_TRAPS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles, and then cackles evilly.", m_name);
+			if(blind) msg_format("%^s mumbles, and then cackles evilly.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", m_name);
+			else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", target_name);
 #else
-			else msg_format("%^s casts a spell and cackles evilly.", m_name);
+			else msg_format("%^s casts a spell and cackles evilly.", target_name);
 #endif
 
 			learn_trait(target_ptr, TRAIT_TRAPS);
@@ -7589,18 +7684,18 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_FORGET:
+	case TRAIT_FORGET:
 		{
 			if(!direct) return (FALSE);
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			msg_format("%^sがあなたの記憶を消去しようとしている。", m_name);
+			msg_format("%^sがあなたの記憶を消去しようとしている。", target_name);
 #else
-			msg_format("%^s tries to blank your mind.", m_name);
+			msg_format("%^s tries to blank your mind.", target_name);
 #endif
 
 
-			if(randint0(100 + rlev/2) < target_ptr->skill_rob)
+			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
 				msg_print("しかし効力を跳ね返した！");
@@ -7626,53 +7721,53 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが死者復活の呪文を唱えた。", m_name);
+			else msg_format("%^sが死者復活の呪文を唱えた。", target_name);
 #else
-			else msg_format("%^s casts a spell to revive corpses.", m_name);
+			else msg_format("%^s casts a spell to revive corpses.", target_name);
 #endif
 			animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 			break;
 		}
 
-		case TRAIT_S_KIN:
+	case TRAIT_S_KIN:
 		{
 			disturb(player_ptr, 1, 0);
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
 			{
 #ifdef JP
 				if(blind)
-					msg_format("%^sが何かをつぶやいた。", m_name);
+					msg_format("%^sが何かをつぶやいた。", target_name);
 				else
-					msg_format("%^sがダンジョンの主を召喚した。", m_name);
+					msg_format("%^sがダンジョンの主を召喚した。", target_name);
 #else
 				if(blind)
-					msg_format("%^s mumbles.", m_name);
+					msg_format("%^s mumbles.", target_name);
 				else
-					msg_format("%^s magically summons guardians of dungeons.", m_name);
+					msg_format("%^s magically summons guardians of dungeons.", target_name);
 #endif
 			}
 			else
 			{
 #ifdef JP
 				if(blind)
-					msg_format("%^sが何かをつぶやいた。", m_name);
+					msg_format("%^sが何かをつぶやいた。", target_name);
 				else
 					msg_format("%^sは魔法で%sを召喚した。",
-					m_name,
+					target_name,
 					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
 					"手下" : "仲間"));
 #else
 				if(blind)
-					msg_format("%^s mumbles.", m_name);
+					msg_format("%^s mumbles.", target_name);
 				else
 					msg_format("%^s magically summons %s %s.",
-					m_name, m_poss,
+					target_name, m_poss,
 					has_trait(caster_ptr, TRAIT_UNIQUE) ?
 					"minions" : "kin"));
 #endif
@@ -7687,7 +7782,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 					int num = 4 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 					}
 				}
 				break;
@@ -7719,7 +7814,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 					}
 				}
 				break;
@@ -7739,7 +7834,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, rlev, SUMMON_LOUSE, PC_ALLOW_GROUP);
+						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_LOUSE, PC_ALLOW_GROUP);
 					}
 				}
 				break;
@@ -7749,7 +7844,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 
 				for (k = 0; k < 4; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_KIN, PC_ALLOW_GROUP);
+					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_KIN, PC_ALLOW_GROUP);
 				}
 				break;
 			}
@@ -7762,19 +7857,19 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_CYBER:
+	case TRAIT_S_CYBER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがサイバーデーモンを召喚した！", m_name);
+			else msg_format("%^sがサイバーデーモンを召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons Cyberdemons!", m_name);
+			else msg_format("%^s magically summons Cyberdemons!", target_name);
 #endif
 
 #ifdef JP
@@ -7787,24 +7882,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_MONSTER:
+	case TRAIT_S_MONSTER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法で仲間を召喚した！", m_name);
+			else msg_format("%^sが魔法で仲間を召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons help!", m_name);
+			else msg_format("%^s magically summons help!", target_name);
 #endif
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 #ifdef JP
 			if(blind && count) msg_print("何かが間近に現れた音がする。");
@@ -7815,24 +7910,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_MONSTERS:
+	case TRAIT_S_MONSTERS:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でクリーチャーを召喚した！", m_name);
+			else msg_format("%^sが魔法でクリーチャーを召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons creatures!", m_name);
+			else msg_format("%^s magically summons creatures!", target_name);
 #endif
 
 			for (k = 0; k < s_num_6; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 #ifdef JP
 			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -7843,24 +7938,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_ANT:
+	case TRAIT_S_ANT:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でアリを召喚した。", m_name);
+			else msg_format("%^sが魔法でアリを召喚した。", target_name);
 #else
-			else msg_format("%^s magically summons ants.", m_name);
+			else msg_format("%^s magically summons ants.", target_name);
 #endif
 
 			for (k = 0; k < s_num_6; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANT, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -7871,24 +7966,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_SPIDER:
+	case TRAIT_S_SPIDER:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でクモを召喚した。", m_name);
+			else msg_format("%^sが魔法でクモを召喚した。", target_name);
 #else
-			else msg_format("%^s magically summons spiders.", m_name);
+			else msg_format("%^s magically summons spiders.", target_name);
 #endif
 
 			for (k = 0; k < s_num_6; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_SPIDER, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_SPIDER, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -7899,24 +7994,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_HOUND:
+	case TRAIT_S_HOUND:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でハウンドを召喚した。", m_name);
+			else msg_format("%^sが魔法でハウンドを召喚した。", target_name);
 #else
-			else msg_format("%^s magically summons hounds.", m_name);
+			else msg_format("%^s magically summons hounds.", target_name);
 #endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HOUND, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HOUND, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -7927,24 +8022,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_HYDRA:
+	case TRAIT_S_HYDRA:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でヒドラを召喚した。", m_name);
+			else msg_format("%^sが魔法でヒドラを召喚した。", target_name);
 #else
-			else msg_format("%^s magically summons hydras.", m_name);
+			else msg_format("%^s magically summons hydras.", target_name);
 #endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HYDRA, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("多くのものが間近に現れた音がする。");
@@ -7955,21 +8050,21 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_ANGEL:
+	case TRAIT_S_ANGEL:
 		{
 			int num = 1;
 
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法で天使を召喚した！", m_name);
+			else msg_format("%^sが魔法で天使を召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons an angel!", m_name);
+			else msg_format("%^s magically summons an angel!", target_name);
 #endif
 
 			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
@@ -7979,7 +8074,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 
 			for (k = 0; k < num; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_ANGEL, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
 			}
 
 			if(count < 2)
@@ -8002,24 +8097,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_DEMON:
+	case TRAIT_S_DEMON:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", m_name);
+			else msg_format("%^sは魔法で混沌の宮廷から悪魔を召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons a demon from the Courts of Chaos!", m_name);
+			else msg_format("%^s magically summons a demon from the Courts of Chaos!", target_name);
 #endif
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DEMON, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DEMON, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("何かが間近に現れた音がする。");
@@ -8030,24 +8125,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_UNDEAD:
+	case TRAIT_S_UNDEAD:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", m_name);
+			else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons an undead adversary!", m_name);
+			else msg_format("%^s magically summons an undead adversary!", target_name);
 #endif
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNDEAD, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("何かが間近に現れた音がする。");
@@ -8058,24 +8153,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_DRAGON:
+	case TRAIT_S_DRAGON:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法でドラゴンを召喚した！", m_name);
+			else msg_format("%^sが魔法でドラゴンを召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons a dragon!", m_name);
+			else msg_format("%^s magically summons a dragon!", target_name);
 #endif
 
 			for (k = 0; k < 1; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_DRAGON, PC_ALLOW_GROUP);
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
 			}
 #ifdef JP
 			if(blind && count) msg_print("何かが間近に現れた音がする。");
@@ -8086,7 +8181,7 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_HI_UNDEAD:
+	case TRAIT_S_HI_UNDEAD:
 		{
 			disturb(player_ptr, 1, 0);
 
@@ -8096,15 +8191,15 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 				int cx = x;
 
 #ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+				if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-				if(blind) msg_format("%^s mumbles.", m_name);
+				if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-				else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", m_name);
+				else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", target_name);
 #else
-				else msg_format("%^s magically summons rangers of Nazgul!", m_name);
+				else msg_format("%^s magically summons rangers of Nazgul!", target_name);
 #endif
 				msg_print(NULL);
 
@@ -8152,20 +8247,20 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			else
 			{
 #ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+				if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-				if(blind) msg_format("%^s mumbles.", m_name);
+				if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-				else msg_format("%^sが魔法で強力なアンデッドを召喚した！", m_name);
+				else msg_format("%^sが魔法で強力なアンデッドを召喚した！", target_name);
 #else
-				else msg_format("%^s magically summons greater undead!", m_name);
+				else msg_format("%^s magically summons greater undead!", target_name);
 #endif
 
 				for (k = 0; k < s_num_6; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 				}
 			}
 			if(blind && count)
@@ -8180,24 +8275,24 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_HI_DRAGON:
+	case TRAIT_S_HI_DRAGON:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", m_name);
+			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons ancient dragons!", m_name);
+			else msg_format("%^s magically summons ancient dragons!", target_name);
 #endif
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 			if(blind && count)
 			{
@@ -8211,26 +8306,26 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_AMBERITES:
+	case TRAIT_S_AMBERITES:
 		{
 			disturb(player_ptr, 1, 0);
 #ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
+			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
 #else
-			if(blind) msg_format("%^s mumbles.", m_name);
+			if(blind) msg_format("%^s mumbles.", target_name);
 #endif
 
 #ifdef JP
-			else msg_format("%^sがアンバーの王族を召喚した！", m_name);
+			else msg_format("%^sがアンバーの王族を召喚した！", target_name);
 #else
-			else msg_format("%^s magically summons Lords of Amber!", m_name);
+			else msg_format("%^s magically summons Lords of Amber!", target_name);
 #endif
 
 
 
 			for (k = 0; k < s_num_4; k++)
 			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			}
 			if(blind && count)
 			{
@@ -8244,55 +8339,10 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", m_name
 			break;
 		}
 
-		case TRAIT_S_UNIQUE:
-		{
-			bool uniques_are_summoned = FALSE;
-			int non_unique_type = SUMMON_HI_UNDEAD;
-
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", m_name);
-#else
-			if(blind) msg_format("%^s mumbles.", m_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法で特別な強敵を召喚した！", m_name);
-#else
-			else msg_format("%^s magically summons special opponents!", m_name);
-#endif
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-
-			if(count) uniques_are_summoned = TRUE;
-
-			if((caster_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
-				non_unique_type = 0;
-			else if(caster_ptr->sub_align & SUB_ALIGN_GOOD)
-				non_unique_type = SUMMON_ANGEL;
-
-			for (k = count; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-
-			if(blind && count)
-			{
-#ifdef JP
-				msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
-#else
-				msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
-#endif
-			}
-			break;
-		}
 
 	case TRAIT_SHRIEK:
 #ifdef JP
-msg_print("かん高い金切り声をあげた。");
+		msg_print("かん高い金切り声をあげた。");
 #else
 		msg_print("You make a high pitched shriek.");
 #endif
@@ -8300,48 +8350,48 @@ msg_print("かん高い金切り声をあげた。");
 		aggravate_creatures(caster_ptr);
 		break;
 	case TRAIT_DISPEL:
-	{
-		int m_idx;
-
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if(!m_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		dispel_creature(&creature_list[m_idx]);
-		break;
-	}
-	case TRAIT_SHOOT:
-	{
-		object_type *object_ptr = NULL;
-
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		else
 		{
-#ifdef JP
-msg_print("矢を放った。");
-#else
-			msg_print("You fire an arrow.");
-#endif
-			if(get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 1);
-			else if(get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 1) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 2);
-			else
-			damage = 1;
-			if(object_ptr)
-			{
-				damage = diceroll(object_ptr->dd, object_ptr->ds)+ object_ptr->to_damage;
-				if(damage < 1) damage = 1;
-			}
-			cast_bolt(caster_ptr, GF_ARROW, dir, damage);
+			int m_idx;
+
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!m_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			dispel_creature(&creature_list[m_idx]);
+			break;
 		}
-		break;
-	}
+	case TRAIT_SHOOT:
+		{
+			object_type *object_ptr = NULL;
+
+			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+			else
+			{
+#ifdef JP
+				msg_print("矢を放った。");
+#else
+				msg_print("You fire an arrow.");
+#endif
+				if(get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 1);
+				else if(get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 1) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 2);
+				else
+					damage = 1;
+				if(object_ptr)
+				{
+					damage = diceroll(object_ptr->dd, object_ptr->ds)+ object_ptr->to_damage;
+					if(damage < 1) damage = 1;
+				}
+				cast_bolt(caster_ptr, GF_ARROW, dir, damage);
+			}
+			break;
+		}
 	case TRAIT_BR_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("酸のブレスを吐いた。");
+		else msg_print("酸のブレスを吐いた。");
 #else
-			else msg_print("You breathe acid.");
+		else msg_print("You breathe acid.");
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_ACID, dir, damage, (plev > 40 ? -3 : -2));
@@ -8349,9 +8399,9 @@ else msg_print("酸のブレスを吐いた。");
 	case TRAIT_BR_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("稲妻のブレスを吐いた。");
+		else msg_print("稲妻のブレスを吐いた。");
 #else
-			else msg_print("You breathe lightning.");
+		else msg_print("You breathe lightning.");
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, (plev > 40 ? -3 : -2));
@@ -8359,9 +8409,9 @@ else msg_print("稲妻のブレスを吐いた。");
 	case TRAIT_BR_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("火炎のブレスを吐いた。");
+		else msg_print("火炎のブレスを吐いた。");
 #else
-			else msg_print("You breathe fire.");
+		else msg_print("You breathe fire.");
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, (plev > 40 ? -3 : -2));
@@ -8369,9 +8419,9 @@ else msg_print("火炎のブレスを吐いた。");
 	case TRAIT_BR_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("冷気のブレスを吐いた。");
+		else msg_print("冷気のブレスを吐いた。");
 #else
-			else msg_print("You breathe frost.");
+		else msg_print("You breathe frost.");
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_COLD, dir, damage, (plev > 40 ? -3 : -2));
@@ -8379,9 +8429,9 @@ else msg_print("冷気のブレスを吐いた。");
 	case TRAIT_BR_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ガスのブレスを吐いた。");
+		else msg_print("ガスのブレスを吐いた。");
 #else
-			else msg_print("You breathe gas.");
+		else msg_print("You breathe gas.");
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_POIS, dir, damage, (plev > 40 ? -3 : -2));
@@ -8389,9 +8439,9 @@ else msg_print("ガスのブレスを吐いた。");
 	case TRAIT_BR_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("地獄のブレスを吐いた。");
+		else msg_print("地獄のブレスを吐いた。");
 #else
-			else msg_print("You breathe nether.");
+		else msg_print("You breathe nether.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_NETHER, dir, damage, (plev > 40 ? -3 : -2));
@@ -8399,9 +8449,9 @@ else msg_print("地獄のブレスを吐いた。");
 	case TRAIT_BR_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("閃光のブレスを吐いた。");
+		else msg_print("閃光のブレスを吐いた。");
 #else
-			else msg_print("You breathe light.");
+		else msg_print("You breathe light.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_LITE, dir, damage, (plev > 40 ? -3 : -2));
@@ -8409,9 +8459,9 @@ else msg_print("閃光のブレスを吐いた。");
 	case TRAIT_BR_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("暗黒のブレスを吐いた。");
+		else msg_print("暗黒のブレスを吐いた。");
 #else
-			else msg_print("You breathe darkness.");
+		else msg_print("You breathe darkness.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_DARK, dir, damage, (plev > 40 ? -3 : -2));
@@ -8419,9 +8469,9 @@ else msg_print("暗黒のブレスを吐いた。");
 	case TRAIT_BR_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("混乱のブレスを吐いた。");
+		else msg_print("混乱のブレスを吐いた。");
 #else
-			else msg_print("You breathe confusion.");
+		else msg_print("You breathe confusion.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (plev > 40 ? -3 : -2));
@@ -8429,9 +8479,9 @@ else msg_print("混乱のブレスを吐いた。");
 	case TRAIT_BR_SOUN:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("轟音のブレスを吐いた。");
+		else msg_print("轟音のブレスを吐いた。");
 #else
-			else msg_print("You breathe sound.");
+		else msg_print("You breathe sound.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_SOUND, dir, damage, (plev > 40 ? -3 : -2));
@@ -8439,9 +8489,9 @@ else msg_print("轟音のブレスを吐いた。");
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("カオスのブレスを吐いた。");
+		else msg_print("カオスのブレスを吐いた。");
 #else
-			else msg_print("You breathe chaos.");
+		else msg_print("You breathe chaos.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (plev > 40 ? -3 : -2));
@@ -8449,9 +8499,9 @@ else msg_print("カオスのブレスを吐いた。");
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("劣化のブレスを吐いた。");
+		else msg_print("劣化のブレスを吐いた。");
 #else
-			else msg_print("You breathe disenchantment.");
+		else msg_print("You breathe disenchantment.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (plev > 40 ? -3 : -2));
@@ -8459,9 +8509,9 @@ else msg_print("劣化のブレスを吐いた。");
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("因果混乱のブレスを吐いた。");
+		else msg_print("因果混乱のブレスを吐いた。");
 #else
-			else msg_print("You breathe nexus.");
+		else msg_print("You breathe nexus.");
 #endif
 		damage = MIN(hp / 3, 250);
 		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (plev > 40 ? -3 : -2));
@@ -8469,9 +8519,9 @@ else msg_print("因果混乱のブレスを吐いた。");
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("時間逆転のブレスを吐いた。");
+		else msg_print("時間逆転のブレスを吐いた。");
 #else
-			else msg_print("You breathe time.");
+		else msg_print("You breathe time.");
 #endif
 		damage = MIN(hp / 3, 150);
 		cast_ball(caster_ptr, GF_TIME, dir, damage, (plev > 40 ? -3 : -2));
@@ -8479,9 +8529,9 @@ else msg_print("時間逆転のブレスを吐いた。");
 	case TRAIT_BR_INER:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("遅鈍のブレスを吐いた。");
+		else msg_print("遅鈍のブレスを吐いた。");
 #else
-			else msg_print("You breathe inertia.");
+		else msg_print("You breathe inertia.");
 #endif
 		damage = MIN(hp / 6, 200);
 		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (plev > 40 ? -3 : -2));
@@ -8489,9 +8539,9 @@ else msg_print("遅鈍のブレスを吐いた。");
 	case TRAIT_BR_GRAV:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("重力のブレスを吐いた。");
+		else msg_print("重力のブレスを吐いた。");
 #else
-			else msg_print("You breathe gravity.");
+		else msg_print("You breathe gravity.");
 #endif
 		damage = MIN(hp / 3, 200);
 		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (plev > 40 ? -3 : -2));
@@ -8499,9 +8549,9 @@ else msg_print("重力のブレスを吐いた。");
 	case TRAIT_BR_SHAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("破片のブレスを吐いた。");
+		else msg_print("破片のブレスを吐いた。");
 #else
-			else msg_print("You breathe shards.");
+		else msg_print("You breathe shards.");
 #endif
 		damage = hp / 6;
 		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (plev > 40 ? -3 : -2));
@@ -8509,9 +8559,9 @@ else msg_print("破片のブレスを吐いた。");
 	case TRAIT_BR_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("プラズマのブレスを吐いた。");
+		else msg_print("プラズマのブレスを吐いた。");
 #else
-			else msg_print("You breathe plasma.");
+		else msg_print("You breathe plasma.");
 #endif
 		damage = MIN(hp / 6, 150);
 		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (plev > 40 ? -3 : -2));
@@ -8519,9 +8569,9 @@ else msg_print("プラズマのブレスを吐いた。");
 	case TRAIT_BR_WALL:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("フォースのブレスを吐いた。");
+		else msg_print("フォースのブレスを吐いた。");
 #else
-			else msg_print("You breathe force.");
+		else msg_print("You breathe force.");
 #endif
 		damage = MIN(hp / 6, 200);
 		cast_ball(caster_ptr, GF_FORCE, dir, damage, (plev > 40 ? -3 : -2));
@@ -8529,20 +8579,20 @@ else msg_print("フォースのブレスを吐いた。");
 	case TRAIT_BR_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("魔力のブレスを吐いた。");
+		else msg_print("魔力のブレスを吐いた。");
 #else
-			else msg_print("You breathe mana.");
+		else msg_print("You breathe mana.");
 #endif
-		
+
 		damage = MIN(hp / 3, 250);
 		cast_ball(caster_ptr, GF_MANA, dir, damage, (plev > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("放射能球を放った。");
+		else msg_print("放射能球を放った。");
 #else
-			else msg_print("You cast a ball of radiation.");
+		else msg_print("You cast a ball of radiation.");
 #endif
 		damage = plev * 2 + diceroll(10, 6);
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
@@ -8550,9 +8600,9 @@ else msg_print("放射能球を放った。");
 	case TRAIT_BR_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("放射性廃棄物のブレスを吐いた。");
+		else msg_print("放射性廃棄物のブレスを吐いた。");
 #else
-			else msg_print("You breathe toxic waste.");
+		else msg_print("You breathe toxic waste.");
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, (plev > 40 ? -3 : -2));
@@ -8560,9 +8610,9 @@ else msg_print("放射性廃棄物のブレスを吐いた。");
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("純ログルスを放った。");
+		else msg_print("純ログルスを放った。");
 #else
-			else msg_print("You invoke a raw Logrus.");
+		else msg_print("You invoke a raw Logrus.");
 #endif
 		damage = plev * 4 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
@@ -8570,9 +8620,9 @@ else msg_print("純ログルスを放った。");
 	case TRAIT_BR_DISI:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("分解のブレスを吐いた。");
+		else msg_print("分解のブレスを吐いた。");
 #else
-			else msg_print("You breathe disintegration.");
+		else msg_print("You breathe disintegration.");
 #endif
 		damage = MIN(hp / 6, 150);
 		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (plev > 40 ? -3 : -2));
@@ -8580,9 +8630,9 @@ else msg_print("分解のブレスを吐いた。");
 	case TRAIT_BA_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アシッド・ボールの呪文を唱えた。");
+		else msg_print("アシッド・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast an acid ball.");
+		else msg_print("You cast an acid ball.");
 #endif
 		damage = randint1(plev * 6) + 15;
 		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
@@ -8590,9 +8640,9 @@ else msg_print("アシッド・ボールの呪文を唱えた。");
 	case TRAIT_BA_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("サンダー・ボールの呪文を唱えた。");
+		else msg_print("サンダー・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast a lightning ball.");
+		else msg_print("You cast a lightning ball.");
 #endif
 		damage = randint1(plev * 3) + 8;
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
@@ -8600,9 +8650,9 @@ else msg_print("サンダー・ボールの呪文を唱えた。");
 	case TRAIT_BA_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ファイア・ボールの呪文を唱えた。");
+		else msg_print("ファイア・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast a fire ball.");
+		else msg_print("You cast a fire ball.");
 #endif
 		damage = randint1(plev * 7) + 10;
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
@@ -8610,9 +8660,9 @@ else msg_print("ファイア・ボールの呪文を唱えた。");
 	case TRAIT_BA_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アイス・ボールの呪文を唱えた。");
+		else msg_print("アイス・ボールの呪文を唱えた。");
 #else
-			else msg_print("You cast a frost ball.");
+		else msg_print("You cast a frost ball.");
 #endif
 		damage = randint1(plev * 3) + 10;
 		cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
@@ -8620,9 +8670,9 @@ else msg_print("アイス・ボールの呪文を唱えた。");
 	case TRAIT_BA_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("悪臭雲の呪文を唱えた。");
+		else msg_print("悪臭雲の呪文を唱えた。");
 #else
-			else msg_print("You cast a stinking cloud.");
+		else msg_print("You cast a stinking cloud.");
 #endif
 		damage = diceroll(12,2);
 		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
@@ -8630,9 +8680,9 @@ else msg_print("悪臭雲の呪文を唱えた。");
 	case TRAIT_BA_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("地獄球の呪文を唱えた。");
+		else msg_print("地獄球の呪文を唱えた。");
 #else
-			else msg_print("You cast a nether ball.");
+		else msg_print("You cast a nether ball.");
 #endif
 		damage = plev * 2 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
@@ -8640,9 +8690,9 @@ else msg_print("地獄球の呪文を唱えた。");
 	case TRAIT_BA_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("流れるような身振りをした。");
+		else msg_print("流れるような身振りをした。");
 #else
-			else msg_print("You gesture fluidly.");
+		else msg_print("You gesture fluidly.");
 #endif
 		damage = randint1(plev * 4) + 50;
 		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
@@ -8650,9 +8700,9 @@ else msg_print("流れるような身振りをした。");
 	case TRAIT_BA_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("魔力の嵐の呪文を念じた。");
+		else msg_print("魔力の嵐の呪文を念じた。");
 #else
-			else msg_print("You invoke a mana storm.");
+		else msg_print("You invoke a mana storm.");
 #endif
 		damage = plev * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
@@ -8660,9 +8710,9 @@ else msg_print("魔力の嵐の呪文を念じた。");
 	case TRAIT_BA_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("暗黒の嵐の呪文を念じた。");
+		else msg_print("暗黒の嵐の呪文を念じた。");
 #else
-			else msg_print("You invoke a darkness storm.");
+		else msg_print("You invoke a darkness storm.");
 #endif
 		damage = plev * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
@@ -8704,9 +8754,9 @@ else msg_print("暗黒の嵐の呪文を念じた。");
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アシッド・ボルトの呪文を唱えた。");
+		else msg_print("アシッド・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast an acid bolt.");
+		else msg_print("You cast an acid bolt.");
 #endif
 		damage = diceroll(7, 8) + plev * 2 / 3;
 		cast_bolt(caster_ptr, GF_ACID, dir, damage);
@@ -8714,9 +8764,9 @@ else msg_print("アシッド・ボルトの呪文を唱えた。");
 	case TRAIT_BO_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("サンダー・ボルトの呪文を唱えた。");
+		else msg_print("サンダー・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a lightning bolt.");
+		else msg_print("You cast a lightning bolt.");
 #endif
 		damage = diceroll(4, 8) + plev * 2 / 3;
 		cast_bolt(caster_ptr, GF_ELEC, dir, damage);
@@ -8724,9 +8774,9 @@ else msg_print("サンダー・ボルトの呪文を唱えた。");
 	case TRAIT_BO_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ファイア・ボルトの呪文を唱えた。");
+		else msg_print("ファイア・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a fire bolt.");
+		else msg_print("You cast a fire bolt.");
 #endif
 		damage = diceroll(9, 8) + plev * 2 / 3;
 		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
@@ -8734,9 +8784,9 @@ else msg_print("ファイア・ボルトの呪文を唱えた。");
 	case TRAIT_BO_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("アイス・ボルトの呪文を唱えた。");
+		else msg_print("アイス・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a frost bolt.");
+		else msg_print("You cast a frost bolt.");
 #endif
 		damage = diceroll(6, 8) + plev * 2 / 3;
 		cast_bolt(caster_ptr, GF_COLD, dir, damage);
@@ -8745,7 +8795,7 @@ else msg_print("アイス・ボルトの呪文を唱えた。");
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		else
 #ifdef JP
-msg_print("スターバーストの呪文を念じた。");
+			msg_print("スターバーストの呪文を念じた。");
 #else
 			msg_print("You invoke a starburst.");
 #endif
@@ -8755,9 +8805,9 @@ msg_print("スターバーストの呪文を念じた。");
 	case TRAIT_BO_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("地獄の矢の呪文を唱えた。");
+		else msg_print("地獄の矢の呪文を唱えた。");
 #else
-			else msg_print("You cast a nether bolt.");
+		else msg_print("You cast a nether bolt.");
 #endif
 		damage = 30 + diceroll(5, 5) + plev * 8 / 3;
 		cast_bolt(caster_ptr, GF_NETHER, dir, damage);
@@ -8765,9 +8815,9 @@ else msg_print("地獄の矢の呪文を唱えた。");
 	case TRAIT_BO_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ウォーター・ボルトの呪文を唱えた。");
+		else msg_print("ウォーター・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a water bolt.");
+		else msg_print("You cast a water bolt.");
 #endif
 		damage = diceroll(10, 10) + plev * 2;
 		cast_bolt(caster_ptr, GF_WATER, dir, damage);
@@ -8775,9 +8825,9 @@ else msg_print("ウォーター・ボルトの呪文を唱えた。");
 	case TRAIT_BO_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("魔力の矢の呪文を唱えた。");
+		else msg_print("魔力の矢の呪文を唱えた。");
 #else
-			else msg_print("You cast a mana bolt.");
+		else msg_print("You cast a mana bolt.");
 #endif
 		damage = randint1(plev * 7) + 50;
 		cast_bolt(caster_ptr, GF_MANA, dir, damage);
@@ -8785,9 +8835,9 @@ else msg_print("魔力の矢の呪文を唱えた。");
 	case TRAIT_BO_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("プラズマ・ボルトの呪文を唱えた。");
+		else msg_print("プラズマ・ボルトの呪文を唱えた。");
 #else
-			else msg_print("You cast a plasma bolt.");
+		else msg_print("You cast a plasma bolt.");
 #endif
 		damage = 10 + diceroll(8, 7) + plev * 2;
 		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
@@ -8795,9 +8845,9 @@ else msg_print("プラズマ・ボルトの呪文を唱えた。");
 	case TRAIT_BO_ICEE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("極寒の矢の呪文を唱えた。");
+		else msg_print("極寒の矢の呪文を唱えた。");
 #else
-			else msg_print("You cast a ice bolt.");
+		else msg_print("You cast a ice bolt.");
 #endif
 		damage = diceroll(6, 6) + plev * 2;
 		cast_bolt(caster_ptr, GF_ICE, dir, damage);
@@ -8805,9 +8855,9 @@ else msg_print("極寒の矢の呪文を唱えた。");
 	case TRAIT_MISSILE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("マジック・ミサイルの呪文を唱えた。");
+		else msg_print("マジック・ミサイルの呪文を唱えた。");
 #else
-			else msg_print("You cast a magic missile.");
+		else msg_print("You cast a magic missile.");
 #endif
 		damage = diceroll(2, 6) + plev * 2 / 3;
 		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
@@ -8817,7 +8867,7 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 #ifdef JP
 		else msg_print("恐ろしげな幻覚を作り出した。");
 #else
-			else msg_print("You cast a fearful illusion.");
+		else msg_print("You cast a fearful illusion.");
 #endif
 		fear_creature(caster_ptr, dir, plev+10);
 		break;
@@ -8828,9 +8878,9 @@ else msg_print("マジック・ミサイルの呪文を唱えた。");
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("誘惑的な幻覚をつくり出した。");
+		else msg_print("誘惑的な幻覚をつくり出した。");
 #else
-			else msg_print("You cast a mesmerizing illusion.");
+		else msg_print("You cast a mesmerizing illusion.");
 #endif
 		confuse_creature(caster_ptr, dir, plev * 2);
 		break;
@@ -8846,22 +8896,22 @@ else msg_print("誘惑的な幻覚をつくり出した。");
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + plev) + plev);
 		break;
 	case TRAIT_HAND_DOOM:
-	{
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		{
+			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("<破滅の手>を放った！");
+			else msg_print("<破滅の手>を放った！");
 #else
-		else msg_print("You invoke the Hand of Doom!");
+			else msg_print("You invoke the Hand of Doom!");
 #endif
 
-		cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 3, 0);
-		break;
-	}
+			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 3, 0);
+			break;
+		}
 	case TRAIT_HEAL:
 #ifdef JP
-msg_print("自分の傷に念を集中した。");
+		msg_print("自分の傷に念を集中した。");
 #else
-			msg_print("You concentrate on your wounds!");
+		msg_print("You concentrate on your wounds!");
 #endif
 		(void)heal_creature(caster_ptr, plev*4);
 		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
@@ -8869,9 +8919,9 @@ msg_print("自分の傷に念を集中した。");
 		break;
 	case TRAIT_INVULNER:
 #ifdef JP
-msg_print("無傷の球の呪文を唱えた。");
+		msg_print("無傷の球の呪文を唱えた。");
 #else
-			msg_print("You cast a Globe of Invulnerability.");
+		msg_print("You cast a Globe of Invulnerability.");
 #endif
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
 		break;
@@ -8907,533 +8957,497 @@ msg_print("無傷の球の呪文を唱えた。");
 	case TRAIT_SPECIAL:
 		break;
 	case TRAIT_TELE_TO:
-	{
-		creature_type *m_ptr;
-		species_type *r_ptr;
-		char m_name[80];
-
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
-		r_ptr = &species_info[m_ptr->species_idx];
-		creature_desc(m_name, m_ptr, 0);
-		if(has_trait(m_ptr, TRAIT_RES_TELE))
 		{
-			if((has_trait(m_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+			creature_type *m_ptr;
+			species_type *r_ptr;
+			char target_name[80];
+
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
+			r_ptr = &species_info[m_ptr->species_idx];
+			creature_desc(target_name, m_ptr, 0);
+			if(has_trait(m_ptr, TRAIT_RES_TELE))
 			{
-				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+				if((has_trait(m_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+				{
+					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
-				msg_format("%sには効果がなかった！", m_name);
+					msg_format("%sには効果がなかった！", target_name);
 #else
-				msg_format("%s is unaffected!", m_name);
+					msg_format("%s is unaffected!", target_name);
 #endif
 
-				break;
-			}
-			else if(r_ptr->level > randint1(100))
-			{
-				if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+					break;
+				}
+				else if(r_ptr->level > randint1(100))
+				{
+					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
 #ifdef JP
-				msg_format("%sには耐性がある！", m_name);
+					msg_format("%sには耐性がある！", target_name);
 #else
-				msg_format("%s resists!", m_name);
+					msg_format("%s resists!", target_name);
 #endif
 
-				break;
+					break;
+				}
 			}
+#ifdef JP
+			msg_format("%sを引き戻した。", target_name);
+#else
+			msg_format("You command %s to return.", target_name);
+#endif
+
+			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
+			break;
 		}
-#ifdef JP
-msg_format("%sを引き戻した。", m_name);
-#else
-		msg_format("You command %s to return.", m_name);
-#endif
-
-		teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
-		break;
-	}
 	case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
 		break;
 	case TRAIT_TELE_LEVEL:
-	{
-		int target_m_idx;
-		creature_type *m_ptr;
-		species_type *r_ptr;
-		char m_name[80];
-
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-		if(!target_m_idx) break;
-		if(!player_has_los_bold(target_row, target_col)) break;
-		if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-		m_ptr = &creature_list[target_m_idx];
-		r_ptr = &species_info[m_ptr->species_idx];
-		creature_desc(m_name, m_ptr, 0);
-#ifdef JP
-		msg_format("%^sの足を指さした。", m_name);
-#else
-		msg_format("You gesture at %^s's feet.", m_name);
-#endif
-
-		if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
-			has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > plev + randint1(60)))
 		{
+			int target_m_idx;
+			creature_type *m_ptr;
+			species_type *r_ptr;
+			char target_name[80];
+
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
+			if(!target_m_idx) break;
+			if(!player_has_los_bold(target_row, target_col)) break;
+			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			m_ptr = &creature_list[target_m_idx];
+			r_ptr = &species_info[m_ptr->species_idx];
+			creature_desc(target_name, m_ptr, 0);
 #ifdef JP
-			msg_print("しかし効果がなかった！");
+			msg_format("%^sの足を指さした。", target_name);
 #else
-			msg_format("%^s is unaffected!", m_name);
+			msg_format("You gesture at %^s's feet.", target_name);
 #endif
+
+			if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
+				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > plev + randint1(60)))
+			{
+#ifdef JP
+				msg_print("しかし効果がなかった！");
+#else
+				msg_format("%^s is unaffected!", target_name);
+#endif
+			}
+			else teleport_level(caster_ptr, target_m_idx);
+			break;
 		}
-		else teleport_level(caster_ptr, target_m_idx);
-		break;
-	}
 	case TRAIT_PSY_SPEAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
 #ifdef JP
-else msg_print("光の剣を放った。");
+		else msg_print("光の剣を放った。");
 #else
-			else msg_print("You throw a psycho-spear.");
+		else msg_print("You throw a psycho-spear.");
 #endif
 		damage = randint1(plev * 3) + 100;
 		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
 	case TRAIT_DARKNESS:
 #ifdef JP
-msg_print("暗闇の中で手を振った。");
+		msg_print("暗闇の中で手を振った。");
 #else
-			msg_print("You gesture in shadow.");
+		msg_print("You gesture in shadow.");
 #endif
 		(void)unlite_area(caster_ptr, 10, 3);
 		break;
 	case TRAIT_TRAPS:
 		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
-msg_print("呪文を唱えて邪悪に微笑んだ。");
+		msg_print("呪文を唱えて邪悪に微笑んだ。");
 #else
-			msg_print("You cast a spell and cackle evilly.");
+		msg_print("You cast a spell and cackle evilly.");
 #endif
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
 	case TRAIT_FORGET:
 #ifdef JP
-msg_print("しかし何も起きなかった。");
+		msg_print("しかし何も起きなかった。");
 #else
-			msg_print("Nothing happen.");
+		msg_print("Nothing happen.");
 #endif
 		break;
 	case TRAIT_ANIM_DEAD:
 #ifdef JP
-msg_print("死者復活の呪文を唱えた。");
+		msg_print("死者復活の呪文を唱えた。");
 #else
 		msg_print("You cast a animate dead.");
 #endif
 		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 		break;
 	case TRAIT_S_KIN:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("援軍を召喚した。");
+			msg_print("援軍を召喚した。");
 #else
 			msg_print("You summon minions.");
 #endif
-		for (k = 0;k < 1; k++)
-		{
-			if(summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PC_FORCE_PET : 0L)))
+			for (k = 0;k < 1; k++)
 			{
-				if(!pet)
+				if(summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PC_FORCE_PET : 0L)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚された仲間は怒っている！");
+						msg_print("召喚された仲間は怒っている！");
 #else
-msg_print("Summoned fellows are angry!");
+						msg_print("Summoned fellows are angry!");
 #endif
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
 			}
-			else
-			{
-				no_trump = TRUE;
-			}
+			break;
 		}
-		break;
-	}
 	case TRAIT_S_CYBER:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("サイバーデーモンを召喚した！");
+			msg_print("サイバーデーモンを召喚した！");
 #else
 			msg_print("You summon a Cyberdemon!");
 #endif
-		for (k = 0 ;k < 1 ; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
-			{
-				if(!pet)
+			for (k = 0 ;k < 1 ; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたサイバーデーモンは怒っている！");
+						msg_print("召喚されたサイバーデーモンは怒っている！");
 #else
-msg_print("The summoned Cyberdemon are angry!");
+						msg_print("The summoned Cyberdemon are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_MONSTER:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("仲間を召喚した。");
+			msg_print("仲間を召喚した。");
 #else
 			msg_print("You summon help.");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたクリーチャーは怒っている！");
+						msg_print("召喚されたクリーチャーは怒っている！");
 #else
-msg_print("The summoned creature is angry!");
+						msg_print("The summoned creature is angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_MONSTERS:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("クリーチャーを召喚した！");
+			msg_print("クリーチャーを召喚した！");
 #else
 			msg_print("You summon creatures!");
 #endif
-		for (k = 0;k < plev / 15 + 2; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < plev / 15 + 2; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたクリーチャーは怒っている！");
+						msg_print("召喚されたクリーチャーは怒っている！");
 #else
-msg_print("Summoned creatures are angry!");
+						msg_print("Summoned creatures are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_ANT:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("アリを召喚した。");
+			msg_print("アリを召喚した。");
 #else
 			msg_print("You summon ants.");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたアリは怒っている！");
+						msg_print("召喚されたアリは怒っている！");
 #else
-msg_print("Summoned ants are angry!");
+						msg_print("Summoned ants are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_SPIDER:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("蜘蛛を召喚した。");
+			msg_print("蜘蛛を召喚した。");
 #else
 			msg_print("You summon spiders.");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚された蜘蛛は怒っている！");
+						msg_print("召喚された蜘蛛は怒っている！");
 #else
-msg_print("Summoned spiders are angry!");
+						msg_print("Summoned spiders are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_HOUND:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("ハウンドを召喚した。");
+			msg_print("ハウンドを召喚した。");
 #else
 			msg_print("You summon hounds.");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたハウンドは怒っている！");
+						msg_print("召喚されたハウンドは怒っている！");
 #else
-msg_print("Summoned hounds are angry!");
+						msg_print("Summoned hounds are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_HYDRA:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("ヒドラを召喚した。");
+			msg_print("ヒドラを召喚した。");
 #else
 			msg_print("You summon a hydras.");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたヒドラは怒っている！");
+						msg_print("召喚されたヒドラは怒っている！");
 #else
-msg_print("Summoned hydras are angry!");
+						msg_print("Summoned hydras are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_ANGEL:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("天使を召喚した！");
+			msg_print("天使を召喚した！");
 #else
 			msg_print("You summon an angel!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚された天使は怒っている！");
+						msg_print("召喚された天使は怒っている！");
 #else
-msg_print("Summoned angels are angry!");
+						msg_print("Summoned angels are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_DEMON:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("混沌の宮廷から悪魔を召喚した！");
+			msg_print("混沌の宮廷から悪魔を召喚した！");
 #else
 			msg_print("You summon a demon from the Courts of Chaos!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたデーモンは怒っている！");
+						msg_print("召喚されたデーモンは怒っている！");
 #else
-msg_print("Summoned demons are angry!");
+						msg_print("Summoned demons are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_UNDEAD:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("アンデッドの強敵を召喚した！");
+			msg_print("アンデッドの強敵を召喚した！");
 #else
 			msg_print("You summon an undead adversary!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたアンデッドは怒っている！");
+						msg_print("召喚されたアンデッドは怒っている！");
 #else
-msg_print("Summoned undeads are angry!");
+						msg_print("Summoned undeads are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_DRAGON:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("ドラゴンを召喚した！");
+			msg_print("ドラゴンを召喚した！");
 #else
 			msg_print("You summon a dragon!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたドラゴンは怒っている！");
+						msg_print("召喚されたドラゴンは怒っている！");
 #else
-msg_print("Summoned dragons are angry!");
+						msg_print("Summoned dragons are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_HI_UNDEAD:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("強力なアンデッドを召喚した！");
+			msg_print("強力なアンデッドを召喚した！");
 #else
 			msg_print("You summon a greater undead!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚された上級アンデッドは怒っている！");
+						msg_print("召喚された上級アンデッドは怒っている！");
 #else
-msg_print("Summoned greater undeads are angry!");
+						msg_print("Summoned greater undeads are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_HI_DRAGON:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("古代ドラゴンを召喚した！");
+			msg_print("古代ドラゴンを召喚した！");
 #else
 			msg_print("You summon an ancient dragon!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚された古代ドラゴンは怒っている！");
+						msg_print("召喚された古代ドラゴンは怒っている！");
 #else
-msg_print("Summoned ancient dragons are angry!");
+						msg_print("Summoned ancient dragons are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
 	case TRAIT_S_AMBERITES:
-	{
-		int k;
+		{
+			int k;
 #ifdef JP
-msg_print("アンバーの王族を召喚した！");
+			msg_print("アンバーの王族を召喚した！");
 #else
 			msg_print("You summon a Lord of Amber!");
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
-			{
-				if(!pet)
+			for (k = 0;k < 1; k++)
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
+				{
+					if(!pet)
 #ifdef JP
-msg_print("召喚されたアンバーの王族は怒っている！");
+						msg_print("召喚されたアンバーの王族は怒っている！");
 #else
-msg_print("Summoned Lords of Amber are angry!");
+						msg_print("Summoned Lords of Amber are angry!");
 #endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-		break;
-	}
-	case TRAIT_S_UNIQUE:
-	{
-		int k, count = 0;
-#ifdef JP
-msg_print("特別な強敵を召喚した！");
-#else
-			msg_print("You summon a special opponent!");
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
 #endif
-		for (k = 0;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
-			{
-				count++;
-				if(!pet)
-#ifdef JP
-msg_print("召喚されたユニーク・クリーチャーは怒っている！");
-#else
-msg_print("Summoned special opponents are angry!");
-#endif
-			}
-		for (k = count;k < 1; k++)
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
-			{
-				count++;
-				if(!pet)
-#ifdef JP
-msg_print("召喚された上級アンデッドは怒っている！");
-#else
-msg_print("Summoned greater undeads are angry!");
-#endif
-			}
-		if(!count)
-		{
-			no_trump = TRUE;
 		}
-		break;
-	}
 
-#endif
 
 
 	default:
@@ -9445,9 +9459,9 @@ msg_print("Summoned greater undeads are angry!");
 
 	/*
 	if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-		msg_print("やりやがったな！");
+	msg_print("やりやがったな！");
 	else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-		msg_print("弱いものいじめはやめるんだ！");
+	msg_print("弱いものいじめはやめるんだ！");
 	*/
 
 
