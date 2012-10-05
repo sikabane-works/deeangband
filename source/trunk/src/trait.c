@@ -145,9 +145,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	//case TRAIT_ROCKET:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-else msg_print("ロケットを発射した。");
+		else msg_print("ロケットを発射した。");
 #else
-			else msg_print("You fire a rocket.");
+		else msg_print("You fire a rocket.");
 #endif
 		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
 	break;
@@ -363,6 +363,21 @@ else msg_print("ロケットを発射した。");
 			break;
 		}
 
+	//TODO
+	{
+		int k;
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("混沌の宮廷から悪魔を召喚した！");
+#else
+			msg_print("You summon a demon from the Courts of Chaos!");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
+		break;
+	}
+
+
 	case TRAIT_S_UNDEAD:
 		{
 			bool pet = one_in_(3);
@@ -401,6 +416,48 @@ else msg_print("ロケットを発射した。");
 
 			break;
 		}
+	//TODO
+	{
+		int k;
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+#ifdef JP
+msg_print("アンデッドの強敵を召喚した！");
+#else
+			msg_print("You summon an undead adversary!");
+#endif
+		for (k = 0;k < 1; k++)
+			summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
+		break;
+	}
+	//TODO
+	/*
+		{
+			disturb(player_ptr, 1, 0);
+#ifdef JP
+			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
+#else
+			if(blind) msg_format("%^s mumbles.", caster_name);
+#endif
+
+#ifdef JP
+			else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", caster_name);
+#else
+			else msg_format("%^s magically summons an undead adversary!", caster_name);
+#endif
+
+			for (k = 0; k < 1; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PC_ALLOW_GROUP);
+			}
+#ifdef JP
+			if(blind && count) msg_print("何かが間近に現れた音がする。");
+#else
+			if(blind && count) msg_print("You hear something appear nearby.");
+#endif
+
+			break;
+		}
+	*/
 
 	case TRAIT_CURE_LIGHT_WOUNDS:
 		(void)heal_creature(caster_ptr, diceroll(2, 8));
@@ -2221,32 +2278,6 @@ msg_print("天使を召喚した！");
 #endif
 		for (k = 0;k < 1; k++)
 			summon_specific(NULL, target_row, target_col, user_level, SUMMON_ANGEL, mode);
-		break;
-	}
-	//case TRAIT_S_DEMON:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-msg_print("混沌の宮廷から悪魔を召喚した！");
-#else
-			msg_print("You summon a demon from the Courts of Chaos!");
-#endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
-		break;
-	}
-	//case TRAIT_S_UNDEAD:
-	{
-		int k;
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-msg_print("アンデッドの強敵を召喚した！");
-#else
-			msg_print("You summon an undead adversary!");
-#endif
-		for (k = 0;k < 1; k++)
-			summon_specific(NULL, target_row, target_col, user_level, SUMMON_UNDEAD, (mode | u_mode));
 		break;
 	}
 	case TRAIT_S_DRAGON:
@@ -5454,33 +5485,6 @@ else msg_format("%^sがサンダー・ボールの呪文を唱えた。", caster
 			break;
 		}
 
-		case TRAIT_S_UNDEAD:
-		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法でアンデッドの強敵を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons an undead adversary!", caster_name);
-#endif
-
-			for (k = 0; k < 1; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, rlev, SUMMON_UNDEAD, PC_ALLOW_GROUP);
-			}
-#ifdef JP
-			if(blind && count) msg_print("何かが間近に現れた音がする。");
-#else
-			if(blind && count) msg_print("You hear something appear nearby.");
-#endif
-
-			break;
-		}
 
 		case TRAIT_S_DRAGON:
 		{
