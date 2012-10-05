@@ -113,17 +113,44 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_ROCKET:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
-			msg_print("ロケットを発射した！");
+		msg_print("ロケットを発射した！");
 #else
-			msg_print("You launch a rocket!");
+		msg_print("You launch a rocket!");
+#endif
+		cast_ball(caster_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
+		break;
+
+	//case TRAIT_ROCKET:
+	/*
+		disturb(player_ptr, 1, 0);
+#ifdef JP
+		if(blind) msg_format("%^sが何かを射った。", caster_name);
+#else
+		if(blind) msg_format("%^s shoots something.", caster_name);
 #endif
 
-			cast_ball(caster_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
-			break;
-		}
+#ifdef JP
+		else msg_format("%^sがロケットを発射した。", caster_name);
+#else
+		else msg_format("%^s fires a rocket.", caster_name);
+#endif
+		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
+		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
+		update_smart_learn(caster_ptr, DRS_SHARD);
+		break;
+	*/
+
+	//case TRAIT_ROCKET:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+#ifdef JP
+else msg_print("ロケットを発射した。");
+#else
+			else msg_print("You fire a rocket.");
+#endif
+		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
+	break;
 
 	case TRAIT_DISPEL_EVIL_1:
 		dispel_evil(caster_ptr, caster_ptr->lev * 5);
@@ -1301,7 +1328,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		msg_print("You make a high pitched shriek.");
 #endif
-
 		aggravate_creatures(caster_ptr);
 		break;
 
@@ -1330,16 +1356,30 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 	}
 
-	//TODO case TRAIT_ROCKET:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	/*TODO case TRAIT_DISPEL:
+	{
+		if(!direct) return (FALSE);
+		disturb(player_ptr, 1, 0);
 #ifdef JP
-else msg_print("ロケットを発射した。");
+		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
+		else msg_format("%^sは魔力消去の呪文を念じた。", caster_name);
 #else
-			else msg_print("You fire a rocket.");
+		if(blind) msg_format("%^s mumbles powerfully.", caster_name);
+		else msg_format("%^s invokes a dispel magic.", caster_name);
 #endif
-		
-			fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
+		dispel_creature(target_ptr);
+		if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
+
+#ifdef JP
+		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
+			msg_print("やりやがったな！");
+		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+			msg_print("弱いものいじめはやめるんだ！");
+#endif
+		learn_trait(target_ptr, TRAIT_DISPEL);
 		break;
+	}
+	*/
 
 	case TRAIT_SHOOT:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3011,7 +3051,7 @@ msg_print("特別な強敵を召喚した！");
 			break;
 
 		case TRAIT_FIRE_BOLT:
-			{
+			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 				msg_print("ファイア・ボルトを放った。");
 #else
@@ -3019,7 +3059,6 @@ msg_print("特別な強敵を召喚した！");
 #endif
 
 				cast_bolt(caster_ptr, GF_FIRE, dir, user_level);
-			}
 			break;
 
 		case TRAIT_HOLDING_DUST:
@@ -3028,7 +3067,6 @@ msg_print("特別な強敵を召喚した！");
 #else
 			msg_print("You throw some magic dust...");
 #endif
-
 			if(user_level < 25) sleep_creatures_touch(caster_ptr);
 			else (void)sleep_creatures(caster_ptr);
 			break;
@@ -3098,66 +3136,6 @@ msg_print("特別な強敵を召喚した！");
 			break;
 
 		/*
-		case TRAIT_SHRIEK:
-		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			msg_format("%^sはかん高い金切り声をあげた。", caster_name);
-#else
-			msg_format("%^s makes a high pitched shriek.", caster_name);
-#endif
-			aggravate_creatures(caster_ptr);
-			break;
-		}
-		*/
-
-		/*
-		case TRAIT_DISPEL:
-		{
-			if(!direct) return (FALSE);
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-			else msg_format("%^sが魔力消去の呪文を念じた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-			else msg_format("%^s invokes a dispel magic.", caster_name);
-#endif
-			dispel_creature(target_ptr);
-			if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
-
-#ifdef JP
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("やりやがったな！");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("弱いものいじめはやめるんだ！");
-#endif
-			learn_trait(target_ptr, TRAIT_DISPEL);
-			break;
-		}
-
-		case TRAIT_ROCKET:
-		{
-			disturb(player_ptr, 1, 0);
-#ifdef JP
-			if(blind) msg_format("%^sが何かを射った。", caster_name);
-#else
-			if(blind) msg_format("%^s shoots something.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがロケットを発射した。", caster_name);
-#else
-			else msg_format("%^s fires a rocket.", caster_name);
-#endif
-
-			dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-			breath(y, x, caster_ptr, GF_ROCKET,
-				dam, 2, FALSE, TRAIT_ROCKET, learnable);
-			update_smart_learn(caster_ptr, DRS_SHARD);
-			break;
-		}
-
 		case TRAIT_SHOOT:
 		{
 			if(!direct) return (FALSE);
