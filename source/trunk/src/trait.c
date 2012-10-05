@@ -159,35 +159,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CONFUSE_TOUCH:
-		{
-#ifdef JP
-			msg_print("様々な色の火花を発している...");
-#else
-			msg_print("It glows in scintillating colours...");
-#endif
-
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			confuse_creature(caster_ptr, dir, 20);
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		confuse_creature(caster_ptr, dir, 20);
+		break;
 
 	case TRAIT_SLEEP_TOUCH:
-		{
-#ifdef JP
-			msg_print("深青色に輝いている...");
-#else
-			msg_print("It glows deep blue...");
-#endif
-
-			sleep_creatures_touch(caster_ptr);
-			break;
-		}
+		sleep_creatures_touch(caster_ptr);
+		break;
 
 	case TRAIT_EARTHQUAKE:
-		{
-			earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
-			break;
-		}
+		earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
+		break;
 
 	case TRAIT_TERROR:
 		turn_creatures(caster_ptr, 40 + caster_ptr->lev);
@@ -212,81 +194,48 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("The power of the artifact banishes evil!");
 #endif
-
 			}
 			break;
 		}
 
 	case TRAIT_SYMBOL_GENOCIDE:
-		{
-			(void)symbol_genocide(caster_ptr, 200, TRUE);
-			break;
-		}
+		(void)symbol_genocide(caster_ptr, 200, TRUE);
+		break;
 
 	case TRAIT_MASS_GENOCIDE:
-		{
-#ifdef JP
-			msg_print("ひどく鋭い音が流れ出た...");
-#else
-			msg_print("It lets out a long, shrill note...");
-#endif
-
-			(void)mass_genocide(caster_ptr, 200, TRUE);
-			break;
-		}
-
-		/* Activate for summoning / charming */
+		(void)mass_genocide(caster_ptr, 200, TRUE);
+		break;
 
 	case TRAIT_CHARM_ANIMAL:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			(void)charm_animal(caster_ptr, dir, user_level);
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		(void)charm_animal(caster_ptr, dir, user_level);
+		break;
 
 	case TRAIT_CHARM_UNDEAD:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			(void)control_one_undead(caster_ptr, dir, user_level);
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		(void)control_one_undead(caster_ptr, dir, user_level);
+		break;
 
 	case TRAIT_CHARM_OTHER:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			(void)charm_creature(caster_ptr, dir, user_level);
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		(void)charm_creature(caster_ptr, dir, user_level);
+		break;
 
 	case TRAIT_CHARM_ANIMALS:
-		{
-			(void)charm_animals(caster_ptr, user_level * 2);
-			break;
-		}
+		(void)charm_animals(caster_ptr, user_level * 2);
+		break;
 
 	case TRAIT_CHARM_OTHERS:
-		{
-			charm_creatures(caster_ptr, user_level * 2);
-			break;
-		}
+		charm_creatures(caster_ptr, user_level * 2);
+		break;
 
 	case TRAIT_S_ANIMAL:
-		{
-			(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
-			break;
-		}
+		(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		break;
 
 	case TRAIT_S_PHANTOM:
-		{
-#ifdef JP
-			msg_print("幻霊を召喚した。");
-#else
-			msg_print("You summon a phantasmal servant.");
-#endif
-
-			(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
-			break;
-		}
+		(void)summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		break;
 
 	case TRAIT_S_ELEMENTAL:
 		{
@@ -1251,11 +1200,6 @@ msg_print("アンデッドの強敵を召喚した！");
 
 	case TRAIT_SHIKO:
 		{
-#ifdef JP
-			msg_print("力強く四股を踏んだ。");
-#else
-			msg_print("You stamp. (as if you are in a ring.)");
-#endif
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 			(void)set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
 			dispel_evil(caster_ptr, caster_ptr->lev * 3);
@@ -1321,11 +1265,6 @@ msg_print("アンデッドの強敵を召喚した！");
 
 	case TRAIT_RESTORE_MANA:
 		{
-#ifdef JP
-			msg_print("ペンダントが青白く光った．．．");
-#else
-			msg_print("Your pendant glows pale...");
-#endif
 			if(caster_ptr->class_idx == CLASS_MAGIC_EATER)
 			{
 				int i;
@@ -1356,7 +1295,6 @@ msg_print("アンデッドの強敵を召喚した！");
 #else
 				msg_print("You feel your head clear.");
 #endif
-
 				play_redraw |= (PR_MANA);
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
@@ -1425,12 +1363,6 @@ msg_print("アンデッドの強敵を召喚した！");
 		dispel_creature(target_ptr);
 		if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
 
-#ifdef JP
-		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-			msg_print("やりやがったな！");
-		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-			msg_print("弱いものいじめはやめるんだ！");
-#endif
 		learn_trait(target_ptr, TRAIT_DISPEL);
 		break;
 	}
@@ -9510,6 +9442,14 @@ msg_print("Summoned greater undeads are angry!");
 		}
 
 	}
+
+	/*
+	if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
+		msg_print("やりやがったな！");
+	else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+		msg_print("弱いものいじめはやめるんだ！");
+	*/
+
 
 	return FALSE;
 }
