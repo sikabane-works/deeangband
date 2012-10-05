@@ -22,11 +22,22 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
 	u32b u_mode = 0L;
 
-	bool blind;
+	// process flags
+	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
+	bool seen = (!blind && caster_ptr->see_others);
 
 	if(randint1(50 + user_level) < user_level / 10) u_mode = PC_ALLOW_UNIQUE;
 
 	creature_desc(caster_name, caster_ptr, 0);
+
+	if(!blind)
+	{
+		//TODO message
+	}
+	else
+	{
+		//TODO message
+	}
 
 	switch(id)
 	{

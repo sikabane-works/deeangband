@@ -1289,15 +1289,15 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	int s_num_6 = 6;
 	int s_num_4 = 4;
 
-	/* Target location */
+	// Target location
 	int x = target_ptr->fx;
 	int y = target_ptr->fy;
 
-	/* Target location for lite breath */
+	// Target location for lite breath
 	int x_br_lite = 0;
 	int y_br_lite = 0;
 
-	/* Summon count */
+	// Summon count
 	int count = 0;
 
 	/* Extract the blind-ness */
@@ -1333,8 +1333,6 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	/* Sometimes forbid inate attacks (breaths) */
 	if(randint0(100) >= (r_ptr->freq_spell * 2)) no_inate = TRUE;
-
-	/* XXX XXX XXX Handle "track_target" option (?) */
 
 
 	/*** require projectable player ***/

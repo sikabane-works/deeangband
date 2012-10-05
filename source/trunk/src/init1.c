@@ -4212,7 +4212,9 @@ enum TRAIT_INFO
   TRAIT_INFO_E_GET_DESC,
   TRAIT_INFO_LOST_DESC,
   TRAIT_INFO_E_LOST_DESC,
-  TRAIT_INFO_CSV_COLUMNS
+  TRAIT_ACTIVATE_NORMAL_DESC,
+  TRAIT_ACTIVATE_BLIND_DESC,
+  TRAIT_INFO_CSV_COLUMNS,
 };
 
 static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
@@ -4256,6 +4258,8 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"E_GET_DESC",
 	"LOST_DESC",
 	"E_LOST_DESC",
+	"ACTIVATE_NORMAL_DESC",
+	"ACTIVATE_BLIND_DESC",
 };
 
 static int cfeature_info_csv_code[TRAIT_INFO_CSV_COLUMNS];
@@ -4519,6 +4523,12 @@ errr parse_trait_csv(char *buf, header *head)
 					if(!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
+				break;
+
+				case TRAIT_ACTIVATE_NORMAL_DESC:
+				break;
+
+				case TRAIT_ACTIVATE_BLIND_DESC:
 				break;
 
 				default:
