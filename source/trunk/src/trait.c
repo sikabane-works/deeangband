@@ -2196,27 +2196,46 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HYDRA, mode);
 			break;
 		}
+
 	case TRAIT_S_ANGEL:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("天使を召喚した！");
-#else
-			msg_print("You summon angel!");
-#endif
 			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANGEL, mode);
 			break;
 		}
+
+		{
+			int num = 1;
+			for (k = 0; k < num; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
+			}
+			break;
+		}
+
+
+		{
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
+			{
+				if(!pet)
+#ifdef JP
+					msg_print("召喚された天使は怒っている！");
+#else
+					msg_print("Summoned angels are angry!");
+#endif
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
+		}
+
 
 	case TRAIT_S_DRAGON:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
-			break;
-		}
-
-		{
-			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
 			break;
 		}
 
@@ -5599,35 +5618,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_ANGEL:
-		{
-			int num = 1;
-
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法で天使を召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons an angel!", caster_name);
-#endif
-
-			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
-			{
-				num += r_ptr->level/40;
-			}
-
-			for (k = 0; k < num; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
-			}
-
-			break;
-		}
 
 	case TRAIT_S_DEMON:
 		{
@@ -7910,36 +7900,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_ANGEL:
-		{
-			int num = 1;
-
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法で天使を召喚した！", target_name);
-#else
-			else msg_format("%^s magically summons an angel!", target_name);
-#endif
-
-			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
-			{
-				num += r_ptr->level/40;
-			}
-
-			for (k = 0; k < num; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
-			}
-
-
-			break;
-		}
 
 	case TRAIT_S_DEMON:
 		{
@@ -8907,28 +8867,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-	case TRAIT_S_ANGEL:
-		{
-#ifdef JP
-			msg_print("天使を召喚した！");
-#else
-			msg_print("You summon an angel!");
-#endif
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
-			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚された天使は怒っている！");
-#else
-					msg_print("Summoned angels are angry!");
-#endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+
 	case TRAIT_S_DEMON:
 		{
 #ifdef JP
