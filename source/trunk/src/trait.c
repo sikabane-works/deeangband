@@ -2241,19 +2241,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				int cy = y;
 				int cx = x;
 
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-				else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", caster_name);
-#else
-				else msg_format("%^s magically summons rangers of Nazgul!", caster_name);
-#endif
-				msg_print(NULL);
-
 				for (k = 0; k < 30; k++)
 				{
 					if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
@@ -2300,11 +2287,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("強力なアンデッドを召喚した！");
-#else
-			msg_print("You summon greater undead!");
-#endif
+
 			for (k = 0;k < 6; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
 			break;
@@ -2312,18 +2295,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		{
 			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-				else msg_format("%^sが魔法で強力なアンデッドを召喚した！", caster_name);
-#else
-				else msg_format("%^s magically summons greater undead!", caster_name);
-#endif
-
 				for (k = 0; k < s_num_6; k++)
 				{
 					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
@@ -2342,79 +2313,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-			if(((caster_ptr->species_idx == SPECIES_MORGOTH) || (caster_ptr->species_idx == SPECIES_SAURON) || (caster_ptr->species_idx == SPECIES_ANGMAR)) && ((species_info[SPECIES_NAZGUL].cur_num+2) < species_info[SPECIES_NAZGUL].max_num))
+
 			{
-				int cy = y;
-				int cx = x;
-
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-				if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-				else msg_format("%^sが魔法で幽鬼戦隊を召喚した！", target_name);
-#else
-				else msg_format("%^s magically summons rangers of Nazgul!", target_name);
-#endif
-				msg_print(NULL);
-
-				for (k = 0; k < 30; k++)
-				{
-					if(!summon_possible(target_ptr, cy, cx) || !cave_empty_bold(floor_ptr, cy, cx))
-					{
-						int j;
-						for (j = 100; j > 0; j--)
-						{
-							scatter(floor_ptr, &cy, &cx, y, x, 2, 0);
-							if(cave_empty_bold(floor_ptr, cy, cx)) break;
-						}
-						if(!j) break;
-					}
-					if(!cave_empty_bold(floor_ptr, cy, cx)) continue;
-
-					if(summon_named_creature(caster_ptr, floor_ptr, cy, cx, SPECIES_NAZGUL, mode))
-					{
-						y = cy;
-						x = cx;
-						count++;
-						if(count == 1)
-#ifdef JP
-							msg_format("「幽鬼戦隊%d号、ナズグル・ブラック！」", count);
-#else
-							msg_format("A Nazgul says 'Nazgul-Rangers Number %d, Nazgul-Black!'",count);
-#endif
-						else
-#ifdef JP
-							msg_format("「同じく%d号、ナズグル・ブラック！」", count);
-#else
-							msg_format("Another one says 'Number %d, Nazgul-Black!'",count);
-#endif
-						msg_print(NULL);
-					}
-				}
-#ifdef JP
-				msg_format("「%d人そろって、リングレンジャー！」", count);
-#else
-				msg_format("They say 'The %d meets! We are the Ring-Ranger!'.", count);
-#endif
-				msg_print(NULL);
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-				if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-				else msg_format("%^sが魔法で強力なアンデッドを召喚した！", target_name);
-#else
-				else msg_format("%^s magically summons greater undead!", target_name);
-#endif
-
 				for (k = 0; k < s_num_6; k++)
 				{
 					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
@@ -2461,11 +2361,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int k;
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("古代ドラゴンを召喚した！");
-#else
-			msg_print("You summon ancient dragons!");
-#endif
+
 			for (k = 0;k < 4; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
 			break;
@@ -2489,19 +2385,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法で古代ドラゴンを召喚した！", target_name);
-#else
-			else msg_format("%^s magically summons ancient dragons!", target_name);
-#endif
-
 			for (k = 0; k < s_num_4; k++)
 			{
 				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
