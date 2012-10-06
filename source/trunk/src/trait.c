@@ -1740,20 +1740,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You gesture fluidly.");
 #endif
-
 		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
 
 	case TRAIT_BA_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("魔力の嵐の呪文を念じた。");
-#else
-		else msg_print("You invoke a mana storm.");
-#endif
-
 		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
+		{
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
+			break;
+		}
 
 	case TRAIT_BA_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3804,25 +3802,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_MANA:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔力の嵐の呪文を念じた。", caster_name);
-#else
-			else msg_format("%^s invokes a mana storm.", caster_name);
-#endif
-
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
-			break;
-		}
 
 
 
@@ -5036,26 +5015,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
 			breath(y, x, caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
-			break;
-		}
-
-	case TRAIT_BA_MANA:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔力の嵐の呪文を念じた。", target_name);
-#else
-			else msg_format("%^s invokes a mana storm.", target_name);
-#endif
-
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
 			break;
 		}
 
@@ -6285,16 +6244,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = randint1(user_level * 4) + 50;
 		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
-		break;
-	case TRAIT_BA_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("魔力の嵐の呪文を念じた。");
-#else
-		else msg_print("You invoke a mana storm.");
-#endif
-		damage = user_level * 8 + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
