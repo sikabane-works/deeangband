@@ -1902,14 +1902,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ウォーター・ボルトの呪文を唱えた。");
-#else
-		else msg_print("You cast a water bolt.");
-#endif
-
 		cast_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
+		{
+			damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
+			update_smart_learn(caster_ptr, DRS_REFLECT);
+			break;
+		}
+
 		//case TRAIT_BO_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3764,28 +3765,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_WATE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a water bolt.", caster_name);
-#endif
-
-			damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
 	case TRAIT_BO_MANA:
 		{
 			if(!direct) return (FALSE);
@@ -4658,27 +4637,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_WATE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがウォーター・ボルトの呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a water bolt.", target_name);
-#endif
-
-			damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_MANA:
 		{
@@ -5604,16 +5562,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_WATE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ウォーター・ボルトの呪文を唱えた。");
-#else
-		else msg_print("You cast a water bolt.");
-#endif
-		damage = diceroll(10, 10) + user_level * 2;
-		cast_bolt(caster_ptr, GF_WATER, dir, damage);
-		break;
 	case TRAIT_BO_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
