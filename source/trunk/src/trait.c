@@ -1766,6 +1766,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(user_level*3)+user_level, 0);
 		break;
+		{
+			damage = (randint1(user_level) / 2) + 1;
+			breath(y, x, caster_ptr, GF_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
+			update_smart_learn(caster_ptr, DRS_MANA);
+			break;
+		}
 
 	case TRAIT_MIND_BLAST:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3835,16 +3841,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_DRAIN_MANA:
-		{
-			if(!direct) return (FALSE);
-
-
-			damage = (randint1(user_level) / 2) + 1;
-			breath(y, x, caster_ptr, GF_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
-			update_smart_learn(caster_ptr, DRS_MANA);
-			break;
-		}
 
 
 	case TRAIT_BRAIN_SMASH:
@@ -5100,16 +5096,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_DRAIN_MANA:
-		{
-			if(!direct) return (FALSE);
-
-
-			damage = (randint1(user_level) / 2) + 1;
-			breath(y, x, caster_ptr, GF_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
-			update_smart_learn(caster_ptr, DRS_MANA);
-			break;
-		}
 
 
 	case TRAIT_BRAIN_SMASH:
@@ -6355,10 +6341,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = user_level * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
-		break;
-	case TRAIT_DRAIN_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(user_level)+user_level, 0);
 		break;
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
