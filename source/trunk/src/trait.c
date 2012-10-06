@@ -1390,14 +1390,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("酸のブレスを吐いた。");
-#else
-		else msg_print("You breathe acid.");
-#endif
-
 		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
+			update_smart_learn(caster_ptr, DRS_ACID);
+			break;
+		}
 
 	case TRAIT_BR_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3684,26 +3684,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_ACID:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが酸のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes acid.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
 
 
 
@@ -5525,26 +5505,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_ACID:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが酸のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes acid.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
 
 
 	case TRAIT_BR_POIS:
@@ -7415,16 +7375,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-	case TRAIT_BR_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("酸のブレスを吐いた。");
-#else
-		else msg_print("You breathe acid.");
-#endif
-		damage = hp / 3;
-		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
