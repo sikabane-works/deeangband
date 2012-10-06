@@ -2138,16 +2138,49 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("サイバーデーモンを召喚した！");
-#else
-			msg_print("You summon Cyberdemons!");
-#endif
+
 			if(max_cyber > 4) max_cyber = 4;
 			for (k = 0;k < max_cyber; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 			break;
 		}
+		{
+#ifdef JP
+			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
+#else
+			if(blind && count) msg_print("You hear heavy steps nearby.");
+#endif
+			summon_cyber(caster_ptr, y, x);
+			break;
+		}
+		{
+#ifdef JP
+			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
+#else
+			if(blind && count) msg_print("You hear heavy steps nearby.");
+#endif
+
+			summon_cyber(caster_ptr, y, x);
+			break;
+		}
+		{
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
+				{
+					if(!pet)
+#ifdef JP
+						msg_print("召喚されたサイバーデーモンは怒っている！");
+#else
+						msg_print("The summoned Cyberdemon are angry!");
+#endif
+				}
+				else
+				{
+					no_trump = TRUE;
+				}
+				break;
+		}
+
+
 
 	case TRAIT_S_MONSTER:
 		{
@@ -5602,31 +5635,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_CYBER:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがサイバーデーモンを召喚した！", caster_name);
-#else
-			else msg_format("%^s magically summons Cyberdemons!", caster_name);
-#endif
-
-#ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
-#endif
-
-			summon_cyber(caster_ptr, y, x);
-			break;
-		}
-
 
 
 	case TRAIT_S_DEMON:
@@ -7750,31 +7758,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_CYBER:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがサイバーデーモンを召喚した！", target_name);
-#else
-			else msg_format("%^s magically summons Cyberdemons!", target_name);
-#endif
-
-#ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
-#endif
-
-			summon_cyber(caster_ptr, y, x);
-			break;
-		}
-
 
 	case TRAIT_S_DEMON:
 		{
@@ -8585,29 +8568,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				}
 			}
 			break;
-		}
-	case TRAIT_S_CYBER:
-		{
-#ifdef JP
-			msg_print("サイバーデーモンを召喚した！");
-#else
-			msg_print("You summon a Cyberdemon!");
-#endif
-			for (k = 0 ;k < 1 ; k++)
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
-				{
-					if(!pet)
-#ifdef JP
-						msg_print("召喚されたサイバーデーモンは怒っている！");
-#else
-						msg_print("The summoned Cyberdemon are angry!");
-#endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
 		}
 
 	case TRAIT_S_DEMON:
