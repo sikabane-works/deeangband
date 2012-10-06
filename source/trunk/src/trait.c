@@ -1639,14 +1639,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("純ログルスを放った。");
-#else
-		else msg_print("You invoke a raw Logrus.");
-#endif
-
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
+		{
+			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
+			update_smart_learn(caster_ptr, DRS_CHAOS);
+			break;
+		}
 
 	case TRAIT_BR_DISI:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3713,26 +3713,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BA_CHAO:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが恐ろしげにつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles frighteningly.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが純ログルスを放った。", caster_name);
-#else
-			else msg_format("%^s invokes a raw Logrus.", caster_name);
-#endif
-
-			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
-		}
 
 
 
@@ -5127,36 +5107,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
-
-
-
-
-
-
-
-
-
-	case TRAIT_BA_CHAO:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが恐ろしげにつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles frighteningly.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが純ログルスを放った。", target_name);
-#else
-			else msg_format("%^s invokes a raw Logrus.", target_name);
-#endif
-
-			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
-		}
-
 
 	case TRAIT_BA_ACID:
 		{
@@ -6602,16 +6552,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_CHAO:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("純ログルスを放った。");
-#else
-		else msg_print("You invoke a raw Logrus.");
-#endif
-		damage = user_level * 4 + diceroll(10, 10);
-		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
-		break;
 	case TRAIT_BA_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
