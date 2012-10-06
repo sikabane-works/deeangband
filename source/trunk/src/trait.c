@@ -1721,6 +1721,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
+
 	case TRAIT_BA_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1731,6 +1732,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
+
 		//case TRAIT_BA_WATE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1741,6 +1743,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
+
 	case TRAIT_BA_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1751,16 +1754,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
+
 	case TRAIT_BA_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("暗黒の嵐の呪文を念じた。");
-#else
-		else msg_print("You invoke a darkness storm.");
-#endif
-
 		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
+		{
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
+			update_smart_learn(caster_ptr, DRS_DARK);
+			break;
+		}
 
 	case TRAIT_DRAIN_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3820,26 +3824,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_DARK:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが暗黒の嵐の呪文を念じた。", caster_name);
-#else
-			else msg_format("%^s invokes a darkness storm.", caster_name);
-#endif
-
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
-			update_smart_learn(caster_ptr, DRS_DARK);
-			break;
-		}
 
 
 
@@ -5075,26 +5059,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_DARK:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが暗黒の嵐の呪文を念じた。", target_name);
-#else
-			else msg_format("%^s invokes a darkness storm.", target_name);
-#endif
-
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
-			update_smart_learn(caster_ptr, DRS_DARK);
-			break;
-		}
 
 
 
@@ -6331,16 +6295,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = user_level * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
-		break;
-	case TRAIT_BA_DARK:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("暗黒の嵐の呪文を念じた。");
-#else
-		else msg_print("You invoke a darkness storm.");
-#endif
-		damage = user_level * 8 + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
