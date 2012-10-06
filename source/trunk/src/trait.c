@@ -759,18 +759,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_WATE:
-		{
-#ifdef JP
-			msg_print("矛が深い青色に鼓動している...");
-#else
-			msg_print("Your dagger throbs deep blue...");
-#endif
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_ball(caster_ptr, GF_WATER, dir, 200, 3);
-			break;
-		}
-
 	case TRAIT_GETAWAY:
 		{
 			switch (randint1(13))
@@ -1732,15 +1720,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_BA_WATE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("流れるような身振りをした。");
-#else
-		else msg_print("You gesture fluidly.");
-#endif
+	case TRAIT_BA_WATE:
 		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
+		{
+#ifdef JP
+			msg_print("あなたは渦巻きに飲み込まれた。");
+#else
+			msg_print("You are engulfed in a whirlpool.");
+#endif
+			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
+			breath(y, x, caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
+			break;
+		}
 
 	case TRAIT_BA_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3735,32 +3727,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BA_WATE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが流れるような身振りをした。", caster_name);
-#else
-			else msg_format("%^s gestures fluidly.", caster_name);
-#endif
-
-#ifdef JP
-			msg_print("あなたは渦巻きに飲み込まれた。");
-#else
-			msg_print("You are engulfed in a whirlpool.");
-#endif
-
-			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
-			break;
-		}
-
 
 
 
@@ -4910,32 +4876,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-
-	case TRAIT_BA_WATE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが流れるような身振りをした。", target_name);
-#else
-			else msg_format("%^s gestures fluidly.", target_name);
-#endif
-
-#ifdef JP
-			msg_print("あなたは渦巻きに飲み込まれた。");
-#else
-			msg_print("You are engulfed in a whirlpool.");
-#endif
-
-			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
-			break;
-		}
 
 
 
@@ -6134,16 +6074,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_WATE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("流れるような身振りをした。");
-#else
-		else msg_print("You gesture fluidly.");
-#endif
-		damage = randint1(user_level * 4) + 50;
-		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
-		break;
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(12, 12);
