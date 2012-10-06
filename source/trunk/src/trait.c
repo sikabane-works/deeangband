@@ -2011,14 +2011,35 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("誘惑的な幻覚をつくり出した。");
-#else
-		else msg_print("You cast a mesmerizing illusion.");
-#endif
-
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
+		{
+			if(has_trait(target_ptr, TRAIT_NO_CONF))
+			{
+#ifdef JP
+				msg_print("しかし幻覚にはだまされなかった。");
+#else
+				msg_print("You disbelieve the feeble spell.");
+#endif
+
+			}
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
+#ifdef JP
+				msg_print("しかし幻覚にはだまされなかった。");
+#else
+				msg_print("You disbelieve the feeble spell.");
+#endif
+
+			}
+			else
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+			}
+			learn_trait(target_ptr, TRAIT_CONF);
+			update_smart_learn(caster_ptr, DRS_CONF);
+			break;
+		}
 
 	case TRAIT_SLOW:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3794,48 +3815,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_CONF:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles, and you hear puzzling noises.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが誘惑的な幻覚を作り出した。", caster_name);
-#else
-			else msg_format("%^s creates a mesmerising illusion.", caster_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_CONF);
-			update_smart_learn(caster_ptr, DRS_CONF);
-			break;
-		}
 
 	case TRAIT_SLOW:
 		{
@@ -4488,50 +4467,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-
-	case TRAIT_CONF:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、頭を悩ます音がした。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles, and you hear puzzling noises.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが誘惑的な幻覚を作り出した。", target_name);
-#else
-			else msg_format("%^s creates a mesmerising illusion.", target_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_CONF);
-			update_smart_learn(caster_ptr, DRS_CONF);
 			break;
 		}
 
@@ -5241,15 +5176,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_CONF:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("誘惑的な幻覚をつくり出した。");
-#else
-		else msg_print("You cast a mesmerizing illusion.");
-#endif
-		confuse_creature(caster_ptr, dir, user_level * 2);
-		break;
 	case TRAIT_SLOW:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		slow_creature(caster_ptr, dir);
