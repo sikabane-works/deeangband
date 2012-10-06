@@ -2045,6 +2045,33 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		slow_creature(caster_ptr, dir);
 		break;
+		{
+			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
+			{
+#ifdef JP
+				msg_print("しかし効果がなかった！");
+#else
+				msg_print("You are unaffected!");
+#endif
+
+			}
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+
+			}
+			else
+			{
+				(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
+			}
+			learn_trait(target_ptr, TRAIT_SLOW);
+			update_smart_learn(caster_ptr, DRS_FREE);
+			break;
+		}
 
 	case TRAIT_HOLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3815,44 +3842,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_SLOW:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sがあなたの筋力を吸い取ろうとした！", caster_name);
-#else
-			msg_format("%^s drains power from your muscles!", caster_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-			}
-			learn_trait(target_ptr, TRAIT_SLOW);
-			update_smart_learn(caster_ptr, DRS_FREE);
-			break;
-		}
-
 	case TRAIT_HOLD:
 		{
 			if(!direct) return (FALSE);
@@ -4467,43 +4456,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-	case TRAIT_SLOW:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sがあなたの筋力を吸い取ろうとした！", target_name);
-#else
-			msg_format("%^s drains power from your muscles!", target_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-			}
-			learn_trait(target_ptr, TRAIT_SLOW);
-			update_smart_learn(caster_ptr, DRS_FREE);
 			break;
 		}
 
@@ -5176,10 +5128,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_SLOW:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		slow_creature(caster_ptr, dir);
-		break;
 	case TRAIT_HOLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		sleep_creature(caster_ptr, dir);
