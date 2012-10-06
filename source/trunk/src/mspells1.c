@@ -492,6 +492,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
  * Stop if we hit a creature
  * Affect creatures and the player
  */
+//TODO check and remove
 static void bolt(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
 	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_PLAYER | PROJECT_REFLECTABLE;

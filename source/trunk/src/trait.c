@@ -2072,13 +2072,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_PSY_SPEAR:
+		{
+			damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
+			//cast_beam(caster_ptr, target_ptr, GF_PSY_SPEAR, damage, TRAIT_PSY_SPEAR, TRUE);
+			break;
+		}
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-
-#ifdef JP
-		else msg_print("光の剣を放った。");
-#else
-		else msg_print("You throw a psycho-spear.");
-#endif
+		damage = randint1(user_level * 3) + 100;
 		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
 
@@ -5400,27 +5400,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_PSY_SPEAR:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが光の剣を放った。", caster_name);
-#else
-			else msg_format("%^s throw a Psycho-Spear.", caster_name);
-#endif
-
-			dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-			beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, TRAIT_PSY_SPEAR, learnable);
-			break;
-		}
-
 	case TRAIT_S_KIN:
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
@@ -7423,27 +7402,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_PSY_SPEAR:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが光の剣を放った。", target_name);
-#else
-			else msg_format("%^s throw a Psycho-Spear.", target_name);
-#endif
-
-			dam = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-			beam(caster_ptr, target_ptr, GF_PSY_SPEAR, dam, TRAIT_PSY_SPEAR, learnable);
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -7659,7 +7617,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe acid.");
 #endif
 		damage = hp / 3;
-		cast_ball(caster_ptr, GF_ACID, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7669,7 +7627,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe lightning.");
 #endif
 		damage = hp / 3;
-		cast_ball(caster_ptr, GF_ELEC, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7679,7 +7637,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe fire.");
 #endif
 		damage = hp / 3;
-		cast_ball(caster_ptr, GF_FIRE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7689,7 +7647,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe frost.");
 #endif
 		damage = hp / 3;
-		cast_ball(caster_ptr, GF_COLD, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_COLD, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7699,7 +7657,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe gas.");
 #endif
 		damage = hp / 3;
-		cast_ball(caster_ptr, GF_POIS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_POIS, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7709,7 +7667,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe nether.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_NETHER, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_NETHER, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7719,7 +7677,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe light.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_LITE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7729,7 +7687,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe darkness.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_DARK, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_DARK, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7739,7 +7697,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe confusion.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_SOUN:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7749,7 +7707,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe sound.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_SOUND, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7759,7 +7717,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe chaos.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7769,7 +7727,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe disenchantment.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7779,7 +7737,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe nexus.");
 #endif
 		damage = MIN(hp / 3, 250);
-		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7789,7 +7747,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe time.");
 #endif
 		damage = MIN(hp / 3, 150);
-		cast_ball(caster_ptr, GF_TIME, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_INER:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7799,7 +7757,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe inertia.");
 #endif
 		damage = MIN(hp / 6, 200);
-		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_GRAV:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7809,7 +7767,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe gravity.");
 #endif
 		damage = MIN(hp / 3, 200);
-		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_SHAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7819,7 +7777,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe shards.");
 #endif
 		damage = hp / 6;
-		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7829,7 +7787,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe plasma.");
 #endif
 		damage = MIN(hp / 6, 150);
-		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_WALL:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7839,7 +7797,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe force.");
 #endif
 		damage = MIN(hp / 6, 200);
-		cast_ball(caster_ptr, GF_FORCE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_FORCE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7850,7 +7808,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 		damage = MIN(hp / 3, 250);
-		cast_ball(caster_ptr, GF_MANA, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7859,7 +7817,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a ball of radiation.");
 #endif
-		damage = plev * 2 + diceroll(10, 6);
+		damage = user_level * 2 + diceroll(10, 6);
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
 	case TRAIT_BR_NUKE:
@@ -7870,7 +7828,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe toxic waste.");
 #endif
 		damage = hp / 3;
-		cast_ball(caster_ptr, GF_NUKE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7879,7 +7837,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You invoke a raw Logrus.");
 #endif
-		damage = plev * 4 + diceroll(10, 10);
+		damage = user_level * 4 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 	case TRAIT_BR_DISI:
@@ -7890,7 +7848,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else msg_print("You breathe disintegration.");
 #endif
 		damage = MIN(hp / 6, 150);
-		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (plev > 40 ? -3 : -2));
+		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -7899,7 +7857,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast an acid ball.");
 #endif
-		damage = randint1(plev * 6) + 15;
+		damage = randint1(user_level * 6) + 15;
 		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
 	case TRAIT_BA_ELEC:
@@ -7909,7 +7867,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a lightning ball.");
 #endif
-		damage = randint1(plev * 3) + 8;
+		damage = randint1(user_level * 3) + 8;
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
 		break;
 	case TRAIT_BA_FIRE:
@@ -7919,7 +7877,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a fire ball.");
 #endif
-		damage = randint1(plev * 7) + 10;
+		damage = randint1(user_level * 7) + 10;
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
 		break;
 	case TRAIT_BA_COLD:
@@ -7929,7 +7887,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a frost ball.");
 #endif
-		damage = randint1(plev * 3) + 10;
+		damage = randint1(user_level * 3) + 10;
 		cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
 		break;
 	case TRAIT_BA_POIS:
@@ -7949,7 +7907,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a nether ball.");
 #endif
-		damage = plev * 2 + 50 + diceroll(10, 10);
+		damage = user_level * 2 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
 	case TRAIT_BA_WATE:
@@ -7959,7 +7917,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You gesture fluidly.");
 #endif
-		damage = randint1(plev * 4) + 50;
+		damage = randint1(user_level * 4) + 50;
 		cast_ball(caster_ptr, GF_WATER, dir, damage, 4);
 		break;
 	case TRAIT_BA_MANA:
@@ -7969,7 +7927,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You invoke a mana storm.");
 #endif
-		damage = plev * 8 + 50 + diceroll(10, 10);
+		damage = user_level * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
 	case TRAIT_BA_DARK:
@@ -7979,12 +7937,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You invoke a darkness storm.");
 #endif
-		damage = plev * 8 + 50 + diceroll(10, 10);
+		damage = user_level * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
 	case TRAIT_DRAIN_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(plev)+plev, 0);
+		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(user_level)+user_level, 0);
 		break;
 	case TRAIT_MIND_BLAST:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -8023,7 +7981,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast an acid bolt.");
 #endif
-		damage = diceroll(7, 8) + plev * 2 / 3;
+		damage = diceroll(7, 8) + user_level * 2 / 3;
 		cast_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
 	case TRAIT_BO_ELEC:
@@ -8033,7 +7991,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a lightning bolt.");
 #endif
-		damage = diceroll(4, 8) + plev * 2 / 3;
+		damage = diceroll(4, 8) + user_level * 2 / 3;
 		cast_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
 	case TRAIT_BO_FIRE:
@@ -8043,7 +8001,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a fire bolt.");
 #endif
-		damage = diceroll(9, 8) + plev * 2 / 3;
+		damage = diceroll(9, 8) + user_level * 2 / 3;
 		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
 	case TRAIT_BO_COLD:
@@ -8053,7 +8011,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a frost bolt.");
 #endif
-		damage = diceroll(6, 8) + plev * 2 / 3;
+		damage = diceroll(6, 8) + user_level * 2 / 3;
 		cast_bolt(caster_ptr, GF_COLD, dir, damage);
 		break;
 	case TRAIT_BA_LITE:
@@ -8064,7 +8022,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_print("You invoke a starburst.");
 #endif
-		damage = plev * 8 + 50 + diceroll(10, 10);
+		damage = user_level * 8 + 50 + diceroll(10, 10);
 		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
 	case TRAIT_BO_NETH:
@@ -8074,7 +8032,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a nether bolt.");
 #endif
-		damage = 30 + diceroll(5, 5) + plev * 8 / 3;
+		damage = 30 + diceroll(5, 5) + user_level * 8 / 3;
 		cast_bolt(caster_ptr, GF_NETHER, dir, damage);
 		break;
 	case TRAIT_BO_WATE:
@@ -8084,7 +8042,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a water bolt.");
 #endif
-		damage = diceroll(10, 10) + plev * 2;
+		damage = diceroll(10, 10) + user_level * 2;
 		cast_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
 	case TRAIT_BO_MANA:
@@ -8094,7 +8052,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a mana bolt.");
 #endif
-		damage = randint1(plev * 7) + 50;
+		damage = randint1(user_level * 7) + 50;
 		cast_bolt(caster_ptr, GF_MANA, dir, damage);
 		break;
 	case TRAIT_BO_PLAS:
@@ -8104,7 +8062,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a plasma bolt.");
 #endif
-		damage = 10 + diceroll(8, 7) + plev * 2;
+		damage = 10 + diceroll(8, 7) + user_level * 2;
 		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
 	case TRAIT_BO_ICEE:
@@ -8114,7 +8072,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a ice bolt.");
 #endif
-		damage = diceroll(6, 6) + plev * 2;
+		damage = diceroll(6, 6) + user_level * 2;
 		cast_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
 	case TRAIT_MISSILE:
@@ -8124,7 +8082,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a magic missile.");
 #endif
-		damage = diceroll(2, 6) + plev * 2 / 3;
+		damage = diceroll(2, 6) + user_level * 2 / 3;
 		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
 	case TRAIT_SCARE:
@@ -8134,11 +8092,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a fearful illusion.");
 #endif
-		fear_creature(caster_ptr, dir, plev+10);
+		fear_creature(caster_ptr, dir, user_level+10);
 		break;
 	case TRAIT_BLIND:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		confuse_creature(caster_ptr, dir, plev * 2);
+		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -8147,7 +8105,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a mesmerizing illusion.");
 #endif
-		confuse_creature(caster_ptr, dir, plev * 2);
+		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
 	case TRAIT_SLOW:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -8158,7 +8116,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		sleep_creature(caster_ptr, dir);
 		break;
 	case TRAIT_HASTE:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + plev) + plev);
+		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
 		break;
 	case TRAIT_HAND_DOOM:
 		{
@@ -8169,7 +8127,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_print("You invoke the Hand of Doom!");
 #endif
 
-			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 3, 0);
+			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, user_level * 3, 0);
 			break;
 		}
 	case TRAIT_HEAL:
@@ -8178,7 +8136,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		msg_print("You concentrate on your wounds!");
 #endif
-		(void)heal_creature(caster_ptr, plev*4);
+		(void)heal_creature(caster_ptr, user_level*4);
 		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
 		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 		break;
@@ -8194,7 +8152,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		teleport_player(caster_ptr, 10, 0L);
 		break;
 	case TRAIT_ACTIVE_TELEPORT:
-		teleport_player(caster_ptr, plev * 5, 0L);
+		teleport_player(caster_ptr, user_level * 5, 0L);
 		break;
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
@@ -8295,7 +8253,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
-				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > plev + randint1(60)))
+				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");
@@ -8306,17 +8264,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else teleport_level(caster_ptr, target_m_idx);
 			break;
 		}
-	case TRAIT_PSY_SPEAR:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-
-#ifdef JP
-		else msg_print("光の剣を放った。");
-#else
-		else msg_print("You throw a psycho-spear.");
-#endif
-		damage = randint1(plev * 3) + 100;
-		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
-		break;
 
 	case TRAIT_S_KIN:
 		{
