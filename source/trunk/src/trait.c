@@ -1879,14 +1879,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("スターバーストの呪文を念じた。");
-#else
-		else msg_print("You invoke a starburst.");
-#endif
-
 		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
+		{
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
+			update_smart_learn(caster_ptr, DRS_LITE);
+			break;
+		}
+
 	case TRAIT_BO_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3762,26 +3763,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BA_LITE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがスターバーストの呪文を念じた。", caster_name);
-#else
-			else msg_format("%^s invokes a starburst.", caster_name);
-#endif
-
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
-		}
 
 	case TRAIT_BO_NETH:
 		{
@@ -4700,26 +4681,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_LITE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがスターバーストの呪文を念じた。", target_name);
-#else
-			else msg_format("%^s invokes a starburst.", target_name);
-#endif
-
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
-		}
 
 	case TRAIT_BO_NETH:
 		{
@@ -5690,17 +5651,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_LITE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		else
-#ifdef JP
-			msg_print("スターバーストの呪文を念じた。");
-#else
-			msg_print("You invoke a starburst.");
-#endif
-		damage = user_level * 8 + 50 + diceroll(10, 10);
-		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
-		break;
 	case TRAIT_BO_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
