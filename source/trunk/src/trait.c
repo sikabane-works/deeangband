@@ -1784,22 +1784,32 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
+
 	case TRAIT_CAUSE_1:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
+		{
+			damage = diceroll(3, 8);
+			breath(y, x, caster_ptr, GF_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
+			break;
+		}
+
 	case TRAIT_CAUSE_2:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
+
 	case TRAIT_CAUSE_3:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
 		break;
+
 	case TRAIT_CAUSE_4:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
+
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1807,9 +1817,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast an acid bolt.");
 #endif
-
 		cast_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
+
 	case TRAIT_BO_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1817,9 +1827,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast a lightning bolt.");
 #endif
-
 		cast_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
+
 	case TRAIT_BO_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3759,26 +3769,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_CAUSE_1:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたを指さして呪った。", caster_name);
-#else
-			else msg_format("%^s points at you and curses.", caster_name);
-#endif
-
-			damage = diceroll(3, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
-			break;
-		}
 
 	case TRAIT_CAUSE_2:
 		{
@@ -4908,26 +4898,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_CAUSE_1:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたを指さして呪った。", target_name);
-#else
-			else msg_format("%^s points at you and curses.", target_name);
-#endif
-
-			damage = diceroll(3, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
-			break;
-		}
 
 	case TRAIT_CAUSE_2:
 		{
@@ -6078,11 +6048,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(12, 12);
 		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
-		break;
-	case TRAIT_CAUSE_1:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = diceroll(3, 8);
-		cast_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_2:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
