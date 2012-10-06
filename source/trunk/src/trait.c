@@ -1387,6 +1387,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_bolt(caster_ptr, GF_ARROW, dir, damage);
 		break;
+
 	case TRAIT_BR_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1397,16 +1398,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+
 	case TRAIT_BR_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("稲妻のブレスを吐いた。");
-#else
-		else msg_print("You breathe lightning.");
-#endif
-
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
+			update_smart_learn(caster_ptr, DRS_ELEC);
+			break;
+		}
 
 	case TRAIT_BR_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3703,26 +3705,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_ELEC:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが稲妻のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes lightning.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
-			break;
-		}
 
 
 
@@ -5561,27 +5543,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
 			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
-
-	case TRAIT_BR_ELEC:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが稲妻のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes lightning.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
 
@@ -7463,16 +7424,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
-	case TRAIT_BR_ELEC:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("稲妻のブレスを吐いた。");
-#else
-		else msg_print("You breathe lightning.");
-#endif
-		damage = hp / 3;
-		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
