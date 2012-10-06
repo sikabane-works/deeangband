@@ -2102,12 +2102,28 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_FORGET:
+		{
+			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
 #ifdef JP
-		msg_print("しかし何も起きなかった。");
+				msg_print("しかし効力を跳ね返した！");
 #else
-		msg_print("Nothing happen.");
+				msg_print("You resist the effects!");
 #endif
-		break;
+
+			}
+			else if(lose_all_info(target_ptr))
+			{
+#ifdef JP
+				msg_print("記憶が薄れてしまった。");
+#else
+				msg_print("Your memories fade away.");
+#endif
+
+			}
+			learn_trait(target_ptr, TRAIT_FORGET);
+			break;
+		}
 
 	case TRAIT_ANIM_DEAD:
 		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
@@ -5462,39 +5478,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_FORGET:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sがあなたの記憶を消去しようとしている。", caster_name);
-#else
-			msg_format("%^s tries to blank your mind.", caster_name);
-#endif
-
-
-			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else if(lose_all_info(target_ptr))
-			{
-#ifdef JP
-				msg_print("記憶が薄れてしまった。");
-#else
-				msg_print("Your memories fade away.");
-#endif
-
-			}
-			learn_trait(target_ptr, TRAIT_FORGET);
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -7566,38 +7549,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_FORGET:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sがあなたの記憶を消去しようとしている。", target_name);
-#else
-			msg_format("%^s tries to blank your mind.", target_name);
-#endif
-
-
-			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else if(lose_all_info(target_ptr))
-			{
-#ifdef JP
-				msg_print("記憶が薄れてしまった。");
-#else
-				msg_print("Your memories fade away.");
-#endif
-
-			}
-			learn_trait(target_ptr, TRAIT_FORGET);
-			break;
-		}
 
 	case TRAIT_S_KIN:
 		{
@@ -8489,13 +8440,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
 
-	case TRAIT_FORGET:
-#ifdef JP
-		msg_print("しかし何も起きなかった。");
-#else
-		msg_print("Nothing happen.");
-#endif
-		break;
 
 	case TRAIT_S_KIN:
 		{
