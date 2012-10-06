@@ -1660,13 +1660,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("アシッド・ボールの呪文を唱えた。");
-#else
-		else msg_print("You cast an acid ball.");
-#endif
 		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
+		{
+			damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
+			update_smart_learn(caster_ptr, DRS_ACID);
+			break;
+		}
 
 	case TRAIT_BA_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3710,33 +3711,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-
-
-
-
-
-	case TRAIT_BA_ACID:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアシッド・ボールの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts an acid ball.", caster_name);
-#endif
-
-			damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
-
 	case TRAIT_BA_ELEC:
 		{
 
@@ -5108,26 +5082,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_ACID:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアシッド・ボールの呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts an acid ball.", target_name);
-#endif
-
-			damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
 
 	case TRAIT_BA_ELEC:
 		{
@@ -6552,16 +6506,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("アシッド・ボールの呪文を唱えた。");
-#else
-		else msg_print("You cast an acid ball.");
-#endif
-		damage = randint1(user_level * 6) + 15;
-		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
-		break;
 	case TRAIT_BA_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
