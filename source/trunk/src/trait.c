@@ -1779,11 +1779,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		breath(y, x, caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
 		break;
 
-
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
+		{
+			damage = diceroll(12, 12);
+			breath(y, x, caster_ptr, GF_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
+			break;
+		}
 
 	case TRAIT_CAUSE_1:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3756,33 +3760,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BRAIN_SMASH:
-		{
-			if(!direct) return (FALSE);
-
-			if(!seen)
-			{
-#ifdef JP
-				msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
-				msg_print("You feel something focusing on your mind.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがあなたの瞳をじっと見ている。", caster_name);
-#else
-				msg_format("%^s looks deep into your eyes.", caster_name);
-#endif
-
-			}
-
-			damage = diceroll(12, 12);
-			breath(y, x, caster_ptr, GF_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
-			break;
-		}
 
 
 
@@ -4825,33 +4802,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BRAIN_SMASH:
-		{
-			if(!direct) return (FALSE);
-
-			if(!seen)
-			{
-#ifdef JP
-				msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
-				msg_print("You feel something focusing on your mind.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがあなたの瞳をじっと見ている。", target_name);
-#else
-				msg_format("%^s looks deep into your eyes.", target_name);
-#endif
-
-			}
-
-			damage = diceroll(12, 12);
-			breath(y, x, caster_ptr, GF_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
-			break;
-		}
 
 
 
@@ -5938,11 +5888,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BRAIN_SMASH:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = diceroll(12, 12);
-		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
-		break;
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
