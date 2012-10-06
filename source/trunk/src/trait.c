@@ -1799,6 +1799,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
+		{
+			damage = diceroll(8, 8);
+			breath(y, x, caster_ptr, GF_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
+			break;
+		}
 
 	case TRAIT_CAUSE_3:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3770,26 +3775,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_CAUSE_2:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたを指さして恐ろしげに呪った。", caster_name);
-#else
-			else msg_format("%^s points at you and curses horribly.", caster_name);
-#endif
-
-			damage = diceroll(8, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
-			break;
-		}
 
 	case TRAIT_CAUSE_3:
 		{
@@ -4899,26 +4884,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_CAUSE_2:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたを指さして恐ろしげに呪った。", target_name);
-#else
-			else msg_format("%^s points at you and curses horribly.", target_name);
-#endif
-
-			damage = diceroll(8, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
-			break;
-		}
 
 	case TRAIT_CAUSE_3:
 		{
@@ -6048,11 +6013,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(12, 12);
 		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
-		break;
-	case TRAIT_CAUSE_2:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = diceroll(8, 8);
-		cast_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
 	case TRAIT_CAUSE_3:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
