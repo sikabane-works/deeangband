@@ -2039,6 +2039,33 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TELE_LEVEL:
 		{
+			if(target_ptr->resist_nexus)
+			{
+#ifdef JP
+				msg_print("しかし効果がなかった！");
+#else
+				msg_print("You are unaffected!");
+#endif
+
+			}
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+
+			}
+			else
+			{
+				teleport_level(target_ptr, 0);
+			}
+			learn_trait(target_ptr, TRAIT_TELE_LEVEL);
+			update_smart_learn(caster_ptr, DRS_NEXUS);
+			break;
+		}
+		{
 			int target_m_idx;
 			creature_type *m_ptr;
 			species_type *r_ptr;
@@ -2052,14 +2079,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			m_ptr = &creature_list[target_m_idx];
 			r_ptr = &species_info[m_ptr->species_idx];
 			creature_desc(target_name, m_ptr, 0);
-#ifdef JP
-			msg_format("%^sの足を指さした。", target_name);
-#else
-			msg_format("You gesture at %^s's feet.", target_name);
-#endif
 
 			if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
-				(has_trait(m_ptr, TRAIT_QUESTOR)) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
+				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
 			{
 #ifdef JP
 				msg_print("しかし効果がなかった！");
@@ -2070,6 +2092,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else teleport_level(caster_ptr, target_m_idx);
 			break;
 		}
+
 
 	case TRAIT_PSY_SPEAR:
 		{
@@ -5357,48 +5380,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_TELE_LEVEL:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles strangely.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたの足を指さした。", caster_name);
-#else
-			else msg_format("%^s gestures at your feet.", caster_name);
-#endif
-
-			if(target_ptr->resist_nexus)
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				teleport_level(target_ptr, 0);
-			}
-			learn_trait(target_ptr, TRAIT_TELE_LEVEL);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
-		}
 
 	case TRAIT_S_KIN:
 		{
@@ -7359,49 +7340,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_TELE_LEVEL:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何か奇妙な言葉をつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles strangely.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたの足を指さした。", target_name);
-#else
-			else msg_format("%^s gestures at your feet.", target_name);
-#endif
-
-			if(target_ptr->resist_nexus)
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				teleport_level(target_ptr, 0);
-			}
-			learn_trait(target_ptr, TRAIT_TELE_LEVEL);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -8231,39 +8169,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
 		break;
-	case TRAIT_TELE_LEVEL:
-		{
-			int target_m_idx;
-			creature_type *m_ptr;
-			species_type *r_ptr;
-			char target_name[80];
-
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!target_m_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			m_ptr = &creature_list[target_m_idx];
-			r_ptr = &species_info[m_ptr->species_idx];
-			creature_desc(target_name, m_ptr, 0);
-#ifdef JP
-			msg_format("%^sの足を指さした。", target_name);
-#else
-			msg_format("You gesture at %^s's feet.", target_name);
-#endif
-
-			if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
-				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_format("%^s is unaffected!", target_name);
-#endif
-			}
-			else teleport_level(caster_ptr, target_m_idx);
-			break;
-		}
 
 	case TRAIT_S_KIN:
 		{
