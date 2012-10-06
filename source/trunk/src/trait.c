@@ -1710,17 +1710,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
 	case TRAIT_BA_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("悪臭雲の呪文を唱えた。");
-#else
-		else msg_print("You cast a stinking cloud.");
-#endif
-
 		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
+		{
+			damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
+			update_smart_learn(caster_ptr, DRS_POIS);
+			break;
+		}
 
 	case TRAIT_BA_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3734,26 +3733,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BA_POIS:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが悪臭雲の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a stinking cloud.", caster_name);
-#endif
-
-			damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
 
 	case TRAIT_BA_NETH:
 		{
@@ -4950,26 +4929,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BA_POIS:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが悪臭雲の呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a stinking cloud.", target_name);
-#endif
-
-			damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
 
 	case TRAIT_BA_NETH:
 		{
@@ -6215,16 +6174,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_POIS:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("悪臭雲の呪文を唱えた。");
-#else
-		else msg_print("You cast a stinking cloud.");
-#endif
-		damage = diceroll(12,2);
-		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
-		break;
 	case TRAIT_BA_NETH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
