@@ -1478,24 +1478,32 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("混乱のブレスを吐いた。");
-#else
-		else msg_print("You breathe confusion.");
-#endif
-
 		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
+			update_smart_learn(caster_ptr, DRS_CONF);
+			break;
+		}
+
 	case TRAIT_BR_SOUN:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("轟音のブレスを吐いた。");
-#else
-		else msg_print("You breathe sound.");
-#endif
-
 		cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			if(caster_ptr->species_idx == SPECIES_JAIAN)
+#ifdef JP
+				msg_format("「ボォエ～～～～～～」");
+#else
+				msg_format("'Booooeeeeee'");
+#endif
+			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
+			update_smart_learn(caster_ptr, DRS_SOUND);
+			break;
+		}
+
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3688,62 +3696,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-
-
-
-
-
-
-
-	case TRAIT_BR_CONF:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが混乱のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes confusion.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
-			update_smart_learn(caster_ptr, DRS_CONF);
-			break;
-		}
-
-	case TRAIT_BR_SOUN:
-		{
-
-			if(caster_ptr->species_idx == SPECIES_JAIAN)
-#ifdef JP
-				msg_format("「ボォエ～～～～～～」");
-#else
-				msg_format("'Booooeeeeee'");
-#endif
-#ifdef JP
-			else if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			else if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが轟音のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes sound.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
-			update_smart_learn(caster_ptr, DRS_SOUND);
-			break;
-		}
-
 	case TRAIT_BR_CHAO:
 		{
 
@@ -5430,56 +5382,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-
-
-
-	case TRAIT_BR_CONF:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが混乱のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes confusion.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
-			update_smart_learn(caster_ptr, DRS_CONF);
-			break;
-		}
-
-	case TRAIT_BR_SOUN:
-		{
-
-			if(caster_ptr->species_idx == SPECIES_JAIAN)
-#ifdef JP
-				msg_format("「ボォエ～～～～～～」");
-#else
-				msg_format("'Booooeeeeee'");
-#endif
-#ifdef JP
-			else if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			else if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが轟音のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes sound.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
-			update_smart_learn(caster_ptr, DRS_SOUND);
-			break;
-		}
 
 	case TRAIT_BR_CHAO:
 		{
@@ -7219,26 +7121,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BR_CONF:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("混乱のブレスを吐いた。");
-#else
-		else msg_print("You breathe confusion.");
-#endif
-		damage = hp / 6;
-		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
-	case TRAIT_BR_SOUN:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("轟音のブレスを吐いた。");
-#else
-		else msg_print("You breathe sound.");
-#endif
-		damage = hp / 6;
-		cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
