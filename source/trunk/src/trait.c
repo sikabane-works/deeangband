@@ -2110,12 +2110,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_ANIM_DEAD:
-#ifdef JP
-		msg_print("死者復活の呪文を唱えた。");
-#else
-		msg_print("You cast a animate dead.");
-#endif
-		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
+		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 		break;
 
 	case TRAIT_S_KIN:
@@ -5500,27 +5495,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_ANIM_DEAD:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが死者復活の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a spell to revive corpses.", caster_name);
-#endif
-			animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
-			break;
-		}
 
 	case TRAIT_S_KIN:
 		{
-
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
 			{
 #ifdef JP
@@ -5634,7 +5611,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			break;
 		}
-
 
 
 	case TRAIT_S_DEMON:
@@ -7623,24 +7599,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_ANIM_DEAD:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが死者復活の呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a spell to revive corpses.", target_name);
-#endif
-			animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
-			break;
-		}
-
 	case TRAIT_S_KIN:
 		{
 
@@ -8530,6 +8488,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
+
 	case TRAIT_FORGET:
 #ifdef JP
 		msg_print("しかし何も起きなかった。");
@@ -8537,14 +8496,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		msg_print("Nothing happen.");
 #endif
 		break;
-	case TRAIT_ANIM_DEAD:
-#ifdef JP
-		msg_print("死者復活の呪文を唱えた。");
-#else
-		msg_print("You cast a animate dead.");
-#endif
-		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
-		break;
+
 	case TRAIT_S_KIN:
 		{
 #ifdef JP
