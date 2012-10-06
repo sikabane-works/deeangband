@@ -1984,11 +1984,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SPECIAL:
 		break;
 
+	//case TRAIT_TELE_AWAY:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
+		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
+		break;
+
+
 	case TRAIT_TELE_TO:
 		{
 			creature_type *m_ptr;
 			species_type *r_ptr;
-			char target_name[80];
 
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
@@ -2031,11 +2037,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
 			break;
 		}
-		//case TRAIT_TELE_AWAY:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		{
+#ifdef JP
+			msg_format("%^sがあなたを引き戻した。", target_name);
+#else
+			msg_format("%^s commands you to return.", target_name);
+#endif
 
-		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
-		break;
+			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
+			learn_trait(target_ptr, TRAIT_TELE_TO);
+			break;
+		}
+
 
 	case TRAIT_TELE_LEVEL:
 		{
@@ -3621,6 +3634,27 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 #if 0
+
+	case TRAIT_TELE_AWAY:
+		{
+			if(!direct) return (FALSE);
+
+#ifdef JP
+			msg_format("%^sにテレポートさせられた。", caster_name);
+
+			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
+				msg_print("くっそ～");
+			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+				msg_print("なんて事をするんだ！");
+#else
+			msg_format("%^s teleports you away.", caster_name);
+#endif
+
+			learn_trait(target_ptr, TRAIT_TELE_AWAY);
+			teleport_player_away(caster_ptr, 100);
+			break;
+		}
+
 	case TRAIT_SHOOT:
 		{
 			if(!direct) return (FALSE);
@@ -5344,42 +5378,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-
-	case TRAIT_TELE_TO:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sがあなたを引き戻した。", caster_name);
-#else
-			msg_format("%^s commands you to return.", caster_name);
-#endif
-
-			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
-			learn_trait(target_ptr, TRAIT_TELE_TO);
-			break;
-		}
-
-	case TRAIT_TELE_AWAY:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sにテレポートさせられた。", caster_name);
-
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("くっそ～");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("なんて事をするんだ！");
-#else
-			msg_format("%^s teleports you away.", caster_name);
-#endif
-
-			learn_trait(target_ptr, TRAIT_TELE_AWAY);
-			teleport_player_away(caster_ptr, 100);
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -7305,20 +7303,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_TELE_TO:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sがあなたを引き戻した。", target_name);
-#else
-			msg_format("%^s commands you to return.", target_name);
-#endif
-
-			teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_PASSIVE);
-			learn_trait(target_ptr, TRAIT_TELE_TO);
-			break;
-		}
 
 	case TRAIT_TELE_AWAY:
 		{
@@ -8117,53 +8101,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 	case TRAIT_SPECIAL:
 		break;
-	case TRAIT_TELE_TO:
-		{
-			creature_type *m_ptr;
-			species_type *r_ptr;
-			char target_name[80];
-
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
-			r_ptr = &species_info[m_ptr->species_idx];
-			creature_desc(target_name, m_ptr, 0);
-			if(has_trait(m_ptr, TRAIT_RES_TELE))
-			{
-				if((has_trait(m_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
-				{
-					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
-#ifdef JP
-					msg_format("%sには効果がなかった！", target_name);
-#else
-					msg_format("%s is unaffected!", target_name);
-#endif
-
-					break;
-				}
-				else if(r_ptr->level > randint1(100))
-				{
-					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
-#ifdef JP
-					msg_format("%sには耐性がある！", target_name);
-#else
-					msg_format("%s resists!", target_name);
-#endif
-
-					break;
-				}
-			}
-#ifdef JP
-			msg_format("%sを引き戻した。", target_name);
-#else
-			msg_format("You command %s to return.", target_name);
-#endif
-
-			teleport_creature_to2(floor_ptr->cave[target_row][target_col].creature_idx, caster_ptr, caster_ptr->fy, caster_ptr->fx, 100, TELEPORT_PASSIVE);
-			break;
-		}
 	case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
