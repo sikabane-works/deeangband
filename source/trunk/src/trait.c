@@ -1855,14 +1855,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ファイア・ボルトの呪文を唱えた。");
-#else
-		else msg_print("You cast a fire bolt.");
-#endif
-
 		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
+		{
+			damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_FIRE, damage, TRAIT_BO_FIRE, learnable);
+			update_smart_learn(caster_ptr, DRS_FIRE);
+			update_smart_learn(caster_ptr, DRS_REFLECT);
+			break;
+		}
+
 	case TRAIT_BO_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3771,28 +3773,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BO_FIRE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがファイア・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a fire bolt.", caster_name);
-#endif
-
-			damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_FIRE, damage, TRAIT_BO_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_COLD:
 		{
@@ -4768,28 +4748,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BO_FIRE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがファイア・ボルトの呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a fire bolt.", target_name);
-#endif
-
-			damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_FIRE, damage, TRAIT_BO_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_COLD:
 		{
@@ -5804,16 +5762,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_FIRE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ファイア・ボルトの呪文を唱えた。");
-#else
-		else msg_print("You cast a fire bolt.");
-#endif
-		damage = diceroll(9, 8) + user_level * 2 / 3;
-		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
-		break;
 	case TRAIT_BO_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
