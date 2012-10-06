@@ -1947,14 +1947,35 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_SCARE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("恐ろしげな幻覚を作り出した。");
-#else
-		else msg_print("You cast a fearful illusion.");
-#endif
-
 		fear_creature(caster_ptr, dir, user_level+10);
 		break;
+		{
+			if(has_trait(target_ptr, TRAIT_FEARLESS))
+			{
+#ifdef JP
+				msg_print("しかし恐怖に侵されなかった。");
+#else
+				msg_print("You refuse to be frightened.");
+#endif
+
+			}
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
+#ifdef JP
+				msg_print("しかし恐怖に侵されなかった。");
+#else
+				msg_print("You refuse to be frightened.");
+#endif
+
+			}
+			else
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
+			}
+			learn_trait(target_ptr, TRAIT_SCARE);
+			update_smart_learn(caster_ptr, DRS_FEAR);
+			break;
+		}
 
 	case TRAIT_BLIND:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3747,49 +3768,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_SCARE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles, and you hear scary noises.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが恐ろしげな幻覚を作り出した。", caster_name);
-#else
-			else msg_format("%^s casts a fearful illusion.", caster_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_FEARLESS))
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_SCARE);
-			update_smart_learn(caster_ptr, DRS_FEAR);
-			break;
-		}
-
 	case TRAIT_BLIND:
 		{
 			if(!direct) return (FALSE);
@@ -4530,48 +4508,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_SCARE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやくと、恐ろしげな音が聞こえた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles, and you hear scary noises.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが恐ろしげな幻覚を作り出した。", target_name);
-#else
-			else msg_format("%^s casts a fearful illusion.", target_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_FEARLESS))
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_SCARE);
-			update_smart_learn(caster_ptr, DRS_FEAR);
-			break;
-		}
 
 	case TRAIT_BLIND:
 		{
@@ -5365,19 +5301,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_SCARE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("恐ろしげな幻覚を作り出した。");
-#else
-		else msg_print("You cast a fearful illusion.");
-#endif
-		fear_creature(caster_ptr, dir, user_level+10);
-		break;
 	case TRAIT_BLIND:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
+
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
