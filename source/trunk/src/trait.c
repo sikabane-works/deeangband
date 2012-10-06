@@ -1930,14 +1930,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_ICEE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("極寒の矢の呪文を唱えた。");
-#else
-		else msg_print("You cast a ice bolt.");
-#endif
-
 		cast_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
+		{
+			damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
+			update_smart_learn(caster_ptr, DRS_COLD);
+			update_smart_learn(caster_ptr, DRS_REFLECT);
+			break;
+		}
+
 		//case TRAIT_MISSILE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3760,29 +3762,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_ICEE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが極寒の矢の呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts an ice bolt.", caster_name);
-#endif
-
-			damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
 	case TRAIT_MISSILE:
 		{
 			if(!direct) return (FALSE);
@@ -4588,28 +4567,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_ICEE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが極寒の矢の呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts an ice bolt.", target_name);
-#endif
-
-			damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_MISSILE:
 		{
@@ -5468,16 +5425,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_ICEE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("極寒の矢の呪文を唱えた。");
-#else
-		else msg_print("You cast a ice bolt.");
-#endif
-		damage = diceroll(6, 6) + user_level * 2;
-		cast_bolt(caster_ptr, GF_ICE, dir, damage);
-		break;
 	case TRAIT_MISSILE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
