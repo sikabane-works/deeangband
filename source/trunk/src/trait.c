@@ -1506,14 +1506,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("カオスのブレスを吐いた。");
-#else
-		else msg_print("You breathe chaos.");
-#endif
-
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
+			update_smart_learn(caster_ptr, DRS_CHAOS);
+			break;
+		}
+
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3696,26 +3697,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_CHAO:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがカオスのブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes chaos.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
-		}
 
 	case TRAIT_BR_DISE:
 		{
@@ -5378,29 +5359,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-
-
-	case TRAIT_BR_CHAO:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがカオスのブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes chaos.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
 
@@ -7120,17 +7078,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_BR_CHAO:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("カオスのブレスを吐いた。");
-#else
-		else msg_print("You breathe chaos.");
-#endif
-		damage = hp / 6;
-		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
