@@ -1517,14 +1517,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_DISE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("劣化のブレスを吐いた。");
-#else
-		else msg_print("You breathe disenchantment.");
-#endif
-
 		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
+			update_smart_learn(caster_ptr, DRS_DISEN);
+			break;
+		}
+
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3698,26 +3699,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BR_DISE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが劣化のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes disenchantment.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
-			update_smart_learn(caster_ptr, DRS_DISEN);
-			break;
-		}
 
 	case TRAIT_BR_NEXU:
 		{
@@ -5362,26 +5343,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_DISE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが劣化のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes disenchantment.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
-			update_smart_learn(caster_ptr, DRS_DISEN);
-			break;
-		}
 
 	case TRAIT_BR_NEXU:
 		{
@@ -7078,16 +7039,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_DISE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("劣化のブレスを吐いた。");
-#else
-		else msg_print("You breathe disenchantment.");
-#endif
-		damage = hp / 6;
-		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
