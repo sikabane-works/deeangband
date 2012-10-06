@@ -1607,14 +1607,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("魔力のブレスを吐いた。");
-#else
-		else msg_print("You breathe mana.");
-#endif
-
 		cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
+			break;
+		}
+
 	case TRAIT_BA_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3708,33 +3708,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-
-
-
-
-
-
-
-
-	case TRAIT_BR_MANA:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔力のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes mana.", caster_name);
-#endif
-			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
-			break;
-		}
-
 	case TRAIT_BA_NUKE:
 		{
 
@@ -5218,25 +5191,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-
-	case TRAIT_BR_MANA:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔力のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes mana.", target_name);
-#endif
-			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
-			break;
-		}
 
 	case TRAIT_BA_NUKE:
 		{
@@ -6766,17 +6720,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("魔力のブレスを吐いた。");
-#else
-		else msg_print("You breathe mana.");
-#endif
-
-		damage = MIN(hp / 3, 250);
-		cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BA_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
