@@ -1831,13 +1831,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("アシッド・ボルトの呪文を唱えた。");
-#else
-		else msg_print("You cast an acid bolt.");
-#endif
 		cast_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
+		{
+			damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_ACID, damage, TRAIT_BO_ACID, learnable);
+			update_smart_learn(caster_ptr, DRS_ACID);
+			update_smart_learn(caster_ptr, DRS_REFLECT);
+			break;
+		}
 
 	case TRAIT_BO_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3765,28 +3767,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BO_ACID:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a acid bolt.", caster_name);
-#endif
-
-			damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ACID, damage, TRAIT_BO_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_ELEC:
 		{
@@ -4806,28 +4786,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BO_ACID:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアシッド・ボルトの呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a acid bolt.", target_name);
-#endif
-
-			damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ACID, damage, TRAIT_BO_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_ELEC:
 		{
@@ -5888,16 +5846,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BO_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("アシッド・ボルトの呪文を唱えた。");
-#else
-		else msg_print("You cast an acid bolt.");
-#endif
-		damage = diceroll(7, 8) + user_level * 2 / 3;
-		cast_bolt(caster_ptr, GF_ACID, dir, damage);
-		break;
 	case TRAIT_BO_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
