@@ -1819,6 +1819,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
+		{
+			damage = diceroll(15, 15);
+			breath(y, x, caster_ptr, GF_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
+			break;
+		}
 
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3782,26 +3787,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_CAUSE_4:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", caster_name);
-#else
-			if(blind) msg_format("%^s screams the word 'DIE!'", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", caster_name);
-#else
-			else msg_format("%^s points at you, screaming the word DIE!", caster_name);
-#endif
-
-			damage = diceroll(15, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
-			break;
-		}
 
 	case TRAIT_BO_ACID:
 		{
@@ -4870,26 +4855,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_CAUSE_4:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが「お前は既に死んでいる」と叫んだ。", target_name);
-#else
-			if(blind) msg_format("%^s screams the word 'DIE!'", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたの秘孔を突いて「お前は既に死んでいる」と叫んだ。", target_name);
-#else
-			else msg_format("%^s points at you, screaming the word DIE!", target_name);
-#endif
-
-			damage = diceroll(15, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
-			break;
-		}
 
 	case TRAIT_BO_ACID:
 		{
@@ -5977,11 +5942,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		damage = diceroll(12, 12);
 		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
-		break;
-	case TRAIT_CAUSE_4:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = diceroll(15, 15);
-		cast_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
 	case TRAIT_BO_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
