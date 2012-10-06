@@ -1761,23 +1761,25 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
+
 	case TRAIT_DRAIN_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(user_level*3)+user_level, 0);
 		break;
+
 	case TRAIT_MIND_BLAST:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
-		//TODO case TRAIT_MIND_BLAST:
+
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		msg_print("あなたは集中し、目が赤く輝いた...");
-#else
-		msg_print("You concentrate and your eyes glow red...");
-#endif
 		cast_bolt(caster_ptr, GF_PSI, dir, user_level);
 		break;
+
+		damage = diceroll(7, 7);
+		breath(y, x, caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
+		break;
+
 
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3844,33 +3846,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_MIND_BLAST:
-		{
-			if(!direct) return (FALSE);
-
-			if(!seen)
-			{
-#ifdef JP
-				msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
-				msg_print("You feel something focusing on your mind.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがあなたの瞳をじっとにらんでいる。", caster_name);
-#else
-				msg_format("%^s gazes deep into your eyes.", caster_name);
-#endif
-
-			}
-
-			damage = diceroll(7, 7);
-			breath(y, x, caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
-			break;
-		}
 
 	case TRAIT_BRAIN_SMASH:
 		{
@@ -5136,33 +5111,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_MIND_BLAST:
-		{
-			if(!direct) return (FALSE);
-
-			if(!seen)
-			{
-#ifdef JP
-				msg_print("何かがあなたの精神に念を放っているようだ。");
-#else
-				msg_print("You feel something focusing on your mind.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがあなたの瞳をじっとにらんでいる。", target_name);
-#else
-				msg_format("%^s gazes deep into your eyes.", target_name);
-#endif
-
-			}
-
-			damage = diceroll(7, 7);
-			breath(y, x, caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
-			break;
-		}
 
 	case TRAIT_BRAIN_SMASH:
 		{
@@ -6411,11 +6359,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_DRAIN_MANA:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(user_level)+user_level, 0);
-		break;
-	case TRAIT_MIND_BLAST:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		damage = diceroll(7, 7);
-		cast_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
 	case TRAIT_BRAIN_SMASH:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
