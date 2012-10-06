@@ -1539,14 +1539,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("時間逆転のブレスを吐いた。");
-#else
-		else msg_print("You breathe time.");
-#endif
-
 		cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
+			break;
+		}
+
 	case TRAIT_BR_INER:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3702,25 +3702,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BR_TIME:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが時間逆転のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes time.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
-			break;
-		}
 
 	case TRAIT_BR_INER:
 		{
@@ -5326,25 +5307,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BR_TIME:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが時間逆転のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes time.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
-			break;
-		}
 
 	case TRAIT_BR_INER:
 		{
@@ -7000,16 +6962,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_TIME:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("時間逆転のブレスを吐いた。");
-#else
-		else msg_print("You breathe time.");
-#endif
-		damage = MIN(hp / 3, 150);
-		cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_INER:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
