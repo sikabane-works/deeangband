@@ -1682,14 +1682,29 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ファイア・ボールの呪文を唱えた。");
-#else
-		else msg_print("You cast a fire ball.");
-#endif
-
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
 		break;
+		{
+			if(caster_ptr->species_idx == SPECIES_ROLENTO)
+			{
+#ifdef JP
+				if(blind)
+					msg_format("%sが何かを投げた。", caster_name);
+				else 
+					msg_format("%sは手榴弾を投げた。", caster_name);
+#else
+				if(blind)
+					msg_format("%^s throws something.", caster_name);
+				else
+					msg_format("%^s throws a hand grenade.", caster_name);
+#endif
+			}
+			damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
+			update_smart_learn(caster_ptr, DRS_FIRE);
+			break;
+		}
+
 		//case TRAIT_BA_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3712,46 +3727,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_BA_FIRE:
-		{
-
-
-			if(caster_ptr->species_idx == SPECIES_ROLENTO)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%sが何かを投げた。", caster_name);
-				else 
-					msg_format("%sは手榴弾を投げた。", caster_name);
-#else
-				if(blind)
-					msg_format("%^s throws something.", caster_name);
-				else
-					msg_format("%^s throws a hand grenade.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-				else msg_format("%^sがファイア・ボールの呪文を唱えた。", caster_name);
-#else
-				else msg_format("%^s casts a fire ball.", caster_name);
-#endif
-			}
-
-			damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
-		}
-
 	case TRAIT_BA_COLD:
 		{
 
@@ -5063,44 +5038,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_FIRE:
-		{
-
-
-			if(caster_ptr->species_idx == SPECIES_ROLENTO)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%sが何かを投げた。", target_name);
-				else 
-					msg_format("%sは手榴弾を投げた。", target_name);
-#else
-				if(blind)
-					msg_format("%^s throws something.", target_name);
-				else
-					msg_format("%^s throws a hand grenade.", target_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-				if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-				else msg_format("%^sがファイア・ボールの呪文を唱えた。", target_name);
-#else
-				else msg_format("%^s casts a fire ball.", target_name);
-#endif
-			}
-
-			damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
-		}
 
 	case TRAIT_BA_COLD:
 		{
@@ -6465,16 +6402,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_FIRE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("ファイア・ボールの呪文を唱えた。");
-#else
-		else msg_print("You cast a fire ball.");
-#endif
-		damage = randint1(user_level * 7) + 10;
-		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
-		break;
 	case TRAIT_BA_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
