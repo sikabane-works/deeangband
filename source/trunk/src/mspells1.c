@@ -515,7 +515,7 @@ static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
  * Pass over any creatures that may be in the way
  * Affect grids, objects, creatures, and the player
  */
-static void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
+void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 

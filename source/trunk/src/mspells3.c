@@ -674,7 +674,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool success)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int            dir;
+	int            dir = 0;
 	int           plev = pseudo_plev(caster_ptr);
 	int     summon_lev = caster_ptr->lev * 2 / 3 + randint1(caster_ptr->lev/2);
 	int             hp = caster_ptr->chp;

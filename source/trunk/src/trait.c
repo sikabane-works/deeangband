@@ -29,6 +29,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	int count = 0;
 
 	int x = 0, y = 0;
+	int learnable = FALSE;
 
 	bool g_mode = FALSE;
 	bool p_mode = FALSE;
@@ -142,8 +143,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		/*
 
-		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
+		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
+		breath(y, x, caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
 		*/
@@ -164,8 +165,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		/*
 
-		dam = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(y, x, caster_ptr, GF_ROCKET, dam, 2, FALSE, TRAIT_ROCKET, learnable);
+		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
+		breath(y, x, caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
 		*/
@@ -1406,16 +1407,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+
 	case TRAIT_BR_FIRE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("火炎のブレスを吐いた。");
-#else
-		else msg_print("You breathe fire.");
-#endif
-
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_FIRE, damage, 0, TRUE, TRAIT_BR_FIRE, learnable);
+			update_smart_learn(caster_ptr, DRS_FIRE);
+			break;
+		}
+
 	case TRAIT_BR_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3672,8 +3675,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			//TODO Fix damage calc.
-			dam = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			bolt(caster_ptr, target_ptr, GF_ARROW, dam, TRAIT_SHOOT, learnable);
+			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
+			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -3693,8 +3696,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes acid.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ACID, dam, 0, TRUE, TRAIT_BR_ACID, learnable);
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
@@ -3714,32 +3717,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes lightning.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ELEC, dam,0, TRUE, TRAIT_BR_ELEC, learnable);
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
 
-	case TRAIT_BR_FIRE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが火炎のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes fire.", caster_name);
-#endif
-
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_FIRE, dam,0, TRUE, TRAIT_BR_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
-		}
 
 	case TRAIT_BR_COLD:
 		{
@@ -3756,8 +3739,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes frost.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_COLD, dam,0, TRUE, TRAIT_BR_COLD, learnable);
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_COLD, damage,0, TRUE, TRAIT_BR_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
@@ -3777,8 +3760,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes gas.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_POIS, dam, 0, TRUE, TRAIT_BR_POIS, learnable);
+			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_POIS, damage, 0, TRUE, TRAIT_BR_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -3798,8 +3781,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes nether.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_NETHER, dam,0, TRUE, TRAIT_BR_NETH, learnable);
+			damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_NETHER, damage,0, TRUE, TRAIT_BR_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -3819,8 +3802,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes light.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, dam,0, TRUE, TRAIT_BR_LITE, learnable);
+			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
 			update_smart_learn(caster_ptr, DRS_LITE);
 			break;
 		}
@@ -3840,8 +3823,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes darkness.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DARK, dam,0, TRUE, TRAIT_BR_DARK, learnable);
+			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DARK, damage,0, TRUE, TRAIT_BR_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
 		}
@@ -3861,8 +3844,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes confusion.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CONFUSION, dam,0, TRUE, TRAIT_BR_CONF, learnable);
+			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
 			update_smart_learn(caster_ptr, DRS_CONF);
 			break;
 		}
@@ -3888,8 +3871,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes sound.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, dam,0, TRUE, TRAIT_BR_SOUN, learnable);
+			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
 			update_smart_learn(caster_ptr, DRS_SOUND);
 			break;
 		}
@@ -3909,8 +3892,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes chaos.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, dam,0, TRUE, TRAIT_BR_CHAO, learnable);
+			damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -3930,8 +3913,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes disenchantment.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, dam,0, TRUE, TRAIT_BR_DISE, learnable);
+			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
 			update_smart_learn(caster_ptr, DRS_DISEN);
 			break;
 		}
@@ -3951,8 +3934,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes nexus.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, dam,0, TRUE, TRAIT_BR_NEXU, learnable);
+			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
 			update_smart_learn(caster_ptr, DRS_NEXUS);
 			break;
 		}
@@ -3972,8 +3955,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes time.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_TIME, dam,0, TRUE, TRAIT_BR_TIME, learnable);
+			damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
 			break;
 		}
 
@@ -3992,8 +3975,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes inertia.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_INERTIA, dam,0, TRUE, TRAIT_BR_INER, learnable);
+			damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_INERTIA, damage,0, TRUE, TRAIT_BR_INER, learnable);
 			break;
 		}
 
@@ -4012,8 +3995,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes gravity.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_GRAVITY, dam,0, TRUE, TRAIT_BR_GRAV, learnable);
+			damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV, learnable);
 			break;
 		}
 
@@ -4038,8 +4021,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes shards.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, dam,0, TRUE, TRAIT_BR_SHAR, learnable);
+			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
 			update_smart_learn(caster_ptr, DRS_SHARD);
 			break;
 		}
@@ -4059,8 +4042,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes plasma.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_PLASMA, dam,0, TRUE, TRAIT_BR_PLAS, learnable);
+			damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS, learnable);
 			break;
 		}
 
@@ -4079,8 +4062,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes force.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_FORCE, dam,0, TRUE, TRAIT_BR_WALL, learnable);
+			damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_FORCE, damage,0, TRUE, TRAIT_BR_WALL, learnable);
 			break;
 		}
 
@@ -4098,8 +4081,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			else msg_format("%^s breathes mana.", caster_name);
 #endif
-			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_MANA, dam,0, TRUE, TRAIT_BR_MANA, learnable);
+			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
 			break;
 		}
 
@@ -4118,8 +4101,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a ball of radiation.", caster_name);
 #endif
 
-			dam = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, TRAIT_BA_NUKE, learnable);
+			damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -4139,8 +4122,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes toxic waste.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NUKE, dam,0, TRUE, TRAIT_BR_NUKE, learnable);
+			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -4160,8 +4143,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a raw Logrus.", caster_name);
 #endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, TRAIT_BA_CHAO, learnable);
+			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -4181,8 +4164,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes disintegration.", caster_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISINTEGRATE, dam,0, TRUE, TRAIT_BR_DISI, learnable);
+			damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI, learnable);
 			break;
 		}
 
@@ -4202,8 +4185,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts an acid ball.", caster_name);
 #endif
 
-			dam = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, TRAIT_BA_ACID, learnable);
+			damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
@@ -4223,8 +4206,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a lightning ball.", caster_name);
 #endif
 
-			dam = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, TRAIT_BA_ELEC, learnable);
+			damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
@@ -4262,8 +4245,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 			}
 
-			dam = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, TRAIT_BA_FIRE, learnable);
+			damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			break;
 		}
@@ -4283,8 +4266,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a frost ball.", caster_name);
 #endif
 
-			dam = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, TRAIT_BA_COLD, learnable);
+			damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
@@ -4304,8 +4287,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a stinking cloud.", caster_name);
 #endif
 
-			dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, TRAIT_BA_POIS, learnable);
+			damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -4325,8 +4308,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a nether ball.", caster_name);
 #endif
 
-			dam = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, TRAIT_BA_NETH, learnable);
+			damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
+			breath(y, x, caster_ptr, GF_NETHER, damage, 2, FALSE, TRAIT_BA_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -4352,8 +4335,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You are engulfed in a whirlpool.");
 #endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, TRAIT_BA_WATE, learnable);
+			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
+			breath(y, x, caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
 			break;
 		}
 
@@ -4372,8 +4355,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a mana storm.", caster_name);
 #endif
 
-			dam = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, TRAIT_BA_MANA, learnable);
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
 			break;
 		}
 
@@ -4392,8 +4375,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a darkness storm.", caster_name);
 #endif
 
-			dam = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, TRAIT_BA_DARK, learnable);
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
 		}
@@ -4403,8 +4386,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!direct) return (FALSE);
 
 
-			dam = (randint1(user_level) / 2) + 1;
-			breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
+			damage = (randint1(user_level) / 2) + 1;
+			breath(y, x, caster_ptr, GF_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_MANA);
 			break;
 		}
@@ -4432,8 +4415,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 
-			dam = diceroll(7, 7);
-			breath(y, x, caster_ptr, GF_MIND_BLAST, dam, 0, FALSE, TRAIT_MIND_BLAST, learnable);
+			damage = diceroll(7, 7);
+			breath(y, x, caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
 			break;
 		}
 
@@ -4460,8 +4443,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 
-			dam = diceroll(12, 12);
-			breath(y, x, caster_ptr, GF_BRAIN_SMASH, dam, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
+			damage = diceroll(12, 12);
+			breath(y, x, caster_ptr, GF_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
 			break;
 		}
 
@@ -4481,8 +4464,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you and curses.", caster_name);
 #endif
 
-			dam = diceroll(3, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_1, dam, 0, FALSE, TRAIT_CAUSE_1, learnable);
+			damage = diceroll(3, 8);
+			breath(y, x, caster_ptr, GF_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
 			break;
 		}
 
@@ -4502,8 +4485,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you and curses horribly.", caster_name);
 #endif
 
-			dam = diceroll(8, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_2, dam, 0, FALSE, TRAIT_CAUSE_2, learnable);
+			damage = diceroll(8, 8);
+			breath(y, x, caster_ptr, GF_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
 			break;
 		}
 
@@ -4523,8 +4506,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you, incanting terribly!", caster_name);
 #endif
 
-			dam = diceroll(10, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_3, dam, 0, FALSE, TRAIT_CAUSE_3, learnable);
+			damage = diceroll(10, 15);
+			breath(y, x, caster_ptr, GF_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3, learnable);
 			break;
 		}
 
@@ -4544,8 +4527,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you, screaming the word DIE!", caster_name);
 #endif
 
-			dam = diceroll(15, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_4, dam, 0, FALSE, TRAIT_CAUSE_4, learnable);
+			damage = diceroll(15, 15);
+			breath(y, x, caster_ptr, GF_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
 			break;
 		}
 
@@ -4565,8 +4548,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a acid bolt.", caster_name);
 #endif
 
-			dam = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ACID, dam, TRAIT_BO_ACID, learnable);
+			damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_ACID, damage, TRAIT_BO_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4588,8 +4571,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a lightning bolt.", caster_name);
 #endif
 
-			dam = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ELEC, dam, TRAIT_BO_ELEC, learnable);
+			damage = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_ELEC, damage, TRAIT_BO_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4611,8 +4594,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a fire bolt.", caster_name);
 #endif
 
-			dam = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_FIRE, dam, TRAIT_BO_FIRE, learnable);
+			damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_FIRE, damage, TRAIT_BO_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4634,8 +4617,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a frost bolt.", caster_name);
 #endif
 
-			dam = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_COLD, dam, TRAIT_BO_COLD, learnable);
+			damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_COLD, damage, TRAIT_BO_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4656,8 +4639,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a starburst.", caster_name);
 #endif
 
-			dam = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_LITE, dam, 4, FALSE, TRAIT_BA_LITE, learnable);
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
 			update_smart_learn(caster_ptr, DRS_LITE);
 			break;
 		}
@@ -4678,8 +4661,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a nether bolt.", caster_name);
 #endif
 
-			dam = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-			bolt(caster_ptr, target_ptr, GF_NETHER, dam, TRAIT_BO_NETH, learnable);
+			damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
+			bolt(caster_ptr, target_ptr, GF_NETHER, damage, TRAIT_BO_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4701,8 +4684,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a water bolt.", caster_name);
 #endif
 
-			dam = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, dam, TRAIT_BO_WATE, learnable);
+			damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -4723,8 +4706,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a mana bolt.", caster_name);
 #endif
 
-			dam = randint1(user_level * 7 / 2) + 50;
-			bolt(caster_ptr, target_ptr, GF_MANA, dam, TRAIT_BO_MANA, learnable);
+			damage = randint1(user_level * 7 / 2) + 50;
+			bolt(caster_ptr, target_ptr, GF_MANA, damage, TRAIT_BO_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -4745,8 +4728,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a plasma bolt.", caster_name);
 #endif
 
-			dam = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, TRAIT_BO_PLAS, learnable);
+			damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_PLASMA, damage, TRAIT_BO_PLAS, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -4767,8 +4750,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts an ice bolt.", caster_name);
 #endif
 
-			dam = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, dam, TRAIT_BO_ICEE, learnable);
+			damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -4790,8 +4773,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a magic missile.", caster_name);
 #endif
 
-			dam = diceroll(2, 6) + (user_level / 3);
-			bolt(caster_ptr, target_ptr, GF_MISSILE, dam, TRAIT_MISSILE, learnable);
+			damage = diceroll(2, 6) + (user_level / 3);
+			bolt(caster_ptr, target_ptr, GF_MISSILE, damage, TRAIT_MISSILE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -5048,8 +5031,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_format("%^s invokes the Hand of Doom!", caster_name);
 #endif
-			dam = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(y, x, caster_ptr, GF_HAND_DOOM, dam, 0, FALSE, TRAIT_HAND_DOOM, learnable);
+			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
+			breath(y, x, caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
 
@@ -5208,7 +5191,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
 			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
-			dam = who;
+			damage = who;
 			if(!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
 			break;
 		}
@@ -5325,7 +5308,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 						msg_format("%^s holds you, and drops from the sky.", caster_name);
 #endif
-						dam = diceroll(4, 8);
+						damage = diceroll(4, 8);
 						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
 						sound(SOUND_FALL);
@@ -5351,7 +5334,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 						// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
 						-- henkma
 
-							get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, caster_name, NULL, -1);
+							get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
 						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 						{
 #ifdef JP
@@ -5573,8 +5556,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			//TODO Fix damage calc.
-			dam = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			bolt(caster_ptr, target_ptr, GF_ARROW, dam, TRAIT_SHOOT, learnable);
+			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
+			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -5594,8 +5577,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes acid.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ACID, dam, 0, TRUE, TRAIT_BR_ACID, learnable);
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
@@ -5615,32 +5598,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes lightning.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ELEC, dam,0, TRUE, TRAIT_BR_ELEC, learnable);
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
 
-	case TRAIT_BR_FIRE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが火炎のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes fire.", target_name);
-#endif
-
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_FIRE, dam,0, TRUE, TRAIT_BR_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
-		}
 
 	case TRAIT_BR_COLD:
 		{
@@ -5657,8 +5620,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes frost.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_COLD, dam,0, TRUE, TRAIT_BR_COLD, learnable);
+			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_COLD, damage,0, TRUE, TRAIT_BR_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
@@ -5678,8 +5641,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes gas.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_POIS, dam, 0, TRUE, TRAIT_BR_POIS, learnable);
+			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_POIS, damage, 0, TRUE, TRAIT_BR_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -5699,8 +5662,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes nether.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_NETHER, dam,0, TRUE, TRAIT_BR_NETH, learnable);
+			damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_NETHER, damage,0, TRUE, TRAIT_BR_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -5720,8 +5683,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes light.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, dam,0, TRUE, TRAIT_BR_LITE, learnable);
+			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
 			update_smart_learn(caster_ptr, DRS_LITE);
 			break;
 		}
@@ -5741,8 +5704,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes darkness.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DARK, dam,0, TRUE, TRAIT_BR_DARK, learnable);
+			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DARK, damage,0, TRUE, TRAIT_BR_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
 		}
@@ -5762,8 +5725,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes confusion.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CONFUSION, dam,0, TRUE, TRAIT_BR_CONF, learnable);
+			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
 			update_smart_learn(caster_ptr, DRS_CONF);
 			break;
 		}
@@ -5789,8 +5752,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes sound.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, dam,0, TRUE, TRAIT_BR_SOUN, learnable);
+			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
 			update_smart_learn(caster_ptr, DRS_SOUND);
 			break;
 		}
@@ -5810,8 +5773,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes chaos.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, dam,0, TRUE, TRAIT_BR_CHAO, learnable);
+			damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -5831,8 +5794,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes disenchantment.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, dam,0, TRUE, TRAIT_BR_DISE, learnable);
+			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
 			update_smart_learn(caster_ptr, DRS_DISEN);
 			break;
 		}
@@ -5852,8 +5815,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes nexus.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, dam,0, TRUE, TRAIT_BR_NEXU, learnable);
+			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
 			update_smart_learn(caster_ptr, DRS_NEXUS);
 			break;
 		}
@@ -5873,8 +5836,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes time.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_TIME, dam,0, TRUE, TRAIT_BR_TIME, learnable);
+			damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
 			break;
 		}
 
@@ -5893,8 +5856,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes inertia.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_INERTIA, dam,0, TRUE, TRAIT_BR_INER, learnable);
+			damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_INERTIA, damage,0, TRUE, TRAIT_BR_INER, learnable);
 			break;
 		}
 
@@ -5913,8 +5876,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes gravity.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_GRAVITY, dam,0, TRUE, TRAIT_BR_GRAV, learnable);
+			damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV, learnable);
 			break;
 		}
 
@@ -5939,8 +5902,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes shards.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, dam,0, TRUE, TRAIT_BR_SHAR, learnable);
+			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
 			update_smart_learn(caster_ptr, DRS_SHARD);
 			break;
 		}
@@ -5960,8 +5923,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes plasma.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_PLASMA, dam,0, TRUE, TRAIT_BR_PLAS, learnable);
+			damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS, learnable);
 			break;
 		}
 
@@ -5980,8 +5943,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes force.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_FORCE, dam,0, TRUE, TRAIT_BR_WALL, learnable);
+			damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_FORCE, damage,0, TRUE, TRAIT_BR_WALL, learnable);
 			break;
 		}
 
@@ -5999,8 +5962,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			else msg_format("%^s breathes mana.", target_name);
 #endif
-			dam = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_MANA, dam,0, TRUE, TRAIT_BR_MANA, learnable);
+			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
 			break;
 		}
 
@@ -6019,8 +5982,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a ball of radiation.", target_name);
 #endif
 
-			dam = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_NUKE, dam, 2, FALSE, TRAIT_BA_NUKE, learnable);
+			damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -6040,8 +6003,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes toxic waste.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NUKE, dam,0, TRUE, TRAIT_BR_NUKE, learnable);
+			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -6061,8 +6024,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a raw Logrus.", target_name);
 #endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, dam, 4, FALSE, TRAIT_BA_CHAO, learnable);
+			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
 			update_smart_learn(caster_ptr, DRS_CHAOS);
 			break;
 		}
@@ -6082,8 +6045,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s breathes disintegration.", target_name);
 #endif
 
-			dam = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISINTEGRATE, dam,0, TRUE, TRAIT_BR_DISI, learnable);
+			damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI, learnable);
 			break;
 		}
 
@@ -6103,8 +6066,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts an acid ball.", target_name);
 #endif
 
-			dam = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, dam, 2, FALSE, TRAIT_BA_ACID, learnable);
+			damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			break;
 		}
@@ -6124,8 +6087,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a lightning ball.", target_name);
 #endif
 
-			dam = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ELEC, dam, 2, FALSE, TRAIT_BA_ELEC, learnable);
+			damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			break;
 		}
@@ -6163,8 +6126,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 			}
 
-			dam = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, dam, 2, FALSE, TRAIT_BA_FIRE, learnable);
+			damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			break;
 		}
@@ -6184,8 +6147,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a frost ball.", target_name);
 #endif
 
-			dam = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, dam, 2, FALSE, TRAIT_BA_COLD, learnable);
+			damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
@@ -6205,8 +6168,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a stinking cloud.", target_name);
 #endif
 
-			dam = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_POIS, dam, 2, FALSE, TRAIT_BA_POIS, learnable);
+			damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -6226,8 +6189,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a nether ball.", target_name);
 #endif
 
-			dam = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-			breath(y, x, caster_ptr, GF_NETHER, dam, 2, FALSE, TRAIT_BA_NETH, learnable);
+			damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
+			breath(y, x, caster_ptr, GF_NETHER, damage, 2, FALSE, TRAIT_BA_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			break;
 		}
@@ -6253,8 +6216,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You are engulfed in a whirlpool.");
 #endif
 
-			dam = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-			breath(y, x, caster_ptr, GF_WATER, dam, 4, FALSE, TRAIT_BA_WATE, learnable);
+			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
+			breath(y, x, caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
 			break;
 		}
 
@@ -6273,8 +6236,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a mana storm.", target_name);
 #endif
 
-			dam = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_MANA, dam, 4, FALSE, TRAIT_BA_MANA, learnable);
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
 			break;
 		}
 
@@ -6293,8 +6256,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a darkness storm.", target_name);
 #endif
 
-			dam = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_DARK, dam, 4, FALSE, TRAIT_BA_DARK, learnable);
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
 			update_smart_learn(caster_ptr, DRS_DARK);
 			break;
 		}
@@ -6304,8 +6267,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!direct) return (FALSE);
 
 
-			dam = (randint1(user_level) / 2) + 1;
-			breath(y, x, caster_ptr, GF_DRAIN_MANA, dam, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
+			damage = (randint1(user_level) / 2) + 1;
+			breath(y, x, caster_ptr, GF_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_MANA);
 			break;
 		}
@@ -6333,8 +6296,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 
-			dam = diceroll(7, 7);
-			breath(y, x, caster_ptr, GF_MIND_BLAST, dam, 0, FALSE, TRAIT_MIND_BLAST, learnable);
+			damage = diceroll(7, 7);
+			breath(y, x, caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
 			break;
 		}
 
@@ -6361,8 +6324,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 
-			dam = diceroll(12, 12);
-			breath(y, x, caster_ptr, GF_BRAIN_SMASH, dam, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
+			damage = diceroll(12, 12);
+			breath(y, x, caster_ptr, GF_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
 			break;
 		}
 
@@ -6382,8 +6345,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you and curses.", target_name);
 #endif
 
-			dam = diceroll(3, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_1, dam, 0, FALSE, TRAIT_CAUSE_1, learnable);
+			damage = diceroll(3, 8);
+			breath(y, x, caster_ptr, GF_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
 			break;
 		}
 
@@ -6403,8 +6366,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you and curses horribly.", target_name);
 #endif
 
-			dam = diceroll(8, 8);
-			breath(y, x, caster_ptr, GF_CAUSE_2, dam, 0, FALSE, TRAIT_CAUSE_2, learnable);
+			damage = diceroll(8, 8);
+			breath(y, x, caster_ptr, GF_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
 			break;
 		}
 
@@ -6424,8 +6387,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you, incanting terribly!", target_name);
 #endif
 
-			dam = diceroll(10, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_3, dam, 0, FALSE, TRAIT_CAUSE_3, learnable);
+			damage = diceroll(10, 15);
+			breath(y, x, caster_ptr, GF_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3, learnable);
 			break;
 		}
 
@@ -6445,8 +6408,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s points at you, screaming the word DIE!", target_name);
 #endif
 
-			dam = diceroll(15, 15);
-			breath(y, x, caster_ptr, GF_CAUSE_4, dam, 0, FALSE, TRAIT_CAUSE_4, learnable);
+			damage = diceroll(15, 15);
+			breath(y, x, caster_ptr, GF_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
 			break;
 		}
 
@@ -6466,8 +6429,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a acid bolt.", target_name);
 #endif
 
-			dam = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ACID, dam, TRAIT_BO_ACID, learnable);
+			damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_ACID, damage, TRAIT_BO_ACID, learnable);
 			update_smart_learn(caster_ptr, DRS_ACID);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -6489,8 +6452,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a lightning bolt.", target_name);
 #endif
 
-			dam = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_ELEC, dam, TRAIT_BO_ELEC, learnable);
+			damage = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_ELEC, damage, TRAIT_BO_ELEC, learnable);
 			update_smart_learn(caster_ptr, DRS_ELEC);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -6512,8 +6475,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a fire bolt.", target_name);
 #endif
 
-			dam = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_FIRE, dam, TRAIT_BO_FIRE, learnable);
+			damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_FIRE, damage, TRAIT_BO_FIRE, learnable);
 			update_smart_learn(caster_ptr, DRS_FIRE);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -6535,8 +6498,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a frost bolt.", target_name);
 #endif
 
-			dam = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_COLD, dam, TRAIT_BO_COLD, learnable);
+			damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			bolt(caster_ptr, target_ptr, GF_COLD, damage, TRAIT_BO_COLD, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -6557,8 +6520,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s invokes a starburst.", target_name);
 #endif
 
-			dam = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_LITE, dam, 4, FALSE, TRAIT_BA_LITE, learnable);
+			damage = (user_level * 4) + 50 + diceroll(10, 10);
+			breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
 			update_smart_learn(caster_ptr, DRS_LITE);
 			break;
 		}
@@ -6579,8 +6542,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a nether bolt.", target_name);
 #endif
 
-			dam = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-			bolt(caster_ptr, target_ptr, GF_NETHER, dam, TRAIT_BO_NETH, learnable);
+			damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
+			bolt(caster_ptr, target_ptr, GF_NETHER, damage, TRAIT_BO_NETH, learnable);
 			update_smart_learn(caster_ptr, DRS_NETH);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -6602,8 +6565,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a water bolt.", target_name);
 #endif
 
-			dam = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, dam, TRAIT_BO_WATE, learnable);
+			damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -6624,8 +6587,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a mana bolt.", target_name);
 #endif
 
-			dam = randint1(user_level * 7 / 2) + 50;
-			bolt(caster_ptr, target_ptr, GF_MANA, dam, TRAIT_BO_MANA, learnable);
+			damage = randint1(user_level * 7 / 2) + 50;
+			bolt(caster_ptr, target_ptr, GF_MANA, damage, TRAIT_BO_MANA, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -6646,8 +6609,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a plasma bolt.", target_name);
 #endif
 
-			dam = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_PLASMA, dam, TRAIT_BO_PLAS, learnable);
+			damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_PLASMA, damage, TRAIT_BO_PLAS, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -6668,8 +6631,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts an ice bolt.", target_name);
 #endif
 
-			dam = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, dam, TRAIT_BO_ICEE, learnable);
+			damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+			bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
 			update_smart_learn(caster_ptr, DRS_COLD);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
@@ -6691,8 +6654,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else msg_format("%^s casts a magic missile.", target_name);
 #endif
 
-			dam = diceroll(2, 6) + (user_level / 3);
-			bolt(caster_ptr, target_ptr, GF_MISSILE, dam, TRAIT_MISSILE, learnable);
+			damage = diceroll(2, 6) + (user_level / 3);
+			bolt(caster_ptr, target_ptr, GF_MISSILE, damage, TRAIT_MISSILE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -6949,8 +6912,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 			msg_format("%^s invokes the Hand of Doom!", target_name);
 #endif
-			dam = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(y, x, caster_ptr, GF_HAND_DOOM, dam, 0, FALSE, TRAIT_HAND_DOOM, learnable);
+			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
+			breath(y, x, caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
 
@@ -7133,7 +7096,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
 			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
-			dam = who;
+			damage = who;
 			if(!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
 			break;
 		}
@@ -7249,7 +7212,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 						msg_format("%^s holds you, and drops from the sky.", target_name);
 #endif
-						dam = diceroll(4, 8);
+						damage = diceroll(4, 8);
 						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
 
 						sound(SOUND_FALL);
@@ -7275,7 +7238,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 						/* Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
 						-- henkma
 						*/
-						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, dam, target_name, NULL, -1);
+						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, target_name, NULL, -1);
 						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 						{
 #ifdef JP
@@ -7550,16 +7513,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = hp / 3;
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
-	case TRAIT_BR_FIRE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("火炎のブレスを吐いた。");
-#else
-		else msg_print("You breathe fire.");
-#endif
-		damage = hp / 3;
-		cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BR_COLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;

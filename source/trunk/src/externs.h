@@ -1019,6 +1019,7 @@ extern bool load_floor(floor_type *sf_ptr, u32b mode);
 extern bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode);
 
 /* melee2.c */
+extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable);
 extern bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead);
 extern void process_creatures(void);
 extern int get_mproc_idx(creature_type *creature_ptr, int mproc_type);
