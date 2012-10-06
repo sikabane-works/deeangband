@@ -1625,16 +1625,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
+
 	case TRAIT_BR_NUKE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("放射性廃棄物のブレスを吐いた。");
-#else
-		else msg_print("You breathe toxic waste.");
-#endif
-
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
+			update_smart_learn(caster_ptr, DRS_POIS);
+			break;
+		}
+
+
 
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1664,9 +1667,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 		else msg_print("You cast an acid ball.");
 #endif
-
 		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
+
 	case TRAIT_BA_ELEC:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3731,26 +3734,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_NUKE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが放射性廃棄物のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes toxic waste.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
 
 	case TRAIT_BA_CHAO:
 		{
@@ -5192,27 +5175,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
 			breath(y, x, caster_ptr, GF_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
-
-	case TRAIT_BR_NUKE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが放射性廃棄物のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes toxic waste.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
 			update_smart_learn(caster_ptr, DRS_POIS);
 			break;
 		}
@@ -6692,16 +6654,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = user_level * 2 + diceroll(10, 6);
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
-		break;
-	case TRAIT_BR_NUKE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("放射性廃棄物のブレスを吐いた。");
-#else
-		else msg_print("You breathe toxic waste.");
-#endif
-		damage = hp / 3;
-		cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 40 ? -3 : -2));
 		break;
 	case TRAIT_BA_CHAO:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
