@@ -1940,14 +1940,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_MISSILE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("マジック・ミサイルの呪文を唱えた。");
-#else
-		else msg_print("You cast a magic missile.");
-#endif
-
+	case TRAIT_MISSILE:
+		damage = diceroll(2, 6) + user_level * 2 / 3;
 		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
 
@@ -3612,16 +3606,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		cast_bolt(caster_ptr, GF_POIS, dir, user_level);
 		break;
 
-	case TRAIT_MISSILE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		msg_print("マジック・ミサイルを放った。");
-#else
-		msg_print("You cast a magic missile.");
-#endif
-		cast_bolt_or_beam(caster_ptr, 10, GF_MISSILE, dir, diceroll(3 + ((user_level - 1) / 5), 4));
-		break;
-
 	case TRAIT_FIRE_BALL:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3762,27 +3746,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_MISSILE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a magic missile.", caster_name);
-#endif
-
-			damage = diceroll(2, 6) + (user_level / 3);
-			bolt(caster_ptr, target_ptr, GF_MISSILE, damage, TRAIT_MISSILE, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_SCARE:
 		{
@@ -4563,29 +4526,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			//TODO Fix damage calc.
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-
-	case TRAIT_MISSILE:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがマジック・ミサイルの呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a magic missile.", target_name);
-#endif
-
-			damage = diceroll(2, 6) + (user_level / 3);
-			bolt(caster_ptr, target_ptr, GF_MISSILE, damage, TRAIT_MISSILE, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
@@ -5425,16 +5365,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_MISSILE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("マジック・ミサイルの呪文を唱えた。");
-#else
-		else msg_print("You cast a magic missile.");
-#endif
-		damage = diceroll(2, 6) + user_level * 2 / 3;
-		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
-		break;
 	case TRAIT_SCARE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
