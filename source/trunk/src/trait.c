@@ -1456,14 +1456,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_LITE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("閃光のブレスを吐いた。");
-#else
-		else msg_print("You breathe light.");
-#endif
-
 		cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
+			update_smart_learn(caster_ptr, DRS_LITE);
+			break;
+		}
+
 	case TRAIT_BR_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3692,26 +3693,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BR_LITE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが閃光のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes light.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
-		}
 
 	case TRAIT_BR_DARK:
 		{
@@ -5469,27 +5450,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-
-	case TRAIT_BR_LITE:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが閃光のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes light.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y_br_lite, x_br_lite, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
-		}
 
 	case TRAIT_BR_DARK:
 		{
@@ -7298,16 +7258,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BR_LITE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("閃光のブレスを吐いた。");
-#else
-		else msg_print("You breathe light.");
-#endif
-		damage = hp / 6;
-		cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_DARK:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
