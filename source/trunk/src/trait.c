@@ -1569,14 +1569,22 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_SHAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("破片のブレスを吐いた。");
-#else
-		else msg_print("You breathe shards.");
-#endif
-
 		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+
+			if(caster_ptr->species_idx == SPECIES_BOTEI)
+#ifdef JP
+				msg_format("「ボ帝ビルカッター！！！」");
+#else
+				msg_format("'Boty-Build cutter!!!'");
+#endif
+			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+			breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
+			update_smart_learn(caster_ptr, DRS_SHARD);
+			break;
+		}
+
 	case TRAIT_BR_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3705,32 +3713,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BR_SHAR:
-		{
-
-			if(caster_ptr->species_idx == SPECIES_BOTEI)
-#ifdef JP
-				msg_format("「ボ帝ビルカッター！！！」");
-#else
-				msg_format("'Boty-Build cutter!!!'");
-#endif
-#ifdef JP
-			else if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			else if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが破片のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes shards.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
-			update_smart_learn(caster_ptr, DRS_SHARD);
-			break;
-		}
 
 	case TRAIT_BR_PLAS:
 		{
@@ -5272,32 +5254,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BR_SHAR:
-		{
-
-			if(caster_ptr->species_idx == SPECIES_BOTEI)
-#ifdef JP
-				msg_format("「ボ帝ビルカッター！！！」");
-#else
-				msg_format("'Boty-Build cutter!!!'");
-#endif
-#ifdef JP
-			else if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			else if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが破片のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes shards.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
-			update_smart_learn(caster_ptr, DRS_SHARD);
-			break;
-		}
 
 	case TRAIT_BR_PLAS:
 		{
@@ -6886,16 +6842,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_SHAR:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("破片のブレスを吐いた。");
-#else
-		else msg_print("You breathe shards.");
-#endif
-		damage = hp / 6;
-		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
