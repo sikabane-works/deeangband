@@ -1834,6 +1834,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_bolt(caster_ptr, GF_MANA, dir, damage);
 		break;
+
 	case TRAIT_BO_PLAS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1844,6 +1845,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
+
 	case TRAIT_BO_ICEE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1864,6 +1866,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		cast_bolt(caster_ptr, GF_MISSILE, dir, damage);
 		break;
+
 	case TRAIT_SCARE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1874,10 +1877,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		fear_creature(caster_ptr, dir, user_level+10);
 		break;
+
 	case TRAIT_BLIND:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
+
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -1888,17 +1893,21 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
+
 	case TRAIT_SLOW:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		slow_creature(caster_ptr, dir);
 		break;
+
 	case TRAIT_HOLD:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		sleep_creature(caster_ptr, dir);
 		break;
+
 		//case TRAIT_HASTE:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
 		break;
+
 	case TRAIT_HAND_DOOM:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -1911,6 +1920,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
 			break;
 		}
+
 		//case TRAIT_HEAL:
 #ifdef JP
 		msg_print("自分の傷に念を集中した。");
@@ -1921,6 +1931,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
 		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 		break;
+
 		//case TRAIT_INVULNER:
 #ifdef JP
 		msg_print("無傷の球の呪文を唱えた。");
@@ -1929,12 +1940,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
 		break;
+
 	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
 		break;
 		//case TRAIT_ACTIVE_TELEPORT:
 		teleport_player(caster_ptr, user_level * 5, 0L);
 		break;
+
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
 		if(damage == 1 || damage == 2)
@@ -1967,8 +1980,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		handle_stuff();
 		break;
+
 	case TRAIT_SPECIAL:
 		break;
+
 	case TRAIT_TELE_TO:
 		{
 			creature_type *m_ptr;
@@ -2021,6 +2036,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
 		break;
+
 	case TRAIT_TELE_LEVEL:
 		{
 			int target_m_idx;
@@ -2054,6 +2070,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else teleport_level(caster_ptr, target_m_idx);
 			break;
 		}
+
 	case TRAIT_PSY_SPEAR:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
@@ -2064,6 +2081,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
+
 	case TRAIT_DARKNESS:
 #ifdef JP
 		msg_print("暗闇の中で手を振った。");
@@ -2072,6 +2090,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		(void)unlite_area(caster_ptr, 10, 3);
 		break;
+
 	case TRAIT_TRAPS:
 		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 #ifdef JP
@@ -2081,6 +2100,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
+
 	case TRAIT_FORGET:
 #ifdef JP
 		msg_print("しかし何も起きなかった。");
@@ -2088,6 +2108,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		msg_print("Nothing happen.");
 #endif
 		break;
+
 	case TRAIT_ANIM_DEAD:
 #ifdef JP
 		msg_print("死者復活の呪文を唱えた。");
@@ -2096,6 +2117,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		(void)animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 		break;
+
 	case TRAIT_S_KIN:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
@@ -2111,6 +2133,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
+
 	case TRAIT_S_CYBER:
 		{
 			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
@@ -2125,6 +2148,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 			break;
 		}
+
 	case TRAIT_S_MONSTER:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
@@ -2136,6 +2160,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
 			break;
 		}
+
 	case TRAIT_S_MONSTERS:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
@@ -2148,16 +2173,38 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
 			break;
 		}
+
 	case TRAIT_S_ANT:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-			msg_print("アリを召喚した。");
-#else
-			msg_print("You summon ants.");
-#endif
+
 			for (k = 0;k < 6; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANT, mode);
+			break;
+		}
+		{
+
+			for (k = 0; k < s_num_6; k++)
+			{
+				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, PC_ALLOW_GROUP);
+			}
+
+			break;
+		}
+		{
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
+			{
+				if(!pet)
+#ifdef JP
+					msg_print("召喚されたアリは怒っている！");
+#else
+					msg_print("Summoned ants are angry!");
+#endif
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
 			break;
 		}
 
@@ -5587,28 +5634,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_ANT:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法でアリを召喚した。", caster_name);
-#else
-			else msg_format("%^s magically summons ants.", caster_name);
-#endif
-
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, PC_ALLOW_GROUP);
-			}
-
-			break;
-		}
 
 
 	case TRAIT_S_DEMON:
@@ -7800,29 +7825,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_S_ANT:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが魔法でアリを召喚した。", target_name);
-#else
-			else msg_format("%^s magically summons ants.", target_name);
-#endif
-
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, PC_ALLOW_GROUP);
-			}
-
-			break;
-		}
-
 
 	case TRAIT_S_DEMON:
 		{
@@ -8702,28 +8704,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				}
 				break;
 		}
-	case TRAIT_S_ANT:
-		{
-#ifdef JP
-			msg_print("アリを召喚した。");
-#else
-			msg_print("You summon ants.");
-#endif
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
-			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたアリは怒っている！");
-#else
-					msg_print("Summoned ants are angry!");
-#endif
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+
 
 	case TRAIT_S_DEMON:
 		{
