@@ -1981,6 +1981,33 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
+		{
+			if(has_trait(target_ptr, TRAIT_NO_BLIND))
+			{
+#ifdef JP
+				msg_print("しかし効果がなかった！");
+#else
+				msg_print("You are unaffected!");
+#endif
+
+			}
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
+#ifdef JP
+				msg_print("しかし効力を跳ね返した！");
+#else
+				msg_print("You resist the effects!");
+#endif
+
+			}
+			else
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
+			}
+			learn_trait(target_ptr, TRAIT_BLIND);
+			update_smart_learn(caster_ptr, DRS_BLIND);
+			break;
+		}
 
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3767,50 +3794,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_BLIND:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが呪文を唱えてあなたの目をくらました！", caster_name);
-#else
-			else msg_format("%^s casts a spell, burning your eyes!", caster_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_NO_BLIND))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
-			}
-			learn_trait(target_ptr, TRAIT_BLIND);
-			update_smart_learn(caster_ptr, DRS_BLIND);
-			break;
-		}
-
 	case TRAIT_CONF:
 		{
 			if(!direct) return (FALSE);
@@ -4508,49 +4491,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_BLIND:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが呪文を唱えてあなたの目をくらました！", target_name);
-#else
-			else msg_format("%^s casts a spell, burning your eyes!", target_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_NO_BLIND))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
-			}
-			learn_trait(target_ptr, TRAIT_BLIND);
-			update_smart_learn(caster_ptr, DRS_BLIND);
-			break;
-		}
 
 	case TRAIT_CONF:
 		{
@@ -5300,11 +5240,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-
-	case TRAIT_BLIND:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		confuse_creature(caster_ptr, dir, user_level * 2);
-		break;
 
 	case TRAIT_CONF:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
