@@ -802,9 +802,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_COLD:
+		damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		break;
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_ball(caster_ptr, GF_COLD, dir, 100, 2);
+			damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+			breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
+			update_smart_learn(caster_ptr, DRS_COLD);
 			break;
 		}
 
@@ -1705,16 +1710,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_BA_COLD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("アイス・ボールの呪文を唱えた。");
-#else
-		else msg_print("You cast a frost ball.");
-#endif
 
-		cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
-		break;
 	case TRAIT_BA_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3727,26 +3723,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_COLD:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアイス・ボールの呪文を唱えた。", caster_name);
-#else
-			else msg_format("%^s casts a frost ball.", caster_name);
-#endif
-
-			damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			break;
-		}
 
 	case TRAIT_BA_POIS:
 		{
@@ -5039,26 +5015,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BA_COLD:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがアイス・ボールの呪文を唱えた。", target_name);
-#else
-			else msg_format("%^s casts a frost ball.", target_name);
-#endif
-
-			damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			break;
-		}
 
 	case TRAIT_BA_POIS:
 		{
@@ -6402,16 +6358,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BA_COLD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("アイス・ボールの呪文を唱えた。");
-#else
-		else msg_print("You cast a frost ball.");
-#endif
-		damage = randint1(user_level * 3) + 10;
-		cast_ball(caster_ptr, GF_COLD, dir, damage, 2);
-		break;
 	case TRAIT_BA_POIS:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
