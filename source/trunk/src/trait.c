@@ -2083,11 +2083,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_DARKNESS:
-#ifdef JP
-		msg_print("暗闇の中で手を振った。");
-#else
-		msg_print("You gesture in shadow.");
-#endif
 		(void)unlite_area(caster_ptr, 10, 3);
 		break;
 
@@ -5426,34 +5421,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_DARKNESS:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else if(can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", caster_name);
-			else msg_format("%^sが暗闇の中で手を振った。", caster_name);
-#else
-			else if(can_use_lite_area) msg_format("%^s cast a spell to light up.", caster_name);
-			else msg_format("%^s gestures in shadow.", caster_name);
-#endif
-
-			if(can_use_lite_area) (void)lite_area(caster_ptr, 0, 3);
-			else
-			{
-				learn_trait(target_ptr, TRAIT_DARKNESS);
-				(void)unlite_area(caster_ptr, 0, 3);
-			}
-			break;
-		}
-
-
 	case TRAIT_S_KIN:
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
@@ -7477,33 +7444,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_DARKNESS:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else if(can_use_lite_area) msg_format("%^sが辺りを明るく照らした。", target_name);
-			else msg_format("%^sが暗闇の中で手を振った。", target_name);
-#else
-			else if(can_use_lite_area) msg_format("%^s cast a spell to light up.", target_name);
-			else msg_format("%^s gestures in shadow.", target_name);
-#endif
-
-			if(can_use_lite_area) (void)lite_area(caster_ptr, 0, 3);
-			else
-			{
-				learn_trait(target_ptr, TRAIT_DARKNESS);
-				(void)unlite_area(caster_ptr, 0, 3);
-			}
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -8376,14 +8316,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		damage = randint1(plev * 3) + 100;
 		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
-		break;
-	case TRAIT_DARKNESS:
-#ifdef JP
-		msg_print("暗闇の中で手を振った。");
-#else
-		msg_print("You gesture in shadow.");
-#endif
-		(void)unlite_area(caster_ptr, 10, 3);
 		break;
 
 	case TRAIT_S_KIN:
