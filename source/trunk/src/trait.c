@@ -1528,14 +1528,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_NEXU:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("因果混乱のブレスを吐いた。");
-#else
-		else msg_print("You breathe nexus.");
-#endif
-
 		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
+		{
+			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+			breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
+			update_smart_learn(caster_ptr, DRS_NEXUS);
+			break;
+		}
+
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
@@ -3700,26 +3701,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 
-	case TRAIT_BR_NEXU:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", caster_name);
-#else
-			if(blind) msg_format("%^s breathes.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが因果混乱のブレスを吐いた。", caster_name);
-#else
-			else msg_format("%^s breathes nexus.", caster_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
-		}
 
 	case TRAIT_BR_TIME:
 		{
@@ -5344,26 +5325,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_BR_NEXU:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かのブレスを吐いた。", target_name);
-#else
-			if(blind) msg_format("%^s breathes.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが因果混乱のブレスを吐いた。", target_name);
-#else
-			else msg_format("%^s breathes nexus.", target_name);
-#endif
-
-			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
-		}
 
 	case TRAIT_BR_TIME:
 		{
@@ -7039,16 +7000,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BR_NEXU:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("因果混乱のブレスを吐いた。");
-#else
-		else msg_print("You breathe nexus.");
-#endif
-		damage = MIN(hp / 3, 250);
-		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 40 ? -3 : -2));
-		break;
 	case TRAIT_BR_TIME:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
