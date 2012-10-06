@@ -2093,11 +2093,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TRAPS:
 		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-		msg_print("呪文を唱えて邪悪に微笑んだ。");
-#else
-		msg_print("You cast a spell and cackles evilly.");
-#endif
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
 
@@ -5458,26 +5453,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_TRAPS:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles, and then cackles evilly.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", caster_name);
-#else
-			else msg_format("%^s casts a spell and cackles evilly.", caster_name);
-#endif
-
-			learn_trait(target_ptr, TRAIT_TRAPS);
-			(void)trap_creation(caster_ptr, y, x);
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -7529,26 +7504,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_TRAPS:
-		{
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいて邪悪に微笑んだ。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles, and then cackles evilly.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが呪文を唱えて邪悪に微笑んだ。", target_name);
-#else
-			else msg_format("%^s casts a spell and cackles evilly.", target_name);
-#endif
-
-			learn_trait(target_ptr, TRAIT_TRAPS);
-			(void)trap_creation(caster_ptr, y, x);
-			break;
-		}
-
 
 	case TRAIT_S_KIN:
 		{
@@ -8430,16 +8385,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		(void)unlite_area(caster_ptr, 10, 3);
 		break;
-	case TRAIT_TRAPS:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-#ifdef JP
-		msg_print("呪文を唱えて邪悪に微笑んだ。");
-#else
-		msg_print("You cast a spell and cackle evilly.");
-#endif
-		trap_creation(caster_ptr, target_row, target_col);
-		break;
-
 
 	case TRAIT_S_KIN:
 		{
