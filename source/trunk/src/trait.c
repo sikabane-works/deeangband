@@ -2249,7 +2249,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
 		if(damage == 1 || damage == 2)
@@ -2268,17 +2267,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("hek!");
 		msg_print(NULL);
 
-		/* Hack */
-		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
-
-		/* Redraw map */
-		play_redraw |= (PR_MAP);
-
-		// Update creatures
-		update |= (PU_MONSTERS);
-
-		/* Window stuff */
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
+		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200) * TURNS_PER_TICK / 10; // Hack
+		play_redraw |= (PR_MAP); // Redraw map
+		update |= (PU_MONSTERS); // Update creatures
+		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
 
 		handle_stuff();
 		break;
@@ -3999,17 +3991,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_WORLD:
-		{
-			int who = 0;
-
-			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
-			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
-			damage = who;
-			if(!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
-			break;
-		}
-
 	case TRAIT_SPECIAL:
 		{
 
@@ -4405,16 +4386,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_WORLD:
-		{
-			int who = 0;
-
-			if(caster_ptr->species_idx == SPECIES_DIO) who = 1;
-			else if(caster_ptr->species_idx == SPECIES_WONG) who = 3;
-			damage = who;
-			if(!process_the_world(player_ptr, randint1(2)+2, who, TRUE)) return (FALSE);
-			break;
-		}
 
 	case TRAIT_SPECIAL:
 		{
@@ -4819,31 +4790,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
 		break;
 
-	case TRAIT_WORLD:
-		caster_ptr->time_stopper = TRUE;
-#ifdef JP
-		msg_print("「時よ！」");
-#else
-		msg_print("'Time!'");
-#endif
-		msg_print(NULL);
-
-		/* Hack */
-		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200)*TURNS_PER_TICK/10;
-
-		/* Redraw map */
-		play_redraw |= (PR_MAP);
-
-		// Update creatures
-		update |= (PU_MONSTERS);
-
-		/* Window stuff */
-		play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-		handle_stuff();
-		break;
 	case TRAIT_SPECIAL:
 		break;
+
 	case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
