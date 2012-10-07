@@ -475,7 +475,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_HASTE:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20);
+		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20))
+		{
+#ifdef JP
+			msg_format("%^sの動きが速くなった。", caster_name);
+#else
+			msg_format("%^s starts moving faster.", caster_name);
+#endif
+		}
 		break;
 
 	case TRAIT_HASTE_2:
@@ -2104,10 +2111,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			update_smart_learn(caster_ptr, DRS_FREE);
 			break;
 		}
-
-		//case TRAIT_HASTE:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
-		break;
 
 	case TRAIT_HAND_DOOM:
 		{
@@ -3869,41 +3872,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_HASTE:
-		{
-
-			if(blind)
-			{
-#ifdef JP
-				msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				msg_format("%^s mumbles.", caster_name);
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが自分の体に念を送った。", caster_name);
-#else
-				msg_format("%^s concentrates on %s body.", caster_name, m_poss);
-#endif
-
-			}
-
-			// Allow quick speed increases to base+10 
-			if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100, FALSE))
-			{
-#ifdef JP
-				msg_format("%^sの動きが速くなった。", caster_name);
-#else
-				msg_format("%^s starts moving faster.", caster_name);
-#endif
-			}
-			break;
-		}
-
 	case TRAIT_HAND_DOOM:
 		{
 			if(!direct) return (FALSE);
@@ -4441,41 +4409,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-
-	case TRAIT_HASTE:
-		{
-
-			if(blind)
-			{
-#ifdef JP
-				msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-				msg_format("%^s mumbles.", target_name);
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが自分の体に念を送った。", target_name);
-#else
-				msg_format("%^s concentrates on %s body.", target_name, m_poss);
-#endif
-
-			}
-
-			// Allow quick speed increases to base+10
-			if(set_timed_trait(caster_ptr, TRAIT_FAST, caster_ptr->timed_trait[TRAIT_FAST] + 100))
-			{
-#ifdef JP
-				msg_format("%^sの動きが速くなった。", target_name);
-#else
-				msg_format("%^s starts moving faster.", target_name);
-#endif
-			}
 			break;
 		}
 
@@ -5071,9 +5004,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HASTE:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
-		break;
 	case TRAIT_HAND_DOOM:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
