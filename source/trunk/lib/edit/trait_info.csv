@@ -184,7 +184,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 182,S_HOUND,-1,-1,ハウンドの召喚,Summon Hounds,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが魔法でハウンドを召喚した。/%^s magically summons hounds.,%^sが何かをつぶやいた。/%^s mumbles.
 183,S_HYDRA,-1,-1,ヒドラの召喚,Summon Hydras,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが魔法でヒドラを召喚した。/%^s magically summons hydras.,%^sが何かをつぶやいた。/%^s mumbles.
 184,S_ANGEL,-1,-1,天使の召喚,Summon Angels,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが魔法で天使を召喚した！/%^s magically summons an angel!,%^sが何かをつぶやいた。/%^s mumbles.
-185,S_DEMON,-1,-1,悪魔の召喚,Summon Demons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,%^sが何かをつぶやいた。/%^s mumbles.
+185,S_DEMON,-1,-1,悪魔の召喚,Summon Demons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sは魔法で混沌の宮廷から悪魔を召喚した！/%^s magically summons a demon from the Courts of Chaos!,%^sが何かをつぶやいた。/%^s mumbles.
 186,S_UNDEAD,-1,-1,アンデッドの召喚,Summon Undeads,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,%^sが何かをつぶやいた。/%^s mumbles.
 187,S_DRAGON,-1,-1,ドラゴンの召喚,Summon Dragons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが魔法でドラゴンを召喚した！/%^s magically summons a dragon!,%^sが何かをつぶやいた。/%^s mumbles.
 188,S_HI_UNDEAD,-1,-1,上級アンデッドの召喚,Summon Greater Undead,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,強力なアンデッドを召喚した！/You summon greater undead!,%^sが何かをつぶやいた。/%^s mumbles.
