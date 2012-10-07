@@ -2201,6 +2201,28 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
 		break;
+		{
+
+			if(teleport_barrier(target_ptr, caster_ptr))
+			{
+#ifdef JP
+				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
+#else
+				msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
+#endif
+			}
+			else
+			{
+#ifdef JP
+				msg_format("%^sが瞬時に消えた。", target_name);
+#else
+				msg_format("%^s blinks away.", target_name);
+#endif
+				teleport_away(caster_ptr, 10, 0L);
+				update |= (PU_MONSTERS);
+			}
+			break;
+		}
 
 	case TRAIT_ACTIVE_TELEPORT:
 		teleport_player(caster_ptr, 100, 0L);
@@ -4383,31 +4405,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_BLINK:
-		{
-
-			if(teleport_barrier(target_ptr, caster_ptr))
-			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
-#else
-				msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが瞬時に消えた。", target_name);
-#else
-				msg_format("%^s blinks away.", target_name);
-#endif
-				teleport_away(caster_ptr, 10, 0L);
-				update |= (PU_MONSTERS);
-			}
-			break;
-		}
-
-
 	case TRAIT_WORLD:
 		{
 			int who = 0;
@@ -4821,9 +4818,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
 		break;
-	case TRAIT_BLINK:
-		teleport_player(caster_ptr, 10, 0L);
-		break;
+
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
 #ifdef JP
