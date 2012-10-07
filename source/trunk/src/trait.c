@@ -444,9 +444,80 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_HEAL:
-		(void)heal_creature(caster_ptr, 700);
+		(void)heal_creature(caster_ptr, user_level*6);
+		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
 		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
 		break;
+		{
+			// Fully healed 
+			if(caster_ptr->chp >= caster_ptr->mhp)
+			{
+				// Fully healed 
+				caster_ptr->chp = caster_ptr->mhp;
+
+				// Message 
+				if(seen)
+				{
+#ifdef JP
+					msg_format("%^sは完全に治った！", caster_name);
+#else
+					msg_format("%^s looks completely healed!", caster_name);
+#endif
+
+				}
+				else
+				{
+#ifdef JP
+					msg_format("%^sは完全に治ったようだ！", caster_name);
+#else
+					msg_format("%^s sounds completely healed!", caster_name);
+#endif
+				}
+			}
+
+			// Partially healed 
+			else
+			{
+				// Message 
+				if(seen)
+				{
+#ifdef JP
+					msg_format("%^sは体力を回復したようだ。", caster_name);
+#else
+					msg_format("%^s looks healthier.", caster_name);
+#endif
+
+				}
+				else
+				{
+#ifdef JP
+					msg_format("%^sは体力を回復したようだ。", caster_name);
+#else
+					msg_format("%^s sounds healthier.", caster_name);
+#endif
+
+				}
+			}
+
+			// Redraw (later) if needed 
+			if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+			if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
+
+			// Cancel fear 
+			if(caster_ptr->timed_trait[TRAIT_AFRAID])
+			{
+				// Cancel fear 
+				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+
+				// Message 
+#ifdef JP
+				msg_format("%^sは勇気を取り戻した。", caster_name);
+#else
+				msg_format("%^s recovers %s courage.", caster_name, m_poss);
+#endif
+			}
+			break;
+		}
 
 	case TRAIT_TRUE_HEALING:
 		(void)heal_creature(caster_ptr, 1000);
@@ -2121,17 +2192,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			breath(y, x, caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
-
-		//case TRAIT_HEAL:
-#ifdef JP
-		msg_print("自分の傷に念を集中した。");
-#else
-		msg_print("You concentrate on your wounds!");
-#endif
-		(void)heal_creature(caster_ptr, user_level*6);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-		break;
 
 		//case TRAIT_INVULNER:
 #ifdef JP
@@ -3869,103 +3929,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HEAL:
-		{
-
-
-			// Message 
-			if(blind)
-			{
-#ifdef JP
-				msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-				msg_format("%^s mumbles.", caster_name);
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが自分の傷に集中した。", caster_name);
-#else
-				msg_format("%^s concentrates on %s wounds.", caster_name, m_poss);
-#endif
-
-			}
-
-			// Heal some 
-			caster_ptr->chp += (user_level * 6);
-
-			// Fully healed 
-			if(caster_ptr->chp >= caster_ptr->mhp)
-			{
-				// Fully healed 
-				caster_ptr->chp = caster_ptr->mhp;
-
-				// Message 
-				if(seen)
-				{
-#ifdef JP
-					msg_format("%^sは完全に治った！", caster_name);
-#else
-					msg_format("%^s looks completely healed!", caster_name);
-#endif
-
-				}
-				else
-				{
-#ifdef JP
-					msg_format("%^sは完全に治ったようだ！", caster_name);
-#else
-					msg_format("%^s sounds completely healed!", caster_name);
-#endif
-
-				}
-			}
-
-			// Partially healed 
-			else
-			{
-				// Message 
-				if(seen)
-				{
-#ifdef JP
-					msg_format("%^sは体力を回復したようだ。", caster_name);
-#else
-					msg_format("%^s looks healthier.", caster_name);
-#endif
-
-				}
-				else
-				{
-#ifdef JP
-					msg_format("%^sは体力を回復したようだ。", caster_name);
-#else
-					msg_format("%^s sounds healthier.", caster_name);
-#endif
-
-				}
-			}
-
-			// Redraw (later) if needed 
-			if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-			if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
-
-			// Cancel fear 
-			if(caster_ptr->timed_trait[TRAIT_AFRAID])
-			{
-				// Cancel fear 
-				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-
-				// Message 
-#ifdef JP
-				msg_format("%^sは勇気を取り戻した。", caster_name);
-#else
-				msg_format("%^s recovers %s courage.", caster_name, m_poss);
-#endif
-			}
-			break;
-		}
 
 	case TRAIT_INVULNER:
 		{
@@ -4395,103 +4358,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HEAL:
-		{
-
-
-			// Message
-			if(blind)
-			{
-#ifdef JP
-				msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-				msg_format("%^s mumbles.", target_name);
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sが自分の傷に集中した。", target_name);
-#else
-				msg_format("%^s concentrates on %s wounds.", target_name, m_poss);
-#endif
-
-			}
-
-			/* Heal some */
-			caster_ptr->chp += (user_level * 6);
-
-			/* Fully healed */
-			if(caster_ptr->chp >= caster_ptr->mhp)
-			{
-				/* Fully healed */
-				caster_ptr->chp = caster_ptr->mhp;
-
-				/* Message */
-				if(seen)
-				{
-#ifdef JP
-					msg_format("%^sは完全に治った！", target_name);
-#else
-					msg_format("%^s looks completely healed!", target_name);
-#endif
-
-				}
-				else
-				{
-#ifdef JP
-					msg_format("%^sは完全に治ったようだ！", target_name);
-#else
-					msg_format("%^s sounds completely healed!", target_name);
-#endif
-
-				}
-			}
-
-			/* Partially healed */
-			else
-			{
-				/* Message */
-				if(seen)
-				{
-#ifdef JP
-					msg_format("%^sは体力を回復したようだ。", target_name);
-#else
-					msg_format("%^s looks healthier.", target_name);
-#endif
-
-				}
-				else
-				{
-#ifdef JP
-					msg_format("%^sは体力を回復したようだ。", target_name);
-#else
-					msg_format("%^s sounds healthier.", target_name);
-#endif
-
-				}
-			}
-
-			/* Redraw (later) if needed */
-			if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-			if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
-
-			/* Cancel fear */
-			if(caster_ptr->timed_trait[TRAIT_AFRAID])
-			{
-				/* Cancel fear */
-				(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-
-				/* Message */
-#ifdef JP
-				msg_format("%^sは勇気を取り戻した。", target_name);
-#else
-				msg_format("%^s recovers %s courage.", target_name, m_poss);
-#endif
-			}
-			break;
-		}
 
 	case TRAIT_INVULNER:
 		{
@@ -4973,16 +4839,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HEAL:
-#ifdef JP
-		msg_print("自分の傷に念を集中した。");
-#else
-		msg_print("You concentrate on your wounds!");
-#endif
-		(void)heal_creature(caster_ptr, user_level*4);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-		break;
 	case TRAIT_INVULNER:
 #ifdef JP
 		msg_print("無傷の球の呪文を唱えた。");
