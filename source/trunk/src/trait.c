@@ -564,10 +564,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		set_wraith_form(caster_ptr, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;
 
-	case TRAIT_INVULNER:
-		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
-		break;
-
 		//TODO Remove duplicated process
 	case TRAIT_LIGHT_AREA:
 		lite_area(caster_ptr, diceroll(2, 15), 3);
@@ -2189,12 +2185,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-		//case TRAIT_INVULNER:
-#ifdef JP
-		msg_print("無傷の球の呪文を唱えた。");
-#else
-		msg_print("You cast a Globe of Invulnerability.");
-#endif
+	case TRAIT_INVULNER:
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(7) + 7, FALSE);
 		break;
 
@@ -4117,34 +4108,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_INVULNER:
-		{
-
-
-			// Message 
-			if(!seen)
-			{
-#ifdef JP
-				msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-#else
-				msg_format("%^s mumbles powerfully.", caster_name);
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%sは無傷の球の呪文を唱えた。", caster_name);
-#else
-				msg_format("%^s casts a Globe of Invulnerability.", caster_name);
-#endif
-
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
-			break;
-		}
-
 	case TRAIT_S_KIN:
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
@@ -4342,35 +4305,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-
-	case TRAIT_INVULNER:
-		{
-
-
-			/* Message */
-			if(!seen)
-			{
-#ifdef JP
-				msg_format("%^sが何かを力強くつぶやいた。", target_name);
-#else
-				msg_format("%^s mumbles powerfully.", target_name);
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%sは無傷の球の呪文を唱えた。", target_name);
-#else
-				msg_format("%^s casts a Globe of Invulnerability.", target_name);
-#endif
-
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
 			break;
 		}
 
@@ -4601,15 +4535,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-
-	case TRAIT_INVULNER:
-#ifdef JP
-		msg_print("無傷の球の呪文を唱えた。");
-#else
-		msg_print("You cast a Globe of Invulnerability.");
-#endif
-		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
-		break;
 
 	case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
