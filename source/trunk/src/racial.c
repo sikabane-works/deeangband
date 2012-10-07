@@ -702,7 +702,7 @@ bool choose_kata(creature_type *creature_ptr)
 	else
 	{
 		creature_ptr->special_defense &= ~(KATA_MASK);
-		creature_ptr->creature_update |= (CRU_BONUS | PU_MONSTERS);
+		creature_ptr->creature_update |= (CRU_BONUS | PU_CREATURES);
 #ifdef JP
 		msg_format("%s‚ÌŒ^‚Å\‚¦‚½B",kata_shurui[new_kata].desc);
 #else

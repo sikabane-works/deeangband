@@ -3044,7 +3044,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_redraw |= (PR_MAP);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);

@@ -1004,7 +1004,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		play_redraw |= (PR_MAP);
 
 		// Update creatures
-		update |= (PU_MONSTERS);
+		update |= (PU_CREATURES);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);

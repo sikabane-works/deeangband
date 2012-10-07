@@ -1866,7 +1866,7 @@
 #define PU_LITE         0x00200000L     // Update lite
 #define PU_SPECIES_LITE     0x00400000L     // Creature illumination
 #define PU_DELAY_VIS    0x00800000L     // Mega-Hack -- Delayed visual update
-#define PU_MONSTERS     0x01000000L     // Update creatures
+#define PU_CREATURES     0x01000000L     // Update creatures
 #define PU_DISTANCE     0x02000000L     // Update distances
 /* xxx */
 #define PU_FLOW         0x10000000L     // Update flow

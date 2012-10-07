@@ -2876,7 +2876,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_print("The light forces you out of your incorporeal shadow form.");
 #endif
 				play_redraw |= PR_MAP;
-				update |= (PU_MONSTERS);
+				update |= (PU_CREATURES);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
 			}
 			break;

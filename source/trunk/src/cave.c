@@ -4445,7 +4445,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	}
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4516,7 +4516,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4606,7 +4606,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
-		update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_MONSTERS);
+		update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 	}
 
 	/* Hack -- glow the GLOW terrain */

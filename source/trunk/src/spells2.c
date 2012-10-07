@@ -2212,7 +2212,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		update |= (PU_UN_VIEW | PU_UN_LITE);
 
 		/* Update stuff */
-		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_MONSTERS);
+		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -2727,7 +2727,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_MONSTERS);
+	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 	/* Update the health bar */
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);

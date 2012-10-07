@@ -1712,7 +1712,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

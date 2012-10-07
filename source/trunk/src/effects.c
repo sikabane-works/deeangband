@@ -154,7 +154,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				msg_print("You stop assuming the posture.");
 #endif
 				creature_ptr->special_defense &= ~(KATA_MASK);
-				update |= (PU_MONSTERS);
+				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATUS);
 				break;
 			}
@@ -309,7 +309,7 @@ void dispel_creature(creature_type *creature_ptr)
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		// Update creatures
-		update |= (PU_MONSTERS);
+		update |= (PU_CREATURES);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -486,7 +486,7 @@ bool set_blind(creature_type *creature_ptr, int v)
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Fully update the visuals */
-	update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_MONSTERS | PU_SPECIES_LITE);
+	update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_CREATURES | PU_SPECIES_LITE);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -573,7 +573,7 @@ bool set_confused(creature_type *creature_ptr, int v)
 				}
 				creature_ptr->special_defense &= ~(KATA_MASK);
 				creature_ptr->creature_update |= (CRU_BONUS);
-				update |= (PU_MONSTERS);
+				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
 				play_redraw |= (PR_STATUS);
 				creature_ptr->action = ACTION_NONE;
@@ -741,7 +741,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 				}
 				creature_ptr->special_defense &= ~(KATA_MASK);
 				creature_ptr->creature_update |= (CRU_BONUS);
-				update |= (PU_MONSTERS);
+				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
 				play_redraw |= (PR_STATUS);
 				creature_ptr->action = ACTION_NONE;
@@ -1043,7 +1043,7 @@ bool set_image(creature_type *creature_ptr, int v)
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1934,7 +1934,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			// Update creatures
-			update |= (PU_MONSTERS);
+			update |= (PU_CREATURES);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1961,7 +1961,7 @@ bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			// Update creatures
-			update |= (PU_MONSTERS);
+			update |= (PU_CREATURES);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2033,7 +2033,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			// Update creatures
-			update |= (PU_MONSTERS);
+			update |= (PU_CREATURES);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2060,7 +2060,7 @@ bool set_invuln(creature_type *creature_ptr, int v, bool do_dec)
 			play_redraw |= (PR_MAP);
 
 			// Update creatures
-			update |= (PU_MONSTERS);
+			update |= (PU_CREATURES);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2198,7 +2198,7 @@ bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec)
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -2279,7 +2279,7 @@ bool set_tim_invis(creature_type *creature_ptr, int v, bool do_dec)
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -2357,7 +2357,7 @@ bool set_tim_infra(creature_type *creature_ptr, int v, bool do_dec)
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Handle stuff */
 	handle_stuff();
@@ -4171,7 +4171,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 			}
 			creature_ptr->special_defense &= ~(KATA_MASK);
 			creature_ptr->creature_update |= (CRU_BONUS);
-			update |= (PU_MONSTERS);
+			update |= (PU_CREATURES);
 			play_redraw |= (PR_STATE);
 			play_redraw |= (PR_STATUS);
 			creature_ptr->action = ACTION_NONE;

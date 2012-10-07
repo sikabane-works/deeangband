@@ -1250,7 +1250,7 @@ void resize_map(void)
 	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -1329,7 +1329,7 @@ bool change_panel(int dy, int dx)
 		panel_bounds_center();
 
 		/* Update stuff */
-		update |= (PU_MONSTERS);
+		update |= (PU_CREATURES);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -1450,7 +1450,7 @@ void verify_panel(creature_type *creature_ptr)
 	panel_bounds_center();
 
 	/* Update stuff */
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -2864,7 +2864,7 @@ strcpy(info, "qé~ pé© oåª +éü -ëO");
 					verify_panel(aimer_ptr);
 
 					/* Update stuff */
-					update |= (PU_MONSTERS);
+					update |= (PU_CREATURES);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -2947,7 +2947,7 @@ strcpy(info, "qé~ pé© oåª +éü -ëO");
 						panel_bounds_center();
 
 						/* Update stuff */
-						update |= (PU_MONSTERS);
+						update |= (PU_CREATURES);
 
 						/* Redraw map */
 						play_redraw |= (PR_MAP);
@@ -3064,7 +3064,7 @@ strcpy(info, "qé~ tåà pé© mãﬂ +éü -ëO");
 					verify_panel(aimer_ptr);
 
 					/* Update stuff */
-					update |= (PU_MONSTERS);
+					update |= (PU_CREATURES);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -3191,7 +3191,7 @@ strcpy(info, "qé~ tåà pé© mãﬂ +éü -ëO");
 	verify_panel(aimer_ptr);
 
 	/* Update stuff */
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4728,7 +4728,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 					verify_panel(creature_ptr);	/* Move cursor to player */
 
 					/* Update stuff */
-					update |= (PU_MONSTERS);
+					update |= (PU_CREATURES);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -4819,7 +4819,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	verify_panel(creature_ptr);
 
 	/* Update stuff */
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

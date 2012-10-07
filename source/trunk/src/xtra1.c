@@ -2678,7 +2678,7 @@ static void calc_lite(creature_type *creature_ptr)
 	{
 		/* Update stuff */
 		/* Hack -- PU_SPECIES_LITE for creatures' darkness */
-		update |= (PU_LITE | PU_SPECIES_LITE | PU_MONSTERS);
+		update |= (PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
@@ -4857,7 +4857,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if(message) creature_bonuses_message(creature_ptr);
 
 	// Hack -- See Invis Change
-	//TODO update |= (PU_MONSTERS);
+	//TODO update |= (PU_CREATURES);
 	play_window |= PW_INVEN; // Redraw average damege display of Shuriken
 	play_redraw |= (PR_SPEED); // TODO
 
@@ -4983,7 +4983,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 		update &= ~(PU_DISTANCE);
 
 		/* Still need to call update_creatures(FALSE) after update_creature_lite() */ 
-		/* update &= ~(PU_MONSTERS); */
+		/* update &= ~(PU_CREATURES); */
 
 		update_creatures(TRUE);
 	}
@@ -5004,9 +5004,9 @@ void update_creature(creature_type *creature_ptr, bool message)
 		delayed_visual_update(floor_ptr);
 	}
 
-	if(update & (PU_MONSTERS))
+	if(update & (PU_CREATURES))
 	{
-		update &= ~(PU_MONSTERS);
+		update &= ~(PU_CREATURES);
 		update_creatures(FALSE);
 	}
 }

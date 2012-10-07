@@ -4815,7 +4815,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 
 	/* Update the visuals */
 	creature_ptr->creature_update |= CRU_BONUS;
-	update |= (PU_VIEW | PU_MONSTERS | PU_LITE | PU_SPECIES_LITE);
+	update |= (PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
 
 	/* Redraw entire screen */
 	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);

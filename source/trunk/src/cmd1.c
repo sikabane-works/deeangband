@@ -718,7 +718,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 	verify_panel(creature_ptr);
 
 	/* Update stuff */
-	update |= (PU_MONSTERS);
+	update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

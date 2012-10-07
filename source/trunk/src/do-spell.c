@@ -10123,7 +10123,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				play_redraw |= (PR_MAP);
 		
 				// Update creatures
-				caster_ptr->creature_update |= (PU_MONSTERS);
+				caster_ptr->creature_update |= (PU_CREATURES);
 		
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -10144,7 +10144,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				play_redraw |= (PR_MAP);
 
 				// Update creatures
-				caster_ptr->creature_update |= (PU_MONSTERS);
+				caster_ptr->creature_update |= (PU_CREATURES);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);

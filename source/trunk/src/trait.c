@@ -2219,7 +2219,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				msg_format("%^s blinks away.", target_name);
 #endif
 				teleport_away(caster_ptr, 10, 0L);
-				update |= (PU_MONSTERS);
+				update |= (PU_CREATURES);
 			}
 			break;
 		}
@@ -2269,7 +2269,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200) * TURNS_PER_TICK / 10; // Hack
 		play_redraw |= (PR_MAP); // Redraw map
-		update |= (PU_MONSTERS); // Update creatures
+		update |= (PU_CREATURES); // Update creatures
 		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
 
 		handle_stuff();
@@ -4092,7 +4092,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 						msg_format("%^s suddenly go out of your sight!", caster_name);
 #endif
 						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						update |= (PU_MONSTERS);
+						update |= (PU_CREATURES);
 					}
 					else
 					{
@@ -4487,7 +4487,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 						msg_format("%^s suddenly go out of your sight!", target_name);
 #endif
 						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						update |= (PU_MONSTERS);
+						update |= (PU_CREATURES);
 					}
 					else
 					{
