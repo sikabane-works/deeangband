@@ -2115,13 +2115,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HAND_DOOM:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			else msg_print("<破滅の手>を放った！");
-#else
-			else msg_print("You invoke the Hand of Doom!");
-#endif
-
 			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
+			break;
+			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
+			breath(y, x, caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
 
@@ -3872,20 +3869,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HAND_DOOM:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sが<破滅の手>を放った！", caster_name);
-#else
-			msg_format("%^s invokes the Hand of Doom!", caster_name);
-#endif
-			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(y, x, caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
-			break;
-		}
-
 	case TRAIT_HEAL:
 		{
 
@@ -4409,20 +4392,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
 			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
-
-	case TRAIT_HAND_DOOM:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sが<破滅の手>を放った！", target_name);
-#else
-			msg_format("%^s invokes the Hand of Doom!", target_name);
-#endif
-			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(y, x, caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
 
@@ -5004,18 +4973,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HAND_DOOM:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			else msg_print("<破滅の手>を放った！");
-#else
-			else msg_print("You invoke the Hand of Doom!");
-#endif
-
-			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, user_level * 3, 0);
-			break;
-		}
 	case TRAIT_HEAL:
 #ifdef JP
 		msg_print("自分の傷に念を集中した。");
