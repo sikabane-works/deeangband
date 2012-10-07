@@ -2077,6 +2077,33 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		sleep_creature(caster_ptr, dir);
 		break;
+		{
+			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
+			{
+#ifdef JP
+				msg_print("しかし効果がなかった！");
+#else
+				msg_print("You are unaffected!");
+#endif
+
+			}
+			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
+			{
+#ifdef JP
+				msg_format("しかし効力を跳ね返した！");
+#else
+				msg_format("You resist the effects!");
+#endif
+
+			}
+			else
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+			}
+			learn_trait(target_ptr, TRAIT_HOLD);
+			update_smart_learn(caster_ptr, DRS_FREE);
+			break;
+		}
 
 		//case TRAIT_HASTE:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
@@ -3842,48 +3869,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HOLD:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", caster_name);
-#else
-			if(blind) msg_format("%^s mumbles.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたの目をじっと見つめた！", caster_name);
-#else
-			else msg_format("%^s stares deep into your eyes!", caster_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_format("しかし効力を跳ね返した！");
-#else
-				msg_format("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_HOLD);
-			update_smart_learn(caster_ptr, DRS_FREE);
-			break;
-		}
 
 	case TRAIT_HASTE:
 		{
@@ -4459,48 +4444,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HOLD:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かをつぶやいた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sがあなたの目をじっと見つめた！", target_name);
-#else
-			else msg_format("%^s stares deep into your eyes!", target_name);
-#endif
-
-			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
-			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
-			}
-			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
-			{
-#ifdef JP
-				msg_format("しかし効力を跳ね返した！");
-#else
-				msg_format("You resist the effects!");
-#endif
-
-			}
-			else
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
-			}
-			learn_trait(target_ptr, TRAIT_HOLD);
-			update_smart_learn(caster_ptr, DRS_FREE);
-			break;
-		}
 
 	case TRAIT_HASTE:
 		{
@@ -5128,10 +5071,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_HOLD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-		sleep_creature(caster_ptr, dir);
-		break;
 	case TRAIT_HASTE:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20 + user_level) + user_level);
 		break;
