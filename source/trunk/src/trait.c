@@ -626,10 +626,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		if(!dimension_door(caster_ptr)) return FALSE;
 		break;
 
-	case TRAIT_ACTIVE_TELEPORT:
-		teleport_player(caster_ptr, 100, 0L);
-		break;
-
 	case TRAIT_RECALL:
 		if(!word_of_recall(caster_ptr)) return FALSE;
 		break;
@@ -2205,9 +2201,32 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
 		break;
-		//case TRAIT_ACTIVE_TELEPORT:
-		teleport_player(caster_ptr, user_level * 5, 0L);
+
+	case TRAIT_ACTIVE_TELEPORT:
+		teleport_player(caster_ptr, 100, 0L);
 		break;
+		{
+
+			if(teleport_barrier(target_ptr, caster_ptr))
+			{
+#ifdef JP
+				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", caster_name);
+#else
+				msg_format("Magic barrier obstructs teleporting of %^s.", caster_name);
+#endif
+			}
+			else
+			{
+#ifdef JP
+				msg_format("%^sがテレポートした。", caster_name);
+#else
+				msg_format("%^s teleports away.", caster_name);
+#endif
+				teleport_away_followable(caster_ptr);
+			}
+			break;
+		}
+
 
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
@@ -3958,29 +3977,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_ACTIVE_TELEPORT:
-		{
-
-			if(teleport_barrier(target_ptr, caster_ptr))
-			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", caster_name);
-#else
-				msg_format("Magic barrier obstructs teleporting of %^s.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがテレポートした。", caster_name);
-#else
-				msg_format("%^s teleports away.", caster_name);
-#endif
-				teleport_away_followable(caster_ptr);
-			}
-			break;
-		}
-
 	case TRAIT_WORLD:
 		{
 			int who = 0;
@@ -4411,28 +4407,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_ACTIVE_TELEPORT:
-		{
-
-			if(teleport_barrier(target_ptr, caster_ptr))
-			{
-#ifdef JP
-				msg_format("魔法のバリアが%^sのテレポートを邪魔した。", target_name);
-#else
-				msg_format("Magic barrier obstructs teleporting of %^s.", target_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%^sがテレポートした。", target_name);
-#else
-				msg_format("%^s teleports away.", target_name);
-#endif
-				teleport_away_followable(caster_ptr);
-			}
-			break;
-		}
 
 	case TRAIT_WORLD:
 		{
@@ -4849,9 +4823,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 	case TRAIT_BLINK:
 		teleport_player(caster_ptr, 10, 0L);
-		break;
-	case TRAIT_ACTIVE_TELEPORT:
-		teleport_player(caster_ptr, user_level * 5, 0L);
 		break;
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
