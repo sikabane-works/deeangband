@@ -2375,10 +2375,10 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		s16b energy_fire = bow_ptr->bow_energy;
 
 		// See if the bow is "known" - then set damage bonus
-		if(object_is_known(bow_ptr)) avgdam += (bow_ptr->to_damage * 10);
+		if(object_is_known(bow_ptr)) avgdamage += (bow_ptr->to_damage * 10);
 
 		// Effect of ammo
-		if(known) avgdam += (object_ptr->to_damage * 10);
+		if(known) avgdamage += (object_ptr->to_damage * 10);
 
 		// Get extra "power" from "extra might"
 		if(owner_ptr->xtra_might) tmul++;
@@ -2420,7 +2420,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		int avgdam = has_trait(owner_ptr, TRAIT_THROW_MIGHTY) ? (1 + 3) : 1;
 		s16b energy_fire = 100 - owner_ptr->lev;
 
-		avgdam += ((owner_ptr->lev + 30) * (owner_ptr->lev + 30) - 900) / 55;
+		avgdamage += ((owner_ptr->lev + 30) * (owner_ptr->lev + 30) - 900) / 55;
 
 		// Display (shot damage/ avg damage)
 		t = object_desc_chr(t, ' ');

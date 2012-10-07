@@ -2276,7 +2276,161 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SPECIAL:
-		break;
+		{
+			switch (caster_ptr->species_idx)
+			{
+			case SPECIES_OHMU:
+				// Moved to process_nonplayer(), like multiplication 
+				return FALSE;
+
+			case SPECIES_BANORLUPART:
+				{
+					int dummy_hp = (caster_ptr->chp + 1) / 2;
+					int dummy_mhp = caster_ptr->mhp/2;
+					int dummy_y = caster_ptr->fy;
+					int dummy_x = caster_ptr->fx;
+
+					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
+					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
+					creature_list[hack_m_idx_ii].chp = dummy_hp;
+					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
+					creature_list[hack_m_idx_ii].chp = dummy_hp;
+					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+
+#ifdef JP
+					msg_print("『バーノール・ルパート』が分裂した！");
+#else
+					msg_print("Banor=Rupart splits in two person!");
+#endif
+
+					break;
+				}
+
+			case SPECIES_BANOR:
+			case SPECIES_LUPART:
+				{
+					int dummy_hp = 0;
+					int dummy_mhp = 0;
+					int dummy_y = caster_ptr->fy;
+					int dummy_x = caster_ptr->fx;
+
+					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
+					for (k = 1; k < creature_max; k++)
+					{
+						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
+						{
+							dummy_hp += creature_list[k].chp;
+							dummy_mhp += creature_list[k].mhp;
+							if(creature_list[k].species_idx != caster_ptr->species_idx)
+							{
+								dummy_y = creature_list[k].fy;
+								dummy_x = creature_list[k].fx;
+							}
+							delete_species_idx(&creature_list[k]);
+						}
+					}
+					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
+					creature_list[hack_m_idx_ii].chp = dummy_hp;
+					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
+
+#ifdef JP
+					msg_print("『バーノール』と『ルパート』が合体した！");
+#else
+					msg_print("Banor and Rupart combine into one!");
+#endif
+
+					break;
+				}
+
+			case SPECIES_ROLENTO:
+#ifdef JP
+				if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
+				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
+#else
+				if(blind) msg_format("%^s spreads something.", caster_name);
+				else msg_format("%^s throws some hand grenades.", caster_name);
+#endif
+
+				{
+					int num = 1 + randint1(3);
+
+					for (k = 0; k < num; k++)
+					{
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
+					}
+				}
+				break;
+
+			default:
+					if(one_in_(3)) // TODO direct
+					{
+#ifdef JP
+						msg_format("%^sは突然視界から消えた!", caster_name);
+#else
+						msg_format("%^s suddenly go out of your sight!", caster_name);
+#endif
+						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
+						update |= (PU_CREATURES);
+					}
+					else
+					{
+						int get_damage = 0;
+
+#ifdef JP
+						msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+#else
+						msg_format("%^s holds you, and drops from the sky.", caster_name);
+#endif
+						damage = diceroll(4, 8);
+						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+
+						sound(SOUND_FALL);
+
+						if(has_trait(target_ptr, TRAIT_CAN_FLY))
+						{
+#ifdef JP
+							msg_print("あなたは静かに着地した。");
+#else
+							msg_print("You float gently down to the ground.");
+#endif
+						}
+						else
+						{
+#ifdef JP
+							msg_print("あなたは地面に叩きつけられた。");
+#else
+							msg_print("You crashed into the ground.");
+#endif
+							damage += diceroll(6, 8);
+						}
+
+						// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
+
+							get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
+						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
+						{
+#ifdef JP
+							msg_format("攻撃が%s自身を傷つけた！", caster_name);
+#else
+							char caster_name_self[80];
+
+							// hisself 
+							creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+
+							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
+#endif
+							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+						}
+
+						if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+					}
+					break;
+			}
+			break;
+		}
 
 	//case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -3991,172 +4145,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_SPECIAL:
-		{
-
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_OHMU:
-				// Moved to process_nonplayer(), like multiplication 
-				return FALSE;
-
-			case SPECIES_BANORLUPART:
-				{
-					int dummy_hp = (caster_ptr->chp + 1) / 2;
-					int dummy_mhp = caster_ptr->mhp/2;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
-
-					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-
-#ifdef JP
-					msg_print("『バーノール・ルパート』が分裂した！");
-#else
-					msg_print("Banor=Rupart splits in two person!");
-#endif
-
-					break;
-				}
-
-			case SPECIES_BANOR:
-			case SPECIES_LUPART:
-				{
-					int dummy_hp = 0;
-					int dummy_mhp = 0;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
-
-					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
-					for (k = 1; k < creature_max; k++)
-					{
-						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
-						{
-							dummy_hp += creature_list[k].chp;
-							dummy_mhp += creature_list[k].mhp;
-							if(creature_list[k].species_idx != caster_ptr->species_idx)
-							{
-								dummy_y = creature_list[k].fy;
-								dummy_x = creature_list[k].fx;
-							}
-							delete_species_idx(&creature_list[k]);
-						}
-					}
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-
-#ifdef JP
-					msg_print("『バーノール』と『ルパート』が合体した！");
-#else
-					msg_print("Banor and Rupart combine into one!");
-#endif
-
-					break;
-				}
-
-			case SPECIES_ROLENTO:
-#ifdef JP
-				if(blind) msg_format("%^sが何か大量に投げた。", caster_name);
-				else msg_format("%^sは手榴弾をばらまいた。", caster_name);
-#else
-				if(blind) msg_format("%^s spreads something.", caster_name);
-				else msg_format("%^s throws some hand grenades.", caster_name);
-#endif
-
-				{
-					int num = 1 + randint1(3);
-
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-					}
-				}
-				break;
-
-			default:
-				if(r_ptr->d_char == 'B')
-				{
-
-					if(one_in_(3) || !direct)
-					{
-#ifdef JP
-						msg_format("%^sは突然視界から消えた!", caster_name);
-#else
-						msg_format("%^s suddenly go out of your sight!", caster_name);
-#endif
-						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						update |= (PU_CREATURES);
-					}
-					else
-					{
-						int get_damage = 0;
-
-#ifdef JP
-						msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
-#else
-						msg_format("%^s holds you, and drops from the sky.", caster_name);
-#endif
-						damage = diceroll(4, 8);
-						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-
-						sound(SOUND_FALL);
-
-						if(has_trait(target_ptr, TRAIT_CAN_FLY))
-						{
-#ifdef JP
-							msg_print("あなたは静かに着地した。");
-#else
-							msg_print("You float gently down to the ground.");
-#endif
-						}
-						else
-						{
-#ifdef JP
-							msg_print("あなたは地面に叩きつけられた。");
-#else
-							msg_print("You crashed into the ground.");
-#endif
-							dam += diceroll(6, 8);
-						}
-
-						// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-						-- henkma
-
-							get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
-						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
-						{
-#ifdef JP
-							msg_format("攻撃が%s自身を傷つけた！", caster_name);
-#else
-							char caster_name_self[80];
-
-							// hisself 
-							creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
-							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-						}
-
-						if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
-					}
-					break;
-				}
-
-				// Something is wrong 
-				else return FALSE;
-			}
-			break;
-		}
-
 	case TRAIT_S_KIN:
 		{
 			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
@@ -4385,173 +4373,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
 			break;
 		}
-
-
-	case TRAIT_SPECIAL:
-		{
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_OHMU:
-				/* Moved to process_nonplayer(), like multiplication */
-				return FALSE;
-
-			case SPECIES_BANORLUPART:
-				{
-					int dummy_hp = (caster_ptr->chp + 1) / 2;
-					int dummy_mhp = caster_ptr->mhp/2;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
-
-					if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || !summon_possible(caster_ptr, caster_ptr->fy, caster_ptr->fx)) return FALSE;
-					delete_species_idx(&creature_list[floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].creature_idx]);
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANOR, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_LUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-
-#ifdef JP
-					msg_print("『バーノール・ルパート』が分裂した！");
-#else
-					msg_print("Banor=Rupart splits in two person!");
-#endif
-
-					break;
-				}
-
-			case SPECIES_BANOR:
-			case SPECIES_LUPART:
-				{
-					int dummy_hp = 0;
-					int dummy_mhp = 0;
-					int dummy_y = caster_ptr->fy;
-					int dummy_x = caster_ptr->fx;
-
-					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
-					for (k = 1; k < creature_max; k++)
-					{
-						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)
-						{
-							dummy_hp += creature_list[k].chp;
-							dummy_mhp += creature_list[k].mhp;
-							if(creature_list[k].species_idx != caster_ptr->species_idx)
-							{
-								dummy_y = creature_list[k].fy;
-								dummy_x = creature_list[k].fx;
-							}
-							delete_species_idx(&creature_list[k]);
-						}
-					}
-					summon_named_creature(0, floor_ptr, dummy_y, dummy_x, SPECIES_BANORLUPART, mode);
-					creature_list[hack_m_idx_ii].chp = dummy_hp;
-					creature_list[hack_m_idx_ii].mhp = dummy_mhp;
-
-#ifdef JP
-					msg_print("『バーノール』と『ルパート』が合体した！");
-#else
-					msg_print("Banor and Rupart combine into one!");
-#endif
-
-					break;
-				}
-
-			case SPECIES_ROLENTO:
-#ifdef JP
-				if(blind) msg_format("%^sが何か大量に投げた。", target_name);
-				else msg_format("%^sは手榴弾をばらまいた。", target_name);
-#else
-				if(blind) msg_format("%^s spreads something.", target_name);
-				else msg_format("%^s throws some hand grenades.", target_name);
-#endif
-
-				{
-					int num = 1 + randint1(3);
-
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_SHURYUUDAN, mode);
-					}
-				}
-				break;
-
-			default:
-				if(r_ptr->d_char == 'B')
-				{
-
-					if(one_in_(3) || !direct)
-					{
-#ifdef JP
-						msg_format("%^sは突然視界から消えた!", target_name);
-#else
-						msg_format("%^s suddenly go out of your sight!", target_name);
-#endif
-						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						update |= (PU_CREATURES);
-					}
-					else
-					{
-						int get_damage = 0;
-
-#ifdef JP
-						msg_format("%^sがあなたを掴んで空中から投げ落とした。", target_name);
-#else
-						msg_format("%^s holds you, and drops from the sky.", target_name);
-#endif
-						damage = diceroll(4, 8);
-						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-
-						sound(SOUND_FALL);
-
-						if(has_trait(target_ptr, TRAIT_CAN_FLY))
-						{
-#ifdef JP
-							msg_print("あなたは静かに着地した。");
-#else
-							msg_print("You float gently down to the ground.");
-#endif
-						}
-						else
-						{
-#ifdef JP
-							msg_print("あなたは地面に叩きつけられた。");
-#else
-							msg_print("You crashed into the ground.");
-#endif
-							dam += diceroll(6, 8);
-						}
-
-						/* Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-						-- henkma
-						*/
-						get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, target_name, NULL, -1);
-						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
-						{
-#ifdef JP
-							msg_format("攻撃が%s自身を傷つけた！", target_name);
-#else
-							char target_name_self[80];
-
-							/* hisself */
-							creature_desc(target_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-							msg_format("The attack of %s has wounded %s!", target_name, target_name_self);
-#endif
-							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-						}
-
-						if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
-					}
-					break;
-				}
-
-				/* Something is wrong */
-				else return FALSE;
-			}
-			break;
-		}
-
 
 	case TRAIT_TELE_AWAY:
 		{
@@ -4788,9 +4609,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		msg_print("You cast a Globe of Invulnerability.");
 #endif
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, FALSE);
-		break;
-
-	case TRAIT_SPECIAL:
 		break;
 
 	case TRAIT_TELE_AWAY:
