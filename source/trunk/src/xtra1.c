@@ -4301,21 +4301,6 @@ static void set_melee_status(creature_type *creature_ptr)
 			/* Reduce the mental bonuses */
 			creature_ptr->dis_to_hit[i] -= 2;
 			creature_ptr->dis_to_damage[i] -= 2;
-
-		}
-		else if(creature_ptr->class_idx == CLASS_BERSERKER)
-		{
-			creature_ptr->to_hit[i] += creature_ptr->lev/5;
-			creature_ptr->to_damage[i] += creature_ptr->lev/6;
-			creature_ptr->dis_to_hit[i] += creature_ptr->lev/5;
-			creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
-			if(((i == 0) && !creature_ptr->can_melee[1]) || creature_ptr->two_handed)
-			{
-				creature_ptr->to_hit[i] += creature_ptr->lev/5;
-				creature_ptr->to_damage[i] += creature_ptr->lev/6;
-				creature_ptr->dis_to_hit[i] += creature_ptr->lev/5;
-				creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
-			}
 		}
 
 		// Hex bonuses
