@@ -3487,7 +3487,7 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
  */
 static bool get_creature_sex(creature_type *creature_ptr, species_type *species_ptr, bool npc)
 {
-	int i, n;
+	int i, n, category_num;
 	selection se[MAX_SEXES + 3];
 	int id[MAX_SEXES + 1], weight1[MAX_SEXES + 1], weight2[MAX_SEXES];
 	int list[MAX_SEXES] = {SEX_MALE, SEX_FEMALE, SEX_INTERSEX, SEX_NONE};
@@ -3500,7 +3500,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 		return 0;
 	}
 
-	for (i = 0, n = 0; i < MAX_SEXES; i++)
+	for (i = 0, n = 0, category_num = 0; i < MAX_SEXES; i++)
 	{
 		strcpy(se[n].cap, sex_info[list[i]].title);
 		se[n].code = list[i];
@@ -3526,6 +3526,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 			weight2[n] = 0;
 		}
 		n++;
+		category_num++;
 	}
 
 	if(npc)
@@ -3586,7 +3587,7 @@ static bool get_creature_sex(creature_type *creature_ptr, species_type *species_
 	}
 	else if(i == BIRTH_SELECT_RANDOM)
 	{
-		creature_ptr->sex = se[randint0(n)].code;
+		creature_ptr->sex = se[randint0(category_num)].code;
 		return 0;
 	}
 	else
