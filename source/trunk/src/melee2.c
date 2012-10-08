@@ -2835,6 +2835,8 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
+	if(!is_valid_creature(creature_ptr)) return;
+
 	switch (mtimed_idx)
 	{
 	case MTIMED_CSLEEP:
@@ -2842,27 +2844,21 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		species_type *r_ptr = &species_info[creature_ptr->species_idx];
 		u32b csleep_noise;
 
-		/* Assume does not wake up */
-		bool test = FALSE;
+		bool test = FALSE;	// Assume does not wake up
+		if(mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));	// calculate the "player noise"
 
-		/* calculate the "player noise" */
-		if(mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));
-
-		/* Hack -- Require proximity */
-		if(creature_ptr->cdis < AAF_LIMIT)
+		if(creature_ptr->cdis < AAF_LIMIT)	// Hack -- Require proximity
 		{
-			/* Handle "sensing radius" */
+			// Handle "sensing radius"
 			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->alert_range > MAX_SIGHT) ? MAX_SIGHT : r_ptr->alert_range) : r_ptr->alert_range))
 			{
-				/* We may wake up */
-				test = TRUE;
+				test = TRUE;	// We may wake up
 			}
 
-			/* Handle "sight" and "aggravation" */
+			// Handle "sight" and "aggravation"
 			else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(creature_ptr->fy, creature_ptr->fx)))
 			{
-				/* We may wake up */
-				test = TRUE;
+				test = TRUE;	// We may wake up
 			}
 		}
 
