@@ -4317,31 +4317,8 @@ static void set_melee_status(creature_type *creature_ptr)
 				creature_ptr->dis_to_damage[i] += creature_ptr->lev/6;
 			}
 		}
-		else if(creature_ptr->class_idx == CLASS_SORCERER)
-		{
-			if(!((bow_ptr->tval == TV_HAFTED) && ((bow_ptr->sval == SV_WIZSTAFF) || (bow_ptr->sval == SV_NAMAKE_HAMMER))))
-			{
-				/* Reduce the real bonuses */
-				creature_ptr->to_hit[i] -= 200;
-				creature_ptr->to_damage[i] -= 200;
 
-				/* Reduce the mental bonuses */
-				creature_ptr->dis_to_hit[i] -= 200;
-				creature_ptr->dis_to_damage[i] -= 200;
-
-			}
-			else
-			{
-				/* Reduce the real bonuses */
-				creature_ptr->to_hit[i] -= 30;
-				creature_ptr->to_damage[i] -= 10;
-
-				/* Reduce the mental bonuses */
-				creature_ptr->dis_to_hit[i] -= 30;
-				creature_ptr->dis_to_damage[i] -= 10;
-			}
-		}
-		/* Hex bonuses */
+		// Hex bonuses
 		if(creature_ptr->realm1 == REALM_HEX)
 		{
 			if(object_is_cursed(bow_ptr))
