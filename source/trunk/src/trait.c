@@ -1324,25 +1324,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SHRIEK:
-#ifdef JP
-		msg_print("かん高い金切り声をあげた。");
-#else
-		msg_print("You make a high pitched shriek.");
-#endif
 		aggravate_creatures(caster_ptr);
 		break;
 
-		//TODO case TRAIT_SHRIEK:
+	case TRAIT_SHOUT:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		racial_stop_mouth(caster_ptr);
-#ifdef JP
-		msg_print("身の毛もよだつ叫び声を上げた！");
-#else
-		msg_print("You make a horrible scream!");
-#endif
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
-
 
 	case TRAIT_DISPEL:
 		{
@@ -4166,22 +4155,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-
-
-
-	case TRAIT_SHRIEK:
-		{
-
-#ifdef JP
-			msg_format("%^sがかん高い金切り声をあげた。", target_name);
-#else
-			msg_format("%^s makes a high pitched shriek.", target_name);
-#endif
-
-			aggravate_creatures(caster_ptr);
-			break;
-		}
-
 	case TRAIT_DISPEL:
 		{
 			if(!direct) return (FALSE);
@@ -4368,18 +4341,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-
-
-	case TRAIT_SHRIEK:
-#ifdef JP
-		msg_print("かん高い金切り声をあげた。");
-#else
-		msg_print("You make a high pitched shriek.");
-#endif
-
-		aggravate_creatures(caster_ptr);
-		break;
 	case TRAIT_DISPEL:
 		{
 			int m_idx;
