@@ -2830,7 +2830,7 @@ void creature_process_init(void)
 	}
 }
 
-
+#if 0
 static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_type *creature_ptr, int mtimed_idx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2923,6 +2923,8 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		break;
 	}
 
+
+
 	case MTIMED_FAST:
 		/* Reduce by one, note if expires */
 		set_timed_trait(creature_ptr, TRAIT_FAST, creature_ptr->timed_trait[TRAIT_FAST] - 1);
@@ -2956,13 +2958,14 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		break;
 	}
 }
-
+#endif
 
 /*
  * Process the counters of creatures (once per 10 game turns)
  *
  * These functions are to process creatures' counters same as player's.
  */
+#if 0
 void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx)
 {
 	int  i;
@@ -2976,7 +2979,7 @@ void process_creatures_mtimed(creature_type *creature_ptr, int mtimed_idx)
 		process_creatures_mtimed_aux(creature_ptr, cur_mproc_list[i], mtimed_idx);
 	}
 }
-
+#endif
 
 bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_player)
 {

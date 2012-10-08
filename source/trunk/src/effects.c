@@ -245,7 +245,7 @@ void set_action(creature_type *creature_ptr, int typ)
 	play_redraw |= (PR_STATE);
 }
 
-/* reset timed flags */
+// reset timed flags
 void reset_timed_trait(creature_type *creature_ptr)
 {
 	int i;

@@ -1987,6 +1987,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 {
 	int i;
 	const int dec_count = 1;
+	if(!is_valid_creature(creature_ptr)) return;
 
 	//*** Timeout Various Things ***//
 
@@ -3595,6 +3596,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
  */
 static void process_world(void)
 {
+	int i;
 	int day, hour, min;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
@@ -3637,6 +3639,7 @@ static void process_world(void)
 	if(!(turn % (TURNS_PER_TICK*10)) && !floor_ptr->gamble_arena_mode) regen_creatures(player_ptr);
 	if(!(turn % (TURNS_PER_TICK*3))) regen_captured_creatures(player_ptr);
 
+#if 0
 	if(!subject_change_floor)
 	{
 		int i;
@@ -3647,7 +3650,7 @@ static void process_world(void)
 			if(mproc_max[i] > 0) process_creatures_mtimed(player_ptr, i);
 		}
 	}
-
+#endif
 
 	/* Date changes */
 	if(!hour && !min)
@@ -3731,8 +3734,8 @@ static void process_world(void)
 	/* Process timed damage and regeneration */
 	process_world_aux_hp_and_sp(player_ptr);
 
-	/* Process timeout */
-	process_world_aux_timeout(player_ptr);
+	// Process timeout
+	for(i = 0; i < creature_max; i++) process_world_aux_timeout(&creature_list[i]);
 
 	/* Process light */
 	process_world_aux_light(player_ptr);
