@@ -1351,17 +1351,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 		}
 
-
 	case TRAIT_SHOOT:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		else msg_print("矢を放った。");
-#else
-		else msg_print("You fire an arrow.");
-#endif
-
 		cast_bolt(caster_ptr, GF_ARROW, dir, damage);
-		break;
+		{
+			//TODO Fix damage calc.
+			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
+			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
+			update_smart_learn(caster_ptr, DRS_REFLECT);
+			break;
+		}
 
 	case TRAIT_BR_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -4001,28 +4000,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_SHOOT:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが奇妙な音を発した。", caster_name);
-#else
-			if(blind) msg_format("%^s makes a strange noise.", caster_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが矢を放った。", caster_name);
-#else
-			else msg_format("%^s fires an arrow.", caster_name);
-#endif
-
-			//TODO Fix damage calc.
-			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 
 	case TRAIT_S_KIN:
@@ -4141,30 +4118,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-
-	case TRAIT_SHOOT:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが奇妙な音を発した。", target_name);
-#else
-			if(blind) msg_format("%^s makes a strange noise.", target_name);
-#endif
-
-#ifdef JP
-			else msg_format("%^sが矢を放った。", target_name);
-#else
-			else msg_format("%^s fires an arrow.", target_name);
-#endif
-
-			//TODO Fix damage calc.
-			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			bolt(caster_ptr, target_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_TELE_AWAY:
 		{
@@ -4304,31 +4257,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_SHOOT:
-		{
-			object_type *object_ptr = NULL;
-
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			else
-			{
-#ifdef JP
-				msg_print("矢を放った。");
-#else
-				msg_print("You fire an arrow.");
-#endif
-				if(get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 0) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 1);
-				else if(get_equipped_slot_num(caster_ptr, INVEN_SLOT_HAND) > 1) object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, 2);
-				else
-					damage = 1;
-				if(object_ptr)
-				{
-					damage = diceroll(object_ptr->dd, object_ptr->ds)+ object_ptr->to_damage;
-					if(damage < 1) damage = 1;
-				}
-				cast_bolt(caster_ptr, GF_ARROW, dir, damage);
-			}
-			break;
-		}
 
 	case TRAIT_TELE_AWAY:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
