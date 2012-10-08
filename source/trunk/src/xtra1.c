@@ -4448,38 +4448,13 @@ static void set_melee_status(creature_type *creature_ptr)
 
 			creature_ptr->to_hit[i] += boost > 0 ? boost : 0;
 			creature_ptr->dis_to_hit[i] += boost > 0 ? boost : 0;
-
-			if((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER))
-			{
-				/*
-				if(!skill_info[creature_ptr->class_idx].w_max[tval][sval])
-				{
-					creature_ptr->to_hit[i] -= 40;
-					creature_ptr->dis_to_hit[i] -= 40;
-					creature_ptr->icky_wield[i] = TRUE;
-				}
-				*/
-			}
-			else if(creature_ptr->class_idx == CLASS_NINJA)
-			{
-				/*
-				if((skill_info[CLASS_NINJA].w_max[tval][sval] <= WEAPON_EXP_BEGINNER) ||
-					(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->tval == TV_SHIELD))
-				{
-					creature_ptr->to_hit[i] -= 40;
-					creature_ptr->dis_to_hit[i] -= 40;
-					creature_ptr->icky_wield[i] = TRUE;
-				}
-				*/
-			}
-
 			creature_ptr->action_cost[MELLE_WEAPON_INDEX + i] = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
 			creature_ptr->action_priority[MELLE_WEAPON_INDEX + i] = calc_weapon_melee_priority(creature_ptr, weapon_ptr);
 
 		}
 	}
 
-	/* Actual Modifier Bonuses (Un-inflate stat bonuses) */
+	// Actual Modifier Bonuses (Un-inflate stat bonuses)
 	for(i = 0; i < MAX_WEAPONS; i++)
 	{
 		creature_ptr->to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
@@ -4489,7 +4464,6 @@ static void set_melee_status(creature_type *creature_ptr)
 		creature_ptr->dis_to_damage[i] += ((int)(adj_str_to_damage[creature_ptr->stat_ind[STAT_STR]]) );
 		creature_ptr->dis_to_hit[i] += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
 		creature_ptr->dis_to_hit[i] += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
-
 	}
 
 	creature_ptr->to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );
@@ -4499,14 +4473,13 @@ static void set_melee_status(creature_type *creature_ptr)
 	creature_ptr->to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 	creature_ptr->to_hit_m  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 
-	/* Displayed Modifier Bonuses (Un-inflate stat bonuses) */
+	// Displayed Modifier Bonuses (Un-inflate stat bonuses)
 	creature_ptr->dis_to_ac += ((int)(adj_dex_to_ac[creature_ptr->stat_ind[STAT_DEX]]) );
 	creature_ptr->dis_to_hit_b  += ((int)(adj_dex_to_hit[creature_ptr->stat_ind[STAT_DEX]]) );
 	creature_ptr->dis_to_hit_b  += ((int)(adj_str_to_hit[creature_ptr->stat_ind[STAT_STR]]) );
 
-	/* Different calculation for monks with empty hands */
-	if(((creature_ptr->class_idx == CLASS_MONK) || (creature_ptr->class_idx == CLASS_FORCETRAINER) || (creature_ptr->class_idx == CLASS_BERSERKER)) &&
-		(empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
+	// Different calculation for monks with empty hands
+	if((empty_hands_status & EMPTY_HAND_RARM) && !creature_ptr->can_melee[1])
 	{
 		int blow_base = creature_ptr->lev + adj_dex_blow[creature_ptr->stat_ind[STAT_DEX]];
 
