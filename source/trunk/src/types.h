@@ -1363,6 +1363,8 @@ struct creature_type
 	byte floor_feeling;		// Most recent dungeon feeling
 	s32b feeling_turn;		// The turn of the last dungeon feeling 
 
+	s16b alert_range;
+
 	//** Temporary fields **
 	bool teleport_town;
 	bool enter_dungeon;     // Just enter the dungeon 

@@ -649,15 +649,13 @@ static void wr_creature(creature_type *creature_ptr)
 
 	/* Write feeling */
 	wr_byte(creature_ptr->floor_feeling);
-
-	/* Turn of last "feeling" */
 	wr_s32b(creature_ptr->feeling_turn);
+	wr_s16b(creature_ptr->alert_range);
 
 	wr_s16b(creature_ptr->riding);
 	wr_s16b(creature_ptr->ridden);
 
 	wr_s16b(creature_ptr->floor_id);
-
 	wr_s32b(creature_ptr->visit);
 
 	/* Write spell data */

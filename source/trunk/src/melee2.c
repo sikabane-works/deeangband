@@ -2848,7 +2848,6 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		/* calculate the "player noise" */
 		if(mtimed_idx == MTIMED_CSLEEP) csleep_noise = (1L << (30 - watcher_ptr->skill_stl));
 
-
 		/* Hack -- Require proximity */
 		if(creature_ptr->cdis < AAF_LIMIT)
 		{
