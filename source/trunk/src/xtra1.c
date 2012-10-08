@@ -4086,7 +4086,7 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 static void set_melee_status(creature_type *creature_ptr)
 {
 	int i, hold;
-	object_type *object_ptr, *weapon_ptr;
+	object_type *bow_ptr, *weapon_ptr;
 	u32b flgs[TRAIT_FLAG_MAX];
 	bool omoi;
 	int default_hand = 1;
@@ -4096,7 +4096,7 @@ static void set_melee_status(creature_type *creature_ptr)
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
 	// Examine the "current bow"
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+	bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	// Set Species Blow.
 	creature_ptr->blow[0] = species_ptr->blow[0];
@@ -4140,27 +4140,27 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 	}
 
-	if(object_ptr->k_idx)
+	if(bow_ptr->k_idx)
 	{
 		/* Assume not heavy */
 		creature_ptr->heavy_shoot = FALSE;
 
 		/* It is hard to carholdry a heavy bow */
-		if(hold < object_ptr->weight / 10)
+		if(hold < bow_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy bow */
-			creature_ptr->to_hit_b  += 2 * (hold - object_ptr->weight / 10);
-			creature_ptr->dis_to_hit_b  += 2 * (hold - object_ptr->weight / 10);
+			creature_ptr->to_hit_b  += 2 * (hold - bow_ptr->weight / 10);
+			creature_ptr->dis_to_hit_b  += 2 * (hold - bow_ptr->weight / 10);
 
 			/* Heavy Bow */
 			creature_ptr->heavy_shoot = TRUE;
 		}
 
 		/* Compute "extra shots" if needed */
-		if(object_ptr->k_idx)
+		if(bow_ptr->k_idx)
 		{
 			/* Analyze the launcher */
-			switch (object_ptr->sval)
+			switch (bow_ptr->sval)
 			{
 				case SV_SLING:
 				{
@@ -4190,7 +4190,7 @@ static void set_melee_status(creature_type *creature_ptr)
 			}
 
 			/* Apply special flags */
-			if(object_ptr->k_idx && !creature_ptr->heavy_shoot)
+			if(bow_ptr->k_idx && !creature_ptr->heavy_shoot)
 			{
 				// TODO Extra shots
 
@@ -4293,9 +4293,9 @@ static void set_melee_status(creature_type *creature_ptr)
 	*/
 
 		/* Examine the "main weapon" */
-		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
+		bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
 
-		object_flags(object_ptr, flgs);
+		object_flags(bow_ptr, flgs);
 
 		/* Assume not heavy */
 		creature_ptr->heavy_wield[i] = FALSE;
@@ -4303,31 +4303,31 @@ static void set_melee_status(creature_type *creature_ptr)
 		creature_ptr->riding_wield[i] = FALSE;
 
 		/* It is hard to hold a heavy weapon */
-		if(hold < object_ptr->weight / 10)
+		if(hold < bow_ptr->weight / 10)
 		{
 			/* Hard to wield a heavy weapon */
-			creature_ptr->to_hit[i] += 2 * (hold - object_ptr->weight / 10);
-			creature_ptr->dis_to_hit[i] += 2 * (hold - object_ptr->weight / 10);
+			creature_ptr->to_hit[i] += 2 * (hold - bow_ptr->weight / 10);
+			creature_ptr->dis_to_hit[i] += 2 * (hold - bow_ptr->weight / 10);
 
 			/* Heavy weapon */
 			creature_ptr->heavy_wield[i] = TRUE;
 		}
-		else if(creature_ptr->two_handed && (hold < object_ptr->weight/5)) omoi = TRUE;
+		else if(creature_ptr->two_handed && (hold < bow_ptr->weight/5)) omoi = TRUE;
 
-		if((i == 1) && (object_ptr->tval == TV_SWORD) && ((object_ptr->sval == SV_MAIN_GAUCHE) || (object_ptr->sval == SV_WAKIZASHI)))
+		if((i == 1) && (bow_ptr->tval == TV_SWORD) && ((bow_ptr->sval == SV_MAIN_GAUCHE) || (bow_ptr->sval == SV_WAKIZASHI)))
 		{
 			creature_ptr->to_ac += 5;
 			creature_ptr->dis_to_ac += 5;
 		}
 
-		if(object_ptr->k_idx && !creature_ptr->heavy_wield[i])
+		if(bow_ptr->k_idx && !creature_ptr->heavy_wield[i])
 		{
-			creature_ptr->skill_dig += (object_ptr->weight / 10); // Boost digging skill by weapon weight
+			creature_ptr->skill_dig += (bow_ptr->weight / 10); // Boost digging skill by weapon weight
 		}
 
 		// Assume okay
 		// Priest weapon penalty for non-blessed edged weapons
-		if((creature_ptr->class_idx == CLASS_PRIEST) && (!(have_flag(flgs, TRAIT_BLESSED_BRAND))) && ((object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM)))
+		if((creature_ptr->class_idx == CLASS_PRIEST) && (!(have_flag(flgs, TRAIT_BLESSED_BRAND))) && ((bow_ptr->tval == TV_SWORD) || (bow_ptr->tval == TV_POLEARM)))
 		{
 			/* Reduce the real bonuses */
 			creature_ptr->to_hit[i] -= 2;
@@ -4356,7 +4356,7 @@ static void set_melee_status(creature_type *creature_ptr)
 		}
 		else if(creature_ptr->class_idx == CLASS_SORCERER)
 		{
-			if(!((object_ptr->tval == TV_HAFTED) && ((object_ptr->sval == SV_WIZSTAFF) || (object_ptr->sval == SV_NAMAKE_HAMMER))))
+			if(!((bow_ptr->tval == TV_HAFTED) && ((bow_ptr->sval == SV_WIZSTAFF) || (bow_ptr->sval == SV_NAMAKE_HAMMER))))
 			{
 				/* Reduce the real bonuses */
 				creature_ptr->to_hit[i] -= 200;
@@ -4383,23 +4383,23 @@ static void set_melee_status(creature_type *creature_ptr)
 		/* Hex bonuses */
 		if(creature_ptr->realm1 == REALM_HEX)
 		{
-			if(object_is_cursed(object_ptr))
+			if(object_is_cursed(bow_ptr))
 			{
-				if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
-				if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
-				if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
-				if(have_flag(object_ptr->curse_flags, TRAIT_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if(have_flag(bow_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
+				if(have_flag(bow_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_hit[i] += 7; creature_ptr->dis_to_hit[i] += 7; }
+				if(have_flag(bow_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_hit[i] += 13; creature_ptr->dis_to_hit[i] += 13; }
+				if(have_flag(bow_ptr->curse_flags, TRAIT_TY_CURSE)) { creature_ptr->to_hit[i] += 5; creature_ptr->dis_to_hit[i] += 5; }
 				if(hex_spelling(creature_ptr, HEX_RUNESWORD))
 				{
-					if(have_flag(object_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
-					if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_damage[i] += 7; creature_ptr->dis_to_damage[i] += 7; }
-					if(have_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_damage[i] += 13; creature_ptr->dis_to_damage[i] += 13; }
+					if(have_flag(bow_ptr->curse_flags, TRAIT_CURSED)) { creature_ptr->to_damage[i] += 5; creature_ptr->dis_to_damage[i] += 5; }
+					if(have_flag(bow_ptr->curse_flags, TRAIT_HEAVY_CURSE)) { creature_ptr->to_damage[i] += 7; creature_ptr->dis_to_damage[i] += 7; }
+					if(have_flag(bow_ptr->curse_flags, TRAIT_DIVINE_CURSE)) { creature_ptr->to_damage[i] += 13; creature_ptr->dis_to_damage[i] += 13; }
 				}
 			}
 		}
 		if(creature_ptr->riding)
 		{
-			if((object_ptr->tval == TV_POLEARM) && ((object_ptr->sval == SV_LANCE) || (object_ptr->sval == SV_HEAVY_LANCE)))
+			if((bow_ptr->tval == TV_POLEARM) && ((bow_ptr->sval == SV_LANCE) || (bow_ptr->sval == SV_HEAVY_LANCE)))
 			{
 				creature_ptr->to_hit[i] +=15;
 				creature_ptr->dis_to_hit[i] +=15;
