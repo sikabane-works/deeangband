@@ -196,21 +196,27 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
 		break;
 
-		//case TRAIT_TELE_AWAY: TODO:Implement new trait
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		teleport_creature(caster_ptr, dir);
 		break;
+		{
+
+#ifdef JP
+			msg_format("%^sにテレポートさせられた。", caster_name);
+
+#else
+			msg_format("%^s teleports you away.", caster_name);
+#endif
+
+			learn_trait(target_ptr, TRAIT_TELE_AWAY);
+			teleport_player_away(caster_ptr, 100);
+			break;
+		}
+
 
 	case TRAIT_BANISH_EVIL:
 		{
-			if(banish_evil(caster_ptr, 100))
-			{
-#ifdef JP
-				msg_print("アーティファクトの力が邪悪を打ち払った！");
-#else
-				msg_print("The power of the artifact banishes evil!");
-#endif
-			}
+			banish_evil(caster_ptr, 100);
 			break;
 		}
 
@@ -2339,13 +2345,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	//case TRAIT_TELE_AWAY:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-
-		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
-		break;
-
-
 	case TRAIT_TELE_TO:
 		{
 			creature_type *m_ptr;
@@ -3980,27 +3979,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 #if 0
 
-	case TRAIT_TELE_AWAY:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sにテレポートさせられた。", caster_name);
-
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("くっそ～");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("なんて事をするんだ！");
-#else
-			msg_format("%^s teleports you away.", caster_name);
-#endif
-
-			learn_trait(target_ptr, TRAIT_TELE_AWAY);
-			teleport_player_away(caster_ptr, 100);
-			break;
-		}
-
-
 
 	case TRAIT_S_KIN:
 		{
@@ -4115,27 +4093,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				break;
 			}
 
-			break;
-		}
-
-
-	case TRAIT_TELE_AWAY:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			msg_format("%^sにテレポートさせられた。", target_name);
-
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("くっそ～");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("なんて事をするんだ！");
-#else
-			msg_format("%^s teleports you away.", target_name);
-#endif
-
-			learn_trait(target_ptr, TRAIT_TELE_AWAY);
-			teleport_player_away(caster_ptr, 100);
 			break;
 		}
 
@@ -4257,13 +4214,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
-	case TRAIT_TELE_AWAY:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-
-		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, 100);
-		break;
-
 	case TRAIT_S_KIN:
 		{
 #ifdef JP
@@ -4304,6 +4254,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	{
 		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK)) msg_print("やりやがったな！");
 		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK)) msg_print("弱いものいじめはやめるんだ！");
+		/*
+		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
+				msg_print("くっそ～");
+			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+				msg_print("なんて事をするんだ！");
+		*/
 	}
 
 	if(summoned)
