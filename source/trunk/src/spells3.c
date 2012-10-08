@@ -4230,8 +4230,8 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	}
 
 	/* Hack -- Priest prayer penalty for "edged" weapons  -DGK */
-	if(((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER)) && creature_ptr->icky_wield[0]) chance += 25;
-	if(((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER)) && creature_ptr->icky_wield[1]) chance += 25;
+	if(((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER))) chance += 25;
+	if(((creature_ptr->class_idx == CLASS_PRIEST) || (creature_ptr->class_idx == CLASS_SORCERER))) chance += 25;
 
 	chance = mod_spell_chance_1(creature_ptr, chance);
 

@@ -142,7 +142,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	{
 	case CLASS_ROGUE:
 	case CLASS_NINJA:
-		if(get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) > hand && !attacker_ptr->icky_wield[hand])
+		if(get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) > hand)
 		{
 			int tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
 			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
@@ -482,7 +482,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 			else k = 1;
 		}
-		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && !attacker_ptr->icky_wield[hand] && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
+		else if((attacker_ptr->class_idx == CLASS_NINJA) && get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND) && ((attacker_ptr->cur_lite <= 0) || one_in_(7)))
 		{
 			if(one_in_(backstab ? 13 : (stab_fleeing || fuiuchi) ? 15 : 27))
 			{

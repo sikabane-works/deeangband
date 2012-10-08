@@ -3898,40 +3898,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 			creature_ptr->old_riding_wield[i] = creature_ptr->riding_wield[i];
 		}
 
-		/* Take note when "illegal weapon" changes */
-		if(creature_ptr->old_icky_wield[i] != creature_ptr->icky_wield[i])
-		{
-			/* Message */
-			if(creature_ptr->icky_wield[i])
-			{
-#ifdef JP
-				msg_print("今の装備はどうも自分にふさわしくない気がする。");
-#else
-				msg_print("You do not feel comfortable with your weapon.");
-#endif
-			}
-			else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
-			{
-#ifdef JP
-				msg_print("今の装備は自分にふさわしい気がする。");
-#else
-				msg_print("You feel comfortable with your weapon.");
-#endif
-
-			}
-			else
-			{
-#ifdef JP
-				msg_print("装備をはずしたら随分と気が楽になった。");
-#else
-				msg_print("You feel more comfortable after removing your weapon.");
-#endif
-
-			}
-
-			/* Save it */
-			creature_ptr->old_icky_wield[i] = creature_ptr->icky_wield[i];
-		}
 	}
 
 	if(creature_ptr->riding && (creature_ptr->old_riding_two_handed != creature_ptr->riding_two_handed))
@@ -4299,7 +4265,6 @@ static void set_melee_status(creature_type *creature_ptr)
 
 		/* Assume not heavy */
 		creature_ptr->heavy_wield[i] = FALSE;
-		creature_ptr->icky_wield[i] = FALSE;
 		creature_ptr->riding_wield[i] = FALSE;
 
 		/* It is hard to hold a heavy weapon */
@@ -4337,8 +4302,6 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->dis_to_hit[i] -= 2;
 			creature_ptr->dis_to_damage[i] -= 2;
 
-			/* Icky weapon */
-			creature_ptr->icky_wield[i] = TRUE;
 		}
 		else if(creature_ptr->class_idx == CLASS_BERSERKER)
 		{
@@ -4366,8 +4329,6 @@ static void set_melee_status(creature_type *creature_ptr)
 				creature_ptr->dis_to_hit[i] -= 200;
 				creature_ptr->dis_to_damage[i] -= 200;
 
-				/* Icky weapon */
-				creature_ptr->icky_wield[i] = TRUE;
 			}
 			else
 			{

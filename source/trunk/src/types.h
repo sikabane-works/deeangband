@@ -1376,7 +1376,6 @@ struct creature_type
 	bool old_cumber_glove;
 	bool old_heavy_wield[MAX_WEAPONS];
 	bool old_heavy_shoot;
-	bool old_icky_wield[MAX_WEAPONS];
 	bool old_riding_wield[MAX_WEAPONS];
 	bool old_riding_two_handed;
 	bool old_monlite;
@@ -1387,7 +1386,6 @@ struct creature_type
 	bool cumber_glove;	// Mana draining gloves 
 	bool heavy_wield[MAX_WEAPONS];	// Heavy weapon 
 	bool heavy_shoot;	// Heavy shooter 
-	bool icky_wield[MAX_WEAPONS];	// Icky weapon 
 	bool riding_wield[MAX_WEAPONS];	// Riding weapon 
 	bool riding_two_handed;	// Riding weapon 
 	bool monlite;

@@ -675,9 +675,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						if(use_mind == MIND_KI)
 						{
 							if(heavy_armor(creature_ptr)) chance += 20;
-							if(creature_ptr->icky_wield[0]) chance += 20;
 							else if(has_weapon[0]) chance += 10;
-							if(creature_ptr->icky_wield[1]) chance += 20;
 							else if(has_weapon[1]) chance += 10;
 							if(i == 5)
 							{
@@ -708,8 +706,6 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 						if(use_mind == MIND_KI)
 						{
 							if(heavy_armor(creature_ptr)) chance += 5;
-							if(creature_ptr->icky_wield[0]) chance += 5;
-							if(creature_ptr->icky_wield[1]) chance += 5;
 						}
 						/* Always a 5 percent chance of working */
 						if(chance > 95) chance = 95;
@@ -1851,9 +1847,7 @@ msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
 	if(use_mind == MIND_KI)
 	{
 		if(heavy_armor(creature_ptr)) chance += 20;
-		if(creature_ptr->icky_wield[0]) chance += 20;
 		else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) chance += 10;
-		if(creature_ptr->icky_wield[1]) chance += 20;
 		else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1) chance += 10;
 		if(n == 5)
 		{
@@ -1926,8 +1920,6 @@ if(!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return;
 		if(use_mind == MIND_KI)
 		{
 			if(heavy_armor(creature_ptr)) chance += 5;
-			if(creature_ptr->icky_wield[0]) chance += 5;
-			if(creature_ptr->icky_wield[1]) chance += 5;
 		}
 	}
 
