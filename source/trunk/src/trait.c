@@ -1336,7 +1336,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_DISPEL:
 		{
 			int m_idx;
-
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 			if(!m_idx) break;
@@ -1345,25 +1344,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			dispel_creature(caster_ptr);
 			break;
 		}
-
-		/*TODO case TRAIT_DISPEL:
 		{
-		if(!direct) return (FALSE);
-
-		#ifdef JP
-		if(blind) msg_format("%^sが何かを力強くつぶやいた。", caster_name);
-		else msg_format("%^sは魔力消去の呪文を念じた。", caster_name);
-		#else
-		if(blind) msg_format("%^s mumbles powerfully.", caster_name);
-		else msg_format("%^s invokes a dispel magic.", caster_name);
-		#endif
 		dispel_creature(target_ptr);
 		if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
-
 		learn_trait(target_ptr, TRAIT_DISPEL);
 		break;
 		}
-		*/
+
 
 	case TRAIT_SHOOT:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
@@ -4155,30 +4142,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 
-	case TRAIT_DISPEL:
-		{
-			if(!direct) return (FALSE);
-
-#ifdef JP
-			if(blind) msg_format("%^sが何かを力強くつぶやいた。", target_name);
-			else msg_format("%^sが魔力消去の呪文を念じた。", target_name);
-#else
-			if(blind) msg_format("%^s mumbles powerfully.", target_name);
-			else msg_format("%^s invokes a dispel magic.", target_name);
-#endif
-			dispel_creature(target_ptr);
-			if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
-
-#ifdef JP
-			if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("やりやがったな！");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("弱いものいじめはやめるんだ！");
-#endif
-			learn_trait(target_ptr, TRAIT_DISPEL);
-			break;
-		}
-
 
 	case TRAIT_SHOOT:
 		{
@@ -4341,18 +4304,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_DISPEL:
-		{
-			int m_idx;
-
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
-			if(!m_idx) break;
-			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			dispel_creature(&creature_list[m_idx]);
-			break;
-		}
 	case TRAIT_SHOOT:
 		{
 			object_type *object_ptr = NULL;

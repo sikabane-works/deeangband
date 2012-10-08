@@ -97,7 +97,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 95,NO_SLEEP,-1,-1,睡眠無効,No Sleep,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,
 96,SHOUT,-1,-1,叫ぶ,Shout,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,
 97,BLUFF,-1,-1,ブラフ,Bluff,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,
-98,DISPEL,-1,-1,魔力消去,Dispel,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,
+98,DISPEL,-1,-1,魔力消去,Dispel,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,%^sは魔力消去の呪文を念じた。/%^s invokes a dispel magic.,%^sが何かを力強くつぶやいた。/%^s mumbles powerfully.
 99,ROCKET,-1,-1,ロケット,Rocket,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,ロケットを発射した！/You launch a rocket!,%^sは何かを射った。/%^s shoots something.
 100,SHOOT,-1,-1,射撃,Shoot,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,
 101,TRUE_RETURNING_THROW,-1,-1,真・投擲反転,True Returning Throw,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,
@@ -364,7 +364,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 362,BLINK,-1,-1,ショート・テレポート,Blink,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,WIS,12,0,,は短い距離をテレポートできる。 ,You can teleport yourself short distances. ,近距離テレポートの能力を得た。,You gain the power of minor teleportation.,近距離テレポートの能力を失った。,You lose the power of minor teleportation.,,
 363,EAT_ROCK,-1,-1,岩食い,Eat Rock,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,12,CON,18,0,,は硬い岩を食べることができる。 ,You can consume solid rock. ,壁が美味しそうに見える。,The walls look delicious.,壁は美味しそうに見えなくなった。,The walls look unappetizing.,,
 364,SWAP_POS,-1,-1,位置交換,Swap Position,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,12,DEX,16,0,,は他の者と場所を入れ替わることができる。 ,You can switch locations with another being. ,他人の靴で一マイル歩くような気分がする。,You feel like walking a mile in someone else's shoes.,あなたは自分の靴に留まる感じがする。,You feel like staying in your own shoes.,,
-365,SHRIEK,-1,-1,叫び,Shriek,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,14,CON,16,0,,は身の毛もよだつ叫び声を発することができる。 ,You can emit a horrible shriek. ,あなたの声は相当強くなった。,Your vocal cords get much tougher.,あなたの声質は弱くなった。,Your vocal cords get much weaker.,,
+365,SHRIEK,-1,-1,叫び,Shriek,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,14,CON,16,0,,は身の毛もよだつ叫び声を発することができる。 ,You can emit a horrible shriek. ,あなたの声は相当強くなった。,Your vocal cords get much tougher.,あなたの声質は弱くなった。,Your vocal cords get much weaker.,身の毛もよだつ叫び声を上げた！/You make a horrible scream!,身の毛もよだつ叫び声を上げた！/You make a horrible scream!
 366,ILLUMINE,-1,-1,照明,Illuminate,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2,INT,10,0,,は明るい光を放つことができる。 ,You can emit bright light. ,あなたは光り輝いて部屋を明るくするようになった。,You can light up rooms with your presence.,部屋を明るく照らすことが出来なくなった。,You can no longer light up rooms with your presence.,,
 367,DET_CURSE,-1,-1,呪い感知,Detect Curses,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,14,WIS,14,0,,は邪悪な魔法の危険を感じとることができる。 ,You can feel the danger of evil magic. ,邪悪な魔法を感知できるようになった。,You can feel evil magics.,邪悪な魔法を感じられなくなった。,You can no longer feel evil magics.,,
 368,BERSERK,-1,-1,狂戦士化,Berserk,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,STR,14,0,,は自分の意思で狂乱戦闘状態になることができる。 ,You can drive yourself into a berserk frenzy. ,制御できる激情を感じる。,You feel a controlled rage.,制御できる激情を感じなくなった。,You no longer feel a controlled rage.,,
