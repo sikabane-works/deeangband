@@ -213,7 +213,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
 	case TRAIT_BANISH_EVIL:
 		{
 			banish_evil(caster_ptr, 100);
@@ -1351,10 +1350,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 		{
-		dispel_creature(target_ptr);
-		if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
-		learn_trait(target_ptr, TRAIT_DISPEL);
-		break;
+			dispel_creature(target_ptr);
+			if(target_ptr->riding) dispel_creature(&creature_list[target_ptr->riding]);
+			learn_trait(target_ptr, TRAIT_DISPEL);
+			break;
 		}
 
 	case TRAIT_SHOOT:
@@ -2277,70 +2276,70 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				break;
 
 			default:
-					if(one_in_(3)) // TODO direct
+				if(one_in_(3)) // TODO direct
+				{
+#ifdef JP
+					msg_format("%^sは突然視界から消えた!", caster_name);
+#else
+					msg_format("%^s suddenly go out of your sight!", caster_name);
+#endif
+					teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
+					update |= (PU_CREATURES);
+				}
+				else
+				{
+					int get_damage = 0;
+
+#ifdef JP
+					msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+#else
+					msg_format("%^s holds you, and drops from the sky.", caster_name);
+#endif
+					damage = diceroll(4, 8);
+					teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
+
+					sound(SOUND_FALL);
+
+					if(has_trait(target_ptr, TRAIT_CAN_FLY))
 					{
 #ifdef JP
-						msg_format("%^sは突然視界から消えた!", caster_name);
+						msg_print("あなたは静かに着地した。");
 #else
-						msg_format("%^s suddenly go out of your sight!", caster_name);
+						msg_print("You float gently down to the ground.");
 #endif
-						teleport_away(caster_ptr, 10, TELEPORT_NONMAGICAL);
-						update |= (PU_CREATURES);
 					}
 					else
 					{
-						int get_damage = 0;
-
 #ifdef JP
-						msg_format("%^sがあなたを掴んで空中から投げ落とした。", caster_name);
+						msg_print("あなたは地面に叩きつけられた。");
 #else
-						msg_format("%^s holds you, and drops from the sky.", caster_name);
+						msg_print("You crashed into the ground.");
 #endif
-						damage = diceroll(4, 8);
-						teleport_creature_to(target_ptr, caster_ptr->fy, caster_ptr->fx, TELEPORT_NONMAGICAL | TELEPORT_PASSIVE);
-
-						sound(SOUND_FALL);
-
-						if(has_trait(target_ptr, TRAIT_CAN_FLY))
-						{
-#ifdef JP
-							msg_print("あなたは静かに着地した。");
-#else
-							msg_print("You float gently down to the ground.");
-#endif
-						}
-						else
-						{
-#ifdef JP
-							msg_print("あなたは地面に叩きつけられた。");
-#else
-							msg_print("You crashed into the ground.");
-#endif
-							damage += diceroll(6, 8);
-						}
-
-						// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
-
-							get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
-						if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
-						{
-#ifdef JP
-							msg_format("攻撃が%s自身を傷つけた！", caster_name);
-#else
-							char caster_name_self[80];
-
-							// hisself 
-							creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
-							msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
-#endif
-							project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
-							set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
-						}
-
-						if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+						damage += diceroll(6, 8);
 					}
-					break;
+
+					// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
+
+					get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
+					if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
+					{
+#ifdef JP
+						msg_format("攻撃が%s自身を傷つけた！", caster_name);
+#else
+						char caster_name_self[80];
+
+						// hisself 
+						creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
+
+						msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
+#endif
+						project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+						set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
+					}
+
+					if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+				}
+				break;
 			}
 			break;
 		}
@@ -2525,6 +2524,120 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
+		{
+			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
+			{
+#ifdef JP
+				if(blind)
+					msg_format("%^sが何かをつぶやいた。", caster_name);
+				else
+					msg_format("%^sがダンジョンの主を召喚した。", caster_name);
+#else
+				if(blind)
+					msg_format("%^s mumbles.", caster_name);
+				else
+					msg_format("%^s magically summons guardians of dungeons.", caster_name);
+#endif
+			}
+			else
+			{
+#ifdef JP
+				if(blind)
+					msg_format("%^sが何かをつぶやいた。", caster_name);
+				else
+					msg_format("%^sは魔法で%sを召喚した。",
+					caster_name,
+					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
+					"手下" : "仲間"));
+#else
+				if(blind)
+					msg_format("%^s mumbles.", caster_name);
+				else
+					msg_format("%^s magically summons %s %s.",
+					caster_name, m_poss,
+					has_trait(caster_ptr, TRAIT_UNIQUE) ?
+					"minions" : "kin"));
+#endif
+			}
+
+			switch (caster_ptr->species_idx)
+			{
+			case SPECIES_MENELDOR:
+			case SPECIES_GWAIHIR:
+			case SPECIES_THORONDOR:
+				{
+					int num = 4 + randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+					}
+				}
+				break;
+
+			case SPECIES_RICHARD_STOLENMAN:
+				{
+					int num = 2 + randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
+					}
+				}
+				break;
+
+			case SPECIES_SERPENT:
+			case SPECIES_ZOMBI_SERPENT:
+				{
+					int num = 2 + randint1(3);
+
+					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
+					{
+#ifdef JP
+						msg_print("地面から水が吹き出した！");
+#else
+						msg_print("Water blew off from the ground!");
+#endif
+						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
+					}
+
+					for (k = 0; k < num; k++)
+					{
+						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+					}
+				}
+				break;
+
+			case SPECIES_CALDARM:
+				{
+					int num = randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
+					}
+				}
+				break;
+
+			case SPECIES_LOUSY:
+				{
+					int num = 2 + randint1(3);
+					for (k = 0; k < num; k++)
+					{
+						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_LOUSE, PC_ALLOW_GROUP);
+					}
+				}
+				break;
+
+			default:
+				//summon_kin_type = r_ptr->d_char; // Big hack 
+
+				for (k = 0; k < 4; k++)
+				{
+					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_KIN, PC_ALLOW_GROUP);
+				}
+				break;
+			}
+			break;
+		}
+
 	case TRAIT_S_CYBER:
 		{
 			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
@@ -2555,20 +2668,20 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 		{
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
-				{
-					if(!pet)
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
+			{
+				if(!pet)
 #ifdef JP
-						msg_print("召喚されたサイバーデーモンは怒っている！");
+					msg_print("召喚されたサイバーデーモンは怒っている！");
 #else
-						msg_print("The summoned Cyberdemon are angry!");
+					msg_print("The summoned Cyberdemon are angry!");
 #endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
+			}
+			else
+			{
+				no_trump = TRUE;
+			}
+			break;
 		}
 
 
@@ -3977,270 +4090,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
 
-#if 0
-
-
-	case TRAIT_S_KIN:
-		{
-			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sがダンジョンの主を召喚した。", caster_name);
-#else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons guardians of dungeons.", caster_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", caster_name);
-				else
-					msg_format("%^sは魔法で%sを召喚した。",
-					caster_name,
-					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"手下" : "仲間"));
-#else
-				if(blind)
-					msg_format("%^s mumbles.", caster_name);
-				else
-					msg_format("%^s magically summons %s %s.",
-					caster_name, m_poss,
-					has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"minions" : "kin"));
-#endif
-			}
-
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_MENELDOR:
-			case SPECIES_GWAIHIR:
-			case SPECIES_THORONDOR:
-				{
-					int num = 4 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
-
-			case SPECIES_RICHARD_STOLENMAN:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
-					}
-				}
-				break;
-
-			case SPECIES_SERPENT:
-			case SPECIES_ZOMBI_SERPENT:
-				{
-					int num = 2 + randint1(3);
-
-					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
-					{
-#ifdef JP
-						msg_print("地面から水が吹き出した！");
-#else
-						msg_print("Water blew off from the ground!");
-#endif
-						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
-					}
-
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
-
-			case SPECIES_CALDARM:
-				{
-					int num = randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-					}
-				}
-				break;
-
-			case SPECIES_LOUSY:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_LOUSE, PC_ALLOW_GROUP);
-					}
-				}
-				break;
-
-			default:
-				//summon_kin_type = r_ptr->d_char; // Big hack 
-
-				for (k = 0; k < 4; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_KIN, PC_ALLOW_GROUP);
-				}
-				break;
-			}
-
-			break;
-		}
-
-
-	case TRAIT_S_KIN:
-		{
-
-			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", target_name);
-				else
-					msg_format("%^sがダンジョンの主を召喚した。", target_name);
-#else
-				if(blind)
-					msg_format("%^s mumbles.", target_name);
-				else
-					msg_format("%^s magically summons guardians of dungeons.", target_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				if(blind)
-					msg_format("%^sが何かをつぶやいた。", target_name);
-				else
-					msg_format("%^sは魔法で%sを召喚した。",
-					target_name,
-					(has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"手下" : "仲間"));
-#else
-				if(blind)
-					msg_format("%^s mumbles.", target_name);
-				else
-					msg_format("%^s magically summons %s %s.",
-					target_name, m_poss,
-					has_trait(caster_ptr, TRAIT_UNIQUE) ?
-					"minions" : "kin"));
-#endif
-			}
-
-			switch (caster_ptr->species_idx)
-			{
-			case SPECIES_MENELDOR:
-			case SPECIES_GWAIHIR:
-			case SPECIES_THORONDOR:
-				{
-					int num = 4 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
-
-			case SPECIES_RICHARD_STOLENMAN:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_IE, mode);
-					}
-				}
-				break;
-
-			case SPECIES_SERPENT:
-			case SPECIES_ZOMBI_SERPENT:
-				{
-					int num = 2 + randint1(3);
-
-					if(species_info[SPECIES_JORMUNGAND].cur_num < species_info[SPECIES_JORMUNGAND].max_num && one_in_(6))
-					{
-#ifdef JP
-						msg_print("地面から水が吹き出した！");
-#else
-						msg_print("Water blew off from the ground!");
-#endif
-						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
-					}
-
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-					}
-				}
-				break;
-
-			case SPECIES_CALDARM:
-				{
-					int num = randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_named_creature(caster_ptr, floor_ptr, y, x, SPECIES_LOCKE_CLONE, mode);
-					}
-				}
-				break;
-
-			case SPECIES_LOUSY:
-				{
-					int num = 2 + randint1(3);
-					for (k = 0; k < num; k++)
-					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_LOUSE, PC_ALLOW_GROUP);
-					}
-				}
-				break;
-
-			default:
-				//summon_kin_type = r_ptr->d_char; /* Big hack */
-
-				for (k = 0; k < 4; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_KIN, PC_ALLOW_GROUP);
-				}
-				break;
-			}
-
-			break;
-		}
-
-	case TRAIT_S_KIN:
-		{
-#ifdef JP
-			msg_print("援軍を召喚した。");
-#else
-			msg_print("You summon minions.");
-#endif
-			{
-				if(summon_kin_player(caster_ptr, summon_lev, caster_ptr->fy, caster_ptr->fx, (pet ? PC_FORCE_PET : 0L)))
-				{
-					if(!pet)
-#ifdef JP
-						msg_print("召喚された仲間は怒っている！");
-#else
-						msg_print("Summoned fellows are angry!");
-#endif
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-			}
-			break;
-		}
-
-#endif
-
 		}
 
 	default:
@@ -4256,9 +4105,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK)) msg_print("弱いものいじめはやめるんだ！");
 		/*
 		if(has_trait(target_ptr, TRAIT_ECHIZEN_TALK))
-				msg_print("くっそ～");
-			else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
-				msg_print("なんて事をするんだ！");
+		msg_print("くっそ～");
+		else if(has_trait(target_ptr, TRAIT_CHARGEMAN_TALK))
+		msg_print("なんて事をするんだ！");
 		*/
 	}
 
