@@ -4964,6 +4964,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	creature_ptr->lev = 1;
 	creature_ptr->exp = creature_ptr->max_exp = species_ptr->exp;
 	creature_ptr->dr = species_ptr->dr;
+	creature_ptr->alert_range = species_ptr->aaf;
 
 	if(flags & GC_PLAYER) creature_ptr->player = TRUE;
 
