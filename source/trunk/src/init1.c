@@ -3615,7 +3615,7 @@ errr parse_species_info_csv(char *buf, header *head)
 
 			case SPECIES_INFO_ALERT:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-				species_ptr->aaf = (byte)b;
+				species_ptr->alert_range = (byte)b;
 				break;
 
 			case SPECIES_INFO_STR:

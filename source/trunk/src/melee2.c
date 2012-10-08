@@ -87,7 +87,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 					continue;
 				}
 
-				if(r_ptr->aaf < t_ptr->cdis) continue;
+				if(r_ptr->alert_range < t_ptr->cdis) continue;
 			}
 
 			/* Creature must be 'an enemy' */
@@ -350,7 +350,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
  * the creatures who were chasing you to converge on that location
  * as long as you are still near enough to "annoy" them without
  * being close enough to chase directly.  I have no idea what will
- * happen if you combine "smell" with low "aaf" values.
+ * happen if you combine "smell" with low "alert_range" values.
  */
 static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp, bool no_flow)
 {
@@ -2619,7 +2619,7 @@ static void process_creature(int i)
 
 
 	// Handle "sensing radius"
-	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->aaf > MAX_SIGHT ? MAX_SIGHT : species_ptr->aaf) : species_ptr->aaf))
+	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->alert_range > MAX_SIGHT ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
 		test = TRUE;
 
 	// Handle "sight" and "aggravation"
@@ -2852,7 +2852,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		if(creature_ptr->cdis < AAF_LIMIT)
 		{
 			/* Handle "sensing radius" */
-			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->aaf > MAX_SIGHT) ? MAX_SIGHT : r_ptr->aaf) : r_ptr->aaf))
+			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->alert_range > MAX_SIGHT) ? MAX_SIGHT : r_ptr->alert_range) : r_ptr->alert_range))
 			{
 				/* We may wake up */
 				test = TRUE;
