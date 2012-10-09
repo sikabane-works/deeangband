@@ -255,7 +255,7 @@ static int get_learned_power(creature_type *creature_ptr, int *sn)
 	int             plev = creature_ptr->lev;
 	int             chance = 0;
 	int             ask = TRUE, mode = 0;
-	int             spellnum[MAX_MONSPELLS];
+	int             spellnum[MAX_TRAITS];
 	char            ch;
 	char            choice;
 	char            out_val[160];

@@ -109,8 +109,8 @@ extern cptr silly_attacks[MAX_SILLY_ATTACK];
 #ifdef JP
 extern cptr silly_attacks2[MAX_SILLY_ATTACK];
 #endif
-extern racial_power racial_powers[MAX_MONSPELLS];
-extern cptr racial_powers_short[MAX_MONSPELLS];
+extern racial_power racial_powers[MAX_TRAITS];
+extern cptr racial_powers_short[MAX_TRAITS];
 extern cptr ident_info[];
 extern mbe_info_type mbe_info[];
 extern byte feature_action_flags[FF_FLAG_MAX];

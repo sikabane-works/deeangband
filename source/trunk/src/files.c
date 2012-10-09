@@ -4265,7 +4265,7 @@ static void dump_aux_class_special(creature_type *creature_ptr, FILE *fff)
 		int l1 = 0;
 		int l2 = 0;
 		int num = 0;
-		int spellnum[MAX_MONSPELLS];
+		int spellnum[MAX_TRAITS];
 		s32b f4 = 0, f5 = 0, f6 = 0;
 		char p[60][80];
 		int col = 0;
