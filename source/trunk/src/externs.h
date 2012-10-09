@@ -1572,7 +1572,6 @@ extern void lose_exp(creature_type *creature_ptr, s32b amount);
 extern bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int hold_life_prob);
 extern void do_poly_self(creature_type *creature_ptr);
 extern bool set_ultimate_res(creature_type *creature_ptr, int v, bool do_dec);
-extern bool set_tim_res_nether(creature_type *creature_ptr, int v, bool do_dec);
 extern bool choose_ele_attack(creature_type *creature_ptr);
 extern bool choose_ele_immune(creature_type *creature_ptr, int turn);
 extern bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec);
