@@ -2656,6 +2656,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 static void process_world_aux_curse(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	if(!is_valid_creature(creature_ptr)) return;
 
 	if((creature_ptr->cursed & TRC_P_FLAG_MASK) && !floor_ptr->gamble_arena_mode && !floor_ptr->wild_mode)
 	{
@@ -3721,7 +3722,9 @@ static void process_world(void)
 		process_world_aux_timeout(creature_ptr);	// Process timeout
 		process_world_aux_light(creature_ptr);		// Process light
 	
-		process_world_aux_mutation(creature_ptr);		// Process mutation effects
+		process_world_aux_mutation(creature_ptr);	// Process mutation effects
+		
+		process_world_aux_curse(creature_ptr);		// Process curse effects
 	}
 
 	process_world_aux_hp_and_sp(player_ptr);	// Process timed damage and regeneration
@@ -3729,8 +3732,6 @@ static void process_world(void)
 	
 
 
-	/* Process curse effects */
-	process_world_aux_curse(player_ptr);
 
 	/* Process recharging */
 	process_world_aux_recharge(player_ptr);
