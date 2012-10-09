@@ -2724,7 +2724,8 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				disturb(player_ptr, 1, 0);
 			}
 		}
-		/* Make a chainsword noise */
+
+		// Make a chainsword noise
 		if(has_trait(creature_ptr, TRAIT_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
 		{
 			char noise[1024];
@@ -2736,13 +2737,15 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				msg_print(noise);
 			disturb(player_ptr, FALSE, FALSE);
 		}
+
 		// TY Curse
 		if(has_trait(creature_ptr, TRAIT_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
 		{
 			int count = 0;
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 		}
-		/* Handle experience draining */
+
+		// Handle experience draining
 		if(!has_trait(creature_ptr, TRAIT_ANDROID) &&  has_trait(creature_ptr, TRAIT_DRAIN_EXP) && one_in_(4))
 		{
 			creature_ptr->exp -= (creature_ptr->lev + 1) / 2;
@@ -2751,7 +2754,8 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
 			check_experience(creature_ptr);
 		}
-		/* Add light curse (Later) */
+
+		// Add light curse (Later)
 		if((has_trait(creature_ptr, TRAIT_ADD_L_CURSE)) && one_in_(2000))
 		{
 			u32b new_curse;
@@ -2777,6 +2781,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
+
 		/* Add heavy curse (Later) */
 		if((has_trait(creature_ptr, TRAIT_ADD_H_CURSE)) && one_in_(2000))
 		{
@@ -2804,6 +2809,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
+
 		/* Call animal */
 		if((has_trait(creature_ptr, TRAIT_CALL_ANIMAL)) && one_in_(2500))
 		{
@@ -2822,6 +2828,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				disturb(player_ptr, 0, 0);
 			}
 		}
+
 		/* Call demon */
 		if((has_trait(creature_ptr, TRAIT_CALL_DEMON)) && one_in_(1111))
 		{
@@ -2838,6 +2845,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				disturb(player_ptr, 0, 0);
 			}
 		}
+
 		/* Call dragon */
 		if((has_trait(creature_ptr, TRAIT_CALL_DRAGON)) && one_in_(800))
 		{
@@ -2856,6 +2864,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 				disturb(player_ptr, 0, 0);
 			}
 		}
+
 		if(has_trait(creature_ptr, TRAIT_COWARDICE) && one_in_(1500))
 		{
 			if(!has_trait(creature_ptr, TRAIT_FEARLESS))
@@ -2866,10 +2875,10 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 #else
 				msg_print("It's so dark... so scary!");
 #endif
-
 				set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
 			}
 		}
+
 		/* Teleport player */
 		if(has_trait(creature_ptr, TRAIT_RANDOM_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
@@ -2878,6 +2887,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 			/* Teleport player */
 			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
+
 		/* Handle HP draining */
 		if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
 		{
@@ -2891,6 +2901,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 #endif
 			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
 		}
+
 		/* Handle mana draining */
 		if((has_trait(creature_ptr, TRAIT_DRAIN_MANA)) && creature_ptr->csp && one_in_(666))
 		{
