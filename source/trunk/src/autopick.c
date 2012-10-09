@@ -6217,8 +6217,8 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		old_autosave_turn = turn;
 	}
 
-	/* HACK -- Reset start_time to stop counting playtime while edit */
-	update_playtime();
+	/* HACK -- Reset start_time to stop counting play_time while edit */
+	update_play_time();
 
 	/* Free old entries */
 	init_autopick();
@@ -6351,7 +6351,7 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 	/* Reload autopick pref */
 	process_autopick_file(buf);
 
-	/* HACK -- reset start_time so that playtime is not increase while edit */
+	/* HACK -- reset start_time so that play_time is not increase while edit */
 	start_time = (u32b)time(NULL);
 
 	/* Save cursor location */

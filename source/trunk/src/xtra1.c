@@ -1625,7 +1625,7 @@ static void fix_player(creature_type *player_ptr)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		update_playtime();
+		update_play_time();
 
 		/* Display player */
 		display_creature_status(0, player_ptr);

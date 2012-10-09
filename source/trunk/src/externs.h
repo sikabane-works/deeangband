@@ -531,7 +531,7 @@ extern int riding_t_m_idx;
 extern s16b kubi_species_idx[MAX_BOUNTY];
 extern s16b today_mon;
 extern bool write_level;
-extern u32b playtime;
+extern u32b play_time;
 extern u32b start_time;
 
 extern u16b panic_save;	  /* Panic save */

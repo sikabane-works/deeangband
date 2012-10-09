@@ -5042,7 +5042,7 @@ void display_creature_dump(creature_type *creature_ptr)
 	
 	while (1)	// Forever
 	{
-		update_playtime();
+		update_play_time();
 		display_creature_status(m, creature_ptr);	// Display the player
 
 		if(m == DISPLAY_CR_STATUS_MAX)

@@ -1026,7 +1026,7 @@ s16b today_mon;
 
 bool write_level;
 
-u32b playtime;
+u32b play_time;
 u32b start_time;
 
 u16b panic_save;	  /* Panic save */

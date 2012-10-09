@@ -1185,7 +1185,7 @@ void do_cmd_redraw(void)
 	/* Window stuff */
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
-	update_playtime();
+	update_play_time();
 
 	/* Hack -- update */
 	handle_stuff();
@@ -1233,7 +1233,7 @@ void do_cmd_change_name(creature_type *creature_ptr)
 	/* Forever */
 	while (1)
 	{
-		update_playtime();
+		update_play_time();
 
 		mode %= DISPLAY_CR_STATUS_MAX;
 

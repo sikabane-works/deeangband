@@ -4719,7 +4719,7 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 			//creature_type *creature_ptr =
 			while (1)
 			{
-				update_playtime();
+				update_play_time();
 
 				/* Display the player */
 				//display_creature_status(mode, creature_ptr);

@@ -1177,7 +1177,8 @@ static void rd_extra(void)
 	rd_s32b(&old_battle);
 	rd_s16b(&today_mon);
 
-	rd_u32b(&playtime);
+	rd_u32b(&play_time);
+	start_time = (u32b)time(NULL);
 
 	rd_u32b(&creature_idx_latest);
 	rd_string(gameover_from, sizeof(gameover_from));

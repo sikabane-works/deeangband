@@ -2059,7 +2059,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	display_player_one_line(ENTRY_DAY, buf, TERM_L_GREEN);
 
 	/* Dump play time */
-	display_player_one_line(ENTRY_PLAY_TIME, format("%.2lu:%.2lu:%.2lu", playtime/(60*60), (playtime/60)%60, playtime%60), TERM_L_GREEN);
+	display_player_one_line(ENTRY_PLAY_TIME, format("%.2lu:%.2lu:%.2lu", play_time / (60 * 60), (play_time / 60) % 60, play_time % 60), TERM_L_GREEN);
 }
 
 
@@ -5101,7 +5101,7 @@ errr make_character_dump(creature_type *creature_ptr, FILE *fff)
 		VER_MAJOR, VER_MINOR, VER_PATCH);
 #endif
 
-	update_playtime();
+	update_play_time();
 
 	dump_aux_display_creature_status(creature_ptr, fff);
 	dump_aux_last_message(creature_ptr, fff);
@@ -6832,7 +6832,7 @@ put_str("ファイルネーム: ", 23, 0);
 		screen_load();
 	}
 
-	update_playtime();
+	update_play_time();
 
 	/* Display player */
 	display_creature_status(0, creature_ptr);

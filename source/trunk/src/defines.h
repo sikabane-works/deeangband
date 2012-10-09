@@ -2540,11 +2540,11 @@
 #define get_feat_mimic(C) \
 	(feature_info[(C)->mimic ? (C)->mimic : (C)->feat].mimic)
 
-#define update_playtime() \
+#define update_play_time() \
 {\
 	u32b tmp;\
 	tmp = (u32b)time(NULL);\
-	playtime += (tmp - start_time);\
+	play_time += (tmp - start_time);\
 	start_time = tmp;\
 }
 

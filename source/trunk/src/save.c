@@ -734,7 +734,7 @@ static void wr_extra(void)
 	wr_s32b(old_battle);
 	wr_s16b(today_mon);
 
-	wr_u32b(playtime);
+	wr_u32b(play_time);
 
 	wr_u32b(creature_idx_latest);
 	wr_string(gameover_from);
@@ -1315,7 +1315,7 @@ static bool save_player_aux(char *name)
 	/* Failure */
 	if(!ok) return (FALSE);
 
-	counts_write(0, playtime);
+	counts_write(0, play_time);
 
 	/* Successful save */
 	character_saved = TRUE;
@@ -1360,7 +1360,7 @@ bool save_player(void)
 	/* Drop permissions */
 	safe_setuid_drop();
 
-	update_playtime();
+	update_play_time();
 
 	/* Attempt to save the player */
 	if(save_player_aux(safe))
@@ -1695,9 +1695,9 @@ int load_player(void)
 			u32b tmp = counts_read(2);
 			if(tmp > game_load_count)
 				game_load_count = tmp;
-			if(counts_read(0) > playtime || counts_read(1) == playtime)
+			if(counts_read(0) > play_time || counts_read(1) == play_time)
 				counts_write(2, ++game_load_count);
-			counts_write(1, playtime);
+			counts_write(1, play_time);
 		}
 
 		// Success

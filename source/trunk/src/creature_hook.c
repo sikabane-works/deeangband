@@ -165,7 +165,7 @@ void screen_roff(creature_type *creature_ptr)
 	/* Forever */
 	while (1)
 	{
-		update_playtime();
+		update_play_time();
 
 		/* Display the player */
 		display_creature_status(m, creature_ptr);

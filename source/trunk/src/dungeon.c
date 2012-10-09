@@ -6615,7 +6615,7 @@ void world_wipe()
 {
 	int i;
 
-	playtime = 0;
+	play_time = 0;
 	floor_max = 1; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
 
 	//TODO Move player_ptr->time_stopper = FALSE; // Assume no winning game
