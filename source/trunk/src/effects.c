@@ -5995,7 +5995,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	if(!has_trait(target_ptr, TRAIT_KILL_EXP))
 	{
 		expdam = (target_ptr->chp > damage) ? damage : target_ptr->chp;
-		if(has_trait(target_ptr, TRAIT_HEAL)) expdam = (expdam+1) * 2 / 3;
+		if(has_trait(target_ptr, TRAIT_HEAL)) expdam = (expdam + 1) / 10;
 
 		if(attacker_ptr) get_exp_from_mon(attacker_ptr, expdam, target_ptr);
 
@@ -6425,9 +6425,9 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	
 			/* Prevent bug of chaos patron's reward */
 			if(has_trait(target_ptr, TRAIT_KILL_EXP))
-				get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp*2, target_ptr);
+				get_exp_from_mon(attacker_ptr, (long)target_ptr->mhp * 2, target_ptr);
 			else
-				get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp+1L) * 9L / 10L, target_ptr);
+				get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
 	
 			/* Not afraid */
 			fear = FALSE;
