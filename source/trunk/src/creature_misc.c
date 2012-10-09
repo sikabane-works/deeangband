@@ -802,7 +802,12 @@ bool has_trait_from_species(creature_type *creature_ptr, int type)
 bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 {
 	int i;
-	for(i = 0; i <= INVEN_TOTAL; i++)
+
+	if(type < 0 || type >= MAX_TRAITS)
+	{
+		msg_warning("Out Range TraitID:%d", type);
+	}
+	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
 		if(!object_ptr->k_idx) continue; // Skip non-objects

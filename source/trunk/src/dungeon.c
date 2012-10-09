@@ -2017,6 +2017,8 @@ static void process_world_aux_light(creature_type *creature_ptr)
 	/* Check for light being wielded */
 	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
+	if(!is_valid_creature(creature_ptr)) return;
+
 	/* Burn some fuel in the current lite */
 	if(object_ptr->tval == TV_LITE)
 	{
@@ -2041,6 +2043,8 @@ static void process_world_aux_light(creature_type *creature_ptr)
 static void process_world_aux_mutation(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+
+	if(!is_valid_creature(creature_ptr)) return;
 
 	/* No effect on creature arena */
 	if(floor_ptr->gamble_arena_mode) return;
@@ -3714,15 +3718,16 @@ static void process_world(void)
 	{
 		creature_ptr = &creature_list[i];
 		
-		process_world_aux_hp_and_sp(creature_ptr);	// Process timed damage and regeneration
 		process_world_aux_timeout(creature_ptr);	// Process timeout
+		process_world_aux_light(creature_ptr);		// Process light
+	
+		process_world_aux_mutation(creature_ptr);		// Process mutation effects
 	}
 
-	/* Process light */
-	process_world_aux_light(player_ptr);
+	process_world_aux_hp_and_sp(player_ptr);	// Process timed damage and regeneration
+	
+	
 
-	/* Process mutation effects */
-	process_world_aux_mutation(player_ptr);
 
 	/* Process curse effects */
 	process_world_aux_curse(player_ptr);
