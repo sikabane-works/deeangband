@@ -1862,7 +1862,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, v, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, v, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, v, FALSE);
-				set_ultimate_res(creature_ptr, v, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_ULTRA_RES, v, FALSE);
 			}
 		}
 		break;
