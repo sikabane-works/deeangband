@@ -1574,24 +1574,19 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	bool cave_no_regen = FALSE;
 	int upkeep_factor = 0;
 	int upkeep_regen;
+	int regen_amount = PY_REGEN_NORMAL;	// Default regeneration
 
-	/* Default regeneration */
-	int regen_amount = PY_REGEN_NORMAL;
+	if(!is_valid_creature(creature_ptr)) return;
 
-
-	/*** Damage over Time ***/
 	creature_desc(creature_name, creature_ptr, 0);
 
-	/* Take damage from poison */
-	if(creature_ptr->timed_trait[TRAIT_POISONED] && !IS_INVULN(creature_ptr))
-{
-		/* Take damage */
+	if(creature_ptr->timed_trait[TRAIT_POISONED] && !IS_INVULN(creature_ptr)) // Take damage from poison
+	{
 #ifdef JP
 		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
 #else
 		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
 #endif
-
 	}
 
 	/* Take damage from cuts */
@@ -1617,15 +1612,13 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	}
 
-
-	/* (Vampires) Take damage from sunlight */
+	// (Vampires) Take damage from sunlight
 	if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 	{
 		if(!floor_ptr->floor_level && !creature_ptr->resist_lite && !IS_INVULN(creature_ptr) && is_daytime())
 		{
 			if((floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW)
 			{
-				/* Take damage */
 #ifdef JP
 				msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
@@ -1633,7 +1626,6 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 				msg_print("The sun's rays scorch your undead flesh!");
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
 #endif
-
 				cave_no_regen = TRUE;
 			}
 		}
@@ -1646,18 +1638,17 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			char object_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
-			/* Get an object description */
+			// Get an object description
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
+			msg_format("%sがあなたの肉体を焼き焦がした！", object_name);
 #else
 			msg_format("The %s scorches your undead flesh!", object_name);
 #endif
 			cave_no_regen = TRUE;
 
-			/* Get an object description */
-			object_desc(object_name, object_ptr, OD_NAME_ONLY);
+			object_desc(object_name, object_ptr, OD_NAME_ONLY);	// Get an object description
 
 #ifdef JP
 			sprintf(ouch, "%sを装備したダメージ", object_name);
@@ -3599,6 +3590,7 @@ static void process_world(void)
 	int i;
 	int day, hour, min;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+	creature_type *creature_ptr;
 
 	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
@@ -3638,19 +3630,6 @@ static void process_world(void)
 	/* Hack -- Check for creature regeneration */
 	if(!(turn % (TURNS_PER_TICK*10)) && !floor_ptr->gamble_arena_mode) regen_creatures(player_ptr);
 	if(!(turn % (TURNS_PER_TICK*3))) regen_captured_creatures(player_ptr);
-
-#if 0
-	if(!subject_change_floor)
-	{
-		int i;
-
-		/* Hack -- Process the counters of creatures if needed */
-		for (i = 0; i < MAX_MTIMED; i++)
-		{
-			if(mproc_max[i] > 0) process_creatures_mtimed(player_ptr, i);
-		}
-	}
-#endif
 
 	/* Date changes */
 	if(!hour && !min)
@@ -3731,11 +3710,13 @@ static void process_world(void)
 	/*** Check the Food, and Regenerate ***/
 
 
-	/* Process timed damage and regeneration */
-	process_world_aux_hp_and_sp(player_ptr);
-
-	// Process timeout
-	for(i = 0; i < creature_max; i++) process_world_aux_timeout(&creature_list[i]);
+	for(i = 0; i < creature_max; i++)
+	{
+		creature_ptr = &creature_list[i];
+		
+		process_world_aux_hp_and_sp(creature_ptr);	// Process timed damage and regeneration
+		process_world_aux_timeout(creature_ptr);	// Process timeout
+	}
 
 	/* Process light */
 	process_world_aux_light(player_ptr);
