@@ -1090,7 +1090,6 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s32b(&creature_ptr->feeling_turn);
 	rd_s16b(&creature_ptr->alert_range);
 
-
 	rd_s16b(&creature_ptr->riding);
 	rd_s16b(&creature_ptr->ridden);
 	rd_s16b(&creature_ptr->floor_id);

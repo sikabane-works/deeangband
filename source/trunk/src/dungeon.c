@@ -3193,7 +3193,6 @@ msg_print("â∫Ç…à¯Ç´Ç∏ÇËç~ÇÎÇ≥ÇÍÇÈä¥Ç∂Ç™Ç∑ÇÈÅI");
 		}
 	}
 
-
 	/* Delayed Alter reality */
 	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 	{
@@ -3219,7 +3218,6 @@ msg_print("â∫Ç…à¯Ç´Ç∏ÇËç~ÇÎÇ≥ÇÍÇÈä¥Ç∂Ç™Ç∑ÇÈÅI");
 #else
 				msg_print("The world changes!");
 #endif
-
 				/*
 				 * Clear all saved floors
 				 * and create a first saved floor
@@ -3664,11 +3662,10 @@ static void process_world(void)
 	 */
 	if(curse_of_Iluvatar && (min != prev_min))
 	{
-		/* Every 15 minutes after 11:00 pm */
+		// Every 15 minutes after 11:00 pm
 		if((hour == 23) && !(min % 15))
 		{
-			/* Disturbing */
-			disturb(player_ptr, 0, 0);
+			disturb(player_ptr, 0, 0);	// Disturbing
 
 			switch (min / 15)
 			{
@@ -3706,7 +3703,7 @@ static void process_world(void)
 			}
 		}
 
-		/* TY_CURSE activates at midnight! */
+		// TY_CURSE activates at midnight!
 		if(!hour && !min)
 		{
 			int count = 0;
@@ -3722,30 +3719,18 @@ static void process_world(void)
 		}
 	}
 
-
-	/*** Check the Food, and Regenerate ***/
-
-
+	//*** Check the Food, and Regenerate ***
 	for(i = 0; i < creature_max; i++)
 	{
 		creature_ptr = &creature_list[i];
 		
 		process_world_aux_timeout(creature_ptr);	// Process timeout
 		process_world_aux_light(creature_ptr);		// Process light
-	
 		process_world_aux_mutation(creature_ptr);	// Process mutation effects
-		
 		process_world_aux_curse(creature_ptr);		// Process curse effects
+		process_world_aux_recharge(creature_ptr);	// Process recharging
+		process_world_aux_hp_and_sp(creature_ptr);	// Process timed damage and regeneration
 	}
-
-	process_world_aux_hp_and_sp(player_ptr);	// Process timed damage and regeneration
-	
-	
-
-
-
-	/* Process recharging */
-	process_world_aux_recharge(player_ptr);
 
 	/* Feel the inventory */
 	sense_inventory1(player_ptr);
