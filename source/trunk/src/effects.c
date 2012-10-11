@@ -398,34 +398,9 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 
 
 /*
- * Set "creature_ptr->timed_trait[TRAIT_CONFUSED]", notice observable changes
+ * TODO:confused process.
  */
 #if 0
-bool set_confused(creature_type *creature_ptr, int v)
-{
-	bool notice = FALSE;
-	char name[100];
-	creature_desc(name, creature_ptr, 0);
-
-	/* Hack -- Force good values */
-	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v;
-
-	if(IS_DEAD(creature_ptr)) return FALSE;
-
-	/* Open */
-	if(v)
-	{
-		if(!creature_ptr->timed_trait[TRAIT_CONFUSED])
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_format("%s‚Í¬—‚µ‚½I", name);
-#else
-				msg_foemat("%s %s confused!" name, is_player(creature_ptr) ? "are" : "is");
-#endif
-			}
-
 			if(creature_ptr->action == ACTION_LEARN)
 			{
 				if(is_seen(player_ptr, creature_ptr))
@@ -480,47 +455,6 @@ bool set_confused(creature_type *creature_ptr, int v)
 			/* Hex */
 			if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
-			notice = TRUE;
-			creature_ptr->counter = FALSE;
-		}
-	}
-
-	/* Shut */
-	else
-	{
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED])
-		{
-			if(is_seen(player_ptr, creature_ptr))
-			{
-#ifdef JP
-				msg_format("%s‚Ì¬—‚ª‚¨‚³‚Ü‚Á‚½B", name);
-#else
-				msg_format("%s feel%s less confused now." name, is_player(creature_ptr) ? "", "s");
-#endif
-			}
-			creature_ptr->special_attack &= ~(ATTACK_SUIKEN);
-			notice = TRUE;
-		}
-	}
-
-	/* Use the value */
-	creature_ptr->timed_trait[TRAIT_CONFUSED] = v;
-
-	/* Redraw status bar */
-	play_redraw |= (PR_STATUS);
-
-	/* Nothing to notice */
-	if(!notice) return (FALSE);
-
-	/* Disturb */
-	if(disturb_state) disturb(player_ptr, 0, 0);
-
-	/* Handle stuff */
-	handle_stuff();
-
-	/* Result */
-	return (TRUE);
-}
 #endif
 
 
