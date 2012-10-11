@@ -4981,7 +4981,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_wraith_form(creature_ptr, randint1(base) + base, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_WRAITH_FORM, randint1(base) + base, FALSE);
 			}
 		}
 		break;

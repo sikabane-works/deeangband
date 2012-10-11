@@ -1573,8 +1573,6 @@ extern bool drain_exp(creature_type *creature_ptr, s32b drain, s32b slip, int ho
 extern void do_poly_self(creature_type *creature_ptr);
 extern bool choose_ele_attack(creature_type *creature_ptr);
 extern bool choose_ele_immune(creature_type *creature_ptr, int turn);
-extern bool set_wraith_form(creature_type *creature_ptr, int v, bool do_dec);
-//extern bool set_tim_esp(creature_type *creature_ptr, int v, bool do_dec);
 extern bool set_superstealth(creature_type *creature_ptr, bool set);
 
 // xtra2.c

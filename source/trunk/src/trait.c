@@ -507,7 +507,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_WRAITH_FORM:
-		set_wraith_form(caster_ptr, randint1(user_level / 2) + (user_level / 2), FALSE);
+		set_timed_trait_aux(caster_ptr, TRAIT_WRAITH_FORM, randint1(user_level / 2) + (user_level / 2), FALSE);
 		break;
 
 		//TODO Remove duplicated process

@@ -2374,7 +2374,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 		msg_print(NULL);
-		set_wraith_form(creature_ptr, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
+		set_timed_trait_aux(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
 	if(has_trait(creature_ptr, TRAIT_POLY_WOUND) && one_in_(3000))
 	{
