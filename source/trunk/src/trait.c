@@ -3711,18 +3711,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				&& (user_level < caster_ptr->lev * 3 / 2 + randint0(caster_ptr->lev / 5)))
 			{
 #ifdef JP
-				msg_format("%sを手なずけた。",steed_name);
+				msg_format("%sを手なずけた。", steed_name);
 #else
-				msg_format("You tame %s.",steed_name);
+				msg_format("You tame %s.", steed_name);
 #endif
 				set_pet(caster_ptr, steed_ptr);
 			}
 			else
 			{
 #ifdef JP
-				msg_format("%sに振り落とされた！",steed_name);
+				msg_format("%sに振り落とされた！", steed_name);
 #else
-				msg_format("You have thrown off by %s.",steed_name);
+				msg_format("You have thrown off by %s.", steed_name);
 #endif
 				do_thrown_from_riding(caster_ptr, 1, TRUE);
 
@@ -3986,12 +3986,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_POISON_DART:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-		msg_print("毒のダーツを投げた。");
-#else
-		msg_print("You throw a dart of poison.");
-#endif
-
 		cast_bolt(caster_ptr, GF_POIS, dir, user_level);
 		break;
 

@@ -3005,7 +3005,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 					if((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->mflag2 & MFLAG2_CHAMELEON))
 					{
 	#ifdef JP
-	msg_format("%sの首には賞金がかかっている。", tar_name);
+						msg_format("%sの首には賞金がかかっている。", tar_name);
 	#else
 						msg_format("There is a price on %s's head.", tar_name);
 	#endif
@@ -3069,7 +3069,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 			{
 	#ifdef JP
-	msg_format("%^sに振り落とされた！", tar_name);
+					msg_format("%^sに振り落とされた！", tar_name);
 	#else
 					msg_format("%^s has thrown you off!", tar_name);
 	#endif
@@ -3158,10 +3158,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		flush();
 	}
 
-
 	return damage;
-
-
 }
 
 

@@ -7796,7 +7796,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_m, FALSE))
 			{
 #ifdef JP
-msg_format("%^sに振り落とされた！", m_name);
+				msg_format("%^sに振り落とされた！", m_name);
 #else
 				msg_format("%^s has thrown you off!", m_name);
 #endif
@@ -7807,7 +7807,7 @@ msg_format("%^sに振り落とされた！", m_name);
 			if(do_thrown_from_riding(caster_ptr, do_thrown_from_ridingdam_p, FALSE))
 			{
 #ifdef JP
-msg_format("%^sから落ちてしまった！", m_name);
+				msg_format("%^sから落ちてしまった！", m_name);
 #else
 				msg_format("You have fallen from %s.", m_name);
 #endif
