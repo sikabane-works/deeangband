@@ -1487,61 +1487,31 @@ bool set_food(creature_type *creature_ptr, int v)
 bool inc_stat(creature_type *creature_ptr, int stat)
 {
 	int value, gain;
+	value = creature_ptr->stat_cur[stat];	// Then augment the current/max stat
 
-	/* Then augment the current/max stat */
-	value = creature_ptr->stat_cur[stat];
-
-	/* Cannot go above 18/100 */
 	if(value < creature_ptr->stat_mod_max_max[stat])
 	{
-
-		/*TODO  Gain one (sometimes two) points */
-		if(value < 18)
+		if(value < 180)
 		{
 			gain = ((randint0(100) < 75) ? 1 : 2);
 			value += gain;
 		}
-
-		/* Gain 1/6 to 1/3 of distance to 18/100 */
-		else if(value < (creature_ptr->stat_mod_max_max[stat] - 2))
+		else if(value < (creature_ptr->stat_mod_max_max[stat] - 20))
 		{
-			/* Approximate gain value */
-			gain = (((creature_ptr->stat_mod_max_max[stat]) - value) / 2 + 3) / 2;
-
-			/* Paranoia */
-			if(gain < 1) gain = 1;
-
-			/* Apply the bonus */
-			value += randint1(gain) + gain / 2;
-
-			/* Maximal value */
-			if(value > (creature_ptr->stat_mod_max_max[stat]-1)) value = creature_ptr->stat_mod_max_max[stat]-1;
+			gain = (((creature_ptr->stat_mod_max_max[stat]) - value) / 2 + 3) / 2; // Approximate gain value
+			if(gain < 1) gain = 1;	// Paranoia
+			value += randint1(gain) + gain / 2;	// Apply the bonus
+			if(value > (creature_ptr->stat_mod_max_max[stat] - 1)) value = creature_ptr->stat_mod_max_max[stat] - 1; // Maximal value
 		}
+		else value++; // Gain one point at a time
+		creature_ptr->stat_cur[stat] = value; // Save the new value
+		if(value > creature_ptr->stat_max[stat]) creature_ptr->stat_max[stat] = value; // Bring up the maximum too
 
-		/* Gain one point at a time */
-		else
-		{
-			value++;
-		}
-
-		/* Save the new value */
-		creature_ptr->stat_cur[stat] = value;
-
-		/* Bring up the maximum too */
-		if(value > creature_ptr->stat_max[stat])
-		{
-			creature_ptr->stat_max[stat] = value;
-		}
-
-		/* Recalculate bonuses */
-		creature_ptr->creature_update |= (CRU_BONUS);
-
-		/* Success */
-		return (TRUE);
+		creature_ptr->creature_update |= (CRU_BONUS); // Recalculate bonuses
+		return (TRUE);	// Success
 	}
 
-	/* Nothing to gain */
-	return (FALSE);
+	return (FALSE); // Nothing to gain
 }
 
 
