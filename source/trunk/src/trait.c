@@ -3916,23 +3916,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SHADOW_SHIFT:
-		{
-#ifdef JP
-			msg_print("あなたは歩き周り始めた。");
-#else
-			msg_print("You start walking around. ");
-#endif
 			alter_reality(caster_ptr);
-		}
 
 	case TRAIT_PATTERN_WALK:
 		{
-#ifdef JP
-			msg_print("あなたは「パターン」を心に描いてその上を歩いた...");
-#else
-			msg_print("You picture the Pattern in your mind and walk it...");
-#endif
-
 			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
 			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
@@ -3950,11 +3937,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BERSERK:
-#ifdef JP
-		msg_print("うぉぉおお！");
-#else
-		msg_print("Raaagh!");
-#endif
 		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 10 + randint1(user_level), FALSE);
 		(void)heal_creature(caster_ptr, 30);
@@ -3974,12 +3956,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SPIT_ACID:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		racial_stop_mouth(caster_ptr);
-#ifdef JP
-		msg_print("酸を吐いた。");
-#else
-		msg_print("You spit acid.");
-#endif
-
 		if(user_level < 25) cast_bolt(caster_ptr, GF_ACID, dir, user_level);
 		else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
 		break;
