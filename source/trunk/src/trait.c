@@ -3984,46 +3984,30 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_RAY_GUN:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_bolt(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_bolt(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
 		break;
 
 	case TRAIT_BLASTER:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_bolt(caster_ptr, GF_MISSILE, dir, user_level);
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_bolt(caster_ptr, GF_MISSILE, dir, user_level);
 		break;
 
 	case TRAIT_BAZOOKA:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
 		break;
 
 	case TRAIT_BEAM_CANNON:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_beam(caster_ptr, GF_MISSILE, dir, user_level * 2);
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_beam(caster_ptr, GF_MISSILE, dir, user_level * 2);
 		break;
 
 	case TRAIT_SCARE_CREATURE:
 		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		racial_stop_mouth(caster_ptr);
-#ifdef JP
-		msg_print("あなたはおどろおどろしい叫び声をあげた！");
-#else
-		msg_print("You emit an eldritch howl!");
-#endif
-
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
-
-		}
 
 	default:
 		{
