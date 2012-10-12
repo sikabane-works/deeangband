@@ -3881,12 +3881,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_DETECT_DOOR_TRAP:
-#ifdef JP
-		msg_print("周囲を調べた。");
-#else
-		msg_print("You examine your surroundings.");
-#endif
-
 		(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
 		(void)detect_doors(caster_ptr, DETECT_RAD_DEFAULT);
 		(void)detect_stairs(caster_ptr, DETECT_RAD_DEFAULT);
@@ -3906,12 +3900,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			// Drop the object from heaven 
 			(void)drop_near(floor_ptr, quest_ptr, -1, caster_ptr->fy, caster_ptr->fx);
-#ifdef JP
-			msg_print("食事を料理して作った。");
-#else
-			msg_print("You cook some food.");
-#endif
-
 		}
 		break;
 
@@ -3987,11 +3975,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_HOLDING_DUST:
-#ifdef JP
-		msg_print("あなたは魔法の粉を投げつけた...");
-#else
-		msg_print("You throw some magic dust...");
-#endif
 		if(user_level < 25) sleep_creatures_touch(caster_ptr);
 		else (void)sleep_creatures(caster_ptr);
 		break;
