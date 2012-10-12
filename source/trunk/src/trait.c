@@ -4027,11 +4027,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_RAY_GUN:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("レイガンを発射した。");
-#else
-			msg_print("You fire your ray gun.");
-#endif
 			cast_bolt(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
 		}
 		break;
@@ -4039,11 +4034,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BLASTER:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("ブラスターを発射した。");
-#else
-			msg_print("You fire your blaster.");
-#endif
 			cast_bolt(caster_ptr, GF_MISSILE, dir, user_level);
 		}
 		break;
@@ -4051,11 +4041,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BAZOOKA:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("バズーカを発射した。");
-#else
-			msg_print("You fire your bazooka.");
-#endif
 			cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
 		}
 		break;
@@ -4063,11 +4048,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_BEAM_CANNON:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("ビームキャノンを発射した。");
-#else
-			msg_print("You fire a beam cannon.");
-#endif
 			cast_beam(caster_ptr, GF_MISSILE, dir, user_level * 2);
 		}
 		break;
