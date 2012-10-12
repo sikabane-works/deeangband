@@ -1532,7 +1532,6 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 {
 	int cur, max, loss, same, res = FALSE;
 
-
 	/* Acquire current value */
 	cur = creature_ptr->stat_cur[stat];
 	max = creature_ptr->stat_max[stat];
@@ -1541,15 +1540,15 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 	same = (cur == max);
 
 	/* Damage "current" value */
-	if(cur > 3)
+	if(cur > 30)
 	{
 		/* Handle "low" values */
-		if(cur <= 18)
+		if(cur <= 180)
 		{
-			if(amount > 90) cur--;
-			if(amount > 50) cur--;
-			if(amount > 20) cur--;
-			cur--;
+			if(amount > 90) cur -= 10;
+			if(amount > 50) cur -= 10;
+			if(amount > 20) cur -= 10;
+			cur -= 10;
 		}
 
 		/* Handle "high" values */
@@ -1558,7 +1557,7 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 			/* Hack -- Decrement by a random amount between one-quarter */
 			/* and one-half of the stat bonus times the percentage, with a */
 			/* minimum damage of half the percentage. -CWS */
-			loss = (((cur-18) / 2 + 1) / 2 + 1);
+			loss = (((cur - 180) / 2 + 1) / 2 + 1);
 
 			/* Paranoia */
 			if(loss < 1) loss = 1;
@@ -1573,11 +1572,11 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 			cur = cur - loss;
 
 			/* Hack -- Only reduce stat to 17 sometimes */
-			if(cur < 18) cur = (amount <= 20) ? 18 : 17;
+			if(cur < 180) cur = (amount <= 20) ? 180 : 170;
 		}
 
 		/* Prevent illegal values */
-		if(cur < 3) cur = 3;
+		if(cur < 30) cur = 30;
 
 		/* Something happened */
 		if(cur != creature_ptr->stat_cur[stat]) res = TRUE;
@@ -1588,12 +1587,12 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 	{
 
 		/* Handle "low" values */
-		if(max <= 18)
+		if(max <= 180)
 		{
-			if(amount > 90) max--;
-			if(amount > 50) max--;
-			if(amount > 20) max--;
-			max--;
+			if(amount > 90) max -= 10;
+			if(amount > 50) max -= 10;
+			if(amount > 20) max -= 10;
+			max -= 10;
 		}
 
 		/* Handle "high" values */
@@ -1602,15 +1601,15 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 			/* Hack -- Decrement by a random amount between one-quarter */
 			/* and one-half of the stat bonus times the percentage, with a */
 			/* minimum damage of half the percentage. -CWS */
-			loss = (((max-18) / 2 + 1) / 2 + 1);
+			loss = (((max - 180) / 2 + 1) / 2 + 1);
 			loss = ((randint1(loss) + loss) * amount) / 100;
-			if(loss < amount/2) loss = amount/2;
+			if(loss < amount / 2) loss = amount / 2;
 
 			/* Lose some points */
 			max = max - loss;
 
 			/* Hack -- Only reduce stat to 17 sometimes */
-			if(max < 18) max = (amount <= 20) ? 18 : 17;
+			if(max < 180) max = (amount <= 200) ? 180 : 170;
 		}
 
 		/* Hack -- keep it clean */
