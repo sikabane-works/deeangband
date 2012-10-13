@@ -1,13 +1,13 @@
 /* File: xtra2.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- * 2012 Modified by Deskull
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+* 2012 Modified by Deskull
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: effects of various "objects" */
 
@@ -15,8 +15,8 @@
 
 
 /*
- * Advance experience levels for initial creature
- */
+* Advance experience levels for initial creature
+*/
 void set_experience(creature_type *creature_ptr)
 {
 	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
@@ -46,13 +46,13 @@ void set_experience(creature_type *creature_ptr)
 
 	// Gain levels while possible
 	while ((creature_ptr->lev < creature_ptr->max_lev) &&
-	       (creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
+		(creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
 		creature_ptr->lev++; // Gain a level
 }
 
 /*
- * Advance experience levels and print experience
- */
+* Advance experience levels and print experience
+*/
 void check_experience(creature_type *creature_ptr)
 {
 	bool level_reward = FALSE;
@@ -114,7 +114,7 @@ void check_experience(creature_type *creature_ptr)
 
 	/* Gain levels while possible */
 	while ((creature_ptr->lev < creature_ptr->max_lev) &&
-	       (creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
+		(creature_ptr->exp >= ((android ? creature_exp_a : creature_exp)[creature_ptr->lev-1] * creature_ptr->expfact / 100L)))
 	{
 		/* Gain a level */
 		creature_ptr->lev++;
@@ -247,8 +247,8 @@ void check_experience(creature_type *creature_ptr)
 		}
 
 		/*
-		 * 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
-		 */
+		* 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
+		*/
 		if(level_reward)
 		{
 			gain_level_reward(creature_ptr, 0);
@@ -274,11 +274,11 @@ void check_experience(creature_type *creature_ptr)
 
 
 /*
- * Hack -- Return the "automatic coin type" of a creature race
- * Used to allocate proper treasure when "Creeping coins" die
- *
- * XXX XXX XXX Note the use of actual "creature names"
- */
+* Hack -- Return the "automatic coin type" of a creature race
+* Used to allocate proper treasure when "Creeping coins" die
+*
+* XXX XXX XXX Note the use of actual "creature names"
+*/
 static int get_coin_type(int species_idx)
 {
 	/* Analyze creatures */
@@ -298,8 +298,8 @@ static int get_coin_type(int species_idx)
 
 
 /*
- * Hack -- determine if a template is Book
- */
+* Hack -- determine if a template is Book
+*/
 static bool kind_is_book(int k_idx)
 {
 	object_kind *k_ptr = &object_kind_info[k_idx];
@@ -315,8 +315,8 @@ static bool kind_is_book(int k_idx)
 }
 
 /*
- * Hack -- determine if a template is Good book
- */
+* Hack -- determine if a template is Good book
+*/
 static bool kind_is_good_book(int k_idx)
 {
 	object_kind *k_ptr = &object_kind_info[k_idx];
@@ -366,24 +366,24 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 			/* Quest is not on this level */
 			if((quest[i].level != floor_ptr->floor_level) &&
-			    (quest[i].type != QUEST_TYPE_KILL_ANY_LEVEL))
+				(quest[i].type != QUEST_TYPE_KILL_ANY_LEVEL))
 				continue;
 
 			/* Not a "kill creature" quest */
 			if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) ||
-			    (quest[i].type == QUEST_TYPE_FIND_EXIT))
+				(quest[i].type == QUEST_TYPE_FIND_EXIT))
 				continue;
 
 			/* Interesting quest */
 			if((quest[i].type == QUEST_TYPE_KILL_NUMBER) ||
-			    (quest[i].type == QUEST_TYPE_KILL_ALL))
+				(quest[i].type == QUEST_TYPE_KILL_ALL))
 				break;
 
 			/* Interesting quest */
 			if(((quest[i].type == QUEST_TYPE_KILL_LEVEL) ||
-			     (quest[i].type == QUEST_TYPE_KILL_ANY_LEVEL) ||
-			     (quest[i].type == QUEST_TYPE_RANDOM)) &&
-			     (quest[i].species_idx == dead_ptr->species_idx))
+				(quest[i].type == QUEST_TYPE_KILL_ANY_LEVEL) ||
+				(quest[i].type == QUEST_TYPE_RANDOM)) &&
+				(quest[i].species_idx == dead_ptr->species_idx))
 				break;
 		}
 
@@ -398,7 +398,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 		switch (quest[i].type)
 		{
-			case QUEST_TYPE_KILL_NUMBER:
+		case QUEST_TYPE_KILL_NUMBER:
 			{
 				quest[i].cur_num++;
 
@@ -412,7 +412,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
 #ifdef JP
-msg_print("クエストを達成した！");
+						msg_print("クエストを達成した！");
 #else
 						msg_print("You just completed your quest!");
 #endif
@@ -424,7 +424,7 @@ msg_print("クエストを達成した！");
 				}
 				break;
 			}
-			case QUEST_TYPE_KILL_ALL:
+		case QUEST_TYPE_KILL_ALL:
 			{
 				int number_mon = 0;
 
@@ -460,8 +460,8 @@ msg_print("クエストを達成した！");
 				}
 				break;
 			}
-			case QUEST_TYPE_KILL_LEVEL:
-			case QUEST_TYPE_RANDOM:
+		case QUEST_TYPE_KILL_LEVEL:
+		case QUEST_TYPE_RANDOM:
 			{
 				/* Only count valid creatures */
 				if(quest[i].species_idx != dead_ptr->species_idx)
@@ -508,13 +508,13 @@ msg_print("クエストを達成した！");
 				}
 				break;
 			}
-			case QUEST_TYPE_KILL_ANY_LEVEL:
+		case QUEST_TYPE_KILL_ANY_LEVEL:
 			{
 				quest[i].cur_num++;
 				if(quest[i].cur_num >= quest[i].max_num)
 				{
 					if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
-					 /* completed quest */
+					/* completed quest */
 					quest[i].status = QUEST_STATUS_COMPLETED;
 					quest[i].complev = (byte)killer_ptr->lev;
 
@@ -546,7 +546,7 @@ msg_print("クエストを達成した！");
 
 		/* Explain the staircase */
 #ifdef JP
-msg_print("魔法の階段が現れた...");
+		msg_print("魔法の階段が現れた...");
 #else
 		msg_print("A magical staircase appears...");
 #endif
@@ -570,8 +570,8 @@ msg_print("魔法の階段が現れた...");
 
 
 /*
- * Return creature death string
- */
+* Return creature death string
+*/
 cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 {
 	/* Some creatures get "destroyed" */
@@ -592,10 +592,10 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 		}
 
 #ifdef JP
-	if(has_trait(killer_ptr, TRAIT_CHARGEMAN_TALK))
-		return "を倒した。ごめんね～";
-	else
-		return "を倒した。";
+		if(has_trait(killer_ptr, TRAIT_CHARGEMAN_TALK))
+			return "を倒した。ごめんね～";
+		else
+			return "を倒した。";
 #else
 		return " is destroyed.";
 #endif
@@ -622,19 +622,19 @@ void specified_drop(floor_type *floor_ptr, creature_type *creature_ptr, int tv, 
 }
 
 /*
- * Handle the "death" of a creature.
- *
- * Disperse treasures centered at the creature location based on the
- * various flags contained in the creature flags fields.
- *
- * Check for "Quest" completion when a quest creature is killed.
- *
- * Note that only the player can induce "creature_dead_effect()" on Uniques.
- * Thus (for now) all Quest creatures should be Uniques.
- *
- * Note that creatures can now carry objects, and when a creature dies,
- * it drops all of its objects, which may disappear in crowded rooms.
- */
+* Handle the "death" of a creature.
+*
+* Disperse treasures centered at the creature location based on the
+* various flags contained in the creature flags fields.
+*
+* Check for "Quest" completion when a quest creature is killed.
+*
+* Note that only the player can induce "creature_dead_effect()" on Uniques.
+* Thus (for now) all Quest creatures should be Uniques.
+*
+* Note that creatures can now carry objects, and when a creature dies,
+* it drops all of its objects, which may disappear in crowded rooms.
+*/
 void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bool drop_item)
 {
 	int i, j, y, x;
@@ -749,10 +749,10 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		if(record_arena)
 		{
 			char m_name[80];
-			
+
 			/* Extract creature name */
 			creature_desc(m_name, dead_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-			
+
 			do_cmd_write_nikki(DIARY_ARENA, arena_number, m_name);
 		}
 	}
@@ -771,16 +771,16 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	/* Drop a dead corpse? */
 	if(one_in_(has_trait(dead_ptr, TRAIT_UNIQUE) ? 1 : 4) &&
-	    (has_trait(dead_ptr, TRAIT_DROP_CORPSE) || has_trait(dead_ptr, TRAIT_DROP_SKELETON)) &&
-	    !(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((dead_ptr->species_idx == today_mon) && is_pet(player_ptr, dead_ptr))))
+		(has_trait(dead_ptr, TRAIT_DROP_CORPSE) || has_trait(dead_ptr, TRAIT_DROP_SKELETON)) &&
+		!(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode || cloned || ((dead_ptr->species_idx == today_mon) && is_pet(player_ptr, dead_ptr))))
 	{
 		/* Assume skeleton */
 		bool corpse = FALSE;
 
 		/*
-		 * We cannot drop a skeleton? Note, if we are in this check,
-		 * we *know* we can drop at least a corpse or a skeleton
-		 */
+		* We cannot drop a skeleton? Note, if we are in this check,
+		* we *know* we can drop at least a corpse or a skeleton
+		*/
 		if(!has_trait(dead_ptr, TRAIT_DROP_SKELETON))
 			corpse = TRUE;
 		else if(has_trait(dead_ptr, TRAIT_DROP_CORPSE) && has_trait(dead_ptr, TRAIT_UNIQUE))
@@ -819,8 +819,8 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 				if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_BLUE_HORROR, mode))
 				{
-					if(creature_can_see_bold(dead_ptr, wy, wx))
-						notice = TRUE;
+				if(creature_can_see_bold(dead_ptr, wy, wx))
+				notice = TRUE;
 				}
 				*/
 			}
@@ -846,9 +846,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	case SPECIES_DAWN:
 		/*
-		 * Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
-		 * spawn another in the fallen one's place!
-		 */
+		* Mega^3-hack: killing a 'Warrior of the Dawn' is likely to
+		* spawn another in the fallen one's place!
+		*/
 		if(!floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode)
 		{
 			if(!one_in_(7))
@@ -871,12 +871,12 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 					/*TODO
 					if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_DAWN, mode))
 					{
-						if(creature_can_see_bold(dead_ptr, wy, wx))
-#ifdef JP
-							msg_print("新たな戦士が現れた！");
-#else
-							msg_print("A new warrior steps forth!");
-#endif
+					if(creature_can_see_bold(dead_ptr, wy, wx))
+					#ifdef JP
+					msg_print("新たな戦士が現れた！");
+					#else
+					msg_print("A new warrior steps forth!");
+					#endif
 
 					}
 					*/
@@ -1095,14 +1095,14 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 }
 
 /*
- * Modify the physical damage done to the creature.
- * (for example when it's invulnerable or shielded)
- *
- * ToDo: Accept a damage-type to calculate the modified damage from
- * things like fire, frost, lightning, poison, ... attacks.
- *
- * "type" is not yet used and should be 0.
- */
+* Modify the physical damage done to the creature.
+* (for example when it's invulnerable or shielded)
+*
+* ToDo: Accept a damage-type to calculate the modified damage from
+* things like fire, frost, lightning, poison, ... attacks.
+*
+* "type" is not yet used and should be 0.
+*/
 int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 {
 	species_type    *r_ptr = &species_info[m_ptr->species_idx];
@@ -1136,14 +1136,14 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 
 
 /*
- * Calculate experience point to be get
- *
- * Even the 64 bit operation is not big enough to avoid overflaw
- * unless we carefully choose orders of multiplication and division.
- *
- * Get the coefficient first, and multiply (potentially huge) base
- * experience point of a creature later.
- */
+* Calculate experience point to be get
+*
+* Even the 64 bit operation is not big enough to avoid overflaw
+* unless we carefully choose orders of multiplication and division.
+*
+* Get the coefficient first, and multiply (potentially huge) base
+* experience point of a creature later.
+*/
 void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *target_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
@@ -1158,10 +1158,10 @@ void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *targe
 	if(is_pet(player_ptr, target_ptr) || floor_ptr->gamble_arena_mode) return;
 
 	/*
-	 * - Ratio of creature's level to player's level effects
-	 * - Varying speed effects
-	 * - Get a fraction in proportion of damage point
-	 */
+	* - Ratio of creature's level to player's level effects
+	* - Varying speed effects
+	* - Get a fraction in proportion of damage point
+	*/
 	new_exp = target_ptr->lev * SPEED_TO_ENERGY(target_ptr->speed) * dam;
 	new_exp_frac = 0;
 	div_h = 0L;
@@ -1191,8 +1191,8 @@ void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type *targe
 
 
 /*
- * Get term size and calculate screen size
- */
+* Get term size and calculate screen size
+*/
 void get_screen_size(int *wid_p, int *hgt_p)
 {
 	Term_get_size(wid_p, hgt_p);
@@ -1203,9 +1203,9 @@ void get_screen_size(int *wid_p, int *hgt_p)
 
 
 /*
- * Calculates current boundaries
- * Called below and from "do_cmd_locate()".
- */
+* Calculates current boundaries
+* Called below and from "do_cmd_locate()".
+*/
 void panel_bounds_center(void)
 {
 	int wid, hgt;
@@ -1221,15 +1221,15 @@ void panel_bounds_center(void)
 
 
 /*
- * Map resizing whenever the main term changes size
- */
+* Map resizing whenever the main term changes size
+*/
 void resize_map(void)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
 	/* Only if the dungeon exists */
 	if(!floor_ptr->generated) return;
-	
+
 	/* Mega-Hack -- no panel yet */
 	panel_row_max = 0;
 	panel_col_max = 0;
@@ -1237,7 +1237,7 @@ void resize_map(void)
 	/* Reset the panels */
 	panel_row_min = floor_ptr->height;
 	panel_col_min = floor_ptr->width;
-				
+
 	verify_panel(player_ptr);
 
 	/* Update stuff */
@@ -1257,14 +1257,14 @@ void resize_map(void)
 
 	/* Hack -- update */
 	handle_stuff();
-	
+
 	/* Redraw */
 	Term_redraw();
 
 	/*
-	 * Waiting command;
-	 * Place the cursor on the player
-	 */
+	* Waiting command;
+	* Place the cursor on the player
+	*/
 	if(can_save) move_cursor_relative(player_ptr->fy, player_ptr->fx);
 
 	/* Refresh */
@@ -1272,8 +1272,8 @@ void resize_map(void)
 }
 
 /*
- * Redraw a term when it is resized
- */
+* Redraw a term when it is resized
+*/
 void redraw_window(void)
 {
 	/* Window stuff */
@@ -1291,12 +1291,12 @@ void redraw_window(void)
 
 
 /*
- * Handle a request to change the current panel
- *
- * Return TRUE if the panel was changed.
- *
- * Also used in do_cmd_locate
- */
+* Handle a request to change the current panel
+*
+* Return TRUE if the panel was changed.
+*
+* Also used in do_cmd_locate
+*/
 bool change_panel(int dy, int dx)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
@@ -1347,13 +1347,13 @@ bool change_panel(int dy, int dx)
 
 
 /*
- * Given an row (y) and col (x), this routine detects when a move
- * off the screen has occurred and figures new borders. -RAK-
- *
- * "Update" forces a "full update" to take place.
- *
- * The map is reprinted if necessary, and "TRUE" is returned.
- */
+* Given an row (y) and col (x), this routine detects when a move
+* off the screen has occurred and figures new borders. -RAK-
+*
+* "Update" forces a "full update" to take place.
+*
+* The map is reprinted if necessary, and "TRUE" is returned.
+*/
 void verify_panel(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1377,7 +1377,7 @@ void verify_panel(creature_type *creature_ptr)
 	if(max_prow_min < 0) max_prow_min = 0;
 	if(max_pcol_min < 0) max_pcol_min = 0;
 
-		/* Center on player */
+	/* Center on player */
 	if(center_player && (center_running || !creature_ptr->running))
 	{
 		/* Center vertically */
@@ -1423,7 +1423,7 @@ void verify_panel(creature_type *creature_ptr)
 				pcol_min += (wid / 2);
 			}
 		}
-		
+
 		if(x < panel_col_min + 4)
 		{
 			while (x < pcol_min + 4)
@@ -1461,8 +1461,8 @@ void verify_panel(creature_type *creature_ptr)
 
 
 /*
- * Creature health description
- */
+* Creature health description
+*/
 cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 {
 	species_type *ap_r_ptr = &species_info[m_ptr->ap_species_idx];
@@ -1589,13 +1589,13 @@ cptr look_mon_desc(creature_type *m_ptr, u32b mode)
 
 
 /*
- * Angband sorting algorithm -- quick sort in place
- *
- * Note that the details of the data we are sorting is hidden,
- * and we rely on the "ang_sort_comp()" and "ang_sort_swap()"
- * function hooks to interact with the data, which is given as
- * two pointers, and which may have any user-defined form.
- */
+* Angband sorting algorithm -- quick sort in place
+*
+* Note that the details of the data we are sorting is hidden,
+* and we rely on the "ang_sort_comp()" and "ang_sort_swap()"
+* function hooks to interact with the data, which is given as
+* two pointers, and which may have any user-defined form.
+*/
 void ang_sort_aux(vptr u, vptr v, int p, int q,
 				  bool (*ang_sort_comp)(vptr u, vptr v, int a, int b),
 				  void (*ang_sort_swap)(vptr u, vptr v, int a, int b))
@@ -1640,16 +1640,16 @@ void ang_sort_aux(vptr u, vptr v, int p, int q,
 
 
 /*
- * Angband sorting algorithm -- quick sort in place
- *
- * Note that the details of the data we are sorting is hidden,
- * and we rely on the "ang_sort_comp()" and "ang_sort_swap()"
- * function hooks to interact with the data, which is given as
- * two pointers, and which may have any user-defined form.
- */
+* Angband sorting algorithm -- quick sort in place
+*
+* Note that the details of the data we are sorting is hidden,
+* and we rely on the "ang_sort_comp()" and "ang_sort_swap()"
+* function hooks to interact with the data, which is given as
+* two pointers, and which may have any user-defined form.
+*/
 void ang_sort(vptr u, vptr v, int n,
 			  bool (*ang_sort_comp)(vptr u, vptr v, int a, int b),
-		      void (*ang_sort_swap)(vptr u, vptr v, int a, int b))
+			  void (*ang_sort_swap)(vptr u, vptr v, int a, int b))
 {
 	/* Sort the array */
 	ang_sort_aux(u, v, 0, n-1, ang_sort_comp, ang_sort_swap);
@@ -1661,19 +1661,19 @@ void ang_sort(vptr u, vptr v, int n,
 
 
 /*
- * Determine is a creature makes a reasonable target
- *
- * The concept of "targeting" was stolen from "Morgul" (?)
- *
- * The player can target any location, or any "target-able" creature.
- *
- * Currently, a creature is "target_able" if it is visible, and if
- * the player can hit it with a projection, and the player is not
- * hallucinating.  This allows use of "use closest target" macros.
- *
- * Future versions may restrict the ability to target "trappers"
- * and "mimics", but the semantics is a little bit weird.
- */
+* Determine is a creature makes a reasonable target
+*
+* The concept of "targeting" was stolen from "Morgul" (?)
+*
+* The player can target any location, or any "target-able" creature.
+*
+* Currently, a creature is "target_able" if it is visible, and if
+* the player can hit it with a projection, and the player is not
+* hallucinating.  This allows use of "use closest target" macros.
+*
+* Future versions may restrict the ability to target "trappers"
+* and "mimics", but the semantics is a little bit weird.
+*/
 bool target_able(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
@@ -1704,10 +1704,10 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 
 
 /*
- * Update (if necessary) and verify (if possible) the target.
- *
- * We return TRUE if the target is "okay" and FALSE otherwise.
- */
+* Update (if necessary) and verify (if possible) the target.
+*
+* We return TRUE if the target is "okay" and FALSE otherwise.
+*/
 bool target_okay(creature_type *creature_ptr)
 {
 	/* Accept stationary targets */
@@ -1736,11 +1736,11 @@ bool target_okay(creature_type *creature_ptr)
 
 
 /*
- * Sorting hook -- comp function -- by "distance to player"
- *
- * We use "u" and "v" to point to arrays of "x" and "y" positions,
- * and sort the arrays by double-distance to the player.
- */
+* Sorting hook -- comp function -- by "distance to player"
+*
+* We use "u" and "v" to point to arrays of "x" and "y" positions,
+* and sort the arrays by double-distance to the player.
+*/
 static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 {
 	byte *x = (byte*)(u);
@@ -1768,11 +1768,11 @@ static bool ang_sort_comp_distance(vptr u, vptr v, int a, int b)
 
 
 /*
- * Sorting hook -- comp function -- by importance level of grids
- *
- * We use "u" and "v" to point to arrays of "x" and "y" positions,
- * and sort the arrays by level of creature
- */
+* Sorting hook -- comp function -- by importance level of grids
+*
+* We use "u" and "v" to point to arrays of "x" and "y" positions,
+* and sort the arrays by level of creature
+*/
 static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 {
 	// TODO
@@ -1810,7 +1810,7 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 		if( has_trait(ma_ptr, TRAIT_KAGE) && !has_trait(mb_ptr, TRAIT_KAGE)) return TRUE;
 		if(!has_trait(ma_ptr, TRAIT_KAGE) &&  has_trait(mb_ptr, TRAIT_KAGE)) return FALSE;
 
- 		/* Unknown creatures first */
+		/* Unknown creatures first */
 		if(!ap_ra_ptr->r_tkills && ap_rb_ptr->r_tkills) return TRUE;
 		if(ap_ra_ptr->r_tkills && !ap_rb_ptr->r_tkills) return FALSE;
 
@@ -1840,11 +1840,11 @@ static bool ang_sort_comp_importance(vptr u, vptr v, int a, int b)
 
 
 /*
- * Sorting hook -- swap function -- by "distance to player"
- *
- * We use "u" and "v" to point to arrays of "x" and "y" positions,
- * and sort the arrays by distance to the player.
- */
+* Sorting hook -- swap function -- by "distance to player"
+*
+* We use "u" and "v" to point to arrays of "x" and "y" positions,
+* and sort the arrays by distance to the player.
+*/
 static void ang_sort_swap_distance(vptr u, vptr v, int a, int b)
 {
 	byte *x = (byte*)(u);
@@ -1866,8 +1866,8 @@ static void ang_sort_swap_distance(vptr u, vptr v, int a, int b)
 
 
 /*
- * Hack -- help "select" a location (see below)
- */
+* Hack -- help "select" a location (see below)
+*/
 static s16b target_pick(int y1, int x1, int dy, int dx)
 {
 	int i, v;
@@ -1979,9 +1979,9 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 
 
 /*
- * Prepare the "temp" array for "target_set"
- * Return the number of target_able creatures in the set.
- */
+* Prepare the "temp" array for "target_set"
+* Return the number of target_able creatures in the set.
+*/
 static void target_set_prepare(creature_type *creature_ptr, int mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2039,8 +2039,8 @@ static void target_set_prepare(creature_type *creature_ptr, int mode)
 }
 
 /*
- * Evaluate number of kill needed to gain level
- */
+* Evaluate number of kill needed to gain level
+*/
 static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature_type *target_ptr)
 {
 	species_type *ap_r_ptr = &species_info[target_ptr->ap_species_idx];
@@ -2093,26 +2093,26 @@ static void evaluate_creature_exp(creature_type *player_ptr, char *buf, creature
 }
 
 /*
- * Examine a grid, return a keypress.
- *
- * The "mode" argument contains the "TARGET_LOOK" bit flag, which
- * indicates that the "space" key should scan through the contents
- * of the grid, instead of simply returning immediately.  This lets
- * the "look" command get complete information, without making the
- * "target" command annoying.
- *
- * The "info" argument contains the "commands" which should be shown
- * inside the "[xxx]" text.  This string must never be empty, or grids
- * containing creatures will be displayed with an extra comma.
- *
- * Note that if a creature is in the grid, we update both the creature
- * recall info and the health bar info to track that creature.
- *
- * Eventually, we may allow multiple objects per grid, or objects
- * and terrain features in the same grid. XXX XXX XXX
- *
- * This function must handle blindness/hallucination.
- */
+* Examine a grid, return a keypress.
+*
+* The "mode" argument contains the "TARGET_LOOK" bit flag, which
+* indicates that the "space" key should scan through the contents
+* of the grid, instead of simply returning immediately.  This lets
+* the "look" command get complete information, without making the
+* "target" command annoying.
+*
+* The "info" argument contains the "commands" which should be shown
+* inside the "[xxx]" text.  This string must never be empty, or grids
+* containing creatures will be displayed with an extra comma.
+*
+* Note that if a creature is in the grid, we update both the creature
+* recall info and the health bar info to track that creature.
+*
+* Eventually, we may allow multiple objects per grid, or objects
+* and terrain features in the same grid. XXX XXX XXX
+*
+* This function must handle blindness/hallucination.
+*/
 static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, cptr info)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2430,7 +2430,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 				/* Get the object being moved. */
 				object_idx = c_ptr->object_idx;
- 
+
 				/* Only rotate a pile of two or more objects. */
 				if(!(object_idx && object_list[object_idx].next_object_idx)) continue;
 
@@ -2554,90 +2554,90 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 		}
 		else
 		{
-		if(have_flag(f_ptr->flags, FF_QUEST_ENTER))
-		{
-			int j;
+			if(have_flag(f_ptr->flags, FF_QUEST_ENTER))
+			{
+				int j;
 
-			/* Clear the text */
-			for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
-			questp_text_line = 0;
+				/* Clear the text */
+				for (j = 0; j < 10; j++) questp_text[j][0] = '\0';
+				questp_text_line = 0;
 
-			process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, c_ptr->special);
+				process_dungeon_file(NULL, QUEST_INFO_FILE, 0, 0, 0, 0, INIT_SHOW_TEXT, c_ptr->special);
 
 #ifdef JP
-			name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
+				name = format("クエスト「%s」(%d階相当)", quest[c_ptr->special].name, quest[c_ptr->special].level);
 #else
-			name = format("the entrance to the quest '%s'(level %d)", quest[c_ptr->special].name, quest[c_ptr->special].level);
+				name = format("the entrance to the quest '%s'(level %d)", quest[c_ptr->special].name, quest[c_ptr->special].level);
 #endif
-		}
+			}
 
-		/* Hack -- special handling for building doors */
-		else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode)
-		{
-			name = building[f_ptr->subtype].name;
-		}
-		else if(have_flag(f_ptr->flags, FF_ENTRANCE))
-		{
+			/* Hack -- special handling for building doors */
+			else if(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode)
+			{
+				name = building[f_ptr->subtype].name;
+			}
+			else if(have_flag(f_ptr->flags, FF_ENTRANCE))
+			{
 #ifdef JP
-			name = format("%s(%d階相当)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
+				name = format("%s(%d階相当)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
 #else
-			name = format("%s(level %d)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
+				name = format("%s(level %d)", dungeon_text + dungeon_info[c_ptr->special].text, dungeon_info[c_ptr->special].mindepth);
 #endif
-		}
-		else if(have_flag(f_ptr->flags, FF_TOWN))
-		{
-			name = town[c_ptr->special].name;
-		}
-		else if(floor_ptr->wild_mode && (feat == feat_floor))
-		{
+			}
+			else if(have_flag(f_ptr->flags, FF_TOWN))
+			{
+				name = town[c_ptr->special].name;
+			}
+			else if(floor_ptr->wild_mode && (feat == feat_floor))
+			{
 #ifdef JP
-			name = "道";
+				name = "道";
 #else
-			name = "road";
+				name = "road";
 #endif
-		}
-		else
-		{
-			name = feature_name + f_ptr->name;
-		}
+			}
+			else
+			{
+				name = feature_name + f_ptr->name;
+			}
 
 
-		// Pick a prefix
-		if(*s2 && ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
-		     (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE)) ||
-		     have_flag(f_ptr->flags, FF_TOWN)))
-		{
+			// Pick a prefix
+			if(*s2 && ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
+				(!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE)) ||
+				have_flag(f_ptr->flags, FF_TOWN)))
+			{
 #ifdef JP
-			s2 = "の中";
+				s2 = "の中";
 #else
-			s2 = "in ";
+				s2 = "in ";
 #endif
-		}
+			}
 
-		// Hack -- special introduction for store & building doors -KMW-
-		if(have_flag(f_ptr->flags, FF_STORE) || have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
-		    (have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode) ||
-		    have_flag(f_ptr->flags, FF_ENTRANCE))
-		{
+			// Hack -- special introduction for store & building doors -KMW-
+			if(have_flag(f_ptr->flags, FF_STORE) || have_flag(f_ptr->flags, FF_QUEST_ENTER) ||
+				(have_flag(f_ptr->flags, FF_BLDG) && !floor_ptr->fight_arena_mode) ||
+				have_flag(f_ptr->flags, FF_ENTRANCE))
+			{
 #ifdef JP
-			s2 = "の入口";
+				s2 = "の入口";
 #else
-			s3 = "";
+				s3 = "";
 #endif
-		}
+			}
 #ifndef JP
-		else if(have_flag(f_ptr->flags, FF_FLOOR) ||
-			 have_flag(f_ptr->flags, FF_TOWN) ||
-			 have_flag(f_ptr->flags, FF_SHALLOW) ||
-			 have_flag(f_ptr->flags, FF_DEEP))
-		{
-			s3 ="";
-		}
-		else
-		{
-			/* Pick proper indefinite article */
-			s3 = (is_a_vowel(name[0])) ? "an " : "a ";
-		}
+			else if(have_flag(f_ptr->flags, FF_FLOOR) ||
+				have_flag(f_ptr->flags, FF_TOWN) ||
+				have_flag(f_ptr->flags, FF_SHALLOW) ||
+				have_flag(f_ptr->flags, FF_DEEP))
+			{
+				s3 ="";
+			}
+			else
+			{
+				/* Pick proper indefinite article */
+				s3 = (is_a_vowel(name[0])) ? "an " : "a ";
+			}
 #endif
 		}
 
@@ -2678,46 +2678,46 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 
 
 /*
- * Handle "target" and "look".
- *
- * Note that this code can be called from "get_aim_dir()".
- *
- * All locations must be on the current panel.  Consider the use of
- * "panel_bounds()" to allow "off-panel" targets, perhaps by using
- * some form of "scrolling" the map around the cursor.  XXX XXX XXX
- * That is, consider the possibility of "auto-scrolling" the screen
- * while the cursor moves around.  This may require changes in the
- * "update_creature_view()" code to allow "visibility" even if off panel, and
- * may require dynamic recalculation of the "temp" grid set.
- *
- * Hack -- targeting/observing an "outer border grid" may induce
- * problems, so this is not currently allowed.
- *
- * The player can use the direction keys to move among "interesting"
- * grids in a heuristic manner, or the "space", "+", and "-" keys to
- * move through the "interesting" grids in a sequential manner, or
- * can enter "location" mode, and use the direction keys to move one
- * grid at a time in any direction.  The "t" (set target) command will
- * only target a creature (as opposed to a location) if the creature is
- * target_able and the "interesting" mode is being used.
- *
- * The current grid is described using the "look" method above, and
- * a new command may be entered at any time, but note that if the
- * "TARGET_LOOK" bit flag is set (or if we are in "location" mode,
- * where "space" has no obvious meaning) then "space" will scan
- * through the description of the current grid until done, instead
- * of immediately jumping to the next "interesting" grid.  This
- * allows the "target" command to retain its old semantics.
- *
- * The "*", "+", and "-" keys may always be used to jump immediately
- * to the next (or previous) interesting grid, in the proper mode.
- *
- * The "return" key may always be used to scan through a complete
- * grid description (forever).
- *
- * This command will cancel any old target, even if used from
- * inside the "look" command.
- */
+* Handle "target" and "look".
+*
+* Note that this code can be called from "get_aim_dir()".
+*
+* All locations must be on the current panel.  Consider the use of
+* "panel_bounds()" to allow "off-panel" targets, perhaps by using
+* some form of "scrolling" the map around the cursor.  XXX XXX XXX
+* That is, consider the possibility of "auto-scrolling" the screen
+* while the cursor moves around.  This may require changes in the
+* "update_creature_view()" code to allow "visibility" even if off panel, and
+* may require dynamic recalculation of the "temp" grid set.
+*
+* Hack -- targeting/observing an "outer border grid" may induce
+* problems, so this is not currently allowed.
+*
+* The player can use the direction keys to move among "interesting"
+* grids in a heuristic manner, or the "space", "+", and "-" keys to
+* move through the "interesting" grids in a sequential manner, or
+* can enter "location" mode, and use the direction keys to move one
+* grid at a time in any direction.  The "t" (set target) command will
+* only target a creature (as opposed to a location) if the creature is
+* target_able and the "interesting" mode is being used.
+*
+* The current grid is described using the "look" method above, and
+* a new command may be entered at any time, but note that if the
+* "TARGET_LOOK" bit flag is set (or if we are in "location" mode,
+* where "space" has no obvious meaning) then "space" will scan
+* through the description of the current grid until done, instead
+* of immediately jumping to the next "interesting" grid.  This
+* allows the "target" command to retain its old semantics.
+*
+* The "*", "+", and "-" keys may always be used to jump immediately
+* to the next (or previous) interesting grid, in the proper mode.
+*
+* The "return" key may always be used to scan through a complete
+* grid description (forever).
+*
+* This command will cancel any old target, even if used from
+* inside the "look" command.
+*/
 bool target_set(creature_type *aimer_ptr, int mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
@@ -2774,7 +2774,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			if(target_able(aimer_ptr, c_ptr->creature_idx))
 			{
 #ifdef JP
-strcpy(info, "q止 t決 p自 o現 +次 -前");
+				strcpy(info, "q止 t決 p自 o現 +次 -前");
 #else
 				strcpy(info, "q,t,p,o,+,-,<dir>");
 #endif
@@ -2785,7 +2785,7 @@ strcpy(info, "q止 t決 p自 o現 +次 -前");
 			else
 			{
 #ifdef JP
-strcpy(info, "q止 p自 o現 +次 -前");
+				strcpy(info, "q止 p自 o現 +次 -前");
 #else
 				strcpy(info, "q,p,o,+,-,<dir>");
 #endif
@@ -2809,17 +2809,17 @@ strcpy(info, "q止 p自 o現 +次 -前");
 			/* Analyze */
 			switch (query)
 			{
-				case ESCAPE:
-				case 'q':
+			case ESCAPE:
+			case 'q':
 				{
 					done = TRUE;
 					break;
 				}
 
-				case 't':
-				case '.':
-				case '5':
-				case '0':
+			case 't':
+			case '.':
+			case '5':
+			case '0':
 				{
 					if(target_able(aimer_ptr, c_ptr->creature_idx))
 					{
@@ -2836,9 +2836,9 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					break;
 				}
 
-				case ' ':
-				case '*':
-				case '+':
+			case ' ':
+			case '*':
+			case '+':
 				{
 					if(++m == temp_n)
 					{
@@ -2848,7 +2848,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					break;
 				}
 
-				case '-':
+			case '-':
 				{
 					if(m-- == 0)
 					{
@@ -2858,7 +2858,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					break;
 				}
 
-				case 'p':
+			case 'p':
 				{
 					/* Recenter the map around the player */
 					verify_panel(aimer_ptr);
@@ -2882,18 +2882,18 @@ strcpy(info, "q止 p自 o現 +次 -前");
 					x = aimer_ptr->fx;
 				}
 
-				case 'o':
+			case 'o':
 				{
 					flag = FALSE;
 					break;
 				}
 
-				case 'm':
+			case 'm':
 				{
 					break;
 				}
 
-				default:
+			default:
 				{
 					/* Extract the action (if any) */
 					d = get_keymap_dir(query);
@@ -2970,21 +2970,21 @@ strcpy(info, "q止 p自 o現 +次 -前");
 
 						/* Do not move horizontally if unnecessary */
 						if(((x < panel_col_min + wid / 2) && (dx > 0)) ||
-							 ((x > panel_col_min + wid / 2) && (dx < 0)))
+							((x > panel_col_min + wid / 2) && (dx < 0)))
 						{
 							dx = 0;
 						}
 
 						/* Do not move vertically if unnecessary */
 						if(((y < panel_row_min + hgt / 2) && (dy > 0)) ||
-							 ((y > panel_row_min + hgt / 2) && (dy < 0)))
+							((y > panel_row_min + hgt / 2) && (dy < 0)))
 						{
 							dy = 0;
 						}
 
 						/* Apply the motion */
 						if((y >= panel_row_min+hgt) || (y < panel_row_min) ||
-						    (x >= panel_col_min+wid) || (x < panel_col_min))
+							(x >= panel_col_min+wid) || (x < panel_col_min))
 						{
 							if(change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
 						}
@@ -3016,7 +3016,7 @@ strcpy(info, "q止 p自 o現 +次 -前");
 
 			/* Default prompt */
 #ifdef JP
-strcpy(info, "q止 t決 p自 m近 +次 -前");
+			strcpy(info, "q止 t決 p自 m近 +次 -前");
 #else
 			strcpy(info, "q,t,p,m,+,-,<dir>");
 #endif
@@ -3039,17 +3039,17 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 			/* Analyze the keypress */
 			switch (query)
 			{
-				case ESCAPE:
-				case 'q':
+			case ESCAPE:
+			case 'q':
 				{
 					done = TRUE;
 					break;
 				}
 
-				case 't':
-				case '.':
-				case '5':
-				case '0':
+			case 't':
+			case '.':
+			case '5':
+			case '0':
 				{
 					target_who = -1;
 					target_row = y;
@@ -3058,7 +3058,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					break;
 				}
 
-				case 'p':
+			case 'p':
 				{
 					/* Recenter the map around the player */
 					verify_panel(aimer_ptr);
@@ -3082,16 +3082,16 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					x = aimer_ptr->fx;
 				}
 
-				case 'o':
+			case 'o':
 				{
 					break;
 				}
 
-				case ' ':
-				case '*':
-				case '+':
-				case '-':
-				case 'm':
+			case ' ':
+			case '*':
+			case '+':
+			case '-':
+			case 'm':
 				{
 					flag = TRUE;
 
@@ -3117,7 +3117,7 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 					break;
 				}
 
-				default:
+			default:
 				{
 					/* Extract the action (if any) */
 					d = get_keymap_dir(query);
@@ -3151,21 +3151,21 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 
 				/* Do not move horizontally if unnecessary */
 				if(((x < panel_col_min + wid / 2) && (dx > 0)) ||
-					 ((x > panel_col_min + wid / 2) && (dx < 0)))
+					((x > panel_col_min + wid / 2) && (dx < 0)))
 				{
 					dx = 0;
 				}
 
 				/* Do not move vertically if unnecessary */
 				if(((y < panel_row_min + hgt / 2) && (dy > 0)) ||
-					 ((y > panel_row_min + hgt / 2) && (dy < 0)))
+					((y > panel_row_min + hgt / 2) && (dy < 0)))
 				{
 					dy = 0;
 				}
 
 				/* Apply the motion */
 				if((y >= panel_row_min + hgt) || (y < panel_row_min) ||
-					 (x >= panel_col_min + wid) || (x < panel_col_min))
+					(x >= panel_col_min + wid) || (x < panel_col_min))
 				{
 					if(change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
 				}
@@ -3211,16 +3211,16 @@ strcpy(info, "q止 t決 p自 m近 +次 -前");
 
 
 /*
- * Get an "aiming direction" from the user.
- *
- * The "dir" is loaded with 1,2,3,4,6,7,8,9 for "actual direction", and
- * "0" for "current target", and "-1" for "entry aborted".
- *
- * Note that "Force Target", if set, will pre-empt user interaction,
- * if there is a usable target already set.
- *
- * Note that confusion over-rides any (explicit?) user choice.
- */
+* Get an "aiming direction" from the user.
+*
+* The "dir" is loaded with 1,2,3,4,6,7,8,9 for "actual direction", and
+* "0" for "current target", and "-1" for "entry aborted".
+*
+* Note that "Force Target", if set, will pre-empt user interaction,
+* if there is a usable target already set.
+*
+* Note that confusion over-rides any (explicit?) user choice.
+*/
 bool get_aim_dir(creature_type *creature_ptr, int *dp)
 {
 	int		dir;
@@ -3245,7 +3245,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 		/* Verify */
 		if(!(*dp == 5 && !target_okay(creature_ptr)))
 		{
-/*			return (TRUE); */
+			/*			return (TRUE); */
 			dir = *dp;
 		}
 	}
@@ -3257,7 +3257,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 		if(!target_okay(creature_ptr))
 		{
 #ifdef JP
-p = "方向 ('*'でターゲット選択, ESCで中断)? ";
+			p = "方向 ('*'でターゲット選択, ESCで中断)? ";
 #else
 			p = "Direction ('*' to choose a target, Escape to cancel)? ";
 #endif
@@ -3266,7 +3266,7 @@ p = "方向 ('*'でターゲット選択, ESCで中断)? ";
 		else
 		{
 #ifdef JP
-p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
+			p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 #else
 			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
 #endif
@@ -3285,26 +3285,26 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 		switch (command)
 		{
 			/* Use current target */
-			case 'T':
-			case 't':
-			case '.':
-			case '5':
-			case '0':
+		case 'T':
+		case 't':
+		case '.':
+		case '5':
+		case '0':
 			{
 				dir = 5;
 				break;
 			}
 
 			/* Set new target */
-			case '*':
-			case ' ':
-			case '\r':
+		case '*':
+		case ' ':
+		case '\r':
 			{
 				if(target_set(creature_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 
-			default:
+		default:
 			{
 				/* Extract the action (if any) */
 				dir = get_keymap_dir(command);
@@ -3343,7 +3343,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	{
 		/* Warn the user */
 #ifdef JP
-msg_print("あなたは混乱している。");
+		msg_print("あなたは混乱している。");
 #else
 		msg_print("You are confused.");
 #endif
@@ -3353,7 +3353,7 @@ msg_print("あなたは混乱している。");
 	/* Save direction */
 	(*dp) = dir;
 
-/*	repeat_push(dir); */
+	/*	repeat_push(dir); */
 	repeat_push(command_dir);
 
 	/* A "valid" direction was entered */
@@ -3363,21 +3363,21 @@ msg_print("あなたは混乱している。");
 
 
 /*
- * Request a "movement" direction (1,2,3,4,6,7,8,9) from the user,
- * and place it into "command_dir", unless we already have one.
- *
- * This function should be used for all "repeatable" commands, such as
- * run, walk, open, close, bash, disarm, spike, tunnel, etc, as well
- * as all commands which must reference a grid adjacent to the player,
- * and which may not reference the grid under the player.  Note that,
- * for example, it is no longer possible to "disarm" or "open" chests
- * in the same grid as the player.
- *
- * Direction "5" is illegal and will (cleanly) abort the command.
- *
- * This function tracks and uses the "global direction", and uses
- * that as the "desired direction", to which "confusion" is applied.
- */
+* Request a "movement" direction (1,2,3,4,6,7,8,9) from the user,
+* and place it into "command_dir", unless we already have one.
+*
+* This function should be used for all "repeatable" commands, such as
+* run, walk, open, close, bash, disarm, spike, tunnel, etc, as well
+* as all commands which must reference a grid adjacent to the player,
+* and which may not reference the grid under the player.  Note that,
+* for example, it is no longer possible to "disarm" or "open" chests
+* in the same grid as the player.
+*
+* Direction "5" is illegal and will (cleanly) abort the command.
+*
+* This function tracks and uses the "global direction", and uses
+* that as the "desired direction", to which "confusion" is applied.
+*/
 bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 {
 	int dir;
@@ -3391,7 +3391,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	if(repeat_pull(dp))
 	{
 		dir = *dp;
-/*		return (TRUE); */
+		/*		return (TRUE); */
 	}
 
 	/* Get a direction */
@@ -3401,7 +3401,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 
 		/* Get a command (or Cancel) */
 #ifdef JP
-if(!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
+		if(!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 #else
 		if(!get_com("Direction (Escape to cancel)? ", &ch, TRUE)) break;
 #endif
@@ -3466,7 +3466,7 @@ if(!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 		{
 			/* Warn the user */
 #ifdef JP
-msg_print("あなたは混乱している。");
+			msg_print("あなたは混乱している。");
 #else
 			msg_print("You are confused.");
 #endif
@@ -3480,18 +3480,18 @@ msg_print("あなたは混乱している。");
 			if(m_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
-msg_format("%sは混乱している。", m_name);
+				msg_format("%sは混乱している。", m_name);
 #else
- msg_format("%^s is confusing.", m_name);
+				msg_format("%^s is confusing.", m_name);
 
 #endif
 			}
 			else
 			{
 #ifdef JP
-msg_format("%sは思い通りに動いてくれない。", m_name);
+				msg_format("%sは思い通りに動いてくれない。", m_name);
 #else
-msg_format("You cannot control %s.", m_name);
+				msg_format("You cannot control %s.", m_name);
 #endif
 			}
 		}
@@ -3500,7 +3500,7 @@ msg_format("You cannot control %s.", m_name);
 	/* Save direction */
 	(*dp) = dir;
 
-/*	repeat_push(dir); */
+	/*	repeat_push(dir); */
 	repeat_push(command_dir);
 
 	/* Success */
@@ -3521,7 +3521,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	if(repeat_pull(dp))
 	{
 		dir = *dp;
-/*		return (TRUE); */
+		/*		return (TRUE); */
 	}
 
 	/* Get a direction */
@@ -3531,7 +3531,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 
 		/* Get a command (or Cancel) */
 #ifdef JP
-if(!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
+		if(!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 #else
 		if(!get_com("Direction (Escape to cancel)? ", &ch, TRUE)) break;
 #endif
@@ -3569,7 +3569,7 @@ if(!get_com("方向 (ESCで中断)? ", &ch, TRUE)) break;
 	{
 		/* Warn the user */
 #ifdef JP
-msg_print("あなたは混乱している。");
+		msg_print("あなたは混乱している。");
 #else
 		msg_print("You are confused.");
 #endif
@@ -3579,7 +3579,7 @@ msg_print("あなたは混乱している。");
 	/* Save direction */
 	(*dp) = dir;
 
-/*	repeat_push(dir); */
+	/*	repeat_push(dir); */
 	repeat_push(command_dir);
 
 	/* Success */
@@ -3607,45 +3607,42 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		else multi_rew = TRUE;
 	}
 
-
 	if(creature_ptr->lev == 13) nasty_chance = 2;
 	else if(!(creature_ptr->lev % 13)) nasty_chance = 3;
 	else if(!(creature_ptr->lev % 14)) nasty_chance = 12;
 
 	//TODO	
-//	if(one_in_(nasty_chance) && creature_ptr->patron_idx != PATRON_ARIOCH && creature_ptr->race_idx1 != RACE_MELNIBONE)
-		type = randint1(20); /* Allow the 'nasty' effects */
-//	else
-//		type = randint1(15) + 5; /* Or disallow them */
+	//	if(one_in_(nasty_chance) && creature_ptr->patron_idx != PATRON_ARIOCH && creature_ptr->race_idx1 != RACE_MELNIBONE)
+	type = randint1(20); /* Allow the 'nasty' effects */
+	//	else
+	//		type = randint1(15) + 5; /* Or disallow them */
 
 	if(type < 1) type = 1;
 	if(type > 20) type = 20;
 	type--;
 
-//	if(creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
-//		 type = REW_IGNORE;
-		
+	//	if(creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && type == REW_POLY_SLF)
+	//		 type = REW_IGNORE;
+
 
 #ifdef JP
-sprintf(wrath_reason, "%sの怒り",
-		species_name + species_info[creature_ptr->patron_idx].name);
+	sprintf(wrath_reason, "%sの怒り", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-	sprintf(wrath_reason, "the Wrath of %s",
-		species_name + species_info[creature_ptr->patron_idx].name);
+	sprintf(wrath_reason, "the Wrath of %s", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 
 	/*TODO
 	effect = player_patrons[creature_ptr->patron_idx].rewards[type];
 	if(creature_ptr->patron_idx == PATRON_ARIOCH && creature_ptr->race_idx1 == RACE_MELNIBONE && effect == REW_POLY_SLF)
-		 effect = REW_IGNORE;
+	effect = REW_IGNORE;
 	*/
-    effect = REW_IGNORE;
+	effect = REW_IGNORE;
 
 	if(one_in_(6) && !chosen_reward)
 	{
 #ifdef JP
-msg_format("%^sは褒美としてあなたを突然変異させた。",
+		msg_format("%^sは褒美としてあなたを突然変異させた。",
 			species_name + species_info[creature_ptr->patron_idx].name);
 #else
 		msg_format("%^s rewards you with a mutation!",
@@ -3661,21 +3658,19 @@ msg_format("%^sは褒美としてあなたを突然変異させた。",
 	}
 	else
 	{
-	switch (chosen_reward ? chosen_reward : effect)
-	{
+		switch (chosen_reward ? chosen_reward : effect)
+		{
 		case REW_POLY_SLF:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
-msg_print("「汝、新たなる姿を必要とせり！」");
+			msg_print("「汝、新たなる姿を必要とせり！」");
 #else
-			msg_print("'Thou needst a new form, mortal!'");
+			msg_print("'Thou needst a new form!'");
 #endif
 
 			do_poly_self(creature_ptr);
@@ -3687,7 +3682,7 @@ msg_print("「汝、新たなる姿を必要とせり！」");
 			break;
 		case REW_GAIN_EXP:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -3695,9 +3690,9 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「汝は良く行いたり！続けよ！」");
+			msg_print("「汝は良く行いたり！続けよ！」");
 #else
-			msg_print("'Well done, mortal! Lead on!'");
+			msg_print("'Well done, Lead on!'");
 #endif
 
 			if(has_trait(creature_ptr, TRAIT_ANDROID))
@@ -3713,7 +3708,7 @@ msg_print("「汝は良く行いたり！続けよ！」");
 				s32b ee = (creature_ptr->exp / 2) + 10;
 				if(ee > 100000L) ee = 100000L;
 #ifdef JP
-msg_print("更に経験を積んだような気がする。");
+				msg_print("更に経験を積んだような気がする。");
 #else
 				msg_print("You feel more experienced.");
 #endif
@@ -3726,17 +3721,16 @@ msg_print("更に経験を積んだような気がする。");
 #endif
 			}
 			break;
+
 		case REW_LOSE_EXP:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
-msg_print("「下僕よ、汝それに値せず。」");
+			msg_print("「下僕よ、汝それに値せず。」");
 #else
 			msg_print("'Thou didst not deserve that, slave.'");
 #endif
@@ -3761,15 +3755,13 @@ msg_print("「下僕よ、汝それに値せず。」");
 			break;
 		case REW_GOOD_OBJ:
 #ifdef JP
-msg_format("%sの声がささやいた:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sの声がささやいた:", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("The voice of %s whispers:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("The voice of %s whispers:", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
-msg_print("「我が与えし物を賢明に使うべし。」");
+			msg_print("「我が与えし物を賢明に使うべし。」");
 #else
 			msg_print("'Use my gift wisely.'");
 #endif
@@ -3783,15 +3775,13 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			break;
 		case REW_GREA_OBJ:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
-msg_print("「我が与えし物を賢明に使うべし。」");
+			msg_print("「我が与えし物を賢明に使うべし。」");
 #else
 			msg_print("'Use my gift wisely.'");
 #endif
@@ -3805,7 +3795,7 @@ msg_print("「我が与えし物を賢明に使うべし。」");
 			break;
 		case REW_CHAOS_WP:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -3813,7 +3803,7 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「汝の行いは貴き剣に値せり。」");
+			msg_print("「汝の行いは貴き剣に値せり。」");
 #else
 			msg_print("'Thy deed hath earned thee a worthy blade.'");
 #endif
@@ -3823,89 +3813,89 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			dummy = TV_SWORD;
 			switch (randint1(creature_ptr->lev))
 			{
-				case 0: case 1:
-					dummy2 = SV_DAGGER;
-					break;
-				case 2: case 3:
-					dummy2 = SV_MAIN_GAUCHE;
-					break;
-				case 4:
-					dummy2 = SV_TANTO;
-					break;
-				case 5: case 6:
-					dummy2 = SV_RAPIER;
-					break;
-				case 7: case 8:
-					dummy2 = SV_SMALL_SWORD;
-					break;
-				case 9: case 10:
-					dummy2 = SV_BASILLARD;
-					break;
-				case 11: case 12: case 13:
-					dummy2 = SV_SHORT_SWORD;
-					break;
-				case 14: case 15:
-					dummy2 = SV_SABRE;
-					break;
-				case 16: case 17:
-					dummy2 = SV_CUTLASS;
-					break;
-				case 18:
-					dummy2 = SV_WAKIZASHI;
-					break;
-				case 19:
-					dummy2 = SV_KHOPESH;
-					break;
-				case 20:
-					dummy2 = SV_TULWAR;
-					break;
-				case 21:
-					dummy2 = SV_BROAD_SWORD;
-					break;
-				case 22: case 23:
-					dummy2 = SV_LONG_SWORD;
-					break;
-				case 24: case 25:
-					dummy2 = SV_SCIMITAR;
-					break;
-				case 26:
-					dummy2 = SV_NINJATO;
-					break;
-				case 27:
-					dummy2 = SV_KATANA;
-					break;
-				case 28: case 29:
-					dummy2 = SV_BASTARD_SWORD;
-					break;
-				case 30:
-					dummy2 = SV_GREAT_SCIMITAR;
-					break;
-				case 31:
-					dummy2 = SV_CLAYMORE;
-					break;
-				case 32:
-					dummy2 = SV_ESPADON;
-					break;
-				case 33:
-					dummy2 = SV_TWO_HANDED_SWORD;
-					break;
-				case 34:
-					dummy2 = SV_FLAMBERGE;
-					break;
-				case 35:
-					dummy2 = SV_NO_DACHI;
-					break;
-				case 36:
-					dummy2 = SV_EXECUTIONERS_SWORD;
-					break;
-				case 37:
-					dummy2 = SV_ZWEIHANDER;
-					break;
-				case 38:
-					dummy2 = SV_HAYABUSA;
-					break;
-				default:
-					dummy2 = SV_BLADE_OF_CHAOS;
+			case 0: case 1:
+				dummy2 = SV_DAGGER;
+				break;
+			case 2: case 3:
+				dummy2 = SV_MAIN_GAUCHE;
+				break;
+			case 4:
+				dummy2 = SV_TANTO;
+				break;
+			case 5: case 6:
+				dummy2 = SV_RAPIER;
+				break;
+			case 7: case 8:
+				dummy2 = SV_SMALL_SWORD;
+				break;
+			case 9: case 10:
+				dummy2 = SV_BASILLARD;
+				break;
+			case 11: case 12: case 13:
+				dummy2 = SV_SHORT_SWORD;
+				break;
+			case 14: case 15:
+				dummy2 = SV_SABRE;
+				break;
+			case 16: case 17:
+				dummy2 = SV_CUTLASS;
+				break;
+			case 18:
+				dummy2 = SV_WAKIZASHI;
+				break;
+			case 19:
+				dummy2 = SV_KHOPESH;
+				break;
+			case 20:
+				dummy2 = SV_TULWAR;
+				break;
+			case 21:
+				dummy2 = SV_BROAD_SWORD;
+				break;
+			case 22: case 23:
+				dummy2 = SV_LONG_SWORD;
+				break;
+			case 24: case 25:
+				dummy2 = SV_SCIMITAR;
+				break;
+			case 26:
+				dummy2 = SV_NINJATO;
+				break;
+			case 27:
+				dummy2 = SV_KATANA;
+				break;
+			case 28: case 29:
+				dummy2 = SV_BASTARD_SWORD;
+				break;
+			case 30:
+				dummy2 = SV_GREAT_SCIMITAR;
+				break;
+			case 31:
+				dummy2 = SV_CLAYMORE;
+				break;
+			case 32:
+				dummy2 = SV_ESPADON;
+				break;
+			case 33:
+				dummy2 = SV_TWO_HANDED_SWORD;
+				break;
+			case 34:
+				dummy2 = SV_FLAMBERGE;
+				break;
+			case 35:
+				dummy2 = SV_NO_DACHI;
+				break;
+			case 36:
+				dummy2 = SV_EXECUTIONERS_SWORD;
+				break;
+			case 37:
+				dummy2 = SV_ZWEIHANDER;
+				break;
+			case 38:
+				dummy2 = SV_HAYABUSA;
+				break;
+			default:
+				dummy2 = SV_BLADE_OF_CHAOS;
 			}
 
 			object_prep(quest_ptr, lookup_kind(dummy, dummy2), ITEM_FREE_SIZE);
@@ -3924,7 +3914,7 @@ msg_print("「汝の行いは貴き剣に値せり。」");
 			break;
 		case REW_GOOD_OBS:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -3932,7 +3922,7 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「汝の行いは貴き報いに値せり。」");
+			msg_print("「汝の行いは貴き報いに値せり。」");
 #else
 			msg_print("'Thy deed hath earned thee a worthy reward.'");
 #endif
@@ -3946,7 +3936,7 @@ msg_print("「汝の行いは貴き報いに値せり。」");
 			break;
 		case REW_GREA_OBS:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -3954,7 +3944,7 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
+			msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 #else
 			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
 #endif
@@ -3968,7 +3958,7 @@ msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 			break;
 		case REW_TY_CURSE:
 #ifdef JP
-msg_format("%sの声が轟き渡った:",
+			msg_format("%sの声が轟き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s thunders:",
@@ -3976,7 +3966,7 @@ msg_format("%sの声が轟き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「下僕よ、汝傲慢なり。」");
+			msg_print("「下僕よ、汝傲慢なり。」");
 #else
 			msg_print("'Thou art growing arrogant, mortal.'");
 #endif
@@ -3990,7 +3980,7 @@ msg_print("「下僕よ、汝傲慢なり。」");
 			break;
 		case REW_SUMMON_M:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -3998,7 +3988,7 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
+			msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 #else
 			msg_print("'My pets, destroy the arrogant mortal!'");
 #endif
@@ -4015,7 +4005,7 @@ msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 			break;
 		case REW_H_SUMMON:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -4023,7 +4013,7 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「汝、より強き敵を必要とせり！」");
+			msg_print("「汝、より強き敵を必要とせり！」");
 #else
 			msg_print("'Thou needst worthier opponents!'");
 #endif
@@ -4037,7 +4027,7 @@ msg_print("「汝、より強き敵を必要とせり！」");
 			break;
 		case REW_DO_HAVOC:
 #ifdef JP
-msg_format("%sの声が響き渡った:",
+			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s booms out:",
@@ -4045,7 +4035,7 @@ msg_format("%sの声が響き渡った:",
 #endif
 
 #ifdef JP
-msg_print("「死と破壊こそ我が喜びなり！」");
+			msg_print("「死と破壊こそ我が喜びなり！」");
 #else
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
@@ -4059,7 +4049,7 @@ msg_print("「死と破壊こそ我が喜びなり！」");
 			break;
 		case REW_GAIN_ABL:
 #ifdef JP
-msg_format("%sの声が鳴り響いた:",
+			msg_format("%sの声が鳴り響いた:",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("The voice of %s rings out:",
@@ -4095,7 +4085,7 @@ msg_format("%sの声が鳴り響いた:",
 			msg_print("'I grow tired of thee, mortal.'");
 #endif
 
-				(void)do_dec_stat(creature_ptr, randint0(6));
+			(void)do_dec_stat(creature_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が下がった。";
 #else
@@ -4191,7 +4181,7 @@ msg_format("%sの声が鳴り響いた:",
 			reward = "generating disintegration ball";
 #endif
 			break;
-	   case REW_HEAL_FUL:
+		case REW_HEAL_FUL:
 #ifdef JP
 			msg_format("%sの声が響き渡った:",
 				species_name + species_info[creature_ptr->patron_idx].name);
@@ -4298,64 +4288,64 @@ msg_format("%sの声が鳴り響いた:",
 
 			switch (randint1(4))
 			{
-				case 1:
-					(void)activate_ty_curse(creature_ptr, FALSE, &count);
+			case 1:
+				(void)activate_ty_curse(creature_ptr, FALSE, &count);
 #ifdef JP
-					reward = "禍々しい呪いをかけられた。";
+				reward = "禍々しい呪いをかけられた。";
 #else
-					reward = "cursing";
+				reward = "cursing";
 #endif
-					break;
-				case 2:
-					activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
+				break;
+			case 2:
+				activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 #ifdef JP
-					reward = "クリーチャーを召喚された。";
+				reward = "クリーチャーを召喚された。";
 #else
-					reward = "summoning hostile creatures";
+				reward = "summoning hostile creatures";
 #endif
-					break;
-				case 3:
-					if(one_in_(2))
+				break;
+			case 3:
+				if(one_in_(2))
+				{
+					if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+					if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 					{
-						if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
-						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
-						if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
-						{
-							dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
-							if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
-								dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
-						}
-						object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
-						(void)curse_weapon(creature_ptr, FALSE, dummy);
-#ifdef JP
-						reward = format("%sが破壊された。", object_name);
-#else
-						reward = format("destroying %s", object_name);
-#endif
+						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+						if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
+							dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 					}
-					else
-					{
-						if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
-						object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
-						(void)curse_armor(creature_ptr);
+					object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
+					(void)curse_weapon(creature_ptr, FALSE, dummy);
 #ifdef JP
-						reward = format("%sが破壊された。", object_name);
+					reward = format("%sが破壊された。", object_name);
 #else
-						reward = format("destroying %s", object_name);
+					reward = format("destroying %s", object_name);
 #endif
-					}
-					break;
-				default:
-					for (dummy = 0; dummy < 6; dummy++)
-					{
-						(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
-					}
+				}
+				else
+				{
+					if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
+					object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+					(void)curse_armor(creature_ptr);
 #ifdef JP
-					reward = "全能力値が下がった。";
+					reward = format("%sが破壊された。", object_name);
 #else
-					reward = "decreasing all stats";
+					reward = format("destroying %s", object_name);
 #endif
-					break;
+				}
+				break;
+			default:
+				for (dummy = 0; dummy < 6; dummy++)
+				{
+					(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
+				}
+#ifdef JP
+				reward = "全能力値が下がった。";
+#else
+				reward = "decreasing all stats";
+#endif
+				break;
 			}
 			break;
 		case REW_WRATH:
@@ -4475,7 +4465,7 @@ msg_format("%sの声が鳴り響いた:",
 			break;
 		case REW_IGNORE:
 #ifdef JP
-msg_format("%sはあなたを無視した。",
+			msg_format("%sはあなたを無視した。",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("%s ignores you.",
@@ -4527,7 +4517,7 @@ msg_format("%sはあなたを無視した。",
 			break;
 		case REW_SER_UNDE:
 #ifdef JP
-msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_info[creature_ptr->patron_idx].name);
 #else
 			msg_format("%s rewards you with an undead servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
@@ -4560,7 +4550,7 @@ msg_format("%sは褒美としてアンデッドの使いをよこした。",species_name + species_i
 			msg_format("'Uh... uh... the answer's %d/%d, what's the question?'", type, effect);
 #endif
 
-	}
+		}
 	}
 	if(reward)
 	{
@@ -4601,9 +4591,9 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 
 
 /*
- * XAngband: Prepare the "temp" array for "tget_pt"
- * based on target_set_prepare funciton.
- */
+* XAngband: Prepare the "temp" array for "tget_pt"
+* based on target_set_prepare funciton.
+*/
 static void tgt_pt_prepare(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -4634,8 +4624,8 @@ static void tgt_pt_prepare(creature_type *creature_ptr)
 }
 
 /*
- * old -- from PsiAngband.
- */
+* old -- from PsiAngband.
+*/
 bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 {
 	char ch = 0;
@@ -4687,7 +4677,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 			break;
 
-		/* XAngband: Move cursor to stairs */
+			/* XAngband: Move cursor to stairs */
 		case '>':
 		case '<':
 			if(expand_list && temp_n)
@@ -4779,21 +4769,21 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 
 				/* Do not move horizontally if unnecessary */
 				if(((x < panel_col_min + wid / 2) && (dx > 0)) ||
-					 ((x > panel_col_min + wid / 2) && (dx < 0)))
+					((x > panel_col_min + wid / 2) && (dx < 0)))
 				{
 					dx = 0;
 				}
 
 				/* Do not move vertically if unnecessary */
 				if(((y < panel_row_min + hgt / 2) && (dy > 0)) ||
-					 ((y > panel_row_min + hgt / 2) && (dy < 0)))
+					((y > panel_row_min + hgt / 2) && (dy < 0)))
 				{
 					dy = 0;
 				}
 
 				/* Apply the motion */
 				if((y >= panel_row_min + hgt) || (y < panel_row_min) ||
-					 (x >= panel_col_min + wid) || (x < panel_col_min))
+					(x >= panel_col_min + wid) || (x < panel_col_min))
 				{
 					/* if(change_panel(dy, dx)) target_set_prepare(mode); */
 					change_panel(dy, dx);
@@ -4858,7 +4848,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		if(!target_okay(creature_ptr))
 		{
 #ifdef JP
-p = "方向 ('*'でターゲット選択, ESCで中断)? ";
+			p = "方向 ('*'でターゲット選択, ESCで中断)? ";
 #else
 			p = "Direction ('*' to choose a target, Escape to cancel)? ";
 #endif
@@ -4867,7 +4857,7 @@ p = "方向 ('*'でターゲット選択, ESCで中断)? ";
 		else
 		{
 #ifdef JP
-p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
+			p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 #else
 			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
 #endif
@@ -4886,26 +4876,26 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 		switch (command)
 		{
 			/* Use current target */
-			case 'T':
-			case 't':
-			case '.':
-			case '5':
-			case '0':
+		case 'T':
+		case 't':
+		case '.':
+		case '5':
+		case '0':
 			{
 				dir = 5;
 				break;
 			}
 
 			/* Set new target */
-			case '*':
-			case ' ':
-			case '\r':
+		case '*':
+		case ' ':
+		case '\r':
 			{
 				if(target_set(creature_ptr, TARGET_KILL)) dir = 5;
 				break;
 			}
 
-			default:
+		default:
 			{
 				/* Look up the direction */
 				dir = get_keymap_dir(command);
@@ -4940,7 +4930,7 @@ p = "方向 ('5'でターゲットへ, '*'でターゲット再選択, ESCで中断)? ";
 	{
 		/* Warn the user */
 #ifdef JP
-msg_print("あなたは混乱している。");
+		msg_print("あなたは混乱している。");
 #else
 		msg_print("You are confused.");
 #endif
@@ -4954,32 +4944,7 @@ msg_print("あなたは混乱している。");
 	return (TRUE);
 }
 
-
-/*
- * エネルギーの増加量10d5を速く計算するための関数
- */
-
-#define Go_no_JuuJou 5*5*5*5*5*5*5*5*5*5
-
-s16b gain_energy(void)
-{
-	int i;
-	s32b energy_result = 10;
-	s32b tmp;
-
-	tmp = randint0(Go_no_JuuJou);
-
-	for (i = 0; i < 9; i ++){
-		energy_result += tmp % 5;
-		tmp /= 5;
-	}
-
-	return (s16b)(energy_result + tmp);
-}
-
-/*
- * Return alignment title
- */
+// Return alignment title
 void show_alignment(char* buf, creature_type *creature_ptr)
 {
 #ifdef JP
@@ -4994,8 +4959,8 @@ void show_alignment(char* buf, creature_type *creature_ptr)
 
 
 /*
- * Return proficiency level of weapons and misc. skills (except riding)
- */
+* Return proficiency level of weapons and misc. skills (except riding)
+*/
 int weapon_exp_level(int weapon_exp)
 {
 	if(weapon_exp < WEAPON_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
@@ -5007,8 +4972,8 @@ int weapon_exp_level(int weapon_exp)
 
 
 /*
- * Return proficiency level of riding
- */
+* Return proficiency level of riding
+*/
 int riding_exp_level(int riding_exp)
 {
 	if(riding_exp < RIDING_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
@@ -5020,8 +4985,8 @@ int riding_exp_level(int riding_exp)
 
 
 /*
- * Return proficiency level of spells
- */
+* Return proficiency level of spells
+*/
 int spell_exp_level(int spell_exp)
 {
 	if(spell_exp < SPELL_EXP_BEGINNER) return EXP_LEVEL_UNSKILLED;
@@ -5039,7 +5004,7 @@ void display_creature_dump(creature_type *creature_ptr)
 
 	screen_save();	// Save the screen
 
-	
+
 	while (1)	// Forever
 	{
 		update_play_time();
@@ -5056,7 +5021,7 @@ void display_creature_dump(creature_type *creature_ptr)
 #else
 		Term_putstr(2, 23, -1, TERM_WHITE, "['h' to change mode, or ESC]");
 #endif
-		
+
 		c = inkey();	// Query
 
 		if(c == ESCAPE) break; // Exit

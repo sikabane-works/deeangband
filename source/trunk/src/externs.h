@@ -1602,7 +1602,6 @@ extern bool tgt_pt (creature_type *creature_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *creature_ptr);
 extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg);
 extern int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
-extern s16b gain_energy(void);
 extern void show_alignment(char *buf, creature_type *creature_ptr);
 extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);
