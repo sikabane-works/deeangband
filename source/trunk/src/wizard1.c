@@ -1789,16 +1789,8 @@ static void spoil_species_desc(cptr fname)
 
 		//TODOif(is_shadow_species(species_ptr)) continue;
 		/* Get the "name" */
-		/*
-		else if(has_trait_species(species_ptr, TRAIT_QUESTOR))
-		{
-			sprintf(nam, "[Q] %s", name);
-		}
-		*/
-		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
-		{
-			sprintf(nam, "[U] %s", name);
-		}
+		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) sprintf(nam, "[Q] %s", name);
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE)) sprintf(nam, "[U] %s", name);
 		else
 		{
 #ifdef JP
@@ -1808,27 +1800,17 @@ static void spoil_species_desc(cptr fname)
 #endif
 		}
 
-		/* Divine Rank */
-		if(species_ptr->dr >= 0)
-			sprintf(div, "%d", species_ptr->dr);
-		else
-			sprintf(div, "Nr");
+		// Divine Rank
+		if(species_ptr->dr >= 0) sprintf(div, "%d", species_ptr->dr);
+		else sprintf(div, "Nr");
 		
-
-		/* Rarity */
+		// Rarity
 		sprintf(rar, "%d", species_ptr->rarity);
 
-		/* Speed */
-		if(species_ptr->speed >= 0)
-		{
-			sprintf(spd, "+%d", (species_ptr->speed));
-		}
-		else
-		{
-			sprintf(spd, "-%d", (species_ptr->speed));
-		}
+		// Speed
+		if(species_ptr->speed >= 0) sprintf(spd, "+%d", (species_ptr->speed));
+		else sprintf(spd, "-%d", (species_ptr->speed));
 		
-
 		/* Base Status */
 		for(j = STAT_STR; j <= STAT_CHA; j++)
 		{
@@ -1844,21 +1826,7 @@ static void spoil_species_desc(cptr fname)
 				stat[j] += chara_info[species_ptr->chara_idx].a_adj[j];
 		}
 
-		if(has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)){
-			stat[STAT_CHA] += 5;		
-		}
-
-		if(has_trait_species(species_ptr, TRAIT_POWERFUL)){
-			for(j = STAT_STR; j <= STAT_CHA; j++)
-			{
-				stat[j] += 2;
-			}
-		}
-
-		for(j = STAT_STR; j <= STAT_CHA; j++)
-		{
-			if(stat[j] < 3) stat[j] = 3;
-		}
+		for(j = STAT_STR; j <= STAT_CHA; j++) if(stat[j] < 3) stat[j] = 3;
 
 		if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER))
 			sprintf(sa, "--");
@@ -1886,7 +1854,6 @@ static void spoil_species_desc(cptr fname)
 			sprintf(cha, "--");
 		else
 			sprintf(cha, "%2d", stat[5]);
-
 
 		/* Armor Class */
 		sprintf(ac, "%d", species_ptr->ac);
