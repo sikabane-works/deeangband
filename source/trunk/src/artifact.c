@@ -1747,26 +1747,16 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 		}
 	};
 
+	//TODO pval process
 	if(has_pval)
 	{
-
-		if(have_flag(object_ptr->trait_flags, TRAIT_BLOWS))
+		do
 		{
-			object_ptr->pval = (s16b)randint1(2);
-			if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA))
-				object_ptr->pval++;
+			object_ptr->pval++;
 		}
-		else
-		{
-			do
-			{
-				object_ptr->pval++;
-			}
-			while (object_ptr->pval < randint1(5) || one_in_(object_ptr->pval));
-		}
+		while (object_ptr->pval < randint1(5) || one_in_(object_ptr->pval));
 
-		if((object_ptr->pval > 4) && !one_in_(WEIRD_LUCK))
-			object_ptr->pval = 4;
+		if((object_ptr->pval > 4) && !one_in_(WEIRD_LUCK)) object_ptr->pval = 4;
 	}
 
 	/* give it some plusses... */
