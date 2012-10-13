@@ -493,13 +493,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_HASTE:
 		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20))
-		{
-#ifdef JP
-			msg_format("%^sの動きが速くなった。", caster_name);
-#else
-			msg_format("%^s starts moving faster.", caster_name);
-#endif
-		}
 		break;
 
 	case TRAIT_HASTE_2:
@@ -2387,13 +2380,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_S_KIN:
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-
-#ifdef JP
-			msg_print("援軍を召喚した。");
-#else
-			msg_print("You summon minions.");
-#endif
-			for (k = 0;k < 4; k++)
+			for (k = 0; k < 4; k++)
 			{
 				(void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
 			}

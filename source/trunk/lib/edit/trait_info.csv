@@ -175,7 +175,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,DIS,DEV,ROB,EVA,
 173,TRAPS,-1,-1,トラップ生成,Create Traps,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,"%^sが何かをつぶやいて邪悪に微笑んだ。/%^s mumbles, and then cackles evilly.",%^sが何かをつぶやいた。/%^s mumbles.
 174,FORGET,-1,-1,記憶消去,Cause Amnesia,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sがあなたの記憶を消去しようとしている。/%^s tries to blank your mind.,%^sが何かをつぶやいた。/%^s mumbles.
 175,ANIM_DEAD,-1,-1,死者復活,Raise Dead,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが死者復活の呪文を唱えた。/%^s casts a spell to revive corpses.,%^sが何かをつぶやいた。/%^s mumbles.
-176,S_KIN,-1,-1,同族召喚,Summon Aid,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は自分と同種族の従僕を召喚できる。,,,,,,,%^sが何かをつぶやいた。/%^s mumbles.
+176,S_KIN,-1,-1,同族召喚,Summon Aid,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,は自分と同種族の従僕を召喚できる。,,,,,,援軍を召喚した。/You summon minions.,%^sが何かをつぶやいた。/%^s mumbles.
 177,S_CYBER,-1,-1,サイバーデーモン召喚,Summon Cyberdemons,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,はサイバーデーモンを召喚できる。,,,,,,%^sがサイバーデーモンを召喚した！/%^s magically summons Cyberdemons!,%^sが何かをつぶやいた。/%^s mumbles.
 178,S_MONSTER,-1,-1,クリーチャー召喚,Summon Creature,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが魔法で仲間を召喚した！/%^s magically summons help!,%^sが何かをつぶやいた。/%^s mumbles.
 179,S_MONSTERS,-1,-1,クリーチャー複数召喚,Summon Creatures,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,%^sが魔法でクリーチャーを召喚した！/%^s magically summons creatures!,%^sが何かをつぶやいた。/%^s mumbles.
