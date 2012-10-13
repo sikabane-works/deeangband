@@ -1860,7 +1860,7 @@ static void spoil_species_desc(cptr fname)
 			if(stat[j] < 3) stat[j] = 3;
 		}
 
-		if((species_ptr->blow[0].method == RBM_NONE || species_ptr->blow[0].method >= RBM_NONDEX_ATTACK) && has_trait_species(species_ptr, TRAIT_NEVER_MOVE))
+		if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER))
 			sprintf(sa, "--");
 		else
 			sprintf(sa, "%2d", stat[0]);

@@ -2994,14 +2994,9 @@ static bool creature_hook_chameleon_lord(int species_idx)
 
 	if(!(has_trait_species(r_ptr, TRAIT_UNIQUE))) return FALSE;
 	if(has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
-
 	if(ABS(r_ptr->level - species_info[SPECIES_CHAMELEON_K].level) > 5) return FALSE;
+	if(has_trait_species(r_ptr, TRAIT_SUICIDE_BOMBER)) return FALSE;
 
-	if((r_ptr->blow[0].method == RBM_EXPLODE) ||
-		(r_ptr->blow[1].method == RBM_EXPLODE) ||
-		(r_ptr->blow[2].method == RBM_EXPLODE) ||
-		(r_ptr->blow[3].method == RBM_EXPLODE))
-		return FALSE;
 
 	if(!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 
@@ -3018,9 +3013,7 @@ static bool creature_hook_chameleon(int species_idx)
 	if(has_trait_species(r_ptr, TRAIT_UNIQUE)) return FALSE;
 	if(has_trait_species(r_ptr, TRAIT_MULTIPLY)) return FALSE;
 	if(has_trait_species(r_ptr, TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_CHAMELEON)) return FALSE;
-	
-	if((r_ptr->blow[0].method == RBM_EXPLODE) || (r_ptr->blow[1].method == RBM_EXPLODE) || (r_ptr->blow[2].method == RBM_EXPLODE) || (r_ptr->blow[3].method == RBM_EXPLODE))
-		return FALSE;
+	if(has_trait_species(r_ptr, TRAIT_SUICIDE_BOMBER)) return FALSE;
 
 	if(!species_can_cross_terrain(floor_ptr->cave[m_ptr->fy][m_ptr->fx].feat, r_ptr, 0)) return FALSE;
 

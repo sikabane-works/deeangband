@@ -5386,14 +5386,13 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 				{
 					int m;
 					int dam_melee = 0;
-					for (m = 0; m < 4; m++)
+					for (m = 0; m < MAX_SPECIAL_BLOWS; m++)
 					{
 						/* Skip non-attacks */
-						if(!m_ptr->blow[m].method || (m_ptr->blow[m].method == RBM_SHOOT)) continue;
+						if(!m_ptr->blow[m].method == RBM_SHOOT) continue;
 
 						/* Extract the attack info */
 						dam_melee += blow_damcalc(m_ptr, player_ptr, &m_ptr->blow[m]);
-						if(m_ptr->blow[m].method == RBM_EXPLODE) break;
 					}
 					if(dam_melee > dam_max0) dam_max0 = dam_melee;
 				}
