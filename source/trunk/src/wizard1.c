@@ -2400,11 +2400,6 @@ static void spoil_species_info(cptr fname)
 	msg_print("Successfully created a spoiler file.");
 }
 
-
-
-#define MAX_EVOL_DEPTH 64
-
-
 /*
  * Compare two int-type array like strncmp() and return TRUE if equals
  */

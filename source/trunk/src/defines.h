@@ -2213,11 +2213,6 @@
 	((bool)((A)->see_others && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
 	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
-// Does creature exist here?
-#define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)
-
-
-
 /*** Option Definitions ***/
 
 
@@ -2382,15 +2377,10 @@
 /*
  * Grid based version of "creature_bold()"
  */
-#define player_grid(C) \
-	((C) == &floor_list[player_ptr->floor_id].cave[player_ptr->fy][player_ptr->fx])
-
-
 #define cave_have_flag_bold(FLOOR, Y, X, INDEX) \
 	(have_flag(feature_info[(FLOOR)->cave[(Y)][(X)].feat].flags, (INDEX)))
 
-
-#define cave_have_flag_grid(C,INDEX) \
+#define cave_have_flag_grid(C, INDEX) \
 	(have_flag(feature_info[(C)->feat].flags, (INDEX)))
 
 
@@ -2488,9 +2478,10 @@
  * Grid based version of "cave_empty_bold()"
  */
 #define cave_empty_grid(C) \
-	(cave_have_flag_grid((C), FF_PLACE) && \
-	 !((C)->creature_idx) && !player_grid(C))
+	(cave_have_flag_grid((C), FF_PLACE) && !((C)->creature_idx))
 
+// Does creature exist here?
+#define EXIST_CREATURE(FLOOR, Y, X) ((FLOOR)->cave[(Y)][(X)].creature_idx != 0)
 
 /*
  * Grid based version of "cave_perma_bold()"
@@ -3320,3 +3311,4 @@ enum GRAPHICS_MODE
 #define BIRTH_SELECT_RETURN	-2
 #define BIRTH_SELECT_QUIT	-3
 
+#define MAX_EVOL_DEPTH 64
