@@ -637,11 +637,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int num = diceroll(5, 3);
 			int y, x;
 			int attempts;
-#ifdef JP
-			msg_print("鎧が稲妻で覆われた...");
-#else
-			msg_print("Your armor is surrounded by lightning...");
-#endif
 			for (k = 0; k < num; k++)
 			{
 				attempts = 1000;
@@ -649,9 +644,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				while (attempts--)
 				{
 					scatter(floor_ptr, &y, &x, caster_ptr->fy, caster_ptr->fx, 4, 0);
-
 					if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
-
 					if(!creature_bold(caster_ptr, y, x)) break;
 				}
 
@@ -715,12 +708,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_FIRE_MINI:
 		{
-#ifdef JP
-			msg_print("ガントレットが炎に覆われた...");
-#else
-			msg_print("Your gauntlets are covered in fire...");
-#endif
-
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_bolt(caster_ptr, GF_FIRE, dir, diceroll(9, 8));
 			break;
@@ -728,11 +715,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_COLD_MINI:
 		{
-#ifdef JP
-			msg_print("ガントレットが冷気に覆われた...");
-#else
-			msg_print("Your gauntlets are covered in frost...");
-#endif
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_bolt(caster_ptr, GF_COLD, dir, diceroll(6, 8));
 			break;
@@ -740,12 +722,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_ELEC_MINI:
 		{
-#ifdef JP
-			msg_print("ガントレットが火花に覆われた...");
-#else
-			msg_print("Your gauntlets are covered in sparks...");
-#endif
-
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_bolt(caster_ptr, GF_ELEC, dir, diceroll(4, 8));
 			break;
@@ -753,12 +729,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BO_ACID_MINI:
 		{
-#ifdef JP
-			msg_print("ガントレットが酸に覆われた...");
-#else
-			msg_print("Your gauntlets are covered in acid...");
-#endif
-
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_bolt(caster_ptr, GF_ACID, dir, diceroll(5, 8));
 			break;
@@ -814,12 +784,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_SUMMON_DAWN_LEGION:
 		{
-#ifdef JP
-			msg_print("暁の師団を召喚した。");
-#else
-			msg_print("You summon the Legion of the Dawn.");
-#endif
-
 			(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
 			break;
 		}
