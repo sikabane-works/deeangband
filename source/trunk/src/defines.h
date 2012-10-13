@@ -2870,7 +2870,6 @@ enum GRAPHICS_MODE
 #define SPECIES_DIO           878
 #define SPECIES_OHMU          879
 #define SPECIES_WONG          880
-#define SPECIES_ZOMBI_SERPENT 883
 #define SPECIES_D_ELF_SHADE   886
 #define SPECIES_MANA_HOUND    887
 #define SPECIES_VENOM_WYRM    890

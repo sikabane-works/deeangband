@@ -2378,17 +2378,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_S_KIN:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0; k < 4; k++)
-			{
-				(void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
-			}
-			break;
-		}
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < 4; k++) (void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
+		break;
 
 		{
-			if(caster_ptr->species_idx == SPECIES_SERPENT || caster_ptr->species_idx == SPECIES_ZOMBI_SERPENT)
+			if(caster_ptr->species_idx == SPECIES_SERPENT)
 			{
 #ifdef JP
 				if(blind)
@@ -2448,7 +2443,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				break;
 
 			case SPECIES_SERPENT:
-			case SPECIES_ZOMBI_SERPENT:
 				{
 					int num = 2 + randint1(3);
 
