@@ -280,8 +280,7 @@ bool object_is_equipment2(creature_type *creature_ptr, object_type *object_ptr)
  */
 bool object_refuse_enchant_weapon(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if(object_ptr->tval == TV_SWORD && object_ptr->sval == SV_DOKUBARI) return TRUE;
-
+	if(has_trait_object(object_ptr, TRAIT_CRITICAL_SLAYING)) return TRUE;
 	return FALSE;
 }
 

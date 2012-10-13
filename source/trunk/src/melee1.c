@@ -210,7 +210,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (r_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
-	if(((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+	if(has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) || (mode == HISSATSU_KYUSHO))
 	{
 		int n = count_melee_slot(attacker_ptr);
 		if(mode == HISSATSU_3DAN) n *= 2;
@@ -296,7 +296,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				do_quake = TRUE;
 			}
 
-			if((!(weapon_ptr->tval == TV_SWORD) || !(weapon_ptr->sval == SV_DOKUBARI)) && !(mode == HISSATSU_KYUSHO))
+			if(!has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) && !(mode == HISSATSU_KYUSHO))
 				k = test_critial_melee(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
 
 			drain_result = k;
@@ -468,7 +468,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		// Modify the damage
 		k = invuln_damage_mod(target_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((attacker_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
-		if(((weapon_ptr->tval == TV_SWORD) && (weapon_ptr->sval == SV_DOKUBARI)) || (mode == HISSATSU_KYUSHO))
+		if(has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) || (mode == HISSATSU_KYUSHO))
 		{
 			if((randint1(randint1(r_ptr->level / 7)+5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
 			{

@@ -407,16 +407,6 @@ info[i++] = "それは投げた時ペットに変化する。";
 
 	}
 
-	if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DOKUBARI))
-	{
-#ifdef JP
-info[i++] = "それは相手を一撃で倒すことがある。";
-#else
-		info[i++] = "It will attempt to kill a creature instantly.";
-#endif
-
-	}
-
 	if((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_DEATH_SCYTHE))
 	{
 #ifdef JP

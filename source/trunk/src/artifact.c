@@ -1805,7 +1805,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	if(((artifact_bias == BIAS_MAGE) || (artifact_bias == BIAS_INT)) && (object_ptr->tval == TV_GLOVES)) add_flag(object_ptr->trait_flags, TRAIT_FREE_ACTION);
 
-	if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DOKUBARI))
+	if(has_trait_object(object_ptr, TRAIT_CRITICAL_SLAYING))
 	{
 		object_ptr->to_hit = 0;
 		object_ptr->to_damage = 0;
