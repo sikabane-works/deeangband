@@ -1005,7 +1005,7 @@ sprintf(text, "  %2d", command_rep);
 #else
 				strcpy(text, "lear");
 #endif
-				if(new_mane) attr = TERM_L_RED;
+				if(creature_ptr->new_mane) attr = TERM_L_RED;
 				break;
 			}
 			case ACTION_FISH:
@@ -1192,7 +1192,7 @@ static void prt_imitation(creature_type *creature_ptr)
 		if(creature_ptr->mane_num)
 		{
 			byte attr;
-			if(new_mane) attr = TERM_L_RED;
+			if(creature_ptr->new_mane) attr = TERM_L_RED;
 			else attr = TERM_WHITE;
 #ifdef JP
 			c_put_str(attr, "‚Ü‚Ë", row_study, col_study);

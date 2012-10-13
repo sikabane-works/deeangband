@@ -134,8 +134,8 @@
 #define NASTY_ENEMY_MAX        3
 #define NASTY_ENEMY_PLUS_MIN   10
 
-/* 1/x chance of hurting even if invulnerable! */
-#define PENETRATE_INVULNERABILITY 13
+#define PENETRATE_INVULNERABILITY 13		// 1/x chance of hurting even if invulnerable!
+#define HURT_CHANCE 16						// 1/x chance of reducing stats (for elemental attacks)
 
 #define QUANTUM_CREATURE_VANISH_CHANCE 60
 
@@ -147,3 +147,5 @@
 
 #define SUMMON_TRY_NUM_MIDIUM 4
 #define SUMMON_TRY_NUM_HIGH 6
+
+

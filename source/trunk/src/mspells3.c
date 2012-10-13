@@ -900,7 +900,7 @@ void learn_trait(creature_type *creature_ptr, int trait_index)
 		/* Sound */
 		sound(SOUND_STUDY);
 
-		new_mane = TRUE;
+		creature_ptr->new_mane = TRUE;
 		play_redraw |= (PR_STATE);
 	}
 }

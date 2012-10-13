@@ -1535,6 +1535,7 @@ struct creature_type
 	bool hack_mutation;
 	bool level_up;
 	bool hear_noise;
+	bool new_mane;
 
 	u16b total_winner;	  // Total winner
 	u32b creature_update;

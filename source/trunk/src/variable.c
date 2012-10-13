@@ -1033,7 +1033,6 @@ u16b panic_save;	  /* Panic save */
 u16b noscore;		  /* Cheating flags */
 
 bool sukekaku;
-bool new_mane;
 
 bool ambush_flag;
 

@@ -13,9 +13,6 @@
 #include "angband.h"
 
 /* ToDo: Make this global */
-/* 1/x chance of reducing stats (for elemental attacks) */
-#define HURT_CHANCE 16
-
 
 static int do_thrown_from_ridingdam_m;
 static int do_thrown_from_ridingdam_p;
@@ -592,10 +589,8 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 	bool obvious = FALSE;
 	bool known = player_has_los_bold(y, x);
 
-
 	/* Reduce damage by distance */
 	dam = (dam + r) / (r + 1);
-
 
 	if(have_flag(f_ptr->flags, FF_TREE))
 	{
@@ -1234,8 +1229,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 	}
 
 	lite_spot(floor_ptr, y, x);
-	/* Return "Anything seen?" */
-	return (obvious);
+	return (obvious);	// Return "Anything seen?"
 }
 
 

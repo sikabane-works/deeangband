@@ -133,7 +133,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 				msg_print("You stop Learning");
 #endif
-				new_mane = FALSE;
+				creature_ptr->new_mane = FALSE;
 				break;
 			}
 			case ACTION_KAMAE:
@@ -411,7 +411,7 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 					msg_format("%s cannot continue Learning!", name);
 #endif
 				}
-				new_mane = FALSE;
+				creature_ptr->new_mane = FALSE;
 
 				play_redraw |= (PR_STATE);
 				creature_ptr->action = ACTION_NONE;

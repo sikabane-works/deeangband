@@ -5470,12 +5470,12 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 						creature_ptr->mane_dam[i] = creature_ptr->mane_dam[i+1];
 					}
 				}
-				new_mane = FALSE;
+				creature_ptr->new_mane = FALSE;
 				play_redraw |= (PR_IMITATION);
 			}
 			if(creature_ptr->action == ACTION_LEARN)
 			{
-				new_mane = FALSE;
+				creature_ptr->new_mane = FALSE;
 				play_redraw |= (PR_STATE);
 			}
 

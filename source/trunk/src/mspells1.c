@@ -1678,7 +1678,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 			target_ptr->mane_spell[target_ptr->mane_num] = thrown_spell - 96;
 			target_ptr->mane_dam[target_ptr->mane_num] = dam;
 			target_ptr->mane_num++;
-			new_mane = TRUE;
+			caster_ptr->new_mane = TRUE;
 
 			play_redraw |= (PR_IMITATION);
 		}
