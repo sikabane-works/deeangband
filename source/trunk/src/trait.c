@@ -877,33 +877,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SEARCH_UNIQUE:
 		{
 			creature_type *m_ptr;
-			species_type *r_ptr;
 			int i;
-
-#ifdef JP
-			msg_print("奇妙な場所が頭の中に浮かんだ．．．");
-#else
-			msg_print("Some strange places show up in your mind. And you see ...");
-#endif
 
 			/* Process the creatures (backwards) */
 			for (i = creature_max - 1; i >= 1; i--)
 			{
-				/* Access the creature */
+				// Access the creature
 				m_ptr = &creature_list[i];
-
-				/* Ignore "dead" creatures */
-				if(!m_ptr->species_idx) continue;
-
-				r_ptr = &species_info[m_ptr->species_idx];
-
-				if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+				if(!is_valid_creature(m_ptr) && !IS_IN_THIS_FLOOR(m_ptr)) continue;
+				if(has_trait(m_ptr, TRAIT_UNIQUE))
 				{
-#ifdef JP
-					msg_format("%s． ",species_name + r_ptr->name);
-#else
-					msg_format("%s. ",species_name + r_ptr->name);
-#endif
+					msg_format("%s． ", m_ptr->name);
 				}
 			}
 			break;
@@ -912,9 +896,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_PERILOUS_INDENTIFY:
 		{
 #ifdef JP
-			msg_print("石が隠された秘密を写し出した．．．");
+			msg_print("隠された秘密が写し出される．．．");
 #else
-			msg_print("The stone reveals hidden mysteries...");
+			msg_print("Hidden mysteries is revealed...");
 #endif
 			if(!ident_spell(caster_ptr, FALSE)) return FALSE;
 
@@ -3989,6 +3973,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_warning("Undefined active trait.");
 		}
 
+	}
 	}
 
 	if(kichigai_talk)
