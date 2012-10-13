@@ -7872,7 +7872,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				//TODO set_mimic(creature_ptr, base + randint1(base), MIMIC_DEMON, FALSE);
+				creature_ptr->mimic_race_idx = RACE_DEMON;
+				set_timed_trait_aux(creature_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
 			}
 		}
 		break;
@@ -8119,7 +8120,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				//TODO set_mimic(creature_ptr, base + randint1(base), MIMIC_DEMON_LORD, FALSE);
+				creature_ptr->mimic_race_idx = RACE_FIEND_LORD;
+				set_timed_trait_aux(creature_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
 			}
 		}
 		break;

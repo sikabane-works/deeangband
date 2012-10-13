@@ -1512,7 +1512,6 @@ extern bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bo
 extern void set_action(creature_type *creature_ptr, int typ);
 extern void reset_timed_trait(creature_type *creature_ptr);
 extern void dispel_creature(creature_type *creature_ptr);
-extern bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec);
 extern bool set_food(creature_type *creature_ptr, int v);
 extern bool inc_stat(creature_type *creature_ptr, int stat);
 extern bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent);
