@@ -31,28 +31,17 @@
 #define is_pval_flag(INDEX)			((STAT_STR <= (INDEX) && (INDEX) <= TRAIT_MAGIC_MASTERY) || (TRAIT_STEALTH <= (INDEX) && (INDEX) <= TRAIT_BLOWS))
 #define have_pval_flags(ARRAY)		!!((ARRAY)[0] & (0x00003f7f))
 
-
 #define IS_EQUIPPED(OBJECT) ((OBJECT)->equipped_slot_type > 0 && (OBJECT)->equipped_slot_num > 0 ? (OBJECT)->equipped_slot_num : 0)
-
 #define HAS_AUTHORITY(CR, N) ((CR)->authority[(N) / 32] & (0x01 << (N) % 32)) 
-
 #define SUITABLE_CLASS(CR, CLS_IDX)	(race_info[(CR)->race_idx1].choice & (0x01 << (CLS_IDX)) || race_info[(CR)->race_idx2].choice & (0x01 << (CLS_IDX)))
-
 #define GET_INVEN_SLOT_TYPE(CR, I) (object_kind_info[(CR)->inventory[(I)].k_idx].slot)
-
 #define WIELD_SLOT(O) (object_kind_info[(O)->k_idx].slot)
-
 #define IS_DEAD(CR) ((CR)->chp < 0)
-
 #define GET_FLOOR_PTR(CR) ((CR) && (CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
-
 #define IS_PURE_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) && (CR)->race_idx2 == (IDX))
-
 #define IS_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) || (CR)->race_idx2 == (IDX))
-
 #define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
-
-#define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE)
+#define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE || has_trait((CR), TRAIT_MIMIC))
 
 /* Hex */
 #define hex_spelling_any(USER) \
