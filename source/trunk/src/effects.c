@@ -349,7 +349,6 @@ bool set_mimic(creature_type *creature_ptr, int v, int p, bool do_dec)
 				msg_print("You feel that your body changes.");
 #endif
 			}
-			creature_ptr->mimic_race_idx=p;
 			notice = TRUE;
 		}
 	}

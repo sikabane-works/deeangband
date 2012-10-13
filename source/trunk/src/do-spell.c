@@ -4893,7 +4893,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				//TODO set_mimic(creature_ptr, base + randint1(base), MIMIC_VAMPIRE, FALSE);
+				set_timed_trait_aux(creature_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
 			}
 		}
 		break;
