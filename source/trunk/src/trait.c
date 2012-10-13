@@ -1083,12 +1083,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TELEKINES:
 		{
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("ムチを伸ばした。");
-#else
-			msg_print("You stretched your whip.");
-#endif
-
 			fetch(caster_ptr, dir, 500, TRUE);
 			break;
 		}
@@ -2163,23 +2157,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_WORLD:
 		caster_ptr->time_stopper = TRUE;
-		if(damage == 1 || damage == 2)
-#ifdef JP
-			msg_print("「『ザ・ワールド』！時は止まった！」");
-#else
-			msg_print("You yell 'The World! Time has stopped!'");
-#endif
-		else if(damage == 3 || damage == 6)
-#ifdef JP
-			msg_print("「時よ！」");
-#else
-			msg_print("You yell 'Time!'");
-#endif
-		else
-			msg_print("hek!");
 		msg_print(NULL);
 
-		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200)+200) * TURNS_PER_TICK / 10; // Hack
+		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200) + 200) * TURNS_PER_TICK / 10; // Hack
 		play_redraw |= (PR_MAP); // Redraw map
 		update |= (PU_CREATURES); // Update creatures
 		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
@@ -3371,11 +3351,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_SCAN_CREATURE:
 		{
-#ifdef JP
-			msg_print("敵を調査した...");
-#else
-			msg_print("You examine your foes...");
-#endif
 			probing(floor_ptr);
 			break;
 		}
