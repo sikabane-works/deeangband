@@ -16,7 +16,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 {
 	creature_type *target_ptr = NULL;
 	char caster_name[100] = "何か", target_name[100] = "何か";
-	int k, dir, dummy;
+	int i, k, dir = 0, dummy;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int user_level = caster_ptr->lev;
 	int damage = 0;
@@ -95,7 +95,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				int y = 0, x = 0;
 				cave_type       *c_ptr;
-				creature_type    *m_ptr;
+				creature_type    *target_ptr;
 
 				for (dir = 0; dir <= 9; dir++)
 				{
@@ -103,10 +103,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					x = caster_ptr->fx + ddx[dir];
 					c_ptr = &floor_ptr->cave[y][x];
 
-					m_ptr = &creature_list[c_ptr->creature_idx]; // Get the creature
+					target_ptr = &creature_list[c_ptr->creature_idx]; // Get the creature
 
 					// Hack -- attack creatures
-					if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+					if(c_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						melee_attack(caster_ptr, y, x, 0);
 				}
 			}
@@ -875,69 +875,40 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SEARCH_UNIQUE:
+		// Process the creatures (backwards)
+		for (i = creature_max - 1; i >= 1; i--) // Access the creature
 		{
-			creature_type *m_ptr;
-			int i;
-
-			/* Process the creatures (backwards) */
-			for (i = creature_max - 1; i >= 1; i--)
-			{
-				// Access the creature
-				m_ptr = &creature_list[i];
-				if(!is_valid_creature(m_ptr) && !IS_IN_THIS_FLOOR(m_ptr)) continue;
-				if(has_trait(m_ptr, TRAIT_UNIQUE))
-				{
-					msg_format("%s． ", m_ptr->name);
-				}
-			}
+			target_ptr = &creature_list[i];
+			if(!is_valid_creature(target_ptr) && !IS_IN_THIS_FLOOR(target_ptr)) continue;
+			if(has_trait(target_ptr, TRAIT_UNIQUE)) msg_format("%s． ", target_ptr->name);
 			break;
 		}
 
 	case TRAIT_PERILOUS_INDENTIFY:
 		{
-#ifdef JP
-			msg_print("隠された秘密が写し出される．．．");
-#else
-			msg_print("Hidden mysteries is revealed...");
-#endif
 			if(!ident_spell(caster_ptr, FALSE)) return FALSE;
 
 			if(magic_info[caster_ptr->class_idx].spell_book)
 			{
-				/* Sufficient mana */
-				if(20 <= caster_ptr->csp)
-				{
-					/* Use some mana */
-					caster_ptr->csp -= 20;
-				}
+				// Sufficient mana
+				if(PERILOUS_INDENTIFY_COST <= caster_ptr->csp) caster_ptr->csp -= PERILOUS_INDENTIFY_COST;
 
-				/* Over-exert the player */
 				else
 				{
-					int oops = 20 - caster_ptr->csp;
-
-					/* No mana left */
+					int oops = PERILOUS_INDENTIFY_COST - caster_ptr->csp;
 					caster_ptr->csp = 0;
 					caster_ptr->csp_frac = 0;
-
-					/* Message */
 #ifdef JP
 					msg_print("石を制御できない！");
 #else
 					msg_print("You are too weak to control the stone!");
 #endif
-
-					/* Hack -- Bypass free action */
-					(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] +
-						randint1(5 * oops + 1));
-
-					/* Confusing. */
-					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] +
-						randint1(5 * oops + 1));
+					// Confusing.
+					(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));					
+					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5 * oops + 1));
 				}
 
-				/* Redraw mana */
-				play_redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA); // Redraw mana
 			}
 
 #ifdef JP
@@ -946,11 +917,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), "perilous secrets", NULL, -1);
 #endif
 
-			/* Confusing. */
-			if(one_in_(5)) (void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] +
-				randint1(10));
+			if(one_in_(5)) (void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(10));
 
-			/* Exercise a little care... */
 			if(one_in_(20))
 #ifdef JP
 				take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "危険な秘密", NULL, -1);
@@ -1081,7 +1049,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_INROU:
 		{
 			int count = 0, i;
-			creature_type *m_ptr;
+			creature_type *target_ptr;
 #ifndef JP
 			cptr kakusan = "";
 #endif
@@ -1110,11 +1078,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				for (i = creature_max - 1; i > 0; i--)
 				{
-					m_ptr = &creature_list[i];
-					if(!m_ptr->species_idx) continue;
-					if(!((m_ptr->species_idx == SPECIES_SUKE) || (m_ptr->species_idx == SPECIES_KAKU))) continue;
-					if(!los(floor_ptr, m_ptr->fy, m_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
-					if(!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
+					target_ptr = &creature_list[i];
+					if(!target_ptr->species_idx) continue;
+					if(!((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) continue;
+					if(!los(floor_ptr, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
+					if(!projectable(floor_ptr, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
 					count++;
 					break;
 				}
@@ -2310,21 +2278,21 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TELE_TO:
 		{
-			creature_type *m_ptr;
+			creature_type *target_ptr;
 			species_type *r_ptr;
 
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			m_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
-			r_ptr = &species_info[m_ptr->species_idx];
-			creature_desc(target_name, m_ptr, 0);
-			if(has_trait(m_ptr, TRAIT_RES_TELE))
+			target_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
+			r_ptr = &species_info[target_ptr->species_idx];
+			creature_desc(target_name, target_ptr, 0);
+			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(m_ptr, TRAIT_RES_ALL))
+				if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
 				{
-					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					msg_format("%sには効果がなかった！", target_name);
 #else
@@ -2335,7 +2303,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				}
 				else if(r_ptr->level > randint1(100))
 				{
-					if(is_original_ap_and_seen(player_ptr, m_ptr)) reveal_creature_info(m_ptr, TRAIT_RES_TELE);
+					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
 					msg_format("%sには耐性がある！", target_name);
 #else
@@ -2397,7 +2365,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 		{
 			int target_m_idx;
-			creature_type *m_ptr;
+			creature_type *target_ptr;
 			species_type *r_ptr;
 			char target_name[80];
 
@@ -2406,11 +2374,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!target_m_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
-			m_ptr = &creature_list[target_m_idx];
-			r_ptr = &species_info[m_ptr->species_idx];
-			creature_desc(target_name, m_ptr, 0);
+			target_ptr = &creature_list[target_m_idx];
+			r_ptr = &species_info[target_ptr->species_idx];
+			creature_desc(target_name, target_ptr, 0);
 
-			if(has_trait(m_ptr, TRAIT_RES_NEXU) || has_trait(m_ptr, TRAIT_RES_TELE) ||
+			if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
 				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
 			{
 #ifdef JP
