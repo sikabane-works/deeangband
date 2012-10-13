@@ -1268,12 +1268,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 
 		case SUMMON_KNIGHTS:
 		{
-			okay = ((species_idx == SPECIES_NOV_PALADIN) ||
-				(species_idx == SPECIES_NOV_PALADIN_G) ||
-				(species_idx == SPECIES_PALADIN) ||
-				(species_idx == SPECIES_W_KNIGHT) ||
-				(species_idx == SPECIES_ULTRA_PALADIN) ||
-				(species_idx == SPECIES_KNI_TEMPLAR));
+			okay = r_ptr->class_idx == CLASS_PALADIN;
 			break;
 		}
 
