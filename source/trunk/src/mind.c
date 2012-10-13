@@ -1545,7 +1545,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 	}
 	case 3:
 	{
-		if(!(creature_ptr->special_defense & NINJA_KAWARIMI))
+		if(!(creature_ptr->posture & NINJA_KAWARIMI))
 		{
 #ifdef JP
 			msg_print("“G‚ÌUŒ‚‚É‘Î‚µ‚Ä•qŠ´‚É‚È‚Á‚½B");
@@ -1553,7 +1553,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 			msg_print("You are now prepare to evade any attacks.");
 #endif
 
-			creature_ptr->special_defense |= NINJA_KAWARIMI;
+			creature_ptr->posture |= NINJA_KAWARIMI;
 			play_redraw |= (PR_STATUS);
 		}
 		break;

@@ -553,7 +553,7 @@ bool choose_kamae(creature_type *creature_ptr)
 	}
 	set_action(creature_ptr, ACTION_KAMAE);
 
-	if(creature_ptr->special_defense & (KAMAE_GENBU << new_kamae))
+	if(creature_ptr->posture & (KAMAE_GENBU << new_kamae))
 	{
 #ifdef JP
 		msg_print("構え直した。");
@@ -563,7 +563,7 @@ bool choose_kamae(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->special_defense &= ~(KAMAE_MASK);
+		creature_ptr->posture &= ~(KAMAE_MASK);
 		creature_ptr->creature_update |= (CRU_BONUS);
 		play_redraw |= (PR_STATE);
 #ifdef JP
@@ -571,7 +571,7 @@ bool choose_kamae(creature_type *creature_ptr)
 #else
 		msg_format("You assume a posture of %s form.",kamae_shurui[new_kamae].desc);
 #endif
-		creature_ptr->special_defense |= (KAMAE_GENBU << new_kamae);
+		creature_ptr->posture |= (KAMAE_GENBU << new_kamae);
 	}
 	play_redraw |= PR_STATE;
 	screen_load();
@@ -691,7 +691,7 @@ bool choose_kata(creature_type *creature_ptr)
 	}
 	set_action(creature_ptr, ACTION_KATA);
 
-	if(creature_ptr->special_defense & (KATA_IAI << new_kata))
+	if(creature_ptr->posture & (KATA_IAI << new_kata))
 	{
 #ifdef JP
 		msg_print("構え直した。");
@@ -701,14 +701,14 @@ bool choose_kata(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->special_defense &= ~(KATA_MASK);
+		creature_ptr->posture &= ~(KATA_MASK);
 		creature_ptr->creature_update |= (CRU_BONUS | PU_CREATURES);
 #ifdef JP
 		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
 #else
 		msg_format("You assume a posture of %s form.",kata_shurui[new_kata].desc);
 #endif
-		creature_ptr->special_defense |= (KATA_IAI << new_kata);
+		creature_ptr->posture |= (KATA_IAI << new_kata);
 	}
 	play_redraw |= (PR_STATE);
 	play_redraw |= (PR_STATUS);
@@ -1229,7 +1229,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if(creature_ptr->special_defense & KATA_MASK)
+				if(creature_ptr->posture & KATA_MASK)
 				{
 #ifdef JP
 					msg_print("今は構えに集中している。");
@@ -2210,7 +2210,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		return;
 	}
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

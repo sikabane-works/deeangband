@@ -2644,7 +2644,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	{
 		if(!in_darkness || (d <= MAX_SIGHT / 4))
 		{
-			if(creature_ptr->special_defense & KATA_MUSOU)
+			if(creature_ptr->posture & KATA_MUSOU)
 			{
 				/* Detectable */
 				flag = TRUE;

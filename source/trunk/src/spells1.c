@@ -1019,7 +1019,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 				/* This allows "spear of light" (etc) to work "correctly" */
 				if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
 
-				if(aimer_ptr->special_defense & NINJA_S_STEALTH)
+				if(aimer_ptr->posture & NINJA_S_STEALTH)
 				{
 					if(creature_bold(aimer_ptr, y, x)) set_superstealth(aimer_ptr, FALSE);
 				}
@@ -6143,7 +6143,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	/* Player is not here */
 	if(!creature_bold(player_ptr, y, x)) return (FALSE);
 
-	if((player_ptr->special_defense & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
+	if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
 		if(kawarimi(player_ptr, TRUE)) return FALSE;
 	}
@@ -6152,14 +6152,14 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	if(is_player(attacker_ptr)) return (FALSE);
 	if(attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
-	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->special_defense & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;
 
 #ifdef JP
 		if(blind) msg_print("‰½‚©‚ª’µ‚Ë•Ô‚Á‚½I");
-		else if(player_ptr->special_defense & KATA_FUUJIN) msg_print("•—‚Ì”@‚­•Ší‚ðU‚é‚Á‚Ä’e‚«•Ô‚µ‚½I");
+		else if(player_ptr->posture & KATA_FUUJIN) msg_print("•—‚Ì”@‚­•Ší‚ðU‚é‚Á‚Ä’e‚«•Ô‚µ‚½I");
 		else msg_print("UŒ‚‚ª’µ‚Ë•Ô‚Á‚½I");
 #else
 		if(blind) msg_print("Something bounces!");
@@ -6235,7 +6235,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	disturb(player_ptr, 1, 0);
 
 
-	if((player_ptr->special_defense & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
+	if((player_ptr->posture & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
 		(void)kawarimi(player_ptr, FALSE);
 	}

@@ -3278,7 +3278,7 @@ void update_creature_lite(floor_type *floor_ptr)
 
 	player_ptr->monlite = (floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
 
-	if(player_ptr->special_defense & NINJA_S_STEALTH)
+	if(player_ptr->posture & NINJA_S_STEALTH)
 	{
 		if(player_ptr->old_monlite != player_ptr->monlite)
 		{
@@ -4453,7 +4453,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	if(creature_ptr->special_defense & NINJA_S_STEALTH)
+	if(creature_ptr->posture & NINJA_S_STEALTH)
 	{
 		if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 	}
@@ -4639,7 +4639,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 			update_local_illumination(floor_ptr, yy, xx);
 
-			if(creature_ptr->special_defense & NINJA_S_STEALTH)
+			if(creature_ptr->posture & NINJA_S_STEALTH)
 			{
 				if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 			}

@@ -192,7 +192,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	int need_switch_wielding = 0;
 
-	if(creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(creature_ptr->posture & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
@@ -444,7 +444,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr q, s;
 
-	if(creature_ptr->special_defense & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(creature_ptr->posture & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	// Get an item
 #ifdef JP
@@ -543,7 +543,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -659,7 +659,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1413,7 +1413,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 	/* Get the light */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

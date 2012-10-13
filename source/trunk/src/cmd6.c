@@ -638,7 +638,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 	cptr        q, s;
 
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1421,7 +1421,7 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2143,7 +2143,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2748,7 +2748,7 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -3234,7 +3234,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	int     item;
 	cptr    q, s;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -3662,7 +3662,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	int item;
 	cptr q, s;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -4460,7 +4460,7 @@ void do_cmd_activate(creature_type *creature_ptr)
 	cptr    q, s;
 
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -4545,7 +4545,7 @@ void do_cmd_use(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr        q, s;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

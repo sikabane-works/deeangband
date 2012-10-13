@@ -642,7 +642,7 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < MAX_KARMA; i++) wr_s32b(creature_ptr->karmas[i]);
 
 	wr_u32b(creature_ptr->special_attack);
-	wr_u32b(creature_ptr->special_defense);
+	wr_u32b(creature_ptr->posture);
 	wr_byte(creature_ptr->knowledge);
 	wr_byte(creature_ptr->autopick_autoregister);
 	wr_byte(creature_ptr->action);

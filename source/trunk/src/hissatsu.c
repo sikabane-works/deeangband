@@ -369,7 +369,7 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 		return;
 	}
 
-	if(creature_ptr->special_defense & KATA_MASK)
+	if(creature_ptr->posture & KATA_MASK)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -425,7 +425,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 
 	bool gain = FALSE;
 
-	if(creature_ptr->special_defense & (KATA_MUSOU | KATA_KOUKIJIN))
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

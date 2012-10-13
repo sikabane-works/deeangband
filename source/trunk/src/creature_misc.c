@@ -866,26 +866,26 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	case GF_FIRE:
 		if(has_trait(creature_ptr, TRAIT_HURT_FIRE)) t *= 2;
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
+		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_fire > 0) t /= 3;
 		break;
 
 	case GF_COLD:
 		if(has_trait(creature_ptr, TRAIT_HURT_COLD)) t *= 2;
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
+		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_cold > 0) t /= 3;
 		break;
 
 	case GF_ELEC:
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
+		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_elec > 0) t /= 3;
 		break;
 
 	case GF_ACID:
 		if(has_trait(creature_ptr, TRAIT_VULN_ELEM)) t += t / 2;
-		if(creature_ptr->special_defense & KATA_KOUKIJIN) t += t / 3;
+		if(creature_ptr->posture & KATA_KOUKIJIN) t += t / 3;
 		if(creature_ptr->resist_acid > 0) t /= 3;
 		break;
 

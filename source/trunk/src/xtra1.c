@@ -446,20 +446,20 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF]) ADD_FLG(BAR_MAGICDEFENSE);	// Shield
 	if(creature_ptr->timed_trait[TRAIT_TSUBURERU]) ADD_FLG(BAR_EXPAND);
 	if(creature_ptr->timed_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
-	if(creature_ptr->special_defense & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
+	if(creature_ptr->posture & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
-	if(creature_ptr->special_defense & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
+	if(creature_ptr->posture & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
 	if(IS_OPPOSE_ACID(creature_ptr)) ADD_FLG(BAR_RESACID);
 
-	if(creature_ptr->special_defense & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC); /* Oppose Lightning */
+	if(creature_ptr->posture & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC); /* Oppose Lightning */
 	if(IS_OPPOSE_ELEC(creature_ptr)) ADD_FLG(BAR_RESELEC);
 
 	/* Oppose Fire */
-	if(creature_ptr->special_defense & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
+	if(creature_ptr->posture & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
 	if(IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
 
 	/* Oppose Cold */
-	if(creature_ptr->special_defense & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
+	if(creature_ptr->posture & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
 	if(IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
 
 	/* Oppose Poison */
@@ -500,7 +500,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->special_attack & ATTACK_ELEC) ADD_FLG(BAR_ATTKELEC);
 	if(creature_ptr->special_attack & ATTACK_ACID) ADD_FLG(BAR_ATTKACID);
 	if(creature_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
-	if(creature_ptr->special_defense & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
+	if(creature_ptr->posture & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
 	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);
 
@@ -1021,7 +1021,7 @@ sprintf(text, "  %2d", command_rep);
 			{
 				int i;
 				for (i = 0; i < MAX_KAMAE; i++)
-					if(creature_ptr->special_defense & (KAMAE_GENBU << i)) break;
+					if(creature_ptr->posture & (KAMAE_GENBU << i)) break;
 				switch (i)
 				{
 					case 0: attr = TERM_GREEN;break;
@@ -1036,7 +1036,7 @@ sprintf(text, "  %2d", command_rep);
 			{
 				int i;
 				for (i = 0; i < MAX_KATA; i++)
-					if(creature_ptr->special_defense & (KATA_IAI << i)) break;
+					if(creature_ptr->posture & (KATA_IAI << i)) break;
 				strcpy(text, kata_shurui[i].desc);
 				break;
 			}
@@ -2683,7 +2683,7 @@ static void calc_lite(creature_type *creature_ptr)
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
 
-		if((creature_ptr->cur_lite > 0) && (creature_ptr->special_defense & NINJA_S_STEALTH))
+		if((creature_ptr->cur_lite > 0) && (creature_ptr->posture & NINJA_S_STEALTH))
 			set_superstealth(creature_ptr, FALSE);
 	}
 }
@@ -2698,7 +2698,7 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	race_type *race2_ptr = &race_info[creature_ptr->race_idx2];
 	race_type *mimic_ptr = &race_info[creature_ptr->mimic_race_idx];
 
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		if(IS_MIMICED(creature_ptr))
 			creature_ptr->stat_add[i] += mimic_ptr->r_adj[i] * STAT_FRACTION;
@@ -2725,8 +2725,7 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += mimic_ptr->r_thb;
 		creature_ptr->skill_tht += mimic_ptr->r_thb;
 	}
-
-	if(IS_PURE(creature_ptr))
+	else if(IS_PURE(creature_ptr))
 	{
 		creature_ptr->skill_dis += race1_ptr->r_dis;
 		creature_ptr->skill_dev += race1_ptr->r_dev;
@@ -2740,7 +2739,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_thb += race1_ptr->r_thb;
 		creature_ptr->skill_tht += race1_ptr->r_thb;
 	}
-
 	else
 	{
 		creature_ptr->skill_dis += race1_ptr->r_s_dis + race2_ptr->r_s_dis;
@@ -2762,7 +2760,7 @@ static void set_race_bonuses(creature_type *creature_ptr)
 		creature_ptr->to_ac += mimic_ptr->ac_base + (mimic_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 		creature_ptr->dis_to_ac += mimic_ptr->ac_base + (mimic_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 	}
-	if(IS_PURE(creature_ptr))
+	else if(IS_PURE(creature_ptr))
 	{
 		creature_ptr->to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
 		creature_ptr->dis_to_ac += race1_ptr->ac_base + (race1_ptr->ac_plus * (creature_ptr->lev < 30 ? creature_ptr->lev : 30 ) / 30);
@@ -2936,7 +2934,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 	u32b limit;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
 
-	if(creature_ptr->special_defense & KAMAE_MASK)
+	if(creature_ptr->posture & KAMAE_MASK)
 	{
 		if(!(empty_hands_status & EMPTY_HAND_RARM))
 		{
@@ -2978,23 +2976,23 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 			creature_ptr->dis_to_ac += (creature_ptr->lev / 3);
 		}
 		*/
-		if(creature_ptr->special_defense & KAMAE_BYAKKO)
+		if(creature_ptr->posture & KAMAE_BYAKKO)
 		{
 			creature_ptr->stat_add[STAT_STR] += 20;
 			creature_ptr->stat_add[STAT_DEX] += 20;
 			creature_ptr->stat_add[STAT_CON] -= 30;
 		}
-		else if(creature_ptr->special_defense & KAMAE_SEIRYU)
+		else if(creature_ptr->posture & KAMAE_SEIRYU)
 		{
 		}
-		else if(creature_ptr->special_defense & KAMAE_GENBU)
+		else if(creature_ptr->posture & KAMAE_GENBU)
 		{
 			creature_ptr->stat_add[STAT_INT] -= 10;
 			creature_ptr->stat_add[STAT_WIS] -= 10;
 			creature_ptr->stat_add[STAT_DEX] -= 20;
 			creature_ptr->stat_add[STAT_CON] += 30;
 		}
-		else if(creature_ptr->special_defense & KAMAE_SUZAKU)
+		else if(creature_ptr->posture & KAMAE_SUZAKU)
 		{
 			creature_ptr->stat_add[STAT_STR] -= 20;
 			creature_ptr->stat_add[STAT_INT] += 10;
@@ -3005,7 +3003,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 		}
 	}
 
-	if(creature_ptr->special_defense & KATA_KOUKIJIN)
+	if(creature_ptr->posture & KATA_KOUKIJIN)
 	{
 		for(i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
 		creature_ptr->to_ac -= 50;
@@ -3255,13 +3253,13 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_IM_FIRE])
 	{
 		/*
-		if(creature_ptr->special_defense & DEFENSE_ACID)
+		if(creature_ptr->posture & DEFENSE_ACID)
 			creature_ptr->immune_acid = TRUE;
-		else if(creature_ptr->special_defense & DEFENSE_ELEC)
+		else if(creature_ptr->posture & DEFENSE_ELEC)
 			creature_ptr->immune_elec = TRUE;
-		else if(creature_ptr->special_defense & DEFENSE_FIRE)
+		else if(creature_ptr->posture & DEFENSE_FIRE)
 			creature_ptr->immune_fire = TRUE;
-		else if(creature_ptr->special_defense & DEFENSE_COLD)
+		else if(creature_ptr->posture & DEFENSE_COLD)
 			creature_ptr->immune_cold = TRUE;
 		*/
 	}
@@ -3302,7 +3300,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->resist_fear = TRUE;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES] || (creature_ptr->special_defense & KATA_MUSOU))
+	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES] || (creature_ptr->posture & KATA_MUSOU))
 	{
 		//creature_ptr->see_inv = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;
@@ -4425,13 +4423,13 @@ static void set_melee_status(creature_type *creature_ptr)
 			creature_ptr->dis_to_damage[0] += (creature_ptr->lev / 6);
 		}
 
-		if(creature_ptr->special_defense & KAMAE_BYAKKO)
+		if(creature_ptr->posture & KAMAE_BYAKKO)
 		{
 			creature_ptr->to_ac -= 40;
 			creature_ptr->dis_to_ac -= 40;
 			
 		}
-		else if(creature_ptr->special_defense & KAMAE_SEIRYU)
+		else if(creature_ptr->posture & KAMAE_SEIRYU)
 		{
 			creature_ptr->to_ac -= 50;
 			creature_ptr->dis_to_ac -= 50;
@@ -4445,13 +4443,13 @@ static void set_melee_status(creature_type *creature_ptr)
 			//TODO creature_ptr->sh_cold = TRUE;
 			//TODO creature_ptr->levitation = TRUE;
 		}
-		else if(creature_ptr->special_defense & KAMAE_GENBU)
+		else if(creature_ptr->posture & KAMAE_GENBU)
 		{
 			creature_ptr->to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
 			creature_ptr->dis_to_ac += (creature_ptr->lev*creature_ptr->lev)/50;
 			//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 		}
-		else if(creature_ptr->special_defense & KAMAE_SUZAKU)
+		else if(creature_ptr->posture & KAMAE_SUZAKU)
 		{
 			creature_ptr->to_hit[0] -= (creature_ptr->lev / 3);
 			creature_ptr->to_damage[0] -= (creature_ptr->lev / 6);

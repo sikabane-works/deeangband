@@ -1309,7 +1309,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 
 			// Regeneration takes more food
 			if(has_trait(creature_ptr, TRAIT_REGENERATE)) digestion += 20;
-			if(creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) digestion += 20;
+			if(creature_ptr->posture & (KAMAE_MASK | KATA_MASK)) digestion += 20;
 			if(has_trait(creature_ptr, TRAIT_FAST_DIGEST)) digestion += 30;
 
 			// Slow digestion takes less food
@@ -1563,7 +1563,7 @@ static void process_nonplayer(int m_idx)
 	}
 
 	// Players hidden in shadow are almost imperceptable. -LM-
-	if(player_ptr->special_defense & NINJA_S_STEALTH)
+	if(player_ptr->posture & NINJA_S_STEALTH)
 	{
 		int tmp = player_ptr->lev * 6 + (player_ptr->skill_stl + 10) * 4;
 		if(player_ptr->monlite) tmp /= 3;

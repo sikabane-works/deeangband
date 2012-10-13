@@ -26,7 +26,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 	int up_num = 0;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -190,7 +190,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	bool fall_trap = FALSE;
 	int down_num = 0;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1088,7 +1088,7 @@ void do_cmd_open(creature_type *creature_ptr)
 	bool more = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1266,7 +1266,7 @@ void do_cmd_close(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1571,7 +1571,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 	s16b feat;
 	bool more = FALSE;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1975,7 +1975,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 	s16b object_idx;
 	bool more = FALSE;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2203,7 +2203,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 	cave_type	*c_ptr;
 	bool		more = FALSE;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2297,7 +2297,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 	bool		more = FALSE;
 
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2430,7 +2430,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int dir;
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2543,7 +2543,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 		/* Take a turn */
 		creature_ptr->energy_use = 100;
 
-		if((dir != 5) && (creature_ptr->special_defense & KATA_MUSOU))
+		if((dir != 5) && (creature_ptr->posture & KATA_MUSOU))
 		{
 			set_action(creature_ptr, ACTION_NONE);
 		}
@@ -2614,7 +2614,7 @@ void do_cmd_run(creature_type *creature_ptr)
 		return;
 	}
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -2720,7 +2720,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	/* Paranoia */
 	if(command_arg > 9999) command_arg = 9999;
 
-	if(creature_ptr->special_defense & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
+	if(creature_ptr->posture & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	/* Take a turn XXX XXX XXX (?) */
 	creature_ptr->energy_use = 100;
@@ -3730,7 +3730,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 	}
 
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -3821,7 +3821,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	bool do_drop = TRUE;
 
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

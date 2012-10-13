@@ -1863,11 +1863,11 @@ static void display_player_middle(creature_type *creature_ptr)
 	else if((creature_ptr->class_idx == CLASS_MONK) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
 		int i;
-		if(creature_ptr->special_defense & KAMAE_MASK)
+		if(creature_ptr->posture & KAMAE_MASK)
 		{
 			for (i = 0; i < MAX_KAMAE; i++)
 			{
-				if((creature_ptr->special_defense >> i) & KAMAE_GENBU) break;
+				if((creature_ptr->posture >> i) & KAMAE_GENBU) break;
 			}
 			if(i < MAX_KAMAE)
 #ifdef JP
@@ -2345,13 +2345,13 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 	if(IS_FAST(creature_ptr) || creature_ptr->timed_trait[TRAIT_SLOW])
 		add_flag(flgs, TRAIT_SPEED);
 
-	if(IS_OPPOSE_ACID(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ACID) && !(IS_RACE(creature_ptr, RACE_YEEK) && (creature_ptr->lev > 19)))
+	if(IS_OPPOSE_ACID(creature_ptr) && !(creature_ptr->posture & DEFENSE_ACID) && !(IS_RACE(creature_ptr, RACE_YEEK) && (creature_ptr->lev > 19)))
 		add_flag(flgs, TRAIT_RES_ACID);
-	if(IS_OPPOSE_ELEC(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_ELEC))
+	if(IS_OPPOSE_ELEC(creature_ptr) && !(creature_ptr->posture & DEFENSE_ELEC))
 		add_flag(flgs, TRAIT_RES_ELEC);
-	if(IS_OPPOSE_FIRE(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_FIRE))
+	if(IS_OPPOSE_FIRE(creature_ptr) && !(creature_ptr->posture & DEFENSE_FIRE))
 		add_flag(flgs, TRAIT_RES_FIRE);
-	if(IS_OPPOSE_COLD(creature_ptr) && !(creature_ptr->special_defense & DEFENSE_COLD))
+	if(IS_OPPOSE_COLD(creature_ptr) && !(creature_ptr->posture & DEFENSE_COLD))
 		add_flag(flgs, TRAIT_RES_COLD);
 	if(IS_OPPOSE_POIS(creature_ptr))
 		add_flag(flgs, TRAIT_RES_POIS);
@@ -2366,13 +2366,13 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 		add_flag(flgs, TRAIT_COLD_BRAND);
 	if(creature_ptr->special_attack & ATTACK_POIS)
 		add_flag(flgs, TRAIT_POIS_BRAND);
-	if(creature_ptr->special_defense & DEFENSE_ACID)
+	if(creature_ptr->posture & DEFENSE_ACID)
 		add_flag(flgs, TRAIT_IM_ACID);
-	if(creature_ptr->special_defense & DEFENSE_ELEC)
+	if(creature_ptr->posture & DEFENSE_ELEC)
 		add_flag(flgs, TRAIT_IM_ELEC);
-	if(creature_ptr->special_defense & DEFENSE_FIRE)
+	if(creature_ptr->posture & DEFENSE_FIRE)
 		add_flag(flgs, TRAIT_IM_FIRE);
-	if(creature_ptr->special_defense & DEFENSE_COLD)
+	if(creature_ptr->posture & DEFENSE_COLD)
 		add_flag(flgs, TRAIT_IM_COLD);
 	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		add_flag(flgs, TRAIT_REFLECTING);
@@ -2541,10 +2541,10 @@ static void tim_player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creatu
 	// Clear
 	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
-	if(creature_ptr->special_defense & DEFENSE_ACID) add_flag(flgs, TRAIT_RES_ACID);
-	if(creature_ptr->special_defense & DEFENSE_ELEC) add_flag(flgs, TRAIT_RES_ELEC);
-	if(creature_ptr->special_defense & DEFENSE_FIRE) add_flag(flgs, TRAIT_RES_FIRE);
-	if(creature_ptr->special_defense & DEFENSE_COLD) add_flag(flgs, TRAIT_RES_COLD);
+	if(creature_ptr->posture & DEFENSE_ACID) add_flag(flgs, TRAIT_RES_ACID);
+	if(creature_ptr->posture & DEFENSE_ELEC) add_flag(flgs, TRAIT_RES_ELEC);
+	if(creature_ptr->posture & DEFENSE_FIRE) add_flag(flgs, TRAIT_RES_FIRE);
+	if(creature_ptr->posture & DEFENSE_COLD) add_flag(flgs, TRAIT_RES_COLD);
 	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) add_flag(flgs, TRAIT_RES_DARK);
 }
 
@@ -2556,7 +2556,7 @@ static void player_vuln_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] = 0L;
 
-	if(has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->special_defense & KATA_KOUKIJIN))
+	if(has_trait(creature_ptr, TRAIT_VULN_ELEM) || (creature_ptr->posture & KATA_KOUKIJIN))
 	{
 		add_flag(flgs, TRAIT_RES_ACID);
 		add_flag(flgs, TRAIT_RES_ELEC);
@@ -2758,7 +2758,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 		c_put_str(TERM_YELLOW, "#", row + 0, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_ACID))
 		c_put_str(TERM_YELLOW, "*", row + 0, col * 31);
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->special_defense & (DEFENSE_ACID))
+	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_ACID))
 		c_put_str(TERM_WHITE, "*", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
@@ -2772,7 +2772,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_IM_ELEC))
 		c_put_str(TERM_YELLOW, "*", row + 1, col * 31);
 
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->special_defense & (DEFENSE_ELEC))
+	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_ELEC))
 		c_put_str(TERM_WHITE, "*", row + 1, col + 31);
 	if(has_trait(creature_ptr, TRAIT_HURT_ELEC))
 		c_put_str(TERM_RED, "v", row + 1, col + 31);
@@ -2788,7 +2788,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_FIRE))
 		c_put_str(TERM_YELLOW, "*", row + 2, col * 31);
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->special_defense & (DEFENSE_FIRE))
+	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_FIRE))
 		c_put_str(TERM_WHITE, "*", row + 2, col + 31);
 	if(has_trait(creature_ptr, TRAIT_HURT_FIRE))
 		c_put_str(TERM_RED, "v", row + 2, col + 31);
@@ -2805,7 +2805,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_COLD))
 		c_put_str(TERM_YELLOW, "*", row + 3, col * 31);
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->special_defense & (DEFENSE_COLD))
+	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_COLD))
 		c_put_str(TERM_WHITE, "*", row + 3, col + 31);
 	if(has_trait(creature_ptr, TRAIT_HURT_COLD))
 		c_put_str(TERM_RED, "v", row + 3, col + 31);

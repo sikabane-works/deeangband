@@ -917,7 +917,7 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	u32b new_chp_frac;
 	s32b old_chp;
 
-	if(creature_ptr->special_defense & KATA_KOUKIJIN) return;
+	if(creature_ptr->posture & KATA_KOUKIJIN) return;
 	if(creature_ptr->action == ACTION_HAYAGAKE) return;
 
 	/* Save the old hitpoints */
@@ -1903,7 +1903,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		// Regeneration ability
 		if(has_trait(creature_ptr, TRAIT_REGENERATE)) regen_amount = regen_amount * 2;
-		if(creature_ptr->special_defense & (KAMAE_MASK | KATA_MASK)) regen_amount /= 2;
+		if(creature_ptr->posture & (KAMAE_MASK | KATA_MASK)) regen_amount /= 2;
 		if(has_trait(creature_ptr, TRAIT_SLOWREGEN)) regen_amount /= 5;
 	}
 
@@ -1915,7 +1915,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	/* No regeneration while special action */
 	if((creature_ptr->action == ACTION_LEARN) ||
 	    (creature_ptr->action == ACTION_HAYAGAKE) ||
-	    (creature_ptr->special_defense & KATA_KOUKIJIN))
+	    (creature_ptr->posture & KATA_KOUKIJIN))
 	{
 		upkeep_factor += 100;
 	}
@@ -3586,7 +3586,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 
 			//TODO
 			/*
-			if(creature_ptr->special_defense & NINJA_S_STEALTH)
+			if(creature_ptr->posture & NINJA_S_STEALTH)
 			{
 				if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 			}
@@ -5190,9 +5190,9 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		play_redraw |= PR_MANA;
 	}
 
-	if(creature_ptr->special_defense & KATA_MASK)
+	if(creature_ptr->posture & KATA_MASK)
 	{
-		if(creature_ptr->special_defense & KATA_MUSOU)
+		if(creature_ptr->posture & KATA_MUSOU)
 		{
 			if(creature_ptr->csp < 3)
 			{
@@ -6257,7 +6257,7 @@ static void play_loop(void)
 #endif
 		}
 
-		if(!load_game && (player_ptr->special_defense & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
+		if(!load_game && (player_ptr->posture & NINJA_S_STEALTH)) set_superstealth(player_ptr, FALSE);
 
 		/*** Process this dungeon level ***/
 

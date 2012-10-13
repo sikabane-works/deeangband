@@ -3474,7 +3474,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 				return FALSE;
 			}
-			if(caster_ptr->special_defense & KATA_MASK)
+			if(caster_ptr->posture & KATA_MASK)
 			{
 #ifdef JP
 				msg_print("今は構えに集中している。");

@@ -153,7 +153,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
-			else if((attacker_ptr->special_defense & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
+			else if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				fuiuchi = TRUE;
 			}
@@ -201,7 +201,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bonus = attacker_ptr->to_hit[hand] + weapon_ptr->to_hit;
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if(mode == HISSATSU_IAI) chance += 60;
-	if(attacker_ptr->special_defense & KATA_KOUKIJIN) chance += 150;
+	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
 
 	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
 
@@ -1032,11 +1032,11 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING))
 			resist_stun += 66;
 
-		if(attacker_ptr->special_defense & KAMAE_BYAKKO)
+		if(attacker_ptr->posture & KAMAE_BYAKKO)
 			max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
-		else if(attacker_ptr->special_defense & KAMAE_SUZAKU)
+		else if(attacker_ptr->posture & KAMAE_SUZAKU)
 			max_times = 1;
-		else if(attacker_ptr->special_defense & KAMAE_GENBU)
+		else if(attacker_ptr->posture & KAMAE_GENBU)
 			max_times = 1;
 		else
 			max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
@@ -1127,7 +1127,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
 		}
 
-		if(attacker_ptr->special_defense & KAMAE_SUZAKU) weight = 4;
+		if(attacker_ptr->posture & KAMAE_SUZAKU) weight = 4;
 		if((attacker_ptr->class_idx == CLASS_FORCETRAINER) && (attacker_ptr->class_skills.old_skills.magic_num1[0]))
 		{
 			weight += (attacker_ptr->class_skills.old_skills.magic_num1[0]/30);
@@ -1427,7 +1427,7 @@ static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_
 
 static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if(target_ptr->special_defense & KATA_IAI)
+	if(target_ptr->posture & KATA_IAI)
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1676,7 +1676,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 #endif
 	}
 
-	if((attacker_ptr->special_defense & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
+	if((attacker_ptr->posture & KATA_IAI) && ((mode != HISSATSU_IAI) || dead))
 	{
 		set_action(attacker_ptr, ACTION_NONE);
 	}
@@ -3895,7 +3895,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		}
 	}
 
-	if(target_ptr->special_defense & NINJA_KAWARIMI)
+	if(target_ptr->posture & NINJA_KAWARIMI)
 	{
 		if(kawarimi(target_ptr, FALSE)) return TRUE;
 	}
@@ -3920,7 +3920,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 
-	if((target_ptr->counter || (target_ptr->special_defense & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
+	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
 	{
 		char attacker_name[80];
 		creature_desc(attacker_name, attacker_ptr, 0);
@@ -3967,7 +3967,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		r_ptr->r_deaths++;
 	}
 
-	if(target_ptr->special_defense & KATA_IAI)
+	if(target_ptr->posture & KATA_IAI)
 	{
 		set_action(target_ptr, ACTION_NONE);
 	}

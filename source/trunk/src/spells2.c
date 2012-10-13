@@ -2220,7 +2220,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-		if(caster_ptr->special_defense & NINJA_S_STEALTH)
+		if(caster_ptr->posture & NINJA_S_STEALTH)
 		{
 			if(floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
 		}
@@ -2738,7 +2738,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	if(target_ptr->special_defense & NINJA_S_STEALTH)
+	if(target_ptr->posture & NINJA_S_STEALTH)
 	{
 		if(floor_ptr->cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
 	}
@@ -3211,7 +3211,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 	/* Now, lite them all up at once */
 	cave_temp_room_lite(creature_ptr);
 
-	if(creature_ptr->special_defense & NINJA_S_STEALTH)
+	if(creature_ptr->posture & NINJA_S_STEALTH)
 	{
 		if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 	}
@@ -4324,7 +4324,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	creature_desc(user_name, user_ptr, 0);
 
-	if(!(user_ptr->special_defense & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
+	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
 
 	if(gameover) return FALSE;
 	if(user_ptr->timed_trait[TRAIT_CONFUSED] || IS_BLIND(user_ptr) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
@@ -4337,7 +4337,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 #else
 		msg_format("Failed! %s couldn't run away.", user_name);
 #endif
-		user_ptr->special_defense &= ~(NINJA_KAWARIMI);
+		user_ptr->posture &= ~(NINJA_KAWARIMI);
 		play_redraw |= (PR_STATUS);
 		return FALSE;
 	}
@@ -4364,7 +4364,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	else msg_format("Failed! %s are hit by the attack.", user_name); // TODO
 #endif
 
-	user_ptr->special_defense &= ~(NINJA_KAWARIMI);
+	user_ptr->posture &= ~(NINJA_KAWARIMI);
 	play_redraw |= (PR_STATUS);
 
 	/* Teleported */

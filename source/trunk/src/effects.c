@@ -143,7 +143,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 				msg_print("You stop assuming the posture.");
 #endif
-				creature_ptr->special_defense &= ~(KAMAE_MASK);
+				creature_ptr->posture &= ~(KAMAE_MASK);
 				break;
 			}
 			case ACTION_KATA:
@@ -153,7 +153,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 				msg_print("You stop assuming the posture.");
 #endif
-				creature_ptr->special_defense &= ~(KATA_MASK);
+				creature_ptr->posture &= ~(KATA_MASK);
 				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATUS);
 				break;
@@ -256,7 +256,7 @@ void reset_timed_trait(creature_type *creature_ptr)
 	creature_ptr->sutemi = FALSE;
 	creature_ptr->counter = FALSE;
 	creature_ptr->special_attack = 0L;
-	creature_ptr->special_defense = 0L;
+	creature_ptr->posture = 0L;
 	creature_ptr->time_stopper = FALSE;
 
 	while(creature_ptr->energy_need < 0) creature_ptr->energy_need += ENERGY_NEED();
@@ -347,7 +347,7 @@ void dispel_creature(creature_type *creature_ptr)
 					msg_foamat("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r" : "'s");
 #endif
 				}
-				creature_ptr->special_defense &= ~(KAMAE_MASK);
+				creature_ptr->posture &= ~(KAMAE_MASK);
 				creature_ptr->creature_update |= (CRU_BONUS);
 				play_redraw |= (PR_STATE);
 				creature_ptr->action = ACTION_NONE;
@@ -362,7 +362,7 @@ void dispel_creature(creature_type *creature_ptr)
 					msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) _ "r", : "'s");
 #endif
 				}
-				creature_ptr->special_defense &= ~(KATA_MASK);
+				creature_ptr->posture &= ~(KATA_MASK);
 				creature_ptr->creature_update |= (CRU_BONUS);
 				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
@@ -409,7 +409,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 #endif
 			}
 
-			if(creature_ptr->special_defense & KATA_MASK)
+			if(creature_ptr->posture & KATA_MASK)
 			{
 				if(is_seen(player_ptr, creature_ptr))
 				{
@@ -419,7 +419,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 					msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r": "'s");
 #endif
 				}
-				creature_ptr->special_defense &= ~(KATA_MASK);
+				creature_ptr->posture &= ~(KATA_MASK);
 				creature_ptr->creature_update |= (CRU_BONUS);
 				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
@@ -523,7 +523,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 	if(set)
 	{
-		if(!(creature_ptr->special_defense & NINJA_S_STEALTH))
+		if(!(creature_ptr->posture & NINJA_S_STEALTH))
 		{
 			if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_MNLT)
 			{
@@ -553,14 +553,14 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 			notice = TRUE;
 
 			/* Use the value */
-			creature_ptr->special_defense |= NINJA_S_STEALTH;
+			creature_ptr->posture |= NINJA_S_STEALTH;
 		}
 	}
 
 	/* Shut */
 	else
 	{
-		if(creature_ptr->special_defense & NINJA_S_STEALTH)
+		if(creature_ptr->posture & NINJA_S_STEALTH)
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -574,7 +574,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 			notice = TRUE;
 
 			/* Use the value */
-			creature_ptr->special_defense &= ~(NINJA_S_STEALTH);
+			creature_ptr->posture &= ~(NINJA_S_STEALTH);
 		}
 	}
 
@@ -732,7 +732,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
 			}
 		}
-		if(creature_ptr->special_defense & KATA_MASK)
+		if(creature_ptr->posture & KATA_MASK)
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -742,7 +742,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 				msg_print("Your posture gets loose.");
 #endif
 			}
-			creature_ptr->special_defense &= ~(KATA_MASK);
+			creature_ptr->posture &= ~(KATA_MASK);
 			creature_ptr->creature_update |= (CRU_BONUS);
 			update |= (PU_CREATURES);
 			play_redraw |= (PR_STATE);
@@ -2552,7 +2552,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	if(attacker_ptr)
 	{
 		/* Hack - Cancel any special player stealth magics. -LM- */
-		if(attacker_ptr->special_defense & NINJA_S_STEALTH)
+		if(attacker_ptr->posture & NINJA_S_STEALTH)
 		{
 			set_superstealth(attacker_ptr, FALSE);
 		}
@@ -2576,7 +2576,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	if(gameover) return 0;
 
 	if(target_ptr->sutemi) damage *= 2;
-	if(target_ptr->special_defense & KATA_IAI) damage += (damage + 4) / 5;
+	if(target_ptr->posture & KATA_IAI) damage += (damage + 4) / 5;
 
 	if(damage_type != DAMAGE_USELIFE)
 	{
@@ -2655,7 +2655,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 		}
 
-		if(target_ptr->special_defense & KATA_MUSOU)
+		if(target_ptr->posture & KATA_MUSOU)
 		{
 			damage /= 2;
 			if((damage == 0) && one_in_(2)) damage = 1;

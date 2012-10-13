@@ -448,7 +448,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 		return;
 	}
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -697,7 +697,7 @@ msg_format("V‚µ‚¢%s‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I", p);
 		return;
 	}
 
-	if(creature_ptr->special_defense & KATA_MUSOU)
+	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -1833,7 +1833,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	x = rider_ptr->fx + ddx[dir];
 	c_ptr = &floor_ptr->cave[y][x];
 
-	if(rider_ptr->special_defense & KATA_MUSOU) set_action(rider_ptr, ACTION_NONE);
+	if(rider_ptr->posture & KATA_MUSOU) set_action(rider_ptr, ACTION_NONE);
 
 	if(rider_ptr->riding)
 	{
