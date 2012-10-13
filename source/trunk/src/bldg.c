@@ -1616,7 +1616,7 @@ static bool vault_aux_battle(int species_idx)
 	if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return (FALSE);
 	if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) return (FALSE);
 
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 	{
 		if(species_ptr->blow[i].method == RBM_EXPLODE) return (FALSE);
 		if(species_ptr->blow[i].effect != RBE_DR_MANA) dam += species_ptr->blow[i].d_dice;

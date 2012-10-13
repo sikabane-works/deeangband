@@ -1233,7 +1233,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 		case SUMMON_KAMIKAZE:
 		{
 			int i;
-			for (i = 0; i < 4; i++)
+			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 				if(r_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
 			break;
 		}
@@ -1242,7 +1242,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 		{
 			int i;
 
-			for (i = 0; i < 4; i++)
+			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 				if(r_ptr->blow[i].method == RBM_EXPLODE) okay = TRUE;
 			okay = (okay && species_living(r_ptr));
 			break;
@@ -2167,7 +2167,7 @@ int lore_do_probe(int species_idx)
 	r_ptr->r_wake = r_ptr->r_ignore = MAX_UCHAR;
 
 	/* Observe "maximal" attacks */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 	{
 		/* Examine "actual" blows */
 		if(r_ptr->blow[i].effect || r_ptr->blow[i].method)

@@ -579,7 +579,7 @@ cptr extract_note_dies(creature_type *killer_ptr, creature_type *dead_ptr)
 	{
 		int i;
 
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 		{
 			if(dead_ptr->blow[i].method == RBM_EXPLODE)
 			{
@@ -683,7 +683,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	}
 
 	/* Let creatures explode! */
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 	{
 		if(dead_ptr->blow[i].method == RBM_EXPLODE)
 		{

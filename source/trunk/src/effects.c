@@ -2938,7 +2938,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				int i;
 				bool explode = FALSE;
 	
-				for (i = 0; i < 4; i++)
+				for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 				{
 					if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
 				}

@@ -3701,7 +3701,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				while(offset < num) {
 					int am = 0, ae = 0;
 
-					if(k == 4)
+					if(k == MAX_SPECIAL_BLOWS)
 						return PARSE_ERROR_GENERIC;
 
 					for(s = &tmp[offset]; *s != '\n' && *s != '\0'; s++);
