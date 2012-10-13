@@ -843,11 +843,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int i;
 			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			int tx, ty;
-#ifdef JP
-			msg_print("せっかくだから『クリムゾン』をぶっぱなすぜ！");
-#else
-			msg_print("I'll fire CRIMSON! SEKKAKUDAKARA!");
-#endif
 
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 
@@ -884,18 +879,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_PERILOUS_INDENTIFY:
+	case TRAIT_PERILOUS_IDENTIFY:
 		{
 			if(!ident_spell(caster_ptr, FALSE)) return FALSE;
 
 			if(magic_info[caster_ptr->class_idx].spell_book)
 			{
 				// Sufficient mana
-				if(PERILOUS_INDENTIFY_COST <= caster_ptr->csp) caster_ptr->csp -= PERILOUS_INDENTIFY_COST;
+				if(PERILOUS_IDENTIFY_COST <= caster_ptr->csp) caster_ptr->csp -= PERILOUS_IDENTIFY_COST;
 
 				else
 				{
-					int oops = PERILOUS_INDENTIFY_COST - caster_ptr->csp;
+					int oops = PERILOUS_IDENTIFY_COST - caster_ptr->csp;
 					caster_ptr->csp = 0;
 					caster_ptr->csp_frac = 0;
 #ifdef JP
@@ -932,22 +927,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(music_singing_any(caster_ptr)) stop_singing(caster_ptr);
 			if(hex_spelling_any(caster_ptr)) stop_hex_spell_all(caster_ptr);
-#ifdef JP
-			msg_print("あなたは力強い突風を吹き鳴らした。");
-#else
-			msg_print("You wind a mighty blast.");
-#endif
 			(void)turn_creatures(caster_ptr, (3 * caster_ptr->lev / 2) + 10);
 			break;
 		}
 
 	case TRAIT_DISPEL_SMALL_LIFE:
 		{
-#ifdef JP
-			msg_print("あなたは害虫を一掃した。");
-#else
-			msg_print("You exterminate small life.");
-#endif
 			(void)dispel_creatures(caster_ptr, 4);
 			break;
 		}
@@ -961,11 +946,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_MAGIC_CHARGE_EX:
 		{
-#ifdef JP
-			msg_print("カードが白く輝いた．．．");
-#else
-			msg_print("Your card gleams with blinding light...");
-#endif
 			if(!recharge(caster_ptr, 1000)) return FALSE;
 			break;
 		}
