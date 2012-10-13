@@ -869,7 +869,6 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if(has_trait(caster_ptr, TRAIT_BR_ACID))
 	{
 		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
-		if(target_ptr->posture & DEFENSE_ACID) return (TRUE);
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_FIRE))

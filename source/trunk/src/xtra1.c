@@ -448,21 +448,10 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_SHIELD]) ADD_FLG(BAR_STONESKIN);
 	if(creature_ptr->posture & NINJA_KAWARIMI) ADD_FLG(BAR_KAWARIMI);
 
-	if(creature_ptr->posture & DEFENSE_ACID) ADD_FLG(BAR_IMMACID); /* Oppose Acid */
 	if(IS_OPPOSE_ACID(creature_ptr)) ADD_FLG(BAR_RESACID);
-
-	if(creature_ptr->posture & DEFENSE_ELEC) ADD_FLG(BAR_IMMELEC); /* Oppose Lightning */
 	if(IS_OPPOSE_ELEC(creature_ptr)) ADD_FLG(BAR_RESELEC);
-
-	/* Oppose Fire */
-	if(creature_ptr->posture & DEFENSE_FIRE) ADD_FLG(BAR_IMMFIRE);
 	if(IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
-
-	/* Oppose Cold */
-	if(creature_ptr->posture & DEFENSE_COLD) ADD_FLG(BAR_IMMCOLD);
 	if(IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
-
-	/* Oppose Poison */
 	if(IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
 
 	/* Word of Recall */
@@ -3249,20 +3238,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] && !creature_ptr->riding) creature_ptr->speed += 40;
 	if(creature_ptr->timed_trait[TRAIT_SLOW]) creature_ptr->speed -= 10;
 	//TODO if(IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
-
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE])
-	{
-		/*
-		if(creature_ptr->posture & DEFENSE_ACID)
-			creature_ptr->immune_acid = TRUE;
-		else if(creature_ptr->posture & DEFENSE_ELEC)
-			creature_ptr->immune_elec = TRUE;
-		else if(creature_ptr->posture & DEFENSE_FIRE)
-			creature_ptr->immune_fire = TRUE;
-		else if(creature_ptr->posture & DEFENSE_COLD)
-			creature_ptr->immune_cold = TRUE;
-		*/
-	}
 
 	/* Temporary see invisible */
 	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
