@@ -1104,8 +1104,6 @@
 #define SV_DEATH_SCYTHE                 50	/* 10d10 */
 
 /* The "sval" codes for TV_SWORD */
-#define SV_BROKEN_DAGGER                 1  /* 1d1 */
-#define SV_BROKEN_SWORD                  2  /* 1d2 */
 #define SV_DAGGER                        4  /* 1d4 */
 #define SV_MAIN_GAUCHE                   5  /* 1d5 */
 #define SV_TANTO                         6  /* 1d5 */
@@ -1156,12 +1154,6 @@
 #define SV_STEEL_HELM                    6
 #define SV_DRAGON_HELM                   7
 #define SV_KABUTO                        8  /* 7 */
-
-/* The "sval" codes for TV_CROWN */
-#define SV_IRON_CROWN                   10
-#define SV_GOLDEN_CROWN                 11
-#define SV_JEWELED_CROWN                12
-#define SV_CHAOS                        50
 
 /* The "sval" codes for TV_BOOTS */
 #define SV_PAIR_OF_SOFT_LEATHER_BOOTS    2
@@ -1223,8 +1215,6 @@
 #define SV_MITHRIL_CHAIN_MAIL           20  /* 28+ */
 #define SV_MITHRIL_PLATE_MAIL           25  /* 35+ */
 #define SV_ADAMANTITE_PLATE_MAIL        30  /* 40+ */
-#define SV_CHAOS_ARMOR                  35  /*  */
-
 
 /* The "sval" codes for TV_DRAG_ARMOR */
 #define SV_DRAGON_BLACK                  1
