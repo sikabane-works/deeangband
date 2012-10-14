@@ -66,6 +66,8 @@
 
 #define NAME_BUFFER_SIZE 100
 
+#define PERMAMENT_TIMED 9999
+
 /*
  * Number of grids in each block (vertically & horizontally)
  * Probably hard-coded to 11, see "generate.c"
@@ -1982,7 +1984,6 @@
  * function "set_ele_attack", in spell2.c.  This provides for timeouts and
  * prevents the player from getting more than one at a time.
  */
-#define ATTACK_CONFUSE	0x00000001
 #define ATTACK_XXX1		0x00000002
 #define ATTACK_XXX2		0x00000004
 #define ATTACK_XXX3	    0x00000008

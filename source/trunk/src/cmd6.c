@@ -1797,15 +1797,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_MONSTER_CONFUSION:
 		{
-			if(!(creature_ptr->special_attack & ATTACK_CONFUSE))
+			if(!creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
 			{
-#ifdef JP
-				msg_print("Žè‚ª‹P‚«Žn‚ß‚½B");
-#else
-				msg_print("Your hands begin to glow.");
-#endif
-
-				creature_ptr->special_attack |= ATTACK_CONFUSE;
+				set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, PERMAMENT_TIMED, TRUE);
 				play_redraw |= (PR_STATUS);
 				ident = TRUE;
 			}

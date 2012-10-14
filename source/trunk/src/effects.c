@@ -276,14 +276,9 @@ void dispel_creature(creature_type *creature_ptr)
 	reset_timed_trait(creature_ptr);
 
 	/* Cancel glowing hands */
-	if(creature_ptr->special_attack & ATTACK_CONFUSE)
+	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
 	{
-		creature_ptr->special_attack &= ~(ATTACK_CONFUSE);
-#ifdef JP
-		msg_print("è‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
-#else
-		msg_print("Your hands stop glowing.");
-#endif
+		set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 	}
 
 	if(music_singing_any(creature_ptr) || hex_spelling_any(creature_ptr))

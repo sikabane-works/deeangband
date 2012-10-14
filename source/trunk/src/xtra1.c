@@ -469,7 +469,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
 
 	/* Confusing Hands */
-	if(creature_ptr->special_attack & ATTACK_CONFUSE) ADD_FLG(BAR_ATTKCONF);
+	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF);
 
 	if(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]) ADD_FLG(BAR_REGMAGIC);
 

@@ -3465,15 +3465,9 @@ static cptr do_chaos_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!(creature_ptr->special_attack & ATTACK_CONFUSE))
+				if(!creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
 				{
-#ifdef JP
-					msg_print("‚ ‚È‚½‚ÌŽè‚ÍŒõ‚èŽn‚ß‚½B");
-#else
-					msg_print("Your hands start glowing.");
-#endif
-
-					creature_ptr->special_attack |= ATTACK_CONFUSE;
+					set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, PERMAMENT_TIMED, TRUE);
 					play_redraw |= (PR_STATUS);
 				}
 			}

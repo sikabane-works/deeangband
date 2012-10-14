@@ -1202,20 +1202,14 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
 	// Confusion attack
-	//TODO if((attacker_ptr->special_attack & ATTACK_CONFUSE) || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(attacker_ptr, HEX_CONFUSION))
+	//TODO if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE] || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(attacker_ptr, HEX_CONFUSION))
 	{
 		// Cancel glowing hands
-		if(attacker_ptr->special_attack & ATTACK_CONFUSE)
+		if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
 		{
-			attacker_ptr->special_attack &= ~(ATTACK_CONFUSE);
+			set_timed_trait_aux(attacker_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 			if(is_seen(player_ptr, attacker_ptr))
-#ifdef JP
-				msg_print("è‚Ì‹P‚«‚ª‚È‚­‚È‚Á‚½B");
-#else
-				msg_print("Your hands stop glowing.");
-#endif
 			play_redraw |= (PR_STATUS);
-
 		}
 
 		// Confuse the creature
