@@ -2058,13 +2058,13 @@ void do_cmd_debug(creature_type *creature_ptr)
 	char    cmd;
 
 
-	/* Get a "debug command" */
+	// Get a "debug command"
 	get_com("Debug Command: ", &cmd, FALSE);
 
-	/* Analyze the command */
+	// Analyze the command
 	switch (cmd)
 	{
-	/* Nothing */
+	// Nothing
 	case ESCAPE:
 	case ' ':
 	case '\n':
@@ -2073,19 +2073,19 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 #ifdef ALLOW_SPOILERS
 
-	/* Hack -- Generate Spoilers */
+	// Hack -- Generate Spoilers
 	case '"':
 		do_cmd_spoilers();
 		break;
 
 #endif // ALLOW_SPOILERS
 
-	/* Hack -- Help */
+	// Hack -- Help
 	case '?':
 		do_cmd_help();
 		break;
 
-	/* Cure all maladies */
+	// Cure all maladies
 	case 'a':
 		do_cmd_wiz_cure_all(creature_ptr);
 		break;
@@ -2094,7 +2094,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		do_cmd_wiz_creature_list();
 		break;
 
-	/* Teleport to target */
+	// Teleport to target
 	case 'b':
 		do_cmd_wiz_bamf(creature_ptr);
 		break;
@@ -2103,32 +2103,32 @@ void do_cmd_debug(creature_type *creature_ptr)
 		battle_creatures();
 		break;
 
-	/* Create any object */
+	// Create any object
 	case 'c':
 		wiz_create_item(creature_ptr);
 		break;
 
-	/* Create a named artifact */
+	// Create a named artifact
 	case 'C':
 		wiz_drop_named_art(creature_ptr);
 		break;
 
-	/* Detect everything */
+	// Detect everything
 	case 'd':
 		detect_all(creature_ptr, DETECT_RAD_ALL * 3);
 		break;
 
-	/* Dimension_door */
+	// Dimension_door
 	case 'D':
 		wiz_dimension_door(creature_ptr);
 		break;
 
-	/* Edit character */
+	// Edit character
 	case 'e':
 		do_cmd_wiz_change(creature_ptr);
 		break;
 
-	/* Blue Mage Only */
+	// Blue Mage Only
 	case 'E':
 		if(creature_ptr->class_idx == CLASS_BLUE_MAGE)
 		{
@@ -2136,7 +2136,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		}
 		break;
 
-	/* View item info */
+	// View item info
 	case 'f':
 		identify_fully(creature_ptr, FALSE);
 		break;
@@ -2157,7 +2157,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		do_cmd_wiz_floor_object_list();
 		break;
 
-	/* Hitpoint rerating */
+	// Hitpoint rerating
 	case 'h':
 		do_cmd_rerate(creature_ptr, TRUE);
 		break;
@@ -2166,67 +2166,119 @@ void do_cmd_debug(creature_type *creature_ptr)
 		do_cmd_summon_horde(creature_ptr);
 		break;
 
-	/* Identify */
+	// Identify
 	case 'i':
 		(void)ident_spell(creature_ptr, FALSE);
 		break;
 
-	/* Go up or down in the dungeon */
+	// I: No Use
+	case 'I':
+		break;
+
+	// Go up or down in the dungeon
 	case 'j':
 		do_cmd_generate_floor(creature_ptr);
 		break;
 
-	/* Self-Knowledge */
+	// J: No Use
+	case 'J':
+		break;
+
+	// Self-Knowledge
 	case 'k':
 		creature_knowledge(creature_ptr);
 		break;
 
-	/* Learn about objects */
+	// K: No Use
+	case 'K':
+		break;
+
+	// Learn about objects
 	case 'l':
 		do_cmd_wiz_learn();
 		break;
 
-	/* Magic Mapping */
+	// L: No Use
+	case 'L':
+		break;
+
+	// Magic Mapping
 	case 'm':
 		map_area(creature_ptr, DETECT_RAD_ALL * 3);
 		break;
 
-	/* Mutation */
+	// Mutation
 	case 'M':
 		(void)gain_trait(creature_ptr, command_arg, TRUE);
 		break;
 
-	/* Specific reward */
-	case 'r':
-		(void)gain_level_reward(creature_ptr, command_arg);
-		break;
-
-	/* Summon _friendly_ named creature */
-	case 'N':
-		do_cmd_wiz_named_friendly(creature_ptr, command_arg);
-		break;
-
-	/* Summon Named Creature */
+	// Summon Named Creature
 	case 'n':
 		do_cmd_wiz_named(creature_ptr, command_arg);
 		break;
 
-	/* Dump option bits usage */
-	case 'O':
-		do_cmd_dump_options();
+		// Summon _friendly_ named creature
+	case 'N':
+		do_cmd_wiz_named_friendly(creature_ptr, command_arg);
 		break;
 
-	/* Object playing routines */
+	// Object playing routines
 	case 'o':
 		do_cmd_wiz_play(creature_ptr);
 		break;
 
-	/* Phase Door */
+		// Dump option bits usage
+	case 'O':
+		do_cmd_dump_options();
+		break;
+
+	// Phase Door
 	case 'p':
 		teleport_player(creature_ptr, 10, 0L);
 		break;
 
-	/* Make every dungeon square "known" to test streamers -KMW- */
+	// P: No Use
+	case 'P':
+		break;
+
+	// q: No Use
+	case 'q':
+		break;
+
+	// Q: No Use
+	case 'Q':
+		break;
+
+	// Specific reward
+	case 'r':
+		(void)gain_level_reward(creature_ptr, command_arg);
+		break;
+
+	// R: No Use
+	case 'R':
+		break;
+
+	// Summon Random Creature(s)
+	case 's':
+		if(command_arg <= 0) command_arg = 1;
+		do_cmd_wiz_summon(creature_ptr, command_arg);
+		break;
+
+	// S: No Use
+	case 'S':
+		break;
+
+	// Teleport
+	case 't':
+		teleport_player(creature_ptr, 100, 0L);
+		break;
+	
+	// Teleport Known Floor
+	case 'T':
+		do_cmd_wiz_floor_teleport();
+		break;
+
+		// Make every dungeon square "known" to test streamers -KMW-
 	case 'u':
 		for (y = 0; y < floor_ptr->height; y++)
 		{
@@ -2238,29 +2290,17 @@ void do_cmd_debug(creature_type *creature_ptr)
 		wiz_lite(floor_ptr, creature_ptr, FALSE);
 		break;
 
-	/* Summon Random Creature(s) */
-	case 's':
-		if(command_arg <= 0) command_arg = 1;
-		do_cmd_wiz_summon(creature_ptr, command_arg);
+	// S: No Use
+	case 'U':
 		break;
-
-	// Teleport
-	case 't':
-		teleport_player(creature_ptr, 100, 0L);
-		break;
-
-	// Teleport Known Floor
-	case 'T':
-		do_cmd_wiz_floor_teleport();
-		break;
-
-	/* Very Good Objects */
+		
+	// Very Good Objects
 	case 'v':
 		if(command_arg <= 0) command_arg = 1;
 		acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, command_arg, TRUE, TRUE);
 		break;
 
-	/* Very Good Objects 2*/
+	// Very Good Objects 2*/
 	case 'V':
 		if(command_arg <= 0) command_arg = 1;
 		{
@@ -2271,7 +2311,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 			tmp_val[0] = '\0';
 			tmp_val2[0] = '\0';
 
-			/* Query */
+			// Query
 			if(!get_string("Ego Num:", tmp_val, 3)) return;
 			if(!get_string("Kind Num:", tmp_val2, 3)) return;
 
@@ -2285,32 +2325,48 @@ void do_cmd_debug(creature_type *creature_ptr)
 		}
 		break;
 
-	/* Wizard Light the Level */
+	// Wizard Light the Level
 	case 'w':
 		wiz_lite(floor_ptr, creature_ptr, (bool)(creature_ptr->class_idx == CLASS_NINJA));
 		break;
 
-	/* Increase Experience */
+	// W: No Use
+	case 'W':
+		break;
+
+	// Increase Experience
 	case 'x':
 		gain_exp(creature_ptr, command_arg ? command_arg : (creature_ptr->exp + 1));
 		break;
 
-	/* Zap Creatures (Genocide) */
+	// X: No Use
+	case 'X':
+		break;
+
+	// y: No Use
+	case 'y':
+		break;
+
+	// Y: No Use
+	case 'Y':
+		break;
+
+	// Zap Creatures (Genocide)
 	case 'z':
 		do_cmd_wiz_zap(creature_ptr);
 		break;
 
-	/* Zap Creatures (Omnicide) */
+	// Zap Creatures (Omnicide)
 	case 'Z':
 		do_cmd_wiz_zap_all(creature_ptr);
 		break;
 
-	/* Hack -- whatever I desire */
+	// Hack -- whatever I desire
 	case '_':
 		(void)probing(GET_FLOOR_PTR(creature_ptr));
 		break;
 
-	/* Not a Wizard Command */
+	// Not a Wizard Command
 	default:
 		msg_print("That is not a valid debug command.");
 		break;
