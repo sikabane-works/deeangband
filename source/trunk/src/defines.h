@@ -747,8 +747,6 @@
 
 /* Crowns and Helms */
 #define EGO_DARK                23
-#define EGO_MAGI                27
-#define EGO_MIGHT               28
 #define EGO_LORDLINESS          29
 #define EGO_SEEING              30
 #define EGO_INFRAVISION         31
@@ -758,14 +756,8 @@
 #define EGO_TELEPORTATION       35
 #define EGO_SICKLINESS          39
 
-
 /* Gloves */
-#define EGO_AGILITY             50
-#define EGO_POWER               51
 #define EGO_TWO_WEAPON          52
-#define EGO_MAGIC_MASTERY       53
-#define EGO_WEAKNESS            54
-#define EGO_CLUMSINESS          55
 
 /* Boots */
 #define EGO_SLOW_DESCENT        56
