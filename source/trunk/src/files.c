@@ -2750,8 +2750,6 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_IM_ELEC))
 		c_put_str(TERM_YELLOW, "*", row + 1, col * 31);
 
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_ELEC))
-		c_put_str(TERM_WHITE, "*", row + 1, col + 31);
 	if(has_trait(creature_ptr, TRAIT_HURT_ELEC))
 		c_put_str(TERM_RED, "v", row + 1, col + 31);
 
@@ -2766,8 +2764,6 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_ORANGE : TERM_YELLOW), "#", row + 2, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_FIRE))
 		c_put_str(TERM_YELLOW, "*", row + 2, col * 31);
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_FIRE))
-		c_put_str(TERM_WHITE, "*", row + 2, col + 31);
 	if(has_trait(creature_ptr, TRAIT_HURT_FIRE))
 		c_put_str(TERM_RED, "v", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 2, col + 33);
@@ -2783,8 +2779,6 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_COLD) ? TERM_ORANGE : TERM_YELLOW), "#", row + 3, col + 31);
 	if(has_trait(creature_ptr, TRAIT_IM_COLD))
 		c_put_str(TERM_YELLOW, "*", row + 3, col * 31);
-	if(creature_ptr->timed_trait[TRAIT_IM_FIRE] && creature_ptr->posture & (DEFENSE_COLD))
-		c_put_str(TERM_WHITE, "*", row + 3, col + 31);
 	if(has_trait(creature_ptr, TRAIT_HURT_COLD))
 		c_put_str(TERM_RED, "v", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);

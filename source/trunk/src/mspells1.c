@@ -876,20 +876,17 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 		if(!(has_trait(target_ptr, TRAIT_DEMON) && target_ptr->lev > 44)) //TODO
 		{
 			if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
-			if(target_ptr->posture & DEFENSE_FIRE) return (TRUE);
 		}
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_ELEC))
 	{
 		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
-		if(target_ptr->posture & DEFENSE_ELEC) return (TRUE);
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_COLD))
 	{
 		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
-		if(target_ptr->posture & DEFENSE_COLD) return (TRUE);
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
@@ -897,7 +894,6 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 		if(!((target_ptr->class_idx == CLASS_NINJA) && caster_ptr->lev > 44))
 		{
 			if(target_ptr->timed_trait[TRAIT_RES_POIS] || music_singing(caster_ptr, MUSIC_RESIST)) return (TRUE);
-			if(target_ptr->posture & DEFENSE_POIS) return (TRUE);
 		}
 	}
 
