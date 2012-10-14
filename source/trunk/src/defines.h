@@ -323,7 +323,7 @@
 #define STORE_TICKS     1000            /* Number of ticks between turnovers */
 
 // Creature Status limitation
-#define ENERGY_NEED() (randnor(100, 25))
+#define ENERGY_NEED(A) (randnor((A), ENERGY_VARIANCE))
 #define SPEED_TO_ENERGY(SPEED) (((SPEED) > 199) ? 199 : extract_energy[(SPEED + 100)])
 
 // on creature generating

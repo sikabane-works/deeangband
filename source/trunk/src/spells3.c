@@ -605,7 +605,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 #endif
 				}
 				else teleport_creature_to(creature_ptr, creature_ptr->fy, creature_ptr->fx, 0L);
-				creature_ptr->energy_need += ENERGY_NEED();
+				creature_ptr->energy_need += ENERGY_NEED(100);
 			}
 		}
 	}
@@ -5344,13 +5344,13 @@ static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
 {
 	int	plev = creature_ptr->lev;
 
-	creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
+	creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED(100) / 100L);
 
 	if(!cave_player_teleportable_bold(creature_ptr, y, x, 0L) ||
 	    (distance(y, x, creature_ptr->fy, creature_ptr->fx) > plev / 2 + 10) ||
 	    (!randint0(plev / 10 + 10)))
 	{
-		creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED() / 100L);
+		creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED(100) / 100L);
 		teleport_player(creature_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
 
 		/* Failed */

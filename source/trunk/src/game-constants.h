@@ -1,6 +1,8 @@
 
 // 2012 D'angband  game-contants.h
 
+#define ENERGY_VARIANCE	25
+
 #define STORE_MIN_STOCK 12
 
 // Maximum number of random tries

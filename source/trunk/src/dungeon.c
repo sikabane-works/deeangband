@@ -5357,7 +5357,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			else
 			{
 				/* There is some randomness of needed energy */
-				creature_ptr->energy_need += (s16b)((s32b)creature_ptr->energy_need * ENERGY_NEED() / 100L);
+				creature_ptr->energy_need += (s16b)((s32b)creature_ptr->energy_need * ENERGY_NEED(100) / 100L);
 			}
 
 			/* Hack -- constant hallucination */
@@ -5497,7 +5497,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 #endif
 				msg_print(NULL);
 				creature_ptr->time_stopper = FALSE;
-				creature_ptr->energy_need = ENERGY_NEED();
+				creature_ptr->energy_need = ENERGY_NEED(100);
 
 				/* Handle "update" and "play_redraw" and "play_window" */
 				handle_stuff();

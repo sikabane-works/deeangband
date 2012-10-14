@@ -2340,7 +2340,7 @@ static void process_nonplayer(int m_idx)
 			{
 				if(!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_WILD_WOOD))
 				{
-					creature_ptr->energy_need += ENERGY_NEED();
+					creature_ptr->energy_need += ENERGY_NEED(100);
 				}
 			}
 
@@ -2657,7 +2657,7 @@ static void process_creature(int i)
 	else if(current_floor_ptr == floor_ptr)
 	{
 		process_nonplayer(i); // Process non player creature
-		creature_ptr->energy_need += ENERGY_NEED(); // Use up "some" energy
+		creature_ptr->energy_need += ENERGY_NEED(100); // Use up "some" energy
 	}
 
 	reset_target(creature_ptr);

@@ -1108,7 +1108,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						handle_stuff();
 						melee_attack(creature_ptr, y, x, 0);
 					}
-					creature_ptr->energy_need += ENERGY_NEED();
+					creature_ptr->energy_need += ENERGY_NEED(100);
 				}
 				else
 				{

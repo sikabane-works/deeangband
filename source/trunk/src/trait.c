@@ -3355,7 +3355,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 						handle_stuff();
 						melee_attack(caster_ptr, y, x, 0);
 					}
-					caster_ptr->energy_need += ENERGY_NEED();
+					caster_ptr->energy_need += ENERGY_NEED(100);
 				}
 				else
 				{

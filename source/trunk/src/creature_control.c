@@ -3816,9 +3816,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(mode & PC_HASTE) (void)set_timed_trait_aux(creature_ptr, TRAIT_FAST, 100, FALSE);
 
 	// Give a random starting energy
-	if(!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100);
+	if(!curse_of_Iluvatar) creature_ptr->energy_need = ENERGY_NEED(100) - (s16b)randint0(100);
 	// Nightmare creatures are more prepared
-	else creature_ptr->energy_need = ENERGY_NEED() - (s16b)randint0(100) * 2;
+	else creature_ptr->energy_need = ENERGY_NEED(100) - (s16b)randint0(100) * 2;
 
 	/* Force creature to wait for player, unless in Nightmare mode */
 	if(has_trait(creature_ptr, TRAIT_FORCE_SLEEP) && !curse_of_Iluvatar)
