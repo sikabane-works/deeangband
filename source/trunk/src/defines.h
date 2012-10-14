@@ -744,13 +744,9 @@
 
 /* Shields */
 #define EGO_REFLECTION          21
-#define EGO_NIGHT_DAY           22
 
 /* Crowns and Helms */
 #define EGO_DARK                23
-#define EGO_INTELLIGENCE        24
-#define EGO_WISDOM              25
-#define EGO_BEAUTY              26
 #define EGO_MAGI                27
 #define EGO_MIGHT               28
 #define EGO_LORDLINESS          29
@@ -760,9 +756,6 @@
 #define EGO_TELEPATHY           33
 #define EGO_REGENERATION        34
 #define EGO_TELEPORTATION       35
-#define EGO_STUPIDITY           36
-#define EGO_NAIVETY             37
-#define EGO_UGLINESS            38
 #define EGO_SICKLINESS          39
 
 
