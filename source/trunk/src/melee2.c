@@ -1309,7 +1309,7 @@ static void creature_food_digest(creature_type *creature_ptr)
 
 			// Regeneration takes more food
 			if(has_trait(creature_ptr, TRAIT_REGENERATE)) digestion += 20;
-			if(creature_ptr->posture & (KAMAE_MASK | KATA_MASK)) digestion += 20;
+			if(creature_ptr->posture & (KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU | KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)) digestion += 20;
 			if(has_trait(creature_ptr, TRAIT_FAST_DIGEST)) digestion += 30;
 
 			// Slow digestion takes less food

@@ -563,7 +563,7 @@ bool choose_kamae(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->posture &= ~(KAMAE_MASK);
+		creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 		creature_ptr->creature_update |= (CRU_BONUS);
 		play_redraw |= (PR_STATE);
 #ifdef JP
@@ -701,7 +701,7 @@ bool choose_kata(creature_type *creature_ptr)
 	}
 	else
 	{
-		creature_ptr->posture &= ~(KATA_MASK);
+		creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 		creature_ptr->creature_update |= (CRU_BONUS | PU_CREATURES);
 #ifdef JP
 		msg_format("%sの型で構えた。",kata_shurui[new_kata].desc);
@@ -1229,7 +1229,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if(creature_ptr->posture & KATA_MASK)
+				if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 				{
 #ifdef JP
 					msg_print("今は構えに集中している。");

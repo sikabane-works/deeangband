@@ -143,7 +143,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 				msg_print("You stop assuming the posture.");
 #endif
-				creature_ptr->posture &= ~(KAMAE_MASK);
+				creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 				break;
 			}
 			case ACTION_KATA:
@@ -153,7 +153,7 @@ void set_action(creature_type *creature_ptr, int typ)
 #else
 				msg_print("You stop assuming the posture.");
 #endif
-				creature_ptr->posture &= ~(KATA_MASK);
+				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATUS);
 				break;
@@ -347,7 +347,7 @@ void dispel_creature(creature_type *creature_ptr)
 					msg_foamat("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r" : "'s");
 #endif
 				}
-				creature_ptr->posture &= ~(KAMAE_MASK);
+				creature_ptr->posture &= ~(KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU);
 				creature_ptr->creature_update |= (CRU_BONUS);
 				play_redraw |= (PR_STATE);
 				creature_ptr->action = ACTION_NONE;
@@ -362,7 +362,7 @@ void dispel_creature(creature_type *creature_ptr)
 					msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) _ "r", : "'s");
 #endif
 				}
-				creature_ptr->posture &= ~(KATA_MASK);
+				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				creature_ptr->creature_update |= (CRU_BONUS);
 				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
@@ -409,7 +409,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 #endif
 			}
 
-			if(creature_ptr->posture & KATA_MASK)
+			if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 			{
 				if(is_seen(player_ptr, creature_ptr))
 				{
@@ -419,7 +419,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 					msg_format("%s%s posture gets loose.", name, is_player(creature_ptr) ? "r": "'s");
 #endif
 				}
-				creature_ptr->posture &= ~(KATA_MASK);
+				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				creature_ptr->creature_update |= (CRU_BONUS);
 				update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
@@ -732,7 +732,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
 			}
 		}
-		if(creature_ptr->posture & KATA_MASK)
+		if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{
@@ -742,7 +742,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 				msg_print("Your posture gets loose.");
 #endif
 			}
-			creature_ptr->posture &= ~(KATA_MASK);
+			creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 			creature_ptr->creature_update |= (CRU_BONUS);
 			update |= (PU_CREATURES);
 			play_redraw |= (PR_STATE);

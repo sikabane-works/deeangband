@@ -2923,7 +2923,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 	u32b limit;
 	int empty_hands_status = empty_hands(creature_ptr, TRUE);
 
-	if(creature_ptr->posture & KAMAE_MASK)
+	if(creature_ptr->posture & KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU)
 	{
 		if(!(empty_hands_status & EMPTY_HAND_RARM))
 		{

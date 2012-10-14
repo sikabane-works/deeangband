@@ -1863,7 +1863,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	else if((creature_ptr->class_idx == CLASS_MONK) && (empty_hands(creature_ptr, TRUE) & EMPTY_HAND_RARM))
 	{
 		int i;
-		if(creature_ptr->posture & KAMAE_MASK)
+		if(creature_ptr->posture & KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU)
 		{
 			for (i = 0; i < MAX_KAMAE; i++)
 			{

@@ -1982,17 +1982,17 @@
  * function "set_ele_attack", in spell2.c.  This provides for timeouts and
  * prevents the player from getting more than one at a time.
  */
-#define ATTACK_CONFUSE		0x00000001
+#define ATTACK_CONFUSE	0x00000001
 #define ATTACK_XXX1		0x00000002
 #define ATTACK_XXX2		0x00000004
-#define ATTACK_XXX3	        0x00000008
+#define ATTACK_XXX3	    0x00000008
 #define ATTACK_ACID		0x00000010
 #define ATTACK_ELEC		0x00000020
 #define ATTACK_FIRE		0x00000040
 #define ATTACK_COLD		0x00000080
 #define ATTACK_POIS		0x00000100
 #define ATTACK_HOLY		0x00000200
-#define ATTACK_SUIKEN		0x00000400
+#define ATTACK_SUIKEN	0x00000400
 
 #define KAMAE_GENBU             0x00000020
 #define KAMAE_BYAKKO            0x00000040
@@ -2006,11 +2006,7 @@
 #define NINJA_S_STEALTH         0x00004000
 
 #define MAX_KAMAE 4
-#define KAMAE_MASK (KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU)
-
 #define MAX_KATA 4
-#define KATA_MASK (KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
-
 
 /* Empty hand status */
 #define EMPTY_HAND_NONE 0x0000 /* Both hands are used */

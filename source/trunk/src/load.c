@@ -1075,8 +1075,8 @@ static void rd_creature(creature_type *creature_ptr)
 	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 
 	rd_u32b(&creature_ptr->special_attack);
-	if(creature_ptr->special_attack & KAMAE_MASK) creature_ptr->action = ACTION_KAMAE;
-	else if(creature_ptr->special_attack & KATA_MASK) creature_ptr->action = ACTION_KATA;
+	if(creature_ptr->special_attack & KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU) creature_ptr->action = ACTION_KAMAE;
+	else if(creature_ptr->special_attack & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU) creature_ptr->action = ACTION_KATA;
 	rd_u32b(&creature_ptr->posture);
 	rd_byte(&creature_ptr->knowledge);
 

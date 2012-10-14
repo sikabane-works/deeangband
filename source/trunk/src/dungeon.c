@@ -1903,7 +1903,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		// Regeneration ability
 		if(has_trait(creature_ptr, TRAIT_REGENERATE)) regen_amount = regen_amount * 2;
-		if(creature_ptr->posture & (KAMAE_MASK | KATA_MASK)) regen_amount /= 2;
+		if(creature_ptr->posture & (KAMAE_GENBU | KAMAE_BYAKKO | KAMAE_SEIRYU | KAMAE_SUZAKU | KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)) regen_amount /= 2;
 		if(has_trait(creature_ptr, TRAIT_SLOWREGEN)) regen_amount /= 5;
 	}
 
@@ -5190,7 +5190,7 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		play_redraw |= PR_MANA;
 	}
 
-	if(creature_ptr->posture & KATA_MASK)
+	if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
 	{
 		if(creature_ptr->posture & KATA_MUSOU)
 		{
