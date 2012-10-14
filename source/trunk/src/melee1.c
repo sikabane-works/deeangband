@@ -1074,6 +1074,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
 		else min_level = ma_ptr->min_level;
 		k = diceroll(ma_ptr->dd + attacker_ptr->to_damaged[hand], ma_ptr->ds + attacker_ptr->to_damages[hand]);
+
 		if(attacker_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
 
 		if(ma_ptr->effect == MA_KNEE)
