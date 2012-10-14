@@ -764,7 +764,6 @@
 
 /* Weapons */
 #define EGO_HA                  64
-#define EGO         67
 
 /* xxx */
 #define EGO_ATTACKS             69

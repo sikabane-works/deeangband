@@ -1351,15 +1351,12 @@ s = "‹­‰»‚Å‚«‚é•Ší‚ª‚È‚¢B";
 		object_ptr = &object_list[0 - item];
 	}
 
-
 	/* you can never modify artifacts / ego-items */
 	/* you can never modify cursed items */
 	/* TY: You _can_ modify broken items (if you're silly enough) */
 	if(object_ptr->k_idx && !object_is_artifact(object_ptr) && !object_is_ego(object_ptr) &&
-	    !object_is_cursed(object_ptr) &&
-	    !has_trait_object(object_ptr, TRAIT_CRITICAL_SLAYING) &&
-	    !((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_DEATH_SCYTHE)) &&
-	    !((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_DIAMOND_EDGE)))
+	    !object_is_cursed(object_ptr) && !has_trait_object(object_ptr, TRAIT_CRITICAL_SLAYING) &&
+		!has_trait_object(object_ptr, TRAIT_NO_EGO))
 	{
 		cptr act = NULL;
 
