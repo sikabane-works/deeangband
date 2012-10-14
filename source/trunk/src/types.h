@@ -1317,7 +1317,6 @@ struct creature_type
 
 	s16b food;		  // Current nutrition 
 
-	u32b special_attack;	  // Special attack capacity -LM- 
 	u32b posture;	  // Special block capacity -LM- 
 	byte action;		  // Currently action 
 

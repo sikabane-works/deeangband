@@ -255,7 +255,6 @@ void reset_timed_trait(creature_type *creature_ptr)
 	creature_ptr->action = ACTION_NONE;
 	creature_ptr->sutemi = FALSE;
 	creature_ptr->counter = FALSE;
-	creature_ptr->special_attack = 0L;
 	creature_ptr->posture = 0L;
 	creature_ptr->time_stopper = FALSE;
 

@@ -51,7 +51,7 @@
 #define VERSION   0
 #define VER_MAJOR 0
 #define VER_MINOR 3
-#define VER_PATCH 95
+#define VER_PATCH 96
 
 #define VER_EXTRA 0
 
@@ -1976,14 +1976,6 @@
 #define OD_NO_FLAVOR        0x00000040  /* Allow to hidden flavor */
 #define OD_FORCE_FLAVOR     0x00000080  /* Get un-shuffled flavor name */
 
-
-/*
- * Bit flags for the "special_attack" variable. -LM-
- *
- * Note:  The elemental and poison attacks should be managed using the 
- * function "set_ele_attack", in spell2.c.  This provides for timeouts and
- * prevents the player from getting more than one at a time.
- */
 
 #define KAMAE_GENBU             0x00000020
 #define KAMAE_BYAKKO            0x00000040
