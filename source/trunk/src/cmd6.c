@@ -799,7 +799,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 		case SV_POTION_CONFUSION:
 			if(!has_trait(user_ptr, TRAIT_NO_CONF))
 			{
-				user_ptr->special_attack |= ATTACK_SUIKEN;
+				set_timed_trait(user_ptr, TRAIT_DRUNKING_FIST, randint0(20) + 15);
 				if(set_timed_trait(user_ptr, TRAIT_CONFUSED, randint0(20) + 15))
 				{
 					ident = TRUE;

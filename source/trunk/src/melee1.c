@@ -1075,7 +1075,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		else min_level = ma_ptr->min_level;
 		k = diceroll(ma_ptr->dd + attacker_ptr->to_damaged[hand], ma_ptr->ds + attacker_ptr->to_damages[hand]);
 
-		if(attacker_ptr->special_attack & ATTACK_SUIKEN) k *= 2;
+		if(has_trait(attacker_ptr, TRAIT_DRUNKING_FIST)) k *= 2;
 
 		if(ma_ptr->effect == MA_KNEE)
 		{
@@ -1742,7 +1742,7 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 
 	/* Total armor */
 	ac = target_ptr->ac + target_ptr->to_ac;
-	if(target_ptr->special_attack & ATTACK_SUIKEN) ac += (target_ptr->lev * 2);
+	if(has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ac += (target_ptr->lev * 2);
 
 	/* Power and Level compete against Armor */
 	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
@@ -3846,9 +3846,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Message */
 #ifdef JP
 				if(abbreviate)
-					msg_format("%s‚©‚í‚µ‚½B", (target_ptr->special_attack & ATTACK_SUIKEN) ? "Šï–­‚È“®‚«‚Å" : "");
+					msg_format("%s‚©‚í‚µ‚½B", (has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ? "Šï–­‚È“®‚«‚Å" : "");
 				else
-					msg_format("%s%^s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", (target_ptr->special_attack & ATTACK_SUIKEN) ? "Šï–­‚È“®‚«‚Å" : "", attacker_name);
+					msg_format("%s%^s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", (has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ? "Šï–­‚È“®‚«‚Å" : "", attacker_name);
 				abbreviate = 1;/*‚Q‰ñ–ÚˆÈ~‚ÍÈ—ª */
 #else
 				msg_format("%^s misses you.", attacker_name);
