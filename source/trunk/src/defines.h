@@ -2040,25 +2040,15 @@
 #define DRS_MANA        31
 #define DRS_REFLECT     32
 
-/*
- * Hack -- special "xtra" object powers
- */
-
-/* Sustain one stat */
-#define EGO_XTRA_SUSTAIN        1
-
-/* High resist */
-#define EGO_XTRA_POWER          2
-
-/* Special ability */
-#define EGO_XTRA_ABILITY        3
+// Hack -- special "xtra" object powers
+#define EGO_XTRA_SUSTAIN        1	// Sustain one stat
+#define EGO_XTRA_POWER          2	// High resist
+#define EGO_XTRA_ABILITY        3	// Special ability
 
 /*** Object flag values ***/
 
 
-/*
- * Chest trap flags (see "tables.c")
- */
+// Chest trap flags (see "tables.c")
 #define CHEST_LOSE_STR          0x0001
 #define CHEST_LOSE_CON          0x0002
 #define CHEST_POISON            0x0004
@@ -2072,10 +2062,7 @@
 #define CHEST_RUNES_OF_EVIL     0x0400
 #define CHEST_ALARM             0x0800
 
-
-/*
- * Special Object Flags
- */
+// Special Object Flags
 #define IDENT_SENSE     0x01    /* Item has been "sensed" */
 #define IDENT_FIXED     0x02    /* Item has been "haggled" */
 #define IDENT_EMPTY     0x04    /* Item charges are known */
