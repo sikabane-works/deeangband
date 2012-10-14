@@ -7327,11 +7327,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			object_ptr->to_ac = 0;
 			break;
 
-		case EGO_ENDURANCE:
-			if(!one_in_(3)) one_high_resistance(object_ptr);
-			if(one_in_(4)) add_flag(object_ptr->trait_flags, TRAIT_RES_POIS);
-			break;
-
 		case EGO_REFLECTION:
 			if(object_ptr->sval == SV_MIRROR_SHIELD)
 				object_ptr->name2 = 0;

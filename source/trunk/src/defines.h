@@ -158,8 +158,6 @@
 #define MELLE_APPENDAGE_INDEX  (MAX_WEAPONS + MAX_SPECIAL_BLOWS)
 #define MAX_MELEE_TYPE         (MAX_WEAPONS + MAX_SPECIAL_BLOWS + MAX_APPENDAGE)
 
-
-
 // Number of entries in the sanity-blast descriptions
 #define MAX_SAN_HORROR   20
 #define MAX_SAN_DELIGHT  20
@@ -742,16 +740,9 @@
 
 /*** Ego-Item indexes (see "lib/edit/e_info.txt") ***/
 
-#define EGO_DWARVEN             10
-#define EGO_PERMANENCE          11
 #define EGO_YOIYAMI             12
 
 /* Shields */
-#define EGO_ENDURE_ACID         16
-#define EGO_ENDURE_ELEC         17
-#define EGO_ENDURE_FIRE         18
-#define EGO_ENDURE_COLD         19
-#define EGO_ENDURANCE           20
 #define EGO_REFLECTION          21
 #define EGO_NIGHT_DAY           22
 
