@@ -760,14 +760,7 @@
 #define EGO_TWO_WEAPON          52
 
 /* Boots */
-#define EGO_SLOW_DESCENT        56
-#define EGO_QUIET               57
-#define EGO_MOTION              58
 #define EGO_SPEED               59
-#define EGO_JUMP                60
-#define EGO_NOISE               61
-#define EGO_SLOWNESS            62
-#define EGO_ANNOYANCE           63
 
 /* Weapons */
 #define EGO_HA                  64
