@@ -1559,7 +1559,7 @@ struct trait_type
 	s16b anti_id;
 	char title[50];
 	char e_title[50];
-	byte is_spell;
+	byte effect_type;
 	s16b adj[STAT_MAX];
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */

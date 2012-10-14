@@ -4460,9 +4460,9 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_SPELL:
 					if(sscanf(tmp, "%d", &b) == 1)
-						trait_info[n].is_spell = (byte)b;
+						trait_info[n].effect_type = (byte)b;
 					else if(grab_one_index(&b, trait_info_type, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-						trait_info[n].is_spell = (byte)b;
+						trait_info[n].effect_type = (byte)b;
 				break;
 
 				case TRAIT_INFO_PRE_ID:
