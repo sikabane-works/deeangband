@@ -249,6 +249,7 @@ void check_experience(creature_type *creature_ptr)
 		/*
 		* 報酬でレベルが上ると再帰的に check_experience() が呼ばれるので順番を最後にする。
 		*/
+		//TODO: reward argument
 		if(level_reward)
 		{
 			gain_level_reward(creature_ptr, 0);

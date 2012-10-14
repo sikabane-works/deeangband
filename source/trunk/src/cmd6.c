@@ -681,47 +681,29 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 #else
 		msg_print("The potion doesn't flow out from a bottle.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
 
 	if(music_singing_any(user_ptr)) stop_singing(user_ptr);
-	if(hex_spelling_any(user_ptr))
-	{
-		if(!hex_spelling(user_ptr, HEX_INHAIL)) stop_hex_spell_all(user_ptr);
-	}
+	if(hex_spelling_any(user_ptr)) if(!hex_spelling(user_ptr, HEX_INHAIL)) stop_hex_spell_all(user_ptr);
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &user_ptr->inventory[item];
-	}
+	// Get the item (in the pack or on the floor)
+	if(item >= 0) object_ptr = &user_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
-	/* Get local object */
+	// Get local object
 	quest_ptr = &forge;
-
-	/* Obtain a local object */
 	object_copy(quest_ptr, object_ptr);
-
-	/* Single object */
 	quest_ptr->number = 1;
 
-	/* Reduce and describe user_ptr->inventory */
+	// Reduce and describe inventory or floor item
 	if(item >= 0)
 	{
 		inven_item_increase(user_ptr, item, -1);
 		inven_item_describe(user_ptr, item);
 		inven_item_optimize(user_ptr, item);
 	}
-
-	/* Reduce and describe floor item */
 	else
 	{
 		floor_item_increase(0 - item, -1);
@@ -729,8 +711,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 		floor_item_optimize(0 - item);
 	}
 
-	/* Sound */
-	sound(SOUND_QUAFF);
+	sound(SOUND_QUAFF);	// Sound
 
 
 	/* Not identified yet */
@@ -842,7 +823,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 #else
 		msg_print("You fall asleep.");
 #endif
-
 
 				if(curse_of_Iluvatar)
 				{
@@ -1065,7 +1045,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 #else
 			msg_print("You feel life flow through your body!");
 #endif
-
 			restore_exp(user_ptr);
 			(void)set_timed_trait(user_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(user_ptr, TRAIT_BLIND, 0);
@@ -1193,7 +1172,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 #else
 			msg_print("An image of your surroundings forms in your mind...");
 #endif
-
 			wiz_lite(floor_ptr, user_ptr, FALSE);
 			ident = TRUE;
 			break;

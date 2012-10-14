@@ -4589,14 +4589,14 @@ msg_print("お金が足りません！");
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, "become *WINNER* of D\'angband finely!");
 #endif
 
-		if((creature_ptr->class_idx == CLASS_CHAOS_WARRIOR) || has_trait(creature_ptr, TRAIT_CHAOS_GIFT))
+		if(creature_ptr->patron_idx != INDEX_NONE)
 		{
 #ifdef JP
 			msg_format("%sからの声が響いた。", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("『よくやった、定命の者よ！』");
+			msg_print("『よくやった、我がしもべよ！』");
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
-			msg_print("'Thou art donst well, mortal!'");
+			msg_print("'Thou art donst well, my devotee!'");
 #endif
 		}
 
