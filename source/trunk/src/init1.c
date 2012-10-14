@@ -59,9 +59,7 @@ static void note(cptr str)
 /*** Creature CSV List ***/
 
 
-//
 // Race Flags
-//
 static cptr race_flags[MAX_RACES] =
 {
 	"HUMAN",
@@ -266,9 +264,7 @@ static cptr realm_flags[MAX_REALM]=
 	"HEX",
 };
 
-//
 // Equip Slot Flags
-//
 static cptr equip_slot_flags[MAX_INVENTORY_SLOT] =
 {
 	"INVENTORY",
@@ -287,9 +283,7 @@ static cptr equip_slot_flags[MAX_INVENTORY_SLOT] =
 	"TAIL",
 };
 
-//
 // Object Kind tval Flags
-//
 static cptr tval_flags[255] =
 {
 	"NONE",
@@ -436,7 +430,13 @@ static cptr tval_flags[255] =
 
 };
 
-
+// Trait type
+static cptr trait_info_type[] =
+{
+	"PASSIVE_EFFECT",
+	"NORMAL_ACTION",
+	"DIRECTIVE_ACTION",
+};
 
 /*
  * Character Blow Methods
@@ -4459,8 +4459,10 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_INFO_SPELL:
-					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].is_spell = (byte)b;
+					if(sscanf(tmp, "%d", &b) == 1)
+						trait_info[n].is_spell = (byte)b;
+					else if(grab_one_index(&b, trait_info_type, tmp, TRUE)) return PARSE_ERROR_GENERIC;
+						trait_info[n].is_spell = (byte)b;
 				break;
 
 				case TRAIT_INFO_PRE_ID:
