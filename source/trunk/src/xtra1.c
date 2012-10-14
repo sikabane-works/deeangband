@@ -2133,7 +2133,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 			/* Count it */
 			k++;
 		}
-		if(k>32) k = 32;
+		if(k > 32) k = 32;
 		if((creature_ptr->new_spells > k) && ((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) || (magic_info[creature_ptr->class_idx].spell_book == TV_HISSATSU_BOOK))) creature_ptr->new_spells = k;
 	}
 

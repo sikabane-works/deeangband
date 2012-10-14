@@ -1620,17 +1620,14 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		/* A creature is in the way */
 		else if(c_ptr->creature_idx)
 		{
-			/* Take a turn */
 			creature_ptr->energy_use = 100;
 
-			/* Message */
 #ifdef JP
 			msg_print("クリーチャーが立ちふさがっている！");
 #else
 			msg_print("There is a creature in the way!");
 #endif
 
-			/* Attack */
 			melee_attack(creature_ptr, y, x, 0);
 		}
 
@@ -2550,7 +2547,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
 		if(floor_ptr->wild_mode) creature_ptr->energy_use *= ((MAX_HGT + MAX_WID) / 2);
-		if(creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_use = creature_ptr->energy_use * (45-(creature_ptr->lev/2)) / 100;
+		if(creature_ptr->action == ACTION_HAYAGAKE) creature_ptr->energy_use = creature_ptr->energy_use * (45 - (creature_ptr->lev / 2)) / 100;
 
 		/* Actually move the character */
 		walk_creature(creature_ptr, dir, pickup, FALSE);

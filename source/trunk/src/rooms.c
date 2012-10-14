@@ -1990,7 +1990,7 @@ static vault_aux_type pit_types[] =
 };
 
 
-/* Nest types code */
+// Nest types code
 #define NEST_TYPE_CLONE        0
 #define NEST_TYPE_JELLY        1
 #define NEST_TYPE_SYMBOL_GOOD  2
@@ -2002,7 +2002,7 @@ static vault_aux_type pit_types[] =
 #define NEST_TYPE_CHAPEL       8
 #define NEST_TYPE_UNDEAD       9
 
-/* Pit types code */
+// Pit types code
 #define PIT_TYPE_ORC           0
 #define PIT_TYPE_TROLL         1
 #define PIT_TYPE_GIANT         2
