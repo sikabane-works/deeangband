@@ -323,7 +323,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Brand (Acid) */
-			if(have_flag(flgs, TRAIT_ACID_BRAND) || ((attacker_ptr->special_attack & (ATTACK_ACID)) && !thrown))
+			if(has_trait(attacker_ptr, TRAIT_ACID_BRAND) && !thrown)
 			{
 				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
 					reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);

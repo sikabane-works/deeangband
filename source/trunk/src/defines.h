@@ -1984,10 +1984,6 @@
  * function "set_ele_attack", in spell2.c.  This provides for timeouts and
  * prevents the player from getting more than one at a time.
  */
-#define ATTACK_XXX1		0x00000002
-#define ATTACK_XXX2		0x00000004
-#define ATTACK_XXX3	    0x00000008
-#define ATTACK_ACID		0x00000010
 #define ATTACK_ELEC		0x00000020
 #define ATTACK_FIRE		0x00000040
 #define ATTACK_COLD		0x00000080

@@ -904,11 +904,11 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return (TRUE);
 
 	/* Elemental Brands */
-	if((target_ptr->special_attack & ATTACK_ACID) && !has_trait(target_ptr, TRAIT_RES_ACID)) return (TRUE);
-	if((target_ptr->special_attack & ATTACK_FIRE) && !has_trait(target_ptr, TRAIT_RES_FIRE)) return (TRUE);
-	if((target_ptr->special_attack & ATTACK_ELEC) && !has_trait(target_ptr, TRAIT_RES_ELEC)) return (TRUE);
-	if((target_ptr->special_attack & ATTACK_COLD) && !has_trait(target_ptr, TRAIT_RES_COLD)) return (TRUE);
-	if((target_ptr->special_attack & ATTACK_POIS) && !has_trait(target_ptr, TRAIT_RES_POIS)) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return (TRUE);
 
 	/* Speed */
 	if(target_ptr->speed < 145)

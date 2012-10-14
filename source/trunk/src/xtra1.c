@@ -484,11 +484,11 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_DUST_ROBE]) ADD_FLG(BAR_DUSTROBE);
 
 	/* Mahouken */
-	if(creature_ptr->special_attack & ATTACK_FIRE) ADD_FLG(BAR_ATTKFIRE);
-	if(creature_ptr->special_attack & ATTACK_COLD) ADD_FLG(BAR_ATTKCOLD);
-	if(creature_ptr->special_attack & ATTACK_ELEC) ADD_FLG(BAR_ATTKELEC);
-	if(creature_ptr->special_attack & ATTACK_ACID) ADD_FLG(BAR_ATTKACID);
-	if(creature_ptr->special_attack & ATTACK_POIS) ADD_FLG(BAR_ATTKPOIS);
+	if(creature_ptr->timed_trait[TRAIT_FIRE_BRAND]) ADD_FLG(BAR_ATTKFIRE);
+	if(creature_ptr->timed_trait[TRAIT_COLD_BRAND]) ADD_FLG(BAR_ATTKCOLD);
+	if(creature_ptr->timed_trait[TRAIT_ELEC_BRAND]) ADD_FLG(BAR_ATTKELEC);
+	if(creature_ptr->timed_trait[TRAIT_ACID_BRAND]) ADD_FLG(BAR_ATTKACID);
+	if(creature_ptr->timed_trait[TRAIT_POIS_BRAND]) ADD_FLG(BAR_ATTKPOIS);
 	if(creature_ptr->posture & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
 	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);

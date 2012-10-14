@@ -2347,18 +2347,9 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 
 	if(IS_OPPOSE_POIS(creature_ptr)) add_flag(flgs, TRAIT_RES_POIS);
 
-	if(creature_ptr->special_attack & ATTACK_ACID)
-		add_flag(flgs, TRAIT_ACID_BRAND);
-	if(creature_ptr->special_attack & ATTACK_ELEC)
-		add_flag(flgs, TRAIT_ELEC_BRAND);
-	if(creature_ptr->special_attack & ATTACK_FIRE)
-		add_flag(flgs, TRAIT_FIRE_BRAND);
-	if(creature_ptr->special_attack & ATTACK_COLD)
-		add_flag(flgs, TRAIT_COLD_BRAND);
-	if(creature_ptr->special_attack & ATTACK_POIS)
-		add_flag(flgs, TRAIT_POIS_BRAND);
 	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
 		add_flag(flgs, TRAIT_REFLECTING);
+
 	/* by henkma */
 	if(creature_ptr->timed_trait[TRAIT_REFLECTING])
 		add_flag(flgs, TRAIT_REFLECTING);
