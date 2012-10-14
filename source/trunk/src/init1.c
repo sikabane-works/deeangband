@@ -4310,11 +4310,12 @@ errr parse_trait_csv(char *buf, header *head)
 	else
 	{
 		int n;
+		trait_type *trait_ptr;
 		strncpy(tmp, buf + split[0], size[0]);
 		tmp[size[0]] = '\0';
 		sscanf(tmp, "%d", &n);
 		sprintf(nt, "[Initialize CF:%d]", n);
-
+		trait_ptr = &trait_info[n];
 
 		note(nt);
 
@@ -4328,115 +4329,115 @@ errr parse_trait_csv(char *buf, header *head)
 			switch(cfeature_info_csv_code[i])
 			{
 				case TRAIT_INFO_ID2:
-					strcpy(trait_info[n].id2, tmp);
+					strcpy(trait_ptr->id2, tmp);
 				break;
 
 				case TRAIT_INFO_NAME:
-					strcpy(trait_info[n].title, tmp);
+					strcpy(trait_ptr->title, tmp);
 				break;
 
 				case TRAIT_INFO_E_NAME:
-					strcpy(trait_info[n].e_title, tmp);
+					strcpy(trait_ptr->e_title, tmp);
 				break;
 
 				case TRAIT_INFO_STR:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].adj[STAT_STR] = (s16b)b;
+					trait_ptr->adj[STAT_STR] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_INT:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].adj[STAT_INT] = (s16b)b;
+					trait_ptr->adj[STAT_INT] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_WIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].adj[STAT_WIS] = (s16b)b;
+					trait_ptr->adj[STAT_WIS] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DEX:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].adj[STAT_DEX] = (s16b)b;
+					trait_ptr->adj[STAT_DEX] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_CON:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].adj[STAT_CON] = (s16b)b;
+					trait_ptr->adj[STAT_CON] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_CHA:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].adj[STAT_CHA] = (s16b)b;
+					trait_ptr->adj[STAT_CHA] = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DIS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].dis = (s16b)b;
+					trait_ptr->dis = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].dev = (s16b)b;
+					trait_ptr->dev = (s16b)b;
 				break;
 
 				case TRAIT_INFO_ROB:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].rob = (s16b)b;
+					trait_ptr->rob = (s16b)b;
 				break;
 
 				case TRAIT_INFO_EVA:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].eva = (s16b)b;
+					trait_ptr->eva = (s16b)b;
 				break;
 
 				case TRAIT_INFO_VOL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].vol = (s16b)b;
+					trait_ptr->vol = (s16b)b;
 				break;
 
 				case TRAIT_INFO_STL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].stl = (s16b)b;
+					trait_ptr->stl = (s16b)b;
 				break;
 
 				case TRAIT_INFO_SRH:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].srh = (s16b)b;
+					trait_ptr->srh = (s16b)b;
 				break;
 
 				case TRAIT_INFO_FOS:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].fos = (s16b)b;
+					trait_ptr->fos = (s16b)b;
 				break;
 
 				case TRAIT_INFO_THN:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].thn = (s16b)b;
+					trait_ptr->thn = (s16b)b;
 				break;
 
 				case TRAIT_INFO_THB:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].thb = (s16b)b;
+					trait_ptr->thb = (s16b)b;
 				break;
 
 				case TRAIT_INFO_INFRA:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].infra = (s16b)b;
+					trait_ptr->infra = (s16b)b;
 				break;
 
 				case TRAIT_INFO_HITD_M:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].hitd_m = (s16b)b;
+					trait_ptr->hitd_m = (s16b)b;
 				break;
 
 				case TRAIT_INFO_EXP:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].exp = (s16b)b;
+					trait_ptr->exp = (s16b)b;
 				break;
 
 				case TRAIT_INFO_CHARGE:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].charge = (s16b)b;
+					trait_ptr->charge = (s16b)b;
 				break;
 
 				case TRAIT_INFO_FLAGS:
@@ -4445,84 +4446,84 @@ errr parse_trait_csv(char *buf, header *head)
 
 				case TRAIT_INFO_SPEED:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].speed = (s16b)b;
+					trait_ptr->speed = (s16b)b;
 				break;
 
 				case TRAIT_INFO_DESCRIPTION:
-					if(!add_text(&trait_info[n].text, head, tmp, TRUE))
+					if(!add_text(&trait_ptr->text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 
 				case TRAIT_INFO_E_DESCRIPTION:
-					if(!add_text(&trait_info[n].E_text, head, tmp, TRUE))
+					if(!add_text(&trait_ptr->E_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 				break;
 
 				case TRAIT_INFO_SPELL:
 					if(sscanf(tmp, "%d", &b) == 1)
-						trait_info[n].effect_type = (byte)b;
+						trait_ptr->effect_type = (byte)b;
 					else if(grab_one_index(&b, trait_info_type, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-						trait_info[n].effect_type = (byte)b;
+						trait_ptr->effect_type = (byte)b;
 				break;
 
 				case TRAIT_INFO_PRE_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].pre_id = (s16b)b;
+					trait_ptr->pre_id = (s16b)b;
 				break;
 
 				case TRAIT_INFO_ANTI_ID:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].anti_id = (s16b)b;
+					trait_ptr->anti_id = (s16b)b;
 				break;
 
 				case TRAIT_INFO_BASE_LEVEL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].base_level = (s16b)b;
+					trait_ptr->base_level = (s16b)b;
 				break;
 
 				case TRAIT_INFO_MP_COST:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].mp_cost = (s16b)b;
+					trait_ptr->mp_cost = (s16b)b;
 				break;
 
 				case TRAIT_INFO_USE_STAT:
 					if(sscanf(tmp, "%d", &b) != 1) {
-						if(streq(tmp, "STR")) trait_info[n].use_stat = STAT_STR;
-						else if(streq(tmp, "INT")) trait_info[n].use_stat = STAT_INT;
-						else if(streq(tmp, "WIS")) trait_info[n].use_stat = STAT_WIS;
-						else if(streq(tmp, "DEX")) trait_info[n].use_stat = STAT_DEX;
-						else if(streq(tmp, "CON")) trait_info[n].use_stat = STAT_CON;
-						else if(streq(tmp, "CHA")) trait_info[n].use_stat = STAT_CHA;
+						if(streq(tmp, "STR")) trait_ptr->use_stat = STAT_STR;
+						else if(streq(tmp, "INT")) trait_ptr->use_stat = STAT_INT;
+						else if(streq(tmp, "WIS")) trait_ptr->use_stat = STAT_WIS;
+						else if(streq(tmp, "DEX")) trait_ptr->use_stat = STAT_DEX;
+						else if(streq(tmp, "CON")) trait_ptr->use_stat = STAT_CON;
+						else if(streq(tmp, "CHA")) trait_ptr->use_stat = STAT_CHA;
 						else return PARSE_ERROR_INVALID_FLAG;
 					}
-					trait_info[n].use_stat = (s16b)b;
+					trait_ptr->use_stat = (s16b)b;
 				break;
 
 				case TRAIT_INFO_FAIL:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_info[n].fail = (s16b)b;
+					trait_ptr->fail = (s16b)b;
 				break;
 
 				case TRAIT_INFO_GET_DESC:
-					if(!add_text(&trait_info[n].get_text, head, tmp, TRUE))
+					if(!add_text(&trait_ptr->get_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_E_GET_DESC:
-					if(!add_text(&trait_info[n].E_get_text, head, tmp, TRUE))
+					if(!add_text(&trait_ptr->E_get_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_LOST_DESC:
-					if(!add_text(&trait_info[n].lost_text, head, tmp, TRUE))
+					if(!add_text(&trait_ptr->lost_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
 
 				case TRAIT_INFO_E_LOST_DESC:
-					if(!add_text(&trait_info[n].E_lost_text, head, tmp, TRUE))
+					if(!add_text(&trait_ptr->E_lost_text, head, tmp, TRUE))
 						return PARSE_ERROR_OUT_OF_MEMORY;
 					break;
 				break;
