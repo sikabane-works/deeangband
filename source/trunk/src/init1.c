@@ -436,6 +436,9 @@ static cptr trait_info_type[] =
 	"PASSIVE_EFFECT",
 	"NORMAL_ACTION",
 	"DIRECTIVE_ACTION",
+	"POSTURE",
+	"EATING_MEET",
+	NULL
 };
 
 /*
@@ -4321,11 +4324,9 @@ errr parse_trait_csv(char *buf, header *head)
 
 		for(i = 1; i < TRAIT_INFO_CSV_COLUMNS; i++)
 		{
-			
 			strncpy(tmp, buf + split[i], size[i]);
 			tmp[size[i]] = '\0';
 			
-
 			switch(cfeature_info_csv_code[i])
 			{
 				case TRAIT_INFO_ID2:
@@ -4462,8 +4463,8 @@ errr parse_trait_csv(char *buf, header *head)
 				case TRAIT_INFO_SPELL:
 					if(sscanf(tmp, "%d", &b) == 1)
 						trait_ptr->effect_type = (byte)b;
-					else if(grab_one_index(&b, trait_info_type, tmp, TRUE)) return PARSE_ERROR_GENERIC;
-						trait_ptr->effect_type = (byte)b;
+					else if(grab_one_index(&b, trait_info_type, tmp, FALSE)) return PARSE_ERROR_GENERIC;
+					else trait_ptr->effect_type = (byte)b;
 				break;
 
 				case TRAIT_INFO_PRE_ID:
