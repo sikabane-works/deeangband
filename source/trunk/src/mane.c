@@ -374,7 +374,7 @@ msg_print("‚à‚Ì‚Ü‚Ë‚ÉŽ¸”s‚µ‚½I");
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Window stuff */
 	play_redraw |= (PR_IMITATION);

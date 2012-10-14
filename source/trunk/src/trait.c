@@ -962,7 +962,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_format("%^s is stand in your way.", target_name);
 #endif
-				caster_ptr->energy_use = 0;
+				caster_ptr->energy_need = 0;
 				return FALSE;
 			}
 			set_action(caster_ptr, ACTION_FISH);
@@ -3170,7 +3170,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_STOP_HEX:
 		{
 			bool retval = stop_hex_spell(caster_ptr);
-			if(retval) caster_ptr->energy_use = 10;
+			if(retval) caster_ptr->energy_need = 10;
 			return (retval);
 			break;
 		}
@@ -3446,7 +3446,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(caster_ptr);
-			caster_ptr->energy_use = 10;
+			caster_ptr->energy_need = 10;
 			break;
 		}
 
@@ -3510,7 +3510,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				set_action(caster_ptr, ACTION_LEARN);
 			}
-			caster_ptr->energy_use = 0;
+			caster_ptr->energy_need = 0;
 			break;
 		}
 
@@ -3655,7 +3655,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					set_action(caster_ptr, ACTION_HAYAGAKE);
 				}
 			}
-			caster_ptr->energy_use = 0;
+			caster_ptr->energy_need = 0;
 			break;
 		}
 

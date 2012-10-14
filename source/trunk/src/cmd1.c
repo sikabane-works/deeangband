@@ -1858,7 +1858,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 				msg_print("You cannot run in here.");
 #endif
 			}
-			creature_ptr->energy_use = 100;
+			creature_ptr->energy_need = 100;
 			set_action(creature_ptr, ACTION_NONE);
 		}
 	}
@@ -1897,7 +1897,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		disturb(creature_ptr, 0, 0);
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		command_new = SPECIAL_KEY_STORE;
 	}
 
@@ -1906,7 +1906,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		disturb(player_ptr, 0, 0);
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		command_new = SPECIAL_KEY_BUILDING;
 	}
 
@@ -1915,7 +1915,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		disturb(player_ptr, 0, 0);
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		command_new = SPECIAL_KEY_QUEST;
 	}
 
@@ -2145,7 +2145,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				subject_change_floor = TRUE;
 
 				reveal_wilderness(tmp_wy, tmp_wx);
-				creature_ptr->energy_use = 100;
+				creature_ptr->energy_need = 100;
 				return;
 			}
 #ifdef JP
@@ -2160,11 +2160,11 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				creature_ptr->oldpx = tmp_px;
 				subject_change_floor = TRUE;
 				reveal_wilderness(tmp_wy, tmp_wx);
-				creature_ptr->energy_use = 100;
+				creature_ptr->energy_need = 100;
 				return;
 			}
 
-			//creature_ptr->energy_use = 0;
+			//creature_ptr->energy_need = 0;
 			//oktomove = FALSE;
 
 		}
@@ -2195,7 +2195,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 	if(have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
 		if((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
 			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
-			creature_ptr->energy_use *= 2;
+			creature_ptr->energy_need *= 2;
 }
 
 
@@ -2289,7 +2289,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				msg_format("%^s is in your way!", m_name);
 #endif
 
-				creature_ptr->energy_use = 0;
+				creature_ptr->energy_need = 0;
 				oktomove = FALSE;
 			}
 
@@ -2311,7 +2311,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Can't move!");
 #endif
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2354,7 +2354,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Can't swim.");
 #endif
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2365,7 +2365,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Can't land.");
 #endif
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2376,7 +2376,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Too hot to go through.");
 #endif
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2403,7 +2403,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		msg_format("You need to fly to go through the %s.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		creature_ptr->running = 0;
 		oktomove = FALSE;
 	}
@@ -2472,7 +2472,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #endif
 
 				if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || IS_HALLUCINATION(creature_ptr)))
-					creature_ptr->energy_use = 0;
+					creature_ptr->energy_need = 0;
 			}
 
 			/* Wall (or secret door) */
@@ -2493,7 +2493,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				 * typing mistakes should not cost you a turn...
 				 */
 				if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || IS_HALLUCINATION(creature_ptr)))
-					creature_ptr->energy_use = 0;
+					creature_ptr->energy_need = 0;
 			}
 		}
 
@@ -2510,7 +2510,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		if(!get_check("Really want to enter territory of chaos? "))
 #endif
 		{
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			oktomove = FALSE;
 		}
 	}
@@ -2521,7 +2521,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	{
 		if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || IS_HALLUCINATION(creature_ptr)))
 		{
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 		}
 
 		/* To avoid a loop with running */
@@ -2539,7 +2539,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			if(!process_warning(creature_ptr, x, y))
 			{
-				creature_ptr->energy_use = 25;
+				creature_ptr->energy_need = 25;
 				return;
 			}
 		}
@@ -3320,7 +3320,7 @@ void run_step(creature_type *creature_ptr, int dir)
 	if(--creature_ptr->running <= 0) return;
 
 	/* Take time */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Move the player, using the "pickup" flag */
 	walk_creature(creature_ptr, find_current, FALSE, FALSE);
@@ -3452,7 +3452,7 @@ void travel_step(creature_type *creature_ptr)
 		return;
 	}
 
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	for (i = 1; i <= 9; i++)
 	{

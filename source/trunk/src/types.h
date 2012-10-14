@@ -1311,7 +1311,6 @@ struct creature_type
 
 	byte recall_dungeon;      // Dungeon set to be recalled 
 
-	s16b energy_use;	// Energy use this turn
 	s16b energy_need;	// Energy needed for next move 
 
 	s16b food;		  // Current nutrition 

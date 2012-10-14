@@ -79,7 +79,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	sound(SOUND_EAT);
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Identity not known yet */
 	ident = FALSE;
@@ -671,7 +671,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 	object_type *quest_ptr;
 
 	// Take a turn
-	user_ptr->energy_use = 100;
+	user_ptr->energy_need = 100;
 
 	if(user_ptr->time_stopper)
 	{
@@ -1450,7 +1450,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	if(creature_ptr->time_stopper)
 	{
@@ -2571,7 +2571,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3095,7 +3095,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	target_pet = old_target_pet;
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Get the level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3522,7 +3522,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3799,7 +3799,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -4028,7 +4028,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 			msg_print("It has no fuel.");
 #endif
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			return;
 		}
 		lite_area(creature_ptr, diceroll(2, 15), 3);
@@ -5138,7 +5138,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 	item = select_magic_eater(creature_ptr, only_browse);
 	if(item == -1)
 	{
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		return;
 	}
 	if(item >= EATER_EXT*2) {tval = TV_ROD;sval = item - EATER_EXT*2;}
@@ -5175,7 +5175,7 @@ msg_print("Žô•¶‚ð‚¤‚Ü‚­¥‚¦‚ç‚ê‚È‚©‚Á‚½I");
 #endif
 
 		sound(SOUND_FAIL);
-		creature_ptr->energy_use = 100;
+		creature_ptr->energy_need = 100;
 
 		return;
 	}
@@ -5201,7 +5201,7 @@ msg_print("Žô•¶‚ð‚¤‚Ü‚­¥‚¦‚ç‚ê‚È‚©‚Á‚½I");
 			if(!use_charge) return;
 		}
 	}
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 	if(tval == TV_ROD) creature_ptr->class_skills.old_skills.magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
 	else creature_ptr->class_skills.old_skills.magic_num1[item] -= EATER_CHARGE;
 }

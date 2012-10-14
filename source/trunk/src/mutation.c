@@ -657,7 +657,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			break;
 
 		default:
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 #ifdef JP
 			msg_format("”\—Í %s ‚ÍÀ‘•‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB", power);
 #else

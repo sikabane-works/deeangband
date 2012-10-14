@@ -925,7 +925,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Sound */
 	sound(SOUND_STUDY);
@@ -1318,7 +1318,7 @@ msg_print("An infernal sound echoed.");
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Over-exert the player */
 	if(over_exerted)
@@ -1853,7 +1853,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		if(c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			rider_ptr->energy_use = 100;
+			rider_ptr->energy_need = 100;
 
 			/* Message */
 #ifdef JP
@@ -1943,7 +1943,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			msg_print("You failed to ride.");
 #endif
 
-			rider_ptr->energy_use = 100;
+			rider_ptr->energy_need = 100;
 
 			return FALSE;
 		}
@@ -1969,7 +1969,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		if(rider_ptr->riding == health_who) health_track(0);
 	}
 
-	rider_ptr->energy_use = 100;
+	rider_ptr->energy_need = 100;
 
 	/* Mega-Hack -- Forget the view and lite */
 	update |= (PU_UN_VIEW | PU_UN_LITE);
@@ -2566,7 +2566,7 @@ void do_cmd_pet(creature_type *master_ptr)
 	/* Abort if needed */
 	if(!flag)
 	{
-		master_ptr->energy_use = 0;
+		master_ptr->energy_need = 0;
 		return;
 	}
 

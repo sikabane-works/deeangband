@@ -422,7 +422,7 @@ s = "魔力を取り込めるアイテムがない。";
 		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 	return TRUE;
 }
 
@@ -809,7 +809,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		msg_format("You need to attain level %d to use this power.", min_level);
 #endif
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		return 0;
 	}
 
@@ -822,7 +822,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		msg_print("You are too confused to use this power.");
 #endif
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		return 0;
 	}
 
@@ -835,7 +835,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		if(!get_check("Really use the power in your weakened state? "))
 #endif
 		{
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			return 0;
 		}
 	}
@@ -859,7 +859,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* take time and pay the price */
-	creature_ptr->energy_use = 100;
+	creature_ptr->energy_need = 100;
 
 	/* Success? */
 	if(randint1(creature_ptr->stat_cur[use_stat]) >=
@@ -925,7 +925,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		if(creature_ptr->realm1 == REALM_HEX)
 		{
 			bool retval = stop_hex_spell(creature_ptr);
-			if(retval) creature_ptr->energy_use = 10;
+			if(retval) creature_ptr->energy_need = 10;
 			return (retval);
 		}
 		case CLASS_MAGE:
@@ -1201,7 +1201,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(creature_ptr);
-			creature_ptr->energy_use = 10;
+			creature_ptr->energy_need = 10;
 			break;
 		}
 		case CLASS_RED_MAGE:
@@ -1280,7 +1280,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				set_action(creature_ptr, ACTION_LEARN);
 			}
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			break;
 		}
 		case CLASS_CAVALRY:
@@ -1425,7 +1425,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					set_action(creature_ptr, ACTION_HAYAGAKE);
 				}
 			}
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			break;
 		}
 		}
@@ -2167,7 +2167,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("This race has no bonus power.");
 #endif
 
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 	}
 	}
 	return TRUE;
@@ -2206,7 +2206,7 @@ msg_print("混乱していて特殊能力を使えません！");
 		msg_print("You are too confused to use any powers!");
 #endif
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		return;
 	}
 
@@ -2248,7 +2248,7 @@ if(!repeat_pull(&i) || i<0 || i>=num) {
 				case '0':
 				{
 					screen_load();
-					creature_ptr->energy_use = 0;
+					creature_ptr->energy_need = 0;
 					return;
 				}
 
@@ -2435,7 +2435,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 	/* Abort if needed */
 	if(!flag)
 	{
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		return;
 	}
 
@@ -2480,7 +2480,7 @@ prt("                            Lv   MP 失率                            Lv   MP
 			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}
-	else creature_ptr->energy_use = 0;
+	else creature_ptr->energy_need = 0;
 
 	/* Success */
 	return;

@@ -1004,7 +1004,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		msg_print("You cannot enter global map, since there is some creatures nearby!");
 #endif
 
-		creature_ptr->energy_use = 0;
+		creature_ptr->energy_need = 0;
 		return FALSE;
 	}
 
@@ -1018,7 +1018,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 		if(!get_check_strict(msg, CHECK_OKAY_CANCEL))
 		{
-			creature_ptr->energy_use = 0;
+			creature_ptr->energy_need = 0;
 			return FALSE;
 		}
 	}
@@ -1038,7 +1038,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	reveal_wilderness(creature_ptr->wy, creature_ptr->wx);
 
 	/* HACK */
-	creature_ptr->energy_use = 1000;
+	creature_ptr->energy_need = 1000;
 
 	/* Remember the position */
 	creature_ptr->oldpx = creature_ptr->fx;
