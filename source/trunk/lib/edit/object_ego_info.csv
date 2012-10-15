@@ -97,8 +97,8 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX
 103,*人喰い*の,of *Slay* Human,HAND,16,100,0,0,0,0,0,0,0,0,0,0,2,0,60,0,4000,0,DEX|KILL_HUMAN|SENSE_HUMAN,### Missile Launchers ###
 104,高精度の,of Accuracy,BOW,10,100,10,5,0,0,0,0,0,0,0,0,0,0,5,0,1000,0,,
 105,高速度の,of Velocity,BOW,10,100,5,10,0,0,0,0,0,0,0,0,0,0,5,0,1000,0,,# 106 (unused)# 107 (unused)
-108,強力射の,of Extra Might,BOW,20,100,2,4,0,0,0,0,0,0,0,0,0,0,18,0,10000,0,XTRA_MIGHT|XTRA_RES,
-109,強速射の,of Extra Shots,BOW,20,100,4,2,0,0,0,0,0,0,0,0,0,0,18,0,10000,0,XTRA_SHOTS,# 110 (unused)# 111 (unused)### Ammo ###
+108,強力射の,of Extra Might,BOW,20,100,2,4,0,0,0,0,0,0,0,0,0,0,18,0,10000,0,EXTRA_ATTACK_MIGHT|XTRA_RES,
+109,強速射の,of Extra Shots,BOW,20,100,4,2,0,0,0,0,0,0,0,0,0,0,18,0,10000,0,EXTRA_ATTACK_SPEED,# 110 (unused)# 111 (unused)### Ammo ###
 112,アニマルキラーの,of Hurt Animal,AMMO,10,100,,,,0,0,0,0,0,0,0,,0,18,0,25,0,SLAY_ANIMAL,
 113,破邪の,of Hurt Evil,AMMO,10,100,,,,0,0,0,0,0,0,0,,0,18,0,25,0,SLAY_EVIL,
 114,聖なる,of Holy Might,AMMO,20,100,5,5,0,0,0,0,0,0,0,0,0,0,36,0,60,0,IGNORE_FIRE|IGNORE_ACID,

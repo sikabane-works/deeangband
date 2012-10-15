@@ -663,8 +663,6 @@ static cptr object_kind_info_flags[] =
 	"DEX",
 	"CON",
 	"CHR",
-	"XTRA_SHOTS",
-	"XTRA_MIGHT",
 };
 
 
