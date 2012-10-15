@@ -2798,18 +2798,6 @@ errr parse_artifact_csv(char *buf, header *head)
  */
 static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 {
-	int i;
-
-	/* Check flags */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-	{
-		if(streq(what, object_kind_info_flags[i]))
-		{
-			add_flag(e_ptr->flags, i);
-			return PARSE_ERROR_NONE;
-		}
-	}
-
 	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
