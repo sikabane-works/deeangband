@@ -662,41 +662,9 @@ static cptr object_kind_info_flags[] =
 	"WIS",
 	"DEX",
 	"CON",
-
 	"CHR",
-	"MAGIC_MASTERY",
-	"FORCE_WEAPON",
-	"STEALTH",
-	"SEARCH",
-
-	"INFRA",
-	"TUNNEL",
-	"SPEED",
-	"BLOWS",
-	"RIDING",
-
-	"HIDE_TYPE",
-	"SHOW_MODS",
-	"LITE",
-
-	"XXX",
-	"XXX",
-	"XTRA_MIGHT",
-
 	"XTRA_SHOTS",
-	"IGNORE_ACID",
-	"IGNORE_ELEC",
-	"IGNORE_FIRE",
-	"IGNORE_COLD",
-
-	"ACTIVATE",
-	"XXX",
-	"TELEPORT",
-	"FULL_NAME",
-	"FIXED_FLAVOR",
-
-	"NO_LIMIT_LITE",
-
+	"XTRA_MIGHT",
 };
 
 
