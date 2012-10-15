@@ -1891,18 +1891,6 @@ void retouch_feature_info(header *head)
  */
 static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
 {
-	int i;
-
-	/* Check flags */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-	{
-		if(streq(what, object_kind_info_flags[i]))
-		{
-			add_flag(k_ptr->flags, i);
-			return PARSE_ERROR_NONE;
-		}
-	}
-
 	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
