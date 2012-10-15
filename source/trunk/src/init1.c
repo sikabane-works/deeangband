@@ -700,43 +700,6 @@ static cptr object_kind_info_flags[] =
 };
 
 
-static cptr object_kind_info_gen_flags[] =
-{
-	"INSTA_ART",
-	"QUESTITEM",
-	"XTRA_POWER",
-	"ONE_SUSTAIN",
-	"XTRA_RES_OR_POWER",
-	"XTRA_H_RES",
-	"XTRA_E_RES",
-	"XTRA_L_RES",
-	"XTRA_D_RES",
-	"XTRA_RES",
-	"CURSED",
-	"HEAVY_CURSE",
-	"DIVINE_CURSE",
-	"RANDOM_CURSE0",
-	"RANDOM_CURSE1",
-	"RANDOM_CURSE2",
-	"NO_LIMIT_LITE",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-	"XXX",
-};
-
-
 /*
  * Dungeon flags
  */
@@ -1974,9 +1937,6 @@ static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
 		}
 	}
 
-	if(grab_one_flag(&k_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
-		return PARSE_ERROR_NONE;
-
 	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
@@ -2501,9 +2461,6 @@ static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
 		}
 	}
 
-	if(grab_one_flag(&a_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
-		return PARSE_ERROR_NONE;
-
 	/* Error */
 	return PARSE_ERROR_GENERIC;
 }
@@ -2898,9 +2855,6 @@ static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
 			return PARSE_ERROR_NONE;
 		}
 	}
-
-	if(grab_one_flag(&e_ptr->gen_flags, object_kind_info_gen_flags, what) == 0)
-		return PARSE_ERROR_NONE;
 
 	/* Error */
 	return PARSE_ERROR_GENERIC;
