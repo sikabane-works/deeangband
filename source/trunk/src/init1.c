@@ -433,11 +433,11 @@ static cptr tval_flags[255] =
 // Trait type
 static cptr trait_info_type[] =
 {
-	"PASSIVE_EFFECT",
-	"NORMAL_ACTION",
-	"DIRECTIVE_ACTION",
+	"CONSTANT",
+	"SELF",
+	"TARGET",
 	"POSTURE",
-	"EATING_MEET",
+	"MEAT",
 	NULL
 };
 
