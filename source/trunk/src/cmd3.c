@@ -559,31 +559,18 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	// Get the item (in the pack)
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
 	{
-		/* Oops */
 #ifdef JP
 		msg_print("Ç”Å[ÇﬁÅAÇ«Ç§Ç‚ÇÁéÙÇÌÇÍÇƒÇ¢ÇÈÇÊÇ§ÇæÅB");
 #else
 		msg_print("Hmmm, it seems to be cursed.");
 #endif
-
-
-		/* Nope */
 		return;
 	}
 
@@ -597,7 +584,6 @@ void do_cmd_drop(creature_type *creature_ptr)
 		/* Allow user abort */
 		if(amt <= 0) return;
 	}
-
 
 	/* Take a partial turn */
 	creature_ptr->energy_need = 50;
@@ -618,15 +604,15 @@ void do_cmd_drop(creature_type *creature_ptr)
 static bool high_level_book(object_type *object_ptr)
 {
 	if((object_ptr->tval == TV_LIFE_BOOK) ||
-	    (object_ptr->tval == TV_SORCERY_BOOK) ||
-	    (object_ptr->tval == TV_NATURE_BOOK) ||
-	    (object_ptr->tval == TV_CHAOS_BOOK) ||
-	    (object_ptr->tval == TV_DEATH_BOOK) ||
-	    (object_ptr->tval == TV_TRUMP_BOOK) ||
-	    (object_ptr->tval == TV_CRAFT_BOOK) ||
-	    (object_ptr->tval == TV_DAEMON_BOOK) ||
-	    (object_ptr->tval == TV_CRUSADE_BOOK) ||
-	    (object_ptr->tval == TV_MUSIC_BOOK) ||
+		(object_ptr->tval == TV_SORCERY_BOOK) ||
+		(object_ptr->tval == TV_NATURE_BOOK) ||
+		(object_ptr->tval == TV_CHAOS_BOOK) ||
+		(object_ptr->tval == TV_DEATH_BOOK) ||
+		(object_ptr->tval == TV_TRUMP_BOOK) ||
+		(object_ptr->tval == TV_CRAFT_BOOK) ||
+		(object_ptr->tval == TV_DAEMON_BOOK) ||
+		(object_ptr->tval == TV_CRUSADE_BOOK) ||
+		(object_ptr->tval == TV_MUSIC_BOOK) ||
 		(object_ptr->tval == TV_HEX_BOOK))
 	{
 		if(object_ptr->sval > 1)
@@ -649,24 +635,19 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	bool		force = FALSE;
 
-	object_type		*object_ptr;
-	object_type             forge;
-	object_type             *quest_ptr = &forge;
+	object_type *object_ptr;
+	object_type forge;
+	object_type *quest_ptr = &forge;
 
-	char		object_name[MAX_NLEN];
-
-	char		out_val[MAX_NLEN+40];
+	char object_name[MAX_NLEN];
+	char out_val[MAX_NLEN+40];
 
 	cptr q, s;
 
-	if(creature_ptr->posture & KATA_MUSOU)
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
 
 	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
-
 
 	/* Get an item */
 #ifdef JP
