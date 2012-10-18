@@ -1098,37 +1098,31 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case SUMMON_BIZARRE1:
+		case SUMMON_MOLD:
 		{
 			okay = (r_ptr->d_char == 'm');
 			break;
 		}
 
-		case SUMMON_BIZARRE2:
+		case SUMMON_BAT:
 		{
 			okay = (r_ptr->d_char == 'b');
 			break;
 		}
 
-		case SUMMON_BIZARRE3:
+		case SUMMON_QUYLTHULG:
 		{
 			okay = (r_ptr->d_char == 'Q');
 			break;
 		}
 
-		case SUMMON_BIZARRE4:
-		{
-			okay = (r_ptr->d_char == 'v');
-			break;
-		}
-
-		case SUMMON_BIZARRE5:
+		case SUMMON_CREEPING_COIN:
 		{
 			okay = (r_ptr->d_char == '$');
 			break;
 		}
 
-		case SUMMON_BIZARRE6:
+		case SUMMON_MIMIC:
 		{
 			okay = ((r_ptr->d_char == '!') ||
 				 (r_ptr->d_char == '?') ||
@@ -1149,7 +1143,6 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			okay = ((r_ptr->d_char == 'U') && has_trait_raw(&r_ptr->flags, TRAIT_ROCKET));
 			break;
 		}
-
 
 		case SUMMON_KIN:
 		{

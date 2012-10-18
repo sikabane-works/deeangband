@@ -497,11 +497,11 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 void wild_magic(creature_type *creature_ptr, int spell)
 {
 	int counter = 0;
-	int type = SUMMON_BIZARRE1 + randint0(6);
+	int type = SUMMON_MOLD + randint0(6);
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(type < SUMMON_BIZARRE1) type = SUMMON_BIZARRE1;
-	else if(type > SUMMON_BIZARRE6) type = SUMMON_BIZARRE6;
+	if(type < SUMMON_MOLD) type = SUMMON_MOLD;
+	else if(type > SUMMON_MIMIC) type = SUMMON_MIMIC;
 
 	switch (randint1(spell) + randint1(8) + 1)
 	{
@@ -794,7 +794,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE1, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_MOLD, 0L);
 	}
 	else if(die < 84)
 	{
@@ -804,7 +804,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE2, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BAT, 0L);
 	}
 	else if(die < 86)
 	{
@@ -814,7 +814,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE4, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_VORTEX, 0L);
 	}
 	else if(die < 88)
 	{
@@ -824,7 +824,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BIZARRE5, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)
 	{
