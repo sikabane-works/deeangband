@@ -4216,12 +4216,6 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				else object_ptr->timeout = 250;
 				break;
 
-			case EGO_RING_M_DETECT:
-				(void)detect_creatures_invis(creature_ptr, 255);
-				(void)detect_creatures_normal(creature_ptr, 255);
-				object_ptr->timeout = 150;
-				break;
-
 			default:
 				success = FALSE;
 				break;
