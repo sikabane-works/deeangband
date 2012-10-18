@@ -791,8 +791,6 @@
 #define EGO_VAMPIRIC            96
 #define EGO_PRISM               97
 #define EGO_TRUMP               98
-#define EGO_PATTERN             99
-#define EGO_DIGGING             100
 #define EGO_SLAY_HUMAN          101
 #define EGO_MORGUL              102
 #define EGO_KILL_HUMAN          103

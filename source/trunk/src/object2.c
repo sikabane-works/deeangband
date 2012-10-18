@@ -7350,21 +7350,11 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				object_ptr->pval = m_bonus(3, level);
 			break;
 
-
 		case EGO_TRUMP:
 			if(one_in_(5))
 				add_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
 			if(one_in_(7))
 				one_ability(object_ptr);
-			break;
-
-		case EGO_PATTERN:
-			if(one_in_(3))
-				add_flag(object_ptr->trait_flags, TRAIT_HOLD_LIFE);
-			if(one_in_(3))
-				object_ptr->stat_val[STAT_DEX] = (s16b)randint1(MAX_RAND_STAT_VAL);
-			if(one_in_(5))
-				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
 			break;
 
 	}
