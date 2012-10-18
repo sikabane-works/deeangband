@@ -1980,17 +1980,6 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 		}
 	}
 
-	/* TODO
-	if(object_ptr->name1 == MURAMASA)
-	{
-		if(owner_ptr->class_idx != CLASS_SAMURAI)
-		{
-			add_flag(object_ptr->trait_flags, TRAIT_ANTI_MAGIC);
-			add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-		}
-	}
-	*/
-
 	if(has_trait_object(object_ptr, TRAIT_NEED_MONK_EQUIPMENT))
 	{
 		if(owner_ptr->class_idx == CLASS_MONK)
@@ -2003,33 +1992,15 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 	}
 	*/
 
-	/*
-	if(object_ptr->name1 == ART_HEAVENLY_MAIDEN)
-	{
-		if(owner_ptr->sex != SEX_FEMALE)
-		{
-			add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
-		}
-	}
-	*/
+	if(has_trait_object(object_ptr, TRAIT_CLOSED_TO_MALE) && owner_ptr->sex == SEX_MALE) add_flag(object_ptr->trait_flags, TRAIT_ANTIPATHY);
 
-	if(have_flag(a_ptr->flags, TRAIT_XTRA_POWER)) give_power = TRUE;
-	if(have_flag(a_ptr->flags, TRAIT_XTRA_H_RES)) give_resistance = TRUE;
+	if(have_flag(a_ptr->flags, TRAIT_XTRA_POWER)) one_ability(object_ptr);
+	if(have_flag(a_ptr->flags, TRAIT_XTRA_H_RES)) one_high_resistance(object_ptr);
 	if(have_flag(a_ptr->flags, TRAIT_XTRA_RES_OR_POWER))
 	{
 		// Give a resistance OR a power
 		if(one_in_(2)) give_resistance = TRUE;
 		else give_power = TRUE;
-	}
-
-	if(give_power)
-	{
-		one_ability(object_ptr);
-	}
-
-	if(give_resistance)
-	{
-		one_high_resistance(object_ptr);
 	}
 }
 
