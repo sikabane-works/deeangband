@@ -1680,14 +1680,8 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 				warrior_artifact_bias = 50;
 				break;
 			case CLASS_MIRROR_MASTER:
-				if(randint1(4) > 1) 
-				{
-				    artifact_bias = BIAS_MAGE;
-				}
-				else
-				{
-				    artifact_bias = BIAS_ROGUE;
-				}
+				if(randint1(4) > 1)  artifact_bias = BIAS_MAGE;
+				else artifact_bias = BIAS_ROGUE;
 				break;
 		}
 	}
@@ -1702,8 +1696,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	if(((object_ptr->tval == TV_AMULET) || (object_ptr->tval == TV_RING)) && object_is_cursed(object_ptr))
 		a_cursed = TRUE;
 
-	while (one_in_(powers) || one_in_(7) || one_in_(10))
-		powers++;
+	while (one_in_(powers) || one_in_(7) || one_in_(10)) powers++;
 
 	if(!a_cursed && one_in_(WEIRD_LUCK))
 		powers *= 2;
@@ -1723,14 +1716,8 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 				if(one_in_(2) && object_is_weapon_ammo(object_ptr) && (object_ptr->tval != TV_BOW))
 				{
 					if(a_cursed && !one_in_(13)) break;
-					if(one_in_(13))
-					{
-						if(one_in_(object_ptr->ds+4)) object_ptr->ds++;
-					}
-					else
-					{
-						if(one_in_(object_ptr->dd+1)) object_ptr->dd++;
-					}
+					if(one_in_(13)) if(one_in_(object_ptr->ds + 4)) object_ptr->ds++;
+					else if(one_in_(object_ptr->dd + 1)) object_ptr->dd++;
 				}
 				else
 					random_resistance(object_ptr, artifact_bias);
@@ -1865,18 +1852,10 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 		(void)screen_object(object_ptr, 0L);
 
-		if(!get_string(ask_msg, dummy_name, sizeof dummy_name)
-		    || !dummy_name[0])
+		if(!get_string(ask_msg, dummy_name, sizeof dummy_name) || !dummy_name[0])
 		{
-			/* Cancelled */
-			if(one_in_(2))
-			{
-				get_table_sindarin_aux(dummy_name);
-			}
-			else
-			{
-				get_table_name_aux(dummy_name);
-			}
+			if(one_in_(2)) get_table_sindarin_aux(dummy_name);
+			else get_table_name_aux(dummy_name);
 		}
 
 #ifdef JP
@@ -1902,11 +1881,8 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 #endif
 	}
 
-	/* Save the inscription */
-	object_ptr->art_name = quark_add(new_name);
-
-	/* Window stuff */
-	play_window |= (PW_INVEN | PW_EQUIP);
+	object_ptr->art_name = quark_add(new_name);	// Save the inscription
+	play_window |= (PW_INVEN | PW_EQUIP);		// Window stuff
 
 	return TRUE;
 }
@@ -1996,9 +1972,10 @@ void random_artifact_resistance(creature_type *owner_ptr, object_type *object_pt
 
 	if(have_flag(a_ptr->flags, TRAIT_XTRA_POWER)) one_ability(object_ptr);
 	if(have_flag(a_ptr->flags, TRAIT_XTRA_H_RES)) one_high_resistance(object_ptr);
-	if(have_flag(a_ptr->flags, TRAIT_XTRA_RES_OR_POWER))
+
+	if(have_flag(a_ptr->flags, TRAIT_XTRA_RES_OR_POWER)) // Give a resistance OR a power
 	{
-		// Give a resistance OR a power
+		
 		if(one_in_(2)) give_resistance = TRUE;
 		else give_power = TRUE;
 	}
