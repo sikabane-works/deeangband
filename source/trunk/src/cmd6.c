@@ -4193,12 +4193,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			switch (object_ptr->name2)
 			{
-			case EGO_RING_HERO:
-				(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				(void)set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(25) + 25, FALSE);
-				(void)heal_creature(creature_ptr, 10);
-				object_ptr->timeout = randint1(100)+100;
-				break;
+
 			case EGO_RING_DRAGON_F:
 				if(!get_aim_dir(creature_ptr, &dir)) return;
 				cast_ball(creature_ptr, GF_FIRE, dir, 200, -2);
@@ -4209,6 +4204,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				}
 				else object_ptr->timeout = 250;
 				break;
+
 			case EGO_RING_DRAGON_C:
 				if(!get_aim_dir(creature_ptr, &dir)) return;
 				cast_ball(creature_ptr, GF_COLD, dir, 200, -2);
@@ -4219,6 +4215,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				}
 				else object_ptr->timeout = 250;
 				break;
+
 			case EGO_RING_M_DETECT:
 				(void)detect_creatures_invis(creature_ptr, 255);
 				(void)detect_creatures_normal(creature_ptr, 255);

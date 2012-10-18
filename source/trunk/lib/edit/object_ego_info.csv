@@ -121,7 +121,7 @@ ID,NAME,E_NAME,SLOT,RATING,AP_RATE,MAX_HIT,MAX_DAM,MAX_AC,MAX_EV,STR,INT,WIS,DEX
 144,í∑éùÇøÇÃ,of Duration,LITE,10,100,0,0,0,0,0,0,0,0,0,0,0,0,9,0,100,0,,
 145,à√à≈ÇÃ,of Darkness,LITE,0,100,0,0,0,0,0,0,0,0,0,0,0,0,36,0,0,0,,
 146,ïsãÄÇÃä·ÇÃ,of Immortal Eye,LITE,20,100,0,0,0,0,0,0,0,0,0,0,0,0,36,0,4000,0,SEE_INVISIBLE|NO_BLIND,# Ego Ring
-150,óEãCÇÃ,and Heroism,RING,10,100,0,0,0,0,0,0,0,0,0,0,0,5,0,0,300,0,ACTIVATE,
+150,óEãCÇÃ,and Heroism,RING,10,100,0,0,0,0,0,0,0,0,0,0,0,5,0,0,300,0,BECOME_HERO,
 151,éEùCÇÃ,and Slaying,RING,10,100,4,4,0,0,0,0,0,0,0,0,0,0,0,0,300,0,,
 152,ëÂñhå‰ÇÃ,(Extra Armor),RING,5,100,0,0,8,0,0,0,0,0,0,0,0,0,0,0,300,0,,
 153,ñÇñ@ÇÃñÓÇÃ,and Magic Missile,RING,5,100,0,0,0,0,0,0,0,0,0,0,0,2,0,0,200,0,MISSILE,
