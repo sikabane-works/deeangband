@@ -797,25 +797,7 @@
 #define EGO_MORGUL              102
 #define EGO_KILL_HUMAN          103
 
-/* Bows */
-#define EGO_ACCURACY            104
-#define EGO_VELOCITY            105
-/* xxx */
-/* xxx */
-#define EGO_EXTRA_MIGHT         108
-#define EGO_EXTRA_SHOTS         109
-/* xxx */
-/* xxx */
-
 /* Ammo */
-#define EGO_HURT_ANIMAL         112
-#define EGO_HURT_EVIL           113
-/* xxx */
-/* xxx */
-/* xxx */
-/* xxx */
-/* xxx */
-#define EGO_HURT_DRAGON         119
 #define EGO_SLAYING_BOLT        120
 #define EGO_LIGHTNING_BOLT      121
 #define EGO_FLAME               122
