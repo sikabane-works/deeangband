@@ -10908,7 +10908,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
 				damage = object_ptr->to_damage * 100;
 				object_flags(object_ptr, flgs);
-				if((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
+				if(have_flag(flgs, TRAIT_SUPER_VORPAL))
 				{
 					/* vorpal blade */
 					basedam *= 5;
@@ -11261,7 +11261,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
 				damage = object_ptr->to_damage * 100;
 				object_flags(object_ptr, flgs);
-				if((object_ptr->name1 == ART_VORPAL_BLADE) || (object_ptr->name1 == ART_CHAINSWORD))
+				if(have_flag(flgs, TRAIT_SUPER_VORPAL))
 				{
 					/* vorpal blade */
 					basedam *= 5;

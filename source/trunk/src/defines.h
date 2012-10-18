@@ -717,10 +717,6 @@
 
 /*** Artifact indexes (see "lib/edit/artifact_info.txt") ***/
 
-// Amulets
-#define ART_DWARVES              6
-#define ART_GOGO                 220
-
 /* Rings */
 #define ART_POWER               13
 
@@ -728,7 +724,6 @@
 #define ART_GHB                 192
 
 /* Swords */
-#define ART_TWILIGHT            78
 #define ART_CHAINSWORD          85
 #define ART_VORPAL_BLADE        92
 #define ART_MUSASI_KATANA       171

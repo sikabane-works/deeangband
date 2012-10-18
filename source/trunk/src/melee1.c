@@ -224,7 +224,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// Test for hit
 	if(success_hit)
 	{
-		int vorpal_chance = ((weapon_ptr->name1 == ART_VORPAL_BLADE) || (weapon_ptr->name1 == ART_CHAINSWORD)) ? 2 : 4;
+		int vorpal_chance = has_trait_object(weapon_ptr, TRAIT_SUPER_VORPAL) ? 2 : 4;
 		sound(SOUND_HIT);
 		if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 		{
