@@ -653,20 +653,6 @@ static cptr feature_info_flags[] =
 static cptr authority_str_id;
 
 /*
- * Object flags
- */
-static cptr object_kind_info_flags[] =
-{
-	"STR",
-	"INT",
-	"WIS",
-	"DEX",
-	"CON",
-	"CHR",
-};
-
-
-/*
  * Dungeon flags
  */
 static cptr dungeon_info_flags1[] =
@@ -1886,16 +1872,6 @@ void retouch_feature_info(header *head)
 }
 
 
-/*
- * Grab one flag in an object_kind from a textual string
- */
-static errr grab_one_object_kind_flag(object_kind *k_ptr, cptr what)
-{
-	/* Error */
-	return PARSE_ERROR_GENERIC;
-}
-
-
 enum OBJECT_KIND_INFO {
 	OK_INFO_ID,
 	OK_INFO_NAME,
@@ -2312,12 +2288,8 @@ errr parse_object_kind_csv(char *buf, header *head)
 						while (*t == ' ' || *t == '|') t++;
 					}
 
-						/* Parse this entry */
-					if(0 != grab_one_object_kind_flag(&object_kind_info[n], s))
-					{
-						if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, s))
-							return PARSE_ERROR_INVALID_FLAG;
-					}
+					if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, s))
+						return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 					s = t;
@@ -2396,27 +2368,6 @@ errr parse_object_kind_csv(char *buf, header *head)
 		
 	}
 	return PARSE_ERROR_NONE;
-}
-
-/*
- * Grab one flag in an artifact_type from a textual string
- */
-static errr grab_one_artifact_flag(artifact_type *a_ptr, cptr what)
-{
-	int i;
-
-	/* Check flags */
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-	{
-		if(streq(what, object_kind_info_flags[i]))
-		{
-			add_flag(a_ptr->flags, i);
-			return PARSE_ERROR_NONE;
-		}
-	}
-
-	/* Error */
-	return PARSE_ERROR_GENERIC;
 }
 
 
@@ -2733,11 +2684,8 @@ errr parse_artifact_csv(char *buf, header *head)
 						}
 
 						/* Parse this entry */
-						if(0 != grab_one_artifact_flag(&artifact_info[n], s))
-						{
-							if(0 != traits_precondition_splits(&artifact_ptr->add_creature_traits, s))
-								return PARSE_ERROR_INVALID_FLAG;
-						}
+						if(0 != traits_precondition_splits(&artifact_ptr->add_creature_traits, s))
+							return PARSE_ERROR_INVALID_FLAG;
 
 							/* Start the next entry */
 						s = t;
@@ -2791,15 +2739,6 @@ errr parse_artifact_csv(char *buf, header *head)
 		
 	}
 	return PARSE_ERROR_NONE;
-}
-
-/*
- * Grab one flag in a ego-item_type from a textual string
- */
-static bool grab_one_ego_item_flag(ego_item_type *e_ptr, cptr what)
-{
-	/* Error */
-	return PARSE_ERROR_GENERIC;
 }
 
 enum OBJECT_EGO {
@@ -3060,12 +2999,9 @@ errr parse_object_ego_csv(char *buf, header *head)
 						while (*t == ' ' || *t == '|') t++;
 					}
 
-						/* Parse this entry */
-					if(0 != grab_one_ego_item_flag(&object_ego_info[n], s))
-					{
-						if(0 != traits_precondition_splits(&object_ego_ptr->add_creature_traits, s))
-							return PARSE_ERROR_INVALID_FLAG;
-					}
+					/* Parse this entry */
+					if(0 != traits_precondition_splits(&object_ego_ptr->add_creature_traits, s))
+						return PARSE_ERROR_INVALID_FLAG;
 
 						/* Start the next entry */
 					s = t;
