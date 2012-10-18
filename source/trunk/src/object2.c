@@ -7350,13 +7350,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				object_ptr->pval = m_bonus(3, level);
 			break;
 
-		case EGO_TRUMP:
-			if(one_in_(5))
-				add_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON);
-			if(one_in_(7))
-				one_ability(object_ptr);
-			break;
-
 	}
 
 
