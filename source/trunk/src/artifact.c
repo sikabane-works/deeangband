@@ -1601,7 +1601,6 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 	int     power_level;
 	s32b    total_flags;
 	bool    a_cursed = FALSE;
-	int     warrior_artifact_bias = 0;
 	int i;
 
 	/* Reset artifact bias */
@@ -1618,76 +1617,17 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	if(a_scroll && one_in_(4) && owner_ptr)
 	{
-		switch (owner_ptr->class_idx)
+		switch (class_info[owner_ptr->class_idx].type)
 		{
-			case CLASS_WARRIOR:
-			case CLASS_BERSERKER:
-			case CLASS_ARCHER:
-			case CLASS_SAMURAI:
-			case CLASS_CAVALRY:
-			case CLASS_SMITH:
-				artifact_bias = BIAS_WARRIOR;
-				break;
-			case CLASS_MAGE:
-			case CLASS_HIGH_MAGE:
-			case CLASS_SORCERER:
-			case CLASS_MAGIC_EATER:
-			case CLASS_BLUE_MAGE:
-				artifact_bias = BIAS_MAGE;
-				break;
-			case CLASS_PRIEST:
-				artifact_bias = BIAS_PRIESTLY;
-				break;
-			case CLASS_ROGUE:
-			case CLASS_NINJA:
-				artifact_bias = BIAS_ROGUE;
-				warrior_artifact_bias = 25;
-				break;
-			case CLASS_RANGER:
-			case CLASS_SNIPER:
-				artifact_bias = BIAS_RANGER;
-				warrior_artifact_bias = 30;
-				break;
-			case CLASS_PALADIN:
-				artifact_bias = BIAS_PRIESTLY;
-				warrior_artifact_bias = 40;
-				break;
-			case CLASS_WARRIOR_MAGE:
-			case CLASS_RED_MAGE:
-				artifact_bias = BIAS_MAGE;
-				warrior_artifact_bias = 40;
-				break;
-			case CLASS_CHAOS_WARRIOR:
-				artifact_bias = BIAS_CHAOS;
-				warrior_artifact_bias = 40;
-				break;
-			case CLASS_MONK:
-			case CLASS_FORCETRAINER:
-				artifact_bias = BIAS_PRIESTLY;
-				break;
-			case CLASS_MINDCRAFTER:
-			case CLASS_BARD:
-				if(randint1(5) > 2) artifact_bias = BIAS_PRIESTLY;
-				break;
-			case CLASS_TOURIST:
-				if(randint1(5) > 2) artifact_bias = BIAS_WARRIOR;
-				break;
-			case CLASS_IMITATOR:
-				if(randint1(2) > 1) artifact_bias = BIAS_RANGER;
-				break;
-			case CLASS_BEASTMASTER:
-				artifact_bias = BIAS_CHR;
-				warrior_artifact_bias = 50;
-				break;
-			case CLASS_MIRROR_MASTER:
-				if(randint1(4) > 1)  artifact_bias = BIAS_MAGE;
-				else artifact_bias = BIAS_ROGUE;
-				break;
+			case CLASS_TYPE_NONE:		break;
+			case CLASS_TYPE_WARRIOR:	artifact_bias = BIAS_WARRIOR;	break;
+			case CLASS_TYPE_MAGE:		artifact_bias = BIAS_MAGE;		break;
+			case CLASS_TYPE_PRIEST:		artifact_bias = BIAS_PRIESTLY;	break;
+			case CLASS_TYPE_ROGUE:		artifact_bias = BIAS_ROGUE;		break;
+			case CLASS_TYPE_RANGER:		artifact_bias = BIAS_RANGER;	break;
+			case CLASS_TYPE_PALADIN:	artifact_bias = BIAS_PRIESTLY;	break;
 		}
 	}
-
-	if(a_scroll && (randint1(100) <= warrior_artifact_bias))
-		artifact_bias = BIAS_WARRIOR;
 
 	strcpy(new_name, "");
 
