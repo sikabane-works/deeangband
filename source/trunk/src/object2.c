@@ -7297,11 +7297,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA))
 				object_ptr->pval += (s16b)randint1(2);
 		}
-		else if(object_ptr->name2 == EGO_BAT)
-		{
-			object_ptr->pval = (s16b)randint1(e_ptr->max_pval);
-			if(object_ptr->sval == SV_ELVEN_CLOAK) object_ptr->pval += (s16b)randint1(2);
-		}
 		else
 		{
 			object_ptr->pval += (s16b)randint1(e_ptr->max_pval);
@@ -7370,10 +7365,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				object_ptr->stat_val[STAT_DEX] = (s16b)randint1(MAX_RAND_STAT_VAL);
 			if(one_in_(5))
 				add_flag(object_ptr->trait_flags, TRAIT_FEARLESS);
-			break;
-
-		case EGO_SLAYING_BOLT:
-			object_ptr->dd++;
 			break;
 
 	}

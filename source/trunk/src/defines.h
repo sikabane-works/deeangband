@@ -797,17 +797,9 @@
 #define EGO_MORGUL              102
 #define EGO_KILL_HUMAN          103
 
-/* Ammo */
-#define EGO_SLAYING_BOLT        120
-#define EGO_LIGHTNING_BOLT      121
 #define EGO_FLAME               122
-#define EGO_FROST               123
-#define EGO_WOUNDING            124
-#define EGO_BACKBITING          125
 #define EGO_SHATTERED           126
 #define EGO_BLASTED             127
-#define EGO_AURA_COLD          128
-#define EGO_BAT                129
 
 #define EGO_LITE_SHINE          140
 #define EGO_LITE_ILLUMINATION   141
