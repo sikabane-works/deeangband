@@ -1418,12 +1418,26 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 		skip = FALSE;
 		species_ptr = &species_info[entry->index];
 
-		for(j = 0; need[j] < MAX_TRAITS && need[j] >= 0; j++)
-			if(!has_trait_species(species_ptr, need[j]))
+		for(j = 0; j < MAX_TRAITS; j++)
+		{
+			if(have_flag(need, j))
 			{
-				skip = TRUE;
-				break;
+				if(has_trait_species(species_ptr, except[j]))
+				{
+					skip = TRUE;
+					break;
+				}
 			}
+
+			if(have_flag(except, j))
+			{
+				if(!has_trait_species(species_ptr, need[j]))
+				{
+					skip = TRUE;
+					break;
+				}
+			}
+		}
 
 		if(skip) continue;
 
