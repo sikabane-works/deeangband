@@ -835,7 +835,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 #endif
 
 					/* Pick a nightmare */
-					get_species_num_prep_new(NULL, traits, 0);
+					get_species_num_prep_trait(NULL, traits, 0);
 
 					/* Have some nightmares */
 					have_nightmare(user_ptr, get_species_num(floor_ptr, MAX_DEPTH));

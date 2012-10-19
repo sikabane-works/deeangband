@@ -1429,7 +1429,7 @@ msg_print("Ç†Ç»ÇΩÇÕñ∞ÇËÇ…èAÇ¢ÇΩÅB");
 #endif
 
 					/* Pick a nightmare */
-					get_species_num_prep_new(NULL, traits, 0); // Prepare allocation table
+					get_species_num_prep_trait(NULL, traits, 0); // Prepare allocation table
 
 					/* Have some nightmares */
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));

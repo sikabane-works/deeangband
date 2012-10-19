@@ -16,6 +16,8 @@
 
 #define PERCENTAGE  100
 
+#define CREATURE_ARENA_NUM 4
+
 #define SPEAK_CHANCE 8
 #define GRINDNOISE 20
 #define CYBERNOISE 20

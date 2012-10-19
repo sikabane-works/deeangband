@@ -1638,14 +1638,14 @@ void battle_creatures(void)
 	int total, i;
 	int max_dl = 0;
 	int ave_creature_level;
-	int power[4];
+	int power[CREATURE_ARENA_NUM];
 	bool tekitou;
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 
 	for (i = 0; i < max_dungeon_idx; i++)
 		if(max_dl < max_dlv[i]) max_dl = max_dlv[i];
 
-	ave_creature_level = randint1(MIN(max_dl, 122))+5;
+	ave_creature_level = randint1(MIN(max_dl, 122)) + 5;
 	if(randint0(100) < 60)
 	{
 		i = randint1(MIN(max_dl, 122))+5;
@@ -1661,7 +1661,7 @@ void battle_creatures(void)
 	{
 		total = 0;
 		tekitou = FALSE;
-		for(i = 0; i < 4; i++)
+		for(i = 0; i < CREATURE_ARENA_NUM; i++)
 		{
 			int species_idx, j;
 			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL, 0);
@@ -1688,7 +1688,7 @@ void battle_creatures(void)
 			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
-		for (i = 0; i < 4; i++)
+		for (i = 0; i < CREATURE_ARENA_NUM; i++)
 		{
 			species_type *r_ptr = &species_info[battle_mon[i]];
 			int num_taisei = 0;
@@ -1720,7 +1720,7 @@ void battle_creatures(void)
 			if(power[i] <= 0) power[i] = 1;
 			total += power[i];
 		}
-		for (i=0;i<4;i++)
+		for (i = 0; i < CREATURE_ARENA_NUM; i++)
 		{
 			power[i] = total*60/power[i];
 			if(tekitou && ((power[i] < 160) || power[i] > 1500)) break;
@@ -1728,7 +1728,7 @@ void battle_creatures(void)
 			if(power[i] < 101) power[i] = 100 + randint1(5);
 			mon_odds[i] = power[i];
 		}
-		if(i == 4) break;
+		if(i == CREATURE_ARENA_NUM) break;
 	}
 }
 
@@ -2566,7 +2566,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #endif
 
 					/* Pick a nightmare */
-					get_species_num_prep_new(NULL, traits, 0);
+					get_species_num_prep_trait(NULL, traits, 0);
 
 					/* Have some nightmares */
 					while(1)

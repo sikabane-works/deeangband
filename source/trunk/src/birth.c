@@ -2559,7 +2559,7 @@ void determine_random_questor(quest_type *quest_ptr)
 	species_type *species_ptr;
 	int traits[] = {TRAIT_UNIQUE, -1};
 
-	get_species_num_prep_new(NULL, traits, 0); // Prepare allocation table
+	get_species_num_prep_trait(NULL, traits, 0); // Prepare allocation table
 
 	while (1)
 	{

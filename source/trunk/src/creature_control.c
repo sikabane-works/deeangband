@@ -1402,7 +1402,7 @@ errr get_species_num_new()
 }
 
 // Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32b flags)
+errr get_species_num_prep_trait(creature_type *summoner_ptr, int *trait_flags, u32b flags)
 {
 	int i, j;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
@@ -1444,7 +1444,6 @@ errr get_species_num_prep_new(creature_type *summoner_ptr, int *trait_flags, u32
 		}
 	}
 
-	
 	return (0); // Success
 }
 
@@ -1475,15 +1474,15 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 	// Scan the allocation table
 	for (i = 0; i < alloc_species_size; i++)
 	{
-		species_type	*r_ptr;
+		species_type *r_ptr;
 		alloc_entry *entry = &alloc_species_table[i]; // Get the entry
 		entry->prob2 = 0;
 		r_ptr = &species_info[entry->index];
 
 		// Skip creatures which don't pass the restriction
 		if((get_species_num_hook  && !((*get_species_num_hook)(entry->index))) ||
-		    (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
-			(get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
+		   (get_species_num2_hook && !((*get_species_num2_hook)(entry->index))) ||
+		   (get_species_num3_hook && !((*get_species_num3_hook)(summoner_ptr, entry->index))))
 			continue;
 
 		//if(!summon_unique_okay && ((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL))) continue;
@@ -1494,7 +1493,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 
 		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
 		{
-			if(has_trait_species(r_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
+			if(has_trait_species(r_ptr, TRAIT_QUESTOR))		continue;
 			if(has_trait_species(r_ptr, TRAIT_GUARDIAN))	continue;
 			if(has_trait_species(r_ptr, TRAIT_FORCE_DEPTH) && floor_ptr && (r_ptr->level > floor_ptr->floor_level)) continue; // Depth Creatures never appear out of depth
 		}
@@ -3045,10 +3044,8 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 		int level;
 
 		chameleon_change_m_idx = m_idx;
-		if(old_unique)
-			get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
-		else
-			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
+		if(old_unique)	get_species_num_prep(NULL, creature_hook_chameleon_lord, NULL, NULL, 0);
+		else			get_species_num_prep(NULL, creature_hook_chameleon, NULL, NULL, 0);
 
 		if(old_unique)
 			level = species_info[SPECIES_CHAMELEON_K].level;
