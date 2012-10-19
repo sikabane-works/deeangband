@@ -3276,10 +3276,9 @@ static void deal_food(creature_type *creature_ptr)
 
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
 	{
-		/* Prepare allocation table */
-		get_species_num_prep(NULL, creature_hook_human, NULL, NULL, 0);
+		get_species_num_prep_trait(NULL, t_array(1, TRAIT_HUMANOID), NULL, 0);
 
-		for (i = rand_range(3,4); i > 0; i--)
+		for (i = rand_range(3, 4); i > 0; i--)
 		{
 			object_prep(quest_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
 			quest_ptr->pval = get_species_num(current_floor_ptr, 2);

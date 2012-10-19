@@ -2710,21 +2710,6 @@ static void wield_all(creature_type *creature_ptr, u32b flags)
 } 
 
 
-
-/*
- * Hook function for human corpses
- */
-bool creature_hook_human(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	if(has_trait_species(r_ptr, TRAIT_UNIQUE)) return FALSE;
-	if(my_strchr("pht", r_ptr->d_char)) return TRUE;
-
-	return FALSE;
-}
-
-
 /*
  * Add an outfit object
  */
