@@ -3144,25 +3144,6 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 
 /*
- *  Hook for Tanuki
- */
-static bool creature_hook_tanuki(int species_idx)
-{
-	species_type *species_ptr = &species_info[species_idx];
-
-	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_FRIENDLY) || has_trait_species(species_ptr, TRAIT_CHAMELEON)) return FALSE;
-	if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;
-	
-	if((species_ptr->blow[0].method == RBM_EXPLODE) || (species_ptr->blow[1].method == RBM_EXPLODE) || (species_ptr->blow[2].method == RBM_EXPLODE) || (species_ptr->blow[3].method == RBM_EXPLODE))
-		return FALSE;
-
-	return (*(get_creature_hook()))(species_idx);
-}
-
-
-/*
  *  Set initial racial appearance of a creature
  */
 static int initial_r_appearance(int species_idx)
@@ -3172,10 +3153,8 @@ static int initial_r_appearance(int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int min = MIN(floor_ptr->base_level - 5, 50);
 
-	if(has_trait_species(&species_info[species_idx], TRAIT_TANUKI))
-		return species_idx;
-
-	get_species_num_prep(NULL, creature_hook_tanuki, NULL, NULL, 0);
+	if(has_trait_species(&species_info[species_idx], TRAIT_TANUKI)) return species_idx;
+	get_species_num_prep_trait(NULL, NULL, t_array(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
 
 	while (--attempts)
 	{
