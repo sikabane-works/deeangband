@@ -3898,11 +3898,14 @@ const u32b *t_need(int num, ...)
 	int i;
 	static u32b arr[TRAIT_FLAG_MAX];
 	va_list vp;
-	va_start(vp, num);	// Begin the Varargs Stuff
+	va_start(vp, num);
 
-	for(i = 0; i < num; i++) add_flag(arr, vp[i]);
+	for(i = 0; i < num; i++)
+	{
+		add_flag(arr, va_arg(vp, int));
+	}
 
-	va_end(vp);	// End the Varargs Stuff
+	va_end(vp);
 	return arr;
 }
 
@@ -3911,11 +3914,14 @@ const u32b *t_except(int num, ...)
 	int i;
 	static u32b arr2[TRAIT_FLAG_MAX];
 	va_list vp;
-	va_start(vp, num);	// Begin the Varargs Stuff
+	va_start(vp, num);
 
-	for(i = 0; i < num; i++) add_flag(arr2, vp[i]);
+	for(i = 0; i < num; i++)
+	{
+		add_flag(arr2, va_arg(vp, int));
+	}
 
-	va_end(vp);	// End the Varargs Stuff
+	va_end(vp);
 	return arr2;
 }
 
