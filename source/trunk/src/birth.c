@@ -2557,30 +2557,24 @@ void determine_random_questor(quest_type *quest_ptr)
 {
 	int          species_idx;
 	species_type *species_ptr;
+	int i = 0;
 
-	get_species_num_prep_trait(NULL, t_need(1, TRAIT_UNIQUE), t_except(1, TRAIT_QUESTOR), 0); // Prepare allocation table
+	get_species_num_prep_trait(NULL,
+		t_need(1, TRAIT_UNIQUE),
+		t_except(4, TRAIT_QUESTOR, TRAIT_FRIENDLY, TRAIT_AQUATIC, TRAIT_WILD_ONLY), 0);
 
-	while (1)
+	do
 	{
-		/*
-		 * Random creatures 5 - 10 levels out of depth
-		 * (depending on level)
-		 */
+		// Random creatures 5 - 10 levels out of depth (depending on level)
 		species_idx = get_species_num(current_floor_ptr, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
 		species_ptr = &species_info[species_idx];
 
 		if(species_ptr->rarity > 100) continue;
-		if(has_trait_species(species_ptr, TRAIT_FRIENDLY)) continue;
-		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) continue;
-		if(has_trait_species(species_ptr, TRAIT_WILD_ONLY)) continue;
 		if(no_questor_or_bounty_uniques(species_idx)) continue;
 
-		/*
-		 * Accept creatures that are 2 - 6 levels
-		 * out of depth depending on the quest level
-		 */
+		// Accept creatures that are 2 - 6 levels out of depth depending on the quest level
 		if(species_ptr->level > (quest_ptr->level + (quest_ptr->level / 20))) break;
-	}
+	} while (i++ < MAX_TRIES);
 
 	quest_ptr->species_idx = species_idx;
 }
