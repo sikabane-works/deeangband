@@ -4833,16 +4833,6 @@ prt(" '?' ‚Åƒwƒ‹ƒv‚ª•\Ž¦‚³‚ê‚Ü‚·B", 0, 0);
 		now_message = old_now_message;
 }
 
-static bool creature_tsuri(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	if(has_trait_species(r_ptr, TRAIT_AQUATIC) && !has_trait_species(r_ptr, TRAIT_UNIQUE) && my_strchr("Jjlw", r_ptr->d_char))
-		return TRUE;
-	else
-		return FALSE;
-}
-
 void do_creature_mutation(creature_type *creature_ptr)
 {
 	if(is_seen(player_ptr, creature_ptr) && creature_ptr->hack_mutation)
@@ -4867,7 +4857,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 		{
 			int species_idx;
 			bool success = FALSE;
-			get_species_num_prep(NULL, creature_tsuri, NULL, NULL, 0);
+			get_species_num_prep_trait(NULL, t_array(1, TRAIT_AQUATIC), t_array(1, TRAIT_UNIQUE), 0);
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level ? floor_ptr->floor_level : wilderness[creature_ptr->wy][creature_ptr->wx].level);
 			msg_print(NULL);
 			if(species_idx && one_in_(2))
