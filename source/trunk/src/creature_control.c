@@ -1420,18 +1420,18 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 
 		for(j = 0; j < MAX_TRAITS; j++)
 		{
-			if(have_flag(need, j))
+			if(need && have_flag(need, j))
 			{
-				if(has_trait_species(species_ptr, except[j]))
+				if(has_trait_species(species_ptr, j))
 				{
 					skip = TRUE;
 					break;
 				}
 			}
 
-			if(have_flag(except, j))
+			if(except && have_flag(except, j))
 			{
-				if(!has_trait_species(species_ptr, need[j]))
+				if(!has_trait_species(species_ptr, j))
 				{
 					skip = TRUE;
 					break;
