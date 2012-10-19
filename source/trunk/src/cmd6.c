@@ -826,21 +826,14 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 
 				if(curse_of_Iluvatar)
 				{
-					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
-
 #ifdef JP
 					msg_print("‹°‚ë‚µ‚¢ŒõŒi‚ª“ª‚É•‚‚©‚ñ‚Å‚«‚½B");
 #else
 					msg_print("A horrible vision enters your mind.");
 #endif
 
-					/* Pick a nightmare */
-					get_species_num_prep_trait(NULL, traits, 0);
-
-					/* Have some nightmares */
+					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), 0);
 					have_nightmare(user_ptr, get_species_num(floor_ptr, MAX_DEPTH));
-
-					/* Remove the creature restriction */
 					reset_species_preps();
 				}
 				if(set_timed_trait(user_ptr, TRAIT_PARALYZED, user_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))

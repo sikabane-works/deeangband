@@ -1402,7 +1402,7 @@ errr get_species_num_new()
 }
 
 // Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep_trait(creature_type *summoner_ptr, int *trait_flags, u32b flags)
+errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *trait_flags, u32b flags)
 {
 	int i, j;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);

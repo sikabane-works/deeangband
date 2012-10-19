@@ -2557,9 +2557,8 @@ void determine_random_questor(quest_type *quest_ptr)
 {
 	int          species_idx;
 	species_type *species_ptr;
-	int traits[] = {TRAIT_UNIQUE, -1};
 
-	get_species_num_prep_trait(NULL, traits, 0); // Prepare allocation table
+	get_species_num_prep_trait(NULL, t_array(1, TRAIT_UNIQUE), 0); // Prepare allocation table
 
 	while (1)
 	{

@@ -2556,8 +2556,6 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 
 				if(curse_of_Iluvatar)
 				{
-					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
-
 #ifdef JP
 					msg_print("眠りに就くと恐ろしい光景が心をよぎった。");
 #else
@@ -2565,7 +2563,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #endif
 
 					/* Pick a nightmare */
-					get_species_num_prep_trait(NULL, traits, 0);
+					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), 0);
 
 					/* Have some nightmares */
 					while(1)

@@ -1073,7 +1073,7 @@ extern void wipe_creature_list(int floor_id);
 extern s16b creature_pop(void);
 extern errr get_species_num_new();
 extern errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creature_hook, creature_hook_type creature_hook2, creature_hook_type2 creature_hook3, int summon_specific_type);
-extern errr get_species_num_prep_trait(creature_type *summoner_ptr, int *trait_flags, u32b flags);
+extern errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *trait_flags, u32b flags);
 extern void reset_species_preps(void);
 extern s16b get_species_num(floor_type *floor_ptr, int level);
 extern void creature_desc(char *desc, creature_type *creature_ptr, int mode);
@@ -1869,3 +1869,4 @@ extern void do_creature_riding_control(creature_type *creature_ptr);
 // trait.c
 
 extern bool do_active_trait(creature_type *user_ptr, int id);
+const u32b *t_array(int num, ...);

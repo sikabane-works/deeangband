@@ -1421,20 +1421,13 @@ msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
 
 				if(curse_of_Iluvatar)
 				{
-					int traits[] = {TRAIT_ELDRITCH_HORROR, -1};
 #ifdef JP
 					msg_print("g‚Ì–Ñ‚à‚æ‚¾‚ÂŒõŒi‚ª“ª‚É•‚‚©‚ñ‚¾B");
 #else
 					msg_print("A horrible vision enters your mind.");
 #endif
-
-					/* Pick a nightmare */
-					get_species_num_prep_trait(NULL, traits, 0); // Prepare allocation table
-
-					/* Have some nightmares */
+					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), 0); // Prepare allocation table
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
-
-					/* Remove the creature restriction */
 					reset_species_preps();
 				}
 				(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 5);
