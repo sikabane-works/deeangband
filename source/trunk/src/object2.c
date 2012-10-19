@@ -3304,7 +3304,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level,
  *
  * This routine requires a clean floor grid destination.
  */
-void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
+void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj_num_hook)(int k_idx))
 {
 	s16b object_idx;
 
@@ -3325,7 +3325,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode)
 	object_wipe(quest_ptr);
 
 	/* Make an object (if possible) */
-	if(!make_object(quest_ptr, mode, 0, floor_ptr->object_level, NULL)) return;
+	if(!make_object(quest_ptr, mode, 0, floor_ptr->object_level, get_obj_num_hook)) return;
 
 
 	/* Make an object */

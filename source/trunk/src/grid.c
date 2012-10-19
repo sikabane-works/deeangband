@@ -328,7 +328,7 @@ void vault_objects(floor_type *floor_ptr, int y, int x, int num)
 				if(cheat_room)
 				{
 #ifdef JP
-msg_print("警告！地下室のアイテムを配置できません！");
+					msg_print("警告！地下室のアイテムを配置できません！");
 #else
 					msg_print("Warning! Could not place vault object!");
 #endif
@@ -344,7 +344,7 @@ msg_print("警告！地下室のアイテムを配置できません！");
 			/* Place an item */
 			if(randint0(100) < 75)
 			{
-				place_object(floor_ptr, j, k, 0L);
+				place_object(floor_ptr, j, k, 0L, NULL);
 			}
 
 			/* Place gold */

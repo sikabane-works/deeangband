@@ -974,7 +974,7 @@ static bool build_type3(floor_type *floor_ptr)
 			}
 
 			/* Place a treasure in the vault */
-			place_object(floor_ptr, yval, xval, 0L);
+			place_object(floor_ptr, yval, xval, 0L, NULL);
 
 			/* Let's guard the treasure well */
 			vault_creatures(floor_ptr, yval, xval, randint0(2) + 3);
@@ -1207,7 +1207,7 @@ static bool build_type4(floor_type *floor_ptr)
 			/* Object (80%) */
 			if(randint0(100) < 80)
 			{
-				place_object(floor_ptr, yval, xval, 0L);
+				place_object(floor_ptr, yval, xval, 0L, NULL);
 			}
 
 			/* Stairs (20%) */
@@ -1294,8 +1294,8 @@ static bool build_type4(floor_type *floor_ptr)
 				vault_creatures(floor_ptr, yval, xval + 2, randint1(2));
 
 				/* Objects */
-				if(one_in_(3)) place_object(floor_ptr, yval, xval - 2, 0L);
-				if(one_in_(3)) place_object(floor_ptr, yval, xval + 2, 0L);
+				if(one_in_(3)) place_object(floor_ptr, yval, xval - 2, 0L, NULL);
+				if(one_in_(3)) place_object(floor_ptr, yval, xval + 2, 0L, NULL);
 			}
 
 			break;
@@ -2709,7 +2709,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			case '*':
 				if(randint0(100) < 75)
 				{
-					place_object(floor_ptr, y, x, 0L);
+					place_object(floor_ptr, y, x, 0L, NULL);
 				}
 				else
 				{
@@ -2776,7 +2776,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 			case 'A':
 				/* Reward for Pattern walk */
 				floor_ptr->object_level = floor_ptr->base_level + 12;
-				place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT);
+				place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
 				floor_ptr->object_level = floor_ptr->base_level;
 				break;
 			}
@@ -2841,7 +2841,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 7;
-					place_object(floor_ptr, y, x, AM_GOOD);
+					place_object(floor_ptr, y, x, AM_GOOD, NULL);
 					floor_ptr->object_level = floor_ptr->base_level;
 					break;
 				}
@@ -2853,7 +2853,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					place_creature(NULL, floor_ptr, y, x, PC_ALLOW_SLEEP);
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 20;
-					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT);
+					place_object(floor_ptr, y, x, AM_GOOD | AM_GREAT, NULL);
 					floor_ptr->object_level = floor_ptr->base_level;
 					break;
 				}
@@ -2870,7 +2870,7 @@ static void build_vault(floor_type *floor_ptr, int yval, int xval, int ymax, int
 					if(randint0(100) < 50)
 					{
 						floor_ptr->object_level = floor_ptr->base_level + 7;
-						place_object(floor_ptr, y, x, 0L);
+						place_object(floor_ptr, y, x, 0L, NULL);
 						floor_ptr->object_level = floor_ptr->base_level;
 					}
 					break;
@@ -4105,7 +4105,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 20;
-					place_object(floor_ptr, y, x, AM_GOOD);
+					place_object(floor_ptr, y, x, AM_GOOD, NULL);
 					floor_ptr->object_level = floor_ptr->base_level;
 				}
 				else if(value < 5)
@@ -4115,7 +4115,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					place_creature(NULL, floor_ptr, y, x, (PC_ALLOW_SLEEP | PC_ALLOW_GROUP));
 					floor_ptr->creature_level = floor_ptr->base_level;
 					floor_ptr->object_level = floor_ptr->base_level + 10;
-					place_object(floor_ptr, y, x, AM_GOOD);
+					place_object(floor_ptr, y, x, AM_GOOD, NULL);
 					floor_ptr->object_level = floor_ptr->base_level;
 				}
 				else if(value < 10)
@@ -4141,7 +4141,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					/* Object or trap */
 					if(randint0(100) < 25)
 					{
-						place_object(floor_ptr, y, x, 0L);
+						place_object(floor_ptr, y, x, 0L, NULL);
 					}
 					else
 					{
@@ -4168,7 +4168,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					if(randint0(100) < 50)
 					{
 						floor_ptr->object_level = floor_ptr->base_level + 7;
-						place_object(floor_ptr, y, x, 0L);
+						place_object(floor_ptr, y, x, 0L, NULL);
 						floor_ptr->object_level = floor_ptr->base_level;
 					}
 				}
@@ -4192,7 +4192,7 @@ static void fill_treasure(floor_type *floor_ptr, int x1, int x2, int y1, int y2,
 					}
 					else if(randint0(100) < 50)
 					{
-						place_object(floor_ptr, y, x, 0L);
+						place_object(floor_ptr, y, x, 0L, NULL);
 					}
 				}
 
@@ -5532,7 +5532,7 @@ static bool build_type12(floor_type *floor_ptr)
 		build_small_room(floor_ptr, x0, y0);
 
 		/* Place a treasure in the vault */
-		place_object(floor_ptr, y0, x0, 0L);
+		place_object(floor_ptr, y0, x0, 0L, NULL);
 
 		/* Let's guard the treasure well */
 		vault_creatures(floor_ptr, y0, x0, randint0(2) + 3);
@@ -6066,8 +6066,7 @@ static bool build_type15(floor_type *floor_ptr)
 			if(is_closed_door(c_ptr->feat)) c_ptr->mimic = feat_glass_wall;
 
 			/* Place a potion */
-			//TODO get_obj_num_hook = kind_is_potion;
-			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART);
+			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART, kind_is_potion);
 			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
 		break;
@@ -6121,7 +6120,7 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			/* Place an object */
-			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART);
+			place_object(floor_ptr, yval, xval, AM_NO_FIXED_ART, NULL);
 			floor_ptr->cave[yval][xval].info |= (CAVE_ICKY);
 		}
 		break;
@@ -6172,17 +6171,13 @@ static bool build_type15(floor_type *floor_ptr)
 			/* Place two potions */
 			if(one_in_(2))
 			{
-				//TODO get_obj_num_hook = kind_is_potion;
-				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART);
-				//TODO get_obj_num_hook = kind_is_potion;
-				place_object(floor_ptr, yval, xval + 1, AM_NO_FIXED_ART);
+				place_object(floor_ptr, yval, xval - 1, AM_NO_FIXED_ART, kind_is_potion);
+				place_object(floor_ptr, yval, xval + 1, AM_NO_FIXED_ART, kind_is_potion);
 			}
 			else
 			{
-				//TODO get_obj_num_hook = kind_is_potion;
-				place_object(floor_ptr, yval - 1, xval, AM_NO_FIXED_ART);
-				//TODO get_obj_num_hook = kind_is_potion;
-				place_object(floor_ptr, yval + 1, xval, AM_NO_FIXED_ART);
+				place_object(floor_ptr, yval - 1, xval, AM_NO_FIXED_ART, kind_is_potion);
+				place_object(floor_ptr, yval + 1, xval, AM_NO_FIXED_ART, kind_is_potion);
 			}
 
 			for (y = yval - 2; y <= yval + 2; y++)

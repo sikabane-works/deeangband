@@ -362,7 +362,7 @@ msg_print("警告！アイテムを配置できません！");
 
 			case ALLOC_TYP_OBJECT:
 			{
-				place_object(floor_ptr, y, x, 0L);
+				place_object(floor_ptr, y, x, 0L, NULL);
 				break;
 			}
 		}
