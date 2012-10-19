@@ -1404,7 +1404,7 @@ errr get_species_num_new()
 // Apply a "creature restriction function" to the "creature allocation table"
 errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, u32b flags)
 {
-	int i, j;
+	int i, j, passed_num = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	species_type	*species_ptr;
 	bool skip;
@@ -1449,6 +1449,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 		}
 
 		entry->prob2 = entry->prob1; // Accept this creature
+		passed_num++;
 
 		if((!floor_ptr->quest || is_fixed_quest_idx(floor_ptr->quest)) && !restrict_creature_to_dungeon(entry->index) && !floor_ptr->gamble_arena_mode)
 		{
@@ -1458,7 +1459,13 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 		}
 	}
 
-	return (0); // Success
+	if(!passed_num)
+	{
+		msg_warning("None species random selection.");
+		return FAILURE;
+	}
+
+	return SUCCESS;
 }
 
 void reset_species_preps(void)

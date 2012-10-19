@@ -57,15 +57,20 @@
 #endif
 
 
-/*
- * The constants "TRUE" and "FALSE"
- */
 
+// The constants "TRUE" and "FALSE"
 #undef TRUE
 #define TRUE	1
 
 #undef FALSE
 #define FALSE	0
+
+// The constants "SUCCESS" and "FAILURE"
+#undef SUCCESS
+#define SUCCESS	0
+
+#undef FAILURE
+#define FAILURE	1
 
 
 /*
