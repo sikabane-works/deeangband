@@ -1429,16 +1429,6 @@ static u32b vault_aux_dragon_mask4;
 
 
 /*
- * Helper creature selection function
- */
-static bool vault_aux_simple(int species_idx)
-{
-	/* Okay */
-	return (vault_creature_okay(species_idx));
-}
-
-
-/*
  * Helper function for "creature nest (jelly)"
  */
 static bool vault_aux_jelly(int species_idx)
@@ -1740,7 +1730,7 @@ static bool vault_aux_cthulhu(int species_idx)
 static void vault_prep_clone(floor_type *floor_ptr)
 {
 	/* Apply the creature restriction */
-	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL, 0);
+	get_species_num_prep_trait(NULL, NULL, t_array(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
@@ -1758,7 +1748,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	int species_idx;
 
 	/* Apply the creature restriction */
-	get_species_num_prep(NULL, vault_aux_simple, NULL, NULL, 0);
+	get_species_num_prep_trait(NULL, NULL, t_array(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
 	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
