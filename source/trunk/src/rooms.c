@@ -1417,6 +1417,8 @@ static bool build_type4(floor_type *floor_ptr)
 	 !has_trait_species(&species_info[I], TRAIT_RES_ALL) && \
 	 !has_trait_species(&species_info[I], TRAIT_AQUATIC))
 
+#define TRAIT_VAULT TRAIT_UNIQUE,TRAIT_UNIQUE2,TRAIT_RES_ALL,TRAIT_AQUATIC
+
 
 /* Race index for "creature pit (clone)" */
 static int vault_aux_race;
@@ -2363,7 +2365,7 @@ static bool build_type5(floor_type *floor_ptr)
  * dragons.  This may include "multi-hued" breath.  Note that "wyrms" may
  * be present in many of the dragon pits, if they have the proper breath.
  *
- * Note the use of the "get_species_num_prep(NULL, )" function, and the special
+ * Note the use of the "get_species_num_prep()" function, and the special
  * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique creatures for the pit.
@@ -5599,7 +5601,7 @@ static bool vault_aux_trapped_pit(int species_idx)
  * dragons.  This may include "multi-hued" breath.  Note that "wyrms" may
  * be present in many of the dragon pits, if they have the proper breath.
  *
- * Note the use of the "get_species_num_prep(NULL, )" function, and the special
+ * Note the use of the "get_species_num_prep()" function, and the special
  * "get_species_num_hook()" restriction function, to prepare the "creature
  * allocation table" in such a way as to optimize the selection of
  * "appropriate" non-unique creatures for the pit.
@@ -5948,45 +5950,6 @@ static bool build_type14(floor_type *floor_ptr)
 	return TRUE;
 }
 
-
-/*
- * Helper function for "glass room"
- */
-static bool vault_aux_lite(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	/* Validate the creature */
-	if(!vault_creature_okay(species_idx)) return FALSE;
-
-	/* Require lite attack */
-	if(!has_trait_raw(&r_ptr->flags, TRAIT_BR_LITE) && !has_trait_raw(&r_ptr->flags, TRAIT_BA_LITE)) return FALSE;
-
-	/* No wall passing creatures */
-	if(has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
-
-	/* No disintegrating creatures */
-	if(has_trait_raw(&r_ptr->flags, TRAIT_BR_DISI)) return FALSE;
-
-	return TRUE;
-}
-
-/*
- * Helper function for "glass room"
- */
-static bool vault_aux_shards(int species_idx)
-{
-	species_type *r_ptr = &species_info[species_idx];
-
-	/* Validate the creature */
-	if(!vault_creature_okay(species_idx)) return FALSE;
-
-	/* Require shards breath attack */
-	if(!has_trait_raw(&r_ptr->flags, TRAIT_BR_SHAR)) return FALSE;
-
-	return TRUE;
-}
-
 /*
  * Hack -- determine if a template is potion
  */
@@ -6062,7 +6025,8 @@ static bool build_type15(floor_type *floor_ptr)
 			int dir1, dir2;
 
 			/* Prepare allocation table */
-			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL, 0);
+			get_species_num_prep_trait(NULL, t_array(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
+				t_array(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
 
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
@@ -6130,7 +6094,8 @@ static bool build_type15(floor_type *floor_ptr)
 			c_ptr->feat = feat_glass_wall;
 
 			/* Prepare allocation table */
-			get_species_num_prep(NULL, vault_aux_lite, NULL, NULL, 0);
+			get_species_num_prep_trait(NULL, t_array(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
+				t_array(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
 
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 			if(species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
@@ -6192,7 +6157,7 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			/* Prepare allocation table */
-			get_species_num_prep(NULL, vault_aux_shards, NULL, NULL, 0);
+			get_species_num_prep_trait(NULL, NULL, t_array(5, TRAIT_VAULT, TRAIT_BR_SHAR), 0);
 
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)

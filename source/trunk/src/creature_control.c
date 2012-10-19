@@ -4268,8 +4268,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	int species_idx;
 	
 	// Pick a creature
-//	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL); 
-	get_species_num_prep(NULL, NULL, NULL, NULL, 0); 
+	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL, 0); 
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 	if(!species_idx) return (FALSE);
 
