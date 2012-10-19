@@ -1422,7 +1422,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 		{
 			if(need && have_flag(need, j))
 			{
-				if(has_trait_species(species_ptr, j))
+				if(!has_trait_species(species_ptr, j))
 				{
 					skip = TRUE;
 					break;
@@ -1431,7 +1431,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 
 			if(except && have_flag(except, j))
 			{
-				if(!has_trait_species(species_ptr, j))
+				if(has_trait_species(species_ptr, j))
 				{
 					skip = TRUE;
 					break;
