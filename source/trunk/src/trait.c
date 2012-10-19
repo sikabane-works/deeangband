@@ -3893,3 +3893,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	return FALSE;
 }
 
+const u32b *t_array(int num, ...)
+{
+	int i;
+	static u32b arr[TRAIT_FLAG_MAX];
+	va_list vp;
+	va_start(vp, num);	// Begin the Varargs Stuff
+
+	for(i = 0; i < num; i++) add_flag(arr, vp[i]);
+
+	va_end(vp);	// End the Varargs Stuff
+	return arr;
+}
+

@@ -1748,8 +1748,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 
 	screen_save();
 
-	/* No money */
-	if(creature_ptr->au < 1)
+	if(creature_ptr->au < 1) // No money
 	{
 #ifdef JP
 		msg_print("おい！おまえ一文なしじゃないか！こっから出ていけ！");
