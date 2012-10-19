@@ -832,7 +832,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 					msg_print("A horrible vision enters your mind.");
 #endif
 
-					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
+					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
 					have_nightmare(user_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 					reset_species_preps();
 				}

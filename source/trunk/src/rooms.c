@@ -1732,7 +1732,7 @@ static bool vault_aux_cthulhu(int species_idx)
 static void vault_prep_clone(floor_type *floor_ptr)
 {
 	/* Apply the creature restriction */
-	get_species_num_prep_trait(NULL, NULL, t_array(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
+	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
 	vault_aux_race = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
@@ -1750,7 +1750,7 @@ static void vault_prep_symbol(floor_type *floor_ptr)
 	int species_idx;
 
 	/* Apply the creature restriction */
-	get_species_num_prep_trait(NULL, NULL, t_array(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
+	get_species_num_prep_trait(NULL, NULL, t_need(3, TRAIT_UNIQUE, TRAIT_UNIQUE2, TRAIT_AQUATIC), 0);
 
 	/* Pick a race to clone */
 	species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 10);
@@ -6025,8 +6025,8 @@ static bool build_type15(floor_type *floor_ptr)
 			int dir1, dir2;
 
 			/* Prepare allocation table */
-			get_species_num_prep_trait(NULL, t_array(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
-				t_array(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
+			get_species_num_prep_trait(NULL, t_need(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
+				t_need(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
 
 			/* Place fixed lite berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)
@@ -6093,8 +6093,8 @@ static bool build_type15(floor_type *floor_ptr)
 			c_ptr->feat = feat_glass_wall;
 
 			/* Prepare allocation table */
-			get_species_num_prep_trait(NULL, t_array(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
-				t_array(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
+			get_species_num_prep_trait(NULL, t_need(2, TRAIT_BR_LITE, TRAIT_BA_LITE), 
+				t_need(7, TRAIT_VAULT, TRAIT_PASS_WALL, TRAIT_KILL_WALL, TRAIT_BR_DISI), 0);
 
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level);
 			if(species_idx) place_creature_species(NULL, floor_ptr, yval, xval, species_idx, 0L);
@@ -6156,7 +6156,7 @@ static bool build_type15(floor_type *floor_ptr)
 			}
 
 			/* Prepare allocation table */
-			get_species_num_prep_trait(NULL, NULL, t_array(5, TRAIT_VAULT, TRAIT_BR_SHAR), 0);
+			get_species_num_prep_trait(NULL, NULL, t_need(5, TRAIT_VAULT, TRAIT_BR_SHAR), 0);
 
 			/* Place shard berathers */
 			for (dir1 = 4; dir1 < 8; dir1++)

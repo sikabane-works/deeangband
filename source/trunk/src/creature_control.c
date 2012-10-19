@@ -3175,7 +3175,7 @@ static int initial_r_appearance(int species_idx)
 	int min = MIN(floor_ptr->base_level - 5, 50);
 
 	if(has_trait_species(&species_info[species_idx], TRAIT_TANUKI)) return species_idx;
-	get_species_num_prep_trait(NULL, NULL, t_array(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
+	get_species_num_prep_trait(NULL, NULL, t_need(6, TRAIT_UNIQUE, TRAIT_MULTIPLY, TRAIT_FRIENDLY, TRAIT_CHAMELEON, TRAIT_AQUATIC, TRAIT_SUICIDE_BOMBER), 0);
 
 	while (--attempts)
 	{
@@ -3276,7 +3276,7 @@ static void deal_food(creature_type *creature_ptr)
 
 	else if(has_trait(creature_ptr, TRAIT_CORPSE_EATER))
 	{
-		get_species_num_prep_trait(NULL, t_array(1, TRAIT_HUMANOID), NULL, 0);
+		get_species_num_prep_trait(NULL, t_need(1, TRAIT_HUMANOID), NULL, 0);
 
 		for (i = rand_range(3, 4); i > 0; i--)
 		{

@@ -2558,7 +2558,7 @@ void determine_random_questor(quest_type *quest_ptr)
 	int          species_idx;
 	species_type *species_ptr;
 
-	get_species_num_prep_trait(NULL, t_array(1, TRAIT_UNIQUE), NULL, 0); // Prepare allocation table
+	get_species_num_prep_trait(NULL, t_need(1, TRAIT_UNIQUE), t_except(1, TRAIT_QUESTOR), 0); // Prepare allocation table
 
 	while (1)
 	{
@@ -2569,8 +2569,6 @@ void determine_random_questor(quest_type *quest_ptr)
 		species_idx = get_species_num(current_floor_ptr, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
 		species_ptr = &species_info[species_idx];
 
-		if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
-		if(has_trait_species(species_ptr, TRAIT_QUESTOR)) continue;
 		if(species_ptr->rarity > 100) continue;
 		if(has_trait_species(species_ptr, TRAIT_FRIENDLY)) continue;
 		if(has_trait_species(species_ptr, TRAIT_AQUATIC)) continue;

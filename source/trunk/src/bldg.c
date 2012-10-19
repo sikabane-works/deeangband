@@ -2562,7 +2562,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					msg_print("Horrible visions flit through your mind as you sleep.");
 #endif
 
-					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
+					get_species_num_prep_trait(NULL, t_need(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
 
 					while(1)
 					{
