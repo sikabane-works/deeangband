@@ -3090,7 +3090,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				msg_print("A horrible vision enters your mind.");
 #endif
-				get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), 0);	// Pick a nightmare
+				get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), NULL, 0);	// Pick a nightmare
 				have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));	// Have some nightmares
 				reset_species_preps();									// Remove the creature restriction
 			}

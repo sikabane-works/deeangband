@@ -2562,18 +2562,14 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 					msg_print("Horrible visions flit through your mind as you sleep.");
 #endif
 
-					/* Pick a nightmare */
-					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), 0);
+					get_species_num_prep_trait(NULL, t_array(1, TRAIT_ELDRITCH_HORROR), NULL, 0);
 
-					/* Have some nightmares */
 					while(1)
 					{
 						have_nightmare(creature_ptr, get_species_num(current_floor_ptr, MAX_DEPTH));
-
 						if(!one_in_(3)) break;
 					}
 
-					/* Remove the creature restriction */
 					reset_species_preps();
 
 #ifdef JP

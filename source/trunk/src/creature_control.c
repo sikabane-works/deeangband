@@ -1402,7 +1402,7 @@ errr get_species_num_new()
 }
 
 // Apply a "creature restriction function" to the "creature allocation table"
-errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *trait_flags, u32b flags)
+errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, const u32b *except, u32b flags)
 {
 	int i, j;
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
@@ -1418,8 +1418,8 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *trait_f
 		skip = FALSE;
 		species_ptr = &species_info[entry->index];
 
-		for(j = 0; trait_flags[j] < MAX_TRAITS && trait_flags[j] >= 0; j++)
-			if(!has_trait_species(species_ptr, trait_flags[j]))
+		for(j = 0; need[j] < MAX_TRAITS && need[j] >= 0; j++)
+			if(!has_trait_species(species_ptr, need[j]))
 			{
 				skip = TRUE;
 				break;
