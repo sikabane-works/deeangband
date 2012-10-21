@@ -58,25 +58,13 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 		floor_ptr->quest = c_ptr->special;
 
-		/* Activate the quest */
-		if(!quest[floor_ptr->quest].status)
-		{
-			quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;
-		}
-
-		/* Leaving a quest */
-		if(!floor_ptr->quest)
-		{
-			floor_ptr->floor_level = 0;
-		}
-
-		/* Leaving */
-		subject_change_floor = TRUE;
+		if(!quest[floor_ptr->quest].status) quest[floor_ptr->quest].status = QUEST_STATUS_TAKEN;	// Activate the quest
+		if(!floor_ptr->quest) floor_ptr->floor_level = 0;	// Leaving a quest
+		subject_change_floor = TRUE;	// Leaving
 
 		creature_ptr->oldpx = 0;
 		creature_ptr->oldpy = 0;
 
-		/* End the command */
 		return;
 	}
 
