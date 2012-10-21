@@ -4795,13 +4795,11 @@ msg_print("アリーナが魔法を吸収した！");
 			break;
 		}
 
-#ifdef TRAVEL
 		case '`':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_travel(creature_ptr);
 			break;
 		}
-#endif
 
 		/* Hack -- Unknown command */
 		default:
@@ -5282,14 +5280,12 @@ msg_print("中断しました。");
 			run_step(creature_ptr, 0);
 		}
 
-#ifdef TRAVEL
 		/* Traveling */
 		else if(travel.run)
 		{
 			/* Take a step */
 			travel_step(creature_ptr);
 		}
-#endif
 
 		/* Repeated command */
 		else if(command_rep)

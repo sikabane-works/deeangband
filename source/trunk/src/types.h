@@ -1940,9 +1940,6 @@ typedef struct
 	byte l_color;
 } selection;
 
-
-
-#ifdef TRAVEL
 /*
  *  A structure type for travel command
  */
@@ -1953,8 +1950,6 @@ typedef struct {
 	int y;
 	int dir;
 } travel_type;
-#endif
-
 
 /*
  *  A structure type for divine authority.

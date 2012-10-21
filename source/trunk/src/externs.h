@@ -698,9 +698,7 @@ extern bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, in
 extern bool trap_can_be_ignored(creature_type *creature_ptr, int feat);
 extern void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool break_trap);
 extern void run_step(creature_type *creature_ptr, int dir);
-#ifdef TRAVEL
 extern void travel_step(creature_type *creature_ptr);
-#endif
 
 // cmd2.c
 extern void do_cmd_go_up(creature_type *creature_ptr);
@@ -721,12 +719,10 @@ extern void do_cmd_fire(creature_type *creature_ptr);
 extern void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr);
 extern void do_cmd_throw(creature_type *creature_ptr);
 extern bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int shuriken);
-#ifdef TRAVEL
 extern void do_cmd_travel(creature_type *creature_ptr);
-#endif
 
 // cmd3.c
-bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr);
+extern bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr);
 extern void do_cmd_inven(creature_type *creature_ptr);
 extern void do_cmd_equip(creature_type *creature_ptr);
 extern void do_cmd_wield(creature_type *creature_ptr);
@@ -1814,11 +1810,8 @@ extern void prepare_browse_movie(cptr filename);
 extern void browse_movie(void);
 extern bool browsing_movie;
 
-#ifdef TRAVEL
 /* for travel */
 extern travel_type travel;
-#endif
-
 
 /* snipe.c */
 extern void reset_concentration(creature_type *creature_ptr, bool msg);

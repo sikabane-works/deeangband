@@ -3326,9 +3326,6 @@ void run_step(creature_type *creature_ptr, int dir)
 	}
 }
 
-
-#ifdef TRAVEL
-
 // Test for traveling
 static bool travel_test(creature_type *creature_ptr)
 {
@@ -3473,5 +3470,4 @@ void travel_step(creature_type *creature_ptr)
 	else
 		travel.run--;
 }
-#endif
 

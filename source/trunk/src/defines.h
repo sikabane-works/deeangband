@@ -3147,8 +3147,6 @@ enum GRAPHICS_MODE
 /*
  * For travel command (auto run)
  */
-#define TRAVEL
-
 
 #define CONCENT_RADAR_THRESHOLD 2
 #define CONCENT_TELE_THRESHOLD  5

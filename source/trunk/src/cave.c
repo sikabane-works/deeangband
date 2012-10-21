@@ -5051,7 +5051,6 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		update |= (PU_FLOW);
 	}
 
-#ifdef TRAVEL
 	if(travel.run)
 	{
 		/* Cancel */
@@ -5063,7 +5062,6 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		/* Calculate torch radius */
 		player_ptr->creature_update |= (CRU_TORCH);
 	}
-#endif
 
 	/* Flush the input if requested */
 	if(flush_disturb) flush();

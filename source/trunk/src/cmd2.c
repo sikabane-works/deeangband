@@ -4407,8 +4407,6 @@ void do_cmd_throw(creature_type *creature_ptr)
 	do_cmd_throw_aux(creature_ptr, 1, FALSE, 0);
 }
 
-
-#ifdef TRAVEL
 /*
  * Hack: travel command
  */
@@ -4575,4 +4573,3 @@ void do_cmd_travel(creature_type *creature_ptr)
 		if((sx == ddx[i]) && (sy == ddy[i])) travel.dir = i;
 	}
 }
-#endif

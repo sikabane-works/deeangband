@@ -1087,10 +1087,8 @@ int server_port;
 /* for movie */
 bool browsing_movie;
 
-#ifdef TRAVEL
 /* for travel */
 travel_type travel;
-#endif
 
 u32b creature_idx_latest = 0;
 char gameover_from[80];   			// What killed the player
