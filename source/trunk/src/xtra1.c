@@ -427,7 +427,7 @@ static void prt_status(creature_type *creature_ptr)
 
 	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
 	if(IS_HALLUCINATION(creature_ptr)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
-	if(IS_BLIND(creature_ptr)) ADD_FLG(BAR_BLINDNESS);			// Blindness
+	if(has_trait(creature_ptr, TRAIT_BLIND)) ADD_FLG(BAR_BLINDNESS);			// Blindness
 	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) ADD_FLG(BAR_CONFUSE);			// Confusion
 	if(creature_ptr->timed_trait[TRAIT_POISONED]) ADD_FLG(BAR_POISONED);		// Posioned

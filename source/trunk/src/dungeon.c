@@ -1201,7 +1201,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	}
 
 	/* Hack -- Special treatment when blind */
-	if(IS_BLIND(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
 		/* Hack -- save some light for later */
 		if(object_ptr->xtra4 == 0) object_ptr->xtra4++;
@@ -4968,7 +4968,7 @@ static void pack_overflow(creature_type *creature_ptr)
 
 void do_creature_riding_control(creature_type *creature_ptr)
 {
-	if(creature_ptr->riding && !creature_ptr->timed_trait[TRAIT_CONFUSED] && !IS_BLIND(creature_ptr))
+	if(creature_ptr->riding && !creature_ptr->timed_trait[TRAIT_CONFUSED] && !has_trait(creature_ptr, TRAIT_BLIND))
 	{
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
 		species_type *r_ptr = &species_info[m_ptr->species_idx];
@@ -5090,7 +5090,7 @@ void process_player(creature_type *creature_ptr)
 			/* Stop creature_ptr->resting */
 			if((creature_ptr->chp == creature_ptr->mhp) &&
 			    (creature_ptr->csp >= creature_ptr->msp) &&
-			    !IS_BLIND(creature_ptr) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
+			    !has_trait(creature_ptr, TRAIT_BLIND) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&

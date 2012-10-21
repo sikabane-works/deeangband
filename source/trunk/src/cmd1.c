@@ -497,7 +497,7 @@ void search(creature_type *creature_ptr)
 	chance = creature_ptr->skill_srh;
 
 	/* Penalize various conditions */
-	if(IS_BLIND(creature_ptr) || no_lite(creature_ptr)) chance = chance / 10;
+	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) chance = chance / 10;
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
@@ -1367,7 +1367,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 			if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
 			{
-				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, IS_BLIND(creature_ptr) + randint0(50) + 25);
+				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, has_trait(creature_ptr, TRAIT_BLIND) + randint0(50) + 25);
 			}
 			break;
 		}
@@ -1824,7 +1824,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 		/* Remove "unsafe" flag */
-		if((!IS_BLIND(creature_ptr) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
+		if((!has_trait(creature_ptr, TRAIT_BLIND) && !no_lite(creature_ptr)) || !is_trap(c_ptr->feat)) c_ptr->info &= ~(CAVE_UNSAFE);
 
 		/* For get everything when requested hehe I'm *NASTY* */
 		if(prev_floor_ptr->floor_level && (dungeon_info[prev_floor_ptr->dun_type].flags1 & DF1_FORGET)) wiz_dark(prev_floor_ptr, creature_ptr);
@@ -2575,7 +2575,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 	plus_move_cost(creature_ptr, x, y);
 
-	if(!IS_BLIND(creature_ptr) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
+	if(!has_trait(creature_ptr, TRAIT_BLIND) && ((c_ptr->info & CAVE_GLOW) || creature_ptr->cur_lite > 0) && strlen(c_ptr->message))
 	{
 #ifdef JP
 		msg_format("%sにメッセージが刻まれている:", feature_name + feature_info[c_ptr->feat].name);
@@ -3378,7 +3378,7 @@ static bool travel_test(creature_type *creature_ptr)
 	}
 
 	/* Cannot travel when blind */
-	if(IS_BLIND(creature_ptr) || no_lite(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
 #ifdef JP
 		msg_print("目が見えない！");

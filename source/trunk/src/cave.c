@@ -549,7 +549,7 @@ bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 	floor_type *floor_ptr = GET_FLOOR_PTR(viewer_ptr);
 
 	/* Blind players see nothing */
-	if(IS_BLIND(viewer_ptr)) return FALSE;
+	if(has_trait(viewer_ptr, TRAIT_BLIND)) return FALSE;
 
 	/* Access the cave grid */
 	cave_ptr = &floor_ptr->cave[y][x];
@@ -943,7 +943,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 		 *   (Such grids also have CAVE_VIEW)
 		 * - Can see grids with CAVE_VIEW unless darkened by creatures.
 		 */
-		if(!IS_BLIND(watcher_ptr) && ((cave_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
+		if(!has_trait(watcher_ptr, TRAIT_BLIND) && ((cave_ptr->info & (CAVE_MARK | CAVE_LITE | CAVE_MNLT)) ||
 		    ((cave_ptr->info & CAVE_VIEW) && (((cave_ptr->info & (CAVE_GLOW | CAVE_MNDK)) == CAVE_GLOW) || has_trait(watcher_ptr, TRAIT_SEE_DARKNESS)))))
 		{
 			/* Normal attr/char */
@@ -1045,7 +1045,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			{
 				/* Special lighting effects */
 				/* Handle "blind" or "night" */
-				if(view_granite_lite && (IS_BLIND(watcher_ptr) || !is_daytime()))
+				if(view_granite_lite && (has_trait(watcher_ptr, TRAIT_BLIND) || !is_daytime()))
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1055,7 +1055,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			}
 
 			/* Mega-Hack -- Handle "in-sight" and "darkened" grids */
-			else if(darkened_grid(watcher_ptr, cave_ptr) && !IS_BLIND(watcher_ptr))
+			else if(darkened_grid(watcher_ptr, cave_ptr) && !has_trait(watcher_ptr, TRAIT_BLIND))
 			{
 				if(have_flag(f_ptr->flags, FF_LOS) && have_flag(f_ptr->flags, FF_PROJECT))
 				{
@@ -1082,7 +1082,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			else if(view_granite_lite)
 			{
 				/* Handle "blind" */
-				if(IS_BLIND(watcher_ptr))
+				if(has_trait(watcher_ptr, TRAIT_BLIND))
 				{
 					/* Use a darkened colour/tile */
 					a = f_ptr->x_attr[F_LIT_DARK];
@@ -1466,7 +1466,7 @@ void note_spot(floor_type *floor_ptr, int y, int x)
 
 
 	/* Blind players see nothing */
-	if(IS_BLIND(player_ptr)) return;
+	if(has_trait(player_ptr, TRAIT_BLIND)) return;
 
 	/* Analyze non-torch-lit grids */
 	if(!(cave_ptr->info & (CAVE_LITE | CAVE_MNLT)))

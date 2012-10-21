@@ -1296,7 +1296,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	int count = 0;
 
 	/* Extract the blind-ness */
-	bool blind = (IS_BLIND(target_ptr) ? TRUE : FALSE);
+	bool blind = (has_trait(target_ptr, TRAIT_BLIND) ? TRUE : FALSE);
 
 	/* Extract the "see-able-ness" */
 	bool seen = (!blind && caster_ptr->see_others);

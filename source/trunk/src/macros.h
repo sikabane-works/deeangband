@@ -65,7 +65,6 @@
 #define IS_TIM_ESP(C)		((C)->timed_trait[TRAIT_ESP] || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
 #define IS_TIM_STEALTH(C)	((C)->timed_trait[TRAIT_STEALTH_PLUS] || music_singing(C, MUSIC_STEALTH))
 #define IS_LIGHTSPEED(C)	((C)->timed_trait[TRAIT_LIGHT_SPEED])
-#define IS_BLIND(C)			((C)->timed_trait[TRAIT_BLIND] > 0)
 #define IS_POISONED(C)		((C)->timed_trait[TRAIT_POISONED])
 #define IS_HALLUCINATION(C) ((C)->timed_trait[TRAIT_HALLUCINATION] > 0)
 

@@ -42,7 +42,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	bool powerful_summoned = FALSE;
 
 	// process flags
-	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
+	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
 	bool seen = (!blind && caster_ptr->see_others);
 
 	if(randint1(50 + user_level) < user_level / 10) u_mode = PC_ALLOW_UNIQUE;

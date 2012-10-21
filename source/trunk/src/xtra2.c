@@ -1118,7 +1118,7 @@ int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 	{
 		if(is_psy_spear)
 		{
-			if(!IS_BLIND(player_ptr) && is_seen(player_ptr, m_ptr))
+			if(!has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, m_ptr))
 			{
 #ifdef JP
 				msg_print("ƒoƒŠƒA‚ğØ‚è—ô‚¢‚½I");

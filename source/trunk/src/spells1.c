@@ -760,7 +760,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if(!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
+			if(!has_trait(aimer_ptr, TRAIT_BLIND) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -797,7 +797,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			}
 
 			/* Remove "unsafe" flag if player is not blind */
-			if(!IS_BLIND(aimer_ptr) && player_has_los_bold(y, x))
+			if(!has_trait(aimer_ptr, TRAIT_BLIND) && player_has_los_bold(y, x))
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
@@ -2355,7 +2355,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	// Is the player blind?
-	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
+	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
 
 	// Were the effects "obvious" (if seen)?
 	bool obvious = FALSE;
@@ -2853,7 +2853,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
 			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -2884,7 +2884,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + randint1(5) + 2);
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
 			}
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -3436,7 +3436,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					if(!has_trait(target_ptr, TRAIT_NO_BLIND))
 					{
-						(void)set_timed_trait(target_ptr, TRAIT_BLIND, IS_BLIND(target_ptr) + 8 + randint0(8));
+						(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 8 + randint0(8));
 					}
 					if(!has_trait(target_ptr, TRAIT_NO_CONF))
 					{
@@ -6067,7 +6067,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 
 	bool obvious = TRUE; // Hack -- assume obvious
-	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE); // Player blind-ness
+	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE); // Player blind-ness
 	char atk_name[80]; // Creature name (for attacker and target)
 
 	/* Hack -- messages */
@@ -6151,7 +6151,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	if(is_player(attacker_ptr)) return (FALSE);
 	if(attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
-	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !IS_BLIND(player_ptr))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !has_trait(player_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;
@@ -6758,7 +6758,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	bool breath = FALSE;
 
 	/* Is the player blind? */
-	bool blind = (IS_BLIND(player_ptr) ? TRUE : FALSE);
+	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
 
 	bool old_hide = FALSE;
 
@@ -7888,7 +7888,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
-					if(!(IS_BLIND(caster_ptr))
+					if(!(has_trait(caster_ptr, TRAIT_BLIND))
 					   && panel_contains(y,x)){
 					  p = bolt_pict(y,x,y,x, GF_MANA );
 					  print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);

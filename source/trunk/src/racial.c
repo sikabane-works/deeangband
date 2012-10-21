@@ -73,7 +73,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if(IS_BLIND(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
 #ifdef JP
 		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");

@@ -5050,7 +5050,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 
 	case GF_ARROW:
 		/*
-		if(!IS_BLIND(target_ptr) &&
+		if(!has_trait(target_ptr, TRAIT_BLIND) &&
 		    ((target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU)) ||
 		     (target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU))))
 		{
@@ -6953,7 +6953,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 
 			return;
 		}
-		if(IS_BLIND(creature_ptr))
+		if(has_trait(creature_ptr, TRAIT_BLIND))
 		{
 #ifdef JP
 			msg_print("–Ú‚ªŒ©‚¦‚È‚­‚Äì‹Æ‚Å‚«‚È‚¢I");

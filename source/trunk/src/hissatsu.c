@@ -430,7 +430,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 		set_action(creature_ptr, ACTION_NONE);
 	}
 
-	if(IS_BLIND(creature_ptr) || no_lite(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
 #ifdef JP
 msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");

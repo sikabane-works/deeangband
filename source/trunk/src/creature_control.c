@@ -2776,7 +2776,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 		}
 
 		/* Normal line of sight, and not blind */
-		if(player_has_los_bold(fy, fx) && !IS_BLIND(creature_ptr))
+		if(player_has_los_bold(fy, fx) && !has_trait(creature_ptr, TRAIT_BLIND))
 		{
 			bool do_invisible = FALSE;
 			bool do_cold_blood = FALSE;

@@ -3270,7 +3270,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	}
 
 	/* Hack -- Message */
-	if(!IS_BLIND(player_ptr))
+	if(!has_trait(player_ptr, TRAIT_BLIND))
 	{
 #ifdef JP
 		msg_print("”’‚¢Œõ‚ª•Ó‚è‚ð•¢‚Á‚½B");
@@ -3300,7 +3300,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	int flg = PROJECT_GRID | PROJECT_KILL;
 
 	/* Hack -- Message */
-	if(!IS_BLIND(player_ptr))
+	if(!has_trait(player_ptr, TRAIT_BLIND))
 	{
 #ifdef JP
 msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
@@ -4327,7 +4327,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
 
 	if(gameover) return FALSE;
-	if(user_ptr->timed_trait[TRAIT_CONFUSED] || IS_BLIND(user_ptr) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
+	if(user_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
 	if(randint0(200) < user_ptr->timed_trait[TRAIT_STUN]) return FALSE;
 
 	if(!success && one_in_(3))
