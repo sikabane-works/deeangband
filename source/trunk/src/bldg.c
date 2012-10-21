@@ -3029,10 +3029,7 @@ static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *obje
 	return (FALSE);
 }
 
-
-/*
- * Hook to specify "ammo"
- */
+// Hook to specify "ammo"
 static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *object_ptr)
 {
 	switch (object_ptr->tval)
@@ -3040,126 +3037,9 @@ static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *obje
 		case TV_SHOT:
 		case TV_ARROW:
 		case TV_BOLT:
-		{
 			return (TRUE);
-		}
 	}
-
 	return (FALSE);
-}
-
-
-/*
- * Compare weapons
- *
- * Copies the weapons to compare into the weapon-slot and
- * compares the values for both weapons.
- */
-static bool compare_weapons(creature_type *creature_ptr)
-{
-	int item, item2;
-	object_type *o1_ptr, *o2_ptr;
-	object_type orig_weapon;
-	object_type *i_ptr;
-	cptr q, s;
-	int row = 2;
-
-	screen_save();
-	/* Clear the screen */
-	clear_bldg(0, 22);
-
-	/* Store copy of original wielded weapon */
-	i_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
-	object_copy(&orig_weapon, i_ptr);
-
-	// Get the first weapon
-#ifdef JP
-	q = "第一の武器は？";
-	s = "比べるものがありません。";
-#else
-	q = "What is your first weapon? ";
-	s = "You have nothing to compare.";
-#endif
-
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
-	{
-		screen_load();
-		return (FALSE);
-	}
-
-	/* Get the item (in the pack) */
-	o1_ptr = &creature_ptr->inventory[item];
-
-	/* Clear the screen */
-	clear_bldg(0, 22);
-
-	/* Get the second weapon */
-#ifdef JP
-q = "第二の武器は？";
-s = "比べるものがありません。";
-#else
-	q = "What is your second weapon? ";
-	s = "You have nothing to compare.";
-#endif
-
-	if(!get_item(creature_ptr, &item2, q, s, (USE_EQUIP | USE_INVEN), item_tester_hook_hand, 0))
-	{
-		screen_load();
-		return (FALSE);
-	}
-
-	/* Get the item (in the pack) */
-	o2_ptr = &creature_ptr->inventory[item2];
-
-	/* Clear the screen */
-	clear_bldg(0, 22);
-
-	/* Copy first weapon into the weapon slot (if it's not already there) */
-	if(o1_ptr != i_ptr)
-		object_copy(i_ptr, o1_ptr);
-
-	set_creature_bonuses(creature_ptr, TRUE); // Get the new values
-
-	/* List the new values */
-	list_weapon(creature_ptr, o1_ptr, row, 2);
-	compare_weapon_aux1(creature_ptr, o1_ptr, 2, row + 8);
-
-	/* Copy second weapon into the weapon slot (if it's not already there) */
-	if(o2_ptr != i_ptr)
-		object_copy(i_ptr, o2_ptr);
-	else
-		object_copy(i_ptr, &orig_weapon);
-
-	set_creature_bonuses(creature_ptr, TRUE); // Get the new values
-	list_weapon(creature_ptr, o2_ptr, row, 40); // List the new values
-
-	compare_weapon_aux1(creature_ptr, o2_ptr, 40, row + 8);
-
-	/* Copy back the original weapon into the weapon slot */
-	object_copy(i_ptr, &orig_weapon);
-
-	/* Reset the values for the old weapon */
-	set_creature_bonuses(creature_ptr, TRUE);
-
-#ifdef JP
-put_str("(一番高いダメージが適用されます。複数の倍打効果は足し算されません。)", row + 4, 0);
-#else
-	put_str("(Only highest damage applies per creature. Special damage not cumulative.)", row + 4, 0);
-#endif
-
-#ifdef JP
-msg_print("現在の技量から判断すると、あなたの武器は以下のような威力を発揮します:");
-#else
-	msg_print("Based on your current abilities, here is what your weapons will do");
-#endif
-
-
-	flush();
-	(void)inkey();
-	screen_load();
-
-	/* Done */
-	return (TRUE);
 }
 
 /*
@@ -4305,7 +4185,7 @@ msg_print("お金が足りません！");
 		paid = research_creature(creature_ptr);
 		break;
 	case BUILDING_FUNCTION_COMPARE_WEAPONS:
-		paid = compare_weapons(creature_ptr);
+		//DELETED
 		break;
 	case BUILDING_FUNCTION_ENCHANT_WEAPON:
 		//TODO item_tester_hook = object_allow_enchant_melee_weapon;
@@ -4454,7 +4334,7 @@ msg_print("お金が足りません！");
 		break;
 
 	case BUILDING_FUNCTION_EVAL_AC:
-		//TODO :: DELETE
+		//DELETED
 		break;
 
 	}
