@@ -461,8 +461,8 @@ static void save_quick_start(species_type *species_ptr)
 	wr_s16b(species_ptr->sc);
 	wr_s32b(species_ptr->au);
 
-	for (i = 0; i < 6; i++) wr_s16b(species_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) wr_s16b(species_ptr->stat_max_max[i]);
+	for (i = 0; i < STAT_MAX; i++) wr_s16b(species_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; i++) wr_s16b(species_ptr->stat_max_max[i]);
 
 	for (i = 0; i < PY_MAX_LEVEL; i++) wr_s16b(species_ptr->base_hp[i]);
 
@@ -545,9 +545,9 @@ static void wr_creature(creature_type *creature_ptr)
 
 
 	/* Dump the stats (maximum and current) */
-	for (i = 0; i < 6; ++i) wr_s16b(creature_ptr->stat_max[i]);
-	for (i = 0; i < 6; ++i) wr_s16b(creature_ptr->stat_max_max[i]);
-	for (i = 0; i < 6; ++i) wr_s16b(creature_ptr->stat_cur[i]);
+	for (i = 0; i < STAT_MAX; ++i) wr_s16b(creature_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; ++i) wr_s16b(creature_ptr->stat_max_max[i]);
+	for (i = 0; i < STAT_MAX; ++i) wr_s16b(creature_ptr->stat_cur[i]);
 
 	wr_u32b(creature_ptr->au);
 

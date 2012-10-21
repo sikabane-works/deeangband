@@ -9809,7 +9809,7 @@ static void do_cmd_knowledge_home(void)
 //	char object_name[MAX_NLEN];
 	cptr		paren = ")";
 
-	process_dungeon_file(current_floor_ptr, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x, 0, 0);
+	process_dungeon_file(CURRENT_FLOOR_PTR, WORLD_INFO_FILE, 0, 0, max_wild_y, max_wild_x, 0, 0);
 
 	/* Open a new file */
 	fff = my_fopen_temp(file_name, 1024);

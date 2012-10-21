@@ -900,7 +900,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			int y = 0, x = 0, i;
 			cave_type       *c_ptr;
 
-			for (i = 0; i < 6; i++)
+			for (i = 0; i < STAT_MAX; i++)
 			{
 				dir = randint0(8);
 				y = creature_ptr->fy + ddy_ddd[dir];

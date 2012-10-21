@@ -1669,7 +1669,7 @@ void battle_creatures(void)
 			while (1)
 			{
 				floor_ptr->gamble_arena_mode = TRUE;
-				species_idx = get_species_num(current_floor_ptr, ave_creature_level);
+				species_idx = get_species_num(CURRENT_FLOOR_PTR, ave_creature_level);
 				floor_ptr->gamble_arena_mode = old_gamble_arena_mode;
 				if(!species_idx) continue;
 
@@ -2543,10 +2543,10 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				else do_cmd_write_nikki(DIARY_BUNSHOU, 0, "stay over night at the inn.");
 #endif
 				turn = (turn / (TURNS_PER_TICK*TOWN_DAWN/2) + 1) * (TURNS_PER_TICK*TOWN_DAWN/2);
-				if(current_floor_ptr->floor_turn < current_floor_ptr->floor_turn_limit)
+				if(CURRENT_FLOOR_PTR->floor_turn < CURRENT_FLOOR_PTR->floor_turn_limit)
 				{
-					current_floor_ptr->floor_turn += MIN(turn - oldturn, TURNS_PER_TICK*250);
-					if(current_floor_ptr->floor_turn > current_floor_ptr->floor_turn_limit) current_floor_ptr->floor_turn = current_floor_ptr->floor_turn_limit;
+					CURRENT_FLOOR_PTR->floor_turn += MIN(turn - oldturn, TURNS_PER_TICK*250);
+					if(CURRENT_FLOOR_PTR->floor_turn > CURRENT_FLOOR_PTR->floor_turn_limit) CURRENT_FLOOR_PTR->floor_turn = CURRENT_FLOOR_PTR->floor_turn_limit;
 				}
 
 				prevent_turn_overflow(creature_ptr);
@@ -2566,7 +2566,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 
 					while(1)
 					{
-						have_nightmare(creature_ptr, get_species_num(current_floor_ptr, MAX_DEPTH));
+						have_nightmare(creature_ptr, get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH));
 						if(!one_in_(3)) break;
 					}
 

@@ -2314,7 +2314,7 @@ static int store_replacement(store_type *st_ptr, int num)
 		if(is_black_market(st_ptr)) // Black Market
 		{
 			level = rand_range(st_ptr->level / 2, st_ptr->level);	// Pick a level for object/magic
-			i = get_obj_num(current_floor_ptr, level, 0);			// Random item (usually of given level)
+			i = get_obj_num(CURRENT_FLOOR_PTR, level, 0);			// Random item (usually of given level)
 			if(!i) continue; // Handle failure
 		}
 		else // Normal Store

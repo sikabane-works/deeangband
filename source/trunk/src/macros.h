@@ -37,18 +37,14 @@
 #define GET_INVEN_SLOT_TYPE(CR, I) (object_kind_info[(CR)->inventory[(I)].k_idx].slot)
 #define WIELD_SLOT(O) (object_kind_info[(O)->k_idx].slot)
 #define IS_DEAD(CR) ((CR)->chp < 0)
-#define GET_FLOOR_PTR(CR) ((CR) && (CR)->floor_id ? &floor_list[(CR)->floor_id] : current_floor_ptr)
+#define GET_FLOOR_PTR(CR) ((CR) && (CR)->floor_id ? &floor_list[(CR)->floor_id] : CURRENT_FLOOR_PTR)
 #define IS_PURE_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) && (CR)->race_idx2 == (IDX))
 #define IS_RACE(CR, IDX) ((CR)->race_idx1 == (IDX) || (CR)->race_idx2 == (IDX))
 #define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
 #define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE || has_trait((CR), TRAIT_MIMIC))
 
-/* Hex */
-#define hex_spelling_any(USER) \
-	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
-
-#define hex_spelling(USER, X) \
-	(((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
+#define hex_spelling_any(USER) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
+#define hex_spelling(USER, X) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
 
 #define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
 
@@ -72,12 +68,11 @@
 	  ((FLOOR)->floor_level >= 1) && ironman_downward))
 
 #define music_singing(C, X) (((C)->class_idx == CLASS_BARD) && ((C)->class_skills.old_skills.magic_num1[0] == (X)))
-
 #define music_singing_any(C) (((C)->class_idx == CLASS_BARD) && (C)->class_skills.old_skills.magic_num1[0])
 
-#define IS_IN_THIS_FLOOR(C) ((&floor_list[(C)->floor_id]) == current_floor_ptr && (C)->fx && (C)->fy)
+#define IS_IN_THIS_FLOOR(C) ((&floor_list[(C)->floor_id]) == CURRENT_FLOOR_PTR && (C)->fx && (C)->fy)
 
-#define current_floor_ptr (&floor_list[player_ptr->floor_id])
+#define CURRENT_FLOOR_PTR (&floor_list[player_ptr->floor_id])
 
 #define IS_ROD(OBJECT) (OBJECT->tval == TV_ROD)
 

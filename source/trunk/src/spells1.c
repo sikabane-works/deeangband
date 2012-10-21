@@ -2231,7 +2231,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢æ‚ç‚ê‚½‹C‚ª‚·‚éI");
 				int i = 0;
 				if(one_in_(13))
 				{
-					while (i < 6)
+					while (i < STAT_MAX)
 					{
 						do
 						{
@@ -2959,7 +2959,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						msg_format("You're not as powerful as you used to be...");
 #endif
 
-						for (k = 0; k < 6; k++)
+						for (k = 0; k < STAT_MAX; k++)
 						{
 							target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
 							if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;

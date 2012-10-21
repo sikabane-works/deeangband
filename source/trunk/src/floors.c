@@ -136,7 +136,7 @@ s16b floor_pop(void)
 		for (i = 1; i < MAX_FLOORS; i++)
 		{
 			floor_ptr = &floor_list[i];
-			if(floor_ptr == current_floor_ptr) continue; // Don't kill current floor
+			if(floor_ptr == CURRENT_FLOOR_PTR) continue; // Don't kill current floor
 			if(floor_ptr->visit_mark > oldest_visit) continue; // Don't kill newer
 			oldest = i;
 			oldest_visit = floor_ptr->visit_mark;

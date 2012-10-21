@@ -12,14 +12,12 @@
  * included in all such copies.
  */
 
-
-/* Macros */
-
+// Macros
 #define set_cave_feat(FLOOR, Y, X, F)    ((FLOOR)->cave[(Y)][(X)].feat = (F))
 #define add_cave_info(FLOOR, Y, X, I)    ((FLOOR)->cave[(Y)][(X)].info |= (I))
 
 /* This should not be used */
-/*#define set_cave_info(Y,X,I)    (current_floor_ptr->cave[(Y)][(X)].info = (I)) */
+/*#define set_cave_info(Y,X,I)    (CURRENT_FLOOR_PTR->cave[(Y)][(X)].info = (I)) */
 
 #define place_rubble(FLOOR, Y, X)       set_cave_feat(FLOOR, Y, X, feat_rubble)
 #define place_up_stairs(FLOOR, Y, X)    set_cave_feat(FLOOR, Y, X, feat_up_stair)

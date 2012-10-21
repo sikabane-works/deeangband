@@ -1443,7 +1443,7 @@ static void prt_frame_basic(creature_type *creature_ptr)
 	prt_exp(creature_ptr);
 
 	/* All Stats */
-	for (i = 0; i < 6; i++) prt_stat(creature_ptr, i);
+	for (i = 0; i < STAT_MAX; i++) prt_stat(creature_ptr, i);
 
 	/* Armor */
 	prt_ac_ev(creature_ptr);
@@ -2783,7 +2783,7 @@ static void set_class_bonuses(creature_type *creature_ptr)
 	int i;
 	class_type *class_ptr = &class_info[creature_ptr->class_idx];
 
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		creature_ptr->stat_add[i] += class_ptr->c_adj[i] * STAT_FRACTION;
 		if(creature_ptr->cls_bonus) creature_ptr->stat_add[i] += class_ptr->c_adj_b[i] * STAT_FRACTION;
@@ -2885,7 +2885,7 @@ static void set_character_bonuses(creature_type *creature_ptr)
 	int i;
 	chara_type *chara_ptr = &chara_info[creature_ptr->chara_idx];
 
-	for (i = 0; i < 6; i++) creature_ptr->stat_add[i] += chara_ptr->a_adj[i] * STAT_FRACTION;
+	for (i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] += chara_ptr->a_adj[i] * STAT_FRACTION;
 
 	creature_ptr->skill_dis += chara_ptr->a_dis;
 	creature_ptr->skill_dev += chara_ptr->a_dev;
@@ -2993,7 +2993,7 @@ static void set_posture_bonuses(creature_type *creature_ptr)
 
 	if(creature_ptr->posture & KATA_KOUKIJIN)
 	{
-		for(i = 0; i < 6; i++) creature_ptr->stat_add[i] += 50;
+		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] += 50;
 		creature_ptr->to_ac -= 50;
 		creature_ptr->dis_to_ac -= 50;
 	}
@@ -3621,7 +3621,7 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 {
 	int i;
 
-	for(i = 0; i < 6; i++) creature_ptr->stat_add[i] = 0; // Clear the stat modifiers
+	for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_add[i] = 0; // Clear the stat modifiers
 
 	// Clear the Displayed/Real armor class and evasion
 	creature_ptr->dis_ac = creature_ptr->ac = 0;

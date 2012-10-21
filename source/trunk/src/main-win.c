@@ -2859,8 +2859,8 @@ static void windows_map(void)
 	{
 		min_x = 0;
 		min_y = 0;
-		max_x = current_floor_ptr->width;
-		max_y = current_floor_ptr->height;
+		max_x = CURRENT_FLOOR_PTR->width;
+		max_y = CURRENT_FLOOR_PTR->height;
 	}
 
 	// Draw the map
@@ -3546,9 +3546,9 @@ static void process_menus(WORD wCmd)
 				/* Hack -- Forget messages */
 				msg_flag = FALSE;
 
-				forget_lite(current_floor_ptr);
-				forget_view(current_floor_ptr);
-				clear_creature_lite(current_floor_ptr);
+				forget_lite(CURRENT_FLOOR_PTR);
+				forget_view(CURRENT_FLOOR_PTR);
+				clear_creature_lite(CURRENT_FLOOR_PTR);
 
 				Term_key_push(SPECIAL_KEY_QUIT);
 				break;
@@ -4508,9 +4508,9 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 				/* Hack -- Forget messages */
 				msg_flag = FALSE;
 
-				forget_lite(current_floor_ptr);
-				forget_view(current_floor_ptr);
-				clear_creature_lite(current_floor_ptr);
+				forget_lite(CURRENT_FLOOR_PTR);
+				forget_view(CURRENT_FLOOR_PTR);
+				clear_creature_lite(CURRENT_FLOOR_PTR);
 
 				Term_key_push(SPECIAL_KEY_QUIT);
 				return 0;

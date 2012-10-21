@@ -3145,7 +3145,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int y = 0, x = 0, i;
 			cave_type       *c_ptr;
 
-			for (i = 0; i < 6; i++)
+			for (i = 0; i < STAT_MAX; i++)
 			{
 				dir = randint0(8);
 				y = caster_ptr->fy + ddy_ddd[dir];

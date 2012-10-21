@@ -572,7 +572,7 @@ static void set_bound_perm_wall(cave_type *c_ptr)
 		/* Hack -- Decline boundary walls with known treasure  */
 		if((have_flag(f_ptr->flags, FF_HAS_GOLD) || have_flag(f_ptr->flags, FF_HAS_ITEM)) &&
 		    !have_flag(f_ptr->flags, FF_SECRET))
-			c_ptr->feat = feat_state(current_floor_ptr, c_ptr->feat, FF_ENSECRET);
+			c_ptr->feat = feat_state(CURRENT_FLOOR_PTR, c_ptr->feat, FF_ENSECRET);
 
 		/* Set boundary mimic */
 		c_ptr->mimic = c_ptr->feat;

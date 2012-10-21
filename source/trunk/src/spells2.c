@@ -4021,7 +4021,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			}
 			if(!one_in_(6)) break;
 		default:
-			while (i < 6)
+			while (i < STAT_MAX)
 			{
 				do
 				{

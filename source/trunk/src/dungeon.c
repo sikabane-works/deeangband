@@ -5684,7 +5684,7 @@ void determine_bounty_uniques(void)
 	{
 		while (1)
 		{
-			kubi_species_idx[i] = get_species_num(current_floor_ptr, MAX_DEPTH - 1);
+			kubi_species_idx[i] = get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH - 1);
 			r_ptr = &species_info[kubi_species_idx[i]];
 
 			if(!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
@@ -5741,7 +5741,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	{
 		n++;
 
-		today_mon = get_species_num(current_floor_ptr, max_dl);
+		today_mon = get_species_num(CURRENT_FLOOR_PTR, max_dl);
 		r_ptr = &species_info[today_mon];
 
 		if(has_trait_species(r_ptr, TRAIT_UNIQUE) || has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
@@ -5844,10 +5844,10 @@ static void cheat_death(void)
 	/* Hack -- Prevent starvation */
 	(void)set_food(player_ptr, PY_FOOD_MAX - 1);
 
-	current_floor_ptr->floor_level = 0;
+	CURRENT_FLOOR_PTR->floor_level = 0;
 	leaving_quest = 0;
-	if(current_floor_ptr->dun_type) player_ptr->recall_dungeon = current_floor_ptr->dun_type;
-	current_floor_ptr->dun_type = 0;
+	if(CURRENT_FLOOR_PTR->dun_type) player_ptr->recall_dungeon = CURRENT_FLOOR_PTR->dun_type;
+	CURRENT_FLOOR_PTR->dun_type = 0;
 
 	// Start Point Set
 	player_ptr->wy = player_ptr->start_wy;
@@ -6427,7 +6427,7 @@ void play_game(bool new_game)
 	panel_col_min = MAX_WID;
 
 	/* Fill the arrays of floors and walls in the good proportions */
-	set_floor_and_wall(current_floor_ptr->dun_type);
+	set_floor_and_wall(CURRENT_FLOOR_PTR->dun_type);
 
 	/* Flavor the objects */
 	flavor_init();

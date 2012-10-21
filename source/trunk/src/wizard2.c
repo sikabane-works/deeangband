@@ -338,7 +338,7 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 
 	/* Query the stats */
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		/* Prompt */
 		sprintf(ppp, "%s (%d-%d): ", stat_names[i], STAT_VALUE_MIN, creature_ptr->stat_mod_max_max[i]);

@@ -1175,7 +1175,7 @@ void mutate_creature(creature_type *creature_ptr)
 	creature_ptr->stat_max[jj] = max1;
 	creature_ptr->stat_cur[jj] = cur1;
 
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		if(creature_ptr->stat_max[i] > creature_ptr->stat_mod_max_max[i]) creature_ptr->stat_max[i] = creature_ptr->stat_mod_max_max[i];
 		if(creature_ptr->stat_cur[i] > creature_ptr->stat_mod_max_max[i]) creature_ptr->stat_cur[i] = creature_ptr->stat_mod_max_max[i];

@@ -2190,7 +2190,7 @@ void get_max_stats(creature_type *creature_ptr)
 	while (TRUE)
 	{
 		/* Roll some dice */
-		for (j = i = 0; i < 6; i++)
+		for (j = i = 0; i < STAT_MAX; i++)
 		{
 			/* Roll the dice */
 			dice[i] = randint1(7);
@@ -2393,7 +2393,7 @@ static void birth_put_stats(creature_type *creature_ptr)
 	{
 		col = 42;
 		/* Put the stats (and percents) */
-		for (i = 0; i < 6; i++)
+		for (i = 0; i < STAT_MAX; i++)
 		{
 			/* Race/Class bonus */
 			if(IS_PURE(creature_ptr))
@@ -2566,7 +2566,7 @@ void determine_random_questor(quest_type *quest_ptr)
 	do
 	{
 		// Random creatures 5 - 10 levels out of depth (depending on level)
-		species_idx = get_species_num(current_floor_ptr, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
+		species_idx = get_species_num(CURRENT_FLOOR_PTR, quest_ptr->level + 5 + randint1(quest_ptr->level / 10));
 		species_ptr = &species_info[species_idx];
 
 		if(species_ptr->rarity > 100) continue;
@@ -4032,7 +4032,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 #endif
 
 	/* Output the maximum stats */
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		/* Reset the "success" counter */
 		stat_match[i] = 0;
@@ -4265,7 +4265,7 @@ static bool get_stat_limits(creature_type *creature_ptr)
 		if(c == ESCAPE || ((c == ' ' || c == '\r' || c == '\n') && cs == 6))break;
 	}
 	
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		/* Save the minimum stat */
 		stat_limit[i] = cval[i];
@@ -5132,7 +5132,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 #endif
 
 			// Put the minimal stats
-			for (i = 0; i < 6; i++)
+			for (i = 0; i < STAT_MAX; i++)
 			{
 				int j, m;
 
@@ -5176,7 +5176,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 				if(autoroller)
 				{
-					for (i = 0; i < 6; i++)
+					for (i = 0; i < STAT_MAX; i++)
 					{
 						stat_match[i] = 0;
 					}
@@ -5638,7 +5638,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 	fprintf(fff, "Pesonality: %s\n", chara_info[creature_ptr->chara_idx].title);
 #endif
 	t = temp;
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		if(t[0] == 0)
 			break; 
@@ -5655,7 +5655,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 		fprintf(fff, "Realm: %s\n", realm_names[creature_ptr->realm1]);
 #endif
 		t = temp;
-		for (i = 0; i < 6; i++)
+		for (i = 0; i < STAT_MAX; i++)
 		{
 			if(t[0] == 0)
 				break; 
@@ -5673,7 +5673,7 @@ void dump_yourself(creature_type *creature_ptr, FILE *fff)
 		fprintf(fff, "Realm: %s\n", realm_names[creature_ptr->realm2]);
 #endif
 		t = temp;
-		for (i = 0; i < 6; i++)
+		for (i = 0; i < STAT_MAX; i++)
 		{
 			if(t[0] == 0)
 				break; 

@@ -3238,7 +3238,7 @@ static void display_player_stat_info(creature_type *creature_ptr)
 #endif
 
 	// Display the stats
-	for (i = 0; i < 6; i++)
+	for (i = 0; i < STAT_MAX; i++)
 	{
 		int r_adj, cl_adj, p_adj = 0;
 
@@ -3707,7 +3707,7 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 		display_player_one_line(ENTRY_SIZE, format("%d(%s/%s)", creature_ptr->size, tmp, tmp2), TERM_L_BLUE);
 
 		/* Display the stats */
-		for (i = 0; i < 6; i++)
+		for (i = 0; i < STAT_MAX; i++)
 		{
 			if(!has_status(creature_ptr, i))
 			{
@@ -5362,10 +5362,7 @@ bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 	strcpy(caption, "");
 
 	/* Wipe the hooks */
-	for (i = 0; i < 68; i++)
-	{
-		hook[i][0] = '\0';
-	}
+	for (i = 0; i < 68; i++) hook[i][0] = '\0';
 
 	/* Copy the filename */
 	strcpy(filename, name);
@@ -7535,9 +7532,9 @@ static void handle_signal_simple(int sig)
 		(void)strcpy(gameover_from, "Abortion");
 #endif
 
-		forget_lite(current_floor_ptr);
-		forget_view(current_floor_ptr);
-		clear_creature_lite(current_floor_ptr);
+		forget_lite(CURRENT_FLOOR_PTR);
+		forget_view(CURRENT_FLOOR_PTR);
+		clear_creature_lite(CURRENT_FLOOR_PTR);
 
 		/* Close stuff */
 		close_game();
@@ -7561,9 +7558,9 @@ quit("‹­§I—¹");
 		(void)strcpy(gameover_from, "Interrupting");
 #endif
 
-		forget_lite(current_floor_ptr);
-		forget_view(current_floor_ptr);
-		clear_creature_lite(current_floor_ptr);
+		forget_lite(CURRENT_FLOOR_PTR);
+		forget_view(CURRENT_FLOOR_PTR);
+		clear_creature_lite(CURRENT_FLOOR_PTR);
 
 		/* Stop playing */
 		playing = FALSE;
@@ -7636,9 +7633,9 @@ static void handle_signal_abort(int sig)
 	if(!character_generated || character_saved) quit(NULL);
 
 
-	forget_lite(current_floor_ptr);
-	forget_view(current_floor_ptr);
-	clear_creature_lite(current_floor_ptr);
+	forget_lite(CURRENT_FLOOR_PTR);
+	forget_view(CURRENT_FLOOR_PTR);
+	clear_creature_lite(CURRENT_FLOOR_PTR);
 
 	/* Clear the bottom line */
 	Term_erase(0, hgt - 1, 255);

@@ -880,8 +880,8 @@ static void load_quick_start(species_type *species_ptr)
 	rd_s16b(&species_ptr->sc);
 	rd_s32b(&species_ptr->au);
 
-	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max[i]);
-	for (i = 0; i < 6; i++) rd_s16b(&species_ptr->stat_max_max[i]);
+	for (i = 0; i < STAT_MAX; i++) rd_s16b(&species_ptr->stat_max[i]);
+	for (i = 0; i < STAT_MAX; i++) rd_s16b(&species_ptr->stat_max_max[i]);
 
 	for (i = 0; i < PY_MAX_LEVEL; i++) rd_s16b(&species_ptr->base_hp[i]);
 

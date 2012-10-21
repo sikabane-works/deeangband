@@ -860,7 +860,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 // Return TRUE if the given feature is an open door
 static bool is_open(int feat)
 {
-	return have_flag(feature_info[feat].flags, FF_CLOSE) && (feat != feat_state(current_floor_ptr, feat, FF_CLOSE));
+	return have_flag(feature_info[feat].flags, FF_CLOSE) && (feat != feat_state(CURRENT_FLOOR_PTR, feat, FF_CLOSE));
 }
 
 /*

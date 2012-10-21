@@ -3257,7 +3257,7 @@ static void deal_food(creature_type *creature_ptr)
 		for (i = rand_range(3, 4); i > 0; i--)
 		{
 			object_prep(quest_ptr, lookup_kind(TV_CORPSE, SV_CORPSE), ITEM_FREE_SIZE);
-			quest_ptr->pval = get_species_num(current_floor_ptr, 2);
+			quest_ptr->pval = get_species_num(CURRENT_FLOOR_PTR, 2);
 			quest_ptr->number = 1;
 			add_outfit(creature_ptr, quest_ptr, 0);
 		}

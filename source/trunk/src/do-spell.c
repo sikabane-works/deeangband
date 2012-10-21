@@ -12251,7 +12251,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 
 				flag = TRUE;
 			}
-			for (i = STAT_STR; i < 6; i ++)
+			for (i = STAT_STR; i < STAT_MAX; i ++)
 			{
 				if(creature_ptr->stat_cur[i] < creature_ptr->stat_max[i])
 				{
