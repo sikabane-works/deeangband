@@ -4793,49 +4793,29 @@ void combine_pack(creature_type *creature_ptr)
 				{
 					if(object_ptr->number + j_ptr->number <= max_num)
 					{
-						/* Take note */
-						flag = TRUE;
-
-						/* Add together the item counts */
-						object_absorb(j_ptr, object_ptr);
-
-						/* One object is gone */
-						creature_ptr->inven_cnt--;
-
-						/* Slide everything down */
-						for (k = i; k < INVEN_TOTAL - 1; k++)
-						{
-							/* Structure copy */
-							creature_ptr->inventory[k] = creature_ptr->inventory[k+1];
-						}
-
-						/* Erase the "final" slot */
-						object_wipe(&creature_ptr->inventory[k]);
+						flag = TRUE;	// Take note
+						object_absorb(j_ptr, object_ptr);	// Add together the item counts
+						creature_ptr->inven_cnt--;	// One object is gone
+						for(k = i; k < INVEN_TOTAL - 1; k++) creature_ptr->inventory[k] = creature_ptr->inventory[k+1];	// Slide everything down
+						object_wipe(&creature_ptr->inventory[k]);	// Erase the "final" slot
 					}
 					else
 					{
 						int old_num = object_ptr->number;
 						int remain = j_ptr->number + object_ptr->number - max_num;
-#if 0
-						object_ptr->number -= remain;
-#endif
-						/* Add together the item counts */
-						object_absorb(j_ptr, object_ptr);
+						object_absorb(j_ptr, object_ptr);	// Add together the item counts
 
 						object_ptr->number = remain;
 
-						/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
+						// Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM-
 						if(object_ptr->tval == TV_ROD)
 						{
 							object_ptr->pval =  object_ptr->pval * remain / old_num;
 							object_ptr->timeout = object_ptr->timeout * remain / old_num;
 						}
 
-						/* Hack -- if wands are stacking, combine the charges. -LM- */
-						if(object_ptr->tval == TV_WAND)
-						{
-							object_ptr->pval = object_ptr->pval * remain / old_num;
-						}
+						// Hack -- if wands are stacking, combine the charges. -LM-
+						if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * remain / old_num;
 					}
 
 					/* Window stuff */

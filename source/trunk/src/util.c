@@ -12,11 +12,9 @@
 
 #include "angband.h"
 
-
 static int num_more = 0;
+static char inkey_macro_trigger_string[1024];	// Save macro trigger string for use in inkey_special()
 
-/* Save macro trigger string for use in inkey_special() */
-static char inkey_macro_trigger_string[1024];
 
 #if 0
 #ifndef HAS_STRICMP
