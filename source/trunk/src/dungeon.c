@@ -2057,13 +2057,8 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(!is_valid_creature(creature_ptr)) return;
-
-	/* No effect on creature arena */
 	if(floor_ptr->gamble_arena_mode) return;
-
-	/* No effect on the global map */
-	if(floor_ptr->wild_mode) return;
-
+	if(floor_ptr->wild_mode) return;	// No effect on the global map
 
 	if(has_trait(creature_ptr, TRAIT_BERS_RAGE) && one_in_(3000))
 	{
@@ -2075,7 +2070,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print("RAAAAGHH!");
 		msg_print("You feel a fit of rage coming over you!");
 #endif
-
 		(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(creature_ptr->lev), FALSE);
 		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
 	}
@@ -2090,7 +2084,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #else
 			msg_print("It's so dark... so scary!");
 #endif
-
 			set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
 		}
 	}
@@ -2101,14 +2094,11 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		    !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
-
-			/* Teleport player */
 #ifdef JP
 			msg_print("あなたの位置は突然ひじょうに不確定になった...");
 #else
 			msg_print("Your position suddenly seems very uncertain...");
 #endif
-
 			msg_print(NULL);
 			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
 		}
@@ -2125,7 +2115,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #else
 			msg_print("You feel a SSSCHtupor cOmINg over yOu... *HIC*!");
 #endif
-
 		}
 
 		if(!has_trait(creature_ptr, TRAIT_NO_CONF))
@@ -2149,7 +2138,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 				msg_print("You wake up somewhere with a sore head...");
 				msg_print("You can't remember a thing, or how you got here!");
 #endif
-
 			}
 			else
 			{
@@ -2160,7 +2148,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #else
 					msg_print("Thishcischs GooDSChtuff!");
 #endif
-
 					(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(150) + 150);
 				}
 			}
@@ -2304,24 +2291,17 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		/* Absorb some fuel in the current lite */
 		if(object_ptr->tval == TV_LITE)
 		{
-			/* Use some fuel (except on artifacts) */
-			if(!object_is_fixed_artifact(object_ptr) && (object_ptr->xtra4 > 0))
+			if(!object_is_fixed_artifact(object_ptr) && (object_ptr->xtra4 > 0))	// Use some fuel (except on artifacts)
 			{
-				/* Heal the player a bit */
-				heal_creature(creature_ptr, object_ptr->xtra4 / 20);
-
-				/* Decrease life-span of lite */
-				object_ptr->xtra4 /= 2;
-
+				
+				heal_creature(creature_ptr, object_ptr->xtra4 / 20);	// Heal the player a bit			
+				object_ptr->xtra4 /= 2;	// Decrease life-span of lite
 #ifdef JP
 				msg_print("光源からエネルギーを吸収した！");
 #else
 				msg_print("You absorb energy from your light!");
 #endif
-
-
-				/* Notice interesting fuel steps */
-				notice_lite_change(creature_ptr, object_ptr);
+				notice_lite_change(creature_ptr, object_ptr);	// Notice interesting fuel steps
 			}
 		}
 
@@ -2366,6 +2346,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		cast_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
 	}
+
 	if(has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))
 	{
 		if(!lose_trait(creature_ptr, 0))
@@ -2376,6 +2357,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 	}
+
 	if(has_trait(creature_ptr, TRAIT_WRAITH) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2388,10 +2370,12 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		set_timed_trait_aux(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
+
 	if(has_trait(creature_ptr, TRAIT_POLY_WOUND) && one_in_(3000))
 	{
 		do_poly_wounds(creature_ptr);
 	}
+
 	if(has_trait(creature_ptr, TRAIT_WASTING) && one_in_(3000))
 	{
 		int which_stat = randint0(6);
@@ -2440,8 +2424,8 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			(void)dec_stat(creature_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
 	}
-	if(has_trait(creature_ptr, TRAIT_ATT_DRAGON) &&
-	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
+
+	if(has_trait(creature_ptr, TRAIT_ATT_DRAGON) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		bool pet = one_in_(5);
 		u32b mode = PC_ALLOW_GROUP;
@@ -2460,8 +2444,8 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			disturb(player_ptr, 0, 0);
 		}
 	}
-	if(has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
-	    one_in_(3000))
+
+	if(has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
 		if(creature_ptr->timed_trait[TRAIT_ESP] > 0)
 		{
@@ -2484,8 +2468,8 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			set_timed_trait_aux(creature_ptr, TRAIT_ESP, creature_ptr->lev, FALSE);
 		}
 	}
-	if(has_trait(creature_ptr, TRAIT_NAUSEA) && !has_trait(creature_ptr, TRAIT_SLOW_DIGEST) &&
-	    one_in_(9000))
+
+	if(has_trait(creature_ptr, TRAIT_NAUSEA) && !has_trait(creature_ptr, TRAIT_SLOW_DIGEST) && one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2493,15 +2477,13 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #else
 		msg_print("Your stomach roils, and you lose your lunch!");
 #endif
-
 		msg_print(NULL);
 		set_food(creature_ptr, PY_FOOD_WEAK);
 		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 
-	if(has_trait(creature_ptr, TRAIT_WALK_SHAD) &&
-	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(12000) && !floor_ptr->fight_arena_mode)
+	if(has_trait(creature_ptr, TRAIT_WALK_SHAD) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(12000) && !floor_ptr->fight_arena_mode)
 	{
 		alter_reality(creature_ptr);
 	}
@@ -2568,8 +2550,8 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 #endif
 
 	}
-	if(has_trait(creature_ptr, TRAIT_INVULN) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
-	    one_in_(5000))
+
+	if(has_trait(creature_ptr, TRAIT_INVULN) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(5000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2581,6 +2563,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		(void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, randint1(8) + 8, FALSE);
 	}
+
 	if(has_trait(creature_ptr, TRAIT_SP_TO_HP_PASSIVE) && one_in_(2000))
 	{
 		int wounds = creature_ptr->mhp - creature_ptr->chp;
@@ -2601,8 +2584,8 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			play_redraw |= (PR_MANA);
 		}
 	}
-	if(has_trait(creature_ptr, TRAIT_HP_TO_SP_PASSIVE) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) &&
-	    one_in_(4000))
+
+	if(has_trait(creature_ptr, TRAIT_HP_TO_SP_PASSIVE) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(4000))
 	{
 		int wounds = creature_ptr->msp - creature_ptr->csp;
 
@@ -2627,6 +2610,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 
 		}
 	}
+
 	if(has_trait(creature_ptr, TRAIT_DISARM) && one_in_(10000))
 	{
 		int i;
@@ -2746,7 +2730,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 #else
 			if(!get_rnd_line("chainswd.txt", 0, noise))
 #endif
-				msg_print(noise);
+			msg_print(noise);
 			disturb(player_ptr, FALSE, FALSE);
 		}
 
