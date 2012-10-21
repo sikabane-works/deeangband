@@ -776,8 +776,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	/* world */
 	if(world_num && (randint0(100) < 15) && !the_world)
 	{
-		/* Choose haste spell */
-		return (world[randint0(world_num)]);
+		return (world[randint0(world_num)]);	// Choose haste spell
 	}
 
 	/* special */

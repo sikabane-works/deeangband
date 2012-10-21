@@ -1510,8 +1510,8 @@ static void process_nonplayer(int m_idx)
 	floor_type       *floor_ptr = GET_FLOOR_PTR(creature_ptr); 
 	char creature_name[80];
 
-	species_type    *r_ptr = &species_info[creature_ptr->species_idx];
-	species_type    *ap_r_ptr = &species_info[creature_ptr->ap_species_idx];
+	species_type    *species_ptr = &species_info[creature_ptr->species_idx];
+	species_type    *ap_species_ptr = &species_info[creature_ptr->ap_species_idx];
 
 	int             i, d, oy, ox, ny, nx;
 	int             mm[8];
@@ -1539,6 +1539,24 @@ static void process_nonplayer(int m_idx)
 
 	bool            is_riding_mon = (m_idx == player_ptr->riding);
 	bool            see_m = is_seen(player_ptr, creature_ptr);
+	bool			test = FALSE;
+
+	// Access the location
+	int	fx = creature_ptr->fx;
+	int	fy = creature_ptr->fy;
+
+
+	// Handle "sensing radius"
+	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->alert_range > MAX_SIGHT ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
+		test = TRUE;
+	
+	else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY))) // Handle "sight" and "aggravation"
+		test = TRUE;
+
+	else if(creature_ptr->target_y) test = TRUE;
+
+	// Do nothing
+	if(!test) return;
 
 	if(CURRENT_FLOOR_PTR != floor_ptr) return;
 
@@ -1559,7 +1577,7 @@ static void process_nonplayer(int m_idx)
 	if((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
 		set_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
-		r_ptr = &species_info[creature_ptr->species_idx];
+		species_ptr = &species_info[creature_ptr->species_idx];
 	}
 
 	// Players hidden in shadow are almost imperceptable. -LM-
@@ -1680,18 +1698,14 @@ static void process_nonplayer(int m_idx)
 		}
 
 		/* Hack -- Count the wakings */
-		if(is_original_ap_and_seen(player_ptr, creature_ptr) && (r_ptr->r_wake < MAX_UCHAR))
+		if(is_original_ap_and_seen(player_ptr, creature_ptr) && (species_ptr->r_wake < MAX_UCHAR))
 		{
-			r_ptr->r_wake++;
+			species_ptr->r_wake++;
 		}
 	}
 
 	//TODO move old player feature of stun.
-
-	if(is_riding_mon)
-	{
-		player_ptr->creature_update |= (CRU_BONUS);
-	}
+	if(is_riding_mon) player_ptr->creature_update |= (CRU_BONUS);
 
 	// No one wants to be your friend if you're aggravating
 	if(is_friendly(player_ptr, creature_ptr) && (has_trait(player_ptr, TRAIT_ANTIPATHY))) gets_angry = TRUE;
@@ -1727,7 +1741,7 @@ static void process_nonplayer(int m_idx)
 	ox = creature_ptr->fx;
 
 	// Try to cast spell occasionally
-	if(r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
+	if(species_ptr->freq_spell && randint1(100) <= species_ptr->freq_spell)
 	{
 		bool counterattack = FALSE;
 
@@ -2073,7 +2087,7 @@ static void process_nonplayer(int m_idx)
 			do_move = FALSE;
 
 			/* Break the ward */
-			if(!is_pet(player_ptr, creature_ptr) && (randint1(BREAK_GLYPH) < r_ptr->level))
+			if(!is_pet(player_ptr, creature_ptr) && (randint1(BREAK_GLYPH) < species_ptr->level))
 			{
 				/* Describe observable breakage */
 				if(c_ptr->info & CAVE_MARK)
@@ -2109,7 +2123,7 @@ static void process_nonplayer(int m_idx)
 			if(!is_pet(player_ptr, creature_ptr))
 			{
 				/* Break the ward */
-				if(randint1(BREAK_MINOR_GLYPH) > r_ptr->level)
+				if(randint1(BREAK_MINOR_GLYPH) > species_ptr->level)
 				{
 					/* Describe observable breakage */
 					if(c_ptr->info & CAVE_MARK)
@@ -2206,7 +2220,7 @@ static void process_nonplayer(int m_idx)
 
 			/* Attack 'enemies' */
 			if((has_trait(creature_ptr, TRAIT_KILL_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_BLOW) &&
-				(r_ptr->exp * r_ptr->level > z_ptr->exp * z_ptr->level) &&
+				(species_ptr->exp * species_ptr->level > z_ptr->exp * z_ptr->level) &&
 				 can_cross && (c_ptr->creature_idx != player_ptr->riding)) ||
 				  are_mutual_enemies(creature_ptr, y_ptr) ||  creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
@@ -2214,7 +2228,7 @@ static void process_nonplayer(int m_idx)
 				{
 					if(has_trait(creature_ptr, TRAIT_KILL_BODY))
 					{
-						//TODO if(is_original_ap_and_seen(player_ptr, creature_ptr)) r_ptr->r_flags2 |= (RF2_KILL_BODY);
+						//TODO if(is_original_ap_and_seen(player_ptr, creature_ptr)) species_ptr->r_flags2 |= (RF2_KILL_BODY);
 					}
 
 					/* attack */
@@ -2238,7 +2252,7 @@ static void process_nonplayer(int m_idx)
 
 			/* Push past weaker creatures (unless leaving a wall) */
 			else if(has_trait(creature_ptr, TRAIT_MOVE_BODY) && !has_trait(creature_ptr, TRAIT_NEVER_MOVE) &&
-				(r_ptr->exp > z_ptr->exp) &&
+				(species_ptr->exp > z_ptr->exp) &&
 				can_cross && (c_ptr->creature_idx != player_ptr->riding) &&
 				creature_can_cross_terrain(y_ptr, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, 0))
 			{
@@ -2389,7 +2403,7 @@ static void process_nonplayer(int m_idx)
 			if(creature_ptr->see_others &&
 			    (disturb_move ||
 			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
-			     (disturb_high && ap_r_ptr->r_tkills && ap_r_ptr->level >= player_ptr->lev)))
+			     (disturb_high && ap_species_ptr->r_tkills && ap_species_ptr->level >= player_ptr->lev)))
 			{
 				/* Disturb */
 				if(is_hostile(creature_ptr))
@@ -2521,7 +2535,7 @@ static void process_nonplayer(int m_idx)
 	if(!do_turn && !do_move && !creature_ptr->timed_trait[TRAIT_AFRAID] && !is_riding_mon && aware)
 	{
 		// Try to cast spell again
-		if(r_ptr->freq_spell && randint1(100) <= r_ptr->freq_spell)
+		if(species_ptr->freq_spell && randint1(100) <= species_ptr->freq_spell)
 			if(make_attack_spell(creature_ptr, player_ptr)) return;
 	}
 
@@ -2575,8 +2589,6 @@ static void process_nonplayer(int m_idx)
 static void process_creature(int i)
 {
 	int speed;
-	bool test;
-	int fx, fy;
 
 	// Access the creature
 	creature_type *creature_ptr = &creature_list[i];
@@ -2596,14 +2608,8 @@ static void process_creature(int i)
 
 	if(creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
 
-	// Access the location
-	fx = creature_ptr->fx;
-	fy = creature_ptr->fy;
-
 	// Flow by smell is allowed
 	if(!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
-
-	test = FALSE; // Assume no move
 
 	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
@@ -2614,22 +2620,7 @@ static void process_creature(int i)
 #endif
 	}
 
-	// Clear creature fighting indicator
-	creature_ptr->hear_noise = FALSE;
-
-
-	// Handle "sensing radius"
-	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->alert_range > MAX_SIGHT ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
-		test = TRUE;
-
-	// Handle "sight" and "aggravation"
-	else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY)))
-		test = TRUE;
-
-	else if(creature_ptr->target_y) test = TRUE;
-
-	// Do nothing
-	if(!test) return;
+	creature_ptr->hear_noise = FALSE;	// Clear creature fighting indicator
 
 	speed = creature_ptr->speed;
 

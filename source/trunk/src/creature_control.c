@@ -1914,7 +1914,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	else
 	{
 		/* Tanuki? */
-		if(is_pet(playespecies_ptr, creature_ptr) && !is_original_ap(creature_ptr))
+		if(is_pet(player_ptr, creature_ptr) && !is_original_ap(creature_ptr))
 		{
 #ifdef JP
 			char *t;
@@ -1998,7 +1998,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		else
 		{
 			/* Definite creatures need a definite article */
-			if(is_pet(playespecies_ptr, creature_ptr))
+			if(is_pet(player_ptr, creature_ptr))
 #ifdef JP
 				(void)strcpy(desc, "‚ ‚È‚½‚Ì");
 #else
