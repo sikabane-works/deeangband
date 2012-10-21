@@ -1947,37 +1947,31 @@ static void display_player_middle(creature_type *creature_ptr)
 
 		if(i > 0)
 		{
-			if(!creature_ptr->riding)
-				attr = TERM_L_GREEN;
-			else
-				attr = TERM_GREEN;
+			if(!creature_ptr->riding) attr = TERM_L_GREEN;
+			else attr = TERM_GREEN;
 		}
 		else if(i == 0)
 		{
-			if(!creature_ptr->riding)
-				attr = TERM_L_BLUE;
-			else
-				attr = TERM_GREEN;
+			if(!creature_ptr->riding) attr = TERM_L_BLUE;
+			else attr = TERM_GREEN;
 		}
 		else
 		{
-			if(!creature_ptr->riding)
-				attr = TERM_L_UMBER;
-			else
-				attr = TERM_RED;
+			if(!creature_ptr->riding) attr = TERM_L_UMBER;
+			else attr = TERM_RED;
 		}
 
 		if(!creature_ptr->riding)
 		{
 			if(IS_FAST(creature_ptr)) tmp_speed += 10;
-			if(IS_SLOW(creature_ptr)) tmp_speed -= 10;
+			if(has_trait(creature_ptr, TRAIT_SLOW)) tmp_speed -= 10;
 			if(has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) tmp_speed = 99;
 		}
 		else
 		{
 			if(IS_FAST(&creature_list[creature_ptr->riding])) tmp_speed += 10;
-			if(IS_FAST(&creature_list[creature_ptr->riding])) tmp_speed -= 10;
-			if(has_trait(creature_ptr, TRAIT_LIGHT_SPEED)) tmp_speed = 99;
+			if(has_trait(&creature_list[creature_ptr->riding], TRAIT_SLOW)) tmp_speed -= 10;
+			if(has_trait(&creature_list[creature_ptr->riding], TRAIT_LIGHT_SPEED)) tmp_speed = 99;
 		}
 
 		if(tmp_speed)
@@ -1986,7 +1980,7 @@ static void display_player_middle(creature_type *creature_ptr)
 				sprintf(buf, "(%+d%+d)", i-tmp_speed, tmp_speed);
 			else
 #ifdef JP
-				sprintf(buf, "æ”n’† (%+d%+d)", i-tmp_speed, tmp_speed);
+				sprintf(buf, "‹Ræ’† (%+d%+d)", i-tmp_speed, tmp_speed);
 #else
 				sprintf(buf, "Riding (%+d%+d)", i-tmp_speed, tmp_speed);
 #endif
@@ -2002,7 +1996,7 @@ static void display_player_middle(creature_type *creature_ptr)
 				sprintf(buf, "(%+d)", i);
 			else
 #ifdef JP
-				sprintf(buf, "æ”n’† (%+d)", i);
+				sprintf(buf, "‹Ræ’† (%+d)", i);
 #else
 				sprintf(buf, "Riding (%+d)", i);
 #endif

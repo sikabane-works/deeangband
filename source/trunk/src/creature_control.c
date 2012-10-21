@@ -2638,7 +2638,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 				/* Detectable */
 				flag = TRUE;
 
-				if(is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
+				if(is_original_ap(target_ptr) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 				{
 					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_SMART);;
 					if(has_trait(target_ptr, TRAIT_SMART)) reveal_creature_info(target_ptr, TRAIT_STUPID);;
@@ -2665,7 +2665,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 						/* Detectable */
 						flag = TRUE;
 
-						if(is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
+						if(is_original_ap(target_ptr) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 						{
 							/* Memorize flags */
 							reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
@@ -2681,7 +2681,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 					/* Detectable */
 					flag = TRUE;
 
-					if(is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
+					if(is_original_ap(target_ptr) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 					{
 						/* Hack -- Memorize mental flags */
 						reveal_creature_info(target_ptr, TRAIT_SMART);
@@ -2834,7 +2834,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			/* Visible */
 			if(flag)
 			{
-				if(is_original_ap(target_ptr) && !IS_HALLUCINATION(creature_ptr))
+				if(is_original_ap(target_ptr) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 				{
 					/* Memorize flags */
 					reveal_creature_info(target_ptr, TRAIT_INVISIBLE);
@@ -2862,7 +2862,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			if(creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
-			if(!IS_HALLUCINATION(creature_ptr))
+			if(!has_trait(creature_ptr, TRAIT_HALLUCINATION))
 			{
 				//if((target_ptr->ap_species_idx == SPECIES_KAGE) && (species_info[SPECIES_KAGE].r_sights < MAX_SHORT))
 				//	species_info[SPECIES_KAGE].r_sights++;

@@ -1684,7 +1684,7 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	if(!m_ptr->species_idx) return (FALSE);
 
 	/* Hack -- no targeting hallucinations */
-	if(IS_HALLUCINATION(creature_ptr)) return (FALSE);
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);
 
 	/* Creature must be visible */
 	if(!m_ptr->see_others) return (FALSE);
@@ -1934,7 +1934,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 
 
 	/* Handle hallucination */
-	if(IS_HALLUCINATION(creature_ptr)) return (FALSE);
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);
 
 
 	/* Examine the grid */
@@ -2168,7 +2168,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 	}
 
 	/* Hack -- hallucination */
-	if(IS_HALLUCINATION(creature_ptr))
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
 #ifdef JP
 		cptr name = "‰½‚©Šï–­‚È•¨";
@@ -4572,7 +4572,7 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if(!(in_bounds(floor_ptr, y, x))) return (FALSE); // Bounds
 	if((y == creature_ptr->fy) && (x == creature_ptr->fx)) return (TRUE); // Player grid is always interesting
-	if(IS_HALLUCINATION(creature_ptr)) return (FALSE); // Handle hallucination
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE); // Handle hallucination
 	c_ptr = &floor_ptr->cave[y][x]; // Examine the grid
 
 	// Interesting memorized features

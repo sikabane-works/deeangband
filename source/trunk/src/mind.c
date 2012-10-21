@@ -1709,7 +1709,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		if(m_ptr->see_others)
 		{
 			/* Auto-Recall if possible and visible */
-			if(!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
+			if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 			/* Track a new creature */
 			health_track(m_idx);
@@ -1974,7 +1974,7 @@ msg_print("奇妙な光景が目の前で踊っている...");
 					msg_print("Weird visions seem to dance before your eyes...");
 #endif
 
-					set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
+					set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + 5 + randint1(10));
 				}
 				else if(b < 45)
 				{
@@ -2027,7 +2027,7 @@ msg_print("まわりのものがキラキラ輝いている！");
 					msg_print("Your brain is addled!");
 #endif
 
-					set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + 5 + randint1(10));
+					set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + 5 + randint1(10));
 				}
 				else
 				{

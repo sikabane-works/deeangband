@@ -426,7 +426,7 @@ static void prt_status(creature_type *creature_ptr)
 	bar_flags[0] = bar_flags[1] = bar_flags[2] = 0L;
 
 	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI]) ADD_FLG(BAR_TSUYOSHI);		// Tsuyoshi
-	if(IS_HALLUCINATION(creature_ptr)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) ADD_FLG(BAR_HALLUCINATION);		// Hallucinating
 	if(has_trait(creature_ptr, TRAIT_BLIND)) ADD_FLG(BAR_BLINDNESS);			// Blindness
 	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) ADD_FLG(BAR_PARALYZE);		// Paralysis
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) ADD_FLG(BAR_CONFUSE);			// Confusion
@@ -1364,7 +1364,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 	}
 
 	/* Tracking a hallucinatory creature */
-	else if(IS_HALLUCINATION(creature_ptr))
+	else if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
 		/* Indicate that the creature health is "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");

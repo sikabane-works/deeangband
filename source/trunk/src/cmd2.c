@@ -807,7 +807,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the difficulty */
 		j = i - object_ptr->pval;
@@ -1017,7 +1017,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1688,7 +1688,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1775,7 +1775,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 	/* Penalize some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - object_ptr->pval;
@@ -1899,7 +1899,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	/* Penalize some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(creature_ptr)) i = i / 10;
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - power;
@@ -3457,7 +3457,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					if(m_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
-						if(!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
+						if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);
@@ -4118,7 +4118,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					if(m_ptr->see_others)
 					{
 						/* Hack -- Track this creature race */
-						if(!IS_HALLUCINATION(creature_ptr)) species_type_track(m_ptr->ap_species_idx);
+						if(!has_trait(creature_ptr, TRAIT_HALLUCINATION)) species_type_track(m_ptr->ap_species_idx);
 
 						/* Hack -- Track this creature */
 						health_track(c_ptr->creature_idx);

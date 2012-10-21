@@ -6963,7 +6963,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 
 			return;
 		}
-		if(IS_HALLUCINATION(creature_ptr))
+		if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
 		{
 #ifdef JP
 			msg_print("‚¤‚Ü‚­Œ©‚¦‚È‚­‚Äì‹Æ‚Å‚«‚È‚¢I");

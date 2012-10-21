@@ -144,7 +144,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			{
 				if(!creature_ptr->resist_chaos)
 				{
-					if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(250) + 250))
+					if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(250) + 250))
 					{
 						ident = TRUE;
 					}

@@ -2149,7 +2149,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 					msg_print("Thishcischs GooDSChtuff!");
 #endif
 
-					(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(150) + 150);
+					(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(150) + 150);
 				}
 			}
 		}
@@ -2161,7 +2161,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		{
 			disturb(player_ptr, 0, 0);
 			play_redraw |= PR_EXTRA;
-			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(creature_ptr) + randint0(50) + 20);
+			(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(50) + 20);
 		}
 	}
 
@@ -5094,7 +5094,7 @@ void process_player(creature_type *creature_ptr)
 			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
 			    !creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
 			    !creature_ptr->timed_trait[TRAIT_SLOW] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
-			    !IS_HALLUCINATION(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
+			    !has_trait(creature_ptr, TRAIT_HALLUCINATION) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
 			    !creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 			{
 				set_action(creature_ptr, ACTION_NONE);
@@ -5321,7 +5321,7 @@ msg_print("íÜífÇµÇ‹ÇµÇΩÅB");
 			}
 
 			/* Hack -- constant hallucination */
-			if(IS_HALLUCINATION(creature_ptr)) play_redraw |= (PR_MAP);
+			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) play_redraw |= (PR_MAP);
 
 
 			/* Shimmer creatures if needed */

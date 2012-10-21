@@ -10243,7 +10243,7 @@ void do_cmd_time(creature_type *creature_ptr)
 
 
 	/* Find the path */
-	if(!randint0(10) || IS_HALLUCINATION(creature_ptr))
+	if(!randint0(10) || has_trait(creature_ptr, TRAIT_HALLUCINATION))
 	{
 #ifdef JP
 		path_build(buf, sizeof(buf), ANGBAND_DIR_FILE, "timefun_j.txt");
