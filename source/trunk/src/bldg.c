@@ -3006,29 +3006,6 @@ sprintf(tmp_str, "UŒ‚ˆê‰ñ‚É‚Â‚« %d-%d",
 
 }
 
-
-/*
- * Hook to specify "weapon"
- */
-static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
-{
-	switch (object_ptr->tval)
-	{
-		case TV_HAFTED:
-		case TV_POLEARM:
-		case TV_DIGGING:
-		{
-			return (TRUE);
-		}
-		case TV_SWORD:
-		{
-			if(object_ptr->sval != SV_DOKUBARI) return (TRUE);
-		}
-	}
-
-	return (FALSE);
-}
-
 // Hook to specify "ammo"
 static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *object_ptr)
 {

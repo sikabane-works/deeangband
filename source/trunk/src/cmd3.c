@@ -174,8 +174,7 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 	return (FALSE);
 }
 
-
-static bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
+bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if(WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
 	return (FALSE); // Assume not wearable

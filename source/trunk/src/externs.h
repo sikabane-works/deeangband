@@ -725,7 +725,8 @@ extern bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomera
 extern void do_cmd_travel(creature_type *creature_ptr);
 #endif
 
-/* cmd3.c */
+// cmd3.c
+bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr);
 extern void do_cmd_inven(creature_type *creature_ptr);
 extern void do_cmd_equip(creature_type *creature_ptr);
 extern void do_cmd_wield(creature_type *creature_ptr);
