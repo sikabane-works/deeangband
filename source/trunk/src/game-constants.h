@@ -18,6 +18,8 @@
 
 #define CREATURE_ARENA_NUM 4
 
+#define HEX_MAX_KEEP 4
+
 #define SPEAK_CHANCE 8
 #define GRINDNOISE 20
 #define CYBERNOISE 20

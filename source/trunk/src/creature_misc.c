@@ -1486,3 +1486,16 @@ bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty)
 	return randint0(100) >= (difficulty - resistance);
 }
 
+bool have_posture(creature_type *creature_ptr)
+{
+	int i;
+
+	for(i = 0; i < MAX_TRAITS; i++)
+	{
+		if(trait_info[i].effect_type != TRAIT_EFFECT_TYPE_POSTURE) continue;
+		if(has_trait(creature_ptr, i)) return TRUE;
+	}
+
+	return FALSE;
+}
+

@@ -913,6 +913,7 @@ extern int calc_special_melee_priority(creature_type *creature_ptr, special_blow
 extern int calc_action_power(creature_type *creature_ptr);
 extern int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev);
 extern bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty);
+extern bool have_posture(creature_type *creature_ptr);
 
 // do-spell.c
 extern void stop_singing(creature_type *creature_ptr);

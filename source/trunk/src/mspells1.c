@@ -1270,7 +1270,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-	int             k, thrown_spell = 0, rlev, failrate;
+	int             thrown_spell = 0, rlev, failrate;
 	int             racial_spell[MAX_TRAITS], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
 	char            m_name[80];
@@ -1558,8 +1558,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Extract the "inate" spells */
-	for(k = 0; k < max_trait_idx; k++)
-		if(trait_info[k].effect_type && has_trait(caster_ptr, k)) racial_spell[num++] = k;
+	//TODO for(k = 0; k < max_trait_idx; k++) if(trait_info[k].effect_type && has_trait(caster_ptr, k)) racial_spell[num++] = k;
 
 	/* No spells left */
 	if(!num) return (FALSE);

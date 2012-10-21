@@ -12,8 +12,6 @@ creature_ptr->class_skills.old_skills.magic_num2
 2: Turn count for revenge
 */
 
-#define MAX_KEEP 4
-
 bool stop_hex_spell_all(creature_type *creature_ptr)
 {
 	int i;
@@ -46,7 +44,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 	bool flag = FALSE;
 	int y = 1;
 	int x = 20;
-	int sp[MAX_KEEP];
+	int sp[HEX_MAX_KEEP];
 
 	if(!HEX_SPELLING_ANY(creature_ptr))
 	{
@@ -237,7 +235,7 @@ bool hex_spell_fully(creature_type *creature_ptr)
 	k_max = (creature_ptr->lev / 15) + 1;
 
 	/* Paranoia */
-	k_max = MIN(k_max, MAX_KEEP);
+	k_max = MIN(k_max, HEX_MAX_KEEP);
 
 	if(creature_ptr->class_skills.old_skills.magic_num2[0] < k_max) return FALSE;
 

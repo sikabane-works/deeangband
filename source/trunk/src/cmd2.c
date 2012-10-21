@@ -3726,7 +3726,6 @@ void do_cmd_fire(creature_type *creature_ptr)
 		return;
 	}
 
-
 	if(creature_ptr->posture & KATA_MUSOU)
 	{
 		set_action(creature_ptr, ACTION_NONE);
