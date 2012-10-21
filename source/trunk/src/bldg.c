@@ -1679,18 +1679,18 @@ void battle_creatures(void)
 				}
 
 				for (j = 0; j < i; j++)
-					if(species_idx == battle_mon[j]) break;
+					if(species_idx == battle_creature[j]) break;
 				if(j<i) continue;
 
 				break;
 			}
-			battle_mon[i] = species_idx;
+			battle_creature[i] = species_idx;
 			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
 		for (i = 0; i < CREATURE_ARENA_NUM; i++)
 		{
-			species_type *r_ptr = &species_info[battle_mon[i]];
+			species_type *r_ptr = &species_info[battle_creature[i]];
 			int num_taisei = 0;
 			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_ACID)) num_taisei++;
 			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_ELEC)) num_taisei++;
@@ -1726,7 +1726,7 @@ void battle_creatures(void)
 			if(tekitou && ((power[i] < 160) || power[i] > 1500)) break;
 			if((power[i] < 160) && randint0(20)) break;
 			if(power[i] < 101) power[i] = 100 + randint1(5);
-			mon_odds[i] = power[i];
+			creature_odds[i] = power[i];
 		}
 		if(i == CREATURE_ARENA_NUM) break;
 	}
@@ -1774,12 +1774,12 @@ static bool kakutoujou(creature_type *creature_ptr)
 		for (i = 0; i < 4; i++)
 		{
 			char buf[80];
-			species_type *r_ptr = &species_info[battle_mon[i]];
+			species_type *r_ptr = &species_info[battle_creature[i]];
 
 #ifdef JP
-			sprintf(buf,"%d) %-58s  %4ld.%02ld”{", i+1, format("%s%s",species_name + r_ptr->name, has_trait_species(r_ptr, TRAIT_UNIQUE) ? "‚à‚Ç‚«" : "      "), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld”{", i+1, format("%s%s",species_name + r_ptr->name, has_trait_species(r_ptr, TRAIT_UNIQUE) ? "‚à‚Ç‚«" : "      "), creature_odds[i]/100, creature_odds[i]%100);
 #else
-			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", has_trait_species(r_ptr, TRAIT_UNIQUE) ? "Fake " : "", species_name + r_ptr->name), mon_odds[i]/100, mon_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", has_trait_species(r_ptr, TRAIT_UNIQUE) ? "Fake " : "", species_name + r_ptr->name), creature_odds[i]/100, creature_odds[i]%100);
 #endif
 			prt(buf, 5+i, 1);
 		}
@@ -1801,7 +1801,7 @@ static bool kakutoujou(creature_type *creature_ptr)
 			if(i >= '1' && i <= '4')
 			{
 				sel_creature = i-'1';
-				battle_odds = mon_odds[sel_creature];
+				battle_odds = creature_odds[sel_creature];
 				break;
 			}
 			else bell();

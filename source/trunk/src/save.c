@@ -705,8 +705,8 @@ static void wr_extra(void)
 
 	for (i = 0; i < 4; i++)
 	{
-		wr_s16b(battle_mon[i]);
-		wr_u32b(mon_odds[i]);
+		wr_s16b(battle_creature[i]);
+		wr_u32b(creature_odds[i]);
 	}
 
 	/* Write arena and rewards information -KMW- */

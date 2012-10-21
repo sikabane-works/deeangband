@@ -1275,7 +1275,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 
 	for(i = 0; i < 4;i ++)
 	{
-		place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_mon[i], (PC_NO_KAGE | PC_NO_PET));
+		place_creature_species(player_ptr, floor_ptr, player_ptr->fy + 8 + (i / 2) * 4, player_ptr->fx - 2 + (i % 2) * 4, battle_creature[i], (PC_NO_KAGE | PC_NO_PET));
 		set_camp(&creature_list[floor_ptr->cave[player_ptr->fy + 8 + (i / 2) * 4][player_ptr->fx - 2 + (i % 2) * 4].creature_idx]);
 	}
 

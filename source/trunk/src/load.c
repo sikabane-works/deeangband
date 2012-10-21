@@ -1143,8 +1143,8 @@ static void rd_extra(void)
 
 	for (i = 0; i < 4; i++)
 	{
-		rd_s16b(&battle_mon[i]);
-		rd_u32b(&mon_odds[i]);
+		rd_s16b(&battle_creature[i]);
+		rd_u32b(&creature_odds[i]);
 	}
 
 	/* Read arena and rewards information */
