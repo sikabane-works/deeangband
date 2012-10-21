@@ -1229,7 +1229,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 					return FALSE;
 				}
-				if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
+				if(have_posture(creature_ptr))
 				{
 #ifdef JP
 					msg_print("¡‚Í\‚¦‚ÉW’†‚µ‚Ä‚¢‚éB");

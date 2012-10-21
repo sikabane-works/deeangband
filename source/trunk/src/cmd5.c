@@ -448,7 +448,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 		return;
 	}
 
-	if(creature_ptr->posture & KATA_MUSOU)
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -697,7 +697,7 @@ msg_format("V‚µ‚¢%s‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I", p);
 		return;
 	}
 
-	if(creature_ptr->posture & KATA_MUSOU)
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

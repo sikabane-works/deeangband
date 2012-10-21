@@ -403,7 +403,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 #endif
 			}
 
-			if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
+			if(have_posture(creature_ptr))
 			{
 				if(is_seen(player_ptr, creature_ptr))
 				{
@@ -726,7 +726,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 				if(!has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) (void)do_dec_stat(creature_ptr, STAT_WIS);
 			}
 		}
-		if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
+		if(have_posture(creature_ptr))
 		{
 			if(is_seen(player_ptr, creature_ptr))
 			{

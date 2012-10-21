@@ -2633,7 +2633,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	{
 		if(!in_darkness || (d <= MAX_SIGHT / 4))
 		{
-			if(creature_ptr->posture & KATA_MUSOU)
+			if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 			{
 				/* Detectable */
 				flag = TRUE;

@@ -191,7 +191,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	int need_switch_wielding = 0;
 
-	if(creature_ptr->posture & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
@@ -443,7 +443,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr q, s;
 
-	if(creature_ptr->posture & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
 	// Get an item
 #ifdef JP
@@ -542,7 +542,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	if(creature_ptr->posture & KATA_MUSOU)
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}
@@ -643,7 +643,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	if(creature_ptr->posture & KATA_MUSOU) set_action(creature_ptr, ACTION_NONE);
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
@@ -1393,7 +1393,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 	/* Get the light */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 
-	if(creature_ptr->posture & KATA_MUSOU)
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

@@ -369,7 +369,7 @@ msg_print("‰½‚à‹Z‚ð’m‚ç‚È‚¢B");
 		return;
 	}
 
-	if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
+	if(have_posture(creature_ptr))
 	{
 		set_action(creature_ptr, ACTION_NONE);
 	}

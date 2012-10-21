@@ -3274,7 +3274,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->resist_fear = TRUE;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES] || (creature_ptr->posture & KATA_MUSOU))
+	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES] || (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)))
 	{
 		//creature_ptr->see_inv = TRUE;
 		//TODO has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE;

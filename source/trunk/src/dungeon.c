@@ -5178,9 +5178,9 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 		play_redraw |= PR_MANA;
 	}
 
-	if(creature_ptr->posture & KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU)
+	if(have_posture(creature_ptr))
 	{
-		if(creature_ptr->posture & KATA_MUSOU)
+		if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 		{
 			if(creature_ptr->csp < 3)
 			{
