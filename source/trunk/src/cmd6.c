@@ -791,7 +791,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			{
 				if(one_in_(2))
 				{
-					if(set_timed_trait(user_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(user_ptr) + randint0(150) + 150))
+					if(set_timed_trait(user_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(user_ptr, TRAIT_HALLUCINATION) + randint0(150) + 150))
 					{
 						ident = TRUE;
 					}

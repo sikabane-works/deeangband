@@ -1261,7 +1261,7 @@ static bool zantetsuken_cancel(creature_type *attacker_ptr, creature_type *targe
 	creature_desc(attacker_name, attacker_ptr, 0);
 
 	if(IS_FEMALE(target_ptr) && has_trait(target_ptr, TRAIT_HUMANOID) &&
-	    !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || !target_ptr->see_others))
+	    !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || !target_ptr->see_others))
 	{
 		n = get_equipped_slot_num(attacker_ptr, INVEN_SLOT_HAND);
 		for(i = 0; i < n; i++)
@@ -1370,7 +1370,7 @@ static void gain_riding_skill(creature_type *attacker_ptr, creature_type *target
 
 static bool cease_for_friend(creature_type *attacker_ptr, creature_type *target_ptr)
 {
-	if(!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || IS_HALLUCINATION(attacker_ptr) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
+	if(!is_hostile(target_ptr) && !(attacker_ptr->timed_trait[TRAIT_STUN] || attacker_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(attacker_ptr, TRAIT_HALLUCINATION) || attacker_ptr->timed_trait[TRAIT_S_HERO] || !target_ptr->see_others))
 	{
 		char attacker_name[100];
 		char target_name[100];
@@ -1504,7 +1504,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 	if(target_ptr->see_others)
 	{
-		if(!IS_HALLUCINATION(attacker_ptr)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
+		if(!has_trait(attacker_ptr, TRAIT_HALLUCINATION)) species_type_track(target_ptr->ap_species_idx); // Auto-Recall if possible and visible
 		health_track(c_ptr->creature_idx); // Track a new creature
 	}
 
@@ -1832,7 +1832,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	bool blinked;
 	bool touched = FALSE;
 	bool explode = FALSE;
-	bool do_silly_attack = (one_in_(2) && IS_HALLUCINATION(target_ptr));
+	bool do_silly_attack = (one_in_(2) && has_trait(target_ptr, TRAIT_HALLUCINATION));
 	int get_damage = 0;
 
 	bool obvious = FALSE;

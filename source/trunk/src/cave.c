@@ -1161,7 +1161,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 	(*cp) = c;
 
 	/* Hack -- rare random hallucination, except on outer dungeon walls */
-	if(IS_HALLUCINATION(watcher_ptr))
+	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		if(one_in_(256))
 		{
@@ -1213,7 +1213,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			feat_priority = 20;
 
 			/* Hack -- hallucination */
-			if(IS_HALLUCINATION(watcher_ptr)) image_object(ap, cp);
+			if(has_trait(watcher_ptr, TRAIT_HALLUCINATION)) image_object(ap, cp);
 
 			/* Done */
 			break;
@@ -1234,7 +1234,7 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			feat_priority = 30;
 
 			/* Hallucination */
-			if(IS_HALLUCINATION(watcher_ptr))
+			if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 			{
 				/*
 				 * Creatures with both CHAR_CLEAR and ATTR_CLEAR
@@ -1837,7 +1837,7 @@ static void display_shortened_item_name(creature_type *watcher_ptr, object_type 
 	object_desc(buf, object_ptr, (OD_NO_FLAVOR | OD_OMIT_PREFIX | OD_NAME_ONLY));
 	attr = tval_to_acttr[object_ptr->tval % 128];
 
-	if(IS_HALLUCINATION(watcher_ptr))
+	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		attr = TERM_WHITE;
 #ifdef JP

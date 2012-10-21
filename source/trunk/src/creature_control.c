@@ -1760,7 +1760,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 	else name = (species_name + species_ptr->name);
 
 	/* Are we hallucinating? (Idea from Nethack...) */
-	if(IS_HALLUCINATION(player_ptr) && !(mode & CD_IGNORE_HALLU))
+	if(has_trait(player_ptr, TRAIT_HALLUCINATION) && !(mode & CD_IGNORE_HALLU))
 	{
 		if(one_in_(2))
 		{
@@ -1935,7 +1935,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		else
 
 		/* It could be a Unique */
-		if((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(IS_HALLUCINATION(player_ptr) && !(mode & CD_IGNORE_HALLU)))
+		if((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(has_trait(player_ptr, TRAIT_HALLUCINATION) && !(mode & CD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
 			if((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & CD_TRUE_NAME))
@@ -2256,7 +2256,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if(randint1(100) > power) return;
 		if(saving_throw(watcher_ptr->skill_rob - power)) return; // Save, no adverse effects
 
-		if(IS_HALLUCINATION(watcher_ptr))
+		if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 		{
 			/* Something silly happens... */
 #ifdef JP
@@ -2331,7 +2331,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		}
 		if(!watcher_ptr->resist_chaos && one_in_(3))
 		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
+			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2359,7 +2359,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		if(!watcher_ptr->resist_chaos)
 		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
+			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
 		}
 		return;
 	}

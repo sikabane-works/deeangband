@@ -63,7 +63,6 @@
 #define IS_OPPOSE_POIS(C)	((C)->timed_trait[TRAIT_RES_POIS] || music_singing(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
 #define IS_TIM_ESP(C)		((C)->timed_trait[TRAIT_ESP] || music_singing(C, MUSIC_MIND) || (C->concent >= CONCENT_TELE_THRESHOLD))
 #define IS_TIM_STEALTH(C)	((C)->timed_trait[TRAIT_STEALTH_PLUS] || music_singing(C, MUSIC_STEALTH))
-#define IS_HALLUCINATION(C) ((C)->timed_trait[TRAIT_HALLUCINATION] > 0)
 
 /* Is "teleport level" ineffective to this target? */
 #define TELE_LEVEL_IS_INEFF(FLOOR, USER, TARGET) \

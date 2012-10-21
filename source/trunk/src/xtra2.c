@@ -1677,31 +1677,17 @@ void ang_sort(vptr u, vptr v, int n,
 */
 bool target_able(creature_type *creature_ptr, int m_idx)
 {
-	creature_type *m_ptr = &creature_list[m_idx];
+	creature_type *target_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	/* Creature must be alive */
-	if(!m_ptr->species_idx) return (FALSE);
-
-	/* Hack -- no targeting hallucinations */
-	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);
-
-	/* Creature must be visible */
-	if(!m_ptr->see_others) return (FALSE);
-
+	if(!target_ptr->species_idx) return (FALSE);	// Creature must be alive
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);	// Hack -- no targeting hallucinations
+	if(!target_ptr->see_others) return (FALSE);	// Creature must be visible
 	if(creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
+	if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return (FALSE);	// Creature must be projectable
 
-	/* Creature must be projectable */
-	if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, m_ptr->fy, m_ptr->fx)) return (FALSE);
-
-	/* XXX XXX XXX Hack -- Never target trappers */
-	/* if(CLEAR_ATTR && (CLEAR_CHAR)) return (FALSE); */
-
-	/* Assume okay */
 	return (TRUE);
 }
-
-
 
 
 /*

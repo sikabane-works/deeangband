@@ -2756,7 +2756,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			if(r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
-			if((target_ptr->see_others && !IS_HALLUCINATION(attacker_ptr)) || has_trait(target_ptr, TRAIT_UNIQUE))
+			if((target_ptr->see_others && !has_trait(attacker_ptr, TRAIT_HALLUCINATION)) || has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				/* Count kills this life */
 				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
@@ -3041,7 +3041,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	
 		if(record_danger && (old_chp > warning))
 		{
-			if(IS_HALLUCINATION(target_ptr) && damage_type == DAMAGE_ATTACK)
+			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
 	#ifdef JP
 				hit_from = "‰½‚©";
 	#else

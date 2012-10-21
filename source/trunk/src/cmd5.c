@@ -2121,10 +2121,10 @@ void do_cmd_pet(creature_type *master_ptr)
 
 #ifdef JP
 	sprintf(target_buf, "ペットのターゲットを指定 (現在：%s)",
-		(pet_t_m_idx ? (IS_HALLUCINATION(master_ptr) ? "何か奇妙な物" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
+		(pet_t_m_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? "何か奇妙な物" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "指定なし"));
 #else
 	sprintf(target_buf, "specify a target of pet (now:%s)",
-		(pet_t_m_idx ? (IS_HALLUCINATION(master_ptr) ? "something strange" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
+		(pet_t_m_idx ? (has_trait(master_ptr, TRAIT_HALLUCINATION) ? "something strange" : (species_name + species_info[creature_list[pet_t_m_idx].ap_species_idx].name)) : "nothing"));
 #endif
 	power_desc[num] = target_buf;
 

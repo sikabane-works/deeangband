@@ -2272,7 +2272,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		return;
 	}
 
-	if(IS_HALLUCINATION(watcher_ptr))
+	if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 	{
 		// Something silly happens...
 #ifdef JP
@@ -2311,7 +2311,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 		if(!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
+			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
 		}
 		return;
 	}
@@ -2345,7 +2345,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		}
 		if(!watcher_ptr->resist_chaos)
 		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, IS_HALLUCINATION(watcher_ptr) + randint0(250) + 150);
+			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
 		}
 		return;
 	}
