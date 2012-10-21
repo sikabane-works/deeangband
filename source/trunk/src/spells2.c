@@ -1883,7 +1883,7 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 			/* HACK : Add the line to message buffer */
 			message_add(buf);
 			play_window |= (PW_MESSAGE);
-			window_stuff();
+			window_stuff(player_ptr);
 
 			if(m_ptr->see_others) move_cursor_relative(m_ptr->fy, m_ptr->fx);
 			inkey();

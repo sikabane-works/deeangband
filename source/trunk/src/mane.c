@@ -265,7 +265,7 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 	play_window |= (PW_SPELL);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 	/* Abort if needed */
 	if(!flag) return (FALSE);

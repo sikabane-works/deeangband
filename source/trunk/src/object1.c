@@ -3419,7 +3419,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Redraw windows */
-		window_stuff();
+		window_stuff(player_ptr);
 
 
 		/* inventory screen */
@@ -3927,7 +3927,7 @@ if(other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 
 	/* Clear the prompt line */
@@ -4429,7 +4429,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		play_window |= (PW_INVEN | PW_EQUIP);
 
 		/* Redraw windows */
-		window_stuff();
+		window_stuff(player_ptr);
 
 		/* creature_ptr->inventory screen */
 		if(command_wrk == (USE_INVEN))
@@ -5367,7 +5367,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 	play_window |= (PW_INVEN | PW_EQUIP);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 
 	/* Clear the prompt line */

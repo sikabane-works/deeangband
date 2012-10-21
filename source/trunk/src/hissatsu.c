@@ -310,7 +310,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 	play_window |= (PW_SPELL);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 
 	/* Abort if needed */

@@ -653,7 +653,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 	play_window |= (PW_SPELL);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 	/* Abort if needed */
 	if(!flag) return (FALSE);

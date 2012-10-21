@@ -3032,7 +3032,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		if(play_redraw) redraw_stuff(player_ptr);
 
 		/* Redraw stuff */
-		if(play_window) window_stuff();
+		if(play_window) window_stuff(player_ptr);
 
 		/* Delay */
 		if(vs_player) Term_xtra(TERM_XTRA_DELAY, 500);

@@ -6522,7 +6522,7 @@ void play_game(bool new_game)
 	play_window |= (PW_MESSAGE | PW_OVERHEAD | PW_DUNGEON | PW_MONSTER | PW_OBJECT);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 	/* Set or clear "rogue_like_commands" if requested */
 	if(arg_force_original) rogue_like_commands = FALSE;

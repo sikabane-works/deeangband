@@ -5054,91 +5054,78 @@ void redraw_stuff(creature_type *subjectivity_ptr)
 /*
  * Handle "play_window"
  */
-void window_stuff(void)
+void window_stuff(creature_type *subjectivity_ptr)
 {
 	int j;
-
 	u32b mask = 0L;
 
+	if(!play_window) return;	// Nothing to do
 
-	/* Nothing to do */
-	if(!play_window) return;
+	for (j = 0; j < 8; j++) if(angband_term[j]) mask |= window_flag[j];	// Scan windows
+	play_window &= mask;	// Apply usable flags
+	if(!play_window) return;	// Nothing to do
 
-	/* Scan windows */
-	for (j = 0; j < 8; j++)
-	{
-		/* Save usable flags */
-		if(angband_term[j]) mask |= window_flag[j];
-	}
-
-	/* Apply usable flags */
-	play_window &= mask;
-
-	/* Nothing to do */
-	if(!play_window) return;
-
-
-	/* Display inventory */
+	// Display inventory
 	if(play_window & (PW_INVEN))
 	{
 		play_window &= ~(PW_INVEN);
-		fix_inven(player_ptr);
+		fix_inven(subjectivity_ptr);
 	}
 
-	/* Display equipment */
+	// Display equipment
 	if(play_window & (PW_EQUIP))
 	{
 		play_window &= ~(PW_EQUIP);
-		fix_equip(player_ptr);
+		fix_equip(subjectivity_ptr);
 	}
 
-	/* Display spell list */
+	// Display spell list
 	if(play_window & (PW_SPELL))
 	{
 		play_window &= ~(PW_SPELL);
-		fix_spell(player_ptr);
+		fix_spell(subjectivity_ptr);
 	}
 
-	/* Display player */
+	// Display player
 	if(play_window & (PW_PLAYER))
 	{
 		play_window &= ~(PW_PLAYER);
-		fix_player(player_ptr);
+		fix_player(subjectivity_ptr);
 	}
 
-	/* Display overhead view */
+	// Display overhead view
 	if(play_window & (PW_MESSAGE))
 	{
 		play_window &= ~(PW_MESSAGE);
 		fix_message();
 	}
 
-	/* Display overhead view */
+	// Display overhead view
 	if(play_window & (PW_OVERHEAD))
 	{
 		play_window &= ~(PW_OVERHEAD);
-		fix_overhead(player_ptr);
+		fix_overhead(subjectivity_ptr);
 	}
 
-	/* Display overhead view */
+	// Display overhead view
 	if(play_window & (PW_DUNGEON))
 	{
 		play_window &= ~(PW_DUNGEON);
-		fix_dungeon(player_ptr);
+		fix_dungeon(subjectivity_ptr);
 	}
 
-	/* Display creature recall */
+	// Display creature recall
 	if(play_window & (PW_MONSTER))
 	{
 		play_window &= ~(PW_MONSTER);
-		fix_creature(player_ptr);
+		fix_creature(subjectivity_ptr);
 	}
 
-	/* Display object recall */
+	// Display object recall
 	if(play_window & (PW_OBJECT))
 	{
 		play_window &= ~(PW_OBJECT);
-		fix_object(player_ptr);
+		fix_object(subjectivity_ptr);
 	}
 }
 
@@ -5150,7 +5137,7 @@ void handle_stuff(void)
 {
 	if(update) update_creature(player_ptr, TRUE);
 	if(play_redraw) redraw_stuff(player_ptr);
-	if(play_window) window_stuff();
+	if(play_window) window_stuff(player_ptr);
 }
 
 

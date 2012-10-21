@@ -380,7 +380,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	play_window |= (PW_SPELL);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 	/* Abort if needed */
 	if(!flag) return (FALSE);

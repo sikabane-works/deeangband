@@ -122,7 +122,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	play_window |= (PW_SPELL);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 	/* Build a prompt (accept all spells) */
 #ifdef JP
@@ -307,7 +307,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	play_window |= (PW_SPELL);
 
 	/* Window stuff */
-	window_stuff();
+	window_stuff(player_ptr);
 
 
 	/* Abort if needed */
@@ -1612,7 +1612,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 #endif
 			message_add(buf);
 			play_window |= (PW_MESSAGE);
-			window_stuff();
+			window_stuff(player_ptr);
 
 			delete_species_idx(&creature_list[pet_ctr]);
 			Dismissed++;
