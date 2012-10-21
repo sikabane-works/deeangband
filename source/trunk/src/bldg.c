@@ -3162,109 +3162,6 @@ msg_print("現在の技量から判断すると、あなたの武器は以下のような威力を発揮します:
 	return (TRUE);
 }
 
-
-/*
- * Evaluate AC
- *
- * ACから回避率、ダメージ減少率を計算し表示する
- * Calculate and display the dodge-rate and the protection-rate
- * based on AC
- */
-static bool eval_ac(int iAC)
-{
-#ifdef JP
-	const char memo[] =
-		"ダメージ軽減率とは、敵の攻撃が当たった時そのダメージを\n"
-		"何パーセント軽減するかを示します。\n"
-		"ダメージ軽減は通常の直接攻撃(種類が「攻撃する」と「粉砕する」の物)\n"
-		"に対してのみ効果があります。\n \n"
-		"敵のレベルとは、その敵が通常何階に現れるかを示します。\n \n"
-		"回避率は敵の直接攻撃を何パーセントの確率で避けるかを示し、\n"
-		"敵のレベルとあなたのACによって決定されます。\n \n"
-		"ダメージ期待値とは、敵の１００ポイントの通常攻撃に対し、\n"
-		"回避率とダメージ軽減率を考慮したダメージの期待値を示します。\n";
-#else
-	const char memo[] =
-		"'Protection Rate' means how much damage is reduced by your armor.\n"
-		"Note that the Protection rate is effective only against normal "
-		"'attack' and 'shatter' type melee attacks, "
-		"and has no effect against any other types such as 'poison'.\n \n"
-		"'Dodge Rate' indicates the success rate on dodging the "
-		"creature's melee attacks.  "
-		"It is depend on the level of the creature and your AC.\n \n"
-		"'Average Damage' indicates the expected amount of damage "
-		"when you are attacked by normal melee attacks with power=100.";
-#endif
-
-	int protection;
-	int col, row = 2;
-	int lvl;
-	char buf[80*20], *t;
-
-	/* AC lower than zero has no effect */
-	if(iAC < 0) iAC = 0;
-
-	/* ダメージ軽減率を計算 */
-	protection = 100 * MIN(iAC, 150) / 250;
-
-	screen_save();
-	clear_bldg(0, 22);
-
-#ifdef JP
-	put_str(format("あなたの現在のAC: %3d", iAC), row++, 0);
-	put_str(format("ダメージ軽減率  : %3d%%", protection), row++, 0);
-	row++;
-
-	put_str("敵のレベル      :", row + 0, 0);
-	put_str("回避率          :", row + 1, 0);
-	put_str("ダメージ期待値  :", row + 2, 0);
-#else
-	put_str(format("Your current AC : %3d", iAC), row++, 0);
-	put_str(format("Protection rate : %3d%%", protection), row++, 0);
-	row++;
-
-	put_str("Level of Creature:", row + 0, 0);
-	put_str("Dodge Rate      :", row + 1, 0);
-	put_str("Average Damage  :", row + 2, 0);
-#endif
-    
-	for (col = 17 + 1, lvl = 0; lvl <= 100; lvl += 10, col += 5)
-	{
-		int quality = 60 + lvl * 3; /* attack quality with power 60 */
-		int dodge;   /* 回避率(%) */
-		int average; /* ダメージ期待値 */
-
-		put_str(format("%3d", lvl), row + 0, col);
-
-		/* 回避率を計算 */
-		dodge = 5 + (MIN(100, 100 * (iAC * 3 / 4) / quality) * 9 + 5) / 10;
-		put_str(format("%3d%%", dodge), row + 1, col);
-
-		/* 100点の攻撃に対してのダメージ期待値を計算 */
-		average = (100 - dodge) * (100 - protection) / 100;
-		put_str(format("%3d", average), row + 2, col);
-	}
-
-	/* Display note */
-	roff_to_buf(memo, 70, buf, sizeof(buf));
-	for (t = buf; t[0]; t += strlen(t) + 1)
-		put_str(t, (row++) + 4, 4);
-
-#ifdef JP
-	prt("現在のあなたの装備からすると、あなたの防御力は"
-		   "これくらいです:", 0, 0);
-#else
-	prt("Defense abilities from your current Armor Class are evaluated below.", 0, 0);
-#endif
-  
-	flush();
-	(void)inkey();
-	screen_load();
-
-	/* Done */
-	return (TRUE);
-}
-
 /*
  * resize_item
  *
@@ -3513,15 +3410,15 @@ static void building_recharge(creature_type *creature_ptr)
 	/* Display some info */
 	clear_bldg(4, 18);
 #ifdef JP
-prt("  再充填の費用はアイテムの種類によります。", 6, 0);
+	prt("  再充填の費用はアイテムの種類によります。", 6, 0);
 #else
 	prt("  The prices of recharge depend on the type.", 6, 0);
 #endif
 
 	/* Get an item */
 #ifdef JP
-q = "どのアイテムに魔力を充填しますか? ";
-s = "魔力を充填すべきアイテムがない。";
+	q = "どのアイテムに魔力を充填しますか? ";
+	s = "魔力を充填すべきアイテムがない。";
 #else
 	q = "Recharge which item? ";
 	s = "You have nothing to recharge.";
@@ -3551,7 +3448,7 @@ s = "魔力を充填すべきアイテムがない。";
 	if(!object_is_known(object_ptr))
 	{
 #ifdef JP
-msg_format("充填する前に鑑定されている必要があります！");
+		msg_format("充填する前に鑑定されている必要があります！");
 #else
 		msg_format("The item must be identified first!");
 #endif
@@ -3560,11 +3457,10 @@ msg_format("充填する前に鑑定されている必要があります！");
 
 		if((creature_ptr->au >= 50) &&
 #ifdef JP
-get_check("＄50で鑑定しますか？ "))
+			get_check("＄50で鑑定しますか？ "))
 #else
 			get_check("Identify for 50 gold? "))
 #endif
-
 		{
 			/* Pay the price */
 			creature_ptr->au -= 50;
@@ -3576,7 +3472,7 @@ get_check("＄50で鑑定しますか？ "))
 			object_desc(tmp_str, object_ptr, 0);
 
 #ifdef JP
-msg_format("%s です。", tmp_str);
+			msg_format("%s です。", tmp_str);
 #else
 			msg_format("You have: %s.", tmp_str);
 #endif
@@ -4556,9 +4452,11 @@ msg_print("お金が足りません！");
 	case BUILDING_FUNCTION_TELE_TOWN:
 		paid = tele_town(creature_ptr);
 		break;
+
 	case BUILDING_FUNCTION_EVAL_AC:
-		paid = eval_ac(creature_ptr->dis_ac + creature_ptr->dis_to_ac);
+		//TODO :: DELETE
 		break;
+
 	}
 
 	if(paid)
