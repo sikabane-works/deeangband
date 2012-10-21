@@ -2050,9 +2050,8 @@ static void process_world_aux_light(creature_type *creature_ptr)
 	}
 }
 
-
-// Handle mutation effects once every 10 game turns
-static void process_world_aux_mutation(creature_type *creature_ptr)
+// Handle time trying effects once every 10 game turns
+static void process_world_aux_time_trying(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
@@ -2645,14 +2644,6 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 			inven_drop(creature_ptr, slot, 1);
 		}
 	}
-}
-
-
-// Handle curse effects once every 10 game turns
-static void process_world_aux_curse(creature_type *creature_ptr)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	if(!is_valid_creature(creature_ptr)) return;
 
 	if((creature_ptr->cursed & TRC_P_FLAG_MASK) && !floor_ptr->gamble_arena_mode && !floor_ptr->wild_mode)
 	{
@@ -2799,9 +2790,7 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 #else
 				msg_format("There is a malignant black aura surrounding your %s...", object_name);
 #endif
-
 				object_ptr->feeling = FEEL_NONE;
-
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
 		}
@@ -2944,7 +2933,6 @@ static void process_world_aux_curse(creature_type *creature_ptr)
 		}
 	}
 }
-
 
 /*
  * Handle recharging objects once every 10 game turns
@@ -3720,12 +3708,11 @@ static void process_world(void)
 	{
 		creature_ptr = &creature_list[i];
 		
-		process_world_aux_timeout(creature_ptr);	// Process timeout
-		process_world_aux_light(creature_ptr);		// Process light
-		process_world_aux_mutation(creature_ptr);	// Process mutation effects
-		process_world_aux_curse(creature_ptr);		// Process curse effects
-		process_world_aux_recharge(creature_ptr);	// Process recharging
-		process_world_aux_hp_and_sp(creature_ptr);	// Process timed damage and regeneration
+		process_world_aux_timeout(creature_ptr);		// Process timeout
+		process_world_aux_light(creature_ptr);			// Process light
+		process_world_aux_time_trying(creature_ptr);	// Process time trying
+		process_world_aux_recharge(creature_ptr);		// Process recharging
+		process_world_aux_hp_and_sp(creature_ptr);		// Process timed damage and regeneration
 	}
 
 	/* Feel the inventory */
