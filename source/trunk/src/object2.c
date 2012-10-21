@@ -1392,7 +1392,7 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 	 * are being dropped, it makes for a neater message to leave the original
 	 * stack's pval alone. -LM-
 	 */
-	if((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_ROD))
+	if((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr))
 	{
 		quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
 		if(amt < object_ptr->number) object_ptr->pval -= quest_ptr->pval;
@@ -1401,7 +1401,7 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 		 * dropped stack will accept all time remaining to charge up to its
 		 * maximum.
 		 */
-		if((object_ptr->tval == TV_ROD) && (object_ptr->timeout))
+		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
 			if(quest_ptr->pval > object_ptr->timeout)
 				quest_ptr->timeout = object_ptr->timeout;
@@ -1420,7 +1420,7 @@ void reduce_charges(object_type *object_ptr, int amt)
 	 * charges of the stack needs to be reduced, unless all the items are
 	 * being destroyed. -LM-
 	 */
-	if(((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_ROD)) &&
+	if(((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr)) &&
 		(amt < object_ptr->number))
 	{
 		object_ptr->pval -= object_ptr->pval * amt / object_ptr->number;
@@ -1707,7 +1707,7 @@ void object_absorb(object_type *object_ptr, object_type *j_ptr)
 	if(object_ptr->discount < j_ptr->discount) object_ptr->discount = j_ptr->discount;
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
 		object_ptr->timeout += j_ptr->timeout * (j_ptr->number - diff) / j_ptr->number;
@@ -4762,25 +4762,18 @@ void combine_pack(creature_type *creature_ptr)
 	{
 		combined = FALSE;
 
-		/* Combine the pack (backwards) */
-		for (i = INVEN_TOTAL; i > 0; i--)
+		
+		for (i = INVEN_TOTAL; i > 0; i--)	// Combine the pack (backwards)
 		{
-			/* Get the item */
-			object_ptr = &creature_ptr->inventory[i];
-
-			/* Skip empty items */
-			if(!object_ptr->k_idx) continue;
+			object_ptr = &creature_ptr->inventory[i];	// Get the item
+			if(!object_ptr->k_idx) continue;	// Skip empty items
 
 			/* Scan the items above that item */
 			for (j = 0; j < i; j++)
 			{
 				int max_num;
-
-				/* Get the item */
-				j_ptr = &creature_ptr->inventory[j];
-
-				/* Skip empty items */
-				if(!j_ptr->k_idx) continue;
+				j_ptr = &creature_ptr->inventory[j];	// Get the item
+				if(!j_ptr->k_idx) continue;	// Skip empty items
 
 				/*
 				 * Get maximum number of the stack if these
@@ -4788,7 +4781,7 @@ void combine_pack(creature_type *creature_ptr)
 				 */
 				max_num = object_similar_part(j_ptr, object_ptr);
 
-				/* Can we (partialy) drop "object_ptr" onto "j_ptr"? */
+				// Can we (partialy) drop "object_ptr" onto "j_ptr"?
 				if(max_num && j_ptr->number < max_num)
 				{
 					if(object_ptr->number + j_ptr->number <= max_num)
@@ -4804,11 +4797,10 @@ void combine_pack(creature_type *creature_ptr)
 						int old_num = object_ptr->number;
 						int remain = j_ptr->number + object_ptr->number - max_num;
 						object_absorb(j_ptr, object_ptr);	// Add together the item counts
-
 						object_ptr->number = remain;
 
 						// Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM-
-						if(object_ptr->tval == TV_ROD)
+						if(IS_ROD(object_ptr))
 						{
 							object_ptr->pval =  object_ptr->pval * remain / old_num;
 							object_ptr->timeout = object_ptr->timeout * remain / old_num;
@@ -4818,21 +4810,16 @@ void combine_pack(creature_type *creature_ptr)
 						if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * remain / old_num;
 					}
 
-					/* Window stuff */
-					play_window |= (PW_INVEN);
-
-					/* Take note */
-					combined = TRUE;
-
-					/* Done */
-					break;
+					play_window |= (PW_INVEN);	// Window stuff
+					combined = TRUE;	// Take note
+					break;	// Done
 				}
 			}
 		}
 	}
 	while (combined);
 
-	/* Message */
+	// Message
 #ifdef JP
 	if(flag) msg_print("ザックの中のアイテムをまとめ直した。");
 #else

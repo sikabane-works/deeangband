@@ -3597,7 +3597,7 @@ msg_format("%s です。", tmp_str);
 	lev = object_kind_info[object_ptr->k_idx].level;
 
 	/* Price for a rod */
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 		if(object_ptr->timeout > 0)
 		{
@@ -3690,7 +3690,7 @@ msg_format("%sを再充填するには＄%d 必要です！", tmp_str,price );
 		return;
 	}
 
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 #ifdef JP
 if(get_check(format("そのロッドを＄%d で再充填しますか？",

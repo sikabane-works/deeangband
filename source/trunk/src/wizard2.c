@@ -1141,10 +1141,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 		object_ptr->number = tmp_int;
 	}
 
-	if(object_ptr->tval == TV_ROD)
-	{
-		object_ptr->pval = object_ptr->pval * object_ptr->number / tmp_qnt;
-	}
+	if(IS_ROD(object_ptr)) object_ptr->pval = object_ptr->pval * object_ptr->number / tmp_qnt;
 }
 
 /* debug command for blue mage */

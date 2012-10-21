@@ -3084,7 +3084,7 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
 	if(object_ptr->tval == TV_WAND) return (TRUE);
 
 	/* Hack -- Recharge rods */
-	if(object_ptr->tval == TV_ROD) return (TRUE);
+	if(IS_ROD(object_ptr)) return (TRUE);
 
 	/* Nope */
 	return (FALSE);
@@ -3153,7 +3153,7 @@ s = "魔力を充填すべきアイテムがない。";
 
 
 	/* Recharge a rod */
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 		/* Extract a recharge strength by comparing object level to power. */
 		recharge_strength = ((power > lev/2) ? (power - lev/2) : 0) / 5;
@@ -3257,7 +3257,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 
 
 			/* Artifact rods. */
-			if((object_ptr->tval == TV_ROD) && (object_ptr->timeout < 10000))
+			if(IS_ROD(object_ptr) && (object_ptr->timeout < 10000))
 				object_ptr->timeout = (object_ptr->timeout + 100) * 2;
 
 			/* Artifact wands and staffs. */
@@ -3275,7 +3275,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 			if(creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER || creature_ptr->class_idx == CLASS_MAGIC_EATER || creature_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
-				if(object_ptr->tval == TV_ROD)
+				if(IS_ROD(object_ptr))
 				{
 					if(one_in_(10)) fail_type = 2;
 					else fail_type = 1;
@@ -3298,7 +3298,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 			else
 			{
 				/* 33% chance to blow up one rod, otherwise draining. */
-				if(object_ptr->tval == TV_ROD)
+				if(IS_ROD(object_ptr))
 				{
 					if(one_in_(3)) fail_type = 2;
 					else fail_type = 1;
@@ -3321,7 +3321,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 			/* Drain object or stack of objects. */
 			if(fail_type == 1)
 			{
-				if(object_ptr->tval == TV_ROD)
+				if(IS_ROD(object_ptr))
 				{
 #ifdef JP
 msg_print("魔力が逆噴射して、ロッドからさらに魔力を吸い取ってしまった！");
@@ -3364,7 +3364,7 @@ msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 
 
 				/* Reduce rod stack maximum timeout, drain wands. */
-				if(object_ptr->tval == TV_ROD) object_ptr->timeout = (object_ptr->number - 1) * k_ptr->pval;
+				if(IS_ROD(object_ptr)) object_ptr->timeout = (object_ptr->number - 1) * k_ptr->pval;
 				if(object_ptr->tval == TV_WAND) object_ptr->pval = 0;
 
 				/* Reduce and describe creature_ptr->inventory */
@@ -5446,7 +5446,7 @@ s = "魔力を吸収できるアイテムがありません。";
 	k_ptr = &object_kind_info[object_ptr->k_idx];
 	lev = object_kind_info[object_ptr->k_idx].level;
 
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 		recharge_strength = ((power > lev/2) ? (power - lev/2) : 0) / 5;
 
@@ -5555,7 +5555,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 
 
 			/* Artifact rods. */
-			if(object_ptr->tval == TV_ROD)
+			if(IS_ROD(object_ptr))
 				object_ptr->timeout = k_ptr->pval * object_ptr->number;
 
 			/* Artifact wands and staffs. */
@@ -5573,7 +5573,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 			if(creature_ptr->class_idx == CLASS_MAGE || creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER || creature_ptr->class_idx == CLASS_MAGIC_EATER || creature_ptr->class_idx == CLASS_BLUE_MAGE)
 			{
 				/* 10% chance to blow up one rod, otherwise draining. */
-				if(object_ptr->tval == TV_ROD)
+				if(IS_ROD(object_ptr))
 				{
 					if(one_in_(10)) fail_type = 2;
 					else fail_type = 1;
@@ -5596,7 +5596,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 			else
 			{
 				/* 33% chance to blow up one rod, otherwise draining. */
-				if(object_ptr->tval == TV_ROD)
+				if(IS_ROD(object_ptr))
 				{
 					if(one_in_(3)) fail_type = 2;
 					else fail_type = 1;
@@ -5619,7 +5619,7 @@ msg_format("魔力が逆流した！%sは完全に魔力を失った。", object_name);
 			/* Drain object or stack of objects. */
 			if(fail_type == 1)
 			{
-				if(object_ptr->tval == TV_ROD)
+				if(IS_ROD(object_ptr))
 				{
 #ifdef JP
 msg_print("ロッドは破損を免れたが、魔力は全て失なわれた。");
@@ -5654,7 +5654,7 @@ msg_format("乱暴な魔法のために%sが一本壊れた！", object_name);
 #endif
 
 					/* Reduce rod stack maximum timeout, drain wands. */
-					if(object_ptr->tval == TV_ROD) object_ptr->timeout = MIN(object_ptr->timeout, k_ptr->pval * (object_ptr->number - 1));
+					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, k_ptr->pval * (object_ptr->number - 1));
 					else if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * (object_ptr->number - 1) / object_ptr->number;
 
 				}

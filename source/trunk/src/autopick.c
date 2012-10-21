@@ -628,7 +628,7 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	if(object_is_ammo(object_ptr))
 		ADD_FLG(FLG_MISSILES);
 	else if(object_ptr->tval == TV_SCROLL || object_ptr->tval == TV_STAFF
-		 || object_ptr->tval == TV_WAND || object_ptr->tval == TV_ROD)
+		 || object_ptr->tval == TV_WAND || IS_ROD(object_ptr))
 		ADD_FLG(FLG_DEVICES);
 	else if(object_ptr->tval == TV_LITE)
 		ADD_FLG(FLG_LIGHTS);

@@ -1424,7 +1424,7 @@ msg_print("ランダムアーティファクトは値引きなし。");
 	object_ptr->number = size - (size * discount / 100);
 
 	/* Ensure that mass-produced rods and wands get the correct pvals. */
-	if((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
+	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 	{
 		object_ptr->pval *= object_ptr->number;
 	}
@@ -1499,7 +1499,7 @@ static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
  */
 static void store_object_absorb(object_type *object_ptr, object_type *j_ptr)
 {
-	int max_num = (object_ptr->tval == TV_ROD) ?
+	int max_num = IS_ROD(object_ptr) ?
 		MIN(99, MAX_SHORT / object_kind_info[object_ptr->k_idx].pval) : 99;
 	int total = object_ptr->number + j_ptr->number;
 	int diff = (total > max_num) ? total - max_num : 0;
@@ -1508,7 +1508,7 @@ static void store_object_absorb(object_type *object_ptr, object_type *j_ptr)
 	object_ptr->number = (total > max_num) ? max_num : total;
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) together. -LM- */
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
 	}
@@ -1892,7 +1892,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 						object_ptr->number = remain;
 
 						/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
-						if(object_ptr->tval == TV_ROD)
+						if(IS_ROD(object_ptr))
 						{
 							object_ptr->pval =  object_ptr->pval * remain / old_num;
 							object_ptr->timeout = object_ptr->timeout * remain / old_num;
@@ -2127,7 +2127,7 @@ static int store_carry(store_type *st_ptr, object_type *object_ptr)
 		 * Hack:  otherwise identical rods sort by
 		 * increasing recharge time --dsb
 		 */
-		if(object_ptr->tval == TV_ROD)
+		if(IS_ROD(object_ptr))
 		{
 			if(object_ptr->pval < j_ptr->pval) break;
 			if(object_ptr->pval > j_ptr->pval) continue;
@@ -3894,7 +3894,7 @@ msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 				autopick_alter_item(guest_ptr, item_new, FALSE);
 
 				/* Now, reduce the original stack's pval. */
-				if((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
+				if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 				{
 					object_ptr->pval -= j_ptr->pval;
 				}
@@ -4156,7 +4156,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	 * Hack -- If a rod or wand, allocate total maximum
 	 * timeouts or charges to those being sold. -LM-
 	 */
-	if((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
+	if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 	{
 		quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
 	}
@@ -4256,7 +4256,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 			 * Hack -- If a rod or wand, let the shopkeeper know just
 			 * how many charges he really paid for. -LM-
 			 */
-			if((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
+			if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 			{
 				quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
 			}

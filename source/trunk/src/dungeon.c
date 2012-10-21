@@ -3007,7 +3007,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		if(!object_ptr->k_idx) continue;
 
 		/* Examine all charging rods or stacks of charging rods. */
-		if((object_ptr->tval == TV_ROD) && (object_ptr->timeout))
+		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
 			/* Determine how many rods are charging. */
 			int temp = (object_ptr->timeout + (k_ptr->pval - 1)) / k_ptr->pval;
@@ -3052,7 +3052,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		if(!object_ptr->k_idx) continue;
 
 		/* Recharge rods on the ground.  No messages. */
-		if((object_ptr->tval == TV_ROD) && (object_ptr->timeout))
+		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
 			/* Charge it */
 			object_ptr->timeout -= object_ptr->number;

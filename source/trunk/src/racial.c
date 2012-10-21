@@ -367,12 +367,12 @@ s = "魔力を取り込めるアイテムがない。";
 	}
 
 	pval = object_ptr->pval;
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 		ext = 72;
 	else if(object_ptr->tval == TV_WAND)
 		ext = 36;
 
-	if(object_ptr->tval == TV_ROD)
+	if(IS_ROD(object_ptr))
 	{
 		creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] += object_ptr->number;
 		if(creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] > 99) creature_ptr->class_skills.old_skills.magic_num2[object_ptr->sval + ext] = 99;

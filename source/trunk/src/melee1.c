@@ -2754,7 +2754,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						* maximum timeouts or charges between those
 						* stolen and those missed. -LM-
 						*/
-						if((object_ptr->tval == TV_ROD) || (object_ptr->tval == TV_WAND))
+						if(IS_ROD(object_ptr) || (object_ptr->tval == TV_WAND))
 						{
 							j_ptr->pval = object_ptr->pval / object_ptr->number;
 							object_ptr->pval -= j_ptr->pval;

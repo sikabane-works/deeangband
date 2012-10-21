@@ -2511,7 +2511,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		/* Hack -- Rods have a "charging" indicator.  Now that stacks of rods may
 		 * be in any state of charge or discharge, this now includes a number. -LM-
 		 */
-		else if(object_ptr->tval == TV_ROD)
+		else if(IS_ROD(object_ptr))
 		{
 			/* Hack -- Dump " (# charging)" if relevant */
 			if(object_ptr->timeout)
