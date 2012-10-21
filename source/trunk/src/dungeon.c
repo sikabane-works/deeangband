@@ -5273,57 +5273,31 @@ msg_print("’†’f‚µ‚Ü‚µ‚½B");
 			creature_ptr->energy_need = 100;
 		}
 
-		/* Running */
-		else if(creature_ptr->running)
+		else if(creature_ptr->running)	// Running
 		{
-			/* Take a step */
 			run_step(creature_ptr, 0);
-		}
-
-		/* Traveling */
-		else if(travel.run)
+		}		
+		else if(travel.run) // Traveling
 		{
-			/* Take a step */
 			travel_step(creature_ptr);
 		}
-
-		/* Repeated command */
-		else if(command_rep)
+		else if(command_rep)	// Repeated command
 		{
-			/* Count this execution */
-			command_rep--;
-
-			/* Redraw the state */
+			command_rep--;	// Count this execution
 			play_redraw |= (PR_STATE);
-
-			/* Redraw stuff */
 			redraw_stuff(player_ptr);
-
-			/* Hack -- Assume messages were seen */
 			msg_flag = FALSE;
-
-			/* Clear the top line */
 			prt("", 0, 0);
-
-			/* Process the command */
-			process_player_command(creature_ptr);
+			process_player_command(creature_ptr);	// Process the command
 		}
-
-		/* Normal command */
-		else
+		else	// Normal command
 		{
-			/* Place the cursor on the player */
 			move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
-
 			can_save = TRUE;
-			/* Get a command (normal) */
 			request_command(creature_ptr, FALSE);
-			can_save = FALSE;
-
-			/* Process the command */
-			process_player_command(creature_ptr);
+			can_save = FALSE;			
+			process_player_command(creature_ptr);	// Process the command
 		}
-
 
 		/* Hack -- Pack Overflow */
 		pack_overflow(creature_ptr);
