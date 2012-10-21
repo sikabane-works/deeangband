@@ -4883,7 +4883,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 /*
  * Handle "play_redraw"
  */
-void redraw_stuff()
+void redraw_stuff(creature_type *subjectivity_ptr)
 {
 	/* Redraw stuff */
 	if(!play_redraw) return;
@@ -4902,10 +4902,10 @@ void redraw_stuff()
 	if(play_redraw & (PR_MAP))
 	{
 		play_redraw &= ~(PR_MAP);
-		prt_map(player_ptr);
+		prt_map(subjectivity_ptr);
 	}
 
-	prt_frame_basic(player_ptr);
+	prt_frame_basic(subjectivity_ptr);
 
 	if(play_redraw & (PR_BASIC))
 	{
@@ -4914,8 +4914,8 @@ void redraw_stuff()
 		play_redraw &= ~(PR_LEV | PR_EXP | PR_GOLD);
 		play_redraw &= ~(PR_ARMOR | PR_HP | PR_MANA);
 		play_redraw &= ~(PR_DEPTH | PR_HEALTH | PR_UHEALTH);
-		prt_time(player_ptr);
-		if(wizard) prt_wiz_pos(player_ptr);
+		prt_time(subjectivity_ptr);
+		if(wizard) prt_wiz_pos(subjectivity_ptr);
 		prt_dungeon();
 	}
 
@@ -4927,72 +4927,72 @@ void redraw_stuff()
 	if(play_redraw & (PR_LEV))
 	{
 		play_redraw &= ~(PR_LEV);
-		prt_level(player_ptr);
+		prt_level(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_EXP))
 	{
 		play_redraw &= ~(PR_EXP);
-		prt_exp(player_ptr);
+		prt_exp(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_STATS))
 	{
 		play_redraw &= ~(PR_STATS);
-		prt_stat(player_ptr, STAT_STR);
-		prt_stat(player_ptr, STAT_INT);
-		prt_stat(player_ptr, STAT_WIS);
-		prt_stat(player_ptr, STAT_DEX);
-		prt_stat(player_ptr, STAT_CON);
-		prt_stat(player_ptr, STAT_CHA);
+		prt_stat(subjectivity_ptr, STAT_STR);
+		prt_stat(subjectivity_ptr, STAT_INT);
+		prt_stat(subjectivity_ptr, STAT_WIS);
+		prt_stat(subjectivity_ptr, STAT_DEX);
+		prt_stat(subjectivity_ptr, STAT_CON);
+		prt_stat(subjectivity_ptr, STAT_CHA);
 	}
 
 	if(play_redraw & (PR_STATUS))
 	{
 		play_redraw &= ~(PR_STATUS);
-		prt_status(player_ptr);
+		prt_status(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_ARMOR))
 	{
 		play_redraw &= ~(PR_ARMOR);
-		prt_ac_ev(player_ptr);
+		prt_ac_ev(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_HP))
 	{
 		play_redraw &= ~(PR_HP);
-		prt_hp(player_ptr);
+		prt_hp(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_MANA))
 	{
 		play_redraw &= ~(PR_MANA);
-		prt_sp(player_ptr);
+		prt_sp(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_GOLD))
 	{
 		play_redraw &= ~(PR_GOLD);
-		prt_gold(player_ptr);
+		prt_gold(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_DEPTH))
 	{
 		play_redraw &= ~(PR_DEPTH);
-		prt_depth(player_ptr);
+		prt_depth(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_HEALTH))
 	{
 		play_redraw &= ~(PR_HEALTH);
-		health_redraw(player_ptr, FALSE);
+		health_redraw(subjectivity_ptr, FALSE);
 	}
 
 	if(play_redraw & (PR_UHEALTH))
 	{
 		play_redraw &= ~(PR_UHEALTH);
-		health_redraw(player_ptr, TRUE);
+		health_redraw(subjectivity_ptr, TRUE);
 	}
 
 
@@ -5002,51 +5002,51 @@ void redraw_stuff()
 		play_redraw &= ~(PR_CUT | PR_STUN);
 		play_redraw &= ~(PR_HUNGER);
 		play_redraw &= ~(PR_STATE | PR_SPEED | PR_STUDY | PR_IMITATION | PR_STATUS);
-		prt_frame_extra(player_ptr);
+		prt_frame_extra(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_CUT))
 	{
 		play_redraw &= ~(PR_CUT);
-		prt_cut(player_ptr);
+		prt_cut(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_STUN))
 	{
 		play_redraw &= ~(PR_STUN);
-		prt_stun(player_ptr);
+		prt_stun(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_HUNGER))
 	{
 		play_redraw &= ~(PR_HUNGER);
-		prt_hunger(player_ptr);
+		prt_hunger(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_STATE))
 	{
 		play_redraw &= ~(PR_STATE);
-		prt_state(player_ptr);
+		prt_state(subjectivity_ptr);
 	}
 
 	if(play_redraw & (PR_SPEED))
 	{
 		play_redraw &= ~(PR_SPEED);
-		prt_speed(player_ptr);
+		prt_speed(subjectivity_ptr);
 	}
 
-	if(player_ptr->class_idx == CLASS_IMITATOR)
+	if(subjectivity_ptr->class_idx == CLASS_IMITATOR)
 	{
 		if(play_redraw & (PR_IMITATION))
 		{
 			play_redraw &= ~(PR_IMITATION);
-			prt_imitation(player_ptr);
+			prt_imitation(subjectivity_ptr);
 		}
 	}
 	else if(play_redraw & (PR_STUDY))
 	{
 		play_redraw &= ~(PR_STUDY);
-		prt_study(player_ptr);
+		prt_study(subjectivity_ptr);
 	}
 }
 
@@ -5149,7 +5149,7 @@ void window_stuff(void)
 void handle_stuff(void)
 {
 	if(update) update_creature(player_ptr, TRUE);
-	if(play_redraw) redraw_stuff();
+	if(play_redraw) redraw_stuff(player_ptr);
 	if(play_window) window_stuff();
 }
 

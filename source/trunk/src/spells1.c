@@ -2257,7 +2257,7 @@ msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
 	{
 		health_track(c_ptr->creature_idx);
 		play_redraw |= (PR_HEALTH);
-		redraw_stuff();
+		redraw_stuff(player_ptr);
 	}
 
 	/* XXX XXX XXX Verify this code */

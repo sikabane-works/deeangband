@@ -1493,7 +1493,7 @@ extern cptr map_name(floor_type *floor_ptr);
 extern void set_creature_bonuses(creature_type *crrature_ptr, bool message);
 extern void notice_stuff(creature_type *creature_ptr);
 extern void update_creature(creature_type *creature_ptr, bool message);
-extern void redraw_stuff(void);
+extern void redraw_stuff(creature_type *subjectivity_ptr);
 extern void window_stuff(void);
 extern void handle_stuff(void);
 extern s16b empty_hands(creature_type *creature_ptr, bool riding_control);

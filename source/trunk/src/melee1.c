@@ -776,7 +776,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			take_hit(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
-			redraw_stuff();
+			redraw_stuff(player_ptr);
 		}
 		else
 		{

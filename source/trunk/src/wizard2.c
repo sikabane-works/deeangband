@@ -1591,7 +1591,7 @@ static void do_cmd_wiz_floor_teleport(void)
 
 			// redraw
 			play_redraw |= PR_MAP;
-			redraw_stuff();
+			redraw_stuff(player_ptr);
 
 			wiz_dimension_door(player_ptr);
 			break;
@@ -1603,7 +1603,7 @@ static void do_cmd_wiz_floor_teleport(void)
 
 	// redraw
 	play_redraw |= PR_MAP;
-	redraw_stuff();
+	redraw_stuff(player_ptr);
 
 
 	free(ce);
@@ -1731,7 +1731,7 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	// redraw
 	play_redraw |= PR_MAP;
-	redraw_stuff();
+	redraw_stuff(player_ptr);
 
 	// Leaving
 	subject_change_floor = TRUE;

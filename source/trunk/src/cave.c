@@ -1750,7 +1750,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 	play_redraw |= (PR_MAP);
 
 	/* Redraw stuff */
-	redraw_stuff();
+	redraw_stuff(player_ptr);
 
 	/* Draw path */
 	for (i = 0; i < path_n; i++)
