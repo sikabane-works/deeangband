@@ -43,15 +43,15 @@
 #define IS_PURE(CR) ((CR)->race_idx1 == (CR)->race_idx2)
 #define IS_MIMICED(CR) ((CR)->mimic_race_idx != INDEX_NONE || has_trait((CR), TRAIT_MIMIC))
 
-#define hex_spelling_any(USER) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
-#define hex_spelling(USER, X) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
+#define HEX_SPELLING_ANY(USER) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0]))
+#define HEX_SPELLING(USER, X) (((USER)->realm1 == REALM_HEX) && ((USER)->class_skills.old_skills.magic_num1[0] & (1L << (X))))
 
 #define GET_TIMED_TRAIT(C, TYPE) ((C)->timed_trait[TYPE])
 
 #define IS_FAST(C)			((C)->timed_trait[TRAIT_FAST] || music_singing(C, MUSIC_SPEED) || music_singing(C, MUSIC_SHERO))
 #define IS_INVULN(C)		((C)->timed_trait[TRAIT_INVULNERABLE] || music_singing(C, MUSIC_INVULN))
 #define IS_HERO(C)			((C)->timed_trait[TRAIT_HERO] || music_singing(C, MUSIC_HERO) || music_singing(C, MUSIC_SHERO))
-#define IS_BLESSED(C)		((C)->timed_trait[TRAIT_BLESSED] || music_singing(C, MUSIC_BLESS) || hex_spelling(C, HEX_BLESS))
+#define IS_BLESSED(C)		((C)->timed_trait[TRAIT_BLESSED] || music_singing(C, MUSIC_BLESS) || HEX_SPELLING(C, HEX_BLESS))
 #define IS_OPPOSE_ACID(C)	((C)->timed_trait[TRAIT_RES_ACID] || music_singing(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
 #define IS_OPPOSE_ELEC(C)	((C)->timed_trait[TRAIT_RES_ELEC] || music_singing(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))
 #define IS_OPPOSE_FIRE(C)	((C)->timed_trait[TRAIT_RES_FIRE] || music_singing(C, MUSIC_RESIST) || (C->posture & KATA_MUSOU))

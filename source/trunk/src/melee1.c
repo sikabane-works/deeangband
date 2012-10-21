@@ -270,14 +270,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		}
 
 		// Vampiric drain
-		if((have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || hex_spelling(attacker_ptr, HEX_VAMP_BLADE))
+		if((have_flag(flgs, TRAIT_VAMPIRIC_BRAND)) || (chaos_effect == 1) || (mode == HISSATSU_DRAIN) || HEX_SPELLING(attacker_ptr, HEX_VAMP_BLADE))
 		{
 			// Only drain "living" creatures
 			if(creature_living(target_ptr)) can_drain = TRUE;
 			else can_drain = FALSE;
 		}
 
-		if((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || hex_spelling(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
+		if((have_flag(weapon_ptr->trait_flags, TRAIT_VORPAL) || HEX_SPELLING(attacker_ptr, HEX_RUNESWORD)) && (randint1(vorpal_chance*3/2) == 1) && !zantetsu_mukou)
 			vorpal_cut = TRUE;
 		else vorpal_cut = FALSE;
 
@@ -604,7 +604,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					drain_heal = diceroll(2, drain_result / 6);
 
 					// Hex
-					if(hex_spelling(attacker_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
+					if(HEX_SPELLING(attacker_ptr, HEX_VAMP_BLADE)) drain_heal *= 2;
 
 					if(cheat_xtra)
 					{
@@ -1203,7 +1203,7 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
 	// Confusion attack
-	//TODO if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE] || (chaos_effect == 3) || (mode == HISSATSU_CONF) || hex_spelling(attacker_ptr, HEX_CONFUSION))
+	//TODO if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE] || (chaos_effect == 3) || (mode == HISSATSU_CONF) || HEX_SPELLING(attacker_ptr, HEX_CONFUSION))
 	{
 		// Cancel glowing hands
 		if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
@@ -3752,7 +3752,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 			}
 
-			if(hex_spelling(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
+			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
 			{
 				int dam = 1;
 				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
@@ -3898,7 +3898,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* Hex - revenge damage stored */
 	revenge_store(target_ptr, get_damage);
 
-	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(target_ptr, HEX_EYE_FOR_EYE))
+	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE))
 		&& get_damage > 0 && !IS_DEAD(target_ptr))
 	{
 #ifdef JP

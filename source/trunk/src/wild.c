@@ -1024,7 +1024,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	}
 
 	/* Cancel hex spelling */
-	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Cancel any special action */
 	set_action(creature_ptr, ACTION_NONE);

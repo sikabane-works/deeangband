@@ -313,7 +313,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 
 			/* Hex - Slay Good (Runesword) */
-			if(hex_spelling(attacker_ptr, HEX_RUNESWORD) &&
+			if(HEX_SPELLING(attacker_ptr, HEX_RUNESWORD) &&
 			    is_enemy_of_evil_creature(target_ptr))
 			{
 				if(is_original_ap_and_seen(attacker_ptr, target_ptr))

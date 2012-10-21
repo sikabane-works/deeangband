@@ -1462,7 +1462,7 @@ int calc_action_power(creature_type *creature_ptr)
 	point = creature_ptr->skill_thn / 4;
 
 	// Hex - extra mights gives to action_point
-	if(hex_spelling(creature_ptr, HEX_XTRA_MIGHT) || hex_spelling(creature_ptr, HEX_BUILDING))
+	if(HEX_SPELLING(creature_ptr, HEX_XTRA_MIGHT) || HEX_SPELLING(creature_ptr, HEX_BUILDING))
 	{ 
 		point += (point * 6 / 5);
 	}

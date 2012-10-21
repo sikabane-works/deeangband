@@ -280,7 +280,7 @@ void dispel_creature(creature_type *creature_ptr)
 		set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 	}
 
-	if(music_singing_any(creature_ptr) || hex_spelling_any(creature_ptr))
+	if(music_singing_any(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
 	{
 #ifdef JP
 		cptr str = (music_singing_any(creature_ptr)) ? "‰Ì" : "Žô•¶";
@@ -368,7 +368,7 @@ void dispel_creature(creature_type *creature_ptr)
 			if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
 
 			/* Hex */
-			if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+			if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 #endif
 
@@ -748,7 +748,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 		if(creature_ptr->concent) reset_concentration(creature_ptr, TRUE);
 
 		/* Hex */
-		if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 		/* Notice */
 		notice = TRUE;

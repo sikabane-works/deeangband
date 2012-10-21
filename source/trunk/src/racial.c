@@ -881,7 +881,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 void racial_stop_mouth(creature_type *creature_ptr)
 {
 	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
 

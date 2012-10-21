@@ -21,7 +21,7 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 	for (i = 0; i < 32; i++)
 	{
 		u32b spell = 1L << i;
-		if(hex_spelling(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
+		if(HEX_SPELLING(creature_ptr, spell)) do_spell(creature_ptr, REALM_HEX, spell, SPELL_STOP);
 	}
 
 	creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
@@ -48,7 +48,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 	int x = 20;
 	int sp[MAX_KEEP];
 
-	if(!hex_spelling_any(creature_ptr))
+	if(!HEX_SPELLING_ANY(creature_ptr))
 	{
 #ifdef JP
 		msg_print("ô•¶‚ğ‰r¥‚µ‚Ä‚¢‚Ü‚¹‚ñB");
@@ -82,7 +82,7 @@ bool stop_hex_spell(creature_type *creature_ptr)
 			prt("     –¼‘O", y, x + 5);
 			for (spell = 0; spell < 32; spell++)
 			{
-				if(hex_spelling(creature_ptr, spell))
+				if(HEX_SPELLING(creature_ptr, spell))
 				{
 					Term_erase(x, y + n + 1, 255);
 					put_str(format("%c)  %s", I2A(n), do_spell(creature_ptr, REALM_HEX, spell, SPELL_NAME)), y + n + 1, x + 2);
@@ -154,7 +154,7 @@ void check_hex(creature_type *creature_ptr)
 	need_mana = 0;
 	for (spell = 0; spell < 32; spell++)
 	{
-		if(hex_spelling(creature_ptr, spell))
+		if(HEX_SPELLING(creature_ptr, spell))
 		{
 			s_ptr = &technic_info[REALM_HEX - MIN_TECHNIC][spell];
 			need_mana += mod_need_mana(creature_ptr, s_ptr->smana, spell, REALM_HEX);
@@ -207,7 +207,7 @@ void check_hex(creature_type *creature_ptr)
 	/* Gain experiences of spelling spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if(!hex_spelling(creature_ptr, spell)) continue;
+		if(!HEX_SPELLING(creature_ptr, spell)) continue;
 
 		if(creature_ptr->spell_exp[spell] < SPELL_EXP_BEGINNER)
 			creature_ptr->spell_exp[spell] += 5;
@@ -222,7 +222,7 @@ void check_hex(creature_type *creature_ptr)
 	/* Do any effects of continual spells */
 	for (spell = 0; spell < 32; spell++)
 	{
-		if(hex_spelling(creature_ptr, spell))
+		if(HEX_SPELLING(creature_ptr, spell))
 		{
 			do_spell(creature_ptr, REALM_HEX, spell, SPELL_CONT);
 		}
@@ -270,7 +270,7 @@ bool teleport_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 {
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
-	if(!hex_spelling(cast_ptr, HEX_ANTI_TELE)) return FALSE;
+	if(!HEX_SPELLING(cast_ptr, HEX_ANTI_TELE)) return FALSE;
 	if((cast_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
 
 	return TRUE;
@@ -279,7 +279,7 @@ bool teleport_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 
 bool magic_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 {
-	if(!hex_spelling(cast_ptr, HEX_ANTI_MAGIC)) return FALSE;
+	if(!HEX_SPELLING(cast_ptr, HEX_ANTI_MAGIC)) return FALSE;
 	if((cast_ptr->lev * 3 / 2) < randint1(target_ptr->lev * 2)) return FALSE;
 
 	return TRUE;
@@ -287,7 +287,7 @@ bool magic_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 
 bool multiply_barrier(creature_type *creature_ptr, creature_type *target_ptr)
 {
-	if(!hex_spelling(creature_ptr, HEX_ANTI_MULTI)) return FALSE;
+	if(!HEX_SPELLING(creature_ptr, HEX_ANTI_MULTI)) return FALSE;
 	if(creature_ptr->lev < randint1(target_ptr->lev)) return FALSE;
 
 	return TRUE;

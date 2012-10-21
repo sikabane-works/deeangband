@@ -61,7 +61,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Get the item (in the pack) */
 	if(item >= 0)
@@ -686,7 +686,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 	}
 
 	if(music_singing_any(user_ptr)) stop_singing(user_ptr);
-	if(hex_spelling_any(user_ptr)) if(!hex_spelling(user_ptr, HEX_INHAIL)) stop_hex_spell_all(user_ptr);
+	if(HEX_SPELLING_ANY(user_ptr)) if(!HEX_SPELLING(user_ptr, HEX_INHAIL)) stop_hex_spell_all(user_ptr);
 
 	// Get the item (in the pack or on the floor)
 	if(item >= 0) object_ptr = &user_ptr->inventory[item];
@@ -1471,7 +1471,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
 
 	/* Hex */
-	if(hex_spelling_any(creature_ptr) && ((creature_ptr->lev < 35) || hex_spell_fully(creature_ptr))) stop_hex_spell_all(creature_ptr);
+	if(HEX_SPELLING_ANY(creature_ptr) && ((creature_ptr->lev < 35) || hex_spell_fully(creature_ptr))) stop_hex_spell_all(creature_ptr);
 
 	/* Not identified yet */
 	ident = FALSE;
@@ -4053,7 +4053,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		if(!get_aim_dir(creature_ptr, &dir)) return;
 
 		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-		if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 		/* Branch on the sub-type */
 		switch (object_ptr->sval)
@@ -4226,7 +4226,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 	else if(object_ptr->tval == TV_WHISTLE)
 	{
 		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-		if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 		{
 			int pet_ctr, i;
 			u16b *who;

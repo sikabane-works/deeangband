@@ -2485,7 +2485,7 @@ static void process_world_aux_mutation(creature_type *creature_ptr)
 		msg_print(NULL);
 		set_food(creature_ptr, PY_FOOD_WEAK);
 		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
-		if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_WALK_SHAD) &&

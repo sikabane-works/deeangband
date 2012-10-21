@@ -2673,7 +2673,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	}
 
 	/* Hex */
-	if(hex_spelling_any(creature_ptr)) stop_hex_spell_all(creature_ptr);
+	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Prompt for time if needed */
 	if(command_arg <= 0)

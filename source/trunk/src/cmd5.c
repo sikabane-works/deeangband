@@ -1132,7 +1132,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Hex */
 	if(use_realm == REALM_HEX)
 	{
-		if(hex_spelling(creature_ptr, spell))
+		if(HEX_SPELLING(creature_ptr, spell))
 		{
 #ifdef JP
 			msg_print("‚»‚Ìô•¶‚Í‚·‚Å‚É‰r¥’†‚¾B");

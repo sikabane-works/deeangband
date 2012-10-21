@@ -2400,13 +2400,13 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 	/* Hex bonuses */
 	if(creature_ptr->realm1 == REALM_HEX)
 	{
-		if(hex_spelling(creature_ptr, HEX_DEMON_AURA))
+		if(HEX_SPELLING(creature_ptr, HEX_DEMON_AURA))
 		{
 			add_flag(flgs, TRAIT_AURA_FIRE);
 			add_flag(flgs, TRAIT_REGENERATE);
 		}
-		if(hex_spelling(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TRAIT_AURA_COLD);
-		if(hex_spelling(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TRAIT_AURA_ELEC);
+		if(HEX_SPELLING(creature_ptr, HEX_ICE_ARMOR)) add_flag(flgs, TRAIT_AURA_COLD);
+		if(HEX_SPELLING(creature_ptr, HEX_SHOCK_CLOAK)) add_flag(flgs, TRAIT_AURA_ELEC);
 	}
 }
 
@@ -5300,27 +5300,14 @@ static void show_file_aux_line(cptr str, int cy, cptr shower)
 bool show_file(bool show_version, cptr name, cptr what, int line, int mode)
 {
 	int i, n, skey;
+	int next = 0;	// Number of "real" lines passed by
+	int size = 0;	// Number of "real" lines in the file
+	int back = 0;	// Backup value for "line"
+	bool menu = FALSE;	// This screen has sub-screens
 
-	/* Number of "real" lines passed by */
-	int next = 0;
-
-	/* Number of "real" lines in the file */
-	int size = 0;
-
-	/* Backup value for "line" */
-	int back = 0;
-
-	/* This screen has sub-screens */
-	bool menu = FALSE;
-
-	/* Current help file */
-	FILE *fff = NULL;
-
-	/* Find this string (if any) */
-	cptr find = NULL;
-
-	/* Jump to this tag */
-	cptr tag = NULL;
+	FILE *fff = NULL;	// Current help file
+	cptr find = NULL;	// Find this string (if any)
+	cptr tag = NULL;	// Jump to this tag
 
 	/* Hold strings to find/show */
 	char finder_str[81];
@@ -5419,12 +5406,10 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 	{
 		/* Caption */
 #ifdef JP
-sprintf(caption, "スポイラー・ファイル'%s'", name);
+		sprintf(caption, "スポイラー・ファイル'%s'", name);
 #else
 		sprintf(caption, "Info file '%s'", name);
 #endif
-
-
 		/* Build the filename */
 		path_build(path, sizeof(path), ANGBAND_DIR_INFO, name);
 
@@ -5731,7 +5716,6 @@ sprintf(caption, "スポイラー・ファイル'%s'", name);
 					find = finder_str;
 					back = line;
 					line = line + 1;
-
 
 					/* Make finder lowercase */
 					str_tolower(finder_str);
@@ -6195,7 +6179,6 @@ if(!get_check("本当に自殺しますか？")) return;
 #endif
 	}
 
-
 	if(!noscore)
 	{
 		/* Special Verification for suicide */
@@ -6347,7 +6330,7 @@ msg_print("自動セーブ中");
 
 	/* Note that the player is not dead */
 #ifdef JP
-(void)strcpy(gameover_from, "(元気に生きている)");
+	(void)strcpy(gameover_from, "(元気に生きている)");
 #else
 	(void)strcpy(gameover_from, "(alive and well)");
 #endif
@@ -7695,7 +7678,7 @@ Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ成功！");
 	else
 	{
 #ifdef JP
-Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ失敗！");
+		Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ失敗！");
 #else
 		Term_putstr(45, hgt - 1, -1, TERM_RED, "Panic save failed!");
 #endif
@@ -7707,7 +7690,7 @@ Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ失敗！");
 
 	/* Quit */
 #ifdef JP
-quit("ソフトのバグ");
+	quit("ソフトのバグ");
 #else
 	quit("software bug");
 #endif
@@ -7747,27 +7730,21 @@ void signals_handle_tstp(void)
  */
 void signals_init(void)
 {
-
 #ifdef SIGHUP
 	(void)signal(SIGHUP, SIG_IGN);
 #endif
-
 
 #ifdef SIGTSTP
 	(void)signal(SIGTSTP, handle_signal_suspend);
 #endif
 
-
 #ifdef SIGINT
-
-
 	(void)signal(SIGINT, handle_signal_simple);
 #endif
 
 #ifdef SIGQUIT
 	(void)signal(SIGQUIT, handle_signal_simple);
 #endif
-
 
 #ifdef SIGFPE
 	(void)signal(SIGFPE, handle_signal_abort);
@@ -7827,9 +7804,7 @@ void signals_init(void)
 
 }
 
-
 #else	/* HANDLE_SIGNALS */
-
 
 /*
  * Do nothing

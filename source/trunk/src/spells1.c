@@ -6207,7 +6207,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	/* Hex - revenge damage stored */
 	revenge_store(player_ptr, get_damage);
 
-	if((player_ptr->timed_trait[TRAIT_EYE_EYE] || hex_spelling(player_ptr, HEX_EYE_FOR_EYE))
+	if((player_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(player_ptr, HEX_EYE_FOR_EYE))
 		&& (get_damage > 0) && !gameover && (attacker_ptr != NULL))
 	{
 #ifdef JP
