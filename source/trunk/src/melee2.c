@@ -1612,8 +1612,7 @@ static void process_nonplayer(int m_idx)
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_LOSE_PARENT, creature_name);
 		}
 
-		// Delete the creature
-		delete_species_idx(&creature_list[m_idx]);
+		delete_species_idx(&creature_list[m_idx]);	// Delete the creature
 
 		return;
 	}
@@ -1672,37 +1671,6 @@ static void process_nonplayer(int m_idx)
 		}
 	}
 */
-
-	// Handle "sleep"
-	if(creature_ptr->timed_trait[TRAIT_PARALYZED])
-	{
-		// Handle non-aggravation - Still sleeping
-		if(!has_trait(player_ptr, TRAIT_ANTIPATHY)) return;
-
-		// Handle aggravation
-		// Reset sleep counter
-		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
-
-		// Notice the "waking up"
-		if(creature_ptr->see_others || creature_ptr->hear_noise)
-		{
-			// Acquire the creature name
-			creature_desc(creature_name, creature_ptr, 0);
-
-			// Dump a message
-#ifdef JP
-			msg_format("%^s‚Í–Ú‚ðŠo‚Ü‚µ‚½B", creature_name);
-#else
-			msg_format("%^s wakes up.", creature_name);
-#endif
-		}
-
-		/* Hack -- Count the wakings */
-		if(is_original_ap_and_seen(player_ptr, creature_ptr) && (species_ptr->r_wake < MAX_UCHAR))
-		{
-			species_ptr->r_wake++;
-		}
-	}
 
 	//TODO move old player feature of stun.
 	if(is_riding_mon) player_ptr->creature_update |= (CRU_BONUS);

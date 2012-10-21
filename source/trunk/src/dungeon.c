@@ -1986,6 +1986,18 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 		if(creature_ptr->timed_trait[i] > 0)
 			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count);
 
+	// Handle "sleep"
+	if(creature_ptr->timed_trait[TRAIT_SLEEP])
+	{
+		if(creature_ptr->see_others || creature_ptr->hear_noise) (void)set_timed_trait(creature_ptr, TRAIT_SLEEP, 0);	// Handle aggravation Reset sleep counter
+
+		// TODO -- Count the wakings
+		//if(is_original_ap_and_seen(player_ptr, creature_ptr) && (species_ptr->r_wake < MAX_UCHAR))
+		//{
+		//	species_ptr->r_wake++;
+		//}
+	}
+
 	//*** Poison and Stun and Cut ***//
 
 	if(creature_ptr->timed_trait[TRAIT_POISONED])
