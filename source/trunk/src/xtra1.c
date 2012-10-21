@@ -1336,7 +1336,6 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 	{
 		health_who = creature_ptr->riding;
 		row = ROW_RIDING_INFO;
-
 		col = COL_RIDING_INFO;
 	}
 	else
@@ -1348,14 +1347,14 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 	m_ptr = &creature_list[health_who];
 	species_ptr = &species_info[m_ptr->species_idx];
 
-	/* Not tracking */
+	// No update player
+	if(is_player(m_ptr)) return;
 
 	if(!health_who)
 	{
 		// Erase the health bar
 		Term_erase(col, row, 20);
 	}
-
 
 	/* Tracking an unseen creature */
 	if(!m_ptr->see_others)

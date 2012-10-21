@@ -186,8 +186,7 @@ cptr funny_desc[MAX_SAN_FUNNY] =
 
 cptr funny_comments[MAX_SAN_COMMENT] =
 {
-#ifdef JP
-  /* nuke me */
+#ifdef JP // nuke me
 	"最高だぜ！",
 	"うひょー！",
 	"いかすぜ！",
@@ -200,7 +199,6 @@ cptr funny_comments[MAX_SAN_COMMENT] =
 	"Cool!",
 	"Far out!"
 #endif
-
 };
 
 
@@ -208,7 +206,7 @@ cptr funny_comments[MAX_SAN_COMMENT] =
  * Each player starts out with a few items, given as tval/sval pairs.
  * In addition, he always has some food and a few torches.
  */
-static byte class_equipment_init[MAX_CLASS][10][2] =
+static byte class_equipment_init[MAX_CLASS][CLASS_INIT_EQUIPMENT][2] =
 {
 	{
 		// None
@@ -702,53 +700,31 @@ void delete_species_idx(creature_type *creature_ptr)
 
 	s16b next_object_idx = 0;
 
-	/* Get location */
+	// Get location
 	y = creature_ptr->fy;
 	x = creature_ptr->fx;
 
+	real_species_ptr(creature_ptr)->cur_num--;	// Hack -- Reduce the racial counter
+	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro--;	// Hack -- count the number of "reproducers"
 
-	/* Hack -- Reduce the racial counter */
-	real_species_ptr(creature_ptr)->cur_num--;
+	reset_timed_trait(creature_ptr);
 
-	/* Hack -- count the number of "reproducers" */
-	if(has_trait(creature_ptr, TRAIT_MULTIPLY)) floor_ptr->num_repro--;
-
-	if(creature_ptr->timed_trait[TRAIT_PARALYZED]) (void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
-	if(creature_ptr->timed_trait[TRAIT_FAST]) (void)set_timed_trait(creature_ptr, TRAIT_FAST, 0);
-	if(creature_ptr->timed_trait[TRAIT_SLOW]) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, FALSE);
-	if(creature_ptr->timed_trait[TRAIT_STUN]) (void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) (void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-	if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-	if(creature_ptr->timed_trait[TRAIT_INVULNERABLE]) (void)set_timed_trait_aux(creature_ptr, TRAIT_INVULNERABLE, 0, FALSE);
-
-
-	/* Hack -- remove target creature */
-	if(creature_ptr == &creature_list[target_who]) target_who = 0;
-
-	/* Hack -- remove tracked creature */
-	if(creature_ptr == &creature_list[health_who]) health_track(0);
+	if(creature_ptr == &creature_list[target_who]) target_who = 0;	// Hack -- remove target creature
+	if(creature_ptr == &creature_list[health_who]) health_track(0);	// Hack -- remove tracked creature
 
 	if(&creature_list[pet_t_m_idx] == creature_ptr) pet_t_m_idx = 0;
 	if(&creature_list[riding_t_m_idx] == creature_ptr) riding_t_m_idx = 0;
 	if(&creature_list[creature_ptr->riding] == creature_ptr) creature_ptr->riding = 0;
 
-	/* Creature is gone */
-	floor_ptr->cave[y][x].creature_idx = 0;
+	floor_ptr->cave[y][x].creature_idx = 0;	// Creature is gone
 
 	if(is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, FALSE);
 
-	/* Wipe the Creature */
-	(void)WIPE(creature_ptr, creature_type);
-
-	/* Count creatures */
-	creature_cnt--;
-
-	/* Visual update */
-	lite_spot(floor_ptr, y, x);
-
-	/* Update some things */
-	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		update |= (PU_SPECIES_LITE);
+	(void)WIPE(creature_ptr, creature_type);	// Wipe the Creature
+	creature_cnt--;	// Count creatures
+	
+	lite_spot(floor_ptr, y, x);	// Visual update
+	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr)) update |= (PU_SPECIES_LITE);	// Update some things
 }
 
 
@@ -3547,7 +3523,7 @@ void deal_item(creature_type *creature_ptr)
 	/* Hack -- Give the player three useful objects */
 	if(creature_ptr->class_idx != INDEX_NONE && has_trait(creature_ptr, TRAIT_HUMANOID))
 	{
-		for (i = 0; i < 10; i++)
+		for (i = 0; i < CLASS_INIT_EQUIPMENT; i++)
 		{
 			/* Look up standard equipment */
 			tv = class_equipment_init[creature_ptr->class_idx][i][0];
@@ -3602,7 +3578,7 @@ void deal_item(creature_type *creature_ptr)
 	object_kind_info[lookup_kind(TV_POTION, SV_POTION_WATER)].aware = TRUE;
 
 
-	/* Apply Magic */
+	// Apply Magic
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		if(creature_ptr->inventory[i].k_idx && IS_EQUIPPED(&creature_ptr->inventory[i]))
