@@ -259,20 +259,10 @@
 #define REDRAW_MAX 5000
 
 
-/*
- * Number of keymap modes
- */
-#define KEYMAP_MODES	2
-
-/*
- * Mode for original keyset commands
- */
+// Mode for keyset (original or roguelike)
 #define KEYMAP_MODE_ORIG	0
-
-/*
- * Mode for roguelike keyset commands
- */
 #define KEYMAP_MODE_ROGUE	1
+#define KEYMAP_MODES	2
 
 
 /*
@@ -328,29 +318,6 @@
 
 // on creature generating
 #define EXP_STAND_RATE 1500
-
-
-/*** Pet constants ***/
-
-/*
- * Commands
- */
-#define PET_DISMISS				1
-#define PET_TARGET				2
-#define PET_STAY_CLOSE			3
-#define PET_FOLLOW_ME			4
-#define PET_SEEK_AND_DESTROY	5
-#define PET_ALLOW_SPACE			6
-#define PET_STAY_AWAY			7
-#define PET_OPEN_DOORS          8
-#define PET_TAKE_ITEMS			9
-#define PET_TELEPORT			10
-#define PET_ATTACK_SPELL		11
-#define PET_SUMMON_SPELL		12
-#define PET_BALL_SPELL			13
-#define PET_RIDING				14
-#define PET_NAME				15
-#define PET_RYOUTE				16
 
 /*
  * Follow distances
