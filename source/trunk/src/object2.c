@@ -2405,17 +2405,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(5))
 					{
-					case 1:
-						if(have_flag(k_ptr->flags, TRAIT_DRAIN_EXP)) break;
-						object_ptr->name2 = EGO_RING_DRAIN_EXP;
-						break;
-					case 2:
-						object_ptr->name2 = EGO_RING_NO_MELEE;
-						break;
-					case 3:
-						if(have_flag(k_ptr->flags, TRAIT_ANTIPATHY)) break;
-						object_ptr->name2 = EGO_RING_AGGRAVATE;
-						break;
 					case 4:
 						if(have_flag(k_ptr->flags, TRAIT_TY_CURSE)) break;
 						object_ptr->name2 = EGO_RING_TY_CURSE;
