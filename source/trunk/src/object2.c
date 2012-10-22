@@ -7287,10 +7287,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				if(one_in_(2)) add_esp_strong(object_ptr);
 					else add_esp_weak(object_ptr, FALSE);
 			}
-					
-		case EGO_SHARPNESS:
-			object_ptr->pval = m_bonus(5, level) + 1;
-			break;
 
 		case EGO_EARTHQUAKES:
 			if(one_in_(3) && (level > 60))
