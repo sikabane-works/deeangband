@@ -2409,9 +2409,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						if(have_flag(k_ptr->flags, TRAIT_TY_CURSE)) break;
 						object_ptr->name2 = EGO_RING_TY_CURSE;
 						break;
-					case 5:
-						object_ptr->name2 = EGO_RING_ALBINO;
-						break;
 					}
 				}
 				/* Broken */

@@ -785,7 +785,6 @@
 #define EGO_RING_TY_CURSE       184
 #define EGO_RING_RES_TIME       185
 #define EGO_RING_TELEPORT       186
-#define EGO_RING_ALBINO         187
 
 #define EGO_AMU_INFRA           211
 #define EGO_AMU_IDENT           219
