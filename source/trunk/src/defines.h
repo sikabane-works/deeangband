@@ -710,9 +710,6 @@
 /* Boots */
 #define EGO_SPEED               59
 
-/* Weapons */
-#define EGO_HA                  64
-
 /* xxx */
 #define EGO_ATTACKS             69
 #define EGO_SLAYING_WEAPON      70

@@ -7252,7 +7252,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	// Hack -- obtain pval
 	if(e_ptr->max_pval)
 	{
-		if((object_ptr->name2 == EGO_HA) && (have_flag(object_ptr->trait_flags, TRAIT_BLOWS)))
+		if(have_flag(object_ptr->trait_flags, TRAIT_BLOWS))
 		{
 			object_ptr->pval++;
 			if((level > 60) && one_in_(3) && ((object_ptr->dd*(object_ptr->ds+1)) < 15)) object_ptr->pval++;
