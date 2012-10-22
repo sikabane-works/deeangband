@@ -7276,14 +7276,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	switch(ego_id)
 	{
 
-		case EGO_YOIYAMI:
-			object_ptr->name2 = EGO_YOIYAMI;
-			object_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
-			object_ptr->sval = SV_YOIYAMI_ROBE;
-			object_ptr->ac = 0;
-			object_ptr->to_ac = 0;
-			break;
-
 		case EGO_REFLECTION:
 			if(object_ptr->sval == SV_MIRROR_SHIELD)
 				object_ptr->name2 = 0;
@@ -7311,6 +7303,15 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 
 	//TODO:: XTRA_H_RES for levitation
+
+	if(has_trait_object(object_ptr, TRAIT_DUSK_ENCHANT))
+	{
+		object_ptr->name2 = EGO_YOIYAMI;
+		object_ptr->k_idx = lookup_kind(TV_SOFT_ARMOR, SV_YOIYAMI_ROBE);
+		object_ptr->sval = SV_YOIYAMI_ROBE;
+		object_ptr->ac = 0;
+		object_ptr->to_ac = 0;
+	}
 
 	if(has_trait_object(object_ptr, TRAIT_HIGH_ESP))
 	{
