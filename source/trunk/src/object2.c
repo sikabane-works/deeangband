@@ -2452,10 +2452,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(21))
 					{
-					case 1: case 2:
-						if(have_flag(k_ptr->flags, TRAIT_SLOW_DIGEST)) break;
-						object_ptr->name2 = EGO_AMU_SLOW_D;
-						break;
 					case 3: case 4:
 						if(object_ptr->pval) break;
 						object_ptr->name2 = EGO_AMU_INFRA;

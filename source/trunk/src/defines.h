@@ -789,7 +789,6 @@
 #define EGO_RING_TELEPORT       186
 #define EGO_RING_ALBINO         187
 
-#define EGO_AMU_SLOW_D          210
 #define EGO_AMU_INFRA           211
 #define EGO_AMU_SEE_INVIS       212
 #define EGO_AMU_HOLD_LIFE       213
