@@ -882,7 +882,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_FRIGHTEN_SOUND:
 		{
-			if(music_singing_any(caster_ptr)) stop_singing(caster_ptr);
+			if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 			if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
 			(void)turn_creatures(caster_ptr, (3 * caster_ptr->lev / 2) + 10);
 			break;

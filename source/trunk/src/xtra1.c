@@ -3340,7 +3340,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->stat_add[STAT_CON] += 40;
 	}
 
-	if(music_singing(creature_ptr, MUSIC_WALL))
+	if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 	{
 		//TODO creature_ptr->kill_wall = TRUE;
 	}

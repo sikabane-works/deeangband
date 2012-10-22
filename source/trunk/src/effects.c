@@ -280,12 +280,12 @@ void dispel_creature(creature_type *creature_ptr)
 		set_timed_trait_aux(creature_ptr, TRAIT_CONFUSING_MELEE, 0, TRUE);
 	}
 
-	if(music_singing_any(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
+	if(MUSIC_SINGING_ANY(creature_ptr) || HEX_SPELLING_ANY(creature_ptr))
 	{
 #ifdef JP
-		cptr str = (music_singing_any(creature_ptr)) ? "‰Ì" : "Žô•¶";
+		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "‰Ì" : "Žô•¶";
 #else
-		cptr str = (music_singing_any(creature_ptr)) ? "singing" : "spelling";
+		cptr str = (MUSIC_SINGING_ANY(creature_ptr)) ? "singing" : "spelling";
 #endif
 		creature_ptr->class_skills.old_skills.magic_num1[1] = creature_ptr->class_skills.old_skills.magic_num1[0];
 		creature_ptr->class_skills.old_skills.magic_num1[0] = 0;

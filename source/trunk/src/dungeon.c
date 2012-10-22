@@ -2193,8 +2193,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		cast_ball(creature_ptr, GF_MANA, dire, creature_ptr->lev * 2, 3);
 	}
 
-	if(has_trait(creature_ptr, TRAIT_ATT_DEMON) &&
-	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (randint1(6666) == 666))
+	if(has_trait(creature_ptr, TRAIT_ATT_DEMON) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (randint1(6666) == 666))
 	{
 		bool pet = one_in_(6);
 		u32b mode = PC_ALLOW_GROUP;
@@ -2202,8 +2201,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(pet) mode |= PC_FORCE_PET;
 		else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx,
-				    floor_ptr->floor_level, SUMMON_DEMON, mode))
+		if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, mode))
 		{
 #ifdef JP
 			msg_print("あなたはデーモンを引き寄せた！");
@@ -2254,6 +2252,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		}
 		msg_print(NULL);
 	}
+
 	if(has_trait(creature_ptr, TRAIT_BANISH_ALL) && one_in_(9000))
 	{
 		disturb(player_ptr, 0, 0);
@@ -2311,8 +2310,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		unlite_area(creature_ptr, 50, 10);
 	}
 
-	if(has_trait(creature_ptr, TRAIT_ATT_ANIMAL) &&
-	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(7000))
+	if(has_trait(creature_ptr, TRAIT_ATT_ANIMAL) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(7000))
 	{
 		bool pet = one_in_(3);
 		u32b mode = PC_ALLOW_GROUP;
@@ -2332,8 +2330,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		}
 	}
 
-	if(has_trait(creature_ptr, TRAIT_RAW_CHAOS) &&
-	    !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(8000))
+	if(has_trait(creature_ptr, TRAIT_RAW_CHAOS) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(8000))
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2341,7 +2338,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_print("You feel the world warping around you!");
 #endif
-
 		msg_print(NULL);
 		cast_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
 	}
@@ -2365,7 +2361,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_print("You feel insubstantial!");
 #endif
-
 		msg_print(NULL);
 		set_timed_trait_aux(creature_ptr, TRAIT_WRAITH_FORM, randint1(creature_ptr->lev / 2) + (creature_ptr->lev / 2), FALSE);
 	}
@@ -2377,37 +2372,18 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_WASTING) && one_in_(3000))
 	{
-		int which_stat = randint0(6);
+		int which_stat = randint0(STAT_MAX);
 		int sustained = FALSE;
 
 		switch (which_stat)
 		{
-		case STAT_STR:
-			if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sustained = TRUE;
-			break;
-		case STAT_INT:
-			if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sustained = TRUE;
-			break;
-		case STAT_WIS:
-			if(has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sustained = TRUE;
-			break;
-		case STAT_DEX:
-			if(has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sustained = TRUE;
-			break;
-		case STAT_CON:
-			if(has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sustained = TRUE;
-			break;
-		case STAT_CHA:
-			if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sustained = TRUE;
-			break;
-		default:
-#ifdef JP
-			msg_print("不正な状態！");
-#else
-			msg_print("Invalid stat chosen!");
-#endif
-
-			sustained = TRUE;
+		case STAT_STR: if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sustained = TRUE; break;
+		case STAT_INT: if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sustained = TRUE; break;
+		case STAT_WIS: if(has_trait(creature_ptr, TRAIT_SUSTAIN_WIS)) sustained = TRUE; break;
+		case STAT_DEX: if(has_trait(creature_ptr, TRAIT_SUSTAIN_DEX)) sustained = TRUE; break;
+		case STAT_CON: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CON)) sustained = TRUE; break;
+		case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sustained = TRUE; break;
+		default: sustained = TRUE; break;
 		}
 
 		if(!sustained)
@@ -2418,7 +2394,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You can feel yourself wasting away!");
 #endif
-
 			msg_print(NULL);
 			(void)dec_stat(creature_ptr, which_stat, randint1(6) + 6, one_in_(3));
 		}
@@ -2439,7 +2414,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You have attracted a dragon!");
 #endif
-
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2478,7 +2452,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #endif
 		msg_print(NULL);
 		set_food(creature_ptr, PY_FOOD_WEAK);
-		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 	}
 

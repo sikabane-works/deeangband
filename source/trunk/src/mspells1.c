@@ -671,32 +671,32 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	// Elemental resistances
 	if(has_trait(caster_ptr, TRAIT_BR_ACID))
 	{
-		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_FIRE))
 	{
 		if(!(has_trait(target_ptr, TRAIT_DEMON) && target_ptr->lev > 44)) //TODO
 		{
-			if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+			if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
 		}
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_ELEC))
 	{
-		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_COLD))
 	{
-		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || music_singing(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
 	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
 	{
 		if(!((target_ptr->class_idx == CLASS_NINJA) && caster_ptr->lev > 44))
 		{
-			if(target_ptr->timed_trait[TRAIT_RES_POIS] || music_singing(caster_ptr, MUSIC_RESIST)) return (TRUE);
+			if(target_ptr->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return (TRUE);
 		}
 	}
 

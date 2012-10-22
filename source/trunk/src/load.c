@@ -1021,7 +1021,7 @@ static void rd_creature(creature_type *creature_ptr)
 		for (i = 0; i < 108; i++) rd_byte(&creature_ptr->class_skills.old_skills.magic_num2[i]);
 	}
 
-	if(music_singing_any(creature_ptr)) creature_ptr->action = ACTION_SING;
+	if(MUSIC_SINGING_ANY(creature_ptr)) creature_ptr->action = ACTION_SING;
 
 	rd_s16b(&creature_ptr->old_realm);
 

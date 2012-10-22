@@ -469,7 +469,7 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 
 	if(known) detect_trap = TRUE;
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if(detect)
@@ -493,7 +493,7 @@ bool detect_doors(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if(detect)
@@ -517,7 +517,7 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 0) detect = FALSE;
 
 	/* Describe */
 	if(detect)
@@ -541,7 +541,7 @@ bool detect_treasure(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if(detect)
@@ -602,7 +602,7 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if(detect)
@@ -670,7 +670,7 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 6) detect = FALSE;
 
 	/* Describe */
 	if(detect)
@@ -828,7 +828,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if(flag)
@@ -897,7 +897,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 		}
 	}
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if(flag)
@@ -1176,7 +1176,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 		}
 	}
 
-	if(music_singing(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
+	if(MUSIC_SINGING(creature_ptr, MUSIC_DETECT) && creature_ptr->class_skills.old_skills.magic_num1[2] > 3) flag = FALSE;
 
 	/* Describe */
 	if(flag)

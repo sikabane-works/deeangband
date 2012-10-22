@@ -1858,7 +1858,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 	if(mpe_mode & MCE_ENERGY_USE)
 	{
-		if(music_singing(creature_ptr, MUSIC_WALL))
+		if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 		{
 			(void)project(creature_ptr, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE,
 				PROJECT_KILL | PROJECT_ITEM, -1);

@@ -60,7 +60,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	object_type *object_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 	/* Get the item (in the pack) */
@@ -685,7 +685,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 		return;
 	}
 
-	if(music_singing_any(user_ptr)) stop_singing(user_ptr);
+	if(MUSIC_SINGING_ANY(user_ptr)) stop_singing(user_ptr);
 	if(HEX_SPELLING_ANY(user_ptr)) if(!HEX_SPELLING(user_ptr, HEX_INHAIL)) stop_hex_spell_all(user_ptr);
 
 	// Get the item (in the pack or on the floor)
@@ -1468,7 +1468,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 		return;
 	}
 
-	if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+	if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 
 	/* Hex */
 	if(HEX_SPELLING_ANY(creature_ptr) && ((creature_ptr->lev < 35) || hex_spell_fully(creature_ptr))) stop_hex_spell_all(creature_ptr);
@@ -4052,7 +4052,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		/* Get a direction for breathing (or abort) */
 		if(!get_aim_dir(creature_ptr, &dir)) return;
 
-		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
 		/* Branch on the sub-type */
@@ -4225,7 +4225,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 	else if(object_ptr->tval == TV_WHISTLE)
 	{
-		if(music_singing_any(creature_ptr)) stop_singing(creature_ptr);
+		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 		{
 			int pet_ctr, i;
