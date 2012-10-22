@@ -1,12 +1,12 @@
 /* File: dungeonc */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: Angband game engine */
 
@@ -122,8 +122,8 @@ static void object_kind_info_reset(void)
 }
 
 /*
- * Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
- */
+* Return a "feeling" (or NULL) about an item.  Method 1 (Heavy).
+*/
 //TODO
 static byte value_check_aux1(creature_type *creature_ptr, object_type *object_ptr)
 {
@@ -167,8 +167,8 @@ static byte value_check_aux1(creature_type *creature_ptr, object_type *object_pt
 
 
 /*
- * Return a "feeling" (or NULL) about an item.  Method 2 (Light).
- */
+* Return a "feeling" (or NULL) about an item.  Method 2 (Light).
+*/
 static byte value_check_aux2(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Cursed items (all of them) */
@@ -218,17 +218,17 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	{
 		switch (feel)
 		{
-			case FEEL_TERRIBLE:
+		case FEEL_TERRIBLE:
 			{
 				feel = FEEL_SPECIAL;
 				break;
 			}
-			case FEEL_WORTHLESS:
+		case FEEL_WORTHLESS:
 			{
 				feel = FEEL_EXCELLENT;
 				break;
 			}
-			case FEEL_CURSED:
+		case FEEL_CURSED:
 			{
 				if(heavy)
 					feel = randint0(3) ? FEEL_GOOD : FEEL_AVERAGE;
@@ -236,12 +236,12 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 					feel = FEEL_UNCURSED;
 				break;
 			}
-			case FEEL_AVERAGE:
+		case FEEL_AVERAGE:
 			{
 				feel = randint0(2) ? FEEL_CURSED : FEEL_GOOD;
 				break;
 			}
-			case FEEL_GOOD:
+		case FEEL_GOOD:
 			{
 				if(heavy)
 					feel = randint0(3) ? FEEL_CURSED : FEEL_AVERAGE;
@@ -249,12 +249,12 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 					feel = FEEL_CURSED;
 				break;
 			}
-			case FEEL_EXCELLENT:
+		case FEEL_EXCELLENT:
 			{
 				feel = FEEL_WORTHLESS;
 				break;
 			}
-			case FEEL_SPECIAL:
+		case FEEL_SPECIAL:
 			{
 				feel = FEEL_TERRIBLE;
 				break;
@@ -272,13 +272,13 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP
-msg_format("%s%s(%c)は%sという感じがする...",
-describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscriptions[feel]);
+		msg_format("%s%s(%c)は%sという感じがする...",
+			describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) you are %s %s %s...",
-			   object_name, index_to_label(slot), describe_use(slot),
-			   ((object_ptr->number == 1) ? "is" : "are"),
-				   game_inscriptions[feel]);
+			object_name, index_to_label(slot), describe_use(slot),
+			((object_ptr->number == 1) ? "is" : "are"),
+			game_inscriptions[feel]);
 #endif
 
 	}
@@ -287,13 +287,13 @@ describe_use(creature_ptr, slot),object_name, index_to_label(slot),game_inscript
 	else
 	{
 #ifdef JP
-msg_format("ザックの中の%s(%c)は%sという感じがする...",
-object_name, index_to_label(slot),game_inscriptions[feel]);
+		msg_format("ザックの中の%s(%c)は%sという感じがする...",
+			object_name, index_to_label(slot),game_inscriptions[feel]);
 #else
 		msg_format("You feel the %s (%c) in your pack %s %s...",
-			   object_name, index_to_label(slot),
-			   ((object_ptr->number == 1) ? "is" : "are"),
-				   game_inscriptions[feel]);
+			object_name, index_to_label(slot),
+			((object_ptr->number == 1) ? "is" : "are"),
+			game_inscriptions[feel]);
 #endif
 
 	}
@@ -317,15 +317,15 @@ object_name, index_to_label(slot),game_inscriptions[feel]);
 
 
 /*
- * Sense the inventory
- *
- *   Class 0 = Warrior --> fast and heavy
- *   Class 1 = Mage    --> slow and light
- *   Class 2 = Priest  --> fast but light
- *   Class 3 = Rogue   --> okay and heavy
- *   Class 4 = Ranger  --> slow but heavy  (changed!)
- *   Class 5 = Paladin --> slow but heavy
- */
+* Sense the inventory
+*
+*   Class 0 = Warrior --> fast and heavy
+*   Class 1 = Mage    --> slow and light
+*   Class 2 = Priest  --> fast but light
+*   Class 3 = Rogue   --> okay and heavy
+*   Class 4 = Ranger  --> slow but heavy  (changed!)
+*   Class 5 = Paladin --> slow but heavy
+*/
 static void sense_inventory1(creature_type *creature_ptr)
 {
 	int         i;
@@ -342,10 +342,10 @@ static void sense_inventory1(creature_type *creature_ptr)
 	/* Analyze the class */
 	switch (creature_ptr->class_idx)
 	{
-		case CLASS_WARRIOR:
-		case CLASS_ARCHER:
-		case CLASS_SAMURAI:
-		case CLASS_CAVALRY:
+	case CLASS_WARRIOR:
+	case CLASS_ARCHER:
+	case CLASS_SAMURAI:
+	case CLASS_CAVALRY:
 		{
 			/* Good sensing */
 			if(0 != randint0(9000L / (plev * plev + 40))) return;
@@ -357,7 +357,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_SMITH:
+	case CLASS_SMITH:
 		{
 			/* Good sensing */
 			if(0 != randint0(6000L / (plev * plev + 50))) return;
@@ -369,10 +369,10 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_MAGE:
-		case CLASS_HIGH_MAGE:
-		case CLASS_SORCERER:
-		case CLASS_MAGIC_EATER:
+	case CLASS_MAGE:
+	case CLASS_HIGH_MAGE:
+	case CLASS_SORCERER:
+	case CLASS_MAGIC_EATER:
 		{
 			/* Very bad (light) sensing */
 			if(0 != randint0(240000L / (plev + 5))) return;
@@ -381,8 +381,8 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_PRIEST:
-		case CLASS_BARD:
+	case CLASS_PRIEST:
+	case CLASS_BARD:
 		{
 			/* Good (light) sensing */
 			if(0 != randint0(10000L / (plev * plev + 40))) return;
@@ -391,8 +391,8 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_ROGUE:
-		case CLASS_NINJA:
+	case CLASS_ROGUE:
+	case CLASS_NINJA:
 		{
 			/* Okay sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
@@ -404,7 +404,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_RANGER:
+	case CLASS_RANGER:
 		{
 			/* Bad sensing */
 			if(0 != randint0(95000L / (plev * plev + 40))) return;
@@ -416,8 +416,8 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_PALADIN:
-		case CLASS_SNIPER:
+	case CLASS_PALADIN:
+	case CLASS_SNIPER:
 		{
 			/* Bad sensing */
 			if(0 != randint0(77777L / (plev * plev + 40))) return;
@@ -429,8 +429,8 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_WARRIOR_MAGE:
-		case CLASS_RED_MAGE:
+	case CLASS_WARRIOR_MAGE:
+	case CLASS_RED_MAGE:
 		{
 			/* Bad sensing */
 			if(0 != randint0(75000L / (plev * plev + 40))) return;
@@ -439,10 +439,10 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_MINDCRAFTER:
-		case CLASS_IMITATOR:
-		case CLASS_BLUE_MAGE:
-		case CLASS_MIRROR_MASTER:
+	case CLASS_MINDCRAFTER:
+	case CLASS_IMITATOR:
+	case CLASS_BLUE_MAGE:
+	case CLASS_MIRROR_MASTER:
 		{
 			/* Bad sensing */
 			if(0 != randint0(55000L / (plev * plev + 40))) return;
@@ -451,7 +451,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_CHAOS_WARRIOR:
+	case CLASS_CHAOS_WARRIOR:
 		{
 			/* Bad sensing */
 			if(0 != randint0(80000L / (plev * plev + 40))) return;
@@ -463,8 +463,8 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_MONK:
-		case CLASS_FORCETRAINER:
+	case CLASS_MONK:
+	case CLASS_FORCETRAINER:
 		{
 			/* Okay sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
@@ -473,7 +473,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_TOURIST:
+	case CLASS_TOURIST:
 		{
 			/* Good sensing */
 			if(0 != randint0(20000L / ((plev+50)*(plev+50)))) return;
@@ -485,7 +485,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_BEASTMASTER:
+	case CLASS_BEASTMASTER:
 		{
 			/* Bad sensing */
 			if(0 != randint0(65000L / (plev * plev + 40))) return;
@@ -493,7 +493,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Done */
 			break;
 		}
-		case CLASS_BERSERKER:
+	case CLASS_BERSERKER:
 		{
 			/* Heavy sensing */
 			heavy = TRUE;
@@ -519,24 +519,24 @@ static void sense_inventory1(creature_type *creature_ptr)
 		/* Valid "tval" codes */
 		switch (object_ptr->tval)
 		{
-			case TV_SHOT:
-			case TV_ARROW:
-			case TV_BOLT:
-			case TV_BOW:
-			case TV_DIGGING:
-			case TV_HAFTED:
-			case TV_POLEARM:
-			case TV_SWORD:
-			case TV_BOOTS:
-			case TV_GLOVES:
-			case TV_HELM:
-			case TV_CROWN:
-			case TV_SHIELD:
-			case TV_CLOAK:
-			case TV_SOFT_ARMOR:
-			case TV_HARD_ARMOR:
-			case TV_DRAG_ARMOR:
-			case TV_CARD:
+		case TV_SHOT:
+		case TV_ARROW:
+		case TV_BOLT:
+		case TV_BOW:
+		case TV_DIGGING:
+		case TV_HAFTED:
+		case TV_POLEARM:
+		case TV_SWORD:
+		case TV_BOOTS:
+		case TV_GLOVES:
+		case TV_HELM:
+		case TV_CROWN:
+		case TV_SHIELD:
+		case TV_CLOAK:
+		case TV_SOFT_ARMOR:
+		case TV_HARD_ARMOR:
+		case TV_DRAG_ARMOR:
+		case TV_CARD:
 			{
 				okay = TRUE;
 				break;
@@ -575,22 +575,22 @@ static void sense_inventory2(creature_type *creature_ptr)
 	/* Analyze the class */
 	switch (creature_ptr->class_idx)
 	{
-		case CLASS_WARRIOR:
-		case CLASS_ARCHER:
-		case CLASS_SAMURAI:
-		case CLASS_CAVALRY:
-		case CLASS_BERSERKER:
-		case CLASS_SNIPER:
+	case CLASS_WARRIOR:
+	case CLASS_ARCHER:
+	case CLASS_SAMURAI:
+	case CLASS_CAVALRY:
+	case CLASS_BERSERKER:
+	case CLASS_SNIPER:
 		{
 			return;
 		}
 
-		case CLASS_SMITH:
-		case CLASS_PALADIN:
-		case CLASS_CHAOS_WARRIOR:
-		case CLASS_IMITATOR:
-		case CLASS_BEASTMASTER:
-		case CLASS_NINJA:
+	case CLASS_SMITH:
+	case CLASS_PALADIN:
+	case CLASS_CHAOS_WARRIOR:
+	case CLASS_IMITATOR:
+	case CLASS_BEASTMASTER:
+	case CLASS_NINJA:
 		{
 			/* Very bad (light) sensing */
 			if(0 != randint0(240000L / (plev + 5))) return;
@@ -599,10 +599,10 @@ static void sense_inventory2(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_RANGER:
-		case CLASS_WARRIOR_MAGE:
-		case CLASS_RED_MAGE:
-		case CLASS_MONK:
+	case CLASS_RANGER:
+	case CLASS_WARRIOR_MAGE:
+	case CLASS_RED_MAGE:
+	case CLASS_MONK:
 		{
 			/* Bad sensing */
 			if(0 != randint0(95000L / (plev * plev + 40))) return;
@@ -611,11 +611,11 @@ static void sense_inventory2(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_PRIEST:
-		case CLASS_BARD:
-		case CLASS_ROGUE:
-		case CLASS_FORCETRAINER:
-		case CLASS_MINDCRAFTER:
+	case CLASS_PRIEST:
+	case CLASS_BARD:
+	case CLASS_ROGUE:
+	case CLASS_FORCETRAINER:
+	case CLASS_MINDCRAFTER:
 		{
 			/* Good sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
@@ -624,12 +624,12 @@ static void sense_inventory2(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_MAGE:
-		case CLASS_HIGH_MAGE:
-		case CLASS_SORCERER:
-		case CLASS_MAGIC_EATER:
-		case CLASS_MIRROR_MASTER:
-		case CLASS_BLUE_MAGE:
+	case CLASS_MAGE:
+	case CLASS_HIGH_MAGE:
+	case CLASS_SORCERER:
+	case CLASS_MAGIC_EATER:
+	case CLASS_MIRROR_MASTER:
+	case CLASS_BLUE_MAGE:
 		{
 			/* Good sensing */
 			if(0 != randint0(9000L / (plev * plev + 40))) return;
@@ -638,7 +638,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 			break;
 		}
 
-		case CLASS_TOURIST:
+	case CLASS_TOURIST:
 		{
 			/* Good sensing */
 			if(0 != randint0(20000L / ((plev+50)*(plev+50)))) return;
@@ -663,10 +663,10 @@ static void sense_inventory2(creature_type *creature_ptr)
 		/* Valid "tval" codes */
 		switch (object_ptr->tval)
 		{
-			case TV_RING:
-			case TV_AMULET:
-			case TV_LITE:
-			case TV_FIGURINE:
+		case TV_RING:
+		case TV_AMULET:
+		case TV_LITE:
+		case TV_FIGURINE:
 			{
 				okay = TRUE;
 				break;
@@ -776,9 +776,9 @@ static void pattern_teleport(creature_type *creature_ptr)
 	creature_ptr->energy_need = 0;
 
 	/*
-	 * Clear all saved floors
-	 * and create a first saved floor
-	 */
+	* Clear all saved floors
+	* and create a first saved floor
+	*/
 	move_floor(creature_ptr, floor_ptr->dun_type, creature_ptr->wy, creature_ptr->wx, command_arg, floor_ptr, 0);
 
 	/* Leaving */
@@ -815,7 +815,7 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 		scatter(floor_ptr, &r_y, &r_x, creature_ptr->fy, creature_ptr->fx, 4, 0);
 
 		if(pattern_tile(floor_ptr, r_y, r_x) &&
-		    (feature_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
+			(feature_info[floor_ptr->cave[r_y][r_x].feat].subtype != PATTERN_TILE_WRECKED))
 		{
 			cave_set_feat(floor_ptr, r_y, r_x, feat_pattern_corrupted);
 		}
@@ -866,11 +866,11 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 #endif
 
 		/*
-		 * We could make the healing effect of the
-		 * Pattern center one-time only to avoid various kinds
-		 * of abuse, like luring the win creature into fighting you
-		 * in the middle of the pattern...
-		 */
+		* We could make the healing effect of the
+		* Pattern center one-time only to avoid various kinds
+		* of abuse, like luring the win creature into fighting you
+		* in the middle of the pattern...
+		*/
 		break;
 
 	case PATTERN_TILE_OLD:
@@ -909,8 +909,8 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 
 
 /*
- * Regenerate hit points				-RAK-
- */
+* Regenerate hit points				-RAK-
+*/
 static void regenhp(creature_type *creature_ptr, int percent)
 {
 	s32b new_chp;
@@ -924,10 +924,10 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	old_chp = creature_ptr->chp;
 
 	/*
-	 * Extract the new hitpoints
-	 *
-	 * 'percent' is the Regen factor in unit (1/2^16)
-	 */
+	* Extract the new hitpoints
+	*
+	* 'percent' is the Regen factor in unit (1/2^16)
+	*/
 	new_chp = 0;
 	new_chp_frac = (creature_ptr->mhp * percent + PY_REGEN_HPBASE);
 
@@ -960,16 +960,16 @@ static void regenhp(creature_type *creature_ptr, int percent)
 
 
 /*
- * Regenerate mana points
- */
+* Regenerate mana points
+*/
 static void regenmana(creature_type * creature_ptr, int percent)
 {
 	s32b old_csp = creature_ptr->csp;
 
 	/*
-	 * Excess mana will decay 32 times faster than normal
-	 * regeneration rate.
-	 */
+	* Excess mana will decay 32 times faster than normal
+	* regeneration rate.
+	*/
 	if(creature_ptr->csp > creature_ptr->msp)
 	{
 		/* PY_REGEN_NORMAL is the Regen factor in unit (1/2^16) */
@@ -1051,8 +1051,8 @@ static void regenmana(creature_type * creature_ptr, int percent)
 
 
 /*
- * Regenerate magic
- */
+* Regenerate magic
+*/
 static void regenmagic(creature_type *creature_ptr, int percent)
 {
 	s32b        new_mana;
@@ -1088,10 +1088,10 @@ static void regenmagic(creature_type *creature_ptr, int percent)
 
 
 /*
- * Regenerate the creatures (once per 100 game turns)
- *
- * XXX XXX XXX Should probably be done during creature turns.
- */
+* Regenerate the creatures (once per 100 game turns)
+*
+* XXX XXX XXX Should probably be done during creature turns.
+*/
 static void regen_creatures(creature_type *creature_ptr)
 {
 	int i, frac;
@@ -1135,10 +1135,10 @@ static void regen_creatures(creature_type *creature_ptr)
 
 
 /*
- * Regenerate the captured creatures (once per 30 game turns)
- *
- * XXX XXX XXX Should probably be done during creature turns.
- */
+* Regenerate the captured creatures (once per 30 game turns)
+*
+* XXX XXX XXX Should probably be done during creature turns.
+*/
 static void regen_captured_creatures(creature_type *creature_ptr)
 {
 	int i, frac;
@@ -1212,7 +1212,7 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 	{
 		disturb(player_ptr, 0, 0);
 #ifdef JP
-msg_print("明かりが消えてしまった！");
+		msg_print("明かりが消えてしまった！");
 #else
 		msg_print("Your light has gone out!");
 #endif
@@ -1225,11 +1225,11 @@ msg_print("明かりが消えてしまった！");
 	else if(object_ptr->name2 == EGO_LITE_LONG)
 	{
 		if((object_ptr->xtra4 < 50) && (!(object_ptr->xtra4 % 5))
-		    && (turn % (TURNS_PER_TICK*2)))
+			&& (turn % (TURNS_PER_TICK*2)))
 		{
 			if(disturb_minor) disturb(player_ptr, 0, 0);
 #ifdef JP
-msg_print("明かりが微かになってきている。");
+			msg_print("明かりが微かになってきている。");
 #else
 			msg_print("Your light is growing faint.");
 #endif
@@ -1242,7 +1242,7 @@ msg_print("明かりが微かになってきている。");
 	{
 		if(disturb_minor) disturb(player_ptr, 0, 0);
 #ifdef JP
-msg_print("明かりが微かになってきている。");
+		msg_print("明かりが微かになってきている。");
 #else
 		msg_print("Your light is growing faint.");
 #endif
@@ -1260,8 +1260,8 @@ void leave_quest_check(creature_type *creature_ptr)
 
 	// Leaving an 'only once' quest marks it as failed
 	if(leaving_quest &&
-	    ((quest[leaving_quest].flags & QUEST_FLAG_ONCE)  || (quest[leaving_quest].type == QUEST_TYPE_RANDOM)) &&
-	    (quest[leaving_quest].status == QUEST_STATUS_TAKEN))
+		((quest[leaving_quest].flags & QUEST_FLAG_ONCE)  || (quest[leaving_quest].type == QUEST_TYPE_RANDOM)) &&
+		(quest[leaving_quest].status == QUEST_STATUS_TAKEN))
 	{
 		quest[leaving_quest].status = QUEST_STATUS_FAILED;
 		quest[leaving_quest].complev = (byte)creature_ptr->lev;
@@ -1281,17 +1281,17 @@ void leave_quest_check(creature_type *creature_ptr)
 
 
 /*
- * Forcibly pseudo-identify an object in the inventory
- * (or on the floor)
- *
- * note: currently this function allows pseudo-id of any object,
- * including silly ones like potions & scrolls, which always
- * get '{average}'. This should be changed, either to stop such
- * items from being pseudo-id'd, or to allow psychometry to
- * detect whether the unidentified potion/scroll/etc is
- * good (Cure Light Wounds, Restore Strength, etc) or
- * bad (Poison, Weakness etc) or 'useless' (Slime Mold Juice, etc).
- */
+* Forcibly pseudo-identify an object in the inventory
+* (or on the floor)
+*
+* note: currently this function allows pseudo-id of any object,
+* including silly ones like potions & scrolls, which always
+* get '{average}'. This should be changed, either to stop such
+* items from being pseudo-id'd, or to allow psychometry to
+* detect whether the unidentified potion/scroll/etc is
+* good (Cure Light Wounds, Restore Strength, etc) or
+* bad (Poison, Weakness etc) or 'useless' (Slime Mold Juice, etc).
+*/
 bool psychometry(creature_type *creature_ptr)
 {
 	int             item;
@@ -1303,8 +1303,8 @@ bool psychometry(creature_type *creature_ptr)
 
 	/* Get an item */
 #ifdef JP
-q = "どのアイテムを調べますか？";
-s = "調べるアイテムがありません。";
+	q = "どのアイテムを調べますか？";
+	s = "調べるアイテムがありません。";
 #else
 	q = "Meditate on which item? ";
 	s = "You have nothing appropriate.";
@@ -1328,7 +1328,7 @@ s = "調べるアイテムがありません。";
 	if(object_is_known(object_ptr))
 	{
 #ifdef JP
-msg_print("何も新しいことは判らなかった。");
+		msg_print("何も新しいことは判らなかった。");
 #else
 		msg_print("You cannot find out anything more about that.");
 #endif
@@ -1346,7 +1346,7 @@ msg_print("何も新しいことは判らなかった。");
 	if(!feel)
 	{
 #ifdef JP
-msg_format("%sからは特に変わった事は感じとれなかった。", object_name);
+		msg_format("%sからは特に変わった事は感じとれなかった。", object_name);
 #else
 		msg_format("You do not perceive anything unusual about the %s.", object_name);
 #endif
@@ -1355,12 +1355,12 @@ msg_format("%sからは特に変わった事は感じとれなかった。", object_name);
 	}
 
 #ifdef JP
-msg_format("%sは%sという感じがする...",
-    object_name, game_inscriptions[feel]);
+	msg_format("%sは%sという感じがする...",
+		object_name, game_inscriptions[feel]);
 #else
 	msg_format("You feel that the %s %s %s...",
-			   object_name, ((object_ptr->number == 1) ? "is" : "are"),
-			   game_inscriptions[feel]);
+		object_name, ((object_ptr->number == 1) ? "is" : "are"),
+		game_inscriptions[feel]);
 #endif
 
 
@@ -1417,9 +1417,9 @@ msg_format("%sは%sという感じがする...",
 
 
 /*
- * If player has inscribed the object with "!!", let him know when it's
- * recharged. -LM-
- */
+* If player has inscribed the object with "!!", let him know when it's
+* recharged. -LM-
+*/
 static void recharged_notice(object_type *object_ptr)
 {
 	char object_name[MAX_NLEN];
@@ -1632,7 +1632,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 		if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->tval &&
 			(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->name2 != EGO_LITE_DARKNESS) &&
-		    !creature_ptr->resist_lite)
+			!creature_ptr->resist_lite)
 		{
 			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
 			char object_name [MAX_NLEN];
@@ -1664,11 +1664,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		int damage = calc_damage(creature_ptr, randint0(50) + 20, GF_CHAOS, FALSE);;		
 #ifdef JP
-			msg_print("混沌に身を蝕まれた！");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
+		msg_print("混沌に身を蝕まれた！");
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
 #else
-			msg_print("The chaos tainted you!");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
+		msg_print("The chaos tainted you!");
+		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
 #endif
 	}
 
@@ -1783,7 +1783,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 
 	if(have_flag(f_ptr->flags, FF_WATER) && have_flag(f_ptr->flags, FF_DEEP) &&
-	    !has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM))
+		!has_trait(creature_ptr, TRAIT_CAN_FLY) && !has_trait(creature_ptr, TRAIT_CAN_SWIM))
 	{
 		if(creature_ptr->carrying_weight > calc_carrying_weight_limit(creature_ptr))
 		{
@@ -1844,15 +1844,15 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	/* LICHs -- take damage when moving through walls */
 	/*
-	 * Added: ANYBODY takes damage if inside through walls
-	 * without wraith form -- NOTE: LICHs will never be
-	 * reduced below 0 hp by being inside a stone wall; others
-	 * WILL BE!
-	 */
+	* Added: ANYBODY takes damage if inside through walls
+	* without wraith form -- NOTE: LICHs will never be
+	* reduced below 0 hp by being inside a stone wall; others
+	* WILL BE!
+	*/
 	if(!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
 		if(!IS_INVULN(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WRAITH_FORM] && !creature_ptr->timed_trait[TRAIT_PASS_WALL] &&
-		    ((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
+			((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;
 
@@ -1914,8 +1914,8 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	/* No regeneration while special action */
 	if((creature_ptr->action == ACTION_LEARN) ||
-	    (creature_ptr->action == ACTION_HAYAGAKE) ||
-	    (creature_ptr->posture & KATA_KOUKIJIN))
+		(creature_ptr->action == ACTION_HAYAGAKE) ||
+		(creature_ptr->posture & KATA_KOUKIJIN))
 	{
 		upkeep_factor += 100;
 	}
@@ -1972,8 +1972,8 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 
 /*
- * Handle timeout every 10 game turns
- */
+* Handle timeout every 10 game turns
+*/
 static void process_world_aux_timeout(creature_type *creature_ptr)
 {
 	int i;
@@ -2022,8 +2022,8 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 
 
 /*
- * Handle burning fuel every 10 game turns
- */
+* Handle burning fuel every 10 game turns
+*/
 static void process_world_aux_light(creature_type *creature_ptr)
 {
 	/* Check for light being wielded */
@@ -2090,7 +2090,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_RTELEPORT) && (randint1(5000) == 88))
 	{
 		if(!creature_ptr->resist_nexus && !has_trait(creature_ptr, TRAIT_VTELEPORT) &&
-		    !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
+			!has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
 #ifdef JP
@@ -2291,7 +2291,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		{
 			if(!object_is_fixed_artifact(object_ptr) && (object_ptr->xtra4 > 0))	// Use some fuel (except on artifacts)
 			{
-				
+
 				heal_creature(creature_ptr, object_ptr->xtra4 / 20);	// Heal the player a bit			
 				object_ptr->xtra4 /= 2;	// Decrease life-span of lite
 #ifdef JP
@@ -2304,9 +2304,9 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		}
 
 		/*
-		 * Unlite the area (radius 10) around player and
-		 * do 50 points damage to every affected creature
-		 */
+		* Unlite the area (radius 10) around player and
+		* do 50 points damage to every affected creature
+		*/
 		unlite_area(creature_ptr, 50, 10);
 	}
 
@@ -2348,7 +2348,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #ifdef JP
 			msg_print("奇妙なくらい普通になった気がする。");
 #else
-		msg_print("You feel oddly normal.");
+			msg_print("You feel oddly normal.");
 #endif
 
 	}
@@ -2556,267 +2556,264 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		}
 	}
 
-	if((creature_ptr->cursed & TRC_P_FLAG_MASK) && !floor_ptr->gamble_arena_mode && !floor_ptr->wild_mode)
+	/*
+	* Hack: Uncursed teleporting items (e.g. Trump Weapons)
+	* can actually be useful!
+	*/
+	if((has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) && one_in_(200))
 	{
-		/*
-		 * Hack: Uncursed teleporting items (e.g. Trump Weapons)
-		 * can actually be useful!
-		 */
-		if((has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) && one_in_(200))
+		char object_name[MAX_NLEN];
+		object_type *object_ptr;
+		int i, i_keep = 0, count = 0;
+
+		/* Scan the equipment with random teleport ability */
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			char object_name[MAX_NLEN];
-			object_type *object_ptr;
-			int i, i_keep = 0, count = 0;
+			u32b flgs[TRAIT_FLAG_MAX];
+			object_ptr = &creature_ptr->inventory[i];
 
-			/* Scan the equipment with random teleport ability */
-			for (i = 0; i < INVEN_TOTAL; i++)
+			// Skip no equip
+			if(!IS_EQUIPPED(object_ptr)) continue;
+
+			/* Skip non-objects */
+			if(!object_ptr->k_idx) continue;
+
+			/* Extract the item flags */
+			object_flags(object_ptr, flgs);
+
+			if(have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
 			{
-				u32b flgs[TRAIT_FLAG_MAX];
-				object_ptr = &creature_ptr->inventory[i];
-
-				// Skip no equip
-				if(!IS_EQUIPPED(object_ptr)) continue;
-
-				/* Skip non-objects */
-				if(!object_ptr->k_idx) continue;
-
-				/* Extract the item flags */
-				object_flags(object_ptr, flgs);
-
-				if(have_flag(flgs, TRAIT_PASSIVE_TELEPORT))
+				/* {.} will stop random teleportation. */
+				if(!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '.'))
 				{
-					/* {.} will stop random teleportation. */
-					if(!object_ptr->inscription || !my_strchr(quark_str(object_ptr->inscription), '.'))
-					{
-						count++;
-						if(one_in_(count)) i_keep = i;
-					}
+					count++;
+					if(one_in_(count)) i_keep = i;
 				}
 			}
+		}
 
-			object_ptr = &creature_ptr->inventory[i_keep];
-			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+		object_ptr = &creature_ptr->inventory[i_keep];
+		object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 #ifdef JP
-			msg_format("%sがテレポートの能力を発動させようとしている。", object_name);
+		msg_format("%sがテレポートの能力を発動させようとしている。", object_name);
 #else
-			msg_format("Your %s is activating teleportation.", object_name);
+		msg_format("Your %s is activating teleportation.", object_name);
 #endif
 
 #ifdef JP
-			if(get_check_strict("テレポートしますか？", CHECK_OKAY_CANCEL))
+		if(get_check_strict("テレポートしますか？", CHECK_OKAY_CANCEL))
 #else
-			if(get_check_strict("Teleport? ", CHECK_OKAY_CANCEL))
+		if(get_check_strict("Teleport? ", CHECK_OKAY_CANCEL))
 #endif
-			{
-				disturb(player_ptr, 0, 0);
-				teleport_player(creature_ptr, 50, 0L);
-			}
-			else
-			{
-#ifdef JP
-				msg_format("%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", object_name);
-#else
-				msg_format("You can inscribe {.} on your %s to disable random teleportation. ", object_name);
-#endif
-				disturb(player_ptr, 1, 0);
-			}
-		}
-
-		// Make a chainsword noise
-		if(has_trait(creature_ptr, TRAIT_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
-		{
-			char noise[1024];
-#ifdef JP
-			if(!get_rnd_line("chainswd_j.txt", 0, noise))
-#else
-			if(!get_rnd_line("chainswd.txt", 0, noise))
-#endif
-			msg_print(noise);
-			disturb(player_ptr, FALSE, FALSE);
-		}
-
-		// TY Curse
-		if(has_trait(creature_ptr, TRAIT_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
-		{
-			int count = 0;
-			(void)activate_ty_curse(creature_ptr, FALSE, &count);
-		}
-
-		// Handle experience draining
-		if(!has_trait(creature_ptr, TRAIT_ANDROID) &&  has_trait(creature_ptr, TRAIT_DRAIN_EXP) && one_in_(4))
-		{
-			creature_ptr->exp -= (creature_ptr->lev + 1) / 2;
-			if(creature_ptr->exp < 0) creature_ptr->exp = 0;
-			creature_ptr->max_exp -= (creature_ptr->lev + 1) / 2;
-			if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
-			check_experience(creature_ptr);
-		}
-
-		// Add light curse (Later)
-		if((has_trait(creature_ptr, TRAIT_ADD_L_CURSE)) && one_in_(2000))
-		{
-			u32b new_curse;
-			object_type *object_ptr;
-
-			object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_ADD_L_CURSE);
-
-			new_curse = get_curse(0, object_ptr);
-			if(!(object_ptr->curse_flags[0] & new_curse))
-			{
-				char object_name[MAX_NLEN];
-
-				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-				object_ptr->curse_flags[0] |= new_curse;
-#ifdef JP
-				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
-#else
-				msg_format("There is a malignant black aura surrounding your %s...", object_name);
-#endif
-
-				object_ptr->feeling = FEEL_NONE;
-				creature_ptr->creature_update |= (CRU_BONUS);
-			}
-		}
-
-		/* Add heavy curse (Later) */
-		if((has_trait(creature_ptr, TRAIT_ADD_H_CURSE)) && one_in_(2000))
-		{
-			u32b new_curse;
-			object_type *object_ptr;
-
-			object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_ADD_H_CURSE);
-
-			new_curse = get_curse(1, object_ptr);
-			if(!(object_ptr->curse_flags[0] & new_curse))
-			{
-				char object_name[MAX_NLEN];
-
-				object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
-				object_ptr->curse_flags[0] |= new_curse;
-#ifdef JP
-				msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
-#else
-				msg_format("There is a malignant black aura surrounding your %s...", object_name);
-#endif
-				object_ptr->feeling = FEEL_NONE;
-				creature_ptr->creature_update |= (CRU_BONUS);
-			}
-		}
-
-		/* Call animal */
-		if((has_trait(creature_ptr, TRAIT_CALL_ANIMAL)) && one_in_(2500))
-		{
-			if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL,
-			    (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-			{
-				char object_name[MAX_NLEN];
-
-				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-				msg_format("%sが動物を引き寄せた！", object_name);
-#else
-				msg_format("Your %s have attracted an animal!", object_name);
-#endif
-
-				disturb(player_ptr, 0, 0);
-			}
-		}
-
-		/* Call demon */
-		if((has_trait(creature_ptr, TRAIT_CALL_DEMON)) && one_in_(1111))
-		{
-			if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-			{
-				char object_name[MAX_NLEN];
-				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-				msg_format("%sが悪魔を引き寄せた！", object_name);
-#else
-				msg_format("Your %s have attracted a demon!", object_name);
-#endif
-
-				disturb(player_ptr, 0, 0);
-			}
-		}
-
-		/* Call dragon */
-		if((has_trait(creature_ptr, TRAIT_CALL_DRAGON)) && one_in_(800))
-		{
-			if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON,
-			    (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-			{
-				char object_name[MAX_NLEN];
-
-				object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-				msg_format("%sがドラゴンを引き寄せた！", object_name);
-#else
-				msg_format("Your %s have attracted an animal!", object_name);
-#endif
-
-				disturb(player_ptr, 0, 0);
-			}
-		}
-
-		if(has_trait(creature_ptr, TRAIT_COWARDICE) && one_in_(1500))
-		{
-			if(!has_trait(creature_ptr, TRAIT_FEARLESS))
-			{
-				disturb(player_ptr, 0, 0);
-#ifdef JP
-				msg_print("とても暗い... とても恐い！");
-#else
-				msg_print("It's so dark... so scary!");
-#endif
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
-			}
-		}
-
-		/* Teleport player */
-		if(has_trait(creature_ptr, TRAIT_RANDOM_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 		{
 			disturb(player_ptr, 0, 0);
-
-			/* Teleport player */
-			teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
+			teleport_player(creature_ptr, 50, 0L);
 		}
+		else
+		{
+#ifdef JP
+			msg_format("%sに{.}(ピリオド)と銘を刻むと発動を抑制できます。", object_name);
+#else
+			msg_format("You can inscribe {.} on your %s to disable random teleportation. ", object_name);
+#endif
+			disturb(player_ptr, 1, 0);
+		}
+	}
 
-		/* Handle HP draining */
-		if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
+	// Make a chainsword noise
+	if(has_trait(creature_ptr, TRAIT_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
+	{
+		char noise[1024];
+#ifdef JP
+		if(!get_rnd_line("chainswd_j.txt", 0, noise))
+#else
+		if(!get_rnd_line("chainswd.txt", 0, noise))
+#endif
+			msg_print(noise);
+		disturb(player_ptr, FALSE, FALSE);
+	}
+
+	// TY Curse
+	if(has_trait(creature_ptr, TRAIT_TY_CURSE) && one_in_(TY_CURSE_CHANCE))
+	{
+		int count = 0;
+		(void)activate_ty_curse(creature_ptr, FALSE, &count);
+	}
+
+	// Handle experience draining
+	if(!has_trait(creature_ptr, TRAIT_ANDROID) &&  has_trait(creature_ptr, TRAIT_DRAIN_EXP) && one_in_(4))
+	{
+		creature_ptr->exp -= (creature_ptr->lev + 1) / 2;
+		if(creature_ptr->exp < 0) creature_ptr->exp = 0;
+		creature_ptr->max_exp -= (creature_ptr->lev + 1) / 2;
+		if(creature_ptr->max_exp < 0) creature_ptr->max_exp = 0;
+		check_experience(creature_ptr);
+	}
+
+	// Add light curse (Later)
+	if((has_trait(creature_ptr, TRAIT_ADD_L_CURSE)) && one_in_(2000))
+	{
+		u32b new_curse;
+		object_type *object_ptr;
+
+		object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_ADD_L_CURSE);
+
+		new_curse = get_curse(0, object_ptr);
+		if(!(object_ptr->curse_flags[0] & new_curse))
 		{
 			char object_name[MAX_NLEN];
 
-			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
-#ifdef JP
-			msg_format("%sはあなたの体力を吸収した！", object_name);
-#else
-			msg_format("Your %s drains HP from you!", object_name);
-#endif
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
-		}
+			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-		/* Handle mana draining */
-		if((has_trait(creature_ptr, TRAIT_DRAIN_MANA)) && creature_ptr->csp && one_in_(666))
+			object_ptr->curse_flags[0] |= new_curse;
+#ifdef JP
+			msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
+#else
+			msg_format("There is a malignant black aura surrounding your %s...", object_name);
+#endif
+
+			object_ptr->feeling = FEEL_NONE;
+			creature_ptr->creature_update |= (CRU_BONUS);
+		}
+	}
+
+	/* Add heavy curse (Later) */
+	if((has_trait(creature_ptr, TRAIT_ADD_H_CURSE)) && one_in_(2000))
+	{
+		u32b new_curse;
+		object_type *object_ptr;
+
+		object_ptr = choose_cursed_obj_name(creature_ptr, TRAIT_ADD_H_CURSE);
+
+		new_curse = get_curse(1, object_ptr);
+		if(!(object_ptr->curse_flags[0] & new_curse))
 		{
 			char object_name[MAX_NLEN];
 
-			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+
+			object_ptr->curse_flags[0] |= new_curse;
 #ifdef JP
-			msg_format("%sはあなたの魔力を吸収した！", object_name);
+			msg_format("悪意に満ちた黒いオーラが%sをとりまいた...", object_name);
 #else
-			msg_format("Your %s drains mana from you!", object_name);
+			msg_format("There is a malignant black aura surrounding your %s...", object_name);
 #endif
-			creature_ptr->csp -= MIN(creature_ptr->lev, 50);
-			if(creature_ptr->csp < 0)
-			{
-				creature_ptr->csp = 0;
-				creature_ptr->csp_frac = 0;
-			}
-			play_redraw |= PR_MANA;
+			object_ptr->feeling = FEEL_NONE;
+			creature_ptr->creature_update |= (CRU_BONUS);
 		}
+	}
+
+	/* Call animal */
+	if((has_trait(creature_ptr, TRAIT_CALL_ANIMAL)) && one_in_(2500))
+	{
+		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_ANIMAL,
+			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+		{
+			char object_name[MAX_NLEN];
+
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+			msg_format("%sが動物を引き寄せた！", object_name);
+#else
+			msg_format("Your %s have attracted an animal!", object_name);
+#endif
+
+			disturb(player_ptr, 0, 0);
+		}
+	}
+
+	/* Call demon */
+	if((has_trait(creature_ptr, TRAIT_CALL_DEMON)) && one_in_(1111))
+	{
+		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+		{
+			char object_name[MAX_NLEN];
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+			msg_format("%sが悪魔を引き寄せた！", object_name);
+#else
+			msg_format("Your %s have attracted a demon!", object_name);
+#endif
+
+			disturb(player_ptr, 0, 0);
+		}
+	}
+
+	/* Call dragon */
+	if((has_trait(creature_ptr, TRAIT_CALL_DRAGON)) && one_in_(800))
+	{
+		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DRAGON,
+			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+		{
+			char object_name[MAX_NLEN];
+
+			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+			msg_format("%sがドラゴンを引き寄せた！", object_name);
+#else
+			msg_format("Your %s have attracted an animal!", object_name);
+#endif
+
+			disturb(player_ptr, 0, 0);
+		}
+	}
+
+	if(has_trait(creature_ptr, TRAIT_COWARDICE) && one_in_(1500))
+	{
+		if(!has_trait(creature_ptr, TRAIT_FEARLESS))
+		{
+			disturb(player_ptr, 0, 0);
+#ifdef JP
+			msg_print("とても暗い... とても恐い！");
+#else
+			msg_print("It's so dark... so scary!");
+#endif
+			set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
+		}
+	}
+
+	/* Teleport player */
+	if(has_trait(creature_ptr, TRAIT_RANDOM_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
+	{
+		disturb(player_ptr, 0, 0);
+
+		/* Teleport player */
+		teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
+	}
+
+	/* Handle HP draining */
+	if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
+	{
+		char object_name[MAX_NLEN];
+
+		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+		msg_format("%sはあなたの体力を吸収した！", object_name);
+#else
+		msg_format("Your %s drains HP from you!", object_name);
+#endif
+		take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
+	}
+
+	/* Handle mana draining */
+	if((has_trait(creature_ptr, TRAIT_DRAIN_MANA)) && creature_ptr->csp && one_in_(666))
+	{
+		char object_name[MAX_NLEN];
+
+		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
+#ifdef JP
+		msg_format("%sはあなたの魔力を吸収した！", object_name);
+#else
+		msg_format("Your %s drains mana from you!", object_name);
+#endif
+		creature_ptr->csp -= MIN(creature_ptr->lev, 50);
+		if(creature_ptr->csp < 0)
+		{
+			creature_ptr->csp = 0;
+			creature_ptr->csp_frac = 0;
+		}
+		play_redraw |= PR_MANA;
 	}
 
 	/* Rarely, take damage from the Jewel of Judgement */
@@ -2846,8 +2843,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 }
 
 /*
- * Handle recharging objects once every 10 game turns
- */
+* Handle recharging objects once every 10 game turns
+*/
 static void process_world_aux_recharge(creature_type *creature_ptr)
 {
 	int i;
@@ -2889,10 +2886,10 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	}
 
 	/*
-	 * Recharge rods.  Rods now use timeout to control charging status,
-	 * and each charging rod in a stack decreases the stack's timeout by
-	 * one per turn. -LM-
-	 */
+	* Recharge rods.  Rods now use timeout to control charging status,
+	* and each charging rod in a stack decreases the stack's timeout by
+	* one per turn. -LM-
+	*/
 	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
@@ -2960,8 +2957,8 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 
 
 /*
- * Handle involuntary movement once every 10 game turns
- */
+* Handle involuntary movement once every 10 game turns
+*/
 static void process_world_aux_movement(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -2970,10 +2967,10 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL])
 	{
 		/*
-		 * HACK: Autosave BEFORE resetting the recall counter (rr9)
-		 * The player is yanked up/down as soon as
-		 * he loads the autosaved game.
-		 */
+		* HACK: Autosave BEFORE resetting the recall counter (rr9)
+		* The player is yanked up/down as soon as
+		* he loads the autosaved game.
+		*/
 		if(autosave_l && (creature_ptr->timed_trait[TRAIT_WORD_RECALL] == 1) && !floor_ptr->gamble_arena_mode)
 			do_cmd_save_game(TRUE);
 
@@ -3013,7 +3010,7 @@ static void process_world_aux_movement(creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-msg_print("下に引きずり降ろされる感じがする！");
+				msg_print("下に引きずり降ろされる感じがする！");
 #else
 				msg_print("You feel yourself yanked downwards!");
 #endif
@@ -3057,9 +3054,9 @@ msg_print("下に引きずり降ろされる感じがする！");
 				}
 
 				/*
-				 * Clear all saved floors
-				 * and create a first saved floor
-				 */
+				* Clear all saved floors
+				* and create a first saved floor
+				*/
 				//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 				/* Leaving */
@@ -3072,8 +3069,8 @@ msg_print("下に引きずり降ろされる感じがする！");
 					for (i = MIN_RANDOM_QUEST; i < MAX_RANDOM_QUEST + 1; i++)
 					{
 						if((quest[i].type == QUEST_TYPE_RANDOM) &&
-						    (quest[i].status == QUEST_STATUS_TAKEN) &&
-						    (quest[i].level < floor_ptr->floor_level))
+							(quest[i].status == QUEST_STATUS_TAKEN) &&
+							(quest[i].level < floor_ptr->floor_level))
 						{
 							quest[i].status = QUEST_STATUS_FAILED;
 							quest[i].complev = (byte)creature_ptr->lev;
@@ -3114,9 +3111,9 @@ msg_print("下に引きずり降ろされる感じがする！");
 				msg_print("The world changes!");
 #endif
 				/*
-				 * Clear all saved floors
-				 * and create a first saved floor
-				 */
+				* Clear all saved floors
+				* and create a first saved floor
+				*/
 				//prepare_change_floor_mode(creature_ptr, CFM_FIRST_FLOOR);
 
 				/* Leaving */
@@ -3156,7 +3153,7 @@ static int get_creature_crowd_number(int m_idx)
 
 		// Count number of creatures
 		if(floor_ptr->cave[ay][ax].creature_idx > 0) count++;
- 	}
+	}
 
 	return count;
 }
@@ -3164,8 +3161,8 @@ static int get_creature_crowd_number(int m_idx)
 
 
 /*
- * Dungeon rating is no longer linear
- */
+* Dungeon rating is no longer linear
+*/
 #define RATING_BOOST(delta) (delta * delta + 50 * delta)
 
 
@@ -3203,8 +3200,8 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 		// Unusually crowded creatures get a little bit of rating boost
 		if(has_trait(creature_ptr, TRAIT_FRIENDS))
 			if(5 <= get_creature_crowd_number(i)) delta += 1;
-		else
-			if(2 <= get_creature_crowd_number(i)) delta += 1;
+			else
+				if(2 <= get_creature_crowd_number(i)) delta += 1;
 
 		rating += RATING_BOOST(delta);
 	}
@@ -3238,7 +3235,7 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 		}
 
 		if(!object_is_cursed(object_ptr) && !object_is_broken(object_ptr) && 
-		    kind_ptr->level > floor_ptr->floor_level) // Out-of-depth objects
+			kind_ptr->level > floor_ptr->floor_level) // Out-of-depth objects
 			delta += (kind_ptr->level - floor_ptr->floor_level) * base; // Rating increase
 
 		rating += RATING_BOOST(delta);
@@ -3275,7 +3272,7 @@ static void update_dungeon_feeling(creature_type *creature_ptr)
 	// No feeling in a quest
 	quest_num = quest_number(floor_ptr);
 	if(quest_num && (is_fixed_quest_idx(quest_num) && !(quest_num == QUEST_SERPENT ||
-	       !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) return;
+		!(quest[quest_num].flags & QUEST_FLAG_PRESET)))) return;
 
 	new_feeling = get_dungeon_feeling(floor_ptr); // Get new dungeon feeling
 	creature_ptr->feeling_turn = turn; // Remember last time updated
@@ -3308,69 +3305,69 @@ static void creature_arena_result(floor_type *floor_ptr)
 			}
 		}
 
-	if(number_mon == 0)
-	{
-#ifdef JP
-		msg_print("相打ちに終わりました。");
-#else
-		msg_print("They have kill each other at the same time.");
-#endif
-		msg_print(NULL);
-		battle_creatures();
-	}
-	else if((number_mon-1) == 0)
-	{
-		char m_name[80];
-		creature_type *wm_ptr;
-
-		wm_ptr = &creature_list[win_m_idx];
-
-		creature_desc(m_name, wm_ptr, 0);
-#ifdef JP
-		msg_format("%sが勝利した！", m_name);
-#else
-		msg_format("%s is winner!", m_name);
-#endif
-		msg_print(NULL);
-
-		if(win_m_idx == (sel_creature+1))
+		if(number_mon == 0)
 		{
 #ifdef JP
-			msg_print("おめでとうございます。");
+			msg_print("相打ちに終わりました。");
 #else
-			msg_print("Congratulations.");
+			msg_print("They have kill each other at the same time.");
 #endif
-#ifdef JP
-			msg_format("%d＄を受け取った。", battle_odds);
-#else
-			msg_format("You received %d gold.", battle_odds);
-#endif
-			player_ptr->au += battle_odds;
+			msg_print(NULL);
+			battle_creatures();
 		}
-		else
+		else if((number_mon-1) == 0)
 		{
+			char m_name[80];
+			creature_type *wm_ptr;
+
+			wm_ptr = &creature_list[win_m_idx];
+
+			creature_desc(m_name, wm_ptr, 0);
 #ifdef JP
-			msg_print("残念でした。");
+			msg_format("%sが勝利した！", m_name);
 #else
-			msg_print("You lost gold.");
+			msg_format("%s is winner!", m_name);
 #endif
-		}
-		msg_print(NULL);
-		battle_creatures();
-	}
-	/* TODO Turn count in floor.
-	else if(turn - old_turn == 150 * TURNS_PER_TICK)
-	{
+			msg_print(NULL);
+
+			if(win_m_idx == (sel_creature+1))
+			{
 #ifdef JP
+				msg_print("おめでとうございます。");
+#else
+				msg_print("Congratulations.");
+#endif
+#ifdef JP
+				msg_format("%d＄を受け取った。", battle_odds);
+#else
+				msg_format("You received %d gold.", battle_odds);
+#endif
+				player_ptr->au += battle_odds;
+			}
+			else
+			{
+#ifdef JP
+				msg_print("残念でした。");
+#else
+				msg_print("You lost gold.");
+#endif
+			}
+			msg_print(NULL);
+			battle_creatures();
+		}
+		/* TODO Turn count in floor.
+		else if(turn - old_turn == 150 * TURNS_PER_TICK)
+		{
+		#ifdef JP
 		msg_print("申し分けありませんが、この勝負は引き分けとさせていただきます。");
-#else
+		#else
 		msg_format("This battle have ended in a draw.");
-#endif
+		#endif
 		player_ptr->au += kakekin;
 		msg_print(NULL);
 		battle_creatures();
-	}
-	*/
+		}
+		*/
 }
 
 static void sunrise_and_sunset(floor_type *floor_ptr)
@@ -3448,7 +3445,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 							feature_type *f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
 							if(!is_mirror_grid(c_ptr) && !have_flag(f_ptr->flags, FF_QUEST_ENTER) &&
-							    !have_flag(f_ptr->flags, FF_ENTRANCE))
+								!have_flag(f_ptr->flags, FF_ENTRANCE))
 							{
 								/* Assume dark */
 								c_ptr->info &= ~(CAVE_GLOW);
@@ -3483,7 +3480,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			/*
 			if(creature_ptr->posture & NINJA_S_STEALTH)
 			{
-				if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
+			if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
 			}
 			*/
 		}
@@ -3492,8 +3489,8 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 
 
 /*
- * Handle certain things once every 10 game turns
- */
+* Handle certain things once every 10 game turns
+*/
 static void process_world(void)
 {
 	int i;
@@ -3503,7 +3500,7 @@ static void process_world(void)
 
 	s32b prev_turn_in_today = ((turn - TURNS_PER_TICK) % A_DAY + A_DAY / 4) % A_DAY;
 	int prev_min = (1440 * prev_turn_in_today / A_DAY) % 60;
-	
+
 	extract_day_hour_min(&day, &hour, &min);
 
 	// Update dungeon feeling, and announce it if changed
@@ -3530,7 +3527,7 @@ static void process_world(void)
 
 	/* Check for creature generation. */
 	if(one_in_(dungeon_info[floor_ptr->dun_type].max_m_alloc_chance) &&
-	    !floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode)
+		!floor_ptr->fight_arena_mode && !floor_ptr->quest && !floor_ptr->gamble_arena_mode)
 	{
 		/* Make a new creature */
 		(void)alloc_creature(floor_ptr, player_ptr, MAX_SIGHT + 5, 0);
@@ -3551,10 +3548,10 @@ static void process_world(void)
 	}
 
 	/*
-	 * Nightmare mode activates the TY_CURSE at midnight
-	 *
-	 * Require exact minute -- Don't activate multiple times in a minute
-	 */
+	* Nightmare mode activates the TY_CURSE at midnight
+	*
+	* Require exact minute -- Don't activate multiple times in a minute
+	*/
 	if(curse_of_Iluvatar && (min != prev_min))
 	{
 		// Every 15 minutes after 11:00 pm
@@ -3618,7 +3615,7 @@ static void process_world(void)
 	for(i = 0; i < creature_max; i++)
 	{
 		creature_ptr = &creature_list[i];
-		
+
 		process_world_aux_timeout(creature_ptr);		// Process timeout
 		process_world_aux_light(creature_ptr);			// Process light
 		process_world_aux_time_trying(creature_ptr);	// Process time trying
@@ -3637,8 +3634,8 @@ static void process_world(void)
 
 
 /*
- * Verify use of "wizard" mode
- */
+* Verify use of "wizard" mode
+*/
 static bool enter_wizard_mode(creature_type *creature_ptr)
 {
 	/* Ask first time */
@@ -3694,8 +3691,8 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 #ifdef ALLOW_WIZARD
 
 /*
- * Verify use of "debug" commands
- */
+* Verify use of "debug" commands
+*/
 static bool enter_debug_mode(creature_type *creature_ptr)
 {
 	/* Ask first time */
@@ -3747,19 +3744,19 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 }
 
 /*
- * Hack -- Declare the Debug Routines
- */
+* Hack -- Declare the Debug Routines
+*/
 extern void do_cmd_debug(creature_type *creature_ptr);
 
 #endif /* ALLOW_WIZARD */
 
 
 /*
- * Parse and execute the current command
- * Give "Warning" on illegal commands.
- *
- * XXX XXX XXX Make some "blocks"
- */
+* Parse and execute the current command
+* Give "Warning" on illegal commands.
+*
+* XXX XXX XXX Make some "blocks"
+*/
 static void process_player_command(creature_type *creature_ptr)
 {
 	int old_now_message = now_message;
@@ -3778,15 +3775,15 @@ static void process_player_command(creature_type *creature_ptr)
 	switch (command_cmd)
 	{
 		/* Ignore */
-		case ESCAPE:
-		case ' ':
+	case ESCAPE:
+	case ' ':
 		{
 			break;
 		}
 
 		/* Ignore return */
-		case '\r':
-		case '\n':
+	case '\r':
+	case '\n':
 		{
 			break;
 		}
@@ -3794,7 +3791,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Wizard Commands ***/
 
 		/* Toggle Wizard Mode */
-		case KTRL('W'):
+	case KTRL('W'):
 		{
 			if(wizard)
 			{
@@ -3830,7 +3827,7 @@ static void process_player_command(creature_type *creature_ptr)
 #ifdef ALLOW_WIZARD
 
 		/* Special "debug" commands */
-		case KTRL('A'):
+	case KTRL('A'):
 		{
 			/* Enter debug mode */
 			if(enter_debug_mode(creature_ptr))
@@ -3845,42 +3842,42 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** inventory Commands ***/
 
 		/* Wear/wield equipment */
-		case 'w':
+	case 'w':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_wield(creature_ptr);
 			break;
 		}
 
 		/* Take off equipment */
-		case 't':
+	case 't':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_takeoff(creature_ptr);
 			break;
 		}
 
 		/* Drop an item */
-		case 'd':
+	case 'd':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_drop(creature_ptr);
 			break;
 		}
 
 		/* Destroy an item */
-		case 'k':
+	case 'k':
 		{
 			do_cmd_destroy(creature_ptr);
 			break;
 		}
 
 		/* Equipment list */
-		case 'e':
+	case 'e':
 		{
 			do_cmd_equip(creature_ptr);
 			break;
 		}
 
 		/* inventory list */
-		case 'i':
+	case 'i':
 		{
 			do_cmd_inven(creature_ptr);
 			break;
@@ -3890,14 +3887,14 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Various commands ***/
 
 		/* Identify an object */
-		case 'I':
+	case 'I':
 		{
 			do_cmd_observe(creature_ptr);
 			break;
 		}
 
 		/* Hack -- toggle windows */
-		case KTRL('I'):
+	case KTRL('I'):
 		{
 			toggle_inven_equip();
 			break;
@@ -3907,28 +3904,28 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Standard "Movement" Commands ***/
 
 		/* Alter a grid */
-		case '+':
+	case '+':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_alter(creature_ptr);
 			break;
 		}
 
 		/* Dig a tunnel */
-		case 'T':
+	case 'T':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_tunnel(creature_ptr);
 			break;
 		}
 
 		/* Move (usually pick up things) */
-		case ';':
+	case ';':
 		{
 			do_cmd_walk(creature_ptr, FALSE);
 			break;
 		}
 
 		/* Move (usually do not pick up) */
-		case '-':
+	case '-':
 		{
 			do_cmd_walk(creature_ptr, TRUE);
 			break;
@@ -3937,42 +3934,42 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Running, Resting, Searching, Staying */
 
 		/* Begin Running -- Arg is Max Distance */
-		case '.':
+	case '.':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_run(creature_ptr);
 			break;
 		}
 
 		/* Stay still (usually pick things up) */
-		case ',':
+	case ',':
 		{
 			do_cmd_stay(creature_ptr, always_pickup);
 			break;
 		}
 
 		/* Stay still (usually do not pick up) */
-		case 'g':
+	case 'g':
 		{
 			do_cmd_stay(creature_ptr, !always_pickup);
 			break;
 		}
 
 		/* Rest -- Arg is time */
-		case 'R':
+	case 'R':
 		{
 			do_cmd_rest(creature_ptr);
 			break;
 		}
 
 		/* Search for traps/doors */
-		case 's':
+	case 's':
 		{
 			do_cmd_search(creature_ptr);
 			break;
 		}
 
 		/* Toggle search mode */
-		case 'S':
+	case 'S':
 		{
 			if(creature_ptr->action == ACTION_SEARCH) set_action(creature_ptr, ACTION_NONE);
 			else set_action(creature_ptr, ACTION_SEARCH);
@@ -3983,7 +3980,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Stairs and Doors and Chests and Traps ***/
 
 		/* Enter store */
-		case SPECIAL_KEY_STORE:
+	case SPECIAL_KEY_STORE:
 		{
 			cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 			int which = town_store_id[floor_ptr->town_num][feature_info[c_ptr->feat].subtype];
@@ -3994,21 +3991,21 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/* Enter building -KMW- */
-		case SPECIAL_KEY_BUILDING:
+	case SPECIAL_KEY_BUILDING:
 		{
 			if(!floor_ptr->wild_mode) do_cmd_bldg(creature_ptr);
 			break;
 		}
 
 		/* Enter quest level -KMW- */
-		case SPECIAL_KEY_QUEST:
+	case SPECIAL_KEY_QUEST:
 		{
 			if(!floor_ptr->wild_mode) do_cmd_quest(creature_ptr);
 			break;
 		}
 
 		/* Go up staircase */
-		case '<':
+	case '<':
 		{
 			if(!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
@@ -4041,7 +4038,7 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/* Go down staircase */
-		case '>':
+	case '>':
 		{
 			if(floor_ptr->wild_mode)
 				change_wild_mode(creature_ptr);
@@ -4052,35 +4049,35 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/* Open a door or chest */
-		case 'o':
+	case 'o':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_open(creature_ptr);
 			break;
 		}
 
 		/* Close a door */
-		case 'c':
+	case 'c':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_close(creature_ptr);
 			break;
 		}
 
 		/* Jam a door with spikes */
-		case 'j':
+	case 'j':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_spike(creature_ptr);
 			break;
 		}
 
 		/* Bash a door */
-		case 'B':
+	case 'B':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_bash(creature_ptr);
 			break;
 		}
 
 		/* Disarm a trap or chest */
-		case 'D':
+	case 'D':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_disarm(creature_ptr);
 			break;
@@ -4089,7 +4086,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Magic and Prayers ***/
 
 		/* Gain new spells/prayers */
-		case 'G':
+	case 'G':
 		{
 			if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))
 #ifdef JP
@@ -4107,13 +4104,13 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/* Browse a book */
-		case 'b':
+	case 'b':
 		{
 			if( (creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
-			     (creature_ptr->class_idx == CLASS_BERSERKER) ||
-			     (creature_ptr->class_idx == CLASS_NINJA) ||
-			     (creature_ptr->class_idx == CLASS_MIRROR_MASTER) 
-			     ) do_cmd_mind_browse(creature_ptr);
+				(creature_ptr->class_idx == CLASS_BERSERKER) ||
+				(creature_ptr->class_idx == CLASS_NINJA) ||
+				(creature_ptr->class_idx == CLASS_MIRROR_MASTER) 
+				) do_cmd_mind_browse(creature_ptr);
 			else if(creature_ptr->class_idx == CLASS_SMITH)
 				do_cmd_kaji(creature_ptr, TRUE);
 			else if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
@@ -4125,7 +4122,7 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/* Cast a spell */
-		case 'm':
+	case 'm':
 		{
 			/* -KMW- */
 			if(!floor_ptr->wild_mode)
@@ -4211,10 +4208,10 @@ static void process_player_command(creature_type *creature_ptr)
 				else
 				{
 					if((creature_ptr->class_idx == CLASS_MINDCRAFTER) ||
-					    (creature_ptr->class_idx == CLASS_BERSERKER) ||
-					    (creature_ptr->class_idx == CLASS_NINJA) ||
-					    (creature_ptr->class_idx == CLASS_MIRROR_MASTER)
-					    )
+						(creature_ptr->class_idx == CLASS_BERSERKER) ||
+						(creature_ptr->class_idx == CLASS_NINJA) ||
+						(creature_ptr->class_idx == CLASS_MIRROR_MASTER)
+						)
 						do_cmd_mind(creature_ptr);
 					else if(creature_ptr->class_idx == CLASS_IMITATOR)
 						do_cmd_mane(creature_ptr, FALSE);
@@ -4236,7 +4233,7 @@ static void process_player_command(creature_type *creature_ptr)
 		}
 
 		/* Issue a pet command */
-		case 'p':
+	case 'p':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_pet(creature_ptr);
 			break;
@@ -4245,14 +4242,14 @@ static void process_player_command(creature_type *creature_ptr)
 		/*** Use various objects ***/
 
 		/* Inscribe an object */
-		case '{':
+	case '{':
 		{
 			do_cmd_inscribe(creature_ptr);
 			break;
 		}
 
 		/* Uninscribe an object */
-		case '}':
+	case '}':
 		{
 			do_cmd_uninscribe(creature_ptr);
 			break;
@@ -4260,13 +4257,13 @@ static void process_player_command(creature_type *creature_ptr)
 
 		/* Inscribe caves */
 
-		case '\'':
+	case '\'':
 		{
 			do_cmd_inscribe_caves(creature_ptr);
 			break;
 		}
 
-		case KTRL('}'):
+	case KTRL('}'):
 		{
 			do_cmd_uninscribe(creature_ptr);
 			break;
@@ -4274,49 +4271,49 @@ static void process_player_command(creature_type *creature_ptr)
 
 
 		/* Activate an artifact */
-		case 'A':
+	case 'A':
 		{
 			if(!floor_ptr->wild_mode)
 			{
-			if(!floor_ptr->fight_arena_mode)
-				do_cmd_activate(creature_ptr);
-			else
-			{
+				if(!floor_ptr->fight_arena_mode)
+					do_cmd_activate(creature_ptr);
+				else
+				{
 #ifdef JP
-msg_print("アリーナが魔法を吸収した！");
+					msg_print("アリーナが魔法を吸収した！");
 #else
-				msg_print("The arena absorbs all attempted magic!");
+					msg_print("The arena absorbs all attempted magic!");
 #endif
 
-				msg_print(NULL);
-			}
+					msg_print(NULL);
+				}
 			}
 			break;
 		}
 
 		/* Eat some food */
-		case 'E':
+	case 'E':
 		{
 			do_cmd_eat_food(creature_ptr);
 			break;
 		}
 
 		/* Fuel your lantern/torch */
-		case 'F':
+	case 'F':
 		{
 			do_cmd_refill(creature_ptr);
 			break;
 		}
 
 		/* Fire an item */
-		case 'f':
+	case 'f':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_fire(creature_ptr);
 			break;
 		}
 
 		/* Throw an item */
-		case 'v':
+	case 'v':
 		{
 			if(!floor_ptr->wild_mode)
 			{
@@ -4326,122 +4323,122 @@ msg_print("アリーナが魔法を吸収した！");
 		}
 
 		/* Aim a wand */
-		case 'a':
+	case 'a':
 		{
 			if(!floor_ptr->wild_mode)
 			{
-			if(!floor_ptr->fight_arena_mode)
-				do_cmd_aim_wand(creature_ptr);
-			else
-			{
+				if(!floor_ptr->fight_arena_mode)
+					do_cmd_aim_wand(creature_ptr);
+				else
+				{
 #ifdef JP
-msg_print("アリーナが魔法を吸収した！");
+					msg_print("アリーナが魔法を吸収した！");
 #else
-				msg_print("The arena absorbs all attempted magic!");
+					msg_print("The arena absorbs all attempted magic!");
 #endif
 
-				msg_print(NULL);
-			}
+					msg_print(NULL);
+				}
 			}
 			break;
 		}
 
 		/* Zap a rod */
-		case 'z':
+	case 'z':
 		{
 			if(!floor_ptr->wild_mode)
 			{
-			if(floor_ptr->fight_arena_mode)
-			{
+				if(floor_ptr->fight_arena_mode)
+				{
 #ifdef JP
-msg_print("アリーナが魔法を吸収した！");
+					msg_print("アリーナが魔法を吸収した！");
 #else
-				msg_print("The arena absorbs all attempted magic!");
+					msg_print("The arena absorbs all attempted magic!");
 #endif
 
-				msg_print(NULL);
-			}
-			else if(use_command && rogue_like_commands)
-			{
-				do_cmd_use(creature_ptr);
-			}
-			else
-			{
-				do_cmd_zap_rod(creature_ptr);
-			}
+					msg_print(NULL);
+				}
+				else if(use_command && rogue_like_commands)
+				{
+					do_cmd_use(creature_ptr);
+				}
+				else
+				{
+					do_cmd_zap_rod(creature_ptr);
+				}
 			}
 			break;
 		}
 
 		/* Quaff a potion */
-		case 'q':
+	case 'q':
 		{
 			if(!floor_ptr->wild_mode)
 			{
-			if(!floor_ptr->fight_arena_mode)
-				do_cmd_quaff_potion(creature_ptr);
-			else
-			{
+				if(!floor_ptr->fight_arena_mode)
+					do_cmd_quaff_potion(creature_ptr);
+				else
+				{
 #ifdef JP
-msg_print("アリーナが魔法を吸収した！");
+					msg_print("アリーナが魔法を吸収した！");
 #else
-				msg_print("The arena absorbs all attempted magic!");
+					msg_print("The arena absorbs all attempted magic!");
 #endif
 
-				msg_print(NULL);
-			}
+					msg_print(NULL);
+				}
 			}
 			break;
 		}
 
 		/* Read a scroll */
-		case 'r':
+	case 'r':
 		{
 			if(!floor_ptr->wild_mode)
 			{
-			if(!floor_ptr->fight_arena_mode)
-				do_cmd_read_scroll(creature_ptr);
-			else
-			{
+				if(!floor_ptr->fight_arena_mode)
+					do_cmd_read_scroll(creature_ptr);
+				else
+				{
 #ifdef JP
-msg_print("アリーナが魔法を吸収した！");
+					msg_print("アリーナが魔法を吸収した！");
 #else
-				msg_print("The arena absorbs all attempted magic!");
+					msg_print("The arena absorbs all attempted magic!");
 #endif
 
-				msg_print(NULL);
-			}
+					msg_print(NULL);
+				}
 			}
 			break;
 		}
 
 		/* Use a staff */
-		case 'u':
+	case 'u':
 		{
 			if(!floor_ptr->wild_mode)
 			{
-			if(floor_ptr->fight_arena_mode)
-			{
+				if(floor_ptr->fight_arena_mode)
+				{
 #ifdef JP
-msg_print("アリーナが魔法を吸収した！");
+					msg_print("アリーナが魔法を吸収した！");
 #else
-				msg_print("The arena absorbs all attempted magic!");
+					msg_print("The arena absorbs all attempted magic!");
 #endif
 
-				msg_print(NULL);
-			}
-			else if(use_command && !rogue_like_commands)
-			{
-				do_cmd_use(creature_ptr);
-			}
-			else
-				do_cmd_use_staff(creature_ptr);
+					msg_print(NULL);
+				}
+				else if(use_command && !rogue_like_commands)
+				{
+					do_cmd_use(creature_ptr);
+				}
+				else
+					do_cmd_use_staff(creature_ptr);
 			}
 			break;
 		}
 
 		/* Use racial power */
-		case 'U':
+	case 'U':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_racial_power(creature_ptr);
 			break;
@@ -4451,28 +4448,28 @@ msg_print("アリーナが魔法を吸収した！");
 		/*** Looking at Things (nearby or on map) ***/
 
 		/* Full dungeon map */
-		case 'M':
+	case 'M':
 		{
 			do_cmd_view_map(creature_ptr);
 			break;
 		}
 
 		/* Locate player on map */
-		case 'L':
+	case 'L':
 		{
 			do_cmd_locate(creature_ptr);
 			break;
 		}
 
 		/* Look around */
-		case 'l':
+	case 'l':
 		{
 			do_cmd_look(creature_ptr);
 			break;
 		}
 
 		/* Target creature or location */
-		case '*':
+	case '*':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_target(creature_ptr);
 			break;
@@ -4483,21 +4480,21 @@ msg_print("アリーナが魔法を吸収した！");
 		/*** Help and Such ***/
 
 		/* Help */
-		case '?':
+	case '?':
 		{
 			do_cmd_help();
 			break;
 		}
 
 		/* Identify symbol */
-		case '/':
+	case '/':
 		{
 			do_cmd_query_symbol(creature_ptr);
 			break;
 		}
 
 		/* Character description */
-		case 'C':
+	case 'C':
 		{
 			do_cmd_change_name(creature_ptr);
 			break;
@@ -4507,40 +4504,40 @@ msg_print("アリーナが魔法を吸収した！");
 		/*** System Commands ***/
 
 		/* Hack -- User interface */
-		case '!':
+	case '!':
 		{
 			(void)Term_user(0);
 			break;
 		}
 
 		/* Single line from a pref file */
-		case '"':
+	case '"':
 		{
 			do_cmd_pref();
 			break;
 		}
 
-		case '$':
+	case '$':
 		{
 			do_cmd_reload_autopick();
 			break;
 		}
 
-		case '_':
+	case '_':
 		{
 			do_cmd_edit_autopick(creature_ptr);
 			break;
 		}
 
 		/* Interact with macros */
-		case '@':
+	case '@':
 		{
 			do_cmd_macros();
 			break;
 		}
 
 		/* Interact with visuals */
-		case '%':
+	case '%':
 		{
 			do_cmd_visuals();
 			do_cmd_redraw();
@@ -4548,7 +4545,7 @@ msg_print("アリーナが魔法を吸収した！");
 		}
 
 		/* Interact with colors */
-		case '&':
+	case '&':
 		{
 			do_cmd_colors();
 			do_cmd_redraw();
@@ -4556,7 +4553,7 @@ msg_print("アリーナが魔法を吸収した！");
 		}
 
 		/* Interact with options */
-		case '=':
+	case '=':
 		{
 			do_cmd_options();
 			//TODO (void)combine_and_reorder_home(st_ptr, STORE_HOME);
@@ -4567,49 +4564,49 @@ msg_print("アリーナが魔法を吸収した！");
 		/*** Misc Commands ***/
 
 		/* Take notes */
-		case ':':
+	case ':':
 		{
 			do_cmd_note();
 			break;
 		}
 
 		/* Version info */
-		case 'V':
+	case 'V':
 		{
 			do_cmd_version();
 			break;
 		}
 
 		/* Repeat level feeling */
-		case KTRL('F'):
+	case KTRL('F'):
 		{
 			if(!floor_ptr->wild_mode) do_cmd_feeling(creature_ptr);
 			break;
 		}
 
 		/* Show previous message */
-		case KTRL('O'):
+	case KTRL('O'):
 		{
 			do_cmd_message_one();
 			break;
 		}
 
 		/* Show previous messages */
-		case KTRL('P'):
+	case KTRL('P'):
 		{
 			do_cmd_messages(old_now_message);
 			break;
 		}
 
 		/* Show quest status -KMW- */
-		case KTRL('Q'):
+	case KTRL('Q'):
 		{
 			do_cmd_checkquest();
 			break;
 		}
 
 		/* Redraw the screen */
-		case KTRL('R'):
+	case KTRL('R'):
 		{
 			now_message = old_now_message;
 			do_cmd_redraw();
@@ -4619,7 +4616,7 @@ msg_print("アリーナが魔法を吸収した！");
 #ifndef VERIFY_SAVEFILE
 
 		/* Hack -- Save and don't quit */
-		case KTRL('S'):
+	case KTRL('S'):
 		{
 			do_cmd_save_game(FALSE);
 			break;
@@ -4627,76 +4624,76 @@ msg_print("アリーナが魔法を吸収した！");
 
 #endif /* VERIFY_SAVEFILE */
 
-		case KTRL('T'):
+	case KTRL('T'):
 		{
 			do_cmd_time(creature_ptr);
 			break;
 		}
 
 		/* Save and quit */
-		case KTRL('X'):
-		case SPECIAL_KEY_QUIT:
+	case KTRL('X'):
+	case SPECIAL_KEY_QUIT:
 		{
 			do_cmd_save_and_exit(creature_ptr);
 			break;
 		}
 
 		/* Quit (commit suicide) */
-		case 'Q':
+	case 'Q':
 		{
 			do_cmd_suicide(creature_ptr);
 			break;
 		}
 
-		case '|':
+	case '|':
 		{
 			do_cmd_nikki(creature_ptr);
 			break;
 		}
 
 		/* Check artifacts, uniques, objects */
-		case '~':
+	case '~':
 		{
 			do_cmd_knowledge(creature_ptr);
 			break;
 		}
 
 		/* Load "screen dump" */
-		case '(':
+	case '(':
 		{
 			do_cmd_load_screen();
 			break;
 		}
 
 		/* Save "screen dump" */
-		case ')':
+	case ')':
 		{
 			do_cmd_save_screen(creature_ptr);
 			break;
 		}
 
 		/* Record/stop "Movie" */
-		case ']':
+	case ']':
 		{
 			prepare_movie_hooks();
 			break;
 		}
 
 		/* Make random artifact list */
-		case KTRL('V'):
+	case KTRL('V'):
 		{
 			spoil_random_artifact(creature_ptr, "randifact.txt");
 			break;
 		}
 
-		case '`':
+	case '`':
 		{
 			if(!floor_ptr->wild_mode) do_cmd_travel(creature_ptr);
 			break;
 		}
 
 		/* Hack -- Unknown command */
-		default:
+	default:
 		{
 			if(flush_failure) flush();
 			if(one_in_(2))
@@ -4713,7 +4710,7 @@ msg_print("アリーナが魔法を吸収した！");
 			}
 			else
 #ifdef JP
-prt(" '?' でヘルプが表示されます。", 0, 0);
+				prt(" '?' でヘルプが表示されます。", 0, 0);
 #else
 				prt("Type '?' for help.", 0, 0);
 #endif
@@ -4947,12 +4944,12 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 
 /*
- * Process the player
- *
- * Notice the annoying code to handle "pack overflow", which
- * must come first just in case somebody manages to corrupt
- * the savefiles by clever use of menu commands or something.
- */
+* Process the player
+*
+* Notice the annoying code to handle "pack overflow", which
+* must come first just in case somebody manages to corrupt
+* the savefiles by clever use of menu commands or something.
+*/
 void process_player(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -4972,7 +4969,7 @@ void process_player(creature_type *creature_ptr)
 		{
 			/* Stop creature_ptr->resting */
 			if((creature_ptr->chp == creature_ptr->mhp) &&
-			    (creature_ptr->csp >= creature_ptr->msp))
+				(creature_ptr->csp >= creature_ptr->msp))
 			{
 				set_action(creature_ptr, ACTION_NONE);
 			}
@@ -4983,13 +4980,13 @@ void process_player(creature_type *creature_ptr)
 		{
 			/* Stop creature_ptr->resting */
 			if((creature_ptr->chp == creature_ptr->mhp) &&
-			    (creature_ptr->csp >= creature_ptr->msp) &&
-			    !has_trait(creature_ptr, TRAIT_BLIND) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
-			    !creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
-			    !creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
-			    !creature_ptr->timed_trait[TRAIT_SLOW] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
-			    !has_trait(creature_ptr, TRAIT_HALLUCINATION) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
-			    !creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
+				(creature_ptr->csp >= creature_ptr->msp) &&
+				!has_trait(creature_ptr, TRAIT_BLIND) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
+				!creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
+				!creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
+				!creature_ptr->timed_trait[TRAIT_SLOW] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
+				!has_trait(creature_ptr, TRAIT_HALLUCINATION) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
+				!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
 			{
 				set_action(creature_ptr, ACTION_NONE);
 			}
@@ -5016,7 +5013,7 @@ void process_player(creature_type *creature_ptr)
 
 				/* Hack -- Show a Message */
 #ifdef JP
-msg_print("中断しました。");
+				msg_print("中断しました。");
 #else
 				msg_print("Canceled.");
 #endif
@@ -5056,7 +5053,7 @@ msg_print("中断しました。");
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(cost, cost_frac, 16);
 
- 
+
 		if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, cost, cost_frac) < 0)
 		{
 			/* Mana run out */
@@ -5378,11 +5375,11 @@ msg_print("中断しました。");
 
 
 /*
- * Interact with the current dungeon level.
- *
- * This function will not exit until the level is completed,
- * the user dies, or the game is terminated.
- */
+* Interact with the current dungeon level.
+*
+* This function will not exit until the level is completed,
+* the user dies, or the game is terminated.
+*/
 static void turn_loop(floor_type *floor_ptr, bool load_game)
 {
 
@@ -5469,11 +5466,11 @@ static void turn_loop(floor_type *floor_ptr, bool load_game)
 
 
 /*
- * Load some "user pref files"
- *
- * Modified by Arcum Dagsson to support
- * separate macro files for different realms.
- */
+* Load some "user pref files"
+*
+* Modified by Arcum Dagsson to support
+* separate macro files for different realms.
+*/
 static void load_all_pref_files(creature_type *creature_ptr)
 {
 	char buf[1024];
@@ -5533,8 +5530,8 @@ static void load_all_pref_files(creature_type *creature_ptr)
 
 
 /*
- * Extract option variables from bit sets
- */
+* Extract option variables from bit sets
+*/
 void extract_option_vars(void)
 {
 	int i;
@@ -5566,8 +5563,8 @@ void extract_option_vars(void)
 
 
 /*
- * Determine bounty uniques
- */
+* Determine bounty uniques
+*/
 void determine_bounty_uniques(void)
 {
 	int          i, j, tmp;
@@ -5607,9 +5604,9 @@ void determine_bounty_uniques(void)
 
 
 /*
- * Determine today's bounty creature
- * Note: conv_old is used if loaded 0.0.3 or older save file
- */
+* Determine today's bounty creature
+* Note: conv_old is used if loaded 0.0.3 or older save file
+*/
 void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 {
 	int n = 0;
@@ -5772,7 +5769,7 @@ void waited_report_score(void)
 #else
 	if(!get_check_strict("Do you register score now? ", CHECK_NO_HISTORY))
 #endif
-	quit(0);
+		quit(0);
 
 	/* Update stuff */
 	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
@@ -5824,7 +5821,7 @@ void waited_report_score(void)
 
 	/* Forget the high score fd */
 	highscore_fd = -1;
-		
+
 	/* Allow suspending now */
 	signals_handle_tstp();
 
@@ -5849,9 +5846,9 @@ static void new_game_setting(void)
 	object_kind_info_reset();
 
 	/* 
-	 * Wipe creatures in old dungeon
-	 * This wipe destroys value of creature_list[].cur_num .
-	 */
+	* Wipe creatures in old dungeon
+	* This wipe destroys value of creature_list[].cur_num .
+	*/
 	wipe_creature_list(0);
 
 	/* Quick start? */
@@ -6063,8 +6060,8 @@ static void play_loop(void)
 		Term_fresh();
 
 		if(quest_num && (is_fixed_quest_idx(quest_num) &&
-		    !( quest_num == QUEST_SERPENT ||
-		    !(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
+			!( quest_num == QUEST_SERPENT ||
+			!(quest[quest_num].flags & QUEST_FLAG_PRESET)))) do_cmd_feeling(player_ptr);
 
 		if(floor_ptr->gamble_arena_mode)
 		{
@@ -6102,12 +6099,12 @@ static void play_loop(void)
 			if(species_info[dungeon_info[floor_ptr->dun_type].final_guardian].max_num)
 #ifdef JP
 				msg_format("この階には%sの主である%sが棲んでいる。",
-					   dungeon_name + dungeon_info[floor_ptr->dun_type].name, 
-					   species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name);
+				dungeon_name + dungeon_info[floor_ptr->dun_type].name, 
+				species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name);
 #else
 				msg_format("%^s lives in this level as the keeper of %s.",
-						   species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name, 
-						   dungeon_name + dungeon_info[floor_ptr->dun_type].name);
+				species_name+species_info[dungeon_info[floor_ptr->dun_type].final_guardian].name, 
+				dungeon_name + dungeon_info[floor_ptr->dun_type].name);
 #endif
 		}
 
@@ -6178,12 +6175,12 @@ static void play_loop(void)
 
 
 /*
- * Actually play a game
- *
- * If the "new_game" parameter is true, then, after loading the
- * savefile, we will commit suicide, if necessary, to allow the
- * player to start a new game.
- */
+* Actually play a game
+*
+* If the "new_game" parameter is true, then, after loading the
+* savefile, we will commit suicide, if necessary, to allow the
+* player to start a new game.
+*/
 void play_game(bool new_game)
 {
 	int i, err; //j;
@@ -6346,7 +6343,7 @@ void play_game(bool new_game)
 
 			if(gameover || !player_ptr->fy || !player_ptr->fx)
 			{
-				
+
 				init_saved_floors(TRUE); // Initialize the saved floors data
 				player_ptr->fy = player_ptr->fx = 10; // Avoid crash in update_view()
 			}
@@ -6421,9 +6418,9 @@ s32b turn_real(creature_type *creature_ptr, s32b hoge)
 }
 
 /*
- * ターンのオーバーフローに対する対処
- * ターン及びターンを記録する変数をターンの限界の1日前まで巻き戻す.
- */
+* ターンのオーバーフローに対する対処
+* ターン及びターンを記録する変数をターンの限界の1日前まで巻き戻す.
+*/
 void prevent_turn_overflow(creature_type *creature_ptr)
 {
 	int rollback_days;//, i, j;
@@ -6445,22 +6442,22 @@ void prevent_turn_overflow(creature_type *creature_ptr)
 	/*
 	for (i = 1; i < max_towns; i++)
 	{
-		for (j = 0; j < MAX_STORES; j++)
-		{
-			store_type *st_ptr = &town[i].store[j];
+	for (j = 0; j < MAX_STORES; j++)
+	{
+	store_type *st_ptr = &town[i].store[j];
 
-			if(st_ptr->last_visit > -10L * TURNS_PER_TICK * STORE_TICKS)
-			{
-				st_ptr->last_visit -= rollback_turns;
-				if(st_ptr->last_visit < -10L * TURNS_PER_TICK * STORE_TICKS) st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
-			}
+	if(st_ptr->last_visit > -10L * TURNS_PER_TICK * STORE_TICKS)
+	{
+	st_ptr->last_visit -= rollback_turns;
+	if(st_ptr->last_visit < -10L * TURNS_PER_TICK * STORE_TICKS) st_ptr->last_visit = -10L * TURNS_PER_TICK * STORE_TICKS;
+	}
 
-			if(st_ptr->store_open)
-			{
-				st_ptr->store_open -= rollback_turns;
-				if(st_ptr->store_open < 1) st_ptr->store_open = 1;
-			}
-		}
+	if(st_ptr->store_open)
+	{
+	st_ptr->store_open -= rollback_turns;
+	if(st_ptr->store_open < 1) st_ptr->store_open = 1;
+	}
+	}
 	}
 	*/
 }
