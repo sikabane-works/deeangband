@@ -6091,7 +6091,7 @@ static void drain_essence(creature_type *creature_ptr)
 	{
 		drain_value[STAT_DEX] += 10;
 	}
-	if(old_name2 == EGO_TWO_WEAPON)
+	if(have_flag(old_flgs, TRAIT_EASY_MULTI_WEAPON))
 	{
 		drain_value[STAT_DEX] += 20;
 	}

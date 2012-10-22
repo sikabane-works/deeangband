@@ -403,16 +403,6 @@ info[i++] = "それは無敵のバリアを切り裂く。";
 #endif
 	}
 
-	if(object_ptr->name2 == EGO_TWO_WEAPON)
-	{
-#ifdef JP
-info[i++] = "それは二刀流での命中率を向上させる。";
-#else
-		info[i++] = "It affects your ability to hit when you are wielding two weapons.";
-#endif
-
-	}
-
 	if(object_ptr->name2 == EGO_AMU_FOOL)
 	{
 #ifdef JP

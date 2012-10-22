@@ -707,9 +707,6 @@
 #define EGO_TELEPORTATION       35
 #define EGO_SICKLINESS          39
 
-/* Gloves */
-#define EGO_TWO_WEAPON          52
-
 /* Boots */
 #define EGO_SPEED               59
 

@@ -3473,8 +3473,6 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if(have_flag(object_ptr->trait_flags, TRAIT_RES_NETH)) creature_ptr->resist_neth += 1;
 		if(have_flag(object_ptr->trait_flags, TRAIT_RES_TIME)) creature_ptr->resist_time += 1;
 
-		//if(object_ptr->name2 == EGO_TWO_WEAPON) creature_ptr->easy_multi_weapon = TRUE;
-
 		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC))
 		{
 			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
