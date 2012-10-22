@@ -2461,69 +2461,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		alter_reality(creature_ptr);
 	}
 
-	if(has_trait(creature_ptr, TRAIT_WARNING) && one_in_(1000))
-	{
-		int danger_amount = 0;
-		int creature;
-
-		for (creature = 0; creature < creature_max; creature++)
-		{
-			creature_type    *m_ptr = &creature_list[creature];
-			species_type    *r_ptr = &species_info[m_ptr->species_idx];
-
-			/* Paranoia -- Skip dead creatures */
-			if(!m_ptr->species_idx) continue;
-
-			if(r_ptr->level >= creature_ptr->lev)
-			{
-				danger_amount += r_ptr->level - creature_ptr->lev + 1;
-			}
-		}
-
-		if(danger_amount > 100)
-#ifdef JP
-			msg_print("非常に恐ろしい気がする！");
-#else
-		msg_print("You feel utterly terrified!");
-#endif
-
-		else if(danger_amount > 50)
-#ifdef JP
-			msg_print("恐ろしい気がする！");
-#else
-		msg_print("You feel terrified!");
-#endif
-
-		else if(danger_amount > 20)
-#ifdef JP
-			msg_print("非常に心配な気がする！");
-#else
-		msg_print("You feel very worried!");
-#endif
-
-		else if(danger_amount > 10)
-#ifdef JP
-			msg_print("心配な気がする！");
-#else
-		msg_print("You feel paranoid!");
-#endif
-
-		else if(danger_amount > 5)
-#ifdef JP
-			msg_print("ほとんど安全な気がする。");
-#else
-		msg_print("You feel almost safe.");
-#endif
-
-		else
-#ifdef JP
-			msg_print("寂しい気がする。");
-#else
-		msg_print("You feel lonely.");
-#endif
-
-	}
-
 	if(has_trait(creature_ptr, TRAIT_INVULN) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(5000))
 	{
 		disturb(player_ptr, 0, 0);
