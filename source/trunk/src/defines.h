@@ -790,11 +790,7 @@
 #define EGO_RING_ALBINO         187
 
 #define EGO_AMU_INFRA           211
-#define EGO_AMU_SEE_INVIS       212
-#define EGO_AMU_HOLD_LIFE       213
-#define EGO_AMU_DRAIN_EXP       214
 #define EGO_AMU_FOOL            215
-#define EGO_AMU_AC              218
 #define EGO_AMU_IDENT           219
 #define EGO_AMU_CHARM           220
 #define EGO_AMU_STEALTH         221
@@ -802,14 +798,6 @@
 #define EGO_AMU_TELEPORT        223
 #define EGO_AMU_D_DOOR          224
 #define EGO_AMU_DEFENDER        225
-#define EGO_AMU_RES_FIRE        226
-#define EGO_AMU_RES_FIRE_       227
-#define EGO_AMU_RES_COLD        228
-#define EGO_AMU_RES_COLD_       229
-#define EGO_AMU_RES_ELEC        230
-#define EGO_AMU_RES_ELEC_       231
-#define EGO_AMU_RES_ACID        232
-#define EGO_AMU_RES_ACID_       233
 #define EGO_AMU_GREAT           235
 #define EGO_AMU_DETECTION       236
 

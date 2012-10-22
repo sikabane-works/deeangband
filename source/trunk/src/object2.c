@@ -2453,34 +2453,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(21))
 					{
-					case 12:
-						if(have_flag(k_ptr->flags, TRAIT_RES_FIRE)) break;
-						if(m_bonus(10, level) > 8)
-							object_ptr->name2 = EGO_AMU_RES_FIRE_;
-						else
-							object_ptr->name2 = EGO_AMU_RES_FIRE;
-						break;
-					case 13:
-						if(have_flag(k_ptr->flags, TRAIT_RES_COLD)) break;
-						if(m_bonus(10, level) > 8)
-							object_ptr->name2 = EGO_AMU_RES_COLD_;
-						else
-							object_ptr->name2 = EGO_AMU_RES_COLD;
-						break;
-					case 14:
-						if(have_flag(k_ptr->flags, TRAIT_RES_ELEC)) break;
-						if(m_bonus(10, level) > 8)
-							object_ptr->name2 = EGO_AMU_RES_ELEC_;
-						else
-							object_ptr->name2 = EGO_AMU_RES_ELEC;
-						break;
-					case 15:
-						if(have_flag(k_ptr->flags, TRAIT_RES_ACID)) break;
-						if(m_bonus(10, level) > 8)
-							object_ptr->name2 = EGO_AMU_RES_ACID_;
-						else
-							object_ptr->name2 = EGO_AMU_RES_ACID;
-						break;
 					case 16: case 17: case 18: case 19: case 20:
 						switch (object_ptr->sval)
 						{
@@ -2488,9 +2460,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 							if(m_bonus(10, level) > 9) object_ptr->name2 = EGO_AMU_D_DOOR;
 							else if(one_in_(2)) object_ptr->name2 = EGO_AMU_JUMP;
 							else object_ptr->name2 = EGO_AMU_TELEPORT;
-							break;
-						case SV_AMULET_RESIST_ACID:
-							if((m_bonus(10, level) > 6) && one_in_(2)) object_ptr->name2 = EGO_AMU_RES_ACID_;
 							break;
 						case SV_AMULET_SEARCHING:
 							object_ptr->name2 = EGO_AMU_STEALTH;
@@ -2532,10 +2501,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(5))
 					{
-					case 1:
-						if(have_flag(k_ptr->flags, TRAIT_DRAIN_EXP)) break;
-						object_ptr->name2 = EGO_AMU_DRAIN_EXP;
-						break;
 					case 2:
 						object_ptr->name2 = EGO_AMU_FOOL;
 						break;
