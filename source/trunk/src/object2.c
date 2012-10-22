@@ -7269,11 +7269,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			object_ptr->pval += (s16b)randint1(e_ptr->max_pval);
 		}
 
-		if((object_ptr->name2 == EGO_SPEED) && (level < 50))
-		{
-			object_ptr->pval = (s16b)randint1(object_ptr->pval);
-		}
-
 		if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2) && (object_ptr->name2 != EGO_ATTACKS))
 			object_ptr->pval = 2;
 	}
@@ -7300,11 +7295,6 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 				if(one_in_(2)) add_esp_strong(object_ptr);
 					else add_esp_weak(object_ptr, FALSE);
 			}
-
-		case EGO_TELEPATHY:
-			if(add_esp_strong(object_ptr)) add_esp_weak(object_ptr, TRUE);
-				else add_esp_weak(object_ptr, FALSE);
-			break;
 					
 		case EGO_SHARPNESS:
 			object_ptr->pval = m_bonus(5, level) + 1;
@@ -7321,6 +7311,12 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 
 	//TODO:: XTRA_H_RES for levitation
+
+	if(has_trait_object(object_ptr, TRAIT_HIGH_ESP))
+	{
+		if(add_esp_strong(object_ptr)) add_esp_weak(object_ptr, TRUE);
+		else add_esp_weak(object_ptr, FALSE);
+	}
 
 	if(has_trait_object(object_ptr, TRAIT_PHYSICAL_BOOST))
 	{

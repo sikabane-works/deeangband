@@ -702,13 +702,6 @@
 #define EGO_SEEING              30
 #define EGO_INFRAVISION         31
 #define EGO_LITE                32
-#define EGO_TELEPATHY           33
-#define EGO_REGENERATION        34
-#define EGO_TELEPORTATION       35
-#define EGO_SICKLINESS          39
-
-/* Boots */
-#define EGO_SPEED               59
 
 /* xxx */
 #define EGO_ATTACKS             69
