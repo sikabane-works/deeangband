@@ -1749,9 +1749,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 			}
 		}
 
-		/* Position in the wilderness */
-		rd_byte((byte *)&ambush_flag);
-
 		/* Size of the wilderness */
 		rd_s32b(&wild_x_size);
 		rd_s32b(&wild_y_size);

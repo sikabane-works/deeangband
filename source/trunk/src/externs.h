@@ -538,7 +538,6 @@ extern u16b panic_save;	  /* Panic save */
 extern u16b noscore;		  /* Cheating flags */
 
 extern bool sukekaku;
-extern bool ambush_flag;
 extern cptr screen_dump;
 
 /*** Terrain feature variables ***/

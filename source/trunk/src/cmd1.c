@@ -2063,7 +2063,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx - 1;
 				tmp_py = floor_ptr->height - 2;
 				tmp_px = floor_ptr->width - 2;
-				ambush_flag = FALSE;
 			}
 
 			else if((y == 0) && (x == MAX_WID - 1))
@@ -2072,7 +2071,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx + 1;
 				tmp_py = floor_ptr->height - 2;
 				tmp_px = 1;
-				ambush_flag = FALSE;
 			}
 
 			else if((y == MAX_HGT - 1) && (x == 0))
@@ -2081,7 +2079,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx - 1;
 				tmp_py = 1;
 				tmp_px = floor_ptr->width - 2;
-				ambush_flag = FALSE;
 			}
 
 			else if((y == MAX_HGT - 1) && (x == MAX_WID - 1))
@@ -2090,7 +2087,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx + 1;
 				tmp_py = 1;
 				tmp_px = 1;
-				ambush_flag = FALSE;
 			}
 
 			else if(y == 0)
@@ -2099,7 +2095,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx;
 				tmp_py = floor_ptr->height - 2;
 				tmp_px = x;
-				ambush_flag = FALSE;
 			}
 
 			else if(y == MAX_HGT - 1)
@@ -2108,7 +2103,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx;
 				tmp_py = 1;
 				tmp_px = x;
-				ambush_flag = FALSE;
 			}
 
 			else if(x == 0)
@@ -2117,7 +2111,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx - 1;
 				tmp_py = y;
 				tmp_px = floor_ptr->width - 2;
-				ambush_flag = FALSE;
 			}
 
 			else if(x == MAX_WID - 1)
@@ -2126,7 +2119,6 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				tmp_wx = creature_ptr->wx + 1;
 				tmp_py = y;
 				tmp_px = 1;
-				ambush_flag = FALSE;
 			}
 
 			if(wilderness[tmp_wy][tmp_wx].terrain != TERRAIN_CHAOS)

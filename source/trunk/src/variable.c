@@ -980,8 +980,6 @@ u16b noscore;		  /* Cheating flags */
 
 bool sukekaku;
 
-bool ambush_flag;
-
 cptr screen_dump = NULL;
 
 /*** Terrain feature variables ***/

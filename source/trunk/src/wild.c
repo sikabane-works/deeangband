@@ -548,7 +548,6 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 		(void)alloc_creature(floor_ptr, player_ptr, floor_ptr->generate_encounter ? 0 : 3, mode);
 	}
 
-	if(floor_ptr->generate_encounter) ambush_flag = TRUE;
 	floor_ptr->generate_encounter = FALSE;
 
 	/* Fill the arrays of floors and walls in the good proportions */

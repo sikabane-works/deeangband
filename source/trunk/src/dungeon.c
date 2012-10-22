@@ -4010,16 +4010,6 @@ static void process_player_command(creature_type *creature_ptr)
 			if(!floor_ptr->wild_mode && !floor_ptr->floor_level && !floor_ptr->fight_arena_mode && !floor_ptr->quest)
 			{
 
-				if(ambush_flag)
-				{
-#ifdef JP
-					msg_print("襲撃から逃げるにはマップの端まで移動しなければならない。");
-#else
-					msg_print("To flee the ambush you have to reach the edge of the map.");
-#endif
-					break;
-				}
-
 				if(creature_ptr->food < PY_FOOD_WEAK)
 				{
 #ifdef JP
@@ -5998,7 +5988,6 @@ static void play_loop(void)
 		target_who = 0;
 		pet_t_m_idx = 0;
 		riding_t_m_idx = 0;
-		ambush_flag = FALSE;
 
 		// Cancel the health bar
 		health_track(0);
