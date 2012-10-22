@@ -790,7 +790,6 @@
 #define EGO_RING_ALBINO         187
 
 #define EGO_AMU_INFRA           211
-#define EGO_AMU_FOOL            215
 #define EGO_AMU_IDENT           219
 #define EGO_AMU_CHARM           220
 #define EGO_AMU_STEALTH         221

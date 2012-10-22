@@ -2496,22 +2496,10 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				if(object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
 				if(object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
 				if(object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
-				while(!object_ptr->name2)
-				{
-					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
-					switch(randint1(5))
-					{
-					case 2:
-						object_ptr->name2 = EGO_AMU_FOOL;
-						break;
-					}
-				}
+
 				/* Broken */
 				object_ptr->ident |= (IDENT_BROKEN);
 
-				/* Cursed */
-				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-				add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 			}
 			break;
 		}

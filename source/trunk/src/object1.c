@@ -403,15 +403,6 @@ info[i++] = "それは無敵のバリアを切り裂く。";
 #endif
 	}
 
-	if(object_ptr->name2 == EGO_AMU_FOOL)
-	{
-#ifdef JP
-info[i++] = "それは魔法の難易度を上げる。";
-#else
-		info[i++] = "It interferes with casting spells.";
-#endif
-	}
-
 	if(object_ptr->name2 == EGO_RING_THROW)
 	{
 #ifdef JP
