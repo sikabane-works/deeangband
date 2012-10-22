@@ -2468,10 +2468,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						if(have_flag(k_ptr->flags, TRAIT_HOLD_LIFE)) break;
 						object_ptr->name2 = EGO_AMU_HOLD_LIFE;
 						break;
-					case 9:
-						if(have_flag(k_ptr->flags, TRAIT_LEVITATION)) break;
-						object_ptr->name2 = EGO_AMU_LEVITATION;
-						break;
 					case 10: case 11: case 21:
 						object_ptr->name2 = EGO_AMU_AC;
 						break;
@@ -2560,17 +2556,6 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						break;
 					case 2:
 						object_ptr->name2 = EGO_AMU_FOOL;
-						break;
-					case 3:
-						if(have_flag(k_ptr->flags, TRAIT_ANTIPATHY)) break;
-						object_ptr->name2 = EGO_AMU_AGGRAVATE;
-						break;
-					case 4:
-						if(have_flag(k_ptr->flags, TRAIT_TY_CURSE)) break;
-						object_ptr->name2 = EGO_AMU_TY_CURSE;
-						break;
-					case 5:
-						object_ptr->name2 = EGO_AMU_NAIVETY;
 						break;
 					}
 				}

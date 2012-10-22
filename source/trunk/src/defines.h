@@ -795,8 +795,6 @@
 #define EGO_AMU_HOLD_LIFE       213
 #define EGO_AMU_DRAIN_EXP       214
 #define EGO_AMU_FOOL            215
-#define EGO_AMU_AGGRAVATE       216
-#define EGO_AMU_TY_CURSE        217
 #define EGO_AMU_AC              218
 #define EGO_AMU_IDENT           219
 #define EGO_AMU_CHARM           220
@@ -813,10 +811,8 @@
 #define EGO_AMU_RES_ELEC_       231
 #define EGO_AMU_RES_ACID        232
 #define EGO_AMU_RES_ACID_       233
-#define EGO_AMU_LEVITATION      234
 #define EGO_AMU_GREAT           235
 #define EGO_AMU_DETECTION       236
-#define EGO_AMU_NAIVETY         237
 
 /*** Object "tval" and "sval" codes ***/
 
