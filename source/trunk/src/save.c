@@ -703,7 +703,7 @@ static void wr_extra(void)
 		wr_s16b(kubi_species_idx[i]);
 	}
 
-	for (i = 0; i < 4; i++)
+	for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 	{
 		wr_s16b(battle_creature[i]);
 		wr_u32b(creature_odds[i]);
@@ -716,8 +716,7 @@ static void wr_extra(void)
 	/* Max Player and Dungeon Levels */
 	tmp8u = (byte)max_dungeon_idx;
 	wr_byte(tmp8u);
-	for (i = 0; i < tmp8u; i++)
-		wr_s16b(max_dlv[i]);
+	for (i = 0; i < tmp8u; i++) wr_s16b(max_dlv[i]);
 
 	/* Write the "object seeds" */
 	wr_u32b(seed_flavor);

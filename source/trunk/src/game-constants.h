@@ -16,7 +16,7 @@
 
 #define PERCENTAGE  100
 
-#define CREATURE_ARENA_NUM 4
+#define GAMBLE_ARENA_GLADIATOR_MAX 4
 
 #define HEX_MAX_KEEP 4
 

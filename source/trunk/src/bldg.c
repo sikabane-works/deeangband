@@ -1638,7 +1638,7 @@ void battle_creatures(void)
 	int total, i;
 	int max_dl = 0;
 	int ave_creature_level;
-	int power[CREATURE_ARENA_NUM];
+	int power[GAMBLE_ARENA_GLADIATOR_MAX];
 	bool tekitou;
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
 
@@ -1661,7 +1661,7 @@ void battle_creatures(void)
 	{
 		total = 0;
 		tekitou = FALSE;
-		for(i = 0; i < CREATURE_ARENA_NUM; i++)
+		for(i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
 			int species_idx, j;
 			get_species_num_prep(NULL, vault_aux_battle, NULL, NULL, 0);
@@ -1688,7 +1688,7 @@ void battle_creatures(void)
 			if(species_info[species_idx].level < 45) tekitou = TRUE;
 		}
 
-		for (i = 0; i < CREATURE_ARENA_NUM; i++)
+		for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
 			species_type *r_ptr = &species_info[battle_creature[i]];
 			int num_taisei = 0;
@@ -1720,7 +1720,7 @@ void battle_creatures(void)
 			if(power[i] <= 0) power[i] = 1;
 			total += power[i];
 		}
-		for (i = 0; i < CREATURE_ARENA_NUM; i++)
+		for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
 			power[i] = total*60/power[i];
 			if(tekitou && ((power[i] < 160) || power[i] > 1500)) break;
@@ -1728,7 +1728,7 @@ void battle_creatures(void)
 			if(power[i] < 101) power[i] = 100 + randint1(5);
 			creature_odds[i] = power[i];
 		}
-		if(i == CREATURE_ARENA_NUM) break;
+		if(i == GAMBLE_ARENA_GLADIATOR_MAX) break;
 	}
 }
 

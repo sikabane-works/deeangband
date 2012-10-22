@@ -958,11 +958,11 @@ bool can_save = FALSE;        /* Game can be saved */
 
 s16b the_world;
 
-s16b battle_creature[CREATURE_ARENA_NUM];
+s16b battle_creature[GAMBLE_ARENA_GLADIATOR_MAX];
 int sel_creature;
 int battle_odds;
 int kakekin;
-u32b creature_odds[CREATURE_ARENA_NUM];
+u32b creature_odds[GAMBLE_ARENA_GLADIATOR_MAX];
 
 int pet_t_m_idx;
 int riding_t_m_idx;

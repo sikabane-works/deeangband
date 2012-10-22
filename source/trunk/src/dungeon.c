@@ -5975,8 +5975,7 @@ static void play_loop(void)
 	bool load_game = TRUE;
 	floor_type *floor_ptr;
 
-
-	/* Process */
+	// Process
 	while (TRUE)
 	{
 		int quest_num = 0;
@@ -5984,8 +5983,7 @@ static void play_loop(void)
 		floor_ptr = GET_FLOOR_PTR(player_ptr); 
 
 		if(!floor_ptr->generated) move_floor(player_ptr, 0, player_ptr->wy, player_ptr->wx, 0, NULL, 0);
-
-		if(panic_save) panic_save = 0; // TODO
+		if(panic_save) panic_save = FALSE; // TODO
 
 		floor_ptr->base_level = floor_ptr->floor_level; 	   // Set the base level
 		subject_change_floor = FALSE;  // Not leaving
@@ -6432,7 +6430,7 @@ void prevent_turn_overflow(creature_type *creature_ptr)
 	rollback_turns = TURNS_PER_TICK * TOWN_DAWN * rollback_days;
 
 	if(turn > rollback_turns) turn -= rollback_turns;
-	else turn = 1; /* Paranoia */
+	else turn = 1;
 	if(old_battle > rollback_turns) old_battle -= rollback_turns;
 	else old_battle = 1;
 	if(creature_ptr->feeling_turn > rollback_turns) creature_ptr->feeling_turn -= rollback_turns;
@@ -6469,9 +6467,7 @@ void world_wipe()
 	play_time = 0;
 	floor_max = 1; 	// No floor_id used yet (No.0 is reserved to indicate non existance)
 
-	//TODO Move player_ptr->time_stopper = FALSE; // Assume no winning game
-	panic_save = 0;	// Assume no cheating
-
+	panic_save = FALSE;	// Assume no cheating
 
 	noscore = 0;
 	wizard = FALSE;
@@ -6519,24 +6515,13 @@ void world_wipe()
 		quest[i].complev = 0;
 	}
 
-	/* Knowledge Main Dungeon and Towns */
-	/* Telmola */
-	reveal_wilderness(68, 62);
-
-	/* Morivant */
-	reveal_wilderness(64, 86);
-
-	/* Telmola */
-	reveal_wilderness(93, 67);
-
-	/* LugBuruz */
-	reveal_wilderness(62, 76);
-
-	/* Texorami */
-	reveal_wilderness(36, 169);
-
-	/* Dungeon of Doom */
-	reveal_wilderness(52, 97);
+	// Knowledge Main Dungeon and Towns
+	reveal_wilderness(68, 62);	// Telmola
+	reveal_wilderness(64, 86);	// Morivant
+	reveal_wilderness(93, 67);	// Telmola
+	reveal_wilderness(62, 76);	// LugBuruz
+	reveal_wilderness(36, 169);	// Texorami
+	reveal_wilderness(52, 97);	// Dungeon of Doom
 
 	creating_savefile = FALSE;
 	the_world = FALSE;

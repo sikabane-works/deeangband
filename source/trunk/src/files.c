@@ -7119,7 +7119,7 @@ void exit_game_panic(creature_type *player_ptr)
 	if(player_ptr->chp < 0) gameover = FALSE;
 
 	/* Hardcode panic save */
-	panic_save = 1;
+	panic_save = TRUE;
 
 	/* Forbid suspend */
 	signals_ignore_tstp();
@@ -7650,7 +7650,7 @@ static void handle_signal_abort(int sig)
 	Term_fresh();
 
 	/* Panic Save */
-	panic_save = 1;
+	panic_save = TRUE;
 
 	/* Panic save */
 #ifdef JP

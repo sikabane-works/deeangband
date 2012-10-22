@@ -4536,7 +4536,7 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 #endif
 
 				/* Hardcode panic save */
-				panic_save = 1;
+				panic_save = TRUE;
 
 				/* Forbid suspend */
 				signals_ignore_tstp();
