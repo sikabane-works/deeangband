@@ -377,25 +377,6 @@ bool screen_object(object_type *object_ptr, u32b mode)
 		trivial_info = i;
 	}
 
-	/* Mega-Hack -- describe activation */
-
-	//TODO:TR_ACTIVATE
-	{
-#ifdef JP
-		info[i++] = "始動したときの効果...";
-#else
-		info[i++] = "It can be activated for...";
-#endif
-
-		info[i++] = item_activation(object_ptr);
-#ifdef JP
-info[i++] = "...ただし装備していなければならない。";
-#else
-		info[i++] = "...if it is being worn.";
-#endif
-
-	}
-
 	/* Figurines, a hack */
 	if(object_ptr->tval == TV_FIGURINE)
 	{
@@ -447,15 +428,6 @@ info[i++] = "それは魔法の難易度を上げる。";
 info[i++] = "それは物を強く投げることを可能にする。";
 #else
 		info[i++] = "It provides great strength when you throw an item.";
-#endif
-	}
-
-	if(object_ptr->name2 == EGO_AMU_NAIVETY)
-	{
-#ifdef JP
-info[i++] = "それは魔法抵抗力を下げる。";
-#else
-		info[i++] = "It decreases your magic resistance.";
 #endif
 	}
 

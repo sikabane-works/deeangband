@@ -344,13 +344,6 @@
 
 
 /*
- * Refueling constants
- */
-#define FUEL_TORCH      5000    /* Maximum amount of fuel in a torch */
-#define FUEL_LAMP       15000   /* Maximum amount of fuel in a lantern */
-
-
-/*
  * More maximum values
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
@@ -580,11 +573,8 @@
 #define COL_STATBAR              0
 #define MAX_COL_STATBAR         (-26)
 
-
-
 // Number of feats we change to (Excluding default). Used in feature_info.txt.
 #define MAX_FEAT_STATES	 8
-
 
 /*
  * Feature flags - should be used instead of feature indexes unless generating.
@@ -592,7 +582,6 @@
  */
 
 #define FF_FLAG_SIZE     (1 + ((FF_FLAG_MAX - 1) / 32))
-
 
 /* Which features are dynamic */
 #define have_dynamic_flags(ARRAY) \
