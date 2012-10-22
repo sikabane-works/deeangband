@@ -781,8 +781,6 @@
 #define EGO_RING_RES_DARK       178
 #define EGO_RING_WIZARD         179
 #define EGO_RING_TRUE           180
-#define EGO_RING_NO_MELEE       182
-#define EGO_RING_TY_CURSE       184
 #define EGO_RING_RES_TIME       185
 #define EGO_RING_TELEPORT       186
 

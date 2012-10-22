@@ -2396,21 +2396,11 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			}
 			else if((power == -2) && one_in_(2))
 			{
-				if(object_ptr->to_hit > 0) object_ptr->to_hit = 0-object_ptr->to_hit;
-				if(object_ptr->to_damage > 0) object_ptr->to_damage = 0-object_ptr->to_damage;
-				if(object_ptr->to_ac > 0) object_ptr->to_ac = 0-object_ptr->to_ac;
-				if(object_ptr->pval > 0) object_ptr->pval = 0-object_ptr->pval;
-				while(!object_ptr->name2)
-				{
-					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
-					switch(randint1(5))
-					{
-					case 4:
-						if(have_flag(k_ptr->flags, TRAIT_TY_CURSE)) break;
-						object_ptr->name2 = EGO_RING_TY_CURSE;
-						break;
-					}
-				}
+				if(object_ptr->to_hit > 0) object_ptr->to_hit = 0 - object_ptr->to_hit;
+				if(object_ptr->to_damage > 0) object_ptr->to_damage = 0 - object_ptr->to_damage;
+				if(object_ptr->to_ac > 0) object_ptr->to_ac = 0 - object_ptr->to_ac;
+				if(object_ptr->pval > 0) object_ptr->pval = 0 - object_ptr->pval;
+
 				/* Broken */
 				object_ptr->ident |= (IDENT_BROKEN);
 
