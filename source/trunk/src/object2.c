@@ -2447,26 +2447,12 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 			else if((power == 2) && one_in_(2))
 			{
+				//TODO add EGO
 				while(!object_ptr->name2)
 				{
 					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(21))
 					{
-					case 3: case 4:
-						if(object_ptr->pval) break;
-						object_ptr->name2 = EGO_AMU_INFRA;
-						break;
-					case 5: case 6:
-						if(have_flag(k_ptr->flags, TRAIT_SEE_INVISIBLE)) break;
-						object_ptr->name2 = EGO_AMU_SEE_INVIS;
-						break;
-					case 7: case 8:
-						if(have_flag(k_ptr->flags, TRAIT_HOLD_LIFE)) break;
-						object_ptr->name2 = EGO_AMU_HOLD_LIFE;
-						break;
-					case 10: case 11: case 21:
-						object_ptr->name2 = EGO_AMU_AC;
-						break;
 					case 12:
 						if(have_flag(k_ptr->flags, TRAIT_RES_FIRE)) break;
 						if(m_bonus(10, level) > 8)
