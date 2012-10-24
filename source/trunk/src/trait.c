@@ -2516,12 +2516,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 			break;
 
-			if(is_player(caster_ptr) && !pet)
-#ifdef JP
-					msg_print("召喚されたサイバーデーモンは怒っている！");
-#else
-					msg_print("The summoned Cyberdemon are angry!");
-#endif
 			}
 		{
 #ifdef JP
@@ -2556,12 +2550,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたクリーチャーは怒っている！");
-#else
-					msg_print("The summoned creature is angry!");
-#endif
 			}
 			else
 			{
@@ -2590,12 +2578,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			for (k = 0; k < user_level / 15 + 2; k++)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
 				{
-					if(!pet)
-#ifdef JP
-						msg_print("召喚されたクリーチャーは怒っている！");
-#else
-						msg_print("Summoned creatures are angry!");
-#endif
 				}
 				else
 				{
@@ -2608,8 +2590,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 
-			for (k = 0;k < 6; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANT, mode);
+			for (k = 0; k < 6; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANT, mode);
 			break;
 		}
 		{
@@ -2624,12 +2605,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたアリは怒っている！");
-#else
-					msg_print("Summoned ants are angry!");
-#endif
 			}
 			else
 			{
@@ -2655,12 +2630,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚された蜘蛛は怒っている！");
-#else
-					msg_print("Summoned spiders are angry!");
-#endif
 			}
 			else
 			{
@@ -2688,12 +2657,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたハウンドは怒っている！");
-#else
-					msg_print("Summoned hounds are angry!");
-#endif
 			}
 			else
 			{
@@ -2721,12 +2684,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたヒドラは怒っている！");
-#else
-					msg_print("Summoned hydras are angry!");
-#endif
 			}
 			else
 			{
@@ -2755,12 +2712,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚された天使は怒っている！");
-#else
-					msg_print("Summoned angels are angry!");
-#endif
 			}
 			else
 			{
@@ -2785,12 +2736,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたドラゴンは怒っている！");
-#else
-					msg_print("Summoned dragons are angry!");
-#endif
 			}
 			else
 			{
