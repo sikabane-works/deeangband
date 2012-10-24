@@ -1381,84 +1381,49 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BO_COLD:
-
-		cast_bolt(caster_ptr, GF_COLD, dir, damage);
+		damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		bolt(caster_ptr, target_ptr, GF_COLD, damage, TRAIT_BO_COLD, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
-		{
-			damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			bolt(caster_ptr, target_ptr, GF_COLD, damage, TRAIT_BO_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BA_LITE:
-
-		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
+		damage = (user_level * 4) + 50 + diceroll(10, 10);
+		breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
+		update_smart_learn(caster_ptr, DRS_LITE);
 		break;
-		{
-			damage = (user_level * 4) + 50 + diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
-		}
 
 	case TRAIT_BO_NETH:
-
-		cast_bolt(caster_ptr, GF_NETHER, dir, damage);
+		damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
+		bolt(caster_ptr, target_ptr, GF_NETHER, damage, TRAIT_BO_NETH, learnable);
+		update_smart_learn(caster_ptr, DRS_NETH);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
-		{
-			damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-			bolt(caster_ptr, target_ptr, GF_NETHER, damage, TRAIT_BO_NETH, learnable);
-			update_smart_learn(caster_ptr, DRS_NETH);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_WATE:
-
-		cast_bolt(caster_ptr, GF_WATER, dir, damage);
+		damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+		bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
-		{
-			damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_MANA:
-
-		cast_bolt(caster_ptr, GF_MANA, dir, damage);
+		damage = randint1(user_level * 7 / 2) + 50;
+		bolt(caster_ptr, target_ptr, GF_MANA, damage, TRAIT_BO_MANA, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
-		{
-			damage = randint1(user_level * 7 / 2) + 50;
-			bolt(caster_ptr, target_ptr, GF_MANA, damage, TRAIT_BO_MANA, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_PLAS:
-
-		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
+		damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+		bolt(caster_ptr, target_ptr, GF_PLASMA, damage, TRAIT_BO_PLAS, learnable);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
-		{
-			damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_PLASMA, damage, TRAIT_BO_PLAS, learnable);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_BO_ICEE:
-
-		cast_bolt(caster_ptr, GF_ICE, dir, damage);
+		damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
+		bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
+		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
-		{
-			damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-			bolt(caster_ptr, target_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			update_smart_learn(caster_ptr, DRS_REFLECT);
-			break;
-		}
 
 	case TRAIT_MISSILE:
 		damage = diceroll(2, 6) + user_level * 2 / 3;
@@ -1466,7 +1431,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SCARE:
-
 		fear_creature(caster_ptr, dir, user_level+10);
 		break;
 		{
@@ -1477,7 +1441,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You refuse to be frightened.");
 #endif
-
 			}
 			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
