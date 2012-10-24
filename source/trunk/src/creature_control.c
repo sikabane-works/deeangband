@@ -4175,17 +4175,13 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		i++;
 	}
 
-	/* Require the "group" flag */
+	// Require the "group" flag
 	if(!(mode & PC_ALLOW_GROUP)) return (TRUE);
 
 	place_creature_m_idx = hack_m_idx_ii;
 
-	/* Friends for certain creatures */
-	if(has_trait_species(r_ptr, TRAIT_FRIENDLY))
-	{
-		/* Attempt to place a group */
-		(void)place_creature_group(summoner_ptr, floor_ptr, y, x, species_idx, mode);
-	}
+	// Friends for certain creatures
+	if(has_trait_species(r_ptr, TRAIT_FRIENDLY)) (void)place_creature_group(summoner_ptr, floor_ptr, y, x, species_idx, mode);
 
 
 	/* Escorts for certain creatures */
@@ -4199,8 +4195,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		{
 			int nx, ny, z, d = 3;
 
-			/* Pick a location */
-			scatter(floor_ptr, &ny, &nx, y, x, d, 0);
+			scatter(floor_ptr, &ny, &nx, y, x, d, 0); // Pick a location
 
 			/* Require empty grids */
 			if(!cave_empty_bold2(floor_ptr, ny, nx)) continue;
@@ -4211,22 +4206,18 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 			/* Pick a random race */
 			z = get_species_num(floor_ptr, r_ptr->level);
 
-			/* Handle failure */
-			if(!z) break;
+			
+			if(!z) break;	// Handle failure
 
-			/* Place a single escort */
+			// Place a single escort
 			(void)place_creature_one(summoner_ptr, floor_ptr, ny, nx, z, MONEGO_NORMAL, mode);
 
 			// Place a "group" of escorts if needed
 			if(has_trait_species(&species_info[z], TRAIT_FRIENDLY) || has_trait_species(r_ptr, TRAIT_ESCORT))
-			{
-				/* Place a group of creatures */
 				(void)place_creature_group(&creature_list[place_creature_m_idx], floor_ptr, ny, nx, z, mode);
-			}
 		}
 	}
 
-	/* Success */
 	return (TRUE);
 }
 
