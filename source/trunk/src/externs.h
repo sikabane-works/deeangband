@@ -911,7 +911,7 @@ extern int calc_special_melee_cost(creature_type *creature_ptr, special_blow_typ
 extern int calc_special_melee_priority(creature_type *creature_ptr, special_blow_type *special_ptr);
 extern int calc_action_power(creature_type *creature_ptr);
 extern int melee_hit_chance(creature_type *creature_ptr, int to_hit, int ev);
-extern bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b option);
+extern bool saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b option);
 extern bool have_posture(creature_type *creature_ptr);
 
 // do-spell.c

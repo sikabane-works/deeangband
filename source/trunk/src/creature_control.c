@@ -2302,16 +2302,12 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 
 		reveal_creature_info(m_ptr, TRAIT_ELDRITCH_HORROR);
 
-		/* Demon characters are unaffected */
+		// Demon characters are unaffected
 		if(has_trait(watcher_ptr, TRAIT_DEMON)) return;
-
 		if(wizard) return;
 
-		/* Undead characters are 50% likely to be unaffected */
-		if(has_trait(watcher_ptr, TRAIT_UNDEAD))
-		{
-			if(saving_throw(25 + watcher_ptr->lev)) return;
-		}
+		// Undead characters are 50% likely to be unaffected
+		if(has_trait(watcher_ptr, TRAIT_UNDEAD)) if(saving_throw(watcher_ptr, SAVING_VO, 40, 0)) return;
 	}
 	else
 	{

@@ -1470,7 +1470,7 @@ int calc_action_power(creature_type *creature_ptr)
 	return point;
 }
 
-bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b option)
+bool saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b option)
 {
 	int power, challange, dice_total, dice;
 	switch(type)

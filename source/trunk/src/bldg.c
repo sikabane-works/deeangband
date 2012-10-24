@@ -2262,7 +2262,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 	else power *= 2;
 
-	if(new_saving_throw(watcher_ptr, SAVING_VO, power, 0))
+	if(saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 #ifdef JP
 		msg_format("ñ≤ÇÃíÜÇ≈%sÇ…í«Ç¢Ç©ÇØÇÁÇÍÇΩÅB", m_name);
@@ -2303,7 +2303,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	reveal_species_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
 	/* Mind blast */
-	if(!new_saving_throw(watcher_ptr, SAVING_VO, power, 0))
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{

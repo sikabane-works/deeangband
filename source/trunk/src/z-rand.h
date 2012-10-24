@@ -67,16 +67,8 @@
 /*
  * Evaluate to TRUE "P" percent of the time
  */
-#define magik(P) \
-	(randint0(100) < (P))
-
-
+#define magik(P) (randint0(100) < (P))
 #define one_in_(X) (randint0(X) == 0)
-
-/*
- * Evaluate to TRUE "S" percent of the time
- */
-#define saving_throw(S) (randint0(100) < (S))
 
 
 /**** Available Variables ****/
