@@ -3170,13 +3170,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 	}
 
-	/* Temporary blessing */
-	if(IS_BLESSED(creature_ptr))
-	{
-		creature_ptr->to_ac += 5;
-		creature_ptr->dis_to_ac += 5;
-	}
-
 	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
 		//has_trait(creature_ptr, TRAIT_NO_BLIND) = TRUE;
@@ -3201,8 +3194,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_hit_b  -= 12;
 		creature_ptr->dis_to_damage[0] += 3+(creature_ptr->lev/5);
 		creature_ptr->dis_to_damage[1] += 3+(creature_ptr->lev/5);
-		creature_ptr->to_ac -= 10;
-		creature_ptr->dis_to_ac -= 10;
 		creature_ptr->skill_stl -= 7;
 		creature_ptr->skill_dev -= 20;
 		creature_ptr->skill_rob += 20;
@@ -3218,12 +3209,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
 	{
 		//creature_ptr->see_inv = TRUE;
-	}
-
-	/* Temporary infravision boost */
-	if(creature_ptr->timed_trait[TRAIT_SEE_INFRA])
-	{
-		creature_ptr->see_infra+=3;
 	}
 
 	/* Temporary regeneration boost */
@@ -3288,11 +3273,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//TODO creature_ptr->sh_cold = TRUE;
 		creature_ptr->to_ac += 100;
 		creature_ptr->dis_to_ac += 100;
-	}
-	else if(creature_ptr->timed_trait[TRAIT_TSUBURERU] || creature_ptr->timed_trait[TRAIT_SHIELD] || creature_ptr->timed_trait[TRAIT_MAGIC_DEF]) // Temporary shield
-	{
-		creature_ptr->to_ac += 50;
-		creature_ptr->dis_to_ac += 50;
 	}
 
 	if(creature_ptr->timed_trait[TRAIT_RES_NETH])
