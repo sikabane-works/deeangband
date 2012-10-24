@@ -3076,13 +3076,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				else if(has_trait(target_ptr, TRAIT_FREE_ACTION))
 				{
-#ifdef JP
-					msg_print("‚µ‚©‚µŒø‰Ê‚ª‚È‚©‚Á‚½I");
-#else
-					msg_print("You are unaffected!");
-#endif
-
-					obvious = TRUE;
+					msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 				}
 				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{

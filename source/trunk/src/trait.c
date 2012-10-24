@@ -1468,17 +1468,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(has_trait(target_ptr, TRAIT_NO_BLIND))
 			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
+				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
 			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1531,17 +1526,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
+				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1560,17 +1550,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))
 			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
+				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
 			/* TODO saving_throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1879,17 +1864,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(target_ptr->resist_nexus)
 			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_print("You are unaffected!");
-#endif
-
+				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			{
@@ -1917,11 +1897,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
 				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
 			{
-#ifdef JP
-				msg_print("しかし効果がなかった！");
-#else
-				msg_format("%^s is unaffected!", target_name);
-#endif
+				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
 			else teleport_level(caster_ptr, target_m_idx);
 			break;
@@ -1953,7 +1929,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* TODO saving_throw
 			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else if(lose_all_info(target_ptr))
 			*/

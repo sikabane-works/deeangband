@@ -20,6 +20,8 @@
  * Automatically generated "variable" declarations
  */
 
+extern cptr *message;
+
 extern int max_macrotrigger;
 extern cptr macro_template;
 extern cptr macro_modifier_chr;
