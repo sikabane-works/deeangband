@@ -1559,6 +1559,8 @@ struct trait_type
 	char e_title[50];
 	byte effect_type;
 	s16b adj[STAT_MAX];
+	s16b ac;
+	s16b ev;
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */
 	s16b rob;		/* Skill: Saving throw(Robustness) */
