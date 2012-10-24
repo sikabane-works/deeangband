@@ -3284,12 +3284,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_trait(target_ptr, spell);
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else
 			*/
@@ -3409,12 +3404,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_trait(target_ptr, spell);
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else
 			*/
@@ -3557,12 +3547,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 				learn_trait(target_ptr, spell);
 			}
 			else
@@ -3616,11 +3601,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/*
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 				learn_trait(target_ptr, spell);
 			}
 			else
@@ -3673,11 +3654,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 				learn_trait(target_ptr, spell);
 			}
 			else
@@ -3787,11 +3764,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/*
 			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-#ifdef JP
-				msg_format("しかし効力を跳ね返した！");
-#else
-				msg_format("You resist the effects!");
-#endif
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 				learn_trait(target_ptr,spell);
 			}
 			else
@@ -3933,12 +3906,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					/*
 					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
-#ifdef JP
-						msg_print("しかし効力を跳ね返した！");
-#else
-						msg_print("You resist the effects!");
-#endif
-
+						msg_print(MESSAGE_RESIST_THE_EFFECT);
 					}
 					else
 					*/
@@ -4216,12 +4184,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					/* saving throw
 					if(randint0(100 + species_ptr->level/2) < caster_ptr->skill_rob)
 					{
-#ifdef JP
-						msg_print("しかし効力を跳ね返した！");
-#else
-						msg_print("You resist the effects!");
-#endif
-
+						msg_print(MESSAGE_RESIST_THE_EFFECT);
 					}
 					else
 					*/

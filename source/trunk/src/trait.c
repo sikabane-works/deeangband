@@ -1478,12 +1478,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else
 			*/
@@ -1546,12 +1541,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else
 			*/
@@ -1580,12 +1570,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* TODO saving_throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_format("しかし効力を跳ね返した！");
-#else
-				msg_format("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else
 			*/
@@ -1904,12 +1889,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else
 			{
@@ -1973,12 +1953,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* TODO saving_throw
 			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("しかし効力を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 			}
 			else if(lose_all_info(target_ptr))
 			*/

@@ -1210,12 +1210,7 @@ void apply_nexus(creature_type *m_ptr)
 
 			if(randint0(100) < m_ptr->skill_rob)
 			{
-#ifdef JP
-msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
-#else
-				msg_print("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 				break;
 			}
 			*/
@@ -1231,12 +1226,7 @@ msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
 
 			if(randint0(100) < m_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
-#else
-				msg_print("You resist the effects!");
-#endif
-
+				msg_print(MESSAGE_RESIST_THE_EFFECT);
 				break;
 			}
 			*/

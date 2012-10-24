@@ -3086,12 +3086,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{
-#ifdef JP
-					msg_print("‚µ‚©‚µŒø—Í‚ğ’µ‚Ë•Ô‚µ‚½I");
-#else
-					msg_print("You resist the effects!");
-#endif
-
+					msg_print(MESSAGE_RESIST_THE_EFFECT);
 					obvious = TRUE;
 				}
 				*/
