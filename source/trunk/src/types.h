@@ -1450,13 +1450,19 @@ struct creature_type
 	s16b dis_to_hit[MAX_WEAPONS];	// Known bonus to hit (wield) 
 	s16b dis_to_hit_b;	// Known bonus to hit (bow) 
 	s16b dis_to_damage[MAX_WEAPONS];	// Known bonus to dam (wield) 
-	s16b dis_to_ac;		// Known bonus to ac
-	s16b dis_to_ev;		// Known bonus to ev
 
-	s16b dis_ac;		// Known base ac
-	s16b dis_ev;		// Known base ac
-	s16b to_ac;			// Bonus to ac
-	s16b to_ev;			// Known base ac
+	s16b ac;			// Base AC
+	s16b ev;			// Base EV
+	s16b vo;			// Base VO
+	s16b to_ac;			// Bonus to AC
+	s16b to_ev;			// Bonus to EV
+	s16b to_vo;			// Bonus to VO
+	s16b dis_ac;		// Known base AC
+	s16b dis_ev;		// Known base EV
+	s16b dis_vo;		// Known base VO
+	s16b dis_to_ac;		// Known bonus to AC
+	s16b dis_to_ev;		// Known bonus to EV
+	s16b dis_to_vo;		// Known bonus to VO
 
 	s16b to_m_chance;		// Minusses to cast chance 
 
@@ -1467,10 +1473,6 @@ struct creature_type
 	s16b action_priority[MAX_MELEE_TYPE];	// Action priority
 
 	bool no_flowed;
-
-	s16b ac;			// Base ac
-	s16b ev;			// Base ev
-	s16b vo;			// Base vo
 
 	s16b see_infra;		// Infravision range 
 
@@ -1567,9 +1569,6 @@ struct trait_type
 	s16b vo;
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */
-	s16b rob;		/* Skill: Saving throw(Robustness) */
-	s16b eva;		/* Skill: Saving throw(Evasion) */
-	s16b vol;		/* Skill: Saving throw(Volition) */
 	s16b stl;		/* Skill: Stealth factor */
 	s16b srh;		/* Skill: Searching ability */
 	s16b fos;		/* Skill: Searching frequency */

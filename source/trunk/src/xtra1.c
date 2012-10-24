@@ -3896,10 +3896,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 			creature_ptr->skill_thn += trait_info[i].thn;
 			creature_ptr->skill_tht += trait_info[i].tht;
 
-			creature_ptr->skill_rob += trait_info[i].rob;
-			creature_ptr->skill_eva += trait_info[i].eva;
-			creature_ptr->skill_vol += trait_info[i].vol;
-
 			creature_ptr->see_infra += trait_info[i].infra;
 
 		}
