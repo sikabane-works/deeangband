@@ -1763,22 +1763,15 @@
 #define PW_EQUIP        0x00000002L     /* Display equip/inven */
 #define PW_SPELL        0x00000004L     /* Display spell list */
 #define PW_PLAYER       0x00000008L     /* Display character */
-/* xxx */
-/* xxx */
 #define PW_MESSAGE      0x00000040L     /* Display messages */
 #define PW_OVERHEAD     0x00000080L     /* Display overhead view */
 #define PW_MONSTER      0x00000100L     /* Display creature recall */
 #define PW_OBJECT       0x00000200L     /* Display object recall */
 #define PW_DUNGEON      0x00000400L     /* Display dungeon view */
 #define PW_SNAPSHOT     0x00000800L     /* Display snap-shot */
-/* xxx */
-/* xxx */
-#define PW_BORG_1       0x00004000L     /* Display borg messages */
-#define PW_BORG_2       0x00008000L     /* Display borg status */
 
-/*
- * Bit flags for the place_creature_???() (etc)
- */
+
+// Bit flags for the place_creature_???() (etc)
 #define PC_ALLOW_SLEEP    0x00000001
 #define PC_ALLOW_GROUP    0x00000002
 #define PC_FORCE_FRIENDLY 0x00000004
