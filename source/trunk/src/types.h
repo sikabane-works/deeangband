@@ -1468,6 +1468,7 @@ struct creature_type
 
 	s16b ac;			// Base ac
 	s16b ev;			// Base ev
+	s16b vo;			// Base vo
 
 	s16b see_infra;		// Infravision range 
 
@@ -1561,6 +1562,7 @@ struct trait_type
 	s16b adj[STAT_MAX];
 	s16b ac;
 	s16b ev;
+	s16b vo;
 	s16b dis;		/* Skill: Disarming */
 	s16b dev;		/* Skill: Magic Devices */
 	s16b rob;		/* Skill: Saving throw(Robustness) */
