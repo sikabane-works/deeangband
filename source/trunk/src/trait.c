@@ -1090,167 +1090,103 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_ACID:
-		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
+		update_smart_learn(caster_ptr, DRS_ACID);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
 
 	case TRAIT_BR_ELEC:
-		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
+		update_smart_learn(caster_ptr, DRS_ELEC);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_ELEC, damage,0, TRUE, TRAIT_BR_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
-			break;
-		}
 
 	case TRAIT_BR_FIRE:
-		cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_FIRE, damage, 0, TRUE, TRAIT_BR_FIRE, learnable);
+		update_smart_learn(caster_ptr, DRS_FIRE);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_FIRE, damage, 0, TRUE, TRAIT_BR_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
-		}
 
 	case TRAIT_BR_COLD:
-		cast_ball(caster_ptr, GF_COLD, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_COLD, damage,0, TRUE, TRAIT_BR_COLD, learnable);
+		update_smart_learn(caster_ptr, DRS_COLD);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_COLD, damage,0, TRUE, TRAIT_BR_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			break;
-		}
 
 	case TRAIT_BR_POIS:
-		cast_ball(caster_ptr, GF_POIS, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_POIS, damage, 0, TRUE, TRAIT_BR_POIS, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_POIS, damage, 0, TRUE, TRAIT_BR_POIS, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
 
 	case TRAIT_BR_NETH:
-		cast_ball(caster_ptr, GF_NETHER, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_NETHER, damage,0, TRUE, TRAIT_BR_NETH, learnable);
+		update_smart_learn(caster_ptr, DRS_NETH);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_NETHER, damage,0, TRUE, TRAIT_BR_NETH, learnable);
-			update_smart_learn(caster_ptr, DRS_NETH);
-			break;
-		}
 
 	case TRAIT_BR_LITE:
-		cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
+		update_smart_learn(caster_ptr, DRS_LITE);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_LITE, damage,0, TRUE, TRAIT_BR_LITE, learnable);
-			update_smart_learn(caster_ptr, DRS_LITE);
-			break;
-		}
 
 	case TRAIT_BR_DARK:
-		cast_ball(caster_ptr, GF_DARK, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_DARK, damage,0, TRUE, TRAIT_BR_DARK, learnable);
+		update_smart_learn(caster_ptr, DRS_DARK);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DARK, damage,0, TRUE, TRAIT_BR_DARK, learnable);
-			update_smart_learn(caster_ptr, DRS_DARK);
-			break;
-		}
 
 	case TRAIT_BR_CONF:
-		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
+		update_smart_learn(caster_ptr, DRS_CONF);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CONFUSION, damage,0, TRUE, TRAIT_BR_CONF, learnable);
-			update_smart_learn(caster_ptr, DRS_CONF);
-			break;
-		}
 
 	case TRAIT_BR_SOUN:
-		cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 35 ? -3 : -2));
-		break;
-		{
-			if(caster_ptr->species_idx == SPECIES_JAIAN)
+		if(caster_ptr->species_idx == SPECIES_JAIAN)
 #ifdef JP
-				msg_format("「ボォエ～～～～～～」");
+			msg_format("「ボォエ～～～～～～」");
 #else
-				msg_format("'Booooeeeeee'");
+			msg_format("'Booooeeeeee'");
 #endif
-			damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
-			update_smart_learn(caster_ptr, DRS_SOUND);
-			break;
-		}
+		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
+		update_smart_learn(caster_ptr, DRS_SOUND);
+		break;
 
 	case TRAIT_BR_CHAO:
-		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
+		update_smart_learn(caster_ptr, DRS_CHAOS);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
-		}
 
 	case TRAIT_BR_DISE:
-		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
+		update_smart_learn(caster_ptr, DRS_DISEN);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISENCHANT, damage,0, TRUE, TRAIT_BR_DISE, learnable);
-			update_smart_learn(caster_ptr, DRS_DISEN);
-			break;
-		}
 
 	case TRAIT_BR_NEXU:
-		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
+		update_smart_learn(caster_ptr, DRS_NEXUS);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NEXUS, damage,0, TRUE, TRAIT_BR_NEXU, learnable);
-			update_smart_learn(caster_ptr, DRS_NEXUS);
-			break;
-		}
 
 	case TRAIT_BR_TIME:
-		cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
-			break;
-		}
 
 	case TRAIT_BR_INER:
-		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_INERTIA, damage,0, TRUE, TRAIT_BR_INER, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_INERTIA, damage,0, TRUE, TRAIT_BR_INER, learnable);
-			break;
-		}
 
 	case TRAIT_BR_GRAV:
-		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV, learnable);
-			break;
-		}
 
 	case TRAIT_BR_SHAR:
 		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
