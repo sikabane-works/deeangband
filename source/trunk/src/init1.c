@@ -4023,9 +4023,6 @@ enum TRAIT_INFO
   TRAIT_INFO_VO,
   TRAIT_INFO_DIS,
   TRAIT_INFO_DEV,
-  TRAIT_INFO_ROB,
-  TRAIT_INFO_EVA,
-  TRAIT_INFO_VOL,
   TRAIT_INFO_STL,
   TRAIT_INFO_SRH,
   TRAIT_INFO_FOS,
@@ -4072,9 +4069,6 @@ static cptr cfeature_info_csv_list[TRAIT_INFO_CSV_COLUMNS] =
 	"VO",
 	"DIS",
 	"DEV",
-	"ROB",
-	"EVA",
-	"VOL",
 	"STL",
 	"SRH",
 	"FOS",
@@ -4232,21 +4226,6 @@ errr parse_trait_csv(char *buf, header *head)
 				case TRAIT_INFO_DEV:
 					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 					trait_ptr->dev = (s16b)b;
-				break;
-
-				case TRAIT_INFO_ROB:
-					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_ptr->rob = (s16b)b;
-				break;
-
-				case TRAIT_INFO_EVA:
-					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_ptr->eva = (s16b)b;
-				break;
-
-				case TRAIT_INFO_VOL:
-					if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
-					trait_ptr->vol = (s16b)b;
 				break;
 
 				case TRAIT_INFO_STL:
