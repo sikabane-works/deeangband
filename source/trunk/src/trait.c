@@ -40,6 +40,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	bool kichigai_talk = FALSE;
 	bool summoned = FALSE;
 	bool powerful_summoned = FALSE;
+	bool fumble_summoned = FALSE;
+
+	cptr summoned_name = "";
 
 	// process flags
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
@@ -3041,14 +3044,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 				{
 					count++;
-					if(!pet)
-#ifdef JP
-						msg_print("召喚されたユニーク・クリーチャーは怒っている！");
-#else
-						msg_print("Summoned special opponents are angry!");
-#endif
 				}
-				for (k = count;k < 1; k++)
+				for (k = count; k < 1; k++)
 					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 					{
 						count++;
@@ -3790,15 +3787,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	}
 	}
 
-	if(is_player(caster_ptr) && !pet)
+	if(fumble_summoned)
 	{
-/*
 #ifdef JP
 		msg_format("召喚された%sは召喚者に敵意を向けている。", summoned_name);
 #else
 		msg_print("The summoned %s are angry!", summoned_name);
 #endif
-*/
 	}
 
 	if(kichigai_talk)
