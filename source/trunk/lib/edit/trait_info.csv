@@ -250,7 +250,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,AC,EV,VO,DIS,DEV
 248,SUPER_VORPAL,-1,-1,＊切れ味＊,Super Vorpal,CONSTANT,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,
 249,VORPAL,-1,-1,切れ味,Vorpal,CONSTANT,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたの武器は非常に鋭い。,Your weapon is very sharp.,,,,,,
 250,SHATTER,-1,-1,粉砕,Shatter,CONSTANT,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,あなたの武器は打撃で地震を発生することができる。,The impact of your weapon can cause earthquakes.,,,,,,
-251,WOODEN_CLAPPING,-1,-1,拍子木,Wooden Clapping,CONSTANT,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,
+251,WOODEN_CLAPPING,-1,-1,拍子木,Wooden Clapping,CONSTANT,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,拍子木を打った。/You beat Your wooden clappers.,
 252,XXX0252,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,
 253,XXX0253,-1,-1,未定義,Undefined,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,
 254,WILD_SWAMP,-1,-1,未定義,Undefined,CONSTANT,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,,,,,,

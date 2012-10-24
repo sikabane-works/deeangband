@@ -879,11 +879,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_INROU:
 		{
 			int count = 0, i;
-			creature_type *target_ptr;
 #ifndef JP
 			cptr kakusan = "";
 #endif
-
 			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_SUKE, PC_FORCE_PET))
 			{
 #ifdef JP
@@ -925,7 +923,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_format("%^s says 'WHO do you think this person is! Bow your head, down your knees!'", kakusan);
 #endif
-
 				sukekaku = TRUE;
 				stun_creatures(caster_ptr, 120);
 				confuse_creatures(caster_ptr, 120);
@@ -945,34 +942,23 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_WOODEN_CRAPPING:
-		{
-#ifdef JP
-			msg_print("拍子木を打った。");
-#else
-			msg_print("You beat Your wooden clappers.");
-#endif
-			aggravate_creatures(caster_ptr);
-			break;
-		}
+		aggravate_creatures(caster_ptr);
+		break;
 
 	case TRAIT_BECOME_HERO:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(25)+25, FALSE);
-			heal_creature(caster_ptr, 10);
-			break;
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(25)+25, FALSE);
+		heal_creature(caster_ptr, 10);
+		break;
 
 	case TRAIT_CURING:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
-			break;
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
+		break;
 
 	case TRAIT_CHANGE_BRAND:
 		{
