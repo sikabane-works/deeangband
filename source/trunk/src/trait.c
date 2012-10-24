@@ -56,8 +56,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	if(trait_info[id].effect_type == TRAIT_EFFECT_TYPE_TARGET)
 	{
-		if(!get_aim_dir(caster_ptr, &dir))
-		return FALSE;
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 	}
 
 	if(!blind)
@@ -84,7 +83,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		for (dummy = 0; dummy < 3; dummy++)
 		{
 			if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
@@ -139,13 +138,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		*/
 
 		/*
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
 		break;
 		*/
 
 		/*
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		else
 		damage = hp / 4;
 		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
@@ -708,7 +707,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			int tx, ty;
 
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	
 
 			/* Use the given direction */
 			tx = caster_ptr->fx + 99 * ddx[dir];
@@ -961,31 +960,20 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CHANGE_BRAND:
-		{
-#ifdef JP
-			msg_print("鎌が明るく輝いた...");
-#else
-			msg_print("Your scythe glows brightly!");
-#endif
-			//get_bloody_moon_flags(object_ptr);
-			if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
-			caster_ptr->creature_update |= (CRU_BONUS | CRU_HP);
-			break;
-		}
+		//get_bloody_moon_flags(object_ptr);
+		if(has_trait(caster_ptr, TRAIT_ANDROID)) calc_android_exp(caster_ptr);
+		caster_ptr->creature_update |= (CRU_BONUS | CRU_HP);
+		break;
 
 	case TRAIT_SHIKO:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
-			dispel_evil(caster_ptr, caster_ptr->lev * 3);
-			break;
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(20) + 20, FALSE);
+		dispel_evil(caster_ptr, caster_ptr->lev * 3);
+		break;
 
 	case TRAIT_MAGIC_RES_COLD:
-		{
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
-			break;
-		}
+		(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
+		break;
 
 	case TRAIT_SUMMON_OCTOPUS:
 		{
@@ -995,47 +983,28 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			if(summon_named_creature(0, floor_ptr, caster_ptr->fy, caster_ptr->fx, SPECIES_JIZOTAKO, mode))
 			{
-				if(pet)
-#ifdef JP
-					msg_print("蛸があなたの下僕として出現した。");
-#else
-					msg_print("A group of octopuses appear as your servant.");
-#endif
-
-				else
-#ifdef JP
-					msg_print("蛸はあなたを睨んでいる！");
-#else
-					msg_print("A group of octopuses appear as your enemy!");
-#endif
-
 			}
 			break;
 		}
-
 
 	case TRAIT_CURE_OF_AESCULAPIUS:
-		{
-			(void)do_res_stat(caster_ptr, STAT_STR);
-			(void)do_res_stat(caster_ptr, STAT_INT);
-			(void)do_res_stat(caster_ptr, STAT_WIS);
-			(void)do_res_stat(caster_ptr, STAT_DEX);
-			(void)do_res_stat(caster_ptr, STAT_CON);
-			(void)do_res_stat(caster_ptr, STAT_CHA);
-			(void)restore_exp(caster_ptr);
-			break;
-		}
+		(void)do_res_stat(caster_ptr, STAT_STR);
+		(void)do_res_stat(caster_ptr, STAT_INT);
+		(void)do_res_stat(caster_ptr, STAT_WIS);
+		(void)do_res_stat(caster_ptr, STAT_DEX);
+		(void)do_res_stat(caster_ptr, STAT_CON);
+		(void)do_res_stat(caster_ptr, STAT_CHA);
+		(void)restore_exp(caster_ptr);
+		break;
 
 	case TRAIT_REMOVE_CURSE_2:
+		if(remove_all_curse(caster_ptr))
 		{
-			if(remove_all_curse(caster_ptr))
-			{
 #ifdef JP
-				msg_print("誰かに見守られているような気がする。");
+			msg_print("誰かに見守られているような気がする。");
 #else
-				msg_print("You feel as if someone is watching over you.");
+			msg_print("You feel as if someone is watching over you.");
 #endif
-			}
 		}
 
 	case TRAIT_RESTORE_MANA:
@@ -1078,14 +1047,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SALT_WATER:
-#ifdef JP
-		msg_print("うぇ！思わず吐いてしまった。");
-#else
-		msg_print("The potion makes you vomit!");
-#endif
-
 		if(!has_trait(caster_ptr, TRAIT_NONLIVING)) (void)set_food(caster_ptr, PY_FOOD_STARVE - 1); // Only living creatures get thirsty
-
 		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 		(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + 4);
 		break;
@@ -1095,7 +1057,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SHOUT:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		racial_stop_mouth(caster_ptr);
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
@@ -1119,7 +1080,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SHOOT:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_bolt(caster_ptr, GF_ARROW, dir, damage);
 		{
 			//TODO Fix damage calc.
@@ -1130,7 +1090,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_ACID, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1141,7 +1100,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_ELEC:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1152,7 +1110,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_FIRE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1163,7 +1120,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_COLD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_COLD, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1174,7 +1130,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_POIS:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_POIS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1185,7 +1140,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_NETH:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_NETHER, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1196,7 +1150,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_LITE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_LITE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1207,7 +1160,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_DARK:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_DARK, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1218,7 +1170,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_CONF:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_CONFUSION, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1229,7 +1180,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_SOUN:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_SOUND, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1246,7 +1196,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_CHAO:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1257,7 +1206,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_DISE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_DISENCHANT, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1268,7 +1216,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_NEXU:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_NEXUS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1279,7 +1226,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_TIME:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_TIME, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1289,7 +1235,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_INER:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_INERTIA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1299,7 +1244,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_GRAV:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_GRAVITY, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1309,11 +1253,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_SHAR:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
-
 			if(caster_ptr->species_idx == SPECIES_BOTEI)
 #ifdef JP
 				msg_format("「ボ帝ビルカッター！！！」");
@@ -1327,7 +1269,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_PLAS:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1337,7 +1278,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_WALL:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_FORCE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1347,7 +1287,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1357,7 +1297,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_NUKE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
 		break;
 		{
@@ -1368,7 +1308,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_NUKE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1379,7 +1319,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_CHAO:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
 		break;
 		{
@@ -1390,7 +1330,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BR_DISI:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (user_level > 35 ? -3 : -2));
 		break;
 		{
@@ -1400,7 +1340,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
 		break;
 		{
@@ -1411,7 +1351,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_ELEC:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
 		break;
 		{
@@ -1422,7 +1362,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_FIRE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
 		break;
 		{
@@ -1447,7 +1387,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_POIS:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_POIS, dir, damage, 2);
 		break;
 		{
@@ -1458,7 +1398,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_NETH:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_NETHER, dir, damage, 2);
 		break;
 		{
@@ -1483,7 +1423,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_MANA, dir, damage, 4);
 		break;
 		{
@@ -1493,7 +1433,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_DARK:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_DARK, dir, damage, 4);
 		break;
 		{
@@ -1504,7 +1444,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_DRAIN_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_DRAIN_MANA, dir, randint1(user_level*3)+user_level, 0);
 		break;
 		{
@@ -1515,11 +1455,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_MIND_BLAST:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
 		break;
 
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_PSI, dir, user_level);
 		break;
 
@@ -1528,7 +1468,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BRAIN_SMASH:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
 		break;
 		{
@@ -1538,7 +1478,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_CAUSE_1:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
 		break;
 		{
@@ -1548,7 +1488,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_CAUSE_2:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
 		break;
 		{
@@ -1558,7 +1498,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_CAUSE_3:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
 		break;
 		{
@@ -1568,7 +1508,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_CAUSE_4:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
 		break;
 		{
@@ -1578,7 +1518,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_ACID, dir, damage);
 		break;
 		{
@@ -1590,7 +1530,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_ELEC:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_ELEC, dir, damage);
 		break;
 		{
@@ -1602,7 +1542,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_FIRE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_FIRE, dir, damage);
 		break;
 		{
@@ -1614,7 +1554,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_COLD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_COLD, dir, damage);
 		break;
 		{
@@ -1626,7 +1566,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BA_LITE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_LITE, dir, damage, 4);
 		break;
 		{
@@ -1637,7 +1577,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_NETH:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_NETHER, dir, damage);
 		break;
 		{
@@ -1649,7 +1589,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_WATE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_WATER, dir, damage);
 		break;
 		{
@@ -1660,7 +1600,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_MANA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_MANA, dir, damage);
 		break;
 		{
@@ -1671,7 +1611,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_PLAS:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_PLASMA, dir, damage);
 		break;
 		{
@@ -1682,7 +1622,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BO_ICEE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_ICE, dir, damage);
 		break;
 		{
@@ -1699,7 +1639,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SCARE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		fear_creature(caster_ptr, dir, user_level+10);
 		break;
 		{
@@ -1733,7 +1673,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BLIND:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
 		{
@@ -1767,7 +1707,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_CONF:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		confuse_creature(caster_ptr, dir, user_level * 2);
 		break;
 		{
@@ -1801,7 +1741,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SLOW:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		slow_creature(caster_ptr, dir);
 		break;
 		{
@@ -1835,7 +1775,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_HOLD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		sleep_creature(caster_ptr, dir);
 		break;
 		{
@@ -1870,7 +1810,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_HAND_DOOM:
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	
 			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
 			break;
 			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
@@ -2225,7 +2165,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			//cast_beam(caster_ptr, target_ptr, GF_PSY_SPEAR, damage, TRAIT_PSY_SPEAR, TRUE);
 			break;
 		}
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		damage = randint1(user_level * 3) + 100;
 		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
@@ -3029,7 +2969,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HOLY_LANCE:
 	case TRAIT_HELL_LANCE:
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	
 			cast_beam(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, user_level * 3);
 			break;
 		}
@@ -3196,7 +3136,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TAKE_PHOTO:
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	
 			project_length = 1;
 			cast_beam(caster_ptr, GF_PHOTO, dir, 1);
 			break;
@@ -3211,7 +3151,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_DOMINATE_LIVE:
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+	
 			(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
 			break;
 		}
@@ -3577,7 +3517,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_THROW_BOULDER:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 #ifdef JP
 		msg_print("巨大な岩を投げた。");
 #else
@@ -3588,19 +3528,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SPIT_ACID:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		racial_stop_mouth(caster_ptr);
 		if(user_level < 25) cast_bolt(caster_ptr, GF_ACID, dir, user_level);
 		else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
 		break;
 
 	case TRAIT_POISON_DART:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_POIS, dir, user_level);
 		break;
 
 	case TRAIT_FIRE_BALL:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 #ifdef JP
 		msg_print("ファイア・ボールを放った。");
 #else
@@ -3610,7 +3550,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_FIRE_BOLT:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 #ifdef JP
 		msg_print("ファイア・ボルトを放った。");
 #else
@@ -3630,27 +3570,27 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_RAY_GUN:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
 		break;
 
 	case TRAIT_BLASTER:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_bolt(caster_ptr, GF_MISSILE, dir, user_level);
 		break;
 
 	case TRAIT_BAZOOKA:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
 		break;
 
 	case TRAIT_BEAM_CANNON:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		cast_beam(caster_ptr, GF_MISSILE, dir, user_level * 2);
 		break;
 
 	case TRAIT_SCARE_CREATURE:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+
 		racial_stop_mouth(caster_ptr);
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
