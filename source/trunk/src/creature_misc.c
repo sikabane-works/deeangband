@@ -1470,20 +1470,27 @@ int calc_action_power(creature_type *creature_ptr)
 	return point;
 }
 
-bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty)
+bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty, u32b option)
 {
-	int resistance;
+	int power, challange, dice_total, dice;
 	switch(type)
 	{
-	case SAVING_ROBUSTNESS:
-		resistance = creature_ptr->ac + creature_ptr->to_ac;
-	case SAVING_EVASION:
-		resistance = creature_ptr->ev + creature_ptr->to_ev;
-	case SAVING_VOLITION:
-		resistance = creature_ptr->vo + creature_ptr->to_vo;
+	case SAVING_AC: power = creature_ptr->ac + creature_ptr->to_ac; break;
+	case SAVING_EV: power = creature_ptr->ev + creature_ptr->to_ev; break;
+	case SAVING_VO: power = creature_ptr->vo + creature_ptr->to_vo; break;
 	};
 
-	return randint0(100) >= (difficulty - resistance);
+	challange = difficulty - power;
+	dice_total = 0;
+
+	do
+	{
+		dice = rand_range(-50, 50);
+		if(dice == -50) dice_total -= 100;
+		if(dice == +50) dice_total += 100;
+	} while(dice == -50 || dice == +50);
+
+	return challange <= dice + dice_total;
 }
 
 bool have_posture(creature_type *creature_ptr)

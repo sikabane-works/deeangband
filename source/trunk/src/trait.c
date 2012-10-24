@@ -1450,7 +1450,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You refuse to be frightened.");
 #endif
-
 			}
 			else
 			*/
