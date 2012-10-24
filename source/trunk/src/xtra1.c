@@ -3193,18 +3193,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		//creature_ptr->levitation = TRUE;
 	}
 
-	/* Temporary "Hero" */
-	if(IS_HERO(creature_ptr))
-	{
-		creature_ptr->to_hit[0] += 12;
-		creature_ptr->to_hit[1] += 12;
-		creature_ptr->to_hit_b  += 12;
-		creature_ptr->to_hit_m  += 12;
-		creature_ptr->dis_to_hit[0] += 12;
-		creature_ptr->dis_to_hit[1] += 12;
-		creature_ptr->dis_to_hit_b  += 12;
-	}
-
 	/* Temporary "Beserk" */
 	if(creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
@@ -3233,9 +3221,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_dig += 30;
 	}
 
-	if(IS_FAST(creature_ptr)) creature_ptr->speed += 10;
-	if(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] && !creature_ptr->riding) creature_ptr->speed += 40;
-	if(creature_ptr->timed_trait[TRAIT_SLOW]) creature_ptr->speed -= 10;
 	//TODO if(IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 
 	/* Temporary see invisible */
