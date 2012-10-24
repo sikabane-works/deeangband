@@ -634,32 +634,24 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_bolt(caster_ptr, GF_FIRE, dir, diceroll(9, 8));
 		break;
 
 	case TRAIT_BO_COLD_MINI:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_bolt(caster_ptr, GF_COLD, dir, diceroll(6, 8));
 		break;
 
 	case TRAIT_BO_ELEC_MINI:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_bolt(caster_ptr, GF_ELEC, dir, diceroll(4, 8));
 		break;
 
 	case TRAIT_BO_ACID_MINI:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_bolt(caster_ptr, GF_ACID, dir, diceroll(5, 8));
-			break;
-		}
+		cast_bolt(caster_ptr, GF_ACID, dir, diceroll(5, 8));
+		break;
 
 	case TRAIT_REMOVE_FEAR:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			break;
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		break;
 
 	case TRAIT_GETAWAY:
 		{
@@ -696,31 +688,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
 		update_smart_learn(caster_ptr, DRS_COLD);
 		break;
-		{
-			damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
-			update_smart_learn(caster_ptr, DRS_COLD);
-			break;
-		}
 
 	case TRAIT_SUMMON_DAWN_LEGION:
-		{
-			(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
-			break;
-		}
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		break;
 
 	case TRAIT_PANIC_CREATURE:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			confuse_creature(caster_ptr, dir, 20);
-			break;
-		}
+		confuse_creature(caster_ptr, dir, 20);
+		break;
 
 	case TRAIT_ADD_FIRE_BRAND:
-		{ //TODO
-			(void)brand_bolts(caster_ptr);
-			break;
-		}
+		(void)brand_bolts(caster_ptr);
+		break;
 
 	case TRAIT_CRIMSON_ROCKET:
 		{
@@ -755,7 +734,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SEARCH_UNIQUE:
-		// Process the creatures (backwards)
 		for (i = creature_max - 1; i >= 1; i--) // Access the creature
 		{
 			target_ptr = &creature_list[i];
@@ -809,31 +787,23 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_FRIGHTEN_SOUND:
-		{
-			if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
-			if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
-			(void)turn_creatures(caster_ptr, (3 * caster_ptr->lev / 2) + 10);
-			break;
-		}
+		if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
+		if(HEX_SPELLING_ANY(caster_ptr)) stop_hex_spell_all(caster_ptr);
+		(void)turn_creatures(caster_ptr, (3 * caster_ptr->lev / 2) + 10);
+		break;
 
 	case TRAIT_DISPEL_SMALL_LIFE:
-		{
-			(void)dispel_creatures(caster_ptr, 4);
-			break;
-		}
+		(void)dispel_creatures(caster_ptr, 4);
+		break;
 
 	case TRAIT_BLAZING_LIGHT:
-		{
-			cast_ball(caster_ptr, GF_LITE, 0, 300, 6);
-			confuse_creatures(caster_ptr, 3 * caster_ptr->lev / 2);
-			break;
-		}
+		cast_ball(caster_ptr, GF_LITE, 0, 300, 6);
+		confuse_creatures(caster_ptr, 3 * caster_ptr->lev / 2);
+		break;
 
 	case TRAIT_MAGIC_CHARGE_EX:
-		{
-			if(!recharge(caster_ptr, 1000)) return FALSE;
-			break;
-		}
+		if(!recharge(caster_ptr, 1000)) return FALSE;
+		break;
 
 		/*
 		case ART_MURAMASA:
@@ -897,19 +867,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			play_redraw |= (PR_STATE);
 			break;
 		}
+
 	case TRAIT_TELEKINES:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			fetch(caster_ptr, dir, 500, TRUE);
-			break;
-		}
+		fetch(caster_ptr, dir, 500, TRUE);
+		break;
 
 	case TRAIT_STAR_BALL:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_ball(caster_ptr, GF_LITE, dir, 200, 3);
-			break;
-		}
+		cast_ball(caster_ptr, GF_LITE, dir, 200, 3);
+		break;
 
 	case TRAIT_INROU:
 		{
