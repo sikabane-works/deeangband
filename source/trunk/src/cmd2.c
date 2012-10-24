@@ -688,7 +688,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		for (; nasty_tricks_count > 0; nasty_tricks_count--)
 		{
 			/* ...but a high saving throw does help a little. */
-			if(randint1(100+object_ptr->pval*2) > creature_ptr->skill_rob)
+			//TODO saving_throw if(randint1(100+object_ptr->pval*2) > creature_ptr->skill_rob)
 			{
 #ifdef JP
 				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);

@@ -1476,11 +1476,11 @@ bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty)
 	switch(type)
 	{
 	case SAVING_ROBUSTNESS:
-		resistance = creature_ptr->skill_rob;
+		resistance = creature_ptr->ac + creature_ptr->to_ac;
 	case SAVING_EVASION:
-		resistance = creature_ptr->skill_eva;
+		resistance = creature_ptr->ev + creature_ptr->to_ev;
 	case SAVING_VOLITION:
-		resistance = creature_ptr->skill_vol;
+		resistance = creature_ptr->vo + creature_ptr->to_vo;
 	};
 
 	return randint0(100) >= (difficulty - resistance);

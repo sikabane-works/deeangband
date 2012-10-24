@@ -3309,20 +3309,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	if(IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;
-
-	if(has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
-	{
-		creature_ptr->skill_rob += 20 + creature_ptr->lev * 5;
-		creature_ptr->skill_eva += 20 + creature_ptr->lev * 5;
-		creature_ptr->skill_vol += 20 + creature_ptr->lev * 5;
-	}
-
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES] || creature_ptr->timed_trait[TRAIT_RESIST_MAGIC] || creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
-	{
-		creature_ptr->skill_rob += 95 + creature_ptr->lev;
-		creature_ptr->skill_eva += 95 + creature_ptr->lev;
-	    creature_ptr->skill_vol += 95 + creature_ptr->lev;
-	}
 }
 
 
@@ -3603,9 +3589,6 @@ static void wipe_creature_calculation_status(creature_type *creature_ptr)
 
 	creature_ptr->skill_dis = 0;
 	creature_ptr->skill_dev = 0;
-	creature_ptr->skill_rob = 0;
-	creature_ptr->skill_eva = 0;
-	creature_ptr->skill_vol = 0;
 	creature_ptr->skill_stl = 0;
 	creature_ptr->skill_srh = 0;
 	creature_ptr->skill_fos = 0;
@@ -3902,13 +3885,6 @@ static void set_trait_bonuses(creature_type *creature_ptr)
 	}
 
 	{
-
-		if(has_trait(creature_ptr, TRAIT_MAGIC_RES))
-		{
-			creature_ptr->skill_rob += creature_ptr->lev / 5;
-			creature_ptr->skill_eva += creature_ptr->lev / 5;
-			creature_ptr->skill_vol += creature_ptr->lev / 5;
-		}
 
 		if(has_trait(creature_ptr, TRAIT_ELEC_TOUC))
 		{
@@ -4421,9 +4397,6 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 		{
 			creature_ptr->skill_dis += authority_info[i].a_dis;
 			creature_ptr->skill_dev += authority_info[i].a_dev;
-			creature_ptr->skill_rob += authority_info[i].a_sav;
-			creature_ptr->skill_eva += authority_info[i].a_sav;
-			creature_ptr->skill_vol += authority_info[i].a_sav;
 			creature_ptr->skill_stl += authority_info[i].a_stl;
 			creature_ptr->skill_srh += authority_info[i].a_srh;
 			creature_ptr->skill_fos += authority_info[i].a_fos;
@@ -4444,9 +4417,6 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 				{
 					creature_ptr->skill_dis += authority_info[i].w_dis;
 					creature_ptr->skill_dev += authority_info[i].w_dev;
-					creature_ptr->skill_rob += authority_info[i].w_sav;
-					creature_ptr->skill_eva += authority_info[i].w_sav;
-					creature_ptr->skill_vol += authority_info[i].w_sav;
 					creature_ptr->skill_stl += authority_info[i].w_stl;
 					creature_ptr->skill_srh += authority_info[i].w_srh;
 					creature_ptr->skill_fos += authority_info[i].w_fos;
@@ -4460,12 +4430,7 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 
 	if(creature_ptr->dr >= 0)
 	{
-		creature_ptr->skill_rob += adj_dr_saving[creature_ptr->dr];
-		creature_ptr->skill_eva += adj_dr_saving[creature_ptr->dr];
-		creature_ptr->skill_vol += adj_dr_saving[creature_ptr->dr];
-
-		for(i = 0; i < STAT_MAX; i++)
-			creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
+		for(i = 0; i < STAT_MAX; i++) creature_ptr->stat_mod_max_max[i] += creature_ptr->dr / 4 * 10;
 	}
 
 	if(creature_ptr->dr >= 0) creature_ptr->speed += adj_dr_speed[creature_ptr->dr];

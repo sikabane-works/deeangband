@@ -2252,9 +2252,6 @@ static void display_player_various(creature_type * creature_ptr)
 	xthb = creature_ptr->skill_thb;
 	xdis = creature_ptr->skill_dis;
 	xdev = creature_ptr->skill_dev;
-	xrob = creature_ptr->skill_rob;
-	xagi = creature_ptr->skill_eva;
-	xvol = creature_ptr->skill_vol;
 	xstl = creature_ptr->skill_stl;
 	xsrh = creature_ptr->skill_srh;
 	xfos = creature_ptr->skill_fos;
@@ -2266,6 +2263,7 @@ static void display_player_various(creature_type * creature_ptr)
 	desc = likert(xthb, 10);
 	display_player_one_line(ENTRY_SKILL_SHOOT, desc, likert_color);
 
+	/*TODO
 	desc = likert(xrob, 5);
 	display_player_one_line(ENTRY_SKILL_ROBUSTNESS, desc, likert_color);
 
@@ -2274,6 +2272,7 @@ static void display_player_various(creature_type * creature_ptr)
 
 	desc = likert(xvol, 5);
 	display_player_one_line(ENTRY_SKILL_VOLITION, desc, likert_color);
+	*/
 
 	/* Hack -- 0 is "minimum stealth value", so print "Very Bad" */
 	desc = likert((xstl > 0) ? xstl : -1, 1);

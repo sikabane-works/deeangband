@@ -1464,7 +1464,7 @@ struct creature_type
 	s16b dis_to_ev;		// Known bonus to EV
 	s16b dis_to_vo;		// Known bonus to VO
 
-	s16b to_m_chance;		// Minusses to cast chance 
+	s16b to_m_chance;	// Minusses to cast chance 
 
 	byte two_handed[INVEN_TOTAL];      // each Two-handed slot 
 

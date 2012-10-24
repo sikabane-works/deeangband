@@ -2254,7 +2254,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 		if(!has_trait(m_ptr, TRAIT_ELDRITCH_HORROR)) return; // oops
 		if(is_pet(player_ptr, m_ptr)) return; // Pet eldritch horrors are safe most of the time
 		if(randint1(100) > power) return;
-		if(saving_throw(watcher_ptr->skill_rob - power)) return; // Save, no adverse effects
+		//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - power)) return; // Save, no adverse effects
 
 		if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 		{
@@ -2323,7 +2323,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	}
 
-	if(!saving_throw(watcher_ptr->skill_rob - power)) /* Mind blast */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Mind blast */
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
@@ -2336,14 +2336,14 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		return;
 	}
 
-	if(!saving_throw(watcher_ptr->skill_rob - power)) /* Lose int & wis */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Lose int & wis */
 	{
 		do_dec_stat(watcher_ptr, STAT_INT);
 		do_dec_stat(watcher_ptr, STAT_WIS);
 		return;
 	}
 
-	if(!saving_throw(watcher_ptr->skill_rob - power)) /* Brain smash */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Brain smash */
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
@@ -2353,10 +2353,8 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		{
 			(void)set_timed_trait(watcher_ptr, TRAIT_PARALYZED, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
-		while (randint0(100) > watcher_ptr->skill_rob)
-			(void)do_dec_stat(watcher_ptr, STAT_INT);
-		while (randint0(100) > watcher_ptr->skill_rob)
-			(void)do_dec_stat(watcher_ptr, STAT_WIS);
+		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_INT);
+		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_WIS);
 		if(!watcher_ptr->resist_chaos)
 		{
 			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
@@ -2364,7 +2362,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		return;
 	}
 
-	if(!saving_throw(watcher_ptr->skill_rob - power)) /* Amnesia */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Amnesia */
 	{
 
 		if(lose_all_info(watcher_ptr))
@@ -2377,10 +2375,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		return;
 	}
 
-	if(saving_throw(watcher_ptr->skill_rob - power))
-	{
-		return;
-	}
+	//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - power)) return;
 
 	/* Else gain permanent insanity */
 	if(has_trait(watcher_ptr, TRAIT_MORONIC) &&
