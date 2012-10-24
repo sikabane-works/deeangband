@@ -999,10 +999,6 @@ s16b creature_pop(void)
  */
 static int summon_specific_who = -1;
 
-
-static bool summon_unique_okay = FALSE;
-
-
 static bool summon_specific_aux(int species_idx, int summon_specific_type)
 {
 	species_type *r_ptr = &species_info[species_idx];
@@ -1277,8 +1273,6 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 
 static int chameleon_change_m_idx = 0;
 
-
-
 // Some dungeon types restrict the possible creatures.
 // Return TRUE is the creature is OK and FALSE otherwise
 static bool restrict_creature_to_dungeon(int species_idx)
@@ -1288,16 +1282,13 @@ static bool restrict_creature_to_dungeon(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 	//byte a;
 
-	if(d_ptr->flags1 & DF1_CHAMELEON)
-	{
-		if(chameleon_change_m_idx) return TRUE;
-	}
+	if(d_ptr->flags1 & DF1_CHAMELEON) if(chameleon_change_m_idx) return TRUE;
+
 	if(d_ptr->flags1 & DF1_NO_MAGIC)
 	{
-		if(species_idx != SPECIES_CHAMELEON &&
-		    r_ptr->freq_spell && has_non_magic_skill_flags(&r_ptr->flags))
-			return FALSE;
+		if(species_idx != SPECIES_CHAMELEON && r_ptr->freq_spell && has_non_magic_skill_flags(&r_ptr->flags)) return FALSE;
 	}
+
 	if(d_ptr->flags1 & DF1_NO_MELEE)
 	{
 		if(species_idx == SPECIES_CHAMELEON) return TRUE;
@@ -2234,11 +2225,11 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 
 	if(!necro)
 	{
-		char            m_name[80];
-		species_type    *r_ptr = &species_info[eldritch_ptr->ap_species_idx];
+		char            eldritch_name[80];
+		//species_type    *r_ptr = &species_info[eldritch_ptr->ap_species_idx];
 
 		difficulty = eldritch_ptr->lev;
-		creature_desc(m_name, eldritch_ptr, 0);
+		creature_desc(eldritch_name, eldritch_ptr, 0);
 
 		if(!IS_IN_THIS_FLOOR(eldritch_ptr)) return;
 		if(!eldritch_ptr->see_others) return; // Cannot see it for some reason
@@ -2253,19 +2244,19 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 			// Something silly happens...
 #ifdef JP
 			msg_format("%s%sの顔を見てしまった！",
-				funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
+				funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
 #else
 			msg_format("You behold the %s visage of %s!",
-				funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
+				funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
 #endif
 
 			if(one_in_(3))
 			{
 				msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-				watcher_ptr->timed_trait[TRAIT_HALLUCINATION] = watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(r_ptr->level);
+				set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(difficulty)); 
 			}
 
-			return; /* Never mind; we can't see it clearly enough */
+			return;
 		}
 
 		// Something frightening happens...
@@ -2274,20 +2265,20 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 		{
 #ifdef JP
 			msg_format("%s%sの顔が垣間見えた。",
-				delight_desc[randint0(MAX_SAN_DELIGHT)], m_name);
+				delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
 #else
 			msg_format("You glance at the %s visage of %s.",
-				delight_desc[randint0(MAX_SAN_DELIGHT)], m_name);
+				delight_desc[randint0(MAX_SAN_DELIGHT)], eldritch_name);
 #endif
 		}
 		else
 		{
 #ifdef JP
 			msg_format("%s%sの顔を見てしまった！",
-				horror_desc[randint0(MAX_SAN_HORROR)], m_name);
+				horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
 #else
 			msg_format("You behold the %s visage of %s!",
-				horror_desc[randint0(MAX_SAN_HORROR)], m_name);
+				horror_desc[randint0(MAX_SAN_HORROR)], eldritch_name);
 #endif
 		}
 
@@ -2303,7 +2294,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 	else
 	{
 #ifdef JP
-msg_print("ネクロノミコンを読んで正気を失った！");
+		msg_print("ネクロノミコンを読んで正気を失った！");
 #else
 		msg_print("Your sanity is shaken by reading the Necronomicon!");
 #endif
@@ -2383,7 +2374,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 					if((watcher_ptr->stat_use[STAT_INT] < 4) && (watcher_ptr->stat_use[STAT_WIS] < 4))
 					{
 #ifdef JP
-msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
+						msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
 #else
 						msg_print("You turn into an utter moron!");
 #endif
@@ -2391,7 +2382,7 @@ msg_print("あなたは完璧な馬鹿になったような気がした。しかしそれは元々だった。");
 					else
 					{
 #ifdef JP
-msg_print("あなたは完璧な馬鹿になった！");
+						msg_print("あなたは完璧な馬鹿になった！");
 #else
 						msg_print("You turn into an utter moron!");
 #endif
@@ -2400,7 +2391,7 @@ msg_print("あなたは完璧な馬鹿になった！");
 					if(has_trait(watcher_ptr, TRAIT_HYPER_INT))
 					{
 #ifdef JP
-msg_print("あなたの脳は生体コンピュータではなくなった。");
+						msg_print("あなたの脳は生体コンピュータではなくなった。");
 #else
 						msg_print("Your brain is no longer a living computer.");
 #endif
@@ -2434,7 +2425,7 @@ msg_print("あなたの脳は生体コンピュータではなくなった。");
 					if(has_trait(watcher_ptr, TRAIT_FEARLESS))
 					{
 #ifdef JP
-msg_print("あなたはもう恐れ知らずではなくなった。");
+						msg_print("あなたはもう恐れ知らずではなくなった。");
 #else
 						msg_print("You are no longer fearless.");
 #endif
@@ -2458,7 +2449,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
-msg_print("幻覚をひき起こす精神錯乱に陥った！");
+					msg_print("幻覚をひき起こす精神錯乱に陥った！");
 #else
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
@@ -2471,7 +2462,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
 #ifdef JP
-msg_print("激烈な感情の発作におそわれるようになった！");
+					msg_print("激烈な感情の発作におそわれるようになった！");
 #else
 					msg_print("You become subject to fits of berserk rage!");
 #endif
@@ -4475,8 +4466,6 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 
 	// Save the summoner
 	//summon_specific_who = who;
-
-	summon_unique_okay = (mode & PC_ALLOW_UNIQUE) ? TRUE : FALSE;
 
 	/* Prepare allocation table */
 	get_species_num_prep(summoner_ptr, NULL, get_creature_hook2(y, x), summon_specific_okay, type);
