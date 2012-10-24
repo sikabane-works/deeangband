@@ -3898,24 +3898,25 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 	{
 		switch (j)
 		{
+
 		case 28: case 29:
 			if(!(*count))
 			{
 #ifdef JP
-msg_print("地面が揺れた...");
+				msg_print("地面が揺れた...");
 #else
 				msg_print("The ground trembles...");
 #endif
-
 				earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5 + randint0(10));
 				if(!one_in_(6)) break;
 			}
+
 		case 30: case 31:
 			if(!(*count))
 			{
 				int dam = diceroll(10, 10);
 #ifdef JP
-msg_print("純粋な魔力の次元への扉が開いた！");
+				msg_print("純粋な魔力の次元への扉が開いた！");
 #else
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
@@ -3928,19 +3929,20 @@ msg_print("純粋な魔力の次元への扉が開いた！");
 #endif
 				if(!one_in_(6)) break;
 			}
+
 		case 32: case 33:
 			if(!(*count))
 			{
 #ifdef JP
-msg_print("周囲の空間が歪んだ！");
+				msg_print("周囲の空間が歪んだ！");
 #else
 				msg_print("Space warps about you!");
 #endif
-
 				teleport_player(creature_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
 				if(randint0(13)) (*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 				if(!one_in_(6)) break;
 			}
+
 		case 34:
 #ifdef JP
 msg_print("エネルギーのうねりを感じた！");
@@ -3959,15 +3961,19 @@ msg_print("エネルギーのうねりを感じた！");
 #endif
 			}
 			if(!one_in_(6)) break;
+
 		case 1: case 2: case 3: case 16: case 17:
 			aggravate_creatures(creature_ptr);
 			if(!one_in_(6)) break;
+
 		case 4: case 5: case 6:
 			(*count) += activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			if(!one_in_(6)) break;
+
 		case 7: case 8: case 9: case 18:
 			(*count) += summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			if(!one_in_(6)) break;
+
 		case 10: case 11: case 12:
 #ifdef JP
 msg_print("生命力が体から吸い取られた気がする！");
@@ -3977,6 +3983,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 			lose_exp(creature_ptr, creature_ptr->exp / 16);
 			if(!one_in_(6)) break;
+
 		case 13: case 14: case 15: case 19: case 20:
 			/*
 			if(stop_ty || (has_trait(creature_ptr, TRAIT_FREE_ACTION) && (randint1(125) < creature_ptr->skill_rob)) || (creature_ptr->class_idx == CLASS_BERSERKER))
@@ -3999,18 +4006,22 @@ msg_print("生命力が体から吸い取られた気がする！");
 				stop_ty = TRUE;
 			}
 			if(!one_in_(6)) break;
+
 		case 21: case 22: case 23:
+
 			(void)do_dec_stat(creature_ptr, randint0(6));
 			if(!one_in_(6)) break;
+
 		case 24:
 #ifdef JP
-msg_print("ほえ？私は誰？ここで何してる？");
+			msg_print("ほえ？私は誰？ここで何してる？");
 #else
 			msg_print("Huh? Who am I? What am I doing here?");
 #endif
 
 			lose_all_info(creature_ptr);
 			if(!one_in_(6)) break;
+
 		case 25:
 			/*
 			 * Only summon Cyberdemons deep in the dungeon.
@@ -4022,6 +4033,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 				break;
 			}
 			if(!one_in_(6)) break;
+
 		default:
 			while (i < STAT_MAX)
 			{
@@ -4035,6 +4047,7 @@ msg_print("ほえ？私は誰？ここで何してる？");
 			}
 		}
 	}
+
 	while (one_in_(3) && !stop_ty);
 
 	return stop_ty;
@@ -4132,8 +4145,7 @@ int summon_cyber(creature_type *summoner_ptr, int y, int x)
 	u32b mode = PC_ALLOW_GROUP;
 
 	// Summoned by a creature
-	if(summoner_ptr)
-		if(is_pet(player_ptr, summoner_ptr)) mode |= PC_FORCE_PET;
+	if(summoner_ptr) if(is_pet(player_ptr, summoner_ptr)) mode |= PC_FORCE_PET;
 
 	if(max_cyber > 4) max_cyber = 4;
 

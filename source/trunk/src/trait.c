@@ -2512,40 +2512,29 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-
 			if(max_cyber > 4) max_cyber = 4;
-			for (k = 0;k < max_cyber; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
+			for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 			break;
-		}
-		{
-#ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
-#endif
-			summon_cyber(caster_ptr, y, x);
-			break;
-		}
-		{
-#ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
-#else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
-#endif
 
+			if(is_player(caster_ptr) && !pet)
+#ifdef JP
+					msg_print("召喚されたサイバーデーモンは怒っている！");
+#else
+					msg_print("The summoned Cyberdemon are angry!");
+#endif
+			}
+		{
+#ifdef JP
+			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
+#else
+			if(blind && count) msg_print("You hear heavy steps nearby.");
+#endif
 			summon_cyber(caster_ptr, y, x);
 			break;
 		}
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたサイバーデーモンは怒っている！");
-#else
-					msg_print("The summoned Cyberdemon are angry!");
-#endif
 			}
 			else
 			{
@@ -2553,8 +2542,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-
-
 
 	case TRAIT_S_MONSTER:
 		{
@@ -3880,6 +3867,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	}
+	}
+
+	if(is_player(caster_ptr) && !pet)
+	{
+/*
+#ifdef JP
+		msg_format("召喚された%sは召喚者に敵意を向けている。", summoned_name);
+#else
+		msg_print("The summoned %s are angry!", summoned_name);
+#endif
+*/
 	}
 
 	if(kichigai_talk)
