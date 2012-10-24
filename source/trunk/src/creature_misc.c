@@ -1485,10 +1485,10 @@ bool new_saving_throw(creature_type *creature_ptr, int type, int difficulty, u32
 
 	do
 	{
-		dice = rand_range(-50, 50);
+		dice = rand_range(-50, 49);
 		if(dice == -50) dice_total -= 100;
-		if(dice == +50) dice_total += 100;
-	} while(dice == -50 || dice == +50);
+		if(dice == +49) dice_total += 100;
+	} while(dice == -50 || dice == +49);
 
 	return challange <= dice + dice_total;
 }
