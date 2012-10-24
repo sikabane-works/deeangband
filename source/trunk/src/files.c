@@ -1604,9 +1604,9 @@ static struct
 	int col;
 	int row;
 	int len;
-	int difficulity1;
-	int difficulity2;
-	int difficulity3;
+	int difficulty1;
+	int difficulty2;
+	int difficulty3;
 	char header[20];
 } disp_creature_line[]
 #ifdef JP

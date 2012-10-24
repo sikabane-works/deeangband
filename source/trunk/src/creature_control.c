@@ -2224,11 +2224,10 @@ void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 
 
 
-void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
+void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool necro)
 {
 	bool happened = FALSE;
-	int power = 100;
-
+	int difficulty = 100;
 	floor_type *floor_ptr = GET_FLOOR_PTR(watcher_ptr);
 
 	if(floor_ptr->gamble_arena_mode || !floor_ptr->generated) return;
@@ -2236,29 +2235,22 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 	if(!necro)
 	{
 		char            m_name[80];
-		species_type    *r_ptr = &species_info[m_ptr->ap_species_idx];
+		species_type    *r_ptr = &species_info[eldritch_ptr->ap_species_idx];
 
-		power = r_ptr->level / 2;
+		difficulty = eldritch_ptr->lev;
+		creature_desc(m_name, eldritch_ptr, 0);
 
-		creature_desc(m_name, m_ptr, 0);
+		if(!IS_IN_THIS_FLOOR(eldritch_ptr)) return;
+		if(!eldritch_ptr->see_others) return; // Cannot see it for some reason
+		if(!has_trait(eldritch_ptr, TRAIT_ELDRITCH_HORROR)) return; // oops
+		if(is_pet(player_ptr, eldritch_ptr)) return; // Pet eldritch horrors are safe most of the time
+		if(saving_throw(watcher_ptr, SAVING_VO, difficulty, 0)) return;
 
-		if(!has_trait(m_ptr, TRAIT_UNIQUE))
-		{
-			if(has_trait(m_ptr, TRAIT_FRIENDS))
-			power /= 2;
-		}
-		else power *= 2;
-
-		if(!IS_IN_THIS_FLOOR(m_ptr)) return;
-		if(!m_ptr->see_others) return; // Cannot see it for some reason
-		if(!has_trait(m_ptr, TRAIT_ELDRITCH_HORROR)) return; // oops
-		if(is_pet(player_ptr, m_ptr)) return; // Pet eldritch horrors are safe most of the time
-		if(randint1(100) > power) return;
-		//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - power)) return; // Save, no adverse effects
+		//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - difficulty)) return; // Save, no adverse effects
 
 		if(has_trait(watcher_ptr, TRAIT_HALLUCINATION))
 		{
-			/* Something silly happens... */
+			// Something silly happens...
 #ifdef JP
 			msg_format("%s%sの顔を見てしまった！",
 				funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
@@ -2266,7 +2258,6 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 			msg_format("You behold the %s visage of %s!",
 				funny_desc[randint0(MAX_SAN_FUNNY)], m_name);
 #endif
-
 
 			if(one_in_(3))
 			{
@@ -2277,7 +2268,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 			return; /* Never mind; we can't see it clearly enough */
 		}
 
-		/* Something frightening happens... */
+		// Something frightening happens...
 
 		if(has_trait(watcher_ptr, TRAIT_DEMON))
 		{
@@ -2300,7 +2291,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *m_ptr, bool necro)
 #endif
 		}
 
-		reveal_creature_info(m_ptr, TRAIT_ELDRITCH_HORROR);
+		reveal_creature_info(eldritch_ptr, TRAIT_ELDRITCH_HORROR);
 
 		// Demon characters are unaffected
 		if(has_trait(watcher_ptr, TRAIT_DEMON)) return;
@@ -2319,7 +2310,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Mind blast */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Mind blast */
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
@@ -2332,14 +2323,14 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		return;
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Lose int & wis */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Lose int & wis */
 	{
 		do_dec_stat(watcher_ptr, STAT_INT);
 		do_dec_stat(watcher_ptr, STAT_WIS);
 		return;
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Brain smash */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Brain smash */
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
@@ -2358,7 +2349,7 @@ msg_print("ネクロノミコンを読んで正気を失った！");
 		return;
 	}
 
-	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - power)) /* Amnesia */
+	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Amnesia */
 	{
 
 		if(lose_all_info(watcher_ptr))
@@ -2371,7 +2362,7 @@ msg_print("あまりの恐怖に全てのことを忘れてしまった！");
 		return;
 	}
 
-	//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - power)) return;
+	//TODO saving_throw if(saving_throw(watcher_ptr->skill_rob - difficulty)) return;
 
 	/* Else gain permanent insanity */
 	if(has_trait(watcher_ptr, TRAIT_MORONIC) &&
