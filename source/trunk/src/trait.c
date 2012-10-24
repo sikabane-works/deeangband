@@ -1189,138 +1189,86 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BR_SHAR:
-		cast_ball(caster_ptr, GF_SHARDS, dir, damage, (user_level > 35 ? -3 : -2));
-		break;
-		{
-			if(caster_ptr->species_idx == SPECIES_BOTEI)
+		if(caster_ptr->species_idx == SPECIES_BOTEI)
 #ifdef JP
-				msg_format("「ボ帝ビルカッター！！！」");
+			msg_format("「ボ帝ビルカッター！！！」");
 #else
-				msg_format("'Boty-Build cutter!!!'");
+			msg_format("'Boty-Build cutter!!!'");
 #endif
-			damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
-			update_smart_learn(caster_ptr, DRS_SHARD);
-			break;
-		}
+		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
+		update_smart_learn(caster_ptr, DRS_SHARD);
+		break;
 
 	case TRAIT_BR_PLAS:
-		cast_ball(caster_ptr, GF_PLASMA, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS, learnable);
-			break;
-		}
 
 	case TRAIT_BR_WALL:
-		cast_ball(caster_ptr, GF_FORCE, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_FORCE, damage,0, TRUE, TRAIT_BR_WALL, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_FORCE, damage,0, TRUE, TRAIT_BR_WALL, learnable);
-			break;
-		}
 
 	case TRAIT_BR_MANA:
-
-		cast_ball(caster_ptr, GF_MANA, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
-			break;
-		}
 
 	case TRAIT_BA_NUKE:
-
-		cast_ball(caster_ptr, GF_NUKE, dir, damage, 2);
+		damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
-		{
-			damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
 
 	case TRAIT_BR_NUKE:
-
-		cast_ball(caster_ptr, GF_NUKE, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
+		breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
+		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
-		{
-			damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-			breath(y, x, caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
-			update_smart_learn(caster_ptr, DRS_POIS);
-			break;
-		}
 
 	case TRAIT_BA_CHAO:
-
-		cast_ball(caster_ptr, GF_CHAOS, dir, damage, 4);
+		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
+		breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
+		update_smart_learn(caster_ptr, DRS_CHAOS);
 		break;
-		{
-			damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-			breath(y, x, caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
-			update_smart_learn(caster_ptr, DRS_CHAOS);
-			break;
-		}
 
 	case TRAIT_BR_DISI:
-
-		cast_ball(caster_ptr, GF_DISINTEGRATE, dir, damage, (user_level > 35 ? -3 : -2));
+		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
+		breath(y, x, caster_ptr, GF_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI, learnable);
 		break;
-		{
-			damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-			breath(y, x, caster_ptr, GF_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI, learnable);
-			break;
-		}
 
 	case TRAIT_BA_ACID:
-
-		cast_ball(caster_ptr, GF_ACID, dir, damage, 2);
+		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
+		update_smart_learn(caster_ptr, DRS_ACID);
 		break;
-		{
-			damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
-			update_smart_learn(caster_ptr, DRS_ACID);
-			break;
-		}
 
 	case TRAIT_BA_ELEC:
-
-		cast_ball(caster_ptr, GF_ELEC, dir, damage, 2);
+		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC, learnable);
+		update_smart_learn(caster_ptr, DRS_ELEC);
 		break;
-		{
-			damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC, learnable);
-			update_smart_learn(caster_ptr, DRS_ELEC);
-			break;
-		}
 
 	case TRAIT_BA_FIRE:
-
-		cast_ball(caster_ptr, GF_FIRE, dir, damage, 2);
-		break;
+		if(caster_ptr->species_idx == SPECIES_ROLENTO)
 		{
-			if(caster_ptr->species_idx == SPECIES_ROLENTO)
-			{
 #ifdef JP
-				if(blind)
-					msg_format("%sが何かを投げた。", caster_name);
-				else 
-					msg_format("%sは手榴弾を投げた。", caster_name);
+			if(blind)
+				msg_format("%sが何かを投げた。", caster_name);
+			else 
+				msg_format("%sは手榴弾を投げた。", caster_name);
 #else
-				if(blind)
-					msg_format("%^s throws something.", caster_name);
-				else
-					msg_format("%^s throws a hand grenade.", caster_name);
+			if(blind)
+				msg_format("%^s throws something.", caster_name);
+			else
+				msg_format("%^s throws a hand grenade.", caster_name);
 #endif
-			}
-			damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-			breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
-			update_smart_learn(caster_ptr, DRS_FIRE);
-			break;
 		}
+		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
+		breath(y, x, caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
+		update_smart_learn(caster_ptr, DRS_FIRE);
+		break;
 
 	case TRAIT_BA_POIS:
 
