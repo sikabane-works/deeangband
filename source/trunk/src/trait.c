@@ -54,6 +54,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	if(!is_player(caster_ptr)) disturb(player_ptr, 1, 0);
 
+	if(trait_info[id].effect_type == TRAIT_EFFECT_TYPE_TARGET)
+	{
+		if(!get_aim_dir(caster_ptr, &dir))
+		return FALSE;
+	}
+
 	if(!blind)
 	{
 		//TODO message
@@ -66,32 +72,31 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	switch(id)
 	{
 	case TRAIT_SUNLIGHT:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			(void)lite_line(caster_ptr, dir);
-			break;
-		}
+		(void)lite_line(caster_ptr, dir);
+		break;
 
 	case TRAIT_DRAIN_LIFE1:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		drain_life(caster_ptr, dir, 100);
 		break;
 
 	case TRAIT_DRAIN_LIFE2:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		drain_life(caster_ptr, dir, 120);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		for (dummy = 0; dummy < 3; dummy++)
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			for (dummy = 0; dummy < 3; dummy++)
-			{
-				if(drain_life(caster_ptr, dir, 50))
-					heal_creature(caster_ptr, 50);
-			}
-			break;
+			if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
 		}
+		break;
+
+	case TRAIT_VAMPIRIC_DRAIN_2:
+		for (dummy = 0; dummy < 3; dummy++)
+		{
+			if(drain_life(caster_ptr, dir, 100)) heal_creature(caster_ptr, 100);
+		}
+		break;
 
 	case TRAIT_WHIRLWIND:
 		{
@@ -116,18 +121,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-	case TRAIT_VAMPIRIC_DRAIN_2:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			for (dummy = 0; dummy < 3; dummy++)
-			{
-				if(drain_life(caster_ptr, dir, 100))
-					heal_creature(caster_ptr, 100);
-			}
-
-			break;
-		}
-
 	case TRAIT_CALL_CHAOS:
 		{
 			call_chaos(caster_ptr);
@@ -135,12 +128,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_ROCKET:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
 		break;
 
 		/*
-
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
@@ -162,7 +153,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		*/
 
 		/*
-
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(y, x, caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
@@ -178,7 +168,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CONFUSE_TOUCH:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		confuse_creature(caster_ptr, dir, 20);
 		break;
 
@@ -203,14 +192,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		teleport_creature(caster_ptr, dir);
 		break;
 		{
-
 #ifdef JP
 			msg_format("%^sにテレポートさせられた。", caster_name);
-
 #else
 			msg_format("%^s teleports you away.", caster_name);
 #endif
-
 			learn_trait(target_ptr, TRAIT_TELE_AWAY);
 			teleport_player_away(caster_ptr, 100);
 			break;
@@ -277,20 +263,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("An elemental materializes...");
 #endif
-				if(pet)
-#ifdef JP
-					msg_print("あなたに服従しているようだ。");
-#else
-					msg_print("It seems obedient to you.");
-#endif
-
-				else
-#ifdef JP
-					msg_print("それをコントロールできなかった！");
-#else
-					msg_print("You fail to control it!");
-#endif
-
 			}
 
 			break;
@@ -309,12 +281,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたデーモンは怒っている！");
-#else
-					msg_print("Summoned demons are angry!");
-#endif
 			}
 			else
 			{
@@ -344,12 +310,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたアンデッドは怒っている！");
-#else
-					msg_print("Summoned undeads are angry!");
-#endif
 			}
 			else
 			{
@@ -691,16 +651,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SLEEP:
-		{
 			sleep_creatures_touch(caster_ptr);
 			break;
-		}
 
 	case TRAIT_RESTORE_LEVEL:
-		{
 			restore_exp(caster_ptr);
 			break;
-		}
 
 	case TRAIT_BO_FIRE_MINI:
 		{
