@@ -651,6 +651,7 @@ struct object_type
 	s16b to_damage;		// Plusses to damage
 	s16b to_ac;			// Plusses to AC
 	s16b to_ev;			// Plusses to EV
+	s16b to_vo;			// Plusses to VO
 	s16b bow_mul;		// Multiply of Bow Damage
 	s16b bow_energy;	// Energt Cost of Bow
 
@@ -660,6 +661,7 @@ struct object_type
 
 	s16b ac;			// Normal AC
 	s16b ev;			// Normal EV
+	s16b vo;			// Normal VO
 
 	byte dd, ds;		/* Damage dice/sides */
 
