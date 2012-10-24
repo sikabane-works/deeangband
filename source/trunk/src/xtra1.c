@@ -3175,13 +3175,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	{
 		creature_ptr->to_ac += 5;
 		creature_ptr->dis_to_ac += 5;
-		creature_ptr->to_hit[0] += 10;
-		creature_ptr->to_hit[1] += 10;
-		creature_ptr->to_hit_b  += 10;
-		creature_ptr->to_hit_m  += 10;
-		creature_ptr->dis_to_hit[0] += 10;
-		creature_ptr->dis_to_hit[1] += 10;
-		creature_ptr->dis_to_hit_b += 10;
 	}
 
 	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
@@ -3220,8 +3213,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_tht -= 20;
 		creature_ptr->skill_dig += 30;
 	}
-
-	//TODO if(IS_TIM_ESP(creature_ptr)) creature_ptr->telepathy = TRUE;
 
 	/* Temporary see invisible */
 	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
