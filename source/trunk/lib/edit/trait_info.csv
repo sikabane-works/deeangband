@@ -616,7 +616,7 @@ ID,ID2,PRE_ID,ANTI_ID,NAME,E_NAME,SPELL,STR,INT,WIS,DEX,CON,CHA,AC,EV,VO,DIS,DEV
 614,STEALTH_PLUS,-1,-1,隠密の歌,Stealth Plus,SELF,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,足音が小さくなった！,You begin to walk silently!,足音が大きくなった。,You no longer walk silently.,,
 615,AURA_MANA,-1,-1,闘気のオーラ,Aura Mana,SELF,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,体が闘気のオーラで覆われた。,You have enveloped by the aura of the Force!,闘気が消えた。,Aura of the Force disappeared.,,
 616,LIGHT_SPEED,-1,-1,光速移動,Light Speed,SELF,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,0,0,0,0,0,,,,非常に素早く動けるようになった！,You feel yourself moving extremely faster!,動きの素早さがなくなったようだ。,You feel yourself slow down.,,
-617,TSUBURERU,-1,-1,横に潰れる,Tubure,SELF,0,0,0,0,0,0,60,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,横に伸びた。,Your body expands horizontally.,もう横に伸びていない。,Your body returns to normal.,,
+617,TSUBURERU,-1,-1,横に潰れる,Tubure,SELF,0,0,0,0,0,0,70,-20,-20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,横に伸びた。,Your body expands horizontally.,もう横に伸びていない。,Your body returns to normal.,,
 618,MAGIC_DEF,-1,-1,魔法防御,Magic Defence,SELF,0,0,0,0,0,0,40,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,魔法の防御力が増したような気がする。,You feel more resistant to magic.,魔法の防御力が元に戻った。,You feel less resistant to magic.,,
 619,MIMIC,-1,-1,変身,Mimic,SELF,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,自分の体が変わってゆくのを感じた。,You feel that your body changes.,変身が解けた。,You are no longer transformed.,,
 620,HOLY_AURA,-1,-1,聖なるオーラ,Holy Aura,SELF,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,体が聖なるオーラで覆われた。,You have enveloped by holy aura!,聖なるオーラが消えた。,Holy aura disappeared.,,

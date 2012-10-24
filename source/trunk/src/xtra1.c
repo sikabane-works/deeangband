@@ -2703,9 +2703,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	{
 		creature_ptr->skill_dis += mimic_ptr->r_dis;
 		creature_ptr->skill_dev += mimic_ptr->r_dev;
-		creature_ptr->skill_rob += mimic_ptr->r_rob;
-		creature_ptr->skill_eva += mimic_ptr->r_eva;
-		creature_ptr->skill_vol += mimic_ptr->r_vol;
 		creature_ptr->skill_stl += mimic_ptr->r_stl;
 		creature_ptr->skill_srh += mimic_ptr->r_srh;
 		creature_ptr->skill_fos += mimic_ptr->r_fos;
@@ -2717,9 +2714,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	{
 		creature_ptr->skill_dis += race1_ptr->r_dis;
 		creature_ptr->skill_dev += race1_ptr->r_dev;
-		creature_ptr->skill_rob += race1_ptr->r_rob;
-		creature_ptr->skill_eva += race1_ptr->r_eva;
-		creature_ptr->skill_vol += race1_ptr->r_vol;
 		creature_ptr->skill_stl += race1_ptr->r_stl;
 		creature_ptr->skill_srh += race1_ptr->r_srh;
 		creature_ptr->skill_fos += race1_ptr->r_fos;
@@ -2731,9 +2725,6 @@ static void set_race_bonuses(creature_type *creature_ptr)
 	{
 		creature_ptr->skill_dis += race1_ptr->r_s_dis + race2_ptr->r_s_dis;
 		creature_ptr->skill_dev += race1_ptr->r_s_dev + race2_ptr->r_s_dev;
-		creature_ptr->skill_rob += race1_ptr->r_s_rob + race2_ptr->r_s_rob;
-		creature_ptr->skill_eva += race1_ptr->r_s_eva + race2_ptr->r_s_eva;
-		creature_ptr->skill_vol += race1_ptr->r_s_vol + race2_ptr->r_s_vol;
 		creature_ptr->skill_stl += race1_ptr->r_s_stl + race2_ptr->r_s_stl;
 		creature_ptr->skill_srh += race1_ptr->r_s_srh + race2_ptr->r_s_srh;
 		creature_ptr->skill_fos += race1_ptr->r_s_fos + race2_ptr->r_s_fos;
@@ -2791,9 +2782,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 	creature_ptr->skill_dis += class_ptr->c_dis;
 	creature_ptr->skill_dev += class_ptr->c_dev;
-	creature_ptr->skill_rob += class_ptr->c_sav;
-	creature_ptr->skill_eva += class_ptr->c_sav;
-	creature_ptr->skill_vol += class_ptr->c_sav;
 	creature_ptr->skill_stl += class_ptr->c_stl;
 	creature_ptr->skill_srh += class_ptr->c_srh;
 	creature_ptr->skill_fos += class_ptr->c_fos;
@@ -2868,9 +2856,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 
 	// Affect Skill (Level, by Class)
 	creature_ptr->skill_dis += (class_ptr->x_dis * creature_ptr->lev / 10);
-	creature_ptr->skill_rob += (class_ptr->x_sav * creature_ptr->lev / 10);
-	creature_ptr->skill_eva += (class_ptr->x_sav * creature_ptr->lev / 10);
-	creature_ptr->skill_vol += (class_ptr->x_sav * creature_ptr->lev / 10);
 	creature_ptr->skill_dev += (class_ptr->x_dev * creature_ptr->lev / 10);
 	creature_ptr->skill_stl += (class_ptr->x_stl * creature_ptr->lev / 10);
 	creature_ptr->skill_srh += (class_ptr->x_srh * creature_ptr->lev / 10);
@@ -3072,9 +3057,9 @@ static void set_status_table_indexes(creature_type *creature_ptr)
 	creature_ptr->skill_dev += adj_int_dev[creature_ptr->stat_ind[STAT_INT]];
 
 	/* Affect Skill -- saving throw (WIS) */
-	creature_ptr->skill_rob += (adj_sav[creature_ptr->stat_ind[STAT_STR]] + adj_sav[creature_ptr->stat_ind[STAT_CON]]);
-	creature_ptr->skill_eva += (adj_sav[creature_ptr->stat_ind[STAT_INT]] + adj_sav[creature_ptr->stat_ind[STAT_DEX]]);
-	creature_ptr->skill_vol += (adj_sav[creature_ptr->stat_ind[STAT_WIS]] + adj_sav[creature_ptr->stat_ind[STAT_CHA]]);
+	//TODO creature_ptr->skill_rob += (adj_sav[creature_ptr->stat_ind[STAT_STR]] + adj_sav[creature_ptr->stat_ind[STAT_CON]]);
+	//TODO creature_ptr->skill_eva += (adj_sav[creature_ptr->stat_ind[STAT_INT]] + adj_sav[creature_ptr->stat_ind[STAT_DEX]]);
+	//TODO creature_ptr->skill_vol += (adj_sav[creature_ptr->stat_ind[STAT_WIS]] + adj_sav[creature_ptr->stat_ind[STAT_CHA]]);
 
 	/* Affect Skill -- digging (STR) */
 	creature_ptr->skill_dig += adj_str_dig[creature_ptr->stat_ind[STAT_STR]];
@@ -3299,13 +3284,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 	{
 		//TODO creature_ptr->kill_wall = TRUE;
-	}
-
-	if(creature_ptr->timed_trait[TRAIT_TSUBURERU])
-	{
-		creature_ptr->skill_rob /= 2;
-		creature_ptr->skill_eva /= 2;
-		creature_ptr->skill_vol /= 2;
 	}
 
 	if(IS_TIM_STEALTH(creature_ptr)) creature_ptr->skill_stl += 99;

@@ -3037,7 +3037,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
-				else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
+				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{
 #ifdef JP
 					msg_print("‚µ‚©‚µ‹°•|‚ÉN‚³‚ê‚È‚©‚Á‚½I");
@@ -3047,6 +3047,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
+				*/
 				else
 				{
 					if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
@@ -3083,7 +3084,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
-				else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
+				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{
 #ifdef JP
 					msg_print("‚µ‚©‚µŒø—Í‚ð’µ‚Ë•Ô‚µ‚½I");
@@ -3093,6 +3094,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
+				*/
 				else
 				{
 					if(!target_ptr->timed_trait[TRAIT_PARALYZED])

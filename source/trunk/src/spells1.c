@@ -3280,6 +3280,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Mind blast */
 		case GF_MIND_BLAST:
 		{
+
+			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3290,6 +3292,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr, spell);
 			}
 			else
+			*/
 			{
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
@@ -3403,6 +3406,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Brain smash */
 		case GF_BRAIN_SMASH:
 		{
+			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3413,6 +3417,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr, spell);
 			}
 			else
+			*/
 			{
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
@@ -3448,10 +3453,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
 
-					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob)))
-						(void)do_dec_stat(target_ptr, STAT_INT);
-					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob)))
-						(void)do_dec_stat(target_ptr, STAT_WIS);
+					/* TODO saving_throw
+					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
+					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
+					*/
 
 					if(!target_ptr->resist_chaos)
 					{
@@ -3550,6 +3555,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 1 */
 		case GF_CAUSE_1:
 		{
+			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3560,6 +3566,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr, spell);
 			}
 			else
+			*/
 			{
 				//TODO curse_equipment
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 15, 0);
@@ -3606,6 +3613,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 2 */
 		case GF_CAUSE_2:
 		{
+			/*
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3616,6 +3624,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr, spell);
 			}
 			else
+			*/
 			{
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -3661,6 +3670,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 3 */
 		case GF_CAUSE_3:
 		{
+			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3671,6 +3681,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr, spell);
 			}
 			else
+			*/
 			{
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -3716,6 +3727,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* cause 4 */
 		case GF_CAUSE_4:
 		{
+			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3726,6 +3738,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr, spell);
 			}
 			else
+			*/
 			{
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));

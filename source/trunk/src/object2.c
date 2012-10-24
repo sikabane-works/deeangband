@@ -5052,30 +5052,35 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 
 	case GF_MIND_BLAST:
 	case GF_BRAIN_SMASH:
-		if(100 + rlev / 2 <= MAX(5, target_ptr->skill_rob))
+		/*if(100 + rlev / 2 <= MAX(5, target_ptr->skill_rob))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
 		}
+		*/
 		break;
 
 	case GF_CAUSE_1:
 	case GF_CAUSE_2:
 	case GF_CAUSE_3:
 	case GF_HAND_DOOM:
+		/* TODO saving_throw 
 		if(100 + rlev / 2 <= target_ptr->skill_rob)
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
 		}
+		*/
 		break;
 
 	case GF_CAUSE_4:
+		/* TODO saving_throw
 		if((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != SPECIES_KENSHIROU))
 		{
 			dam = 0;
 			ignore_wraith_form = TRUE;
 		}
+		*/
 		break;
 	}
 
