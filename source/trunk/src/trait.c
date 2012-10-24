@@ -2899,12 +2899,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚された上級アンデッドは怒っている！");
-#else
-					msg_print("Summoned greater undeads are angry!");
-#endif
 			}
 			else
 			{
@@ -2960,12 +2954,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚された古代ドラゴンは怒っている！");
-#else
-					msg_print("Summoned ancient dragons are angry!");
-#endif
 			}
 			else
 			{
@@ -3017,12 +3005,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
 			{
-				if(!pet)
-#ifdef JP
-					msg_print("召喚されたアンバーの王族は怒っている！");
-#else
-					msg_print("Summoned Lords of Amber are angry!");
-#endif
 			}
 			else
 			{
@@ -3125,12 +3107,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
 					{
 						count++;
-						if(!pet)
-#ifdef JP
-							msg_print("召喚された上級アンデッドは怒っている！");
-#else
-							msg_print("Summoned greater undeads are angry!");
-#endif
 					}
 					if(!count)
 					{
