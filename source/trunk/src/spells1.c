@@ -3784,6 +3784,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Hand of Doom */
 		case GF_HAND_DOOM:
 		{
+			/*
 			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
@@ -3794,6 +3795,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				learn_trait(target_ptr,spell);
 			}
 			else
+			*/
 			{
 				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
@@ -3928,6 +3930,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					/* Saving throw */
+					/*
 					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 #ifdef JP
@@ -3938,6 +3941,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					}
 					else
+					*/
 					{
 						/* Injure +/- confusion */
 						creature_desc(killer, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
@@ -4065,6 +4069,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					/* Saving throw */
+					/*
 					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 #ifdef JP
@@ -4074,6 +4079,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 					}
 					else
+					*/
 					{
 						/* Injure + mana drain */
 						creature_desc(killer, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
@@ -4207,6 +4213,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 					/* Saving throw */
+					/* saving throw
 					if(randint0(100 + species_ptr->level/2) < caster_ptr->skill_rob)
 					{
 #ifdef JP
@@ -4217,6 +4224,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					}
 					else
+					*/
 					{
 						/* Confuse, stun, terrify */
 						switch (randint1(4))

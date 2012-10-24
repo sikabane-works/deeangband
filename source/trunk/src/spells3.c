@@ -1206,6 +1206,8 @@ void apply_nexus(creature_type *m_ptr)
 
 		case 6:
 		{
+			/* saving throw
+
 			if(randint0(100) < m_ptr->skill_rob)
 			{
 #ifdef JP
@@ -1216,6 +1218,7 @@ msg_print("しかし効力を跳ね返した！");
 
 				break;
 			}
+			*/
 
 			/* Teleport Level */
 			teleport_level(m_ptr, 0);
@@ -1224,16 +1227,19 @@ msg_print("しかし効力を跳ね返した！");
 
 		case 7:
 		{
+			/* saving throw
+
 			if(randint0(100) < m_ptr->skill_rob)
 			{
 #ifdef JP
-msg_print("しかし効力を跳ね返した！");
+				msg_print("しかし効力を跳ね返した！");
 #else
 				msg_print("You resist the effects!");
 #endif
 
 				break;
 			}
+			*/
 
 #ifdef JP
 msg_print("体がねじれ始めた...");

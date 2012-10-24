@@ -3978,14 +3978,16 @@ msg_print("生命力が体から吸い取られた気がする！");
 			lose_exp(creature_ptr, creature_ptr->exp / 16);
 			if(!one_in_(6)) break;
 		case 13: case 14: case 15: case 19: case 20:
+			/*
 			if(stop_ty || (has_trait(creature_ptr, TRAIT_FREE_ACTION) && (randint1(125) < creature_ptr->skill_rob)) || (creature_ptr->class_idx == CLASS_BERSERKER))
 			{
-				/* Do nothing */ ;
+				// Do nothing ;
 			}
 			else
+			*/
 			{
 #ifdef JP
-msg_print("彫像になった気分だ！");
+				msg_print("彫像になった気分だ！");
 #else
 				msg_print("You feel like a statue!");
 #endif

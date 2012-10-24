@@ -1833,6 +1833,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -1843,6 +1844,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 			else
+			*/
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + randint0(4) + 4);
 			}
@@ -1865,6 +1867,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -1875,6 +1878,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 			else
+			*/
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_BLIND, 12 + randint0(4));
 			}
@@ -1897,6 +1901,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -1906,6 +1911,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			*/
 			else
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
@@ -1929,6 +1935,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -1939,6 +1946,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 			else
+			*/
 			{
 				(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
 			}
@@ -1961,6 +1969,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			/* TODO saving_throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -1971,6 +1980,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 			else
+			*/
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 			}
@@ -2283,6 +2293,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 
 			}
+			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -2351,6 +2362,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_FORGET:
 		{
+			/* TODO saving_throw
 			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
 #ifdef JP
@@ -2361,6 +2373,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 			}
 			else if(lose_all_info(target_ptr))
+			*/
 			{
 #ifdef JP
 				msg_print("記憶が薄れてしまった。");

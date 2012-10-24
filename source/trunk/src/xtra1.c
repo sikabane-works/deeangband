@@ -2874,9 +2874,6 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 	creature_ptr->skill_dis += chara_ptr->a_dis;
 	creature_ptr->skill_dev += chara_ptr->a_dev;
-	creature_ptr->skill_rob += chara_ptr->a_sav;
-	creature_ptr->skill_eva += chara_ptr->a_sav;
-	creature_ptr->skill_vol += chara_ptr->a_sav;
 	creature_ptr->skill_stl += chara_ptr->a_stl;
 	creature_ptr->skill_srh += chara_ptr->a_srh;
 	creature_ptr->skill_fos += chara_ptr->a_fos;
@@ -2893,9 +2890,6 @@ static void set_character_bonuses(creature_type *creature_ptr)
 
 	creature_ptr->skill_dis += (chara_ptr->a_dis * creature_ptr->lev / 50);
 	creature_ptr->skill_dev += (chara_ptr->a_dev * creature_ptr->lev / 50);
-	creature_ptr->skill_rob += (chara_ptr->a_sav * creature_ptr->lev / 50);
-	creature_ptr->skill_eva += (chara_ptr->a_sav * creature_ptr->lev / 50);
-	creature_ptr->skill_vol += (chara_ptr->a_sav * creature_ptr->lev / 50);
 	creature_ptr->skill_thn += (chara_ptr->a_thn * creature_ptr->lev / 50);
 	creature_ptr->skill_thb += (chara_ptr->a_thb * creature_ptr->lev / 50);
 	creature_ptr->skill_tht += (chara_ptr->a_thb * creature_ptr->lev / 50);
@@ -3181,9 +3175,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_damage[1] += 3+(creature_ptr->lev/5);
 		creature_ptr->skill_stl -= 7;
 		creature_ptr->skill_dev -= 20;
-		creature_ptr->skill_rob += 20;
-		creature_ptr->skill_eva += 20;
-		creature_ptr->skill_vol -= 30;
 		creature_ptr->skill_srh -= 15;
 		creature_ptr->skill_fos -= 15;
 		creature_ptr->skill_tht -= 20;
