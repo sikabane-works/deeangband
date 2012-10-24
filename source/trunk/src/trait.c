@@ -184,11 +184,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_TELE_AWAY:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		(void)cast_beam(caster_ptr, GF_AWAY_ALL, dir, user_level);
 		break;
 
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		teleport_creature(caster_ptr, dir);
 		break;
 		{
@@ -203,10 +201,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_BANISH_EVIL:
-		{
-			banish_evil(caster_ptr, 100);
-			break;
-		}
+		banish_evil(caster_ptr, 100);
+		break;
 
 	case TRAIT_SYMBOL_GENOCIDE:
 		(void)symbol_genocide(caster_ptr, 200, TRUE);
@@ -217,17 +213,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CHARM_ANIMAL:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		(void)charm_animal(caster_ptr, dir, user_level);
 		break;
 
 	case TRAIT_CHARM_UNDEAD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		(void)control_one_undead(caster_ptr, dir, user_level);
 		break;
 
 	case TRAIT_CHARM_OTHER:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		(void)charm_creature(caster_ptr, dir, user_level);
 		break;
 
@@ -288,7 +281,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 		}
-
 
 	case TRAIT_S_UNDEAD:
 		{
@@ -451,9 +443,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		//TODO Remove duplicated process
 	case TRAIT_FAST:
-		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20);
-		break;
-
 	case TRAIT_HASTE:
 		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20))
 		break;
@@ -468,9 +457,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		//TODO Remove duplicated process
 	case TRAIT_LIGHT_AREA:
-		lite_area(caster_ptr, diceroll(2, 15), 3);
-		break;
-
 	case TRAIT_ILLUMINATION:
 		lite_area(caster_ptr, diceroll(2, 15), 3);
 		break;
@@ -508,7 +494,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_STONE_TO_MUD:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		wall_to_mud(caster_ptr, dir);
 		break;
 
@@ -562,29 +547,22 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_STRANGLING:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			if(drain_life(caster_ptr, dir, 100))
-				break;
-		}
+		drain_life(caster_ptr, dir, 100);
+		break;
 
 	case TRAIT_BA_FIRE_L:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_FIRE, dir, 400, 3);
 		break;
 
 	case TRAIT_BA_COLD_L:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_COLD, dir, 400, 3);
 		break;
 
 	case TRAIT_BA_ELEC_L:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		cast_ball(caster_ptr, GF_ELEC, dir, 400, 3);
 		break;
 
 	case TRAIT_BIZARRE_THING_OF_THE_RING:
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 		ring_of_power(caster_ptr, dir);
 		break;
 
@@ -612,7 +590,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_ELEMENTAL_BREATH:
 		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_ball(caster_ptr, GF_MISSILE, dir, 300, 4);
 			break;
 		}
@@ -645,39 +622,31 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_LAY_OF_FEAR:
-		{
-			turn_creatures(caster_ptr, 40 + caster_ptr->lev);
-			break;
-		}
+		turn_creatures(caster_ptr, 40 + caster_ptr->lev);
+		break;
 
 	case TRAIT_SLEEP:
-			sleep_creatures_touch(caster_ptr);
-			break;
+		sleep_creatures_touch(caster_ptr);
+		break;
 
 	case TRAIT_RESTORE_LEVEL:
-			restore_exp(caster_ptr);
-			break;
+		restore_exp(caster_ptr);
+		break;
 
 	case TRAIT_BO_FIRE_MINI:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_bolt(caster_ptr, GF_FIRE, dir, diceroll(9, 8));
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_bolt(caster_ptr, GF_FIRE, dir, diceroll(9, 8));
+		break;
 
 	case TRAIT_BO_COLD_MINI:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_bolt(caster_ptr, GF_COLD, dir, diceroll(6, 8));
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_bolt(caster_ptr, GF_COLD, dir, diceroll(6, 8));
+		break;
 
 	case TRAIT_BO_ELEC_MINI:
-		{
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			cast_bolt(caster_ptr, GF_ELEC, dir, diceroll(4, 8));
-			break;
-		}
+		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		cast_bolt(caster_ptr, GF_ELEC, dir, diceroll(4, 8));
+		break;
 
 	case TRAIT_BO_ACID_MINI:
 		{
