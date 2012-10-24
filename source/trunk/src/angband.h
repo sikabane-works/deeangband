@@ -8,7 +8,8 @@
 #include "png.h"
 
 /*
- * Copyright (c) 1989 James E. Wilson 2012 Deskull
+ * Copyright (c) 1989 James E. Wilson 
+ * 2012 Deskull
  *
  * This software may be copied and distributed for educational, research, and
  * not for profit purposes provided that this copyright and statement are
@@ -47,6 +48,9 @@
 #include "game-constants.h"
 #include "types.h"
 #include "externs.h"
+
+// Message definition
+
 
 /***** Some copyright messages follow below *****/
 

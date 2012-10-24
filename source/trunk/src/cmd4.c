@@ -2648,11 +2648,9 @@ void do_cmd_options(void)
 				while (1)
 				{
 #ifdef JP
-					prt(format("現在の低ヒットポイント警告: %d0%%",
-						   hitpoint_warn), 22, 0);
+					prt(format("現在の低ヒットポイント警告: %d0%%", hitpoint_warn), 22, 0);
 #else
-					prt(format("Current hitpoint warning: %d0%%",
-						   hitpoint_warn), 22, 0);
+					prt(format("Current hitpoint warning: %d0%%", hitpoint_warn), 22, 0);
 #endif
 
 #ifdef JP
@@ -2695,11 +2693,9 @@ void do_cmd_options(void)
 				while (1)
 				{
 #ifdef JP
-					prt(format("現在の低魔力色閾値: %d0%%",
-						   mana_warn), 22, 0);
+					prt(format("現在の低魔力色閾値: %d0%%", mana_warn), 22, 0);
 #else
-					prt(format("Current mana color threshold: %d0%%",
-						   mana_warn), 22, 0);
+					prt(format("Current mana color threshold: %d0%%", mana_warn), 22, 0);
 #endif
 
 #ifdef JP
