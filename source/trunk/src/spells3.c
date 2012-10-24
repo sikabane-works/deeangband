@@ -1210,7 +1210,7 @@ void apply_nexus(creature_type *m_ptr)
 
 			if(randint0(100) < m_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 				break;
 			}
 			*/
@@ -1226,7 +1226,7 @@ void apply_nexus(creature_type *m_ptr)
 
 			if(randint0(100) < m_ptr->skill_rob)
 			{
-				msg_print(MESSAGE_RESIST_THE_EFFECT);
+				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 				break;
 			}
 			*/

@@ -3080,7 +3080,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
 				{
-					msg_print(MESSAGE_RESIST_THE_EFFECT);
+					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 					obvious = TRUE;
 				}
 				*/
