@@ -100,7 +100,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(!go_up) return;
 
 	/* Hack -- take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	if(autosave_l) do_cmd_save_game(TRUE);
 
@@ -263,7 +263,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		}
 
 		/* Hack -- take a turn */
-		creature_ptr->energy_need = 100;
+		cost_tactical_energy(creature_ptr, 100);
 
 		if(autosave_l) do_cmd_save_game(TRUE);
 
@@ -362,7 +362,7 @@ void do_cmd_search(creature_type *creature_ptr)
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Search */
 	search(creature_ptr);
@@ -773,7 +773,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	object_type *object_ptr = &object_list[object_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	creature_ptr->energy_need = 100;	// Take a turn
+	cost_tactical_energy(creature_ptr, 100);	// Take a turn
 
 	/* Attempt to unlock it */
 	if(object_ptr->pval > 0)
@@ -972,7 +972,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 	bool more = FALSE;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Seeing true feature code (ignore mimic) */
 
@@ -1139,7 +1139,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			/* Take a turn */
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 
 			/* Attack */
@@ -1182,7 +1182,7 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 	bool       more = FALSE;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Seeing true feature code (ignore mimic) */
 
@@ -1296,7 +1296,7 @@ void do_cmd_close(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx)
 		{
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 
 			/* Attack */
@@ -1379,7 +1379,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	if(!do_cmd_tunnel_test(creature_ptr, y, x)) return (FALSE);
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Get grid */
 	c_ptr = &floor_ptr->cave[y][x];
@@ -1585,7 +1585,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		/* A creature is in the way */
 		else if(c_ptr->creature_idx)
 		{
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
@@ -1727,7 +1727,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Get the "disarm" factor */
 	i = creature_ptr->skill_dis;
@@ -1854,7 +1854,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	int j;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Penalize some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
@@ -2048,7 +2048,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	cptr name = feature_name + feature_info[get_feat_mimic(c_ptr)].name;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Message */
 #ifdef JP
@@ -2199,7 +2199,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx)
 		{
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
@@ -2271,7 +2271,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 		f_ptr = &feature_info[feat];
 
 		/* Take a turn */
-		creature_ptr->energy_need = 100;
+		cost_tactical_energy(creature_ptr, 100);
 
 		/* Attack creatures */
 		if(c_ptr->creature_idx)
@@ -2416,7 +2416,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		/* Is a creature in the way? */
 		else if(c_ptr->creature_idx)
 		{
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
@@ -2425,7 +2425,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		else
 		{
 			/* Take a turn */
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 
 			/* Successful jamming */
 #ifdef JP
@@ -2470,7 +2470,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
 		/* Take a turn */
-		creature_ptr->energy_need = 100;
+		cost_tactical_energy(creature_ptr, 100);
 
 		if((dir != 5) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)))
 		{
@@ -2511,7 +2511,7 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 			change_wild_mode(creature_ptr);
 
 			/* Give first move to creatures */
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 
 			/* HACk -- set the encouter flag for the wilderness generation */
 			floor_ptr->generate_encounter = TRUE;
@@ -2583,7 +2583,7 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	if(pickup) mpe_mode |= MCE_DO_PICKUP;
 	(void)move_creature(creature_ptr, NULL, creature_ptr->fy, creature_ptr->fx, mpe_mode);
@@ -2652,7 +2652,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	if(creature_ptr->posture & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
 
 	/* Take a turn XXX XXX XXX (?) */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Save the rest code */
 	creature_ptr->resting = command_arg;
@@ -3921,7 +3921,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Rogue and Ninja gets bonus */
 	if((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_NINJA))

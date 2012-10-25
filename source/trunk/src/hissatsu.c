@@ -399,7 +399,7 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 	if(!do_spell(creature_ptr, REALM_HISSATSU, n, SPELL_CAST)) return;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Use some mana */
 	creature_ptr->csp -= spell.smana;
@@ -532,7 +532,7 @@ s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 
 	/* Take a turn */
 	else
-		creature_ptr->energy_need = 100;
+		cost_tactical_energy(creature_ptr, 100);
 
 	creature_ptr->creature_update |= (CRU_SPELLS);
 }

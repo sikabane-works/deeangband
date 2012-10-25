@@ -1851,7 +1851,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 				msg_print("You cannot run in here.");
 #endif
 			}
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 			set_action(creature_ptr, ACTION_NONE);
 		}
 	}
@@ -2130,7 +2130,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				subject_change_floor = TRUE;
 
 				reveal_wilderness(tmp_wy, tmp_wx);
-				creature_ptr->energy_need = 100;
+				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}
 #ifdef JP
@@ -2145,7 +2145,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				creature_ptr->oldpx = tmp_px;
 				subject_change_floor = TRUE;
 				reveal_wilderness(tmp_wy, tmp_wx);
-				creature_ptr->energy_need = 100;
+				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}
 
@@ -3305,7 +3305,7 @@ void run_step(creature_type *creature_ptr, int dir)
 	if(--creature_ptr->running <= 0) return;
 
 	/* Take time */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Move the player, using the "pickup" flag */
 	walk_creature(creature_ptr, find_current, FALSE, FALSE);
@@ -3434,7 +3434,7 @@ void travel_step(creature_type *creature_ptr)
 		return;
 	}
 
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	for (i = 1; i <= 9; i++)
 	{

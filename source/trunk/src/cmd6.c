@@ -79,7 +79,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	sound(SOUND_EAT);
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Identity not known yet */
 	ident = FALSE;
@@ -1443,7 +1443,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	if(creature_ptr->time_stopper)
 	{
@@ -2507,13 +2507,14 @@ msg_print("ダンジョンが揺れた。");
 #else
 			msg_print("Nothing happen.");
 #endif
-/* TODO
+			if(has_trait(creature_ptr, TRAIT_MAGIC_EATER))
+			{
 #ifdef JP
-				msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
+			msg_print("もったいない事をしたような気がする。食べ物は大切にしなくては。");
 #else
-				msg_print("What a waste.  It's your food!");
+			msg_print("What a waste.  It's your food!");
 #endif
-*/
+			}
 			break;
 		}
 	}
@@ -2564,7 +2565,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3088,7 +3089,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	target_pet = old_target_pet;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Get the level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3515,7 +3516,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3792,7 +3793,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -5159,7 +5160,7 @@ msg_print("呪文をうまく唱えられなかった！");
 #endif
 
 		sound(SOUND_FAIL);
-		creature_ptr->energy_need = 100;
+		cost_tactical_energy(creature_ptr, 100);
 
 		return;
 	}
@@ -5185,7 +5186,7 @@ msg_print("呪文をうまく唱えられなかった！");
 			if(!use_charge) return;
 		}
 	}
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 	if(tval == TV_ROD) creature_ptr->class_skills.old_skills.magic_num1[item] += object_kind_info[k_idx].pval * EATER_ROD_CHARGE;
 	else creature_ptr->class_skills.old_skills.magic_num1[item] -= EATER_CHARGE;
 }

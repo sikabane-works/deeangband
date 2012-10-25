@@ -925,7 +925,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Sound */
 	sound(SOUND_STUDY);
@@ -1318,7 +1318,7 @@ msg_print("An infernal sound echoed.");
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Over-exert the player */
 	if(over_exerted)

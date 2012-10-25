@@ -1037,7 +1037,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 	reveal_wilderness(creature_ptr->wy, creature_ptr->wx);
 
 	/* HACK */
-	creature_ptr->energy_need = 1000;
+	cost_tactical_energy(creature_ptr, 1000);
 
 	/* Remember the position */
 	creature_ptr->oldpx = creature_ptr->fx;

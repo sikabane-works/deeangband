@@ -1506,3 +1506,7 @@ bool have_posture(creature_type *creature_ptr)
 	return FALSE;
 }
 
+bool cost_tactical_energy(creature_type *creature_ptr, int cost)
+{
+	creature_ptr->energy_need += cost;
+}

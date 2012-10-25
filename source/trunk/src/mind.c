@@ -1638,7 +1638,7 @@ msg_print("その方向にはクリーチャーはいません。");
 			/* Gives a multiplier of 2 at first, up to 3 at 40th */
 			do_cmd_throw_aux(creature_ptr, 1, FALSE, slot);
 
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 		}
 		break;
 	}
@@ -2088,7 +2088,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 	/* teleport from mirror costs small energy */
 	if(on_mirror && creature_ptr->class_idx == CLASS_MIRROR_MASTER)
 	{

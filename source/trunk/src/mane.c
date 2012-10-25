@@ -374,7 +374,7 @@ msg_print("‚à‚Ì‚Ü‚Ë‚ÉŽ¸”s‚µ‚½I");
 	}
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Window stuff */
 	play_redraw |= (PR_IMITATION);

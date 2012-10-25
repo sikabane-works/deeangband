@@ -1311,22 +1311,22 @@ struct creature_type
 	s32b karmas[MAX_KARMA];
 	s16b karmas_rank[MAX_KARMA];
 
-	byte recall_dungeon;      // Dungeon set to be recalled 
+	byte recall_dungeon;	// Dungeon set to be recalled 
 
 	s16b energy_need;	// Energy needed for next move 
 
-	s16b food;		  // Current nutrition 
+	s16b food;			// Current nutrition 
 
-	u32b posture;	  // Special block capacity -LM- 
-	byte action;		  // Currently action 
+	u32b posture;		// Special block capacity -LM- 
+	byte action;		// Currently action 
 
-	u32b spell_learned1;	  // bit mask of spells learned 
-	u32b spell_learned2;	  // bit mask of spells learned 
-	u32b spell_worked1;	  // bit mask of spells tried and worked 
-	u32b spell_worked2;	  // bit mask of spells tried and worked 
-	u32b spell_forgotten1;	  // bit mask of spells learned but forgotten 
-	u32b spell_forgotten2;	  // bit mask of spells learned but forgotten 
-	byte spell_order[64];	  // order spells learned/remembered/forgotten 
+	u32b spell_learned1;	// bit mask of spells learned 
+	u32b spell_learned2;	// bit mask of spells learned 
+	u32b spell_worked1;		// bit mask of spells tried and worked 
+	u32b spell_worked2;		// bit mask of spells tried and worked 
+	u32b spell_forgotten1;	// bit mask of spells learned but forgotten 
+	u32b spell_forgotten2;	// bit mask of spells learned but forgotten 
+	byte spell_order[64];	// order spells learned/remembered/forgotten 
 
 	s16b spell_exp[64];       // Proficiency of spells 
 	//s16b weapon_exp[5][64];   // Proficiency of weapons

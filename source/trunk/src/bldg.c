@@ -4379,7 +4379,7 @@ msg_print("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñI");
 void do_cmd_quest(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_QUEST_ENTER))
 	{
@@ -4426,7 +4426,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	building_type   *bldg;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	if(!cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_BLDG))
 	{

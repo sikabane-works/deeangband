@@ -422,7 +422,7 @@ s = "魔力を取り込めるアイテムがない。";
 		floor_item_describe(creature_ptr, 0 - item);
 		floor_item_optimize(0 - item);
 	}
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 	return TRUE;
 }
 
@@ -859,7 +859,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* take time and pay the price */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Success? */
 	if(randint1(creature_ptr->stat_cur[use_stat]) >=

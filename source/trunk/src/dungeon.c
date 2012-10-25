@@ -5125,7 +5125,7 @@ void process_player(creature_type *creature_ptr)
 		else if(creature_ptr->timed_trait[TRAIT_PARALYZED] || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
 		{
 			/* Take a turn */
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 		}
 
 		/* Resting */
@@ -5144,14 +5144,14 @@ void process_player(creature_type *creature_ptr)
 			}
 
 			/* Take a turn */
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 		}
 
 		/* Fishing */
 		else if(creature_ptr->action == ACTION_FISH)
 		{
 			/* Take a turn */
-			creature_ptr->energy_need = 100;
+			cost_tactical_energy(creature_ptr, 100);
 		}
 
 		else if(creature_ptr->running)	// Running

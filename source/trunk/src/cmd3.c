@@ -314,7 +314,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 		autopick_alter_item(creature_ptr, item, FALSE); // Auto-inscription
 	}
 
-	creature_ptr->energy_need = 100;          // Take a turn
+	cost_tactical_energy(creature_ptr, 100);          // Take a turn
 
 	object_ptr->marked |= OM_TOUCHED;   // Player touches it
 	creature_ptr->equip_cnt++;           // Increment the equip counter by hand
@@ -748,7 +748,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	object_ptr->number = old_number;
 
 	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Artifacts cannot be destroyed */
 	if(!can_player_destroy_object(creature_ptr, object_ptr))

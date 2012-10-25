@@ -502,7 +502,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	{
 	case 0: /* Concentration */
 		if(!snipe_concentrate(creature_ptr)) return (FALSE);
-		creature_ptr->energy_need = 100;
+		cost_tactical_energy(creature_ptr, 100);
 		return (TRUE);
 	case 1: creature_ptr->snipe_type = SP_LITE; break;
 	case 2: creature_ptr->snipe_type = SP_AWAY; break;

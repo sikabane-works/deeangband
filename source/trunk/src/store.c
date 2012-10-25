@@ -5321,7 +5321,7 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 
 	/* Free turn XXX XXX XXX */
-	creature_ptr->energy_need = 100;
+	cost_tactical_energy(creature_ptr, 100);
 
 	/* Hack -- Cancel automatic command */
 	//command_new = 0;
