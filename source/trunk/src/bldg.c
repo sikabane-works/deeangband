@@ -2317,7 +2317,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 
 	// Lose int & wis
-	//TODO if(!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		do_dec_stat(watcher_ptr, STAT_INT);
 		do_dec_stat(watcher_ptr, STAT_WIS);
@@ -2325,7 +2325,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	}
 
 	// Brain smash
-	//TODO if(!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
 		{
@@ -2335,11 +2335,11 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		{
 			(void)set_timed_trait(watcher_ptr, TRAIT_PARALYZED, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
 		}
-		//TODO while (!saving_throw(watcher_ptr->skill_rob))
+		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 		{
 			(void)do_dec_stat(watcher_ptr, STAT_INT);
 		}
-		//TODO while (!saving_throw(watcher_ptr->skill_rob))
+		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 		{
 			(void)do_dec_stat(watcher_ptr, STAT_WIS);
 		}
@@ -2350,14 +2350,13 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		return;
 	}
 
-
-	/* Amnesia */
-	//TODO if(!saving_throw(watcher_ptr->skill_rob * 100 / power))
+	// Amnesia
+	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		if(lose_all_info(watcher_ptr))
 		{
 #ifdef JP
-msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ğ–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
+			msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ğ–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
 #else
 			msg_print("You forget everything in your utmost terror!");
 #endif

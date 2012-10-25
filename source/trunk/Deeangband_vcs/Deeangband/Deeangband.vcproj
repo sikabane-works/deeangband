@@ -531,7 +531,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\message.h"
+				RelativePath="..\..\src\messages.h"
 				>
 			</File>
 			<File

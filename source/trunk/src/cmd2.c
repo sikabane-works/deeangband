@@ -671,24 +671,21 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		}
 	}
 
-	/* Dispel player. */
+	// Dispel player.
 	if((trap & (CHEST_RUNES_OF_EVIL)) && object_ptr->k_idx)
 	{
-		/* Determine how many nasty tricks can be played. */
-		int nasty_tricks_count = 4 + randint0(3);
+		int nasty_tricks_count = 4 + randint0(3);	// Determine how many nasty tricks can be played.
 
-		/* Message. */
 #ifdef JP
 		msg_print("恐ろしい声が響いた:  「暗闇が汝をつつまん！」");
 #else
 		msg_print("Hideous voices bid:  'Let the darkness have thee!'");
 #endif
 
-		/* This is gonna hurt... */
-		for (; nasty_tricks_count > 0; nasty_tricks_count--)
+		for (; nasty_tricks_count > 0; nasty_tricks_count--) // This is gonna hurt...
 		{
 			/* ...but a high saving throw does help a little. */
-			//TODO saving_throw if(randint1(100+object_ptr->pval*2) > creature_ptr->skill_rob)
+			if(!saving_throw(creature_ptr, SAVING_AC, object_ptr->pval * 2, 0) && !saving_throw(creature_ptr, SAVING_EV, object_ptr->pval * 2, 0))
 			{
 #ifdef JP
 				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "破滅のトラップの宝箱", NULL, -1);

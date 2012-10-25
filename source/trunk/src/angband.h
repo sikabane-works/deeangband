@@ -48,7 +48,7 @@
 #include "game-constants.h"
 #include "types.h"
 #include "externs.h"
-#include "message.h"
+#include "messages.h"
 // Message definition
 
 
