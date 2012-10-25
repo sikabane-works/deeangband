@@ -1852,16 +1852,8 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		if(c_ptr->creature_idx)
 		{
-			/* Take a turn */
 			rider_ptr->energy_need = 100;
-
-			/* Message */
-#ifdef JP
-			msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(rider_ptr, y, x, 0);
 			return FALSE;
 		}

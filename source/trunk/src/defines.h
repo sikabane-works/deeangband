@@ -68,6 +68,7 @@
 
 #define PERMAMENT_TIMED 9999
 
+#define DIRECTION_NUM 9
 /*
  * Number of grids in each block (vertically & horizontally)
  * Probably hard-coded to 11, see "generate.c"

@@ -684,7 +684,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		for (; nasty_tricks_count > 0; nasty_tricks_count--) // This is gonna hurt...
 		{
-			/* ...but a high saving throw does help a little. */
+			// ...but a high saving throw does help a little.
 			if(!saving_throw(creature_ptr, SAVING_AC, object_ptr->pval * 2, 0) && !saving_throw(creature_ptr, SAVING_EV, object_ptr->pval * 2, 0))
 			{
 #ifdef JP
@@ -696,11 +696,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 				else if(one_in_(4))
 				{
 					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
-						(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + 
-						randint0(6));
+						(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 +  randint0(6));
 					else 
-						(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + 10 + 
-						randint0(100));
+						(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + 10 + randint0(100));
 				}
 				else if(one_in_(3)) apply_disenchant(creature_ptr, 0);
 				else if(one_in_(2))
@@ -717,8 +715,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		}
 	}
 
-	/* Aggravate creatures. */
-	if(trap & (CHEST_ALARM))
+	if(trap & (CHEST_ALARM))	// Aggravate creatures.
 	{
 #ifdef JP
 		msg_print("けたたましい音が鳴り響いた！");
@@ -728,8 +725,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		aggravate_creatures(creature_ptr);
 	}
 
-	/* Explode */
-	if((trap & (CHEST_EXPLODE)) && object_ptr->k_idx)
+	if((trap & (CHEST_EXPLODE)) && object_ptr->k_idx) // Explode
 	{
 #ifdef JP
 		msg_print("突然、箱が爆発した！");
@@ -748,8 +744,8 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 
 	}
-	/* Scatter contents. */
-	if((trap & (CHEST_SCATTER)) && object_ptr->k_idx)
+
+	if((trap & (CHEST_SCATTER)) && object_ptr->k_idx)	// Scatter contents.
 	{
 #ifdef JP
 		msg_print("宝箱の中身はダンジョンじゅうに散乱した！");
@@ -777,9 +773,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 	object_type *object_ptr = &object_list[object_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-
-	/* Take a turn */
-	creature_ptr->energy_need = 100;
+	creature_ptr->energy_need = 100;	// Take a turn
 
 	/* Attempt to unlock it */
 	if(object_ptr->pval > 0)
@@ -861,7 +855,7 @@ static int count_dt(creature_type *creature_ptr, int *y, int *x, bool (*test)(in
 	count = 0;
 
 	// Check around (and under) the character
-	for (d = 0; d < 9; d++)
+	for (d = 0; d < DIRECTION_NUM; d++)
 	{
 		cave_type *c_ptr;
 		s16b feat;
@@ -912,7 +906,7 @@ static int count_chests(creature_type *creature_ptr, int *y, int *x, bool trappe
 	count = 0;
 
 	/* Check around (and under) the character */
-	for (d = 0; d < 9; d++)
+	for (d = 0; d < DIRECTION_NUM; d++)
 	{
 		/* Extract adjacent (legal) location */
 		int yy = creature_ptr->fy + ddy_ddd[d];
@@ -1146,14 +1140,7 @@ void do_cmd_open(creature_type *creature_ptr)
 		{
 			/* Take a turn */
 			creature_ptr->energy_need = 100;
-
-			/* Message */
-#ifdef JP
-		msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 
 			/* Attack */
 			melee_attack(creature_ptr, y, x, 0);
@@ -1309,15 +1296,8 @@ void do_cmd_close(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx)
 		{
-			/* Take a turn */
 			creature_ptr->energy_need = 100;
-
-			/* Message */
-#ifdef JP
-			msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 
 			/* Attack */
 			melee_attack(creature_ptr, y, x, 0);
@@ -1606,13 +1586,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx)
 		{
 			creature_ptr->energy_need = 100;
-
-#ifdef JP
-			msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
 
@@ -2028,15 +2002,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
-			/* Message */
-#ifdef JP
-			msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
-
-
-			/* Attack */
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
 
@@ -2233,18 +2199,8 @@ void do_cmd_bash(creature_type *creature_ptr)
 		/* Creature in the way */
 		else if(c_ptr->creature_idx)
 		{
-			/* Take a turn */
 			creature_ptr->energy_need = 100;
-
-			/* Message */
-#ifdef JP
-			msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
-
-
-			/* Attack */
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
 
@@ -2460,17 +2416,8 @@ void do_cmd_spike(creature_type *creature_ptr)
 		/* Is a creature in the way? */
 		else if(c_ptr->creature_idx)
 		{
-			/* Take a turn */
 			creature_ptr->energy_need = 100;
-
-			/* Message */
-#ifdef JP
-			msg_print("クリーチャーが立ちふさがっている！");
-#else
-			msg_print("There is a creature in the way!");
-#endif
-
-			/* Attack */
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			melee_attack(creature_ptr, y, x, 0);
 		}
 

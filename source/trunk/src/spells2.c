@@ -4478,12 +4478,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 		if(tm_idx != floor_ptr->cave[ny][nx].creature_idx)
 		{
-#ifdef JP
-			msg_format("%s%sが立ちふさがっている！", tm_idx ? "別の" : "",
-				   m_ptr->see_others ? "クリーチャー" : "何か");
-#else
-			msg_format("There is %s in the way!", m_ptr->see_others ? (tm_idx ? "another creature" : "a creature") : "someone");
-#endif
+			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 		}
 		else if(!creature_bold(creature_ptr, ty, tx))
 		{
