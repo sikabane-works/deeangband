@@ -1777,6 +1777,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 		{
 			se[n].code = i;
 			strcpy(se[n].cap, trait_info[i].title);
+			se[n].key = '\0';
 			se[n].d_color = TERM_L_DARK;
 			se[n].d_color = TERM_WHITE;
 			n++;
@@ -1785,11 +1786,12 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 
 	se[n].code = -1;
 	strcpy(se[n].cap, "ƒLƒƒƒ“ƒZƒ‹");
+	se[n].key = '\0';
 	se[n].d_color = TERM_L_DARK;
 	se[n].d_color = TERM_WHITE;
 	n++;
 
-	i = get_selection(se, n, 0, 0, 0, 0, 0, NULL, GET_SE_AUTO_HEIGHT | GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
+	i = get_selection(se, n, 0, 1, 22, 15, 30, NULL, GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
 	if(i >= 0) do_active_trait(creature_ptr, i);
 }
 
