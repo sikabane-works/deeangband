@@ -417,23 +417,19 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	}
 	else if(die < 56)
 	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir,
-				  diceroll(3+((plev-5)/4),8));
+		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_ELEC, dir, diceroll(3+((plev-5)/4),8));
 	}
 	else if(die < 61)
 	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_COLD, dir,
-				  diceroll(5+((plev-5)/4),8));
+		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_COLD, dir, diceroll(5+((plev-5)/4),8));
 	}
 	else if(die < 66)
 	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_ACID, dir,
-				  diceroll(6+((plev-5)/4),8));
+		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_ACID, dir, diceroll(6+((plev-5)/4),8));
 	}
 	else if(die < 71)
 	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir,
-				  diceroll(8+((plev-5)/4),8));
+		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_FIRE, dir, diceroll(8+((plev-5)/4),8));
 	}
 	else if(die < 76)
 	{
@@ -476,7 +472,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		dispel_creatures(creature_ptr, 120);
 	}
 	else
-	{ /* RARE */
+	{
 		dispel_creatures(creature_ptr, 150);
 		slow_creatures(creature_ptr);
 		sleep_creatures(creature_ptr);
@@ -607,13 +603,10 @@ static void cast_shuffle(creature_type *creature_ptr)
 	int i;
 
 	// Card sharks and high mages get a level bonus
-	if((creature_ptr->class_idx == CLASS_ROGUE) ||
-	    (creature_ptr->class_idx == CLASS_HIGH_MAGE) ||
-	    (creature_ptr->class_idx == CLASS_SORCERER))
+	if((creature_ptr->class_idx == CLASS_ROGUE) || (creature_ptr->class_idx == CLASS_HIGH_MAGE) || (creature_ptr->class_idx == CLASS_SORCERER))
 		die = (randint1(110)) + plev / 5;
 	else
 		die = randint1(120);
-
 
 	if(vir)
 	{
@@ -834,8 +827,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the Lovers.");
 #endif
 
-		if(get_aim_dir(creature_ptr, &dir))
-			charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
+		if(get_aim_dir(creature_ptr, &dir)) charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
 	}
 	else if(die < 101)
 	{
@@ -844,7 +836,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Hermit.");
 #endif
-
 		wall_stone(creature_ptr);
 	}
 	else if(die < 111)
@@ -854,7 +845,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Judgement.");
 #endif
-
 		remove_all_acquired_traits(creature_ptr);
 		do_cmd_rerate(creature_ptr, FALSE);
 	}
@@ -865,7 +855,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Sun.");
 #endif
-
 		wiz_lite(floor_ptr, creature_ptr, FALSE);
 	}
 	else
@@ -875,7 +864,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the World.");
 #endif
-
 		if(creature_ptr->exp < CREATURE_MAX_EXP)
 		{
 			s32b ee = (creature_ptr->exp / 25) + 1;
@@ -885,7 +873,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 			msg_print("You feel more experienced.");
 #endif
-
 			gain_exp(creature_ptr, ee);
 		}
 	}
@@ -1025,9 +1012,7 @@ static bool item_tester_offer(creature_type *creature_ptr, object_type *object_p
 {
 	/* Flasks of oil are okay */
 	if(object_ptr->tval != TV_CORPSE) return (FALSE);
-
 	if(object_ptr->sval != SV_CORPSE) return (FALSE);
-
 	if(my_strchr("pht", species_info[object_ptr->pval].d_char)) return (TRUE);
 
 	/* Assume not okay */
@@ -4160,7 +4145,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 }
 
 
-static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
+static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -4176,7 +4161,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 	int dir;
-	int plev = creature_ptr->lev;
+	int plev = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -4196,7 +4181,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				detect_creatures_nonliving(creature_ptr, rad);
+				detect_creatures_nonliving(caster_ptr, rad);
 			}
 		}
 		break;
@@ -4219,7 +4204,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				/*
 				 * A radius-0 ball may (1) be aimed at
@@ -4229,7 +4214,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 				 * travel to the creature.
 				 */
 
-				cast_ball(creature_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides), rad);
+				cast_ball(caster_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides), rad);
 
 				if(one_in_(5))
 				{
@@ -4237,13 +4222,13 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 					int effect = randint1(1000);
 
 					if(effect == 666)
-						cast_ball_hide(creature_ptr, GF_DEATH_RAY, dir, plev * 200, 0);
+						cast_ball_hide(caster_ptr, GF_DEATH_RAY, dir, plev * 200, 0);
 					else if(effect < 500)
-						cast_ball_hide(creature_ptr, GF_TURN_ALL, dir, plev, 0);
+						cast_ball_hide(caster_ptr, GF_TURN_ALL, dir, plev, 0);
 					else if(effect < 800)
-						cast_ball_hide(creature_ptr, GF_OLD_CONF, dir, plev, 0);
+						cast_ball_hide(caster_ptr, GF_OLD_CONF, dir, plev, 0);
 					else
-						cast_ball_hide(creature_ptr, GF_STUN, dir, plev, 0);
+						cast_ball_hide(caster_ptr, GF_STUN, dir, plev, 0);
 				}
 			}
 		}
@@ -4265,7 +4250,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				detect_creatures_evil(creature_ptr, rad);
+				detect_creatures_evil(caster_ptr, rad);
 			}
 		}
 		break;
@@ -4287,9 +4272,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_POIS, dir, dam, rad);
+				cast_ball(caster_ptr, GF_POIS, dir, dam, rad);
 			}
 		}
 		break;
@@ -4310,9 +4295,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				sleep_creature(creature_ptr, dir);
+				sleep_creature(caster_ptr, dir);
 			}
 		}
 		break;
@@ -4333,7 +4318,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -4349,15 +4334,13 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
     
 		{
 			int power = plev;
-
 			if(info) return info_power(power);
-
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fear_creature(creature_ptr, dir, power);
-				stun_creature(creature_ptr, dir, power);
+				fear_creature(caster_ptr, dir, power);
+				stun_creature(caster_ptr, dir, power);
 			}
 		}
 		break;
@@ -4373,14 +4356,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
     
 		{
 			int power = plev;
-
 			if(info) return info_power(power);
-
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
-
-				control_one_undead(creature_ptr, dir, power);
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
+				control_one_undead(caster_ptr, dir, power);
 			}
 		}
 		break;
@@ -4400,7 +4380,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if(has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST))
+			if(has_trait(caster_ptr, TRAIT_MAGIC_SPECIALIST))
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -4410,9 +4390,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_OLD_DRAIN, dir, diceroll(dice, dice) + base, rad);
+				cast_ball(caster_ptr, GF_OLD_DRAIN, dir, diceroll(dice, dice) + base, rad);
 			}
 		}
 		break;
@@ -4434,9 +4414,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_NETHER, dir, diceroll(dice, sides));
+				cast_bolt_or_beam(caster_ptr, beam_chance(caster_ptr), GF_NETHER, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -4458,7 +4438,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -4479,9 +4459,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball_hide(creature_ptr, GF_GENOCIDE, dir, power, 0);
+				cast_ball_hide(caster_ptr, GF_GENOCIDE, dir, power, 0);
 			}
 		}
 		break;
@@ -4498,7 +4478,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				brand_weapon(creature_ptr, 3);
+				brand_weapon(caster_ptr, 3);
 			}
 		}
 		break;
@@ -4523,11 +4503,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int dam = base + diceroll(dice, sides);
 
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				if(drain_life(creature_ptr, dir, dam))
+				if(drain_life(caster_ptr, dir, dam))
 				{
-					heal_creature(creature_ptr, dam);
+					heal_creature(caster_ptr, dam);
 
 					/*
 					 * Gain nutritional sustenance:
@@ -4540,11 +4520,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 					 * ARE Gorged, it won't cure
 					 * us
 					 */
-					dam = creature_ptr->food + MIN(5000, 100 * dam);
+					dam = caster_ptr->food + MIN(5000, 100 * dam);
 
 					/* Not gorged already */
-					if(creature_ptr->food < PY_FOOD_MAX)
-						set_food(creature_ptr, dam >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dam);
+					if(caster_ptr->food < PY_FOOD_MAX)
+						set_food(caster_ptr, dam >= PY_FOOD_MAX ? PY_FOOD_MAX - 1 : dam);
 				}
 			}
 		}
@@ -4562,7 +4542,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				animate_dead(NULL, creature_ptr->fy, creature_ptr->fx);
+				animate_dead(NULL, caster_ptr->fy, caster_ptr->fx);
 			}
 		}
 		break;
@@ -4583,7 +4563,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				symbol_genocide(creature_ptr, power, TRUE);
+				symbol_genocide(caster_ptr, power, TRUE);
 			}
 		}
 		break;
@@ -4604,9 +4584,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
-				heal_creature(creature_ptr, 30);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, randint1(base) + base, FALSE);
+				heal_creature(caster_ptr, 30);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -4625,9 +4605,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_invoke_spirits(creature_ptr, dir);
+				cast_invoke_spirits(caster_ptr, dir);
 			}
 		}
 		break;
@@ -4649,9 +4629,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_DARK, dir, diceroll(dice, sides));
+				cast_bolt_or_beam(caster_ptr, beam_chance(caster_ptr), GF_DARK, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -4674,10 +4654,10 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
-				heal_creature(creature_ptr, 30);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
+				set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
+				heal_creature(caster_ptr, 30);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait(caster_ptr, TRAIT_FAST, randint1(sp_sides) + sp_base);
 			}
 		}
 		break;
@@ -4694,7 +4674,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				brand_weapon(creature_ptr, 4);
+				brand_weapon(caster_ptr, 4);
 			}
 		}
 		break;
@@ -4717,12 +4697,12 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int i;
 
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 				for (i = 0; i < 3; i++)
 				{
-					if(drain_life(creature_ptr, dir, dam))
-						heal_creature(creature_ptr, dam);
+					if(drain_life(caster_ptr, dir, dam))
+						heal_creature(caster_ptr, dam);
 				}
 			}
 		}
@@ -4744,7 +4724,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_living(creature_ptr, randint1(sides));
+				dispel_living(caster_ptr, randint1(sides));
 			}
 		}
 		break;
@@ -4766,9 +4746,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_DARK, dir, dam, rad);
+				cast_ball(caster_ptr, GF_DARK, dir, dam, rad);
 			}
 		}
 		break;
@@ -4785,9 +4765,9 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				death_ray(creature_ptr, dir);
+				death_ray(caster_ptr, dir);
 			}
 		}
 		break;
@@ -4816,7 +4796,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 				if(pet) mode |= PC_FORCE_PET;
 				else mode |= (PC_ALLOW_UNIQUE | PC_NO_PET);
 
-				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, type, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, type, mode))
 				{
 #ifdef JP
 					msg_print("ó‚ÇΩÇ¢ïóÇ™Ç†Ç»ÇΩÇÃé¸ÇËÇ…êÅÇ´énÇﬂÇΩÅBÇªÇÍÇÕïÖîsèLÇâ^ÇÒÇ≈Ç¢ÇÈ...");
@@ -4861,11 +4841,11 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				if(randint1(50) > plev)
 				{
-					if(!ident_spell(creature_ptr, FALSE)) return NULL;
+					if(!ident_spell(caster_ptr, FALSE)) return NULL;
 				}
 				else
 				{
-					if(!identify_fully(creature_ptr, FALSE)) return NULL;
+					if(!identify_fully(caster_ptr, FALSE)) return NULL;
 				}
 			}
 		}
@@ -4887,7 +4867,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
+				set_timed_trait_aux(caster_ptr, TRAIT_VAMPIRE, base + randint1(base), TRUE);
 			}
 		}
 		break;
@@ -4904,7 +4884,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				restore_exp(creature_ptr);
+				restore_exp(caster_ptr);
 			}
 		}
 		break;
@@ -4925,7 +4905,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				mass_genocide(creature_ptr, power, TRUE);
+				mass_genocide(caster_ptr, power, TRUE);
 			}
 		}
 		break;
@@ -4947,13 +4927,13 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_HELL_FIRE, dir, dam, rad);
+				cast_ball(caster_ptr, GF_HELL_FIRE, dir, dam, rad);
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ínçñÇÃçÖâŒÇÃéÙï∂Çè•Ç¶ÇΩîÊòJ", NULL, -1);
+				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ínçñÇÃçÖâŒÇÃéÙï∂Çè•Ç¶ÇΩîÊòJ", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
+				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
 #endif
 			}
 		}
@@ -4975,7 +4955,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_WRAITH_FORM, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_WRAITH_FORM, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -4985,7 +4965,7 @@ static cptr do_death_spell(creature_type *creature_ptr, int spell, int mode)
 }
 
 
-static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
+static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -5000,7 +4980,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 	int dir;
-	int plev = creature_ptr->lev;
+	int plev = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -5020,7 +5000,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(creature_ptr, range, 0L);
+				teleport_player(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5043,7 +5023,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an spider...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_SPIDER, PC_ALLOW_GROUP))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_SPIDER, PC_ALLOW_GROUP))
 				{
 					if(fail)
 					{
@@ -5072,7 +5052,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_shuffle(creature_ptr);
+				cast_shuffle(caster_ptr);
 			}
 		}
 		break;
@@ -5089,7 +5069,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!reset_recall(creature_ptr)) return NULL;
+				if(!reset_recall(caster_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5110,7 +5090,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				teleport_player(creature_ptr, range, 0L);
+				teleport_player(caster_ptr, range, 0L);
 			}
 		}
 		break;
@@ -5132,7 +5112,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_ESP, randint1(sides) + base, FALSE);
 			}
 		}
 		break;
@@ -5153,9 +5133,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam(creature_ptr, GF_AWAY_ALL, dir, power);
+				cast_beam(caster_ptr, GF_AWAY_ALL, dir, power);
 			}
 		}
 		break;
@@ -5180,7 +5160,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an animal...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, type, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
 				{
 					if(fail)
 					{
@@ -5211,9 +5191,9 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fetch(creature_ptr, dir, weight, FALSE);
+				fetch(caster_ptr, dir, weight, FALSE);
 			}
 		}
 		break;
@@ -5235,18 +5215,18 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 				if(cast)
 				{
-					if(!target_set(creature_ptr, TARGET_KILL)) return NULL;
+					if(!target_set(caster_ptr, TARGET_KILL)) return NULL;
 					x = target_col;
 					y = target_row;
 				}
 				else
 				{
 					/* Summons near player when failed */
-					x = creature_ptr->fx;
-					y = creature_ptr->fy;
+					x = caster_ptr->fx;
+					y = caster_ptr->fy;
 				}
 
-				if(creature_ptr->class_idx == CLASS_BEASTMASTER)
+				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_KAMIKAZE_LIVING;
 				else
 					type = SUMMON_KAMIKAZE;
@@ -5257,7 +5237,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if(trump_summoning(creature_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
+				if(trump_summoning(caster_ptr, 2 + randint0(plev / 7), !fail, y, x, 0, type, 0L))
 				{
 					if(fail)
 					{
@@ -5287,7 +5267,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
 				{
 #ifdef JP
 					msg_print("å‰ópÇ≈Ç≤Ç¥Ç¢Ç‹Ç∑Ç©ÅAå‰éÂêlólÅH");
@@ -5317,14 +5297,14 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				bool old_target_pet = target_pet;
 				target_pet = TRUE;
 
-				result = get_aim_dir(creature_ptr, &dir);
+				result = get_aim_dir(caster_ptr, &dir);
 
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
 
 				if(!result) return NULL;
 
-				speed_other_creature(creature_ptr, dir);
+				speed_other_creature(caster_ptr, dir);
 			}
 		}
 		break;
@@ -5346,7 +5326,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 				if(!get_check("Are you sure? (Teleport Level)")) return NULL;
 #endif
-				teleport_level(creature_ptr, 0);
+				teleport_level(caster_ptr, 0);
 			}
 		}
 		break;
@@ -5373,7 +5353,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You open a dimensional gate. Choose a destination.");
 #endif
 
-				if(!dimension_door(creature_ptr)) return NULL;
+				if(!dimension_door(caster_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5395,7 +5375,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!word_of_recall(creature_ptr)) return NULL;
+				if(!word_of_recall(caster_ptr)) return NULL;
 			}
 		}
 		break;
@@ -5416,7 +5396,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				banish_creatures(creature_ptr, power);
+				banish_creatures(caster_ptr, power);
 			}
 		}
 		break;
@@ -5438,14 +5418,14 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				/* HACK -- No range limit */
 				project_length = -1;
 
-				result = get_aim_dir(creature_ptr, &dir);
+				result = get_aim_dir(caster_ptr, &dir);
 
 				/* Restore range to default */
 				project_length = 0;
 
 				if(!result) return NULL;
 
-				teleport_swap(creature_ptr, dir);
+				teleport_swap(caster_ptr, dir);
 			}
 		}
 		break;
@@ -5468,7 +5448,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an undead creature...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_UNDEAD, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_UNDEAD, 0L))
 				{
 					if(fail)
 					{
@@ -5501,7 +5481,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a reptile...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HYDRA, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_HYDRA, 0L))
 				{
 					if(fail)
 					{
@@ -5536,12 +5516,12 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on several trumps at once...");
 #endif
 
-				if(creature_ptr->class_idx == CLASS_BEASTMASTER)
+				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_LIVING;
 				else
 					type = 0;
 
-				if(trump_summoning(creature_ptr, (1 + (plev - 15)/ 10), !fail, creature_ptr->fy, creature_ptr->fx, 0, type, 0L))
+				if(trump_summoning(caster_ptr, (1 + (plev - 15)/ 10), !fail, caster_ptr->fy, caster_ptr->fx, 0, type, 0L))
 				{
 					if(fail)
 					{
@@ -5575,7 +5555,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a hound...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HOUND, PC_ALLOW_GROUP))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_HOUND, PC_ALLOW_GROUP))
 				{
 					if(fail)
 					{
@@ -5602,7 +5582,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				brand_weapon(creature_ptr, 5);
+				brand_weapon(caster_ptr, 5);
 			}
 		}
 		break;
@@ -5629,7 +5609,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 					mutation = 77;
 
 				/* Gain the mutation */
-				if(gain_trait(creature_ptr, mutation, TRUE))
+				if(gain_trait(caster_ptr, mutation, TRUE))
 				{
 #ifdef JP
 					msg_print("Ç†Ç»ÇΩÇÕê∂Ç´ÇƒÇ¢ÇÈÉJÅ[ÉhÇ…ïœÇÌÇ¡ÇΩÅB");
@@ -5659,7 +5639,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a Cyberdemon...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_CYBER, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_CYBER, 0L))
 				{
 					if(fail)
 					{
@@ -5690,7 +5670,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				detect_all(creature_ptr, rad);
+				detect_all(caster_ptr, rad);
 			}
 		}
 		break;
@@ -5707,7 +5687,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!identify_fully(creature_ptr, FALSE)) return NULL;
+				if(!identify_fully(caster_ptr, FALSE)) return NULL;
 			}
 		}
 		break;
@@ -5734,14 +5714,14 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				bool old_target_pet = target_pet;
 				target_pet = TRUE;
 
-				result = get_aim_dir(creature_ptr, &dir);
+				result = get_aim_dir(caster_ptr, &dir);
 
 				/* Restore target_pet option */
 				target_pet = old_target_pet;
 
 				if(!result) return NULL;
 
-				heal_other_creature(creature_ptr, dir, heal);
+				heal_other_creature(caster_ptr, dir, heal);
 			}
 		}
 		break;
@@ -5764,7 +5744,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a dragon...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_DRAGON, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_DRAGON, 0L))
 				{
 					if(fail)
 					{
@@ -5796,7 +5776,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_meteor(creature_ptr, dam, rad);
+				cast_meteor(caster_ptr, dam, rad);
 			}
 		}
 		break;
@@ -5819,7 +5799,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a demon...");
 #endif
 
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_DEMON, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_DEMON, 0L))
 				{
 					if(fail)
 					{
@@ -5852,7 +5832,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a greater undead being...");
 #endif
 				/* May allow unique depend on level and dice roll */
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, SUMMON_HI_UNDEAD, PC_ALLOW_UNIQUE))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_HI_UNDEAD, PC_ALLOW_UNIQUE))
 				{
 					if(fail)
 					{
@@ -5881,7 +5861,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int type;
 
-				if(creature_ptr->class_idx == CLASS_BEASTMASTER)
+				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
 					type = SUMMON_HI_DRAGON_LIVING;
 				else
 					type = SUMMON_HI_DRAGON;
@@ -5893,7 +5873,7 @@ static cptr do_trump_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 				/* May allow unique depend on level and dice roll */
-				if(trump_summoning(creature_ptr, 1, !fail, creature_ptr->fy, creature_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, type, PC_ALLOW_UNIQUE))
 				{
 					if(fail)
 					{
@@ -7331,7 +7311,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 }
 
 
-static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
+static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 {
 	bool name = (mode == SPELL_NAME) ? TRUE : FALSE;
 	bool desc = (mode == SPELL_DESC) ? TRUE : FALSE;
@@ -7345,7 +7325,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 
 	int dir;
-	int plev = creature_ptr->lev;
+	int plev = caster_ptr->lev;
 
 	switch (spell)
 	{
@@ -7366,9 +7346,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, GF_MISSILE, dir, diceroll(dice, sides));
+				cast_bolt_or_beam(caster_ptr, beam_chance(caster_ptr) - 10, GF_MISSILE, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -7389,7 +7369,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				detect_creatures_nonliving(creature_ptr, rad);
+				detect_creatures_nonliving(caster_ptr, rad);
 			}
 		}
 		break;
@@ -7410,7 +7390,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7431,7 +7411,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7452,10 +7432,10 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fear_creature(creature_ptr, dir, power);
-				stun_creature(creature_ptr, dir, power);
+				fear_creature(caster_ptr, dir, power);
+				stun_creature(caster_ptr, dir, power);
 			}
 		}
 		break;
@@ -7477,9 +7457,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_NETHER, dir, diceroll(dice, sides));
+				cast_bolt_or_beam(caster_ptr, beam_chance(caster_ptr), GF_NETHER, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -7496,7 +7476,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("å√ë„ÇÃéÄóÏÇÕåªÇÍÇ»Ç©Ç¡ÇΩÅB");
@@ -7523,9 +7503,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = (plev < 30) ? 2 : 3;
 			int base;
 
-			if(creature_ptr->class_idx == CLASS_MAGE ||
-			    creature_ptr->class_idx == CLASS_HIGH_MAGE ||
-			    creature_ptr->class_idx == CLASS_SORCERER)
+			if(caster_ptr->class_idx == CLASS_MAGE ||
+			    caster_ptr->class_idx == CLASS_HIGH_MAGE ||
+			    caster_ptr->class_idx == CLASS_SORCERER)
 				base = plev + plev / 2;
 			else
 				base = plev + plev / 4;
@@ -7535,9 +7515,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides) + base, rad);
+				cast_ball(caster_ptr, GF_HELL_FIRE, dir, diceroll(dice, sides) + base, rad);
 			}
 		}
 		break;
@@ -7558,9 +7538,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				control_one_demon(creature_ptr, dir, power);
+				control_one_demon(caster_ptr, dir, power);
 			}
 		}
 		break;
@@ -7581,7 +7561,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				map_area(creature_ptr, rad);
+				map_area(caster_ptr, rad);
 			}
 		}
 		break;
@@ -7602,7 +7582,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_RES_NETH, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_RES_NETH, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -7624,9 +7604,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), GF_PLASMA, dir, diceroll(dice, sides));
+				cast_bolt_or_beam(caster_ptr, beam_chance(caster_ptr), GF_PLASMA, dir, diceroll(dice, sides));
 			}
 		}
 		break;
@@ -7648,9 +7628,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_FIRE, dir, dam, rad);
+				cast_ball(caster_ptr, GF_FIRE, dir, dam, rad);
 			}
 		}
 		break;
@@ -7667,7 +7647,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				brand_weapon(creature_ptr, 1);
+				brand_weapon(caster_ptr, 1);
 			}
 		}
 		break;
@@ -7689,9 +7669,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_NETHER, dir, dam, rad);
+				cast_ball(caster_ptr, GF_NETHER, dir, dam, rad);
 			}
 		}
 		break;
@@ -7715,7 +7695,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("ó∞â©ÇÃà´èLÇ™è[ñûÇµÇΩÅB");
@@ -7771,7 +7751,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_ESP, randint1(base) + sides, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_ESP, randint1(base) + sides, FALSE);
 			}
 		}
 		break;
@@ -7794,10 +7774,10 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 			{
 				int dur = randint1(base) + base;
 					
-				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
-				set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
-				set_timed_trait_aux(creature_ptr, TRAIT_AURA_FIRE, dur, FALSE);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_AURA_FIRE, dur, FALSE);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 				break;
 			}
 		}
@@ -7820,8 +7800,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_ball(creature_ptr, GF_FIRE, 0, dam, rad);
-				cast_ball_hide(creature_ptr, GF_LAVA_FLOW, 0, 2 + randint1(2), rad);
+				cast_ball(caster_ptr, GF_FIRE, 0, dam, rad);
+				cast_ball_hide(caster_ptr, GF_LAVA_FLOW, 0, 2 + randint1(2), rad);
 			}
 		}
 		break;
@@ -7843,9 +7823,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_PLASMA, dir, dam, rad);
+				cast_ball(caster_ptr, GF_PLASMA, dir, dam, rad);
 			}
 		}
 		break;
@@ -7866,8 +7846,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				creature_ptr->mimic_race_idx = RACE_DEMON;
-				set_timed_trait_aux(creature_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
+				caster_ptr->mimic_race_idx = RACE_DEMON;
+				set_timed_trait_aux(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
 			}
 		}
 		break;
@@ -7889,8 +7869,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				dispel_creatures(creature_ptr, randint1(sides1));
-				dispel_good(creature_ptr, randint1(sides2));
+				dispel_creatures(caster_ptr, randint1(sides1));
+				dispel_good(caster_ptr, randint1(sides2));
 			}
 		}
 		break;
@@ -7912,8 +7892,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
-				cast_ball(creature_ptr, GF_NEXUS, dir, dam, rad);
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
+				cast_ball(caster_ptr, GF_NEXUS, dir, dam, rad);
 			}
 		}
 		break;
@@ -7930,14 +7910,14 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 #ifdef JP
 				else msg_print("<îjñ≈ÇÃéË>Çï˙Ç¡ÇΩÅI");
 #else
 				else msg_print("You invoke the Hand of Doom!");
 #endif
 
-				cast_ball_hide(creature_ptr, GF_HAND_DOOM, dir, plev * 2, 0);
+				cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, plev * 2, 0);
 			}
 		}
 		break;
@@ -7958,9 +7938,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
-				heal_creature(creature_ptr, 10);
-				set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+				set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
+				heal_creature(caster_ptr, 10);
+				set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 			}
 		}
 		break;
@@ -7981,7 +7961,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				set_timed_trait_aux(creature_ptr, TRAIT_RES_TIME, randint1(base) + base, FALSE);
+				set_timed_trait_aux(caster_ptr, TRAIT_RES_TIME, randint1(base) + base, FALSE);
 			}
 		}
 		break;
@@ -8004,9 +7984,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				cast_ball(creature_ptr, GF_CHAOS, 0, dam, rad);
-				cast_ball(creature_ptr, GF_CONFUSION, 0, dam, rad);
-				cast_ball(creature_ptr, GF_CHARM, 0, power, rad);
+				cast_ball(caster_ptr, GF_CHAOS, 0, dam, rad);
+				cast_ball(caster_ptr, GF_CONFUSION, 0, dam, rad);
+				cast_ball(caster_ptr, GF_CHARM, 0, power, rad);
 			}
 		}
 		break;
@@ -8023,7 +8003,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				discharge_minion(creature_ptr);
+				discharge_minion(caster_ptr);
 			}
 		}
 		break;
@@ -8040,7 +8020,7 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!cast_summon_greater_demon(creature_ptr)) return NULL;
+				if(!cast_summon_greater_demon(caster_ptr)) return NULL;
 			}
 		}
 		break;
@@ -8062,9 +8042,9 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball(creature_ptr, GF_NETHER, dir, dam, rad);
+				cast_ball(caster_ptr, GF_NETHER, dir, dam, rad);
 			}
 		}
 		break;
@@ -8086,13 +8066,13 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
+				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_ball_hide(creature_ptr, GF_BLOOD_CURSE, dir, dam, rad);
+				cast_ball_hide(caster_ptr, GF_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ååÇÃéÙÇ¢", NULL, -1);
+				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ååÇÃéÙÇ¢", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
+				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
 #endif
 			}
 		}
@@ -8114,8 +8094,8 @@ static cptr do_daemon_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				creature_ptr->mimic_race_idx = RACE_FIEND_LORD;
-				set_timed_trait_aux(creature_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
+				caster_ptr->mimic_race_idx = RACE_FIEND_LORD;
+				set_timed_trait_aux(caster_ptr, TRAIT_MIMIC, base + randint1(base), FALSE);
 			}
 		}
 		break;
