@@ -228,7 +228,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CHARM_OTHERS:
-		charm_creatures(caster_ptr, user_level * 2);
+		project_hack(caster_ptr, GF_CHARM, user_level * 2);
 		break;
 
 	case TRAIT_S_ANIMAL:

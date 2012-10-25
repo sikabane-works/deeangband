@@ -1606,7 +1606,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				charm_creatures(creature_ptr, power);
+				project_hack(creature_ptr, GF_CHARM, power);
 			}
 		}
 		break;
@@ -2506,7 +2506,7 @@ static cptr do_sorcery_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				charm_creatures(creature_ptr, power);
+				project_hack(creature_ptr, GF_CHARM, power);
 			}
 		}
 		break;
@@ -9527,7 +9527,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cont)
 			{
-				charm_creatures(caster_ptr, diceroll(dice, sides));
+				project_hack(caster_ptr, GF_CHARM, diceroll(dice, sides));
 			}
 		}
 

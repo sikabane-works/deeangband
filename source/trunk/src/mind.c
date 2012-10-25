@@ -893,7 +893,7 @@ if(!b) msg_print("ˆÀ‘S‚È‹C‚ª‚·‚éB");
 		}
 		else
 		{
-			charm_creatures(creature_ptr, plev * 2);
+			project_hack(creature_ptr, GF_CHARM, plev * 2);
 		}
 		break;
 	case 5:
