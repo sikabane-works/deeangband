@@ -124,9 +124,6 @@ static void plasma_recursive(floor_type *floor_ptr, int x1, int y1, int x2, int 
 	plasma_recursive(floor_ptr, xmid, ymid, x2, y2, depth_max, rough);
 }
 
-
-#define MAX_FEAT_IN_TERRAIN 18
-
 /*
  * The default table in terrain level generation.
  */

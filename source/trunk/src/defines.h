@@ -69,6 +69,9 @@
 #define PERMAMENT_TIMED 9999
 
 #define DIRECTION_NUM 9
+
+#define MAX_FEAT_IN_TERRAIN 18
+
 /*
  * Number of grids in each block (vertically & horizontally)
  * Probably hard-coded to 11, see "generate.c"
@@ -306,12 +309,12 @@
 #define SPECIAL_KEY_QUIT     252
 
 // Store constants
-#define STORE_INVEN_MAX 24              /* Max number of discrete objs in inven */
-#define STORE_CHOICES   48              /* Number of items to choose stock from */
-#define STORE_TURNOVER  9               /* Normal shop turnover, per day */
-#define STORE_MIN_KEEP_PERCENT  40      /* Min slots to "always" keep full */
-#define STORE_MAX_KEEP_PERCENT  75      /* Max slots to "always" keep full */
-#define STORE_TICKS     1000            /* Number of ticks between turnovers */
+#define STORE_INVEN_MAX 24              // Max number of discrete objs in inven
+#define STORE_CHOICES   48              // Number of items to choose stock from
+#define STORE_TURNOVER  9               // Normal shop turnover, per day
+#define STORE_MIN_KEEP_PERCENT  40      // Min slots to "always" keep full
+#define STORE_MAX_KEEP_PERCENT  75      // Max slots to "always" keep full
+#define STORE_TICKS     1000            // Number of ticks between turnovers
 
 // Creature Status limitation
 #define ENERGY_NEED(A) (randnor((A), ENERGY_VARIANCE))

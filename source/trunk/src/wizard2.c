@@ -1765,6 +1765,34 @@ static void do_cmd_wiz_learn(void)
 	}
 }
 
+// Invoke ant active traits
+static void do_cmd_wiz_invoke(creature_type *creature_ptr)
+{
+	selection se[MAX_TRAITS];
+	int i, n = 0;
+
+	for(i = 0; i < MAX_TRAITS; i++)
+	{
+		if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF || trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
+		{
+			se[n].code = i;
+			strcpy(se[n].cap, trait_info[i].title);
+			se[n].d_color = TERM_L_DARK;
+			se[n].d_color = TERM_WHITE;
+			n++;
+		}
+	}
+
+	se[n].code = -1;
+	strcpy(se[n].cap, "ƒLƒƒƒ“ƒZƒ‹");
+	se[n].d_color = TERM_L_DARK;
+	se[n].d_color = TERM_WHITE;
+	n++;
+
+	i = get_selection(se, n, 0, 0, 0, 0, 0, NULL, GET_SE_AUTO_HEIGHT | GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
+	if(i >= 0) do_active_trait(creature_ptr, i);
+}
+
 
 // Summon some creatures
 static void do_cmd_wiz_summon(creature_type *creature_ptr, int num)
@@ -2170,6 +2198,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 
 	// I: No Use
 	case 'I':
+		do_cmd_wiz_invoke(creature_ptr);
 		break;
 
 	// Go up or down in the dungeon
@@ -2287,7 +2316,7 @@ void do_cmd_debug(creature_type *creature_ptr)
 		wiz_lite(floor_ptr, creature_ptr, FALSE);
 		break;
 
-	// S: No Use
+	// U: No Use
 	case 'U':
 		break;
 		
