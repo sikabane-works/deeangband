@@ -1771,6 +1771,8 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	selection se[MAX_TRAITS];
 	int i, n = 0;
 
+	screen_save();
+
 	for(i = 0; i < MAX_TRAITS; i++)
 	{
 		if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF || trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
@@ -1779,7 +1781,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 			strcpy(se[n].cap, trait_info[i].title);
 			se[n].key = '\0';
 			se[n].d_color = TERM_L_DARK;
-			se[n].d_color = TERM_WHITE;
+			se[n].l_color = TERM_WHITE;
 			n++;
 		}
 	}
@@ -1788,10 +1790,13 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 	strcpy(se[n].cap, "ƒLƒƒƒ“ƒZƒ‹");
 	se[n].key = '\0';
 	se[n].d_color = TERM_L_DARK;
-	se[n].d_color = TERM_WHITE;
+	se[n].l_color = TERM_WHITE;
 	n++;
 
 	i = get_selection(se, n, 0, 1, 22, 15, 30, NULL, GET_SE_AUTO_WIDTH | GET_SE_RIGHT);
+
+	screen_load();
+
 	if(i >= 0) do_active_trait(creature_ptr, i);
 }
 

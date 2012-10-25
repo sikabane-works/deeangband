@@ -5659,8 +5659,8 @@ int get_selection(selection *se_ptr, int num, int default_se, int y, int x, int 
 		c = inkey();
 		if(c == '2') se++;
 		if(c == '8') se--;
-		if(c == '6') se+=h;
-		if(c == '4') se-=h;
+		if(c == '6') se += h;
+		if(c == '4') se -= h;
 		if(se < 0) se = 0;
 		if(se >= num) se = num - 1;
 
