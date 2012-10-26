@@ -47,8 +47,9 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
 		/* Success */
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+
 #ifdef JP
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
 		else msg_print("上の階に登った。");
 #else
 		msg_print("You enter the up staircase.");
@@ -153,6 +154,8 @@ void do_cmd_go_up(creature_type *creature_ptr)
 #endif
 
 	/* Success */
+	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+
 #ifdef JP
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
 	else if(up_num == floor_ptr->floor_level) msg_print("地上に戻った。");
@@ -206,9 +209,10 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	/* Quest down stairs */
 	else if(have_flag(f_ptr->flags, FF_QUEST))
 	{
+		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+		else
 #ifdef JP
-		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
-		else msg_print("下の階に降りた。");
+			msg_print("下の階に降りた。");
 #else
 			msg_print("You enter the down staircase.");
 #endif
@@ -312,9 +316,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 			}
 			else
 			{
+
+				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
+				else
 #ifdef JP
-				if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print("なんだこの階段は！");
-				else msg_print("階段を下りて新たなる迷宮へと足を踏み入れた。");
+				msg_print("階段を下りて新たなる迷宮へと足を踏み入れた。");
 #else
 				msg_print("You enter a maze of down staircases.");
 #endif

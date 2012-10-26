@@ -674,8 +674,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 				{
 					if(autosave_l) do_cmd_save_game(TRUE);
-
-					/* Leaving */
 					subject_change_floor = TRUE;
 				}
 			}
@@ -707,20 +705,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			int tx, ty;
 
-	
-
-			/* Use the given direction */
+			// Use the given direction
 			tx = caster_ptr->fx + 99 * ddx[dir];
 			ty = caster_ptr->fy + 99 * ddy[dir];
 
-			/* Hack -- Use an actual "target" */
+			// Hack -- Use an actual "target"
 			if((dir == 5) && target_okay(caster_ptr))
 			{
 				tx = target_col;
 				ty = target_row;
 			}
 
-			if(caster_ptr->class_idx == CLASS_ARCHER) // Extra shot at level
+			// Extra shot at level
+			if(caster_ptr->class_idx == CLASS_ARCHER) 
 			{
 				if(caster_ptr->lev >= 10) num++;
 				if(caster_ptr->lev >= 30) num++;
@@ -728,7 +725,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, caster_ptr->lev/20+1, ty, tx, caster_ptr->lev*caster_ptr->lev*6/50, GF_ROCKET, flg, -1);
+				project(caster_ptr, caster_ptr->lev/20+1, ty, tx, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, flg, -1);
 			break;
 		}
 
