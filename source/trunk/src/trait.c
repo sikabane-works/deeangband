@@ -90,7 +90,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-
 		for (dummy = 0; dummy < 3; dummy++)
 		{
 			if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
@@ -111,7 +110,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				cave_type       *c_ptr;
 				creature_type    *target_ptr;
 
-				for (dir = 0; dir <= 9; dir++)
+				for (dir = 0; dir <= DIRECTION_NUM; dir++)
 				{
 					y = caster_ptr->fy + ddy[dir];
 					x = caster_ptr->fx + ddx[dir];
