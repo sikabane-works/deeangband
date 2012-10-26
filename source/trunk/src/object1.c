@@ -2251,12 +2251,12 @@ void display_equip(creature_type *creature_ptr)
 	Term_get_size(&wid, &hgt);	// Get size
 
 	n = 0;
-	/*
-	for (i = 0; i < INVEN_TOTAL; i++)
+	for (i = 0; i < MAX_INVENTORY_SLOTS; i++)
 	{
-		for(j = 0; j < creature_ptr->item_slot_num[INVEN_SLOT_HAND]; j++)
+		if(i == INVEN_SLOT_INVENTORY) continue;
+		for(j = 0; j < creature_ptr->item_slot_num[i]; j++)
 		{
-			object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
+			object_ptr = get_equipped_slot_ptr(creature_ptr, i, j);
 			if(object_ptr->k_idx)
 			{
 				object_desc(object_name, object_ptr, 0);	// Obtain an item description
@@ -2264,9 +2264,11 @@ void display_equip(creature_type *creature_ptr)
 				n++;
 			}
 		}
-
 	}
 
+	for (i = n; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
+
+	/*
 	for (i = 0; i < n; i++)	// Display the equipment
 	{
 		object_ptr = &creature_ptr->inventory[i];	// Examine the item
@@ -2301,8 +2303,6 @@ void display_equip(creature_type *creature_ptr)
 	}
 	*/
 
-	
-	for (i = n; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
 }
 
 
@@ -2592,21 +2592,15 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 	int             slot[INVEN_TOTAL];
 	int             num[INVEN_TOTAL];
 
-
-	/* Starting column */
-	col = 999;
-
-	/* Get size */
-	Term_get_size(&wid, &hgt);
-
-	/* Default "max-length" */
-	len = wid - col - 1;
+	col = 999;	// Starting column
+	Term_get_size(&wid, &hgt);	// Get size
+	len = wid - col - 1;	// Default "max-length"
 
 	prepare_label_string(creature_ptr, inven_label, USE_INVEN);
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		for(k = 0, i = 1; i < MAX_INVENTORY_SLOT; i++)
+		for(k = 0, i = 1; i < MAX_INVENTORY_SLOTS; i++)
 		{
 			n = creature_ptr->item_slot_num[i]; 
 			for(j = 1; j <= n; j++)

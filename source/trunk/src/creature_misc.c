@@ -1391,7 +1391,7 @@ void set_creature_equip_slot_num(creature_type *creature_ptr)
 	creature_ptr->item_slot_num[INVEN_SLOT_LITE] = 1;
 
 	creature_ptr->item_slot_num[INVEN_SLOT_INVENTORY] = INVEN_TOTAL;
-	for(i = INVEN_SLOT_INVENTORY + 1; i < MAX_INVENTORY_SLOT; i++)
+	for(i = INVEN_SLOT_INVENTORY + 1; i < MAX_INVENTORY_SLOTS; i++)
 		creature_ptr->item_slot_num[INVEN_SLOT_INVENTORY] -= creature_ptr->item_slot_num[i];
 }
 
