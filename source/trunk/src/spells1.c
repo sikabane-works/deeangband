@@ -580,7 +580,7 @@ static s16b creature_target_y;
 *
 * XXX XXX XXX Perhaps we should affect doors?
 */
-static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int r, int y, int x, int dam, int typ)
+static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -6840,12 +6840,11 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	// Hack -- Handle stuff
 	if(caster_ptr) handle_stuff();
 
-	/* Giga-Hack SEEKER & SUPER_RAY */
-
-	if( typ == GF_SEEKER )
+	// Giga-Hack SEEKER & SUPER_RAY
+	if(typ == GF_SEEKER)
 	{
 		int j;
-		int last_i=0;
+		int last_i = 0;
 
 		/* Mega-Hack */
 		project_m_n = 0;
@@ -6948,12 +6947,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 							}
 						}
 					}
-					(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
+					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
 				}
 				last_i = i;
 			}
 		}
-		for( i = last_i ; i < path_n ; i++ )
+		for(i = last_i; i < path_n; i++)
 		{
 			int x,y;
 			y = GRID_Y(path_g[i]);
@@ -6974,7 +6973,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					}
 				}
 			}
-			(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
+			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
 		}
 		return notice;
 	}
@@ -7072,7 +7071,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
+					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
@@ -7106,7 +7105,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					}
 				}
 			}
-			(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
+			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -7116,25 +7115,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 	{
 		int oy = y;
 		int ox = x;
-
 		int ny = GRID_Y(path_g[i]);
 		int nx = GRID_X(path_g[i]);
 
-		if(flg & PROJECT_DISI)
-		{
-			/* Hack -- Balls explode before reaching walls */
-			if(cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
-		}
-		else if(flg & PROJECT_LOS)
-		{
-			/* Hack -- Balls explode before reaching walls */
-			if(!cave_los_bold(floor_ptr, ny, nx) && (rad > 0)) break;
-		}
-		else
-		{
-			/* Hack -- Balls explode before reaching walls */
-			if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
-		}
+		if(flg & PROJECT_DISI) if(cave_stop_disintegration(floor_ptr, ny, nx) && (rad > 0)) break;
+		else if(flg & PROJECT_LOS) if(!cave_los_bold(floor_ptr, ny, nx) && (rad > 0)) break;
+		else if(!cave_have_flag_bold(floor_ptr, ny, nx, FF_PROJECT) && (rad > 0)) break;
 
 		/* Advance */
 		y = ny;
@@ -7416,12 +7402,12 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the grid */
-				if(project_f(caster_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if(project_feature(caster_ptr, caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the grid */
-				if(project_f(caster_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if(project_feature(caster_ptr, caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -7861,7 +7847,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_f(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
+					(void)project_feature(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}
