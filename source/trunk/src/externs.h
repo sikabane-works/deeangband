@@ -1179,6 +1179,7 @@ extern object_type *choose_warning_item(creature_type *caster_ptr);
 extern bool process_warning(creature_type *player_ptr, int xx, int yy);
 extern void do_cmd_kaji(creature_type *creature_ptr, bool only_browse);
 extern void set_inventory_weight(creature_type *creature_ptr);
+extern bool is_valid_object(object_type *object_ptr);
 
 
 /* racial.c */

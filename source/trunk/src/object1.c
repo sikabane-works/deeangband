@@ -2223,12 +2223,8 @@ void display_inven(creature_type *creature_ptr)
 		}
 	}
 
-	/* Erase the rest of the window */
-	for (i = z; i < hgt; i++)
-	{
-		/* Erase the line */
-		Term_erase(0, i, 255);
-	}
+	// Erase the rest of the window
+	for (i = z; i < hgt; i++) Term_erase(0, i, 255);
 }
 
 // Choice window "shadow" of the "show_item_list()" function
@@ -2249,10 +2245,10 @@ void display_equip(creature_type *creature_ptr)
 		if(i == INVEN_SLOT_INVENTORY) continue;
 		for(j = 0; j < creature_ptr->item_slot_num[i]; j++)
 		{
-			l = get_equipped_slot_idx(creature_ptr, i, j);
-			if(l >= 0)
+			object_ptr = get_equipped_slot_ptr(creature_ptr, i, j);
+			if(is_valid_object(object_ptr))
 			{
-				object_desc(object_name, &creature_ptr->inventory[l], 0);	// Obtain an item description
+				object_desc(object_name, object_ptr, 0);	// Obtain an item description
 				Term_putstr(0, n, 3, TERM_WHITE, object_name);	// Display the index (or blank space)
 				n++;
 			}
@@ -2260,6 +2256,7 @@ void display_equip(creature_type *creature_ptr)
 	}
 
 	for (i = n; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
+
 
 	/*
 	for (i = 0; i < n; i++)	// Display the equipment

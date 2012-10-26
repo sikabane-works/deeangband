@@ -12,7 +12,6 @@
 /* Purpose: Object code, part 2 */
 
 #include "angband.h"
-
 #include "kajitips.h"
 
 
@@ -7271,4 +7270,9 @@ void set_inventory_weight(creature_type *creature_ptr)
 		if(IS_EQUIPPED(object_ptr)) creature_ptr->equipping_weight += (object_ptr->weight * object_ptr->number);
 	}
 
+}
+
+bool is_valid_object(object_type *object_ptr)
+{
+	return (bool)(object_ptr->k_idx);
 }
