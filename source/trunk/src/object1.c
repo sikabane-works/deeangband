@@ -2145,20 +2145,48 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 }
 
 
-
-
-/*
- * Choice window "shadow" of the "show_item_list()" function
- */
-void display_inven(creature_type *creature_ptr)
+static void display_item_aux(object_type *object_ptr, int idx, int y)
 {
-	int		i, n, z;
-	byte	attr = TERM_WHITE;
 	char	tmp_val[80];
 	char	object_name[MAX_NLEN];
+	int		n;
 	int		wid, hgt;
+	byte	attr = TERM_WHITE;
+
+	Term_get_size(&wid, &hgt);	// Get size
+
+	tmp_val[0] = index_to_label(idx);	// Prepare an "index"
+	tmp_val[1] = ')';						// Bracket the "index" --(--
+	tmp_val[2] = ' ';
+
+	Term_putstr(0, y, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
+	object_desc(object_name, object_ptr, 0);	// Obtain an item description
+	n = strlen(object_name);					// Obtain the length of the description
+
+	attr = tval_to_acttr[object_ptr->tval % 128];	// Get a color
+	if(attr == TERM_DARK) attr = TERM_WHITE;
+	if(object_ptr->timeout) attr = TERM_L_DARK;		// Grey out charging items
+
+	Term_putstr(3, y, n, attr, object_name);		// Display the entry itself
+	Term_erase(3 + n, y, 255);						// Erase the rest of the line
+
+	if(show_weights)	// Display the weight if needed
+	{
+		int wgt = object_ptr->weight * object_ptr->number;
+		char buf[80];
+		format_weight(buf, wgt);
+		(void)sprintf(tmp_val, "%10s", buf);
+		prt(tmp_val, y, wid - 10);
+	}
+}
+
+// Choice window "shadow" of the "show_item_list()" function
+void display_inven(creature_type *creature_ptr)
+{
+	int		i, z;
 	object_type	*object_ptr;
 	int		list[INVEN_TOTAL];
+	int		wid, hgt;
 
 	Term_get_size(&wid, &hgt);	// Get size
 
@@ -2171,60 +2199,8 @@ void display_inven(creature_type *creature_ptr)
 		z++;	// Track
 	}
 
-	for (i = 0; i < z; i++)	// Display the pack
-	{
-		object_ptr = &creature_ptr->inventory[list[i]];	// Examine the item
-		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';	// Start with an empty "index"
-
-		/* Is this item "acceptable"? */
-		if(item_tester_okay(creature_ptr, object_ptr, NULL, 0))
-		{
-			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(list[i]);
-
-			/* Bracket the "index" --(-- */
-			tmp_val[1] = ')';
-		}
-
-		/* Display the index (or blank space) */
-		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
-
-		/* Obtain an item description */
-		object_desc(object_name, object_ptr, 0);
-
-		/* Obtain the length of the description */
-		n = strlen(object_name);
-
-		/* Get a color */
-		attr = tval_to_acttr[object_ptr->tval % 128];
-		if(attr == TERM_DARK) attr = TERM_WHITE;
-
-		/* Grey out charging items */
-		if(object_ptr->timeout)
-		{
-			attr = TERM_L_DARK;
-		}
-
-		/* Display the entry itself */
-		Term_putstr(3, i, n, attr, object_name);
-
-		/* Erase the rest of the line */
-		Term_erase(3 + n, i, 255);
-
-		/* Display the weight if needed */
-		if(show_weights)
-		{
-			int wgt = object_ptr->weight * object_ptr->number;
-			char buf[80];
-			format_weight(buf, wgt);
-			(void)sprintf(tmp_val, "%10s", buf);
-
-			prt(tmp_val, i, wid - 10);
-		}
-	}
-
-	// Erase the rest of the window
-	for (i = z; i < hgt; i++) Term_erase(0, i, 255);
+	for (i = 0; i < z; i++)	display_item_aux(&creature_ptr->inventory[list[i]], list[i], i);
+	for (i = z; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
 }
 
 // Choice window "shadow" of the "show_item_list()" function
@@ -2249,9 +2225,13 @@ void display_equip(creature_type *creature_ptr)
 			if(is_valid_object(object_ptr))
 			{
 				object_desc(object_name, object_ptr, 0);	// Obtain an item description
-				Term_putstr(0, n, wid, TERM_WHITE, object_name);	// Display the index (or blank space)
-				n++;
+				Term_putstr(0, n, wid, TERM_WHITE, object_name);
 			}
+			else
+			{
+				Term_putstr(0, n, wid, TERM_L_DARK, "------");
+			}
+			n++;
 		}
 	}
 
