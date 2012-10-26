@@ -2600,12 +2600,14 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 
 	if(flags & SHOW_ITEM_EQUIPMENT)
 	{
-		for(k = 0, i = 1; i < MAX_INVENTORY_SLOTS; i++)
+		for(k = 0, i = 0; i < MAX_INVENTORY_SLOTS; i++)
 		{
+			if(i == INVEN_SLOT_INVENTORY) continue;
 			n = creature_ptr->item_slot_num[i]; 
 			for(j = 1; j <= n; j++)
 			{
-				m = get_equipped_slot_idx(creature_ptr, i, j); 
+				m = get_equipped_slot_idx(creature_ptr, i, j);
+				if(m < 0) continue;
 				object_ptr = &creature_ptr->inventory[m];
 				object_desc(object_name, object_ptr, 0); // Describe the object
 
