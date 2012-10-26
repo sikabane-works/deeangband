@@ -1203,13 +1203,8 @@ static void get_inscription(char *buff, object_type *object_ptr)
  */
 void object_desc(char *buf, object_type *object_ptr, u32b mode)
 {
-	/* Extract object kind name */
 	cptr            kindname = object_kind_name + object_kind_info[object_ptr->k_idx].name;
-
-	/* Extract default "base" string */
 	cptr            basenm = kindname;
-
-	/* Assume no "modifier" string */
 	cptr            modstr = "";
 
 	int             power;
@@ -1234,23 +1229,15 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	char            fake_insc_buf[30];
 
 	u32b flgs[TRAIT_FLAG_MAX];
-
 	//object_type *bow_ptr;
 
 	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 	object_kind *flavor_k_ptr = &object_kind_info[k_ptr->flavor];
 
-	/* Extract some flags */
-	object_flags(object_ptr, flgs);
-
-	/* See if the object is "aware" */
-	if(object_is_aware(object_ptr)) aware = TRUE;
-
-	/* See if the object is "known" */
-	if(object_is_known(object_ptr)) known = TRUE;
-
-	/* Allow flavors to be hidden when aware */
-	if(aware && ((mode & OD_NO_FLAVOR) || plain_descriptions)) flavor = FALSE;
+	object_flags(object_ptr, flgs);	// Extract some flags
+	if(object_is_aware(object_ptr)) aware = TRUE;	// See if the object is "aware"
+	if(object_is_known(object_ptr)) known = TRUE;	// See if the object is "known"
+	if(aware && ((mode & OD_NO_FLAVOR) || plain_descriptions)) flavor = FALSE;	// Allow flavors to be hidden when aware
 
 	/* Object is in the inventory of a store or spoiler */
 	if((mode & OD_STORE) || (object_ptr->ident & IDENT_STORE))

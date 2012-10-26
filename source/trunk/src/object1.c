@@ -2245,15 +2245,14 @@ void display_inven(creature_type *creature_ptr)
  */
 void display_equip(creature_type *creature_ptr)
 {
-	register        int i, j, n;
+	register        int i, j, l, n;
 	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
 	char            tmp_val[80];
 	char            object_name[MAX_NLEN];
 	int             wid, hgt;
 
-	/* Get size */
-	Term_get_size(&wid, &hgt);
+	Term_get_size(&wid, &hgt);	// Get size
 
 	n = 0;
 	for (i = 0; i < INVEN_TOTAL; i++)
@@ -2263,50 +2262,31 @@ void display_equip(creature_type *creature_ptr)
 			object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, j);
 			if(object_ptr->k_idx)
 			{
-				/* Obtain an item description */
-				object_desc(object_name, object_ptr, 0);
-
-				/* Display the index (or blank space) */
-				Term_putstr(0, n, 3, TERM_WHITE, object_name);
+				object_desc(object_name, object_ptr, 0);	// Obtain an item description
+				Term_putstr(0, n, 3, TERM_WHITE, object_name);	// Display the index (or blank space)
 				n++;
 			}
 		}
 
 	}
 
-
-	/* Display the equipment */
-	for (i = 0; i < INVEN_TOTAL; i++)
+	for (i = 0; i < n; i++)	// Display the equipment
 	{
-		/* Examine the item */
-		object_ptr = &creature_ptr->inventory[i];
-
+		object_ptr = &creature_ptr->inventory[i];	// Examine the item
 		if(!IS_EQUIPPED(object_ptr)) continue;
+		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';	// Start with an empty "index"
 
-		/* Start with an empty "index" */
-		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
-
-		/* Display the index (or blank space) */
-		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);
-
-		/* Obtain an item description */
-		object_desc(object_name, object_ptr, 0);
+		
+		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
+		object_desc(object_name, object_ptr, 0);	// Obtain an item description
 		attr = tval_to_acttr[object_ptr->tval % 128];
 
-		/* Obtain the length of the description */
-		n = strlen(object_name);
+		l = strlen(object_name);	// Obtain the length of the description
 
 		/* Grey out charging items */
-		if(object_ptr->timeout)
-		{
-			attr = TERM_L_DARK;
-		}
-
-		/* Display the entry itself */
-		Term_putstr(3, i, n, attr, object_name);
-
-		/* Erase the rest of the line */
-		Term_erase(3+n, i, 255);
+		if(object_ptr->timeout) attr = TERM_L_DARK;
+		Term_putstr(3, i, l, attr, object_name);	// Display the entry itself
+		Term_erase(3 + l, i, 255);	// Erase the rest of the line
 
 		/* Display the weight (if needed) */
 		if(show_weights)

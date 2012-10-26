@@ -456,10 +456,6 @@
 				RelativePath="..\..\src\z-util.c"
 				>
 			</File>
-			<File
-				RelativePath="..\..\src\z-virt.c"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="ヘッダー ファイル"
@@ -600,6 +596,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\z-util.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\z-virt.c"
 				>
 			</File>
 			<File
