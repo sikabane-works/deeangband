@@ -162,17 +162,12 @@ struct object_kind
 
 	byte d_attr;		/* Default object attribute */
 	byte d_char;		/* Default object character */
-
 	byte x_attr;		/* Desired object attribute */
 	byte x_char;		/* Desired object character */
-
 	s16b flavor;		/* Special object flavor (or zero) */
-
 	bool easy_know;		/* This object is always known (if aware) */
 
-
 	bool aware;			/* The player is "aware" of the item's effects */
-
 	bool tried;			/* The player has "tried" one of the items */
 
 	s16b min_size;      // size limit
