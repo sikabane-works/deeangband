@@ -2256,10 +2256,10 @@ void display_equip(creature_type *creature_ptr)
 		if(i == INVEN_SLOT_INVENTORY) continue;
 		for(j = 0; j < creature_ptr->item_slot_num[i]; j++)
 		{
-			object_ptr = get_equipped_slot_ptr(creature_ptr, i, j);
-			if(object_ptr->k_idx)
+			l = get_equipped_slot_idx(creature_ptr, i, j);
+			if(l >= 0)
 			{
-				object_desc(object_name, object_ptr, 0);	// Obtain an item description
+				object_desc(object_name, &creature_ptr->inventory[l], 0);	// Obtain an item description
 				Term_putstr(0, n, 3, TERM_WHITE, object_name);	// Display the index (or blank space)
 				n++;
 			}
