@@ -2157,28 +2157,30 @@ void display_inven(creature_type *creature_ptr)
 	char	tmp_val[80];
 	char	object_name[MAX_NLEN];
 	int		wid, hgt;
-
 	object_type	*object_ptr;
+	int		list[INVEN_TOTAL];
 
 	Term_get_size(&wid, &hgt);	// Get size
 
 	for (z = 0, i = 0; i < INVEN_TOTAL; i++)	// Find the "final" slot
 	{
 		object_ptr = &creature_ptr->inventory[i];
+		if(IS_EQUIPPED(object_ptr)) continue;
 		if(!object_ptr->k_idx) continue;	// Skip non-objects
+		list[z] = i;
 		z++;	// Track
 	}
 
 	for (i = 0; i < z; i++)	// Display the pack
 	{
-		object_ptr = &creature_ptr->inventory[i];	// Examine the item
+		object_ptr = &creature_ptr->inventory[list[i]];	// Examine the item
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';	// Start with an empty "index"
 
 		/* Is this item "acceptable"? */
 		if(item_tester_okay(creature_ptr, object_ptr, NULL, 0))
 		{
 			/* Prepare an "index" */
-			tmp_val[0] = index_to_label(i);
+			tmp_val[0] = index_to_label(list[i]);
 
 			/* Bracket the "index" --(-- */
 			tmp_val[1] = ')';
