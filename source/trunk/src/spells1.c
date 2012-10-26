@@ -1,12 +1,12 @@
 /* File: spells1.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: Spell projection */
 
@@ -53,27 +53,27 @@ static void next_mirror(floor_type *floor_ptr, int* next_y, int* next_x, int cur
 }
 
 /*
- * Get a legal "multi-hued" color for drawing "spells"
- */
+* Get a legal "multi-hued" color for drawing "spells"
+*/
 static byte mh_attr(int max)
 {
 	switch (randint1(max))
 	{
-		case  1: return (TERM_RED);
-		case  2: return (TERM_GREEN);
-		case  3: return (TERM_BLUE);
-		case  4: return (TERM_YELLOW);
-		case  5: return (TERM_ORANGE);
-		case  6: return (TERM_VIOLET);
-		case  7: return (TERM_L_RED);
-		case  8: return (TERM_L_GREEN);
-		case  9: return (TERM_L_BLUE);
-		case 10: return (TERM_UMBER);
-		case 11: return (TERM_L_UMBER);
-		case 12: return (TERM_SLATE);
-		case 13: return (TERM_WHITE);
-		case 14: return (TERM_L_WHITE);
-		case 15: return (TERM_L_DARK);
+	case  1: return (TERM_RED);
+	case  2: return (TERM_GREEN);
+	case  3: return (TERM_BLUE);
+	case  4: return (TERM_YELLOW);
+	case  5: return (TERM_ORANGE);
+	case  6: return (TERM_VIOLET);
+	case  7: return (TERM_L_RED);
+	case  8: return (TERM_L_GREEN);
+	case  9: return (TERM_L_BLUE);
+	case 10: return (TERM_UMBER);
+	case 11: return (TERM_L_UMBER);
+	case 12: return (TERM_SLATE);
+	case 13: return (TERM_WHITE);
+	case 14: return (TERM_L_WHITE);
+	case 15: return (TERM_L_DARK);
 	}
 
 	return (TERM_WHITE);
@@ -81,8 +81,8 @@ static byte mh_attr(int max)
 
 
 /*
- * Return a color to use for the bolt/ball spells
- */
+* Return a color to use for the bolt/ball spells
+*/
 static byte spell_color(int type)
 {
 	/* Check if A.B.'s new graphics should be used (rr9) */
@@ -91,61 +91,61 @@ static byte spell_color(int type)
 		/* Analyze */
 		switch (type)
 		{
-			case GF_PSY_SPEAR:      return (0x06);
-			case GF_MISSILE:        return (0x0F);
-			case GF_ACID:           return (0x04);
-			case GF_ELEC:           return (0x02);
-			case GF_FIRE:           return (0x00);
-			case GF_COLD:           return (0x01);
-			case GF_POIS:           return (0x03);
-			case GF_HOLY_FIRE:      return (0x00);
-			case GF_HELL_FIRE:      return (0x00);
-			case GF_MANA:           return (0x0E);
-			  /* by henkma */
-			case GF_SEEKER:         return (0x0E);
-			case GF_SUPER_RAY:      return (0x0E);
+		case GF_PSY_SPEAR:      return (0x06);
+		case GF_MISSILE:        return (0x0F);
+		case GF_ACID:           return (0x04);
+		case GF_ELEC:           return (0x02);
+		case GF_FIRE:           return (0x00);
+		case GF_COLD:           return (0x01);
+		case GF_POIS:           return (0x03);
+		case GF_HOLY_FIRE:      return (0x00);
+		case GF_HELL_FIRE:      return (0x00);
+		case GF_MANA:           return (0x0E);
+			/* by henkma */
+		case GF_SEEKER:         return (0x0E);
+		case GF_SUPER_RAY:      return (0x0E);
 
-			case GF_ARROW:          return (0x0F);
-			case GF_WATER:          return (0x04);
-			case GF_NETHER:         return (0x07);
-			case GF_CHAOS:          return (mh_attr(15));
-			case GF_DISENCHANT:     return (0x05);
-			case GF_NEXUS:          return (0x0C);
-			case GF_CONFUSION:      return (mh_attr(4));
-			case GF_SOUND:          return (0x09);
-			case GF_SHARDS:         return (0x08);
-			case GF_FORCE:          return (0x09);
-			case GF_INERTIA:        return (0x09);
-			case GF_GRAVITY:        return (0x09);
-			case GF_TIME:           return (0x09);
-			case GF_LITE_WEAK:      return (0x06);
-			case GF_LITE:           return (0x06);
-			case GF_DARK_WEAK:      return (0x07);
-			case GF_DARK:           return (0x07);
-			case GF_PLASMA:         return (0x0B);
-			case GF_METEOR:         return (0x00);
-			case GF_ICE:            return (0x01);
-			case GF_ROCKET:         return (0x0F);
-			case GF_DEATH_RAY:      return (0x07);
-			case GF_NUKE:           return (mh_attr(2));
-			case GF_DISINTEGRATE:   return (0x05);
-			case GF_PSI:
-			case GF_PSI_DRAIN:
-			case GF_TELEKINESIS:
-			case GF_DOMINATION:
-			case GF_DRAIN_MANA:
-			case GF_MIND_BLAST:
-			case GF_BRAIN_SMASH:
-						return (0x09);
-			case GF_CAUSE_1:
-			case GF_CAUSE_2:
-			case GF_CAUSE_3:
-			case GF_CAUSE_4:        return (0x0E);
-			case GF_HAND_DOOM:      return (0x07);
-			case GF_CAPTURE  :      return (0x0E);
-			case GF_IDENTIFY:       return (0x01);
-			case GF_ATTACK:        return (0x0F);
-			case GF_PHOTO   :      return (0x06);
+		case GF_ARROW:          return (0x0F);
+		case GF_WATER:          return (0x04);
+		case GF_NETHER:         return (0x07);
+		case GF_CHAOS:          return (mh_attr(15));
+		case GF_DISENCHANT:     return (0x05);
+		case GF_NEXUS:          return (0x0C);
+		case GF_CONFUSION:      return (mh_attr(4));
+		case GF_SOUND:          return (0x09);
+		case GF_SHARDS:         return (0x08);
+		case GF_FORCE:          return (0x09);
+		case GF_INERTIA:        return (0x09);
+		case GF_GRAVITY:        return (0x09);
+		case GF_TIME:           return (0x09);
+		case GF_LITE_WEAK:      return (0x06);
+		case GF_LITE:           return (0x06);
+		case GF_DARK_WEAK:      return (0x07);
+		case GF_DARK:           return (0x07);
+		case GF_PLASMA:         return (0x0B);
+		case GF_METEOR:         return (0x00);
+		case GF_ICE:            return (0x01);
+		case GF_ROCKET:         return (0x0F);
+		case GF_DEATH_RAY:      return (0x07);
+		case GF_NUKE:           return (mh_attr(2));
+		case GF_DISINTEGRATE:   return (0x05);
+		case GF_PSI:
+		case GF_PSI_DRAIN:
+		case GF_TELEKINESIS:
+		case GF_DOMINATION:
+		case GF_DRAIN_MANA:
+		case GF_MIND_BLAST:
+		case GF_BRAIN_SMASH:
+			return (0x09);
+		case GF_CAUSE_1:
+		case GF_CAUSE_2:
+		case GF_CAUSE_3:
+		case GF_CAUSE_4:        return (0x0E);
+		case GF_HAND_DOOM:      return (0x07);
+		case GF_CAPTURE  :      return (0x0E);
+		case GF_IDENTIFY:       return (0x01);
+		case GF_ATTACK:        return (0x0F);
+		case GF_PHOTO   :      return (0x06);
 		}
 	}
 	/* Normal tiles or ASCII */
@@ -167,7 +167,7 @@ static byte spell_color(int type)
 		a = my_strchr(color_char, c) - color_char;
 
 		/* Invalid color (note check for < 0 removed, gave a silly
-		 * warning because bytes are always >= 0 -- RG) */
+		* warning because bytes are always >= 0 -- RG) */
 		if(a > 15) return (TERM_WHITE);
 
 		/* Use this color */
@@ -180,12 +180,12 @@ static byte spell_color(int type)
 
 
 /*
- * Find the attr/char pair to use for a spell effect
- *
- * It is moving (or has moved) from (x,y) to (nx,ny).
- *
- * If the distance is not "one", we (may) return "*".
- */
+* Find the attr/char pair to use for a spell effect
+*
+* It is moving (or has moved) from (x,y) to (nx,ny).
+*
+* If the distance is not "one", we (may) return "*".
+*/
 u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 {
 	int base;
@@ -226,45 +226,45 @@ u16b bolt_pict(int y, int x, int ny, int nx, int typ)
 
 
 /*
- * Determine the path taken by a projection.
- *
- * The projection will always start from the grid (y1,x1), and will travel
- * towards the grid (y2,x2), touching one grid per unit of distance along
- * the major axis, and stopping when it enters the destination grid or a
- * wall grid, or has travelled the maximum legal distance of "range".
- *
- * Note that "distance" in this function (as in the "update_view()" code)
- * is defined as "MAX(dy,dx) + MIN(dy,dx)/2", which means that the player
- * actually has an "octagon of projection" not a "circle of projection".
- *
- * The path grids are saved into the grid array pointed to by "gp", and
- * there should be room for at least "range" grids in "gp".  Note that
- * due to the way in which distance is calculated, this function normally
- * uses fewer than "range" grids for the projection path, so the result
- * of this function should never be compared directly to "range".  Note
- * that the initial grid (y1,x1) is never saved into the grid array, not
- * even if the initial grid is also the final grid.  XXX XXX XXX
- *
- * The "flg" flags can be used to modify the behavior of this function.
- *
- * In particular, the "PROJECT_STOP" and "PROJECT_THRU" flags have the same
- * semantics as they do for the "project" function, namely, that the path
- * will stop as soon as it hits a creature, or that the path will continue
- * through the destination grid, respectively.
- *
- * The "PROJECT_JUMP" flag, which for the "project()" function means to
- * start at a special grid (which makes no sense in this function), means
- * that the path should be "angled" slightly if needed to avoid any wall
- * grids, allowing the player to "target" any grid which is in "view".
- * This flag is non-trivial and has not yet been implemented, but could
- * perhaps make use of the "vinfo" array (above).  XXX XXX XXX
- *
- * This function returns the number of grids (if any) in the path.  This
- * function will return zero if and only if(y1,x1) and (y2,x2) are equal.
- *
- * This algorithm is similar to, but slightly different from, the one used
- * by "update_view_los()", and very different from the one used by "los()".
- */
+* Determine the path taken by a projection.
+*
+* The projection will always start from the grid (y1,x1), and will travel
+* towards the grid (y2,x2), touching one grid per unit of distance along
+* the major axis, and stopping when it enters the destination grid or a
+* wall grid, or has travelled the maximum legal distance of "range".
+*
+* Note that "distance" in this function (as in the "update_view()" code)
+* is defined as "MAX(dy,dx) + MIN(dy,dx)/2", which means that the player
+* actually has an "octagon of projection" not a "circle of projection".
+*
+* The path grids are saved into the grid array pointed to by "gp", and
+* there should be room for at least "range" grids in "gp".  Note that
+* due to the way in which distance is calculated, this function normally
+* uses fewer than "range" grids for the projection path, so the result
+* of this function should never be compared directly to "range".  Note
+* that the initial grid (y1,x1) is never saved into the grid array, not
+* even if the initial grid is also the final grid.  XXX XXX XXX
+*
+* The "flg" flags can be used to modify the behavior of this function.
+*
+* In particular, the "PROJECT_STOP" and "PROJECT_THRU" flags have the same
+* semantics as they do for the "project" function, namely, that the path
+* will stop as soon as it hits a creature, or that the path will continue
+* through the destination grid, respectively.
+*
+* The "PROJECT_JUMP" flag, which for the "project()" function means to
+* start at a special grid (which makes no sense in this function), means
+* that the path should be "angled" slightly if needed to avoid any wall
+* grids, allowing the player to "target" any grid which is in "view".
+* This flag is non-trivial and has not yet been implemented, but could
+* perhaps make use of the "vinfo" array (above).  XXX XXX XXX
+*
+* This function returns the number of grids (if any) in the path.  This
+* function will return zero if and only if(y1,x1) and (y2,x2) are equal.
+*
+* This algorithm is similar to, but slightly different from, the one used
+* by "update_view_los()", and very different from the one used by "los()".
+*/
 int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg)
 {
 	int y, x;
@@ -554,8 +554,8 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 
 
 /*
- * Mega-Hack -- track "affected" creatures (see "project()" comments)
- */
+* Mega-Hack -- track "affected" creatures (see "project()" comments)
+*/
 static int project_m_n;
 static int project_m_x;
 static int project_m_y;
@@ -565,21 +565,21 @@ static s16b creature_target_y;
 
 
 /*
- * We are called from "project()" to "damage" terrain features
- *
- * We are called both for "beam" effects and "ball" effects.
- *
- * The "r" parameter is the "distance from ground zero".
- *
- * Note that we determine if the player can "see" anything that happens
- * by taking into account: blindness, line-of-sight, and illumination.
- *
- * We return "TRUE" if the effect of the projection is "obvious".
- *
- * XXX XXX XXX We also "see" grids which are "memorized", probably a hack
- *
- * XXX XXX XXX Perhaps we should affect doors?
- */
+* We are called from "project()" to "damage" terrain features
+*
+* We are called both for "beam" effects and "ball" effects.
+*
+* The "r" parameter is the "distance from ground zero".
+*
+* Note that we determine if the player can "see" anything that happens
+* by taking into account: blindness, line-of-sight, and illumination.
+*
+* We return "TRUE" if the effect of the projection is "obvious".
+*
+* XXX XXX XXX We also "see" grids which are "memorized", probably a hack
+*
+* XXX XXX XXX Perhaps we should affect doors?
+*/
 static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
@@ -669,42 +669,42 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 	switch (typ)
 	{
 		/* Ignore most effects */
-		case GF_CAPTURE:
-		case GF_HAND_DOOM:
-		case GF_CAUSE_1:
-		case GF_CAUSE_2:
-		case GF_CAUSE_3:
-		case GF_CAUSE_4:
-		case GF_MIND_BLAST:
-		case GF_BRAIN_SMASH:
-		case GF_DRAIN_MANA:
-		case GF_PSY_SPEAR:
-		case GF_FORCE:
-		case GF_HOLY_FIRE:
-		case GF_HELL_FIRE:
-		case GF_PSI:
-		case GF_PSI_DRAIN:
-		case GF_TELEKINESIS:
-		case GF_DOMINATION:
-		case GF_IDENTIFY:
-		case GF_ATTACK:
-		case GF_ACID:
-		case GF_ELEC:
-		case GF_COLD:
-		case GF_ICE:
-		case GF_FIRE:
-		case GF_PLASMA:
-		case GF_METEOR:
-		case GF_CHAOS:
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
+	case GF_CAPTURE:
+	case GF_HAND_DOOM:
+	case GF_CAUSE_1:
+	case GF_CAUSE_2:
+	case GF_CAUSE_3:
+	case GF_CAUSE_4:
+	case GF_MIND_BLAST:
+	case GF_BRAIN_SMASH:
+	case GF_DRAIN_MANA:
+	case GF_PSY_SPEAR:
+	case GF_FORCE:
+	case GF_HOLY_FIRE:
+	case GF_HELL_FIRE:
+	case GF_PSI:
+	case GF_PSI_DRAIN:
+	case GF_TELEKINESIS:
+	case GF_DOMINATION:
+	case GF_IDENTIFY:
+	case GF_ATTACK:
+	case GF_ACID:
+	case GF_ELEC:
+	case GF_COLD:
+	case GF_ICE:
+	case GF_FIRE:
+	case GF_PLASMA:
+	case GF_METEOR:
+	case GF_CHAOS:
+	case GF_MANA:
+	case GF_SEEKER:
+	case GF_SUPER_RAY:
 		{
 			break;
 		}
 
 		/* Destroy Traps (and Locks) */
-		case GF_KILL_TRAP:
+	case GF_KILL_TRAP:
 		{
 			/* Reveal secret doors */
 			if(is_hidden_door(c_ptr))
@@ -774,7 +774,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Destroy Doors (and traps) */
-		case GF_KILL_DOOR:
+	case GF_KILL_DOOR:
 		{
 			/* Destroy all doors and traps */
 			if(is_trap(c_ptr->feat) || have_flag(f_ptr->flags, FF_DOOR))
@@ -810,7 +810,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_JAM_DOOR: /* Jams a door (as if with a spike) */
+	case GF_JAM_DOOR: /* Jams a door (as if with a spike) */
 		{
 			if(have_flag(f_ptr->flags, FF_SPIKE))
 			{
@@ -844,7 +844,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Destroy walls (and doors) */
-		case GF_KILL_WALL:
+	case GF_KILL_WALL:
 		{
 			if(have_flag(f_ptr->flags, FF_HURT_ROCK))
 			{
@@ -871,7 +871,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Make doors */
-		case GF_MAKE_DOOR:
+	case GF_MAKE_DOOR:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -889,7 +889,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Make traps */
-		case GF_MAKE_TRAP:
+	case GF_MAKE_TRAP:
 		{
 			/* Place a trap */
 			place_trap(floor_ptr, y, x);
@@ -898,7 +898,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Make doors */
-		case GF_MAKE_TREE:
+	case GF_MAKE_TREE:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -916,7 +916,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_MAKE_GLYPH:
+	case GF_MAKE_GLYPH:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -934,7 +934,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_STONE_WALL:
+	case GF_STONE_WALL:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -949,7 +949,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 
-		case GF_LAVA_FLOW:
+	case GF_LAVA_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -972,7 +972,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_WATER_FLOW:
+	case GF_WATER_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -996,8 +996,8 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Lite up the grid */
-		case GF_LITE_WEAK:
-		case GF_LITE:
+	case GF_LITE_WEAK:
+	case GF_LITE:
 		{
 			/* Turn on the light */
 			if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
@@ -1029,8 +1029,8 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 		}
 
 		/* Darken the grid */
-		case GF_DARK_WEAK:
-		case GF_DARK:
+	case GF_DARK_WEAK:
+	case GF_DARK:
 		{
 			bool do_dark = !floor_ptr->gamble_arena_mode && !is_mirror_grid(c_ptr);
 			int j;
@@ -1089,8 +1089,8 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_SHARDS:
-		case GF_ROCKET:
+	case GF_SHARDS:
+	case GF_ROCKET:
 		{
 			if(is_mirror_grid(c_ptr))
 			{
@@ -1126,7 +1126,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_SOUND:
+	case GF_SOUND:
 		{
 			if(is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
@@ -1162,7 +1162,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_DISINTEGRATE:
+	case GF_DISINTEGRATE:
 		{
 			/* Destroy mirror/glyph */
 			if(is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr))
@@ -1180,7 +1180,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_ACID_FLOW:
+	case GF_ACID_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -1203,7 +1203,7 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 			break;
 		}
 
-		case GF_POISON_FLOW:
+	case GF_POISON_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -1235,21 +1235,21 @@ static bool project_f(creature_type *aimer_ptr, creature_type *whobject_ptr, int
 
 
 /*
- * We are called from "project()" to "damage" objects
- *
- * We are called both for "beam" effects and "ball" effects.
- *
- * Perhaps we should only SOMETIMES damage things on the ground.
- *
- * The "r" parameter is the "distance from ground zero".
- *
- * Note that we determine if the player can "see" anything that happens
- * by taking into account: blindness, line-of-sight, and illumination.
- *
- * XXX XXX XXX We also "see" grids which are "memorized", probably a hack
- *
- * We return "TRUE" if the effect of the projection is "obvious".
- */
+* We are called from "project()" to "damage" objects
+*
+* We are called both for "beam" effects and "ball" effects.
+*
+* Perhaps we should only SOMETIMES damage things on the ground.
+*
+* The "r" parameter is the "distance from ground zero".
+*
+* Note that we determine if the player can "see" anything that happens
+* by taking into account: blindness, line-of-sight, and illumination.
+*
+* XXX XXX XXX We also "see" grids which are "memorized", probably a hack
+*
+* We return "TRUE" if the effect of the projection is "obvious".
+*/
 static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -1302,13 +1302,13 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 		switch (typ)
 		{
 			/* Acid -- Lots of things */
-			case GF_ACID:
+		case GF_ACID:
 			{
 				if(hates_acid(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "融けてしまった！";
+					note_kill = "融けてしまった！";
 #else
 					note_kill = (plural ? " melt!" : " melts!");
 #endif
@@ -1319,13 +1319,13 @@ note_kill = "融けてしまった！";
 			}
 
 			/* Elec -- Rings and Wands */
-			case GF_ELEC:
+		case GF_ELEC:
 			{
 				if(hates_elec(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "壊れてしまった！";
+					note_kill = "壊れてしまった！";
 #else
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
@@ -1336,13 +1336,13 @@ note_kill = "壊れてしまった！";
 			}
 
 			/* Fire -- Flammable objects */
-			case GF_FIRE:
+		case GF_FIRE:
 			{
 				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "燃えてしまった！";
+					note_kill = "燃えてしまった！";
 #else
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
@@ -1353,12 +1353,12 @@ note_kill = "燃えてしまった！";
 			}
 
 			/* Cold -- potions and flasks */
-			case GF_COLD:
+		case GF_COLD:
 			{
 				if(hates_cold(object_ptr))
 				{
 #ifdef JP
-note_kill = "砕け散ってしまった！";
+					note_kill = "砕け散ってしまった！";
 #else
 					note_kill = (plural ? " shatter!" : " shatters!");
 #endif
@@ -1370,13 +1370,13 @@ note_kill = "砕け散ってしまった！";
 			}
 
 			/* Fire + Elec */
-			case GF_PLASMA:
+		case GF_PLASMA:
 			{
 				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "燃えてしまった！";
+					note_kill = "燃えてしまった！";
 #else
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
@@ -1388,7 +1388,7 @@ note_kill = "燃えてしまった！";
 					ignore = FALSE;
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "壊れてしまった！";
+					note_kill = "壊れてしまった！";
 #else
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
@@ -1399,13 +1399,13 @@ note_kill = "壊れてしまった！";
 			}
 
 			/* Fire + Cold */
-			case GF_METEOR:
+		case GF_METEOR:
 			{
 				if(hates_fire(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "燃えてしまった！";
+					note_kill = "燃えてしまった！";
 #else
 					note_kill = (plural ? " burn up!" : " burns up!");
 #endif
@@ -1417,7 +1417,7 @@ note_kill = "燃えてしまった！";
 					ignore = FALSE;
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "砕け散ってしまった！";
+					note_kill = "砕け散ってしまった！";
 #else
 					note_kill = (plural ? " shatter!" : " shatters!");
 #endif
@@ -1428,15 +1428,15 @@ note_kill = "砕け散ってしまった！";
 			}
 
 			/* Hack -- break potions and such */
-			case GF_ICE:
-			case GF_SHARDS:
-			case GF_FORCE:
-			case GF_SOUND:
+		case GF_ICE:
+		case GF_SHARDS:
+		case GF_FORCE:
+		case GF_SOUND:
 			{
 				if(hates_cold(object_ptr))
 				{
 #ifdef JP
-note_kill = "砕け散ってしまった！";
+					note_kill = "砕け散ってしまった！";
 #else
 					note_kill = (plural ? " shatter!" : " shatters!");
 #endif
@@ -1447,13 +1447,13 @@ note_kill = "砕け散ってしまった！";
 			}
 
 			/* Mana and Chaos -- destroy everything */
-			case GF_MANA:
-			case GF_SEEKER:
-			case GF_SUPER_RAY:
+		case GF_MANA:
+		case GF_SEEKER:
+		case GF_SUPER_RAY:
 			{
 				do_kill = TRUE;
 #ifdef JP
-note_kill = "壊れてしまった！";
+				note_kill = "壊れてしまった！";
 #else
 				note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
@@ -1461,11 +1461,11 @@ note_kill = "壊れてしまった！";
 				break;
 			}
 
-			case GF_DISINTEGRATE:
+		case GF_DISINTEGRATE:
 			{
 				do_kill = TRUE;
 #ifdef JP
-note_kill = "蒸発してしまった！";
+				note_kill = "蒸発してしまった！";
 #else
 				note_kill = (plural ? " evaporate!" : " evaporates!");
 #endif
@@ -1473,11 +1473,11 @@ note_kill = "蒸発してしまった！";
 				break;
 			}
 
-			case GF_CHAOS:
+		case GF_CHAOS:
 			{
 				do_kill = TRUE;
 #ifdef JP
-note_kill = "壊れてしまった！";
+				note_kill = "壊れてしまった！";
 #else
 				note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
@@ -1488,14 +1488,14 @@ note_kill = "壊れてしまった！";
 			}
 
 			/* Holy Fire and Hell Fire -- destroys cursed non-artifacts */
-			case GF_HOLY_FIRE:
-			case GF_HELL_FIRE:
+		case GF_HOLY_FIRE:
+		case GF_HELL_FIRE:
 			{
 				if(object_is_cursed(object_ptr))
 				{
 					do_kill = TRUE;
 #ifdef JP
-note_kill = "壊れてしまった！";
+					note_kill = "壊れてしまった！";
 #else
 					note_kill = (plural ? " are destroyed!" : " is destroyed!");
 #endif
@@ -1504,7 +1504,7 @@ note_kill = "壊れてしまった！";
 				break;
 			}
 
-			case GF_IDENTIFY:
+		case GF_IDENTIFY:
 			{
 				identify_item(caster_ptr, object_ptr);
 
@@ -1514,8 +1514,8 @@ note_kill = "壊れてしまった！";
 			}
 
 			/* Unlock chests */
-			case GF_KILL_TRAP:
-			case GF_KILL_DOOR:
+		case GF_KILL_TRAP:
+		case GF_KILL_DOOR:
 			{
 				/* Chests are noticed only if trapped or locked */
 				if(object_ptr->tval == TV_CHEST)
@@ -1533,7 +1533,7 @@ note_kill = "壊れてしまった！";
 						if(known && (object_ptr->marked & OM_FOUND))
 						{
 #ifdef JP
-msg_print("カチッと音がした！");
+							msg_print("カチッと音がした！");
 #else
 							msg_print("Click!");
 #endif
@@ -1545,7 +1545,7 @@ msg_print("カチッと音がした！");
 
 				break;
 			}
-			case GF_ANIM_DEAD:
+		case GF_ANIM_DEAD:
 			{
 				if(object_ptr->tval == TV_CORPSE)
 				{
@@ -1558,32 +1558,32 @@ msg_print("カチッと音がした！");
 					for (i = 0; i < object_ptr->number ; i++)
 					{
 						if(((object_ptr->sval == SV_CORPSE) && (randint1(100) > 80)) ||
-						    ((object_ptr->sval == SV_SKELETON) && (randint1(100) > 60)))
+							((object_ptr->sval == SV_SKELETON) && (randint1(100) > 60)))
 						{
 							if(!note_kill)
 							{
 #ifdef JP
-note_kill = "灰になった。";
+								note_kill = "灰になった。";
 #else
-					note_kill = (plural ? " become dust." : " becomes dust.");
+								note_kill = (plural ? " become dust." : " becomes dust.");
 #endif
 							}
 							continue;
 						}
-/*TODO
+						/*TODO
 						else if(summon_named_creature(caster_ptr, y, x, object_ptr->pval, mode))
 						{
-#ifdef JP
-note_kill = "生き返った。";
-#else
-					note_kill = " revived.";
-#endif
+						#ifdef JP
+						note_kill = "生き返った。";
+						#else
+						note_kill = " revived.";
+						#endif
 						}
-*/
+						*/
 						else if(!note_kill)
 						{
 #ifdef JP
-note_kill = "灰になった。";
+							note_kill = "灰になった。";
 #else
 							note_kill = (plural ? " become dust." : " becomes dust.");
 #endif
@@ -1614,11 +1614,11 @@ note_kill = "灰になった。";
 				if(known && (object_ptr->marked & OM_FOUND))
 				{
 #ifdef JP
-msg_format("%sは影響を受けない！",
-   object_name);
+					msg_format("%sは影響を受けない！",
+						object_name);
 #else
 					msg_format("The %s %s unaffected!",
-							object_name, (plural ? "are" : "is"));
+						object_name, (plural ? "are" : "is"));
 #endif
 
 				}
@@ -1631,7 +1631,7 @@ msg_format("%sは影響を受けない！",
 				if(known && (object_ptr->marked & OM_FOUND) && note_kill)
 				{
 #ifdef JP
-msg_format("%sは%s", object_name, note_kill);
+					msg_format("%sは%s", object_name, note_kill);
 #else
 					msg_format("The %s%s", object_name, note_kill);
 #endif
@@ -1663,58 +1663,58 @@ msg_format("%sは%s", object_name, note_kill);
 
 
 /*
- * Helper function for "project()" below.
- *
- * Handle a beam/bolt/ball causing damage to a creature.
- *
- * This routine takes a "source creature" (by index) which is mostly used to
- * determine if the player is causing the damage, and a "radius" (see below),
- * which is used to decrease the power of explosions with distance, and a
- * location, via integers which are modified by certain types of attacks
- * (polymorph and teleport being the obvious ones), a default damage, which
- * is modified as needed based on various properties, and finally a "damage
- * type" (see below).
- *
- * Note that this routine can handle "no damage" attacks (like teleport) by
- * taking a "zero" damage, and can even take "parameters" to attacks (like
- * confuse) by accepting a "damage", using it to calculate the effect, and
- * then setting the damage to zero.  Note that the "damage" parameter is
- * divided by the radius, so creatures not at the "epicenter" will not take
- * as much damage (or whatever)...
- *
- * Note that "polymorph" is dangerous, since a failure in "place_creature()"'
- * may result in a dereference of an invalid pointer.  XXX XXX XXX
- *
- * Various messages are produced, and damage is applied.
- *
- * Just "casting" a substance (i.e. plasma) does not make you immune, you must
- * actually be "made" of that substance, or "breathe" big balls of it.
- *
- * We assume that "Plasma" creatures, and "Plasma" breathers, are immune
- * to plasma.
- *
- * We assume "Nether" is an evil, necromantic force, so it doesn't hurt undead,
- * and hurts evil less.  If can breath nether, then it resists it as well.
- *
- * Damage reductions use the following formulas:
- *   Note that "dam = dam * 6 / (randint1(6) + 6);"
- *     gives avg damage of .655, ranging from .858 to .500
- *   Note that "dam = dam * 5 / (randint1(6) + 6);"
- *     gives avg damage of .544, ranging from .714 to .417
- *   Note that "dam = dam * 4 / (randint1(6) + 6);"
- *     gives avg damage of .444, ranging from .556 to .333
- *   Note that "dam = dam * 3 / (randint1(6) + 6);"
- *     gives avg damage of .327, ranging from .427 to .250
- *   Note that "dam = dam * 2 / (randint1(6) + 6);"
- *     gives something simple.
- *
- * In this function, "result" messages are postponed until the end, where
- * the "note" string is appended to the creature name, if not NULL.  So,
- * to make a spell have "no effect" just set "note" to NULL.  You should
- * also set "notice" to FALSE, or the player will learn what the spell does.
- *
- * We attempt to return "TRUE" if the player saw anything "useful" happen.
- */
+* Helper function for "project()" below.
+*
+* Handle a beam/bolt/ball causing damage to a creature.
+*
+* This routine takes a "source creature" (by index) which is mostly used to
+* determine if the player is causing the damage, and a "radius" (see below),
+* which is used to decrease the power of explosions with distance, and a
+* location, via integers which are modified by certain types of attacks
+* (polymorph and teleport being the obvious ones), a default damage, which
+* is modified as needed based on various properties, and finally a "damage
+* type" (see below).
+*
+* Note that this routine can handle "no damage" attacks (like teleport) by
+* taking a "zero" damage, and can even take "parameters" to attacks (like
+* confuse) by accepting a "damage", using it to calculate the effect, and
+* then setting the damage to zero.  Note that the "damage" parameter is
+* divided by the radius, so creatures not at the "epicenter" will not take
+* as much damage (or whatever)...
+*
+* Note that "polymorph" is dangerous, since a failure in "place_creature()"'
+* may result in a dereference of an invalid pointer.  XXX XXX XXX
+*
+* Various messages are produced, and damage is applied.
+*
+* Just "casting" a substance (i.e. plasma) does not make you immune, you must
+* actually be "made" of that substance, or "breathe" big balls of it.
+*
+* We assume that "Plasma" creatures, and "Plasma" breathers, are immune
+* to plasma.
+*
+* We assume "Nether" is an evil, necromantic force, so it doesn't hurt undead,
+* and hurts evil less.  If can breath nether, then it resists it as well.
+*
+* Damage reductions use the following formulas:
+*   Note that "dam = dam * 6 / (randint1(6) + 6);"
+*     gives avg damage of .655, ranging from .858 to .500
+*   Note that "dam = dam * 5 / (randint1(6) + 6);"
+*     gives avg damage of .544, ranging from .714 to .417
+*   Note that "dam = dam * 4 / (randint1(6) + 6);"
+*     gives avg damage of .444, ranging from .556 to .333
+*   Note that "dam = dam * 3 / (randint1(6) + 6);"
+*     gives avg damage of .327, ranging from .427 to .250
+*   Note that "dam = dam * 2 / (randint1(6) + 6);"
+*     gives something simple.
+*
+* In this function, "result" messages are postponed until the end, where
+* the "note" string is appended to the creature name, if not NULL.  So,
+* to make a spell have "no effect" just set "note" to NULL.  You should
+* also set "notice" to FALSE, or the player will learn what the spell does.
+*
+* We attempt to return "TRUE" if the player saw anything "useful" happen.
+*/
 /* "flg" was added. */
 static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
 {
@@ -1796,7 +1796,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	switch (typ)
 	{
 		/* Default */
-		default:
+	default:
 		{
 			/* Irrelevant */
 			skipped = TRUE;
@@ -1845,7 +1845,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	{
 		/* Sound and Impact resisters never stun */
 		if(do_stun &&
-		    !(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_RES_WALL)) && !has_trait(target_ptr, TRAIT_NO_STUN))
+			!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_RES_WALL)) && !has_trait(target_ptr, TRAIT_NO_STUN))
 		{
 			/* Obvious */
 			if(seen) obvious = TRUE;
@@ -1986,7 +1986,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 			/* Teleport */
 			teleport_away(target_ptr, do_dist,
-						(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
+				(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 
 			/* Hack -- get new location */
 			y = target_ptr->fy;
@@ -2205,20 +2205,20 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				count += activate_hi_summon(player_ptr, ty, tx, TRUE);
 				if(!one_in_(6)) break;
 			case 19: case 20: case 21: case 22:
-			{
-				bool pet = !one_in_(3);
-				u32b mode = PC_ALLOW_GROUP;
+				{
+					bool pet = !one_in_(3);
+					u32b mode = PC_ALLOW_GROUP;
 
-				if(pet) mode |= PC_FORCE_PET;
-				else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
+					if(pet) mode |= PC_FORCE_PET;
+					else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
 
-				count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
-				if(!one_in_(6)) break;
-			}
+					count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
+					if(!one_in_(6)) break;
+				}
 			case 23: case 24: case 25:
 				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
 #ifdef JP
-msg_print("生命力が体から吸い取られた気がする！");
+				msg_print("生命力が体から吸い取られた気がする！");
 #else
 				msg_print("You feel your life draining away...");
 #endif
@@ -2227,27 +2227,27 @@ msg_print("生命力が体から吸い取られた気がする！");
 				else lose_exp(caster_ptr, caster_ptr->exp / 16);
 				if(!one_in_(6)) break;
 			case 26: case 27: case 28:
-			{
-				int i = 0;
-				if(one_in_(13))
 				{
-					while (i < STAT_MAX)
+					int i = 0;
+					if(one_in_(13))
 					{
-						do
+						while (i < STAT_MAX)
 						{
-							(void)do_dec_stat(caster_ptr, i);
-						}
-						while (one_in_(2));
+							do
+							{
+								(void)do_dec_stat(caster_ptr, i);
+							}
+							while (one_in_(2));
 
-						i++;
+							i++;
+						}
 					}
+					else
+					{
+						(void)do_dec_stat(caster_ptr, randint0(6));
+					}
+					break;
 				}
-				else
-				{
-					(void)do_dec_stat(caster_ptr, randint0(6));
-				}
-				break;
-			}
 			}
 		}
 		while (one_in_(5));
@@ -2382,34 +2382,34 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	if(caster_ptr)
 	{
 		creature_desc(caster_name, caster_ptr, 0);
-/*TODO
+		/*TODO
 		switch (who)
 		{
 		case PROJECT_WHO_UNCTRL_POWER:
-#ifdef JP
-			strcpy(killer, "制御できない力の氾流");
-#else
-			strcpy(killer, "uncontrollable power storm");
-#endif
-			break;
+		#ifdef JP
+		strcpy(killer, "制御できない力の氾流");
+		#else
+		strcpy(killer, "uncontrollable power storm");
+		#endif
+		break;
 
 		case PROJECT_WHO_GLASS_SHARDS:
-#ifdef JP
-			strcpy(killer, "ガラスの破片");
-#else
-			strcpy(killer, "shards of glass");
-#endif
-			break;
+		#ifdef JP
+		strcpy(killer, "ガラスの破片");
+		#else
+		strcpy(killer, "shards of glass");
+		#endif
+		break;
 
 		default:
-#ifdef JP
-			strcpy(killer, "罠");
-#else
-			strcpy(killer, "a trap");
-#endif
-			break;
+		#ifdef JP
+		strcpy(killer, "罠");
+		#else
+		strcpy(killer, "a trap");
+		#endif
+		break;
 		}
-*/
+		*/
 
 #ifdef JP
 		strcpy(killer, "罠");
@@ -2428,7 +2428,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	switch (typ)
 	{
 
-		case GF_ACID:
+	case GF_ACID:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("酸で攻撃された！");
@@ -2439,7 +2439,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_FIRE:
+	case GF_FIRE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("火炎で攻撃された！");
@@ -2450,7 +2450,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_COLD:
+	case GF_COLD:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("冷気で攻撃された！");
@@ -2461,7 +2461,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_ELEC:
+	case GF_ELEC:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("電撃で攻撃された！");
@@ -2472,7 +2472,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_POIS:
+	case GF_POIS:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
@@ -2489,7 +2489,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_NUKE:
+	case GF_NUKE:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
@@ -2525,7 +2525,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_MISSILE:
+	case GF_MISSILE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かで攻撃された！");
@@ -2536,7 +2536,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_HOLY_FIRE:
+	case GF_HOLY_FIRE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かで攻撃された！");
@@ -2547,7 +2547,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_HELL_FIRE:
+	case GF_HELL_FIRE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かで攻撃された！");
@@ -2558,7 +2558,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_ARROW:
+	case GF_ARROW:
 		{
 
 #ifdef JP
@@ -2580,7 +2580,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_PLASMA:
+	case GF_PLASMA:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かとても熱いもので攻撃された！");
@@ -2604,7 +2604,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_NETHER:
+	case GF_NETHER:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("地獄の力で攻撃された！");
@@ -2620,7 +2620,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_WATER:
+	case GF_WATER:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か湿ったもので攻撃された！");
@@ -2648,7 +2648,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_CHAOS:
+	case GF_CHAOS:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("無秩序の波動で攻撃された！");
@@ -2692,7 +2692,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_SHARDS:
+	case GF_SHARDS:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か鋭いもので攻撃された！");
@@ -2714,7 +2714,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_SOUND:
+	case GF_SOUND:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("轟音で攻撃された！");
@@ -2737,7 +2737,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_CONFUSION:
+	case GF_CONFUSION:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か混乱するもので攻撃された！");
@@ -2753,7 +2753,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_DISENCHANT:
+	case GF_DISENCHANT:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かさえないもので攻撃された！");
@@ -2769,7 +2769,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_NEXUS:
+	case GF_NEXUS:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か奇妙なもので攻撃された！");
@@ -2785,7 +2785,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_FORCE:
+	case GF_FORCE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("運動エネルギーで攻撃された！");
@@ -2801,7 +2801,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_ROCKET:
+	case GF_ROCKET:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("爆発があった！");
@@ -2828,7 +2828,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_INERTIA:
+	case GF_INERTIA:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か遅いもので攻撃された！");
@@ -2843,7 +2843,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Lite -- blinding */
-		case GF_LITE:
+	case GF_LITE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かで攻撃された！");
@@ -2874,7 +2874,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Dark -- blinding
-		case GF_DARK:
+	case GF_DARK:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かで攻撃された！");
@@ -2890,7 +2890,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_TIME:
+	case GF_TIME:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("過去からの衝撃に攻撃された！");
@@ -2902,7 +2902,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				switch (randint1(10))
 				{
-					case 1: case 2: case 3: case 4: case 5:
+				case 1: case 2: case 3: case 4: case 5:
 					{
 						if(has_trait(target_ptr, TRAIT_ANDROID)) break;
 #ifdef JP
@@ -2916,24 +2916,24 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						break;
 					}
 
-					case 6: case 7: case 8: case 9:
+				case 6: case 7: case 8: case 9:
 					{
 						switch (randint1(6))
 						{
 #ifdef JP
-							case 1: k = STAT_STR; act = "力強さ"; break;
-							case 2: k = STAT_INT; act = "聡明さ"; break;
-							case 3: k = STAT_WIS; act = "賢明さ"; break;
-							case 4: k = STAT_DEX; act = "器用さ"; break;
-							case 5: k = STAT_CON; act = "頑丈さ"; break;
-							case 6: k = STAT_CHA; act = "美しさ"; break;
+				case 1: k = STAT_STR; act = "力強さ"; break;
+				case 2: k = STAT_INT; act = "聡明さ"; break;
+				case 3: k = STAT_WIS; act = "賢明さ"; break;
+				case 4: k = STAT_DEX; act = "器用さ"; break;
+				case 5: k = STAT_CON; act = "頑丈さ"; break;
+				case 6: k = STAT_CHA; act = "美しさ"; break;
 #else
-							case 1: k = STAT_STR; act = "strong"; break;
-							case 2: k = STAT_INT; act = "bright"; break;
-							case 3: k = STAT_WIS; act = "wise"; break;
-							case 4: k = STAT_DEX; act = "agile"; break;
-							case 5: k = STAT_CON; act = "hale"; break;
-							case 6: k = STAT_CHA; act = "beautiful"; break;
+				case 1: k = STAT_STR; act = "strong"; break;
+				case 2: k = STAT_INT; act = "bright"; break;
+				case 3: k = STAT_WIS; act = "wise"; break;
+				case 4: k = STAT_DEX; act = "agile"; break;
+				case 5: k = STAT_CON; act = "hale"; break;
+				case 6: k = STAT_CHA; act = "beautiful"; break;
 #endif
 						}
 
@@ -2950,7 +2950,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						break;
 					}
 
-					case 10:
+				case 10:
 					{
 #ifdef JP
 						msg_format("%sの能力が大きく衰えた。", target_name);
@@ -2975,7 +2975,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Gravity -- stun plus slowness plus teleport */
-		case GF_GRAVITY:
+	case GF_GRAVITY:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か重いもので攻撃された！");
@@ -3003,7 +3003,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_DISINTEGRATE:
+	case GF_DISINTEGRATE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("純粋なエネルギーで攻撃された！");
@@ -3014,7 +3014,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_OLD_HEAL:
+	case GF_OLD_HEAL:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何らかの攻撃によって気分がよくなった。");
@@ -3036,7 +3036,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_OLD_SPEED:
+	case GF_OLD_SPEED:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かで攻撃された！");
@@ -3049,7 +3049,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_OLD_SLOW:
+	case GF_OLD_SLOW:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か遅いもので攻撃された！");
@@ -3074,7 +3074,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_OLD_SLEEP:
+	case GF_OLD_SLEEP:
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 #ifdef JP
@@ -3100,9 +3100,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
+	case GF_MANA:
+	case GF_SEEKER:
+	case GF_SUPER_RAY:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("魔法のオーラで攻撃された！");
@@ -3114,7 +3114,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_PSY_SPEAR:
+	case GF_PSY_SPEAR:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("エネルギーの塊で攻撃された！");
@@ -3125,7 +3125,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_METEOR:
+	case GF_METEOR:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何かが空からあなたの頭上に落ちてきた！");
@@ -3144,7 +3144,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Ice -- cold plus stun plus cuts
-		case GF_ICE:
+	case GF_ICE:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か鋭く冷たいもので攻撃された！");
@@ -3175,7 +3175,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Death Ray
-		case GF_DEATH_RAY:
+	case GF_DEATH_RAY:
 		{
 #ifdef JP
 			if(fuzzy) msg_print("何か非常に冷たいもので攻撃された！");
@@ -3190,7 +3190,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		// Drain mana
-		case GF_DRAIN_MANA:
+	case GF_DRAIN_MANA:
 		{
 			if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
@@ -3215,76 +3215,76 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 			}
 
-				// Basic message
+			// Basic message
 #ifdef JP
-				if(caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
-				else msg_print("精神エネルギーを吸い取られてしまった！");
+			if(caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
+			else msg_print("精神エネルギーを吸い取られてしまった！");
 #else
-				if(caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
-				else msg_print("Your psychic energy is drawn!");
+			if(caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
+			else msg_print("Your psychic energy is drawn!");
 #endif
 
-				/* Full drain */
-				if(dam >= target_ptr->csp)
+			/* Full drain */
+			if(dam >= target_ptr->csp)
+			{
+				dam = target_ptr->csp;
+				target_ptr->csp = 0;
+				target_ptr->csp_frac = 0;
+			}
+
+			/* Partial drain */
+			else
+			{
+				target_ptr->csp -= dam;
+			}
+
+			learn_trait(target_ptr, spell);
+
+			/* Redraw mana */
+			play_redraw |= (PR_MANA);
+
+			/* Window stuff */
+			play_window |= (PW_PLAYER);
+			play_window |= (PW_SPELL);
+
+			if(caster_ptr != NULL)
+			{
+				/* Heal the creature */
+				if(caster_ptr->chp < caster_ptr->mhp)
 				{
-					dam = target_ptr->csp;
-					target_ptr->csp = 0;
-					target_ptr->csp_frac = 0;
-				}
+					/* Heal */
+					caster_ptr->chp += (6 * dam);
+					if(caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
 
-				/* Partial drain */
-				else
-				{
-					target_ptr->csp -= dam;
-				}
+					/* Redraw (later) if needed */
+					if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+					if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
-				learn_trait(target_ptr, spell);
-
-				/* Redraw mana */
-				play_redraw |= (PR_MANA);
-
-				/* Window stuff */
-				play_window |= (PW_PLAYER);
-				play_window |= (PW_SPELL);
-
-				if(caster_ptr != NULL)
-				{
-					/* Heal the creature */
-					if(caster_ptr->chp < caster_ptr->mhp)
+					/* Special message */
+					if(caster_ptr->see_others)
 					{
-						/* Heal */
-						caster_ptr->chp += (6 * dam);
-						if(caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
-
-						/* Redraw (later) if needed */
-						if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
-						if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
-
-						/* Special message */
-						if(caster_ptr->see_others)
-						{
 #ifdef JP
-							msg_format("%^sは気分が良さそうだ。", caster_name);
+						msg_format("%^sは気分が良さそうだ。", caster_name);
 #else
-							msg_format("%^s appears healthier.", caster_name);
+						msg_format("%^s appears healthier.", caster_name);
 #endif
-						}
 					}
 				}
+			}
 		}
 
-			dam = 0;
-			break;
+		dam = 0;
+		break;
 
 
 		/* Mind blast */
-		case GF_MIND_BLAST:
+	case GF_MIND_BLAST:
 		{
 
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -3323,88 +3323,88 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Mind blast
 		case GF_MIND_BLAST:
 		{
-			if(seen) obvious = TRUE;
-			// Message
-#ifdef JP
-			if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-#else
-			if(caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
-#endif
+		if(seen) obvious = TRUE;
+		// Message
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+		#else
+		if(caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			// Attempt a saving throw
-			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
-			   (species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
-			{
-				// Memorize a flag
-				if(has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-				}
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-			{
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune!";
-#endif
-				dam = 0;
-			}
-			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
-			{
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-				dam /= 3;
-			}
-			else
-			{
-#ifdef JP
-				note = "は精神攻撃を食らった。";
-				note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-				note = " is blasted by psionic energy.";
-				note_dies = " collapses, a mindless husk.";
-#endif
+		// Attempt a saving throw
+		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
+		has_trait(target_ptr, TRAIT_NO_CONF) ||
+		(species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
+		{
+		// Memorize a flag
+		if(has_trait(target_ptr, TRAIT_NO_CONF))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+		}
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune!";
+		#endif
+		dam = 0;
+		}
+		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
+		#ifdef JP
+		note = "には耐性がある。";
+		#else
+		note = " resists.";
+		#endif
+		dam /= 3;
+		}
+		else
+		{
+		#ifdef JP
+		note = "は精神攻撃を食らった。";
+		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+		#else
+		note = " is blasted by psionic energy.";
+		note_dies = " collapses, a mindless husk.";
+		#endif
 
-				if(caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
-				else do_conf = randint0(8) + 8;
-			}
-			break;
+		if(caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
+		else do_conf = randint0(8) + 8;
+		}
+		break;
 		}
 		*/
 
 
 		/* Brain smash */
-		case GF_BRAIN_SMASH:
+	case GF_BRAIN_SMASH:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -3459,96 +3459,96 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Brain smash
 		case GF_BRAIN_SMASH:
 		{
-			if(seen) obvious = TRUE;
-			// Message
-#ifdef JP
-			if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-#else
-			if(caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
-#endif
+		if(seen) obvious = TRUE;
+		// Message
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+		#else
+		if(caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			// Attempt a saving throw 
-			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				 (species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
-			{
-				// Memorize a flag
-				if(has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-				}
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-			{
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune!";
-#endif
-				dam = 0;
-			}
-			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
-			{
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-				dam /= 3;
-			}
-			else
-			{
-#ifdef JP
-				note = "は精神攻撃を食らった。";
-				note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-				note = " is blasted by psionic energy.";
-				note_dies = " collapses, a mindless husk.";
-#endif
+		// Attempt a saving throw 
+		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
+		has_trait(target_ptr, TRAIT_NO_CONF) ||
+		(species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
+		{
+		// Memorize a flag
+		if(has_trait(target_ptr, TRAIT_NO_CONF))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+		}
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune!";
+		#endif
+		dam = 0;
+		}
+		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
+		#ifdef JP
+		note = "には耐性がある。";
+		#else
+		note = " resists.";
+		#endif
+		dam /= 3;
+		}
+		else
+		{
+		#ifdef JP
+		note = "は精神攻撃を食らった。";
+		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+		#else
+		note = " is blasted by psionic energy.";
+		note_dies = " collapses, a mindless husk.";
+		#endif
 
-				if(caster_ptr != caster_ptr)
-				{
-					do_conf = randint0(4) + 4;
-					do_stun = randint0(4) + 4;
-				}
-				else
-				{
-					do_conf = randint0(8) + 8;
-					do_stun = randint0(8) + 8;
-				}
-				(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + 10, FALSE);
-			}
-			break;
+		if(caster_ptr != caster_ptr)
+		{
+		do_conf = randint0(4) + 4;
+		do_stun = randint0(4) + 4;
+		}
+		else
+		{
+		do_conf = randint0(8) + 8;
+		do_stun = randint0(8) + 8;
+		}
+		(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + 10, FALSE);
+		}
+		break;
 		}
 		*/
 
 		/* cause 1 */
-		case GF_CAUSE_1:
+	case GF_CAUSE_1:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				learn_trait(target_ptr, spell);
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			learn_trait(target_ptr, spell);
 			}
 			else
 			*/
@@ -3562,47 +3562,47 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_CAUSE_1:
 		{
-			if(seen) obvious = TRUE;
-			// Message
-#ifdef JP
-			if(caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
-#else
-			if(caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
-#endif
+		if(seen) obvious = TRUE;
+		// Message
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
+		#else
+		if(caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			// Attempt a saving throw
-			if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
+		// Attempt a saving throw
+		if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+		{
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		break;
 		}
 
 		/* cause 2 */
-		case GF_CAUSE_2:
+	case GF_CAUSE_2:
 		{
 			/*
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				learn_trait(target_ptr, spell);
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			learn_trait(target_ptr, spell);
 			}
 			else
 			*/
@@ -3615,47 +3615,47 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_CAUSE_2:
 		{
-			if(seen) obvious = TRUE;
-			// Message/
-#ifdef JP
-			if(caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
-#else
-			if(caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
-#endif
+		if(seen) obvious = TRUE;
+		// Message/
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
+		#else
+		if(caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			// Attempt a saving throw
-			if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
+		// Attempt a saving throw
+		if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+		{
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		break;
 		}
 
 		/* cause 3 */
-		case GF_CAUSE_3:
+	case GF_CAUSE_3:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				learn_trait(target_ptr, spell);
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			learn_trait(target_ptr, spell);
 			}
 			else
 			*/
@@ -3668,51 +3668,51 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_CAUSE_3:
 		{
-			if(seen) obvious = TRUE;
-			// Message
-#ifdef JP
-			if(caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
-#else
-			if(caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
-#endif
+		if(seen) obvious = TRUE;
+		// Message
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
+		#else
+		if(caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			// Attempt a saving throw
-			if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
+		// Attempt a saving throw
+		if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+		{
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		break;
 		}
 		*/
 		/* cause 4 */
-		case GF_CAUSE_4:
+	case GF_CAUSE_4:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-#ifdef JP
-				msg_print("しかし秘孔を跳ね返した！");
-#else
-				msg_print("You resist the effects!");
-#endif
-				learn_trait(target_ptr, spell);
+			#ifdef JP
+			msg_print("しかし秘孔を跳ね返した！");
+			#else
+			msg_print("You resist the effects!");
+			#endif
+			learn_trait(target_ptr, spell);
 			}
 			else
 			*/
@@ -3725,47 +3725,47 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/*
 		case GF_CAUSE_4:
 		{
-			if(seen) obvious = TRUE;
-#ifdef JP
-			if(caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
-#else
-			if(caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
-#endif
+		if(seen) obvious = TRUE;
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
+		#else
+		if(caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
+		#endif
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			// Attempt a saving throw
-			if((randint0(100 + (caster_power / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
-			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
+		// Attempt a saving throw
+		if((randint0(100 + (caster_power / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
+		{
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		break;
 		}
 		*/
 
 		/* Hand of Doom */
-		case GF_HAND_DOOM:
+	case GF_HAND_DOOM:
 		{
 			/*
 			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				learn_trait(target_ptr,spell);
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			learn_trait(target_ptr,spell);
 			}
 			else
 			*/
@@ -3789,53 +3789,53 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* project_creature_aux2()
 		case GF_HAND_DOOM:
 		{
-			if(seen) obvious = TRUE;
+		if(seen) obvious = TRUE;
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		#ifdef JP
+		note = "には完全な耐性がある！";
+		#else
+		note = " is immune.";
+		#endif
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
 
-			if(has_trait(target_ptr, TRAIT_UNIQUE))
-			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			else
-			{
-				if((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
-				   (((caster_power / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
-				{
-					dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
+		if(has_trait(target_ptr, TRAIT_UNIQUE))
+		{
+		#ifdef JP
+		note = "には効果がなかった！";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		else
+		{
+		if((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
+		(((caster_power / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
+		{
+		dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
 
-					if(target_ptr->chp < dam) dam = target_ptr->chp - 1;
-				}
-				else
-				{
-#ifdef JP
-					note = "は耐性を持っている！";
-#else
-					note = "resists!";
-#endif
-					dam = 0;
-				}
-			}
-			break;
+		if(target_ptr->chp < dam) dam = target_ptr->chp - 1;
+		}
+		else
+		{
+		#ifdef JP
+		note = "は耐性を持っている！";
+		#else
+		note = "resists!";
+		#endif
+		dam = 0;
+		}
+		}
+		break;
 		}
 		*/
 
-		case GF_PSI:
+	case GF_PSI:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3874,8 +3874,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			}
 			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
-			         has_trait(target_ptr, TRAIT_ANIMAL) ||
-			         (species_ptr->level > randint1(3 * dam)))
+				has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(species_ptr->level > randint1(3 * dam)))
 			{
 				dam /= 3;
 #ifdef JP
@@ -3886,27 +3886,27 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 				/*
-				 * Powerful demons & undead can turn a mindcrafter's
-				 * attacks back on them
-				 */
+				* Powerful demons & undead can turn a mindcrafter's
+				* attacks back on them
+				*/
 				if(has_trait_species(species_ptr, TRAIT_UNDEAD) && 
-					 has_trait_species(species_ptr, TRAIT_DEMON) &&
-				    (species_ptr->level > caster_ptr->lev / 2) &&
-				    one_in_(2))
+					has_trait_species(species_ptr, TRAIT_DEMON) &&
+					(species_ptr->level > caster_ptr->lev / 2) &&
+					one_in_(2))
 				{
 					note = NULL;
 #ifdef JP
 					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
 #else
 					msg_format("%^s%s corrupted mind backlashes your attack!",
-					    target_name, (seen ? "'s" : "s"));
+						target_name, (seen ? "'s" : "s"));
 #endif
 
 					/* Saving throw */
 					/*
 					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
-						msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 					}
 					else
 					*/
@@ -3918,13 +3918,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						{
 							switch (randint1(4))
 							{
-								case 1:
-									set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
-									break;
-								case 2:
-									set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
-									break;
-								case 3:
+							case 1:
+								set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
+								break;
+							case 2:
+								set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
+								break;
+							case 3:
 								{
 									if(has_trait(target_ptr, TRAIT_FEARLESS))
 #ifdef JP
@@ -3937,10 +3937,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 										set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(dam));
 									break;
 								}
-								default:
-									if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-										(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
-									break;
+							default:
+								if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
+									(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
+								break;
 							}
 						}
 					}
@@ -3952,24 +3952,24 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				switch (randint1(4))
 				{
-					case 1:
-						do_conf = 3 + randint1(dam);
-						break;
-					case 2:
-						do_stun = 3 + randint1(dam);
-						break;
-					case 3:
-						do_fear = 3 + randint1(dam);
-						break;
-					default:
+				case 1:
+					do_conf = 3 + randint1(dam);
+					break;
+				case 2:
+					do_stun = 3 + randint1(dam);
+					break;
+				case 3:
+					do_fear = 3 + randint1(dam);
+					break;
+				default:
 #ifdef JP
-						note = "は眠り込んでしまった！";
+					note = "は眠り込んでしまった！";
 #else
-						note = " falls asleep!";
+					note = " falls asleep!";
 #endif
 
-						do_sleep = 3 + randint1(dam);
-						break;
+					do_sleep = 3 + randint1(dam);
+					break;
 				}
 			}
 
@@ -3982,7 +3982,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_PSI_DRAIN:
+	case GF_PSI_DRAIN:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4008,8 +4008,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			}
 			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
-			         has_trait(target_ptr, TRAIT_ANIMAL) ||
-			         (species_ptr->level > randint1(3 * dam)))
+				has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(species_ptr->level > randint1(3 * dam)))
 			{
 				dam /= 3;
 #ifdef JP
@@ -4020,31 +4020,31 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 				/*
-				 * Powerful demons & undead can turn a mindcrafter's
-				 * attacks back on them
-				 */
+				* Powerful demons & undead can turn a mindcrafter's
+				* attacks back on them
+				*/
 				if(has_trait_species(species_ptr, TRAIT_UNDEAD) &&
-					 has_trait_species(species_ptr, TRAIT_DEMON) &&
-				     (species_ptr->level > caster_ptr->lev / 2) &&
-				     (one_in_(2)))
+					has_trait_species(species_ptr, TRAIT_DEMON) &&
+					(species_ptr->level > caster_ptr->lev / 2) &&
+					(one_in_(2)))
 				{
 					note = NULL;
 #ifdef JP
 					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
 #else
 					msg_format("%^s%s corrupted mind backlashes your attack!",
-					    target_name, (seen ? "'s" : "s"));
+						target_name, (seen ? "'s" : "s"));
 #endif
 
 					/* Saving throw */
 					/*
 					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
-#ifdef JP
-						msg_print("あなたは効力を跳ね返した！");
-#else
-						msg_print("You resist the effects!");
-#endif
+					#ifdef JP
+					msg_print("あなたは効力を跳ね返した！");
+					#else
+					msg_print("You resist the effects!");
+					#endif
 					}
 					else
 					*/
@@ -4078,7 +4078,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
 				msg_format("You convert %s%s pain into %s!",
-				    target_name, (seen ? "'s" : "s"), str);
+					target_name, (seen ? "'s" : "s"), str);
 #endif
 
 				b = MIN(caster_ptr->msp, caster_ptr->csp + b);
@@ -4096,7 +4096,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_TELEKINESIS:
+	case GF_TELEKINESIS:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4122,7 +4122,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    (species_ptr->level > 5 + randint1(dam)))
+				(species_ptr->level > 5 + randint1(dam)))
 			{
 				/* Resist */
 				do_stun = 0;
@@ -4133,7 +4133,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-		case GF_DOMINATION:
+	case GF_DOMINATION:
 		{
 			if(!is_hostile(target_ptr)) break;
 
@@ -4152,7 +4152,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			/* Attempt a saving throw */
 			if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4164,27 +4164,27 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_conf = 0;
 
 				/*
-				 * Powerful demons & undead can turn a mindcrafter's
-				 * attacks back on them
-				 */
+				* Powerful demons & undead can turn a mindcrafter's
+				* attacks back on them
+				*/
 				if(has_trait_species(species_ptr, TRAIT_UNDEAD) &&
 					has_trait_species(species_ptr, TRAIT_DEMON) &&
-				    (species_ptr->level > caster_ptr->lev / 2) &&
-				    (one_in_(2)))
+					(species_ptr->level > caster_ptr->lev / 2) &&
+					(one_in_(2)))
 				{
 					note = NULL;
 #ifdef JP
 					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
 #else
 					msg_format("%^s%s corrupted mind backlashes your attack!",
-					    target_name, (seen ? "'s" : "s"));
+						target_name, (seen ? "'s" : "s"));
 #endif
 
 					/* Saving throw */
 					/* saving throw
 					if(randint0(100 + species_ptr->level/2) < caster_ptr->skill_rob)
 					{
-						msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 					}
 					else
 					*/
@@ -4192,13 +4192,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						/* Confuse, stun, terrify */
 						switch (randint1(4))
 						{
-							case 1:
-								set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
-								break;
-							case 2:
-								set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
-								break;
-							default:
+						case 1:
+							set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
+							break;
+						case 2:
+							set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
+							break;
+						default:
 							{
 								if(has_trait(target_ptr, TRAIT_FEARLESS))
 #ifdef JP
@@ -4241,14 +4241,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					switch (randint1(4))
 					{
-						case 1:
-							do_stun = dam / 2;
-							break;
-						case 2:
-							do_conf = dam / 2;
-							break;
-						default:
-							do_fear = dam;
+					case 1:
+						do_stun = dam / 2;
+						break;
+					case 2:
+						do_conf = dam / 2;
+						break;
+					default:
+						do_fear = dam;
 					}
 				}
 			}
@@ -4259,7 +4259,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Drain Life */
-		case GF_OLD_DRAIN:
+	case GF_OLD_DRAIN:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4277,7 +4277,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(!species_living(species_ptr))
 			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr))
-					 has_trait(target_ptr, INFO_TYPE_RACE);
+					has_trait(target_ptr, INFO_TYPE_RACE);
 
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4295,7 +4295,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Polymorph creature (Use "dam" as "power") */
-		case GF_OLD_POLY:
+	case GF_OLD_POLY:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4315,8 +4315,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Powerful creatures can resist */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    (has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(has_trait(target_ptr, TRAIT_QUESTOR)) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -4336,7 +4336,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Clone creatures (Ignore "dam") */
-		case GF_OLD_CLONE:
+	case GF_OLD_CLONE:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4373,7 +4373,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Heal Creature (use "dam" as amount of healing) */
-		case GF_STAR_HEAL:
+	case GF_STAR_HEAL:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4402,7 +4402,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Sleep (Use "dam" as "power") */
-		case GF_STASIS_EVIL:
+	case GF_STASIS_EVIL:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4419,8 +4419,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    !(is_enemy_of_good_creature(target_ptr)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				!(is_enemy_of_good_creature(target_ptr)) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4448,7 +4448,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Sleep (Use "dam" as "power") */
-		case GF_STASIS:
+	case GF_STASIS:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4465,7 +4465,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4493,7 +4493,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Charm creature */
-		case GF_CHARM:
+	case GF_CHARM:
 		{
 			int vir;
 			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
@@ -4533,9 +4533,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
-			    has_trait(target_ptr, TRAIT_NO_CONF) ||
-			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
+				has_trait(target_ptr, TRAIT_NO_CONF) ||
+				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4582,7 +4582,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Control undead */
-		case GF_CONTROL_UNDEAD:
+	case GF_CONTROL_UNDEAD:
 		{
 			int vir = 0;
 			if(seen) obvious = TRUE;
@@ -4616,9 +4616,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			  (!has_trait_species(species_ptr, TRAIT_UNDEAD)) ||
-			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(!has_trait_species(species_ptr, TRAIT_UNDEAD)) ||
+				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
 #ifdef JP
@@ -4657,7 +4657,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Control demon */
-		case GF_CONTROL_DEMON:
+	case GF_CONTROL_DEMON:
 		{
 			int vir;
 			if(seen) obvious = TRUE;
@@ -4691,9 +4691,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			  (!has_trait_species(species_ptr, TRAIT_DEMON)) ||
-			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				 (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(!has_trait_species(species_ptr, TRAIT_DEMON)) ||
+				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
 #ifdef JP
@@ -4732,7 +4732,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Tame animal */
-		case GF_CONTROL_ANIMAL:
+	case GF_CONTROL_ANIMAL:
 		{
 			int vir;
 			// TODO: Add Karma feature.
@@ -4769,9 +4769,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if( has_trait(target_ptr, TRAIT_QUESTOR) ||
-			    !has_trait(target_ptr, TRAIT_ANIMAL) ||
-			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				 has_trait(target_ptr, TRAIT_NO_CONF) ||
+				!has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
@@ -4819,7 +4819,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Tame animal */
-		case GF_CONTROL_LIVING:
+	case GF_CONTROL_LIVING:
 		{
 			int vir;
 
@@ -4865,9 +4865,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				 !creature_living(target_ptr) ||
-				 ((species_ptr->level+10) > randint1(dam)))
+				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				!creature_living(target_ptr) ||
+				((species_ptr->level+10) > randint1(dam)))
 			{
 				/* Resist */
 				/* No obvious effect */
@@ -4907,7 +4907,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Confusion (Use "dam" as "power") */
-		case GF_OLD_CONF:
+	case GF_OLD_CONF:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4927,8 +4927,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-			    has_trait(target_ptr, TRAIT_NO_CONF) ||
-			   (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				has_trait(target_ptr, TRAIT_NO_CONF) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4954,7 +4954,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		case GF_STUN:
+	case GF_STUN:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4973,7 +4973,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Resist */
 				do_stun = 0;
@@ -4994,7 +4994,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Lite, but only hurts susceptible creatures */
-		case GF_LITE_WEAK:
+	case GF_LITE_WEAK:
 		{
 			if(!dam)
 			{
@@ -5038,7 +5038,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Stone to Mud */
-		case GF_KILL_WALL:
+	case GF_KILL_WALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5077,7 +5077,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Teleport undead (Use "dam" as "power") */
-		case GF_AWAY_UNDEAD:
+	case GF_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
 			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
@@ -5132,7 +5132,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Teleport evil (Use "dam" as "power") */
-		case GF_AWAY_EVIL:
+	case GF_AWAY_EVIL:
 		{
 			/* Only affect evil */
 			if(is_enemy_of_good_creature(target_ptr))
@@ -5145,7 +5145,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
-note = "には効果がなかった！";
+						note = "には効果がなかった！";
 #else
 						note = " is unaffected!";
 #endif
@@ -5156,7 +5156,7 @@ note = "には効果がなかった！";
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
-note = "には耐性がある！";
+						note = "には耐性がある！";
 #else
 						note = " resists!";
 #endif
@@ -5187,7 +5187,7 @@ note = "には耐性がある！";
 
 
 		/* Teleport creature (Use "dam" as "power") */
-		case GF_AWAY_ALL:
+	case GF_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
@@ -5232,7 +5232,7 @@ note = "には耐性がある！";
 
 
 		/* Turn undead (Use "dam" as "power") */
-		case GF_TURN_UNDEAD:
+	case GF_TURN_UNDEAD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5280,7 +5280,7 @@ note = "には耐性がある！";
 
 
 		/* Turn evil (Use "dam" as "power") */
-		case GF_TURN_EVIL:
+	case GF_TURN_EVIL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5328,7 +5328,7 @@ note = "には耐性がある！";
 
 
 		/* Turn creature (Use "dam" as "power") */
-		case GF_TURN_ALL:
+	case GF_TURN_ALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5343,8 +5343,8 @@ note = "には耐性がある！";
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			    (has_trait(target_ptr, TRAIT_FEARLESS)) ||
-			    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(has_trait(target_ptr, TRAIT_FEARLESS)) ||
+				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
 #ifdef JP
@@ -5364,7 +5364,7 @@ note = "には耐性がある！";
 
 
 		/* Dispel undead */
-		case GF_DISP_UNDEAD:
+	case GF_DISP_UNDEAD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5406,7 +5406,7 @@ note = "には耐性がある！";
 
 
 		/* Dispel evil */
-		case GF_DISP_EVIL:
+	case GF_DISP_EVIL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5447,7 +5447,7 @@ note = "には耐性がある！";
 		}
 
 		/* Dispel good */
-		case GF_DISP_GOOD:
+	case GF_DISP_GOOD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5488,7 +5488,7 @@ note = "には耐性がある！";
 		}
 
 		/* Dispel living */
-		case GF_DISP_LIVING:
+	case GF_DISP_LIVING:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5527,7 +5527,7 @@ note = "には耐性がある！";
 		}
 
 		/* Dispel demons */
-		case GF_DISP_DEMON:
+	case GF_DISP_DEMON:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5568,7 +5568,7 @@ note = "には耐性がある！";
 		}
 
 		/* Dispel creature */
-		case GF_DISP_ALL:
+	case GF_DISP_ALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -5593,11 +5593,11 @@ note = "には耐性がある！";
 		}
 
 		/* Capture creature */
-		case GF_CAPTURE:
+	case GF_CAPTURE:
 		{
 			int nokori_hp;
 			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-			    (has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
+				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
 #ifdef JP
 				msg_format("%sには効果がなかった。",target_name);
@@ -5651,7 +5651,7 @@ note = "には耐性がある！";
 			else
 			{
 #ifdef JP
-msg_format("うまく捕まえられなかった。");
+				msg_format("うまく捕まえられなかった。");
 #else
 				msg_format("You failed to capture %s.", target_name);
 #endif
@@ -5661,14 +5661,14 @@ msg_format("うまく捕まえられなかった。");
 		}
 
 		/* Attack (Use "dam" as attack type) */
-		case GF_ATTACK:
+	case GF_ATTACK:
 		{
 			/* Return this creature's death */
 			//TODO return melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		}
 
 		/* Sleep (Use "dam" as "power") */
-		case GF_ENGETSU:
+	case GF_ENGETSU:
 		{
 			int effect = 0;
 			bool done = TRUE;
@@ -5719,7 +5719,7 @@ msg_format("うまく捕まえられなかった。");
 			{
 				/* Powerful creatures can resist */
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+					(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 #ifdef JP
 					note = "には効果がなかった！";
@@ -5750,7 +5750,7 @@ msg_format("うまく捕まえられなかった。");
 
 				/* Attempt a saving throw */
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+					(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Resist */
 					do_stun = 0;
@@ -5770,8 +5770,8 @@ msg_format("うまく捕まえられなかった。");
 			{
 				/* Attempt a saving throw */
 				if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-				    has_trait(target_ptr, TRAIT_NO_SLEEP) ||
-				    (species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+					has_trait(target_ptr, TRAIT_NO_SLEEP) ||
+					(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Memorize a flag */
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
@@ -5816,7 +5816,7 @@ msg_format("うまく捕まえられなかった。");
 		}
 
 		/* GENOCIDE */
-		case GF_GENOCIDE:
+	case GF_GENOCIDE:
 		{
 			if(seen) obvious = TRUE;
 
@@ -5850,7 +5850,7 @@ msg_format("うまく捕まえられなかった。");
 			break;
 		}
 
-		case GF_PHOTO:
+	case GF_PHOTO:
 		{
 #ifdef JP
 			if(is_player(caster_ptr)) msg_format("%sを写真に撮った。", target_name);
@@ -5890,7 +5890,7 @@ msg_format("うまく捕まえられなかった。");
 
 
 		/* blood curse */
-		case GF_BLOOD_CURSE:
+	case GF_BLOOD_CURSE:
 		{
 			if(seen) obvious = TRUE;
 
@@ -5908,7 +5908,7 @@ msg_format("うまく捕まえられなかった。");
 			break;
 		}
 
-		case GF_CRUSADE:
+	case GF_CRUSADE:
 		{
 			bool success = FALSE;
 			if(seen) obvious = TRUE;
@@ -5933,10 +5933,10 @@ msg_format("うまく捕まえられなかった。");
 
 				/* Attempt a saving throw */
 				else if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				    (has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				    (target_ptr->mflag2 & MFLAG2_NOPET) ||
-				    (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
-					 ((species_ptr->level+10) > randint1(dam)))
+					(has_trait(target_ptr, TRAIT_UNIQUE)) ||
+					(target_ptr->mflag2 & MFLAG2_NOPET) ||
+					(has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
+					((species_ptr->level+10) > randint1(dam)))
 				{
 					/* Resist */
 					if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
@@ -5972,7 +5972,7 @@ msg_format("うまく捕まえられなかった。");
 			break;
 		}
 
-		case GF_WOUNDS:
+	case GF_WOUNDS:
 		{
 			if(seen) obvious = TRUE;
 
@@ -5993,7 +5993,7 @@ msg_format("うまく捕まえられなかった。");
 			{
 
 #ifdef JP
-note = "には効果がなかった。";
+				note = "には効果がなかった。";
 #else
 				note = "is unaffected!";
 #endif
@@ -6004,7 +6004,7 @@ note = "には効果がなかった。";
 
 
 		/* Default */
-		default:
+	default:
 		{
 			/* No damage */
 			dam = 0;
@@ -6020,29 +6020,29 @@ note = "には効果がなかった。";
 
 
 /*
- * Helper function for "project()" below.
- *
- * Handle a beam/bolt/ball causing damage to the player.
- *
- * This routine takes a "source creature" (by index), a "distance", a default
- * "damage", and a "damage type".  See "project_creature()" above.
- *
- * If "rad" is non-zero, then the blast was centered elsewhere, and the damage
- * is reduced (see "project_creature()" above).  This can happen if a creature breathes
- * at the player and hits a wall instead.
- *
- * NOTE (Zangband): 'Bolt' attacks can be reflected back, so we need
- * to know if this is actually a ball or a bolt spell
- *
- *
- * We return "TRUE" if any "obvious" effects were observed.  XXX XXX Actually,
- * we just assume that the effects were obvious, for historical reasons.
- */
+* Helper function for "project()" below.
+*
+* Handle a beam/bolt/ball causing damage to the player.
+*
+* This routine takes a "source creature" (by index), a "distance", a default
+* "damage", and a "damage type".  See "project_creature()" above.
+*
+* If "rad" is non-zero, then the blast was centered elsewhere, and the damage
+* is reduced (see "project_creature()" above).  This can happen if a creature breathes
+* at the player and hits a wall instead.
+*
+* NOTE (Zangband): 'Bolt' attacks can be reflected back, so we need
+* to know if this is actually a ball or a bolt spell
+*
+*
+* We return "TRUE" if any "obvious" effects were observed.  XXX XXX Actually,
+* we just assume that the effects were obvious, for historical reasons.
+*/
 
 /*
- * This function integrated with project_m and became project_creature().
- * (Deskull)
- */
+* This function integrated with project_m and became project_creature().
+* (Deskull)
+*/
 
 static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
@@ -6229,8 +6229,8 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 
 /*
- * Find the distance from (x, y) to a line.
- */
+* Find the distance from (x, y) to a line.
+*/
 int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 {
 	/* Vector from (x, y) to (x1, y1) */
@@ -6241,7 +6241,7 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 	int ny = x2 - x1;
 	int nx = y1 - y2;
 
-   /* Length of N */
+	/* Length of N */
 	int pd = distance(y1, x1, y, x);
 	int nd = distance(y1, x1, y2, x2);
 
@@ -6250,17 +6250,17 @@ int dist_to_line(int y, int x, int y1, int x1, int y2, int x2)
 	/* Component of P on N */
 	nd = ((nd) ? ((py * ny + px * nx) / nd) : 0);
 
-   /* Absolute value */
-   return((nd >= 0) ? nd : 0 - nd);
+	/* Absolute value */
+	return((nd >= 0) ? nd : 0 - nd);
 }
 
 
 
 /*
- * XXX XXX XXX
- * Modified version of los() for calculation of disintegration balls.
- * Disintegration effects are stopped by permanent walls.
- */
+* XXX XXX XXX
+* Modified version of los() for calculation of disintegration balls.
+* Disintegration effects are stopped by permanent walls.
+*/
 bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 {
 	/* Delta */
@@ -6573,147 +6573,147 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 
 
 /*
- * Generic "beam"/"bolt"/"ball" projection routine.
- *
- * Input:
- *   who: Index of "source" creature (zero for "player")
- *   rad: Radius of explosion (0 = beam/bolt, 1 to 9 = ball)
- *   y,x: Target location (or location to travel "towards")
- *   dam: Base damage roll to apply to affected creatures (or player)
- *   typ: Type of damage to apply to creatures (and objects)
- *   flg: Extra bit flags (see PROJECT_xxxx in "defines.h")
- *
- * Return:
- *   TRUE if any "effects" of the projection were observed, else FALSE
- *
- * Allows a creature (or player) to project a beam/bolt/ball of a given kind
- * towards a given location (optionally passing over the heads of interposing
- * creatures), and have it do a given amount of damage to the creatures (and
- * optionally objects) within the given radius of the final location.
- *
- * A "bolt" travels from source to target and affects only the target grid.
- * A "beam" travels from source to target, affecting all grids passed through.
- * A "ball" travels from source to the target, exploding at the target, and
- *   affecting everything within the given radius of the target location.
- *
- * Traditionally, a "bolt" does not affect anything on the ground, and does
- * not pass over the heads of interposing creatures, much like a traditional
- * missile, and will "stop" abruptly at the "target" even if no creature is
- * positioned there, while a "ball", on the other hand, passes over the heads
- * of creatures between the source and target, and affects everything except
- * the source creature which lies within the final radius, while a "beam"
- * affects every creature between the source and target, except for the casting
- * creature (or player), and rarely affects things on the ground.
- *
- * Two special flags allow us to use this function in special ways, the
- * "PROJECT_HIDE" flag allows us to perform "invisible" projections, while
- * the "PROJECT_JUMP" flag allows us to affect a specific grid, without
- * actually projecting from the source creature (or player).
- *
- * The player will only get "experience" for creatures killed by himself
- * Unique creatures can only be destroyed by attacks from the player
- *
- * Only 256 grids can be affected per projection, limiting the effective
- * "radius" of standard ball attacks to nine units (diameter nineteen).
- *
- * One can project in a given "direction" by combining PROJECT_THRU with small
- * offsets to the initial location (see "line_spell()"), or by calculating
- * "virtual targets" far away from the player.
- *
- * One can also use PROJECT_THRU to send a beam/bolt along an angled path,
- * continuing until it actually hits somethings (useful for "stone to mud").
- *
- * Bolts and Beams explode INSIDE walls, so that they can destroy doors.
- *
- * Balls must explode BEFORE hitting walls, or they would affect creatures
- * on both sides of a wall.  Some bug reports indicate that this is still
- * happening in 2.7.8 for Windows, though it appears to be impossible.
- *
- * We "pre-calculate" the blast area only in part for efficiency.
- * More importantly, this lets us do "explosions" from the "inside" out.
- * This results in a more logical distribution of "blast" treasure.
- * It also produces a better (in my opinion) animation of the explosion.
- * It could be (but is not) used to have the treasure dropped by creatures
- * in the middle of the explosion fall "outwards", and then be damaged by
- * the blast as it spreads outwards towards the treasure drop location.
- *
- * Walls and doors are included in the blast area, so that they can be
- * "burned" or "melted" in later versions.
- *
- * This algorithm is intended to maximize simplicity, not necessarily
- * efficiency, since this function is not a bottleneck in the code.
- *
- * We apply the blast effect from ground zero outwards, in several passes,
- * first affecting features, then objects, then creatures, then the player.
- * This allows walls to be removed before checking the object or creature
- * in the wall, and protects objects which are dropped by creatures killed
- * in the blast, and allows the player to see all affects before he is
- * killed or teleported away.  The semantics of this method are open to
- * various interpretations, but they seem to work well in practice.
- *
- * We process the blast area from ground-zero outwards to allow for better
- * distribution of treasure dropped by creatures, and because it provides a
- * pleasing visual effect at low cost.
- *
- * Note that the damage done by "ball" explosions decreases with distance.
- * This decrease is rapid, grids at radius "dist" take "1/dist" damage.
- *
- * Notice the "napalm" effect of "beam" weapons.  First they "project" to
- * the target, and then the damage "flows" along this beam of destruction.
- * The damage at every grid is the same as at the "center" of a "ball"
- * explosion, since the "beam" grids are treated as if they ARE at the
- * center of a "ball" explosion.
- *
- * Currently, specifying "beam" plus "ball" means that locations which are
- * covered by the initial "beam", and also covered by the final "ball", except
- * for the final grid (the epicenter of the ball), will be "hit twice", once
- * by the initial beam, and once by the exploding ball.  For the grid right
- * next to the epicenter, this results in 150% damage being done.  The center
- * does not have this problem, for the same reason the final grid in a "beam"
- * plus "bolt" does not -- it is explicitly removed.  Simply removing "beam"
- * grids which are covered by the "ball" will NOT work, as then they will
- * receive LESS damage than they should.  Do not combine "beam" with "ball".
- *
- * The array "gy[],gx[]" with current size "grids" is used to hold the
- * collected locations of all grids in the "blast area" plus "beam path".
- *
- * Note the rather complex usage of the "gm[]" array.  First, gm[0] is always
- * zero.  Second, for N>1, gm[N] is always the index (in gy[],gx[]) of the
- * first blast grid (see above) with radius "N" from the blast center.  Note
- * that only the first gm[1] grids in the blast area thus take full damage.
- * Also, note that gm[rad+1] is always equal to "grids", which is the total
- * number of blast grids.
- *
- * Note that once the projection is complete, (y2,x2) holds the final location
- * of bolts/beams, and the "epicenter" of balls.
- *
- * Note also that "rad" specifies the "inclusive" radius of projection blast,
- * so that a "rad" of "one" actually covers 5 or 9 grids, depending on the
- * implementation of the "distance" function.  Also, a bolt can be properly
- * viewed as a "ball" with a "rad" of "zero".
- *
- * Note that if no "target" is reached before the beam/bolt/ball travels the
- * maximum distance allowed (MAX_RANGE), no "blast" will be induced.  This
- * may be relevant even for bolts, since they have a "1x1" mini-blast.
- *
- * Note that for consistency, we "pretend" that the bolt actually takes "time"
- * to move from point A to point B, even if the player cannot see part of the
- * projection path.  Note that in general, the player will *always* see part
- * of the path, since it either starts at the player or ends on the player.
- *
- * Hack -- we assume that every "projection" is "self-illuminating".
- *
- * Hack -- when only a single creature is affected, we automatically track
- * (and recall) that creature, unless "PROJECT_JUMP" is used.
- *
- * Note that all projections now "explode" at their final destination, even
- * if they were being projected at a more distant destination.  This means
- * that "ball" spells will *always* explode.
- *
- * Note that we must call "handle_stuff();
- * in the blast radius, in case the "illumination" of the grid was changed,
- * and "update_view()" and "update_creatures()" need to be called.
- */
+* Generic "beam"/"bolt"/"ball" projection routine.
+*
+* Input:
+*   who: Index of "source" creature (zero for "player")
+*   rad: Radius of explosion (0 = beam/bolt, 1 to 9 = ball)
+*   y,x: Target location (or location to travel "towards")
+*   dam: Base damage roll to apply to affected creatures (or player)
+*   typ: Type of damage to apply to creatures (and objects)
+*   flg: Extra bit flags (see PROJECT_xxxx in "defines.h")
+*
+* Return:
+*   TRUE if any "effects" of the projection were observed, else FALSE
+*
+* Allows a creature (or player) to project a beam/bolt/ball of a given kind
+* towards a given location (optionally passing over the heads of interposing
+* creatures), and have it do a given amount of damage to the creatures (and
+* optionally objects) within the given radius of the final location.
+*
+* A "bolt" travels from source to target and affects only the target grid.
+* A "beam" travels from source to target, affecting all grids passed through.
+* A "ball" travels from source to the target, exploding at the target, and
+*   affecting everything within the given radius of the target location.
+*
+* Traditionally, a "bolt" does not affect anything on the ground, and does
+* not pass over the heads of interposing creatures, much like a traditional
+* missile, and will "stop" abruptly at the "target" even if no creature is
+* positioned there, while a "ball", on the other hand, passes over the heads
+* of creatures between the source and target, and affects everything except
+* the source creature which lies within the final radius, while a "beam"
+* affects every creature between the source and target, except for the casting
+* creature (or player), and rarely affects things on the ground.
+*
+* Two special flags allow us to use this function in special ways, the
+* "PROJECT_HIDE" flag allows us to perform "invisible" projections, while
+* the "PROJECT_JUMP" flag allows us to affect a specific grid, without
+* actually projecting from the source creature (or player).
+*
+* The player will only get "experience" for creatures killed by himself
+* Unique creatures can only be destroyed by attacks from the player
+*
+* Only 256 grids can be affected per projection, limiting the effective
+* "radius" of standard ball attacks to nine units (diameter nineteen).
+*
+* One can project in a given "direction" by combining PROJECT_THRU with small
+* offsets to the initial location (see "line_spell()"), or by calculating
+* "virtual targets" far away from the player.
+*
+* One can also use PROJECT_THRU to send a beam/bolt along an angled path,
+* continuing until it actually hits somethings (useful for "stone to mud").
+*
+* Bolts and Beams explode INSIDE walls, so that they can destroy doors.
+*
+* Balls must explode BEFORE hitting walls, or they would affect creatures
+* on both sides of a wall.  Some bug reports indicate that this is still
+* happening in 2.7.8 for Windows, though it appears to be impossible.
+*
+* We "pre-calculate" the blast area only in part for efficiency.
+* More importantly, this lets us do "explosions" from the "inside" out.
+* This results in a more logical distribution of "blast" treasure.
+* It also produces a better (in my opinion) animation of the explosion.
+* It could be (but is not) used to have the treasure dropped by creatures
+* in the middle of the explosion fall "outwards", and then be damaged by
+* the blast as it spreads outwards towards the treasure drop location.
+*
+* Walls and doors are included in the blast area, so that they can be
+* "burned" or "melted" in later versions.
+*
+* This algorithm is intended to maximize simplicity, not necessarily
+* efficiency, since this function is not a bottleneck in the code.
+*
+* We apply the blast effect from ground zero outwards, in several passes,
+* first affecting features, then objects, then creatures, then the player.
+* This allows walls to be removed before checking the object or creature
+* in the wall, and protects objects which are dropped by creatures killed
+* in the blast, and allows the player to see all affects before he is
+* killed or teleported away.  The semantics of this method are open to
+* various interpretations, but they seem to work well in practice.
+*
+* We process the blast area from ground-zero outwards to allow for better
+* distribution of treasure dropped by creatures, and because it provides a
+* pleasing visual effect at low cost.
+*
+* Note that the damage done by "ball" explosions decreases with distance.
+* This decrease is rapid, grids at radius "dist" take "1/dist" damage.
+*
+* Notice the "napalm" effect of "beam" weapons.  First they "project" to
+* the target, and then the damage "flows" along this beam of destruction.
+* The damage at every grid is the same as at the "center" of a "ball"
+* explosion, since the "beam" grids are treated as if they ARE at the
+* center of a "ball" explosion.
+*
+* Currently, specifying "beam" plus "ball" means that locations which are
+* covered by the initial "beam", and also covered by the final "ball", except
+* for the final grid (the epicenter of the ball), will be "hit twice", once
+* by the initial beam, and once by the exploding ball.  For the grid right
+* next to the epicenter, this results in 150% damage being done.  The center
+* does not have this problem, for the same reason the final grid in a "beam"
+* plus "bolt" does not -- it is explicitly removed.  Simply removing "beam"
+* grids which are covered by the "ball" will NOT work, as then they will
+* receive LESS damage than they should.  Do not combine "beam" with "ball".
+*
+* The array "gy[],gx[]" with current size "grids" is used to hold the
+* collected locations of all grids in the "blast area" plus "beam path".
+*
+* Note the rather complex usage of the "gm[]" array.  First, gm[0] is always
+* zero.  Second, for N>1, gm[N] is always the index (in gy[],gx[]) of the
+* first blast grid (see above) with radius "N" from the blast center.  Note
+* that only the first gm[1] grids in the blast area thus take full damage.
+* Also, note that gm[rad+1] is always equal to "grids", which is the total
+* number of blast grids.
+*
+* Note that once the projection is complete, (y2,x2) holds the final location
+* of bolts/beams, and the "epicenter" of balls.
+*
+* Note also that "rad" specifies the "inclusive" radius of projection blast,
+* so that a "rad" of "one" actually covers 5 or 9 grids, depending on the
+* implementation of the "distance" function.  Also, a bolt can be properly
+* viewed as a "ball" with a "rad" of "zero".
+*
+* Note that if no "target" is reached before the beam/bolt/ball travels the
+* maximum distance allowed (MAX_RANGE), no "blast" will be induced.  This
+* may be relevant even for bolts, since they have a "1x1" mini-blast.
+*
+* Note that for consistency, we "pretend" that the bolt actually takes "time"
+* to move from point A to point B, even if the player cannot see part of the
+* projection path.  Note that in general, the player will *always* see part
+* of the path, since it either starts at the player or ends on the player.
+*
+* Hack -- we assume that every "projection" is "self-illuminating".
+*
+* Hack -- when only a single creature is affected, we automatically track
+* (and recall) that creature, unless "PROJECT_JUMP" is used.
+*
+* Note that all projections now "explode" at their final destination, even
+* if they were being projected at a more distant destination.  This means
+* that "ball" spells will *always* explode.
+*
+* Note that we must call "handle_stuff();
+* in the blast radius, in case the "illumination" of the grid was changed,
+* and "update_view()" and "update_creatures()" need to be called.
+*/
 bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -6725,41 +6725,24 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 	int dist_hack = 0;
 
-	int y_saver, x_saver; /* For reflecting creatures */
+	int y_saver, x_saver; // For reflecting creatures
 
 	int msec = delay_factor * delay_factor * delay_factor;
 
-	/* Assume the player sees nothing */
-	bool notice = FALSE;
-
-	/* Assume the player has seen nothing */
-	bool visual = FALSE;
-
-	/* Assume the player has seen no blast grids */
-	bool drawn = FALSE;
-
-	/* Assume to be a normal ball spell */
-	bool breath = FALSE;
-
-	/* Is the player blind? */
-	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
-
+	bool notice = FALSE;	// Assume the player sees nothing
+	bool visual = FALSE;	// Assume the player has seen nothing
+	bool drawn = FALSE;		// Assume the player has seen no blast grids
+	bool breath = FALSE;	// Assume to be a normal ball spell
+	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);	// Is the player blind?
 	bool old_hide = FALSE;
 
-	/* Number of grids in the "path" */
-	int path_n = 0;
+	int path_n = 0;	// Number of grids in the "path"
+	int grids = 0;	// Number of grids in the "blast area" (including the "beam" path)
 
-	/* Actual grids in the "path" */
-	u16b path_g[512];
+	u16b path_g[512];		// Actual grids in the "path"
 
-	/* Number of grids in the "blast area" (including the "beam" path) */
-	int grids = 0;
-
-	/* Coordinates of the affected grids */
-	byte gx[1024], gy[1024];
-
-	/* Encoded "radius" info (see above) */
-	byte gm[32];
+	byte gx[1024], gy[1024];	// Coordinates of the affected grids
+	byte gm[32];	// Encoded "radius" info (see above)
 
 	/* Actual radius encoded in gm[] */
 	int gm_rad = rad;
@@ -6807,26 +6790,16 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		creature_desc(who_name, caster_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 	}
 
-
 	y_saver = y1;
 	x_saver = x1;
-
-	/* Default "destination" */
 	y2 = y;
 	x2 = x;
 
 
-	/* Hack -- verify stuff */
-	if(flg & (PROJECT_THRU))
-	{
-		if((x1 == x2) && (y1 == y2))
-		{
-			flg &= ~(PROJECT_THRU);
-		}
-	}
+	// Hack -- verify stuff
+	if(flg & (PROJECT_THRU) && (x1 == x2) && (y1 == y2)) flg &= ~(PROJECT_THRU);
 
-	/* Handle a breath attack */
-	if(rad < 0)
+	if(rad < 0)	// Handle a breath attack
 	{
 		rad = 0 - rad;
 		breath = TRUE;
@@ -6834,18 +6807,15 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		flg |= PROJECT_HIDE;
 	}
 
-
-	/* Hack -- Assume there will be no blast (max radius 32) */
+	// Hack -- Assume there will be no blast (max radius 32)
 	for (dist = 0; dist < 32; dist++) gm[dist] = 0;
 
-
-	/* Initial grid */
+	// Initial grid
 	y = y1;
 	x = x1;
 	dist = 0;
 
-	/* Collect beam grids */
-	if(flg & (PROJECT_BEAM))
+	if(flg & (PROJECT_BEAM)) // Collect beam grids
 	{
 		gy[grids] = y;
 		gx[grids] = x;
@@ -6864,11 +6834,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		break;
 	}
 
-	/* Calculate the projection path */
-
+	// Calculate the projection path
 	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), floor_ptr, y1, x1, y2, x2, flg);
 
-	/* Hack -- Handle stuff */
+	// Hack -- Handle stuff
 	if(caster_ptr) handle_stuff();
 
 	/* Giga-Hack SEEKER & SUPER_RAY */
@@ -6899,7 +6868,6 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			gx[grids] = x;
 			grids++;
 
-
 			/* Only do visuals if requested */
 			if(!blind && !(flg & (PROJECT_HIDE)))
 			{
@@ -6907,7 +6875,6 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				if(panel_contains(y, x) && player_has_los_bold(y, x))
 				{
 					u16b p;
-
 					byte a;
 					char c;
 
@@ -6968,18 +6935,18 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					x = GRID_X(path_g[j]);
 					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell)) notice = TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-					  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
-					    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
+						if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
+							creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-					    if(m_ptr->see_others)
-					    {
-					      /* Hack -- auto-recall */
-					      if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+							if(m_ptr->see_others)
+							{
+								/* Hack -- auto-recall */
+								if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
-					      /* Hack - auto-track */
-					      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
-					    }
-					  }
+								/* Hack - auto-track */
+								health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
+							}
+						}
 					}
 					(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
 				}
@@ -6992,20 +6959,20 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
 			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell))
-			  notice=TRUE;
+				notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-			  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
-			    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
+				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
+					creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-			    if(m_ptr->see_others)
-			    {
-			      /* Hack -- auto-recall */
-			      if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+					if(m_ptr->see_others)
+					{
+						/* Hack -- auto-recall */
+						if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
-			      /* Hack - auto-track */
-			      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
-			    }
-			  }
+						/* Hack - auto-track */
+						health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
+					}
+				}
 			}
 			(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
 		}
@@ -7096,7 +7063,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			}
 			if( is_mirror_grid(&floor_ptr->cave[y][x]) && !second_step )
 			{
-			  /* The target of creaturespell becomes tha mirror(broken) */
+				/* The target of creaturespell becomes tha mirror(broken) */
 				creature_target_y=(s16b)y;
 				creature_target_x=(s16b)x;
 
@@ -7126,18 +7093,18 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 			x = GRID_X(path_g[i]);
 			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SUPER_RAY, flg, TRUE, monspell);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
-			  if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
-			    creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
+				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
+					creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
 
-			    if(m_ptr->see_others)
-			    {
-			      /* Hack -- auto-recall */
-			      if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
+					if(m_ptr->see_others)
+					{
+						/* Hack -- auto-recall */
+						if(!caster_ptr->timed_trait[TRAIT_HALLUCINATION]) species_type_track(m_ptr->ap_species_idx);
 
-			      /* Hack - auto-track */
-			      health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
-			    }
-			  }
+						/* Hack - auto-track */
+						health_track(floor_ptr->cave[project_m_y][project_m_x].creature_idx);
+					}
+				}
 			}
 			(void)project_f(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
 		}
@@ -7268,14 +7235,14 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 		if((flg & (PROJECT_BEAM)) && (grids > 0)) grids--;
 
 		/*
-		 * Create a conical breath attack
-		 *
-		 *         ***
-		 *     ********
-		 * D********@**
-		 *     ********
-		 *         ***
-		 */
+		* Create a conical breath attack
+		*
+		*         ***
+		*     ********
+		* D********@**
+		*     ********
+		*         ***
+		*/
 
 		if(breath)
 		{
@@ -7525,8 +7492,8 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				species_type *ref_ptr = &species_info[m_ptr->species_idx];
 
 				if((flg & PROJECT_REFLECTABLE) && floor_ptr->cave[y][x].creature_idx && has_trait(m_ptr, TRAIT_REFLECTING) &&
-				    ((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
-				    ((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
+					((floor_ptr->cave[y][x].creature_idx != player_ptr->riding) || !(flg & PROJECT_PLAYER)) &&
+					((caster_ptr && is_player(caster_ptr)) || dist_hack > 1) && !one_in_(10))
 				{
 					byte t_y, t_x;
 					int max_attempts = 10;
@@ -7592,41 +7559,41 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
 					{
 						/*
-						 * A beam or bolt is well aimed
-						 * at the PLAYER!
-						 * So don't affects the mount.
-						 */
+						* A beam or bolt is well aimed
+						* at the PLAYER!
+						* So don't affects the mount.
+						*/
 						continue;
 					}
 					else
 					{
 						/*
-						 * The spell is not well aimed, 
-						 * So partly affect the mount too.
-						 */
+						* The spell is not well aimed, 
+						* So partly affect the mount too.
+						*/
 						effective_dist++;
 					}
 				}
 
 				/*
-				 * This grid is the original target.
-				 * Or aimed on your horse.
-				 */
+				* This grid is the original target.
+				* Or aimed on your horse.
+				*/
 				else if(((y == y2) && (x == x2)) || (flg & PROJECT_AIMED))
 				{
 					/* Hit the mount with full damage */
 				}
 
 				/*
-				 * Otherwise this grid is not the
-				 * original target, it means that line
-				 * of fire is obstructed by this
-				 * creature.
-				 */
+				* Otherwise this grid is not the
+				* original target, it means that line
+				* of fire is obstructed by this
+				* creature.
+				*/
 				/*
-				 * A beam or bolt will hit either
-				 * player or mount.  Choose randomly.
-				 */
+				* A beam or bolt will hit either
+				* player or mount.  Choose randomly.
+				*/
 				else if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE))
 				{
 					if(one_in_(2))
@@ -7644,10 +7611,10 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 
 				/*
-				 * The spell is not well aimed, so
-				 * partly affect both player and
-				 * mount.
-				 */
+				* The spell is not well aimed, so
+				* partly affect both player and
+				* mount.
+				*/
 				else
 				{
 					effective_dist++;
@@ -7725,31 +7692,31 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 				}
 
 				/*
-				 * Hack -- When this grid was not the
-				 * original target, a beam or bolt
-				 * would hit either player or mount,
-				 * and should be choosen randomly.
-				 *
-				 * But already choosen to hit the
-				 * mount at this point.
-				 *
-				 * Or aimed on your horse.
-				 */
+				* Hack -- When this grid was not the
+				* original target, a beam or bolt
+				* would hit either player or mount,
+				* and should be choosen randomly.
+				*
+				* But already choosen to hit the
+				* mount at this point.
+				*
+				* Or aimed on your horse.
+				*/
 				else if(flg & (PROJECT_BEAM | PROJECT_REFLECTABLE | PROJECT_AIMED))
 				{
 					/*
-					 * A beam or bolt is well aimed
-					 * at the mount!
-					 * So don't affects the player.
-					 */
+					* A beam or bolt is well aimed
+					* at the mount!
+					* So don't affects the player.
+					*/
 					continue;
 				}
 				else
 				{
 					/*
-					 * The spell is not well aimed, 
-					 * So partly affect the player too.
-					 */
+					* The spell is not well aimed, 
+					* So partly affect the player too.
+					*/
 					effective_dist++;
 				}
 			}
@@ -7817,14 +7784,14 @@ bool binding_field(creature_type *caster_ptr, int dam)
 		for( y=0 ; y < floor_ptr->height ; y++ )
 		{
 			if( is_mirror_grid(&floor_ptr->cave[y][x]) &&
-			    distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
-			    distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
-			    player_has_los_bold(y,x) &&
-			    projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)
-			    ){
-				mirror_y[mirror_num]=y;
-				mirror_x[mirror_num]=x;
-				mirror_num++;
+				distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
+				distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
+				player_has_los_bold(y,x) &&
+				projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)
+				){
+					mirror_y[mirror_num]=y;
+					mirror_x[mirror_num]=x;
+					mirror_num++;
 			}
 		}
 	}
@@ -7833,7 +7800,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 
 	point_x[0] = randint0( mirror_num );
 	do {
-	  point_x[1] = randint0( mirror_num );
+		point_x[1] = randint0( mirror_num );
 	}
 	while( point_x[0] == point_x[1] );
 
@@ -7850,7 +7817,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	centersign = (point_x[0]*3-x)*(point_y[1]*3-y)
 		- (point_y[0]*3-y)*(point_x[1]*3-x);
 	if( centersign == 0 )return FALSE;
-			    
+
 	x1 = point_x[0] < point_x[1] ? point_x[0] : point_x[1];
 	x1 = x1 < point_x[2] ? x1 : point_x[2];
 	y1 = point_y[0] < point_y[1] ? point_y[0] : point_y[1];
@@ -7864,21 +7831,21 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	for( y=y1 ; y <=y2 ; y++ ){
 		for( x=x1 ; x <=x2 ; x++ ){
 			if( centersign*( (point_x[0]-x)*(point_y[1]-y)
-					 -(point_y[0]-y)*(point_x[1]-x)) >=0 &&
-			    centersign*( (point_x[1]-x)*(point_y[2]-y)
-					 -(point_y[1]-y)*(point_x[2]-x)) >=0 &&
-			    centersign*( (point_x[2]-x)*(point_y[0]-y)
-					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
+				-(point_y[0]-y)*(point_x[1]-x)) >=0 &&
+				centersign*( (point_x[1]-x)*(point_y[2]-y)
+				-(point_y[1]-y)*(point_x[2]-x)) >=0 &&
+				centersign*( (point_x[2]-x)*(point_y[0]-y)
+				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
 					if(!(has_trait(caster_ptr, TRAIT_BLIND))
-					   && panel_contains(y,x)){
-					  p = bolt_pict(y,x,y,x, GF_MANA );
-					  print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);
-					  move_cursor_relative(y, x);
-					  /*if(fresh_before)*/ Term_fresh();
-					  Term_xtra(TERM_XTRA_DELAY, msec);
+						&& panel_contains(y,x)){
+							p = bolt_pict(y,x,y,x, GF_MANA );
+							print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);
+							move_cursor_relative(y, x);
+							/*if(fresh_before)*/ Term_fresh();
+							Term_xtra(TERM_XTRA_DELAY, msec);
 					}
 				}
 			}
@@ -7887,11 +7854,11 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	for( y=y1 ; y <=y2 ; y++ ){
 		for( x=x1 ; x <=x2 ; x++ ){
 			if( centersign*( (point_x[0]-x)*(point_y[1]-y)
-					 -(point_y[0]-y)*(point_x[1]-x)) >=0 &&
-			    centersign*( (point_x[1]-x)*(point_y[2]-y)
-					 -(point_y[1]-y)*(point_x[2]-x)) >=0 &&
-			    centersign*( (point_x[2]-x)*(point_y[0]-y)
-					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
+				-(point_y[0]-y)*(point_x[1]-x)) >=0 &&
+				centersign*( (point_x[1]-x)*(point_y[2]-y)
+				-(point_y[1]-y)*(point_x[2]-x)) >=0 &&
+				centersign*( (point_x[2]-x)*(point_y[0]-y)
+				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_f(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
@@ -7902,11 +7869,11 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	for( y=y1 ; y <=y2 ; y++ ){
 		for( x=x1 ; x <=x2 ; x++ ){
 			if( centersign*( (point_x[0]-x)*(point_y[1]-y)
-					 -(point_y[0]-y)*(point_x[1]-x)) >=0 &&
-			    centersign*( (point_x[1]-x)*(point_y[2]-y)
-					 -(point_y[1]-y)*(point_x[2]-x)) >=0 &&
-			    centersign*( (point_x[2]-x)*(point_y[0]-y)
-					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
+				-(point_y[0]-y)*(point_x[1]-x)) >=0 &&
+				centersign*( (point_x[1]-x)*(point_y[2]-y)
+				-(point_y[1]-y)*(point_x[2]-x)) >=0 &&
+				centersign*( (point_x[2]-x)*(point_y[0]-y)
+				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_o(caster_ptr,0,y,x,dam,GF_MANA); 
@@ -7917,15 +7884,15 @@ bool binding_field(creature_type *caster_ptr, int dam)
 	for( y=y1 ; y <=y2 ; y++ ){
 		for( x=x1 ; x <=x2 ; x++ ){
 			if( centersign*( (point_x[0]-x)*(point_y[1]-y)
-					 -(point_y[0]-y)*(point_x[1]-x)) >=0 &&
-			    centersign*( (point_x[1]-x)*(point_y[2]-y)
-					 -(point_y[1]-y)*(point_x[2]-x)) >=0 &&
-			    centersign*( (point_x[2]-x)*(point_y[0]-y)
-					 -(point_y[2]-y)*(point_x[0]-x)) >=0 )
+				-(point_y[0]-y)*(point_x[1]-x)) >=0 &&
+				centersign*( (point_x[1]-x)*(point_y[2]-y)
+				-(point_y[1]-y)*(point_x[2]-x)) >=0 &&
+				centersign*( (point_x[2]-x)*(point_y[0]-y)
+				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_MANA,
-					  (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
+						(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}
 			}
 		}
@@ -7954,7 +7921,7 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
 				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_GENOCIDE,
-							 (PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
+					(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
 				{
 					if( !floor_ptr->cave[y][x].creature_idx )
 					{
@@ -7966,4 +7933,4 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 	}
 	return;
 }
-     
+

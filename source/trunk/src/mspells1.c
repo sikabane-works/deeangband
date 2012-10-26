@@ -518,10 +518,10 @@ void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int ra
 {
 	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
 
-	/* Determine the radius of the blast */
+	// Determine the radius of the blast
 	if((rad < 1) && breath) rad = has_trait(caster_ptr, TRAIT_POWERFUL) ? 3 : 2;
 
-	/* Handle breath attacks */
+	// Handle breath attacks
 	if(breath) rad = 0 - rad;
 
 	switch (typ)
