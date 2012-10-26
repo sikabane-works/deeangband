@@ -2238,11 +2238,7 @@ void display_inven(creature_type *creature_ptr)
 	}
 }
 
-
-
-/*
- * Choice window "shadow" of the "show_item_list()" function
- */
+// Choice window "shadow" of the "show_item_list()" function
 void display_equip(creature_type *creature_ptr)
 {
 	register        int i, j, l, n;
@@ -2255,6 +2251,7 @@ void display_equip(creature_type *creature_ptr)
 	Term_get_size(&wid, &hgt);	// Get size
 
 	n = 0;
+	/*
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		for(j = 0; j < creature_ptr->item_slot_num[INVEN_SLOT_HAND]; j++)
@@ -2275,7 +2272,6 @@ void display_equip(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];	// Examine the item
 		if(!IS_EQUIPPED(object_ptr)) continue;
 		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';	// Start with an empty "index"
-
 		
 		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
 		object_desc(object_name, object_ptr, 0);	// Obtain an item description
@@ -2283,13 +2279,11 @@ void display_equip(creature_type *creature_ptr)
 
 		l = strlen(object_name);	// Obtain the length of the description
 
-		/* Grey out charging items */
-		if(object_ptr->timeout) attr = TERM_L_DARK;
+		if(object_ptr->timeout) attr = TERM_L_DARK;	// Grey out charging items
 		Term_putstr(3, i, l, attr, object_name);	// Display the entry itself
 		Term_erase(3 + l, i, 255);	// Erase the rest of the line
 
-		/* Display the weight (if needed) */
-		if(show_weights)
+		if(show_weights)	// Display the weight (if needed)
 		{
 			int wgt = object_ptr->weight * object_ptr->number;
 			char buf[80];
@@ -2299,21 +2293,16 @@ void display_equip(creature_type *creature_ptr)
 			prt(tmp_val, i, wid - (show_labels ? 28 : 10));
 		}
 
-		/* Display the slot description (if needed) */
-		if(show_labels)
+		if(show_labels)	// Display the slot description (if needed)
 		{
 			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
 			prt(mention_use(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(object_ptr)), i, wid - 15);
 		}
 	}
+	*/
 
-	/* Erase the rest of the window */
-	//TODO
-	for (i = INVEN_TOTAL; i < hgt; i++)
-	{
-		/* Clear that line */
-		Term_erase(0, i, 255);
-	}
+	
+	for (i = n; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
 }
 
 

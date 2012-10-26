@@ -6060,7 +6060,6 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	int get_damage = 0;
 
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
@@ -6073,32 +6072,16 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	/* Can the player know about this effect? */
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);
 
-	/* Were the effects "irrelevant"? */
-	bool skipped = FALSE;
+	bool skipped = FALSE;	// Were the effects "irrelevant"?
+	bool get_angry = FALSE;	// Gets the creature angry at the source of the effect?
+	bool do_poly = FALSE;	// Polymorph setting (true or false)
 
-	/* Gets the creature angry at the source of the effect? */
-	bool get_angry = FALSE;
-
-	/* Polymorph setting (true or false) */
-	bool do_poly = FALSE;
-
-	/* Teleport setting (max distance) */
-	int do_dist = 0;
-
-	/* Confusion setting (amount to confuse) */
-	int do_conf = 0;
-
-	/* Stunning setting (amount to stun) */
-	int do_stun = 0;
-
-	/* Sleep amount (amount to sleep) */
-	int do_sleep = 0;
-
-	/* Fear amount (amount to fear) */
-	int do_fear = 0;
-
-	/* Time amount (amount to time) */
-	int do_time = 0;
+	int do_dist = 0;	// Teleport setting (max distance)
+	int do_conf = 0;	// Confusion setting (amount to confuse)
+	int do_stun = 0;	// Stunning setting (amount to stun)
+	int do_sleep = 0;	// Sleep amount (amount to sleep)
+	int do_fear = 0;	// Fear amount (amount to fear)
+	int do_time = 0;	// Time amount (amount to time)
 
 	bool heal_leper = FALSE;
 
