@@ -802,12 +802,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 		/* Success -- May still have traps */
 		if(randint0(100) < j)
 		{
-#ifdef JP
-			msg_print("Œ®‚ğ‚Í‚¸‚µ‚½B");
-#else
-			msg_print("You have picked the lock.");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
 			gain_exp(creature_ptr, 1);
 			flag = TRUE;
 		}
@@ -1010,11 +1005,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		/* Success */
 		if(randint0(100) < j)
 		{
-#ifdef JP
-			msg_print("Œ®‚ğ‚Í‚¸‚µ‚½B");
-#else
-			msg_print("You have picked the lock.");
-#endif
+			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN); // Open the door
 			sound(SOUND_OPENDOOR); // Sound
 			gain_exp(creature_ptr, 1); // Experience
@@ -1651,20 +1642,9 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		/* Success */
 		if(randint0(100) < j)
 		{
-			/* Message */
-#ifdef JP
-			msg_print("Œ®‚ğ‚Í‚¸‚µ‚½B");
-#else
-			msg_print("You have picked the lock.");
-#endif
-
-			/* Open the door */
+			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
 			cave_alter_feat(floor_ptr, y, x, FF_OPEN);
-
-			/* Sound */
 			sound(SOUND_OPENDOOR);
-
-			/* Experience */
 			gain_exp(creature_ptr, 1);
 		}
 
