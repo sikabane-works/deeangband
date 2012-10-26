@@ -740,7 +740,6 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		msg_print("There is a sudden explosion!");
 		msg_print("Everything inside the chest is destroyed!");
 #endif
-
 		object_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
@@ -819,12 +818,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 			/* We may continue repeating */
 			more = TRUE;
 			if(flush_failure) flush();
-#ifdef JP
-			msg_print("åÆÇÇÕÇ∏ÇπÇ»Ç©Ç¡ÇΩÅB");
-#else
-			msg_print("You failed to pick the lock.");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
 		}
 	}
 
@@ -1029,18 +1023,8 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		/* Failure */
 		else
 		{
-			/* Failure */
 			if(flush_failure) flush();
-
-			/* Message */
-#ifdef JP
-			msg_print("åÆÇÇÕÇ∏ÇπÇ»Ç©Ç¡ÇΩÅB");
-#else
-			msg_print("You failed to pick the lock.");
-#endif
-
-
-			/* We may keep trying */
+			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
 			more = TRUE;
 		}
 	}
@@ -1687,16 +1671,8 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		/* Failure */
 		else
 		{
-			/* Failure */
 			if(flush_failure) flush();
-
-			/* Message */
-#ifdef JP
-			msg_print("åÆÇÇÕÇ∏ÇπÇ»Ç©Ç¡ÇΩÅB");
-#else
-			msg_print("You failed to pick the lock.");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_FAILED_PICKING]);
 		}
 	}
 
