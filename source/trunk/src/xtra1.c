@@ -1537,24 +1537,13 @@ static void fix_equip(creature_type *player_ptr)
 	for (j = 0; j < 8; j++)
 	{
 		term *old = Term;
+		if(!angband_term[j]) continue;	// No window
+		if(!(window_flag[j] & (PW_EQUIP))) continue;	// No relevant flags
 
-		/* No window */
-		if(!angband_term[j]) continue;
-
-		/* No relevant flags */
-		if(!(window_flag[j] & (PW_EQUIP))) continue;
-
-		/* Activate */
-		Term_activate(angband_term[j]);
-
-		/* Display equipment */
-		display_equip(player_ptr);
-
-		/* Fresh */
-		Term_fresh();
-
-		/* Restore */
-		Term_activate(old);
+		Term_activate(angband_term[j]);	// Activate
+		display_equip(player_ptr);		// Display equipment
+		Term_fresh();					// Fresh
+		Term_activate(old);				// Restore
 	}
 }
 

@@ -2249,7 +2249,7 @@ void display_equip(creature_type *creature_ptr)
 			if(is_valid_object(object_ptr))
 			{
 				object_desc(object_name, object_ptr, 0);	// Obtain an item description
-				Term_putstr(0, n, 3, TERM_WHITE, object_name);	// Display the index (or blank space)
+				Term_putstr(0, n, wid, TERM_WHITE, object_name);	// Display the index (or blank space)
 				n++;
 			}
 		}
