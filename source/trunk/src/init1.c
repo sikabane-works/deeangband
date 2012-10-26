@@ -4362,9 +4362,15 @@ errr parse_trait_csv(char *buf, header *head)
 				break;
 
 				case TRAIT_ACTIVATE_NORMAL_DESC:
+					if(!add_text(&trait_ptr->activate_text, head, tmp, TRUE))
+						return PARSE_ERROR_OUT_OF_MEMORY;
+					break;
 				break;
 
 				case TRAIT_ACTIVATE_BLIND_DESC:
+					if(!add_text(&trait_ptr->blind_activate_text, head, tmp, TRUE))
+						return PARSE_ERROR_OUT_OF_MEMORY;
+					break;
 				break;
 
 				default:

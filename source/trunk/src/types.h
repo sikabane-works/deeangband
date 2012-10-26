@@ -1584,6 +1584,8 @@ struct trait_type
 	s32b E_get_text;
 	s32b lost_text;
 	s32b E_lost_text;
+	s32b activate_text;
+	s32b blind_activate_text;
 	traits_precondition flags;
 
 	s16b base_level;
