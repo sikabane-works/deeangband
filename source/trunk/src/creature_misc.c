@@ -1408,7 +1408,8 @@ object_type *get_equipped_slot_ptr(creature_type *creature_ptr, int slot, int nu
 {
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
-		if(&creature_ptr->inventory[i].equipped_slot_num == (byte)num && &creature_ptr->inventory[i].equipped_slot_type == (byte)slot) return &creature_ptr->inventory[i];
+		if(creature_ptr->inventory[i].equipped_slot_num == num && creature_ptr->inventory[i].equipped_slot_type == slot)
+			return &creature_ptr->inventory[i];
 	return &object_null;
 }
 
@@ -1416,7 +1417,8 @@ int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 {
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
-		if(&creature_ptr->inventory[i].equipped_slot_num == (byte)num && &creature_ptr->inventory[i].equipped_slot_type == (byte)slot) return i;
+		if(creature_ptr->inventory[i].equipped_slot_num == num && &creature_ptr->inventory[i].equipped_slot_type == slot)
+			return i;
 	return -1;
 }
 
