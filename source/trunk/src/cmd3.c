@@ -335,10 +335,9 @@ void do_cmd_wield(creature_type *creature_ptr)
 	object_desc(object_name, object_ptr, 0); // Describe the result
 	msg_format(act, object_name, index_to_label(slot)); // Message
 
-	// Cursed!
+	// Warn Cursed.
 	if(object_is_cursed(object_ptr))
 	{
-		// Warn the player
 #ifdef JP
 		msg_print("Ç§ÇÌÅI Ç∑Ç≥Ç‹Ç∂Ç≠ó‚ÇΩÇ¢ÅI");
 #else
@@ -361,7 +360,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	calc_android_exp(creature_ptr);
 }
-
 
 void kamaenaoshi(creature_type *creature_ptr, int item)
 {

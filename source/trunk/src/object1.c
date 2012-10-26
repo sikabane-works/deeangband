@@ -2152,36 +2152,27 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
  */
 void display_inven(creature_type *creature_ptr)
 {
-	register        int i, n, z = 0;
-	object_type     *object_ptr;
-	byte            attr = TERM_WHITE;
-	char            tmp_val[80];
-	char            object_name[MAX_NLEN];
-	int             wid, hgt;
+	int		i, n, z;
+	byte	attr = TERM_WHITE;
+	char	tmp_val[80];
+	char	object_name[MAX_NLEN];
+	int		wid, hgt;
 
-	/* Get size */
-	Term_get_size(&wid, &hgt);
+	object_type	*object_ptr;
 
-	/* Find the "final" slot */
-	for (i = 0; i < INVEN_TOTAL; i++)
+	Term_get_size(&wid, &hgt);	// Get size
+
+	for (z = 0, i = 0; i < INVEN_TOTAL; i++)	// Find the "final" slot
 	{
 		object_ptr = &creature_ptr->inventory[i];
-
-		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
-
-		/* Track */
-		z = i + 1;
+		if(!object_ptr->k_idx) continue;	// Skip non-objects
+		z++;	// Track
 	}
 
-	/* Display the pack */
-	for (i = 0; i < z; i++)
+	for (i = 0; i < z; i++)	// Display the pack
 	{
-		/* Examine the item */
-		object_ptr = &creature_ptr->inventory[i];
-
-		/* Start with an empty "index" */
-		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';
+		object_ptr = &creature_ptr->inventory[i];	// Examine the item
+		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';	// Start with an empty "index"
 
 		/* Is this item "acceptable"? */
 		if(item_tester_okay(creature_ptr, object_ptr, NULL, 0))
@@ -2216,7 +2207,7 @@ void display_inven(creature_type *creature_ptr)
 		Term_putstr(3, i, n, attr, object_name);
 
 		/* Erase the rest of the line */
-		Term_erase(3+n, i, 255);
+		Term_erase(3 + n, i, 255);
 
 		/* Display the weight if needed */
 		if(show_weights)
