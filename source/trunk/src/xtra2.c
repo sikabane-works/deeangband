@@ -9,14 +9,10 @@
 * are included in all such copies.  Other copyrights may also apply.
 */
 
-/* Purpose: effects of various "objects" */
-
+// Purpose: effects of various "objects"
 #include "angband.h"
 
-
-/*
-* Advance experience levels for initial creature
-*/
+// Advance experience levels for initial creature
 void set_experience(creature_type *creature_ptr)
 {
 	bool android = (has_trait(creature_ptr, TRAIT_ANDROID) ? TRUE : FALSE);
@@ -282,7 +278,6 @@ void check_experience(creature_type *creature_ptr)
 */
 static int get_coin_type(int species_idx)
 {
-	/* Analyze creatures */
 	switch (species_idx)
 	{
 	case SPECIES_COPPER_COINS: return 2;
@@ -292,32 +287,20 @@ static int get_coin_type(int species_idx)
 	case SPECIES_MITHRIL_GOLEM: return 16;
 	case SPECIES_ADAMANT_COINS: return 17;
 	}
-
-	/* Assume nothing */
 	return 0;
 }
 
 
-/*
-* Hack -- determine if a template is Book
-*/
+
+// Hack -- determine if a template is Book
 static bool kind_is_book(int k_idx)
 {
 	object_kind *k_ptr = &object_kind_info[k_idx];
-
-	/* Analyze the item type */
-	if((k_ptr->tval >= TV_LIFE_BOOK) && (k_ptr->tval <= TV_CRUSADE_BOOK))
-	{
-		return (TRUE);
-	}
-
-	/* Assume not good */
-	return (FALSE);
+	if((k_ptr->tval >= TV_LIFE_BOOK) && (k_ptr->tval <= TV_CRUSADE_BOOK)) return (TRUE);	
+	return (FALSE);	// Assume not good
 }
 
-/*
-* Hack -- determine if a template is Good book
-*/
+// Hack -- determine if a template is Good book
 static bool kind_is_good_book(int k_idx)
 {
 	object_kind *k_ptr = &object_kind_info[k_idx];
@@ -475,11 +458,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-#ifdef JP
-						msg_print("クエストを達成した！");
-#else
-						msg_print("You just completed your quest!");
-#endif
+						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
 						msg_print(NULL);
 					}
 
