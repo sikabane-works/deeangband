@@ -1818,8 +1818,22 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 			{
 				switch(num)
 				{
-					case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Eè" : "‘æ‚Pè"; break;
-					case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶è" : "‘æ‚Qè"; break;
+					case 0: 
+						if(has_trait(creature_ptr, TRAIT_HUMANOID))
+						{
+							if(has_trait(creature_ptr, TRAIT_LEFT_HANDER)) p = "¶è";
+							else p = "‰Eè";
+						}
+						else p = "‘æ‚Pè";
+						break;
+					case 1:
+						if(has_trait(creature_ptr, TRAIT_HUMANOID))
+						{
+							if(has_trait(creature_ptr, TRAIT_LEFT_HANDER)) p = "‰Eè";
+							else p = "¶è";
+						}
+						else p = "‘æ‚Qè";
+						break;
 					case 2: p = "‘æ‚Rè"; break;
 					case 3: p = "‘æ‚Sè"; break;
 					case 4: p = "‘æ‚Tè"; break;
@@ -1876,11 +1890,8 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 			}
 			break;
 #else
-		case INVEN_SLOT_RING:
-			p = "Ring"; break;
-			break;
+		case INVEN_SLOT_RING: p = "Ring"; break; break;
 #endif
-
 	}
 
 	return p;	// Return the result
@@ -2123,7 +2134,7 @@ void display_equip(creature_type *creature_ptr)
 		{
 			l = get_equipped_slot_idx(creature_ptr, i, j);
 			display_item_aux(creature_ptr, l, n);
-			Term_putstr(4, i, wid, TERM_WHITE, mention_use_idx(creature_ptr, i, j));
+			Term_putstr(4, n, wid, TERM_WHITE, mention_use_idx(creature_ptr, i, j));
 			n++;
 		}
 	}
