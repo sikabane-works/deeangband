@@ -2076,13 +2076,15 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 }
 
 
-static void display_item_aux(object_type *object_ptr, int idx, int y)
+static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 {
 	char	tmp_val[80];
 	char	object_name[MAX_NLEN];
 	int		n;
 	int		wid, hgt;
 	byte	attr = TERM_WHITE;
+
+	object_type *object_ptr = &creature_ptr->inventory[idx];
 
 	Term_get_size(&wid, &hgt);	// Get size
 
@@ -2091,7 +2093,7 @@ static void display_item_aux(object_type *object_ptr, int idx, int y)
 	tmp_val[2] = ' ';
 
 	Term_putstr(0, y, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
-	//Term_putstr(4, n, wid, TERM_WHITE, mention_use(object_ptr, i, j));
+	Term_putstr(4, y, wid, TERM_WHITE, mention_use(creature_ptr, object_ptr));
 
 	object_desc(object_name, object_ptr, 0);	// Obtain an item description
 	n = strlen(object_name);					// Obtain the length of the description
@@ -2132,7 +2134,7 @@ void display_inven(creature_type *creature_ptr)
 		z++;	// Track
 	}
 
-	for (i = 0; i < z; i++)	display_item_aux(&creature_ptr->inventory[list[i]], list[i], i);
+	for (i = 0; i < z; i++)	display_item_aux(creature_ptr, list[i], i);
 	for (i = z; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
 }
 
@@ -2158,7 +2160,7 @@ void display_equip(creature_type *creature_ptr)
 			if(is_valid_object(object_ptr))
 			{
 				object_desc(object_name, object_ptr, 0);	// Obtain an item description
-				display_item_aux(object_ptr, l, n);
+				display_item_aux(creature_ptr, l, n);
 			}
 			else
 			{
