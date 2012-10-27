@@ -1776,12 +1776,12 @@ s16b label_to_item(creature_type *creature_ptr, int c)
 /*
  * Return a string mentioning how a given item is carried
  */
-cptr mention_use(creature_type *creature_ptr, int slot, int num)
+cptr mention_use(creature_type *creature_ptr, object_type *object_ptr)
 {
 	cptr p;
 
 	/* Examine the location */
-	switch (slot)
+	switch (object_ptr->equipped_slot_type)
 	{
 #ifdef JP
 		case INVEN_SLOT_INVENTORY:
@@ -1795,14 +1795,13 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_HAND:  
-			if(creature_ptr->heavy_wield[num])
+			if(creature_ptr->heavy_wield[object_ptr->equipped_slot_num])
 			{
-				p = "‰^”À’†";
-				break;
+				p = "‰^”À’†"; break;
 			}
 			else
 			{
-				switch(num)
+				switch(object_ptr->equipped_slot_num)
 				{
 					case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰EŽè" : "‘æ‚PŽè"; break;
 					case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶Žè" : "‘æ‚QŽè"; break;
@@ -1843,7 +1842,7 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_RING:
-			switch(num)
+			switch(object_ptr->equipped_slot_num)
 			{
 				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰EŽw" : "‘æ‚PŽw"; break;
 				case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶Žw" : "‘æ‚QŽw"; break;
@@ -1888,7 +1887,7 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 
 #ifdef JP
 		case INVEN_SLOT_HEAD:
-			switch(num)
+			switch(object_ptr->equipped_slot_num)
 			{
 				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "“ª•”" : "‘æ‚P“ª"; break;
 				case 1: p = "‘æ‚Q“ª"; break;
@@ -2671,7 +2670,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		}
 
 		// Display the entry itself
-		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(creature_ptr, slot[j], num[j]) , j + 1, cur_col);
+		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(creature_ptr, object_ptr) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		// Display the weight if needed
@@ -2888,7 +2887,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
 			object_desc(buf, object_ptr, 0);
-			sprintf(se[i].cap, "%-6s %s", mention_use(creature_ptr, slot, i), buf);
+			sprintf(se[i].cap, "%-6s %s", mention_use(creature_ptr, object_ptr), buf);
 			se[i].code = i;
 			se[i].key = '\0';
 
