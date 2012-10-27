@@ -2221,17 +2221,19 @@ void display_equip(creature_type *creature_ptr)
 		if(i == INVEN_SLOT_INVENTORY) continue;
 		for(j = 0; j < creature_ptr->item_slot_num[i]; j++)
 		{
-			object_ptr = get_equipped_slot_ptr(creature_ptr, i, j);
+			l = get_equipped_slot_idx(creature_ptr, i, j);
+			object_ptr = &creature_ptr->inventory[l];
 			if(is_valid_object(object_ptr))
 			{
 				object_desc(object_name, object_ptr, 0);	// Obtain an item description
-				display_item_aux(object_ptr, n, i);
+				display_item_aux(object_ptr, l, n);
 			}
 			else
 			{
 				Term_erase(0, n, 255);
-				Term_putstr(0, n, wid, TERM_L_DARK, "------");
+				Term_putstr(0, n, wid, TERM_L_DARK, "         ------");
 			}
+			Term_putstr(0, n, wid, TERM_WHITE, mention_use(creature_ptr, i, j));
 			n++;
 		}
 	}
