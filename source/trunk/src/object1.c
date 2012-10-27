@@ -2092,16 +2092,24 @@ static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 	tmp_val[1] = ')';						// Bracket the "index" --(--
 	tmp_val[2] = ' ';
 
+	Term_erase(0, y, 255);
 	Term_putstr(0, y, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
 	Term_putstr(4, y, wid, TERM_WHITE, mention_use(creature_ptr, object_ptr));
 
-	object_desc(object_name, object_ptr, 0);	// Obtain an item description
+	if(is_valid_object(object_ptr))
+	{
+		object_desc(object_name, object_ptr, 0);
+		attr = tval_to_acttr[object_ptr->tval % 128];	// Get a color
+		if(attr == TERM_DARK) attr = TERM_WHITE;
+		if(object_ptr->timeout) attr = TERM_L_DARK;		// Grey out charging items
+	}
+	else
+	{
+		strcpy(object_name, "- - - - - -");
+		attr = TERM_L_DARK;
+	}
+
 	n = strlen(object_name);					// Obtain the length of the description
-
-	attr = tval_to_acttr[object_ptr->tval % 128];	// Get a color
-	if(attr == TERM_DARK) attr = TERM_WHITE;
-	if(object_ptr->timeout) attr = TERM_L_DARK;		// Grey out charging items
-
 	Term_putstr(15, y, n, attr, object_name);		// Display the entry itself
 	Term_erase(15 + n, y, 255);						// Erase the rest of the line
 
@@ -2156,17 +2164,7 @@ void display_equip(creature_type *creature_ptr)
 		for(j = 0; j < creature_ptr->item_slot_num[i]; j++)
 		{
 			l = get_equipped_slot_idx(creature_ptr, i, j);
-			object_ptr = &creature_ptr->inventory[l];
-			if(is_valid_object(object_ptr))
-			{
-				object_desc(object_name, object_ptr, 0);	// Obtain an item description
-				display_item_aux(creature_ptr, l, n);
-			}
-			else
-			{
-				Term_erase(0, n, 255);
-				Term_putstr(0, n, wid, TERM_L_DARK, "         ------");
-			}
+			display_item_aux(creature_ptr, l, n);
 			n++;
 		}
 	}
