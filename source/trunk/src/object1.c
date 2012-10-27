@@ -1780,12 +1780,6 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 {
 	cptr p;
 
-#ifdef JP
-	if(!num) return "Š";
-#else
-	if(!num) return "In pack";
-#endif
-
 	/* Examine the location */
 	switch (slot)
 	{
@@ -1810,28 +1804,28 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 			{
 				switch(num)
 				{
-					case 1:
+					case 0:
 						p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Eè" : "‘æ‚Pè";
 						break;
-					case 2:
+					case 1:
 						p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶è" : "‘æ‚Qè";
 						break;
-					case 3:
+					case 2:
 						p = "‘æ‚Rè";
 						break;
-					case 4:
+					case 3:
 						p = "‘æ‚Sè";
 						break;
-					case 5:
+					case 4:
 						p = "‘æ‚Tè";
 						break;
-					case 6:
+					case 5:
 						p = "‘æ‚Uè";
 						break;
-					case 7:
+					case 6:
 						p = "‘æ‚Vè";
 						break;
-					case 8:
+					case 7:
 						p = "‘æ‚Wè";
 						break;
 					default:
@@ -1869,10 +1863,10 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 		case INVEN_SLOT_RING:
 			switch(num)
 			{
-				case 1:
+				case 0:
 					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Ew" : "‘æ‚Pw";
 					break;
-				case 2:
+				case 1:
 					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶w" : "‘æ‚Qw";
 					break;
 				default:
@@ -1930,28 +1924,28 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 		case INVEN_SLOT_HEAD:
 			switch(num)
 			{
-				case 1:
+				case 0:
 					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "“ª•”" : "‘æ‚P“ª";
 					break;
-				case 2:
+				case 1:
 					p = "‘æ‚Q“ª";
 					break;
-				case 3:
+				case 2:
 					p = "‘æ‚R“ª";
 					break;
-				case 4:
+				case 3:
 					p = "‘æ‚S“ª";
 					break;
-				case 5:
+				case 4:
 					p = "‘æ‚T“ª";
 					break;
-				case 6:
+				case 5:
 					p = "‘æ‚U“ª";
 					break;
-				case 7:
+				case 6:
 					p = "‘æ‚V“ª";
 					break;
-				case 8:
+				case 7:
 					p = "‘æ‚W“ª";
 					break;
 				default:
