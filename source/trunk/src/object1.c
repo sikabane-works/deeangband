@@ -2225,10 +2225,11 @@ void display_equip(creature_type *creature_ptr)
 			if(is_valid_object(object_ptr))
 			{
 				object_desc(object_name, object_ptr, 0);	// Obtain an item description
-				Term_putstr(0, n, wid, TERM_WHITE, object_name);
+				display_item_aux(object_ptr, n, i);
 			}
 			else
 			{
+				Term_erase(0, n, 255);
 				Term_putstr(0, n, wid, TERM_L_DARK, "------");
 			}
 			n++;
