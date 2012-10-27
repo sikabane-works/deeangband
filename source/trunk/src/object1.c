@@ -1740,38 +1740,24 @@ prt("[何かキーを押すとゲームに戻ります]", k, 15);
 
 
 
-/*
- * Convert an inventory index into a one character label
- * Note that the label does NOT distinguish inven/equip.
- */
+// Convert an inventory index into a one character label
+// Note that the label does NOT distinguish inven/equip.
 char index_to_label(int i)
 {
 	if(i < 0 || i >= INVEN_TOTAL) return '-';
 	return (i < 26 ? (char)i + 'a' : (char)(i - 26) + 'A'); 
 }
 
-
-/*
- * Convert a label into the index of an item in the "inven"
- * Return "-1" if the label does not indicate a real item
- */
+// Convert a label into the index of an item in the "inven"
+// Return "-1" if the label does not indicate a real item
 s16b label_to_item(creature_type *creature_ptr, int c)
 {
 	int i;
-
-	/* Convert */
-	i = (islower(c) ? A2I(c) : -1);
-
-	/* Verify the index */
-	if((i < 0) || (i > INVEN_TOTAL)) return (-1);
-
-	/* Empty slots can never be chosen */
-	if(!creature_ptr->inventory[i].k_idx) return (-1);
-
-	/* Return the index */
-	return (i);
+	i = (islower(c) ? A2I(c) : -1);						// Convert
+	if((i < 0) || (i > INVEN_TOTAL)) return (-1);		// Verify the index
+	if(!creature_ptr->inventory[i].k_idx) return (-1);	// Empty slots can never be chosen
+	return i;	// Return the index
 }
-
 
 // Return a string mentioning how a given item is carried
 cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
@@ -1781,7 +1767,6 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 	/* Examine the location */
 	switch (slot)
 	{
-
 #ifdef JP
 		case INVEN_SLOT_INVENTORY: p = "所持"; break;
 		case INVEN_SLOT_ARMS: p = "腕部"; break;
@@ -1932,56 +1917,27 @@ cptr describe_use(creature_type *creature_ptr, int i)
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_AMULET:  p = "首にかけている"; break;
+		case INVEN_SLOT_AMULET:	p = "首にかけている";		break;
+		case INVEN_SLOT_LITE:	p = "光源にしている";		break;
+		case INVEN_SLOT_BODY:	p = "体に着ている";			break;
+		case INVEN_SLOT_OUTER:	p = "身にまとっている";		break;
+		case INVEN_SLOT_HEAD:	p = "頭にかぶっている";		break;
+		case INVEN_SLOT_ARMS:	p = "手につけている";		break;
+		case INVEN_SLOT_FEET:	p = "足にはいている";		break;
+		default:				p = "ザックに入っている";	break;
 #else
-		case INVEN_SLOT_AMULET:  p = "wearing around your neck"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_LITE:  p = "光源にしている"; break;
-#else
-		case INVEN_SLOT_LITE:  p = "using to light the way"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_BODY:  p = "体に着ている"; break;
-#else
-		case INVEN_SLOT_BODY:  p = "wearing on your body"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_OUTER: p = "身にまとっている"; break;
-#else
-		case INVEN_SLOT_OUTER: p = "wearing on your back"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_HEAD:  p = "頭にかぶっている"; break;
-#else
-		case INVEN_SLOT_HEAD:  p = "wearing on your head"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_ARMS: p = "手につけている"; break;
-#else
-		case INVEN_SLOT_ARMS: p = "wearing on your hands"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_FEET:  p = "足にはいている"; break;
-#else
-		case INVEN_SLOT_FEET:  p = "wearing on your feet"; break;
-#endif
-
-#ifdef JP
-		default:          p = "ザックに入っている"; break;
-#else
-		default:          p = "carrying in your pack"; break;
+		case INVEN_SLOT_AMULET:	p = "wearing around your neck";	break;
+		case INVEN_SLOT_LITE:	p = "using to light the way";	break;
+		case INVEN_SLOT_BODY:	p = "wearing on your body";		break;
+		case INVEN_SLOT_OUTER:	p = "wearing on your back";		break;
+		case INVEN_SLOT_HEAD:	p = "wearing on your head";		break;
+		case INVEN_SLOT_ARMS:	p = "wearing on your hands";	break;
+		case INVEN_SLOT_FEET:	p = "wearing on your feet";		break;
+		default:				p = "carrying in your pack";	break;
 #endif
 	}
 
-	/* Return the result */
-	return p;
+	return p;	// Return the result
 }
 
 
