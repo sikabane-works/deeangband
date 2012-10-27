@@ -1934,7 +1934,7 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 
 cptr mention_use_ptr(creature_type *creature_ptr, object_type *object_ptr)
 {
-	return mention_use_idx(creature_ptr, object_ptr->equipped_slot_num, object_ptr->equipped_slot_type);
+	return mention_use_idx(creature_ptr, object_ptr->equipped_slot_type, object_ptr->equipped_slot_num);
 }
 
 
@@ -2089,16 +2089,14 @@ static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 	byte	attr = TERM_WHITE;
 
 	object_type *object_ptr = &creature_ptr->inventory[idx];
-
 	Term_get_size(&wid, &hgt);	// Get size
 
 	tmp_val[0] = index_to_label(idx);	// Prepare an "index"
-	tmp_val[1] = ')';						// Bracket the "index" --(--
+	tmp_val[1] = ')';
 	tmp_val[2] = ' ';
 
 	Term_erase(0, y, 255);
 	Term_putstr(0, y, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
-	Term_putstr(4, y, wid, TERM_WHITE, mention_use_ptr(creature_ptr, object_ptr));
 
 	if(is_valid_object(object_ptr))
 	{
@@ -2146,7 +2144,11 @@ void display_inven(creature_type *creature_ptr)
 		z++;	// Track
 	}
 
-	for (i = 0; i < z; i++)	display_item_aux(creature_ptr, list[i], i);
+	for (i = 0; i < z; i++)
+	{
+		display_item_aux(creature_ptr, list[i], i);
+		Term_putstr(4, i, wid, TERM_WHITE, mention_use_ptr(creature_ptr, object_ptr));
+	}
 	for (i = z; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
 }
 
@@ -2167,47 +2169,12 @@ void display_equip(creature_type *creature_ptr)
 		{
 			l = get_equipped_slot_idx(creature_ptr, i, j);
 			display_item_aux(creature_ptr, l, n);
+			Term_putstr(4, i, wid, TERM_WHITE, mention_use_idx(creature_ptr, i, j));
 			n++;
 		}
 	}
 
 	for (i = n; i < hgt; i++) Term_erase(0, i, 255);	// Erase the rest of the window
-
-
-	/*
-	for (i = 0; i < n; i++)	// Display the equipment
-	{
-		object_ptr = &creature_ptr->inventory[i];	// Examine the item
-		if(!IS_EQUIPPED(object_ptr)) continue;
-		tmp_val[0] = tmp_val[1] = tmp_val[2] = ' ';	// Start with an empty "index"
-		
-		Term_putstr(0, i, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
-		object_desc(object_name, object_ptr, 0);	// Obtain an item description
-		attr = tval_to_acttr[object_ptr->tval % 128];
-
-		l = strlen(object_name);	// Obtain the length of the description
-
-		if(object_ptr->timeout) attr = TERM_L_DARK;	// Grey out charging items
-		Term_putstr(3, i, l, attr, object_name);	// Display the entry itself
-		Term_erase(3 + l, i, 255);	// Erase the rest of the line
-
-		if(show_weights)	// Display the weight (if needed)
-		{
-			int wgt = object_ptr->weight * object_ptr->number;
-			char buf[80];
-			format_weight(buf, wgt);
-			(void)sprintf(tmp_val, "%10s", buf);
-
-			prt(tmp_val, i, wid - (show_labels ? 28 : 10));
-		}
-
-		if(show_labels)	// Display the slot description (if needed)
-		{
-			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
-			prt(mention_use_ptr(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(object_ptr)), i, wid - 15);
-		}
-	}
-	*/
 
 }
 
