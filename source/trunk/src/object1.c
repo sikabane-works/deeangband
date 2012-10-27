@@ -2875,31 +2875,31 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 	if(slot_num == 0 || slot == INVEN_SLOT_INVENTORY)
 	{
 		msg_print(s);
-		n = 0;
+		n = -1;
 	}
 	if(slot_num == 1)
 	{
-		n = 1;
+		n = 0;
 	}
 	else
 	{
-		for(i = 1; i <= slot_num; i++)
+		for(i = 0; i < slot_num; i++)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
 			object_desc(buf, object_ptr, 0);
-			sprintf(se[i - 1].cap, "%-6s %s", mention_use(creature_ptr, slot, i), buf);
-			se[i - 1].code = i;
-			se[i - 1].key = '\0';
+			sprintf(se[i].cap, "%-6s %s", mention_use(creature_ptr, slot, i), buf);
+			se[i].code = i;
+			se[i].key = '\0';
 
 			if(object_ptr->timeout)
 			{
-				 se[i - 1].d_color = TERM_L_DARK;
-				 se[i - 1].l_color = TERM_L_DARK;
+				 se[i].d_color = TERM_L_DARK;
+				 se[i].l_color = TERM_L_DARK;
 			}
 			else
 			{
-				se[i - 1].d_color = tval_to_acttr[object_ptr->tval % 128];
-				se[i - 1].l_color = tval_to_acttr[object_ptr->tval % 128];
+				se[i].d_color = tval_to_acttr[object_ptr->tval % 128];
+				se[i].l_color = tval_to_acttr[object_ptr->tval % 128];
 			}
 
 		}
@@ -2909,12 +2909,12 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 #else
 		strcpy(se[i - 1].cap, "Cancel");
 #endif
-		se[i - 1].code = 0;
-		se[i - 1].key = ESCAPE;
-		se[i - 1].d_color = TERM_L_DARK;
-		se[i - 1].l_color = TERM_WHITE;
+		se[i].code = 0;
+		se[i].key = ESCAPE;
+		se[i].d_color = TERM_L_DARK;
+		se[i].l_color = TERM_WHITE;
 
-		n = get_selection(se, slot_num + 1, 0, 1, 22, 1, 30, NULL, GET_SE_NO_FRAME | GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT);
+		n = get_selection(se, slot_num, 0, 1, 22, 1, 30, NULL, GET_SE_NO_FRAME | GET_SE_AUTO_WIDTH | GET_SE_AUTO_HEIGHT | GET_SE_RIGHT);
 	}
 	screen_load();
 

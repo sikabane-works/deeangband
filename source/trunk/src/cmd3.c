@@ -221,7 +221,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 #endif
 
 	n = get_equip_slot(creature_ptr, object_kind_info[object_ptr->k_idx].slot, q, s);
-	if(!n) return;
+	if(n < 0) return;
 
 	// Recalculate bonuses
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
