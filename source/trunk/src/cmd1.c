@@ -613,7 +613,6 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 #endif
 
 	object_type *object_ptr;
-
 	object_ptr = &object_list[object_idx];
 
 #ifdef JP
@@ -622,30 +621,20 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	object_desc_kosuu(kazu_str, object_ptr);
 	hirottakazu = object_ptr->number;
 #endif
-	/* Carry the object */
-	slot = inven_carry(creature_ptr, object_ptr);
+	
+	slot = inven_carry(creature_ptr, object_ptr);	// Carry the object
+	object_ptr = &creature_ptr->inventory[slot];	// Get the object again
+	delete_object_idx(object_idx);	// Delete the object
 
-	/* Get the object again */
-	object_ptr = &creature_ptr->inventory[slot];
-
-	/* Delete the object */
-	delete_object_idx(object_idx);
-
-	if(creature_ptr->chara_idx == CHARA_MUNCHKIN)
+	if(has_trait(creature_ptr, TRAIT_AUTO_IDENTIFY))
 	{
 		bool old_known = identify_item(creature_ptr, object_ptr);
-
-		/* Auto-inscription/destroy */
-		autopick_alter_item(creature_ptr, slot, (bool)(destroy_identify && !old_known));
-
-		/* If it is destroyed, don't pick it up */
-		if(object_ptr->marked & OM_AUTODESTROY) return;
+		autopick_alter_item(creature_ptr, slot, (bool)(destroy_identify && !old_known));	// Auto-inscription/destroy
+		if(object_ptr->marked & OM_AUTODESTROY) return;	// If it is destroyed, don't pick it up
 	}
 
-	/* Describe the object */
+	// Message
 	object_desc(object_name, object_ptr, 0);
-
-	/* Message */
 #ifdef JP
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK))
 	{
@@ -655,18 +644,13 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	}
 	else
 	{
-		if(plain_pickup)
-		{
-			msg_format("%s(%c)を持っている。",object_name, index_to_label(slot));
-		}
+		if(plain_pickup) msg_format("%s(%c)を持っている。",object_name, index_to_label(slot));
 		else
 		{
-			if(object_ptr->number > hirottakazu) {
-			    msg_format("%s拾って、%s(%c)を持っている。",
-			       kazu_str, object_name, index_to_label(slot));
-			} else {
+			if(object_ptr->number > hirottakazu)
+			    msg_format("%s拾って、%s(%c)を持っている。",kazu_str, object_name, index_to_label(slot));
+			else
 				msg_format("%s(%c)を拾った。", object_name, index_to_label(slot));
-			}
 		}
 	}
 	strcpy(record_object_name, old_name);
@@ -680,9 +664,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	/* Check if completed a quest */
 	for (i = 0; i < max_quests; i++)
 	{
-		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) &&
-		    (quest[i].status == QUEST_STATUS_TAKEN) &&
-			   (quest[i].k_idx == object_ptr->name1))
+		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->name1))
 		{
 			if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, i, NULL);
 			quest[i].status = QUEST_STATUS_COMPLETED;
@@ -692,7 +674,6 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 #else
 			msg_print("You completed your quest!");
 #endif
-
 			msg_print(NULL);
 		}
 	}
