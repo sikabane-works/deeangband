@@ -321,6 +321,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	object_ptr->equipped_slot_num = n;
 	object_ptr->equipped_slot_type = object_kind_info[object_ptr->k_idx].slot;
+
 	creature_ptr->inventory[old_item].equipped_slot_num = 0;
 	creature_ptr->inventory[old_item].equipped_slot_type = 0;
 

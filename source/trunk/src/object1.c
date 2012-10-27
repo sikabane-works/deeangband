@@ -1804,33 +1804,15 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 			{
 				switch(num)
 				{
-					case 0:
-						p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Eè" : "‘æ‚Pè";
-						break;
-					case 1:
-						p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶è" : "‘æ‚Qè";
-						break;
-					case 2:
-						p = "‘æ‚Rè";
-						break;
-					case 3:
-						p = "‘æ‚Sè";
-						break;
-					case 4:
-						p = "‘æ‚Tè";
-						break;
-					case 5:
-						p = "‘æ‚Uè";
-						break;
-					case 6:
-						p = "‘æ‚Vè";
-						break;
-					case 7:
-						p = "‘æ‚Wè";
-						break;
-					default:
-						p = "èH";
-						break;
+					case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Eè" : "‘æ‚Pè"; break;
+					case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶è" : "‘æ‚Qè"; break;
+					case 2: p = "‘æ‚Rè"; break;
+					case 3: p = "‘æ‚Sè"; break;
+					case 4: p = "‘æ‚Tè"; break;
+					case 5: p = "‘æ‚Uè"; break;
+					case 6: p = "‘æ‚Vè"; break;
+					case 7: p = "‘æ‚Wè"; break;
+					default: p = "èH"; break;
 				}
 			}
 			break;
@@ -1863,137 +1845,93 @@ cptr mention_use(creature_type *creature_ptr, int slot, int num)
 		case INVEN_SLOT_RING:
 			switch(num)
 			{
-				case 0:
-					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Ew" : "‘æ‚Pw";
-					break;
-				case 1:
-					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶w" : "‘æ‚Qw";
-					break;
-				default:
-					p = "wH";
-					break;
+				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰Ew" : "‘æ‚Pw"; break;
+				case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶w" : "‘æ‚Qw"; break;
+				default: p = "wH"; break;
 			}
 			break;
 #else
 		case INVEN_SLOT_RING:
-			p = "1st Ring"; break;
+			p = "Ring"; break;
 			break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_AMULET:
-			p = "Œì•„"; break;
+		case INVEN_SLOT_AMULET: p = "Œì•„"; break;
 #else
-		case INVEN_SLOT_AMULET:
-			p = "Amulet"; break;
+		case INVEN_SLOT_AMULET: p = "Amulet"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_LITE:
-			p = "ŒõŒ¹"; break;
+		case INVEN_SLOT_LITE: p = "ŒõŒ¹"; break;
 #else
-		case INVEN_SLOT_LITE:
-			p = "Light source"; break;
+		case INVEN_SLOT_LITE: p = "Light source"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_INSTRUMENT:
-			p = "ŠyŠí"; break;
+		case INVEN_SLOT_INSTRUMENT: p = "ŠyŠí"; break;
 #else
-		case INVEN_SLOT_INSTRUMENT:
-			p = "Instrument"; break;
+		case INVEN_SLOT_INSTRUMENT: p = "Instrument"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_BODY:
-			p = "‘Ì"; break;
+		case INVEN_SLOT_BODY: p = "‘Ì"; break;
 #else
-		case INVEN_SLOT_BODY:
-			p = "On body"; break;
+		case INVEN_SLOT_BODY: p = "On body"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_OUTER:
-			p = "ãˆß"; break;
+		case INVEN_SLOT_OUTER: p = "ãˆß"; break;
 #else
-		case INVEN_SLOT_OUTER:
-			p = "About body"; break;
+		case INVEN_SLOT_OUTER: p = "About body"; break;
 #endif
 
 #ifdef JP
 		case INVEN_SLOT_HEAD:
 			switch(num)
 			{
-				case 0:
-					p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "“ª•”" : "‘æ‚P“ª";
-					break;
-				case 1:
-					p = "‘æ‚Q“ª";
-					break;
-				case 2:
-					p = "‘æ‚R“ª";
-					break;
-				case 3:
-					p = "‘æ‚S“ª";
-					break;
-				case 4:
-					p = "‘æ‚T“ª";
-					break;
-				case 5:
-					p = "‘æ‚U“ª";
-					break;
-				case 6:
-					p = "‘æ‚V“ª";
-					break;
-				case 7:
-					p = "‘æ‚W“ª";
-					break;
-				default:
-					p = "“ªH";
-					break;
+				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "“ª•”" : "‘æ‚P“ª"; break;
+				case 1: p = "‘æ‚Q“ª"; break;
+				case 2: p = "‘æ‚R“ª"; break;
+				case 3: p = "‘æ‚S“ª"; break;
+				case 4: p = "‘æ‚T“ª"; break;
+				case 5: p = "‘æ‚U“ª"; break;
+				case 6: p = "‘æ‚V“ª"; break;
+				case 7: p = "‘æ‚W“ª"; break;
+				default: p = "“ªH"; break;
 			}
 			break;
 #else
-		case INVEN_SLOT_HEAD:
-			p = "On head"; break;
+		case INVEN_SLOT_HEAD: p = "On head"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_ARMS:
-			p = "˜r•”"; break;
+		case INVEN_SLOT_ARMS: p = "˜r•”"; break;
 #else
-		case INVEN_SLOT_ARMS:
-			p = "On hands"; break;
+		case INVEN_SLOT_ARMS: p = "On hands"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_FEET:
-			p = "‹r•”"; break;
+		case INVEN_SLOT_FEET: p = "‹r•”"; break;
 #else
-		case INVEN_SLOT_FEET:
-			p = "On feet"; break;
+		case INVEN_SLOT_FEET: p = "On feet"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_TAIL:
-			p = "”ö•”"; break;
+		case INVEN_SLOT_TAIL: p = "”ö•”"; break;
 #else
-		case INVEN_SLOT_TAIL:
-			p = "On tail"; break;
+		case INVEN_SLOT_TAIL: p = "On tail"; break;
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_INTAKE:
-			p = "‘Ì“à"; break;
+		case INVEN_SLOT_INTAKE: p = "‘Ì“à"; break;
 #else
-		case INVEN_SLOT_INTAKE:
-			p = "Intake"; break;
+		case INVEN_SLOT_INTAKE: p = "Intake"; break;
 #endif
 
 	}
 
-	/* Return the result */
-	return p;
+	return p;	// Return the result
 }
 
 
@@ -2203,7 +2141,6 @@ void display_equip(creature_type *creature_ptr)
 	register        int i, j, l, n;
 	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
-	char            tmp_val[80];
 	char            object_name[MAX_NLEN];
 	int             wid, hgt;
 
