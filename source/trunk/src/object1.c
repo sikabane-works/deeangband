@@ -1781,14 +1781,31 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 	/* Examine the location */
 	switch (slot)
 	{
+
 #ifdef JP
-		case INVEN_SLOT_INVENTORY:
-			p = "èäéù";
-			break;
+		case INVEN_SLOT_INVENTORY: p = "èäéù"; break;
+		case INVEN_SLOT_ARMS: p = "òrïî"; break;
+		case INVEN_SLOT_FEET: p = "ãrïî"; break;
+		case INVEN_SLOT_TAIL: p = "îˆïî"; break;
+		case INVEN_SLOT_INTAKE: p = "ëÃì‡"; break;
+		case INVEN_SLOT_AMMO: p = "ñÓíe"; break;
+		case INVEN_SLOT_AMULET: p = "åÏïÑ"; break;
+		case INVEN_SLOT_LITE: p = "åıåπ"; break;
+		case INVEN_SLOT_INSTRUMENT: p = "äyäÌ"; break;
+		case INVEN_SLOT_BODY: p = "ëÃ"; break;
+		case INVEN_SLOT_OUTER: p = "è„àﬂ"; break;
 #else
-		case INVEN_SLOT_INVENTORY:
-			p = "In pack";
-			break;
+		case INVEN_SLOT_INVENTORY: p = "In pack"; break;
+		case INVEN_SLOT_ARMS: p = "On hands"; break;
+		case INVEN_SLOT_FEET: p = "On feet"; break;
+		case INVEN_SLOT_TAIL: p = "On tail"; break;
+		case INVEN_SLOT_INTAKE: p = "Intake"; break;
+		case INVEN_SLOT_AMMO: p = "Projectile"; break;
+		case INVEN_SLOT_AMULET: p = "Amulet"; break;
+		case INVEN_SLOT_LITE: p = "Light source"; break;
+		case INVEN_SLOT_INSTRUMENT: p = "Instrument"; break;
+		case INVEN_SLOT_BODY: p = "On body"; break;
+		case INVEN_SLOT_OUTER: p = "About body"; break;
 #endif
 
 #ifdef JP
@@ -1831,59 +1848,6 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_AMMO:
-			p = "ñÓíe"; break;
-#else
-		case INVEN_SLOT_AMMO:
-			p = "Projectile"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_RING:
-			switch(num)
-			{
-				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "âEéw" : "ëÊÇPéw"; break;
-				case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "ç∂éw" : "ëÊÇQéw"; break;
-				default: p = "éwÅH"; break;
-			}
-			break;
-#else
-		case INVEN_SLOT_RING:
-			p = "Ring"; break;
-			break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_AMULET: p = "åÏïÑ"; break;
-#else
-		case INVEN_SLOT_AMULET: p = "Amulet"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_LITE: p = "åıåπ"; break;
-#else
-		case INVEN_SLOT_LITE: p = "Light source"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_INSTRUMENT: p = "äyäÌ"; break;
-#else
-		case INVEN_SLOT_INSTRUMENT: p = "Instrument"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_BODY: p = "ëÃ"; break;
-#else
-		case INVEN_SLOT_BODY: p = "On body"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_OUTER: p = "è„àﬂ"; break;
-#else
-		case INVEN_SLOT_OUTER: p = "About body"; break;
-#endif
-
-#ifdef JP
 		case INVEN_SLOT_HEAD:
 			switch(num)
 			{
@@ -1903,33 +1867,23 @@ cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 #endif
 
 #ifdef JP
-		case INVEN_SLOT_ARMS: p = "òrïî"; break;
+		case INVEN_SLOT_RING:
+			switch(num)
+			{
+				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "âEéw" : "ëÊÇPéw"; break;
+				case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "ç∂éw" : "ëÊÇQéw"; break;
+				default: p = "éwÅH"; break;
+			}
+			break;
 #else
-		case INVEN_SLOT_ARMS: p = "On hands"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_FEET: p = "ãrïî"; break;
-#else
-		case INVEN_SLOT_FEET: p = "On feet"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_TAIL: p = "îˆïî"; break;
-#else
-		case INVEN_SLOT_TAIL: p = "On tail"; break;
-#endif
-
-#ifdef JP
-		case INVEN_SLOT_INTAKE: p = "ëÃì‡"; break;
-#else
-		case INVEN_SLOT_INTAKE: p = "Intake"; break;
+		case INVEN_SLOT_RING:
+			p = "Ring"; break;
+			break;
 #endif
 
 	}
 
 	return p;	// Return the result
-
 }
 
 cptr mention_use_ptr(creature_type *creature_ptr, object_type *object_ptr)
