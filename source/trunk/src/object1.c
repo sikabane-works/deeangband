@@ -1773,15 +1773,13 @@ s16b label_to_item(creature_type *creature_ptr, int c)
 }
 
 
-/*
- * Return a string mentioning how a given item is carried
- */
-cptr mention_use(creature_type *creature_ptr, object_type *object_ptr)
+// Return a string mentioning how a given item is carried
+cptr mention_use_idx(creature_type *creature_ptr, int slot, int num)
 {
 	cptr p;
 
 	/* Examine the location */
-	switch (object_ptr->equipped_slot_type)
+	switch (slot)
 	{
 #ifdef JP
 		case INVEN_SLOT_INVENTORY:
@@ -1795,13 +1793,13 @@ cptr mention_use(creature_type *creature_ptr, object_type *object_ptr)
 
 #ifdef JP
 		case INVEN_SLOT_HAND:  
-			if(creature_ptr->heavy_wield[object_ptr->equipped_slot_num])
+			if(creature_ptr->heavy_wield[num])
 			{
 				p = "‰^”À’†"; break;
 			}
 			else
 			{
-				switch(object_ptr->equipped_slot_num)
+				switch(num)
 				{
 					case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰EŽè" : "‘æ‚PŽè"; break;
 					case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶Žè" : "‘æ‚QŽè"; break;
@@ -1842,7 +1840,7 @@ cptr mention_use(creature_type *creature_ptr, object_type *object_ptr)
 
 #ifdef JP
 		case INVEN_SLOT_RING:
-			switch(object_ptr->equipped_slot_num)
+			switch(num)
 			{
 				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "‰EŽw" : "‘æ‚PŽw"; break;
 				case 1: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "¶Žw" : "‘æ‚QŽw"; break;
@@ -1887,7 +1885,7 @@ cptr mention_use(creature_type *creature_ptr, object_type *object_ptr)
 
 #ifdef JP
 		case INVEN_SLOT_HEAD:
-			switch(object_ptr->equipped_slot_num)
+			switch(num)
 			{
 				case 0: p = has_trait(creature_ptr, TRAIT_HUMANOID) ? "“ª•”" : "‘æ‚P“ª"; break;
 				case 1: p = "‘æ‚Q“ª"; break;
@@ -1931,6 +1929,12 @@ cptr mention_use(creature_type *creature_ptr, object_type *object_ptr)
 	}
 
 	return p;	// Return the result
+
+}
+
+cptr mention_use_ptr(creature_type *creature_ptr, object_type *object_ptr)
+{
+	return mention_use_idx(creature_ptr, object_ptr->equipped_slot_num, object_ptr->equipped_slot_type);
 }
 
 
@@ -2094,7 +2098,7 @@ static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 
 	Term_erase(0, y, 255);
 	Term_putstr(0, y, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
-	Term_putstr(4, y, wid, TERM_WHITE, mention_use(creature_ptr, object_ptr));
+	Term_putstr(4, y, wid, TERM_WHITE, mention_use_ptr(creature_ptr, object_ptr));
 
 	if(is_valid_object(object_ptr))
 	{
@@ -2105,7 +2109,7 @@ static void display_item_aux(creature_type *creature_ptr, int idx, int y)
 	}
 	else
 	{
-		strcpy(object_name, "- - - - - -");
+		strcpy(object_name, "------");
 		attr = TERM_L_DARK;
 	}
 
@@ -2150,9 +2154,7 @@ void display_inven(creature_type *creature_ptr)
 void display_equip(creature_type *creature_ptr)
 {
 	register        int i, j, l, n;
-	object_type     *object_ptr;
 	byte            attr = TERM_WHITE;
-	char            object_name[MAX_NLEN];
 	int             wid, hgt;
 
 	Term_get_size(&wid, &hgt);	// Get size
@@ -2202,7 +2204,7 @@ void display_equip(creature_type *creature_ptr)
 		if(show_labels)	// Display the slot description (if needed)
 		{
 			Term_putstr(wid - 20, i, -1, TERM_WHITE, " <-- ");
-			prt(mention_use(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(object_ptr)), i, wid - 15);
+			prt(mention_use_ptr(creature_ptr, GET_INVEN_SLOT_TYPE(creature_ptr, i), IS_EQUIPPED(object_ptr)), i, wid - 15);
 		}
 	}
 	*/
@@ -2670,7 +2672,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		}
 
 		// Display the entry itself
-		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use(creature_ptr, object_ptr) , j + 1, cur_col);
+		c_put_str(IS_EQUIPPED(object_ptr) ? TERM_WHITE : TERM_L_DARK, mention_use_ptr(creature_ptr, object_ptr) , j + 1, cur_col);
 		c_put_str(out_color[j], out_desc[j], j + 1, cur_col + 7);
 
 		// Display the weight if needed
@@ -2887,7 +2889,7 @@ int get_equip_slot(creature_type *creature_ptr, int slot, cptr r, cptr s)
 		{
 			object_ptr = get_equipped_slot_ptr(creature_ptr, slot, i);
 			object_desc(buf, object_ptr, 0);
-			sprintf(se[i].cap, "%-6s %s", mention_use(creature_ptr, object_ptr), buf);
+			sprintf(se[i].cap, "%-6s %s", mention_use_ptr(creature_ptr, object_ptr), buf);
 			se[i].code = i;
 			se[i].key = '\0';
 

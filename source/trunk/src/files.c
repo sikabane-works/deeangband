@@ -1829,7 +1829,7 @@ static void display_player_middle(creature_type *creature_ptr)
 		{
 			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i + 1);
 			j = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
-			c_put_str(TERM_L_BLUE, mention_use(creature_ptr, weapon_ptr), 15 + melee_num, 1);
+			c_put_str(TERM_L_BLUE, mention_use_ptr(creature_ptr, weapon_ptr), 15 + melee_num, 1);
 			c_put_str(TERM_YELLOW, format("%+4d", creature_ptr->to_hit[i]), 15 + melee_num, 9);
 			c_put_str(TERM_YELLOW, format("%dd%d%+d", weapon_ptr->dd, weapon_ptr->ds, creature_ptr->to_damage[i]), 15 + melee_num, 14);
 			c_put_str(TERM_YELLOW, format("%3d", j), 15 + melee_num, 28);
