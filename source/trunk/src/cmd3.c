@@ -316,8 +316,8 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);          // Take a turn
 
-	object_ptr->marked |= OM_TOUCHED;   // Player touches it
-	creature_ptr->equip_cnt++;           // Increment the equip counter by hand
+	object_ptr->marked |= OM_TOUCHED;	// Player touches it
+	creature_ptr->equip_cnt++;			// Increment the equip counter
 
 	object_ptr->equipped_slot_num = n;
 	object_ptr->equipped_slot_type = object_kind_info[object_ptr->k_idx].slot;

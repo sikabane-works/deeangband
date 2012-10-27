@@ -1417,7 +1417,7 @@ int get_equipped_slot_idx(creature_type *creature_ptr, int slot, int num)
 {
 	int i;
 	for(i = 0; i < INVEN_TOTAL; i++)
-		if(creature_ptr->inventory[i].equipped_slot_num == num && &creature_ptr->inventory[i].equipped_slot_type == slot)
+		if(creature_ptr->inventory[i].equipped_slot_num == num && creature_ptr->inventory[i].equipped_slot_type == slot)
 			return i;
 	return -1;
 }

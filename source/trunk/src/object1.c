@@ -2092,6 +2092,8 @@ static void display_item_aux(object_type *object_ptr, int idx, int y)
 	tmp_val[2] = ' ';
 
 	Term_putstr(0, y, 3, TERM_WHITE, tmp_val);	// Display the index (or blank space)
+	//Term_putstr(4, n, wid, TERM_WHITE, mention_use(object_ptr, i, j));
+
 	object_desc(object_name, object_ptr, 0);	// Obtain an item description
 	n = strlen(object_name);					// Obtain the length of the description
 
@@ -2099,8 +2101,8 @@ static void display_item_aux(object_type *object_ptr, int idx, int y)
 	if(attr == TERM_DARK) attr = TERM_WHITE;
 	if(object_ptr->timeout) attr = TERM_L_DARK;		// Grey out charging items
 
-	Term_putstr(3, y, n, attr, object_name);		// Display the entry itself
-	Term_erase(3 + n, y, 255);						// Erase the rest of the line
+	Term_putstr(15, y, n, attr, object_name);		// Display the entry itself
+	Term_erase(15 + n, y, 255);						// Erase the rest of the line
 
 	if(show_weights)	// Display the weight if needed
 	{
@@ -2164,7 +2166,6 @@ void display_equip(creature_type *creature_ptr)
 				Term_erase(0, n, 255);
 				Term_putstr(0, n, wid, TERM_L_DARK, "         ------");
 			}
-			Term_putstr(0, n, wid, TERM_WHITE, mention_use(creature_ptr, i, j));
 			n++;
 		}
 	}
