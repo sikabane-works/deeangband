@@ -412,12 +412,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-#ifdef JP
-						msg_print("クエストを達成した！");
-#else
-						msg_print("You just completed your quest!");
-#endif
-
+						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
 						msg_print(NULL);
 					}
 
@@ -450,12 +445,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 					{
 						quest[i].status = QUEST_STATUS_COMPLETED;
 						quest[i].complev = (byte)killer_ptr->lev;
-#ifdef JP
-						msg_print("クエストを達成した！");
-#else
-						msg_print("You just completed your quest!");
-#endif
-
+						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
 						msg_print(NULL);
 					}
 				}
@@ -485,13 +475,11 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-
 #ifdef JP
-						msg_format("あなたは %s を討ち取り、クエストを達成した！", species_name + species_info[quest[i].species_idx].name);
+						msg_print("クエストを達成した！");
 #else
-						msg_format("You just defeat %s and completed your quest!", species_name + species_info[quest[i].species_idx].name);
+						msg_print("You just completed your quest!");
 #endif
-
 						msg_print(NULL);
 					}
 
@@ -521,11 +509,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 
 					if(!(quest[i].flags & QUEST_FLAG_SILENT))
 					{
-#ifdef JP
-						msg_print("クエストを達成した！");
-#else
-						msg_print("You just completed your quest!");
-#endif
+						msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
 						msg_print(NULL);
 					}
 					quest[i].cur_num = 0;

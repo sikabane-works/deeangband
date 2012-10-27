@@ -661,7 +661,7 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	record_turn = turn;
 
 
-	/* Check if completed a quest */
+	// Check if completed a quest
 	for (i = 0; i < max_quests; i++)
 	{
 		if((quest[i].type == QUEST_TYPE_FIND_ARTIFACT) && (quest[i].status == QUEST_STATUS_TAKEN) && (quest[i].k_idx == object_ptr->name1))
@@ -1900,12 +1900,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			if(record_fix_quest) do_cmd_write_nikki(DIARY_FIX_QUEST_C, floor_ptr->quest, NULL);
 			quest[floor_ptr->quest].status = QUEST_STATUS_COMPLETED;
 			quest[floor_ptr->quest].complev = (byte)creature_ptr->lev;
-#ifdef JP
-			msg_print("クエストを達成した！");
-#else
-			msg_print("You accomplished your quest!");
-#endif
-
+			msg_print(game_messages[GAME_MESSAGE_COMPLETE_QUEST]);
 			msg_print(NULL);
 		}
 
