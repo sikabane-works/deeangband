@@ -4380,7 +4380,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
@@ -4500,7 +4500,7 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;

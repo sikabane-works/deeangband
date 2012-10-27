@@ -8,7 +8,7 @@
  * are included in all such copies.  Other copyrights may also apply.
  */
 
-/* Purpose: Store commands */
+// Purpose: Store commands
 
 #include "angband.h"
 
@@ -1841,7 +1841,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 			object_ptr = &st_ptr->stock[i];
 
 			/* Skip empty items */
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 
 			/* Scan the items above that item */
 			for (j = 0; j < i; j++)
@@ -1925,7 +1925,7 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 		object_ptr = &st_ptr->stock[i];
 
 		/* Skip empty slots */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Get the "value" of the item */
 		o_value = object_value(object_ptr);
@@ -2193,7 +2193,7 @@ static void store_item_optimize(store_type *st_ptr, int item)
 	object_ptr = &st_ptr->stock[item];
 
 	/* Must exist */
-	if(!object_ptr->k_idx) return;
+	if(!is_valid_object(object_ptr)) return;
 
 	/* Must have no items */
 	if(object_ptr->number) return;

@@ -2538,7 +2538,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if(!object_ptr->k_idx) continue;
+					if(!is_valid_object(object_ptr)) continue;
 
 					/* Drain charged wands/staffs */
 					if(((object_ptr->tval == TV_STAFF) ||
@@ -2714,7 +2714,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if(!object_ptr->k_idx) continue;
+					if(!is_valid_object(object_ptr)) continue;
 
 					/* Skip artifacts */
 					if(object_is_artifact(object_ptr)) continue;
@@ -2801,7 +2801,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					object_ptr = &target_ptr->inventory[i];
 
 					/* Skip non-objects */
-					if(!object_ptr->k_idx) continue;
+					if(!is_valid_object(object_ptr)) continue;
 
 					/* Skip non-food objects */
 					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue;
@@ -3750,7 +3750,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
 				{
-					if(object_ptr->k_idx)
+					if(is_valid_object(object_ptr))
 					{
 						int basedam = ((object_ptr->dd + target_ptr->to_damaged[0]) * (object_ptr->ds + target_ptr->to_damages[0] + 1));
 						dam = basedam / 2 + object_ptr->to_damage + target_ptr->to_damage[0];

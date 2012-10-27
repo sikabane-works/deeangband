@@ -421,7 +421,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				{
 					object_type *object_ptr = &creature_ptr->inventory[i];
 
-					if(!object_ptr->k_idx) continue;
+					if(!is_valid_object(object_ptr)) continue;
 					if(!object_is_cursed(object_ptr)) continue;
 
 					object_ptr->feeling = FEEL_CURSED;

@@ -4625,7 +4625,7 @@ prt(format("‰ñ”: %d", command_arg), 0, 0);
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* No inscription */
 		if(!object_ptr->inscription) continue;

@@ -5907,7 +5907,7 @@ static void do_cmd_knowledge_inven_aux(FILE *fff, object_type *object_ptr, int *
 	char object_name[MAX_NLEN];
 	u32b flgs[TRAIT_FLAG_MAX];
 
-	if(!object_ptr->k_idx) return;
+	if(!is_valid_object(object_ptr)) return;
 	if(object_ptr->tval != tval) return;
 
 	/* Identified items only */
@@ -6632,7 +6632,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		object_type *object_ptr = &owner_ptr->inventory[i];
 
 		/* Ignore non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Ignore non-artifacts */
 		if(!object_is_fixed_artifact(object_ptr)) continue;

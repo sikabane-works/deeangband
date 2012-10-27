@@ -12093,7 +12093,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			//TODO: GET outer equipment.
 			object_type *object_ptr = &creature_ptr->inventory[0];
 
-			if(!object_ptr->k_idx)
+			if(!is_valid_object(object_ptr))
 			{
 #ifdef JP
 				msg_print("クロークを身につけていない！");

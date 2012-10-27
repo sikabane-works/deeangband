@@ -408,7 +408,7 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 	else if(item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2))
 	{
 		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
-		if(object_ptr->k_idx) object_desc(object_name, object_ptr, 0);
+		if(is_valid_object(object_ptr)) object_desc(object_name, object_ptr, 0);
 
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) == 1)
 		{

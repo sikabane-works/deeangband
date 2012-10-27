@@ -2619,7 +2619,7 @@ static void calc_lite(creature_type *creature_ptr)
 		else
 		{
 			/* Skip empty slots */
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 
 			/* Extract the flags */
 			object_flags(object_ptr, flgs);
@@ -3089,7 +3089,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 			int ac = 0;
 			object_ptr = &creature_ptr->inventory[i];
 			if(IS_EQUIPPED(object_ptr)) continue; 
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 			if(!object_is_armour(object_ptr)) continue;
 			if(!object_is_cursed(object_ptr)) continue;
 			ac += 5;
@@ -3284,7 +3284,7 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		if(!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
-		if(!object_ptr->k_idx) continue; // Skip non-objects
+		if(!is_valid_object(object_ptr)) continue; // Skip non-objects
 
 		/* Extract the item flags */
 		object_flags(object_ptr, flgs);

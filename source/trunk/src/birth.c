@@ -2641,7 +2641,7 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	object_ptr = &creature_ptr->inventory[item]; 
  
 	// Skip non-objects
-	if(!object_ptr->k_idx) return -1; 
+	if(!is_valid_object(object_ptr)) return -1; 
  
 	// Make sure we can wield it and that there's nothing else in that slot
 	slot = WIELD_SLOT(object_ptr);

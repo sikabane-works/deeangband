@@ -584,7 +584,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 
 	if(randint1(100) > chance) return;
 
-	if(!object_ptr->k_idx) return;
+	if(!is_valid_object(object_ptr)) return;
 
 	object_flags(object_ptr, oflgs);
 

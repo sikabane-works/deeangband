@@ -82,7 +82,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Extract the flags */
 		object_flags(object_ptr, tflgs);
@@ -576,7 +576,7 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
@@ -644,7 +644,7 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;
@@ -716,7 +716,7 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip held objects */
 		if(object_ptr->held_m_idx) continue;

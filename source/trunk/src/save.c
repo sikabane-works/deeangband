@@ -535,7 +535,7 @@ static void wr_creature(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)	// Write the inventory
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
-		if(!object_ptr->k_idx) continue;	// Skip non-objects
+		if(!is_valid_object(object_ptr)) continue;	// Skip non-objects
 		wr_u16b((u16b)i);	// Dump index
 		wr_object(object_ptr);	// Dump object
 	}

@@ -1072,7 +1072,7 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	if(!IS_EQUIPPED(object_ptr)) return FALSE;
 
 	/* No item, nothing happens */
-	if(!object_ptr->k_idx) return (FALSE);
+	if(!is_valid_object(object_ptr)) return (FALSE);
 
 	/* Disenchant equipments only -- No disenchant on creature ball */
 	if(!object_is_weapon_armour_ammo(object_ptr))
@@ -2099,7 +2099,7 @@ void identify_pack(creature_type *creature_ptr)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Identify it */
 		identify_item(creature_ptr, object_ptr);
@@ -2145,7 +2145,7 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Uncursed already */
 		if(!object_is_cursed(object_ptr)) continue;
@@ -4771,7 +4771,7 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Hack -- for now, skip artifacts */
 		if(object_is_artifact(object_ptr)) continue;
@@ -4862,7 +4862,7 @@ static int minus_ac(creature_type *creature_ptr)
 	if(!IS_EQUIPPED(object_ptr)) return (FALSE);
 
 	// Nothing to damage
-	if(!object_ptr->k_idx) return (FALSE);
+	if(!is_valid_object(object_ptr)) return (FALSE);
 	if(!object_is_armour(object_ptr)) return (FALSE);
 
 	// No damage left to be done
@@ -5051,7 +5051,7 @@ bool curse_armor(creature_type *creature_ptr)
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1);
 
 	/* Nothing to curse */
-	if(!object_ptr->k_idx) return (FALSE);
+	if(!is_valid_object(object_ptr)) return (FALSE);
 
 
 	/* Describe */
@@ -5127,7 +5127,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	object_ptr = &target_ptr->inventory[slot];
 
 	/* Nothing to curse */
-	if(!object_ptr->k_idx) return (FALSE);
+	if(!is_valid_object(object_ptr)) return (FALSE);
 
 
 	/* Describe */

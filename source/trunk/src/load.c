@@ -456,7 +456,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 		rd_object(object_ptr);
 
 		// Hack -- verify item
-		if(!object_ptr->k_idx)
+		if(!is_valid_object(object_ptr))
 			return (53);
 
 		if(IS_EQUIPPED(object_ptr)) // Wield equipment

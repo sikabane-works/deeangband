@@ -1923,7 +1923,7 @@ bool lose_all_info(creature_type *creature_ptr)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Allow "protection" by the MENTAL flag */
 		if(object_ptr->ident & (IDENT_MENTAL)) continue;
@@ -3134,7 +3134,7 @@ void calc_android_exp(creature_type *creature_ptr)
 		if(slot == INVEN_SLOT_RING || slot == INVEN_SLOT_AMULET || slot == INVEN_SLOT_LITE)
 		   continue;
 
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Wipe the object */
 		object_wipe(quest_ptr);

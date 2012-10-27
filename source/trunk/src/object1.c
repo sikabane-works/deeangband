@@ -1966,7 +1966,7 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 {
 
 	/* Require an item */
-	if(!object_ptr->k_idx) return (FALSE);
+	if(!is_valid_object(object_ptr)) return (FALSE);
 
 	/* Hack -- ignore "gold" */
 	/* TODO remove
@@ -2060,7 +2060,7 @@ void display_inven(creature_type *creature_ptr)
 	{
 		object_ptr = &creature_ptr->inventory[i];
 		if(IS_EQUIPPED(object_ptr)) continue;
-		if(!object_ptr->k_idx) continue;	// Skip non-objects
+		if(!is_valid_object(object_ptr)) continue;	// Skip non-objects
 		list[z] = i;
 		z++;	// Track
 	}
@@ -2123,7 +2123,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		if(IS_EQUIPPED(object_ptr) && mode != USE_INVEN) continue;
 		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
@@ -2174,7 +2174,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 		if(!IS_EQUIPPED(object_ptr) && mode != USE_EQUIP) continue;
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Skip empty inscriptions */
 		if(!object_ptr->inscription) continue;
@@ -2440,7 +2440,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			object_ptr = &creature_ptr->inventory[i];
 
 			/* Is this item acceptable? */
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 
 			if(!(flags & SHOW_ITEM_INVENTORY) && !item_tester_okay(creature_ptr, object_ptr, hook, 0)) continue;
 			if(!((IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_EQUIPMENT)) || (!IS_EQUIPPED(object_ptr) && (flags & SHOW_ITEM_INVENTORY)))) continue;
@@ -2484,15 +2484,8 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		}
 	}
 
-
-	if(flags & SHOW_ITEM_RIGHT_SET){
-		col = (len > wid - 9) ? 0 : (wid - len - 9);
-	}
-	else
-	{
-		col = 1;
-	}
-
+	if(flags & SHOW_ITEM_RIGHT_SET) col = (len > wid - 9) ? 0 : (wid - len - 9);
+	else col = 1;
 
 	if(!k)
 	{

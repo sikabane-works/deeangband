@@ -514,7 +514,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Valid "tval" codes */
 		switch (object_ptr->tval)
@@ -658,7 +658,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Valid "tval" codes */
 		switch (object_ptr->tval)
@@ -1150,7 +1150,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 		species_type *r_ptr;
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 		if(object_ptr->tval != TV_CAPTURE) continue;
 		if(!object_ptr->pval) continue;
 
@@ -2576,7 +2576,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			if(!IS_EQUIPPED(object_ptr)) continue;
 
 			/* Skip non-objects */
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 
 			/* Extract the item flags */
 			object_flags(object_ptr, flgs);
@@ -2860,7 +2860,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		if(!IS_EQUIPPED(object_ptr)) continue;
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Recharge activatable objects */
 		if(object_ptr->timeout > 0)
@@ -2896,7 +2896,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Examine all charging rods or stacks of charging rods. */
 		if(IS_ROD(object_ptr) && (object_ptr->timeout))
@@ -2941,7 +2941,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		object_type *object_ptr = &object_list[i];
 
 		/* Skip dead objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Recharge rods on the ground.  No messages. */
 		if(IS_ROD(object_ptr) && (object_ptr->timeout))
@@ -3212,7 +3212,7 @@ static byte get_dungeon_feeling(floor_type *floor_ptr)
 		object_kind *kind_ptr = &object_kind_info[object_ptr->k_idx];
 		int delta = 0;
 
-		if(!object_ptr->k_idx) continue; // Skip dead objects
+		if(!is_valid_object(object_ptr)) continue; // Skip dead objects
 		if(!IS_IN_THIS_FLOOR(object_ptr)) continue;
 		if(object_is_known(object_ptr) && object_ptr->marked & OM_TOUCHED) continue; // Skip known objects
 		if(object_ptr->ident & IDENT_SENSE) continue; // Skip pseudo-known objects

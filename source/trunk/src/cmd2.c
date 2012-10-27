@@ -2305,7 +2305,7 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Check the "tval" code */
 		if(object_ptr->tval == TV_SPIKE)

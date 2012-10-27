@@ -225,7 +225,7 @@ static void update_unique_artifact(s16b cur_floor_id)
 		object_type *object_ptr = &object_list[i];
 
 		// Skip dead objects 
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		// Memorize location of the artifact 
 		if(object_is_fixed_artifact(object_ptr))

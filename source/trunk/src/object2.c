@@ -177,7 +177,7 @@ static void compact_objects_aux(int i1, int i2)
 		floor_ptr = GET_FLOOR_PTR(object_ptr);
 
 		/* Skip "dead" objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Repair "next" pointers */
 		if(object_ptr->next_object_idx == i1)
@@ -267,7 +267,7 @@ void compact_objects(int size)
 			object_ptr = &object_list[i];
 
 			/* Skip dead objects */
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 
 			/* Hack -- High level objects start out "immune" */
 			if(object_kind_info[object_ptr->k_idx].level > cur_lev) continue;
@@ -324,7 +324,7 @@ void compact_objects(int size)
 		object_ptr = &object_list[i];
 
 		/* Skip real objects */
-		if(object_ptr->k_idx) continue;
+		if(is_valid_object(object_ptr)) continue;
 
 		/* Move last object into open hole */
 		compact_objects_aux(object_max - 1, i);
@@ -359,7 +359,7 @@ void wipe_object_list(int floor_id)
 		object_type *object_ptr = &object_list[i];
 
 		// Skip dead objects
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 		if(floor_id && object_ptr->floor_id != floor_id) continue;
 
 		/* Mega-Hack -- preserve artifacts */
@@ -438,7 +438,7 @@ s16b object_pop(void)
 		object_ptr = &object_list[i];
 
 		/* Skip live objects */
-		if(object_ptr->k_idx) continue;
+		if(is_valid_object(object_ptr)) continue;
 
 		/* Count objects */
 		object_cnt++;
@@ -3000,7 +3000,7 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	}
 
 	// Examine real objects
-	if(object_ptr->k_idx)
+	if(is_valid_object(object_ptr))
 	{
 		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
 
@@ -4052,7 +4052,7 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 	object_type *object_ptr = &creature_ptr->inventory[item];
 
 	/* Only optimize real items */
-	if(!object_ptr->k_idx) return;
+	if(!is_valid_object(object_ptr)) return;
 
 	/* Only optimize empty items */
 	if(object_ptr->number) return;
@@ -4200,7 +4200,7 @@ void floor_item_optimize(int item)
 	object_type *object_ptr = &object_list[item];
 
 	/* Paranoia -- be sure it exists */
-	if(!object_ptr->k_idx) return;
+	if(!is_valid_object(object_ptr)) return;
 
 	/* Only optimize empty items */
 	if(object_ptr->number) return;
@@ -4661,7 +4661,7 @@ void combine_pack(creature_type *creature_ptr)
 		for (i = INVEN_TOTAL; i > 0; i--)	// Combine the pack (backwards)
 		{
 			object_ptr = &creature_ptr->inventory[i];	// Get the item
-			if(!object_ptr->k_idx) continue;	// Skip empty items
+			if(!is_valid_object(object_ptr)) continue;	// Skip empty items
 
 			/* Scan the items above that item */
 			for (j = 0; j < i; j++)
@@ -4748,7 +4748,7 @@ void reorder_pack(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip empty slots */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Get the "value" of the item */
 		o_value = object_value(object_ptr);

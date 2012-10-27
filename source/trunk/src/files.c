@@ -2218,7 +2218,7 @@ static void display_player_various(creature_type * creature_ptr)
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	/* If the player is wielding one? */
-	if(object_ptr->k_idx)
+	if(is_valid_object(object_ptr))
 	{
 		s16b energy_fire = object_ptr->bow_energy;
 
@@ -2469,7 +2469,7 @@ static void known_obj_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creatur
 		object_ptr = &creature_ptr->inventory[i]; // object
 
 		if(!IS_EQUIPPED(object_ptr)) continue;
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Known flags */
 		object_flags_known(object_ptr, o_flgs);
@@ -6686,7 +6686,7 @@ static void show_info(creature_type *creature_ptr)
 		object_ptr = &creature_ptr->inventory[i];
 
 		/* Skip non-objects */
-		if(!object_ptr->k_idx) continue;
+		if(!is_valid_object(object_ptr)) continue;
 
 		/* Aware and Known */
 		object_aware(object_ptr);
@@ -6704,7 +6704,7 @@ static void show_info(creature_type *creature_ptr)
 			object_ptr = &st_ptr->stock[j];
 
 			// Skip non-objects
-			if(!object_ptr->k_idx) continue;
+			if(!is_valid_object(object_ptr)) continue;
 
 			// Aware and Known
 			object_aware(object_ptr);
