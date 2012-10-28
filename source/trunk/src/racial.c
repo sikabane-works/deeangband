@@ -994,7 +994,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_PALADIN:
 		{
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			cast_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
+			cast_beam_(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE,
 			          dir, plev * 3);
 			break;
 		}
@@ -1158,7 +1158,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 				project_length = 1;
-				cast_beam(creature_ptr, GF_PHOTO, dir, 1);
+				cast_beam_(creature_ptr, GF_PHOTO, dir, 1);
 			}
 			else if(command == -4)
 			{
@@ -1733,7 +1733,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You cast a magic missile.");
 #endif
 
-			cast_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
+			cast_bolt_or_beam_(creature_ptr, 10, GF_MISSILE, dir,
 			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
@@ -2146,7 +2146,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				cast_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
+				cast_beam_(creature_ptr, GF_MISSILE, dir, plev * 2);
 			}
 			else
 			{

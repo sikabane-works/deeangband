@@ -12,44 +12,6 @@
 
 #include "angband.h"
 
-
-// Determine if a beam spell will hit the target.
-static bool direct_beam(creature_type *target_ptr, int y1, int x1, int y2, int x2, creature_type *caster_ptr)
-{
-	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
-	bool hit2 = FALSE;
-	int i, y, x;
-
-	int grid_n = 0;
-	u16b grid_g[512];
-
-	bool friend = is_pet(player_ptr, caster_ptr);
-
-	grid_n = project_path(grid_g, MAX_RANGE, floor_ptr, y1, x1, y2, x2, PROJECT_THRU); // Check the projection path
-	if(!grid_n) return (FALSE); // No grid is ever projectable from itself
-
-	for (i = 0; i < grid_n; i++)
-	{
-		y = GRID_Y(grid_g[i]);
-		x = GRID_X(grid_g[i]);
-
-		if(y == y2 && x == x2)
-			hit2 = TRUE;
-		else if(friend && floor_ptr->cave[y][x].creature_idx > 0 &&
-			 !are_mutual_enemies(caster_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]))
-		{
-			/* Friends don't shoot friends */
-			return FALSE;
-		}
-
-		if(friend && creature_bold(target_ptr, y, x))
-			return FALSE;
-	}
-	if(!hit2)
-		return FALSE;
-	return TRUE;
-}
-
 // Will Delete ?
 static bool breath_direct(creature_type *target_ptr, int y1, int x1, int y2, int x2, int rad, int typ, bool friend)
 {

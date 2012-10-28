@@ -544,27 +544,20 @@ void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool lea
  * Pass through creatures, as a "beam".
  * Affect creatures, grids and objects.
  */
-bool cast_beam(creature_type *caster_ptr, int typ, int dir, int dam)
+bool cast_beam_(creature_type *caster_ptr, int typ, int dir, int dam)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
 	return (project_hook(caster_ptr, typ, dir, dam, flg));
-}
-static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
-{
-	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL | PROJECT_THRU; //TODO PROJECT_PLAYER |
-
-	/* Target the player with a bolt attack */
-	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 /*
  * Cast a bolt spell, or rarely, a beam spell
  */
-bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
+bool cast_bolt_or_beam_(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
 {
 	if(randint0(100) < prob)
 	{
-		return (cast_beam(caster_ptr, typ, dir, dam));
+		return (cast_beam_(caster_ptr, typ, dir, dam));
 	}
 	else
 	{

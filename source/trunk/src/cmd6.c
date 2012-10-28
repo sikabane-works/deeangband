@@ -2863,14 +2863,14 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_MAGIC_MISSILE:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_MISSILE, dir, diceroll(2 + creature_ptr->lev / 10, 6));
+			cast_bolt_or_beam_(creature_ptr, 20, GF_MISSILE, dir, diceroll(2 + creature_ptr->lev / 10, 6));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
+			cast_bolt_or_beam_(creature_ptr, 20, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
@@ -2884,14 +2884,14 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_FIRE_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
+			cast_bolt_or_beam_(creature_ptr, 20, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
+			cast_bolt_or_beam_(creature_ptr, 20, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
@@ -3381,28 +3381,28 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_ACID_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
+			cast_bolt_or_beam_(creature_ptr, 10, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_ELEC, dir, diceroll(4 + creature_ptr->lev / 9, 8));
+			cast_bolt_or_beam_(creature_ptr, 10, GF_ELEC, dir, diceroll(4 + creature_ptr->lev / 9, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
+			cast_bolt_or_beam_(creature_ptr, 10, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
+			cast_bolt_or_beam_(creature_ptr, 10, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}

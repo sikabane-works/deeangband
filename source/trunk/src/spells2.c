@@ -3794,7 +3794,7 @@ void call_chaos(creature_type *creature_ptr)
 			if(dummy - 5)
 			{
 				if(line_chaos)
-					cast_beam(creature_ptr, Chaos_type, dummy, 150);
+					cast_beam_(creature_ptr, Chaos_type, dummy, 150);
 				else
 					cast_ball(creature_ptr, Chaos_type, dummy, 150, 2);
 			}
@@ -3808,7 +3808,7 @@ void call_chaos(creature_type *creature_ptr)
 	{
 		if(!get_aim_dir(creature_ptr, &dir)) return;
 		if(line_chaos)
-			cast_beam(creature_ptr, Chaos_type, dir, 250);
+			cast_beam_(creature_ptr, Chaos_type, dir, 250);
 		else
 			cast_ball(creature_ptr, Chaos_type, dir, 250, 3 + (plev / 35));
 	}

@@ -556,7 +556,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 		case TRAIT_LASER_EYE:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			cast_beam(creature_ptr, GF_LITE, dir, 2 * lvl);
+			cast_beam_(creature_ptr, GF_LITE, dir, 2 * lvl);
 			break;
 
 		case TRAIT_RECALL:
