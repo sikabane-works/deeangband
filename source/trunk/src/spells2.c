@@ -1324,45 +1324,34 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 	int     i, x, y;
 	bool    obvious = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	creature_type *target_ptr;
 
 	for (i = 1; i < creature_max; i++)	// Mark all (nearby) creatures
 	{
-		creature_type *target_ptr = &creature_list[i];
-
+		target_ptr = &creature_list[i];
 		if(!is_valid_creature(target_ptr) || IS_IN_THIS_FLOOR(target_ptr)) continue;	// Paranoia -- Skip dead creatures
 
-		/* Location */
+		// Require line of sight
 		y = target_ptr->fy;
 		x = target_ptr->fx;
-
-		/* Require line of sight */
 		if(!player_has_los_bold(y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
-		/* Mark the creature */
-		target_ptr->mflag |= (MFLAG_TEMP);
+		target_ptr->mflag |= (MFLAG_TEMP);	// Mark the creature
 	}
 
-	/* Affect all marked creatures */
-	for (i = 1; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++)	// Affect all marked creatures
 	{
-		creature_type *target_ptr = &creature_list[i];
+		target_ptr = &creature_list[i];
+		if(!(target_ptr->mflag & (MFLAG_TEMP))) continue;	// Skip unmarked creatures
+		target_ptr->mflag &= ~(MFLAG_TEMP);	// Remove mark
 
-		/* Skip unmarked creatures */
-		if(!(target_ptr->mflag & (MFLAG_TEMP))) continue;
-
-		/* Remove mark */
-		target_ptr->mflag &= ~(MFLAG_TEMP);
-
-		/* Location */
+		// Jump directly to the target creature
 		y = target_ptr->fy;
 		x = target_ptr->fx;
-
-		/* Jump directly to the target creature */
 		if(project(caster_ptr, 0, y, x, dam, typ, PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE, -1)) obvious = TRUE;
 	}
 
-	/* Result */
-	return (obvious);
+	return (obvious);	// Result
 }
 
 
