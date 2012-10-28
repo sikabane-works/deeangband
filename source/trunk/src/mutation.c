@@ -152,34 +152,17 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 		case TRAIT_SPIT_ACID:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("Ž_‚ð“f‚«‚©‚¯‚½...");
-#else
-			msg_print("You spit acid...");
-#endif
-
 			cast_ball(creature_ptr, GF_ACID, dir, lvl, 1 + (lvl / 30));
 			break;
 
 		case TRAIT_BR_FIRE:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 			mutation_stop_mouth(creature_ptr);
-#ifdef JP
-			msg_print("‚ ‚È‚½‚Í‰Î‰Š‚ÌƒuƒŒƒX‚ð“f‚¢‚½...");
-#else
-			msg_print("You breathe fire...");
-#endif
-
 			cast_ball(creature_ptr, GF_FIRE, dir, lvl * 2, 1 + (lvl / 20));
 			break;
 
 		case TRAIT_HYPN_GAZE:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("‚ ‚È‚½‚Ì–Ú‚ÍŒ¶˜f“I‚É‚È‚Á‚½...");
-#else
-			msg_print("Your eyes look mesmerizing...");
-#endif
 			(void)charm_creature(creature_ptr, dir, lvl);
 			break;
 
