@@ -4783,7 +4783,7 @@ void gamble_arena_limitation(void)
 			if(!m_ptr->species_idx) continue;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -5260,20 +5260,20 @@ void process_player(creature_type *creature_ptr)
 					if(!m_ptr->species_idx) continue;
 
 					/* Nice creatures get mean */
-					if(m_ptr->mflag & MFLAG_NICE)
+					if(m_ptr->sc_flag & SC_FLAG_NICE)
 					{
 						/* Nice creatures get mean */
-						m_ptr->mflag &= ~(MFLAG_NICE);
+						m_ptr->sc_flag &= ~(SC_FLAG_NICE);
 					}
 
 					/* Handle memorized creatures */
-					if(m_ptr->mflag2 & MFLAG2_MARK)
+					if(m_ptr->sc_flag2 & SC_FLAG2_MARK)
 					{
 						/* Maintain detection */
-						if(m_ptr->mflag2 & MFLAG2_SHOW)
+						if(m_ptr->sc_flag2 & SC_FLAG2_SHOW)
 						{
 							/* Forget flag */
-							m_ptr->mflag2 &= ~(MFLAG2_SHOW);
+							m_ptr->sc_flag2 &= ~(SC_FLAG2_SHOW);
 
 							/* Still need repairs */
 							repair_creatures = TRUE;
@@ -5283,7 +5283,7 @@ void process_player(creature_type *creature_ptr)
 						else
 						{
 							/* Forget flag */
-							m_ptr->mflag2 &= ~(MFLAG2_MARK);
+							m_ptr->sc_flag2 &= ~(SC_FLAG2_MARK);
 
 							/* Assume invisible */
 							m_ptr->see_others = FALSE;

@@ -1283,7 +1283,7 @@ static void generate_floor_creature_arena(floor_type *floor_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 		if(!m_ptr->species_idx) continue;
-		m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW); // Hack -- Detect creature
+		m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW); // Hack -- Detect creature
 		update_creature_view(player_ptr, i, FALSE); // Update the creature
 	}
 }

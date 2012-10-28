@@ -594,7 +594,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 				    !(has_trait_species(r_ptr, TRAIT_UNIQUE)) &&
 				    !floor_ptr->fight_arena_mode && !floor_ptr->quest &&
 					(r_ptr->level < randint1(creature_ptr->lev+50)) &&
-					!(m_ptr->mflag2 & MFLAG2_NOGENO))
+					!(m_ptr->sc_flag2 & SC_FLAG2_NOGENO))
 				{
 					if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 					{
@@ -621,7 +621,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 					msg_print("Your invocation is ineffectual!");
 #endif
 
-					if(one_in_(13)) m_ptr->mflag2 |= MFLAG2_NOGENO;
+					if(one_in_(13)) m_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
 				}
 			}
 			break;

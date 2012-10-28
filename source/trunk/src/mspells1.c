@@ -1079,7 +1079,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
  * them, or has spells but they will have no "useful" effect.  Note that
  * this function has been an efficiency bottleneck in the past.
  *
- * Note the special "MFLAG_NICE" flag, which prevents a creature from using
+ * Note the special "SC_FLAG_NICE" flag, which prevents a creature from using
  * any spell attacks until the player has had a single chance to move.
  */
 bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
@@ -1137,7 +1137,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Cannot cast spells when nice */
-	if(caster_ptr->mflag & MFLAG_NICE) return (FALSE);
+	if(caster_ptr->sc_flag & SC_FLAG_NICE) return (FALSE);
 	if(!is_hostile(caster_ptr)) return (FALSE);
 
 

@@ -4534,7 +4534,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
@@ -4553,7 +4553,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				obvious = FALSE;
 
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
@@ -4563,7 +4563,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else
 			{
@@ -4617,7 +4617,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 				(!has_trait_species(species_ptr, TRAIT_UNDEAD)) ||
-				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
@@ -4628,7 +4628,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
@@ -4638,7 +4638,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else
 			{
@@ -4692,7 +4692,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 				(!has_trait_species(species_ptr, TRAIT_DEMON)) ||
-				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
@@ -4703,7 +4703,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
@@ -4713,7 +4713,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else
 			{
@@ -4770,7 +4770,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if( has_trait(target_ptr, TRAIT_QUESTOR) ||
 				!has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
@@ -4789,7 +4789,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
@@ -4799,7 +4799,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else
 			{
@@ -4865,7 +4865,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				(target_ptr->mflag2 & MFLAG2_NOPET) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				!creature_living(target_ptr) ||
 				((species_ptr->level+10) > randint1(dam)))
 			{
@@ -4878,7 +4878,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 				obvious = FALSE;
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
 			{
@@ -4888,7 +4888,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " hates you too much!";
 #endif
 
-				if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else
 			{
@@ -5625,7 +5625,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else if(target_ptr->chp < randint0(nokori_hp))
 			{
-				if(target_ptr->mflag2 & MFLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
+				if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
 #ifdef JP
 				msg_format("%s‚ð•ß‚¦‚½I",target_name);
 #else
@@ -5934,12 +5934,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				/* Attempt a saving throw */
 				else if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 					(has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(target_ptr->mflag2 & MFLAG2_NOPET) ||
+					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 					(has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					((species_ptr->level+10) > randint1(dam)))
 				{
 					/* Resist */
-					if(one_in_(4)) target_ptr->mflag2 |= MFLAG2_NOPET;
+					if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 				}
 				else
 				{

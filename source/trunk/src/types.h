@@ -1499,8 +1499,8 @@ struct creature_type
 
 	byte cdis;		// Current dis from player 
 
-	byte mflag;		// Extra creature flags 
-	byte mflag2;	// Extra creature flags 
+	byte sc_flag;		// Extra creature flags 
+	byte sc_flag2;	// Extra creature flags 
 
 	bool see_others;	// Creature is "visible" 
 

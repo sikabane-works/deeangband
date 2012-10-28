@@ -1910,23 +1910,20 @@
 #define OM_AUTODESTROY  0x08    /* Destroy later to avoid illegal inventry shift */
 #define OM_TOUCHED      0x10    /* Object was touched by player */
 
+// Special Creature Flags (all temporary)
+#define SC_FLAG_VIEW      0x01    // Creature is in line of sight
+#define SC_FLAG_TEMP      0x02    // Creature is marked for project_hack()
+#define SC_FLAG_XXX2      0x04    // (unused)
+#define SC_FLAG_XXX3      0x08    // (unused)
+#define SC_FLAG_BORN      0x10    // Creature is still being born
+#define SC_FLAG_NICE      0x20    // Creature is still being nice
 
-/*
- * Special Creature Flags (all temporary)
- */
-#define MFLAG_VIEW      0x01    /* Creature is in line of sight */
-#define MFLAG_TEMP      0x02    /* Creature is marked for project_hack() */
-#define MFLAG_XXX2      0x04    /* (unused) */
-#define MFLAG_XXX3      0x08    /* (unused) */
-#define MFLAG_BORN      0x10    /* Creature is still being born */
-#define MFLAG_NICE      0x20    /* Creature is still being nice */
-
-#define MFLAG2_NOPET     0x02    /* Cannot make creature pet */
-#define MFLAG2_NOGENO    0x04    /* Cannot genocide */
-#define MFLAG2_CHAMELEON 0x08    /* Creature is chameleon */
-#define MFLAG2_NOFLOW    0x10    /* Creature is in no_flow_by_smell mode */
-#define MFLAG2_SHOW      0x20    /* Creature is recently memorized */
-#define MFLAG2_MARK      0x40    /* Creature is currently memorized */
+#define SC_FLAG2_NOPET     0x02    // Cannot make creature pet
+#define SC_FLAG2_NOGENO    0x04    // Cannot genocide
+#define SC_FLAG2_CHAMELEON 0x08    // Creature is chameleon
+#define SC_FLAG2_NOFLOW    0x10    // Creature is in no_flow_by_smell mode
+#define SC_FLAG2_SHOW      0x20    // Creature is recently memorized
+#define SC_FLAG2_MARK      0x40    // Creature is currently memorized
 
 #define TRAIT_FLAG_MAX		((MAX_TRAITS - 1) / 32) + 1
 #define RACE_FLAG_MAX		((MAX_RACES - 1) / 32) + 1

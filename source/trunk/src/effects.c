@@ -2713,7 +2713,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				if(r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
 			}
 	
-			if(target_ptr->mflag2 & MFLAG2_CHAMELEON)
+			if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 			{
 				/* You might have unmasked Chameleon first time */
 				r_ptr = real_species_ptr(target_ptr);
@@ -2917,7 +2917,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			{
 				for (i = 0; i < MAX_BOUNTY; i++)
 				{
-					if((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->mflag2 & MFLAG2_CHAMELEON))
+					if((kubi_species_idx[i] == target_ptr->species_idx) && !(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 					{
 	#ifdef JP
 						msg_format("%s‚Ìñ‚É‚ÍÜ‹à‚ª‚©‚©‚Á‚Ä‚¢‚éB", tar_name);

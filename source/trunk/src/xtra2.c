@@ -663,7 +663,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		}
 	}
 
-	if(dead_ptr->mflag2 & MFLAG2_CHAMELEON)
+	if(dead_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 	{
 		set_new_species(dead_ptr, TRUE, SPECIES_CHAMELEON, MONEGO_NONE);
 		species_ptr = &species_info[dead_ptr->species_idx];

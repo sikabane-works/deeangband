@@ -818,7 +818,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			target_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			target_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -887,7 +887,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -963,7 +963,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -1032,7 +1032,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -1099,7 +1099,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -1166,7 +1166,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -1247,7 +1247,7 @@ cptr desc_creatures = "変なクリーチャー";
 			repair_creatures = TRUE;
 
 			/* Hack -- Detect creature */
-			m_ptr->mflag2 |= (MFLAG2_MARK | MFLAG2_SHOW);
+			m_ptr->sc_flag2 |= (SC_FLAG2_MARK | SC_FLAG2_SHOW);
 
 			/* Update the creature */
 			update_creature_view(player_ptr, i, FALSE);
@@ -1336,14 +1336,14 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		x = target_ptr->fx;
 		if(!player_has_los_bold(y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
-		target_ptr->mflag |= (MFLAG_TEMP);	// Mark the creature
+		target_ptr->sc_flag |= (SC_FLAG_TEMP);	// Mark the creature
 	}
 
 	for (i = 1; i < creature_max; i++)	// Affect all marked creatures
 	{
 		target_ptr = &creature_list[i];
-		if(!(target_ptr->mflag & (MFLAG_TEMP))) continue;	// Skip unmarked creatures
-		target_ptr->mflag &= ~(MFLAG_TEMP);	// Remove mark
+		if(!(target_ptr->sc_flag & (SC_FLAG_TEMP))) continue;	// Skip unmarked creatures
+		target_ptr->sc_flag &= ~(SC_FLAG_TEMP);	// Remove mark
 
 		// Jump directly to the target creature
 		y = target_ptr->fy;
@@ -1489,7 +1489,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
 				sleep = TRUE;
 			}
-			if(!is_pet(player_ptr, m_ptr)) m_ptr->mflag2 |= MFLAG2_NOPET;
+			if(!is_pet(player_ptr, m_ptr)) m_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 		}
 
 		/* Speed up creatures in line of sight */
@@ -1533,7 +1533,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	else if(m_idx == user_ptr->riding) resist = TRUE;
 	else if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
 	else if(player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
-	else if(player_cast && (m_ptr->mflag2 & MFLAG2_NOGENO)) resist = TRUE;
+	else if(player_cast && (m_ptr->sc_flag2 & SC_FLAG2_NOGENO)) resist = TRUE;
 
 	/* Delete the creature */
 	else
@@ -1587,7 +1587,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			}
 			set_hostile(user_ptr, m_ptr);
 		}
-		if(one_in_(13)) m_ptr->mflag2 |= MFLAG2_NOGENO;
+		if(one_in_(13)) m_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
 	}
 
 	if(player_cast)

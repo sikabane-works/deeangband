@@ -5321,7 +5321,7 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 		/* Get the creatures attitude */
 		if(is_friendly(player_ptr, m_ptr)) mode |= PC_FORCE_FRIENDLY;
 		if(is_pet(player_ptr, m_ptr)) mode |= PC_FORCE_PET;
-		if(m_ptr->mflag2 & MFLAG2_NOPET) mode |= PC_NO_PET;
+		if(m_ptr->sc_flag2 & SC_FLAG2_NOPET) mode |= PC_NO_PET;
 
 		//TODO inventory process
 

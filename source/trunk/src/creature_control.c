@@ -673,7 +673,7 @@ species_type *real_species_ptr(creature_type *m_ptr)
 {
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	/* Extract real race */
-	if(m_ptr->mflag2 & MFLAG2_CHAMELEON)
+	if(m_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 	{
 		if(has_trait_species(r_ptr, TRAIT_UNIQUE))
 			return &species_info[SPECIES_CHAMELEON_K];
@@ -1929,7 +1929,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 		if((has_trait_species(species_ptr, TRAIT_UNIQUE)) && !(has_trait(player_ptr, TRAIT_HALLUCINATION) && !(mode & CD_IGNORE_HALLU)))
 		{
 			/* Start with the name (thus nominative and objective) */
-			if((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && !(mode & CD_TRUE_NAME))
+			if((creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) && !(mode & CD_TRUE_NAME))
 			{
 #ifdef JP
 				char *t;
@@ -2029,7 +2029,7 @@ void creature_desc(char *desc, creature_type *creature_ptr, int mode)
 #endif
 		}
 
-		if((mode & CD_IGNORE_HALLU) && (creature_ptr->mflag2 & MFLAG2_CHAMELEON))
+		if((mode & CD_IGNORE_HALLU) && (creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON))
 		{
 			if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 			{
@@ -2488,13 +2488,13 @@ msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
  * erasing) the creature when its visibility changes, and taking note
  * of any interesting creature flags (cold-blooded, invisible, etc).
  *
- * Note the new "mflag" field which encodes several creature state flags,
+ * Note the new "sc_flag" field which encodes several creature state flags,
  * including "view" for when the creature is currently in line of sight,
  * and "mark" for when the creature is currently visible via detection.
  *
  * The only creature fields that are changed here are "cdis" (the
  * distance from the player), "ml" (visible to the player), and
- * "mflag" (to maintain the "MFLAG_VIEW" flag).
+ * "sc_flag" (to maintain the "SC_FLAG_VIEW" flag).
  *
  * Note the special "update_creatures()" function which can be used to
  * call this function once for every creature.
@@ -2598,7 +2598,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 
 
 	/* Detected */
-	if(target_ptr->mflag2 & (MFLAG2_MARK)) flag = TRUE;
+	if(target_ptr->sc_flag2 & (SC_FLAG2_MARK)) flag = TRUE;
 
 
 	/* Nearby */
@@ -2888,10 +2888,10 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	if(easy)
 	{
 		/* Change */
-		if(!(target_ptr->mflag & (MFLAG_VIEW)))
+		if(!(target_ptr->sc_flag & (SC_FLAG_VIEW)))
 		{
 			/* Mark as easily visible */
-			target_ptr->mflag |= (MFLAG_VIEW);
+			target_ptr->sc_flag |= (SC_FLAG_VIEW);
 
 			/* Disturb on appearance */
 			if(do_disturb)
@@ -2906,11 +2906,11 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 	else
 	{
 		/* Change */
-		if(target_ptr->mflag & (MFLAG_VIEW))
+		if(target_ptr->sc_flag & (SC_FLAG_VIEW))
 
 		{
 			/* Mark as not easily visible */
-			target_ptr->mflag &= ~(MFLAG_VIEW);
+			target_ptr->sc_flag &= ~(SC_FLAG_VIEW);
 
 			/* Disturb on disappearance */
 			if(do_disturb)
@@ -3728,7 +3728,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	{
 		set_new_species(&creature_list[c_ptr->creature_idx], TRUE, 0, MONEGO_NONE);
 		r_ptr = &species_info[creature_ptr->species_idx];
-		creature_ptr->mflag2 |= MFLAG2_CHAMELEON;
+		creature_ptr->sc_flag2 |= SC_FLAG2_CHAMELEON;
 
 		/* Hack - Set sub_align to neutral when the Chameleon Lord is generated as "GUARDIAN" */
 		if(summoner_ptr && (has_trait_species(r_ptr, TRAIT_UNIQUE)) && is_player(summoner_ptr))
@@ -3740,7 +3740,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 		get_acquired_trait(creature_ptr, TRAIT_KAGE);
 	}
 
-	if(mode & PC_NO_PET) creature_ptr->mflag2 |= MFLAG2_NOPET;
+	if(mode & PC_NO_PET) creature_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 	else if(summoner_ptr) set_pet(summoner_ptr, creature_ptr); // Pet?
 
 	// TODO reimpelment Friendly Creature.
@@ -3762,7 +3762,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(has_trait(creature_ptr, TRAIT_FORCE_SLEEP) && !curse_of_Iluvatar)
 	{
 		/* Creature is still being nice */
-		creature_ptr->mflag |= (MFLAG_NICE);
+		creature_ptr->sc_flag |= (SC_FLAG_NICE);
 
 		/* Must repair creatures */
 		repair_creatures = TRUE;
@@ -3772,7 +3772,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(c_ptr->creature_idx < hack_m_idx)
 	{
 		/* Creature is still being born */
-		creature_ptr->mflag |= (MFLAG_BORN);
+		creature_ptr->sc_flag |= (SC_FLAG_BORN);
 	}
 
 /*TODO
@@ -4277,7 +4277,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 
 	m_idx = floor_ptr->cave[y][x].creature_idx;
 
-	if(creature_list[m_idx].mflag2 & MFLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
+	if(creature_list[m_idx].sc_flag2 & SC_FLAG2_CHAMELEON) r_ptr = &species_info[creature_list[m_idx].species_idx];
 	//summon_kin_type = r_ptr->d_char;
 
 	for (attempts = randint1(10) + 5; attempts; attempts--)
@@ -4504,7 +4504,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	if(!creature_scatter(creature_ptr->species_idx, &y, &x, floor_ptr, creature_ptr->fy, creature_ptr->fx, 1))
 		return FALSE;
 
-	if(creature_ptr->mflag2 & MFLAG2_NOPET) mode |= PC_NO_PET;
+	if(creature_ptr->sc_flag2 & SC_FLAG2_NOPET) mode |= PC_NO_PET;
 
 	/* Create a new creature (awake, no groups) */
 	if(!place_creature_species(creature_ptr, floor_ptr, y, x, creature_ptr->species_idx, (mode | PC_NO_KAGE | PC_MULTIPLY)))
@@ -4514,7 +4514,7 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 	if(clone || (creature_ptr->smart & SM_CLONED))
 	{
 		creature_list[hack_m_idx_ii].smart |= SM_CLONED;
-		creature_list[hack_m_idx_ii].mflag2 |= MFLAG2_NOPET;
+		creature_list[hack_m_idx_ii].sc_flag2 |= SC_FLAG2_NOPET;
 	}
 
 	return TRUE;

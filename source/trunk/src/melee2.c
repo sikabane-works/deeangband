@@ -716,7 +716,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			if(!creature_can_cross_terrain(m_ptr, c_ptr->feat, (m_idx == avoid_target_ptr->riding) ? CEM_RIDING : 0)) continue;
 
 			/* Check for "availability" (if creatures can flow) */
-			if(!(m_ptr->mflag2 & MFLAG2_NOFLOW))
+			if(!(m_ptr->sc_flag2 & SC_FLAG2_NOFLOW))
 			{
 				/* Ignore grids very far from the player */
 				if(c_ptr->dist == 0) continue;
@@ -848,7 +848,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	bool         done = FALSE;
 	bool         will_run = mon_will_run(player_ptr, m_idx);
 	cave_type    *c_ptr;
-	bool         no_flow = ((nonplayer_ptr->mflag2 & MFLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
+	bool         no_flow = ((nonplayer_ptr->sc_flag2 & SC_FLAG2_NOFLOW) && (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].cost > 2));
 	bool         can_pass_wall = (has_trait(nonplayer_ptr, TRAIT_BASH_DOOR) && ((m_idx != player_ptr->riding) || has_trait(player_ptr, TRAIT_PASS_WALL)));
 
 	/* Counter attack to an enemy creature */
@@ -1574,7 +1574,7 @@ static void process_nonplayer(int m_idx)
 		}
 	}
 
-	if((creature_ptr->mflag2 & MFLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
+	if((creature_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) && one_in_(13) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
 	{
 		set_new_species(creature_ptr, FALSE, 0, MONEGO_NONE);
 		species_ptr = &species_info[creature_ptr->species_idx];
@@ -2370,7 +2370,7 @@ static void process_nonplayer(int m_idx)
 			/* Possible disturb */
 			if(creature_ptr->see_others &&
 			    (disturb_move ||
-			     (disturb_near && (creature_ptr->mflag & MFLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
+			     (disturb_near && (creature_ptr->sc_flag & SC_FLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
 			     (disturb_high && ap_species_ptr->r_tkills && ap_species_ptr->level >= player_ptr->lev)))
 			{
 				/* Disturb */
@@ -2497,7 +2497,7 @@ static void process_nonplayer(int m_idx)
 	 *  Try to flow by smell.
 	 */
 	if(player_ptr->no_flowed && i > 2 &&  creature_ptr->target_y)
-		creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
+		creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 
 	/* If we haven't done anything, try casting a spell again */
 	if(!do_turn && !do_move && !creature_ptr->timed_trait[TRAIT_AFRAID] && !is_riding_mon && aware)
@@ -2568,16 +2568,16 @@ static void process_creature(int i)
 	if(!is_player(creature_ptr) && floor_ptr->wild_mode) return;
 
 	// Handle "fresh" creatures
-	if(creature_ptr->mflag & MFLAG_BORN)
+	if(creature_ptr->sc_flag & SC_FLAG_BORN)
 	{
-		creature_ptr->mflag &= ~(MFLAG_BORN);
+		creature_ptr->sc_flag &= ~(SC_FLAG_BORN);
 		return;
 	}
 
 	if(creature_ptr->cdis >= AAF_LIMIT) return; // Hack -- Require proximity
 
 	// Flow by smell is allowed
-	if(!player_ptr->no_flowed) creature_ptr->mflag2 &= ~MFLAG2_NOFLOW;
+	if(!player_ptr->no_flowed) creature_ptr->sc_flag2 &= ~SC_FLAG2_NOFLOW;
 
 	if(is_player(creature_ptr) && creature_ptr->hear_noise && !ignore_unview)
 	{
@@ -2622,7 +2622,7 @@ static void process_creature(int i)
 	reset_target(creature_ptr);
 
 	// Give up flow_by_smell when it might useless
-	if(player_ptr->no_flowed && one_in_(3)) creature_ptr->mflag2 |= MFLAG2_NOFLOW;
+	if(player_ptr->no_flowed && one_in_(3)) creature_ptr->sc_flag2 |= SC_FLAG2_NOFLOW;
 
 	return;
 }
@@ -2648,12 +2648,12 @@ static void process_creature(int i)
  * Most of the rest of the time is spent in "update_view()" and "lite_spot(floor_ptr, )",
  * especially when the player is running.
  *
- * Note the special "MFLAG_BORN" flag, which allows us to ignore "fresh"
+ * Note the special "SC_FLAG_BORN" flag, which allows us to ignore "fresh"
  * creatures while they are still being "born".  A creature is "fresh" only
  * during the turn in which it is created, and we use the "hack_m_idx" to
  * determine if the creature is yet to be processed during the current turn.
  *
- * Note the special "MFLAG_NICE" flag, which allows the player to get one
+ * Note the special "SC_FLAG_NICE" flag, which allows the player to get one
  * move before any "nasty" creatures get to use their spell attacks.
  *
  * Note that when the "knowledge" about the currently tracked creature
