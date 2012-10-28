@@ -1322,47 +1322,43 @@ bool detect_all(creature_type *creature_ptr, int range)
 bool project_hack(creature_type *caster_ptr, int typ, int dam)
 {
 	int     i, x, y;
-	int     flg = PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE;
 	bool    obvious = FALSE;
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
-
-	/* Mark all (nearby) creatures */
-	for (i = 1; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++)	// Mark all (nearby) creatures
 	{
-		creature_type *m_ptr = &creature_list[i];
+		creature_type *target_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead creatures */
-		if(!m_ptr->species_idx) continue;
+		if(!is_valid_creature(target_ptr) || IS_IN_THIS_FLOOR(target_ptr)) continue;	// Paranoia -- Skip dead creatures
 
 		/* Location */
-		y = m_ptr->fy;
-		x = m_ptr->fx;
+		y = target_ptr->fy;
+		x = target_ptr->fx;
 
 		/* Require line of sight */
 		if(!player_has_los_bold(y, x) || !projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
 		/* Mark the creature */
-		m_ptr->mflag |= (MFLAG_TEMP);
+		target_ptr->mflag |= (MFLAG_TEMP);
 	}
 
 	/* Affect all marked creatures */
 	for (i = 1; i < creature_max; i++)
 	{
-		creature_type *m_ptr = &creature_list[i];
+		creature_type *target_ptr = &creature_list[i];
 
 		/* Skip unmarked creatures */
-		if(!(m_ptr->mflag & (MFLAG_TEMP))) continue;
+		if(!(target_ptr->mflag & (MFLAG_TEMP))) continue;
 
 		/* Remove mark */
-		m_ptr->mflag &= ~(MFLAG_TEMP);
+		target_ptr->mflag &= ~(MFLAG_TEMP);
 
 		/* Location */
-		y = m_ptr->fy;
-		x = m_ptr->fx;
+		y = target_ptr->fy;
+		x = target_ptr->fx;
 
 		/* Jump directly to the target creature */
-		if(project(caster_ptr, 0, y, x, dam, typ, flg, -1)) obvious = TRUE;
+		if(project(caster_ptr, 0, y, x, dam, typ, PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE, -1)) obvious = TRUE;
 	}
 
 	/* Result */
@@ -4063,14 +4059,10 @@ void wall_breaker(creature_type *creature_ptr)
 		while (attempts--)
 		{
 			scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
-
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
-
 			if(!creature_bold(creature_ptr, y, x)) break;
 		}
-
-		project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL,
-				  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+		project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 	}
 	else if(randint1(100) > 30)
 	{
@@ -4085,12 +4077,9 @@ void wall_breaker(creature_type *creature_ptr)
 			while (1)
 			{
 				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 10, 0);
-
 				if(!creature_bold(creature_ptr, y, x)) break;
 			}
-
-			project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL,
-					  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+			project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 		}
 	}
 }
