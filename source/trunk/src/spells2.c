@@ -3679,30 +3679,25 @@ bool door_creation(creature_type *caster_ptr)
 
 bool trap_creation(creature_type *caster_ptr, int y, int x)
 {
-	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(caster_ptr, 1, y, x, 0, GF_MAKE_TRAP, flg, -1));
+	return (project(caster_ptr, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool tree_creation(creature_type *caster_ptr)
 {
-	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_TREE, flg, -1));
+	return (project(0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool glyph_creation(creature_type *creature_ptr)
 {
-	int flg = PROJECT_GRID | PROJECT_ITEM;
-	return (project(0, 1, creature_ptr->fy, creature_ptr->fx, 0, GF_MAKE_GLYPH, flg, -1));
+	return (project(0, 1, creature_ptr->fy, creature_ptr->fx, 0, GF_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1));
 }
 
 
 bool wall_stone(creature_type *caster_ptr)
 {
-	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-
-	bool dummy = (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, flg, -1));
+	bool dummy = (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 
 	/* Update stuff */
 	update |= (PU_FLOW);
@@ -3716,22 +3711,19 @@ bool wall_stone(creature_type *caster_ptr)
 
 bool destroy_doors_touch(creature_type *caster_ptr)
 {
-	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE;
-	return (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, flg, -1));
+	return (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool sleep_creatures_touch(creature_type *creature_ptr)
 {
-	int flg = PROJECT_KILL | PROJECT_HIDE;
-	return (project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, GF_OLD_SLEEP, flg, -1));
+	return (project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, GF_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
 
 bool animate_dead(creature_type *creature_ptr, int y, int x)
 {
-	int flg = PROJECT_ITEM | PROJECT_HIDE;
-	return (project(creature_ptr, 5, y, x, 0, GF_ANIM_DEAD, flg, -1));
+	return (project(creature_ptr, 5, y, x, 0, GF_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
@@ -3793,7 +3785,6 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int     i = 0, j;
-	int flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 
 	j = randint1(34);
 	do
@@ -3823,7 +3814,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-				project(0, 8, creature_ptr->fy, creature_ptr->fx, dam, GF_MANA, flg, -1);
+				project(0, 8, creature_ptr->fy, creature_ptr->fx, dam, GF_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
 #else
@@ -3855,7 +3846,7 @@ msg_print("エネルギーのうねりを感じた！");
 			wall_breaker(creature_ptr);
 			if(!randint0(7))
 			{
-				project(0, 7, creature_ptr->fy, creature_ptr->fx, 50, GF_KILL_WALL, flg, -1);
+				project(0, 7, creature_ptr->fy, creature_ptr->fx, 50, GF_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
 #else
