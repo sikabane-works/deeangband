@@ -3184,7 +3184,7 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 		if(object_ptr->number > 1)
 		{
 #ifdef JP
-msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
+			msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 #else
 			msg_print("These wands are already fully charged.");
 #endif
@@ -3192,7 +3192,7 @@ msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 		else
 		{
 #ifdef JP
-msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
+			msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 #else
 			msg_print("This wand is already fully charged.");
 #endif
@@ -3204,7 +3204,7 @@ msg_print("‚±‚Ì–‚–@–_‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 		if(object_ptr->number > 1)
 		{
 #ifdef JP
-msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
+			msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 #else
 			msg_print("These staffs are already fully charged.");
 #endif
@@ -3212,7 +3212,7 @@ msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 		else
 		{
 #ifdef JP
-msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
+			msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 #else
 			msg_print("This staff is already fully charged.");
 #endif
@@ -3220,12 +3220,12 @@ msg_print("‚±‚Ìñ‚Í‚à‚¤[•ª‚É[“U‚³‚ê‚Ä‚¢‚Ü‚·B");
 		return;
 	}
 
-	/* Check if the player has enough money */
+	// Check if the player has enough money
 	if(creature_ptr->au < price)
 	{
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
 #ifdef JP
-msg_format("%s‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", tmp_str,price );
+		msg_format("%s‚ðÄ[“U‚·‚é‚É‚Í%d •K—v‚Å‚·I", tmp_str,price );
 #else
 		msg_format("You need %d gold to recharge %s!", price, tmp_str);
 #endif
@@ -3244,8 +3244,7 @@ if(get_check(format("‚»‚Ìƒƒbƒh‚ð%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H",
 #endif
 
 		{
-			/* Recharge fully */
-			object_ptr->timeout = 0;
+			object_ptr->timeout = 0;	// Recharge fully
 		}
 		else
 		{

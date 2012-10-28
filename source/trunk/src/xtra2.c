@@ -3174,44 +3174,32 @@ bool target_set(creature_type *aimer_ptr, int mode)
 bool get_aim_dir(creature_type *creature_ptr, int *dp)
 {
 	int		dir;
-
 	char	command;
-
 	cptr	p;
 
-	/* Initialize */
-	(*dp) = 0;
+	(*dp) = 0;	// Initialize
+	dir = command_dir;	// Global direction
+	if(use_old_target && target_okay(creature_ptr)) dir = 5;	// Hack -- auto-target if requested
 
-	/* Global direction */
-	dir = command_dir;
-
-	/* Hack -- auto-target if requested */
-	if(use_old_target && target_okay(creature_ptr)) dir = 5;
-
-	if(repeat_pull(dp))
+	if(repeat_pull(dp))	// Confusion?
 	{
-		/* Confusion? */
-
-		/* Verify */
-		if(!(*dp == 5 && !target_okay(creature_ptr)))
+		if(!(*dp == 5 && !target_okay(creature_ptr)))	// Verify
 		{
-			/*			return (TRUE); */
+			// return (TRUE);
 			dir = *dp;
 		}
 	}
 
-	/* Ask until satisfied */
-	while (!dir)
+	while (!dir)	// Ask until satisfied
 	{
-		/* Choose a prompt */
-		if(!target_okay(creature_ptr))
+		
+		if(!target_okay(creature_ptr))	// Choose a prompt
 		{
 #ifdef JP
 			p = "方向 ('*'でターゲット選択, ESCで中断)? ";
 #else
 			p = "Direction ('*' to choose a target, Escape to cancel)? ";
 #endif
-
 		}
 		else
 		{
@@ -3220,16 +3208,12 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 #else
 			p = "Direction ('5' for target, '*' to re-target, Escape to cancel)? ";
 #endif
-
 		}
 
 		/* Get a command (or Cancel) */
 		if(!get_com(p, &command, TRUE)) break;
 
-		if(use_menu)
-		{
-			if(command == '\r') command = 't';
-		}  
+		if(use_menu) if(command == '\r') command = 't';
 
 		/* Convert various keys to "standard" keys */
 		switch (command)
@@ -3256,7 +3240,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 
 		default:
 			{
-				/* Extract the action (if any) */
+				// Extract the action (if any)
 				dir = get_keymap_dir(command);
 
 				break;

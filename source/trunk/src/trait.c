@@ -1100,7 +1100,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BR_ELEC:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(y, x, caster_ptr, GF_ELEC, damage, 5, TRUE, TRAIT_BR_ELEC, learnable);
+		breath(y, x, caster_ptr, GF_ELEC, damage, 2, TRUE, TRAIT_BR_ELEC, learnable);
 		update_smart_learn(caster_ptr, DRS_ELEC);
 		break;
 
