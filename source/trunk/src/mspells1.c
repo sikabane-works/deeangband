@@ -495,21 +495,18 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
 {
 	int tx, ty;
 
-	/* Pass through the target if needed */
-	flg |= (PROJECT_THRU);
+	flg |= (PROJECT_THRU);	// Pass through the target if needed
 
-	/* Use the given direction */
+	// Hack -- Use an actual "target"
 	tx = caster_ptr->fx + ddx[dir];
 	ty = caster_ptr->fy + ddy[dir];
-
-	/* Hack -- Use an actual "target" */
 	if((dir == 5) && target_okay(caster_ptr))
 	{
 		tx = target_col;
 		ty = target_row;
 	}
 
-	/* Analyze the "dir" and the "target", do NOT explode */
+	// Analyze the "dir" and the "target", do NOT explode
 	return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
 }
 
