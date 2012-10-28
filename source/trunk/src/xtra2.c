@@ -2677,27 +2677,18 @@ bool target_set(creature_type *aimer_ptr, int mode)
 	int		x = aimer_ptr->fx;
 
 	bool	done = FALSE;
-
 	bool	flag = TRUE;
-
 	char	query;
-
 	char	info[80];
 
-	cave_type		*c_ptr;
+	cave_type *c_ptr;
 
 	int wid, hgt;
 
+	get_screen_size(&wid, &hgt);	// Get size
+	target_who = 0;	// Cancel target
 
-	/* Get size */
-	get_screen_size(&wid, &hgt);
-
-	/* Cancel target */
-	target_who = 0;
-
-
-	/* Cancel tracking */
-	/* health_track(0); */
+	//TODO health_track(0);	// Cancel tracking
 
 
 	/* Prepare the "temp" array */
@@ -3210,48 +3201,34 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 #endif
 		}
 
-		/* Get a command (or Cancel) */
-		if(!get_com(p, &command, TRUE)) break;
-
+		if(!get_com(p, &command, TRUE)) break;	// Get a command (or Cancel)
 		if(use_menu) if(command == '\r') command = 't';
 
-		/* Convert various keys to "standard" keys */
-		switch (command)
+		switch (command) // Convert various keys to "standard" keys
 		{
-			/* Use current target */
+		// Use current target
 		case 'T':
 		case 't':
 		case '.':
 		case '5':
 		case '0':
-			{
-				dir = 5;
-				break;
-			}
+			dir = 5;
+			break;
 
-			/* Set new target */
+		// Set new target
 		case '*':
 		case ' ':
 		case '\r':
-			{
-				if(target_set(creature_ptr, TARGET_KILL)) dir = 5;
-				break;
-			}
+			if(target_set(creature_ptr, TARGET_KILL)) dir = 5;
+			break;
 
 		default:
-			{
-				// Extract the action (if any)
-				dir = get_keymap_dir(command);
-
-				break;
-			}
+			dir = get_keymap_dir(command);	// Extract the action (if any)
+			break;
 		}
 
-		/* Verify requested targets */
-		if((dir == 5) && !target_okay(creature_ptr)) dir = 0;
-
-		/* Error */
-		if(!dir) bell();
+		if((dir == 5) && !target_okay(creature_ptr)) dir = 0;	// Verify requested targets
+		if(!dir) bell();	// Error
 	}
 
 	/* No direction */
