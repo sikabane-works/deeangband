@@ -494,15 +494,15 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
  */
 void bolt(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_PLAYER | PROJECT_REFLECTABLE;
-
+	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE; //TODO PROJECT_PLAYER |
+//PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL
 	/* Target the player with a bolt attack */
 	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
-	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_THRU | PROJECT_PLAYER;
+	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL | PROJECT_THRU; //TODO PROJECT_PLAYER |
 
 	/* Target the player with a bolt attack */
 	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
@@ -516,7 +516,7 @@ static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
  */
 void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable)
 {
-	int flg = PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_PLAYER;
+	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL; //TODO | PROJECT_PLAYER;
 
 	// Determine the radius of the blast
 	if((rad < 1) && breath) rad = has_trait(caster_ptr, TRAIT_POWERFUL) ? 3 : 2;
