@@ -1530,7 +1530,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		command_arg = 0; // Cancel the arg
 	}
 
-	if(get_rep_dir(creature_ptr, &dir,FALSE)) // Get a direction to tunnel, or Abort
+	if(get_rep_dir(creature_ptr, &dir, FALSE)) // Get a direction to tunnel, or Abort
 	{
 		// Get location
 		y = creature_ptr->fy + ddy[dir];

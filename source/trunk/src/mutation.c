@@ -180,7 +180,6 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #else
 			msg_print("Your eyes look mesmerizing...");
 #endif
-
 			(void)charm_creature(creature_ptr, dir, lvl);
 			break;
 
@@ -191,7 +190,6 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #else
 			msg_print("You concentrate...");
 #endif
-
 			fetch(creature_ptr, dir, lvl * 10, TRUE);
 			break;
 
@@ -201,7 +199,6 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #else
 			msg_print("You concentrate...");
 #endif
-
 			teleport_player(creature_ptr, 10 + 4 * lvl, 0L);
 			break;
 
@@ -212,17 +209,10 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 #else
 			msg_print("You concentrate...");
 #endif
-
 			cast_bolt_(creature_ptr, GF_PSI, dir, diceroll(3 + ((lvl - 1) / 5), 3));
 			break;
 
 		case TRAIT_RADIATION:
-#ifdef JP
-			msg_print("‘Ì‚©‚ç•úË”\‚ª”­¶‚µ‚½I");
-#else
-			msg_print("Radiation flows from your body!");
-#endif
-
 			cast_ball(creature_ptr, GF_NUKE, 0, (lvl * 2), 3 + (lvl / 20));
 			break;
 
