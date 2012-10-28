@@ -2801,78 +2801,16 @@ static void castle_quest(creature_type *creature_ptr)
  */
 static void town_history(void)
 {
-	/* Save screen */
-	screen_save();
+	screen_save();	// Save screen
 
 	/* Peruse the building help file */
 #ifdef JP
-(void)show_file(TRUE, "jbldg.txt", NULL, 0, 0);
+	(void)show_file(TRUE, "jbldg.txt", NULL, 0, 0);
 #else
 	(void)show_file(TRUE, "bldg.txt", NULL, 0, 0);
 #endif
 
-
-	/* Load screen */
-	screen_load();
-}
-
-/*
- * Displays all info about a weapon
- *
- * Only accurate for the current weapon, because it includes
- * various info about the player's +to_damageam and number of blows.
- */
-static void list_weapon(creature_type *creature_ptr, object_type *object_ptr, int row, int col)
-{
-	char object_name[MAX_NLEN];
-	char tmp_str[80];
-
-	/* Effective dices */
-	int eff_dd = object_ptr->dd + creature_ptr->to_damaged[0];
-	int eff_ds = object_ptr->ds + creature_ptr->to_damages[0];
-
-	/* Print the weapon name */
-	object_desc(object_name, object_ptr, OD_NAME_ONLY);
-	c_put_str(TERM_YELLOW, object_name, row, col);
-
-	put_str(tmp_str, row+1, col);
-
-	/* Print to_hit and to_damageam of the weapon */
-#ifdef JP
-sprintf(tmp_str, "–½’†—¦:  0  50 100 150 200 (“G‚ÌAC)");
-#else
-sprintf(tmp_str, "To Hit:  0  50 100 150 200 (AC)");
-#endif
-
-	put_str(tmp_str, row+2, col);
-
-	/* Print the weapons base damage dice */
-#ifdef JP
-sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", melee_hit_chance(creature_ptr, object_ptr->to_hit, 0), melee_hit_chance(creature_ptr, object_ptr->to_hit, 50), melee_hit_chance(creature_ptr, object_ptr->to_hit, 100), melee_hit_chance(creature_ptr, object_ptr->to_hit, 150), melee_hit_chance(creature_ptr, object_ptr->to_hit, 200));
-#else
-sprintf(tmp_str, "        %2d  %2d  %2d  %2d  %2d (%%)", melee_hit_chance(creature_ptr, object_ptr->to_hit, 0), melee_hit_chance(creature_ptr, object_ptr->to_hit, 50), melee_hit_chance(creature_ptr, object_ptr->to_hit, 100), melee_hit_chance(creature_ptr, object_ptr->to_hit, 150), melee_hit_chance(creature_ptr, object_ptr->to_hit, 200));
-#endif
-
-	put_str(tmp_str, row+3, col);
-
-#ifdef JP
-c_put_str(TERM_YELLOW, "‰Â”\‚Èƒ_ƒ[ƒW:", row+5, col);
-#else
-	c_put_str(TERM_YELLOW, "Possible Damage:", row+5, col);
-#endif
-
-
-	/* Damage for one blow (if it hits) */
-#ifdef JP
-sprintf(tmp_str, "UŒ‚ˆê‰ñ‚É‚Â‚« %d-%d",
-#else
-	sprintf(tmp_str, "One Strike: %d-%d damage",
-#endif
-
-	    eff_dd + object_ptr->to_damage + creature_ptr->to_damage[0],
-	    eff_ds * eff_dd + object_ptr->to_damage + creature_ptr->to_damage[0]);
-	put_str(tmp_str, row+6, col+1);
-
+	screen_load();	// Load screen
 }
 
 // Hook to specify "ammo"
