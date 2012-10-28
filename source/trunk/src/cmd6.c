@@ -3010,7 +3010,7 @@ msg_print("ロケットを発射した！");
 
 		case SV_WAND_STRIKING:
 		{
-			cast_bolt(creature_ptr, GF_METEOR, dir, diceroll(15 + creature_ptr->lev / 3, 13));
+			cast_bolt_(creature_ptr, GF_METEOR, dir, diceroll(15 + creature_ptr->lev / 3, 13));
 			ident = TRUE;
 			break;
 		}
@@ -3725,7 +3725,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		case 9:
 		case 10:
 		{
-			cast_bolt(creature_ptr, GF_MANA, dir, 500);		// Mana Bolt
+			cast_bolt_(creature_ptr, GF_MANA, dir, 500);		// Mana Bolt
 			break;
 		}
 	}

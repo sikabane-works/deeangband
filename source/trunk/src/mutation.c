@@ -213,7 +213,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 			msg_print("You concentrate...");
 #endif
 
-			cast_bolt(creature_ptr, GF_PSI, dir, diceroll(3 + ((lvl - 1) / 5), 3));
+			cast_bolt_(creature_ptr, GF_PSI, dir, diceroll(3 + ((lvl - 1) / 5), 3));
 			break;
 
 		case TRAIT_RADIATION:
@@ -646,7 +646,7 @@ bool mutation_power_aux(creature_type *creature_ptr, u32b power)
 
 					break;
 				}
-				cast_bolt(creature_ptr, GF_COLD, dir, 2 * lvl);
+				cast_bolt_(creature_ptr, GF_COLD, dir, 2 * lvl);
 			}
 			break;
 

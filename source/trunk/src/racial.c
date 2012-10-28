@@ -1674,7 +1674,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You throw a huge boulder.");
 #endif
 
-			cast_bolt(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
+			cast_bolt_(creature_ptr, GF_MISSILE, dir, (3 * plev) / 2);
 			break;
 
 		case RACE_YEEK:
@@ -1698,7 +1698,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You spit acid.");
 #endif
 
-			if(plev < 25) cast_bolt(creature_ptr, GF_ACID, dir, plev);
+			if(plev < 25) cast_bolt_(creature_ptr, GF_ACID, dir, plev);
 			else cast_ball(creature_ptr, GF_ACID, dir, plev, 2);
 			break;
 
@@ -1710,7 +1710,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You throw a dart of poison.");
 #endif
 
-			cast_bolt(creature_ptr, GF_POIS, dir, plev);
+			cast_bolt_(creature_ptr, GF_POIS, dir, plev);
 			break;
 
 		case RACE_NIBELUNG:
@@ -1953,7 +1953,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You concentrate and your eyes glow red...");
 #endif
 
-			cast_bolt(creature_ptr, GF_PSI, dir, plev);
+			cast_bolt_(creature_ptr, GF_PSI, dir, plev);
 			break;
 
 		case RACE_IMP:
@@ -1976,7 +1976,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You cast a bolt of fire.");
 #endif
 
-				cast_bolt(creature_ptr, GF_FIRE, dir, plev);
+				cast_bolt_(creature_ptr, GF_FIRE, dir, plev);
 			}
 			break;
 
@@ -2119,7 +2119,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your ray gun.");
 #endif
-				cast_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
+				cast_bolt_(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
 			}
 			else if(plev < 25)
 			{
@@ -2128,7 +2128,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your blaster.");
 #endif
-				cast_bolt(creature_ptr, GF_MISSILE, dir, plev);
+				cast_bolt_(creature_ptr, GF_MISSILE, dir, plev);
 			}
 			else if(plev < 35)
 			{

@@ -1257,7 +1257,7 @@ extern bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int 
 extern bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad);
 extern bool fire_meteor(int who, int typ, int x, int y, int dam, int rad);
-extern bool cast_bolt(creature_type *caster_ptr, int typ, int dir, int dam);
+extern bool cast_bolt_(creature_type *caster_ptr, int typ, int dir, int dam);
 extern bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int num, int dev);
 extern void call_chaos(creature_type *creature_ptr);
 extern bool cast_beam(creature_type *caster_ptr, int typ, int dir, int dam);
@@ -1571,7 +1571,7 @@ extern void msg_warning(cptr message, ...);
 
 /* mspells1.c */
 extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend);
-extern void bolt(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable);
+extern void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool learnable);
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);

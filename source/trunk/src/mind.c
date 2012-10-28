@@ -1277,7 +1277,7 @@ msg_format("There are too many mirrors to control!");
 	    cast_beam(creature_ptr, GF_LITE, dir,diceroll(3+((plev-1)/5),4));
 	  }
 	  else {
-	    cast_bolt(creature_ptr, GF_LITE, dir,diceroll(3+((plev-1)/5),4));
+	    cast_bolt_(creature_ptr, GF_LITE, dir,diceroll(3+((plev-1)/5),4));
 	  }
 	  break;
 	/* warped mirror */
