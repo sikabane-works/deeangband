@@ -710,7 +710,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			int num = 1;
 			int i;
-			int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 			int tx, ty;
 
 			// Use the given direction
@@ -733,7 +732,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, caster_ptr->lev/20+1, ty, tx, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, flg, -1);
+				project(caster_ptr, caster_ptr->lev/20+1, ty, tx, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			break;
 		}
 

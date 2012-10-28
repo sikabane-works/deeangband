@@ -521,8 +521,7 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
  */
 bool cast_bolt_(creature_type *caster_ptr, int typ, int dir, int dam)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID;
-	return (project_hook(caster_ptr, typ, dir, dam, flg));
+	return (project_hook(caster_ptr, typ, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID));
 }
 /*
  * Cast a bolt at the player
@@ -531,10 +530,9 @@ bool cast_bolt_(creature_type *caster_ptr, int typ, int dir, int dam)
  */
 void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE; //TODO PROJECT_PLAYER |
 //PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL
 	/* Target the player with a bolt attack */
-	(void)project(caster_ptr, 0, target_col, target_row, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(caster_ptr, 0, target_col, target_row, dam_hp, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
 
 	//return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
 }

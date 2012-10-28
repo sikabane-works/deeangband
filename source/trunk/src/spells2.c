@@ -3242,7 +3242,6 @@ void unlite_room(creature_type *caster_ptr, int y1, int x1)
 bool lite_area(creature_type *creature_ptr, int dam, int rad)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int flg = PROJECT_GRID | PROJECT_KILL;
 
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS)
 	{
@@ -3266,7 +3265,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_LITE_WEAK, flg, -1);
+	(void)project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 
 	/* Lite up the room */
 	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
@@ -3282,13 +3281,12 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
  */
 bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
-	int flg = PROJECT_GRID | PROJECT_KILL;
 
 	/* Hack -- Message */
 	if(!has_trait(player_ptr, TRAIT_BLIND))
 	{
 #ifdef JP
-msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
+		msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 #else
 		msg_print("Darkness surrounds you.");
 #endif
@@ -3296,7 +3294,7 @@ msg_print("ˆÃˆÅ‚ª•Ó‚è‚ð•¢‚Á‚½B");
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, flg, -1);
+	(void)project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 
 	/* Lite up the room */
 	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
@@ -3317,9 +3315,8 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
+	//TODO if(typ == GF_CONTROL_LIVING) flg |= PROJECT_HIDE;
 
-	if(typ == GF_CONTROL_LIVING) flg|= PROJECT_HIDE;
 	/* Use the given direction */
 	tx = caster_ptr->fx + 99 * ddx[dir];
 	ty = caster_ptr->fy + 99 * ddy[dir];
@@ -3327,13 +3324,13 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	/* Hack -- Use an actual "target" */
 	if((dir == 5) && target_okay(caster_ptr))
 	{
-		flg &= ~(PROJECT_STOP);
+		//TODO flg &= ~(PROJECT_STOP);
 		tx = target_col;
 		ty = target_row;
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(caster_ptr, rad, ty, tx, dam, typ, flg, -1));
+	return (project(caster_ptr, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 
@@ -3347,8 +3344,6 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-
 	/* Use the given direction */
 	tx = caster_ptr->fx + 99 * ddx[dir];
 	ty = caster_ptr->fy + 99 * ddy[dir];
@@ -3361,7 +3356,7 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, rad, ty, tx, dam, typ, flg, -1));
+	return (project(0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 
@@ -3375,8 +3370,6 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 {
 	int tx, ty;
 
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE;
-
 	/* Use the given direction */
 	tx = caster_ptr->fx + 99 * ddx[dir];
 	ty = caster_ptr->fy + 99 * ddy[dir];
@@ -3384,13 +3377,13 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 	/* Hack -- Use an actual "target" */
 	if((dir == 5) && target_okay(caster_ptr))
 	{
-		flg &= ~(PROJECT_STOP);
+		//TODO flg &= ~(PROJECT_STOP);
 		tx = target_col;
 		ty = target_row;
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, rad, ty, tx, dam, typ, flg, -1));
+	return (project(0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
 
@@ -3404,10 +3397,8 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
  */
 bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 {
-	int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
-
 	/* Analyze the "target" and the caster. */
-	return (project(&creature_list[who], rad, y, x, dam, typ, flg, -1));
+	return (project(&creature_list[who], rad, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 
@@ -3416,8 +3407,6 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 	int ly, lx, ld;
 	int ty, tx, y, x;
 	int i;
-
-	int flg = PROJECT_FAST | PROJECT_THRU | PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID;
 
 	/* Assume okay */
 	bool result = TRUE;
@@ -3454,7 +3443,7 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 		}
 
 		/* Analyze the "dir" and the "target". */
-		if(!project(0, 0, y, x, diceroll(dd, ds), typ, flg, -1))
+		if(!project(0, 0, y, x, diceroll(dd, ds), typ, PROJECT_FAST | PROJECT_THRU | PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID, -1))
 		{
 			result = FALSE;
 		}
@@ -4156,36 +4145,31 @@ bool deathray_creatures(creature_type *caster_ptr)
 
 bool charm_creature(creature_type *caster_ptr, int dir, int power)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(caster_ptr, GF_CHARM, dir, power, flg));
+	return (project_hook(caster_ptr, GF_CHARM, dir, power, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool control_one_undead(creature_type *caster_ptr, int dir, int plev)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(caster_ptr, GF_CONTROL_UNDEAD, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_UNDEAD, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool control_one_demon(creature_type *caster_ptr, int dir, int plev)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(caster_ptr, GF_CONTROL_DEMON, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_DEMON, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool charm_animal(creature_type *caster_ptr, int dir, int plev)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(caster_ptr, GF_CONTROL_ANIMAL, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_ANIMAL, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool charm_living(creature_type *caster_ptr, int dir, int plev)
 {
-	int flg = PROJECT_STOP | PROJECT_KILL;
-	return (project_hook(caster_ptr, GF_CONTROL_LIVING, dir, plev, flg));
+	return (project_hook(caster_ptr, GF_CONTROL_LIVING, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
