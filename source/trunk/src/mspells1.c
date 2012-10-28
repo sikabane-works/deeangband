@@ -487,6 +487,43 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 	return (TRUE);
 }
 
+
+/*
+ * Hack -- apply a "projection()" in a direction (or at the target)
+ */
+bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
+{
+	int tx, ty;
+
+	/* Pass through the target if needed */
+	flg |= (PROJECT_THRU);
+
+	/* Use the given direction */
+	tx = caster_ptr->fx + ddx[dir];
+	ty = caster_ptr->fy + ddy[dir];
+
+	/* Hack -- Use an actual "target" */
+	if((dir == 5) && target_okay(caster_ptr))
+	{
+		tx = target_col;
+		ty = target_row;
+	}
+
+	/* Analyze the "dir" and the "target", do NOT explode */
+	return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
+}
+
+
+/*
+ * Cast a bolt spell.
+ * Stop if we hit a creature, as a "bolt".
+ * Affect creatures and grids (not objects).
+ */
+bool cast_bolt(creature_type *caster_ptr, int typ, int dir, int dam)
+{
+	int flg = PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID;
+	return (project_hook(caster_ptr, typ, dir, dam, flg));
+}
 /*
  * Cast a bolt at the player
  * Stop if we hit a creature
@@ -498,8 +535,20 @@ void bolt(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam
 //PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL
 	/* Target the player with a bolt attack */
 	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
+
+	//return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
 }
 
+/*
+ * Cast a beam spell.
+ * Pass through creatures, as a "beam".
+ * Affect creatures, grids and objects.
+ */
+bool cast_beam(creature_type *caster_ptr, int typ, int dir, int dam)
+{
+	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
+	return (project_hook(caster_ptr, typ, dir, dam, flg));
+}
 static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam_hp, int monspell, bool learnable)
 {
 	int flg = PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL | PROJECT_THRU; //TODO PROJECT_PLAYER |
@@ -507,6 +556,22 @@ static void beam(creature_type *caster_ptr, creature_type *target_ptr, int typ, 
 	/* Target the player with a bolt attack */
 	(void)project(caster_ptr, 0, target_ptr->fy, target_ptr->fx, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
+
+/*
+ * Cast a bolt spell, or rarely, a beam spell
+ */
+bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
+{
+	if(randint0(100) < prob)
+	{
+		return (cast_beam(caster_ptr, typ, dir, dam));
+	}
+	else
+	{
+		return (cast_bolt(caster_ptr, typ, dir, dam));
+	}
+}
+
 
 
 /*
