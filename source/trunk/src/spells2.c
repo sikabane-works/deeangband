@@ -3625,30 +3625,25 @@ bool sleep_creature(creature_type *caster_ptr, int dir)
 	return (project_hook(caster_ptr, GF_OLD_SLEEP, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
-
 bool stasis_creature(creature_type *caster_ptr, int dir)
 {
 	return (cast_ball_hide(caster_ptr, GF_STASIS, dir, caster_ptr->lev*2, 0));
 }
-
 
 bool stasis_evil(creature_type *caster_ptr, int dir)
 {
 	return (cast_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
 }
 
-
 bool confuse_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	return (project_hook(caster_ptr, GF_OLD_CONF, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
-
 bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	return (project_hook(caster_ptr, GF_STUN, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
-
 
 bool poly_creature(creature_type *caster_ptr, int dir)
 {
@@ -3656,24 +3651,20 @@ bool poly_creature(creature_type *caster_ptr, int dir)
 	return(tester);
 }
 
-
 bool clone_creature(creature_type *caster_ptr, int dir)
 {
 	return (project_hook(caster_ptr, GF_OLD_CLONE, dir, 0, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
-
 
 bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 {
 	return (project_hook(caster_ptr, GF_TURN_ALL, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
-
 bool death_ray(creature_type *caster_ptr, int dir)
 {
 	return (project_hook(caster_ptr, GF_DEATH_RAY, dir, caster_ptr->lev * 200, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
-
 
 bool teleport_creature(creature_type *caster_ptr, int dir)
 {
