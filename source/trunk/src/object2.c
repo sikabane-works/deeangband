@@ -6650,11 +6650,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		{
 			if((object_ptr->to_hit >= creature_ptr->lev/5+5) && (object_ptr->to_damage >= creature_ptr->lev/5+5))
 			{
-#ifdef JP
-				msg_print("â¸ó«Ç…é∏îsÇµÇΩÅB");
-#else
-				msg_print("You failed to enchant.");
-#endif
+				msg_print(game_messages[GAME_MESSAGE_IMPROVEMENT_FAILED]);
 				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}
@@ -6668,11 +6664,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 		{
 			if(object_ptr->to_ac >= creature_ptr->lev/5+5)
 			{
-#ifdef JP
-				msg_print("â¸ó«Ç…é∏îsÇµÇΩÅB");
-#else
-				msg_print("You failed to enchant.");
-#endif
+				msg_print(game_messages[GAME_MESSAGE_IMPROVEMENT_FAILED]);
 				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}

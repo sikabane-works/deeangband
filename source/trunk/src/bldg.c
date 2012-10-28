@@ -2826,9 +2826,8 @@ static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *obje
 	return (FALSE);
 }
 
+// resize_item
 /*
- * resize_item
- *
 static bool resize_item(creature_type *creature_ptr)
 {
 	object_type *object_ptr;
@@ -2924,11 +2923,7 @@ static bool resize_item(creature_type *creature_ptr)
 }
  */
 
-
-
-/*
- * Enchant item
- */
+// Enchant item
 static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int to_damageam, int to_ac, int item_tester_tval)
 {
 	int         i, item;
@@ -2947,7 +2942,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	prt(format("  The price for the service is %d gold per item.", cost), 7, 0);
 #endif
 
-	/* Get an item */
+	// Get an item
 #ifdef JP
 	q = "どのアイテムを改良しますか？";
 	s = "改良できるものがありません。";
@@ -2957,9 +2952,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	object_ptr = &creature_ptr->inventory[item];
+	object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
 
 	/* Check if the player has enough money */
 	if(creature_ptr->au < (cost * object_ptr->number))
@@ -2970,11 +2963,10 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 #else
 		msg_format("You do not have the gold to improve %s!", tmp_str);
 #endif
-
 		return (FALSE);
 	}
 
-	/* Enchant to hit */
+	// Enchant to hit
 	for (i = 0; i < to_hit; i++)
 	{
 		if(object_ptr->to_hit < maxenchant)
@@ -2987,7 +2979,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 		}
 	}
 
-	/* Enchant to damage */
+	// Enchant to damage
 	for (i = 0; i < to_damageam; i++)
 	{
 		if(object_ptr->to_damage < maxenchant)
@@ -3013,19 +3005,10 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 		}
 	}
 
-	/* Failure */
-	if(!okay)
+	if(!okay)	// Failure
 	{
-		/* Flush */
 		if(flush_failure) flush();
-
-		/* Message */
-#ifdef JP
-		msg_print("改良に失敗した。");
-#else
-		msg_print("The improvement failed.");
-#endif
-
+		msg_print(game_messages[GAME_MESSAGE_IMPROVEMENT_FAILED]);
 		return (FALSE);
 	}
 	else
