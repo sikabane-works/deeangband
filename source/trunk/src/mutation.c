@@ -140,28 +140,6 @@ void mutation_stop_mouth(creature_type *creature_ptr)
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
-
-bool mutation_power_aux(creature_type *creature_ptr, u32b power)
-{
-	int     dir = 0;
-	int     lvl = creature_ptr->lev;
-	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-
-	switch (power)
-	{
-		default:
-			creature_ptr->energy_need = 0;
-#ifdef JP
-			msg_format("”\—Í %s ‚ÍÀ‘•‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB", power);
-#else
-			msg_format("Power %s not implemented. Oops.", power);
-#endif
-
-	}
-
-	return TRUE;
-}
-
 void get_acquired_trait(creature_type *creature_ptr, int trait)
 {
 	add_flag(creature_ptr->acquired_trait, trait);
