@@ -5096,72 +5096,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, special_blow_type *blow_ptr)
 {
 	//TODO: apply New Feature
-	int  dam = blow_ptr->d_dice * blow_ptr->d_side;
-	int  dummy_max = 0;
-	bool check_wraith_form = TRUE;
-
-	if(blow_ptr->method != RBM_EXPLODE)
-	{
-		int ac = target_ptr->ac + target_ptr->to_ac;
-
-		switch (blow_ptr->effect)
-		{
-		case RBE_SUPERHURT:
-		{
-			int tmp_dam = dam - (dam * ((ac < 150) ? ac : 150) / 250);
-			dam = MAX(dam, tmp_dam * 2);
-			break;
-		}
-
-		case RBE_HURT:
-		case RBE_SHATTER:
-			dam -= (dam * ((ac < 150) ? ac : 150) / 250);
-			break;
-
-		case RBE_ACID:
-			spell_dam_estimation(attacker_ptr, target_ptr, GF_ACID, dam, 0, &dummy_max);
-			dam = dummy_max;
-			check_wraith_form = FALSE;
-			break;
-
-		case RBE_ELEC:
-			spell_dam_estimation(attacker_ptr, target_ptr, GF_ELEC, dam, 0, &dummy_max);
-			dam = dummy_max;
-			check_wraith_form = FALSE;
-			break;
-
-		case RBE_FIRE:
-			spell_dam_estimation(attacker_ptr, target_ptr, GF_FIRE, dam, 0, &dummy_max);
-			dam = dummy_max;
-			check_wraith_form = FALSE;
-			break;
-
-		case RBE_COLD:
-			spell_dam_estimation(attacker_ptr, target_ptr, GF_COLD, dam, 0, &dummy_max);
-			dam = dummy_max;
-			check_wraith_form = FALSE;
-			break;
-
-		case RBE_DR_MANA:
-			dam = 0;
-			check_wraith_form = FALSE;
-			break;
-		}
-
-		if(check_wraith_form && target_ptr->timed_trait[TRAIT_WRAITH_FORM])
-		{
-			dam /= 2;
-			if(!dam) dam = 1;
-		}
-	}
-	else
-	{
-		dam = (dam + 1) / 2;
-		spell_dam_estimation(attacker_ptr, target_ptr, mbe_info[blow_ptr->effect].explode_type, dam, 0, &dummy_max);
-		dam = dummy_max;
-	}
-
-	return dam;
+	return 0;
 }
 
 // Examine the grid (xx,yy) and warn the player if there are any danger
@@ -5196,76 +5131,22 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 
 			species_ptr = &species_info[attacker_ptr->species_idx];
 
-			/* Creature spells (only powerful ones)*/
+			// Creature spells (only powerful ones)
 			if(projectable(floor_ptr, my, mx, yy, xx))
 			{
-				int breath_dam_div3 = attacker_ptr->chp / 3;
-				int breath_dam_div6 = attacker_ptr->chp / 6;
-
-				// TODO
-				u32b f4 = 0;
-				u32b f5 = 0;
-				u32b f6 = 0;
-
-				if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
-				{
-					int rlev = ((species_ptr->level >= 1) ? species_ptr->level : 1);
-					int storm_dam = rlev * 4 + 150;
-					bool powerful = (bool)(has_trait_species(species_ptr, TRAIT_POWERFUL));
-
-					if(has_trait(attacker_ptr, TRAIT_BA_CHAO)) spell_dam_estimation(attacker_ptr, target_ptr, GF_CHAOS, rlev * (powerful ? 3 : 2) + 100, 0, &dam_max0);
-					if(has_trait(attacker_ptr, TRAIT_BA_MANA)) spell_dam_estimation(attacker_ptr, target_ptr, GF_MANA, storm_dam, 0, &dam_max0);
-					if(has_trait(attacker_ptr, TRAIT_BA_DARK)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DARK, storm_dam, 0, &dam_max0);
-					if(has_trait(attacker_ptr, TRAIT_BA_LITE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_LITE, storm_dam, 0, &dam_max0);
-					if(has_trait(attacker_ptr, TRAIT_HAND_DOOM)) spell_dam_estimation(attacker_ptr, target_ptr, GF_HAND_DOOM, target_ptr->chp * 6 / 10, 0, &dam_max0);
-					if(has_trait(attacker_ptr, TRAIT_PSY_SPEAR)) spell_dam_estimation(attacker_ptr, target_ptr, GF_PSY_SPEAR, powerful ? (rlev * 2 + 150) : (rlev * 3 / 2 + 100), 0, &dam_max0);
-				}
-				if(has_trait(attacker_ptr, TRAIT_ROCKET)) spell_dam_estimation(attacker_ptr, target_ptr, GF_ROCKET, attacker_ptr->chp / 4, 800, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_ACID)) spell_dam_estimation(attacker_ptr, target_ptr, GF_ACID, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_ELEC)) spell_dam_estimation(attacker_ptr, target_ptr, GF_ELEC, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_FIRE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_FIRE, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_COLD)) spell_dam_estimation(attacker_ptr, target_ptr, GF_COLD, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_POIS)) spell_dam_estimation(attacker_ptr, target_ptr, GF_POIS, breath_dam_div3, 800, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_NETH)) spell_dam_estimation(attacker_ptr, target_ptr, GF_NETHER, breath_dam_div6, 550, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_LITE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_LITE, breath_dam_div6, 400, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_DARK)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DARK, breath_dam_div6, 400, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_CONF)) spell_dam_estimation(attacker_ptr, target_ptr, GF_CONFUSION, breath_dam_div6, 450, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_SOUN)) spell_dam_estimation(attacker_ptr, target_ptr, GF_SOUND, breath_dam_div6, 450, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_CHAO)) spell_dam_estimation(attacker_ptr, target_ptr, GF_CHAOS, breath_dam_div6, 600, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_DISE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DISENCHANT, breath_dam_div6, 500, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_NEXU)) spell_dam_estimation(attacker_ptr, target_ptr, GF_NEXUS, breath_dam_div3, 250, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_TIME)) spell_dam_estimation(attacker_ptr, target_ptr, GF_TIME, breath_dam_div3, 150, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_INER)) spell_dam_estimation(attacker_ptr, target_ptr, GF_INERTIA, breath_dam_div6, 200, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_GRAV)) spell_dam_estimation(attacker_ptr, target_ptr, GF_GRAVITY, breath_dam_div3, 200, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_SHAR)) spell_dam_estimation(attacker_ptr, target_ptr, GF_SHARDS, breath_dam_div6, 500, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_PLAS)) spell_dam_estimation(attacker_ptr, target_ptr, GF_PLASMA, breath_dam_div6, 150, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_WALL)) spell_dam_estimation(attacker_ptr, target_ptr, GF_FORCE, breath_dam_div6, 200, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_MANA)) spell_dam_estimation(attacker_ptr, target_ptr, GF_MANA, breath_dam_div3, 250, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_NUKE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_NUKE, breath_dam_div3, 800, &dam_max0);
-				if(has_trait(attacker_ptr, TRAIT_BR_DISI)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
+				//TODO active trait attack estimation
 			}
 
 			// Creature melee attacks
-			if(!(has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if(!(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if(mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{
-					int m;
-					int dam_melee = 0;
-					for (m = 0; m < MAX_SPECIAL_BLOWS; m++)
-					{
-						/* Skip non-attacks */
-						if(!attacker_ptr->blow[m].method == RBM_SHOOT) continue;
-
-						/* Extract the attack info */
-						dam_melee += blow_damcalc(attacker_ptr, target_ptr, &attacker_ptr->blow[m]);
-					}
-					if(dam_melee > dam_max0) dam_max0 = dam_melee;
+					//TODO melee estimation
 				}
 			}
 
-			/* Contribution from this creature */
-			dam_max += dam_max0;
+			dam_max += dam_max0;	// Contribution from this creature
 		}
 	}
 
