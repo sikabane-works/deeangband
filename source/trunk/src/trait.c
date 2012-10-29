@@ -1564,7 +1564,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else
 			*/
 			{
-				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+				(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + randint0(4) + 4);
 			}
 			learn_trait(target_ptr, TRAIT_HOLD);
 			update_smart_learn(caster_ptr, DRS_FREE);

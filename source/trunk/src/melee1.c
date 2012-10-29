@@ -148,7 +148,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
 			if(r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
-			if(target_ptr->timed_trait[TRAIT_PARALYZED] && target_ptr->see_others)
+			if(has_trait(target_ptr, TRAIT_PARALYZED) && target_ptr->see_others)
 			{
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
@@ -2524,7 +2524,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				obvious = TRUE;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
-				if(!target_ptr->timed_trait[TRAIT_PARALYZED] &&
+				if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
 					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
 					target_ptr->lev)))
 				{
@@ -2602,7 +2602,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
-				if(!target_ptr->timed_trait[TRAIT_PARALYZED] &&
+				if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
 					(randint0(100) < (adj_dex_safe[target_ptr->stat_ind[STAT_DEX]] +
 					target_ptr->lev)))
 				{
@@ -3008,7 +3008,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				*/
 				else
 				{
-					if(!target_ptr->timed_trait[TRAIT_PARALYZED])
+					if(!has_trait(target_ptr, TRAIT_PARALYZED))
 					{
 						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev)))
 						{

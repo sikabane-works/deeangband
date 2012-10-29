@@ -1727,7 +1727,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	// Is the creature "seen"?
 	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
-	bool slept = (bool)target_ptr->timed_trait[TRAIT_PARALYZED];
+	bool slept = (bool)has_trait(target_ptr, TRAIT_PARALYZED);
 
 	// Can the player know about this effect?
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);
@@ -3087,7 +3087,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				reset_species_preps();									// Remove the creature restriction
 			}
 
-			set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + dam);
+			set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + dam);
 			dam = 0;
 			break;
 		}
@@ -3431,7 +3431,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 					if(!has_trait(target_ptr, TRAIT_FREE_ACTION))
 					{
-						(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, target_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
+						(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + randint0(4) + 4);
 					}
 					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
 
@@ -5688,7 +5688,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				//TODO if(is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags2 |= (RF2_EMPTY_MIND);
 				break;
 			}
-			if(target_ptr->timed_trait[TRAIT_PARALYZED])
+			if(has_trait(target_ptr, TRAIT_PARALYZED))
 			{
 #ifdef JP
 				note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
@@ -6057,7 +6057,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
 
-	bool slept = (bool)target_ptr->timed_trait[TRAIT_PARALYZED];
+	bool slept = (bool)has_trait(target_ptr, TRAIT_PARALYZED);
 
 	/* Can the player know about this effect? */
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);

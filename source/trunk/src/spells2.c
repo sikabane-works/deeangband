@@ -1526,7 +1526,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	if(is_pet(player_ptr, target_ptr) && !player_cast) return FALSE;
 
-	/* Hack -- Skip Unique Creatures or Quest Creatures */
+	// Hack -- Skip Unique Creatures or Quest Creatures
 	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE)) resist = TRUE;
 	else if(has_trait(target_ptr, TRAIT_UNIQUE2)) resist = TRUE;
 	else if(m_idx == user_ptr->riding) resist = TRUE;
@@ -1534,15 +1534,15 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	else if(player_cast && (target_ptr->lev * 2 > randint0(power))) resist = TRUE;
 	else if(player_cast && (target_ptr->sc_flag2 & SC_FLAG2_NOGENO)) resist = TRUE;
 
-	/* Delete the creature */
+	// Delete the creature
 	else
 	{
 		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 		{
-			char m_name[80];
+			char target_name[80];
 
-			creature_desc(m_name, target_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
+			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
+			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 		}
 
 		delete_species_idx(&creature_list[m_idx]);
@@ -1551,26 +1551,26 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	if(resist && player_cast)
 	{
 		bool see_m = is_seen(user_ptr, target_ptr);
-		char m_name[80];
+		char target_name[80];
 
-		creature_desc(m_name, target_ptr, 0);
+		creature_desc(target_name, target_ptr, 0);
 		if(see_m)
 		{
 #ifdef JP
-			msg_format("%^sには効果がなかった。", m_name);
+			msg_format("%^sには効果がなかった。", target_name);
 #else
-			msg_format("%^s is unaffected.", m_name);
+			msg_format("%^s is unaffected.", target_name);
 #endif
 		}
-		if(target_ptr->timed_trait[TRAIT_PARALYZED])
+		if(has_trait(target_ptr, TRAIT_PARALYZED))
 		{
 			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 			if(target_ptr->see_others || target_ptr->hear_noise)
 			{
 #ifdef JP
-				msg_format("%^sが目を覚ました。", m_name);
+				msg_format("%^sが目を覚ました。", target_name);
 #else
-				msg_format("%^s wakes up.", m_name);
+				msg_format("%^s wakes up.", target_name);
 #endif
 			}
 		}
@@ -1579,9 +1579,9 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			if(see_m)
 			{
 #ifdef JP
-				msg_format("%sは怒った！", m_name);
+				msg_format("%sは怒った！", target_name);
 #else
-				msg_format("%^s gets angry!", m_name);
+				msg_format("%^s gets angry!", target_name);
 #endif
 			}
 			set_hostile(user_ptr, target_ptr);
