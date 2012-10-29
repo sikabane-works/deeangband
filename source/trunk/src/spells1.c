@@ -1937,7 +1937,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		}
 
 		/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
-		if(do_poly && (randint1(90) > species_ptr->level))
+		if(do_poly && (randint1(90) > target_ptr->lev * 2))
 		{
 			if(polymorph_creature(player_ptr, y, x))
 			{
@@ -2351,8 +2351,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	char caster_name[80];
 	char target_name[80];
 	char killer[80];
-
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	// Is the player blind?
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
@@ -3346,7 +3344,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Attempt a saving throw
 		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 		has_trait(target_ptr, TRAIT_NO_CONF) ||
-		(species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
+		(target_ptr->lev * 2 > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
 		{
 		// Memorize a flag
 		if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -3482,7 +3480,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Attempt a saving throw 
 		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 		has_trait(target_ptr, TRAIT_NO_CONF) ||
-		(species_ptr->level > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
+		(target_ptr->lev * 2 > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
 		{
 		// Memorize a flag
 		if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -3583,7 +3581,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Attempt a saving throw
-		if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
 		{
 		#ifdef JP
 		note = "には効果がなかった。";
@@ -3636,7 +3634,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Attempt a saving throw
-		if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
 		{
 		#ifdef JP
 		note = "には効果がなかった。";
@@ -3689,7 +3687,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Attempt a saving throw
-		if(randint0(100 + (caster_power / 2)) < (species_ptr->level + 35))
+		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
 		{
 		#ifdef JP
 		note = "には効果がなかった。";
@@ -3745,7 +3743,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Attempt a saving throw
-		if((randint0(100 + (caster_power / 2)) < (species_ptr->level + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
+		if((randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
 		{
 		#ifdef JP
 		note = "には効果がなかった。";
@@ -3814,8 +3812,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-		if((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (species_ptr->level + 10 + randint1(20))) :
-		(((caster_power / 2) + randint1(dam)) > (species_ptr->level + randint1(200))))
+		if((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (target_ptr->lev * 2 + 10 + randint1(20))) :
+		(((caster_power / 2) + randint1(dam)) > (target_ptr->lev * 2 + randint1(200))))
 		{
 		dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
 
@@ -3875,7 +3873,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
 				has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(species_ptr->level > randint1(3 * dam)))
+				(target_ptr->lev * 2 > randint1(3 * dam)))
 			{
 				dam /= 3;
 #ifdef JP
@@ -3889,9 +3887,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				* Powerful demons & undead can turn a mindcrafter's
 				* attacks back on them
 				*/
-				if(has_trait_species(species_ptr, TRAIT_UNDEAD) && 
-					has_trait_species(species_ptr, TRAIT_DEMON) &&
-					(species_ptr->level > caster_ptr->lev / 2) &&
+				if(has_trait(target_ptr, TRAIT_UNDEAD) && 
+					has_trait(target_ptr, TRAIT_DEMON) &&
+					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
 					one_in_(2))
 				{
 					note = NULL;
@@ -3904,7 +3902,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					/* Saving throw */
 					/*
-					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 					}
@@ -4009,7 +4007,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
 				has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(species_ptr->level > randint1(3 * dam)))
+				(target_ptr->lev * 2 > randint1(3 * dam)))
 			{
 				dam /= 3;
 #ifdef JP
@@ -4023,9 +4021,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				* Powerful demons & undead can turn a mindcrafter's
 				* attacks back on them
 				*/
-				if(has_trait_species(species_ptr, TRAIT_UNDEAD) &&
-					has_trait_species(species_ptr, TRAIT_DEMON) &&
-					(species_ptr->level > caster_ptr->lev / 2) &&
+				if(has_trait(target_ptr, TRAIT_UNDEAD) &&
+					has_trait(target_ptr, TRAIT_DEMON) &&
+					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
 					(one_in_(2)))
 				{
 					note = NULL;
@@ -4038,7 +4036,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					/* Saving throw */
 					/*
-					if((randint0(100 + species_ptr->level / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 					#ifdef JP
 					msg_print("あなたは効力を跳ね返した！");
@@ -4122,7 +4120,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(species_ptr->level > 5 + randint1(dam)))
+				(target_ptr->lev * 2 > 5 + randint1(dam)))
 			{
 				/* Resist */
 				do_stun = 0;
@@ -4152,7 +4150,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			/* Attempt a saving throw */
 			if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4167,9 +4165,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				* Powerful demons & undead can turn a mindcrafter's
 				* attacks back on them
 				*/
-				if(has_trait_species(species_ptr, TRAIT_UNDEAD) &&
-					has_trait_species(species_ptr, TRAIT_DEMON) &&
-					(species_ptr->level > caster_ptr->lev / 2) &&
+				if(has_trait(target_ptr, TRAIT_UNDEAD) &&
+					has_trait(target_ptr, TRAIT_DEMON) &&
+					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
 					(one_in_(2)))
 				{
 					note = NULL;
@@ -4182,7 +4180,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					/* Saving throw */
 					/* saving throw
-					if(randint0(100 + species_ptr->level/2) < caster_ptr->skill_rob)
+					if(randint0(100 + target_ptr->lev * 2/2) < caster_ptr->skill_rob)
 					{
 					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 					}
@@ -4274,7 +4272,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			if(!species_living(species_ptr))
+			if(creature_living(target_ptr))
 			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr))
 					has_trait(target_ptr, INFO_TYPE_RACE);
@@ -4316,7 +4314,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Powerful creatures can resist */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				(has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
 				note = "には効果がなかった。";
@@ -4420,7 +4418,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				!(is_enemy_of_good_creature(target_ptr)) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4465,7 +4463,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 #ifdef JP
 				note = "には効果がなかった！";
@@ -4535,7 +4533,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4616,9 +4614,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				(!has_trait_species(species_ptr, TRAIT_UNDEAD)) ||
+				(!has_trait(target_ptr, TRAIT_UNDEAD)) ||
 				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
 #ifdef JP
@@ -4690,10 +4688,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				(!has_trait_species(species_ptr, TRAIT_DEMON)) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
 #ifdef JP
@@ -4772,7 +4768,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				!has_trait(target_ptr, TRAIT_ANIMAL) ||
 				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4867,7 +4863,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
 				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				!creature_living(target_ptr) ||
-				((species_ptr->level+10) > randint1(dam)))
+				((target_ptr->lev * 2+10) > randint1(dam)))
 			{
 				/* Resist */
 				/* No obvious effect */
@@ -4928,7 +4924,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -4973,7 +4969,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Resist */
 				do_stun = 0;
@@ -5080,7 +5076,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
-			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
+			if(has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				bool resists_tele = FALSE;
 
@@ -5097,7 +5093,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 						resists_tele = TRUE;
 					}
-					else if(species_ptr->level > randint1(100))
+					else if(target_ptr->lev * 2 > randint1(100))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -5152,7 +5148,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 						resists_tele = TRUE;
 					}
-					else if(species_ptr->level > randint1(100))
+					else if(target_ptr->lev * 2 > randint1(100))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -5203,7 +5199,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 					resists_tele = TRUE;
 				}
-				else if(species_ptr->level > randint1(100))
+				else if(target_ptr->lev * 2 > randint1(100))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -5240,7 +5236,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			/* Only affect undead */
-			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
+			if(has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				/* Obvious */
 				if(seen) obvious = TRUE;
@@ -5252,7 +5248,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_fear = diceroll(3, (dam / 2)) + 1;
 
 				/* Attempt a saving throw */
-				if(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 				{
 					/* No obvious effect */
 #ifdef JP
@@ -5300,7 +5296,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_fear = diceroll(3, (dam / 2)) + 1;
 
 				/* Attempt a saving throw */
-				if(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 				{
 					/* No obvious effect */
 #ifdef JP
@@ -5344,7 +5340,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				(has_trait(target_ptr, TRAIT_FEARLESS)) ||
-				(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* No obvious effect */
 #ifdef JP
@@ -5373,7 +5369,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			/* Only affect undead */
-			if(has_trait_species(species_ptr, TRAIT_UNDEAD))
+			if(has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				/* Obvious */
 				if(seen) obvious = TRUE;
@@ -5536,7 +5532,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			/* Only affect demons */
-			if(has_trait_species(species_ptr, TRAIT_DEMON))
+			if(has_trait(target_ptr, TRAIT_DEMON))
 			{
 				/* Obvious */
 				if(seen) obvious = TRUE;
@@ -5719,7 +5715,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				/* Powerful creatures can resist */
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 #ifdef JP
 					note = "には効果がなかった！";
@@ -5750,7 +5746,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				/* Attempt a saving throw */
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Resist */
 					do_stun = 0;
@@ -5771,7 +5767,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				/* Attempt a saving throw */
 				if(has_trait(target_ptr, TRAIT_UNIQUE) ||
 					has_trait(target_ptr, TRAIT_NO_SLEEP) ||
-					(species_ptr->level > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					/* Memorize a flag */
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
@@ -5833,9 +5829,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 #ifdef JP
-			if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "クリーチャー消滅"))
+			if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, "クリーチャー消滅"))
 #else
-			if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (species_ptr->level + 1) / 2, "Genocide One"))
+			if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, "Genocide One"))
 #endif
 			{
 #ifdef JP
@@ -5936,7 +5932,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					(has_trait(target_ptr, TRAIT_UNIQUE)) ||
 					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 					(has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
-					((species_ptr->level+10) > randint1(dam)))
+					((target_ptr->lev * 2+10) > randint1(dam)))
 				{
 					/* Resist */
 					if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
@@ -5989,7 +5985,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			/* Attempt a saving throw */
-			if(randint0(100 + dam) < (species_ptr->level + 50))
+			if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
 			{
 
 #ifdef JP
