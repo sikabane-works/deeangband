@@ -2654,24 +2654,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_EAT_MAGIC:
-		{
-			if(!eat_magic(caster_ptr, caster_ptr->lev * 2)) return FALSE;
-			break;
-		}
+		if(!eat_magic(caster_ptr, caster_ptr->lev * 2)) return FALSE;
+		break;
 
 	case TRAIT_BLESS_WEAPON:
-		{
-			if(!bless_weapon(caster_ptr)) return FALSE;
-			break;
-		}
+		if(!bless_weapon(caster_ptr)) return FALSE;
+		break;
 
 	case TRAIT_EVOCATION:
-		{
-			(void)dispel_creatures(caster_ptr, user_level * 4);
-			turn_creatures(caster_ptr, user_level * 4);
-			banish_creatures(caster_ptr, user_level * 4);
-			break;
-		}
+		(void)dispel_creatures(caster_ptr, user_level * 4);
+		turn_creatures(caster_ptr, user_level * 4);
+		banish_creatures(caster_ptr, user_level * 4);
+		break;
 
 	case TRAIT_PANIC_HIT:
 		{
@@ -3659,9 +3653,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			(void)earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
 			break;
 
-		//case TRAIT_EAT_MAGIC:
-			if(!eat_magic(caster_ptr, caster_ptr->lev * 2)) return FALSE;
-			break;
 
 		case TRAIT_WEIGH_MAG:
 			report_magics(caster_ptr);
@@ -3722,9 +3713,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			cast_beam_(caster_ptr, GF_LITE, dir, 2 * user_level);
 			break;
 
-		//case TRAIT_RECALL:
-			if(!word_of_recall(caster_ptr)) return FALSE;
-			break;
 
 		case TRAIT_BANISH:
 			{
