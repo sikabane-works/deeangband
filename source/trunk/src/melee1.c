@@ -1811,8 +1811,7 @@ static cptr desc_moan[] =
  */
 bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead)
 {
-
-	species_type *r_ptr = &species_info[attacker_ptr->species_idx];
+	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
 
 	int i, k, tmp, ac, rlev;
@@ -1823,7 +1822,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	object_type *object_ptr;
 
 	char object_name[MAX_NLEN];
-
 	char attacker_name[100];
 	char target_name[100];
 
@@ -1860,7 +1858,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	if(!is_hostile(attacker_ptr)) return FALSE;
 
 	/* Extract the effective creature level */
-	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
+	rlev = ((species_ptr->level >= 1) ? species_ptr->level : 1);
 
 
 	/* Get the creature name (or "it") */
@@ -1877,7 +1875,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* Hack -- no more attacks */
 	if(!method) return FALSE;
 
-	if(is_pet(player_ptr, attacker_ptr) && (has_trait_species(r_ptr, TRAIT_UNIQUE)) && (method == RBM_EXPLODE))
+	if(is_pet(player_ptr, attacker_ptr) && (has_trait_species(species_ptr, TRAIT_UNIQUE)) && (method == RBM_EXPLODE))
 	{
 		method = RBM_HIT;
 		d_dice /= 10;
@@ -1901,18 +1899,13 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* Creature hits player */
 	if(!effect || check_hit(target_ptr, power, rlev, attacker_ptr->timed_trait[TRAIT_STUN]))
 	{
-		/* Always disturbing */
 		disturb(player_ptr, 1, 0);
 
-
-		/* Hack -- Apply "protection from evil" */
-		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) &&
-			is_enemy_of_good_creature(target_ptr) &&
-			(target_ptr->lev >= rlev) &&
-			((randint0(100) + target_ptr->lev) > 50))
+		// Hack -- Apply "protection from evil"
+		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= rlev) && ((randint0(100) + target_ptr->lev) > 50))
 		{
 			/* Remember the Evil-ness */
-			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) r_ptr->r_flags3 |= RF3_EVIL;
+			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL;
 
 			/* Message */
 #ifdef JP
@@ -2397,18 +2390,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				act = silly_attacks[randint0(MAX_SILLY_ATTACK)];
 			}
 #ifdef JP
-			if(abbreviate == 0)
-				msg_format("%^s‚Í%s‚ð%s", attacker_name, target_name, act);
-			else if(abbreviate == 1)
-				msg_format("%^s‚Í%s‚É%s", attacker_name, target_name, act);
-			else if(abbreviate == 2)
-				msg_format("%^s‚Í%s‚Ì%s", attacker_name, target_name, act);
-			else if(abbreviate == 3)
-				msg_format("%^s‚Í%s‚ÉŒü‚¯%s", attacker_name, target_name, act);
-			else if(abbreviate == 4)
-				msg_format("%^s%s", attacker_name, act);
-			else /* if(abbreviate == -1) */
-				msg_format("%s", act);
+			if(abbreviate == 0)	msg_format("%^s‚Í%s‚ð%s", attacker_name, target_name, act);
+			else if(abbreviate == 1) msg_format("%^s‚Í%s‚É%s", attacker_name, target_name, act);
+			else if(abbreviate == 2) msg_format("%^s‚Í%s‚Ì%s", attacker_name, target_name, act);
+			else if(abbreviate == 3) msg_format("%^s‚Í%s‚ÉŒü‚¯%s", attacker_name, target_name, act);
+			else if(abbreviate == 4) msg_format("%^s%s", attacker_name, act);
+			else msg_format("%s", act); // if(abbreviate == -1)
 			abbreviate = -1;/*‚Q‰ñ–ÚˆÈ~‚ÍÈ—ª */
 #else
 			msg_format("%^s %s %s", attacker_name, act, do_silly_attack ? target_name : "");
@@ -2432,12 +2419,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		{
 		case RBE_NONE:
 			{
-				/* Hack -- Assume obvious */
 				obvious = TRUE;
-
-				/* Hack -- No damage */
 				damage = 0;
-
 				break;
 			}
 
@@ -3037,7 +3020,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					obvious = TRUE;
 				}
-				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
+				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
 #ifdef JP
 					msg_print("‚µ‚©‚µ‹°•|‚ÉN‚³‚ê‚È‚©‚Á‚½I");
@@ -3078,7 +3061,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 				}
-				/*TODO saving_throw else if(randint0(100 + r_ptr->level/2) < target_ptr->skill_rob)
+				/*TODO saving_throw else if(randint0(100 + species_ptr->level/2) < target_ptr->skill_rob)
 				{
 					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 					obvious = TRUE;
@@ -3586,7 +3569,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 				{
 					//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO 	r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
+					//TODO 	species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_IM_FIRE_MASK);
 				}
 			}
 
@@ -3615,7 +3598,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 				{
 					//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
+					//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_IM_ELEC_MASK);
 				}
 			}
 
@@ -3644,7 +3627,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 				{
 					//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
+					//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_IM_COLD_MASK);
 				}
 			}
 
@@ -3674,7 +3657,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				else
 				{
 					//if(is_original_ap_and_seen(target_ptr, attacker_ptr))
-					//TODO r_ptr->r_flags10 |= (r_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
+					//TODO species_ptr->r_flags10 |= (species_ptr->flags10 & RF10_EFF_RES_SHAR_MASK);
 				}
 
 				if(is_mirror_grid(&floor_ptr->cave[target_ptr->fy][target_ptr->fx]))
@@ -3857,12 +3840,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	if(is_original_ap_and_seen(target_ptr, attacker_ptr) && !do_silly_attack)
 	{
 		/* Count "obvious" attacks (and ones that cause damage) */
-		if(obvious || damage || (r_ptr->r_blows[ap_cnt] > 10))
+		if(obvious || damage || (species_ptr->r_blows[ap_cnt] > 10))
 		{
 			/* Count attacks of this type */
-			if(r_ptr->r_blows[ap_cnt] < MAX_UCHAR)
+			if(species_ptr->r_blows[ap_cnt] < MAX_UCHAR)
 			{
-				r_ptr->r_blows[ap_cnt]++;
+				species_ptr->r_blows[ap_cnt]++;
 			}
 		}
 	}
@@ -3948,9 +3931,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 
 	/* Always notice cause of death */
-	if(IS_DEAD(target_ptr) && (r_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
+	if(IS_DEAD(target_ptr) && (species_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
 	{
-		r_ptr->r_deaths++;
+		species_ptr->r_deaths++;
 	}
 
 	if(target_ptr->posture & KATA_IAI)
