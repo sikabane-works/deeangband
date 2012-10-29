@@ -1520,29 +1520,28 @@ void aggravate_creatures(creature_type *creature_ptr)
 bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cast, int dam_side, cptr spell_name)
 {
 	int          msec = delay_factor * delay_factor * delay_factor;
-	creature_type *m_ptr = &creature_list[m_idx];
-	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	creature_type *target_ptr = &creature_list[m_idx];
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	bool         resist = FALSE;
 
-	if(is_pet(player_ptr, m_ptr) && !player_cast) return FALSE;
+	if(is_pet(player_ptr, target_ptr) && !player_cast) return FALSE;
 
 	/* Hack -- Skip Unique Creatures or Quest Creatures */
-	if((has_trait_species(r_ptr, TRAIT_QUESTOR)) || has_trait_species(r_ptr, TRAIT_UNIQUE)) resist = TRUE;
-	else if(has_trait_species(r_ptr, TRAIT_UNIQUE2)) resist = TRUE;
+	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE)) resist = TRUE;
+	else if(has_trait(target_ptr, TRAIT_UNIQUE2)) resist = TRUE;
 	else if(m_idx == user_ptr->riding) resist = TRUE;
 	else if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) resist = TRUE;
-	else if(player_cast && (r_ptr->level > randint0(power))) resist = TRUE;
-	else if(player_cast && (m_ptr->sc_flag2 & SC_FLAG2_NOGENO)) resist = TRUE;
+	else if(player_cast && (target_ptr->lev * 2 > randint0(power))) resist = TRUE;
+	else if(player_cast && (target_ptr->sc_flag2 & SC_FLAG2_NOGENO)) resist = TRUE;
 
 	/* Delete the creature */
 	else
 	{
-		if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
+		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 		{
 			char m_name[80];
 
-			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
+			creature_desc(m_name, target_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
 		}
 
@@ -1551,10 +1550,10 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 	if(resist && player_cast)
 	{
-		bool see_m = is_seen(user_ptr, m_ptr);
+		bool see_m = is_seen(user_ptr, target_ptr);
 		char m_name[80];
 
-		creature_desc(m_name, m_ptr, 0);
+		creature_desc(m_name, target_ptr, 0);
 		if(see_m)
 		{
 #ifdef JP
@@ -1563,10 +1562,10 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 			msg_format("%^s is unaffected.", m_name);
 #endif
 		}
-		if(m_ptr->timed_trait[TRAIT_PARALYZED])
+		if(target_ptr->timed_trait[TRAIT_PARALYZED])
 		{
-			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
-			if(m_ptr->see_others || m_ptr->hear_noise)
+			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
+			if(target_ptr->see_others || target_ptr->hear_noise)
 			{
 #ifdef JP
 				msg_format("%^s‚ª–Ú‚ðŠo‚Ü‚µ‚½B", m_name);
@@ -1575,7 +1574,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 #endif
 			}
 		}
-		if(is_friendly(player_ptr, m_ptr) && !is_pet(player_ptr, m_ptr))
+		if(is_friendly(player_ptr, target_ptr) && !is_pet(player_ptr, target_ptr))
 		{
 			if(see_m)
 			{
@@ -1585,9 +1584,9 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 				msg_format("%^s gets angry!", m_name);
 #endif
 			}
-			set_hostile(user_ptr, m_ptr);
+			set_hostile(user_ptr, target_ptr);
 		}
-		if(one_in_(13)) m_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
+		if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
 	}
 
 	if(player_cast)
@@ -1732,7 +1731,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 		/* Paranoia -- Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
-		if(!has_trait_species(r_ptr, TRAIT_UNDEAD)) continue;
+		if(!has_trait(m_ptr, TRAIT_UNDEAD)) continue;
 
 		/* Skip distant creatures */
 		if(m_ptr->cdis > MAX_SIGHT) continue;
