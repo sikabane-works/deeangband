@@ -3266,14 +3266,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SPIT_ACID:
-
 		racial_stop_mouth(caster_ptr);
 		if(user_level < 25) cast_bolt_(caster_ptr, GF_ACID, dir, user_level);
 		else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
 		break;
 
 	case TRAIT_POISON_DART:
-
 		cast_bolt_(caster_ptr, GF_POIS, dir, user_level);
 		break;
 
@@ -3333,11 +3331,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
 
-		//case TRAIT_SPIT_ACID:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			mutation_stop_mouth(caster_ptr);
-			cast_ball(caster_ptr, GF_ACID, dir, user_level, 1 + (user_level / 30));
-			break;
 
 		//case TRAIT_BR_FIRE:
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
