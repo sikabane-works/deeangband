@@ -2200,7 +2200,7 @@ static cptr likert(int x, int y)
 static void display_player_various(creature_type * creature_ptr)
 {
 	int			xthn, xthb, xfos, xsrh;
-	int			xdis, xdev, xrob, xagi, xvol, xstl;
+	int			xdis, xdev, xstl; // xrob, xagi, xvol
 	int			xdig;
 	cptr		desc;
 	int         muta_att = 0;

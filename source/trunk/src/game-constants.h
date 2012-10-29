@@ -157,3 +157,5 @@
 // Refueling constants
 #define FUEL_TORCH      5000    // Maximum amount of fuel in a torch
 #define FUEL_LAMP       15000   // Maximum amount of fuel in a lantern
+
+#define WARNING_AWARE_RANGE 12

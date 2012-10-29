@@ -5165,14 +5165,13 @@ static int blow_damcalc(creature_type *attacker_ptr, creature_type *target_ptr, 
 }
 
 // Examine the grid (xx,yy) and warn the player if there are any danger
-bool process_warning(creature_type *player_ptr, int xx, int yy)
+bool process_warning(creature_type *target_ptr, int xx, int yy)
 {
-	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int mx, my;
 	cave_type *c_ptr;
 	char object_name[MAX_NLEN];
 
-#define WARNING_AWARE_RANGE 12
 	int dam_max = 0;
 	static int old_damage = 0;
 
@@ -5181,8 +5180,8 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 		for (my = yy - WARNING_AWARE_RANGE; my < yy + WARNING_AWARE_RANGE + 1; my++)
 		{
 			int dam_max0 = 0;
-			creature_type *m_ptr;
-			species_type *r_ptr;
+			creature_type *attacker_ptr;
+			species_type *species_ptr;
 
 			if(!in_bounds(floor_ptr, my, mx) || (distance(my, mx, yy, xx) > WARNING_AWARE_RANGE)) continue;
 
@@ -5190,18 +5189,18 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 
 			if(!c_ptr->creature_idx) continue;
 
-			m_ptr = &creature_list[c_ptr->creature_idx];
+			attacker_ptr = &creature_list[c_ptr->creature_idx];
 
-			if(m_ptr->timed_trait[TRAIT_PARALYZED]) continue;
-			if(!is_hostile(m_ptr)) continue;
+			if(attacker_ptr->timed_trait[TRAIT_PARALYZED]) continue;
+			if(!is_hostile(attacker_ptr)) continue;
 
-			r_ptr = &species_info[m_ptr->species_idx];
+			species_ptr = &species_info[attacker_ptr->species_idx];
 
 			/* Creature spells (only powerful ones)*/
 			if(projectable(floor_ptr, my, mx, yy, xx))
 			{
-				int breath_dam_div3 = m_ptr->chp / 3;
-				int breath_dam_div6 = m_ptr->chp / 6;
+				int breath_dam_div3 = attacker_ptr->chp / 3;
+				int breath_dam_div6 = attacker_ptr->chp / 6;
 
 				// TODO
 				u32b f4 = 0;
@@ -5210,44 +5209,44 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 
 				if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MAGIC))
 				{
-					int rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
+					int rlev = ((species_ptr->level >= 1) ? species_ptr->level : 1);
 					int storm_dam = rlev * 4 + 150;
-					bool powerful = (bool)(has_trait_species(r_ptr, TRAIT_POWERFUL));
+					bool powerful = (bool)(has_trait_species(species_ptr, TRAIT_POWERFUL));
 
-					if(has_trait(m_ptr, TRAIT_BA_CHAO)) spell_dam_estimation(m_ptr, player_ptr, GF_CHAOS, rlev * (powerful ? 3 : 2) + 100, 0, &dam_max0);
-					if(has_trait(m_ptr, TRAIT_BA_MANA)) spell_dam_estimation(m_ptr, player_ptr, GF_MANA, storm_dam, 0, &dam_max0);
-					if(has_trait(m_ptr, TRAIT_BA_DARK)) spell_dam_estimation(m_ptr, player_ptr, GF_DARK, storm_dam, 0, &dam_max0);
-					if(has_trait(m_ptr, TRAIT_BA_LITE)) spell_dam_estimation(m_ptr, player_ptr, GF_LITE, storm_dam, 0, &dam_max0);
-					if(has_trait(m_ptr, TRAIT_HAND_DOOM)) spell_dam_estimation(m_ptr, player_ptr, GF_HAND_DOOM, player_ptr->chp * 6 / 10, 0, &dam_max0);
-					if(has_trait(m_ptr, TRAIT_PSY_SPEAR)) spell_dam_estimation(m_ptr, player_ptr, GF_PSY_SPEAR, powerful ? (rlev * 2 + 150) : (rlev * 3 / 2 + 100), 0, &dam_max0);
+					if(has_trait(attacker_ptr, TRAIT_BA_CHAO)) spell_dam_estimation(attacker_ptr, target_ptr, GF_CHAOS, rlev * (powerful ? 3 : 2) + 100, 0, &dam_max0);
+					if(has_trait(attacker_ptr, TRAIT_BA_MANA)) spell_dam_estimation(attacker_ptr, target_ptr, GF_MANA, storm_dam, 0, &dam_max0);
+					if(has_trait(attacker_ptr, TRAIT_BA_DARK)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DARK, storm_dam, 0, &dam_max0);
+					if(has_trait(attacker_ptr, TRAIT_BA_LITE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_LITE, storm_dam, 0, &dam_max0);
+					if(has_trait(attacker_ptr, TRAIT_HAND_DOOM)) spell_dam_estimation(attacker_ptr, target_ptr, GF_HAND_DOOM, target_ptr->chp * 6 / 10, 0, &dam_max0);
+					if(has_trait(attacker_ptr, TRAIT_PSY_SPEAR)) spell_dam_estimation(attacker_ptr, target_ptr, GF_PSY_SPEAR, powerful ? (rlev * 2 + 150) : (rlev * 3 / 2 + 100), 0, &dam_max0);
 				}
-				if(has_trait(m_ptr, TRAIT_ROCKET)) spell_dam_estimation(m_ptr, player_ptr, GF_ROCKET, m_ptr->chp / 4, 800, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_ACID)) spell_dam_estimation(m_ptr, player_ptr, GF_ACID, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_ELEC)) spell_dam_estimation(m_ptr, player_ptr, GF_ELEC, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_FIRE)) spell_dam_estimation(m_ptr, player_ptr, GF_FIRE, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_COLD)) spell_dam_estimation(m_ptr, player_ptr, GF_COLD, breath_dam_div3, 1600, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_POIS)) spell_dam_estimation(m_ptr, player_ptr, GF_POIS, breath_dam_div3, 800, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_NETH)) spell_dam_estimation(m_ptr, player_ptr, GF_NETHER, breath_dam_div6, 550, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_LITE)) spell_dam_estimation(m_ptr, player_ptr, GF_LITE, breath_dam_div6, 400, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_DARK)) spell_dam_estimation(m_ptr, player_ptr, GF_DARK, breath_dam_div6, 400, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_CONF)) spell_dam_estimation(m_ptr, player_ptr, GF_CONFUSION, breath_dam_div6, 450, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_SOUN)) spell_dam_estimation(m_ptr, player_ptr, GF_SOUND, breath_dam_div6, 450, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_CHAO)) spell_dam_estimation(m_ptr, player_ptr, GF_CHAOS, breath_dam_div6, 600, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_DISE)) spell_dam_estimation(m_ptr, player_ptr, GF_DISENCHANT, breath_dam_div6, 500, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_NEXU)) spell_dam_estimation(m_ptr, player_ptr, GF_NEXUS, breath_dam_div3, 250, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_TIME)) spell_dam_estimation(m_ptr, player_ptr, GF_TIME, breath_dam_div3, 150, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_INER)) spell_dam_estimation(m_ptr, player_ptr, GF_INERTIA, breath_dam_div6, 200, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_GRAV)) spell_dam_estimation(m_ptr, player_ptr, GF_GRAVITY, breath_dam_div3, 200, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_SHAR)) spell_dam_estimation(m_ptr, player_ptr, GF_SHARDS, breath_dam_div6, 500, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_PLAS)) spell_dam_estimation(m_ptr, player_ptr, GF_PLASMA, breath_dam_div6, 150, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_WALL)) spell_dam_estimation(m_ptr, player_ptr, GF_FORCE, breath_dam_div6, 200, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_MANA)) spell_dam_estimation(m_ptr, player_ptr, GF_MANA, breath_dam_div3, 250, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_NUKE)) spell_dam_estimation(m_ptr, player_ptr, GF_NUKE, breath_dam_div3, 800, &dam_max0);
-				if(has_trait(m_ptr, TRAIT_BR_DISI)) spell_dam_estimation(m_ptr, player_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_ROCKET)) spell_dam_estimation(attacker_ptr, target_ptr, GF_ROCKET, attacker_ptr->chp / 4, 800, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_ACID)) spell_dam_estimation(attacker_ptr, target_ptr, GF_ACID, breath_dam_div3, 1600, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_ELEC)) spell_dam_estimation(attacker_ptr, target_ptr, GF_ELEC, breath_dam_div3, 1600, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_FIRE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_FIRE, breath_dam_div3, 1600, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_COLD)) spell_dam_estimation(attacker_ptr, target_ptr, GF_COLD, breath_dam_div3, 1600, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_POIS)) spell_dam_estimation(attacker_ptr, target_ptr, GF_POIS, breath_dam_div3, 800, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_NETH)) spell_dam_estimation(attacker_ptr, target_ptr, GF_NETHER, breath_dam_div6, 550, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_LITE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_LITE, breath_dam_div6, 400, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_DARK)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DARK, breath_dam_div6, 400, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_CONF)) spell_dam_estimation(attacker_ptr, target_ptr, GF_CONFUSION, breath_dam_div6, 450, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_SOUN)) spell_dam_estimation(attacker_ptr, target_ptr, GF_SOUND, breath_dam_div6, 450, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_CHAO)) spell_dam_estimation(attacker_ptr, target_ptr, GF_CHAOS, breath_dam_div6, 600, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_DISE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DISENCHANT, breath_dam_div6, 500, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_NEXU)) spell_dam_estimation(attacker_ptr, target_ptr, GF_NEXUS, breath_dam_div3, 250, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_TIME)) spell_dam_estimation(attacker_ptr, target_ptr, GF_TIME, breath_dam_div3, 150, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_INER)) spell_dam_estimation(attacker_ptr, target_ptr, GF_INERTIA, breath_dam_div6, 200, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_GRAV)) spell_dam_estimation(attacker_ptr, target_ptr, GF_GRAVITY, breath_dam_div3, 200, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_SHAR)) spell_dam_estimation(attacker_ptr, target_ptr, GF_SHARDS, breath_dam_div6, 500, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_PLAS)) spell_dam_estimation(attacker_ptr, target_ptr, GF_PLASMA, breath_dam_div6, 150, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_WALL)) spell_dam_estimation(attacker_ptr, target_ptr, GF_FORCE, breath_dam_div6, 200, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_MANA)) spell_dam_estimation(attacker_ptr, target_ptr, GF_MANA, breath_dam_div3, 250, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_NUKE)) spell_dam_estimation(attacker_ptr, target_ptr, GF_NUKE, breath_dam_div3, 800, &dam_max0);
+				if(has_trait(attacker_ptr, TRAIT_BR_DISI)) spell_dam_estimation(attacker_ptr, target_ptr, GF_DISINTEGRATE, breath_dam_div6, 150, &dam_max0);
 			}
 
 			// Creature melee attacks
-			if(!(has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
+			if(!(has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) && !(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE))
 			{
 				if(mx <= xx + 1 && mx >= xx - 1 && my <= yy + 1 && my >= yy - 1)
 				{
@@ -5256,10 +5255,10 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 					for (m = 0; m < MAX_SPECIAL_BLOWS; m++)
 					{
 						/* Skip non-attacks */
-						if(!m_ptr->blow[m].method == RBM_SHOOT) continue;
+						if(!attacker_ptr->blow[m].method == RBM_SHOOT) continue;
 
 						/* Extract the attack info */
-						dam_melee += blow_damcalc(m_ptr, player_ptr, &m_ptr->blow[m]);
+						dam_melee += blow_damcalc(attacker_ptr, target_ptr, &attacker_ptr->blow[m]);
 					}
 					if(dam_melee > dam_max0) dam_max0 = dam_melee;
 				}
@@ -5275,9 +5274,9 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	{
 		old_damage = dam_max * 3 / 2;
 
-		if(dam_max > player_ptr->chp / 2)
+		if(dam_max > target_ptr->chp / 2)
 		{
-			object_type *object_ptr = choose_warning_item(player_ptr);
+			object_type *object_ptr = choose_warning_item(target_ptr);
 
 			if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
@@ -5287,7 +5286,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 			else strcpy(object_name, "body"); /* Warning ability without item */
 			msg_format("Your %s pulsates sharply!", object_name);
 #endif
-			disturb(player_ptr, 0, 0);
+			disturb(target_ptr, 0, 0);
 #ifdef JP
 			return get_check("本当にこのまま進むか？");
 #else
@@ -5301,7 +5300,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 	if(((!easy_disarm && is_trap(c_ptr->feat))
 	    || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{
-		object_type *object_ptr = choose_warning_item(player_ptr);
+		object_type *object_ptr = choose_warning_item(target_ptr);
 
 		if(object_ptr) object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
@@ -5311,7 +5310,7 @@ bool process_warning(creature_type *player_ptr, int xx, int yy)
 		else strcpy(object_name, "body"); /* Warning ability without item */
 		msg_format("Your %s pulsates!", object_name);
 #endif
-		disturb(player_ptr, 0, 0);
+		disturb(target_ptr, 0, 0);
 #ifdef JP
 		return get_check("本当にこのまま進むか？");
 #else
