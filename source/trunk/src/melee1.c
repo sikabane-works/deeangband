@@ -1805,16 +1805,13 @@ static cptr desc_moan[] =
 
 };
 
-
-/*
- * Attack the player via physical attacks.
- */
+// Attack the player via physical attacks.
 bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int ap_cnt, bool *fear, bool *dead)
 {
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
 
-	int i, k, tmp, ac, rlev;
+	int i, k, tmp, ac;
 	int do_cut, do_stun;
 
 	s32b gold;
@@ -1857,10 +1854,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	/* ...nor if friendly */
 	if(!is_hostile(attacker_ptr)) return FALSE;
 
-	/* Extract the effective creature level */
-	rlev = ((species_ptr->level >= 1) ? species_ptr->level : 1);
-
-
 	/* Get the creature name (or "it") */
 	creature_desc(attacker_name, attacker_ptr, 0);
 	creature_desc(target_name, target_ptr, 0);
@@ -1897,12 +1890,12 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	ac = target_ptr->ac + target_ptr->to_ac;
 
 	/* Creature hits player */
-	if(!effect || check_hit(target_ptr, power, rlev, attacker_ptr->timed_trait[TRAIT_STUN]))
+	if(!effect || check_hit(target_ptr, power, attacker_ptr->lev, attacker_ptr->timed_trait[TRAIT_STUN]))
 	{
 		disturb(player_ptr, 1, 0);
 
 		// Hack -- Apply "protection from evil"
-		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= rlev) && ((randint0(100) + target_ptr->lev) > 50))
+		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
 		{
 			/* Remember the Evil-ness */
 			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL;
@@ -2426,7 +2419,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_SUPERHURT:
 			{
-				if(((randint1(rlev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
 					int tmp_damage = damage - (damage * ((ac < 150) ? ac : 150) / 250);
 #ifdef JP
@@ -2464,7 +2457,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take "poison" effect */
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
+					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))
 					{
 						obvious = TRUE;
 					}
@@ -2529,7 +2522,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						(object_ptr->pval))
 					{
 						/* Calculate healed hitpoints */
-						int heal=rlev * object_ptr->pval;
+						int heal=attacker_ptr->lev * object_ptr->pval;
 						if( object_ptr->tval == TV_STAFF)
 							heal *=  object_ptr->number;
 
@@ -2958,7 +2951,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "blind" */
 				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 10 + randint1(rlev)))
+					if(set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 10 + randint1(attacker_ptr->lev)))
 					{
 #ifdef JP
 						if(attacker_ptr->species_idx == SPECIES_DIO) msg_print("「どうだッ！この血の目潰しはッ！」");
@@ -2986,7 +2979,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Increase "confused" */
 				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(rlev)))
+					if(set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(attacker_ptr->lev)))
 					{
 						obvious = TRUE;
 					}
@@ -3033,7 +3026,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				*/
 				else
 				{
-					if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(rlev)))
+					if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(attacker_ptr->lev)))
 					{
 						obvious = TRUE;
 					}
@@ -3071,7 +3064,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					if(!target_ptr->timed_trait[TRAIT_PARALYZED])
 					{
-						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(rlev)))
+						if(set_timed_trait(target_ptr, TRAIT_PARALYZED, 3 + randint1(attacker_ptr->lev)))
 						{
 							obvious = TRUE;
 						}
@@ -3274,7 +3267,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take "poison" effect */
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(rlev) + 5))
+					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))
 					{
 						obvious = TRUE;
 					}
