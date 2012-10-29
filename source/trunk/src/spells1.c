@@ -1722,14 +1722,11 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	// Is the creature "seen"?
 	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
-
 	bool slept = (bool)target_ptr->timed_trait[TRAIT_PARALYZED];
 
 	// Can the player know about this effect?
@@ -1821,7 +1818,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
 	/* "Unique" and "quest" creatures can only be "killed" by the player. */
-	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
+	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
 	{
 		if(caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}
@@ -1966,9 +1963,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 
 			/* Hack -- Get new creature */
 			target_ptr = target_ptr;
-
-			/* Hack -- Get new race */
-			species_ptr = &species_info[target_ptr->species_idx];
 		}
 
 		/* Handle "teleport" */
