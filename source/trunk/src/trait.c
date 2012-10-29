@@ -3617,17 +3617,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 
-		//case TRAIT_EARTHQUAKE:
-			(void)earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, 10);
-			break;
-
-
 		case TRAIT_WEIGH_MAG:
 			report_magics(caster_ptr);
 			break;
 
 		case TRAIT_STERILITY:
-			/* Fake a population explosion. */
 #ifdef JP
 			msg_print("突然頭が痛くなった！");
 			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "禁欲を強いた疲労", NULL, -1);
@@ -3635,40 +3629,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_print("You suddenly have a headache!");
 			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
 #endif
-
 			floor_ptr->num_repro += MAX_REPRO;
 			break;
 
-		//case TRAIT_PANIC_HIT:
-			{
-				int x, y;
-
-				if(!get_rep_dir2(caster_ptr,&dir)) return FALSE;
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
-				if(floor_ptr->cave[y][x].creature_idx)
-				{
-					melee_attack(caster_ptr, y, x, 0);
-					if(randint0(caster_ptr->skill_dis) < 7)
-#ifdef JP
-						msg_print("うまく逃げられなかった。");
-#else
-						msg_print("You failed to teleport.");
-#endif
-					else teleport_player(caster_ptr, 30, 0L);
-				}
-				else
-				{
-#ifdef JP
-					msg_print("その方向にはクリーチャーはいません。");
-#else
-					msg_print("You don't see any creature in this direction");
-#endif
-
-					msg_print(NULL);
-				}
-			}
-			break;
 
 		case TRAIT_DAZZLE:
 			stun_creatures(caster_ptr, user_level * 4);
@@ -3680,7 +3643,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_beam_(caster_ptr, GF_LITE, dir, 2 * user_level);
 			break;
-
 
 		case TRAIT_BANISH:
 			{
