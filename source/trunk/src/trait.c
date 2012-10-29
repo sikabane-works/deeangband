@@ -3276,23 +3276,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_FIRE_BALL:
-
-#ifdef JP
-		msg_print("ファイア・ボールを放った。");
-#else
-		msg_print("You cast a ball of fire.");
-#endif
 		cast_ball(caster_ptr, GF_FIRE, dir, user_level, 2);
 		break;
 
 	case TRAIT_FIRE_BOLT:
-
-#ifdef JP
-		msg_print("ファイア・ボルトを放った。");
-#else
-		msg_print("You cast a bolt of fire.");
-#endif
-
 		cast_bolt_(caster_ptr, GF_FIRE, dir, user_level);
 		break;
 
@@ -3306,37 +3293,25 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_RAY_GUN:
-
 		cast_bolt_(caster_ptr, GF_MISSILE, dir, (user_level+1) / 2);
 		break;
 
 	case TRAIT_BLASTER:
-
 		cast_bolt_(caster_ptr, GF_MISSILE, dir, user_level);
 		break;
 
 	case TRAIT_BAZOOKA:
-
 		cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
 		break;
 
 	case TRAIT_BEAM_CANNON:
-
 		cast_beam_(caster_ptr, GF_MISSILE, dir, user_level * 2);
 		break;
 
 	case TRAIT_SCARE_CREATURE:
-
 		racial_stop_mouth(caster_ptr);
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
-
-
-		//case TRAIT_BR_FIRE:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-			mutation_stop_mouth(caster_ptr);
-			cast_ball(caster_ptr, GF_FIRE, dir, user_level * 2, 1 + (user_level / 20));
-			break;
 
 		case TRAIT_HYPN_GAZE:
 			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
