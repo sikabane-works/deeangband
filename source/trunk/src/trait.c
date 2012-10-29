@@ -1061,7 +1061,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SHOUT:
-		racial_stop_mouth(caster_ptr);
+		stop_mouth(caster_ptr);
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
 
@@ -3153,7 +3153,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				x = caster_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				racial_stop_mouth(caster_ptr);
+				stop_mouth(caster_ptr);
 
 				if(!c_ptr->creature_idx)
 				{
@@ -3266,7 +3266,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SPIT_ACID:
-		racial_stop_mouth(caster_ptr);
+		stop_mouth(caster_ptr);
 		if(user_level < 25) cast_bolt_(caster_ptr, GF_ACID, dir, user_level);
 		else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
 		break;
@@ -3309,7 +3309,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SCARE_CREATURE:
-		racial_stop_mouth(caster_ptr);
+		stop_mouth(caster_ptr);
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
 
@@ -3362,7 +3362,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				x = caster_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				mutation_stop_mouth(caster_ptr);
+				stop_mouth(caster_ptr);
 
 				if(!(c_ptr->creature_idx))
 				{
@@ -3415,12 +3415,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 
 		case TRAIT_SMELL_MET:
-			mutation_stop_mouth(caster_ptr);
+			stop_mouth(caster_ptr);
 			(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
 			break;
 
 		case TRAIT_SMELL_MON:
-			mutation_stop_mouth(caster_ptr);
+			stop_mouth(caster_ptr);
 			(void)detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 			break;
 
@@ -3441,7 +3441,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				f_ptr = &feature_info[c_ptr->feat];
 				mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 
-				mutation_stop_mouth(caster_ptr);
+				stop_mouth(caster_ptr);
 
 				if(!have_flag(mimic_f_ptr->flags, FF_HURT_ROCK))
 				{
@@ -3529,7 +3529,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 
 		//case TRAIT_SHRIEK:
-			mutation_stop_mouth(caster_ptr);
+			stop_mouth(caster_ptr);
 			(void)cast_ball(caster_ptr, GF_SOUND, 0, 2 * user_level, 8);
 			(void)aggravate_creatures(caster_ptr);
 			break;

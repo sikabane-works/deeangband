@@ -133,13 +133,6 @@ int calc_regenerate_mod(creature_type *creature_ptr)
 	return (regen);
 }
 
-
-void mutation_stop_mouth(creature_type *creature_ptr)
-{
-	if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
-	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
-}
-
 void get_acquired_trait(creature_type *creature_ptr, int trait)
 {
 	add_flag(creature_ptr->acquired_trait, trait);

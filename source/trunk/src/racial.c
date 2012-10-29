@@ -878,7 +878,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	return -1;
 }
 
-void racial_stop_mouth(creature_type *creature_ptr)
+void stop_mouth(creature_type *creature_ptr)
 {
 	if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
@@ -1440,7 +1440,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		{
 			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			racial_stop_mouth(creature_ptr);
+			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
 #else
@@ -1471,7 +1471,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				racial_stop_mouth(creature_ptr);
+				stop_mouth(creature_ptr);
 
 				if(!c_ptr->creature_idx)
 				{
@@ -1679,7 +1679,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 		case RACE_YEEK:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			racial_stop_mouth(creature_ptr);
+			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("身の毛もよだつ叫び声を上げた！");
 #else
@@ -1691,7 +1691,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 		case RACE_KLACKON:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			racial_stop_mouth(creature_ptr);
+			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("酸を吐いた。");
 #else
@@ -1932,7 +1932,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					}
 				}
 
-				racial_stop_mouth(creature_ptr);
+				stop_mouth(creature_ptr);
 
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。", Type_desc);
@@ -2013,7 +2013,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				x = creature_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
 
-				racial_stop_mouth(creature_ptr);
+				stop_mouth(creature_ptr);
 
 				if(!c_ptr->creature_idx)
 				{
@@ -2067,7 +2067,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			/*
 		case LICH:
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			racial_stop_mouth(creature_ptr);
+			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("あなたはおどろおどろしい叫び声をあげた！");
 #else
@@ -2094,7 +2094,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
 				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-				racial_stop_mouth(creature_ptr);
+				stop_mouth(creature_ptr);
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
 #else
