@@ -2407,10 +2407,10 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 						msg_print("Your brain is no longer a living computer.");
 #endif
 
-						lose_acquired_trait(watcher_ptr, TRAIT_HYPER_INT);
+						lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
 					}
 
-					get_acquired_trait(watcher_ptr, TRAIT_MORONIC);
+					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
 					happened = TRUE;
 				}
 				break;
@@ -2434,10 +2434,10 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 #else
 						msg_print("You are no longer fearless.");
 #endif
-						lose_acquired_trait(watcher_ptr, TRAIT_FEARLESS);
+						lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
 					}
 
-					get_acquired_trait(watcher_ptr, TRAIT_COWARDICE);
+					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE);
 					happened = TRUE;
 				}
 				break;
@@ -2452,7 +2452,7 @@ msg_print("幻覚をひき起こす精神錯乱に陥った！");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					get_acquired_trait(watcher_ptr, TRAIT_HALLU);
+					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
 					happened = TRUE;
 				}
 				break;
@@ -2467,7 +2467,7 @@ msg_print("激烈な感情の発作におそわれるようになった！");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					get_acquired_trait(watcher_ptr, TRAIT_BERS_RAGE);
+					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE);
 					happened = TRUE;
 				}
 				break;

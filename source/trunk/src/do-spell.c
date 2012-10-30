@@ -845,7 +845,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Judgement.");
 #endif
-		remove_all_acquired_traits(creature_ptr);
+		remove_all_mutative_traits(creature_ptr);
 		do_cmd_rerate(creature_ptr, FALSE);
 	}
 	else if(die < 120)

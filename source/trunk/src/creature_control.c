@@ -2395,10 +2395,10 @@ msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
 #else
 						msg_print("Your brain is no longer a living computer.");
 #endif
-						lose_acquired_trait(watcher_ptr, TRAIT_HYPER_INT);
+						lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
 					}
 
-					get_acquired_trait(watcher_ptr, TRAIT_MORONIC);
+					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
 					happened = TRUE;
 				}
 				break;
@@ -2429,10 +2429,10 @@ msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
 #else
 						msg_print("You are no longer fearless.");
 #endif
-						lose_acquired_trait(watcher_ptr, TRAIT_FEARLESS);
+						lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
 					}
 
-					get_acquired_trait(watcher_ptr, TRAIT_COWARDICE);
+					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE);
 					happened = TRUE;
 				}
 				break;
@@ -2454,7 +2454,7 @@ msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
 
-					get_acquired_trait(watcher_ptr, TRAIT_HALLU);
+					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
 					happened = TRUE;
 				}
 				break;
@@ -2467,7 +2467,7 @@ msg_print("‚ ‚Ü‚è‚Ì‹°•|‚É‘S‚Ä‚Ì‚±‚Æ‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½I");
 					msg_print("You become subject to fits of berserk rage!");
 #endif
 
-					get_acquired_trait(watcher_ptr, TRAIT_BERS_RAGE);
+					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE);
 					happened = TRUE;
 				}
 				break;
@@ -3699,7 +3699,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	if(summoner_ptr && (mode & PC_MULTIPLY) && !is_player(summoner_ptr) && !is_original_ap(summoner_ptr))
 	{
 		creature_ptr->ap_species_idx = summoner_ptr->ap_species_idx;
-		if(has_trait(summoner_ptr, TRAIT_KAGE)) get_acquired_trait(creature_ptr, TRAIT_KAGE); // Hack -- Shadower spawns Shadower
+		if(has_trait(summoner_ptr, TRAIT_KAGE)) get_mutative_trait(creature_ptr, TRAIT_KAGE); // Hack -- Shadower spawns Shadower
 	}
 
 	// Sub-alignment of a creature
@@ -3737,7 +3737,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	else if((mode & PC_KAGE) && !(mode & PC_FORCE_PET))
 	{
 		creature_ptr->ap_species_idx = SPECIES_KAGE;
-		get_acquired_trait(creature_ptr, TRAIT_KAGE);
+		get_mutative_trait(creature_ptr, TRAIT_KAGE);
 	}
 
 	if(mode & PC_NO_PET) creature_ptr->sc_flag2 |= SC_FLAG2_NOPET;

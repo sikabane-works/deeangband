@@ -682,7 +682,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_s16b(creature_ptr->pet_follow_distance);
 	wr_s16b(creature_ptr->pet_extra_flags);
 
-	for (i = 0; i < TRAIT_FLAG_MAX; i++) wr_u32b(creature_ptr->acquired_trait[i]);
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) wr_u32b(creature_ptr->mutative_trait[i]);
 
 }
 

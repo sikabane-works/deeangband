@@ -34,7 +34,7 @@ void dump_traits(creature_type *creature_ptr, FILE *OutFile)
 	//TODO
 }
 
-void remove_all_acquired_traits(creature_type *creature_ptr)
+void remove_all_mutative_traits(creature_type *creature_ptr)
 {
 	int i;
 
@@ -44,7 +44,7 @@ void remove_all_acquired_traits(creature_type *creature_ptr)
 	msg_print("You are cured of all mutations.");
 #endif
 
-	for(i = 0; i < TRAIT_FLAG_MAX; i++) creature_ptr->acquired_trait[i] = 0L;
+	for(i = 0; i < TRAIT_FLAG_MAX; i++) creature_ptr->mutative_trait[i] = 0L;
 	creature_ptr->creature_update |= CRU_BONUS;
 	creature_ptr->regenerate_mod = calc_regenerate_mod(creature_ptr);
 	handle_stuff();
@@ -119,12 +119,12 @@ int calc_regenerate_mod(creature_type *creature_ptr)
 	return (regen);
 }
 
-void get_acquired_trait(creature_type *creature_ptr, int trait)
+void get_mutative_trait(creature_type *creature_ptr, int trait)
 {
-	add_flag(creature_ptr->acquired_trait, trait);
+	add_flag(creature_ptr->mutative_trait, trait);
 }
 
-void lose_acquired_trait(creature_type *creature_ptr, int trait)
+void lose_mutative_trait(creature_type *creature_ptr, int trait)
 {
-	remove_flag(creature_ptr->acquired_trait, trait);
+	remove_flag(creature_ptr->mutative_trait, trait);
 }

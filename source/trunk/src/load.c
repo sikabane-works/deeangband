@@ -1117,7 +1117,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_s16b(&creature_ptr->pet_follow_distance);
 	rd_s16b(&creature_ptr->pet_extra_flags);
 
-	for (i = 0; i < TRAIT_FLAG_MAX; i++) rd_u32b(&creature_ptr->acquired_trait[i]);
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) rd_u32b(&creature_ptr->mutative_trait[i]);
 
 }
 
