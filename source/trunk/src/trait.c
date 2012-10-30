@@ -1057,6 +1057,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SHRIEK:
+		stop_mouth(caster_ptr);
+		(void)cast_ball(caster_ptr, GF_SOUND, 0, 2 * user_level, 8);
 		aggravate_creatures(caster_ptr);
 		break;
 
@@ -3528,12 +3530,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			project_length = 0;
 			break;
 
-		//case TRAIT_SHRIEK:
-			stop_mouth(caster_ptr);
-			(void)cast_ball(caster_ptr, GF_SOUND, 0, 2 * user_level, 8);
-			(void)aggravate_creatures(caster_ptr);
-			break;
-
 		case TRAIT_ILLUMINE:
 			(void)lite_area(caster_ptr, diceroll(2, (user_level / 2)), (user_level / 10) + 1);
 			break;
@@ -3554,12 +3550,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			break;
 
-		//case TRAIT_BERSERK:
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, FALSE);
-			(void)heal_creature(caster_ptr, 30);
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			break;
-
 		case TRAIT_POLYMORPH:
 #ifdef JP
 			if(!get_check("変身します。よろしいですか？")) return FALSE;
@@ -3567,10 +3557,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
 #endif
 			do_poly_self(caster_ptr);
-			break;
-
-		//case TRAIT_MIDAS_TCH:
-			if(!alchemy(caster_ptr)) return FALSE;
 			break;
 
 		/* Summon pet molds around the player */
