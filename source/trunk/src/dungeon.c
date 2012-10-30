@@ -1851,7 +1851,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	*/
 	if(!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY))
 	{
-		if(!IS_INVULN(creature_ptr) && !creature_ptr->timed_trait[TRAIT_WRAITH_FORM] && !creature_ptr->timed_trait[TRAIT_PASS_WALL] &&
+		if(!IS_INVULN(creature_ptr) && !has_trait(creature_ptr, TRAIT_WRAITH_FORM) && !creature_ptr->timed_trait[TRAIT_PASS_WALL] &&
 			((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;

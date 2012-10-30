@@ -437,7 +437,7 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_SEE_INFRA]) ADD_FLG(BAR_INFRAVISION);	// Timed infra-vision
 	if(creature_ptr->timed_trait[TRAIT_PROT_EVIL]) ADD_FLG(BAR_PROTEVIL);		// Protection from evil
 	if(IS_INVULN(creature_ptr)) ADD_FLG(BAR_INVULN);			// Invulnerability
-	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) ADD_FLG(BAR_WRAITH);		// Wraith form
+	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) ADD_FLG(BAR_WRAITH);		// Wraith form
 	if(creature_ptr->timed_trait[TRAIT_PASS_WALL]) ADD_FLG(BAR_PASSWALL);		// Pass wall
 	if(creature_ptr->timed_trait[TRAIT_REFLECTING]) ADD_FLG(BAR_REFLECTION);
 	if(IS_HERO(creature_ptr)) ADD_FLG(BAR_HEROISM);			// Heroism
@@ -3133,7 +3133,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 	}
 
 	// Wraith form
-	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
+	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM))
 	{
 		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
 	}

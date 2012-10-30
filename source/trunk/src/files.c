@@ -2340,7 +2340,7 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 
 	if(IS_OPPOSE_POIS(creature_ptr)) add_flag(flgs, TRAIT_RES_POIS);
 
-	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM])
+	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM))
 		add_flag(flgs, TRAIT_REFLECTING);
 
 	/* by henkma */
@@ -2507,7 +2507,7 @@ static void tim_player_immunity(u32b flgs[TRAIT_FLAG_MAX], creature_type *creatu
 
 	// Clear
 	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
-	if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) add_flag(flgs, TRAIT_RES_DARK);
+	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) add_flag(flgs, TRAIT_RES_DARK);
 }
 
 static void player_vuln_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_ptr)

@@ -2833,7 +2833,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
 		/* Lite -- blinding */
 	case GF_LITE:
 		{
@@ -2850,14 +2849,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 
-			if(target_ptr->timed_trait[TRAIT_WRAITH_FORM] && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				target_ptr->timed_trait[TRAIT_WRAITH_FORM] = 0;
+				set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
+/* TODO
 #ifdef JP
 				msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨¿“I‚È‰e‚Ì‘¶İ‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
 #else
 				msg_print("The light forces you out of your incorporeal shadow form.");
 #endif
+*/
 				play_redraw |= PR_MAP;
 				update |= (PU_CREATURES);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);

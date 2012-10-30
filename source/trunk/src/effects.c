@@ -2632,7 +2632,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 			}
 		}
 
-		if(target_ptr->timed_trait[TRAIT_WRAITH_FORM])
+		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
 			if(damage_type == DAMAGE_FORCE)
 			{

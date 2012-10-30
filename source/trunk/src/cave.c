@@ -1407,7 +1407,7 @@ void print_rel(creature_type *creature_ptr, char c, byte a, int y, int x)
 		{
 			if(the_world) a = TERM_DARK;
 			else if(IS_INVULN(creature_ptr) || creature_ptr->time_stopper) a = TERM_WHITE;
-			else if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) a = TERM_L_DARK;
+			else if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) a = TERM_L_DARK;
 		}
 
 		/* Draw the char using the attr */
@@ -1578,7 +1578,7 @@ void display_dungeon(creature_type *creature_ptr)
 				{
 					if(the_world) a = TERM_DARK;
 					else if(IS_INVULN(creature_ptr) || creature_ptr->time_stopper) a = TERM_WHITE;
-					else if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) a = TERM_L_DARK;
+					else if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) a = TERM_L_DARK;
 				}
 
 				/* Hack -- Queue it */
@@ -1629,7 +1629,7 @@ void lite_spot(floor_type *floor_ptr, int y, int x)
 		{
 			if(the_world) a = TERM_DARK;
 			else if(IS_INVULN(player_ptr) || player_ptr->time_stopper) a = TERM_WHITE;
-			else if(player_ptr->timed_trait[TRAIT_WRAITH_FORM]) a = TERM_L_DARK;
+			else if(has_trait(player_ptr,TRAIT_WRAITH_FORM)) a = TERM_L_DARK;
 
 		}
 
@@ -1713,7 +1713,7 @@ void prt_map(creature_type *watcher_ptr)
 			{
 				if(the_world) a = TERM_DARK;
 				else if(IS_INVULN(watcher_ptr) || watcher_ptr->time_stopper) a = TERM_WHITE;
-				else if(watcher_ptr->timed_trait[TRAIT_WRAITH_FORM]) a = TERM_L_DARK;
+				else if(has_trait(watcher_ptr, TRAIT_WRAITH_FORM)) a = TERM_L_DARK;
 			}
 
 			/* Efficiency -- Redraw that grid of the map */
@@ -1784,7 +1784,7 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 			{
 				if(the_world) a = TERM_DARK;
 				else if(IS_INVULN(creature_ptr) || creature_ptr->time_stopper) a = TERM_WHITE;
-				else if(creature_ptr->timed_trait[TRAIT_WRAITH_FORM]) a = TERM_L_DARK;
+				else if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) a = TERM_L_DARK;
 			}
 
 			c = '*';
