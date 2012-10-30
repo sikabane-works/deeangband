@@ -854,6 +854,28 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	cptr note;
 	int t = 1000;
 
+	/*
+	if(has_trait(m_ptr, TRAIT_INVULNERABLE))
+	{
+		if(is_psy_spear)
+		{
+			if(!has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, m_ptr))
+			{
+#ifdef JP
+				msg_print("ƒoƒŠƒA‚ðØ‚è—ô‚¢‚½I");
+#else
+				msg_print("The barrier is penetrated!");
+#endif
+			}
+		}
+		else if(!one_in_(PENETRATE_INVULNERABILITY))
+		{
+			return (0);
+		}
+	}
+	return (dam);
+	*/
+
 	if(message) creature_desc(creature_name, creature_ptr, 0);
 	switch(type)
 	{
@@ -1001,10 +1023,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 	}
 
-	if(has_trait(creature_ptr, TRAIT_RES_ALL))
-	{
-		t = 0;
-	}
+	if(has_trait(creature_ptr, TRAIT_RES_ALL)) t = 0;
 
 	/* TODO Multishadow
 	if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))

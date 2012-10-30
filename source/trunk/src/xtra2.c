@@ -1069,33 +1069,9 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 */
 int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
 {
+	//TODO Change to calc_damage()
 	species_type    *r_ptr = &species_info[m_ptr->species_idx];
-
-	if(has_trait(m_ptr, TRAIT_RES_ALL) && dam > 0)
-	{
-		dam /= 100;
-		if((dam == 0) && one_in_(3)) dam = 1;
-	}
-
-	if(has_trait(m_ptr, TRAIT_INVULNERABLE))
-	{
-		if(is_psy_spear)
-		{
-			if(!has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, m_ptr))
-			{
-#ifdef JP
-				msg_print("ƒoƒŠƒA‚ğØ‚è—ô‚¢‚½I");
-#else
-				msg_print("The barrier is penetrated!");
-#endif
-			}
-		}
-		else if(!one_in_(PENETRATE_INVULNERABILITY))
-		{
-			return (0);
-		}
-	}
-	return (dam);
+	return 1;
 }
 
 

@@ -2540,8 +2540,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		//if(!target_ptr->species_idx) m_idx = 0;
 	}
 
-	/* Wake it up */
-	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
+	(void)set_timed_trait(target_ptr, TRAIT_SLEPT, 0);
 
 	if(attacker_ptr)
 	{
