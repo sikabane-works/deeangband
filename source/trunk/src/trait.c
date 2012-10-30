@@ -1832,7 +1832,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 					break;
 				}
-				else if(r_ptr->level > randint1(100))
+				else if(target_ptr->lev > randint1(100))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -1901,7 +1901,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			creature_desc(target_name, target_ptr, 0);
 
 			if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
-				has_trait_species(r_ptr, TRAIT_QUESTOR) || (r_ptr->level + randint1(50) > user_level + randint1(60)))
+				has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
 			{
 				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
@@ -3656,9 +3656,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				m_ptr = &creature_list[c_ptr->creature_idx];
 				r_ptr = &species_info[m_ptr->species_idx];
 
-				if(is_enemy_of_good_species(r_ptr) &&
-				    !(has_trait_species(r_ptr, TRAIT_QUESTOR)) &&
-				    !(has_trait_species(r_ptr, TRAIT_UNIQUE)) &&
+				if(is_enemy_of_good_species(r_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				    !floor_ptr->fight_arena_mode && !floor_ptr->quest &&
 					(r_ptr->level < randint1(caster_ptr->lev+50)) &&
 					!(m_ptr->sc_flag2 & SC_FLAG2_NOGENO))
