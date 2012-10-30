@@ -64,6 +64,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		y = target_row;
 		x = target_col;
 	}
+	else if(trait_info[id].effect_type == TRAIT_EFFECT_TYPE_ADJACENCY)
+	{
+	}
 
 	if(is_player(caster_ptr) || !blind)
 	{
