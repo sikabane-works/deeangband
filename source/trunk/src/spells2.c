@@ -2759,12 +2759,12 @@ void discharge_minion(creature_type *caster_ptr)
 		/* Uniques resist discharging */
 		if(has_trait(target_ptr, TRAIT_UNIQUE))
 		{
-			char m_name[80];
-			creature_desc(m_name, target_ptr, 0x00);
+			char target_name[80];
+			creature_desc(target_name, target_ptr, 0x00);
 #ifdef JP
-			msg_format("%s‚Í”š”j‚³‚ê‚é‚Ì‚ðŒ™‚ª‚èAŸŽè‚ÉŽ©•ª‚Ì¢ŠE‚Ö‚Æ‹A‚Á‚½B", m_name);
+			msg_format("%s‚Í”š”j‚³‚ê‚é‚Ì‚ðŒ™‚ª‚èAŸŽè‚ÉŽ©•ª‚Ì¢ŠE‚Ö‚Æ‹A‚Á‚½B", target_name);
 #else
-			msg_format("%^s resists to be blasted, and run away.", m_name);
+			msg_format("%^s resists to be blasted, and run away.", target_name);
 #endif
 			delete_species_idx(&creature_list[i]);
 			continue;
@@ -2779,10 +2779,10 @@ void discharge_minion(creature_type *caster_ptr)
 
 		if(record_named_pet && target_ptr->nickname)
 		{
-			char m_name[80];
+			char target_name[80];
 
-			creature_desc(m_name, target_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, m_name);
+			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
+			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, target_name);
 		}
 
 		delete_species_idx(&creature_list[i]);

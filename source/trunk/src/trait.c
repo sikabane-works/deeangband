@@ -1821,7 +1821,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			creature_desc(target_name, target_ptr, 0);
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
-				if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_RES_ALL))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
