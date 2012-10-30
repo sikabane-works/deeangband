@@ -872,7 +872,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_TELEKINES:
-		fetch(caster_ptr, dir, 500, TRUE);
+		fetch(caster_ptr, dir, user_level * 10, TRUE);
 		break;
 
 	case TRAIT_STAR_BALL:
@@ -3320,15 +3320,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			(void)charm_creature(caster_ptr, dir, user_level);
 			break;
 
-		//case TRAIT_TELEKINES:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
-#ifdef JP
-			msg_print("集中している...");
-#else
-			msg_print("You concentrate...");
-#endif
-			fetch(caster_ptr, dir, user_level * 10, TRUE);
-			break;
 
 		case TRAIT_VTELEPORT:
 #ifdef JP
@@ -3426,17 +3417,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			(void)detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
 			break;
 
-		//case TRAIT_BLINK:
-			teleport_player(caster_ptr, 10, 0L);
-			break;
-
 		case TRAIT_EAT_ROCK:
 			{
 				int x, y;
 				cave_type *c_ptr;
 				feature_type *f_ptr, *mimic_f_ptr;
 
-				if(!get_rep_dir2(caster_ptr,&dir)) return FALSE;
+				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
 				c_ptr = &floor_ptr->cave[y][x];
@@ -3722,9 +3709,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 	default:
-		{
 			msg_warning("Undefined active trait.");
-		}
 
 	}
 	}
