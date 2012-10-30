@@ -3311,7 +3311,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 		case TRAIT_HYPN_GAZE:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			(void)charm_creature(caster_ptr, dir, user_level);
 			break;
 
@@ -3326,7 +3325,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 
 		case TRAIT_MIND_BLST:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 #ifdef JP
 			msg_print("集中している...");
 #else
@@ -3501,11 +3499,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		case TRAIT_SWAP_POS:
 			project_length = -1;
-			if(!get_aim_dir(caster_ptr, &dir))
-			{
-				project_length = 0;
-				return FALSE;
-			}
 			(void)teleport_swap(caster_ptr, dir);
 			project_length = 0;
 			break;
@@ -3606,7 +3599,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 
 		case TRAIT_LASER_EYE:
-			if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
 			cast_beam_(caster_ptr, GF_LITE, dir, 2 * user_level);
 			break;
 
