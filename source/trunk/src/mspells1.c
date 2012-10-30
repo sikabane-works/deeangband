@@ -943,7 +943,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Cast globe of invulnerability if not already in effect */
-	if(invul_num && !caster_ptr->timed_trait[TRAIT_INVULNERABLE] && (randint0(100) < 50))
+	if(invul_num && !has_trait(caster_ptr, TRAIT_INVULNERABLE) && (randint0(100) < 50))
 	{
 		/* Choose Globe of Invulnerability */
 		return (invul[randint0(invul_num)]);

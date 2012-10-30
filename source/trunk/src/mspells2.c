@@ -44,7 +44,7 @@ void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *
 static bool dispel_check_creature(creature_type *target_ptr)
 {
 	/* Invulnabilty */
-	if(target_ptr->timed_trait[TRAIT_INVULNERABLE]) return TRUE;
+	if(has_trait(target_ptr, TRAIT_INVULNERABLE)) return TRUE;
 
 	/* Speed */
 	if(target_ptr->speed < 135)

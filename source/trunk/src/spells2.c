@@ -1853,13 +1853,13 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 			if(m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"žNžO ");
 			if(m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"‹°•| ");
 			if(m_ptr->timed_trait[TRAIT_CONFUSED]) strcat(buf,"¬— ");
-			if(m_ptr->timed_trait[TRAIT_INVULNERABLE]) strcat(buf,"–³“G ");
+			if(has_trait(m_ptr, TRAIT_INVULNERABLE)) strcat(buf,"–³“G ");
 #else
 			if(m_ptr->timed_trait[TRAIT_PARALYZED]) strcat(buf,"sleeping ");
 			if(m_ptr->timed_trait[TRAIT_STUN]) strcat(buf,"stunned ");
 			if(m_ptr->timed_trait[TRAIT_AFRAID]) strcat(buf,"scared ");
 			if(m_ptr->timed_trait[TRAIT_CONFUSED]) strcat(buf,"confused ");
-			if(m_ptr->timed_trait[TRAIT_INVULNERABLE]) strcat(buf,"invulnerable ");
+			if(has_trait(m_ptr, TRAIT_INVULNERABLE)) strcat(buf,"invulnerable ");
 #endif
 			buf[strlen(buf)-1] = '\0';
 			prt(buf,0,0);

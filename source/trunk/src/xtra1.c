@@ -1391,7 +1391,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		byte attr = TERM_RED;
 
 		/* Invulnerable */
-		if(m_ptr->timed_trait[TRAIT_INVULNERABLE]) attr = TERM_WHITE;
+		if(has_trait(m_ptr, TRAIT_INVULNERABLE)) attr = TERM_WHITE;
 
 		/* Asleep */
 		else if(m_ptr->timed_trait[TRAIT_PARALYZED]) attr = TERM_BLUE;

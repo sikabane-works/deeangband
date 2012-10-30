@@ -10109,7 +10109,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 
 		if(stop)
 		{
-			if(!caster_ptr->timed_trait[TRAIT_INVULNERABLE])
+			if(!has_trait(caster_ptr, TRAIT_INVULNERABLE))
 			{
 #ifdef JP
 				msg_print("ñ≥ìGÇ≈ÇÕÇ»Ç≠Ç»Ç¡ÇΩÅB");

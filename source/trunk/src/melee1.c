@@ -3127,9 +3127,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
-
 				(void)drain_exp(target_ptr, d, d / 10, 95);
 				break;
 			}
@@ -3137,15 +3135,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EXP_20:
 			{
 				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-
-				/* Obvious */
 				obvious = TRUE;
-
-				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
-
 				(void)drain_exp(target_ptr, d, d / 10, 90);
 				break;
 			}
@@ -3153,15 +3145,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EXP_40:
 			{
 				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-
-				/* Obvious */
 				obvious = TRUE;
-
-				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
-
 				(void)drain_exp(target_ptr, d, d / 10, 75);
 				break;
 			}
@@ -3169,27 +3155,17 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EXP_80:
 			{
 				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
-
-				/* Obvious */
 				obvious = TRUE;
-
-				/* Take damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
-
 				(void)drain_exp(target_ptr, d, d / 10, 50);
 				break;
 			}
 
 		case RBE_DISEASE:
 			{
-				/* Take some damage */
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
-
-				/* Take "poison" effect */
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 				{
 					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))

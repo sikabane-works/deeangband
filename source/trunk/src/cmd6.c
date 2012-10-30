@@ -1240,7 +1240,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			break;
 
 		case SV_POTION_INVULNERABILITY:
-			(void)set_timed_trait_aux(user_ptr, TRAIT_INVULNERABLE, user_ptr->timed_trait[TRAIT_INVULNERABLE] + randint1(4) + 4, FALSE);
+			(void)set_timed_trait_aux(user_ptr, TRAIT_INVULNERABLE, has_trait(user_ptr, TRAIT_INVULNERABLE) + randint1(4) + 4, FALSE);
 			ident = TRUE;
 			break;
 
