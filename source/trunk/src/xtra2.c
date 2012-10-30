@@ -646,19 +646,22 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		do_cmd_write_nikki(DIARY_NAMED_PET, 3, m_name);
 	}
 
-	/* Let creatures explode! */
-	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
+	// TODO: Let creatures explode!
+	if(has_trait(dead_ptr, TRAIT_SUICIDE_BOMBER))
 	{
-		if(dead_ptr->blow[i].method == RBM_EXPLODE)
+		for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 		{
-			int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
-			int d_dice = dead_ptr->blow[i].d_dice;
-			int d_side = dead_ptr->blow[i].d_side;
-			int damage = diceroll(d_dice, d_side);
+			if(dead_ptr->blow[i].method == RBM_EXPLODE)
+			{
+				int typ = mbe_info[dead_ptr->blow[i].effect].explode_type;
+				int d_dice = dead_ptr->blow[i].d_dice;
+				int d_side = dead_ptr->blow[i].d_side;
+				int damage = diceroll(d_dice, d_side);
 
-			//TODO
-			//project(m_idx, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
-			break;
+				//TODO
+				//project(m_idx, 3, y, x, damage, typ, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				break;
+			}
 		}
 	}
 

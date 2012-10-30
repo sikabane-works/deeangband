@@ -16,7 +16,7 @@
 /*
  * Global array for looping through the "keypad directions"
  */
-s16b ddd[9] =
+s16b ddd[DIRECTION_NUM] =
 { 2, 8, 6, 4, 3, 1, 9, 7, 5 };
 
 /*
