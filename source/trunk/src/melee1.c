@@ -2351,8 +2351,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		* Skip the effect when exploding, since the explosion
 		* already causes the effect.
 		*/
-		if(explode)
-			damage = 0;
+		if(explode) damage = 0;
 		/* Apply appropriate damage */
 		switch (effect)
 		{
@@ -2367,16 +2366,13 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					int tmp_damage = damage - (damage * ((ac < 150) ? ac : 150) / 250);
+					int tmp_damage = calc_damage(target_ptr, damage, GF_MELEE, FALSE);
 #ifdef JP
 					msg_print("クリティカルヒット！");
 #else
 					msg_print("It was a critical hit!");
 #endif
-
 					tmp_damage = MAX(damage, tmp_damage*2);
-
-					/* Take damage */
 					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
 					break;
 				}
@@ -2384,15 +2380,9 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_HURT:
 			{
-				/* Obvious */
-				obvious = TRUE;
-
-				/* Hack -- Player armor reduces total damage */
-				damage -= (damage * ((ac < 150) ? ac : 150) / 250);
-
-				/* Take damage */
+				obvious = TRUE;	// Obvious
+				damage = calc_damage(target_ptr, damage, GF_MELEE, FALSE);
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
 				break;
 			}
 
@@ -3121,21 +3111,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_SHATTER:
 			{
-				/* Obvious */
 				obvious = TRUE;
-
-				/* Hack -- Reduce damage based on the player armor class */
-				damage -= (damage * ((ac < 150) ? ac : 150) / 250);
-
-				/* Take damage */
+				damage = calc_damage(target_ptr, damage, GF_MELEE, FALSE);
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-
-				/* Radius 8 earthquake centered at the creature */
-				if(damage > 23 || explode)
-				{
-					//TODO earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
-				}
-
+				//TODO if(damage > 23 || explode) earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 				break;
 			}
 
