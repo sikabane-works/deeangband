@@ -3634,7 +3634,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				int x, y;
 				cave_type *c_ptr;
-				creature_type *m_ptr;
 				species_type *r_ptr;
 
 				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
@@ -3653,20 +3652,20 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					break;
 				}
 
-				m_ptr = &creature_list[c_ptr->creature_idx];
-				r_ptr = &species_info[m_ptr->species_idx];
+				target_ptr = &creature_list[c_ptr->creature_idx];
+				r_ptr = &species_info[target_ptr->species_idx];
 
 				if(is_enemy_of_good_species(r_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				    !floor_ptr->fight_arena_mode && !floor_ptr->quest &&
 					(r_ptr->level < randint1(caster_ptr->lev+50)) &&
-					!(m_ptr->sc_flag2 & SC_FLAG2_NOGENO))
+					!(target_ptr->sc_flag2 & SC_FLAG2_NOGENO))
 				{
-					if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
+					if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 					{
-						char m_name[80];
+						char target_name[80];
 
-						creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
-						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, m_name);
+						creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
+						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 					}
 
 					/* Delete the creature, rather than killing it. */
@@ -3686,7 +3685,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					msg_print("Your invocation is ineffectual!");
 #endif
 
-					if(one_in_(13)) m_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
+					if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
 				}
 			}
 			break;
