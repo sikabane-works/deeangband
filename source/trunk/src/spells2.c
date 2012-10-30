@@ -1995,14 +1995,13 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 			if(c_ptr->creature_idx)
 			{
 				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				if(in_generate) /* In generation */
 				{
 					/* Delete the creature (if any) */
 					delete_creature(floor_ptr, y, x);
 				}
-				else if(has_trait_species(r_ptr, TRAIT_QUESTOR))
+				else if(has_trait(m_ptr, TRAIT_QUESTOR))
 				{
 					/* Heal the creature */
 					m_ptr->chp = m_ptr->mhp;
@@ -2475,7 +2474,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/* Quest creatures */
-				if(has_trait_species(r_ptr, TRAIT_QUESTOR))
+				if(has_trait(m_ptr, TRAIT_QUESTOR))
 				{
 					/* No wall on quest creatures */
 					map[16+yy-cy][16+xx-cx] = FALSE;
@@ -2492,7 +2491,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					sn = 0;
 
 					/* Creature can move to escape the wall */
-					if(!(has_trait_species(r_ptr, TRAIT_NEVER_MOVE)))
+					if(!(has_trait(m_ptr, TRAIT_NEVER_MOVE)))
 					{
 						/* Look for safety */
 						for (i = 0; i < 8; i++)
