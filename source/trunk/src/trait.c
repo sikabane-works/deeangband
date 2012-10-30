@@ -14,11 +14,14 @@
 
 bool do_active_trait(creature_type *caster_ptr, int id)
 {
-	creature_type *target_ptr = NULL;
 	trait_type *trait_ptr = &trait_info[id];
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
+	creature_type *target_ptr = NULL;
+	cave_type *cave_ptr = &floor_ptr->cave[caster_ptr->fy][caster_ptr->fx];
+	feature_type *feature_ptr = &feature_info[cave_ptr->feat];
+
 	char caster_name[100] = "何か", target_name[100] = "何か";
 	int i, k, dir = 0, dummy;
-	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int user_level = caster_ptr->lev;
 	int damage = 0;
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
@@ -109,19 +112,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		{
 			{
 				int y = 0, x = 0;
-				cave_type       *c_ptr;
-				creature_type    *target_ptr;
-
 				for (dir = 0; dir <= DIRECTION_NUM; dir++)
 				{
 					y = caster_ptr->fy + ddy[dir];
 					x = caster_ptr->fx + ddx[dir];
-					c_ptr = &floor_ptr->cave[y][x];
+					cave_ptr = &floor_ptr->cave[y][x];
 
-					target_ptr = &creature_list[c_ptr->creature_idx]; // Get the creature
+					target_ptr = &creature_list[cave_ptr->creature_idx]; // Get the creature
 
 					// Hack -- attack creatures
-					if(c_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+					if(cave_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
 						melee_attack(caster_ptr, y, x, 0);
 				}
 			}
@@ -2623,17 +2623,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SWORD_DANCING:
 		{
 			int y = 0, x = 0, i;
-			cave_type       *c_ptr;
 
 			for (i = 0; i < STAT_MAX; i++)
 			{
 				dir = randint0(8);
 				y = caster_ptr->fy + ddy_ddd[dir];
 				x = caster_ptr->fx + ddx_ddd[dir];
-				c_ptr = &floor_ptr->cave[y][x];
+				cave_ptr = &floor_ptr->cave[y][x];
 
 				// Hack -- attack creatures 
-				if(c_ptr->creature_idx)
+				if(cave_ptr->creature_idx)
 					melee_attack(caster_ptr, y, x, 0);
 				else
 				{
@@ -3113,10 +3112,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			else
 			{
-				cave_type *c_ptr = &floor_ptr->cave[caster_ptr->fy][caster_ptr->fx];
-				feature_type *f_ptr = &feature_info[c_ptr->feat];
-
-				if(!have_flag(f_ptr->flags, FF_PROJECT) || (!has_trait(caster_ptr, TRAIT_CAN_FLY) && have_flag(f_ptr->flags, FF_DEEP)))
+				if(!have_flag(feature_ptr->flags, FF_PROJECT) || (!has_trait(caster_ptr, TRAIT_CAN_FLY) && have_flag(feature_ptr->flags, FF_DEEP)))
 				{
 #ifdef JP
 					msg_print("ここでは素早く動けない。");
@@ -3147,17 +3143,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			else
 			{
 				int y, x, dummy = 0;
-				cave_type *c_ptr;
 
 				// Only works on adjacent creatures
 				if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;   // was get_aim_dir
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
-				c_ptr = &floor_ptr->cave[y][x];
+				cave_ptr = &floor_ptr->cave[y][x];
 
 				stop_mouth(caster_ptr);
 
-				if(!c_ptr->creature_idx)
+				if(!cave_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("何もない場所に噛みついた！");
@@ -3347,17 +3342,16 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		//case TRAIT_VAMPIRISM:
 			{
 				int x, y, dummy;
-				cave_type *c_ptr;
 
 				/* Only works on adjacent creatures */
 				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
-				c_ptr = &floor_ptr->cave[y][x];
+				cave_ptr = &floor_ptr->cave[y][x];
 
 				stop_mouth(caster_ptr);
 
-				if(!(c_ptr->creature_idx))
+				if(!(cave_ptr->creature_idx))
 				{
 #ifdef JP
 					msg_print("何もない場所に噛みついた！");
@@ -3420,19 +3414,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_EAT_ROCK:
 			{
 				int x, y;
-				cave_type *c_ptr;
-				feature_type *f_ptr, *mimic_f_ptr;
+				feature_type *mimic_feature_ptr;
 
 				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
-				c_ptr = &floor_ptr->cave[y][x];
-				f_ptr = &feature_info[c_ptr->feat];
-				mimic_f_ptr = &feature_info[get_feat_mimic(c_ptr)];
+				cave_ptr = &floor_ptr->cave[y][x];
+				feature_ptr = &feature_info[cave_ptr->feat];
+				mimic_feature_ptr = &feature_info[get_feat_mimic(cave_ptr)];
 
 				stop_mouth(caster_ptr);
 
-				if(!have_flag(mimic_f_ptr->flags, FF_HURT_ROCK))
+				if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
 				{
 #ifdef JP
 					msg_print("この地形は食べられない。");
@@ -3441,18 +3434,18 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 					break;
 				}
-				else if(have_flag(f_ptr->flags, FF_PERMANENT))
+				else if(have_flag(feature_ptr->flags, FF_PERMANENT))
 				{
 #ifdef JP
-					msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_f_ptr->name);
+					msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_feature_ptr->name);
 #else
-					msg_format("Ouch!  This %s is harder than your teeth!", feature_name + mimic_f_ptr->name);
+					msg_format("Ouch!  This %s is harder than your teeth!", feature_name + mimic_feature_ptr->name);
 #endif
 					break;
 				}
-				else if(c_ptr->creature_idx)
+				else if(cave_ptr->creature_idx)
 				{
-					creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
+					creature_type *m_ptr = &creature_list[cave_ptr->creature_idx];
 #ifdef JP
 					msg_print("何かが邪魔しています！");
 #else
@@ -3462,7 +3455,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(caster_ptr, y, x, 0);
 					break;
 				}
-				else if(have_flag(f_ptr->flags, FF_TREE))
+				else if(have_flag(feature_ptr->flags, FF_TREE))
 				{
 #ifdef JP
 					msg_print("木の味は好きじゃない！");
@@ -3471,7 +3464,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 					break;
 				}
-				else if(have_flag(f_ptr->flags, FF_GLASS))
+				else if(have_flag(feature_ptr->flags, FF_GLASS))
 				{
 #ifdef JP
 					msg_print("ガラスの味は好きじゃない！");
@@ -3480,20 +3473,20 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 					break;
 				}
-				else if(have_flag(f_ptr->flags, FF_DOOR) || have_flag(f_ptr->flags, FF_CAN_DIG))
+				else if(have_flag(feature_ptr->flags, FF_DOOR) || have_flag(feature_ptr->flags, FF_CAN_DIG))
 				{
 					(void)set_food(caster_ptr, caster_ptr->food + 3000);
 				}
-				else if(have_flag(f_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(f_ptr->flags, FF_HAS_GOLD))
+				else if(have_flag(feature_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(feature_ptr->flags, FF_HAS_GOLD))
 				{
 					(void)set_food(caster_ptr, caster_ptr->food + 5000);
 				}
 				else
 				{
 #ifdef JP
-					msg_format("この%sはとてもおいしい！", feature_name + mimic_f_ptr->name);
+					msg_format("この%sはとてもおいしい！", feature_name + mimic_feature_ptr->name);
 #else
-					msg_format("This %s is very filling!", feature_name + mimic_f_ptr->name);
+					msg_format("This %s is very filling!", feature_name + mimic_feature_ptr->name);
 #endif
 					(void)set_food(caster_ptr, caster_ptr->food + 10000);
 				}
@@ -3620,15 +3613,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_BANISH:
 			{
 				int x, y;
-				cave_type *c_ptr;
 				species_type *r_ptr;
 
 				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
-				c_ptr = &floor_ptr->cave[y][x];
+				cave_ptr = &floor_ptr->cave[y][x];
 
-				if(!c_ptr->creature_idx)
+				if(!cave_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("邪悪な存在を感じとれません！");
@@ -3639,7 +3631,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					break;
 				}
 
-				target_ptr = &creature_list[c_ptr->creature_idx];
+				target_ptr = &creature_list[cave_ptr->creature_idx];
 				r_ptr = &species_info[target_ptr->species_idx];
 
 				if(is_enemy_of_good_species(r_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
@@ -3656,7 +3648,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					}
 
 					/* Delete the creature, rather than killing it. */
-					delete_species_idx(&creature_list[c_ptr->creature_idx]);
+					delete_species_idx(&creature_list[cave_ptr->creature_idx]);
 #ifdef JP
 					msg_print("その邪悪なクリーチャーは硫黄臭い煙とともに消え去った！");
 #else
@@ -3680,14 +3672,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		case TRAIT_COLD_TOUCH:
 			{
 				int x, y;
-				cave_type *c_ptr;
 
 				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
-				c_ptr = &floor_ptr->cave[y][x];
+				cave_ptr = &floor_ptr->cave[y][x];
 
-				if(!c_ptr->creature_idx)
+				if(!cave_ptr->creature_idx)
 				{
 #ifdef JP
 					msg_print("あなたは何もない場所で手を振った。");
