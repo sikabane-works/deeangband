@@ -2471,7 +2471,6 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			if(c_ptr->creature_idx)
 			{
 				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-				species_type *r_ptr = &species_info[m_ptr->species_idx];
 
 				/* Quest creatures */
 				if(has_trait(m_ptr, TRAIT_QUESTOR))
@@ -2760,13 +2759,11 @@ void discharge_minion(creature_type *caster_ptr)
 	{
 		int dam;
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr;
 
 		if(!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
-		r_ptr = &species_info[m_ptr->species_idx];
 
 		/* Uniques resist discharging */
-		if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+		if(has_trait(m_ptr, TRAIT_UNIQUE))
 		{
 			char m_name[80];
 			creature_desc(m_name, m_ptr, 0x00);
@@ -2782,7 +2779,7 @@ void discharge_minion(creature_type *caster_ptr)
 		if(dam > 100) dam = (dam-100)/2 + 100;
 		if(dam > 400) dam = (dam-400)/2 + 400;
 		if(dam > 800) dam = 800;
-		project(m_ptr, 2+(r_ptr->level/20), m_ptr->fy,
+		project(m_ptr, 2+(m_ptr->lev/10), m_ptr->fy,
 			m_ptr->fx, dam, GF_PLASMA, 
 			PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 
