@@ -2663,24 +2663,18 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 		}
 	}
 
-
-	/* Process "re-glowing" */
-	for (dy = -r; dy <= r; dy++)
+	for (dy = -r; dy <= r; dy++) // Process "re-glowing"
 	{
 		for (dx = -r; dx <= r; dx++)
 		{
-			/* Extract the location */
+			// Extract the location
 			yy = cy + dy;
 			xx = cx + dx;
 
-			/* Skip illegal grids */
-			if(!in_bounds(floor_ptr, yy, xx)) continue;
+			if(!in_bounds(floor_ptr, yy, xx)) continue;	// Skip illegal grids
+			if(distance(cy, cx, yy, xx) > r) continue;	// Skip distant grids
 
-			/* Skip distant grids */
-			if(distance(cy, cx, yy, xx) > r) continue;
-
-			/* Access the grid */
-			c_ptr = &floor_ptr->cave[yy][xx];
+			c_ptr = &floor_ptr->cave[yy][xx];	// Access the grid
 
 			if(is_mirror_grid(c_ptr)) c_ptr->info |= CAVE_GLOW;
 			else if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
@@ -2688,7 +2682,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				int ii, yyy, xxx;
 				cave_type *cc_ptr;
 
-				for (ii = 0; ii < 9; ii++)
+				for (ii = 0; ii < DIRECTION_NUM; ii++)
 				{
 					yyy = yy + ddy_ddd[ii];
 					xxx = xx + ddx_ddd[ii];
@@ -2742,9 +2736,9 @@ void discharge_minion(creature_type *caster_ptr)
 
 	for (i = 1; i < creature_max; i++)
 	{
-		creature_type *m_ptr = &creature_list[i];
-		if(!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
-		if(m_ptr->nickname) okay = FALSE;
+		creature_type *target_ptr = &creature_list[i];
+		if(!target_ptr->species_idx || !is_pet(player_ptr, target_ptr)) continue;
+		if(target_ptr->nickname) okay = FALSE;
 	}
 	if(!okay || caster_ptr->riding)
 	{
@@ -2758,15 +2752,15 @@ void discharge_minion(creature_type *caster_ptr)
 	for (i = 1; i < creature_max; i++)
 	{
 		int dam;
-		creature_type *m_ptr = &creature_list[i];
+		creature_type *target_ptr = &creature_list[i];
 
-		if(!m_ptr->species_idx || !is_pet(player_ptr, m_ptr)) continue;
+		if(!target_ptr->species_idx || !is_pet(player_ptr, target_ptr)) continue;
 
 		/* Uniques resist discharging */
-		if(has_trait(m_ptr, TRAIT_UNIQUE))
+		if(has_trait(target_ptr, TRAIT_UNIQUE))
 		{
 			char m_name[80];
-			creature_desc(m_name, m_ptr, 0x00);
+			creature_desc(m_name, target_ptr, 0x00);
 #ifdef JP
 			msg_format("%s‚Í”š”j‚³‚ê‚é‚Ì‚ðŒ™‚ª‚èAŸŽè‚ÉŽ©•ª‚Ì¢ŠE‚Ö‚Æ‹A‚Á‚½B", m_name);
 #else
@@ -2775,19 +2769,19 @@ void discharge_minion(creature_type *caster_ptr)
 			delete_species_idx(&creature_list[i]);
 			continue;
 		}
-		dam = m_ptr->mhp / 2;
+		dam = target_ptr->mhp / 2;
 		if(dam > 100) dam = (dam-100)/2 + 100;
 		if(dam > 400) dam = (dam-400)/2 + 400;
 		if(dam > 800) dam = 800;
-		project(m_ptr, 2+(m_ptr->lev/10), m_ptr->fy,
-			m_ptr->fx, dam, GF_PLASMA, 
+		project(target_ptr, 2+(target_ptr->lev/10), target_ptr->fy,
+			target_ptr->fx, dam, GF_PLASMA, 
 			PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 
-		if(record_named_pet && m_ptr->nickname)
+		if(record_named_pet && target_ptr->nickname)
 		{
 			char m_name[80];
 
-			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
+			creature_desc(m_name, target_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, m_name);
 		}
 
