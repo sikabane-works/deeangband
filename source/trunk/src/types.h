@@ -1588,6 +1588,8 @@ struct trait_type
 	s16b mp_cost;
 	s16b use_stat;
 	s16b fail;
+
+	s16b mutative_rarity;
 };
 
 
