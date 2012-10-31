@@ -1451,15 +1451,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 		}
 		case MIMIC_VAMPIRE:
-			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
-			{
-#ifdef JP
-				msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
-#else
-				msg_print("Something prevent you from attacking.");
-#endif
-				return FALSE;
-			}
+			if(is_melee_limitation_field(floor_ptr)) return FALSE;
 			else
 			{
 				int y, x, dummy = 0;
@@ -1993,15 +1985,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_VAMPIRE:
-			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
-			{
-#ifdef JP
-				msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
-#else
-				msg_print("Something prevent you from attacking.");
-#endif
-				return FALSE;
-			}
+			if(is_melee_limitation_field(floor_ptr)) return FALSE;
 			else
 			{
 				int y, x, dummy = 0;

@@ -3121,15 +3121,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_VAMPIRISM:
 		{
-			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
-			{
-#ifdef JP
-				msg_print("なぜか攻撃することができない。");
-#else
-				msg_print("Something prevent you from attacking.");
-#endif
-				return FALSE;
-			}
+			if(is_melee_limitation_field(floor_ptr)) return FALSE;
 			else
 			{
 				int dummy = 0;

@@ -1440,7 +1440,7 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 }
 
 
-static bool melee_limitation_field(floor_type *floor_ptr)
+bool is_melee_limitation_field(floor_type *floor_ptr)
 {
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 	{
@@ -1509,7 +1509,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	}
 
 	if(zantetsuken_cancel(attacker_ptr, target_ptr)) return FALSE; // Cease by Zantetsu-Ken
-	if(melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
+	if(is_melee_limitation_field(floor_ptr)) return FALSE; // No melee flag
 	if(cease_for_friend(attacker_ptr, target_ptr)) return FALSE; // Stop if friendly
 	if(fear_cancel(attacker_ptr, target_ptr)) return FALSE; // Ceased by fear
 	if(cease_by_counter(attacker_ptr, target_ptr)) return FALSE; // Ceased by Iai Counter

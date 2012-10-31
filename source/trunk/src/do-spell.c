@@ -11219,15 +11219,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
 
-			if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
-			{
-#ifdef JP
-				msg_print("‚È‚º‚©UŒ‚‚·‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B");
-#else
-				msg_print("Something prevent you from attacking.");
-#endif
-				return "";
-			}
+			if(is_melee_limitation_field(floor_ptr)) return "";
+
 #ifdef JP
 			msg_print("•Ší‚ğ‘å‚«‚­U‚è‰º‚ë‚µ‚½B");
 #else
