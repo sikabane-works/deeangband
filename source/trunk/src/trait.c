@@ -109,17 +109,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-		for (dummy = 0; dummy < 3; dummy++)
-		{
-			if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
-		}
+		for (i = 0; i < 3;i++) if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (dummy = 0; dummy < 3; dummy++)
-		{
-			if(drain_life(caster_ptr, dir, 100)) heal_creature(caster_ptr, 100);
-		}
+		for (dummy = 0; dummy < 3; dummy++) if(drain_life(caster_ptr, dir, 100)) heal_creature(caster_ptr, 100);
 		break;
 
 	case TRAIT_WHIRLWIND:
@@ -144,36 +138,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_ROCKET:
-		cast_ball(caster_ptr, GF_ROCKET, dir, 250 + user_level * 3, 2);
-		break;
-
-		/*
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
 		breath(target_row, target_col,caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
-		*/
-
-		/*
-
-		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
-		break;
-		*/
-
-		/*
-
-		else
-		damage = hp / 4;
-		fire_rocket(caster_ptr, GF_ROCKET, dir, damage, 2);
-		break;
-		*/
-
-		/*
-		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(target_row, target_col,caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
-		update_smart_learn(caster_ptr, DRS_SHARD);
-		break;
-		*/
 
 	case TRAIT_DISPEL_EVIL_1:
 		dispel_evil(caster_ptr, caster_ptr->lev * 5);
@@ -205,16 +173,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 		teleport_creature(caster_ptr, dir);
 		break;
-		{
-#ifdef JP
-			msg_format("%^sにテレポートさせられた。", caster_name);
-#else
-			msg_format("%^s teleports you away.", caster_name);
-#endif
-			learn_trait(target_ptr, TRAIT_TELE_AWAY);
-			teleport_player_away(caster_ptr, 100);
-			break;
-		}
 
 	case TRAIT_BANISH_EVIL:
 		banish_evil(caster_ptr, 100);

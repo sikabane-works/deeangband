@@ -5214,6 +5214,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				/* Prepare to teleport */
 				do_dist = dam;
+
+				if(is_player(target_ptr))
+#ifdef JP
+					msg_format("%^sにテレポートさせられた。", caster_name);
+#else
+					msg_format("%^s teleports you away.", caster_name);
+#endif
+			break;
 			}
 
 			/* No "real" damage */
