@@ -437,6 +437,7 @@ static cptr trait_info_type[] =
 	"SELF",
 	"TARGET",
 	"ADJACENCY",
+	"ADJACENCY2",
 	"POSTURE",
 	"MEAT",
 	NULL

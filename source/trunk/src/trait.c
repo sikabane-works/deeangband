@@ -71,6 +71,13 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		x = caster_ptr->fx + ddx[dir];
 		cave_ptr = &floor_ptr->cave[y][x];
 	}
+	else if(trait_info[id].effect_type == TRAIT_EFFECT_TYPE_ADJACENCY2)
+	{
+		if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
+		y = caster_ptr->fy + ddy[dir];
+		x = caster_ptr->fx + ddx[dir];
+	}
+
 
 	if(is_player(caster_ptr) || !blind)
 	{
