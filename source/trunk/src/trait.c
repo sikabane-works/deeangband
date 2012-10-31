@@ -21,7 +21,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	feature_type *feature_ptr = &feature_info[cave_ptr->feat];
 
 	char caster_name[100] = "何か", target_name[100] = "何か";
-	int i, k, dir = 0, dummy;
+	int i, k, dir = 0;
 	int user_level = caster_ptr->lev;
 	int damage = 0;
 	u32b mode = (PC_ALLOW_GROUP | PC_FORCE_PET);
@@ -109,11 +109,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_1:
-		for (i = 0; i < 3;i++) if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
+		for (i = 0; i < 3 ;i++) if(drain_life(caster_ptr, dir, 50)) heal_creature(caster_ptr, 50);
 		break;
 
 	case TRAIT_VAMPIRIC_DRAIN_2:
-		for (dummy = 0; dummy < 3; dummy++) if(drain_life(caster_ptr, dir, 100)) heal_creature(caster_ptr, 100);
+		for (i = 0; i < 3; i++) if(drain_life(caster_ptr, dir, 100)) heal_creature(caster_ptr, 100);
 		break;
 
 	case TRAIT_WHIRLWIND:
@@ -132,10 +132,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CALL_CHAOS:
-		{
-			call_chaos(caster_ptr);
-			break;
-		}
+		call_chaos(caster_ptr);
+		break;
 
 	case TRAIT_ROCKET:
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));

@@ -5209,23 +5209,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!resists_tele)
 			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Prepare to teleport */
-				do_dist = dam;
-
+				if(seen) obvious = TRUE; // Obvious
+				do_dist = dam; // Prepare to teleport
 				if(is_player(target_ptr))
 #ifdef JP
 					msg_format("%^sにテレポートさせられた。", caster_name);
 #else
 					msg_format("%^s teleports you away.", caster_name);
 #endif
-			break;
 			}
-
-			/* No "real" damage */
-			dam = 0;
+			dam = 0; // No "real" damage
 			break;
 		}
 
@@ -5238,28 +5231,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				skipped = TRUE;
 				break;
 			}
-			/* Only affect undead */
-			if(has_trait(target_ptr, TRAIT_UNDEAD))
+			if(has_trait(target_ptr, TRAIT_UNDEAD)) // Only affect undead
 			{
-				/* Obvious */
 				if(seen) obvious = TRUE;
-
-				/* Learn about type */
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				/* Apply some fear */
 				do_fear = diceroll(3, (dam / 2)) + 1;
 
-				/* Attempt a saving throw */
-				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10) // Attempt a saving throw
 				{
-					/* No obvious effect */
 #ifdef JP
 					note = "には効果がなかった！";
 #else
 					note = " is unaffected!";
 #endif
-
 					obvious = FALSE;
 					do_fear = 0;
 				}
