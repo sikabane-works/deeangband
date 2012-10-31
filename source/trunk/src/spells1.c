@@ -5105,13 +5105,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				/* Attempt a saving throw */
 				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 				{
-					/* No obvious effect */
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 					do_fear = 0;
 				}
@@ -5145,17 +5139,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_fear = diceroll(3, (dam / 2)) + 1;
 
 			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(has_trait(target_ptr, TRAIT_FEARLESS)) ||
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
-				/* No obvious effect */
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 				do_fear = 0;
 			}
@@ -5480,22 +5467,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
 			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				skipped = TRUE;
 				//TODO if(is_original_ap_and_seen(caster_ptr, target_ptr)) species_ptr->r_flags2 |= (RF2_EMPTY_MIND);
@@ -5503,11 +5482,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			if(has_trait(target_ptr, TRAIT_PARALYZED))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				skipped = TRUE;
 				break;
@@ -5524,12 +5499,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
 
@@ -5555,16 +5525,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
-					/* Resist */
 					do_stun = 0;
-
-					/* No obvious effect */
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
 			}
@@ -5576,19 +5538,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					has_trait(target_ptr, TRAIT_NO_SLEEP) ||
 					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
-					/* Memorize a flag */
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_SLEEP);
 					}
-
-					/* No obvious effect */
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
 				else
@@ -5606,11 +5560,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!done)
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 			}
 
 			/* No "real" damage */
@@ -5625,11 +5575,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				skipped = TRUE;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
