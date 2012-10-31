@@ -123,24 +123,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_WHIRLWIND:
+		for (dir = 0; dir <= DIRECTION_NUM; dir++)
 		{
-			{
-				int y = 0, x = 0;
-				for (dir = 0; dir <= DIRECTION_NUM; dir++)
-				{
-					y = caster_ptr->fy + ddy[dir];
-					x = caster_ptr->fx + ddx[dir];
-					cave_ptr = &floor_ptr->cave[y][x];
+			y = caster_ptr->fy + ddy[dir];
+			x = caster_ptr->fx + ddx[dir];
+			cave_ptr = &floor_ptr->cave[y][x];
 
-					target_ptr = &creature_list[cave_ptr->creature_idx]; // Get the creature
+			target_ptr = &creature_list[cave_ptr->creature_idx]; // Get the creature
 
-					// Hack -- attack creatures
-					if(cave_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
-						melee_attack(caster_ptr, y, x, 0);
-				}
-			}
-			break;
+			// Hack -- attack creatures
+			if(cave_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
+				melee_attack(caster_ptr, y, x, 0);
 		}
+		break;
 
 	case TRAIT_CALL_CHAOS:
 		{
@@ -722,20 +717,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_CRIMSON_ROCKET:
 		{
 			int num = 1;
-			int i;
-			int tx, ty;
-
-			// Use the given direction
-			tx = caster_ptr->fx + 99 * ddx[dir];
-			ty = caster_ptr->fy + 99 * ddy[dir];
-
-			// Hack -- Use an actual "target"
-			if((dir == 5) && target_okay(caster_ptr))
-			{
-				tx = target_col;
-				ty = target_row;
-			}
-
 			// Extra shot at level
 			if(caster_ptr->class_idx == CLASS_ARCHER) 
 			{
@@ -745,7 +726,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, caster_ptr->lev/20+1, ty, tx, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				project(caster_ptr, caster_ptr->lev/20+1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			break;
 		}
 
