@@ -583,7 +583,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_STAR_BALL2:
 		{
 			int num = diceroll(5, 3);
-			int y, x;
 			int attempts;
 			for (k = 0; k < num; k++)
 			{
@@ -2669,8 +2668,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_PANIC_HIT:
 		{
-			int x, y;
-
 			if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
 			y = caster_ptr->fy + ddy[dir];
 			x = caster_ptr->fx + ddx[dir];
@@ -2804,8 +2801,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			else if(id == -4)
 			{
-				int x, y;
-
 				if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
 				y = caster_ptr->fy + ddy[dir];
 				x = caster_ptr->fx + ddx[dir];
@@ -3081,7 +3076,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You feel your head clear a little.");
 #endif
-
 				caster_ptr->csp += (5 + caster_ptr->lev * caster_ptr->lev / 100);
 				if(caster_ptr->csp >= caster_ptr->msp)
 				{
@@ -3089,8 +3083,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					caster_ptr->csp_frac = 0;
 				}
 
-				// Redraw mana
-				play_redraw |= (PR_MANA);
+				play_redraw |= (PR_MANA);	// Redraw mana
 			}
 			else
 			{
@@ -3105,10 +3098,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_QUICK_WALK:
 		{
-			if(caster_ptr->action == ACTION_HAYAGAKE)
-			{
-				set_action(caster_ptr, ACTION_NONE);
-			}
+			if(caster_ptr->action == ACTION_HAYAGAKE) set_action(caster_ptr, ACTION_NONE);
 			else
 			{
 				if(!have_flag(feature_ptr->flags, FF_PROJECT) || (!has_trait(caster_ptr, TRAIT_CAN_FLY) && have_flag(feature_ptr->flags, FF_DEEP)))
@@ -3141,7 +3131,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			else
 			{
-				int y, x, dummy = 0;
+				int dummy = 0;
 
 				// Only works on adjacent creatures
 				if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;   // was get_aim_dir

@@ -4416,8 +4416,6 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	}
 
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
-	if(steed_ptr->timed_trait[TRAIT_FAST]) creature_ptr->speed += 10;
-	if(steed_ptr->timed_trait[TRAIT_SLOW]) creature_ptr->speed -= 10;
 
 	//TODO if(is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
