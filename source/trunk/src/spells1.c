@@ -1947,19 +1947,10 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 #else
 				note = " changes!";
 #endif
-
 				/* Turn off the damage */
 				dam = 0;
 			}
-			else
-			{
-				/* No polymorph */
-#ifdef JP
-				note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½I";
-#else
-				note = " is unaffected!";
-#endif
-			}
+			else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 
 			/* Hack -- Get new creature */
 			target_ptr = target_ptr;
