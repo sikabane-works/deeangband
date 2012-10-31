@@ -3593,7 +3593,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BANISH:
 		{
-			species_type *r_ptr;
+			species_type *species_ptr;
 
 			if(!cave_ptr->creature_idx)
 			{
@@ -3602,16 +3602,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You sense no evil there!");
 #endif
-
 				break;
 			}
 
 			target_ptr = &creature_list[cave_ptr->creature_idx];
-			r_ptr = &species_info[target_ptr->species_idx];
+			species_ptr = &species_info[target_ptr->species_idx];
 
-			if(is_enemy_of_good_species(r_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
+			if(is_enemy_of_good_species(species_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				!floor_ptr->fight_arena_mode && !floor_ptr->quest &&
-				(r_ptr->level < randint1(caster_ptr->lev+50)) &&
+				(caster_ptr->lev < randint1(caster_ptr->lev)) &&
 				!(target_ptr->sc_flag2 & SC_FLAG2_NOGENO))
 			{
 				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
@@ -3629,7 +3628,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("The evil creature vanishes in a puff of sulfurous smoke!");
 #endif
-
 			}
 			else
 			{
