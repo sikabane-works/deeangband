@@ -66,6 +66,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	}
 	else if(trait_info[id].effect_type == TRAIT_EFFECT_TYPE_ADJACENCY)
 	{
+		if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;	
+		y = caster_ptr->fy + ddy[dir];
+		x = caster_ptr->fx + ddx[dir];
+		cave_ptr = &floor_ptr->cave[y][x];
 	}
 
 	if(is_player(caster_ptr) || !blind)
@@ -455,7 +459,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_FAST:
 	case TRAIT_HASTE:
 		if(set_timed_trait(caster_ptr, TRAIT_FAST, randint1(20) + 20))
-		break;
+			break;
 
 	case TRAIT_HASTE_2:
 		(void)set_timed_trait(caster_ptr, TRAIT_FAST, randint1(75) + 75);
@@ -842,12 +846,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_FISHING:
 		{
-			int x, y;
-
-			if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-			y = caster_ptr->fy+ddy[dir];
-			x = caster_ptr->fx+ddx[dir];
-			caster_ptr->tsuri_dir = dir;
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_WATER))
 			{
 #ifdef JP
@@ -1454,11 +1452,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("しかし恐怖に侵されなかった。");
-#else
-				msg_print("You refuse to be frightened.");
-#endif
+			#ifdef JP
+			msg_print("しかし恐怖に侵されなかった。");
+			#else
+			msg_print("You refuse to be frightened.");
+			#endif
 			}
 			else
 			*/
@@ -1482,7 +1480,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* saving throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1511,11 +1509,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-#ifdef JP
-				msg_print("しかし幻覚にはだまされなかった。");
-#else
-				msg_print("You disbelieve the feeble spell.");
-#endif
+			#ifdef JP
+			msg_print("しかし幻覚にはだまされなかった。");
+			#else
+			msg_print("You disbelieve the feeble spell.");
+			#endif
 
 			}
 			*/
@@ -1540,7 +1538,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1564,7 +1562,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/* TODO saving_throw
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
@@ -1578,7 +1576,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_HAND_DOOM:
 		{
-	
+
 			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
 			break;
 			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
@@ -1878,17 +1876,17 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			{
-				teleport_level(target_ptr, 0);
+			teleport_level(target_ptr, 0);
 			}
 			learn_trait(target_ptr, TRAIT_TELE_LEVEL);
 			update_smart_learn(caster_ptr, DRS_NEXUS);
 			break;
-		}
-		{
+			}
+			{
 			int target_m_idx;
 			creature_type *target_ptr;
 			species_type *r_ptr;
@@ -1904,41 +1902,41 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			creature_desc(target_name, target_ptr, 0);
 
 			if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
-				has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
+			has_trait(target_ptr, TRAIT_QUESTOR) || (target_ptr->lev + randint1(50) > user_level + randint1(60)))
 			{
-				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
+			msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
 			else teleport_level(caster_ptr, target_m_idx);
 			break;
-		}
+			}
 
 
-	case TRAIT_PSY_SPEAR:
-		{
+			case TRAIT_PSY_SPEAR:
+			{
 			damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
 			//cast_beam_(caster_ptr, target_ptr, GF_PSY_SPEAR, damage, TRAIT_PSY_SPEAR, TRUE);
 			break;
-		}
+			}
 
-		damage = randint1(user_level * 3) + 100;
-		(void)cast_beam_(caster_ptr, GF_PSY_SPEAR, dir, damage);
-		break;
+			damage = randint1(user_level * 3) + 100;
+			(void)cast_beam_(caster_ptr, GF_PSY_SPEAR, dir, damage);
+			break;
 
-	case TRAIT_DARKNESS:
-		(void)unlite_area(caster_ptr, 10, 3);
-		break;
+			case TRAIT_DARKNESS:
+			(void)unlite_area(caster_ptr, 10, 3);
+			break;
 
-	case TRAIT_TRAPS:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-		trap_creation(caster_ptr, target_row, target_col);
-		break;
+			case TRAIT_TRAPS:
+			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			trap_creation(caster_ptr, target_row, target_col);
+			break;
 
-	case TRAIT_FORGET:
-		{
+			case TRAIT_FORGET:
+			{
 			/* TODO saving_throw
 			if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
-				msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
+			msg_print(game_messages[GAME_MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else if(lose_all_info(target_ptr))
 			*/
@@ -2084,7 +2082,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 			break;
 
-			}
+		}
 		{
 #ifdef JP
 			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
@@ -2711,7 +2709,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HOLY_LANCE:
 	case TRAIT_HELL_LANCE:
 		{
-	
+
 			cast_beam_(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, user_level * 3);
 			break;
 		}
@@ -2878,7 +2876,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TAKE_PHOTO:
 		{
-	
+
 			project_length = 1;
 			cast_beam_(caster_ptr, GF_PHOTO, dir, 1);
 			break;
@@ -2893,7 +2891,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_DOMINATE_LIVE:
 		{
-	
+
 			(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
 			break;
 		}
@@ -3228,7 +3226,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SHADOW_SHIFT:
-			alter_reality(caster_ptr);
+		alter_reality(caster_ptr);
 
 	case TRAIT_PATTERN_WALK:
 		{
@@ -3313,381 +3311,356 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)fear_creature(caster_ptr, dir, user_level);
 		break;
 
-		case TRAIT_HYPN_GAZE:
-			(void)charm_creature(caster_ptr, dir, user_level);
-			break;
+	case TRAIT_HYPN_GAZE:
+		(void)charm_creature(caster_ptr, dir, user_level);
+		break;
 
 
-		case TRAIT_VTELEPORT:
+	case TRAIT_VTELEPORT:
 #ifdef JP
-			msg_print("集中している...");
+		msg_print("集中している...");
 #else
-			msg_print("You concentrate...");
+		msg_print("You concentrate...");
 #endif
-			teleport_player(caster_ptr, 10 + 4 * user_level, 0L);
-			break;
+		teleport_player(caster_ptr, 10 + 4 * user_level, 0L);
+		break;
 
-		case TRAIT_MIND_BLST:
+	case TRAIT_MIND_BLST:
 #ifdef JP
-			msg_print("集中している...");
+		msg_print("集中している...");
 #else
-			msg_print("You concentrate...");
+		msg_print("You concentrate...");
 #endif
-			cast_bolt_(caster_ptr, GF_PSI, dir, diceroll(3 + ((user_level - 1) / 5), 3));
-			break;
+		cast_bolt_(caster_ptr, GF_PSI, dir, diceroll(3 + ((user_level - 1) / 5), 3));
+		break;
 
-		case TRAIT_RADIATION:
-			cast_ball(caster_ptr, GF_NUKE, 0, (user_level * 2), 3 + (user_level / 20));
-			break;
+	case TRAIT_RADIATION:
+		cast_ball(caster_ptr, GF_NUKE, 0, (user_level * 2), 3 + (user_level / 20));
+		break;
 
 		//case TRAIT_VAMPIRISM:
+		{
+			int dummy;
+
+			stop_mouth(caster_ptr);
+
+			if(!(cave_ptr->creature_idx))
 			{
-				int x, y, dummy;
-
-				/* Only works on adjacent creatures */
-				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
-				cave_ptr = &floor_ptr->cave[y][x];
-
-				stop_mouth(caster_ptr);
-
-				if(!(cave_ptr->creature_idx))
-				{
 #ifdef JP
-					msg_print("何もない場所に噛みついた！");
+				msg_print("何もない場所に噛みついた！");
 #else
-					msg_print("You bite into thin air!");
+				msg_print("You bite into thin air!");
 #endif
 
-					break;
-				}
+				break;
+			}
 
 #ifdef JP
-				msg_print("あなたはニヤリとして牙をむいた...");
+			msg_print("あなたはニヤリとして牙をむいた...");
 #else
-				msg_print("You grin and bare your fangs...");
+			msg_print("You grin and bare your fangs...");
 #endif
 
 
-				dummy = user_level * 2;
+			dummy = user_level * 2;
 
-				if(drain_life(caster_ptr, dir, dummy))
-				{
-					if(caster_ptr->food < PY_FOOD_FULL)
-						/* No heal if we are "full" */
-						(void)heal_creature(caster_ptr, dummy);
-					else
-#ifdef JP
-						msg_print("あなたは空腹ではありません。");
-#else
-						msg_print("You were not hungry.");
-#endif
-
-					/* Gain nutritional sustenance: 150/hp drained */
-					/* A Food ration gives 5000 food points (by contrast) */
-					/* Don't ever get more than "Full" this way */
-					/* But if we ARE Gorged, it won't cure us */
-					dummy = caster_ptr->food + MIN(5000, 100 * dummy);
-					if(caster_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-						(void)set_food(caster_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
-				}
+			if(drain_life(caster_ptr, dir, dummy))
+			{
+				if(caster_ptr->food < PY_FOOD_FULL)
+					/* No heal if we are "full" */
+					(void)heal_creature(caster_ptr, dummy);
 				else
 #ifdef JP
-					msg_print("げぇ！ひどい味だ。");
+					msg_print("あなたは空腹ではありません。");
 #else
-					msg_print("Yechh. That tastes foul.");
+					msg_print("You were not hungry.");
 #endif
 
+				/* Gain nutritional sustenance: 150/hp drained */
+				/* A Food ration gives 5000 food points (by contrast) */
+				/* Don't ever get more than "Full" this way */
+				/* But if we ARE Gorged, it won't cure us */
+				dummy = caster_ptr->food + MIN(5000, 100 * dummy);
+				if(caster_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
+					(void)set_food(caster_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
 			}
-			break;
+			else
+#ifdef JP
+				msg_print("げぇ！ひどい味だ。");
+#else
+				msg_print("Yechh. That tastes foul.");
+#endif
 
-		case TRAIT_SMELL_MET:
+		}
+		break;
+
+	case TRAIT_SMELL_MET:
+		stop_mouth(caster_ptr);
+		(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
+	case TRAIT_SMELL_MON:
+		stop_mouth(caster_ptr);
+		(void)detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
+		break;
+
+	case TRAIT_EAT_ROCK:
+		{
+			feature_type *mimic_feature_ptr;
+			feature_ptr = &feature_info[cave_ptr->feat];
+			mimic_feature_ptr = &feature_info[get_feat_mimic(cave_ptr)];
+
 			stop_mouth(caster_ptr);
-			(void)detect_treasure(caster_ptr, DETECT_RAD_DEFAULT);
-			break;
 
-		case TRAIT_SMELL_MON:
-			stop_mouth(caster_ptr);
-			(void)detect_creatures_normal(caster_ptr, DETECT_RAD_DEFAULT);
-			break;
-
-		case TRAIT_EAT_ROCK:
+			if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
 			{
-				int x, y;
-				feature_type *mimic_feature_ptr;
-
-				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
-				cave_ptr = &floor_ptr->cave[y][x];
-				feature_ptr = &feature_info[cave_ptr->feat];
-				mimic_feature_ptr = &feature_info[get_feat_mimic(cave_ptr)];
-
-				stop_mouth(caster_ptr);
-
-				if(!have_flag(mimic_feature_ptr->flags, FF_HURT_ROCK))
-				{
 #ifdef JP
-					msg_print("この地形は食べられない。");
+				msg_print("この地形は食べられない。");
 #else
-					msg_print("You cannot eat this feature.");
+				msg_print("You cannot eat this feature.");
 #endif
-					break;
-				}
-				else if(have_flag(feature_ptr->flags, FF_PERMANENT))
-				{
-#ifdef JP
-					msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_feature_ptr->name);
-#else
-					msg_format("Ouch!  This %s is harder than your teeth!", feature_name + mimic_feature_ptr->name);
-#endif
-					break;
-				}
-				else if(cave_ptr->creature_idx)
-				{
-					creature_type *m_ptr = &creature_list[cave_ptr->creature_idx];
-#ifdef JP
-					msg_print("何かが邪魔しています！");
-#else
-					msg_print("There's something in the way!");
-#endif
-
-					if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(caster_ptr, y, x, 0);
-					break;
-				}
-				else if(have_flag(feature_ptr->flags, FF_TREE))
-				{
-#ifdef JP
-					msg_print("木の味は好きじゃない！");
-#else
-					msg_print("You don't like the woody taste!");
-#endif
-					break;
-				}
-				else if(have_flag(feature_ptr->flags, FF_GLASS))
-				{
-#ifdef JP
-					msg_print("ガラスの味は好きじゃない！");
-#else
-					msg_print("You don't like the glassy taste!");
-#endif
-					break;
-				}
-				else if(have_flag(feature_ptr->flags, FF_DOOR) || have_flag(feature_ptr->flags, FF_CAN_DIG))
-				{
-					(void)set_food(caster_ptr, caster_ptr->food + 3000);
-				}
-				else if(have_flag(feature_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(feature_ptr->flags, FF_HAS_GOLD))
-				{
-					(void)set_food(caster_ptr, caster_ptr->food + 5000);
-				}
-				else
-				{
-#ifdef JP
-					msg_format("この%sはとてもおいしい！", feature_name + mimic_feature_ptr->name);
-#else
-					msg_format("This %s is very filling!", feature_name + mimic_feature_ptr->name);
-#endif
-					(void)set_food(caster_ptr, caster_ptr->food + 10000);
-				}
-
-				/* Destroy the wall */
-				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
-
-				/* Move the player */
-				(void)move_creature(caster_ptr, NULL, y, x, MCE_DONT_PICKUP);
+				break;
 			}
-			break;
-
-		case TRAIT_SWAP_POS:
-			project_length = -1;
-			(void)teleport_swap(caster_ptr, dir);
-			project_length = 0;
-			break;
-
-		case TRAIT_ILLUMINE:
-			(void)lite_area(caster_ptr, diceroll(2, (user_level / 2)), (user_level / 10) + 1);
-			break;
-
-		case TRAIT_DET_CURSE:
+			else if(have_flag(feature_ptr->flags, FF_PERMANENT))
 			{
-				int i;
-
-				for (i = 0; i < INVEN_TOTAL; i++)
-				{
-					object_type *object_ptr = &caster_ptr->inventory[i];
-
-					if(!is_valid_object(object_ptr)) continue;
-					if(!object_is_cursed(object_ptr)) continue;
-
-					object_ptr->feeling = FEEL_CURSED;
-				}
-			}
-			break;
-
-		case TRAIT_POLYMORPH:
 #ifdef JP
-			if(!get_check("変身します。よろしいですか？")) return FALSE;
+				msg_format("いてっ！この%sはあなたの歯より硬い！", feature_name + mimic_feature_ptr->name);
 #else
-			if(!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
+				msg_format("Ouch!  This %s is harder than your teeth!", feature_name + mimic_feature_ptr->name);
 #endif
-			do_poly_self(caster_ptr);
-			break;
+				break;
+			}
+			else if(cave_ptr->creature_idx)
+			{
+				creature_type *m_ptr = &creature_list[cave_ptr->creature_idx];
+#ifdef JP
+				msg_print("何かが邪魔しています！");
+#else
+				msg_print("There's something in the way!");
+#endif
+
+				if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(caster_ptr, y, x, 0);
+				break;
+			}
+			else if(have_flag(feature_ptr->flags, FF_TREE))
+			{
+#ifdef JP
+				msg_print("木の味は好きじゃない！");
+#else
+				msg_print("You don't like the woody taste!");
+#endif
+				break;
+			}
+			else if(have_flag(feature_ptr->flags, FF_GLASS))
+			{
+#ifdef JP
+				msg_print("ガラスの味は好きじゃない！");
+#else
+				msg_print("You don't like the glassy taste!");
+#endif
+				break;
+			}
+			else if(have_flag(feature_ptr->flags, FF_DOOR) || have_flag(feature_ptr->flags, FF_CAN_DIG))
+			{
+				(void)set_food(caster_ptr, caster_ptr->food + 3000);
+			}
+			else if(have_flag(feature_ptr->flags, FF_MAY_HAVE_GOLD) || have_flag(feature_ptr->flags, FF_HAS_GOLD))
+			{
+				(void)set_food(caster_ptr, caster_ptr->food + 5000);
+			}
+			else
+			{
+#ifdef JP
+				msg_format("この%sはとてもおいしい！", feature_name + mimic_feature_ptr->name);
+#else
+				msg_format("This %s is very filling!", feature_name + mimic_feature_ptr->name);
+#endif
+				(void)set_food(caster_ptr, caster_ptr->food + 10000);
+			}
+
+			/* Destroy the wall */
+			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
+
+			/* Move the player */
+			(void)move_creature(caster_ptr, NULL, y, x, MCE_DONT_PICKUP);
+		}
+		break;
+
+	case TRAIT_SWAP_POS:
+		project_length = -1;
+		(void)teleport_swap(caster_ptr, dir);
+		project_length = 0;
+		break;
+
+	case TRAIT_ILLUMINE:
+		(void)lite_area(caster_ptr, diceroll(2, (user_level / 2)), (user_level / 10) + 1);
+		break;
+
+	case TRAIT_DET_CURSE:
+		{
+			int i;
+
+			for (i = 0; i < INVEN_TOTAL; i++)
+			{
+				object_type *object_ptr = &caster_ptr->inventory[i];
+
+				if(!is_valid_object(object_ptr)) continue;
+				if(!object_is_cursed(object_ptr)) continue;
+
+				object_ptr->feeling = FEEL_CURSED;
+			}
+		}
+		break;
+
+	case TRAIT_POLYMORPH:
+#ifdef JP
+		if(!get_check("変身します。よろしいですか？")) return FALSE;
+#else
+		if(!get_check("You will polymorph your self. Are you sure? ")) return FALSE;
+#endif
+		do_poly_self(caster_ptr);
+		break;
 
 		/* Summon pet molds around the player */
-		case TRAIT_GROW_MOLD:
+	case TRAIT_GROW_MOLD:
+		{
+			int i;
+			for (i = 0; i < 8; i++)
 			{
-				int i;
-				for (i = 0; i < 8; i++)
-				{
-					summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_MOLD, PC_FORCE_PET);
-				}
+				summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_MOLD, PC_FORCE_PET);
 			}
-			break;
+		}
+		break;
 
-		case TRAIT_RESIST:
+	case TRAIT_RESIST:
+		{
+			int num = user_level / 10;
+			int dur = randint1(20) + 20;
+
+			if(randint0(5) < num)
 			{
-				int num = user_level / 10;
-				int dur = randint1(20) + 20;
-
-				if(randint0(5) < num)
-				{
-					(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ACID, dur, FALSE);
-					num--;
-				}
-				if(randint0(4) < num)
-				{
-					(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ELEC, dur, FALSE);
-					num--;
-				}
-				if(randint0(3) < num)
-				{
-					(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
-					num--;
-				}
-				if(randint0(2) < num)
-				{
-					(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
-					num--;
-				}
-				if(num)
-				{
-					(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_POIS, dur, FALSE);
-					num--;
-				}
+				(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ACID, dur, FALSE);
+				num--;
 			}
-			break;
-
-		case TRAIT_WEIGH_MAG:
-			report_magics(caster_ptr);
-			break;
-
-		case TRAIT_STERILITY:
-#ifdef JP
-			msg_print("突然頭が痛くなった！");
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "禁欲を強いた疲労", NULL, -1);
-#else
-			msg_print("You suddenly have a headache!");
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
-#endif
-			floor_ptr->num_repro += MAX_REPRO;
-			break;
-
-
-		case TRAIT_DAZZLE:
-			stun_creatures(caster_ptr, user_level * 4);
-			confuse_creatures(caster_ptr, user_level * 4);
-			turn_creatures(caster_ptr, user_level * 4);
-			break;
-
-		case TRAIT_LASER_EYE:
-			cast_beam_(caster_ptr, GF_LITE, dir, 2 * user_level);
-			break;
-
-		case TRAIT_BANISH:
+			if(randint0(4) < num)
 			{
-				int x, y;
-				species_type *r_ptr;
-
-				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
-				cave_ptr = &floor_ptr->cave[y][x];
-
-				if(!cave_ptr->creature_idx)
-				{
-#ifdef JP
-					msg_print("邪悪な存在を感じとれません！");
-#else
-					msg_print("You sense no evil there!");
-#endif
-
-					break;
-				}
-
-				target_ptr = &creature_list[cave_ptr->creature_idx];
-				r_ptr = &species_info[target_ptr->species_idx];
-
-				if(is_enemy_of_good_species(r_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
-				    !floor_ptr->fight_arena_mode && !floor_ptr->quest &&
-					(r_ptr->level < randint1(caster_ptr->lev+50)) &&
-					!(target_ptr->sc_flag2 & SC_FLAG2_NOGENO))
-				{
-					if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
-					{
-						char target_name[80];
-
-						creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
-						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
-					}
-
-					/* Delete the creature, rather than killing it. */
-					delete_species_idx(&creature_list[cave_ptr->creature_idx]);
-#ifdef JP
-					msg_print("その邪悪なクリーチャーは硫黄臭い煙とともに消え去った！");
-#else
-					msg_print("The evil creature vanishes in a puff of sulfurous smoke!");
-#endif
-
-				}
-				else
-				{
-#ifdef JP
-					msg_print("祈りは効果がなかった！");
-#else
-					msg_print("Your invocation is ineffectual!");
-#endif
-
-					if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
-				}
+				(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ELEC, dur, FALSE);
+				num--;
 			}
-			break;
-
-		case TRAIT_COLD_TOUCH:
+			if(randint0(3) < num)
 			{
-				int x, y;
+				(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, dur, FALSE);
+				num--;
+			}
+			if(randint0(2) < num)
+			{
+				(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, dur, FALSE);
+				num--;
+			}
+			if(num)
+			{
+				(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_POIS, dur, FALSE);
+				num--;
+			}
+		}
+		break;
 
-				if(!get_rep_dir2(caster_ptr, &dir)) return FALSE;
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
-				cave_ptr = &floor_ptr->cave[y][x];
+	case TRAIT_WEIGH_MAG:
+		report_magics(caster_ptr);
+		break;
 
-				if(!cave_ptr->creature_idx)
-				{
+	case TRAIT_STERILITY:
 #ifdef JP
-					msg_print("あなたは何もない場所で手を振った。");
+		msg_print("突然頭が痛くなった！");
+		take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "禁欲を強いた疲労", NULL, -1);
 #else
-					msg_print("You wave your hands in the air.");
+		msg_print("You suddenly have a headache!");
+		take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
+#endif
+		floor_ptr->num_repro += MAX_REPRO;
+		break;
+
+
+	case TRAIT_DAZZLE:
+		stun_creatures(caster_ptr, user_level * 4);
+		confuse_creatures(caster_ptr, user_level * 4);
+		turn_creatures(caster_ptr, user_level * 4);
+		break;
+
+	case TRAIT_LASER_EYE:
+		cast_beam_(caster_ptr, GF_LITE, dir, 2 * user_level);
+		break;
+
+	case TRAIT_BANISH:
+		{
+			species_type *r_ptr;
+
+			if(!cave_ptr->creature_idx)
+			{
+#ifdef JP
+				msg_print("邪悪な存在を感じとれません！");
+#else
+				msg_print("You sense no evil there!");
 #endif
 
-					break;
-				}
-				cast_bolt_(caster_ptr, GF_COLD, dir, 2 * user_level);
+				break;
 			}
-			break;
 
-	/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
+			target_ptr = &creature_list[cave_ptr->creature_idx];
+			r_ptr = &species_info[target_ptr->species_idx];
+
+			if(is_enemy_of_good_species(r_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
+				!floor_ptr->fight_arena_mode && !floor_ptr->quest &&
+				(r_ptr->level < randint1(caster_ptr->lev+50)) &&
+				!(target_ptr->sc_flag2 & SC_FLAG2_NOGENO))
+			{
+				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
+				{
+					char target_name[80];
+
+					creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
+					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
+				}
+
+				/* Delete the creature, rather than killing it. */
+				delete_species_idx(&creature_list[cave_ptr->creature_idx]);
+#ifdef JP
+				msg_print("その邪悪なクリーチャーは硫黄臭い煙とともに消え去った！");
+#else
+				msg_print("The evil creature vanishes in a puff of sulfurous smoke!");
+#endif
+
+			}
+			else
+			{
+#ifdef JP
+				msg_print("祈りは効果がなかった！");
+#else
+				msg_print("Your invocation is ineffectual!");
+#endif
+
+				if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
+			}
+		}
+		break;
+
+	case TRAIT_COLD_TOUCH:
+		{
+			if(!cave_ptr->creature_idx)
+			{
+#ifdef JP
+				msg_print("あなたは何もない場所で手を振った。");
+#else
+				msg_print("You wave your hands in the air.");
+#endif
+
+				break;
+			}
+			cast_bolt_(caster_ptr, GF_COLD, dir, 2 * user_level);
+		}
+		break;
+
+		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
@@ -3695,9 +3668,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 	default:
-			msg_warning("Undefined active trait.");
+		msg_warning("Undefined active trait.");
 
-	}
+		}
 	}
 
 	if(fumble_summoned)
