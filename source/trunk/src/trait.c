@@ -2675,9 +2675,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_PANIC_HIT:
 		{
-			if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
-			y = caster_ptr->fy + ddy[dir];
-			x = caster_ptr->fx + ddx[dir];
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
 				melee_attack(caster_ptr, y, x, 0);
@@ -2808,9 +2805,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			else if(id == -4)
 			{
-				if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
 				if(floor_ptr->cave[y][x].creature_idx)
 				{
 #ifdef JP
@@ -3140,10 +3134,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				int dummy = 0;
 
-				// Only works on adjacent creatures
-				if(!get_rep_dir(caster_ptr, &dir, FALSE)) return FALSE;   // was get_aim_dir
-				y = caster_ptr->fy + ddy[dir];
-				x = caster_ptr->fx + ddx[dir];
 				cave_ptr = &floor_ptr->cave[y][x];
 
 				stop_mouth(caster_ptr);
