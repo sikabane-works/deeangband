@@ -3121,6 +3121,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_VAMPIRISM:
 		{
+			stop_mouth(caster_ptr);
 			if(is_melee_limitation_field(floor_ptr)) return FALSE;
 			else
 			{
@@ -3206,21 +3207,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		alter_reality(caster_ptr);
 
 	case TRAIT_PATTERN_WALK:
-		{
-			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
-			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-			(void)do_res_stat(caster_ptr, STAT_STR);
-			(void)do_res_stat(caster_ptr, STAT_INT);
-			(void)do_res_stat(caster_ptr, STAT_WIS);
-			(void)do_res_stat(caster_ptr, STAT_DEX);
-			(void)do_res_stat(caster_ptr, STAT_CON);
-			(void)do_res_stat(caster_ptr, STAT_CHA);
-			(void)restore_exp(caster_ptr);
-		}
+		(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
+		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
+		(void)do_res_stat(caster_ptr, STAT_STR);
+		(void)do_res_stat(caster_ptr, STAT_INT);
+		(void)do_res_stat(caster_ptr, STAT_WIS);
+		(void)do_res_stat(caster_ptr, STAT_DEX);
+		(void)do_res_stat(caster_ptr, STAT_CON);
+		(void)do_res_stat(caster_ptr, STAT_CHA);
+		(void)restore_exp(caster_ptr);
 		break;
 
 	case TRAIT_BERSERK:
@@ -3230,13 +3229,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_THROW_BOULDER:
-
-#ifdef JP
-		msg_print("巨大な岩を投げた。");
-#else
-		msg_print("You throw a huge boulder.");
-#endif
-
 		cast_bolt_(caster_ptr, GF_MISSILE, dir, (3 * user_level) / 2);
 		break;
 
@@ -3313,62 +3305,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_RADIATION:
 		cast_ball(caster_ptr, GF_NUKE, 0, (user_level * 2), 3 + (user_level / 20));
-		break;
-
-		//case TRAIT_VAMPIRISM:
-		{
-			int dummy;
-
-			stop_mouth(caster_ptr);
-
-			if(!(cave_ptr->creature_idx))
-			{
-#ifdef JP
-				msg_print("何もない場所に噛みついた！");
-#else
-				msg_print("You bite into thin air!");
-#endif
-
-				break;
-			}
-
-#ifdef JP
-			msg_print("あなたはニヤリとして牙をむいた...");
-#else
-			msg_print("You grin and bare your fangs...");
-#endif
-
-
-			dummy = user_level * 2;
-
-			if(drain_life(caster_ptr, dir, dummy))
-			{
-				if(caster_ptr->food < PY_FOOD_FULL)
-					/* No heal if we are "full" */
-					(void)heal_creature(caster_ptr, dummy);
-				else
-#ifdef JP
-					msg_print("あなたは空腹ではありません。");
-#else
-					msg_print("You were not hungry.");
-#endif
-
-				/* Gain nutritional sustenance: 150/hp drained */
-				/* A Food ration gives 5000 food points (by contrast) */
-				/* Don't ever get more than "Full" this way */
-				/* But if we ARE Gorged, it won't cure us */
-				dummy = caster_ptr->food + MIN(5000, 100 * dummy);
-				if(caster_ptr->food < PY_FOOD_MAX)   /* Not gorged already */
-					(void)set_food(caster_ptr, dummy >= PY_FOOD_MAX ? PY_FOOD_MAX-1 : dummy);
-			}
-			else
-#ifdef JP
-				msg_print("げぇ！ひどい味だ。");
-#else
-				msg_print("Yechh. That tastes foul.");
-#endif
-
-		}
 		break;
 
 	case TRAIT_SMELL_MET:

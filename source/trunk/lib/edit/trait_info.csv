@@ -547,7 +547,7 @@ ID,ID2,SPELL,PRE_ID,ANTI_ID,NAME,E_NAME,STR,INT,WIS,DEX,CON,CHA,AC,EV,VO,DIS,DEV
 545,PATTERN_WALK,1,-1,-1,パターン・ウォーク,Pattern Mindwalking,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,75,WIS,50,0,,0,,,,,,,あなたは「パターン」を心に描いてその上を歩いた...,You picture the Pattern in your mind and walk it...,,
 546,EXPLOSIVE_RUNE,1,-1,-1,爆発のルーン,Explosive Rune,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,35,INT,15,0,,0,,,,,,,,,,
 547,STONE_TO_MUD,1,-1,-1,岩石溶解,Stone to Mud,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,10,STR,12,0,,0,,,,,,,,,,
-548,THROW_BOULDER,1,-1,-1,岩石投げ,Thorow Boulder,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,15,STR,12,0,,0,,,,,,,,,,
+548,THROW_BOULDER,1,-1,-1,岩石投げ,Thorow Boulder,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,15,STR,12,0,,0,,,,,,,巨大な岩を投げた。,You throw a huge boulder.,,
 549,SCARE_CREATURE,1,-1,-1,クリーチャー恐慌,Scare Creature,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,15,WIS,10,0,,0,,,,,,,あなたはおどろおどろしい叫び声をあげた！,You emit an eldritch howl!,,
 550,POISON_DART,1,-1,-1,毒のダーツ,Poison Dart,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,12,8,DEX,14,0,,0,,,,,,,毒のダーツを投げた。,You throw a dart of poison.,,
 551,MAGIC_MISSILE,1,-1,-1,マジック・ミサイル,Magic Missile,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,15,CON,8,0,,0,,,,,,,,,,
