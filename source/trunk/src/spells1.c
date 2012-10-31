@@ -1951,9 +1951,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				dam = 0;
 			}
 			else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-
-			/* Hack -- Get new creature */
-			target_ptr = target_ptr;
 		}
 
 		/* Handle "teleport" */
@@ -3043,11 +3040,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			}
 			else
@@ -3789,11 +3782,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_UNIQUE))
 		{
-		#ifdef JP
-		note = "には効果がなかった！";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		else
@@ -4125,11 +4114,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -4199,13 +4184,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 				else
 				{
-					/* No obvious effect */
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
 			}
@@ -4260,19 +4239,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			if(creature_living(target_ptr))
 			{
-				if(is_original_ap_and_seen(caster_ptr, target_ptr))
-					has_trait(target_ptr, INFO_TYPE_RACE);
-
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 				dam = 0;
 			}
-			else do_time = (dam+7)/8;
+			else do_time = (dam + 7) / 8;
 
 			break;
 		}
@@ -4285,11 +4257,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
