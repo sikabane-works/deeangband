@@ -4578,13 +4578,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
 				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
-				/* No obvious effect */
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
@@ -4637,11 +4631,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -4663,14 +4653,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
 
-				/* Resist */
-				/* No obvious effect */
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
@@ -4733,11 +4716,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -4752,14 +4731,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				!creature_living(target_ptr) ||
 				((target_ptr->lev * 2+10) > randint1(dam)))
 			{
-				/* Resist */
-				/* No obvious effect */
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
@@ -4796,11 +4768,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -4818,17 +4786,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 				}
-
-				/* Resist */
 				do_conf = 0;
-
-				/* No obvious effect */
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 			}
 
@@ -4843,11 +4802,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -4858,16 +4813,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
-				/* Resist */
 				do_stun = 0;
-
-				/* No obvious effect */
-#ifdef JP
-				note = "には効果がなかった！";
-#else
-				note = " is unaffected!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 			}
 
@@ -4972,12 +4919,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-						note = "には効果がなかった！";
-#else
-						note = " is unaffected!";
-#endif
-
+						note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 						resists_tele = TRUE;
 					}
 					else if(target_ptr->lev * 2 > randint1(100))
@@ -5027,12 +4969,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-						note = "には効果がなかった！";
-#else
-						note = " is unaffected!";
-#endif
-
+						note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 						resists_tele = TRUE;
 					}
 					else if(target_ptr->lev * 2 > randint1(100))
@@ -5078,12 +5015,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					resists_tele = TRUE;
 				}
 				else if(target_ptr->lev * 2 > randint1(100))
@@ -5131,11 +5063,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10) // Attempt a saving throw
 				{
-#ifdef JP
-					note = "には効果がなかった！";
-#else
-					note = " is unaffected!";
-#endif
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 					do_fear = 0;
 				}
