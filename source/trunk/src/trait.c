@@ -857,7 +857,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			else if(floor_ptr->cave[y][x].creature_idx)
 			{
-				char target_name[80];
 				creature_desc(target_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 				msg_format("%sが邪魔だ！", target_name);
@@ -1890,7 +1889,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int target_m_idx;
 			creature_type *target_ptr;
 			species_type *r_ptr;
-			char target_name[80];
 
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
 			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
@@ -3030,7 +3028,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(is_pet(player_ptr, steed_ptr)) break;
 			user_level = steed_ptr->lev;
 			if(has_trait(steed_ptr, TRAIT_UNIQUE)) user_level = user_level * 3 / 2;
-			if(user_level > 60) user_level = 60+(user_level-60)/2;
+			if(user_level > 60) user_level = 60 + (user_level - 60)/2;
 			if((randint1(caster_ptr->skill_exp[SKILL_RIDING] / 120 + caster_ptr->lev * 2 / 3) > user_level)
 				&& one_in_(2) && !floor_ptr->fight_arena_mode && !floor_ptr->gamble_arena_mode
 				&& !has_trait(steed_ptr, TRAIT_GUARDIAN) && !has_trait(steed_ptr, TRAIT_UNIQUE)
@@ -3593,8 +3591,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BANISH:
 		{
-			species_type *species_ptr;
-
 			if(!cave_ptr->creature_idx)
 			{
 #ifdef JP
@@ -3606,17 +3602,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			target_ptr = &creature_list[cave_ptr->creature_idx];
-			species_ptr = &species_info[target_ptr->species_idx];
 
-			if(is_enemy_of_good_species(species_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
+			if(is_enemy_of_good_creature(target_ptr) && !(has_trait(target_ptr, TRAIT_QUESTOR)) && !(has_trait(target_ptr, TRAIT_UNIQUE)) &&
 				!floor_ptr->fight_arena_mode && !floor_ptr->quest &&
 				(caster_ptr->lev < randint1(caster_ptr->lev)) &&
 				!(target_ptr->sc_flag2 & SC_FLAG2_NOGENO))
 			{
 				if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 				{
-					char target_name[80];
-
 					creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
 					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
 				}

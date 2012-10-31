@@ -4398,14 +4398,12 @@ static void set_divine_bonuses(creature_type *creature_ptr)
 static void set_riding_bonuses(creature_type *creature_ptr)
 {
 	int i, j;
-	bool riding_levitation = FALSE;
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 	species_type *riding_r_ptr = &species_info[steed_ptr->species_idx];
 	int speed = steed_ptr->speed;
 	int penalty = 0;
 
 	j = creature_ptr->carrying_weight;
-
 
 	if(steed_ptr->speed > 0)
 	{
@@ -4420,7 +4418,6 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	creature_ptr->speed += (creature_ptr->skill_exp[SKILL_RIDING] + creature_ptr->lev *160L) / 3200;
 	if(steed_ptr->timed_trait[TRAIT_FAST]) creature_ptr->speed += 10;
 	if(steed_ptr->timed_trait[TRAIT_SLOW]) creature_ptr->speed -= 10;
-	riding_levitation = has_trait_species(riding_r_ptr, TRAIT_CAN_FLY) ? TRUE : FALSE;
 
 	//TODO if(is_kill_wall_species(riding_r_ptr)) creature_ptr->kill_wall = TRUE;
 
@@ -4458,7 +4455,6 @@ static void set_riding_bonuses(creature_type *creature_ptr)
 	if(creature_ptr->tval_ammo == TV_BOLT) penalty *= 2;
 	creature_ptr->to_hit_b -= penalty;
 	creature_ptr->dis_to_hit_b -= penalty;
-	//TODO creature_ptr->levitation = riding_levitation;
 }
 
 
