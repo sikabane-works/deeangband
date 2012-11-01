@@ -142,9 +142,8 @@ static void prt_binary(u32b flags, int row, int col)
 	}
 }
 
-/*
- * Output a rarity graph for a type of object.
- */
+
+// Output a rarity graph for a type of object.
 static void prt_alloc(byte tval, byte sval, int row, int col)
 {
 	int i, j;
@@ -156,7 +155,6 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 	byte c = TERM_WHITE;
 	cptr r = "+--common--+";
 	object_kind *k_ptr;
-
 
 	/* Get the entry */
 	alloc_entry *table = alloc_kind_table;
@@ -308,7 +306,6 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	s16b tmp_s16b;
 	char tmp_val[160];
 	char ppp[80];
-
 
 	/* Query the stats */
 	for (i = 0; i < STAT_MAX; i++)

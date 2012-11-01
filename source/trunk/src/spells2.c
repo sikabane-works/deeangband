@@ -1539,7 +1539,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	{
 		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
 		{
-			char target_name[80];
+			char target_name[MAX_NLEN];
 
 			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_GENOCIDE, target_name);
@@ -1551,7 +1551,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	if(resist && player_cast)
 	{
 		bool see_m = is_seen(user_ptr, target_ptr);
-		char target_name[80];
+		char target_name[MAX_NLEN];
 
 		creature_desc(target_name, target_ptr, 0);
 		if(see_m)
@@ -2759,7 +2759,7 @@ void discharge_minion(creature_type *caster_ptr)
 		/* Uniques resist discharging */
 		if(has_trait(target_ptr, TRAIT_UNIQUE))
 		{
-			char target_name[80];
+			char target_name[MAX_NLEN];
 			creature_desc(target_name, target_ptr, 0x00);
 #ifdef JP
 			msg_format("%s‚Í”š”j‚³‚ê‚é‚Ì‚ðŒ™‚ª‚èAŸŽè‚ÉŽ©•ª‚Ì¢ŠE‚Ö‚Æ‹A‚Á‚½B", target_name);
@@ -2779,7 +2779,7 @@ void discharge_minion(creature_type *caster_ptr)
 
 		if(record_named_pet && target_ptr->nickname)
 		{
-			char target_name[80];
+			char target_name[MAX_NLEN];
 
 			creature_desc(target_name, target_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_BLAST, target_name);

@@ -1743,7 +1743,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	int do_fear = 0;			// Fear amount (amount to fear)
 	int do_time = 0;			// Time amount (amount to time)
 	bool heal_leper = FALSE;
-	char target_name[80];		// Hold the creature name
+	char target_name[MAX_NLEN];		// Hold the creature name
 
 #ifndef JP
 	char m_poss[10];
@@ -2330,8 +2330,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	bool fuzzy = FALSE;
 
 	// Creature name (for attacker and target)
-	char caster_name[80];
-	char target_name[80];
+	char caster_name[MAX_NLEN];
+	char target_name[MAX_NLEN];
 	char killer[80];
 
 	// Is the player blind?

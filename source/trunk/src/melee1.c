@@ -116,9 +116,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// Access the weapon
 	object_type     *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
 
-	char            attacker_name[80];
-	char            target_name[80];
-	char			weapon_name[80];
+	char            attacker_name[MAX_NLEN];
+	char            target_name[MAX_NLEN];
+	char			weapon_name[MAX_NLEN];
 
 	bool            success_hit = FALSE;
 	bool            backstab = FALSE;
@@ -819,7 +819,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 {
 	int             k, bonus, chance;
 	int             n_weight = 0;
-	char            target_name[80];
+	char            target_name[MAX_NLEN];
 
 	int             dss, ddd;
 
@@ -1470,8 +1470,8 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 	species_type    *tar_species_ptr;
 	object_type			*weapon_ptr;
 	special_blow_type	*special_ptr;
-	char			attacker_name[80];
-	char            target_name[80];
+	char			attacker_name[MAX_NLEN];
+	char            target_name[MAX_NLEN];
 
 	int select_list[MAX_MELEE_TYPE];
 	int select_weight[MAX_MELEE_TYPE];
@@ -3746,7 +3746,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	if(target_ptr->riding && damage)
 	{
-		char attacker_name[80];
+		char attacker_name[MAX_NLEN];
 		creature_desc(attacker_name, &creature_list[target_ptr->riding], 0);
 		if(do_thrown_from_riding(target_ptr, (damage > 200) ? 200 : damage, FALSE))
 		{
@@ -3785,7 +3785,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 	if((target_ptr->counter || (target_ptr->posture & KATA_MUSOU)) && !*dead && !IS_DEAD(target_ptr) && attacker_ptr->see_others && (target_ptr->csp > 7))
 	{
-		char attacker_name[80];
+		char attacker_name[MAX_NLEN];
 		creature_desc(attacker_name, attacker_ptr, 0);
 
 		target_ptr->csp -= 7;
