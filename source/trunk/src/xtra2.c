@@ -3742,15 +3742,12 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			default:
 				dummy2 = SV_BLADE_OF_CHAOS;
 			}
-
 			object_prep(quest_ptr, lookup_kind(dummy, dummy2), ITEM_FREE_SIZE);
 			quest_ptr->to_hit = 3 + randint1(floor_ptr->floor_level) % 10;
 			quest_ptr->to_damage = 3 + randint1(floor_ptr->floor_level) % 10;
 			one_resistance(quest_ptr);
 			quest_ptr->name2 = EGO_CHAOTIC;
-
-			/* Drop it in the dungeon */
-			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);
+			(void)drop_near(floor_ptr, quest_ptr, -1, creature_ptr->fy, creature_ptr->fx);	// Drop it in the dungeon
 			break;
 
 		case REW_GOOD_OBS:
@@ -3770,117 +3767,94 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
+			reward = "高級品のアイテムを手に入れた。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
-#endif
-			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
-#ifdef JP
-			reward = "高級品のアイテムを手に入れた。";
-#else
 			reward = "excellent items";
 #endif
+			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			break;
 
 		case REW_TY_CURSE:
 #ifdef JP
 			msg_format("%sの声が轟き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「下僕よ、汝傲慢なり。」");
+			reward = "禍々しい呪いをかけられた。";
 #else
 			msg_format("The voice of %s thunders:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou art growing arrogant, mortal.'");
-#endif
-			(void)activate_ty_curse(creature_ptr, FALSE, &count);
-#ifdef JP
-			reward = "禍々しい呪いをかけられた。";
-#else
 			reward = "cursing";
 #endif
+			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			break;
 
 		case REW_SUMMON_M:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
+			reward = "クリーチャーを召喚された。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'My pets, destroy the arrogant mortal!'");
+			reward = "summoning hostile creatures";
 #endif
-
 			for (dummy = 0; dummy < randint1(5) + 1; dummy++)
 			{
 				(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
-#ifdef JP
-			reward = "クリーチャーを召喚された。";
-#else
-			reward = "summoning hostile creatures";
-#endif
 			break;
 
 		case REW_H_SUMMON:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、より強き敵を必要とせり！」");
+			reward = "クリーチャーを召喚された。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou needst worthier opponents!'");
-#endif
-			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
-#ifdef JP
-			reward = "クリーチャーを召喚された。";
-#else
 			reward = "summoning many hostile creatures";
 #endif
+			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			break;
 
 		case REW_DO_HAVOC:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「死と破壊こそ我が喜びなり！」");
+			reward = "カオスの力が渦巻いた。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Death and destruction! This pleaseth me!'");
-#endif
-			call_chaos(creature_ptr);
-#ifdef JP
-			reward = "カオスの力が渦巻いた。";
-#else
 			reward = "calling chaos";
 #endif
+			call_chaos(creature_ptr);
 			break;
 
 		case REW_GAIN_ABL:
 #ifdef JP
 			msg_format("%sの声が鳴り響いた:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
+			reward = "能力値が上がった。";
 #else
 			msg_format("The voice of %s rings out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Stay, mortal, and let me mold thee.'");
-#endif
-			do_inc_stat(creature_ptr, randint0(6));
-
-#ifdef JP
-			reward = "能力値が上がった。";
-#else
 			reward = "increasing a stat";
 #endif
+			do_inc_stat(creature_ptr, randint0(6));
 			break;
 
 		case REW_LOSE_ABL:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「下僕よ、余は汝に飽みたり。」");
+			reward = "能力値が下がった。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'I grow tired of thee, mortal.'");
-#endif
-			(void)do_dec_stat(creature_ptr, randint0(6));
-#ifdef JP
-			reward = "能力値が下がった。";
-#else
 			reward = "decreasing a stat";
 #endif
+			(void)do_dec_stat(creature_ptr, randint0(6));
 			break;
 
 		case REW_RUIN_ABL:
@@ -3888,89 +3862,64 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("%sの声が轟き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、謙虚たることを学ぶべし！」");
 			msg_print("あなたは以前より弱くなった！");
+			reward = "全能力値が下がった。";
 #else
 			msg_format("The voice of %s thunders:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou needst a lesson in humility, mortal!'");
 			msg_print("You feel less powerful!");
-#endif
-
-			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
-
-#ifdef JP
-			reward = "全能力値が下がった。";
-#else
 			reward = "decreasing all stats";
 #endif
+			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
 			break;
 
 		case REW_POLY_WND:
 #ifdef JP
 			msg_format("%sの力が触れるのを感じた。", species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("You feel the power of %s touch you.", species_name + species_info[creature_ptr->patron_idx].name);
-#endif				
-			do_poly_wounds(creature_ptr);
-#ifdef JP
 			reward = "傷が変化した。";
 #else
+			msg_format("You feel the power of %s touch you.", species_name + species_info[creature_ptr->patron_idx].name);
 			reward = "polymorphing wounds";
-#endif
+#endif				
+			do_poly_wounds(creature_ptr);
 			break;
 
 		case REW_AUGM_ABL:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我がささやかなる賜物を受けとるがよい！」");
+			reward = "全能力値が上がった。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Receive this modest gift from me!'");
-#endif
-			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_inc_stat(creature_ptr, dummy);
-#ifdef JP
-			reward = "全能力値が上がった。";
-#else
 			reward = "increasing all stats";
 #endif
+			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_inc_stat(creature_ptr, dummy);
 			break;
 
 		case REW_HURT_LOT:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「苦しむがよい、無能な愚か者よ！」");
-#else
-			msg_print("'Suffer, pathetic fool!'");
-#endif
-
-			cast_ball(creature_ptr, GF_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
-#ifdef JP
 			reward = "分解の球が発生した。";
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("'Suffer, pathetic fool!'");
 			reward = "generating disintegration ball";
 #endif
+			cast_ball(creature_ptr, GF_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
+			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			break;
+
 		case REW_HEAL_FUL:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「甦るがよい、我が下僕よ！」");
+			reward = "体力が回復した。";
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Rise, my servant!'");
+			reward = "healing";
 #endif
-
 			restore_exp(creature_ptr);
 			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
@@ -3979,34 +3928,20 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 			(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 			heal_creature(creature_ptr, 5000);
-			for (dummy = 0; dummy < 6; dummy++)
-			{
-				(void)do_res_stat(creature_ptr, dummy);
-			}
-#ifdef JP
-			reward = "体力が回復した。";
-#else
-			reward = "healing";
-#endif
+			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_res_stat(creature_ptr, dummy);
 			break;
+
 		case REW_CURSE_WP:
-
 			if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
-
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、武器に頼ることなかれ。」");
+			reward = format("%sが破壊された。", object_name);
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou reliest too much on thy weapon.'");
+			reward = format("destroying %s", object_name);
 #endif
-
 			dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 			if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
 			{
@@ -4016,12 +3951,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			}
 			object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(creature_ptr, FALSE, dummy);
-#ifdef JP
-			reward = format("%sが破壊された。", object_name);
-#else
-			reward = format("destroying %s", object_name);
-#endif
 			break;
+
 		case REW_CURSE_AR:
 			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
 #ifdef JP
