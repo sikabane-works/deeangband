@@ -12,6 +12,7 @@ static const cptr game_messages[] =
 	"クリーチャーが立ちふさがっている。",
 	"鍵をはずした。",
 	"鍵をはずせなかった。",
+	"恐怖の暗黒オーラがあなたの%sを包み込んだ！",
 	"「なんだこの階段は！？」",
 };
 #else
@@ -25,7 +26,8 @@ static const cptr game_messages[] =
 	"There is a creature in the way.",
 	"You have picked the lock.",
 	"You failed to pick the lock.",
-	"What's a fucking stair!?",
+	"A terrible black aura blasts your %s!",
+	"'What's a fucking stair!?'",
 };
 #endif
 
@@ -39,6 +41,7 @@ enum GAME_MESSAGE
 	GAME_MESSAGE_CREATURE_IN_THE_WAY,
 	GAME_MESSAGE_SUCCESS_PICKING,
 	GAME_MESSAGE_FAILED_PICKING,
+	GAME_MESSAGE_BLACK_AURA_TO_OBJECT,
 	GAME_MESSAGE_COMBAT_TALK_STAIR,
 };
 

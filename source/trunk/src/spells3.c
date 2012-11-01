@@ -5082,12 +5082,7 @@ bool curse_armor(creature_type *creature_ptr)
 	}
 	else
 	{
-#ifdef JP
-		msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
-#else
-		msg_format("A terrible black aura blasts your %s!", object_name);
-#endif
-
+		msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
 		shatter_object(object_ptr);
 
 		// Recalculate bonuses and mana
@@ -5124,12 +5119,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	}
 	else
 	{
-#ifdef JP
-		if(!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
-#else
-		if(!force) msg_format("A terrible black aura blasts your %s!", object_name);
-#endif
-
+		if(!force) msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
 		shatter_object(object_ptr);
 
 		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana

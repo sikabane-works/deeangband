@@ -11571,11 +11571,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			else
 			{
 				int power = 0;
-#ifdef JP
-				msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
-#else
-				msg_format("A terrible black aura blasts your %s!", object_name);
-#endif
+				msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
@@ -12036,11 +12032,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 			else
 			{
 				int power = 0;
-#ifdef JP
-				msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
-#else
-				msg_format("A terrible black aura blasts your %s!", object_name);
-#endif
+				msg_format(game_messages[GAME_MESSAGE_BLACK_AURA_TO_OBJECT], object_name);
 				add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 
 				if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
