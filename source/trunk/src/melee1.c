@@ -133,7 +133,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	int             drain_result = 0, drain_heal = 0;
 	bool            can_drain = FALSE;
 	int             drain_left = MAX_VAMPIRIC_DRAIN;
-	u32b flgs[TRAIT_FLAG_MAX]; /* A massive hack -- life-draining weapons */
+	u32b flgs[TRAIT_FLAG_MAX]; // A massive hack -- life-draining weapons
 	bool            is_human = (r_ptr->d_char == 'p');
 	bool            is_lowlevel = (r_ptr->level < (attacker_ptr->lev - 15));
 	bool            zantetsu_mukou, e_j_mukou;
@@ -202,9 +202,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	chance = (attacker_ptr->skill_thn + (bonus * BTH_PLUS_ADJ));
 	if(mode == HISSATSU_IAI) chance += 60;
 	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
-
 	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
-
 	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (r_ptr->d_char == 'j'));
 
 	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (r_ptr->d_char == 'S'));
@@ -261,11 +259,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		{
 			if(one_in_(10))
 			{
-				if(randint1(5) < 3)   chaos_effect = 1; // Vampiric (20%)
-				else if(one_in_(250)) chaos_effect = 2; // Quake (0.12%)
-				else if(!one_in_(10)) chaos_effect = 3; // Confusion (26.892%)
-				else if(one_in_(2))   chaos_effect = 4; // Teleport away (1.494%)
-				else                   chaos_effect = 5; // Polymorph (1.494%)
+				if(randint1(5) < 3)		chaos_effect = 1; // Vampiric (20%)
+				else if(one_in_(250))	chaos_effect = 2; // Quake (0.12%)
+				else if(!one_in_(10))	chaos_effect = 3; // Confusion (26.892%)
+				else if(one_in_(2))		chaos_effect = 4; // Teleport away (1.494%)
+				else					chaos_effect = 5; // Polymorph (1.494%)
 			}
 		}
 
@@ -292,9 +290,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else if(stab_fleeing)	k = (3 * k) / 2;
 
 			if((has_trait_object(weapon_ptr, TRAIT_SHATTER) && ((k > 50) || one_in_(7))) || (chaos_effect == 2) || (mode == HISSATSU_QUAKE))
-			{
 				do_quake = TRUE;
-			}
 
 			if(!has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) && !(mode == HISSATSU_KYUSHO))
 				k = test_critial_melee(attacker_ptr, weapon_ptr->weight, weapon_ptr->to_hit, k, attacker_ptr->to_hit[hand], mode);
@@ -304,7 +300,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			if(vorpal_cut)
 			{
 				int mult = 2;
-
 				if((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
@@ -723,20 +718,14 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 				}
 
-				/* Hack -- Get new creature */
-				target_ptr = &creature_list[c_ptr->creature_idx];
-
-				/* Oops, we need a different name... */
-				creature_desc(target_name, target_ptr, 0);
-
-				/* Hack -- Get new race */
-				r_ptr = &species_info[target_ptr->species_idx];
+				target_ptr = &creature_list[c_ptr->creature_idx];	// Hack -- Get new creature
+				creature_desc(target_name, target_ptr, 0);			// Oops, we need a different name...
+				r_ptr = &species_info[target_ptr->species_idx];		// Hack -- Get new race
 			}
 		}
 		else if(has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))
 		{
 			creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
-
 			//TODO reimplement get item process.
 		}
 	}
@@ -758,12 +747,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			{
 #ifdef JP
 				msg_format("%s‚Í%s‚ÌUŒ‚‚ğ‚©‚í‚µ‚½B", target_name, attacker_name);
-#else
-				msg_format("%^s misses %s.", target_name, attacker_name);
-#endif
-#ifdef JP
 				msg_print("U‚è‰ñ‚µ‚½‘åŠ™‚ª©•ª©g‚É•Ô‚Á‚Ä‚«‚½I");
 #else
+				msg_format("%^s misses %s.", target_name, attacker_name);
 				msg_print("Your scythe returns to you!");
 #endif
 			}
