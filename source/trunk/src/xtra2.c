@@ -3640,39 +3640,29 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #endif
 			}
 			break;
+
 		case REW_GOOD_OBJ:
 #ifdef JP
 			msg_format("%sの声がささやいた:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("「我が与えし物を賢明に使うべし。」");
+			reward = "上質なアイテムを手に入れた。";
 #else
 			msg_format("The voice of %s whispers:", species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
-			msg_print("「我が与えし物を賢明に使うべし。」");
-#else
 			msg_print("'Use my gift wisely.'");
+			reward = "a good item";
 #endif
 
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, FALSE, FALSE);
-#ifdef JP
-			reward = "上質なアイテムを手に入れた。";
-#else
-			reward = "a good item";
-#endif
 			break;
+
 		case REW_GREA_OBJ:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
 			msg_print("「我が与えし物を賢明に使うべし。」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Use my gift wisely.'");
 #endif
-
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
@@ -3680,18 +3670,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "an excellent item";
 #endif
 			break;
+
 		case REW_CHAOS_WP:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝の行いは貴き剣に値せり。」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thy deed hath earned thee a worthy blade.'");
 #endif
 
@@ -3799,21 +3784,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "chaos weapon";
 #endif
 			break;
+
 		case REW_GOOD_OBS:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝の行いは貴き報いに値せり。」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thy deed hath earned thee a worthy reward.'");
 #endif
-
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, FALSE, FALSE);
 #ifdef JP
 			reward = "上質なアイテムを手に入れた。";
@@ -3821,21 +3800,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "good items";
 #endif
 			break;
+
 		case REW_GREA_OBS:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「下僕よ、汝の献身への我が惜しみ無き報いを見るがよい。」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Behold, mortal, how generously I reward thy loyalty.'");
 #endif
-
 			acquirement(floor_ptr, creature_ptr->fy, creature_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 #ifdef JP
 			reward = "高級品のアイテムを手に入れた。";
@@ -3843,21 +3816,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "excellent items";
 #endif
 			break;
+
 		case REW_TY_CURSE:
 #ifdef JP
-			msg_format("%sの声が轟き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s thunders:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が轟き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「下僕よ、汝傲慢なり。」");
 #else
+			msg_format("The voice of %s thunders:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou art growing arrogant, mortal.'");
 #endif
-
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 #ifdef JP
 			reward = "禍々しい呪いをかけられた。";
@@ -3865,18 +3832,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "cursing";
 #endif
 			break;
+
 		case REW_SUMMON_M:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'My pets, destroy the arrogant mortal!'");
 #endif
 
@@ -3890,21 +3852,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "summoning hostile creatures";
 #endif
 			break;
+
 		case REW_H_SUMMON:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、より強き敵を必要とせり！」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou needst worthier opponents!'");
 #endif
-
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 #ifdef JP
 			reward = "クリーチャーを召喚された。";
@@ -3912,21 +3868,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "summoning many hostile creatures";
 #endif
 			break;
+
 		case REW_DO_HAVOC:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「死と破壊こそ我が喜びなり！」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Death and destruction! This pleaseth me!'");
 #endif
-
 			call_chaos(creature_ptr);
 #ifdef JP
 			reward = "カオスの力が渦巻いた。";
@@ -3934,21 +3884,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "calling chaos";
 #endif
 			break;
+
 		case REW_GAIN_ABL:
 #ifdef JP
-			msg_format("%sの声が鳴り響いた:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s rings out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が鳴り響いた:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「留まるのだ、下僕よ。余が汝の肉体を鍛えん。」");
 #else
+			msg_format("The voice of %s rings out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Stay, mortal, and let me mold thee.'");
 #endif
-
 			do_inc_stat(creature_ptr, randint0(6));
 
 #ifdef JP
@@ -3957,21 +3901,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "increasing a stat";
 #endif
 			break;
+
 		case REW_LOSE_ABL:
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「下僕よ、余は汝に飽みたり。」");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'I grow tired of thee, mortal.'");
 #endif
-
 			(void)do_dec_stat(creature_ptr, randint0(6));
 #ifdef JP
 			reward = "能力値が下がった。";
@@ -3982,25 +3920,17 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 		case REW_RUIN_ABL:
 #ifdef JP
-			msg_format("%sの声が轟き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s thunders:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が轟き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、謙虚たることを学ぶべし！」");
 			msg_print("あなたは以前より弱くなった！");
 #else
+			msg_format("The voice of %s thunders:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Thou needst a lesson in humility, mortal!'");
 			msg_print("You feel less powerful!");
 #endif
 
-			for (dummy = 0; dummy < 6; dummy++)
-			{
-				(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
-			}
+			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), TRUE);
+
 #ifdef JP
 			reward = "全能力値が下がった。";
 #else
