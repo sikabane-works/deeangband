@@ -3143,6 +3143,8 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 	int		dir;
 	char	command;
 	cptr	p;
+	char creature_name[MAX_NLEN];
+	creature_desc(creature_name, creature_ptr, 0);
 
 	(*dp) = 0;	// Initialize
 	dir = command_dir;	// Global direction
@@ -3226,16 +3228,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 	}
 
 	/* Notice confusion */
-	if(command_dir != dir)
-	{
-		/* Warn the user */
-#ifdef JP
-		msg_print("あなたは混乱している。");
-#else
-		msg_print("You are confused.");
-#endif
-
-	}
+	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -3268,6 +3261,8 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 {
 	int dir;
+	char creature_name[MAX_NLEN];
+	creature_desc(creature_name, creature_ptr, 0);
 
 	/* Initialize */
 	(*dp) = 0;
@@ -3349,15 +3344,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	/* Notice confusion */
 	if(command_dir != dir)
 	{
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED])
-		{
-			/* Warn the user */
-#ifdef JP
-			msg_print("あなたは混乱している。");
-#else
-			msg_print("You are confused.");
-#endif
-		}
+		if(creature_ptr->timed_trait[TRAIT_CONFUSED]) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
 		else
 		{
 			char m_name[80];
@@ -3366,12 +3353,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 			creature_desc(m_name, m_ptr, 0);
 			if(m_ptr->timed_trait[TRAIT_CONFUSED])
 			{
-#ifdef JP
-				msg_format("%sは混乱している。", m_name);
-#else
-				msg_format("%^s is confusing.", m_name);
-
-#endif
+				msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], m_name);
 			}
 			else
 			{
@@ -3398,6 +3380,8 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 {
 	int dir;
+	char creature_name[MAX_NLEN];
+	creature_desc(creature_name, creature_ptr, 0);
 
 	/* Initialize */
 	(*dp) = 0;
@@ -3452,16 +3436,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	}
 
 	/* Notice confusion */
-	if(command_dir != dir)
-	{
-		/* Warn the user */
-#ifdef JP
-		msg_print("あなたは混乱している。");
-#else
-		msg_print("You are confused.");
-#endif
-
-	}
+	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
 
 	/* Save direction */
 	(*dp) = dir;
@@ -4481,6 +4456,8 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	int		dir;
 	cptr    p;
 	char    command;
+	char creature_name[MAX_NLEN];
+	creature_desc(creature_name, creature_ptr, 0);
 
 
 	/* Initialize */
@@ -4502,7 +4479,6 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 #else
 			p = "Direction ('*' to choose a target, Escape to cancel)? ";
 #endif
-
 		}
 		else
 		{
@@ -4545,20 +4521,14 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 				break;
 			}
 
-		default:
+		default: // Look up the direction
 			{
-				/* Look up the direction */
 				dir = get_keymap_dir(command);
-
 				break;
 			}
 		}
-
-		/* Verify requested targets */
-		if((dir == 5) && !target_okay(creature_ptr)) dir = 0;
-
-		/* Error */
-		if(!dir) bell();
+		if((dir == 5) && !target_okay(creature_ptr)) dir = 0;	// Verify requested targets
+		if(!dir) bell(); // Error
 	}
 
 	/* No direction */
@@ -4575,17 +4545,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		dir = ddd[randint0(8)];
 	}
 
-	/* Notice confusion */
-	if(command_dir != dir)
-	{
-		/* Warn the user */
-#ifdef JP
-		msg_print("あなたは混乱している。");
-#else
-		msg_print("You are confused.");
-#endif
-
-	}
+	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name); // Notice confusion and warn user.
 
 	/* Save direction */
 	(*dp) = dir;
