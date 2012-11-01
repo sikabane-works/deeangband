@@ -5036,16 +5036,31 @@ msg_format("%sは腐食しなくなった。", object_name);
 }
 
 
+static void shatter_object(object_type *object_ptr)
+{
+	int i;
+
+	object_ptr->name1 = 0;
+	object_ptr->name2 = EGO_BLASTED;
+	object_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
+	object_ptr->to_hit = 0;
+	object_ptr->to_damage = 0;
+	object_ptr->ac = 0;
+	object_ptr->dd = 0;
+	object_ptr->ds = 0;
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->trait_flags[i] = 0;
+
+	add_flag(object_ptr->curse_flags, TRAIT_CURSED);	// Curse it
+	object_ptr->ident |= (IDENT_BROKEN);	// Break it
+}
+
 /*
  * Curse the players armor
  */
 bool curse_armor(creature_type *creature_ptr)
 {
-	int i;
 	object_type *object_ptr;
-
 	char object_name[MAX_NLEN];
-
 
 	/* Curse the body armor */
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1);
@@ -5053,52 +5068,27 @@ bool curse_armor(creature_type *creature_ptr)
 	/* Nothing to curse */
 	if(!is_valid_object(object_ptr)) return (FALSE);
 
-
 	/* Describe */
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
 	/* Attempt a saving throw for artifacts */
 	if(object_is_artifact(object_ptr) && (randint0(100) < 50))
 	{
-		/* Cool */
 #ifdef JP
-msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！",
-"恐怖の暗黒オーラ", "防具", object_name);
+		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！", "恐怖の暗黒オーラ", "防具", object_name);
 #else
-		msg_format("A %s tries to %s, but your %s resists the effects!",
-			   "terrible black aura", "surround your armor", object_name);
+		msg_format("A %s tries to %s, but your %s resists the effects!", "terrible black aura", "surround your armor", object_name);
 #endif
-
 	}
-
-	/* not artifact or failed save... */
 	else
 	{
-		/* Oops */
 #ifdef JP
-msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
+		msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 #else
 		msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
 
-		/* Blast the armor */
-		object_ptr->name1 = 0;
-		object_ptr->name2 = EGO_BLASTED;
-		object_ptr->to_ac = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		object_ptr->to_hit = 0;
-		object_ptr->to_damage = 0;
-		object_ptr->ac = 0;
-		object_ptr->dd = 0;
-		object_ptr->ds = 0;
-
-		for (i = 0; i < TRAIT_FLAG_MAX; i++)
-			object_ptr->trait_flags[i] = 0;
-
-		/* Curse it */
-		add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-		/* Break it */
-		object_ptr->ident |= (IDENT_BROKEN);
+		shatter_object(object_ptr);
 
 		// Recalculate bonuses and mana
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA);
@@ -5116,7 +5106,6 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
  */
 bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 {
-	int i;
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
 
@@ -5140,20 +5129,9 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 #else
 		if(!force) msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
-		// Shatter the weapon
-		object_ptr->name1 = 0;
-		object_ptr->name2 = EGO_SHATTERED;
-		object_ptr->to_hit = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		object_ptr->to_damage = 0 - (s16b)randint1(5) - (s16b)randint1(5);
-		object_ptr->to_ac = 0;
-		object_ptr->ac = 0;
-		object_ptr->dd = 0;
-		object_ptr->ds = 0;
 
-		for (i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->trait_flags[i] = 0;
+		shatter_object(object_ptr);
 
-		add_flag(object_ptr->curse_flags, TRAIT_CURSED);	// Curse it
-		object_ptr->ident |= (IDENT_BROKEN);	// Break it
 		target_ptr->creature_update |= (CRU_BONUS | CRU_MANA);	// Recalculate bonuses and mana
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);	// Window stuff
 	}
