@@ -3956,42 +3956,26 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 		case REW_CURSE_AR:
 			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
 #ifdef JP
-			msg_format("%sの声が響き渡った:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、防具に頼ることなかれ。」");
-#else
-			msg_print("'Thou reliest too much on thine equipment.'");
-#endif
-
-			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
-			(void)curse_armor(creature_ptr);
-#ifdef JP
 			reward = format("%sが破壊された。", object_name);
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("'Thou reliest too much on thine equipment.'");
 			reward = format("destroying %s", object_name);
 #endif
+			object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+			(void)curse_armor(creature_ptr);
 			break;
+
 		case REW_PISS_OFF:
 #ifdef JP
-			msg_format("%sの声がささやいた:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s whispers:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%sの声がささやいた:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我を怒りしめた罪を償うべし。」");
 #else
+			msg_format("The voice of %s whispers:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Now thou shalt pay for annoying me.'");
 #endif
-
 			switch (randint1(4))
 			{
 			case 1:
@@ -4054,25 +4038,18 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				break;
 			}
 			break;
+
 		case REW_WRATH:
 #ifdef JP
-			msg_format("%sの声が轟き渡った:",
-#else
-			msg_format("The voice of %s thunders:",
-#endif
-
-				species_name + species_info[creature_ptr->patron_idx].name);
-#ifdef JP
+			msg_format("%sの声が轟き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「死ぬがよい、下僕よ！」");
 #else
+			msg_format("The voice of %s thunders:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Die, mortal!'");
 #endif
-
 			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
-			for (dummy = 0; dummy < 6; dummy++)
-			{
-				(void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
-			}
+			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
+
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			if(one_in_(2))
@@ -4092,58 +4069,44 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			}
 			if(one_in_(2)) (void)curse_armor(creature_ptr);
 			break;
+
 		case REW_DESTRUCT:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
 			msg_print("「死と破壊こそ我が喜びなり！」");
-#else
-			msg_print("'Death and destruction! This pleaseth me!'");
-#endif
-
-			(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 25, FALSE);
-#ifdef JP
 			reward = "ダンジョンが*破壊*された。";
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
+			msg_print("'Death and destruction! This pleaseth me!'");
 			reward = "*destruct*ing dungeon";
 #endif
+			(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 25, FALSE);
 			break;
 
 		case REW_GENOCIDE:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我、汝の敵を抹殺せん！」");
+			reward = "クリーチャーが抹殺された。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Let me relieve thee of thine oppressors!'");
-#endif
-
-			(void)symbol_genocide(creature_ptr, 0, FALSE);
-#ifdef JP
-			reward = "クリーチャーが抹殺された。";
-#else
 			reward = "genociding creatures";
 #endif
+			(void)symbol_genocide(creature_ptr, 0, FALSE);
 			break;
 
 		case REW_MASS_GEN:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我、汝の敵を抹殺せん！」");
+			reward = "クリーチャーが抹殺された。";
 #else
 			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Let me relieve thee of thine oppressors!'");
-#endif
-			(void)mass_genocide(creature_ptr, 0, FALSE);
-#ifdef JP
-			reward = "クリーチャーが抹殺された。";
-#else
 			reward = "genociding nearby creatures";
 #endif
+			(void)mass_genocide(creature_ptr, 0, FALSE);
 			break;
 
 		case REW_DISPEL_C:
@@ -4152,17 +4115,14 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #else
 			msg_format("You can feel the power of %s assault your enemies!", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
-
 			(void)dispel_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
 
 		case REW_IGNORE:
 #ifdef JP
-			msg_format("%sはあなたを無視した。",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%sはあなたを無視した。", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("%s ignores you.",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%s ignores you.", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 			break;
 
@@ -4185,8 +4145,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #else
 				reward = "a demonic servant";
 #endif
-
 			break;
+
 		case REW_SER_MONS:
 #ifdef JP
 			msg_format("%sは褒美として使いをよこした！",species_name + species_info[creature_ptr->patron_idx].name);
@@ -4206,7 +4166,6 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #else
 				reward = "a servant";
 #endif
-
 			break;
 
 		case REW_SER_UNDE:
@@ -4228,7 +4187,6 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #else
 				reward = "an undead servant";
 #endif
-
 			break;
 
 		default:
