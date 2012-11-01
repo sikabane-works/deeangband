@@ -3979,6 +3979,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "decreasing a stat";
 #endif
 			break;
+
 		case REW_RUIN_ABL:
 #ifdef JP
 			msg_format("%s‚Ìº‚ªŒ‚«“n‚Á‚½:",
@@ -4006,13 +4007,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "decreasing all stats";
 #endif
 			break;
+
 		case REW_POLY_WND:
 #ifdef JP
-			msg_format("%s‚Ì—Í‚ªG‚ê‚é‚Ì‚ðŠ´‚¶‚½B",
+			msg_format("%s‚Ì—Í‚ªG‚ê‚é‚Ì‚ðŠ´‚¶‚½B", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("You feel the power of %s touch you.",
-#endif
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("You feel the power of %s touch you.", species_name + species_info[creature_ptr->patron_idx].name);
+#endif				
 			do_poly_wounds(creature_ptr);
 #ifdef JP
 			reward = "‚ª•Ï‰»‚µ‚½B";
@@ -4020,31 +4021,23 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "polymorphing wounds";
 #endif
 			break;
+
 		case REW_AUGM_ABL:
 #ifdef JP
-			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("u‰ä‚ª‚³‚³‚â‚©‚È‚éŽ’•¨‚ðŽó‚¯‚Æ‚é‚ª‚æ‚¢Iv");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Receive this modest gift from me!'");
 #endif
-
-			for (dummy = 0; dummy < 6; dummy++)
-			{
-				(void)do_inc_stat(creature_ptr, dummy);
-			}
+			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)do_inc_stat(creature_ptr, dummy);
 #ifdef JP
 			reward = "‘S”\—Í’l‚ªã‚ª‚Á‚½B";
 #else
 			reward = "increasing all stats";
 #endif
 			break;
+
 		case REW_HURT_LOT:
 #ifdef JP
 			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:",
@@ -4275,11 +4268,9 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 		case REW_DESTRUCT:
 #ifdef JP
-			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 #ifdef JP
@@ -4295,18 +4286,13 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "*destruct*ing dungeon";
 #endif
 			break;
+
 		case REW_GENOCIDE:
 #ifdef JP
-			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("u‰äA“ð‚Ì“G‚ð–•ŽE‚¹‚ñIv");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Let me relieve thee of thine oppressors!'");
 #endif
 
@@ -4317,21 +4303,15 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "genociding creatures";
 #endif
 			break;
+
 		case REW_MASS_GEN:
 #ifdef JP
-			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#else
-			msg_format("The voice of %s booms out:",
-				species_name + species_info[creature_ptr->patron_idx].name);
-#endif
-
-#ifdef JP
+			msg_format("%s‚Ìº‚ª‹¿‚«“n‚Á‚½:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("u‰äA“ð‚Ì“G‚ð–•ŽE‚¹‚ñIv");
 #else
+			msg_format("The voice of %s booms out:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Let me relieve thee of thine oppressors!'");
 #endif
-
 			(void)mass_genocide(creature_ptr, 0, FALSE);
 #ifdef JP
 			reward = "ƒNƒŠ[ƒ`ƒƒ[‚ª–•ŽE‚³‚ê‚½B";
@@ -4339,17 +4319,17 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "genociding nearby creatures";
 #endif
 			break;
+
 		case REW_DISPEL_C:
 #ifdef JP
-			msg_format("%s‚Ì—Í‚ª“G‚ðUŒ‚‚·‚é‚Ì‚ðŠ´‚¶‚½I",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("%s‚Ì—Í‚ª“G‚ðUŒ‚‚·‚é‚Ì‚ðŠ´‚¶‚½I", species_name + species_info[creature_ptr->patron_idx].name);
 #else
-			msg_format("You can feel the power of %s assault your enemies!",
-				species_name + species_info[creature_ptr->patron_idx].name);
+			msg_format("You can feel the power of %s assault your enemies!", species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
 			(void)dispel_creatures(creature_ptr, creature_ptr->lev * 4);
 			break;
+
 		case REW_IGNORE:
 #ifdef JP
 			msg_format("%s‚Í‚ ‚È‚½‚ð–³Ž‹‚µ‚½B",
@@ -4358,8 +4338,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("%s ignores you.",
 				species_name + species_info[creature_ptr->patron_idx].name);
 #endif
-
 			break;
+
 		case REW_SER_DEMO:
 #ifdef JP
 			msg_format("%s‚Í–J”ü‚Æ‚µ‚Äˆ«–‚‚ÌŽg‚¢‚ð‚æ‚±‚µ‚½I",species_name + species_info[creature_ptr->patron_idx].name);
@@ -4402,6 +4382,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #endif
 
 			break;
+
 		case REW_SER_UNDE:
 #ifdef JP
 			msg_format("%s‚Í–J”ü‚Æ‚µ‚ÄƒAƒ“ƒfƒbƒh‚ÌŽg‚¢‚ð‚æ‚±‚µ‚½B",species_name + species_info[creature_ptr->patron_idx].name);
@@ -4423,22 +4404,20 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 #endif
 
 			break;
-		default:
-#ifdef JP
-			msg_format("%s‚Ìº‚ª‚Ç‚à‚Á‚½:",
-#else
-			msg_format("The voice of %s stammers:",
-#endif
 
-				species_name + species_info[creature_ptr->patron_idx].name);
+		default:
+
 #ifdef JP
+			msg_format("%s‚Ìº‚ª‚Ç‚à‚Á‚½:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_format("u‚ [A‚ [A“š‚¦‚Í %d/%dBŽ¿–â‚Í‰½Hv", type, effect);
 #else
+			msg_format("The voice of %s stammers:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_format("'Uh... uh... the answer's %d/%d, what's the question?'", type, effect);
 #endif
 
 		}
 	}
+
 	if(reward)
 	{
 #ifdef JP

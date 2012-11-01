@@ -4981,8 +4981,8 @@ bool rustproof(creature_type *creature_ptr)
 
 	/* Get an item */
 #ifdef JP
-q = "‚Ç‚Ì–h‹ï‚ÉŽKŽ~‚ß‚ð‚µ‚Ü‚·‚©H";
-s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
+	q = "‚Ç‚Ì–h‹ï‚ÉŽKŽ~‚ß‚ð‚µ‚Ü‚·‚©H";
+	s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 #else
 	q = "Rustproof which piece of armour? ";
 	s = "You have nothing to rustproof.";
@@ -4990,20 +4990,11 @@ s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
+	// Get the item (in the pack / on the floor)
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
-
-	/* Description */
+	// Description
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	add_flag(object_ptr->trait_flags, TRAIT_IGNORE_ACID);
@@ -5011,27 +5002,20 @@ s = "ŽKŽ~‚ß‚Å‚«‚é‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñB";
 	if((object_ptr->to_ac < 0) && !object_is_cursed(object_ptr))
 	{
 #ifdef JP
-msg_format("%s‚ÍV•i“¯—l‚É‚È‚Á‚½I",object_name);
+		msg_format("%s‚ÍV•i“¯—l‚É‚È‚Á‚½I",object_name);
 #else
-		msg_format("%s %s look%s as good as new!",
-			((item >= 0) ? "Your" : "The"), object_name,
-			((object_ptr->number > 1) ? "" : "s"));
+		msg_format("%s %s look%s as good as new!", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
-
 		object_ptr->to_ac = 0;
 	}
 
 #ifdef JP
-msg_format("%s‚Í•…H‚µ‚È‚­‚È‚Á‚½B", object_name);
+		msg_format("%s‚Í•…H‚µ‚È‚­‚È‚Á‚½B", object_name);
 #else
-	msg_format("%s %s %s now protected against corrosion.",
-		((item >= 0) ? "Your" : "The"), object_name,
-		((object_ptr->number > 1) ? "are" : "is"));
+		msg_format("%s %s %s now protected against corrosion.", ((item >= 0) ? "Your" : "The"), object_name, ((object_ptr->number > 1) ? "are" : "is"));
 #endif
 
-
 	calc_android_exp(creature_ptr);
-
 	return TRUE;
 }
 
