@@ -89,38 +89,24 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 
 #ifdef ALLOW_WIZARD
 
-/*
- * Dimension Door
- */
+// Dimension Door
 static bool wiz_dimension_door(creature_type *creature_ptr)
 {
 	int	x = 0, y = 0;
-
 	if(!tgt_pt(creature_ptr, &x, &y)) return FALSE;
-
 	teleport_creature_to(creature_ptr, y, x, TELEPORT_NONMAGICAL);
-
 	return (TRUE);
 }
 
-
-/*
- * Create the artifact of the specified number -- DAN
- *
- */
+// Create the artifact of the specified number -- DAN
 static void wiz_drop_named_art(creature_type* creature_ptr)
 {
 	char tmp_val[20] = "";
 	int i = 0;
-	// Ask for a level
-	if(!get_string("Artifact ID: ", tmp_val, 10)) return;
+	if(!get_string("Artifact ID: ", tmp_val, 10)) return;	// Ask for a level
 	i = atoi(tmp_val);
-
-	// Create the artifact
-	(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx);
-
-	// All done
-	msg_print("Allocated.");
+	(void)drop_named_art(creature_ptr, i, creature_ptr->fy, creature_ptr->fx); // Create the artifact
+	msg_print("Allocated."); // All done
 }
 
 
@@ -149,25 +135,12 @@ static void prt_binary(u32b flags, int row, int col)
 	int        	i;
 	u32b        bitmask;
 
-	/* Scan the flags */
-	for (i = bitmask = 1; i <= 32; i++, bitmask *= 2)
+	for (i = bitmask = 1; i <= 32; i++, bitmask *= 2) // Scan the flags
 	{
-		/* Dump set bits */
-		if(flags & bitmask)
-		{
-			Term_putch(col++, row, TERM_BLUE, '*');
-		}
-
-		/* Dump unset bits */
-		else
-		{
-			Term_putch(col++, row, TERM_WHITE, '-');
-		}
+		if(flags & bitmask) Term_putch(col++, row, TERM_BLUE, '*');	// Dump set bits
+		else Term_putch(col++, row, TERM_WHITE, '-'); // Dump unset bits
 	}
 }
-
-
-#define K_MAX_DEPTH 110
 
 /*
  * Output a rarity graph for a type of object.

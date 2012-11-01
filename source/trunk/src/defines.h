@@ -151,6 +151,8 @@
 #define BUILDING_MEMBER     1
 #define BUILDING_OWNER      2
 
+#define K_MAX_DEPTH 110
+
 // Maximum number of creature melee definition
 
 #define MAX_WEAPONS            8
