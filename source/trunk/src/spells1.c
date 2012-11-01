@@ -7446,7 +7446,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 
 	if(player_ptr->riding)
 	{
-		char m_name[80];
+		char m_name[MAX_NLEN];
 
 		creature_desc(m_name, &creature_list[player_ptr->riding], 0);
 

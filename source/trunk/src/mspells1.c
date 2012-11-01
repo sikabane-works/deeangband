@@ -1083,7 +1083,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	int             thrown_spell = 0, rlev, failrate;
 	int             racial_spell[MAX_TRAITS], num = 0;
 	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
-	char            m_name[80];
+	char            m_name[MAX_NLEN];
 #ifndef JP
 	char            m_poss[80];
 #endif

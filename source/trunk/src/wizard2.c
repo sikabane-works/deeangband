@@ -1861,7 +1861,7 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 		{
 			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);
@@ -1893,7 +1893,7 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 
 		if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_WIZ_ZAP, m_name);

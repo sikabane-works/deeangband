@@ -3336,7 +3336,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				/* Handle visible creature */
 				else
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
@@ -3363,7 +3363,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					if((randint1(randint1(m_ptr->lev / (3 + creature_ptr->concent)) + (8 - creature_ptr->concent)) == 1)
 						&& !has_trait(m_ptr, TRAIT_UNIQUE) && !has_trait(m_ptr, TRAIT_UNIQUE2))
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 
 						/* Get "the creature" or "it" */
 						creature_desc(m_name, m_ptr, 0);
@@ -3424,7 +3424,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					/* STICK TO */
 					if(object_is_fixed_artifact(quest_ptr))
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 
 						creature_desc(m_name, m_ptr, 0);
 
@@ -3445,7 +3445,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					/* Take note */
 					if(fear && m_ptr->see_others)
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 
 						/* Sound */
 						sound(SOUND_FLEE);
@@ -3996,7 +3996,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				/* Handle visible creature */
 				else
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
@@ -4074,7 +4074,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					/* Take note */
 					if(fear && m_ptr->see_others)
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 
 						/* Sound */
 						sound(SOUND_FLEE);
@@ -4145,7 +4145,7 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 				    is_friendly(creature_ptr, &creature_list[floor_ptr->cave[y][x].creature_idx]) &&
 				    !has_trait(m_ptr, TRAIT_INVULNERABLE))
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%s‚Í“{‚Á‚½I", m_name);

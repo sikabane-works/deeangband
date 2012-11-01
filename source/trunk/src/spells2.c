@@ -1781,7 +1781,7 @@ bool probing(floor_type *floor_ptr)
 		/* Probe visible creatures */
 		if(m_ptr->see_others)
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			/* Start the message */
 			if(!probe)
@@ -2013,7 +2013,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 				{
 					if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 
 						creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 						do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_DESTROY, m_name);
@@ -2425,7 +2425,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 			if(m_idx)
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 				creature_type *m_ptr = &creature_list[m_idx];
 
 				/* Get the creature's real name */
@@ -2484,7 +2484,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 				/* Most creatures cannot co-exist with rock */
 				if(!has_trait(m_ptr, TRAIT_KILL_WALL) && !has_trait(m_ptr, TRAIT_PASS_WALL))
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 
 					/* Assume not safe */
 					sn = 0;
@@ -2854,7 +2854,7 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 				/* Notice the "waking up" */
 				if(m_ptr->see_others || m_ptr->hear_noise)
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 
 					/* Acquire the creature name */
 					creature_desc(m_name, m_ptr, 0);
@@ -4317,7 +4317,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		else if(!creature_bold(creature_ptr, ty, tx))
 		{
 			/* Hold the creature name */
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			/* Get the creature name (BEFORE polymorphing) */
 			creature_desc(m_name, m_ptr, 0);

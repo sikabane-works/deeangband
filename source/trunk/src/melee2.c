@@ -2858,7 +2858,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 					/* Notice the "waking up" */
 					if(creature_ptr->see_others || creature_ptr->hear_noise)
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 
 						/* Acquire the creature name */
 						creature_desc(m_name, creature_ptr, 0);
@@ -2949,7 +2949,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 
 	if(vs_player)
 	{
-		char m_name[80];
+		char m_name[MAX_NLEN];
 		creature_desc(m_name, m_ptr, 0);
 
 		if(who == 1)

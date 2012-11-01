@@ -640,7 +640,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 
 	if(record_named_pet && is_pet(player_ptr, dead_ptr) && dead_ptr->nickname)
 	{
-		char m_name[80];
+		char m_name[MAX_NLEN];
 
 		creature_desc(m_name, dead_ptr, CD_INDEF_VISIBLE);
 		do_cmd_write_nikki(DIARY_NAMED_PET, 3, m_name);
@@ -714,7 +714,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		arena_number++;
 		if(record_arena)
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			/* Extract creature name */
 			creature_desc(m_name, dead_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
@@ -3347,7 +3347,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 		if(creature_ptr->timed_trait[TRAIT_CONFUSED]) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
 		else
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 			creature_type *m_ptr = &creature_list[creature_ptr->riding];
 
 			creature_desc(m_name, m_ptr, 0);
@@ -4459,9 +4459,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	char creature_name[MAX_NLEN];
 	creature_desc(creature_name, creature_ptr, 0);
 
-
-	/* Initialize */
-	(*dp) = 0;
+	(*dp) = 0;	// Initialize
 
 	/* Global direction */
 	dir = 0;

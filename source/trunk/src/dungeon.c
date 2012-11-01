@@ -3317,7 +3317,7 @@ static void creature_arena_result(floor_type *floor_ptr)
 		}
 		else if((number_mon-1) == 0)
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 			creature_type *wm_ptr;
 
 			wm_ptr = &creature_list[win_m_idx];
@@ -4746,7 +4746,7 @@ void do_creature_fishing(creature_type *creature_ptr)
 				x = creature_ptr->fx+ddx[creature_ptr->tsuri_dir];
 				if(place_creature_species(creature_ptr, floor_ptr, y, x, species_idx, PC_NO_KAGE))
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 					creature_desc(m_name, &creature_list[floor_ptr->cave[y][x].creature_idx], 0);
 #ifdef JP
 					msg_format("%s‚ª’Þ‚ê‚½I", m_name);
@@ -4856,7 +4856,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(m_ptr->timed_trait[TRAIT_PARALYZED])
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			/* Recover fully */
 			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
@@ -4875,7 +4875,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			/* Hack -- Recover from stun */
 			if(set_timed_trait(m_ptr, TRAIT_STUN, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_STUN] - 1)))
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 
 				/* Acquire the creature name */
 				creature_desc(m_name, m_ptr, 0);
@@ -4894,7 +4894,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			/* Hack -- Recover from confusion */
 			if(set_timed_trait(m_ptr, TRAIT_CONFUSED, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 
 				/* Acquire the creature name */
 				creature_desc(m_name, m_ptr, 0);
@@ -4913,7 +4913,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			/* Hack -- Recover from fear */
 			if(set_timed_trait(m_ptr, TRAIT_AFRAID, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 
 				/* Acquire the creature name */
 				creature_desc(m_name, m_ptr, 0);

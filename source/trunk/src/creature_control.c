@@ -822,7 +822,7 @@ void compact_creatures(int size)
 
 			if(record_named_pet && is_pet(player_ptr, m_ptr) && m_ptr->nickname)
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_COMPACT, m_name);
@@ -2997,7 +2997,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 	int oldmhp;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	species_type *r_ptr;
-	char old_m_name[80];
+	char old_m_name[MAX_NLEN];
 	bool old_unique = FALSE;
 	int old_species_idx = creature_ptr->species_idx;
 
@@ -3072,7 +3072,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 	if(creature_ptr->ridden)
 	{
-		char m_name[80];
+		char m_name[MAX_NLEN];
 		creature_desc(m_name, creature_ptr, 0);
 #ifdef JP
 		msg_format("“Ë‘R%s‚ª•Ïg‚µ‚½B", old_m_name);
@@ -4537,7 +4537,7 @@ void message_pain(int m_idx, int dam)
 	creature_type *m_ptr = &creature_list[m_idx];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 
-	char m_name[80];
+	char m_name[MAX_NLEN];
 
 
 	/* Get the creature name */

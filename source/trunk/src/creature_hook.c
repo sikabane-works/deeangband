@@ -482,7 +482,7 @@ void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 	if(floor_ptr->gamble_arena_mode) return;
 	if(is_friendly(player_ptr, m_ptr))
 	{
-		char m_name[80];
+		char m_name[MAX_NLEN];
 
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP

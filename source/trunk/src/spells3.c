@@ -1581,7 +1581,7 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	cave_type    *c_ptr;
 	feature_type *f_ptr;
 	creature_type *m_ptr;
-	char         m_name[80];
+	char         m_name[MAX_NLEN];
 
 	/* Prevent vasishing of quest levels and town */
 	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)

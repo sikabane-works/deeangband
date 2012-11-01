@@ -1582,7 +1582,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 		{
 			if(record_named_pet && m_ptr->nickname)
 			{
-				char m_name[80];
+				char m_name[MAX_NLEN];
 
 				creature_desc(m_name, m_ptr, CD_INDEF_VISIBLE);
 				do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_DISMISS, m_name);
@@ -1675,7 +1675,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i, y, x, oy, ox;
 	int sn = 0, sy = 0, sx = 0;
-	char m_name[80];
+	char m_name[MAX_NLEN];
 	creature_type *m_ptr = &creature_list[creature_ptr->riding];
 	species_type *r_ptr = &species_info[m_ptr->species_idx];
 	bool fall_dam = FALSE;
@@ -1985,7 +1985,7 @@ static void dobject_name_pet(creature_type *master_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
 	creature_type *pet_ptr;
 	char out_val[20];
-	char m_name[80];
+	char m_name[MAX_NLEN];
 	bool old_name = FALSE;
 	bool old_target_pet = target_pet;
 
@@ -2057,7 +2057,7 @@ static void dobject_name_pet(creature_type *master_ptr)
 				pet_ptr->nickname = quark_add(out_val);
 				if(record_named_pet)
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 
 					creature_desc(m_name, pet_ptr, CD_INDEF_VISIBLE);
 					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_NAME, m_name);
@@ -2067,7 +2067,7 @@ static void dobject_name_pet(creature_type *master_ptr)
 			{
 				if(record_named_pet && old_name)
 				{
-					char m_name[80];
+					char m_name[MAX_NLEN];
 
 					creature_desc(m_name, pet_ptr, CD_INDEF_VISIBLE);
 					do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_UNNAME, m_name);

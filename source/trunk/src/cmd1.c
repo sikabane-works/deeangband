@@ -2182,7 +2182,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
 
-	char m_name[80];
+	char m_name[MAX_NLEN];
 
 	bool can_enter = creature_can_cross_terrain(creature_ptr, c_ptr->feat, CEM_P_CAN_ENTER_PATTERN);
 	bool can_kill_walls = FALSE;
@@ -2275,7 +2275,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		else if(steed_ptr->timed_trait[TRAIT_AFRAID])
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			/* Acquire the creature name */
 			creature_desc(m_name, steed_ptr, 0);
@@ -2340,7 +2340,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		if(oktomove && steed_ptr->timed_trait[TRAIT_STUN] && one_in_(2))
 		{
-			char m_name[80];
+			char m_name[MAX_NLEN];
 			creature_desc(m_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%s‚ªNO‚Æ‚µ‚Ä‚¢‚Ä‚¤‚Ü‚­“®‚¯‚È‚¢I",m_name);

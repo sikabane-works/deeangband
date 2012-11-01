@@ -1101,7 +1101,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			int m_idx = floor_ptr->cave[y][x].creature_idx;
 			creature_type *m_ptr = &creature_list[m_idx];
 			species_type *r_ptr = &species_info[m_ptr->species_idx];
-			char m_name[80];
+			char m_name[MAX_NLEN];
 
 			creature_desc(m_name, m_ptr, 0);
 
@@ -1646,7 +1646,7 @@ msg_print("その方向にはクリーチャーはいません。");
 	{
 		creature_type *m_ptr;
 		int m_idx;
-		char m_name[80];
+		char m_name[MAX_NLEN];
 		int i;
 		int path_n;
 		u16b path_g[512];

@@ -10510,7 +10510,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				int oy = y, ox = x;
 				int m_idx = floor_ptr->cave[y][x].creature_idx;
 				creature_type *m_ptr = &creature_list[m_idx];
-				char m_name[80];
+				char m_name[MAX_NLEN];
 	
 				creature_desc(m_name, m_ptr, 0);
 	
@@ -10818,7 +10818,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				{
 					if(!creature_living(m_ptr))
 					{
-						char m_name[80];
+						char m_name[MAX_NLEN];
 	
 						creature_desc(m_name, m_ptr, 0);
 #ifdef JP

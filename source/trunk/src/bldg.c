@@ -2245,7 +2245,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	bool happened = FALSE;
 	species_type *eldritch_ptr = &species_info[eldritch_idx];
 	int power = eldritch_ptr->level + 10;
-	char m_name[80];
+	char m_name[MAX_NLEN];
 	cptr desc = species_name + eldritch_ptr->name;
 
 	// Describe it
