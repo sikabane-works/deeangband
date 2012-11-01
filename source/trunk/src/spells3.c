@@ -5117,46 +5117,29 @@ msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 {
 	int i;
-
 	object_type *object_ptr;
-
 	char object_name[MAX_NLEN];
 
+	object_ptr = &target_ptr->inventory[slot];	// Curse the weapon
+	if(!is_valid_object(object_ptr)) return (FALSE);	// Nothing to curse
+	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);	// Describe
 
-	/* Curse the weapon */
-	object_ptr = &target_ptr->inventory[slot];
-
-	/* Nothing to curse */
-	if(!is_valid_object(object_ptr)) return (FALSE);
-
-
-	/* Describe */
-	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
-
-	/* Attempt a saving throw */
-	if(object_is_artifact(object_ptr) && (randint0(100) < 50) && !force)
+	if(object_is_artifact(object_ptr) && (randint0(100) < 50) && !force)	// Attempt a saving throw
 	{
-		/* Cool */
 #ifdef JP
-		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！",
-				"恐怖の暗黒オーラ", "武器", object_name);
+		msg_format("%sが%sを包み込もうとしたが、%sはそれを跳ね返した！", "恐怖の暗黒オーラ", "武器", object_name);
 #else
-		msg_format("A %s tries to %s, but your %s resists the effects!",
-			   "terrible black aura", "surround your weapon", object_name);
+		msg_format("A %s tries to %s, but your %s resists the effects!", "terrible black aura", "surround your weapon", object_name);
 #endif
 
 	}
-
-	/* not artifact or failed save... */
 	else
 	{
-		// Oops
 #ifdef JP
-if(!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
+		if(!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name);
 #else
 		if(!force) msg_format("A terrible black aura blasts your %s!", object_name);
 #endif
-
 		// Shatter the weapon
 		object_ptr->name1 = 0;
 		object_ptr->name2 = EGO_SHATTERED;
@@ -5185,54 +5168,36 @@ if(!force) msg_format("恐怖の暗黒オーラがあなたの%sを包み込んだ！", object_name)
  */
 bool brand_bolts(creature_type *creature_ptr)
 {
-	int i;
-
-	/* Use the first acceptable bolts */
-	for (i = 0; i < INVEN_TOTAL; i++)
+	int i;	
+	for (i = 0; i < INVEN_TOTAL; i++)	// Use the first acceptable bolts
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
+		if(object_ptr->tval != TV_BOLT) continue;	// Skip non-bolts
 
-		/* Skip non-bolts */
-		if(object_ptr->tval != TV_BOLT) continue;
-
-		/* Skip artifacts and ego-items */
-		if(object_is_artifact(object_ptr) || object_is_ego(object_ptr))
-			continue;
-
-		/* Skip cursed/broken items */
+		// Only normal items
+		if(object_is_artifact(object_ptr) || object_is_ego(object_ptr)) continue;
 		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) continue;
+		if(randint0(100) < 75) continue;	// Randomize
 
-		/* Randomize */
-		if(randint0(100) < 75) continue;
-
-		/* Message */
+		// Message
 #ifdef JP
 		msg_print("クロスボウの矢が炎のオーラに包まれた！");
 #else
 		msg_print("Your bolts are covered in a fiery aura!");
 #endif
+		object_ptr->name2 = EGO_FLAME;	// Ego-item
+		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);	// Enchant
 
-
-		/* Ego-item */
-		object_ptr->name2 = EGO_FLAME;
-
-		/* Enchant */
-		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);
-
-		/* Notice */
-		return (TRUE);
+		return (TRUE);	// Notice
 	}
 
-	/* Flush */
 	if(flush_failure) flush();
 
-	/* Fail */
 #ifdef JP
-msg_print("炎で強化するのに失敗した。");
+	msg_print("炎で強化するのに失敗した。");
 #else
 	msg_print("The fiery enchantment failed.");
 #endif
-
 
 	/* Notice */
 	return (TRUE);
