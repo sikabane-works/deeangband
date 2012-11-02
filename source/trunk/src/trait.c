@@ -2165,19 +2165,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 	case TRAIT_S_HI_DRAGON:
-		{
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-
-			for (k = 0;k < 4; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_DRAGON, (mode | u_mode));
-			break;
-		}
-
-		{
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
+			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			if(blind && count)
 			{
 #ifdef JP
@@ -2185,191 +2174,36 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You hear many powerful things appear nearby.");
 #endif
-
 			}
 			break;
-		}
-
-		{
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("多くの力強いものが間近に現れた音が聞こえる。");
-#else
-				msg_print("You hear many powerful things appear nearby.");
-#endif
-
-			}
-			break;
-		}
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_DRAGON, (g_mode | p_mode | u_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
-
 
 	case TRAIT_S_AMBERITES:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0; k < 4; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
-			break;
-		}
-
-		{
-
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-			if(blind && count)
-			{
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 #ifdef JP
-				msg_print("不死の者が近くに現れるのが聞こえた。");
+			msg_print("不死の者が近くに現れるのが聞こえた。");
 #else
-				msg_print("You hear immortal beings appear nearby.");
+			msg_print("You hear immortal beings appear nearby.");
 #endif
-
-			}
-			break;
-		}
-
-		{
-			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			if(blind && count)
-			{
-#ifdef JP
-				msg_print("不死の者が近くに現れるのが聞こえた。");
-#else
-				msg_print("You hear immortal beings appear nearby.");
-#endif
-
-			}
-			break;
-		}
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_AMBERITES, (g_mode | p_mode | u_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+		break;
 
 	case TRAIT_S_UNIQUE:
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = count; k < 4; k++)
+			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+		if(blind && count)
 		{
-			int k, count = 0;
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-
-			for (k = 0; k < 4; k++)
-				if(summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE))) count++;
-			for (k = count; k < 4; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
-			break;
+#ifdef JP
+//			msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
+#else
+//			msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
+#endif
 		}
-
-		{
-			bool uniques_are_summoned = FALSE;
-			int non_unique_type = SUMMON_HI_UNDEAD;
-
-			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-
-			if(count) uniques_are_summoned = TRUE;
-
-			if((caster_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
-				non_unique_type = 0;
-			else if(caster_ptr->sub_align & SUB_ALIGN_GOOD)
-				non_unique_type = SUMMON_ANGEL;
-
-			for (k = count; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-
-			if(blind && count)
-			{
-#ifdef JP
-				msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
-#else
-				msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
-#endif
-			}
-			break;
-
-			{
-				bool uniques_are_summoned = FALSE;
-				int non_unique_type = SUMMON_HI_UNDEAD;
-
-				for (k = 0; k < s_num_4; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNIQUE, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-				}
-
-				if(count) uniques_are_summoned = TRUE;
-
-				if((caster_ptr->sub_align & (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL)) == (SUB_ALIGN_GOOD | SUB_ALIGN_EVIL))
-					non_unique_type = 0;
-				else if(caster_ptr->sub_align & SUB_ALIGN_GOOD)
-					non_unique_type = SUMMON_ANGEL;
-
-				for (k = count; k < s_num_4; k++)
-				{
-					count += summon_specific(caster_ptr, y, x, user_level, non_unique_type, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-				}
-
-				if(blind && count)
-				{
-#ifdef JP
-					msg_format("多くの%sが間近に現れた音が聞こえる。", uniques_are_summoned ? "力強いもの" : "もの");
-#else
-					msg_format("You hear many %s appear nearby.", uniques_are_summoned ? "powerful things" : "things");
-#endif
-				}
-				break;
-			}
-
-			//case TRAIT_S_UNIQUE:
-			{
-				int k, count = 0;
-#ifdef JP
-				msg_print("特別な強敵を召喚した！");
-#else
-				msg_print("You summon a special opponent!");
-#endif
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNIQUE, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
-				{
-					count++;
-				}
-				for (k = count; k < 1; k++)
-					if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | PC_ALLOW_UNIQUE)))
-					{
-						count++;
-					}
-					if(!count)
-					{
-						no_trump = TRUE;
-					}
-					break;
-			}
-
+		break;
 
 	case TRAIT_SWORD_DANCING:
 		{
 			int y = 0, x = 0, i;
-
 			for (i = 0; i < STAT_MAX; i++)
 			{
 				dir = randint0(8);
@@ -2378,8 +2212,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				cave_ptr = &floor_ptr->cave[y][x];
 
 				// Hack -- attack creatures 
-				if(cave_ptr->creature_idx)
-					melee_attack(caster_ptr, y, x, 0);
+				if(cave_ptr->creature_idx) melee_attack(caster_ptr, y, x, 0);
 				else
 				{
 #ifdef JP
@@ -3317,7 +3150,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	default:
 		msg_warning("Undefined active trait.");
 
-		}
 	}
 
 	if(fumble_summoned)
