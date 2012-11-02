@@ -2870,25 +2870,16 @@ bool target_set(creature_type *aimer_ptr, int mode)
 						y += dy;
 
 						/* Do not move horizontally if unnecessary */
-						if(((x < panel_col_min + wid / 2) && (dx > 0)) ||
-							((x > panel_col_min + wid / 2) && (dx < 0)))
-						{
+						if(((x < panel_col_min + wid / 2) && (dx > 0)) || ((x > panel_col_min + wid / 2) && (dx < 0)))
 							dx = 0;
-						}
 
 						/* Do not move vertically if unnecessary */
-						if(((y < panel_row_min + hgt / 2) && (dy > 0)) ||
-							((y > panel_row_min + hgt / 2) && (dy < 0)))
-						{
+						if(((y < panel_row_min + hgt / 2) && (dy > 0)) || ((y > panel_row_min + hgt / 2) && (dy < 0)))
 							dy = 0;
-						}
 
 						/* Apply the motion */
-						if((y >= panel_row_min+hgt) || (y < panel_row_min) ||
-							(x >= panel_col_min+wid) || (x < panel_col_min))
-						{
+						if((y >= panel_row_min+hgt) || (y < panel_row_min) || (x >= panel_col_min+wid) || (x < panel_col_min))
 							if(change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
-						}
 
 						/* Slide into legality */
 						if(x >= floor_ptr->width-1) x = floor_ptr->width - 2;
@@ -2942,51 +2933,31 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			{
 			case ESCAPE:
 			case 'q':
-				{
-					done = TRUE;
-					break;
-				}
+				done = TRUE;
+				break;
 
 			case 't':
 			case '.':
 			case '5':
 			case '0':
-				{
-					target_who = -1;
-					target_row = y;
-					target_col = x;
-					done = TRUE;
-					break;
-				}
+				target_who = -1;
+				target_row = y;
+				target_col = x;
+				done = TRUE;
+				break;
 
 			case 'p':
-				{
-					/* Recenter the map around the player */
-					verify_panel(aimer_ptr);
-
-					/* Update stuff */
-					update |= (PU_CREATURES);
-
-					/* Redraw map */
-					play_redraw |= (PR_MAP);
-
-					/* Window stuff */
-					play_window |= (PW_OVERHEAD);
-
-					/* Handle stuff */
-					handle_stuff();
-
-					/* Recalculate interesting grids */
-					target_set_prepare(aimer_ptr, mode);
-
-					y = aimer_ptr->fy;
-					x = aimer_ptr->fx;
-				}
+				verify_panel(aimer_ptr);	// Recenter the map around the player
+				update |= (PU_CREATURES);	// Update stuff
+				play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
+				handle_stuff();	// Handle stuff
+				target_set_prepare(aimer_ptr, mode);	// Recalculate interesting grids
+				y = aimer_ptr->fy;
+				x = aimer_ptr->fx;
+				break;
 
 			case 'o':
-				{
-					break;
-				}
+				break;
 
 			case ' ':
 			case '*':
@@ -3051,25 +3022,16 @@ bool target_set(creature_type *aimer_ptr, int mode)
 				}
 
 				/* Do not move horizontally if unnecessary */
-				if(((x < panel_col_min + wid / 2) && (dx > 0)) ||
-					((x > panel_col_min + wid / 2) && (dx < 0)))
-				{
+				if(((x < panel_col_min + wid / 2) && (dx > 0)) || ((x > panel_col_min + wid / 2) && (dx < 0)))
 					dx = 0;
-				}
 
 				/* Do not move vertically if unnecessary */
-				if(((y < panel_row_min + hgt / 2) && (dy > 0)) ||
-					((y > panel_row_min + hgt / 2) && (dy < 0)))
-				{
+				if(((y < panel_row_min + hgt / 2) && (dy > 0)) || ((y > panel_row_min + hgt / 2) && (dy < 0)))
 					dy = 0;
-				}
 
 				/* Apply the motion */
-				if((y >= panel_row_min + hgt) || (y < panel_row_min) ||
-					(x >= panel_col_min + wid) || (x < panel_col_min))
-				{
+				if((y >= panel_row_min + hgt) || (y < panel_row_min) || (x >= panel_col_min + wid) || (x < panel_col_min))
 					if(change_panel(dy, dx)) target_set_prepare(aimer_ptr, mode);
-				}
 
 				/* Slide into legality */
 				if(x >= floor_ptr->width-1) x = floor_ptr->width - 2;
@@ -3082,32 +3044,16 @@ bool target_set(creature_type *aimer_ptr, int mode)
 		}
 	}
 
-	/* Forget */
-	temp_n = 0;
+	temp_n = 0;	// Forget
 
-	/* Clear the top line */
-	prt("", 0, 0);
+	prt("", 0, 0); // Clear the top line
+	verify_panel(aimer_ptr);	// Recenter the map around the player
+	update |= (PU_CREATURES);	// Update stuff
+	play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
+	handle_stuff();	// Handle stuff
+	if(!target_who) return (FALSE);	// Failure to set target
 
-	/* Recenter the map around the player */
-	verify_panel(aimer_ptr);
-
-	/* Update stuff */
-	update |= (PU_CREATURES);
-
-	/* Redraw map */
-	play_redraw |= (PR_MAP);
-
-	/* Window stuff */
-	play_window |= (PW_OVERHEAD);
-
-	/* Handle stuff */
-	handle_stuff();
-
-	/* Failure to set target */
-	if(!target_who) return (FALSE);
-
-	/* Success */
-	return (TRUE);
+	return (TRUE);	// Success
 }
 
 
