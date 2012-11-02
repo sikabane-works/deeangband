@@ -2082,110 +2082,24 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_S_ANT:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-
-			for (k = 0; k < 6; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANT, mode);
-			break;
-		}
-		{
-
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, PC_ALLOW_GROUP);
-			}
-
-			break;
-		}
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANT, (PC_ALLOW_GROUP | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, 0);
+		break;
 
 	case TRAIT_S_SPIDER:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0;k < 6; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_SPIDER, mode);
-			break;
-		}
-		{
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_SPIDER, PC_ALLOW_GROUP);
-			}
-			break;
-		}
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_SPIDER, (PC_ALLOW_GROUP | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_SPIDER, 0);
+		break;
 
 	case TRAIT_S_HOUND:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0; k < 4; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HOUND, mode);
-			break;
-		}
-
-		{
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HOUND, PC_ALLOW_GROUP);
-			}
-			break;
-		}
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HOUND, (PC_ALLOW_GROUP | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HOUND, 0);
+		break;
 
 	case TRAIT_S_HYDRA:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0; k < 4; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HYDRA, mode);
-			break;
-		}
-
-		{
-			for (k = 0; k < s_num_4; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, PC_ALLOW_GROUP);
-			}
-			break;
-		}
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HYDRA, (g_mode | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, 0);
+		break;
 
 	case TRAIT_S_ANGEL:
 		{
