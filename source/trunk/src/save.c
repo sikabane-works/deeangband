@@ -820,7 +820,7 @@ static void wr_floor(floor_type *floor_ptr)
 	wr_byte(floor_ptr->fight_arena_mode);
 	wr_byte(floor_ptr->gamble_arena_mode);
 	wr_byte(floor_ptr->wild_mode);
-	wr_s16b(floor_ptr->town_num); /* -KMW- */
+	wr_s16b(floor_ptr->town_num); // -KMW-
 
 	for (i = 0; i < MAX_RACES; i++) wr_s16b(floor_ptr->race_population[i]);
 
@@ -932,13 +932,8 @@ static void wr_floor(floor_type *floor_ptr)
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			for (i = 0; i < num_temp; i++)
-			{
-				if(template[i].info == c_ptr->info &&
-				    template[i].feat == c_ptr->feat &&
-				    template[i].mimic == c_ptr->mimic &&
-				    template[i].special == c_ptr->special)
+				if(template[i].info == c_ptr->info && template[i].feat == c_ptr->feat && template[i].mimic == c_ptr->mimic && template[i].special == c_ptr->special)
 					break;
-			}
 
 			/* Extract an ID */
 			tmp16u = i;
@@ -1015,10 +1010,7 @@ static void wr_floor(floor_type *floor_ptr)
 
 }
 
-
-/*
- * Write the current dungeon (new method)
- */
+// Write the current dungeon (new method)
 static bool wr_floors(creature_type *player_ptr)
 {
 	int i;
@@ -1320,10 +1312,7 @@ static bool save_player_aux(char *name)
 }
 
 
-
-/*
- * Attempt to save the player in a savefile
- */
+// Attempt to save the player in a savefile
 bool save_player(void)
 {
 	int result = FALSE;
@@ -1331,29 +1320,18 @@ bool save_player(void)
 
 
 #ifdef SET_UID
-
-# ifdef SECURE
-
-	/* Get "games" permissions */
-	beGames();
-
-# endif
-
+#ifdef SECURE
+	beGames(); // Get "games" permissions
+#endif
 #endif
 
-
-	/* New savefile */
+	// New savefile
 	strcpy(safe, savefile);
 	strcat(safe, ".new");
 
-	/* Grab permissions */
-	safe_setuid_grab();
-
-	/* Remove it */
-	fd_kill(safe);
-
-	/* Drop permissions */
-	safe_setuid_drop();
+	safe_setuid_grab(); // Grab permissions
+	fd_kill(safe); // Remove it
+	safe_setuid_drop();	// Drop permissions
 
 	update_play_time();
 
@@ -1410,18 +1388,12 @@ bool save_player(void)
 
 
 #ifdef SET_UID
-
-# ifdef SECURE
-
-	/* Drop "games" permissions */
-	bePlayer();
-
-# endif
-
+#ifdef SECURE
+	bePlayer(); // Drop "games" permissions
+#endif
 #endif
 
-	/* Return the result */
-	return (result);
+	return (result); // Return the result
 }
 
 
@@ -1540,7 +1512,6 @@ int load_player(void)
 	}
 
 #endif
-
 
 	/* Okay */
 	if(!err)

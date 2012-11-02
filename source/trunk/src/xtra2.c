@@ -1058,22 +1058,6 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(floor_ptr->gamble_arena_mode) return;
 }
 
-/*
-* Modify the physical damage done to the creature.
-* (for example when it's invulnerable or shielded)
-*
-* ToDo: Accept a damage-type to calculate the modified damage from
-* things like fire, frost, lightning, poison, ... attacks.
-*
-* "type" is not yet used and should be 0.
-*/
-int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear)
-{
-	//TODO Change to calc_damage()
-	species_type    *r_ptr = &species_info[m_ptr->species_idx];
-	return 1;
-}
-
 
 /*
 * Calculate experience point to be get

@@ -4114,7 +4114,7 @@ static void process_player_command(creature_type *creature_ptr)
 		/* Cast a spell */
 	case 'm':
 		{
-			/* -KMW- */
+			// -KMW-
 			if(!floor_ptr->wild_mode)
 			{
 				if((creature_ptr->class_idx == CLASS_WARRIOR) || (creature_ptr->class_idx == CLASS_ARCHER) || (creature_ptr->class_idx == CLASS_CAVALRY))

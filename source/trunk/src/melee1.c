@@ -461,8 +461,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
-		// Modify the damage
-		k = invuln_damage_mod(target_ptr, k, (bool)(((weapon_ptr->tval == TV_POLEARM) && (weapon_ptr->sval == SV_DEATH_SCYTHE)) || ((attacker_ptr->class_idx == CLASS_BERSERKER) && one_in_(2))));
 		if(has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) || (mode == HISSATSU_KYUSHO))
 		{
 			if((randint1(randint1(r_ptr->level / 7)+5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
@@ -902,14 +900,9 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		k = diceroll(ddd, dss);
 		k = test_critial_melee(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 		k += attacker_ptr->to_damage_m;
-		if(k < 0) k = 0;
-		k = invuln_damage_mod(target_ptr, k, FALSE);
 
 		// Complex message
-		if(wizard)
-		{
-			msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
-		}
+		if(wizard) msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
 
 		// Anger the creature
 		if(k > 0) anger_creature(attacker_ptr, target_ptr);
@@ -3430,9 +3423,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					int dam = diceroll(2, 6);
 
-					/* Modify the damage */
-					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
-
 #ifdef JP
 					msg_format("%^sは突然熱くなった！", attacker_name);
 					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は灰の山になった。", -1);
@@ -3458,9 +3448,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(!has_trait(attacker_ptr, TRAIT_RES_ELEC))
 				{
 					int dam = diceroll(2, 6);
-
-					/* Modify the damage */
-					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 					msg_format("%^sは電撃をくらった！", attacker_name);
@@ -3488,9 +3475,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				{
 					int dam = diceroll(2, 6);
 
-					/* Modify the damage */
-					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
-
 #ifdef JP
 					msg_format("%^sは冷気をくらった！", attacker_name);
 					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は凍りついた。", -1);
@@ -3517,9 +3501,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(!has_trait(attacker_ptr, TRAIT_RES_SHAR))
 				{
 					int dam = diceroll(2, 6);
-
-					/* Modify the damage */
-					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 					msg_format("%^sは鏡の破片をくらった！", attacker_name);
@@ -3554,9 +3535,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					{
 						int dam = diceroll(2, 6);
 
-						/* Modify the damage */
-						dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
-
 #ifdef JP
 						msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
 						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
@@ -3583,9 +3561,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(!has_trait(attacker_ptr, TRAIT_RES_ALL))
 				{
 					int dam = diceroll(2, 6);
-
-					/* Modify the damage */
-					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 					msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
@@ -3622,9 +3597,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Cursed armor makes damages doubled */
 					object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 1);
 					if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
-
-					/* Modify the damage */
-					dam = invuln_damage_mod(attacker_ptr, dam, FALSE);
 
 #ifdef JP
 					msg_format("影のオーラが%^sに反撃した！", attacker_name);

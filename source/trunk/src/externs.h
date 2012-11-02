@@ -1506,7 +1506,6 @@ extern void set_subrace(creature_type *creature_ptr, int n, bool b);
 extern cptr desc_race_name(creature_type *creature_ptr, u32b mode);
 extern cptr desc_class_name(creature_type *creature_ptr, u32b mode);
 
-
 // effects.c
 extern bool set_timed_trait(creature_type *creature_ptr, int type, int v);
 extern bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_dec);
@@ -1560,7 +1559,6 @@ extern void gain_level_reward(creature_type *creature_ptr, int chosen_reward);
 extern bool tgt_pt (creature_type *creature_ptr, int *x, int *y);
 extern void do_poly_wounds(creature_type *creature_ptr);
 extern void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg);
-extern int invuln_damage_mod(creature_type *m_ptr, int dam, bool is_psy_spear);
 extern void show_alignment(char *buf, creature_type *creature_ptr);
 extern int weapon_exp_level(int weapon_exp);
 extern int riding_exp_level(int riding_exp);
