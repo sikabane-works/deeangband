@@ -1803,6 +1803,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
+	case TRAIT_DARKNESS:
+		(void)unlite_area(caster_ptr, 10, 3);
+		break;
+
+	case TRAIT_PSY_SPEAR:
+		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
+		(void)cast_beam_(caster_ptr, GF_PSY_SPEAR, dir, damage);
+		break;
 
 	case TRAIT_TELE_LEVEL:
 		{
@@ -1847,20 +1855,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 
-			case TRAIT_PSY_SPEAR:
-			{
-			damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-			//cast_beam_(caster_ptr, target_ptr, GF_PSY_SPEAR, damage, TRAIT_PSY_SPEAR, TRUE);
-			break;
-			}
 
-			damage = randint1(user_level * 3) + 100;
-			(void)cast_beam_(caster_ptr, GF_PSY_SPEAR, dir, damage);
-			break;
-
-			case TRAIT_DARKNESS:
-			(void)unlite_area(caster_ptr, 10, 3);
-			break;
 
 			case TRAIT_TRAPS:
 			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
