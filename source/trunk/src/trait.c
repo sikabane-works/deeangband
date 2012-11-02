@@ -2458,39 +2458,27 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_DOMINATE_LIVE:
-		{
-
-			(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
-			break;
-		}
+		(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
+		break;
 
 	case TRAIT_DOMINATE_LIVES:
-		{
-			project_hack(caster_ptr, GF_CONTROL_LIVING, caster_ptr->lev);
-			break;
-		}
+		project_hack(caster_ptr, GF_CONTROL_LIVING, caster_ptr->lev);
+		break;
 
 	case TRAIT_CREATE_AMMO:
-		{
-			if(!do_cmd_archer(caster_ptr)) return FALSE;
-			break;
-		}
+		if(!do_cmd_archer(caster_ptr)) return FALSE;
+		break;
 
 	case TRAIT_ABSORB_MAGIC:
-		{
-			if(!gain_magic(caster_ptr)) return FALSE;
-			break;
-		}
+		if(!gain_magic(caster_ptr)) return FALSE;
+		break;
 
 	case TRAIT_STOP_SINGING:
-		{
-			// Singing is already stopped
-			if(!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
-
-			stop_singing(caster_ptr);
-			caster_ptr->energy_need = 10;
-			break;
-		}
+		// Singing is already stopped
+		if(!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
+		stop_singing(caster_ptr);
+		caster_ptr->energy_need = 10;
+		break;
 
 	case TRAIT_DOUBLE_MAGIC:
 		{
@@ -2858,22 +2846,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)charm_creature(caster_ptr, dir, user_level);
 		break;
 
-
 	case TRAIT_VTELEPORT:
-#ifdef JP
-		msg_print("集中している...");
-#else
-		msg_print("You concentrate...");
-#endif
 		teleport_player(caster_ptr, 10 + 4 * user_level, 0L);
 		break;
 
 	case TRAIT_MIND_BLST:
-#ifdef JP
-		msg_print("集中している...");
-#else
-		msg_print("You concentrate...");
-#endif
 		cast_bolt_(caster_ptr, GF_PSI, dir, diceroll(3 + ((user_level - 1) / 5), 3));
 		break;
 
@@ -2984,18 +2961,12 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_DET_CURSE:
+		for (i = 0; i < INVEN_TOTAL; i++)
 		{
-			int i;
-
-			for (i = 0; i < INVEN_TOTAL; i++)
-			{
-				object_type *object_ptr = &caster_ptr->inventory[i];
-
-				if(!is_valid_object(object_ptr)) continue;
-				if(!object_is_cursed(object_ptr)) continue;
-
-				object_ptr->feeling = FEEL_CURSED;
-			}
+			object_type *object_ptr = &caster_ptr->inventory[i];
+			if(!is_valid_object(object_ptr)) continue;
+			if(!object_is_cursed(object_ptr)) continue;
+			object_ptr->feeling = FEEL_CURSED;
 		}
 		break;
 
@@ -3118,7 +3089,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("Your invocation is ineffectual!");
 #endif
-
 				if(one_in_(13)) target_ptr->sc_flag2 |= SC_FLAG2_NOGENO;
 			}
 		}
@@ -3133,7 +3103,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 				msg_print("You wave your hands in the air.");
 #endif
-
 				break;
 			}
 			cast_bolt_(caster_ptr, GF_COLD, dir, 2 * user_level);
@@ -3141,11 +3110,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 		/* XXX_XXX_XXX Hack!  TRAIT_LAUNCHER is negative, see above */
+
 	case 3: /* TRAIT_LAUNCHER */
 		/* Gives a multiplier of 2 at first, up to 3 at 40th */
 		if(!do_cmd_throw_aux(caster_ptr, 2 + user_level / 40, FALSE, 0)) return FALSE;
 		break;
-
 
 	default:
 		msg_warning("Undefined active trait.");
