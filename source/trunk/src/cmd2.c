@@ -3067,7 +3067,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			tdis -= 5;
 	}
 
-	project_length = tdis + 1;
+	range = tdis + 1;
 
 	/* Get a direction (or cancel) */
 	if(!get_aim_dir(creature_ptr, &dir))
@@ -3076,7 +3076,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 		if(creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
 
-		/* need not to reset project_length (already did)*/
+		/* need not to reset range (already did)*/
 
 		return;
 	}
@@ -3093,16 +3093,16 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Get projection path length */
-	tdis = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
+	tdis = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
 
-	project_length = 0; /* reset to default */
+	range = 0; /* reset to default */
 
 	/* Don't shoot at my feet */
 	if(tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
 		creature_ptr->energy_need = 0;
 
-		/* project_length is already reset to 0 */
+		/* range is already reset to 0 */
 
 		return;
 	}
@@ -3836,7 +3836,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 	else
 	{
-		project_length = tdis + 1;
+		range = tdis + 1;
 
 		/* Get a direction (or cancel) */
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
@@ -3852,7 +3852,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			ty = target_row;
 		}
 
-		project_length = 0;  /* reset to default */
+		range = 0;  /* reset to default */
 	}
 
 	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)

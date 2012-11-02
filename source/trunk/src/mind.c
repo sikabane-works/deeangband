@@ -1048,7 +1048,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait_aux(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
-		project_length = plev / 8 + 3;
+		range = plev / 8 + 3;
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		cast_beam_(creature_ptr, GF_MISSILE, dir, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5));
@@ -1086,7 +1086,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	case 7:
 	{
 		int y, x, dam;
-		project_length = 1;
+		range = 1;
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		y = creature_ptr->fy + ddy[dir];
@@ -1722,13 +1722,13 @@ msg_print("その方向にはクリーチャーはいません。");
 		cast_ball(creature_ptr, GF_OLD_CONF, dir, plev*3, 3);
 		break;
 	case 14:
-		project_length = -1;
+		range = -1;
 		if(!get_aim_dir(creature_ptr, &dir))
 		{
-			project_length = 0;
+			range = 0;
 			return FALSE;
 		}
-		project_length = 0;
+		range = 0;
 
 		(void)teleport_swap(creature_ptr, dir);
 		break;

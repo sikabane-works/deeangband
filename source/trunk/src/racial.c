@@ -1157,7 +1157,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(command == -3)
 			{
 				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-				project_length = 1;
+				range = 1;
 				cast_beam_(creature_ptr, GF_PHOTO, dir, 1);
 			}
 			else if(command == -4)

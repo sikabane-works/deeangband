@@ -4235,12 +4235,12 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 	if(mdeath) *mdeath = FALSE;
 
-	project_length = 5;
+	range = 5;
 	if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = creature_ptr->fx + project_length * ddx[dir];
-	ty = creature_ptr->fy + project_length * ddy[dir];
+	tx = creature_ptr->fx + range * ddx[dir];
+	ty = creature_ptr->fy + range * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if((dir == 5) && target_okay(creature_ptr))
@@ -4251,8 +4251,8 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 	if(in_bounds(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
 
-	path_n = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
-	project_length = 0;
+	path_n = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	range = 0;
 
 	/* No need to move */
 	if(!path_n) return TRUE;

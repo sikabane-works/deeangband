@@ -2445,7 +2445,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TAKE_PHOTO:
 		{
 
-			project_length = 1;
+			range = 1;
 			cast_beam_(caster_ptr, GF_PHOTO, dir, 1);
 			break;
 		}
@@ -2951,9 +2951,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SWAP_POS:
-		project_length = -1;
+		range = -1;
 		(void)teleport_swap(caster_ptr, dir);
-		project_length = 0;
+		range = 0;
 		break;
 
 	case TRAIT_ILLUMINE:

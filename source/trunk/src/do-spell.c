@@ -2621,7 +2621,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_length = range;
+				range = range;
 
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
@@ -5416,12 +5416,12 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				bool result;
 
 				/* HACK -- No range limit */
-				project_length = -1;
+				range = -1;
 
 				result = get_aim_dir(caster_ptr, &dir);
 
 				/* Restore range to default */
-				project_length = 0;
+				range = 0;
 
 				if(!result) return NULL;
 
@@ -10157,7 +10157,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			project_length = 2;
+			range = 2;
 			if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 			project_hook(caster_ptr, GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
