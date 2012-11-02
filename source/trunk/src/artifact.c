@@ -1505,63 +1505,29 @@ static void get_random_name(char *return_name, bool armour, int power, int artif
 {
 	int prob = randint1(100);
 
-	if(prob <= SINDARIN_NAME)
-	{
-		get_table_sindarin(return_name);
-	}
-	else if(prob <= TABLE_NAME)
-	{
-		get_table_name(return_name);
-	}
+	if(prob <= SINDARIN_NAME) get_table_sindarin(return_name);
+	else if(prob <= TABLE_NAME) get_table_name(return_name);
 	else
 	{
 		cptr filename;
-
 		switch (armour)
 		{
 			case 1:
 				switch (power)
 				{
-					case 0:
-						filename = message_files[MESSAGE_FILES_CURSED_ARTIFACT]; break;
-					case 1:
-						filename = message_files[MESSAGE_FILES_LOW_ARTIFACT]; break;
-					case 2:
-						filename = message_files[MESSAGE_FILES_MED_ARTIFACT]; break;
-					default:
-						filename = message_files[MESSAGE_FILES_HIGH_ARTIFACT]; break;
+					case 0:  filename = message_files[MESSAGE_FILES_ARMOUR_CURSED_ARTIFACT]; break;
+					case 1:  filename = message_files[MESSAGE_FILES_ARMOUR_LOW_ARTIFACT]; break;
+					case 2:  filename = message_files[MESSAGE_FILES_ARMOUR_MED_ARTIFACT]; break;
+					default: filename = message_files[MESSAGE_FILES_ARMOUR_HIGH_ARTIFACT]; break;
 				}
 				break;
 			default:
 				switch (power)
 				{
-					case 0:
-#ifdef JP
-						filename = "w_cursed_j.txt";
-#else
-						filename = "w_cursed.txt";
-#endif
-						break;
-					case 1:
-#ifdef JP
-						filename = "w_low_j.txt";
-#else
-						filename = "w_low.txt";
-#endif
-						break;
-					case 2:
-#ifdef JP
-						filename = "w_med_j.txt";
-#else
-						filename = "w_med.txt";
-#endif
-						break;
-					default:
-#ifdef JP
-						filename = "w_high_j.txt";
-#else
-						filename = "w_high.txt";
-#endif
+					case 0:  filename = message_files[MESSAGE_FILES_WEAPON_CURSED_ARTIFACT]; break;
+					case 1:  filename = message_files[MESSAGE_FILES_WEAPON_LOW_ARTIFACT]; break;
+					case 2:  filename = message_files[MESSAGE_FILES_WEAPON_MED_ARTIFACT]; break;
+					default: filename = message_files[MESSAGE_FILES_WEAPON_HIGH_ARTIFACT]; break;
 				}
 		}
 

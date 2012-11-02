@@ -99,18 +99,30 @@ static const cptr message_files[]=
 	"a_low_j.txt",
 	"a_med_j.txt",
 	"a_high_j.txt",
+	"w_cursed_j.txt",
+	"w_low_j.txt",
+	"w_med_j.txt",
+	"w_high_j.txt",
 #else
 	"a_cursed.txt",
 	"a_low.txt",
 	"a_med.txt",
 	"a_high.txt",
+	"w_cursed.txt",
+	"w_low.txt",
+	"w_med.txt",
+	"w_high.txt",
 #endif
 };
 
 enum MESSAGE_FILES
 {
-	MESSAGE_FILES_CURSED_ARTIFACT,
-	MESSAGE_FILES_LOW_ARTIFACT,
-	MESSAGE_FILES_MED_ARTIFACT,
-	MESSAGE_FILES_HIGH_ARTIFACT,
+	MESSAGE_FILES_ARMOUR_CURSED_ARTIFACT,
+	MESSAGE_FILES_ARMOUR_LOW_ARTIFACT,
+	MESSAGE_FILES_ARMOUR_MED_ARTIFACT,
+	MESSAGE_FILES_ARMOUR_HIGH_ARTIFACT,
+	MESSAGE_FILES_WEAPON_CURSED_ARTIFACT,
+	MESSAGE_FILES_WEAPON_LOW_ARTIFACT,
+	MESSAGE_FILES_WEAPON_MED_ARTIFACT,
+	MESSAGE_FILES_WEAPON_HIGH_ARTIFACT,
 };
