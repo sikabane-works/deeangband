@@ -2953,7 +2953,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_SWAP_POS:
 		project_length = -1;
 		(void)teleport_swap(caster_ptr, dir);
-		project_length = 0;
 		break;
 
 	case TRAIT_ILLUMINE:

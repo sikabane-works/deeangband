@@ -2603,8 +2603,6 @@ void do_cmd_pet(creature_type *master_ptr)
 				}
 				else pet_t_m_idx = 0;
 			}
-			project_length = 0;
-
 			break;
 		}
 		/* Call pets */

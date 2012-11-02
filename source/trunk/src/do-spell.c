@@ -5417,12 +5417,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 				/* HACK -- No range limit */
 				project_length = -1;
-
 				result = get_aim_dir(caster_ptr, &dir);
-
-				/* Restore range to default */
-				project_length = 0;
-
 				if(!result) return NULL;
 
 				teleport_swap(caster_ptr, dir);

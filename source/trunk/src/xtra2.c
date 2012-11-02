@@ -3194,11 +3194,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 	}
 
 	/* No direction */
-	if(!dir)
-	{
-		project_length = 0; /* reset to default */
-		return (FALSE);
-	}
+	if(!dir) return (FALSE);
 
 	/* Save the direction */
 	command_dir = dir;

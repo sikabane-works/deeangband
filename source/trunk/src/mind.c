@@ -1723,13 +1723,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		break;
 	case 14:
 		project_length = -1;
-		if(!get_aim_dir(creature_ptr, &dir))
-		{
-			project_length = 0;
-			return FALSE;
-		}
-		project_length = 0;
-
+		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 		(void)teleport_swap(creature_ptr, dir);
 		break;
 	case 15:

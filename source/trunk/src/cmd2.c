@@ -3073,11 +3073,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	if(!get_aim_dir(creature_ptr, &dir))
 	{
 		creature_ptr->energy_need = 0;
-
 		if(creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
-
-		/* need not to reset project_length (already did)*/
-
 		return;
 	}
 
@@ -3094,8 +3090,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 	/* Get projection path length */
 	tdis = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
-
-	project_length = 0; /* reset to default */
 
 	/* Don't shoot at my feet */
 	if(tx == creature_ptr->fx && ty == creature_ptr->fy)
@@ -3851,8 +3845,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			tx = target_col;
 			ty = target_row;
 		}
-
-		project_length = 0;  /* reset to default */
 	}
 
 	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)
