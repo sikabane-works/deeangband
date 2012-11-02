@@ -2666,7 +2666,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			y = temp_y[m];
 			x = temp_x[m];
 
-			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
+			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, project_length, y, x);
 
 			/* Access */
 			c_ptr = &floor_ptr->cave[y][x];
@@ -2910,7 +2910,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 		{
 			bool move_fast = FALSE;
 
-			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, y, x);
+			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, project_length, y, x);
 
 			/* Access */
 			c_ptr = &floor_ptr->cave[y][x];
@@ -3194,7 +3194,10 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 	}
 
 	/* No direction */
-	if(!dir) return (FALSE);
+	if(!dir)
+	{
+		return (FALSE);
+	}
 
 	/* Save the direction */
 	command_dir = dir;

@@ -1731,7 +1731,7 @@ void prt_map(creature_type *watcher_ptr)
 
 
 // print project path
-void prt_path(creature_type *creature_ptr, int y, int x)
+void prt_path(creature_type *creature_ptr, int range, int y, int x)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
@@ -1740,11 +1740,10 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 	int default_color = TERM_SLATE;
 
 	if(!display_path) return;
-	if(-1 == project_length)
-		return;
+	if(-1 == project_length) return;
 
 	/* Get projection path */
-	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(path_g, (range ? range : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
