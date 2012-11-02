@@ -1778,12 +1778,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				else if(target_ptr->lev > randint1(100))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-					msg_format("%sには耐性がある！", target_name);
-#else
-					msg_format("%s resists!", target_name);
-#endif
-
+					msg_format(game_messages[GAME_MESSAGE_RESISTED], target_name);
 					break;
 				}
 			}

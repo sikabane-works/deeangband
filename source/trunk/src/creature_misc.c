@@ -1040,14 +1040,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	if(message)
 	{
 
-		if(t == 0)
-		{
-#ifdef JP
-				note = "‚É‚ÍŠ®‘S‚È‘Ï«‚ª‚ ‚éB";
-#else
-				note = " is immune.";
-#endif
-		}
+		if(t == 0) note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 
 		else if(t < 200)
 		{

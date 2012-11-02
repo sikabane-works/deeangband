@@ -8,6 +8,7 @@ static const cptr game_messages[] =
 	"改良に失敗した。"
 	"しかし効力を跳ね返した。",
 	"には完全な耐性がある。",
+	"には耐性がある。",
 	"が効果がなかった。",
 	"は混乱している。",
 	"クリーチャーが立ちふさがっている。",
@@ -23,6 +24,7 @@ static const cptr game_messages[] =
 	"The improvement failed.",
 	"You resist the effects.",
 	"is immune.",
+	"resists.",
 	"You are unaffected.",
 	"is confused",
 	"There is a creature in the way.",
@@ -39,6 +41,7 @@ enum GAME_MESSAGE
 	GAME_MESSAGE_IMPROVEMENT_FAILED,
 	GAME_MESSAGE_RESIST_THE_EFFECT,
 	GAME_MESSAGE_IS_IMMUNE,
+	GAME_MESSAGE_RESISTED,
 	GAME_MESSAGE_IS_UNAFFECTED,
 	GAME_MESSAGE_IS_CONFUSED,
 	GAME_MESSAGE_CREATURE_IN_THE_WAY,

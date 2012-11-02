@@ -3336,11 +3336,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
 		{
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-		#ifdef JP
-		note = "には耐性がある。";
-		#else
-		note = " resists.";
-		#endif
+		note = game_messages[GAME_MESSAGE_RESISTED];
 		dam /= 3;
 		}
 		else
@@ -3464,11 +3460,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
 		{
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-		#ifdef JP
-		note = "には耐性がある。";
-		#else
-		note = " resists.";
-		#endif
+		note = game_messages[GAME_MESSAGE_RESISTED];
 		dam /= 3;
 		}
 		else
@@ -3801,12 +3793,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(target_ptr->lev * 2 > randint1(3 * dam)))
 			{
 				dam /= 3;
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
+				note = game_messages[GAME_MESSAGE_RESISTED];
 
 				/*
 				* Powerful demons & undead can turn a mindcrafter's
@@ -3926,12 +3913,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(target_ptr->lev * 2 > randint1(3 * dam)))
 			{
 				dam /= 3;
-#ifdef JP
-				note = "には耐性がある。";
-#else
-				note = " resists.";
-#endif
-
+				note = game_messages[GAME_MESSAGE_RESISTED];
 
 				/*
 				* Powerful demons & undead can turn a mindcrafter's
@@ -4858,12 +4840,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					else if(target_ptr->lev * 2 > randint1(100))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-						note = "には耐性がある！";
-#else
-						note = " resists!";
-#endif
-
+						note = game_messages[GAME_MESSAGE_RESISTED];
 						resists_tele = TRUE;
 					}
 				}
@@ -4908,12 +4885,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					else if(target_ptr->lev * 2 > randint1(100))
 					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-						note = "には耐性がある！";
-#else
-						note = " resists!";
-#endif
-
+						note = game_messages[GAME_MESSAGE_RESISTED];
 						resists_tele = TRUE;
 					}
 				}
@@ -4954,12 +4926,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				else if(target_ptr->lev * 2 > randint1(100))
 				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-#ifdef JP
-					note = "には耐性がある！";
-#else
-					note = " resists!";
-#endif
-
+					note = game_messages[GAME_MESSAGE_RESISTED];
 					resists_tele = TRUE;
 				}
 			}
