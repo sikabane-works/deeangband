@@ -2005,81 +2005,27 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_CYBER:
 		{
-			int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			if(max_cyber > 4) max_cyber = 4;
-			for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
-			break;
-
-		}
-		{
+		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(max_cyber > 4) max_cyber = 4;
+		for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 #ifdef JP
-			if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
+		if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
 #else
-			if(blind && count) msg_print("You hear heavy steps nearby.");
+		if(blind && count) msg_print("You hear heavy steps nearby.");
 #endif
-			summon_cyber(caster_ptr, y, x);
-			break;
-		}
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_CYBER, p_mode))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
+		break;
 		}
 
 	case TRAIT_S_MONSTER:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
-			break;
-		}
-		{
-			count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			break;
-		}
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, p_mode))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
-
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		break;
 
 	case TRAIT_S_MONSTERS:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			for (k = 0;k < 6; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, 0, (mode | u_mode));
-			break;
-		}
-		{
-			for (k = 0; k < s_num_6; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
-			}
-
-			break;
-		}
-		{
-			for (k = 0; k < user_level / 15 + 2; k++)
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, 0, (p_mode | u_mode)))
-				{
-				}
-				else
-				{
-					no_trump = TRUE;
-				}
-				break;
-		}
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		break;
 
 	case TRAIT_S_ANT:
 		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
@@ -2102,58 +2048,14 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_S_ANGEL:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_ANGEL, mode);
-			break;
-		}
-
-		{
-			int num = 1;
-			for (k = 0; k < num; k++)
-			{
-				count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
-			}
-			break;
-		}
-
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_ANGEL, (g_mode | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
-
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
+		break;
 
 	case TRAIT_S_DRAGON:
-		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DRAGON, (mode | u_mode));
-			break;
-		}
-
-		{
-			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
-			break;
-		}
-
-		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DRAGON, (g_mode | p_mode)))
-			{
-			}
-			else
-			{
-				no_trump = TRUE;
-			}
-			break;
-		}
-
-
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
+		break;
 
 	case TRAIT_S_NAZGUL:
 		{
