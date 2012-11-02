@@ -1812,12 +1812,29 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)cast_beam_(caster_ptr, GF_PSY_SPEAR, dir, damage);
 		break;
 
+	case TRAIT_TRAPS:
+		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		trap_creation(caster_ptr, target_row, target_col);
+		break;
+
 	case TRAIT_TELE_LEVEL:
 		{
 			if(target_ptr->resist_nexus)
 			{
 				msg_print(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 			}
+			{
+#ifdef JP
+				msg_print("記憶が薄れてしまった。");
+#else
+				msg_print("Your memories fade away.");
+#endif
+
+			}
+			learn_trait(target_ptr, TRAIT_FORGET);
+			break;
+		}
+
 			/*
 			else if(randint0(100 + user_level/2) < target_ptr->skill_rob)
 			{
@@ -1854,14 +1871,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 			}
 
-
-
-
-			case TRAIT_TRAPS:
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
-			trap_creation(caster_ptr, target_row, target_col);
-			break;
-
 			case TRAIT_FORGET:
 			{
 			/* TODO saving_throw
@@ -1871,17 +1880,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 			else if(lose_all_info(target_ptr))
 			*/
-			{
-#ifdef JP
-				msg_print("記憶が薄れてしまった。");
-#else
-				msg_print("Your memories fade away.");
-#endif
-
-			}
-			learn_trait(target_ptr, TRAIT_FORGET);
-			break;
-		}
 
 	case TRAIT_ANIM_DEAD:
 		animate_dead(caster_ptr, caster_ptr->fy, caster_ptr->fx);
