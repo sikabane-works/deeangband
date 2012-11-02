@@ -4714,7 +4714,7 @@ static void process_player_command(creature_type *creature_ptr)
 
 void do_creature_mutation(creature_type *creature_ptr)
 {
-	if(is_seen(player_ptr, creature_ptr) && creature_ptr->hack_mutation)
+	if(is_player(creature_ptr) && creature_ptr->hack_mutation)
 	{
 #ifdef JP
 		msg_print("‰½‚©•Ï‚í‚Á‚½‹C‚ª‚·‚éI");
