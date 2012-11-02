@@ -1523,32 +1523,13 @@ static void get_random_name(char *return_name, bool armour, int power, int artif
 				switch (power)
 				{
 					case 0:
-#ifdef JP
-						filename = "a_cursed_j.txt";
-#else
-						filename = "a_cursed.txt";
-#endif
-						break;
+						filename = message_files[MESSAGE_FILES_CURSED_ARTIFACT]; break;
 					case 1:
-#ifdef JP
-						filename = "a_low_j.txt";
-#else
-						filename = "a_low.txt";
-#endif
-						break;
+						filename = message_files[MESSAGE_FILES_LOW_ARTIFACT]; break;
 					case 2:
-#ifdef JP
-						filename = "a_med_j.txt";
-#else
-						filename = "a_med.txt";
-#endif
-						break;
+						filename = message_files[MESSAGE_FILES_MED_ARTIFACT]; break;
 					default:
-#ifdef JP
-						filename = "a_high_j.txt";
-#else
-						filename = "a_high.txt";
-#endif
+						filename = message_files[MESSAGE_FILES_HIGH_ARTIFACT]; break;
 				}
 				break;
 			default:

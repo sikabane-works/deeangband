@@ -4695,7 +4695,6 @@ static void process_player_command(creature_type *creature_ptr)
 #else
 				if(!get_rnd_line("error.txt", 0, error_m))
 #endif
-
 					msg_print(error_m);
 			}
 			else
@@ -4704,12 +4703,10 @@ static void process_player_command(creature_type *creature_ptr)
 #else
 				prt("Type '?' for help.", 0, 0);
 #endif
-
 			break;
 		}
 	}
-	if(!creature_ptr->energy_need && !now_message)
-		now_message = old_now_message;
+	if(!creature_ptr->energy_need && !now_message) now_message = old_now_message;
 }
 
 void do_creature_mutation(creature_type *creature_ptr)

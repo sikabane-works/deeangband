@@ -92,4 +92,25 @@ static const cptr desc_moan[] =
 #endif
 };
 
+static const cptr message_files[]=
+{
+#ifdef JP
+	"a_cursed_j.txt",
+	"a_low_j.txt",
+	"a_med_j.txt",
+	"a_high_j.txt",
+#else
+	"a_cursed.txt",
+	"a_low.txt",
+	"a_med.txt",
+	"a_high.txt",
+#endif
+};
 
+enum MESSAGE_FILES
+{
+	MESSAGE_FILES_CURSED_ARTIFACT,
+	MESSAGE_FILES_LOW_ARTIFACT,
+	MESSAGE_FILES_MED_ARTIFACT,
+	MESSAGE_FILES_HIGH_ARTIFACT,
+};
