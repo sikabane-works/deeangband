@@ -553,7 +553,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					if(!creature_bold(caster_ptr, y, x)) break;
 				}
 
-				project(caster_ptr, 3, y, x, 150, GF_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+				project(caster_ptr, 0, 3, y, x, 150, GF_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 			}
 
 			break;
@@ -682,7 +682,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, caster_ptr->lev/20+1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				project(caster_ptr, 0, caster_ptr->lev/20+1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			break;
 		}
 
@@ -1739,7 +1739,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 						msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
-						project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+						project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 						set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 					}
 
@@ -2445,7 +2445,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TAKE_PHOTO:
 		{
 
-			range = 1;
+			project_length = 1;
 			cast_beam_(caster_ptr, GF_PHOTO, dir, 1);
 			break;
 		}
@@ -2951,9 +2951,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SWAP_POS:
-		range = -1;
+		project_length = -1;
 		(void)teleport_swap(caster_ptr, dir);
-		range = 0;
+		project_length = 0;
 		break;
 
 	case TRAIT_ILLUMINE:

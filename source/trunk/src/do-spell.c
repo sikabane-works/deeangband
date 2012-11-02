@@ -915,7 +915,7 @@ static void cast_meteor(creature_type *caster_ptr, int dam, int rad)
 
 		if(count > 20) continue;
 
-		project(caster_ptr, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
+		project(caster_ptr, 0, rad, y, x, dam, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 	}
 }
 
@@ -998,7 +998,7 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 		    !in_disintegration_range(floor_ptr, ty, tx, y, x))
 			continue;
 
-		project(creature_ptr, rad, y, x, dam, GF_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		project(creature_ptr, 0, rad, y, x, dam, GF_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 
 	return TRUE;
@@ -2621,7 +2621,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				range = range;
+				project_length = range;
 
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
@@ -3340,7 +3340,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				dispel_creatures(caster_ptr, d_dam);
 				earthquake(caster_ptr, caster_ptr->fy, caster_ptr->fx, q_rad);
-				project(caster_ptr, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(caster_ptr, 0, b_rad, caster_ptr->fy, caster_ptr->fx, b_dam, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -3636,7 +3636,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("BOOM! Shake the room!");
 #endif
 
-				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_SOUND, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -4438,7 +4438,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
+				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_POIS, PROJECT_KILL | PROJECT_ITEM, -1);
 			}
 		}
 		break;
@@ -5416,12 +5416,12 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				bool result;
 
 				/* HACK -- No range limit */
-				range = -1;
+				project_length = -1;
 
 				result = get_aim_dir(caster_ptr, &dir);
 
 				/* Restore range to default */
-				range = 0;
+				project_length = 0;
 
 				if(!result) return NULL;
 
@@ -8838,7 +8838,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
+				project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, b_dam, GF_HOLY_FIRE, PROJECT_KILL, -1);
 				dispel_creatures(creature_ptr, d_dam);
 				slow_creatures(creature_ptr);
 				stun_creatures(creature_ptr, power);
@@ -9338,7 +9338,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			 */
 			if(cont || cast)
 			{
-				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
+				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, 0, GF_IDENTIFY, PROJECT_ITEM, -1);
 			}
 		}
 
@@ -9542,7 +9542,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			 */
 			if(cont || cast)
 			{
-				project(caster_ptr, 0, caster_ptr->fy, caster_ptr->fx,
+				project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx,
 					0, GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM | PROJECT_HIDE, -1);
 			}
 		}
@@ -9682,7 +9682,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("Reality whirls wildly as you sing a dizzying melody...");
 #endif
 
-				project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
+				project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, power, GF_AWAY_ALL, PROJECT_KILL, -1);
 			}
 		}
 		break;
@@ -10157,7 +10157,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			range = 2;
+			project_length = 2;
 			if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
 			project_hook(caster_ptr, GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
@@ -11153,7 +11153,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 				break;
 			}
-			project(caster_ptr, 0, y, x, HISSATSU_ISSEN, GF_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
+			project(caster_ptr, 0, 0, y, x, HISSATSU_ISSEN, GF_ATTACK, PROJECT_BEAM | PROJECT_KILL, -1);
 			teleport_creature_to(caster_ptr, y, x, 0L);
 		}
 		break;
@@ -11250,7 +11250,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				damage += caster_ptr->to_damage[i] * 100;
 				total_damage += (damage / 100);
 			}
-			project(caster_ptr, (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
+			project(caster_ptr, 0, (cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT) ? 5 : 0), y, x, total_damage * 3 / 2, GF_METEOR, PROJECT_KILL | PROJECT_JUMP | PROJECT_ITEM, -1);
 		}
 		break;
 
@@ -11672,7 +11672,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 #endif
 				if(power)
 				{
-					project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, power, GF_HELL_FIRE,
+					project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, power, GF_HELL_FIRE,
 						(PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 				}
 				if(wizard)

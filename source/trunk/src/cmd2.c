@@ -3067,7 +3067,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			tdis -= 5;
 	}
 
-	range = tdis + 1;
+	project_length = tdis + 1;
 
 	/* Get a direction (or cancel) */
 	if(!get_aim_dir(creature_ptr, &dir))
@@ -3076,7 +3076,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 
 		if(creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
 
-		/* need not to reset range (already did)*/
+		/* need not to reset project_length (already did)*/
 
 		return;
 	}
@@ -3093,16 +3093,16 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Get projection path length */
-	tdis = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
+	tdis = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
 
-	range = 0; /* reset to default */
+	project_length = 0; /* reset to default */
 
 	/* Don't shoot at my feet */
 	if(tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
 		creature_ptr->energy_need = 0;
 
-		/* range is already reset to 0 */
+		/* project_length is already reset to 0 */
 
 		return;
 	}
@@ -3236,7 +3236,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Sniper */
 		if(creature_ptr->snipe_type == SP_KILL_TRAP)
 		{
-			project(creature_ptr, 0, ny, nx, 0, GF_KILL_TRAP,
+			project(creature_ptr, 0, 0, ny, nx, 0, GF_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
@@ -3396,7 +3396,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
 					sound(SOUND_EXPLODE); /* No explode sound - use breath fire instead */
-					project(creature_ptr, ((creature_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
+					project(creature_ptr, 0, ((creature_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
 					break;
 				}
 
@@ -3836,7 +3836,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 	else
 	{
-		range = tdis + 1;
+		project_length = tdis + 1;
 
 		/* Get a direction (or cancel) */
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
@@ -3852,7 +3852,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			ty = target_row;
 		}
 
-		range = 0;  /* reset to default */
+		project_length = 0;  /* reset to default */
 	}
 
 	if(has_trait_object(quest_ptr, TRAIT_TRUE_RETURNING_THROW) || boomerang)

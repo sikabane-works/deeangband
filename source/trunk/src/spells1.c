@@ -17,7 +17,7 @@
 static int do_thrown_from_ridingdam_m;
 static int do_thrown_from_ridingdam_p;
 
-int range = 0;
+int project_length = 0;
 
 
 // Get another mirror. for SEEKER 
@@ -1101,7 +1101,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_pt
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
-				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
@@ -1137,7 +1137,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_pt
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
-				project(aimer_ptr, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
@@ -2154,7 +2154,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 					msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-					project(0, 8, ty,tx, dam, GF_MANA, curse_flg, -1);
+					project(0, 0, 8, ty,tx, dam, GF_MANA, curse_flg, -1);
 					if(!one_in_(6)) break;
 				}
 			case 7: case 8:
@@ -2177,7 +2177,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 				msg_print("You feel a surge of energy!");
 #endif
 
-				project(0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
+				project(0, 0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
 				if(!one_in_(6)) break;
 			case 12: case 13: case 14: case 15: case 16:
 				aggravate_creatures(caster_ptr);
@@ -5797,7 +5797,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 			t_x = player_ptr->fx - 1 + (byte)randint1(3);
 		}
 
-		project(0, 0, t_y, t_x, dam, typ, (PROJECT_STOP|PROJECT_KILL|PROJECT_REFLECTABLE), spell);
+		project(0, 0, 0, t_y, t_x, dam, typ, (PROJECT_STOP|PROJECT_KILL|PROJECT_REFLECTABLE), spell);
 
 		disturb(player_ptr, 1, 0);
 		return TRUE;
@@ -5828,7 +5828,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
-		project(0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(0, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if(attacker_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(player_ptr, TRAIT_EYE_EYE, attacker_ptr->timed_trait[TRAIT_EYE_EYE] - 5, TRUE);
 	}
 
@@ -6338,7 +6338,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 * in the blast radius, in case the "illumination" of the grid was changed,
 * and "update_view()" and "update_creatures()" need to be called.
 */
-bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell)
+bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int monspell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int i, t, dist;
@@ -7141,7 +7141,7 @@ bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ,
 					else flg |= PROJECT_PLAYER;
 
 					/* The bolt is reflected */
-					project(&creature_list[floor_ptr->cave[y][x].creature_idx], 0, t_y, t_x, dam, typ, flg, monspell);
+					project(&creature_list[floor_ptr->cave[y][x].creature_idx], 0, 0, t_y, t_x, dam, typ, flg, monspell);
 
 					/* Don't affect the creature any longer */
 					continue;

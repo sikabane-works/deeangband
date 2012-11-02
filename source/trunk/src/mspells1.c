@@ -507,7 +507,7 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
 	}
 
 	// Analyze the "dir" and the "target", do NOT explode
-	return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
+	return (project(caster_ptr, 0, 0, ty, tx, dam, typ, flg, -1));
 }
 
 
@@ -529,9 +529,9 @@ void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool lea
 {
 //PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL
 	/* Target the player with a bolt attack */
-	(void)project(caster_ptr, 0, target_col, target_row, dam_hp, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
+	(void)project(caster_ptr, 0, 0, target_col, target_row, dam_hp, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
 
-	//return (project(caster_ptr, 0, ty, tx, dam, typ, flg, -1));
+	//return (project(caster_ptr, 0, 0, ty, tx, dam, typ, flg, -1));
 }
 
 /*
@@ -595,7 +595,7 @@ void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int ra
 	}
 
 	/* Target the player with a ball attack */
-	(void)project(caster_ptr, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
+	(void)project(caster_ptr, 0, rad, y, x, dam_hp, typ, flg, (learnable ? monspell : -1));
 }
 
 

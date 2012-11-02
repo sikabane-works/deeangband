@@ -2591,7 +2591,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 		case PET_TARGET:
 		{
-			range = -1;
+			project_length = -1;
 			if(!target_set(master_ptr, TARGET_KILL)) pet_t_m_idx = 0;
 			else
 			{
@@ -2603,7 +2603,7 @@ void do_cmd_pet(creature_type *master_ptr)
 				}
 				else pet_t_m_idx = 0;
 			}
-			range = 0;
+			project_length = 0;
 
 			break;
 		}

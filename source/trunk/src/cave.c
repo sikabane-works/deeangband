@@ -1740,11 +1740,11 @@ void prt_path(creature_type *creature_ptr, int y, int x)
 	int default_color = TERM_SLATE;
 
 	if(!display_path) return;
-	if(-1 == range)
+	if(-1 == project_length)
 		return;
 
 	/* Get projection path */
-	path_n = project_path(path_g, (range ? range : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
+	path_n = project_path(path_g, (project_length ? project_length : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4757,8 +4757,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 
 		if(have_flag(old_f_ptr->flags, FF_GLASS) && floor_ptr->generated)
 		{
-			project(NULL, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, GF_SHARDS,
-			        (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+			project(NULL, 0, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 		}
 	}
 }
@@ -4899,7 +4898,7 @@ bool projectable(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 	u16b grid_g[512];
 
 	/* Check the projection path */
-	grid_n = project_path(grid_g, (range ? range : MAX_RANGE), floor_ptr, y1, x1, y2, x2, 0);
+	grid_n = project_path(grid_g, (project_length ? project_length : MAX_RANGE), floor_ptr, y1, x1, y2, x2, 0);
 
 	/* Identical grid */
 	if(!grid_n) return TRUE;

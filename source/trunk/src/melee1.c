@@ -911,7 +911,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		switch (attack)
 		{
 			case TRAIT_SCOR_TAIL:
-				project(0, 0, target_ptr->fy, target_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
+				project(0, 0, 0, target_ptr->fy, target_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
 				break;
 			case TRAIT_HORNS:
 				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
@@ -3627,7 +3627,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					{
 					object_ptr = &target_ptr->inventory[typ[j][0]];
 					if((object_ptr->k_idx) && object_is_cursed(object_ptr) && object_is_armour(object_ptr))
-					project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
+					project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, (target_ptr->lev * 2), typ[j][1], flg, -1);
 					}
 					}
 					*/
@@ -3737,7 +3737,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
-		project(attacker_ptr, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 

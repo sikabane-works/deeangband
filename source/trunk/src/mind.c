@@ -927,7 +927,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 #endif
 
 		if(plev < 25)
-			project(creature_ptr, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx,
+			project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx,
 			(plev * 3), GF_PSI, PROJECT_KILL, -1);
 		else
 			(void)mindblast_creatures(creature_ptr, randint1(plev * ((plev - 5) / 10 + 1)));
@@ -1048,7 +1048,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		set_timed_trait_aux(creature_ptr, TRAIT_LEVITATION, randint1(30) + 30 + boost / 5, FALSE);
 		break;
 	case 3:
-		range = plev / 8 + 3;
+		project_length = plev / 8 + 3;
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		cast_beam_(creature_ptr, GF_MISSILE, dir, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5));
@@ -1086,7 +1086,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	case 7:
 	{
 		int y, x, dam;
-		range = 1;
+		project_length = 1;
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		y = creature_ptr->fy + ddy[dir];
@@ -1312,7 +1312,7 @@ msg_format("There are too many mirrors to control!");
 	  for(x=0;x<floor_ptr->width;x++){
 	    for(y=0;y<floor_ptr->height;y++){
 	      if(is_mirror_grid(&floor_ptr->cave[y][x])) {
-				project(creature_ptr,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
+				project(creature_ptr, 0,2,y,x,plev,GF_OLD_SLEEP,(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP|PROJECT_NO_HANGEKI),-1);
 	      }
 	    }
 	  }
@@ -1722,13 +1722,13 @@ msg_print("その方向にはクリーチャーはいません。");
 		cast_ball(creature_ptr, GF_OLD_CONF, dir, plev*3, 3);
 		break;
 	case 14:
-		range = -1;
+		project_length = -1;
 		if(!get_aim_dir(creature_ptr, &dir))
 		{
-			range = 0;
+			project_length = 0;
 			return FALSE;
 		}
-		range = 0;
+		project_length = 0;
 
 		(void)teleport_swap(creature_ptr, dir);
 		break;
@@ -1761,8 +1761,7 @@ msg_print("その方向にはクリーチャーはいません。");
 
 				if(!creature_bold(creature_ptr, y, x)) break;
 			}
-			project(creature_ptr, 0, y, x, diceroll(6 + plev / 8, 10), typ,
-				(PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
+			project(creature_ptr, 0, 0, y, x, diceroll(6 + plev / 8, 10), typ, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 		}
 		break;
 	}
@@ -2000,7 +1999,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 #endif
 
 					/*TODO*/
-					project(creature_ptr, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
+					project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
 						GF_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
 					creature_ptr->csp = MAX(0, creature_ptr->csp - plev * MAX(1, plev / 10));
 				}
@@ -2039,7 +2038,7 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 #endif
 
 					/*TODO*/
-					project(creature_ptr, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
+					project(creature_ptr, 0, 2 + plev / 10, creature_ptr->fy, creature_ptr->fx, plev * 2,
 						GF_MANA, PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, -1);
 					creature_ptr->csp = MAX(0, creature_ptr->csp - plev * MAX(1, plev / 10));
 				}

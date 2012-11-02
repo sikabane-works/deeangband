@@ -2282,7 +2282,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 					if(!creature_bold(creature_ptr, y, x)) break;
 				}
 
-				project(creature_ptr, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
+				project(creature_ptr, 0, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -2485,7 +2485,7 @@ msg_print("ƒ_ƒ“ƒWƒ‡ƒ“‚ª—h‚ê‚½B");
 #else
 			msg_print("Mighty magics rend your enemies!");
 #endif
-			project(creature_ptr, 5, creature_ptr->fy, creature_ptr->fx,
+			project(creature_ptr, 0, 5, creature_ptr->fy, creature_ptr->fx,
 				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
 			if((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
 			{

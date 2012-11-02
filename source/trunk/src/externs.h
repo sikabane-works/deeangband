@@ -1205,8 +1205,8 @@ extern int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int 
 extern u16b bolt_pict(int y, int x, int ny, int nx, int typ);
 extern sint project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int y2, int x2, int flg);
 extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
-extern bool project(creature_type *caster_ptr, int rad, int y, int x, int dam, int typ, int flg, int monspell);
-extern int range;
+extern bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int monspell);
+extern int project_length;
 extern bool binding_field(creature_type *caster_ptr, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 

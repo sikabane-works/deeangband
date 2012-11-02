@@ -1421,7 +1421,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Make some new traps */
-			project(0, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
+			project(NULL, 0, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
 
 			break;
 		}
@@ -1433,9 +1433,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #else
 			msg_print("An alarm sounds!");
 #endif
-
 			aggravate_creatures(creature_ptr);
-
 			break;
 		}
 
@@ -1446,9 +1444,9 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #else
 			msg_print("Suddenly, surrounding walls are opened!");
 #endif
-			(void)project(NULL, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			(void)project(NULL, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			(void)project(NULL, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 0, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 0, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			aggravate_creatures(creature_ptr);
 
 			break;
@@ -1837,9 +1835,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 		{
-			(void)project(creature_ptr, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE,
-				PROJECT_KILL | PROJECT_ITEM, -1);
-
+			(void)project(creature_ptr, 0, 0, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			if(!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 		}
 

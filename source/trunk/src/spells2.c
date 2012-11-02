@@ -1348,7 +1348,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		// Jump directly to the target creature
 		y = target_ptr->fy;
 		x = target_ptr->fx;
-		if(project(caster_ptr, 0, y, x, dam, typ, PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE, -1)) obvious = TRUE;
+		if(project(caster_ptr, 0, 0, y, x, dam, typ, PROJECT_JUMP | PROJECT_KILL | PROJECT_HIDE, -1)) obvious = TRUE;
 	}
 
 	return (obvious);	// Result
@@ -2773,9 +2773,8 @@ void discharge_minion(creature_type *caster_ptr)
 		if(dam > 100) dam = (dam-100)/2 + 100;
 		if(dam > 400) dam = (dam-400)/2 + 400;
 		if(dam > 800) dam = 800;
-		project(target_ptr, 2+(target_ptr->lev/10), target_ptr->fy,
-			target_ptr->fx, dam, GF_PLASMA, 
-			PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+		project(target_ptr, 0, 2+(target_ptr->lev/10), target_ptr->fy,
+			target_ptr->fx, dam, GF_PLASMA, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 
 		if(record_named_pet && target_ptr->nickname)
 		{
@@ -3254,7 +3253,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(creature_ptr, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
+	(void)project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 
 	/* Lite up the room */
 	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
@@ -3283,7 +3282,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(caster_ptr, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
+	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 
 	/* Lite up the room */
 	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
@@ -3319,7 +3318,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(caster_ptr, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	return (project(caster_ptr, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 
@@ -3345,7 +3344,7 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	return (project(0, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 
@@ -3372,7 +3371,7 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 	}
 
 	/* Analyze the "dir" and the "target".  Hurt items on floor. */
-	return (project(0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
+	return (project(0, 0, rad, ty, tx, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
 
@@ -3387,7 +3386,7 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 {
 	/* Analyze the "target" and the caster. */
-	return (project(&creature_list[who], rad, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
+	return (project(&creature_list[who], 0, rad, y, x, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1));
 }
 
 
@@ -3432,7 +3431,7 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 		}
 
 		/* Analyze the "dir" and the "target". */
-		if(!project(0, 0, y, x, diceroll(dd, ds), typ, PROJECT_FAST | PROJECT_THRU | PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID, -1))
+		if(!project(0, 0, 0, y, x, diceroll(dd, ds), typ, PROJECT_FAST | PROJECT_THRU | PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID, -1))
 		{
 			result = FALSE;
 		}
@@ -3636,31 +3635,31 @@ bool teleport_creature(creature_type *caster_ptr, int dir)
 
 bool door_creation(creature_type *caster_ptr)
 {
-	return (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool trap_creation(creature_type *caster_ptr, int y, int x)
 {
-	return (project(caster_ptr, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(caster_ptr, 0, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool tree_creation(creature_type *caster_ptr)
 {
-	return (project(0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool glyph_creation(creature_type *creature_ptr)
 {
-	return (project(0, 1, creature_ptr->fy, creature_ptr->fx, 0, GF_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1));
+	return (project(0, 0, 1, creature_ptr->fy, creature_ptr->fx, 0, GF_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1));
 }
 
 
 bool wall_stone(creature_type *caster_ptr)
 {
-	bool dummy = (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	bool dummy = (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 
 	/* Update stuff */
 	update |= (PU_FLOW);
@@ -3674,19 +3673,19 @@ bool wall_stone(creature_type *caster_ptr)
 
 bool destroy_doors_touch(creature_type *caster_ptr)
 {
-	return (project(caster_ptr, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool sleep_creatures_touch(creature_type *creature_ptr)
 {
-	return (project(creature_ptr, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, GF_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));
+	return (project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, GF_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
 
 bool animate_dead(creature_type *creature_ptr, int y, int x)
 {
-	return (project(creature_ptr, 5, y, x, 0, GF_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(creature_ptr, 0, 5, y, x, 0, GF_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
@@ -3777,7 +3776,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-				project(0, 8, creature_ptr->fy, creature_ptr->fx, dam, GF_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
+				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, GF_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "純粋な魔力の解放", NULL, -1);
 #else
@@ -3809,7 +3808,7 @@ msg_print("エネルギーのうねりを感じた！");
 			wall_breaker(creature_ptr);
 			if(!randint0(7))
 			{
-				project(0, 7, creature_ptr->fy, creature_ptr->fx, 50, GF_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
+				project(0, 0, 7, creature_ptr->fy, creature_ptr->fx, 50, GF_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "エネルギーのうねり", NULL, -1);
 #else
@@ -4029,7 +4028,7 @@ void wall_breaker(creature_type *creature_ptr)
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 			if(!creature_bold(creature_ptr, y, x)) break;
 		}
-		project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+		project(0, 0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 	}
 	else if(randint1(100) > 30)
 	{
@@ -4046,7 +4045,7 @@ void wall_breaker(creature_type *creature_ptr)
 				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 10, 0);
 				if(!creature_bold(creature_ptr, y, x)) break;
 			}
-			project(0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+			project(0, 0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 		}
 	}
 }
@@ -4235,12 +4234,12 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 	if(mdeath) *mdeath = FALSE;
 
-	range = 5;
+	project_length = 5;
 	if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 	/* Use the given direction */
-	tx = creature_ptr->fx + range * ddx[dir];
-	ty = creature_ptr->fy + range * ddy[dir];
+	tx = creature_ptr->fx + project_length * ddx[dir];
+	ty = creature_ptr->fy + project_length * ddy[dir];
 
 	/* Hack -- Use an actual "target" */
 	if((dir == 5) && target_okay(creature_ptr))
@@ -4251,8 +4250,8 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 	if(in_bounds(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
 
-	path_n = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
-	range = 0;
+	path_n = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
+	project_length = 0;
 
 	/* No need to move */
 	if(!path_n) return TRUE;
@@ -4356,7 +4355,7 @@ void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool exp
 			{
 				remove_mirror(user_ptr, y, x);
 				if(explode)
-					project(0, 2, y, x, user_ptr->lev / 2 + 5, GF_SHARDS,
+					project(0, 0, 2, y, x, user_ptr->lev / 2 + 5, GF_SHARDS,
 						(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
