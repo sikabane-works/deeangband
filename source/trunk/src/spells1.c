@@ -3180,11 +3180,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				if(has_trait(target_ptr, TRAIT_RES_ALL))
 				{
-#ifdef JP
-					note = "には完全な耐性がある！";
-#else
-					note = " is immune.";
-#endif
+					note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 					skipped = TRUE;
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 					break;
@@ -3309,11 +3305,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3339,12 +3331,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune!";
-		#endif
-		dam = 0;
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		}
 		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
 		{
@@ -3445,11 +3432,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3475,11 +3458,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		dam = 0;
 		}
 		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
@@ -3548,11 +3527,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3601,11 +3576,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3654,11 +3625,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3710,11 +3677,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3769,11 +3732,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
-		#ifdef JP
-		note = "には完全な耐性がある！";
-		#else
-		note = " is immune.";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		skipped = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 		break;
@@ -3825,11 +3784,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -3837,11 +3792,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 				dam = 0;
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
 
 			}
@@ -3960,11 +3911,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -3972,12 +3919,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 				dam = 0;
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune!";
-#endif
-
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 			}
 			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
 				has_trait(target_ptr, TRAIT_ANIMAL) ||
@@ -4074,11 +4016,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -4227,11 +4165,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -5644,11 +5578,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				dam = 0;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
@@ -5726,11 +5656,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
-#ifdef JP
-				note = "には完全な耐性がある！";
-#else
-				note = " is immune.";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				skipped = TRUE;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
