@@ -7370,7 +7370,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 	return (notice);
 }
 
-bool binding_field(creature_type *caster_ptr, int dam)
+bool binding_field(creature_type *caster_ptr, int range, int dam)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int mirror_x[10], mirror_y[10];
@@ -7397,7 +7397,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 				distance(caster_ptr->fy,caster_ptr->fx,y,x) <= MAX_RANGE &&
 				distance(caster_ptr->fy,caster_ptr->fx,y,x) != 0 &&
 				player_has_los_bold(y,x) &&
-				projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y, x)
+				projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)
 				){
 					mirror_y[mirror_num]=y;
 					mirror_x[mirror_num]=x;
@@ -7447,7 +7447,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 				centersign*( (point_x[2]-x)*(point_y[0]-y)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if(player_has_los_bold(y, x) && projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					/* Visual effects */
 					if(!(has_trait(caster_ptr, TRAIT_BLIND))
 						&& panel_contains(y,x)){
@@ -7470,7 +7470,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 				centersign*( (point_x[2]-x)*(point_y[0]-y)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if(player_has_los_bold(y, x) && projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_feature(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -7485,7 +7485,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 				centersign*( (point_x[2]-x)*(point_y[0]-y)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if(player_has_los_bold(y, x) && projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_o(caster_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
@@ -7500,7 +7500,7 @@ bool binding_field(creature_type *caster_ptr, int dam)
 				centersign*( (point_x[2]-x)*(point_y[0]-y)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
-				if(player_has_los_bold(y, x) && projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y, x)) {
+				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
 					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_MANA,
 						(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}

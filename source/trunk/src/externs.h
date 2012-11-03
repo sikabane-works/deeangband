@@ -1207,7 +1207,7 @@ extern sint project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int
 extern int dist_to_line(int y, int x, int y1, int x1, int y2, int x2);
 extern bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int dam, int typ, int flg, int monspell);
 extern int project_length;
-extern bool binding_field(creature_type *caster_ptr, int dam);
+extern bool binding_field(creature_type *caster_ptr, int range, int dam);
 extern void seal_of_mirror(creature_type *caster_ptr, int dam);
 
 // spells2.c

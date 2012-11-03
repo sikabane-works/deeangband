@@ -1379,9 +1379,9 @@ msg_format("There are too many mirrors to control!");
 	/* binding field */
 	case 19:
 #ifdef JP
-	  if(!binding_field(creature_ptr, plev*11+5)) msg_print("適当な鏡を選べなかった！");
+	  if(!binding_field(creature_ptr, MAX_RANGE, plev*11+5)) msg_print("適当な鏡を選べなかった！");
 #else
-	  if(!binding_field(creature_ptr, plev*11+5)) msg_print("You were not able to choose suitable mirrors!");
+	  if(!binding_field(creature_ptr, MAX_RANGE, plev*11+5)) msg_print("You were not able to choose suitable mirrors!");
 #endif
 	  break;
 	/* mirror of Ruffnor */
