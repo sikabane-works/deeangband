@@ -525,9 +525,9 @@ void cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool l
  * Pass through creatures, as a "beam".
  * Affect creatures, grids and objects.
  */
-bool cast_beam(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable)
+bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int monspell, bool learnable)
 {
-	(void)project(caster_ptr, 0, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, (learnable ? monspell : -1));
+	return project(caster_ptr, range, 0, target_col, target_row, dam, typ, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM, (learnable ? monspell : -1));
 }
 
 /*
@@ -537,7 +537,7 @@ bool cast_bolt_or_beam_(creature_type *caster_ptr, int prob, int typ, int dir, i
 {
 	if(randint0(100) < prob)
 	{
-		return (cast_beam(caster_ptr, typ, dam, 0, FALSE));
+		return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0, FALSE));
 	}
 	else
 	{

@@ -871,7 +871,7 @@ if(!b) msg_print("安全な気がする。");
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
 		if(randint1(100) < plev * 2)
-			cast_beam(creature_ptr, GF_PSI, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0, FALSE);
+			cast_beam(creature_ptr, MAX_RANGE_SUB, GF_PSI, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0, FALSE);
 		else
 			cast_ball(creature_ptr, GF_PSI, dir, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0);
 		break;
@@ -972,7 +972,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		/* psycho-spear */
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		cast_beam(creature_ptr, GF_PSY_SPEAR, randint1(plev*3)+plev*3, 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_PSY_SPEAR, randint1(plev*3)+plev*3, 0, FALSE);
 		break;
 	case 13:
 	{
@@ -1051,7 +1051,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		project_length = plev / 8 + 3;
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		cast_beam(creature_ptr, GF_MISSILE, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MISSILE, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0, FALSE);
 		break;
 	case 4:
 		set_timed_trait_aux(creature_ptr, TRAIT_RESIST_MAGIC, randint1(20) + 20 + boost / 5, FALSE);
@@ -1092,7 +1092,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
 		dam = diceroll(8 + ((plev - 5) / 4) + boost / 12, 8);
-		cast_beam(creature_ptr, GF_MISSILE, dam, 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MISSILE, dam, 0, FALSE);
 		if(floor_ptr->cave[y][x].creature_idx)
 		{
 			int i;
@@ -1197,7 +1197,7 @@ msg_print("御用でございますが、御主人様？");
 	case 12:
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		cast_beam(creature_ptr, GF_MANA, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0, FALSE);
+		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MANA, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0, FALSE);
 		break;
 	case 13:
 		set_timed_trait_aux(creature_ptr, TRAIT_LIGHT_SPEED, randint1(16) + 16 + boost / 20, FALSE);
@@ -1274,7 +1274,7 @@ msg_format("There are too many mirrors to control!");
 	case 2:
 	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 	  if( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
-	    cast_beam(creature_ptr, GF_LITE, diceroll(3+((plev-1)/5),4), 0, FALSE);
+	    cast_beam(creature_ptr, MAX_RANGE_SUB, GF_LITE, diceroll(3+((plev-1)/5),4), 0, FALSE);
 	  }
 	  else {
 	    cast_bolt(creature_ptr, GF_LITE, diceroll(3+((plev-1)/5),4), 0, FALSE);
@@ -1299,7 +1299,7 @@ msg_format("There are too many mirrors to control!");
 	/* banishing mirror */
 	case 7:
 	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-	  (void)cast_beam(creature_ptr, GF_AWAY_ALL, plev, 0, FALSE);
+	  (void)cast_beam(creature_ptr, MAX_RANGE_SUB, GF_AWAY_ALL, plev, 0, FALSE);
 	  break;
 	/* mirror clashing */
 	case 8:
@@ -1320,7 +1320,7 @@ msg_format("There are too many mirrors to control!");
 	/* seeker ray */
 	case 10:
 	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-	  cast_beam(creature_ptr, GF_SEEKER, diceroll(11+(plev-5)/4,8), 0, FALSE);
+	  cast_beam(creature_ptr, MAX_RANGE_SUB, GF_SEEKER, diceroll(11+(plev-5)/4,8), 0, FALSE);
 	  break;
 	/* seal of mirror */
 	case 11:
@@ -1336,7 +1336,7 @@ msg_format("There are too many mirrors to control!");
 	/* super ray */
 	case 13:
 	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-	  cast_beam(creature_ptr, GF_SUPER_RAY, 150+randint1(2*plev), 0, FALSE);
+	  cast_beam(creature_ptr, MAX_RANGE_SUB, GF_SUPER_RAY, 150+randint1(2*plev), 0, FALSE);
 	  break;
 	/* illusion light */
 	case 14:

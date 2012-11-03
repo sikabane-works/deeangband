@@ -994,7 +994,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_PALADIN:
 		{
 			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
-			cast_beam(creature_ptr, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, plev * 3, 0, FALSE);
+			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, plev * 3, 0, FALSE);
 			break;
 		}
 		case CLASS_WARRIOR_MAGE:
@@ -1157,7 +1157,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 				project_length = 1;
-				cast_beam(creature_ptr, GF_PHOTO, 1, 0, FALSE);
+				cast_beam(creature_ptr, MAX_RANGE_SUB, GF_PHOTO, 1, 0, FALSE);
 			}
 			else if(command == -4)
 			{
@@ -2129,7 +2129,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				cast_beam(creature_ptr, GF_MISSILE, dir, plev * 2);
+				cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MISSILE, dir, plev * 2);
 			}
 			else
 			{
