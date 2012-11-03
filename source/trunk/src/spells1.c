@@ -6889,7 +6889,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 							break;
 						default:
 							/* Ball explosions are stopped by walls */
-							if(!projectable(floor_ptr, project_length, by, bx, y, x)) continue;
+							if(!projectable(floor_ptr, range, by, bx, y, x)) continue;
 							break;
 						}
 
@@ -6995,7 +6995,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		if(caster_ptr)
 		{
 			see_s_msg = (!is_player(caster_ptr)) ? is_seen(caster_ptr, caster_ptr) :
-				(is_player(caster_ptr) ? TRUE : (creature_can_see_bold(caster_ptr, y1, x1) && projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y1, x1)));
+				(is_player(caster_ptr) ? TRUE : (creature_can_see_bold(caster_ptr, y1, x1) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y1, x1)));
 		}
 		else
 		{
