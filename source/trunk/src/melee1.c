@@ -184,7 +184,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				else if((now_exp < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19)) amount = 1;
 				else if((attacker_ptr->lev > 34) && one_in_(2)) amount = 1;
 				attacker_ptr->weapon_exp[tval][sval] += amount;
-				attacker_ptr->creature_update |= (CRU_BONUS);
+				attacker_ptr->creature_creature_ptr->creature_update |= (CRU_BONUS);
 			}
 			*/
 		}

@@ -195,7 +195,7 @@ void check_hex(creature_type *creature_ptr)
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
-			update |= (PU_CREATURES);
+			creature_ptr->creature_update |= (PU_CREATURES);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);

@@ -1158,23 +1158,23 @@ void do_cmd_redraw(void)
 
 	/*
 	// Combine and Reorder the pack (later)
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	player_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
 
 	// Update torch
-	creature_ptr->creature_update |= (CRU_TORCH);
+	player_ptr->creature_update |= (CRU_TORCH);
 
 	// Update stuff
-	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
+	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	*/
 
 	/* Forget lite/view */
-	update |= (PU_UN_VIEW | PU_UN_LITE);
+	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_CREATURES);
+	player_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -1191,7 +1191,7 @@ void do_cmd_redraw(void)
 	handle_stuff();
 
 	/*
-	if(has_trait(creature_ptr, TRAIT_ANDROID)) calc_android_exp(creature_ptr);
+	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
 	*/
 
 	/* Redraw every window */

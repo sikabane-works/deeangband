@@ -695,7 +695,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 	verify_panel(creature_ptr);
 
 	/* Update stuff */
-	update |= (PU_CREATURES);
+	creature_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -1787,13 +1787,13 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 			forget_flow(prev_floor_ptr);
 
 			// Mega-Hack -- Forget the view
-			update |= (PU_UN_VIEW);
+			creature_ptr->creature_update |= (PU_UN_VIEW);
 
 			// Redraw map
 			play_redraw |= (PR_MAP);
 		}
 
-		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);	// Update stuff
+		creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_DISTANCE);	// Update stuff
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2522,7 +2522,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
 			// Update some things -- similar to GF_KILL_WALL
-			update |= (PU_FLOW);
+			creature_ptr->creature_update |= (PU_FLOW);
 		}
 
 		// Sound

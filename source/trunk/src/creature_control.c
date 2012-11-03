@@ -724,7 +724,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	creature_cnt--;	// Count creatures
 	
 	lite_spot(floor_ptr, y, x);	// Visual update
-	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr)) update |= (PU_SPECIES_LITE);	// Update some things
+	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr)) creature_ptr->creature_update |= (PU_SPECIES_LITE);	// Update some things
 }
 
 
@@ -3054,7 +3054,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 	if(is_lighting_species(&species_info[old_species_idx]) || is_darken_species(&species_info[old_species_idx]) ||
 	    (is_lighting_species(r_ptr) || is_darken_species(r_ptr)))
-		update |= (PU_SPECIES_LITE);
+		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 
 	if(is_pet(player_ptr, creature_ptr)) check_pets_num_and_align(player_ptr, creature_ptr, TRUE);
 
@@ -3777,9 +3777,9 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 /*TODO
 	if(is_self_ld_creature(creature_ptr))
-		update |= (PU_SPECIES_LITE);
+		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 	else if(is_has_ld_creature(creature_ptr) && !creature_ptr->timed_trait[TRAIT_PARALYZED])
-		update |= (PU_SPECIES_LITE);
+		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 */
 
 	/* Update the creature */

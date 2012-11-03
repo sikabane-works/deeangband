@@ -5337,8 +5337,8 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 
 	/*
 	// Update everything
-	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
-	update |= (PU_CREATURES);
+	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	creature_ptr->creature_update |= (PU_CREATURES);
 
 	// Redraw entire screen
 	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY);

@@ -1600,7 +1600,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 
 				// Update creatures
 				creature_ptr->creature_update |= (CRU_BONUS);
-				update |= PU_CREATURES;
+				creature_ptr->creature_update |= PU_CREATURES;
 				play_redraw |= (PR_EXTRA | PR_UHEALTH);
 			}
 
@@ -1785,7 +1785,7 @@ msg_format("%s‚©‚çU‚è—Ž‚Æ‚³‚ê‚»‚¤‚É‚È‚Á‚ÄA•Ç‚É‚Ô‚Â‚©‚Á‚½B",m_name);
 	update_creature(creature_ptr, TRUE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
+	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1964,7 +1964,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	rider_ptr->energy_need = 100;
 
 	/* Mega-Hack -- Forget the view and lite */
-	update |= (PU_UN_VIEW | PU_UN_LITE);
+	rider_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the creatures */
 	rider_ptr->creature_update |= (CRU_BONUS);

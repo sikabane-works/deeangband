@@ -2027,7 +2027,7 @@ static void process_nonplayer(int m_idx)
 					if(!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 					{
 						/* Update some things */
-						update |= (PU_FLOW);
+						creature_ptr->creature_update |= (PU_FLOW);
 						play_window |= (PW_OVERHEAD | PW_DUNGEON);
 						if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_BASH_DOOR);
 
@@ -2264,7 +2264,7 @@ static void process_nonplayer(int m_idx)
 			if(!creature_ptr->species_idx) /* Killed by shards of glass, etc. */
 			{
 				/* Update some things */
-				update |= (PU_FLOW);
+				creature_ptr->creature_update |= (PU_FLOW);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
 				if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_KILL_WALL);
 
@@ -2511,7 +2511,7 @@ static void process_nonplayer(int m_idx)
 	if(do_view)
 	{
 		/* Update some things */
-		update |= (PU_FLOW);
+		creature_ptr->creature_update |= (PU_FLOW);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -2522,7 +2522,7 @@ static void process_nonplayer(int m_idx)
 		|| ((has_trait(creature_ptr, TRAIT_HAS_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) && !floor_ptr->gamble_arena_mode))
 	{
 		/* Update some things */
-		update |= (PU_SPECIES_LITE);
+		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 	}
 
 	/* Learn things from observable creature */
@@ -2984,7 +2984,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		if(player_ptr->creature_update) notice_stuff(player_ptr);
 
 		/* Update stuff */
-		if(update) update_creature(player_ptr, TRUE);
+		if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
 
 		/* Redraw stuff */
 		if(play_redraw) redraw_stuff(player_ptr);
@@ -3000,7 +3000,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_redraw |= (PR_MAP);
 
 	// Update creatures
-	update |= (PU_CREATURES);
+	player_ptr->creature_update |= (PU_CREATURES);
 
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);

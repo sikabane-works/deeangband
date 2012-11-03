@@ -580,7 +580,7 @@ static s16b creature_target_y;
 *
 * XXX XXX XXX Perhaps we should affect doors?
 */
-static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_ptr, int r, int y, int x, int dam, int typ)
+static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type      *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
@@ -864,7 +864,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_pt
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				update |= (PU_FLOW);
+				aimer_ptr->creature_update |= (PU_FLOW);
 			}
 
 			break;
@@ -1121,7 +1121,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_pt
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				update |= (PU_FLOW);
+				aimer_ptr->creature_update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -1157,7 +1157,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_pt
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
 				/* Update some things */
-				update |= (PU_FLOW);
+				aimer_ptr->creature_update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -1175,7 +1175,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *whobject_pt
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
 				/* Update some things -- similar to GF_KILL_WALL */
-				update |= (PU_FLOW);
+				aimer_ptr->creature_update |= (PU_FLOW);
 			}
 			break;
 		}
@@ -2847,7 +2847,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 */
 				play_redraw |= PR_MAP;
-				update |= (PU_CREATURES);
+				caster_ptr->creature_update |= (PU_CREATURES);
 				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
 			}
 			break;
@@ -6986,7 +6986,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 
 
 	/* Update stuff if needed */
-	if(update) update_creature(player_ptr, TRUE);
+	if(caster_ptr->creature_update) update_creature(player_ptr, TRUE);
 
 
 	if(flg & PROJECT_KILL)
@@ -7037,7 +7037,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 	}
 
 	/* Update stuff if needed */
-	if(update) update_creature(player_ptr, TRUE);
+	if(caster_ptr->creature_update) update_creature(player_ptr, TRUE);
 
 	/* Check objects */
 	if(flg & (PROJECT_ITEM))

@@ -516,7 +516,7 @@ void check_quest_completion(creature_type *killer_ptr, creature_type *dead_ptr)
 #endif
 
 		cave_set_feat(floor_ptr, y, x, feat_down_stair); // Create stairs down
-		update |= (PU_FLOW); // Remember to update everything
+		player_ptr->creature_update |= (PU_FLOW); // Remember to update everything
 	}
 
 	if(reward)	// Drop quest reward
@@ -631,7 +631,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	if(is_lighting_creature(dead_ptr) || is_darken_creature(dead_ptr))
 	{
 		/* Update some things */
-		update |= (PU_SPECIES_LITE);
+		dead_ptr->creature_update |= (PU_SPECIES_LITE);
 	}
 
 	/* Get the location */
@@ -1168,13 +1168,13 @@ void resize_map(void)
 	player_ptr->creature_update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Forget lite/view */
-	update |= (PU_UN_VIEW | PU_UN_LITE);
+	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update lite/view */
-	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_CREATURES);
+	player_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
@@ -1253,7 +1253,7 @@ bool change_panel(int dy, int dx)
 		panel_bounds_center();
 
 		/* Update stuff */
-		update |= (PU_CREATURES);
+		player_ptr->creature_update |= (PU_CREATURES);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -1374,7 +1374,7 @@ void verify_panel(creature_type *creature_ptr)
 	panel_bounds_center();
 
 	/* Update stuff */
-	update |= (PU_CREATURES);
+	creature_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -2765,7 +2765,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 					verify_panel(aimer_ptr);
 
 					/* Update stuff */
-					update |= (PU_CREATURES);
+					aimer_ptr->creature_update |= (PU_CREATURES);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -2847,14 +2847,8 @@ bool target_set(creature_type *aimer_ptr, int mode)
 						panel_col_min = x2;
 						panel_bounds_center();
 
-						/* Update stuff */
-						update |= (PU_CREATURES);
-
-						/* Redraw map */
-						play_redraw |= (PR_MAP);
-
-						/* Window stuff */
-						play_window |= (PW_OVERHEAD);
+						aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
+						play_redraw |= (PR_MAP | PW_OVERHEAD);	// Redraw map and Window stuff
 
 						/* Handle stuff */
 						handle_stuff();
@@ -2900,11 +2894,8 @@ bool target_set(creature_type *aimer_ptr, int mode)
 		else
 		{
 			bool move_fast = FALSE;
-
 			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, project_length, y, x);
-
-			/* Access */
-			c_ptr = &floor_ptr->cave[y][x];
+			c_ptr = &floor_ptr->cave[y][x];	// Access
 
 			/* Default prompt */
 #ifdef JP
@@ -2913,20 +2904,14 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			strcpy(info, "q,t,p,m,+,-,<dir>");
 #endif
 
-
 			/* Describe and Prompt (enable "TARGET_LOOK") */
 			while (!(query = target_set_aux(aimer_ptr, y, x, mode | TARGET_LOOK, info)));
 
 			/* Cancel tracking */
 			/* health_track(0); */
 
-			/* Assume no direction */
-			d = 0;
-
-			if(use_menu)
-			{
-				if(query == '\r') query = 't';
-			}  
+			d = 0;	// Assume no direction
+			if(use_menu && query == '\r') query = 't';
 
 			/* Analyze the keypress */
 			switch (query)
@@ -2948,7 +2933,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 
 			case 'p':
 				verify_panel(aimer_ptr);	// Recenter the map around the player
-				update |= (PU_CREATURES);	// Update stuff
+				aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 				play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
 				handle_stuff();	// Handle stuff
 				target_set_prepare(aimer_ptr, mode);	// Recalculate interesting grids
@@ -3048,7 +3033,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 
 	prt("", 0, 0); // Clear the top line
 	verify_panel(aimer_ptr);	// Recenter the map around the player
-	update |= (PU_CREATURES);	// Update stuff
+	aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 	play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
 	handle_stuff();	// Handle stuff
 	if(!target_who) return (FALSE);	// Failure to set target
@@ -4272,7 +4257,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 					verify_panel(creature_ptr);	/* Move cursor to player */
 
 					/* Update stuff */
-					update |= (PU_CREATURES);
+					creature_ptr->creature_update |= (PU_CREATURES);
 
 					/* Redraw map */
 					play_redraw |= (PR_MAP);
@@ -4363,7 +4348,7 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	verify_panel(creature_ptr);
 
 	/* Update stuff */
-	update |= (PU_CREATURES);
+	creature_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

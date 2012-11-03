@@ -1939,7 +1939,7 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	lite_spot(floor_ptr, y, x);
 
 	/* Update some things */
-	update |= (PU_FLOW);
+	creature_ptr->creature_update |= (PU_FLOW);
 
 	prev_feat = tmp_feat;
 	prev_mimic = tmp_mimic;

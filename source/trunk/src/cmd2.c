@@ -1415,7 +1415,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 			cave_alter_feat(floor_ptr, y, x, FF_TUNNEL);
 
 			/* Update some things */
-			update |= (PU_FLOW);
+			creature_ptr->creature_update |= (PU_FLOW);
 		}
 		else
 		{
@@ -1442,14 +1442,14 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 			else
 			{
 				msg_print("ŒŠ‚ðŒ@‚èI‚¦‚½B");
-				update |= (PU_FLOW);
+				creature_ptr->creature_update |= (PU_FLOW);
 			}
 #else
 			if(tree) msg_format("You have cleared away the %s.", name);
 			else
 			{
 				msg_print("You have finished the tunnel.");
-				update |= (PU_FLOW);
+				creature_ptr->creature_update |= (PU_FLOW);
 			}
 #endif
 
@@ -3182,7 +3182,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				/* Forget the wall */
 				c_ptr->info &= ~(CAVE_MARK);
 
-				update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
+				creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 				/* Destroy the wall */
 				cave_alter_feat(floor_ptr, ny, nx, FF_HURT_ROCK);

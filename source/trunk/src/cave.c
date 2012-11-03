@@ -2804,7 +2804,7 @@ void update_lite(creature_type *creature_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	update |= (PU_DELAY_VIS);
+	creature_ptr->creature_update |= (PU_DELAY_VIS);
 }
 
 
@@ -3007,53 +3007,53 @@ void update_creature_lite(floor_type *floor_ptr)
 	/* If a creature stops time, don't process */
 	if(!the_world)
 	{
-		creature_type *creature_ptr;
+		creature_type *player_ptr;
 		species_type *species_ptr;
 
 		/* Loop through creatures, adding newly lit squares to changes list */
 		for (i = 1; i < creature_max; i++)
 		{
-			creature_ptr = &creature_list[i];
-			species_ptr = &species_info[creature_ptr->species_idx];
+			player_ptr = &creature_list[i];
+			species_ptr = &species_info[player_ptr->species_idx];
 
-			if(!IS_IN_THIS_FLOOR(creature_ptr)) continue;
+			if(!IS_IN_THIS_FLOOR(player_ptr)) continue;
 
 			/* Skip dead creatures */
-			if(!creature_ptr->species_idx) continue;
+			if(!player_ptr->species_idx) continue;
 
 			/* Is it too far away? */
-			if(creature_ptr->cdis > dis_lim) continue;
+			if(player_ptr->cdis > dis_lim) continue;
 
 			/* Get lite radius */
 			rad = 0;
 
 			/* Note the radii are cumulative */
-			if(has_trait(creature_ptr, TRAIT_SELF_LITE_1) || has_trait(creature_ptr, TRAIT_HAS_LITE_1)) rad++;
-			if(has_trait(creature_ptr, TRAIT_SELF_LITE_2) || has_trait(creature_ptr, TRAIT_HAS_LITE_2)) rad += 2;
-			if(has_trait(creature_ptr, TRAIT_SELF_DARK_1) || has_trait(creature_ptr, TRAIT_HAS_DARK_1)) rad--;
-			if(has_trait(creature_ptr, TRAIT_SELF_DARK_2) || has_trait(creature_ptr, TRAIT_HAS_DARK_2)) rad -= 2;
+			if(has_trait(player_ptr, TRAIT_SELF_LITE_1) || has_trait(player_ptr, TRAIT_HAS_LITE_1)) rad++;
+			if(has_trait(player_ptr, TRAIT_SELF_LITE_2) || has_trait(player_ptr, TRAIT_HAS_LITE_2)) rad += 2;
+			if(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_HAS_DARK_1)) rad--;
+			if(has_trait(player_ptr, TRAIT_SELF_DARK_2) || has_trait(player_ptr, TRAIT_HAS_DARK_2)) rad -= 2;
 
 			/* Exit if has no light */
 			if(!rad) continue;
 			else if(rad > 0)
 			{
-				if(!(has_trait(creature_ptr, TRAIT_SELF_LITE_1) || has_trait(creature_ptr, TRAIT_SELF_LITE_2)) && 
-					(creature_ptr->timed_trait[TRAIT_PARALYZED] || (!floor_ptr->floor_level && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
+				if(!(has_trait(player_ptr, TRAIT_SELF_LITE_1) || has_trait(player_ptr, TRAIT_SELF_LITE_2)) && 
+					(player_ptr->timed_trait[TRAIT_PARALYZED] || (!floor_ptr->floor_level && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
 				if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = creature_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
 			{
-				if(!(has_trait(creature_ptr, TRAIT_SELF_DARK_1) || has_trait(creature_ptr, TRAIT_SELF_DARK_2)) && (creature_ptr->timed_trait[TRAIT_PARALYZED] || (!floor_ptr->floor_level && !is_daytime()))) continue;
+				if(!(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_SELF_DARK_2)) && (player_ptr->timed_trait[TRAIT_PARALYZED] || (!floor_ptr->floor_level && !is_daytime()))) continue;
 				add_creature_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */
 			}
 
 			/* Access the location */
-			creature_fx = creature_ptr->fx;
-			creature_fy = creature_ptr->fy;
+			creature_fx = player_ptr->fx;
+			creature_fy = player_ptr->fy;
 
 			/* Is the creature visible? */
 			creature_invis = !(floor_ptr->cave[creature_fy][creature_fx].info & CAVE_VIEW);
@@ -3273,7 +3273,7 @@ void update_creature_lite(floor_type *floor_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	update |= (PU_DELAY_VIS);
+	player_ptr->creature_update |= (PU_DELAY_VIS);
 
 	player_ptr->monlite = (floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_MNLT) ? TRUE : FALSE;
 
@@ -4021,7 +4021,7 @@ void update_view(creature_type *creature_ptr)
 	temp_n = 0;
 
 	/* Mega-Hack -- Visual update later */
-	update |= (PU_DELAY_VIS);
+	creature_ptr->creature_update |= (PU_DELAY_VIS);
 }
 
 
@@ -4444,7 +4444,7 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	}
 
 	// Update creatures
-	update |= (PU_CREATURES);
+	creature_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4509,13 +4509,13 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	update |= (PU_UN_VIEW | PU_UN_LITE);
+	creature_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the view and lite */
-	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_CREATURES);
+	creature_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
@@ -4605,7 +4605,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 #endif /* COMPLEX_WALL_ILLUMINATION */
 
 		/* Update the visuals */
-		update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
+		player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 	}
 
 	/* Hack -- glow the GLOW terrain */
@@ -4613,7 +4613,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	{
 		int i, yy, xx;
 		cave_type *cc_ptr;
-		creature_type *creature_ptr;
+		creature_type *player_ptr;
 
 		for (i = 0; i < 9; i++)
 		{
@@ -4621,7 +4621,7 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 			xx = x + ddx_ddd[i];
 			if(!in_bounds2(floor_ptr, yy, xx)) continue;
 			cc_ptr = &floor_ptr->cave[yy][xx];
-			creature_ptr = &creature_list[cc_ptr->creature_idx];
+			player_ptr = &creature_list[cc_ptr->creature_idx];
 			cc_ptr->info |= CAVE_GLOW;
 
 			if(player_has_los_grid(cc_ptr))
@@ -4638,9 +4638,9 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 
 			update_local_illumination(floor_ptr, yy, xx);
 
-			if(creature_ptr->posture & NINJA_S_STEALTH)
+			if(player_ptr->posture & NINJA_S_STEALTH)
 			{
-				if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
+				if(floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_GLOW) set_superstealth(player_ptr, FALSE);
 			}
 
 		}
@@ -5046,7 +5046,7 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		player_ptr->creature_update |= (CRU_TORCH);
 
 		/* Update creature flow */
-		update |= (PU_FLOW);
+		player_ptr->creature_update |= (PU_FLOW);
 	}
 
 	if(travel.run)
@@ -5098,7 +5098,7 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	}
 
 	/* Update the view and lite */
-	update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
+	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

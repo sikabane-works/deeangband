@@ -670,11 +670,7 @@ bool wizard = FALSE;				// wizard mode
 bool unique_play = FALSE;			// unique play mode
 s16b arena_number = 0;				// creature number in arena -KMW-
 bool detect_trap;					// Whether on trap-safe grids
-
 s16b species_window_idx;			// Species info trackee
-
-u32b update;						// Pending Updates (bit flags)
-
 
 /*
  * The last character rolled,

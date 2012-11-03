@@ -1000,7 +1000,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		play_redraw |= (PR_MAP);
 
 		// Update creatures
-		update |= (PU_CREATURES);
+		creature_ptr->creature_update |= (PU_CREATURES);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -1143,7 +1143,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 					lite_spot(floor_ptr, ty, tx);
 
 					if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-						update |= (PU_SPECIES_LITE);
+						creature_ptr->creature_update |= (PU_SPECIES_LITE);
 				}
 			}
 		}
@@ -1704,7 +1704,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		lite_spot(floor_ptr, ty, tx);
 
 		if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-			update |= (PU_SPECIES_LITE);
+			creature_ptr->creature_update |= (PU_SPECIES_LITE);
 
 		if(m_ptr->see_others)
 		{

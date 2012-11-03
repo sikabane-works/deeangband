@@ -154,7 +154,7 @@ void set_action(creature_type *creature_ptr, int typ)
 				msg_print("You stop assuming the posture.");
 #endif
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
-				update |= (PU_CREATURES);
+				creature_ptr->creature_update |= (PU_CREATURES);
 				play_redraw |= (PR_STATUS);
 				break;
 			}
@@ -303,7 +303,7 @@ void dispel_creature(creature_type *creature_ptr)
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		// Update creatures
-		update |= (PU_CREATURES);
+		creature_ptr->creature_update |= (PU_CREATURES);
 
 		/* Window stuff */
 		play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -358,7 +358,7 @@ void dispel_creature(creature_type *creature_ptr)
 				}
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				creature_ptr->creature_update |= (CRU_BONUS);
-				update |= (PU_CREATURES);
+				creature_ptr->creature_update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
 				play_redraw |= (PR_STATUS);
 				creature_ptr->action = ACTION_NONE;
@@ -415,7 +415,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 				}
 				creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 				creature_ptr->creature_update |= (CRU_BONUS);
-				update |= (PU_CREATURES);
+				creature_ptr->creature_update |= (PU_CREATURES);
 				play_redraw |= (PR_STATE);
 				play_redraw |= (PR_STATUS);
 				creature_ptr->action = ACTION_NONE;
@@ -738,7 +738,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 			}
 			creature_ptr->posture &= ~(KATA_IAI | KATA_FUUJIN | KATA_KOUKIJIN | KATA_MUSOU);
 			creature_ptr->creature_update |= (CRU_BONUS);
-			update |= (PU_CREATURES);
+			creature_ptr->creature_update |= (PU_CREATURES);
 			play_redraw |= (PR_STATE);
 			play_redraw |= (PR_STATUS);
 			creature_ptr->action = ACTION_NONE;

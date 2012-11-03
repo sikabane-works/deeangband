@@ -2655,7 +2655,7 @@ static void calc_lite(creature_type *creature_ptr)
 	{
 		/* Update stuff */
 		/* Hack -- PU_SPECIES_LITE for creatures' darkness */
-		update |= (PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
+		creature_ptr->creature_update |= (PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 
 		/* Remember the old lite */
 		creature_ptr->old_lite = creature_ptr->cur_lite;
@@ -4592,7 +4592,7 @@ void set_creature_bonuses(creature_type *creature_ptr, bool message)
 	if(message) creature_bonuses_message(creature_ptr);
 
 	// Hack -- See Invis Change
-	//TODO update |= (PU_CREATURES);
+	//TODO creature_ptr->creature_update |= (PU_CREATURES);
 	play_window |= PW_INVEN; // Redraw average damege display of Shuriken
 	play_redraw |= (PR_SPEED); // TODO
 
@@ -4656,7 +4656,7 @@ void update_creature(creature_type *creature_ptr, bool message)
 
 	if(creature_ptr->creature_update & (CRU_TORCH))
 	{
-		update &= ~(CRU_TORCH);
+		creature_ptr->creature_update &= ~(CRU_TORCH);
 		calc_lite(creature_ptr);
 	}
 
@@ -4682,50 +4682,50 @@ void update_creature(creature_type *creature_ptr, bool message)
 	/* Character is not ready yet, no screen updates */
 	if(!character_generated) return;
 
-	if(update & (PU_UN_LITE))
+	if(creature_ptr->creature_update & (PU_UN_LITE))
 	{
-		update &= ~(PU_UN_LITE);
+		creature_ptr->creature_update &= ~(PU_UN_LITE);
 		forget_lite(floor_ptr);
 	}
 
-	if(update & (PU_UN_VIEW))
+	if(creature_ptr->creature_update & (PU_UN_VIEW))
 	{
-		update &= ~(PU_UN_VIEW);
+		creature_ptr->creature_update &= ~(PU_UN_VIEW);
 		forget_view(floor_ptr);
 	}
 
-	if(update & (PU_VIEW))
+	if(creature_ptr->creature_update & (PU_VIEW))
 	{
-		update &= ~(PU_VIEW);
+		creature_ptr->creature_update &= ~(PU_VIEW);
 		update_view(creature_ptr);
 	}
 
-	if(update & (PU_LITE))
+	if(creature_ptr->creature_update & (PU_LITE))
 	{
-		update &= ~(PU_LITE);
+		creature_ptr->creature_update &= ~(PU_LITE);
 		update_lite(creature_ptr);
 	}
 
 
-	if(update & (PU_FLOW))
+	if(creature_ptr->creature_update & (PU_FLOW))
 	{
-		update &= ~(PU_FLOW);
+		creature_ptr->creature_update &= ~(PU_FLOW);
 		update_flow(creature_ptr);
 	}
 
-	if(update & (PU_DISTANCE))
+	if(creature_ptr->creature_update & (PU_DISTANCE))
 	{
-		update &= ~(PU_DISTANCE);
+		creature_ptr->creature_update &= ~(PU_DISTANCE);
 
 		/* Still need to call update_creatures(FALSE) after update_creature_lite() */ 
-		/* update &= ~(PU_CREATURES); */
+		/* creature_ptr->creature_update &= ~(PU_CREATURES); */
 
 		update_creatures(TRUE);
 	}
 
-	if(update & (PU_SPECIES_LITE))
+	if(creature_ptr->creature_update & (PU_SPECIES_LITE))
 	{
-		update &= ~(PU_SPECIES_LITE);
+		creature_ptr->creature_update &= ~(PU_SPECIES_LITE);
 		//update_creature_lite(floor_ptr);
 	}
 
@@ -4733,15 +4733,15 @@ void update_creature(creature_type *creature_ptr, bool message)
 	 * Mega-Hack -- Delayed visual update
 	 * Only used if update_view(), update_lite() or update_creature_lite() was called
 	 */
-	if(update & (PU_DELAY_VIS))
+	if(creature_ptr->creature_update & (PU_DELAY_VIS))
 	{
-		update &= ~(PU_DELAY_VIS);
+		creature_ptr->creature_update &= ~(PU_DELAY_VIS);
 		delayed_visual_update(floor_ptr);
 	}
 
-	if(update & (PU_CREATURES))
+	if(creature_ptr->creature_update & (PU_CREATURES))
 	{
-		update &= ~(PU_CREATURES);
+		creature_ptr->creature_update &= ~(PU_CREATURES);
 		update_creatures(FALSE);
 	}
 }
@@ -5002,7 +5002,7 @@ void window_stuff(creature_type *subjectivity_ptr)
  */
 void handle_stuff(void)
 {
-	if(update) update_creature(player_ptr, TRUE);
+	if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
 	if(play_redraw) redraw_stuff(player_ptr);
 	if(play_window) window_stuff(player_ptr);
 }

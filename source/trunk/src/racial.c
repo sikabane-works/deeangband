@@ -165,7 +165,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 			/* Destroy the wall */
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 
-			update |= (PU_FLOW);
+			creature_ptr->creature_update |= (PU_FLOW);
 		}
 	}
 	/**********Create arrows*********/

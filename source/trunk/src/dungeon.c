@@ -1518,7 +1518,7 @@ static void check_music(creature_type *creature_ptr)
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
-			update |= (PU_CREATURES);
+			creature_ptr->creature_update |= (PU_CREATURES);
 
 			/* Window stuff */
 			play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -3468,7 +3468,7 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			}
 
 			// Update creatures
-			update |= (PU_CREATURES | PU_SPECIES_LITE);
+			player_ptr->creature_update |= (PU_CREATURES | PU_SPECIES_LITE);
 
 			/* Redraw map */
 			play_redraw |= (PR_MAP);
@@ -3815,7 +3815,7 @@ static void process_player_command(creature_type *creature_ptr)
 			}
 
 			// Update creatures
-			update |= (PU_CREATURES);
+			creature_ptr->creature_update |= (PU_CREATURES);
 
 			/* Redraw "title" */
 			play_redraw |= (PR_TITLE);
@@ -5323,7 +5323,7 @@ void process_player(creature_type *creature_ptr)
 				play_redraw |= (PR_MAP);
 
 				// Update creatures
-				update |= (PU_CREATURES);
+				creature_ptr->creature_update |= (PU_CREATURES);
 
 				/* Window stuff */
 				play_window |= (PW_OVERHEAD | PW_DUNGEON);
@@ -6028,7 +6028,7 @@ static void play_loop(void)
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_TORCH);
 
 		// Update lite/view
-		update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES | PU_DISTANCE | PU_FLOW);
+		player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE | PU_CREATURES | PU_DISTANCE | PU_FLOW);
 
 		/* Handle "update" and "play_redraw" and "play_window" */
 		//TODO DELETE?

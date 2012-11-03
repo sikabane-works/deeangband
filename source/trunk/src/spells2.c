@@ -2192,10 +2192,10 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		forget_flow(floor_ptr);
 
 		/* Mega-Hack -- Forget the view and lite */
-		update |= (PU_UN_VIEW | PU_UN_LITE);
+		caster_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 		/* Update stuff */
-		update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
+		caster_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 		/* Redraw map */
 		play_redraw |= (PR_MAP);
@@ -2700,10 +2700,10 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 
 	/* Mega-Hack -- Forget the view and lite */
-	update |= (PU_UN_VIEW | PU_UN_LITE);
+	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
+	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 	/* Update the health bar */
 	play_redraw |= (PR_HEALTH | PR_UHEALTH);
@@ -3662,7 +3662,7 @@ bool wall_stone(creature_type *caster_ptr)
 	bool dummy = (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 
 	/* Update stuff */
-	update |= (PU_FLOW);
+	caster_ptr->creature_update |= (PU_FLOW);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);

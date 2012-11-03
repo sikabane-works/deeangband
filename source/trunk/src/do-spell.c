@@ -10593,7 +10593,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_ROCK);
 	
 			/* Update some things */
-			update |= (PU_FLOW);
+			caster_ptr->creature_update |= (PU_FLOW);
 		}
 		break;
 

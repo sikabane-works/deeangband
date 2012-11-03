@@ -145,7 +145,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
-		update |= (PU_SPECIES_LITE);
+		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 
 	return (TRUE);
 }
@@ -238,7 +238,7 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
-		update |= (PU_SPECIES_LITE);
+		player_ptr->creature_update |= (PU_SPECIES_LITE);
 }
 
 
@@ -1699,13 +1699,13 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	}
 
 	/* Mega-Hack -- Forget the view and lite */
-	update |= (PU_UN_VIEW | PU_UN_LITE);
+	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update stuff */
-	update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
+	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE);
 
 	// Update creatures
-	update |= (PU_CREATURES);
+	player_ptr->creature_update |= (PU_CREATURES);
 
 	/* Redraw map */
 	play_redraw |= (PR_MAP);
