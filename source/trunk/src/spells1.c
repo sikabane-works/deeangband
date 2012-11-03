@@ -5783,7 +5783,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 				t_x = attacker_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
-			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, project_length, player_ptr->fy, player_ptr->fx, t_y, t_x));
+			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, t_y, t_x));
 
 			if(max_attempts < 1)
 			{
@@ -6169,7 +6169,7 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 						break;
 					default:
 						/* Ball explosions are stopped by walls */
-						if(!projectable(floor_ptr, project_length, by, bx, y, x)) continue;
+						if(!projectable(floor_ptr, MAX_RANGE, by, bx, y, x)) continue;
 						break;
 					}
 
@@ -7113,7 +7113,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 						t_x = x_saver - 1 + (byte)randint1(3);
 						max_attempts--;
 					}
-					while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, project_length, y, x, t_y, t_x));
+					while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, y, x, t_y, t_x));
 
 					if(max_attempts < 1)
 					{

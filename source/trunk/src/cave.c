@@ -136,7 +136,7 @@ bool is_hidden_door(cave_type *cave_ptr)
  *
  * Note that "line of sight" is not "reflexive" in all cases.
  *
- * Use the "projectable(floor_ptr, project_length, )" routine to test "spell/missile line of sight".
+ * Use the "projectable(floor_ptr, MAX_RANGE, )" routine to test "spell/missile line of sight".
  *
  * Use the "update_view()" function to determine player line-of-sight.
  */
@@ -3564,7 +3564,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
  * equally efficient, and especially willing if the new function happens to
  * derive "reverse-line-of-sight" at the same time, since currently creatures
  * just use an optimized hack of "you see me, so I see you", and then use the
- * actual "projectable(floor_ptr, project_length, )" function to check spell attacks.
+ * actual "projectable(floor_ptr, MAX_RANGE, )" function to check spell attacks.
  */
 void update_view(creature_type *creature_ptr)
 {
@@ -4946,7 +4946,7 @@ void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int m
 		if((d > 1) && (distance(y, x, ny, nx) > d)) continue;
 
 		/* Require "line of projection" */
-		if(projectable(floor_ptr, project_length, y, x, ny, nx)) break;
+		if(projectable(floor_ptr, MAX_RANGE, y, x, ny, nx)) break;
 	}
 
 	/* Save the location */

@@ -1607,7 +1607,7 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);	// Hack -- no targeting hallucinations
 	if(!target_ptr->see_others) return (FALSE);	// Creature must be visible
 	if(creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
-	if(!projectable(floor_ptr, project_length, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return (FALSE);	// Creature must be projectable
+	if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return (FALSE);	// Creature must be projectable
 
 	return (TRUE);
 }

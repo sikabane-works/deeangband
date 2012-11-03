@@ -1334,7 +1334,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 		// Require line of sight
 		y = target_ptr->fy;
 		x = target_ptr->fx;
-		if(!player_has_los_bold(y, x) || !projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
+		if(!player_has_los_bold(y, x) || !projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, y, x)) continue;
 
 		target_ptr->sc_flag |= (SC_FLAG_TEMP);	// Mark the creature
 	}
