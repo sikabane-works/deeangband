@@ -2442,7 +2442,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fetch(caster_ptr, dir, weight, FALSE);
+				fetch(caster_ptr, MAX_RANGE, dir, weight, FALSE);
 			}
 		}
 		break;
@@ -5193,7 +5193,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				fetch(caster_ptr, dir, weight, FALSE);
+				fetch(caster_ptr, MAX_RANGE_SUB, dir, weight, FALSE);
 			}
 		}
 		break;

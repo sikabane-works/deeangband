@@ -815,7 +815,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_TELEKINES:
-		fetch(caster_ptr, dir, user_level * 10, TRUE);
+		fetch(caster_ptr, MAX_RANGE, dir, user_level * 10, TRUE);
 		break;
 
 	case TRAIT_STAR_BALL:

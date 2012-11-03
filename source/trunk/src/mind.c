@@ -955,7 +955,7 @@ msg_print("¸_‚ğ”P‚¶‹È‚°‚é”g“®‚ğ”­¶‚³‚¹‚½I");
 		/* Telekinesis */
 		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
 
-		fetch(creature_ptr, dir, plev * 15, FALSE);
+		fetch(creature_ptr, MAX_RANGE, dir, plev * 15, FALSE);
 
 		break;
 	case 11:

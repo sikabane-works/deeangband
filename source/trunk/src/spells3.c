@@ -1814,7 +1814,7 @@ void call_the_void(creature_type *creature_ptr)
 }
 
 // Fetch an item (teleport it right underneath the caster)
-void fetch(creature_type *creature_ptr, int dir, int wgt, bool require_los)
+void fetch(creature_type *creature_ptr, int range, int dir, int wgt, bool require_los)
 {
 	int ty, tx, i;
 	cave_type *c_ptr;
@@ -1890,7 +1890,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 
 				return;
 			}
-			else if(!projectable(floor_ptr, project_length, creature_ptr->fy, creature_ptr->fx, ty, tx))
+			else if(!projectable(floor_ptr, range, creature_ptr->fy, creature_ptr->fx, ty, tx))
 			{
 #ifdef JP
 				msg_print("そこは壁の向こうです。");
