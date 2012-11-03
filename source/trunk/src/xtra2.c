@@ -2628,7 +2628,7 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 * This command will cancel any old target, even if used from
 * inside the "look" command.
 */
-bool target_set(creature_type *aimer_ptr, int mode)
+bool target_set(creature_type *aimer_ptr, int range, int mode)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(aimer_ptr);
 
@@ -2666,7 +2666,7 @@ bool target_set(creature_type *aimer_ptr, int mode)
 			y = temp_y[m];
 			x = temp_x[m];
 
-			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, project_length, y, x);
+			if(!(mode & TARGET_LOOK)) prt_path(aimer_ptr, range, y, x);
 
 			/* Access */
 			c_ptr = &floor_ptr->cave[y][x];
@@ -3112,7 +3112,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 		case '*':
 		case ' ':
 		case '\r':
-			if(target_set(creature_ptr, TARGET_KILL)) dir = 5;
+			if(target_set(creature_ptr, 0, TARGET_KILL)) dir = 5;
 			break;
 
 		default:
@@ -4429,7 +4429,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 		case ' ':
 		case '\r':
 			{
-				if(target_set(creature_ptr, TARGET_KILL)) dir = 5;
+				if(target_set(creature_ptr, 0, TARGET_KILL)) dir = 5;
 				break;
 			}
 

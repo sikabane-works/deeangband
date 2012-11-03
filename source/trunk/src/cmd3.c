@@ -1435,7 +1435,7 @@ void do_cmd_refill(creature_type *creature_ptr)
 void do_cmd_target(creature_type *creature_ptr)
 {
 	/* Target set */
-	if(target_set(creature_ptr,TARGET_KILL))
+	if(target_set(creature_ptr, 0,TARGET_KILL))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");
@@ -1465,7 +1465,7 @@ void do_cmd_target(creature_type *creature_ptr)
 void do_cmd_look(creature_type *creature_ptr)
 {
 	/* Look around */
-	if(target_set(creature_ptr, TARGET_LOOK))
+	if(target_set(creature_ptr, 0, TARGET_LOOK))
 	{
 #ifdef JP
 		msg_print("ターゲット決定。");

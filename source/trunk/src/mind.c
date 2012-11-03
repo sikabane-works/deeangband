@@ -1157,7 +1157,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	{
 		int m_idx;
 
-		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, 0, TARGET_KILL)) return FALSE;
 		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 		if(!m_idx) break;
 		if(!player_has_los_bold(target_row, target_col)) break;
@@ -1652,7 +1652,7 @@ msg_print("その方向にはクリーチャーはいません。");
 		u16b path_g[512];
 		int ty,tx;
 
-		if(!target_set(creature_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(creature_ptr, 0, TARGET_KILL)) return FALSE;
 		m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 		if(!m_idx) break;
 		if(m_idx == creature_ptr->riding) break;

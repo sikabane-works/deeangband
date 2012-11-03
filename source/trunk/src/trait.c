@@ -235,7 +235,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_DEMON:
 		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
 			break;
 		}
@@ -1013,7 +1013,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_DISPEL:
 		{
 			int m_idx;
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 			if(!m_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
@@ -1755,7 +1755,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			creature_type *target_ptr;
 			species_type *r_ptr;
 
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
@@ -1813,7 +1813,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_TRAPS:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		trap_creation(caster_ptr, target_row, target_col);
 		break;
 
@@ -1853,7 +1853,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			creature_type *target_ptr;
 			species_type *r_ptr;
 
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 			if(!target_m_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
@@ -1886,7 +1886,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_S_KIN:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < 4; k++) (void)summon_kin_player(caster_ptr, user_level, target_row, target_col, (PC_FORCE_PET | PC_ALLOW_GROUP));
 		break;
 
@@ -2006,7 +2006,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_S_CYBER:
 		{
 		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		if(max_cyber > 4) max_cyber = 4;
 		for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
 #ifdef JP
@@ -2018,42 +2018,42 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_S_MONSTER:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 		break;
 
 	case TRAIT_S_MONSTERS:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 		break;
 
 	case TRAIT_S_ANT:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, 0);
 		break;
 
 	case TRAIT_S_SPIDER:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_SPIDER, 0);
 		break;
 
 	case TRAIT_S_HOUND:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HOUND, 0);
 		break;
 
 	case TRAIT_S_HYDRA:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, 0);
 		break;
 
 	case TRAIT_S_ANGEL:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
 		break;
 
 	case TRAIT_S_DRAGON:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
 		break;
 
@@ -2106,7 +2106,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_HI_UNDEAD:
 		{
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 
 			for (k = 0;k < 6; k++)
 				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
@@ -2165,7 +2165,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 
 	case TRAIT_S_HI_DRAGON:
-			if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			if(blind && count)
 			{
@@ -2178,7 +2178,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 
 	case TRAIT_S_AMBERITES:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 #ifdef JP
 			msg_print("不死の者が近くに現れるのが聞こえた。");
@@ -2188,7 +2188,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_S_UNIQUE:
-		if(!target_set(caster_ptr, TARGET_KILL)) return FALSE;
+		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = count; k < 4; k++)
 			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
 		if(blind && count)
