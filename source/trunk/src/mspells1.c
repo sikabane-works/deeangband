@@ -541,8 +541,7 @@ void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool lea
  */
 bool cast_beam_(creature_type *caster_ptr, int typ, int dir, int dam)
 {
-	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,typ, dir, dam, flg));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB, typ, dir, dam, PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM));
 }
 
 /*
