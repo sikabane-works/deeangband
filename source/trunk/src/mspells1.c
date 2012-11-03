@@ -518,20 +518,16 @@ bool project_hook(creature_type *caster_ptr, int range, int typ, int dir, int da
  */
 bool cast_bolt_(creature_type *caster_ptr, int typ, int dir, int dam)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,typ, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB, typ, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID));
 }
 /*
  * Cast a bolt at the player
  * Stop if we hit a creature
  * Affect creatures and the player
  */
-void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool learnable)
+void bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable)
 {
-//PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL
-	/* Target the player with a bolt attack */
-	(void)project(caster_ptr, 0, 0, target_col, target_row, dam_hp, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
-
-	//return (project(caster_ptr, 0, 0, ty, tx, dam, typ, flg, -1));
+	(void)project(caster_ptr, 0, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
 }
 
 /*
@@ -555,7 +551,8 @@ bool cast_bolt_or_beam_(creature_type *caster_ptr, int prob, int typ, int dir, i
 	}
 	else
 	{
-		return (cast_bolt_(caster_ptr, typ, dir, dam));
+		return TRUE;
+		(bolt(caster_ptr, typ, dam, 0, FALSE));
 	}
 }
 

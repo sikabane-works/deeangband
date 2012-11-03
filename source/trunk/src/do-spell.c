@@ -8447,7 +8447,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				if(!get_aim_dir(creature_ptr, &dir)) return NULL;
-				cast_bolt_(creature_ptr, GF_ELEC, dir, dam);
+				bolt(creature_ptr, GF_ELEC, dam, 0, FALSE);
 			}
 		}
 		break;
@@ -9004,7 +9004,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_bolt_(caster_ptr, GF_SOUND, dir, diceroll(dice, sides));
+				bolt(caster_ptr,GF_SOUND, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
