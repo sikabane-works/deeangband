@@ -491,7 +491,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 /*
  * Hack -- apply a "projection()" in a direction (or at the target)
  */
-bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
+bool project_hook(creature_type *caster_ptr, int range, int typ, int dir, int dam, int flg)
 {
 	int tx, ty;
 
@@ -507,7 +507,7 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
 	}
 
 	// Analyze the "dir" and the "target", do NOT explode
-	return (project(caster_ptr, 0, 0, ty, tx, dam, typ, flg, -1));
+	return (project(caster_ptr, range, 0, ty, tx, dam, typ, flg, -1));
 }
 
 
@@ -518,7 +518,7 @@ bool project_hook(creature_type *caster_ptr, int typ, int dir, int dam, int flg)
  */
 bool cast_bolt_(creature_type *caster_ptr, int typ, int dir, int dam)
 {
-	return (project_hook(caster_ptr, typ, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,typ, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE | PROJECT_GRID));
 }
 /*
  * Cast a bolt at the player
@@ -542,7 +542,7 @@ void bolt(creature_type *caster_ptr, int typ, int dam_hp, int monspell, bool lea
 bool cast_beam_(creature_type *caster_ptr, int typ, int dir, int dam)
 {
 	int flg = PROJECT_BEAM | PROJECT_KILL | PROJECT_GRID | PROJECT_ITEM;
-	return (project_hook(caster_ptr, typ, dir, dam, flg));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,typ, dir, dam, flg));
 }
 
 /*
@@ -1007,7 +1007,7 @@ static bool adjacent_grid_check(creature_type *base_ptr, creature_type *m_ptr, i
 		/* Skip this feature */
 		if(!cave_have_flag_grid(c_ptr, f_flag)) continue;
 
-		if(path_check(floor_ptr, project_length, m_ptr->fy, m_ptr->fx, next_y, next_x))
+		if(path_check(floor_ptr, MAX_RANGE, m_ptr->fy, m_ptr->fx, next_y, next_x))
 		{
 			*yp = next_y;
 			*xp = next_x;

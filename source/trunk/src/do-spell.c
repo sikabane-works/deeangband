@@ -10155,7 +10155,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			project_length = 2;
 			if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-			project_hook(caster_ptr, GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
+			project_hook(caster_ptr, MAX_RANGE_SUB,GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
 		}
 		break;
 
