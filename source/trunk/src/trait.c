@@ -166,7 +166,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_TELE_AWAY:
-		(void)cast_beam_(caster_ptr, GF_AWAY_ALL, dir, user_level);
+		(void)cast_beam(caster_ptr, GF_AWAY_ALL, user_level, 0, FALSE);
 		break;
 
 		teleport_creature(caster_ptr, dir);
@@ -1809,7 +1809,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_PSY_SPEAR:
 		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-		(void)cast_beam_(caster_ptr, GF_PSY_SPEAR, dir, damage);
+		(void)cast_beam(caster_ptr, GF_PSY_SPEAR, damage, 0, FALSE);
 		break;
 
 	case TRAIT_TRAPS:
@@ -2283,7 +2283,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HELL_LANCE:
 		{
 
-			cast_beam_(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, dir, user_level * 3);
+			cast_beam(caster_ptr, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, user_level * 3, 0, FALSE);
 			break;
 		}
 
@@ -2445,7 +2445,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_TAKE_PHOTO:
 		{
 			project_length = 1;
-			cast_beam_(caster_ptr, GF_PHOTO, dir, 1);
+			cast_beam(caster_ptr, GF_PHOTO, 1, 0, FALSE);
 			break;
 		}
 
@@ -2833,7 +2833,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BEAM_CANNON:
-		cast_beam_(caster_ptr, GF_MISSILE, dir, user_level * 2);
+		cast_beam(caster_ptr, GF_MISSILE, user_level * 2, 0, FALSE);
 		break;
 
 	case TRAIT_SCARE_CREATURE:
@@ -3044,7 +3044,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_LASER_EYE:
-		cast_beam_(caster_ptr, GF_LITE, dir, 2 * user_level);
+		cast_beam(caster_ptr, GF_LITE, 2 * user_level, 0, FALSE);
 		break;
 
 	case TRAIT_BANISH:

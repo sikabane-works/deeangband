@@ -2146,7 +2146,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_AWAY_ALL, dir, power);
+				cast_beam(caster_ptr, GF_AWAY_ALL, power, 0, FALSE);
 			}
 		}
 		break;
@@ -2625,7 +2625,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_ELEC, dir, diceroll(dice, sides));
+				cast_beam(caster_ptr, GF_ELEC, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
@@ -3660,7 +3660,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_MANA, dir, diceroll(dice, sides));
+				cast_beam(caster_ptr, GF_MANA, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
@@ -3707,7 +3707,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_AWAY_ALL, dir, power);
+				cast_beam(caster_ptr, GF_AWAY_ALL, power, 0, FALSE);
 			}
 		}
 		break;
@@ -3797,7 +3797,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				for (dir = 0; dir <= 9; dir++)
-					cast_beam_(caster_ptr, GF_ELEC, dir, diceroll(dice, sides));
+					cast_beam(caster_ptr, GF_ELEC, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
@@ -3983,7 +3983,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_GRAVITY, dir, diceroll(dice, sides));
+				cast_beam(caster_ptr, GF_GRAVITY, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
@@ -5135,7 +5135,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_AWAY_ALL, dir, power);
+				cast_beam(caster_ptr, GF_AWAY_ALL, power, 0, FALSE);
 			}
 		}
 		break;
@@ -6495,7 +6495,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
 
-				cast_beam_(caster_ptr, GF_AWAY_ALL, dir, power);
+				cast_beam(caster_ptr, GF_AWAY_ALL, power, 0, FALSE);
 			}
 		}
 		break;
@@ -9775,8 +9775,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
-
-				cast_beam_(caster_ptr, GF_SOUND, dir, diceroll(dice, sides));
+				cast_beam(caster_ptr, GF_SOUND, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
@@ -10899,7 +10898,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				total_damage += damage / 200;
 				if(i) total_damage = total_damage*7/10;
 			}
-			cast_beam_(caster_ptr, GF_FORCE, dir, total_damage);
+			cast_beam(caster_ptr, GF_FORCE, total_damage, 0, FALSE);
 		}
 		break;
 
