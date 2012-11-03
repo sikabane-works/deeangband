@@ -2850,7 +2850,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			}
 
 			/* Disturb on appearance */
-			if(disturb_near && (projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)))
+			if(disturb_near && (projectable(floor_ptr, project_length, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)))
 			{
 				if(disturb_pets || is_hostile(target_ptr))
 					disturb(creature_ptr, 1, 0);
@@ -3948,7 +3948,7 @@ static bool creature_scatter(int species_idx, int *yp, int *xp, floor_type *floo
 			if(!in_bounds(floor_ptr, ny, nx)) continue;
 
 			/* Require "line of projection" */
-			if(!projectable(floor_ptr, y, x, ny, nx)) continue;
+			if(!projectable(floor_ptr, project_length, y, x, ny, nx)) continue;
 
 			if(species_idx > 0)
 			{

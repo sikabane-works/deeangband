@@ -856,7 +856,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					if(!target_ptr->species_idx) continue;
 					if(!((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) continue;
 					if(!los(floor_ptr, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
-					if(!projectable(floor_ptr, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
+					if(!projectable(floor_ptr, project_length, target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx)) continue;
 					count++;
 					break;
 				}
@@ -1017,7 +1017,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 			if(!m_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			if(!projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			dispel_creature(caster_ptr);
 			break;
 		}
@@ -1758,7 +1758,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			if(!projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			target_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
 			r_ptr = &species_info[target_ptr->species_idx];
 			creature_desc(target_name, target_ptr, 0);
@@ -1857,7 +1857,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
 			if(!target_m_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
-			if(!projectable(floor_ptr, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
+			if(!projectable(floor_ptr, project_length, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			target_ptr = &creature_list[target_m_idx];
 			r_ptr = &species_info[target_ptr->species_idx];
 			creature_desc(target_name, target_ptr, 0);
@@ -2444,7 +2444,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_TAKE_PHOTO:
 		{
-
 			project_length = 1;
 			cast_beam_(caster_ptr, GF_PHOTO, dir, 1);
 			break;

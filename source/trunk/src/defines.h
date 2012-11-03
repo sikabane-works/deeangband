@@ -354,6 +354,7 @@
  */
 #define MAX_SIGHT       20      /* Maximum view distance */
 #define MAX_RANGE       (floor_ptr->gamble_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
+#define MAX_RANGE_SUB   36
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
@@ -2012,7 +2013,7 @@
 // TODO Check using
 #define is_seen(B, A) \
 	((bool)((A)->see_others && (!ignore_unview || GET_FLOOR_PTR(B)->gamble_arena_mode || \
-	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
+	 (creature_can_see_bold((B), (A)->fy, (A)->fx) && projectable(GET_FLOOR_PTR(B), MAX_RANGE_SUB, (B)->fy, (B)->fx, (A)->fy, (A)->fx)))))
 
 /*** Option Definitions ***/
 

@@ -101,7 +101,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 			}
 			else
 			{
-				if(!projectable(floor_ptr, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
+				if(!projectable(floor_ptr, project_length, m_ptr->fy, m_ptr->fx, t_ptr->fy, t_ptr->fx)) continue;
 			}
 
 			/* OK -- we've got a target */
@@ -268,7 +268,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	x1 = creature_ptr->fx;
 
 	/* Creature can already cast spell to player */
-	if(projectable(floor_ptr, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
+	if(projectable(floor_ptr, project_length, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
 
 	/* Set current grid cost */
 	now_cost = floor_ptr->cave[y1][x1].cost;
@@ -312,7 +312,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 
 		if(now_cost < cost) continue;
 
-		if(!projectable(floor_ptr, x, y, player_ptr->fy, player_ptr->fx)) continue;
+		if(!projectable(floor_ptr, project_length, x, y, player_ptr->fy, player_ptr->fx)) continue;
 
 		/* Accept louder sounds */
 		if(best < cost) continue;
@@ -382,7 +382,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
-	if(player_has_los_bold(y1, x1) && projectable(floor_ptr, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
+	if(player_has_los_bold(y1, x1) && projectable(floor_ptr, project_length, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
 
 	/* Creature grid */
 	c_ptr = &floor_ptr->cave[y1][x1];
@@ -726,7 +726,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			}
 
 			/* Check for absence of shot (more or less) */
-			if(!projectable(floor_ptr, avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
+			if(!projectable(floor_ptr, project_length, avoid_target_ptr->fy, avoid_target_ptr->fx, y, x))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, avoid_target_ptr->fy, avoid_target_ptr->fx);
@@ -802,7 +802,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			if(!creature_can_enter(y, x, m_ptr, 0)) continue;
 
 			/* Check for hidden, available grid */
-			if(!projectable(floor_ptr, player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
+			if(!projectable(floor_ptr, project_length, player_ptr->fy, player_ptr->fx, y, x) && clean_shot(player_ptr, fy, fx, y, x, FALSE))
 			{
 				/* Calculate distance from player */
 				dis = distance(y, x, player_ptr->fy, player_ptr->fx);
@@ -860,7 +860,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 		if(t_m_idx &&
 		    are_mutual_enemies(nonplayer_ptr, &creature_list[t_m_idx]) &&
 		    los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x) &&
-		    projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
+		    projectable(floor_ptr, project_length, nonplayer_ptr->fy, nonplayer_ptr->fx, nonplayer_ptr->target_y, nonplayer_ptr->target_x))
 		{
 			/* Extract the "pseudo-direction" */
 			y = nonplayer_ptr->fy - nonplayer_ptr->target_y;
@@ -870,7 +870,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	if(!done && !will_run && is_hostile(nonplayer_ptr) && has_trait(nonplayer_ptr, TRAIT_FRIENDS) &&
-	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
+	    ((los(floor_ptr, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx) && projectable(floor_ptr, project_length, nonplayer_ptr->fy, nonplayer_ptr->fx, player_ptr->fy, player_ptr->fx)) ||
 	    (floor_ptr->cave[nonplayer_ptr->fy][nonplayer_ptr->fx].dist < MAX_SIGHT / 2)))
 	{
 	/*
@@ -1470,7 +1470,7 @@ static void do_creature_speaking(creature_type *creature_ptr)
 		}
 
 		// Some creatures can speak
-		if(has_trait(creature_ptr, TRAIT_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, oy, ox, player_ptr->fy, player_ptr->fx))
+		if(has_trait(creature_ptr, TRAIT_CAN_SPEAK) && aware && one_in_(SPEAK_CHANCE) && player_has_los_bold(oy, ox) && projectable(floor_ptr, project_length, oy, ox, player_ptr->fy, player_ptr->fx))
 		{
 			creature_speaking(creature_ptr);
 		}
@@ -1721,7 +1721,7 @@ static void process_nonplayer(int m_idx)
 			/* The creature must be an enemy, and projectable */
 			if(t_m_idx &&
 			    are_mutual_enemies(creature_ptr, &creature_list[t_m_idx]) &&
-			    projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
+			    projectable(floor_ptr, project_length, creature_ptr->fy, creature_ptr->fx, creature_ptr->target_y, creature_ptr->target_x))
 			{
 				counterattack = TRUE;
 			}
@@ -2369,7 +2369,7 @@ static void process_nonplayer(int m_idx)
 			/* Possible disturb */
 			if(creature_ptr->see_others &&
 			    (disturb_move ||
-			     (disturb_near && (creature_ptr->sc_flag & SC_FLAG_VIEW) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
+			     (disturb_near && (creature_ptr->sc_flag & SC_FLAG_VIEW) && projectable(floor_ptr, project_length, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
 			     (disturb_high && ap_species_ptr->r_tkills && ap_species_ptr->level >= player_ptr->lev)))
 			{
 				/* Disturb */
@@ -3006,7 +3006,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
 	the_world = 0;
-	if(vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(floor_ptr, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
+	if(vs_player || (player_has_los_bold(m_ptr->fy, m_ptr->fx) && projectable(floor_ptr, project_length, player_ptr->fy, player_ptr->fx, m_ptr->fy, m_ptr->fx)))
 	{
 #ifdef JP
 		msg_print("u‚Í“®‚«‚¾‚·cv");

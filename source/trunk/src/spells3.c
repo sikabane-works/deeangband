@@ -1890,7 +1890,7 @@ msg_print("アイテムがコントロールを外れて落ちた。");
 
 				return;
 			}
-			else if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx))
+			else if(!projectable(floor_ptr, project_length, creature_ptr->fy, creature_ptr->fx, ty, tx))
 			{
 #ifdef JP
 				msg_print("そこは壁の向こうです。");

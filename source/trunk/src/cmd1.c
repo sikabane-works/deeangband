@@ -1477,7 +1477,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 					if(!in_bounds(floor_ptr, y1, x1)) continue;
 
 					/* Require line of projection */
-					if(!projectable(floor_ptr, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
+					if(!projectable(floor_ptr, project_length, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
 
 					if(summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_EVIL, (PC_NO_PET)))
 						evil_idx = hack_m_idx_ii;
@@ -1835,7 +1835,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 		{
-			(void)project(creature_ptr, 0, 0, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+			(void)project(creature_ptr, 0, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			if(!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 		}
 

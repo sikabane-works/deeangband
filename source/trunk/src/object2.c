@@ -3474,7 +3474,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 			if(!in_bounds(floor_ptr, ty, tx)) continue;
 
 			/* Require line of projection */
-			if(!projectable(floor_ptr, y, x, ty, tx)) continue;
+			if(!projectable(floor_ptr, project_length, y, x, ty, tx)) continue;
 
 			/* Obtain grid */
 			c_ptr = &floor_ptr->cave[ty][tx];
@@ -5132,7 +5132,7 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 			species_ptr = &species_info[attacker_ptr->species_idx];
 
 			// Creature spells (only powerful ones)
-			if(projectable(floor_ptr, my, mx, yy, xx))
+			if(projectable(floor_ptr, project_length, my, mx, yy, xx))
 			{
 				//TODO active trait attack estimation
 			}
