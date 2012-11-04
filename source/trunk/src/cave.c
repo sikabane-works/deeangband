@@ -1739,17 +1739,13 @@ void prt_path(creature_type *creature_ptr, int range, int y, int x)
 	u16b path_g[512];
 	int default_color = TERM_SLATE;
 
-	if(!display_path) return;
-	if(-1 == project_length) return;
+	if(!display_path || -1 == range) return;
 
-	/* Get projection path */
+	// Get projection path
 	path_n = project_path(path_g, (range ? range : MAX_RANGE), floor_ptr, creature_ptr->fy, creature_ptr->fx, y, x, PROJECT_PATH|PROJECT_THRU);
 
-	/* Redraw map */
-	play_redraw |= (PR_MAP);
-
-	/* Redraw stuff */
-	redraw_stuff(player_ptr);
+	play_redraw |= (PR_MAP);	// Redraw map
+	redraw_stuff(player_ptr);	// Redraw stuff
 
 	/* Draw path */
 	for (i = 0; i < path_n; i++)
