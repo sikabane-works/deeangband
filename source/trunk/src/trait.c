@@ -60,7 +60,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	if(trait_info[id].effect_type == TRAIT_EFFECT_TYPE_TARGET)
 	{
-		if(!get_aim_dir(caster_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		y = target_row;
 		x = target_col;
 	}

@@ -3053,7 +3053,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 *
 * Note that confusion over-rides any (explicit?) user choice.
 */
-bool get_aim_dir(creature_type *creature_ptr, int *dp)
+bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 {
 	int		dir;
 	char	command;
@@ -3076,7 +3076,6 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 
 	while (!dir)	// Ask until satisfied
 	{
-		
 		if(!target_okay(creature_ptr))	// Choose a prompt
 		{
 #ifdef JP
@@ -3112,7 +3111,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 		case '*':
 		case ' ':
 		case '\r':
-			if(target_set(creature_ptr, project_length, TARGET_KILL)) dir = 5;
+			if(target_set(creature_ptr, range, TARGET_KILL)) dir = 5;
 			break;
 
 		default:

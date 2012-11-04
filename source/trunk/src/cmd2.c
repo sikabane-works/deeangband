@@ -3064,7 +3064,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	project_length = tdis + 1;
 
 	/* Get a direction (or cancel) */
-	if(!get_aim_dir(creature_ptr, &dir))
+	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir))
 	{
 		creature_ptr->energy_need = 0;
 		if(creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
@@ -3827,7 +3827,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		project_length = tdis + 1;
 
 		/* Get a direction (or cancel) */
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		/* Predict the "target" location */
 		tx = creature_ptr->fx + 99 * ddx[dir];

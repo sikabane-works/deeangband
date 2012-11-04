@@ -993,7 +993,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		}
 		case CLASS_PALADIN:
 		{
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, plev * 3, 0, FALSE);
 			break;
 		}
@@ -1155,7 +1155,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		{
 			if(command == -3)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 				project_length = 1;
 				cast_beam(creature_ptr, MAX_RANGE_SUB, GF_PHOTO, 1, 0, FALSE);
 			}
@@ -1175,7 +1175,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		{
 			if(command == -3)
 			{
-				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 				(void)cast_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
 			}
 			else if(command == -4)
@@ -1438,7 +1438,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case MIMIC_DEMON_LORD:
 		{
 			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
@@ -1643,7 +1643,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_GIANT:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			(void)wall_to_mud(creature_ptr, dir);
 			break;
 
@@ -1658,7 +1658,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_CYCLOPS:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 #ifdef JP
 			msg_print("巨大な岩を投げた。");
 #else
@@ -1669,7 +1669,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_YEEK:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("身の毛もよだつ叫び声を上げた！");
@@ -1681,7 +1681,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_KLACKON:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("酸を吐いた。");
@@ -1694,7 +1694,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_KOBOLD:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 #ifdef JP
 			msg_print("毒のダーツを投げた。");
 #else
@@ -1717,7 +1717,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_DARK_ELF:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 #ifdef JP
 			msg_print("マジック・ミサイルを放った。");
 #else
@@ -1737,7 +1737,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				cptr Type_desc = ((Type == GF_COLD) ? "cold" : "fire");
 #endif
 
-				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 				if(randint1(100) < plev)
 				{
@@ -1937,7 +1937,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_MIND_FLAYER:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 #ifdef JP
 			msg_print("あなたは集中し、目が赤く輝いた...");
 #else
@@ -1948,7 +1948,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			break;
 
 		case RACE_IMP:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			if(plev >= 30)
 			{
 #ifdef JP
@@ -2049,7 +2049,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 			/*
 		case LICH:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			stop_mouth(creature_ptr);
 #ifdef JP
 			msg_print("あなたはおどろおどろしい叫び声をあげた！");
@@ -2076,7 +2076,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case RACE_BALROG:
 			{
 				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
-				if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 				stop_mouth(creature_ptr);
 #ifdef JP
 				msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
@@ -2094,7 +2094,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 /*TODO
 		case RACE_ANDROID:
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			if(plev < 10)
 			{
 #ifdef JP

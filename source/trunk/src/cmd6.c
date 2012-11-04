@@ -2986,7 +2986,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if(object_is_aware(object_ptr) && (object_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
 				      || object_ptr->sval == SV_WAND_HASTE_MONSTER))
 			target_pet = TRUE;
-	if(!get_aim_dir(creature_ptr, &dir))
+	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir))
 	{
 		target_pet = old_target_pet;
 		return;
@@ -3416,7 +3416,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	     !object_is_aware(object_ptr))
 	{
 		/* Get a direction, allow cancel */
-		if(!get_aim_dir(creature_ptr, &dir)) return;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 	}
 
 
@@ -3956,7 +3956,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(object_ptr->tval == TV_DRAG_ARMOR)
 	{
 		/* Get a direction for breathing (or abort) */
-		if(!get_aim_dir(creature_ptr, &dir)) return;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 
 		if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 		if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
@@ -4094,7 +4094,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			{
 
 			case EGO_RING_DRAGON_F:
-				if(!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 				cast_ball(creature_ptr, GF_FIRE, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_FLAMES)
 				{
@@ -4105,7 +4105,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				break;
 
 			case EGO_RING_DRAGON_C:
-				if(!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 				cast_ball(creature_ptr, GF_COLD, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_ICE)
 				{
@@ -4170,7 +4170,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 		{
 			bool old_target_pet = target_pet;
 			target_pet = TRUE;
-			if(!get_aim_dir(creature_ptr, &dir))
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir))
 			{
 				target_pet = old_target_pet;
 				return;
@@ -5076,13 +5076,13 @@ msg_print("呪文をうまく唱えられなかった！");
 		if(tval == TV_ROD)
 		{
 			if((sval >= SV_ROD_MIN_DIRECTION) && (sval != SV_ROD_HAVOC) && (sval != SV_ROD_AGGRAVATE) && (sval != SV_ROD_PESTICIDE))
-				if(!get_aim_dir(creature_ptr, &dir)) return;
+				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 			rod_effect(creature_ptr, sval, dir, &use_charge, TRUE);
 			if(!use_charge) return;
 		}
 		else if(tval == TV_WAND)
 		{
-			if(!get_aim_dir(creature_ptr, &dir)) return;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 			wand_effect(creature_ptr, sval, dir, TRUE);
 		}
 		else

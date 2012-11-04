@@ -3729,7 +3729,7 @@ void call_chaos(creature_type *creature_ptr)
 	}
 	else
 	{
-		if(!get_aim_dir(creature_ptr, &dir)) return;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 		if(line_chaos)
 			cast_beam(creature_ptr, MAX_RANGE_SUB, Chaos_type, 250, 0, FALSE);
 		else
@@ -4235,7 +4235,7 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 
 	if(mdeath) *mdeath = FALSE;
 
-	if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 	/* Use the given direction */
 	tx = creature_ptr->fx + range * ddx[dir];

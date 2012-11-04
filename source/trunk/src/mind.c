@@ -868,7 +868,7 @@ if(!b) msg_print("安全な気がする。");
 		break;
 	case 1:
 		/* Mindblast */
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		if(randint1(100) < plev * 2)
 			cast_beam(creature_ptr, MAX_RANGE_SUB, GF_PSI, diceroll(3 + ((plev - 1) / 4), (3 + plev / 15)), 0, FALSE);
@@ -887,7 +887,7 @@ if(!b) msg_print("安全な気がする。");
 		/* Domination */
 		if(plev < 30)
 		{
-			if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 			cast_ball(creature_ptr, GF_DOMINATION, dir, plev, 0);
 		}
@@ -898,7 +898,7 @@ if(!b) msg_print("安全な気がする。");
 		break;
 	case 5:
 		/* Fist of Force  ---  not 'true' TK  */
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		cast_ball(creature_ptr, GF_TELEKINESIS, dir, diceroll(8 + ((plev - 5) / 4), 8),
 			(plev > 20 ? (plev - 20) / 8 + 1 : 0));
@@ -953,14 +953,14 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		break;
 	case 10:
 		/* Telekinesis */
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		fetch(creature_ptr, MAX_RANGE, dir, plev * 15, FALSE);
 
 		break;
 	case 11:
 		/* Psychic Drain */
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		b = diceroll(plev / 2, 6);
 
@@ -970,7 +970,7 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		break;
 	case 12:
 		/* psycho-spear */
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_PSY_SPEAR, randint1(plev*3)+plev*3, 0, FALSE);
 		break;
@@ -1038,7 +1038,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	switch (spell)
 	{
 	case 0:
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		cast_ball(creature_ptr, GF_MISSILE, dir, diceroll(3 + ((plev - 1) / 5) + boost / 12, 4), 0);
 		break;
 	case 1:
@@ -1049,7 +1049,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	case 3:
 		project_length = plev / 8 + 3;
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MISSILE, diceroll(5 + ((plev - 1) / 5) + boost / 10, 5), 0, FALSE);
 		break;
@@ -1087,7 +1087,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 	{
 		int y, x, dam;
 		project_length = 1;
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		y = creature_ptr->fy + ddy[dir];
 		x = creature_ptr->fx + ddx[dir];
@@ -1150,7 +1150,7 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 		break;
 	}
 	case 8:
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		cast_ball(creature_ptr, GF_MISSILE, dir, diceroll(10, 6) + plev * 3 / 2 + boost * 3 / 5, (plev < 30) ? 2 : 3);
 		break;
 	case 9:
@@ -1195,7 +1195,7 @@ msg_print("御用でございますが、御主人様？");
 		cast_ball(creature_ptr, GF_FIRE, 0, 200 + (2 * plev) + boost * 2, 10);
 		break;
 	case 12:
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 
 		cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MANA, diceroll(10 + (plev / 2) + boost * 3 / 10, 15), 0, FALSE);
 		break;
@@ -1272,7 +1272,7 @@ msg_format("There are too many mirrors to control!");
 	  }
 	  break;
 	case 2:
-	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 	  if( plev > 9 && is_mirror_grid(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx]) ) {
 	    cast_beam(creature_ptr, MAX_RANGE_SUB, GF_LITE, diceroll(3+((plev-1)/5),4), 0, FALSE);
 	  }
@@ -1298,12 +1298,12 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* banishing mirror */
 	case 7:
-	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 	  (void)cast_beam(creature_ptr, MAX_RANGE_SUB, GF_AWAY_ALL, plev, 0, FALSE);
 	  break;
 	/* mirror clashing */
 	case 8:
-	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 	  cast_ball(creature_ptr, GF_SHARDS, dir, diceroll(8 + ((plev - 5) / 4), 8),
 		    (plev > 20 ? (plev - 20) / 8 + 1 : 0));
 	  break;
@@ -1319,7 +1319,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* seeker ray */
 	case 10:
-	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 	  cast_beam(creature_ptr, MAX_RANGE_SUB, GF_SEEKER, diceroll(11+(plev-5)/4,8), 0, FALSE);
 	  break;
 	/* seal of mirror */
@@ -1335,7 +1335,7 @@ msg_format("There are too many mirrors to control!");
 	  break;
 	/* super ray */
 	case 13:
-	  if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+	  if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 	  cast_beam(creature_ptr, MAX_RANGE_SUB, GF_SUPER_RAY, 150+randint1(2*plev), 0, FALSE);
 	  break;
 	/* illusion light */
@@ -1596,7 +1596,7 @@ msg_print("その方向にはクリーチャーはいません。");
 	}
 	case 6:
 	{
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		(void)stasis_creature(creature_ptr, dir);
 		break;
 	}
@@ -1718,12 +1718,12 @@ msg_print("その方向にはクリーチャーはいません。");
 		break;
 	}
 	case 13:
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		cast_ball(creature_ptr, GF_OLD_CONF, dir, plev*3, 3);
 		break;
 	case 14:
 		project_length = -1;
-		if(!get_aim_dir(creature_ptr, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 		(void)teleport_swap(creature_ptr, dir);
 		break;
 	case 15:
