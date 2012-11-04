@@ -2620,11 +2620,8 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				project_length = range;
-
 				if(!get_aim_dir(caster_ptr, &dir)) return NULL;
-
-				cast_beam(caster_ptr, MAX_RANGE_SUB, GF_ELEC, diceroll(dice, sides), 0, FALSE);
+				cast_beam(caster_ptr, range, GF_ELEC, diceroll(dice, sides), 0, FALSE);
 			}
 		}
 		break;
