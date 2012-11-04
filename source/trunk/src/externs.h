@@ -1567,9 +1567,9 @@ extern void get_exp_from_mon(creature_type *attacker_ptr, int dam, creature_type
 extern void format_weight(char * buf, int weight);
 extern void msg_warning(cptr message, ...);
 
-/* mspells1.c */
+// mspells1.c
 extern bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool friend);
-extern void cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable);
+extern bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable);
 extern bool summon_possible(creature_type *target_ptr, int y1, int x1);
 extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);

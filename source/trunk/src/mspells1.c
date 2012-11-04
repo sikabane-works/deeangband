@@ -515,9 +515,9 @@ bool project_hook(creature_type *caster_ptr, int range, int typ, int dir, int da
  * Stop if we hit a creature
  * Affect creatures and the player
  */
-void cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable)
+bool cast_bolt(creature_type *caster_ptr, int typ, int dam, int monspell, bool learnable)
 {
-	(void)project(caster_ptr, 0, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
+	return project(caster_ptr, 0, 0, target_col, target_row, dam, typ, PROJECT_STOP | PROJECT_GRID | PROJECT_KILL | PROJECT_REFLECTABLE, (learnable ? monspell : -1));
 }
 
 /*
@@ -535,15 +535,8 @@ bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int monsp
  */
 bool cast_bolt_or_beam_(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
 {
-	if(randint0(100) < prob)
-	{
-		return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0, FALSE));
-	}
-	else
-	{
-		return TRUE;
-		(cast_bolt(caster_ptr, typ, dam, 0, FALSE));
-	}
+	if(randint0(100) < prob) return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0, FALSE));
+	else return cast_bolt(caster_ptr, typ, dam, 0, FALSE);
 }
 
 
@@ -592,18 +585,9 @@ u32b get_curse(int power, object_type *object_ptr)
 	while(1)
 	{
 		new_curse = (1 << (randint0(MAX_CURSE) + 4));
-		if(power == 2)
-		{
-			if(!(new_curse & TRC_HEAVY_MASK)) continue;
-		}
-		else if(power == 1)
-		{
-			if(new_curse & TRC_SPECIAL_MASK) continue;
-		}
-		else if(power == 0)
-		{
-			if(new_curse & TRC_HEAVY_MASK) continue;
-		}
+		if(power == 2) if(!(new_curse & TRC_HEAVY_MASK)) continue;
+		else if(power == 1) if(new_curse & TRC_SPECIAL_MASK) continue;
+		else if(power == 0) if(new_curse & TRC_HEAVY_MASK) continue;
 		if(new_curse == TRAIT_LOW_MELEE && !object_is_weapon(object_ptr)) continue;
 		if(new_curse == TRAIT_LOW_AC && !object_is_armour(object_ptr)) continue;
 		break;
@@ -622,11 +606,9 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	char object_name[MAX_NLEN];
 
 	if(randint1(100) > chance) return;
-
 	if(!is_valid_object(object_ptr)) return;
 
 	object_flags(object_ptr, oflgs);
-
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	/* Extra, biased saving throw for blessed items */
@@ -637,16 +619,12 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 #else
 		msg_format("%s's %s resist%s cursing!", creature_ptr->name, object_name, ((object_ptr->number > 1) ? "" : "s"));
 #endif
-			
-		/* Hmmm -- can we wear multiple items? If not, this is unnecessary */
-		return;
+		return;	// Hmmm -- can we wear multiple items? If not, this is unnecessary
 	}
 
-	if((randint1(100) <= heavy_chance) &&
-	    (object_is_artifact(object_ptr) || object_is_ego(object_ptr)))
+	if((randint1(100) <= heavy_chance) && (object_is_artifact(object_ptr) || object_is_ego(object_ptr)))
 	{
-		if(!(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)))
-			changed = TRUE;
+		if(!(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))) changed = TRUE;
 		add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
 		add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 		curse_power++;
@@ -669,11 +647,10 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	if(changed)
 	{
 #ifdef JP
-msg_format("悪意に満ちた黒いオーラが%sの%sをとりまいた...", creature_ptr->name, object_name);
+		msg_format("悪意に満ちた黒いオーラが%sの%sをとりまいた...", creature_ptr->name, object_name);
 #else
 		msg_format("There is a malignant black aura surrounding %s's %s...", creature_ptr->name, object_name);
 #endif
-
 		object_ptr->feeling = FEEL_NONE;
 	}
 	creature_ptr->creature_update |= (CRU_BONUS);
