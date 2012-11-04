@@ -2392,14 +2392,7 @@ static void you_died(cptr hit_from)
 			}
 			else
 			{
-				if(winning_seppuku)
-				{
-	#ifdef JP
-					get_rnd_line("seppuku_j.txt", 0, death_message);
-	#else
-					get_rnd_line("seppuku.txt", 0, death_message);
-	#endif
-				}
+				if(winning_seppuku) get_rnd_line(game_messages[MESSAGE_FILES_SEPPUKU], 0, death_message);
 				else get_rnd_line(game_messages[MESSAGE_FILES_DEATH], 0, death_message);
 	
 				do
