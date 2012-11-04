@@ -1724,7 +1724,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You cast a magic missile.");
 #endif
 
-			cast_bolt_or_beam_(creature_ptr, 10, GF_MISSILE, dir,
+			cast_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
 			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 

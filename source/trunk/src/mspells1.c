@@ -533,7 +533,7 @@ bool cast_beam(creature_type *caster_ptr, int range, int typ, int dam, int monsp
 /*
  * Cast a bolt spell, or rarely, a beam spell
  */
-bool cast_bolt_or_beam_(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
+bool cast_bolt_or_beam(creature_type *caster_ptr, int prob, int typ, int dir, int dam)
 {
 	if(randint0(100) < prob) return (cast_beam(caster_ptr, MAX_RANGE_SUB, typ, dam, 0, FALSE));
 	else return cast_bolt(caster_ptr, typ, dam, 0, FALSE);
