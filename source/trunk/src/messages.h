@@ -107,6 +107,7 @@ static const cptr message_files[]=
 	"w_med_j.txt",
 	"w_high_j.txt",
 	"chainswd_j.txt",
+	"error_j.txt",
 #else
 	"a_cursed.txt",
 	"a_low.txt",
@@ -117,6 +118,7 @@ static const cptr message_files[]=
 	"w_med.txt",
 	"w_high.txt",
 	"chainswd.txt",
+	"error.txt",
 #endif
 };
 
@@ -130,5 +132,6 @@ enum MESSAGE_FILES
 	MESSAGE_FILES_WEAPON_LOW_ARTIFACT,
 	MESSAGE_FILES_WEAPON_MED_ARTIFACT,
 	MESSAGE_FILES_WEAPON_HIGH_ARTIFACT,
-	MESSAGE_FILES_WEAPON_CHAINSWORD,
+	MESSAGE_FILES_CHAINSWORD,
+	MESSAGE_FILES_ERROR,
 };

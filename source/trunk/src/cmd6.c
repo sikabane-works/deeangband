@@ -1920,16 +1920,11 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			switch (randint1(20))
 			{
 				case 1:
-					err = get_rnd_line(message_files[MESSAGE_FILES_WEAPON_CHAINSWORD], 0, Rumor);
+					err = get_rnd_line(message_files[MESSAGE_FILES_CHAINSWORD], 0, Rumor);
 					break;
 
 				case 2:
-#ifdef JP
-					err = get_rnd_line("error_j.txt", 0, Rumor);
-#else
-					err = get_rnd_line("error.txt", 0, Rumor);
-#endif
-
+					err = get_rnd_line(game_messages[MESSAGE_FILES_ERROR], 0, Rumor);
 					break;
 
 				case 3:
