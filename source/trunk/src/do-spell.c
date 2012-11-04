@@ -5410,9 +5410,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				bool result;
 
-				/* HACK -- No range limit */
-				project_length = -1;
-				result = get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir);
+				result = get_aim_dir(caster_ptr, NO_RANGE_LIMIT, &dir);
 				if(!result) return NULL;
 
 				teleport_swap(caster_ptr, dir);
@@ -10146,9 +10144,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
     
 		if(cast)
 		{
-			project_length = 2;
-			if(!get_aim_dir(caster_ptr, MAX_RANGE_SUB, &dir)) return NULL;
-
+			if(!get_aim_dir(caster_ptr, 2, &dir)) return NULL;
 			project_hook(caster_ptr, MAX_RANGE_SUB,GF_ATTACK, dir, HISSATSU_2, PROJECT_STOP | PROJECT_KILL);
 		}
 		break;

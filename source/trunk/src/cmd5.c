@@ -2591,8 +2591,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 		case PET_TARGET:
 		{
-			project_length = -1;
-			if(!target_set(master_ptr, 0, TARGET_KILL)) pet_t_m_idx = 0;
+			if(!target_set(master_ptr, NO_RANGE_LIMIT, TARGET_KILL)) pet_t_m_idx = 0;
 			else
 			{
 				cave_type *c_ptr = &floor_ptr->cave[target_row][target_col];

@@ -355,6 +355,7 @@
 #define MAX_SIGHT       20      /* Maximum view distance */
 #define MAX_RANGE       (floor_ptr->gamble_arena_mode ? 36 : 18) /* Maximum range (spells, etc) */
 #define MAX_RANGE_SUB   36
+#define NO_RANGE_LIMIT	-1
 #define AAF_LIMIT       100     /* Limit of sensing radius */
 
 #define MAX_DUNEGON_FORTLESS 30
