@@ -2400,14 +2400,7 @@ static void you_died(cptr hit_from)
 					get_rnd_line("seppuku.txt", 0, death_message);
 	#endif
 				}
-				else
-				{
-	#ifdef JP
-					get_rnd_line("death_j.txt", 0, death_message);
-	#else
-					get_rnd_line("death.txt", 0, death_message);
-	#endif
-				}
+				else get_rnd_line(game_messages[MESSAGE_FILES_DEATH], 0, death_message);
 	
 				do
 				{
@@ -2777,12 +2770,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				char line_got[1024];
 	
 				// Dump a message
-	#ifdef JP
-				if(!get_rnd_line("mondeath_j.txt", target_ptr->species_idx, line_got))
-	#else
-				if(!get_rnd_line("mondeath.txt", target_ptr->species_idx, line_got))
-	#endif
-	
+				if(!get_rnd_line(game_messages[MESSAGE_FILES_DEATH], target_ptr->species_idx, line_got))	
 					msg_format("%^s %s", tar_name, line_got);
 	
 	#ifdef WORLD_SCORE

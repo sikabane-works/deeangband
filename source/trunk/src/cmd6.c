@@ -1930,12 +1930,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 				case 3:
 				case 4:
 				case 5:
-#ifdef JP
-					err = get_rnd_line("death_j.txt", 0, Rumor);
-#else
-					err = get_rnd_line("death.txt", 0, Rumor);
-#endif
-
+					err = get_rnd_line(game_messages[MESSAGE_FILES_DEATH], 0, Rumor);
 					break;
 
 				default:
