@@ -1920,12 +1920,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			switch (randint1(20))
 			{
 				case 1:
-#ifdef JP
-					err = get_rnd_line("chainswd_j.txt", 0, Rumor);
-#else
-					err = get_rnd_line("chainswd.txt", 0, Rumor);
-#endif
-
+					err = get_rnd_line(message_files[MESSAGE_FILES_WEAPON_CHAINSWORD], 0, Rumor);
 					break;
 
 				case 2:
@@ -1961,22 +1956,16 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			/* An error occured */
 #ifdef JP
 			if(err) strcpy(Rumor, "嘘の噂もある。");
-#else
-			if(err) strcpy(Rumor, "Some rumors are wrong.");
-#endif
-
-
-#ifdef JP
 			msg_print("巻物にはメッセージが書かれている:");
 #else
+			if(err) strcpy(Rumor, "Some rumors are wrong.");
 			msg_print("There is message on the scroll. It says:");
 #endif
-
 			msg_print(NULL);
 			msg_format("%s", Rumor);
 			msg_print(NULL);
 #ifdef JP
-msg_print("巻物は煙を立てて消え去った！");
+			msg_print("巻物は煙を立てて消え去った！");
 #else
 			msg_print("The scroll disappears in a puff of smoke!");
 #endif
@@ -2077,10 +2066,7 @@ msg_print("巻物は煙を立てて消え去った！");
 
 
 	/* Hack -- allow certain scrolls to be "preserved" */
-	if(!used_up)
-	{
-		return;
-	}
+	if(!used_up) return;
 
 	sound(SOUND_SCROLL);
 
@@ -2108,10 +2094,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Check some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND))
@@ -2121,7 +2104,6 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 #else
 		msg_print("You can't see anything.");
 #endif
-
 		return;
 	}
 	if(no_lite(creature_ptr))
@@ -2153,21 +2135,11 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
+	
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
+	else object_ptr = &object_list[0 - item];	// Get the item (on the floor)
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
-	/* Read the scroll */
-	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(object_ptr));
+	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(object_ptr));	// Read the scroll
 }
 
 
@@ -2205,12 +2177,8 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		case SV_STAFF_SUMMONING:
 		{
 			for (k = 0; k < randint1(4); k++)
-			{
 				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
-				{
 					ident = TRUE;
-				}
-			}
 			break;
 		}
 
@@ -2381,7 +2349,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 #else
 				msg_print("You feel your head clear.");
 #endif
-
 				play_redraw |= (PR_MANA);
 				play_window |= (PW_PLAYER);
 				play_window |= (PW_SPELL);
@@ -2453,12 +2420,10 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				ident = TRUE;
 			else
 #ifdef JP
-msg_print("ダンジョンが揺れた。");
+				msg_print("ダンジョンが揺れた。");
 #else
 				msg_print("The dungeon trembles.");
 #endif
-
-
 			break;
 		}
 

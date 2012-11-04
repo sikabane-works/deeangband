@@ -2625,12 +2625,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_CHAINSWORD) && one_in_(CHAINSWORD_NOISE))
 	{
 		char noise[1024];
-#ifdef JP
-		if(!get_rnd_line("chainswd_j.txt", 0, noise))
-#else
-		if(!get_rnd_line("chainswd.txt", 0, noise))
-#endif
-			msg_print(noise);
+		if(!get_rnd_line(message_files[MESSAGE_FILES_WEAPON_CHAINSWORD], 0, noise)) msg_print(noise);
 		disturb(player_ptr, FALSE, FALSE);
 	}
 

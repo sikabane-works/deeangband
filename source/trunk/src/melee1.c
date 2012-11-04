@@ -303,14 +303,8 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 				if((weapon_ptr->name1 == ART_CHAINSWORD) && !one_in_(2))
 				{
 					char chainsword_noise[1024];
-#ifdef JP
-					if(!get_rnd_line("chainswd_j.txt", 0, chainsword_noise))
-#else
-					if(!get_rnd_line("chainswd.txt", 0, chainsword_noise))
-#endif
-					{
+					if(!get_rnd_line(message_files[MESSAGE_FILES_WEAPON_CHAINSWORD], 0, chainsword_noise))
 						msg_print(chainsword_noise);
-					}
 				}
 
 				if(weapon_ptr->name1 == ART_VORPAL_BLADE)
