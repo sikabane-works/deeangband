@@ -679,95 +679,49 @@ msg_format("ˆ«ˆÓ‚É–ž‚¿‚½•‚¢ƒI[ƒ‰‚ª%s‚Ì%s‚ð‚Æ‚è‚Ü‚¢‚½...", creature_ptr->name, 
 	creature_ptr->creature_update |= (CRU_BONUS);
 }
 
-
-/*
- * Check should creature cast dispel spell.
- */
+// Check should creature cast dispel spell.
 bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 {
+	if(IS_INVULN(target_ptr)) return (TRUE);	// Invulnabilty (including the song)	
+	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) return (TRUE);	// Wraith form
+	if(target_ptr->timed_trait[TRAIT_SHIELD]) return (TRUE);	// Shield
+	if(target_ptr->timed_trait[TRAIT_MAGIC_DEF]) return (TRUE);	// Magic defence
+	if(target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return (TRUE);	// Multi Shadow
+	if(target_ptr->timed_trait[TRAIT_DUST_ROBE]) return (TRUE);	// Robe of dust
+	if(target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);	// Berserk Strength
 
-	/* Invulnabilty (including the song) */
-	if(IS_INVULN(target_ptr)) return (TRUE);
-
-	/* Wraith form */
-	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) return (TRUE);
-
-	/* Shield */
-	if(target_ptr->timed_trait[TRAIT_SHIELD]) return (TRUE);
-
-	/* Magic defence */
-	if(target_ptr->timed_trait[TRAIT_MAGIC_DEF]) return (TRUE);
-
-	/* Multi Shadow */
-	if(target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return (TRUE);
-
-	/* Robe of dust */
-	if(target_ptr->timed_trait[TRAIT_DUST_ROBE]) return (TRUE);
-
-	/* Berserk Strength */
-	if(target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);
-
-	// Elemental resistances
 	if(has_trait(caster_ptr, TRAIT_BR_ACID))
-	{
 		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
-	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_FIRE))
-	{
-		if(!(has_trait(target_ptr, TRAIT_DEMON) && target_ptr->lev > 44)) //TODO
-		{
-			if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
-		}
-	}
+		if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
 
 	if(has_trait(caster_ptr, TRAIT_BR_ELEC))
-	{
 		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
-	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_COLD))
-	{
 		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
-	}
 
 	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
-	{
-		if(!((target_ptr->class_idx == CLASS_NINJA) && caster_ptr->lev > 44))
-		{
-			if(target_ptr->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return (TRUE);
-		}
-	}
+		if(target_ptr->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return (TRUE);
 
-	/* Ultimate resistance */
-	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return (TRUE);	// Ultimate resistance
+	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return (TRUE);	// Potion of Neo Tsuyosi special
 
-	/* Potion of Neo Tsuyosi special */
-	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return (TRUE);
-
-	/* Elemental Brands */
+	// Elemental Brands
 	if(target_ptr->timed_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return (TRUE);
 	if(target_ptr->timed_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return (TRUE);
 	if(target_ptr->timed_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return (TRUE);
 	if(target_ptr->timed_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return (TRUE);
 	if(target_ptr->timed_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return (TRUE);
 
-	/* Speed */
-	if(target_ptr->speed < 145)
-	{
-		if(IS_FAST(target_ptr)) return (TRUE);
-	}
+	if(target_ptr->speed < 35) if(IS_FAST(target_ptr)) return (TRUE);	// Speed
+	if(target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 26)) return (TRUE);	// Light speed
 
-	/* Light speed */
-	if(target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 136)) return (TRUE);
-
-	if(target_ptr->riding && (creature_list[target_ptr->riding].speed < 135))
-	{
+	if(target_ptr->riding && (creature_list[target_ptr->riding].speed < 25))
 		if(creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return (TRUE);
-	}
 
-	/* No need to cast dispel spell */
-	return (FALSE);
+	return (FALSE);	// No need to cast dispel spell
 }
 
 
