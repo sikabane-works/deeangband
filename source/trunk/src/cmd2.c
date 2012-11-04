@@ -2990,7 +2990,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	int dir;
+	int dir, range;
 	int i, j, y, x, ny, nx, ty, tx, prev_y, prev_x;
 	int tdam_base, tdis, thits, tmul;
 	int bonus, chance = 0;
@@ -3061,7 +3061,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			tdis -= 5;
 	}
 
-	project_length = tdis + 1;
+	range = tdis + 1;
 
 	/* Get a direction (or cancel) */
 	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir))
@@ -3083,15 +3083,12 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	}
 
 	/* Get projection path length */
-	tdis = project_path(path_g, project_length, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
+	tdis = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_PATH|PROJECT_THRU) - 1;
 
-	/* Don't shoot at my feet */
+	// Don't shoot at my feet / project_length is already reset to 0
 	if(tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
 		creature_ptr->energy_need = 0;
-
-		/* project_length is already reset to 0 */
-
 		return;
 	}
 
@@ -3824,10 +3821,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 	else
 	{
-		project_length = tdis + 1;
-
-		/* Get a direction (or cancel) */
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
+		if(!get_aim_dir(creature_ptr, tdis + 1, &dir)) return FALSE;
 
 		/* Predict the "target" location */
 		tx = creature_ptr->fx + 99 * ddx[dir];
