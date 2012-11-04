@@ -2443,11 +2443,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_TAKE_PHOTO:
-		{
-			project_length = 1;
-			cast_beam(caster_ptr, MAX_RANGE_SUB, GF_PHOTO, 1, 0, FALSE);
-			break;
-		}
+		cast_beam(caster_ptr, 1, GF_PHOTO, 1, 0, FALSE);
+		break;
 
 	case TRAIT_DOUBLE_REVENGE:
 		{
@@ -2950,7 +2947,6 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_SWAP_POS:
-		project_length = -1;
 		(void)teleport_swap(caster_ptr, dir);
 		break;
 

@@ -17,9 +17,6 @@
 static int do_thrown_from_ridingdam_m;
 static int do_thrown_from_ridingdam_p;
 
-int project_length = 0;
-
-
 // Get another mirror. for SEEKER 
 static void next_mirror(floor_type *floor_ptr, int* next_y, int* next_x, int cury, int curx)
 {
