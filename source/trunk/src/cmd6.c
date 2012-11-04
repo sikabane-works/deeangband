@@ -2533,22 +2533,11 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	int         ident, chance, lev;
 	object_type *object_ptr;
 
-
 	/* Hack -- let staffs of identify get aborted */
 	bool use_charge = TRUE;
 
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
+	else object_ptr = &object_list[0 - item];	// Get the item (on the floor)
 
 
 	/* Mega-Hack -- refuse to use a pile from the ground */
@@ -2559,17 +2548,15 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("You must first pick up the staffs.");
 #endif
-
 		return;
 	}
-
 
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Extract the item level */
 	lev = object_kind_info[object_ptr->k_idx].level;
-	if(lev > 50) lev = 50 + (lev - 50)/2;
+	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
 	/* Base chance of success */
 	chance = creature_ptr->skill_dev;
@@ -2581,10 +2568,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	chance = chance - lev;
 
 	/* Give everyone a (slight) chance */
-	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1))
-	{
-		chance = USE_DEVICE;
-	}
+	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE;
 
 	if(creature_ptr->time_stopper)
 	{
@@ -2594,7 +2578,6 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("Nothing happen. Maybe this staff is freezing too.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2608,7 +2591,6 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("You failed to use the staff properly.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2622,7 +2604,6 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("The staff has no charges left.");
 #endif
-
 		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
@@ -2632,10 +2613,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-
-	/* Sound */
-	sound(SOUND_ZAP);
-
+	sound(SOUND_ZAP);	// Sound
 	ident = staff_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE, object_is_aware(object_ptr));
 
 
@@ -2655,57 +2633,30 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	/* Window stuff */
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 
-
-	/* Hack -- some uses are "free" */
-	if(!use_charge) return;
-
-
-	/* Use a single charge */
-	object_ptr->pval--;
+	if(!use_charge) return;	// Hack -- some uses are "free"
+	object_ptr->pval--;	// Use a single charge
 
 	/* XXX Hack -- unstack if necessary */
 	if((item >= 0) && (object_ptr->number > 1))
 	{
 		object_type forge;
 		object_type *quest_ptr;
-
-		/* Get local object */
-		quest_ptr = &forge;
-
-		/* Obtain a local object */
-		object_copy(quest_ptr, object_ptr);
-
-		/* Modify quantity */
-		quest_ptr->number = 1;
-
-		/* Restore the charges */
-		object_ptr->pval++;
-
-		/* Unstack the used item */
-		object_ptr->number--;
+		quest_ptr = &forge;	// Get local object
+		object_copy(quest_ptr, object_ptr);	// Obtain a local object
+		quest_ptr->number = 1;	// Modify quantity
+		object_ptr->pval++;	// Restore the charges
+		object_ptr->number--;	// Unstack the used item
 		set_inventory_weight(creature_ptr);
 		item = inven_carry(creature_ptr, quest_ptr);
-
-		/* Message */
 #ifdef JP
 		msg_print("ñ‚ð‚Ü‚Æ‚ß‚È‚¨‚µ‚½B");
 #else
 		msg_print("You unstack your staff.");
 #endif
-
 	}
 
-	/* Describe charges in the pack */
-	if(item >= 0)
-	{
-		inven_item_charges(creature_ptr, item);
-	}
-
-	/* Describe charges on the floor */
-	else
-	{
-		floor_item_charges(0 - item);
-	}
+	if(item >= 0) inven_item_charges(creature_ptr, item);	// Describe charges in the pack
+	else floor_item_charges(0 - item);	// Describe charges on the floor
 }
 
 
@@ -2812,7 +2763,6 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 #else
 			msg_print("A line of blue shimmering light appears.");
 #endif
-
 			(void)lite_line(creature_ptr, dir);
 			ident = TRUE;
 			break;
