@@ -3112,7 +3112,7 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 		case '*':
 		case ' ':
 		case '\r':
-			if(target_set(creature_ptr, 0, TARGET_KILL)) dir = 5;
+			if(target_set(creature_ptr, project_length, TARGET_KILL)) dir = 5;
 			break;
 
 		default:
@@ -3124,22 +3124,13 @@ bool get_aim_dir(creature_type *creature_ptr, int *dp)
 		if(!dir) bell();	// Error
 	}
 
-	/* No direction */
-	if(!dir)
-	{
-		return (FALSE);
-	}
+	if(!dir) return (FALSE); // No direction
 
 	/* Save the direction */
 	command_dir = dir;
 
-	/* Check for confusion */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
-	{
-		/* XXX XXX XXX */
-		/* Random direction */
-		dir = ddd[randint0(8)];
-	}
+	// Check for confusion / Random direction
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) dir = ddd[randint0(8)];
 
 	/* Notice confusion */
 	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
