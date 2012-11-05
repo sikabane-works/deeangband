@@ -2327,26 +2327,11 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	// Brain smash
 	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
-		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-		}
-		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_PARALYZED, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
-		}
-		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0))
-		{
-			(void)do_dec_stat(watcher_ptr, STAT_INT);
-		}
-		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0))
-		{
-			(void)do_dec_stat(watcher_ptr, STAT_WIS);
-		}
-		if(!watcher_ptr->resist_chaos)
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
-		}
+		if(!has_trait(watcher_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
+		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, FALSE);
+		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_INT);
+		while (!saving_throw(watcher_ptr, SAVING_VO, power, 0)) (void)do_dec_stat(watcher_ptr, STAT_WIS);
+		if(!watcher_ptr->resist_chaos) (void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150, FALSE);
 		return;
 	}
 
@@ -2360,7 +2345,6 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 #else
 			msg_print("You forget everything in your utmost terror!");
 #endif
-
 		}
 		return;
 	}
