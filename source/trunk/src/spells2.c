@@ -2242,13 +2242,10 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	bool            map[32][32];
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
-
 	if(r > EARTHQUAKE_MAX_RANGE) r = EARTHQUAKE_MAX_RANGE;	// Paranoia -- Enforce maximum range
+	for (y = 0; y < 32; y++) for (x = 0; x < 32; x++) map[y][x] = FALSE; // Clear the "maximal blast" area
 
-	/* Clear the "maximal blast" area */
-	for (y = 0; y < 32; y++) for (x = 0; x < 32; x++) map[y][x] = FALSE;
-
-	/* Check around the epicenter */
+	// Check around the epicenter
 	for (dy = -r; dy <= r; dy++)
 	{
 		for (dx = -r; dx <= r; dx++)
@@ -2268,65 +2265,49 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 		}
 	}
 
-	/* Examine the quaked region */
+	// Examine the quaked region
 	for (dy = -r; dy <= r; dy++)
 	{
 		for (dx = -r; dx <= r; dx++)
 		{
-			/* Extract the location */
+			// Extract the location
 			yy = cy + dy;
 			xx = cx + dx;
 
-			/* Skip unaffected grids */
-			if(!map[16+yy-cy][16+xx-cx]) continue;
-
-			/* Access the grid */
-			c_ptr = &floor_ptr->cave[yy][xx];
+			if(!map[16+yy-cy][16+xx-cx]) continue; // Skip unaffected grids
+			c_ptr = &floor_ptr->cave[yy][xx]; // Access the grid
 
 			if(c_ptr->creature_idx == caster_ptr->riding) continue;
 
-			/* Process creatures */
-			if(c_ptr->creature_idx)
+			if(c_ptr->creature_idx) // Process creatures
 			{
-				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-
-				// Quest creatures / No wall on quest creatures
-				if(has_trait(m_ptr, TRAIT_QUESTOR))
+				creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
+				if(has_trait(target_ptr, TRAIT_QUESTOR)) // Quest creatures / No wall on quest creatures
 				{
 					map[16+yy-cy][16+xx-cx] = FALSE;
 					continue;
 				}
 
 				// First, affect the player (if necessary)
-				if(!has_trait(m_ptr, TRAIT_PASS_WALL) && !has_trait(m_ptr, TRAIT_KILL_WALL))
+				if(!has_trait(target_ptr, TRAIT_PASS_WALL) && !has_trait(target_ptr, TRAIT_KILL_WALL))
 				{
-					/* Check around the player */
-					for (i = 0; i < 8; i++)
+					for (i = 0; i < 8; i++)	// Check around the player
 					{
-						/* Access the location */
-						y = m_ptr->fy + ddy_ddd[i];
-						x = m_ptr->fx + ddx_ddd[i];
+						// Access the location
+						y = target_ptr->fy + ddy_ddd[i];
+						x = target_ptr->fx + ddx_ddd[i];
 
-						/* Skip non-empty grids */
-						if(!cave_empty_bold(floor_ptr, y, x)) continue;
-
-						/* Important -- Skip "quake" grids */
-						if(map[16+y-cy][16+x-cx]) continue;
-
+						if(!cave_empty_bold(floor_ptr, y, x)) continue; // Skip non-empty grids
+						if(map[16+y-cy][16+x-cx]) continue; // Important -- Skip "quake" grids
 						if(floor_ptr->cave[y][x].creature_idx) continue;
 
-						/* Count "safe" grids */
-						sn++;
-
-						/* Randomize choice */
-						if(randint0(sn) > 0) continue;
-
-						/* Save the safe location */
-						sy = y; sx = x;
+						sn++; // Count "safe" grids
+						if(randint0(sn) > 0) continue; // Randomize choice
+						sy = y; sx = x;	// Save the safe location
 					}
 
 					/* Random message */
-					if(is_player(m_ptr))
+					if(is_player(target_ptr))
 					{
 						switch (randint1(3))
 						{
@@ -2342,30 +2323,26 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						}
 					}
 
-					/* Hurt the player a lot */
+					// Hurt the player a lot / Message and damage
 					if(!sn)
 					{
-						/* Message and damage */
 #ifdef JP
-						if(is_player(m_ptr)) msg_print("あなたはひどい怪我を負った！");
+						if(is_player(target_ptr)) msg_print("あなたはひどい怪我を負った！");
 #else
-						if(is_player(m_ptr)) msg_print("You are severely crushed!");
+						if(is_player(target_ptr)) msg_print("You are severely crushed!");
 #endif
 						damage = 200;
 					}
-
-					/* Destroy the grid, and push the player to safety */
-					else
+					else // Destroy the grid, and push the player to safety
 					{
-						/* Calculate results */
-						switch (randint1(3))
+						switch (randint1(3)) // Calculate results
 						{
 						case 1:
 							{
 #ifdef JP
-								if(is_player(m_ptr)) msg_print("降り注ぐ岩をうまく避けた！");
+								if(is_player(target_ptr)) msg_print("降り注ぐ岩をうまく避けた！");
 #else
-								if(is_player(m_ptr)) msg_print("You nimbly dodge the blast!");
+								if(is_player(target_ptr)) msg_print("You nimbly dodge the blast!");
 #endif
 								damage = 0;
 								break;
@@ -2373,51 +2350,45 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						case 2:
 							{
 #ifdef JP
-								if(is_player(m_ptr)) msg_print("岩石があなたに直撃した!");
+								if(is_player(target_ptr)) msg_print("岩石があなたに直撃した!");
 #else
-								if(is_player(m_ptr)) msg_print("You are bashed by rubble!");
+								if(is_player(target_ptr)) msg_print("You are bashed by rubble!");
 #endif
 								damage = diceroll(10, 4);
-								(void)set_timed_trait(m_ptr, TRAIT_STUN, m_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 								break;
 							}
 						case 3:
 							{
 #ifdef JP
-								if(is_player(m_ptr)) msg_print("あなたは床と壁との間に挟まれてしまった！");
+								if(is_player(target_ptr)) msg_print("あなたは床と壁との間に挟まれてしまった！");
 #else
-								if(is_player(m_ptr)) msg_print("You are crushed between the floor and ceiling!");
+								if(is_player(target_ptr)) msg_print("You are crushed between the floor and ceiling!");
 #endif
 								damage = diceroll(10, 4);
-								(void)set_timed_trait(m_ptr, TRAIT_STUN, m_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 								break;
 							}
 						}
-
-						/* Move the player to the safe location */
-						(void)move_creature(m_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
+						(void)move_creature(target_ptr, NULL, sy, sx, MCE_DONT_PICKUP); // Move the player to the safe location
 					}
 
-					/* Important -- no wall on player */
-					map[16+m_ptr->fy-cy][16+m_ptr->fx-cx] = FALSE;
+					map[16 + target_ptr->fy - cy][16 + target_ptr->fx - cx] = FALSE; // Important -- no wall on player
 
-					/* Take some damage */
-					if(damage)
+					
+					if(damage) // Take some damage
 					{
 						char *killer;
 
 						if(m_idx)
 						{
-							char m_name[MAX_NLEN];
-							creature_type *m_ptr = &creature_list[m_idx];
-
-							/* Get the creature's real name */
-							creature_desc(m_name, m_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-
+							char target_name[MAX_NLEN];
+							creature_type *target_ptr = &creature_list[m_idx];
+							creature_desc(target_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE); // Get the creature's real name
 #ifdef JP
-							killer = format("%sの起こした地震", m_name);
+							killer = format("%sの起こした地震", target_name);
 #else
-							killer = format("an earthquake caused by %s", m_name);
+							killer = format("an earthquake caused by %s", target_name);
 #endif
 						}
 						else
@@ -2428,7 +2399,6 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 							killer = "an earthquake";
 #endif
 						}
-
 						take_hit(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
 					}
 				}
@@ -2436,63 +2406,28 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 		}
 	}
 
-	/* Lose creature light */
-	clear_creature_lite(floor_ptr);
-
-	/* Examine the quaked region */
-	for (dy = -r; dy <= r; dy++)
+	clear_creature_lite(floor_ptr); // Lose creature light
+	for (dy = -r; dy <= r; dy++) // Examine the quaked region
 	{
 		for (dx = -r; dx <= r; dx++)
 		{
-			/* Extract the location */
+			// Extract the location
 			yy = cy + dy;
 			xx = cx + dx;
+			
+			if(!map[16+yy-cy][16+xx-cx]) continue; // Skip unaffected grids
+			c_ptr = &floor_ptr->cave[yy][xx]; // Access the cave grid
 
-			/* Skip unaffected grids */
-			if(!map[16+yy-cy][16+xx-cx]) continue;
-
-			/* Access the cave grid */
-			c_ptr = &floor_ptr->cave[yy][xx];
-
-			/* Paranoia -- never affect player */
-			if(creature_bold(caster_ptr, yy, xx)) continue;
-
-			// Destroy location (if valid)
-			if(cave_valid_bold(floor_ptr, yy, xx))
+			if(creature_bold(caster_ptr, yy, xx)) continue; // Paranoia -- never affect player
+			if(cave_valid_bold(floor_ptr, yy, xx)) // Destroy location (if valid)
 			{
-				/* Delete objects */
-				delete_object(floor_ptr, yy, xx);
+				delete_object(floor_ptr, yy, xx); // Delete objects
+				t = cave_have_flag_bold(floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200; // Wall (or floor) type
 
-				/* Wall (or floor) type */
-				t = cave_have_flag_bold(floor_ptr, yy, xx, FF_PROJECT) ? randint0(100) : 200;
-
-				/* Granite */
-				if(t < 20)
-				{
-					/* Create granite wall */
-					cave_set_feat(floor_ptr, yy, xx, feat_granite);
-				}
-
-				/* Quartz */
-				else if(t < 70)
-				{
-					/* Create quartz vein */
-					cave_set_feat(floor_ptr, yy, xx, feat_quartz_vein);
-				}
-
-				/* Magma */
-				else if(t < 100)
-				{
-					/* Create magma vein */
-					cave_set_feat(floor_ptr, yy, xx, feat_magma_vein);
-				}
-
-				/* Floor */
-				else
-				{
-					/* Create floor */
-					cave_set_feat(floor_ptr, yy, xx, feat_floor_rand_table[randint0(100)]);
-				}
+				if(t < 20) cave_set_feat(floor_ptr, yy, xx, feat_granite); // Granite
+				else if(t < 70) cave_set_feat(floor_ptr, yy, xx, feat_quartz_vein); // Quartz
+				else if(t < 100) cave_set_feat(floor_ptr, yy, xx, feat_magma_vein); // Magma
+				else cave_set_feat(floor_ptr, yy, xx, feat_floor_rand_table[randint0(100)]); // Floor
 			}
 		}
 	}
