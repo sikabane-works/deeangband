@@ -1033,7 +1033,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 
 		case SUMMON_ANGEL:
 		{
-			okay = (r_ptr->d_char == 'A');
+			okay = IS_RACE(r_ptr, RACE_ANGEL);
 			break;
 		}
 
@@ -1072,13 +1072,13 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 
 		case SUMMON_MOLD:
 		{
-			okay = (r_ptr->d_char == 'm');
+			okay = IS_RACE(r_ptr, RACE_MOLD);;
 			break;
 		}
 
 		case SUMMON_BAT:
 		{
-			okay = (r_ptr->d_char == 'b');
+			okay = IS_RACE(r_ptr, RACE_BAT);;
 			break;
 		}
 
@@ -1438,9 +1438,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 void reset_species_preps(void)
 {
 	int i;
-
-	// Scan the allocation table
-	for (i = 0; i < alloc_species_size; i++)
+	for (i = 0; i < alloc_species_size; i++) // Scan the allocation table
 	{
 		alloc_entry *entry = &alloc_species_table[i];	// Get the entry
 		entry->prob2 = entry->prob1; // Accept this creature
