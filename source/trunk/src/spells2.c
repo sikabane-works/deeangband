@@ -1,12 +1,12 @@
 /* File: spells2.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: Spell code (part 2) */
 
@@ -15,18 +15,18 @@
 
 
 /*
- * self-knowledge... idea from nethack.  Useful for determining powers and
- * resistences of items.  It saves the screen, clears it, then starts listing
- * attributes, a screenful at a time.  (There are a LOT of attributes to
- * list.  It will probably take 2 or 3 screens for a powerful character whose
- * using several artifacts...) -CFT
- *
- * It is now a lot more efficient. -BEN-
- *
- * See also "identify_fully(creature_ptr, )".
- *
- * XXX XXX XXX Use the "show_file()" method, perhaps.
- */
+* self-knowledge... idea from nethack.  Useful for determining powers and
+* resistences of items.  It saves the screen, clears it, then starts listing
+* attributes, a screenful at a time.  (There are a LOT of attributes to
+* list.  It will probably take 2 or 3 screens for a powerful character whose
+* using several artifacts...) -CFT
+*
+* It is now a lot more efficient. -BEN-
+*
+* See also "identify_fully(creature_ptr, )".
+*
+* XXX XXX XXX Use the "show_file()" method, perhaps.
+*/
 void creature_knowledge(creature_type *creature_ptr)
 {
 	int i = 0, j, k;
@@ -64,7 +64,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		((PY_MAX_LEVEL - 1+3) * (creature_ptr->hitdice + 1))));
 
 #ifdef JP
-    sprintf(Dummy, "現在の体力ランク : %d/100", percent);
+	sprintf(Dummy, "現在の体力ランク : %d/100", percent);
 #else
 	sprintf(Dummy, "Your current Life Rating is %d/100.", percent);
 #endif
@@ -161,7 +161,7 @@ void creature_knowledge(creature_type *creature_ptr)
 		info[i++] = "You are dead. ";
 #endif
 	}
-		
+
 
 	percent = calc_punishment_slay(creature_ptr, ALIGNMENT_GOOD);
 	if(percent > 100)
@@ -221,13 +221,13 @@ void creature_knowledge(creature_type *creature_ptr)
 
 	switch (creature_ptr->action)
 	{
-		case ACTION_SEARCH:
+	case ACTION_SEARCH:
 #ifdef JP
-info[i++] = "あなたはひじょうに注意深く周囲を見渡している。";
+		info[i++] = "あなたはひじょうに注意深く周囲を見渡している。";
 #else
-			info[i++] = "You are looking around very carefully.";
+		info[i++] = "You are looking around very carefully.";
 #endif
-			break;
+		break;
 	}
 
 	if(creature_ptr->new_spells)
@@ -338,8 +338,8 @@ static cptr report_magic_durations[] =
 
 
 /*
- * Report all currently active magical effects.
- */
+* Report all currently active magical effects.
+*/
 void report_magics(creature_type *creature_ptr)
 {
 	int     i = 0, j, k;
@@ -461,8 +461,8 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 
 
 /*
- * Detect all traps on current panel
- */
+* Detect all traps on current panel
+*/
 bool detect_traps(creature_type *creature_ptr, int range, bool known)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_TRAP, known);
@@ -487,8 +487,8 @@ bool detect_traps(creature_type *creature_ptr, int range, bool known)
 
 
 /*
- * Detect all doors on current panel
- */
+* Detect all doors on current panel
+*/
 bool detect_doors(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_DOOR, TRUE);
@@ -511,8 +511,8 @@ bool detect_doors(creature_type *creature_ptr, int range)
 
 
 /*
- * Detect all stairs on current panel
- */
+* Detect all stairs on current panel
+*/
 bool detect_stairs(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_STAIRS, TRUE);
@@ -535,8 +535,8 @@ bool detect_stairs(creature_type *creature_ptr, int range)
 
 
 /*
- * Detect any treasure on the current panel
- */
+* Detect any treasure on the current panel
+*/
 bool detect_treasure(creature_type *creature_ptr, int range)
 {
 	bool detect = detect_feat_flag(creature_ptr, range, FF_HAS_GOLD, TRUE);
@@ -608,7 +608,7 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 	if(detect)
 	{
 #ifdef JP
-msg_print("財宝の存在を感じとった！");
+		msg_print("財宝の存在を感じとった！");
 #else
 		msg_print("You sense the presence of treasure!");
 #endif
@@ -626,8 +626,8 @@ msg_print("財宝の存在を感じとった！");
 
 
 /*
- * Detect all "normal" objects on the current panel
- */
+* Detect all "normal" objects on the current panel
+*/
 bool detect_objects_normal(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
@@ -676,7 +676,7 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 	if(detect)
 	{
 #ifdef JP
-msg_print("アイテムの存在を感じとった！");
+		msg_print("アイテムの存在を感じとった！");
 #else
 		msg_print("You sense the presence of objects!");
 #endif
@@ -694,14 +694,14 @@ msg_print("アイテムの存在を感じとった！");
 
 
 /*
- * Detect all "magic" objects on the current panel.
- *
- * This will light up all spaces with "magic" items, including artifacts,
- * ego-items, potions, scrolls, books, rods, wands, staves, amulets, rings,
- * and "enchanted" items of the "good" variety.
- *
- * It can probably be argued that this function is now too powerful.
- */
+* Detect all "magic" objects on the current panel.
+*
+* This will light up all spaces with "magic" items, including artifacts,
+* ego-items, potions, scrolls, books, rods, wands, staves, amulets, rings,
+* and "enchanted" items of the "good" variety.
+*
+* It can probably be argued that this function is now too powerful.
+*/
 bool detect_objects_magic(creature_type *creature_ptr, int range)
 {
 	int i, y, x, tv;
@@ -734,20 +734,20 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 		/* Artifacts, misc magic items, or enchanted wearables */
 		if(object_is_artifact(object_ptr) ||
 			object_is_ego(object_ptr) ||
-		    (tv == TV_WHISTLE) ||
-		    (tv == TV_AMULET) ||
+			(tv == TV_WHISTLE) ||
+			(tv == TV_AMULET) ||
 			(tv == TV_RING) ||
-		    (tv == TV_STAFF) ||
+			(tv == TV_STAFF) ||
 			(tv == TV_WAND) ||
 			(tv == TV_ROD) ||
-		    (tv == TV_SCROLL) ||
+			(tv == TV_SCROLL) ||
 			(tv == TV_POTION) ||
-		    (tv == TV_LIFE_BOOK) ||
+			(tv == TV_LIFE_BOOK) ||
 			(tv == TV_SORCERY_BOOK) ||
-		    (tv == TV_NATURE_BOOK) ||
+			(tv == TV_NATURE_BOOK) ||
 			(tv == TV_CHAOS_BOOK) ||
-		    (tv == TV_DEATH_BOOK) ||
-		    (tv == TV_TRUMP_BOOK) ||
+			(tv == TV_DEATH_BOOK) ||
+			(tv == TV_TRUMP_BOOK) ||
 			(tv == TV_ARCANE_BOOK) ||
 			(tv == TV_CRAFT_BOOK) ||
 			(tv == TV_DAEMON_BOOK) ||
@@ -755,7 +755,7 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 			(tv == TV_MUSIC_BOOK) ||
 			(tv == TV_HISSATSU_BOOK) ||
 			(tv == TV_HEX_BOOK) ||
-		    ((object_ptr->to_ac > 0) || (object_ptr->to_hit + object_ptr->to_damage > 0)))
+			((object_ptr->to_ac > 0) || (object_ptr->to_hit + object_ptr->to_damage > 0)))
 		{
 			/* Memorize the item */
 			object_ptr->marked |= OM_FOUND;
@@ -772,7 +772,7 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 	if(detect)
 	{
 #ifdef JP
-msg_print("魔法のアイテムの存在を感じとった！");
+		msg_print("魔法のアイテムの存在を感じとった！");
 #else
 		msg_print("You sense the presence of magic objects!");
 #endif
@@ -785,8 +785,8 @@ msg_print("魔法のアイテムの存在を感じとった！");
 
 
 /*
- * Detect all "normal" creatures on the current panel
- */
+* Detect all "normal" creatures on the current panel
+*/
 bool detect_creatures_normal(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
@@ -835,7 +835,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("クリーチャーの存在を感じとった！");
+		msg_print("クリーチャーの存在を感じとった！");
 #else
 		msg_print("You sense the presence of creatures!");
 #endif
@@ -848,8 +848,8 @@ msg_print("クリーチャーの存在を感じとった！");
 
 
 /*
- * Detect all "invisible" creatures around the player
- */
+* Detect all "invisible" creatures around the player
+*/
 bool detect_creatures_invis(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
@@ -904,7 +904,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("透明な生物の存在を感じとった！");
+		msg_print("透明な生物の存在を感じとった！");
 #else
 		msg_print("You sense the presence of invisible creatures!");
 #endif
@@ -918,8 +918,8 @@ msg_print("透明な生物の存在を感じとった！");
 
 
 /*
- * Detect all "evil" creatures on current panel
- */
+* Detect all "evil" creatures on current panel
+*/
 bool detect_creatures_evil(creature_type *creature_ptr, int range)
 {
 	int i, y, x;
@@ -978,7 +978,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("邪悪なる生物の存在を感じとった！");
+		msg_print("邪悪なる生物の存在を感じとった！");
 #else
 		msg_print("You sense the presence of evil creatures!");
 #endif
@@ -993,8 +993,8 @@ msg_print("邪悪なる生物の存在を感じとった！");
 
 
 /*
- * Detect all "nonliving", "undead" or "demonic" creatures on current panel
- */
+* Detect all "nonliving", "undead" or "demonic" creatures on current panel
+*/
 bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 {
 	int     i, y, x;
@@ -1047,7 +1047,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("自然でないクリーチャーの存在を感じた！");
+		msg_print("自然でないクリーチャーの存在を感じた！");
 #else
 		msg_print("You sense the presence of unnatural beings!");
 #endif
@@ -1060,8 +1060,8 @@ msg_print("自然でないクリーチャーの存在を感じた！");
 
 
 /*
- * Detect all creatures it has mind on current panel
- */
+* Detect all creatures it has mind on current panel
+*/
 bool detect_creatures_mind(creature_type *creature_ptr, int range)
 {
 	int     i, y, x;
@@ -1114,7 +1114,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("殺気を感じとった！");
+		msg_print("殺気を感じとった！");
 #else
 		msg_print("You sense the presence of someone's mind!");
 #endif
@@ -1127,8 +1127,8 @@ msg_print("殺気を感じとった！");
 
 
 /*
- * Detect all (string) creatures on current panel
- */
+* Detect all (string) creatures on current panel
+*/
 bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 {
 	int i, y, x;
@@ -1183,7 +1183,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 	{
 		/* Describe result */
 #ifdef JP
-msg_print("クリーチャーの存在を感じとった！");
+		msg_print("クリーチャーの存在を感じとった！");
 #else
 		msg_print("You sense the presence of creatures!");
 #endif
@@ -1196,14 +1196,14 @@ msg_print("クリーチャーの存在を感じとった！");
 
 
 /*
- * A "generic" detect creatures routine, tagged to flags3
- */
+* A "generic" detect creatures routine, tagged to flags3
+*/
 bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_flag)
 {
 	int  i, y, x;
 	bool flag = FALSE;
 #ifdef JP
-cptr desc_creatures = "変なクリーチャー";
+	cptr desc_creatures = "変なクリーチャー";
 #else
 	cptr desc_creatures = "weird creatures";
 #endif
@@ -1262,18 +1262,18 @@ cptr desc_creatures = "変なクリーチャー";
 	{
 		switch (match_flag)
 		{
-			default:
+		default:
 #ifdef JP
-				desc_creatures = "敵";
+			desc_creatures = "敵";
 #else
-				desc_creatures = "the enemy";
+			desc_creatures = "the enemy";
 #endif
-				break;
+			break;
 		}
 
 		/* Describe result */
 #ifdef JP
-msg_format("%sの存在を感じとった！", desc_creatures);
+		msg_format("%sの存在を感じとった！", desc_creatures);
 #else
 		msg_format("You sense the presence of %s!", desc_creatures);
 #endif
@@ -1287,8 +1287,8 @@ msg_format("%sの存在を感じとった！", desc_creatures);
 
 
 /*
- * Detect everything
- */
+* Detect everything
+*/
 bool detect_all(creature_type *creature_ptr, int range)
 {
 	bool detect = FALSE;
@@ -1312,13 +1312,13 @@ bool detect_all(creature_type *creature_ptr, int range)
 
 
 /*
- * Apply a "project()" directly to all viewable creatures
- *
- * Note that affected creatures are NOT auto-tracked by this usage.
- *
- * To avoid misbehavior when creature deaths have side-effects,
- * this is done in two passes. -- JDL
- */
+* Apply a "project()" directly to all viewable creatures
+*
+* Note that affected creatures are NOT auto-tracked by this usage.
+*
+* To avoid misbehavior when creature deaths have side-effects,
+* this is done in two passes. -- JDL
+*/
 bool project_hack(creature_type *caster_ptr, int typ, int dam)
 {
 	int     i, x, y;
@@ -1356,24 +1356,24 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 
 
 /*
- * Speed creatures
- */
+* Speed creatures
+*/
 bool speed_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_OLD_SPEED, caster_ptr->lev));
 }
 
 /*
- * Slow creatures
- */
+* Slow creatures
+*/
 bool slow_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_OLD_SLOW, caster_ptr->lev));
 }
 
 /*
- * Sleep creatures
- */
+* Sleep creatures
+*/
 bool sleep_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_OLD_SLEEP, caster_ptr->lev));
@@ -1381,8 +1381,8 @@ bool sleep_creatures(creature_type *caster_ptr)
 
 
 /*
- * Banish evil creatures
- */
+* Banish evil creatures
+*/
 bool banish_evil(creature_type *caster_ptr, int dist)
 {
 	return (project_hack(caster_ptr, GF_AWAY_EVIL, dist));
@@ -1390,8 +1390,8 @@ bool banish_evil(creature_type *caster_ptr, int dist)
 
 
 /*
- * Turn undead
- */
+* Turn undead
+*/
 bool turn_undead(creature_type *caster_ptr)
 {
 	bool tester = (project_hack(caster_ptr, GF_TURN_UNDEAD, caster_ptr->lev));
@@ -1400,8 +1400,8 @@ bool turn_undead(creature_type *caster_ptr)
 
 
 /*
- * Dispel undead creatures
- */
+* Dispel undead creatures
+*/
 bool dispel_undead(creature_type *caster_ptr, int dam)
 {
 	bool tester = (project_hack(caster_ptr, GF_DISP_UNDEAD, dam));
@@ -1409,40 +1409,40 @@ bool dispel_undead(creature_type *caster_ptr, int dam)
 }
 
 /*
- * Dispel evil creatures
- */
+* Dispel evil creatures
+*/
 bool dispel_evil(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_DISP_EVIL, dam));
 }
 
 /*
- * Dispel good creatures
- */
+* Dispel good creatures
+*/
 bool dispel_good(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_DISP_GOOD, dam));
 }
 
 /*
- * Dispel all creatures
- */
+* Dispel all creatures
+*/
 bool dispel_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_DISP_ALL, dam));
 }
 
 /*
- * Dispel 'living' creatures
- */
+* Dispel 'living' creatures
+*/
 bool dispel_living(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_DISP_LIVING, dam));
 }
 
 /*
- * Dispel demons
- */
+* Dispel demons
+*/
 bool dispel_demons(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_DISP_DEMON, dam));
@@ -1450,8 +1450,8 @@ bool dispel_demons(creature_type *caster_ptr, int dam)
 
 
 /*
- * Crusade
- */
+* Crusade
+*/
 bool crusade(creature_type *creature_ptr)
 {
 	return (project_hack(creature_ptr, GF_CRUSADE, creature_ptr->lev*4));
@@ -1459,8 +1459,8 @@ bool crusade(creature_type *creature_ptr)
 
 
 /*
- * Wake up all creatures, and speed up "los" creatures.
- */
+* Wake up all creatures, and speed up "los" creatures.
+*/
 void aggravate_creatures(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -1622,8 +1622,8 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 
 
 /*
- * Delete all non-unique/non-quest creatures of a given "type" from the level
- */
+* Delete all non-unique/non-quest creatures of a given "type" from the level
+*/
 bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
@@ -1669,8 +1669,8 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 
 
 /*
- * Delete all nearby (non-unique) creatures
- */
+* Delete all nearby (non-unique) creatures
+*/
 bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
@@ -1708,8 +1708,8 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 
 
 /*
- * Delete all nearby (non-unique) undead
- */
+* Delete all nearby (non-unique) undead
+*/
 bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast)
 {
 	int  i;
@@ -1750,8 +1750,8 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 
 
 /*
- * Probe nearby creatures
- */
+* Probe nearby creatures
+*/
 bool probing(floor_type *floor_ptr)
 {
 	int     i, speed;
@@ -1827,17 +1827,17 @@ bool probing(floor_type *floor_ptr)
 
 			/* Describe the creature */
 #ifdef JP
-sprintf(buf,"%s 属性:%s 性別:%s HP:%d/%d AC:%d 速度:%s%d 腕:%d 知:%d 賢:%d 器:%d 耐:%d 魅:%d 経験:",
-		m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
-		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
-		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
-		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
+			sprintf(buf,"%s 属性:%s 性別:%s HP:%d/%d AC:%d 速度:%s%d 腕:%d 知:%d 賢:%d 器:%d 耐:%d 魅:%d 経験:",
+				m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
+				m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
+				m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
+				m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #else
-sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:",
-		m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
-		m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
-		m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
-		m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
+			sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d DEX:%d CON:%d CHA:%d exp:",
+				m_name, align, sex, m_ptr->chp, m_ptr->mhp, m_ptr->ac + m_ptr->to_ac, (speed > 0) ? "+" : "", speed,
+				m_ptr->stat_use[0] / STAT_FRACTION, m_ptr->stat_use[1] / STAT_FRACTION,
+				m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
+				m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #endif
 			if(r_ptr->next_species_idx)
 			{
@@ -1910,7 +1910,7 @@ sprintf(buf, "%s align:%s sex:%s HP:%d/%d AC:%d speed:%s%d STR:%d INT:%d WIS:%d 
 	{
 
 #ifdef JP
-msg_print("これで全部です。");
+		msg_print("これで全部です。");
 #else
 		msg_print("That's all.");
 #endif
@@ -1924,13 +1924,13 @@ msg_print("これで全部です。");
 
 
 /*
- * The spell of destruction
- *
- * This spell "deletes" creatures (instead of "killing" them).
- *
- * Later we may use one function for both "destruction" and
- * "earthquake" by using the "full" to select "destruction".
- */
+* The spell of destruction
+*
+* This spell "deletes" creatures (instead of "killing" them).
+*
+* Later we may use one function for both "destruction" and
+* "earthquake" by using the "full" to select "destruction".
+*/
 bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_generate)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -2215,23 +2215,23 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 
 
 /*
- * Induce an "earthquake" of the given radius at the given location.
- *
- * This will turn some walls into floors and some floors into walls.
- *
- * The player will take damage and "jump" into a safe grid if possible,
- * otherwise, he will "tunnel" through the rubble instantaneously.
- *
- * Creatures will take damage, and "jump" into a safe grid if possible,
- * otherwise they will be "buried" in the rubble, disappearing from
- * the level in the same way that they do when genocided.
- *
- * Note that thus the player and creatures (except eaters of walls and
- * passers through walls) will never occupy the same grid as a wall.
- * Note that as of now (2.7.8) no creature may occupy a "wall" grid, even
- * for a single turn, unless that creature can pass_walls or kill_walls.
- * This has allowed massive simplification of the "creature" code.
- */
+* Induce an "earthquake" of the given radius at the given location.
+*
+* This will turn some walls into floors and some floors into walls.
+*
+* The player will take damage and "jump" into a safe grid if possible,
+* otherwise, he will "tunnel" through the rubble instantaneously.
+*
+* Creatures will take damage, and "jump" into a safe grid if possible,
+* otherwise they will be "buried" in the rubble, disappearing from
+* the level in the same way that they do when genocided.
+*
+* Note that thus the player and creatures (except eaters of walls and
+* passers through walls) will never occupy the same grid as a wall.
+* Note that as of now (2.7.8) no creature may occupy a "wall" grid, even
+* for a single turn, unless that creature can pass_walls or kill_walls.
+* This has allowed massive simplification of the "creature" code.
+*/
 bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 {
 	int             i, t, y, x, yy, xx, dy, dx;
@@ -2243,14 +2243,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 
-	/* Prevent destruction of quest levels and town */
-	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
-	{
-		return (FALSE);
-	}
-
-	/* Paranoia -- Enforce maximum range */
-	if(r > EARTHQUAKE_MAX_RANGE) r = EARTHQUAKE_MAX_RANGE;
+	if(r > EARTHQUAKE_MAX_RANGE) r = EARTHQUAKE_MAX_RANGE;	// Paranoia -- Enforce maximum range
 
 	/* Clear the "maximal blast" area */
 	for (y = 0; y < 32; y++) for (x = 0; x < 32; x++) map[y][x] = FALSE;
@@ -2260,166 +2253,18 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	{
 		for (dx = -r; dx <= r; dx++)
 		{
-			/* Extract the location */
+			// Extract the location
 			yy = cy + dy;
 			xx = cx + dx;
 
-			/* Skip illegal grids */
-			if(!in_bounds(floor_ptr, yy, xx)) continue;
+			if(!in_bounds(floor_ptr, yy, xx)) continue; // Skip illegal grids
+			if(distance(cy, cx, yy, xx) > r) continue;	// Skip distant grids
 
-			/* Skip distant grids */
-			if(distance(cy, cx, yy, xx) > r) continue;
-
-			/* Access the grid */
-			c_ptr = &floor_ptr->cave[yy][xx];
-
-			/* Lose room and vault */
-			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY | CAVE_UNSAFE);
-
-			/* Lose light and knowledge */
-			c_ptr->info &= ~(CAVE_GLOW | CAVE_MARK);
-
+			c_ptr = &floor_ptr->cave[yy][xx];	// Access the grid
+			c_ptr->info &= ~(CAVE_ROOM | CAVE_ICKY | CAVE_UNSAFE | CAVE_GLOW | CAVE_MARK); // Lose room and vault
 			if(!dx && !dy) continue; // Skip the epicenter
 			if(randint0(100) < 85) continue; // Skip most grids
-
-			/* Damage this grid */
-			map[16+yy-cy][16+xx-cx] = TRUE;
-
-			/* Hack -- Take note of player damage */
-			if(creature_bold(caster_ptr, yy, xx)) hurt = TRUE;
-		}
-	}
-
-	/* First, affect the player (if necessary) */
-	if(hurt && !has_trait(caster_ptr, TRAIT_PASS_WALL) && !has_trait(caster_ptr, TRAIT_KILL_WALL))
-	{
-		/* Check around the player */
-		for (i = 0; i < 8; i++)
-		{
-			/* Access the location */
-			y = caster_ptr->fy + ddy_ddd[i];
-			x = caster_ptr->fx + ddx_ddd[i];
-
-			/* Skip non-empty grids */
-			if(!cave_empty_bold(floor_ptr, y, x)) continue;
-
-			/* Important -- Skip "quake" grids */
-			if(map[16+y-cy][16+x-cx]) continue;
-
-			if(floor_ptr->cave[y][x].creature_idx) continue;
-
-			/* Count "safe" grids */
-			sn++;
-
-			/* Randomize choice */
-			if(randint0(sn) > 0) continue;
-
-			/* Save the safe location */
-			sy = y; sx = x;
-		}
-
-		/* Random message */
-		switch (randint1(3))
-		{
-#ifdef JP
-			case 1: msg_print("ダンジョンの壁が崩れた！"); break;
-			case 2: msg_print("ダンジョンの床が不自然にねじ曲がった！"); break;
-			default: msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！"); break;
-#else
-			case 1: msg_print("The cave ceiling collapses!"); break;
-			case 2: msg_print("The cave floor twists in an unnatural way!"); break;
-			default: msg_print("The cave quakes!  You are pummeled with debris!"); break;
-#endif
-		}
-
-		/* Hurt the player a lot */
-		if(!sn)
-		{
-			/* Message and damage */
-#ifdef JP
-			msg_print("あなたはひどい怪我を負った！");
-#else
-			msg_print("You are severely crushed!");
-#endif
-			damage = 200;
-		}
-
-		/* Destroy the grid, and push the player to safety */
-		else
-		{
-			/* Calculate results */
-			switch (randint1(3))
-			{
-				case 1:
-				{
-#ifdef JP
-					msg_print("降り注ぐ岩をうまく避けた！");
-#else
-					msg_print("You nimbly dodge the blast!");
-#endif
-					damage = 0;
-					break;
-				}
-				case 2:
-				{
-#ifdef JP
-					msg_print("岩石があなたに直撃した!");
-#else
-					msg_print("You are bashed by rubble!");
-#endif
-					damage = diceroll(10, 4);
-					(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
-					break;
-				}
-				case 3:
-				{
-#ifdef JP
-					msg_print("あなたは床と壁との間に挟まれてしまった！");
-#else
-					msg_print("You are crushed between the floor and ceiling!");
-#endif
-					damage = diceroll(10, 4);
-					(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
-					break;
-				}
-			}
-
-			/* Move the player to the safe location */
-			(void)move_creature(caster_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
-		}
-
-		/* Important -- no wall on player */
-		map[16+caster_ptr->fy-cy][16+caster_ptr->fx-cx] = FALSE;
-
-		/* Take some damage */
-		if(damage)
-		{
-			char *killer;
-
-			if(m_idx)
-			{
-				char m_name[MAX_NLEN];
-				creature_type *m_ptr = &creature_list[m_idx];
-
-				/* Get the creature's real name */
-				creature_desc(m_name, m_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-
-#ifdef JP
-				killer = format("%sの起こした地震", m_name);
-#else
-				killer = format("an earthquake caused by %s", m_name);
-#endif
-			}
-			else
-			{
-#ifdef JP
-				killer = "地震";
-#else
-				killer = "an earthquake";
-#endif
-			}
-
-			take_hit(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
+			map[16+yy-cy][16+xx-cx] = TRUE;	// Damage this grid
 		}
 	}
 
@@ -2450,10 +2295,141 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 				{
 					/* No wall on quest creatures */
 					map[16+yy-cy][16+xx-cx] = FALSE;
-
 					continue;
 				}
 
+				/* First, affect the player (if necessary) */
+				if(!has_trait(caster_ptr, TRAIT_PASS_WALL) && !has_trait(caster_ptr, TRAIT_KILL_WALL))
+				{
+					/* Check around the player */
+					for (i = 0; i < 8; i++)
+					{
+						/* Access the location */
+						y = caster_ptr->fy + ddy_ddd[i];
+						x = caster_ptr->fx + ddx_ddd[i];
+
+						/* Skip non-empty grids */
+						if(!cave_empty_bold(floor_ptr, y, x)) continue;
+
+						/* Important -- Skip "quake" grids */
+						if(map[16+y-cy][16+x-cx]) continue;
+
+						if(floor_ptr->cave[y][x].creature_idx) continue;
+
+						/* Count "safe" grids */
+						sn++;
+
+						/* Randomize choice */
+						if(randint0(sn) > 0) continue;
+
+						/* Save the safe location */
+						sy = y; sx = x;
+					}
+
+					/* Random message */
+					switch (randint1(3))
+					{
+#ifdef JP
+			case 1: msg_print("ダンジョンの壁が崩れた！"); break;
+			case 2: msg_print("ダンジョンの床が不自然にねじ曲がった！"); break;
+			default: msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！"); break;
+#else
+			case 1: msg_print("The cave ceiling collapses!"); break;
+			case 2: msg_print("The cave floor twists in an unnatural way!"); break;
+			default: msg_print("The cave quakes!  You are pummeled with debris!"); break;
+#endif
+					}
+
+					/* Hurt the player a lot */
+					if(!sn)
+					{
+						/* Message and damage */
+#ifdef JP
+						msg_print("あなたはひどい怪我を負った！");
+#else
+						msg_print("You are severely crushed!");
+#endif
+						damage = 200;
+					}
+
+					/* Destroy the grid, and push the player to safety */
+					else
+					{
+						/* Calculate results */
+						switch (randint1(3))
+						{
+						case 1:
+							{
+#ifdef JP
+								msg_print("降り注ぐ岩をうまく避けた！");
+#else
+								msg_print("You nimbly dodge the blast!");
+#endif
+								damage = 0;
+								break;
+							}
+						case 2:
+							{
+#ifdef JP
+								msg_print("岩石があなたに直撃した!");
+#else
+								msg_print("You are bashed by rubble!");
+#endif
+								damage = diceroll(10, 4);
+								(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								break;
+							}
+						case 3:
+							{
+#ifdef JP
+								msg_print("あなたは床と壁との間に挟まれてしまった！");
+#else
+								msg_print("You are crushed between the floor and ceiling!");
+#endif
+								damage = diceroll(10, 4);
+								(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								break;
+							}
+						}
+
+						/* Move the player to the safe location */
+						(void)move_creature(caster_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
+					}
+
+					/* Important -- no wall on player */
+					map[16+caster_ptr->fy-cy][16+caster_ptr->fx-cx] = FALSE;
+
+					/* Take some damage */
+					if(damage)
+					{
+						char *killer;
+
+						if(m_idx)
+						{
+							char m_name[MAX_NLEN];
+							creature_type *m_ptr = &creature_list[m_idx];
+
+							/* Get the creature's real name */
+							creature_desc(m_name, m_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+
+#ifdef JP
+							killer = format("%sの起こした地震", m_name);
+#else
+							killer = format("an earthquake caused by %s", m_name);
+#endif
+						}
+						else
+						{
+#ifdef JP
+							killer = "地震";
+#else
+							killer = "an earthquake";
+#endif
+						}
+
+						take_hit(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
+					}
+				}
 				/* Most creatures cannot co-exist with rock */
 				if(!has_trait(m_ptr, TRAIT_KILL_WALL) && !has_trait(m_ptr, TRAIT_PASS_WALL))
 				{
@@ -2763,20 +2739,20 @@ void discharge_minion(creature_type *caster_ptr)
 
 
 /*
- * This routine clears the entire "temp" set.
- *
- * This routine will Perma-Lite all "temp" grids.
- *
- * This routine is used (only) by "lite_room()"
- *
- * Dark grids are illuminated.
- *
- * Also, process all affected creatures.
- *
- * SMART creatures always wake up when illuminated
- * NORMAL creatures wake up 1/4 the time when illuminated
- * STUPID creatures wake up 1/10 the time when illuminated
- */
+* This routine clears the entire "temp" set.
+*
+* This routine will Perma-Lite all "temp" grids.
+*
+* This routine is used (only) by "lite_room()"
+*
+* Dark grids are illuminated.
+*
+* Also, process all affected creatures.
+*
+* SMART creatures always wake up when illuminated
+* NORMAL creatures wake up 1/4 the time when illuminated
+* STUPID creatures wake up 1/10 the time when illuminated
+*/
 static void cave_temp_room_lite(creature_type *lite_ptr)
 {
 	int i;
@@ -2857,16 +2833,16 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 
 
 /*
- * This routine clears the entire "temp" set.
- *
- * This routine will "darken" all "temp" grids.
- *
- * In addition, some of these grids will be "unmarked".
- *
- * This routine is used (only) by "unlite_room()"
- *
- * Also, process all affected creatures
- */
+* This routine clears the entire "temp" set.
+*
+* This routine will "darken" all "temp" grids.
+*
+* In addition, some of these grids will be "unmarked".
+*
+* This routine is used (only) by "unlite_room()"
+*
+* Also, process all affected creatures
+*/
 static void cave_temp_room_unlite(floor_type *floor_ptr)
 {
 	int i;
@@ -2941,8 +2917,8 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 
 
 /*
- * Determine how much contiguous open space this grid is next to
- */
+* Determine how much contiguous open space this grid is next to
+*/
 static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
@@ -3019,13 +2995,13 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 
 		/* Verify this grid */
 		/*
-		 * The reason why it is ==6 instead of >5 is that 8 is impossible
-		 * due to the check for cave_bold above.
-		 * 7 lights dead-end corridors (you need to do this for the
-		 * checkboard interesting rooms, so that the boundary is lit
-		 * properly.
-		 * This leaves only a check for 6 bounding walls!
-		 */
+		* The reason why it is ==6 instead of >5 is that 8 is impossible
+		* due to the check for cave_bold above.
+		* 7 lights dead-end corridors (you need to do this for the
+		* checkboard interesting rooms, so that the boundary is lit
+		* properly.
+		* This leaves only a check for 6 bounding walls!
+		*/
 		if(in_bounds(floor_ptr, y, x) && pass_bold(y, x)) return;
 		//    (next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
@@ -3064,15 +3040,15 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool on
 
 		/* Verify this grid */
 		/*
-		 * The reason why it is ==6 instead of >5 is that 8 is impossible
-		 * due to the check for cave_bold above.
-		 * 7 lights dead-end corridors (you need to do this for the
-		 * checkboard interesting rooms, so that the boundary is lit
-		 * properly.
-		 * This leaves only a check for 6 bounding walls!
-		 */
+		* The reason why it is ==6 instead of >5 is that 8 is impossible
+		* due to the check for cave_bold above.
+		* 7 lights dead-end corridors (you need to do this for the
+		* checkboard interesting rooms, so that the boundary is lit
+		* properly.
+		* This leaves only a check for 6 bounding walls!
+		*/
 		if(in_bounds(floor_ptr, y, x) && pass_bold(floor_ptr, y, x) &&
-		    (next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
+			(next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
 
 	/* Paranoia -- verify space */
@@ -3088,32 +3064,32 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool on
 }
 
 /*
- * Aux function -- see below
- */
+* Aux function -- see below
+*/
 static bool cave_pass_lite_bold(floor_type *floor_ptr, int y, int x)
 {
 	return cave_los_bold(floor_ptr, y, x);
 }
 
 /*
- * Aux function -- see below
- */
+* Aux function -- see below
+*/
 static void cave_temp_lite_room_aux(creature_type *caster_ptr, int y, int x)
 {
 	cave_temp_room_aux2(caster_ptr, y, x, FALSE, cave_pass_lite_bold);
 }
 
 /*
- * Aux function -- see below
- */
+* Aux function -- see below
+*/
 static bool cave_pass_dark_bold(floor_type *floor_ptr, int y, int x)
 {
 	return cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT);
 }
 
 /*
- * Aux function -- see below
- */
+* Aux function -- see below
+*/
 static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 {
 	cave_temp_room_aux2(caster_ptr, y, x, TRUE, cave_pass_dark_bold);
@@ -3123,8 +3099,8 @@ static void cave_temp_unlite_room_aux(creature_type *caster_ptr, int y, int x)
 
 
 /*
- * Illuminate any room containing the given location.
- */
+* Illuminate any room containing the given location.
+*/
 void lite_room(creature_type *creature_ptr, int y1, int x1)
 {
 	int i, x, y;
@@ -3165,8 +3141,8 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 
 
 /*
- * Darken all rooms containing the given location
- */
+* Darken all rooms containing the given location
+*/
 void unlite_room(creature_type *caster_ptr, int y1, int x1)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -3237,9 +3213,9 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 
 
 /*
- * Hack -- call darkness around the player
- * Affect all creatures in the projection radius
- */
+* Hack -- call darkness around the player
+* Affect all creatures in the projection radius
+*/
 bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
 
@@ -3267,11 +3243,11 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 
 
 /*
- * Cast a ball spell
- * Stop if we hit a creature, act as a "ball"
- * Allow "target" mode to pass over creatures
- * Affect grids, objects, and creatures
- */
+* Cast a ball spell
+* Stop if we hit a creature, act as a "ball"
+* Allow "target" mode to pass over creatures
+* Affect grids, objects, and creatures
+*/
 bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
@@ -3296,11 +3272,11 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 
 
 /*
- * Cast a ball spell
- * Stop if we hit a creature, act as a "ball"
- * Allow "target" mode to pass over creatures
- * Affect grids, objects, and creatures
- */
+* Cast a ball spell
+* Stop if we hit a creature, act as a "ball"
+* Allow "target" mode to pass over creatures
+* Affect grids, objects, and creatures
+*/
 bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
@@ -3322,11 +3298,11 @@ bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 
 
 /*
- * Cast a ball spell
- * Stop if we hit a creature, act as a "ball"
- * Allow "target" mode to pass over creatures
- * Affect grids, objects, and creatures
- */
+* Cast a ball spell
+* Stop if we hit a creature, act as a "ball"
+* Allow "target" mode to pass over creatures
+* Affect grids, objects, and creatures
+*/
 bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
@@ -3349,13 +3325,13 @@ bool cast_ball_hide(creature_type *caster_ptr, int typ, int dir, int dam, int ra
 
 
 /*
- * Cast a meteor spell, defined as a ball spell cast by an arbitary creature, 
- * player, or outside source, that starts out at an arbitrary location, and 
- * leaving no trail from the "caster" to the target.  This function is 
- * especially useful for bombardments and similar. -LM-
- *
- * Option to hurt the player.
- */
+* Cast a meteor spell, defined as a ball spell cast by an arbitary creature, 
+* player, or outside source, that starts out at an arbitrary location, and 
+* leaving no trail from the "caster" to the target.  This function is 
+* especially useful for bombardments and similar. -LM-
+*
+* Option to hurt the player.
+*/
 bool fire_meteor(int who, int typ, int y, int x, int dam, int rad)
 {
 	/* Analyze the "target" and the caster. */
@@ -3415,8 +3391,8 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 
 
 /*
- * Switch position with a creature.
- */
+* Switch position with a creature.
+*/
 bool teleport_swap(creature_type *creature_ptr, int dir)
 {
 	int tx, ty;
@@ -3440,7 +3416,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	if(has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
 #ifdef JP
-msg_print("不思議な力がテレポートを防いだ！");
+		msg_print("不思議な力がテレポートを防いだ！");
 #else
 		msg_print("A mysterious force prevents you from teleporting!");
 #endif
@@ -3451,7 +3427,7 @@ msg_print("不思議な力がテレポートを防いだ！");
 	if(!c_ptr->creature_idx || (c_ptr->creature_idx == creature_ptr->riding))
 	{
 #ifdef JP
-msg_print("それとは場所を交換できません。");
+		msg_print("それとは場所を交換できません。");
 #else
 		msg_print("You can't trade places with that!");
 #endif
@@ -3464,7 +3440,7 @@ msg_print("それとは場所を交換できません。");
 	if((c_ptr->info & CAVE_ICKY) || (distance(ty, tx, creature_ptr->fy, creature_ptr->fx) > creature_ptr->lev * 3 / 2 + 10))
 	{
 #ifdef JP
-msg_print("失敗した。");
+		msg_print("失敗した。");
 #else
 		msg_print("Failed to swap.");
 #endif
@@ -3500,8 +3476,8 @@ msg_print("失敗した。");
 }
 
 /*
- * Some of the old functions
- */
+* Some of the old functions
+*/
 bool lite_line(creature_type *caster_ptr, int dir)
 {
 	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_LITE_WEAK, dir, diceroll(6, 8), PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL));
@@ -3712,10 +3688,10 @@ void call_chaos(creature_type *creature_ptr)
 
 
 /*
- * Activate the evil Topi Ylinen curse
- * rr9: Stop the nasty things when a Cyberdemon is summoned
- * or the player gets paralyzed.
- */
+* Activate the evil Topi Ylinen curse
+* rr9: Stop the nasty things when a Cyberdemon is summoned
+* or the player gets paralyzed.
+*/
 bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -3773,7 +3749,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 
 		case 34:
 #ifdef JP
-msg_print("エネルギーのうねりを感じた！");
+			msg_print("エネルギーのうねりを感じた！");
 #else
 			msg_print("You feel a surge of energy!");
 #endif
@@ -3804,7 +3780,7 @@ msg_print("エネルギーのうねりを感じた！");
 
 		case 10: case 11: case 12:
 #ifdef JP
-msg_print("生命力が体から吸い取られた気がする！");
+			msg_print("生命力が体から吸い取られた気がする！");
 #else
 			msg_print("You feel your life draining away...");
 #endif
@@ -3816,7 +3792,7 @@ msg_print("生命力が体から吸い取られた気がする！");
 			/*
 			if(stop_ty || (has_trait(creature_ptr, TRAIT_FREE_ACTION) && (randint1(125) < creature_ptr->skill_rob)) || (creature_ptr->class_idx == CLASS_BERSERKER))
 			{
-				// Do nothing ;
+			// Do nothing ;
 			}
 			else
 			*/
@@ -3852,8 +3828,8 @@ msg_print("生命力が体から吸い取られた気がする！");
 
 		case 25:
 			/*
-			 * Only summon Cyberdemons deep in the dungeon.
-			 */
+			* Only summon Cyberdemons deep in the dungeon.
+			*/
 			if((floor_ptr->floor_level > 65) && !stop_ty)
 			{
 				(*count) += summon_cyber(NULL, creature_ptr->fy, creature_ptr->fx);
@@ -3912,52 +3888,52 @@ int activate_hi_summon(creature_type *creature_ptr, int y, int x, bool can_pet)
 	{
 		switch (randint1(25) + (floor_ptr->floor_level / 20))
 		{
-			case 1: case 2:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_ANT, mode);
-				break;
-			case 3: case 4:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_SPIDER, mode);
-				break;
-			case 5: case 6:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HOUND, mode);
-				break;
-			case 7: case 8:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HYDRA, mode);
-				break;
-			case 9: case 10:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_ANGEL, mode);
-				break;
-			case 11: case 12:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_UNDEAD, mode);
-				break;
-			case 13: case 14:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_DRAGON, mode);
-				break;
-			case 15: case 16:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_DEMON, mode);
-				break;
-			case 17:
-				if(can_pet) break;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
-				break;
-			case 18: case 19:
-				if(can_pet) break;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE));
-				break;
-			case 20: case 21:
-				if(!can_pet) mode |= PC_ALLOW_UNIQUE;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HI_UNDEAD, mode);
-				break;
-			case 22: case 23:
-				if(!can_pet) mode |= PC_ALLOW_UNIQUE;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HI_DRAGON, mode);
-				break;
-			case 24:
-				count += summon_specific((pet ? creature_ptr : NULL), y, x, 100, SUMMON_CYBER, mode);
-				break;
-			default:
-				if(!can_pet) mode |= PC_ALLOW_UNIQUE;
-				count += summon_specific((pet ? creature_ptr : NULL), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
+		case 1: case 2:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_ANT, mode);
+			break;
+		case 3: case 4:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_SPIDER, mode);
+			break;
+		case 5: case 6:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HOUND, mode);
+			break;
+		case 7: case 8:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HYDRA, mode);
+			break;
+		case 9: case 10:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_ANGEL, mode);
+			break;
+		case 11: case 12:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_UNDEAD, mode);
+			break;
+		case 13: case 14:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_DRAGON, mode);
+			break;
+		case 15: case 16:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_DEMON, mode);
+			break;
+		case 17:
+			if(can_pet) break;
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_AMBERITES, (mode | PC_ALLOW_UNIQUE));
+			break;
+		case 18: case 19:
+			if(can_pet) break;
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_UNIQUE, (mode | PC_ALLOW_UNIQUE));
+			break;
+		case 20: case 21:
+			if(!can_pet) mode |= PC_ALLOW_UNIQUE;
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HI_UNDEAD, mode);
+			break;
+		case 22: case 23:
+			if(!can_pet) mode |= PC_ALLOW_UNIQUE;
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, summon_lev, SUMMON_HI_DRAGON, mode);
+			break;
+		case 24:
+			count += summon_specific((pet ? creature_ptr : NULL), y, x, 100, SUMMON_CYBER, mode);
+			break;
+		default:
+			if(!can_pet) mode |= PC_ALLOW_UNIQUE;
+			count += summon_specific((pet ? creature_ptr : NULL), y, x,pet ? summon_lev : (((summon_lev * 3) / 2) + 5), 0, mode);
 		}
 	}
 
@@ -4025,16 +4001,16 @@ void wall_breaker(creature_type *creature_ptr)
 
 
 /*
- * Confuse creatures
- */
+* Confuse creatures
+*/
 bool confuse_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_OLD_CONF, dam));
 }
 
 /*
- * Charm animals
- */
+* Charm animals
+*/
 bool charm_animals(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_CONTROL_ANIMAL, dam));
@@ -4042,8 +4018,8 @@ bool charm_animals(creature_type *caster_ptr, int dam)
 
 
 /*
- * Stun creatures
- */
+* Stun creatures
+*/
 bool stun_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_STUN, dam));
@@ -4051,8 +4027,8 @@ bool stun_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Stasis creatures
- */
+* Stasis creatures
+*/
 bool stasis_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_STASIS, dam));
@@ -4060,8 +4036,8 @@ bool stasis_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Mindblast creatures
- */
+* Mindblast creatures
+*/
 bool mindblast_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_PSI, dam));
@@ -4069,8 +4045,8 @@ bool mindblast_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Banish all creatures
- */
+* Banish all creatures
+*/
 bool banish_creatures(creature_type *caster_ptr, int dist)
 {
 	return (project_hack(caster_ptr, GF_AWAY_ALL, dist));
@@ -4078,8 +4054,8 @@ bool banish_creatures(creature_type *caster_ptr, int dist)
 
 
 /*
- * Turn evil
- */
+* Turn evil
+*/
 bool turn_evil(creature_type *caster_ptr,int dam)
 {
 	return (project_hack(caster_ptr, GF_TURN_EVIL, dam));
@@ -4087,8 +4063,8 @@ bool turn_evil(creature_type *caster_ptr,int dam)
 
 
 /*
- * Turn everyone
- */
+* Turn everyone
+*/
 bool turn_creatures(creature_type *caster_ptr, int dam)
 {
 	return (project_hack(caster_ptr, GF_TURN_ALL, dam));
@@ -4096,8 +4072,8 @@ bool turn_creatures(creature_type *caster_ptr, int dam)
 
 
 /*
- * Death-ray all creatures (note: OBSCENELY powerful)
- */
+* Death-ray all creatures (note: OBSCENELY powerful)
+*/
 bool deathray_creatures(creature_type *caster_ptr)
 {
 	return (project_hack(caster_ptr, GF_DEATH_RAY, caster_ptr->lev * 200));
@@ -4328,7 +4304,7 @@ void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool exp
 				remove_mirror(user_ptr, y, x);
 				if(explode)
 					project(0, 0, 2, y, x, user_ptr->lev / 2 + 5, GF_SHARDS,
-						(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+					(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 	}
