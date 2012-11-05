@@ -3574,7 +3574,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 	species_type	*r_ptr = &species_info[species_idx];
 	creature_type cr;
 
-	cptr		name = (species_name + r_ptr->name);
+	cptr name = (species_name + r_ptr->name);
 
 	if((has_trait_species(r_ptr, TRAIT_UNIQUE)) || has_trait_species(r_ptr, TRAIT_NAZGUL) || (r_ptr->level < 10)) mode &= ~PC_KAGE;
 
@@ -3672,7 +3672,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 
 	if(is_glyph_grid(c_ptr))
 	{
-		if(randint1(BREAK_GLYPH) < (r_ptr->level+20))
+		if(randint1(BREAK_GLYPH) < (r_ptr->level + 20))
 		{
 			if(c_ptr->info & CAVE_MARK) // Describe observable breakage
 			{
@@ -4229,7 +4229,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	int species_idx;
 	
 	// Pick a creature
-	get_species_num_prep(NULL, get_creature_hook(), get_creature_hook2(y, x), NULL, 0); 
+	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO get_creature_hook(), get_creature_hook2(y, x)
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 	if(!species_idx) return (FALSE);
 

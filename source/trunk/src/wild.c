@@ -366,8 +366,7 @@ void generate_floor_wilderness(floor_type *floor_ptr)
 	x = player_ptr->wx;
 	y = player_ptr->wy;
 
-	/* Prepare allocation table */
-	get_species_num_prep(NULL, get_creature_hook(), NULL, NULL, 0);
+	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO // Prepare allocation table
 
 	// North border
 	generate_area(floor_ptr, y - 1, x, TRUE, FALSE);

@@ -389,31 +389,31 @@ creature_hook_type get_creature_hook(void)
 		switch (wilderness[player_ptr->wy][player_ptr->wx].terrain)
 		{
 		case TERRAIN_TOWN:
-			return (creature_hook_type)creature_hook_town;
+			return (creature_hook_type) creature_hook_town;
 		case TERRAIN_DEEP_WATER:
-			return (creature_hook_type)creature_hook_ocean;
+			return (creature_hook_type) creature_hook_ocean;
 		case TERRAIN_SHALLOW_WATER:
 		case TERRAIN_SWAMP:
-			return (creature_hook_type)creature_hook_shore;
+			return (creature_hook_type) creature_hook_shore;
 		case TERRAIN_DIRT:
 		case TERRAIN_DESERT:
-			return (creature_hook_type)creature_hook_waste;
+			return (creature_hook_type) creature_hook_waste;
 		case TERRAIN_GRASS:
-			return (creature_hook_type)creature_hook_grass;
+			return (creature_hook_type) creature_hook_grass;
 		case TERRAIN_TREES:
-			return (creature_hook_type)creature_hook_wood;
+			return (creature_hook_type) creature_hook_wood;
 		case TERRAIN_SHALLOW_LAVA:
 		case TERRAIN_DEEP_LAVA:
-			return (creature_hook_type)creature_hook_volcano;
+			return (creature_hook_type) creature_hook_volcano;
 		case TERRAIN_MOUNTAIN:
-			return (creature_hook_type)creature_hook_mountain;
+			return (creature_hook_type) creature_hook_mountain;
 		default:
-			return (creature_hook_type)species_hook_dungeon;
+			return (creature_hook_type) species_hook_dungeon;
 		}
 	}
 	else
 	{
-		return (creature_hook_type)species_hook_dungeon;
+		return (creature_hook_type) species_hook_dungeon;
 	}
 }
 
@@ -486,7 +486,7 @@ void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 
 		creature_desc(m_name, m_ptr, 0);
 #ifdef JP
-msg_format("%^sÇÕì{Ç¡ÇΩÅI", m_name);
+		msg_format("%^sÇÕì{Ç¡ÇΩÅI", m_name);
 #else
 		msg_format("%^s gets angry!", m_name);
 #endif
