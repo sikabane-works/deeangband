@@ -2321,33 +2321,15 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 		/* Random message */
 		switch (randint1(3))
 		{
-			case 1:
-			{
 #ifdef JP
-				msg_print("ダンジョンの壁が崩れた！");
+			case 1: msg_print("ダンジョンの壁が崩れた！"); break;
+			case 2: msg_print("ダンジョンの床が不自然にねじ曲がった！"); break;
+			default: msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！"); break;
 #else
-				msg_print("The cave ceiling collapses!");
+			case 1: msg_print("The cave ceiling collapses!"); break;
+			case 2: msg_print("The cave floor twists in an unnatural way!"); break;
+			default: msg_print("The cave quakes!  You are pummeled with debris!"); break;
 #endif
-				break;
-			}
-			case 2:
-			{
-#ifdef JP
-				msg_print("ダンジョンの床が不自然にねじ曲がった！");
-#else
-				msg_print("The cave floor twists in an unnatural way!");
-#endif
-				break;
-			}
-			default:
-			{
-#ifdef JP
-				msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！");
-#else
-				msg_print("The cave quakes!  You are pummeled with debris!");
-#endif
-				break;
-			}
 		}
 
 		/* Hurt the player a lot */
