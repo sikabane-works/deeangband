@@ -2290,23 +2290,22 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 			{
 				creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
-				/* Quest creatures */
+				// Quest creatures / No wall on quest creatures
 				if(has_trait(m_ptr, TRAIT_QUESTOR))
 				{
-					/* No wall on quest creatures */
 					map[16+yy-cy][16+xx-cx] = FALSE;
 					continue;
 				}
 
-				/* First, affect the player (if necessary) */
-				if(!has_trait(caster_ptr, TRAIT_PASS_WALL) && !has_trait(caster_ptr, TRAIT_KILL_WALL))
+				// First, affect the player (if necessary)
+				if(!has_trait(m_ptr, TRAIT_PASS_WALL) && !has_trait(m_ptr, TRAIT_KILL_WALL))
 				{
 					/* Check around the player */
 					for (i = 0; i < 8; i++)
 					{
 						/* Access the location */
-						y = caster_ptr->fy + ddy_ddd[i];
-						x = caster_ptr->fx + ddx_ddd[i];
+						y = m_ptr->fy + ddy_ddd[i];
+						x = m_ptr->fx + ddx_ddd[i];
 
 						/* Skip non-empty grids */
 						if(!cave_empty_bold(floor_ptr, y, x)) continue;
@@ -2327,17 +2326,20 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 					}
 
 					/* Random message */
-					switch (randint1(3))
+					if(is_player(m_ptr))
 					{
+						switch (randint1(3))
+						{
 #ifdef JP
-			case 1: msg_print("ダンジョンの壁が崩れた！"); break;
-			case 2: msg_print("ダンジョンの床が不自然にねじ曲がった！"); break;
-			default: msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！"); break;
+							case 1: msg_print("ダンジョンの壁が崩れた！"); break;
+							case 2: msg_print("ダンジョンの床が不自然にねじ曲がった！"); break;
+							default: msg_print("ダンジョンが揺れた！崩れた岩が頭に降ってきた！"); break;
 #else
-			case 1: msg_print("The cave ceiling collapses!"); break;
-			case 2: msg_print("The cave floor twists in an unnatural way!"); break;
-			default: msg_print("The cave quakes!  You are pummeled with debris!"); break;
+							case 1: msg_print("The cave ceiling collapses!"); break;
+							case 2: msg_print("The cave floor twists in an unnatural way!"); break;
+							default: msg_print("The cave quakes!  You are pummeled with debris!"); break;
 #endif
+						}
 					}
 
 					/* Hurt the player a lot */
@@ -2345,9 +2347,9 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 					{
 						/* Message and damage */
 #ifdef JP
-						msg_print("あなたはひどい怪我を負った！");
+						if(is_player(m_ptr)) msg_print("あなたはひどい怪我を負った！");
 #else
-						msg_print("You are severely crushed!");
+						if(is_player(m_ptr)) msg_print("You are severely crushed!");
 #endif
 						damage = 200;
 					}
@@ -2361,9 +2363,9 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						case 1:
 							{
 #ifdef JP
-								msg_print("降り注ぐ岩をうまく避けた！");
+								if(is_player(m_ptr)) msg_print("降り注ぐ岩をうまく避けた！");
 #else
-								msg_print("You nimbly dodge the blast!");
+								if(is_player(m_ptr)) msg_print("You nimbly dodge the blast!");
 #endif
 								damage = 0;
 								break;
@@ -2371,33 +2373,33 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						case 2:
 							{
 #ifdef JP
-								msg_print("岩石があなたに直撃した!");
+								if(is_player(m_ptr)) msg_print("岩石があなたに直撃した!");
 #else
-								msg_print("You are bashed by rubble!");
+								if(is_player(m_ptr)) msg_print("You are bashed by rubble!");
 #endif
 								damage = diceroll(10, 4);
-								(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								(void)set_timed_trait(m_ptr, TRAIT_STUN, m_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 								break;
 							}
 						case 3:
 							{
 #ifdef JP
-								msg_print("あなたは床と壁との間に挟まれてしまった！");
+								if(is_player(m_ptr)) msg_print("あなたは床と壁との間に挟まれてしまった！");
 #else
-								msg_print("You are crushed between the floor and ceiling!");
+								if(is_player(m_ptr)) msg_print("You are crushed between the floor and ceiling!");
 #endif
 								damage = diceroll(10, 4);
-								(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+								(void)set_timed_trait(m_ptr, TRAIT_STUN, m_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 								break;
 							}
 						}
 
 						/* Move the player to the safe location */
-						(void)move_creature(caster_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
+						(void)move_creature(m_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
 					}
 
 					/* Important -- no wall on player */
-					map[16+caster_ptr->fy-cy][16+caster_ptr->fx-cx] = FALSE;
+					map[16+m_ptr->fy-cy][16+m_ptr->fx-cx] = FALSE;
 
 					/* Take some damage */
 					if(damage)
@@ -2428,123 +2430,6 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 						}
 
 						take_hit(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
-					}
-				}
-				/* Most creatures cannot co-exist with rock */
-				if(!has_trait(m_ptr, TRAIT_KILL_WALL) && !has_trait(m_ptr, TRAIT_PASS_WALL))
-				{
-					char m_name[MAX_NLEN];
-
-					/* Assume not safe */
-					sn = 0;
-
-					/* Creature can move to escape the wall */
-					if(!(has_trait(m_ptr, TRAIT_NEVER_MOVE)))
-					{
-						/* Look for safety */
-						for (i = 0; i < 8; i++)
-						{
-							/* Access the grid */
-							y = yy + ddy_ddd[i];
-							x = xx + ddx_ddd[i];
-
-							/* Skip non-empty grids */
-							if(!cave_empty_bold(floor_ptr, y, x)) continue;
-
-							/* Hack -- no safety on glyph of warding */
-							if(is_glyph_grid(&floor_ptr->cave[y][x])) continue;
-							if(is_explosive_rune_grid(&floor_ptr->cave[y][x])) continue;
-
-							/* ... nor on the Pattern */
-							if(pattern_tile(floor_ptr, y, x)) continue;
-
-							/* Important -- Skip "quake" grids */
-							if(map[16+y-cy][16+x-cx]) continue;
-
-							if(floor_ptr->cave[y][x].creature_idx) continue;
-							if(creature_bold(caster_ptr, y, x)) continue;
-
-							/* Count "safe" grids */
-							sn++;
-
-							/* Randomize choice */
-							if(randint0(sn) > 0) continue;
-
-							/* Save the safe grid */
-							sy = y; sx = x;
-						}
-					}
-
-					/* Describe the creature */
-					creature_desc(m_name, m_ptr, 0);
-
-					/* Scream in pain */
-#ifdef JP
-					if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
-#else
-					if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^s wails out in pain!", m_name);
-#endif
-
-					/* Take damage from the quake */
-					damage = (sn ? diceroll(4, 8) : (m_ptr->chp + 1));
-
-					/* Creature is certainly awake */
-					(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0);
-
-					/* Apply damage directly */
-					m_ptr->chp -= damage;
-
-					/* Delete (not kill) "dead" creatures */
-					if(m_ptr->chp < 0)
-					{
-						/* Message */
-#ifdef JP
-						if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
-#else
-						if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
-#endif
-
-						if(c_ptr->creature_idx)
-						{
-							if(record_named_pet && is_pet(player_ptr, &creature_list[c_ptr->creature_idx]) && creature_list[c_ptr->creature_idx].nickname)
-							{
-								char m2_name[80];
-
-								creature_desc(m2_name, m_ptr, CD_INDEF_VISIBLE);
-								do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_EARTHQUAKE, m2_name);
-							}
-						}
-
-						/* Delete the creature */
-						delete_creature(floor_ptr, yy, xx);
-
-						/* No longer safe */
-						sn = 0;
-					}
-
-					/* Hack -- Escape from the rock */
-					if(sn)
-					{
-						int m_idx = floor_ptr->cave[yy][xx].creature_idx;
-
-						/* Update the old location */
-						floor_ptr->cave[yy][xx].creature_idx = 0;
-
-						/* Update the new location */
-						floor_ptr->cave[sy][sx].creature_idx = m_idx;
-
-						/* Move the creature */
-						m_ptr->fy = sy;
-						m_ptr->fx = sx;
-
-						/* Update the creature (new location) */
-						update_creature_view(player_ptr, m_idx, TRUE);
-
-						/* Redraw the old grid */
-						lite_spot(floor_ptr, yy, xx);
-
-						/* Redraw the new grid */
-						lite_spot(floor_ptr, sy, sx);
 					}
 				}
 			}
