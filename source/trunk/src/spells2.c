@@ -2467,36 +2467,19 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 		}
 	}
 
+	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE | PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES); // Update stuff
+	play_redraw |= (PR_HEALTH | PR_UHEALTH | PR_MAP | PW_OVERHEAD | PW_DUNGEON); // Update the health bar
 
-	/* Mega-Hack -- Forget the view and lite */
-	player_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
+	if(caster_ptr->posture & NINJA_S_STEALTH && floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW)
+		set_superstealth(caster_ptr, FALSE);
 
-	/* Update stuff */
-	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
-
-	/* Update the health bar */
-	play_redraw |= (PR_HEALTH | PR_UHEALTH);
-
-	/* Redraw map */
-	play_redraw |= (PR_MAP);
-
-	/* Window stuff */
-	play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
-	if(caster_ptr->posture & NINJA_S_STEALTH)
-	{
-		if(floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
-	}
-
-	/* Success */
-	return (TRUE);
+	return (TRUE); // Success
 }
 
 bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
 {
 	return earthquake_aux(target_ptr, cy, cx, r, 0);
 }
-
 
 void discharge_minion(creature_type *caster_ptr)
 {
