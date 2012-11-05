@@ -2622,16 +2622,13 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 
 		cave_type *c_ptr = &floor_ptr->cave[y][x];
 		bool do_dark = !is_mirror_grid(c_ptr);
+		c_ptr->info &= ~(CAVE_TEMP); // No longer in the array
 
-		/* No longer in the array */
-		c_ptr->info &= ~(CAVE_TEMP);
-
-		/* Darken the grid */
-		if(do_dark)
+		if(do_dark) // Darken the grid
 		{
 			if(floor_ptr->floor_level || !is_daytime())
 			{
-				for (j = 0; j < 9; j++)
+				for (j = 0; j < DIRECTION_NUM; j++)
 				{
 					int by = y + ddy_ddd[j];
 					int bx = x + ddx_ddd[j];
@@ -2647,50 +2644,32 @@ static void cave_temp_room_unlite(floor_type *floor_ptr)
 						}
 					}
 				}
-
 				if(!do_dark) continue;
 			}
 
 			c_ptr->info &= ~(CAVE_GLOW);
 
-			/* Hack -- Forget "boring" grids */
-			if(!have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_REMEMBER))
+			if(!have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_REMEMBER)) // Hack -- Forget "boring" grids
 			{
-				/* Forget the grid */
-				if(!view_torch_grids) c_ptr->info &= ~(CAVE_MARK);
-
-				/* Notice */
-				note_spot(floor_ptr, y, x);
+				if(!view_torch_grids) c_ptr->info &= ~(CAVE_MARK); // Forget the grid
+				note_spot(floor_ptr, y, x); // Notice
 			}
 
-			/* Process affected creatures */
-			if(c_ptr->creature_idx)
-			{
-				/* Update the creature */
-				update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
-			}
-
-			/* Redraw */
-			lite_spot(floor_ptr, y, x);
+			if(c_ptr->creature_idx) update_creature_view(player_ptr, c_ptr->creature_idx, FALSE); // Process affected creatures / Update the creature
+			lite_spot(floor_ptr, y, x); // Redraw
 
 			update_local_illumination(floor_ptr, y, x);
 		}
 	}
 
-	/* None left */
-	temp_n = 0;
+	temp_n = 0; // None left
 }
 
-
-/*
-* Determine how much contiguous open space this grid is next to
-*/
+// Determine how much contiguous open space this grid is next to
 static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
-
 	int y, x;
-
 	int len = 0;
 	int blen = 0;
 
