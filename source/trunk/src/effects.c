@@ -13,12 +13,16 @@
 
 #include "angband.h"
 
+bool add_timed_trait(creature_type *creature_ptr, int type, int v, bool message)
+{
+	return set_timed_trait_aux(creature_ptr, type, creature_ptr->timed_trait[type] + v, message);
+}
+
 bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 {
 	bool notice = FALSE;
 
 	v = (v > 10000) ? 10000 : (v < 0) ? 0 : v; // Hack -- Force good values
-
 	if(IS_DEAD(creature_ptr)) return FALSE;
 
 	if(v)
