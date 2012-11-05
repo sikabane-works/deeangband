@@ -2543,15 +2543,10 @@ void discharge_minion(creature_type *caster_ptr)
 
 /*
 * This routine clears the entire "temp" set.
-*
 * This routine will Perma-Lite all "temp" grids.
-*
 * This routine is used (only) by "lite_room()"
-*
 * Dark grids are illuminated.
-*
 * Also, process all affected creatures.
-*
 * SMART creatures always wake up when illuminated
 * NORMAL creatures wake up 1/4 the time when illuminated
 * STUPID creatures wake up 1/10 the time when illuminated
@@ -2568,49 +2563,28 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 		int x = temp_x[i];
 
 		cave_type *c_ptr = &floor_ptr->cave[y][x];
+		c_ptr->info &= ~(CAVE_TEMP); // No longer in the array
+		if(c_ptr->info & (CAVE_GLOW)) continue; // Update only non-CAVE_GLOW grids
 
-		/* No longer in the array */
-		c_ptr->info &= ~(CAVE_TEMP);
+		c_ptr->info |= (CAVE_GLOW); // Perma-Lite
 
-		/* Update only non-CAVE_GLOW grids */
-		/* if(c_ptr->info & (CAVE_GLOW)) continue; */
-
-		/* Perma-Lite */
-		c_ptr->info |= (CAVE_GLOW);
-
-		/* Process affected creatures */
-		if(c_ptr->creature_idx)
+		if(c_ptr->creature_idx) // Process affected creatures
 		{
 			int chance = 25;
+			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
+			update_creature_view(player_ptr, c_ptr->creature_idx, FALSE); // Update the creature
 
-			creature_type    *m_ptr = &creature_list[c_ptr->creature_idx];
+			if(has_trait(m_ptr, TRAIT_STUPID)) chance = 10; // Stupid creatures rarely wake up
+			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100; // Smart creatures always wake up
 
-			species_type    *r_ptr = &species_info[m_ptr->species_idx];
-
-			/* Update the creature */
-			update_creature_view(player_ptr, c_ptr->creature_idx, FALSE);
-
-			/* Stupid creatures rarely wake up */
-			if(has_trait(m_ptr, TRAIT_STUPID)) chance = 10;
-
-			/* Smart creatures always wake up */
-			if(has_trait(m_ptr, TRAIT_SMART)) chance = 100;
-
-			/* Sometimes creatures wake up */
-			if(m_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < chance))
+			if(m_ptr->timed_trait[TRAIT_SLEPT] && (randint0(100) < chance)) // Sometimes creatures wake up
 			{
-				/* Wake up! */
-				(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
-
-				/* Notice the "waking up" */
-				if(m_ptr->see_others || m_ptr->hear_noise)
+				(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0); // Wake up!
+				if(m_ptr->see_others || m_ptr->hear_noise) // Notice the "waking up"
 				{
 					char m_name[MAX_NLEN];
-
-					/* Acquire the creature name */
-					creature_desc(m_name, m_ptr, 0);
-
-					/* Dump a message */
+					creature_desc(m_name, m_ptr, 0); // Acquire the creature name
+					// Dump a message
 #ifdef JP
 					msg_format("%^sÇ™ñ⁄ÇäoÇ‹ÇµÇΩÅB", m_name);
 #else
@@ -2620,38 +2594,27 @@ static void cave_temp_room_lite(creature_type *lite_ptr)
 			}
 		}
 
-		/* Note */
-		note_spot(floor_ptr, y, x);
-
-		/* Redraw */
-		lite_spot(floor_ptr, y, x);
-
+		note_spot(floor_ptr, y, x); // Note
+		lite_spot(floor_ptr, y, x); // Redraw
 		update_local_illumination(floor_ptr, y, x);
 	}
 
-	/* None left */
-	temp_n = 0;
+	temp_n = 0; // None left
 }
 
 
 
 /*
-* This routine clears the entire "temp" set.
-*
-* This routine will "darken" all "temp" grids.
-*
-* In addition, some of these grids will be "unmarked".
-*
-* This routine is used (only) by "unlite_room()"
-*
-* Also, process all affected creatures
-*/
+ * This routine clears the entire "temp" set.
+ * This routine will "darken" all "temp" grids.
+ * In addition, some of these grids will be "unmarked".
+ * This routine is used (only) by "unlite_room()"
+ * Also, process all affected creatures
+ */
 static void cave_temp_room_unlite(floor_type *floor_ptr)
 {
 	int i;
-
-	/* Clear them all */
-	for (i = 0; i < temp_n; i++)
+	for (i = 0; i < temp_n; i++) // Clear them all
 	{
 		int y = temp_y[i];
 		int x = temp_x[i];
