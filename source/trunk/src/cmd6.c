@@ -2903,11 +2903,10 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 		case SV_WAND_ROCKETS:
 		{
 #ifdef JP
-msg_print("ロケットを発射した！");
+			msg_print("ロケットを発射した！");
 #else
 			msg_print("You launch a rocket!");
 #endif
-
 			fire_rocket(creature_ptr, GF_ROCKET, dir, 250 + creature_ptr->lev * 3, 2);
 			ident = TRUE;
 			break;

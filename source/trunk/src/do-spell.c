@@ -3888,7 +3888,6 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_print("You launch a rocket!");
 #endif
-
 				fire_rocket(caster_ptr, GF_ROCKET, dir, dam, rad);
 			}
 		}

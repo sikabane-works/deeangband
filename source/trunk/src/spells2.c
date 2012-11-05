@@ -2678,23 +2678,13 @@ static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)
 		y = cy + ddy_cdd[i % 8];
 		x = cx + ddx_cdd[i % 8];
 
-		// Found a wall, break the length
-		if(!pass_bold(floor_ptr, y, x))
+		if(!pass_bold(floor_ptr, y, x)) // Found a wall, break the length
 		{
-			/* Track best length */
-			if(len > blen)
-			{
-				blen = len;
-			}
-
+			if(len > blen) blen = len; // Track best length
 			len = 0;
 		}
-		else
-		{
-			len++;
-		}
+		else len++;
 	}
-
 	return (MAX(len, blen));
 }
 
@@ -2702,9 +2692,7 @@ static int next_to_open(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)
 static int next_to_walls_adj(floor_type *floor_ptr, int cy, int cx, bool (*pass_bold)(floor_type *, int, int))
 {
 	int i;
-
 	int y, x;
-
 	int c = 0;
 
 	for (i = 0; i < 8; i++)
@@ -2963,7 +2951,6 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 */
 bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 {
-
 	/* Hack -- Message */
 	if(!has_trait(player_ptr, TRAIT_BLIND))
 	{
@@ -3017,11 +3004,11 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 
 
 /*
-* Cast a ball spell
-* Stop if we hit a creature, act as a "ball"
-* Allow "target" mode to pass over creatures
-* Affect grids, objects, and creatures
-*/
+ * Cast a ball spell
+ * Stop if we hit a creature, act as a "ball"
+ * Allow "target" mode to pass over creatures
+ * Affect grids, objects, and creatures
+ */
 bool fire_rocket(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
