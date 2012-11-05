@@ -2250,16 +2250,10 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	}
 
 	/* Paranoia -- Enforce maximum range */
-	if(r > 12) r = 12;
+	if(r > EARTHQUAKE_MAX_RANGE) r = EARTHQUAKE_MAX_RANGE;
 
 	/* Clear the "maximal blast" area */
-	for (y = 0; y < 32; y++)
-	{
-		for (x = 0; x < 32; x++)
-		{
-			map[y][x] = FALSE;
-		}
-	}
+	for (y = 0; y < 32; y++) for (x = 0; x < 32; x++) map[y][x] = FALSE;
 
 	/* Check around the epicenter */
 	for (dy = -r; dy <= r; dy++)
@@ -2285,11 +2279,8 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			/* Lose light and knowledge */
 			c_ptr->info &= ~(CAVE_GLOW | CAVE_MARK);
 
-			/* Skip the epicenter */
-			if(!dx && !dy) continue;
-
-			/* Skip most grids */
-			if(randint0(100) < 85) continue;
+			if(!dx && !dy) continue; // Skip the epicenter
+			if(randint0(100) < 85) continue; // Skip most grids
 
 			/* Damage this grid */
 			map[16+yy-cy][16+xx-cx] = TRUE;

@@ -1,6 +1,8 @@
 
 // 2012 D'angband  game-contants.h
 
+#define EARTHQUAKE_MAX_RANGE 12
+
 #define ENERGY_VARIANCE	25
 
 #define STORE_MIN_STOCK 12
