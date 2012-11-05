@@ -2232,7 +2232,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
  * for a single turn, unless that creature can pass_walls or kill_walls.
  * This has allowed massive simplification of the "creature" code.
  */
-bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
+bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 {
 	int             i, t, y, x, yy, xx, dy, dx;
 	int             damage = 0;
@@ -2240,7 +2240,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	bool            hurt = FALSE;
 	cave_type       *c_ptr;
 	bool            map[32][32];
-	floor_type      *floor_ptr = GET_FLOOR_PTR(target_ptr);
+	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 
 	/* Prevent destruction of quest levels and town */
@@ -2286,19 +2286,19 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			map[16+yy-cy][16+xx-cx] = TRUE;
 
 			/* Hack -- Take note of player damage */
-			if(creature_bold(target_ptr, yy, xx)) hurt = TRUE;
+			if(creature_bold(caster_ptr, yy, xx)) hurt = TRUE;
 		}
 	}
 
 	/* First, affect the player (if necessary) */
-	if(hurt && !has_trait(target_ptr, TRAIT_PASS_WALL) && !has_trait(target_ptr, TRAIT_KILL_WALL))
+	if(hurt && !has_trait(caster_ptr, TRAIT_PASS_WALL) && !has_trait(caster_ptr, TRAIT_KILL_WALL))
 	{
 		/* Check around the player */
 		for (i = 0; i < 8; i++)
 		{
 			/* Access the location */
-			y = target_ptr->fy + ddy_ddd[i];
-			x = target_ptr->fx + ddx_ddd[i];
+			y = caster_ptr->fy + ddy_ddd[i];
+			x = caster_ptr->fx + ddx_ddd[i];
 
 			/* Skip non-empty grids */
 			if(!cave_empty_bold(floor_ptr, y, x)) continue;
@@ -2368,7 +2368,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					msg_print("You are bashed by rubble!");
 #endif
 					damage = diceroll(10, 4);
-					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+					(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 					break;
 				}
 				case 3:
@@ -2379,17 +2379,17 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					msg_print("You are crushed between the floor and ceiling!");
 #endif
 					damage = diceroll(10, 4);
-					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(50));
+					(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(50));
 					break;
 				}
 			}
 
 			/* Move the player to the safe location */
-			(void)move_creature(target_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
+			(void)move_creature(caster_ptr, NULL, sy, sx, MCE_DONT_PICKUP);
 		}
 
 		/* Important -- no wall on player */
-		map[16+target_ptr->fy-cy][16+target_ptr->fx-cx] = FALSE;
+		map[16+caster_ptr->fy-cy][16+caster_ptr->fx-cx] = FALSE;
 
 		/* Take some damage */
 		if(damage)
@@ -2419,7 +2419,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 #endif
 			}
 
-			take_hit(NULL, target_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
+			take_hit(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
 		}
 	}
 
@@ -2438,7 +2438,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			/* Access the grid */
 			c_ptr = &floor_ptr->cave[yy][xx];
 
-			if(c_ptr->creature_idx == target_ptr->riding) continue;
+			if(c_ptr->creature_idx == caster_ptr->riding) continue;
 
 			/* Process creatures */
 			if(c_ptr->creature_idx)
@@ -2486,7 +2486,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 							if(map[16+y-cy][16+x-cx]) continue;
 
 							if(floor_ptr->cave[y][x].creature_idx) continue;
-							if(creature_bold(target_ptr, y, x)) continue;
+							if(creature_bold(caster_ptr, y, x)) continue;
 
 							/* Count "safe" grids */
 							sn++;
@@ -2504,16 +2504,16 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 
 					/* Scream in pain */
 #ifdef JP
-					if(!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
+					if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^sは苦痛で泣きわめいた！", m_name);
 #else
-					if(!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^s wails out in pain!", m_name);
+					if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^s wails out in pain!", m_name);
 #endif
 
 					/* Take damage from the quake */
 					damage = (sn ? diceroll(4, 8) : (m_ptr->chp + 1));
 
 					/* Creature is certainly awake */
-					(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
+					(void)set_timed_trait(m_ptr, TRAIT_SLEPT, 0);
 
 					/* Apply damage directly */
 					m_ptr->chp -= damage;
@@ -2523,9 +2523,9 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 					{
 						/* Message */
 #ifdef JP
-						if(!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
+						if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^sは岩石に埋もれてしまった！", m_name);
 #else
-						if(!ignore_unview || is_seen(target_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
+						if(!ignore_unview || is_seen(caster_ptr, m_ptr)) msg_format("%^s is embedded in the rock!", m_name);
 #endif
 
 						if(c_ptr->creature_idx)
@@ -2594,7 +2594,7 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 			c_ptr = &floor_ptr->cave[yy][xx];
 
 			/* Paranoia -- never affect player */
-			if(creature_bold(target_ptr, yy, xx)) continue;
+			if(creature_bold(caster_ptr, yy, xx)) continue;
 
 			// Destroy location (if valid)
 			if(cave_valid_bold(floor_ptr, yy, xx))
@@ -2687,9 +2687,9 @@ bool earthquake_aux(creature_type *target_ptr, int cy, int cx, int r, int m_idx)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	if(target_ptr->posture & NINJA_S_STEALTH)
+	if(caster_ptr->posture & NINJA_S_STEALTH)
 	{
-		if(floor_ptr->cave[target_ptr->fy][target_ptr->fx].info & CAVE_GLOW) set_superstealth(target_ptr, FALSE);
+		if(floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW) set_superstealth(caster_ptr, FALSE);
 	}
 
 	/* Success */
