@@ -1036,6 +1036,7 @@ struct race_type
 	s16b slot_tail;
 	s16b slot_intake;
 
+	special_blow_type blow[MAX_SPECIAL_BLOWS];	// Up to four blows per round 
 	/*    byte choice_xtra;   */
 };
 
