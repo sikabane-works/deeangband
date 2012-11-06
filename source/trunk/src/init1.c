@@ -4991,6 +4991,7 @@ errr parse_race_info_csv(char *buf, header *head)
 				break;
 
 			case RC_INFO_SP_MELEE:
+				parse_special_melee(race_ptr->blow, tmp);
 				break;
 
 			default:
