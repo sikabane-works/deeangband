@@ -3921,10 +3921,11 @@ static void set_melee_status(creature_type *creature_ptr)
 	bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
 
 	// Set Species Blow.
-	creature_ptr->blow[0] = species_ptr->blow[0];
-	creature_ptr->blow[1] = species_ptr->blow[1];
-	creature_ptr->blow[2] = species_ptr->blow[2];
-	creature_ptr->blow[3] = species_ptr->blow[3];
+	for(i = 0; i < MAX_SPECIAL_BLOWS; i++)
+	{
+		if(species_ptr->blow[i].method) creature_ptr->blow[i] = species_ptr->blow[i];
+		else creature_ptr->blow[i] = race_info[creature_ptr->race_idx1].blow[i];
+	}
 
 	if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) creature_ptr->can_melee[0] = TRUE;
 	if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
