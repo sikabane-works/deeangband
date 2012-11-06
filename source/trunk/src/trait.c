@@ -658,8 +658,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		update_smart_learn(caster_ptr, DRS_COLD);
 		break;
 
-	case TRAIT_TRAIT_S_DAWN_LEGION:
-		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
+	case TRAIT_S_DAWN_LEGION:
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DAWN_LEGION, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_PANIC_CREATURE:
@@ -922,7 +922,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 		break;
 
-	case TRAIT_TRAIT_S_OCTOPUS:
+	case TRAIT_S_OCTOPUS:
 		{
 			u32b mode = PC_ALLOW_GROUP;
 			bool pet = !one_in_(5);

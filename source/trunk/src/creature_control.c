@@ -1122,7 +1122,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case TRAIT_S_DAWN:
+		case TRAIT_S_DAWN_LEGION:
 		{
 			okay = (species_idx == SPECIES_DAWN);
 			break;
@@ -4463,7 +4463,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
 
 	if(!species_idx) return (FALSE); // Handle failure
-	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN)) mode |= PC_NO_KAGE;
+	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN_LEGION)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */
 	if(!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (FALSE);
