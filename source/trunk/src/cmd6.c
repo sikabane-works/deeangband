@@ -1621,14 +1621,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_REMOVE_CURSE:
 		{
-			if(remove_curse(creature_ptr))
+			if(remove_curse(creature_ptr)) 
 			{
-#ifdef JP
-				msg_print("誰かに見守られているような気がする。");
-#else
-				msg_print("You feel as if someone is watching over you.");
-#endif
-
+				msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 				ident = TRUE;
 			}
 			break;
@@ -1636,14 +1631,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_STAR_REMOVE_CURSE:
 		{
-			if(remove_all_curse(creature_ptr))
-			{
-#ifdef JP
-				msg_print("誰かに見守られているような気がする。");
-#else
-				msg_print("You feel as if someone is watching over you.");
-#endif
-			}
+			if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			ident = TRUE;
 			break;
 		}
@@ -2190,14 +2178,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		{
 			if(remove_curse(creature_ptr))
 			{
-				if(magic)
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(magic) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 				else if(!has_trait(creature_ptr, TRAIT_BLIND))
 				{
 #ifdef JP

@@ -1353,14 +1353,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr))
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(remove_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			}
 		}
 		break;
@@ -1524,14 +1517,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr))
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			}
 		}
 		break;
@@ -6811,14 +6797,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr))
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(remove_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			}
 		}
 		break;
@@ -7158,14 +7137,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr))
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			}
 		}
 		break;
@@ -8367,14 +8339,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_curse(creature_ptr))
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(remove_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			}
 		}
 		break;
@@ -8698,14 +8663,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(remove_all_curse(creature_ptr))
-				{
-#ifdef JP
-					msg_print("誰かに見守られているような気がする。");
-#else
-					msg_print("You feel as if someone is watching over you.");
-#endif
-				}
+				if(remove_all_curse(creature_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 			}
 		}
 		break;

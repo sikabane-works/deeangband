@@ -931,14 +931,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_REMOVE_CURSE_2:
-		if(remove_all_curse(caster_ptr))
-		{
-#ifdef JP
-			msg_print("誰かに見守られているような気がする。");
-#else
-			msg_print("You feel as if someone is watching over you.");
-#endif
-		}
+		if(remove_all_curse(caster_ptr)) msg_print(game_messages[GAME_MESSAGE_REMOVED_OBJECT_CURSE]);
 
 	case TRAIT_RESTORE_MANA:
 		{
