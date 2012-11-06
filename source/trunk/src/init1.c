@@ -6769,18 +6769,10 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			{
 				floor_ptr->object_level = floor_ptr->base_level + object_index;
 
-				/*
-				 * Random trap and random treasure defined
-				 * 25% chance for trap and 75% chance for object
-				 */
-				if(randint0(100) < 75)
-				{
-					place_object(floor_ptr, *y, *x, 0L, NULL);
-				}
-				else
-				{
-					place_trap(floor_ptr, *y, *x);
-				}
+				// Random trap and random treasure defined
+				// 25% chance for trap and 75% chance for object
+				if(randint0(100) < 75) place_object(floor_ptr, *y, *x, 0L, NULL);
+				else place_trap(floor_ptr, *y, *x);
 
 				floor_ptr->object_level = floor_ptr->base_level;
 			}
@@ -6788,13 +6780,10 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 			{
 				floor_ptr->object_level = floor_ptr->base_level + object_index;
 
-				/* Create an out of deep object */
-				if(randint0(100) < 75)
-					place_object(floor_ptr, *y, *x, 0L, NULL);
-				else if(randint0(100) < 80)
-					place_object(floor_ptr, *y, *x, AM_GOOD, NULL);
-				else
-					place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT, NULL);
+				// Create an out of deep object
+				if(randint0(100) < 75) place_object(floor_ptr, *y, *x, 0L, NULL);
+				else if(randint0(100) < 80) place_object(floor_ptr, *y, *x, AM_GOOD, NULL);
+				else place_object(floor_ptr, *y, *x, AM_GOOD | AM_GREAT, NULL);
 
 				floor_ptr->object_level = floor_ptr->base_level;
 			}
@@ -6865,20 +6854,17 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		int num;
 		quest_type *quest_ptr;
 #ifdef JP
-		if(buf[2] == '$')
-			return PARSE_ERROR_NONE;
+		if(buf[2] == '$') return PARSE_ERROR_NONE;
 		num = tokenize(buf + 2, 33, zz, 0);
 #else
-		if(buf[2] != '$')
-			return PARSE_ERROR_NONE;
+		if(buf[2] != '$') return PARSE_ERROR_NONE;
 		num = tokenize(buf + 3, 33, zz, 0);
 #endif
 
 		/* Have we enough parameters? */
 		if(num < 3) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 
-		/* Get the quest */
-		quest_ptr = &(quest[atoi(zz[0])]);
+		quest_ptr = &(quest[atoi(zz[0])]); // Get the quest
 
 		/* Process "Q:<q_index>:Q:<type>:<num_mon>:<cur_num>:<max_num>:<level>:<species_idx>:<k_idx>:<flags>" -- quest info */
 		if(zz[1][0] == 'Q')
@@ -6899,8 +6885,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 				quest_ptr->k_idx   = atoi(zz[8]);
 				quest_ptr->dungeon = atoi(zz[9]);
 
-				if(num > 10)
-					quest_ptr->flags  = atoi(zz[10]);
+				if(num > 10) quest_ptr->flags  = atoi(zz[10]);
 
 				r_ptr = &species_info[quest_ptr->species_idx];
 				//if(has_trait_species(r_ptr, TRAIT_UNIQUE))
@@ -6915,11 +6900,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		/* Process "Q:<q_index>:N:<name>" -- quest name */
 		else if(zz[1][0] == 'N')
 		{
-			if(flags & (INIT_ASSIGN | INIT_SHOW_TEXT))
-			{
-				strcpy(quest_ptr->name, zz[2]);
-			}
-
+			if(flags & (INIT_ASSIGN | INIT_SHOW_TEXT)) strcpy(quest_ptr->name, zz[2]);
 			return PARSE_ERROR_NONE;
 		}
 
