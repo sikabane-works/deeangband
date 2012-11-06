@@ -2239,7 +2239,7 @@ void do_cmd_pet(creature_type *master_ptr)
 	}
 	powers[num++] = PET_ATTACK_SPELL;
 
-	if(master_ptr->pet_extra_flags & PF_SUMMON_SPELL)
+	if(master_ptr->pet_extra_flags & PF_TRAIT_S_SPELL)
 	{
 #ifdef JP
 		power_desc[num] = "¢Š«–‚–@‚ðŽg‚¤ (Œ»Ý:ON)";
@@ -2255,7 +2255,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		power_desc[num] = "allow cast summon spell (now Off)";
 #endif
 	}
-	powers[num++] = PET_SUMMON_SPELL;
+	powers[num++] = PET_TRAIT_S_SPELL;
 
 	if(master_ptr->pet_extra_flags & PF_BALL_SPELL)
 	{
@@ -2679,10 +2679,10 @@ void do_cmd_pet(creature_type *master_ptr)
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
-		case PET_SUMMON_SPELL:
+		case PET_TRAIT_S_SPELL:
 		{
-			if(master_ptr->pet_extra_flags & PF_SUMMON_SPELL) master_ptr->pet_extra_flags &= ~(PF_SUMMON_SPELL);
-			else master_ptr->pet_extra_flags |= (PF_SUMMON_SPELL);
+			if(master_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) master_ptr->pet_extra_flags &= ~(PF_TRAIT_S_SPELL);
+			else master_ptr->pet_extra_flags |= (PF_TRAIT_S_SPELL);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */

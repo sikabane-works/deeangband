@@ -981,7 +981,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 		else if(type == TRAIT_S_PHANTOM) total += 12000;
 		else if(type == TRAIT_S_ELEMENTAL) total += 15000;
 		else if(type == TRAIT_S_DEMON) total += 20000;
-		// else if(type == ACT_SUMMON_UNDEAD) total += 20000;
+		// else if(type == ACT_TRAIT_S_UNDEAD) total += 20000;
 		else if(type == TRAIT_CURE_LIGHT_WOUNDS) total += 500;
 		else if(type == TRAIT_CURE_MEDIUM_WOUNDS) total += 750;
 		else if(type == TRAIT_REMOVE_POISON) total += 1000;

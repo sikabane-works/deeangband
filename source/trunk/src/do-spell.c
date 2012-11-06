@@ -372,7 +372,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		msg_print("Oh no! Mouldering forms rise from the earth around you!");
 #endif
 
-		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 14)
 	{
@@ -493,11 +493,11 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 void wild_magic(creature_type *creature_ptr, int spell)
 {
 	int counter = 0;
-	int type = SUMMON_MOLD + randint0(6);
+	int type = TRAIT_S_MOLD + randint0(6);
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(type < SUMMON_MOLD) type = SUMMON_MOLD;
-	else if(type > SUMMON_MIMIC) type = SUMMON_MIMIC;
+	if(type < TRAIT_S_MOLD) type = TRAIT_S_MOLD;
+	else if(type > TRAIT_S_MIMIC) type = TRAIT_S_MIMIC;
 
 	switch (randint1(spell) + randint1(8) + 1)
 	{
@@ -645,7 +645,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("Oh no! It's the Devil!");
 #endif
 
-		summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+		summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 18)
 	{
@@ -787,7 +787,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_MOLD, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
 	}
 	else if(die < 84)
 	{
@@ -797,7 +797,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_BAT, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
 	}
 	else if(die < 86)
 	{
@@ -807,7 +807,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_VORTEX, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
 	}
 	else if(die < 88)
 	{
@@ -817,7 +817,7 @@ static void cast_shuffle(creature_type *creature_ptr)
 		msg_print("It's the picture of a friendly creature.");
 #endif
 
-		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), SUMMON_CREEPING_COIN, 0L);
+		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)
 	{
@@ -1054,7 +1054,7 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 
 	summon_lev = plev * 2 / 3 + species_info[object_ptr->pval].level;
 
-	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, SUMMON_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+	if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, summon_lev, TRAIT_S_HI_DEMON, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 	{
 #ifdef JP
 		msg_print("硫黄の悪臭が充満した。");
@@ -2944,7 +2944,7 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
+				if(!(summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET))))
 				{
 #ifdef JP
 					msg_print("動物は現れなかった。");
@@ -3929,7 +3929,7 @@ static cptr do_chaos_spell(creature_type *caster_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, SUMMON_DEMON, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("硫黄の悪臭が充満した。");
@@ -4782,7 +4782,7 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 				bool pet = one_in_(3);
 				u32b mode = 0L;
 
-				type = (plev > 47 ? SUMMON_HI_UNDEAD : SUMMON_UNDEAD);
+				type = (plev > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
 
 				if(!pet || (pet && (plev > 24) && one_in_(3)))
 					mode |= PC_ALLOW_GROUP;
@@ -5017,7 +5017,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an spider...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_SPIDER, PC_ALLOW_GROUP))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_SPIDER, PC_ALLOW_GROUP))
 				{
 					if(fail)
 					{
@@ -5146,7 +5146,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast || fail)
 			{
-				int type = (!fail ? SUMMON_ANIMAL_RANGER : SUMMON_ANIMAL);
+				int type = (!fail ? TRAIT_S_ANIMAL_RANGER : TRAIT_S_ANIMAL);
 
 #ifdef JP
 				msg_print("あなたは動物のカードに集中する...");
@@ -5221,9 +5221,9 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				}
 
 				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
-					type = SUMMON_KAMIKAZE_LIVING;
+					type = TRAIT_S_KAMIKAZE_LIVING;
 				else
-					type = SUMMON_KAMIKAZE;
+					type = TRAIT_S_KAMIKAZE;
 
 #ifdef JP
 				msg_print("あなたはカミカゼのカードに集中する...");
@@ -5261,7 +5261,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 			{
 				int summon_lev = plev * 2 / 3 + randint1(plev / 2);
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), SUMMON_PHANTOM, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, (summon_lev * 3 / 2), TRAIT_S_PHANTOM, 0L))
 				{
 #ifdef JP
 					msg_print("御用でございますか、御主人様？");
@@ -5435,7 +5435,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of an undead creature...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_UNDEAD, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_UNDEAD, 0L))
 				{
 					if(fail)
 					{
@@ -5468,7 +5468,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a reptile...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_HYDRA, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HYDRA, 0L))
 				{
 					if(fail)
 					{
@@ -5504,7 +5504,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
-					type = SUMMON_LIVING;
+					type = TRAIT_S_LIVING;
 				else
 					type = 0;
 
@@ -5542,7 +5542,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a hound...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_HOUND, PC_ALLOW_GROUP))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HOUND, PC_ALLOW_GROUP))
 				{
 					if(fail)
 					{
@@ -5626,7 +5626,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a Cyberdemon...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_CYBER, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_CYBER, 0L))
 				{
 					if(fail)
 					{
@@ -5731,7 +5731,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a dragon...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_DRAGON, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DRAGON, 0L))
 				{
 					if(fail)
 					{
@@ -5786,7 +5786,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a demon...");
 #endif
 
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_DEMON, 0L))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_DEMON, 0L))
 				{
 					if(fail)
 					{
@@ -5819,7 +5819,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You concentrate on the trump of a greater undead being...");
 #endif
 				/* May allow unique depend on level and dice roll */
-				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, SUMMON_HI_UNDEAD, PC_ALLOW_UNIQUE))
+				if(trump_summoning(caster_ptr, 1, !fail, caster_ptr->fy, caster_ptr->fx, 0, TRAIT_S_HI_UNDEAD, PC_ALLOW_UNIQUE))
 				{
 					if(fail)
 					{
@@ -5849,9 +5849,9 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 				int type;
 
 				if(caster_ptr->class_idx == CLASS_BEASTMASTER)
-					type = SUMMON_HI_DRAGON_LIVING;
+					type = TRAIT_S_HI_DRAGON_LIVING;
 				else
-					type = SUMMON_HI_DRAGON;
+					type = TRAIT_S_HI_DRAGON;
 
 #ifdef JP
 				msg_print("あなたは古代ドラゴンのカードに集中する...");
@@ -6435,7 +6435,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, SUMMON_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, plev, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("エレメンタルは現れなかった。");
@@ -7088,7 +7088,7 @@ static cptr do_craft_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, SUMMON_GOLEM, PC_FORCE_PET))
+				if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, plev, TRAIT_S_GOLEM, PC_FORCE_PET))
 				{
 #ifdef JP
 					msg_print("ゴーレムを作った。");
@@ -7463,7 +7463,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, SUMMON_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
+				if(!summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, (plev * 3) / 2, TRAIT_S_MANES, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 				{
 #ifdef JP
 					msg_print("古代の死霊は現れなかった。");
@@ -7682,7 +7682,7 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, plev*2/3+randint1(plev/2), SUMMON_DEMON, mode))
+				if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, plev*2/3+randint1(plev/2), TRAIT_S_DEMON, mode))
 				{
 #ifdef JP
 					msg_print("硫黄の悪臭が充満した。");
@@ -8640,7 +8640,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 				else mode |= PC_NO_PET;
 				if(!(pet && (plev < 50))) mode |= PC_ALLOW_GROUP;
 
-				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, SUMMON_ANGEL, mode))
+				if(summon_specific((pet ? creature_ptr : NULL), creature_ptr->fy, creature_ptr->fx, (plev * 3) / 2, TRAIT_S_ANGEL, mode))
 				{
 					if(pet)
 					{
@@ -8866,7 +8866,7 @@ static cptr do_crusade_spell(creature_type *creature_ptr, int spell, int mode)
 						if(cave_empty_bold2(floor_ptr, my, mx)) break; // Require empty grids
 					}
 					if(attempt < 0) continue;
-					summon_specific(NULL, my, mx, plev, SUMMON_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
+					summon_specific(NULL, my, mx, plev, TRAIT_S_KNIGHTS, (PC_ALLOW_GROUP | PC_FORCE_PET | PC_HASTE));
 				}
 				set_timed_trait_aux(creature_ptr, TRAIT_HERO, randint1(base) + base, FALSE);
 				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);

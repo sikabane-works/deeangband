@@ -1479,10 +1479,10 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 					/* Require line of projection */
 					if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, y1, x1)) continue;
 
-					if(summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_EVIL, (PC_NO_PET)))
+					if(summon_specific(0, y1, x1, lev, TRAIT_S_ARMAGE_EVIL, (PC_NO_PET)))
 						evil_idx = hack_m_idx_ii;
 
-					if(summon_specific(0, y1, x1, lev, SUMMON_ARMAGE_GOOD, (PC_NO_PET)))
+					if(summon_specific(0, y1, x1, lev, TRAIT_S_ARMAGE_GOOD, (PC_NO_PET)))
 					{
 						good_idx = hack_m_idx_ii;
 					}
@@ -1517,7 +1517,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 			num = 1 + floor_ptr->floor_level/20;
 			for (i = 0; i < num; i++)
 			{
-				(void)summon_specific(0, y, x, floor_ptr->floor_level, SUMMON_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
+				(void)summon_specific(0, y, x, floor_ptr->floor_level, TRAIT_S_PIRANHAS, (PC_ALLOW_GROUP | PC_NO_PET));
 			}
 			break;
 		}

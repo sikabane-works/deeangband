@@ -783,7 +783,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 				if(pet) mode |= PC_FORCE_PET;
 				/*TODO
 
-				if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_BLUE_HORROR, mode))
+				if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_BLUE_HORROR, mode))
 				{
 				if(creature_can_see_bold(dead_ptr, wy, wx))
 				notice = TRUE;
@@ -835,7 +835,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 					if(pet) mode |= PC_FORCE_PET;
 
 					/*TODO
-					if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, SUMMON_DAWN, mode))
+					if(summon_specific((pet ? -1 : m_idx), wy, wx, 100, TRAIT_S_DAWN, mode))
 					{
 					if(creature_can_see_bold(dead_ptr, wy, wx))
 					#ifdef JP
@@ -3668,7 +3668,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			(void)activate_ty_curse(creature_ptr, FALSE, &count);
 			break;
 
-		case REW_SUMMON_M:
+		case REW_TRAIT_S_M:
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「我が下僕たちよ、かの傲慢なる者を倒すべし！」");
@@ -4012,7 +4012,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("%s rewards you with a demonic servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_DEMON, PC_FORCE_PET))
+			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, PC_FORCE_PET))
 #ifdef JP
 				msg_print("何も現れなかった...");
 #else
@@ -4054,7 +4054,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("%s rewards you with an undead servant!",species_name + species_info[creature_ptr->patron_idx].name);
 #endif
 
-			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, PC_FORCE_PET))
+			if(!summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, PC_FORCE_PET))
 #ifdef JP
 				msg_print("何も現れなかった...");
 #else

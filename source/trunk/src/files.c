@@ -4193,9 +4193,9 @@ static void dump_aux_pet(creature_type *creature_ptr, FILE *fff)
 #endif
 
 #ifdef JP
-		fprintf(fff, "\n 召喚魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n 召喚魔法を使う:                     %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
 #else
-		fprintf(fff, "\n Allow cast summon spell:            %s", (creature_ptr->pet_extra_flags & PF_SUMMON_SPELL) ? "ON" : "OFF");
+		fprintf(fff, "\n Allow cast summon spell:            %s", (creature_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) ? "ON" : "OFF");
 #endif
 
 #ifdef JP

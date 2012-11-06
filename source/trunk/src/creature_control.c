@@ -1007,94 +1007,94 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 	// Check our requirements
 	switch (summon_specific_type)
 	{
-		case SUMMON_ANT:
+		case TRAIT_S_ANT:
 		{
 			okay = IS_RACE(species_ptr, RACE_ANT);
 			break;
 		}
 
-		case SUMMON_SPIDER:
+		case TRAIT_S_SPIDER:
 		{
 			okay = IS_RACE(species_ptr, RACE_SPIDER);
 			break;
 		}
 
-		case SUMMON_HOUND:
+		case TRAIT_S_HOUND:
 		{
 			okay = ((species_ptr->d_char == 'C') || (species_ptr->d_char == 'Z'));
 			break;
 		}
 
-		case SUMMON_HYDRA:
+		case TRAIT_S_HYDRA:
 		{
 			okay = IS_RACE(species_ptr, RACE_HYDRA);
 			break;
 		}
 
-		case SUMMON_ANGEL:
+		case TRAIT_S_ANGEL:
 		{
 			okay = IS_RACE(species_ptr, RACE_ANGEL);
 			break;
 		}
 
-		case SUMMON_DEMON:
-		case SUMMON_HI_DEMON:
+		case TRAIT_S_DEMON:
+		case TRAIT_S_HI_DEMON:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_DEMON);
 			break;
 		}
 
-		case SUMMON_UNDEAD:
-		case SUMMON_HI_UNDEAD:
+		case TRAIT_S_UNDEAD:
+		case TRAIT_S_HI_UNDEAD:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_UNDEAD);
 			break;
 		}
 
-		case SUMMON_DRAGON:
-		case SUMMON_HI_DRAGON:
+		case TRAIT_S_DRAGON:
+		case TRAIT_S_HI_DRAGON:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_DRAGON);
 			break;
 		}
 
-		case SUMMON_AMBERITES:
+		case TRAIT_S_AMBERITES:
 		{
 			okay = (IS_RACE(species_ptr, RACE_AMBERITE)) ? TRUE : FALSE;
 			break;
 		}
 
-		case SUMMON_UNIQUE:
+		case TRAIT_S_UNIQUE:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_UNIQUE)) ? TRUE : FALSE;
 			break;
 		}
 
-		case SUMMON_MOLD:
+		case TRAIT_S_MOLD:
 		{
 			okay = IS_RACE(species_ptr, RACE_MOLD);;
 			break;
 		}
 
-		case SUMMON_BAT:
+		case TRAIT_S_BAT:
 		{
 			okay = IS_RACE(species_ptr, RACE_BAT);;
 			break;
 		}
 
-		case SUMMON_QUYLTHULG:
+		case TRAIT_S_QUYLTHULG:
 		{
 			okay = (species_ptr->d_char == 'Q');
 			break;
 		}
 
-		case SUMMON_CREEPING_COIN:
+		case TRAIT_S_CREEPING_COIN:
 		{
 			okay = (species_ptr->d_char == '$');
 			break;
 		}
 
-		case SUMMON_MIMIC:
+		case TRAIT_S_MIMIC:
 		{
 			okay = ((species_ptr->d_char == '!') ||
 				 (species_ptr->d_char == '?') ||
@@ -1104,37 +1104,37 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case SUMMON_GOLEM:
+		case TRAIT_S_GOLEM:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_GOLEM);
 			break;
 		}
 
-		case SUMMON_CYBER:
+		case TRAIT_S_CYBER:
 		{
 			okay = ((species_ptr->d_char == 'U') && has_trait_raw(&species_ptr->flags, TRAIT_ROCKET));
 			break;
 		}
 
-		case SUMMON_KIN:
+		case TRAIT_S_KIN:
 		{
 			okay = TRUE;
 			break;
 		}
 
-		case SUMMON_DAWN:
+		case TRAIT_S_DAWN:
 		{
 			okay = (species_idx == SPECIES_DAWN);
 			break;
 		}
 
-		case SUMMON_ANIMAL:
+		case TRAIT_S_ANIMAL:
 		{
 			okay = has_trait_species(species_ptr, TRAIT_ANIMAL);
 			break;
 		}
 
-		case SUMMON_ANIMAL_RANGER:
+		case TRAIT_S_ANIMAL_RANGER:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_ANIMAL) &&
 			       (my_strchr("abcflqrwBCHIJKMRS", species_ptr->d_char)) &&
@@ -1147,55 +1147,55 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case SUMMON_HI_DRAGON_LIVING:
+		case TRAIT_S_HI_DRAGON_LIVING:
 		{
 			okay = ((species_ptr->d_char == 'D') && species_living(species_ptr));
 			break;
 		}
 
-		case SUMMON_LIVING:
+		case TRAIT_S_LIVING:
 		{
 			okay = species_living(species_ptr);
 			break;
 		}
 
-		case SUMMON_PHANTOM:
+		case TRAIT_S_PHANTOM:
 		{
 			okay = (species_idx == SPECIES_PHANTOM_B || species_idx == SPECIES_PHANTOM_W);
 			break;
 		}
 
-		case SUMMON_BLUE_HORROR:
+		case TRAIT_S_BLUE_HORROR:
 		{
 			okay = (species_idx == SPECIES_BLUE_HORROR);
 			break;
 		}
 
-		case SUMMON_ELEMENTAL:
+		case TRAIT_S_ELEMENTAL:
 		{
 			okay = (species_ptr->d_char == 'E');
 			break;
 		}
 
-		case SUMMON_VORTEX:
+		case TRAIT_S_VORTEX:
 		{
 			okay = (species_ptr->d_char == 'v');
 			break;
 		}
 
-		case SUMMON_HYBRID:
+		case TRAIT_S_HYBRID:
 		{
 			okay = (species_ptr->d_char == 'H');
 			break;
 		}
 
-		case SUMMON_BIRD:
+		case TRAIT_S_BIRD:
 		{
 			okay = (species_ptr->d_char == 'B');
 			break;
 		}
 
-		case SUMMON_KAMIKAZE:
+		case TRAIT_S_KAMIKAZE:
 		{
 			int i;
 			for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
@@ -1203,7 +1203,7 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case SUMMON_KAMIKAZE_LIVING:
+		case TRAIT_S_KAMIKAZE_LIVING:
 		{
 			int i;
 
@@ -1213,31 +1213,31 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case SUMMON_MANES:
+		case TRAIT_S_MANES:
 		{
 			okay = (species_idx == SPECIES_MANES);
 			break;
 		}
 
-		case SUMMON_LOUSE:
+		case TRAIT_S_LOUSE:
 		{
 			okay = (species_idx == SPECIES_LOUSE);
 			break;
 		}
 
-		case SUMMON_GUARDIANS:
+		case TRAIT_S_GUARDIANS:
 		{
 			okay = (has_trait_species(species_ptr, TRAIT_GUARDIAN));
 			break;
 		}
 
-		case SUMMON_KNIGHTS:
+		case TRAIT_S_KNIGHTS:
 		{
 			okay = species_ptr->class_idx == CLASS_PALADIN;
 			break;
 		}
 
-		case SUMMON_EAGLES:
+		case TRAIT_S_EAGLES:
 		{
 			okay = (species_ptr->d_char == 'B' &&
 				has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN) &&
@@ -1245,19 +1245,19 @@ static bool summon_specific_aux(int species_idx, int summon_specific_type)
 			break;
 		}
 
-		case SUMMON_PIRANHAS:
+		case TRAIT_S_PIRANHAS:
 		{
 			okay = (species_idx == SPECIES_PIRANHA);
 			break;
 		}
 
-		case SUMMON_ARMAGE_GOOD:
+		case TRAIT_S_ARMAGE_GOOD:
 		{
 			okay = (species_ptr->d_char == 'A' && is_enemy_of_evil_species(species_ptr));
 			break;
 		}
 
-		case SUMMON_ARMAGE_EVIL:
+		case TRAIT_S_ARMAGE_EVIL:
 		{
 			okay = ((has_trait_species(species_ptr, TRAIT_DEMON)) ||
 				(species_ptr->d_char == 'A' && is_enemy_of_good_species(species_ptr)));
@@ -1408,7 +1408,7 @@ errr get_species_num_prep_trait(creature_type *summoner_ptr, const u32b *need, c
 
 		if(skip) continue;
 
-		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx) //TODO && summon_specific_type != SUMMON_GUARDIANS)
+		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx) //TODO && summon_specific_type != TRAIT_S_GUARDIANS)
 		{
 			if(has_trait_species(species_ptr, TRAIT_QUESTOR))	continue; // Hack -- don't create questors
 			if(has_trait_species(species_ptr, TRAIT_GUARDIAN))	continue;
@@ -1477,7 +1477,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 
 		//if(!summon_specific_aux(i, summon_specific_type)) continue;
 
-		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != SUMMON_GUARDIANS)
+		if(!floor_ptr->gamble_arena_mode && !chameleon_change_m_idx && summon_specific_type != TRAIT_S_GUARDIANS)
 		{
 			if(has_trait_species(r_ptr, TRAIT_QUESTOR))		continue;
 			if(has_trait_species(r_ptr, TRAIT_GUARDIAN))	continue;
@@ -4282,7 +4282,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 	{
 		scatter(floor_ptr, &cy, &cx, y, x, 5, 0);
 
-		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, SUMMON_KIN, PC_ALLOW_GROUP);
+		(void)summon_specific(&creature_list[m_idx], cy, cx, floor_ptr->floor_level + 5, TRAIT_S_KIN, PC_ALLOW_GROUP);
 
 		y = cy;
 		x = cx;
@@ -4424,8 +4424,8 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
  *
  * We will attempt to place the creature up to 10 times before giving up.
  *
- * Note: SUMMON_UNIQUE and SUMMON_AMBERITES will summon Unique's
- * Note: SUMMON_HI_UNDEAD and SUMMON_HI_DRAGON may summon Unique's
+ * Note: TRAIT_S_UNIQUE and TRAIT_S_AMBERITES will summon Unique's
+ * Note: TRAIT_S_HI_UNDEAD and TRAIT_S_HI_DRAGON may summon Unique's
  * Note: None of the other summon codes will ever summon Unique's.
  *
  * This function has been changed.  We now take the "creature level"
@@ -4463,7 +4463,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
 
 	if(!species_idx) return (FALSE); // Handle failure
-	if((type == SUMMON_BLUE_HORROR) || (type == SUMMON_DAWN)) mode |= PC_NO_KAGE;
+	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */
 	if(!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (FALSE);

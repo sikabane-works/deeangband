@@ -205,11 +205,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_S_ANIMAL:
-		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_ANIMAL_RANGER, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_S_PHANTOM:
-		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_PHANTOM, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_S_ELEMENTAL:
@@ -221,7 +221,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(pet) mode |= PC_FORCE_PET;
 			else mode |= PC_NO_PET;
 
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, ((user_level * 3) / 2), SUMMON_ELEMENTAL, mode))
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, ((user_level * 3) / 2), TRAIT_S_ELEMENTAL, mode))
 			{
 #ifdef JP
 				msg_print("エレメンタルが現れた...");
@@ -236,15 +236,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_S_DEMON:
 		{
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_DEMON, (mode | u_mode));
+			summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_DEMON, (mode | u_mode));
 			break;
 		}
 		{
-			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DEMON, PC_ALLOW_GROUP);
+			count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_DEMON, PC_ALLOW_GROUP);
 			break;
 		}
 		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_DEMON, (g_mode | p_mode)))
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, TRAIT_S_DEMON, (g_mode | p_mode)))
 			{
 			}
 			else
@@ -260,7 +260,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int type;
 			u32b mode = 0L;
 
-			type = (user_level > 47 ? SUMMON_HI_UNDEAD : SUMMON_UNDEAD);
+			type = (user_level > 47 ? TRAIT_S_HI_UNDEAD : TRAIT_S_UNDEAD);
 
 			if(!pet || ((user_level > 24) && one_in_(3))) mode |= PC_ALLOW_GROUP;
 			if(pet) mode |= PC_FORCE_PET;
@@ -268,11 +268,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 		{
-			count += summon_specific(caster_ptr, y, x, user_level, SUMMON_UNDEAD, PC_ALLOW_GROUP);
+			count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_UNDEAD, PC_ALLOW_GROUP);
 			break;
 		}
 		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_UNDEAD, (g_mode | p_mode)))
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, TRAIT_S_UNDEAD, (g_mode | p_mode)))
 			{
 			}
 			else
@@ -658,8 +658,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		update_smart_learn(caster_ptr, DRS_COLD);
 		break;
 
-	case TRAIT_SUMMON_DAWN_LEGION:
-		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, SUMMON_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
+	case TRAIT_TRAIT_S_DAWN_LEGION:
+		(void)summon_specific(caster_ptr, caster_ptr->fy, caster_ptr->fx, floor_ptr->floor_level, TRAIT_S_DAWN, (PC_ALLOW_GROUP | PC_FORCE_PET));
 		break;
 
 	case TRAIT_PANIC_CREATURE:
@@ -922,7 +922,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
 		break;
 
-	case TRAIT_SUMMON_OCTOPUS:
+	case TRAIT_TRAIT_S_OCTOPUS:
 		{
 			u32b mode = PC_ALLOW_GROUP;
 			bool pet = !one_in_(5);
@@ -1935,7 +1935,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					int num = 4 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+						count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_EAGLES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 					}
 				}
 				break;
@@ -1966,7 +1966,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+						count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_GUARDIANS, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 					}
 				}
 				break;
@@ -1986,7 +1986,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					int num = 2 + randint1(3);
 					for (k = 0; k < num; k++)
 					{
-						count += summon_specific(caster_ptr, y, x, user_level, SUMMON_LOUSE, PC_ALLOW_GROUP);
+						count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_LOUSE, PC_ALLOW_GROUP);
 					}
 				}
 				break;
@@ -1996,7 +1996,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 				for (k = 0; k < 4; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_KIN, PC_ALLOW_GROUP);
+					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_KIN, PC_ALLOW_GROUP);
 				}
 				break;
 			}
@@ -2008,7 +2008,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		int max_cyber = (floor_ptr->floor_level / 50) + randint1(3);
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		if(max_cyber > 4) max_cyber = 4;
-		for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_CYBER, mode);
+		for (k = 0; k < max_cyber; k++) summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_CYBER, mode);
 #ifdef JP
 		if(blind && count) msg_print("重厚な足音が近くで聞こえる。");
 #else
@@ -2029,32 +2029,32 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_ANT:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANT, 0);
+		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_ANT, 0);
 		break;
 
 	case TRAIT_S_SPIDER:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_SPIDER, 0);
+		for (k = 0; k < s_num_6; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_SPIDER, 0);
 		break;
 
 	case TRAIT_S_HOUND:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HOUND, 0);
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HOUND, 0);
 		break;
 
 	case TRAIT_S_HYDRA:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HYDRA, 0);
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HYDRA, 0);
 		break;
 
 	case TRAIT_S_ANGEL:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_ANGEL, PC_ALLOW_GROUP);
+		count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_ANGEL, PC_ALLOW_GROUP);
 		break;
 
 	case TRAIT_S_DRAGON:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		count += summon_specific(caster_ptr, y, x, user_level, SUMMON_DRAGON, PC_ALLOW_GROUP);
+		count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_DRAGON, PC_ALLOW_GROUP);
 		break;
 
 	case TRAIT_S_NAZGUL:
@@ -2109,7 +2109,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 
 			for (k = 0;k < 6; k++)
-				summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+				summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
 			break;
 		}
 
@@ -2117,7 +2117,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				for (k = 0; k < s_num_6; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 				}
 			}
 			if(blind && count)
@@ -2137,7 +2137,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			{
 				for (k = 0; k < s_num_6; k++)
 				{
-					count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+					count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 				}
 			}
 			if(blind && count)
@@ -2153,7 +2153,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 		{
-			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, SUMMON_HI_UNDEAD, (g_mode | p_mode | u_mode)))
+			if(summon_specific((pet ? caster_ptr : NULL), caster_ptr->fy, caster_ptr->fx, summon_lev, TRAIT_S_HI_UNDEAD, (g_mode | p_mode | u_mode)))
 			{
 			}
 			else
@@ -2166,7 +2166,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_HI_DRAGON:
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+			for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_HI_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 			if(blind && count)
 			{
 #ifdef JP
@@ -2179,7 +2179,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_S_AMBERITES:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
-		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, SUMMON_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
+		for (k = 0; k < s_num_4; k++) count += summon_specific(caster_ptr, y, x, user_level, TRAIT_S_AMBERITES, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE));
 #ifdef JP
 			msg_print("不死の者が近くに現れるのが聞こえた。");
 #else
@@ -2190,7 +2190,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_S_UNIQUE:
 		if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 		for (k = count; k < 4; k++)
-			summon_specific(caster_ptr, target_row, target_col, user_level, SUMMON_HI_UNDEAD, (mode | u_mode));
+			summon_specific(caster_ptr, target_row, target_col, user_level, TRAIT_S_HI_UNDEAD, (mode | u_mode));
 		if(blind && count)
 		{
 #ifdef JP
@@ -2979,7 +2979,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			int i;
 			for (i = 0; i < 8; i++)
 			{
-				summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, SUMMON_MOLD, PC_FORCE_PET);
+				summon_specific(NULL, caster_ptr->fy, caster_ptr->fx, user_level, TRAIT_S_MOLD, PC_FORCE_PET);
 			}
 		}
 		break;

@@ -590,7 +590,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 		for (i = 0; i < randint1(3) + 5; i++)
 		{
-			(void)summon_specific(0, y, x, mon_level, SUMMON_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(void)summon_specific(0, y, x, mon_level, TRAIT_S_ELEMENTAL, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -608,7 +608,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 		for (i = 0; i < randint1(5) + object_ptr->pval / 5; i++)
 		{
-			(void)summon_specific(0, y, x, mon_level, SUMMON_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+			(void)summon_specific(0, y, x, mon_level, TRAIT_S_BIRD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 		}
 	}
 
@@ -627,7 +627,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
 				(void)fire_meteor(-1, GF_FIRE, y, x, 10, 5);
-				(void)summon_specific(0, y, x, mon_level, SUMMON_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -642,7 +642,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, SUMMON_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, TRAIT_S_DRAGON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -657,7 +657,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(5) + 3; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, SUMMON_HYBRID, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, TRAIT_S_HYBRID, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 
@@ -672,7 +672,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)summon_specific(0, y, x, mon_level, SUMMON_VORTEX, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
+				(void)summon_specific(0, y, x, mon_level, TRAIT_S_VORTEX, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
 	}

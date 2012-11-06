@@ -2500,7 +2500,7 @@ void creature_wipe(creature_type *creature_ptr)
 
 	/* Default pet command settings */
 	creature_ptr->pet_follow_distance = PET_FOLLOW_DIST;
-	creature_ptr->pet_extra_flags = (PF_TELEPORT | PF_ATTACK_SPELL | PF_SUMMON_SPELL);
+	creature_ptr->pet_extra_flags = (PF_TELEPORT | PF_ATTACK_SPELL | PF_TRAIT_S_SPELL);
 
 	/* Wipe the recall depths */
 	for (i = 0; i < max_dungeon_idx; i++)

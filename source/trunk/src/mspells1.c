@@ -1226,9 +1226,9 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
-		//TODO f4 &= ~(RF4_SUMMON_MASK);
-		//TODO f5 &= ~(RF5_SUMMON_MASK);
-		//TODO f6 &= ~(RF6_SUMMON_MASK | RF6_TELE_LEVEL);
+		//TODO f4 &= ~(RF4_TRAIT_S_MASK);
+		//TODO f5 &= ~(RF5_TRAIT_S_MASK);
+		//TODO f6 &= ~(RF6_TRAIT_S_MASK | RF6_TELE_LEVEL);
 
 		//TODO if(caster_ptr->species_idx == SPECIES_ROLENTO) f6 &= ~(RF6_SPECIAL);
 	}
@@ -1253,15 +1253,15 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		//TODO }
 
 		/* Check for a possible summon */
-		//TODO if(((f4 & RF4_SUMMON_MASK) ||
-		//TODO      (f5 & RF5_SUMMON_MASK) ||
-		//TODO      (f6 & RF6_SUMMON_MASK)) &&
+		//TODO if(((f4 & RF4_TRAIT_S_MASK) ||
+		//TODO      (f5 & RF5_TRAIT_S_MASK) ||
+		//TODO      (f6 & RF6_TRAIT_S_MASK)) &&
 		//TODO     !(summon_possible(y, x)))
 		//TODO {
 			/* Remove summoning spells */
-		//TODO 	f4 &= ~(RF4_SUMMON_MASK);
-		//TODO 	f5 &= ~(RF5_SUMMON_MASK);
-		//TODO 	f6 &= ~(RF6_SUMMON_MASK);
+		//TODO 	f4 &= ~(RF4_TRAIT_S_MASK);
+		//TODO 	f5 &= ~(RF5_TRAIT_S_MASK);
+		//TODO 	f6 &= ~(RF6_TRAIT_S_MASK);
 		//TODO }
 
 		/* Check for a possible raise dead */

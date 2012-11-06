@@ -933,9 +933,9 @@ void set_rf_masks(s32b *f4, s32b *f5, s32b *f6, int mode)
 			break;
 
 		case MONSPELL_TYPE_SUMMON:
-			*f4 = SUMMON_MASK;
-			*f5 = SUMMON_MASK;
-			*f6 = SUMMON_MASK;
+			*f4 = TRAIT_S_MASK;
+			*f5 = TRAIT_S_MASK;
+			*f6 = TRAIT_S_MASK;
 			break;
 
 		case MONSPELL_TYPE_OTHER:

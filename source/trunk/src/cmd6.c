@@ -1529,7 +1529,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			break;
 		}
 
-		case SV_SCROLL_SUMMON_MONSTER:
+		case SV_SCROLL_TRAIT_S_MONSTER:
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
@@ -1541,11 +1541,11 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			break;
 		}
 
-		case SV_SCROLL_SUMMON_UNDEAD:
+		case SV_SCROLL_TRAIT_S_UNDEAD:
 		{
 			for (k = 0; k < randint1(3); k++)
 			{
-				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, SUMMON_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
+				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 				{
 					ident = TRUE;
 				}
@@ -1553,7 +1553,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			break;
 		}
 
-		case SV_SCROLL_SUMMON_PET:
+		case SV_SCROLL_TRAIT_S_PET:
 		{
 			if(summon_specific(NULL, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_FORCE_PET)))
 			{
@@ -1562,7 +1562,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			break;
 		}
 
-		case SV_SCROLL_SUMMON_KIN:
+		case SV_SCROLL_TRAIT_S_KIN:
 		{
 			if(summon_kin_player(creature_ptr, creature_ptr->lev, creature_ptr->fy, creature_ptr->fx, (PC_FORCE_PET | PC_ALLOW_GROUP)))
 			{

@@ -339,7 +339,7 @@
 #define PF_PICKUP_ITEMS 0x0002
 #define PF_TELEPORT     0x0004
 #define PF_ATTACK_SPELL 0x0008
-#define PF_SUMMON_SPELL 0x0010
+#define PF_TRAIT_S_SPELL 0x0010
 #define PF_BALL_SPELL   0x0020
 #define PF_RYOUTE       0x0040
 
@@ -1344,9 +1344,9 @@
 #define SV_SCROLL_AGGRAVATE_MONSTER      1
 #define SV_SCROLL_CURSE_ARMOR            2
 #define SV_SCROLL_CURSE_WEAPON           3
-#define SV_SCROLL_SUMMON_MONSTER         4
-#define SV_SCROLL_SUMMON_UNDEAD          5
-#define SV_SCROLL_SUMMON_PET             6
+#define SV_SCROLL_TRAIT_S_MONSTER         4
+#define SV_SCROLL_TRAIT_S_UNDEAD          5
+#define SV_SCROLL_TRAIT_S_PET             6
 #define SV_SCROLL_TRAP_CREATION          7
 #define SV_SCROLL_PHASE_DOOR             8
 #define SV_SCROLL_TELEPORT               9
@@ -1394,7 +1394,7 @@
 #define SV_SCROLL_RUMOR                 51
 #define SV_SCROLL_ARTIFACT              52
 #define SV_SCROLL_RESET_RECALL          53
-#define SV_SCROLL_SUMMON_KIN            54
+#define SV_SCROLL_TRAIT_S_KIN            54
 
 /* The "sval" codes for TV_POTION */
 #define SV_POTION_WATER                  0
