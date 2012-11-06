@@ -881,8 +881,8 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 	{
 
 	case GF_MELEE:
-		t = (250 - creature_ptr->ac - creature_ptr->to_ac) * 1000 / 2500;
-		t = (t < 40) ? 40 : t;
+		t = (250 - creature_ptr->ac - creature_ptr->to_ac) * 1000 / 250;
+		t = MAX(40, t);
 		break;
 
 	case GF_FIRE:
