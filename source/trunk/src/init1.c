@@ -737,7 +737,7 @@ static cptr store_pre_info_flags[] =
 };
 
 
-static parse_special_melee(species_type *species_ptr, cptr tmp)
+static parse_special_melee(special_blow_type *blow_ptr, char *tmp)
 {
 	int offset = 0;
 	int num = strlen(tmp);
@@ -745,9 +745,8 @@ static parse_special_melee(species_type *species_ptr, cptr tmp)
 	char *s;
 	char atk_method[30], atk_effect[30];
 
-	while(offset < num) {
-		int am = 0, ae = 0;
-
+	while(offset < num)
+	{
 		if(k == MAX_SPECIAL_BLOWS) return PARSE_ERROR_GENERIC;
 
 		for(s = &tmp[offset]; *s != '\n' && *s != '\0'; s++);
@@ -775,14 +774,14 @@ static parse_special_melee(species_type *species_ptr, cptr tmp)
 			return PARSE_ERROR_GENERIC;
 
 		/* Save the method */
-		species_ptr->blow[k].method = am;
+		blow_ptr[k].method = am;
 
 		/* Save the effect */
-		species_ptr->blow[k].effect = ae;
+		blow_ptr[k].effect = ae;
 
 		/* Extract the damage dice and sides */
-		species_ptr->blow[k].d_dice = n1;
-		species_ptr->blow[k].d_side = n2;
+		blow_ptr[k].d_dice = n1;
+		blow_ptr[k].d_side = n2;
 
 		k++;
 
@@ -3585,7 +3584,7 @@ errr parse_species_info_csv(char *buf, header *head)
 				break;
 
 			case SPECIES_INFO_BATTLE:
-				parse_special_melee(species_ptr, tmp);
+				parse_special_melee(species_ptr->blow, tmp);
 				break;
 
 			case SPECIES_INFO_UNDERLING:
