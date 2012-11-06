@@ -16,6 +16,8 @@ static const cptr game_messages[] =
 	"鍵をはずせなかった。",
 	"恐怖の暗黒オーラがあなたの%sを包み込んだ！",
 	"「なんだこの階段は！？」",
+	"危険な秘密",
+	"石を制御できない！",
 };
 #else
 static const cptr game_messages[] =
@@ -32,6 +34,8 @@ static const cptr game_messages[] =
 	"You failed to pick the lock.",
 	"A terrible black aura blasts your %s!",
 	"'What's a fucking stair!?'",
+	"You are too weak to control the stone!",
+	"perilous secrets",
 };
 #endif
 
@@ -49,6 +53,8 @@ enum GAME_MESSAGE
 	GAME_MESSAGE_FAILED_PICKING,
 	GAME_MESSAGE_BLACK_AURA_TO_OBJECT,
 	GAME_MESSAGE_COMBAT_TALK_STAIR,
+	GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY,
+	GAME_MESSAGE_PERILOUS_SECRET,
 };
 
 // Hack -- possible "insult" messages

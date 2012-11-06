@@ -682,7 +682,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, 0, caster_ptr->lev/20+1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				project(caster_ptr, 0, caster_ptr->lev / 20 + 1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			break;
 		}
 
@@ -709,11 +709,8 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					int oops = PERILOUS_IDENTIFY_COST - caster_ptr->csp;
 					caster_ptr->csp = 0;
 					caster_ptr->csp_frac = 0;
-#ifdef JP
-					msg_print("石を制御できない！");
-#else
-					msg_print("You are too weak to control the stone!");
-#endif
+					msg_print(game_messages[GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY]);
+
 					// Confusing.
 					(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));					
 					(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5 * oops + 1));
@@ -722,20 +719,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				play_redraw |= (PR_MANA); // Redraw mana
 			}
 
-#ifdef JP
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), "危険な秘密", NULL, -1);
-#else
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), "perilous secrets", NULL, -1);
-#endif
-
+			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
 			if(one_in_(5)) (void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(10));
-
-			if(one_in_(20))
-#ifdef JP
-				take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "危険な秘密", NULL, -1);
-#else
-				take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), "perilous secrets", NULL, -1);
-#endif
+			if(one_in_(20)) take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
 			break;
 		}
 
