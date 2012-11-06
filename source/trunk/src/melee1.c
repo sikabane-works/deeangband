@@ -2394,8 +2394,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					}
 				}
 
-				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1); // Take some damage
 
 				/* Learn about the player */
 				//TODO update_smart_learn(m_idx, DRS_DISEN);
@@ -2671,29 +2670,17 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Pick an item from the pack */
 					i = randint0(INVEN_TOTAL);
 
-					/* Get the item */
-					object_ptr = &target_ptr->inventory[i];
-
-					/* Skip non-objects */
-					if(!is_valid_object(object_ptr)) continue;
-
-					/* Skip non-food objects */
-					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue;
-
-					/* Get a description */
-					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+					object_ptr = &target_ptr->inventory[i]; // Get the item
+					if(!is_valid_object(object_ptr)) continue; // Skip non-objects
+					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue; // Skip non-food objects
+					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Get a description
 
 					/* Message */
 #ifdef JP
-					msg_format("%s(%c)を%s食べられてしまった！",
-						object_name, index_to_label(i),
-						((object_ptr->number > 1) ? "一つ" : ""));
+					msg_format("%s(%c)を%s食べられてしまった！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
 #else
-					msg_format("%sour %s (%c) was eaten!",
-						((object_ptr->number > 1) ? "One of y" : "Y"),
-						object_name, index_to_label(i));
+					msg_format("%sour %s (%c) was eaten!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
 #endif
-
 
 					/* Steal the items */
 					inven_item_increase(target_ptr, i, -1);
@@ -2734,7 +2721,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 						msg_print("Your light dims.");
 #endif
-
 						obvious = TRUE;
 					}
 
@@ -2782,7 +2768,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 				msg_print("You are struck by electricity!");
 #endif
-
 
 				/* Special damage */
 				get_damage += elec_dam(target_ptr, damage, ddesc, -1);
