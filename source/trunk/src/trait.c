@@ -949,25 +949,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					caster_ptr->class_skills.old_skills.magic_num1[i] -= ((caster_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : caster_ptr->class_skills.old_skills.magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 					if(caster_ptr->class_skills.old_skills.magic_num1[i] < 0) caster_ptr->class_skills.old_skills.magic_num1[i] = 0;
 				}
-#ifdef JP
-				msg_print("頭がハッキリとした。");
-#else
-				msg_print("You feel your head clear.");
-#endif
+				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
 				play_window |= (PW_PLAYER);
 			}
 			else if(caster_ptr->csp < caster_ptr->msp)
 			{
 				caster_ptr->csp = caster_ptr->msp;
 				caster_ptr->csp_frac = 0;
-#ifdef JP
-				msg_print("頭がハッキリとした。");
-#else
-				msg_print("You feel your head clear.");
-#endif
-				play_redraw |= (PR_MANA);
-				play_window |= (PW_PLAYER);
-				play_window |= (PW_SPELL);
+				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
+				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
 			}
 			break;
 		}

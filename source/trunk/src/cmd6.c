@@ -1072,11 +1072,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 					user_ptr->class_skills.old_skills.magic_num1[i] -= ((user_ptr->class_skills.old_skills.magic_num2[i] < 10) ? EATER_ROD_CHARGE*3 : user_ptr->class_skills.old_skills.magic_num2[i]*EATER_ROD_CHARGE/3)*object_kind_info[k_idx].pval;
 					if(user_ptr->class_skills.old_skills.magic_num1[i] < 0) user_ptr->class_skills.old_skills.magic_num1[i] = 0;
 				}
-#ifdef JP
-				msg_print("頭がハッキリとした。");
-#else
-				msg_print("You feel your head clear.");
-#endif
+				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
 				play_window |= (PW_PLAYER);
 				ident = TRUE;
 			}
@@ -1084,15 +1080,9 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			{
 				user_ptr->csp = user_ptr->msp;
 				user_ptr->csp_frac = 0;
-#ifdef JP
-				msg_print("頭がハッキリとした。");
-#else
-				msg_print("You feel your head clear.");
-#endif
+				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
 
-				play_redraw |= (PR_MANA);
-				play_window |= (PW_PLAYER);
-				play_window |= (PW_SPELL);
+				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
 				ident = TRUE;
 			}
 			if(set_timed_trait_aux(user_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
@@ -1214,7 +1204,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 #else
 				msg_print("You feel more experienced.");
 #endif
-
 				gain_exp(user_ptr, ee);
 				ident = TRUE;
 			}
@@ -1260,7 +1249,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 
 		case SV_POTION_TSUYOSHI:
 #ifdef JP
-msg_print("「オクレ兄さん！」");
+			msg_print("「オクレ兄さん！」");
 #else
 			msg_print("Brother OKURE!");
 #endif
@@ -2315,14 +2304,8 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				creature_ptr->csp = creature_ptr->msp;
 				creature_ptr->csp_frac = 0;
 				ident = TRUE;
-#ifdef JP
-				msg_print("頭がハッキリとした。");
-#else
-				msg_print("You feel your head clear.");
-#endif
-				play_redraw |= (PR_MANA);
-				play_window |= (PW_PLAYER);
-				play_window |= (PW_SPELL);
+				msg_print(game_messages[GAME_MESSAGE_MANA_RECOVERLY]);
+				play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL);
 			}
 			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
 			break;
