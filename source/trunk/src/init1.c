@@ -4483,6 +4483,8 @@ enum RC_INFO
 	RC_INFO_TAIL,
 	RC_INFO_INTAKE,
 
+	RC_INFO_SP_MELEE,
+
 	RC_INFO_CSV_COLUMNS,
 };
 
@@ -4565,6 +4567,8 @@ static cptr rc_info_csv_list[RC_INFO_CSV_COLUMNS] =
 	"FEET",
 	"TAIL",
 	"INTAKE",
+
+	"SP_MELEE",
 
 };
 
@@ -4979,6 +4983,9 @@ errr parse_race_info_csv(char *buf, header *head)
 			case RC_INFO_INTAKE:
 				if(sscanf(tmp, "%d", &b) != 1) return PARSE_ERROR_GENERIC;
 				race_ptr->slot_intake = (s16b)b;
+				break;
+
+			case RC_INFO_SP_MELEE:
 				break;
 
 			default:
