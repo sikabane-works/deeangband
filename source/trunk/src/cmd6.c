@@ -3348,18 +3348,9 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 	object_kind *k_ptr;
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	// Get the item (in the pack)
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
 	/* Mega-Hack -- refuse to zap a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))
@@ -3369,7 +3360,6 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("You must first pick up the rods.");
 #endif
-
 		return;
 	}
 
@@ -3382,18 +3372,10 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
 	}
 
-
-	/* Take a turn */
-	cost_tactical_energy(creature_ptr, 100);
-
-	/* Extract the item level */
-	lev = object_kind_info[object_ptr->k_idx].level;
-
-	/* Base chance of success */
-	chance = creature_ptr->skill_dev;
-
-	/* Confusion hurts skill */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	cost_tactical_energy(creature_ptr, 100); // Take a turn
+	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
+	chance = creature_ptr->skill_dev; // Base chance of success
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
 
 	fail = lev+5;
 	if(chance > fail) fail -= (chance - fail)*2;
@@ -3426,7 +3408,6 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		else success = FALSE;
 	}
 
-	/* Roll for usage */
 	if(!success)
 	{
 		if(flush_failure) flush();
@@ -3435,7 +3416,6 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("You failed to use the rod properly.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -3647,27 +3627,14 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	bool success;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
+	// Get the item (in the pack / on the floor)
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
-	/* Take a turn */
-	cost_tactical_energy(creature_ptr, 100);
-
-	/* Extract the item level */
-	lev = object_kind_info[object_ptr->k_idx].level;
-
-	/* Hack -- use artifact level instead */
-	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level;
+	
+	cost_tactical_energy(creature_ptr, 100); // Take a turn
+	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
+	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level; // Hack -- use artifact level instead
 	else if(object_ptr->art_name)
 	{
 		switch (object_ptr->xtra2)
@@ -4448,7 +4415,7 @@ s = "使えるものがありません。";
 			if(has_trait(creature_ptr, TRAIT_BLIND))
 			{
 #ifdef JP
-msg_print("目が見えない。");
+				msg_print("目が見えない。");
 #else
 				msg_print("You can't see anything.");
 #endif
@@ -4458,7 +4425,7 @@ msg_print("目が見えない。");
 			if(no_lite(creature_ptr))
 			{
 #ifdef JP
-msg_print("明かりがないので、暗くて読めない。");
+				msg_print("明かりがないので、暗くて読めない。");
 #else
 				msg_print("You have no light to read by.");
 #endif
