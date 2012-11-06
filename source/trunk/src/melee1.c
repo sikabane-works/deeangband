@@ -2363,13 +2363,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(explode) break;
 
-				/* Take "poison" effect */
+				// Take "poison" effect
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))
-					{
-						obvious = TRUE;
-					}
+					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, FALSE)) obvious = TRUE;
 				}
 
 				/* Take some damage */
@@ -2598,24 +2595,16 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Obtain the item */
 					object_ptr = &target_ptr->inventory[i];
 
-					/* Skip non-objects */
-					if(!is_valid_object(object_ptr)) continue;
+					if(!is_valid_object(object_ptr)) continue; // Skip non-objects
+					if(object_is_artifact(object_ptr)) continue; // Skip artifacts
 
-					/* Skip artifacts */
-					if(object_is_artifact(object_ptr)) continue;
-
-					/* Get a description */
-					object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
+					object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
 
 					/* Message */
 #ifdef JP
-					msg_format("%s(%c)‚ð%s“‚Ü‚ê‚½I",
-						object_name, index_to_label(i),
-						((object_ptr->number > 1) ? "ˆê‚Â" : ""));
+					msg_format("%s(%c)‚ð%s“‚Ü‚ê‚½I", object_name, index_to_label(i), ((object_ptr->number > 1) ? "ˆê‚Â" : ""));
 #else
-					msg_format("%sour %s (%c) was stolen!",
-						((object_ptr->number > 1) ? "One of y" : "Y"),
-						object_name, index_to_label(i));
+					msg_format("%sour %s (%c) was stolen!", ((object_ptr->number > 1) ? "One of y" : "Y"), object_name, index_to_label(i));
 #endif
 
 					/* Make an object */
