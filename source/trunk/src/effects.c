@@ -2655,6 +2655,49 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		handle_stuff();
 	}
 
+/*	TODO  sad by killed pet
+		
+		if(target_ptr->chp < 0) // Dead creature
+		{
+			bool sad = FALSE;
+
+			if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
+				sad = TRUE;
+
+			
+			if(known && note) // Give detailed messages if destroyed
+			{
+				creature_desc(target_name, target_ptr, CD_TRUE_NAME);
+				if(see_s_msg)
+				{
+					msg_format("%^s%s", target_name, note);
+				}
+				else
+				{
+					player_ptr->hear_noise = TRUE;	//TODO check all creature
+				}
+			}
+
+			//TODO
+			//if(caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
+
+			
+			creature_dead_effect(player_ptr, target_ptr, FALSE); // Generate treasure, etc
+
+			// Delete the creature
+			delete_species_idx(target_ptr);
+
+			if(sad)
+			{
+#ifdef JP
+				msg_print("­‚µ”ß‚µ‚¢‹C•ª‚ª‚µ‚½B");
+#else
+				msg_print("You feel sad for a moment.");
+#endif
+			}
+		}
+*/
+
 	// Curse of Amberites
 	if(has_trait(target_ptr, TRAIT_DYING_CURSE_OF_BLOOD))
 	{

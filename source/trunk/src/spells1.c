@@ -1816,65 +1816,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		/* Hurt the creature */
 		target_ptr->chp -= dam;
 
-		/* Dead creature */
-		if(target_ptr->chp < 0)
-		{
-			bool sad = FALSE;
 
-			if(is_pet(player_ptr, target_ptr) && !(target_ptr->see_others))
-				sad = TRUE;
-
-			/* Give detailed messages if destroyed */
-			if(known && note)
-			{
-				creature_desc(target_name, target_ptr, CD_TRUE_NAME);
-				if(see_s_msg)
-				{
-					msg_format("%^s%s", target_name, note);
-				}
-				else
-				{
-					player_ptr->hear_noise = TRUE;	//TODO check all creature
-				}
-			}
-
-			//TODO
-			//if(caster_ptr != caster_ptr) creature_gain_exp(caster_ptr, who, target_ptr->species_idx);
-
-			/* Generate treasure, etc */
-			creature_dead_effect(player_ptr, target_ptr, FALSE);
-
-			/* Delete the creature */
-			delete_species_idx(target_ptr);
-
-			if(sad)
-			{
-#ifdef JP
-				msg_print("­‚µ”ß‚µ‚¢‹C•ª‚ª‚µ‚½B");
-#else
-				msg_print("You feel sad for a moment.");
-#endif
-			}
-		}
-
-		/* Damaged creature */
-		else
-		{
-			/* Give detailed messages if visible or destroyed */
-			if(note && seen_msg) msg_format("%^s%s", target_name, note);
-
-			/* Hack -- Pain message */
-			else if(see_s_msg)
-			{
-				message_pain(c_ptr->creature_idx, dam);
-			}
-			else
-			{
-				player_ptr->hear_noise = TRUE; // check all creature
-			}
-
-			if(do_sleep) (void)set_timed_trait(target_ptr, TRAIT_PARALYZED, do_sleep); // Hack -- handle sleep
-		}
 	}
 
 	else if(heal_leper)
