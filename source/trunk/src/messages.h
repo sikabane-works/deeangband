@@ -125,6 +125,10 @@ static const cptr message_files[]=
 	"error_j.txt",
 	"death_j.txt",
 	"seppuku_j.txt",
+	"monfear_j.txt",
+	"monpet_j.txt",
+	"monfrien_j.txt",
+	"monspeak_j.txt",
 #else
 	"a_cursed.txt",
 	"a_low.txt",
@@ -138,6 +142,10 @@ static const cptr message_files[]=
 	"error.txt",
 	"death.txt",
 	"seppuku.txt",
+	"monfear.txt",
+	"monpet.txt",
+	"monfrien.txt",
+	"monspeak.txt",
 #endif
 };
 
@@ -155,4 +163,8 @@ enum MESSAGE_FILES
 	MESSAGE_FILES_ERROR,
 	MESSAGE_FILES_DEATH,
 	MESSAGE_FILES_SEPPUKU,
+	MESSAGE_FILES_CREATURE_FEAR,
+	MESSAGE_FILES_CREATURE_PET,
+	MESSAGE_FILES_CREATURE_FRIENDLY,
+	MESSAGE_FILES_CREATURE_SPEAK,
 };

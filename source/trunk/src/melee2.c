@@ -1183,8 +1183,7 @@ static int check_hit2(int power, int level, int ac, int stun)
 
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
 {
-	return !have_flag(f_ptr->flags, FF_GLASS) ||
-	       has_trait_species(&species_info[m_ptr->species_idx], TRAIT_STUPID) ||
+	return !have_flag(f_ptr->flags, FF_GLASS) || has_trait_species(&species_info[m_ptr->species_idx], TRAIT_STUPID) ||
 	       (m_ptr->chp >= MAX(m_ptr->mhp / 3, 200));
 }
 
@@ -1192,7 +1191,7 @@ static void creature_speaking(creature_type *creature_ptr)
 {
 	char monmessage[1024];
 	cptr filename;
-	char creature_name[100];
+	char creature_name[MAX_NLEN];
 
 	// Acquire the creature name/poss
 	if(creature_ptr->see_others)
@@ -1204,41 +1203,20 @@ static void creature_speaking(creature_type *creature_ptr)
 		strcpy(creature_name, "It");
 #endif
 
-	/* Select the file for creature quotes */
-	if(creature_ptr->timed_trait[TRAIT_AFRAID])
-#ifdef JP
-		filename = "monfear_j.txt";
-#else
-		filename = "monfear.txt";
-#endif
-	else if(is_pet(player_ptr, creature_ptr))
-#ifdef JP
-		filename = "monpet_j.txt";
-#else
-		filename = "monpet.txt";
-#endif
-	else if(is_friendly(player_ptr, creature_ptr))
-#ifdef JP
-		filename = "monfrien_j.txt";
-#else
-		filename = "monfrien.txt";
-#endif
-	else
-#ifdef JP
-		filename = "monspeak_j.txt";
-#else
-		filename = "monspeak.txt";
-#endif
-	/* Get the creature line */
-	if(get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0)
+	// Select the file for creature quotes
+	if(has_trait(creature_ptr, TRAIT_AFRAID)) filename = message_files[MESSAGE_FILES_CREATURE_FEAR];
+	else if(is_pet(player_ptr, creature_ptr)) filename = message_files[MESSAGE_FILES_CREATURE_PET];
+	else if(is_friendly(player_ptr, creature_ptr)) filename = message_files[MESSAGE_FILES_CREATURE_FRIENDLY];
+	else filename = message_files[MESSAGE_FILES_CREATURE_SPEAK];
+
+	// Get the creature line
+	if(get_rnd_line(filename, creature_ptr->ap_species_idx, monmessage) == 0) // Say something
 	{
-		/* Say something */
 #ifdef JP
 		msg_format("%^s%s", creature_name, monmessage);
 #else
 		msg_format("%^s %s", creature_name, monmessage);
 #endif
-
 	}
 }
 
@@ -1269,7 +1247,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 
 			// Take damage
 #ifdef JP
-			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‚¦", NULL, -1);
+			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‰ì", NULL, -1);
 #else
 			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
 #endif
