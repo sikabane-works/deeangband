@@ -1784,6 +1784,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
+	case DO_EFFECT_MISSILE:
+		{
+#ifdef JP
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something!");
+#endif
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			break;
+		}
+
 	case DO_EFFECT_ARROW:
 		{
 
@@ -1830,6 +1841,106 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
+	case DO_EFFECT_WATER:
+		{
+#ifdef JP
+			if(blind) msg_print("‰½‚©Ž¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something wet!");
+#endif
+
+			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				if(!target_ptr->resist_sound)
+				{
+					set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(40));
+				}
+				if(!has_trait(target_ptr, TRAIT_NO_CONF))
+				{
+					set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5) + 5);
+				}
+				if(one_in_(5))
+				{
+					inven_damage(target_ptr, set_cold_destroy, 3);
+				}
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			break;
+		}
+
+		/* Lite -- blinding */
+	case DO_EFFECT_LITE:
+		{
+#ifdef JP
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something!");
+#endif
+
+			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+
+			if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
+/* TODO
+#ifdef JP
+				msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨Ž¿“I‚È‰e‚Ì‘¶Ý‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
+#else
+				msg_print("The light forces you out of your incorporeal shadow form.");
+#endif
+*/
+				play_redraw |= PR_MAP;
+				caster_ptr->creature_update |= (PU_CREATURES);
+				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
+			}
+			break;
+		}
+
+		// Dark -- blinding
+	case DO_EFFECT_DARK:
+		{
+#ifdef JP
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something!");
+#endif
+
+			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+			break;
+		}
+
+	case DO_EFFECT_SHARDS:
+		{
+#ifdef JP
+			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something sharp!");
+#endif
+
+			if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + dam);
+			}
+
+			if(!target_ptr->resist_shard || one_in_(13))
+			{
+				inven_damage(target_ptr, set_cold_destroy, 2);
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			break;
+		}
+
 	case DO_EFFECT_NUKE:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
@@ -1863,17 +1974,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case DO_EFFECT_MISSILE:
-		{
-#ifdef JP
-			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by something!");
-#endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
-
 	case DO_EFFECT_HOLY_FIRE:
 		{
 #ifdef JP
@@ -1897,49 +1997,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-	case DO_EFFECT_NETHER:
-		{
-#ifdef JP
-			if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by nether forces!");
-#endif
-
-			if(!target_ptr->resist_neth && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-
-			break;
-		}
-
-	case DO_EFFECT_WATER:
-		{
-#ifdef JP
-			if(blind) msg_print("‰½‚©Ž¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by something wet!");
-#endif
-
-			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				if(!target_ptr->resist_sound)
-				{
-					set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(40));
-				}
-				if(!has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(5) + 5);
-				}
-				if(one_in_(5))
-				{
-					inven_damage(target_ptr, set_cold_destroy, 3);
-				}
-			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
 
 	case DO_EFFECT_CHAOS:
 		{
@@ -1985,27 +2042,23 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case DO_EFFECT_SHARDS:
+	case DO_EFFECT_NETHER:
 		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something sharp!");
+			if(blind) msg_print("You are hit by nether forces!");
 #endif
 
-			if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + dam);
-			}
-
-			if(!target_ptr->resist_shard || one_in_(13))
-			{
-				inven_damage(target_ptr, set_cold_destroy, 2);
-			}
+			if(!target_ptr->resist_neth && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+
 			break;
 		}
+
+
 
 	case DO_EFFECT_SOUND:
 		{
@@ -2134,55 +2187,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		/* Lite -- blinding */
-	case DO_EFFECT_LITE:
-		{
-#ifdef JP
-			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by something!");
-#endif
-
-			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
-			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-
-			if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
-/* TODO
-#ifdef JP
-				msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨Ž¿“I‚È‰e‚Ì‘¶Ý‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
-#else
-				msg_print("The light forces you out of your incorporeal shadow form.");
-#endif
-*/
-				play_redraw |= PR_MAP;
-				caster_ptr->creature_update |= (PU_CREATURES);
-				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
-			}
-			break;
-		}
-
-		// Dark -- blinding
-	case DO_EFFECT_DARK:
-		{
-#ifdef JP
-			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by something!");
-#endif
-
-			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
-			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			break;
-		}
 
 	case DO_EFFECT_TIME:
 		{
