@@ -1803,41 +1803,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		/* Drain mana does nothing */
 	}
 
-	/* If another creature did the damage, hurt the creature by hand */
-	else if(caster_ptr != caster_ptr)
-	{
-		/* Redraw (later) if needed */
-		if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-		if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
-
-		/* Wake the creature up */
-		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
-
-		/* Hurt the creature */
-		target_ptr->chp -= dam;
-
-
-	}
-
-	else if(heal_leper)
-	{
-#ifdef JP
-		if(seen_msg) msg_print("不潔な病人は病気が治った！");
-#else
-		if(seen_msg) msg_print("The Mangy looking leper is healed!");
-#endif
-
-		if(record_named_pet && is_pet(player_ptr, target_ptr) && target_ptr->nickname)
-		{
-			char m2_name[80];
-
-			creature_desc(m2_name, target_ptr, CD_INDEF_VISIBLE);
-			do_cmd_write_nikki(DIARY_NAMED_PET, RECORD_NAMED_PET_HEAL_LEPER, m2_name);
-		}
-
-		delete_species_idx(target_ptr);
-	}
-
 	/* If the player did it, give him experience, check fear */
 	else
 	{
@@ -1915,26 +1880,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	}
 
 
-	if(photo)
-	{
-		object_type *quest_ptr;
-		object_type forge;
-
-		/* Get local object */
-		quest_ptr = &forge;
-
-		/* Prepare to make a Blade of Chaos */
-		object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO), ITEM_FREE_SIZE);
-
-		quest_ptr->pval = photo;
-
-		/* Mark the item as fully known */
-		quest_ptr->ident |= (IDENT_MENTAL);
-
-
-		/* Drop it in the dungeon */
-		(void)drop_near(floor_ptr, quest_ptr, -1, player_ptr->fy, player_ptr->fx);
-	}
 
 	/* Track it */
 	project_m_n++;
@@ -5430,6 +5375,27 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Get angry */
 			//get_angry = TRUE;
 		}
+
+	if(photo)
+	{
+		object_type *quest_ptr;
+		object_type forge;
+
+		/* Get local object */
+		quest_ptr = &forge;
+
+		/* Prepare to make a Blade of Chaos */
+		object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO), ITEM_FREE_SIZE);
+
+		quest_ptr->pval = photo;
+
+		/* Mark the item as fully known */
+		quest_ptr->ident |= (IDENT_MENTAL);
+
+
+		/* Drop it in the dungeon */
+		(void)drop_near(floor_ptr, quest_ptr, -1, player_ptr->fy, player_ptr->fx);
+	}
 
 }
 
