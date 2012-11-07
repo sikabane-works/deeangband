@@ -1171,22 +1171,14 @@ static int check_hit2(int power, int level, int ac, int stun)
 {
 	int i, k;
 
-	/* Percentile dice */
-	k = randint0(100);
+	k = randint0(100); // Percentile dice
 
 	if(stun && one_in_(2)) return FALSE;
+	if(k < 10) return (k < 5); // Hack -- Always miss or hit
+	i = (power + (level * 3)); // Calculate the "attack quality"
+	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE); // Power and Level compete against Armor
 
-	/* Hack -- Always miss or hit */
-	if(k < 10) return (k < 5);
-
-	/* Calculate the "attack quality" */
-	i = (power + (level * 3));
-
-	/* Power and Level compete against Armor */
-	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
-
-	/* Assume miss */
-	return (FALSE);
+	return (FALSE); // Assume miss
 }
 
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
