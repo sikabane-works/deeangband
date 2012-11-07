@@ -2355,42 +2355,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	if(caster_ptr)
 	{
 		creature_desc(caster_name, caster_ptr, 0);
-		/*TODO
-		switch (who)
-		{
-		case PROJECT_WHO_UNCTRL_POWER:
-		#ifdef JP
-		strcpy(killer, "§Œä‚Å‚«‚È‚¢—Í‚Ì”Ã—¬");
-		#else
-		strcpy(killer, "uncontrollable power storm");
-		#endif
-		break;
-
-		case PROJECT_WHO_GLASS_SHARDS:
-		#ifdef JP
-		strcpy(killer, "ƒKƒ‰ƒX‚Ì”j•Ð");
-		#else
-		strcpy(killer, "shards of glass");
-		#endif
-		break;
-
-		default:
-		#ifdef JP
-		strcpy(killer, "ã©");
-		#else
-		strcpy(killer, "a trap");
-		#endif
-		break;
-		}
-		*/
-
 #ifdef JP
 		strcpy(killer, "ã©");
 #else
 		strcpy(killer, "a trap");
 #endif
-		/* Paranoia */
-		strcpy(caster_name, killer);
+		strcpy(caster_name, killer); // Paranoia
 	}
 
 	// Analyze the damage
@@ -2450,7 +2420,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by poison!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
 			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
@@ -2487,10 +2456,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						mutate_creature(target_ptr);
 				}
 
-				if(one_in_(6))
-				{
-					inven_damage(target_ptr, set_acid_destroy, 2);
-				}
+				if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
 			}
 			break;
 		}

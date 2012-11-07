@@ -18,8 +18,9 @@ static const cptr game_messages[] =
 	"恐怖の暗黒オーラがあなたの%sを包み込んだ！",
 	"誰かに見守られているような気がする。",
 	"「なんだこの階段は！？」",
+	"ダーツの罠",
 	"危険な秘密",
-	"石を制御できない！",
+	"石を制御できない。",
 };
 #else
 static const cptr game_messages[] =
@@ -38,8 +39,9 @@ static const cptr game_messages[] =
 	"A terrible black aura blasts your %s!",
 	"You feel as if someone is watching over you.",
 	"'What's a fucking stair!?'",
-	"You are too weak to control the stone!",
+	"a dart trap",
 	"perilous secrets",
+	"You are too weak to control the stone!",
 };
 #endif
 
@@ -59,6 +61,7 @@ enum GAME_MESSAGE
 	GAME_MESSAGE_BLACK_AURA_TO_OBJECT,
 	GAME_MESSAGE_REMOVED_OBJECT_CURSE,
 	GAME_MESSAGE_COMBAT_TALK_STAIR,
+	GAME_MESSAGE_DART_TRAP,
 	GAME_MESSAGE_FAILED_PERILOUS_IDENTIFY,
 	GAME_MESSAGE_PERILOUS_SECRET,
 };

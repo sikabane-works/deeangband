@@ -1221,11 +1221,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				dam = diceroll(1, 4);
-#ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
-#else
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
-#endif
+				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint0(20) + 20, FALSE);
 			}
@@ -1252,11 +1248,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				dam = diceroll(1, 4);
-#ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
-#else
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
-#endif
+				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
@@ -1283,11 +1275,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				dam = diceroll(1, 4);
-#ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
-#else
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
-#endif
+				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
@@ -1312,13 +1300,8 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart hits you!");
 #endif
-
 				dam = diceroll(1, 4);
-#ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "ダーツの罠", NULL, -1);
-#else
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, "a dart trap", NULL, -1);
-#endif
+				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}

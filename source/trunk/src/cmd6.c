@@ -920,7 +920,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			msg_print("A feeling of Death flows through your body.");
 			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
 #endif
-
 			ident = TRUE;
 			break;
 
