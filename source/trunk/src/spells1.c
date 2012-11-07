@@ -1803,14 +1803,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	}
 
 
-	/* Absolutely no effect */
-	if(skipped) return (FALSE);
-
-	/* "Unique" creatures cannot be polymorphed */
-	if(has_trait(target_ptr, TRAIT_UNIQUE)) do_poly = FALSE;
-
-	/* Quest creatures cannot be polymorphed */
-	if(has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE;
 
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
 
@@ -1837,8 +1829,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	else
 	{
 		/* Sound and Impact resisters never stun */
-		if(do_stun &&
-			!(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_RES_WALL)) && !has_trait(target_ptr, TRAIT_NO_STUN))
+		if(do_stun && !(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_RES_WALL)) && !has_trait(target_ptr, TRAIT_NO_STUN))
 		{
 			/* Obvious */
 			if(seen) obvious = TRUE;
@@ -2121,122 +2112,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 		}
 	}
 
-	if((typ == GF_BLOOD_CURSE) && one_in_(4))
-	{
-		int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
-		int count = 0;
-		do
-		{
-			switch (randint1(28))
-			{
-			case 1: case 2:
-				if(!count)
-				{
-#ifdef JP
-					msg_print("地面が揺れた...");
-#else
-					msg_print("The ground trembles...");
-#endif
-
-					earthquake(player_ptr, ty, tx, 4 + randint0(4));
-					if(!one_in_(6)) break;
-				}
-			case 3: case 4: case 5: case 6:
-				if(!count)
-				{
-					int dam = diceroll(10, 10);
-#ifdef JP
-					msg_print("純粋な魔力の次元への扉が開いた！");
-#else
-					msg_print("A portal opens to a plane of raw mana!");
-#endif
-
-					project(0, 0, 8, ty,tx, dam, GF_MANA, curse_flg, -1);
-					if(!one_in_(6)) break;
-				}
-			case 7: case 8:
-				if(!count)
-				{
-#ifdef JP
-					msg_print("空間が歪んだ！");
-#else
-					msg_print("Space warps about you!");
-#endif
-
-					if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
-					if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-					if(!one_in_(6)) break;
-				}
-			case 9: case 10: case 11:
-#ifdef JP
-				msg_print("エネルギーのうねりを感じた！");
-#else
-				msg_print("You feel a surge of energy!");
-#endif
-
-				project(0, 0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
-				if(!one_in_(6)) break;
-			case 12: case 13: case 14: case 15: case 16:
-				aggravate_creatures(caster_ptr);
-				if(!one_in_(6)) break;
-			case 17: case 18:
-				count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-				if(!one_in_(6)) break;
-			case 19: case 20: case 21: case 22:
-				{
-					bool pet = !one_in_(3);
-					u32b mode = PC_ALLOW_GROUP;
-
-					if(pet) mode |= PC_FORCE_PET;
-					else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
-
-					count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
-					if(!one_in_(6)) break;
-				}
-			case 23: case 24: case 25:
-				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
-#ifdef JP
-				msg_print("生命力が体から吸い取られた気がする！");
-#else
-				msg_print("You feel your life draining away...");
-#endif
-
-				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
-				else lose_exp(caster_ptr, caster_ptr->exp / 16);
-				if(!one_in_(6)) break;
-			case 26: case 27: case 28:
-				{
-					int i = 0;
-					if(one_in_(13))
-					{
-						while (i < STAT_MAX)
-						{
-							do
-							{
-								(void)do_dec_stat(caster_ptr, i);
-							}
-							while (one_in_(2));
-
-							i++;
-						}
-					}
-					else
-					{
-						(void)do_dec_stat(caster_ptr, randint0(6));
-					}
-					break;
-				}
-			}
-		}
-		while (one_in_(5));
-	}
-
-	if(floor_ptr->gamble_arena_mode)
-	{
-		health_track(c_ptr->creature_idx);
-		play_redraw |= (PR_HEALTH);
-		redraw_stuff(player_ptr);
-	}
 
 	/* XXX XXX XXX Verify this code */
 
@@ -2362,6 +2237,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		strcpy(caster_name, killer); // Paranoia
 	}
+
+	if(skipped) return; // Absolutely no effect
+	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
 
 	// Analyze the damage
 	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
@@ -5509,6 +5387,124 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
+/* old
+	if((typ == GF_BLOOD_CURSE) && one_in_(4))
+	{
+		int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
+		int count = 0;
+		do
+		{
+			switch (randint1(28))
+			{
+			case 1: case 2:
+				if(!count)
+				{
+#ifdef JP
+					msg_print("地面が揺れた...");
+#else
+					msg_print("The ground trembles...");
+#endif
+
+					earthquake(player_ptr, ty, tx, 4 + randint0(4));
+					if(!one_in_(6)) break;
+				}
+			case 3: case 4: case 5: case 6:
+				if(!count)
+				{
+					int dam = diceroll(10, 10);
+#ifdef JP
+					msg_print("純粋な魔力の次元への扉が開いた！");
+#else
+					msg_print("A portal opens to a plane of raw mana!");
+#endif
+
+					project(0, 0, 8, ty,tx, dam, GF_MANA, curse_flg, -1);
+					if(!one_in_(6)) break;
+				}
+			case 7: case 8:
+				if(!count)
+				{
+#ifdef JP
+					msg_print("空間が歪んだ！");
+#else
+					msg_print("Space warps about you!");
+#endif
+
+					if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
+					if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+					if(!one_in_(6)) break;
+				}
+			case 9: case 10: case 11:
+#ifdef JP
+				msg_print("エネルギーのうねりを感じた！");
+#else
+				msg_print("You feel a surge of energy!");
+#endif
+
+				project(0, 0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
+				if(!one_in_(6)) break;
+			case 12: case 13: case 14: case 15: case 16:
+				aggravate_creatures(caster_ptr);
+				if(!one_in_(6)) break;
+			case 17: case 18:
+				count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+				if(!one_in_(6)) break;
+			case 19: case 20: case 21: case 22:
+				{
+					bool pet = !one_in_(3);
+					u32b mode = PC_ALLOW_GROUP;
+
+					if(pet) mode |= PC_FORCE_PET;
+					else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
+
+					count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
+					if(!one_in_(6)) break;
+				}
+			case 23: case 24: case 25:
+				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
+#ifdef JP
+				msg_print("生命力が体から吸い取られた気がする！");
+#else
+				msg_print("You feel your life draining away...");
+#endif
+
+				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
+				else lose_exp(caster_ptr, caster_ptr->exp / 16);
+				if(!one_in_(6)) break;
+			case 26: case 27: case 28:
+				{
+					int i = 0;
+					if(one_in_(13))
+					{
+						while (i < STAT_MAX)
+						{
+							do
+							{
+								(void)do_dec_stat(caster_ptr, i);
+							}
+							while (one_in_(2));
+
+							i++;
+						}
+					}
+					else
+					{
+						(void)do_dec_stat(caster_ptr, randint0(6));
+					}
+					break;
+				}
+			}
+		}
+		while (one_in_(5));
+	}
+
+	if(floor_ptr->gamble_arena_mode)
+	{
+		health_track(c_ptr->creature_idx);
+		play_redraw |= (PR_HEALTH);
+		redraw_stuff(player_ptr);
+	}
+*/
 
 	case GF_CRUSADE:
 		{

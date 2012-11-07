@@ -2404,7 +2404,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
 #ifdef JP
-msg_print("あなたはパラノイアになった！");
+					msg_print("あなたはパラノイアになった！");
 #else
 					msg_print("You become paranoid!");
 #endif
@@ -2414,7 +2414,7 @@ msg_print("あなたはパラノイアになった！");
 					if(has_trait(watcher_ptr, TRAIT_FEARLESS))
 					{
 #ifdef JP
-msg_print("あなたはもう恐れ知らずではなくなった。");
+						msg_print("あなたはもう恐れ知らずではなくなった。");
 #else
 						msg_print("You are no longer fearless.");
 #endif
@@ -2431,7 +2431,7 @@ msg_print("あなたはもう恐れ知らずではなくなった。");
 				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
 				{
 #ifdef JP
-msg_print("幻覚をひき起こす精神錯乱に陥った！");
+					msg_print("幻覚をひき起こす精神錯乱に陥った！");
 #else
 					msg_print("You are afflicted by a hallucinatory insanity!");
 #endif
