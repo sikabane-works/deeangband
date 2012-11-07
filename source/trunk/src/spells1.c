@@ -2322,9 +2322,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	bool skipped = FALSE;
 
-	// Player needs a "description" (he is blind)
-	bool fuzzy = FALSE;
-
 	// Creature name (for attacker and target)
 	char caster_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
@@ -2396,9 +2393,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		strcpy(caster_name, killer);
 	}
 
-	// If the player is blind, be more descriptive
-	if(blind) fuzzy = TRUE;
-
 	// Analyze the damage
 	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
 	switch (typ)
@@ -2407,9 +2401,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_ACID:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("_‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("_‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by acid!");
+			if(blind) msg_print("You are hit by acid!");
 #endif
 			get_damage = acid_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2418,9 +2412,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_FIRE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by fire!");
+			if(blind) msg_print("You are hit by fire!");
 #endif
 			get_damage = fire_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2429,9 +2423,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_COLD:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by cold!");
+			if(blind) msg_print("You are hit by cold!");
 #endif
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2440,9 +2434,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_ELEC:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by lightning!");
+			if(blind) msg_print("You are hit by lightning!");
 #endif
 			get_damage = elec_dam(target_ptr, dam, killer, spell);
 			break;
@@ -2452,9 +2446,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
-			if(fuzzy) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by poison!");
+			if(blind) msg_print("You are hit by poison!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
@@ -2469,9 +2463,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
-			if(fuzzy) msg_print("•úË”\‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("•úË”\‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by radiation!");
+			if(blind) msg_print("You are hit by radiation!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 
@@ -2504,9 +2498,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_MISSILE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something!");
+			if(blind) msg_print("You are hit by something!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2515,9 +2509,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_HOLY_FIRE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something!");
+			if(blind) msg_print("You are hit by something!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2526,9 +2520,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_HELL_FIRE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something!");
+			if(blind) msg_print("You are hit by something!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, killer, NULL, spell);
 			break;
@@ -2538,9 +2532,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something sharp!");
+			if(blind) msg_print("You are hit by something sharp!");
 #endif
 			else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 			{
@@ -2559,9 +2553,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_PLASMA:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something *HOT*!");
+			if(blind) msg_print("You are hit by something *HOT*!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -2583,9 +2577,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_NETHER:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by nether forces!");
+			if(blind) msg_print("You are hit by nether forces!");
 #endif
 
 			if(!target_ptr->resist_neth && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2599,9 +2593,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_WATER:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something wet!");
+			if(blind) msg_print("You are hit by something wet!");
 #endif
 
 			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2627,9 +2621,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_CHAOS:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by a wave of anarchy!");
+			if(blind) msg_print("You are hit by a wave of anarchy!");
 #endif
 
 			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2671,9 +2665,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_SHARDS:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something sharp!");
+			if(blind) msg_print("You are hit by something sharp!");
 #endif
 
 			if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2693,9 +2687,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_SOUND:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by a loud noise!");
+			if(blind) msg_print("You are hit by a loud noise!");
 #endif
 
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2716,9 +2710,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_CONFUSION:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something puzzling!");
+			if(blind) msg_print("You are hit by something puzzling!");
 #endif
 
 			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2732,9 +2726,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_DISENCHANT:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚³‚¦‚È‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚³‚¦‚È‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something static!");
+			if(blind) msg_print("You are hit by something static!");
 #endif
 
 			if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2748,9 +2742,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_NEXUS:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©Šï–­‚È‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©Šï–­‚È‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something strange!");
+			if(blind) msg_print("You are hit by something strange!");
 #endif
 
 			if(!target_ptr->resist_nexus && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2764,9 +2758,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_FORCE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by kinetic force!");
+			if(blind) msg_print("You are hit by kinetic force!");
 #endif
 
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2780,9 +2774,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_ROCKET:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("”š”­‚ª‚ ‚Á‚½I");
+			if(blind) msg_print("”š”­‚ª‚ ‚Á‚½I");
 #else
-			if(fuzzy) msg_print("There is an explosion!");
+			if(blind) msg_print("There is an explosion!");
 #endif
 
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2807,9 +2801,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_INERTIA:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something slow!");
+			if(blind) msg_print("You are hit by something slow!");
 #endif
 
 			if(!target_ptr->resist_inertia && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
@@ -2821,9 +2815,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_LITE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something!");
+			if(blind) msg_print("You are hit by something!");
 #endif
 
 			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2854,9 +2848,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_DARK:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something!");
+			if(blind) msg_print("You are hit by something!");
 #endif
 
 			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2870,9 +2864,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_TIME:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰ß‹‚©‚ç‚ÌÕŒ‚‚ÉUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰ß‹‚©‚ç‚ÌÕŒ‚‚ÉUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by a blast from the past!");
+			if(blind) msg_print("You are hit by a blast from the past!");
 #endif
 
 			if(!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2955,10 +2949,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_GRAVITY:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©d‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©d‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 			msg_print("ü•Ó‚Ìd—Í‚ª‚ä‚ª‚ñ‚¾B");
 #else
-			if(fuzzy) msg_print("You are hit by something heavy!");
+			if(blind) msg_print("You are hit by something heavy!");
 			msg_print("Gravity warps around you.");
 #endif
 
@@ -2983,9 +2977,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_DISINTEGRATE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("ƒˆ‚ÈƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("ƒˆ‚ÈƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by pure energy!");
+			if(blind) msg_print("You are hit by pure energy!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
 			break;
@@ -2994,9 +2988,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_OLD_HEAL:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚ç‚©‚ÌUŒ‚‚É‚æ‚Á‚Ä‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
+			if(blind) msg_print("‰½‚ç‚©‚ÌUŒ‚‚É‚æ‚Á‚Ä‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
 #else
-			if(fuzzy) msg_print("You are hit by something invigorating!");
+			if(blind) msg_print("You are hit by something invigorating!");
 #endif
 
 			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
@@ -3016,9 +3010,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_OLD_SPEED:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something!");
+			if(blind) msg_print("You are hit by something!");
 #endif
 
 			(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + randint1(5));
@@ -3029,9 +3023,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_OLD_SLOW:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something slow!");
+			if(blind) msg_print("You are hit by something slow!");
 #endif
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -3051,9 +3045,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 #ifdef JP
-			if(fuzzy) msg_print("–°‚Á‚Ä‚µ‚Ü‚Á‚½I");
+			if(blind) msg_print("–°‚Á‚Ä‚µ‚Ü‚Á‚½I");
 #else
-			if(fuzzy) msg_print("You fall asleep!");
+			if(blind) msg_print("You fall asleep!");
 #endif
 
 			if(curse_of_Iluvatar)
@@ -3078,9 +3072,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_SUPER_RAY:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("–‚–@‚ÌƒI[ƒ‰‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("–‚–@‚ÌƒI[ƒ‰‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by an aura of magic!");
+			if(blind) msg_print("You are hit by an aura of magic!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -3090,9 +3084,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_PSY_SPEAR:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by an energy!");
+			if(blind) msg_print("You are hit by an energy!");
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, killer, NULL, spell);
 			break;
@@ -3101,9 +3095,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_METEOR:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I");
+			if(blind) msg_print("‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I");
 #else
-			if(fuzzy) msg_print("Something falls from the sky on you!");
+			if(blind) msg_print("Something falls from the sky on you!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
@@ -3120,9 +3114,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_ICE:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something sharp and cold!");
+			if(blind) msg_print("You are hit by something sharp and cold!");
 #endif
 
 			get_damage = cold_dam(target_ptr, dam, killer, spell);
@@ -3151,9 +3145,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case GF_DEATH_RAY:
 		{
 #ifdef JP
-			if(fuzzy) msg_print("‰½‚©”ñí‚É—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			if(blind) msg_print("‰½‚©”ñí‚É—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(fuzzy) msg_print("You are hit by something extremely cold!");
+			if(blind) msg_print("You are hit by something extremely cold!");
 #endif
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, killer, NULL, spell);
