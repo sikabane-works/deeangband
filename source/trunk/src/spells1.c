@@ -2058,7 +2058,56 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 21-23
+// 21
+
+	case DO_EFFECT_METEOR:
+		{
+#ifdef JP
+			if(blind) msg_print("何かが空からあなたの頭上に落ちてきた！");
+#else
+			if(blind) msg_print("Something falls from the sky on you!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+			if(!target_ptr->resist_shard || one_in_(13))
+			{
+				if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
+				inven_damage(target_ptr, set_cold_destroy, 2);
+			}
+
+			break;
+		}
+
+		// Ice -- cold plus stun plus cuts
+	case DO_EFFECT_ICE:
+		{
+#ifdef JP
+			if(blind) msg_print("何か鋭く冷たいもので攻撃された！");
+#else
+			if(blind) msg_print("You are hit by something sharp and cold!");
+#endif
+
+			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
+
+			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				if(!target_ptr->resist_shard)
+				{
+					(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(5, 8));
+				}
+				if(!target_ptr->resist_sound)
+				{
+					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(15));
+				}
+
+				if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
+				{
+					if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
+				}
+			}
+
+			break;
+		}
 
 	case DO_EFFECT_CHAOS:
 		{
@@ -2151,44 +2200,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
 		}
-
-//28-56
-
-	case DO_EFFECT_NUKE:
-		{
-			bool double_resist = IS_OPPOSE_POIS(target_ptr);
-#ifdef JP
-			if(blind) msg_print("放射能で攻撃された！");
-#else
-			if(blind) msg_print("You are hit by radiation!");
-#endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-
-			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
-
-				if(one_in_(5)) /* 6 */
-				{
-#ifdef JP
-					msg_print("奇形的な変身を遂げた！");
-#else
-					msg_print("You undergo a freakish metamorphosis!");
-#endif
-
-					if(one_in_(4)) /* 4 */
-						do_poly_self(target_ptr);
-					else
-						mutate_creature(target_ptr);
-				}
-
-				if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
-			}
-			break;
-		}
-
-
-
 
 	case DO_EFFECT_TIME:
 		{
@@ -2304,7 +2315,29 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
+//30-38
 
+	case DO_EFFECT_OLD_HEAL:
+		{
+#ifdef JP
+			if(blind) msg_print("何らかの攻撃によって気分がよくなった。");
+#else
+			if(blind) msg_print("You are hit by something invigorating!");
+#endif
+
+			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_STUN, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
+			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, 0);
+			(void)heal_creature(target_ptr, dam);
+
+			// Redraw (later) if needed
+			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+
+			get_damage = 0;
+			break;
+		}
 
 	case DO_EFFECT_OLD_SPEED:
 		{
@@ -2340,6 +2373,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
+//42
+		
 	case DO_EFFECT_OLD_SLEEP:
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
@@ -2365,6 +2400,50 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
+		
+		
+// 44-56
+
+	case DO_EFFECT_NUKE:
+		{
+			bool double_resist = IS_OPPOSE_POIS(target_ptr);
+#ifdef JP
+			if(blind) msg_print("放射能で攻撃された！");
+#else
+			if(blind) msg_print("You are hit by radiation!");
+#endif
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+
+			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
+
+				if(one_in_(5)) /* 6 */
+				{
+#ifdef JP
+					msg_print("奇形的な変身を遂げた！");
+#else
+					msg_print("You undergo a freakish metamorphosis!");
+#endif
+
+					if(one_in_(4)) /* 4 */
+						do_poly_self(target_ptr);
+					else
+						mutate_creature(target_ptr);
+				}
+
+				if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
+			}
+			break;
+		}
+
+
+
+
+
+
+
+
 
 
 
@@ -2432,27 +2511,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 //// NOW sorting.
 
 
-	case DO_EFFECT_OLD_HEAL:
-		{
-#ifdef JP
-			if(blind) msg_print("何らかの攻撃によって気分がよくなった。");
-#else
-			if(blind) msg_print("You are hit by something invigorating!");
-#endif
-
-			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
-			(void)set_timed_trait(target_ptr, TRAIT_STUN, 0);
-			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
-			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, 0);
-			(void)heal_creature(target_ptr, dam);
-
-			// Redraw (later) if needed
-			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
-
-			get_damage = 0;
-			break;
-		}
 
 	case DO_EFFECT_MANA:
 	case DO_EFFECT_SEEKER:
@@ -2469,54 +2527,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-	case DO_EFFECT_METEOR:
-		{
-#ifdef JP
-			if(blind) msg_print("何かが空からあなたの頭上に落ちてきた！");
-#else
-			if(blind) msg_print("Something falls from the sky on you!");
-#endif
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			if(!target_ptr->resist_shard || one_in_(13))
-			{
-				if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
-				inven_damage(target_ptr, set_cold_destroy, 2);
-			}
-
-			break;
-		}
-
-		// Ice -- cold plus stun plus cuts
-	case DO_EFFECT_ICE:
-		{
-#ifdef JP
-			if(blind) msg_print("何か鋭く冷たいもので攻撃された！");
-#else
-			if(blind) msg_print("You are hit by something sharp and cold!");
-#endif
-
-			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
-
-			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				if(!target_ptr->resist_shard)
-				{
-					(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(5, 8));
-				}
-				if(!target_ptr->resist_sound)
-				{
-					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(15));
-				}
-
-				if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
-				{
-					if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
-				}
-			}
-
-			break;
-		}
 
 		// Death Ray
 	case DO_EFFECT_DEATH_RAY:
