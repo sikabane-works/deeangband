@@ -1675,11 +1675,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	char caster_name[MAX_NLEN];
 	char target_name[MAX_NLEN];
 
-	// Is the player blind?
-	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE);
-
-	// Were the effects "obvious" (if seen)?
-	bool obvious = FALSE;
+	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE); // Is the player blind?
+	bool obvious = FALSE; // Were the effects "obvious" (if seen)?
 
 	// Is the creature "seen"?
 	bool seen = target_ptr->see_others;
@@ -1719,41 +1716,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	// Analyze the damage
 	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
+
+
 	switch (typ)
 	{
 
-	case DO_EFFECT_ACID:
-		{
-#ifdef JP
-			if(blind) msg_print("Ž_‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by acid!");
-#endif
-			get_damage = acid_dam(target_ptr, dam, caster_name, spell);
-			break;
-		}
-
-	case DO_EFFECT_FIRE:
-		{
-#ifdef JP
-			if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by fire!");
-#endif
-			get_damage = fire_dam(target_ptr, dam, caster_name, spell);
-			break;
-		}
-
-	case DO_EFFECT_COLD:
-		{
-#ifdef JP
-			if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by cold!");
-#endif
-			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
-			break;
-		}
+	case DO_EFFECT_MELEE:
+		break;
 
 	case DO_EFFECT_ELEC:
 		{
@@ -1779,6 +1748,85 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 			}
+			break;
+		}
+
+	case DO_EFFECT_ACID:
+		{
+#ifdef JP
+			if(blind) msg_print("Ž_‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by acid!");
+#endif
+			get_damage = acid_dam(target_ptr, dam, caster_name, spell);
+			break;
+		}
+
+	case DO_EFFECT_COLD:
+		{
+#ifdef JP
+			if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by cold!");
+#endif
+			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
+			break;
+		}
+
+	case DO_EFFECT_FIRE:
+		{
+#ifdef JP
+			if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by fire!");
+#endif
+			get_damage = fire_dam(target_ptr, dam, caster_name, spell);
+			break;
+		}
+
+	case DO_EFFECT_ARROW:
+		{
+
+#ifdef JP
+			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something sharp!");
+#endif
+			else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
+			{
+#ifdef JP
+				msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
+#else
+				msg_print("You cut down the arrow!");
+#endif
+				break;
+			}
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			break;
+		}
+
+	case DO_EFFECT_PLASMA:
+		{
+#ifdef JP
+			if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+#else
+			if(blind) msg_print("You are hit by something *HOT*!");
+#endif
+
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+
+			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
+				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
+			}
+
+			if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
+			{
+				inven_damage(target_ptr, set_acid_destroy, 3);
+			}
+
 			break;
 		}
 
@@ -1848,51 +1896,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case DO_EFFECT_ARROW:
-		{
-
-#ifdef JP
-			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by something sharp!");
-#endif
-			else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
-			{
-#ifdef JP
-				msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
-#else
-				msg_print("You cut down the arrow!");
-#endif
-				break;
-			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
-
-	case DO_EFFECT_PLASMA:
-		{
-#ifdef JP
-			if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by something *HOT*!");
-#endif
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-
-			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
-				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
-			}
-
-			if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
-			{
-				inven_damage(target_ptr, set_acid_destroy, 3);
-			}
-
-			break;
-		}
 
 	case DO_EFFECT_NETHER:
 		{
