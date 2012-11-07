@@ -1808,7 +1808,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_ARROW:
 		{
-
 #ifdef JP
 			if(blind) msg_print("何か鋭いもので攻撃された！");
 #else
@@ -1851,6 +1850,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
+
+//10
 
 	case DO_EFFECT_WATER:
 		{
@@ -1920,6 +1921,52 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
+
+		/* Lite, but only hurts susceptible creatures */
+	case DO_EFFECT_LITE_WEAK:
+		{
+			if(!dam)
+			{
+				skipped = TRUE;
+				break;
+			}
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				dam = 0;
+				break;
+			}
+			/* Hurt by light */
+			if(has_trait(target_ptr, TRAIT_HURT_LITE))
+			{
+				/* Obvious effect */
+				if(seen) obvious = TRUE;
+
+				/* Memorize the effects */
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
+
+				/* Special effect */
+#ifdef JP
+				note = "は光に身をすくめた！";
+				note_dies = "は光を受けてしぼんでしまった！";
+#else
+				note = " cringes from the light!";
+				note_dies = " shrivels away in the light!";
+#endif
+
+			}
+
+			/* Normally no damage */
+			else
+			{
+				/* No damage */
+				dam = 0;
+			}
+
+			break;
+		}
+
+// 15
+
 
 	case DO_EFFECT_SHARDS:
 		{
@@ -2011,72 +2058,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case DO_EFFECT_DISENCHANT:
-		{
-#ifdef JP
-			if(blind) msg_print("何かさえないもので攻撃された！");
-#else
-			if(blind) msg_print("You are hit by something static!");
-#endif
-
-			if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				(void)apply_disenchant(target_ptr, 0);
-			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
-
-	case DO_EFFECT_NEXUS:
-		{
-#ifdef JP
-			if(blind) msg_print("何か奇妙なもので攻撃された！");
-#else
-			if(blind) msg_print("You are hit by something strange!");
-#endif
-
-			if(!target_ptr->resist_nexus && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				apply_nexus(caster_ptr);
-			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
-
-	case DO_EFFECT_NUKE:
-		{
-			bool double_resist = IS_OPPOSE_POIS(target_ptr);
-#ifdef JP
-			if(blind) msg_print("放射能で攻撃された！");
-#else
-			if(blind) msg_print("You are hit by radiation!");
-#endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-
-			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
-
-				if(one_in_(5)) /* 6 */
-				{
-#ifdef JP
-					msg_print("奇形的な変身を遂げた！");
-#else
-					msg_print("You undergo a freakish metamorphosis!");
-#endif
-
-					if(one_in_(4)) /* 4 */
-						do_poly_self(target_ptr);
-					else
-						mutate_creature(target_ptr);
-				}
-
-				if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
-			}
-			break;
-		}
-
-
+// 21-23
 
 	case DO_EFFECT_CHAOS:
 		{
@@ -2137,6 +2119,76 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
+
+	case DO_EFFECT_DISENCHANT:
+		{
+#ifdef JP
+			if(blind) msg_print("何かさえないもので攻撃された！");
+#else
+			if(blind) msg_print("You are hit by something static!");
+#endif
+
+			if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				(void)apply_disenchant(target_ptr, 0);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			break;
+		}
+
+	case DO_EFFECT_NEXUS:
+		{
+#ifdef JP
+			if(blind) msg_print("何か奇妙なもので攻撃された！");
+#else
+			if(blind) msg_print("You are hit by something strange!");
+#endif
+
+			if(!target_ptr->resist_nexus && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				apply_nexus(caster_ptr);
+			}
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			break;
+		}
+
+//28-56
+
+	case DO_EFFECT_NUKE:
+		{
+			bool double_resist = IS_OPPOSE_POIS(target_ptr);
+#ifdef JP
+			if(blind) msg_print("放射能で攻撃された！");
+#else
+			if(blind) msg_print("You are hit by radiation!");
+#endif
+			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+
+			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
+
+				if(one_in_(5)) /* 6 */
+				{
+#ifdef JP
+					msg_print("奇形的な変身を遂げた！");
+#else
+					msg_print("You undergo a freakish metamorphosis!");
+#endif
+
+					if(one_in_(4)) /* 4 */
+						do_poly_self(target_ptr);
+					else
+						mutate_creature(target_ptr);
+				}
+
+				if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
+			}
+			break;
+		}
+
+
+
 
 	case DO_EFFECT_TIME:
 		{
@@ -2672,139 +2724,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-
-		/* Brain smash */
-	case DO_EFFECT_BRAIN_SMASH:
-		{
-			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
-			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-			}
-			else
-			*/
-			{
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				{
-#ifdef JP
-					msg_print("霊的エネルギーで精神が攻撃された。");
-#else
-					msg_print("Your mind is blasted by psionic energy.");
-#endif
-
-					target_ptr->csp -= 100;
-					if(target_ptr->csp < 0)
-					{
-						target_ptr->csp = 0;
-						target_ptr->csp_frac = 0;
-					}
-					play_redraw |= PR_MANA;
-				}
-
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				{
-					if(!has_trait(target_ptr, TRAIT_NO_BLIND))
-					{
-						(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 8 + randint0(8));
-					}
-					if(!has_trait(target_ptr, TRAIT_NO_CONF))
-					{
-						(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-					}
-					if(!has_trait(target_ptr, TRAIT_FREE_ACTION))
-					{
-						(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + randint0(4) + 4);
-					}
-					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-
-					/* TODO saving_throw
-					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
-					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
-					*/
-
-					if(!target_ptr->resist_chaos)
-					{
-						(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
-					}
-				}
-			}
-			break;
-		}
-		/* Brain smash
-		case DO_EFFECT_BRAIN_SMASH:
-		{
-		if(seen) obvious = TRUE;
-		// Message
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-		#else
-		if(caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		// Attempt a saving throw 
-		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-		has_trait(target_ptr, TRAIT_NO_CONF) ||
-		(target_ptr->lev * 2 > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
-		{
-		// Memorize a flag
-		if(has_trait(target_ptr, TRAIT_NO_CONF))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-		}
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
-		dam = 0;
-		}
-		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		dam = 0;
-		}
-		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-		note = game_messages[GAME_MESSAGE_RESISTED];
-		dam /= 3;
-		}
-		else
-		{
-		#ifdef JP
-		note = "は精神攻撃を食らった。";
-		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-		#else
-		note = " is blasted by psionic energy.";
-		note_dies = " collapses, a mindless husk.";
-		#endif
-
-		if(caster_ptr != caster_ptr)
-		{
-		do_conf = randint0(4) + 4;
-		do_stun = randint0(4) + 4;
-		}
-		else
-		{
-		do_conf = randint0(8) + 8;
-		do_stun = randint0(8) + 8;
-		}
-		(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + 10, FALSE);
-		}
-		break;
-		}
-		*/
-
 		/* cause 1 */
 	case DO_EFFECT_CAUSE_1:
 		{
@@ -3069,6 +2988,139 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		#endif
 		dam = 0;
 		}
+		}
+		break;
+		}
+		*/
+
+
+		/* Brain smash */
+	case DO_EFFECT_BRAIN_SMASH:
+		{
+			/* TODO saving_throw
+			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			{
+			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+			}
+			else
+			*/
+			{
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				{
+#ifdef JP
+					msg_print("霊的エネルギーで精神が攻撃された。");
+#else
+					msg_print("Your mind is blasted by psionic energy.");
+#endif
+
+					target_ptr->csp -= 100;
+					if(target_ptr->csp < 0)
+					{
+						target_ptr->csp = 0;
+						target_ptr->csp_frac = 0;
+					}
+					play_redraw |= PR_MANA;
+				}
+
+				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				{
+					if(!has_trait(target_ptr, TRAIT_NO_BLIND))
+					{
+						(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 8 + randint0(8));
+					}
+					if(!has_trait(target_ptr, TRAIT_NO_CONF))
+					{
+						(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
+					}
+					if(!has_trait(target_ptr, TRAIT_FREE_ACTION))
+					{
+						(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + randint0(4) + 4);
+					}
+					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
+
+					/* TODO saving_throw
+					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
+					while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
+					*/
+
+					if(!target_ptr->resist_chaos)
+					{
+						(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
+					}
+				}
+			}
+			break;
+		}
+		/* Brain smash
+		case DO_EFFECT_BRAIN_SMASH:
+		{
+		if(seen) obvious = TRUE;
+		// Message
+		#ifdef JP
+		if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
+		#else
+		if(caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
+		#endif
+
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+		skipped = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+		break;
+		}
+
+		// Attempt a saving throw 
+		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
+		has_trait(target_ptr, TRAIT_NO_CONF) ||
+		(target_ptr->lev * 2 > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
+		{
+		// Memorize a flag
+		if(has_trait(target_ptr, TRAIT_NO_CONF))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+		}
+		#ifdef JP
+		note = "には効果がなかった。";
+		#else
+		note = "is unaffected!";
+		#endif
+		dam = 0;
+		}
+		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+		dam = 0;
+		}
+		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
+		{
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
+		note = game_messages[GAME_MESSAGE_RESISTED];
+		dam /= 3;
+		}
+		else
+		{
+		#ifdef JP
+		note = "は精神攻撃を食らった。";
+		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+		#else
+		note = " is blasted by psionic energy.";
+		note_dies = " collapses, a mindless husk.";
+		#endif
+
+		if(caster_ptr != caster_ptr)
+		{
+		do_conf = randint0(4) + 4;
+		do_stun = randint0(4) + 4;
+		}
+		else
+		{
+		do_conf = randint0(8) + 8;
+		do_stun = randint0(8) + 8;
+		}
+		(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + 10, FALSE);
 		}
 		break;
 		}
@@ -4054,48 +4106,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		/* Lite, but only hurts susceptible creatures */
-	case DO_EFFECT_LITE_WEAK:
-		{
-			if(!dam)
-			{
-				skipped = TRUE;
-				break;
-			}
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				dam = 0;
-				break;
-			}
-			/* Hurt by light */
-			if(has_trait(target_ptr, TRAIT_HURT_LITE))
-			{
-				/* Obvious effect */
-				if(seen) obvious = TRUE;
-
-				/* Memorize the effects */
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-
-				/* Special effect */
-#ifdef JP
-				note = "は光に身をすくめた！";
-				note_dies = "は光を受けてしぼんでしまった！";
-#else
-				note = " cringes from the light!";
-				note_dies = " shrivels away in the light!";
-#endif
-
-			}
-
-			/* Normally no damage */
-			else
-			{
-				/* No damage */
-				dam = 0;
-			}
-
-			break;
-		}
 
 
 		/* Stone to Mud */
