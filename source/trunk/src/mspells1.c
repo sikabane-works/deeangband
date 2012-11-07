@@ -558,17 +558,17 @@ void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int ra
 
 	switch (typ)
 	{
-	case GF_ROCKET:
+	case DO_EFFECT_ROCKET:
 		flg |= PROJECT_STOP;
 		break;
-	case GF_DRAIN_MANA:
-	case GF_MIND_BLAST:
-	case GF_BRAIN_SMASH:
-	case GF_CAUSE_1:
-	case GF_CAUSE_2:
-	case GF_CAUSE_3:
-	case GF_CAUSE_4:
-	case GF_HAND_DOOM:
+	case DO_EFFECT_DRAIN_MANA:
+	case DO_EFFECT_MIND_BLAST:
+	case DO_EFFECT_BRAIN_SMASH:
+	case DO_EFFECT_CAUSE_1:
+	case DO_EFFECT_CAUSE_2:
+	case DO_EFFECT_CAUSE_3:
+	case DO_EFFECT_CAUSE_4:
+	case DO_EFFECT_HAND_DOOM:
 		flg |= (PROJECT_HIDE | PROJECT_AIMED);
 		break;
 	}

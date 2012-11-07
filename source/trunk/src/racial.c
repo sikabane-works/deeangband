@@ -994,7 +994,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case CLASS_PALADIN:
 		{
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, plev * 3, 0, FALSE);
+			cast_beam(creature_ptr, MAX_RANGE_SUB, is_good_realm(creature_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, plev * 3, 0, FALSE);
 			break;
 		}
 		case CLASS_WARRIOR_MAGE:
@@ -1156,7 +1156,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(command == -3)
 			{
 				if(!get_aim_dir(creature_ptr, 1, &dir)) return FALSE;
-				cast_beam(creature_ptr, 1, GF_PHOTO, 1, 0, FALSE);
+				cast_beam(creature_ptr, 1, DO_EFFECT_PHOTO, 1, 0, FALSE);
 			}
 			else if(command == -4)
 			{
@@ -1175,11 +1175,11 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(command == -3)
 			{
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
-				(void)cast_ball_hide(creature_ptr, GF_CONTROL_LIVING, dir, creature_ptr->lev, 0);
+				(void)cast_ball_hide(creature_ptr, DO_EFFECT_CONTROL_LIVING, dir, creature_ptr->lev, 0);
 			}
 			else if(command == -4)
 			{
-				project_hack(creature_ptr, GF_CONTROL_LIVING, creature_ptr->lev);
+				project_hack(creature_ptr, DO_EFFECT_CONTROL_LIVING, creature_ptr->lev);
 			}
 			break;
 		}
@@ -1436,13 +1436,13 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case MIMIC_DEMON:
 		case MIMIC_DEMON_LORD:
 		{
-			int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
+			int type = (one_in_(2) ? DO_EFFECT_NETHER : DO_EFFECT_FIRE);
 			if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 			stop_mouth(creature_ptr);
 #ifdef JP
-			msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
+			msg_format("あなたは%sのブレスを吐いた。",((type == DO_EFFECT_NETHER) ? "地獄" : "火炎"));
 #else
-			msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
+			msg_format("You breathe %s.",((type == DO_EFFECT_NETHER) ? "nether" : "fire"));
 #endif
 
 			cast_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
@@ -1664,7 +1664,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You throw a huge boulder.");
 #endif
 
-			cast_bolt(creature_ptr, GF_MISSILE, (3 * plev) / 2, 0, FALSE);
+			cast_bolt(creature_ptr, DO_EFFECT_MISSILE, (3 * plev) / 2, 0, FALSE);
 			break;
 
 		case RACE_YEEK:
@@ -1688,8 +1688,8 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You spit acid.");
 #endif
 
-			if(plev < 25) cast_bolt(creature_ptr, GF_ACID, plev, 0, FALSE);
-			else cast_ball(creature_ptr, GF_ACID, dir, plev, 2);
+			if(plev < 25) cast_bolt(creature_ptr, DO_EFFECT_ACID, plev, 0, FALSE);
+			else cast_ball(creature_ptr, DO_EFFECT_ACID, dir, plev, 2);
 			break;
 
 		case RACE_KOBOLD:
@@ -1700,7 +1700,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You throw a dart of poison.");
 #endif
 
-			cast_bolt(creature_ptr, GF_POIS, plev, 0, FALSE);
+			cast_bolt(creature_ptr, DO_EFFECT_POIS, plev, 0, FALSE);
 			break;
 
 		case RACE_NIBELUNG:
@@ -1723,17 +1723,17 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You cast a magic missile.");
 #endif
 
-			cast_bolt_or_beam(creature_ptr, 10, GF_MISSILE, dir,
+			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_MISSILE, dir,
 			    diceroll(3 + ((plev - 1) / 5), 4));
 			break;
 
 		case RACE_DRACONIAN:
 			{
-				int  Type = (one_in_(3) ? GF_COLD : GF_FIRE);
+				int  Type = (one_in_(3) ? DO_EFFECT_COLD : DO_EFFECT_FIRE);
 #ifdef JP
-				cptr Type_desc = ((Type == GF_COLD) ? "冷気" : "炎");
+				cptr Type_desc = ((Type == DO_EFFECT_COLD) ? "冷気" : "炎");
 #else
-				cptr Type_desc = ((Type == GF_COLD) ? "cold" : "fire");
+				cptr Type_desc = ((Type == DO_EFFECT_COLD) ? "cold" : "fire");
 #endif
 
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
@@ -1751,7 +1751,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_SMITH:
 							if(one_in_(3))
 							{
-								Type = GF_MISSILE;
+								Type = DO_EFFECT_MISSILE;
 #ifdef JP
 								Type_desc = "エレメント";
 #else
@@ -1760,7 +1760,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_SHARDS;
+								Type = DO_EFFECT_SHARDS;
 #ifdef JP
 								Type_desc = "破片";
 #else
@@ -1778,7 +1778,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_MIRROR_MASTER:
 							if(one_in_(3))
 							{
-								Type = GF_MANA;
+								Type = DO_EFFECT_MANA;
 #ifdef JP
 								Type_desc = "魔力";
 #else
@@ -1787,7 +1787,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_DISENCHANT;
+								Type = DO_EFFECT_DISENCHANT;
 #ifdef JP
 								Type_desc = "劣化";
 #else
@@ -1798,7 +1798,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_CHAOS_WARRIOR:
 							if(!one_in_(3))
 							{
-								Type = GF_CONFUSION;
+								Type = DO_EFFECT_CONFUSION;
 #ifdef JP
 								Type_desc = "混乱";
 #else
@@ -1807,7 +1807,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_CHAOS;
+								Type = DO_EFFECT_CHAOS;
 #ifdef JP
 								Type_desc = "カオス";
 #else
@@ -1820,7 +1820,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_FORCETRAINER:
 							if(!one_in_(3))
 							{
-								Type = GF_CONFUSION;
+								Type = DO_EFFECT_CONFUSION;
 #ifdef JP
 								Type_desc = "混乱";
 #else
@@ -1829,7 +1829,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_SOUND;
+								Type = DO_EFFECT_SOUND;
 #ifdef JP
 								Type_desc = "轟音";
 #else
@@ -1840,7 +1840,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_MINDCRAFTER:
 							if(!one_in_(3))
 							{
-								Type = GF_CONFUSION;
+								Type = DO_EFFECT_CONFUSION;
 #ifdef JP
 								Type_desc = "混乱";
 #else
@@ -1849,7 +1849,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_PSI;
+								Type = DO_EFFECT_PSI;
 #ifdef JP
 								Type_desc = "精神エネルギー";
 #else
@@ -1861,7 +1861,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_PALADIN:
 							if(one_in_(3))
 							{
-								Type = GF_HELL_FIRE;
+								Type = DO_EFFECT_HELL_FIRE;
 #ifdef JP
 								Type_desc = "地獄の劫火";
 #else
@@ -1870,7 +1870,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_HOLY_FIRE;
+								Type = DO_EFFECT_HOLY_FIRE;
 #ifdef JP
 								Type_desc = "聖なる炎";
 #else
@@ -1882,7 +1882,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_NINJA:
 							if(one_in_(3))
 							{
-								Type = GF_DARK;
+								Type = DO_EFFECT_DARK;
 #ifdef JP
 								Type_desc = "暗黒";
 #else
@@ -1891,7 +1891,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_POIS;
+								Type = DO_EFFECT_POIS;
 #ifdef JP
 								Type_desc = "毒";
 #else
@@ -1902,7 +1902,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 						case CLASS_BARD:
 							if(!one_in_(3))
 							{
-								Type = GF_SOUND;
+								Type = DO_EFFECT_SOUND;
 #ifdef JP
 								Type_desc = "轟音";
 #else
@@ -1911,7 +1911,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 							}
 							else
 							{
-								Type = GF_CONFUSION;
+								Type = DO_EFFECT_CONFUSION;
 #ifdef JP
 								Type_desc = "混乱";
 #else
@@ -1943,7 +1943,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("You concentrate and your eyes glow red...");
 #endif
 
-			cast_bolt(creature_ptr, GF_PSI, plev, 0, FALSE);
+			cast_bolt(creature_ptr, DO_EFFECT_PSI, plev, 0, FALSE);
 			break;
 
 		case RACE_IMP:
@@ -1956,7 +1956,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You cast a ball of fire.");
 #endif
 
-				cast_ball(creature_ptr, GF_FIRE, dir, plev, 2);
+				cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, plev, 2);
 			}
 			else
 			{
@@ -1966,7 +1966,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				msg_print("You cast a bolt of fire.");
 #endif
 
-				cast_bolt(creature_ptr, GF_FIRE, plev, 0, FALSE);
+				cast_bolt(creature_ptr, DO_EFFECT_FIRE, plev, 0, FALSE);
 			}
 			break;
 
@@ -2074,13 +2074,13 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		case RACE_DEMON:
 		case RACE_BALROG:
 			{
-				int type = (one_in_(2) ? GF_NETHER : GF_FIRE);
+				int type = (one_in_(2) ? DO_EFFECT_NETHER : DO_EFFECT_FIRE);
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return FALSE;
 				stop_mouth(creature_ptr);
 #ifdef JP
-				msg_format("あなたは%sのブレスを吐いた。",((type == GF_NETHER) ? "地獄" : "火炎"));
+				msg_format("あなたは%sのブレスを吐いた。",((type == DO_EFFECT_NETHER) ? "地獄" : "火炎"));
 #else
-				msg_format("You breathe %s.",((type == GF_NETHER) ? "nether" : "fire"));
+				msg_format("You breathe %s.",((type == DO_EFFECT_NETHER) ? "nether" : "fire"));
 #endif
 
 				cast_ball(creature_ptr, type, dir, plev * 3, -(plev / 15) - 1);
@@ -2101,7 +2101,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your ray gun.");
 #endif
-				cast_bolt(creature_ptr, GF_MISSILE, dir, (plev+1) / 2);
+				cast_bolt(creature_ptr, DO_EFFECT_MISSILE, dir, (plev+1) / 2);
 			}
 			else if(plev < 25)
 			{
@@ -2110,7 +2110,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your blaster.");
 #endif
-				cast_bolt(creature_ptr, GF_MISSILE, dir, plev);
+				cast_bolt(creature_ptr, DO_EFFECT_MISSILE, dir, plev);
 			}
 			else if(plev < 35)
 			{
@@ -2119,7 +2119,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire your bazooka.");
 #endif
-				cast_ball(creature_ptr, GF_MISSILE, dir, plev * 2, 2);
+				cast_ball(creature_ptr, DO_EFFECT_MISSILE, dir, plev * 2, 2);
 			}
 			else if(plev < 45)
 			{
@@ -2128,7 +2128,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire a beam cannon.");
 #endif
-				cast_beam(creature_ptr, MAX_RANGE_SUB, GF_MISSILE, dir, plev * 2);
+				cast_beam(creature_ptr, MAX_RANGE_SUB, DO_EFFECT_MISSILE, dir, plev * 2);
 			}
 			else
 			{
@@ -2137,7 +2137,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You fire a rocket.");
 #endif
-				fire_rocket(creature_ptr, GF_ROCKET, dir, plev * 5, 2);
+				fire_rocket(creature_ptr, DO_EFFECT_ROCKET, dir, plev * 5, 2);
 			}
 			break;
 			*/

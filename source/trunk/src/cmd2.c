@@ -604,7 +604,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #endif
 
 		for (i = 0; i < randint1(3) + 3; i++)
-			(void)fire_meteor(-1, GF_FORCE, y, x, object_ptr->pval / 5, 7);
+			(void)fire_meteor(-1, DO_EFFECT_FORCE, y, x, object_ptr->pval / 5, 7);
 
 		for (i = 0; i < randint1(5) + object_ptr->pval / 5; i++)
 		{
@@ -626,7 +626,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 			for (i = 0; i < randint1(3) + 2; i++)
 			{
-				(void)fire_meteor(-1, GF_FIRE, y, x, 10, 5);
+				(void)fire_meteor(-1, DO_EFFECT_FIRE, y, x, 10, 5);
 				(void)summon_specific(0, y, x, mon_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 			}
 		}
@@ -716,7 +716,7 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 					(void)do_dec_stat(creature_ptr, STAT_WIS);
 					(void)do_dec_stat(creature_ptr, STAT_CHA);
 				}
-				else (void)fire_meteor(-1, GF_NETHER, y, x, 150, 1);
+				else (void)fire_meteor(-1, DO_EFFECT_NETHER, y, x, 150, 1);
 			}
 		}
 	}
@@ -3221,7 +3221,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		/* Sniper */
 		if(creature_ptr->snipe_type == SP_KILL_TRAP)
 		{
-			project(creature_ptr, 0, 0, ny, nx, 0, GF_KILL_TRAP,
+			project(creature_ptr, 0, 0, ny, nx, 0, DO_EFFECT_KILL_TRAP,
 				(PROJECT_JUMP | PROJECT_HIDE | PROJECT_GRID | PROJECT_ITEM), -1);
 		}
 
@@ -3381,7 +3381,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					u16b flg = (PROJECT_STOP | PROJECT_JUMP | PROJECT_KILL | PROJECT_GRID);
 
 					sound(SOUND_EXPLODE); /* No explode sound - use breath fire instead */
-					project(creature_ptr, 0, ((creature_ptr->concent + 1) / 2 + 1), ny, nx, tdam, GF_MISSILE, flg, -1);
+					project(creature_ptr, 0, ((creature_ptr->concent + 1) / 2 + 1), ny, nx, tdam, DO_EFFECT_MISSILE, flg, -1);
 					break;
 				}
 

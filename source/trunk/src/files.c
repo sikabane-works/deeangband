@@ -232,107 +232,107 @@ struct named_num
 /* Index of spell type names */
 static named_num gf_desc[] =
 {
-	{"GF_ELEC", 				GF_ELEC				},
-	{"GF_POIS", 				GF_POIS				},
-	{"GF_ACID", 				GF_ACID				},
-	{"GF_COLD", 				GF_COLD				},
-	{"GF_FIRE",		 			GF_FIRE				},
-	{"GF_PSY_SPEAR",			GF_PSY_SPEAR			},
-	{"GF_MISSILE",				GF_MISSILE			},
-	{"GF_ARROW",				GF_ARROW				},
-	{"GF_PLASMA",				GF_PLASMA			},
-	{"GF_WATER",				GF_WATER				},
-	{"GF_LITE",					GF_LITE				},
-	{"GF_DARK",					GF_DARK				},
-	{"GF_LITE_WEAK",			GF_LITE_WEAK		},
-	{"GF_DARK_WEAK",			GF_DARK_WEAK		},
-	{"GF_SHARDS",				GF_SHARDS			},
-	{"GF_SOUND",				GF_SOUND				},
-	{"GF_CONFUSION",			GF_CONFUSION		},
-	{"GF_FORCE",				GF_FORCE				},
-	{"GF_INERTIA",				GF_INERTIA			},
-	{"GF_MANA",					GF_MANA				},
-	{"GF_METEOR",				GF_METEOR			},
-	{"GF_ICE",					GF_ICE				},
-	{"GF_CHAOS",				GF_CHAOS				},
-	{"GF_NETHER",				GF_NETHER			},
-	{"GF_DISENCHANT",			GF_DISENCHANT		},
-	{"GF_NEXUS",				GF_NEXUS				},
-	{"GF_TIME",					GF_TIME				},
-	{"GF_GRAVITY",				GF_GRAVITY			},
-	{"GF_KILL_WALL",			GF_KILL_WALL		},
-	{"GF_KILL_DOOR",			GF_KILL_DOOR		},
-	{"GF_KILL_TRAP",			GF_KILL_TRAP		},
-	{"GF_MAKE_WALL",			GF_MAKE_WALL		},
-	{"GF_MAKE_DOOR",			GF_MAKE_DOOR		},
-	{"GF_MAKE_TRAP",			GF_MAKE_TRAP		},
-	{"GF_MAKE_TREE",			GF_MAKE_TREE		},
-	{"GF_OLD_CLONE",			GF_OLD_CLONE		},
-	{"GF_OLD_POLY",			GF_OLD_POLY			},
-	{"GF_OLD_HEAL",			GF_OLD_HEAL			},
-	{"GF_OLD_SPEED",			GF_OLD_SPEED		},
-	{"GF_OLD_SLOW",			GF_OLD_SLOW			},
-	{"GF_OLD_CONF",			GF_OLD_CONF			},
-	{"GF_OLD_SLEEP",			GF_OLD_SLEEP		},
-	{"GF_OLD_DRAIN",			GF_OLD_DRAIN		},
-	{"GF_AWAY_UNDEAD",		GF_AWAY_UNDEAD		},
-	{"GF_AWAY_EVIL",			GF_AWAY_EVIL		},
-	{"GF_AWAY_ALL",			GF_AWAY_ALL			},
-	{"GF_TURN_UNDEAD",		GF_TURN_UNDEAD		},
-	{"GF_TURN_EVIL",			GF_TURN_EVIL		},
-	{"GF_TURN_ALL",			GF_TURN_ALL			},
-	{"GF_DISP_UNDEAD",		GF_DISP_UNDEAD		},
-	{"GF_DISP_EVIL",			GF_DISP_EVIL		},
-	{"GF_DISP_ALL",			GF_DISP_ALL			},
-	{"GF_DISP_DEMON",			GF_DISP_DEMON		},
-	{"GF_DISP_LIVING",		GF_DISP_LIVING		},
-	{"GF_ROCKET",				GF_ROCKET			},
-	{"GF_NUKE",					GF_NUKE				},
-	{"GF_MAKE_GLYPH",			GF_MAKE_GLYPH		},
-	{"GF_STASIS",				GF_STASIS			},
-	{"GF_STONE_WALL",			GF_STONE_WALL		},
-	{"GF_DEATH_RAY",			GF_DEATH_RAY		},
-	{"GF_STUN",					GF_STUN				},
-	{"GF_HOLY_FIRE",			GF_HOLY_FIRE		},
-	{"GF_HELL_FIRE",			GF_HELL_FIRE		},
-	{"GF_DISINTEGRATE",		GF_DISINTEGRATE	},
-	{"GF_CHARM",				GF_CHARM				},
-	{"GF_CONTROL_UNDEAD",	GF_CONTROL_UNDEAD	},
-	{"GF_CONTROL_ANIMAL",	GF_CONTROL_ANIMAL	},
-	{"GF_PSI",					GF_PSI				},
-	{"GF_PSI_DRAIN",			GF_PSI_DRAIN		},
-	{"GF_TELEKINESIS",		GF_TELEKINESIS		},
-	{"GF_JAM_DOOR",			GF_JAM_DOOR			},
-	{"GF_DOMINATION",			GF_DOMINATION		},
-	{"GF_DISP_GOOD",			GF_DISP_GOOD		},
-	{"GF_DRAIN_MANA",			GF_DRAIN_MANA		},
-	{"GF_MIND_BLAST",			GF_MIND_BLAST		},
-	{"GF_BRAIN_SMASH",			GF_BRAIN_SMASH		},
-	{"GF_CAUSE_1",			GF_CAUSE_1		},
-	{"GF_CAUSE_2",			GF_CAUSE_2		},
-	{"GF_CAUSE_3",			GF_CAUSE_3		},
-	{"GF_CAUSE_4",			GF_CAUSE_4		},
-	{"GF_HAND_DOOM",			GF_HAND_DOOM		},
-	{"GF_CAPTURE",			GF_CAPTURE		},
-	{"GF_ANIM_DEAD",			GF_ANIM_DEAD		},
-	{"GF_CONTROL_LIVING",		GF_CONTROL_LIVING	},
-	{"GF_IDENTIFY",			GF_IDENTIFY	},
-	{"GF_ATTACK",			GF_ATTACK	},
-	{"GF_ENGETSU",			GF_ENGETSU	},
-	{"GF_GENOCIDE",			GF_GENOCIDE	},
-	{"GF_PHOTO",			GF_PHOTO	},
-	{"GF_CONTROL_DEMON",	GF_CONTROL_DEMON	},
-	{"GF_LAVA_FLOW",	GF_LAVA_FLOW	},
-	{"GF_BLOOD_CURSE",	GF_BLOOD_CURSE	},
-	{"GF_SEEKER",			GF_SEEKER			},
-	{"GF_SUPER_RAY",		GF_SUPER_RAY			},
-	{"GF_STAR_HEAL",		GF_STAR_HEAL			},
-	{"GF_WATER_FLOW",		GF_WATER_FLOW			},
-	{"GF_CRUSADE",		GF_CRUSADE			},
-	{"GF_STASIS_EVIL",			GF_STASIS_EVIL		},
-	{"GF_WOUNDS",			GF_WOUNDS		},
-	{"GF_ACID_FLOW",		GF_ACID_FLOW			},
-	{"GF_POISON_FLOW",		GF_POISON_FLOW			},
+	{"DO_EFFECT_ELEC", 				DO_EFFECT_ELEC				},
+	{"DO_EFFECT_POIS", 				DO_EFFECT_POIS				},
+	{"DO_EFFECT_ACID", 				DO_EFFECT_ACID				},
+	{"DO_EFFECT_COLD", 				DO_EFFECT_COLD				},
+	{"DO_EFFECT_FIRE",		 			DO_EFFECT_FIRE				},
+	{"DO_EFFECT_PSY_SPEAR",			DO_EFFECT_PSY_SPEAR			},
+	{"DO_EFFECT_MISSILE",				DO_EFFECT_MISSILE			},
+	{"DO_EFFECT_ARROW",				DO_EFFECT_ARROW				},
+	{"DO_EFFECT_PLASMA",				DO_EFFECT_PLASMA			},
+	{"DO_EFFECT_WATER",				DO_EFFECT_WATER				},
+	{"DO_EFFECT_LITE",					DO_EFFECT_LITE				},
+	{"DO_EFFECT_DARK",					DO_EFFECT_DARK				},
+	{"DO_EFFECT_LITE_WEAK",			DO_EFFECT_LITE_WEAK		},
+	{"DO_EFFECT_DARK_WEAK",			DO_EFFECT_DARK_WEAK		},
+	{"DO_EFFECT_SHARDS",				DO_EFFECT_SHARDS			},
+	{"DO_EFFECT_SOUND",				DO_EFFECT_SOUND				},
+	{"DO_EFFECT_CONFUSION",			DO_EFFECT_CONFUSION		},
+	{"DO_EFFECT_FORCE",				DO_EFFECT_FORCE				},
+	{"DO_EFFECT_INERTIA",				DO_EFFECT_INERTIA			},
+	{"DO_EFFECT_MANA",					DO_EFFECT_MANA				},
+	{"DO_EFFECT_METEOR",				DO_EFFECT_METEOR			},
+	{"DO_EFFECT_ICE",					DO_EFFECT_ICE				},
+	{"DO_EFFECT_CHAOS",				DO_EFFECT_CHAOS				},
+	{"DO_EFFECT_NETHER",				DO_EFFECT_NETHER			},
+	{"DO_EFFECT_DISENCHANT",			DO_EFFECT_DISENCHANT		},
+	{"DO_EFFECT_NEXUS",				DO_EFFECT_NEXUS				},
+	{"DO_EFFECT_TIME",					DO_EFFECT_TIME				},
+	{"DO_EFFECT_GRAVITY",				DO_EFFECT_GRAVITY			},
+	{"DO_EFFECT_KILL_WALL",			DO_EFFECT_KILL_WALL		},
+	{"DO_EFFECT_KILL_DOOR",			DO_EFFECT_KILL_DOOR		},
+	{"DO_EFFECT_KILL_TRAP",			DO_EFFECT_KILL_TRAP		},
+	{"DO_EFFECT_MAKE_WALL",			DO_EFFECT_MAKE_WALL		},
+	{"DO_EFFECT_MAKE_DOOR",			DO_EFFECT_MAKE_DOOR		},
+	{"DO_EFFECT_MAKE_TRAP",			DO_EFFECT_MAKE_TRAP		},
+	{"DO_EFFECT_MAKE_TREE",			DO_EFFECT_MAKE_TREE		},
+	{"DO_EFFECT_OLD_CLONE",			DO_EFFECT_OLD_CLONE		},
+	{"DO_EFFECT_OLD_POLY",			DO_EFFECT_OLD_POLY			},
+	{"DO_EFFECT_OLD_HEAL",			DO_EFFECT_OLD_HEAL			},
+	{"DO_EFFECT_OLD_SPEED",			DO_EFFECT_OLD_SPEED		},
+	{"DO_EFFECT_OLD_SLOW",			DO_EFFECT_OLD_SLOW			},
+	{"DO_EFFECT_OLD_CONF",			DO_EFFECT_OLD_CONF			},
+	{"DO_EFFECT_OLD_SLEEP",			DO_EFFECT_OLD_SLEEP		},
+	{"DO_EFFECT_OLD_DRAIN",			DO_EFFECT_OLD_DRAIN		},
+	{"DO_EFFECT_AWAY_UNDEAD",		DO_EFFECT_AWAY_UNDEAD		},
+	{"DO_EFFECT_AWAY_EVIL",			DO_EFFECT_AWAY_EVIL		},
+	{"DO_EFFECT_AWAY_ALL",			DO_EFFECT_AWAY_ALL			},
+	{"DO_EFFECT_TURN_UNDEAD",		DO_EFFECT_TURN_UNDEAD		},
+	{"DO_EFFECT_TURN_EVIL",			DO_EFFECT_TURN_EVIL		},
+	{"DO_EFFECT_TURN_ALL",			DO_EFFECT_TURN_ALL			},
+	{"DO_EFFECT_DISP_UNDEAD",		DO_EFFECT_DISP_UNDEAD		},
+	{"DO_EFFECT_DISP_EVIL",			DO_EFFECT_DISP_EVIL		},
+	{"DO_EFFECT_DISP_ALL",			DO_EFFECT_DISP_ALL			},
+	{"DO_EFFECT_DISP_DEMON",			DO_EFFECT_DISP_DEMON		},
+	{"DO_EFFECT_DISP_LIVING",		DO_EFFECT_DISP_LIVING		},
+	{"DO_EFFECT_ROCKET",				DO_EFFECT_ROCKET			},
+	{"DO_EFFECT_NUKE",					DO_EFFECT_NUKE				},
+	{"DO_EFFECT_MAKE_GLYPH",			DO_EFFECT_MAKE_GLYPH		},
+	{"DO_EFFECT_STASIS",				DO_EFFECT_STASIS			},
+	{"DO_EFFECT_STONE_WALL",			DO_EFFECT_STONE_WALL		},
+	{"DO_EFFECT_DEATH_RAY",			DO_EFFECT_DEATH_RAY		},
+	{"DO_EFFECT_STUN",					DO_EFFECT_STUN				},
+	{"DO_EFFECT_HOLY_FIRE",			DO_EFFECT_HOLY_FIRE		},
+	{"DO_EFFECT_HELL_FIRE",			DO_EFFECT_HELL_FIRE		},
+	{"DO_EFFECT_DISINTEGRATE",		DO_EFFECT_DISINTEGRATE	},
+	{"DO_EFFECT_CHARM",				DO_EFFECT_CHARM				},
+	{"DO_EFFECT_CONTROL_UNDEAD",	DO_EFFECT_CONTROL_UNDEAD	},
+	{"DO_EFFECT_CONTROL_ANIMAL",	DO_EFFECT_CONTROL_ANIMAL	},
+	{"DO_EFFECT_PSI",					DO_EFFECT_PSI				},
+	{"DO_EFFECT_PSI_DRAIN",			DO_EFFECT_PSI_DRAIN		},
+	{"DO_EFFECT_TELEKINESIS",		DO_EFFECT_TELEKINESIS		},
+	{"DO_EFFECT_JAM_DOOR",			DO_EFFECT_JAM_DOOR			},
+	{"DO_EFFECT_DOMINATION",			DO_EFFECT_DOMINATION		},
+	{"DO_EFFECT_DISP_GOOD",			DO_EFFECT_DISP_GOOD		},
+	{"DO_EFFECT_DRAIN_MANA",			DO_EFFECT_DRAIN_MANA		},
+	{"DO_EFFECT_MIND_BLAST",			DO_EFFECT_MIND_BLAST		},
+	{"DO_EFFECT_BRAIN_SMASH",			DO_EFFECT_BRAIN_SMASH		},
+	{"DO_EFFECT_CAUSE_1",			DO_EFFECT_CAUSE_1		},
+	{"DO_EFFECT_CAUSE_2",			DO_EFFECT_CAUSE_2		},
+	{"DO_EFFECT_CAUSE_3",			DO_EFFECT_CAUSE_3		},
+	{"DO_EFFECT_CAUSE_4",			DO_EFFECT_CAUSE_4		},
+	{"DO_EFFECT_HAND_DOOM",			DO_EFFECT_HAND_DOOM		},
+	{"DO_EFFECT_CAPTURE",			DO_EFFECT_CAPTURE		},
+	{"DO_EFFECT_ANIM_DEAD",			DO_EFFECT_ANIM_DEAD		},
+	{"DO_EFFECT_CONTROL_LIVING",		DO_EFFECT_CONTROL_LIVING	},
+	{"DO_EFFECT_IDENTIFY",			DO_EFFECT_IDENTIFY	},
+	{"DO_EFFECT_ATTACK",			DO_EFFECT_ATTACK	},
+	{"DO_EFFECT_ENGETSU",			DO_EFFECT_ENGETSU	},
+	{"DO_EFFECT_GENOCIDE",			DO_EFFECT_GENOCIDE	},
+	{"DO_EFFECT_PHOTO",			DO_EFFECT_PHOTO	},
+	{"DO_EFFECT_CONTROL_DEMON",	DO_EFFECT_CONTROL_DEMON	},
+	{"DO_EFFECT_LAVA_FLOW",	DO_EFFECT_LAVA_FLOW	},
+	{"DO_EFFECT_BLOOD_CURSE",	DO_EFFECT_BLOOD_CURSE	},
+	{"DO_EFFECT_SEEKER",			DO_EFFECT_SEEKER			},
+	{"DO_EFFECT_SUPER_RAY",		DO_EFFECT_SUPER_RAY			},
+	{"DO_EFFECT_STAR_HEAL",		DO_EFFECT_STAR_HEAL			},
+	{"DO_EFFECT_WATER_FLOW",		DO_EFFECT_WATER_FLOW			},
+	{"DO_EFFECT_CRUSADE",		DO_EFFECT_CRUSADE			},
+	{"DO_EFFECT_STASIS_EVIL",			DO_EFFECT_STASIS_EVIL		},
+	{"DO_EFFECT_WOUNDS",			DO_EFFECT_WOUNDS		},
+	{"DO_EFFECT_ACID_FLOW",		DO_EFFECT_ACID_FLOW			},
+	{"DO_EFFECT_POISON_FLOW",		DO_EFFECT_POISON_FLOW			},
 	{NULL, 						0						}
 };
 
@@ -2712,7 +2712,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 #endif
 
 	//acid
-	rate = calc_damage(creature_ptr, 100, GF_ACID, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_ACID, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_ACID))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
@@ -2725,7 +2725,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	//elec
-	rate = calc_damage(creature_ptr, 100, GF_ELEC, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_ELEC, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_ELEC))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
@@ -2740,7 +2740,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
 	//fire
-	rate = calc_damage(creature_ptr, 100, GF_FIRE, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_FIRE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_FIRE))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
@@ -2755,7 +2755,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	//cold
 
 
-	rate = calc_damage(creature_ptr, 100, GF_COLD, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_COLD, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_COLD))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
@@ -2768,7 +2768,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);
 
 	//pois
-	rate = calc_damage(creature_ptr, 100, GF_POIS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_POIS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_POIS))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
@@ -2779,19 +2779,19 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 	//lite
-	rate = calc_damage(creature_ptr, 100, GF_LITE, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_LITE, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_LITE))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, GF_DARK, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_DARK, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_DARK))
 		c_put_str(TERM_WHITE, "+", row + 6, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, GF_SHARDS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_SHARDS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_SHAR))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
@@ -2824,31 +2824,31 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "Fear  :", TRAIT_FEARLESS, &f, 0, creature_ptr);
 #endif
 
-	rate = calc_damage(creature_ptr, 100, GF_SOUND, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_SOUND, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_SOUN))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, GF_NETHER, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_NETHER, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_NETH))
 		c_put_str(TERM_WHITE, "+", row + 1, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, GF_NEXUS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_NEXUS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_NEXU))
 		c_put_str(TERM_WHITE, "+", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, GF_CHAOS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_CHAOS, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_CHAO))
 		c_put_str(TERM_WHITE, "+", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, GF_DISENCHANT, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_DISENCHANT, FALSE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_DISE))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);

@@ -1360,7 +1360,7 @@ bool project_hack(creature_type *caster_ptr, int typ, int dam)
 */
 bool speed_creatures(creature_type *caster_ptr)
 {
-	return (project_hack(caster_ptr, GF_OLD_SPEED, caster_ptr->lev));
+	return (project_hack(caster_ptr, DO_EFFECT_OLD_SPEED, caster_ptr->lev));
 }
 
 /*
@@ -1368,7 +1368,7 @@ bool speed_creatures(creature_type *caster_ptr)
 */
 bool slow_creatures(creature_type *caster_ptr)
 {
-	return (project_hack(caster_ptr, GF_OLD_SLOW, caster_ptr->lev));
+	return (project_hack(caster_ptr, DO_EFFECT_OLD_SLOW, caster_ptr->lev));
 }
 
 /*
@@ -1376,7 +1376,7 @@ bool slow_creatures(creature_type *caster_ptr)
 */
 bool sleep_creatures(creature_type *caster_ptr)
 {
-	return (project_hack(caster_ptr, GF_OLD_SLEEP, caster_ptr->lev));
+	return (project_hack(caster_ptr, DO_EFFECT_OLD_SLEEP, caster_ptr->lev));
 }
 
 
@@ -1385,7 +1385,7 @@ bool sleep_creatures(creature_type *caster_ptr)
 */
 bool banish_evil(creature_type *caster_ptr, int dist)
 {
-	return (project_hack(caster_ptr, GF_AWAY_EVIL, dist));
+	return (project_hack(caster_ptr, DO_EFFECT_AWAY_EVIL, dist));
 }
 
 
@@ -1394,7 +1394,7 @@ bool banish_evil(creature_type *caster_ptr, int dist)
 */
 bool turn_undead(creature_type *caster_ptr)
 {
-	bool tester = (project_hack(caster_ptr, GF_TURN_UNDEAD, caster_ptr->lev));
+	bool tester = (project_hack(caster_ptr, DO_EFFECT_TURN_UNDEAD, caster_ptr->lev));
 	return tester;
 }
 
@@ -1404,7 +1404,7 @@ bool turn_undead(creature_type *caster_ptr)
 */
 bool dispel_undead(creature_type *caster_ptr, int dam)
 {
-	bool tester = (project_hack(caster_ptr, GF_DISP_UNDEAD, dam));
+	bool tester = (project_hack(caster_ptr, DO_EFFECT_DISP_UNDEAD, dam));
 	return tester;
 }
 
@@ -1413,7 +1413,7 @@ bool dispel_undead(creature_type *caster_ptr, int dam)
 */
 bool dispel_evil(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_DISP_EVIL, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_DISP_EVIL, dam));
 }
 
 /*
@@ -1421,7 +1421,7 @@ bool dispel_evil(creature_type *caster_ptr, int dam)
 */
 bool dispel_good(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_DISP_GOOD, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_DISP_GOOD, dam));
 }
 
 /*
@@ -1429,7 +1429,7 @@ bool dispel_good(creature_type *caster_ptr, int dam)
 */
 bool dispel_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_DISP_ALL, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_DISP_ALL, dam));
 }
 
 /*
@@ -1437,7 +1437,7 @@ bool dispel_creatures(creature_type *caster_ptr, int dam)
 */
 bool dispel_living(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_DISP_LIVING, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_DISP_LIVING, dam));
 }
 
 /*
@@ -1445,7 +1445,7 @@ bool dispel_living(creature_type *caster_ptr, int dam)
 */
 bool dispel_demons(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_DISP_DEMON, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_DISP_DEMON, dam));
 }
 
 
@@ -1454,7 +1454,7 @@ bool dispel_demons(creature_type *caster_ptr, int dam)
 */
 bool crusade(creature_type *creature_ptr)
 {
-	return (project_hack(creature_ptr, GF_CRUSADE, creature_ptr->lev*4));
+	return (project_hack(creature_ptr, DO_EFFECT_CRUSADE, creature_ptr->lev*4));
 }
 
 
@@ -2526,7 +2526,7 @@ void discharge_minion(creature_type *caster_ptr)
 		if(dam > 400) dam = (dam-400)/2 + 400;
 		if(dam > 800) dam = 800;
 		project(target_ptr, 0, 2+(target_ptr->lev/10), target_ptr->fy,
-			target_ptr->fx, dam, GF_PLASMA, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+			target_ptr->fx, dam, DO_EFFECT_PLASMA, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 
 		if(record_named_pet && target_ptr->nickname)
 		{
@@ -2935,7 +2935,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, dam, GF_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
+	(void)project(creature_ptr, 0, rad, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_LITE_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 
 	/* Lite up the room */
 	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
@@ -2963,7 +2963,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	}
 
 	/* Hook into the "project()" function */
-	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, GF_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
+	(void)project(caster_ptr, 0, rad, caster_ptr->fy, caster_ptr->fx, dam, DO_EFFECT_DARK_WEAK, PROJECT_GRID | PROJECT_KILL, -1);
 
 	/* Lite up the room */
 	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
@@ -2984,7 +2984,7 @@ bool cast_ball(creature_type *caster_ptr, int typ, int dir, int dam, int rad)
 {
 	int tx, ty;
 
-	//TODO if(typ == GF_CONTROL_LIVING) flg |= PROJECT_HIDE;
+	//TODO if(typ == DO_EFFECT_CONTROL_LIVING) flg |= PROJECT_HIDE;
 
 	/* Use the given direction */
 	tx = caster_ptr->fx + 99 * ddx[dir];
@@ -3212,135 +3212,135 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 */
 bool lite_line(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_LITE_WEAK, dir, diceroll(6, 8), PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_LITE_WEAK, dir, diceroll(6, 8), PROJECT_BEAM | PROJECT_GRID | PROJECT_KILL));
 }
 
 
 bool drain_life(creature_type *caster_ptr, int dir, int dam)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_DRAIN, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_DRAIN, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 
 bool wall_to_mud(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_KILL_WALL, dir, 20 + randint1(30), PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_KILL_WALL, dir, 20 + randint1(30), PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL));
 }
 
 bool wizard_lock(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_JAM_DOOR, dir, 20 + randint1(30), PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_JAM_DOOR, dir, 20 + randint1(30), PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL));
 }
 
 
 bool destroy_door(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_KILL_DOOR, dir, 0, PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_KILL_DOOR, dir, 0, PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM));
 }
 
 
 bool disarm_trap(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_KILL_TRAP, dir, 0, PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_KILL_TRAP, dir, 0, PROJECT_BEAM | PROJECT_GRID | PROJECT_ITEM));
 }
 
 
 bool heal_other_creature(creature_type *caster_ptr, int dir, int dam)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_HEAL, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_HEAL, dir, dam, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 
 bool speed_other_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_SPEED, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_SPEED, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 
 bool slow_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_SLOW, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_SLOW, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 
 bool sleep_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_SLEEP, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_SLEEP, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool stasis_creature(creature_type *caster_ptr, int dir)
 {
-	return (cast_ball_hide(caster_ptr, GF_STASIS, dir, caster_ptr->lev*2, 0));
+	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS, dir, caster_ptr->lev*2, 0));
 }
 
 bool stasis_evil(creature_type *caster_ptr, int dir)
 {
-	return (cast_ball_hide(caster_ptr, GF_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
+	return (cast_ball_hide(caster_ptr, DO_EFFECT_STASIS_EVIL, dir, caster_ptr->lev*2, 0));
 }
 
 bool confuse_creature(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_CONF, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_CONF, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool stun_creature(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_STUN, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_STUN, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool poly_creature(creature_type *caster_ptr, int dir)
 {
-	bool tester = (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_POLY, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	bool tester = (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_POLY, dir, caster_ptr->lev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 	return(tester);
 }
 
 bool clone_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_OLD_CLONE, dir, 0, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_OLD_CLONE, dir, 0, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool fear_creature(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_TURN_ALL, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_TURN_ALL, dir, plev, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool death_ray(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_DEATH_RAY, dir, caster_ptr->lev * 200, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_DEATH_RAY, dir, caster_ptr->lev * 200, PROJECT_STOP | PROJECT_KILL | PROJECT_REFLECTABLE));
 }
 
 bool teleport_creature(creature_type *caster_ptr, int dir)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_AWAY_ALL, dir, MAX_SIGHT * 5, PROJECT_BEAM | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_AWAY_ALL, dir, MAX_SIGHT * 5, PROJECT_BEAM | PROJECT_KILL));
 }
 
 bool door_creation(creature_type *caster_ptr)
 {
-	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool trap_creation(creature_type *caster_ptr, int y, int x)
 {
-	return (project(caster_ptr, 0, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(caster_ptr, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool tree_creation(creature_type *caster_ptr)
 {
-	return (project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(0, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_MAKE_TREE, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool glyph_creation(creature_type *creature_ptr)
 {
-	return (project(0, 0, 1, creature_ptr->fy, creature_ptr->fx, 0, GF_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1));
+	return (project(0, 0, 1, creature_ptr->fy, creature_ptr->fx, 0, DO_EFFECT_MAKE_GLYPH, PROJECT_GRID | PROJECT_ITEM, -1));
 }
 
 
 bool wall_stone(creature_type *caster_ptr)
 {
-	bool dummy = (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	bool dummy = (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_STONE_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 
 	/* Update stuff */
 	caster_ptr->creature_update |= (PU_FLOW);
@@ -3354,19 +3354,19 @@ bool wall_stone(creature_type *caster_ptr)
 
 bool destroy_doors_touch(creature_type *caster_ptr)
 {
-	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, GF_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(caster_ptr, 0, 1, caster_ptr->fy, caster_ptr->fx, 0, DO_EFFECT_KILL_DOOR, PROJECT_GRID | PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
 bool sleep_creatures_touch(creature_type *creature_ptr)
 {
-	return (project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, GF_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));
+	return (project(creature_ptr, 0, 1, creature_ptr->fy, creature_ptr->fx, creature_ptr->lev, DO_EFFECT_OLD_SLEEP, PROJECT_KILL | PROJECT_HIDE, -1));
 }
 
 
 bool animate_dead(creature_type *creature_ptr, int y, int x)
 {
-	return (project(creature_ptr, 0, 5, y, x, 0, GF_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1));
+	return (project(creature_ptr, 0, 5, y, x, 0, DO_EFFECT_ANIM_DEAD, PROJECT_ITEM | PROJECT_HIDE, -1));
 }
 
 
@@ -3378,14 +3378,14 @@ void call_chaos(creature_type *creature_ptr)
 
 	int hurt_types[31] =
 	{
-		GF_ELEC, GF_POIS, GF_ACID, GF_COLD,
-		GF_FIRE, GF_MISSILE, GF_ARROW, GF_PLASMA,
-		GF_HOLY_FIRE, GF_WATER, GF_LITE, GF_DARK,
-		GF_FORCE, GF_INERTIA, GF_MANA, GF_METEOR,
-		GF_ICE, GF_CHAOS, GF_NETHER, GF_DISENCHANT,
-		GF_SHARDS, GF_SOUND, GF_NEXUS, GF_CONFUSION,
-		GF_TIME, GF_GRAVITY, GF_ROCKET, GF_NUKE,
-		GF_HELL_FIRE, GF_DISINTEGRATE, GF_PSY_SPEAR
+		DO_EFFECT_ELEC, DO_EFFECT_POIS, DO_EFFECT_ACID, DO_EFFECT_COLD,
+		DO_EFFECT_FIRE, DO_EFFECT_MISSILE, DO_EFFECT_ARROW, DO_EFFECT_PLASMA,
+		DO_EFFECT_HOLY_FIRE, DO_EFFECT_WATER, DO_EFFECT_LITE, DO_EFFECT_DARK,
+		DO_EFFECT_FORCE, DO_EFFECT_INERTIA, DO_EFFECT_MANA, DO_EFFECT_METEOR,
+		DO_EFFECT_ICE, DO_EFFECT_CHAOS, DO_EFFECT_NETHER, DO_EFFECT_DISENCHANT,
+		DO_EFFECT_SHARDS, DO_EFFECT_SOUND, DO_EFFECT_NEXUS, DO_EFFECT_CONFUSION,
+		DO_EFFECT_TIME, DO_EFFECT_GRAVITY, DO_EFFECT_ROCKET, DO_EFFECT_NUKE,
+		DO_EFFECT_HELL_FIRE, DO_EFFECT_DISINTEGRATE, DO_EFFECT_PSY_SPEAR
 	};
 
 	Chaos_type = hurt_types[randint0(31)];
@@ -3457,7 +3457,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 				msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, GF_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
+				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "ƒˆ‚È–‚—Í‚Ì‰ð•ú", NULL, -1);
 #else
@@ -3489,7 +3489,7 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			wall_breaker(creature_ptr);
 			if(!randint0(7))
 			{
-				project(0, 0, 7, creature_ptr->fy, creature_ptr->fx, 50, GF_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
+				project(0, 0, 7, creature_ptr->fy, creature_ptr->fx, 50, DO_EFFECT_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "ƒGƒlƒ‹ƒM[‚Ì‚¤‚Ë‚è", NULL, -1);
 #else
@@ -3709,7 +3709,7 @@ void wall_breaker(creature_type *creature_ptr)
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
 			if(!creature_bold(creature_ptr, y, x)) break;
 		}
-		project(0, 0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+		project(0, 0, 0, y, x, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 	}
 	else if(randint1(100) > 30)
 	{
@@ -3726,7 +3726,7 @@ void wall_breaker(creature_type *creature_ptr)
 				scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 10, 0);
 				if(!creature_bold(creature_ptr, y, x)) break;
 			}
-			project(0, 0, 0, y, x, 20 + randint1(30), GF_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+			project(0, 0, 0, y, x, 20 + randint1(30), DO_EFFECT_KILL_WALL, (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 		}
 	}
 }
@@ -3737,7 +3737,7 @@ void wall_breaker(creature_type *creature_ptr)
 */
 bool confuse_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_OLD_CONF, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_OLD_CONF, dam));
 }
 
 /*
@@ -3745,7 +3745,7 @@ bool confuse_creatures(creature_type *caster_ptr, int dam)
 */
 bool charm_animals(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_CONTROL_ANIMAL, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_CONTROL_ANIMAL, dam));
 }
 
 
@@ -3754,7 +3754,7 @@ bool charm_animals(creature_type *caster_ptr, int dam)
 */
 bool stun_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_STUN, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_STUN, dam));
 }
 
 
@@ -3763,7 +3763,7 @@ bool stun_creatures(creature_type *caster_ptr, int dam)
 */
 bool stasis_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_STASIS, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_STASIS, dam));
 }
 
 
@@ -3772,7 +3772,7 @@ bool stasis_creatures(creature_type *caster_ptr, int dam)
 */
 bool mindblast_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_PSI, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_PSI, dam));
 }
 
 
@@ -3781,7 +3781,7 @@ bool mindblast_creatures(creature_type *caster_ptr, int dam)
 */
 bool banish_creatures(creature_type *caster_ptr, int dist)
 {
-	return (project_hack(caster_ptr, GF_AWAY_ALL, dist));
+	return (project_hack(caster_ptr, DO_EFFECT_AWAY_ALL, dist));
 }
 
 
@@ -3790,7 +3790,7 @@ bool banish_creatures(creature_type *caster_ptr, int dist)
 */
 bool turn_evil(creature_type *caster_ptr,int dam)
 {
-	return (project_hack(caster_ptr, GF_TURN_EVIL, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_TURN_EVIL, dam));
 }
 
 
@@ -3799,7 +3799,7 @@ bool turn_evil(creature_type *caster_ptr,int dam)
 */
 bool turn_creatures(creature_type *caster_ptr, int dam)
 {
-	return (project_hack(caster_ptr, GF_TURN_ALL, dam));
+	return (project_hack(caster_ptr, DO_EFFECT_TURN_ALL, dam));
 }
 
 
@@ -3808,37 +3808,37 @@ bool turn_creatures(creature_type *caster_ptr, int dam)
 */
 bool deathray_creatures(creature_type *caster_ptr)
 {
-	return (project_hack(caster_ptr, GF_DEATH_RAY, caster_ptr->lev * 200));
+	return (project_hack(caster_ptr, DO_EFFECT_DEATH_RAY, caster_ptr->lev * 200));
 }
 
 
 bool charm_creature(creature_type *caster_ptr, int dir, int power)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_CHARM, dir, power, PROJECT_STOP | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CHARM, dir, power, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool control_one_undead(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_CONTROL_UNDEAD, dir, plev, PROJECT_STOP | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CONTROL_UNDEAD, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool control_one_demon(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_CONTROL_DEMON, dir, plev, PROJECT_STOP | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CONTROL_DEMON, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool charm_animal(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_CONTROL_ANIMAL, dir, plev, PROJECT_STOP | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CONTROL_ANIMAL, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
 bool charm_living(creature_type *caster_ptr, int dir, int plev)
 {
-	return (project_hook(caster_ptr, MAX_RANGE_SUB,GF_CONTROL_LIVING, dir, plev, PROJECT_STOP | PROJECT_KILL));
+	return (project_hook(caster_ptr, MAX_RANGE_SUB,DO_EFFECT_CONTROL_LIVING, dir, plev, PROJECT_STOP | PROJECT_KILL));
 }
 
 
@@ -4035,7 +4035,7 @@ void remove_all_mirrors(creature_type *user_ptr, floor_type *floor_ptr, bool exp
 			{
 				remove_mirror(user_ptr, y, x);
 				if(explode)
-					project(0, 0, 2, y, x, user_ptr->lev / 2 + 5, GF_SHARDS,
+					project(0, 0, 2, y, x, user_ptr->lev / 2 + 5, DO_EFFECT_SHARDS,
 					(PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}

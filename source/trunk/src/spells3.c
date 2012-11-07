@@ -1743,17 +1743,17 @@ void call_the_void(creature_type *creature_ptr)
 	{
 		for (i = 1; i < 10; i++)
 		{
-			if(i - 5) cast_ball(creature_ptr, GF_ROCKET, i, 175, 2);
+			if(i - 5) cast_ball(creature_ptr, DO_EFFECT_ROCKET, i, 175, 2);
 		}
 
 		for (i = 1; i < 10; i++)
 		{
-			if(i - 5) cast_ball(creature_ptr, GF_MANA, i, 175, 3);
+			if(i - 5) cast_ball(creature_ptr, DO_EFFECT_MANA, i, 175, 3);
 		}
 
 		for (i = 1; i < 10; i++)
 		{
-			if(i - 5) cast_ball(creature_ptr, GF_NUKE, i, 175, 4);
+			if(i - 5) cast_ball(creature_ptr, DO_EFFECT_NUKE, i, 175, 4);
 		}
 	}
 
@@ -3769,76 +3769,76 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			/* All of the above potions have no effect when shattered */
 			return FALSE;
 		case SV_POTION_SLOWNESS:
-			dt = GF_OLD_SLOW;
+			dt = DO_EFFECT_OLD_SLOW;
 			dam = 5;
 			angry = TRUE;
 			break;
 		case SV_POTION_POISON:
-			dt = GF_POIS;
+			dt = DO_EFFECT_POIS;
 			dam = 3;
 			angry = TRUE;
 			break;
 		case SV_POTION_BLINDNESS:
-			dt = GF_DARK;
+			dt = DO_EFFECT_DARK;
 			angry = TRUE;
 			break;
 		case SV_POTION_CONFUSION: /* Booze */
-			dt = GF_OLD_CONF;
+			dt = DO_EFFECT_OLD_CONF;
 			angry = TRUE;
 			break;
 		case SV_POTION_SLEEP:
-			dt = GF_OLD_SLEEP;
+			dt = DO_EFFECT_OLD_SLEEP;
 			angry = TRUE;
 			break;
 		case SV_POTION_RUINATION:
 		case SV_POTION_DETONATIONS:
-			dt = GF_SHARDS;
+			dt = DO_EFFECT_SHARDS;
 			dam = diceroll(25, 25);
 			angry = TRUE;
 			break;
 		case SV_POTION_DEATH:
-			dt = GF_DEATH_RAY;    /* !! */
+			dt = DO_EFFECT_DEATH_RAY;    /* !! */
 			dam = k_ptr->level * 10;
 			angry = TRUE;
 			radius = 1;
 			break;
 		case SV_POTION_SPEED:
-			dt = GF_OLD_SPEED;
+			dt = DO_EFFECT_OLD_SPEED;
 			break;
 		case SV_POTION_CURE_LIGHT:
-			dt = GF_OLD_HEAL;
+			dt = DO_EFFECT_OLD_HEAL;
 			dam = diceroll(2, 3);
 			break;
 		case SV_POTION_CURE_SERIOUS:
-			dt = GF_OLD_HEAL;
+			dt = DO_EFFECT_OLD_HEAL;
 			dam = diceroll(4, 3);
 			break;
 		case SV_POTION_CURE_CRITICAL:
 		case SV_POTION_CURING:
-			dt = GF_OLD_HEAL;
+			dt = DO_EFFECT_OLD_HEAL;
 			dam = diceroll(6, 3);
 			break;
 		case SV_POTION_HEALING:
-			dt = GF_OLD_HEAL;
+			dt = DO_EFFECT_OLD_HEAL;
 			dam = diceroll(10, 10);
 			break;
 		case SV_POTION_RESTORE_EXP:
-			dt = GF_STAR_HEAL;
+			dt = DO_EFFECT_STAR_HEAL;
 			dam = 0;
 			radius = 1;
 			break;
 		case SV_POTION_LIFE:
-			dt = GF_STAR_HEAL;
+			dt = DO_EFFECT_STAR_HEAL;
 			dam = diceroll(50, 50);
 			radius = 1;
 			break;
 		case SV_POTION_STAR_HEALING:
-			dt = GF_OLD_HEAL;
+			dt = DO_EFFECT_OLD_HEAL;
 			dam = diceroll(50, 50);
 			radius = 1;
 			break;
 		case SV_POTION_RESTORE_MANA:   /* MANA */
-			dt = GF_MANA;
+			dt = DO_EFFECT_MANA;
 			dam = diceroll(10, 10);
 			radius = 1;
 			break;
@@ -4908,7 +4908,7 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ACID(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, GF_ACID, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_ACID, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	// inventory damage
@@ -4926,7 +4926,7 @@ int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_ELEC(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, GF_ELEC, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_ELEC, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	// inventory damage
@@ -4944,7 +4944,7 @@ int fire_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_FIRE(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, GF_FIRE, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_FIRE, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* inventory damage */
@@ -4962,7 +4962,7 @@ int cold_dam(creature_type *creature_ptr,int dam, cptr kb_str, int monspell)
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
 	bool double_resist = IS_OPPOSE_COLD(creature_ptr);
 
-	get_damage = calc_damage(creature_ptr, dam, GF_COLD, TRUE);
+	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_COLD, TRUE);
 	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
 
 	/* creature_ptr->inventory damage */

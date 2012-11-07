@@ -137,7 +137,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_ROCKET:
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(target_row, target_col,caster_ptr, GF_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
 
@@ -166,7 +166,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_TELE_AWAY:
-		(void)cast_beam(caster_ptr, MAX_RANGE_SUB, GF_AWAY_ALL, user_level, 0, FALSE);
+		(void)cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_AWAY_ALL, user_level, 0, FALSE);
 		break;
 
 		teleport_creature(caster_ptr, dir);
@@ -201,7 +201,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_CHARM_OTHERS:
-		project_hack(caster_ptr, GF_CHARM, user_level * 2);
+		project_hack(caster_ptr, DO_EFFECT_CHARM, user_level * 2);
 		break;
 
 	case TRAIT_S_ANIMAL:
@@ -523,15 +523,15 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BA_FIRE_L:
-		cast_ball(caster_ptr, GF_FIRE, dir, 400, 3);
+		cast_ball(caster_ptr, DO_EFFECT_FIRE, dir, 400, 3);
 		break;
 
 	case TRAIT_BA_COLD_L:
-		cast_ball(caster_ptr, GF_COLD, dir, 400, 3);
+		cast_ball(caster_ptr, DO_EFFECT_COLD, dir, 400, 3);
 		break;
 
 	case TRAIT_BA_ELEC_L:
-		cast_ball(caster_ptr, GF_ELEC, dir, 400, 3);
+		cast_ball(caster_ptr, DO_EFFECT_ELEC, dir, 400, 3);
 		break;
 
 	case TRAIT_BIZARRE_THING_OF_THE_RING:
@@ -553,7 +553,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 					if(!creature_bold(caster_ptr, y, x)) break;
 				}
 
-				project(caster_ptr, 0, 3, y, x, 150, GF_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
+				project(caster_ptr, 0, 3, y, x, 150, DO_EFFECT_ELEC, (PROJECT_THRU | PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL), -1);
 			}
 
 			break;
@@ -561,7 +561,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_ELEMENTAL_BREATH:
 		{
-			cast_ball(caster_ptr, GF_MISSILE, dir, 300, 4);
+			cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, 300, 4);
 			break;
 		}
 
@@ -605,19 +605,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BO_FIRE_MINI:
-		cast_bolt(caster_ptr,GF_FIRE, diceroll(9, 8), 0, FALSE);
+		cast_bolt(caster_ptr,DO_EFFECT_FIRE, diceroll(9, 8), 0, FALSE);
 		break;
 
 	case TRAIT_BO_COLD_MINI:
-		cast_bolt(caster_ptr,GF_COLD, diceroll(6, 8), 0, FALSE);
+		cast_bolt(caster_ptr,DO_EFFECT_COLD, diceroll(6, 8), 0, FALSE);
 		break;
 
 	case TRAIT_BO_ELEC_MINI:
-		cast_bolt(caster_ptr,GF_ELEC, diceroll(4, 8), 0, FALSE);
+		cast_bolt(caster_ptr,DO_EFFECT_ELEC, diceroll(4, 8), 0, FALSE);
 		break;
 
 	case TRAIT_BO_ACID_MINI:
-		cast_bolt(caster_ptr,GF_ACID, diceroll(5, 8), 0, FALSE);
+		cast_bolt(caster_ptr,DO_EFFECT_ACID, diceroll(5, 8), 0, FALSE);
 		break;
 
 	case TRAIT_REMOVE_FEAR:
@@ -654,7 +654,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_BA_COLD:
 		damage = (randint1(user_level * 3 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, GF_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage, 2, FALSE, TRAIT_BA_COLD, learnable);
 		update_smart_learn(caster_ptr, DRS_COLD);
 		break;
 
@@ -682,7 +682,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			}
 
 			for (i = 0; i < num; i++)
-				project(caster_ptr, 0, caster_ptr->lev / 20 + 1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, GF_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+				project(caster_ptr, 0, caster_ptr->lev / 20 + 1, y, x, caster_ptr->lev*caster_ptr->lev * 6 / 50, DO_EFFECT_ROCKET, PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			break;
 		}
 
@@ -736,7 +736,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_BLAZING_LIGHT:
-		cast_ball(caster_ptr, GF_LITE, 0, 300, 6);
+		cast_ball(caster_ptr, DO_EFFECT_LITE, 0, 300, 6);
 		confuse_creatures(caster_ptr, 3 * caster_ptr->lev / 2);
 		break;
 
@@ -805,7 +805,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_STAR_BALL:
-		cast_ball(caster_ptr, GF_LITE, dir, 200, 3);
+		cast_ball(caster_ptr, DO_EFFECT_LITE, dir, 200, 3);
 		break;
 
 	case TRAIT_INROU:
@@ -970,7 +970,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_SHRIEK:
 		stop_mouth(caster_ptr);
-		(void)cast_ball(caster_ptr, GF_SOUND, 0, 2 * user_level, 8);
+		(void)cast_ball(caster_ptr, DO_EFFECT_SOUND, 0, 2 * user_level, 8);
 		aggravate_creatures(caster_ptr);
 		break;
 
@@ -998,66 +998,66 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_SHOOT:
-		cast_bolt(caster_ptr, GF_ARROW, damage, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_ARROW, damage, 0, FALSE);
 		{
 			//TODO Fix damage calc.
 			damage = diceroll(caster_ptr->blow[0].d_dice, caster_ptr->blow[0].d_side);
-			cast_bolt(caster_ptr, GF_ARROW, damage, TRAIT_SHOOT, learnable);
+			cast_bolt(caster_ptr, DO_EFFECT_ARROW, damage, TRAIT_SHOOT, learnable);
 			update_smart_learn(caster_ptr, DRS_REFLECT);
 			break;
 		}
 
 	case TRAIT_BR_ACID:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 0, TRUE, TRAIT_BR_ACID, learnable);
 		update_smart_learn(caster_ptr, DRS_ACID);
 		break;
 
 	case TRAIT_BR_ELEC:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_ELEC, damage, 2, TRUE, TRAIT_BR_ELEC, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, TRUE, TRAIT_BR_ELEC, learnable);
 		update_smart_learn(caster_ptr, DRS_ELEC);
 		break;
 
 	case TRAIT_BR_FIRE:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_FIRE, damage, 0, TRUE, TRAIT_BR_FIRE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 0, TRUE, TRAIT_BR_FIRE, learnable);
 		update_smart_learn(caster_ptr, DRS_FIRE);
 		break;
 
 	case TRAIT_BR_COLD:
 		damage = ((caster_ptr->chp / 3) > 1600 ? 1600 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_COLD, damage,0, TRUE, TRAIT_BR_COLD, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_COLD, damage,0, TRUE, TRAIT_BR_COLD, learnable);
 		update_smart_learn(caster_ptr, DRS_COLD);
 		break;
 
 	case TRAIT_BR_POIS:
 		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_POIS, damage, 0, TRUE, TRAIT_BR_POIS, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 0, TRUE, TRAIT_BR_POIS, learnable);
 		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
 
 	case TRAIT_BR_NETH:
 		damage = ((caster_ptr->chp / 6) > 550 ? 550 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_NETHER, damage,0, TRUE, TRAIT_BR_NETH, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage,0, TRUE, TRAIT_BR_NETH, learnable);
 		update_smart_learn(caster_ptr, DRS_NETH);
 		break;
 
 	case TRAIT_BR_LITE:
 		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_LITE, damage, 0, TRUE, TRAIT_BR_LITE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 0, TRUE, TRAIT_BR_LITE, learnable);
 		update_smart_learn(caster_ptr, DRS_LITE);
 		break;
 
 	case TRAIT_BR_DARK:
 		damage = ((caster_ptr->chp / 6) > 400 ? 400 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_DARK, damage, 0, TRUE, TRAIT_BR_DARK, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 0, TRUE, TRAIT_BR_DARK, learnable);
 		update_smart_learn(caster_ptr, DRS_DARK);
 		break;
 
 	case TRAIT_BR_CONF:
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_CONFUSION, damage, 0, TRUE, TRAIT_BR_CONF, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_CONFUSION, damage, 0, TRUE, TRAIT_BR_CONF, learnable);
 		update_smart_learn(caster_ptr, DRS_CONF);
 		break;
 
@@ -1069,41 +1069,41 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_format("'Booooeeeeee'");
 #endif
 		damage = ((caster_ptr->chp / 6) > 450 ? 450 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_SOUND, damage,0, TRUE, TRAIT_BR_SOUN, learnable);
 		update_smart_learn(caster_ptr, DRS_SOUND);
 		break;
 
 	case TRAIT_BR_CHAO:
 		damage = ((caster_ptr->chp / 6) > 600 ? 600 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage,0, TRUE, TRAIT_BR_CHAO, learnable);
 		update_smart_learn(caster_ptr, DRS_CHAOS);
 		break;
 
 	case TRAIT_BR_DISE:
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_DISENCHANT, damage, 0, TRUE, TRAIT_BR_DISE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISENCHANT, damage, 0, TRUE, TRAIT_BR_DISE, learnable);
 		update_smart_learn(caster_ptr, DRS_DISEN);
 		break;
 
 	case TRAIT_BR_NEXU:
 		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_NEXUS, damage, 0, TRUE, TRAIT_BR_NEXU, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NEXUS, damage, 0, TRUE, TRAIT_BR_NEXU, learnable);
 		update_smart_learn(caster_ptr, DRS_NEXUS);
 		break;
 
 	case TRAIT_BR_TIME:
 		damage = ((caster_ptr->chp / 3) > 150 ? 150 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_TIME, damage,0, TRUE, TRAIT_BR_TIME, learnable);
 		break;
 
 	case TRAIT_BR_INER:
 		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_INERTIA, damage,0, TRUE, TRAIT_BR_INER, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_INERTIA, damage,0, TRUE, TRAIT_BR_INER, learnable);
 		break;
 
 	case TRAIT_BR_GRAV:
 		damage = ((caster_ptr->chp / 3) > 200 ? 200 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_GRAVITY, damage,0, TRUE, TRAIT_BR_GRAV, learnable);
 		break;
 
 	case TRAIT_BR_SHAR:
@@ -1114,57 +1114,57 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			msg_format("'Boty-Build cutter!!!'");
 #endif
 		damage = ((caster_ptr->chp / 6) > 500 ? 500 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_SHARDS, damage,0, TRUE, TRAIT_BR_SHAR, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
 
 	case TRAIT_BR_PLAS:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_PLASMA, damage,0, TRUE, TRAIT_BR_PLAS, learnable);
 		break;
 
 	case TRAIT_BR_WALL:
 		damage = ((caster_ptr->chp / 6) > 200 ? 200 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_FORCE, damage,0, TRUE, TRAIT_BR_WALL, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_FORCE, damage,0, TRUE, TRAIT_BR_WALL, learnable);
 		break;
 
 	case TRAIT_BR_MANA:
 		damage = ((caster_ptr->chp / 3) > 250 ? 250 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage,0, TRUE, TRAIT_BR_MANA, learnable);
 		break;
 
 	case TRAIT_BA_NUKE:
 		damage = (user_level + diceroll(10, 6)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, GF_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage, 2, FALSE, TRAIT_BA_NUKE, learnable);
 		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
 
 	case TRAIT_BR_NUKE:
 		damage = ((caster_ptr->chp / 3) > 800 ? 800 : (caster_ptr->chp / 3));
-		breath(target_row, target_col,caster_ptr, GF_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NUKE, damage,0, TRUE, TRAIT_BR_NUKE, learnable);
 		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
 
 	case TRAIT_BA_CHAO:
 		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? (user_level * 3) : (user_level * 2))+ diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, GF_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_CHAOS, damage, 4, FALSE, TRAIT_BA_CHAO, learnable);
 		update_smart_learn(caster_ptr, DRS_CHAOS);
 		break;
 
 	case TRAIT_BR_DISI:
 		damage = ((caster_ptr->chp / 6) > 150 ? 150 : (caster_ptr->chp / 6));
-		breath(target_row, target_col,caster_ptr, GF_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DISINTEGRATE, damage,0, TRUE, TRAIT_BR_DISI, learnable);
 		break;
 
 	case TRAIT_BA_ACID:
 		damage = (randint1(user_level * 3) + 15) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, GF_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ACID, damage, 2, FALSE, TRAIT_BA_ACID, learnable);
 		update_smart_learn(caster_ptr, DRS_ACID);
 		break;
 
 	case TRAIT_BA_ELEC:
 		damage = (randint1(user_level * 3 / 2) + 8) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, GF_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_ELEC, damage, 2, FALSE, TRAIT_BA_ELEC, learnable);
 		update_smart_learn(caster_ptr, DRS_ELEC);
 		break;
 
@@ -1184,168 +1184,168 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 		}
 		damage = (randint1(user_level * 7 / 2) + 10) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, GF_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_FIRE, damage, 2, FALSE, TRAIT_BA_FIRE, learnable);
 		update_smart_learn(caster_ptr, DRS_FIRE);
 		break;
 
 	case TRAIT_BA_POIS:
 		damage = diceroll(12, 2) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		breath(target_row, target_col,caster_ptr, GF_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_POIS, damage, 2, FALSE, TRAIT_BA_POIS, learnable);
 		update_smart_learn(caster_ptr, DRS_POIS);
 		break;
 
 	case TRAIT_BA_NETH:
 		damage = 50 + diceroll(10, 10) + (user_level * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1));
-		breath(target_row, target_col,caster_ptr, GF_NETHER, damage, 2, FALSE, TRAIT_BA_NETH, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_NETHER, damage, 2, FALSE, TRAIT_BA_NETH, learnable);
 		update_smart_learn(caster_ptr, DRS_NETH);
 		break;
 
 	case TRAIT_BA_WATE:
 		damage = (has_trait(caster_ptr, TRAIT_POWERFUL) ? randint1(user_level * 3) : randint1(user_level * 2)) + 50;
-		breath(target_row, target_col,caster_ptr, GF_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_WATER, damage, 4, FALSE, TRAIT_BA_WATE, learnable);
 		break;
 
 	case TRAIT_BA_MANA:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, GF_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_MANA, damage, 4, FALSE, TRAIT_BA_MANA, learnable);
 		break;
 
 	case TRAIT_BA_DARK:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, GF_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DARK, damage, 4, FALSE, TRAIT_BA_DARK, learnable);
 		update_smart_learn(caster_ptr, DRS_DARK);
 		break;
 
 	case TRAIT_DRAIN_MANA:
 		damage = (randint1(user_level) / 2) + 1;
-		breath(target_row, target_col,caster_ptr, GF_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_DRAIN_MANA, damage, 0, FALSE, TRAIT_DRAIN_MANA, learnable);
 		update_smart_learn(caster_ptr, DRS_MANA);
 		break;
 
 	case TRAIT_MIND_BLAST:
-		cast_ball_hide(caster_ptr, GF_MIND_BLAST, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_MIND_BLAST, dir, damage, 0);
 		break;
 
-		cast_bolt(caster_ptr, GF_PSI, user_level, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_PSI, user_level, 0, FALSE);
 		break;
 
 		damage = diceroll(7, 7);
-		breath(target_row, target_col,caster_ptr, GF_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_MIND_BLAST, damage, 0, FALSE, TRAIT_MIND_BLAST, learnable);
 		break;
 
 	case TRAIT_BRAIN_SMASH:
-		cast_ball_hide(caster_ptr, GF_BRAIN_SMASH, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_BRAIN_SMASH, dir, damage, 0);
 		break;
 
 		damage = diceroll(12, 12);
-		breath(target_row, target_col,caster_ptr, GF_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_BRAIN_SMASH, damage, 0, FALSE, TRAIT_BRAIN_SMASH, learnable);
 		break;
 
 	case TRAIT_CAUSE_1:
-		cast_ball_hide(caster_ptr, GF_CAUSE_1, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_1, dir, damage, 0);
 		break;
 		{
 			damage = diceroll(3, 8);
-			breath(target_row, target_col,caster_ptr, GF_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
+			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_1, damage, 0, FALSE, TRAIT_CAUSE_1, learnable);
 			break;
 		}
 
 	case TRAIT_CAUSE_2:
-		cast_ball_hide(caster_ptr, GF_CAUSE_2, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_2, dir, damage, 0);
 		break;
 		{
 			damage = diceroll(8, 8);
-			breath(target_row, target_col,caster_ptr, GF_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
+			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_2, damage, 0, FALSE, TRAIT_CAUSE_2, learnable);
 			break;
 		}
 
 	case TRAIT_CAUSE_3:
-		cast_ball_hide(caster_ptr, GF_CAUSE_3, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_3, dir, damage, 0);
 		break;
 		{
 			damage = diceroll(10, 15);
-			breath(target_row, target_col,caster_ptr, GF_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3, learnable);
+			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_3, damage, 0, FALSE, TRAIT_CAUSE_3, learnable);
 			break;
 		}
 
 	case TRAIT_CAUSE_4:
-		cast_ball_hide(caster_ptr, GF_CAUSE_4, dir, damage, 0);
+		cast_ball_hide(caster_ptr, DO_EFFECT_CAUSE_4, dir, damage, 0);
 		break;
 		{
 			damage = diceroll(15, 15);
-			breath(target_row, target_col,caster_ptr, GF_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
+			breath(target_row, target_col,caster_ptr, DO_EFFECT_CAUSE_4, damage, 0, FALSE, TRAIT_CAUSE_4, learnable);
 			break;
 		}
 
 	case TRAIT_BO_ACID:
 		damage = (diceroll(7, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, GF_ACID, damage, TRAIT_BO_ACID, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_ACID, damage, TRAIT_BO_ACID, learnable);
 		update_smart_learn(caster_ptr, DRS_ACID);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_ELEC:
 		damage = (diceroll(4, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, GF_ELEC, damage, TRAIT_BO_ELEC, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_ELEC, damage, TRAIT_BO_ELEC, learnable);
 		update_smart_learn(caster_ptr, DRS_ELEC);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_FIRE:
 		damage = (diceroll(9, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, GF_FIRE, damage, TRAIT_BO_FIRE, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_FIRE, damage, TRAIT_BO_FIRE, learnable);
 		update_smart_learn(caster_ptr, DRS_FIRE);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_COLD:
 		damage = (diceroll(6, 8) + (user_level / 3)) * (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 1);
-		cast_bolt(caster_ptr, GF_COLD, damage, TRAIT_BO_COLD, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_COLD, damage, TRAIT_BO_COLD, learnable);
 		update_smart_learn(caster_ptr, DRS_COLD);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BA_LITE:
 		damage = (user_level * 4) + 50 + diceroll(10, 10);
-		breath(target_row, target_col,caster_ptr, GF_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
+		breath(target_row, target_col,caster_ptr, DO_EFFECT_LITE, damage, 4, FALSE, TRAIT_BA_LITE, learnable);
 		update_smart_learn(caster_ptr, DRS_LITE);
 		break;
 
 	case TRAIT_BO_NETH:
 		damage = 30 + diceroll(5, 5) + (user_level * 4) / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3);
-		cast_bolt(caster_ptr, GF_NETHER, damage, TRAIT_BO_NETH, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_NETHER, damage, TRAIT_BO_NETH, learnable);
 		update_smart_learn(caster_ptr, DRS_NETH);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_WATE:
 		damage = diceroll(10, 10) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, GF_WATER, damage, TRAIT_BO_WATE, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_WATER, damage, TRAIT_BO_WATE, learnable);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_MANA:
 		damage = randint1(user_level * 7 / 2) + 50;
-		cast_bolt(caster_ptr, GF_MANA, damage, TRAIT_BO_MANA, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_MANA, damage, TRAIT_BO_MANA, learnable);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_PLAS:
 		damage = 10 + diceroll(8, 7) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, GF_PLASMA, damage, TRAIT_BO_PLAS, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_PLASMA, damage, TRAIT_BO_PLAS, learnable);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_BO_ICEE:
 		damage = diceroll(6, 6) + (user_level * 3 / (has_trait(caster_ptr, TRAIT_POWERFUL) ? 2 : 3));
-		cast_bolt(caster_ptr, GF_ICE, damage, TRAIT_BO_ICEE, learnable);
+		cast_bolt(caster_ptr, DO_EFFECT_ICE, damage, TRAIT_BO_ICEE, learnable);
 		update_smart_learn(caster_ptr, DRS_COLD);
 		update_smart_learn(caster_ptr, DRS_REFLECT);
 		break;
 
 	case TRAIT_MISSILE:
 		damage = diceroll(2, 6) + user_level * 2 / 3;
-		cast_bolt(caster_ptr,GF_MISSILE, damage, 0, FALSE);
+		cast_bolt(caster_ptr,DO_EFFECT_MISSILE, damage, 0, FALSE);
 		break;
 
 	case TRAIT_SCARE:
@@ -1488,10 +1488,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HAND_DOOM:
 		{
 
-			cast_ball_hide(caster_ptr, GF_HAND_DOOM, dir, 200, 0);
+			cast_ball_hide(caster_ptr, DO_EFFECT_HAND_DOOM, dir, 200, 0);
 			break;
 			damage = (((s32b) ((40 + randint1(20)) * (target_ptr->chp))) / 100);
-			breath(target_row, target_col,caster_ptr, GF_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
+			breath(target_row, target_col,caster_ptr, DO_EFFECT_HAND_DOOM, damage, 0, FALSE, TRAIT_HAND_DOOM, learnable);
 			break;
 		}
 
@@ -1708,7 +1708,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 						msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
-						project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+						project(caster_ptr, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 						set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 					}
 
@@ -1778,7 +1778,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_PSY_SPEAR:
 		damage = has_trait(caster_ptr, TRAIT_POWERFUL) ? (randint1(user_level * 2) + 150) : (randint1(user_level * 3 / 2) + 100);
-		(void)cast_beam(caster_ptr, MAX_RANGE_SUB, GF_PSY_SPEAR, damage, 0, FALSE);
+		(void)cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_PSY_SPEAR, damage, 0, FALSE);
 		break;
 
 	case TRAIT_TRAPS:
@@ -1930,7 +1930,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #else
 						msg_print("Water blew off from the ground!");
 #endif
-						cast_ball_hide(caster_ptr, GF_WATER_FLOW, 0, 3, 8);
+						cast_ball_hide(caster_ptr, DO_EFFECT_WATER_FLOW, 0, 3, 8);
 					}
 
 					for (k = 0; k < num; k++)
@@ -2252,7 +2252,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HELL_LANCE:
 		{
 
-			cast_beam(caster_ptr, MAX_RANGE_SUB, is_good_realm(caster_ptr->realm1) ? GF_HOLY_FIRE : GF_HELL_FIRE, user_level * 3, 0, FALSE);
+			cast_beam(caster_ptr, MAX_RANGE_SUB, is_good_realm(caster_ptr->realm1) ? DO_EFFECT_HOLY_FIRE : DO_EFFECT_HELL_FIRE, user_level * 3, 0, FALSE);
 			break;
 		}
 
@@ -2412,7 +2412,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_TAKE_PHOTO:
-		cast_beam(caster_ptr, 1, GF_PHOTO, 1, 0, FALSE);
+		cast_beam(caster_ptr, 1, DO_EFFECT_PHOTO, 1, 0, FALSE);
 		break;
 
 	case TRAIT_DOUBLE_REVENGE:
@@ -2423,11 +2423,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		}
 
 	case TRAIT_DOMINATE_LIVE:
-		(void)cast_ball_hide(caster_ptr, GF_CONTROL_LIVING, dir, caster_ptr->lev, 0);
+		(void)cast_ball_hide(caster_ptr, DO_EFFECT_CONTROL_LIVING, dir, caster_ptr->lev, 0);
 		break;
 
 	case TRAIT_DOMINATE_LIVES:
-		project_hack(caster_ptr, GF_CONTROL_LIVING, caster_ptr->lev);
+		project_hack(caster_ptr, DO_EFFECT_CONTROL_LIVING, caster_ptr->lev);
 		break;
 
 	case TRAIT_CREATE_AMMO:
@@ -2756,25 +2756,25 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_THROW_BOULDER:
-		cast_bolt(caster_ptr, GF_MISSILE, (3 * user_level) / 2, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, (3 * user_level) / 2, 0, FALSE);
 		break;
 
 	case TRAIT_SPIT_ACID:
 		stop_mouth(caster_ptr);
-		if(user_level < 25) cast_bolt(caster_ptr, GF_ACID, user_level, 0, FALSE);
-		else cast_ball(caster_ptr, GF_ACID, dir, user_level, 2);
+		if(user_level < 25) cast_bolt(caster_ptr, DO_EFFECT_ACID, user_level, 0, FALSE);
+		else cast_ball(caster_ptr, DO_EFFECT_ACID, dir, user_level, 2);
 		break;
 
 	case TRAIT_POISON_DART:
-		cast_bolt(caster_ptr, GF_POIS, user_level, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_POIS, user_level, 0, FALSE);
 		break;
 
 	case TRAIT_FIRE_BALL:
-		cast_ball(caster_ptr, GF_FIRE, dir, user_level, 2);
+		cast_ball(caster_ptr, DO_EFFECT_FIRE, dir, user_level, 2);
 		break;
 
 	case TRAIT_FIRE_BOLT:
-		cast_bolt(caster_ptr, GF_FIRE, user_level, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_FIRE, user_level, 0, FALSE);
 		break;
 
 	case TRAIT_HOLDING_DUST:
@@ -2787,19 +2787,19 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_RAY_GUN:
-		cast_bolt(caster_ptr, GF_MISSILE, (user_level+1) / 2, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, (user_level+1) / 2, 0, FALSE);
 		break;
 
 	case TRAIT_BLASTER:
-		cast_bolt(caster_ptr, GF_MISSILE, user_level, 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_MISSILE, user_level, 0, FALSE);
 		break;
 
 	case TRAIT_BAZOOKA:
-		cast_ball(caster_ptr, GF_MISSILE, dir, user_level * 2, 2);
+		cast_ball(caster_ptr, DO_EFFECT_MISSILE, dir, user_level * 2, 2);
 		break;
 
 	case TRAIT_BEAM_CANNON:
-		cast_beam(caster_ptr, MAX_RANGE_SUB, GF_MISSILE, user_level * 2, 0, FALSE);
+		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_MISSILE, user_level * 2, 0, FALSE);
 		break;
 
 	case TRAIT_SCARE_CREATURE:
@@ -2816,11 +2816,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_MIND_BLST:
-		cast_bolt(caster_ptr, GF_PSI, diceroll(3 + ((user_level - 1) / 5), 3), 0, FALSE);
+		cast_bolt(caster_ptr, DO_EFFECT_PSI, diceroll(3 + ((user_level - 1) / 5), 3), 0, FALSE);
 		break;
 
 	case TRAIT_RADIATION:
-		cast_ball(caster_ptr, GF_NUKE, 0, (user_level * 2), 3 + (user_level / 20));
+		cast_ball(caster_ptr, DO_EFFECT_NUKE, 0, (user_level * 2), 3 + (user_level / 20));
 		break;
 
 	case TRAIT_SMELL_MET:
@@ -3009,7 +3009,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		break;
 
 	case TRAIT_LASER_EYE:
-		cast_beam(caster_ptr, MAX_RANGE_SUB, GF_LITE, 2 * user_level, 0, FALSE);
+		cast_beam(caster_ptr, MAX_RANGE_SUB, DO_EFFECT_LITE, 2 * user_level, 0, FALSE);
 		break;
 
 	case TRAIT_BANISH:
@@ -3068,7 +3068,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 				break;
 			}
-			cast_bolt(caster_ptr, GF_COLD, 2 * user_level, 0, FALSE);
+			cast_bolt(caster_ptr, DO_EFFECT_COLD, 2 * user_level, 0, FALSE);
 		}
 		break;
 

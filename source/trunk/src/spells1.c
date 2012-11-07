@@ -88,61 +88,61 @@ static byte spell_color(int type)
 		/* Analyze */
 		switch (type)
 		{
-		case GF_PSY_SPEAR:      return (0x06);
-		case GF_MISSILE:        return (0x0F);
-		case GF_ACID:           return (0x04);
-		case GF_ELEC:           return (0x02);
-		case GF_FIRE:           return (0x00);
-		case GF_COLD:           return (0x01);
-		case GF_POIS:           return (0x03);
-		case GF_HOLY_FIRE:      return (0x00);
-		case GF_HELL_FIRE:      return (0x00);
-		case GF_MANA:           return (0x0E);
+		case DO_EFFECT_PSY_SPEAR:      return (0x06);
+		case DO_EFFECT_MISSILE:        return (0x0F);
+		case DO_EFFECT_ACID:           return (0x04);
+		case DO_EFFECT_ELEC:           return (0x02);
+		case DO_EFFECT_FIRE:           return (0x00);
+		case DO_EFFECT_COLD:           return (0x01);
+		case DO_EFFECT_POIS:           return (0x03);
+		case DO_EFFECT_HOLY_FIRE:      return (0x00);
+		case DO_EFFECT_HELL_FIRE:      return (0x00);
+		case DO_EFFECT_MANA:           return (0x0E);
 			/* by henkma */
-		case GF_SEEKER:         return (0x0E);
-		case GF_SUPER_RAY:      return (0x0E);
+		case DO_EFFECT_SEEKER:         return (0x0E);
+		case DO_EFFECT_SUPER_RAY:      return (0x0E);
 
-		case GF_ARROW:          return (0x0F);
-		case GF_WATER:          return (0x04);
-		case GF_NETHER:         return (0x07);
-		case GF_CHAOS:          return (mh_attr(15));
-		case GF_DISENCHANT:     return (0x05);
-		case GF_NEXUS:          return (0x0C);
-		case GF_CONFUSION:      return (mh_attr(4));
-		case GF_SOUND:          return (0x09);
-		case GF_SHARDS:         return (0x08);
-		case GF_FORCE:          return (0x09);
-		case GF_INERTIA:        return (0x09);
-		case GF_GRAVITY:        return (0x09);
-		case GF_TIME:           return (0x09);
-		case GF_LITE_WEAK:      return (0x06);
-		case GF_LITE:           return (0x06);
-		case GF_DARK_WEAK:      return (0x07);
-		case GF_DARK:           return (0x07);
-		case GF_PLASMA:         return (0x0B);
-		case GF_METEOR:         return (0x00);
-		case GF_ICE:            return (0x01);
-		case GF_ROCKET:         return (0x0F);
-		case GF_DEATH_RAY:      return (0x07);
-		case GF_NUKE:           return (mh_attr(2));
-		case GF_DISINTEGRATE:   return (0x05);
-		case GF_PSI:
-		case GF_PSI_DRAIN:
-		case GF_TELEKINESIS:
-		case GF_DOMINATION:
-		case GF_DRAIN_MANA:
-		case GF_MIND_BLAST:
-		case GF_BRAIN_SMASH:
+		case DO_EFFECT_ARROW:          return (0x0F);
+		case DO_EFFECT_WATER:          return (0x04);
+		case DO_EFFECT_NETHER:         return (0x07);
+		case DO_EFFECT_CHAOS:          return (mh_attr(15));
+		case DO_EFFECT_DISENCHANT:     return (0x05);
+		case DO_EFFECT_NEXUS:          return (0x0C);
+		case DO_EFFECT_CONFUSION:      return (mh_attr(4));
+		case DO_EFFECT_SOUND:          return (0x09);
+		case DO_EFFECT_SHARDS:         return (0x08);
+		case DO_EFFECT_FORCE:          return (0x09);
+		case DO_EFFECT_INERTIA:        return (0x09);
+		case DO_EFFECT_GRAVITY:        return (0x09);
+		case DO_EFFECT_TIME:           return (0x09);
+		case DO_EFFECT_LITE_WEAK:      return (0x06);
+		case DO_EFFECT_LITE:           return (0x06);
+		case DO_EFFECT_DARK_WEAK:      return (0x07);
+		case DO_EFFECT_DARK:           return (0x07);
+		case DO_EFFECT_PLASMA:         return (0x0B);
+		case DO_EFFECT_METEOR:         return (0x00);
+		case DO_EFFECT_ICE:            return (0x01);
+		case DO_EFFECT_ROCKET:         return (0x0F);
+		case DO_EFFECT_DEATH_RAY:      return (0x07);
+		case DO_EFFECT_NUKE:           return (mh_attr(2));
+		case DO_EFFECT_DISINTEGRATE:   return (0x05);
+		case DO_EFFECT_PSI:
+		case DO_EFFECT_PSI_DRAIN:
+		case DO_EFFECT_TELEKINESIS:
+		case DO_EFFECT_DOMINATION:
+		case DO_EFFECT_DRAIN_MANA:
+		case DO_EFFECT_MIND_BLAST:
+		case DO_EFFECT_BRAIN_SMASH:
 			return (0x09);
-		case GF_CAUSE_1:
-		case GF_CAUSE_2:
-		case GF_CAUSE_3:
-		case GF_CAUSE_4:        return (0x0E);
-		case GF_HAND_DOOM:      return (0x07);
-		case GF_CAPTURE  :      return (0x0E);
-		case GF_IDENTIFY:       return (0x01);
-		case GF_ATTACK:        return (0x0F);
-		case GF_PHOTO   :      return (0x06);
+		case DO_EFFECT_CAUSE_1:
+		case DO_EFFECT_CAUSE_2:
+		case DO_EFFECT_CAUSE_3:
+		case DO_EFFECT_CAUSE_4:        return (0x0E);
+		case DO_EFFECT_HAND_DOOM:      return (0x07);
+		case DO_EFFECT_CAPTURE  :      return (0x0E);
+		case DO_EFFECT_IDENTIFY:       return (0x01);
+		case DO_EFFECT_ATTACK:        return (0x0F);
+		case DO_EFFECT_PHOTO   :      return (0x06);
 		}
 	}
 	/* Normal tiles or ASCII */
@@ -594,52 +594,52 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		cptr message;
 		switch (typ)
 		{
-		case GF_POIS:
-		case GF_NUKE:
-		case GF_DEATH_RAY:
+		case DO_EFFECT_POIS:
+		case DO_EFFECT_NUKE:
+		case DO_EFFECT_DEATH_RAY:
 #ifdef JP
 			message = "ŒÍ‚ê‚½";break;
 #else
 			message = "was blasted.";break;
 #endif
-		case GF_TIME:
+		case DO_EFFECT_TIME:
 #ifdef JP
 			message = "k‚ñ‚¾";break;
 #else
 			message = "shrank.";break;
 #endif
-		case GF_ACID:
+		case DO_EFFECT_ACID:
 #ifdef JP
 			message = "—n‚¯‚½";break;
 #else
 			message = "melted.";break;
 #endif
-		case GF_COLD:
-		case GF_ICE:
+		case DO_EFFECT_COLD:
+		case DO_EFFECT_ICE:
 #ifdef JP
 			message = "“€‚èAÓ‚¯ŽU‚Á‚½";break;
 #else
 			message = "was frozen and smashed.";break;
 #endif
-		case GF_FIRE:
-		case GF_ELEC:
-		case GF_PLASMA:
+		case DO_EFFECT_FIRE:
+		case DO_EFFECT_ELEC:
+		case DO_EFFECT_PLASMA:
 #ifdef JP
 			message = "”R‚¦‚½";break;
 #else
 			message = "burns up!";break;
 #endif
-		case GF_METEOR:
-		case GF_CHAOS:
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
-		case GF_SHARDS:
-		case GF_ROCKET:
-		case GF_SOUND:
-		case GF_DISENCHANT:
-		case GF_FORCE:
-		case GF_GRAVITY:
+		case DO_EFFECT_METEOR:
+		case DO_EFFECT_CHAOS:
+		case DO_EFFECT_MANA:
+		case DO_EFFECT_SEEKER:
+		case DO_EFFECT_SUPER_RAY:
+		case DO_EFFECT_SHARDS:
+		case DO_EFFECT_ROCKET:
+		case DO_EFFECT_SOUND:
+		case DO_EFFECT_DISENCHANT:
+		case DO_EFFECT_FORCE:
+		case DO_EFFECT_GRAVITY:
 #ifdef JP
 			message = "•²Ó‚³‚ê‚½";break;
 #else
@@ -666,42 +666,42 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 	switch (typ)
 	{
 		/* Ignore most effects */
-	case GF_CAPTURE:
-	case GF_HAND_DOOM:
-	case GF_CAUSE_1:
-	case GF_CAUSE_2:
-	case GF_CAUSE_3:
-	case GF_CAUSE_4:
-	case GF_MIND_BLAST:
-	case GF_BRAIN_SMASH:
-	case GF_DRAIN_MANA:
-	case GF_PSY_SPEAR:
-	case GF_FORCE:
-	case GF_HOLY_FIRE:
-	case GF_HELL_FIRE:
-	case GF_PSI:
-	case GF_PSI_DRAIN:
-	case GF_TELEKINESIS:
-	case GF_DOMINATION:
-	case GF_IDENTIFY:
-	case GF_ATTACK:
-	case GF_ACID:
-	case GF_ELEC:
-	case GF_COLD:
-	case GF_ICE:
-	case GF_FIRE:
-	case GF_PLASMA:
-	case GF_METEOR:
-	case GF_CHAOS:
-	case GF_MANA:
-	case GF_SEEKER:
-	case GF_SUPER_RAY:
+	case DO_EFFECT_CAPTURE:
+	case DO_EFFECT_HAND_DOOM:
+	case DO_EFFECT_CAUSE_1:
+	case DO_EFFECT_CAUSE_2:
+	case DO_EFFECT_CAUSE_3:
+	case DO_EFFECT_CAUSE_4:
+	case DO_EFFECT_MIND_BLAST:
+	case DO_EFFECT_BRAIN_SMASH:
+	case DO_EFFECT_DRAIN_MANA:
+	case DO_EFFECT_PSY_SPEAR:
+	case DO_EFFECT_FORCE:
+	case DO_EFFECT_HOLY_FIRE:
+	case DO_EFFECT_HELL_FIRE:
+	case DO_EFFECT_PSI:
+	case DO_EFFECT_PSI_DRAIN:
+	case DO_EFFECT_TELEKINESIS:
+	case DO_EFFECT_DOMINATION:
+	case DO_EFFECT_IDENTIFY:
+	case DO_EFFECT_ATTACK:
+	case DO_EFFECT_ACID:
+	case DO_EFFECT_ELEC:
+	case DO_EFFECT_COLD:
+	case DO_EFFECT_ICE:
+	case DO_EFFECT_FIRE:
+	case DO_EFFECT_PLASMA:
+	case DO_EFFECT_METEOR:
+	case DO_EFFECT_CHAOS:
+	case DO_EFFECT_MANA:
+	case DO_EFFECT_SEEKER:
+	case DO_EFFECT_SUPER_RAY:
 		{
 			break;
 		}
 
 		/* Destroy Traps (and Locks) */
-	case GF_KILL_TRAP:
+	case DO_EFFECT_KILL_TRAP:
 		{
 			/* Reveal secret doors */
 			if(is_hidden_door(c_ptr))
@@ -771,7 +771,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Destroy Doors (and traps) */
-	case GF_KILL_DOOR:
+	case DO_EFFECT_KILL_DOOR:
 		{
 			/* Destroy all doors and traps */
 			if(is_trap(c_ptr->feat) || have_flag(f_ptr->flags, FF_DOOR))
@@ -807,7 +807,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_JAM_DOOR: /* Jams a door (as if with a spike) */
+	case DO_EFFECT_JAM_DOOR: /* Jams a door (as if with a spike) */
 		{
 			if(have_flag(f_ptr->flags, FF_SPIKE))
 			{
@@ -841,7 +841,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Destroy walls (and doors) */
-	case GF_KILL_WALL:
+	case DO_EFFECT_KILL_WALL:
 		{
 			if(have_flag(f_ptr->flags, FF_HURT_ROCK))
 			{
@@ -868,7 +868,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Make doors */
-	case GF_MAKE_DOOR:
+	case DO_EFFECT_MAKE_DOOR:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -886,7 +886,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Make traps */
-	case GF_MAKE_TRAP:
+	case DO_EFFECT_MAKE_TRAP:
 		{
 			/* Place a trap */
 			place_trap(floor_ptr, y, x);
@@ -895,7 +895,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Make doors */
-	case GF_MAKE_TREE:
+	case DO_EFFECT_MAKE_TREE:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -913,7 +913,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_MAKE_GLYPH:
+	case DO_EFFECT_MAKE_GLYPH:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -931,7 +931,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_STONE_WALL:
+	case DO_EFFECT_STONE_WALL:
 		{
 			/* Require a "naked" floor grid */
 			if(!cave_naked_bold(floor_ptr, y, x)) break;
@@ -946,7 +946,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 
-	case GF_LAVA_FLOW:
+	case DO_EFFECT_LAVA_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -969,7 +969,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_WATER_FLOW:
+	case DO_EFFECT_WATER_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -993,8 +993,8 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Lite up the grid */
-	case GF_LITE_WEAK:
-	case GF_LITE:
+	case DO_EFFECT_LITE_WEAK:
+	case DO_EFFECT_LITE:
 		{
 			/* Turn on the light */
 			if(!(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS))
@@ -1026,8 +1026,8 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		}
 
 		/* Darken the grid */
-	case GF_DARK_WEAK:
-	case GF_DARK:
+	case DO_EFFECT_DARK_WEAK:
+	case DO_EFFECT_DARK:
 		{
 			bool do_dark = !floor_ptr->gamble_arena_mode && !is_mirror_grid(c_ptr);
 			int j;
@@ -1086,8 +1086,8 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_SHARDS:
-	case GF_ROCKET:
+	case DO_EFFECT_SHARDS:
+	case DO_EFFECT_ROCKET:
 		{
 			if(is_mirror_grid(c_ptr))
 			{
@@ -1098,7 +1098,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
-				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
@@ -1123,7 +1123,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_SOUND:
+	case DO_EFFECT_SOUND:
 		{
 			if(is_mirror_grid(c_ptr) && aimer_ptr->lev < 40)
 			{
@@ -1134,7 +1134,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 #endif
 				sound(SOUND_GLASS);
 				remove_mirror(player_ptr, y, x);
-				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+				project(aimer_ptr, 0, 2, y, x, aimer_ptr->lev / 2 + 5, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 
 			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
@@ -1159,7 +1159,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_DISINTEGRATE:
+	case DO_EFFECT_DISINTEGRATE:
 		{
 			/* Destroy mirror/glyph */
 			if(is_mirror_grid(c_ptr) || is_glyph_grid(c_ptr) || is_explosive_rune_grid(c_ptr))
@@ -1171,13 +1171,13 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			{
 				cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
-				/* Update some things -- similar to GF_KILL_WALL */
+				/* Update some things -- similar to DO_EFFECT_KILL_WALL */
 				aimer_ptr->creature_update |= (PU_FLOW);
 			}
 			break;
 		}
 
-	case GF_ACID_FLOW:
+	case DO_EFFECT_ACID_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -1200,7 +1200,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			break;
 		}
 
-	case GF_POISON_FLOW:
+	case DO_EFFECT_POISON_FLOW:
 		{
 			/* Ignore permanent grid */
 			if(have_flag(f_ptr->flags, FF_PERMANENT)) break;
@@ -1299,7 +1299,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 		switch (typ)
 		{
 			/* Acid -- Lots of things */
-		case GF_ACID:
+		case DO_EFFECT_ACID:
 			{
 				if(hates_acid(object_ptr))
 				{
@@ -1316,7 +1316,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Elec -- Rings and Wands */
-		case GF_ELEC:
+		case DO_EFFECT_ELEC:
 			{
 				if(hates_elec(object_ptr))
 				{
@@ -1333,7 +1333,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Fire -- Flammable objects */
-		case GF_FIRE:
+		case DO_EFFECT_FIRE:
 			{
 				if(hates_fire(object_ptr))
 				{
@@ -1350,7 +1350,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Cold -- potions and flasks */
-		case GF_COLD:
+		case DO_EFFECT_COLD:
 			{
 				if(hates_cold(object_ptr))
 				{
@@ -1367,7 +1367,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Fire + Elec */
-		case GF_PLASMA:
+		case DO_EFFECT_PLASMA:
 			{
 				if(hates_fire(object_ptr))
 				{
@@ -1396,7 +1396,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Fire + Cold */
-		case GF_METEOR:
+		case DO_EFFECT_METEOR:
 			{
 				if(hates_fire(object_ptr))
 				{
@@ -1425,10 +1425,10 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Hack -- break potions and such */
-		case GF_ICE:
-		case GF_SHARDS:
-		case GF_FORCE:
-		case GF_SOUND:
+		case DO_EFFECT_ICE:
+		case DO_EFFECT_SHARDS:
+		case DO_EFFECT_FORCE:
+		case DO_EFFECT_SOUND:
 			{
 				if(hates_cold(object_ptr))
 				{
@@ -1444,9 +1444,9 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Mana and Chaos -- destroy everything */
-		case GF_MANA:
-		case GF_SEEKER:
-		case GF_SUPER_RAY:
+		case DO_EFFECT_MANA:
+		case DO_EFFECT_SEEKER:
+		case DO_EFFECT_SUPER_RAY:
 			{
 				do_kill = TRUE;
 #ifdef JP
@@ -1458,7 +1458,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				break;
 			}
 
-		case GF_DISINTEGRATE:
+		case DO_EFFECT_DISINTEGRATE:
 			{
 				do_kill = TRUE;
 #ifdef JP
@@ -1470,7 +1470,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				break;
 			}
 
-		case GF_CHAOS:
+		case DO_EFFECT_CHAOS:
 			{
 				do_kill = TRUE;
 #ifdef JP
@@ -1485,8 +1485,8 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Holy Fire and Hell Fire -- destroys cursed non-artifacts */
-		case GF_HOLY_FIRE:
-		case GF_HELL_FIRE:
+		case DO_EFFECT_HOLY_FIRE:
+		case DO_EFFECT_HELL_FIRE:
 			{
 				if(object_is_cursed(object_ptr))
 				{
@@ -1501,7 +1501,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 				break;
 			}
 
-		case GF_IDENTIFY:
+		case DO_EFFECT_IDENTIFY:
 			{
 				identify_item(caster_ptr, object_ptr);
 
@@ -1511,8 +1511,8 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 			}
 
 			/* Unlock chests */
-		case GF_KILL_TRAP:
-		case GF_KILL_DOOR:
+		case DO_EFFECT_KILL_TRAP:
+		case DO_EFFECT_KILL_DOOR:
 			{
 				/* Chests are noticed only if trapped or locked */
 				if(object_ptr->tval == TV_CHEST)
@@ -1542,7 +1542,7 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 
 				break;
 			}
-		case GF_ANIM_DEAD:
+		case DO_EFFECT_ANIM_DEAD:
 			{
 				if(object_ptr->tval == TV_CORPSE)
 				{
@@ -1702,7 +1702,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	if(skipped) return; // Absolutely no effect
 	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
-	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return;
+	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_OLD_HEAL) && !(typ == DO_EFFECT_OLD_SPEED) && !(typ == DO_EFFECT_STAR_HEAL)) return;
 	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return;
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
@@ -1722,7 +1722,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	switch (typ)
 	{
 
-	case GF_ACID:
+	case DO_EFFECT_ACID:
 		{
 #ifdef JP
 			if(blind) msg_print("Ž_‚ÅUŒ‚‚³‚ê‚½I");
@@ -1733,7 +1733,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_FIRE:
+	case DO_EFFECT_FIRE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
@@ -1744,7 +1744,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_COLD:
+	case DO_EFFECT_COLD:
 		{
 #ifdef JP
 			if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
@@ -1755,7 +1755,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_ELEC:
+	case DO_EFFECT_ELEC:
 		{
 #ifdef JP
 			if(blind) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
@@ -1766,7 +1766,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_POIS:
+	case DO_EFFECT_POIS:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
@@ -1782,7 +1782,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_NUKE:
+	case DO_EFFECT_NUKE:
 		{
 			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
@@ -1815,7 +1815,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_MISSILE:
+	case DO_EFFECT_MISSILE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
@@ -1826,7 +1826,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_HOLY_FIRE:
+	case DO_EFFECT_HOLY_FIRE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
@@ -1837,7 +1837,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_HELL_FIRE:
+	case DO_EFFECT_HELL_FIRE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
@@ -1848,7 +1848,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_ARROW:
+	case DO_EFFECT_ARROW:
 		{
 
 #ifdef JP
@@ -1870,7 +1870,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_PLASMA:
+	case DO_EFFECT_PLASMA:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -1894,7 +1894,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_NETHER:
+	case DO_EFFECT_NETHER:
 		{
 #ifdef JP
 			if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
@@ -1910,7 +1910,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_WATER:
+	case DO_EFFECT_WATER:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©Ž¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -1938,7 +1938,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_CHAOS:
+	case DO_EFFECT_CHAOS:
 		{
 #ifdef JP
 			if(blind) msg_print("–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I");
@@ -1982,7 +1982,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_SHARDS:
+	case DO_EFFECT_SHARDS:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2004,7 +2004,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_SOUND:
+	case DO_EFFECT_SOUND:
 		{
 #ifdef JP
 			if(blind) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
@@ -2027,7 +2027,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_CONFUSION:
+	case DO_EFFECT_CONFUSION:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2043,7 +2043,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_DISENCHANT:
+	case DO_EFFECT_DISENCHANT:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚³‚¦‚È‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2059,7 +2059,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_NEXUS:
+	case DO_EFFECT_NEXUS:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©Šï–­‚È‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2075,7 +2075,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_FORCE:
+	case DO_EFFECT_FORCE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
@@ -2091,7 +2091,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_ROCKET:
+	case DO_EFFECT_ROCKET:
 		{
 #ifdef JP
 			if(blind) msg_print("”š”­‚ª‚ ‚Á‚½I");
@@ -2118,7 +2118,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_INERTIA:
+	case DO_EFFECT_INERTIA:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2132,7 +2132,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Lite -- blinding */
-	case GF_LITE:
+	case DO_EFFECT_LITE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
@@ -2165,7 +2165,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Dark -- blinding
-	case GF_DARK:
+	case DO_EFFECT_DARK:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
@@ -2181,7 +2181,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_TIME:
+	case DO_EFFECT_TIME:
 		{
 #ifdef JP
 			if(blind) msg_print("‰ß‹Ž‚©‚ç‚ÌÕŒ‚‚ÉUŒ‚‚³‚ê‚½I");
@@ -2266,7 +2266,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Gravity -- stun plus slowness plus teleport */
-	case GF_GRAVITY:
+	case DO_EFFECT_GRAVITY:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©d‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2294,7 +2294,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_DISINTEGRATE:
+	case DO_EFFECT_DISINTEGRATE:
 		{
 #ifdef JP
 			if(blind) msg_print("ƒˆ‚ÈƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
@@ -2305,7 +2305,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_OLD_HEAL:
+	case DO_EFFECT_OLD_HEAL:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚ç‚©‚ÌUŒ‚‚É‚æ‚Á‚Ä‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
@@ -2327,7 +2327,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_OLD_SPEED:
+	case DO_EFFECT_OLD_SPEED:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
@@ -2340,7 +2340,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_OLD_SLOW:
+	case DO_EFFECT_OLD_SLOW:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2361,7 +2361,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_OLD_SLEEP:
+	case DO_EFFECT_OLD_SLEEP:
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 #ifdef JP
@@ -2387,9 +2387,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_MANA:
-	case GF_SEEKER:
-	case GF_SUPER_RAY:
+	case DO_EFFECT_MANA:
+	case DO_EFFECT_SEEKER:
+	case DO_EFFECT_SUPER_RAY:
 		{
 #ifdef JP
 			if(blind) msg_print("–‚–@‚ÌƒI[ƒ‰‚ÅUŒ‚‚³‚ê‚½I");
@@ -2401,7 +2401,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_PSY_SPEAR:
+	case DO_EFFECT_PSY_SPEAR:
 		{
 #ifdef JP
 			if(blind) msg_print("ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½I");
@@ -2412,7 +2412,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_METEOR:
+	case DO_EFFECT_METEOR:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—Ž‚¿‚Ä‚«‚½I");
@@ -2431,7 +2431,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Ice -- cold plus stun plus cuts
-	case GF_ICE:
+	case DO_EFFECT_ICE:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2462,7 +2462,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		// Death Ray
-	case GF_DEATH_RAY:
+	case DO_EFFECT_DEATH_RAY:
 		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©”ñí‚É—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
@@ -2477,7 +2477,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		// Drain mana
-	case GF_DRAIN_MANA:
+	case DO_EFFECT_DRAIN_MANA:
 		{
 			if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
@@ -2561,7 +2561,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Mind blast */
-	case GF_MIND_BLAST:
+	case DO_EFFECT_MIND_BLAST:
 		{
 
 			/* TODO saving_throw
@@ -2604,7 +2604,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/* Mind blast
-		case GF_MIND_BLAST:
+		case DO_EFFECT_MIND_BLAST:
 		{
 		if(seen) obvious = TRUE;
 		// Message
@@ -2669,7 +2669,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Brain smash */
-	case GF_BRAIN_SMASH:
+	case DO_EFFECT_BRAIN_SMASH:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2727,7 +2727,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/* Brain smash
-		case GF_BRAIN_SMASH:
+		case DO_EFFECT_BRAIN_SMASH:
 		{
 		if(seen) obvious = TRUE;
 		// Message
@@ -2801,7 +2801,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		*/
 
 		/* cause 1 */
-	case GF_CAUSE_1:
+	case DO_EFFECT_CAUSE_1:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2818,7 +2818,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/* project_creature_aux2()
-		case GF_CAUSE_1:
+		case DO_EFFECT_CAUSE_1:
 		{
 		if(seen) obvious = TRUE;
 		// Message
@@ -2850,7 +2850,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* cause 2 */
-	case GF_CAUSE_2:
+	case DO_EFFECT_CAUSE_2:
 		{
 			/*
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2867,7 +2867,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/* project_creature_aux2()
-		case GF_CAUSE_2:
+		case DO_EFFECT_CAUSE_2:
 		{
 		if(seen) obvious = TRUE;
 		// Message/
@@ -2899,7 +2899,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* cause 3 */
-	case GF_CAUSE_3:
+	case DO_EFFECT_CAUSE_3:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2916,7 +2916,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/* project_creature_aux2()
-		case GF_CAUSE_3:
+		case DO_EFFECT_CAUSE_3:
 		{
 		if(seen) obvious = TRUE;
 		// Message
@@ -2948,7 +2948,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 		/* cause 4 */
-	case GF_CAUSE_4:
+	case DO_EFFECT_CAUSE_4:
 		{
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2969,7 +2969,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/*
-		case GF_CAUSE_4:
+		case DO_EFFECT_CAUSE_4:
 		{
 		if(seen) obvious = TRUE;
 		#ifdef JP
@@ -3001,7 +3001,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		*/
 
 		/* Hand of Doom */
-	case GF_HAND_DOOM:
+	case DO_EFFECT_HAND_DOOM:
 		{
 			/*
 			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -3029,7 +3029,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		/* project_creature_aux2()
-		case GF_HAND_DOOM:
+		case DO_EFFECT_HAND_DOOM:
 		{
 		if(seen) obvious = TRUE;
 
@@ -3069,7 +3069,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-	case GF_PSI:
+	case DO_EFFECT_PSI:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3203,7 +3203,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_PSI_DRAIN:
+	case DO_EFFECT_PSI_DRAIN:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3303,7 +3303,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_TELEKINESIS:
+	case DO_EFFECT_TELEKINESIS:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3336,7 +3336,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-	case GF_DOMINATION:
+	case DO_EFFECT_DOMINATION:
 		{
 			if(!is_hostile(target_ptr)) break;
 
@@ -3452,7 +3452,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Drain Life */
-	case GF_OLD_DRAIN:
+	case DO_EFFECT_OLD_DRAIN:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3477,7 +3477,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Polymorph creature (Use "dam" as "power") */
-	case GF_OLD_POLY:
+	case DO_EFFECT_OLD_POLY:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3512,7 +3512,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Clone creatures (Ignore "dam") */
-	case GF_OLD_CLONE:
+	case DO_EFFECT_OLD_CLONE:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3549,7 +3549,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Heal Creature (use "dam" as amount of healing) */
-	case GF_STAR_HEAL:
+	case DO_EFFECT_STAR_HEAL:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3578,7 +3578,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Sleep (Use "dam" as "power") */
-	case GF_STASIS_EVIL:
+	case DO_EFFECT_STASIS_EVIL:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3615,7 +3615,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Sleep (Use "dam" as "power") */
-	case GF_STASIS:
+	case DO_EFFECT_STASIS:
 		{
 			if(seen) obvious = TRUE;
 
@@ -3651,7 +3651,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Charm creature */
-	case GF_CHARM:
+	case DO_EFFECT_CHARM:
 		{
 			int vir;
 			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
@@ -3729,7 +3729,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Control undead */
-	case GF_CONTROL_UNDEAD:
+	case DO_EFFECT_CONTROL_UNDEAD:
 		{
 			int vir = 0;
 			if(seen) obvious = TRUE;
@@ -3786,7 +3786,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Control demon */
-	case GF_CONTROL_DEMON:
+	case DO_EFFECT_CONTROL_DEMON:
 		{
 			if(seen) obvious = TRUE;
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
@@ -3835,7 +3835,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Tame animal */
-	case GF_CONTROL_ANIMAL:
+	case DO_EFFECT_CONTROL_ANIMAL:
 		{
 			int vir;
 			// TODO: Add Karma feature.
@@ -3911,7 +3911,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Tame animal */
-	case GF_CONTROL_LIVING:
+	case DO_EFFECT_CONTROL_LIVING:
 		{
 			int vir;
 
@@ -3988,7 +3988,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Confusion (Use "dam" as "power") */
-	case GF_OLD_CONF:
+	case DO_EFFECT_OLD_CONF:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4022,7 +4022,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_STUN:
+	case DO_EFFECT_STUN:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4050,7 +4050,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Lite, but only hurts susceptible creatures */
-	case GF_LITE_WEAK:
+	case DO_EFFECT_LITE_WEAK:
 		{
 			if(!dam)
 			{
@@ -4094,7 +4094,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Stone to Mud */
-	case GF_KILL_WALL:
+	case DO_EFFECT_KILL_WALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4133,7 +4133,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Teleport undead (Use "dam" as "power") */
-	case GF_AWAY_UNDEAD:
+	case DO_EFFECT_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
 			if(has_trait(target_ptr, TRAIT_UNDEAD))
@@ -4178,7 +4178,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Teleport evil (Use "dam" as "power") */
-	case GF_AWAY_EVIL:
+	case DO_EFFECT_AWAY_EVIL:
 		{
 			/* Only affect evil */
 			if(is_enemy_of_good_creature(target_ptr))
@@ -4223,7 +4223,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Teleport creature (Use "dam" as "power") */
-	case GF_AWAY_ALL:
+	case DO_EFFECT_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
@@ -4259,7 +4259,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Turn undead (Use "dam" as "power") */
-	case GF_TURN_UNDEAD:
+	case DO_EFFECT_TURN_UNDEAD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4294,7 +4294,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Turn evil (Use "dam" as "power") */
-	case GF_TURN_EVIL:
+	case DO_EFFECT_TURN_EVIL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4336,7 +4336,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Turn creature (Use "dam" as "power") */
-	case GF_TURN_ALL:
+	case DO_EFFECT_TURN_ALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4365,7 +4365,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Dispel undead */
-	case GF_DISP_UNDEAD:
+	case DO_EFFECT_DISP_UNDEAD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4407,7 +4407,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* Dispel evil */
-	case GF_DISP_EVIL:
+	case DO_EFFECT_DISP_EVIL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4448,7 +4448,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Dispel good */
-	case GF_DISP_GOOD:
+	case DO_EFFECT_DISP_GOOD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4489,7 +4489,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Dispel living */
-	case GF_DISP_LIVING:
+	case DO_EFFECT_DISP_LIVING:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4528,7 +4528,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Dispel demons */
-	case GF_DISP_DEMON:
+	case DO_EFFECT_DISP_DEMON:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4569,7 +4569,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Dispel creature */
-	case GF_DISP_ALL:
+	case DO_EFFECT_DISP_ALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
@@ -4594,7 +4594,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Capture creature */
-	case GF_CAPTURE:
+	case DO_EFFECT_CAPTURE:
 		{
 			int nokori_hp;
 			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
@@ -4662,14 +4662,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* Attack (Use "dam" as attack type) */
-	case GF_ATTACK:
+	case DO_EFFECT_ATTACK:
 		{
 			/* Return this creature's death */
 			//TODO return melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		}
 
 		/* Sleep (Use "dam" as "power") */
-	case GF_ENGETSU:
+	case DO_EFFECT_ENGETSU:
 		{
 			int effect = 0;
 			bool done = TRUE;
@@ -4780,7 +4780,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		/* GENOCIDE */
-	case GF_GENOCIDE:
+	case DO_EFFECT_GENOCIDE:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4810,7 +4810,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_PHOTO:
+	case DO_EFFECT_PHOTO:
 		{
 #ifdef JP
 			if(is_player(caster_ptr)) msg_format("%s‚ðŽÊ^‚ÉŽB‚Á‚½B", target_name);
@@ -4850,7 +4850,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 		/* blood curse */
-	case GF_BLOOD_CURSE:
+	case DO_EFFECT_BLOOD_CURSE:
 		{
 			if(seen) obvious = TRUE;
 
@@ -4864,7 +4864,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 /* old
-	if((typ == GF_BLOOD_CURSE) && one_in_(4))
+	if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
 	{
 		int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 		int count = 0;
@@ -4894,7 +4894,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					msg_print("A portal opens to a plane of raw mana!");
 #endif
 
-					project(0, 0, 8, ty,tx, dam, GF_MANA, curse_flg, -1);
+					project(0, 0, 8, ty,tx, dam, DO_EFFECT_MANA, curse_flg, -1);
 					if(!one_in_(6)) break;
 				}
 			case 7: case 8:
@@ -4917,7 +4917,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_print("You feel a surge of energy!");
 #endif
 
-				project(0, 0, 7, ty, tx, 50, GF_DISINTEGRATE, curse_flg, -1);
+				project(0, 0, 7, ty, tx, 50, DO_EFFECT_DISINTEGRATE, curse_flg, -1);
 				if(!one_in_(6)) break;
 			case 12: case 13: case 14: case 15: case 16:
 				aggravate_creatures(caster_ptr);
@@ -4982,7 +4982,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	}
 */
 
-	case GF_CRUSADE:
+	case DO_EFFECT_CRUSADE:
 		{
 			bool success = FALSE;
 			if(seen) obvious = TRUE;
@@ -5046,7 +5046,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case GF_WOUNDS:
+	case DO_EFFECT_WOUNDS:
 		{
 			if(seen) obvious = TRUE;
 
@@ -5334,7 +5334,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
-		project(0, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(0, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(attacker_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(player_ptr, TRAIT_EYE_EYE, attacker_ptr->timed_trait[TRAIT_EYE_EYE] - 5, TRUE);
 	}
 
@@ -5664,12 +5664,12 @@ void breath_shape(u16b *path_g, floor_type *floor_ptr, int dist, int *pgrids, by
 
 					switch (typ)
 					{
-					case GF_LITE:
-					case GF_LITE_WEAK:
+					case DO_EFFECT_LITE:
+					case DO_EFFECT_LITE_WEAK:
 						/* Lights are stopped by opaque terrains */
 						if(!los(floor_ptr, by, bx, y, x)) continue;
 						break;
-					case GF_DISINTEGRATE:
+					case DO_EFFECT_DISINTEGRATE:
 						/* Disintegration are stopped only by perma-walls */
 						if(!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
 						break;
@@ -5954,11 +5954,11 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 
 	switch (typ)
 	{
-	case GF_LITE:
-	case GF_LITE_WEAK:
+	case DO_EFFECT_LITE:
+	case DO_EFFECT_LITE_WEAK:
 		if(breath || (flg & PROJECT_BEAM)) flg |= (PROJECT_LOS);
 		break;
-	case GF_DISINTEGRATE:
+	case DO_EFFECT_DISINTEGRATE:
 		flg |= (PROJECT_GRID);
 		if(breath || (flg & PROJECT_BEAM)) flg |= (PROJECT_DISI);
 		break;
@@ -5971,7 +5971,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 	if(caster_ptr) handle_stuff();
 
 	// Giga-Hack SEEKER & SUPER_RAY
-	if(typ == GF_SEEKER)
+	if(typ == DO_EFFECT_SEEKER)
 	{
 		int j;
 		int last_i = 0;
@@ -6047,7 +6047,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_object(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
+			if(project_object(caster_ptr,0,y,x,dam,DO_EFFECT_SEEKER))notice=TRUE;
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
 				// The target of creaturespell becomes tha mirror(broken)
@@ -6062,7 +6062,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell)) notice = TRUE;
+					if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, monspell)) notice = TRUE;
 					if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 						if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 							creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
@@ -6077,7 +6077,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 							}
 						}
 					}
-					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
+					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SEEKER);
 				}
 				last_i = i;
 			}
@@ -6087,7 +6087,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SEEKER, flg, TRUE, monspell))
+			if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SEEKER, flg, TRUE, monspell))
 				notice=TRUE;
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
@@ -6103,11 +6103,11 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					}
 				}
 			}
-			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SEEKER);
+			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SEEKER);
 		}
 		return notice;
 	}
-	else if(typ == GF_SUPER_RAY){
+	else if(typ == DO_EFFECT_SUPER_RAY){
 		int j;
 		int second_step = 0;
 
@@ -6184,7 +6184,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_object(caster_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
+			if(project_object(caster_ptr,0,y,x,dam,DO_EFFECT_SUPER_RAY) )notice=TRUE;
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
@@ -6201,7 +6201,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 				{
 					y = GRID_Y(path_g[j]);
 					x = GRID_X(path_g[j]);
-					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
+					(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SUPER_RAY);
 				}
 				path_n = i;
 				second_step =i+1;
@@ -6220,7 +6220,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			int x,y;
 			y = GRID_Y(path_g[i]);
 			x = GRID_X(path_g[i]);
-			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_SUPER_RAY, flg, TRUE, monspell);
+			(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_SUPER_RAY, flg, TRUE, monspell);
 			if(is_player(caster_ptr) && (project_m_n==1) && !jump ){
 				if(floor_ptr->cave[project_m_y][project_m_x].creature_idx >0 ){
 					creature_type *m_ptr = &creature_list[floor_ptr->cave[project_m_y][project_m_x].creature_idx];
@@ -6235,7 +6235,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					}
 				}
 			}
-			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,GF_SUPER_RAY);
+			(void)project_feature(caster_ptr, caster_ptr,0,y,x,dam,DO_EFFECT_SUPER_RAY);
 		}
 		return notice;
 	}
@@ -6384,12 +6384,12 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 
 						switch (typ)
 						{
-						case GF_LITE:
-						case GF_LITE_WEAK:
+						case DO_EFFECT_LITE:
+						case DO_EFFECT_LITE_WEAK:
 							/* Lights are stopped by opaque terrains */
 							if(!los(floor_ptr, by, bx, y, x)) continue;
 							break;
-						case GF_DISINTEGRATE:
+						case DO_EFFECT_DISINTEGRATE:
 							/* Disintegration are stopped only by perma-walls */
 							if(!in_disintegration_range(floor_ptr, by, bx, y, x)) continue;
 							break;
@@ -6955,7 +6955,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 					/* Visual effects */
 					if(!(has_trait(caster_ptr, TRAIT_BLIND))
 						&& panel_contains(y,x)){
-							p = bolt_pict(y,x,y,x, GF_MANA );
+							p = bolt_pict(y,x,y,x, DO_EFFECT_MANA );
 							print_rel(caster_ptr, PICT_C(p), PICT_A(p),y,x);
 							move_cursor_relative(y, x);
 							/*if(fresh_before)*/ Term_fresh();
@@ -6975,7 +6975,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_feature(caster_ptr, NULL,0,y,x,dam,GF_MANA); 
+					(void)project_feature(caster_ptr, NULL,0,y,x,dam,DO_EFFECT_MANA); 
 				}
 			}
 		}
@@ -6990,7 +6990,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_object(caster_ptr,0,y,x,dam,GF_MANA); 
+					(void)project_object(caster_ptr,0,y,x,dam,DO_EFFECT_MANA); 
 				}
 			}
 		}
@@ -7005,7 +7005,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_MANA,
+					(void)project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_MANA,
 						(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP),TRUE,0);
 				}
 			}
@@ -7034,7 +7034,7 @@ void seal_of_mirror(creature_type *caster_ptr, int dam)
 		{
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
-				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, GF_GENOCIDE,
+				if(project_creature(caster_ptr, "Dammy", 0, y, x, dam, DO_EFFECT_GENOCIDE,
 					(PROJECT_GRID|PROJECT_ITEM|PROJECT_KILL|PROJECT_JUMP), TRUE, 0))
 				{
 					if( !floor_ptr->cave[y][x].creature_idx )

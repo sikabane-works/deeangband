@@ -2101,7 +2101,7 @@ static void process_nonplayer(int m_idx)
 #else
 						msg_print("The rune explodes!");
 #endif
-						project(player_ptr, 0, 2, ny, nx, 2 * (player_ptr->lev + diceroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+						project(player_ptr, 0, 2, ny, nx, 2 * (player_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 					}
 				}
 				else

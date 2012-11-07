@@ -4752,7 +4752,7 @@ void cave_alter_feat(floor_type *floor_ptr, int y, int x, int action)
 
 		if(have_flag(old_f_ptr->flags, FF_GLASS) && floor_ptr->generated)
 		{
-			project(NULL, 0, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, GF_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+			project(NULL, 0, 1, y, x, MIN(floor_ptr->floor_level, 100) / 4, DO_EFFECT_SHARDS, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_HIDE | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 		}
 	}
 }

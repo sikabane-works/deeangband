@@ -4913,37 +4913,37 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 	/* Vulnerability, resistance and immunity */
 	switch (typ)
 	{
-	case GF_ELEC:
-		dam = calc_damage(target_ptr, dam, GF_ELEC, FALSE);
+	case DO_EFFECT_ELEC:
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_ELEC, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
-	case GF_POIS:
-		dam = calc_damage(target_ptr, dam, GF_POIS, FALSE);
+	case DO_EFFECT_POIS:
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_POIS, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
-	case GF_ACID:
-		dam = calc_damage(target_ptr, dam, GF_ACID, FALSE);
+	case DO_EFFECT_ACID:
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_ACID, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
-	case GF_COLD:
-	case GF_ICE:
-		dam = calc_damage(target_ptr, dam, GF_COLD, FALSE);
+	case DO_EFFECT_COLD:
+	case DO_EFFECT_ICE:
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_COLD, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
-	case GF_FIRE:
-		dam = calc_damage(target_ptr, dam, GF_FIRE, FALSE);
+	case DO_EFFECT_FIRE:
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_FIRE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
-	case GF_PSY_SPEAR:
+	case DO_EFFECT_PSY_SPEAR:
 		ignore_wraith_form = TRUE;
 		break;
 
-	case GF_ARROW:
+	case DO_EFFECT_ARROW:
 		/*
 		if(!has_trait(target_ptr, TRAIT_BLIND) &&
 		    ((target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU)) ||
@@ -4955,7 +4955,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		*/
 		break;
 
-	case GF_LITE:
+	case DO_EFFECT_LITE:
 		if(target_ptr->resist_lite) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		//TODO if(IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE)) dam *= 2;
 		if(IS_RACE(target_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
@@ -4967,7 +4967,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) dam *= 2;
 		break;
 
-	case GF_DARK:
+	case DO_EFFECT_DARK:
 		//TODO if(IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE) || has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		/*
 		{
@@ -4978,23 +4978,23 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		if(target_ptr->resist_dark) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		break;
 
-	case GF_SHARDS:
+	case DO_EFFECT_SHARDS:
 		if(target_ptr->resist_shard) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
-	case GF_SOUND:
+	case DO_EFFECT_SOUND:
 		if(target_ptr->resist_sound) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
 		break;
 
-	case GF_CONFUSION:
+	case DO_EFFECT_CONFUSION:
 		if(has_trait(target_ptr, TRAIT_NO_CONF)) dam = dam * 5 / 8; /* Worst case of 5 / (d4 + 7) */
 		break;
 
-	case GF_CHAOS:
+	case DO_EFFECT_CHAOS:
 		if(target_ptr->resist_chaos) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
-	case GF_NETHER:
+	case DO_EFFECT_NETHER:
 		//TODO
 		/*
 		if(LICH)
@@ -5006,32 +5006,32 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		if(target_ptr->resist_neth) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
-	case GF_DISENCHANT:
+	case DO_EFFECT_DISENCHANT:
 		if(target_ptr->resist_disen) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
-	case GF_NEXUS:
+	case DO_EFFECT_NEXUS:
 		if(target_ptr->resist_nexus) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
 		break;
 
-	case GF_TIME:
+	case DO_EFFECT_TIME:
 		if(target_ptr->resist_time) dam /= 2; /* Worst case of 4 / (d4 + 7) */
 		break;
 
-	case GF_GRAVITY:
+	case DO_EFFECT_GRAVITY:
 		if(has_trait(target_ptr, TRAIT_CAN_FLY)) dam = (dam * 2) / 3;
 		break;
 
-	case GF_ROCKET:
+	case DO_EFFECT_ROCKET:
 		if(target_ptr->resist_shard) dam /= 2;
 		break;
 
-	case GF_NUKE:
+	case DO_EFFECT_NUKE:
 		if(target_ptr->resist_pois) dam = (2 * dam + 2) / 5;
 		if(IS_OPPOSE_POIS(target_ptr)) dam = (2 * dam + 2) / 5;
 		break;
 
-	case GF_DEATH_RAY:
+	case DO_EFFECT_DEATH_RAY:
 		if(has_trait(caster_ptr, TRAIT_NONLIVING) && has_trait(caster_ptr, TRAIT_UNDEAD))
 		{
 			dam = 0;
@@ -5040,17 +5040,17 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		}
 		break;
 
-	case GF_HOLY_FIRE:
+	case DO_EFFECT_HOLY_FIRE:
 		if(target_ptr->good_rank > 10) dam /= 2;
 		else if(target_ptr->evil_rank > 10) dam *= 2;
 		break;
 
-	case GF_HELL_FIRE:
+	case DO_EFFECT_HELL_FIRE:
 		if(target_ptr->good_rank > 10) dam *= 2;
 		break;
 
-	case GF_MIND_BLAST:
-	case GF_BRAIN_SMASH:
+	case DO_EFFECT_MIND_BLAST:
+	case DO_EFFECT_BRAIN_SMASH:
 		/*if(100 + rlev / 2 <= MAX(5, target_ptr->skill_rob))
 		{
 			dam = 0;
@@ -5059,10 +5059,10 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		*/
 		break;
 
-	case GF_CAUSE_1:
-	case GF_CAUSE_2:
-	case GF_CAUSE_3:
-	case GF_HAND_DOOM:
+	case DO_EFFECT_CAUSE_1:
+	case DO_EFFECT_CAUSE_2:
+	case DO_EFFECT_CAUSE_3:
+	case DO_EFFECT_HAND_DOOM:
 		/* TODO saving_throw 
 		if(100 + rlev / 2 <= target_ptr->skill_rob)
 		{
@@ -5072,7 +5072,7 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		*/
 		break;
 
-	case GF_CAUSE_4:
+	case DO_EFFECT_CAUSE_4:
 		/* TODO saving_throw
 		if((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != SPECIES_KENSHIROU))
 		{

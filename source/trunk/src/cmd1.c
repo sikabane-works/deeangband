@@ -1404,7 +1404,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Make some new traps */
-			project(NULL, 0, 1, y, x, 0, GF_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
+			project(NULL, 0, 1, y, x, 0, DO_EFFECT_MAKE_TRAP, PROJECT_HIDE | PROJECT_JUMP | PROJECT_GRID, -1);
 
 			break;
 		}
@@ -1427,9 +1427,9 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #else
 			msg_print("Suddenly, surrounding walls are opened!");
 #endif
-			(void)project(NULL, 0, 3, y, x, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			(void)project(NULL, 0, 3, y, x - 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
-			(void)project(NULL, 0, 3, y, x + 4, 0, GF_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 0, 3, y, x, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 0, 3, y, x - 4, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
+			(void)project(NULL, 0, 3, y, x + 4, 0, DO_EFFECT_DISINTEGRATE, PROJECT_GRID | PROJECT_HIDE, -1);
 			aggravate_creatures(creature_ptr);
 
 			break;
@@ -1494,7 +1494,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Water fills room */
-			cast_ball_hide(creature_ptr, GF_WATER_FLOW, 0, 1, 10);
+			cast_ball_hide(creature_ptr, DO_EFFECT_WATER_FLOW, 0, 1, 10);
 
 			/* Summon Piranhas */
 			num = 1 + floor_ptr->floor_level/20;
@@ -1514,7 +1514,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Water fills room */
-			cast_ball_hide(creature_ptr, GF_ACID_FLOW, 0, 1, 10);
+			cast_ball_hide(creature_ptr, DO_EFFECT_ACID_FLOW, 0, 1, 10);
 			break;
 
 		}
@@ -1528,7 +1528,7 @@ msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #endif
 
 			/* Water fills room */
-			cast_ball_hide(creature_ptr, GF_POISON_FLOW, 0, 1, 10);
+			cast_ball_hide(creature_ptr, DO_EFFECT_POISON_FLOW, 0, 1, 10);
 			break;
 		}
 
@@ -1818,7 +1818,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		if(MUSIC_SINGING(creature_ptr, MUSIC_WALL))
 		{
-			(void)project(creature_ptr, 0, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), GF_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
+			(void)project(creature_ptr, 0, 0, creature_ptr->fy, creature_ptr->fx, (60 + creature_ptr->lev), DO_EFFECT_DISINTEGRATE, PROJECT_KILL | PROJECT_ITEM, -1);
 			if(!creature_bold(creature_ptr, ny, nx) || gameover || subject_change_floor) return FALSE;
 		}
 
@@ -2504,7 +2504,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			cave_alter_feat(floor_ptr, y, x, FF_HURT_DISI);
 
-			// Update some things -- similar to GF_KILL_WALL
+			// Update some things -- similar to DO_EFFECT_KILL_WALL
 			creature_ptr->creature_update |= (PU_FLOW);
 		}
 

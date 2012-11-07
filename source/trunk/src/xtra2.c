@@ -855,7 +855,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 		/* One more ultra-hack: An Unmaker goes out with a big bang! */
 		{
 			/*TODO
-			(void)project(m_idx, 6, y, x, 100, GF_CHAOS, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+			(void)project(m_idx, 6, y, x, 100, DO_EFFECT_CHAOS, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			*/
 		}
 		break;
@@ -920,7 +920,7 @@ void creature_dead_effect(creature_type *slayer_ptr, creature_type *dead_ptr, bo
 	case SPECIES_ROLENTO:
 		{
 			/*TODO
-			(void)project(m_idx, 3, y, x, diceroll(20, 10), GF_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
+			(void)project(m_idx, 3, y, x, diceroll(20, 10), DO_EFFECT_FIRE, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 			*/
 		}
 		break;
@@ -3785,7 +3785,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_print("'Suffer, pathetic fool!'");
 			reward = "generating disintegration ball";
 #endif
-			cast_ball(creature_ptr, GF_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
+			cast_ball(creature_ptr, DO_EFFECT_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			break;
 

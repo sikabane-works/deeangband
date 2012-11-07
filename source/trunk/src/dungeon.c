@@ -1662,7 +1662,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	if(have_flag(f_ptr->flags, FF_CHAOS_TAINTED))
 	{
-		int damage = calc_damage(creature_ptr, randint0(50) + 20, GF_CHAOS, FALSE);;		
+		int damage = calc_damage(creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE);;		
 #ifdef JP
 		msg_print("混沌に身を蝕まれた！");
 		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
@@ -1688,7 +1688,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(damage)
 		{
 
-			damage = calc_damage(creature_ptr, damage, GF_FIRE, FALSE);
+			damage = calc_damage(creature_ptr, damage, DO_EFFECT_FIRE, FALSE);
 
 			if(has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = damage / 5;
 
@@ -1735,7 +1735,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(damage)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-			damage = calc_damage(creature_ptr, damage, GF_POIS, FALSE);
+			damage = calc_damage(creature_ptr, damage, DO_EFFECT_POIS, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1766,7 +1766,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(damage)
 		{
 			cptr name = feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name;
-			damage = calc_damage(creature_ptr, damage, GF_ACID, FALSE);
+			damage = calc_damage(creature_ptr, damage, DO_EFFECT_ACID, FALSE);
 
 			damage = damage / 100 + (randint0(100) < (damage % 100));
 
@@ -1807,7 +1807,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_AURA_FIRE) && !has_trait(creature_ptr, TRAIT_IM_FIRE))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, GF_FIRE, FALSE);
+			damage = calc_damage(creature_ptr, damage, DO_EFFECT_FIRE, FALSE);
 #ifdef JP
 			msg_print("熱い！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
@@ -1819,7 +1819,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, GF_ELEC, FALSE);
+			damage = calc_damage(creature_ptr, damage, DO_EFFECT_ELEC, FALSE);
 #ifdef JP
 			msg_print("痛い！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
@@ -1831,7 +1831,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
 		{
 			damage = species_info[creature_list[creature_ptr->riding].species_idx].level / 2;
-			damage = calc_damage(creature_ptr, damage, GF_COLD, FALSE);
+			damage = calc_damage(creature_ptr, damage, DO_EFFECT_COLD, FALSE);
 #ifdef JP
 			msg_print("冷たい！");
 			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
@@ -2174,7 +2174,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #endif
 
 		msg_print(NULL);
-		cast_ball(creature_ptr, GF_POIS, 0, creature_ptr->lev, 3);
+		cast_ball(creature_ptr, DO_EFFECT_POIS, 0, creature_ptr->lev, 3);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_PROD_MANA) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(9000))
@@ -2190,7 +2190,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		flush();
 		msg_print(NULL);
 		(void)get_hack_dir(creature_ptr, &dire);
-		cast_ball(creature_ptr, GF_MANA, dire, creature_ptr->lev * 2, 3);
+		cast_ball(creature_ptr, DO_EFFECT_MANA, dire, creature_ptr->lev * 2, 3);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_ATT_DEMON) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && (randint1(6666) == 666))
@@ -2339,7 +2339,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("You feel the world warping around you!");
 #endif
 		msg_print(NULL);
-		cast_ball(creature_ptr, GF_CHAOS, 0, creature_ptr->lev, 8);
+		cast_ball(creature_ptr, DO_EFFECT_CHAOS, 0, creature_ptr->lev, 8);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_NORMALITY) && one_in_(5000))

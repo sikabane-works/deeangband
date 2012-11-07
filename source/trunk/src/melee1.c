@@ -38,7 +38,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			msg_print("You are suddenly very hot!");
 #endif
 
-			aura_damage = calc_damage(attacker_ptr, aura_damage, GF_FIRE, FALSE);
+			aura_damage = calc_damage(attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE);
 			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
@@ -905,7 +905,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		switch (attack)
 		{
 			case TRAIT_SCOR_TAIL:
-				project(0, 0, 0, target_ptr->fy, target_ptr->fx, k, GF_POIS, PROJECT_KILL, -1);
+				project(0, 0, 0, target_ptr->fy, target_ptr->fx, k, DO_EFFECT_POIS, PROJECT_KILL, -1);
 				break;
 			case TRAIT_HORNS:
 				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
@@ -2339,7 +2339,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					int tmp_damage = calc_damage(target_ptr, damage, GF_MELEE, FALSE);
+					int tmp_damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE);
 #ifdef JP
 					msg_print("クリティカルヒット！");
 #else
@@ -2354,7 +2354,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_HURT:
 			{
 				obvious = TRUE;	// Obvious
-				damage = calc_damage(target_ptr, damage, GF_MELEE, FALSE);
+				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE);
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				break;
 			}
@@ -3059,7 +3059,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_SHATTER:
 			{
 				obvious = TRUE;
-				damage = calc_damage(target_ptr, damage, GF_MELEE, FALSE);
+				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE);
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				//TODO if(damage > 23 || explode) earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 				break;
@@ -3584,10 +3584,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					int j;
 					int flg = PROJECT_STOP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL;
 					int typ[4][2] = {
-					{ INVEN_SLOT_HEAD, GF_OLD_CONF },
-					{ INVEN_SLOT_HAND, GF_OLD_SLEEP },
-					{ INVEN_SLOT_ARM, GF_TURN_ALL },
-					{ INVEN_SLOT_FEET, GF_OLD_SLOW }
+					{ INVEN_SLOT_HEAD, DO_EFFECT_OLD_CONF },
+					{ INVEN_SLOT_HAND, DO_EFFECT_OLD_SLEEP },
+					{ INVEN_SLOT_ARM, DO_EFFECT_TURN_ALL },
+					{ INVEN_SLOT_FEET, DO_EFFECT_OLD_SLOW }
 					};
 
 					// Some cursed armours gives an extra effect
@@ -3705,7 +3705,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		msg_format("The attack of %s has wounded %s!", attacker_name, attacker_name_self);
 #endif
-		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, GF_MISSILE, PROJECT_KILL, -1);
+		project(attacker_ptr, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(target_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 	}
 

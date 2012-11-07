@@ -3884,7 +3884,7 @@ static int place_creature_one(creature_type *summoner_ptr, floor_type *floor_ptr
 //				msg_print("The rune explodes!");
 #endif
 
-//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + diceroll(7, 7)), GF_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
+//TODO				project(watcher_ptr, 2, y, x, 2 * (watcher_ptr->lev + diceroll(7, 7)), DO_EFFECT_MANA, (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP | PROJECT_NO_HANGEKI), -1);
 			}
 		}
 		else

@@ -1848,7 +1848,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_FIRE:
 		{
-			cast_ball(creature_ptr, GF_FIRE, 0, 666, 4);
+			cast_ball(creature_ptr, DO_EFFECT_FIRE, 0, 666, 4);
 			/* Note: "Double" damage since it is centered on the player ... */
 			if(!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || has_trait(creature_ptr, TRAIT_IM_FIRE)))
 #ifdef JP
@@ -1863,7 +1863,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_ICE:
 		{
-			cast_ball(creature_ptr, GF_ICE, 0, 777, 4);
+			cast_ball(creature_ptr, DO_EFFECT_ICE, 0, 777, 4);
 			if(!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || has_trait(creature_ptr, TRAIT_IM_COLD)))
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
@@ -1877,7 +1877,7 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 
 		case SV_SCROLL_CHAOS:
 		{
-			cast_ball(creature_ptr, GF_CHAOS, 0, 1000, 4);
+			cast_ball(creature_ptr, DO_EFFECT_CHAOS, 0, 1000, 4);
 			if(!creature_ptr->resist_chaos)
 #ifdef JP
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
@@ -2209,7 +2209,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 					if(!creature_bold(creature_ptr, y, x)) break;
 				}
 
-				project(creature_ptr, 0, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), GF_LITE_WEAK,
+				project(creature_ptr, 0, 0, y, x, diceroll(6 + creature_ptr->lev / 8, 10), DO_EFFECT_LITE_WEAK,
 						  (PROJECT_BEAM | PROJECT_THRU | PROJECT_GRID | PROJECT_KILL), -1);
 			}
 			ident = TRUE;
@@ -2404,7 +2404,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			msg_print("Mighty magics rend your enemies!");
 #endif
 			project(creature_ptr, 0, 5, creature_ptr->fy, creature_ptr->fx,
-				(randint1(200) + 300) * 2, GF_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
+				(randint1(200) + 300) * 2, DO_EFFECT_MANA, PROJECT_KILL | PROJECT_ITEM | PROJECT_GRID, -1);
 			if((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
@@ -2724,21 +2724,21 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_STINKING_CLOUD:
 		{
-			cast_ball(creature_ptr, GF_POIS, dir, 12 + creature_ptr->lev / 4, 2);
+			cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 12 + creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_MAGIC_MISSILE:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_MISSILE, dir, diceroll(2 + creature_ptr->lev / 10, 6));
+			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_MISSILE, dir, diceroll(2 + creature_ptr->lev / 10, 6));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
+			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
@@ -2752,42 +2752,42 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_FIRE_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
+			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 20, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
+			cast_bolt_or_beam(creature_ptr, 20, DO_EFFECT_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ACID_BALL:
 		{
-			cast_ball(creature_ptr, GF_ACID, dir, 60 + 3 * creature_ptr->lev / 4, 2);
+			cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 60 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_ELEC_BALL:
 		{
-			cast_ball(creature_ptr, GF_ELEC, dir, 40 + 3 * creature_ptr->lev / 4, 2);
+			cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 40 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_FIRE_BALL:
 		{
-			cast_ball(creature_ptr, GF_FIRE, dir, 70 + 3 * creature_ptr->lev / 4, 2);
+			cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 70 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_COLD_BALL:
 		{
-			cast_ball(creature_ptr, GF_COLD, dir, 50 + 3 * creature_ptr->lev / 4, 2);
+			cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 50 + 3 * creature_ptr->lev / 4, 2);
 			ident = TRUE;
 			break;
 		}
@@ -2805,14 +2805,14 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_DRAGON_FIRE:
 		{
-			cast_ball(creature_ptr, GF_FIRE, dir, 200, -3);
+			cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -3);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_DRAGON_COLD:
 		{
-			cast_ball(creature_ptr, GF_COLD, dir, 180, -3);
+			cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 180, -3);
 			ident = TRUE;
 			break;
 		}
@@ -2823,31 +2823,31 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 			{
 				case 1:
 				{
-					cast_ball(creature_ptr, GF_ACID, dir, 240, -3);
+					cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 240, -3);
 					break;
 				}
 
 				case 2:
 				{
-					cast_ball(creature_ptr, GF_ELEC, dir, 210, -3);
+					cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 210, -3);
 					break;
 				}
 
 				case 3:
 				{
-					cast_ball(creature_ptr, GF_FIRE, dir, 240, -3);
+					cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 240, -3);
 					break;
 				}
 
 				case 4:
 				{
-					cast_ball(creature_ptr, GF_COLD, dir, 210, -3);
+					cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 210, -3);
 					break;
 				}
 
 				default:
 				{
-					cast_ball(creature_ptr, GF_POIS, dir, 180, -3);
+					cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 180, -3);
 					break;
 				}
 			}
@@ -2858,7 +2858,7 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 
 		case SV_WAND_DISINTEGRATE:
 		{
-			cast_ball(creature_ptr, GF_DISINTEGRATE, dir, 200 + randint1(creature_ptr->lev * 2), 2);
+			cast_ball(creature_ptr, DO_EFFECT_DISINTEGRATE, dir, 200 + randint1(creature_ptr->lev * 2), 2);
 			ident = TRUE;
 			break;
 		}
@@ -2870,21 +2870,21 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
 #else
 			msg_print("You launch a rocket!");
 #endif
-			fire_rocket(creature_ptr, GF_ROCKET, dir, 250 + creature_ptr->lev * 3, 2);
+			fire_rocket(creature_ptr, DO_EFFECT_ROCKET, dir, 250 + creature_ptr->lev * 3, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_STRIKING:
 		{
-			cast_bolt(creature_ptr, GF_METEOR, diceroll(15 + creature_ptr->lev / 3, 13), 0, -1);
+			cast_bolt(creature_ptr, DO_EFFECT_METEOR, diceroll(15 + creature_ptr->lev / 3, 13), 0, -1);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_WAND_GENOCIDE:
 		{
-			cast_ball_hide(creature_ptr, GF_GENOCIDE, dir, magic ? creature_ptr->lev + 50 : 250, 0);
+			cast_ball_hide(creature_ptr, DO_EFFECT_GENOCIDE, dir, magic ? creature_ptr->lev + 50 : 250, 0);
 			ident = TRUE;
 			break;
 		}
@@ -3248,56 +3248,56 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_ACID_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
+			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_ACID, dir, diceroll(6 + creature_ptr->lev / 7, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_ELEC, dir, diceroll(4 + creature_ptr->lev / 9, 8));
+			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_ELEC, dir, diceroll(4 + creature_ptr->lev / 9, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
+			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_FIRE, dir, diceroll(7 + creature_ptr->lev / 6, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BOLT:
 		{
-			cast_bolt_or_beam(creature_ptr, 10, GF_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
+			cast_bolt_or_beam(creature_ptr, 10, DO_EFFECT_COLD, dir, diceroll(5 + creature_ptr->lev / 8, 8));
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ACID_BALL:
 		{
-			cast_ball(creature_ptr, GF_ACID, dir, 60 + creature_ptr->lev, 2);
+			cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 60 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_ELEC_BALL:
 		{
-			cast_ball(creature_ptr, GF_ELEC, dir, 40 + creature_ptr->lev, 2);
+			cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 40 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_FIRE_BALL:
 		{
-			cast_ball(creature_ptr, GF_FIRE, dir, 70 + creature_ptr->lev, 2);
+			cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 70 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
 
 		case SV_ROD_COLD_BALL:
 		{
-			cast_ball(creature_ptr, GF_COLD, dir, 50 + creature_ptr->lev, 2);
+			cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 50 + creature_ptr->lev, 2);
 			ident = TRUE;
 			break;
 		}
@@ -3563,7 +3563,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		case 5:
 		case 6:
 		{
-			cast_ball(creature_ptr, GF_MANA, dir, 600, 3);	// Mana Ball
+			cast_ball(creature_ptr, DO_EFFECT_MANA, dir, 600, 3);	// Mana Ball
 			break;
 		}
 
@@ -3572,7 +3572,7 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 		case 9:
 		case 10:
 		{
-			cast_bolt(creature_ptr, GF_MANA, 500, 0, FALSE);		// Mana Bolt
+			cast_bolt(creature_ptr, DO_EFFECT_MANA, 500, 0, FALSE);		// Mana Bolt
 			break;
 		}
 	}
@@ -3910,10 +3910,10 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					      ((chance == 4) ? "poison gas" : "fire")))));
 #endif
 
-				cast_ball(creature_ptr, ((chance == 1) ? GF_ELEC :
-					   ((chance == 2) ? GF_COLD :
-					    ((chance == 3) ? GF_ACID :
-					     ((chance == 4) ? GF_POIS : GF_FIRE)))),
+				cast_ball(creature_ptr, ((chance == 1) ? DO_EFFECT_ELEC :
+					   ((chance == 2) ? DO_EFFECT_COLD :
+					    ((chance == 3) ? DO_EFFECT_ACID :
+					     ((chance == 4) ? DO_EFFECT_POIS : DO_EFFECT_FIRE)))),
 					  dir, 250, -2);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
@@ -3930,7 +3930,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					   ((chance == 1 ? "chaos" : "disenchantment")));
 #endif
 
-				cast_ball(creature_ptr, (chance == 1 ? GF_CHAOS : GF_DISENCHANT),
+				cast_ball(creature_ptr, (chance == 1 ? DO_EFFECT_CHAOS : DO_EFFECT_DISENCHANT),
 					  dir, 220, -2);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
@@ -3947,7 +3947,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					   ((chance == 1 ? "sound" : "shards")));
 #endif
 
-				cast_ball(creature_ptr, (chance == 1 ? GF_SOUND : GF_SHARDS),
+				cast_ball(creature_ptr, (chance == 1 ? DO_EFFECT_SOUND : DO_EFFECT_SHARDS),
 					  dir, 230, -2);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
@@ -3968,9 +3968,9 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					     ((chance == 3) ? "sound" : "shards"))));
 #endif
 
-				cast_ball(creature_ptr, ((chance == 1) ? GF_CHAOS :
-					   ((chance == 2) ? GF_DISENCHANT :
-					    ((chance == 3) ? GF_SOUND : GF_SHARDS))),
+				cast_ball(creature_ptr, ((chance == 1) ? DO_EFFECT_CHAOS :
+					   ((chance == 2) ? DO_EFFECT_DISENCHANT :
+					    ((chance == 3) ? DO_EFFECT_SOUND : DO_EFFECT_SHARDS))),
 					  dir, 250, -2);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
@@ -3987,7 +3987,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 					   ((chance == 0 ? "light" : "darkness")));
 #endif
 
-				cast_ball(creature_ptr, (chance == 0 ? GF_LITE : GF_DARK), dir, 200, -2);
+				cast_ball(creature_ptr, (chance == 0 ? DO_EFFECT_LITE : DO_EFFECT_DARK), dir, 200, -2);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -4000,7 +4000,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 				msg_print("You breathe the elements.");
 #endif
 
-				cast_ball(creature_ptr, GF_MISSILE, dir, 300, -3);
+				cast_ball(creature_ptr, DO_EFFECT_MISSILE, dir, 300, -3);
 				object_ptr->timeout = randint0(200) + 200;
 				break;
 			}
@@ -4024,7 +4024,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			case EGO_RING_DRAGON_F:
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				cast_ball(creature_ptr, GF_FIRE, dir, 200, -2);
+				cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_FLAMES)
 				{
 					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
@@ -4035,7 +4035,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 
 			case EGO_RING_DRAGON_C:
 				if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-				cast_ball(creature_ptr, GF_COLD, dir, 200, -2);
+				cast_ball(creature_ptr, DO_EFFECT_COLD, dir, 200, -2);
 				if(object_ptr->sval == SV_RING_ICE)
 				{
 					(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
@@ -4106,7 +4106,7 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			}
 			target_pet = old_target_pet;
 
-			if(cast_ball(creature_ptr, GF_CAPTURE, dir, 0, 0))
+			if(cast_ball(creature_ptr, DO_EFFECT_CAPTURE, dir, 0, 0))
 			{
 				//TODO: Capture creature status.
 
