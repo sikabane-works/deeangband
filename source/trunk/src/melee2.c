@@ -1189,12 +1189,6 @@ static int check_hit2(int power, int level, int ac, int stun)
 	return (FALSE);
 }
 
-
-#define BLOW_EFFECT_TYPE_NONE  0
-#define BLOW_EFFECT_TYPE_FEAR  1
-#define BLOW_EFFECT_TYPE_SLEEP 2
-#define BLOW_EFFECT_TYPE_HEAL  3
-
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
 {
 	return !have_flag(f_ptr->flags, FF_GLASS) ||

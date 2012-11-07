@@ -5249,12 +5249,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	int atk_lev = attacker_ptr->lev * 2;
 
-
 	creature_desc(atk_name, attacker_ptr, 0);
-
-
-	/* Player is not here */
-	if(!creature_bold(player_ptr, y, x)) return (FALSE);
 
 	if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
