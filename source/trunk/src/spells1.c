@@ -1715,7 +1715,6 @@ static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, i
 /* "flg" was added. */
 static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg)
 {
-	int tmp;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -1765,8 +1764,6 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	// Never affect projector
 	if(target_ptr == caster_ptr) return (FALSE);
 
-	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return (FALSE);
-	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return FALSE;
 
 	// Don't affect already death creatures
 	// Prevents problems with chain reactions of exploding creatures
@@ -1784,41 +1781,11 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 #endif
 
 
-	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
-
-	// Analyze the damage type
-	switch (typ)
-	{
-		/* Default */
-	default:
-		{
-			/* Irrelevant */
-			skipped = TRUE;
-
-			/* No damage */
-			dam = 0;
-
-			break;
-		}
-	}
-
-
-
-	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
-
 	/* "Unique" and "quest" creatures can only be "killed" by the player. */
 	if((has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL) && !floor_ptr->gamble_arena_mode)
 	{
 		if(caster_ptr != caster_ptr && (dam > target_ptr->chp)) dam = target_ptr->chp;
 	}
-
-	/* Modify the damage */
-	tmp = dam;
-#ifdef JP
-	if((tmp > 0) && (dam == 0)) note = "はダメージを受けていない。";
-#else
-	if((tmp > 0) && (dam == 0)) note = " is unharmed.";
-#endif
 
 	/* Check for death */
 	if(dam > target_ptr->chp)
@@ -1828,152 +1795,7 @@ static bool project_creature_aux2(creature_type *caster_ptr, int r, int y, int x
 	}
 	else
 	{
-		/* Sound and Impact resisters never stun */
-		if(do_stun && !(has_trait(target_ptr, TRAIT_RES_SOUN) || has_trait(target_ptr, TRAIT_RES_WALL)) && !has_trait(target_ptr, TRAIT_NO_STUN))
-		{
-			/* Obvious */
-			if(seen) obvious = TRUE;
 
-			/* Get stunned */
-			if(target_ptr->timed_trait[TRAIT_STUN])
-			{
-#ifdef JP
-				note = "はひどくもうろうとした。";
-#else
-				note = " is more dazed.";
-#endif
-
-				tmp = target_ptr->timed_trait[TRAIT_STUN] + (do_stun / 2);
-			}
-			else
-			{
-#ifdef JP
-				note = "はもうろうとした。";
-#else
-				note = " is dazed.";
-#endif
-
-				tmp = do_stun;
-			}
-
-			/* Apply stun */
-			(void)set_timed_trait(target_ptr, TRAIT_STUN, tmp);
-
-			/* Get angry */
-			get_angry = TRUE;
-		}
-
-		/* Confusion and Chaos resisters (and sleepers) never confuse */
-		if(do_conf && !has_trait(target_ptr, TRAIT_NO_CONF) && !has_trait(target_ptr, TRAIT_RES_CHAO))
-		{
-			/* Obvious */
-			if(seen) obvious = TRUE;
-
-			/* Already partially confused */
-			if(target_ptr->timed_trait[TRAIT_CONFUSED])
-			{
-#ifdef JP
-				note = "はさらに混乱したようだ。";
-#else
-				note = " looks more confused.";
-#endif
-
-				tmp = target_ptr->timed_trait[TRAIT_CONFUSED] + (do_conf / 2);
-			}
-
-			/* Was not confused */
-			else
-			{
-#ifdef JP
-				note = "は混乱したようだ。";
-#else
-				note = " looks confused.";
-#endif
-
-				tmp = do_conf;
-			}
-
-			/* Apply confusion */
-			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, tmp);
-
-			/* Get angry */
-			get_angry = TRUE;
-		}
-
-		if(do_time)
-		{
-			/* Obvious */
-			if(seen) obvious = TRUE;
-
-			if(do_time >= target_ptr->mhp) do_time = target_ptr->mhp - 1;
-
-			if(do_time)
-			{
-#ifdef JP
-				note = "は弱くなったようだ。";
-#else
-				note = " seems weakened.";
-#endif
-				target_ptr->mhp -= do_time;
-				if((target_ptr->chp - dam) > target_ptr->mhp) dam = target_ptr->chp - target_ptr->mhp;
-			}
-			get_angry = TRUE;
-		}
-
-		/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
-		if(do_poly && (randint1(90) > target_ptr->lev * 2))
-		{
-			if(polymorph_creature(player_ptr, y, x))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Creature polymorphs */
-#ifdef JP
-				note = "が変身した！";
-#else
-				note = " changes!";
-#endif
-				/* Turn off the damage */
-				dam = 0;
-			}
-			else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		}
-
-		/* Handle "teleport" */
-		if(do_dist)
-		{
-			/* Obvious */
-			if(seen) obvious = TRUE;
-
-			/* Message */
-#ifdef JP
-			note = "が消え去った！";
-#else
-			note = " disappears!";
-#endif
-
-			/* Teleport */
-			teleport_away(target_ptr, do_dist,
-				(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
-
-			/* Hack -- get new location */
-			y = target_ptr->fy;
-			x = target_ptr->fx;
-
-			/* Hack -- get new grid */
-			c_ptr = &floor_ptr->cave[y][x];
-		}
-
-		/* Fear */
-		if(do_fear)
-		{
-			/* Set fear */
-			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
-
-			/* Get angry */
-			get_angry = TRUE;
-		}
 	}
 
 	if(typ == GF_DRAIN_MANA)
@@ -2227,6 +2049,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	creature_desc(target_name, target_ptr, 0);
 
+	if(skipped) return; // Absolutely no effect
+	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
+	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == GF_OLD_HEAL) && !(typ == GF_OLD_SPEED) && !(typ == GF_STAR_HEAL)) return;
+	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return;
+	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
+	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_poly = FALSE;
+
 	if(caster_ptr)
 	{
 		creature_desc(caster_name, caster_ptr, 0);
@@ -2237,9 +2066,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		strcpy(caster_name, killer); // Paranoia
 	}
-
-	if(skipped) return; // Absolutely no effect
-	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
 
 	// Analyze the damage
 	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
@@ -5606,6 +5432,62 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 	}
+
+
+		/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
+		if(do_poly && (randint1(90) > target_ptr->lev * 2))
+		{
+			if(polymorph_creature(player_ptr, ty, tx))
+			{
+				/* Obvious */
+				if(seen) obvious = TRUE;
+
+				/* Creature polymorphs */
+#ifdef JP
+				note = "が変身した！";
+#else
+				note = " changes!";
+#endif
+				/* Turn off the damage */
+				dam = 0;
+			}
+			else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+		}
+
+		/* Handle "teleport" */
+		if(do_dist)
+		{
+			/* Obvious */
+			if(seen) obvious = TRUE;
+
+			/* Message */
+#ifdef JP
+			note = "が消え去った！";
+#else
+			note = " disappears!";
+#endif
+
+			/* Teleport */
+			teleport_away(target_ptr, do_dist,
+				(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
+
+			/* Hack -- get new location */
+			ty = target_ptr->fy;
+			tx = target_ptr->fx;
+
+			/* Hack -- get new grid */
+			c_ptr = &floor_ptr->cave[ty][tx];
+		}
+
+		/* Fear */
+		if(do_fear)
+		{
+			/* Set fear */
+			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
+
+			/* Get angry */
+			//get_angry = TRUE;
+		}
 
 }
 
