@@ -5210,11 +5210,10 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
 	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
-	/* Is the creature "seen"? */
+	// Is the creature "seen"?
 	bool seen = target_ptr->see_others;
 	bool seen_msg = is_seen(player_ptr, target_ptr);
-
-	bool slept = (bool)has_trait(target_ptr, TRAIT_PARALYZED);
+	bool slept = (bool)has_trait(target_ptr, TRAIT_SLEPT);
 
 	/* Can the player know about this effect? */
 	bool known = ((target_ptr->cdis <= MAX_SIGHT) || floor_ptr->gamble_arena_mode);
@@ -5222,7 +5221,6 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	bool skipped = FALSE;	// Were the effects "irrelevant"?
 	bool get_angry = FALSE;	// Gets the creature angry at the source of the effect?
 	bool do_poly = FALSE;	// Polymorph setting (true or false)
-
 	int do_dist = 0;	// Teleport setting (max distance)
 	int do_conf = 0;	// Confusion setting (amount to confuse)
 	int do_stun = 0;	// Stunning setting (amount to stun)
@@ -5230,16 +5228,14 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	int do_fear = 0;	// Fear amount (amount to fear)
 	int do_time = 0;	// Time amount (amount to time)
 
-	bool heal_leper = FALSE;
-
 #ifndef JP
 	char m_poss[10];
 #endif
 
 	int photo = 0;
 
-	/* Assume no note */
-	cptr note = NULL;
+	
+	cptr note = NULL; // Assume no note
 
 	/* Assume a default death */
 	cptr note_dies = extract_note_dies(player_ptr, target_ptr);
@@ -5251,10 +5247,8 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	creature_desc(atk_name, attacker_ptr, 0);
 
-	if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev*3/5+20)) && !is_player(attacker_ptr) && (attacker_ptr != &creature_list[player_ptr->riding]))
-	{
+	if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (attacker_ptr != &creature_list[player_ptr->riding]))
 		if(kawarimi(player_ptr, TRUE)) return FALSE;
-	}
 
 	/* Player cannot hurt himself */
 	if(is_player(attacker_ptr)) return (FALSE);
@@ -5274,8 +5268,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		else msg_print("The attack bounces!");
 #endif
 
-
-		/* Choose 'new' target */
+		// Choose 'new' target
 		if(!is_player(attacker_ptr))
 		{
 			do
@@ -5304,17 +5297,10 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		return TRUE;
 	}
 
-	/* XXX XXX XXX */
-	/* Limit maximum damage */
-	if(dam > 1600) dam = 1600;
-
-	/* Reduce damage by distance */
-	dam = (dam + r) / (r + 1);
+	dam = (dam + r) / (r + 1); // Reduce damage by distance
 
 	project_creature_aux(attacker_ptr, player_ptr, typ, dam, spell, see_s_msg);
-
-	/* Hex - revenge damage stored */
-	revenge_store(player_ptr, get_damage);
+	revenge_store(player_ptr, get_damage); // Hex - revenge damage stored
 
 	if((player_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(player_ptr, HEX_EYE_FOR_EYE))
 		&& (get_damage > 0) && !gameover && (attacker_ptr != NULL))
@@ -5323,33 +5309,23 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", atk_name);
 #else
 		char atk_name_self[80];
-
-		/* hisself */
-		creature_desc(atk_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE);
-
+		creature_desc(atk_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE); // hisself
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
 		project(0, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
 		if(attacker_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(player_ptr, TRAIT_EYE_EYE, attacker_ptr->timed_trait[TRAIT_EYE_EYE] - 5, TRUE);
 	}
 
-	if(player_ptr->riding && dam > 0)
-	{
-		do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
-	}
-
-
-	/* Disturb */
-	disturb(player_ptr, 1, 0);
-
+	if(player_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
+	
+	disturb(player_ptr, 1, 0); // Disturb
 
 	if((player_ptr->posture & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
 	{
 		(void)kawarimi(player_ptr, FALSE);
 	}
 
-	/* Return "Anything seen?" */
-	return (obvious);
+	return (obvious); // Return "Anything seen?"
 }
 
 

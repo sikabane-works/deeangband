@@ -1234,9 +1234,7 @@ static void creature_lack_food(creature_type *creature_ptr)
 			msg_print("You faint from the lack of food.");
 #endif
 			disturb(player_ptr, 1, 0);
-
-			// Hack -- faint (bypass free action)
-			(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 1 + randint0(5));
+			(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 1 + randint0(5), FALSE); // Hack -- faint (bypass free action)
 		}
 
 		// Starve to death (slowly)
@@ -1247,9 +1245,9 @@ static void creature_lack_food(creature_type *creature_ptr)
 
 			// Take damage
 #ifdef JP
-			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‰ì", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‰ì", NULL, -1);
 #else
-			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
+			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
 #endif
 		}
 	}
