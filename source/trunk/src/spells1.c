@@ -1247,7 +1247,7 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 *
 * We return "TRUE" if the effect of the projection is "obvious".
 */
-static bool project_o(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
+static bool project_object(creature_type *caster_ptr, int r, int y, int x, int dam, int typ)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -6376,7 +6376,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_o(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
+			if(project_object(caster_ptr,0,y,x,dam,GF_SEEKER))notice=TRUE;
 			if( is_mirror_grid(&floor_ptr->cave[y][x]))
 			{
 				// The target of creaturespell becomes tha mirror(broken)
@@ -6513,7 +6513,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 					Term_xtra(TERM_XTRA_DELAY, msec);
 				}
 			}
-			if(project_o(caster_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
+			if(project_object(caster_ptr,0,y,x,dam,GF_SUPER_RAY) )notice=TRUE;
 			if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT))
 			{
 				if( second_step )continue;
@@ -6894,12 +6894,12 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 				int d = dist_to_line(y, x, y1, x1, by, bx);
 
 				/* Affect the object in the grid */
-				if(project_o(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
+				if(project_object(caster_ptr, d, y, x, dam, typ)) notice = TRUE;
 			}
 			else
 			{
 				/* Affect the object in the grid */
-				if(project_o(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
+				if(project_object(caster_ptr, dist, y, x, dam, typ)) notice = TRUE;
 			}
 		}
 	}
@@ -7319,7 +7319,7 @@ bool binding_field(creature_type *caster_ptr, int range, int dam)
 				-(point_y[2]-y)*(point_x[0]-x)) >=0 )
 			{
 				if(player_has_los_bold(y, x) && projectable(floor_ptr, range, caster_ptr->fy, caster_ptr->fx, y, x)) {
-					(void)project_o(caster_ptr,0,y,x,dam,GF_MANA); 
+					(void)project_object(caster_ptr,0,y,x,dam,GF_MANA); 
 				}
 			}
 		}
