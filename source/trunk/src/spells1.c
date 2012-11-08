@@ -1927,7 +1927,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 
 	case DO_EFFECT_SOUND:
-		{
 #ifdef JP
 			if(blind) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -1935,20 +1934,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-				(void)add_timed_trait(target_ptr, TRAIT_STUN, k, TRUE);
-			}
+				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 
 			if(!target_ptr->resist_sound || one_in_(13))
 				inven_damage(target_ptr, set_cold_destroy, 2);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
-		}
 
 	case DO_EFFECT_CONFUSION:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -1958,10 +1952,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
-		}
 
 	case DO_EFFECT_FORCE:
-		{
 #ifdef JP
 			if(blind) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -1972,20 +1964,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
-		}
 
 	case DO_EFFECT_INERTIA:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something slow!");
 #endif
-
-			if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
+			if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
-		}
 
 		// 21
 
