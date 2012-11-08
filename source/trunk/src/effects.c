@@ -3103,6 +3103,12 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	return damage;
 }
 
+void dec_mana(creature_type *creature_ptr, int val)
+{		
+		creature_ptr->csp -= val; // Use some mana
+		if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0; // Limit
+}
+
 
 /*
  * Gain experience

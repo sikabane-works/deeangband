@@ -2098,12 +2098,7 @@ msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ğ•ú‚³‚ê‚½I", p);
 	/* Sufficient mana */
 	else if(mana_cost <= old_csp)
 	{
-		/* Use some mana */
-		creature_ptr->csp -= mana_cost;
-
-		/* Limit */
-		if(creature_ptr->csp < 0) creature_ptr->csp = 0;
-
+		dec_mana(creature_ptr, mana_cost);
 		if((use_mind == MIND_MINDCRAFTER) && (n == 13))
 		{
 			/* No mana left */
