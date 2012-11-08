@@ -1871,24 +1871,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		// Dark -- blinding
 	case DO_EFFECT_DARK:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something!");
 #endif
-
 			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
-			}
+				(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
+
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
-		}
 
 		/* Lite, but only hurts susceptible creatures */
 	case DO_EFFECT_LITE_WEAK:
-		{
 			if(!dam)
 			{
 				skipped = TRUE;
@@ -1899,16 +1894,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = 0;
 				break;
 			}
-			/* Hurt by light */
 			if(has_trait(target_ptr, TRAIT_HURT_LITE))
 			{
-				/* Obvious effect */
 				if(seen) obvious = TRUE;
-
-				/* Memorize the effects */
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-
-				/* Special effect */
 #ifdef JP
 				note = "‚ÍŒõ‚Ég‚ð‚·‚­‚ß‚½I";
 				note_dies = "‚ÍŒõ‚ðŽó‚¯‚Ä‚µ‚Ú‚ñ‚Å‚µ‚Ü‚Á‚½I";
@@ -1916,43 +1905,26 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " cringes from the light!";
 				note_dies = " shrivels away in the light!";
 #endif
-
 			}
-
-			/* Normally no damage */
-			else
-			{
-				/* No damage */
-				dam = 0;
-			}
-
+			else dam = 0;
 			break;
-		}
 
 		// 15
 
-
 	case DO_EFFECT_SHARDS:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something sharp!");
 #endif
-
 			if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + dam);
-			}
+				(void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
 
 			if(!target_ptr->resist_shard || one_in_(13))
-			{
 				inven_damage(target_ptr, set_cold_destroy, 2);
-			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
-		}
 
 	case DO_EFFECT_SOUND:
 		{
