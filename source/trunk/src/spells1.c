@@ -1726,171 +1726,148 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_ELEC:
 #ifdef JP
-			if(blind) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by lightning!");
+		if(blind) msg_print("You are hit by lightning!");
 #endif
-			get_damage = elec_dam(target_ptr, dam, caster_name, spell);
-			break;
+		get_damage = elec_dam(target_ptr, dam, caster_name, spell);
+		break;
 
 	case DO_EFFECT_POIS:
 #ifdef JP
-			if(blind) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by poison!");
+		if(blind) msg_print("You are hit by poison!");
 #endif
-			if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
-			break;
+		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
+		break;
 
 	case DO_EFFECT_ACID:
 #ifdef JP
-			if(blind) msg_print("Ž_‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("Ž_‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by acid!");
+		if(blind) msg_print("You are hit by acid!");
 #endif
-			get_damage = acid_dam(target_ptr, dam, caster_name, spell);
-			break;
+		get_damage = acid_dam(target_ptr, dam, caster_name, spell);
+		break;
 
 	case DO_EFFECT_COLD:
-		{
 #ifdef JP
-			if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by cold!");
+		if(blind) msg_print("You are hit by cold!");
 #endif
-			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
-			break;
-		}
+		get_damage = cold_dam(target_ptr, dam, caster_name, spell);
+		break;
 
 	case DO_EFFECT_FIRE:
-		{
 #ifdef JP
-			if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by fire!");
+		if(blind) msg_print("You are hit by fire!");
 #endif
-			get_damage = fire_dam(target_ptr, dam, caster_name, spell);
-			break;
-		}
+		get_damage = fire_dam(target_ptr, dam, caster_name, spell);
+		break;
 
 	case DO_EFFECT_PSY_SPEAR:
-		{
 #ifdef JP
-			if(blind) msg_print("ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by an energy!");
+		if(blind) msg_print("You are hit by an energy!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
-			break;
-		}
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_MISSILE:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something!");
+		if(blind) msg_print("You are hit by something!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_ARROW:
+#ifdef JP
+		if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+#else
+		if(blind) msg_print("You are hit by something sharp!");
+#endif
+		else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+			msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
 #else
-			if(blind) msg_print("You are hit by something sharp!");
+			msg_print("You cut down the arrow!");
 #endif
-			else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
-			{
-#ifdef JP
-				msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
-#else
-				msg_print("You cut down the arrow!");
-#endif
-				break;
-			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
 		}
+
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_PLASMA:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something *HOT*!");
+		if(blind) msg_print("You are hit by something *HOT*!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
-			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
-				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
-			}
-
-			if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
-				inven_damage(target_ptr, set_acid_destroy, 3);
-
-			break;
+		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
+			int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
+			(void)add_timed_trait(target_ptr, TRAIT_STUN, k, TRUE);
 		}
 
-//10
+		if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
+			inven_damage(target_ptr, set_acid_destroy, 3);
+		break;
 
-	case DO_EFFECT_WATER:
-		{
+		//10
+
+	case DO_EFFECT_WATER:		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©Ž¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©Ž¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something wet!");
+		if(blind) msg_print("You are hit by something wet!");
 #endif
 
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
-				if(!has_trait(target_ptr, TRAIT_NO_CONF)) add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(5) + 5, TRUE);
-				if(one_in_(5)) inven_damage(target_ptr, set_cold_destroy, 3);
-			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
+			if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
+			if(!has_trait(target_ptr, TRAIT_NO_CONF)) add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(5) + 5, TRUE);
+			if(one_in_(5)) inven_damage(target_ptr, set_cold_destroy, 3);
 		}
 
-		/* Lite -- blinding */
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
+
 	case DO_EFFECT_LITE:
+#ifdef JP
+		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+#else
+		if(blind) msg_print("You are hit by something!");
+#endif
+
+		else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+
+		if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
+			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
 #ifdef JP
-			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+			msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨Ž¿“I‚È‰e‚Ì‘¶Ý‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
 #else
-			if(blind) msg_print("You are hit by something!");
+			msg_print("The light forces you out of your incorporeal shadow form.");
 #endif
-
-			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
-			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-
-			if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
-/* TODO
-#ifdef JP
-				msg_print("‘MŒõ‚Ì‚½‚ß”ñ•¨Ž¿“I‚È‰e‚Ì‘¶Ý‚Å‚¢‚ç‚ê‚È‚­‚È‚Á‚½B");
-#else
-				msg_print("The light forces you out of your incorporeal shadow form.");
-#endif
-*/
-				play_redraw |= PR_MAP;
-				caster_ptr->creature_update |= (PU_CREATURES);
-				play_window |= (PW_OVERHEAD | PW_DUNGEON | PR_STATUS);
-			}
-			break;
+			play_redraw |= PR_MAP;
+			caster_ptr->creature_update |= (PU_CREATURES);
+			play_window |= PW_OVERHEAD | PW_DUNGEON | PR_STATUS;
 		}
+		break;
 
 		// Dark -- blinding
 	case DO_EFFECT_DARK:
@@ -1952,7 +1929,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 15
+		// 15
 
 
 	case DO_EFFECT_SHARDS:
@@ -2038,7 +2015,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 21
+		// 21
 
 	case DO_EFFECT_METEOR:
 		{
@@ -2313,7 +2290,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//31-36
+		//31-36
 
 	case DO_EFFECT_OLD_CLONE:
 		{
@@ -2450,7 +2427,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
-		
+
 	case DO_EFFECT_OLD_SLEEP:
 		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
@@ -2476,7 +2453,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
-		
+
 	case DO_EFFECT_OLD_DRAIN:
 		{
 			if(seen) obvious = TRUE;
@@ -2875,7 +2852,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 56
+		// 56
 
 	case DO_EFFECT_NUKE:
 		{
@@ -2937,7 +2914,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//57-58
+		//57-58
 
 
 
@@ -2977,7 +2954,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-//60
+		//60
 
 	case DO_EFFECT_DEATH_RAY:
 		{
@@ -3498,7 +3475,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
- //72
+		//72
 
 	case DO_EFFECT_DOMINATION:
 		{
@@ -4237,7 +4214,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//84
+		//84
 
 	case DO_EFFECT_CONTROL_LIVING:
 		{
@@ -4315,7 +4292,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//86
+		//86
 
 		/* Attack (Use "dam" as attack type) */
 	case DO_EFFECT_ATTACK:
@@ -4544,8 +4521,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//92
-		
+		//92
+
 	case DO_EFFECT_BLOOD_CURSE:
 		{
 			if(seen) obvious = TRUE;
@@ -4559,126 +4536,126 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			break;
 		}
-/* old
-	if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
-	{
+		/* old
+		if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
+		{
 		int curse_flg = (PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP);
 		int count = 0;
 		do
 		{
-			switch (randint1(28))
-			{
-			case 1: case 2:
-				if(!count)
-				{
-#ifdef JP
-					msg_print("’n–Ê‚ª—h‚ê‚½...");
-#else
-					msg_print("The ground trembles...");
-#endif
+		switch (randint1(28))
+		{
+		case 1: case 2:
+		if(!count)
+		{
+		#ifdef JP
+		msg_print("’n–Ê‚ª—h‚ê‚½...");
+		#else
+		msg_print("The ground trembles...");
+		#endif
 
-					earthquake(player_ptr, ty, tx, 4 + randint0(4));
-					if(!one_in_(6)) break;
-				}
-			case 3: case 4: case 5: case 6:
-				if(!count)
-				{
-					int dam = diceroll(10, 10);
-#ifdef JP
-					msg_print("ƒˆ‚È–‚—Í‚ÌŽŸŒ³‚Ö‚Ì”à‚ªŠJ‚¢‚½I");
-#else
-					msg_print("A portal opens to a plane of raw mana!");
-#endif
+		earthquake(player_ptr, ty, tx, 4 + randint0(4));
+		if(!one_in_(6)) break;
+		}
+		case 3: case 4: case 5: case 6:
+		if(!count)
+		{
+		int dam = diceroll(10, 10);
+		#ifdef JP
+		msg_print("ƒˆ‚È–‚—Í‚ÌŽŸŒ³‚Ö‚Ì”à‚ªŠJ‚¢‚½I");
+		#else
+		msg_print("A portal opens to a plane of raw mana!");
+		#endif
 
-					project(0, 0, 8, ty,tx, dam, DO_EFFECT_MANA, curse_flg, -1);
-					if(!one_in_(6)) break;
-				}
-			case 7: case 8:
-				if(!count)
-				{
-#ifdef JP
-					msg_print("‹óŠÔ‚ª˜c‚ñ‚¾I");
-#else
-					msg_print("Space warps about you!");
-#endif
+		project(0, 0, 8, ty,tx, dam, DO_EFFECT_MANA, curse_flg, -1);
+		if(!one_in_(6)) break;
+		}
+		case 7: case 8:
+		if(!count)
+		{
+		#ifdef JP
+		msg_print("‹óŠÔ‚ª˜c‚ñ‚¾I");
+		#else
+		msg_print("Space warps about you!");
+		#endif
 
-					if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
-					if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-					if(!one_in_(6)) break;
-				}
-			case 9: case 10: case 11:
-#ifdef JP
-				msg_print("ƒGƒlƒ‹ƒM[‚Ì‚¤‚Ë‚è‚ðŠ´‚¶‚½I");
-#else
-				msg_print("You feel a surge of energy!");
-#endif
+		if(target_ptr->species_idx) teleport_away(target_ptr, diceroll(10, 10), TELEPORT_PASSIVE);
+		if(one_in_(13)) count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+		if(!one_in_(6)) break;
+		}
+		case 9: case 10: case 11:
+		#ifdef JP
+		msg_print("ƒGƒlƒ‹ƒM[‚Ì‚¤‚Ë‚è‚ðŠ´‚¶‚½I");
+		#else
+		msg_print("You feel a surge of energy!");
+		#endif
 
-				project(0, 0, 7, ty, tx, 50, DO_EFFECT_DISINTEGRATE, curse_flg, -1);
-				if(!one_in_(6)) break;
-			case 12: case 13: case 14: case 15: case 16:
-				aggravate_creatures(caster_ptr);
-				if(!one_in_(6)) break;
-			case 17: case 18:
-				count += activate_hi_summon(player_ptr, ty, tx, TRUE);
-				if(!one_in_(6)) break;
-			case 19: case 20: case 21: case 22:
-				{
-					bool pet = !one_in_(3);
-					u32b mode = PC_ALLOW_GROUP;
+		project(0, 0, 7, ty, tx, 50, DO_EFFECT_DISINTEGRATE, curse_flg, -1);
+		if(!one_in_(6)) break;
+		case 12: case 13: case 14: case 15: case 16:
+		aggravate_creatures(caster_ptr);
+		if(!one_in_(6)) break;
+		case 17: case 18:
+		count += activate_hi_summon(player_ptr, ty, tx, TRUE);
+		if(!one_in_(6)) break;
+		case 19: case 20: case 21: case 22:
+		{
+		bool pet = !one_in_(3);
+		u32b mode = PC_ALLOW_GROUP;
 
-					if(pet) mode |= PC_FORCE_PET;
-					else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
+		if(pet) mode |= PC_FORCE_PET;
+		else mode |= (PC_NO_PET | PC_FORCE_FRIENDLY);
 
-					count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
-					if(!one_in_(6)) break;
-				}
-			case 23: case 24: case 25:
-				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
-#ifdef JP
-				msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
-#else
-				msg_print("You feel your life draining away...");
-#endif
+		count += summon_specific((pet ? player_ptr : NULL), player_ptr->fy, player_ptr->fx, (pet ? caster_ptr->lev*2/3+randint1(caster_ptr->lev/2) : floor_ptr->floor_level), 0, mode);
+		if(!one_in_(6)) break;
+		}
+		case 23: case 24: case 25:
+		if(has_trait(caster_ptr, TRAIT_HOLD_LIFE) && (randint0(100) < 75)) break;
+		#ifdef JP
+		msg_print("¶–½—Í‚ª‘Ì‚©‚ç‹z‚¢Žæ‚ç‚ê‚½‹C‚ª‚·‚éI");
+		#else
+		msg_print("You feel your life draining away...");
+		#endif
 
-				if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
-				else lose_exp(caster_ptr, caster_ptr->exp / 16);
-				if(!one_in_(6)) break;
-			case 26: case 27: case 28:
-				{
-					int i = 0;
-					if(one_in_(13))
-					{
-						while (i < STAT_MAX)
-						{
-							do
-							{
-								(void)do_dec_stat(caster_ptr, i);
-							}
-							while (one_in_(2));
+		if(has_trait(caster_ptr, TRAIT_HOLD_LIFE)) lose_exp(caster_ptr, caster_ptr->exp / 160);
+		else lose_exp(caster_ptr, caster_ptr->exp / 16);
+		if(!one_in_(6)) break;
+		case 26: case 27: case 28:
+		{
+		int i = 0;
+		if(one_in_(13))
+		{
+		while (i < STAT_MAX)
+		{
+		do
+		{
+		(void)do_dec_stat(caster_ptr, i);
+		}
+		while (one_in_(2));
 
-							i++;
-						}
-					}
-					else
-					{
-						(void)do_dec_stat(caster_ptr, randint0(6));
-					}
-					break;
-				}
-			}
+		i++;
+		}
+		}
+		else
+		{
+		(void)do_dec_stat(caster_ptr, randint0(6));
+		}
+		break;
+		}
+		}
 		}
 		while (one_in_(5));
-	}
+		}
 
-	if(floor_ptr->gamble_arena_mode)
-	{
+		if(floor_ptr->gamble_arena_mode)
+		{
 		health_track(c_ptr->creature_idx);
 		play_redraw |= (PR_HEALTH);
 		redraw_stuff(player_ptr);
-	}
-*/
-		
-//94-95
+		}
+		*/
+
+		//94-95
 
 	case DO_EFFECT_STAR_HEAL:
 		{
@@ -4706,7 +4683,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Fall through */
 		}
 
-// 97
+		// 97
 
 	case DO_EFFECT_CRUSADE:
 		{
@@ -4826,9 +4803,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 101-
+		// 101-
 
-//// NOW sorting.
+		//// NOW sorting.
 
 
 
@@ -4867,76 +4844,68 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-
-
-
-
-
-
-
 	default:
 		{
 			dam = 0;
 			break;
 		}
+								}
+
 	}
-
-
-		/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
-		if(do_poly && (randint1(90) > target_ptr->lev * 2))
-		{
-			if(polymorph_creature(player_ptr, ty, tx))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Creature polymorphs */
-#ifdef JP
-				note = "‚ª•Ïg‚µ‚½I";
-#else
-				note = " changes!";
-#endif
-				/* Turn off the damage */
-				dam = 0;
-			}
-			else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		}
-
-		/* Handle "teleport" */
-		if(do_dist)
+	/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
+	if(do_poly && (randint1(90) > target_ptr->lev * 2))
+	{
+		if(polymorph_creature(player_ptr, ty, tx))
 		{
 			/* Obvious */
 			if(seen) obvious = TRUE;
 
-			/* Message */
+			/* Creature polymorphs */
 #ifdef JP
-			note = "‚ªÁ‚¦‹Ž‚Á‚½I";
+			note = "‚ª•Ïg‚µ‚½I";
 #else
-			note = " disappears!";
+			note = " changes!";
+#endif
+			/* Turn off the damage */
+			dam = 0;
+		}
+		else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+	}
+
+	/* Handle "teleport" */
+	if(do_dist)
+	{
+		/* Obvious */
+		if(seen) obvious = TRUE;
+
+		/* Message */
+#ifdef JP
+		note = "‚ªÁ‚¦‹Ž‚Á‚½I";
+#else
+		note = " disappears!";
 #endif
 
-			/* Teleport */
-			teleport_away(target_ptr, do_dist,
-				(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
+		/* Teleport */
+		teleport_away(target_ptr, do_dist,
+			(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 
-			/* Hack -- get new location */
-			ty = target_ptr->fy;
-			tx = target_ptr->fx;
+		/* Hack -- get new location */
+		ty = target_ptr->fy;
+		tx = target_ptr->fx;
 
-			/* Hack -- get new grid */
-			c_ptr = &floor_ptr->cave[ty][tx];
-		}
+		/* Hack -- get new grid */
+		c_ptr = &floor_ptr->cave[ty][tx];
+	}
 
-		/* Fear */
-		if(do_fear)
-		{
-			/* Set fear */
-			(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
+	/* Fear */
+	if(do_fear)
+	{
+		/* Set fear */
+		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
 
-			/* Get angry */
-			//get_angry = TRUE;
-		}
+		/* Get angry */
+		//get_angry = TRUE;
+	}
 
 	if(photo)
 	{
@@ -5033,7 +5002,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	int photo = 0;
 
-	
+
 	cptr note = NULL; // Assume no note
 
 	/* Assume a default death */
@@ -5116,7 +5085,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	}
 
 	if(player_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
-	
+
 	disturb(player_ptr, 1, 0); // Disturb
 
 	if((player_ptr->posture & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
