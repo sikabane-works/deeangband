@@ -1725,7 +1725,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ELEC:
-		{
 #ifdef JP
 			if(blind) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -1733,26 +1732,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			get_damage = elec_dam(target_ptr, dam, caster_name, spell);
 			break;
-		}
 
 	case DO_EFFECT_POIS:
-		{
-			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
 			if(blind) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by poison!");
 #endif
-
-			if(!(double_resist || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
-			}
+			if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+				add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
 			break;
-		}
 
 	case DO_EFFECT_ACID:
-		{
 #ifdef JP
 			if(blind) msg_print("Ž_‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -1760,7 +1751,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			get_damage = acid_dam(target_ptr, dam, caster_name, spell);
 			break;
-		}
 
 	case DO_EFFECT_COLD:
 		{
@@ -1834,7 +1824,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by something *HOT*!");
 #endif
-
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
@@ -1844,9 +1833,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
-			{
 				inven_damage(target_ptr, set_acid_destroy, 3);
-			}
 
 			break;
 		}
@@ -2001,13 +1988,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
+				(void)add_timed_trait(target_ptr, TRAIT_STUN, k, TRUE);
 			}
 
 			if(!target_ptr->resist_sound || one_in_(13))
-			{
 				inven_damage(target_ptr, set_cold_destroy, 2);
-			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
@@ -2020,11 +2005,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by something puzzling!");
 #endif
-
 			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(20) + 10);
-			}
+				(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
 		}
@@ -2036,7 +2018,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by kinetic force!");
 #endif
-
 			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 
