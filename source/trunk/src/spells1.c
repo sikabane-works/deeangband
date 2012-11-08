@@ -2038,9 +2038,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-			{
 				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
-			}
+
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
@@ -2091,19 +2090,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				if(!target_ptr->resist_shard)
-				{
-					(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(5, 8));
-				}
-				if(!target_ptr->resist_sound)
-				{
-					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(15));
-				}
-
+				if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
+				if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
 				if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
-				{
 					if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
-				}
 			}
 
 			break;
@@ -2119,13 +2109,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
-				if(!has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
-				}
+				if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
 				if(!target_ptr->resist_chaos)
 				{
-					(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint1(10));
+					(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
 					if(one_in_(3))
 					{
 #ifdef JP
@@ -2357,10 +2344,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else
 			{
-				/* Heal fully */
 				target_ptr->chp = target_ptr->mhp;
-
-				/* Attempt to clone. */
 				if(multiply_creature(&creature_list[c_ptr->creature_idx], TRUE, 0L))
 				{
 #ifdef JP
@@ -2368,11 +2352,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 					note = " spawns!";
 #endif
-
 				}
 			}
 
-			/* No "real" damage */
 			dam = 0;
 
 			break;
@@ -2424,7 +2406,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// Redraw (later) if needed
 			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
-
 			get_damage = 0;
 			break;
 		}
@@ -2436,8 +2417,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by something!");
 #endif
-
-			(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + randint1(5));
+			(void)add_timed_trait(target_ptr, TRAIT_FAST, randint1(5), TRUE);
 			get_damage = 0;
 			break;
 		}
@@ -2455,10 +2435,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			}
-			else
-			{
-				(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-			}
+			else (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 			get_damage = 0;
 			break;
 		}
@@ -2474,12 +2451,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			/* Get confused later */
 			do_conf = diceroll(3, (dam / 2)) + 1;
 
-			/* Attempt a saving throw */
-			if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
+			if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
@@ -2492,7 +2466,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				obvious = FALSE;
 			}
 
-			/* No "real" damage */
 			dam = 0;
 			break;
 		}
@@ -2549,7 +2522,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_AWAY_UNDEAD:
 		{
-			/* Only affect undead */
 			if(has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				bool resists_tele = FALSE;
@@ -2577,15 +2549,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					do_dist = dam;
 				}
 			}
+			else skipped = TRUE;
 
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
-
-			/* No "real" damage */
 			dam = 0;
 			break;
 		}
@@ -2620,15 +2585,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					do_dist = dam;
 				}
 			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
-
-			/* No "real" damage */
+			else skipped = TRUE;
 			dam = 0;
 			break;
 		}
@@ -2688,13 +2645,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					do_fear = 0;
 				}
 			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
+			else skipped = TRUE;
 
 			/* No "real" damage */
 			dam = 0;
