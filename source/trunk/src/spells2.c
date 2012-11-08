@@ -1554,10 +1554,8 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		char target_name[MAX_NLEN];
 
 		creature_desc(target_name, target_ptr, 0);
-		if(see_m)
-		{
-			msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
-		}
+		if(see_m) msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
+
 		if(has_trait(target_ptr, TRAIT_PARALYZED))
 		{
 			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
@@ -1675,9 +1673,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 
 	/* Prevent mass genocide in quest levels */
 	if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
-	{
 		return (FALSE);
-	}
 
 	/* Delete the (nearby) creatures */
 	for (i = 1; i < creature_max; i++)
