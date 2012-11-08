@@ -468,7 +468,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 			}
 			if((attacker_ptr->class_idx != CLASS_SAMURAI) && (have_flag(flgs, TRAIT_FORCE_WEAPON)) && (attacker_ptr->csp > (object_ptr->dd * object_ptr->ds / 5)))
 			{
-				attacker_ptr->csp -= (1+(object_ptr->dd * object_ptr->ds / 5));
+				dec_mana(attacker_ptr, 1 + (object_ptr->dd * object_ptr->ds / 5));
 				play_redraw |= (PR_MANA);
 				mult = mult * 3 / 2 + 20;
 			}

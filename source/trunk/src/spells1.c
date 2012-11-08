@@ -3037,16 +3037,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 					msg_print("Your mind is blasted by psyonic energy.");
 #endif
-
 					if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 					if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 
-					target_ptr->csp -= 50;
-					if(target_ptr->csp < 0)
-					{
-						target_ptr->csp = 0;
-						target_ptr->csp_frac = 0;
-					}
+					dec_mana(target_ptr, 50);
 					play_redraw |= PR_MANA;
 				}
 
@@ -3135,13 +3129,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 					msg_print("Your mind is blasted by psionic energy.");
 #endif
-
-					target_ptr->csp -= 100;
-					if(target_ptr->csp < 0)
-					{
-						target_ptr->csp = 0;
-						target_ptr->csp_frac = 0;
-					}
+					dec_mana(target_ptr, 100);
 					play_redraw |= PR_MANA;
 				}
 
@@ -3312,11 +3300,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 							msg_print("Your psychic energy is drained!");
 #endif
-
-							caster_ptr->csp -= diceroll(5, dam) / 2;
-							if(caster_ptr->csp < 0) caster_ptr->csp = 0;
+							dec_mana(caster_ptr, diceroll(5, dam) / 2);
 							play_redraw |= PR_MANA;
-							play_window |= (PW_SPELL);
+							play_window |= PW_SPELL;
 						}
 						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
 					}

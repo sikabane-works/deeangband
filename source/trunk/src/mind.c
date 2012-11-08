@@ -2095,13 +2095,12 @@ msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ğ•ú‚³‚ê‚½I", p);
 		play_redraw |= (PR_HP);
 	}
 
-	/* Sufficient mana */
-	else if(mana_cost <= old_csp)
+	else if(mana_cost <= old_csp) // Sufficient mana
 	{
 		dec_mana(creature_ptr, mana_cost);
-		if((use_mind == MIND_MINDCRAFTER) && (n == 13))
+
+		if((use_mind == MIND_MINDCRAFTER) && (n == 13)) // THE WORLD
 		{
-			/* No mana left */
 			creature_ptr->csp = 0;
 			creature_ptr->csp_frac = 0;
 		}
