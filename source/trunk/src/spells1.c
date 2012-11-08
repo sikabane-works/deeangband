@@ -2353,11 +2353,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = " is unaffected!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			}
 			else
 			{
@@ -2400,11 +2396,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = " is unaffected!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				do_poly = FALSE;
 				obvious = FALSE;
 			}
@@ -3111,22 +3103,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CONTROL_ANIMAL:
 		{
 			int vir;
-			// TODO: Add Karma feature.
-
-
 			if(seen) obvious = TRUE;
 
 			vir = 0;
-			if(vir)
-			{
-				dam += caster_ptr->karmas[vir-1]/10;
-			}
+			if(vir) dam += caster_ptr->karmas[vir-1]/10;
 
 			vir = 0;
-			if(vir)
-			{
-				dam -= caster_ptr->karmas[vir-1]/20;
-			}
+			if(vir) dam -= caster_ptr->karmas[vir-1]/20;
 
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
@@ -3136,21 +3119,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-				dam = dam * 2 / 3;
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL)) dam = dam * 2 / 3;
 
-			/* Attempt a saving throw */
-			if( has_trait(target_ptr, TRAIT_QUESTOR) ||
-				!has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
+			if(has_trait(target_ptr, TRAIT_QUESTOR) || !has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
-				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
-				{
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-				}
 
 				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
@@ -3163,7 +3139,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				note = " hates you too much!";
 #endif
-
 				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 			}
 			else
@@ -3175,8 +3150,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				set_pet(caster_ptr, target_ptr);
 			}
-
-			/* No "real" damage */
 			dam = 0;
 			break;
 		}
@@ -3184,8 +3157,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_PSI:
 		{
 			if(seen) obvious = TRUE;
-
-			/* PSI only works if the creature can see you! -- RG */
 			if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
 #ifdef JP
@@ -3196,7 +3167,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				skipped = TRUE;
 				break;
 			}
-
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -3260,12 +3230,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							case 3:
 								{
 									if(has_trait(target_ptr, TRAIT_FEARLESS))
-#ifdef JP
-										note = "には効果がなかった。";
-#else
-										note = " is unaffected.";
-#endif
-
+										note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 									else
 										set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(dam));
 									break;
@@ -3512,12 +3477,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						default:
 							{
 								if(has_trait(target_ptr, TRAIT_FEARLESS))
-#ifdef JP
-									note = "には効果がなかった。";
-#else
-									note = " is unaffected.";
-#endif
-
+									note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 								else
 									set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + dam);
 							}
@@ -3706,11 +3666,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 		}
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
@@ -3809,11 +3765,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 		}
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
@@ -3892,11 +3844,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Attempt a saving throw
 		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
 		{
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		break;
@@ -3941,11 +3889,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Attempt a saving throw
 		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
 		{
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		break;
@@ -3990,11 +3934,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Attempt a saving throw
 		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
 		{
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		break;
@@ -4042,11 +3982,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Attempt a saving throw
 		if((randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
 		{
-		#ifdef JP
-		note = "には効果がなかった。";
-		#else
-		note = "is unaffected!";
-		#endif
+		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 		dam = 0;
 		}
 		break;
@@ -4128,11 +4064,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
 				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
 			{
-#ifdef JP
-				msg_format("%sには効果がなかった。",target_name);
-#else
-				msg_format("%^s is unaffected.", target_name);
-#endif
+				msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
 				skipped = TRUE;
 				break;
 			}
@@ -4382,12 +4314,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Attempt a saving throw */
 			if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
 			{
-
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				dam = 0;
 			}
 			break;

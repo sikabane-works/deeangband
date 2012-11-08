@@ -1556,11 +1556,7 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 		creature_desc(target_name, target_ptr, 0);
 		if(see_m)
 		{
-#ifdef JP
-			msg_format("%^s‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B", target_name);
-#else
-			msg_format("%^s is unaffected.", target_name);
-#endif
+			msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED], target_name);
 		}
 		if(has_trait(target_ptr, TRAIT_PARALYZED))
 		{
