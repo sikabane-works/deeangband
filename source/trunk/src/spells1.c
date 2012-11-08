@@ -2315,7 +2315,37 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//30-36
+	case DO_EFFECT_KILL_WALL:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				dam = 0;
+				break;
+			}
+			/* Hurt by rock remover */
+			if(has_trait(target_ptr, TRAIT_HURT_ROCK))
+			{
+				/* Notice effect */
+				if(seen) obvious = TRUE;
+
+				/* Memorize the effects */
+				if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
+
+				/* Cute little message */
+#ifdef JP
+				note = "の皮膚がただれた！";
+				note_dies = "はドロドロに溶けた！";
+#else
+				note = " loses some skin!";
+				note_dies = " dissolves!";
+#endif
+
+			}
+			else dam = 0;
+			break;
+		}
+
+//31-36
 
 	case DO_EFFECT_OLD_CLONE:
 		{
@@ -2438,8 +2468,30 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 		
+	case DO_EFFECT_OLD_DRAIN:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			if(creature_living(target_ptr))
+			{
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+				dam = 0;
+			}
+			else do_time = (dam + 7) / 8;
+
+			break;
+		}
 		
-// 44-56
+// 45-56
 
 	case DO_EFFECT_NUKE:
 		{
@@ -2687,8 +2739,138 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
- //70-74
 
+	case DO_EFFECT_PSI_DRAIN:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			{
+				dam = 0;
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+			}
+			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
+				has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(target_ptr->lev * 2 > randint1(3 * dam)))
+			{
+				dam /= 3;
+				note = game_messages[GAME_MESSAGE_RESISTED];
+
+				/*
+				* Powerful demons & undead can turn a mindcrafter's
+				* attacks back on them
+				*/
+				if(has_trait(target_ptr, TRAIT_UNDEAD) &&
+					has_trait(target_ptr, TRAIT_DEMON) &&
+					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
+					(one_in_(2)))
+				{
+					note = NULL;
+#ifdef JP
+					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
+#else
+					msg_format("%^s%s corrupted mind backlashes your attack!",
+						target_name, (seen ? "'s" : "s"));
+#endif
+
+					/* Saving throw */
+					/*
+					if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					{
+					#ifdef JP
+					msg_print("あなたは効力を跳ね返した！");
+					#else
+					msg_print("You resist the effects!");
+					#endif
+					}
+					else
+					*/
+					{
+						/* Injure + mana drain */
+						creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+						if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+						{
+#ifdef JP
+							msg_print("超能力パワーを吸いとられた！");
+#else
+							msg_print("Your psychic energy is drained!");
+#endif
+							dec_mana(caster_ptr, diceroll(5, dam) / 2);
+							play_redraw |= PR_MANA;
+							play_window |= PW_SPELL;
+						}
+						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
+					}
+					dam = 0;
+				}
+			}
+			else if(dam > 0)
+			{
+				int b = diceroll(5, dam) / 4;
+#ifdef JP
+				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
+				msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
+#else
+				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
+				msg_format("You convert %s%s pain into %s!",
+					target_name, (seen ? "'s" : "s"), str);
+#endif
+
+				b = MIN(caster_ptr->msp, caster_ptr->csp + b);
+				caster_ptr->csp = b;
+				play_redraw |= PR_MANA;
+				play_window |= (PW_SPELL);
+			}
+
+#ifdef JP
+			note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+#else
+			note_dies = " collapses, a mindless husk.";
+#endif
+
+			break;
+		}
+
+	case DO_EFFECT_TELEKINESIS:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			if(one_in_(4))
+			{
+				if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
+				else do_dist = 7;
+			}
+
+			/* 1. stun */
+			do_stun = diceroll((caster_power / 20) + 3 , dam) + 1;
+
+			/* Attempt a saving throw */
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+				(target_ptr->lev * 2 > 5 + randint1(dam)))
+			{
+				/* Resist */
+				do_stun = 0;
+				/* No obvious effect */
+				obvious = FALSE;
+			}
+			break;
+		}
+
+ //72-74
 
 	case DO_EFFECT_DRAIN_MANA:
 		{
@@ -3289,137 +3471,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-	case DO_EFFECT_PSI_DRAIN:
-		{
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-			{
-				dam = 0;
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			}
-			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
-				has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(target_ptr->lev * 2 > randint1(3 * dam)))
-			{
-				dam /= 3;
-				note = game_messages[GAME_MESSAGE_RESISTED];
-
-				/*
-				* Powerful demons & undead can turn a mindcrafter's
-				* attacks back on them
-				*/
-				if(has_trait(target_ptr, TRAIT_UNDEAD) &&
-					has_trait(target_ptr, TRAIT_DEMON) &&
-					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
-					(one_in_(2)))
-				{
-					note = NULL;
-#ifdef JP
-					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
-#else
-					msg_format("%^s%s corrupted mind backlashes your attack!",
-						target_name, (seen ? "'s" : "s"));
-#endif
-
-					/* Saving throw */
-					/*
-					if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-					{
-					#ifdef JP
-					msg_print("あなたは効力を跳ね返した！");
-					#else
-					msg_print("You resist the effects!");
-					#endif
-					}
-					else
-					*/
-					{
-						/* Injure + mana drain */
-						creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-						if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-						{
-#ifdef JP
-							msg_print("超能力パワーを吸いとられた！");
-#else
-							msg_print("Your psychic energy is drained!");
-#endif
-							dec_mana(caster_ptr, diceroll(5, dam) / 2);
-							play_redraw |= PR_MANA;
-							play_window |= PW_SPELL;
-						}
-						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
-					}
-					dam = 0;
-				}
-			}
-			else if(dam > 0)
-			{
-				int b = diceroll(5, dam) / 4;
-#ifdef JP
-				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
-				msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
-#else
-				cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
-				msg_format("You convert %s%s pain into %s!",
-					target_name, (seen ? "'s" : "s"), str);
-#endif
-
-				b = MIN(caster_ptr->msp, caster_ptr->csp + b);
-				caster_ptr->csp = b;
-				play_redraw |= PR_MANA;
-				play_window |= (PW_SPELL);
-			}
-
-#ifdef JP
-			note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-			note_dies = " collapses, a mindless husk.";
-#endif
-
-			break;
-		}
-
-	case DO_EFFECT_TELEKINESIS:
-		{
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if(one_in_(4))
-			{
-				if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
-				else do_dist = 7;
-			}
-
-			/* 1. stun */
-			do_stun = diceroll((caster_power / 20) + 3 , dam) + 1;
-
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(target_ptr->lev * 2 > 5 + randint1(dam)))
-			{
-				/* Resist */
-				do_stun = 0;
-				/* No obvious effect */
-				obvious = FALSE;
-			}
-			break;
-		}
-
-
 	case DO_EFFECT_DOMINATION:
 		{
 			if(!is_hostile(target_ptr)) break;
@@ -3532,30 +3583,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			/* No "real" damage */
 			dam = 0;
-			break;
-		}
-
-		/* Drain Life */
-	case DO_EFFECT_OLD_DRAIN:
-		{
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if(creature_living(target_ptr))
-			{
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-				dam = 0;
-			}
-			else do_time = (dam + 7) / 8;
-
 			break;
 		}
 
@@ -4097,46 +4124,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 
-		/* Stone to Mud */
-	case DO_EFFECT_KILL_WALL:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				dam = 0;
-				break;
-			}
-			/* Hurt by rock remover */
-			if(has_trait(target_ptr, TRAIT_HURT_ROCK))
-			{
-				/* Notice effect */
-				if(seen) obvious = TRUE;
 
-				/* Memorize the effects */
-				if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
-
-				/* Cute little message */
-#ifdef JP
-				note = "の皮膚がただれた！";
-				note_dies = "はドロドロに溶けた！";
-#else
-				note = " loses some skin!";
-				note_dies = " dissolves!";
-#endif
-
-			}
-
-			/* Usually, ignore the effects */
-			else
-			{
-				/* No damage */
-				dam = 0;
-			}
-
-			break;
-		}
-
-
-		/* Teleport undead (Use "dam" as "power") */
 	case DO_EFFECT_AWAY_UNDEAD:
 		{
 			/* Only affect undead */
@@ -4180,8 +4168,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-		/* Teleport evil (Use "dam" as "power") */
 	case DO_EFFECT_AWAY_EVIL:
 		{
 			/* Only affect evil */
@@ -4226,7 +4212,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-		/* Teleport creature (Use "dam" as "power") */
 	case DO_EFFECT_AWAY_ALL:
 		{
 			bool resists_tele = FALSE;
@@ -4261,8 +4246,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-		/* Turn undead (Use "dam" as "power") */
 	case DO_EFFECT_TURN_UNDEAD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -4297,7 +4280,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-		/* Turn evil (Use "dam" as "power") */
 	case DO_EFFECT_TURN_EVIL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -4338,8 +4320,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-		/* Turn creature (Use "dam" as "power") */
 	case DO_EFFECT_TURN_ALL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -4367,8 +4347,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-		/* Dispel undead */
 	case DO_EFFECT_DISP_UNDEAD:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
