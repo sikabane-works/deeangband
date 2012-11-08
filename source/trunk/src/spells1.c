@@ -2437,16 +2437,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-
-
-
-
-
-
-
-
-
 	case DO_EFFECT_ROCKET:
 		{
 #ifdef JP
@@ -2507,9 +2497,144 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 66-77
+// 66-68
 
-		/* cause 1 */
+	case DO_EFFECT_PSI:
+		{
+			if(seen) obvious = TRUE;
+
+			/* PSI only works if the creature can see you! -- RG */
+			if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
+			{
+#ifdef JP
+				if(seen_msg) msg_format("%sはあなたが見えないので影響されない！", target_name);
+#else
+				if(seen_msg) msg_format("%^s can't see you, and isn't affected!", target_name);
+#endif
+				skipped = TRUE;
+				break;
+			}
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
+			{
+				dam = 0;
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
+
+			}
+			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
+				has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(target_ptr->lev * 2 > randint1(3 * dam)))
+			{
+				dam /= 3;
+				note = game_messages[GAME_MESSAGE_RESISTED];
+
+				/*
+				* Powerful demons & undead can turn a mindcrafter's
+				* attacks back on them
+				*/
+				if(has_trait(target_ptr, TRAIT_UNDEAD) && 
+					has_trait(target_ptr, TRAIT_DEMON) &&
+					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
+					one_in_(2))
+				{
+					note = NULL;
+#ifdef JP
+					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
+#else
+					msg_format("%^s%s corrupted mind backlashes your attack!",
+						target_name, (seen ? "'s" : "s"));
+#endif
+
+					/* Saving throw */
+					/*
+					if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					{
+					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+					}
+					else
+					*/
+					{
+						/* Injure +/- confusion */
+						creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
+						if(one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+						{
+							switch (randint1(4))
+							{
+							case 1:
+								set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
+								break;
+							case 2:
+								set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
+								break;
+							case 3:
+								{
+									if(has_trait(target_ptr, TRAIT_FEARLESS))
+#ifdef JP
+										note = "には効果がなかった。";
+#else
+										note = " is unaffected.";
+#endif
+
+									else
+										set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(dam));
+									break;
+								}
+							default:
+								if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
+									(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
+								break;
+							}
+						}
+					}
+					dam = 0;
+				}
+			}
+
+			if((dam > 0) && one_in_(4))
+			{
+				switch (randint1(4))
+				{
+				case 1:
+					do_conf = 3 + randint1(dam);
+					break;
+				case 2:
+					do_stun = 3 + randint1(dam);
+					break;
+				case 3:
+					do_fear = 3 + randint1(dam);
+					break;
+				default:
+#ifdef JP
+					note = "は眠り込んでしまった！";
+#else
+					note = " falls asleep!";
+#endif
+
+					do_sleep = 3 + randint1(dam);
+					break;
+				}
+			}
+
+#ifdef JP
+			note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+#else
+			note_dies = " collapses, a mindless husk.";
+#endif
+
+			break;
+		}
+
+ //70-77
+
 	case DO_EFFECT_CAUSE_1:
 		{
 			/* TODO saving_throw
@@ -2798,9 +2923,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-
-		// Death Ray
 	case DO_EFFECT_DEATH_RAY:
 		{
 #ifdef JP
@@ -2814,8 +2936,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-		// Drain mana
 	case DO_EFFECT_DRAIN_MANA:
 		{
 			if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -2899,7 +3019,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 
-		/* Mind blast */
 	case DO_EFFECT_MIND_BLAST:
 		{
 
@@ -2919,15 +3038,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					msg_print("Your mind is blasted by psyonic energy.");
 #endif
 
-					if(!has_trait(target_ptr, TRAIT_NO_CONF))
-					{
-						(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-					}
-
-					if(!target_ptr->resist_chaos && one_in_(3))
-					{
-						(void)set_timed_trait(target_ptr, TRAIT_HALLUCINATION, target_ptr->timed_trait[TRAIT_HALLUCINATION] + randint0(250) + 150);
-					}
+					if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
+					if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 
 					target_ptr->csp -= 50;
 					if(target_ptr->csp < 0)
@@ -3006,8 +3118,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-
-		/* Brain smash */
 	case DO_EFFECT_BRAIN_SMASH:
 		{
 			/* TODO saving_throw
@@ -3139,139 +3249,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-	case DO_EFFECT_PSI:
-		{
-			if(seen) obvious = TRUE;
-
-			/* PSI only works if the creature can see you! -- RG */
-			if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
-			{
-#ifdef JP
-				if(seen_msg) msg_format("%sはあなたが見えないので影響されない！", target_name);
-#else
-				if(seen_msg) msg_format("%^s can't see you, and isn't affected!", target_name);
-#endif
-				skipped = TRUE;
-				break;
-			}
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-			{
-				dam = 0;
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-
-			}
-			else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) ||
-				has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(target_ptr->lev * 2 > randint1(3 * dam)))
-			{
-				dam /= 3;
-				note = game_messages[GAME_MESSAGE_RESISTED];
-
-				/*
-				* Powerful demons & undead can turn a mindcrafter's
-				* attacks back on them
-				*/
-				if(has_trait(target_ptr, TRAIT_UNDEAD) && 
-					has_trait(target_ptr, TRAIT_DEMON) &&
-					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
-					one_in_(2))
-				{
-					note = NULL;
-#ifdef JP
-					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
-#else
-					msg_format("%^s%s corrupted mind backlashes your attack!",
-						target_name, (seen ? "'s" : "s"));
-#endif
-
-					/* Saving throw */
-					/*
-					if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-					{
-					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-					}
-					else
-					*/
-					{
-						/* Injure +/- confusion */
-						creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-						take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
-						if(one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-						{
-							switch (randint1(4))
-							{
-							case 1:
-								set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
-								break;
-							case 2:
-								set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
-								break;
-							case 3:
-								{
-									if(has_trait(target_ptr, TRAIT_FEARLESS))
-#ifdef JP
-										note = "には効果がなかった。";
-#else
-										note = " is unaffected.";
-#endif
-
-									else
-										set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(dam));
-									break;
-								}
-							default:
-								if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-									(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
-								break;
-							}
-						}
-					}
-					dam = 0;
-				}
-			}
-
-			if((dam > 0) && one_in_(4))
-			{
-				switch (randint1(4))
-				{
-				case 1:
-					do_conf = 3 + randint1(dam);
-					break;
-				case 2:
-					do_stun = 3 + randint1(dam);
-					break;
-				case 3:
-					do_fear = 3 + randint1(dam);
-					break;
-				default:
-#ifdef JP
-					note = "は眠り込んでしまった！";
-#else
-					note = " falls asleep!";
-#endif
-
-					do_sleep = 3 + randint1(dam);
-					break;
-				}
-			}
-
-#ifdef JP
-			note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-#else
-			note_dies = " collapses, a mindless husk.";
-#endif
-
-			break;
-		}
 
 	case DO_EFFECT_PSI_DRAIN:
 		{
