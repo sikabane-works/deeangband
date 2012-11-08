@@ -2974,7 +2974,212 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 66-68
+
+	case DO_EFFECT_CHARM:
+		{
+			int vir;
+			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
+
+			// TODO: Add Karma of Fortune feature.
+			vir = 0;
+
+			if(vir)
+			{
+				dam += caster_ptr->karmas[vir-1]/10;
+			}
+
+			// TODO: Add Karma feature.
+			vir = 0;
+			if(vir)
+			{
+				dam -= caster_ptr->karmas[vir-1]/20;
+			}
+
+			if(seen) obvious = TRUE;
+
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+				dam = dam * 2 / 3;
+
+			/* Attempt a saving throw */
+			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
+				has_trait(target_ptr, TRAIT_NO_CONF) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
+			{
+				/* Memorize a flag */
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
+				{
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+				}
+
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			{
+#ifdef JP
+				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ð•ø‚¢‚Ä‚¢‚éI";
+#else
+				note = " hates you too much!";
+#endif
+
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else
+			{
+#ifdef JP
+				note = "‚Í“Ë‘R—FD“I‚É‚È‚Á‚½‚æ‚¤‚¾I";
+#else
+				note = " suddenly seems friendly!";
+#endif
+
+				set_pet(caster_ptr, target_ptr);
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+	case DO_EFFECT_CONTROL_UNDEAD:
+		{
+			int vir = 0;
+			if(seen) obvious = TRUE;
+
+			// TODO: Add Karma feature.
+			if(vir) dam += caster_ptr->karmas[vir-1]/10;
+			if(vir) dam -= caster_ptr->karmas[vir-1]/20;
+
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+				dam = dam * 2 / 3;
+
+			/* Attempt a saving throw */
+			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
+				(!has_trait(target_ptr, TRAIT_UNDEAD)) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			{
+#ifdef JP
+				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ð•ø‚¢‚Ä‚¢‚éI";
+#else
+				note = " hates you too much!";
+#endif
+
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else
+			{
+#ifdef JP
+				note = "‚ÍŠù‚É‚ ‚È‚½‚Ì“z—ê‚¾I";
+#else
+				note = " is in your thrall!";
+#endif
+
+				set_pet(caster_ptr, target_ptr);
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+	case DO_EFFECT_CONTROL_ANIMAL:
+		{
+			int vir;
+			// TODO: Add Karma feature.
+
+
+			if(seen) obvious = TRUE;
+
+			vir = 0;
+			if(vir)
+			{
+				dam += caster_ptr->karmas[vir-1]/10;
+			}
+
+			vir = 0;
+			if(vir)
+			{
+				dam -= caster_ptr->karmas[vir-1]/20;
+			}
+
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+				dam = dam * 2 / 3;
+
+			/* Attempt a saving throw */
+			if( has_trait(target_ptr, TRAIT_QUESTOR) ||
+				!has_trait(target_ptr, TRAIT_ANIMAL) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+				has_trait(target_ptr, TRAIT_NO_CONF) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				/* Memorize a flag */
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
+				{
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+				}
+
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			{
+#ifdef JP
+				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ð•ø‚¢‚Ä‚¢‚éI";
+#else
+				note = " hates you too much!";
+#endif
+
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else
+			{
+#ifdef JP
+				note = "‚Í‚È‚Â‚¢‚½B";
+#else
+				note = " is tamed!";
+#endif
+				set_pet(caster_ptr, target_ptr);
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
 
 	case DO_EFFECT_PSI:
 		{
@@ -4063,7 +4268,68 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* Fall through */
 		}
 
-// 97-98
+// 97
+
+	case DO_EFFECT_CRUSADE:
+		{
+			bool success = FALSE;
+			if(seen) obvious = TRUE;
+
+			if(is_enemy_of_evil_creature(target_ptr) && !floor_ptr->fight_arena_mode)
+			{
+				if(has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 50;
+				if(dam < 1) dam = 1;
+
+				/* No need to tame your pet */
+				if(is_pet(player_ptr, target_ptr))
+				{
+#ifdef JP
+					note = "‚Ì“®‚«‚ª‘¬‚­‚È‚Á‚½B";
+#else
+					note = " starts moving faster.";
+#endif
+
+					(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + 100);
+					success = TRUE;
+				}
+
+				/* Attempt a saving throw */
+				else if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
+					(has_trait(target_ptr, TRAIT_UNIQUE)) ||
+					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+					(has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
+					((target_ptr->lev * 2+10) > randint1(dam)))
+				{
+					/* Resist */
+					if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+				}
+				else
+				{
+#ifdef JP
+					note = "‚ðŽx”z‚µ‚½B";
+#else
+					note = " is tamed!";
+#endif
+
+					set_pet(caster_ptr, target_ptr);
+					(void)add_timed_trait(target_ptr, TRAIT_FAST, 100, FALSE);
+
+					/* Learn about type */
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+					success = TRUE;
+				}
+			}
+
+			if(!success)
+			{
+				if(!has_trait(target_ptr, TRAIT_FEARLESS)) do_fear = randint1(90)+10;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_FEARLESS);
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
 
 	case DO_EFFECT_STASIS_EVIL:
 		{
@@ -4171,215 +4437,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 
-
-	case DO_EFFECT_CHARM:
-		{
-			int vir;
-			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
-
-			// TODO: Add Karma of Fortune feature.
-			vir = 0;
-
-			if(vir)
-			{
-				dam += caster_ptr->karmas[vir-1]/10;
-			}
-
-			// TODO: Add Karma feature.
-			vir = 0;
-			if(vir)
-			{
-				dam -= caster_ptr->karmas[vir-1]/20;
-			}
-
-			if(seen) obvious = TRUE;
-
-			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-				dam = dam * 2 / 3;
-
-			/* Attempt a saving throw */
-			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
-			{
-				/* Memorize a flag */
-				if(has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-				}
-
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-
-			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
-			{
-#ifdef JP
-				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ð•ø‚¢‚Ä‚¢‚éI";
-#else
-				note = " hates you too much!";
-#endif
-
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else
-			{
-#ifdef JP
-				note = "‚Í“Ë‘R—FD“I‚É‚È‚Á‚½‚æ‚¤‚¾I";
-#else
-				note = " suddenly seems friendly!";
-#endif
-
-				set_pet(caster_ptr, target_ptr);
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-	case DO_EFFECT_CONTROL_UNDEAD:
-		{
-			int vir = 0;
-			if(seen) obvious = TRUE;
-
-			// TODO: Add Karma feature.
-			if(vir) dam += caster_ptr->karmas[vir-1]/10;
-			if(vir) dam -= caster_ptr->karmas[vir-1]/20;
-
-			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-				dam = dam * 2 / 3;
-
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				(!has_trait(target_ptr, TRAIT_UNDEAD)) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
-			{
-#ifdef JP
-				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ð•ø‚¢‚Ä‚¢‚éI";
-#else
-				note = " hates you too much!";
-#endif
-
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else
-			{
-#ifdef JP
-				note = "‚ÍŠù‚É‚ ‚È‚½‚Ì“z—ê‚¾I";
-#else
-				note = " is in your thrall!";
-#endif
-
-				set_pet(caster_ptr, target_ptr);
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-		/* Tame animal */
-	case DO_EFFECT_CONTROL_ANIMAL:
-		{
-			int vir;
-			// TODO: Add Karma feature.
-
-
-			if(seen) obvious = TRUE;
-
-			vir = 0;
-			if(vir)
-			{
-				dam += caster_ptr->karmas[vir-1]/10;
-			}
-
-			vir = 0;
-			if(vir)
-			{
-				dam -= caster_ptr->karmas[vir-1]/20;
-			}
-
-			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-				dam = dam * 2 / 3;
-
-			/* Attempt a saving throw */
-			if( has_trait(target_ptr, TRAIT_QUESTOR) ||
-				!has_trait(target_ptr, TRAIT_ANIMAL) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				/* Memorize a flag */
-				if(has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-				}
-
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
-			{
-#ifdef JP
-				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ð•ø‚¢‚Ä‚¢‚éI";
-#else
-				note = " hates you too much!";
-#endif
-
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else
-			{
-#ifdef JP
-				note = "‚Í‚È‚Â‚¢‚½B";
-#else
-				note = " is tamed!";
-#endif
-
-				set_pet(caster_ptr, target_ptr);
-
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
 
 		/* Tame animal */
 	case DO_EFFECT_CONTROL_LIVING:
@@ -4990,69 +5047,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	}
 */
 
-	case DO_EFFECT_CRUSADE:
-		{
-			bool success = FALSE;
-			if(seen) obvious = TRUE;
-
-			if(is_enemy_of_evil_creature(target_ptr) && !floor_ptr->fight_arena_mode)
-			{
-				if(has_trait(target_ptr, TRAIT_NO_CONF)) dam -= 50;
-				if(dam < 1) dam = 1;
-
-				/* No need to tame your pet */
-				if(is_pet(player_ptr, target_ptr))
-				{
-#ifdef JP
-					note = "‚Ì“®‚«‚ª‘¬‚­‚È‚Á‚½B";
-#else
-					note = " starts moving faster.";
-#endif
-
-					(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + 100);
-					success = TRUE;
-				}
-
-				/* Attempt a saving throw */
-				else if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-					(has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-					(has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
-					((target_ptr->lev * 2+10) > randint1(dam)))
-				{
-					/* Resist */
-					if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-				}
-				else
-				{
-#ifdef JP
-					note = "‚ðŽx”z‚µ‚½B";
-#else
-					note = " is tamed!";
-#endif
-
-					set_pet(caster_ptr, target_ptr);
-					(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + 100);
-
-					/* Learn about type */
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-					success = TRUE;
-				}
-			}
-
-			if(!success)
-			{
-				if(!has_trait(target_ptr, TRAIT_FEARLESS))
-				{
-					do_fear = randint1(90)+10;
-				}
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_FEARLESS);
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
 
 	default:
 		{
