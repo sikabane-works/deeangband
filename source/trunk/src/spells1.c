@@ -2382,7 +2382,38 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 38
+	case DO_EFFECT_OLD_POLY:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			/* Attempt to polymorph (see below) */
+			do_poly = TRUE;
+
+			/* Powerful creatures can resist */
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+#ifdef JP
+				note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
+#else
+				note = " is unaffected!";
+#endif
+				do_poly = FALSE;
+				obvious = FALSE;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+
+			break;
+		}
 
 	case DO_EFFECT_OLD_HEAL:
 		{
@@ -2553,7 +2584,47 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-//57-60
+//57-58
+
+
+
+	case DO_EFFECT_STASIS:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			/* Attempt a saving throw */
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				obvious = FALSE;
+			}
+			else
+			{
+				/* Go to sleep (much) later */
+#ifdef JP
+				note = "‚Í“®‚¯‚È‚­‚È‚Á‚½I";
+#else
+				note = " is suspended!";
+#endif
+
+				do_sleep = 500;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+
+//60
 
 	case DO_EFFECT_DEATH_RAY:
 		{
@@ -3546,7 +3617,58 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-//83-95
+//83-90
+
+	case DO_EFFECT_CONTROL_DEMON:
+		{
+			if(seen) obvious = TRUE;
+			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
+				dam = dam * 2 / 3;
+
+			/* Attempt a saving throw */
+			if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
+			{
+#ifdef JP
+				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
+#else
+				note = " hates you too much!";
+#endif
+
+				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
+			}
+			else
+			{
+#ifdef JP
+				note = "‚ÍŠù‚É‚ ‚È‚½‚Ì“z—ê‚¾I";
+#else
+				note = " is in your thrall!";
+#endif
+
+				set_pet(caster_ptr, target_ptr);
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+
+//92-95
 
 	case DO_EFFECT_STAR_HEAL:
 		{
@@ -3656,77 +3778,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 
-	case DO_EFFECT_OLD_POLY:
-		{
-			if(seen) obvious = TRUE;
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			/* Attempt to polymorph (see below) */
-			do_poly = TRUE;
-
-			/* Powerful creatures can resist */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-#ifdef JP
-				note = "‚É‚ÍŒø‰Ê‚ª‚È‚©‚Á‚½B";
-#else
-				note = " is unaffected!";
-#endif
-				do_poly = FALSE;
-				obvious = FALSE;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-
-			break;
-		}
-
-
-
-	case DO_EFFECT_STASIS:
-		{
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				obvious = FALSE;
-			}
-			else
-			{
-				/* Go to sleep (much) later */
-#ifdef JP
-				note = "‚Í“®‚¯‚È‚­‚È‚Á‚½I";
-#else
-				note = " is suspended!";
-#endif
-
-				do_sleep = 500;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-		/* Charm creature */
 	case DO_EFFECT_CHARM:
 		{
 			int vir;
@@ -3804,7 +3856,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		/* Control undead */
 	case DO_EFFECT_CONTROL_UNDEAD:
 		{
 			int vir = 0;
@@ -3830,55 +3881,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				(!has_trait(target_ptr, TRAIT_UNDEAD)) ||
 				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else if(has_trait(caster_ptr, TRAIT_ANTIPATHY))
-			{
-#ifdef JP
-				note = "‚Í‚ ‚È‚½‚É“GˆÓ‚ğ•ø‚¢‚Ä‚¢‚éI";
-#else
-				note = " hates you too much!";
-#endif
-
-				if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
-			}
-			else
-			{
-#ifdef JP
-				note = "‚ÍŠù‚É‚ ‚È‚½‚Ì“z—ê‚¾I";
-#else
-				note = " is in your thrall!";
-#endif
-
-				set_pet(caster_ptr, target_ptr);
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-		/* Control demon */
-	case DO_EFFECT_CONTROL_DEMON:
-		{
-			if(seen) obvious = TRUE;
-			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
-				dam = dam * 2 / 3;
-
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_DEMON)) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
