@@ -1744,7 +1744,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by poison!");
 #endif
 
-			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(double_resist || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 			}
@@ -1837,7 +1837,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
-			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				int k = (randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)));
 				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
@@ -1861,7 +1861,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something wet!");
 #endif
 
-			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
 				if(!has_trait(target_ptr, TRAIT_NO_CONF)) add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(5) + 5, TRUE);
@@ -1881,14 +1881,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something!");
 #endif
 
-			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
 			}
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
-			if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
 /* TODO
@@ -1914,7 +1914,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something!");
 #endif
 
-			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + randint1(5) + 2);
 			}
@@ -1976,7 +1976,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something sharp!");
 #endif
 
-			if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + dam);
 			}
@@ -1998,7 +1998,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by a loud noise!");
 #endif
 
-			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
 				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
@@ -2021,7 +2021,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something puzzling!");
 #endif
 
-			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + randint1(20) + 10);
 			}
@@ -2037,8 +2037,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by kinetic force!");
 #endif
 
-			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
+			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
@@ -2052,7 +2052,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something slow!");
 #endif
 
-			if(!target_ptr->resist_inertia && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
+			if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 			break;
 		}
@@ -2088,7 +2088,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
 
-			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
 				if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
@@ -2107,7 +2107,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by a wave of anarchy!");
 #endif
 
-			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
 				if(!target_ptr->resist_chaos)
@@ -2148,7 +2148,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by nether forces!");
 #endif
 
-			if(!target_ptr->resist_neth && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_neth && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
@@ -2164,7 +2164,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something static!");
 #endif
 
-			if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)apply_disenchant(target_ptr, 0);
 			}
@@ -2180,7 +2180,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something strange!");
 #endif
 
-			if(!target_ptr->resist_nexus && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_nexus && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				apply_nexus(caster_ptr);
 			}
@@ -2196,7 +2196,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by a blast from the past!");
 #endif
 
-			if(!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				switch (randint1(10))
 				{
@@ -2284,7 +2284,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			msg_print("Gravity warps around you.");
 #endif
 
-			if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
 				if(!has_trait(target_ptr, TRAIT_CAN_FLY))
@@ -2906,7 +2906,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 
-			if(!(double_resist || target_ptr->resist_pois) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!(double_resist || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 
@@ -2937,12 +2937,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("There is an explosion!");
 #endif
 
-			if(!target_ptr->resist_sound && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
 			}
 
-			else if(!target_ptr->resist_shard && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			else if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + (dam / 2));
 			}
@@ -3662,7 +3662,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_DRAIN_MANA:
 		{
-			if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
@@ -3747,14 +3747,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 
 			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
 			{
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("霊的エネルギーで精神が攻撃された。");
@@ -3835,14 +3835,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_BRAIN_SMASH:
 		{
 			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			}
 			else
 			*/
 			{
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("霊的エネルギーで精神が攻撃された。");
@@ -3854,7 +3854,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
 					if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
@@ -3944,7 +3944,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CAUSE_1:
 		{
 			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			learn_trait(target_ptr, spell);
 			}
@@ -3952,7 +3952,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			*/
 			{
 				//TODO curse_equipment
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 15, 0);
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
@@ -3989,7 +3989,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CAUSE_2:
 		{
 			/*
-			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			learn_trait(target_ptr, spell);
@@ -3997,7 +3997,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			*/
 			{
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
@@ -4034,7 +4034,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CAUSE_3:
 		{
 			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			learn_trait(target_ptr, spell);
@@ -4042,7 +4042,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			*/
 			{
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
@@ -4079,7 +4079,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CAUSE_4:
 		{
 			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 			#ifdef JP
 			msg_print("しかし秘孔を跳ね返した！");
@@ -4092,7 +4092,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			*/
 			{
 				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
 			}
 			break;
 		}
@@ -4128,7 +4128,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_HAND_DOOM:
 		{
 			/*
-			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
 			learn_trait(target_ptr,spell);
@@ -4136,7 +4136,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			*/
 			{
-				if(!(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("あなたは命が薄まっていくように感じた！");
