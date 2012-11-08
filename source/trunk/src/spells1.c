@@ -2870,7 +2870,124 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
- //72-74
+ //72
+
+	case DO_EFFECT_DOMINATION:
+		{
+			if(!is_hostile(target_ptr)) break;
+
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			/* Attempt a saving throw */
+			if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				/* Memorize a flag */
+				if(has_trait(target_ptr, TRAIT_NO_CONF))
+				{
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+				}
+
+				/* Resist */
+				do_conf = 0;
+
+				/*
+				* Powerful demons & undead can turn a mindcrafter's
+				* attacks back on them
+				*/
+				if(has_trait(target_ptr, TRAIT_UNDEAD) &&
+					has_trait(target_ptr, TRAIT_DEMON) &&
+					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
+					(one_in_(2)))
+				{
+					note = NULL;
+#ifdef JP
+					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
+#else
+					msg_format("%^s%s corrupted mind backlashes your attack!",
+						target_name, (seen ? "'s" : "s"));
+#endif
+
+					/* Saving throw */
+					/* saving throw
+					if(randint0(100 + target_ptr->lev * 2/2) < caster_ptr->skill_rob)
+					{
+					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
+					}
+					else
+					*/
+					{
+						/* Confuse, stun, terrify */
+						switch (randint1(4))
+						{
+						case 1:
+							set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
+							break;
+						case 2:
+							set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
+							break;
+						default:
+							{
+								if(has_trait(target_ptr, TRAIT_FEARLESS))
+#ifdef JP
+									note = "には効果がなかった。";
+#else
+									note = " is unaffected.";
+#endif
+
+								else
+									set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + dam);
+							}
+						}
+					}
+				}
+				else
+				{
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					obvious = FALSE;
+				}
+			}
+			else
+			{
+				if((dam > 29) && (randint1(100) < dam))
+				{
+#ifdef JP
+					note = "があなたに隷属した。";
+#else
+					note = " is in your thrall!";
+#endif
+
+					set_pet(caster_ptr, target_ptr);
+				}
+				else
+				{
+					switch (randint1(4))
+					{
+					case 1:
+						do_stun = dam / 2;
+						break;
+					case 2:
+						do_conf = dam / 2;
+						break;
+					default:
+						do_fear = dam;
+					}
+				}
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+// 74
 
 	case DO_EFFECT_DRAIN_MANA:
 		{
@@ -3429,7 +3546,73 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-//83-
+//83-95
+
+	case DO_EFFECT_STAR_HEAL:
+		{
+			if(seen) obvious = TRUE;
+			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0); // Wake up
+
+			if(target_ptr->mhp < target_ptr->mmhp)
+			{
+#ifdef JP
+				if(seen_msg) msg_format("%^sの強さが戻った。", target_name);
+#else
+				if(seen_msg) msg_format("%^s recovers %s vitality.", target_name, m_poss);
+#endif
+				target_ptr->mhp = target_ptr->mmhp;
+			}
+
+			if(!dam)
+			{
+				/* Redraw (later) if needed */
+				if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+				if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
+				break;
+			}
+
+			/* Fall through */
+		}
+
+// 97-98
+
+	case DO_EFFECT_STASIS_EVIL:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				dam = 0;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+			/* Attempt a saving throw */
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
+				!(is_enemy_of_good_creature(target_ptr)) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+			}
+			else
+			{
+				/* Go to sleep (much) later */
+#ifdef JP
+				note = "は動けなくなった！";
+#else
+				note = " is suspended!";
+#endif
+
+				do_sleep = 500;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+// 100-
 
 //// NOW sorting.
 
@@ -3471,123 +3654,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 
-	case DO_EFFECT_DOMINATION:
-		{
-			if(!is_hostile(target_ptr)) break;
-
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			/* Attempt a saving throw */
-			if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				/* Memorize a flag */
-				if(has_trait(target_ptr, TRAIT_NO_CONF))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-				}
-
-				/* Resist */
-				do_conf = 0;
-
-				/*
-				* Powerful demons & undead can turn a mindcrafter's
-				* attacks back on them
-				*/
-				if(has_trait(target_ptr, TRAIT_UNDEAD) &&
-					has_trait(target_ptr, TRAIT_DEMON) &&
-					(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
-					(one_in_(2)))
-				{
-					note = NULL;
-#ifdef JP
-					msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
-#else
-					msg_format("%^s%s corrupted mind backlashes your attack!",
-						target_name, (seen ? "'s" : "s"));
-#endif
-
-					/* Saving throw */
-					/* saving throw
-					if(randint0(100 + target_ptr->lev * 2/2) < caster_ptr->skill_rob)
-					{
-					msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-					}
-					else
-					*/
-					{
-						/* Confuse, stun, terrify */
-						switch (randint1(4))
-						{
-						case 1:
-							set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
-							break;
-						case 2:
-							set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
-							break;
-						default:
-							{
-								if(has_trait(target_ptr, TRAIT_FEARLESS))
-#ifdef JP
-									note = "には効果がなかった。";
-#else
-									note = " is unaffected.";
-#endif
-
-								else
-									set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + dam);
-							}
-						}
-					}
-				}
-				else
-				{
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-					obvious = FALSE;
-				}
-			}
-			else
-			{
-				if((dam > 29) && (randint1(100) < dam))
-				{
-#ifdef JP
-					note = "があなたに隷属した。";
-#else
-					note = " is in your thrall!";
-#endif
-
-					set_pet(caster_ptr, target_ptr);
-				}
-				else
-				{
-					switch (randint1(4))
-					{
-					case 1:
-						do_stun = dam / 2;
-						break;
-					case 2:
-						do_conf = dam / 2;
-						break;
-					default:
-						do_fear = dam;
-					}
-				}
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
 
 
-		/* Polymorph creature (Use "dam" as "power") */
 	case DO_EFFECT_OLD_POLY:
 		{
 			if(seen) obvious = TRUE;
@@ -3623,71 +3691,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 
-	case DO_EFFECT_STAR_HEAL:
-		{
-			if(seen) obvious = TRUE;
-
-			/* Wake up */
-			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
-
-			if(target_ptr->mhp < target_ptr->mmhp)
-			{
-#ifdef JP
-				if(seen_msg) msg_format("%^sの強さが戻った。", target_name);
-#else
-				if(seen_msg) msg_format("%^s recovers %s vitality.", target_name, m_poss);
-#endif
-				target_ptr->mhp = target_ptr->mmhp;
-			}
-
-			if(!dam)
-			{
-				/* Redraw (later) if needed */
-				if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
-				if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
-				break;
-			}
-
-			/* Fall through */
-		}
-
-	case DO_EFFECT_STASIS_EVIL:
-		{
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				!(is_enemy_of_good_creature(target_ptr)) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-			}
-			else
-			{
-				/* Go to sleep (much) later */
-#ifdef JP
-				note = "は動けなくなった！";
-#else
-				note = " is suspended!";
-#endif
-
-				do_sleep = 500;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-		/* Sleep (Use "dam" as "power") */
 	case DO_EFFECT_STASIS:
 		{
 			if(seen) obvious = TRUE;
