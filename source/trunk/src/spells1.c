@@ -2521,8 +2521,308 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			break;
 		}
-		
-// 45-56
+
+
+	case DO_EFFECT_AWAY_UNDEAD:
+		{
+			/* Only affect undead */
+			if(has_trait(target_ptr, TRAIT_UNDEAD))
+			{
+				bool resists_tele = FALSE;
+
+				if(has_trait(target_ptr, TRAIT_RES_TELE))
+				{
+					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+					{
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+						resists_tele = TRUE;
+					}
+					else if(target_ptr->lev * 2 > randint1(100))
+					{
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						note = game_messages[GAME_MESSAGE_RESISTED];
+						resists_tele = TRUE;
+					}
+				}
+
+				if(!resists_tele)
+				{
+					if(seen) obvious = TRUE;
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+					do_dist = dam;
+				}
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+	case DO_EFFECT_AWAY_EVIL:
+		{
+			/* Only affect evil */
+			if(is_enemy_of_good_creature(target_ptr))
+			{
+				bool resists_tele = FALSE;
+
+				if(has_trait(target_ptr, TRAIT_RES_TELE))
+				{
+					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+					{
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+						resists_tele = TRUE;
+					}
+					else if(target_ptr->lev * 2 > randint1(100))
+					{
+						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+						note = game_messages[GAME_MESSAGE_RESISTED];
+						resists_tele = TRUE;
+					}
+				}
+
+				if(!resists_tele)
+				{
+					if(seen) obvious = TRUE;
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+					do_dist = dam;
+				}
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+
+	case DO_EFFECT_AWAY_ALL:
+		{
+			bool resists_tele = FALSE;
+			if(has_trait(target_ptr, TRAIT_RES_TELE))
+			{
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
+				{
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					resists_tele = TRUE;
+				}
+				else if(target_ptr->lev * 2 > randint1(100))
+				{
+					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
+					note = game_messages[GAME_MESSAGE_RESISTED];
+					resists_tele = TRUE;
+				}
+			}
+
+			if(!resists_tele)
+			{
+				if(seen) obvious = TRUE; // Obvious
+				do_dist = dam; // Prepare to teleport
+				if(is_player(target_ptr))
+#ifdef JP
+					msg_format("%^sにテレポートさせられた。", caster_name);
+#else
+					msg_format("%^s teleports you away.", caster_name);
+#endif
+			}
+			dam = 0; // No "real" damage
+			break;
+		}
+
+	case DO_EFFECT_TURN_UNDEAD:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				break;
+			}
+			if(has_trait(target_ptr, TRAIT_UNDEAD)) // Only affect undead
+			{
+				if(seen) obvious = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				do_fear = diceroll(3, (dam / 2)) + 1;
+
+				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10) // Attempt a saving throw
+				{
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					obvious = FALSE;
+					do_fear = 0;
+				}
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+
+	case DO_EFFECT_TURN_EVIL:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				break;
+			}
+			/* Only affect evil */
+			if(is_enemy_of_good_creature(target_ptr))
+			{
+				/* Obvious */
+				if(seen) obvious = TRUE;
+
+				/* Learn about type */
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+
+				/* Apply some fear */
+				do_fear = diceroll(3, (dam / 2)) + 1;
+
+				/* Attempt a saving throw */
+				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
+				{
+					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+					obvious = FALSE;
+					do_fear = 0;
+				}
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+	case DO_EFFECT_TURN_ALL:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				break;
+			}
+			/* Obvious */
+			if(seen) obvious = TRUE;
+
+			/* Apply some fear */
+			do_fear = diceroll(3, (dam / 2)) + 1;
+
+			/* Attempt a saving throw */
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
+				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			{
+				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+				obvious = FALSE;
+				do_fear = 0;
+			}
+
+			/* No "real" damage */
+			dam = 0;
+			break;
+		}
+
+	case DO_EFFECT_DISP_UNDEAD:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				dam = 0;
+				break;
+			}
+			/* Only affect undead */
+			if(has_trait(target_ptr, TRAIT_UNDEAD))
+			{
+				/* Obvious */
+				if(seen) obvious = TRUE;
+
+				/* Learn about type */
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+
+				/* Message */
+#ifdef JP
+				note = "は身震いした。";
+				note_dies = "はドロドロに溶けた！";
+#else
+				note = " shudders.";
+				note_dies = " dissolves!";
+#endif
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+
+				/* No damage */
+				dam = 0;
+			}
+
+			break;
+		}
+
+
+		/* Dispel evil */
+	case DO_EFFECT_DISP_EVIL:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				dam = 0;
+				break;
+			}
+			/* Only affect evil */
+			if(is_enemy_of_good_creature(target_ptr))
+			{
+				/* Obvious */
+				if(seen) obvious = TRUE;
+
+				/* Learn about type */
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+
+				/* Message */
+#ifdef JP
+				note = "は身震いした。";
+				note_dies = "はドロドロに溶けた！";
+#else
+				note = " shudders.";
+				note_dies = " dissolves!";
+#endif
+			}
+			else
+			{
+				skipped = TRUE;
+				dam = 0;
+			}
+			break;
+		}
+
+
+// 53-56
 
 	case DO_EFFECT_NUKE:
 		{
@@ -3617,7 +3917,74 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		*/
 
-//83-90
+	case DO_EFFECT_CAPTURE:
+		{
+			int nokori_hp;
+			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
+				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
+			{
+#ifdef JP
+				msg_format("%sには効果がなかった。",target_name);
+#else
+				msg_format("%^s is unaffected.", target_name);
+#endif
+				skipped = TRUE;
+				break;
+			}
+
+			if(is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
+			else if((has_trait(caster_ptr, TRAIT_DOMINATE_LIVE) || has_trait(caster_ptr, TRAIT_DOMINATE_LIVES)) && creature_living(target_ptr))
+				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
+			else
+				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
+
+			if(target_ptr->chp >= nokori_hp)
+			{
+#ifdef JP
+				msg_format("もっと弱らせないと。");
+#else
+				msg_format("You need to weaken %s more.", target_name);
+#endif
+				skipped = TRUE;
+			}
+			else if(target_ptr->chp < randint0(nokori_hp))
+			{
+				if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
+#ifdef JP
+				msg_format("%sを捕えた！",target_name);
+#else
+				msg_format("You capture %^s!", target_name);
+#endif
+				//TODO: capture creature status
+				if(c_ptr->creature_idx == player_ptr->riding)
+				{
+					if(do_thrown_from_riding(player_ptr, -1, FALSE))
+					{
+#ifdef JP
+						msg_print("地面に落とされた。");
+#else
+						msg_format("You have fallen from %s.", target_name);
+#endif
+					}
+				}
+
+				delete_species_idx(target_ptr);
+
+				//TODO return (TRUE);
+			}
+			else
+			{
+#ifdef JP
+				msg_format("うまく捕まえられなかった。");
+#else
+				msg_format("You failed to capture %s.", target_name);
+#endif
+				skipped = TRUE;
+			}
+			break;
+		}
+
+//84-90
 
 	case DO_EFFECT_CONTROL_DEMON:
 		{
@@ -3734,7 +4101,33 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-// 100-
+	case DO_EFFECT_WOUNDS:
+		{
+			if(seen) obvious = TRUE;
+
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
+				skipped = TRUE;
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+				break;
+			}
+
+			/* Attempt a saving throw */
+			if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
+			{
+
+#ifdef JP
+				note = "には効果がなかった。";
+#else
+				note = "is unaffected!";
+#endif
+				dam = 0;
+			}
+			break;
+		}
+
+// 101-
 
 //// NOW sorting.
 
@@ -4129,311 +4522,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 
-
-	case DO_EFFECT_AWAY_UNDEAD:
-		{
-			/* Only affect undead */
-			if(has_trait(target_ptr, TRAIT_UNDEAD))
-			{
-				bool resists_tele = FALSE;
-
-				if(has_trait(target_ptr, TRAIT_RES_TELE))
-				{
-					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
-					{
-						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-						note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-						resists_tele = TRUE;
-					}
-					else if(target_ptr->lev * 2 > randint1(100))
-					{
-						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-						note = game_messages[GAME_MESSAGE_RESISTED];
-						resists_tele = TRUE;
-					}
-				}
-
-				if(!resists_tele)
-				{
-					if(seen) obvious = TRUE;
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-					do_dist = dam;
-				}
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-	case DO_EFFECT_AWAY_EVIL:
-		{
-			/* Only affect evil */
-			if(is_enemy_of_good_creature(target_ptr))
-			{
-				bool resists_tele = FALSE;
-
-				if(has_trait(target_ptr, TRAIT_RES_TELE))
-				{
-					if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
-					{
-						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-						note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-						resists_tele = TRUE;
-					}
-					else if(target_ptr->lev * 2 > randint1(100))
-					{
-						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-						note = game_messages[GAME_MESSAGE_RESISTED];
-						resists_tele = TRUE;
-					}
-				}
-
-				if(!resists_tele)
-				{
-					if(seen) obvious = TRUE;
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-					do_dist = dam;
-				}
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-
-	case DO_EFFECT_AWAY_ALL:
-		{
-			bool resists_tele = FALSE;
-			if(has_trait(target_ptr, TRAIT_RES_TELE))
-			{
-				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-					resists_tele = TRUE;
-				}
-				else if(target_ptr->lev * 2 > randint1(100))
-				{
-					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
-					note = game_messages[GAME_MESSAGE_RESISTED];
-					resists_tele = TRUE;
-				}
-			}
-
-			if(!resists_tele)
-			{
-				if(seen) obvious = TRUE; // Obvious
-				do_dist = dam; // Prepare to teleport
-				if(is_player(target_ptr))
-#ifdef JP
-					msg_format("%^sにテレポートさせられた。", caster_name);
-#else
-					msg_format("%^s teleports you away.", caster_name);
-#endif
-			}
-			dam = 0; // No "real" damage
-			break;
-		}
-
-	case DO_EFFECT_TURN_UNDEAD:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				break;
-			}
-			if(has_trait(target_ptr, TRAIT_UNDEAD)) // Only affect undead
-			{
-				if(seen) obvious = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-				do_fear = diceroll(3, (dam / 2)) + 1;
-
-				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10) // Attempt a saving throw
-				{
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-					obvious = FALSE;
-					do_fear = 0;
-				}
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-
-	case DO_EFFECT_TURN_EVIL:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				break;
-			}
-			/* Only affect evil */
-			if(is_enemy_of_good_creature(target_ptr))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Learn about type */
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
-				/* Apply some fear */
-				do_fear = diceroll(3, (dam / 2)) + 1;
-
-				/* Attempt a saving throw */
-				if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
-				{
-					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-					obvious = FALSE;
-					do_fear = 0;
-				}
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-	case DO_EFFECT_TURN_ALL:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				break;
-			}
-			/* Obvious */
-			if(seen) obvious = TRUE;
-
-			/* Apply some fear */
-			do_fear = diceroll(3, (dam / 2)) + 1;
-
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
-			{
-				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-				obvious = FALSE;
-				do_fear = 0;
-			}
-
-			/* No "real" damage */
-			dam = 0;
-			break;
-		}
-
-	case DO_EFFECT_DISP_UNDEAD:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				dam = 0;
-				break;
-			}
-			/* Only affect undead */
-			if(has_trait(target_ptr, TRAIT_UNDEAD))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Learn about type */
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				/* Message */
-#ifdef JP
-				note = "は身震いした。";
-				note_dies = "はドロドロに溶けた！";
-#else
-				note = " shudders.";
-				note_dies = " dissolves!";
-#endif
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-
-				/* No damage */
-				dam = 0;
-			}
-
-			break;
-		}
-
-
-		/* Dispel evil */
-	case DO_EFFECT_DISP_EVIL:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				dam = 0;
-				break;
-			}
-			/* Only affect evil */
-			if(is_enemy_of_good_creature(target_ptr))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Learn about type */
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
-				/* Message */
-#ifdef JP
-				note = "は身震いした。";
-				note_dies = "はドロドロに溶けた！";
-#else
-				note = " shudders.";
-				note_dies = " dissolves!";
-#endif
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-
-				/* No damage */
-				dam = 0;
-			}
-
-			break;
-		}
-
 		/* Dispel good */
 	case DO_EFFECT_DISP_GOOD:
 		{
@@ -4580,73 +4668,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		/* Capture creature */
-	case DO_EFFECT_CAPTURE:
-		{
-			int nokori_hp;
-			if((floor_ptr->quest && (quest[floor_ptr->quest].type == QUEST_TYPE_KILL_ALL) && !is_pet(player_ptr, target_ptr)) ||
-				(has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL) || has_trait(target_ptr, TRAIT_UNIQUE2) || (has_trait(target_ptr, TRAIT_QUESTOR)) || target_ptr->parent_m_idx)
-			{
-#ifdef JP
-				msg_format("%sには効果がなかった。",target_name);
-#else
-				msg_format("%^s is unaffected.", target_name);
-#endif
-				skipped = TRUE;
-				break;
-			}
-
-			if(is_pet(player_ptr, target_ptr)) nokori_hp = target_ptr->mhp * 4L;
-			else if((has_trait(caster_ptr, TRAIT_DOMINATE_LIVE) || has_trait(caster_ptr, TRAIT_DOMINATE_LIVES)) && creature_living(target_ptr))
-				nokori_hp = (target_ptr->mhp * 3 / 10) > (caster_ptr->lev * 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 2);
-			else
-				nokori_hp = (target_ptr->mhp * 3 / 20) > (caster_ptr->lev * 3 / 2) ? (target_ptr->mhp * 3 / 10) : (caster_ptr->lev * 3 / 2);
-
-			if(target_ptr->chp >= nokori_hp)
-			{
-#ifdef JP
-				msg_format("もっと弱らせないと。");
-#else
-				msg_format("You need to weaken %s more.", target_name);
-#endif
-				skipped = TRUE;
-			}
-			else if(target_ptr->chp < randint0(nokori_hp))
-			{
-				if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON) set_new_species(&creature_list[c_ptr->creature_idx], FALSE, SPECIES_CHAMELEON, MONEGO_NONE);
-#ifdef JP
-				msg_format("%sを捕えた！",target_name);
-#else
-				msg_format("You capture %^s!", target_name);
-#endif
-				//TODO: capture creature status
-				if(c_ptr->creature_idx == player_ptr->riding)
-				{
-					if(do_thrown_from_riding(player_ptr, -1, FALSE))
-					{
-#ifdef JP
-						msg_print("地面に落とされた。");
-#else
-						msg_format("You have fallen from %s.", target_name);
-#endif
-					}
-				}
-
-				delete_species_idx(target_ptr);
-
-				//TODO return (TRUE);
-			}
-			else
-			{
-#ifdef JP
-				msg_format("うまく捕まえられなかった。");
-#else
-				msg_format("You failed to capture %s.", target_name);
-#endif
-				skipped = TRUE;
-			}
-			break;
-		}
 
 		/* Attack (Use "dam" as attack type) */
 	case DO_EFFECT_ATTACK:
@@ -5033,39 +5054,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-	case DO_EFFECT_WOUNDS:
-		{
-			if(seen) obvious = TRUE;
-
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
-
-			/* Attempt a saving throw */
-			if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
-			{
-
-#ifdef JP
-				note = "には効果がなかった。";
-#else
-				note = "is unaffected!";
-#endif
-				dam = 0;
-			}
-			break;
-		}
-
-
-		/* Default */
 	default:
 		{
-			/* No damage */
 			dam = 0;
-
 			break;
 		}
 	}
