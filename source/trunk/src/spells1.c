@@ -2809,8 +2809,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-
-		/* Dispel evil */
 	case DO_EFFECT_DISP_EVIL:
 		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -2845,8 +2843,107 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
+	case DO_EFFECT_DISP_ALL:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				dam = 0;
+				break;
+			}
+			/* Obvious */
+			if(seen) obvious = TRUE;
 
-// 53-56
+			/* Message */
+#ifdef JP
+			note = "は身震いした。";
+			note_dies = "はドロドロに溶けた！";
+#else
+			note = " shudders.";
+			note_dies = " dissolves!";
+#endif
+			break;
+		}
+
+	case DO_EFFECT_DISP_DEMON:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				dam = 0;
+				break;
+			}
+			/* Only affect demons */
+			if(has_trait(target_ptr, TRAIT_DEMON))
+			{
+				/* Obvious */
+				if(seen) obvious = TRUE;
+
+				/* Learn about type */
+				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+
+				/* Message */
+#ifdef JP
+				note = "は身震いした。";
+				note_dies = "はドロドロに溶けた！";
+#else
+				note = " shudders.";
+				note_dies = " dissolves!";
+#endif
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+
+				/* No damage */
+				dam = 0;
+			}
+
+			break;
+		}
+
+	case DO_EFFECT_DISP_LIVING:
+		{
+			if(has_trait(target_ptr, TRAIT_RES_ALL))
+			{
+				skipped = TRUE;
+				dam = 0;
+				break;
+			}
+			/* Only affect non-undead */
+			if(creature_living(target_ptr))
+			{
+				/* Obvious */
+				if(seen) obvious = TRUE;
+
+				/* Message */
+#ifdef JP
+				note = "は身震いした。";
+				note_dies = "はドロドロに溶けた！";
+#else
+				note = " shudders.";
+				note_dies = " dissolves!";
+#endif
+
+			}
+
+			/* Others ignore */
+			else
+			{
+				/* Irrelevant */
+				skipped = TRUE;
+
+				/* No damage */
+				dam = 0;
+			}
+
+			break;
+		}
+
+// 56
 
 	case DO_EFFECT_NUKE:
 		{
@@ -4841,112 +4938,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 
-
-
-
-	case DO_EFFECT_DISP_LIVING:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				dam = 0;
-				break;
-			}
-			/* Only affect non-undead */
-			if(creature_living(target_ptr))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Message */
-#ifdef JP
-				note = "は身震いした。";
-				note_dies = "はドロドロに溶けた！";
-#else
-				note = " shudders.";
-				note_dies = " dissolves!";
-#endif
-
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-
-				/* No damage */
-				dam = 0;
-			}
-
-			break;
-		}
-
-		/* Dispel demons */
-	case DO_EFFECT_DISP_DEMON:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				dam = 0;
-				break;
-			}
-			/* Only affect demons */
-			if(has_trait(target_ptr, TRAIT_DEMON))
-			{
-				/* Obvious */
-				if(seen) obvious = TRUE;
-
-				/* Learn about type */
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				/* Message */
-#ifdef JP
-				note = "は身震いした。";
-				note_dies = "はドロドロに溶けた！";
-#else
-				note = " shudders.";
-				note_dies = " dissolves!";
-#endif
-			}
-
-			/* Others ignore */
-			else
-			{
-				/* Irrelevant */
-				skipped = TRUE;
-
-				/* No damage */
-				dam = 0;
-			}
-
-			break;
-		}
-
-		/* Dispel creature */
-	case DO_EFFECT_DISP_ALL:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				skipped = TRUE;
-				dam = 0;
-				break;
-			}
-			/* Obvious */
-			if(seen) obvious = TRUE;
-
-			/* Message */
-#ifdef JP
-			note = "は身震いした。";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " shudders.";
-			note_dies = " dissolves!";
-#endif
-
-
-			break;
-		}
 
 
 
