@@ -2672,7 +2672,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
-				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
+				add_timed_trait(target_ptr, TRAIT_POISONED, randint0(dam) + 10, TRUE);
 
 				if(one_in_(5)) /* 6 */
 				{
@@ -2681,7 +2681,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 					msg_print("You undergo a freakish metamorphosis!");
 #endif
-
 					if(one_in_(4)) /* 4 */
 						do_poly_self(target_ptr);
 					else
@@ -2693,38 +2692,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 
 	case DO_EFFECT_ROCKET:
-		{
 #ifdef JP
 			if(blind) msg_print("”š”­‚ª‚ ‚Á‚½I");
 #else
 			if(blind) msg_print("There is an explosion!");
 #endif
-
 			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + randint1(20));
-			}
+				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 
 			else if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + (dam / 2));
-			}
-
-			if(!target_ptr->resist_shard || one_in_(12))
-			{
-				inven_damage(target_ptr, set_cold_destroy, 3);
-			}
-
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				(void)add_timed_trait(target_ptr, TRAIT_CUT, dam / 2, TRUE);
+			if(!target_ptr->resist_shard || one_in_(12)) inven_damage(target_ptr, set_cold_destroy, 3);
 			break;
-		}
 
-		//57-58
-
-
+//57-58
 
 	case DO_EFFECT_STASIS:
-		{
 			if(seen) obvious = TRUE;
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -2734,49 +2717,34 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 				break;
 			}
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 				obvious = FALSE;
 			}
 			else
 			{
-				/* Go to sleep (much) later */
 #ifdef JP
 				note = "‚Í“®‚¯‚È‚­‚È‚Á‚½I";
 #else
 				note = " is suspended!";
 #endif
-
 				do_sleep = 500;
 			}
-
-			/* No "real" damage */
 			dam = 0;
 			break;
-		}
-
 
 		//60
 
 	case DO_EFFECT_DEATH_RAY:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©”ñí‚É—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something extremely cold!");
 #endif
-
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-
 			break;
-		}
-
 
 	case DO_EFFECT_STUN:
-		{
 			if(seen) obvious = TRUE;
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -2787,42 +2755,30 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 			do_stun = diceroll((caster_power / 20) + 3 , (dam)) + 1;
-
-			/* Attempt a saving throw */
-			if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				do_stun = 0;
 				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 				obvious = FALSE;
 			}
-
-			/* No "real" damage */
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_HOLY_FIRE:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something!");
 #endif
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
-		}
 
 	case DO_EFFECT_HELL_FIRE:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something!");
 #endif
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
-		}
 
 	case DO_EFFECT_DISINTEGRATE:
 		{
