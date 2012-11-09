@@ -168,3 +168,12 @@ enum MESSAGE_FILES
 	MESSAGE_FILES_CREATURE_FRIENDLY,
 	MESSAGE_FILES_CREATURE_SPEAK,
 };
+
+static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
+{
+#if JP
+ "âΩÇ©Ç…çUåÇÇ≥ÇÍÇΩÅB",
+#else
+ "You are hit by someone.",
+#endif
+};

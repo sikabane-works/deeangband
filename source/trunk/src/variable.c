@@ -943,7 +943,7 @@ int questp_text_line;
 /*
  * Default spell color table (quark index)
  */
-s16b gf_color[MAX_GF];
+s16b gf_color[MAX_DO_EFFECT];
 
 /*
  * The "highscore" file descriptor, if available.

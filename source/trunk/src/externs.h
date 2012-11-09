@@ -519,7 +519,7 @@ extern u16b unique_max;
 extern quest_type *quest;
 extern char questp_text[10][80];
 extern int questp_text_line;
-extern s16b gf_color[MAX_GF];
+extern s16b gf_color[MAX_DO_EFFECT];
 extern int highscore_fd;
 extern bool can_save;
 extern s16b the_world;

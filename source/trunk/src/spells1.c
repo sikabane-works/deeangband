@@ -3920,10 +3920,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
-		if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-			!creature_living(target_ptr) ||
-			((target_ptr->lev * 2+10) > randint1(dam)))
+		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
+			!creature_living(target_ptr) || ((target_ptr->lev * 2+10) > randint1(dam)))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
@@ -4028,8 +4026,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
 
 				/* Attempt a saving throw */
-				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					do_stun = 0;
 					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
