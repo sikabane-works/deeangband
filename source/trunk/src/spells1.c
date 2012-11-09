@@ -1675,6 +1675,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE); // Is the player blind?
 	bool obvious = FALSE; // Were the effects "obvious" (if seen)?
+	bool resists_tele = FALSE;
 
 	// Is the creature "seen"?
 	bool seen = target_ptr->see_others;
@@ -2346,8 +2347,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 
 	case DO_EFFECT_AWAY_EVIL:
-		{
-			/* Only affect evil */
 			if(is_enemy_of_good_creature(target_ptr))
 			{
 				bool resists_tele = FALSE;
@@ -2378,12 +2377,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else skipped = TRUE;
 			dam = 0;
 			break;
-		}
-
 
 	case DO_EFFECT_AWAY_ALL:
-		{
-			bool resists_tele = FALSE;
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
@@ -2413,10 +2408,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			dam = 0; // No "real" damage
 			break;
-		}
 
 	case DO_EFFECT_TURN_UNDEAD:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2440,11 +2433,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* No "real" damage */
 			dam = 0;
 			break;
-		}
-
 
 	case DO_EFFECT_TURN_EVIL:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2481,10 +2471,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* No "real" damage */
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_TURN_ALL:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2508,10 +2496,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* No "real" damage */
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_DISP_UNDEAD:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2548,10 +2534,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			break;
-		}
 
 	case DO_EFFECT_DISP_EVIL:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2582,10 +2566,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = 0;
 			}
 			break;
-		}
 
 	case DO_EFFECT_DISP_ALL:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2604,10 +2586,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note_dies = " dissolves!";
 #endif
 			break;
-		}
 
 	case DO_EFFECT_DISP_DEMON:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2644,10 +2624,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			break;
-		}
 
 	case DO_EFFECT_DISP_LIVING:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
@@ -2668,7 +2646,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = " shudders.";
 				note_dies = " dissolves!";
 #endif
-
 			}
 
 			/* Others ignore */
@@ -2682,13 +2659,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			break;
-		}
 
 		// 56
 
 	case DO_EFFECT_NUKE:
-		{
-			bool double_resist = IS_OPPOSE_POIS(target_ptr);
 #ifdef JP
 			if(blind) msg_print("•úŽË”\‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -2696,7 +2670,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
-			if(!(double_resist || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint0(dam) + 10);
 
@@ -2717,7 +2691,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(one_in_(6)) inven_damage(target_ptr, set_acid_destroy, 2);
 			}
 			break;
-		}
 
 	case DO_EFFECT_ROCKET:
 		{
