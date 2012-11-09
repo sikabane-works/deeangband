@@ -1773,11 +1773,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//10
 
 	case DO_EFFECT_WATER:		{
-#ifdef JP
-		if(blind) msg_print("‰½‚©Ž¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something wet!");
-#endif
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
@@ -1787,12 +1782,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_LITE:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something!");
-#endif
-		else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!blind && !target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -1808,18 +1798,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		break;
 
-		// Dark -- blinding
 	case DO_EFFECT_DARK:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something!");
-#endif
 		if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		break;
 
-		/* Lite, but only hurts susceptible creatures */
 	case DO_EFFECT_LITE_WEAK:
 		if(!dam)
 		{
@@ -1849,11 +1832,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 15
 
 	case DO_EFFECT_SHARDS:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something sharp!");
-#endif
 		if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
 
@@ -1862,11 +1840,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_SOUND:
-#ifdef JP
-		if(blind) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by a loud noise!");
-#endif
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 		if(!target_ptr->resist_sound || one_in_(13))
@@ -1874,42 +1847,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CONFUSION:
-#ifdef JP
-		if(blind) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something puzzling!");
-#endif
 		if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
 		break;
 
 	case DO_EFFECT_FORCE:
-#ifdef JP
-		if(blind) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by kinetic force!");
-#endif
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 		break;
 
 	case DO_EFFECT_INERTIA:
-#ifdef JP
-		if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something slow!");
-#endif
 		if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 		break;
 
 		// 21
 
 	case DO_EFFECT_METEOR:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—Ž‚¿‚Ä‚«‚½I");
-#else
-		if(blind) msg_print("Something falls from the sky on you!");
-#endif
 		if(!target_ptr->resist_shard || one_in_(13))
 		{
 			if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);

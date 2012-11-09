@@ -177,21 +177,54 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"“Å‚ÅUŒ‚‚³‚ê‚½B",
 	"_‚ÅUŒ‚‚³‚ê‚½B",
 	"—â‹C‚ÅUŒ‚‚³‚ê‚½B",
+
 	"‰Î‰Š‚ÅUŒ‚‚³‚ê‚½B",
 	"ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+
+	"‰½‚©¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
+	"",
+
+	"‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"Œ‰¹‚ÅUŒ‚‚³‚ê‚½I",
+	"‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
+	"‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I",
+	"‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
+
+	"",
+	"‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I",
+
 #else
-	"You are hit by someone.",
+	"You are hit by something.",
 	"You are hit by lightning.",
 	"You are hit by poison.",
 	"You are hit by acid.",
 	"You are hit by cold.",
+
 	"You are hit by fire.",
 	"You are hit by an energy.",
 	"You are hit by something.",
+	"You are hit by something sharp.",
+	"You are hit by something *HOT*.",
+
+	"You are hit by something wet.",
+	"You are hit by something.",
+	"You are hit by something.",
+	"You are hit by something.",
+	"",
+
 	"You are hit by something sharp!",
-	"You are hit by something *HOT*!",
+	"You are hit by a loud noise!",
+	"You are hit by something puzzling!",
+	"You are hit by kinetic force!",
+	"You are hit by something slow!",
+
+	"",
+	"Something falls from the sky on you!",
 #endif
 };
