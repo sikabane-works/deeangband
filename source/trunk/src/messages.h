@@ -172,8 +172,18 @@ enum MESSAGE_FILES
 static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 {
 #if JP
- "‰½‚©‚ÉUŒ‚‚³‚ê‚½B",
+	"‰½‚©‚ÉUŒ‚‚³‚ê‚½B",
+	"“dŒ‚‚ÅUŒ‚‚³‚ê‚½B",
+	"“Å‚ÅUŒ‚‚³‚ê‚½B",
+	"_‚ÅUŒ‚‚³‚ê‚½B",
+	"—â‹C‚ÅUŒ‚‚³‚ê‚½B",
+	"‰Î‰Š‚ÅUŒ‚‚³‚ê‚½B",
 #else
- "You are hit by someone.",
+	"You are hit by someone.",
+	"You are hit by lightning.",
+	"You are hit by poison.",
+	"You are hit by acid.",
+	"You are hit by cold.",
+	"You are hit by fire.",
 #endif
 };

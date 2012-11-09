@@ -1716,6 +1716,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	// Analyze the damage
 	dam = calc_damage(caster_ptr, dam, typ, TRUE);
 
+	if(blind) msg_print(effect_message_in_blind[typ]);
+
 	switch (typ)
 	{
 
@@ -1723,48 +1725,23 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ELEC:
-#ifdef JP
-		if(blind) msg_print("“dŒ‚‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by lightning!");
-#endif
 		dam = elec_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_POIS:
-#ifdef JP
-		if(blind) msg_print("“Å‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by poison!");
-#endif
 		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
 		break;
 
 	case DO_EFFECT_ACID:
-#ifdef JP
-		if(blind) msg_print("_‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by acid!");
-#endif
 		dam = acid_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_COLD:
-#ifdef JP
-		if(blind) msg_print("—â‹C‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by cold!");
-#endif
 		dam = cold_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_FIRE:
-#ifdef JP
-		if(blind) msg_print("‰Î‰Š‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by fire!");
-#endif
 		dam = fire_dam(target_ptr, dam, caster_name, spell);
 		break;
 
