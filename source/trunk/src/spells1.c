@@ -2781,37 +2781,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 
 	case DO_EFFECT_DISINTEGRATE:
-		{
 #ifdef JP
 			if(blind) msg_print("純粋なエネルギーで攻撃された！");
 #else
 			if(blind) msg_print("You are hit by pure energy!");
 #endif
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
-		}
-
 
 	case DO_EFFECT_CHARM:
-		{
-			int vir;
 			dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
-
-			// TODO: Add Karma of Fortune feature.
-			vir = 0;
-
-			if(vir)
-			{
-				dam += caster_ptr->karmas[vir-1]/10;
-			}
-
-			// TODO: Add Karma feature.
-			vir = 0;
-			if(vir)
-			{
-				dam -= caster_ptr->karmas[vir-1]/20;
-			}
-
 			if(seen) obvious = TRUE;
 
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
@@ -2827,10 +2805,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = dam * 2 / 3;
 
 			/* Attempt a saving throw */
-			if(has_trait(target_ptr, TRAIT_QUESTOR) ||
-				has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
+			if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_NO_CONF) ||
+				(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -2863,20 +2839,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				set_pet(caster_ptr, target_ptr);
 			}
-
-			/* No "real" damage */
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_CONTROL_UNDEAD:
-		{
-			int vir = 0;
 			if(seen) obvious = TRUE;
-
-			// TODO: Add Karma feature.
-			if(vir) dam += caster_ptr->karmas[vir-1]/10;
-			if(vir) dam -= caster_ptr->karmas[vir-1]/20;
 
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
@@ -2920,22 +2887,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				set_pet(caster_ptr, target_ptr);
 			}
 
-			/* No "real" damage */
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_CONTROL_ANIMAL:
-		{
-			int vir;
 			if(seen) obvious = TRUE;
-
-			vir = 0;
-			if(vir) dam += caster_ptr->karmas[vir-1]/10;
-
-			vir = 0;
-			if(vir) dam -= caster_ptr->karmas[vir-1]/20;
-
 			if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2977,10 +2933,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_PSI:
-		{
 			if(seen) obvious = TRUE;
 			if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 			{
@@ -3075,22 +3029,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				switch (randint1(4))
 				{
-				case 1:
-					do_conf = 3 + randint1(dam);
-					break;
-				case 2:
-					do_stun = 3 + randint1(dam);
-					break;
-				case 3:
-					do_fear = 3 + randint1(dam);
-					break;
+				case 1: do_conf = 3 + randint1(dam); break;
+				case 2: do_stun = 3 + randint1(dam); break;
+				case 3: do_fear = 3 + randint1(dam); break;
 				default:
 #ifdef JP
 					note = "は眠り込んでしまった！";
 #else
 					note = " falls asleep!";
 #endif
-
 					do_sleep = 3 + randint1(dam);
 					break;
 				}
@@ -3101,13 +3048,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note_dies = " collapses, a mindless husk.";
 #endif
-
 			break;
-		}
 
 
 	case DO_EFFECT_PSI_DRAIN:
-		{
 			if(seen) obvious = TRUE;
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -3202,10 +3146,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 			break;
-		}
 
 	case DO_EFFECT_TELEKINESIS:
-		{
 			if(seen) obvious = TRUE;
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -3234,16 +3176,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				obvious = FALSE;
 			}
 			break;
-		}
 
 		//72
 
 	case DO_EFFECT_DOMINATION:
-		{
 			if(!is_hostile(target_ptr)) break;
-
 			if(seen) obvious = TRUE;
-
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -3340,12 +3278,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			dam = 0;
 			break;
-		}
 
-		/* Dispel good */
+
 	case DO_EFFECT_DISP_GOOD:
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
+
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				skipped = TRUE;
 				dam = 0;
@@ -3377,10 +3314,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 
 			break;
-		}
 
 	case DO_EFFECT_DRAIN_MANA:
-		{
 			if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 #ifdef JP
@@ -3456,14 +3391,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					}
 				}
 			}
-		}
 
 		dam = 0;
 		break;
 
 
 	case DO_EFFECT_MIND_BLAST:
-		{
 
 			/* TODO saving_throw
 			if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
@@ -3490,7 +3423,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
-		}
 		/* Mind blast
 		case DO_EFFECT_MIND_BLAST:
 		{
