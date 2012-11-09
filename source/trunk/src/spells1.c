@@ -1746,28 +1746,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PSY_SPEAR:
-#ifdef JP
-		if(blind) msg_print("ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by an energy!");
-#endif
 		break;
 
 	case DO_EFFECT_MISSILE:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something!");
-#endif
 		break;
 
 	case DO_EFFECT_ARROW:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something sharp!");
-#endif
-		else if(has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
+		if(!blind && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
 		{
 #ifdef JP
 			msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
@@ -1779,11 +1764,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PLASMA:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something *HOT*!");
-#endif
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
 		if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))

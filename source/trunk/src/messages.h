@@ -178,6 +178,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"_‚ÅUŒ‚‚³‚ê‚½B",
 	"—â‹C‚ÅUŒ‚‚³‚ê‚½B",
 	"‰Î‰Š‚ÅUŒ‚‚³‚ê‚½B",
+	"ƒGƒlƒ‹ƒM[‚Ì‰ò‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
 #else
 	"You are hit by someone.",
 	"You are hit by lightning.",
@@ -185,5 +189,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"You are hit by acid.",
 	"You are hit by cold.",
 	"You are hit by fire.",
+	"You are hit by an energy.",
+	"You are hit by something.",
+	"You are hit by something sharp!",
+	"You are hit by something *HOT*!",
 #endif
 };
