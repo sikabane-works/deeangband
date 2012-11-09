@@ -1661,7 +1661,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 static void project_creature_aux(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int spell, bool see_s_msg)
 {
 	int k;
-	int get_damage;
 	cptr act, note, note_dies;
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -1715,8 +1714,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	}
 
 	// Analyze the damage
-	get_damage = calc_damage(caster_ptr, dam, typ, TRUE);
-
+	dam = calc_damage(caster_ptr, dam, typ, TRUE);
 
 	switch (typ)
 	{
@@ -1730,7 +1728,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by lightning!");
 #endif
-		get_damage = elec_dam(target_ptr, dam, caster_name, spell);
+		dam = elec_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_POIS:
@@ -1749,7 +1747,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by acid!");
 #endif
-		get_damage = acid_dam(target_ptr, dam, caster_name, spell);
+		dam = acid_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_COLD:
@@ -1758,7 +1756,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by cold!");
 #endif
-		get_damage = cold_dam(target_ptr, dam, caster_name, spell);
+		dam = cold_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_FIRE:
@@ -1767,7 +1765,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by fire!");
 #endif
-		get_damage = fire_dam(target_ptr, dam, caster_name, spell);
+		dam = fire_dam(target_ptr, dam, caster_name, spell);
 		break;
 
 	case DO_EFFECT_PSY_SPEAR:
@@ -1776,7 +1774,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by an energy!");
 #endif
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_MISSILE:
@@ -1785,7 +1782,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by something!");
 #endif
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_ARROW:
@@ -1804,7 +1800,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_PLASMA:
@@ -1813,7 +1809,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by something *HOT*!");
 #endif
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -1841,7 +1837,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(one_in_(5)) inven_damage(target_ptr, set_cold_destroy, 3);
 		}
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_LITE:
@@ -1853,7 +1849,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		else if(!target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -1879,7 +1875,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 		/* Lite, but only hurts susceptible creatures */
@@ -1923,7 +1919,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!target_ptr->resist_shard || one_in_(13))
 			inven_damage(target_ptr, set_cold_destroy, 2);
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_SOUND:
@@ -1939,7 +1935,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!target_ptr->resist_sound || one_in_(13))
 			inven_damage(target_ptr, set_cold_destroy, 2);
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_CONFUSION:
@@ -1950,7 +1946,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_FORCE:
@@ -1962,7 +1958,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_INERTIA:
@@ -1972,7 +1968,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(blind) msg_print("You are hit by something slow!");
 #endif
 		if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 		// 21
@@ -1984,7 +1980,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(blind) msg_print("Something falls from the sky on you!");
 #endif
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		if(!target_ptr->resist_shard || one_in_(13))
 		{
 			if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
@@ -1999,7 +1995,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		if(blind) msg_print("You are hit by something sharp and cold!");
 #endif
-		get_damage = cold_dam(target_ptr, dam, caster_name, spell);
+		dam = cold_dam(target_ptr, dam, caster_name, spell);
 
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -2046,7 +2042,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 		}
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_NETHER:
@@ -2058,7 +2054,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!target_ptr->resist_neth && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 		break;
 
@@ -2070,7 +2066,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)apply_disenchant(target_ptr, 0);
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_NEXUS:
@@ -2081,7 +2077,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		if(!target_ptr->resist_nexus && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			apply_nexus(caster_ptr);
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_TIME:
@@ -2150,7 +2146,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				break;
 			}
 		}
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_GRAVITY:
@@ -2174,11 +2170,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
-		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_KILL_WALL:
-		{
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				dam = 0;
@@ -2205,7 +2200,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			else dam = 0;
 			break;
-		}
 
 		//31-36
 
@@ -2281,7 +2275,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			// Redraw (later) if needed
 			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
-			get_damage = 0;
+			dam = 0;
 			break;
 		}
 
@@ -2293,7 +2287,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something!");
 #endif
 			(void)add_timed_trait(target_ptr, TRAIT_FAST, randint1(5), TRUE);
-			get_damage = 0;
+			dam = 0;
 			break;
 		}
 
@@ -2311,7 +2305,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
 			}
 			else (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
-			get_damage = 0;
+			dam = 0;
 			break;
 		}
 
@@ -2779,7 +2773,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by radiation!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 			if(!(double_resist || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
@@ -2827,7 +2821,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				inven_damage(target_ptr, set_cold_destroy, 3);
 			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
 
@@ -2881,7 +2875,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(blind) msg_print("You are hit by something extremely cold!");
 #endif
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 			break;
 		}
@@ -2921,7 +2915,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by something!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
 
@@ -2932,7 +2926,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by something!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
 
@@ -2943,7 +2937,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by pure energy!");
 #endif
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
 
@@ -3643,7 +3637,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					play_redraw |= PR_MANA;
 				}
 
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
 		}
@@ -3728,7 +3722,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					play_redraw |= PR_MANA;
 				}
 
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
@@ -3828,7 +3822,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			{
 				//TODO curse_equipment
 				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
 		}
@@ -3873,7 +3867,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			*/
 			{
 				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
 		}
@@ -3918,7 +3912,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			*/
 			{
 				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			}
 			break;
 		}
@@ -3966,7 +3960,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else
 			*/
 			{
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
 			}
 			break;
@@ -4021,7 +4015,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					curse_equipment(target_ptr, 40, 20);
 				}
 
-				get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 
 				if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
 			}
@@ -4724,29 +4718,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		//// NOW sorting.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	case DO_EFFECT_MANA:
 	case DO_EFFECT_SEEKER:
 	case DO_EFFECT_SUPER_RAY:
@@ -4756,8 +4727,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(blind) msg_print("You are hit by an aura of magic!");
 #endif
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			break;
 		}
 
@@ -4766,9 +4735,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = 0;
 			break;
 		}
-								}
+		}
 
 	}
+
+	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
+
 	/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
 	if(do_poly && (randint1(90) > target_ptr->lev * 2))
 	{
