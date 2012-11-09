@@ -1872,353 +1872,310 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// Dark -- blinding
 	case DO_EFFECT_DARK:
 #ifdef JP
-			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something!");
+		if(blind) msg_print("You are hit by something!");
 #endif
-			if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
+		if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			break;
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		break;
 
 		/* Lite, but only hurts susceptible creatures */
 	case DO_EFFECT_LITE_WEAK:
-			if(!dam)
-			{
-				skipped = TRUE;
-				break;
-			}
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				dam = 0;
-				break;
-			}
-			if(has_trait(target_ptr, TRAIT_HURT_LITE))
-			{
-				if(seen) obvious = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-#ifdef JP
-				note = "‚ÍŒõ‚Ég‚ğ‚·‚­‚ß‚½I";
-				note_dies = "‚ÍŒõ‚ğó‚¯‚Ä‚µ‚Ú‚ñ‚Å‚µ‚Ü‚Á‚½I";
-#else
-				note = " cringes from the light!";
-				note_dies = " shrivels away in the light!";
-#endif
-			}
-			else dam = 0;
+		if(!dam)
+		{
+			skipped = TRUE;
 			break;
+		}
+		if(has_trait(target_ptr, TRAIT_RES_ALL))
+		{
+			dam = 0;
+			break;
+		}
+		if(has_trait(target_ptr, TRAIT_HURT_LITE))
+		{
+			if(seen) obvious = TRUE;
+			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
+#ifdef JP
+			note = "‚ÍŒõ‚Ég‚ğ‚·‚­‚ß‚½I";
+			note_dies = "‚ÍŒõ‚ğó‚¯‚Ä‚µ‚Ú‚ñ‚Å‚µ‚Ü‚Á‚½I";
+#else
+			note = " cringes from the light!";
+			note_dies = " shrivels away in the light!";
+#endif
+		}
+		else dam = 0;
+		break;
 
 		// 15
 
 	case DO_EFFECT_SHARDS:
 #ifdef JP
-			if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something sharp!");
+		if(blind) msg_print("You are hit by something sharp!");
 #endif
-			if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				(void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
+		if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
 
-			if(!target_ptr->resist_shard || one_in_(13))
-				inven_damage(target_ptr, set_cold_destroy, 2);
+		if(!target_ptr->resist_shard || one_in_(13))
+			inven_damage(target_ptr, set_cold_destroy, 2);
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_SOUND:
 #ifdef JP
-			if(blind) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("Œ‰¹‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by a loud noise!");
+		if(blind) msg_print("You are hit by a loud noise!");
 #endif
 
-			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
+		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 
-			if(!target_ptr->resist_sound || one_in_(13))
-				inven_damage(target_ptr, set_cold_destroy, 2);
+		if(!target_ptr->resist_sound || one_in_(13))
+			inven_damage(target_ptr, set_cold_destroy, 2);
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_CONFUSION:
 #ifdef JP
-			if(blind) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something puzzling!");
+		if(blind) msg_print("You are hit by something puzzling!");
 #endif
-			if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
+		if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_FORCE:
 #ifdef JP
-			if(blind) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by kinetic force!");
+		if(blind) msg_print("You are hit by kinetic force!");
 #endif
-			if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
+		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			break;
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_INERTIA:
 #ifdef JP
-			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something slow!");
+		if(blind) msg_print("You are hit by something slow!");
 #endif
-			if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
+		if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 		// 21
 
 	case DO_EFFECT_METEOR:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I");
+		if(blind) msg_print("‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I");
 #else
-			if(blind) msg_print("Something falls from the sky on you!");
+		if(blind) msg_print("Something falls from the sky on you!");
 #endif
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			if(!target_ptr->resist_shard || one_in_(13))
-			{
-				if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
-				inven_damage(target_ptr, set_cold_destroy, 2);
-			}
-
-			break;
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		if(!target_ptr->resist_shard || one_in_(13))
+		{
+			if(!has_trait(target_ptr, TRAIT_IM_FIRE)) inven_damage(target_ptr, set_fire_destroy, 2);
+			inven_damage(target_ptr, set_cold_destroy, 2);
 		}
 
-		// Ice -- cold plus stun plus cuts
+		break;
+
 	case DO_EFFECT_ICE:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something sharp and cold!");
+		if(blind) msg_print("You are hit by something sharp and cold!");
 #endif
+		get_damage = cold_dam(target_ptr, dam, caster_name, spell);
 
-			get_damage = cold_dam(target_ptr, dam, caster_name, spell);
-
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
-				if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
-				if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
-					if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
-			}
-
-			break;
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
+			if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
+			if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
+			if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
+				if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
 		}
+
+		break;
 
 	case DO_EFFECT_CHAOS:
+#ifdef JP
+		if(blind) msg_print("–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I");
+#else
+		if(blind) msg_print("You are hit by a wave of anarchy!");
+#endif
+
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
-#ifdef JP
-			if(blind) msg_print("–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by a wave of anarchy!");
-#endif
-
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
+			if(!target_ptr->resist_chaos)
 			{
-				if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
-				if(!target_ptr->resist_chaos)
+				(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
+				if(one_in_(3))
 				{
-					(void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint1(10), TRUE);
-					if(one_in_(3))
-					{
 #ifdef JP
-						msg_print("‚ ‚È‚½‚Ìg‘Ì‚ÍƒJƒIƒX‚Ì—Í‚Å”P‚¶‹È‚°‚ç‚ê‚½I");
+					msg_print("‚ ‚È‚½‚Ìg‘Ì‚ÍƒJƒIƒX‚Ì—Í‚Å”P‚¶‹È‚°‚ç‚ê‚½I");
 #else
-						msg_print("Your body is twisted by chaos!");
+					msg_print("Your body is twisted by chaos!");
 #endif
-
-						(void)gain_trait(target_ptr, 0, TRUE);
-					}
-				}
-				if(!target_ptr->resist_neth && !target_ptr->resist_chaos)
-				{
-					drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
-				}
-
-				if(!target_ptr->resist_chaos || one_in_(9))
-				{
-					inven_damage(target_ptr, set_elec_destroy, 2);
-					inven_damage(target_ptr, set_fire_destroy, 2);
+					(void)gain_trait(target_ptr, 0, TRUE);
 				}
 			}
+			if(!target_ptr->resist_neth && !target_ptr->resist_chaos)
+			{
+				drain_exp(target_ptr, 5000 + (target_ptr->exp / 100), 500 + (target_ptr->exp / 1000), 75);
+			}
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
+			if(!target_ptr->resist_chaos || one_in_(9))
+			{
+				inven_damage(target_ptr, set_elec_destroy, 2);
+				inven_damage(target_ptr, set_fire_destroy, 2);
+			}
 		}
+
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_NETHER:
-		{
 #ifdef JP
-			if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by nether forces!");
+		if(blind) msg_print("You are hit by nether forces!");
 #endif
+		if(!target_ptr->resist_neth && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 
-			if(!target_ptr->resist_neth && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
 
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-
-			break;
-		}
+		break;
 
 	case DO_EFFECT_DISENCHANT:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©‚³‚¦‚È‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©‚³‚¦‚È‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something static!");
+		if(blind) msg_print("You are hit by something static!");
 #endif
-
-			if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				(void)apply_disenchant(target_ptr, 0);
-			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
+		if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)apply_disenchant(target_ptr, 0);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_NEXUS:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©Šï–­‚È‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		if(blind) msg_print("‰½‚©Šï–­‚È‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
-			if(blind) msg_print("You are hit by something strange!");
+		if(blind) msg_print("You are hit by something strange!");
 #endif
-
-			if(!target_ptr->resist_nexus && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				apply_nexus(caster_ptr);
-			}
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
-			break;
-		}
+		if(!target_ptr->resist_nexus && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			apply_nexus(caster_ptr);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, get_damage, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_TIME:
+#ifdef JP
+		if(blind) msg_print("‰ß‹‚©‚ç‚ÌÕŒ‚‚ÉUŒ‚‚³‚ê‚½I");
+#else
+		if(blind) msg_print("You are hit by a blast from the past!");
+#endif
+		if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
-#ifdef JP
-			if(blind) msg_print("‰ß‹‚©‚ç‚ÌÕŒ‚‚ÉUŒ‚‚³‚ê‚½I");
-#else
-			if(blind) msg_print("You are hit by a blast from the past!");
-#endif
-
-			if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			switch (randint1(10))
 			{
-				switch (randint1(10))
+			case 1: case 2: case 3: case 4: case 5:
+				if(has_trait(target_ptr, TRAIT_ANDROID)) break;
+#ifdef JP
+				msg_format("%s‚Ì‚Ì—¬‚ê‚ª‹t–ß‚è‚µ‚½‚æ‚¤‚¾B", target_name);
+#else
+				//TODO
+				msg_print("You feel life has clocked back.");
+#endif
+				lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
+				break;
+			case 6: case 7: case 8: case 9:
+				switch (randint1(6))
 				{
-				case 1: case 2: case 3: case 4: case 5:
-					{
-						if(has_trait(target_ptr, TRAIT_ANDROID)) break;
 #ifdef JP
-						msg_format("%s‚Ì‚Ì—¬‚ê‚ª‹t–ß‚è‚µ‚½‚æ‚¤‚¾B", target_name);
+			case 1: k = STAT_STR; act = "—Í‹­‚³"; break;
+			case 2: k = STAT_INT; act = "‘–¾‚³"; break;
+			case 3: k = STAT_WIS; act = "Œ«–¾‚³"; break;
+			case 4: k = STAT_DEX; act = "Ší—p‚³"; break;
+			case 5: k = STAT_CON; act = "Šæä‚³"; break;
+			case 6: k = STAT_CHA; act = "”ü‚µ‚³"; break;
 #else
-						//TODO
-						msg_print("You feel life has clocked back.");
+			case 1: k = STAT_STR; act = "strong"; break;
+			case 2: k = STAT_INT; act = "bright"; break;
+			case 3: k = STAT_WIS; act = "wise"; break;
+			case 4: k = STAT_DEX; act = "agile"; break;
+			case 5: k = STAT_CON; act = "hale"; break;
+			case 6: k = STAT_CHA; act = "beautiful"; break;
 #endif
-
-						lose_exp(target_ptr, 100 + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE);
-						break;
-					}
-
-				case 6: case 7: case 8: case 9:
-					{
-						switch (randint1(6))
-						{
-#ifdef JP
-				case 1: k = STAT_STR; act = "—Í‹­‚³"; break;
-				case 2: k = STAT_INT; act = "‘–¾‚³"; break;
-				case 3: k = STAT_WIS; act = "Œ«–¾‚³"; break;
-				case 4: k = STAT_DEX; act = "Ší—p‚³"; break;
-				case 5: k = STAT_CON; act = "Šæä‚³"; break;
-				case 6: k = STAT_CHA; act = "”ü‚µ‚³"; break;
-#else
-				case 1: k = STAT_STR; act = "strong"; break;
-				case 2: k = STAT_INT; act = "bright"; break;
-				case 3: k = STAT_WIS; act = "wise"; break;
-				case 4: k = STAT_DEX; act = "agile"; break;
-				case 5: k = STAT_CON; act = "hale"; break;
-				case 6: k = STAT_CHA; act = "beautiful"; break;
-#endif
-						}
-
-#ifdef JP
-						msg_format("%s‚Ì%s‚ª‘å‚«‚­‘¹‚È‚í‚ê‚½B", target_name, act);
-#else
-						//TODO
-						msg_format("You're not as %s as you used to be.", act);
-#endif
-
-						target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
-						if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
-						target_ptr->creature_update |= (CRU_BONUS);
-						break;
-					}
-
-				case 10:
-					{
-#ifdef JP
-						msg_format("%s‚Ì”\—Í‚ª‘å‚«‚­Š‚¦‚½B", target_name);
-#else
-						//TODO
-						msg_format("You're not as powerful as you used to be...");
-#endif
-
-						for (k = 0; k < STAT_MAX; k++)
-						{
-							target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
-							if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
-						}
-						target_ptr->creature_update |= (CRU_BONUS);
-						break;
-					}
 				}
+#ifdef JP
+				msg_format("%s‚Ì%s‚ª‘å‚«‚­‘¹‚È‚í‚ê‚½B", target_name, act);
+#else
+				//TODO
+				msg_format("You're not as %s as you used to be.", act);
+#endif
+
+				target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
+				if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+				target_ptr->creature_update |= (CRU_BONUS);
+				break;
+
+			case 10:
+#ifdef JP
+				msg_format("%s‚Ì”\—Í‚ª‘å‚«‚­Š‚¦‚½B", target_name);
+#else
+				//TODO msg_format("You're not as powerful as you used to be...");
+#endif
+				for (k = 0; k < STAT_MAX; k++)
+				{
+					target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 7) / 8;
+					if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
+				}
+				target_ptr->creature_update |= (CRU_BONUS);
+				break;
 			}
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			break;
 		}
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		break;
 
-
-		/* Gravity -- stun plus slowness plus teleport */
 	case DO_EFFECT_GRAVITY:
-		{
 #ifdef JP
-			if(blind) msg_print("‰½‚©d‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-			msg_print("ü•Ó‚Ìd—Í‚ª‚ä‚ª‚ñ‚¾B");
+		if(blind) msg_print("‰½‚©d‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
+		msg_print("ü•Ó‚Ìd—Í‚ª‚ä‚ª‚ñ‚¾B");
 #else
-			if(blind) msg_print("You are hit by something heavy!");
-			msg_print("Gravity warps around you.");
+		if(blind) msg_print("You are hit by something heavy!");
+		msg_print("Gravity warps around you.");
 #endif
 
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
+			teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
+			if(!has_trait(target_ptr, TRAIT_CAN_FLY))
+				(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+			if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 			{
-				teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
-				if(!has_trait(target_ptr, TRAIT_CAN_FLY))
-					(void)set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + randint0(4) + 4, FALSE);
-				if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
-				{
-					int k = (randint1((dam > 90) ? 35 : (dam / 3 + 5)));
-					(void)set_timed_trait(target_ptr, TRAIT_STUN, target_ptr->timed_trait[TRAIT_STUN] + k);
-				}
+				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 			}
-
-			if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
-
-			get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			break;
 		}
+
+		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
+		get_damage = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		break;
 
 	case DO_EFFECT_KILL_WALL:
 		{
