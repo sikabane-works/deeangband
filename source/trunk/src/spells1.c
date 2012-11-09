@@ -1871,11 +1871,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ICE:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something sharp and cold!");
-#endif
 		dam = cold_dam(target_ptr, dam, caster_name, spell);
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -1887,11 +1882,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CHAOS:
-#ifdef JP
-		if(blind) msg_print("–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by a wave of anarchy!");
-#endif
 
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -1921,11 +1911,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_NETHER:
-#ifdef JP
-		if(blind) msg_print("’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by nether forces!");
-#endif
 		if(!target_ptr->resist_neth && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 		break;

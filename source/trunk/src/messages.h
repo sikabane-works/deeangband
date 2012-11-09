@@ -198,6 +198,10 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 	"",
 	"‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I",
+	"‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
+	"–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I",
+	"’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I",
+
 
 #else
 	"You are hit by something.",
@@ -226,5 +230,9 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 
 	"",
 	"Something falls from the sky on you!",
+	"You are hit by something sharp and cold!",
+	"You are hit by a wave of anarchy!"
+	"You are hit by nether forces!",
+
 #endif
 };
