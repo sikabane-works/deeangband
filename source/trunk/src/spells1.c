@@ -2123,7 +2123,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 		}
-
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
@@ -2158,9 +2157,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//31-36
 
 	case DO_EFFECT_OLD_CLONE:
-		{
 			if(seen) obvious = TRUE;
-
 			if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -2177,16 +2174,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				}
 			}
-
 			dam = 0;
-
 			break;
-		}
 
 	case DO_EFFECT_OLD_POLY:
-		{
 			if(seen) obvious = TRUE;
-
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2205,21 +2197,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_poly = FALSE;
 				obvious = FALSE;
 			}
-
 			/* No "real" damage */
 			dam = 0;
-
 			break;
-		}
 
 	case DO_EFFECT_OLD_HEAL:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚ç‚©‚ÌUŒ‚‚É‚æ‚Á‚Ä‹C•ª‚ª‚æ‚­‚È‚Á‚½B");
 #else
 			if(blind) msg_print("You are hit by something invigorating!");
 #endif
-
 			(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 			(void)set_timed_trait(target_ptr, TRAIT_STUN, 0);
 			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
@@ -2231,10 +2218,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_OLD_SPEED:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
 #else
@@ -2243,16 +2228,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(void)add_timed_trait(target_ptr, TRAIT_FAST, randint1(5), TRUE);
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_OLD_SLOW:
-		{
 #ifdef JP
 			if(blind) msg_print("‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
 #else
 			if(blind) msg_print("You are hit by something slow!");
 #endif
-
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2261,10 +2243,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			else (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_OLD_CONF:
-		{
 			if(seen) obvious = TRUE;
 
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
@@ -2276,8 +2256,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			}
 			do_conf = diceroll(3, (dam / 2)) + 1;
 
-			if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
-				(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+			if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 			{
 				/* Memorize a flag */
 				if(has_trait(target_ptr, TRAIT_NO_CONF))
@@ -2291,17 +2270,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_OLD_SLEEP:
-		{
 			if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
 #ifdef JP
 			if(blind) msg_print("–°‚Á‚Ä‚µ‚Ü‚Á‚½I");
 #else
 			if(blind) msg_print("You fall asleep!");
 #endif
-
 			if(curse_of_Iluvatar)
 			{
 #ifdef JP
@@ -2317,12 +2293,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + dam);
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_OLD_DRAIN:
-		{
 			if(seen) obvious = TRUE;
-
 			if(has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2338,13 +2311,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = 0;
 			}
 			else do_time = (dam + 7) / 8;
-
 			break;
-		}
-
 
 	case DO_EFFECT_AWAY_UNDEAD:
-		{
 			if(has_trait(target_ptr, TRAIT_UNDEAD))
 			{
 				bool resists_tele = FALSE;
@@ -2373,10 +2342,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 			}
 			else skipped = TRUE;
-
 			dam = 0;
 			break;
-		}
 
 	case DO_EFFECT_AWAY_EVIL:
 		{
