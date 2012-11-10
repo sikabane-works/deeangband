@@ -3504,7 +3504,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		}
 		break;
-		}
+		}*/
 
 	case DO_EFFECT_CAUSE_3:
 		{
@@ -4284,21 +4284,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_MANA:
 	case DO_EFFECT_SEEKER:
 	case DO_EFFECT_SUPER_RAY:
-		{
 #ifdef JP
 			if(blind) msg_print("魔法のオーラで攻撃された！");
 #else
 			if(blind) msg_print("You are hit by an aura of magic!");
 #endif
 			break;
-		}
 
 	default:
 		dam = 0;
 		break;
 
-		}
-
+}}
 	}
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
