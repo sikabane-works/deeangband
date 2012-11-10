@@ -36,6 +36,7 @@ N:8:Farmer Maggot
 N:19:Lion Heart
 N:1059:Mori troll
 N:1060:Noborta Kesyta
+N:1083:Hato Poppo
 #yells, 'I'm a head of state!  You can't *do* this!'
 は叫んだ。「私は一国の長だ。そんなことするのは許されない！」
 #yells, 'Help! Psycho on the loose!'

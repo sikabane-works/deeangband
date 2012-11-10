@@ -1916,31 +1916,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-#ifdef JP
-		if(blind) msg_print("何かさえないもので攻撃された！");
-#else
-		if(blind) msg_print("You are hit by something static!");
-#endif
 		if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)apply_disenchant(target_ptr, 0);
 		break;
 
 	case DO_EFFECT_NEXUS:
-#ifdef JP
-		if(blind) msg_print("何か奇妙なもので攻撃された！");
-#else
-		if(blind) msg_print("You are hit by something strange!");
-#endif
 		if(!target_ptr->resist_nexus && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			apply_nexus(caster_ptr);
 		break;
 
 	case DO_EFFECT_TIME:
-#ifdef JP
-		if(blind) msg_print("過去からの衝撃に攻撃された！");
-#else
-		if(blind) msg_print("You are hit by a blast from the past!");
-#endif
 		if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			switch (randint1(10))
@@ -2004,11 +1989,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_GRAVITY:
+		if(blind) msg_print();
+		if(blind) msg_print();
 #ifdef JP
-		if(blind) msg_print("何か重いもので攻撃された！");
 		msg_print("周辺の重力がゆがんだ。");
 #else
-		if(blind) msg_print("You are hit by something heavy!");
 		msg_print("Gravity warps around you.");
 #endif
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))

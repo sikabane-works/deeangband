@@ -183,7 +183,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‚Æ‚Ä‚à”M‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
-
+//10
 	"‰½‚©¼‚Á‚½‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
 	"‰½‚©‚ÅUŒ‚‚³‚ê‚½B",
@@ -191,17 +191,54 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 
 	"‰½‚©‰s‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
-	"Œ‰¹‚ÅUŒ‚‚³‚ê‚½I",
-	"‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
-	"‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I",
-	"‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
+	"Œ‰¹‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©¬—‚·‚é‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"‰^“®ƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©’x‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+//20
+	"",
+	"‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½B",
+	"‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½B",
+	"’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½B",
+
+	"‰½‚©‚³‚¦‚È‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"‰½‚©Šï–­‚È‚à‚Ì‚ÅUŒ‚‚³‚ê‚½B",
+	"‰ß‹‚©‚ç‚ÌÕŒ‚‚ÉUŒ‚‚³‚ê‚½I",
+	"‰½‚©d‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
+	"",
+//30
+	"",
+	"",
+	"",
+	"",
+	"",
 
 	"",
-	"‰½‚©‚ª‹ó‚©‚ç‚ ‚È‚½‚Ì“ªã‚É—‚¿‚Ä‚«‚½I",
-	"‰½‚©‰s‚­—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I",
-	"–³’˜‚Ì”g“®‚ÅUŒ‚‚³‚ê‚½I",
-	"’n–‚Ì—Í‚ÅUŒ‚‚³‚ê‚½I",
+	"",
+	"",
+	"",
+	"",
+//40
+	"",
+	"",
+	"",
+	"",
+	"",
 
+	"",
+	"",
+	"",
+	"",
+	"",
+//50
+	"",
+	"",
+	"",
+	"",
+	"",
+
+	"",
 
 #else
 	"You are hit by something.",
@@ -215,24 +252,62 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"You are hit by something.",
 	"You are hit by something sharp.",
 	"You are hit by something *HOT*.",
-
+//10
 	"You are hit by something wet.",
 	"You are hit by something.",
 	"You are hit by something.",
 	"You are hit by something.",
 	"",
 
-	"You are hit by something sharp!",
-	"You are hit by a loud noise!",
-	"You are hit by something puzzling!",
-	"You are hit by kinetic force!",
-	"You are hit by something slow!",
+	"You are hit by something sharp.",
+	"You are hit by a loud noise.",
+	"You are hit by something puzzling.",
+	"You are hit by kinetic force.",
+	"You are hit by something slow.",
+//20
+	"",
+	"Something falls from the sky on you.",
+	"You are hit by something sharp and cold.",
+	"You are hit by a wave of anarchy."
+	"You are hit by nether forces.",
+
+	"You are hit by something.",
+	"You are hit by something strange.",
+	"You are hit by a blast from the past!",
+	"You are hit by something heavy!",
+	"",
+//30
+	"",
+	"",
+	"",
+	"",
+	"",
 
 	"",
-	"Something falls from the sky on you!",
-	"You are hit by something sharp and cold!",
-	"You are hit by a wave of anarchy!"
-	"You are hit by nether forces!",
+	"",
+	"",
+	"",
+	"",
+//40
+	"",
+	"",
+	"",
+	"",
+	"",
+
+	"",
+	"",
+	"",
+	"",
+	"",
+//50
+	"",
+	"",
+	"",
+	"",
+	"",
+
+	"",
 
 #endif
 };
