@@ -2958,190 +2958,26 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CAUSE_1:
-		/* TODO saving_throw
-		if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-		learn_trait(target_ptr, spell);
-		}
-		else
-		*/
-		{
-			//TODO curse_equipment
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
 			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-		}
 		break;
-		/* project_creature_aux2()
-		case DO_EFFECT_CAUSE_1:
-		{
-		if(seen) obvious = TRUE;
-		// Message
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sを指差して呪いをかけた。", target_name);
-		#else
-		if(caster_ptr == caster_ptr) msg_format("You point at %s and curse.", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		// Attempt a saving throw
-		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
-		{
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		break;
-		}*/
 
 	case DO_EFFECT_CAUSE_2:
-		/*
-		if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-		msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-		learn_trait(target_ptr, spell);
-		}
-		else
-		*/
-		{
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-		}
 		break;
-		/* project_creature_aux2()
-		case DO_EFFECT_CAUSE_2:
-		{
-		if(seen) obvious = TRUE;
-		// Message/
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sを指差して恐ろしげに呪いをかけた。", target_name);
-		#else
-		if(caster_ptr == caster_ptr) msg_format("You point at %s and curse horribly.", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		// Attempt a saving throw
-		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
-		{
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		break;
-		}*/
 
 	case DO_EFFECT_CAUSE_3:
-		{
-			/* TODO saving_throw
-			if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-			msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-			learn_trait(target_ptr, spell);
-			}
-			else
-			*/
-			{
-				if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
-				dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			}
-			break;
-		}
-		/* project_creature_aux2()
-		case DO_EFFECT_CAUSE_3:
-		{
-		if(seen) obvious = TRUE;
-		// Message
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sを指差し、恐ろしげに呪文を唱えた！", target_name);
-		#else
-		if(caster_ptr == caster_ptr) msg_format("You point at %s, incanting terribly!", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
+			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
+			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
-		}
-
-		// Attempt a saving throw
-		if(randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35))
-		{
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		break;
-		}
-		*/
 
 	case DO_EFFECT_CAUSE_4:
-		/* TODO saving_throw
-		if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(caster_ptr->species_idx == SPECIES_KENSHIROU) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-		#ifdef JP
-		msg_print("しかし秘孔を跳ね返した！");
-		#else
-		msg_print("You resist the effects!");
-		#endif
-		learn_trait(target_ptr, spell);
-		}
-		else
-		*/
-		{
 			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
-		}
 		break;
-		/*
-		case DO_EFFECT_CAUSE_4:
-		{
-		if(seen) obvious = TRUE;
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sの秘孔を突いて、「お前は既に死んでいる」と叫んだ。", target_name);
-		#else
-		if(caster_ptr == caster_ptr) msg_format("You point at %s, screaming the word, 'DIE!'.", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		// Attempt a saving throw
-		if((randint0(100 + (caster_power / 2)) < (target_ptr->lev * 2 + 35)) && ((caster_ptr == caster_ptr) || (caster_ptr->species_idx != SPECIES_KENSHIROU)))
-		{
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		break;
-		}
-		*/
 
 	case DO_EFFECT_HAND_DOOM:
-		/*
-		if((randint0(100 + caster_power/2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-		msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-		learn_trait(target_ptr,spell);
-		}
-		else
-		*/
-		{
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 #ifdef JP
@@ -3151,52 +2987,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 				curse_equipment(target_ptr, 40, 20);
 			}
-
 			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-
 			if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
-		}
 		break;
-		/* project_creature_aux2()
-		case DO_EFFECT_HAND_DOOM:
-		{
-		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		if(has_trait(target_ptr, TRAIT_UNIQUE))
-		{
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		else
-		{
-		if((caster_ptr != caster_ptr) ? ((caster_power + randint1(dam)) > (target_ptr->lev * 2 + 10 + randint1(20))) :
-		(((caster_power / 2) + randint1(dam)) > (target_ptr->lev * 2 + randint1(200))))
-		{
-		dam = ((40 + randint1(20)) * target_ptr->chp) / 100;
-
-		if(target_ptr->chp < dam) dam = target_ptr->chp - 1;
-		}
-		else
-		{
-		#ifdef JP
-		note = "は耐性を持っている！";
-		#else
-		note = "resists!";
-		#endif
-		dam = 0;
-		}
-		}
-		break;
-		}
-		*/
 
 	case DO_EFFECT_CAPTURE:
 		{
@@ -3320,14 +3113,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		//86
 
-		/* Attack (Use "dam" as attack type) */
 	case DO_EFFECT_ATTACK:
 		/* Return this creature's death */
 		//TODO return melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		break;
 
-
-		/* Sleep (Use "dam" as "power") */
 	case DO_EFFECT_ENGETSU:
 		{
 			int effect = 0;
@@ -3335,13 +3125,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(seen) obvious = TRUE;
 
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				dam = 0;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
 			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -3432,21 +3215,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 			}
 
-			/* No "real" damage */
 			dam = 0;
 			break;
 		}
 
 	case DO_EFFECT_GENOCIDE:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			skipped = TRUE;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 
 #ifdef JP
 		if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, "クリーチャー消滅"))
@@ -3496,13 +3270,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_CONTROL_DEMON:
 		if(seen) obvious = TRUE;
-		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 			dam = dam * 2 / 3;
@@ -3535,7 +3302,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			set_pet(caster_ptr, target_ptr);
 		}
 
-		/* No "real" damage */
 		dam = 0;
 		break;
 
@@ -3543,14 +3309,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_BLOOD_CURSE:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		break;
 		/* old
 		if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
@@ -3762,14 +3520,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_STASIS_EVIL:
 		if(seen) obvious = TRUE;
 
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
-		/* Attempt a saving throw */
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
 			!(is_enemy_of_good_creature(target_ptr)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -3779,17 +3529,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else
 		{
-			/* Go to sleep (much) later */
 #ifdef JP
 			note = "は動けなくなった！";
 #else
 			note = " is suspended!";
 #endif
-
 			do_sleep = 500;
 		}
 
-		/* No "real" damage */
 		dam = 0;
 		break;
 
@@ -3804,7 +3551,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 		}
 
-		/* Attempt a saving throw */
 		if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
