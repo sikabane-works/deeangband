@@ -2786,10 +2786,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 				msg_print("You are covered with frost!");
 #endif
-
-
 				/* Special damage */
-				get_damage += cold_dam(target_ptr, damage, ddesc, -1);
+				//TODO get_damage += cold_dam(target_ptr, damage, ddesc, -1);
 
 				/* Learn about the player */
 				//TODO update_smart_learn(m_idx, DRS_COLD);

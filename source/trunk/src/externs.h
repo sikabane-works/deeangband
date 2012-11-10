@@ -1375,7 +1375,6 @@ extern int set_fire_destroy(object_type *object_ptr);
 extern int set_cold_destroy(object_type *object_ptr);
 extern int inven_damage(creature_type *creature_ptr, inven_func typ, int perc);
 extern int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell);
-extern int cold_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell);
 extern bool rustproof(creature_type *creature_ptr);
 extern bool curse_armor(creature_type *creature_ptr);
 extern bool curse_weapon(creature_type *target_ptr, bool force, int slot);

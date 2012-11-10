@@ -4916,21 +4916,6 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	return get_damage;
 }
 
-// Hurt the creature with Cold
-int cold_dam(creature_type *creature_ptr, int dam, cptr kb_str)
-{
-	int get_damage;  
-	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_COLD(creature_ptr);
-
-	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_COLD, TRUE, FALSE);
-	//get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
-
-	/* creature_ptr->inventory damage */
-	if(!(double_resist && creature_ptr->resist_cold)) inven_damage(creature_ptr, set_cold_destroy, inv);
-	return get_damage;
-}
-
 
 bool rustproof(creature_type *creature_ptr)
 {

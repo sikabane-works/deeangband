@@ -1739,7 +1739,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_COLD:
-		dam = cold_dam(target_ptr, dam, caster_name, spell);
+		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
+			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_FIRE:
@@ -1850,7 +1851,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ICE:
-		dam = cold_dam(target_ptr, dam, caster_name, spell);
+		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
+			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
+		break;
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
