@@ -1752,15 +1752,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ARROW:
-		if(!blind && has_trait(target_ptr, TRAIT_ZANTETSU_EFFECT))
-		{
-#ifdef JP
-			msg_print("–î‚ğa‚èÌ‚Ä‚½I");
-#else
-			msg_print("You cut down the arrow!");
-#endif
-			break;
-		}
 		break;
 
 	case DO_EFFECT_PLASMA:

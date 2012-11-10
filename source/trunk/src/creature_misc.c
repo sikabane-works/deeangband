@@ -915,6 +915,18 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		if(creature_ptr->resist_pois > 0) t /= 3;
 		break;
 
+	case DO_EFFECT_ARROW:
+		if(!has_trait(creature_ptr, TRAIT_BLIND) && has_trait(creature_ptr, TRAIT_ZANTETSU_EFFECT))
+		{
+#ifdef JP
+			msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
+#else
+			msg_print("You cut down the arrow!");
+#endif
+			t = 0;
+		}
+		break;
+
 	case DO_EFFECT_LITE:
 		if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 		{
@@ -932,39 +944,39 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 
 	case DO_EFFECT_DARK:
 		if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) t = 0;
-		if(creature_ptr->resist_dark > 0) t = t*4/9;
+		if(creature_ptr->resist_dark > 0) t = t * 4 / 9;
 		break;
 
 	case DO_EFFECT_NETHER:
-		if(creature_ptr->resist_dark > 0) t = t*2/3;
+		if(creature_ptr->resist_dark > 0) t = t * 2 / 3;
 		//TODO Evil x0.5
 		break;
 
 	case DO_EFFECT_WATER:
-		if(creature_ptr->resist_water > 0) t = t*5/9;
+		if(creature_ptr->resist_water > 0) t = t * 5 / 9;
 		break;
 
 	case DO_EFFECT_PLASMA:
 		break;
 
 	case DO_EFFECT_SHARDS:
-		if(creature_ptr->resist_shard > 0) t = t*2/3;
+		if(creature_ptr->resist_shard > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_SOUND:
-		if(creature_ptr->resist_sound > 0) t = t*5/9;
+		if(creature_ptr->resist_sound > 0) t = t * 5 / 9;
 		break;
 
 	case DO_EFFECT_CHAOS:
-		if(creature_ptr->resist_chaos > 0) t = t*2/3;
+		if(creature_ptr->resist_chaos > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(creature_ptr->resist_nexus > 0) t = t*2/3;
+		if(creature_ptr->resist_nexus > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(creature_ptr->resist_disen > 0) t = t*2/3;
+		if(creature_ptr->resist_disen > 0) t = t * 2 / 3;
 		break;
 
 	case DO_EFFECT_FORCE:
@@ -974,8 +986,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 
 	case DO_EFFECT_TIME:
-		t *= 4;
-		t /= (randint1(4) + 7);
+		t *= 4 / 9;
 		if(is_player(creature_ptr) && message)
 		{
 #ifdef JP
@@ -1023,7 +1034,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 		break;
 	}
 
-	if(has_trait(creature_ptr, TRAIT_RES_ALL)) t = 0;
+	if(has_trait(creature_ptr, TRAIT_RES_ALL)) t /= 100;
 
 	/* TODO Multishadow
 	if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -1039,7 +1050,6 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message)
 
 	if(message)
 	{
-
 		if(t == 0) note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 
 		else if(t < 200)
