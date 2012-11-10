@@ -1181,13 +1181,9 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 			msg_print("You are enveloped in flames!");
 #endif
-
 			dam = diceroll(4, 6);
-#ifdef JP
-			(void)fire_dam(creature_ptr, dam, "‰Š‚Ìƒgƒ‰ƒbƒv", -1);
-#else
-			(void)fire_dam(creature_ptr, dam, "a fire trap", -1);
-#endif
+			//TODO damage
+			(void)fire_dam(creature_ptr, dam);
 
 			break;
 		}

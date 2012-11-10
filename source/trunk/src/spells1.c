@@ -1742,7 +1742,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_FIRE:
-		dam = fire_dam(target_ptr, dam, caster_name, spell);
+		fire_dam(target_ptr, dam);
 		break;
 
 	case DO_EFFECT_PSY_SPEAR:
