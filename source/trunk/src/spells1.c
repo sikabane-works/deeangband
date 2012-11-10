@@ -1725,7 +1725,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ELEC:
-		dam = elec_dam(target_ptr, dam, caster_name, spell);
+		elec_dam(target_ptr, dam);
 		break;
 
 	case DO_EFFECT_POIS:

@@ -4917,21 +4917,12 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 }
 
 
-/*
- * Hurt the creature with electricity
- */
-int elec_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
+// Hurt the creature with electricity
+int elec_dam(creature_type *creature_ptr, int dam)
 {
-	int get_damage;  
 	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_ELEC(creature_ptr);
-
-	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_ELEC, TRUE, FALSE);
-	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
-
-	// inventory damage
-	if(!(double_resist && creature_ptr->resist_elec)) inven_damage(creature_ptr, set_elec_destroy, inv);
-	return get_damage;
+	if(!(IS_OPPOSE_ELEC(creature_ptr) && creature_ptr->resist_elec)) inven_damage(creature_ptr, set_elec_destroy, inv);
+	return TRUE;
 }
 
 

@@ -2734,18 +2734,15 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_ELEC:
 			{
 				if(explode) break;
-				/* Obvious */
 				obvious = TRUE;
-
-				/* Message */
 #ifdef JP
 				msg_print("ìdåÇÇóÅÇ—ÇπÇÁÇÍÇΩÅI");
 #else
 				msg_print("You are struck by electricity!");
 #endif
-
 				/* Special damage */
-				get_damage += elec_dam(target_ptr, damage, ddesc, -1);
+				//TODO damage
+				elec_dam(target_ptr, 0);
 
 				/* Learn about the player */
 				//TODO update_smart_learn(m_idx, DRS_ELEC);
