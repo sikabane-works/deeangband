@@ -1197,11 +1197,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 			dam = diceroll(4, 6);
-#ifdef JP
-			(void)acid_dam(creature_ptr, dam, "Ž_‚Ìƒgƒ‰ƒbƒv", -1);
-#else
-			(void)acid_dam(creature_ptr, dam, "an acid trap", -1);
-#endif
+			//TODO damage
 
 			break;
 		}

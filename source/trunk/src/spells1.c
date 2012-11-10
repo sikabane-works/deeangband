@@ -1735,7 +1735,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ACID:
-		dam = acid_dam(target_ptr, dam, caster_name, spell);
+		if(!(IS_OPPOSE_ACID(target_ptr) && target_ptr->resist_acid))
+			inven_damage(target_ptr, set_acid_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_COLD:

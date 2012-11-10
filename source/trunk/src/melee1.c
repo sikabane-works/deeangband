@@ -2720,7 +2720,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 
 				/* Special damage */
-				get_damage += acid_dam(target_ptr, damage, ddesc, -1);
+				// TODO get_damage += acid_dam(target_ptr, damage, ddesc, -1);
 
 				/* Hack -- Update AC */
 				update_creature(target_ptr, TRUE);

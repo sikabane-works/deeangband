@@ -4898,25 +4898,6 @@ static int minus_ac(creature_type *creature_ptr)
 	return (TRUE); // Item was damaged
 }
 
-
-/*
- * Hurt the creature with Acid
- */
-int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
-{
-	int get_damage;  
-	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	bool double_resist = IS_OPPOSE_ACID(creature_ptr);
-
-	get_damage = calc_damage(creature_ptr, dam, DO_EFFECT_ACID, TRUE, FALSE);
-	get_damage = take_hit(NULL, creature_ptr, DAMAGE_ATTACK, get_damage, kb_str, NULL, monspell);
-
-	// inventory damage
-	if(!(double_resist && creature_ptr->resist_acid)) inven_damage(creature_ptr, set_acid_destroy, inv);
-	return get_damage;
-}
-
-
 bool rustproof(creature_type *creature_ptr)
 {
 	int         item;
