@@ -241,6 +241,14 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 	"放射能で攻撃された！",
 	"爆発があった！",
+	"",
+	"",
+//60
+	"何か非常に冷たいもので攻撃された！",
+	"何かで攻撃された！",
+	"何かで攻撃された！",
+	"純粋なエネルギーで攻撃された！",
+
 #else
 	"You are hit by something.",
 	"You are hit by lightning.",
@@ -311,5 +319,13 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 	"You are hit by radiation!",
 	"There is an explosion!",
+	"",
+	"",
+//60
+	"You are hit by something extremely cold!",
+	"You are hit by something!",
+	"You are hit by something!",
+	"You are hit by pure energy!",
+
 #endif
 };

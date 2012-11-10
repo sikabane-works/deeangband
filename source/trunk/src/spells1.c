@@ -2598,11 +2598,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//60
 
 	case DO_EFFECT_DEATH_RAY:
-#ifdef JP
-		if(blind) msg_print("‰½‚©”ñí‚É—â‚½‚¢‚à‚Ì‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something extremely cold!");
-#endif
 		break;
 
 	case DO_EFFECT_STUN:
@@ -2626,27 +2621,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_HOLY_FIRE:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something!");
-#endif
 		break;
 
 	case DO_EFFECT_HELL_FIRE:
-#ifdef JP
-		if(blind) msg_print("‰½‚©‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by something!");
-#endif
 		break;
 
 	case DO_EFFECT_DISINTEGRATE:
-#ifdef JP
-		if(blind) msg_print("ƒˆ‚ÈƒGƒlƒ‹ƒM[‚ÅUŒ‚‚³‚ê‚½I");
-#else
-		if(blind) msg_print("You are hit by pure energy!");
-#endif
 		break;
 
 	case DO_EFFECT_CHARM:
@@ -2687,7 +2667,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-
 			if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 		}
 		else
@@ -2697,7 +2676,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " suddenly seems friendly!";
 #endif
-
 			set_pet(caster_ptr, target_ptr);
 		}
 		dam = 0;
@@ -2734,7 +2712,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-
 			if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 		}
 		else
@@ -2744,10 +2721,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " is in your thrall!";
 #endif
-
 			set_pet(caster_ptr, target_ptr);
 		}
-
 		dam = 0;
 		break;
 
@@ -2844,7 +2819,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_format("%^s%s corrupted mind backlashes your attack!",
 					target_name, (seen ? "'s" : "s"));
 #endif
-
 				/* Saving throw */
 				/*
 				if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
@@ -3005,7 +2979,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		note_dies = " collapses, a mindless husk.";
 #endif
-
 		break;
 
 	case DO_EFFECT_TELEKINESIS:
@@ -3140,9 +3113,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-
 	case DO_EFFECT_DISP_GOOD:
-
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
 			skipped = TRUE;
@@ -3491,9 +3462,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		}
 		break;
-		}
+		}*/
 
-		case DO_EFFECT_CAUSE_2:
+	case DO_EFFECT_CAUSE_2:
 		/*
 		if((randint0(100 + caster_power / 2) < target_ptr->skill_rob) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
@@ -3535,7 +3506,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 		}
 
-		/* cause 3 */
 	case DO_EFFECT_CAUSE_3:
 		{
 			/* TODO saving_throw
@@ -4329,7 +4299,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		}
 
-								}
 	}
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
