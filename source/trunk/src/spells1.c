@@ -1989,8 +1989,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_GRAVITY:
-		if(blind) msg_print();
-		if(blind) msg_print();
 #ifdef JP
 		msg_print("周辺の重力がゆがんだ。");
 #else
@@ -2154,11 +2152,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_SLEEP:
 		if(has_trait(target_ptr, TRAIT_FREE_ACTION))  break;
-#ifdef JP
-		if(blind) msg_print("眠ってしまった！");
-#else
-		if(blind) msg_print("You fall asleep!");
-#endif
 		if(curse_of_Iluvatar)
 		{
 #ifdef JP
@@ -2543,13 +2536,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 56
 
 	case DO_EFFECT_NUKE:
-#ifdef JP
-		if(blind) msg_print("放射能で攻撃された！");
-#else
-		if(blind) msg_print("You are hit by radiation!");
-#endif
-		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-
 		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			add_timed_trait(target_ptr, TRAIT_POISONED, randint0(dam) + 10, TRUE);
@@ -2572,11 +2558,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ROCKET:
-#ifdef JP
-		if(blind) msg_print("爆発があった！");
-#else
-		if(blind) msg_print("There is an explosion!");
-#endif
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 

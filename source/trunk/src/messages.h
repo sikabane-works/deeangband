@@ -222,7 +222,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 //40
 	"",
 	"",
-	"",
+	"眠ってしまった！",
 	"",
 	"",
 
@@ -239,7 +239,8 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 
 	"",
-
+	"放射能で攻撃された！",
+	"爆発があった！",
 #else
 	"You are hit by something.",
 	"You are hit by lightning.",
@@ -291,7 +292,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 //40
 	"",
 	"",
-	"",
+	"You fall asleep!",
 	"",
 	"",
 
@@ -308,6 +309,7 @@ static const cptr effect_message_in_blind[MAX_DO_EFFECT] =
 	"",
 
 	"",
-
+	"You are hit by radiation!",
+	"There is an explosion!",
 #endif
 };
