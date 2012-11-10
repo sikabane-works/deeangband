@@ -1714,7 +1714,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	}
 
 	// Analyze the damage
-	dam = calc_damage(caster_ptr, dam, typ, TRUE);
+	dam = calc_damage(caster_ptr, dam, typ, TRUE, FALSE);
 
 	if(blind) msg_print(effect_message_in_blind[typ]);
 

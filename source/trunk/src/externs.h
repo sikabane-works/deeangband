@@ -874,7 +874,7 @@ extern bool has_trait_from_species(creature_type *creature_ptr, int type);
 extern bool has_trait_species(species_type *species_ptr, int type);
 extern bool has_trait_object(object_type *object_ptr, int type);
 extern bool has_trait(creature_type *creature_ptr, int type);
-extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message);
+extern int calc_damage(creature_type *creature_ptr, int damage, int type, bool message, bool average);
 
 extern int calc_base_level(creature_type *creature_ptr);
 extern int calc_base_divine_rank(creature_type *creature_ptr);

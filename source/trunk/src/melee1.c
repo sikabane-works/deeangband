@@ -38,7 +38,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			msg_print("You are suddenly very hot!");
 #endif
 
-			aura_damage = calc_damage(attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE);
+			aura_damage = calc_damage(attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE, FALSE);
 			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
@@ -2314,7 +2314,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-					int tmp_damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE);
+					int tmp_damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 #ifdef JP
 					msg_print("クリティカルヒット！");
 #else
@@ -2329,7 +2329,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_HURT:
 			{
 				obvious = TRUE;	// Obvious
-				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE);
+				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				break;
 			}
@@ -3034,7 +3034,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_SHATTER:
 			{
 				obvious = TRUE;
-				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE);
+				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				//TODO if(damage > 23 || explode) earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 				break;

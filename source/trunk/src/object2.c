@@ -4914,28 +4914,28 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 	switch (typ)
 	{
 	case DO_EFFECT_ELEC:
-		dam = calc_damage(target_ptr, dam, DO_EFFECT_ELEC, FALSE);
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_ELEC, FALSE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case DO_EFFECT_POIS:
-		dam = calc_damage(target_ptr, dam, DO_EFFECT_POIS, FALSE);
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_POIS, FALSE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case DO_EFFECT_ACID:
-		dam = calc_damage(target_ptr, dam, DO_EFFECT_ACID, FALSE);
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_ACID, FALSE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case DO_EFFECT_COLD:
 	case DO_EFFECT_ICE:
-		dam = calc_damage(target_ptr, dam, DO_EFFECT_COLD, FALSE);
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_COLD, FALSE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 
 	case DO_EFFECT_FIRE:
-		dam = calc_damage(target_ptr, dam, DO_EFFECT_FIRE, FALSE);
+		dam = calc_damage(target_ptr, dam, DO_EFFECT_FIRE, FALSE, FALSE);
 		if(dam <= 0) ignore_wraith_form = TRUE;
 		break;
 

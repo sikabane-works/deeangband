@@ -2712,7 +2712,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 #endif
 
 	//acid
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_ACID, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_ACID, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_ACID))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
@@ -2725,7 +2725,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
 	//elec
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_ELEC, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_ELEC, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_ELEC))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_ELEC) ? TERM_L_RED : TERM_WHITE), "+", row + 1, col + 31);
@@ -2740,7 +2740,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
 	//fire
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_FIRE, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_FIRE, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_FIRE))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_FIRE) ? TERM_L_RED : TERM_WHITE), "+", row + 2, col + 31);
@@ -2755,7 +2755,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	//cold
 
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_COLD, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_COLD, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_COLD))
 		c_put_str((byte)(has_trait(creature_ptr, TRAIT_HURT_COLD) ? TERM_L_RED : TERM_WHITE), "+", row + 3, col + 31);
@@ -2768,7 +2768,7 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row + 3, col + 33);
 
 	//pois
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_POIS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_POIS, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_POIS))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
@@ -2779,19 +2779,19 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	c_put_str(TERM_YELLOW, buf, row+4, col + 33);
 
 	//lite
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_LITE, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_LITE, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_LITE))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+5, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_DARK, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_DARK, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_DARK))
 		c_put_str(TERM_WHITE, "+", row + 6, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+6, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_SHARDS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_SHARDS, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_SHAR))
 		c_put_str(TERM_WHITE, "+", row + 5, col + 31);
@@ -2824,31 +2824,31 @@ static void display_creature_flag_info1(creature_type *creature_ptr)
 	display_flag_aux(row+5, col, "Fear  :", TRAIT_FEARLESS, &f, 0, creature_ptr);
 #endif
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_SOUND, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_SOUND, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_SOUN))
 		c_put_str(TERM_WHITE, "+", row + 0, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+0, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_NETHER, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_NETHER, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_NETH))
 		c_put_str(TERM_WHITE, "+", row + 1, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+1, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_NEXUS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_NEXUS, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_NEXU))
 		c_put_str(TERM_WHITE, "+", row + 2, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+2, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_CHAOS, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_CHAOS, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_CHAO))
 		c_put_str(TERM_WHITE, "+", row + 3, col + 31);
 	c_put_str(TERM_YELLOW, buf, row+3, col + 33);
 
-	rate = calc_damage(creature_ptr, 100, DO_EFFECT_DISENCHANT, FALSE);
+	rate = calc_damage(creature_ptr, 100, DO_EFFECT_DISENCHANT, FALSE, TRUE);
 	sprintf(buf, "x%1d.%02d", rate / 100, rate % 100);
 	if(has_trait(creature_ptr, TRAIT_RES_DISE))
 		c_put_str(TERM_WHITE, "+", row + 4, col + 31);
