@@ -1746,11 +1746,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PSY_SPEAR:
-		break;
-
 	case DO_EFFECT_MISSILE:
-		break;
-
 	case DO_EFFECT_ARROW:
 		break;
 
@@ -1795,16 +1791,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_LITE_WEAK:
-		if(!dam)
-		{
-			skipped = TRUE;
-			break;
-		}
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			dam = 0;
-			break;
-		}
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
 			if(seen) obvious = TRUE;
@@ -1817,7 +1803,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note_dies = " shrivels away in the light!";
 #endif
 		}
-		else dam = 0;
 		break;
 
 		// 15
@@ -1848,7 +1833,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_INERTIA:
-		if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+		if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+			(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 		break;
 
 		// 21
@@ -1873,7 +1859,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CHAOS:
-
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
@@ -1997,12 +1982,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_KILL_WALL:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			dam = 0;
-			break;
-		}
-		/* Hurt by rock remover */
 		if(has_trait(target_ptr, TRAIT_HURT_ROCK))
 		{
 			/* Notice effect */
@@ -2021,7 +2000,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 
 		}
-		else dam = 0;
 		break;
 
 		//31-36
@@ -2049,13 +2027,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_POLY:
 		if(seen) obvious = TRUE;
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		/* Attempt to polymorph (see below) */
 		do_poly = TRUE;
 
@@ -2072,11 +2043,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_HEAL:
-#ifdef JP
-		if(blind) msg_print("âΩÇÁÇ©ÇÃçUåÇÇ…ÇÊÇ¡ÇƒãCï™Ç™ÇÊÇ≠Ç»Ç¡ÇΩÅB");
-#else
-		if(blind) msg_print("You are hit by something invigorating!");
-#endif
 		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 		(void)set_timed_trait(target_ptr, TRAIT_STUN, 0);
 		(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, 0);
@@ -2090,21 +2056,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_SPEED:
-#ifdef JP
-		if(blind) msg_print("âΩÇ©Ç≈çUåÇÇ≥ÇÍÇΩÅI");
-#else
-		if(blind) msg_print("You are hit by something!");
-#endif
 		(void)add_timed_trait(target_ptr, TRAIT_FAST, randint1(5), TRUE);
 		dam = 0;
 		break;
 
 	case DO_EFFECT_OLD_SLOW:
-#ifdef JP
-		if(blind) msg_print("âΩÇ©íxÇ¢Ç‡ÇÃÇ≈çUåÇÇ≥ÇÍÇΩÅI");
-#else
-		if(blind) msg_print("You are hit by something slow!");
-#endif
 		if(has_trait(target_ptr, TRAIT_RES_ALL))
 		{
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
