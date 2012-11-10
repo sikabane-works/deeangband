@@ -1183,7 +1183,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 			dam = diceroll(4, 6);
 			//TODO damage
-			(void)fire_dam(creature_ptr, dam);
+			//(void)fire_dam(creature_ptr, dam);
 
 			break;
 		}

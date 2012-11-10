@@ -4916,14 +4916,6 @@ int acid_dam(creature_type *creature_ptr, int dam, cptr kb_str, int monspell)
 	return get_damage;
 }
 
-// Hurt the creature with Fire
-int fire_dam(creature_type *creature_ptr, int dam)
-{
-	int inv = (dam < 30) ? 1 : (dam < 60) ? 2 : 3;
-	if(!(IS_OPPOSE_FIRE(creature_ptr) && creature_ptr->resist_fire)) inven_damage(creature_ptr, set_fire_destroy, inv);
-	return TRUE;
-}
-
 // Hurt the creature with Cold
 int cold_dam(creature_type *creature_ptr, int dam, cptr kb_str)
 {

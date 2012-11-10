@@ -1743,7 +1743,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_FIRE:
-		fire_dam(target_ptr, dam);
+		if(!(IS_OPPOSE_FIRE(target_ptr) && target_ptr->resist_fire))
+			inven_damage(target_ptr, set_fire_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
 
 	case DO_EFFECT_PSY_SPEAR:

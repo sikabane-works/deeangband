@@ -2766,7 +2766,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				/* Special damage */
 				//TODO dam
-				fire_dam(target_ptr, damage);
+				//fire_dam(target_ptr, damage);
 
 				/* Learn about the player */
 				//TODO update_smart_learn(m_idx, DRS_FIRE);
