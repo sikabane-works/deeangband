@@ -2061,39 +2061,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_SLOW:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		}
-		else (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
+		(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 		dam = 0;
 		break;
 
 	case DO_EFFECT_OLD_CONF:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		do_conf = diceroll(3, (dam / 2)) + 1;
-
 		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			/* Memorize a flag */
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-			}
 			do_conf = 0;
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
 		}
-
 		dam = 0;
 		break;
 
@@ -2110,20 +2093,12 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			have_nightmare(target_ptr, get_species_num(floor_ptr, MAX_DEPTH));	// Have some nightmares
 			reset_species_preps();									// Remove the creature restriction
 		}
-
-		set_timed_trait(target_ptr, TRAIT_PARALYZED, has_trait(target_ptr, TRAIT_PARALYZED) + dam);
+		add_timed_trait(target_ptr, TRAIT_SLEPT, dam, FALSE);
 		dam = 0;
 		break;
 
 	case DO_EFFECT_OLD_DRAIN:
 		if(seen) obvious = TRUE;
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		if(creature_living(target_ptr))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);
@@ -2138,7 +2113,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_UNDEAD))
 		{
 			bool resists_tele = FALSE;
-
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
@@ -2170,7 +2144,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(is_enemy_of_good_creature(target_ptr))
 		{
 			bool resists_tele = FALSE;
-
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_RES_ALL)))
@@ -2250,17 +2223,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		else skipped = TRUE;
 
-		/* No "real" damage */
 		dam = 0;
 		break;
 
 	case DO_EFFECT_TURN_EVIL:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			break;
-		}
-		/* Only affect evil */
 		if(is_enemy_of_good_creature(target_ptr))
 		{
 			/* Obvious */
@@ -2293,12 +2259,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_TURN_ALL:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			break;
-		}
-		/* Obvious */
 		if(seen) obvious = TRUE;
 
 		/* Apply some fear */
@@ -2318,13 +2278,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_UNDEAD:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			dam = 0;
-			break;
-		}
-		/* Only affect undead */
 		if(has_trait(target_ptr, TRAIT_UNDEAD))
 		{
 			/* Obvious */
@@ -2356,13 +2309,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_EVIL:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			dam = 0;
-			break;
-		}
-		/* Only affect evil */
 		if(is_enemy_of_good_creature(target_ptr))
 		{
 			/* Obvious */
@@ -2388,15 +2334,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_ALL:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			dam = 0;
-			break;
-		}
 		/* Obvious */
 		if(seen) obvious = TRUE;
-
 		/* Message */
 #ifdef JP
 		note = "‚Ígk‚¢‚µ‚½B";
@@ -2408,13 +2347,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_DEMON:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			dam = 0;
-			break;
-		}
-		/* Only affect demons */
 		if(has_trait(target_ptr, TRAIT_DEMON))
 		{
 			/* Obvious */
@@ -2446,13 +2378,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_LIVING:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			dam = 0;
-			break;
-		}
-		/* Only affect non-undead */
 		if(creature_living(target_ptr))
 		{
 			/* Obvious */
@@ -2477,7 +2402,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			/* No damage */
 			dam = 0;
 		}
-
 		break;
 
 		// 56
@@ -2517,14 +2441,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_STASIS:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2549,14 +2465,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_STUN:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		do_stun = diceroll((caster_power / 20) + 3 , (dam)) + 1;
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
