@@ -2229,16 +2229,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_TURN_EVIL:
 		if(is_enemy_of_good_creature(target_ptr))
 		{
-			/* Obvious */
 			if(seen) obvious = TRUE;
-
-			/* Learn about type */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
-			/* Apply some fear */
 			do_fear = diceroll(3, (dam / 2)) + 1;
-
-			/* Attempt a saving throw */
 			if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
 			{
 				note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -2246,25 +2239,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				do_fear = 0;
 			}
 		}
-
-		/* Others ignore */
 		else
 		{
-			/* Irrelevant */
 			skipped = TRUE;
 		}
-
-		/* No "real" damage */
 		dam = 0;
 		break;
 
 	case DO_EFFECT_TURN_ALL:
 		if(seen) obvious = TRUE;
-
-		/* Apply some fear */
-		do_fear = diceroll(3, (dam / 2)) + 1;
-
-		/* Attempt a saving throw */
+		do_fear = diceroll(3, (dam / 2)) + 1; // Apply some fear
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
@@ -2272,21 +2256,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			obvious = FALSE;
 			do_fear = 0;
 		}
-
-		/* No "real" damage */
 		dam = 0;
 		break;
 
 	case DO_EFFECT_DISP_UNDEAD:
 		if(has_trait(target_ptr, TRAIT_UNDEAD))
 		{
-			/* Obvious */
 			if(seen) obvious = TRUE;
-
-			/* Learn about type */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-			/* Message */
 #ifdef JP
 			note = "は身震いした。";
 			note_dies = "はドロドロに溶けた！";
@@ -2295,14 +2272,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note_dies = " dissolves!";
 #endif
 		}
-
-		/* Others ignore */
 		else
 		{
-			/* Irrelevant */
 			skipped = TRUE;
-
-			/* No damage */
 			dam = 0;
 		}
 
@@ -2311,13 +2283,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_EVIL:
 		if(is_enemy_of_good_creature(target_ptr))
 		{
-			/* Obvious */
 			if(seen) obvious = TRUE;
-
-			/* Learn about type */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
-			/* Message */
 #ifdef JP
 			note = "は身震いした。";
 			note_dies = "はドロドロに溶けた！";
@@ -2334,9 +2301,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_ALL:
-		/* Obvious */
 		if(seen) obvious = TRUE;
-		/* Message */
 #ifdef JP
 		note = "は身震いした。";
 		note_dies = "はドロドロに溶けた！";
@@ -2349,13 +2314,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_DEMON:
 		if(has_trait(target_ptr, TRAIT_DEMON))
 		{
-			/* Obvious */
 			if(seen) obvious = TRUE;
-
-			/* Learn about type */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-			/* Message */
 #ifdef JP
 			note = "は身震いした。";
 			note_dies = "はドロドロに溶けた！";
@@ -2364,26 +2324,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note_dies = " dissolves!";
 #endif
 		}
-
-		/* Others ignore */
 		else
 		{
-			/* Irrelevant */
 			skipped = TRUE;
-
-			/* No damage */
 			dam = 0;
 		}
-
 		break;
 
 	case DO_EFFECT_DISP_LIVING:
 		if(creature_living(target_ptr))
 		{
-			/* Obvious */
 			if(seen) obvious = TRUE;
-
-			/* Message */
 #ifdef JP
 			note = "は身震いした。";
 			note_dies = "はドロドロに溶けた！";
@@ -2392,14 +2343,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note_dies = " dissolves!";
 #endif
 		}
-
-		/* Others ignore */
 		else
 		{
-			/* Irrelevant */
 			skipped = TRUE;
-
-			/* No damage */
 			dam = 0;
 		}
 		break;
@@ -2410,8 +2356,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			add_timed_trait(target_ptr, TRAIT_POISONED, randint0(dam) + 10, TRUE);
-
-			if(one_in_(5)) /* 6 */
+			if(one_in_(5)) // 6
 			{
 #ifdef JP
 				msg_print("奇形的な変身を遂げた！");
@@ -2431,7 +2376,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_ROCKET:
 		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
-
 		else if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			(void)add_timed_trait(target_ptr, TRAIT_CUT, dam / 2, TRUE);
 		if(!target_ptr->resist_shard || one_in_(12)) inven_damage(target_ptr, set_cold_destroy, 3);
@@ -2500,15 +2444,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 			dam = dam * 2 / 3;
 
-		/* Attempt a saving throw */
 		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 5))
 		{
-			/* Memorize a flag */
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-			}
 
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
@@ -2637,13 +2577,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			skipped = TRUE;
 			break;
 		}
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 			dam = 0;
@@ -2691,22 +2624,20 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 						switch (randint1(4))
 						{
 						case 1:
-							set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(dam));
+							add_timed_trait(caster_ptr, TRAIT_CONFUSED, 3 + randint1(dam), TRUE);
 							break;
 						case 2:
-							set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + randint1(dam));
+							add_timed_trait(caster_ptr, TRAIT_STUN, randint1(dam), TRUE);
 							break;
 						case 3:
-							{
-								if(has_trait(target_ptr, TRAIT_FEARLESS))
-									note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-								else
-									set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + 3 + randint1(dam));
-								break;
-							}
+							if(has_trait(target_ptr, TRAIT_FEARLESS))
+								note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+							else
+								add_timed_trait(caster_ptr, TRAIT_AFRAID, 3 + randint1(dam), TRUE);
+							break;
 						default:
 							if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-								(void)set_timed_trait(caster_ptr, TRAIT_PARALYZED, caster_ptr->timed_trait[TRAIT_PARALYZED] + randint1(dam));
+								add_timed_trait(caster_ptr, TRAIT_PARALYZED, randint1(dam), TRUE);
 							break;
 						}
 					}
