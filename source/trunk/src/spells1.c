@@ -2607,18 +2607,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_format("%^s%s corrupted mind backlashes your attack!",
 					target_name, (seen ? "'s" : "s"));
 #endif
-				/* Saving throw */
-				/*
-				if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 				{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				}
-				else
-				*/
-				{
-					/* Injure +/- confusion */
-					creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-					take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
 					if(one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
 						switch (randint1(4))
@@ -2674,14 +2663,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_PSI_DRAIN:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 			dam = 0;
@@ -2707,24 +2688,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #ifdef JP
 				msg_format("%^sの堕落した精神は攻撃を跳ね返した！", target_name);
 #else
-				msg_format("%^s%s corrupted mind backlashes your attack!",
-					target_name, (seen ? "'s" : "s"));
+				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
 #endif
-
-				/* Saving throw */
-				/*
-				if((randint0(100 + target_ptr->lev * 2 / 2) < caster_ptr->skill_rob) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				{
-				#ifdef JP
-				msg_print("あなたは効力を跳ね返した！");
-				#else
-				msg_print("You resist the effects!");
-				#endif
-				}
-				else
-				*/
-				{
-					/* Injure + mana drain */
 					creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 					if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 					{
@@ -2742,7 +2707,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				dam = 0;
 			}
 		}
-		else if(dam > 0)
+		if(dam > 0)
 		{
 			int b = diceroll(5, dam) / 4;
 #ifdef JP
@@ -2750,16 +2715,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
 #else
 			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
-			msg_format("You convert %s%s pain into %s!",
-				target_name, (seen ? "'s" : "s"), str);
+			msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
 #endif
-
 			b = MIN(caster_ptr->msp, caster_ptr->csp + b);
 			caster_ptr->csp = b;
 			play_redraw |= PR_MANA;
 			play_window |= (PW_SPELL);
 		}
-
 #ifdef JP
 		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
 #else
@@ -2769,14 +2731,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_TELEKINESIS:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		if(one_in_(4))
 		{
 			if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
@@ -2802,13 +2756,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DOMINATION:
 		if(!is_hostile(target_ptr)) break;
 		if(seen) obvious = TRUE;
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			dam = 0;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
 		/* Attempt a saving throw */
 		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -2838,32 +2785,20 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_format("%^s%s corrupted mind backlashes your attack!",
 					target_name, (seen ? "'s" : "s"));
 #endif
-
-				/* Saving throw */
-				/* saving throw
-				if(randint0(100 + target_ptr->lev * 2/2) < caster_ptr->skill_rob)
 				{
-				msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-				}
-				else
-				*/
-				{
-					/* Confuse, stun, terrify */
 					switch (randint1(4))
 					{
 					case 1:
-						set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + dam / 2);
+						add_timed_trait(caster_ptr, TRAIT_STUN, dam / 2, TRUE);
 						break;
 					case 2:
-						set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + dam / 2);
+						add_timed_trait(caster_ptr, TRAIT_CONFUSED, dam / 2, TRUE);
 						break;
 					default:
-						{
-							if(has_trait(target_ptr, TRAIT_FEARLESS))
-								note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-							else
-								set_timed_trait(caster_ptr, TRAIT_AFRAID, caster_ptr->timed_trait[TRAIT_AFRAID] + dam);
-						}
+						if(has_trait(target_ptr, TRAIT_FEARLESS))
+							note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+						else
+							add_timed_trait(caster_ptr, TRAIT_AFRAID, dam, TRUE);
 					}
 				}
 			}
@@ -2895,17 +2830,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				}
 			}
 		}
-
 		dam = 0;
 		break;
 
 	case DO_EFFECT_DISP_GOOD:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			dam = 0;
-			break;
-		}
 
 		if(is_enemy_of_evil_creature(target_ptr))
 		{
@@ -2941,16 +2869,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			msg_print("The attack hits Shadow, you are unharmed!");
 #endif
-		}
-		else if(target_ptr->csp)
-		{
-			if(has_trait(target_ptr, TRAIT_RES_ALL))
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-				skipped = TRUE;
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-				break;
-			}
 		}
 
 		// Basic message
@@ -4081,7 +3999,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		dam = 0;
 		break;
 
-}}
+}
 	}
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
