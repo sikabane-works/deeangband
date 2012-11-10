@@ -2871,7 +2871,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		}
 
-		// Basic message
 #ifdef JP
 		if(caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
 		else msg_print("精神エネルギーを吸い取られてしまった！");
@@ -2880,28 +2879,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		else msg_print("Your psychic energy is drawn!");
 #endif
 
-		/* Full drain */
-		if(dam >= target_ptr->csp)
-		{
-			dam = target_ptr->csp;
-			target_ptr->csp = 0;
-			target_ptr->csp_frac = 0;
-		}
-
-		/* Partial drain */
-		else
-		{
-			target_ptr->csp -= dam;
-		}
-
+		dam = target_ptr->csp;
 		learn_trait(target_ptr, spell);
-
-		/* Redraw mana */
-		play_redraw |= (PR_MANA);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
-		play_window |= (PW_SPELL);
+		play_redraw |= (PR_MANA); // Redraw mana
+		play_window |= (PW_PLAYER | PW_SPELL); // Window stuff
 
 		if(caster_ptr != NULL)
 		{
@@ -2933,101 +2914,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 	case DO_EFFECT_MIND_BLAST:
-
-		/* TODO saving_throw
-		if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
-		msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-		}
-		else
-		*/
-		{
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
 #ifdef JP
-				msg_print("霊的エネルギーで精神が攻撃された。");
+			msg_print("霊的エネルギーで精神が攻撃された。");
 #else
-				msg_print("Your mind is blasted by psyonic energy.");
+			msg_print("Your mind is blasted by psyonic energy.");
 #endif
-				if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-				if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
+			if(!has_trait(target_ptr, TRAIT_RES_CHAO) && one_in_(3)) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 
-				dec_mana(target_ptr, 50);
-				play_redraw |= PR_MANA;
-			}
-
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+			dec_mana(target_ptr, 50);
+			play_redraw |= PR_MANA;
 		}
 		break;
-		/* Mind blast
-		case DO_EFFECT_MIND_BLAST:
-		{
-		if(seen) obvious = TRUE;
-		// Message
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-		#else
-		if(caster_ptr == caster_ptr) msg_format("You gaze intently at %s.", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		// Attempt a saving throw
-		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-		has_trait(target_ptr, TRAIT_NO_CONF) ||
-		(target_ptr->lev * 2 > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
-		{
-		// Memorize a flag
-		if(has_trait(target_ptr, TRAIT_NO_CONF))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-		}
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		}
-		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-		note = game_messages[GAME_MESSAGE_RESISTED];
-		dam /= 3;
-		}
-		else
-		{
-		#ifdef JP
-		note = "は精神攻撃を食らった。";
-		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-		#else
-		note = " is blasted by psionic energy.";
-		note_dies = " collapses, a mindless husk.";
-		#endif
-
-		if(caster_ptr != caster_ptr) do_conf = randint0(4) + 4;
-		else do_conf = randint0(8) + 8;
-		}
-		break;
-		}
-		*/
 
 	case DO_EFFECT_BRAIN_SMASH:
-		/* TODO saving_throw
-		if((randint0(100 + caster_power / 2) < MAX(5, target_ptr->skill_rob)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-		msg_print(game_messages[MESSAGE_RESIST_THE_EFFECT]);
-		}
-		else
-		*/
-		{
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 #ifdef JP
@@ -3039,7 +2941,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				play_redraw |= PR_MANA;
 			}
 
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 				if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
@@ -3054,77 +2955,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				if(!target_ptr->resist_chaos) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 			}
-		}
 		break;
-		/* Brain smash
-		case DO_EFFECT_BRAIN_SMASH:
-		{
-		if(seen) obvious = TRUE;
-		// Message
-		#ifdef JP
-		if(caster_ptr == caster_ptr) msg_format("%sをじっと睨んだ。", target_name);
-		#else
-		if(caster_ptr != caster_ptr) msg_format("You gaze intently at %s.", target_name);
-		#endif
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		skipped = TRUE;
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-		break;
-		}
-
-		// Attempt a saving throw 
-		if(has_trait(target_ptr, TRAIT_UNIQUE) ||
-		has_trait(target_ptr, TRAIT_NO_CONF) ||
-		(target_ptr->lev * 2 > randint1((caster_power - 10) < 1 ? 1 : (caster_power - 10)) + 10))
-		{
-		// Memorize a flag
-		if(has_trait(target_ptr, TRAIT_NO_CONF))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-		}
-		note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		dam = 0;
-		}
-		else if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_EMPTY_MIND);
-		note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-		dam = 0;
-		}
-		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND))
-		{
-		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_WEIRD_MIND);
-		note = game_messages[GAME_MESSAGE_RESISTED];
-		dam /= 3;
-		}
-		else
-		{
-		#ifdef JP
-		note = "は精神攻撃を食らった。";
-		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
-		#else
-		note = " is blasted by psionic energy.";
-		note_dies = " collapses, a mindless husk.";
-		#endif
-
-		if(caster_ptr != caster_ptr)
-		{
-		do_conf = randint0(4) + 4;
-		do_stun = randint0(4) + 4;
-		}
-		else
-		{
-		do_conf = randint0(8) + 8;
-		do_stun = randint0(8) + 8;
-		}
-		(void)set_timed_trait(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + 10, FALSE);
-		}
-		break;
-		}
-		*/
 
 	case DO_EFFECT_CAUSE_1:
 		/* TODO saving_throw
