@@ -60,7 +60,6 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 #else
 			msg_print("It was a good hit!");
 #endif
-
 			dam += (dam / 2);
 		}
 		else if(k < 1350)
@@ -70,7 +69,6 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 #else
 			msg_print("It was a great hit!");
 #endif
-
 			dam *= 2;
 		}
 		else
@@ -80,7 +78,6 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 #else
 			msg_print("It was a superb hit!");
 #endif
-
 			dam *= 3;
 		}
 	}
@@ -103,13 +100,10 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown)
 {
 	int mult = 10;
-
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
 	u32b flgs[TRAIT_FLAG_MAX];
-
-	/* Extract the flags */
-	object_flags(object_ptr, flgs);
+	object_flags(object_ptr, flgs); // Extract the flags
 
 	/* Some "weapons" and "ammo" do extra damage */
 	switch (object_ptr->tval)

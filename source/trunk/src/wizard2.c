@@ -294,57 +294,38 @@ static void do_cmd_wiz_bamf(creature_type *caster_ptr)
 	teleport_creature_to(caster_ptr, target_row, target_col, TELEPORT_NONMAGICAL);
 }
 
-
-/*
- * Aux function for "do_cmd_wiz_change()".	-RAK-
- */
+// Aux function for "do_cmd_wiz_change()".	-RAK-
 static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 {
-	int i, j;
-	int tmp_int;
+	int i, j, tmp_int;
 	long tmp_long;
 	s16b tmp_s16b;
 	char tmp_val[160];
 	char ppp[80];
 
-	/* Query the stats */
-	for (i = 0; i < STAT_MAX; i++)
+	for (i = 0; i < STAT_MAX; i++) // Query the stats
 	{
-		/* Prompt */
-		sprintf(ppp, "%s (%d-%d): ", stat_names[i], STAT_VALUE_MIN, creature_ptr->stat_mod_max_max[i]);
+		sprintf(ppp, "%s (%d-%d): ", stat_names[i], STAT_VALUE_MIN, creature_ptr->stat_mod_max_max[i]); // Prompt
+		sprintf(tmp_val, "%d", creature_ptr->stat_max[i]); // Default
 
-		/* Default */
-		sprintf(tmp_val, "%d", creature_ptr->stat_max[i]);
-
-		/* Query */
-		if(!get_string(ppp, tmp_val, 3)) return;
-
-		/* Extract */
-		tmp_int = atoi(tmp_val);
-
-		/* Verify */
-		if(tmp_int > creature_ptr->stat_mod_max_max[i]) tmp_int = creature_ptr->stat_mod_max_max[i];
+		if(!get_string(ppp, tmp_val, 3)) return; // Query
+		tmp_int = atoi(tmp_val); // Extract
+		if(tmp_int > creature_ptr->stat_mod_max_max[i]) tmp_int = creature_ptr->stat_mod_max_max[i]; // Verify
 		else if(tmp_int < 3) tmp_int = 3;
 
-		/* Save it */
-		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = tmp_int;
+		creature_ptr->stat_cur[i] = creature_ptr->stat_max[i] = tmp_int; // Save it
 	}
 
+	sprintf(tmp_val, "%d", WEAPON_EXP_MASTER); // Default
 
-	/* Default */
-	sprintf(tmp_val, "%d", WEAPON_EXP_MASTER);
-
-	/* Query */
+	// Query
 #ifdef JP
 	if(!get_string("ènó˚ìx: ", tmp_val, 9)) return;
 #else
 	if(!get_string("Proficiency: ", tmp_val, 9)) return;
 #endif
+	tmp_s16b = atoi(tmp_val); // Extract
 
-	/* Extract */
-	tmp_s16b = atoi(tmp_val);
-
-	/* Verify */
 	if(tmp_s16b < WEAPON_EXP_UNSKILLED) tmp_s16b = WEAPON_EXP_UNSKILLED;
 	if(tmp_s16b > WEAPON_EXP_MASTER) tmp_s16b = WEAPON_EXP_MASTER;
 
@@ -370,44 +351,27 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 	for (; j < (REALM_MAGIC_NUMBER * 2); j++)
 		creature_ptr->spell_exp[j] = (tmp_s16b > SPELL_EXP_EXPERT ? SPELL_EXP_EXPERT : tmp_s16b);
 
-	/* Default */
-	sprintf(tmp_val, "%ld", (long)(creature_ptr->au));
-
-	/* Query */
-	if(!get_string("Gold: ", tmp_val, 9)) return;
-
-	/* Extract */
-	tmp_long = atol(tmp_val);
-
-	/* Verify */
+	
+	sprintf(tmp_val, "%ld", (long)(creature_ptr->au)); // Default
+	if(!get_string("Gold: ", tmp_val, 9)) return; // Query
+	
+	tmp_long = atol(tmp_val); // Extract
 	if(tmp_long < 0) tmp_long = 0L;
-
-	/* Save */
 	creature_ptr->au = tmp_long;
 
-
-	/* Default */
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->max_exp));
-
-	/* Query */
 	if(!get_string("Experience: ", tmp_val, 9)) return;
-
-	/* Extract */
 	tmp_long = atol(tmp_val);
-
-	/* Verify */
 	if(tmp_long < 0) tmp_long = 0L;
 
 	if(!has_trait(creature_ptr, TRAIT_ANDROID))
 	{
-		/* Save */
 		creature_ptr->max_exp = tmp_long;
 		creature_ptr->exp = tmp_long;
 	}
 
-	/* Query */
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->dr));
-	if(!get_string("Devine Rank: ", tmp_val, 2)) return;
+	if(!get_string("Divine Rank: ", tmp_val, 2)) return;
 	tmp_int = atoi(tmp_val);
 
 	if(tmp_int < -1) tmp_int = -1;
@@ -416,11 +380,9 @@ static void do_cmd_wiz_change_aux(creature_type *creature_ptr)
 
 	check_experience(creature_ptr);
 
-	/* Query */
 	sprintf(tmp_val, "%ld", (long)(creature_ptr->authority[0]));
 	if(!get_string("Authority: ", tmp_val, 2)) return;
 	creature_ptr->authority[0] = atoi(tmp_val);
-
 }
 
 
