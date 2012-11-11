@@ -3078,33 +3078,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(effect == 1)
 			{
-				/* Powerful creatures can resist */
-				if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
+				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
-
-				/* Normal creatures slow down */
-				else
-				{
-					if(set_timed_trait_aux(target_ptr, TRAIT_SLOW, target_ptr->timed_trait[TRAIT_SLOW] + 50, FALSE))
-					{
-#ifdef JP
-						note = "‚Ì“®‚«‚ª’x‚­‚È‚Á‚½B";
-#else
-						note = " starts moving slower.";
-#endif
-					}
-				}
+				else add_timed_trait(target_ptr, TRAIT_SLOW, 50, TRUE); // Normal creatures slow down
 			}
 
 			else if(effect == 2)
 			{
 				do_stun = diceroll((caster_ptr->lev / 10) + 3 , (dam)) + 1;
-
-				/* Attempt a saving throw */
 				if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					do_stun = 0;
@@ -3687,7 +3671,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
 #endif
 		project(0, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-		if(attacker_ptr->timed_trait[TRAIT_EYE_EYE]) set_timed_trait_aux(player_ptr, TRAIT_EYE_EYE, attacker_ptr->timed_trait[TRAIT_EYE_EYE] - 5, TRUE);
+		if(attacker_ptr->timed_trait[TRAIT_EYE_EYE]) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
 	}
 
 	if(player_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
@@ -3695,9 +3679,7 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	disturb(player_ptr, 1, 0); // Disturb
 
 	if((player_ptr->posture & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
-	{
 		(void)kawarimi(player_ptr, FALSE);
-	}
 
 	return (obvious); // Return "Anything seen?"
 }

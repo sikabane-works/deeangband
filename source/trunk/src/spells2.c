@@ -3844,7 +3844,7 @@ bool kawarimi(creature_type *user_ptr, bool success)
 
 	creature_desc(user_name, user_ptr, 0);
 
-	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev*3/5+20))) return FALSE;
+	if(!(user_ptr->posture & NINJA_KAWARIMI) || !(randint0(55) < (user_ptr->lev * 3 / 5 + 20))) return FALSE;
 
 	if(gameover) return FALSE;
 	if(user_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(user_ptr, TRAIT_BLIND) || user_ptr->timed_trait[TRAIT_PARALYZED] || user_ptr->timed_trait[TRAIT_HALLUCINATION]) return FALSE;
@@ -3866,11 +3866,8 @@ bool kawarimi(creature_type *user_ptr, bool success)
 	x = user_ptr->fx;
 
 	teleport_player(user_ptr, 10 + randint1(90), 0L);
-
 	object_wipe(quest_ptr);
-
 	object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_WOODEN_STATUE), ITEM_FREE_SIZE);
-
 	quest_ptr->pval = SPECIES_NINJA;
 
 	/* Drop it in the dungeon */
@@ -3922,7 +3919,6 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 	}
 
 	if(in_bounds(floor_ptr, ty, tx)) tm_idx = floor_ptr->cave[ty][tx].creature_idx;
-
 	path_n = project_path(path_g, range, floor_ptr, creature_ptr->fy, creature_ptr->fx, ty, tx, PROJECT_STOP | PROJECT_KILL);
 
 	/* No need to move */
@@ -3944,8 +3940,6 @@ bool rush_attack(creature_type *creature_ptr, bool *mdeath)
 		{
 			ty = ny;
 			tx = nx;
-
-			/* Go to next grid */
 			continue;
 		}
 
