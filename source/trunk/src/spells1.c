@@ -1716,6 +1716,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	dam = calc_damage(caster_ptr, dam, typ, TRUE, FALSE);
 	if(!dam) return;
 	if(blind && is_player(target_ptr)) msg_print(effect_message_in_blind[typ]);
+	if(seen) obvious = TRUE;
 
 	switch (typ)
 	{
@@ -1790,7 +1791,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_LITE_WEAK:
-		if(seen) obvious = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 #ifdef JP
 		note = "は光に身をすくめた！";
@@ -1957,7 +1957,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_KILL_WALL:
-		if(seen) obvious = TRUE;
 		if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
 #ifdef JP
 			note = "の皮膚がただれた！";
@@ -1971,7 +1970,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//31-36
 
 	case DO_EFFECT_OLD_CLONE:
-		if(seen) obvious = TRUE;
 		if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -1992,9 +1990,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_POLY:
-		if(seen) obvious = TRUE;
 		do_poly = TRUE;
-
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
@@ -2029,7 +2025,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_CONF:
-		if(seen) obvious = TRUE;
 		do_conf = diceroll(3, (dam / 2)) + 1;
 		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
@@ -2059,7 +2054,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_OLD_DRAIN:
-		if(seen) obvious = TRUE;
 		if(creature_living(target_ptr))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) has_trait(target_ptr, INFO_TYPE_RACE);
@@ -2092,7 +2086,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!resists_tele)
 			{
-				if(seen) obvious = TRUE;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				do_dist = dam;
 			}
@@ -2123,7 +2116,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!resists_tele)
 			{
-				if(seen) obvious = TRUE;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 				do_dist = dam;
 			}
@@ -2151,7 +2143,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(!resists_tele)
 		{
-			if(seen) obvious = TRUE; // Obvious
 			do_dist = dam; // Prepare to teleport
 			if(is_player(target_ptr))
 #ifdef JP
@@ -2171,7 +2162,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 		if(has_trait(target_ptr, TRAIT_UNDEAD)) // Only affect undead
 		{
-			if(seen) obvious = TRUE;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 			do_fear = diceroll(3, (dam / 2)) + 1;
 
@@ -2190,7 +2180,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_TURN_EVIL:
 		if(is_enemy_of_good_creature(target_ptr))
 		{
-			if(seen) obvious = TRUE;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 			do_fear = diceroll(3, (dam / 2)) + 1;
 			if(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10)
@@ -2208,7 +2197,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_TURN_ALL:
-		if(seen) obvious = TRUE;
 		do_fear = diceroll(3, (dam / 2)) + 1; // Apply some fear
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_FEARLESS)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -2223,7 +2211,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_UNDEAD:
 		if(has_trait(target_ptr, TRAIT_UNDEAD))
 		{
-			if(seen) obvious = TRUE;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 #ifdef JP
 			note = "は身震いした。";
@@ -2244,7 +2231,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_EVIL:
 		if(is_enemy_of_good_creature(target_ptr))
 		{
-			if(seen) obvious = TRUE;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 #ifdef JP
 			note = "は身震いした。";
@@ -2262,7 +2248,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_ALL:
-		if(seen) obvious = TRUE;
 #ifdef JP
 		note = "は身震いした。";
 		note_dies = "はドロドロに溶けた！";
@@ -2275,7 +2260,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_DEMON:
 		if(has_trait(target_ptr, TRAIT_DEMON))
 		{
-			if(seen) obvious = TRUE;
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 #ifdef JP
 			note = "は身震いした。";
@@ -2295,7 +2279,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_LIVING:
 		if(creature_living(target_ptr))
 		{
-			if(seen) obvious = TRUE;
 #ifdef JP
 			note = "は身震いした。";
 			note_dies = "はドロドロに溶けた！";
@@ -2343,7 +2326,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//57-58
 
 	case DO_EFFECT_STASIS:
-		if(seen) obvious = TRUE;
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2367,7 +2349,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_STUN:
-		if(seen) obvious = TRUE;
 		do_stun = diceroll((caster_power / 20) + 3 , (dam)) + 1;
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
@@ -2389,8 +2370,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_CHARM:
 		dam += (adj_con_fix[caster_ptr->stat_ind[STAT_CHA]] - 1);
-		if(seen) obvious = TRUE;
-
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2436,8 +2415,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CONTROL_UNDEAD:
-		if(seen) obvious = TRUE;
-
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2480,7 +2457,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CONTROL_ANIMAL:
-		if(seen) obvious = TRUE;
 		if((has_trait(target_ptr, TRAIT_RES_ALL)) || floor_ptr->fight_arena_mode)
 		{
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -2524,7 +2500,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PSI:
-		if(seen) obvious = TRUE;
 		if(!(los(floor_ptr, target_ptr->fy, target_ptr->fx, player_ptr->fy, player_ptr->fx)))
 		{
 #ifdef JP
@@ -2614,7 +2589,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 	case DO_EFFECT_PSI_DRAIN:
-		if(seen) obvious = TRUE;
 		if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 		{
 			dam = 0;
@@ -2675,7 +2649,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_TELEKINESIS:
-		if(seen) obvious = TRUE;
 		if(one_in_(4))
 		{
 			if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) do_dist = 0;
@@ -2700,7 +2673,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_DOMINATION:
 		if(!is_hostile(target_ptr)) break;
-		if(seen) obvious = TRUE;
 		/* Attempt a saving throw */
 		if(has_trait(target_ptr, TRAIT_QUESTOR) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -2779,12 +2751,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_GOOD:
-
 		if(is_enemy_of_evil_creature(target_ptr))
 		{
-			/* Obvious */
-			if(seen) obvious = TRUE;
-
 			/* Learn about type */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 
@@ -3039,9 +3007,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			int effect = 0;
 			bool done = TRUE;
-
-			if(seen) obvious = TRUE;
-
 			if(has_trait(target_ptr, TRAIT_EMPTY_MIND))
 			{
 				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -3113,8 +3078,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		}
 
 	case DO_EFFECT_GENOCIDE:
-		if(seen) obvious = TRUE;
-
 #ifdef JP
 		if(genocide_aux(caster_ptr, c_ptr->creature_idx, dam, caster_ptr == caster_ptr, (target_ptr->lev * 2 + 1) / 2, "クリーチャー消滅"))
 #else
@@ -3140,9 +3103,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Hurt by light */
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
-			/* Obvious effect */
-			if(seen) obvious = TRUE;
-
 			/* Memorize the effects */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 
@@ -3161,8 +3121,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_CONTROL_DEMON:
-		if(seen) obvious = TRUE;
-
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || has_trait(target_ptr, TRAIT_NAZGUL))
 			dam = dam * 2 / 3;
 
@@ -3199,7 +3157,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//92
 
 	case DO_EFFECT_BLOOD_CURSE:
-		if(seen) obvious = TRUE;
 		break;
 		/* old
 		if((typ == DO_EFFECT_BLOOD_CURSE) && one_in_(4))
@@ -3323,7 +3280,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//94-95
 
 	case DO_EFFECT_STAR_HEAL:
-		if(seen) obvious = TRUE;
 		(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0); // Wake up
 
 		if(target_ptr->mhp < target_ptr->mmhp)
@@ -3350,7 +3306,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_CRUSADE:
 		{
 			bool success = FALSE;
-			if(seen) obvious = TRUE;
 
 			if(is_enemy_of_evil_creature(target_ptr) && !floor_ptr->fight_arena_mode)
 			{
@@ -3403,7 +3358,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			break;
 
 	case DO_EFFECT_STASIS_EVIL:
-		if(seen) obvious = TRUE;
 
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || !(is_enemy_of_good_creature(target_ptr)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
@@ -3425,7 +3379,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_WOUNDS:
-		if(seen) obvious = TRUE;
 		if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -3462,7 +3415,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	{
 		if(polymorph_creature(player_ptr, ty, tx))
 		{
-			if(seen) obvious = TRUE;
 #ifdef JP
 			note = "が変身した！";
 #else
@@ -3475,7 +3427,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	if(do_dist)
 	{
-		if(seen) obvious = TRUE;
 #ifdef JP
 		note = "が消え去った！";
 #else
