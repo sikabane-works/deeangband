@@ -1697,7 +1697,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	creature_desc(target_name, target_ptr, 0);
 
 	if(skipped) return; // Absolutely no effect
-	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
 	if((c_ptr->creature_idx == player_ptr->riding) && !caster_ptr && !(typ == DO_EFFECT_OLD_HEAL) && !(typ == DO_EFFECT_OLD_SPEED) && !(typ == DO_EFFECT_STAR_HEAL)) return;
 	if(sukekaku && ((target_ptr->species_idx == SPECIES_SUKE) || (target_ptr->species_idx == SPECIES_KAKU))) return;
 	if(player_ptr->riding && (c_ptr->creature_idx == player_ptr->riding)) disturb(player_ptr, 1, 0);
@@ -3197,30 +3196,22 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 				{
 					if(has_trait(target_ptr, TRAIT_NO_SLEEP))
-					{
 						if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_SLEEP);
-					}
 					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
 				else
 				{
-					/* Go to sleep (much) later */
 #ifdef JP
 					note = "は眠り込んでしまった！";
 #else
 					note = " falls asleep!";
 #endif
-
 					do_sleep = 500;
 				}
 			}
 
-			if(!done)
-			{
-				note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			}
-
+			if(!done) note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 			dam = 0;
 			break;
 		}
@@ -3239,7 +3230,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			if(seen_msg) msg_format("%^s disappered!", target_name);
 #endif
-			//TODO return TRUE;
 		}
 
 		skipped = TRUE;
@@ -3295,7 +3285,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-
 			if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 		}
 		else
@@ -3453,7 +3442,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(!dam)
 		{
-			/* Redraw (later) if needed */
 			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 			break;
@@ -3490,7 +3478,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					((target_ptr->lev * 2+10) > randint1(dam)))
 				{
-					/* Resist */
 					if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 				}
 				else
@@ -3500,11 +3487,10 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 					note = " is tamed!";
 #endif
-
 					set_pet(caster_ptr, target_ptr);
 					(void)add_timed_trait(target_ptr, TRAIT_FAST, 100, FALSE);
 
-					/* Learn about type */
+					// Learn about type
 					if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 					success = TRUE;
 				}
@@ -3512,7 +3498,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			if(!success)
 			{
-				if(!has_trait(target_ptr, TRAIT_FEARLESS)) do_fear = randint1(90)+10;
+				if(!has_trait(target_ptr, TRAIT_FEARLESS)) do_fear = randint1(90) + 10;
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_FEARLESS);
 			}
 
@@ -3523,8 +3509,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_STASIS_EVIL:
 		if(seen) obvious = TRUE;
 
-		if((has_trait(target_ptr, TRAIT_UNIQUE)) ||
-			!(is_enemy_of_good_creature(target_ptr)) ||
+		if((has_trait(target_ptr, TRAIT_UNIQUE)) || !(is_enemy_of_good_creature(target_ptr)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -3545,15 +3530,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_WOUNDS:
 		if(seen) obvious = TRUE;
-
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
-			skipped = TRUE;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_ALL);
-			break;
-		}
-
 		if(randint0(100 + dam) < (target_ptr->lev * 2 + 50))
 		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
@@ -3578,54 +3554,40 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	default:
 		dam = 0;
 		break;
-
 }
 	}
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
 
-	/* Mega-Hack -- Handle "polymorph" -- creatures get a saving throw */
+	// Mega-Hack -- Handle "polymorph" -- creatures get a saving throw
+	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
+
 	if(do_poly && (randint1(90) > target_ptr->lev * 2))
 	{
 		if(polymorph_creature(player_ptr, ty, tx))
 		{
-			/* Obvious */
 			if(seen) obvious = TRUE;
-
-			/* Creature polymorphs */
 #ifdef JP
 			note = "が変身した！";
 #else
 			note = " changes!";
 #endif
-			/* Turn off the damage */
 			dam = 0;
 		}
 		else note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 	}
 
-	/* Handle "teleport" */
 	if(do_dist)
 	{
-		/* Obvious */
 		if(seen) obvious = TRUE;
-
-		/* Message */
 #ifdef JP
 		note = "が消え去った！";
 #else
 		note = " disappears!";
 #endif
-
-		/* Teleport */
-		teleport_away(target_ptr, do_dist,
-			(caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
-
-		/* Hack -- get new location */
+		teleport_away(target_ptr, do_dist, (caster_ptr == caster_ptr ? TELEPORT_DEC_VALOUR : 0L) | TELEPORT_PASSIVE);
 		ty = target_ptr->fy;
 		tx = target_ptr->fx;
-
-		/* Hack -- get new grid */
 		c_ptr = &floor_ptr->cave[ty][tx];
 	}
 
