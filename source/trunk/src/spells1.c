@@ -2496,8 +2496,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			dam = dam * 2 / 3;
 
 		/* Attempt a saving throw */
-		if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-			(!has_trait(target_ptr, TRAIT_UNDEAD)) ||
+		if((has_trait(target_ptr, TRAIT_QUESTOR)) || (!has_trait(target_ptr, TRAIT_UNDEAD)) ||
 			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
@@ -2695,44 +2694,44 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
 #endif
-					creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-					if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-					{
+				creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
+				if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				{
 #ifdef JP
-						msg_print("超能力パワーを吸いとられた！");
+					msg_print("超能力パワーを吸いとられた！");
 #else
-						msg_print("Your psychic energy is drained!");
+					msg_print("Your psychic energy is drained!");
 #endif
-						dec_mana(caster_ptr, diceroll(5, dam) / 2);
-						play_redraw |= PR_MANA;
-						play_window |= PW_SPELL;
-					}
-					take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
+					dec_mana(caster_ptr, diceroll(5, dam) / 2);
+					play_redraw |= PR_MANA;
+					play_window |= PW_SPELL;
 				}
-				dam = 0;
+				take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
 			}
+			dam = 0;
 		}
-		if(dam > 0)
-		{
-			int b = diceroll(5, dam) / 4;
+								}
+								if(dam > 0)
+								{
+									int b = diceroll(5, dam) / 4;
 #ifdef JP
-			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
-			msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
+									cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
+									msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
 #else
-			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
-			msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
+									cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
+									msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
 #endif
-			b = MIN(caster_ptr->msp, caster_ptr->csp + b);
-			caster_ptr->csp = b;
-			play_redraw |= PR_MANA;
-			play_window |= (PW_SPELL);
-		}
+									b = MIN(caster_ptr->msp, caster_ptr->csp + b);
+									caster_ptr->csp = b;
+									play_redraw |= PR_MANA;
+									play_window |= (PW_SPELL);
+								}
 #ifdef JP
-		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+								note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
 #else
-		note_dies = " collapses, a mindless husk.";
+								note_dies = " collapses, a mindless husk.";
 #endif
-		break;
+								break;
 
 	case DO_EFFECT_TELEKINESIS:
 		if(seen) obvious = TRUE;
@@ -2935,61 +2934,61 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_BRAIN_SMASH:
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
 #ifdef JP
-				msg_print("霊的エネルギーで精神が攻撃された。");
+			msg_print("霊的エネルギーで精神が攻撃された。");
 #else
-				msg_print("Your mind is blasted by psionic energy.");
+			msg_print("Your mind is blasted by psionic energy.");
 #endif
-				dec_mana(target_ptr, 100);
-				play_redraw |= PR_MANA;
-			}
+			dec_mana(target_ptr, 100);
+			play_redraw |= PR_MANA;
+		}
 
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
-				if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
-				if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
-				if(!has_trait(target_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
-				(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
+			if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
+			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
+			if(!has_trait(target_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
+			(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, FALSE);
 
-				/* TODO saving_throw
-				while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
-				while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
-				*/
+			/* TODO saving_throw
+			while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_INT);
+			while (randint0(100 + caster_power / 2) > (MAX(5, target_ptr->skill_rob))) (void)do_dec_stat(target_ptr, STAT_WIS);
+			*/
 
-				if(!target_ptr->resist_chaos) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
-			}
+			if(!target_ptr->resist_chaos) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
+		}
 		break;
 
 	case DO_EFFECT_CAUSE_1:
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
 		break;
 
 	case DO_EFFECT_CAUSE_2:
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 		break;
 
 	case DO_EFFECT_CAUSE_3:
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 		break;
 
 	case DO_EFFECT_CAUSE_4:
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
 		break;
 
 	case DO_EFFECT_HAND_DOOM:
-			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			{
+		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		{
 #ifdef JP
-				msg_print("あなたは命が薄まっていくように感じた！");
+			msg_print("あなたは命が薄まっていくように感じた！");
 #else
-				msg_print("You feel your life fade away!");
+			msg_print("You feel your life fade away!");
 #endif
-				curse_equipment(target_ptr, 40, 20);
-			}
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-			if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
+			curse_equipment(target_ptr, 40, 20);
+		}
+		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
 		break;
 
 	case DO_EFFECT_CAPTURE:
@@ -3539,16 +3538,16 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_SEEKER:
 	case DO_EFFECT_SUPER_RAY:
 #ifdef JP
-			if(blind) msg_print("魔法のオーラで攻撃された！");
+		if(blind) msg_print("魔法のオーラで攻撃された！");
 #else
-			if(blind) msg_print("You are hit by an aura of magic!");
+		if(blind) msg_print("You are hit by an aura of magic!");
 #endif
-			break;
+		break;
 
 	default:
 		dam = 0;
 		break;
-}
+		}
 	}
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
