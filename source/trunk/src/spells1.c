@@ -2594,15 +2594,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			dam /= 3;
 			note = game_messages[GAME_MESSAGE_RESISTED];
-
-			/*
-			* Powerful demons & undead can turn a mindcrafter's
-			* attacks back on them
-			*/
-			if(has_trait(target_ptr, TRAIT_UNDEAD) && 
-				has_trait(target_ptr, TRAIT_DEMON) &&
-				(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
-				one_in_(2))
+			// Powerful demons & undead can turn a mindcrafter's attacks back on them
+			if(has_trait(target_ptr, TRAIT_UNDEAD) &&  has_trait(target_ptr, TRAIT_DEMON) &&
+				(target_ptr->lev * 2 > caster_ptr->lev / 2) && one_in_(2))
 			{
 				note = NULL;
 #ifdef JP
