@@ -829,7 +829,6 @@ void carry(creature_type *creature_ptr, bool pickup)
 #else
 				msg_format("You have no room for %s.", object_name);
 #endif
-
 			}
 
 			/* Pick up the item (if requested and allowed) */
@@ -846,7 +845,6 @@ void carry(creature_type *creature_ptr, bool pickup)
 #else
 					sprintf(out_val, "Pick up %s? ", object_name);
 #endif
-
 					okay = get_check(out_val);
 				}
 
@@ -915,12 +913,9 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 	cptr name = "a trap";
 #endif
 
-	/* Disturb the player */
 	disturb(player_ptr, 0, 0);
-
 	cave_alter_feat(floor_ptr, y, x, FF_HIT_TRAP);
 
-	/* Analyze XXX XXX XXX */
 	switch (trap_feat_type)
 	{
 		case TRAP_TRAPDOOR:
@@ -932,7 +927,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("You fly over a trap door.");
 #endif
-
 			}
 			else
 			{
@@ -942,25 +936,18 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					msg_print("くっそ～！");
 				if(has_trait(creature_ptr, TRAIT_CHARGEMAN_TALK))
 					msg_print("ジュラル星人の仕業に違いない！");
+				name = "落とし戸";
 
 #else
 				msg_print("You have fallen through a trap door!");
-#endif
-
-				sound(SOUND_FALL);
-				dam = diceroll(2, 8);
-#ifdef JP
-				name = "落とし戸";
-#else
 				name = "a trap door";
 #endif
-
+				sound(SOUND_FALL);
+				dam = diceroll(2, 8);
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 
 				/* Still alive and autosave enabled */
-				if(autosave_l && (creature_ptr->chp >= 0))
-					do_cmd_save_game(TRUE);
-
+				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
 #ifdef JP
 				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "落とし戸に落ちた");
 #else
@@ -983,23 +970,17 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("You fly over a pit trap.");
 #endif
-
 			}
 			else
 			{
 #ifdef JP
 				msg_print("落とし穴に落ちてしまった！");
-#else
-				msg_print("You have fallen into a pit!");
-#endif
-
-				dam = diceroll(2, 6);
-#ifdef JP
 				name = "落とし穴";
 #else
+				msg_print("You have fallen into a pit!");
 				name = "a pit trap";
 #endif
-
+				dam = diceroll(2, 6);
 				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
@@ -1014,42 +995,26 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("You fly over a spiked pit.");
 #endif
-
 			}
 			else
 			{
 #ifdef JP
 				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-#else
-				msg_print("You fall into a spiked pit!");
-#endif
-
-
-				/* Base damage */
-#ifdef JP
 				name = "落とし穴";
 #else
+				msg_print("You fall into a spiked pit!");
 				name = "a pit trap";
 #endif
-
-				dam = diceroll(2, 6);
-
-				/* Extra spike damage */
-				if(randint0(100) < 50)
+				dam = diceroll(2, 6); // Base damage
+				if(randint0(100) < 50) // Extra spike damage
 				{
 #ifdef JP
 					msg_print("スパイクが刺さった！");
-#else
-					msg_print("You are impaled!");
-#endif
-
-
-#ifdef JP
 					name = "トゲのある落とし穴";
 #else
+					msg_print("You are impaled!");
 					name = "a spiked pit";
 #endif
-
 					dam = dam * 2;
 					(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
 				}
@@ -1069,44 +1034,28 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("You fly over a spiked pit.");
 #endif
-
 			}
 			else
 			{
 #ifdef JP
-			msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
-#else
-				msg_print("You fall into a spiked pit!");
-#endif
-
-
-				/* Base damage */
-				dam = diceroll(2, 6);
-
-#ifdef JP
+				msg_print("スパイクが敷かれた落とし穴に落ちてしまった！");
 				name = "落とし穴";
 #else
+				msg_print("You fall into a spiked pit!");
 				name = "a pit trap";
 #endif
+				dam = diceroll(2, 6); // Base damage
 
-
-				/* Extra spike damage */
+				// Extra spike damage
 				if(randint0(100) < 50)
 				{
 #ifdef JP
 					msg_print("毒を塗られたスパイクが刺さった！");
-#else
-					msg_print("You are impaled on poisonous spikes!");
-#endif
-
-
-#ifdef JP
 					name = "トゲのある落とし穴";
 #else
+					msg_print("You are impaled on poisonous spikes!");
 					name = "a spiked pit";
 #endif
-
-
 					dam = dam * 2;
 					(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
 
@@ -1117,7 +1066,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 						msg_print("The poison does not affect you!");
 #endif
-
 					}
 
 					else
@@ -1126,9 +1074,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 						(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint1(dam));
 					}
 				}
-
-				/* Take the damage */
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1); // Take the damage
 			}
 
 			break;
@@ -1141,22 +1087,15 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 			msg_print("There is a flash of shimmering light!");
 #endif
-
 			num = 2 + randint1(3);
 			for (i = 0; i < num; i++)
-			{
 				(void)summon_specific(0, y, x, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
-			}
 
 			if(floor_ptr->floor_level > randint1(100)) /* No nasty effect for low levels */
 			{
 				bool stop_ty = FALSE;
 				int count = 0;
-
-				do
-				{
-					stop_ty = activate_ty_curse(creature_ptr, stop_ty, &count);
-				}
+				do stop_ty = activate_ty_curse(creature_ptr, stop_ty, &count);
 				while (one_in_(6));
 			}
 			break;
@@ -1184,7 +1123,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 			dam = diceroll(4, 6);
 			//TODO damage
 			//(void)fire_dam(creature_ptr, dam);
-
 			break;
 		}
 
@@ -1195,7 +1133,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 			msg_print("You are splashed with acid!");
 #endif
-
 			dam = diceroll(4, 6);
 			//TODO damage
 
