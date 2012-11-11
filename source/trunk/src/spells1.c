@@ -1754,8 +1754,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PLASMA:
-		if(!target_ptr->resist_sound)
-			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
+		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
 		if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
 			inven_damage(target_ptr, set_acid_destroy, 3);
 		break;
@@ -1763,18 +1762,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		//10
 
 	case DO_EFFECT_WATER:		
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-			if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
-			if(!has_trait(target_ptr, TRAIT_NO_CONF)) add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(5) + 5, TRUE);
-			if(one_in_(5)) inven_damage(target_ptr, set_cold_destroy, 3);
-		}
+		if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
+		if(!has_trait(target_ptr, TRAIT_NO_CONF)) add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(5) + 5, TRUE);
+		if(one_in_(5)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
 
 	case DO_EFFECT_LITE:
-		if(!blind && !target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!blind && !target_ptr->resist_lite && !blind && !has_trait(target_ptr, TRAIT_NO_BLIND))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
-		if(has_trait(target_ptr, TRAIT_WRAITH_FORM) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		{
 			set_timed_trait(target_ptr, TRAIT_WRAITH_FORM, 0);
 #ifdef JP
@@ -1789,7 +1785,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DARK:
-		if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!target_ptr->resist_dark, !blind && !has_trait(target_ptr, TRAIT_NO_BLIND))
 			(void)add_timed_trait(target_ptr, TRAIT_BLIND, randint1(5) + 2, TRUE);
 		break;
 
@@ -1811,33 +1807,25 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 15
 
 	case DO_EFFECT_SHARDS:
-		if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
-
-		if(!target_ptr->resist_shard || one_in_(13))
-			inven_damage(target_ptr, set_cold_destroy, 2);
+		if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, dam, TRUE);
+		if(!target_ptr->resist_shard || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
 	case DO_EFFECT_SOUND:
-		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
-		if(!target_ptr->resist_sound || one_in_(13))
-			inven_damage(target_ptr, set_cold_destroy, 2);
+		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
+		if(!target_ptr->resist_sound || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
 	case DO_EFFECT_CONFUSION:
-		if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
+		if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint1(20) + 10, TRUE);
 		break;
 
 	case DO_EFFECT_FORCE:
-		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
+		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
 		break;
 
 	case DO_EFFECT_INERTIA:
-		if(!target_ptr->resist_inertia && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+		if(!target_ptr->resist_inertia) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 		break;
 
 		// 21
@@ -1854,18 +1842,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
 			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
 		break;
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-			if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
-			if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
-			if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
-				if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
-		}
+		if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
+		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
+		if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
+			if(!has_trait(target_ptr, TRAIT_IM_COLD)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
 
 	case DO_EFFECT_CHAOS:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
 			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
 			if(!target_ptr->resist_chaos)
 			{
@@ -1888,26 +1871,25 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				inven_damage(target_ptr, set_elec_destroy, 2);
 				inven_damage(target_ptr, set_fire_destroy, 2);
 			}
-		}
 		break;
 
 	case DO_EFFECT_NETHER:
-		if(!target_ptr->resist_neth && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!target_ptr->resist_neth)
 			drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!target_ptr->resist_disen)
 			(void)apply_disenchant(target_ptr, 0);
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(!target_ptr->resist_nexus && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!target_ptr->resist_nexus)
 			apply_nexus(caster_ptr);
 		break;
 
 	case DO_EFFECT_TIME:
-		if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!target_ptr->resist_time)
 		{
 			switch (randint1(10))
 			{
@@ -1975,27 +1957,19 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 		msg_print("Gravity warps around you.");
 #endif
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
 			teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
 			if(!has_trait(target_ptr, TRAIT_CAN_FLY))
 				(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 			if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
-		}
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
 	case DO_EFFECT_KILL_WALL:
 		if(has_trait(target_ptr, TRAIT_HURT_ROCK))
 		{
-			/* Notice effect */
 			if(seen) obvious = TRUE;
-
-			/* Memorize the effects */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
-
-			/* Cute little message */
 #ifdef JP
 			note = "の皮膚がただれた！";
 			note_dies = "はドロドロに溶けた！";
@@ -2032,10 +2006,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_POLY:
 		if(seen) obvious = TRUE;
-		/* Attempt to polymorph (see below) */
 		do_poly = TRUE;
 
-		/* Powerful creatures can resist */
 		if((has_trait(target_ptr, TRAIT_UNIQUE)) || (has_trait(target_ptr, TRAIT_QUESTOR)) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
@@ -2043,7 +2015,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			do_poly = FALSE;
 			obvious = FALSE;
 		}
-		/* No "real" damage */
 		dam = 0;
 		break;
 
@@ -2075,9 +2046,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		do_conf = diceroll(3, (dam / 2)) + 1;
 		if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NO_CONF) || (target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			/* Memorize a flag */
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
+			if(has_trait(target_ptr, TRAIT_NO_CONF)) if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			do_conf = 0;
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
