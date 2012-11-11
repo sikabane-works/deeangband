@@ -1102,65 +1102,41 @@ static void analyze_pval(object_type *object_ptr, pval_info_type *pval_ptr)
 	*affects_list = NULL;
 }
 
-
-/* Note the slaying specialties of a weapon */
+// Note the slaying specialties of a weapon
 static void analyze_slay(object_type *object_ptr, cptr *slay_list)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-
 	object_flags(object_ptr, flgs);
-
-	slay_list = spoiler_flag_aux(flgs, slay_flags_desc, slay_list,
-				     N_ELEMENTS(slay_flags_desc));
-
-	/* Terminate the description list */
+	slay_list = spoiler_flag_aux(flgs, slay_flags_desc, slay_list, N_ELEMENTS(slay_flags_desc));
 	*slay_list = NULL;
 }
 
-/* Note an object's elemental brands */
+// Note an object's elemental brands
 static void analyze_brand(object_type *object_ptr, cptr *brand_list)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-
 	object_flags(object_ptr, flgs);
-
-	brand_list = spoiler_flag_aux(flgs, brand_flags_desc, brand_list,
-				      N_ELEMENTS(brand_flags_desc));
-
-	/* Terminate the description list */
+	brand_list = spoiler_flag_aux(flgs, brand_flags_desc, brand_list, N_ELEMENTS(brand_flags_desc));
 	*brand_list = NULL;
 }
 
-
-/* Note the resistances granted by an object */
+// Note the resistances granted by an object
 static void analyze_resist(object_type *object_ptr, cptr *resist_list)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-
 	object_flags(object_ptr, flgs);
-
-	resist_list = spoiler_flag_aux(flgs, resist_flags_desc,
-				       resist_list, N_ELEMENTS(resist_flags_desc));
-
-	/* Terminate the description list */
+	resist_list = spoiler_flag_aux(flgs, resist_flags_desc, resist_list, N_ELEMENTS(resist_flags_desc));
 	*resist_list = NULL;
 }
 
-
-/* Note the immunities granted by an object */
+// Note the immunities granted by an object
 static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-
 	object_flags(object_ptr, flgs);
-
-	immune_list = spoiler_flag_aux(flgs, immune_flags_desc,
-				       immune_list, N_ELEMENTS(immune_flags_desc));
-
-	/* Terminate the description list */
+	immune_list = spoiler_flag_aux(flgs, immune_flags_desc, immune_list, N_ELEMENTS(immune_flags_desc));
 	*immune_list = NULL;
 }
-
 
 /* Note which stats an object sustains */
 static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)

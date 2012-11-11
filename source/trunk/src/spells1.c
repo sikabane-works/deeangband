@@ -3481,16 +3481,13 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 					note = " starts moving faster.";
 #endif
-
-					(void)set_timed_trait(target_ptr, TRAIT_FAST, target_ptr->timed_trait[TRAIT_FAST] + 100);
+					(void)add_timed_trait(target_ptr, TRAIT_FAST, 100, FALSE);
 					success = TRUE;
 				}
 
 				/* Attempt a saving throw */
-				else if((has_trait(target_ptr, TRAIT_QUESTOR)) ||
-					(has_trait(target_ptr, TRAIT_UNIQUE)) ||
-					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) ||
-					(has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
+				else if((has_trait(target_ptr, TRAIT_QUESTOR)) || (has_trait(target_ptr, TRAIT_UNIQUE)) ||
+					(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || (has_trait(caster_ptr, TRAIT_ANTIPATHY)) ||
 					((target_ptr->lev * 2+10) > randint1(dam)))
 				{
 					/* Resist */
@@ -3632,13 +3629,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		c_ptr = &floor_ptr->cave[ty][tx];
 	}
 
-	/* Fear */
 	if(do_fear)
 	{
-		/* Set fear */
-		(void)set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] + do_fear);
-
-		/* Get angry */
+		(void)add_timed_trait(target_ptr, TRAIT_AFRAID, do_fear, FALSE);
 		//get_angry = TRUE;
 	}
 
@@ -3646,23 +3639,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	{
 		object_type *quest_ptr;
 		object_type forge;
+		quest_ptr = &forge; // Get local object
 
-		/* Get local object */
-		quest_ptr = &forge;
-
-		/* Prepare to make a Blade of Chaos */
-		object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO), ITEM_FREE_SIZE);
-
+		object_prep(quest_ptr, lookup_kind(TV_STATUE, SV_PHOTO), ITEM_FREE_SIZE); // Prepare to make a Blade of Chaos
 		quest_ptr->pval = photo;
 
-		/* Mark the item as fully known */
-		quest_ptr->ident |= (IDENT_MENTAL);
-
-
-		/* Drop it in the dungeon */
-		(void)drop_near(floor_ptr, quest_ptr, -1, player_ptr->fy, player_ptr->fx);
+		quest_ptr->ident |= (IDENT_MENTAL); // Mark the item as fully known
+		(void)drop_near(floor_ptr, quest_ptr, -1, player_ptr->fy, player_ptr->fx); // Drop it in the dungeon
 	}
-
 }
 
 

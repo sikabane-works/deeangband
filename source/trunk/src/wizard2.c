@@ -1921,14 +1921,9 @@ static void do_cmd_dump_options(void)
 	char buf[1024];
 	int  **exist;
 
-	/* Build the filename */
-	path_build(buf, sizeof buf, ANGBAND_DIR_USER, "opt_info.txt");
-
-	/* File type is "TEXT" */
-	FILE_TYPE(FILE_TYPE_TEXT);
-
-	/* Open the file */
-	fff = my_fopen(buf, "a");
+	path_build(buf, sizeof buf, ANGBAND_DIR_USER, "opt_info.txt"); // Build the filename
+	FILE_TYPE(FILE_TYPE_TEXT); // File type is "TEXT"
+	fff = my_fopen(buf, "a"); // Open the file
 
 	/* Oops */
 	if(!fff)
@@ -1992,12 +1987,9 @@ static void do_cmd_dump_options(void)
 #endif
 }
 
-
 #ifdef ALLOW_SPOILERS
 
-/*
- * External function
- */
+// External function
 extern void do_cmd_spoilers(void);
 
 #endif // ALLOW_SPOILERS
@@ -2021,12 +2013,8 @@ void do_cmd_debug(creature_type *creature_ptr)
 	int     x, y;
 	char    cmd;
 
-
-	// Get a "debug command"
-	get_com("Debug Command: ", &cmd, FALSE);
-
-	// Analyze the command
-	switch (cmd)
+	get_com("Debug Command: ", &cmd, FALSE); // Get a "debug command"
+	switch (cmd) // Analyze the command
 	{
 	// Nothing
 	case ESCAPE:
