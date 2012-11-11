@@ -948,6 +948,10 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		if(creature_ptr->resist_dark > 0) t = t * 4 / 9;
 		break;
 
+	case DO_EFFECT_LITE_WEAK:
+		if(!has_trait(creature_ptr, TRAIT_HURT_LITE)) t = 0;
+		break;
+
 	case DO_EFFECT_NETHER:
 		if(creature_ptr->resist_dark > 0) t = t * 2 / 3;
 		//TODO Evil x0.5

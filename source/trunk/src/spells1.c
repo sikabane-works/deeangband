@@ -1790,18 +1790,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_LITE_WEAK:
-		if(has_trait(target_ptr, TRAIT_HURT_LITE))
-		{
-			if(seen) obvious = TRUE;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
+		if(seen) obvious = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
 #ifdef JP
-			note = "は光に身をすくめた！";
-			note_dies = "は光を受けてしぼんでしまった！";
+		note = "は光に身をすくめた！";
+		note_dies = "は光を受けてしぼんでしまった！";
 #else
-			note = " cringes from the light!";
-			note_dies = " shrivels away in the light!";
+		note = " cringes from the light!";
+		note_dies = " shrivels away in the light!";
 #endif
-		}
 		break;
 
 		// 15
