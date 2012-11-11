@@ -2471,9 +2471,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			(target_ptr->sc_flag2 & SC_FLAG2_NOPET) || has_trait(target_ptr, TRAIT_NO_CONF) ||
 			(target_ptr->lev * 2 > randint1((dam - 10) < 1 ? 1 : (dam - 10)) + 10))
 		{
-			if(has_trait(target_ptr, TRAIT_NO_CONF))
-				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-
+			if(has_trait(target_ptr, TRAIT_NO_CONF) && is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 			obvious = FALSE;
 			if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
@@ -2546,14 +2544,11 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 							add_timed_trait(caster_ptr, TRAIT_STUN, randint1(dam), TRUE);
 							break;
 						case 3:
-							if(has_trait(target_ptr, TRAIT_FEARLESS))
-								note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-							else
-								add_timed_trait(caster_ptr, TRAIT_AFRAID, 3 + randint1(dam), TRUE);
+							if(has_trait(target_ptr, TRAIT_FEARLESS)) note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
+							else add_timed_trait(caster_ptr, TRAIT_AFRAID, 3 + randint1(dam), TRUE);
 							break;
 						default:
-							if(!has_trait(caster_ptr, TRAIT_FREE_ACTION))
-								add_timed_trait(caster_ptr, TRAIT_PARALYZED, randint1(dam), TRUE);
+							if(!has_trait(caster_ptr, TRAIT_FREE_ACTION)) add_timed_trait(caster_ptr, TRAIT_PARALYZED, randint1(dam), TRUE);
 							break;
 						}
 					}
@@ -2595,8 +2590,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note = game_messages[GAME_MESSAGE_IS_IMMUNE];
 		}
 		else if(has_trait(target_ptr, TRAIT_WEIRD_MIND) || has_trait(target_ptr, TRAIT_STUPID) || 
-			has_trait(target_ptr, TRAIT_ANIMAL) ||
-			(target_ptr->lev * 2 > randint1(3 * dam)))
+			has_trait(target_ptr, TRAIT_ANIMAL) || (target_ptr->lev * 2 > randint1(3 * dam)))
 		{
 			dam /= 3;
 			note = game_messages[GAME_MESSAGE_RESISTED];
@@ -3061,15 +3055,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
 					obvious = FALSE;
 				}
-				else
-				{
-#ifdef JP
-					note = "ÇÕñ∞ÇËçûÇÒÇ≈ÇµÇ‹Ç¡ÇΩÅI";
-#else
-					note = " falls asleep!";
-#endif
-					do_sleep = 500;
-				}
+				else do_sleep = 500;
 			}
 
 			if(!done) note = game_messages[GAME_MESSAGE_IS_IMMUNE];
@@ -3315,12 +3301,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				/* No need to tame your pet */
 				if(is_pet(player_ptr, target_ptr))
 				{
-#ifdef JP
-					note = "ÇÃìÆÇ´Ç™ë¨Ç≠Ç»Ç¡ÇΩÅB";
-#else
-					note = " starts moving faster.";
-#endif
-					(void)add_timed_trait(target_ptr, TRAIT_FAST, 100, FALSE);
+					(void)add_timed_trait(target_ptr, TRAIT_FAST, 100, TRUE);
 					success = TRUE;
 				}
 
