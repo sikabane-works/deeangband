@@ -1729,7 +1729,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_POIS:
-		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois))
 			add_timed_trait(target_ptr, TRAIT_POISONED, 10, TRUE);
 		break;
 
@@ -1754,7 +1754,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PLASMA:
-		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!target_ptr->resist_sound)
 			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 40) ? 35 : (dam * 3 / 4 + 5)), TRUE);
 		if(!(target_ptr->resist_fire || IS_OPPOSE_FIRE(target_ptr) || has_trait(target_ptr, TRAIT_IM_FIRE)))
 			inven_damage(target_ptr, set_acid_destroy, 3);
@@ -1762,7 +1762,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		//10
 
-	case DO_EFFECT_WATER:		{
+	case DO_EFFECT_WATER:		
 		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			if(!target_ptr->resist_sound) add_timed_trait(target_ptr, TRAIT_STUN, randint1(40), TRUE);
@@ -2677,8 +2677,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			* Powerful demons & undead can turn a mindcrafter's
 			* attacks back on them
 			*/
-			if(has_trait(target_ptr, TRAIT_UNDEAD) &&
-				has_trait(target_ptr, TRAIT_DEMON) &&
+			if(has_trait(target_ptr, TRAIT_UNDEAD) && has_trait(target_ptr, TRAIT_DEMON) &&
 				(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
 				(one_in_(2)))
 			{
@@ -2703,29 +2702,29 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
 			}
 			dam = 0;
+
 		}
-								}
-								if(dam > 0)
-								{
-									int b = diceroll(5, dam) / 4;
+		if(dam > 0)
+		{
+			int b = diceroll(5, dam) / 4;
 #ifdef JP
-									cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
-									msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
+			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "超能力パワー" : "魔力";
+			msg_format("あなたは%sの苦痛を%sに変換した！", target_name, str);
 #else
-									cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
-									msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
+			cptr str = (caster_ptr->class_idx == CLASS_MINDCRAFTER) ? "psychic energy" : "mana";
+			msg_format("You convert %s%s pain into %s!", target_name, (seen ? "'s" : "s"), str);
 #endif
-									b = MIN(caster_ptr->msp, caster_ptr->csp + b);
-									caster_ptr->csp = b;
-									play_redraw |= PR_MANA;
-									play_window |= (PW_SPELL);
-								}
+			b = MIN(caster_ptr->msp, caster_ptr->csp + b);
+			caster_ptr->csp = b;
+			play_redraw |= PR_MANA;
+			play_window |= (PW_SPELL);
+		}
 #ifdef JP
-								note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
+		note_dies = "の精神は崩壊し、肉体は抜け殻となった。";
 #else
-								note_dies = " collapses, a mindless husk.";
+		note_dies = " collapses, a mindless husk.";
 #endif
-								break;
+		break;
 
 	case DO_EFFECT_TELEKINESIS:
 		if(seen) obvious = TRUE;

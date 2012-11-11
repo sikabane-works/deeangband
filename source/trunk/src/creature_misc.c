@@ -1036,19 +1036,12 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 	}
 
 	if(has_trait(creature_ptr, TRAIT_RES_ALL)) t /= 100;
-	if(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)) t = 0;
-
-	/* TODO Multishadow
-	if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+	
+	if(has_trait(creature_ptr, TRAIT_MULTI_SHADOW))
 	{
-		if((!(double_resist || creature_ptr->resist_acid)) &&
-		    one_in_(HURT_CHANCE))
-			(void)do_dec_stat(creature_ptr, STAT_CHA);
-
-		// If any armor gets hit, defend the player
-		if(minus_ac(creature_ptr)) dam = (dam + 1) / 2;
+		if(!!average && (turn & 1)) t = 0;
+		else t /= 2;
 	}
-	*/
 
 	if(message)
 	{
