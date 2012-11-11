@@ -122,239 +122,171 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 		case TV_SWORD:
 		case TV_DIGGING:
 		{
-			/* Slay Animal */
-			if((have_flag(flgs, TRAIT_SLAY_ANIMAL)) &&
-			    has_trait(target_ptr, TRAIT_ANIMAL))
+			// Slay Animal
+			if((have_flag(flgs, TRAIT_SLAY_ANIMAL)) && has_trait(target_ptr, TRAIT_ANIMAL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 25) mult = 25;
 			}
 
-			/* Execute Animal */
-			if((have_flag(flgs, TRAIT_KILL_ANIMAL)) &&
-			    has_trait(target_ptr, TRAIT_ANIMAL))
+			// Execute Animal
+			if((have_flag(flgs, TRAIT_KILL_ANIMAL)) && has_trait(target_ptr, TRAIT_ANIMAL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 40) mult = 40;
 			}
 
-			/* Slay Evil & Good*/
-			if((have_flag(flgs, TRAIT_SLAY_EVIL)) &&
-			    is_enemy_of_good_creature(target_ptr))
+			// Slay Evil & Good
+			if((have_flag(flgs, TRAIT_SLAY_EVIL)) && is_enemy_of_good_creature(target_ptr))
 			{
 				int t;
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 				t = calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 10;
 				if(mult < t) mult = t;
 			}
-
-			else if((have_flag(flgs, TRAIT_SLAY_GOOD)) &&
-			    is_enemy_of_evil_creature(target_ptr))
+			else if((have_flag(flgs, TRAIT_SLAY_GOOD)) && is_enemy_of_evil_creature(target_ptr))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 				if(mult < 20) mult = 20;
 			}
 
-			/* Execute Evil & Good */
-			if((have_flag(flgs, TRAIT_KILL_EVIL)) &&
-			    is_enemy_of_good_creature(target_ptr))
+			// Execute Evil & Good
+			if((have_flag(flgs, TRAIT_KILL_EVIL)) && is_enemy_of_good_creature(target_ptr))
 			{
 				int t;
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 				t = (calc_punishment_slay(target_ptr, ALIGNMENT_GOOD) / 10 - 10) * 2 + 10;
 				if(mult < t) mult = t;
 			}
-			else if((have_flag(flgs, TRAIT_KILL_GOOD)) &&
-			    is_enemy_of_evil_creature(target_ptr))
+			else if((have_flag(flgs, TRAIT_KILL_GOOD)) && is_enemy_of_evil_creature(target_ptr))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
 				if(mult < 35) mult = 35;
 			}
 
 			// Slay Human
 			if((have_flag(flgs, TRAIT_SLAY_HUMAN)) && (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 25) mult = 25;
 			}
 
 			// Execute Human
-			if((have_flag(flgs, TRAIT_KILL_HUMAN)) &&
-			    (has_trait(target_ptr, TRAIT_HUMAN)))
+			if((have_flag(flgs, TRAIT_KILL_HUMAN)) && (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 40) mult = 40;
 			}
 
-			/* Slay Undead */
+			// Slay Undead
 			if((have_flag(flgs, TRAIT_SLAY_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
-			/* Execute Undead */
+			// Execute Undead
 			if((have_flag(flgs, TRAIT_KILL_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 50) mult = 50;
 			}
 
 			// Slay Demon
 			if((have_flag(flgs, TRAIT_SLAY_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			// Execute Demon
 			if((have_flag(flgs, TRAIT_KILL_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 50) mult = 50;
 			}
 
 			// Slay Orc
 			if((have_flag(flgs, TRAIT_SLAY_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			// Execute Orc
 			if((have_flag(flgs, TRAIT_KILL_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 50) mult = 50;
 			}
 
 			// Slay Troll
 			if((have_flag(flgs, TRAIT_SLAY_TROLL)) && has_trait(target_ptr, TRAIT_TROLL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			// Execute Troll
 			if((have_flag(flgs, TRAIT_KILL_TROLL)) && has_trait(target_ptr, TRAIT_TROLL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 50) mult = 50;
 			}
 
 			// Slay Giant
 			if((have_flag(flgs, TRAIT_SLAY_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			// Execute Giant
 			if((have_flag(flgs, TRAIT_KILL_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 50) mult = 50;
 			}
 
-			/* Slay Dragon  */
+			// Slay Dragon
 			if((have_flag(flgs, TRAIT_SLAY_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
-			/* Execute Dragon */
+			// Execute Dragon
 			if((have_flag(flgs, TRAIT_KILL_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 50) mult = 50;
-
 				if(has_trait_object(object_ptr, TRAIT_SLAY_FAFNER) && (target_ptr->species_idx == SPECIES_FAFNER))
 					mult *= 3;
 			}
 
-			/* Hex - Slay Good (Runesword) */
-			if(HEX_SPELLING(attacker_ptr, HEX_RUNESWORD) &&
-			    is_enemy_of_evil_creature(target_ptr))
+			// Hex - Slay Good (Runesword)
+			if(HEX_SPELLING(attacker_ptr, HEX_RUNESWORD) && is_enemy_of_evil_creature(target_ptr))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
-			/* Brand (Acid) */
+			// Brand (Acid)
 			if(has_trait(attacker_ptr, TRAIT_ACID_BRAND) && !thrown)
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);
-
-				/* Otherwise, take the damage */
-				if(!has_trait(target_ptr, TRAIT_RES_ACID))
-				{
-					if(mult < 25) mult = 25;
-				}
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);
+				if(!has_trait(target_ptr, TRAIT_RES_ACID)) if(mult < 25) mult = 25;
 			}
 
-			/* Brand (Elec) */
+			// Brand (Elec)
 			if((has_trait(attacker_ptr, TRAIT_ELEC_BRAND) && !thrown) || (mode == HISSATSU_ELEC))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
 
-				/* Otherwise, take the damage */
 				else if((has_trait(attacker_ptr, TRAIT_ELEC_BRAND) && !thrown) && (mode == HISSATSU_ELEC))
-				{
 					if(mult < 70) mult = 70;
-				}
-				else if(mode == HISSATSU_ELEC)
-				{
-					if(mult < 50) mult = 50;
-				}
-
-				else
-				{
-					if(mult < 25) mult = 25;
-				}
+				else if(mode == HISSATSU_ELEC) if(mult < 50) mult = 50;
+				else if(mult < 25) mult = 25;
 			}
 
 			/* Brand (Fire) */
@@ -369,8 +301,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 					if(has_trait(target_ptr, TRAIT_HURT_FIRE))
 					{
 						if(mult < 70) mult = 70;
-						if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-							reveal_creature_info(target_ptr, TRAIT_HURT_FIRE);
+						if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_FIRE);
 					}
 					else if(mult < 35) mult = 35;
 				}
@@ -379,8 +310,7 @@ s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam,
 					if(has_trait(target_ptr, TRAIT_HURT_FIRE))
 					{
 						if(mult < 50) mult = 50;
-						if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-							reveal_creature_info(target_ptr, TRAIT_HURT_FIRE);
+						if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_FIRE);
 					}
 					else if(mult < 25) mult = 25;
 				}
@@ -492,9 +422,7 @@ void search(creature_type *creature_ptr)
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-
-	/* Start with base search ability */
-	chance = creature_ptr->skill_srh;
+	chance = creature_ptr->skill_srh; // Start with base search ability
 
 	/* Penalize various conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) chance = chance / 10;
@@ -505,43 +433,27 @@ void search(creature_type *creature_ptr)
 	{
 		for (x = (creature_ptr->fx - 1); x <= (creature_ptr->fx + 1); x++)
 		{
-			/* Sometimes, notice things */
-			if(randint0(100) < chance)
+			if(randint0(100) < chance) // Sometimes, notice things
 			{
-				/* Access the grid */
-				c_ptr = &floor_ptr->cave[y][x];
-
-				/* Invisible trap */
-				if(c_ptr->mimic && is_trap(c_ptr->feat))
+				c_ptr = &floor_ptr->cave[y][x]; // Access the grid
+				if(c_ptr->mimic && is_trap(c_ptr->feat)) // Invisible trap
 				{
-					/* Pick a trap */
 					disclose_grid(floor_ptr, y, x);
-
-					/* Message */
 #ifdef JP
 					msg_print("トラップを発見した。");
 #else
 					msg_print("You have found a trap.");
 #endif
-
-					/* Disturb */
 					disturb(player_ptr, 0, 0);
 				}
-
-				/* Secret door */
-				if(is_hidden_door(c_ptr))
+				if(is_hidden_door(c_ptr)) // Secret door
 				{
-					/* Message */
 #ifdef JP
 					msg_print("隠しドアを発見した。");
 #else
 					msg_print("You have found a secret door.");
-#endif
-
-					/* Disclose */
-					disclose_grid(floor_ptr, y, x);
-
-					/* Disturb */
+#endif					
+					disclose_grid(floor_ptr, y, x); // Disclose
 					disturb(player_ptr, 0, 0);
 				}
 
@@ -549,34 +461,21 @@ void search(creature_type *creature_ptr)
 				for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 				{
 					object_type *object_ptr;
+					object_ptr = &object_list[this_object_idx]; // Acquire object
+					next_object_idx = object_ptr->next_object_idx; // Acquire next object
 
-					/* Acquire object */
-					object_ptr = &object_list[this_object_idx];
+					if(object_ptr->tval != TV_CHEST) continue; // Skip non-chests
+					if(!chest_traps[object_ptr->pval]) continue; // Skip non-trapped chests
 
-					/* Acquire next object */
-					next_object_idx = object_ptr->next_object_idx;
-
-					/* Skip non-chests */
-					if(object_ptr->tval != TV_CHEST) continue;
-
-					/* Skip non-trapped chests */
-					if(!chest_traps[object_ptr->pval]) continue;
-
-					/* Identify once */
-					if(!object_is_known(object_ptr))
+					if(!object_is_known(object_ptr)) // Identify once
 					{
-						/* Message */
 #ifdef JP
 						msg_print("箱に仕掛けられたトラップを発見した！");
 #else
 						msg_print("You have discovered a trap on the chest!");
 #endif
-
-						/* Know the trap */
-						object_known(object_ptr);
-
-						/* Notice it */
-						disturb(player_ptr, 0, 0);
+						object_known(object_ptr); // Know the trap
+						disturb(player_ptr, 0, 0); // Notice it
 					}
 				}
 			}
@@ -595,8 +494,6 @@ void search(creature_type *creature_ptr)
 void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 {
 	int slot, i;
-
-#ifdef JP
 /*
  * アイテムを拾った際に「２つのケーキを持っている」
  * "You have two cakes." とアイテムを拾った後の合計のみの表示がオリジナル
@@ -608,9 +505,6 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 	char old_name[MAX_NLEN];
 	char kazu_str[80];
 	int hirottakazu;
-#else
-	char object_name[MAX_NLEN];
-#endif
 
 	object_type *object_ptr;
 	object_ptr = &object_list[object_idx];
@@ -660,7 +554,6 @@ void py_pickup_aux(creature_type *creature_ptr, int object_idx)
 #endif
 	record_turn = turn;
 
-
 	// Check if completed a quest
 	for (i = 0; i < max_quests; i++)
 	{
@@ -686,28 +579,17 @@ void carry(creature_type *creature_ptr, bool pickup)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[creature_ptr->fy][creature_ptr->fx];
 	int max_len = 0;
-
 	s16b this_object_idx, floor_num = 0, next_object_idx = 0;
+	char object_name[MAX_NLEN];
+	
+	verify_panel(creature_ptr); // Recenter the map around the player
+	creature_ptr->creature_update |= (PU_CREATURES); // Update stuff
 
-	char	object_name[MAX_NLEN];
+	play_redraw |= (PR_MAP); // Redraw map
+	play_window |= (PW_OVERHEAD); // Window stuff
+	handle_stuff(); // Handle stuff
 
-	/* Recenter the map around the player */
-	verify_panel(creature_ptr);
-
-	/* Update stuff */
-	creature_ptr->creature_update |= (PU_CREATURES);
-
-	/* Redraw map */
-	play_redraw |= (PR_MAP);
-
-	/* Window stuff */
-	play_window |= (PW_OVERHEAD);
-
-	/* Handle stuff */
-	handle_stuff();
-
-	/* Automatically pickup/destroy/inscribe items */
-	autopick_pickup_items(creature_ptr, c_ptr);
+	autopick_pickup_items(creature_ptr, c_ptr); // Automatically pickup/destroy/inscribe items
 
 	if(easy_floor)
 	{
@@ -718,18 +600,12 @@ void carry(creature_type *creature_ptr, bool pickup)
 	for (this_object_idx = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *object_ptr;
-		/* Access the object */
 		object_ptr = &object_list[this_object_idx];
 		next_object_idx = object_ptr->next_object_idx;
 
-		/* Hack -- disturb */
-		disturb(player_ptr, 0, 0);
-
-		/* Count non-gold objects */
+		disturb(player_ptr, 0, 0); // Hack -- disturb
 		floor_num++;
 	}
-
-	/* Message */
 
 	if(floor_num >= 3)
 	{
@@ -745,21 +621,12 @@ void carry(creature_type *creature_ptr, bool pickup)
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
 		object_type *object_ptr;
+		object_ptr = &object_list[this_object_idx]; // Acquire object
+		object_desc(object_name, object_ptr, 0); // Describe the object
+		next_object_idx = object_ptr->next_object_idx; // Acquire next object
+		disturb(player_ptr, 0, 0); // Hack -- disturb
 
-		/* Acquire object */
-		object_ptr = &object_list[this_object_idx];
-
-		/* Describe the object */
-		object_desc(object_name, object_ptr, 0);
-
-		/* Acquire next object */
-		next_object_idx = object_ptr->next_object_idx;
-
-		/* Hack -- disturb */
-		disturb(player_ptr, 0, 0);
-
-		/* Pick up gold */
-		if(object_ptr->tval == TV_GOLD)
+		if(object_ptr->tval == TV_GOLD) // Pick up gold
 		{
 			int value = (long)object_ptr->pval;
 			delete_object_idx(this_object_idx); // Delete the gold
