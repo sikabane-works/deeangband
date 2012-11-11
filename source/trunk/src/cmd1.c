@@ -749,17 +749,6 @@ void carry(creature_type *creature_ptr, bool pickup)
 		/* Acquire object */
 		object_ptr = &object_list[this_object_idx];
 
-#ifdef ALLOW_EASY_SENSE /* TNB */
-
-		/* Option: Make item sensing easy */
-		if(easy_sense)
-		{
-			/* Sense the object */
-			(void)sense_object(object_ptr);
-		}
-
-#endif /* ALLOW_EASY_SENSE -- TNB */
-
 		/* Describe the object */
 		object_desc(object_name, object_ptr, 0);
 
@@ -773,30 +762,16 @@ void carry(creature_type *creature_ptr, bool pickup)
 		if(object_ptr->tval == TV_GOLD)
 		{
 			int value = (long)object_ptr->pval;
-
-			/* Delete the gold */
-			delete_object_idx(this_object_idx);
-
-			/* Message */
+			delete_object_idx(this_object_idx); // Delete the gold
 #ifdef JP
-		msg_format(" $%ld の価値がある%sを見つけた。",
-			   (long)value, object_name);
+			msg_format(" $%ld の価値がある%sを見つけた。", (long)value, object_name);
 #else
-			msg_format("You collect %ld gold pieces worth of %s.",
-				   (long)value, object_name);
+			msg_format("You collect %ld gold pieces worth of %s.", (long)value, object_name);
 #endif
-
-
 			sound(SOUND_SELL);
-
-			/* Collect the gold */
-			creature_ptr->au += value;
-
-			/* Redraw gold */
-			play_redraw |= (PR_GOLD);
-
-			/* Window stuff */
-			play_window |= (PW_PLAYER);
+			creature_ptr->au += value; // Collect the gold
+			play_redraw |= (PR_GOLD); // Redraw gold
+			play_window |= (PW_PLAYER); // Window stuff
 		}
 
 		/* Pick up objects */

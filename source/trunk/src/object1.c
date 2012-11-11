@@ -5228,17 +5228,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Access the object */
 			object_ptr = &object_list[floor_object_idx];
 
-#ifdef ALLOW_EASY_SENSE
-
-			/* Option: Make object sensing easy */
-			if(easy_sense)
-			{
-				/* Sense the object */
-				(void) sense_object(object_ptr);
-			}
-
-#endif /* ALLOW_EASY_SENSE */
-
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 
@@ -5275,17 +5264,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		{
 			/* Access the object */
 			object_ptr = &object_list[floor_object_idx];
-
-#ifdef ALLOW_EASY_SENSE
-
-			/* Option: Make object sensing easy */
-			if(easy_sense)
-			{
-				/* Sense the object */
-				(void) sense_object(object_ptr);
-			}
-
-#endif /* ALLOW_EASY_SENSE */
 
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
@@ -5326,17 +5304,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Access the object */
 			object_ptr = &object_list[floor_object_idx];
 
-#ifdef ALLOW_EASY_SENSE
-
-			/* Option: Make object sensing easy */
-			if(easy_sense)
-			{
-				/* Sense the object */
-				(void) sense_object(object_ptr);
-			}
-
-#endif /* ALLOW_EASY_SENSE */
-
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 
@@ -5358,17 +5325,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 		/* Access the object */
 		object_ptr = &object_list[floor_object_idx];
-
-#ifdef ALLOW_EASY_SENSE
-
-		/* Option: Make object sensing easy */
-		if(easy_sense)
-		{
-			/* Sense the object */
-			(void) sense_object(object_ptr);
-		}
-
-#endif /* ALLOW_EASY_SENSE */
 
 		/* Pick up the object */
 		py_pickup_aux(creature_ptr, floor_object_idx);
