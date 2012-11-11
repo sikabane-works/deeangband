@@ -2964,21 +2964,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_CAUSE_1:
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_CAUSE_2:
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_CAUSE_3:
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		break;
 
 	case DO_EFFECT_CAUSE_4:
-			dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 			if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
 		break;
 
@@ -3098,7 +3094,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " hates you too much!";
 #endif
-
 			if(one_in_(4)) target_ptr->sc_flag2 |= SC_FLAG2_NOPET;
 		}
 		else
@@ -3108,7 +3103,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #else
 			note = " is tamed!";
 #endif
-
 			set_pet(caster_ptr, target_ptr);
 		}
 
