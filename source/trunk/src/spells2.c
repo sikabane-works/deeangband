@@ -2859,9 +2859,7 @@ void lite_room(creature_type *creature_ptr, int y1, int x1)
 	cave_temp_room_lite(creature_ptr);
 
 	if(creature_ptr->posture & NINJA_S_STEALTH)
-	{
 		if(floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].info & CAVE_GLOW) set_superstealth(creature_ptr, FALSE);
-	}
 }
 
 
@@ -3109,7 +3107,6 @@ bool fire_blast(creature_type *caster_ptr, int typ, int dir, int dd, int ds, int
 			result = FALSE;
 		}
 	}
-
 	return (result);
 }
 
@@ -3144,7 +3141,6 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 #else
 		msg_print("A mysterious force prevents you from teleporting!");
 #endif
-
 		return FALSE;
 	}
 
@@ -3155,9 +3151,6 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 #else
 		msg_print("You can't trade places with that!");
 #endif
-
-
-		/* Failure */
 		return FALSE;
 	}
 
@@ -3168,9 +3161,6 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 #else
 		msg_print("Failed to swap.");
 #endif
-
-
-		/* Failure */
 		return FALSE;
 	}
 

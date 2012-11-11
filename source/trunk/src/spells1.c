@@ -1714,8 +1714,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	// Analyze the damage
 	dam = calc_damage(caster_ptr, dam, typ, TRUE, FALSE);
-
-	if(blind) msg_print(effect_message_in_blind[typ]);
+	if(!dam) return;
+	if(blind && is_player(target_ptr)) msg_print(effect_message_in_blind[typ]);
 
 	switch (typ)
 	{
@@ -1841,7 +1841,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_ICE:
 		if(!(IS_OPPOSE_COLD(target_ptr) && target_ptr->resist_cold))
 			inven_damage(target_ptr, set_cold_destroy, (dam < 30) ? 1 : (dam < 60) ? 2 : 3);
-		break;
 		if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, diceroll(5, 8), TRUE);
 		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(15), TRUE);
 		if((!(target_ptr->resist_cold || IS_OPPOSE_COLD(target_ptr))) || one_in_(12))
@@ -1874,18 +1873,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_NETHER:
-		if(!target_ptr->resist_neth)
-			drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
+		if(!target_ptr->resist_neth) drain_exp(target_ptr, 200 + (target_ptr->exp / 100), 200 + (target_ptr->exp / 1000), 75);
 		break;
 
 	case DO_EFFECT_DISENCHANT:
-		if(!target_ptr->resist_disen)
-			(void)apply_disenchant(target_ptr, 0);
+		if(!target_ptr->resist_disen) (void)apply_disenchant(target_ptr, 0);
 		break;
 
 	case DO_EFFECT_NEXUS:
-		if(!target_ptr->resist_nexus)
-			apply_nexus(caster_ptr);
+		if(!target_ptr->resist_nexus) apply_nexus(caster_ptr);
 		break;
 
 	case DO_EFFECT_TIME:
@@ -1928,7 +1924,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				//TODO
 				msg_format("You're not as %s as you used to be.", act);
 #endif
-
 				target_ptr->stat_cur[k] = (target_ptr->stat_cur[k] * 3) / 4;
 				if(target_ptr->stat_cur[k] < 3) target_ptr->stat_cur[k] = 3;
 				target_ptr->creature_update |= (CRU_BONUS);
@@ -1958,18 +1953,15 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		msg_print("Gravity warps around you.");
 #endif
 			teleport_player(target_ptr, 5, TELEPORT_PASSIVE);
-			if(!has_trait(target_ptr, TRAIT_CAN_FLY))
-				(void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
+			if(!has_trait(target_ptr, TRAIT_CAN_FLY)) (void)add_timed_trait(target_ptr, TRAIT_SLOW, randint0(4) + 4, TRUE);
 			if(!(target_ptr->resist_sound || has_trait(target_ptr, TRAIT_CAN_FLY)))
 				(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1((dam > 90) ? 35 : (dam / 3 + 5)), TRUE);
 		if(!has_trait(target_ptr, TRAIT_CAN_FLY) || one_in_(13)) inven_damage(target_ptr, set_cold_destroy, 2);
 		break;
 
 	case DO_EFFECT_KILL_WALL:
-		if(has_trait(target_ptr, TRAIT_HURT_ROCK))
-		{
-			if(seen) obvious = TRUE;
-			if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
+		if(seen) obvious = TRUE;
+		if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
 #ifdef JP
 			note = "の皮膚がただれた！";
 			note_dies = "はドロドロに溶けた！";
@@ -1977,8 +1969,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			note = " loses some skin!";
 			note_dies = " dissolves!";
 #endif
-
-		}
 		break;
 
 		//31-36
