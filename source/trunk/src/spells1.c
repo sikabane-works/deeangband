@@ -2327,7 +2327,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		// 56
 
 	case DO_EFFECT_NUKE:
-		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
+		if(!(IS_OPPOSE_POIS(target_ptr) || target_ptr->resist_pois))
 		{
 			add_timed_trait(target_ptr, TRAIT_POISONED, randint0(dam) + 10, TRUE);
 			if(one_in_(5)) // 6
@@ -2348,10 +2348,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_ROCKET:
-		if(!target_ptr->resist_sound && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
-		else if(!target_ptr->resist_shard && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-			(void)add_timed_trait(target_ptr, TRAIT_CUT, dam / 2, TRUE);
+		if(!target_ptr->resist_sound) (void)add_timed_trait(target_ptr, TRAIT_STUN, randint1(20), TRUE);
+		else if(!target_ptr->resist_shard) (void)add_timed_trait(target_ptr, TRAIT_CUT, dam / 2, TRUE);
 		if(!target_ptr->resist_shard || one_in_(12)) inven_damage(target_ptr, set_cold_destroy, 3);
 		break;
 
@@ -2575,7 +2573,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					target_name, (seen ? "'s" : "s"));
 #endif
 				{
-					if(one_in_(4) && !(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+					if(one_in_(4))
 					{
 						switch (randint1(4))
 						{
@@ -2646,9 +2644,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			* Powerful demons & undead can turn a mindcrafter's
 			* attacks back on them
 			*/
-			if(has_trait(target_ptr, TRAIT_UNDEAD) && has_trait(target_ptr, TRAIT_DEMON) &&
-				(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
-				(one_in_(2)))
+			if(has_trait(target_ptr, TRAIT_UNDEAD) && has_trait(target_ptr, TRAIT_DEMON) && (target_ptr->lev * 2 > caster_ptr->lev / 2) && (one_in_(2)))
 			{
 				note = NULL;
 #ifdef JP
@@ -2657,8 +2653,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
 #endif
 				creature_desc(caster_name, target_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
-				if(!(caster_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
-				{
 #ifdef JP
 					msg_print("超能力パワーを吸いとられた！");
 #else
@@ -2667,8 +2661,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 					dec_mana(caster_ptr, diceroll(5, dam) / 2);
 					play_redraw |= PR_MANA;
 					play_window |= PW_SPELL;
-				}
-				take_hit(player_ptr, caster_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, -1);  /* has already been /3 */
 			}
 			dam = 0;
 
@@ -2828,15 +2820,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DRAIN_MANA:
-		if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
-#ifdef JP
-			msg_print("攻撃は幻影に命中し、あなたには届かなかった。");
-#else
-			msg_print("The attack hits Shadow, you are unharmed!");
-#endif
-		}
-
 #ifdef JP
 		if(caster_ptr != NULL) msg_format("%^sに精神エネルギーを吸い取られてしまった！", caster_name);
 		else msg_print("精神エネルギーを吸い取られてしまった！");
@@ -2844,7 +2827,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(caster_ptr != NULL) msg_format("%^s draws psychic energy from you!", caster_name);
 		else msg_print("Your psychic energy is drawn!");
 #endif
-
 		dam = target_ptr->csp;
 		learn_trait(target_ptr, spell);
 		play_redraw |= (PR_MANA); // Redraw mana
@@ -2880,8 +2862,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 
 	case DO_EFFECT_MIND_BLAST:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
 #ifdef JP
 			msg_print("霊的エネルギーで精神が攻撃された。");
 #else
@@ -2892,12 +2872,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 			dec_mana(target_ptr, 50);
 			play_redraw |= PR_MANA;
-		}
 		break;
 
 	case DO_EFFECT_BRAIN_SMASH:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
 #ifdef JP
 			msg_print("霊的エネルギーで精神が攻撃された。");
 #else
@@ -2905,10 +2882,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 			dec_mana(target_ptr, 100);
 			play_redraw |= PR_MANA;
-		}
 
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
 			if(!has_trait(target_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(target_ptr, TRAIT_BLIND, 8 + randint0(8), TRUE);
 			if(!has_trait(target_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 			if(!has_trait(target_ptr, TRAIT_FREE_ACTION)) (void)add_timed_trait(target_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
@@ -2920,35 +2894,31 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			*/
 
 			if(!target_ptr->resist_chaos) (void)add_timed_trait(target_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
-		}
 		break;
 
 	case DO_EFFECT_CAUSE_1:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 15, 0);
+		curse_equipment(target_ptr, 15, 0);
 		break;
 
 	case DO_EFFECT_CAUSE_2:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
+		curse_equipment(target_ptr, 25, MIN(caster_power / 2 - 15, 5));
 		break;
 
 	case DO_EFFECT_CAUSE_3:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
+		curse_equipment(target_ptr, 33, MIN(caster_power / 2 - 15, 15));
 		break;
 
 	case DO_EFFECT_CAUSE_4:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)set_timed_trait(target_ptr, TRAIT_CUT, target_ptr->timed_trait[TRAIT_CUT] + diceroll(10, 10));
+		add_timed_trait(target_ptr, TRAIT_CUT, diceroll(10, 10), FALSE);
 		break;
 
 	case DO_EFFECT_HAND_DOOM:
-		if(!(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-		{
 #ifdef JP
-			msg_print("あなたは命が薄まっていくように感じた！");
+		msg_print("あなたは命が薄まっていくように感じた！");
 #else
-			msg_print("You feel your life fade away!");
+		msg_print("You feel your life fade away!");
 #endif
-			curse_equipment(target_ptr, 40, 20);
-		}
+		curse_equipment(target_ptr, 40, 20);
 		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
 		break;
