@@ -2306,89 +2306,22 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 	}
 	*/
 
-	/* Determine the weight allowance */
+	// Determine the weight allowance
 	max_wgt = magic_info[creature_ptr->class_idx].spell_weight;
 
-	/* Heavy armor penalizes mana by a percentage.  -LM- */
+	// Heavy armor penalizes mana by a percentage.  -LM-
 	if((cur_wgt - max_wgt) > 0)
 	{
-		/* Encumbered */
-		creature_ptr->cumber_armor = TRUE;
-
-		/* Subtract a percentage of maximum mana. */
-		switch (creature_ptr->class_idx)
-		{
-			/* For these classes, mana is halved if armour 
-			 * is 30 pounds over their weight limit. */
-			case CLASS_MAGE:
-			case CLASS_HIGH_MAGE:
-			case CLASS_BLUE_MAGE:
-			{
-				msp -= msp * (cur_wgt - max_wgt) / 600;
-				break;
-			}
-
-			/* Mana halved if armour is 40 pounds over weight limit. */
-			case CLASS_PRIEST:
-			case CLASS_MINDCRAFTER:
-			case CLASS_BEASTMASTER:
-			case CLASS_BARD:
-			case CLASS_FORCETRAINER:
-			case CLASS_TOURIST:
-			case CLASS_MIRROR_MASTER:
-			{
-				msp -= msp * (cur_wgt - max_wgt) / 800;
-				break;
-			}
-
-			case CLASS_SORCERER:
-			{
-				msp -= msp * (cur_wgt - max_wgt) / 900;
-				break;
-			}
-
-			/* Mana halved if armour is 50 pounds over weight limit. */
-			case CLASS_ROGUE:
-			case CLASS_RANGER:
-			case CLASS_MONK:
-			case CLASS_RED_MAGE:
-			{
-				msp -= msp * (cur_wgt - max_wgt) / 1000;
-				break;
-			}
-
-			/* Mana halved if armour is 60 pounds over weight limit. */
-			case CLASS_PALADIN:
-			case CLASS_CHAOS_WARRIOR:
-			case CLASS_WARRIOR_MAGE:
-			{
-				msp -= msp * (cur_wgt - max_wgt) / 1200;
-				break;
-			}
-
-			case CLASS_SAMURAI:
-			{
-				creature_ptr->cumber_armor = FALSE;
-				break;
-			}
-
-			/* For new classes created, but not yet added to this formula. */
-			default:
-			{
-				msp -= msp * (cur_wgt - max_wgt) / 800;
-				break;
-			}
-		}
+		creature_ptr->cumber_armor = TRUE; // Encumbered
+		msp -= msp * (cur_wgt - max_wgt) / 800; // Subtract a percentage of maximum mana.
 	}
 
-	/* Mana can never be negative */
-	if(msp < 0) msp = 0;
+	if(msp < 0) msp = 0; // Mana can never be negative
 
-
-	/* Maximum mana has changed */
-	if(creature_ptr->msp != msp)
+	
+	if(creature_ptr->msp != msp) // Maximum mana has changed
 	{
-		/* Enforce maximum */
+		// Enforce maximum
 		if((creature_ptr->csp >= msp) && (creature_ptr->class_idx != CLASS_SAMURAI))
 		{
 			creature_ptr->csp = msp;
@@ -2397,20 +2330,11 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 
 #ifdef JP
 		if(creature_ptr->level_up && (msp > creature_ptr->msp))
-		{
-			if(message) msg_format("最大マジック・ポイントが %d 増加した！",
-				   (msp - creature_ptr->msp));
-		}
+			if(message) msg_format("最大マジック・ポイントが %d 増加した！", (msp - creature_ptr->msp));
 #endif
-		/* Save new mana */
-		creature_ptr->msp = msp;
-
-		/* Display mana later */
-		play_redraw |= (PR_MANA);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
-		play_window |= (PW_SPELL);
+		
+		creature_ptr->msp = msp; // Save new mana
+		play_redraw |= (PR_MANA | PW_PLAYER | PW_SPELL); // Display mana later
 	}
 
 	/* Take note when "glove state" changes */
@@ -2482,10 +2406,8 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 	/* Un-inflate "half-hitpoint bonus per level" value */
 	bonus = ((int)(adj_con_mhp[creature_ptr->stat_ind[STAT_CON]])) * creature_ptr->lev / 4;
 
-	/* Divine Bonuses */
-	if(creature_ptr->dr >= 0){
-		bonus += adj_dr_mhp[creature_ptr->dr] * creature_ptr->hitdice;
-	}
+	// Divine Bonuses
+	if(creature_ptr->dr >= 0) bonus += adj_dr_mhp[creature_ptr->dr] * creature_ptr->hitdice;
 
 	/* Calculate hitpoints */
 	mhp = creature_ptr->base_hp[creature_ptr->lev - 1];
@@ -2501,9 +2423,7 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 	mhp += bonus;
 
 	if(creature_ptr->class_idx == CLASS_BERSERKER)
-	{
 		mhp = mhp * (110+ (((creature_ptr->lev + 40) * (creature_ptr->lev + 40) - 1550) / 110)) / 100;
-	}
 
 	/* Always have at least one hitpoint per level */
 	if(mhp < creature_ptr->lev + 1) mhp = creature_ptr->lev + 1;
@@ -2528,10 +2448,8 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 		}
 
 #ifdef JP
-		if(creature_ptr->level_up && (mhp > creature_ptr->mhp))
-		{
+		if(creature_ptr->level_up && (mhp > creature_ptr->mhp)) 
 			if(message) msg_format("最大ヒット・ポイントが %d 増加した！", (mhp - creature_ptr->mhp) );
-		}
 #endif
 		/* Save the new max-hitpoints */
 		creature_ptr->mhp = mhp;
