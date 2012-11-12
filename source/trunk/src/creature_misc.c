@@ -995,14 +995,17 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		break;
 
 	case DO_EFFECT_TIME:
-		t *= 4 / 9;
-		if(is_player(creature_ptr) && message)
+		if(has_trait(creature_ptr, TRAIT_RES_TIME))
 		{
+			t *= 4 / 9;
+			if(is_player(creature_ptr) && message)
+			{
 #ifdef JP
-			msg_format("%sは時間が通り過ぎていく様子を感じた。", creature_name);
+				msg_format("%sは時間が通り過ぎていく様子を感じた。", creature_name);
 #else
-			msg_format("You feel as if time is passing you by.");
+				msg_format("You feel as if time is passing you by.");
 #endif
+			}
 		}
 		break;
 
