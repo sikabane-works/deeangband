@@ -2505,7 +2505,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	char tar_name[100];
 	char tmp[100];
 
-	/* Innocent until proven otherwise */
+	// Innocent until proven otherwise
 	bool        innocent = TRUE, thief = FALSE;
 	int         i;
 	int         expdam;
@@ -2715,16 +2715,13 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	}
 
 	if(floor_ptr->wild_mode && !subject_change_floor && (player_ptr->chp < MAX(warning, player_ptr->mhp/5)))
-	{
 		change_wild_mode(player_ptr);
-	}
 
 	if(gameover) you_died(hit_from);
 
 	else
 	{
-		/* It is dead now */
-		if(target_ptr->chp < 0)
+		if(target_ptr->chp < 0) // It is dead now
 		{
 	
 			if(has_trait(target_ptr, TRAIT_TANUKI))
@@ -2851,11 +2848,9 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 						msg_format("%s have killed %s.", atk_name, tar_name);
 	#endif
 				}
-	
 			}
 	
-			/* Death by Physical attack -- non-living creature */
-			else if(!creature_living(attacker_ptr))
+			else if(!creature_living(attacker_ptr)) // Death by Physical attack -- non-living creature
 			{
 				int i;
 				bool explode = FALSE;
@@ -2883,9 +2878,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	#endif
 				}
 			}
-	
-			/* Death by Physical attack -- living creature */
-			else
+			else // Death by Physical attack -- living creature
 			{
 				if(attacker_ptr)
 				{
@@ -2917,6 +2910,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				}
 	
 			}
+
 			if(has_trait(target_ptr, TRAIT_UNIQUE) && !(target_ptr->smart & SM_CLONED))
 			{
 				for (i = 0; i < MAX_BOUNTY; i++)
@@ -2990,26 +2984,18 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	#endif
 	
 	}
-	
-	
+		
 	if(target_ptr->timed_trait[TRAIT_AFRAID] && (damage > 0)) // Mega-Hack -- Pain cancels fear
 		add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE);
 
-	/* Sometimes a creature gets scared by damage */
+	// Sometimes a creature gets scared by damage
 	if(!target_ptr->timed_trait[TRAIT_AFRAID] && !has_trait(target_ptr, TRAIT_FEARLESS))
 	{
-		/* Percentage of fully healthy */
-		int percentage = (100L * target_ptr->chp) / target_ptr->mhp;
+		int percentage = (100L * target_ptr->chp) / target_ptr->mhp; // Percentage of fully healthy
 	
-		/*
-		 * Run (sometimes) if at 10% or less of max hit points,
-		 * or (usually) when hit for half its current hit points
-		 */
-		if((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (randint0(100) < 80)))
-		{
-			/* Hack -- note fear */
-			fear = TRUE;
-		}
+		// Run (sometimes) if at 10% or less of max hit points,
+		// or (usually) when hit for half its current hit points
+		if((randint1(10) >= percentage) || ((damage >= target_ptr->chp) && (randint0(100) < 80))) fear = TRUE;
 	}
 
 	if(fear && !target_ptr->timed_trait[TRAIT_AFRAID])
@@ -3034,25 +3020,16 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(has_trait(target_ptr, TRAIT_HALLUCINATION) && damage_type == DAMAGE_ATTACK)
 	#ifdef JP
 				hit_from = "何か";
+				sprintf(tmp,"%sによってピンチに陥った。",hit_from);
 	#else
 				hit_from = "something";
-	#endif
-	
-	#ifdef JP
-			sprintf(tmp,"%sによってピンチに陥った。",hit_from);
-	#else
-			sprintf(tmp,"A critical situation because of %s.",hit_from);
+				sprintf(tmp,"A critical situation because of %s.",hit_from);
 	#endif
 			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
 		}
 	
-		if(auto_more)
-		{
-			/* stop auto_more even if DAMAGE_USELIFE */
-			target_ptr->now_damaged = TRUE;
-		}
+		if(auto_more) target_ptr->now_damaged = TRUE; // stop auto_more even if DAMAGE_USELIFE
 	
-		/* Message */
 	#ifdef JP
 		msg_print("*** 警告:低ヒット・ポイント！ ***");
 	#else
