@@ -1437,7 +1437,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 #else
 					note_kill = (plural ? " shatter!" : " shatters!");
 #endif
-
 					do_kill = TRUE;
 				}
 				break;
@@ -1669,6 +1668,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	int photo = 0;
 	bool skipped = FALSE;
 	bool dissolves_dying = FALSE;
+	bool light_dying = FALSE;
 
 	// Creature name (for attacker and target)
 	char caster_name[MAX_NLEN];
@@ -1793,13 +1793,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_LITE_WEAK:
 		if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-#ifdef JP
-		note = "は光に身をすくめた！";
-		note_dies = "は光を受けてしぼんでしまった！";
-#else
-		note = " cringes from the light!";
-		note_dies = " shrivels away in the light!";
-#endif
+		light_dying = TRUE;
 		break;
 
 		// 15
@@ -2214,7 +2208,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			skipped = TRUE;
 			dam = 0;
 		}
-
 		break;
 
 	case DO_EFFECT_DISP_EVIL:
@@ -2248,15 +2241,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_LIVING:
-		if(creature_living(target_ptr))
-		{
-			dissolves_dying = TRUE;
-		}
-		else
-		{
-			skipped = TRUE;
-			dam = 0;
-		}
+		dissolves_dying = TRUE;
 		break;
 
 		// 56
@@ -3044,17 +3029,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		/* Hurt by light */
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
 		{
-			/* Memorize the effects */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-
-			/* Special effect */
-#ifdef JP
-			note = "は光に身をすくめた！";
-			note_dies = "は光を受けてしぼんでしまった！";
-#else
-			note = " cringes from the light!";
-			note_dies = " shrivels away in the light!";
-#endif
+			light_dying = TRUE;
 		}
 		else dam = 0;
 		photo = target_ptr->species_idx;
@@ -3352,6 +3328,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		note_dies = " dissolves!";
 #endif
 	}
+	else if(light_dying)
+	{
+#ifdef JP
+		note = "は光に身をすくめた！";
+		note_dies = "は光を受けてしぼんでしまった！";
+#else
+		note = " cringes from the light!";
+		note_dies = " shrivels away in the light!";
+#endif
+	}
+
 
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);

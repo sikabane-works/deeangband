@@ -1018,6 +1018,10 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		t = t * calc_punishment_slay(creature_ptr, ALIGNMENT_EVIL) / 100;
 		break;
 
+	case DO_EFFECT_DISP_LIVING:
+		if(!creature_living(creature_ptr)) t = 0;
+		break;
+
 	case DO_EFFECT_NUKE:
 		break;
 
