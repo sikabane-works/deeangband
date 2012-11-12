@@ -17,39 +17,25 @@
 
 
 
-
-/*
- * Converts stat num into a six-char (right justified) string
- */
+// Converts stat num into a six-char (right justified) string
 void cnv_stat(int val, char *out_val)
 {
 	sprintf(out_val, " %3d.%01d", val / STAT_FRACTION, val % STAT_FRACTION);
 }
 
-
-/*
- * Print character info at given row, column in a 13 char field
- */
+// Print character info at given row, column in a 13 char field
 static void prt_field(cptr info, int row, int col)
 {
-	/* Dump 13 spaces to clear */
-	c_put_str(TERM_WHITE, "             ", row, col);
-
-	/* Dump the info itself */
-	c_put_str(TERM_L_BLUE, info, row, col);
+	c_put_str(TERM_WHITE, "             ", row, col); // Dump 13 spaces to clear
+	c_put_str(TERM_L_BLUE, info, row, col); // Dump the info itself
 }
 
-
-/*
- *  Whether daytime or not
- */
+//  Whether daytime or not
 bool is_daytime(void)
 {
 	s32b len = TURNS_PER_TICK * TOWN_DAWN;
-	if((turn % len) < (len / 2))
-		return TRUE;
-	else
-		return FALSE;
+	if((turn % len) < (len / 2)) return TRUE;
+	else return FALSE;
 }
 
 /*
@@ -95,8 +81,7 @@ void prt_wiz_pos(creature_type *player_ptr)
 
 cptr map_name(floor_type *floor_ptr)
 {
-	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)
-	    && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
+	if(floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest) && (quest[floor_ptr->quest].flags & QUEST_FLAG_PRESET))
 #ifdef JP
 		return "クエスト";
 #else
@@ -135,17 +120,16 @@ static void prt_dungeon(void)
 	cptr dungeon_name;
 	int col;
 
-	/* Dump 13 spaces to clear */
+	// Dump 13 spaces to clear
 	c_put_str(TERM_WHITE, "             ", ROW_DUNGEON, COL_DUNGEON);
 
 	dungeon_name = map_name(floor_ptr);
 
-	col = COL_DUNGEON + 6 - strlen(dungeon_name)/2;
+	col = COL_DUNGEON + 6 - strlen(dungeon_name) / 2;
 	if(col < 0) col = 0;
 
 	/* Dump the info itself */
-	c_put_str(TERM_L_UMBER, format("%s",dungeon_name),
-		  ROW_DUNGEON, col);
+	c_put_str(TERM_L_UMBER, format("%s",dungeon_name), ROW_DUNGEON, col);
 }
 
 
@@ -453,37 +437,18 @@ static void prt_status(creature_type *creature_ptr)
 	if(IS_OPPOSE_FIRE(creature_ptr)) ADD_FLG(BAR_RESFIRE);
 	if(IS_OPPOSE_COLD(creature_ptr)) ADD_FLG(BAR_RESCOLD);
 	if(IS_OPPOSE_POIS(creature_ptr)) ADD_FLG(BAR_RESPOIS);
-
-	/* Word of Recall */
-	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL);
-
-	/* Alter realiry */
-	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER);
-
-	/* Afraid */
-	if(creature_ptr->timed_trait[TRAIT_AFRAID]) ADD_FLG(BAR_AFRAID);
-
-	/* Resist time */
-	if(creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME);
-
+	if(creature_ptr->timed_trait[TRAIT_WORD_RECALL]) ADD_FLG(BAR_RECALL); // Word of Recall
+	if(creature_ptr->timed_trait[TRAIT_ALTER_REALITY]) ADD_FLG(BAR_ALTER); // Alter realiry
+	if(creature_ptr->timed_trait[TRAIT_AFRAID]) ADD_FLG(BAR_AFRAID); // Afraid
+	if(creature_ptr->timed_trait[TRAIT_RES_TIME]) ADD_FLG(BAR_RESTIME); // Resist time
 	if(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW]) ADD_FLG(BAR_MULTISHADOW);
-
-	/* Confusing Hands */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF);
-
+	if(creature_ptr->timed_trait[TRAIT_CONFUSING_MELEE]) ADD_FLG(BAR_ATTKCONF); // Confusing Hands
 	if(creature_ptr->timed_trait[TRAIT_RESIST_MAGIC]) ADD_FLG(BAR_REGMAGIC);
-
-	/* Ultimate-resistance */
-	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE);
-
-	/* tim levitation */
-	if(creature_ptr->timed_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE);
-
+	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES]) ADD_FLG(BAR_ULTIMATE); // Ultimate-resistance
+	if(creature_ptr->timed_trait[TRAIT_LEVITATION]) ADD_FLG(BAR_LEVITATE); // tim levitation
 	if(creature_ptr->timed_trait[TRAIT_RES_NETH]) ADD_FLG(BAR_RESNETH);
-
 	if(creature_ptr->timed_trait[TRAIT_DUST_ROBE]) ADD_FLG(BAR_DUSTROBE);
 
-	/* Mahouken */
 	if(creature_ptr->timed_trait[TRAIT_FIRE_BRAND]) ADD_FLG(BAR_ATTKFIRE);
 	if(creature_ptr->timed_trait[TRAIT_COLD_BRAND]) ADD_FLG(BAR_ATTKCOLD);
 	if(creature_ptr->timed_trait[TRAIT_ELEC_BRAND]) ADD_FLG(BAR_ATTKELEC);
@@ -492,16 +457,11 @@ static void prt_status(creature_type *creature_ptr)
 	if(creature_ptr->posture & NINJA_S_STEALTH) ADD_FLG(BAR_SUPERSTEALTH);
 
 	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE]) ADD_FLG(BAR_SHFIRE);
-
-	/* tim stealth */
-	if(IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH);
+	
+	if(IS_TIM_STEALTH(creature_ptr)) ADD_FLG(BAR_STEALTH); // tim stealth
 
 	if(creature_ptr->timed_trait[TRAIT_AURA_MANA]) ADD_FLG(BAR_TOUKI);
-
-	/* Holy aura */
 	if(creature_ptr->timed_trait[TRAIT_HOLY_AURA]) ADD_FLG(BAR_SHHOLY);
-
-	/* An Eye for an Eye */
 	if(creature_ptr->timed_trait[TRAIT_EYE_EYE]) ADD_FLG(BAR_EYEEYE);
 
 	/* Hex spells */
@@ -1423,10 +1383,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 			k[1] = 0;
 			Term_putstr(col, row, 1, species_ptr->x_attr, k);
 		}
-
 	}
-
-
 }
 
 
@@ -1818,15 +1775,12 @@ static void fix_object(creature_type *creature_ptr)
  */
 static void calc_spells(creature_type *creature_ptr, bool message)
 {
-	int			i, j, k, levels;
-	int			num_allowed;
-	int                     num_boukyaku = 0;
-
+	int i, j, k, levels;
+	int num_allowed;
+	int num_boukyaku = 0;
 	magic_type		*s_ptr;
 	int which;
 	int bonus = 0;
-
-
 	cptr p;
 
 	/* Hack -- must be literate */
@@ -1878,8 +1832,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 	for (j = 0; j < (REALM_MAGIC_NUMBER * 2); j++)
 	{
 		/* Count known spells */
-		if((j < 32) ?
-		    (creature_ptr->spell_forgotten1 & (1L << j)) :
+		if((j < 32) ? (creature_ptr->spell_forgotten1 & (1L << j)) :
 		    (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			num_boukyaku++;
@@ -1899,9 +1852,8 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		/* Access the spell */
 		j = creature_ptr->spell_order[i];
 
-	/* Skip non-spells */
+		/* Skip non-spells */
 		if(j >= 99) continue;
-
 
 		/* Get the spell */
 		if(!is_magic((j < 32) ? creature_ptr->realm1 : creature_ptr->realm2))
@@ -1950,11 +1902,9 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 
 			/* Message */
 #ifdef JP
-			if(message) msg_format("%sの%sを忘れてしまった。",
-				   do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
+			if(message) msg_format("%sの%sを忘れてしまった。", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
-			if(message) msg_format("You have forgotten the %s of %s.", p,
-					do_spell(creature_ptr, which, j%32, SPELL_NAME));
+			if(message) msg_format("You have forgotten the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
 
@@ -2008,13 +1958,10 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 				which = creature_ptr->realm2;
 			}
 
-			/* Message */
 #ifdef JP
-			if(message) msg_format("%sの%sを忘れてしまった。",
-				   do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
+			if(message) msg_format("%sの%sを忘れてしまった。", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
-			if(message) msg_format("You have forgotten the %s of %s.", p,
-				   do_spell(creature_ptr, which, j%32, SPELL_NAME));
+			if(message) msg_format("You have forgotten the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
 
@@ -2022,7 +1969,6 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 			creature_ptr->new_spells++;
 		}
 	}
-
 
 	/* Check for spells to remember */
 	for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
@@ -2047,7 +1993,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 			else
 				s_ptr = &technic_info[creature_ptr->realm2 - MIN_TECHNIC][j%32];
 		}
-		else if(j<32)
+		else if(j < 32)
 			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm1-1][j];
 		else
 			s_ptr = &magic_info[creature_ptr->class_idx].info[creature_ptr->realm2-1][j%32];
@@ -2056,8 +2002,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		if(s_ptr->slevel > creature_ptr->lev) continue;
 
 		/* First set of spells */
-		if((j < 32) ?
-		    (creature_ptr->spell_forgotten1 & (1L << j)) :
+		if((j < 32) ? (creature_ptr->spell_forgotten1 & (1L << j)) :
 		    (creature_ptr->spell_forgotten2 & (1L << (j - 32))))
 		{
 			/* No longer forgotten */
@@ -2084,13 +2029,10 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 				which = creature_ptr->realm2;
 			}
 
-			/* Message */
 #ifdef JP
-			if(message) msg_format("%sの%sを思い出した。",
-				   do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
+			if(message) msg_format("%sの%sを思い出した。", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
-			if(message) msg_format("You have remembered the %s of %s.",
-				   p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
+			if(message) msg_format("You have remembered the %s of %s.", p, do_spell(creature_ptr, which, j%32, SPELL_NAME));
 #endif
 
 
@@ -2113,10 +2055,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 			if(s_ptr->slevel > creature_ptr->lev) continue;
 
 			/* Skip spells we already know */
-			if(creature_ptr->spell_learned1 & (1L << j))
-			{
-				continue;
-			}
+			if(creature_ptr->spell_learned1 & (1L << j)) continue;
 
 			/* Count it */
 			k++;
@@ -2137,7 +2076,7 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 #ifdef JP
 			if( creature_ptr->new_spells < 10 ){
 				if(message) msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
-			}else{
+			} else {
 				if(message) msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
 			}
 #else
@@ -2183,7 +2122,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 
 		default:
 			/* Extract total mana */
-			msp = adj_mag_mana[creature_ptr->stat_ind[STAT_INT]] * (levels+3) / 4;
+			msp = adj_mag_mana[creature_ptr->stat_ind[STAT_INT]] * (levels + 3) / 4;
 
 			/* Hack -- usually add one mana */
 			msp++;
