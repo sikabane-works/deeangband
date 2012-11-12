@@ -3405,15 +3405,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 // This function integrated with project_m and became project_creature().
 // (Deskull)
-static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
+static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	int k = 0;
 
-	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 	bool obvious = TRUE; // Hack -- assume obvious
 	bool blind = (has_trait(player_ptr, TRAIT_BLIND) ? TRUE : FALSE); // Player blind-ness
-	char atk_name[80]; // Creature name (for attacker and target)
 
 	/* Hack -- messages */
 	cptr act = NULL;
@@ -3422,7 +3421,6 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	creature_type *target_ptr = &creature_list[c_ptr->creature_idx];
-	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	// Is the creature "seen"?
 	bool seen = target_ptr->see_others;
@@ -3447,8 +3445,6 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 #endif
 
 	int photo = 0;
-
-
 	cptr note = NULL; // Assume no note
 
 	/* Assume a default death */
@@ -3457,16 +3453,12 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 	int ty = target_ptr->fy;
 	int tx = target_ptr->fx;
 
-	int atk_lev = attacker_ptr->lev * 2;
-
-	creature_desc(atk_name, attacker_ptr, 0);
-
-	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (attacker_ptr != &creature_list[player_ptr->riding]))
+	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (caster_ptr != &creature_list[player_ptr->riding]))
 	//	if(kawarimi(player_ptr, TRUE)) return FALSE;
 
 	/* Player cannot hurt himself */
-	//if(is_player(attacker_ptr)) return (FALSE);
-	//if(attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
+	//if(is_player(caster_ptr)) return (FALSE);
+	//if(caster_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
 	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !has_trait(player_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
@@ -3483,20 +3475,20 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 #endif
 
 		// Choose 'new' target
-		if(!is_player(attacker_ptr))
+		if(!is_player(caster_ptr))
 		{
 			do
 			{
-				t_y = attacker_ptr->fy - 1 + (byte)randint1(3);
-				t_x = attacker_ptr->fx - 1 + (byte)randint1(3);
+				t_y = caster_ptr->fy - 1 + (byte)randint1(3);
+				t_x = caster_ptr->fx - 1 + (byte)randint1(3);
 				max_attempts--;
 			}
 			while (max_attempts && in_bounds2u(floor_ptr, t_y, t_x) && !projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, t_y, t_x));
 
 			if(max_attempts < 1)
 			{
-				t_y = attacker_ptr->fy;
-				t_x = attacker_ptr->fx;
+				t_y = caster_ptr->fy;
+				t_x = caster_ptr->fx;
 			}
 		}
 		else
@@ -3513,28 +3505,28 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	dam = (dam + r) / (r + 1); // Reduce damage by distance
 
-	project_creature_aux(attacker_ptr, player_ptr, typ, dam, spell, see_s_msg);
+	project_creature_aux(caster_ptr, target_ptr, typ, dam, spell, see_s_msg);
 	revenge_store(player_ptr, get_damage); // Hex - revenge damage stored
 
 	if((player_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(player_ptr, HEX_EYE_FOR_EYE))
-		&& (get_damage > 0) && !gameover && (attacker_ptr != NULL))
+		&& (get_damage > 0) && !gameover && (caster_ptr != NULL))
 	{
 #ifdef JP
-		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", atk_name);
+		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", caster_ptr->name);
 #else
-		char atk_name_self[80];
-		creature_desc(atk_name_self, attacker_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE); // hisself
-		msg_format("The attack of %s has wounded %s!", atk_name, atk_name_self);
+		char caster_name_self[80];
+		creature_desc(caster_name_self, caster_ptr, CD_PRON_VISIBLE | CD_POSSESSIVE | CD_OBJECTIVE); // hisself
+		msg_format("The attack of %s has wounded %s!", caster_name, caster_name_self);
 #endif
-		project(0, 0, 0, attacker_ptr->fy, attacker_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
-		if(attacker_ptr->timed_trait[TRAIT_EYE_EYE]) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
+		project(0, 0, 0, caster_ptr->fy, caster_ptr->fx, get_damage, DO_EFFECT_MISSILE, PROJECT_KILL, -1);
+		if(caster_ptr->timed_trait[TRAIT_EYE_EYE]) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
 	}
 
 	if(player_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
 
 	disturb(player_ptr, 1, 0); // Disturb
 
-	if((player_ptr->posture & NINJA_KAWARIMI) && dam && attacker_ptr && (attacker_ptr != &creature_list[player_ptr->riding]))
+	if((player_ptr->posture & NINJA_KAWARIMI) && dam && caster_ptr && (caster_ptr != &creature_list[player_ptr->riding]))
 		(void)kawarimi(player_ptr, FALSE);
 
 	return (obvious); // Return "Anything seen?"
@@ -4921,7 +4913,6 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 			/* Affect the creature in the grid */
 			if(project_creature(caster_ptr, "Dammy", effective_dist, y, x, dam, typ, flg, see_s_msg, monspell)) notice = TRUE;
 		}
-
 
 		/* Player affected one creature (without "jumping") */
 		if(is_player(caster_ptr) && (project_m_n == 1) && !jump)
