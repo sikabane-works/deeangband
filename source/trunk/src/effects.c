@@ -1684,41 +1684,20 @@ bool heal_creature(creature_type *creature_ptr, int num)
 static cptr desc_stat_pos[] =
 {
 #ifdef JP
-"強く",
+	"強く",
+	"知的に",
+	"賢く",
+	"器用に",
+	"健康に",
+	"美しく"
 #else
 	"strong",
-#endif
-
-#ifdef JP
-"知的に",
-#else
 	"smart",
-#endif
-
-#ifdef JP
-"賢く",
-#else
 	"wise",
-#endif
-
-#ifdef JP
-"器用に",
-#else
 	"dextrous",
-#endif
-
-#ifdef JP
-"健康に",
-#else
 	"healthy",
-#endif
-
-#ifdef JP
-"美しく"
-#else
 	"cute"
 #endif
-
 };
 
 
@@ -1728,12 +1707,12 @@ static cptr desc_stat_pos[] =
 static cptr desc_stat_neg[] =
 {
 #ifdef JP
-"弱く",
-"無知に",
-"愚かに",
-"不器用に",
-"不健康に",
-"醜く"
+	"弱く",
+	"無知に",
+	"愚かに",
+	"不器用に",
+	"不健康に",
+	"醜く"
 #else
 	"weak",
 	"stupid",
@@ -1808,10 +1787,8 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
  */
 bool do_res_stat(creature_type *creature_ptr, int stat)
 {
-	/* Attempt to increase */
-	if(res_stat(creature_ptr, stat))
+	if(res_stat(creature_ptr, stat)) // Attempt to increase
 	{
-		/* Message */
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
@@ -1820,32 +1797,20 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 			msg_format("You feel less %s.", desc_stat_neg[stat]);
 #endif
 		}
-
-
-		/* Notice */
 		return (TRUE);
 	}
 
-	/* Nothing obvious */
 	return (FALSE);
 }
 
-
-/*
- * Gain a "point" in a stat
- */
+// Gain a "point" in a stat
 bool do_inc_stat(creature_type *creature_ptr, int stat)
 {
 	bool res;
-
-	/* Restore strength */
-	res = res_stat(creature_ptr, stat);
-
-	/* Attempt to increase */
-	if(inc_stat(creature_ptr, stat))
+	res = res_stat(creature_ptr, stat); // Restore strength
+	
+	if(inc_stat(creature_ptr, stat)) // Attempt to increase
 	{
-
-		/* Message */
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
@@ -1854,15 +1819,11 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 			msg_format("Wow! %s became very %s!", creature_ptr->name, desc_stat_pos[stat]);
 #endif
 		}
-
-		/* Notice */
 		return (TRUE);
 	}
-
-	/* Restoration worked */
-	if(res)
+	
+	if(res) // Restoration worked
 	{
-		/* Message */
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
@@ -1871,13 +1832,10 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 			msg_format("You feel less %s.", desc_stat_neg[stat]);
 #endif
 		}
-
-		/* Notice */
 		return (TRUE);
 	}
 
-	/* Nothing obvious */
-	return (FALSE);
+	return (FALSE); // Nothing obvious
 }
 
 
