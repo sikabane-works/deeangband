@@ -3457,7 +3457,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 	if(!is_valid_creature_aux(target_ptr)) return (FALSE);
 	//if(caster_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
-	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !has_trait(player_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
+	if((has_trait(target_ptr, TRAIT_REFLECTING) || ((target_ptr->posture & KATA_FUUJIN) && !has_trait(target_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
 		byte t_y, t_x;
 		int max_attempts = 10;
@@ -3518,11 +3518,11 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 		if(caster_ptr->timed_trait[TRAIT_EYE_EYE]) add_timed_trait(player_ptr, TRAIT_EYE_EYE, -5, TRUE);
 	}
 
-	if(player_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
+	if(target_ptr->riding && dam > 0) do_thrown_from_ridingdam_p = (dam > 200) ? 200 : dam;
 
 	disturb(player_ptr, 1, 0); // Disturb
 
-	if((player_ptr->posture & NINJA_KAWARIMI) && dam && caster_ptr && (caster_ptr != &creature_list[player_ptr->riding]))
+	if((target_ptr->posture & NINJA_KAWARIMI) && dam && caster_ptr && (target_ptr != &creature_list[target_ptr->riding]))
 		(void)kawarimi(player_ptr, FALSE);
 
 	return (obvious); // Return "Anything seen?"
