@@ -1582,37 +1582,24 @@ bool res_stat(creature_type *creature_ptr, int stat)
 	return (FALSE);
 }
 
-
-/*
- * Increase players hit points, notice effects
- */
+// Increase players hit points, notice effects
 bool heal_creature(creature_type *creature_ptr, int num)
 {
 	int vir;
 	// TODO: Add Karma of Vitality feature.
 	vir = 0;
-	if(vir)
-	{
-		num = num * (creature_ptr->karmas[vir - 1] + 1250) / 1250;
-	}
-	/* Healing needed */
-	if(creature_ptr->chp < creature_ptr->mhp)
-	{
-		/* Gain hitpoints */
-		creature_ptr->chp += num;
+	if(vir) num = num * (creature_ptr->karmas[vir - 1] + 1250) / 1250;
 
-		/* Enforce maximum */
-		if(creature_ptr->chp >= creature_ptr->mhp)
+	
+	if(creature_ptr->chp < creature_ptr->mhp) // Healing needed
+	{
+		creature_ptr->chp += num; // Gain hitpoints
+		if(creature_ptr->chp >= creature_ptr->mhp) // Enforce maximum
 		{
 			creature_ptr->chp = creature_ptr->mhp;
 			creature_ptr->chp_frac = 0;
 		}
-
-		/* Redraw */
-		play_redraw |= (PR_HP);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
+		play_redraw |= (PR_HP | PW_PLAYER);
 
 		/* Heal 0-4 */
 		if(num < 5)
@@ -1669,18 +1656,14 @@ bool heal_creature(creature_type *creature_ptr, int num)
 			}
 		}
 
-		/* Notice */
+		if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 		return (TRUE);
 	}
 
-	/* Ignore */
 	return (FALSE);
 }
 
-
-/*
- * Array of stat "descriptions"
- */
+// Array of stat "descriptions"
 static cptr desc_stat_pos[] =
 {
 #ifdef JP
