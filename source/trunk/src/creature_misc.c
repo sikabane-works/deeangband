@@ -31,6 +31,12 @@ bool is_player(creature_type *creature_ptr)
 
 bool is_valid_creature(creature_type *creature_ptr)
 {
+//	return (creature_ptr->chp > 0);
+	return (!creature_ptr->fx && !creature_ptr->fy && creature_ptr->chp > 0);
+}
+
+bool is_valid_creature_aux(creature_type *creature_ptr)
+{
 	return (creature_ptr->fx && creature_ptr->fy && creature_ptr->chp > 0);
 }
 
@@ -803,10 +809,8 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 {
 	int i;
 
-	if(type < 0 || type >= MAX_TRAITS)
-	{
-		msg_warning("Out Range TraitID:%d", type);
-	}
+	if(type < 0 || type >= MAX_TRAITS) msg_warning("Out Range TraitID:%d", type);
+
 	for(i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
