@@ -1919,14 +1919,10 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 	}
 
 	creature_ptr->race_idx1 = new_race;
+	set_expfact(creature_ptr); // Experience factor
+	set_height_weight(creature_ptr); // Get character's height and weight
 
-	/* Experience factor */
-	set_expfact(creature_ptr);
-
-	/* Get character's height and weight */
-	set_height_weight(creature_ptr);
-
-	/* Hitdice */
+	// Hitdice
 	if(creature_ptr->class_idx == CLASS_SORCERER)
 		creature_ptr->hitdice = race_info[creature_ptr->race_idx1].r_mhp/2 + class_info[creature_ptr->class_idx].c_mhp + chara_info[creature_ptr->chara_idx].a_mhp;
 	else
@@ -1934,11 +1930,8 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 
 	do_cmd_rerate(creature_ptr, FALSE);
 
-	/* The experience level may be modified */
-	check_experience(creature_ptr);
-
+	check_experience(creature_ptr); // The experience level may be modified
 	play_redraw |= (PR_BASIC);
-
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	handle_stuff();
@@ -1972,8 +1965,7 @@ void do_poly_self(creature_type *creature_ptr)
 		power -= 10; // Some form of racial polymorph...
 
 		if((power > randint0(5)) && one_in_(4)) // sex change
-		{
-			
+		{		
 			power -= 2;
 
 			if(one_in_(10))
