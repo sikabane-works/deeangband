@@ -1914,57 +1914,35 @@ bool restore_exp(creature_type *creature_ptr)
 }
 
 
-/*
- * Forget everything
- */
+// Forget everything
 bool lose_all_info(creature_type *creature_ptr)
 {
 	int i;
 
-	/* Forget info about objects */
+	// Forget info about objects
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
+		if(!is_valid_object(object_ptr)) continue; // Skip non-objects		
+		if(object_ptr->ident & (IDENT_MENTAL)) continue; // Allow "protection" by the MENTAL flag
 
-		/* Skip non-objects */
-		if(!is_valid_object(object_ptr)) continue;
-
-		/* Allow "protection" by the MENTAL flag */
-		if(object_ptr->ident & (IDENT_MENTAL)) continue;
-
-		/* Remove "default inscriptions" */
-		object_ptr->feeling = FEEL_NONE;
-
-		/* Hack -- Clear the "empty" flag */
-		object_ptr->ident &= ~(IDENT_EMPTY);
-
-		/* Hack -- Clear the "known" flag */
-		object_ptr->ident &= ~(IDENT_KNOWN);
-
-		/* Hack -- Clear the "felt" flag */
-		object_ptr->ident &= ~(IDENT_SENSE);
+		object_ptr->feeling = FEEL_NONE; // Remove "default inscriptions"
+		object_ptr->ident &= ~(IDENT_EMPTY); // Hack -- Clear the "empty" flag
+		object_ptr->ident &= ~(IDENT_KNOWN); // Hack -- Clear the "known" flag
+		object_ptr->ident &= ~(IDENT_SENSE); // Hack -- Clear the "felt" flag
 	}
 
-	/* Recalculate bonuses */
-	creature_ptr->creature_update |= (CRU_BONUS);
-
-	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-
-	/* Window stuff */
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
-
-	/* Mega-Hack -- Forget the map */
-	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr);
-
-	/* It worked */
-	return (TRUE);
+	// Recalculate bonuses / Combine / Reorder the pack (later)
+	creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
+	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr); // Mega-Hack -- Forget the map
+	return (TRUE); // It worked
 }
 
 
 void do_poly_wounds(creature_type *creature_ptr)
 {
-	/* Changed to always provide at least _some_ healing */
+	// Changed to always provide at least _some_ healing
 	s16b wounds = creature_ptr->timed_trait[TRAIT_CUT];
 	s32b hit_p = (creature_ptr->mhp - creature_ptr->chp);
 	s16b change = diceroll(creature_ptr->lev, 5);
@@ -1994,19 +1972,12 @@ void do_poly_wounds(creature_type *creature_ptr)
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 		}
-
 		set_timed_trait(creature_ptr, TRAIT_CUT, change);
 	}
-	else
-	{
-		set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - (change / 2));
-	}
+	else add_timed_trait(creature_ptr, TRAIT_CUT, change / 2, FALSE);
 }
 
-
-/*
- * Change player race
- */
+// Change player race
 void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 {
 	cptr title = race_info[new_race].title;
@@ -2138,9 +2109,9 @@ void do_poly_self(creature_type *creature_ptr)
 			else
 			{
 #ifdef JP
-				sprintf(effect_msg,"ŠïŒ`‚Ì");
+				sprintf(effect_msg, "ŠïŒ`‚Ì");
 #else
-				sprintf(effect_msg,"deformed ");
+				sprintf(effect_msg, "deformed ");
 #endif
 
 			}
@@ -2148,8 +2119,8 @@ void do_poly_self(creature_type *creature_ptr)
 
 		while ((power > randint0(20)) && one_in_(10))
 		{
-			/* Polymorph into a less mutated form */
-			power -= 10;
+			
+			power -= 10; // Polymorph into a less mutated form
 
 			if(!lose_trait(creature_ptr, 0))
 #ifdef JP
@@ -2186,9 +2157,7 @@ void do_poly_self(creature_type *creature_ptr)
 	if((power > randint0(30)) && one_in_(6))
 	{
 		int tmp = 0;
-
-		/* Abomination! */
-		power -= 20;
+		power -= 20; // Abomination!
 
 		if(is_seen(player_ptr, creature_ptr))
 		{
@@ -2223,7 +2192,6 @@ void do_poly_self(creature_type *creature_ptr)
 	if((power > randint0(20)) && one_in_(4))
 	{
 		power -= 10;
-
 		get_max_stats(creature_ptr);
 		do_cmd_rerate(creature_ptr, FALSE);
 	}
