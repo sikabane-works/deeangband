@@ -803,9 +803,9 @@ static void wreck_the_pattern(floor_type *floor_ptr, creature_type *creature_ptr
 
 	if(!IS_INVULN(creature_ptr))
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "パターン損壊", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "パターン損壊", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "corrupting the Pattern", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 8), "corrupting the Pattern", NULL, -1);
 #endif
 
 	to_ruin = randint1(45) + 35;
@@ -883,9 +883,9 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	case PATTERN_TILE_WRECKED:
 		if(!IS_INVULN(creature_ptr))
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "壊れた「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 200, "walking the corrupted Pattern", NULL, -1);
 #endif
 		break;
 
@@ -894,9 +894,9 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 			return TRUE;
 		else if(!IS_INVULN(creature_ptr))
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "「パターン」を歩いたダメージ", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "walking the Pattern", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 3), "walking the Pattern", NULL, -1);
 #endif
 		break;
 	}
@@ -1583,9 +1583,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	if(creature_ptr->timed_trait[TRAIT_POISONED] && !IS_INVULN(creature_ptr)) // Take damage from poison
 	{
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "毒", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "poison", NULL, -1);
 #endif
 	}
 
@@ -1605,9 +1605,9 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 		// Take damage
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "致命傷", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "致命傷", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "a fatal wound", NULL, -1);
 #endif
 
 	}
@@ -1621,10 +1621,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_format("日光が%sの肉体を焼き焦がした！", creature_name);
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "日光", NULL, -1);
 #else
 				msg_print("The sun's rays scorch your undead flesh!");
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, "sunlight", NULL, -1);
 #endif
 				cave_no_regen = TRUE;
 			}
@@ -1656,7 +1656,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			sprintf(ouch, "wielding %s", object_name);
 #endif
 
-			if(!IS_INVULN(creature_ptr)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
+			if(!IS_INVULN(creature_ptr)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1, ouch, NULL, -1);
 		}
 	}
 
@@ -1665,10 +1665,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 		int damage = calc_damage(creature_ptr, randint0(50) + 20, DO_EFFECT_CHAOS, FALSE, FALSE);	
 #ifdef JP
 		msg_print("混沌に身を蝕まれた！");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "混沌に蝕まれたダメージ", NULL, -1);
 #else
 		msg_print("The chaos tainted you!");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Damage of tainted by chaos", NULL, -1);
 #endif
 	}
 
@@ -1698,10 +1698,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_print("熱で火傷した！");
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("%sの上を浮遊したダメージ", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
 #else
 				msg_print("The heat burns you!");
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, format("flying over %s", feature_name + feature_info[get_feat_mimic(&floor_ptr->cave[creature_ptr->fy][creature_ptr->fx])].name), NULL, -1);
 #endif
 			}
 			else
@@ -1712,7 +1712,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 #else
 				msg_format("The %s burns you!", name);
 #endif
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 			}
 
 			cave_no_regen = TRUE;
@@ -1744,7 +1744,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 #else
 			msg_format("you are poisoned by The %s", name);
 #endif
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 
 			cave_no_regen = TRUE;
 		}
@@ -1773,7 +1773,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 #else
 			msg_format("you are disolved by The %s", name);
 #endif
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, name, NULL, -1);
 
 			cave_no_regen = TRUE;
 		}
@@ -1788,10 +1788,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			/* Take damage */
 #ifdef JP
 			msg_print("溺れている！");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "溺れ", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "溺れ", NULL, -1);
 #else
 			msg_print("You are drowning!");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "drowning", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->lev), "drowning", NULL, -1);
 #endif
 
 			cave_no_regen = TRUE;
@@ -1808,10 +1808,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = calc_damage(creature_ptr, damage, DO_EFFECT_FIRE, FALSE, FALSE);
 #ifdef JP
 			msg_print("熱い！");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "炎のオーラ", NULL, -1);
 #else
 			msg_print("It's hot!");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Fire aura", NULL, -1);
 #endif
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_ELEC) && !has_trait(creature_ptr, TRAIT_IM_ELEC))
@@ -1820,10 +1820,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = calc_damage(creature_ptr, damage, DO_EFFECT_ELEC, FALSE, FALSE);
 #ifdef JP
 			msg_print("痛い！");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "電気のオーラ", NULL, -1);
 #else
 			msg_print("It hurts!");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Elec aura", NULL, -1);
 #endif
 		}
 		if(has_trait(steed_ptr, TRAIT_AURA_COLD) && !has_trait(creature_ptr, TRAIT_IM_COLD))
@@ -1832,10 +1832,10 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			damage = calc_damage(creature_ptr, damage, DO_EFFECT_COLD, FALSE, FALSE);
 #ifdef JP
 			msg_print("冷たい！");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "冷気のオーラ", NULL, -1);
 #else
 			msg_print("It's cold!");
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, damage, "Cold aura", NULL, -1);
 #endif
 		}
 	}
@@ -1877,7 +1877,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 #endif
 			}
 
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 1 + (creature_ptr->lev / 5), dam_desc, NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 1 + (creature_ptr->lev / 5), dam_desc, NULL, -1);
 		}
 	}
 
@@ -2511,9 +2511,9 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			/* Redraw mana */
 			play_redraw |= (PR_MANA);
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "頭に昇った血", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "頭に昇った血", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "blood rushing to the head", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "blood rushing to the head", NULL, -1);
 #endif
 
 		}
@@ -2528,10 +2528,10 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		disturb(player_ptr, 0, 0);
 #ifdef JP
 		msg_print("足がもつれて転んだ！");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "転倒", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "転倒", NULL, -1);
 #else
 		msg_print("You trip over your own feet!");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "tripping", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, randint1(creature_ptr->wt / 6), "tripping", NULL, -1);
 #endif
 
 		msg_print(NULL);
@@ -2786,7 +2786,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_format("Your %s drains HP from you!", object_name);
 #endif
-		take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev*2, 100), object_name, NULL, -1);
 	}
 
 	/* Handle mana draining */
@@ -2822,14 +2822,14 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			else
 				msg_print("なにかがあなたの体力を吸収した！");
 
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "審判の宝石", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "審判の宝石", NULL, -1);
 #else
 			if(object_is_known(object_ptr))
 				msg_print("The Jewel of Judgement drains life from you!");
 			else
 				msg_print("Something drains life from you!");
 
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "the Jewel of Judgement", "", -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "the Jewel of Judgement", "", -1);
 #endif
 		}
 	}

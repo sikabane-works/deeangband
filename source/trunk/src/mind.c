@@ -1071,9 +1071,9 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 #endif
 			cast_ball(creature_ptr, DO_EFFECT_MANA, 0, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, 10);
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "気の暴走", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "気の暴走", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->class_skills.old_skills.magic_num1[0] / 2, "Explosion of the Force", NULL, -1);
 #endif
 		}
 		else return TRUE;
@@ -2087,9 +2087,9 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 	if((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
 	{
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "過度の集中", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "過度の集中", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", NULL, -1);
 #endif
 		/* Redraw hp */
 		play_redraw |= (PR_HP);

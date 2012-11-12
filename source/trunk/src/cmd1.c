@@ -780,7 +780,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 				sound(SOUND_FALL);
 				dam = diceroll(2, 8);
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 
 				/* Still alive and autosave enabled */
 				if(autosave_l && (creature_ptr->chp >= 0)) do_cmd_save_game(TRUE);
@@ -817,7 +817,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				name = "a pit trap";
 #endif
 				dam = diceroll(2, 6);
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
 		}
@@ -856,7 +856,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				}
 
 				/* Take the damage */
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1);
 			}
 			break;
 		}
@@ -910,7 +910,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 						(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint1(dam));
 					}
 				}
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1); // Take the damage
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1); // Take the damage
 			}
 
 			break;
@@ -986,7 +986,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				dam = diceroll(1, 4);
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint0(20) + 20, FALSE);
 			}
@@ -1013,7 +1013,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				dam = diceroll(1, 4);
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
@@ -1040,7 +1040,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #endif
 
 				dam = diceroll(1, 4);
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
@@ -1066,7 +1066,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				msg_print("A small dart hits you!");
 #endif
 				dam = diceroll(1, 4);
-				take_hit(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
 				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}

@@ -1238,9 +1238,9 @@ msg_print("カオス的な効果を発生した！");
 #endif
 
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "暗黒魔法の逆流", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(object_ptr->sval + 1, 6), "a miscast Death spell", NULL, -1);
 #endif
 
 				if((spell > 15) && one_in_(6) && !has_trait(creature_ptr, TRAIT_HOLD_LIFE))
@@ -1753,10 +1753,10 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
 #else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", NULL, -1);
 #endif
 			return FALSE;
 		}
@@ -1807,9 +1807,9 @@ msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 	else
 	{
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", NULL, -1);
 #endif
 		fall_dam = TRUE;
 	}

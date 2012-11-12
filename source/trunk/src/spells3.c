@@ -1806,9 +1806,9 @@ void call_the_void(creature_type *creature_ptr)
 		}
 
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "©E“I‚È‹•–³µ—ˆ", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "©E“I‚È‹•–³µ—ˆ", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(150), "a suicidal Call the Void", NULL, -1);
 #endif
 	}
 }

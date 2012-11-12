@@ -1587,9 +1587,9 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	{
 		/* Take damage */
 #ifdef JP
-		take_hit(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("%^sÇÃéÙï∂Çè•Ç¶ÇΩîÊòJ", spell_name), NULL, -1);
+		take_damage_to_creature(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("%^sÇÃéÙï∂Çè•Ç¶ÇΩîÊòJ", spell_name), NULL, -1);
 #else
-		take_hit(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), NULL, -1);
+		take_damage_to_creature(NULL, user_ptr, DAMAGE_GENO, randint1(dam_side), format("the strain of casting %^s", spell_name), NULL, -1);
 #endif
 	}
 
@@ -2391,7 +2391,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 							killer = "an earthquake";
 #endif
 						}
-						take_hit(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
+						take_damage_to_creature(NULL, caster_ptr, DAMAGE_ATTACK, damage, killer, NULL, -1);
 					}
 				}
 			}
@@ -3441,9 +3441,9 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 
 				project(0, 0, 8, creature_ptr->fy, creature_ptr->fx, dam, DO_EFFECT_MANA, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "èÉêàÇ»ñÇóÕÇÃâï˙", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "èÉêàÇ»ñÇóÕÇÃâï˙", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, "released pure mana", NULL, -1);
 #endif
 				if(!one_in_(6)) break;
 			}
@@ -3473,9 +3473,9 @@ bool activate_ty_curse(creature_type *creature_ptr, bool stop_ty, int *count)
 			{
 				project(0, 0, 7, creature_ptr->fy, creature_ptr->fx, 50, DO_EFFECT_KILL_WALL, PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL | PROJECT_JUMP, -1);
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "ÉGÉlÉãÉMÅ[ÇÃÇ§ÇÀÇË", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "ÉGÉlÉãÉMÅ[ÇÃÇ§ÇÀÇË", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "surge of energy", NULL, -1);
 #endif
 			}
 			if(!one_in_(6)) break;

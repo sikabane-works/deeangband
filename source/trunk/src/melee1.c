@@ -39,7 +39,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 #endif
 
 			aura_damage = calc_damage(attacker_ptr, aura_damage, DO_EFFECT_FIRE, FALSE, FALSE);
-			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_FIRE);
 			handle_stuff();
@@ -66,7 +66,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			if(IS_OPPOSE_COLD(attacker_ptr)) aura_damage = (aura_damage + 2) / 3;
 			if(attacker_ptr->resist_cold) aura_damage = (aura_damage + 2) / 3;
 
-			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_COLD);
 			handle_stuff();
 		}
@@ -93,7 +93,7 @@ static void touch_zap_player(creature_type *attacker_ptr, creature_type *target_
 			msg_print("You get zapped!");
 #endif
 
-			take_hit(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_NOESCAPE, aura_damage, aura_dam, NULL, -1);
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_AURA_ELEC);
 			handle_stuff();
 		}
@@ -524,7 +524,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(drain_result > target_ptr->chp)
 			drain_result = target_ptr->chp;
 
-		take_hit(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
+		take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1); // Damage, check for fear and death
 
 		if(gameover);
 		{
@@ -733,9 +733,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			//TODO Death Scythe damage.
 			k = 0;
 #ifdef JP
-			take_hit(NULL, attacker_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "死の大鎌", NULL, -1);
 #else
-			take_hit(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
+			take_damage_to_creature(NULL, attacker_ptr, DAMAGE_FORCE, k, "Death scythe", NULL, -1);
 #endif
 
 			redraw_stuff(player_ptr);
@@ -892,19 +892,19 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 				project(0, 0, 0, target_ptr->fy, target_ptr->fx, k, DO_EFFECT_POIS, PROJECT_KILL, -1);
 				break;
 			case TRAIT_HORNS:
-				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+				take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case TRAIT_BEAK:
-				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+				take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case TRAIT_TRUNK:
-				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+				take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
 				break;
 			case TRAIT_TENTACLES:
-				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+				take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
 				break;
 			default:
-				take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+				take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
 		}
 		*mdeath = (target_ptr->species_idx == 0);
 		touch_zap_player(attacker_ptr, target_ptr);
@@ -2321,7 +2321,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					msg_print("It was a critical hit!");
 #endif
 					tmp_damage = MAX(damage, tmp_damage*2);
-					get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
+					get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, tmp_damage, ddesc, NULL, -1);
 					break;
 				}
 			}
@@ -2330,7 +2330,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				obvious = TRUE;	// Obvious
 				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				break;
 			}
 
@@ -2345,7 +2345,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				}
 
 				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Learn about the player */
 				//TODO update_smart_learn(m_idx, DRS_POIS);
@@ -2369,7 +2369,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					}
 				}
 
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1); // Take some damage
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1); // Take some damage
 
 				/* Learn about the player */
 				//TODO update_smart_learn(m_idx, DRS_DISEN);
@@ -2380,7 +2380,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_UN_POWER:
 			{
 				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2447,7 +2447,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EAT_GOLD:
 			{
 				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
 				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
@@ -2528,7 +2528,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EAT_ITEM:
 			{
 				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
 				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
@@ -2635,7 +2635,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EAT_FOOD:
 			{
 				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2677,7 +2677,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 1);
 
 				/* Take some damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2798,7 +2798,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_BLIND:
 			{
 				/* Take damage */
-				get_damage += take_hit(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(NULL, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
 
@@ -2826,7 +2826,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				if(explode) break;
 				/* Take damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
 
@@ -2848,7 +2848,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_TERRIFY:
 			{
 				/* Take damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
 
@@ -2895,7 +2895,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_PARALYZE:
 			{
 				/* Take damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr)) break;
 
@@ -2934,7 +2934,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_STR:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2947,7 +2947,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_INT:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2960,7 +2960,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_WIS:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2973,7 +2973,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_DEX:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2986,7 +2986,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_CON:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -2999,7 +2999,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_CHR:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -3012,7 +3012,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_LOSE_ALL:
 			{
 				/* Damage (physical) */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -3031,7 +3031,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				obvious = TRUE;
 				damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				//TODO if(damage > 23 || explode) earthquake_aux(attacker_ptr->fy, attacker_ptr->fx, 8, m_idx);
 				break;
 			}
@@ -3044,7 +3044,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				obvious = TRUE;
 
 				/* Take damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 95);
 				break;
@@ -3054,7 +3054,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				obvious = TRUE;
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 90);
 				break;
@@ -3064,7 +3064,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				obvious = TRUE;
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 75);
 				break;
@@ -3074,7 +3074,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			{
 				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				obvious = TRUE;
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 50);
 				break;
@@ -3082,7 +3082,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_DISEASE:
 			{
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 				{
@@ -3187,7 +3187,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						}
 					}
 				}
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				break;
 			}
@@ -3200,7 +3200,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				obvious = TRUE;
 
 				/* Take damage */
-				get_damage += take_hit(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
+				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
 
@@ -3346,7 +3346,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		{
 			sound(SOUND_EXPLODE);
 
-			take_hit(attacker_ptr, attacker_ptr, 0, attacker_ptr->chp + 1, NULL, NULL, -1);
+			take_damage_to_creature(attacker_ptr, attacker_ptr, 0, attacker_ptr->chp + 1, NULL, NULL, -1);
 			if(attacker_ptr->species_idx == 0)
 			{
 				blinked = FALSE;
@@ -3364,10 +3364,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 					msg_format("%^sは突然熱くなった！", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は灰の山になった。", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は灰の山になった。", -1);
 #else
 					msg_format("%^s is suddenly very hot!", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of ash.", -1);
 #endif
 					if(attacker_ptr->species_idx == 0)
 					{
@@ -3390,10 +3390,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 					msg_format("%^sは電撃をくらった！", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は燃え殻の山になった。", -1);
 #else
 					msg_format("%^s gets zapped!", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " turns into a pile of cinder.", -1);
 #endif
 					if(attacker_ptr->species_idx == 0)
 					{
@@ -3416,10 +3416,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 					msg_format("%^sは冷気をくらった！", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は凍りついた。", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は凍りついた。", -1);
 #else
 					msg_format("%^s is very cold!", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " was frozen.", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " was frozen.", -1);
 #endif
 					if(attacker_ptr->species_idx == 0)
 					{
@@ -3443,10 +3443,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 					msg_format("%^sは鏡の破片をくらった！", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "はズタズタになった。", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "はズタズタになった。", -1);
 #else
 					msg_format("%^s gets zapped!", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " had torn to pieces.", -1);
 #endif
 					if(attacker_ptr->species_idx == 0)
 					{
@@ -3476,10 +3476,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 						msg_format("%^sは聖なるオーラで傷ついた！", attacker_name);
-						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
+						take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
 						msg_format("%^s is injured by holy power!", attacker_name);
-						take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
+						take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 						if(attacker_ptr->species_idx == 0)
 						{
@@ -3503,10 +3503,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 					msg_format("%^sが鋭い闘気のオーラで傷ついた！", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
 					msg_format("%^s is injured by the Force", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 					if(attacker_ptr->species_idx == 0)
 					{
@@ -3539,10 +3539,10 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 #ifdef JP
 					msg_format("影のオーラが%^sに反撃した！", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, "は倒れた。", -1);
 #else
 					msg_format("Enveloped shadows attack %^s.", attacker_name);
-					take_hit(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
+					take_damage_to_creature(target_ptr, attacker_ptr, 0, dam, NULL, " is destroyed.", -1);
 #endif
 					if(attacker_ptr->species_idx == 0)
 					{
@@ -3767,7 +3767,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 			msg_format("%s tranmpled %s cruelly!", attacker_name, target_name);
 #endif
 			k = diceroll(attacker_ptr->size - target_ptr->size, attacker_ptr->size - target_ptr->size);
-			take_hit(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
 			if(wizard)
 			{
 				msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);

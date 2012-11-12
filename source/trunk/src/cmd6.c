@@ -167,9 +167,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_WEAKNESS:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_STR);
@@ -180,9 +180,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_SICKNESS:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_CON);
@@ -193,9 +193,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_STUPIDITY:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_INT);
@@ -206,9 +206,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_NAIVETY:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_WIS);
@@ -219,9 +219,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_UNHEALTH:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_CON);
@@ -232,9 +232,9 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 			case SV_FOOD_DISEASE:
 			{
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
 
 				(void)do_dec_stat(creature_ptr, STAT_STR);
@@ -859,10 +859,10 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 		case SV_POTION_RUINATION:
 #ifdef JP
 			msg_print("身も心も弱ってきて、精気が抜けていくようだ。");
-			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "破滅の薬", NULL, -1);
+			take_damage_to_creature(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "破滅の薬", NULL, -1);
 #else
 			msg_print("Your nerves and muscles feel weak and lifeless!");
-			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "a potion of Ruination", NULL, -1);
+			take_damage_to_creature(NULL, user_ptr, DAMAGE_LOSELIFE, diceroll(10, 10), "a potion of Ruination", NULL, -1);
 #endif
 
 			(void)dec_stat(user_ptr, STAT_DEX, 25, TRUE);
@@ -901,10 +901,10 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 		case SV_POTION_DETONATIONS:
 #ifdef JP
 			msg_print("体の中で激しい爆発が起きた！");
-			take_hit(NULL, user_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
+			take_damage_to_creature(NULL, user_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "爆発の薬", NULL, -1);
 #else
 			msg_print("Massive explosions rupture your body!");
-			take_hit(NULL, user_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
+			take_damage_to_creature(NULL, user_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
 			(void)set_timed_trait(user_ptr, TRAIT_STUN, user_ptr->timed_trait[TRAIT_STUN] + 75);
@@ -915,10 +915,10 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 		case SV_POTION_DEATH:
 #ifdef JP
 			msg_print("死の予感が体中を駆けめぐった。");
-			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
+			take_damage_to_creature(NULL, user_ptr, DAMAGE_LOSELIFE, 5000, "死の薬", NULL, -1);
 #else
 			msg_print("A feeling of Death flows through your body.");
-			take_hit(NULL, user_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
+			take_damage_to_creature(NULL, user_ptr, DAMAGE_LOSELIFE, 5000, "a potion of Death", NULL, -1);
 #endif
 			ident = TRUE;
 			break;
@@ -1852,9 +1852,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			/* Note: "Double" damage since it is centered on the player ... */
 			if(!(IS_OPPOSE_FIRE(creature_ptr) || creature_ptr->resist_fire || has_trait(creature_ptr, TRAIT_IM_FIRE)))
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50+randint1(50), "炎の巻物", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50 + randint1(50), "a Scroll of Fire", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -1866,9 +1866,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			cast_ball(creature_ptr, DO_EFFECT_ICE, 0, 777, 4);
 			if(!(IS_OPPOSE_COLD(creature_ptr) || creature_ptr->resist_cold || has_trait(creature_ptr, TRAIT_IM_COLD)))
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100+randint1(100), "氷の巻物", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "a Scroll of Ice", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -1880,9 +1880,9 @@ static void do_cmd_read_scroll_aux(creature_type *creature_ptr, int item, bool k
 			cast_ball(creature_ptr, DO_EFFECT_CHAOS, 0, 1000, 4);
 			if(!creature_ptr->resist_chaos)
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 111+randint1(111), "ログルスの巻物", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
 #endif
 
 			ident = TRUE;
@@ -2408,9 +2408,9 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			if((creature_ptr->class_idx != CLASS_MAGE) && (creature_ptr->class_idx != CLASS_HIGH_MAGE) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_MAGIC_EATER) && (creature_ptr->class_idx != CLASS_BLUE_MAGE))
 			{
 #ifdef JP
-				(void)take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
+				(void)take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "コントロールし難い強力な魔力の解放", NULL, -1);
 #else
-				(void)take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
+				(void)take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, 50, "unleashing magics too mighty to control", NULL, -1);
 #endif
 			}
 			ident = TRUE;

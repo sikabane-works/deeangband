@@ -951,9 +951,9 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(command == -3)
 			{
 #ifdef JP
-				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "‚g‚o‚©‚ç‚l‚o‚Ö‚Ì–³–d‚È•ÏŠ·", NULL, -1) / 5;
+				int gain_sp = take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "‚g‚o‚©‚ç‚l‚o‚Ö‚Ì–³–d‚È•ÏŠ·", NULL, -1) / 5;
 #else
-				int gain_sp = take_hit(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
+				int gain_sp = take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
 				if(gain_sp)
 				{
@@ -2359,9 +2359,9 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 				actual_racial_cost -= creature_ptr->csp;
 				creature_ptr->csp = 0;
 #ifdef JP
-				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "‰ß“x‚ÌW’†", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "‰ß“x‚ÌW’†", NULL, -1);
 #else
-				take_hit(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, actual_racial_cost, "concentrating too hard", NULL, -1);
 #endif
 			}
 			else creature_ptr->csp -= actual_racial_cost;

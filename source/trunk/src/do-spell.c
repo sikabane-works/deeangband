@@ -2693,9 +2693,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "“ú‚ÌŒõ", NULL, -1);
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "“ú‚ÌŒõ", NULL, -1);
 #else
-					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "daylight", NULL, -1);
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(2, 2), "daylight", NULL, -1);
 #endif
 				}
 			}
@@ -3274,9 +3274,9 @@ static cptr do_nature_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 
 #ifdef JP
-					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "“úŒõ", NULL, -1);
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "“úŒõ", NULL, -1);
 #else
-					take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "sunlight", NULL, -1);
+					take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 50, "sunlight", NULL, -1);
 #endif
 				}
 			}
@@ -4911,9 +4911,9 @@ static cptr do_death_spell(creature_type *caster_ptr, int spell, int mode)
 
 				cast_ball(caster_ptr, DO_EFFECT_HELL_FIRE, dir, dam, rad);
 #ifdef JP
-				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "’n–‚Ì…‰Î‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "’n–‚Ì…‰Î‚ÌŽô•¶‚ð¥‚¦‚½”æ˜J", NULL, -1);
 #else
-				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "the strain of casting Hellfire", NULL, -1);
 #endif
 			}
 		}
@@ -8029,9 +8029,9 @@ static cptr do_daemon_spell(creature_type *caster_ptr, int spell, int mode)
 
 				cast_ball_hide(caster_ptr, DO_EFFECT_BLOOD_CURSE, dir, dam, rad);
 #ifdef JP
-				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ŒŒ‚ÌŽô‚¢", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "ŒŒ‚ÌŽô‚¢", NULL, -1);
 #else
-				take_hit(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, 20 + randint1(30), "Blood curse", NULL, -1);
 #endif
 			}
 		}
@@ -11227,9 +11227,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 				return NULL;
 			}
 #ifdef JP
-			take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "Œc‰_‹S”EŒ•‚ðŽg‚Á‚½ÕŒ‚", NULL, -1);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "Œc‰_‹S”EŒ•‚ðŽg‚Á‚½ÕŒ‚", NULL, -1);
 #else
-			take_hit(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", NULL, -1);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 100 + randint1(100), "exhaustion on using Keiun-Kininken", NULL, -1);
 #endif
 		}
 		break;
@@ -11264,7 +11264,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			if(i != '@') return NULL;
 			if(caster_ptr->total_winner)
 			{
-				take_hit(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
 				caster_ptr->total_winner = TRUE;
 			}
 			else
@@ -11274,7 +11274,7 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_print("Meaning of Bushi-do is found in the death.");
 #endif
-				take_hit(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
+				take_damage_to_creature(NULL, caster_ptr, DAMAGE_FORCE, 9999, "Seppuku", NULL, -1);
 			}
 		}
 		break;

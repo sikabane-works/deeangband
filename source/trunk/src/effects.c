@@ -1988,10 +1988,10 @@ void do_poly_wounds(creature_type *creature_ptr)
 		{
 #ifdef JP
 			msg_print("新たな傷ができた！");
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "変化した傷", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "変化した傷", NULL, -1);
 #else
 			msg_print("A new wound was created!");
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, change / 2, "a polymorphed wound", NULL, -1);
 #endif
 		}
 
@@ -2210,10 +2210,10 @@ void do_poly_self(creature_type *creature_ptr)
 			{
 #ifdef JP
 				msg_print("現在の姿で生きていくのは困難なようだ！");
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), "致命的な突然変異", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), "致命的な突然変異", NULL, -1);
 #else
 				msg_print("You find living difficult in your present form!");
-				take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), "a lethal mutation", NULL, -1);
+				take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, diceroll(randint1(10), creature_ptr->lev), "a lethal mutation", NULL, -1);
 #endif
 			}
 			power -= 10;
@@ -2495,7 +2495,7 @@ static void you_died(cptr hit_from)
  * setting the player to "dead".
  */
 
-int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
+int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_ptr, int damage_type, int damage, cptr hit_from, cptr note, int monspell)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int old_chp = target_ptr->chp;
@@ -2534,13 +2534,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 
 	if(attacker_ptr)
 	{
-		/* Hack - Cancel any special player stealth magics. -LM- */
-		if(attacker_ptr->posture & NINJA_S_STEALTH)
-		{
-			set_superstealth(attacker_ptr, FALSE);
-		}
+		// Hack - Cancel any special player stealth magics. -LM-
+		if(attacker_ptr->posture & NINJA_S_STEALTH) set_superstealth(attacker_ptr, FALSE);
 
-		/* Redraw (later) if needed */
+		// Redraw (later) if needed
 		if(&creature_list[health_who] == target_ptr) play_redraw |= (PR_HEALTH);
 		if(&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
 	}
@@ -2707,10 +2704,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		msg_format("On death and dying, %^s puts a terrible blood curse on %^s!", tar_name, atk_name);
 	#endif
 		curse_equipment(attacker_ptr, 100, 50);	
-		do
-		{
-			stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
-		}
+		do stop_ty = activate_ty_curse(attacker_ptr, stop_ty, &count);
 		while (--curses);
 	}
 
@@ -2818,14 +2812,11 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 	#endif
 			}
 	
-			for (i = 0; i < 4; i++)
+			for (i = 0; i < MAX_SPECIAL_BLOWS; i++) // TODO
 			{
 				if(target_ptr->blow[i].d_dice != 0) innocent = FALSE; /* Murderer! */
-	
-				if((target_ptr->blow[i].effect == RBE_EAT_ITEM)
-					|| (target_ptr->blow[i].effect == RBE_EAT_GOLD))
-	
-					thief = TRUE; /* Thief! */
+				if((target_ptr->blow[i].effect == RBE_EAT_ITEM) || (target_ptr->blow[i].effect == RBE_EAT_GOLD))
+					thief = TRUE; // Thief!
 			}
 	
 			/* The new law says it is illegal to live in the dungeon */
@@ -2842,17 +2833,10 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
 			}
 	
-			/* Make a sound */
-			sound(SOUND_KILL);
-	
-			/* Death by Missile/Spell attack */
-			if(note)
-			{
-				msg_format("%^s%s", tar_name, note);
-			}
-	
-			/* Death by physical attack -- invisible creature */
-			else if(!target_ptr->see_others)
+			sound(SOUND_KILL); // Make a sound	
+			if(note) msg_format("%^s%s", tar_name, note); // Death by Missile/Spell attack	
+			
+			else if(!target_ptr->see_others) // Death by physical attack -- invisible creature
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
@@ -2876,10 +2860,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 				int i;
 				bool explode = FALSE;
 	
-				for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
-				{
-					if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
-				}
+				for (i = 0; i < MAX_SPECIAL_BLOWS; i++) if(target_ptr->blow[i].method == RBM_EXPLODE) explode = TRUE;
 	
 				/* Special note at death */
 				if(explode)

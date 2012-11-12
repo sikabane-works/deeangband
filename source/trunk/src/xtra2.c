@@ -3786,7 +3786,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			reward = "generating disintegration ball";
 #endif
 			cast_ball(creature_ptr, DO_EFFECT_DISINTEGRATE, 0, creature_ptr->lev * 4, 4);
-			take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			break;
 
 		case REW_HEAL_FUL:
@@ -3926,7 +3926,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_format("The voice of %s thunders:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("'Die, mortal!'");
 #endif
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, creature_ptr->lev * 4, wrath_reason, NULL, -1);
 			for (dummy = 0; dummy < STAT_MAX; dummy++) (void)dec_stat(creature_ptr, dummy, 10 + randint1(15), FALSE);
 
 			activate_hi_summon(creature_ptr, creature_ptr->fy, creature_ptr->fx, FALSE);

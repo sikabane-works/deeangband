@@ -506,10 +506,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	{
 #ifdef JP
 		msg_print("dŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚Éh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
 		(void)do_dec_stat(creature_ptr, STAT_STR);
@@ -520,10 +520,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 	{
 #ifdef JP
 		msg_print("dŠ|‚¯‚ç‚ê‚Ä‚¢‚½¬‚³‚Èj‚Éh‚³‚ê‚Ä‚µ‚Ü‚Á‚½I");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "“Åj", NULL, -1);
 #else
 		msg_print("A small needle has pricked you!");
-		take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
 
 		(void)do_dec_stat(creature_ptr, STAT_CON);
@@ -694,9 +694,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 			if(!saving_throw(creature_ptr, SAVING_AC, object_ptr->pval * 2, 0) && !saving_throw(creature_ptr, SAVING_EV, object_ptr->pval * 2, 0))
 			{
 #ifdef JP
-				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
+				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "”j–Å‚Ìƒgƒ‰ƒbƒv‚Ì•ó” ", NULL, -1);
 #else
-				if(one_in_(6)) take_hit(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
+				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
 				else if(one_in_(5)) (void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + 200);
 				else if(one_in_(4))
@@ -743,9 +743,9 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		object_ptr->pval = 0;
 		sound(SOUND_EXPLODE);
 #ifdef JP
-		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "”š”­‚·‚é” ", NULL, -1);
 #else
-		take_hit(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "an exploding chest", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, diceroll(5, 8), "an exploding chest", NULL, -1);
 #endif
 
 	}
@@ -3398,7 +3398,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 				}
 
 				/* Hit the creature, check for death */
-				take_hit(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
+				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
@@ -4027,7 +4027,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				if(wizard) msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 
 				/* Hit the creature, check for death */
-				take_hit(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
+				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
 
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)

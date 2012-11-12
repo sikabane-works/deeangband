@@ -1245,9 +1245,9 @@ static void creature_lack_food(creature_type *creature_ptr)
 
 			// Take damage
 #ifdef JP
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‰ì", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "‹Q‰ì", NULL, -1);
 #else
-			take_hit(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, dam, "starvation", NULL, -1);
 #endif
 		}
 	}

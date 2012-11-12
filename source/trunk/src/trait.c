@@ -496,10 +496,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			wiz_lite(floor_ptr, caster_ptr, FALSE);
 #ifdef JP
 			msg_print("宝石はあなたの体力を奪った...");
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "審判の宝石", NULL, -1);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "審判の宝石", NULL, -1);
 #else
 			msg_print("The Jewel drains your vitality...");
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "the Jewel of Judgement", NULL, -1);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(3, 8), "the Jewel of Judgement", NULL, -1);
 #endif
 
 			(void)detect_traps(caster_ptr, DETECT_RAD_DEFAULT, TRUE);
@@ -719,9 +719,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 				play_redraw |= (PR_MANA); // Redraw mana
 			}
 
-			take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
+			take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(1, 12), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
 			if(one_in_(5)) (void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, caster_ptr->timed_trait[TRAIT_CONFUSED] + randint1(10));
-			if(one_in_(20)) take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
+			if(one_in_(20)) take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, diceroll(4, 10), game_messages[GAME_MESSAGE_PERILOUS_SECRET], NULL, -1);
 			break;
 		}
 
@@ -1695,7 +1695,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 					// Mega hack -- this special action deals damage to the player. Therefore the code of "eyeeye" is necessary.
 
-					get_damage = take_hit(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
+					get_damage = take_damage_to_creature(NULL, target_ptr, DAMAGE_NOESCAPE, damage, caster_name, NULL, -1);
 					if(target_ptr->timed_trait[TRAIT_EYE_EYE] && get_damage > 0 && !gameover)
 					{
 #ifdef JP
@@ -2259,9 +2259,9 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_HP_TO_SP_ACTIVE:
 		{
 #ifdef JP
-			int gain_sp = take_hit(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
+			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "ＨＰからＭＰへの無謀な変換", NULL, -1) / 5;
 #else
-			int gain_sp = take_hit(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
+			int gain_sp = take_damage_to_creature(NULL, caster_ptr, DAMAGE_USELIFE, caster_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
 			if(gain_sp)
 			{
@@ -2993,10 +2993,10 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	case TRAIT_STERILITY:
 #ifdef JP
 		msg_print("突然頭が痛くなった！");
-		take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "禁欲を強いた疲労", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "禁欲を強いた疲労", NULL, -1);
 #else
 		msg_print("You suddenly have a headache!");
-		take_hit(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
+		take_damage_to_creature(NULL, caster_ptr, DAMAGE_LOSELIFE, randint1(17) + 17, "the strain of forcing abstinence", NULL, -1);
 #endif
 		floor_ptr->num_repro += MAX_REPRO;
 		break;

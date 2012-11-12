@@ -2797,7 +2797,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		msg_print("You feel your life fade away!");
 #endif
 		curse_equipment(target_ptr, 40, 20);
-		dam = take_hit(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
+		dam = take_damage_to_creature(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
 		if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
 		break;
 
@@ -3325,7 +3325,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 	}
 
-	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
+	dam = take_damage_to_creature(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
 
 	// Mega-Hack -- Handle "polymorph" -- creatures get a saving throw
 	if(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) do_poly = FALSE; // "Unique" creatures cannot be polymorphed
