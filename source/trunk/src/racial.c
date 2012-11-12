@@ -884,7 +884,7 @@ void stop_mouth(creature_type *creature_ptr)
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
-
+//unused
 static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 {
 	s16b        plev = creature_ptr->lev;
@@ -895,46 +895,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 	{
 		switch (creature_ptr->class_idx)
 		{
-		case CLASS_WARRIOR:
-		{
-			int y = 0, x = 0, i;
-			cave_type       *c_ptr;
 
-			for (i = 0; i < STAT_MAX; i++)
-			{
-				dir = randint0(8);
-				y = creature_ptr->fy + ddy_ddd[dir];
-				x = creature_ptr->fx + ddx_ddd[dir];
-				c_ptr = &floor_ptr->cave[y][x];
-
-				/* Hack -- attack creatures */
-				if(c_ptr->creature_idx)
-					melee_attack(creature_ptr, y, x, 0);
-				else
-				{
-#ifdef JP
-					msg_print("çUåÇÇ™ãÛÇÇ´Ç¡ÇΩÅB");
-#else
-					msg_print("You attack the empty air.");
-#endif
-				}
-			}
-			break;
-		}
-		case CLASS_HIGH_MAGE:
-		if(creature_ptr->realm1 == REALM_HEX)
-		{
-			bool retval = stop_hex_spell(creature_ptr);
-			if(retval) creature_ptr->energy_need = 10;
-			return (retval);
-		}
-		case CLASS_MAGE:
-		/* case CLASS_HIGH_MAGE: */
-		case CLASS_SORCERER:
-		{
-			if(!eat_magic(creature_ptr, creature_ptr->lev * 2)) return FALSE;
-			break;
-		}
 		case CLASS_PRIEST:
 		{
 			if(is_good_realm(creature_ptr->realm1))
@@ -977,18 +938,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 
 				msg_print(NULL);
 			}
-			break;
-		}
-		case CLASS_RANGER:
-		case CLASS_SNIPER:
-		{
-#ifdef JP
-			msg_print("ìGÇí≤ç∏ÇµÇΩ...");
-#else
-			msg_print("You examine your foes...");
-#endif
-
-			probing(floor_ptr);
 			break;
 		}
 		case CLASS_PALADIN:

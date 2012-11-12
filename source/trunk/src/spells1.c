@@ -1960,9 +1960,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_OLD_CLONE:
 		if((floor_ptr->fight_arena_mode) || is_pet(player_ptr, target_ptr) || (has_trait(target_ptr, TRAIT_QUESTOR)) || has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_NAZGUL)|| has_trait(target_ptr, TRAIT_UNIQUE2))
-		{
 			note = game_messages[GAME_MESSAGE_IS_UNAFFECTED];
-		}
 		else
 		{
 			target_ptr->chp = target_ptr->mhp;
@@ -2144,11 +2142,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_TURN_UNDEAD:
-		if(has_trait(target_ptr, TRAIT_RES_ALL))
-		{
-			skipped = TRUE;
-			break;
-		}
 		if(has_trait(target_ptr, TRAIT_UNDEAD)) // Only affect undead
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
@@ -2623,9 +2616,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		{
 			/* Memorize a flag */
 			if(has_trait(target_ptr, TRAIT_NO_CONF))
-			{
 				if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-			}
 
 			/* Resist */
 			do_conf = 0;
@@ -2634,8 +2625,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 			* Powerful demons & undead can turn a mindcrafter's
 			* attacks back on them
 			*/
-			if(has_trait(target_ptr, TRAIT_UNDEAD) &&
-				has_trait(target_ptr, TRAIT_DEMON) &&
+			if(has_trait(target_ptr, TRAIT_UNDEAD) && has_trait(target_ptr, TRAIT_DEMON) &&
 				(target_ptr->lev * 2 > caster_ptr->lev / 2) &&
 				(one_in_(2)))
 			{
@@ -2643,8 +2633,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #ifdef JP
 				msg_format("%^s‚Ì‘Â—Ž‚µ‚½¸_‚ÍUŒ‚‚ð’µ‚Ë•Ô‚µ‚½I", target_name);
 #else
-				msg_format("%^s%s corrupted mind backlashes your attack!",
-					target_name, (seen ? "'s" : "s"));
+				msg_format("%^s%s corrupted mind backlashes your attack!", target_name, (seen ? "'s" : "s"));
 #endif
 				{
 					switch (randint1(4))
@@ -3021,20 +3010,17 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_PHOTO:
+			light_dying = TRUE;
 #ifdef JP
 		if(is_player(caster_ptr)) msg_format("%s‚ðŽÊ^‚ÉŽB‚Á‚½B", target_name);
 #else
 		if(is_player(caster_ptr)) msg_format("You take a photograph of %s.", target_name);
 #endif
-		/* Hurt by light */
+		// Hurt by light
 		if(has_trait(target_ptr, TRAIT_HURT_LITE))
-		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_HURT_LITE);
-			light_dying = TRUE;
-		}
 		else dam = 0;
 		photo = target_ptr->species_idx;
-
 		break;
 
 	case DO_EFFECT_CONTROL_DEMON:
@@ -3417,11 +3403,8 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 * we just assume that the effects were obvious, for historical reasons.
 */
 
-/*
-* This function integrated with project_m and became project_creature().
-* (Deskull)
-*/
-
+// This function integrated with project_m and became project_creature().
+// (Deskull)
 static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, int y, int x, int dam, int typ, int flg, bool see_s_msg, int spell)
 {
 	int k = 0;

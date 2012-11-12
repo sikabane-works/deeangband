@@ -920,9 +920,9 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		if(!has_trait(creature_ptr, TRAIT_BLIND) && has_trait(creature_ptr, TRAIT_ZANTETSU_EFFECT))
 		{
 #ifdef JP
-			msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
+			if(message) msg_print("–î‚ðŽa‚èŽÌ‚Ä‚½I");
 #else
-			msg_print("You cut down the arrow!");
+			if(message) msg_print("You cut down the arrow!");
 #endif
 			t = 0;
 		}
@@ -932,15 +932,14 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		if(has_trait(creature_ptr, TRAIT_HURT_LITE))
 		{
 #ifdef JP
-			if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
+			msg_print("Œõ‚Å“÷‘Ì‚ªÅ‚ª‚³‚ê‚½I");
 #else
-			if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) msg_print("The light scorches your flesh!");
+			msg_print("The light scorches your flesh!");
 #endif
 			t *= 2;
 		}
-
 		if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) t *= 2;
-		if(creature_ptr->resist_lite > 0) t = t*4/9;
+		if(creature_ptr->resist_lite > 0) t = t * 4 / 9;
 		break;
 
 	case DO_EFFECT_DARK:
