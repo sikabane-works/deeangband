@@ -3443,7 +3443,6 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 #endif
 
 	int photo = 0;
-	cptr note = NULL; // Assume no note
 
 	/* Assume a default death */
 	cptr note_dies = extract_note_dies(player_ptr, target_ptr);
@@ -3454,8 +3453,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (caster_ptr != &creature_list[player_ptr->riding]))
 	//	if(kawarimi(player_ptr, TRUE)) return FALSE;
 
-	/* Player cannot hurt himself */
-	//if(is_player(caster_ptr)) return (FALSE);
+	if(caster_ptr != target_ptr) return (FALSE); // Caster cannot hurt himself
 	//if(caster_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
 	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !has_trait(player_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
@@ -3506,8 +3504,7 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 	project_creature_aux(caster_ptr, target_ptr, typ, dam, spell, see_s_msg);
 	revenge_store(player_ptr, get_damage); // Hex - revenge damage stored
 
-	if((player_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(player_ptr, HEX_EYE_FOR_EYE))
-		&& (get_damage > 0) && !gameover && (caster_ptr != NULL))
+	if((target_ptr->timed_trait[TRAIT_EYE_EYE] || HEX_SPELLING(target_ptr, HEX_EYE_FOR_EYE)) && (get_damage > 0) && !gameover && (caster_ptr != NULL))
 	{
 #ifdef JP
 		msg_format("UŒ‚‚ª%sŽ©g‚ð‚Â‚¯‚½I", caster_ptr->name);

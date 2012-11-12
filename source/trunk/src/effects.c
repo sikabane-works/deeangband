@@ -1704,7 +1704,6 @@ static cptr desc_stat_neg[] =
 	"sickly",
 	"ugly"
 #endif
-
 };
 
 // Lose a "point"
