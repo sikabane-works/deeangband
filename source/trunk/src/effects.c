@@ -2957,11 +2957,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	#endif
 				}
 			}
-			else
-			{
-				/* Delete the creature */
-				delete_species_idx(target_ptr);
-			}
+			else delete_species_idx(target_ptr); // Delete the creature
 	
 			/* Prevent bug of chaos patron's reward */
 			if(has_trait(target_ptr, TRAIT_KILL_EXP))
@@ -2969,11 +2965,8 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			else
 				get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
 	
-			/* Not afraid */
-			fear = FALSE;
-	
-			/* Creature is dead */
-			return (TRUE);
+			fear = FALSE; // Not afraid	
+			return (TRUE); // Creature is dead
 		}
 		
 	#if 0
@@ -2998,17 +2991,10 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	
 	}
 	
-	/* Mega-Hack -- Pain cancels fear */
-	if(target_ptr->timed_trait[TRAIT_AFRAID] && (damage > 0))
-	{
-		/* Cure fear */
-		if(set_timed_trait(target_ptr, TRAIT_AFRAID, target_ptr->timed_trait[TRAIT_AFRAID] - randint1(damage)))
-		{
-			/* No more fear */
-			fear = FALSE;
-		}
-	}
 	
+	if(target_ptr->timed_trait[TRAIT_AFRAID] && (damage > 0)) // Mega-Hack -- Pain cancels fear
+		add_timed_trait(target_ptr, TRAIT_AFRAID, -randint1(damage), FALSE);
+
 	/* Sometimes a creature gets scared by damage */
 	if(!target_ptr->timed_trait[TRAIT_AFRAID] && !has_trait(target_ptr, TRAIT_FEARLESS))
 	{
