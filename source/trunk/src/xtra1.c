@@ -2491,12 +2491,10 @@ static void calc_hitpoints(creature_type *creature_ptr, bool message)
 	mhp = creature_ptr->base_hp[creature_ptr->lev - 1];
 
 	// TODO MIMIC FORM
-	if(creature_ptr->class_idx == CLASS_SORCERER)
+	if(has_trait(creature_ptr, TRAIT_COMPENSATION_OF_MAGI))
 	{
-		if(creature_ptr->lev < 30)
-			mhp = (mhp * (45+creature_ptr->lev) / 100);
-		else
-			mhp = (mhp * 75 / 100);
+		if(creature_ptr->lev < 30) mhp = (mhp * (45 + creature_ptr->lev) / 100);
+		else mhp = (mhp * 75 / 100);
 		bonus = (bonus * 65 / 100);
 	}
 
@@ -2806,11 +2804,6 @@ static void set_class_bonuses(creature_type *creature_ptr)
 					creature_ptr->speed += (creature_ptr->lev) / 10;
 				//TODO if  (creature_ptr->lev > 24) has_trait(creature_ptr, TRAIT_FREE_ACTION) = TRUE; // Free action if unencumbered at level 25
 			}
-			break;
-
-		case CLASS_SORCERER:
-			creature_ptr->to_ac -= 50;
-			creature_ptr->dis_to_ac -= 50;
 			break;
 
 		case CLASS_NINJA:
