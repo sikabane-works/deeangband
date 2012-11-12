@@ -1590,7 +1590,6 @@ bool heal_creature(creature_type *creature_ptr, int num)
 	vir = 0;
 	if(vir) num = num * (creature_ptr->karmas[vir - 1] + 1250) / 1250;
 
-	
 	if(creature_ptr->chp < creature_ptr->mhp) // Healing needed
 	{
 		creature_ptr->chp += num; // Gain hitpoints
@@ -1601,6 +1600,7 @@ bool heal_creature(creature_type *creature_ptr, int num)
 		}
 		play_redraw |= (PR_HP | PW_PLAYER);
 
+		//TODO change message.
 		/* Heal 0-4 */
 		if(num < 5)
 		{
@@ -1707,16 +1707,12 @@ static cptr desc_stat_neg[] =
 
 };
 
-
-/*
- * Lose a "point"
- */
+// Lose a "point"
 bool do_dec_stat(creature_type *creature_ptr, int stat)
 {
 	bool sust = FALSE;
 
-	/* Access the "sustain" */
-	switch (stat)
+	switch (stat) // Access the "sustain"
 	{
 		case STAT_STR: if(has_trait(creature_ptr, TRAIT_SUSTAIN_STR)) sust = TRUE; break;
 		case STAT_INT: if(has_trait(creature_ptr, TRAIT_SUSTAIN_INT)) sust = TRUE; break;
@@ -1726,11 +1722,9 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 		case STAT_CHA: if(has_trait(creature_ptr, TRAIT_SUSTAIN_CHR)) sust = TRUE; break;
 	}
 
-	/* Sustain */
-	if(sust && (!curse_of_Iluvatar || randint0(13)))
+	if(sust && (!curse_of_Iluvatar || randint0(13))) // Sustain
 	{
-		/* Message */
-		if(is_seen(player_ptr, creature_ptr))
+		if(is_seen(player_ptr, creature_ptr)) // Message
 		{
 #ifdef JP
 			msg_format("%s‚È‚Á‚½‹C‚ª‚µ‚½‚ªA‚·‚®‚ÉŒ³‚É–ß‚Á‚½B",
@@ -1739,14 +1733,11 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 #endif
 			desc_stat_neg[stat]);
 		}
-		/* Notice effect */
-		return (TRUE);
+		return (TRUE); // Notice effect
 	}
 
-	/* Attempt to reduce the stat */
-	if(dec_stat(creature_ptr, stat, 10, (curse_of_Iluvatar && !randint0(13))))
+	if(dec_stat(creature_ptr, stat, 10, (curse_of_Iluvatar && !randint0(13)))) // Attempt to reduce the stat
 	{
-		/* Message */
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
@@ -1755,19 +1746,13 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 			msg_format("You feel very %s.", desc_stat_neg[stat]);
 #endif
 		}
-
-		/* Notice effect */
-		return (TRUE);
+		return (TRUE); // Notice effect
 	}
-
-	/* Nothing obvious */
-	return (FALSE);
+	
+	return (FALSE); // Nothing obvious
 }
 
-
-/*
- * Restore lost "points" in a stat
- */
+// Restore lost "points" in a stat
 bool do_res_stat(creature_type *creature_ptr, int stat)
 {
 	if(res_stat(creature_ptr, stat)) // Attempt to increase
