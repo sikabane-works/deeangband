@@ -1954,6 +1954,8 @@ void change_race(creature_type *creature_ptr, int new_race, cptr effect_msg)
 void do_poly_self(creature_type *creature_ptr)
 {
 	int power = creature_ptr->lev;
+	char effect_msg[80] = "";
+	int new_race, expfact, goalexpfact;
 
 	if(is_seen(player_ptr, creature_ptr))
 	{
@@ -1966,18 +1968,33 @@ void do_poly_self(creature_type *creature_ptr)
 
 	if((power > randint0(20)) && one_in_(3) && (!has_trait(creature_ptr, TRAIT_ANDROID)))
 	{
-		char effect_msg[80] = "";
-		int new_race, expfact, goalexpfact;
+	
+		power -= 10; // Some form of racial polymorph...
 
-		/* Some form of racial polymorph... */
-		power -= 10;
-
-		if((power > randint0(5)) && one_in_(4))
+		if((power > randint0(5)) && one_in_(4)) // sex change
 		{
-			/* sex change */
+			
 			power -= 2;
 
-			if(creature_ptr->sex == SEX_MALE)
+			if(one_in_(10))
+			{
+				creature_ptr->sex = SEX_INTERSEX;
+#ifdef JP
+				sprintf(effect_msg, "両性の");
+#else
+				sprintf(effect_msg, "intersexual ");
+#endif
+			}
+			else if(one_in_(10))
+			{
+				creature_ptr->sex = SEX_NONE;
+#ifdef JP
+				sprintf(effect_msg, "無性の");
+#else
+				sprintf(effect_msg, "non-sexual ");
+#endif
+			}
+			else if(creature_ptr->sex == SEX_MALE)
 			{
 				creature_ptr->sex = SEX_FEMALE;
 #ifdef JP
@@ -1985,7 +2002,6 @@ void do_poly_self(creature_type *creature_ptr)
 #else
 				sprintf(effect_msg, "female ");
 #endif
-
 			}
 			else
 			{
@@ -1995,7 +2011,6 @@ void do_poly_self(creature_type *creature_ptr)
 #else
 				sprintf(effect_msg, "male ");
 #endif
-
 			}
 		}
 
@@ -2153,227 +2168,217 @@ static void you_died(cptr hit_from)
 	//TODO
 	/*
 	#ifdef JP       // 死んだ時に強制終了して死を回避できなくしてみた by Habu
-			if(!cheat_save)
-				if(!save_player()) msg_print("セーブ失敗！");
+	if(!cheat_save)
+	if(!save_player()) msg_print("セーブ失敗！");
 	#endif
 	*/
-	
-		// Sound
-		sound(SOUND_DEATH);
-	
-		// Leaving
-		subject_change_floor = TRUE;
-	
-		// Note death
-		gameover = TRUE;
-	
-		if(floor_ptr->fight_arena_mode)
-		{
-			cptr tar_name = species_name+species_info[arena_info[arena_number].species_idx].name;
+
+	sound(SOUND_DEATH); // Sound
+	subject_change_floor = TRUE; // Leaving	
+	gameover = TRUE; // Note death	
+
+	if(floor_ptr->fight_arena_mode)
+	{
+		cptr tar_name = species_name + species_info[arena_info[arena_number].species_idx].name;
 #ifdef JP
-			msg_format("あなたは%sの前に敗れ去った。", tar_name);
+		msg_format("あなたは%sの前に敗れ去った。", tar_name);
 #else
-			msg_format("You are beaten by %s.", tar_name);
+		msg_format("You are beaten by %s.", tar_name);
 #endif
-			msg_print(NULL);
-			if(record_arena) do_cmd_write_nikki(DIARY_ARENA, -1 - arena_number, tar_name);
+		msg_print(NULL);
+		if(record_arena) do_cmd_write_nikki(DIARY_ARENA, -1 - arena_number, tar_name);
+	}
+	else
+	{
+		int q_idx = quest_number(floor_ptr);
+		bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
+		bool winning_seppuku = player_ptr->total_winner && seppuku;
+
+#ifdef WORLD_SCORE
+		// Make screen dump
+		screen_dump = make_screen_dump();
+#endif
+
+		// Note cause of death
+		if(seppuku)
+		{
+			strcpy(gameover_from, hit_from);
+#ifdef JP
+			if(!winning_seppuku) strcpy(gameover_from, "切腹");
+#endif
 		}
 		else
 		{
-			int q_idx = quest_number(floor_ptr);
-			bool seppuku = hit_from ? streq(hit_from, "Seppuku") : FALSE ;
-			bool winning_seppuku = player_ptr->total_winner && seppuku;
-	
-#ifdef WORLD_SCORE
-			// Make screen dump
-			screen_dump = make_screen_dump();
-#endif
-	
-			// Note cause of death
-			if(seppuku)
-			{
-				strcpy(gameover_from, hit_from);
+			char dummy[1024];
 #ifdef JP
-				if(!winning_seppuku) strcpy(gameover_from, "切腹");
-#endif
-			}
-			else
-			{
-				char dummy[1024];
-#ifdef JP
-				sprintf(dummy, "%s%s%s", !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "彫像状態で" : "麻痺状態で", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "幻覚に歪んだ" : "", hit_from);
+			sprintf(dummy, "%s%s%s", !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : has_trait(player_ptr, TRAIT_FREE_ACTION) ? "彫像状態で" : "麻痺状態で", player_ptr->timed_trait[TRAIT_HALLUCINATION] ? "幻覚に歪んだ" : "", hit_from);
 #else
-				sprintf(dummy, "%s%s", hit_from, !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : " while helpless");
+			sprintf(dummy, "%s%s", hit_from, !player_ptr->timed_trait[TRAIT_PARALYZED] ? "" : " while helpless");
 #endif
-				my_strcpy(gameover_from, dummy, sizeof gameover_from);
+			my_strcpy(gameover_from, dummy, sizeof gameover_from);
+		}
+
+		if(winning_seppuku)
+		{
+#ifdef JP
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "勝利の後切腹した。");
+#else
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, "did Seppuku after the winning.");
+#endif
+		}
+		else
+		{
+			char buf[24];	
+			if(floor_ptr->fight_arena_mode)
+#ifdef JP
+				strcpy(buf,"アリーナ");
+#else
+				strcpy(buf,"in the Arena");
+#endif
+			else if(!floor_ptr->floor_level)
+#ifdef JP
+				strcpy(buf,"地上");
+#else
+				strcpy(buf,"on the surface");
+#endif
+			else if(q_idx && (is_fixed_quest_idx(q_idx) && !(q_idx == QUEST_SERPENT)))
+#ifdef JP
+				strcpy(buf,"クエスト");
+#else
+				strcpy(buf,"in a quest");
+#endif
+			else
+#ifdef JP
+				sprintf(buf,"%d階", floor_ptr->floor_level);
+#else
+				sprintf(buf,"level %d", floor_ptr->floor_level);
+#endif
+
+#ifdef JP
+			sprintf(tmp, "%sで%sに殺された。", buf, gameover_from);
+#else
+			sprintf(tmp, "killed by %s %s.", gameover_from, buf);
+#endif
+			do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
+		}
+
+#ifdef JP
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
+#else
+		do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
+#endif
+		do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
+
+		flush();
+
+#ifdef JP
+		if(get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
+#else
+		if(get_check_strict("Dump the screen? ", CHECK_NO_HISTORY)) do_cmd_save_screen(player_ptr);
+#endif
+
+		flush();
+
+		/* Initialize "last message" buffer */
+		if(player_ptr->last_message) string_free(player_ptr->last_message);
+		player_ptr->last_message = NULL;
+
+		/* Hack -- Note death */
+		if(!last_words)
+		{
+#ifdef JP
+			msg_format("あなたは%sました。", android ? "壊れ" : "死に");
+#else
+			msg_print(android ? "You are broken." : "You die.");
+#endif
+			msg_print(NULL);
+		}
+		else
+		{
+			if(winning_seppuku) get_rnd_line(message_files[MESSAGE_FILES_SEPPUKU], 0, death_message);
+			else get_rnd_line(message_files[MESSAGE_FILES_DEATH], 0, death_message);
+
+			do
+			{
+#ifdef JP
+				while (!get_string(winning_seppuku ? "辞世の句: " : "断末魔の叫び: ", death_message, 1024));
+#else
+				while (!get_string("Last word: ", death_message, 1024)) ;
+#endif
 			}
-	
+#ifdef JP
+			while (winning_seppuku && !get_check_strict("よろしいですか？", CHECK_NO_HISTORY));
+#else
+			while (winning_seppuku && !get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
+#endif
+
+			if(death_message[0] == '\0')
+			{
+#ifdef JP
+				strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
+#else
+				strcpy(death_message, android ? "You are broken." : "You die.");
+#endif
+			}
+			else player_ptr->last_message = string_make(death_message);
+
+#ifdef JP
 			if(winning_seppuku)
 			{
-#ifdef JP
-				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "勝利の後切腹した。");
-#else
-				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "did Seppuku after the winning.");
-#endif
-			}
-			else
-			{
-				char buf[24];	
-				if(floor_ptr->fight_arena_mode)
-	#ifdef JP
-					strcpy(buf,"アリーナ");
-	#else
-					strcpy(buf,"in the Arena");
-	#endif
-				else if(!floor_ptr->floor_level)
-	#ifdef JP
-					strcpy(buf,"地上");
-	#else
-					strcpy(buf,"on the surface");
-	#endif
-				else if(q_idx && (is_fixed_quest_idx(q_idx) &&
-				         !(q_idx == QUEST_SERPENT)))
-	#ifdef JP
-					strcpy(buf,"クエスト");
-	#else
-					strcpy(buf,"in a quest");
-	#endif
-				else
-	#ifdef JP
-					sprintf(buf,"%d階", floor_ptr->floor_level);
-	#else
-					sprintf(buf,"level %d", floor_ptr->floor_level);
-	#endif
-	
-	#ifdef JP
-				sprintf(tmp, "%sで%sに殺された。", buf, gameover_from);
-	#else
-				sprintf(tmp, "killed by %s %s.", gameover_from, buf);
-	#endif
-				do_cmd_write_nikki(DIARY_BUNSHOU, 0, tmp);
-			}
-	
-	#ifdef JP
-			do_cmd_write_nikki(DIARY_GAMESTART, 1, "-------- ゲームオーバー --------");
-	#else
-			do_cmd_write_nikki(DIARY_GAMESTART, 1, "--------   Game  Over   --------");
-	#endif
-			do_cmd_write_nikki(DIARY_BUNSHOU, 1, "\n\n\n\n");
-	
-			flush();
-	
-	#ifdef JP
-			if(get_check_strict("画面を保存しますか？", CHECK_NO_HISTORY))
-	#else
-			if(get_check_strict("Dump the screen? ", CHECK_NO_HISTORY))
-	#endif
-			{
-				do_cmd_save_screen(player_ptr);
-			}
-	
-			flush();
-	
-			/* Initialize "last message" buffer */
-			if(player_ptr->last_message) string_free(player_ptr->last_message);
-			player_ptr->last_message = NULL;
-	
-			/* Hack -- Note death */
-			if(!last_words)
-			{
-	#ifdef JP
-				msg_format("あなたは%sました。", android ? "壊れ" : "死に");
-	#else
-				msg_print(android ? "You are broken." : "You die.");
-	#endif
-				msg_print(NULL);
-			}
-			else
-			{
-				if(winning_seppuku) get_rnd_line(message_files[MESSAGE_FILES_SEPPUKU], 0, death_message);
-				else get_rnd_line(message_files[MESSAGE_FILES_DEATH], 0, death_message);
-	
-				do
+				int i, len;
+				int w = Term->wid;
+				int h = Term->hgt;
+				int msg_pos_x[9] = {  5, 7, 9, 12, 14, 17, 19, 21, 23};
+				int msg_pos_y[9] = {  3, 4, 5, 4, 5, 4, 5, 6, 4};
+				cptr str;
+				char* str2;
+
+				Term_clear();
+
+				/* 桜散る */
+				for (i = 0; i < 40; i++) Term_putstr(randint0(w / 2) * 2, randint0(h), 2, TERM_VIOLET, "υ");
+
+				str = death_message;
+				if(strncmp(str, "「", 2) == 0) str += 2;
+
+				str2 = my_strstr(str, "」");
+				if(str2 != NULL) *str2 = '\0';
+
+				i = 0;
+				while (i < 9)
 				{
-	#ifdef JP
-					while (!get_string(winning_seppuku ? "辞世の句: " : "断末魔の叫び: ", death_message, 1024));
-	#else
-					while (!get_string("Last word: ", death_message, 1024)) ;
-	#endif
-				}
-	#ifdef JP
-				while (winning_seppuku && !get_check_strict("よろしいですか？", CHECK_NO_HISTORY));
-	#else
-				while (winning_seppuku && !get_check_strict("Are you sure? ", CHECK_NO_HISTORY));
-	#endif
-	
-				if(death_message[0] == '\0')
-				{
-	#ifdef JP
-					strcpy(death_message, format("あなたは%sました。", android ? "壊れ" : "死に"));
-	#else
-					strcpy(death_message, android ? "You are broken." : "You die.");
-	#endif
-				}
-				else player_ptr->last_message = string_make(death_message);
-	
-	#ifdef JP
-				if(winning_seppuku)
-				{
-					int i, len;
-					int w = Term->wid;
-					int h = Term->hgt;
-					int msg_pos_x[9] = {  5, 7, 9, 12, 14, 17, 19, 21, 23};
-					int msg_pos_y[9] = {  3, 4, 5, 4, 5, 4, 5, 6, 4};
-					cptr str;
-					char* str2;
-	
-					Term_clear();
-	
-					/* 桜散る */
-					for (i = 0; i < 40; i++)
-						Term_putstr(randint0(w / 2) * 2, randint0(h), 2, TERM_VIOLET, "υ");
-	
-					str = death_message;
-					if(strncmp(str, "「", 2) == 0) str += 2;
-	
-					str2 = my_strstr(str, "」");
-					if(str2 != NULL) *str2 = '\0';
-	
-					i = 0;
-					while (i < 9)
+					str2 = my_strstr(str, " ");
+					if(str2 == NULL) len = strlen(str);
+					else len = str2 - str;
+
+					if(len != 0)
 					{
-						str2 = my_strstr(str, " ");
-						if(str2 == NULL) len = strlen(str);
-						else len = str2 - str;
-	
-						if(len != 0)
-						{
-							Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len,
+						Term_putstr_v(w * 3 / 4 - 2 - msg_pos_x[i] * 2, msg_pos_y[i], len,
 							TERM_WHITE, str);
-							if(str2 == NULL) break;
-							i++;
-						}
-						str = str2 + 1;
-						if(*str == 0) break;
+						if(str2 == NULL) break;
+						i++;
 					}
-	
-					/* Hide cursor */
-					Term_putstr(w-1, h-1, 1, TERM_WHITE, " ");
-	
-					flush();
-	#ifdef WORLD_SCORE
-					/* Make screen dump */
-					screen_dump = make_screen_dump();
-	#endif
-	
-					/* Wait a key press */
-					(void)inkey();
+					str = str2 + 1;
+					if(*str == 0) break;
 				}
-				else
-	#endif
-					msg_print(death_message);
+
+				/* Hide cursor */
+				Term_putstr(w-1, h-1, 1, TERM_WHITE, " ");
+
+				flush();
+#ifdef WORLD_SCORE
+				/* Make screen dump */
+				screen_dump = make_screen_dump();
+#endif
+
+				/* Wait a key press */
+				(void)inkey();
 			}
+			else
+#endif
+				msg_print(death_message);
 		}
+	}
 }
 
 
