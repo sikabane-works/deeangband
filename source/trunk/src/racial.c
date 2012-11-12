@@ -1031,44 +1031,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 				if(!choose_kamae(creature_ptr)) return FALSE;
 				creature_ptr->creature_update |= (CRU_BONUS);
 			}
-			else if(command == -4)
-			{
-				int x, y;
-
-				if(!get_rep_dir(creature_ptr, &dir, FALSE)) return FALSE;
-				y = creature_ptr->fy + ddy[dir];
-				x = creature_ptr->fx + ddx[dir];
-				if(floor_ptr->cave[y][x].creature_idx)
-				{
-#ifdef JP
-					if(one_in_(3)) msg_print("あーたたたたたたたたたたたたたたたたたたたたたた！！！");
-					else if(one_in_(2)) msg_print("オラオラオラオラオラオラオラオラオラオラオラオラ！！！");
-					else msg_print("無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄無駄！！！");
-#else
-					if(one_in_(3)) msg_print("Ahhhtatatatatatatatatatatatatatataatatatatattaaaaa!!!!");
-					else if(one_in_(2)) msg_print("Oraoraoraoraoraoraoraoraoraoraoraoraoraoraoraoraora!!!!");
-					else msg_print("Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!");
-#endif
-
-					melee_attack(creature_ptr, y, x, 0);
-					if(floor_ptr->cave[y][x].creature_idx)
-					{
-						handle_stuff();
-						melee_attack(creature_ptr, y, x, 0);
-					}
-					creature_ptr->energy_need += ENERGY_NEED(100);
-				}
-				else
-				{
-#ifdef JP
-					msg_print("その方向にはクリーチャーはいません。");
-#else
-					msg_print("You don't see any creature in this direction");
-#endif
-
-					msg_print(NULL);
-				}
-			}
 			break;
 		}
 		case CLASS_MINDCRAFTER:

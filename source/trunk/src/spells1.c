@@ -3461,12 +3461,12 @@ static bool project_creature(creature_type *attacker_ptr, cptr who_name, int r, 
 
 	creature_desc(atk_name, attacker_ptr, 0);
 
-	if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (attacker_ptr != &creature_list[player_ptr->riding]))
-		if(kawarimi(player_ptr, TRUE)) return FALSE;
+	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (attacker_ptr != &creature_list[player_ptr->riding]))
+	//	if(kawarimi(player_ptr, TRUE)) return FALSE;
 
 	/* Player cannot hurt himself */
-	if(is_player(attacker_ptr)) return (FALSE);
-	if(attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
+	//if(is_player(attacker_ptr)) return (FALSE);
+	//if(attacker_ptr == &creature_list[player_ptr->riding]) return (FALSE);
 
 	if((has_trait(player_ptr, TRAIT_REFLECTING) || ((player_ptr->posture & KATA_FUUJIN) && !has_trait(player_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{

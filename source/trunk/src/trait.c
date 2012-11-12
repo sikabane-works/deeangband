@@ -137,7 +137,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 
 	case TRAIT_ROCKET:
 		damage = ((caster_ptr->chp / 4) > 800 ? 800 : (caster_ptr->chp / 4));
-		breath(target_row, target_col,caster_ptr, DO_EFFECT_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
+		breath(target_row, target_col, caster_ptr, DO_EFFECT_ROCKET, damage, 2, FALSE, TRAIT_ROCKET, learnable);
 		update_smart_learn(caster_ptr, DRS_SHARD);
 		break;
 
