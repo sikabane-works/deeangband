@@ -31,7 +31,7 @@ bool is_player(creature_type *creature_ptr)
 
 bool is_valid_creature(creature_type *creature_ptr)
 {
-	return (!creature_ptr->fx && !creature_ptr->fy && creature_ptr->chp > 0);
+	return (creature_ptr->fx && creature_ptr->fy && creature_ptr->chp > 0);
 }
 
 
@@ -814,7 +814,6 @@ bool has_trait_from_inventory(creature_type *creature_ptr, int type)
 		if(!IS_EQUIPPED(object_ptr)) continue; // Skip no equip
 		if(has_trait_object(object_ptr, type)) return TRUE;
 	}
-
 	return FALSE;
 }
 
