@@ -2289,8 +2289,8 @@ static void you_died(cptr hit_from)
 			}
 			else
 			{
-				if(winning_seppuku) get_rnd_line(game_messages[MESSAGE_FILES_SEPPUKU], 0, death_message);
-				else get_rnd_line(game_messages[MESSAGE_FILES_DEATH], 0, death_message);
+				if(winning_seppuku) get_rnd_line(message_files[MESSAGE_FILES_SEPPUKU], 0, death_message);
+				else get_rnd_line(message_files[MESSAGE_FILES_DEATH], 0, death_message);
 	
 				do
 				{
