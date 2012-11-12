@@ -3325,8 +3325,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 	}
 
-
-
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
 
 	// Mega-Hack -- Handle "polymorph" -- creatures get a saving throw

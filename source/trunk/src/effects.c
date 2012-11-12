@@ -2545,11 +2545,7 @@ int take_hit(creature_type *attacker_ptr, creature_type *target_ptr, int damage_
 		if(&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
 	}
 
-	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF))
-	{
-		return 0;
-	}
-
+	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF)) return 0;
 
 	/* Genocided by chaos patron */
 	//TODO CHECK
