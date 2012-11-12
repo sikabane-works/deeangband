@@ -1668,6 +1668,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	int photo = 0;
 	bool skipped = FALSE;
+	bool dissolves_dying = FALSE;
 
 	// Creature name (for attacker and target)
 	char caster_name[MAX_NLEN];
@@ -1958,13 +1959,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_KILL_WALL:
 		if(is_original_ap_and_seen(caster_ptr, target_ptr))  reveal_creature_info(target_ptr, TRAIT_HURT_ROCK);
-#ifdef JP
-			note = "の皮膚がただれた！";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " loses some skin!";
-			note_dies = " dissolves!";
-#endif
+		dissolves_dying = TRUE;
 		break;
 
 		//31-36
@@ -2212,13 +2207,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(has_trait(target_ptr, TRAIT_UNDEAD))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-#ifdef JP
-			note = "は身震いした。";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " shudders.";
-			note_dies = " dissolves!";
-#endif
+			dissolves_dying = TRUE;
 		}
 		else
 		{
@@ -2232,13 +2221,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		if(is_enemy_of_good_creature(target_ptr))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-#ifdef JP
-			note = "は身震いした。";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " shudders.";
-			note_dies = " dissolves!";
-#endif
+			dissolves_dying = TRUE;
 		}
 		else
 		{
@@ -2248,26 +2231,14 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 
 	case DO_EFFECT_DISP_ALL:
-#ifdef JP
-		note = "は身震いした。";
-		note_dies = "はドロドロに溶けた！";
-#else
-		note = " shudders.";
-		note_dies = " dissolves!";
-#endif
+		dissolves_dying = TRUE;
 		break;
 
 	case DO_EFFECT_DISP_DEMON:
 		if(has_trait(target_ptr, TRAIT_DEMON))
 		{
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-#ifdef JP
-			note = "は身震いした。";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " shudders.";
-			note_dies = " dissolves!";
-#endif
+			dissolves_dying = TRUE;
 		}
 		else
 		{
@@ -2279,13 +2250,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_LIVING:
 		if(creature_living(target_ptr))
 		{
-#ifdef JP
-			note = "は身震いした。";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " shudders.";
-			note_dies = " dissolves!";
-#endif
+			dissolves_dying = TRUE;
 		}
 		else
 		{
@@ -2747,19 +2712,9 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_DISP_GOOD:
 		if(is_enemy_of_evil_creature(target_ptr))
 		{
-			/* Learn about type */
 			if(is_original_ap_and_seen(caster_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_ALIGNMENT);
-
-			/* Message */
-#ifdef JP
-			note = "は身震いした。";
-			note_dies = "はドロドロに溶けた！";
-#else
-			note = " shudders.";
-			note_dies = " dissolves!";
-#endif
+			dissolves_dying = TRUE;
 		}
-
 		else
 		{
 			skipped = TRUE;
@@ -3386,6 +3341,18 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		break;
 		}
 	}
+
+	if(dissolves_dying)
+	{
+#ifdef JP
+		note = "は身震いした。";
+		note_dies = "はドロドロに溶けた！";
+#else
+		note = " shudders.";
+		note_dies = " dissolves!";
+#endif
+	}
+
 
 	dam = take_hit(caster_ptr, target_ptr, DAMAGE_FORCE, dam, caster_name, NULL, spell);
 
