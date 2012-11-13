@@ -2306,13 +2306,9 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 	if(!saving_throw(watcher_ptr, SAVING_VO, power, 0))
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, FALSE);
 		if(!watcher_ptr->resist_chaos && one_in_(3) && !has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, FALSE);
 		return;
 	}
 

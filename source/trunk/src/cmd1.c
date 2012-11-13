@@ -852,7 +852,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					name = "a spiked pit";
 #endif
 					dam = dam * 2;
-					(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
+					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 				}
 
 				/* Take the damage */
@@ -893,7 +893,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					name = "a spiked pit";
 #endif
 					dam = dam * 2;
-					(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + randint1(dam));
+					(void)add_timed_trait(creature_ptr, TRAIT_CUT, randint1(dam), TRUE);
 
 					if(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr))
 					{
@@ -907,7 +907,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 					else
 					{
 						dam = dam * 2;
-						(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint1(dam));
+						(void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint1(dam), TRUE);
 					}
 				}
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, dam, name, NULL, -1); // Take the damage
@@ -977,18 +977,16 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_SLOW:
 		{
-			if(check_hit(creature_ptr, 125))
+			if(check_hit(creature_ptr, 125) && !(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("¬‚³‚Èƒ_[ƒc‚ª”ò‚ñ‚Å‚«‚ÄŽh‚³‚Á‚½I");
 #else
 				msg_print("A small dart hits you!");
 #endif
-
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
-
-				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint0(20) + 20, FALSE);
+				add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(20) + 20, TRUE);
 			}
 			else
 			{
@@ -997,7 +995,6 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 #else
 				msg_print("A small dart barely misses you.");
 #endif
-
 			}
 			break;
 		}
@@ -1083,67 +1080,41 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 		}
 
 		case TRAP_BLIND:
-		{
 #ifdef JP
 			msg_print("•‚¢ƒKƒX‚É•ï‚Ýž‚Ü‚ê‚½I");
 #else
 			msg_print("A black gas surrounds you!");
 #endif
-
-			if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
-			{
-				(void)set_timed_trait(creature_ptr, TRAIT_BLIND, has_trait(creature_ptr, TRAIT_BLIND) + randint0(50) + 25);
-			}
+			if(!has_trait(creature_ptr, TRAIT_NO_BLIND)) (void)add_timed_trait(creature_ptr, TRAIT_BLIND, randint0(50) + 25, TRUE);
 			break;
-		}
 
 		case TRAP_CONFUSE:
-		{
 #ifdef JP
 			msg_print("‚«‚ç‚ß‚­ƒKƒX‚É•ï‚Ýž‚Ü‚ê‚½I");
 #else
 			msg_print("A gas of scintillating colors surrounds you!");
 #endif
-
-			if(!has_trait(creature_ptr, TRAIT_NO_CONF))
-			{
-				(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 10);
-			}
+			if(!has_trait(creature_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(20) + 10, TRUE);
 			break;
-		}
 
 		case TRAP_POISON:
-		{
 #ifdef JP
 			msg_print("ŽhŒƒ“I‚È—ÎF‚ÌƒKƒX‚É•ï‚Ýž‚Ü‚ê‚½I");
 #else
 			msg_print("A pungent green gas surrounds you!");
 #endif
-
-			if(!creature_ptr->resist_pois && !IS_OPPOSE_POIS(creature_ptr))
-			{
-				(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(20) + 10);
-			}
+			if(!creature_ptr->resist_pois && !IS_OPPOSE_POIS(creature_ptr)) (void)add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(20) + 10, TRUE);
 			break;
-		}
 
 		case TRAP_SLEEP:
-		{
 #ifdef JP
 			msg_print("Šï–­‚È”’‚¢–¶‚É•ï‚Ü‚ê‚½I");
 #else
 			msg_print("A strange white mist surrounds you!");
 #endif
-
 			if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
 			{
-#ifdef JP
-msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
-#else
-				msg_print("You fall asleep.");
-#endif
-
-
+				(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint0(10) + 5, TRUE);
 				if(curse_of_Iluvatar)
 				{
 #ifdef JP
@@ -1155,10 +1126,8 @@ msg_print("‚ ‚È‚½‚Í–°‚è‚ÉA‚¢‚½B");
 					have_nightmare(creature_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 					reset_species_preps();
 				}
-				(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 5);
 			}
 			break;
-		}
 
 		case TRAP_TRAPS:
 		{
