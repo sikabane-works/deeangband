@@ -537,11 +537,8 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 		msg_print("A puff of green gas surrounds you!");
 #endif
-
 		if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
-		{
-			(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + 10 + randint1(20));
-		}
+			(void)add_timed_trait(creature_ptr, TRAIT_POISONED, 10 + randint1(20), TRUE);
 	}
 
 	/* Paralyze */
@@ -552,12 +549,8 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 		msg_print("A puff of yellow gas surrounds you!");
 #endif
-
-
 		if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
-		{
-			(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 10 + randint1(20));
-		}
+			(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 10 + randint1(20), TRUE);
 	}
 
 	/* Summon creatures */
@@ -698,13 +691,13 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 #else
 				if(one_in_(6)) take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(5, 20), "a chest dispel-player trap", NULL, -1);
 #endif
-				else if(one_in_(5)) (void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] + 200);
+				else if(one_in_(5)) (void)add_timed_trait(creature_ptr, TRAIT_CUT, 200, TRUE);
 				else if(one_in_(4))
 				{
 					if(!has_trait(creature_ptr, TRAIT_FREE_ACTION)) 
-						(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 +  randint0(6));
+						(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 2 +  randint0(6), TRUE);
 					else 
-						(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + 10 + randint0(100));
+						(void)add_timed_trait(creature_ptr, TRAIT_STUN, 10 + randint0(100), TRUE);
 				}
 				else if(one_in_(3)) apply_disenchant(creature_ptr, 0);
 				else if(one_in_(2))
@@ -2075,16 +2068,12 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* High dexterity yields coolness */
 	else
 	{
-		/* Message */
 #ifdef JP
 		msg_print("‘Ì‚Ìƒoƒ‰ƒ“ƒX‚ð‚­‚¸‚µ‚Ä‚µ‚Ü‚Á‚½B");
 #else
 		msg_print("You are off-balance.");
 #endif
-
-
-		/* Hack -- Lose balance ala paralysis */
-		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + 2 + randint0(2));
+		(void)add_timed_trait(creature_ptr, TRAIT_PARALYZED, 1 + randint0(2), FALSE);
 	}
 
 	/* Result */
@@ -3639,8 +3628,8 @@ void do_cmd_fire(creature_type *creature_ptr)
 #else
 		msg_print("A reactionary of shooting attacked you. ");
 #endif
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint0(7) + 7, FALSE);
-		(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] + randint1(25));
+		(void)add_timed_trait(creature_ptr, TRAIT_SLOW, randint0(7) + 7, FALSE);
+		(void)add_timed_trait(creature_ptr, TRAIT_STUN, randint1(25), FALSE);
 	}
 }
 

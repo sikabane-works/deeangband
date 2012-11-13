@@ -1926,11 +1926,9 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->timed_trait[TRAIT_S_HERO]) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
-			/* Disturb the creature */
-			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
-
-			/* Extract creature name (or "it") */
-			creature_desc(m_name, m_ptr, 0);
+			
+			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0); // Disturb the creature
+			creature_desc(m_name, m_ptr, 0); // Extract creature name (or "it")
 
 			if(m_ptr->see_others)
 			{
