@@ -886,13 +886,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			if(heal_creature(user_ptr, 30)) ident = TRUE;
 			break;
 
-		case SV_POTION_CURE_LIGHT:
-			if(heal_creature(user_ptr, diceroll(2, 8))) ident = TRUE;
-			if(set_timed_trait(user_ptr, TRAIT_BLIND, 0)) ident = TRUE;
-			if(set_timed_trait(user_ptr, TRAIT_CUT, user_ptr->timed_trait[TRAIT_CUT] - 10)) ident = TRUE;
-			if(set_timed_trait_aux(user_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
-			break;
-
 		case SV_POTION_CURE_SERIOUS:
 			if(heal_creature(user_ptr, diceroll(4, 8))) ident = TRUE;
 			if(set_timed_trait(user_ptr, TRAIT_BLIND, 0)) ident = TRUE;

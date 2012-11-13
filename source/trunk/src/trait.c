@@ -19,6 +19,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 	creature_type *target_ptr = NULL;
 	cave_type *cave_ptr = &floor_ptr->cave[caster_ptr->fy][caster_ptr->fx];
 	feature_type *feature_ptr = &feature_info[cave_ptr->feat];
+	bool effected = FALSE;
 
 	char caster_name[100] = "何か", target_name[100] = "何か";
 	int i, k, dir = 0;
@@ -282,9 +283,11 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 			break;
 		}
 
-
 	case TRAIT_CURE_LIGHT_WOUNDS:
-		(void)heal_creature(caster_ptr, diceroll(2, 8));
+		if(heal_creature(caster_ptr, diceroll(2, 8))) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_BLIND, 0, TRUE)) effected = TRUE;
+		if(add_timed_trait(caster_ptr, TRAIT_CUT, -10, TRUE)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0, TRUE)) effected = TRUE;
 		break;
 
 	case TRAIT_CURE_MEDIUM_WOUNDS:
@@ -3043,7 +3046,7 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 #endif
 	}
 
-	return FALSE;
+	return effected;
 }
 
 const u32b *t_need(int num, ...)
