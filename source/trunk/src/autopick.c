@@ -569,9 +569,9 @@ static void autopick_entry_from_object(creature_type *creature_ptr, autopick_typ
 	/* Melee weapon with boosted dice */
 	if(object_is_melee_weapon(creature_ptr, object_ptr))
 	{
-		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
-		if((object_ptr->dd != k_ptr->dd) || (object_ptr->ds != k_ptr->ds))
+		if((object_ptr->dd != object_kind_ptr->dd) || (object_ptr->ds != object_kind_ptr->ds))
 			ADD_FLG(FLG_BOOSTED);
 	}
 
@@ -1054,14 +1054,14 @@ static bool is_autopick_aux(creature_type *creature_ptr, object_type *object_ptr
 	/*** Dice boosted (weapon of slaying) ***/
 	if(IS_FLG(FLG_BOOSTED))
 	{
-		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* Require melee weapon */
 		if(!object_is_melee_weapon(creature_ptr, object_ptr))
 			return FALSE;
 
 		/* Require boosted dice */
-		if((object_ptr->dd == k_ptr->dd) && (object_ptr->ds == k_ptr->ds))
+		if((object_ptr->dd == object_kind_ptr->dd) && (object_ptr->ds == object_kind_ptr->ds))
 			return FALSE;
 	}
 

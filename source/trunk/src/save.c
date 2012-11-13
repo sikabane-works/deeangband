@@ -255,10 +255,10 @@ static void wr_xtra(int k_idx)
 {
 	byte tmp8u = 0;
 
-	object_kind *k_ptr = &object_kind_info[k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
-	if(k_ptr->aware) tmp8u |= 0x01;
-	if(k_ptr->tried) tmp8u |= 0x02;
+	if(object_kind_ptr->aware) tmp8u |= 0x01;
+	if(object_kind_ptr->tried) tmp8u |= 0x02;
 
 	wr_byte(tmp8u);
 }

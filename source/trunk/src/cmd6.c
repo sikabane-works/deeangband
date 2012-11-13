@@ -3239,7 +3239,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	/* Hack -- let perception get aborted */
 	bool use_charge = TRUE;
 
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 
 	// Get the item (in the pack)
 	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
@@ -3313,7 +3313,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* A single rod is still charging */
 	if((object_ptr->number == 1) && (object_ptr->timeout))
@@ -3328,7 +3328,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 	/* A stack of rods lacks enough energy. */
-	else if((object_ptr->number > 1) && (object_ptr->timeout > k_ptr->pval * (object_ptr->number - 1)))
+	else if((object_ptr->number > 1) && (object_ptr->timeout > object_kind_ptr->pval * (object_ptr->number - 1)))
 	{
 		if(flush_failure) flush();
 #ifdef JP

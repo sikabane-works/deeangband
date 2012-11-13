@@ -3883,12 +3883,12 @@ void do_cmd_visuals(void)
 			for (i = 0; i < max_object_kind_idx; i++)
 			{
 				char object_name[80];
-				object_kind *k_ptr = &object_kind_info[i];
+				object_kind *object_kind_ptr = &object_kind_info[i];
 
 				/* Skip non-entries */
-				if(!k_ptr->name) continue;
+				if(!object_kind_ptr->name) continue;
 
-				if(!k_ptr->flavor)
+				if(!object_kind_ptr->flavor)
 				{
 					/* Tidy name */
 					strip_name(object_name, i);
@@ -3909,7 +3909,7 @@ void do_cmd_visuals(void)
 
 				/* Dump the object attr/char info */
 				auto_dump_printf("K:%d:0x%02X/0x%02X\n\n", i,
-					(byte)(k_ptr->x_attr), (byte)(k_ptr->x_char));
+					(byte)(object_kind_ptr->x_attr), (byte)(object_kind_ptr->x_char));
 			}
 
 			/* Close */
@@ -4139,24 +4139,24 @@ void do_cmd_visuals(void)
 			/* Hack -- query until done */
 			while (1)
 			{
-				object_kind *k_ptr = &object_kind_info[k];
+				object_kind *object_kind_ptr = &object_kind_info[k];
 				char c;
 				int t;
 
-				byte da = k_ptr->d_attr;
-				byte dc = k_ptr->d_char;
-				byte ca = k_ptr->x_attr;
-				byte cc = k_ptr->x_char;
+				byte da = object_kind_ptr->d_attr;
+				byte dc = object_kind_ptr->d_char;
+				byte ca = object_kind_ptr->x_attr;
+				byte cc = object_kind_ptr->x_char;
 
 				/* Label the object */
 #ifdef JP
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("アイテム = %d, 名前 = %-40.40s",
-						   k, object_kind_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
+						   k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavospecies_name)));
 #else
 				Term_putstr(5, 17, -1, TERM_WHITE,
 					    format("Object = %d, Name = %-40.40s",
-						   k, object_kind_name + (!k_ptr->flavor ? k_ptr->name : k_ptr->flavospecies_name)));
+						   k, object_kind_name + (!object_kind_ptr->flavor ? object_kind_ptr->name : object_kind_ptr->flavospecies_name)));
 #endif
 
 				/* Label the Default values */
@@ -4219,15 +4219,15 @@ void do_cmd_visuals(void)
 					}
 					break;
 				case 'a':
-					t = (int)k_ptr->x_attr;
+					t = (int)object_kind_ptr->x_attr;
 					(void)cmd_visuals_aux(i, &t, 256);
-					k_ptr->x_attr = (byte)t;
+					object_kind_ptr->x_attr = (byte)t;
 					need_redraw = TRUE;
 					break;
 				case 'c':
-					t = (int)k_ptr->x_char;
+					t = (int)object_kind_ptr->x_char;
 					(void)cmd_visuals_aux(i, &t, 256);
-					k_ptr->x_char = (byte)t;
+					object_kind_ptr->x_char = (byte)t;
 					need_redraw = TRUE;
 					break;
 				case 'v':
@@ -5636,10 +5636,10 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
 	for (i = 0; i < max_object_kind_idx; i++)
 	{
 		/* Access the object */
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Skip empty objects */
-		if(!k_ptr->name) continue;
+		if(!object_kind_ptr->name) continue;
 
 		if(mode & 0x02)
 		{
@@ -5650,14 +5650,14 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
 			if(!wizard)
 			{
 				/* Skip non-flavoured objects */
-				if(!k_ptr->flavor) continue;
+				if(!object_kind_ptr->flavor) continue;
 
 				/* Require objects ever seen */
-				if(!k_ptr->aware) continue;
+				if(!object_kind_ptr->aware) continue;
 			}
 
 			/* Skip items with no distribution (special artifacts) */
-			for (j = 0, k = 0; j < 4; j++) k += k_ptr->chance[j];
+			for (j = 0, k = 0; j < 4; j++) k += object_kind_ptr->chance[j];
 			if(!k) continue;
 		}
 
@@ -5665,14 +5665,14 @@ static int collect_objects(int grp_cur, int object_idx[], byte mode)
 		if(TV_LIFE_BOOK == group_tval)
 		{
 			/* Hack -- All spell books */
-			if(TV_LIFE_BOOK <= k_ptr->tval && k_ptr->tval <= TV_HEX_BOOK)
+			if(TV_LIFE_BOOK <= object_kind_ptr->tval && object_kind_ptr->tval <= TV_HEX_BOOK)
 			{
 				/* Add the object */
 				object_idx[object_cnt++] = i;
 			}
 			else continue;
 		}
-		else if(k_ptr->tval == group_tval)
+		else if(object_kind_ptr->tval == group_tval)
 		{
 			/* Add the object */
 			object_idx[object_cnt++] = i;
@@ -6906,11 +6906,11 @@ static void do_cmd_knowledge_weapon_exp(creature_type *creature_ptr)
 		{
 			for (j = 0; j < max_object_kind_idx; j++)
 			{
-				object_kind *k_ptr = &object_kind_info[j];
+				object_kind *object_kind_ptr = &object_kind_info[j];
 
-				if((k_ptr->tval == TV_SWORD - i) && (k_ptr->sval == num))
+				if((object_kind_ptr->tval == TV_SWORD - i) && (object_kind_ptr->sval == num))
 				{
-					if((k_ptr->tval == TV_BOW) && (k_ptr->sval == SV_CRIMSON)) continue;
+					if((object_kind_ptr->tval == TV_BOW) && (object_kind_ptr->sval == SV_CRIMSON)) continue;
 
 					/*TODO 
 					weapon_exp = creature_ptr->weapon_exp[4 - i][num];
@@ -8262,35 +8262,35 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 	{
 		char object_name[80];
 		byte a, c;
-		object_kind *flavor_k_ptr;
+		object_kind *flavor_object_kind_ptr;
 
 		/* Get the object index */
 		int k_idx = object_idx[object_top + i];
 
 		/* Access the object */
-		object_kind *k_ptr = &object_kind_info[k_idx];
+		object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
 		/* Choose a color */
-		byte attr = ((k_ptr->aware || visual_only) ? TERM_WHITE : TERM_SLATE);
-		byte cursor = ((k_ptr->aware || visual_only) ? TERM_L_BLUE : TERM_BLUE);
+		byte attr = ((object_kind_ptr->aware || visual_only) ? TERM_WHITE : TERM_SLATE);
+		byte cursor = ((object_kind_ptr->aware || visual_only) ? TERM_L_BLUE : TERM_BLUE);
 
 
-		if(!visual_only && k_ptr->flavor)
+		if(!visual_only && object_kind_ptr->flavor)
 		{
 			/* Appearance of this object is shuffled */
-			flavor_k_ptr = &object_kind_info[k_ptr->flavor];
+			flavor_object_kind_ptr = &object_kind_info[object_kind_ptr->flavor];
 		}
 		else
 		{
 			/* Appearance of this object is very normal */
-			flavor_k_ptr = k_ptr;
+			flavor_object_kind_ptr = object_kind_ptr;
 		}
 
 
 
 		attr = ((i + object_top == object_cur) ? cursor : attr);
 
-		if(!k_ptr->flavor || (!visual_only && k_ptr->aware))
+		if(!object_kind_ptr->flavor || (!visual_only && object_kind_ptr->aware))
 		{
 			/* Tidy name */
 			strip_name(object_name, k_idx);
@@ -8298,7 +8298,7 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		else
 		{
 			/* Flavor name */
-			strcpy(object_name, object_kind_name + flavor_k_ptr->flavospecies_name);
+			strcpy(object_name, object_kind_name + flavor_object_kind_ptr->flavospecies_name);
 		}
 
 		/* Display the name */
@@ -8307,15 +8307,15 @@ static void display_object_list(int col, int row, int per_page, int object_idx[]
 		/* Hack -- visual_list mode */
 		if(per_page == 1)
 		{
-			c_prt(attr, format("%02x/%02x", flavor_k_ptr->x_attr, flavor_k_ptr->x_char), row + i, (wizard || visual_only) ? 64 : 68);
+			c_prt(attr, format("%02x/%02x", flavor_object_kind_ptr->x_attr, flavor_object_kind_ptr->x_char), row + i, (wizard || visual_only) ? 64 : 68);
 		}
 		if(wizard || visual_only)
 		{
 			c_prt(attr, format("%d", k_idx), row + i, 70);
 		}
 
-		a = flavor_k_ptr->x_attr;
-		c = flavor_k_ptr->x_char;
+		a = flavor_object_kind_ptr->x_attr;
+		c = flavor_object_kind_ptr->x_char;
 
 		/* Display symbol */
 		Term_queue_bigchar(use_bigtile ? 76 : 77, row + i, a, c, 0, 0);
@@ -8431,18 +8431,18 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	}
 	else
 	{
-		object_kind *k_ptr = &object_kind_info[direct_k_idx];
-		object_kind *flavor_k_ptr;
+		object_kind *object_kind_ptr = &object_kind_info[direct_k_idx];
+		object_kind *flavor_object_kind_ptr;
 
-		if(!visual_only && k_ptr->flavor)
+		if(!visual_only && object_kind_ptr->flavor)
 		{
 			/* Appearance of this object is shuffled */
-			flavor_k_ptr = &object_kind_info[k_ptr->flavor];
+			flavor_object_kind_ptr = &object_kind_info[object_kind_ptr->flavor];
 		}
 		else
 		{
 			/* Appearance of this object is very normal */
-			flavor_k_ptr = k_ptr;
+			flavor_object_kind_ptr = object_kind_ptr;
 		}
 
 		object_idx[0] = direct_k_idx;
@@ -8453,7 +8453,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		object_idx[1] = -1;
 
 		(void)visual_mode_command('v', &visual_list, browser_rows - 1, wid - (max + 3),
-			&attr_top, &char_left, &flavor_k_ptr->x_attr, &flavor_k_ptr->x_char, need_redraw);
+			&attr_top, &char_left, &flavor_object_kind_ptr->x_attr, &flavor_object_kind_ptr->x_char, need_redraw);
 	}
 
 	/* Terminate the list */
@@ -8471,7 +8471,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 	while (!flag)
 	{
 		char ch;
-		object_kind *k_ptr, *flavor_k_ptr;
+		object_kind *object_kind_ptr, *flavor_object_kind_ptr;
 
 		if(redraw)
 		{
@@ -8548,17 +8548,17 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		}
 
 		/* Get the current object */
-		k_ptr = &object_kind_info[object_idx[object_cur]];
+		object_kind_ptr = &object_kind_info[object_idx[object_cur]];
 
-		if(!visual_only && k_ptr->flavor)
+		if(!visual_only && object_kind_ptr->flavor)
 		{
 			/* Appearance of this object is shuffled */
-			flavor_k_ptr = &object_kind_info[k_ptr->flavor];
+			flavor_object_kind_ptr = &object_kind_info[object_kind_ptr->flavor];
 		}
 		else
 		{
 			/* Appearance of this object is very normal */
-			flavor_k_ptr = k_ptr;
+			flavor_object_kind_ptr = object_kind_ptr;
 		}
 
 		/* Prompt */
@@ -8594,7 +8594,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 
 		if(visual_list)
 		{
-			place_visual_list_cursor(max + 3, 7, flavor_k_ptr->x_attr, flavor_k_ptr->x_char, attr_top, char_left);
+			place_visual_list_cursor(max + 3, 7, flavor_object_kind_ptr->x_attr, flavor_object_kind_ptr->x_char, attr_top, char_left);
 		}
 		else if(!column)
 		{
@@ -8608,7 +8608,7 @@ static void do_cmd_knowledge_objects(bool *need_redraw, bool visual_only, int di
 		ch = inkey();
 
 		/* Do visual mode command if needed */
-		if(visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &flavor_k_ptr->x_attr, &flavor_k_ptr->x_char, need_redraw))
+		if(visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &flavor_object_kind_ptr->x_attr, &flavor_object_kind_ptr->x_char, need_redraw))
 		{
 			if(direct_k_idx >= 0)
 			{

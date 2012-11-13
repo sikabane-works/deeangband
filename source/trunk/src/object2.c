@@ -75,13 +75,13 @@ void excise_object_idx(int object_idx)
 				/* Real previous */
 				else
 				{
-					object_type *k_ptr;
+					object_type *object_kind_ptr;
 
 					/* Previous object */
-					k_ptr = &object_list[prev_object_idx];
+					object_kind_ptr = &object_list[prev_object_idx];
 
 					/* Remove from list */
-					k_ptr->next_object_idx = next_object_idx;
+					object_kind_ptr->next_object_idx = next_object_idx;
 				}
 
 				/* Forget next pointer */
@@ -511,7 +511,7 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 	int             i, j, p;
 	int             k_idx;
 	long            value, total;
-	object_kind     *k_ptr;
+	object_kind     *object_kind_ptr;
 	alloc_entry     *table = alloc_kind_table;
 
 	if(level > MAX_DEPTH - 1) level = MAX_DEPTH - 1;
@@ -537,21 +537,21 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		k_idx = table[i].index;
 
 		/* Access the actual kind */
-		k_ptr = &object_kind_info[k_idx];
+		object_kind_ptr = &object_kind_info[k_idx];
 
-		if(flag & GON_ITEM && k_ptr->tval < TV_STAFF && k_ptr->tval > TV_POTION) continue;			
-		if(flag & GON_ARMS && k_ptr->tval != TV_SWORD && k_ptr->tval != TV_HAFTED && k_ptr->tval != TV_POLEARM) continue;
-		if(flag & GON_BODY && k_ptr->tval != TV_SOFT_ARMOR && k_ptr->tval != TV_HARD_ARMOR && k_ptr->tval != TV_DRAG_ARMOR) continue;
-		if(flag & GON_FEET && k_ptr->tval != TV_BOOTS) continue;
-		if(flag & GON_HANDS && k_ptr->tval != TV_GLOVES) continue;
-		if(flag & GON_HEAD && k_ptr->tval != TV_HELM || k_ptr->tval != TV_CROWN) continue;
-		if(flag & GON_LITE && k_ptr->tval != TV_LITE) continue;
-		if(flag & GON_OUTER && k_ptr->tval != TV_CLOAK) continue;
-		if(flag & GON_RING && k_ptr->tval != TV_RING) continue;
-		if(flag & GON_AMULET && k_ptr->tval != TV_AMULET) continue;
-		if(flag & GON_UNCURSED && have_flag(k_ptr->flags, TRAIT_CURSED) || have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) continue;
+		if(flag & GON_ITEM && object_kind_ptr->tval < TV_STAFF && object_kind_ptr->tval > TV_POTION) continue;			
+		if(flag & GON_ARMS && object_kind_ptr->tval != TV_SWORD && object_kind_ptr->tval != TV_HAFTED && object_kind_ptr->tval != TV_POLEARM) continue;
+		if(flag & GON_BODY && object_kind_ptr->tval != TV_SOFT_ARMOR && object_kind_ptr->tval != TV_HARD_ARMOR && object_kind_ptr->tval != TV_DRAG_ARMOR) continue;
+		if(flag & GON_FEET && object_kind_ptr->tval != TV_BOOTS) continue;
+		if(flag & GON_HANDS && object_kind_ptr->tval != TV_GLOVES) continue;
+		if(flag & GON_HEAD && object_kind_ptr->tval != TV_HELM || object_kind_ptr->tval != TV_CROWN) continue;
+		if(flag & GON_LITE && object_kind_ptr->tval != TV_LITE) continue;
+		if(flag & GON_OUTER && object_kind_ptr->tval != TV_CLOAK) continue;
+		if(flag & GON_RING && object_kind_ptr->tval != TV_RING) continue;
+		if(flag & GON_AMULET && object_kind_ptr->tval != TV_AMULET) continue;
+		if(flag & GON_UNCURSED && have_flag(object_kind_ptr->flags, TRAIT_CURSED) || have_flag(object_kind_ptr->flags, TRAIT_HEAVY_CURSE)) continue;
 
-		if(flag == TRAIT_NO_CHEST && (k_ptr->tval == TV_CHEST)) continue;
+		if(flag == TRAIT_NO_CHEST && (object_kind_ptr->tval == TV_CHEST)) continue;
 
 		table[i].prob3 = table[i].prob2; // Accept
 		total += table[i].prob3; // Total
@@ -763,7 +763,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	s32b tmp_cost;
 	int count;
 	int i;
-	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 	object_flags(object_ptr, flgs);
 
@@ -772,7 +772,7 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	 * pval bonuses of base item will be treated later.
 	 */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] &= ~(k_ptr->flags[i]);
+		flgs[i] &= ~(object_kind_ptr->flags[i]);
 
 	/* Exclude fixed flags of the fixed artifact. */
 	if(object_is_fixed_artifact(object_ptr))
@@ -1046,7 +1046,7 @@ s32b object_value_real(object_type *object_ptr)
 
 	u32b flgs[TRAIT_FLAG_MAX];
 
-	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 
 	/* Hack -- "worthless" items */
@@ -1162,7 +1162,7 @@ s32b object_value_real(object_type *object_ptr)
 			/* Pay extra for charges, depending on standard number of
 			 * charges.  Handle new-style wands correctly. -LM-
 			 */
-			value += (value * object_ptr->pval / object_ptr->number / (k_ptr->pval * 2));
+			value += (value * object_ptr->pval / object_ptr->number / (object_kind_ptr->pval * 2));
 
 			/* Done */
 			break;
@@ -1172,7 +1172,7 @@ s32b object_value_real(object_type *object_ptr)
 			/* Pay extra for charges, depending on standard number of
 			 * charges.  -LM-
 			 */
-			value += (value * object_ptr->pval / (k_ptr->pval * 2));
+			value += (value * object_ptr->pval / (object_kind_ptr->pval * 2));
 
 			/* Done */
 			break;
@@ -1207,7 +1207,7 @@ s32b object_value_real(object_type *object_ptr)
 			if(object_ptr->to_ac < 0) return (0L);
 
 			/* Give credit for bonuses */
-			value += (((object_ptr->to_hit - k_ptr->to_hit) + (object_ptr->to_damage - k_ptr->to_damage)) * 200L + (object_ptr->to_ac) * 100L);
+			value += (((object_ptr->to_hit - object_kind_ptr->to_hit) + (object_ptr->to_damage - object_kind_ptr->to_damage)) * 200L + (object_ptr->to_ac) * 100L);
 
 			/* Done */
 			break;
@@ -1227,8 +1227,8 @@ s32b object_value_real(object_type *object_ptr)
 			value += ((object_ptr->to_hit + object_ptr->to_damage + object_ptr->to_ac) * 100L);
 
 			/* Hack -- Factor in extra damage dice and sides */
-			value += (object_ptr->dd - k_ptr->dd) * object_ptr->ds * 250L;
-			value += (object_ptr->ds - k_ptr->ds) * object_ptr->dd * 250L;
+			value += (object_ptr->dd - object_kind_ptr->dd) * object_ptr->ds * 250L;
+			value += (object_ptr->ds - object_kind_ptr->ds) * object_ptr->dd * 250L;
 
 			/* Done */
 			break;
@@ -1246,8 +1246,8 @@ s32b object_value_real(object_type *object_ptr)
 			value += ((object_ptr->to_hit + object_ptr->to_damage) * 5L);
 
 			/* Hack -- Factor in extra damage dice and sides */
-			value += (object_ptr->dd - k_ptr->dd) * object_ptr->ds * 5L;
-			value += (object_ptr->ds - k_ptr->ds) * object_ptr->dd * 5L;
+			value += (object_ptr->dd - object_kind_ptr->dd) * object_ptr->ds * 5L;
+			value += (object_ptr->ds - object_kind_ptr->ds) * object_ptr->dd * 5L;
 
 			/* Done */
 			break;
@@ -1732,10 +1732,10 @@ s16b lookup_kind(int tval, int sval)
 	// Look for it
 	for (k = 1; k < max_object_kind_idx; k++)
 	{
-		object_kind *k_ptr = &object_kind_info[k];
+		object_kind *object_kind_ptr = &object_kind_info[k];
 
-		if(k_ptr->tval != tval) continue;		// Require correct tval
-		if(k_ptr->sval == sval) return (k);	// Found a match
+		if(object_kind_ptr->tval != tval) continue;		// Require correct tval
+		if(object_kind_ptr->sval == sval) return (k);	// Found a match
 		if(sval != SV_ANY) continue;			// Ignore illegal items
 		if(!one_in_(++num)) continue;			// Apply the randomizer
 	
@@ -2255,22 +2255,22 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				while(!object_ptr->name2)
 				{
 					int tmp = m_bonus(10, level);
-					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+					object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(28))
 					{
 					case 1: case 2:
 						object_ptr->name2 = EGO_RING_THROW;
 						break;
 					case 3: case 4:
-						if(have_flag(k_ptr->flags, TRAIT_REGENERATE)) break;
+						if(have_flag(object_kind_ptr->flags, TRAIT_REGENERATE)) break;
 						object_ptr->name2 = EGO_RING_REGEN;
 						break;
 					case 5: case 6:
-						if(have_flag(k_ptr->flags, TRAIT_LITE)) break;
+						if(have_flag(object_kind_ptr->flags, TRAIT_LITE)) break;
 						object_ptr->name2 = EGO_RING_LITE;
 						break;
 					case 7: case 8:
-						if(have_flag(k_ptr->flags, TRAIT_PASSIVE_TELEPORT)) break;
+						if(have_flag(object_kind_ptr->flags, TRAIT_PASSIVE_TELEPORT)) break;
 						object_ptr->name2 = EGO_RING_TELEPORT;
 						break;
 					case 9: case 10:
@@ -2286,42 +2286,42 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_SLAY;
 						break;
 					case 14:
-						if((have_flag(k_ptr->flags, STAT_STR)) || object_ptr->to_hit || object_ptr->to_damage) break;
+						if((have_flag(object_kind_ptr->flags, STAT_STR)) || object_ptr->to_hit || object_ptr->to_damage) break;
 						object_ptr->name2 = EGO_RING_WIZARD;
 						break;
 					case 15:
-						//TODO:TR_ACTIVATE if(have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						object_ptr->name2 = EGO_RING_HERO;
 						break;
 					case 16:
-						//TODO:TR_ACTIVATE if(have_flag(k_ptr->flags, TR_ACTIVATE)) break;
+						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						if(tmp > 8) object_ptr->name2 = EGO_RING_MANA_BALL;
 						else if(tmp > 4) object_ptr->name2 = EGO_RING_MANA_BOLT;
 						else object_ptr->name2 = EGO_RING_MAGIC_MIS;
 						break;
 					case 17:
-						//TODO:TR_ACTIVATE if(have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if(!(have_flag(k_ptr->flags, TRAIT_RES_FIRE)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
+						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
+						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
 						if(tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_F;
 						else if(tmp > 3) object_ptr->name2 = EGO_RING_FIRE_BALL;
 						else object_ptr->name2 = EGO_RING_FIRE_BOLT;
 						break;
 					case 18:
-						//TODO:TR_ACTIVATE if(have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if(!(have_flag(k_ptr->flags, TRAIT_RES_COLD)) && (have_flag(k_ptr->flags, TRAIT_RES_FIRE) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
+						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
+						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_COLD)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
 						if(tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_C;
 						else if(tmp > 3) object_ptr->name2 = EGO_RING_COLD_BALL;
 						else object_ptr->name2 = EGO_RING_COLD_BOLT;
 						break;
 					case 19:
-						//TODO:TR_ACTIVATE if(have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if(!(have_flag(k_ptr->flags, TRAIT_RES_ELEC)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_FIRE) || have_flag(k_ptr->flags, TRAIT_RES_ACID))) break;
+						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
+						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
 						if(tmp > 4) object_ptr->name2 = EGO_RING_ELEC_BALL;
 						else object_ptr->name2 = EGO_RING_ELEC_BOLT;
 						break;
 					case 20:
-						//TODO:TR_ACTIVATE if(have_flag(k_ptr->flags, TR_ACTIVATE)) break;
-						if(!(have_flag(k_ptr->flags, TRAIT_RES_ACID)) && (have_flag(k_ptr->flags, TRAIT_RES_COLD) || have_flag(k_ptr->flags, TRAIT_RES_ELEC) || have_flag(k_ptr->flags, TRAIT_RES_FIRE))) break;
+						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
+						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_ACID)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE))) break;
 						if(tmp > 4) object_ptr->name2 = EGO_RING_ACID_BALL;
 						else object_ptr->name2 = EGO_RING_ACID_BOLT;
 						break;
@@ -2430,7 +2430,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				//TODO add EGO
 				while(!object_ptr->name2)
 				{
-					object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+					object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 					switch(randint1(21))
 					{
 					case 16: case 17: case 18: case 19: case 20:
@@ -2514,7 +2514,7 @@ static bool item_creature_okay(int species_idx)
  */
 static void generate_other_magic_item(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
 {
-	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	/* Unused */
@@ -2606,14 +2606,14 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			/* The wand or staff gets a number of initial charges equal
 			 * to between 1/2 (+1) and the full object kind's pval. -LM-
 			 */
-			object_ptr->pval = k_ptr->pval / 2 + (s16b)randint1((k_ptr->pval + 1) / 2);
+			object_ptr->pval = object_kind_ptr->pval / 2 + (s16b)randint1((object_kind_ptr->pval + 1) / 2);
 			break;
 		}
 
 		case TV_ROD:
 		{
 			/* Transfer the pval. -LM- */
-			object_ptr->pval = k_ptr->pval;
+			object_ptr->pval = object_kind_ptr->pval;
 			break;
 		}
 
@@ -3007,18 +3007,18 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	// Examine real objects
 	if(is_valid_object(object_ptr))
 	{
-		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 		// Hack -- acquire "broken" flag
 		if(!object_kind_info[object_ptr->k_idx].cost) object_ptr->ident |= (IDENT_BROKEN);
 
 		// Hack -- acquire "cursed" flag
-		if(have_flag(k_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-		if(have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-		if(have_flag(k_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-		if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
-		if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
-		if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
+		if(have_flag(object_kind_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+		if(have_flag(object_kind_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+		if(have_flag(object_kind_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+		if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+		if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+		if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 	}
 
 
@@ -3038,10 +3038,10 @@ void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr
  */
 static bool kind_is_good(int k_idx)
 {
-	object_kind *k_ptr = &object_kind_info[k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
-	switch (k_ptr->tval)
+	switch (object_kind_ptr->tval)
 	{
 		/* Armor -- Good unless damaged */
 		case TV_HARD_ARMOR:
@@ -3054,7 +3054,7 @@ static bool kind_is_good(int k_idx)
 		case TV_HELM:
 		case TV_CROWN:
 		{
-			if(k_ptr->to_ac < 0) return (FALSE);
+			if(object_kind_ptr->to_ac < 0) return (FALSE);
 			return (TRUE);
 		}
 
@@ -3065,8 +3065,8 @@ static bool kind_is_good(int k_idx)
 		case TV_POLEARM:
 		case TV_DIGGING:
 		{
-			if(k_ptr->to_hit < 0) return (FALSE);
-			if(k_ptr->to_damage < 0) return (FALSE);
+			if(object_kind_ptr->to_hit < 0) return (FALSE);
+			if(object_kind_ptr->to_damage < 0) return (FALSE);
 			return (TRUE);
 		}
 
@@ -3091,23 +3091,23 @@ static bool kind_is_good(int k_idx)
 		case TV_HISSATSU_BOOK:
 		case TV_HEX_BOOK:
 		{
-			if(k_ptr->sval >= SV_BOOK_MIN_GOOD) return (TRUE);
+			if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return (TRUE);
 			return (FALSE);
 		}
 
 		/* Rings -- Rings of Speed are good */
 		case TV_RING:
 		{
-			if(k_ptr->sval == SV_RING_SPEED) return (TRUE);
-			if(k_ptr->sval == SV_RING_LORDLY) return (TRUE);
+			if(object_kind_ptr->sval == SV_RING_SPEED) return (TRUE);
+			if(object_kind_ptr->sval == SV_RING_LORDLY) return (TRUE);
 			return (FALSE);
 		}
 
 		/* Amulets -- Amulets of the Magi and Resistance are good */
 		case TV_AMULET:
 		{
-			if(k_ptr->sval == SV_AMULET_THE_MAGI) return (TRUE);
-			if(k_ptr->sval == SV_AMULET_RESISTANCE) return (TRUE);
+			if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return (TRUE);
+			if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return (TRUE);
 			return (FALSE);
 		}
 	}

@@ -3110,7 +3110,7 @@ bool recharge(creature_type *creature_ptr, int power)
 	int recharge_strength, recharge_amount;
 
 	object_type *object_ptr;
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 
 	bool fail = FALSE;
 	byte fail_type = 1;
@@ -3142,7 +3142,7 @@ s = "–‚—Í‚ğ[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B";
 	}
 
 	/* Get the object kind. */
-	k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* Extract the object "level" */
 	lev = object_kind_info[object_ptr->k_idx].level;
@@ -3205,7 +3205,7 @@ s = "–‚—Í‚ğ[“U‚·‚×‚«ƒAƒCƒeƒ€‚ª‚È‚¢B";
 		else
 		{
 			/* Recharge based on the standard number of charges. */
-			recharge_amount = randint1(1 + k_ptr->pval / 2);
+			recharge_amount = randint1(1 + object_kind_ptr->pval / 2);
 
 			/* Multiple wands in a stack increase recharging somewhat. */
 			if((object_ptr->tval == TV_WAND) && (object_ptr->number > 1))
@@ -3360,7 +3360,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", object_name);
 
 
 				/* Reduce rod stack maximum timeout, drain wands. */
-				if(IS_ROD(object_ptr)) object_ptr->timeout = (object_ptr->number - 1) * k_ptr->pval;
+				if(IS_ROD(object_ptr)) object_ptr->timeout = (object_ptr->number - 1) * object_kind_ptr->pval;
 				if(object_ptr->tval == TV_WAND) object_ptr->pval = 0;
 
 				/* Reduce and describe creature_ptr->inventory */
@@ -3720,9 +3720,9 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 	int     dam = 0;
 	bool    angry = FALSE;
 
-	object_kind *k_ptr = &object_kind_info[k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
-	switch (k_ptr->sval)
+	switch (object_kind_ptr->sval)
 	{
 		case TRAIT_SALT_WATER:
 		case SV_POTION_SLIME_MOLD:
@@ -3798,7 +3798,7 @@ bool potion_smash_effect(int who, int y, int x, int k_idx)
 			break;
 		case SV_POTION_DEATH:
 			dt = DO_EFFECT_DEATH_RAY;    /* !! */
-			dam = k_ptr->level * 10;
+			dam = object_kind_ptr->level * 10;
 			angry = TRUE;
 			radius = 1;
 			break;
@@ -5252,7 +5252,7 @@ bool mirror_tunnel(creature_type *creature_ptr)
 bool eat_magic(creature_type *creature_ptr, int power)
 {
 	object_type * object_ptr;
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 	int lev, item;
 	int recharge_strength = 0;
 
@@ -5282,7 +5282,7 @@ s = "–‚—Í‚ğ‹zû‚Å‚«‚éƒAƒCƒeƒ€‚ª‚ ‚è‚Ü‚¹‚ñB";
 		object_ptr = &object_list[0 - item];
 	}
 
-	k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	lev = object_kind_info[object_ptr->k_idx].level;
 
 	if(IS_ROD(object_ptr))
@@ -5297,7 +5297,7 @@ s = "–‚—Í‚ğ‹zû‚Å‚«‚éƒAƒCƒeƒ€‚ª‚ ‚è‚Ü‚¹‚ñB";
 		}
 		else
 		{
-			if(object_ptr->timeout > (object_ptr->number - 1) * k_ptr->pval)
+			if(object_ptr->timeout > (object_ptr->number - 1) * object_kind_ptr->pval)
 			{
 #ifdef JP
 msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
@@ -5309,7 +5309,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 			else
 			{
 				creature_ptr->csp += lev;
-				object_ptr->timeout += k_ptr->pval;
+				object_ptr->timeout += object_kind_ptr->pval;
 			}
 		}
 	}
@@ -5395,7 +5395,7 @@ msg_format("–‚—Í‚ª‹t—¬‚µ‚½I%s‚ÍŠ®‘S‚É–‚—Í‚ğ¸‚Á‚½B", object_name);
 
 			/* Artifact rods. */
 			if(IS_ROD(object_ptr))
-				object_ptr->timeout = k_ptr->pval * object_ptr->number;
+				object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;
 
 			/* Artifact wands and staffs. */
 			else if((object_ptr->tval == TV_WAND) || (object_ptr->tval == TV_STAFF))
@@ -5466,7 +5466,7 @@ msg_print("ƒƒbƒh‚Í”j‘¹‚ğ–Æ‚ê‚½‚ªA–‚—Í‚Í‘S‚Ä¸‚È‚í‚ê‚½B");
 					msg_format("You save your rod from destruction, but all charges are lost.", object_name);
 #endif
 
-					object_ptr->timeout = k_ptr->pval * object_ptr->number;
+					object_ptr->timeout = object_kind_ptr->pval * object_ptr->number;
 				}
 				else if(object_ptr->tval == TV_WAND)
 				{
@@ -5493,7 +5493,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ªˆê–{‰ó‚ê‚½I", object_name);
 #endif
 
 					/* Reduce rod stack maximum timeout, drain wands. */
-					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, k_ptr->pval * (object_ptr->number - 1));
+					if(IS_ROD(object_ptr)) object_ptr->timeout = MIN(object_ptr->timeout, object_kind_ptr->pval * (object_ptr->number - 1));
 					else if(object_ptr->tval == TV_WAND) object_ptr->pval = object_ptr->pval * (object_ptr->number - 1) / object_ptr->number;
 
 				}

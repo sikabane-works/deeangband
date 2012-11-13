@@ -111,13 +111,13 @@ static void object_kind_info_reset(void)
 	/* Reset the "objects" */
 	for (i = 1; i < max_object_kind_idx; i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Reset "tried" */
-		k_ptr->tried = FALSE;
+		object_kind_ptr->tried = FALSE;
 
 		/* Reset "aware" */
-		k_ptr->aware = FALSE;
+		object_kind_ptr->aware = FALSE;
 	}
 }
 
@@ -2886,7 +2886,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 	for (changed = FALSE, i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_type *object_ptr = &creature_ptr->inventory[i];
-		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* Skip non-objects */
 		if(!is_valid_object(object_ptr)) continue;
@@ -2895,7 +2895,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
 			/* Determine how many rods are charging. */
-			int temp = (object_ptr->timeout + (k_ptr->pval - 1)) / k_ptr->pval;
+			int temp = (object_ptr->timeout + (object_kind_ptr->pval - 1)) / object_kind_ptr->pval;
 			if(temp > object_ptr->number) temp = object_ptr->number;
 
 			/* Decrease timeout by that number. */
@@ -2912,7 +2912,7 @@ static void process_world_aux_recharge(creature_type *creature_ptr)
 			}
 
 			/* One of the stack of rod is charged */
-			else if(object_ptr->timeout % k_ptr->pval)
+			else if(object_ptr->timeout % object_kind_ptr->pval)
 			{
 				changed = TRUE;
 			}

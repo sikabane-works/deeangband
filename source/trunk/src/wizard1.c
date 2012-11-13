@@ -459,13 +459,13 @@ static void spoil_obj_desc(cptr fname)
 		/* Acquire legal item types */
 		for (k = 1; k < max_object_kind_idx; k++)
 		{
-			object_kind *k_ptr = &object_kind_info[k];
+			object_kind *object_kind_ptr = &object_kind_info[k];
 
 			/* Skip wrong tval's */
-			if(k_ptr->tval != group_item[i].tval) continue;
+			if(object_kind_ptr->tval != group_item[i].tval) continue;
 
 			/* Hack -- Skip instant-artifacts */
-			if(have_flag(k_ptr->flags, TRAIT_INSTA_ART)) continue;
+			if(have_flag(object_kind_ptr->flags, TRAIT_INSTA_ART)) continue;
 
 			/* Save the index */
 			who[n++] = k;

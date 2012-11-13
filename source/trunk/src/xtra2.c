@@ -295,18 +295,18 @@ static int get_coin_type(int species_idx)
 // Hack -- determine if a template is Book
 static bool kind_is_book(int k_idx)
 {
-	object_kind *k_ptr = &object_kind_info[k_idx];
-	if((k_ptr->tval >= TV_LIFE_BOOK) && (k_ptr->tval <= TV_CRUSADE_BOOK)) return (TRUE);	
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
+	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK)) return (TRUE);	
 	return (FALSE);	// Assume not good
 }
 
 // Hack -- determine if a template is Good book
 static bool kind_is_good_book(int k_idx)
 {
-	object_kind *k_ptr = &object_kind_info[k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
 	/* Analyze the item type */
-	if((k_ptr->tval >= TV_LIFE_BOOK) && (k_ptr->tval <= TV_CRUSADE_BOOK) && (k_ptr->tval != TV_ARCANE_BOOK) && (k_ptr->sval > 1))
+	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK) && (object_kind_ptr->tval != TV_ARCANE_BOOK) && (object_kind_ptr->sval > 1))
 	{
 		return (TRUE);
 	}

@@ -16,10 +16,10 @@
  */
 static bool object_easy_know(int i)
 {
-	object_kind *k_ptr = &object_kind_info[i];
+	object_kind *object_kind_ptr = &object_kind_info[i];
 
 	/* Analyze the "tval" */
-	switch (k_ptr->tval)
+	switch (object_kind_ptr->tval)
 	{
 		/* Spellbooks */
 		case TV_LIFE_BOOK:
@@ -204,16 +204,16 @@ static void shuffle_flavors(byte tval)
 	/* Search objects with given tval for shuffle */
 	for (i = 0; i < max_object_kind_idx; i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Skip non-Rings */
-		if(k_ptr->tval != tval) continue;
+		if(object_kind_ptr->tval != tval) continue;
 
 		/* Paranoia -- Skip objects without flavor */
-		if(!k_ptr->flavor) continue;
+		if(!object_kind_ptr->flavor) continue;
 
 		/* Skip objects with a fixed flavor name */
-		if(have_flag(k_ptr->flags, TRAIT_FIXED_FLAVOR)) continue;
+		if(have_flag(object_kind_ptr->flags, TRAIT_FIXED_FLAVOR)) continue;
 
 		/* Remember k_idx */
 		k_idx_list[k_idx_list_num] = i;
@@ -283,16 +283,16 @@ void flavor_init(void)
 	/* Initialize flavor index of each object by itself */
 	for (i = 0; i < max_object_kind_idx; i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Skip objects without flavor name */
-		if(!k_ptr->flavospecies_name) continue;
+		if(!object_kind_ptr->flavospecies_name) continue;
 
 		/*
 		 * Initialize flavor index to itself
 		 *  -> Shuffle it later
 		 */
-		k_ptr->flavor = i;
+		object_kind_ptr->flavor = i;
 	}
 
 	/* Shuffle Rings */
@@ -326,16 +326,16 @@ void flavor_init(void)
 	/* Analyze every object */
 	for (i = 1; i < max_object_kind_idx; i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Skip "empty" objects */
-		if(!k_ptr->name) continue;
+		if(!object_kind_ptr->name) continue;
 
 		/* No flavor yields aware */
-		if(!k_ptr->flavor) k_ptr->aware = TRUE;
+		if(!object_kind_ptr->flavor) object_kind_ptr->aware = TRUE;
 
 		/* Check for "easily known" */
-		k_ptr->easy_know = object_easy_know(i);
+		object_kind_ptr->easy_know = object_easy_know(i);
 	}
 }
 
@@ -956,12 +956,12 @@ static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool k
 	/* Remove obvious flags */
 	if(!all)
 	{
-		object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 		int j;
 				
 		/* Base object */
 		for (j = 0; j < TRAIT_FLAG_MAX; j++)
-			flgs[j] &= ~k_ptr->flags[j];
+			flgs[j] &= ~object_kind_ptr->flags[j];
 
 		if(object_is_fixed_artifact(object_ptr))
 		{
@@ -1231,8 +1231,8 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	u32b flgs[TRAIT_FLAG_MAX];
 	//object_type *bow_ptr;
 
-	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
-	object_kind *flavor_k_ptr = &object_kind_info[k_ptr->flavor];
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind *flavor_object_kind_ptr = &object_kind_info[object_kind_ptr->flavor];
 
 	object_flags(object_ptr, flgs);	// Extract some flags
 	if(object_is_aware(object_ptr)) aware = TRUE;	// See if the object is "aware"
@@ -1258,7 +1258,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		known = FALSE;
 
 		/* Cancel shuffling */
-		flavor_k_ptr = k_ptr;
+		flavor_object_kind_ptr = object_kind_ptr;
 	}
 
 	/* Analyze the object */
@@ -1411,7 +1411,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%のアミュレット";
@@ -1437,7 +1437,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			}
 
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%の指輪";
@@ -1449,7 +1449,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			else            basenm = "& # Ring~";
 #endif
 
-			if(!k_ptr->to_hit && !k_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
+			if(!object_kind_ptr->to_hit && !object_kind_ptr->to_damage && (object_ptr->to_hit || object_ptr->to_damage)) show_weapon = TRUE;
 
 			break;
 		}
@@ -1462,7 +1462,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_STAFF:
 		{
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%の杖";
@@ -1480,7 +1480,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_WAND:
 		{
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%の魔法棒";
@@ -1498,7 +1498,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_ROD:
 		{
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%のロッド";
@@ -1516,7 +1516,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_SCROLL:
 		{
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%の巻物";
@@ -1534,7 +1534,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_POTION:
 		{
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%の薬";
@@ -1552,10 +1552,10 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_FOOD:
 		{
 			/* Ordinary food is "boring" */
-			if(!k_ptr->flavospecies_name) break;
+			if(!object_kind_ptr->flavospecies_name) break;
 
 			/* Color the object */
-			modstr = object_kind_name + flavor_k_ptr->flavospecies_name;
+			modstr = object_kind_name + flavor_object_kind_ptr->flavospecies_name;
 
 #ifdef JP
 			if(!flavor)    basenm = "%のキノコ";
@@ -2513,14 +2513,14 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				/* Stacks of rods display an exact count of charging rods. */
 				if(object_ptr->number > 1)
 				{
-					if(k_ptr->pval == 0) k_ptr->pval = 1; // Paranoia.
+					if(object_kind_ptr->pval == 0) object_kind_ptr->pval = 1; // Paranoia.
 
 					/* Find out how many rods are charging, by dividing
 					 * current timeout by each rod's maximum timeout.
 					 * Ensure that any remainder is rounded up.  Display
 					 * very discharged stacks as merely fully discharged.
 					 */
-					power = (object_ptr->timeout + (k_ptr->pval - 1)) / k_ptr->pval;
+					power = (object_ptr->timeout + (object_kind_ptr->pval - 1)) / object_kind_ptr->pval;
 					if(power > object_ptr->number) power = object_ptr->number;
 
 					/* Display prettily. */
@@ -2624,7 +2624,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		}
 
 		/* Hack -- Process Lanterns/Torches */
-		if(object_ptr->tval == TV_LITE && !have_flag(k_ptr->flags, TRAIT_NO_LIMIT_LITE))
+		if(object_ptr->tval == TV_LITE && !have_flag(object_kind_ptr->flags, TRAIT_NO_LIMIT_LITE))
 		{
 			/* Hack -- Turns of light for normal lites */
 #ifdef JP

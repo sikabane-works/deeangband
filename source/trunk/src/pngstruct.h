@@ -257,8 +257,8 @@ struct png_struct_def
    png_uint_32 free_me;    /* flags items libpng is responsible for freeing */
 
 #ifdef PNG_USER_CHUNKS_SUPPORTED
-   png_voidp user_chunk_ptr;
-   png_user_chunk_ptr read_user_chunk_fn; /* user read chunk handler */
+   png_voidp user_chunobject_kind_ptr;
+   png_user_chunobject_kind_ptr read_user_chunk_fn; /* user read chunk handler */
 #endif
 
 #ifdef PNG_HANDLE_AS_UNKNOWN_SUPPORTED

@@ -1085,7 +1085,7 @@ static int do_poker(void)
 	int i, k = 2;
 	char cmd;
 	int deck[53]; /* yamafuda : 0...52 */
-	int deck_ptr = 0;
+	int decobject_kind_ptr = 0;
 	int kaeruka[5]; /* 0:kaenai 1:kaeru */
 
 	bool done = FALSE;
@@ -1096,7 +1096,7 @@ static int do_poker(void)
 
 	for (i = 0; i < 5; i++)
 	{
-		cards[i] = deck[deck_ptr++];
+		cards[i] = deck[decobject_kind_ptr++];
 		kaeruka[i] = 0; /* default:nokosu */
 	}
 
@@ -1145,7 +1145,7 @@ static int do_poker(void)
 	prt("",0,0);
 
 	for (i = 0; i < 5; i++)
-		if(kaeruka[i] == 1) cards[i] = deck[deck_ptr++]; /* soshite toru */
+		if(kaeruka[i] == 1) cards[i] = deck[decobject_kind_ptr++]; /* soshite toru */
 
 	display_cards();
 	
@@ -3025,7 +3025,7 @@ static void building_recharge(creature_type *creature_ptr)
 {
 	int         item, lev;
 	object_type *object_ptr;
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 	cptr        q, s;
 	int         price;
 	int         charges;
@@ -3065,7 +3065,7 @@ static void building_recharge(creature_type *creature_ptr)
 		object_ptr = &object_list[0 - item];
 	}
 
-	k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/*
 	 * We don't want to give the player free info about
@@ -3125,7 +3125,7 @@ static void building_recharge(creature_type *creature_ptr)
 		if(object_ptr->timeout > 0)
 		{
 			/* Fully recharge */
-			price = (lev * 50 * object_ptr->timeout) / k_ptr->pval;
+			price = (lev * 50 * object_ptr->timeout) / object_kind_ptr->pval;
 		}
 		else
 		{
@@ -3159,7 +3159,7 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 
 	/* Limit the number of charges for wands and staffs */
 	if(object_ptr->tval == TV_WAND
-		&& (object_ptr->pval / object_ptr->number >= k_ptr->pval))
+		&& (object_ptr->pval / object_ptr->number >= object_kind_ptr->pval))
 	{
 		if(object_ptr->number > 1)
 		{
@@ -3179,7 +3179,7 @@ msg_format("‚»‚ê‚ÍÄ[“U‚·‚é•K—v‚Í‚ ‚è‚Ü‚¹‚ñB");
 		}
 		return;
 	}
-	else if(object_ptr->tval == TV_STAFF && object_ptr->pval >= k_ptr->pval)
+	else if(object_ptr->tval == TV_STAFF && object_ptr->pval >= object_kind_ptr->pval)
 	{
 		if(object_ptr->number > 1)
 		{
@@ -3234,9 +3234,9 @@ if(get_check(format("‚»‚Ìƒƒbƒh‚ð%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H",
 	else
 	{
 		if(object_ptr->tval == TV_STAFF)
-			max_charges = k_ptr->pval - object_ptr->pval;
+			max_charges = object_kind_ptr->pval - object_ptr->pval;
 		else
-			max_charges = object_ptr->number * k_ptr->pval - object_ptr->pval;
+			max_charges = object_ptr->number * object_kind_ptr->pval - object_ptr->pval;
 
 		/* Get the quantity for staves and wands */
 #ifdef JP
@@ -3297,7 +3297,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	int         i;
 	int         lev;
 	object_type *object_ptr;
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 	int         price = 0;
 	int         total_cost = 0;
 
@@ -3325,12 +3325,12 @@ static void building_recharge_all(creature_type *creature_ptr)
 		/* Extract the object "level" */
 		lev = object_kind_info[object_ptr->k_idx].level;
 
-		k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 		switch (object_ptr->tval)
 		{
 		case TV_ROD:
-			price = (lev * 50 * object_ptr->timeout) / k_ptr->pval;
+			price = (lev * 50 * object_ptr->timeout) / object_kind_ptr->pval;
 			break;
 
 		case TV_STAFF:
@@ -3341,7 +3341,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 			price = MAX(10, price);
 
 			/* Fully charge */
-			price = (k_ptr->pval - object_ptr->pval) * price;
+			price = (object_kind_ptr->pval - object_ptr->pval) * price;
 			break;
 
 		case TV_WAND:
@@ -3352,7 +3352,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 			price = MAX(10, price);
 
 			/* Fully charge */
-			price = (object_ptr->number * k_ptr->pval - object_ptr->pval) * price;
+			price = (object_ptr->number * object_kind_ptr->pval - object_ptr->pval) * price;
 			break;
 		}
 
@@ -3394,7 +3394,7 @@ static void building_recharge_all(creature_type *creature_ptr)
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
-		k_ptr = &object_kind_info[object_ptr->k_idx];
+		object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 		/* skip non magic device */
 		if(object_ptr->tval < TV_STAFF || object_ptr->tval > TV_ROD) continue;
@@ -3415,13 +3415,13 @@ static void building_recharge_all(creature_type *creature_ptr)
 			object_ptr->timeout = 0;
 			break;
 		case TV_STAFF:
-			if(object_ptr->pval < k_ptr->pval) object_ptr->pval = k_ptr->pval;
+			if(object_ptr->pval < object_kind_ptr->pval) object_ptr->pval = object_kind_ptr->pval;
 			/* We no longer think the item is empty */
 			object_ptr->ident &= ~(IDENT_EMPTY);
 			break;
 		case TV_WAND:
-			if(object_ptr->pval < object_ptr->number * k_ptr->pval)
-				object_ptr->pval = object_ptr->number * k_ptr->pval;
+			if(object_ptr->pval < object_ptr->number * object_kind_ptr->pval)
+				object_ptr->pval = object_ptr->number * object_kind_ptr->pval;
 			/* We no longer think the item is empty */
 			object_ptr->ident &= ~(IDENT_EMPTY);
 			break;

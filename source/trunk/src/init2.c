@@ -1532,7 +1532,7 @@ static errr init_other(void)
 static errr init_object_alloc(void)
 {
 	int i, j;
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 	alloc_entry *table;
 	s16b num[MAX_DEPTH];
 	s16b aux[MAX_DEPTH];
@@ -1548,14 +1548,14 @@ static errr init_object_alloc(void)
 
 	for (i = 1; i < max_object_kind_idx; i++) // Scan the objects
 	{
-		k_ptr = &object_kind_info[i];
+		object_kind_ptr = &object_kind_info[i];
 		
 		for (j = 0; j < 4; j++) // Scan allocation pairs
 		{
-			if(k_ptr->chance[j]) // Count the "legal" entries
+			if(object_kind_ptr->chance[j]) // Count the "legal" entries
 			{
 				alloc_kind_size++;	// Count the entries
-				num[k_ptr->locale[j]]++; // Group by level
+				num[object_kind_ptr->locale[j]]++; // Group by level
 			}
 		}
 	}
@@ -1581,21 +1581,21 @@ static errr init_object_alloc(void)
 	/* Scan the objects */
 	for (i = 1; i < max_object_kind_idx; i++)
 	{
-		k_ptr = &object_kind_info[i];
+		object_kind_ptr = &object_kind_info[i];
 
 		/* Scan allocation pairs */
 		for (j = 0; j < 4; j++)
 		{
 			/* Count the "legal" entries */
-			if(k_ptr->chance[j])
+			if(object_kind_ptr->chance[j])
 			{
 				int p, x, y, z;
 
 				/* Extract the base level */
-				x = k_ptr->locale[j];
+				x = object_kind_ptr->locale[j];
 
 				/* Extract the base probability */
-				p = (100 / k_ptr->chance[j]);
+				p = (100 / object_kind_ptr->chance[j]);
 
 				/* Skip entries preceding our locale */
 				y = (x > 0) ? num[x-1] : 0;

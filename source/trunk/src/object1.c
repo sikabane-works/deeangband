@@ -51,11 +51,11 @@ void reset_visuals(void)
 	/* Extract default attr/char code for objects */
 	for (i = 0; i < max_object_kind_idx; i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Default attr/char */
-		k_ptr->x_attr = k_ptr->d_attr;
-		k_ptr->x_char = k_ptr->d_char;
+		object_kind_ptr->x_attr = object_kind_ptr->d_attr;
+		object_kind_ptr->x_char = object_kind_ptr->d_char;
 	}
 
 	/* Extract default attr/char code for creatures */
@@ -105,12 +105,12 @@ void reset_visuals(void)
  */
 void object_flags(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 {
-	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	int i;
 
 	/* Base object */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] = k_ptr->flags[i];
+		flgs[i] = object_kind_ptr->flags[i];
 
 	/* Artifact */
 	if(object_is_fixed_artifact(object_ptr))
@@ -211,7 +211,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 	bool spoil = FALSE;
 	int i;
 
-	object_kind *k_ptr = &object_kind_info[object_ptr->k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/* Clear */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
@@ -221,7 +221,7 @@ void object_flags_known(object_type *object_ptr, u32b flgs[TRAIT_FLAG_MAX])
 
 	/* Base object */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] = k_ptr->flags[i];
+		flgs[i] = object_kind_ptr->flags[i];
 
 	/* Must be identified */
 	if(!object_is_known(object_ptr)) return;

@@ -252,7 +252,7 @@ static void strip_bytes(int n)
  */
 static void rd_object(object_type *object_ptr)
 {
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 	u32b flags, flags2;
 	char buf[128];
 
@@ -270,9 +270,9 @@ static void rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->fx);
 
 	/* Type/Subtype */
-	k_ptr = &object_kind_info[object_ptr->k_idx];
-	object_ptr->tval = k_ptr->tval;
-	object_ptr->sval = k_ptr->sval;
+	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
+	object_ptr->tval = object_kind_ptr->tval;
+	object_ptr->sval = object_kind_ptr->sval;
 
 	/* Special pval */
 	if(flags & SAVEFLAG_OBJECT_KIND_PVAL) rd_s16b(&object_ptr->pval);
@@ -1610,12 +1610,12 @@ note("—”î•ñ‚ğƒ[ƒh‚µ‚Ü‚µ‚½");
 	for (i = 0; i < tmp16u; i++)
 	{
 		byte tmp8u;
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		rd_byte(&tmp8u);
 
-		k_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
-		k_ptr->tried = (tmp8u & 0x02) ? TRUE: FALSE;
+		object_kind_ptr->aware = (tmp8u & 0x01) ? TRUE: FALSE;
+		object_kind_ptr->tried = (tmp8u & 0x02) ? TRUE: FALSE;
 	}
 
 	/*** Objects ***/

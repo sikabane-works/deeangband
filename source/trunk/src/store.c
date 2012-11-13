@@ -5531,9 +5531,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5557,9 +5557,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5583,9 +5583,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5609,9 +5609,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5635,9 +5635,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5661,9 +5661,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5687,9 +5687,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5713,9 +5713,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5739,9 +5739,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5765,9 +5765,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5791,9 +5791,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors
@@ -5817,9 +5817,9 @@ static void store_set_table(store_type *st_ptr)
 			// Look for it
 			for (k_idx = 1; k_idx < max_object_kind_idx; k_idx++)
 			{
-				object_kind *k_ptr = &object_kind_info[k_idx];
+				object_kind *object_kind_ptr = &object_kind_info[k_idx];
 				// Found a match
-				if((k_ptr->tval == tv) && (k_ptr->sval == sv)) break;
+				if((object_kind_ptr->tval == tv) && (object_kind_ptr->sval == sv)) break;
 			}
 
 			// Catch errors

@@ -896,11 +896,11 @@ typedef PNG_CALLBACK(void, *png_user_transform_ptr, (png_structp, png_row_infop,
 #endif
 
 #ifdef PNG_USER_CHUNKS_SUPPORTED
-typedef PNG_CALLBACK(int, *png_user_chunk_ptr, (png_structp,
+typedef PNG_CALLBACK(int, *png_user_chunobject_kind_ptr, (png_structp,
     png_unknown_chunkp));
 #endif
 #ifdef PNG_UNKNOWN_CHUNKS_SUPPORTED
-typedef PNG_CALLBACK(void, *png_unknown_chunk_ptr, (png_structp));
+typedef PNG_CALLBACK(void, *png_unknown_chunobject_kind_ptr, (png_structp));
 #endif
 
 #ifdef PNG_SETJMP_SUPPORTED
@@ -1830,8 +1830,8 @@ PNG_EXPORT(218, png_byte, png_get_current_pass_number, (png_const_structp));
 
 #ifdef PNG_USER_CHUNKS_SUPPORTED
 PNG_EXPORT(88, void, png_set_read_user_chunk_fn, (png_structp png_ptr,
-    png_voidp user_chunk_ptr, png_user_chunk_ptr read_user_chunk_fn));
-PNG_EXPORT(89, png_voidp, png_get_user_chunk_ptr, (png_const_structp png_ptr));
+    png_voidp user_chunobject_kind_ptr, png_user_chunobject_kind_ptr read_user_chunk_fn));
+PNG_EXPORT(89, png_voidp, png_get_user_chunobject_kind_ptr, (png_const_structp png_ptr));
 #endif
 
 #ifdef PNG_PROGRESSIVE_READ_SUPPORTED

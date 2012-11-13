@@ -445,14 +445,14 @@ errr process_pref_file_command(char *buf)
 	case 'K':
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
-			object_kind *k_ptr;
+			object_kind *object_kind_ptr;
 			i = (huge)strtol(zz[0], NULL, 0);
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
 			if(i >= max_object_kind_idx) return 1;
-			k_ptr = &object_kind_info[i];
-			if(n1 || (!(n2 & 0x80) && n2)) k_ptr->x_attr = n1; /* Allow TERM_DARK text */
-			if(n2) k_ptr->x_char = n2;
+			object_kind_ptr = &object_kind_info[i];
+			if(n1 || (!(n2 & 0x80) && n2)) object_kind_ptr->x_attr = n1; /* Allow TERM_DARK text */
+			if(n2) object_kind_ptr->x_char = n2;
 			return 0;
 		}
 		break;
@@ -533,11 +533,11 @@ errr process_pref_file_command(char *buf)
 			n2 = strtol(zz[2], NULL, 0);
 			for (i = 1; i < max_object_kind_idx; i++)
 			{
-				object_kind *k_ptr = &object_kind_info[i];
-				if(k_ptr->tval == j)
+				object_kind *object_kind_ptr = &object_kind_info[i];
+				if(object_kind_ptr->tval == j)
 				{
-					if(n1) k_ptr->d_attr = n1;
-					if(n2) k_ptr->d_char = n2;
+					if(n1) object_kind_ptr->d_attr = n1;
+					if(n2) object_kind_ptr->d_char = n2;
 				}
 			}
 			return 0;

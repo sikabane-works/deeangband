@@ -21,9 +21,9 @@ void strip_name(char *buf, int k_idx)
 {
 	char *t;
 
-	object_kind *k_ptr = &object_kind_info[k_idx];
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
-	cptr str = (object_kind_name + k_ptr->name);
+	cptr str = (object_kind_name + object_kind_ptr->name);
 
 
 	/* Skip past leading characters */
@@ -154,7 +154,7 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 	s32b maxd = 1, display[22];
 	byte c = TERM_WHITE;
 	cptr r = "+--common--+";
-	object_kind *k_ptr;
+	object_kind *object_kind_ptr;
 
 	/* Get the entry */
 	alloc_entry *table = alloc_kind_table;
@@ -182,16 +182,16 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 			}
 
 			/* Acquire this kind */
-			k_ptr = &object_kind_info[table[j].index];
+			object_kind_ptr = &object_kind_info[table[j].index];
 
 			/* Accumulate probabilities */
 			total[i] += prob / (GREAT_OBJ * K_MAX_DEPTH);
 			total_frac += prob % (GREAT_OBJ * K_MAX_DEPTH);
 
 			/* Accumulate probabilities */
-			if((k_ptr->tval == tval) && (k_ptr->sval == sval))
+			if((object_kind_ptr->tval == tval) && (object_kind_ptr->sval == sval))
 			{
-				home = k_ptr->level;
+				home = object_kind_ptr->level;
 				rarity[i] += prob;
 			}
 		}
@@ -664,10 +664,10 @@ static int wiz_create_itemtype(void)
 	/* We have to search the whole itemlist. */
 	for (num = 0, i = 1; (num < 80) && (i < max_object_kind_idx); i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Analyze matching items */
-		if(k_ptr->tval == tval)
+		if(object_kind_ptr->tval == tval)
 		{
 			/* Prepare it */
 			row = 2 + (num % 20);
@@ -1680,10 +1680,10 @@ static void do_cmd_wiz_learn(void)
 	/* Scan every object */
 	for (i = 1; i < max_object_kind_idx; i++)
 	{
-		object_kind *k_ptr = &object_kind_info[i];
+		object_kind *object_kind_ptr = &object_kind_info[i];
 
 		/* Induce awareness */
-		if(k_ptr->level <= command_arg)
+		if(object_kind_ptr->level <= command_arg)
 		{
 			/* Get local object */
 			quest_ptr = &forge;
