@@ -688,42 +688,28 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 
 		case SV_POTION_POISON:
 			if(!(user_ptr->resist_pois || IS_OPPOSE_POIS(user_ptr)))
-			{
-				if(set_timed_trait(user_ptr, TRAIT_POISONED, user_ptr->timed_trait[TRAIT_POISONED] + randint0(15) + 10))
-				{
+				if(add_timed_trait(user_ptr, TRAIT_POISONED, randint0(15) + 10, TRUE))
 					ident = TRUE;
-				}
-			}
 			break;
 
 		case SV_POTION_BLINDNESS:
 			if(!has_trait(user_ptr, TRAIT_NO_BLIND))
-			{
-				if(set_timed_trait(user_ptr, TRAIT_BLIND, has_trait(user_ptr, TRAIT_BLIND) + randint0(100) + 100))
-				{
+				if(add_timed_trait(user_ptr, TRAIT_BLIND, randint0(100) + 100, TRUE))
 					ident = TRUE;
-				}
-			}
 			break;
 
 		case SV_POTION_CONFUSION:
 			if(!has_trait(user_ptr, TRAIT_NO_CONF))
-			{
-				set_timed_trait(user_ptr, TRAIT_DRUNKING_FIST, randint0(20) + 15);
-				if(set_timed_trait(user_ptr, TRAIT_CONFUSED, randint0(20) + 15))
-				{
+				set_timed_trait_aux(user_ptr, TRAIT_DRUNKING_FIST, randint0(20) + 15, TRUE);
+				if(set_timed_trait_aux(user_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE))
 					ident = TRUE;
-				}
-			}
 
 			if(!user_ptr->resist_chaos)
 			{
 				if(one_in_(2))
 				{
-					if(set_timed_trait(user_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(user_ptr, TRAIT_HALLUCINATION) + randint0(150) + 150))
-					{
+					if(add_timed_trait(user_ptr, TRAIT_HALLUCINATION, randint0(150) + 150, TRUE))
 						ident = TRUE;
-					}
 				}
 				if(one_in_(13) && (user_ptr->class_idx != CLASS_MONK))
 				{
@@ -739,7 +725,6 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 					msg_print("You wake up somewhere with a sore head...");
 					msg_print("You can't remember a thing, or how you got here!");
 #endif
-
 				}
 			}
 			break;
@@ -748,9 +733,9 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 			if(!has_trait(user_ptr, TRAIT_FREE_ACTION))
 			{
 #ifdef JP
-		msg_print("‚ ‚È‚½‚Í–°‚Á‚Ä‚µ‚Ü‚Á‚½B");
+				msg_print("‚ ‚È‚½‚Í–°‚Á‚Ä‚µ‚Ü‚Á‚½B");
 #else
-		msg_print("You fall asleep.");
+				msg_print("You fall asleep.");
 #endif
 
 				if(curse_of_Iluvatar)
@@ -765,10 +750,8 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 					have_nightmare(user_ptr, get_species_num(floor_ptr, MAX_DEPTH));
 					reset_species_preps();
 				}
-				if(set_timed_trait(user_ptr, TRAIT_PARALYZED, user_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4))
-				{
+				if(add_timed_trait(user_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE))
 					ident = TRUE;
-				}
 			}
 			break;
 
@@ -880,38 +863,30 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 
 		case SV_POTION_SPEED:
 			if(!user_ptr->timed_trait[TRAIT_FAST])
-			{
-				if(set_timed_trait(user_ptr, TRAIT_FAST, randint1(25) + 15)) ident = TRUE;
-			}
+				if(set_timed_trait_aux(user_ptr, TRAIT_FAST, randint1(25) + 15, TRUE)) ident = TRUE;
 			else
-			{
-				(void)set_timed_trait(user_ptr, TRAIT_FAST, user_ptr->timed_trait[TRAIT_FAST] + 5);
-			}
+				(void)add_timed_trait(user_ptr, TRAIT_FAST, 5, TRUE);
 			break;
 
 		case SV_POTION_RESIST_HEAT:
-			if(set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_FIRE, user_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(10) + 10, FALSE))
-			{
+			if(add_timed_trait(user_ptr, TRAIT_MAGIC_RES_FIRE, randint1(10) + 10, TRUE))
 				ident = TRUE;
-			}
 			break;
 
 		case SV_POTION_RESIST_COLD:
-			if(set_timed_trait_aux(user_ptr, TRAIT_MAGIC_RES_COLD, user_ptr->timed_trait[TRAIT_RES_COLD] + randint1(10) + 10, FALSE))
-			{
+			if(add_timed_trait(user_ptr, TRAIT_MAGIC_RES_COLD, randint1(10) + 10, TRUE))
 				ident = TRUE;
-			}
 			break;
 
 		case SV_POTION_HEROISM:
 			if(set_timed_trait(user_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
-			if(set_timed_trait_aux(user_ptr, TRAIT_HERO, user_ptr->timed_trait[TRAIT_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
+			if(add_timed_trait(user_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) ident = TRUE;
 			if(heal_creature(user_ptr, 10)) ident = TRUE;
 			break;
 
 		case SV_POTION_BESERK_STRENGTH:
 			if(set_timed_trait(user_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
-			if(set_timed_trait_aux(user_ptr, TRAIT_S_HERO, user_ptr->timed_trait[TRAIT_S_HERO] + randint1(25) + 25, FALSE)) ident = TRUE;
+			if(add_timed_trait(user_ptr, TRAIT_S_HERO, randint1(25) + 25, TRUE)) ident = TRUE;
 			if(heal_creature(user_ptr, 30)) ident = TRUE;
 			break;
 
