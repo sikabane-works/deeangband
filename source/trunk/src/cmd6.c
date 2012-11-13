@@ -646,7 +646,8 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 	lev = object_kind_info[quest_ptr->k_idx].level; // Object level
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(has_trait_object(object_ptr, i)) do_active_trait(user_ptr, i);
+		if(has_trait_object(object_ptr, i))
+			do_active_trait(user_ptr, i);
 
 	/* Analyze the potion */
 	if(quest_ptr->tval == TV_POTION)

@@ -1775,7 +1775,9 @@ void object_copy(object_type *object_ptr, object_type *j_ptr)
  */
 void object_prep(object_type *object_ptr, int k_idx, int size)
 {
-	object_kind *k_ptr = &object_kind_info[k_idx];
+	int i;
+
+	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 
 	/* Clear the record */
 	object_wipe(object_ptr);
@@ -1784,42 +1786,45 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 	object_ptr->k_idx = k_idx;
 
 	/* Efficiency -- tval/sval */
-	object_ptr->tval = k_ptr->tval;
-	object_ptr->sval = k_ptr->sval;
+	object_ptr->tval = object_kind_ptr->tval;
+	object_ptr->sval = object_kind_ptr->sval;
 
 	/* Default "pval" */
-	object_ptr->pval = k_ptr->pval;
+	object_ptr->pval = object_kind_ptr->pval;
 
 	/* Default number */
 	object_ptr->number = 1;
 
 	/* Default magic */
-	object_ptr->to_hit = k_ptr->to_hit;
-	object_ptr->to_damage = k_ptr->to_damage;
-	object_ptr->to_ac = k_ptr->to_ac;
+	object_ptr->to_hit = object_kind_ptr->to_hit;
+	object_ptr->to_damage = object_kind_ptr->to_damage;
+	object_ptr->to_ac = object_kind_ptr->to_ac;
 
-	/* Default power */
-	object_ptr->ac = k_ptr->ac;
-	object_ptr->ev = k_ptr->ev;
-	object_ptr->dd = k_ptr->dd;
-	object_ptr->ds = k_ptr->ds;
+	// Default power
+	object_ptr->ac = object_kind_ptr->ac;
+	object_ptr->ev = object_kind_ptr->ev;
+	//object_ptr->vo = object_kind_ptr->vo;
+	object_ptr->dd = object_kind_ptr->dd;
+	object_ptr->ds = object_kind_ptr->ds;
 
-	object_ptr->weight = k_ptr->weight;
+	object_ptr->weight = object_kind_ptr->weight;
 
 	// Charge time.
-	object_ptr->charge_const = k_ptr->charge_const;
-	object_ptr->charge_dice = k_ptr->charge_dice;
+	object_ptr->charge_const = object_kind_ptr->charge_const;
+	object_ptr->charge_dice = object_kind_ptr->charge_dice;
+
+	for(i = 0; i < TRAIT_FLAG_MAX; i++) object_ptr->trait_flags[i] = object_kind_ptr->flags[i];
 
 	/* Hack -- worthless items are always "broken" */
 	if(object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);
 
 	/* Hack -- cursed items are always "cursed" */
-	if(have_flag(k_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-	if(have_flag(k_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
-	if(have_flag(k_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
-	if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
-	if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
-	if(have_flag(k_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
+	if(have_flag(object_kind_ptr->flags, TRAIT_CURSED)) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+	if(have_flag(object_kind_ptr->flags, TRAIT_HEAVY_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE);
+	if(have_flag(object_kind_ptr->flags, TRAIT_DIVINE_CURSE)) add_flag(object_ptr->curse_flags, TRAIT_DIVINE_CURSE);
+	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE0)) object_ptr->curse_flags[0] |= get_curse(0, object_ptr);
+	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE1)) object_ptr->curse_flags[0] |= get_curse(1, object_ptr);
+	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
 	if(((object_ptr->tval == TV_CLOAK)      && (object_ptr->sval == SV_ELVEN_CLOAK)) ||
 	    ((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_KUROSHOUZOKU)))
@@ -3124,46 +3129,28 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level,
 	byte obj_level;
 	floor_type *floor_ptr = GET_FLOOR_PTR(j_ptr);
 
-	/* Chance of "special object" */
-	prob = ((mode & AM_GOOD) ? 10 : 1000);
-
-	/* Base level for the object */
-	base = ((mode & AM_GOOD) ? (object_level + 10) : object_level);
-
+	prob = ((mode & AM_GOOD) ? 10 : 1000); // Chance of "special object"
+	base = ((mode & AM_GOOD) ? (object_level + 10) : object_level); // Base level for the object
 
 	// Generate a special object, or a normal object (for player)
 	if(!one_in_(prob) || !make_artifact_special(player_ptr, j_ptr))
 	{
 		int k_idx;
 
-		/* Good objects */
-		if((mode & AM_GOOD) && !get_obj_num_hook)
-		{
-			/* Activate restriction (if already specified, use that) */
-			get_obj_num_hook = kind_is_good;
-		}
+		// Good objects & Activate restriction (if already specified, use that)
+		if((mode & AM_GOOD) && !get_obj_num_hook) get_obj_num_hook = kind_is_good;
+		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
+		k_idx = get_obj_num(floor_ptr, floor_ptr->floor_level, gon_mode); // Pick a random object
+		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects
+		if(!k_idx) return (FALSE); // Handle failure
 
-		/* Restricted objects - prepare allocation table */
-		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook);
-
-		/* Pick a random object */
-		k_idx = get_obj_num(floor_ptr, floor_ptr->floor_level, gon_mode);
-
-		/* Restricted objects */
-		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook);
-
-		/* Handle failure */
-		if(!k_idx) return (FALSE);
-
-		/* Prepare the object */
-		object_prep(j_ptr, k_idx, ITEM_FREE_SIZE);
+		object_prep(j_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
 	}
 
 	/* Apply magic (allow artifacts) */
 	apply_magic(player_ptr, j_ptr, object_level, mode, 0);
 
-	/* Hack -- generate multiple spikes/missiles */
-	switch (j_ptr->tval)
+	switch (j_ptr->tval) // Hack -- generate multiple spikes/missiles
 	{
 		case TV_SPIKE:
 		case TV_SHOT:
@@ -3178,15 +3165,11 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level,
 	obj_level = object_kind_info[j_ptr->k_idx].level;
 	if(object_is_fixed_artifact(j_ptr)) obj_level = artifact_info[j_ptr->name1].level;
 
-	/* Notice "okay" out-of-depth objects */
+	// Notice "okay" out-of-depth objects & Cheat -- peek at items
 	if(!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) && (obj_level > floor_ptr->object_level))
-	{
-		/* Cheat -- peek at items */
 		if(cheat_peek) object_mention(j_ptr);
-	}
 
-	/* Success */
-	return (TRUE);
+	return (TRUE); // Success
 }
 
 
