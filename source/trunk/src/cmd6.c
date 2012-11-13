@@ -594,7 +594,7 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 {
 	floor_type  *floor_ptr = GET_FLOOR_PTR(user_ptr);
-	int         ident, lev;
+	int         ident, lev, i;
 	object_type	*object_ptr;
 	object_type forge;
 	object_type *quest_ptr;
@@ -641,16 +641,12 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 	}
 
 	sound(SOUND_QUAFF);	// Sound
+	ident = FALSE; // Not identified yet
 
+	lev = object_kind_info[quest_ptr->k_idx].level; // Object level
 
-	/* Not identified yet */
-	ident = FALSE;
-
-	/* Object level */
-	lev = object_kind_info[quest_ptr->k_idx].level;
-
-
-	//TODO:by trait
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(has_trait_object(object_ptr, i)) do_active_trait(user_ptr, i);
 
 	/* Analyze the potion */
 	if(quest_ptr->tval == TV_POTION)
