@@ -93,76 +93,40 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 		switch (object_ptr->sval)
 		{
 			case SV_FOOD_POISON:
-			{
 				if(!(creature_ptr->resist_pois || IS_OPPOSE_POIS(creature_ptr)))
-				{
-					if(set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] + randint0(10) + 10))
-					{
+					if(add_timed_trait(creature_ptr, TRAIT_POISONED, randint0(10) + 10, TRUE))
 						ident = TRUE;
-					}
-				}
 				break;
-			}
 
 			case SV_FOOD_BLINDNESS:
-			{
 				if(!has_trait(creature_ptr, TRAIT_NO_BLIND))
-				{
-					if(set_timed_trait(creature_ptr, TRAIT_BLIND, has_trait(creature_ptr, TRAIT_BLIND) + randint0(200) + 200))
-					{
+					if(add_timed_trait(creature_ptr, TRAIT_BLIND, randint0(200) + 200, TRUE))
 						ident = TRUE;
-					}
-				}
 				break;
-			}
 
 			case SV_FOOD_PARANOIA:
-			{
 				if(!has_trait(creature_ptr, TRAIT_FEARLESS))
-				{
-					if(set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + randint0(10) + 10))
-					{
+					if(add_timed_trait(creature_ptr, TRAIT_AFRAID, randint0(10) + 10, TRUE))
 						ident = TRUE;
-					}
-				}
 				break;
-			}
 
 			case SV_FOOD_CONFUSION:
-			{
 				if(!has_trait(creature_ptr, TRAIT_NO_CONF))
-				{
-					if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(10) + 10))
-					{
+					if(add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(10) + 10, TRUE))
 						ident = TRUE;
-					}
-				}
 				break;
-			}
 
 			case SV_FOOD_HALLUCINATION:
-			{
 				if(!creature_ptr->resist_chaos)
-				{
-					if(set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(250) + 250))
-					{
+					if(add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(250) + 250, TRUE))
 						ident = TRUE;
-					}
-				}
 				break;
-			}
 
 			case SV_FOOD_PARALYSIS:
-			{
 				if(!has_trait(creature_ptr, TRAIT_FREE_ACTION))
-				{
-					if(set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint0(10) + 10))
-					{
+					if(add_timed_trait(creature_ptr, TRAIT_PARALYZED, randint0(10) + 10, TRUE))
 						ident = TRUE;
-					}
-				}
 				break;
-			}
 
 			case SV_FOOD_WEAKNESS:
 			{

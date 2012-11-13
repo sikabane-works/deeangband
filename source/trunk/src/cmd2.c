@@ -3633,7 +3633,6 @@ void do_cmd_fire(creature_type *creature_ptr)
 	}
 }
 
-
 static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return (TRUE);
@@ -3641,7 +3640,6 @@ static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type 
 	/* Assume not */
 	return (FALSE);
 }
-
 
 /*
  * Throw an object from the pack or floor.

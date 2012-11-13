@@ -1324,21 +1324,14 @@ msg_print("An infernal sound echoed.");
 	if(over_exerted)
 	{
 		int oops = need_mana;
+		dec_mana(creature_ptr, need_mana);
 
-		/* No mana left */
-		creature_ptr->csp = 0;
-		creature_ptr->csp_frac = 0;
-
-		/* Message */
 #ifdef JP
 		msg_print("精神を集中しすぎて気を失ってしまった！");
 #else
 		msg_print("You faint from the effort!");
 #endif
-
-
-		/* Hack -- Bypass free action */
-		(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, creature_ptr->timed_trait[TRAIT_PARALYZED] + randint1(5 * oops + 1));
+		(void)add_timed_trait(creature_ptr, TRAIT_SLEPT, randint1(5 * oops + 1), FALSE);
 
 		/* Damage CON (possibly permanently) */
 		if(randint0(100) < 50)
@@ -1347,12 +1340,10 @@ msg_print("An infernal sound echoed.");
 
 			/* Message */
 #ifdef JP
-msg_print("体を悪くしてしまった！");
+			msg_print("体を悪くしてしまった！");
 #else
 			msg_print("You have damaged your health!");
 #endif
-
-
 			/* Reduce constitution */
 			(void)dec_stat(creature_ptr, STAT_CON, 15 + randint1(10), perm);
 		}
