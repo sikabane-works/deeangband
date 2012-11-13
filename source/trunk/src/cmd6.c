@@ -129,127 +129,94 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				break;
 
 			case SV_FOOD_WEAKNESS:
-			{
 #ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
-
 				(void)do_dec_stat(creature_ptr, STAT_STR);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_SICKNESS:
-			{
 #ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "毒入り食料", NULL, -1);
 #else
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(6, 6), "poisonous food", NULL, -1);
 #endif
-
 				(void)do_dec_stat(creature_ptr, STAT_CON);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_STUPIDITY:
-			{
 #ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
-
 				(void)do_dec_stat(creature_ptr, STAT_INT);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_NAIVETY:
-			{
 #ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "毒入り食料", NULL, -1);
 #else
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(8, 8), "poisonous food", NULL, -1);
 #endif
-
 				(void)do_dec_stat(creature_ptr, STAT_WIS);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_UNHEALTH:
-			{
 #ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
-
 				(void)do_dec_stat(creature_ptr, STAT_CON);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_DISEASE:
-			{
 #ifdef JP
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "毒入り食料", NULL, -1);
 #else
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(10, 10), "poisonous food", NULL, -1);
 #endif
-
 				(void)do_dec_stat(creature_ptr, STAT_STR);
 				ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_CURE_POISON:
-			{
 				if(set_timed_trait(creature_ptr, TRAIT_POISONED, 0)) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_CURE_BLINDNESS:
-			{
 				if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_CURE_PARANOIA:
-			{
 				if(set_timed_trait(creature_ptr, TRAIT_AFRAID, 0)) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_CURE_CONFUSION:
-			{
 				if(set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0)) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_CURE_SERIOUS:
-			{
 				if(heal_creature(creature_ptr, diceroll(4, 8))) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_RESTORE_STR:
-			{
 				if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_RESTORE_CON:
-			{
 				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
 				break;
-			}
 
 			case SV_FOOD_RESTORING:
-			{
 				if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
 				if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
 				if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
@@ -257,8 +224,6 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 				if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
 				if(do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
 				break;
-			}
-
 
 #ifdef JP
 			/* それぞれの食べ物の感想をオリジナルより細かく表現 */
