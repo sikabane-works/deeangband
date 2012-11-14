@@ -2752,12 +2752,9 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	int         lev, ident, chance, dir, i;
 	object_type *object_ptr;
 	bool old_target_pet = target_pet;
-
-	/* Get the item (in the pack) */
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-
-	/* Get the item (on the floor) */
-	else object_ptr = &object_list[0 - item];
+	
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item]; // Get the item (in the pack)
+	else object_ptr = &object_list[0 - item]; // Get the item (on the floor)
 
 	/* Mega-Hack -- refuse to aim a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))
@@ -2767,15 +2764,9 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("You must first pick up the wands.");
 #endif
-
 		return;
 	}
 
-
-	/* Allow direction to be cancelled for free */
-	if(object_is_aware(object_ptr) && (object_ptr->sval == SV_WAND_HEAL_OTHER_CREATURE
-				      || object_ptr->sval == SV_WAND_HASTE_MONSTER))
-			target_pet = TRUE;
 	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir))
 	{
 		target_pet = old_target_pet;
@@ -2783,27 +2774,17 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	}
 	target_pet = old_target_pet;
 
-	/* Take a turn */
-	cost_tactical_energy(creature_ptr, 100);
+	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
-	/* Get the level */
-	lev = object_kind_info[object_ptr->k_idx].level;
-	if(lev > 50) lev = 50 + (lev - 50)/2;
+	lev = object_kind_info[object_ptr->k_idx].level; // Get the level
+	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
-	/* Base chance of success */
-	chance = creature_ptr->skill_dev;
+	chance = creature_ptr->skill_dev; // Base chance of success
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
+	chance = chance - lev; // Hight level objects are harder
 
-	/* Confusion hurts skill */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
-
-	/* Hight level objects are harder */
-	chance = chance - lev;
-
-	/* Give everyone a (slight) chance */
-	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1))
-	{
-		chance = USE_DEVICE;
-	}
+	// Give everyone a (slight) chance
+	if((chance < USE_DEVICE) && one_in_(USE_DEVICE - chance + 1)) chance = USE_DEVICE;
 
 	if(creature_ptr->time_stopper)
 	{
