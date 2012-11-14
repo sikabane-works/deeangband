@@ -335,13 +335,23 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_HEAL:
-		(void)heal_creature(caster_ptr, user_level*6);
-		(void)set_timed_trait(caster_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+		if(heal_creature(caster_ptr, 300)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
+		break;
 
 	case TRAIT_TRUE_HEALING:
-		(void)heal_creature(caster_ptr, 1000);
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, 0);
+		if(heal_creature(caster_ptr, 1200)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
 		break;
 
 	case TRAIT_GET_ESP:

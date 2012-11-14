@@ -887,26 +887,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			if(heal_creature(caster_ptr, 30)) effected = TRUE;
 			break;
 
-		case SV_POTION_HEALING:
-			if(heal_creature(caster_ptr, 300)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
-			break;
-
-		case SV_POTION_STAR_HEALING:
-			if(heal_creature(caster_ptr, 1200)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
-			if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
-			break;
-
 		case SV_POTION_LIFE:
 #ifdef JP
 			msg_print("ëÃíÜÇ…ê∂ñΩóÕÇ™ñûÇøÇ†Ç”ÇÍÇƒÇ´ÇΩÅI");
