@@ -3286,10 +3286,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 	return (FALSE);	// Assume not
 }
 
-
-/*
- * Hack -- activate the ring of power
- */
+// Hack -- activate the ring of power
 void ring_of_power(creature_type *creature_ptr, int dir)
 {
 	switch (randint1(10))	// Pick a random effect
@@ -3302,7 +3299,6 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 #else
 			msg_print("You are surrounded by a malignant aura.");
 #endif
-
 			sound(SOUND_EVIL);
 
 			// Decrease all stats (permanently)
@@ -3353,7 +3349,6 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 	}
 }
 
-
 static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 {
 	u16b *who = (u16b*)(u);
@@ -3396,7 +3391,7 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
  */
 static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 {
-	int         dir, lev, chance, fail;
+	int         dir, lev, chance, fail, i;
 	object_type *object_ptr;
 	bool success;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
@@ -3409,111 +3404,16 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
 	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level; // Hack -- use artifact level instead
-	else if(object_ptr->art_name)
-	{
-		switch (object_ptr->xtra2)
-		{
-			case TRAIT_SUNLIGHT:
-			case TRAIT_MISSILE:
-			case TRAIT_BA_POIS:
-			case TRAIT_CONFUSE_TOUCH:
-			case TRAIT_SLEEP_TOUCH:
-			case TRAIT_CURE_LIGHT_WOUNDS:
-			case TRAIT_REMOVE_POISON:
-			case TRAIT_BERSERK:
-			case TRAIT_ILLUMINATION:
-			case TRAIT_DESTROY_DOOR_TRAP:
-			case TRAIT_ACTIVE_TELEPORT:
-				lev = 10;
-				break;
-			case TRAIT_BO_ELEC:
-			case TRAIT_BO_ACID:
-			case TRAIT_BO_COLD:
-			case TRAIT_BO_FIRE:
-			case TRAIT_DETECT_MAP:
-			case TRAIT_STONE_TO_MUD:
-			case TRAIT_CURE_MEDIUM_WOUNDS:
-			case TRAIT_EARTHQUAKE:
-				lev = 20;
-				break;
-			case TRAIT_DRAIN_LIFE1:
-			case TRAIT_TELE_AWAY:
-			case TRAIT_GET_ESP:
-			case TRAIT_MAGIC_RES_ELEMENT:
-			case TRAIT_DETECT_ALL:
-			case TRAIT_RECALL:
-			case TRAIT_SATIATE:
-			case TRAIT_MAGIC_CHARGE_2:
-				lev = 30;
-				break;
-			case TRAIT_BA_FIRE:
-			case TRAIT_TERROR:
-			case TRAIT_PROT_EVIL:
-			case TRAIT_IDENTIFY:
-			case TRAIT_RESTORE_LIFE:
-			case TRAIT_HASTE:
-			case TRAIT_BANISH_EVIL:
-				lev = 40;
-				break;
-			case TRAIT_DRAIN_LIFE2:
-			case TRAIT_VAMPIRIC_DRAIN_1:
-			case TRAIT_BO_MANA:
-			case TRAIT_WHIRLWIND:
-			case TRAIT_CHARM_ANIMAL:
-			case TRAIT_S_ANIMAL:
-			case TRAIT_DISPEL_EVIL_1:
-			case TRAIT_DISPEL_GOOD_1:
-			case TRAIT_HASTE_2:
-			case TRAIT_IDENTIFY_TRUE:
-				lev = 50;
-				break;
-			case TRAIT_VAMPIRIC_DRAIN_2:
-			case TRAIT_BA_COLD:
-			case TRAIT_BA_ELEC:
-			case TRAIT_SYMBOL_GENOCIDE:
-			case TRAIT_CHARM_UNDEAD:
-			case TRAIT_CHARM_OTHER:
-			case TRAIT_S_PHANTOM:
-			case TRAIT_S_ELEMENTAL:
-			case TRAIT_EXPLOSIVE_RUNE:
-				lev = 60;
-				break;
-			case TRAIT_MASS_GENOCIDE:
-			case TRAIT_CHARM_ANIMALS:
-			case TRAIT_CHARM_OTHERS:
-			case TRAIT_HEAL:
-			case TRAIT_PROTECT_RUNE:
-			case TRAIT_MIDAS_TCH:
-			case TRAIT_RESTORE_ALL:
-				lev = 70;
-				break;
-			case TRAIT_CALL_CHAOS:
-			case TRAIT_ROCKET:
-			case TRAIT_BA_MANA:
-			case TRAIT_TRUE_HEALING:
-			case TRAIT_DIMENSION_DOOR:
-			case TRAIT_S_UNDEAD:
-			case TRAIT_S_DEMON:
-				lev = 80;
-				break;
-			case TRAIT_WRAITH_FORM:
-			case TRAIT_INVULNER:
-				lev = 100;
-				break;
-			default:
-				lev = 0;
-		}
-	}
-	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
 
-	/* Base chance of success */
-	chance = creature_ptr->skill_dev;
+	// TODO calc lev by activation
+	lev = 10;
+	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
 
-	/* Confusion hurts skill */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	chance = creature_ptr->skill_dev; // Base chance of success
+	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
 
 	fail = lev+5;
-	if(chance > fail) fail -= (chance - fail)*2;
+	if(chance > fail) fail -= (chance - fail) * 2;
 	else chance -= (fail - chance)*2;
 	if(fail < USE_DEVICE) fail = USE_DEVICE;
 	if(chance < USE_DEVICE) chance = USE_DEVICE;
@@ -3526,12 +3426,12 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("It shows no reaction.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
 
 	if(creature_ptr->class_idx == CLASS_BERSERKER) success = FALSE;
+
 	else if(chance > fail)
 	{
 		if(randint0(chance*2) < fail) success = FALSE;
@@ -3588,73 +3488,13 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	/* Artifacts */
 	else if(object_is_fixed_artifact(object_ptr))
 	{
-
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
-
-		/* Done */
 		return;
 	}
 
-	if(object_is_smith(object_ptr))
-	{
-		switch (object_ptr->xtra3-1)
-		{
-		case ESSENCE_TMP_RES_ACID:
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ACID, randint1(20) + 20, FALSE);
-			object_ptr->timeout = randint0(50) + 50;
-			return;
-
-		case ESSENCE_TMP_RES_ELEC:
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_ELEC, randint1(20) + 20, FALSE);
-			object_ptr->timeout = randint0(50) + 50;
-			return;
-
-		case ESSENCE_TMP_RES_FIRE:
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, FALSE);
-			object_ptr->timeout = randint0(50) + 50;
-			return;
-
-		case ESSENCE_TMP_RES_COLD:
-			(void)set_timed_trait_aux(creature_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, FALSE);
-			object_ptr->timeout = randint0(50) + 50;
-			return;
-		}
-	}
-
-	if(object_ptr->name2 == EGO_LITE_ILLUMINATION)
-	{
-		if(!object_ptr->xtra4 && ((object_ptr->sval == SV_LITE_TORCH) || (object_ptr->sval == SV_LITE_LANTERN)))
-		{
-#ifdef JP
-			msg_print("”R—¿‚ª‚È‚¢B");
-#else
-			msg_print("It has no fuel.");
-#endif
-			creature_ptr->energy_need = 0;
-			return;
-		}
-		lite_area(creature_ptr, diceroll(2, 15), 3);
-		object_ptr->timeout = randint0(10) + 10;
-
-		/* Window stuff */
-		play_window |= (PW_INVEN | PW_EQUIP);
-
-		return;
-	}
-
-
-	if(object_ptr->name2 == EGO_EARTHQUAKES)
-	{
-		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
-		object_ptr->timeout = 100 + randint1(100);
-
-		/* Window stuff */
-		play_window |= (PW_INVEN | PW_EQUIP);
-
-		/* Done */
-		return;
-	}
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(has_trait_object(object_ptr, i))
+			do_active_trait(creature_ptr, i, FALSE);
 
 	/* Hack -- Dragon Scale Mail can be activated as well */
 	if(object_ptr->tval == TV_DRAG_ARMOR)
