@@ -599,8 +599,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 	object_type forge;
 	object_type *quest_ptr;
 
-	// Take a turn
-	caster_ptr->energy_need = 100;
+	cost_tactical_energy(caster_ptr, 100); // Take a turn
 
 	if(caster_ptr->time_stopper)
 	{
@@ -1261,21 +1260,11 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &caster_ptr->inventory[item];
-	}
+	// Get the item (in the pack / on the floor)
+	if(item >= 0) object_ptr = &caster_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
-
-	/* Take a turn */
-	cost_tactical_energy(caster_ptr, 100);
+	cost_tactical_energy(caster_ptr, 100); // Take a turn
 
 	if(caster_ptr->time_stopper)
 	{
@@ -3478,8 +3467,8 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
 	else object_ptr = &object_list[0 - item];
 
-	
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
+
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
 	if(object_is_fixed_artifact(object_ptr)) lev = artifact_info[object_ptr->name1].level; // Hack -- use artifact level instead
 	else if(object_ptr->art_name)
@@ -4184,15 +4173,12 @@ void do_cmd_use(creature_type *creature_ptr)
 	object_type *object_ptr;
 	cptr        q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
-q = "どれを使いますか？";
-s = "使えるものがありません。";
+	q = "どれを使いますか？";
+	s = "使えるものがありません。";
 #else
 	q = "Use which item? ";
 	s = "You have nothing to use.";
@@ -4200,65 +4186,40 @@ s = "使えるものがありません。";
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	// Get the item (in the pack / on the floor)
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
+	else object_ptr = &object_list[0 - item];
 
 	switch (object_ptr->tval)
 	{
-		/* Spike a door */
 		case TV_SPIKE:
-		{
 			do_cmd_spike(creature_ptr);
 			break;
-		}
 
-		/* Eat some food */
 		case TV_FOOD:
-		{
 			do_cmd_eat_food_aux(creature_ptr, item);
 			break;
-		}
 
-		/* Aim a wand */
 		case TV_WAND:
-		{
 			do_cmd_aim_wand_aux(creature_ptr, item);
 			break;
-		}
 
-		/* Use a staff */
 		case TV_STAFF:
-		{
 			do_cmd_use_staff_aux(creature_ptr, item);
 			break;
-		}
 
-		/* Zap a rod */
 		case TV_ROD:
-		{
 			do_cmd_zap_rod_aux(creature_ptr, item);
 			break;
-		}
 
-		/* Quaff a potion */
 		case TV_POTION:
-		{
 			do_cmd_quaff_potion_aux(creature_ptr, item);
 			break;
-		}
 
 		/* Read a scroll */
 		case TV_SCROLL:
 		{
-			/* Check some conditions */
+			// Check some conditions
 			if(has_trait(creature_ptr, TRAIT_BLIND))
 			{
 #ifdef JP
@@ -4282,11 +4243,10 @@ s = "使えるものがありません。";
 			if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 			{
 #ifdef JP
-msg_print("混乱していて読めない！");
+				msg_print("混乱していて読めない！");
 #else
 				msg_print("You are too confused!");
 #endif
-
 				return;
 			}
 
