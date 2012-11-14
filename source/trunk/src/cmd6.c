@@ -4116,13 +4116,9 @@ void do_cmd_activate(creature_type *creature_ptr)
  */
 static bool item_tester_hook_use(creature_type *creature_ptr, object_type *object_ptr)
 {
-	u32b flgs[TRAIT_FLAG_MAX];
+	if(object_ptr->tval == creature_ptr->tval_ammo) return (TRUE);
 
-	/* Ammo */
-	if(object_ptr->tval == creature_ptr->tval_ammo)
-		return (TRUE);
-
-	/* Useable object */
+	// Useable object
 	switch (object_ptr->tval)
 	{
 		case TV_SPIKE:
@@ -4147,19 +4143,17 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 			for (i = 0; i < INVEN_TOTAL; i++)
 			{
 				if(!IS_EQUIPPED(object_ptr)) continue;
-
 				if(&creature_ptr->inventory[i] == object_ptr)
-				{
-					object_flags(object_ptr, flgs); // Extract the flags
-
-					//TODO: TR_ACTIVATE
-				}
+					for(i = 0; i < MAX_TRAITS; i++)
+						if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF ||
+							trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
+							if(has_trait_object(object_ptr, i)) return (TRUE);
 			}
 		}
 	}
 
-	/* Assume not */
-	return (FALSE);
+	
+	return (FALSE); // Assume not
 }
 
 
@@ -4227,7 +4221,6 @@ void do_cmd_use(creature_type *creature_ptr)
 #else
 				msg_print("You can't see anything.");
 #endif
-
 				return;
 			}
 			if(no_lite(creature_ptr))
