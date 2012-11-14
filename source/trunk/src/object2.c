@@ -1814,7 +1814,8 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 	object_ptr->charge_dice = object_kind_ptr->charge_dice;
 
 	for(i = 0; i < MAX_TRAITS; i++)
-		if(object_kind_ptr->add_creature_traits.add_lev[i]) add_flag(object_ptr->trait_flags, i);
+		if(object_kind_ptr->add_creature_traits.add_lev[i])
+			add_flag(object_ptr->trait_flags, i);
 
 	/* Hack -- worthless items are always "broken" */
 	if(object_kind_info[object_ptr->k_idx].cost <= 0) object_ptr->ident |= (IDENT_BROKEN);

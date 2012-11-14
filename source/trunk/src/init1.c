@@ -2329,27 +2329,9 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_FLAGS:
-				if(!strlen(tmp)) break;
-				s = tmp;
-				/* Parse every entry textually */
-				for (s = tmp; *s;)
-				{
-						/* Find the end of this entry */
-					for (t = s; *t && (*t != ' ') && (*t != '|'); ++t) /* loop */;
-
-						/* Nuke and skip any dividers */
-					if(*t)
-					{
-						*t++ = '\0';
-						while (*t == ' ' || *t == '|') t++;
-					}
-
-					if(0 != traits_precondition_splits(&object_kind_info[n].add_creature_traits, s))
-						return PARSE_ERROR_INVALID_FLAG;
-
-						/* Start the next entry */
-					s = t;
-				}
+				if(0 != traits_precondition_splits(&object_kind_ptr->add_creature_traits, tmp))
+					return PARSE_ERROR_GENERIC;
+				break;
 				break;
 
 			case OK_INFO_DESCRIPTION:
