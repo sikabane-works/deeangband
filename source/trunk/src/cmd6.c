@@ -2285,7 +2285,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
  */
 static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 {
-	int         ident, chance, lev;
+	int         ident, chance, lev, i;
 	object_type *object_ptr;
 
 	/* Hack -- let staffs of identify get aborted */
@@ -2306,14 +2306,13 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-	/* Take a turn */
-	cost_tactical_energy(creature_ptr, 100);
+	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
-	/* Extract the item level */
+	// Extract the item level
 	lev = object_kind_info[object_ptr->k_idx].level;
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
-	/* Base chance of success */
+	// Base chance of success
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
@@ -2369,8 +2368,12 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	}
 
 	sound(SOUND_ZAP);	// Sound
-	ident = staff_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE, object_is_aware(object_ptr));
 
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(has_trait_object(object_ptr, i))
+			do_active_trait(creature_ptr, i, FALSE);
+
+	ident = staff_effect(creature_ptr, object_ptr->sval, &use_charge, FALSE, object_is_aware(object_ptr));
 
 	/* Combine / Reorder the pack (later) */
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
@@ -2419,13 +2422,8 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 {
 	int  item;
 	cptr q, s;
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
-
-	/* Get an item */
 #ifdef JP
 	q = "どの杖を使いますか? ";
 	s = "使える杖がない。";
@@ -2433,7 +2431,6 @@ void do_cmd_use_staff(creature_type *creature_ptr)
 	q = "Use which staff? ";
 	s = "You have no staff to use.";
 #endif
-
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_STAFF)) return;
 
 	do_cmd_use_staff_aux(creature_ptr, item);
@@ -2752,21 +2749,15 @@ static int wand_effect(creature_type *creature_ptr, int sval, int dir, bool magi
  */
 static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 {
-	int         lev, ident, chance, dir;
+	int         lev, ident, chance, dir, i;
 	object_type *object_ptr;
 	bool old_target_pet = target_pet;
 
 	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
+	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
 
 	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	else object_ptr = &object_list[0 - item];
 
 	/* Mega-Hack -- refuse to aim a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))
@@ -2863,6 +2854,10 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	/* Sound */
 	sound(SOUND_ZAP);
 
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(has_trait_object(object_ptr, i))
+			do_active_trait(creature_ptr, i, FALSE);
+
 	ident = wand_effect(creature_ptr, object_ptr->sval, dir, FALSE);
 
 	/* Combine / Reorder the pack (later) */
@@ -2904,10 +2899,7 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 	int     item;
 	cptr    q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Get an item */
 #ifdef JP
@@ -3174,7 +3166,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
  */
 static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 {
-	int ident, chance, lev, fail;
+	int ident, chance, lev, fail, i;
 	int dir = 0;
 	object_type *object_ptr;
 	bool success;
@@ -3274,6 +3266,10 @@ msg_print("そのロッドはまだ充填中です。");
 	}
 
 	sound(SOUND_ZAP);
+
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(has_trait_object(object_ptr, i))
+			do_active_trait(creature_ptr, i, FALSE);
 
 	ident = rod_effect(creature_ptr, object_ptr->sval, dir, &use_charge, FALSE);
 	if(use_charge)
