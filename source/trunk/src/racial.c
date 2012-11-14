@@ -247,17 +247,9 @@ bool do_cmd_archer(creature_type *creature_ptr)
 #endif
 		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
 
-		/* Get the item (in the pack) */
-		if(item >= 0)
-		{
-			quest_ptr = &creature_ptr->inventory[item];
-		}
-
-		/* Get the item (on the floor) */
-		else
-		{
-			quest_ptr = &object_list[0 - item];
-		}
+		// Get the item (in the pack / on the floor)
+		if(item >= 0) quest_ptr = &creature_ptr->inventory[item];
+		else quest_ptr = &object_list[0 - item];
 
 		/* Get local object */
 		quest_ptr = &forge;

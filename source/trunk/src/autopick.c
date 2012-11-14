@@ -1626,10 +1626,8 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr;
 
-	// Get the item (in the pack)
+	// Get the item (in the pack / on the floor)
 	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-
-	// Get the item (on the floor)
 	else object_ptr = &object_list[0 - item];
 
 	if(object_ptr->k_idx && (object_ptr->marked & OM_AUTODESTROY))
@@ -1699,10 +1697,8 @@ void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy)
 	object_type *object_ptr;
 	int idx;
 
-	/* Get the item (in the pack) */
+	// Get the item (in the pack / on the floor)
 	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-
-	/* Get the item (on the floor) */
 	else object_ptr = &object_list[0 - item];
 
 	/* Get the index in the auto-pick/destroy list */
