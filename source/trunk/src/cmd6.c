@@ -3269,18 +3269,19 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	do_cmd_zap_rod_aux(creature_ptr, item);
 }
 
-
-/*
- * Hook to determine if an object is activatable
- */
+// Hook to determine if an object is activatable
 static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *object_ptr)
 {
+	int i;
 	u32b flgs[TRAIT_FLAG_MAX];
 
 	if(!object_is_known(object_ptr)) return (FALSE);	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
 
-	// TODO:Check activation flag
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF ||
+			trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
+			if(has_trait_object(object_ptr, i)) return (TRUE);
 
 	return (FALSE);	// Assume not
 }
