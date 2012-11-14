@@ -3199,21 +3199,12 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 		return;
 	}
 
-
-	/* Get a direction (unless KNOWN not to need it) */
-	if(((object_ptr->sval >= SV_ROD_MIN_DIRECTION) && (object_ptr->sval != SV_ROD_HAVOC) && (object_ptr->sval != SV_ROD_AGGRAVATE) && (object_ptr->sval != SV_ROD_PESTICIDE)) ||
-	     !object_is_aware(object_ptr))
-	{
-		/* Get a direction, allow cancel */
-		if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) return;
-	}
-
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
 	chance = creature_ptr->skill_dev; // Base chance of success
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
 
-	fail = lev+5;
+	fail = lev + 5;
 	if(chance > fail) fail -= (chance - fail)*2;
 	else chance -= (fail - chance)*2;
 	if(fail < USE_DEVICE) fail = USE_DEVICE;
@@ -3227,7 +3218,6 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("Nothing happen. Maybe this rod is freezing too.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -3312,12 +3302,8 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	int item;
 	cptr q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	/* Get an item */
 #ifdef JP
 	q = "どのロッドを振りますか? ";
 	s = "使えるロッドがない。";
@@ -3325,10 +3311,7 @@ void do_cmd_zap_rod(creature_type *creature_ptr)
 	q = "Zap which rod? ";
 	s = "You have no rod to zap.";
 #endif
-
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_ROD)) return;
-
-	/* Zap the rod */
 	do_cmd_zap_rod_aux(creature_ptr, item);
 }
 
