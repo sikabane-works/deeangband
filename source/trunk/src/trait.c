@@ -293,8 +293,21 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_CURE_MEDIUM_WOUNDS:
-		heal_creature(caster_ptr, diceroll(4, 8));
-		(void)set_timed_trait(caster_ptr, TRAIT_CUT, (caster_ptr->timed_trait[TRAIT_CUT] / 2) - 50);
+		if(heal_creature(caster_ptr, diceroll(4, 8))) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CUT, (caster_ptr->timed_trait[TRAIT_CUT] / 2) - 50)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
+		break;
+
+	case TRAIT_CURE_CRITICAL_WOUNDS:
+		if(heal_creature(caster_ptr, diceroll(6, 8))) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_BLIND, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_POISONED, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_STUN, 0)) effected = TRUE;
+		if(set_timed_trait(caster_ptr, TRAIT_CUT, 0)) effected = TRUE;
+		if(set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE)) effected = TRUE;
 		break;
 
 	case TRAIT_REMOVE_POISON:
