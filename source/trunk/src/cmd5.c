@@ -666,12 +666,7 @@ msg_print("本を読むことができない！");
 
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-#ifdef JP
-msg_print("目が見えない！");
-#else
-		msg_print("You cannot see!");
-#endif
-
+		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
 		return;
 	}
 
@@ -996,11 +991,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		if(creature_ptr->class_idx == CLASS_FORCETRAINER) confirm_use_force(creature_ptr, FALSE);
 		else
 		{
-#ifdef JP
-			msg_print("目が見えない！");
-#else
-			msg_print("You cannot see!");
-#endif
+			msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
 			flush();
 		}
 		return;

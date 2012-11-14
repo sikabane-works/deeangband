@@ -1902,11 +1902,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 	/* Check some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
-#ifdef JP
-		msg_print("目が見えない。");
-#else
-		msg_print("You can't see anything.");
-#endif
+		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
 		return;
 	}
 	if(no_lite(creature_ptr))
@@ -3610,7 +3606,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 			case SV_DRAGON_POWER:
 			{
 #ifdef JP
-msg_print("あなたはエレメントのブレスを吐いた。");
+				msg_print("あなたはエレメントのブレスを吐いた。");
 #else
 				msg_print("You breathe the elements.");
 #endif
@@ -3666,11 +3662,8 @@ msg_print("あなたはエレメントのブレスを吐いた。");
 			if(success) return;
 		}
 
-		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
-
-		/* Success */
-		return;
+		return; // Success
 	}
 
 	else if(object_ptr->tval == TV_WHISTLE)
@@ -3994,11 +3987,7 @@ void do_cmd_use(creature_type *creature_ptr)
 			// Check some conditions
 			if(has_trait(creature_ptr, TRAIT_BLIND))
 			{
-#ifdef JP
-				msg_print("目が見えない。");
-#else
-				msg_print("You can't see anything.");
-#endif
+				msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
 				return;
 			}
 			if(no_lite(creature_ptr))

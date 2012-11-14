@@ -3055,11 +3055,7 @@ static bool travel_test(creature_type *creature_ptr)
 	/* Cannot travel when blind */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
-#ifdef JP
-		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
-#else
-		msg_print("You cannot see!");
-#endif
+		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
 		return (TRUE);
 	}
 

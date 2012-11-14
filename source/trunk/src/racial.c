@@ -75,11 +75,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_BLIND))
 	{
-#ifdef JP
-		msg_print("–Ú‚ªŒ©‚¦‚È‚¢I");
-#else
-		msg_print("You are blind!");
-#endif
+		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
 		return FALSE;
 	}
 
