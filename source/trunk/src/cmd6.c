@@ -647,7 +647,7 @@ static void do_cmd_quaff_potion_aux(creature_type *user_ptr, int item)
 
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(has_trait_object(object_ptr, i))
-			do_active_trait(user_ptr, i);
+			do_active_trait(user_ptr, i, FALSE);
 
 	/* Analyze the potion */
 	if(quest_ptr->tval == TV_POTION)

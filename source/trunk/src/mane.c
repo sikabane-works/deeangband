@@ -362,7 +362,7 @@ msg_print("‚à‚Ì‚Ü‚Ë‚ÉŽ¸”s‚µ‚½I");
 	else
 	{
 		sound(SOUND_ZAP);
-		cast = do_active_trait(creature_ptr, creature_ptr->mane_spell[n]);
+		cast = do_active_trait(creature_ptr, creature_ptr->mane_spell[n], TRUE);
 		if(!cast) return FALSE;
 	}
 

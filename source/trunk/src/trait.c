@@ -12,7 +12,7 @@
 #include "angband.h"
 
 
-bool do_active_trait(creature_type *caster_ptr, int id)
+bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 {
 	trait_type *trait_ptr = &trait_info[id];
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
@@ -79,20 +79,22 @@ bool do_active_trait(creature_type *caster_ptr, int id)
 		x = caster_ptr->fx + ddx[dir];
 	}
 
-
-	if(is_player(caster_ptr) || !blind)
+	if(message)
 	{
-		if(strlen(trait_text + trait_ptr->activate_text))
-			msg_format(trait_text + trait_ptr->activate_text, caster_name);
-		else		
-			msg_format("%sは%sを発動した。", caster_name, trait_info[id].title);
-	}
-	else
-	{
-		if(strlen(trait_text + trait_ptr->blind_activate_text))
-			msg_format(trait_text + trait_ptr->blind_activate_text, caster_name);
-		else		
-			msg_format("%sは%sを発動した。", caster_name, trait_info[id].title);
+		if(is_player(caster_ptr) || !blind)
+		{
+			if(strlen(trait_text + trait_ptr->activate_text))
+				msg_format(trait_text + trait_ptr->activate_text, caster_name);
+			else		
+				msg_format("%sは%sを発動した。", caster_name, trait_info[id].title);
+		}
+		else
+		{
+			if(strlen(trait_text + trait_ptr->blind_activate_text))
+				msg_format(trait_text + trait_ptr->blind_activate_text, caster_name);
+			else		
+				msg_format("%sは%sを発動した。", caster_name, trait_info[id].title);
+		}
 	}
 
 	switch(id)

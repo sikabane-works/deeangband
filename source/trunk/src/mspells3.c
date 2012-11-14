@@ -695,8 +695,7 @@ static bool cast_learned_spell(creature_type *caster_ptr, int spell, bool succes
 	}
 
 	if(!success || (randint1(50+plev) < plev/10)) u_mode = PC_ALLOW_UNIQUE;
-
-	do_active_trait(caster_ptr, spell);
+	do_active_trait(caster_ptr, spell, TRUE);
 
 	if(no_trump)
 	{

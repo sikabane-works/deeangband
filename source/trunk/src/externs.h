@@ -1859,6 +1859,6 @@ extern void do_creature_riding_control(creature_type *creature_ptr);
 
 // trait.c
 
-extern bool do_active_trait(creature_type *user_ptr, int id);
+extern bool do_active_trait(creature_type *user_ptr, int id, bool message);
 const u32b *t_need(int num, ...);
 const u32b *t_except(int num, ...);

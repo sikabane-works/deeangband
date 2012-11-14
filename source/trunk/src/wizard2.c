@@ -1729,7 +1729,7 @@ static void do_cmd_wiz_invoke(creature_type *creature_ptr)
 
 	screen_load();
 
-	if(i >= 0) do_active_trait(creature_ptr, i);
+	if(i >= 0) do_active_trait(creature_ptr, i, TRUE);
 }
 
 

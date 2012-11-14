@@ -1692,7 +1692,9 @@ bool activate_object(creature_type *creature_ptr, object_type *object_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	int i;
 
-	for(i = 0; i < MAX_TRAITS; i++) if(trait_info[i].effect_type && have_flag(object_ptr->trait_flags, i)) do_active_trait(creature_ptr, i);
+	for(i = 0; i < MAX_TRAITS; i++)
+		if(trait_info[i].effect_type && have_flag(object_ptr->trait_flags, i))
+			do_active_trait(creature_ptr, i, FALSE);
 
 	if(object_ptr)
 	{

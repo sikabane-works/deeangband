@@ -2337,14 +2337,9 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 
 	switch (racial_aux(creature_ptr, &power_desc[i]))
 	{
-	case 1:
-		cast = do_active_trait(creature_ptr, power_desc[i].number);
-	case 0:
-		cast = FALSE;
-		break;
-	case -1:
-		cast = TRUE;
-		break;
+	case 1: cast = do_active_trait(creature_ptr, power_desc[i].number, TRUE);
+	case 0: cast = FALSE; break;
+	case -1: cast = TRUE; break;
 	}
 
 	if(cast)
