@@ -2794,7 +2794,6 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("Nothing happen. Maybe this wand is freezing too.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
@@ -2808,13 +2807,11 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("You failed to use the wand properly.");
 #endif
-
 		sound(SOUND_FAIL);
 		return;
 	}
 
-	/* The wand is already empty! */
-	if(object_ptr->pval <= 0)
+	if(object_ptr->pval <= 0) // The wand is already empty!
 	{
 		if(flush_failure) flush();
 #ifdef JP
@@ -2822,7 +2819,6 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("The wand has no charges left.");
 #endif
-
 		object_ptr->ident |= (IDENT_EMPTY);
 
 		/* Combine / Reorder the pack (later) */
@@ -2841,37 +2837,22 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 
 	ident = wand_effect(creature_ptr, object_ptr->sval, dir, FALSE);
 
-	/* Combine / Reorder the pack (later) */
-	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
+	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER); // Combine / Reorder the pack (later)
 
-	/* Mark it as tried */
-	object_tried(object_ptr);
-
-	/* Apply identification */
-	if(ident && !object_is_aware(object_ptr))
+	object_tried(object_ptr); // Mark it as tried
+	if(ident && !object_is_aware(object_ptr)) // Apply identification
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	/* Window stuff */
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 
+	object_ptr->pval--; // Use a single charge
 
-	/* Use a single charge */
-	object_ptr->pval--;
-
-	/* Describe the charges in the pack */
-	if(item >= 0)
-	{
-		inven_item_charges(creature_ptr, item);
-	}
-
-	/* Describe the charges on the floor */
-	else
-	{
-		floor_item_charges(0 - item);
-	}
+	// Describe the charges in the pack
+	if(item >= 0) inven_item_charges(creature_ptr, item);
+	else floor_item_charges(0 - item);
 }
 
 
@@ -3161,7 +3142,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
 	else object_ptr = &object_list[0 - item];
 
-	/* Mega-Hack -- refuse to zap a pile from the ground */
+	// Mega-Hack -- refuse to zap a pile from the ground
 	if((item < 0) && (object_ptr->number > 1))
 	{
 #ifdef JP
@@ -3221,7 +3202,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
-	/* A single rod is still charging */
+	// A single rod is still charging
 	if((object_ptr->number == 1) && (object_ptr->timeout))
 	{
 		if(flush_failure) flush();
@@ -3230,19 +3211,17 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 #else
 		msg_print("The rod is still charging.");
 #endif
-
 		return;
 	}
-	/* A stack of rods lacks enough energy. */
+	// A stack of rods lacks enough energy.
 	else if((object_ptr->number > 1) && (object_ptr->timeout > object_kind_ptr->pval * (object_ptr->number - 1)))
 	{
 		if(flush_failure) flush();
 #ifdef JP
-msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
+		msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
 #else
 		msg_print("The rods are all still charging.");
 #endif
-
 		return;
 	}
 
@@ -3262,15 +3241,13 @@ msg_print("‚»‚Ìƒƒbƒh‚Í‚Ü‚¾[“U’†‚Å‚·B");
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);	// Combine / Reorder the pack (later)
 	object_tried(object_ptr);	// Tried the object
 
-	/* Successfully determined the object function */
-	if(ident && !object_is_aware(object_ptr))
+	if(ident && !object_is_aware(object_ptr)) // Successfully determined the object function
 	{
 		object_aware(object_ptr);
 		gain_exp(creature_ptr, (lev + (creature_ptr->lev >> 1)) / creature_ptr->lev);
 	}
 
-	/* Window stuff */
-	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
+	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 }
 
 
