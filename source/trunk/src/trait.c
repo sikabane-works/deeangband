@@ -835,9 +835,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BECOME_HERO:
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-		set_timed_trait_aux(caster_ptr, TRAIT_HERO, randint1(25)+25, FALSE);
-		heal_creature(caster_ptr, 10);
+		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
+		if(add_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
+		if(heal_creature(caster_ptr, 10)) effected = TRUE;
 		break;
 
 	case TRAIT_CURING:
@@ -2707,9 +2707,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_BERSERK:
-		(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
-		(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 10 + randint1(user_level), FALSE);
-		(void)heal_creature(caster_ptr, 30);
+		if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
+		if(add_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
+		if(heal_creature(caster_ptr, 30)) effected = TRUE;
 		break;
 
 	case TRAIT_THROW_BOULDER:

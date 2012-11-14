@@ -875,18 +875,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 				effected = TRUE;
 			break;
 
-		case SV_POTION_HEROISM:
-			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
-			if(add_timed_trait(caster_ptr, TRAIT_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
-			if(heal_creature(caster_ptr, 10)) effected = TRUE;
-			break;
-
-		case SV_POTION_BESERK_STRENGTH:
-			if(set_timed_trait(caster_ptr, TRAIT_AFRAID, 0)) effected = TRUE;
-			if(add_timed_trait(caster_ptr, TRAIT_S_HERO, randint1(25) + 25, TRUE)) effected = TRUE;
-			if(heal_creature(caster_ptr, 30)) effected = TRUE;
-			break;
-
 		case SV_POTION_LIFE:
 #ifdef JP
 			msg_print("‘Ì’†‚É¶–½—Í‚ª–‚¿‚ ‚Ó‚ê‚Ä‚«‚½I");
