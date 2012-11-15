@@ -958,18 +958,7 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Describe the activity */
 	object_desc(object_name, object_ptr, OD_OMIT_INSCRIPTION);
@@ -1123,19 +1112,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Take a partial turn */
 	creature_ptr->energy_need = 50;
@@ -1240,19 +1217,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Take a partial turn */
 	creature_ptr->energy_need = 50;

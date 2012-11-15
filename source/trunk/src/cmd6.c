@@ -63,17 +63,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 	if(MUSIC_SINGING_ANY(creature_ptr)) stop_singing(creature_ptr);
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Sound */
 	sound(SOUND_EAT);
@@ -615,10 +605,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 	if(MUSIC_SINGING_ANY(caster_ptr)) stop_singing(caster_ptr);
 	if(HEX_SPELLING_ANY(caster_ptr)) if(!HEX_SPELLING(caster_ptr, HEX_INHAIL)) stop_hex_spell_all(caster_ptr);
-
-	// Get the item (in the pack or on the floor)
-	if(item >= 0) object_ptr = &caster_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(caster_ptr, item);
 
 	// Get local object
 	quest_ptr = &forge;
@@ -1258,11 +1245,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 	char        Rumor[1024];
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(caster_ptr);
-
-
-	// Get the item (in the pack / on the floor)
-	if(item >= 0) object_ptr = &caster_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(caster_ptr, item);
 
 	cost_tactical_energy(caster_ptr, 100); // Take a turn
 
@@ -1934,9 +1917,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_readable, 0)) return;
-	
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
-	else object_ptr = &object_list[0 - item];	// Get the item (on the floor)
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	do_cmd_read_scroll_aux(creature_ptr, item, object_is_aware(object_ptr));	// Read the scroll
 }
@@ -2286,10 +2267,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 
 	/* Hack -- let staffs of identify get aborted */
 	bool use_charge = TRUE;
-
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
-	else object_ptr = &object_list[0 - item];	// Get the item (on the floor)
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Mega-Hack -- refuse to use a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))
@@ -2748,9 +2726,8 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	int         lev, ident, chance, dir, i;
 	object_type *object_ptr;
 	bool old_target_pet = target_pet;
-	
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item]; // Get the item (in the pack)
-	else object_ptr = &object_list[0 - item]; // Get the item (on the floor)
+
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Mega-Hack -- refuse to aim a pile from the ground */
 	if((item < 0) && (object_ptr->number > 1))

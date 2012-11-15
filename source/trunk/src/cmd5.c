@@ -494,17 +494,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Get the item (in the pack) */
-	else if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Access the item's sval */
 	sval = object_ptr->sval;
@@ -728,18 +718,7 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_learn_trait, item_tester_tval)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Access the item's sval */
 	sval = object_ptr->sval;
@@ -1068,18 +1047,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 		do_cmd_mind(creature_ptr);
 		return;
 	}
-
-	/* Get the item (in the pack) */
-	else if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Access the item's sval */
 	sval = object_ptr->sval;
