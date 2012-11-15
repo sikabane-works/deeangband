@@ -299,10 +299,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 						msg_format("Your weapon cuts deep into %s!", target_name);
 #endif
 				}
-
-				/* Try to increase the damage */
-				while (one_in_(vorpal_chance)) mult++;
-
+				while (one_in_(vorpal_chance)) mult++; // Try to increase the damage
 				k *= mult;
 
 				// Ouch!
@@ -485,7 +482,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		touch_zap_player(attacker_ptr, target_ptr);
 
 		// Are we draining it?  A little note: If the creature is dead, the drain does not work...
-
 		if(can_drain && (drain_result > 0))
 		{
 			if(has_trait_object(weapon_ptr, TRAIT_MURAMASA))
@@ -545,13 +541,11 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					}
 
 					drain_heal = (drain_heal * attacker_ptr->regenerate_mod) / 100;
-
 					heal_creature(attacker_ptr, drain_heal);
-					/* We get to keep some of it! */
 				}
 			}
 		}
-		target_ptr->mhp -= (k+7)/8;
+		target_ptr->mhp -= (k + 7) / 8;
 		if(target_ptr->chp > target_ptr->mhp) target_ptr->chp = target_ptr->mhp;
 		if(target_ptr->mhp < 1) target_ptr->mhp = 1;
 		weak = TRUE;
@@ -842,21 +836,14 @@ static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-	char weapon_name[100], atk_name[100], tar_name[100];
+	char weapon_name[MAX_NLEN], atk_name[MAX_NLEN], tar_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	species_type *r_ptr = &species_info[target_ptr->species_idx];
 	bool monk_attack = FALSE;
 	int k;
 
-	switch(attacker_ptr->class_idx)
-	{
-	case CLASS_MONK:
-	case CLASS_FORCETRAINER:
-	case CLASS_BERSERKER:
-		if((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
-		break;
-	}
+	if((empty_hands(attacker_ptr, TRUE) & EMPTY_HAND_RARM) && !attacker_ptr->riding) monk_attack = TRUE;
 
 #if JP
 	strcpy(weapon_name, "‘fŽè");
@@ -896,14 +883,10 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING))
 			resist_stun += 66;
 
-		if(attacker_ptr->posture & KAMAE_BYAKKO)
-			max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
-		else if(attacker_ptr->posture & KAMAE_SUZAKU)
-			max_times = 1;
-		else if(attacker_ptr->posture & KAMAE_GENBU)
-			max_times = 1;
-		else
-			max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
+		if(attacker_ptr->posture & KAMAE_BYAKKO) max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
+		else if(attacker_ptr->posture & KAMAE_SUZAKU) max_times = 1;
+		else if(attacker_ptr->posture & KAMAE_GENBU) max_times = 1;
+		else max_times = (attacker_ptr->lev < 7 ? 1 : attacker_ptr->lev / 7);
 		/* Attempt 'times' */
 		for (times = 0; times < max_times; times++)
 		{
@@ -953,16 +936,11 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 					//TODO
 					msg_format("%s hit %s in the groin with your knee!", atk_name, tar_name);
 #endif
-
 					sound(SOUND_PAIN);
 					special_effect = MA_KNEE;
 				}
 			}
-			else
-			{
-				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
-					msg_format(ma_ptr->desc, atk_name, tar_name);
-			}
+			else if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
 		}
 
 		else if(ma_ptr->effect == MA_SLOW)
@@ -984,11 +962,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		}
 		else
 		{
-			if(ma_ptr->effect)
-			{
-				stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
-			}
-
+			if(ma_ptr->effect) stun_effect = (ma_ptr->effect / 2) + randint1(ma_ptr->effect / 2);
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format(ma_ptr->desc, atk_name, tar_name);
 		}
 
@@ -1008,16 +982,13 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 #else
 			if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr)) msg_format("%^s moans in agony!", tar_name);
 #endif
-
 			stun_effect = 7 + randint1(13);
 			resist_stun /= 3;
 		}
 
 		else if((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if(!has_trait(target_ptr, TRAIT_UNIQUE) &&
-				(randint1(attacker_ptr->lev) > r_ptr->level) &&
-				target_ptr->speed > 60)
+			if(!has_trait(target_ptr, TRAIT_UNIQUE) && (randint1(attacker_ptr->lev) > r_ptr->level) && target_ptr->speed > 60)
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -1025,7 +996,6 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 #else
 					msg_format("%^s starts limping slower.", tar_name);
 #endif
-
 				target_ptr->speed -= 10;
 			}
 		}
