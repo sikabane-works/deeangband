@@ -111,7 +111,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	species_type    *r_ptr = &species_info[target_ptr->species_idx];
 
 	// Access the weapon
 	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
@@ -134,7 +133,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	bool can_drain = FALSE;
 	int  drain_left = MAX_VAMPIRIC_DRAIN;
 	u32b flgs[TRAIT_FLAG_MAX]; // A massive hack -- life-draining weapons
-	bool is_lowlevel = (r_ptr->level < (attacker_ptr->lev - 15));
+	bool is_lowlevel = (target_ptr->lev < (attacker_ptr->lev - 7));
 	bool zantetsu_mukou = FALSE;
 	bool e_j_mukou = FALSE;
 
@@ -147,13 +146,13 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			int tmp = attacker_ptr->lev * 6 + (attacker_ptr->skill_stl + 10) * 4;
 			if(attacker_ptr->monlite && (mode != HISSATSU_NYUSIN)) tmp /= 3;
 			if(has_trait(attacker_ptr, TRAIT_ANTIPATHY)) tmp /= 2;
-			if(r_ptr->level > (attacker_ptr->lev * attacker_ptr->lev / 20 + 10)) tmp /= 3;
+			if(target_ptr->lev > (attacker_ptr->lev * attacker_ptr->lev / 10 + 5)) tmp /= 3;
 			if(has_trait(target_ptr, TRAIT_PARALYZED) && target_ptr->see_others)
 			{
 				// Can't backstab creatures that we can't see, right?
 				backstab = TRUE;
 			}
-			else if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (r_ptr->level+20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
+			else if((attacker_ptr->posture & NINJA_S_STEALTH) && (randint0(tmp) > (target_ptr->lev * 2 + 20)) && target_ptr->see_others && !has_trait(target_ptr, TRAIT_RES_ALL))
 			{
 				fuiuchi = TRUE;
 			}
@@ -170,7 +169,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	if(object_is_melee_weapon(attacker_ptr, weapon_ptr))
 	{
 		// Weapon skill mastering
-		if((r_ptr->level + 10) > attacker_ptr->lev && attacker_ptr->class_idx != INDEX_NONE)
+		if(target_ptr->lev + 10 > attacker_ptr->lev && attacker_ptr->class_idx != INDEX_NONE)
 		{
 			int tval = attacker_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
 			int sval = attacker_ptr->inventory[hand].sval;
@@ -203,9 +202,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	if(mode == HISSATSU_IAI) chance += 60;
 	if(attacker_ptr->posture & KATA_KOUKIJIN) chance += 150;
 	if(attacker_ptr->sutemi) chance = MAX(chance * 3 / 2, chance + 60);
-	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (r_ptr->d_char == 'j'));
+	zantetsu_mukou = (has_trait_object(weapon_ptr, TRAIT_ZANTETSU_EFFECT) && (target_ptr->d_char == 'j'));
 
-	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (r_ptr->d_char == 'S'));
+	e_j_mukou = (has_trait_object(weapon_ptr, TRAIT_HATE_SPIDER) && (target_ptr->d_char == 'S'));
 
 	// Attack once for each legal blow
 	if(has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) || (mode == HISSATSU_KYUSHO))
@@ -453,7 +452,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		if(has_trait_object(weapon_ptr, TRAIT_CRITICAL_SLAYING) || (mode == HISSATSU_KYUSHO))
 		{
-			if((randint1(randint1(r_ptr->level / 7)+5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
+			if((randint1(randint1(target_ptr->lev / 3) + 5) == 1) && !has_trait(target_ptr, TRAIT_UNIQUE) && !has_trait(target_ptr, TRAIT_UNIQUE2))
 			{
 				k = target_ptr->chp + 1;
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
@@ -650,7 +649,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 					msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 					resists_tele = TRUE;
 				}
-				else if(r_ptr->level > randint1(100))
+				else if(target_ptr->lev > randint1(60))
 				{
 					if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 #ifdef JP
@@ -676,7 +675,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			}
 		}
 
-		else if((chaos_effect == 5) && (randint1(90) > r_ptr->level))
+		else if((chaos_effect == 5) && (randint1(90) > target_ptr->lev))
 		{
 			if(!(has_trait(target_ptr, TRAIT_UNIQUE) || has_trait(target_ptr, TRAIT_QUESTOR)) &&
 				!has_trait(target_ptr, TRAIT_RES_CHAO))
@@ -696,7 +695,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 				target_ptr = &creature_list[c_ptr->creature_idx];	// Hack -- Get new creature
 				creature_desc(target_name, target_ptr, 0);			// Oops, we need a different name...
-				r_ptr = &species_info[target_ptr->species_idx];		// Hack -- Get new race
 			}
 		}
 		else if(has_trait_object(weapon_ptr, TRAIT_SEIZING_ATTACK))
