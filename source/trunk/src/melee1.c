@@ -453,9 +453,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 #endif
 		}
 
-		// Complex message
-		if(wizard || cheat_xtra) msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
-
 		if(k <= 0) can_drain = FALSE;
 		if(drain_result > target_ptr->chp) drain_result = target_ptr->chp;
 
@@ -779,9 +776,6 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 		k = diceroll(ddd, dss);
 		k = test_critial_melee(attacker_ptr, n_weight, bonus, k, (s16b)bonus, 0);
 		k += attacker_ptr->to_damage_m;
-
-		// Complex message
-		if(wizard) msg_format("DAM:%d HP:%d->%d", k, target_ptr->chp, target_ptr->chp - k);
 
 		// Anger the creature
 		if(k > 0) anger_creature(attacker_ptr, target_ptr);

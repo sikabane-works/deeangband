@@ -3361,9 +3361,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					if(tdam < 0) tdam = 0;
 				}
 
-				// Wizard message
-				if(wizard || cheat_xtra) msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
-
 				/* Sniper */
 				if(creature_ptr->snipe_type == SP_EXPLODE)
 				{
@@ -4009,9 +4006,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				{
 					tdam += ((creature_ptr->lev+30)*(creature_ptr->lev+30)-900)/55;
 				}
-
-				/* Complex message */
-				if(wizard) msg_format("DAM:%d HP:%d->%d", tdam, m_ptr->chp, m_ptr->chp - tdam);
 
 				/* Hit the creature, check for death */
 				take_damage_to_creature(creature_ptr, &creature_list[c_ptr->creature_idx], 0, tdam, NULL, extract_note_dies(creature_ptr, m_ptr), -1);
