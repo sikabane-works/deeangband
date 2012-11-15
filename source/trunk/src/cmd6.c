@@ -1330,9 +1330,9 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			if(get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_LITE, 0))
 			{
 				k = get_equipped_slot_idx(caster_ptr, INVEN_SLOT_HAND, 0);
-				if(get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_LITE, 1) && one_in_(2)) k = get_equipped_slot_idx(caster_ptr, INVEN_SLOT_HAND, 1);
+				if(get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_LITE, 0) && one_in_(2)) k = get_equipped_slot_idx(caster_ptr, INVEN_SLOT_HAND, 0);
 			}
-			else if(get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_LITE, 1)) k = get_equipped_slot_idx(caster_ptr, INVEN_SLOT_HAND, 1);
+			else if(get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_LITE, 0)) k = get_equipped_slot_idx(caster_ptr, INVEN_SLOT_HAND, 0);
 			if(k && curse_weapon(caster_ptr, FALSE, k)) ident = TRUE;
 			break;
 		}

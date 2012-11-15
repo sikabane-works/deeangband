@@ -4923,7 +4923,7 @@ static void dump_aux_equipment_inventory(creature_type *creature_ptr, FILE *fff)
 			if(!IS_EQUIPPED(&creature_ptr->inventory[i])) continue;
 
 			object_desc(object_name, &creature_ptr->inventory[i], 0);
-			if((((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) && creature_ptr->can_melee[1]) || ((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
+			if((((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0)) && creature_ptr->can_melee[0]) || ((i == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)) && creature_ptr->can_melee[0])) && creature_ptr->two_handed)
 #ifdef JP
 				strcpy(object_name, "(•Ší‚ğ—¼è‚¿)");
 #else

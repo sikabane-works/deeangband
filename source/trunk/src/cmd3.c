@@ -375,8 +375,8 @@ void kamaenaoshi(creature_type *creature_ptr, int item)
 				new_object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0);
 				object_copy(new_object_ptr, object_ptr);
 				set_inventory_weight(creature_ptr);
-				inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2), -((int)object_ptr->number));
-				inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2));
+				inven_item_increase(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1), -((int)object_ptr->number));
+				inven_item_optimize(creature_ptr, get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1));
 				if(object_allow_two_hands_wielding(creature_ptr, object_ptr) && CAN_TWO_HANDS_WIELDING(creature_ptr))
 #ifdef JP
 					msg_format("%s‚ğ—¼è‚Å\‚¦‚½B", object_name);

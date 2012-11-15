@@ -4011,8 +4011,8 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
 		/* Hack -- Clear temporary elemental brands if player takes off weapons */
 		if(!object_ptr->number && creature_ptr->timed_trait[TRAIT_FIRE_BRAND])
 		{
-			if((item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)) ||
-				(item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2)))
+			if((item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0)) ||
+				(item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)))
 			{
 				if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
 				{
