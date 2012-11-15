@@ -116,27 +116,27 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	// Access the weapon
 	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
 
-	char            attacker_name[MAX_NLEN];
-	char            target_name[MAX_NLEN];
-	char			weapon_name[MAX_NLEN];
+	char attacker_name[MAX_NLEN];
+	char target_name[MAX_NLEN];
+	char weapon_name[MAX_NLEN];
 
-	bool            success_hit = FALSE;
-	bool            backstab = FALSE;
-	bool            vorpal_cut = FALSE;
-	int             chaos_effect = 0;
-	bool            stab_fleeing = FALSE;
-	bool            fuiuchi = FALSE;
-	bool            tramping = FALSE;
-	bool            do_quake = FALSE;
-	bool            weak = FALSE;
-	bool            drain_msg = TRUE;
-	int             drain_result = 0, drain_heal = 0;
-	bool            can_drain = FALSE;
-	int             drain_left = MAX_VAMPIRIC_DRAIN;
+	bool success_hit = FALSE;
+	bool backstab = FALSE;
+	bool vorpal_cut = FALSE;
+	int  chaos_effect = 0;
+	bool stab_fleeing = FALSE;
+	bool fuiuchi = FALSE;
+	bool tramping = FALSE;
+	bool do_quake = FALSE;
+	bool weak = FALSE;
+	bool drain_msg = TRUE;
+	int  drain_result = 0, drain_heal = 0;
+	bool can_drain = FALSE;
+	int  drain_left = MAX_VAMPIRIC_DRAIN;
 	u32b flgs[TRAIT_FLAG_MAX]; // A massive hack -- life-draining weapons
-	bool            is_human = (r_ptr->d_char == 'p');
-	bool            is_lowlevel = (r_ptr->level < (attacker_ptr->lev - 15));
-	bool            zantetsu_mukou, e_j_mukou;
+	bool is_lowlevel = (r_ptr->level < (attacker_ptr->lev - 15));
+	bool zantetsu_mukou = FALSE;
+	bool e_j_mukou = FALSE;
 
 	switch (attacker_ptr->class_idx)
 	{
@@ -553,7 +553,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		{
 			if(has_trait_object(weapon_ptr, TRAIT_MURAMASA))
 			{
-				if(is_human)
+				if(has_trait(target_ptr, TRAIT_HUMANOID))
 				{
 					int to_hit = weapon_ptr->to_hit;
 					int to_damage = weapon_ptr->to_damage;
@@ -1554,7 +1554,7 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 			case MELEE_TYPE_WEAPON_6TH:
 			case MELEE_TYPE_WEAPON_7TH:
 			case MELEE_TYPE_WEAPON_8TH:
-				if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST + 1, mode);
+				if(attacker_ptr->can_melee[i]) weapon_attack(attacker_ptr, target_ptr, y, x, &fear, &dead, i + MELEE_TYPE_WEAPON_1ST, mode);
 				break;
 
 			case MELEE_TYPE_SPECIAL_1ST:
