@@ -1764,14 +1764,9 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				char out_val[MAX_NLEN+20];
 				char object_name[MAX_NLEN];
 
-				if(object_ptr->marked & OM_NO_QUERY)
-				{
-					/* Already answered as 'No' */
-					continue;
-				}
-
-				/* Describe the object */
-				object_desc(object_name, object_ptr, 0);
+				if(object_ptr->marked & OM_NO_QUERY) continue; // Already answered as 'No'
+				
+				object_desc(object_name, object_ptr, 0); // Describe the object
 
 #ifdef JP
 				sprintf(out_val, "%s‚ğE‚¢‚Ü‚·‚©? ", object_name);
@@ -1796,11 +1791,8 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 		 * auto-destroyer from autopick function, and do only
 		 * easy-auto-destroyer.
 		 */
-		else
-		{
-			auto_destroy_item(creature_ptr, object_ptr, idx);
-		}
-	} /* for () */
+		else auto_destroy_item(creature_ptr, object_ptr, idx);
+	} // for()
 }
 
 

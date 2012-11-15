@@ -76,3 +76,4 @@
 
 #define IS_ROD(OBJECT) (OBJECT->tval == TV_ROD)
 
+#define GET_ITEM(CR, ID) (ID >= 0) ? CR->inventory[item] : &object_list[0 - ID];
