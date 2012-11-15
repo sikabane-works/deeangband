@@ -3111,9 +3111,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 
 	object_kind *object_kind_ptr;
 
-	// Get the item (in the pack)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	// Mega-Hack -- refuse to zap a pile from the ground
 	if((item < 0) && (object_ptr->number > 1))
@@ -3369,9 +3367,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	bool success;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	// Get the item (in the pack / on the floor)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 
@@ -3927,10 +3923,7 @@ void do_cmd_use(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP | USE_FLOOR), item_tester_hook_use, 0)) return;
-
-	// Get the item (in the pack / on the floor)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	switch (object_ptr->tval)
 	{

@@ -1311,18 +1311,7 @@ bool psychometry(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* It is fully known, no information needed */
 	if(object_is_known(object_ptr))

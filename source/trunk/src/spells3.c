@@ -1334,18 +1334,7 @@ s = "強化できる武器がない。";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), object_allow_enchant_melee_weapon, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* you can never modify artifacts / ego-items */
 	/* you can never modify cursed items */
@@ -2232,19 +2221,7 @@ s = "金に変えられる物がありません。";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* See how many items */
 	if(object_ptr->number > 1)
@@ -2514,19 +2491,7 @@ s = "強化できるアイテムがない。";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -2603,19 +2568,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 #endif
 
 	if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &caster_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(caster_ptr, item);
 
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -2818,18 +2771,7 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Identify it */
 	old_known = identify_item(creature_ptr, object_ptr);
@@ -2896,18 +2838,7 @@ s = "使えるものがありません。";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Oops */
 #ifdef JP
@@ -3002,18 +2933,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Identify it */
 	old_known = identify_item(creature_ptr, object_ptr);
@@ -3128,18 +3048,7 @@ s = "魔力を充填すべきアイテムがない。";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Get the object kind. */
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
@@ -3451,19 +3360,7 @@ s = "祝福できる武器がありません。";
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_weapon2, 0))
 		return FALSE;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -3641,19 +3538,7 @@ s = "磨く盾がありません。";
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, TV_SHIELD))
 		return FALSE;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
@@ -4915,10 +4800,7 @@ bool rustproof(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), object_is_armour2, 0)) return FALSE;
-
-	// Get the item (in the pack / on the floor)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	// Description
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));

@@ -1038,19 +1038,9 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	q = "Sacrifice which corpse? ";
 	s = "You have nothing to scrifice.";
 #endif
+
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_offer, 0)) return FALSE;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	summon_lev = plev * 2 / 3 + species_info[object_ptr->pval].level;
 

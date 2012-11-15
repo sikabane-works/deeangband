@@ -465,36 +465,20 @@ msg_print("新しい必殺技を覚えることはできない！");
 		msg_format("あと %d 個の必殺技を学べる。", creature_ptr->new_spells);
 	}
 #else
-	msg_format("You can learn %d new special attack%s.", creature_ptr->new_spells,
-		(creature_ptr->new_spells == 1?"":"s"));
+	msg_format("You can learn %d new special attack%s.", creature_ptr->new_spells, (creature_ptr->new_spells == 1?"":"s"));
 #endif
 
 	/* Get an item */
 #ifdef JP
-q = "どの書から学びますか? ";
+	q = "どの書から学びますか? ";
+	s = "読める書がない。";
 #else
 	q = "Study which book? ";
-#endif
-
-#ifdef JP
-s = "読める書がない。";
-#else
 	s = "You have no books that you can read.";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, TV_HISSATSU_BOOK)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	for (i = object_ptr->sval * 8; i < object_ptr->sval * 8 + 8; i++)
 	{

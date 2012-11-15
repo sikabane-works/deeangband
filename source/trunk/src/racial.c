@@ -180,18 +180,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		s = "You have no item to convert.";
 #endif
 		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
-
-		/* Get the item (in the pack) */
-		if(item >= 0)
-		{
-			quest_ptr = &creature_ptr->inventory[item];
-		}
-
-		/* Get the item (on the floor) */
-		else
-		{
-			quest_ptr = &object_list[0 - item];
-		}
+		quest_ptr = GET_ITEM(creature_ptr, item);
 
 		/* Get local object */
 		quest_ptr = &forge;
@@ -246,10 +235,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		s = "You have no item to convert.";
 #endif
 		if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_convertible, 0)) return FALSE;
-
-		// Get the item (in the pack / on the floor)
-		if(item >= 0) quest_ptr = &creature_ptr->inventory[item];
-		else quest_ptr = &object_list[0 - item];
+		quest_ptr = GET_ITEM(creature_ptr, item);
 
 		/* Get local object */
 		quest_ptr = &forge;
@@ -310,18 +296,7 @@ s = "魔力を取り込めるアイテムがない。";
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_ptr->tval == TV_STAFF && object_ptr->sval == SV_STAFF_NOTHING)
 	{
