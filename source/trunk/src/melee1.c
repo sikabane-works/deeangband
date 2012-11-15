@@ -1030,14 +1030,10 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
-	char tar_name[100];
+	char tar_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	species_type *r_ptr = &species_info[target_ptr->species_idx];
 
-	// Confusion attack
-	//TODO if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE] || (chaos_effect == 3) || (mode == HISSATSU_CONF) || HEX_SPELLING(attacker_ptr, HEX_CONFUSION))
-	{
 		// Cancel glowing hands
 		if(attacker_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
 		{
@@ -1050,28 +1046,11 @@ static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr
 		if(has_trait(target_ptr, TRAIT_NO_CONF))
 		{
 			if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_NO_CONF);
-
-			if(is_seen(player_ptr, target_ptr))
-				msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
-
+			if(is_seen(player_ptr, target_ptr)) msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
 		}
-		else if(randint0(100) < r_ptr->level)
-		{
-			if(is_seen(player_ptr, target_ptr))
-				msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
-		}
-		else
-		{
-			if(is_seen(player_ptr, target_ptr))
-#ifdef JP
-				msg_format("%^s‚Í¬—‚µ‚½‚æ‚¤‚¾B", tar_name);
-#else
-				msg_format("%^s appears confused.", tar_name);
-#endif
-
-			(void)set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 10 + randint0(attacker_ptr->lev) / 5);
-		}
-	}
+		else if(randint0(100) < target_ptr->lev * 2)
+			if(is_seen(player_ptr, target_ptr)) msg_format(game_messages[GAME_MESSAGE_IS_UNAFFECTED]);
+		else (void)add_timed_trait(target_ptr, TRAIT_CONFUSED, randint0(attacker_ptr->lev) / 5, TRUE);
 }
 
 
