@@ -3321,14 +3321,14 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 		if(GET_INVEN_SLOT_TYPE(creature_ptr, i) == INVEN_SLOT_RING && !creature_ptr->two_handed)
 		{
 			/* Apply the bonuses to hit/damage */
-			creature_ptr->to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_hit;
-			creature_ptr->to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_damage;
+			creature_ptr->to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, i)] += bonus_to_hit;
+			creature_ptr->to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, i)] += bonus_to_damage;
 
 			/* Apply the mental bonuses tp hit/damage, if known */
 			if(object_is_known(object_ptr))
 			{
-				creature_ptr->dis_to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_hit;
-				creature_ptr->dis_to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, 1 + i)] += bonus_to_damage;
+				creature_ptr->dis_to_hit[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, i)] += bonus_to_hit;
+				creature_ptr->dis_to_damage[get_equipped_slot_idx(creature_ptr, INVEN_SLOT_RING, i)] += bonus_to_damage;
 			}
 		}
 		else if(creature_ptr->can_melee[0] && creature_ptr->can_melee[1])

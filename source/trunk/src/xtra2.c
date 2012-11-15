@@ -3821,12 +3821,12 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			msg_print("'Thou reliest too much on thy weapon.'");
 			reward = format("destroying %s", object_name);
 #endif
-			dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
-			if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
+			dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
+			if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 			{
-				dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+				dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 				if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
-					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
 			}
 			object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 			(void)curse_weapon(creature_ptr, FALSE, dummy);
@@ -3877,12 +3877,12 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				if(one_in_(2))
 				{
 					if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0) break;
-					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
-					if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
+					if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 					{
-						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 						if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0 && one_in_(2))
-							dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+							dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
 					}
 					object_desc(object_name, &creature_ptr->inventory[dummy], OD_NAME_ONLY);
 					(void)curse_weapon(creature_ptr, FALSE, dummy);
@@ -3937,12 +3937,12 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 
 				if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 				{
-					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0);
 					if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1 && one_in_(2))
-						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+						dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 				}
 				else if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 1)
-					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 2);
+					dummy = get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1);
 
 				if(dummy) (void)curse_weapon(creature_ptr, FALSE, dummy);
 			}
