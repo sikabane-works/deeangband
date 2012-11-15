@@ -1014,7 +1014,7 @@ extern cptr get_check_sum(void);
 extern errr rd_savefile_new(void);
 extern bool load_floor(floor_type *sf_ptr, u32b mode);
 
-/* melee1.c */
+// melee1.c
 extern bool is_melee_limitation_field(floor_type *floor_ptr);
 extern bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode);
 

@@ -114,7 +114,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 	species_type    *r_ptr = &species_info[target_ptr->species_idx];
 
 	// Access the weapon
-	object_type     *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
+	object_type *weapon_ptr = get_equipped_slot_ptr(attacker_ptr, INVEN_SLOT_HAND, hand);
 
 	char            attacker_name[MAX_NLEN];
 	char            target_name[MAX_NLEN];
@@ -1149,7 +1149,6 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		}
 	}
 }
-
 
 
 static void confuse_melee(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
@@ -2674,7 +2673,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_EAT_LITE:
 			{
 				/* Access the lite */
-				object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 1);
+				object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_LITE, 0);
 
 				/* Take some damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
@@ -3523,7 +3522,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			if(HEX_SPELLING(target_ptr, HEX_SHADOW_CLOAK) && !*dead && !IS_DEAD(target_ptr))
 			{
 				int dam = 1;
-				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 1);
+				object_type *object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_HAND, 0);
 
 				if(!has_trait(attacker_ptr, TRAIT_RES_DARK))
 				{
@@ -3534,7 +3533,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					}
 
 					/* Cursed armor makes damages doubled */
-					object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 1);
+					object_ptr = get_equipped_slot_ptr(target_ptr, INVEN_SLOT_BODY, 0);
 					if((object_ptr->k_idx) && object_is_cursed(object_ptr)) dam *= 2;
 
 #ifdef JP

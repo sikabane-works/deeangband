@@ -602,7 +602,7 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 	u32b        new_curse;
 	u32b oflgs[TRAIT_FLAG_MAX];
 	//TODO SELECT
-	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0);
 	char object_name[MAX_NLEN];
 
 	if(randint1(100) > chance) return;

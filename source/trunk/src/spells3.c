@@ -408,7 +408,7 @@ bool teleport_player_aux(creature_type *creature_ptr, int dis, u32b mode)
 	sound(SOUND_TELEPORT);
 
 #ifdef JP
-	if((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)))
+	if((creature_ptr->chara_idx == CHARA_COMBAT) || (get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0)))
 		msg_format("『こっちだぁ、%s』", creature_ptr->name);
 #endif
 
@@ -1250,7 +1250,7 @@ msg_print("体がねじれ始めた...");
 void phlogiston(creature_type *creature_ptr)
 {
 	int max_flog = 0;
-	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	/* It's a lamp */
 	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN))
@@ -4855,7 +4855,7 @@ bool curse_armor(creature_type *creature_ptr)
 	char object_name[MAX_NLEN];
 
 	/* Curse the body armor */
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0);
 
 	/* Nothing to curse */
 	if(!is_valid_object(object_ptr)) return (FALSE);

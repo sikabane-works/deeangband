@@ -1812,7 +1812,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	int show_todam = 0;
 
 	// Range weapon
-	object_type *bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+	object_type *bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
 
 	int tmul = 0;
 	int i, j, e;
@@ -1827,7 +1827,7 @@ static void display_player_middle(creature_type *creature_ptr)
 	{
 		if(creature_ptr->can_melee[i])
 		{
-			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i + 1);
+			object_type *weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i);
 			j = calc_weapon_melee_cost(creature_ptr, weapon_ptr);
 			c_put_str(TERM_L_BLUE, mention_use_ptr(creature_ptr, weapon_ptr), 15 + melee_num, 1);
 			c_put_str(TERM_YELLOW, format("%+4d", creature_ptr->to_hit[i]), 15 + melee_num, 9);
@@ -2215,7 +2215,7 @@ static void display_player_various(creature_type * creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_TENTACLES)) muta_att++;
 
 	/* Shooting Skill (with current bow and normal missile) */
-	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
 
 	/* If the player is wielding one? */
 	if(is_valid_object(object_ptr))

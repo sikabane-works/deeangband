@@ -10811,12 +10811,12 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 			msg_print("You swing your weapon downward.");
 #endif
-			for (i = 0; i < 2; i++)
+			for (i = 0; i < 2; i++) // TODO
 			{
 				int damage;
 	
-				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
-				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
+				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i)) break;
+				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i);
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
 				damage = object_ptr->to_damage * 100;
 				object_flags(object_ptr, flgs);
@@ -11161,8 +11161,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			for (i = 0; i < 2; i++)
 			{
 				int damage;
-				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1)) break;
-				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i+1);
+				if(!get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i)) break;
+				object_ptr = get_equipped_slot_ptr(caster_ptr, INVEN_SLOT_HAND, i);
 				basedam = (object_ptr->dd * (object_ptr->ds + 1)) * 50;
 				damage = object_ptr->to_damage * 100;
 				object_flags(object_ptr, flgs);

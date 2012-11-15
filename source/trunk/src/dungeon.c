@@ -1619,11 +1619,11 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			}
 		}
 
-		if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->tval &&
-			(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1)->name2 != EGO_LITE_DARKNESS) &&
+		if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0)->tval &&
+			(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0)->name2 != EGO_LITE_DARKNESS) &&
 			!creature_ptr->resist_lite)
 		{
-			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+			object_type * object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 			char object_name [MAX_NLEN];
 			char ouch [MAX_NLEN+40];
 
@@ -2014,7 +2014,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 static void process_world_aux_light(creature_type *creature_ptr)
 {
 	/* Check for light being wielded */
-	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	if(!is_valid_creature(creature_ptr)) return;
 
@@ -2271,7 +2271,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			heal_creature(creature_ptr, 10);
 		}
 
-		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 		/* Absorb some fuel in the current lite */
 		if(object_ptr->tval == TV_LITE)
@@ -2801,7 +2801,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Rarely, take damage from the Jewel of Judgement */
 	if(one_in_(999) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC))
 	{
-		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 1);
+		object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 		//TODO if(object_ptr->name1 == ART_JUDGE)
 		{

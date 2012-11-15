@@ -2254,9 +2254,9 @@ void do_cmd_pet(creature_type *master_ptr)
 	if(master_ptr->riding)
 	{
 		if((master_ptr->can_melee[0] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_LARM) &&
-		     object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 1))) ||
+		     object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 0))) ||
 		    (master_ptr->can_melee[1] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			 object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 2))))
+			 object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 1))))
 		{
 			if(master_ptr->pet_extra_flags & PF_RYOUTE)
 			{
