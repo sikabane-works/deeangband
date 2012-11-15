@@ -173,24 +173,12 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		{
 			int tval = attacker_ptr->inventory[hand].tval - TV_WEAPON_BEGIN;
 			int sval = attacker_ptr->inventory[hand].sval;
-			/*
-			int now_exp = attacker_ptr->weapon_exp[tval][sval];
-			if(now_exp < skill_info[attacker_ptr->class_idx].w_max[tval][sval])
-			{
-			int amount = 0;
-			if(now_exp < WEAPON_EXP_BEGINNER) amount = 80;
-			else if(now_exp < WEAPON_EXP_SKILLED) amount = 10;
-			else if((now_exp < WEAPON_EXP_EXPERT) && (attacker_ptr->lev > 19)) amount = 1;
-			else if((attacker_ptr->lev > 34) && one_in_(2)) amount = 1;
-			attacker_ptr->weapon_exp[tval][sval] += amount;
-			attacker_ptr->creature_creature_ptr->creature_update |= (CRU_BONUS);
-			}
-			*/
+			//TODO skill gain
 		}
 	}
 
 	// Disturb the creature
-	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
+	(void)set_timed_trait_aux(target_ptr, TRAIT_SLEPT, 0, FALSE);
 
 	// Extract attacker and target name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);
@@ -230,21 +218,9 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 			else if(fuiuchi)		msg_format("%s‚Í•sˆÓ‚ð“Ë‚¢‚Ä%s‚É‹­—ó‚ÈˆêŒ‚‚ð‹ò‚ç‚í‚¹‚½I", attacker_name, target_name);
 			else if(stab_fleeing)	msg_format("%s‚Í“¦‚°‚é%s‚ð”w’†‚©‚ç“Ë‚«Žh‚µ‚½I", attacker_name, target_name);
 #else
-			if(backstab)
-			{
-				//TODO
-				msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
-			}
-			else if(fuiuchi)
-			{
-				//TODO
-				msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
-			}
-			else if(stab_fleeing)
-			{
-				//TODO
-				msg_format("%s backstab the fleeing %s!", attacker_name, target_name);
-			}
+			if(backstab) msg_format("%s cruelly stab the helpless, sleeping %s!", attacker_name, target_name);
+			else if(fuiuchi) msg_format("%s make surprise attack, and hit %s with a powerful blow!", attacker_name, target_name);
+			else if(stab_fleeing) msg_format("%s backstab the fleeing %s!", attacker_name, target_name);
 #endif
 		}
 
@@ -253,8 +229,7 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 
 		object_flags(weapon_ptr, flgs);
 
-		// Select a chaotic effect (50% chance)
-		if((have_flag(flgs, TRAIT_CHAOTIC_BRAND)) && one_in_(2))
+		if((have_flag(flgs, TRAIT_CHAOTIC_BRAND)) && one_in_(2)) // Select a chaotic effect (50% chance)
 		{
 			if(one_in_(10))
 			{
@@ -408,7 +383,6 @@ static void weapon_attack(creature_type *attacker_ptr, creature_type *target_ptr
 		if(mode == HISSATSU_MINEUCHI)
 		{
 			int tmp = (10 + randint1(15) + attacker_ptr->lev / 5);
-
 			k = 0;
 			anger_creature(attacker_ptr, target_ptr);
 
