@@ -1625,10 +1625,7 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr;
-
-	// Get the item (in the pack / on the floor)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_ptr->k_idx && (object_ptr->marked & OM_AUTODESTROY))
 	{
@@ -1696,10 +1693,7 @@ void autopick_alter_item(creature_type *creature_ptr, int item, bool destroy)
 {
 	object_type *object_ptr;
 	int idx;
-
-	// Get the item (in the pack / on the floor)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Get the index in the auto-pick/destroy list */
 	idx = is_autopick(creature_ptr, object_ptr);
@@ -3307,14 +3301,8 @@ static bool insert_return_code(text_body_type *tb)
 static object_type *choose_object(creature_type *creature_ptr, cptr q, cptr s)
 {
 	int item;
-
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR | USE_EQUIP), NULL, 0)) return NULL;
-
-	/* Get the item (in the pack) */
-	if(item >= 0) return &creature_ptr->inventory[item];
-
-	/* Get the item (on the floor) */
-	else return &object_list[0 - item];
+	return GET_ITEM(creature_ptr, item);
 }
 
 

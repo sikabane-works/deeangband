@@ -3053,18 +3053,7 @@ static void building_recharge(creature_type *creature_ptr)
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return;
 
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 
 	/*

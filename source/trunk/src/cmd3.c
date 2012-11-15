@@ -450,9 +450,7 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP), NULL, 0)) return;
-
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item]; // Get the item (in the pack)
-	else object_ptr = &object_list[0 - item]; // Get the item (on the floor)
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_is_cursed(object_ptr)) // Item is cursed
 	{
@@ -552,10 +550,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN), NULL, 0)) return;
-
-	// Get the item (in the pack)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
@@ -653,18 +648,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Verify unless quantity given beforehand */
 	if(!force && (confirm_destroy || (object_value(object_ptr) > 0)))
@@ -855,19 +839,7 @@ void do_cmd_observe(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Require full knowledge */
 	if(!(object_ptr->ident & IDENT_MENTAL))
@@ -877,7 +849,6 @@ void do_cmd_observe(creature_type *creature_ptr)
 #else
 		msg_print("You have no special knowledge about that item.");
 #endif
-
 		return;
 	}
 
@@ -925,18 +896,7 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 #endif
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Nothing to remove */
 	if(!object_ptr->inscription)
