@@ -4100,19 +4100,7 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 
 	// TODO: Restrict store will buy
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
@@ -4472,7 +4460,6 @@ sprintf(out_val, "Ç«ÇÍÇí≤Ç◊Ç‹Ç∑Ç©ÅH");
 #else
 	sprintf(out_val, "Which item do you want to examine? ");
 #endif
-
 
 	/* Get the item number to be examined */
 	if(!get_stock(st_ptr, &item, out_val, 0, i - 1)) return;

@@ -1131,26 +1131,13 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
-
-	/* Get the item (in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Get the item (on the floor) */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 	
 	/* The item was not changed */
 	changed = FALSE;
 
-
 	/* Save the screen */
 	screen_save();
-
 
 	/* Get local object */
 	quest_ptr = &forge;
@@ -1158,15 +1145,12 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	/* Copy object */
 	object_copy(quest_ptr, object_ptr);
 
-
 	/* The main loop */
 	while (TRUE)
 	{
-		/* Display the item */
-		wiz_display_item(quest_ptr);
+		wiz_display_item(quest_ptr); // Display the item
 
-		/* Get choice */
-		if(!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE))
+		if(!get_com("[a]ccept [s]tatistics [r]eroll [t]weak [q]uantity? ", &ch, FALSE)) // Get choice
 		{
 			changed = FALSE;
 			break;
@@ -1178,25 +1162,10 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 			break;
 		}
 
-		if(ch == 's' || ch == 'S')
-		{
-			wiz_statistics(creature_ptr, quest_ptr);
-		}
-
-		if(ch == 'r' || ch == 'r')
-		{
-			wiz_reroll_item(creature_ptr, quest_ptr);
-		}
-
-		if(ch == 't' || ch == 'T')
-		{
-			wiz_tweak_item(creature_ptr, quest_ptr);
-		}
-
-		if(ch == 'q' || ch == 'Q')
-		{
-			wiz_quantity_item(creature_ptr, quest_ptr);
-		}
+		if(ch == 's' || ch == 'S') wiz_statistics(creature_ptr, quest_ptr);
+		if(ch == 'r' || ch == 'R') wiz_reroll_item(creature_ptr, quest_ptr);
+		if(ch == 't' || ch == 'T') wiz_tweak_item(creature_ptr, quest_ptr);
+		if(ch == 'q' || ch == 'Q') wiz_quantity_item(creature_ptr, quest_ptr);
 	}
 
 

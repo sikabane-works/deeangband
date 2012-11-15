@@ -2371,20 +2371,20 @@ static void prepare_label_string_floor(char *label, int floor_list[], int floor_
  */
 int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr))
 {
-	int             i, j, k, l, m, n;
-	int             col, cur_col, len;
-	object_type     *object_ptr;
-	char            object_name[MAX_NLEN];
-	char            tmp_val[MAX_NLEN];
-	int             out_index[INVEN_TOTAL];
-	byte            out_color[INVEN_TOTAL];
-	char            out_desc[INVEN_TOTAL][MAX_NLEN];
-	int             target_item_label = 0;
-	int             wid, hgt;
-	char            inven_label[52 + 1];
+	int i, j, k, l, m, n;
+	int col, cur_col, len;
+	object_type *object_ptr;
+	char object_name[MAX_NLEN];
+	char tmp_val[MAX_NLEN];
+	int  out_index[INVEN_TOTAL];
+	byte out_color[INVEN_TOTAL];
+	char out_desc[INVEN_TOTAL][MAX_NLEN];
+	int target_item_label = 0;
+	int wid, hgt;
+	char inven_label[52 + 1];
 
-	int             slot[INVEN_TOTAL];
-	int             num[INVEN_TOTAL];
+	int slot[INVEN_TOTAL];
+	int num[INVEN_TOTAL];
 
 	col = 999;	// Starting column
 	Term_get_size(&wid, &hgt);	// Get size
@@ -2398,7 +2398,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		{
 			if(i == INVEN_SLOT_INVENTORY) continue;
 			n = creature_ptr->item_slot_num[i]; 
-			for(j = 1; j <= n; j++)
+			for(j = 0; j < n; j++)
 			{
 				m = get_equipped_slot_idx(creature_ptr, i, j);
 				if(m < 0) continue;
@@ -2453,10 +2453,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 			out_color[k] = tval_to_acttr[object_ptr->tval % 128];
 
 			/* Grey out charging items */
-			if(object_ptr->timeout)
-			{
-				out_color[k] = TERM_L_DARK;
-			}
+			if(object_ptr->timeout) out_color[k] = TERM_L_DARK;
 
 			(void)strcpy(out_desc[k], object_name);
 
@@ -2492,7 +2489,7 @@ int show_item_list(int target_item, creature_type *creature_ptr, u32b flags, boo
 		if(flags & SHOW_ITEM_EQUIPMENT)
 		{
 #if JP
-			put_str("[‰½‚à‘•”õ‚Å‚«‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
+			put_str("[‰½‚à‘•”õ‚µ‚Ä‚¢‚È‚¢]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 23 : 1);
 #else
 			put_str("[No Equipment]", 1, flags & SHOW_ITEM_RIGHT_SET ? wid - 15 : 1);
 #endif
@@ -3703,9 +3700,7 @@ int scan_floor(int *items, floor_type *floor_ptr, int y, int x, int mode)
 }
 
 
-/*
- * Display a list of the items on the floor at the given location.
- */
+// Display a list of the items on the floor at the given location.
 int show_floor(floor_type *floor_ptr, int target_item, int y, int x, int *min_width)
 {
 	int i, j, k, l;
