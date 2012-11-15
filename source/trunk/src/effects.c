@@ -2530,6 +2530,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 	/* Hurt creature */
 	target_ptr->chp -= damage;
+	if(wizard) msg_format("DAM:%d HP:%d->%d", damage, target_ptr->chp, target_ptr->chp - damage);
 
 	if(is_player(target_ptr))
 	{
