@@ -2145,7 +2145,7 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 		creature_ptr->cumber_glove = FALSE;
 
 		/* Get the gloves */
-		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_ARMS, 1);
+		object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_ARMS, 0);
 
 		/* Examine the gloves */
 		object_flags(object_ptr, flgs);
@@ -2670,16 +2670,16 @@ static void set_class_bonuses(creature_type *creature_ptr)
 				creature_ptr->speed -= (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl -= (creature_ptr->lev)/10;
 			}
-			else if((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
-			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
+			else if((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
+			         (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->speed += 3;
 				if(!has_trait(creature_ptr, TRAIT_AGILE_RACE)) creature_ptr->speed += (creature_ptr->lev) / 10;
 				creature_ptr->skill_stl += (creature_ptr->lev)/10;
 
 			}
-			if((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[0]) &&
-			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)->k_idx || creature_ptr->can_melee[1]))
+			if((!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0)->k_idx || creature_ptr->can_melee[0]) &&
+			    (!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)->k_idx || creature_ptr->can_melee[1]))
 			{
 				creature_ptr->to_ac += creature_ptr->lev/2+5;
 				creature_ptr->dis_to_ac += creature_ptr->lev/2+5;
@@ -3478,7 +3478,7 @@ static void set_karma_bonuses(creature_type *creature_ptr)
 		creature_ptr->chaos_exp += creature_ptr->karmas[i] * karma[i].chaos_adj;
 	}
 
-	if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i+1)->name1 == ART_IRON_BALL) creature_ptr->good_rank -= 300;
+	if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i)->name1 == ART_IRON_BALL) creature_ptr->good_rank -= 300;
 
 	creature_ptr->good_rank = calc_rank(creature_ptr->good_exp);
 	creature_ptr->evil_rank = calc_rank(creature_ptr->evil_exp);
@@ -3510,7 +3510,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 #endif
 
 		}
-		else if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1)->k_idx)
+		else if(get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0)->k_idx)
 		{
 #ifdef JP
 			msg_print("‚±‚Ì‹|‚È‚ç‘•”õ‚µ‚Ä‚¢‚Ä‚àh‚­‚È‚¢B");
@@ -3768,7 +3768,7 @@ static void set_melee_status(creature_type *creature_ptr)
 	hold = calc_equipping_weight_limit(creature_ptr); // Obtain the equipment value
 
 	// Examine the "current bow"
-	bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 1);
+	bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BOW, 0);
 
 	// Set Species Blow.
 	for(i = 0; i < MAX_SPECIAL_BLOWS; i++)
@@ -3787,12 +3787,12 @@ static void set_melee_status(creature_type *creature_ptr)
 	if(CAN_TWO_HANDS_WIELDING(creature_ptr))
 	{
 		if(creature_ptr->can_melee[0] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_LARM) &&
-			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)))
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 0)))
 		{
 			//TODO creature_ptr->two_handed = TRUE;
 		}
 		else if(creature_ptr->can_melee[1] && (empty_hands(creature_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 2)))
+			object_allow_two_hands_wielding(creature_ptr, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1)))
 		{
 			//TODO creature_ptr->two_handed = TRUE;
 		}
@@ -3966,7 +3966,7 @@ static void set_melee_status(creature_type *creature_ptr)
 	*/
 
 		/* Examine the "main weapon" */
-		bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, 1 + i);
+		bow_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i);
 
 		object_flags(bow_ptr, flgs);
 
@@ -4068,7 +4068,7 @@ static void set_melee_status(creature_type *creature_ptr)
 
 	for (i = 0; i < MAX_WEAPONS; i++)
 	{
-		weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i + 1); 
+		weapon_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_HAND, i); 
 
 		if(get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND) > 0)
 		{

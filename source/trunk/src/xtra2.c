@@ -3833,7 +3833,7 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 			break;
 
 		case REW_CURSE_AR:
-			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
+			if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0)->k_idx) break;
 #ifdef JP
 			msg_format("%sの声が響き渡った:", species_name + species_info[creature_ptr->patron_idx].name);
 			msg_print("「汝、防具に頼ることなかれ。」");
@@ -3894,8 +3894,8 @@ void gain_level_reward(creature_type *creature_ptr, int chosen_reward)
 				}
 				else
 				{
-					if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1)->k_idx) break;
-					object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 1), OD_NAME_ONLY);
+					if(!get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0)->k_idx) break;
+					object_desc(object_name, get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0), OD_NAME_ONLY);
 					(void)curse_armor(creature_ptr);
 #ifdef JP
 					reward = format("%sが破壊された。", object_name);
