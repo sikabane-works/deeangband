@@ -420,7 +420,7 @@ void search(creature_type *creature_ptr)
 
 	/* Penalize various conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) chance = chance / 10;
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) chance = chance / 10;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) chance = chance / 10;
 
 	/* Search the nearby grids, which are always in bounds */
 	for (y = (creature_ptr->fy - 1); y <= (creature_ptr->fy + 1); y++)

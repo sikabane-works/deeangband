@@ -1715,7 +1715,7 @@ static void process_nonplayer(int m_idx)
 	mm[4] = mm[5] = mm[6] = mm[7] = 0;
 
 	// Confused -- 100% random
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || !aware)
+	if(has_trait(creature_ptr, TRAIT_CONFUSED) || !aware)
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;

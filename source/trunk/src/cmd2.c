@@ -784,7 +784,7 @@ static bool do_cmd_open_chest(creature_type *creature_ptr, int y, int x, s16b ob
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
+		if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the difficulty */
 		j = i - object_ptr->pval;
@@ -984,7 +984,7 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
+		if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1621,7 +1621,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 
 		/* Penalize some conditions */
 		if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
+		if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 		/* Extract the lock power */
 		j = f_ptr->power;
@@ -1689,7 +1689,7 @@ static bool do_cmd_disarm_chest(creature_type *creature_ptr, int y, int x, s16b 
 
 	/* Penalize some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - object_ptr->pval;
@@ -1813,7 +1813,7 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 
 	/* Penalize some conditions */
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr)) i = i / 10;
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION)) i = i / 10;
 
 	/* Extract the difficulty */
 	j = i - power;
