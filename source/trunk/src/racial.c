@@ -1073,7 +1073,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			if(!creature_ptr->class_skills.old_skills.magic_num1[0] && !creature_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 
 			stop_singing(creature_ptr);
-			creature_ptr->energy_need = 10;
+			cost_tactical_energy(creature_ptr, 10);
 			break;
 		}
 		case CLASS_RED_MAGE:

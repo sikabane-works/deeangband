@@ -965,8 +965,7 @@ msg_print("¸_‚ð”P‚¶‹È‚°‚é”g“®‚ð”­¶‚³‚¹‚½I");
 		b = diceroll(plev / 2, 6);
 
 		/* This is always a radius-0 ball now */
-		if(cast_ball(creature_ptr, DO_EFFECT_PSI_DRAIN, dir, b, 0))
-			creature_ptr->energy_need += (s16b)randint1(150);
+		if(cast_ball(creature_ptr, DO_EFFECT_PSI_DRAIN, dir, b, 0)) cost_tactical_energy(creature_ptr, randint1(150));
 		break;
 	case 12:
 		/* psycho-spear */

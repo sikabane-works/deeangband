@@ -2207,7 +2207,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		{
 			if(!process_warning(creature_ptr, x, y))
 			{
-				creature_ptr->energy_need = 25;
+				cost_tactical_energy(creature_ptr, 25);
 				return;
 			}
 		}

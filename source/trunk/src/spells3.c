@@ -605,7 +605,7 @@ void teleport_away_followable(creature_type *creature_ptr)
 #endif
 				}
 				else teleport_creature_to(creature_ptr, creature_ptr->fy, creature_ptr->fx, 0L);
-				creature_ptr->energy_need += ENERGY_NEED(100);
+				cost_tactical_energy(creature_ptr, 100);
 			}
 		}
 	}

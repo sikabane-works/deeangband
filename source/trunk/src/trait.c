@@ -2154,7 +2154,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_STOP_HEX:
 		{
 			bool retval = stop_hex_spell(caster_ptr);
-			if(retval) caster_ptr->energy_need = 10;
+			if(retval) cost_tactical_energy(caster_ptr, 10);
 			return (retval);
 			break;
 		}
@@ -2399,7 +2399,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		// Singing is already stopped
 		if(!caster_ptr->class_skills.old_skills.magic_num1[0] && !caster_ptr->class_skills.old_skills.magic_num1[1]) return FALSE;
 		stop_singing(caster_ptr);
-		caster_ptr->energy_need = 10;
+		cost_tactical_energy(caster_ptr, 10);
 		break;
 
 	case TRAIT_DOUBLE_MAGIC:

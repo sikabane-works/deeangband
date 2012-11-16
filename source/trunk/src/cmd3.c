@@ -512,12 +512,12 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 #else
 			msg_print("You couldn't remove the equipment.");
 #endif
-			creature_ptr->energy_need = 50;
+			cost_tactical_energy(creature_ptr, 50);
 			return;
 		}
 	}
 
-	creature_ptr->energy_need = 50; // Take a partial turn
+	cost_tactical_energy(creature_ptr, 50);
 	(void)inven_takeoff(creature_ptr, item, 255); // Take off the item
 
 	kamaenaoshi(creature_ptr, item);
@@ -574,8 +574,7 @@ void do_cmd_drop(creature_type *creature_ptr)
 		if(amt <= 0) return;
 	}
 
-	/* Take a partial turn */
-	creature_ptr->energy_need = 50;
+	cost_tactical_energy(creature_ptr, 50);
 
 	/* Drop (some of) the item */
 	inven_drop(creature_ptr, item, amt);
