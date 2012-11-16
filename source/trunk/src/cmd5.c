@@ -1,12 +1,12 @@
 /* File: cmd5.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: Spell/Prayer commands */
 
@@ -39,15 +39,15 @@ cptr spell_category_name(int tval)
 }
 
 /*
- * Allow user to choose a spell/prayer from the given book.
- *
- * If a valid spell is chosen, saves it in '*sn' and returns TRUE
- * If the user hits escape, returns FALSE, and set '*sn' to -1
- * If there are no legal choices, returns FALSE, and sets '*sn' to -2
- *
- * The "prompt" should be "cast", "recite", or "study"
- * The "known" should be TRUE for cast/pray, FALSE for study
- */
+* Allow user to choose a spell/prayer from the given book.
+*
+* If a valid spell is chosen, saves it in '*sn' and returns TRUE
+* If the user hits escape, returns FALSE, and set '*sn' to -1
+* If there are no legal choices, returns FALSE, and sets '*sn' to -2
+*
+* The "prompt" should be "cast", "recite", or "study"
+* The "known" should be TRUE for cast/pray, FALSE for study
+*/
 static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval, bool learned, int use_realm)
 {
 	int         i;
@@ -146,32 +146,32 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 		{
 			switch (choice)
 			{
-				case '0':
+			case '0':
 				{
 					screen_load();
 					return FALSE;
 				}
 
-				case '8':
-				case 'k':
-				case 'K':
+			case '8':
+			case 'k':
+			case 'K':
 				{
 					menu_line += (num - 1);
 					break;
 				}
 
-				case '2':
-				case 'j':
-				case 'J':
+			case '2':
+			case 'j':
+			case 'J':
 				{
 					menu_line++;
 					break;
 				}
 
-				case 'x':
-				case 'X':
-				case '\r':
-				case '\n':
+			case 'x':
+			case 'X':
+			case '\r':
+			case '\n':
 				{
 					i = menu_line - 1;
 					ask = FALSE;
@@ -282,7 +282,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 			/* 英日切り替え機能に対応 */
 			(void) strnfmt(tmp_val, 78, "%s(MP%d, 失敗率%d%%)を%sますか? ",
 				do_spell(creature_ptr, use_realm, spell, SPELL_NAME), need_mana,
-				       spell_chance(creature_ptr, spell, use_realm),jverb_buf);
+				spell_chance(creature_ptr, spell, use_realm),jverb_buf);
 #else
 			(void)strnfmt(tmp_val, 78, "%^s %s (%d mana, %d%% fail)? ",
 				prompt, do_spell(creature_ptr, use_realm, spell, SPELL_NAME), need_mana,
@@ -413,13 +413,13 @@ static void confirm_use_force(creature_type *creature_ptr, bool browse_only)
 
 
 /*
- * Peruse the spells/prayers in a book
- *
- * Note that *all* spells in the book are listed
- *
- * Note that browsing is allowed while confused or blind,
- * and in the dark, primarily to allow browsing in stores.
- */
+* Peruse the spells/prayers in a book
+*
+* Note that *all* spells in the book are listed
+*
+* Note that browsing is allowed while confused or blind,
+* and in the dark, primarily to allow browsing in stores.
+*/
 void do_cmd_browse(creature_type *creature_ptr)
 {
 	int		item, sval, use_realm = 0, j, line;
@@ -624,8 +624,8 @@ static void change_realm2(creature_type *creature_ptr, int next_realm)
 
 
 /*
- * Study a book to gain a new spell/prayer
- */
+* Study a book to gain a new spell/prayer
+*/
 void do_cmd_study(creature_type *creature_ptr)
 {
 	int	i, item, sval;
@@ -646,7 +646,7 @@ void do_cmd_study(creature_type *creature_ptr)
 	if(!creature_ptr->realm1)
 	{
 #ifdef JP
-msg_print("本を読むことができない！");
+		msg_print("本を読むことができない！");
 #else
 		msg_print("You cannot read books!");
 #endif
@@ -663,7 +663,7 @@ msg_print("本を読むことができない！");
 	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 #ifdef JP
-msg_print("混乱していて読めない！");
+		msg_print("混乱していて読めない！");
 #else
 		msg_print("You are too confused!");
 #endif
@@ -674,7 +674,7 @@ msg_print("混乱していて読めない！");
 	if(!(creature_ptr->new_spells))
 	{
 #ifdef JP
-msg_format("新しい%sを覚えることはできない！", p);
+		msg_format("新しい%sを覚えることはできない！", p);
 #else
 		msg_format("You cannot learn any new %ss!", p);
 #endif
@@ -706,13 +706,13 @@ msg_format("新しい%sを覚えることはできない！", p);
 
 	/* Get an item */
 #ifdef JP
-q = "どの本から学びますか? ";
+	q = "どの本から学びますか? ";
 #else
 	q = "Study which book? ";
 #endif
 
 #ifdef JP
-s = "読める本がない。";
+	s = "読める本がない。";
 #else
 	s = "You have no books that you can read.";
 #endif
@@ -884,13 +884,13 @@ s = "読める本がない。";
 		if(magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK)
 		{
 			msg_format("%sを学んだ。",
-				    do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
+				do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
 		}
 
 		else
 		{
 			msg_format("%sの%sを学んだ。",
-				    do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME) ,p);
+				do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME) ,p);
 		}
 #else
 		msg_format("You have learned the %s of %s.", p, do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
@@ -914,7 +914,7 @@ s = "読める本がない。";
 		else msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
 #else
 		msg_format("You can learn %d more %s%s.", creature_ptr->new_spells, p,
-		           (creature_ptr->new_spells != 1) ? "s" : "");
+			(creature_ptr->new_spells != 1) ? "s" : "");
 #endif
 	}
 #endif
@@ -1067,8 +1067,8 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Ask for a spell */
 #ifdef JP
 	if(!get_spell(creature_ptr, &spell, 
-				((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
-		       sval, TRUE, realm))
+		((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK) ? "歌う" : "唱える"), 
+		sval, TRUE, realm))
 	{
 		if(spell == -2) msg_format("その本には知っている%sがない。", prayer);
 		return;
@@ -1119,8 +1119,8 @@ void do_cmd_cast(creature_type *creature_ptr)
 
 		/* Warning */
 #ifdef JP
-msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
- ((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
+		msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
+			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "詠唱する" : (magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "歌う" : "唱える"));
 #else
 		msg_format("You do not have enough mana to %s this %s.",
 			((magic_info[creature_ptr->class_idx].spell_book == TV_LIFE_BOOK) ? "recite" : "cast"),
@@ -1159,7 +1159,7 @@ msg_format("その%sを%sのに十分なマジックポイントがない。",prayer,
 		if(flush_failure) flush();
 
 #ifdef JP
-msg_format("%sをうまく唱えられなかった！", prayer);
+		msg_format("%sをうまく唱えられなかった！", prayer);
 #else
 		msg_format("You failed to get the %s off!", prayer);
 #endif
@@ -1173,7 +1173,7 @@ msg_format("%sをうまく唱えられなかった！", prayer);
 		if((object_ptr->tval == TV_CHAOS_BOOK) && (randint1(100) < spell))
 		{
 #ifdef JP
-msg_print("カオス的な効果を発生した！");
+			msg_print("カオス的な効果を発生した！");
 #else
 			msg_print("You produce a chaotic effect!");
 #endif
@@ -1207,9 +1207,9 @@ msg_print("カオス的な効果を発生した！");
 		else if((object_ptr->tval == TV_MUSIC_BOOK) && (randint1(200) < spell))
 		{
 #ifdef JP
-msg_print("いやな音が響いた");
+			msg_print("いやな音が響いた");
 #else
-msg_print("An infernal sound echoed.");
+			msg_print("An infernal sound echoed.");
 #endif
 
 			aggravate_creatures(creature_ptr);
@@ -1224,10 +1224,10 @@ msg_print("An infernal sound echoed.");
 
 		/* A spell was cast */
 		if(!(increment ?
-		    (creature_ptr->spell_worked2 & (1L << spell)) :
-		    (creature_ptr->spell_worked1 & (1L << spell)))
-		    && (creature_ptr->class_idx != CLASS_SORCERER)
-		    && (creature_ptr->class_idx != CLASS_RED_MAGE))
+			(creature_ptr->spell_worked2 & (1L << spell)) :
+		(creature_ptr->spell_worked1 & (1L << spell)))
+			&& (creature_ptr->class_idx != CLASS_SORCERER)
+			&& (creature_ptr->class_idx != CLASS_RED_MAGE))
 		{
 			int e = s_ptr->sexp;
 
@@ -1347,7 +1347,7 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 
 	if(m_ptr1->chp > m_ptr2->chp) return TRUE;
 	if(m_ptr2->chp > m_ptr1->chp) return FALSE;
-	
+
 	return w1 <= w2;
 }
 
@@ -1385,7 +1385,7 @@ int calculate_upkeep_servant(creature_type *master_ptr)
 	for (m_idx = creature_max - 1; m_idx >=1; m_idx--)
 	{
 		creature_type *pet_ptr;
-		
+
 		pet_ptr = &creature_list[m_idx];
 		if(!pet_ptr->species_idx) continue;
 
@@ -1576,7 +1576,7 @@ void do_cmd_pet_dismiss(creature_type *creature_ptr)
 	msg_format("%d 体のペットを放しました。", Dismissed);
 #else
 	msg_format("You have dismissed %d pet%s.", Dismissed,
-		   (Dismissed == 1 ? "" : "s"));
+		(Dismissed == 1 ? "" : "s"));
 #endif
 	if(Dismissed == 0 && all_pets)
 #ifdef JP
@@ -1643,7 +1643,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 			if(creature_ptr->riding_two_handed) do_thrown_from_ridinglevel += 20;
 
 			if((cur < max) && (max > 1000) &&
-			    (dam / 2 + ridinglevel) > (cur / 30 + 10))
+				(dam / 2 + ridinglevel) > (cur / 30 + 10))
 			{
 				int inc = 0;
 
@@ -1699,7 +1699,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 		{
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
-msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
+			msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
 #else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
@@ -1862,14 +1862,14 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			feature_type *f_ptr = &feature_info[get_feat_mimic(c_ptr)];
 #ifdef JP
 			msg_format("そのクリーチャーは%sの%sにいる。", feature_name + f_ptr->name,
-			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
-			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
-			           "中" : "上");
+				((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
+				(!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
+				"中" : "上");
 #else
 			msg_format("This creature is %s the %s.",
-			           ((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
-			            (!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
-			           "in" : "on", feature_name + f_ptr->name);
+				((!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) ||
+				(!have_flag(f_ptr->flags, FF_LOS) && !have_flag(f_ptr->flags, FF_TREE))) ?
+				"in" : "on", feature_name + f_ptr->name);
 #endif
 
 			return FALSE;
@@ -1921,7 +1921,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	return TRUE;
 }
 
-static void dobject_name_pet(creature_type *master_ptr)
+static void do_name_pet(creature_type *master_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
 	creature_type *pet_ptr;
@@ -2245,9 +2245,9 @@ void do_cmd_pet(creature_type *master_ptr)
 	if(master_ptr->riding)
 	{
 		if((master_ptr->can_melee[0] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_LARM) &&
-		     object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 0))) ||
-		    (master_ptr->can_melee[1] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_RARM) &&
-			 object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 1))))
+			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 0))) ||
+			(master_ptr->can_melee[1] && (empty_hands(master_ptr, FALSE) == EMPTY_HAND_RARM) &&
+			object_allow_two_hands_wielding(master_ptr, get_equipped_slot_ptr(master_ptr, INVEN_SLOT_HAND, 1))))
 		{
 			if(master_ptr->pet_extra_flags & PF_RYOUTE)
 			{
@@ -2325,190 +2325,190 @@ void do_cmd_pet(creature_type *master_ptr)
 	if(!(repeat_pull(&i) && (i >= 0) && (i < num)))
 	{
 
-	/* Nothing chosen yet */
-	flag = FALSE;
+		/* Nothing chosen yet */
+		flag = FALSE;
 
-	/* No redraw yet */
-	redraw = FALSE;
+		/* No redraw yet */
+		redraw = FALSE;
 
-	if(use_menu)
-	{
-		/* Save the screen */
-		screen_save();
-
-		/* Build a prompt */
-#ifdef JP
-		strnfmt(out_val, 78, "(コマンド、ESC=終了) コマンドを選んでください:");
-#else
-		strnfmt(out_val, 78, "(Command, ESC=exit) Choose command from menu.");
-#endif
-	}
-	else
-	{
-		/* Build a prompt */
-		strnfmt(out_val, 78,
-#ifdef JP
-		        "(コマンド %c-%c、'*'=一覧、ESC=終了) コマンドを選んでください:",
-#else
-		        "(Command %c-%c, *=List, ESC=exit) Select a command: ",
-#endif
-		        I2A(0), I2A(num - 1));
-	}
-
-	choice = (always_show_list || use_menu) ? ESCAPE : 1;
-
-	/* Get a command from the user */
-	while (!flag)
-	{
-		if(choice == ESCAPE) choice = ' ';
-		else if(!get_com(out_val, &choice, TRUE)) break;
-
-		if(use_menu && (choice != ' '))
+		if(use_menu)
 		{
-			switch (choice)
-			{
-			case '0':
-				screen_load();
-				return;
+			/* Save the screen */
+			screen_save();
 
-			case '8':
-			case 'k':
-			case 'K':
-				menu_line += (num - 1);
-				break;
-
-			case '2':
-			case 'j':
-			case 'J':
-				menu_line++;
-				break;
-
-			case '4':
-			case 'h':
-			case 'H':
-				menu_line = 1;
-				break;
-
-			case '6':
-			case 'l':
-			case 'L':
-				menu_line = num;
-				break;
-
-			case 'x':
-			case 'X':
-			case '\r':
-			case '\n':
-				i = menu_line - 1;
-				ask = FALSE;
-				break;
-			}
-			if(menu_line > num) menu_line -= num;
+			/* Build a prompt */
+#ifdef JP
+			strnfmt(out_val, 78, "(コマンド、ESC=終了) コマンドを選んでください:");
+#else
+			strnfmt(out_val, 78, "(Command, ESC=exit) Choose command from menu.");
+#endif
+		}
+		else
+		{
+			/* Build a prompt */
+			strnfmt(out_val, 78,
+#ifdef JP
+				"(コマンド %c-%c、'*'=一覧、ESC=終了) コマンドを選んでください:",
+#else
+				"(Command %c-%c, *=List, ESC=exit) Select a command: ",
+#endif
+				I2A(0), I2A(num - 1));
 		}
 
-		/* Request redraw */
-		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
+		choice = (always_show_list || use_menu) ? ESCAPE : 1;
+
+		/* Get a command from the user */
+		while (!flag)
 		{
-			/* Show the list */
-			if(!redraw || use_menu)
+			if(choice == ESCAPE) choice = ' ';
+			else if(!get_com(out_val, &choice, TRUE)) break;
+
+			if(use_menu && (choice != ' '))
 			{
-				byte y = 1, x = 0;
-				int ctr = 0;
-
-				/* Show list */
-				redraw = TRUE;
-
-				/* Save the screen */
-				if(!use_menu) screen_save();
-
-				prt("", y++, x);
-
-				/* Print list */
-				for (ctr = 0; ctr < num; ctr++)
+				switch (choice)
 				{
-					/* Letter/number for power selection */
+				case '0':
+					screen_load();
+					return;
+
+				case '8':
+				case 'k':
+				case 'K':
+					menu_line += (num - 1);
+					break;
+
+				case '2':
+				case 'j':
+				case 'J':
+					menu_line++;
+					break;
+
+				case '4':
+				case 'h':
+				case 'H':
+					menu_line = 1;
+					break;
+
+				case '6':
+				case 'l':
+				case 'L':
+					menu_line = num;
+					break;
+
+				case 'x':
+				case 'X':
+				case '\r':
+				case '\n':
+					i = menu_line - 1;
+					ask = FALSE;
+					break;
+				}
+				if(menu_line > num) menu_line -= num;
+			}
+
+			/* Request redraw */
+			if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
+			{
+				/* Show the list */
+				if(!redraw || use_menu)
+				{
+					byte y = 1, x = 0;
+					int ctr = 0;
+
+					/* Show list */
+					redraw = TRUE;
+
+					/* Save the screen */
+					if(!use_menu) screen_save();
+
+					prt("", y++, x);
+
+					/* Print list */
+					for (ctr = 0; ctr < num; ctr++)
+					{
+						/* Letter/number for power selection */
 #ifdef JP
-					if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "》" : "  ");
+						if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "》" : "  ");
 #else
-					if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "> " : "  ");
+						if(use_menu) sprintf(buf, "%c%s ", (ctr == mode) ? '*' : ' ', (ctr == (menu_line - 1)) ? "> " : "  ");
 #endif
-					else sprintf(buf, "%c%c) ", (ctr == mode) ? '*' : ' ', I2A(ctr));
+						else sprintf(buf, "%c%c) ", (ctr == mode) ? '*' : ' ', I2A(ctr));
 
-					strcat(buf, power_desc[ctr]);
+						strcat(buf, power_desc[ctr]);
 
-					prt(buf, y + ctr, x);
+						prt(buf, y + ctr, x);
+					}
+
+					prt("", y + MIN(ctr, 17), x);
 				}
 
-				prt("", y + MIN(ctr, 17), x);
+				/* Hide the list */
+				else
+				{
+					/* Hide list */
+					redraw = FALSE;
+
+					/* Restore the screen */
+					screen_load();
+				}
+
+				/* Redo asking */
+				continue;
 			}
 
-			/* Hide the list */
-			else
+			if(!use_menu)
 			{
-				/* Hide list */
-				redraw = FALSE;
+				/* Note verify */
+				ask = (isupper(choice));
 
-				/* Restore the screen */
-				screen_load();
+				/* Lowercase */
+				if(ask) choice = tolower(choice);
+
+				/* Extract request */
+				i = (islower(choice) ? A2I(choice) : -1);
 			}
 
-			/* Redo asking */
-			continue;
-		}
+			/* Totally Illegal */
+			if((i < 0) || (i >= num))
+			{
+				bell();
+				continue;
+			}
 
-		if(!use_menu)
-		{
-			/* Note verify */
-			ask = (isupper(choice));
-
-			/* Lowercase */
-			if(ask) choice = tolower(choice);
-
-			/* Extract request */
-			i = (islower(choice) ? A2I(choice) : -1);
-		}
-
-		/* Totally Illegal */
-		if((i < 0) || (i >= num))
-		{
-			bell();
-			continue;
-		}
-
-		/* Verify it */
-		if(ask)
-		{
-			/* Prompt */
+			/* Verify it */
+			if(ask)
+			{
+				/* Prompt */
 #ifdef JP
-			strnfmt(buf, 78, "%sを使いますか？ ", power_desc[i]);
+				strnfmt(buf, 78, "%sを使いますか？ ", power_desc[i]);
 #else
-			strnfmt(buf, 78, "Use %s? ", power_desc[i]);
+				strnfmt(buf, 78, "Use %s? ", power_desc[i]);
 #endif
 
-			/* Belay that order */
-			if(!get_check(buf)) continue;
+				/* Belay that order */
+				if(!get_check(buf)) continue;
+			}
+
+			/* Stop the loop */
+			flag = TRUE;
 		}
 
-		/* Stop the loop */
-		flag = TRUE;
-	}
+		/* Restore the screen */
+		if(redraw) screen_load();
 
-	/* Restore the screen */
-	if(redraw) screen_load();
+		/* Abort if needed */
+		if(!flag)
+		{
+			cancel_tactical_action(master_ptr);
+			master_ptr->energy_need = 0;
+		}
 
-	/* Abort if needed */
-	if(!flag)
-	{
-		cancel_tactical_action(master_ptr);
-		master_ptr->energy_need = 0;
-	}
-
-	repeat_push(i);
+		repeat_push(i);
 	}
 
 	switch (powers[i])
 	{
-		case PET_DISMISS: /* Dismiss pets */
+	case PET_DISMISS: /* Dismiss pets */
 		{
 			/* Check pets (backwards) */
 			for (pet_ctr = creature_max - 1; pet_ctr >= 1; pet_ctr--)
@@ -2530,7 +2530,7 @@ void do_cmd_pet(creature_type *master_ptr)
 			(void)calculate_upkeep_servant(master_ptr);
 			break;
 		}
-		case PET_TARGET:
+	case PET_TARGET:
 		{
 			if(!target_set(master_ptr, NO_RANGE_LIMIT, TARGET_KILL)) pet_t_m_idx = 0;
 			else
@@ -2546,46 +2546,46 @@ void do_cmd_pet(creature_type *master_ptr)
 			break;
 		}
 		/* Call pets */
-		case PET_STAY_CLOSE:
+	case PET_STAY_CLOSE:
 		{
 			master_ptr->pet_follow_distance = PET_CLOSE_DIST;
 			pet_t_m_idx = 0;
 			break;
 		}
 		/* "Follow Me" */
-		case PET_FOLLOW_ME:
+	case PET_FOLLOW_ME:
 		{
 			master_ptr->pet_follow_distance = PET_FOLLOW_DIST;
 			pet_t_m_idx = 0;
 			break;
 		}
 		/* "Seek and destoy" */
-		case PET_SEEK_AND_DESTROY:
+	case PET_SEEK_AND_DESTROY:
 		{
 			master_ptr->pet_follow_distance = PET_DESTROY_DIST;
 			break;
 		}
 		/* "Give me space" */
-		case PET_ALLOW_SPACE:
+	case PET_ALLOW_SPACE:
 		{
 			master_ptr->pet_follow_distance = PET_SPACE_DIST;
 			break;
 		}
 		/* "Stay away" */
-		case PET_STAY_AWAY:
+	case PET_STAY_AWAY:
 		{
 			master_ptr->pet_follow_distance = PET_AWAY_DIST;
 			break;
 		}
 		/* flag - allow pets to open doors */
-		case PET_OPEN_DOORS:
+	case PET_OPEN_DOORS:
 		{
 			if(master_ptr->pet_extra_flags & PF_OPEN_DOORS) master_ptr->pet_extra_flags &= ~(PF_OPEN_DOORS);
 			else master_ptr->pet_extra_flags |= (PF_OPEN_DOORS);
 			break;
 		}
 		/* flag - allow pets to pickup items */
-		case PET_TAKE_ITEMS:
+	case PET_TAKE_ITEMS:
 		{
 			if(master_ptr->pet_extra_flags & PF_PICKUP_ITEMS)
 			{
@@ -2594,11 +2594,7 @@ void do_cmd_pet(creature_type *master_ptr)
 				{
 					/* Access the creature */
 					pet_ptr = &creature_list[pet_ctr];
-
-					if(is_pet(player_ptr, pet_ptr))
-					{
-						creature_drop_carried_objects(pet_ptr);
-					}
+					if(is_pet(master_ptr, pet_ptr)) creature_drop_carried_objects(pet_ptr);
 				}
 			}
 			else master_ptr->pet_extra_flags |= (PF_PICKUP_ITEMS);
@@ -2606,47 +2602,47 @@ void do_cmd_pet(creature_type *master_ptr)
 			break;
 		}
 		/* flag - allow pets to teleport */
-		case PET_TELEPORT:
+	case PET_TELEPORT:
 		{
 			if(master_ptr->pet_extra_flags & PF_TELEPORT) master_ptr->pet_extra_flags &= ~(PF_TELEPORT);
 			else master_ptr->pet_extra_flags |= (PF_TELEPORT);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
-		case PET_ATTACK_SPELL:
+	case PET_ATTACK_SPELL:
 		{
 			if(master_ptr->pet_extra_flags & PF_ATTACK_SPELL) master_ptr->pet_extra_flags &= ~(PF_ATTACK_SPELL);
 			else master_ptr->pet_extra_flags |= (PF_ATTACK_SPELL);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
-		case PET_TRAIT_S_SPELL:
+	case PET_TRAIT_S_SPELL:
 		{
 			if(master_ptr->pet_extra_flags & PF_TRAIT_S_SPELL) master_ptr->pet_extra_flags &= ~(PF_TRAIT_S_SPELL);
 			else master_ptr->pet_extra_flags |= (PF_TRAIT_S_SPELL);
 			break;
 		}
 		/* flag - allow pets to cast attack spell */
-		case PET_BALL_SPELL:
+	case PET_BALL_SPELL:
 		{
 			if(master_ptr->pet_extra_flags & PF_BALL_SPELL) master_ptr->pet_extra_flags &= ~(PF_BALL_SPELL);
 			else master_ptr->pet_extra_flags |= (PF_BALL_SPELL);
 			break;
 		}
 
-		case PET_RIDING:
+	case PET_RIDING:
 		{
 			(void)do_riding(master_ptr, FALSE);
 			break;
 		}
 
-		case PET_NAME:
+	case PET_NAME:
 		{
-			dobject_name_pet(master_ptr);
+			do_name_pet(master_ptr);
 			break;
 		}
 
-		case PET_RYOUTE:
+	case PET_RYOUTE:
 		{
 			if(master_ptr->pet_extra_flags & PF_RYOUTE) master_ptr->pet_extra_flags &= ~(PF_RYOUTE);
 			else master_ptr->pet_extra_flags |= (PF_RYOUTE);
