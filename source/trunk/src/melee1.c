@@ -1533,7 +1533,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	species_type *species_ptr = &species_info[attacker_ptr->species_idx];
 	floor_type *floor_ptr = &floor_list[attacker_ptr->floor_id];
 
-	int i, k, tmp, ac;
+	int i, k, tmp, ac, ev, vo;
 	int do_cut, do_stun;
 
 	s32b gold;
@@ -1541,8 +1541,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	object_type *object_ptr;
 
 	char object_name[MAX_NLEN];
-	char attacker_name[100];
-	char target_name[100];
+	char attacker_name[MAX_NLEN];
+	char target_name[MAX_NLEN];
 
 	char ddesc[80];
 
@@ -1568,48 +1568,36 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	int abbreviate = 0;
 #endif
 
-	/* Not allowed to attack */
+	// Not allowed to attack
 	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
-
 	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
 
-	/* ...nor if friendly */
-	if(!is_hostile(attacker_ptr)) return FALSE;
+	if(!is_hostile(attacker_ptr)) return FALSE; // ...nor if friendly
 
-	/* Get the creature name (or "it") */
+	// Get the creature name (or "it")
 	creature_desc(attacker_name, attacker_ptr, 0);
 	creature_desc(target_name, target_ptr, 0);
 
-	/* Get the "died from" information (i.e. "a kobold") */
+	// Get the "died from" information (i.e. "a kobold")
 	creature_desc(ddesc, attacker_ptr, CD_IGNORE_HALLU | CD_ASSUME_VISIBLE | CD_INDEF_VISIBLE);
 
-	/* Assume no blink */
-	blinked = FALSE;
-
-
-	/* Hack -- no more attacks */
-	if(!method) return FALSE;
-
-	if(is_pet(player_ptr, attacker_ptr) && (has_trait_species(species_ptr, TRAIT_UNIQUE)) && (method == RBM_EXPLODE))
-	{
-		method = RBM_HIT;
-		d_dice /= 10;
-	}
-
-	/* Stop if player is dead or gone */
-	if(!playing || IS_DEAD(target_ptr)) return FALSE;
+	blinked = FALSE; // Assume no blink
+	if(!method) return FALSE; // Hack -- no more attacks
+	
+	if(!playing || IS_DEAD(target_ptr)) return FALSE; // Stop if player is dead or gone
 	if(distance(target_ptr->fy, target_ptr->fx, attacker_ptr->fy, attacker_ptr->fx) > 1) return FALSE;
-
-	/* Handle "leaving" */
-	if(subject_change_floor) return FALSE;
+	
+	if(subject_change_floor) return FALSE; // Handle "leaving"
 
 	if(method == RBM_SHOOT) return FALSE;
 
 	/* Extract the attack "power" */
 	power = mbe_info[effect].power;
 
-	/* Total armor */
+	// Total armor
 	ac = target_ptr->ac + target_ptr->to_ac;
+	ev = target_ptr->ev + target_ptr->to_ev;
+	vo = target_ptr->vo + target_ptr->to_vo;
 
 	/* Creature hits player */
 	if(!effect || check_hit(target_ptr, power, attacker_ptr->lev, attacker_ptr->timed_trait[TRAIT_STUN]))
@@ -1624,10 +1612,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 			/* Message */
 #ifdef JP
-			if(abbreviate)
-				msg_format("撃退した。");
-			else
-				msg_format("%^sは撃退された。", attacker_name);
+			if(abbreviate) msg_format("撃退した。");
+			else msg_format("%^sは撃退された。", attacker_name);
 			abbreviate = 1;/*２回目以降は省略 */
 #else
 			msg_format("%^s is repelled.", attacker_name);
