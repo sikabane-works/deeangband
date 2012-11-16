@@ -1114,8 +1114,7 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_lantern, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Take a partial turn */
-	creature_ptr->energy_need = 50;
+	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the lantern */
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
@@ -1219,8 +1218,7 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_refill_torch, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Take a partial turn */
-	creature_ptr->energy_need = 50;
+	cost_tactical_energy(creature_ptr, 50); // Take a partial turn
 
 	/* Access the primary torch */
 	j_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);

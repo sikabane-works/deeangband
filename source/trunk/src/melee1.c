@@ -1241,8 +1241,6 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
 	creature_type   *target_ptr;
-	species_type    *atk_species_ptr;
-	species_type    *tar_species_ptr;
 	object_type			*weapon_ptr;
 	special_blow_type	*special_ptr;
 	char			attacker_name[MAX_NLEN];
@@ -1257,9 +1255,6 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	int tried_num;
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
-
-	atk_species_ptr = &species_info[attacker_ptr->species_idx];
-	tar_species_ptr = &species_info[target_ptr->species_idx];
 
 	disturb(player_ptr, 0, 0); // Disturb the player
 
@@ -1298,7 +1293,7 @@ bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 	action_power = calc_action_power(attacker_ptr);
 	action_num = 0;
 	tried_num = 0;
-	attacker_ptr->energy_need = 100;
+	cost_tactical_energy(attacker_ptr, 100);
 
 	do
 	{

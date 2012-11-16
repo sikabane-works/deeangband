@@ -65,10 +65,7 @@ static void do_cmd_eat_food_aux(creature_type *creature_ptr, int item)
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Sound */
 	sound(SOUND_EAT);
-
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Identity not known yet */

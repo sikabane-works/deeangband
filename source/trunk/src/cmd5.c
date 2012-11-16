@@ -897,8 +897,6 @@ s = "“Ç‚ß‚é–{‚ª‚È‚¢B";
 #endif
 	}
 
-
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Sound */
@@ -1276,7 +1274,6 @@ msg_print("An infernal sound echoed.");
 		}
 	}
 
-	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Over-exert the player */
@@ -1802,7 +1799,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 
 		if(c_ptr->creature_idx)
 		{
-			rider_ptr->energy_need = 100;
+			cost_tactical_energy(rider_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 			close_combat(rider_ptr, y, x, 0);
 			return FALSE;
@@ -1884,9 +1881,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 #else
 			msg_print("You failed to ride.");
 #endif
-
-			rider_ptr->energy_need = 100;
-
+			cost_tactical_energy(rider_ptr, 100);
 			return FALSE;
 		}
 
@@ -1911,18 +1906,14 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		if(rider_ptr->riding == health_who) health_track(0);
 	}
 
-	rider_ptr->energy_need = 100;
+	cost_tactical_energy(rider_ptr, 100);
 
 	/* Mega-Hack -- Forget the view and lite */
 	rider_ptr->creature_update |= (PU_UN_VIEW | PU_UN_LITE);
 
 	/* Update the creatures */
 	rider_ptr->creature_update |= (CRU_BONUS);
-
-	/* Redraw map */
-	play_redraw |= (PR_MAP | PR_EXTRA);
-
-	play_redraw |= (PR_UHEALTH);
+	play_redraw |= (PR_MAP | PR_EXTRA | PR_UHEALTH); // Redraw map
 
 	/* Move the player */
 	(void)move_creature(rider_ptr, NULL, y, x, MCE_HANDLE_STUFF | MCE_ENERGY_USE | MCE_DONT_PICKUP | MCE_DONT_SWAP_MON);
