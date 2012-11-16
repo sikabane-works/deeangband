@@ -660,14 +660,13 @@ void do_cmd_study(creature_type *creature_ptr)
 		return;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("混乱していて読めない！");
 #else
 		msg_print("You are too confused!");
 #endif
-
 		return;
 	}
 
@@ -678,14 +677,10 @@ void do_cmd_study(creature_type *creature_ptr)
 #else
 		msg_format("You cannot learn any new %ss!", p);
 #endif
-
 		return;
 	}
 
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
 #ifdef JP
 	if( creature_ptr->new_spells < 10 ){
@@ -704,16 +699,11 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Restrict choices to "useful" books */
 	if(creature_ptr->realm2 == REALM_NONE) item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
 
-	/* Get an item */
 #ifdef JP
 	q = "どの本から学びますか? ";
-#else
-	q = "Study which book? ";
-#endif
-
-#ifdef JP
 	s = "読める本がない。";
 #else
+	q = "Study which book? ";
 	s = "You have no books that you can read.";
 #endif
 
@@ -746,20 +736,16 @@ void do_cmd_study(creature_type *creature_ptr)
 	{
 		/* Ask for a spell, allow cancel */
 #ifdef JP
-		if(!get_spell(creature_ptr, &spell, "学ぶ", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1)
-			&& (spell == -1)) return;
+		if(!get_spell(creature_ptr, &spell, "学ぶ", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1) && (spell == -1)) return;
 #else
-		if(!get_spell(creature_ptr, &spell, "study", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1)
-			&& (spell == -1)) return;
+		if(!get_spell(creature_ptr, &spell, "study", sval, FALSE, object_ptr->tval - TV_LIFE_BOOK + 1) && (spell == -1)) return;
 #endif
-
 	}
 
 	/* Priest -- Learn a random prayer */
 	else
 	{
 		int k = 0;
-
 		int gift = -1;
 
 		/* Extract spells */
@@ -787,16 +773,11 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Nothing to study */
 	if(spell < 0)
 	{
-		/* Message */
 #ifdef JP
-
 		msg_format("その本には学ぶべき%sがない。", p);
 #else
 		msg_format("You cannot learn any %ss in that book.", p);
 #endif
-
-
-		/* Abort */
 		return;
 	}
 
@@ -869,29 +850,16 @@ void do_cmd_study(creature_type *creature_ptr)
 	else
 	{
 		/* Find the next open entry in "creature_ptr->spell_order[]" */
-		for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++)
-		{
-			/* Stop at the first empty space */
-			if(creature_ptr->spell_order[i] == 99) break;
-		}
-
-		/* Add the spell to the known list */
-		creature_ptr->spell_order[i++] = spell;
+		for (i = 0; i < (REALM_MAGIC_NUMBER * 2); i++) if(creature_ptr->spell_order[i] == 99) break;
+		creature_ptr->spell_order[i++] = spell; // Add the spell to the known list
 
 		/* Mention the result */
 #ifdef JP
 		/* 英日切り替え機能に対応 */
 		if(magic_info[creature_ptr->class_idx].spell_book == TV_MUSIC_BOOK)
-		{
-			msg_format("%sを学んだ。",
-				do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
-		}
-
+			msg_format("%sを学んだ。", do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
 		else
-		{
-			msg_format("%sの%sを学んだ。",
-				do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME) ,p);
-		}
+			msg_format("%sの%sを学んだ。", do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME) ,p);
 #else
 		msg_format("You have learned the %s of %s.", p, do_spell(creature_ptr, increment ? creature_ptr->realm2 : creature_ptr->realm1, spell % 32, SPELL_NAME));
 #endif
