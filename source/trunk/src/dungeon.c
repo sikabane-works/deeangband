@@ -1942,7 +1942,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	}
 
 	/* Poisoned or cut yields no healing */
-	if(creature_ptr->timed_trait[TRAIT_POISONED]) regen_amount = 0;
+	if(has_trait(creature_ptr, TRAIT_POISONED)) regen_amount = 0;
 	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT)) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
@@ -1974,7 +1974,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 			(void)set_timed_trait(creature_ptr, i, creature_ptr->timed_trait[i] - dec_count);
 
 	// Handle "sleep"
-	if(creature_ptr->timed_trait[TRAIT_SLEEP])
+	if(has_trait(creature_ptr, TRAIT_SLEPT))
 	{
 		if(creature_ptr->see_others || creature_ptr->hear_noise) (void)set_timed_trait(creature_ptr, TRAIT_SLEEP, 0);	// Handle aggravation Reset sleep counter
 
@@ -1987,23 +1987,23 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 
 	//*** Poison and Stun and Cut ***//
 
-	if(creature_ptr->timed_trait[TRAIT_POISONED])
+	if(has_trait(creature_ptr, TRAIT_POISONED))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
-		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] - adjust);
+		(void)add_timed_trait(creature_ptr, TRAIT_POISONED, -adjust, TRUE);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
-		(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] - adjust);
+		(void)add_timed_trait(creature_ptr, TRAIT_STUN, -adjust, TRUE);
 	}
 
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT))
+	if(has_trait(creature_ptr, TRAIT_CUT))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
 		if(creature_ptr->timed_trait[TRAIT_CUT] > 1000) adjust = 0;
-		(void)set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - adjust);
+		(void)add_timed_trait(creature_ptr, TRAIT_CUT, -adjust, TRUE);
 	}
 }
 
