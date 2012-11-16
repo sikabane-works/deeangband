@@ -787,19 +787,12 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 			project(0, 0, 0, target_ptr->fy, target_ptr->fx, k, DO_EFFECT_POIS, PROJECT_KILL, -1);
 			break;
 		case TRAIT_HORNS:
-			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
-			break;
 		case TRAIT_BEAK:
-			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
-			break;
 		case TRAIT_TRUNK:
-			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
-			break;
 		case TRAIT_TENTACLES:
-			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
-			break;
 		default:
-			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL , NULL, -1);
+			take_damage_to_creature(attacker_ptr, target_ptr, 0, k, NULL, NULL, -1);
+			break;
 		}
 		*mdeath = (target_ptr->species_idx == 0);
 		touch_zap_player(attacker_ptr, target_ptr);
@@ -819,14 +812,11 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 	}
 }
 
-
-
 static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 {
 	creature_type    *m_ptr = &creature_list[m_idx];
 	species_type    *r_ptr = &species_info[m_ptr->species_idx];
 }
-
 
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
 {
@@ -874,8 +864,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 		if(has_trait(target_ptr, TRAIT_NO_STUN)) resist_stun += 66;
 		if(has_trait(target_ptr, TRAIT_NO_CONF)) resist_stun += 33;
 		if(has_trait(target_ptr, TRAIT_NO_SLEEP)) resist_stun += 33;
-		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING))
-			resist_stun += 66;
+		if(has_trait(target_ptr, TRAIT_UNDEAD) || has_trait(target_ptr, TRAIT_NONLIVING)) resist_stun += 66;
 
 		if(attacker_ptr->posture & KAMAE_BYAKKO) max_times = (attacker_ptr->lev < 3 ? 1 : attacker_ptr->lev / 3);
 		else if(attacker_ptr->posture & KAMAE_SUZAKU) max_times = 1;
@@ -906,10 +895,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 #endif
 				}
 			}
-			else
-			{
-				ma_ptr = old_ptr;
-			}
+			else ma_ptr = old_ptr;
 		}
 
 		if(attacker_ptr->class_idx == CLASS_FORCETRAINER) min_level = MAX(1, ma_ptr->min_level - 3);
