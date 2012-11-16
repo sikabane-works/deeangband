@@ -146,13 +146,9 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	else if(up_num == floor_ptr->floor_level) msg_print("地上に戻った。");
 	else msg_print("階段を上って新たなる迷宮へと足を踏み入れた。");
 #else
-	if(up_num == floor_ptr->floor_level)
-		msg_print("You go back to the surface.");
-	else
-		msg_print("You enter a maze of up staircases.");
+	if(up_num == floor_ptr->floor_level) msg_print("You go back to the surface.");
+	else msg_print("You enter a maze of up staircases.");
 #endif
-
-	/* Leaving */
 	subject_change_floor = TRUE;
 }
 
@@ -168,7 +164,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 
 	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
-	/* Verify stairs */
 	if(!have_flag(f_ptr->flags, FF_MORE))
 	{
 #ifdef JP

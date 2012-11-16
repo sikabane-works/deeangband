@@ -847,6 +847,11 @@ void stop_mouth(creature_type *creature_ptr)
 	if(HEX_SPELLING_ANY(creature_ptr)) stop_hex_spell_all(creature_ptr);
 }
 
+void free_posture(creature_type *creature_ptr)
+{
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
+}
+
 //unused
 static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 {

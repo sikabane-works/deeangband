@@ -1188,6 +1188,7 @@ extern bool is_valid_object(object_type *object_ptr);
 
 /* racial.c */
 extern void stop_mouth(creature_type *creature_ptr);
+extern void free_posture(creature_type *creature_ptr);
 extern bool gain_magic(creature_type *creature_ptr);
 extern void do_cmd_racial_power(creature_type *creature_ptr);
 extern bool choose_kamae(creature_type *creature_ptr);
