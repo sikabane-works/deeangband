@@ -13,9 +13,7 @@
 #include "angband.h"
 
 
-/*
- * Go up one level
- */
+// Go up one level
 void do_cmd_go_up(creature_type *creature_ptr)
 {
 	bool go_up = FALSE;
@@ -26,10 +24,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 
 	int up_num = 0;
 
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Verify stairs */
 	if(!have_flag(f_ptr->flags, FF_LESS))
@@ -39,7 +34,6 @@ void do_cmd_go_up(creature_type *creature_ptr)
 #else
 		msg_print("I see no up staircase here.");
 #endif
-
 		return;
 	}
 
@@ -69,19 +63,14 @@ void do_cmd_go_up(creature_type *creature_ptr)
 		return;
 	}
 
-	if(!floor_ptr->floor_level)
-	{
-		go_up = TRUE;
-	}
+	if(!floor_ptr->floor_level) go_up = TRUE;
 	else
 	{
 		quest_type *quest_ptr = &quest[floor_ptr->quest];
 
 		/* Confirm leaving from once only quest */
-		if(confirm_quest && floor_ptr->quest &&
-		    (quest_ptr->type == QUEST_TYPE_RANDOM ||
-		     (quest_ptr->flags & QUEST_FLAG_ONCE &&
-		      quest_ptr->status != QUEST_STATUS_COMPLETED)))
+		if(confirm_quest && floor_ptr->quest && (quest_ptr->type == QUEST_TYPE_RANDOM ||
+		     (quest_ptr->flags & QUEST_FLAG_ONCE && quest_ptr->status != QUEST_STATUS_COMPLETED)))
 		{
 #ifdef JP
 			msg_print("‚±‚ÌŠK‚ðˆê“x‹Ž‚é‚Æ“ñ“x‚Æ–ß‚Á‚Ä—ˆ‚ç‚ê‚Ü‚¹‚ñB");
@@ -91,10 +80,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 			if(get_check("Really leave this floor? ")) go_up = TRUE;
 #endif
 		}
-		else
-		{
-			go_up = TRUE;
-		}
+		else go_up = TRUE;
 	}
 
 	/* Cancel the command */
@@ -106,8 +92,7 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(autosave_l) do_cmd_save_game(TRUE);
 
 	/* For a random quest */
-	if(floor_ptr->quest &&
-	    quest[floor_ptr->quest].type == QUEST_TYPE_RANDOM)
+	if(floor_ptr->quest && quest[floor_ptr->quest].type == QUEST_TYPE_RANDOM)
 	{
 		leave_quest_check(creature_ptr);
 
@@ -181,10 +166,7 @@ void do_cmd_go_down(creature_type *creature_ptr)
 	bool fall_trap = FALSE;
 	int down_num = 0;
 
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
 
 	/* Verify stairs */
 	if(!have_flag(f_ptr->flags, FF_MORE))
@@ -194,17 +176,11 @@ void do_cmd_go_down(creature_type *creature_ptr)
 #else
 		msg_print("I see no down staircase here.");
 #endif
-
 		return;
 	}
 
 	if(have_flag(f_ptr->flags, FF_TRAP)) fall_trap = TRUE;
-
-	/* Quest entrance */
-	if(have_flag(f_ptr->flags, FF_QUEST_ENTER))
-	{
-		do_cmd_quest(creature_ptr);
-	}
+	if(have_flag(f_ptr->flags, FF_QUEST_ENTER)) do_cmd_quest(creature_ptr); // Quest entrance
 
 	/* Quest down stairs */
 	else if(have_flag(f_ptr->flags, FF_QUEST))
@@ -409,21 +385,15 @@ static s16b chest_check(floor_type *floor_ptr, int y, int x)
 static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b object_idx)
 {
 	int number;
-
 	bool small;
 	u32b mode = AM_GOOD;
 
 	object_type forge;
 	object_type *quest_ptr;
-
 	object_type *object_ptr = &object_list[object_idx];
 
-
-	/* Small chests often hold "gold" */
-	small = (object_ptr->sval < SV_CHEST_MIN_LARGE);
-
-	/* Determine how much to drop (see above) */
-	number = (object_ptr->sval % SV_CHEST_MIN_LARGE) * 2;
+	small = (object_ptr->sval < SV_CHEST_MIN_LARGE); // Small chests often hold "gold"
+	number = (object_ptr->sval % SV_CHEST_MIN_LARGE) * 2; // Determine how much to drop (see above)
 
 	if(object_ptr->sval == SV_CHEST_KANDUME)
 	{
@@ -432,30 +402,19 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 		mode |= AM_GREAT;
 		floor_ptr->object_level = object_ptr->xtra3;
 	}
-	else
+	else floor_ptr->object_level = ABS(object_ptr->pval) + 10; // Determine the "value" of the items
+	if(!object_ptr->pval) number = 0; // Zero pval means empty chest
+
+	for (; number > 0; --number) // Drop some objects (non-chests)
 	{
-		/* Determine the "value" of the items */
-		floor_ptr->object_level = ABS(object_ptr->pval) + 10;
-	}
-
-	/* Zero pval means empty chest */
-	if(!object_ptr->pval) number = 0;
-
-	/* Drop some objects (non-chests) */
-	for (; number > 0; --number)
-	{
-		/* Get local object */
-		quest_ptr = &forge;
-
-		/* Wipe the object */
-		object_wipe(quest_ptr);
+		quest_ptr = &forge; // Get local object
+		object_wipe(quest_ptr); // Wipe the object
 
 		// Small chests often drop gold
 		if(small && (randint0(100) < 25)) if(!make_gold(floor_ptr, quest_ptr, 0, 0)) continue; // Make some gold
 		else if(!make_object(quest_ptr, mode, TRAIT_NO_CHEST, floor_ptr->object_level, NULL)) continue; // Make object
 
-		/* If chest scatters its contents, pick any floor square. */
-		if(scatter)
+		if(scatter) // If chest scatters its contents, pick any floor square.
 		{
 			int i;
 			for (i = 0; i < 200; i++)
@@ -464,10 +423,9 @@ static void chest_death(bool scatter, floor_type *floor_ptr, int y, int x, s16b 
 				y = randint0(MAX_HGT);
 				x = randint0(MAX_WID);
 
-				/* Must be an empty floor. */
+				// Must be an empty floor.
 				if(!cave_empty_bold(floor_ptr, y, x)) continue;
-
-					drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
+				drop_near(floor_ptr, quest_ptr, -1, y, x); // Place the object there.
 				break;
 			}
 		}
@@ -495,13 +453,10 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 
 	int mon_level = object_ptr->xtra3;
 
-	/* Ignore disarmed chests */
-	if(object_ptr->pval <= 0) return;
+	if(object_ptr->pval <= 0) return; // Ignore disarmed chests
+	trap = chest_traps[object_ptr->pval]; // Obtain the traps
 
-	/* Obtain the traps */
-	trap = chest_traps[object_ptr->pval];
-
-	/* Lose strength */
+	// Lose strength
 	if(trap & (CHEST_LOSE_STR))
 	{
 #ifdef JP
@@ -511,7 +466,6 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		msg_print("A small needle has pricked you!");
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
-
 		(void)do_dec_stat(creature_ptr, STAT_STR);
 	}
 
@@ -525,7 +479,6 @@ static void chest_trap(creature_type *creature_ptr, int y, int x, s16b object_id
 		msg_print("A small needle has pricked you!");
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, diceroll(1, 4), "a poison needle", NULL, -1);
 #endif
-
 		(void)do_dec_stat(creature_ptr, STAT_CON);
 	}
 
