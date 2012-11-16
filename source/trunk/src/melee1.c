@@ -1373,6 +1373,18 @@ bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
 
 		i = uneven_rand(select_list, select_weight, action_num);
 
+		// Hack -- Apply "protection from evil"
+		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
+		{
+			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL; // Remember the Evil-ness
+#ifdef JP
+			msg_format("%^s‚ÍŒ‚‘Ş‚³‚ê‚½B", attacker_name);
+#else
+			msg_format("%^s is repelled.", attacker_name);
+#endif
+			return FALSE;
+		}
+
 		switch(i)
 		{
 		case MELEE_TYPE_WEAPON_1ST:
@@ -1603,26 +1615,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	if(!effect || check_hit(target_ptr, power, attacker_ptr->lev, attacker_ptr->timed_trait[TRAIT_STUN]))
 	{
 		disturb(player_ptr, 1, 0);
-
-		// Hack -- Apply "protection from evil"
-		if((target_ptr->timed_trait[TRAIT_PROT_EVIL] > 0) && is_enemy_of_good_creature(target_ptr) && (target_ptr->lev >= attacker_ptr->lev) && ((randint0(100) + target_ptr->lev) > 50))
-		{
-			/* Remember the Evil-ness */
-			//TODO if(is_original_ap_and_seen(target_ptr, attacker_ptr)) species_ptr->r_flags3 |= RF3_EVIL;
-
-			/* Message */
-#ifdef JP
-			if(abbreviate) msg_format("Œ‚‘Ş‚µ‚½B");
-			else msg_format("%^s‚ÍŒ‚‘Ş‚³‚ê‚½B", attacker_name);
-			abbreviate = 1;/*‚Q‰ñ–ÚˆÈ~‚ÍÈ—ª */
-#else
-			msg_format("%^s is repelled.", attacker_name);
-#endif
-
-			/* Hack -- Next attack */
-			return FALSE;
-		}
-
 
 		/* Assume no cut or stun */
 		do_cut = do_stun = 0;
