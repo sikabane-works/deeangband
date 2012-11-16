@@ -882,7 +882,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			x = creature_ptr->fx + ddx[dir];
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
-				melee_attack(creature_ptr, y, x, 0);
+				close_combat(creature_ptr, y, x, 0);
 				if(randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 					msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");

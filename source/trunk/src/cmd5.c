@@ -1804,7 +1804,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		{
 			rider_ptr->energy_need = 100;
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
-			melee_attack(rider_ptr, y, x, 0);
+			close_combat(rider_ptr, y, x, 0);
 			return FALSE;
 		}
 

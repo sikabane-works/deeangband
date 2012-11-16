@@ -1581,7 +1581,7 @@ static void process_nonplayer(int m_idx)
 
 // TODO SYURYUUDAN's Process
 //	if(creature_ptr->species_idx == SPECIES_SHURYUUDAN)
-//		melee_attack(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
+//		close_combat(creature_ptr, t_ptr->fy, t_ptr->fx, 0);
 
 // TODO Riding pinch
 /*
@@ -2120,7 +2120,7 @@ static void process_nonplayer(int m_idx)
 			/* The player is in the way.  Attack him. */
 			if(do_move)
 			{
-				melee_attack(creature_ptr, ny, nx, 0);
+				close_combat(creature_ptr, ny, nx, 0);
 
 				do_move = FALSE;
 				do_turn = TRUE;
@@ -2163,7 +2163,7 @@ static void process_nonplayer(int m_idx)
 					/* attack */
 					if(y_ptr->species_idx && (y_ptr->chp >= 0))
 					{
-						if(melee_attack(creature_ptr, ny, nx, 0)) return;
+						if(close_combat(creature_ptr, ny, nx, 0)) return;
 
 						/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 						else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)

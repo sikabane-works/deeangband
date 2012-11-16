@@ -1942,7 +1942,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			/* displace? */
 			if((stormbringer && (randint1(1000) > 666)) || (creature_ptr->class_idx == CLASS_BERSERKER))
 			{
-				melee_attack(creature_ptr, y, x, 0);
+				close_combat(creature_ptr, y, x, 0);
 				oktomove = FALSE;
 			}
 			else if(creature_can_cross_terrain(creature_ptr, floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].feat, 0))
@@ -1965,7 +1965,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		}
 		else
 		{
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 			oktomove = FALSE;
 		}
 	}

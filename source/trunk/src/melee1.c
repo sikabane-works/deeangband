@@ -1209,7 +1209,7 @@ static bool cease_by_counter(creature_type *attacker_ptr, creature_type *target_
 #else
 		msg_format("%s took \"sen\", drew and cut in one motion before %s moved.", target_name, attacker_name);
 #endif
-		if(melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
+		if(close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_IAI)) return TRUE;
 	}
 
 	return FALSE;
@@ -1231,8 +1231,7 @@ bool is_melee_limitation_field(floor_type *floor_ptr)
 }
 
 
-
-bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode)
+bool close_combat(creature_type *attacker_ptr, int y, int x, int mode)
 {
 	int i;
 
@@ -3497,7 +3496,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #else
 		msg_format("Your counterattack to %s!", attacker_name);
 #endif
-		melee_attack(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
+		close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
 
 		/* Redraw mana */

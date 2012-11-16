@@ -2923,7 +2923,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 	case DO_EFFECT_ATTACK:
 		/* Return this creature's death */
-		//TODO return melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
+		//TODO return close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, dam);
 		break;
 
 	case DO_EFFECT_ENGETSU:

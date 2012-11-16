@@ -130,7 +130,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 
 			// Hack -- attack creatures
 			if(cave_ptr->creature_idx && (target_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
-				melee_attack(caster_ptr, y, x, 0);
+				close_combat(caster_ptr, y, x, 0);
 		}
 		break;
 
@@ -1669,7 +1669,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 						set_timed_trait_aux(target_ptr, TRAIT_EYE_EYE, target_ptr->timed_trait[TRAIT_EYE_EYE]-5, TRUE);
 					}
 
-					if(target_ptr->riding) melee_attack(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
+					if(target_ptr->riding) close_combat(caster_ptr, target_ptr->fy, target_ptr->fx, 0);
 				}
 				break;
 			}
@@ -2138,7 +2138,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				cave_ptr = &floor_ptr->cave[y][x];
 
 				// Hack -- attack creatures 
-				if(cave_ptr->creature_idx) melee_attack(caster_ptr, y, x, 0);
+				if(cave_ptr->creature_idx) close_combat(caster_ptr, y, x, 0);
 				else
 				{
 #ifdef JP
@@ -2177,7 +2177,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		{
 			if(floor_ptr->cave[y][x].creature_idx)
 			{
-				melee_attack(caster_ptr, y, x, 0);
+				close_combat(caster_ptr, y, x, 0);
 				if(randint0(caster_ptr->skill_dis) < 7)
 #ifdef JP
 					msg_print("うまく逃げられなかった。");
@@ -2317,11 +2317,11 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					else msg_print("Mudamudamudamudamudamudamudamudamudamudamudamudamudamudamudarrrr!!!!");
 #endif
 
-					melee_attack(caster_ptr, y, x, 0);
+					close_combat(caster_ptr, y, x, 0);
 					if(floor_ptr->cave[y][x].creature_idx)
 					{
 						handle_stuff();
-						melee_attack(caster_ptr, y, x, 0);
+						close_combat(caster_ptr, y, x, 0);
 					}
 					caster_ptr->energy_need += ENERGY_NEED(100);
 				}
@@ -2825,7 +2825,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				msg_print("There's something in the way!");
 #endif
 
-				if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) melee_attack(caster_ptr, y, x, 0);
+				if(!m_ptr->see_others || !is_pet(player_ptr, m_ptr)) close_combat(caster_ptr, y, x, 0);
 				break;
 			}
 			else if(have_flag(feature_ptr->flags, FF_TREE))

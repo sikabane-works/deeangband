@@ -1442,7 +1442,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 			return FALSE;
 		}
 
-		melee_attack(creature_ptr, y, x, 0);
+		close_combat(creature_ptr, y, x, 0);
 
 		if(!creature_can_cross_terrain(creature_ptr, floor_ptr->cave[y][x].feat, 0) || is_trap(floor_ptr->cave[y][x].feat))
 			break;
@@ -1486,7 +1486,7 @@ static bool cast_berserk_spell(creature_type *creature_ptr, int spell)
 
 			/* Hack -- attack creatures */
 			if(c_ptr->creature_idx && (m_ptr->see_others || cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)))
-				melee_attack(creature_ptr, y, x, 0);
+				close_combat(creature_ptr, y, x, 0);
 		}
 		break;
 	}
@@ -1567,7 +1567,7 @@ static bool cast_ninja_spell(creature_type *creature_ptr, int spell)
 		x = creature_ptr->fx + ddx[dir];
 		if(floor_ptr->cave[y][x].creature_idx)
 		{
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 			if(randint0(creature_ptr->skill_dis) < 7)
 #ifdef JP
 msg_print("‚¤‚Ü‚­“¦‚°‚ç‚ê‚È‚©‚Á‚½B");

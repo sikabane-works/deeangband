@@ -1117,7 +1117,7 @@ void do_cmd_open(creature_type *creature_ptr)
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 
 			/* Attack */
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Handle chests */
@@ -1274,7 +1274,7 @@ void do_cmd_close(creature_type *creature_ptr)
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
 
 			/* Attack */
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Close the door */
@@ -1561,7 +1561,7 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		{
 			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Try digging */
@@ -1958,7 +1958,7 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		else if(c_ptr->creature_idx && creature_ptr->riding != c_ptr->creature_idx)
 		{
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Disarm chest */
@@ -2152,7 +2152,7 @@ void do_cmd_bash(creature_type *creature_ptr)
 		{
 			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Bash a closed door */
@@ -2228,7 +2228,7 @@ void do_cmd_alter(creature_type *creature_ptr)
 		if(c_ptr->creature_idx)
 		{
 			/* Attack */
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Locked doors */
@@ -2369,7 +2369,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 		{
 			cost_tactical_energy(creature_ptr, 100);
 			msg_print(game_messages[GAME_MESSAGE_CREATURE_IN_THE_WAY]);
-			melee_attack(creature_ptr, y, x, 0);
+			close_combat(creature_ptr, y, x, 0);
 		}
 
 		/* Go for it */

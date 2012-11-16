@@ -1016,7 +1016,7 @@ extern bool load_floor(floor_type *sf_ptr, u32b mode);
 
 // melee1.c
 extern bool is_melee_limitation_field(floor_type *floor_ptr);
-extern bool melee_attack(creature_type *attacker_ptr, int y, int x, int mode);
+extern bool close_combat(creature_type *attacker_ptr, int y, int x, int mode);
 
 /* melee2.c */
 extern void breath(int y, int x, creature_type *caster_ptr, int typ, int dam_hp, int rad, bool breath, int monspell, bool learnable);
