@@ -4492,7 +4492,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 	item = select_magic_eater(creature_ptr, only_browse);
 	if(item == -1)
 	{
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return;
 	}
 	if(item >= EATER_EXT*2) {tval = TV_ROD;sval = item - EATER_EXT*2;}

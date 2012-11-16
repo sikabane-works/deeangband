@@ -1580,7 +1580,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		disturb(creature_ptr, 0, 0);
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		command_new = SPECIAL_KEY_STORE;
 	}
 
@@ -1589,7 +1589,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		disturb(player_ptr, 0, 0);
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		command_new = SPECIAL_KEY_BUILDING;
 	}
 
@@ -1598,7 +1598,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	{
 		disturb(player_ptr, 0, 0);
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		command_new = SPECIAL_KEY_QUEST;
 	}
 
@@ -1834,7 +1834,7 @@ static void exit_area(creature_type *creature_ptr, int dir, bool do_pickup, bool
 				return;
 			}
 
-			//creature_ptr->energy_need = 0;
+			//cancel_tactical_action(creature_ptr);
 			//oktomove = FALSE;
 
 		}
@@ -1957,7 +1957,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				msg_format("%^s is in your way!", m_name);
 #endif
 
-				creature_ptr->energy_need = 0;
+				cancel_tactical_action(creature_ptr);
 				oktomove = FALSE;
 			}
 
@@ -1979,7 +1979,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Can't move!");
 #endif
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2022,7 +2022,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Can't swim.");
 #endif
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2033,7 +2033,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Can't land.");
 #endif
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2044,7 +2044,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #else
 			msg_print("Too hot to go through.");
 #endif
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 			disturb(player_ptr, 0, 0);
 		}
@@ -2071,7 +2071,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		msg_format("You need to fly to go through the %s.", feature_name + feature_info[get_feat_mimic(c_ptr)].name);
 #endif
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		creature_ptr->running = 0;
 		oktomove = FALSE;
 	}
@@ -2140,7 +2140,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 #endif
 
 				if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
-					creature_ptr->energy_need = 0;
+					cancel_tactical_action(creature_ptr);
 			}
 
 			/* Wall (or secret door) */
@@ -2161,7 +2161,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				 * typing mistakes should not cost you a turn...
 				 */
 				if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
-					creature_ptr->energy_need = 0;
+					cancel_tactical_action(creature_ptr);
 			}
 		}
 
@@ -2178,7 +2178,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 		if(!get_check("Really want to enter territory of chaos? "))
 #endif
 		{
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			oktomove = FALSE;
 		}
 	}
@@ -2189,7 +2189,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	{
 		if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
 		{
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 		}
 
 		/* To avoid a loop with running */

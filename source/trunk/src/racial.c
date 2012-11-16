@@ -772,7 +772,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		msg_format("You need to attain level %d to use this power.", min_level);
 #endif
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
 
@@ -785,7 +785,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		msg_print("You are too confused to use this power.");
 #endif
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return 0;
 	}
 
@@ -798,7 +798,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 		if(!get_check("Really use the power in your weakened state? "))
 #endif
 		{
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			return 0;
 		}
 	}
@@ -1152,7 +1152,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			{
 				set_action(creature_ptr, ACTION_LEARN);
 			}
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			break;
 		}
 		case CLASS_CAVALRY:
@@ -1297,7 +1297,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 					set_action(creature_ptr, ACTION_HAYAGAKE);
 				}
 			}
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			break;
 		}
 		}
@@ -2023,7 +2023,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 			msg_print("This race has no bonus power.");
 #endif
 
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 	}
 	}
 	return TRUE;
@@ -2062,7 +2062,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä“ÁŽê”\—Í‚ðŽg‚¦‚Ü‚¹‚ñI");
 		msg_print("You are too confused to use any powers!");
 #endif
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return;
 	}
 
@@ -2104,7 +2104,7 @@ if(!repeat_pull(&i) || i<0 || i>=num) {
 				case '0':
 				{
 					screen_load();
-					creature_ptr->energy_need = 0;
+					cancel_tactical_action(creature_ptr);
 					return;
 				}
 
@@ -2291,7 +2291,7 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 	/* Abort if needed */
 	if(!flag)
 	{
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return;
 	}
 
@@ -2331,7 +2331,7 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 			play_window |= (PW_PLAYER | PW_SPELL);
 		}
 	}
-	else creature_ptr->energy_need = 0;
+	else cancel_tactical_action(creature_ptr);
 
 	/* Success */
 	return;

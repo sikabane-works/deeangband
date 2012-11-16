@@ -4233,7 +4233,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 			command_new = SPECIAL_KEY_BUILDING;
 
 			/* No energy needed to re-enter the arena */
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 		}
 
 		return;
@@ -4247,7 +4247,7 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		command_new = SPECIAL_KEY_BUILDING;
 
 		/* No energy needed to re-enter the arena */
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 
 		return;
 	}

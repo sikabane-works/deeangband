@@ -773,7 +773,7 @@ static void pattern_teleport(creature_type *creature_ptr)
 	leave_quest_check(creature_ptr);
 	if(record_stair) do_cmd_write_nikki(DIARY_PAT_TELE,0,NULL);
 
-	creature_ptr->energy_need = 0;
+	cancel_tactical_action(creature_ptr);
 
 	/*
 	* Clear all saved floors
@@ -4166,7 +4166,7 @@ static void process_player_command(creature_type *creature_ptr)
 #else
 					msg_format("An anti-magic shell disrupts your %s!", which_power);
 #endif
-					creature_ptr->energy_need = 0;
+					cancel_tactical_action(creature_ptr);
 				}
 				else if(creature_ptr->timed_trait[TRAIT_S_HERO] && (creature_ptr->class_idx != CLASS_BERSERKER))
 				{
@@ -4175,7 +4175,7 @@ static void process_player_command(creature_type *creature_ptr)
 #else
 					msg_format("You cannot think directly!");
 #endif
-					creature_ptr->energy_need = 0;
+					cancel_tactical_action(creature_ptr);
 				}
 				else
 				{
@@ -5082,7 +5082,7 @@ void process_player(creature_type *creature_ptr)
 
 
 		/* Assume free turn */
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 
 
 		if(floor_ptr->gamble_arena_mode)

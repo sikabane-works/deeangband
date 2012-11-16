@@ -977,7 +977,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		creature_ptr->wy = creature_ptr->fy;
 
 		// Give first move to the player
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 
 		// Go back to the ordinary map
 		//TODO floor_ptr->wild_mode = FALSE;
@@ -999,7 +999,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 		msg_print("You cannot enter global map, since there is some creatures nearby!");
 #endif
 
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return FALSE;
 	}
 
@@ -1013,7 +1013,7 @@ bool change_wild_mode(creature_type *creature_ptr)
 
 		if(!get_check_strict(msg, CHECK_OKAY_CANCEL))
 		{
-			creature_ptr->energy_need = 0;
+			cancel_tactical_action(creature_ptr);
 			return FALSE;
 		}
 	}

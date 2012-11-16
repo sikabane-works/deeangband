@@ -731,7 +731,7 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	/* Artifacts cannot be destroyed */
 	if(!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 
 		/* Message */
 #ifdef JP

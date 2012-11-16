@@ -2408,7 +2408,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			handle_stuff();
 			do_cmd_cast(caster_ptr);
 			handle_stuff();
-			if(!caster_ptr->timed_trait[TRAIT_PARALYZED] && can_do_cmd_cast(caster_ptr))
+			if(!has_trait(caster_ptr, TRAIT_PARALYZED) && can_do_cmd_cast(caster_ptr))
 				do_cmd_cast(caster_ptr);
 			break;
 		}

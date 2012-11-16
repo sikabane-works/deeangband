@@ -1541,3 +1541,9 @@ bool cost_tactical_energy(creature_type *creature_ptr, int cost)
 	creature_ptr->energy_need += cost;
 	return TRUE;
 }
+
+bool cancel_tactical_action(creature_type *creature_ptr)
+{
+	creature_ptr->energy_need = 0;
+	return TRUE;
+}

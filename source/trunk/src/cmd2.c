@@ -3055,7 +3055,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Get a direction (or cancel) */
 	if(!get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir))
 	{
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		if(creature_ptr->snipe_type == SP_AWAY) creature_ptr->snipe_type = SP_NONE;
 		return;
 	}
@@ -3077,7 +3077,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	// Don't shoot at my feet / project_length is already reset to 0
 	if(tx == creature_ptr->fx && ty == creature_ptr->fy)
 	{
-		creature_ptr->energy_need = 0;
+		cancel_tactical_action(creature_ptr);
 		return;
 	}
 

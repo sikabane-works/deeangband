@@ -1613,10 +1613,10 @@ static void do_cmd_generate_floor(creature_type *creature_ptr)
 
 	if(record_stair) do_cmd_write_nikki(DIARY_WIZ_TELE,0,NULL);
 
-	creature_ptr->energy_need = 0;
+	cancel_tactical_action(creature_ptr);
 
 	// Prevent energy_need from being too lower than 0
-	creature_ptr->energy_need = 0;
+	cancel_tactical_action(creature_ptr);
 
 	/*
 	 * Clear all saved floors
