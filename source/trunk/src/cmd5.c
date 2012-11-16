@@ -2024,16 +2024,15 @@ static void do_name_pet(creature_type *master_ptr)
 void do_cmd_pet(creature_type *master_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(master_ptr);
-	int			i = 0;
-	int			num;
-	int			powers[36];
-	cptr			power_desc[36];
-	bool			flag, redraw;
-	int			ask;
-	char			choice;
-	char			out_val[160];
-	int			pet_ctr;
-	creature_type	*pet_ptr;
+	int	i = 0;
+	int	num, ask;
+	int powers[36];
+	cptr power_desc[36];
+	bool flag, redraw;
+	char choice;
+	char out_val[160];
+	int pet_ctr;
+	creature_type *pet_ptr;
 
 	int mode = 0;
 
@@ -2324,19 +2323,12 @@ void do_cmd_pet(creature_type *master_ptr)
 
 	if(!(repeat_pull(&i) && (i >= 0) && (i < num)))
 	{
-
-		/* Nothing chosen yet */
-		flag = FALSE;
-
-		/* No redraw yet */
-		redraw = FALSE;
+		flag = FALSE; // Nothing chosen yet
+		redraw = FALSE; // No redraw yet
 
 		if(use_menu)
 		{
-			/* Save the screen */
-			screen_save();
-
-			/* Build a prompt */
+			screen_save(); // Save the screen
 #ifdef JP
 			strnfmt(out_val, 78, "(コマンド、ESC=終了) コマンドを選んでください:");
 #else
@@ -2345,7 +2337,6 @@ void do_cmd_pet(creature_type *master_ptr)
 		}
 		else
 		{
-			/* Build a prompt */
 			strnfmt(out_val, 78,
 #ifdef JP
 				"(コマンド %c-%c、'*'=一覧、ESC=終了) コマンドを選んでください:",
@@ -2500,7 +2491,7 @@ void do_cmd_pet(creature_type *master_ptr)
 		if(!flag)
 		{
 			cancel_tactical_action(master_ptr);
-			master_ptr->energy_need = 0;
+			return;
 		}
 
 		repeat_push(i);
