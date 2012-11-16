@@ -1993,7 +1993,7 @@ static void process_world_aux_timeout(creature_type *creature_ptr)
 		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, creature_ptr->timed_trait[TRAIT_POISONED] - adjust);
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_STUN])
+	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 		int adjust = adj_con_fix[creature_ptr->stat_ind[STAT_CON]];
 		(void)set_timed_trait(creature_ptr, TRAIT_STUN, creature_ptr->timed_trait[TRAIT_STUN] - adjust);

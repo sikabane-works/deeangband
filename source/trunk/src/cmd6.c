@@ -4216,7 +4216,7 @@ static int select_magic_eater(creature_type *creature_ptr, bool only_browse)
 				chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 				/* Stunning makes spells harder */
 				if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-				else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+				else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 				if(chance > 95) chance = 95;
 
@@ -4512,7 +4512,7 @@ msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
 	chance = MAX(chance, adj_mag_fail[creature_ptr->stat_ind[magic_info[creature_ptr->class_idx].spell_stat]]);
 	/* Stunning makes spells harder */
 	if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-	else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+	else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 	if(chance > 95) chance = 95;
 

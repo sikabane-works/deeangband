@@ -2966,7 +2966,7 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_damage[0] -= 20;
 		creature_ptr->dis_to_damage[1] -= 20;
 	}
-	else if(creature_ptr->timed_trait[TRAIT_STUN])
+	else if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 		creature_ptr->to_hit[0] -= 5;
 		creature_ptr->to_hit[1] -= 5;

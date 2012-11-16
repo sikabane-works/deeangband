@@ -701,7 +701,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 
 						/* Stunning makes spells harder */
 						if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-						else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+						else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 						if(use_mind == MIND_KI)
 						{
@@ -1903,7 +1903,7 @@ if(!get_check("‚»‚ê‚Å‚à’§í‚µ‚Ü‚·‚©? ")) return;
 
 		/* Stunning makes spells harder */
 		if(creature_ptr->timed_trait[TRAIT_STUN] > 50) chance += 25;
-		else if(creature_ptr->timed_trait[TRAIT_STUN]) chance += 15;
+		else if(has_trait(creature_ptr, TRAIT_STUN)) chance += 15;
 
 		if(use_mind == MIND_KI)
 		{

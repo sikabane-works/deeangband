@@ -448,10 +448,7 @@ void do_cmd_browse(creature_type *creature_ptr)
 		return;
 	}
 
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	free_posture(creature_ptr);
 
 	if(creature_ptr->class_idx == CLASS_FORCETRAINER)
 	{
@@ -679,7 +676,7 @@ void do_cmd_study(creature_type *creature_ptr)
 		return;
 	}
 
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)) set_action(creature_ptr, ACTION_NONE);
+	free_posture(creature_ptr);
 
 #ifdef JP
 	if( creature_ptr->new_spells < 10 ){

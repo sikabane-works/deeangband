@@ -819,7 +819,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	/* Shut */
 	else
 	{
-		if(creature_ptr->timed_trait[TRAIT_STUN])
+		if(has_trait(creature_ptr, TRAIT_STUN))
 		{
 			mproc_remove(creature_ptr, MTIMED_STUNNED);
 			notice = TRUE;

@@ -558,7 +558,7 @@ bool choose_kata(creature_type *creature_ptr)
 		return FALSE;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_STUN])
+	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 #ifdef JP
 		msg_print("ˆÓŽ¯‚ª‚Í‚Á‚«‚è‚Æ‚µ‚È‚¢B");
@@ -715,7 +715,7 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	if(difficulty == 0) return 100;
 
 	/* Calculate difficulty */
-	if(creature_ptr->timed_trait[TRAIT_STUN])
+	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 		difficulty += creature_ptr->timed_trait[TRAIT_STUN];
 	}
@@ -807,7 +807,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 
 	if(difficulty)
 	{
-		if(creature_ptr->timed_trait[TRAIT_STUN])
+		if(has_trait(creature_ptr, TRAIT_STUN))
 		{
 			difficulty += creature_ptr->timed_trait[TRAIT_STUN];
 		}
@@ -825,11 +825,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	cost_tactical_energy(creature_ptr, 100);
 
 	/* Success? */
-	if(randint1(creature_ptr->stat_cur[use_stat]) >=
-	    ((difficulty / 2) + randint1(difficulty / 2)))
-	{
-		return 1;
-	}
+	if(randint1(creature_ptr->stat_cur[use_stat]) >= ((difficulty / 2) + randint1(difficulty / 2))) return 1;
 
 	if(flush_failure) flush();
 #ifdef JP
@@ -837,7 +833,6 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 #else
 	msg_print("You've failed to concentrate hard enough.");
 #endif
-
 	return -1;
 }
 

@@ -571,7 +571,7 @@ void do_cmd_snipe(creature_type *creature_ptr)
 	}
 
 	/* not if stuned */
-	if(creature_ptr->timed_trait[TRAIT_STUN])
+	if(has_trait(creature_ptr, TRAIT_STUN))
 	{
 #ifdef JP
 		msg_print("“ª‚ªNO‚Æ‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");

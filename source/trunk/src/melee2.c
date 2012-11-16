@@ -2743,7 +2743,7 @@ void creature_process_init(void)
 		if(creature_ptr->timed_trait[TRAIT_PARALYZED]) mproc_add(creature_ptr, MTIMED_CSLEEP);
 		if(creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
 		if(creature_ptr->timed_trait[TRAIT_SLOW]) mproc_add(creature_ptr, MTIMED_SLOW);
-		if(creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
+		if(has_trait(creature_ptr, TRAIT_STUN)) mproc_add(creature_ptr, MTIMED_STUNNED);
 		if(has_trait(creature_ptr, TRAIT_CONFUSED)) mproc_add(creature_ptr, MTIMED_CONFUSED);
 		if(creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
 		if(has_trait(creature_ptr, TRAIT_INVULNERABLE)) mproc_add(creature_ptr, MTIMED_INVULNER);
