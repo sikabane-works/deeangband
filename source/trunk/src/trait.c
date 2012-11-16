@@ -749,7 +749,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 				msg_format("%^s is stand in your way.", target_name);
 #endif
-				caster_ptr->energy_need = 0;
+				cancel_tactical_action(caster_ptr);
 				return FALSE;
 			}
 			set_action(caster_ptr, ACTION_FISH);
@@ -2453,18 +2453,10 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		}
 
 	case TRAIT_LEARNING:
-		{
-			if(caster_ptr->action == ACTION_LEARN)
-			{
-				set_action(caster_ptr, ACTION_NONE);
-			}
-			else
-			{
-				set_action(caster_ptr, ACTION_LEARN);
-			}
-			caster_ptr->energy_need = 0;
-			break;
-		}
+		if(caster_ptr->action == ACTION_LEARN) set_action(caster_ptr, ACTION_NONE);
+		else set_action(caster_ptr, ACTION_LEARN);
+		cancel_tactical_action(caster_ptr);
+		break;
 
 	case TRAIT_POSTURE:
 		{
@@ -2594,12 +2586,9 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					msg_print("You cannot run in here.");
 #endif
 				}
-				else
-				{
-					set_action(caster_ptr, ACTION_HAYAGAKE);
-				}
+				else set_action(caster_ptr, ACTION_HAYAGAKE);
 			}
-			caster_ptr->energy_need = 0;
+			cancel_tactical_action(caster_ptr);
 			break;
 		}
 

@@ -6029,7 +6029,7 @@ static void play_loop(void)
 		{
 			if(load_game)
 			{
-				player_ptr->energy_need = 0;
+				cancel_tactical_action(player_ptr);
 				battle_creatures();
 			}
 			else
@@ -6080,7 +6080,7 @@ static void play_loop(void)
 
 		if(player_ptr->energy_need > 0 && !floor_ptr->gamble_arena_mode &&
 			(floor_ptr->floor_level || subject_change_dungeon || floor_ptr->fight_arena_mode))
-			player_ptr->energy_need = 0;
+			cancel_tactical_action(player_ptr);
 
 		/* Not leaving dungeon */
 		subject_change_dungeon = FALSE;

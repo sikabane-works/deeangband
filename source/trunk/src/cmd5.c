@@ -2499,8 +2499,8 @@ void do_cmd_pet(creature_type *master_ptr)
 	/* Abort if needed */
 	if(!flag)
 	{
+		cancel_tactical_action(master_ptr);
 		master_ptr->energy_need = 0;
-		return;
 	}
 
 	repeat_push(i);
