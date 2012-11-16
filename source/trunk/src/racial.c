@@ -63,7 +63,7 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		sprintf(com, "Create [S]hots ?");
 #endif
 
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("混乱してる！");
@@ -434,7 +434,7 @@ bool choose_kamae(creature_type *creature_ptr)
 	int i;
 	char buf[80];
 
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -548,7 +548,7 @@ bool choose_kata(creature_type *creature_ptr)
 	int i;
 	char buf[80];
 
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("混乱していて構えられない！");
@@ -777,7 +777,7 @@ static int racial_aux(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	}
 
 	/* Too confused */
-	else if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	else if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("混乱していてその能力は使えない。");
@@ -2054,7 +2054,7 @@ void do_cmd_racial_power(creature_type *creature_ptr)
 
 	num = 0;
 
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 msg_print("混乱していて特殊能力を使えません！");

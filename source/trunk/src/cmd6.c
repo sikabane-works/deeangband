@@ -1894,7 +1894,7 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 #endif
 		return;
 	}
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢B");
@@ -2287,7 +2287,7 @@ static void do_cmd_use_staff_aux(creature_type *creature_ptr, int item)
 	chance = creature_ptr->skill_dev;
 
 	/* Confusion hurts skill */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2;
 
 	/* Hight level objects are harder */
 	chance = chance - lev;
@@ -2750,7 +2750,7 @@ static void do_cmd_aim_wand_aux(creature_type *creature_ptr, int item)
 	if(lev > 50) lev = 50 + (lev - 50) / 2;
 
 	chance = creature_ptr->skill_dev; // Base chance of success
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 	chance = chance - lev; // Hight level objects are harder
 
 	// Give everyone a (slight) chance
@@ -3124,7 +3124,7 @@ static void do_cmd_zap_rod_aux(creature_type *creature_ptr, int item)
 	cost_tactical_energy(creature_ptr, 100); // Take a turn
 	lev = object_kind_info[object_ptr->k_idx].level; // Extract the item level
 	chance = creature_ptr->skill_dev; // Base chance of success
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 
 	fail = lev + 5;
 	if(chance > fail) fail -= (chance - fail)*2;
@@ -3376,7 +3376,7 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 	if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)) && object_ptr->name2) lev = object_ego_info[object_ptr->name2].level;
 
 	chance = creature_ptr->skill_dev; // Base chance of success
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) chance = chance / 2; // Confusion hurts skill
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) chance = chance / 2; // Confusion hurts skill
 
 	fail = lev+5;
 	if(chance > fail) fail -= (chance - fail) * 2;
@@ -3967,7 +3967,7 @@ void do_cmd_use(creature_type *creature_ptr)
 
 				return;
 			}
-			if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+			if(has_trait(creature_ptr, TRAIT_CONFUSED))
 			{
 #ifdef JP
 				msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");

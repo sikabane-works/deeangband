@@ -650,7 +650,6 @@ void do_cmd_study(creature_type *creature_ptr)
 #else
 		msg_print("You cannot read books!");
 #endif
-
 		return;
 	}
 
@@ -943,7 +942,7 @@ void do_cmd_cast(creature_type *creature_ptr)
 	}
 
 	/* Not when confused */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");

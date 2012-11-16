@@ -337,7 +337,7 @@ void do_cmd_hissatsu(creature_type *creature_ptr)
 
 
 	/* not if confused */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚ÄW’†‚Å‚«‚È‚¢I");
@@ -436,7 +436,7 @@ void do_cmd_gain_hissatsu(creature_type *creature_ptr)
 		return;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚Ä“Ç‚ß‚È‚¢I");

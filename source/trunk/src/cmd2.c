@@ -2483,7 +2483,7 @@ void do_cmd_run(creature_type *creature_ptr)
 	int dir;
 
 	/* Hack -- no running when confused */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 		msg_print("¬—‚µ‚Ä‚¢‚Ä‘–‚ê‚È‚¢I");

@@ -2168,7 +2168,7 @@ static void process_nonplayer(int m_idx)
 						/* In anti-melee dungeon, stupid or confused creature takes useless turn */
 						else if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE)
 						{
-							if(creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
+							if(has_trait(creature_ptr, TRAIT_CONFUSED)) return;
 							else if(has_trait(creature_ptr, TRAIT_STUPID))
 							{
 								if(is_original_ap_and_seen(player_ptr, creature_ptr)) reveal_creature_info(creature_ptr, TRAIT_STUPID);
@@ -2744,7 +2744,7 @@ void creature_process_init(void)
 		if(creature_ptr->timed_trait[TRAIT_FAST]) mproc_add(creature_ptr, MTIMED_FAST);
 		if(creature_ptr->timed_trait[TRAIT_SLOW]) mproc_add(creature_ptr, MTIMED_SLOW);
 		if(creature_ptr->timed_trait[TRAIT_STUN]) mproc_add(creature_ptr, MTIMED_STUNNED);
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED]) mproc_add(creature_ptr, MTIMED_CONFUSED);
+		if(has_trait(creature_ptr, TRAIT_CONFUSED)) mproc_add(creature_ptr, MTIMED_CONFUSED);
 		if(creature_ptr->timed_trait[TRAIT_AFRAID]) mproc_add(creature_ptr, MTIMED_MONFEAR);
 		if(has_trait(creature_ptr, TRAIT_INVULNERABLE)) mproc_add(creature_ptr, MTIMED_INVULNER);
 	}

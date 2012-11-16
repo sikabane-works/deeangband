@@ -6667,7 +6667,7 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 
 	if(!only_browse)
 	{
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+		if(has_trait(creature_ptr, TRAIT_CONFUSED))
 		{
 #ifdef JP
 			msg_print("¬—‚µ‚Ä‚¢‚Äì‹Æ‚Å‚«‚È‚¢I");

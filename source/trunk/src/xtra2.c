@@ -3129,7 +3129,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 	command_dir = dir;
 
 	// Check for confusion / Random direction
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) dir = ddd[randint0(8)];
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) dir = ddd[randint0(8)];
 
 	/* Notice confusion */
 	if(command_dir != dir) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
@@ -3210,7 +3210,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		/* Standard confusion */
 		if(randint0(100) < 75)
@@ -3248,7 +3248,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	/* Notice confusion */
 	if(command_dir != dir)
 	{
-		if(creature_ptr->timed_trait[TRAIT_CONFUSED]) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
+		if(has_trait(creature_ptr, TRAIT_CONFUSED)) msg_format(game_messages[GAME_MESSAGE_IS_CONFUSED], creature_name);
 		else
 		{
 			char m_name[MAX_NLEN];
@@ -3329,7 +3329,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	command_dir = dir;
 
 	/* Apply "confusion" */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		/* Standard confusion */
 		if(randint0(100) < 75)
@@ -4440,7 +4440,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	command_dir = dir;
 
 	/* Check for confusion */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 		/* XXX XXX XXX */
 		/* Random direction */

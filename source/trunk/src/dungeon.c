@@ -337,7 +337,7 @@ static void sense_inventory1(creature_type *creature_ptr)
 	/*** Check for "sensing" ***/
 
 	/* No sensing when confused */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) return;
 
 	/* Analyze the class */
 	switch (creature_ptr->class_idx)
@@ -570,7 +570,7 @@ static void sense_inventory2(creature_type *creature_ptr)
 	/*** Check for "sensing" ***/
 
 	/* No sensing when confused */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED]) return;
+	if(has_trait(creature_ptr, TRAIT_CONFUSED)) return;
 
 	/* Analyze the class */
 	switch (creature_ptr->class_idx)

@@ -726,7 +726,7 @@ bool do_cmd_cast_learned(creature_type *creature_ptr)
 
 
 	/* not if confused */
-	if(creature_ptr->timed_trait[TRAIT_CONFUSED])
+	if(has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
 msg_print("¬—‚µ‚Ä‚¢‚Ä¥‚¦‚ç‚ê‚È‚¢I");
