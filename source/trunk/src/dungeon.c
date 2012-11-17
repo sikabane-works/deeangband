@@ -4807,11 +4807,7 @@ void do_creature_riding_control(creature_type *creature_ptr)
 		if(has_trait(steed_ptr, TRAIT_PARALYZED))
 		{
 			char steed_name[MAX_NLEN];
-
-			/* Recover fully */
 			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0);
-
-			/* Acquire the creature name */
 			creature_desc(steed_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%^s‚ğ‹N‚±‚µ‚½B", steed_name);
@@ -4822,15 +4818,10 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_STUN))
 		{
-			/* Hack -- Recover from stun */
 			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1)))
 			{
 				char steed_name[MAX_NLEN];
-
-				/* Acquire the creature name */
 				creature_desc(steed_name, steed_ptr, 0);
-
-				/* Dump a message */
 #ifdef JP
 				msg_format("%^s‚ğNOó‘Ô‚©‚ç—§‚¿’¼‚ç‚¹‚½B", steed_name);
 #else
@@ -4841,15 +4832,11 @@ void do_creature_riding_control(creature_type *creature_ptr)
 
 		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
-			/* Hack -- Recover from confusion */
 			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
 				char steed_name[MAX_NLEN];
-
-				/* Acquire the creature name */
 				creature_desc(steed_name, steed_ptr, 0);
 
-				/* Dump a message */
 #ifdef JP
 				msg_format("%^s‚ğ¬—ó‘Ô‚©‚ç—§‚¿’¼‚ç‚¹‚½B", steed_name);
 #else
@@ -4858,17 +4845,13 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		if(steed_ptr->timed_trait[TRAIT_AFRAID])
+		if(has_trait(steed_ptr, TRAIT_AFRAID))
 		{
-			/* Hack -- Recover from fear */
 			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
 				char steed_name[MAX_NLEN];
-
-				/* Acquire the creature name */
 				creature_desc(steed_name, steed_ptr, 0);
 
-				/* Dump a message */
 #ifdef JP
 				msg_format("%^s‚ğ‹°•|‚©‚ç—§‚¿’¼‚ç‚¹‚½B", steed_name);
 #else
@@ -4877,7 +4860,6 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		/* Handle "update" and "play_redraw" and "play_window" */
 		handle_stuff();
 	}
 }
@@ -4908,28 +4890,22 @@ void process_player(creature_type *creature_ptr)
 		if(creature_ptr->resting == -1)
 		{
 			/* Stop creature_ptr->resting */
-			if((creature_ptr->chp == creature_ptr->mhp) &&
-				(creature_ptr->csp >= creature_ptr->msp))
-			{
+			if((creature_ptr->chp == creature_ptr->mhp) && (creature_ptr->csp >= creature_ptr->msp))
 				set_action(creature_ptr, ACTION_NONE);
-			}
 		}
 
 		/* Complete creature_ptr->resting */
 		else if(creature_ptr->resting == -2)
 		{
 			/* Stop creature_ptr->resting */
-			if((creature_ptr->chp == creature_ptr->mhp) &&
-				(creature_ptr->csp >= creature_ptr->msp) &&
-				!has_trait(creature_ptr, TRAIT_BLIND) && !creature_ptr->timed_trait[TRAIT_CONFUSED] &&
-				!creature_ptr->timed_trait[TRAIT_POISONED] && !creature_ptr->timed_trait[TRAIT_AFRAID] &&
-				!creature_ptr->timed_trait[TRAIT_STUN] && !GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT) &&
-				!creature_ptr->timed_trait[TRAIT_SLOW] && !creature_ptr->timed_trait[TRAIT_PARALYZED] &&
-				!has_trait(creature_ptr, TRAIT_HALLUCINATION) && !creature_ptr->timed_trait[TRAIT_WORD_RECALL] &&
-				!creature_ptr->timed_trait[TRAIT_ALTER_REALITY])
-			{
+			if((creature_ptr->chp == creature_ptr->mhp) && (creature_ptr->csp >= creature_ptr->msp) &&
+				!has_trait(creature_ptr, TRAIT_BLIND) && !has_trait(creature_ptr, TRAIT_CONFUSED) &&
+				!has_trait(creature_ptr, TRAIT_POISONED) && !has_trait(creature_ptr, TRAIT_AFRAID) &&
+				!has_trait(creature_ptr, TRAIT_STUN) && !has_trait(creature_ptr, TRAIT_CUT) &&
+				!has_trait(creature_ptr, TRAIT_SLOW) && !has_trait(creature_ptr, TRAIT_PARALYZED) &&
+				!has_trait(creature_ptr, TRAIT_HALLUCINATION) && !has_trait(creature_ptr, TRAIT_WORD_RECALL) &&
+				!has_trait(creature_ptr, TRAIT_ALTER_REALITY))
 				set_action(creature_ptr, ACTION_NONE);
-			}
 		}
 	}
 
@@ -4939,25 +4915,18 @@ void process_player(creature_type *creature_ptr)
 		/* Check for "player abort" (semi-efficiently for creature_ptr->resting) */
 		if(creature_ptr->running || command_rep || (creature_ptr->action == ACTION_REST) || (creature_ptr->action == ACTION_FISH))
 		{
-			/* Do not wait */
 			inkey_scan = TRUE;
 
 			/* Check for a key */
 			if(inkey())
 			{
-				/* Flush input */
 				flush();
-
-				/* Disturb */
 				disturb(player_ptr, 0, 0);
-
-				/* Hack -- Show a Message */
 #ifdef JP
 				msg_print("’†’f‚µ‚Ü‚µ‚½B");
 #else
 				msg_print("Canceled.");
 #endif
-
 			}
 		}
 	}
@@ -5005,10 +4974,7 @@ void process_player(creature_type *creature_ptr)
 	{
 		if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
 		{
-			if(creature_ptr->csp < 3)
-			{
-				set_action(creature_ptr, ACTION_NONE);
-			}
+			if(creature_ptr->csp < 3) set_action(creature_ptr, ACTION_NONE);
 			else
 			{
 				creature_ptr->csp -= 2;
