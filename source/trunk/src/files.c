@@ -2324,28 +2324,20 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 	int i;
 
 	// Clear
-	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		flgs[i] = 0L;
+	for (i = 0; i < TRAIT_FLAG_MAX; i++) flgs[i] = 0L;
 
-	if(IS_HERO(creature_ptr) || creature_ptr->timed_trait[TRAIT_S_HERO])
-		add_flag(flgs, TRAIT_FEARLESS);
-	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
-		add_flag(flgs, TRAIT_SEE_INVISIBLE);
-	if(creature_ptr->timed_trait[TRAIT_REGENERATE])
-		add_flag(flgs, TRAIT_REGENERATE);
-	if(IS_TIM_ESP(creature_ptr))
-		add_flag(flgs, TRAIT_ESP);
-	if(IS_FAST(creature_ptr) || creature_ptr->timed_trait[TRAIT_SLOW])
-		add_flag(flgs, TRAIT_SPEED);
+	if(IS_HERO(creature_ptr) || has_trait(creature_ptr, TRAIT_S_HERO)) add_flag(flgs, TRAIT_FEARLESS);
+	if(has_trait(creature_ptr, TRAIT_SEE_INVISIBLE))add_flag(flgs, TRAIT_SEE_INVISIBLE);
+	if(has_trait(creature_ptr, TRAIT_REGENERATE)) add_flag(flgs, TRAIT_REGENERATE);
+	if(IS_TIM_ESP(creature_ptr)) add_flag(flgs, TRAIT_ESP);
+	if(IS_FAST(creature_ptr) || has_trait(creature_ptr, TRAIT_SLOW)) add_flag(flgs, TRAIT_SPEED);
 
 	if(IS_OPPOSE_POIS(creature_ptr)) add_flag(flgs, TRAIT_RES_POIS);
 
-	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM))
-		add_flag(flgs, TRAIT_REFLECTING);
+	if(has_trait(creature_ptr, TRAIT_WRAITH_FORM)) add_flag(flgs, TRAIT_REFLECTING);
 
 	/* by henkma */
-	if(creature_ptr->timed_trait[TRAIT_REFLECTING])
-		add_flag(flgs, TRAIT_REFLECTING);
+	if(creature_ptr->timed_trait[TRAIT_REFLECTING]) add_flag(flgs, TRAIT_REFLECTING);
 
 	if(creature_ptr->timed_trait[TRAIT_MAGIC_DEF])
 	{
@@ -2355,14 +2347,7 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 		add_flag(flgs, TRAIT_FREE_ACTION);
 		add_flag(flgs, TRAIT_LEVITATION);
 	}
-	if(creature_ptr->timed_trait[TRAIT_RES_NETH])
-	{
-		add_flag(flgs, TRAIT_RES_NETH);
-	}
-	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE])
-	{
-		add_flag(flgs, TRAIT_AURA_FIRE);
-	}
+
 	if(creature_ptr->timed_trait[TRAIT_ULTRA_RES])
 	{
 		add_flag(flgs, TRAIT_FEARLESS);
@@ -2416,9 +2401,8 @@ static void tim_player_flags(u32b flgs[TRAIT_FLAG_MAX], creature_type *creature_
 #define DP_TWO_LINES 0x04
 #define DP_WP      0x08
 
-/*
- * Equippy chars
- */
+
+// Equippy chars
 static void display_player_equippy(int y, int x, u16b mode, creature_type *creature_ptr)
 {
 	int i, j;
