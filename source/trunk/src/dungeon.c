@@ -4802,18 +4802,17 @@ void do_creature_riding_control(creature_type *creature_ptr)
 {
 	if(creature_ptr->riding && !creature_ptr->timed_trait[TRAIT_CONFUSED] && !has_trait(creature_ptr, TRAIT_BLIND))
 	{
-		creature_type *m_ptr = &creature_list[creature_ptr->riding];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 
-		if(m_ptr->timed_trait[TRAIT_PARALYZED])
+		if(steed_ptr->timed_trait[TRAIT_PARALYZED])
 		{
 			char m_name[MAX_NLEN];
 
 			/* Recover fully */
-			(void)set_timed_trait(m_ptr, TRAIT_PARALYZED, 0);
+			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0);
 
 			/* Acquire the creature name */
-			creature_desc(m_name, m_ptr, 0);
+			creature_desc(m_name, steed_ptr, 0);
 #ifdef JP
 			msg_format("%^s‚ð‹N‚±‚µ‚½B", m_name);
 #else
@@ -4821,15 +4820,15 @@ void do_creature_riding_control(creature_type *creature_ptr)
 #endif
 		}
 
-		if(m_ptr->timed_trait[TRAIT_STUN])
+		if(steed_ptr->timed_trait[TRAIT_STUN])
 		{
 			/* Hack -- Recover from stun */
-			if(set_timed_trait(m_ptr, TRAIT_STUN, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_STUN] - 1)))
+			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1)))
 			{
 				char m_name[MAX_NLEN];
 
 				/* Acquire the creature name */
-				creature_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, steed_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
@@ -4840,15 +4839,15 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		if(m_ptr->timed_trait[TRAIT_CONFUSED])
+		if(steed_ptr->timed_trait[TRAIT_CONFUSED])
 		{
 			/* Hack -- Recover from confusion */
-			if(set_timed_trait(m_ptr, TRAIT_CONFUSED, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
+			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
 				char m_name[MAX_NLEN];
 
 				/* Acquire the creature name */
-				creature_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, steed_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
@@ -4859,15 +4858,15 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			}
 		}
 
-		if(m_ptr->timed_trait[TRAIT_AFRAID])
+		if(steed_ptr->timed_trait[TRAIT_AFRAID])
 		{
 			/* Hack -- Recover from fear */
-			if(set_timed_trait(m_ptr, TRAIT_AFRAID, (randint0(r_ptr->level) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (m_ptr->timed_trait[TRAIT_AFRAID] - 1)))
+			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
 				char m_name[MAX_NLEN];
 
 				/* Acquire the creature name */
-				creature_desc(m_name, m_ptr, 0);
+				creature_desc(m_name, steed_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
