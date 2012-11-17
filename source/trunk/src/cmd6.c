@@ -1666,22 +1666,17 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 					break;
 
 				case 2:
-					err = get_rnd_line(game_messages[MESSAGE_FILES_ERROR], 0, Rumor);
+					err = get_rnd_line(message_files[MESSAGE_FILES_ERROR], 0, Rumor);
 					break;
 
 				case 3:
 				case 4:
 				case 5:
-					err = get_rnd_line(game_messages[MESSAGE_FILES_DEATH], 0, Rumor);
+					err = get_rnd_line(message_files[MESSAGE_FILES_DEATH], 0, Rumor);
 					break;
 
 				default:
-#ifdef JP
-					err = get_rnd_line_jonly("rumors_j.txt", 0, Rumor, 10);
-#else
-					err = get_rnd_line("rumors.txt", 0, Rumor);
-#endif
-
+					err = get_rnd_line(message_files[MESSAGE_FILES_RUMOR], 0, Rumor, 10);
 					break;
 			}
 
