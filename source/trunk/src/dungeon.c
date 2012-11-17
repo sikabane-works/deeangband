@@ -5036,37 +5036,20 @@ void process_player(creature_type *creature_ptr)
 		/* Resting */
 		else if(creature_ptr->action == ACTION_REST)
 		{
-			/* Timed rest */
 			if(creature_ptr->resting > 0)
 			{
-				/* Reduce rest count */
 				creature_ptr->resting--;
-
 				if(!creature_ptr->resting) set_action(creature_ptr, ACTION_NONE);
 
 				/* Redraw the state */
 				play_redraw |= (PR_STATE);
 			}
-
-			/* Take a turn */
 			cost_tactical_energy(creature_ptr, 100);
 		}
 
-		/* Fishing */
-		else if(creature_ptr->action == ACTION_FISH)
-		{
-			/* Take a turn */
-			cost_tactical_energy(creature_ptr, 100);
-		}
-
-		else if(creature_ptr->running)	// Running
-		{
-			run_step(creature_ptr, 0);
-		}		
-		else if(travel.run) // Traveling
-		{
-			travel_step(creature_ptr);
-		}
+		else if(creature_ptr->action == ACTION_FISH) cost_tactical_energy(creature_ptr, 100);
+		else if(creature_ptr->running) run_step(creature_ptr, 0);
+		else if(travel.run) travel_step(creature_ptr);
 		else if(command_rep)	// Repeated command
 		{
 			command_rep--;	// Count this execution
@@ -5085,8 +5068,7 @@ void process_player(creature_type *creature_ptr)
 			process_player_command(creature_ptr);	// Process the command
 		}
 
-		/* Hack -- Pack Overflow */
-		pack_overflow(creature_ptr);
+		pack_overflow(creature_ptr); // Hack -- Pack Overflow
 
 
 		/*** Clean up ***/
@@ -5095,23 +5077,14 @@ void process_player(creature_type *creature_ptr)
 		if(creature_ptr->energy_need)
 		{
 			/* Use some energy */
-			if(creature_ptr->time_stopper || creature_ptr->energy_need > 400)
-			{
-				/* The Randomness is irrelevant */
+			if(creature_ptr->time_stopper || creature_ptr->energy_need > 400) // The Randomness is irrelevant
 				creature_ptr->energy_need += creature_ptr->energy_need * TURNS_PER_TICK / 10;
-			}
-			else
-			{
-				/* There is some randomness of needed energy */
+			else // There is some randomness of needed energy
 				creature_ptr->energy_need += (s16b)((s32b)creature_ptr->energy_need * ENERGY_NEED(100) / 100L);
-			}
+			
+			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) play_redraw |= (PR_MAP); // Hack -- constant hallucination
 
-			/* Hack -- constant hallucination */
-			if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) play_redraw |= (PR_MAP);
-
-
-			/* Shimmer creatures if needed */
-			if(shimmer_creatures)
+			if(shimmer_creatures) // Shimmer creatures if needed
 			{
 				/* Clear the flag */
 				shimmer_creatures = FALSE;
@@ -5119,30 +5092,19 @@ void process_player(creature_type *creature_ptr)
 				/* Shimmer multi-hued creatures */
 				for (i = 1; i < creature_max; i++)
 				{
-					creature_type *m_ptr;
+					creature_type *other_ptr;
 					species_type *r_ptr;
+					other_ptr = &creature_list[i];
 
-					/* Access creature */
-					m_ptr = &creature_list[i];
+					if(!other_ptr->species_idx) continue; // Skip dead creatures
+					if(!other_ptr->see_others) continue; // Skip unseen creatures
+					r_ptr = &species_info[other_ptr->ap_species_idx]; // Access the creature race
 
-					/* Skip dead creatures */
-					if(!m_ptr->species_idx) continue;
+					// Skip non-multi-hued creatures
+					if(!has_trait(other_ptr, TRAIT_ATTR_MULTI) && !has_trait(other_ptr, TRAIT_SHAPECHANGER)) continue;
 
-					/* Skip unseen creatures */
-					if(!m_ptr->see_others) continue;
-
-					/* Access the creature race */
-					r_ptr = &species_info[m_ptr->ap_species_idx];
-
-					/* Skip non-multi-hued creatures */
-					if(!has_trait(m_ptr, TRAIT_ATTR_MULTI) && !has_trait(m_ptr, TRAIT_SHAPECHANGER))
-						continue;
-
-					/* Reset the flag */
 					shimmer_creatures = TRUE;
-
-					/* Redraw regardless */
-					lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
+					lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx);
 				}
 			}
 
@@ -5156,29 +5118,29 @@ void process_player(creature_type *creature_ptr)
 				/* Rotate detection flags */
 				for (i = 1; i < creature_max; i++)
 				{
-					creature_type *m_ptr;
+					creature_type *other_ptr;
 
 					/* Access creature */
-					m_ptr = &creature_list[i];
+					other_ptr = &creature_list[i];
 
 					/* Skip dead creatures */
-					if(!m_ptr->species_idx) continue;
+					if(!other_ptr->species_idx) continue;
 
 					/* Nice creatures get mean */
-					if(m_ptr->sc_flag & SC_FLAG_NICE)
+					if(other_ptr->sc_flag & SC_FLAG_NICE)
 					{
 						/* Nice creatures get mean */
-						m_ptr->sc_flag &= ~(SC_FLAG_NICE);
+						other_ptr->sc_flag &= ~(SC_FLAG_NICE);
 					}
 
 					/* Handle memorized creatures */
-					if(m_ptr->sc_flag2 & SC_FLAG2_MARK)
+					if(other_ptr->sc_flag2 & SC_FLAG2_MARK)
 					{
 						/* Maintain detection */
-						if(m_ptr->sc_flag2 & SC_FLAG2_SHOW)
+						if(other_ptr->sc_flag2 & SC_FLAG2_SHOW)
 						{
 							/* Forget flag */
-							m_ptr->sc_flag2 &= ~(SC_FLAG2_SHOW);
+							other_ptr->sc_flag2 &= ~(SC_FLAG2_SHOW);
 
 							/* Still need repairs */
 							repair_creatures = TRUE;
@@ -5188,10 +5150,10 @@ void process_player(creature_type *creature_ptr)
 						else
 						{
 							/* Forget flag */
-							m_ptr->sc_flag2 &= ~(SC_FLAG2_MARK);
+							other_ptr->sc_flag2 &= ~(SC_FLAG2_MARK);
 
 							/* Assume invisible */
-							m_ptr->see_others = FALSE;
+							other_ptr->see_others = FALSE;
 
 							/* Update the creature */
 							update_creature_view(player_ptr, i, FALSE);
@@ -5200,7 +5162,7 @@ void process_player(creature_type *creature_ptr)
 							if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 
 							/* Redraw regardless */
-							lite_spot(floor_ptr, m_ptr->fy, m_ptr->fx);
+							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx);
 						}
 					}
 				}
