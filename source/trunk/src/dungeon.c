@@ -5108,61 +5108,35 @@ void process_player(creature_type *creature_ptr)
 				}
 			}
 
-
-			/* Handle creature detection */
-			if(repair_creatures)
+			if(repair_creatures) // Handle creature detection
 			{
-				/* Reset the flag */
-				repair_creatures = FALSE;
-
-				/* Rotate detection flags */
-				for (i = 1; i < creature_max; i++)
+				repair_creatures = FALSE; // Reset the flag
+				for (i = 1; i < creature_max; i++) // Rotate detection flags
 				{
 					creature_type *other_ptr;
 
-					/* Access creature */
-					other_ptr = &creature_list[i];
+					other_ptr = &creature_list[i]; // Access creature
+					if(!other_ptr->species_idx) continue; // Skip dead creatures
 
-					/* Skip dead creatures */
-					if(!other_ptr->species_idx) continue;
-
-					/* Nice creatures get mean */
-					if(other_ptr->sc_flag & SC_FLAG_NICE)
-					{
-						/* Nice creatures get mean */
+					if(other_ptr->sc_flag & SC_FLAG_NICE) // Nice creatures get mean
 						other_ptr->sc_flag &= ~(SC_FLAG_NICE);
-					}
 
-					/* Handle memorized creatures */
 					if(other_ptr->sc_flag2 & SC_FLAG2_MARK)
 					{
-						/* Maintain detection */
-						if(other_ptr->sc_flag2 & SC_FLAG2_SHOW)
+						if(other_ptr->sc_flag2 & SC_FLAG2_SHOW) // Maintain detection
 						{
-							/* Forget flag */
 							other_ptr->sc_flag2 &= ~(SC_FLAG2_SHOW);
-
-							/* Still need repairs */
 							repair_creatures = TRUE;
 						}
-
-						/* Remove detection */
-						else
+						else // Remove detection
 						{
-							/* Forget flag */
-							other_ptr->sc_flag2 &= ~(SC_FLAG2_MARK);
-
-							/* Assume invisible */
-							other_ptr->see_others = FALSE;
-
-							/* Update the creature */
-							update_creature_view(player_ptr, i, FALSE);
+							other_ptr->sc_flag2 &= ~(SC_FLAG2_MARK); // Forget flag
+							other_ptr->see_others = FALSE; // Assume invisible
+							update_creature_view(player_ptr, i, FALSE); // Update the creature
 
 							if(health_who == i) play_redraw |= (PR_HEALTH);
 							if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
-
-							/* Redraw regardless */
-							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx);
+							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx); // Redraw regardless
 						}
 					}
 				}
@@ -5189,15 +5163,9 @@ void process_player(creature_type *creature_ptr)
 
 			if(creature_ptr->time_stopper && (creature_ptr->energy_need > - 1000))
 			{
-				/* Redraw map */
-				play_redraw |= (PR_MAP);
-
-				// Update creatures
-				creature_ptr->creature_update |= (PU_CREATURES);
-
-				/* Window stuff */
-				play_window |= (PW_OVERHEAD | PW_DUNGEON);
-
+				play_redraw |= (PR_MAP); // Redraw map
+				creature_ptr->creature_update |= (PU_CREATURES); // Update creatures
+				play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
 #ifdef JP
 				msg_print("u‚Í“®‚«‚¾‚·cv");
 #else
@@ -5205,10 +5173,8 @@ void process_player(creature_type *creature_ptr)
 #endif
 				msg_print(NULL);
 				creature_ptr->time_stopper = FALSE;
-				creature_ptr->energy_need = ENERGY_NEED(100);
-
-				/* Handle "update" and "play_redraw" and "play_window" */
-				handle_stuff();
+				cost_tactical_energy(creature_ptr, 100);
+				handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
 			}
 		}
 
