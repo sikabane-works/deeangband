@@ -2285,7 +2285,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 		if(one_in_(3) && has_trait(watcher_ptr, TRAIT_NO_HALLUCINATION))
 		{
 			msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-			watcher_ptr->timed_trait[TRAIT_HALLUCINATION] = watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(eldritch_ptr->level);
+			add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(eldritch_ptr->level), TRUE);
 		}
 		
 		return;	// Never mind; we can't see it clearly enough
@@ -2493,19 +2493,16 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 			break;
 
-		case BUILDING_FUNCTION_REST: /* Rest for the night */
-			if((creature_ptr->timed_trait[TRAIT_POISONED]) || GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT))
+		case BUILDING_FUNCTION_REST:
+			if(has_trait(creature_ptr, TRAIT_POISONED) || has_trait(creature_ptr, TRAIT_CUT))
 			{
 #ifdef JP
 				msg_print("あなたに必要なのは部屋ではなく、治療者です。");
-#else
-				msg_print("You need a healer, not a room.");
-#endif
-
 				msg_print(NULL);
-#ifdef JP
 				msg_print("すみません、でもうちで誰かに死なれちゃ困りますんで。");
 #else
+				msg_print("You need a healer, not a room.");
+				msg_print(NULL);
 				msg_print("Sorry, but don't want anyone dying in here.");
 #endif
 			}
@@ -2513,7 +2510,6 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 			{
 				s32b oldturn = turn;
 				int prev_day, prev_hour, prev_min;
-
 				extract_day_hour_min(&prev_day, &prev_hour, &prev_min);
 #ifdef JP
 				do_cmd_write_nikki(DIARY_BUNSHOU, 0, "宿屋に泊まった。");
@@ -2563,7 +2559,7 @@ msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 				{
 					set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
 					set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-					creature_ptr->timed_trait[TRAIT_STUN] = 0;
+					set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 					creature_ptr->chp = creature_ptr->mhp;
 					creature_ptr->csp = creature_ptr->msp;
 
@@ -4016,7 +4012,7 @@ msg_print("お金が足りません！");
 
 		if(amt > 0)
 		{
-			creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 1;
+			set_timed_trait_aux(creature_ptr, TRAIT_WORD_RECALL, 1, FALSE);
 			creature_ptr->recall_dungeon = select_dungeon;
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if(record_maxdepth)
