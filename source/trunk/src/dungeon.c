@@ -4804,56 +4804,56 @@ void do_creature_riding_control(creature_type *creature_ptr)
 	{
 		creature_type *steed_ptr = &creature_list[creature_ptr->riding];
 
-		if(steed_ptr->timed_trait[TRAIT_PARALYZED])
+		if(has_trait(steed_ptr, TRAIT_PARALYZED))
 		{
-			char m_name[MAX_NLEN];
+			char steed_name[MAX_NLEN];
 
 			/* Recover fully */
 			(void)set_timed_trait(steed_ptr, TRAIT_PARALYZED, 0);
 
 			/* Acquire the creature name */
-			creature_desc(m_name, steed_ptr, 0);
+			creature_desc(steed_name, steed_ptr, 0);
 #ifdef JP
-			msg_format("%^s‚ð‹N‚±‚µ‚½B", m_name);
+			msg_format("%^s‚ð‹N‚±‚µ‚½B", steed_name);
 #else
-			msg_format("You have waked %s up.", m_name);
+			msg_format("You have waked %s up.", steed_name);
 #endif
 		}
 
-		if(steed_ptr->timed_trait[TRAIT_STUN])
+		if(has_trait(steed_ptr, TRAIT_STUN))
 		{
 			/* Hack -- Recover from stun */
 			if(set_timed_trait(steed_ptr, TRAIT_STUN, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_STUN] - 1)))
 			{
-				char m_name[MAX_NLEN];
+				char steed_name[MAX_NLEN];
 
 				/* Acquire the creature name */
-				creature_desc(m_name, steed_ptr, 0);
+				creature_desc(steed_name, steed_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
-				msg_format("%^s‚ðžNžOó‘Ô‚©‚ç—§‚¿’¼‚ç‚¹‚½B", m_name);
+				msg_format("%^s‚ðžNžOó‘Ô‚©‚ç—§‚¿’¼‚ç‚¹‚½B", steed_name);
 #else
-				msg_format("%^s is no longer stunned.", m_name);
+				msg_format("%^s is no longer stunned.", steed_name);
 #endif
 			}
 		}
 
-		if(steed_ptr->timed_trait[TRAIT_CONFUSED])
+		if(has_trait(steed_ptr, TRAIT_CONFUSED))
 		{
 			/* Hack -- Recover from confusion */
 			if(set_timed_trait(steed_ptr, TRAIT_CONFUSED, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_CONFUSED] - 1)))
 			{
-				char m_name[MAX_NLEN];
+				char steed_name[MAX_NLEN];
 
 				/* Acquire the creature name */
-				creature_desc(m_name, steed_ptr, 0);
+				creature_desc(steed_name, steed_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
-				msg_format("%^s‚ð¬—ó‘Ô‚©‚ç—§‚¿’¼‚ç‚¹‚½B", m_name);
+				msg_format("%^s‚ð¬—ó‘Ô‚©‚ç—§‚¿’¼‚ç‚¹‚½B", steed_name);
 #else
-				msg_format("%^s is no longer confused.", m_name);
+				msg_format("%^s is no longer confused.", steed_name);
 #endif
 			}
 		}
@@ -4863,16 +4863,16 @@ void do_creature_riding_control(creature_type *creature_ptr)
 			/* Hack -- Recover from fear */
 			if(set_timed_trait(steed_ptr, TRAIT_AFRAID, (randint0(steed_ptr->lev) < creature_ptr->skill_exp[SKILL_RIDING]) ? 0 : (steed_ptr->timed_trait[TRAIT_AFRAID] - 1)))
 			{
-				char m_name[MAX_NLEN];
+				char steed_name[MAX_NLEN];
 
 				/* Acquire the creature name */
-				creature_desc(m_name, steed_ptr, 0);
+				creature_desc(steed_name, steed_ptr, 0);
 
 				/* Dump a message */
 #ifdef JP
-				msg_format("%^s‚ð‹°•|‚©‚ç—§‚¿’¼‚ç‚¹‚½B", m_name);
+				msg_format("%^s‚ð‹°•|‚©‚ç—§‚¿’¼‚ç‚¹‚½B", steed_name);
 #else
-				msg_format("%^s is no longer fear.", m_name);
+				msg_format("%^s is no longer fear.", steed_name);
 #endif
 			}
 		}
@@ -4971,17 +4971,10 @@ void process_player(creature_type *creature_ptr)
 
 	load = FALSE;
 
-	/* Fast */
-	if(creature_ptr->timed_trait[TRAIT_LIGHT_SPEED])
-	{
-		(void)set_timed_trait_aux(creature_ptr, TRAIT_LIGHT_SPEED, creature_ptr->timed_trait[TRAIT_LIGHT_SPEED] - 1, TRUE);
-	}
 	if((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->class_skills.old_skills.magic_num1[0]))
 	{
 		if(creature_ptr->class_skills.old_skills.magic_num1[0] < 40)
-		{
 			creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-		}
 		else creature_ptr->class_skills.old_skills.magic_num1[0] -= 40;
 		creature_ptr->creature_update |= (CRU_BONUS);
 	}
@@ -4992,7 +4985,6 @@ void process_player(creature_type *creature_ptr)
 
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(cost, cost_frac, 16);
-
 
 		if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, cost, cost_frac) < 0)
 		{
@@ -5072,11 +5064,8 @@ void process_player(creature_type *creature_ptr)
 		}
 
 		/* Paralyzed or Knocked Out */
-		else if(creature_ptr->timed_trait[TRAIT_PARALYZED] || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
-		{
-			/* Take a turn */
-			cost_tactical_energy(creature_ptr, 100);
-		}
+		else if(has_trait(creature_ptr, TRAIT_PARALYZED) || (creature_ptr->timed_trait[TRAIT_STUN] >= 100))
+			cost_tactical_energy(creature_ptr, 100); // Take a turn
 
 		/* Resting */
 		else if(creature_ptr->action == ACTION_REST)
@@ -5635,7 +5624,7 @@ static void cheat_death(void)
 	player_ptr->csp_frac = 0;
 
 	/* Hack -- cancel recall */
-	if(player_ptr->timed_trait[TRAIT_WORD_RECALL])
+	if(has_trait(player_ptr, TRAIT_WORD_RECALL))
 	{
 		/* Message */
 #ifdef JP
@@ -5643,7 +5632,6 @@ static void cheat_death(void)
 #else
 		msg_print("A tension leaves the air around you...");
 #endif
-
 		msg_print(NULL);
 
 		/* Hack -- Prevent recall */
