@@ -4940,48 +4940,6 @@ void process_player(creature_type *creature_ptr)
 
 	load = FALSE;
 
-	if((creature_ptr->class_idx == CLASS_FORCETRAINER) && (creature_ptr->class_skills.old_skills.magic_num1[0]))
-	{
-		if(creature_ptr->class_skills.old_skills.magic_num1[0] < 40)
-			creature_ptr->class_skills.old_skills.magic_num1[0] = 0;
-		else creature_ptr->class_skills.old_skills.magic_num1[0] -= 40;
-		creature_ptr->creature_update |= (CRU_BONUS);
-	}
-	if(creature_ptr->action == ACTION_LEARN)
-	{
-		s32b cost = 0L;
-		u32b cost_frac = (creature_ptr->msp + 30L) * 256L;
-
-		/* Convert the unit (1/2^16) to (1/2^32) */
-		s64b_LSHIFT(cost, cost_frac, 16);
-
-		if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, cost, cost_frac) < 0)
-		{
-			/* Mana run out */
-			creature_ptr->csp = 0;
-			creature_ptr->csp_frac = 0;
-			set_action(creature_ptr, ACTION_NONE);
-		}
-		else
-		{
-			/* Reduce mana */
-			s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), cost, cost_frac);
-		}
-		play_redraw |= PR_MANA;
-	}
-
-	if(have_posture(creature_ptr))
-	{
-		if(GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))
-		{
-			if(creature_ptr->csp < 3) set_action(creature_ptr, ACTION_NONE);
-			else
-			{
-				creature_ptr->csp -= 2;
-				play_redraw |= (PR_MANA);
-			}
-		}
-	}
 
 	/*** Handle actual user input ***/
 
@@ -4993,11 +4951,8 @@ void process_player(creature_type *creature_ptr)
 		creature_ptr->counter = FALSE;
 		creature_ptr->now_damaged = FALSE;
 
-		/* Handle "creature_ptr->creature_update" */
-		notice_stuff(creature_ptr);
-
-		/* Handle "update" and "play_redraw" and "play_window" */
-		handle_stuff();
+		notice_stuff(creature_ptr); // Handle update
+		handle_stuff(); // Handle "update" and "play_redraw" and "play_window"
 
 		/* Place the cursor on the player */
 		move_cursor_relative(creature_ptr->fy, creature_ptr->fx);
@@ -5192,8 +5147,7 @@ void process_player(creature_type *creature_ptr)
 		if(subject_change_floor) break;
 	}
 
-	/* Update scent trail */
-	update_smell(creature_ptr);
+	update_smell(creature_ptr); // Update scent trail
 }
 
 
