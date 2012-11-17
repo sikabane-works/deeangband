@@ -1562,20 +1562,15 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 			break;
 
 		case SV_SCROLL_RUNE_OF_PROTECTION:
-		{
 			warding_glyph(caster_ptr);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_TRAP_DOOR_DESTRUCTION:
-		{
 			if(destroy_doors_touch(caster_ptr)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_STAR_DESTRUCTION:
-		{
 			if(destroy_area(caster_ptr, caster_ptr->fy, caster_ptr->fx, 13 + randint0(5), FALSE))
 				ident = TRUE;
 			else
@@ -1587,65 +1582,36 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 
 
 			break;
-		}
 
 		case SV_SCROLL_DISPEL_UNDEAD:
-		{
 			if(dispel_undead(caster_ptr, 80)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_SPELL:
-		{
-			if((caster_ptr->class_idx == CLASS_WARRIOR) ||
-				(caster_ptr->class_idx == CLASS_IMITATOR) ||
-				(caster_ptr->class_idx == CLASS_MINDCRAFTER) ||
-				(caster_ptr->class_idx == CLASS_SORCERER) ||
-				(caster_ptr->class_idx == CLASS_ARCHER) ||
-				(caster_ptr->class_idx == CLASS_MAGIC_EATER) ||
-				(caster_ptr->class_idx == CLASS_RED_MAGE) ||
-				(caster_ptr->class_idx == CLASS_SAMURAI) ||
-				(caster_ptr->class_idx == CLASS_BLUE_MAGE) ||
-				(caster_ptr->class_idx == CLASS_CAVALRY) ||
-				(caster_ptr->class_idx == CLASS_BERSERKER) ||
-				(caster_ptr->class_idx == CLASS_SMITH) ||
-				(caster_ptr->class_idx == CLASS_MIRROR_MASTER) ||
-				(caster_ptr->class_idx == CLASS_NINJA) ||
-				(caster_ptr->class_idx == CLASS_SNIPER))
-				break;
 			caster_ptr->add_spells++;
 			caster_ptr->creature_update |= (CRU_SPELLS);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_GENOCIDE:
-		{
 			(void)symbol_genocide(caster_ptr, 300, TRUE);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_MASS_GENOCIDE:
-		{
 			(void)mass_genocide(caster_ptr, 300, TRUE);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_ACQUIREMENT:
-		{
 			acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_STAR_ACQUIREMENT:
-		{
 			acquirement(floor_ptr, caster_ptr->fy, caster_ptr->fx, randint1(2) + 1, TRUE, FALSE);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_FIRE:
 		{
@@ -1685,7 +1651,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 #else
 				take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, 111 + randint1(111), "a Scroll of Logrus", NULL, -1);
 #endif
-
 			ident = TRUE;
 			break;
 		}
