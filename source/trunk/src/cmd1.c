@@ -977,7 +977,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 
 		case TRAP_SLOW:
 		{
-			if(check_hit(creature_ptr, 125) && !(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+			if(check_hit(creature_ptr, 125) && !(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 			{
 #ifdef JP
 				msg_print("小さなダーツが飛んできて刺さった！");
@@ -1012,7 +1012,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
-				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
+				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_STR);
 			}
 			else
 			{
@@ -1039,7 +1039,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
-				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
+				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_DEX);
 			}
 			else
 			{
@@ -1065,7 +1065,7 @@ static void hit_trap(creature_type *creature_ptr, bool break_trap)
 				dam = diceroll(1, 4);
 				take_damage_to_creature(NULL, creature_ptr, DAMAGE_ATTACK, dam, game_messages[GAME_MESSAGE_DART_TRAP], NULL, -1);
 
-				if(!(creature_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
+				if(!(has_trait(creature_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) (void)do_dec_stat(creature_ptr, STAT_CON);
 			}
 			else
 			{

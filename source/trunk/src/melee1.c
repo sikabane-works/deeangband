@@ -2112,7 +2112,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 		case RBE_SUPERHURT:
 			{
-				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(((randint1(attacker_ptr->lev*2+300) > (ac+200)) || one_in_(13)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					int tmp_damage = calc_damage(target_ptr, damage, DO_EFFECT_MELEE, FALSE, FALSE);
 #ifdef JP
@@ -2139,7 +2139,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(explode) break;
 
 				// Take "poison" effect
-				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, FALSE)) obvious = TRUE;
 				}
@@ -2158,7 +2158,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(explode) break;
 
 				/* Allow complete resist */
-				if(!target_ptr->resist_disen && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!target_ptr->resist_disen && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					/* Apply disenchantment */
 					if(apply_disenchant(target_ptr, 0))
@@ -2182,7 +2182,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Find an item */
 				for (k = 0; k < 10; k++)
@@ -2252,7 +2252,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Confused creatures cannot steal successfully. -LM-*/
 				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Obvious */
 				obvious = TRUE;
@@ -2333,7 +2333,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Confused creatures cannot steal successfully. -LM-*/
 				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Saving throw (unless paralyzed) based on dex and level */
 				if(!has_trait(target_ptr, TRAIT_PARALYZED) &&
@@ -2437,7 +2437,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Steal some food */
 				for (k = 0; k < 10; k++)
@@ -2479,7 +2479,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take some damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Drain fuel */
 				if((object_ptr->xtra4 > 0) && (!object_is_fixed_artifact(object_ptr)))
@@ -2603,7 +2603,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "blind" */
-				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_NO_BLIND) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					if(set_timed_trait(target_ptr, TRAIT_BLIND, has_trait(target_ptr, TRAIT_BLIND) + 10 + randint1(attacker_ptr->lev)))
 					{
@@ -2631,7 +2631,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "confused" */
-				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!has_trait(target_ptr, TRAIT_NO_CONF) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					if(set_timed_trait(target_ptr, TRAIT_CONFUSED, target_ptr->timed_trait[TRAIT_CONFUSED] + 3 + randint1(attacker_ptr->lev)))
 					{
@@ -2653,7 +2653,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "afraid" */
-				if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					/* Do nothing */
 				}
@@ -2700,7 +2700,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				if(IS_DEAD(target_ptr)) break;
 
 				/* Increase "paralyzed" */
-				if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					/* Do nothing */
 				}
@@ -2736,7 +2736,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stat) */
 				if(do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
@@ -2749,7 +2749,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stat) */
 				if(do_dec_stat(target_ptr, STAT_INT)) obvious = TRUE;
@@ -2762,7 +2762,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stat) */
 				if(do_dec_stat(target_ptr, STAT_WIS)) obvious = TRUE;
@@ -2775,7 +2775,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stat) */
 				if(do_dec_stat(target_ptr, STAT_DEX)) obvious = TRUE;
@@ -2788,7 +2788,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stat) */
 				if(do_dec_stat(target_ptr, STAT_CON)) obvious = TRUE;
@@ -2801,7 +2801,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stat) */
 				if(do_dec_stat(target_ptr, STAT_CHA)) obvious = TRUE;
@@ -2814,7 +2814,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Damage (physical) */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				/* Damage (stats) */
 				if(do_dec_stat(target_ptr, STAT_STR)) obvious = TRUE;
@@ -2845,7 +2845,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 95);
 				break;
 			}
@@ -2855,7 +2855,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				s32b d = diceroll(20, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				obvious = TRUE;
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 90);
 				break;
 			}
@@ -2865,7 +2865,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				s32b d = diceroll(40, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				obvious = TRUE;
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 75);
 				break;
 			}
@@ -2875,7 +2875,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				s32b d = diceroll(80, 6) + (target_ptr->exp / 100) * SPECIES_DRAIN_LIFE;
 				obvious = TRUE;
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				(void)drain_exp(target_ptr, d, d / 10, 50);
 				break;
 			}
@@ -2883,7 +2883,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_DISEASE:
 			{
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)))
 				{
 					if(set_timed_trait(target_ptr, TRAIT_POISONED, target_ptr->timed_trait[TRAIT_POISONED] + randint1(attacker_ptr->lev) + 5))
@@ -2914,7 +2914,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		case RBE_TIME:
 			{
 				if(explode) break;
-				if(!target_ptr->resist_time && !(target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if(!target_ptr->resist_time && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 					switch (randint1(10))
 					{
@@ -3002,7 +3002,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Take damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
-				if(IS_DEAD(target_ptr) || (target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1))) break;
+				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
 				resist_drain = !drain_exp(target_ptr, d, d / 10, 50);
 
@@ -3046,7 +3046,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+				if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 				{
 #ifdef JP
 					msg_print("çUåÇÇÕå∂âeÇ…ñΩíÜÇµÅAÇ†Ç»ÇΩÇ…ÇÕìÕÇ©Ç»Ç©Ç¡ÇΩÅB");

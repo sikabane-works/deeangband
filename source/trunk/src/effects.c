@@ -2483,7 +2483,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 		}
 
-		if((target_ptr->timed_trait[TRAIT_MULTI_SHADOW] && (turn & 1)))
+		if((has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
 		{
 			if(damage_type == DAMAGE_FORCE)
 			{
