@@ -1296,7 +1296,7 @@ bool pattern_seq(creature_type *creature_ptr, int c_y, int c_x, int n_y, int n_x
 
 	if(pattern_type_new == PATTERN_TILE_START)
 	{
-		if(!is_pattern_tile_cur && !creature_ptr->timed_trait[TRAIT_CONFUSED] && !creature_ptr->timed_trait[TRAIT_STUN] && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
+		if(!is_pattern_tile_cur && !has_trait(creature_ptr, TRAIT_CONFUSED) && !has_trait(creature_ptr, TRAIT_STUN) && !has_trait(creature_ptr, TRAIT_HALLUCINATION))
 		{
 #ifdef JP
 			if(get_check("パターンの上を歩き始めると、全てを歩かなければなりません。いいですか？"))
@@ -1922,8 +1922,8 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if(!is_hostile(m_ptr) &&
-		    !(creature_ptr->timed_trait[TRAIT_CONFUSED] || has_trait(creature_ptr, TRAIT_HALLUCINATION) || !m_ptr->see_others || creature_ptr->timed_trait[TRAIT_STUN] ||
-		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && creature_ptr->timed_trait[TRAIT_S_HERO]) &&
+		    !(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || !m_ptr->see_others || has_trait(creature_ptr, TRAIT_STUN) ||
+		    has_trait(creature_ptr, TRAIT_BERS_RAGE) && has_trait(creature_ptr, TRAIT_S_HERO)) &&
 		    pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x) && (can_enter || can_kill_walls))
 		{
 			
@@ -1984,7 +1984,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			disturb(player_ptr, 0, 0);
 		}
 
-		else if(steed_ptr->timed_trait[TRAIT_AFRAID])
+		else if(has_trait(steed_ptr, TRAIT_AFRAID))
 		{
 			char m_name[MAX_NLEN];
 
@@ -2049,7 +2049,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 			disturb(player_ptr, 0, 0);
 		}
 
-		if(oktomove && steed_ptr->timed_trait[TRAIT_STUN] && one_in_(2))
+		if(oktomove && has_trait(steed_ptr, TRAIT_STUN) && one_in_(2))
 		{
 			char m_name[MAX_NLEN];
 			creature_desc(m_name, steed_ptr, 0);
@@ -2139,7 +2139,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				msg_print("You cannot go any more.");
 #endif
 
-				if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
+				if(!(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_STUN) || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
 					cancel_tactical_action(creature_ptr);
 			}
 
@@ -2160,7 +2160,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 				 * a wall _if_ you are confused, stunned or blind; but
 				 * typing mistakes should not cost you a turn...
 				 */
-				if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
+				if(!(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_STUN) || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
 					cancel_tactical_action(creature_ptr);
 			}
 		}
