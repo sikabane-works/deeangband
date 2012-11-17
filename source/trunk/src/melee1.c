@@ -2140,9 +2140,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 				// Take "poison" effect
 				if(!(target_ptr->resist_pois || IS_OPPOSE_POIS(target_ptr)) && !(has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1)))
-				{
 					if(add_timed_trait(target_ptr, TRAIT_POISONED, randint1(attacker_ptr->lev) + 5, FALSE)) obvious = TRUE;
-				}
 
 				/* Take some damage */
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);

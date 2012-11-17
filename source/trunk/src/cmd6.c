@@ -1542,40 +1542,24 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		}
 
 		case SV_SCROLL_BLESSING:
-		{
-			if(set_timed_trait_aux(caster_ptr, TRAIT_BLESSED, caster_ptr->timed_trait[TRAIT_BLESSED] + randint1(12) + 6, FALSE)) ident = TRUE;
+			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(12) + 6, TRUE)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_HOLY_CHANT:
-		{
-			if(set_timed_trait_aux(caster_ptr, TRAIT_BLESSED, caster_ptr->timed_trait[TRAIT_BLESSED] + randint1(24) + 12, FALSE)) ident = TRUE;
+			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(24) + 12, TRUE)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_HOLY_PRAYER:
-		{
-			if(set_timed_trait_aux(caster_ptr, TRAIT_BLESSED, caster_ptr->timed_trait[TRAIT_BLESSED] + randint1(48) + 24, FALSE)) ident = TRUE;
+			if(add_timed_trait(caster_ptr, TRAIT_BLESSED, randint1(48) + 24, TRUE)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_MONSTER_CONFUSION:
-		{
-			if(!caster_ptr->timed_trait[TRAIT_CONFUSING_MELEE])
-			{
-				set_timed_trait_aux(caster_ptr, TRAIT_CONFUSING_MELEE, PERMAMENT_TIMED, TRUE);
-				play_redraw |= (PR_STATUS);
-				ident = TRUE;
-			}
+			if(set_timed_trait_aux(caster_ptr, TRAIT_CONFUSING_MELEE, PERMAMENT_TIMED, TRUE)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_PROTECTION_FROM_EVIL:
-		{
-			k = 3 * caster_ptr->lev;
-			if(set_timed_trait_aux(caster_ptr, TRAIT_PROT_EVIL, caster_ptr->timed_trait[TRAIT_PROT_EVIL] + randint1(25) + k, FALSE)) ident = TRUE;
+			if(add_timed_trait(caster_ptr, TRAIT_PROT_EVIL, randint1(25) + 3 * caster_ptr->lev, TRUE)) ident = TRUE;
 			break;
-		}
 
 		case SV_SCROLL_RUNE_OF_PROTECTION:
 		{
