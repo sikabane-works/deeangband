@@ -799,8 +799,8 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			take_damage_to_creature(NULL, caster_ptr, DAMAGE_NOESCAPE, diceroll(50, 20), "a potion of Detonation", NULL, -1);
 #endif
 
-			(void)set_timed_trait(caster_ptr, TRAIT_STUN, caster_ptr->timed_trait[TRAIT_STUN] + 75);
-			(void)set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] + 5000);
+			(void)add_timed_trait(caster_ptr, TRAIT_STUN, 75, TRUE);
+			(void)add_timed_trait(caster_ptr, TRAIT_CUT, 5000, TRUE);
 			effected = TRUE;
 			break;
 
@@ -1676,7 +1676,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 					break;
 
 				default:
-					err = get_rnd_line(message_files[MESSAGE_FILES_RUMOR], 0, Rumor, 10);
+					err = get_rnd_line(message_files[MESSAGE_FILES_RUMOR], 0, Rumor);
 					break;
 			}
 

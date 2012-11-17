@@ -1775,7 +1775,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 	}
 	else
 	{
-		if(rider_ptr->timed_trait[TRAIT_CONFUSED])
+		if(has_trait(rider_ptr, TRAIT_CONFUSED))
 		{
 #ifdef JP
 			msg_print("¬—‚µ‚Ä‚¢‚Äæ‚ê‚È‚¢I");
@@ -1849,7 +1849,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 			return FALSE;
 		}
 
-		if(steed_ptr->timed_trait[TRAIT_PARALYZED])
+		if(has_trait(steed_ptr, TRAIT_PARALYZED))
 		{
 			char steed_name[80];
 			creature_desc(steed_name, steed_ptr, 0);

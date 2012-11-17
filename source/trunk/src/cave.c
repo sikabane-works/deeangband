@@ -3034,14 +3034,14 @@ void update_creature_lite(floor_type *floor_ptr)
 			else if(rad > 0)
 			{
 				if(!(has_trait(player_ptr, TRAIT_SELF_LITE_1) || has_trait(player_ptr, TRAIT_SELF_LITE_2)) && 
-					(player_ptr->timed_trait[TRAIT_PARALYZED] || (!floor_ptr->floor_level && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
+					(has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->floor_level && is_daytime()) || floor_ptr->gamble_arena_mode)) continue;
 				if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_DARKNESS) rad = 1;
 				add_creature_lite = creature_lite_hack;
 				f_flag = FF_LOS;
 			}
 			else
 			{
-				if(!(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_SELF_DARK_2)) && (player_ptr->timed_trait[TRAIT_PARALYZED] || (!floor_ptr->floor_level && !is_daytime()))) continue;
+				if(!(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_SELF_DARK_2)) && (has_trait(player_ptr, TRAIT_PARALYZED) || (!floor_ptr->floor_level && !is_daytime()))) continue;
 				add_creature_lite = mon_dark_hack;
 				f_flag = FF_PROJECT;
 				rad = -rad; /* Use absolute value */
