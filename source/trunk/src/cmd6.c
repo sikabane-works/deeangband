@@ -816,21 +816,15 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_INFRAVISION:
-			if(set_timed_trait_aux(caster_ptr, TRAIT_SEE_INFRA, caster_ptr->timed_trait[TRAIT_SEE_INFRA] + 100 + randint1(100), FALSE))
-			{
-				effected = TRUE;
-			}
+			if(add_timed_trait(caster_ptr, TRAIT_SEE_INFRA, 100 + randint1(100), TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_DETECT_INVIS:
-			if(set_timed_trait_aux(caster_ptr, TRAIT_SEE_INVISIBLE, caster_ptr->timed_trait[TRAIT_SEE_INVISIBLE] + 12 + randint1(12), FALSE))
-			{
-				effected = TRUE;
-			}
+			if(add_timed_trait(caster_ptr, TRAIT_SEE_INVISIBLE, 12 + randint1(12), TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_SLOW_POISON:
-			if(set_timed_trait(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2)) effected = TRUE;
+			if(set_timed_trait_aux(caster_ptr, TRAIT_POISONED, caster_ptr->timed_trait[TRAIT_POISONED] / 2, TRUE)) effected = TRUE;
 			break;
 
 		case SV_POTION_CURE_POISON:
@@ -842,7 +836,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_SPEED:
-			if(!caster_ptr->timed_trait[TRAIT_FAST])
+			if(!has_trait(caster_ptr, TRAIT_FAST))
 				if(set_timed_trait_aux(caster_ptr, TRAIT_FAST, randint1(25) + 15, TRUE)) effected = TRUE;
 			else
 				(void)add_timed_trait(caster_ptr, TRAIT_FAST, 5, TRUE);

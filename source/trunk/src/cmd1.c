@@ -2187,10 +2187,8 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Normal movement */
 	if(oktomove && !pattern_seq(creature_ptr, creature_ptr->fy, creature_ptr->fx, y, x))
 	{
-		if(!(creature_ptr->timed_trait[TRAIT_CONFUSED] || creature_ptr->timed_trait[TRAIT_STUN] || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
-		{
+		if(!(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_STUN) || has_trait(creature_ptr, TRAIT_HALLUCINATION)))
 			cancel_tactical_action(creature_ptr);
-		}
 
 		/* To avoid a loop with running */
 		disturb(player_ptr, 0, 0);

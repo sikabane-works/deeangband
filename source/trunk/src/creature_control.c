@@ -2251,7 +2251,7 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 			if(one_in_(3))
 			{
 				msg_print(funny_comments[randint0(MAX_SAN_COMMENT)]);
-				set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, watcher_ptr->timed_trait[TRAIT_HALLUCINATION] + (s16b)randint1(difficulty)); 
+				add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, (s16b)randint1(difficulty), TRUE); 
 			}
 
 			return;
@@ -2302,13 +2302,9 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Mind blast */
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 		if(!watcher_ptr->resist_chaos && one_in_(3))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		return;
 	}
 
@@ -2322,19 +2318,13 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 	//TODO saving_throw if(!saving_throw(watcher_ptr->skill_rob - difficulty)) /* Brain smash */
 	{
 		if(!has_trait(watcher_ptr, TRAIT_NO_CONF))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_CONFUSED, watcher_ptr->timed_trait[TRAIT_CONFUSED] + randint0(4) + 4);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_CONFUSED, randint0(4) + 4, TRUE);
 		if(!has_trait(watcher_ptr, TRAIT_FREE_ACTION))
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_PARALYZED, watcher_ptr->timed_trait[TRAIT_PARALYZED] + randint0(4) + 4);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_PARALYZED, randint0(4) + 4, TRUE);
 		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_INT);
 		//TODO saving_throw while (randint0(100) > watcher_ptr->skill_rob) (void)do_dec_stat(watcher_ptr, STAT_WIS);
 		if(!watcher_ptr->resist_chaos)
-		{
-			(void)set_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, GET_TIMED_TRAIT(watcher_ptr, TRAIT_HALLUCINATION) + randint0(250) + 150);
-		}
+			(void)add_timed_trait(watcher_ptr, TRAIT_HALLUCINATION, randint0(250) + 150, TRUE);
 		return;
 	}
 
