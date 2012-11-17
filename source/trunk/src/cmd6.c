@@ -1878,31 +1878,23 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		}
 
 		case SV_STAFF_SLOWNESS:
-		{
-			if(set_timed_trait_aux(creature_ptr, TRAIT_SLOW, creature_ptr->timed_trait[TRAIT_SLOW] + randint1(30) + 15, FALSE)) ident = TRUE;
+			if(add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_HASTE_MONSTERS:
-		{
 			if(speed_creatures(creature_ptr)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_SUMMONING:
-		{
 			for (k = 0; k < randint1(4); k++)
 				if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, 0, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 					ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_TELEPORTATION:
-		{
 			teleport_player(creature_ptr, 100, 0L);
 			ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_IDENTIFY:
 		{
@@ -1943,7 +1935,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 #else
 				msg_print("The end of the staff glows brightly...");
 #endif
-
 			}
 			for (k = 0; k < num; k++)
 			{
@@ -1952,9 +1943,7 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 				while (attempts--)
 				{
 					scatter(floor_ptr, &y, &x, creature_ptr->fy, creature_ptr->fx, 4, 0);
-
 					if(!cave_have_flag_bold(floor_ptr, y, x, FF_PROJECT)) continue;
-
 					if(!creature_bold(creature_ptr, y, x)) break;
 				}
 
@@ -1966,10 +1955,8 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 		}
 
 		case SV_STAFF_LITE:
-		{
 			if(lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_MAPPING:
 		{
@@ -4415,15 +4402,14 @@ void do_cmd_magic_eater(creature_type *creature_ptr, bool only_browse)
 	int item, chance, level, k_idx, tval, sval;
 	bool use_charge = TRUE;
 
-	/* Not when confused */
-	if(!only_browse && creature_ptr->timed_trait[TRAIT_CONFUSED])
+	// Not when confused
+	if(!only_browse && has_trait(creature_ptr, TRAIT_CONFUSED))
 	{
 #ifdef JP
-msg_print("ç¨óêÇµÇƒÇ¢Çƒè•Ç¶ÇÁÇÍÇ»Ç¢ÅI");
+		msg_print("ç¨óêÇµÇƒÇ¢Çƒè•Ç¶ÇÁÇÍÇ»Ç¢ÅI");
 #else
 		msg_print("You are too confused!");
 #endif
-
 		return;
 	}
 

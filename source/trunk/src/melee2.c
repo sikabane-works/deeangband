@@ -2601,18 +2601,13 @@ static void process_creature(int i)
 		/* Convert the unit (1/2^16) to (1/2^32) */
 		s64b_LSHIFT(cost, cost_frac, 16);
 
-		if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, cost, cost_frac) < 0)
+		if(s64b_cmp(creature_ptr->csp, creature_ptr->csp_frac, cost, cost_frac) < 0) // Mana run out
 		{
-			/* Mana run out */
 			creature_ptr->csp = 0;
 			creature_ptr->csp_frac = 0;
 			set_action(creature_ptr, ACTION_NONE);
 		}
-		else
-		{
-			/* Reduce mana */
-			s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), cost, cost_frac);
-		}
+		else s64b_sub(&(creature_ptr->csp), &(creature_ptr->csp_frac), cost, cost_frac); // Reduce mana
 		play_redraw |= PR_MANA;
 	}
 
