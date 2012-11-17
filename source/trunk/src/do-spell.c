@@ -11324,28 +11324,6 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Evily blessing";
 		if(desc) return "Attempts to increase +to_hit of a weapon and AC";
 #endif
-		if(cast)
-		{
-			if(!creature_ptr->timed_trait[TRAIT_BLESSED])
-			{
-#ifdef JP
-				msg_print("高潔な気分になった！");
-#else
-				msg_print("You feel righteous!");
-#endif
-			}
-		}
-		if(stop)
-		{
-			if(!creature_ptr->timed_trait[TRAIT_BLESSED])
-			{
-#ifdef JP
-				msg_print("高潔な気分が消え失せた。");
-#else
-				msg_print("The prayer has expired.");
-#endif
-			}
-		}
 		break;
 
 	case 1:
@@ -11368,7 +11346,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(1, 10));
-			set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - 10);
+			add_timed_trait(creature_ptr, TRAIT_CUT, -10, TRUE);
 		}
 		break;
 
@@ -11671,7 +11649,7 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(cast || cont)
 		{
 			heal_creature(creature_ptr, diceroll(2, 10));
-			set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 10);
+			set_timed_trait_aux(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 10, TRUE);
 		}
 		break;
 
