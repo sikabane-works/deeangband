@@ -1036,11 +1036,11 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_RESISTANCE:
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ACID, caster_ptr->timed_trait[TRAIT_RES_ACID] + randint1(20) + 20, FALSE);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_ELEC, caster_ptr->timed_trait[TRAIT_RES_ELEC] + randint1(20) + 20, FALSE);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_FIRE, caster_ptr->timed_trait[TRAIT_RES_FIRE] + randint1(20) + 20, FALSE);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_COLD, caster_ptr->timed_trait[TRAIT_RES_COLD] + randint1(20) + 20, FALSE);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_MAGIC_RES_POIS, caster_ptr->timed_trait[TRAIT_RES_POIS] + randint1(20) + 20, FALSE);
+			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ACID, randint1(20) + 20, TRUE);
+			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_ELEC, randint1(20) + 20, TRUE);
+			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_FIRE, randint1(20) + 20, TRUE);
+			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_COLD, randint1(20) + 20, TRUE);
+			(void)add_timed_trait(caster_ptr, TRAIT_MAGIC_RES_POIS, randint1(20) + 20, TRUE);
 			effected = TRUE;
 			break;
 
@@ -1055,7 +1055,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			break;
 
 		case SV_POTION_INVULNERABILITY:
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_INVULNERABLE, has_trait(caster_ptr, TRAIT_INVULNERABLE) + randint1(4) + 4, FALSE);
+			(void)add_timed_trait(caster_ptr, TRAIT_INVULNERABLE, randint1(4) + 4, TRUE);
 			effected = TRUE;
 			break;
 
@@ -1069,7 +1069,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 
 		case SV_POTION_NEO_TSUYOSHI:
 			(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 0);
-			(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUYOSHI, caster_ptr->timed_trait[TRAIT_TSUYOSHI] + randint1(100) + 100, FALSE);
+			(void)add_timed_trait(caster_ptr, TRAIT_TSUYOSHI, randint1(100) + 100, TRUE);
 			effected = TRUE;
 			break;
 

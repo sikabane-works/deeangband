@@ -21,6 +21,9 @@ class A_info
 		@rarity = ""
 		@weight = ""
 		@cost = ""
+		@tval = ""
+		@sval = ""
+		@pval = ""
 
 		@size = ""
 		@base_ac = ""
@@ -46,7 +49,7 @@ class A_info
 			output += "E_NAME" + '","'
 			output += "TVAL" + '","' + "SVAL" + '","' + "PVAL" + '","'
 			output += "DEPTH" + '","' + "RARITY" + '","' + "WEIGHT" + '","' + "COST" + '","'
-			output += "SIZE" + '","' + "BASE_AC" + '","' + "BASE_DAMAGE" + '","' + "PLUS_HIT" + '","' + "PLUS_DAM" + '","' + "PLUS_AC" + '","'
+			output += "BASE_AC" + '","' + "BASE_DAMAGE" + '","' + "PLUS_HIT" + '","' + "PLUS_DAM" + '","' + "PLUS_AC" + '","'
 			output += "FLAGS"
 			output += '","'
 			output += "DESCRIPTION"
@@ -63,9 +66,9 @@ class A_info
 			output = '"'
 			output += @id + '","' + @name + '","'
 			output += @e_name + '","'
-			output += @tval + '","' + @sval + '","' + @pval + '","'
+			output += (@tval + '","' + @sval + '","' + @pval + '","')
 			output += @depth + '","' + @rarity + '","' + @weight + '","' + @cost + '","'
-			output += @size + '","' + @base_ac + '","' + @base_damage + '","' + @plus_hit + '","' + @plus_dam + '","' + @plus_ac + '","'
+			output += @base_ac + '","' + @base_damage + '","' + @plus_hit + '","' + @plus_dam + '","' + @plus_ac + '","'
 			output += @flags[1..-1] if @flags.size > 0
 			output += '","'
 			output += @description.gsub('"', '""') if @description.size > 0
@@ -146,13 +149,12 @@ file1.each do |line|
 				a.cost = res[3].to_s
 
 			when 'P'
-				res = line.scanf("P:%d:%d:%[^:\n]:%d:%d:%d\n")
-				a.size = res[0].to_s
-				a.base_ac = res[1].to_s
-				a.base_damage = res[2]
-				a.plus_hit = res[3].to_s
-				a.plus_dam = res[4].to_s
-				a.plus_ac = res[5].to_s
+				res = line.scanf("P:%d:%[^:\n]:%d:%d:%d\n")
+				a.base_ac = res[0].to_s
+				a.base_damage = res[1]
+				a.plus_hit = res[2].to_s
+				a.plus_dam = res[3].to_s
+				a.plus_ac = res[4].to_s
 
 		end
 end

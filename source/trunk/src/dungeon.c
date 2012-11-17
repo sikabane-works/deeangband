@@ -1712,14 +1712,8 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		int damage = 0;
 
-		if(have_flag(f_ptr->flags, FF_DEEP))
-		{
-			damage = 6000 + randint0(4000);
-		}
-		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY))
-		{
-			damage = 3000 + randint0(2000);
-		}
+		if(have_flag(f_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
+		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
 
 		if(damage)
 		{
@@ -1743,14 +1737,8 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	{
 		int damage = 0;
 
-		if(have_flag(f_ptr->flags, FF_DEEP))
-		{
-			damage = 6000 + randint0(4000);
-		}
-		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY))
-		{
-			damage = 3000 + randint0(2000);
-		}
+		if(have_flag(f_ptr->flags, FF_DEEP)) damage = 6000 + randint0(4000);
+		else if(!has_trait(creature_ptr, TRAIT_CAN_FLY)) damage = 3000 + randint0(2000);
 
 		if(damage)
 		{
@@ -1842,7 +1830,6 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 			((creature_ptr->chp > (creature_ptr->lev / 5)) || !has_trait(creature_ptr, TRAIT_PASS_WALL)))
 		{
 			cptr dam_desc;
-
 			cave_no_regen = TRUE;
 
 			if(has_trait(creature_ptr, TRAIT_PASS_WALL))
@@ -1882,10 +1869,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	}
 
 	// Are we walking the pattern?
-	if(pattern_effect(floor_ptr, creature_ptr))
-	{
-		cave_no_regen = TRUE;
-	}
+	if(pattern_effect(floor_ptr, creature_ptr)) cave_no_regen = TRUE;
 	else
 	{
 		// Regeneration ability
@@ -1900,23 +1884,15 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 	upkeep_factor = calculate_upkeep_servant(creature_ptr);
 
 	/* No regeneration while special action */
-	if((creature_ptr->action == ACTION_LEARN) ||
-		(creature_ptr->action == ACTION_HAYAGAKE) ||
-		(creature_ptr->posture & KATA_KOUKIJIN))
-	{
+	if((creature_ptr->action == ACTION_LEARN) || (creature_ptr->action == ACTION_HAYAGAKE) || (creature_ptr->posture & KATA_KOUKIJIN))
 		upkeep_factor += 100;
-	}
 
 	/* Regenerate the mana */
 	upkeep_regen = (100 - upkeep_factor) * regen_amount;
 	regenmana(creature_ptr, upkeep_regen);
 
-
-	/* Recharge magic eater's power */
-	if(creature_ptr->class_idx == CLASS_MAGIC_EATER)
-	{
-		regenmagic(creature_ptr, regen_amount);
-	}
+	// Recharge magic eater's power
+	if(creature_ptr->class_idx == CLASS_MAGIC_EATER) regenmagic(creature_ptr, regen_amount);
 
 	if((creature_ptr->csp == 0) && (creature_ptr->csp_frac == 0))
 	{
@@ -1943,7 +1919,7 @@ static void process_world_aux_hp_and_sp(creature_type *creature_ptr)
 
 	/* Poisoned or cut yields no healing */
 	if(has_trait(creature_ptr, TRAIT_POISONED)) regen_amount = 0;
-	if(GET_TIMED_TRAIT(creature_ptr, TRAIT_CUT)) regen_amount = 0;
+	if(has_trait(creature_ptr, TRAIT_CUT)) regen_amount = 0;
 
 	/* Special floor -- Pattern, in a wall -- yields no healing */
 	if(cave_no_regen) regen_amount = 0;
