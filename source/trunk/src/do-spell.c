@@ -9146,8 +9146,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				if(count >= 11)
 				{
 					map_area(caster_ptr, rad);
-					if(plev > 39 && count < 19)
-						caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+					if(plev > 39 && count < 19) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 				}
 				if(count >= 6)
 				{
@@ -9156,23 +9155,19 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 					detect_objects_gold(caster_ptr, rad);
 					detect_objects_normal(caster_ptr, rad);
 
-					if(plev > 24 && count < 11)
-						caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+					if(plev > 24 && count < 11) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 				}
 				if(count >= 3)
 				{
 					detect_creatures_invis(caster_ptr, rad);
 					detect_creatures_normal(caster_ptr, rad);
-
-					if(plev > 19 && count < 6)
-						caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+					if(plev > 19 && count < 6) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 				}
 				detect_traps(caster_ptr, rad, TRUE);
 				detect_doors(caster_ptr, rad);
 				detect_stairs(caster_ptr, rad);
 
-				if(plev > 14 && count < 3)
-					caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
+				if(plev > 14 && count < 3) caster_ptr->class_skills.old_skills.magic_num1[2] = count + 1;
 			}
 		}
 
@@ -9205,11 +9200,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			int sides = plev * 3 / 2;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cont)
-			{
-				project_hack(caster_ptr, DO_EFFECT_PSI, diceroll(dice, sides));
-			}
+			if(cont) project_hack(caster_ptr, DO_EFFECT_PSI, diceroll(dice, sides));
 		}
 
 		break;
