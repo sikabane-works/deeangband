@@ -2034,7 +2034,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		msg_print("You feel a fit of rage coming over you!");
 #endif
 		(void)set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 10 + randint1(creature_ptr->lev), FALSE);
-		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
+		(void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
 	}
 
 	if(has_trait(creature_ptr, TRAIT_COWARDICE) && (randint1(3000) == 13))
@@ -2079,12 +2079,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			msg_print("You feel a SSSCHtupor cOmINg over yOu... *HIC*!");
 #endif
 		}
-
-		if(!has_trait(creature_ptr, TRAIT_NO_CONF))
-		{
-			(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint0(20) + 15);
-		}
-
+		if(!has_trait(creature_ptr, TRAIT_NO_CONF)) (void)add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint0(20) + 15, TRUE);
 		if(!creature_ptr->resist_chaos)
 		{
 			if(one_in_(20))
@@ -2111,7 +2106,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 					msg_print("Thishcischs GooDSChtuff!");
 #endif
-					(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, has_trait(creature_ptr, TRAIT_HALLUCINATION) + randint0(150) + 150);
+					(void)add_timed_trait(creature_ptr, TRAIT_HALLUCINATION, randint0(150) + 150, TRUE);
 				}
 			}
 		}
@@ -2130,13 +2125,11 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_FLATULENT) && (randint1(3000) == 13))
 	{
 		disturb(player_ptr, 0, 0);
-
 #ifdef JP
 		msg_print("ブゥーーッ！おっと。");
 #else
 		msg_print("BRRAAAP! Oops.");
 #endif
-
 		msg_print(NULL);
 		cast_ball(creature_ptr, DO_EFFECT_POIS, 0, creature_ptr->lev, 3);
 	}
@@ -2150,7 +2143,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_print("Magical energy flows through you! You must release it!");
 #endif
-
 		flush();
 		msg_print(NULL);
 		(void)get_hack_dir(creature_ptr, &dire);
@@ -2172,7 +2164,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You have attracted a demon!");
 #endif
-
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2188,14 +2179,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			msg_print("You feel less energetic.");
 #endif
 
-			if(creature_ptr->timed_trait[TRAIT_FAST] > 0)
-			{
-				set_timed_trait(creature_ptr, TRAIT_FAST, 0);
-			}
-			else
-			{
-				set_timed_trait_aux(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
-			}
+			if(has_trait(creature_ptr, TRAIT_FAST)) set_timed_trait(creature_ptr, TRAIT_FAST, 0);
+			else add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 10, FALSE);
 		}
 		else
 		{
@@ -2204,15 +2189,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You feel more energetic.");
 #endif
-
-			if(creature_ptr->timed_trait[TRAIT_SLOW] > 0)
-			{
-				set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, TRUE);
-			}
-			else
-			{
-				set_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 10);
-			}
+			if(has_trait(creature_ptr, TRAIT_SLOW)) set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, TRUE);
+			else add_timed_trait(creature_ptr, TRAIT_FAST, randint1(30) + 10, FALSE);
 		}
 		msg_print(NULL);
 	}
@@ -2225,7 +2203,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_print("You suddenly feel almost lonely.");
 #endif
-
 		banish_creatures(creature_ptr, 100);
 		msg_print(NULL);
 	}
@@ -2239,7 +2216,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 		msg_print("A shadow passes over you.");
 #endif
-
 		msg_print(NULL);
 
 		/* Absorb light from the current possition */
@@ -2267,10 +2243,8 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			}
 		}
 
-		/*
-		* Unlite the area (radius 10) around player and
-		* do 50 points damage to every affected creature
-		*/
+		// Unlite the area (radius 10) around player and
+		// do 50 points damage to every affected creature
 		unlite_area(creature_ptr, 50, 10);
 	}
 
@@ -2289,7 +2263,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You have attracted an animal!");
 #endif
-
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2314,7 +2287,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("You feel oddly normal.");
 #endif
-
 	}
 
 	if(has_trait(creature_ptr, TRAIT_WRAITH) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
@@ -2384,15 +2356,14 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 
 	if(has_trait(creature_ptr, TRAIT_WEIRD_MIND) && !has_trait(creature_ptr, TRAIT_ANTI_MAGIC) && one_in_(3000))
 	{
-		if(creature_ptr->timed_trait[TRAIT_ESP] > 0)
+		if(has_trait(creature_ptr, TRAIT_ESP))
 		{
 #ifdef JP
 			msg_print("精神にもやがかかった！");
 #else
 			msg_print("Your mind feels cloudy!");
 #endif
-
-			set_timed_trait_aux(creature_ptr, TRAIT_ESP, 0, TRUE);
+			set_timed_trait_aux(creature_ptr, TRAIT_ESP, 0, FALSE);
 		}
 		else
 		{
@@ -2401,8 +2372,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("Your mind expands!");
 #endif
-
-			set_timed_trait_aux(creature_ptr, TRAIT_ESP, creature_ptr->lev, FALSE);
+			add_timed_trait(creature_ptr, TRAIT_ESP, creature_ptr->lev, FALSE);
 		}
 	}
 
