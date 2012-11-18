@@ -382,7 +382,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 		msg_print("An unnamable evil brushes against your mind...");
 #endif
 
-		set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + randint1(4) + 4);
+		add_timed_trait(creature_ptr, TRAIT_AFRAID, randint1(4) + 4, TRUE);
 	}
 	else if(die < 26)
 	{
@@ -391,8 +391,7 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 #else
 		msg_print("Your head is invaded by a horde of gibbering spectral voices...");
 #endif
-
-		set_timed_trait(creature_ptr, TRAIT_CONFUSED, creature_ptr->timed_trait[TRAIT_CONFUSED] + randint1(4) + 4);
+		add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
 	else if(die < 31)
 	{
@@ -1179,7 +1178,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_timed_trait(creature_ptr, TRAIT_CUT, creature_ptr->timed_trait[TRAIT_CUT] - 10);
+				add_timed_trait(creature_ptr, TRAIT_CUT, -10, TRUE);
 			}
 		}
 		break;
@@ -1292,7 +1291,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(creature_ptr, diceroll(dice, sides));
-				set_timed_trait(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 20);
+				set_timed_trait_aux(creature_ptr, TRAIT_CUT, (creature_ptr->timed_trait[TRAIT_CUT] / 2) - 20, TRUE);
 			}
 		}
 		break;

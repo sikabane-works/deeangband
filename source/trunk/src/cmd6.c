@@ -1076,10 +1076,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			msg_print(NULL);
 			caster_ptr->timed_trait[TRAIT_TSUYOSHI] = 1;
 			(void)set_timed_trait_aux(caster_ptr, TRAIT_TSUYOSHI, 0, TRUE);
-			if(!caster_ptr->resist_chaos)
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 50 + randint1(50));
-			}
+			if(!caster_ptr->resist_chaos) (void)add_timed_trait(caster_ptr, TRAIT_HALLUCINATION, 50 + randint1(50), FALSE);
 			effected = TRUE;
 			break;
 		
@@ -1289,9 +1286,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 		case SV_SCROLL_DARKNESS:
 		{
 			if(!(has_trait(caster_ptr, TRAIT_NO_BLIND)) && !(caster_ptr->resist_dark))
-			{
-				(void)set_timed_trait(caster_ptr, TRAIT_BLIND, has_trait(caster_ptr, TRAIT_BLIND) + 3 + randint1(5));
-			}
+				(void)add_timed_trait(caster_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE);
 			if(unlite_area(caster_ptr, 10, 3)) ident = TRUE;
 			break;
 		}
@@ -1303,7 +1298,6 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 #else
 			msg_print("There is a high pitched humming noise.");
 #endif
-
 			aggravate_creatures(caster_ptr);
 			ident = TRUE;
 			break;
@@ -1868,14 +1862,10 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 	switch (sval)
 	{
 		case SV_STAFF_DARKNESS:
-		{
 			if(!(has_trait(creature_ptr, TRAIT_NO_BLIND)) && !(creature_ptr->resist_dark))
-			{
-				if(set_timed_trait(creature_ptr, TRAIT_BLIND, has_trait(creature_ptr, TRAIT_BLIND) + 3 + randint1(5))) ident = TRUE;
-			}
+				if(add_timed_trait(creature_ptr, TRAIT_BLIND, 3 + randint1(5), FALSE)) ident = TRUE;
 			if(unlite_area(creature_ptr, 10, 3)) ident = TRUE;
 			break;
-		}
 
 		case SV_STAFF_SLOWNESS:
 			if(add_timed_trait(creature_ptr, TRAIT_SLOW, randint1(30) + 15, TRUE)) ident = TRUE;
