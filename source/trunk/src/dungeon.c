@@ -2046,7 +2046,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 #else
 			msg_print("It's so dark... so scary!");
 #endif
-			set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
+			add_timed_trait(creature_ptr, TRAIT_AFRAID, 13 + randint1(26), FALSE);
 		}
 	}
 
@@ -2717,27 +2717,11 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		}
 	}
 
-	if(has_trait(creature_ptr, TRAIT_COWARDICE) && one_in_(1500))
-	{
-		if(!has_trait(creature_ptr, TRAIT_FEARLESS))
-		{
-			disturb(player_ptr, 0, 0);
-#ifdef JP
-			msg_print("‚Æ‚Ä‚àˆÃ‚¢... ‚Æ‚Ä‚à‹°‚¢I");
-#else
-			msg_print("It's so dark... so scary!");
-#endif
-			set_timed_trait(creature_ptr, TRAIT_AFRAID, creature_ptr->timed_trait[TRAIT_AFRAID] + 13 + randint1(26));
-		}
-	}
-
 	/* Teleport player */
 	if(has_trait(creature_ptr, TRAIT_RANDOM_TELEPORT) && one_in_(200) && !has_trait(creature_ptr, TRAIT_PREVENT_TELEPORT))
 	{
 		disturb(player_ptr, 0, 0);
-
-		/* Teleport player */
-		teleport_player(creature_ptr, 40, TELEPORT_PASSIVE);
+		teleport_player(creature_ptr, 40, TELEPORT_PASSIVE); // Teleport player
 	}
 
 	/* Handle HP draining */

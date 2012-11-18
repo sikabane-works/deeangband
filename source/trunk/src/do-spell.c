@@ -6034,7 +6034,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 			if(cast)
 			{
 				heal_creature(caster_ptr, diceroll(dice, sides));
-				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] - 10);
+				add_timed_trait(caster_ptr, TRAIT_CUT, -10, TRUE);
 			}
 		}
 		break;
@@ -10731,9 +10731,9 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 			creature_type    *m_ptr;
 	
 			if(caster_ptr->timed_trait[TRAIT_CUT] < 300)
-				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] + 300);
+				add_timed_trait(caster_ptr, TRAIT_CUT, 300, TRUE);
 			else
-				set_timed_trait(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] * 2);
+				set_timed_trait_aux(caster_ptr, TRAIT_CUT, caster_ptr->timed_trait[TRAIT_CUT] * 2, TRUE);
 	
 			for (dir = 0; dir < 8; dir++)
 			{
