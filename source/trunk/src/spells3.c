@@ -1060,7 +1060,7 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	int             t = 0, item;
 	object_type     *object_ptr;
 	char            object_name[MAX_NLEN];
-	int to_hit, to_damage, to_ac, pval;
+	int to_hit, to_damage, to_ac, to_ev, to_vo, pval;
 
 	/* Pick a random slot */
 	//TODO
@@ -1107,24 +1107,24 @@ msg_format("%s(%c)は劣化を跳ね返した！",object_name, index_to_label(t) );
 		return (TRUE);
 	}
 
-
-	/* Memorize old value */
 	to_hit = object_ptr->to_hit;
 	to_damage = object_ptr->to_damage;
 	to_ac = object_ptr->to_ac;
+	to_ev = object_ptr->to_ev;
+	to_vo = object_ptr->to_vo;
 	pval = object_ptr->pval;
 
-	/* Disenchant tohit */
 	if(object_ptr->to_hit > 0) object_ptr->to_hit--;
 	if((object_ptr->to_hit > 5) && (randint0(100) < 20)) object_ptr->to_hit--;
-
-	/* Disenchant todam */
 	if(object_ptr->to_damage > 0) object_ptr->to_damage--;
 	if((object_ptr->to_damage > 5) && (randint0(100) < 20)) object_ptr->to_damage--;
 
-	/* Disenchant toac */
 	if(object_ptr->to_ac > 0) object_ptr->to_ac--;
 	if((object_ptr->to_ac > 5) && (randint0(100) < 20)) object_ptr->to_ac--;
+	if(object_ptr->to_ev > 0) object_ptr->to_ev--;
+	if((object_ptr->to_ev > 5) && (randint0(100) < 20)) object_ptr->to_ev--;
+	if(object_ptr->to_vo > 0) object_ptr->to_vo--;
+	if((object_ptr->to_vo > 5) && (randint0(100) < 20)) object_ptr->to_vo--;
 
 	/* Disenchant pval (occasionally) */
 	/* Unless called from wild_magic() */
@@ -1133,14 +1133,10 @@ msg_format("%s(%c)は劣化を跳ね返した！",object_name, index_to_label(t) );
 	if((to_hit != object_ptr->to_hit) || (to_damage != object_ptr->to_damage) ||
 	    (to_ac != object_ptr->to_ac) || (pval != object_ptr->pval))
 	{
-		/* Message */
 #ifdef JP
-		msg_format("%s(%c)は劣化してしまった！",
-			   object_name, index_to_label(t) );
+		msg_format("%s(%c)は劣化してしまった！", object_name, index_to_label(t) );
 #else
-		msg_format("Your %s (%c) %s disenchanted!",
-			   object_name, index_to_label(t),
-			   ((object_ptr->number != 1) ? "were" : "was"));
+		msg_format("Your %s (%c) %s disenchanted!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "were" : "was"));
 #endif
 
 		/* Recalculate bonuses */
@@ -1193,19 +1189,14 @@ void apply_nexus(creature_type *m_ptr)
 	switch (randint1(7))
 	{
 		case 1: case 2: case 3:
-		{
 			teleport_player(m_ptr, 200, TELEPORT_PASSIVE);
 			break;
-		}
 
 		case 4: case 5:
-		{
 			teleport_creature_to(m_ptr, m_ptr->fy, m_ptr->fx, TELEPORT_PASSIVE);
 			break;
-		}
 
 		case 6:
-		{
 			/* saving throw
 
 			if(randint0(100) < m_ptr->skill_rob)
@@ -1218,10 +1209,8 @@ void apply_nexus(creature_type *m_ptr)
 			/* Teleport Level */
 			teleport_level(m_ptr, 0);
 			break;
-		}
 
 		case 7:
-		{
 			/* saving throw
 
 			if(randint0(100) < m_ptr->skill_rob)
@@ -1232,14 +1221,13 @@ void apply_nexus(creature_type *m_ptr)
 			*/
 
 #ifdef JP
-msg_print("体がねじれ始めた...");
+			msg_print("体がねじれ始めた...");
 #else
 			msg_print("Your body starts to scramble...");
 #endif
 
 			mutate_creature(m_ptr);
 			break;
-		}
 	}
 }
 
@@ -1253,16 +1241,10 @@ void phlogiston(creature_type *creature_ptr)
 	object_type *object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_LITE, 0);
 
 	/* It's a lamp */
-	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN))
-	{
-		max_flog = FUEL_LAMP;
-	}
+	if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_LANTERN)) max_flog = FUEL_LAMP;
 
 	/* It's a torch */
-	else if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_TORCH))
-	{
-		max_flog = FUEL_TORCH;
-	}
+	else if((object_ptr->tval == TV_LITE) && (object_ptr->sval == SV_LITE_TORCH)) max_flog = FUEL_TORCH;
 
 	/* No torch to refill */
 	else
@@ -1326,8 +1308,8 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 
 	/* Get an item */
 #ifdef JP
-q = "どの武器を強化しますか? ";
-s = "強化できる武器がない。";
+	q = "どの武器を強化しますか? ";
+	s = "強化できる武器がない。";
 #else
 	q = "Enchant which weapon? ";
 	s = "You have nothing to enchant.";
@@ -1355,7 +1337,7 @@ s = "強化できる武器がない。";
 			if(object_ptr->tval == TV_SWORD)
 			{
 #ifdef JP
-act = "は鋭さを増した！";
+				act = "は鋭さを増した！";
 #else
 				act = "becomes very sharp!";
 #endif
@@ -1369,7 +1351,7 @@ act = "は鋭さを増した！";
 			else
 			{
 #ifdef JP
-act = "は破壊力を増した！";
+				act = "は破壊力を増した！";
 #else
 				act = "seems very powerful.";
 #endif
@@ -1380,16 +1362,15 @@ act = "は破壊力を増した！";
 			break;
 		case 16:
 #ifdef JP
-act = "は人間の血を求めている！";
+			act = "は人間の血を求めている！";
 #else
 			act = "seems to be looking for humans!";
 #endif
-
 			object_ptr->name2 = EGO_SLAY_HUMAN;
 			break;
 		case 15:
 #ifdef JP
-act = "は電撃に覆われた！";
+			act = "は電撃に覆われた！";
 #else
 			act = "covered with lightning!";
 #endif
@@ -1461,7 +1442,7 @@ act = "はトロルの血を求めている！";
 			break;
 		case 7:
 #ifdef JP
-act = "はオークの血を求めている！";
+			act = "はオークの血を求めている！";
 #else
 			act = "seems to be looking for orcs!";
 #endif
@@ -1470,7 +1451,7 @@ act = "はオークの血を求めている！";
 			break;
 		case 6:
 #ifdef JP
-act = "は巨人の血を求めている！";
+			act = "は巨人の血を求めている！";
 #else
 			act = "seems to be looking for giants!";
 #endif

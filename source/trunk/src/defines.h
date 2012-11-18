@@ -1524,9 +1524,6 @@
 // Special "sval" --- generate by level
 #define SV_ANY 255
 
-
-
-
 #define OBJ_GOLD_LIST   480     /* First "gold" entry */
 #define MAX_GOLD        18      /* Number of "gold" entries */
 
@@ -1986,14 +1983,7 @@
 #define GON_UNCURSED 0x00000200  /* Select in uncursed equipment */
 #define GON_ITEM     0x00000400  /* Normal Items  */
 
-
-/*** Creature flag values (hard-coded) ***/
-
-#define CREATURE_FLAGS_MAX 19
-
-/*
- * Hack -- effective elemental and poison immunity mask
- */
+// Hack -- effective elemental and poison immunity mask
 #define MR1_SINKA 0x01
 
 //TODO
