@@ -8906,19 +8906,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #endif
 			start_singing(caster_ptr, spell, MUSIC_BLESS);
 		}
-
-		if(stop)
-		{
-			if(!caster_ptr->timed_trait[TRAIT_BLESSED])
-			{
-#ifdef JP
-				msg_print("高潔な気分が消え失せた。");
-#else
-				msg_print("The prayer has expired.");
-#endif
-			}
-		}
-
 		break;
 
 	case 2:
@@ -9116,19 +9103,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_HERO);
 		}
 
-		if(stop)
-		{
-			if(!caster_ptr->timed_trait[TRAIT_HERO])
-			{
-#ifdef JP
-				msg_print("ヒーローの気分が消え失せた。");
-#else
-				msg_print("The heroism wears off.");
-#endif
-				/* Recalculate hitpoints */
-				caster_ptr->creature_update |= (CRU_HP);
-			}
-		}
+			if(stop) caster_ptr->creature_update |= (CRU_HP);
 
 		break;
 
@@ -9286,31 +9261,9 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 		if(name) return "Hiding Tune";
 		if(desc) return "Gives improved stealth.";
 #endif
-
 		/* Stop singing before start another */
 		if(cast || fail) stop_singing(caster_ptr);
-
-		if(cast)
-		{
-#ifdef JP
-			msg_print("あなたの姿が景色にとけこんでいった．．．");
-#else
-			msg_print("Your song carries you beyond the sight of mortal eyes...");
-#endif
-			start_singing(caster_ptr, spell, MUSIC_STEALTH);
-		}
-
-		if(stop)
-		{
-			if(!caster_ptr->timed_trait[TRAIT_STEALTH_PLUS])
-			{
-#ifdef JP
-				msg_print("姿がはっきりと見えるようになった。");
-#else
-				msg_print("You are no longer hided.");
-#endif
-			}
-		}
+		if(cast) start_singing(caster_ptr, spell, MUSIC_STEALTH);
 
 		break;
 
@@ -9504,54 +9457,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_RESIST);
 		}
 
-		if(stop)
-		{
-			if(!caster_ptr->timed_trait[TRAIT_RES_ACID])
-			{
-#ifdef JP
-				msg_print("酸への耐性が薄れた気がする。");
-#else
-				msg_print("You feel less resistant to acid.");
-#endif
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_RES_ELEC])
-			{
-#ifdef JP
-				msg_print("電撃への耐性が薄れた気がする。");
-#else
-				msg_print("You feel less resistant to elec.");
-#endif
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_RES_FIRE])
-			{
-#ifdef JP
-				msg_print("火への耐性が薄れた気がする。");
-#else
-				msg_print("You feel less resistant to fire.");
-#endif
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_RES_COLD])
-			{
-#ifdef JP
-				msg_print("冷気への耐性が薄れた気がする。");
-#else
-				msg_print("You feel less resistant to cold.");
-#endif
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_RES_POIS])
-			{
-#ifdef JP
-				msg_print("毒への耐性が薄れた気がする。");
-#else
-				msg_print("You feel less resistant to pois.");
-#endif
-			}
-		}
-
 		break;
 
 	case 18:
@@ -9574,18 +9479,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			msg_print("You start singing joyful pop song...");
 #endif
 			start_singing(caster_ptr, spell, MUSIC_SPEED);
-		}
-
-		if(stop)
-		{
-			if(!caster_ptr->timed_trait[TRAIT_FAST])
-			{
-#ifdef JP
-				msg_print("動きの素早さがなくなったようだ。");
-#else
-				msg_print("You feel yourself slow down.");
-#endif
-			}
 		}
 
 		break;
@@ -9875,28 +9768,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			start_singing(caster_ptr, spell, MUSIC_SHERO);
 		}
 
-		if(stop)
-		{
-			if(!caster_ptr->timed_trait[TRAIT_HERO])
-			{
-#ifdef JP
-				msg_print("ヒーローの気分が消え失せた。");
-#else
-				msg_print("The heroism wears off.");
-#endif
-				/* Recalculate hitpoints */
-				caster_ptr->creature_update |= (CRU_HP);
-			}
-
-			if(!caster_ptr->timed_trait[TRAIT_FAST])
-			{
-#ifdef JP
-				msg_print("動きの素早さがなくなったようだ。");
-#else
-				msg_print("You feel yourself slow down.");
-#endif
-			}
-		}
+		if(stop) caster_ptr->creature_update |= (CRU_HP);
 
 		{
 			int dice = 1;
