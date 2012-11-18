@@ -952,14 +952,13 @@ msg_print("回りの大気が張りつめてきた...");
 #else
 		msg_print("The air about you becomes charged...");
 #endif
-
 		play_redraw |= (PR_STATUS);
 	}
 	else
 	{
 		creature_ptr->timed_trait[TRAIT_WORD_RECALL] = 0;
 #ifdef JP
-msg_print("張りつめた大気が流れ去った...");
+		msg_print("張りつめた大気が流れ去った...");
 #else
 		msg_print("A tension leaves the air around you...");
 #endif
@@ -988,7 +987,6 @@ bool reset_recall(creature_type *creature_ptr)
 	select_dungeon = choose_dungeon("reset", 2, 14);
 #endif
 
-	/* Ironman option */
 	if(ironman_downward)
 	{
 #ifdef JP
@@ -996,65 +994,46 @@ bool reset_recall(creature_type *creature_ptr)
 #else
 		msg_print("Nothing happens.");
 #endif
-
 		return TRUE;
 	}
 
 	if(!select_dungeon) return FALSE;
-	/* Prompt */
 #ifdef JP
-sprintf(ppp, "何階にセットしますか (%d-%d):", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
+	sprintf(ppp, "何階にセットしますか (%d-%d):", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #else
 	sprintf(ppp, "Reset to which level (%d-%d): ", dungeon_info[select_dungeon].mindepth, max_dlv[select_dungeon]);
 #endif
 
-	/* Default */
 	sprintf(tmp_val, "%d", MAX(creature_ptr->depth, 1));
-
-	/* Ask for a level */
-	if(get_string(ppp, tmp_val, 10))
+	if(get_string(ppp, tmp_val, 10)) // Ask for a level
 	{
-		/* Extract request */
 		dummy = atoi(tmp_val);
 
-		/* Paranoia */
 		if(dummy < 1) dummy = 1;
-
-		/* Paranoia */
 		if(dummy > max_dlv[select_dungeon]) dummy = max_dlv[select_dungeon];
 		if(dummy < dungeon_info[select_dungeon].mindepth) dummy = dungeon_info[select_dungeon].mindepth;
 
 		max_dlv[select_dungeon] = dummy;
 
 		if(record_maxdepth)
+		{
 #ifdef JP
 			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "フロア・リセットで");
+			msg_format("%sの帰還レベルを %d 階にセット。", dungeon_name + dungeon_info[select_dungeon].name, dummy, dummy * 50);
 #else
 			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "using a scroll of reset recall");
+			msg_format("Recall depth set to level %d (%d').", dummy, dummy * 50);
 #endif
-					/* Accept request */
-#ifdef JP
-msg_format("%sの帰還レベルを %d 階にセット。", dungeon_name + dungeon_info[select_dungeon].name, dummy, dummy * 50);
-#else
-		msg_format("Recall depth set to level %d (%d').", dummy, dummy * 50);
-#endif
+		}
 
 	}
-	else
-	{
-		return FALSE;
-	}
+	else return FALSE;
 	return TRUE;
 }
 
-
-/*
- * Apply disenchantment to the player's stuff
- *
- * XXX XXX XXX This function is also called from the "melee" code
- *
- * Return "TRUE" if the player notices anything
- */
+// Apply disenchantment to the player's stuff
+// XXX XXX XXX This function is also called from the "melee" code
+// Return "TRUE" if the player notices anything
 bool apply_disenchant(creature_type *creature_ptr, int mode)
 {
 	int             t = 0, item;
@@ -1062,49 +1041,32 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	char            object_name[MAX_NLEN];
 	int to_hit, to_damage, to_ac, to_ev, to_vo, pval;
 
-	/* Pick a random slot */
-	//TODO
-	item = randint1(INVEN_TOTAL);
-
 	// Get the item
+	item = randint0(INVEN_TOTAL);
 	object_ptr = &creature_ptr->inventory[item];
-
 	if(!IS_EQUIPPED(object_ptr)) return FALSE;
+	if(!is_valid_object(object_ptr)) return FALSE; // No item, nothing happens
 
-	/* No item, nothing happens */
-	if(!is_valid_object(object_ptr)) return (FALSE);
+	// Disenchant equipments only -- No disenchant on creature ball
+	if(!object_is_weapon_armour_ammo(object_ptr)) return FALSE;
 
-	/* Disenchant equipments only -- No disenchant on creature ball */
-	if(!object_is_weapon_armour_ammo(object_ptr))
+	// Nothing to disenchant
+	if((object_ptr->to_hit <= 0) && (object_ptr->to_damage <= 0) && 
+		(object_ptr->to_ac <= 0) && (object_ptr->to_ev <= 0) && (object_ptr->to_vo <= 0) && (object_ptr->pval <= 1))
 		return FALSE;
 
-	/* Nothing to disenchant */
-	if((object_ptr->to_hit <= 0) && (object_ptr->to_damage <= 0) && (object_ptr->to_ac <= 0) && (object_ptr->pval <= 1))
-	{
-		/* Nothing to notice */
-		return (FALSE);
-	}
-
-
-	/* Describe the object */
+	// Describe the object
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-
-	/* Artifacts have 71% chance to resist */
+	// Artifacts have 71% chance to resist
 	if(object_is_artifact(object_ptr) && (randint0(100) < 71))
 	{
-		/* Message */
 #ifdef JP
-msg_format("%s(%c)は劣化を跳ね返した！",object_name, index_to_label(t) );
+		msg_format("%s(%c)は劣化を跳ね返した！",object_name, index_to_label(t) );
 #else
-		msg_format("Your %s (%c) resist%s disenchantment!",
-			   object_name, index_to_label(t),
-			   ((object_ptr->number != 1) ? "" : "s"));
+		msg_format("Your %s (%c) resist%s disenchantment!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "" : "s"));
 #endif
-
-
-		/* Notice */
-		return (TRUE);
+		return TRUE;
 	}
 
 	to_hit = object_ptr->to_hit;
