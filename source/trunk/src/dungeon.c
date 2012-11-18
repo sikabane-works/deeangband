@@ -2017,6 +2017,7 @@ static void process_world_aux_light(creature_type *creature_ptr)
 static void process_world_aux_time_trying(creature_type *creature_ptr)
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
+	char object_name[MAX_NLEN];
 
 	if(!is_valid_creature(creature_ptr)) return;
 	if(floor_ptr->gamble_arena_mode) return;
@@ -2525,7 +2526,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	*/
 	if((has_trait(creature_ptr, TRAIT_PASSIVE_TELEPORT)) && one_in_(200))
 	{
-		char object_name[MAX_NLEN];
 		object_type *object_ptr;
 		int i, i_keep = 0, count = 0;
 
@@ -2620,10 +2620,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		new_curse = get_curse(0, object_ptr);
 		if(!(object_ptr->curse_flags[0] & new_curse))
 		{
-			char object_name[MAX_NLEN];
-
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
 			object_ptr->curse_flags[0] |= new_curse;
 #ifdef JP
 			msg_format("ˆ«ˆÓ‚É–ž‚¿‚½•‚¢ƒI[ƒ‰‚ª%s‚ð‚Æ‚è‚Ü‚¢‚½...", object_name);
@@ -2647,10 +2644,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		new_curse = get_curse(1, object_ptr);
 		if(!(object_ptr->curse_flags[0] & new_curse))
 		{
-			char object_name[MAX_NLEN];
-
 			object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
-
 			object_ptr->curse_flags[0] |= new_curse;
 #ifdef JP
 			msg_format("ˆ«ˆÓ‚É–ž‚¿‚½•‚¢ƒI[ƒ‰‚ª%s‚ð‚Æ‚è‚Ü‚¢‚½...", object_name);
@@ -2668,15 +2662,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_ANIMAL,
 			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
-			char object_name[MAX_NLEN];
-
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_ANIMAL), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%s‚ª“®•¨‚ðˆø‚«Šñ‚¹‚½I", object_name);
 #else
 			msg_format("Your %s have attracted an animal!", object_name);
 #endif
-
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2686,14 +2677,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	{
 		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DEMON, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
-			char object_name[MAX_NLEN];
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DEMON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%s‚ªˆ«–‚‚ðˆø‚«Šñ‚¹‚½I", object_name);
 #else
 			msg_format("Your %s have attracted a demon!", object_name);
 #endif
-
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2704,15 +2693,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		if(summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_DRAGON,
 			(PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET)))
 		{
-			char object_name[MAX_NLEN];
-
 			object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_CALL_DRAGON), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 			msg_format("%s‚ªƒhƒ‰ƒSƒ“‚ðˆø‚«Šñ‚¹‚½I", object_name);
 #else
 			msg_format("Your %s have attracted an animal!", object_name);
 #endif
-
 			disturb(player_ptr, 0, 0);
 		}
 	}
@@ -2727,7 +2713,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Handle HP draining */
 	if((has_trait(creature_ptr, TRAIT_DRAIN_HP)) && one_in_(666))
 	{
-		char object_name[MAX_NLEN];
 
 		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_HP), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
@@ -2741,20 +2726,13 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 	/* Handle mana draining */
 	if((has_trait(creature_ptr, TRAIT_DRAIN_MANA)) && creature_ptr->csp && one_in_(666))
 	{
-		char object_name[MAX_NLEN];
-
 		object_desc(object_name, choose_cursed_obj_name(creature_ptr, TRAIT_DRAIN_MANA), (OD_OMIT_PREFIX | OD_NAME_ONLY));
 #ifdef JP
 		msg_format("%s‚Í‚ ‚È‚½‚Ì–‚—Í‚ð‹zŽû‚µ‚½I", object_name);
 #else
 		msg_format("Your %s drains mana from you!", object_name);
 #endif
-		creature_ptr->csp -= MIN(creature_ptr->lev, 50);
-		if(creature_ptr->csp < 0)
-		{
-			creature_ptr->csp = 0;
-			creature_ptr->csp_frac = 0;
-		}
+		dec_mana( creature_ptr, creature_ptr->lev);
 		play_redraw |= PR_MANA;
 	}
 
@@ -2766,18 +2744,12 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 		//TODO if(object_ptr->name1 == ART_JUDGE)
 		{
 #ifdef JP
-			if(object_is_known(object_ptr))
-				msg_print("wR”»‚Ì•óÎx‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
-			else
-				msg_print("‚È‚É‚©‚ª‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
-
+			if(object_is_known(object_ptr)) msg_print("wR”»‚Ì•óÎx‚Í‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
+			else msg_print("‚È‚É‚©‚ª‚ ‚È‚½‚Ì‘Ì—Í‚ð‹zŽû‚µ‚½I");
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "R”»‚Ì•óÎ", NULL, -1);
 #else
-			if(object_is_known(object_ptr))
-				msg_print("The Jewel of Judgement drains life from you!");
-			else
-				msg_print("Something drains life from you!");
-
+			if(object_is_known(object_ptr)) msg_print("The Jewel of Judgement drains life from you!");
+			else msg_print("Something drains life from you!");
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, MIN(creature_ptr->lev, 50), "the Jewel of Judgement", "", -1);
 #endif
 		}
