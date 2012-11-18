@@ -2018,7 +2018,6 @@
 
 /*** Option Definitions ***/
 
-
 #define OPT_PAGE_INPUT          1
 #define OPT_PAGE_MAPSCREEN      2
 #define OPT_PAGE_TEXT           3
@@ -2041,18 +2040,8 @@
 #define term_screen     (angband_term[0])
 
 
-/*
- * Determine if a given inventory item is "aware"
- */
-#define object_is_aware(T) \
-    (object_kind_info[(T)->k_idx].aware)
-
-/*
- * Determine if a given inventory item is "tried"
- */
-#define object_is_tried(T) \
-    (object_kind_info[(T)->k_idx].tried)
-
+#define object_is_aware(T) (object_kind_info[(T)->k_idx].aware) // Determine if a given inventory item is "aware"
+#define object_is_tried(T) (object_kind_info[(T)->k_idx].tried) // Determine if a given inventory item is "tried"
 
 /*
  * Determine if a given inventory item is "known"
@@ -2086,31 +2075,10 @@
 	 (object_kind_info[object_kind_info[(T)->k_idx].flavor].x_char) : \
 	 (object_kind_info[(T)->k_idx].x_char))
 
-
-/*
- * Artifacts use the "name1" field
- */
-#define object_is_fixed_artifact(T) \
-	((T)->name1 ? TRUE : FALSE)
-
-/*
- * Ego-Items use the "name2" field
- */
-#define object_is_ego(T) \
-	((T)->name2 ? TRUE : FALSE)
-
-
-/*
- * Broken items.
- */
-#define object_is_broken(T) \
-	((T)->ident & (IDENT_BROKEN))
-
-/*
- * Cursed items.
- */
-#define object_is_cursed(T) \
-	((T)->curse_flags[0])
+#define object_is_fixed_artifact(T) ((T)->name1 ? TRUE : FALSE) // Artifacts use the "name1" field
+#define object_is_ego(T) ((T)->name2 ? TRUE : FALSE) // Ego-Items use the "name2" field
+#define object_is_broken(T) ((T)->ident & (IDENT_BROKEN)) // Broken items.
+#define object_is_cursed(T) ((T)->curse_flags[0]) // Cursed items.
 
 
 /*
@@ -2489,7 +2457,6 @@ enum GRAPHICS_MODE
 #define SPECIES_D_ELF         122
 #define SPECIES_MANES         128
 #define SPECIES_LOST_SOUL     133
-#define SPECIES_ROBIN_HOOD    138
 #define SPECIES_NOV_PALADIN_G 147
 #define SPECIES_PHANTOM_W     152
 #define SPECIES_WOUNDED_BEAR  159
