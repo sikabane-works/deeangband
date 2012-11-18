@@ -1211,7 +1211,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 		}
 		case CLASS_BERSERKER:
 		{
-			if(!word_of_recall(creature_ptr)) return FALSE;
+			if(!word_of_recall(creature_ptr, randint0(21) + 15)) return FALSE;
 			break;
 		}
 		case CLASS_SMITH:

@@ -439,7 +439,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		break;
 
 	case TRAIT_RECALL:
-		if(!word_of_recall(caster_ptr)) return FALSE;
+		if(!word_of_recall(caster_ptr, randint0(21) + 15)) return FALSE;
 		break;
 
 	case TRAIT_JEWEL_OF_JUDGEMENT:
@@ -468,9 +468,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 			if(get_check("Activate recall? "))
 #endif
-			{
-				(void)word_of_recall(caster_ptr);
-			}
+				(void)word_of_recall(caster_ptr, randint0(21) + 15);
 
 			break;
 		}

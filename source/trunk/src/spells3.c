@@ -894,7 +894,7 @@ int choose_dungeon(cptr note, int y, int x)
 
 
 // Recall the player to town or dungeon
-bool recall_player(creature_type *creature_ptr, int turns)
+bool word_of_recall(creature_type *creature_ptr, int turns)
 {
 	/*
 	 * TODO: Recall the player to the last
@@ -967,13 +967,6 @@ msg_print("‰ñ‚è‚Ì‘å‹C‚ª’£‚è‚Â‚ß‚Ä‚«‚½...");
 	}
 	return TRUE;
 }
-
-
-bool word_of_recall(creature_type *creature_ptr)
-{
-	return(recall_player(creature_ptr, randint0(21) + 15));
-}
-
 
 bool reset_recall(creature_type *creature_ptr)
 {

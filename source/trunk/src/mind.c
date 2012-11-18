@@ -1365,14 +1365,13 @@ msg_format("There are too many mirrors to control!");
 #endif
 	  return mirror_tunnel(creature_ptr);
 
-	/* mirror of recall */
 	case 17:
-		return word_of_recall(creature_ptr);
-	/* multi-shadow */
+		return word_of_recall(creature_ptr, randint0(21) + 15);
+
 	case 18:
-	  set_timed_trait_aux(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6),FALSE);
+	  set_timed_trait_aux(creature_ptr, TRAIT_MULTI_SHADOW, 6+randint1(6), FALSE);
 	  break;
-	/* binding field */
+
 	case 19:
 #ifdef JP
 	  if(!binding_field(creature_ptr, MAX_RANGE, plev*11+5)) msg_print("“K“–‚È‹¾‚ğ‘I‚×‚È‚©‚Á‚½I");

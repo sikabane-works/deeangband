@@ -1331,8 +1331,7 @@ extern void teleport_creature_to(creature_type *caster_ptr, int ny, int nx, u32b
 extern void teleport_away_followable(creature_type *creature_ptr);
 extern void teleport_level(creature_type *creature_ptr, int m_idx);
 extern int choose_dungeon(cptr note, int y, int x);
-extern bool recall_player(creature_type *creature_ptr, int turns);
-extern bool word_of_recall(creature_type *creature_ptr);
+extern bool word_of_recall(creature_type *creature_ptr, int turns);
 extern bool reset_recall(creature_type *creature_ptr);
 extern bool apply_disenchant(creature_type *creature_ptr, int mode);
 extern void mutate_creature(creature_type *creature_ptr);

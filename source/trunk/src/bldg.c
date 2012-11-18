@@ -3980,7 +3980,7 @@ msg_print("Ç®ã‡Ç™ë´ÇËÇ‹ÇπÇÒÅI");
 		enchant_item(creature_ptr, bcost, 1, 1, 0, TV_BOW);
 		break;
 	case BUILDING_FUNCTION_RECALL:
-		if(recall_player(creature_ptr, 1)) paid = TRUE;
+		if(word_of_recall(creature_ptr, 1)) paid = TRUE;
 		break;
 	case BUILDING_FUNCTION_TELEPORT_LEVEL:
 	{

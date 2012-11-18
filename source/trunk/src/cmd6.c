@@ -1393,7 +1393,7 @@ static void do_cmd_read_scroll_aux(creature_type *caster_ptr, int item, bool kno
 
 		case SV_SCROLL_WORD_OF_RECALL:
 		{
-			if(!word_of_recall(caster_ptr)) used_up = FALSE;
+			if(!word_of_recall(caster_ptr, randint0(21) + 15)) used_up = FALSE;
 			ident = TRUE;
 			break;
 		}
@@ -2796,7 +2796,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_RECALL:
 		{
-			if(!word_of_recall(creature_ptr)) *use_charge = FALSE;
+			if(!word_of_recall(creature_ptr, randint0(21) + 15)) *use_charge = FALSE;
 			ident = TRUE;
 			break;
 		}

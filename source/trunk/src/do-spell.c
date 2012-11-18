@@ -1611,7 +1611,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!word_of_recall(creature_ptr)) return NULL;
+				if(!word_of_recall(creature_ptr, randint0(21) + 15)) return NULL;
 			}
 		}
 		break;
@@ -2326,7 +2326,7 @@ static cptr do_sorcery_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!word_of_recall(caster_ptr)) return NULL;
+				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
 			}
 		}
 		break;
@@ -5344,7 +5344,7 @@ static cptr do_trump_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!word_of_recall(caster_ptr)) return NULL;
+				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
 			}
 		}
 		break;
@@ -6539,7 +6539,7 @@ static cptr do_arcane_spell(creature_type *caster_ptr, int spell, int mode)
 
 			if(cast)
 			{
-				if(!word_of_recall(caster_ptr)) return NULL;
+				if(!word_of_recall(caster_ptr, randint0(21) + 15)) return NULL;
 			}
 		}
 		break;
