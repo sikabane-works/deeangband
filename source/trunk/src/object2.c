@@ -2221,23 +2221,17 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			/* Analyze */
 			switch (object_ptr->sval)
 			{
-				case SV_RING_ATTACKS:
+				case SV_RING_ATTACKS: // Stat bonus
 				{
-					/* Stat bonus */
+					
 					object_ptr->pval = m_bonus(2, level);
 					if(one_in_(15)) object_ptr->pval++;
 					if(object_ptr->pval < 1) object_ptr->pval = 1;
 
-					/* Cursed */
-					if(power < 0)
+					if(power < ITEM_RANK_NORMAL)
 					{
-						/* Broken */
 						object_ptr->ident |= (IDENT_BROKEN);
-
-						/* Cursed */
 						add_flag(object_ptr->curse_flags, TRAIT_CURSED);
-
-						/* Reverse pval */
 						object_ptr->pval = 0 - (object_ptr->pval);
 					}
 
@@ -2245,14 +2239,12 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 				}
 
 			}
-			if((one_in_(400) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79))
-			    || (power > 2)) /* power > 2 is debug only */
+			if((one_in_(400) && (power > ITEM_RANK_NORMAL) && !object_is_cursed(object_ptr) && (level > 79)) || (power >= ITEM_RANK_SPECIAL)) // power > 2
 			{
 				object_ptr->pval = MIN(object_ptr->pval, 4);
-				/* Randart amulet */
 				create_artifact(creature_ptr, object_ptr, FALSE);
 			}
-			else if((power == 2) && one_in_(2))
+			else if((power == ITEM_RANK_GREAT) && one_in_(2))
 			{
 				while(!object_ptr->name2)
 				{
@@ -2292,37 +2284,31 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 						object_ptr->name2 = EGO_RING_WIZARD;
 						break;
 					case 15:
-						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						object_ptr->name2 = EGO_RING_HERO;
 						break;
 					case 16:
-						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						if(tmp > 8) object_ptr->name2 = EGO_RING_MANA_BALL;
 						else if(tmp > 4) object_ptr->name2 = EGO_RING_MANA_BOLT;
 						else object_ptr->name2 = EGO_RING_MAGIC_MIS;
 						break;
 					case 17:
-						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
 						if(tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_F;
 						else if(tmp > 3) object_ptr->name2 = EGO_RING_FIRE_BALL;
 						else object_ptr->name2 = EGO_RING_FIRE_BOLT;
 						break;
 					case 18:
-						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_COLD)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
 						if(tmp > 7) object_ptr->name2 = EGO_RING_DRAGON_C;
 						else if(tmp > 3) object_ptr->name2 = EGO_RING_COLD_BALL;
 						else object_ptr->name2 = EGO_RING_COLD_BOLT;
 						break;
 					case 19:
-						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE) || have_flag(object_kind_ptr->flags, TRAIT_RES_ACID))) break;
 						if(tmp > 4) object_ptr->name2 = EGO_RING_ELEC_BALL;
 						else object_ptr->name2 = EGO_RING_ELEC_BOLT;
 						break;
 					case 20:
-						//TODO:TR_ACTIVATE if(have_flag(object_kind_ptr->flags, TR_ACTIVATE)) break;
 						if(!(have_flag(object_kind_ptr->flags, TRAIT_RES_ACID)) && (have_flag(object_kind_ptr->flags, TRAIT_RES_COLD) || have_flag(object_kind_ptr->flags, TRAIT_RES_ELEC) || have_flag(object_kind_ptr->flags, TRAIT_RES_FIRE))) break;
 						if(tmp > 4) object_ptr->name2 = EGO_RING_ACID_BALL;
 						else object_ptr->name2 = EGO_RING_ACID_BOLT;
