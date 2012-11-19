@@ -1960,12 +1960,14 @@ enum OBJECT_KIND_INFO {
 	OK_INFO_CHARGE,
 	OK_INFO_BASE_AC,
 	OK_INFO_BASE_EV,
+	OK_INFO_BASE_VO,
 	OK_INFO_BASE_DAMAGE,
 	OK_INFO_PLUS_HIT,
 
 	OK_INFO_PLUS_DAM,
 	OK_INFO_PLUS_AC,
 	OK_INFO_PLUS_EV,
+	OK_INFO_PLUS_VO,
 	OK_INFO_BOW_MUL,
 	OK_INFO_ADD_DEPTH_RARITY,
 
@@ -2006,29 +2008,32 @@ static cptr object_kind_info_csv_list[OBJECT_KIND_INFO_CSV_COLUMNS] =
 	"STL",
 	"MMS",
 	"SPD",
+
 	"DEPTH",
 	"RARITY",
 	"WEIGHT",
 	"COST",
-
 	"CHARGE",
+
 	"BASE_AC",
 	"BASE_EV",
+	"BASE_VO",
 	"BASE_DAMAGE",
 	"PLUS_HIT",
 
 	"PLUS_DAM",
 	"PLUS_AC",
 	"PLUS_EV",
+	"PLUS_VO",
 	"BOW_MUL",
-	"ADD_DEPTH_RARITY",
 
+	"ADD_DEPTH_RARITY",
 	"FLAGS",
 	"DESCRIPTION",
 	"E_DESCRIPTION",
 	"COMMENT",
-	"MIN_SIZE",
 
+	"MIN_SIZE",
 	"MAX_SIZE",
 	"SLOT",
 	"AP_RATE"
@@ -2263,6 +2268,13 @@ errr parse_object_kind_csv(char *buf, header *head)
 					object_kind_ptr->ev = 0;
 				break;
 
+			case OK_INFO_BASE_VO:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->vo = (byte)b;
+				else
+					object_kind_ptr->vo = 0;
+				break;
+
 			case OK_INFO_BASE_DAMAGE:
 				if(sscanf(tmp, "%dd%d", &b, &c) == 2)
 				{
@@ -2298,6 +2310,17 @@ errr parse_object_kind_csv(char *buf, header *head)
 				break;
 
 			case OK_INFO_PLUS_EV:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->to_ev = (s16b)b;
+				else
+					object_kind_ptr->to_ev = 0;
+				break;
+
+			case OK_INFO_PLUS_VO:
+				if(sscanf(tmp, "%d", &b) == 1)
+					object_kind_ptr->to_vo = (s16b)b;
+				else
+					object_kind_ptr->to_vo = 0;
 				break;
 
 			case OK_INFO_BOW_MUL:
