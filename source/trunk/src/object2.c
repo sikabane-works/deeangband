@@ -1960,7 +1960,7 @@ static void object_mention(object_type *object_ptr)
  * We are only called from "make_object()", and we assume that
  * "apply_magic()" is called immediately after we return.
  *
- * Note -- see "make_artifact()" and "apply_magic()"
+ * Note -- see "judge_fixed_artifact()" and "apply_magic()"
  */
 static bool make_artifact_special(creature_type *owner_ptr, object_type *object_ptr)
 {
@@ -2029,14 +2029,11 @@ static bool make_artifact_special(creature_type *owner_ptr, object_type *object_
 }
 
 
-/*
- * Attempt to change an object into an artifact
- *
- * This routine should only be called by "apply_magic()"
- *
- * Note -- see "make_artifact_special()" and "apply_magic()"
- */
-static bool make_artifact(creature_type *owner_ptr, object_type *object_ptr)
+
+// Attempt to change an object into an artifact
+// This routine should only be called by "apply_magic()"
+// Note -- see "make_artifact_special()" and "apply_magic()"
+static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_ptr)
 {
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
@@ -2048,44 +2045,29 @@ static bool make_artifact(creature_type *owner_ptr, object_type *object_ptr)
 	{
 		artifact_type *a_ptr = &artifact_info[i];
 
-		/* Skip "empty" items */
-		if(!a_ptr->name) continue;
-
-		/* Cannot make an artifact twice */
-		if(a_ptr->cur_num) continue;
+		if(!a_ptr->name) continue; // Skip "empty" items
+		if(a_ptr->cur_num) continue; // Cannot make an artifact twice
 
 		if(have_flag(a_ptr->flags, TRAIT_QUESTITEM)) continue;
 		if(have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
-		/* Must have the correct fields */
+		// Must have the correct fields
 		if(a_ptr->tval != object_ptr->tval) continue;
 		if(a_ptr->sval != object_ptr->sval) continue;
 
-		/* XXX XXX Enforce minimum "depth" (loosely) */
+		// XXX XXX Enforce minimum "depth" (loosely)
 		if(a_ptr->level > floor_ptr->floor_level)
 		{
-			/* Acquire the "out-of-depth factor" */
 			int d = (a_ptr->level - floor_ptr->floor_level) * 2;
-
-			/* Roll for out-of-depth creation */
 			if(!one_in_(d)) continue;
 		}
-
-		/* We must make the "rarity roll" */
-		if(!one_in_(a_ptr->rarity)) continue;
-
-		/* Hack -- mark the item as an artifact */
-		object_ptr->name1 = i;
-
-		/* Hack: Some artifacts get random extra powers */
-		random_artifact_resistance(owner_ptr, object_ptr, a_ptr);
-
-		/* Success */
-		return (TRUE);
+		if(!one_in_(a_ptr->rarity)) continue; // We must make the "rarity roll"
+		
+		object_ptr->name1 = i; // Hack -- mark the item as an artifact
+		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
+		return (TRUE); // Success
 	}
-
-	/* Failure */
-	return (FALSE);
+	return (FALSE); // Failure
 }
 
 
@@ -2102,12 +2084,8 @@ static s16b get_random_ego(u16b slot, bool good)
 	for (i = 1; i < max_object_ego_idx; i++)
 	{
 		e_ptr = &object_ego_info[i];
-		
-		if(e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
-		{
-			if(e_ptr->rarity)
-				total += (255 / e_ptr->rarity);
-		}
+			if(e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
+			if(e_ptr->rarity) total += (255 / e_ptr->rarity);
 	}
 
 	value = randint1(total);
@@ -2139,10 +2117,8 @@ static void dragon_resist(object_type * object_ptr)
 {
 	do
 	{
-		if(one_in_(4))
-			one_dragon_ele_resistance(object_ptr);
-		else
-			one_high_resistance(object_ptr);
+		if(one_in_(4)) one_dragon_ele_resistance(object_ptr);
+		else one_high_resistance(object_ptr);
 	}
 	while (one_in_(2));
 }
@@ -2163,7 +2139,6 @@ static bool add_esp_strong(object_type *object_ptr)
 }
 
 
-#define MAX_ESP_WEAK 9
 static void add_esp_weak(object_type *object_ptr, bool extra)
 {
 	int i = 0;
@@ -2174,13 +2149,10 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
 
 	for (i = 0; i < MAX_ESP_WEAK; i++) flg[i] = i + 1;
 
-	/* Shuffle esp flags */
 	for (i = 0; i < n; i++)
 	{
 		int k = randint0(left--);
-
 		idx[i] = flg[k];
-
 		while (k < left)
 		{
 			flg[k] = flg[k + 1];
@@ -2202,12 +2174,9 @@ static void add_esp_weak(object_type *object_ptr, bool extra)
 	}
 }
 
-/*
- * Apply magic to an item known to be a "ring" or "amulet"
- *
- * Hack -- note special "pval boost" code for ring of speed
- * Hack -- note that some items must be cursed (or blessed)
- */
+// Apply magic to an item known to be a "ring" or "amulet"
+// Hack -- note special "pval boost" code for ring of speed
+// Hack -- note that some items must be cursed (or blessed)
 static void generate_process_ring_amulet(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
 {
 	if(has_trait_object(object_ptr, TRAIT_LOW_ESP)) one_low_esp(object_ptr);
@@ -2884,10 +2853,10 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 	for (i = 0; i < rolls; i++)
 	{
 		/* Roll for an artifact */
-		if(make_artifact(owner_ptr, object_ptr)) break;
+		if(judge_fixed_artifact(owner_ptr, object_ptr)) break;
 		if(has_trait(owner_ptr, TRAIT_GOOD_LUCK) && one_in_(77))
 		{
-			if(make_artifact(owner_ptr, object_ptr)) break;
+			if(judge_fixed_artifact(owner_ptr, object_ptr)) break;
 		}
 	}
 

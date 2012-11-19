@@ -1967,6 +1967,8 @@
 #define ITEM_RANK_CURSED   -1
 #define ITEM_RANK_BROKEN   -2
 
+#define MAX_ESP_WEAK 9
+
 
 /*
  *  Bit flags for get_obj_num()
