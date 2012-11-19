@@ -1384,21 +1384,17 @@ static errr rd_floors(void)
 static errr rd_savefile_new_aux(void)
 {
 	int i, j;
-
 	s16b limit;
 	s32b wild_x_size;
 	s32b wild_y_size;
-
 	u16b tmp16u;
-
 	char buf[SCREEN_BUF_SIZE];
 
+	int creature_idx;
+	creature_type *creature_ptr;
 
-#ifdef VERIFY_CHECKSUMS
 	u32b n_x_check, n_v_check;
 	u32b o_x_check, o_v_check;
-#endif
-
 
 	/* Mention the savefile version */
 	note(format(
@@ -1490,9 +1486,6 @@ note("乱数情報をロードしました");
 	// Read creatures
 	for (i = 1; i < limit; i++)
 	{
-		int creature_idx;
-		creature_type *creature_ptr;
-
 		creature_idx = creature_pop(); // Get a new record
 		creature_ptr = &creature_list[creature_idx]; // Acquire creature
 		rd_creature(creature_ptr); // Read the creature
@@ -1772,9 +1765,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		reset_cave_creature_reference();
 	}
 
-
-#ifdef VERIFY_CHECKSUMS
-
 	n_v_check = v_check; // Save the checksum
 	rd_u32b(&o_v_check); // Read the old checksum
 	if(o_v_check != n_v_check) // Verify
@@ -1801,8 +1791,6 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 
 		return (11);
 	}
-
-#endif
 
 	return (0); // Success
 }

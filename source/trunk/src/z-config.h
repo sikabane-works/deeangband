@@ -146,14 +146,6 @@
 
 
 /*
- * OPTION: Verify savefile Checksums (Angband 2.7.0 and up)
- * This option can help prevent "corruption" of savefiles, and also
- * stop intentional modification by amateur users.
- */
-#define VERIFY_CHECKSUMS
-
-
-/*
  * OPTION: Forbid the use of "fiddled" savefiles.  As far as I can tell,
  * a fiddled savefile is one with an internal timestamp different from
  * the actual timestamp.  Thus, turning this option on forbids one from
@@ -418,7 +410,6 @@
  */
 #ifdef VERIFY_HONOR
 # define VERIFY_SAVEFILE
-# define VERIFY_CHECKSUMS
 # define VERIFY_TIMESTAMPS
 #endif
 
