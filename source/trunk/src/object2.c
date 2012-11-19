@@ -1962,77 +1962,55 @@ static void object_mention(object_type *object_ptr)
  *
  * Note -- see "judge_fixed_artifact()" and "apply_magic()"
  */
-static bool make_artifact_special(creature_type *owner_ptr, object_type *object_ptr)
+static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object_ptr)
 {
 	int i;
 	int k_idx = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
-	/* No artifacts in the town */
-	if(!floor_ptr->floor_level) return (FALSE);
+	if(!floor_ptr->floor_level) return (FALSE); // No artifacts in the town
 
-	/* Check the artifact list (just the "specials") */
-	for (i = 0; i < max_artifact_idx; i++)
+	for (i = 0; i < max_artifact_idx; i++) // Check the artifact list (just the "specials")
 	{
 		artifact_type *a_ptr = &artifact_info[i];
-
-		/* Skip "empty" artifacts */
-		if(!a_ptr->name) continue;
-
-		/* Cannot make an artifact twice */
-		if(a_ptr->cur_num) continue;
+		if(!a_ptr->name) continue; // Skip "empty" artifacts
+		if(a_ptr->cur_num) continue; // Cannot make an artifact twice
 
 		if(have_flag(a_ptr->flags, TRAIT_QUESTITEM)) continue;
 		if(!have_flag(a_ptr->flags, TRAIT_INSTA_ART)) continue;
 
-		/* XXX XXX Enforce minimum "depth" (loosely) */
+		// XXX XXX Enforce minimum "depth" (loosely)
 		if(a_ptr->level > floor_ptr->floor_level)
 		{
-			/* Acquire the "out-of-depth factor" */
 			int d = (a_ptr->level - floor_ptr->floor_level) * 2;
-
-			/* Roll for out-of-depth creation */
 			if(!one_in_(d)) continue;
 		}
 
-		/* Artifact "rarity roll" */
-		if(!one_in_(a_ptr->rarity)) continue;
+		if(!one_in_(a_ptr->rarity)) continue; // Artifact "rarity roll"
+		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval); // Find the base object
 
-		/* Find the base object */
-		k_idx = lookup_kind(a_ptr->tval, a_ptr->sval);
-
-		/* XXX XXX Enforce minimum "object" level (loosely) */
+		// XXX XXX Enforce minimum "object" level (loosely)
 		if(object_kind_info[k_idx].level > floor_ptr->object_level)
 		{
-			/* Acquire the "out-of-depth factor" */
-			int d = (object_kind_info[k_idx].level - floor_ptr->object_level) * 5;
-
-			/* Roll for out-of-depth creation */
-			if(!one_in_(d)) continue;
+			int d = (object_kind_info[k_idx].level - floor_ptr->object_level) * 5; // Acquire the "out-of-depth factor"
+			if(!one_in_(d)) continue; // Roll for out-of-depth creation
 		}
 
-		/* Assign the template */
-		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE);
+		object_prep(object_ptr, k_idx, ITEM_FREE_SIZE); // Assign the template
+		object_ptr->name1 = i; // Mega-Hack -- mark the item as an artifact	
 
-		/* Mega-Hack -- mark the item as an artifact */
-		object_ptr->name1 = i;
-
-		/* Hack: Some artifacts get random extra powers */
-		random_artifact_resistance(owner_ptr, object_ptr, a_ptr);
-
-		/* Success */
-		return (TRUE);
+		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
+		return (TRUE); // Success
 	}
 
-	/* Failure */
-	return (FALSE);
+	return (FALSE); // Failure
 }
 
 
 
 // Attempt to change an object into an artifact
 // This routine should only be called by "apply_magic()"
-// Note -- see "make_artifact_special()" and "apply_magic()"
+// Note -- see "judge_instant_artifact()" and "apply_magic()"
 static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_ptr)
 {
 	int i;
@@ -2070,10 +2048,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 	return (FALSE); // Failure
 }
 
-
-/*
- *  Choose random ego type
- */
+// Choose random ego type
 static s16b get_random_ego(u16b slot, bool good)
 {
 	int i, value;
@@ -2084,8 +2059,8 @@ static s16b get_random_ego(u16b slot, bool good)
 	for (i = 1; i < max_object_ego_idx; i++)
 	{
 		e_ptr = &object_ego_info[i];
-			if(e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
-			if(e_ptr->rarity) total += (255 / e_ptr->rarity);
+		if(e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)) && e_ptr->rarity)
+			total += (255 / e_ptr->rarity);
 	}
 
 	value = randint1(total);
@@ -2093,11 +2068,9 @@ static s16b get_random_ego(u16b slot, bool good)
 	for (i = 1; i < max_object_ego_idx; i++)
 	{
 		e_ptr = &object_ego_info[i];
-		
 		if(e_ptr->slot == slot && ((good && e_ptr->rating) || (!good && !e_ptr->rating)))
 		{
-			if(e_ptr->rarity)
-				value -= (255 / e_ptr->rarity);
+			if(e_ptr->rarity) value -= (255 / e_ptr->rarity);
 			if(value <= 0L) break;
 		}
 	}
@@ -3090,7 +3063,7 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level,
 	base = ((mode & AM_GOOD) ? (object_level + 10) : object_level); // Base level for the object
 
 	// Generate a special object, or a normal object (for player)
-	if(!one_in_(prob) || !make_artifact_special(player_ptr, j_ptr))
+	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, j_ptr))
 	{
 		int k_idx;
 
