@@ -1903,65 +1903,28 @@ s16b m_bonus(int max, int level)
 static void object_mention(object_type *object_ptr)
 {
 	char object_name[MAX_NLEN];
+	object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE)); // Describe
 
-	/* Describe */
-	object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE));
-
-	/* Artifact */
-	if(object_is_fixed_artifact(object_ptr))
-	{
 #ifdef JP
-		msg_format("伝説のアイテム (%s)", object_name);
+		if(object_is_fixed_artifact(object_ptr)) msg_format("伝説のアイテム (%s)", object_name);
+		else if(object_is_fixed_artifact(object_ptr)) msg_print("ランダム・アーティファクト");
+		else if(object_is_ego(object_ptr)) msg_format("名のあるアイテム (%s)", object_name);
+		else msg_format("アイテム (%s)", object_name);
 #else
-		msg_format("Artifact (%s)", object_name);
+		if(object_is_fixed_artifact(object_ptr)) msg_format("Artifact (%s)", object_name);
+		else if(object_is_fixed_artifact(object_ptr)) msg_print("Random artifact");
+		else if(object_is_ego(object_ptr)) msg_format("Ego-item (%s)", object_name);
+		else msg_format("Object (%s)", object_name);
 #endif
-	}
-
-	/* Random Artifact */
-	else if(object_ptr->art_name)
-	{
-#ifdef JP
-		msg_print("ランダム・アーティファクト");
-#else
-		msg_print("Random artifact");
-#endif
-
-	}
-
-	/* Ego-item */
-	else if(object_is_ego(object_ptr))
-	{
-		/* Silly message */
-#ifdef JP
-		msg_format("名のあるアイテム (%s)", object_name);
-#else
-		msg_format("Ego-item (%s)", object_name);
-#endif
-
-	}
-
-	/* Normal item */
-	else
-	{
-		/* Silly message */
-#ifdef JP
-		msg_format("アイテム (%s)", object_name);
-#else
-		msg_format("Object (%s)", object_name);
-#endif
-
-	}
 }
 
 
-/*
- * Mega-Hack -- Attempt to create one of the "Special Objects"
- *
- * We are only called from "make_object()", and we assume that
- * "apply_magic()" is called immediately after we return.
- *
- * Note -- see "judge_fixed_artifact()" and "apply_magic()"
- */
+// Mega-Hack -- Attempt to create one of the "Special Objects"
+//
+// We are only called from "make_object()", and we assume that
+// "apply_magic()" is called immediately after we return.
+//
+// Note -- see "judge_fixed_artifact()" and "apply_magic()"
 static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object_ptr)
 {
 	int i;
