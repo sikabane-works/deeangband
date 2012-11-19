@@ -945,39 +945,26 @@ void wipe_creature_list(int floor_id)
 	health_track(0);
 }
 
-
-/*
- * Acquires and returns the index of a "free" creature.
- *
- * This routine should almost never fail, but it *can* happen.
- */
+// Acquires and returns the index of a "free" creature.
+// This routine should almost never fail, but it *can* happen.
 s16b creature_pop(void)
 {
 	int i;
+	creature_type *creature_ptr;
 
-	/* Recycle dead creatures */
-	for (i = 1; i < creature_max; i++)
+	for (i = 1; i < creature_max; i++) // Recycle dead creatures
 	{
-		creature_type *creature_ptr;
+		creature_ptr = &creature_list[i]; // Acquire creature
+		if(creature_ptr->species_idx || has_trait(creature_ptr, TRAIT_UNIQUE) || is_player(creature_ptr))
+			continue; // Skip live creatures and player
 
-		/* Acquire creature */
-		creature_ptr = &creature_list[i];
-
-		// Skip live creatures and player
-		if(creature_ptr->species_idx ||
-			has_trait(creature_ptr, TRAIT_UNIQUE) ||
-			is_player(creature_ptr)) continue;
-
-		// Count creature and return using id
-		creature_cnt++;
+		creature_cnt++; // Count creature and return using id
 		return i;
 	}
 
-	// Normal allocation
-	if(creature_max < max_creature_idx)
+	if(creature_max < max_creature_idx) // Normal allocation
 	{
-		// Access the next hole
-		i = creature_max;
+		i = creature_max; // Access the next hole
 
 		// Expand the array and count creature
 		creature_max++;
@@ -989,8 +976,7 @@ s16b creature_pop(void)
 
 	msg_print("クリーチャーが多すぎる！");
 
-	/* Try not to crash */
-	return (0);
+	return 0; // Try not to crash
 }
 
 

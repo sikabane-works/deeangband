@@ -91,7 +91,6 @@ static void wr_string(cptr str)
  */
 static void wr_object(object_type *object_ptr)
 {
-	return;
 	/*** Write only un-obvious elements ***/
 	wr_s16b(object_ptr->k_idx);
 
@@ -110,6 +109,9 @@ static void wr_object(object_type *object_ptr)
 
 	wr_byte(object_ptr->name1);
 	wr_u16b(object_ptr->name2);
+
+	return;
+
 	wr_s32b(object_ptr->timeout);
 
 	wr_s32b(object_ptr->charge_const);
