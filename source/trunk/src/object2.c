@@ -1799,11 +1799,13 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 	object_ptr->to_hit = object_kind_ptr->to_hit;
 	object_ptr->to_damage = object_kind_ptr->to_damage;
 	object_ptr->to_ac = object_kind_ptr->to_ac;
+	object_ptr->to_ev = object_kind_ptr->to_ev;
+	object_ptr->to_vo = object_kind_ptr->to_vo;
 
 	// Default power
 	object_ptr->ac = object_kind_ptr->ac;
 	object_ptr->ev = object_kind_ptr->ev;
-	//object_ptr->vo = object_kind_ptr->vo;
+	object_ptr->vo = object_kind_ptr->vo;
 	object_ptr->dd = object_kind_ptr->dd;
 	object_ptr->ds = object_kind_ptr->ds;
 
@@ -1896,10 +1898,7 @@ s16b m_bonus(int max, int level)
 	return (value);		// Result
 }
 
-
-/*
- * Cheat -- describe a created object for the user
- */
+// Cheat -- describe a created object for the user
 static void object_mention(object_type *object_ptr)
 {
 	char object_name[MAX_NLEN];

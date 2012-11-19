@@ -132,13 +132,15 @@ struct object_kind
 
 	s16b to_hit;			/* Bonus to hit */
 	s16b to_damage;			/* Bonus to damage */
-	s16b to_ac;			/* Bonus to armor */
-	s16b to_ev;			/* Bonus to evasion */
+	s16b to_ac;				/* Bonus to armor */
+	s16b to_ev;				/* Bonus to evasion */
+	s16b to_vo;				/* Bonus to evasion */
 	s16b bow_mul;			/* Bonus to bow_mul */
 
 	s16b ap_rate;		// AP rate
 	s16b ac;			// Base AC
-	s16b ev;			// Base AC
+	s16b ev;			// Base EV
+	s16b vo;			// Base VO
 
 	byte dd, ds;		/* Damage dice/sides */
 
