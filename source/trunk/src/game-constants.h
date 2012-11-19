@@ -161,3 +161,6 @@
 #define FUEL_LAMP       15000   // Maximum amount of fuel in a lantern
 
 #define WARNING_AWARE_RANGE 12
+
+// OPTION: Maximum flow depth when using "MONSTER_FLOW"
+#define MONSTER_FLOW_DEPTH 32

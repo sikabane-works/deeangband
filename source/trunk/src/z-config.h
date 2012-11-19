@@ -167,29 +167,16 @@
  */
 /* #define VERIFY_SAVEFILE */
 
-/*
- * OPTION: Hack -- Compile in support for "Cyborg" mode
- */
-
+// OPTION: Hack -- Compile in support for "Cyborg" mode
 #ifdef USE_DEBUG
 
-/*
- * OPTION: Hack -- Compile in support for "Spoiler Generation"
- */
+// OPTION: Hack -- Compile in support for "Spoiler Generation"
 #define ALLOW_SPOILERS
 
-#endif /* USE_DEBUG */
+#endif // USE_DEBUG
 
-/*
- * OPTION: Handle signals
- */
+// OPTION: Handle signals
 #define HANDLE_SIGNALS
-
-/*
- * OPTION: Maximum flow depth when using "MONSTER_FLOW"
- */
-#define MONSTER_FLOW_DEPTH 32
-
 
 #ifdef USE_SPECIAL
 
@@ -235,7 +222,7 @@
  * or "/usr/games/lib/angband/", or "/pkg/angband/lib".
  */
 #ifndef DEFAULT_PATH
-# define DEFAULT_PATH "./lib/"
+#define DEFAULT_PATH "./lib/"
 #endif
 
 
@@ -409,8 +396,7 @@
  * React to the "VERIFY_HONOR" flag
  */
 #ifdef VERIFY_HONOR
-# define VERIFY_SAVEFILE
-# define VERIFY_TIMESTAMPS
+#define VERIFY_SAVEFILE
 #endif
 
 /* Zangband options: */
