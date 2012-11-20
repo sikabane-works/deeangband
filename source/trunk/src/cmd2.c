@@ -3640,17 +3640,13 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Item is cursed */
 	if(object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
 	{
-		/* Oops */
 #ifdef JP
 		msg_print("‚Ó[‚ŞA‚Ç‚¤‚â‚çô‚í‚ê‚Ä‚¢‚é‚æ‚¤‚¾B");
 #else
 		msg_print("Hmmm, it seems to be cursed.");
 #endif
-
-		/* Nope */
 		return FALSE;
 	}
 
@@ -3664,8 +3660,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			msg_print("You're in the arena now. This is hand-to-hand!");
 #endif
 			msg_print(NULL);
-
-			/* Nope */
 			return FALSE;
 		}
 	}
@@ -3732,8 +3726,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
-		if(!return_when_thrown)
-			inven_item_describe(creature_ptr, item);
+		if(!return_when_thrown) inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 	}
 

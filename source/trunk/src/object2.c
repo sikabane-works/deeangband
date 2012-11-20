@@ -3860,61 +3860,22 @@ void inven_item_describe(creature_type *creature_ptr, int item)
 }
 
 
-/*
- * Increase the "number" of an item in the inventory
- */
+// Increase the "number" of an item in the inventory
 void inven_item_increase(creature_type *creature_ptr, int item, int num)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
+	num += object_ptr->number; // Apply
 
-	/* Apply */
-	num += object_ptr->number;
-
-	/* Bounds check */
-	if(num > 255) num = 255;
+	if(num > 255) num = 255; // Bounds check
 	else if(num < 0) num = 0;
+	num -= object_ptr->number; // Un-apply
 
-	/* Un-apply */
-	num -= object_ptr->number;
-
-	/* Change the number and weight */
-	if(num)
+	if(num) // Change the number and weight
 	{
-		/* Add the number */
 		object_ptr->number += num;
-
-		/* Add the weight */
 		set_inventory_weight(creature_ptr);
-
-		/* Recalculate bonuses */
-		creature_ptr->creature_update |= (CRU_BONUS);
-
-		/* Recalculate mana XXX */
-		creature_ptr->creature_update |= (CRU_MANA);
-
-		/* Combine the pack */
-		creature_ptr->creature_update |= (CRU_COMBINE);
-
-		/* Window stuff */
+		creature_ptr->creature_update |= (CRU_BONUS || CRU_MANA || CRU_COMBINE);
 		play_window |= (PW_INVEN | PW_EQUIP);
-
-		/* Hack -- Clear temporary elemental brands if player takes off weapons */
-		if(!object_ptr->number && creature_ptr->timed_trait[TRAIT_FIRE_BRAND])
-		{
-			if((item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 0)) ||
-				(item == get_equipped_slot_idx(creature_ptr, INVEN_SLOT_HAND, 1)))
-			{
-				if(!get_equipped_slot_num(creature_ptr, INVEN_SLOT_HAND))
-				{
-					/* Clear all temporary elemental brands */
-					set_timed_trait_aux(creature_ptr, TRAIT_FIRE_BRAND, 0, 0);
-					set_timed_trait_aux(creature_ptr, TRAIT_COLD_BRAND, 0, 0);
-					set_timed_trait_aux(creature_ptr, TRAIT_ELEC_BRAND, 0, 0);
-					set_timed_trait_aux(creature_ptr, TRAIT_ACID_BRAND, 0, 0);
-					set_timed_trait_aux(creature_ptr, TRAIT_POIS_BRAND, 0, 0);
-				}
-			}
-		}
 	}
 }
 
