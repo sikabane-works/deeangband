@@ -522,23 +522,8 @@ cptr describe_use(creature_type *creature_ptr, int i)
 	{
 #ifdef JP
 		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "運搬中の" : ((creature_ptr->two_handed && creature_ptr->can_melee[0]) ? "両手に装備している" : (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手に装備している" : "右手に装備している")); break;
-#else
-		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "just lifting" : (creature_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
-#endif
-
-#ifdef JP
 		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "持つだけで精一杯の" : "射撃用に装備している"; break;
-#else
-		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
-#endif
-
-#ifdef JP
 		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "左手の指にはめている" : "右手の指にはめている"); break;
-#else
-		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
-#endif
-
-#ifdef JP
 		case INVEN_SLOT_AMULET:	p = "首にかけている";		break;
 		case INVEN_SLOT_LITE:	p = "光源にしている";		break;
 		case INVEN_SLOT_BODY:	p = "体に着ている";			break;
@@ -546,8 +531,12 @@ cptr describe_use(creature_type *creature_ptr, int i)
 		case INVEN_SLOT_HEAD:	p = "頭にかぶっている";		break;
 		case INVEN_SLOT_ARMS:	p = "手につけている";		break;
 		case INVEN_SLOT_FEET:	p = "足にはいている";		break;
+		case INVEN_SLOT_INTAKE:	p = "体内に取り込んでいる";	break;
 		default:				p = "ザックに入っている";	break;
 #else
+		case INVEN_SLOT_HAND:  p = creature_ptr->heavy_wield[0] ? "just lifting" : (creature_ptr->can_melee[0] ? "attacking creatures with" : "wearing on your arm"); break;
+		case INVEN_SLOT_BOW:   p = (adj_str_equipping_weight[creature_ptr->stat_ind[STAT_STR]] < creature_ptr->inventory[i].weight / 10) ? "just holding" : "shooting missiles with"; break;
+		case INVEN_SLOT_RING: p = (has_trait(creature_ptr, TRAIT_LEFT_HANDER) ? "wearing on your left hand" : "wearing on your right hand"); break;
 		case INVEN_SLOT_AMULET:	p = "wearing around your neck";	break;
 		case INVEN_SLOT_LITE:	p = "using to light the way";	break;
 		case INVEN_SLOT_BODY:	p = "wearing on your body";		break;
@@ -555,6 +544,7 @@ cptr describe_use(creature_type *creature_ptr, int i)
 		case INVEN_SLOT_HEAD:	p = "wearing on your head";		break;
 		case INVEN_SLOT_ARMS:	p = "wearing on your hands";	break;
 		case INVEN_SLOT_FEET:	p = "wearing on your feet";		break;
+		case INVEN_SLOT_INTAKE:	p = "intaking in your body";	break;
 		default:				p = "carrying in your pack";	break;
 #endif
 	}

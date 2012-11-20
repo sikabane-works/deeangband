@@ -1320,10 +1320,7 @@ static void analyze_misc(object_type *object_ptr, char *misc_desc)
 #endif
 }
 
-
-/*
- * Fill in an object description structure for a given object
- */
+// Fill in an object description structure for a given object
 static void object_analyze(object_type *object_ptr, obj_desc_list *desc_ptr)
 {
 	analyze_general(object_ptr, desc_ptr->description);
