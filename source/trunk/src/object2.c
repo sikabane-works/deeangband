@@ -3874,7 +3874,7 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
 	{
 		object_ptr->number += num;
 		set_inventory_weight(creature_ptr);
-		creature_ptr->creature_update |= (CRU_BONUS || CRU_MANA || CRU_COMBINE);
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_MANA | CRU_COMBINE);
 		play_window |= (PW_INVEN | PW_EQUIP);
 	}
 }
@@ -3885,53 +3885,30 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
  */
 void inven_item_optimize(creature_type *creature_ptr, int item)
 {
+	int i;
 	object_type *object_ptr = &creature_ptr->inventory[item];
 
-	/* Only optimize real items */
-	if(!is_valid_object(object_ptr)) return;
+	if(!is_valid_object(object_ptr)) return; // Only optimize real items
 
-	/* Only optimize empty items */
-	if(object_ptr->number) return;
-
-	/* The item is in the pack */
-	if(!IS_EQUIPPED(object_ptr))
+	if(!IS_EQUIPPED(object_ptr)) // The item is in the pack
 	{
-		int i;
+		creature_ptr->inven_cnt--; // One less item
 
-		/* One less item */
-		creature_ptr->inven_cnt--;
-
-		/* Slide everything down */
-		for (i = item; i < INVEN_TOTAL - 1; i++)
-		{
-			/* Structure copy */
-			creature_ptr->inventory[i] = creature_ptr->inventory[i+1];
-		}
-
-		/* Erase the "final" slot */
+		// Slide everything down and Erase the "final" slot
+		for (i = item; i < INVEN_TOTAL - 1; i++) creature_ptr->inventory[i] = creature_ptr->inventory[i+1];
 		object_wipe(&creature_ptr->inventory[i]);
-
-		/* Window stuff */
 		play_window |= (PW_INVEN);
 	}
-
-	/* The item is being wielded */
-	else
+	else // The item is being wielded
 	{
-		/* One less item */
 		creature_ptr->equip_cnt--;
-
-		/* Erase the empty slot */
 		object_wipe(&creature_ptr->inventory[item]);
 
-		/* Recalculate torch */
+		// Recalculate torch
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
-
-		/* Window stuff */
 		play_window |= (PW_EQUIP);
 	}
 
-	/* Window stuff */
 	play_window |= (PW_SPELL);
 }
 
@@ -6949,5 +6926,5 @@ void set_inventory_weight(creature_type *creature_ptr)
 
 bool is_valid_object(object_type *object_ptr)
 {
-	return (bool)(object_ptr->k_idx);
+	return (bool)(object_ptr->k_idx && object_ptr->number > 0);
 }
