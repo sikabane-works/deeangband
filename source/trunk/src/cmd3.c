@@ -204,11 +204,7 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_wear, 0)) return;
 
-	if(item >= 0) // pack
-		object_ptr = &creature_ptr->inventory[item];
-	else // floor
-		object_ptr = &object_list[0 - item];
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 	quest_ptr = &forge;
 
 	// Equip Flag

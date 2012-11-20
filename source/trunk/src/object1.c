@@ -1260,22 +1260,11 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 static bool get_item_allow(creature_type *creature_ptr, int item)
 {
 	cptr s;
-
 	object_type *object_ptr;
 
 	if(!command_cmd) return TRUE; /* command_cmd is no longer effective */
 
-	/* creature_ptr->inventory */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Floor */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* No inscription */
 	if(!object_ptr->inscription) return (TRUE);
@@ -1295,7 +1284,6 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 #else
 			if(!verify("Really try", item)) return (FALSE);
 #endif
-
 		}
 
 		/* Find another '!' */

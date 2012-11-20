@@ -3638,16 +3638,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 		}
 	}
 
-	/* Access the item (if in the pack) */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Item is cursed */
 	if(object_is_cursed(object_ptr) && IS_EQUIPPED(object_ptr))
