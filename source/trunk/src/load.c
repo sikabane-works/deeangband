@@ -243,23 +243,19 @@ static void strip_bytes(int n)
 	while (n--) rd_byte(&tmp8u);
 }
 
-#define OLD_MAX_MANE 22
-
-
-
-/*
- * Read an object
- */
+// Read an object
 static void rd_object(object_type *object_ptr)
 {
 	object_kind *object_kind_ptr;
 	char buf[128];
 
-	return;
 	rd_s16b(&object_ptr->k_idx);
+
 	rd_byte(&object_ptr->floor_id);
 	rd_byte(&object_ptr->fy);
 	rd_byte(&object_ptr->fx);
+
+	return;
 
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	object_ptr->tval = object_kind_ptr->tval;
@@ -1441,7 +1437,7 @@ static errr rd_savefile_new_aux(void)
 	/* Read RNG state */
 	rd_randomizer();
 #ifdef JP
-note("乱数情報をロードしました");
+	note("乱数情報をロードしました");
 #else
 	if(arg_fiddle) note("Loaded Randomizer Info");
 #endif

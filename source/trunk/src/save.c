@@ -99,6 +99,7 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->fy);
 	wr_byte(object_ptr->fx);
 
+	return;
 	wr_s16b(object_ptr->pval);
 
 	wr_byte(object_ptr->discount);
@@ -110,7 +111,6 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->name1);
 	wr_u16b(object_ptr->name2);
 
-	return;
 
 	wr_s32b(object_ptr->timeout);
 
