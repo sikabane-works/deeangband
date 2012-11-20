@@ -138,10 +138,8 @@ static void wr_object(object_type *object_ptr)
 
 	wr_byte(object_ptr->feeling);
 
-	return;
-
-	wr_string(quark_str(object_ptr->inscription));
-	wr_string(quark_str(object_ptr->art_name));
+	//wr_string(quark_str(object_ptr->inscription));
+	//wr_string(quark_str(object_ptr->art_name));
 
 	wr_s16b(object_ptr->creater_idx);
 

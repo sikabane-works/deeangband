@@ -302,12 +302,10 @@ static void rd_object(object_type *object_ptr)
 
 	rd_byte(&object_ptr->feeling);
 
-	return;
-
-	rd_string(buf, sizeof(buf));
-	object_ptr->inscription = quark_add(buf);
-	rd_string(buf, sizeof(buf));
-	object_ptr->art_name = quark_add(buf);
+	//rd_string(buf, sizeof(buf));
+	//object_ptr->inscription = quark_add(buf);
+	//rd_string(buf, sizeof(buf));
+	//object_ptr->art_name = quark_add(buf);
 
 	rd_s16b(&object_ptr->creater_idx);
 
@@ -318,6 +316,7 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->size_lower);
 	rd_s16b(&object_ptr->to_size);
 
+	return;
 }
 
 /*
