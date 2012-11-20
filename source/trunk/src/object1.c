@@ -1237,29 +1237,15 @@ static bool verify(creature_type *creature_ptr, cptr prompt, int item)
 	char        out_val[MAX_NLEN+20];
 	object_type *object_ptr;
 
-
-	/* inventory */
-	if(item >= 0)
-	{
-		object_ptr = &creature_ptr->inventory[item];
-	}
-
-	/* Floor */
-	else
-	{
-		object_ptr = &object_list[0 - item];
-	}
-
-	/* Describe */
+	object_ptr = GET_ITEM(creature_ptr, item);
 	object_desc(object_name, object_ptr, 0);
 
 	/* Prompt */
 #ifdef JP
-(void)sprintf(out_val, "%s%s‚Å‚·‚©? ", prompt, object_name);
+	(void)sprintf(out_val, "%s%s‚Å‚·‚©? ", prompt, object_name);
 #else
 	(void)sprintf(out_val, "%s %s? ", prompt, object_name);
 #endif
-
 
 	/* Query */
 	return (get_check(out_val));
