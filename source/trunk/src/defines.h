@@ -72,6 +72,7 @@
 
 #define MAX_FEAT_IN_TERRAIN 18
 
+
 /*
  * Number of grids in each block (vertically & horizontally)
  * Probably hard-coded to 11, see "generate.c"

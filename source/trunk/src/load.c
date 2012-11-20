@@ -247,7 +247,6 @@ static void strip_bytes(int n)
 static void rd_object(object_type *object_ptr)
 {
 	object_kind *object_kind_ptr;
-	char buf[128];
 
 	rd_s16b(&object_ptr->k_idx);
 
