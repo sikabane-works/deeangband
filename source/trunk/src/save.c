@@ -99,33 +99,29 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->fy);
 	wr_byte(object_ptr->fx);
 
-	return;
 	wr_s16b(object_ptr->pval);
-
 	wr_byte(object_ptr->discount);
 	wr_byte(object_ptr->number);
 	wr_s32b(object_ptr->volume);
-
 	wr_s16b(object_ptr->weight);
-
 	wr_byte(object_ptr->name1);
 	wr_u16b(object_ptr->name2);
 
-
 	wr_s32b(object_ptr->timeout);
-
-	wr_s32b(object_ptr->charge_const);
-	wr_s32b(object_ptr->charge_dice);
+	wr_s16b(object_ptr->charge_const);
+	wr_s16b(object_ptr->charge_dice);
 
 	wr_s16b(object_ptr->to_hit);
 	wr_s16b(object_ptr->to_damage);
 	wr_s16b(object_ptr->to_ac);
 	wr_s16b(object_ptr->to_ev);
+	wr_s16b(object_ptr->to_vo);
 	wr_s16b(object_ptr->bow_mul);
 	wr_s16b(object_ptr->bow_energy);
 
 	wr_s16b(object_ptr->ac);
 	wr_s16b(object_ptr->ev);
+	wr_s16b(object_ptr->vo);
 	wr_byte(object_ptr->dd);
 	wr_byte(object_ptr->ds);
 
@@ -139,7 +135,10 @@ static void wr_object(object_type *object_ptr)
 	wr_byte(object_ptr->xtra3);
 	wr_s16b(object_ptr->xtra4);
 	wr_s16b(object_ptr->xtra5);
+
 	wr_byte(object_ptr->feeling);
+
+	return;
 
 	wr_string(quark_str(object_ptr->inscription));
 	wr_string(quark_str(object_ptr->art_name));
@@ -152,6 +151,7 @@ static void wr_object(object_type *object_ptr)
 	wr_s16b(object_ptr->size_upper);
 	wr_s16b(object_ptr->size_lower);
 	wr_s16b(object_ptr->to_size);
+
 
 }
 

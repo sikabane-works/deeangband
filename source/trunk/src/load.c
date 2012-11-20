@@ -255,8 +255,6 @@ static void rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->fy);
 	rd_byte(&object_ptr->fx);
 
-	return;
-
 	object_kind_ptr = &object_kind_info[object_ptr->k_idx];
 	object_ptr->tval = object_kind_ptr->tval;
 	object_ptr->sval = object_kind_ptr->sval;
@@ -269,9 +267,6 @@ static void rd_object(object_type *object_ptr)
 	rd_byte(&object_ptr->name1);
 	rd_s16b(&object_ptr->name2);
 
-	return;
-
-
 	rd_s32b(&object_ptr->timeout);
 	rd_s16b(&object_ptr->charge_const);
 	rd_s16b(&object_ptr->charge_dice);
@@ -280,11 +275,13 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->to_damage);
 	rd_s16b(&object_ptr->to_ac);
 	rd_s16b(&object_ptr->to_ev);
+	rd_s16b(&object_ptr->to_vo);
 	rd_s16b(&object_ptr->bow_mul);
 	rd_s16b(&object_ptr->bow_energy);
 
 	rd_s16b(&object_ptr->ac);
 	rd_s16b(&object_ptr->ev);
+	rd_s16b(&object_ptr->vo);
 	rd_byte(&object_ptr->dd);
 	rd_byte(&object_ptr->ds);
 
@@ -293,10 +290,10 @@ static void rd_object(object_type *object_ptr)
 
 	// Object flags
 
-	/* Creature holding object */
+	// Creature holding object
 	rd_s16b(&object_ptr->held_m_idx);
 
-	/* Special powers */
+	// Special powers
 	rd_byte(&object_ptr->xtra1);
 	rd_byte(&object_ptr->xtra2);
 	rd_byte(&object_ptr->xtra3);
@@ -304,6 +301,8 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->xtra5);
 
 	rd_byte(&object_ptr->feeling);
+
+	return;
 
 	rd_string(buf, sizeof(buf));
 	object_ptr->inscription = quark_add(buf);
