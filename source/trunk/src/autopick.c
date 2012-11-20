@@ -1618,10 +1618,7 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 	return;
 }
 
-
-/*
- *  Auto-destroy marked item
- */
+//  Auto-destroy marked item
 static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr;
@@ -1634,20 +1631,14 @@ static void autopick_delayed_alter_aux(creature_type *creature_ptr, int item)
 		/* Describe the object (with {terrible/special}) */
 		object_desc(object_name, object_ptr, 0);
 
-		/* Eliminate the item (from the pack) */
+		// Eliminate the item (from the pack or the floor)
 		if(item >= 0)
 		{
 			inven_item_increase(creature_ptr, item, -(object_ptr->number));
 			inven_item_optimize(creature_ptr, item);
 		}
+		else delete_object_idx(0 - item);
 
-		/* Eliminate the item (from the floor) */
-		else
-		{
-			delete_object_idx(0 - item);
-		}
-
-		/* Print a message */
 #ifdef JP
 		msg_format("%s‚ðŽ©“®”j‰ó‚µ‚Ü‚·B", object_name);
 #else
@@ -1669,8 +1660,7 @@ void autopick_delayed_alter(creature_type *creature_ptr)
 	 * Scan inventry in reverse order to prevent
 	 * skipping after inven_item_optimize(creature_ptr, )
 	 */
-	for (item = INVEN_TOTAL - 1; item >= 0 ; item--)
-		autopick_delayed_alter_aux(creature_ptr, item);
+	for (item = INVEN_TOTAL - 1; item >= 0 ; item--) autopick_delayed_alter_aux(creature_ptr, item);
 
 	/* Scan the pile of objects */
 	item = floor_ptr->cave[creature_ptr->fy][creature_ptr->fx].object_idx;

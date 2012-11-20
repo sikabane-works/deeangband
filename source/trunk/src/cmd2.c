@@ -2923,8 +2923,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	bool stick_to = FALSE;
 
 	// Access the item (if in the pack)
-	if(item >= 0) object_ptr = &creature_ptr->inventory[item];
-	else object_ptr = &object_list[0 - item];
+	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Sniper - Cannot shot a single arrow twice */
 	if((creature_ptr->snipe_type == SP_DOUBLE) && (object_ptr->number < 2)) creature_ptr->snipe_type = SP_NONE;

@@ -2566,44 +2566,27 @@ bool artifact_scroll(creature_type *caster_ptr)
 			msg_print("Not enough enough energy to enchant more than one object!");
 			msg_format("%d of your %s %s destroyed!",(object_ptr->number)-1, object_name, (object_ptr->number>2?"were":"was"));
 #endif
-
-			if(item >= 0)
-			{
-				inven_item_increase(caster_ptr, item, 1-(object_ptr->number));
-			}
-			else
-			{
-				floor_item_increase(0-item, 1-(object_ptr->number));
-			}
+			if(item >= 0) inven_item_increase(caster_ptr, item, 1-(object_ptr->number));
+			else floor_item_increase(0-item, 1-(object_ptr->number));
 		}
 		okay = create_artifact(caster_ptr, object_ptr, TRUE);
 	}
 
-	/* Failure */
 	if(!okay)
 	{
-		/* Flush */
 		if(flush_failure) flush();
-
-		/* Message */
 #ifdef JP
 		msg_print("ã≠âªÇ…é∏îsÇµÇΩÅB");
 #else
 		msg_print("The enchantment failed.");
 #endif
-
 	}
 
 	calc_android_exp(caster_ptr);
-
-	/* Something happened */
 	return (TRUE);
 }
 
-
-/*
- * Identify an object
- */
+// Identify an object
 bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 {
 	bool old_known = FALSE;

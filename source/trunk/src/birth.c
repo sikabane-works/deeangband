@@ -2656,14 +2656,11 @@ static int wield_one(creature_type *creature_ptr, int item, u32b flags)
 	/* Modify quantity */ 
 	i_ptr->number = 1; 
  
-	/* Decrease the item (from the pack) */ 
 	if(item >= 0) 
 	{ 
 		inven_item_increase(creature_ptr, item, -1); 
 		inven_item_optimize(creature_ptr, item); 
 	} 
- 
-	/* Decrease the item (from the floor) */ 
 	else 
 	{ 
 		floor_item_increase(0 - item, -1); 
