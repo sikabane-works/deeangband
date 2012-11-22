@@ -3795,52 +3795,26 @@ void inven_item_charges(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
 
-	/* Require staff/wand */
 	if((object_ptr->tval != TV_STAFF) && (object_ptr->tval != TV_WAND)) return;
-
-	/* Require known item */
 	if(!object_is_known(object_ptr)) return;
 
 #ifdef JP
-	if(object_ptr->pval <= 0)
-	{
-		msg_print("もう魔力が残っていない。");
-	}
-	else
-	{
-		msg_format("あと %d 回分の魔力が残っている。", object_ptr->pval);
-	}
+	if(object_ptr->pval <= 0) msg_print("もう魔力が残っていない。");
+	else msg_format("あと %d 回分の魔力が残っている。", object_ptr->pval);
 #else
-	/* Multiple charges */
-	if(object_ptr->pval != 1)
-	{
-		/* Print a message */
-		msg_format("You have %d charges remaining.", object_ptr->pval);
-	}
-
-	/* Single charge */
-	else
-	{
-		/* Print a message */
-		msg_format("You have %d charge remaining.", object_ptr->pval);
-	}
+	if(object_ptr->pval != 1) msg_format("You have %d charges remaining.", object_ptr->pval);
+	else msg_format("You have %d charge remaining.", object_ptr->pval);
 #endif
 
 }
 
-
-/*
- * Describe an item in the inventory.
- */
+// Describe an item in the inventory.
 void inven_item_describe(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
 	char        object_name[MAX_NLEN];
-
-	/* Get a description */
 	object_desc(object_name, object_ptr, 0);
 
-	/* Print a message */
 #ifdef JP
 	/* "no more" の場合はこちらで表示する */
 	if(object_ptr->number <= 0)
@@ -3879,10 +3853,7 @@ void inven_item_increase(creature_type *creature_ptr, int item, int num)
 	}
 }
 
-
-/*
- * Erase an inventory slot if it has no more items
- */
+// Erase an inventory slot if it has no more items
 void inven_item_optimize(creature_type *creature_ptr, int item)
 {
 	int i;
@@ -3912,45 +3883,20 @@ void inven_item_optimize(creature_type *creature_ptr, int item)
 	play_window |= (PW_SPELL);
 }
 
-
-/*
- * Describe the charges on an item on the floor.
- */
+// Describe the charges on an item on the floor.
 void floor_item_charges(int item)
 {
 	object_type *object_ptr = &object_list[item];
-
-	/* Require staff/wand */
 	if((object_ptr->tval != TV_STAFF) && (object_ptr->tval != TV_WAND)) return;
-
-	/* Require known item */
 	if(!object_is_known(object_ptr)) return;
 
 #ifdef JP
-	if(object_ptr->pval <= 0)
-	{
-		msg_print("この床上のアイテムは、もう魔力が残っていない。");
-	}
-	else
-	{
-		msg_format("この床上のアイテムは、あと %d 回分の魔力が残っている。", object_ptr->pval);
-	}
+	if(object_ptr->pval <= 0) msg_print("この床上のアイテムは、もう魔力が残っていない。");
+	else msg_format("この床上のアイテムは、あと %d 回分の魔力が残っている。", object_ptr->pval);
 #else
-	/* Multiple charges */
-	if(object_ptr->pval != 1)
-	{
-		/* Print a message */
-		msg_format("There are %d charges remaining.", object_ptr->pval);
-	}
-
-	/* Single charge */
-	else
-	{
-		/* Print a message */
-		msg_format("There is %d charge remaining.", object_ptr->pval);
-	}
+	if(object_ptr->pval != 1) msg_format("There are %d charges remaining.", object_ptr->pval);
+	else msg_format("There is %d charge remaining.", object_ptr->pval);
 #endif
-
 }
 
 
@@ -3962,20 +3908,11 @@ void floor_item_describe(creature_type *creature_type, int item)
 	object_type *object_ptr = &object_list[item];
 	char        object_name[MAX_NLEN];
 
-	/* Get a description */
 	object_desc(object_name, object_ptr, 0);
 
-	/* Print a message */
 #ifdef JP
-	/* "no more" の場合はこちらで表示を分ける */
-	if(object_ptr->number <= 0)
-	{
-		msg_format("床上には、もう%sはない。", object_name);
-	}
-	else
-	{
-		msg_format("床上には、まだ%sがある。", object_name);
-	}
+	if(object_ptr->number <= 0) msg_format("床上には、もう%sはない。", object_name);
+	else msg_format("床上には、まだ%sがある。", object_name);
 #else
 	msg_format("You see %s.", object_name);
 #endif
@@ -3983,42 +3920,26 @@ void floor_item_describe(creature_type *creature_type, int item)
 }
 
 
-/*
- * Increase the "number" of an item on the floor
- */
+// Increase the "number" of an item on the floor
 void floor_item_increase(int item, int num)
 {
 	object_type *object_ptr = &object_list[item];
 
-	/* Apply */
 	num += object_ptr->number;
 
-	/* Bounds check */
 	if(num > 255) num = 255;
 	else if(num < 0) num = 0;
 
-	/* Un-apply */
 	num -= object_ptr->number;
-
-	/* Change the number */
 	object_ptr->number += num;
 }
 
 
-/*
- * Optimize an item on the floor (destroy "empty" items)
- */
+// Optimize an item on the floor (destroy "empty" items)
 void floor_item_optimize(int item)
 {
 	object_type *object_ptr = &object_list[item];
-
-	/* Paranoia -- be sure it exists */
 	if(!is_valid_object(object_ptr)) return;
-
-	/* Only optimize empty items */
-	if(object_ptr->number) return;
-
-	/* Delete the object */
 	delete_object_idx(item);
 }
 
