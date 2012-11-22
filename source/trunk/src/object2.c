@@ -3261,18 +3261,17 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int x)
 {
 	int i, k, d, s;
-
 	int bs, bn;
 	int by, bx;
 	int dy, dx;
 	int ty, tx = 0;
 
 	s16b object_idx = 0;
-
 	s16b this_object_idx, next_object_idx = 0;
 
 	cave_type *c_ptr;
 
+	object_type *object_ptr;
 	char object_name[MAX_NLEN];
 
 	bool flag = FALSE;
@@ -3283,37 +3282,22 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	bool plural = (j_ptr->number != 1);
 #endif
 
-	/* Describe object */
 	object_desc(object_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-
-	/* Handle normal "breakage" */
+	// Handle normal "breakage"
 	if(!object_is_artifact(j_ptr) && (randint0(100) < chance))
 	{
-		/* Message */
 		if(creature_can_see_bold(player_ptr, y, x))
 		{
 /* TODO
 #ifdef JP
 		msg_format("%sは壊れて使い物にならなくなった", object_name);
 #else
-		msg_format("The %s was broken and become%s useless.",
-			   object_name, (plural ? "" : "s"));
+		msg_format("The %s was broken and become%s useless.", object_name, (plural ? "" : "s"));
 #endif
 */
 		}
-
-
-		/* Debug */
-#ifdef JP
-		if(wizard) msg_print("(破損)");
-#else
-		if(wizard) msg_print("(breakage)");
-#endif
-
-
-		/* Failure */
-		return (0);
+		return (0); // Failure
 	}
 
 
@@ -3327,19 +3311,14 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	by = y;
 	bx = x;
 
-	/* Scan local grids */
-	for (dy = -3; dy <= 3; dy++)
+	
+	for (dy = -3; dy <= 3; dy++) // Scan local grids
 	{
-		/* Scan local grids */
-		for (dx = -3; dx <= 3; dx++)
+		for (dx = -3; dx <= 3; dx++) // Scan local grids
 		{
 			bool comb = FALSE;
-
-			/* Calculate actual distance */
-			d = (dy * dy) + (dx * dx);
-
-			/* Ignore distant grids */
-			if(d > 10) continue;
+			d = (dy * dy) + (dx * dx); // Calculate actual distance
+			if(d > 10) continue; // Ignore distant grids
 
 			/* Location */
 			ty = y + dy;
@@ -3363,7 +3342,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 			/* Scan objects in that grid */
 			for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 			{
-				object_type *object_ptr;
 
 				/* Acquire object */
 				object_ptr = &object_list[this_object_idx];
@@ -3403,9 +3381,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 			by = ty;
 			bx = tx;
 
-			/* Okay */
-
-			flag = TRUE;
+			flag = TRUE; // Okay
 		}
 	}
 
@@ -3413,25 +3389,14 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	/* Handle lack of space */
 	if(!flag && !object_is_artifact(j_ptr))
 	{
-		/* Message */
 #ifdef JP
 		msg_format("%sは消えた。", object_name);
-#else
-		msg_format("The %s disappear%s.",
-			   object_name, (plural ? "" : "s"));
-#endif
-
-
-		/* Debug */
-#ifdef JP
 		if(wizard) msg_print("(床スペースがない)");
 #else
+		msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
 		if(wizard) msg_print("(no floor space)");
 #endif
-
-
-		/* Failure */
-		return (0);
+		return (0); // Failure
 	}
 
 
@@ -3452,8 +3417,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		/* Require floor space */
 		if(!cave_drop_bold(floor_ptr, by, bx)) continue;
 
-		/* Okay */
-		flag = TRUE;
+		flag = TRUE; // Okay
 	}
 
 
@@ -3462,44 +3426,24 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		int candidates = 0, pick;
 
 		for (ty = 1; ty < floor_ptr->height - 1; ty++)
-		{
 			for (tx = 1; tx < floor_ptr->width - 1; tx++)
-			{
-				/* A valid space found */
 				if(cave_drop_bold(floor_ptr, ty, tx)) candidates++;
-			}
-		}
 
 		/* No valid place! */
 		if(!candidates)
 		{
-			/* Message */
 #ifdef JP
 			msg_format("%sは消えた。", object_name);
-#else
-			msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
-#endif
-
-			/* Debug */
-#ifdef JP
 			if(wizard) msg_print("(床スペースがない)");
 #else
+			msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
 			if(wizard) msg_print("(no floor space)");
 #endif
 
-			/* Mega-Hack -- preserve artifacts */
-			if(preserve_mode)
-			{
-				/* Hack -- Preserve unknown artifacts */
-				if(object_is_fixed_artifact(j_ptr) && !object_is_known(j_ptr))
-				{
-					/* Mega-Hack -- Preserve the artifact */
-					artifact_info[j_ptr->name1].cur_num = 0;
-				}
-			}
+			// Mega-Hack -- preserve artifacts
+			if(preserve_mode && object_is_fixed_artifact(j_ptr) && !object_is_known(j_ptr)) artifact_info[j_ptr->name1].cur_num = 0;
 
-			/* Failure */
-			return 0;
+			return 0; // Failure
 		}
 
 		/* Choose a random one */
@@ -3512,12 +3456,9 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 				if(cave_drop_bold(floor_ptr, ty, tx))
 				{
 					pick--;
-
-					/* Is this a picked one? */
-					if(!pick) break;
+					if(!pick) break; // Is this a picked one?
 				}
 			}
-
 			if(!pick) break;
 		}
 
@@ -3532,59 +3473,31 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	/* Scan objects in that grid for combination */
 	for (this_object_idx = c_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
 	{
-		object_type *object_ptr;
-
-		/* Acquire object */
 		object_ptr = &object_list[this_object_idx];
-
-		/* Acquire next object */
 		next_object_idx = object_ptr->next_object_idx;
 
-		/* Check for combination */
 		if(object_similar(object_ptr, j_ptr))
 		{
-			/* Combine the items */
-			object_absorb(object_ptr, j_ptr);
-
-			/* Success */
-			done = TRUE;
-
-			/* Done */
-			break;
+			object_absorb(object_ptr, j_ptr); // Combine the items
+			done = TRUE; // Success
+			break; // Done
 		}
 	}
 
 	/* Get new object */
 	if(!done) object_idx = object_pop();
 
-	/* Failure */
 	if(!done && !object_idx)
 	{
-		/* Message */
 #ifdef JP
 		msg_format("%sは消えた。", object_name);
+		if(wizard) msg_warning("アイテムが多過ぎる");
 #else
-		msg_format("The %s disappear%s.",
-			   object_name, (plural ? "" : "s"));
+		msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
+		if(wizard) msg_warning("too many objects");
 #endif
-
-
-		/* Debug */
-#ifdef JP
-		if(wizard) msg_print("(アイテムが多過ぎる)");
-#else
-		if(wizard) msg_print("(too many objects)");
-#endif
-
-
-		/* Hack -- Preserve artifacts */
-		if(object_is_fixed_artifact(j_ptr))
-		{
-			artifact_info[j_ptr->name1].cur_num = 0;
-		}
-
-		/* Failure */
-		return (0);
+		if(object_is_fixed_artifact(j_ptr)) artifact_info[j_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
+		return (0); // Failure
 	}
 
 	/* Stack */
