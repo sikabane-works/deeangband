@@ -4606,52 +4606,26 @@ void message_pain(int m_idx, int dam)
 	/* Snakes, Hydrae, Reptiles, Mimics */
 	else if(my_strchr("JMR", r_ptr->d_char) || !isalpha(r_ptr->d_char))
 	{
-		if(percentage > 95)
+		
 #ifdef JP
-msg_format("%^sはほとんど気にとめていない。", m_name);
+		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%^sはシーッと鳴いた。", m_name);
+		else if(percentage > 50) msg_format("%^sは怒って頭を上げた。", m_name);
+		else if(percentage > 35) msg_format("%^sは猛然と威嚇した。", m_name);
+		else if(percentage > 20) msg_format("%^sは身もだえした。", m_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", m_name);
+		else msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
 #else
-			msg_format("%^s barely notices.", m_name);
-#endif
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%^sはシーッと鳴いた。", m_name);
-#else
-			msg_format("%^s hisses.", m_name);
-#endif
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sは怒って頭を上げた。", m_name);
-#else
-			msg_format("%^s rears up in anger.", m_name);
-#endif
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sは猛然と威嚇した。", m_name);
-#else
-			msg_format("%^s hisses furiously.", m_name);
-#endif
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは身もだえした。", m_name);
-#else
-			msg_format("%^s writhes about.", m_name);
-#endif
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sは苦痛で身もだえした。", m_name);
-#else
-			msg_format("%^s writhes in agony.", m_name);
-#endif
-		else
-#ifdef JP
-msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
-#else
-			msg_format("%^s jerks limply.", m_name);
+		if(percentage > 95) msg_format("%^s barely notices.", m_name);
+		else if(percentage > 75) msg_format("%^s hisses.", m_name);
+		else if(percentage > 50) msg_format("%^s rears up in anger.", m_name);
+		else if(percentage > 35) msg_format("%^s hisses furiously.", m_name);
+		else if(percentage > 20) msg_format("%^s writhes about.", m_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
+		else msg_format("%^s jerks limply.", m_name);
 #endif
 	}
 
-
-	/* Felines */
 	else if(my_strchr("f", r_ptr->d_char))
 	{
 		if(percentage > 95)
