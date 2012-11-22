@@ -20,7 +20,7 @@
  */
 void excise_object_idx(int object_idx)
 {
-	object_type *j_ptr;
+	object_type *object2_ptr;
 	floor_type *floor_ptr;
 
 	s16b this_object_idx, next_object_idx = 0;
@@ -28,15 +28,15 @@ void excise_object_idx(int object_idx)
 	s16b prev_object_idx = 0;
 
 	/* Object */
-	j_ptr = &object_list[object_idx];
+	object2_ptr = &object_list[object_idx];
 
 	/* Creature */
-	if(j_ptr->held_m_idx)
+	if(object2_ptr->held_m_idx)
 	{
 		creature_type *m_ptr;
 
 		/* Creature */
-		m_ptr = &creature_list[j_ptr->held_m_idx];
+		m_ptr = &creature_list[object2_ptr->held_m_idx];
 	}
 
 	/* Dungeon */
@@ -44,11 +44,11 @@ void excise_object_idx(int object_idx)
 	{
 		cave_type *c_ptr;
 
-		int y = j_ptr->fy;
-		int x = j_ptr->fx;
+		int y = object2_ptr->fy;
+		int x = object2_ptr->fx;
 
 		/* Grid */
-		floor_ptr = GET_FLOOR_PTR(j_ptr);
+		floor_ptr = GET_FLOOR_PTR(object2_ptr);
 		c_ptr = &floor_ptr->cave[y][x];
 
 		/* Scan all objects in the grid */
@@ -105,25 +105,25 @@ void excise_object_idx(int object_idx)
  */
 void delete_object_idx(int object_idx)
 {
-	object_type *j_ptr;
+	object_type *object2_ptr;
 	floor_type *floor_ptr;
 
 	excise_object_idx(object_idx);	// Excise
 
 	// Object
-	j_ptr = &object_list[object_idx];
-	floor_ptr = GET_FLOOR_PTR(j_ptr);
+	object2_ptr = &object_list[object_idx];
+	floor_ptr = GET_FLOOR_PTR(object2_ptr);
 
 	// Dungeon floor
-	if(!(j_ptr->held_m_idx))
+	if(!(object2_ptr->held_m_idx))
 	{
 		int y, x;
-		y = j_ptr->fy;
-		x = j_ptr->fx;
+		y = object2_ptr->fy;
+		x = object2_ptr->fx;
 		lite_spot(floor_ptr, y, x);	// Visual update
 	}
 
-	object_wipe(j_ptr);	// Wipe the object
+	object_wipe(object2_ptr);	// Wipe the object
 	object_cnt--;		// Count objects
 }
 
@@ -1629,13 +1629,13 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 /*
  *  Determine if an item can absorb a second item.
  */
-bool object_similar(object_type *object_ptr, object_type *j_ptr)
+bool object_similar(object_type *object_ptr, object_type *object2_ptr)
 {
-	int total = object_ptr->number + j_ptr->number;
+	int total = object_ptr->number + object2_ptr->number;
 	int max_num;
 
 	/* Are these objects similar? */
-	max_num = object_similar_part(object_ptr, j_ptr);
+	max_num = object_similar_part(object_ptr, object2_ptr);
 
 	/* Return if not similar */
 	if(!max_num) return FALSE;
@@ -1653,50 +1653,50 @@ bool object_similar(object_type *object_ptr, object_type *j_ptr)
 /*
  * Allow one item to "absorb" another, assuming they are similar
  */
-void object_absorb(object_type *object_ptr, object_type *j_ptr)
+void object_absorb(object_type *object_ptr, object_type *object2_ptr)
 {
-	int max_num = object_similar_part(object_ptr, j_ptr);
-	int total = object_ptr->number + j_ptr->number;
+	int max_num = object_similar_part(object_ptr, object2_ptr);
+	int total = object_ptr->number + object2_ptr->number;
 	int diff = (total > max_num) ? total - max_num : 0;
 
 	/* Combine quantity, lose excess items */
 	object_ptr->number = (total > max_num) ? max_num : total;
 
 	/* Hack -- blend "known" status */
-	if(object_is_known(j_ptr)) object_known(object_ptr);
+	if(object_is_known(object2_ptr)) object_known(object_ptr);
 
 	/* Hack -- clear "storebought" if only one has it */
-	if(((object_ptr->ident & IDENT_STORE) || (j_ptr->ident & IDENT_STORE)) &&
-	    (!((object_ptr->ident & IDENT_STORE) && (j_ptr->ident & IDENT_STORE))))
+	if(((object_ptr->ident & IDENT_STORE) || (object2_ptr->ident & IDENT_STORE)) &&
+	    (!((object_ptr->ident & IDENT_STORE) && (object2_ptr->ident & IDENT_STORE))))
 	{
-		if(j_ptr->ident & IDENT_STORE) j_ptr->ident &= 0xEF;
+		if(object2_ptr->ident & IDENT_STORE) object2_ptr->ident &= 0xEF;
 		if(object_ptr->ident & IDENT_STORE) object_ptr->ident &= 0xEF;
 	}
 
 	/* Hack -- blend "mental" status */
-	if(j_ptr->ident & (IDENT_MENTAL)) object_ptr->ident |= (IDENT_MENTAL);
+	if(object2_ptr->ident & (IDENT_MENTAL)) object_ptr->ident |= (IDENT_MENTAL);
 
 	/* Hack -- blend "inscriptions" */
-	if(j_ptr->inscription) object_ptr->inscription = j_ptr->inscription;
+	if(object2_ptr->inscription) object_ptr->inscription = object2_ptr->inscription;
 
 	/* Hack -- blend "feelings" */
-	if(j_ptr->feeling) object_ptr->feeling = j_ptr->feeling;
+	if(object2_ptr->feeling) object_ptr->feeling = object2_ptr->feeling;
 
 	/* Hack -- could average discounts XXX XXX XXX */
 	/* Hack -- save largest discount XXX XXX XXX */
-	if(object_ptr->discount < j_ptr->discount) object_ptr->discount = j_ptr->discount;
+	if(object_ptr->discount < object2_ptr->discount) object_ptr->discount = object2_ptr->discount;
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
 	if(IS_ROD(object_ptr))
 	{
-		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
-		object_ptr->timeout += j_ptr->timeout * (j_ptr->number - diff) / j_ptr->number;
+		object_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
+		object_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / object2_ptr->number;
 	}
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
 	if(object_ptr->tval == TV_WAND)
 	{
-		object_ptr->pval += j_ptr->pval * (j_ptr->number - diff) / j_ptr->number;
+		object_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
 	}
 }
 
@@ -1744,10 +1744,10 @@ void object_wipe(object_type *object_ptr)
 /*
  * Prepare an object based on an existing object
  */
-void object_copy(object_type *object_ptr, object_type *j_ptr)
+void object_copy(object_type *object_ptr, object_type *object2_ptr)
 {
 	/* Copy the structure */
-	COPY(object_ptr, j_ptr, object_type);
+	COPY(object_ptr, object2_ptr, object_type);
 }
 
 
@@ -2996,17 +2996,17 @@ static bool kind_is_good(int k_idx)
  * This routine uses "object_level" for the "generation level".
  * We assume that the given object has been "wiped".
  */
-bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level, bool (*get_obj_num_hook)(int k_idx))
+bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
 	byte obj_level;
-	floor_type *floor_ptr = GET_FLOOR_PTR(j_ptr);
+	floor_type *floor_ptr = GET_FLOOR_PTR(object2_ptr);
 
 	prob = ((mode & AM_GOOD) ? 10 : 1000); // Chance of "special object"
 	base = ((mode & AM_GOOD) ? (object_level + 10) : object_level); // Base level for the object
 
 	// Generate a special object, or a normal object (for player)
-	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, j_ptr))
+	if(!one_in_(prob) || !judge_instant_artifact(player_ptr, object2_ptr))
 	{
 		int k_idx;
 
@@ -3017,30 +3017,30 @@ bool make_object(object_type *j_ptr, u32b mode, u32b gon_mode, int object_level,
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects
 		if(!k_idx) return (FALSE); // Handle failure
 
-		object_prep(j_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
+		object_prep(object2_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
 	}
 
 	/* Apply magic (allow artifacts) */
-	apply_magic(player_ptr, j_ptr, object_level, mode, 0);
+	apply_magic(player_ptr, object2_ptr, object_level, mode, 0);
 
-	switch (j_ptr->tval) // Hack -- generate multiple spikes/missiles
+	switch (object2_ptr->tval) // Hack -- generate multiple spikes/missiles
 	{
 		case TV_SPIKE:
 		case TV_SHOT:
 		case TV_ARROW:
 		case TV_BOLT:
 		{
-			if(!j_ptr->name1)
-				j_ptr->number = (byte)diceroll(6, 7);
+			if(!object2_ptr->name1)
+				object2_ptr->number = (byte)diceroll(6, 7);
 		}
 	}
 
-	obj_level = object_kind_info[j_ptr->k_idx].level;
-	if(object_is_fixed_artifact(j_ptr)) obj_level = artifact_info[j_ptr->name1].level;
+	obj_level = object_kind_info[object2_ptr->k_idx].level;
+	if(object_is_fixed_artifact(object2_ptr)) obj_level = artifact_info[object2_ptr->name1].level;
 
 	// Notice "okay" out-of-depth objects & Cheat -- peek at items
-	if(!object_is_cursed(j_ptr) && !object_is_broken(j_ptr) && (obj_level > floor_ptr->object_level))
-		if(cheat_peek) object_mention(j_ptr);
+	if(!object_is_cursed(object2_ptr) && !object_is_broken(object2_ptr) && (obj_level > floor_ptr->object_level))
+		if(cheat_peek) object_mention(object2_ptr);
 
 	return (TRUE); // Success
 }
@@ -3121,7 +3121,7 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 
 // Make a treasure object
 // The location must be a legal, clean, floor grid.
-bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int coin_type)
+bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int coin_type)
 {
 	int i;
 	s32b base;
@@ -3137,16 +3137,16 @@ bool make_gold(floor_type *floor_ptr, object_type *j_ptr, int value, int coin_ty
 	if(i >= MAX_GOLD) i = MAX_GOLD - 1;
 
 	/* Prepare a gold object */
-	object_prep(j_ptr, OBJ_GOLD_LIST + i, ITEM_FREE_SIZE);
+	object_prep(object2_ptr, OBJ_GOLD_LIST + i, ITEM_FREE_SIZE);
 
 	/* Hack -- Base coin cost */
 	base = object_kind_info[OBJ_GOLD_LIST+i].cost;
 
 	/* Determine how much the treasure is "worth" */
 	if(value <= 0)
-		j_ptr->pval = (s16b)(base + (8 * randint1(base)) + randint1(8));
+		object2_ptr->pval = (s16b)(base + (8 * randint1(base)) + randint1(8));
 	else
-		j_ptr->pval = value;
+		object2_ptr->pval = value;
 
 	/* Success */
 	return (TRUE);
@@ -3239,7 +3239,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
  * the object can combine, stack, or be placed.  Artifacts will try very
  * hard to be placed, including "teleporting" to a useful grid if needed.
  */
-s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int x)
+s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int y, int x)
 {
 	int i, k, d, s;
 	int bs, bn;
@@ -3260,13 +3260,13 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 
 #ifndef JP
 	/* Extract plural */
-	bool plural = (j_ptr->number != 1);
+	bool plural = (object2_ptr->number != 1);
 #endif
 
-	object_desc(object_name, j_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
+	object_desc(object_name, object2_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
 	// Handle normal "breakage"
-	if(!object_is_artifact(j_ptr) && (randint0(100) < chance))
+	if(!object_is_artifact(object2_ptr) && (randint0(100) < chance))
 	{
 		if(creature_can_see_bold(player_ptr, y, x))
 		{
@@ -3331,7 +3331,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 				next_object_idx = object_ptr->next_object_idx;
 
 				/* Check for possible combination */
-				if(object_similar(object_ptr, j_ptr)) comb = TRUE;
+				if(object_similar(object_ptr, object2_ptr)) comb = TRUE;
 
 				/* Count objects */
 				k++;
@@ -3368,7 +3368,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 
 
 	/* Handle lack of space */
-	if(!flag && !object_is_artifact(j_ptr))
+	if(!flag && !object_is_artifact(object2_ptr))
 	{
 #ifdef JP
 		msg_format("%s‚ÍÁ‚¦‚½B", object_name);
@@ -3422,7 +3422,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 #endif
 
 			// Mega-Hack -- preserve artifacts
-			if(preserve_mode && object_is_fixed_artifact(j_ptr) && !object_is_known(j_ptr)) artifact_info[j_ptr->name1].cur_num = 0;
+			if(preserve_mode && object_is_fixed_artifact(object2_ptr) && !object_is_known(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0;
 
 			return 0; // Failure
 		}
@@ -3457,9 +3457,9 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		object_ptr = &object_list[this_object_idx];
 		next_object_idx = object_ptr->next_object_idx;
 
-		if(object_similar(object_ptr, j_ptr))
+		if(object_similar(object_ptr, object2_ptr))
 		{
-			object_absorb(object_ptr, j_ptr); // Combine the items
+			object_absorb(object_ptr, object2_ptr); // Combine the items
 			done = TRUE; // Success
 			break; // Done
 		}
@@ -3477,7 +3477,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 		msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
 		if(wizard) msg_warning("too many objects");
 #endif
-		if(object_is_fixed_artifact(j_ptr)) artifact_info[j_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
+		if(object_is_fixed_artifact(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
 		return (0); // Failure
 	}
 
@@ -3485,20 +3485,20 @@ s16b drop_near(floor_type *floor_ptr, object_type *j_ptr, int chance, int y, int
 	if(!done)
 	{
 		/* Structure copy */
-		object_copy(&object_list[object_idx], j_ptr);
+		object_copy(&object_list[object_idx], object2_ptr);
 
 		/* Access new object */
-		j_ptr = &object_list[object_idx];
+		object2_ptr = &object_list[object_idx];
 
 		/* Locate */
-		j_ptr->fy = by;
-		j_ptr->fx = bx;
+		object2_ptr->fy = by;
+		object2_ptr->fx = bx;
 
 		/* No creature */
-		j_ptr->held_m_idx = 0;
+		object2_ptr->held_m_idx = 0;
 
 		/* Build a stack */
-		j_ptr->next_object_idx = c_ptr->object_idx;
+		object2_ptr->next_object_idx = c_ptr->object_idx;
 
 		/* Place the object */
 		c_ptr->object_idx = object_idx;
@@ -3851,13 +3851,13 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 	/* Similar slot? */
 	for (j = 0; j < INVEN_TOTAL; j++)
 	{
-		object_type *j_ptr = &creature_ptr->inventory[j];
+		object_type *object2_ptr = &creature_ptr->inventory[j];
 
 		/* Skip non-objects */
-		if(!j_ptr->k_idx) continue;
+		if(!object2_ptr->k_idx) continue;
 
 		/* Check if the two items can be combined */
-		if(object_similar(j_ptr, object_ptr)) return (TRUE);
+		if(object_similar(object2_ptr, object_ptr)) return (TRUE);
 	}
 
 	/* Nope */
@@ -3865,41 +3865,41 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 }
 
 
-bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b o_value, object_type *j_ptr)
+bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b o_value, object_type *object2_ptr)
 {
 	int o_type, j_type;
 
 	/* Use empty slots */
-	if(!j_ptr->k_idx) return TRUE;
+	if(!object2_ptr->k_idx) return TRUE;
 
 	/* Hack -- readable books always come first */
 	if((object_ptr->tval == REALM1_BOOK(subject_ptr)) &&
-	    (j_ptr->tval != REALM1_BOOK(subject_ptr))) return TRUE;
-	if((j_ptr->tval == REALM1_BOOK(subject_ptr)) &&
+	    (object2_ptr->tval != REALM1_BOOK(subject_ptr))) return TRUE;
+	if((object2_ptr->tval == REALM1_BOOK(subject_ptr)) &&
 	    (object_ptr->tval != REALM1_BOOK(subject_ptr))) return FALSE;
 
 	if((object_ptr->tval == REALM2_BOOK(subject_ptr)) &&
-	    (j_ptr->tval != REALM2_BOOK(subject_ptr))) return TRUE;
-	if((j_ptr->tval == REALM2_BOOK(subject_ptr)) &&
+	    (object2_ptr->tval != REALM2_BOOK(subject_ptr))) return TRUE;
+	if((object2_ptr->tval == REALM2_BOOK(subject_ptr)) &&
 	    (object_ptr->tval != REALM2_BOOK(subject_ptr))) return FALSE;
 
 	/* Objects sort by decreasing type */
-	if(object_ptr->tval > j_ptr->tval) return TRUE;
-	if(object_ptr->tval < j_ptr->tval) return FALSE;
+	if(object_ptr->tval > object2_ptr->tval) return TRUE;
+	if(object_ptr->tval < object2_ptr->tval) return FALSE;
 
 	/* Non-aware (flavored) items always come last */
 	/* Can happen in the home */
 	if(!object_is_aware(object_ptr)) return FALSE;
-	if(!object_is_aware(j_ptr)) return TRUE;
+	if(!object_is_aware(object2_ptr)) return TRUE;
 
 	/* Objects sort by increasing sval */
-	if(object_ptr->sval < j_ptr->sval) return TRUE;
-	if(object_ptr->sval > j_ptr->sval) return FALSE;
+	if(object_ptr->sval < object2_ptr->sval) return TRUE;
+	if(object_ptr->sval > object2_ptr->sval) return FALSE;
 
 	/* Unidentified objects always come last */
 	/* Objects in the home can be unknown */
 	if(!object_is_known(object_ptr)) return FALSE;
-	if(!object_is_known(j_ptr)) return TRUE;
+	if(!object_is_known(object2_ptr)) return TRUE;
 
 	/* Fixed artifacts, random artifacts and ego items */
 	if(object_is_fixed_artifact(object_ptr)) o_type = 3;
@@ -3907,9 +3907,9 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 	else if(object_is_ego(object_ptr)) o_type = 1;
 	else o_type = 0;
 
-	if(object_is_fixed_artifact(j_ptr)) j_type = 3;
-	else if(j_ptr->art_name) j_type = 2;
-	else if(object_is_ego(j_ptr)) j_type = 1;
+	if(object_is_fixed_artifact(object2_ptr)) j_type = 3;
+	else if(object2_ptr->art_name) j_type = 2;
+	else if(object_is_ego(object2_ptr)) j_type = 1;
 	else j_type = 0;
 
 	if(o_type < j_type) return TRUE;
@@ -3921,28 +3921,28 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 	case TV_STATUE:
 	case TV_CORPSE:
 	case TV_CAPTURE:
-		if(species_info[object_ptr->pval].level < species_info[j_ptr->pval].level) return TRUE;
-		if((species_info[object_ptr->pval].level == species_info[j_ptr->pval].level) && (object_ptr->pval < j_ptr->pval)) return TRUE;
+		if(species_info[object_ptr->pval].level < species_info[object2_ptr->pval].level) return TRUE;
+		if((species_info[object_ptr->pval].level == species_info[object2_ptr->pval].level) && (object_ptr->pval < object2_ptr->pval)) return TRUE;
 		return FALSE;
 
 	case TV_SHOT:
 	case TV_ARROW:
 	case TV_BOLT:
 		/* Objects sort by increasing hit/damage bonuses */
-		if(object_ptr->to_hit + object_ptr->to_damage < j_ptr->to_hit + j_ptr->to_damage) return TRUE;
-		if(object_ptr->to_hit + object_ptr->to_damage > j_ptr->to_hit + j_ptr->to_damage) return FALSE;
+		if(object_ptr->to_hit + object_ptr->to_damage < object2_ptr->to_hit + object2_ptr->to_damage) return TRUE;
+		if(object_ptr->to_hit + object_ptr->to_damage > object2_ptr->to_hit + object2_ptr->to_damage) return FALSE;
 		break;
 
 	/* Hack:  otherwise identical rods sort by
 	increasing recharge time --dsb */
 	case TV_ROD:
-		if(object_ptr->pval < j_ptr->pval) return TRUE;
-		if(object_ptr->pval > j_ptr->pval) return FALSE;
+		if(object_ptr->pval < object2_ptr->pval) return TRUE;
+		if(object_ptr->pval > object2_ptr->pval) return FALSE;
 		break;
 	}
 
 	/* Objects sort by decreasing value */
-	return o_value > object_value(j_ptr);
+	return o_value > object_value(object2_ptr);
 }
 
 
@@ -3968,25 +3968,25 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	int i, j, k;
 	int n = -1;
 
-	object_type *j_ptr;
+	object_type *object2_ptr;
 
 
 	/* Check for combining */
 	for (j = 0; j < INVEN_TOTAL; j++)
 	{
-		j_ptr = &creature_ptr->inventory[j];
+		object2_ptr = &creature_ptr->inventory[j];
 
 		/* Skip non-objects */
-		if(!j_ptr->k_idx) continue;
+		if(!object2_ptr->k_idx) continue;
 
 		/* Hack -- track last item */
 		n = j;
 
 		/* Check if the two items can be combined */
-		if(object_similar(j_ptr, object_ptr))
+		if(object_similar(object2_ptr, object_ptr))
 		{
 			/* Combine the items */
-			object_absorb(j_ptr, object_ptr);
+			object_absorb(object2_ptr, object_ptr);
 
 			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
@@ -4009,10 +4009,10 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	/* Find an empty slot */
 	for (j = 0; j <= INVEN_TOTAL; j++)
 	{
-		j_ptr = &creature_ptr->inventory[j];
+		object2_ptr = &creature_ptr->inventory[j];
 
 		/* Use it if found */
-		if(!j_ptr->k_idx) break;
+		if(!object2_ptr->k_idx) break;
 	}
 
 	/* Use that slot */
@@ -4050,19 +4050,19 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	object_copy(&creature_ptr->inventory[i], object_ptr);
 
 	/* Access new object */
-	j_ptr = &creature_ptr->inventory[i];
+	object2_ptr = &creature_ptr->inventory[i];
 
 	/* Forget stack */
-	j_ptr->next_object_idx = 0;
+	object2_ptr->next_object_idx = 0;
 
 	/* Forget creature */
-	j_ptr->held_m_idx = 0;
+	object2_ptr->held_m_idx = 0;
 
 	/* Forget location */
-	j_ptr->fy = j_ptr->fx = 0;
+	object2_ptr->fy = object2_ptr->fx = 0;
 
 	/* Player touches it, and no longer marked */
-	j_ptr->marked = OM_TOUCHED;
+	object2_ptr->marked = OM_TOUCHED;
 
 	/* Increase the weight */
 	set_inventory_weight(creature_ptr);
@@ -4278,7 +4278,7 @@ void combine_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
 	object_type     *object_ptr;
-	object_type     *j_ptr;
+	object_type     *object2_ptr;
 	bool            flag = FALSE, combined;
 
 	do
@@ -4293,22 +4293,22 @@ void combine_pack(creature_type *creature_ptr)
 			for (j = 0; j < i; j++)
 			{
 				int max_num;
-				j_ptr = &creature_ptr->inventory[j];	// Get the item
-				if(!j_ptr->k_idx) continue;	// Skip empty items
+				object2_ptr = &creature_ptr->inventory[j];	// Get the item
+				if(!object2_ptr->k_idx) continue;	// Skip empty items
 
 				/*
 				 * Get maximum number of the stack if these
 				 * are similar, get zero otherwise.
 				 */
-				max_num = object_similar_part(j_ptr, object_ptr);
+				max_num = object_similar_part(object2_ptr, object_ptr);
 
-				// Can we (partialy) drop "object_ptr" onto "j_ptr"?
-				if(max_num && j_ptr->number < max_num)
+				// Can we (partialy) drop "object_ptr" onto "object2_ptr"?
+				if(max_num && object2_ptr->number < max_num)
 				{
-					if(object_ptr->number + j_ptr->number <= max_num)
+					if(object_ptr->number + object2_ptr->number <= max_num)
 					{
 						flag = TRUE;	// Take note
-						object_absorb(j_ptr, object_ptr);	// Add together the item counts
+						object_absorb(object2_ptr, object_ptr);	// Add together the item counts
 						creature_ptr->inven_cnt--;	// One object is gone
 						for(k = i; k < INVEN_TOTAL - 1; k++) creature_ptr->inventory[k] = creature_ptr->inventory[k+1];	// Slide everything down
 						object_wipe(&creature_ptr->inventory[k]);	// Erase the "final" slot
@@ -4316,8 +4316,8 @@ void combine_pack(creature_type *creature_ptr)
 					else
 					{
 						int old_num = object_ptr->number;
-						int remain = j_ptr->number + object_ptr->number - max_num;
-						object_absorb(j_ptr, object_ptr);	// Add together the item counts
+						int remain = object2_ptr->number + object_ptr->number - max_num;
+						object_absorb(object2_ptr, object_ptr);	// Add together the item counts
 						object_ptr->number = remain;
 
 						// Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM-
