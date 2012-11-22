@@ -3422,18 +3422,7 @@ static void print_visuals_menu(cptr choice_msg)
 {
 #ifdef JP
 	prt("[ 画面表示の設定 ]", 1, 0);
-#else
-	prt("Interact with Visuals", 1, 0);
-#endif
-
-	/* Give some choices */
-#ifdef JP
 	prt("(0) ユーザー設定ファイルのロード", 3, 5);
-#else
-	prt("(0) Load a user pref file", 3, 5);
-#endif
-
-#ifdef JP
 	prt("(1) クリーチャーの 色/文字 をファイルに書き出す", 4, 5);
 	prt("(2) アイテムの   色/文字 をファイルに書き出す", 5, 5);
 	prt("(3) 地形の       色/文字 をファイルに書き出す", 6, 5);
@@ -3443,7 +3432,11 @@ static void print_visuals_menu(cptr choice_msg)
 	prt("(7) クリーチャーの 色/文字 を変更する (シンボルエディタ)", 10, 5);
 	prt("(8) アイテムの   色/文字 を変更する (シンボルエディタ)", 11, 5);
 	prt("(9) 地形の       色/文字 を変更する (シンボルエディタ)", 12, 5);
+	prt("(R) 画面表示方法の初期化", 13, 5);
+	prt(format("コマンド: %s", choice_msg ? choice_msg : ""), 15, 0);
 #else
+	prt("Interact with Visuals", 1, 0);
+	prt("(0) Load a user pref file", 3, 5);
 	prt("(1) Dump creature attr/chars", 4, 5);
 	prt("(2) Dump object attr/chars", 5, 5);
 	prt("(3) Dump feature attr/chars", 6, 5);
@@ -3453,18 +3446,7 @@ static void print_visuals_menu(cptr choice_msg)
 	prt("(7) Change creature attr/chars (visual mode)", 10, 5);
 	prt("(8) Change object attr/chars (visual mode)", 11, 5);
 	prt("(9) Change feature attr/chars (visual mode)", 12, 5);
-#endif
-
-#ifdef JP
-	prt("(R) 画面表示方法の初期化", 13, 5);
-#else
 	prt("(R) Reset visuals", 13, 5);
-#endif
-
-	/* Prompt */
-#ifdef JP
-	prt(format("コマンド: %s", choice_msg ? choice_msg : ""), 15, 0);
-#else
 	prt(format("Command: %s", choice_msg ? choice_msg : ""), 15, 0);
 #endif
 }
@@ -3511,17 +3493,11 @@ void do_cmd_visuals(void)
 		{
 		/* Load a 'pref' file */
 		case '0':
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルのロード", 15, 0);
-#else
-			prt("Command: Load a user pref file", 15, 0);
-#endif
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 17, 0);
 #else
+			prt("Command: Load a user pref file", 15, 0);
 			prt("File: ", 17, 0);
 #endif
 
@@ -3545,14 +3521,9 @@ void do_cmd_visuals(void)
 			/* Prompt */
 #ifdef JP
 			prt("コマンド: クリーチャーの[色/文字]をファイルに書き出します", 15, 0);
-#else
-			prt("Command: Dump creature attr/chars", 15, 0);
-#endif
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 17, 0);
 #else
+			prt("Command: Dump creature attr/chars", 15, 0);
 			prt("File: ", 17, 0);
 #endif
 
