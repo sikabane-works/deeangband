@@ -1503,127 +1503,54 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 			break;
 		}
 
-		/* Wands */
-		case TV_WAND:
-		{
-			/* Require either knowledge or known empty for both wands. */
-			if((!(object1_ptr->ident & (IDENT_EMPTY)) &&
-				!object_is_known(object1_ptr)) ||
-				(!(object2_ptr->ident & (IDENT_EMPTY)) &&
-				!object_is_known(object2_ptr))) return 0;
-
-			/* Wand charges combine in O&ZAngband.  */
-
-			/* Assume okay */
+		case TV_WAND: // Require either knowledge or known empty for both wands.
+			if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
+				(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
 			break;
-		}
-
-		/* Staffs and Wands and Rods */
-		case TV_ROD:
-		{
-			/* Prevent overflaw of timeout */
+		
+		case TV_ROD: // Staffs and Wands and Rods
 			max_num = MIN(max_num, MAX_SHORT / object_kind_info[object1_ptr->k_idx].pval);
-
-			/* Assume okay */
 			break;
-		}
 
-		/* Weapons */
 		case TV_BOW:
 		case TV_DIGGING:
 		case TV_HAFTED:
 		case TV_POLEARM:
 		case TV_SWORD:
-
-		/* Rings, Amulets, Lites */
 		case TV_RING:
 		case TV_AMULET:
 		case TV_LITE:
 		case TV_WHISTLE:
-		{
-			/* Require full knowledge of both items */
-			if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
-
-			/* Fall through */
-		}
-
-		/* Missiles */
 		case TV_BOLT:
 		case TV_ARROW:
 		case TV_SHOT:
-		{
-			/* Require identical knowledge of both items */
-			if(object_is_known(object1_ptr) != object_is_known(object2_ptr)) return 0;
-			if(object1_ptr->feeling != object2_ptr->feeling) return 0;
-
-			/* Require identical "bonuses" */
-			if(object1_ptr->to_hit != object2_ptr->to_hit) return 0;
-			if(object1_ptr->to_damage != object2_ptr->to_damage) return 0;
-			if(object1_ptr->to_ac != object2_ptr->to_ac) return 0;
-
-			/* Require identical "pval" code */
-			if(object1_ptr->pval != object2_ptr->pval) return 0;
-
-			/* Artifacts never stack */
-			if(object_is_artifact(object1_ptr) || object_is_artifact(object2_ptr)) return 0;
-
-			/* Require identical "ego-item" names */
-			if(object1_ptr->name2 != object2_ptr->name2) return 0;
-
-			/* Require identical added essence  */
-			if(object1_ptr->xtra3 != object2_ptr->xtra3) return 0;
-			if(object1_ptr->xtra4 != object2_ptr->xtra4) return 0;
-
-			/* Hack -- Never stack "powerful" items */
-			if(object1_ptr->xtra1 || object2_ptr->xtra1) return 0;
-
-			/* Hack -- Never stack recharging items */
-			if(object1_ptr->timeout || object2_ptr->timeout) return 0;
-
-			/* Require identical "values" */
-			if(object1_ptr->ac != object2_ptr->ac) return 0;
-			if(object1_ptr->dd != object2_ptr->dd) return 0;
-			if(object1_ptr->ds != object2_ptr->ds) return 0;
-
-			/* Probably okay */
-			break;
-		}
-
-		/* Various */
-		default:
-		{
-			/* Require knowledge */
+			return 0;
+		
+		default: // Various
 			if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
-
-			/* Probably okay */
 			break;
-		}
 	}
 
-
-	/* Hack -- Identical trait_flags! */
+	// Hack -- Identical trait_flags!
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
+	{
 		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return 0;
+		if(object1_ptr->curse_flags[i] != object2_ptr->curse_flags[i]) return 0;
+	}
 
-	/* Hack -- Require identical "cursed" status */
-	if(object1_ptr->curse_flags[0] != object2_ptr->curse_flags[0]) return 0;
-
-	/* Hack -- Require identical "broken" status */
+	// Hack -- Require identical "broken" status
 	if((object1_ptr->ident & (IDENT_BROKEN)) != (object2_ptr->ident & (IDENT_BROKEN))) return 0;
 
-
-	/* Hack -- require semi-matching "inscriptions" */
+	// Hack -- require semi-matching "inscriptions"
 	if(object1_ptr->inscription && object2_ptr->inscription && (object1_ptr->inscription != object2_ptr->inscription)) return 0;
 
-	/* Hack -- normally require matching "inscriptions" */
+	// Hack -- normally require matching "inscriptions"
 	if(!stack_force_notes && (object1_ptr->inscription != object2_ptr->inscription)) return 0;
 
-	/* Hack -- normally require matching "discounts" */
+	// Hack -- normally require matching "discounts"
 	if(!stack_force_costs && (object1_ptr->discount != object2_ptr->discount)) return 0;
 
-
-	/* They match, so they must be similar */
-	return max_num;
+	return max_num; // They match, so they must be similar
 }
 
 /*
