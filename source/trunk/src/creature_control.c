@@ -4628,50 +4628,25 @@ void message_pain(int m_idx, int dam)
 
 	else if(my_strchr("f", r_ptr->d_char))
 	{
-		if(percentage > 95)
+		
 #ifdef JP
-msg_format("%sは攻撃に肩をすくめた。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃に肩をすくめた。", m_name);
+		else if(percentage > 75) msg_format("%^sは吠えた。", m_name);
+		else if(percentage > 50) msg_format("%^sは怒って吠えた。", m_name);
+		else if(percentage > 35) msg_format("%^sは痛みでシーッと鳴いた。", m_name);
+		else if(percentage > 20) msg_format("%^sは痛みで弱々しく鳴いた。", m_name);
+		else if(percentage > 10) msg_format("%^sは苦痛にうめいた。", m_name);
+		else msg_format("%sは哀れな鳴き声を出した。", m_name);
 #else
-			msg_format("%^s shrugs off the attack.", m_name);
-#endif
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%^sは吠えた。", m_name);
-#else
-			msg_format("%^s roars.", m_name);
-#endif
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sは怒って吠えた。", m_name);
-#else
-			msg_format("%^s growls angrily.", m_name);
-#endif
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sは痛みでシーッと鳴いた。", m_name);
-#else
-			msg_format("%^s hisses with pain.", m_name);
-#endif
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは痛みで弱々しく鳴いた。", m_name);
-#else
-			msg_format("%^s mewls in pain.", m_name);
-#endif
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sは苦痛にうめいた。", m_name);
-#else
-			msg_format("%^s hisses in agony.", m_name);
-#endif
-		else
-#ifdef JP
-msg_format("%sは哀れな鳴き声を出した。", m_name);
-#else
-			msg_format("%^s mewls pitifully.", m_name);
+		if(percentage > 95) msg_format("%^s shrugs off the attack.", m_name);
+		else if(percentage > 75) msg_format("%^s roars.", m_name);
+		else if(percentage > 50) msg_format("%^s growls angrily.", m_name);
+		else if(percentage > 35) msg_format("%^s hisses with pain.", m_name);
+		else if(percentage > 20) msg_format("%^s mewls in pain.", m_name);
+		else if(percentage > 10) msg_format("%^s hisses in agony.", m_name);
+		else msg_format("%^s mewls pitifully.", m_name);
 #endif
 	}
-
 
 	/* Ants, Centipedes, Flies, Insects, Beetles, Spiders */
 	else if(my_strchr("acFIKS", r_ptr->d_char))
