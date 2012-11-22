@@ -243,10 +243,7 @@ static void auto_dump_printf(cptr fmt, ...)
 	va_end(vp);
 
 	/* Count number of lines */
-	for (p = buf; *p; p++)
-	{
-		if(*p == '\n') auto_dump_line_num++;
-	}
+	for (p = buf; *p; p++) if(*p == '\n') auto_dump_line_num++;
 
 	/* Dump it */
 	fprintf(auto_dump_stream, "%s", buf);
@@ -977,7 +974,6 @@ static void do_cmd_bunshou(void)
 #endif
 	{
 		strcpy(bunshou, tmp);
-
 		do_cmd_write_nikki(DIARY_BUNSHOU, 0, bunshou);
 	}
 }
@@ -1015,13 +1011,9 @@ static void do_cmd_erase_nikki(void)
 
 #ifdef JP
 	if(!get_check("本当に記録を消去しますか？")) return;
-#else
-	if(!get_check("Do you really want to delete all your record? ")) return;
-#endif
-
-#ifdef JP
 	sprintf(file_name,"playrecord-%s.txt",savefile_base);
 #else
+	if(!get_check("Do you really want to delete all your record? ")) return;
 	sprintf(file_name,"playrec-%s.txt",savefile_base);
 #endif
 
@@ -1066,39 +1058,27 @@ void do_cmd_nikki(creature_type *player_ptr)
 		/* Clear screen */
 		Term_clear();
 
-		/* Ask for a choice */
-#ifdef JP
-		prt("[ 記録の設定 ]", 2, 0);
-#else
-		prt("[ Play Record ]", 2, 0);
-#endif
-
 
 		/* Give some choices */
 #ifdef JP
+		prt("[ 記録の設定 ]", 2, 0);
 		prt("(1) 記録を見る", 4, 5);
 		prt("(2) 文章を記録する", 5, 5);
 		prt("(3) 直前に入手又は鑑定したものを記録する", 6, 5);
 		prt("(4) 記録を消去する", 7, 5);
 
 		prt("(R) プレイ動画を記録する/中止する", 9, 5);
+		prt("コマンド:", 18, 0);
 #else
+		prt("[ Play Record ]", 2, 0);
 		prt("(1) Display your record", 4, 5);
 		prt("(2) Add record", 5, 5);
 		prt("(3) Record item you last get/identify", 6, 5);
 		prt("(4) Delete your record", 7, 5);
 
 		prt("(R) Record playing movie / or stop it", 9, 5);
-#endif
-
-
-		/* Prompt */
-#ifdef JP
-		prt("コマンド:", 18, 0);
-#else
 		prt("Command: ", 18, 0);
 #endif
-
 
 		/* Prompt */
 		i = inkey();
@@ -3169,18 +3149,11 @@ void do_cmd_macros(void)
 			/* Prompt */
 #ifdef JP
 			prt("コマンド: マクロの削除", 16, 0);
-#else
-			prt("Command: Remove a macro", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("トリガーキー: ", 18, 0);
 #else
+			prt("Command: Remove a macro", 16, 0);
 			prt("Trigger: ", 18, 0);
 #endif
-
 
 			/* Get a macro trigger */
 			do_cmd_macro_aux(buf);
@@ -3203,18 +3176,11 @@ void do_cmd_macros(void)
 			/* Prompt */
 #ifdef JP
 			prt("コマンド: キー配置をファイルに追加する", 16, 0);
-#else
-			prt("Command: Append keymaps to a file", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 18, 0);
 #else
+			prt("Command: Append keymaps to a file", 16, 0);
 			prt("File: ", 18, 0);
 #endif
-
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3239,21 +3205,13 @@ void do_cmd_macros(void)
 		{
 			cptr act;
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: キー配置の確認", 16, 0);
-#else
-			prt("Command: Query a keymap", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("押すキー: ", 18, 0);
 #else
+			prt("Command: Query a keymap", 16, 0);
 			prt("Keypress: ", 18, 0);
 #endif
-
 
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
@@ -3298,21 +3256,13 @@ void do_cmd_macros(void)
 		/* Create a keymap */
 		else if(i == '8')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: キー配置の作成", 16, 0);
-#else
-			prt("Command: Create a keymap", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("押すキー: ", 18, 0);
 #else
+			prt("Command: Create a keymap", 16, 0);
 			prt("Keypress: ", 18, 0);
 #endif
-
 
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
@@ -3363,21 +3313,13 @@ void do_cmd_macros(void)
 		/* Remove a keymap */
 		else if(i == '9')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: キー配置の削除", 16, 0);
-#else
-			prt("Command: Remove a keymap", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("押すキー: ", 18, 0);
 #else
+			prt("Command: Remove a keymap", 16, 0);
 			prt("Keypress: ", 18, 0);
 #endif
-
 
 			/* Get a keymap trigger */
 			do_cmd_macro_aux_keymap(buf);
@@ -3400,27 +3342,15 @@ void do_cmd_macros(void)
 		/* Enter a new action */
 		else if(i == '0')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: マクロ行動の入力", 16, 0);
-#else
-			prt("Command: Enter a new action", 16, 0);
-#endif
-
-			/* Clear */
 			clear_from(20);
-
-			/* Help message */
-#ifdef JP
 			c_prt(TERM_L_RED, "カーソルキーの左右でカーソル位置を移動。BackspaceかDeleteで一文字削除。", 22, 0);
-#else
-			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
-#endif
-
-			/* Prompt */
-#ifdef JP
 			prt("マクロ行動: ", 20, 0);
 #else
+			prt("Command: Enter a new action", 16, 0);
+			clear_from(20);
+			c_prt(TERM_L_RED, "Press Left/Right arrow keys to move cursor. Backspace/Delete to delete a char.", 22, 0);
 			prt("Action: ", 20, 0);
 #endif
 
