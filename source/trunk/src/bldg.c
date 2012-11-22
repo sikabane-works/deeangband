@@ -2375,16 +2375,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 #endif
 					}
 
-					if(has_trait(watcher_ptr, TRAIT_HYPER_INT))
-					{
-#ifdef JP
-						msg_print("あなたの脳は生体コンピュータではなくなった。");
-#else
-						msg_print("Your brain is no longer a living computer.");
-#endif
-
-						lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
-					}
+					if(has_trait(watcher_ptr, TRAIT_HYPER_INT)) lose_mutative_trait(watcher_ptr, TRAIT_HYPER_INT);
 
 					get_mutative_trait(watcher_ptr, TRAIT_MORONIC);
 					happened = TRUE;
@@ -2414,12 +2405,6 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_BERS_RAGE))
 				{
-#ifdef JP
-msg_print("激烈な感情の発作におそわれるようになった！");
-#else
-					msg_print("You become subject to fits of berserk rage!");
-#endif
-
 					get_mutative_trait(watcher_ptr, TRAIT_BERS_RAGE);
 					happened = TRUE;
 				}
