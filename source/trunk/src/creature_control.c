@@ -3050,13 +3050,11 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 		creature_desc(m_name, creature_ptr, 0);
 #ifdef JP
 		msg_format("突然%sが変身した。", old_m_name);
-#else
-		msg_format("Suddenly, %s transforms!", old_m_name);
-#endif
 		if(!has_trait(creature_ptr, TRAIT_RIDING))
-#ifdef JP
 			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_print("地面に落とされた。");
 #else
+		msg_format("Suddenly, %s transforms!", old_m_name);
+		if(!has_trait(creature_ptr, TRAIT_RIDING))
 			if(do_thrown_from_riding(&creature_list[creature_ptr->ridden], 0, TRUE)) msg_format("You have fallen from %s.", m_name);
 #endif
 	}
@@ -4540,35 +4538,21 @@ void message_pain(int m_idx, int dam)
 	if(my_strchr(",ejmvwQ", r_ptr->d_char))
 	{
 #ifdef JP
-		if(percentage > 95)
-			msg_format("%^sはほとんど気にとめていない。", m_name);
-		else if(percentage > 75)
-			msg_format("%^sはしり込みした。", m_name);
-		else if(percentage > 50)
-			msg_format("%^sは縮こまった。", m_name);
-		else if(percentage > 35)
-			msg_format("%^sは痛みに震えた。", m_name);
-		else if(percentage > 20)
-			msg_format("%^sは身もだえした。", m_name);
-		else if(percentage > 10)
-			msg_format("%^sは苦痛で身もだえした。", m_name);
-		else
-			msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
+		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%^sはしり込みした。", m_name);
+		else if(percentage > 50) msg_format("%^sは縮こまった。", m_name);
+		else if(percentage > 35) msg_format("%^sは痛みに震えた。", m_name);
+		else if(percentage > 20) msg_format("%^sは身もだえした。", m_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", m_name);
+		else msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
 #else
-		if(percentage > 95)
-			msg_format("%^s barely notices.", m_name);
-		else if(percentage > 75)
-			msg_format("%^s flinches.", m_name);
-		else if(percentage > 50)
-			msg_format("%^s squelches.", m_name);
-		else if(percentage > 35)
-			msg_format("%^s quivers in pain.", m_name);
-		else if(percentage > 20)
-			msg_format("%^s writhes about.", m_name);
-		else if(percentage > 10)
-			msg_format("%^s writhes in agony.", m_name);
-		else
-			msg_format("%^s jerks limply.", m_name);
+		if(percentage > 95) msg_format("%^s barely notices.", m_name);
+		else if(percentage > 75) msg_format("%^s flinches.", m_name);
+		else if(percentage > 50) msg_format("%^s squelches.", m_name);
+		else if(percentage > 35) msg_format("%^s quivers in pain.", m_name);
+		else if(percentage > 20) msg_format("%^s writhes about.", m_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
+		else msg_format("%^s jerks limply.", m_name);
 #endif
 
 	}
@@ -4577,48 +4561,24 @@ void message_pain(int m_idx, int dam)
 	/* Fish */
 	else if(my_strchr("l", r_ptr->d_char))
 	{
-		if(percentage > 95)
+		
 #ifdef JP
-msg_format("%^sはほとんど気にとめていない。", m_name);
+		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%^sはしり込みした。", m_name);
+		else if(percentage > 50) msg_format("%^sは躊躇した。", m_name);
+		else if(percentage > 35) msg_format("%^sは痛みに震えた。", m_name);
+		else if(percentage > 20) msg_format("%^sは身もだえした。", m_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", m_name);
+		else msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
 #else
-			msg_format("%^s barely notices.", m_name);
-#endif
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%^sはしり込みした。", m_name);
-#else
-			msg_format("%^s flinches.", m_name);
-#endif
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sは躊躇した。", m_name);
-#else
-			msg_format("%^s hesitates.", m_name);
-#endif
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sは痛みに震えた。", m_name);
-#else
-			msg_format("%^s quivers in pain.", m_name);
-#endif
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは身もだえした。", m_name);
-#else
-			msg_format("%^s writhes about.", m_name);
-#endif
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sは苦痛で身もだえした。", m_name);
-#else
-			msg_format("%^s writhes in agony.", m_name);
-#endif
-		else
-#ifdef JP
-msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
-#else
-			msg_format("%^s jerks limply.", m_name);
-#endif
+		if(percentage > 95) msg_format("%^s barely notices.", m_name);
+		else if(percentage > 75) msg_format("%^s flinches.", m_name);
+		else if(percentage > 50) msg_format("%^s hesitates.", m_name);
+		else if(percentage > 35) msg_format("%^s quivers in pain.", m_name);
+		else if(percentage > 20) msg_format("%^s writhes about.", m_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
+		else msg_format("%^s jerks limply.", m_name);
+#endif		
 	}
 
 

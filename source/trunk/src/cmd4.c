@@ -4293,8 +4293,7 @@ void do_cmd_colors(void)
 #endif
 
 				/* Dump the creature attr/char info */
-				auto_dump_printf("V:%d:0x%02X:0x%02X:0x%02X:0x%02X\n\n",
-					i, kv, rv, gv, bv);
+				auto_dump_printf("V:%d:0x%02X:0x%02X:0x%02X:0x%02X\n\n", i, kv, rv, gv, bv);
 			}
 
 			/* Close */
