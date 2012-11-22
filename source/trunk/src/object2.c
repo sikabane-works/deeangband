@@ -1448,10 +1448,8 @@ void reduce_charges(object_type *object_ptr, int amt)
  * Chests, and activatable items, never stack (for various reasons).
  */
 
-/*
- *  Determine if an item can partly absorb a second item.
- *  Return maximum number of stack.
- */
+//  Determine if an item can partly absorb a second item.
+//  Return maximum number of stack.
 int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 {
 	int i;
@@ -1491,17 +1489,14 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 			break;
 
 		case TV_STAFF:
-		{
-			/* Require either knowledge or known empty for both staffs. */
+			// Require either knowledge or known empty for both staffs.
 			if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
 				(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
 
-			/* Require identical charges, since staffs are bulky. */
+			// Require identical charges, since staffs are bulky.
 			if(object1_ptr->pval != object2_ptr->pval) return 0;
 
-			/* Assume okay */
 			break;
-		}
 
 		case TV_WAND: // Require either knowledge or known empty for both wands.
 			if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
@@ -1553,77 +1548,64 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 	return max_num; // They match, so they must be similar
 }
 
-/*
- *  Determine if an item can absorb a second item.
- */
-bool object_similar(object_type *object_ptr, object_type *object2_ptr)
+// Determine if an item can absorb a second item.
+bool object_similar(object_type *object1_ptr, object_type *object2_ptr)
 {
-	int total = object_ptr->number + object2_ptr->number;
+	int total = object1_ptr->number + object2_ptr->number;
 	int max_num;
 
-	/* Are these objects similar? */
-	max_num = object_similar_part(object_ptr, object2_ptr);
+	max_num = object_similar_part(object1_ptr, object2_ptr); // Are these objects similar?
+	if(!max_num) return FALSE;		// Return if not similar
+	if(total > max_num) return (0);	// Maximal "stacking" limit
 
-	/* Return if not similar */
-	if(!max_num) return FALSE;
-
-	/* Maximal "stacking" limit */
-	if(total > max_num) return (0);
-
-
-	/* They match, so they must be similar */
-	return (TRUE);
+	return TRUE;
 }
 
-
-
-/*
- * Allow one item to "absorb" another, assuming they are similar
- */
-void object_absorb(object_type *object_ptr, object_type *object2_ptr)
+// Allow one item to "absorb" another, assuming they are similar
+void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 {
-	int max_num = object_similar_part(object_ptr, object2_ptr);
-	int total = object_ptr->number + object2_ptr->number;
+	int max_num = object_similar_part(object1_ptr, object2_ptr);
+	int total = object1_ptr->number + object2_ptr->number;
 	int diff = (total > max_num) ? total - max_num : 0;
 
 	/* Combine quantity, lose excess items */
-	object_ptr->number = (total > max_num) ? max_num : total;
+	object1_ptr->number = (total > max_num) ? max_num : total;
 
 	/* Hack -- blend "known" status */
-	if(object_is_known(object2_ptr)) object_known(object_ptr);
+	if(object_is_known(object2_ptr)) object_known(object1_ptr);
 
 	/* Hack -- clear "storebought" if only one has it */
-	if(((object_ptr->ident & IDENT_STORE) || (object2_ptr->ident & IDENT_STORE)) &&
-	    (!((object_ptr->ident & IDENT_STORE) && (object2_ptr->ident & IDENT_STORE))))
+	if(((object1_ptr->ident & IDENT_STORE) || (object2_ptr->ident & IDENT_STORE)) &&
+	    (!((object1_ptr->ident & IDENT_STORE) && (object2_ptr->ident & IDENT_STORE))))
 	{
 		if(object2_ptr->ident & IDENT_STORE) object2_ptr->ident &= 0xEF;
-		if(object_ptr->ident & IDENT_STORE) object_ptr->ident &= 0xEF;
+		if(object1_ptr->ident & IDENT_STORE) object1_ptr->ident &= 0xEF;
 	}
 
 	/* Hack -- blend "mental" status */
-	if(object2_ptr->ident & (IDENT_MENTAL)) object_ptr->ident |= (IDENT_MENTAL);
+	if(object2_ptr->ident & (IDENT_MENTAL)) object1_ptr->ident |= (IDENT_MENTAL);
 
 	/* Hack -- blend "inscriptions" */
-	if(object2_ptr->inscription) object_ptr->inscription = object2_ptr->inscription;
+	if(object2_ptr->inscription) object1_ptr->inscription = object2_ptr->inscription;
 
 	/* Hack -- blend "feelings" */
-	if(object2_ptr->feeling) object_ptr->feeling = object2_ptr->feeling;
+	if(object2_ptr->feeling) object1_ptr->feeling = object2_ptr->feeling;
 
 	/* Hack -- could average discounts XXX XXX XXX */
 	/* Hack -- save largest discount XXX XXX XXX */
-	if(object_ptr->discount < object2_ptr->discount) object_ptr->discount = object2_ptr->discount;
+	if(object1_ptr->discount < object2_ptr->discount) object1_ptr->discount = object2_ptr->discount;
 
 	/* Hack -- if rods are stacking, add the pvals (maximum timeouts) and current timeouts together. -LM- */
-	if(IS_ROD(object_ptr))
+	if(IS_ROD(object1_ptr))
 	{
-		object_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
-		object_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / object2_ptr->number;
+		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
+		object1_ptr->timeout += object2_ptr->timeout * (object2_ptr->number - diff) / object2_ptr->number;
 	}
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
-	if(object_ptr->tval == TV_WAND)
+	if(object1_ptr->tval == TV_WAND)
 	{
-		object_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
+		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
 	}
 }
 
