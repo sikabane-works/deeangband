@@ -2187,11 +2187,7 @@ static bool kankin(creature_type *creature_ptr)
 				kubi_species_idx[j] += 10000;
 
 				// Count number of unique corpses already handed
-				for (num = 0, k = 0; k < MAX_BOUNTY; k++)
-				{
-					if(kubi_species_idx[k] >= 10000) num++;
-				}
-
+				for (num = 0, k = 0; k < MAX_BOUNTY; k++) if(kubi_species_idx[k] >= 10000) num++;
 #ifdef JP
 				msg_format("これで合計 %d ポイント獲得しました。", num);
 #else
@@ -2399,24 +2395,7 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_COWARDICE) && !has_trait(watcher_ptr, TRAIT_FEARLESS))
 				{
-#ifdef JP
-					msg_print("あなたはパラノイアになった！");
-#else
-					msg_print("You become paranoid!");
-#endif
-
-
-					/* Duh, the following should never happen, but anyway... */
-					if(has_trait(watcher_ptr, TRAIT_FEARLESS))
-					{
-#ifdef JP
-						msg_print("あなたはもう恐れ知らずではなくなった。");
-#else
-						msg_print("You are no longer fearless.");
-#endif
-						lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
-					}
-
+					if(has_trait(watcher_ptr, TRAIT_FEARLESS)) lose_mutative_trait(watcher_ptr, TRAIT_FEARLESS);
 					get_mutative_trait(watcher_ptr, TRAIT_COWARDICE);
 					happened = TRUE;
 				}
@@ -2426,12 +2405,6 @@ void have_nightmare(creature_type *watcher_ptr, int eldritch_idx)
 			{
 				if(!has_trait(watcher_ptr, TRAIT_HALLU) && !watcher_ptr->resist_chaos)
 				{
-#ifdef JP
-					msg_print("幻覚をひき起こす精神錯乱に陥った！");
-#else
-					msg_print("You are afflicted by a hallucinatory insanity!");
-#endif
-
 					get_mutative_trait(watcher_ptr, TRAIT_HALLU);
 					happened = TRUE;
 				}
