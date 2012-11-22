@@ -4581,54 +4581,27 @@ void message_pain(int m_idx, int dam)
 #endif		
 	}
 
-
-	/* Golems, Walls, Doors, Stairs */
+	// Golems, Walls, Doors, Stairs
 	else if(my_strchr("g#+<>", r_ptr->d_char))
-	{
-		if(percentage > 95)
+	{	
 #ifdef JP
-msg_format("%s‚ÍUŒ‚‚ð‹C‚É‚Æ‚ß‚Ä‚¢‚È‚¢B", m_name);
+		if(percentage > 95) msg_format("%s‚ÍUŒ‚‚ð‹C‚É‚Æ‚ß‚Ä‚¢‚È‚¢B", m_name);
+		else if(percentage > 75) msg_format("%s‚ÍUŒ‚‚ÉŒ¨‚ð‚·‚­‚ß‚½B", m_name);
+		else if(percentage > 50) msg_format("%^s‚Í—‹–Â‚Ì‚æ‚¤‚É–i‚¦‚½B", m_name);
+		else if(percentage > 35) msg_format("%^s‚Í‹ê‚µ‚°‚É–i‚¦‚½B", m_name);
+		else if(percentage > 20) msg_format("%^s‚Í‚¤‚ß‚¢‚½B", m_name);
+		else if(percentage > 10) msg_format("%^s‚ÍçSçO‚µ‚½B", m_name);
+		else msg_format("%^s‚Í‚­‚µ‚á‚­‚µ‚á‚É‚È‚Á‚½B", m_name);
 #else
-			msg_format("%^s ignores the attack.", m_name);
-#endif
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%s‚ÍUŒ‚‚ÉŒ¨‚ð‚·‚­‚ß‚½B", m_name);
-#else
-			msg_format("%^s shrugs off the attack.", m_name);
-#endif
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^s‚Í—‹–Â‚Ì‚æ‚¤‚É–i‚¦‚½B", m_name);
-#else
-			msg_format("%^s roars thunderously.", m_name);
-#endif
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^s‚Í‹ê‚µ‚°‚É–i‚¦‚½B", m_name);
-#else
-			msg_format("%^s rumbles.", m_name);
-#endif
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^s‚Í‚¤‚ß‚¢‚½B", m_name);
-#else
-			msg_format("%^s grunts.", m_name);
-#endif
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^s‚ÍçSçO‚µ‚½B", m_name);
-#else
-			msg_format("%^s hesitates.", m_name);
-#endif
-		else
-#ifdef JP
-msg_format("%^s‚Í‚­‚µ‚á‚­‚µ‚á‚É‚È‚Á‚½B", m_name);
-#else
-			msg_format("%^s crumples.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
+		else if(percentage > 50) msg_format("%^s roars thunderously.", m_name);
+		else if(percentage > 35) msg_format("%^s rumbles.", m_name);
+		else if(percentage > 20) msg_format("%^s grunts.", m_name);
+		else if(percentage > 10) msg_format("%^s hesitates.", m_name);
+		else msg_format("%^s crumples.", m_name);
 #endif
 	}
-
 
 	/* Snakes, Hydrae, Reptiles, Mimics */
 	else if(my_strchr("JMR", r_ptr->d_char) || !isalpha(r_ptr->d_char))
