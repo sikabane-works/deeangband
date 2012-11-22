@@ -3014,29 +3014,15 @@ static errr keymap_dump(cptr fname)
 void do_cmd_macros(void)
 {
 	int i;
-
 	char tmp[1024];
-
 	char buf[1024];
-
 	int mode;
 
-
-	/* Roguelike */
-	if(rogue_like_commands)
-	{
-		mode = KEYMAP_MODE_ROGUE;
-	}
-
-	/* Original */
-	else
-	{
-		mode = KEYMAP_MODE_ORIG;
-	}
+	if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
+	else mode = KEYMAP_MODE_ORIG;
 
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
-
 
 	/* Save screen */
 	screen_save();
@@ -3048,22 +3034,13 @@ void do_cmd_macros(void)
 		/* Clear screen */
 		Term_clear();
 
-		/* Describe */
 #ifdef JP
 		prt("[ マクロの設定 ]", 2, 0);
-#else
-		prt("Interact with Macros", 2, 0);
-#endif
-
-
-
-		/* Describe that action */
-#ifdef JP
 		prt("マクロ行動が(もしあれば)下に表示されます:", 20, 0);
 #else
+		prt("Interact with Macros", 2, 0);
 		prt("Current action (if any) shown below:", 20, 0);
 #endif
-
 
 		/* Analyze the current action */
 		ascii_to_text(buf, macro__buf);
@@ -3071,14 +3048,8 @@ void do_cmd_macros(void)
 		/* Display the current action */
 		prt(buf, 22, 0);
 
-
-		/* Selections */
 #ifdef JP
 		prt("(1) ユーザー設定ファイルのロード", 4, 5);
-#else
-		prt("(1) Load a user pref file", 4, 5);
-#endif
-#ifdef JP
 		prt("(2) ファイルにマクロを追加", 5, 5);
 		prt("(3) マクロの確認", 6, 5);
 		prt("(4) マクロの作成", 7, 5);
@@ -3088,7 +3059,9 @@ void do_cmd_macros(void)
 		prt("(8) キー配置の作成", 11, 5);
 		prt("(9) キー配置の削除", 12, 5);
 		prt("(0) マクロ行動の入力", 13, 5);
+		prt("コマンド: ", 16, 0);
 #else
+		prt("(1) Load a user pref file", 4, 5);
 		prt("(2) Append macros to a file", 5, 5);
 		prt("(3) Query a macro", 6, 5);
 		prt("(4) Create a macro", 7, 5);
@@ -3098,15 +3071,8 @@ void do_cmd_macros(void)
 		prt("(8) Create a keymap", 11, 5);
 		prt("(9) Remove a keymap", 12, 5);
 		prt("(0) Enter a new action", 13, 5);
-#endif
-
-		/* Prompt */
-#ifdef JP
-		prt("コマンド: ", 16, 0);
-#else
 		prt("Command: ", 16, 0);
 #endif
-
 
 		/* Get a command */
 		i = inkey();
@@ -3119,21 +3085,13 @@ void do_cmd_macros(void)
 		{
 			errr err;
 
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルのロード", 16, 0);
-#else
-			prt("Command: Load a user pref file", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 18, 0);
 #else
+			prt("Command: Load a user pref file", 16, 0);
 			prt("File: ", 18, 0);
 #endif
-
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
@@ -3153,7 +3111,6 @@ void do_cmd_macros(void)
 			}
 			else if(err)
 			{
-				/* Prompt */
 #ifdef JP
 				msg_format("'%s'の読み込みに失敗しました！", tmp);
 #else
@@ -3173,21 +3130,13 @@ void do_cmd_macros(void)
 		/* Save macros */
 		else if(i == '2')
 		{
-			/* Prompt */
 #ifdef JP
 			prt("コマンド: マクロをファイルに追加する", 16, 0);
-#else
-			prt("Command: Append macros to a file", 16, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 18, 0);
 #else
+			prt("Command: Append macros to a file", 16, 0);
 			prt("File: ", 18, 0);
 #endif
-
 
 			/* Default filename */
 			sprintf(tmp, "%s.prf", player_base);
