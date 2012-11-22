@@ -4167,11 +4167,8 @@ void do_cmd_visuals(void)
 void do_cmd_colors(void)
 {
 	int i;
-
 	char tmp[160];
-
 	char buf[1024];
-
 
 	/* File type is "TEXT" */
 	FILE_TYPE(FILE_TYPE_TEXT);
@@ -4184,39 +4181,21 @@ void do_cmd_colors(void)
 	/* Interact until done */
 	while (1)
 	{
-		/* Clear screen */
 		Term_clear();
 
-		/* Ask for a choice */
 #ifdef JP
 		prt("[ カラーの設定 ]", 2, 0);
-#else
-		prt("Interact with Colors", 2, 0);
-#endif
-
-
-		/* Give some choices */
-#ifdef JP
 		prt("(1) ユーザー設定ファイルのロード", 4, 5);
-#else
-		prt("(1) Load a user pref file", 4, 5);
-#endif
-
-#ifdef JP
 		prt("(2) カラーの設定をファイルに書き出す", 5, 5);
 		prt("(3) カラーの設定を変更する", 6, 5);
-#else
-		prt("(2) Dump colors", 5, 5);
-		prt("(3) Modify colors", 6, 5);
-#endif
-
-		/* Prompt */
-#ifdef JP
 		prt("コマンド: ", 8, 0);
 #else
+		prt("Interact with Colors", 2, 0);
+		prt("(1) Load a user pref file", 4, 5);
+		prt("(2) Dump colors", 5, 5);
+		prt("(3) Modify colors", 6, 5);
 		prt("Command: ", 8, 0);
 #endif
-
 
 		/* Prompt */
 		i = inkey();
@@ -4230,18 +4209,11 @@ void do_cmd_colors(void)
 			/* Prompt */
 #ifdef JP
 			prt("コマンド: ユーザー設定ファイルをロードします", 8, 0);
-#else
-			prt("Command: Load a user pref file", 8, 0);
-#endif
-
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 10, 0);
 #else
+			prt("Command: Load a user pref file", 8, 0);
 			prt("File: ", 10, 0);
 #endif
-
 
 			/* Default file */
 			sprintf(tmp, "%s.prf", player_base);
@@ -4267,14 +4239,9 @@ void do_cmd_colors(void)
 			/* Prompt */
 #ifdef JP
 			prt("コマンド: カラーの設定をファイルに書き出します", 8, 0);
-#else
-			prt("Command: Dump colors", 8, 0);
-#endif
-
-			/* Prompt */
-#ifdef JP
 			prt("ファイル: ", 10, 0);
 #else
+			prt("Command: Dump colors", 8, 0);
 			prt("File: ", 10, 0);
 #endif
 
@@ -4377,20 +4344,13 @@ void do_cmd_colors(void)
 				/* Describe the color */
 #ifdef JP
 				name = ((a < 16) ? colospecies_names[a] : "未定義");
+				Term_putstr(5, 10, -1, TERM_WHITE, format("カラー = %d, 名前 = %s", a, name));
+				Term_putstr(0, 14, -1, TERM_WHITE, "コマンド (n/N/k/K/r/R/g/G/b/B): ");
 #else
 				name = ((a < 16) ? colospecies_names[a] : "undefined");
+				Term_putstr(5, 10, -1, TERM_WHITE, format("Color = %d, Name = %s", a, name));
+				Term_putstr(0, 14, -1, TERM_WHITE, "Command (n/N/k/K/r/R/g/G/b/B): ");
 #endif
-
-
-				/* Describe the color */
-#ifdef JP
-				Term_putstr(5, 10, -1, TERM_WHITE,
-					    format("カラー = %d, 名前 = %s", a, name));
-#else
-				Term_putstr(5, 10, -1, TERM_WHITE,
-					    format("Color = %d, Name = %s", a, name));
-#endif
-
 
 				/* Label the Current values */
 				Term_putstr(5, 12, -1, TERM_WHITE,
@@ -4399,16 +4359,6 @@ void do_cmd_colors(void)
 						   angband_color_table[a][1],
 						   angband_color_table[a][2],
 						   angband_color_table[a][3]));
-
-				/* Prompt */
-#ifdef JP
-				Term_putstr(0, 14, -1, TERM_WHITE,
-					    "コマンド (n/N/k/K/r/R/g/G/b/B): ");
-#else
-				Term_putstr(0, 14, -1, TERM_WHITE,
-					    "Command (n/N/k/K/r/R/g/G/b/B): ");
-#endif
-
 
 				/* Get a command */
 				i = inkey();

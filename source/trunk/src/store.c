@@ -873,23 +873,14 @@ static bool is_museum(store_type *st_ptr)
 	return (st_ptr->flags & ST1_MUSEUM);
 }
 
-
-
-/*
- * Successful haggle.
- */
+// Successful haggle.
 static void say_comment_1(store_type *st_ptr)
 {
 	char rumour[1024];
 
 #ifdef JP
-	/* ブラックマーケットのときは別のメッセージを出す */
-	if( is_black_market(st_ptr) ) {
-		msg_print(comment_1_B[randint0(MAX_COMMENT_1)]);
-	}
-	else{
-		msg_print(comment_1[randint0(MAX_COMMENT_1)]);
-	}
+	if(is_black_market(st_ptr)) msg_print(comment_1_B[randint0(MAX_COMMENT_1)]);
+	else msg_print(comment_1[randint0(MAX_COMMENT_1)]);
 #else
 	msg_print(comment_1[randint0(MAX_COMMENT_1)]);
 #endif
@@ -898,19 +889,13 @@ static void say_comment_1(store_type *st_ptr)
 	if(one_in_(RUMOR_CHANCE))
 	{
 #ifdef JP
-msg_print("店主は耳うちした:");
-#else
-		msg_print("The shopkeeper whispers something into your ear:");
-#endif
-
-
-#ifdef JP
+		msg_print("店主は耳うちした:");
 		if(!get_rnd_line_jonly("rumors_j.txt", 0, rumour, 10))
 #else
+		msg_print("The shopkeeper whispers something into your ear:");
 		if(!get_rnd_line("rumors.txt", 0, rumour))
 #endif
-
-			msg_print(rumour);
+		msg_print(rumour);
 	}
 }
 
@@ -1129,40 +1114,28 @@ static void purchase_analyze(creature_type *guest_ptr, s32b price, s32b value, s
 	/* Item was worthless, but we bought it */
 	if((value <= 0) && (price > value))
 	{
-		/* Comment */
 		msg_print(comment_7a[randint0(MAX_COMMENT_7A)]);
-
-		/* Sound */
 		sound(SOUND_STORE1);
 	}
 
 	/* Item was cheaper than we thought, and we paid more than necessary */
 	else if((value < guess) && (price > value))
 	{
-		/* Comment */
 		msg_print(comment_7b[randint0(MAX_COMMENT_7B)]);
-
-		/* Sound */
 		sound(SOUND_STORE2);
 	}
 
 	/* Item was a good bargain, and we got away with it */
 	else if((value > guess) && (value < (4 * guess)) && (price < value))
 	{
-		/* Comment */
 		msg_print(comment_7c[randint0(MAX_COMMENT_7C)]);
-
-		/* Sound */
 		sound(SOUND_STORE3);
 	}
 
 	/* Item was a great bargain, and we got away with it */
 	else if((value > guess) && (price < value))
 	{
-		/* Comment */
 		msg_print(comment_7d[randint0(MAX_COMMENT_7D)]);
-
-		/* Sound */
 		sound(SOUND_STORE4);
 	}
 }

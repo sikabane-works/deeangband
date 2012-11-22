@@ -2443,7 +2443,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 			}
 
 #ifdef JP
-msg_print("バーテンはいくらかの食べ物とビールをくれた。");
+			msg_print("バーテンはいくらかの食べ物とビールをくれた。");
 #else
 			msg_print("The barkeep gives you some gruel and a beer.");
 #endif
