@@ -2436,115 +2436,86 @@ void do_cmd_options(void)
 			if(!d) bell();
 		}
 
-		/* Exit */
 		if(k == ESCAPE) break;
 
-		/* Analyze */
 		switch (k)
 		{
 			case '1':
-			{
-				/* Process the general options */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_INPUT, "キー入力オプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_INPUT, "Input Options");
 #endif
 				break;
-			}
 
 			case '2':
-			{
-				/* Process the general options */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_MAPSCREEN, "マップ画面オプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_MAPSCREEN, "Map Screen Options");
 #endif
 				break;
-			}
 
 			case '3':
-			{
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_TEXT, "テキスト表示オプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_TEXT, "Text Display Options");
 #endif
 				break;
-			}
 
 			case '4':
-			{
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_GAMEPLAY, "ゲームプレイ・オプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_GAMEPLAY, "Game-Play Options");
 #endif
 				break;
-			}
 
 			case '5':
-			{
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_DISTURBANCE, "行動中止関係のオプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_DISTURBANCE, "Disturbance Options");
 #endif
 				break;
-			}
 
 			case '6':
-			{
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_AUTODESTROY, "簡易自動破壊オプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_AUTODESTROY, "Easy Auto-Destroyer Options");
 #endif
 				break;
-			}
 
 			/* Play-record Options */
 			case 'R':
 			case 'r':
-			{
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_PLAYRECORD, "プレイ記録オプション");
 #else
 				do_cmd_options_aux(OPT_PAGE_PLAYRECORD, "Play-record Options");
 #endif
 				break;
-			}
 
 			/* Birth Options */
 			case 'B':
 			case 'b':
-			{
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "初期オプション(参照のみ)" : "初期オプション((*)はスコアに影響)");
 #else
 				do_cmd_options_aux(OPT_PAGE_BIRTH, (!wizard || !allow_debug_opts) ? "Birth Options(browse only)" : "Birth Options((*)s effect score)");
 #endif
 				break;
-			}
 
 			/* Cheating Options */
 			case 'C':
 			{
 				if(!noscore && !allow_debug_opts)
 				{
-					/* Cheat options are not permitted */
 					bell();
 					break;
 				}
-
-				/* Spawn */
 #ifdef JP
 				do_cmd_options_cheat("詐欺師は決して勝利できない！");
 #else
@@ -2588,7 +2559,6 @@ void do_cmd_options(void)
 			case 'D':
 			case 'd':
 			{
-				/* Prompt */
 				clear_from(18);
 #ifdef JP
 				prt("コマンド: 基本ウェイト量", 19, 0);
@@ -2596,21 +2566,14 @@ void do_cmd_options(void)
 				prt("Command: Base Delay Factor", 19, 0);
 #endif
 
-				/* Get a new value */
 				while (1)
 				{
 					int msec = delay_factor * delay_factor * delay_factor;
 #ifdef JP
-					prt(format("現在のウェイト: %d (%dミリ秒)",
-						   delay_factor, msec), 22, 0);
-#else
-					prt(format("Current base delay factor: %d (%d msec)",
-						   delay_factor, msec), 22, 0);
-#endif
-
-#ifdef JP
+					prt(format("現在のウェイト: %d (%dミリ秒)", delay_factor, msec), 22, 0);
 					prt("ウェイト (0-9) ESCで決定: ", 20, 0);
 #else
+					prt(format("Current base delay factor: %d (%d msec)", delay_factor, msec), 22, 0);
 					prt("Delay Factor (0-9 or ESC to accept): ", 20, 0);
 #endif
 
@@ -2636,26 +2599,19 @@ void do_cmd_options(void)
 			case 'H':
 			case 'h':
 			{
-				/* Prompt */
 				clear_from(18);
 #ifdef JP
 				prt("コマンド: 低ヒットポイント警告", 19, 0);
 #else
 				prt("Command: Hitpoint Warning", 19, 0);
 #endif
-
-				/* Get a new value */
 				while (1)
 				{
 #ifdef JP
 					prt(format("現在の低ヒットポイント警告: %d0%%", hitpoint_warn), 22, 0);
-#else
-					prt(format("Current hitpoint warning: %d0%%", hitpoint_warn), 22, 0);
-#endif
-
-#ifdef JP
 					prt("低ヒットポイント警告 (0-9) ESCで決定: ", 20, 0);
 #else
+					prt(format("Current hitpoint warning: %d0%%", hitpoint_warn), 22, 0);
 					prt("Hitpoint Warning (0-9 or ESC to accept): ", 20, 0);
 #endif
 
@@ -2681,29 +2637,21 @@ void do_cmd_options(void)
 			case 'M':
 			case 'm':
 			{
-				/* Prompt */
 				clear_from(18);
 #ifdef JP
 				prt("コマンド: 低魔力色閾値", 19, 0);
 #else
 				prt("Command: Mana Color Threshold", 19, 0);
 #endif
-
-				/* Get a new value */
 				while (1)
 				{
 #ifdef JP
 					prt(format("現在の低魔力色閾値: %d0%%", mana_warn), 22, 0);
-#else
-					prt(format("Current mana color threshold: %d0%%", mana_warn), 22, 0);
-#endif
-
-#ifdef JP
 					prt("低魔力閾値 (0-9) ESCで決定: ", 20, 0);
 #else
+					prt(format("Current mana color threshold: %d0%%", mana_warn), 22, 0);
 					prt("Mana color Threshold (0-9 or ESC to accept): ", 20, 0);
 #endif
-
 					k = inkey();
 					if(k == ESCAPE) break;
 					else if(k == '?')
@@ -2897,34 +2845,19 @@ static void do_cmd_macro_aux(char *buf)
 	Term_addstr(-1, TERM_WHITE, tmp);
 }
 
-/*
- * Hack -- ask for a keymap "trigger" (see below)
- *
- * Note that both "flush()" calls are extremely important.  This may
- * no longer be true, since "util.c" is much simpler now.  XXX XXX XXX
- */
+// Hack -- ask for a keymap "trigger" (see below)
+// Note that both "flush()" calls are extremely important.  This may
+// no longer be true, since "util.c" is much simpler now.  XXX XXX XXX
 static void do_cmd_macro_aux_keymap(char *buf)
 {
 	char tmp[1024];
 
-
-	/* Flush */
 	flush();
-
-
-	/* Get a key */
 	buf[0] = inkey();
 	buf[1] = '\0';
 
-
-	/* Convert to ascii */
 	ascii_to_text(tmp, buf);
-
-	/* Hack -- display the trigger */
 	Term_addstr(-1, TERM_WHITE, tmp);
-
-
-	/* Flush */
 	flush();
 }
 
@@ -2942,17 +2875,8 @@ static errr keymap_dump(cptr fname)
 
 	int mode;
 
-	/* Roguelike */
-	if(rogue_like_commands)
-	{
-		mode = KEYMAP_MODE_ROGUE;
-	}
-
-	/* Original */
-	else
-	{
-		mode = KEYMAP_MODE_ORIG;
-	}
+	if(rogue_like_commands) mode = KEYMAP_MODE_ROGUE;
+	else mode = KEYMAP_MODE_ORIG;
 
 
 	/* Build the filename */
@@ -3002,15 +2926,9 @@ static errr keymap_dump(cptr fname)
 	return (0);
 }
 
-
-
-/*
- * Interact with "macros"
- *
- * Note that the macro "action" must be defined before the trigger.
- *
- * Could use some helpful instructions on this page.  XXX XXX XXX
- */
+// Interact with "macros"
+// Note that the macro "action" must be defined before the trigger.
+// Could use some helpful instructions on this page.  XXX XXX XXX
 void do_cmd_macros(void)
 {
 	int i;
