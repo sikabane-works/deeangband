@@ -1148,7 +1148,7 @@ extern void object_absorb(object_type *object1_ptr, object_type *object2_ptr);
 extern s16b lookup_kind(int tval, int sval);
 extern void object_wipe(object_type *object_ptr);
 extern void object_prep(object_type *object_ptr, int k_idx, int size);
-extern void object_copy(object_type *object_ptr, object_type *object2_ptr);
+extern void object_copy(object_type *object1_ptr, object_type *object2_ptr);
 extern void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32b mode, int specified_idx);
 extern void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr, int lev, int ego);
 
@@ -1185,8 +1185,7 @@ extern void do_cmd_kaji(creature_type *creature_ptr, bool only_browse);
 extern void set_inventory_weight(creature_type *creature_ptr);
 extern bool is_valid_object(object_type *object_ptr);
 
-
-/* racial.c */
+// racial.c
 extern void stop_mouth(creature_type *creature_ptr);
 extern void free_posture(creature_type *creature_ptr);
 extern bool gain_magic(creature_type *creature_ptr);
@@ -1196,7 +1195,7 @@ extern bool choose_kata(creature_type *creature_ptr);
 extern bool can_do_cmd_cast(creature_type *creature_ptr);
 extern bool do_cmd_archer(creature_type *creature_ptr);
 
-/* save.c */
+// save.c
 extern bool save_player(void);
 extern int load_player(void);
 extern void remove_loc(void);
@@ -1385,7 +1384,7 @@ extern bool dimension_door(creature_type *creature_ptr);
 extern bool mirror_tunnel(creature_type *creature_ptr);
 extern bool summon_kin_player(creature_type *creature_ptr, int level, int y, int x, u32b mode);
 
-/* store.c */
+// store.c
 extern bool combine_and_reorder_home(store_type *st_ptr, int store_num);
 extern void store_process(creature_type *creature_ptr, store_type *st_ptr);
 extern void store_maintenance(store_type *st_ptr);
@@ -1439,9 +1438,7 @@ extern s16b message_num(void);
 extern cptr message_str(int age);
 extern void message_add(cptr msg);
 extern void msg_print(cptr msg);
-#ifndef SWIG
 extern void msg_format(cptr fmt, ...);
-#endif /* SWIG */
 extern void screen_save(void);
 extern void screen_load(void);
 extern void c_put_str(byte attr, cptr str, int row, int col);
@@ -1574,10 +1571,10 @@ extern bool raise_possible(creature_type *caster_ptr, creature_type *target_ptr)
 extern bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr);
 extern bool make_attack_spell(creature_type *creature_ptr, creature_type *target_ptr);
 
-/* mspells2.c */
+// mspells2.c
 extern void get_project_point(creature_type *caster_ptr, int sy, int sx, int *ty, int *tx, int flg);
 
-/* artifact.c */
+// artifact.c
 extern void one_sustain(object_type *object_ptr);
 extern void one_high_resistance(object_type *object_ptr);
 extern void one_lordly_high_resistance(object_type *object_ptr);
@@ -1604,7 +1601,7 @@ extern void race_legends(creature_type *player_ptr);
 extern void race_score(creature_type *player_ptr, int race_num);
 extern void show_highclass(creature_type *creature_ptr);
 
-/* mind.c */
+// mind.c
 extern mind_power mind_powers[5];
 extern void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int power);
 extern void do_cmd_mind(creature_type *creature_ptr);

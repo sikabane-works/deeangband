@@ -1568,11 +1568,10 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 	int total = object1_ptr->number + object2_ptr->number;
 	int diff = (total > max_num) ? total - max_num : 0;
 
-	/* Combine quantity, lose excess items */
+	// Combine quantity, lose excess items
 	object1_ptr->number = (total > max_num) ? max_num : total;
 
-	/* Hack -- blend "known" status */
-	if(object_is_known(object2_ptr)) object_known(object1_ptr);
+	if(object_is_known(object2_ptr)) object_known(object1_ptr); // Hack -- blend "known" status
 
 	/* Hack -- clear "storebought" if only one has it */
 	if(((object1_ptr->ident & IDENT_STORE) || (object2_ptr->ident & IDENT_STORE)) &&
@@ -1604,9 +1603,7 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 
 	/* Hack -- if wands are stacking, combine the charges. -LM- */
 	if(object1_ptr->tval == TV_WAND)
-	{
 		object1_ptr->pval += object2_ptr->pval * (object2_ptr->number - diff) / object2_ptr->number;
-	}
 }
 
 
@@ -1634,35 +1631,24 @@ s16b lookup_kind(int tval, int sval)
 
 	if(sval == SV_ANY) return bk;	// Return this choice
 
-	// Oops
-	msg_format("WARNING:: No object (TV=%d,SV=%d)", tval, sval);
+	msg_warning(" No object (TV=%d,SV=%d)", tval, sval);
 	return (0);
 }
 
 
-/*
- * Wipe an object clean.
- */
+// Wipe an object clean.
 void object_wipe(object_type *object_ptr)
 {
-	/* Wipe the structure */
 	(void)WIPE(object_ptr, object_type);
 }
 
-
-/*
- * Prepare an object based on an existing object
- */
-void object_copy(object_type *object_ptr, object_type *object2_ptr)
+// Prepare an object based on an existing object
+void object_copy(object_type *object1_ptr, object_type *object2_ptr)
 {
-	/* Copy the structure */
-	COPY(object_ptr, object2_ptr, object_type);
+	COPY(object1_ptr, object2_ptr, object_type);
 }
 
-
-/*
- * Prepare an object based on an object kind.
- */
+// Prepare an object based on an object kind.
 void object_prep(object_type *object_ptr, int k_idx, int size)
 {
 	int i;
