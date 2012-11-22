@@ -1452,7 +1452,7 @@ void reduce_charges(object_type *object_ptr, int amt)
  *  Determine if an item can partly absorb a second item.
  *  Return maximum number of stack.
  */
-int object_similar_part(object_type *object_ptr, object_type *j_ptr)
+int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 {
 	int i;
 
@@ -1460,63 +1460,44 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 	int max_num = MAX_STACK_SIZE;
 
 	/* Require identical object types */
-	if(object_ptr->k_idx != j_ptr->k_idx) return 0;
+	if(object1_ptr->k_idx != object2_ptr->k_idx) return 0;
 
-	if(object_ptr->size_lower != j_ptr->size_lower || 
-		object_ptr->size_upper != j_ptr->size_upper ||
-		object_ptr->to_size != object_ptr->to_size) return 0;
+	if(object1_ptr->size_lower != object2_ptr->size_lower || 
+		object1_ptr->size_upper != object2_ptr->size_upper ||
+		object1_ptr->to_size != object1_ptr->to_size) return 0;
 
 	/* Analyze the items */
-	switch (object_ptr->tval)
+	switch (object1_ptr->tval)
 	{
-		/* Chests and Statues*/
 		case TV_CHEST:
 		case TV_CARD:
 		case TV_WHEEL:
 		case TV_CAPTURE:
-		{
-			/* Never okay */
-			return 0;
-		}
+			return 0; // Never okay
 
 		case TV_STATUE:
-		{
-			if((object_ptr->sval != SV_PHOTO) || (j_ptr->sval != SV_PHOTO)) return 0;
-			if(object_ptr->pval != j_ptr->pval) return 0;
+			if((object1_ptr->sval != SV_PHOTO) || (object2_ptr->sval != SV_PHOTO)) return 0;
+			if(object1_ptr->pval != object2_ptr->pval) return 0;
 			break;
-		}
 
-		/* Figurines and Corpses*/
 		case TV_FIGURINE:
 		case TV_CORPSE:
-		{
-			/* Same creature */
-			if(object_ptr->pval != j_ptr->pval) return 0;
-
-			/* Assume okay */
+			if(object1_ptr->pval != object2_ptr->pval) return 0;
 			break;
-		}
 
-		/* Food and Potions and Scrolls */
 		case TV_FOOD:
 		case TV_POTION:
 		case TV_SCROLL:
-		{
-			/* Assume okay */
 			break;
-		}
 
-		/* Staffs */
 		case TV_STAFF:
 		{
 			/* Require either knowledge or known empty for both staffs. */
-			if((!(object_ptr->ident & (IDENT_EMPTY)) &&
-				!object_is_known(object_ptr)) ||
-				(!(j_ptr->ident & (IDENT_EMPTY)) &&
-				!object_is_known(j_ptr))) return 0;
+			if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
+				(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
 
 			/* Require identical charges, since staffs are bulky. */
-			if(object_ptr->pval != j_ptr->pval) return 0;
+			if(object1_ptr->pval != object2_ptr->pval) return 0;
 
 			/* Assume okay */
 			break;
@@ -1526,10 +1507,10 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 		case TV_WAND:
 		{
 			/* Require either knowledge or known empty for both wands. */
-			if((!(object_ptr->ident & (IDENT_EMPTY)) &&
-				!object_is_known(object_ptr)) ||
-				(!(j_ptr->ident & (IDENT_EMPTY)) &&
-				!object_is_known(j_ptr))) return 0;
+			if((!(object1_ptr->ident & (IDENT_EMPTY)) &&
+				!object_is_known(object1_ptr)) ||
+				(!(object2_ptr->ident & (IDENT_EMPTY)) &&
+				!object_is_known(object2_ptr))) return 0;
 
 			/* Wand charges combine in O&ZAngband.  */
 
@@ -1541,7 +1522,7 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 		case TV_ROD:
 		{
 			/* Prevent overflaw of timeout */
-			max_num = MIN(max_num, MAX_SHORT / object_kind_info[object_ptr->k_idx].pval);
+			max_num = MIN(max_num, MAX_SHORT / object_kind_info[object1_ptr->k_idx].pval);
 
 			/* Assume okay */
 			break;
@@ -1561,7 +1542,7 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 		case TV_WHISTLE:
 		{
 			/* Require full knowledge of both items */
-			if(!object_is_known(object_ptr) || !object_is_known(j_ptr)) return 0;
+			if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
 
 			/* Fall through */
 		}
@@ -1572,37 +1553,37 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 		case TV_SHOT:
 		{
 			/* Require identical knowledge of both items */
-			if(object_is_known(object_ptr) != object_is_known(j_ptr)) return 0;
-			if(object_ptr->feeling != j_ptr->feeling) return 0;
+			if(object_is_known(object1_ptr) != object_is_known(object2_ptr)) return 0;
+			if(object1_ptr->feeling != object2_ptr->feeling) return 0;
 
 			/* Require identical "bonuses" */
-			if(object_ptr->to_hit != j_ptr->to_hit) return 0;
-			if(object_ptr->to_damage != j_ptr->to_damage) return 0;
-			if(object_ptr->to_ac != j_ptr->to_ac) return 0;
+			if(object1_ptr->to_hit != object2_ptr->to_hit) return 0;
+			if(object1_ptr->to_damage != object2_ptr->to_damage) return 0;
+			if(object1_ptr->to_ac != object2_ptr->to_ac) return 0;
 
 			/* Require identical "pval" code */
-			if(object_ptr->pval != j_ptr->pval) return 0;
+			if(object1_ptr->pval != object2_ptr->pval) return 0;
 
 			/* Artifacts never stack */
-			if(object_is_artifact(object_ptr) || object_is_artifact(j_ptr)) return 0;
+			if(object_is_artifact(object1_ptr) || object_is_artifact(object2_ptr)) return 0;
 
 			/* Require identical "ego-item" names */
-			if(object_ptr->name2 != j_ptr->name2) return 0;
+			if(object1_ptr->name2 != object2_ptr->name2) return 0;
 
 			/* Require identical added essence  */
-			if(object_ptr->xtra3 != j_ptr->xtra3) return 0;
-			if(object_ptr->xtra4 != j_ptr->xtra4) return 0;
+			if(object1_ptr->xtra3 != object2_ptr->xtra3) return 0;
+			if(object1_ptr->xtra4 != object2_ptr->xtra4) return 0;
 
 			/* Hack -- Never stack "powerful" items */
-			if(object_ptr->xtra1 || j_ptr->xtra1) return 0;
+			if(object1_ptr->xtra1 || object2_ptr->xtra1) return 0;
 
 			/* Hack -- Never stack recharging items */
-			if(object_ptr->timeout || j_ptr->timeout) return 0;
+			if(object1_ptr->timeout || object2_ptr->timeout) return 0;
 
 			/* Require identical "values" */
-			if(object_ptr->ac != j_ptr->ac) return 0;
-			if(object_ptr->dd != j_ptr->dd) return 0;
-			if(object_ptr->ds != j_ptr->ds) return 0;
+			if(object1_ptr->ac != object2_ptr->ac) return 0;
+			if(object1_ptr->dd != object2_ptr->dd) return 0;
+			if(object1_ptr->ds != object2_ptr->ds) return 0;
 
 			/* Probably okay */
 			break;
@@ -1612,7 +1593,7 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 		default:
 		{
 			/* Require knowledge */
-			if(!object_is_known(object_ptr) || !object_is_known(j_ptr)) return 0;
+			if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
 
 			/* Probably okay */
 			break;
@@ -1622,23 +1603,23 @@ int object_similar_part(object_type *object_ptr, object_type *j_ptr)
 
 	/* Hack -- Identical trait_flags! */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		if(object_ptr->trait_flags[i] != j_ptr->trait_flags[i]) return 0;
+		if(object1_ptr->trait_flags[i] != object2_ptr->trait_flags[i]) return 0;
 
 	/* Hack -- Require identical "cursed" status */
-	if(object_ptr->curse_flags[0] != j_ptr->curse_flags[0]) return 0;
+	if(object1_ptr->curse_flags[0] != object2_ptr->curse_flags[0]) return 0;
 
 	/* Hack -- Require identical "broken" status */
-	if((object_ptr->ident & (IDENT_BROKEN)) != (j_ptr->ident & (IDENT_BROKEN))) return 0;
+	if((object1_ptr->ident & (IDENT_BROKEN)) != (object2_ptr->ident & (IDENT_BROKEN))) return 0;
 
 
 	/* Hack -- require semi-matching "inscriptions" */
-	if(object_ptr->inscription && j_ptr->inscription && (object_ptr->inscription != j_ptr->inscription)) return 0;
+	if(object1_ptr->inscription && object2_ptr->inscription && (object1_ptr->inscription != object2_ptr->inscription)) return 0;
 
 	/* Hack -- normally require matching "inscriptions" */
-	if(!stack_force_notes && (object_ptr->inscription != j_ptr->inscription)) return 0;
+	if(!stack_force_notes && (object1_ptr->inscription != object2_ptr->inscription)) return 0;
 
 	/* Hack -- normally require matching "discounts" */
-	if(!stack_force_costs && (object_ptr->discount != j_ptr->discount)) return 0;
+	if(!stack_force_costs && (object1_ptr->discount != object2_ptr->discount)) return 0;
 
 
 	/* They match, so they must be similar */
@@ -4303,8 +4284,6 @@ void combine_pack(creature_type *creature_ptr)
 	do
 	{
 		combined = FALSE;
-
-		
 		for (i = INVEN_TOTAL; i > 0; i--)	// Combine the pack (backwards)
 		{
 			object_ptr = &creature_ptr->inventory[i];	// Get the item
@@ -4361,7 +4340,6 @@ void combine_pack(creature_type *creature_ptr)
 	}
 	while (combined);
 
-	// Message
 #ifdef JP
 	if(flag) msg_print("ザックの中のアイテムをまとめ直した。");
 #else
