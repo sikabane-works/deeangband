@@ -1626,11 +1626,8 @@ static option_type cheat_info[CHEAT_MAX] =
 static void do_cmd_options_cheat(cptr info)
 {
 	char	ch;
-
 	int		i, k = 0, n = CHEAT_MAX;
-
 	char	buf[80];
-
 
 	/* Clear screen */
 	Term_clear();
@@ -1773,7 +1770,6 @@ static option_type autosave_info[2] =
 	    "autosave_l", "Autosave when entering new levels" },
 #endif
 
-
 	{ &autosave_t, FALSE, 255, 0x02, 0x00,
 #ifdef JP
 	    "autosave_t", "一定ターン毎に自動セーブする" },
@@ -1808,11 +1804,8 @@ static s16b toggle_frequency(s16b current)
 static void do_cmd_options_autosave(cptr info)
 {
 	char	ch;
-
 	int     i, k = 0, n = 2;
-
 	char	buf[80];
-
 
 	/* Clear screen */
 	Term_clear();
@@ -1928,8 +1921,6 @@ static void do_cmd_options_autosave(cptr info)
 #else
 				(void)show_file(TRUE, "option.txt#Autosave", NULL, 0, 0);
 #endif
-
-
 				Term_clear(); 
 				break;
 			}
@@ -1979,17 +1970,11 @@ void do_cmd_options_aux(int page, cptr info)
 		/* Prompt XXX XXX XXX */
 #ifdef JP
 		sprintf(buf, "%s (リターン:次, %sESC:終了, ?:ヘルプ) ", info, browse_only ? "" : "y/n:変更, ");
-#else
-		sprintf(buf, "%s (RET:next, %s, ?:help) ", info, browse_only ? "ESC:exit" : "y/n:change, ESC:accept");
-#endif
-
 		prt(buf, 0, 0);
-
-
-		/* HACK -- description for easy-auto-destroy options */
-#ifdef JP
 		if(page == OPT_PAGE_AUTODESTROY) c_prt(TERM_YELLOW, "以下のオプションは、簡易自動破壊を使用するときのみ有効", 6, 6);
 #else
+		sprintf(buf, "%s (RET:next, %s, ?:help) ", info, browse_only ? "ESC:exit" : "y/n:change, ESC:accept");
+		prt(buf, 0, 0);
 		if(page == OPT_PAGE_AUTODESTROY) c_prt(TERM_YELLOW, "Following options will protect items from easy auto-destroyer.", 6, 3);
 #endif
 
@@ -2036,9 +2021,7 @@ void do_cmd_options_aux(int page, cptr info)
 		switch (ch)
 		{
 			case ESCAPE:
-			{
 				return;
-			}
 
 			case '-':
 			case '8':
@@ -2209,28 +2192,15 @@ static void do_cmd_options_win(void)
 		switch (ch)
 		{
 			case ESCAPE:
-			{
 				go = FALSE;
 				break;
-			}
 
 			case 'T':
 			case 't':
-			{
-				/* Clear windows */
-				for (j = 0; j < 8; j++)
-				{
-					window_flag[j] &= ~(1L << y);
-				}
+				for (j = 0; j < 8; j++) window_flag[j] &= ~(1L << y);	// Clear windows
+				for (i = 0; i < 16; i++) window_flag[x] &= ~(1L << i);	// Clear flags
 
-				/* Clear flags */
-				for (i = 0; i < 16; i++)
-				{
-					window_flag[x] &= ~(1L << i);
-				}
-
-				/* Fall through */
-			}
+				// Fall through
 
 			case 'y':
 			case 'Y':
@@ -2258,8 +2228,6 @@ static void do_cmd_options_win(void)
 #else
 				(void)show_file(TRUE, "option.txt#Window", NULL, 0, 0);
 #endif
-
-
 				Term_clear(); 
 				break;
 			}
@@ -2267,10 +2235,8 @@ static void do_cmd_options_win(void)
 			default:
 			{
 				d = get_keymap_dir(ch);
-
 				x = (x + ddx[d] + 8) % 8;
 				y = (y + ddy[d] + 16) % 16;
-
 				if(!d) bell();
 			}
 		}
