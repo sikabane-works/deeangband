@@ -643,7 +643,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's a teleport trump card.");
 #endif
-
 		teleport_player(creature_ptr, 10, TELEPORT_PASSIVE);
 	}
 	else if(die < 42)
@@ -653,7 +652,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's Justice.");
 #endif
-
 		set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, creature_ptr->lev, FALSE);
 	}
 	else if(die < 47)
@@ -663,7 +661,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's a teleport trump card.");
 #endif
-
 		teleport_player(creature_ptr, 100, TELEPORT_PASSIVE);
 	}
 	else if(die < 52)
@@ -673,7 +670,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's a teleport trump card.");
 #endif
-
 		teleport_player(creature_ptr, 200, TELEPORT_PASSIVE);
 	}
 	else if(die < 60)
@@ -683,7 +679,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Tower.");
 #endif
-
 		wall_breaker(creature_ptr);
 	}
 	else if(die < 72)
@@ -693,7 +688,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's Temperance.");
 #endif
-
 		sleep_creatures_touch(creature_ptr);
 	}
 	else if(die < 80)
@@ -703,7 +697,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Tower.");
 #endif
-
 		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 5);
 	}
 	else if(die < 82)
@@ -713,7 +706,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the picture of a friendly creature.");
 #endif
-
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_MOLD, 0L);
 	}
 	else if(die < 84)
@@ -723,7 +715,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the picture of a friendly creature.");
 #endif
-
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_BAT, 0L);
 	}
 	else if(die < 86)
@@ -733,7 +724,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the picture of a friendly creature.");
 #endif
-
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_VORTEX, 0L);
 	}
 	else if(die < 88)
@@ -743,7 +733,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the picture of a friendly creature.");
 #endif
-
 		trump_summoning(creature_ptr, 1, TRUE, creature_ptr->fy, creature_ptr->fx, (floor_ptr->floor_level * 3 / 2), TRAIT_S_CREEPING_COIN, 0L);
 	}
 	else if(die < 96)
@@ -753,7 +742,6 @@ static void cast_shuffle(creature_type *creature_ptr)
 #else
 		msg_print("It's the Lovers.");
 #endif
-
 		if(get_aim_dir(creature_ptr, MAX_RANGE_SUB, &dir)) charm_creature(creature_ptr, dir, MIN(creature_ptr->lev, 20));
 	}
 	else if(die < 101)
@@ -922,19 +910,14 @@ static bool cast_wrath_of_the_god(creature_type *creature_ptr, int dam, int rad)
 		/* Cannot penetrate perm walls */
 		if(!in_bounds(floor_ptr, y, x) ||
 		    cave_stop_disintegration(floor_ptr, y, x) ||
-		    !in_disintegration_range(floor_ptr, ty, tx, y, x))
-			continue;
-
+		    !in_disintegration_range(floor_ptr, ty, tx, y, x)) continue;
 		project(creature_ptr, 0, rad, y, x, dam, DO_EFFECT_DISINTEGRATE, PROJECT_JUMP | PROJECT_GRID | PROJECT_ITEM | PROJECT_KILL, -1);
 	}
 
 	return TRUE;
 }
 
-
-/*
- * An "item_tester_hook" for offer
- */
+// An "item_tester_hook" for offer
 static bool item_tester_offer(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */
@@ -975,14 +958,9 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	{
 #ifdef JP
 		msg_print("硫黄の悪臭が充満した。");
-#else
-		msg_print("The area fills with a stench of sulphur and brimstone.");
-#endif
-
-
-#ifdef JP
 		msg_print("「ご用でございますか、ご主人様」");
 #else
+		msg_print("The area fills with a stench of sulphur and brimstone.");
 		msg_print("'What is thy bidding... Master?'");
 #endif
 
@@ -1014,27 +992,14 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 	return TRUE;
 }
 
-
-/*
- * Start singing if the player is a Bard 
- */
+// Start singing if the player is a Bard 
 static void start_singing(creature_type *creature_ptr, int spell, int song)
 {
-	/* Remember the song index */
 	creature_ptr->class_skills.old_skills.magic_num1[0] = song;
-
-	/* Remember the index of the spell which activated the song */
 	creature_ptr->class_skills.old_skills.magic_num2[0] = spell;
 
-
-	/* Now the player is singing */
 	set_action(creature_ptr, ACTION_SING);
-
-
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
-
-	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
 }
 
@@ -1122,13 +1087,8 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
     
 		{
 			int base = 12;
-
 			if(info) return info_duration(base, base);
-
-			if(cast)
-			{
-				set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
-			}
+			if(cast) set_timed_trait_aux(creature_ptr, TRAIT_BLESSED, randint1(base) + base, FALSE);
 		}
 		break;
 
@@ -1170,11 +1130,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 			int rad = plev / 10 + 1;
 
 			if(info) return info_damage(dice, sides, 0);
-
-			if(cast)
-			{
-				lite_area(creature_ptr, diceroll(dice, sides), rad);
-			}
+			if(cast) lite_area(creature_ptr, diceroll(dice, sides), rad);
 		}
 		break;
 
@@ -1186,8 +1142,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Detect Doors & Traps";
 		if(desc) return "Detects traps, doors, and stairs in your vicinity.";
 #endif
-    
-		{
+    	{
 			int rad = DETECT_RAD_DEFAULT;
 
 			if(info) return info_radius(rad);
@@ -1231,13 +1186,9 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 		if(name) return "Cure Poison";
 		if(desc) return "Cure poison status.";
-#endif
-    
+#endif    
 		{
-			if(cast)
-			{
-				set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-			}
+			if(cast) set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
 		}
 		break;
 
@@ -1248,13 +1199,9 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 #else
 		if(name) return "Satisfy Hunger";
 		if(desc) return "Satisfies hunger.";
-#endif
-    
+#endif    
 		{
-			if(cast)
-			{
-				set_food(creature_ptr, PY_FOOD_MAX - 1);
-			}
+			if(cast) set_food(creature_ptr, PY_FOOD_MAX - 1);
 		}
 		break;
 
