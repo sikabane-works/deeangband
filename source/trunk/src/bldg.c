@@ -33,7 +33,7 @@ static bool is_owner(creature_type *creature_ptr, building_type *bldg)
 		return (TRUE);
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -66,7 +66,7 @@ static bool is_member(creature_type *creature_ptr, building_type *bldg)
 		}
 		return OK;
 	}
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1236,7 +1236,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 
 				msg_print(NULL);
 				screen_load();
-				return (FALSE);
+				return FALSE;
 			}
 			else if(wager > maxbet)
 			{
@@ -1609,13 +1609,13 @@ static bool vault_aux_battle(int species_idx)
 
 	species_type *species_ptr = &species_info[species_idx];
 	
-	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return (FALSE); // Decline unique creatures
-	if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return (FALSE);
-	if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) return (FALSE);
-	if(has_trait_species(species_ptr, TRAIT_QUANTUM)) return (FALSE);
-	if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return (FALSE);
-	if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) return (FALSE);
-	if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) return (FALSE);
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return FALSE; // Decline unique creatures
+	if(has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_QUANTUM)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_CHAMELEON)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_SUICIDE_BOMBER)) return FALSE;
 
 	for (i = 0; i < MAX_SPECIAL_BLOWS; i++)
 	{
@@ -1625,7 +1625,7 @@ static bool vault_aux_battle(int species_idx)
 	if(!dam && 
 		!(has_bolt_flags(&species_ptr->flags) || has_beam_flags(&species_ptr->flags) ||
 		  has_ball_flags(&species_ptr->flags) || has_breath_flags(&species_ptr->flags)))
-			return (FALSE);
+			return FALSE;
 
 	/* Okay */
 	return (TRUE);
@@ -1847,7 +1847,7 @@ msg_print("おい！金が足りないじゃないか！出ていけ！");
 
 				msg_print(NULL);
 				screen_load();
-				return (FALSE);
+				return FALSE;
 			}
 			else if(wager > maxbet)
 			{
@@ -1887,7 +1887,7 @@ msg_print("ＯＫ、１ゴールドでいこう。");
 	}
 	screen_load();
 
-	return (FALSE);
+	return FALSE;
 }
 
 static void today_target(creature_type *creature_ptr)
@@ -2757,7 +2757,7 @@ static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *obje
 		case TV_BOLT:
 			return (TRUE);
 	}
-	return (FALSE);
+	return FALSE;
 }
 
 // resize_item
@@ -2790,7 +2790,7 @@ static bool resize_item(creature_type *creature_ptr)
 	s = "You have nothing to resize.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL)) return FALSE;
 	object_ptr = &creature_ptr->inventory[item];
 	value = object_value(object_ptr) / 5;
 
@@ -2804,7 +2804,7 @@ static bool resize_item(creature_type *creature_ptr)
 		msg_format("To improve %s cost $%d!", tmp_str, value);
 #endif
 
-		return (FALSE);
+		return FALSE;
 	}
 	else
 	{
@@ -2815,7 +2815,7 @@ static bool resize_item(creature_type *creature_ptr)
 #else
 			msg_print("The improvement failed.");
 #endif
-		return (FALSE);
+		return FALSE;
 		}
 
 		if(creature_ptr->size == object_ptr->to_size + object_ptr->fitting_size || object_ptr->fitting_size == ARMOR_SIZE_FREE)
@@ -2825,7 +2825,7 @@ static bool resize_item(creature_type *creature_ptr)
 #else
 			msg_print("No improvement is required.");
 #endif
-		return (FALSE);
+		return FALSE;
 		}
 
 		object_desc(tmp_str, object_ptr, OD_NAME_ONLY);
@@ -2849,7 +2849,7 @@ static bool resize_item(creature_type *creature_ptr)
 #endif
 
 		}
-		else return (FALSE);
+		else return FALSE;
 
 	}
 
@@ -2885,7 +2885,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	s = "You have nothing to improve.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_EQUIP), NULL, item_tester_tval)) return FALSE;
 	object_ptr = &creature_ptr->inventory[item];	// Get the item (in the pack)
 
 	/* Check if the player has enough money */
@@ -2897,7 +2897,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 #else
 		msg_format("You do not have the gold to improve %s!", tmp_str);
 #endif
-		return (FALSE);
+		return FALSE;
 	}
 
 	// Enchant to hit
@@ -2943,7 +2943,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 	{
 		if(flush_failure) flush();
 		msg_print(game_messages[GAME_MESSAGE_IMPROVEMENT_FAILED]);
-		return (FALSE);
+		return FALSE;
 	}
 	else
 	{
@@ -3522,7 +3522,7 @@ if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前)
 		/* Restore */
 		screen_load();
 
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Find that character info, and describe it */
@@ -3662,7 +3662,7 @@ sprintf(buf, "%c - %s", sym, "無効な文字");
 		/* Restore */
 		screen_load();
 
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Sort by level */

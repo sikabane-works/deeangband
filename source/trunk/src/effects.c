@@ -51,7 +51,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 	creature_ptr->timed_trait[type] = v; // Use the value
 
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
-	if(!notice) return (FALSE);	// Nothing to notice
+	if(!notice) return FALSE;	// Nothing to notice
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
 	handle_stuff();	// Handle stuff
 	
@@ -96,7 +96,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 	creature_ptr->timed_trait[type] = v; // Use the value
 
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
-	if(!notice) return (FALSE);	// Nothing to notice
+	if(!notice) return FALSE;	// Nothing to notice
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
 	handle_stuff();	// Handle stuff
 	
@@ -459,7 +459,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		play_redraw |= (PR_STATUS);
 
 		/* Nothing to notice */
-		if(!notice) return (FALSE);
+		if(!notice) return FALSE;
 
 		/* Disturb */
 		if(disturb_state) disturb(player_ptr, 0, 0);
@@ -577,7 +577,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 	}
 
 	/* Nothing to notice */
-	if(!notice) return (FALSE);
+	if(!notice) return FALSE;
 
 	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
@@ -787,7 +787,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	creature_ptr->timed_trait[TRAIT_STUN] = v;
 
 	/* No change */
-	if(!notice) return (FALSE);
+	if(!notice) return FALSE;
 
 	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
@@ -1095,7 +1095,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 	creature_ptr->timed_trait[TRAIT_CUT] = v;
 
 	/* No change */
-	if(!notice) return (FALSE);
+	if(!notice) return FALSE;
 
 	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
@@ -1379,7 +1379,7 @@ bool set_food(creature_type *creature_ptr, int v)
 	creature_ptr->food = v;
 
 	/* Nothing to notice */
-	if(!notice) return (FALSE);
+	if(!notice) return FALSE;
 
 	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
@@ -1430,7 +1430,7 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 		return (TRUE);	// Success
 	}
 
-	return (FALSE); // Nothing to gain
+	return FALSE; // Nothing to gain
 }
 
 
@@ -1579,7 +1579,7 @@ bool res_stat(creature_type *creature_ptr, int stat)
 	}
 
 	/* Nothing to restore */
-	return (FALSE);
+	return FALSE;
 }
 
 // Increase players hit points, notice effects
@@ -1660,7 +1660,7 @@ bool heal_creature(creature_type *creature_ptr, int num)
 		return (TRUE);
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 // Array of stat "descriptions"
@@ -1748,7 +1748,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 		return (TRUE); // Notice effect
 	}
 	
-	return (FALSE); // Nothing obvious
+	return FALSE; // Nothing obvious
 }
 
 // Restore lost "points" in a stat
@@ -1767,7 +1767,7 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 		return (TRUE);
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 // Gain a "point" in a stat
@@ -1802,7 +1802,7 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 		return (TRUE);
 	}
 
-	return (FALSE); // Nothing obvious
+	return FALSE; // Nothing obvious
 }
 
 
@@ -1835,7 +1835,7 @@ bool restore_exp(creature_type *creature_ptr)
 	}
 
 	/* No effect */
-	return (FALSE);
+	return FALSE;
 }
 
 

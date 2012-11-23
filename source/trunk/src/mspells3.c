@@ -406,7 +406,7 @@ cptr            p = "–‚–@";
 #else
 		msg_print("You don't know any spell of this type.");
 #endif
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Build a prompt (accept all spells) */
@@ -435,7 +435,7 @@ cptr            p = "–‚–@";
 				case '0':
 				{
 					screen_load();
-					return (FALSE);
+					return FALSE;
 				}
 
 				case '8':
@@ -656,7 +656,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
-	if(!flag) return (FALSE);
+	if(!flag) return FALSE;
 
 	/* Save the choice */
 	(*sn) = spellnum[i];

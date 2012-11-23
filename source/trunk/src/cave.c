@@ -600,7 +600,7 @@ bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
 
 
 	/* Forbid perma-grids */
-	if(cave_perma_grid(cave_ptr)) return (FALSE);
+	if(cave_perma_grid(cave_ptr)) return FALSE;
 
 	/* Check objects */
 	for (this_object_idx = cave_ptr->object_idx; this_object_idx; this_object_idx = next_object_idx)
@@ -614,7 +614,7 @@ bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
 		next_object_idx = object_ptr->next_object_idx;
 
 		/* Forbid artifact grids */
-		if(object_is_artifact(object_ptr)) return (FALSE);
+		if(object_is_artifact(object_ptr)) return FALSE;
 	}
 
 	/* Accept */
@@ -4903,7 +4903,7 @@ bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x
 	x = GRID_X(grid_g[grid_n - 1]);
 
 	/* May not end in an unrequested grid */
-	if((y != y2) || (x != x2)) return (FALSE);
+	if((y != y2) || (x != x2)) return FALSE;
 
 	/* Assume okay */
 	return (TRUE);

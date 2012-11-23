@@ -1628,7 +1628,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	/* Prevent genocide in quest levels */
 	if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Mega-Hack -- Get a creature symbol */
@@ -1673,7 +1673,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 
 	/* Prevent mass genocide in quest levels */
 	if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
-		return (FALSE);
+		return FALSE;
 
 	/* Delete the (nearby) creatures */
 	for (i = 1; i < creature_max; i++)
@@ -1711,7 +1711,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	/* Prevent mass genocide in quest levels */
 	if((floor_ptr->quest && !random_quest_number(floor_ptr)) || floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode)
 	{
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Delete the (nearby) creatures */
@@ -1933,7 +1933,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 	/* Prevent destruction of quest levels and town */
 	if((floor_ptr->quest && is_fixed_quest_idx(floor_ptr->quest)) || !floor_ptr->floor_level)
 	{
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Lose creature light */

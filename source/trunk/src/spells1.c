@@ -3453,9 +3453,9 @@ static bool project_creature(creature_type *caster_ptr, cptr who_name, int r, in
 	//if((player_ptr->posture & NINJA_KAWARIMI) && dam && (randint0(55) < (player_ptr->lev * 3 / 5+20)) && (caster_ptr != &creature_list[player_ptr->riding]))
 	//	if(kawarimi(player_ptr, TRUE)) return FALSE;
 
-	if(caster_ptr == target_ptr) return (FALSE); // Caster cannot hurt himself
-	if(!is_valid_creature_aux(target_ptr)) return (FALSE);
-	//if(caster_ptr == &creature_list[player_ptr->riding]) return (FALSE);
+	if(caster_ptr == target_ptr) return FALSE; // Caster cannot hurt himself
+	if(!is_valid_creature_aux(target_ptr)) return FALSE;
+	//if(caster_ptr == &creature_list[player_ptr->riding]) return FALSE;
 
 	if((has_trait(target_ptr, TRAIT_REFLECTING) || ((target_ptr->posture & KATA_FUUJIN) && !has_trait(target_ptr, TRAIT_BLIND))) && (flg & PROJECT_REFLECTABLE) && !one_in_(10))
 	{
@@ -3600,7 +3600,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 	/* Paranoia -- require "safe" origin */
-	/* if(!in_bounds(floor_ptr, y1, x1)) return (FALSE); */
+	/* if(!in_bounds(floor_ptr, y1, x1)) return FALSE; */
 
 
 	/* Directly South/North */
@@ -3611,7 +3611,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		{
 			for (ty = y1 + 1; ty < y2; ty++)
 			{
-				if(cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -3620,7 +3620,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		{
 			for (ty = y1 - 1; ty > y2; ty--)
 			{
-				if(cave_stop_disintegration(floor_ptr, ty, x1)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, x1)) return FALSE;
 			}
 		}
 
@@ -3636,7 +3636,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		{
 			for (tx = x1 + 1; tx < x2; tx++)
 			{
-				if(cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -3645,7 +3645,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		{
 			for (tx = x1 - 1; tx > x2; tx--)
 			{
-				if(cave_stop_disintegration(floor_ptr, y1, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, y1, tx)) return FALSE;
 			}
 		}
 
@@ -3709,7 +3709,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
-			if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+			if(cave_stop_disintegration(floor_ptr, ty, tx)) return FALSE;
 
 			qy += m;
 
@@ -3720,7 +3720,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 			else if(qy > f2)
 			{
 				ty += sy;
-				if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, tx)) return FALSE;
 				qy -= f1;
 				tx += sx;
 			}
@@ -3756,7 +3756,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
-			if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+			if(cave_stop_disintegration(floor_ptr, ty, tx)) return FALSE;
 
 			qx += m;
 
@@ -3767,7 +3767,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 			else if(qx > f2)
 			{
 				tx += sx;
-				if(cave_stop_disintegration(floor_ptr, ty, tx)) return (FALSE);
+				if(cave_stop_disintegration(floor_ptr, ty, tx)) return FALSE;
 				qx -= f1;
 				ty += sy;
 			}
@@ -4584,7 +4584,7 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 	}
 
 	/* Speed -- ignore "non-explosions" */
-	if(!grids) return (FALSE);
+	if(!grids) return FALSE;
 
 
 	/* Display the "blast area" if requested */

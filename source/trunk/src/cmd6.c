@@ -541,7 +541,7 @@ static bool item_tester_hook_eatable(creature_type *creature_ptr, object_type *o
 	}
 
 	/* Assume not */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -3158,7 +3158,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 	int i;
 	u32b flgs[TRAIT_FLAG_MAX];
 
-	if(!object_is_known(object_ptr)) return (FALSE);	// Not known
+	if(!object_is_known(object_ptr)) return FALSE;	// Not known
 	object_flags(object_ptr, flgs);						// Extract the flags
 
 	for(i = 0; i < MAX_TRAITS; i++)
@@ -3166,7 +3166,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 			trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
 			if(has_trait_object(object_ptr, i)) return (TRUE);
 
-	return (FALSE);	// Assume not
+	return FALSE;	// Assume not
 }
 
 // Hack -- activate the ring of power
@@ -3793,7 +3793,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 			int i;
 
 			/* Not known */
-			if(!object_is_known(object_ptr)) return (FALSE);
+			if(!object_is_known(object_ptr)) return FALSE;
 
 			/* HACK - only items from the equipment can be activated */
 			for (i = 0; i < INVEN_TOTAL; i++)
@@ -3809,7 +3809,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 	}
 
 	
-	return (FALSE); // Assume not
+	return FALSE; // Assume not
 }
 
 

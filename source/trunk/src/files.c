@@ -5513,7 +5513,7 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 			fff = my_fopen(path, "r");
 
 			/* Oops */
-			if(!fff) return (FALSE);
+			if(!fff) return FALSE;
 
 			/* File has been restarted */
 			next = 0;
@@ -5882,7 +5882,7 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 	my_fclose(fff);
 
 	/* Escape */
-	if(skey == 'q') return (FALSE);
+	if(skey == 'q') return FALSE;
 
 	/* Normal return */
 	return (TRUE);

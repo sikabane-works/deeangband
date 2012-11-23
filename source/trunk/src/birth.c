@@ -4426,7 +4426,7 @@ static bool get_chara_limits(creature_type *creature_ptr)
 		case 'Q':
 			birth_quit();
 		case 'S':
-			return (FALSE);
+			return FALSE;
 		case ESCAPE:
 			break; /*Œã‚Å‚à‚¤ˆê‰ñbreak‚¹‚ñ‚Æ*/
 		case ' ':
@@ -4957,7 +4957,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			put_initial_status(creature_ptr);
 		}
 		i = get_creature_first_race(creature_ptr, species_ptr, auto_generate);
-		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 	else
@@ -4969,7 +4969,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	{
 		if(!auto_generate) put_initial_status(creature_ptr);
 		i = get_creature_second_race(creature_ptr, species_ptr, auto_generate);
-		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 	else
@@ -5002,7 +5002,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			put_initial_status(creature_ptr);
 		}
 		i = get_creature_sex(creature_ptr, species_ptr, auto_generate);
-		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 	else
@@ -5012,29 +5012,29 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	// Class Select
 	i = get_creature_class(creature_ptr, species_ptr, auto_generate);
-	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_RETURN) return FALSE;
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	// Realm Select
 	i = get_creature_realms(creature_ptr, species_ptr, auto_generate);
-	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_RETURN) return FALSE;
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	// Patron Select
 	i = get_creature_patron(creature_ptr, species_ptr, auto_generate);
-	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_RETURN) return FALSE;
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	// Character Select
 	i = get_creature_chara(creature_ptr, species_ptr, auto_generate);
-	if(i == BIRTH_SELECT_RETURN) return (FALSE);
+	if(i == BIRTH_SELECT_RETURN) return FALSE;
 	if(i == BIRTH_SELECT_QUIT) birth_quit();
 
 	// Starting Point
 	if(player_generate)
 	{
 		i = get_starting_point(creature_ptr, auto_generate);
-		if(i == BIRTH_SELECT_RETURN) return (FALSE);
+		if(i == BIRTH_SELECT_RETURN) return FALSE;
 		if(i == BIRTH_SELECT_QUIT) birth_quit();
 	}
 
@@ -5329,7 +5329,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 			c = inkey();	// Prompt and get a command
 
 			if(c == 'Q') birth_quit();							// Quit
-			if(c == 'S') return (FALSE);						// Start over
+			if(c == 'S') return FALSE;						// Start over
 			if(c == '\r' || c == '\n' || c == ESCAPE) break;	// Escape accepts the roll
 			if((c == ' ') || (c == 'r')) break;	// Reroll this character
 
@@ -5408,7 +5408,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 	c = inkey();	// Get a key
 
 	if(c == 'Q') birth_quit();		// Quit
-	if(c == 'S') return (FALSE);	// Start over
+	if(c == 'S') return FALSE;	// Start over
 	return (TRUE);					// Accept
 }
 
@@ -5445,7 +5445,7 @@ bool ask_quick_start(creature_type *creature_ptr)
 		c = inkey();
 
 		if(c == 'Q') quit(NULL);
-		else if(c == 'S') return (FALSE);
+		else if(c == 'S') return FALSE;
 		else if(c == '?')
 		{
 #ifdef JP

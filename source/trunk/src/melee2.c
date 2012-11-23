@@ -212,13 +212,13 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	}
 
 	/* Keep creatures from running too far away */
-	if(m_ptr->cdis > MAX_SIGHT + 5) return (FALSE);
+	if(m_ptr->cdis > MAX_SIGHT + 5) return FALSE;
 
 	/* All "afraid" creatures will run away */
 	if(m_ptr->timed_trait[TRAIT_AFRAID]) return (TRUE);
 
 	/* Nearby creatures will not become terrified */
-	if(m_ptr->cdis <= 5) return (FALSE);
+	if(m_ptr->cdis <= 5) return FALSE;
 
 	/* Examine player power (level) */
 	p_lev = creature_ptr->lev;
@@ -227,7 +227,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	m_lev = r_ptr->level + (m_idx & 0x08) + 25;
 
 	/* Optimize extreme cases below */
-	if(m_lev > p_lev + 4) return (FALSE);
+	if(m_lev > p_lev + 4) return FALSE;
 	if(m_lev + 4 <= p_lev) return (TRUE);
 
 	/* Examine player health */
@@ -246,7 +246,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	if(p_val * m_mhp > m_val * p_mhp) return (TRUE);
 
 	/* Assume no terror */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -268,7 +268,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	x1 = creature_ptr->fx;
 
 	/* Creature can already cast spell to player */
-	if(projectable(floor_ptr, MAX_RANGE, y1, x1, player_ptr->fy, player_ptr->fx)) return (FALSE);
+	if(projectable(floor_ptr, MAX_RANGE, y1, x1, player_ptr->fy, player_ptr->fx)) return FALSE;
 
 	/* Set current grid cost */
 	now_cost = floor_ptr->cave[y1][x1].cost;
@@ -293,7 +293,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 		if(!in_bounds2(floor_ptr, y, x)) continue;
 
 		/* Simply move to player */
-		if(creature_bold(player_ptr, y, x)) return (FALSE);
+		if(creature_bold(player_ptr, y, x)) return FALSE;
 
 		c_ptr = &floor_ptr->cave[y][x];
 
@@ -323,7 +323,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	}
 
 	/* No legal move (?) */
-	if(best == 999) return (FALSE);
+	if(best == 999) return FALSE;
 
 	/* Success */
 	return (TRUE);
@@ -371,43 +371,37 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	}
 
 	/* Creature can't flow */
-	if(no_flow) return (FALSE);
+	if(no_flow) return FALSE;
 
 	/* Creature can go through rocks */
-	if(has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return (FALSE);
-	if(has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return (FALSE);
+	if(has_trait(nonplayer_ptr, TRAIT_PASS_WALL) && ((m_idx != mover_ptr->riding) || has_trait(mover_ptr, TRAIT_PASS_WALL))) return FALSE;
+	if(has_trait(nonplayer_ptr, TRAIT_KILL_WALL) && (m_idx != mover_ptr->riding)) return FALSE;
 
 	/* Creature location */
 	y1 = nonplayer_ptr->fy;
 	x1 = nonplayer_ptr->fx;
 
 	/* Hack -- Player can see us, run towards him */
-	if(player_has_los_bold(y1, x1) && projectable(floor_ptr, MAX_RANGE, mover_ptr->fy, mover_ptr->fx, y1, x1)) return (FALSE);
+	if(player_has_los_bold(y1, x1) && projectable(floor_ptr, MAX_RANGE, mover_ptr->fy, mover_ptr->fx, y1, x1)) return FALSE;
 
 	/* Creature grid */
 	c_ptr = &floor_ptr->cave[y1][x1];
 
 	/* If we can hear noises, advance towards them */
-	if(c_ptr->cost)
-	{
-		best = 999;
-	}
+	if(c_ptr->cost) best = 999;
 
 	/* Otherwise, try to follow a scent trail */
 	else if(c_ptr->when)
 	{
 		/* Too old smell */
-		if(floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return (FALSE);
+		if(floor_ptr->cave[mover_ptr->fy][mover_ptr->fx].when - c_ptr->when > 127) return FALSE;
 
 		use_scent = TRUE;
 		best = 0;
 	}
 
 	/* Otherwise, advance blindly */
-	else
-	{
-		return (FALSE);
-	}
+	else return FALSE;
 
 	/* Check nearby grids, diagonals first */
 	for (i = 7; i >= 0; i--)
@@ -451,7 +445,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	}
 
 	/* No legal move (?) */
-	if(best == 999 || best == 0) return (FALSE);
+	if(best == 999 || best == 0) return FALSE;
 
 	/* Success */
 	return (TRUE);
@@ -518,7 +512,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	}
 
 	/* No legal move (?) */
-	if(score == -1) return (FALSE);
+	if(score == -1) return FALSE;
 
 	/* Find deltas */
 	(*yp) = fy - gy;
@@ -754,7 +748,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 	}
 
 	/* No safe place */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -830,7 +824,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 	}
 
 	/* No good place */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1002,7 +996,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 
 	/* Check for no move */
-	if(!x && !y) return (FALSE);
+	if(!x && !y) return FALSE;
 
 
 	/* Extract the "absolute distances" */
@@ -1178,7 +1172,7 @@ static int check_hit2(int power, int level, int ac, int stun)
 	i = (power + (level * 3)); // Calculate the "attack quality"
 	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE); // Power and Level compete against Armor
 
-	return (FALSE); // Assume miss
+	return FALSE; // Assume miss
 }
 
 static bool check_hp_for_feat_destruction(feature_type *f_ptr, creature_type *m_ptr)
@@ -1503,12 +1497,11 @@ static void process_nonplayer(int m_idx)
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 	bool			test = FALSE;
 
-	creature_ptr->action_turn++;
-
 	// Access the location
 	int	fx = creature_ptr->fx;
 	int	fy = creature_ptr->fy;
 
+	creature_ptr->action_turn++;
 
 	// Handle "sensing radius"
 	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->alert_range > MAX_SIGHT ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
@@ -2947,7 +2940,7 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 	creature_type *m_ptr = &creature_list[hack_m_idx];  /* the world creature */
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
-	if(the_world) return (FALSE);
+	if(the_world) return FALSE;
 
 	if(vs_player)
 	{

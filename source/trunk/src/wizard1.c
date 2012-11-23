@@ -1561,7 +1561,7 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	i = lookup_kind(a_ptr->tval, a_ptr->sval);
 
 	/* Oops */
-	if(!i) return (FALSE);
+	if(!i) return FALSE;
 
 	/* Create the artifact */
 	object_prep(object_ptr, i, ITEM_FREE_SIZE);

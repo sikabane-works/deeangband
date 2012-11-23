@@ -56,7 +56,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 
 
 	/* Paranoia */
-	if(!creature_ptr->species_idx) return (FALSE);
+	if(!creature_ptr->species_idx) return FALSE;
 
 	/* Save the old location */
 	oy = creature_ptr->fy;
@@ -108,7 +108,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 		min = min / 2;
 
 		/* Stop after MAX_TRIES tries */
-		if(tries > MAX_TRIES) return (FALSE);
+		if(tries > MAX_TRIES) return FALSE;
 	}
 
 	/* Sound */
@@ -2156,7 +2156,7 @@ s = "金に変えられる物がありません。";
 	s = "You have nothing to turn to gold.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* See how many items */
@@ -2379,7 +2379,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 	}
 
 	/* Failure */
-	if(!res) return (FALSE);
+	if(!res) return FALSE;
 
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -2426,7 +2426,7 @@ s = "強化できるアイテムがない。";
 	s = "You have nothing to enchant.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Description */
@@ -2503,7 +2503,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	s = "You have nothing to enchant.";
 #endif
 
-	if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return (FALSE);
+	if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return FALSE;
 	object_ptr = GET_ITEM(caster_ptr, item);
 
 	/* Description */
@@ -2689,7 +2689,7 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	s = "You have nothing to identify.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Identify it */
@@ -2756,7 +2756,7 @@ s = "使えるものがありません。";
 	s = "You have nothing you can use.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Oops */
@@ -2851,7 +2851,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	s = "You have nothing to *identify*.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Identify it */
@@ -2922,7 +2922,7 @@ bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_
 	if(IS_ROD(object_ptr)) return (TRUE);
 
 	/* Nope */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -2966,7 +2966,7 @@ s = "魔力を充填すべきアイテムがない。";
 	s = "You have nothing to recharge.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* Get the object kind. */
@@ -4089,7 +4089,7 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 	}
 
 	/* Spell is illegal */
-	if(s_ptr->slevel > creature_ptr->lev) return (FALSE);
+	if(s_ptr->slevel > creature_ptr->lev) return FALSE;
 
 	/* Spell is forgotten */
 	if((use_realm == creature_ptr->realm2) ?
@@ -4097,7 +4097,7 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 	    (creature_ptr->spell_forgotten1 & (1L << spell)))
 	{
 		/* Never okay */
-		return (FALSE);
+		return FALSE;
 	}
 
 	if(creature_ptr->class_idx == CLASS_SORCERER) return (TRUE);
@@ -4394,7 +4394,7 @@ bool hates_acid(object_type *object_ptr)
 		}
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4412,7 +4412,7 @@ bool hates_elec(object_type *object_ptr)
 		}
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4472,7 +4472,7 @@ bool hates_fire(object_type *object_ptr)
 		}
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4491,7 +4491,7 @@ bool hates_cold(object_type *object_ptr)
 		}
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4501,9 +4501,9 @@ bool hates_cold(object_type *object_ptr)
 int set_acid_destroy(object_type *object_ptr)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-	if(!hates_acid(object_ptr)) return (FALSE);
+	if(!hates_acid(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
-	if(have_flag(flgs, TRAIT_IGNORE_ACID)) return (FALSE);
+	if(have_flag(flgs, TRAIT_IGNORE_ACID)) return FALSE;
 	return (TRUE);
 }
 
@@ -4514,9 +4514,9 @@ int set_acid_destroy(object_type *object_ptr)
 int set_elec_destroy(object_type *object_ptr)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-	if(!hates_elec(object_ptr)) return (FALSE);
+	if(!hates_elec(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
-	if(have_flag(flgs, TRAIT_IGNORE_ELEC)) return (FALSE);
+	if(have_flag(flgs, TRAIT_IGNORE_ELEC)) return FALSE;
 	return (TRUE);
 }
 
@@ -4527,9 +4527,9 @@ int set_elec_destroy(object_type *object_ptr)
 int set_fire_destroy(object_type *object_ptr)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-	if(!hates_fire(object_ptr)) return (FALSE);
+	if(!hates_fire(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
-	if(have_flag(flgs, TRAIT_IGNORE_FIRE)) return (FALSE);
+	if(have_flag(flgs, TRAIT_IGNORE_FIRE)) return FALSE;
 	return (TRUE);
 }
 
@@ -4540,9 +4540,9 @@ int set_fire_destroy(object_type *object_ptr)
 int set_cold_destroy(object_type *object_ptr)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
-	if(!hates_cold(object_ptr)) return (FALSE);
+	if(!hates_cold(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
-	if(have_flag(flgs, TRAIT_IGNORE_COLD)) return (FALSE);
+	if(have_flag(flgs, TRAIT_IGNORE_COLD)) return FALSE;
 	return (TRUE);
 }
 
@@ -4662,14 +4662,14 @@ static int minus_ac(creature_type *creature_ptr)
 	// Pick a (possibly empty) inventory slot
 	i = randint0(INVEN_TOTAL);
 	object_ptr = &creature_ptr->inventory[i];
-	if(!IS_EQUIPPED(object_ptr)) return (FALSE);
+	if(!IS_EQUIPPED(object_ptr)) return FALSE;
 
 	// Nothing to damage
-	if(!is_valid_object(object_ptr)) return (FALSE);
-	if(!object_is_armour(object_ptr)) return (FALSE);
+	if(!is_valid_object(object_ptr)) return FALSE;
+	if(!object_is_armour(object_ptr)) return FALSE;
 
 	// No damage left to be done
-	if(object_ptr->ac + object_ptr->to_ac <= 0) return (FALSE);
+	if(object_ptr->ac + object_ptr->to_ac <= 0) return FALSE;
 
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe
 
@@ -4777,7 +4777,7 @@ bool curse_armor(creature_type *creature_ptr)
 	object_ptr = get_equipped_slot_ptr(creature_ptr, INVEN_SLOT_BODY, 0);
 
 	/* Nothing to curse */
-	if(!is_valid_object(object_ptr)) return (FALSE);
+	if(!is_valid_object(object_ptr)) return FALSE;
 
 	/* Describe */
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
@@ -4816,7 +4816,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	char object_name[MAX_NLEN];
 
 	object_ptr = &target_ptr->inventory[slot];	// Curse the weapon
-	if(!is_valid_object(object_ptr)) return (FALSE);	// Nothing to curse
+	if(!is_valid_object(object_ptr)) return FALSE;	// Nothing to curse
 	object_desc(object_name, object_ptr, OD_OMIT_PREFIX);	// Describe
 
 	if(object_is_artifact(object_ptr) && (randint0(100) < 50) && !force)	// Attempt a saving throw
@@ -4946,9 +4946,9 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 	bool health_tracked = (health_who == c_ptr->creature_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
-	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return (FALSE);
+	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return FALSE;
 
-	if((creature_ptr->riding == c_ptr->creature_idx) || has_trait(m_ptr, TRAIT_KAGE)) return (FALSE);
+	if((creature_ptr->riding == c_ptr->creature_idx) || has_trait(m_ptr, TRAIT_KAGE)) return FALSE;
 
 	/* Memorize the creature before polymorphing */
 	back_m = *m_ptr;

@@ -1530,7 +1530,7 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
 
 	/* Assume miss */
-	return (FALSE);
+	return FALSE;
 }
 
 // Attack the player via physical attacks.
@@ -1575,8 +1575,8 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 
 	// Not allowed to attack
-	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return (FALSE);
-	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return (FALSE);
+	if(has_trait(attacker_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+	if(dungeon_info[floor_ptr->dun_type].flags1 & DF1_NO_MELEE) return FALSE;
 
 	if(!is_hostile(attacker_ptr)) return FALSE; // ...nor if friendly
 

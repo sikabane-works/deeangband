@@ -104,7 +104,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 	}
 
 	/* No "okay" spells */
-	if(!okay) return (FALSE);
+	if(!okay) return FALSE;
 	if(((use_realm) != creature_ptr->realm1) && ((use_realm) != creature_ptr->realm2) && (creature_ptr->class_idx != CLASS_SORCERER) && (creature_ptr->class_idx != CLASS_RED_MAGE)) return FALSE;
 	if(((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE)) && !is_magic(use_realm)) return FALSE;
 	if((creature_ptr->class_idx == CLASS_RED_MAGE) && ((use_realm) != REALM_ARCANE) && (sval > 1)) return FALSE;
@@ -339,12 +339,12 @@ static bool item_tester_learn_trait(creature_type *creature_ptr, object_type *ob
 		}
 	}
 
-	if((object_ptr->tval < TV_LIFE_BOOK) || (object_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return (FALSE);
+	if((object_ptr->tval < TV_LIFE_BOOK) || (object_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return FALSE;
 	if((object_ptr->tval == TV_MUSIC_BOOK) && (creature_ptr->class_idx == CLASS_BARD)) return (TRUE);
 	else if(!is_magic(tval2realm(object_ptr->tval))) return FALSE;
 	if((REALM1_BOOK(creature_ptr) == object_ptr->tval) || (REALM2_BOOK(creature_ptr) == object_ptr->tval)) return (TRUE);
 	if(choices & (0x0001 << (tval2realm(object_ptr->tval) - 1))) return (TRUE);
-	return (FALSE);
+	return FALSE;
 }
 
 

@@ -6167,7 +6167,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 
 		/* Compare total kills */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 
@@ -6180,7 +6180,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 
 		/* Compare levels */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 
@@ -6193,7 +6193,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 
 		/* Compare experience */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 

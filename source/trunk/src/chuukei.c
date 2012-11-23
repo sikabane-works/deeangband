@@ -499,17 +499,17 @@ static bool string_is_repeat(char *str, int len)
 	char c = str[0];
 	int i;
 
-	if(len < 2) return (FALSE);
+	if(len < 2) return FALSE;
 #ifdef JP
-	if(iskanji(c)) return (FALSE);
+	if(iskanji(c)) return FALSE;
 #endif
 
 	for (i = 1; i < len; i++)
 	{
 #ifdef JP
-		if(c != str[i] || iskanji(str[i])) return (FALSE);
+		if(c != str[i] || iskanji(str[i])) return FALSE;
 #else
-		if(c != str[i]) return (FALSE);
+		if(c != str[i]) return FALSE;
 #endif
 	}
 
@@ -906,7 +906,7 @@ static bool get_nextbuf(char *buf)
 		if(*ptr++ == '\0') break;
 	}
 
-	if(buf[0] == 'd') return (FALSE);
+	if(buf[0] == 'd') return FALSE;
 
 	return (TRUE);
 }
@@ -933,10 +933,10 @@ static bool flush_ringbuf_client(void)
 	char buf[1024];
 
 	/* ‘‚­ƒf[ƒ^‚È‚µ */
-	if(fresh_queue.next == fresh_queue.tail) return (FALSE);
+	if(fresh_queue.next == fresh_queue.tail) return FALSE;
 
 	/* ‚Ü‚¾‘‚­‚×‚«‚Å‚È‚¢ */
-	if(fresh_queue.time[fresh_queue.next] > get_current_time() - epoch_time) return (FALSE);
+	if(fresh_queue.time[fresh_queue.next] > get_current_time() - epoch_time) return FALSE;
 
 	/* ŠÔî•ñ(‹æØ‚è)‚ª“¾‚ç‚ê‚é‚Ü‚Å‘‚­ */
 	while (get_nextbuf(buf))

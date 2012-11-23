@@ -578,7 +578,7 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 {
 
 	/* Require an item */
-	if(!is_valid_object(object_ptr)) return (FALSE);
+	if(!is_valid_object(object_ptr)) return FALSE;
 
 	/* Hack -- ignore "gold" */
 	/* TODO remove
@@ -587,7 +587,7 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 		// See xtra2.c
 		extern bool show_gold_on_floor;
 
-		if(!show_gold_on_floor) return (FALSE);
+		if(!show_gold_on_floor) return FALSE;
 	}
 	*/
 
@@ -599,13 +599,13 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 			(item_tester_tval >= TV_LIFE_BOOK))
 			return check_book_realm(creature_ptr, object_ptr->tval, object_ptr->sval);
 		else
-			if(item_tester_tval != object_ptr->tval) return (FALSE);
+			if(item_tester_tval != object_ptr->tval) return FALSE;
 	}
 
 	/* Check the hook */
 	if(item_tester_hook)
 	{
-		if(!(*item_tester_hook)(creature_ptr, object_ptr)) return (FALSE);
+		if(!(*item_tester_hook)(creature_ptr, object_ptr)) return FALSE;
 	}
 
 	/* Assume okay */
@@ -816,7 +816,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 	}
 
 	/* No such tag */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -906,7 +906,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 	}
 
 	/* No such tag */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1280,9 +1280,9 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 		{
 			/* Verify the choice */
 #ifdef JP
-			if(!verify(creature_ptr, "–{“–‚É", item)) return (FALSE);
+			if(!verify(creature_ptr, "–{“–‚É", item)) return FALSE;
 #else
-			if(!verify("Really try", item)) return (FALSE);
+			if(!verify("Really try", item)) return FALSE;
 #endif
 		}
 
@@ -1301,8 +1301,8 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
  */
 static bool get_item_okay(creature_type *creature_ptr, int i, bool (*hook)(creature_type *creature_ptr, object_type *object_ptr), int item_tester_tval)
 {
-	if((i < 0) || (i >= INVEN_TOTAL)) return (FALSE); // Illegal items
-	if(!item_tester_okay(creature_ptr, &creature_ptr->inventory[i], hook, item_tester_tval)) return (FALSE); // Verify the item
+	if((i < 0) || (i >= INVEN_TOTAL)) return FALSE; // Illegal items
+	if(!item_tester_okay(creature_ptr, &creature_ptr->inventory[i], hook, item_tester_tval)) return FALSE; // Verify the item
 	return (TRUE); // Assume okay
 }
 
@@ -3697,7 +3697,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 	}
 	else
 	{
-		return (FALSE);
+		return FALSE;
 	}
 
 	// Pick up the object

@@ -1806,7 +1806,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 	int k_idx = 0;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
 
-	if(!floor_ptr->floor_level) return (FALSE); // No artifacts in the town
+	if(!floor_ptr->floor_level) return FALSE; // No artifacts in the town
 
 	for (i = 0; i < max_artifact_idx; i++) // Check the artifact list (just the "specials")
 	{
@@ -1841,7 +1841,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		return (TRUE); // Success
 	}
 
-	return (FALSE); // Failure
+	return FALSE; // Failure
 }
 
 
@@ -1853,8 +1853,8 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 {
 	int i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(owner_ptr);
-	if(!floor_ptr->floor_level) return (FALSE); // No artifacts in the town 
-	if(object_ptr->number != 1) return (FALSE); // Paranoia -- no "plural" artifacts
+	if(!floor_ptr->floor_level) return FALSE; // No artifacts in the town 
+	if(object_ptr->number != 1) return FALSE; // Paranoia -- no "plural" artifacts
 
 	// Check the artifact list (skip the "specials")
 	for (i = 0; i < max_artifact_idx; i++)
@@ -1883,7 +1883,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
 		return (TRUE); // Success
 	}
-	return (FALSE); // Failure
+	return FALSE; // Failure
 }
 
 // Choose random ego type
@@ -2263,12 +2263,12 @@ static bool item_creature_okay(int species_idx)
 	species_type *r_ptr = &species_info[species_idx];
 
 	/* No uniques */
-	if(has_trait_species(r_ptr, TRAIT_UNIQUE)) return (FALSE);
-	//if(is_shadow_species(r_ptr)) return (FALSE);
-	if(has_trait_species(r_ptr, TRAIT_RES_ALL)) return (FALSE);
-	if(has_trait_species(r_ptr, TRAIT_NAZGUL)) return (FALSE);
-	if(has_trait_species(r_ptr, TRAIT_FORCE_DEPTH)) return (FALSE);
-	if(has_trait_species(r_ptr, TRAIT_UNIQUE2)) return (FALSE);
+	if(has_trait_species(r_ptr, TRAIT_UNIQUE)) return FALSE;
+	//if(is_shadow_species(r_ptr)) return FALSE;
+	if(has_trait_species(r_ptr, TRAIT_RES_ALL)) return FALSE;
+	if(has_trait_species(r_ptr, TRAIT_NAZGUL)) return FALSE;
+	if(has_trait_species(r_ptr, TRAIT_FORCE_DEPTH)) return FALSE;
+	if(has_trait_species(r_ptr, TRAIT_UNIQUE2)) return FALSE;
 
 	/* Okay */
 	return (TRUE);
@@ -2822,7 +2822,7 @@ static bool kind_is_good(int k_idx)
 		case TV_HELM:
 		case TV_CROWN:
 		{
-			if(object_kind_ptr->to_ac < 0) return (FALSE);
+			if(object_kind_ptr->to_ac < 0) return FALSE;
 			return (TRUE);
 		}
 
@@ -2833,8 +2833,8 @@ static bool kind_is_good(int k_idx)
 		case TV_POLEARM:
 		case TV_DIGGING:
 		{
-			if(object_kind_ptr->to_hit < 0) return (FALSE);
-			if(object_kind_ptr->to_damage < 0) return (FALSE);
+			if(object_kind_ptr->to_hit < 0) return FALSE;
+			if(object_kind_ptr->to_damage < 0) return FALSE;
 			return (TRUE);
 		}
 
@@ -2860,7 +2860,7 @@ static bool kind_is_good(int k_idx)
 		case TV_HEX_BOOK:
 		{
 			if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return (TRUE);
-			return (FALSE);
+			return FALSE;
 		}
 
 		/* Rings -- Rings of Speed are good */
@@ -2868,7 +2868,7 @@ static bool kind_is_good(int k_idx)
 		{
 			if(object_kind_ptr->sval == SV_RING_SPEED) return (TRUE);
 			if(object_kind_ptr->sval == SV_RING_LORDLY) return (TRUE);
-			return (FALSE);
+			return FALSE;
 		}
 
 		/* Amulets -- Amulets of the Magi and Resistance are good */
@@ -2876,12 +2876,12 @@ static bool kind_is_good(int k_idx)
 		{
 			if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return (TRUE);
 			if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return (TRUE);
-			return (FALSE);
+			return FALSE;
 		}
 	}
 
 	/* Assume not good */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -2910,7 +2910,7 @@ bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects - prepare allocation table
 		k_idx = get_obj_num(floor_ptr, floor_ptr->floor_level, gon_mode); // Pick a random object
 		if(get_obj_num_hook) get_obj_num_prep(get_obj_num_hook); // Restricted objects
-		if(!k_idx) return (FALSE); // Handle failure
+		if(!k_idx) return FALSE; // Handle failure
 
 		object_prep(object2_ptr, k_idx, ITEM_FREE_SIZE); // Prepare the object
 	}
@@ -3756,7 +3756,7 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 	}
 
 	/* Nope */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4742,7 +4742,7 @@ static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type
 		}
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 

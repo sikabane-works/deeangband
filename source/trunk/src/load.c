@@ -99,22 +99,22 @@ static bool older_than(byte major, byte minor, byte patch, byte extra)
 {
 	/* Much older, or much more recent */
 	if(ver_major < major) return (TRUE);
-	if(ver_major > major) return (FALSE);
+	if(ver_major > major) return FALSE;
 
 	/* Distinctly older, or distinctly more recent */
 	if(ver_minor < minor) return (TRUE);
-	if(ver_minor > minor) return (FALSE);
+	if(ver_minor > minor) return FALSE;
 
 	/* Barely older, or barely more recent */
 	if(ver_patch < patch) return (TRUE);
-	if(ver_patch > patch) return (FALSE);
+	if(ver_patch > patch) return FALSE;
 
 	/* Barely older, or barely more recent */
 	if(ver_extra < extra) return (TRUE);
-	if(ver_extra > extra) return (FALSE);
+	if(ver_extra > extra) return FALSE;
 
 	/* Identical versions */
-	return (FALSE);
+	return FALSE;
 }
 
 

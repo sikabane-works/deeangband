@@ -297,7 +297,7 @@ static bool kind_is_book(int k_idx)
 {
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
 	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK)) return (TRUE);	
-	return (FALSE);	// Assume not good
+	return FALSE;	// Assume not good
 }
 
 // Hack -- determine if a template is Good book
@@ -312,7 +312,7 @@ static bool kind_is_good_book(int k_idx)
 	}
 
 	/* Assume not good */
-	return (FALSE);
+	return FALSE;
 }
 
 // Check for "Quest" completion when a quest creature is killed or charmed.
@@ -1266,7 +1266,7 @@ bool change_panel(int dy, int dx)
 	}
 
 	/* No change */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1603,11 +1603,11 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	creature_type *target_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	if(!target_ptr->species_idx) return (FALSE);	// Creature must be alive
-	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);	// Hack -- no targeting hallucinations
-	if(!target_ptr->see_others) return (FALSE);	// Creature must be visible
+	if(!target_ptr->species_idx) return FALSE;	// Creature must be alive
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE;	// Hack -- no targeting hallucinations
+	if(!target_ptr->see_others) return FALSE;	// Creature must be visible
 	if(creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
-	if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return (FALSE);	// Creature must be projectable
+	if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return FALSE;	// Creature must be projectable
 
 	return (TRUE);
 }
@@ -1641,7 +1641,7 @@ bool target_okay(creature_type *creature_ptr)
 	}
 
 	/* Assume no target */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1835,15 +1835,15 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 	s16b this_object_idx, next_object_idx = 0;
 
 	/* Bounds */
-	if(!(in_bounds(floor_ptr, y, x))) return (FALSE);
-	if(floor_ptr->wild_mode && !wilderness[y][x].known) return (FALSE);
+	if(!(in_bounds(floor_ptr, y, x))) return FALSE;
+	if(floor_ptr->wild_mode && !wilderness[y][x].known) return FALSE;
 
 	/* Player grid is always interesting */
 	if(creature_bold(creature_ptr, y, x)) return (TRUE);
 
 
 	/* Handle hallucination */
-	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE);
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE;
 
 
 	/* Examine the grid */
@@ -1884,7 +1884,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Nope */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -3036,7 +3036,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 	aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 	play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
 	handle_stuff();	// Handle stuff
-	if(!target_who) return (FALSE);	// Failure to set target
+	if(!target_who) return FALSE;	// Failure to set target
 
 	return (TRUE);	// Success
 }
@@ -3123,7 +3123,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 		if(!dir) bell();	// Error
 	}
 
-	if(!dir) return (FALSE); // No direction
+	if(!dir) return FALSE; // No direction
 
 	/* Save the direction */
 	command_dir = dir;
@@ -3204,7 +3204,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	if((dir == 5) && (!under)) dir = 0;
 
 	/* Aborted */
-	if(!dir) return (FALSE);
+	if(!dir) return FALSE;
 
 	/* Save desired direction */
 	command_dir = dir;
@@ -3323,7 +3323,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	if(dir == 5) dir = 0;
 
 	/* Aborted */
-	if(!dir) return (FALSE);
+	if(!dir) return FALSE;
 
 	/* Save desired direction */
 	command_dir = dir;
@@ -4098,9 +4098,9 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	if(!(in_bounds(floor_ptr, y, x))) return (FALSE); // Bounds
+	if(!(in_bounds(floor_ptr, y, x))) return FALSE; // Bounds
 	if((y == creature_ptr->fy) && (x == creature_ptr->fx)) return (TRUE); // Player grid is always interesting
-	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return (FALSE); // Handle hallucination
+	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE; // Handle hallucination
 	c_ptr = &floor_ptr->cave[y][x]; // Examine the grid
 
 	// Interesting memorized features
@@ -4115,7 +4115,7 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 		if(cave_have_flag_grid(c_ptr, FF_QUEST_EXIT)) return (TRUE);
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4434,7 +4434,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	}
 
 	/* No direction */
-	if(!dir) return (FALSE);
+	if(!dir) return FALSE;
 
 	/* Save the direction */
 	command_dir = dir;

@@ -1310,7 +1310,7 @@ bool psychometry(creature_type *creature_ptr)
 	s = "You have nothing appropriate.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* It is fully known, no information needed */
@@ -3554,7 +3554,7 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 		if(!get_check("Are you sure you want to enter wizard mode? "))
 #endif
 		{
-			return (FALSE);
+			return FALSE;
 		}
 
 		wizard = TRUE;
@@ -3611,7 +3611,7 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 		if(!get_check("Are you sure you want to use debug commands? "))
 #endif
 		{
-			return (FALSE);
+			return FALSE;
 		}
 
 #ifdef JP

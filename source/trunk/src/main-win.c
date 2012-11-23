@@ -889,21 +889,21 @@ static bool check_file(cptr s)
 	attrib = GetFileAttributes(path);
 
 	/* Require valid filename */
-	if(attrib == INVALID_FILE_NAME) return (FALSE);
+	if(attrib == INVALID_FILE_NAME) return FALSE;
 
 	/* Prohibit directory */
-	if(attrib & FILE_ATTRIBUTE_DIRECTORY) return (FALSE);
+	if(attrib & FILE_ATTRIBUTE_DIRECTORY) return FALSE;
 
 #else /* WIN32 */
 
 	/* Examine and verify */
-	if(_dos_getfileattr(path, &attrib)) return (FALSE);
+	if(_dos_getfileattr(path, &attrib)) return FALSE;
 
 	/* Prohibit something */
-	if(attrib & FA_LABEL) return (FALSE);
+	if(attrib & FA_LABEL) return FALSE;
 
 	/* Prohibit directory */
-	if(attrib & FA_DIREC) return (FALSE);
+	if(attrib & FA_DIREC) return FALSE;
 
 #endif /* WIN32 */
 
@@ -946,21 +946,21 @@ static bool check_dir(cptr s)
 	attrib = GetFileAttributes(path);
 
 	/* Require valid filename */
-	if(attrib == INVALID_FILE_NAME) return (FALSE);
+	if(attrib == INVALID_FILE_NAME) return FALSE;
 
 	/* Require directory */
-	if(!(attrib & FILE_ATTRIBUTE_DIRECTORY)) return (FALSE);
+	if(!(attrib & FILE_ATTRIBUTE_DIRECTORY)) return FALSE;
 
 #else /* WIN32 */
 
 	/* Examine and verify */
-	if(_dos_getfileattr(path, &attrib)) return (FALSE);
+	if(_dos_getfileattr(path, &attrib)) return FALSE;
 
 	/* Prohibit something */
-	if(attrib & FA_LABEL) return (FALSE);
+	if(attrib & FA_LABEL) return FALSE;
 
 	/* Require directory */
-	if(!(attrib & FA_DIREC)) return (FALSE);
+	if(!(attrib & FA_DIREC)) return FALSE;
 
 #endif /* WIN32 */
 
@@ -1451,7 +1451,7 @@ static int new_palette(void)
 			rnfree(lppe, lppeSize);
 
 			/* Fail */
-			return (FALSE);
+			return FALSE;
 		}
 	}
 
@@ -1590,7 +1590,7 @@ static bool init_graphics(void)
 			plog_fmt("Cannot read graphic file '%s'", name);
 #endif
 
-			return (FALSE);
+			return FALSE;
 		}
 
 		/* Save the new sizes */
@@ -1609,7 +1609,7 @@ static bool init_graphics(void)
 			plog("Cannot activate palette!");
 #endif
 
-			return (FALSE);
+			return FALSE;
 		}
 
 		/* Graphics available */

@@ -383,7 +383,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
-	if(!flag) return (FALSE);
+	if(!flag) return FALSE;
 
 	/* Save the choice */
 	(*sn) = i;
@@ -494,14 +494,14 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 #else
 		msg_print("You wield no bow!");
 #endif
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* spell code */
 	switch (spell)
 	{
 	case 0: /* Concentration */
-		if(!snipe_concentrate(creature_ptr)) return (FALSE);
+		if(!snipe_concentrate(creature_ptr)) return FALSE;
 		cost_tactical_energy(creature_ptr, 100);
 		return (TRUE);
 	case 1: creature_ptr->snipe_type = SP_LITE; break;

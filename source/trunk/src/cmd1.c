@@ -23,12 +23,12 @@ bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis)
 	k = randint0(100); // Percentile dice
 
 	if(k < 10) return (k < 5);	// Instant miss or hit
-	if(has_trait(attacker_ptr, TRAIT_MISS_SHOOTING) && (one_in_(20))) return (FALSE);
+	if(has_trait(attacker_ptr, TRAIT_MISS_SHOOTING) && (one_in_(20))) return FALSE;
 
-	if(chance <= 0) return (FALSE);
+	if(chance <= 0) return FALSE;
 	if(!vis) chance = (chance + 1) / 2;	// Invisible creatures are harder to hit
 
-	if(randint0(chance) < (ev * 3 / 4)) return (FALSE);	// Power competes against armor
+	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	// Power competes against armor
 	return (TRUE);	// Assume hit
 }
 
@@ -715,7 +715,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 		if(one_in_(20)) return (TRUE);
 
 	/* Paranoia -- No power */
-	if(power <= 0) return (FALSE);
+	if(power <= 0) return FALSE;
 
 	/* Total armor */
 	ac = creature_ptr->ac + creature_ptr->to_ac;
@@ -724,7 +724,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 	if(randint1(power) > ((ac * 3) / 4)) return (TRUE);
 
 	/* Assume miss */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -2274,7 +2274,7 @@ static int see_wall(creature_type *creature_ptr, int dir, int y, int x)
 	y += ddy[dir];
 	x += ddx[dir];
 
-	if(!in_bounds2(floor_ptr, y, x)) return (FALSE); // Illegal grids are not known walls
+	if(!in_bounds2(floor_ptr, y, x)) return FALSE; // Illegal grids are not known walls
 	c_ptr = &floor_ptr->cave[y][x]; // Access grid
 
 	if(c_ptr->info & (CAVE_MARK)) // Must be known to the player
@@ -2309,8 +2309,8 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 	x += ddx[dir];
 
 	if(!in_bounds2(floor_ptr, y, x)) return (TRUE); // Illegal grids are unknown
-	if(floor_ptr->cave[y][x].info & (CAVE_MARK)) return (FALSE); // Memorized grids are always known
-	if(creature_can_see_bold(watcher_ptr, y, x)) return (FALSE); // Viewable door/wall grids are known
+	if(floor_ptr->cave[y][x].info & (CAVE_MARK)) return FALSE; // Memorized grids are always known
+	if(creature_can_see_bold(watcher_ptr, y, x)) return FALSE; // Viewable door/wall grids are known
 
 	return (TRUE);
 }
@@ -2931,7 +2931,7 @@ static bool run_test(creature_type *creature_ptr)
 	}
 
 	/* Failure */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -3082,7 +3082,7 @@ static bool travel_test(creature_type *creature_ptr)
 	}
 
 	/* Failure */
-	return (FALSE);
+	return FALSE;
 }
 
 

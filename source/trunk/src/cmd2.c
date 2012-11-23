@@ -1251,7 +1251,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 #endif
 
 		/* Nope */
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Must be a wall/door/etc */
@@ -1265,7 +1265,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 #endif
 
 		/* Nope */
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Okay */
@@ -1292,7 +1292,7 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 	bool more = FALSE;
 
 	/* Verify legality */
-	if(!do_cmd_tunnel_test(creature_ptr, y, x)) return (FALSE);
+	if(!do_cmd_tunnel_test(creature_ptr, y, x)) return FALSE;
 
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
@@ -1533,7 +1533,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	if(!is_closed_door(c_ptr->feat)) return (FALSE); // Must be a closed door
+	if(!is_closed_door(c_ptr->feat)) return FALSE; // Must be a closed door
 	if(!have_flag(f_ptr->flags, FF_OPEN)) // Jammed door
 	{
 		/* Stuck */
@@ -2182,7 +2182,7 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 	}
 
 	/* Oops */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -3416,7 +3416,7 @@ static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type 
 	if((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return (TRUE);
 
 	/* Assume not */
-	return (FALSE);
+	return FALSE;
 }
 
 /*

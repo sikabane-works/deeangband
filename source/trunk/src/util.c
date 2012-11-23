@@ -3696,8 +3696,8 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	prt("", 0, 0);
 
 	/* Handle "cancel" */
-	if(*command == ESCAPE) return (FALSE);
-	if(z_escape && ((*command == 'z') || (*command == 'Z'))) return (FALSE);
+	if(*command == ESCAPE) return FALSE;
+	if(z_escape && ((*command == 'z') || (*command == 'Z'))) return FALSE;
 
 	/* Success */
 	return (TRUE);
@@ -4692,7 +4692,7 @@ bool is_a_vowel(int ch)
 		return (TRUE);
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -4716,7 +4716,7 @@ static bool insert_str(char *buf, cptr target, cptr insert)
 	buf = my_strstr(buf, target);
 
 	/* No target found */
-	if(!buf) return (FALSE);
+	if(!buf) return FALSE;
 
 	/* Be sure we have an insertion string */
 	if(!insert) insert = "";
@@ -4840,7 +4840,7 @@ void repeat_push(int what)
 bool repeat_pull(int *what)
 {
 	/* All out of keys */
-	if(repeat__idx == repeat__cnt) return (FALSE);
+	if(repeat__idx == repeat__cnt) return FALSE;
 
 	/* Grab the next key, advance */
 	*what = repeat__key[repeat__idx++];

@@ -455,14 +455,14 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 	grid_n = project_path(grid_g, MAX_RANGE, floor_ptr, y1, x1, y2, x2, 0);
 
 	/* No grid is ever projectable from itself */
-	if(!grid_n) return (FALSE);
+	if(!grid_n) return FALSE;
 
 	/* Final grid */
 	y = GRID_Y(grid_g[grid_n-1]);
 	x = GRID_X(grid_g[grid_n-1]);
 
 	/* May not end in an unrequested grid */
-	if((y != y2) || (x != x2)) return (FALSE);
+	if((y != y2) || (x != x2)) return FALSE;
 
 	for (i = 0; i < grid_n; i++)
 	{
@@ -474,13 +474,13 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 			creature_type *m_ptr = &creature_list[floor_ptr->cave[y][x].creature_idx];
 			if(friend == is_pet(player_ptr, m_ptr))
 			{
-				return (FALSE);
+				return FALSE;
 			}
 		}
 		/* Pets may not shoot through the character - TNB */
 		if(creature_bold(target_ptr, y, x))
 		{
-			if(friend) return (FALSE);
+			if(friend) return FALSE;
 		}
 	}
 
@@ -698,7 +698,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 	if(target_ptr->riding && (creature_list[target_ptr->riding].speed < 25))
 		if(creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return (TRUE);
 
-	return (FALSE);	// No need to cast dispel spell
+	return FALSE;	// No need to cast dispel spell
 }
 
 
@@ -1045,12 +1045,12 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if(caster_ptr->timed_trait[TRAIT_CONFUSED])
 	{
 		reset_target(caster_ptr);
-		return (FALSE);
+		return FALSE;
 	}
 
 	/* Cannot cast spells when nice */
-	if(caster_ptr->sc_flag & SC_FLAG_NICE) return (FALSE);
-	if(!is_hostile(caster_ptr)) return (FALSE);
+	if(caster_ptr->sc_flag & SC_FLAG_NICE) return FALSE;
+	if(!is_hostile(caster_ptr)) return FALSE;
 
 
 	/* Sometimes forbid inate attacks (breaths) */
@@ -1060,7 +1060,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	/*** require projectable player ***/
 
 	/* Check range */
-	if((caster_ptr->cdis > MAX_RANGE) && !caster_ptr->target_y) return (FALSE);
+	if((caster_ptr->cdis > MAX_RANGE) && !caster_ptr->target_y) return FALSE;
 
 	/* Check path for lite breath */
 	if(has_trait(target_ptr, TRAIT_BR_LITE))
@@ -1219,7 +1219,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* No spells left */
-	//TODO if(!f4 && !f5 && !f6) return (FALSE);
+	//TODO if(!f4 && !f5 && !f6) return FALSE;
 
 	/* Remove the "ineffective" spells */
 	//TODO remove_bad_spells(caster_ptr, &f4, &f5, &f6);
@@ -1234,7 +1234,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* No spells left */
-	//TODO if(!f4 && !f5 && !f6) return (FALSE);
+	//TODO if(!f4 && !f5 && !f6) return FALSE;
 
 	if(!has_trait(caster_ptr, TRAIT_STUPID))
 	{
@@ -1281,20 +1281,20 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		}
 
 		/* No spells left */
-		//TODO if(!f4 && !f5 && !f6) return (FALSE);
+		//TODO if(!f4 && !f5 && !f6) return FALSE;
 	}
 
 	/* Extract the "inate" spells */
 	//TODO for(k = 0; k < max_trait_idx; k++) if(trait_info[k].effect_type && has_trait(caster_ptr, k)) racial_spell[num++] = k;
 
 	/* No spells left */
-	if(!num) return (FALSE);
+	if(!num) return FALSE;
 
 	/* Stop if player is dead or gone */
-	if(!playing || gameover) return (FALSE);
+	if(!playing || gameover) return FALSE;
 
 	/* Stop if player is leaving */
-	if(subject_change_floor) return (FALSE);
+	if(subject_change_floor) return FALSE;
 
 	/* Get the creature name (or "it") */
 	creature_desc(m_name, caster_ptr, 0x00);
@@ -1334,7 +1334,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* Abort if no spell was chosen */
-	if(!thrown_spell) return (FALSE);
+	if(!thrown_spell) return FALSE;
 
 	/* Calculate spell failure rate */
 	failrate = 25 - (rlev + 3) / 4;

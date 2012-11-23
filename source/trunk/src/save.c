@@ -1204,7 +1204,7 @@ static bool save_player_aux(char *name)
 
 
 	/* Failure */
-	if(!ok) return (FALSE);
+	if(!ok) return FALSE;
 
 	counts_write(0, play_time);
 

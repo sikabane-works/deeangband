@@ -1574,7 +1574,7 @@ static bool is_blessed(object_type *object_ptr)
 	u32b flgs[TRAIT_FLAG_MAX];
 	object_flags(object_ptr, flgs);
 	if(have_flag(flgs, TRAIT_BLESSED_BRAND)) return (TRUE);
-	else return (FALSE);
+	else return FALSE;
 }
 
 
@@ -1590,7 +1590,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 	if(is_home(st_ptr) || is_museum(st_ptr)) return (TRUE);
 
 	/* XXX XXX XXX Ignore "worthless" items */
-	//if(object_value(object_ptr) <= 0) return (FALSE);
+	//if(object_value(object_ptr) <= 0) return FALSE;
 
 	/* Black Market is simple too */
 	if(is_black_market(st_ptr)) return (TRUE);
@@ -1650,7 +1650,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_DRAG_ARMOR:
 				break;
 				default:
-				return (FALSE);
+				return FALSE;
 			}
 			break;
 		}
@@ -1670,11 +1670,11 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				break;
 				case TV_HAFTED:
 				{
-					if(object_ptr->sval == SV_WIZSTAFF) return (FALSE);
+					if(object_ptr->sval == SV_WIZSTAFF) return FALSE;
 				}
 				break;
 				default:
-				return (FALSE);
+				return FALSE;
 			}
 			break;
 		}
@@ -1703,7 +1703,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 					if(is_blessed(object_ptr)) break;
 				}
 				default:
-				return (FALSE);
+				return FALSE;
 			}
 			break;
 		}
@@ -1716,7 +1716,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_POTION:
 				break;
 				default:
-				return (FALSE);
+				return FALSE;
 			}
 			break;
 		}
@@ -1747,10 +1747,10 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_HAFTED:
 				{
 					if(object_ptr->sval == SV_WIZSTAFF) break;
-					else return (FALSE);
+					else return FALSE;
 				}
 				default:
-				return (FALSE);
+				return FALSE;
 			}
 			break;
 		}
@@ -1772,7 +1772,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_HEX_BOOK:
 					break;
 				default:
-					return (FALSE);
+					return FALSE;
 			}
 			break;
 		}
@@ -2195,12 +2195,12 @@ static bool black_market_crap(store_type *st_ptr, object_type *object_ptr)
 //	int 	i, j;
 
 	/* Ego items are never crap */
-	if(object_is_ego(object_ptr)) return (FALSE);
+	if(object_is_ego(object_ptr)) return FALSE;
 
 	/* Good items are never crap */
-	if(object_ptr->to_ac > 0) return (FALSE);
-	if(object_ptr->to_hit > 0) return (FALSE);
-	if(object_ptr->to_damage > 0) return (FALSE);
+	if(object_ptr->to_ac > 0) return FALSE;
+	if(object_ptr->to_hit > 0) return FALSE;
+	if(object_ptr->to_damage > 0) return FALSE;
 
 	/* Check all stores */
 	//TODO
@@ -2222,7 +2222,7 @@ static bool black_market_crap(store_type *st_ptr, object_type *object_ptr)
 */
 
 	/* Assume okay */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -2403,7 +2403,7 @@ static bool noneedtobargain(store_type *st_ptr, s32b minprice)
 	if(good > ((3 * bad) + (5 + (minprice/50)))) return (TRUE);
 
 	/* Return the flag */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -2859,7 +2859,7 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 	prt("", 0, 0);
 
 	/* Cancel */
-	if(command == ESCAPE) return (FALSE);
+	if(command == ESCAPE) return FALSE;
 
 	repeat_push(*com_val);
 
@@ -2895,7 +2895,7 @@ static int increase_insults(store_type *st_ptr)
 	}
 
 	/* Not closed */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -2921,7 +2921,7 @@ static int haggle_insults(store_type *st_ptr)
 	say_comment_5(st_ptr);
 
 	/* Still okay */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -3110,7 +3110,7 @@ static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_
 	}
 
 	/* Success */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -3326,7 +3326,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	updatebargain(st_ptr, *price, final_ask, object_ptr->number);
 
 	/* Do not cancel */
-	return (FALSE);
+	return FALSE;
 }
 
 static int calc_max_price(store_type *st_ptr)
@@ -3572,7 +3572,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	updatebargain(st_ptr, *price, final_ask, object_ptr->number);
 
 	/* Do not cancel */
-	return (FALSE);
+	return FALSE;
 }
 
 

@@ -268,7 +268,7 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
-	if(!flag) return (FALSE);
+	if(!flag) return FALSE;
 
 	/* Save the choice */
 	(*sn) = i;

@@ -21,7 +21,7 @@ static bool item_tester_hook_convertible(creature_type *creature_ptr, object_typ
 
 	if((object_ptr->tval == TV_CORPSE) && (object_ptr->sval == SV_SKELETON)) return TRUE;
 	/* Assume not */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -295,7 +295,7 @@ s = "魔力を取り込めるアイテムがない。";
 	s = "You have nothing to gain power.";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return (FALSE);
+	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	if(object_ptr->tval == TV_STAFF && object_ptr->sval == SV_STAFF_NOTHING)

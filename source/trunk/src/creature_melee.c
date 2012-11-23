@@ -26,11 +26,11 @@ bool test_hit_melee(creature_type *attacker_ptr, int chance, int ev, int vis)
 
 	k = randint0(100);	// Percentile dice
 	if(k < 10) return (k < 5); // Hack -- Instant miss or hit
-	if(has_trait(attacker_ptr, TRAIT_MISS_MELEE) && (one_in_(20))) return (FALSE);
-	if(chance <= 0) return (FALSE);	// Wimpy attack never hits
+	if(has_trait(attacker_ptr, TRAIT_MISS_MELEE) && (one_in_(20))) return FALSE;
+	if(chance <= 0) return FALSE;	// Wimpy attack never hits
 
 	if(!vis) chance = (chance + 1) / 2;	// Penalize invisible targets
-	if(randint0(chance) < (ev * 3 / 4)) return (FALSE);	// Power must defeat armor
+	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	// Power must defeat armor
 	return (TRUE);	// Assume hit
 }
 

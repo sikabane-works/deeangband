@@ -61,7 +61,7 @@ static bool object_easy_know(int i)
 	}
 
 	/* Nope */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -941,7 +941,7 @@ static bool have_flag_of(flag_insc_table *fi_ptr, u32b flgs[TRAIT_FLAG_MAX])
 		fi_ptr++;
 	}
 
-	return (FALSE);
+	return FALSE;
 }
 
 static char *get_ability_abbreviation(char *ptr, object_type *object_ptr, bool kanji, bool all)

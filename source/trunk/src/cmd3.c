@@ -159,7 +159,7 @@ static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *obje
 	if(WIELD_SLOT(object_ptr) != INVEN_SLOT_INVENTORY) return (TRUE);
 
 	/* Assume not wearable */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -171,13 +171,13 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 	    (object_ptr->tval == TV_CARD)) return (TRUE);
 
 	/* Assume not wearable */
-	return (FALSE);
+	return FALSE;
 }
 
 bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 {
 	if(WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
-	return (FALSE); // Assume not wearable
+	return FALSE; // Assume not wearable
 }
 
 // Wield or wear a single item from the pack or floor
@@ -1076,7 +1076,7 @@ static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type 
 	    (object_ptr->sval == SV_LITE_LANTERN)) return (TRUE);
 
 	/* Assume not okay */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1180,7 +1180,7 @@ static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o
 	    (object_ptr->sval == SV_LITE_TORCH)) return (TRUE);
 
 	/* Assume not okay */
-	return (FALSE);
+	return FALSE;
 }
 
 
@@ -1517,7 +1517,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 
 		/* Compare player kills */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 
@@ -1530,7 +1530,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 
 		/* Compare total kills */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 
@@ -1543,7 +1543,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 
 		/* Compare levels */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 
@@ -1556,7 +1556,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 
 		/* Compare experience */
 		if(z1 < z2) return (TRUE);
-		if(z1 > z2) return (FALSE);
+		if(z1 > z2) return FALSE;
 	}
 
 

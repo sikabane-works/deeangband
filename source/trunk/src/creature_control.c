@@ -4073,19 +4073,19 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	species_type *z_ptr = &species_info[species_idx];
 
 	/* Hack - Escorts have to have the same dungeon flag */
-	if(species_hook_dungeon(place_species_idx) != species_hook_dungeon(species_idx)) return (FALSE);
+	if(species_hook_dungeon(place_species_idx) != species_hook_dungeon(species_idx)) return FALSE;
 
 	/* Require similar "race" */
-	if(z_ptr->d_char != r_ptr->d_char) return (FALSE);
+	if(z_ptr->d_char != r_ptr->d_char) return FALSE;
 
 	/* Skip more advanced creatures */
-	if(z_ptr->level > r_ptr->level) return (FALSE);
+	if(z_ptr->level > r_ptr->level) return FALSE;
 
 	/* Skip unique creatures */
-	if(has_trait_species(z_ptr, TRAIT_UNIQUE)) return (FALSE);
+	if(has_trait_species(z_ptr, TRAIT_UNIQUE)) return FALSE;
 
 	/* Paranoia -- Skip identical creatures */
-	if(place_species_idx == species_idx) return (FALSE);
+	if(place_species_idx == species_idx) return FALSE;
 
 	/* Skip different alignment */
 	if(creature_has_hostile_align(m_ptr, summoner_ptr)) return FALSE;
@@ -4126,7 +4126,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 
 	// Place one creature, or fail
 	i = place_creature_one(summoner_ptr, floor_ptr, y, x, species_idx, MONEGO_NORMAL, mode);
-	if(i == max_creature_idx) return (FALSE);
+	if(i == max_creature_idx) return FALSE;
 
 	m_ptr = &creature_list[i];
 
@@ -4203,7 +4203,7 @@ bool place_creature(creature_type *summoner_ptr, floor_type *floor_ptr, int y, i
 	// Pick a creature
 	get_species_num_prep(NULL, NULL, NULL, NULL, 0); //TODO get_creature_hook(), get_creature_hook2(y, x)
 	species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
-	if(!species_idx) return (FALSE);
+	if(!species_idx) return FALSE;
 
 	return place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode); // Attempt to place the creature
 }
@@ -4226,7 +4226,7 @@ bool alloc_horde(creature_type *summoner_ptr, floor_type *floor_ptr, int y, int 
 		species_idx = get_species_num(floor_ptr, floor_ptr->creature_level);
 
 		/* Handle failure */
-		if(!species_idx) return (FALSE);
+		if(!species_idx) return FALSE;
 
 		r_ptr = &species_info[species_idx];
 
@@ -4348,7 +4348,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 			msg_print("Warning! Could not allocate a new creature. Small level?");
 #endif
 		}
-		return (FALSE);
+		return FALSE;
 	}
 
 	if(randint1(5000) <= floor_ptr->floor_level)
@@ -4371,7 +4371,7 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 	}
 
 	/* Nope */
-	return (FALSE);
+	return FALSE;
 }
 
 // Hack -- help decide if a creature race is "okay" to summon
@@ -4380,7 +4380,7 @@ static bool summon_specific_okay(creature_type *summoner_ptr, int species_idx)
 	floor_type *floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	species_type *r_ptr = &species_info[species_idx];
 
-	if(!species_hook_dungeon(species_idx)) return (FALSE); // Hack - Only summon dungeon creatures
+	if(!species_hook_dungeon(species_idx)) return FALSE; // Hack - Only summon dungeon creatures
 
 	if(summon_specific_who > 0) // Hack -- identify the summoning creature
 	{
@@ -4424,7 +4424,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	if(summoner_ptr) floor_ptr = GET_FLOOR_PTR(summoner_ptr);
 	else floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	if(floor_ptr) return (FALSE);
+	if(floor_ptr) return FALSE;
 	if(!creature_scatter(0, &y, &x, floor_ptr, y1, x1, 2)) return FALSE;
 
 	// Save the summoner
@@ -4436,11 +4436,11 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	/* Pick a creature, using the level calculation */
 	species_idx = get_species_num(floor_ptr, (floor_ptr->floor_level + lev) / 2 + 5);
 
-	if(!species_idx) return (FALSE); // Handle failure
+	if(!species_idx) return FALSE; // Handle failure
 	if((type == TRAIT_S_BLUE_HORROR) || (type == TRAIT_S_DAWN_LEGION)) mode |= PC_NO_KAGE;
 
 	/* Attempt to place the creature (awake, allow groups) */
-	if(!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return (FALSE);
+	if(!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return FALSE;
 
 	return (TRUE);
 }

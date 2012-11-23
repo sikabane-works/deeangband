@@ -588,7 +588,7 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 				case '0':
 				{
 					if(!only_browse) screen_load();
-					return (FALSE);
+					return FALSE;
 				}
 
 				case '8':
@@ -809,7 +809,7 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 	window_stuff(player_ptr);
 
 	/* Abort if needed */
-	if(!flag) return (FALSE);
+	if(!flag) return FALSE;
 
 	/* Save the choice */
 	(*sn) = i;
@@ -982,7 +982,7 @@ msg_print("¸_‚ð”P‚¶‹È‚°‚é”g“®‚ð”­¶‚³‚¹‚½I");
 #else
 			msg_print("Time is already stopped.");
 #endif
-			return (FALSE);
+			return FALSE;
 		}
 		creature_ptr->time_stopper = TRUE;
 #ifdef JP

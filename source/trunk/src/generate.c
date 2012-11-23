@@ -441,7 +441,7 @@ static bool possible_doorway(floor_type *floor_ptr, int y, int x)
 	}
 
 	/* No doorway */
-	return (FALSE);
+	return FALSE;
 }
 
 

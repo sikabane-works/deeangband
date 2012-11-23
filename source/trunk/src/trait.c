@@ -1558,7 +1558,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 					int dummy_y = caster_ptr->fy;
 					int dummy_x = caster_ptr->fx;
 
-					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return (FALSE);
+					if(!species_info[SPECIES_BANOR].cur_num || !species_info[SPECIES_LUPART].cur_num) return FALSE;
 					for (k = 1; k < creature_max; k++)
 					{
 						if(creature_list[k].species_idx == SPECIES_BANOR || creature_list[k].species_idx == SPECIES_LUPART)

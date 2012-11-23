@@ -104,7 +104,7 @@ cptr            p = "•KŽEŒ•";
 				case '0':
 				{
 					screen_load();
-					return (FALSE);
+					return FALSE;
 				}
 
 				case '8':
@@ -314,7 +314,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 
 
 	/* Abort if needed */
-	if(!flag) return (FALSE);
+	if(!flag) return FALSE;
 
 	/* Save the choice */
 	(*sn) = j;
