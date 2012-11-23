@@ -4737,65 +4737,32 @@ void message_pain(int m_idx, int dam)
 	/* Zombies */
 	else if(my_strchr("z", r_ptr->d_char))
 	{
-		if(percentage > 95)
+		
 #ifdef JP
-msg_format("%sは攻撃を気にとめていない。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
+		else if(percentage > 50) msg_format("%^sはうめいた。", m_name);
+		else if(percentage > 35) msg_format("%sは苦しげにうめいた。", m_name);
+		else if(percentage > 20) msg_format("%^sは躊躇した。", m_name);
+		else if(percentage > 10) msg_format("%^sはうなった。", m_name);
+		else msg_format("%^sはよろめいた。", m_name);
 #else
-			msg_format("%^s ignores the attack.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
+		else if(percentage > 50) msg_format("%^s groans.", m_name);
+		else if(percentage > 35) msg_format("%^s moans.", m_name);
+		else if(percentage > 20) msg_format("%^s hesitates.", m_name);
+		else if(percentage > 10) msg_format("%^s grunts.", m_name);
+		else msg_format("%^s staggers.", m_name);
 #endif
-
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%sは攻撃に肩をすくめた。", m_name);
-#else
-			msg_format("%^s shrugs off the attack.", m_name);
-#endif
-
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sはうめいた。", m_name);
-#else
-			msg_format("%^s groans.", m_name);
-#endif
-
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%sは苦しげにうめいた。", m_name);
-#else
-			msg_format("%^s moans.", m_name);
-#endif
-
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは躊躇した。", m_name);
-#else
-			msg_format("%^s hesitates.", m_name);
-#endif
-
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sはうなった。", m_name);
-#else
-			msg_format("%^s grunts.", m_name);
-#endif
-
-		else
-#ifdef JP
-msg_format("%^sはよろめいた。", m_name);
-#else
-			msg_format("%^s staggers.", m_name);
-#endif
-
 	}
-
 
 	/* Ghosts */
 	else if(my_strchr("G", r_ptr->d_char))
-
 	{
 		if(percentage > 95)
 #ifdef JP
-msg_format("%sは攻撃を気にとめていない。", m_name);
+			msg_format("%sは攻撃を気にとめていない。", m_name);
 #else
 			msg_format("%^s ignores the attack.", m_name);
 #endif
