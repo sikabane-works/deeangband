@@ -73,7 +73,7 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 		if(spell_okay(creature_ptr, *sn, learned, FALSE, use_realm))
 		{
 			/* Success */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -340,10 +340,10 @@ static bool item_tester_learn_trait(creature_type *creature_ptr, object_type *ob
 	}
 
 	if((object_ptr->tval < TV_LIFE_BOOK) || (object_ptr->tval > (TV_LIFE_BOOK + MAX_REALM - 1))) return FALSE;
-	if((object_ptr->tval == TV_MUSIC_BOOK) && (creature_ptr->class_idx == CLASS_BARD)) return (TRUE);
+	if((object_ptr->tval == TV_MUSIC_BOOK) && (creature_ptr->class_idx == CLASS_BARD)) return TRUE;
 	else if(!is_magic(tval2realm(object_ptr->tval))) return FALSE;
-	if((REALM1_BOOK(creature_ptr) == object_ptr->tval) || (REALM2_BOOK(creature_ptr) == object_ptr->tval)) return (TRUE);
-	if(choices & (0x0001 << (tval2realm(object_ptr->tval) - 1))) return (TRUE);
+	if((REALM1_BOOK(creature_ptr) == object_ptr->tval) || (REALM2_BOOK(creature_ptr) == object_ptr->tval)) return TRUE;
+	if(choices & (0x0001 << (tval2realm(object_ptr->tval) - 1))) return TRUE;
 	return FALSE;
 }
 

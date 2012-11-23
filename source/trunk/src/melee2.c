@@ -215,7 +215,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	if(m_ptr->cdis > MAX_SIGHT + 5) return FALSE;
 
 	/* All "afraid" creatures will run away */
-	if(m_ptr->timed_trait[TRAIT_AFRAID]) return (TRUE);
+	if(m_ptr->timed_trait[TRAIT_AFRAID]) return TRUE;
 
 	/* Nearby creatures will not become terrified */
 	if(m_ptr->cdis <= 5) return FALSE;
@@ -228,7 +228,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 
 	/* Optimize extreme cases below */
 	if(m_lev > p_lev + 4) return FALSE;
-	if(m_lev + 4 <= p_lev) return (TRUE);
+	if(m_lev + 4 <= p_lev) return TRUE;
 
 	/* Examine player health */
 	p_chp = creature_ptr->chp;
@@ -243,7 +243,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	m_val = (m_lev * m_mhp) + (m_chp << 2); /* div m_mhp */
 
 	/* Strong players scare strong creatures */
-	if(p_val * m_mhp > m_val * p_mhp) return (TRUE);
+	if(p_val * m_mhp > m_val * p_mhp) return TRUE;
 
 	/* Assume no terror */
 	return FALSE;
@@ -326,7 +326,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	if(best == 999) return FALSE;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -367,7 +367,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	if(has_attack_skill_flags(&r_ptr->flags))
 	{
 		/* Can move spell castable grid? */
-		if(get_moves_aux2(m_idx, yp, xp)) return (TRUE);
+		if(get_moves_aux2(m_idx, yp, xp)) return TRUE;
 	}
 
 	/* Creature can't flow */
@@ -448,7 +448,7 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	if(best == 999 || best == 0) return FALSE;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -519,7 +519,7 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	(*xp) = fx - gx;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 /*
@@ -743,7 +743,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 			(*xp) = fx - gx;
 
 			/* Found safe place */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -819,7 +819,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 			(*xp) = fx - gx;
 
 			/* Found good place */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -1157,7 +1157,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 	}
 
 	/* Wants to move... */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1170,7 +1170,7 @@ static int check_hit2(int power, int level, int ac, int stun)
 	if(stun && one_in_(2)) return FALSE;
 	if(k < 10) return (k < 5); // Hack -- Always miss or hit
 	i = (power + (level * 3)); // Calculate the "attack quality"
-	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE); // Power and Level compete against Armor
+	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return TRUE; // Power and Level compete against Armor
 
 	return FALSE; // Assume miss
 }
@@ -3014,5 +3014,5 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 
 	handle_stuff();
 
-	return (TRUE);
+	return TRUE;
 }

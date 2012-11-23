@@ -618,7 +618,7 @@ bool cave_valid_bold(floor_type *floor_ptr, int y, int x)
 	}
 
 	/* Accept */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3395,7 +3395,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 	f2 = (cave_los_grid(g2_cave_ptr));
 
 	/* Totally blocked by physical walls */
-	if(!f1 && !f2) return (TRUE);
+	if(!f1 && !f2) return TRUE;
 
 
 	/* Check for visibility */
@@ -3403,7 +3403,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 	v2 = (f2 && (g2_cave_ptr->info & (CAVE_VIEW)));
 
 	/* Totally blocked by "unviewable neighbors" */
-	if(!v1 && !v2) return (TRUE);
+	if(!v1 && !v2) return TRUE;
 
 
 	/* Access the grid */
@@ -3466,7 +3466,7 @@ static bool update_view_aux(creature_type *creature_ptr, int y, int x, int y1, i
 
 
 	/* Assume no line of sight. */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4906,7 +4906,7 @@ bool projectable(floor_type *floor_ptr, int range, int y1, int x1, int y2, int x
 	if((y != y2) || (x != x2)) return FALSE;
 
 	/* Assume okay */
-	return (TRUE);
+	return TRUE;
 }
 
 

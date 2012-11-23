@@ -29,7 +29,7 @@ bool test_hit_fire(creature_type *attacker_ptr, int chance, int ev, int vis)
 	if(!vis) chance = (chance + 1) / 2;	// Invisible creatures are harder to hit
 
 	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	// Power competes against armor
-	return (TRUE);	// Assume hit
+	return TRUE;	// Assume hit
 }
 
 
@@ -712,7 +712,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 	if(k < 10) return (k < 5);
 
 	if(creature_ptr->chara_idx == CHARA_NAMAKE)
-		if(one_in_(20)) return (TRUE);
+		if(one_in_(20)) return TRUE;
 
 	/* Paranoia -- No power */
 	if(power <= 0) return FALSE;
@@ -721,7 +721,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 	ac = creature_ptr->ac + creature_ptr->to_ac;
 
 	/* Power competes against Armor */
-	if(randint1(power) > ((ac * 3) / 4)) return (TRUE);
+	if(randint1(power) > ((ac * 3) / 4)) return TRUE;
 
 	/* Assume miss */
 	return FALSE;
@@ -2308,11 +2308,11 @@ static int see_nothing(creature_type *watcher_ptr, int dir, int y, int x)
 	y += ddy[dir];
 	x += ddx[dir];
 
-	if(!in_bounds2(floor_ptr, y, x)) return (TRUE); // Illegal grids are unknown
+	if(!in_bounds2(floor_ptr, y, x)) return TRUE; // Illegal grids are unknown
 	if(floor_ptr->cave[y][x].info & (CAVE_MARK)) return FALSE; // Memorized grids are always known
 	if(creature_can_see_bold(watcher_ptr, y, x)) return FALSE; // Viewable door/wall grids are known
 
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2664,7 +2664,7 @@ static bool run_test(creature_type *creature_ptr)
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Visible creature */
-			if(m_ptr->see_others) return (TRUE);
+			if(m_ptr->see_others) return TRUE;
 		}
 
 		/* Visible objects abort running */
@@ -2679,7 +2679,7 @@ static bool run_test(creature_type *creature_ptr)
 			next_object_idx = object_ptr->next_object_idx;
 
 			/* Visible object */
-			if(object_ptr->marked & OM_FOUND) return (TRUE);
+			if(object_ptr->marked & OM_FOUND) return TRUE;
 		}
 
 		/* Assume unknown */
@@ -2729,7 +2729,7 @@ static bool run_test(creature_type *creature_ptr)
 			}
 
 			/* Interesting feature */
-			if(notice) return (TRUE);
+			if(notice) return TRUE;
 
 			/* The grid is "visible" */
 			inv = FALSE;
@@ -2753,13 +2753,13 @@ static bool run_test(creature_type *creature_ptr)
 			/* Three new directions. Stop running. */
 			else if(option2)
 			{
-				return (TRUE);
+				return TRUE;
 			}
 
 			/* Two non-adjacent new directions.  Stop running. */
 			else if(option != cycle[chome[prev_dir] + i - 1])
 			{
-				return (TRUE);
+				return TRUE;
 			}
 
 			/* Two new (adjacent) directions (case 1) */
@@ -2810,7 +2810,7 @@ static bool run_test(creature_type *creature_ptr)
 				/* Looking to break right */
 				if(find_breakright)
 				{
-					return (TRUE);
+					return TRUE;
 				}
 			}
 
@@ -2820,7 +2820,7 @@ static bool run_test(creature_type *creature_ptr)
 				/* Looking to break left */
 				if(find_breakleft)
 				{
-					return (TRUE);
+					return TRUE;
 				}
 			}
 		}
@@ -2834,7 +2834,7 @@ static bool run_test(creature_type *creature_ptr)
 				/* Looking to break left */
 				if(find_breakleft)
 				{
-					return (TRUE);
+					return TRUE;
 				}
 			}
 
@@ -2844,7 +2844,7 @@ static bool run_test(creature_type *creature_ptr)
 				/* Looking to break right */
 				if(find_breakright)
 				{
-					return (TRUE);
+					return TRUE;
 				}
 			}
 		}
@@ -2856,7 +2856,7 @@ static bool run_test(creature_type *creature_ptr)
 		/* No options */
 		if(!option)
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* One option */
@@ -2903,7 +2903,7 @@ static bool run_test(creature_type *creature_ptr)
 				/* STOP: we are next to an intersection or a room */
 				else
 				{
-					return (TRUE);
+					return TRUE;
 				}
 			}
 
@@ -2927,7 +2927,7 @@ static bool run_test(creature_type *creature_ptr)
 	/* About to hit a known wall, stop */
 	if(see_wall(creature_ptr, find_current, creature_ptr->fy, creature_ptr->fx))
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Failure */
@@ -3021,7 +3021,7 @@ static bool travel_test(creature_type *creature_ptr)
 		if(travel.cost[creature_ptr->fy+ddy_ddd[i]][creature_ptr->fx+ddx_ddd[i]] < travel.cost[creature_ptr->fy][creature_ptr->fx]) stop = FALSE;
 	}
 
-	if(stop) return (TRUE);
+	if(stop) return TRUE;
 
 	/* break run when leaving trap detected region */
 	if((disturb_trap_detect || alert_trap_detect)
@@ -3054,7 +3054,7 @@ static bool travel_test(creature_type *creature_ptr)
 	if(has_trait(creature_ptr, TRAIT_BLIND) || no_lite(creature_ptr))
 	{
 		msg_print(game_messages[GAME_MESSAGE_IS_BLIND]);
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Look at every newly adjacent square. */
@@ -3077,7 +3077,7 @@ static bool travel_test(creature_type *creature_ptr)
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 			/* Visible creature */
-			if(m_ptr->see_others) return (TRUE);
+			if(m_ptr->see_others) return TRUE;
 		}
 	}
 

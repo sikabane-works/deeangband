@@ -1527,7 +1527,7 @@ static int check_hit(creature_type *target_ptr, int power, int level, int stun)
 	if(has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ac += (target_ptr->lev * 2);
 
 	/* Power and Level compete against Armor */
-	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return (TRUE);
+	if((i > 0) && (randint1(i) > ((ac * 3) / 4))) return TRUE;
 
 	/* Assume miss */
 	return FALSE;
@@ -3531,7 +3531,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 	}
 
 	/* Assume we attacked */
-	return (TRUE);
+	return TRUE;
 }
 
 

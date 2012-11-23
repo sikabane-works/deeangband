@@ -57,7 +57,7 @@ bool prefix(cptr s, cptr t)
 	}
 
 	/* Matched, we have a prefix */
-	return (TRUE);
+	return TRUE;
 }
 
 

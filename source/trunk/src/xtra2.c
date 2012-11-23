@@ -296,7 +296,7 @@ static int get_coin_type(int species_idx)
 static bool kind_is_book(int k_idx)
 {
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
-	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK)) return (TRUE);	
+	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK)) return TRUE;	
 	return FALSE;	// Assume not good
 }
 
@@ -308,7 +308,7 @@ static bool kind_is_good_book(int k_idx)
 	/* Analyze the item type */
 	if((object_kind_ptr->tval >= TV_LIFE_BOOK) && (object_kind_ptr->tval <= TV_CRUSADE_BOOK) && (object_kind_ptr->tval != TV_ARCANE_BOOK) && (object_kind_ptr->sval > 1))
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Assume not good */
@@ -1262,7 +1262,7 @@ bool change_panel(int dy, int dx)
 		handle_stuff();
 
 		/* Success */
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* No change */
@@ -1606,10 +1606,10 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 	if(!target_ptr->species_idx) return FALSE;	// Creature must be alive
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE;	// Hack -- no targeting hallucinations
 	if(!target_ptr->see_others) return FALSE;	// Creature must be visible
-	if(creature_ptr->riding && (creature_ptr->riding == m_idx)) return (TRUE);
+	if(creature_ptr->riding && (creature_ptr->riding == m_idx)) return TRUE;
 	if(!projectable(floor_ptr, MAX_RANGE, creature_ptr->fy, creature_ptr->fx, target_ptr->fy, target_ptr->fx)) return FALSE;	// Creature must be projectable
 
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1621,7 +1621,7 @@ bool target_able(creature_type *creature_ptr, int m_idx)
 bool target_okay(creature_type *creature_ptr)
 {
 	/* Accept stationary targets */
-	if(target_who < 0) return (TRUE);
+	if(target_who < 0) return TRUE;
 
 	/* Check moving targets */
 	if(target_who > 0)
@@ -1636,7 +1636,7 @@ bool target_okay(creature_type *creature_ptr)
 			target_col = m_ptr->fx;
 
 			/* Good target */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -1839,7 +1839,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 	if(floor_ptr->wild_mode && !wilderness[y][x].known) return FALSE;
 
 	/* Player grid is always interesting */
-	if(creature_bold(creature_ptr, y, x)) return (TRUE);
+	if(creature_bold(creature_ptr, y, x)) return TRUE;
 
 
 	/* Handle hallucination */
@@ -1855,7 +1855,7 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 		creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
 
 		/* Visible creatures */
-		if(m_ptr->see_others) return (TRUE);
+		if(m_ptr->see_others) return TRUE;
 	}
 
 	/* Scan all objects in the grid */
@@ -1870,14 +1870,14 @@ static bool target_set_accept(creature_type *creature_ptr, int y, int x)
 		next_object_idx = object_ptr->next_object_idx;
 
 		/* Memorized object */
-		if(object_ptr->marked & OM_FOUND) return (TRUE);
+		if(object_ptr->marked & OM_FOUND) return TRUE;
 	}
 
 	/* Interesting memorized features */
 	if(c_ptr->info & (CAVE_MARK))
 	{
 		/* Notice object features */
-		if(c_ptr->info & CAVE_OBJECT) return (TRUE);
+		if(c_ptr->info & CAVE_OBJECT) return TRUE;
 
 		/* Feature code (applying "mimic" field) */
 		if(have_flag(feature_info[get_feat_mimic(c_ptr)].flags, FF_NOTICE)) return TRUE;
@@ -3038,7 +3038,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 	handle_stuff();	// Handle stuff
 	if(!target_who) return FALSE;	// Failure to set target
 
-	return (TRUE);	// Success
+	return TRUE;	// Success
 }
 
 
@@ -3069,7 +3069,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 	{
 		if(!(*dp == 5 && !target_okay(creature_ptr)))	// Verify
 		{
-			// return (TRUE);
+			// return TRUE;
 			dir = *dp;
 		}
 	}
@@ -3141,7 +3141,7 @@ bool get_aim_dir(creature_type *creature_ptr, int range, int *dp)
 	repeat_push(command_dir);
 
 	/* A "valid" direction was entered */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3177,7 +3177,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	if(repeat_pull(dp))
 	{
 		dir = *dp;
-		/*		return (TRUE); */
+		/*		return TRUE; */
 	}
 
 	/* Get a direction */
@@ -3277,7 +3277,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	repeat_push(command_dir);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3296,7 +3296,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	if(repeat_pull(dp))
 	{
 		dir = *dp;
-		/*		return (TRUE); */
+		/*		return TRUE; */
 	}
 
 	/* Get a direction */
@@ -3349,7 +3349,7 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	repeat_push(command_dir);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4099,7 +4099,7 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 	cave_type *c_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	if(!(in_bounds(floor_ptr, y, x))) return FALSE; // Bounds
-	if((y == creature_ptr->fy) && (x == creature_ptr->fx)) return (TRUE); // Player grid is always interesting
+	if((y == creature_ptr->fy) && (x == creature_ptr->fx)) return TRUE; // Player grid is always interesting
 	if(has_trait(creature_ptr, TRAIT_HALLUCINATION)) return FALSE; // Handle hallucination
 	c_ptr = &floor_ptr->cave[y][x]; // Examine the grid
 
@@ -4107,12 +4107,12 @@ static bool tgt_pt_accept(creature_type *creature_ptr, int y, int x)
 	if(c_ptr->info & (CAVE_MARK))
 	{
 		// Notice stairs
-		if(cave_have_flag_grid(c_ptr, FF_LESS)) return (TRUE);
-		if(cave_have_flag_grid(c_ptr, FF_MORE)) return (TRUE);
+		if(cave_have_flag_grid(c_ptr, FF_LESS)) return TRUE;
+		if(cave_have_flag_grid(c_ptr, FF_MORE)) return TRUE;
 
 		// Notice quest features
-		if(cave_have_flag_grid(c_ptr, FF_QUEST_ENTER)) return (TRUE);
-		if(cave_have_flag_grid(c_ptr, FF_QUEST_EXIT)) return (TRUE);
+		if(cave_have_flag_grid(c_ptr, FF_QUEST_ENTER)) return TRUE;
+		if(cave_have_flag_grid(c_ptr, FF_QUEST_EXIT)) return TRUE;
 	}
 
 	return FALSE;
@@ -4453,7 +4453,7 @@ bool get_hack_dir(creature_type *creature_ptr, int *dp)
 	(*dp) = dir;
 
 	/* A "valid" direction was entered */
-	return (TRUE);
+	return TRUE;
 }
 
 // Return alignment title

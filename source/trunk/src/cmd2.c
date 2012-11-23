@@ -1269,7 +1269,7 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1592,7 +1592,7 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	}
 
 	/* Result */
-	return (TRUE);
+	return TRUE;
 }
 
 /*
@@ -2177,7 +2177,7 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 			(*ip) = i;
 
 			/* Success */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -3413,7 +3413,7 @@ void do_cmd_fire(creature_type *creature_ptr)
 
 static bool item_tester_hook_boomerang(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return (TRUE);
+	if((object_ptr->tval==TV_DIGGING) || (object_ptr->tval == TV_SWORD) || (object_ptr->tval == TV_POLEARM) || (object_ptr->tval == TV_HAFTED)) return TRUE;
 
 	/* Assume not */
 	return FALSE;

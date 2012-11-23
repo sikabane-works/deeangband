@@ -2056,7 +2056,7 @@ static bool get_creature_realms(creature_type *creature_ptr, species_type *speci
 			creature_ptr->realm2 = i;
 	}
 
-	return (TRUE);
+	return TRUE;
 }
 
 /*
@@ -5395,7 +5395,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	get_max_stats(creature_ptr);
 
-	if(auto_generate) return (TRUE);
+	if(auto_generate) return TRUE;
 
 	// Prompt for it
 #ifdef JP
@@ -5409,7 +5409,7 @@ static bool generate_creature_aux(creature_type *creature_ptr, int species_idx, 
 
 	if(c == 'Q') birth_quit();		// Quit
 	if(c == 'S') return FALSE;	// Start over
-	return (TRUE);					// Accept
+	return TRUE;					// Accept
 }
 
 /*

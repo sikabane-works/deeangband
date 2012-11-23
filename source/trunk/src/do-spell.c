@@ -1012,7 +1012,7 @@ static bool item_tester_offer(creature_type *creature_ptr, object_type *object_p
 	/* Flasks of oil are okay */
 	if(object_ptr->tval != TV_CORPSE) return FALSE;
 	if(object_ptr->sval != SV_CORPSE) return FALSE;
-	if(my_strchr("pht", species_info[object_ptr->pval].d_char)) return (TRUE);
+	if(my_strchr("pht", species_info[object_ptr->pval].d_char)) return TRUE;
 
 	/* Assume not okay */
 	return FALSE;
@@ -11146,7 +11146,7 @@ static bool item_tester_hook_weapon_except_bow(creature_type *creature_ptr, obje
 		case TV_POLEARM:
 		case TV_DIGGING:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 	}
 

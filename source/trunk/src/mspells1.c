@@ -381,7 +381,7 @@ bool summon_possible(creature_type *target_ptr, int y1, int x1)
 			if(pattern_tile(floor_ptr, y, x)) continue;
 
 			/* Require empty floor grid in line of projection */
-			if(cave_empty_bold(floor_ptr, y, x) && projectable(floor_ptr, MAX_RANGE, y, x, y1, x1)) return (TRUE);
+			if(cave_empty_bold(floor_ptr, y, x) && projectable(floor_ptr, MAX_RANGE, y, x, y1, x1)) return TRUE;
 		}
 	}
 
@@ -484,7 +484,7 @@ bool clean_shot(creature_type *target_ptr, int y1, int x1, int y2, int x2, bool 
 		}
 	}
 
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -659,44 +659,44 @@ void curse_equipment(creature_type *creature_ptr, int chance, int heavy_chance)
 // Check should creature cast dispel spell.
 bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
 {
-	if(IS_INVULN(target_ptr)) return (TRUE);	// Invulnabilty (including the song)	
-	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) return (TRUE);	// Wraith form
-	if(target_ptr->timed_trait[TRAIT_SHIELD]) return (TRUE);	// Shield
-	if(target_ptr->timed_trait[TRAIT_MAGIC_DEF]) return (TRUE);	// Magic defence
-	if(target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return (TRUE);	// Multi Shadow
-	if(target_ptr->timed_trait[TRAIT_DUST_ROBE]) return (TRUE);	// Robe of dust
-	if(target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return (TRUE);	// Berserk Strength
+	if(IS_INVULN(target_ptr)) return TRUE;	// Invulnabilty (including the song)	
+	if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) return TRUE;	// Wraith form
+	if(target_ptr->timed_trait[TRAIT_SHIELD]) return TRUE;	// Shield
+	if(target_ptr->timed_trait[TRAIT_MAGIC_DEF]) return TRUE;	// Magic defence
+	if(target_ptr->timed_trait[TRAIT_MULTI_SHADOW]) return TRUE;	// Multi Shadow
+	if(target_ptr->timed_trait[TRAIT_DUST_ROBE]) return TRUE;	// Robe of dust
+	if(target_ptr->timed_trait[TRAIT_S_HERO] && (target_ptr->class_idx != CLASS_BERSERKER)) return TRUE;	// Berserk Strength
 
 	if(has_trait(caster_ptr, TRAIT_BR_ACID))
-		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_ACID) && (target_ptr->timed_trait[TRAIT_RES_ACID] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_FIRE))
-		if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_FIRE) && (target_ptr->timed_trait[TRAIT_RES_FIRE] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_ELEC))
-		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_ELEC) && (target_ptr->timed_trait[TRAIT_RES_ELEC] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_COLD))
-		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return (TRUE);
+		if(!has_trait(target_ptr, TRAIT_IM_COLD) && (target_ptr->timed_trait[TRAIT_RES_COLD] || MUSIC_SINGING(target_ptr, MUSIC_RESIST))) return TRUE;
 
 	if(has_trait(caster_ptr, TRAIT_BR_POIS) || has_trait(caster_ptr, TRAIT_BR_NUKE))
-		if(target_ptr->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return (TRUE);
+		if(target_ptr->timed_trait[TRAIT_RES_POIS] || MUSIC_SINGING(caster_ptr, MUSIC_RESIST)) return TRUE;
 
-	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return (TRUE);	// Ultimate resistance
-	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return (TRUE);	// Potion of Neo Tsuyosi special
+	if(target_ptr->timed_trait[TRAIT_ULTRA_RES]) return TRUE;	// Ultimate resistance
+	if(target_ptr->timed_trait[TRAIT_TSUYOSHI]) return TRUE;	// Potion of Neo Tsuyosi special
 
 	// Elemental Brands
-	if(target_ptr->timed_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return (TRUE);
-	if(target_ptr->timed_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return (TRUE);
-	if(target_ptr->timed_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return (TRUE);
-	if(target_ptr->timed_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return (TRUE);
-	if(target_ptr->timed_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return (TRUE);
+	if(target_ptr->timed_trait[TRAIT_FIRE_BRAND] && !has_trait(target_ptr, TRAIT_RES_FIRE)) return TRUE;
+	if(target_ptr->timed_trait[TRAIT_COLD_BRAND] && !has_trait(target_ptr, TRAIT_RES_COLD)) return TRUE;
+	if(target_ptr->timed_trait[TRAIT_ELEC_BRAND] && !has_trait(target_ptr, TRAIT_RES_ELEC)) return TRUE;
+	if(target_ptr->timed_trait[TRAIT_ACID_BRAND] && !has_trait(target_ptr, TRAIT_RES_ACID)) return TRUE;
+	if(target_ptr->timed_trait[TRAIT_POIS_BRAND] && !has_trait(target_ptr, TRAIT_RES_POIS)) return TRUE;
 
-	if(target_ptr->speed < 35) if(IS_FAST(target_ptr)) return (TRUE);	// Speed
-	if(target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 26)) return (TRUE);	// Light speed
+	if(target_ptr->speed < 35) if(IS_FAST(target_ptr)) return TRUE;	// Speed
+	if(target_ptr->timed_trait[TRAIT_LIGHT_SPEED] && (target_ptr->speed < 26)) return TRUE;	// Light speed
 
 	if(target_ptr->riding && (creature_list[target_ptr->riding].speed < 25))
-		if(creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return (TRUE);
+		if(creature_list[target_ptr->riding].timed_trait[TRAIT_FAST]) return TRUE;
 
 	return FALSE;	// No need to cast dispel spell
 }
@@ -1354,7 +1354,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		msg_format("%^s tries to cast a spell, but fails.", m_name);
 #endif
 
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Hex: Anti Magic Barrier */
@@ -1366,7 +1366,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 #else
 		msg_format("Anti magic barrier cancels the spell which %^s casts.");
 #endif
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Projectable? */
@@ -1439,5 +1439,5 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	}
 
 	/* A spell was cast */
-	return (TRUE);
+	return TRUE;
 }

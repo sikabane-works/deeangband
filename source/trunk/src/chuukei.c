@@ -513,7 +513,7 @@ static bool string_is_repeat(char *str, int len)
 #endif
 	}
 
-	return (TRUE);
+	return TRUE;
 }
 
 static errr send_text_to_chuukei_server(int x, int y, int len, byte col, cptr str)
@@ -908,7 +908,7 @@ static bool get_nextbuf(char *buf)
 
 	if(buf[0] == 'd') return FALSE;
 
-	return (TRUE);
+	return TRUE;
 }
 
 /* プレイホストのマップが大きいときクライアントのマップもリサイズする */
@@ -1019,7 +1019,7 @@ static bool flush_ringbuf_client(void)
 
 	fresh_queue.next++;
 	if(fresh_queue.next == FRESH_QUEUE_SIZE) fresh_queue.next = 0;
-	return (TRUE);
+	return TRUE;
 }
 
 #ifdef CHUUKEI

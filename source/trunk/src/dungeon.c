@@ -1401,7 +1401,7 @@ bool psychometry(creature_type *creature_ptr)
 	autopick_alter_item(creature_ptr, item, (bool)(okay && destroy_feeling));
 
 	/* Something happened */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3568,7 +3568,7 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 	}
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3624,7 +3624,7 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 	}
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 /*

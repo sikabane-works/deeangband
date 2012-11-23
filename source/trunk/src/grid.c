@@ -493,7 +493,7 @@ void rand_dir(int *rdir, int *cdir)
 bool get_floor(floor_type *floor_ptr, int x, int y)
 {
 	if(!in_bounds(floor_ptr, y, x)) return FALSE; // Out of bounds
-	if(is_floor_bold(floor_ptr, y, x)) return (TRUE); // Do the real check
+	if(is_floor_bold(floor_ptr, y, x)) return TRUE; // Do the real check
 	return FALSE;
 }
 

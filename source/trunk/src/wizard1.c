@@ -1584,7 +1584,7 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	object_ptr->charge_dice = a_ptr->charge_dice;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 

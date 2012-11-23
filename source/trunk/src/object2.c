@@ -1838,7 +1838,7 @@ static bool judge_instant_artifact(creature_type *owner_ptr, object_type *object
 		object_ptr->name1 = i; // Mega-Hack -- mark the item as an artifact	
 
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
-		return (TRUE); // Success
+		return TRUE; // Success
 	}
 
 	return FALSE; // Failure
@@ -1881,7 +1881,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 		
 		object_ptr->name1 = i; // Hack -- mark the item as an artifact
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
-		return (TRUE); // Success
+		return TRUE; // Success
 	}
 	return FALSE; // Failure
 }
@@ -2271,7 +2271,7 @@ static bool item_creature_okay(int species_idx)
 	if(has_trait_species(r_ptr, TRAIT_UNIQUE2)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2823,7 +2823,7 @@ static bool kind_is_good(int k_idx)
 		case TV_CROWN:
 		{
 			if(object_kind_ptr->to_ac < 0) return FALSE;
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Weapons -- Good unless damaged */
@@ -2835,14 +2835,14 @@ static bool kind_is_good(int k_idx)
 		{
 			if(object_kind_ptr->to_hit < 0) return FALSE;
 			if(object_kind_ptr->to_damage < 0) return FALSE;
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Ammo -- Arrows/Bolts are good */
 		case TV_BOLT:
 		case TV_ARROW:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Books -- High level books are good (except Arcane books) */
@@ -2859,23 +2859,23 @@ static bool kind_is_good(int k_idx)
 		case TV_HISSATSU_BOOK:
 		case TV_HEX_BOOK:
 		{
-			if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return (TRUE);
+			if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return TRUE;
 			return FALSE;
 		}
 
 		/* Rings -- Rings of Speed are good */
 		case TV_RING:
 		{
-			if(object_kind_ptr->sval == SV_RING_SPEED) return (TRUE);
-			if(object_kind_ptr->sval == SV_RING_LORDLY) return (TRUE);
+			if(object_kind_ptr->sval == SV_RING_SPEED) return TRUE;
+			if(object_kind_ptr->sval == SV_RING_LORDLY) return TRUE;
 			return FALSE;
 		}
 
 		/* Amulets -- Amulets of the Magi and Resistance are good */
 		case TV_AMULET:
 		{
-			if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return (TRUE);
-			if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return (TRUE);
+			if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return TRUE;
+			if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return TRUE;
 			return FALSE;
 		}
 	}
@@ -2937,7 +2937,7 @@ bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_
 	if(!object_is_cursed(object2_ptr) && !object_is_broken(object2_ptr) && (obj_level > floor_ptr->object_level))
 		if(cheat_peek) object_mention(object2_ptr);
 
-	return (TRUE); // Success
+	return TRUE; // Success
 }
 
 
@@ -3044,7 +3044,7 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 		object2_ptr->pval = value;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3741,7 +3741,7 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 	int j;
 
 	/* Empty slot? */
-	if(creature_ptr->inven_cnt < INVEN_TOTAL) return (TRUE);
+	if(creature_ptr->inven_cnt < INVEN_TOTAL) return TRUE;
 
 	/* Similar slot? */
 	for (j = 0; j < INVEN_TOTAL; j++)
@@ -3752,7 +3752,7 @@ bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 		if(!object2_ptr->k_idx) continue;
 
 		/* Check if the two items can be combined */
-		if(object_similar(object2_ptr, object_ptr)) return (TRUE);
+		if(object_similar(object2_ptr, object_ptr)) return TRUE;
 	}
 
 	/* Nope */
@@ -4734,11 +4734,11 @@ static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type
 		case TV_ARROW:
 		case TV_SHOT:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 		case TV_SWORD:
 		{
-			if(object_ptr->sval != SV_DOKUBARI) return (TRUE);
+			if(object_ptr->sval != SV_DOKUBARI) return TRUE;
 		}
 	}
 

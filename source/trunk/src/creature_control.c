@@ -4052,7 +4052,7 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 	}
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4094,7 +4094,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 		return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4148,7 +4148,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 	}
 
 	// Require the "group" flag
-	if(!(mode & PC_ALLOW_GROUP)) return (TRUE);
+	if(!(mode & PC_ALLOW_GROUP)) return TRUE;
 
 	place_creature_m_idx = hack_m_idx_ii;
 
@@ -4190,7 +4190,7 @@ bool place_creature_species(creature_type *summoner_ptr, floor_type *floor_ptr, 
 		}
 	}
 
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4360,13 +4360,13 @@ bool alloc_creature(floor_type *floor_ptr, creature_type *player_ptr, int dis, u
 #else
 //			if(cheat_hear) msg_format("Creature horde (%c).", summon_kin_type);
 #endif
-			return (TRUE);
+			return TRUE;
 		}
 	}
 	else
 	{
 		/* Attempt to place the creature, allow groups */
-		if(place_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return (TRUE);
+		if(place_creature(NULL, floor_ptr, y, x, (mode | PC_ALLOW_GROUP))) return TRUE;
 
 	}
 
@@ -4442,7 +4442,7 @@ bool summon_specific(creature_type *summoner_ptr, int y1, int x1, int lev, int t
 	/* Attempt to place the creature (awake, allow groups) */
 	if(!place_creature_species(summoner_ptr, floor_ptr, y, x, species_idx, mode)) return FALSE;
 
-	return (TRUE);
+	return TRUE;
 }
 
 /* A "dangerous" function, creates a pet of the specified type */

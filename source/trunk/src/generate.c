@@ -429,14 +429,14 @@ static bool possible_doorway(floor_type *floor_ptr, int y, int x)
 		if(cave_have_flag_bold(floor_ptr, y - 1, x, FF_WALL) &&
 		    cave_have_flag_bold(floor_ptr, y + 1, x, FF_WALL))
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Check Horizontal */
 		if(cave_have_flag_bold(floor_ptr, y, x - 1, FF_WALL) &&
 		    cave_have_flag_bold(floor_ptr, y, x + 1, FF_WALL))
 		{
-			return (TRUE);
+			return TRUE;
 		}
 	}
 

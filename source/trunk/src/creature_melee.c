@@ -31,7 +31,7 @@ bool test_hit_melee(creature_type *attacker_ptr, int chance, int ev, int vis)
 
 	if(!vis) chance = (chance + 1) / 2;	// Penalize invisible targets
 	if(randint0(chance) < (ev * 3 / 4)) return FALSE;	// Power must defeat armor
-	return (TRUE);	// Assume hit
+	return TRUE;	// Assume hit
 }
 
 

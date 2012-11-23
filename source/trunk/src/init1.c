@@ -845,7 +845,7 @@ static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
 	head->text_size += strlen(buf);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -875,7 +875,7 @@ static bool add_name(u32b *offset, header *head, cptr buf)
 	head->name_size += strlen(buf);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 // Deskull
@@ -900,7 +900,7 @@ static bool add_tmp(u32b *offset, header *head, cptr buf)
 	head->tmp_size += strlen(buf);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 

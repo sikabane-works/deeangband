@@ -5434,7 +5434,7 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 		msg_print(NULL);
 
 		/* Oops */
-		return (TRUE);
+		return TRUE;
 	}
 
 
@@ -5885,7 +5885,7 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 	if(skey == 'q') return FALSE;
 
 	/* Normal return */
-	return (TRUE);
+	return TRUE;
 }
 
 

@@ -357,7 +357,7 @@ bool screen_object(object_type *object_ptr, u32b mode)
 	inkey();
 
 	screen_load();
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -609,7 +609,7 @@ bool item_tester_okay(creature_type *creature_ptr, object_type *object_ptr, bool
 	}
 
 	/* Assume okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -759,7 +759,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 				*cp = i;
 
 				/* Success */
-				return (TRUE);
+				return TRUE;
 			}
 
 			/* Find another '@' */
@@ -807,7 +807,7 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 				*cp = i;
 
 				/* Success */
-				return (TRUE);
+				return TRUE;
 			}
 
 			/* Find another '@' */
@@ -858,7 +858,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 				*cp = i;
 
 				/* Success */
-				return (TRUE);
+				return TRUE;
 			}
 
 			/* Find another '@' */
@@ -897,7 +897,7 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 				*cp = i;
 
 				/* Success */
-				return (TRUE);
+				return TRUE;
 			}
 
 			/* Find another '@' */
@@ -1267,7 +1267,7 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 	object_ptr = GET_ITEM(creature_ptr, item);
 
 	/* No inscription */
-	if(!object_ptr->inscription) return (TRUE);
+	if(!object_ptr->inscription) return TRUE;
 
 	/* Find a '!' */
 	s = my_strchr(quark_str(object_ptr->inscription), '!');
@@ -1291,7 +1291,7 @@ static bool get_item_allow(creature_type *creature_ptr, int item)
 	}
 
 	/* Allow it */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1303,7 +1303,7 @@ static bool get_item_okay(creature_type *creature_ptr, int i, bool (*hook)(creat
 {
 	if((i < 0) || (i >= INVEN_TOTAL)) return FALSE; // Illegal items
 	if(!item_tester_okay(creature_ptr, &creature_ptr->inventory[i], hook, item_tester_tval)) return FALSE; // Verify the item
-	return (TRUE); // Assume okay
+	return TRUE; // Assume okay
 }
 
 
@@ -1490,7 +1490,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 			item_tester_tval = 0;
 			hook = NULL;
 			command_cmd = 0; // Hack -- command_cmd is no longer effective
-			return (TRUE);
+			return TRUE;
 		}
 
 		// Floor item?
@@ -2459,7 +2459,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			item_tester_tval = 0;
 			hook = NULL;
 			command_cmd = 0; /* Hack -- command_cmd is no longer effective */
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Floor item? */
@@ -3703,7 +3703,7 @@ static bool py_pickup_floor_aux(creature_type *creature_ptr)
 	// Pick up the object
 	py_pickup_aux(creature_ptr, this_object_idx);
 
-	return (TRUE);
+	return TRUE;
 }
 
 

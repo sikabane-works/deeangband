@@ -2850,7 +2850,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 				delete_species_idx(target_ptr);
 
-				//TODO return (TRUE);
+				//TODO return TRUE;
 			}
 			else
 			{
@@ -3596,7 +3596,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 
 
 	/* Handle adjacent (or identical) grids */
-	if((ax < 2) && (ay < 2)) return (TRUE);
+	if((ax < 2) && (ay < 2)) return TRUE;
 
 
 	/* Paranoia -- require "safe" origin */
@@ -3625,7 +3625,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		}
 
 		/* Assume los */
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Directly East/West */
@@ -3650,7 +3650,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 		}
 
 		/* Assume los */
-		return (TRUE);
+		return TRUE;
 	}
 
 
@@ -3664,7 +3664,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 	{
 		if(ay == 2)
 		{
-			if(!cave_stop_disintegration(floor_ptr, y1 + sy, x1)) return (TRUE);
+			if(!cave_stop_disintegration(floor_ptr, y1 + sy, x1)) return TRUE;
 		}
 	}
 
@@ -3673,7 +3673,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 	{
 		if(ax == 2)
 		{
-			if(!cave_stop_disintegration(floor_ptr, y1, x1 + sx)) return (TRUE);
+			if(!cave_stop_disintegration(floor_ptr, y1, x1 + sx)) return TRUE;
 		}
 	}
 
@@ -3781,7 +3781,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 	}
 
 	/* Assume los */
-	return (TRUE);
+	return TRUE;
 }
 
 

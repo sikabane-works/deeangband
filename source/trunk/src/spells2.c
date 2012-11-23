@@ -2202,7 +2202,7 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 	}
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2465,7 +2465,7 @@ bool earthquake_aux(creature_type *caster_ptr, int cy, int cx, int r, int m_idx)
 	if(caster_ptr->posture & NINJA_S_STEALTH && floor_ptr->cave[caster_ptr->fy][caster_ptr->fx].info & CAVE_GLOW)
 		set_superstealth(caster_ptr, FALSE);
 
-	return (TRUE); // Success
+	return TRUE; // Success
 }
 
 bool earthquake(creature_type *target_ptr, int cy, int cx, int r)
@@ -2931,7 +2931,7 @@ bool lite_area(creature_type *creature_ptr, int dam, int rad)
 	lite_room(creature_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	/* Assume seen */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2959,7 +2959,7 @@ bool unlite_area(creature_type *caster_ptr, int dam, int rad)
 	unlite_room(caster_ptr, caster_ptr->fy, caster_ptr->fx);
 
 	/* Assume seen */
-	return (TRUE);
+	return TRUE;
 }
 
 

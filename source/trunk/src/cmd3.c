@@ -156,7 +156,7 @@ static bool item_tester_hook_wear(creature_type *creature_ptr, object_type *obje
 		if(creature_ptr->sex == SEX_MALE) return FALSE;
 
 	/* Check for a usable slot */
-	if(WIELD_SLOT(object_ptr) != INVEN_SLOT_INVENTORY) return (TRUE);
+	if(WIELD_SLOT(object_ptr) != INVEN_SLOT_INVENTORY) return TRUE;
 
 	/* Assume not wearable */
 	return FALSE;
@@ -168,7 +168,7 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 	/* Check for a usable slot */
 	if(((object_ptr->tval >= TV_DIGGING) && (object_ptr->tval <= TV_SWORD)) ||
 	    (object_ptr->tval == TV_SHIELD) || (object_ptr->tval == TV_CAPTURE) ||
-	    (object_ptr->tval == TV_CARD)) return (TRUE);
+	    (object_ptr->tval == TV_CARD)) return TRUE;
 
 	/* Assume not wearable */
 	return FALSE;
@@ -176,7 +176,7 @@ static bool item_tester_hook_mochikae(creature_type *creature_ptr, object_type *
 
 bool item_tester_hook_hand(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if(WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return (TRUE); // Check for a usable slot
+	if(WIELD_SLOT(object_ptr) == INVEN_SLOT_HAND) return TRUE; // Check for a usable slot
 	return FALSE; // Assume not wearable
 }
 
@@ -1069,11 +1069,11 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 static bool item_tester_refill_lantern(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Flasks of oil are okay */
-	if(object_ptr->tval == TV_FLASK) return (TRUE);
+	if(object_ptr->tval == TV_FLASK) return TRUE;
 
 	/* Laterns are okay */
 	if((object_ptr->tval == TV_LITE) &&
-	    (object_ptr->sval == SV_LITE_LANTERN)) return (TRUE);
+	    (object_ptr->sval == SV_LITE_LANTERN)) return TRUE;
 
 	/* Assume not okay */
 	return FALSE;
@@ -1177,7 +1177,7 @@ static bool item_tester_refill_torch(creature_type *creature_ptr, object_type *o
 {
 	/* Torches are okay */
 	if((object_ptr->tval == TV_LITE) &&
-	    (object_ptr->sval == SV_LITE_TORCH)) return (TRUE);
+	    (object_ptr->sval == SV_LITE_TORCH)) return TRUE;
 
 	/* Assume not okay */
 	return FALSE;
@@ -1516,7 +1516,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 		z2 = species_info[w2].r_pkills;
 
 		/* Compare player kills */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 
@@ -1529,7 +1529,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 		z2 = species_info[w2].r_tkills;
 
 		/* Compare total kills */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 
@@ -1542,7 +1542,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 		z2 = species_info[w2].level;
 
 		/* Compare levels */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 
@@ -1555,7 +1555,7 @@ bool ang_sort_comp_hook(vptr u, vptr v, int a, int b)
 		z2 = species_info[w2].exp;
 
 		/* Compare experience */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 

@@ -147,7 +147,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
 		creature_ptr->creature_update |= (PU_SPECIES_LITE);
 
-	return (TRUE);
+	return TRUE;
 }
 
 // Teleport creature next to a grid near the given location
@@ -1104,7 +1104,7 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 	}
 
 	/* Notice */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2393,7 +2393,7 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 	calc_android_exp(creature_ptr);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2466,7 +2466,7 @@ msg_print("‹­‰»‚ÉŽ¸”s‚µ‚½B");
 	calc_android_exp(creature_ptr);
 
 	/* Something happened */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2583,7 +2583,7 @@ bool artifact_scroll(creature_type *caster_ptr)
 	}
 
 	calc_android_exp(caster_ptr);
-	return (TRUE);
+	return TRUE;
 }
 
 // Identify an object
@@ -2728,7 +2728,7 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
 
 	/* Something happened */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2901,7 +2901,7 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2913,13 +2913,13 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 bool item_tester_hook_recharge(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Recharge staffs */
-	if(object_ptr->tval == TV_STAFF) return (TRUE);
+	if(object_ptr->tval == TV_STAFF) return TRUE;
 
 	/* Recharge wands */
-	if(object_ptr->tval == TV_WAND) return (TRUE);
+	if(object_ptr->tval == TV_WAND) return TRUE;
 
 	/* Hack -- Recharge rods */
-	if(IS_ROD(object_ptr)) return (TRUE);
+	if(IS_ROD(object_ptr)) return TRUE;
 
 	/* Nope */
 	return FALSE;
@@ -3253,7 +3253,7 @@ msg_format("—–\‚È–‚–@‚Ì‚½‚ß‚É%s‚ª‰ó‚ê‚½I", object_name);
 	play_window |= (PW_INVEN);
 
 	/* Something was done */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4100,8 +4100,8 @@ bool spell_okay(creature_type *creature_ptr, int spell, bool learned, bool study
 		return FALSE;
 	}
 
-	if(creature_ptr->class_idx == CLASS_SORCERER) return (TRUE);
-	if(creature_ptr->class_idx == CLASS_RED_MAGE) return (TRUE);
+	if(creature_ptr->class_idx == CLASS_SORCERER) return TRUE;
+	if(creature_ptr->class_idx == CLASS_RED_MAGE) return TRUE;
 
 	/* Spell is learned */
 	if((use_realm == creature_ptr->realm2) ?
@@ -4369,20 +4369,20 @@ bool hates_acid(object_type *object_ptr)
 		case TV_HARD_ARMOR:
 		case TV_DRAG_ARMOR:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Staffs/Scrolls are wood/paper */
 		case TV_STAFF:
 		case TV_SCROLL:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Ouch */
 		case TV_CHEST:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Junk is useless */
@@ -4390,7 +4390,7 @@ bool hates_acid(object_type *object_ptr)
 		case TV_BOTTLE:
 		case TV_JUNK:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -4408,7 +4408,7 @@ bool hates_elec(object_type *object_ptr)
 		case TV_RING:
 		case TV_WAND:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -4437,7 +4437,7 @@ bool hates_fire(object_type *object_ptr)
 		case TV_CLOAK:
 		case TV_SOFT_ARMOR:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Books */
@@ -4455,20 +4455,20 @@ bool hates_fire(object_type *object_ptr)
 		case TV_HISSATSU_BOOK:
 		case TV_HEX_BOOK:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Chests */
 		case TV_CHEST:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		/* Staffs/Scrolls burn */
 		case TV_STAFF:
 		case TV_SCROLL:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -4487,7 +4487,7 @@ bool hates_cold(object_type *object_ptr)
 		case TV_FLASK:
 		case TV_BOTTLE:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -4504,7 +4504,7 @@ int set_acid_destroy(object_type *object_ptr)
 	if(!hates_acid(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
 	if(have_flag(flgs, TRAIT_IGNORE_ACID)) return FALSE;
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4517,7 +4517,7 @@ int set_elec_destroy(object_type *object_ptr)
 	if(!hates_elec(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
 	if(have_flag(flgs, TRAIT_IGNORE_ELEC)) return FALSE;
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4530,7 +4530,7 @@ int set_fire_destroy(object_type *object_ptr)
 	if(!hates_fire(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
 	if(have_flag(flgs, TRAIT_IGNORE_FIRE)) return FALSE;
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4543,7 +4543,7 @@ int set_cold_destroy(object_type *object_ptr)
 	if(!hates_cold(object_ptr)) return FALSE;
 	object_flags(object_ptr, flgs);
 	if(have_flag(flgs, TRAIT_IGNORE_COLD)) return FALSE;
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4683,7 +4683,7 @@ static int minus_ac(creature_type *creature_ptr)
 #else
 		msg_format("Your %s is unaffected!", object_name);
 #endif
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Message */
@@ -4699,7 +4699,7 @@ static int minus_ac(creature_type *creature_ptr)
 	play_window |= (PW_EQUIP | PW_PLAYER);				// Window stuff
 	calc_android_exp(creature_ptr);
 
-	return (TRUE); // Item was damaged
+	return TRUE; // Item was damaged
 }
 
 bool rustproof(creature_type *creature_ptr)
@@ -4803,7 +4803,7 @@ bool curse_armor(creature_type *creature_ptr)
 		play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER);
 	}
 
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4838,7 +4838,7 @@ bool curse_weapon(creature_type *target_ptr, bool force, int slot)
 	}
 
 	/* Notice */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4867,7 +4867,7 @@ bool brand_bolts(creature_type *creature_ptr)
 		object_ptr->name2 = EGO_FLAME;	// Ego-item
 		enchant(creature_ptr, object_ptr, randint0(3) + 4, ENCH_TOHIT | ENCH_TODAM);	// Enchant
 
-		return (TRUE);	// Notice
+		return TRUE;	// Notice
 	}
 
 	if(flush_failure) flush();
@@ -4879,7 +4879,7 @@ bool brand_bolts(creature_type *creature_ptr)
 #endif
 
 	/* Notice */
-	return (TRUE);
+	return TRUE;
 }
 
 

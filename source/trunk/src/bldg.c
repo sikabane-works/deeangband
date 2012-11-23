@@ -19,18 +19,18 @@ static bool is_owner(creature_type *creature_ptr, building_type *bldg)
 {
 	if(bldg->member_class[creature_ptr->class_idx] == BUILDING_OWNER)
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	if(bldg->member_race[creature_ptr->race_idx1] == BUILDING_OWNER)
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	if((is_magic(creature_ptr->realm1) && (bldg->member_realm[creature_ptr->realm1] == BUILDING_OWNER)) ||
 		(is_magic(creature_ptr->realm2) && (bldg->member_realm[creature_ptr->realm2] == BUILDING_OWNER)))
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	return FALSE;
@@ -41,18 +41,18 @@ static bool is_member(creature_type *creature_ptr, building_type *bldg)
 {
 	if(bldg->member_class[creature_ptr->class_idx])
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	if(bldg->member_race[creature_ptr->race_idx1])
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 	if((is_magic(creature_ptr->realm1) && bldg->member_realm[creature_ptr->realm1]) ||
 	    (is_magic(creature_ptr->realm2) && bldg->member_realm[creature_ptr->realm2]))
 	{
-		return (TRUE);
+		return TRUE;
 	}
 
 
@@ -1599,7 +1599,7 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 		msg_print(NULL);
 	}
 	screen_load();
-	return (TRUE);
+	return TRUE;
 }
 
 static bool vault_aux_battle(int species_idx)
@@ -1628,7 +1628,7 @@ static bool vault_aux_battle(int species_idx)
 			return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 void battle_creatures(void)
@@ -1882,7 +1882,7 @@ msg_print("ÇnÇjÅAÇPÉSÅ[ÉãÉhÇ≈Ç¢Ç±Ç§ÅB");
 			leave_bldg = TRUE;
 			screen_load();
 
-			return (TRUE);
+			return TRUE;
 		}
 	}
 	screen_load();
@@ -2567,7 +2567,7 @@ static bool inn_comm(creature_type *creature_ptr, int cmd)
 			}
 	}
 
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2755,7 +2755,7 @@ static bool item_tester_hook_ammo(creature_type *creature_ptr, object_type *obje
 		case TV_SHOT:
 		case TV_ARROW:
 		case TV_BOLT:
-			return (TRUE);
+			return TRUE;
 	}
 	return FALSE;
 }
@@ -2853,7 +2853,7 @@ static bool resize_item(creature_type *creature_ptr)
 
 	}
 
-	return (TRUE);
+	return TRUE;
 }
  */
 
@@ -2960,7 +2960,7 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 		calc_android_exp(creature_ptr);
 
 		/* Something happened */
-		return (TRUE);
+		return TRUE;
 	}
 }
 

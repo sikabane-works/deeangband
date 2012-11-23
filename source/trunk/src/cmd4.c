@@ -6166,7 +6166,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 		z2 = artifact_info[w2].tval;
 
 		/* Compare total kills */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 
@@ -6179,7 +6179,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 		z2 = artifact_info[w2].sval;
 
 		/* Compare levels */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 
@@ -6192,7 +6192,7 @@ static bool ang_sort_art_comp(vptr u, vptr v, int a, int b)
 		z2 = artifact_info[w2].level;
 
 		/* Compare experience */
-		if(z1 < z2) return (TRUE);
+		if(z1 < z2) return TRUE;
 		if(z1 > z2) return FALSE;
 	}
 

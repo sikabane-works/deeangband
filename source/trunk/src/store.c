@@ -1463,7 +1463,7 @@ static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
 	if(object_ptr->discount != j_ptr->discount) return (0);
 
 	/* They match, so they must be similar */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1573,7 +1573,7 @@ static bool is_blessed(object_type *object_ptr)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
 	object_flags(object_ptr, flgs);
-	if(have_flag(flgs, TRAIT_BLESSED_BRAND)) return (TRUE);
+	if(have_flag(flgs, TRAIT_BLESSED_BRAND)) return TRUE;
 	else return FALSE;
 }
 
@@ -1587,20 +1587,20 @@ static bool is_blessed(object_type *object_ptr)
 static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Hack -- The Home is simple */
-	if(is_home(st_ptr) || is_museum(st_ptr)) return (TRUE);
+	if(is_home(st_ptr) || is_museum(st_ptr)) return TRUE;
 
 	/* XXX XXX XXX Ignore "worthless" items */
 	//if(object_value(object_ptr) <= 0) return FALSE;
 
 	/* Black Market is simple too */
-	if(is_black_market(st_ptr)) return (TRUE);
+	if(is_black_market(st_ptr)) return TRUE;
 
 	if(st_ptr->flags & ST1_SCULPTURE)
 	{
 		switch (object_ptr->tval)
 		{
 			case TV_STATUE:
-				return (TRUE);
+				return TRUE;
 			default:
 				break;
 		}
@@ -2216,7 +2216,7 @@ static bool black_market_crap(store_type *st_ptr, object_type *object_ptr)
 			object_type *j_ptr = &town[town_num].store[i].stock[j];
 
 			// Duplicate item "type", assume crappy
-			if(object_ptr->k_idx == j_ptr->k_idx) return (TRUE);
+			if(object_ptr->k_idx == j_ptr->k_idx) return TRUE;
 		}
 	}
 */
@@ -2394,13 +2394,13 @@ static bool noneedtobargain(store_type *st_ptr, s32b minprice)
 	s32b bad = st_ptr->bad_buy;
 
 	/* Cheap items are "boring" */
-	if(minprice < 10L) return (TRUE);
+	if(minprice < 10L) return TRUE;
 
 	/* Perfect haggling */
-	if(good == MAX_SHORT) return (TRUE);
+	if(good == MAX_SHORT) return TRUE;
 
 	/* Reward good haggles, punish bad haggles, notice price */
-	if(good > ((3 * bad) + (5 + (minprice/50)))) return (TRUE);
+	if(good > ((3 * bad) + (5 + (minprice/50)))) return TRUE;
 
 	/* Return the flag */
 	return FALSE;
@@ -2804,7 +2804,7 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 		if((*com_val >= i) && (*com_val <= j))
 		{
 			/* Success */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -2864,7 +2864,7 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 	repeat_push(*com_val);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -2891,7 +2891,7 @@ static int increase_insults(store_type *st_ptr)
 		st_ptr->store_open = turn + TURNS_PER_TICK*TOWN_DAWN/8 + randint1(TURNS_PER_TICK*TOWN_DAWN/8);
 
 		/* Closed */
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Not closed */
@@ -2915,7 +2915,7 @@ static void decrease_insults(store_type *st_ptr)
 static int haggle_insults(store_type *st_ptr)
 {
 	/* Increase insults */
-	if(increase_insults(st_ptr)) return (TRUE);
+	if(increase_insults(st_ptr)) return TRUE;
 
 	/* Display and flush insult */
 	say_comment_5(st_ptr);
@@ -3082,7 +3082,7 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 	}
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -3097,13 +3097,13 @@ static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_
 	while (TRUE)
 	{
 		/* Get a haggle (or cancel) */
-		if(!get_haggle(pmt, poffer, price, final)) return (TRUE);
+		if(!get_haggle(pmt, poffer, price, final)) return TRUE;
 
 		/* Acceptable offer */
 		if(((*poffer) * factor) >= (last_offer * factor)) break;
 
 		/* Insult, and check for kicked out */
-		if(haggle_insults(st_ptr)) return (TRUE);
+		if(haggle_insults(st_ptr)) return TRUE;
 
 		/* Reject offer (correctly) */
 		(*poffer) = last_offer;
@@ -3320,7 +3320,7 @@ static bool purchase_haggle(store_type *st_ptr, creature_type *creature_ptr, obj
 	}
 
 	/* Cancel */
-	if(cancel) return (TRUE);
+	if(cancel) return TRUE;
 
 	/* Update bargaining info */
 	updatebargain(st_ptr, *price, final_ask, object_ptr->number);
@@ -3566,7 +3566,7 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 	}
 
 	/* Cancel */
-	if(cancel) return (TRUE);
+	if(cancel) return TRUE;
 
 	/* Update bargaining info */
 	updatebargain(st_ptr, *price, final_ask, object_ptr->number);

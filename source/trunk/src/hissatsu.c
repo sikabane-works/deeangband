@@ -59,7 +59,7 @@ cptr            p = "•KŽEŒ•";
 		if(technic_info[TECHNIC_HISSATSU][*sn].slevel <= plev)
 		{
 			/* Success */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -322,7 +322,7 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 	repeat_push(*sn);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 

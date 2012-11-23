@@ -3700,7 +3700,7 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	if(z_escape && ((*command == 'z') || (*command == 'Z'))) return FALSE;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4689,7 +4689,7 @@ bool is_a_vowel(int ch)
 	case 'I':
 	case 'O':
 	case 'U':
-		return (TRUE);
+		return TRUE;
 	}
 
 	return FALSE;
@@ -4748,7 +4748,7 @@ static bool insert_str(char *buf, cptr target, cptr insert)
 	for (i = 0; i < i_len; ++i) buf[i] = insert[i];
 
 	/* Successful operation */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -4846,7 +4846,7 @@ bool repeat_pull(int *what)
 	*what = repeat__key[repeat__idx++];
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 void repeat_check(void)

@@ -1449,7 +1449,7 @@ static bool vault_aux_jelly(int species_idx)
 	if(!my_strchr("ijm,", r_ptr->d_char)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1464,7 +1464,7 @@ static bool vault_aux_animal(int species_idx)
 	if(!has_trait_species(r_ptr, TRAIT_ANIMAL)) return FALSE;	// Require "animal" flag
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1482,7 +1482,7 @@ static bool vault_aux_undead(int species_idx)
 	if(!has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1532,7 +1532,7 @@ static bool vault_aux_kennel(int species_idx)
 	if(!my_strchr("CZ", r_ptr->d_char)) return FALSE;
   
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1550,7 +1550,7 @@ static bool vault_aux_mimic(int species_idx)
 	if(!my_strchr("!$&(/=?[\\|", r_ptr->d_char)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 /*
@@ -1583,7 +1583,7 @@ static bool vault_aux_symbol_e(int species_idx)
 	if(r_ptr->d_char != vault_aux_char) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1605,7 +1605,7 @@ static bool vault_aux_symbol_g(int species_idx)
 	if(r_ptr->d_char != vault_aux_char) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1620,7 +1620,7 @@ static bool vault_aux_orc(int species_idx)
 	if(!has_trait_species(species_ptr, TRAIT_ORC)) return FALSE;		// Require orc
 	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;					// Decline undead
 
-	return (TRUE); // Okay
+	return TRUE; // Okay
 }
 
 
@@ -1635,7 +1635,7 @@ static bool vault_aux_troll(int species_idx)
 	if(has_trait_species(species_ptr, TRAIT_TROLL)) return FALSE;	// Require troll
 	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;					// Decline undead
 
-	return (TRUE); // Okay
+	return TRUE; // Okay
 }
 
 
@@ -1658,7 +1658,7 @@ static bool vault_aux_giant(int species_idx)
 	if(has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1682,7 +1682,7 @@ static bool vault_aux_dragon(int species_idx)
 	if(has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1702,7 +1702,7 @@ static bool vault_aux_demon(int species_idx)
 	if(!has_trait_species(r_ptr, TRAIT_DEMON)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1722,7 +1722,7 @@ static bool vault_aux_cthulhu(int species_idx)
 	if(!has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR)) return FALSE;
 
 	/* Okay */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -5563,7 +5563,7 @@ static bool vault_aux_trapped_pit(int species_idx)
 	if(has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
 
 	// Okay
-	return (TRUE);
+	return TRUE;
 }
 
 

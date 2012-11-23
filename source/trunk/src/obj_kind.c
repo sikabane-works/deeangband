@@ -373,6 +373,6 @@ bool object_allow_two_hands_wielding(creature_type *creature_ptr, object_type *o
  */
 bool item_tester_hook_readable(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if((object_ptr->tval==TV_SCROLL) || (object_ptr->tval==TV_PARCHMENT) || has_trait_object(object_ptr, TRAIT_CAN_READ)) return (TRUE);
+	if((object_ptr->tval==TV_SCROLL) || (object_ptr->tval==TV_PARCHMENT) || has_trait_object(object_ptr, TRAIT_CAN_READ)) return TRUE;
 	return FALSE; // Assume not
 }

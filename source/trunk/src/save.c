@@ -1212,7 +1212,7 @@ static bool save_player_aux(char *name)
 	character_saved = TRUE;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 

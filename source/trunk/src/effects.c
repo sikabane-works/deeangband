@@ -55,7 +55,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
 	handle_stuff();	// Handle stuff
 	
-	return (TRUE);	// Result
+	return TRUE;	// Result
 }
 
 bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_dec)
@@ -100,7 +100,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
 	handle_stuff();	// Handle stuff
 	
-	return (TRUE);	// Result
+	return TRUE;	// Result
 }
 
 void set_action(creature_type *creature_ptr, int typ)
@@ -468,7 +468,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		handle_stuff();
 
 		/* Result */
-		return (TRUE);
+		return TRUE;
 
 		}
 		else
@@ -586,7 +586,7 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Result */
-	return (TRUE);
+	return TRUE;
 }
 
 /*
@@ -802,7 +802,7 @@ bool set_stun(creature_type *creature_ptr, int v)
 	handle_stuff();
 
 	/* Result */
-	return (TRUE);
+	return TRUE;
 	}
 	else
 	{
@@ -1110,7 +1110,7 @@ bool set_cut(creature_type *creature_ptr, int v)
 	handle_stuff();
 
 	/* Result */
-	return (TRUE);
+	return TRUE;
 }
 #endif
 
@@ -1394,7 +1394,7 @@ bool set_food(creature_type *creature_ptr, int v)
 	handle_stuff();
 
 	/* Result */
-	return (TRUE);
+	return TRUE;
 }
 
 /*
@@ -1427,7 +1427,7 @@ bool inc_stat(creature_type *creature_ptr, int stat)
 		if(value > creature_ptr->stat_max[stat]) creature_ptr->stat_max[stat] = value; // Bring up the maximum too
 
 		creature_ptr->creature_update |= (CRU_BONUS); // Recalculate bonuses
-		return (TRUE);	// Success
+		return TRUE;	// Success
 	}
 
 	return FALSE; // Nothing to gain
@@ -1575,7 +1575,7 @@ bool res_stat(creature_type *creature_ptr, int stat)
 		play_redraw |= (PR_STATS);
 
 		/* Success */
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* Nothing to restore */
@@ -1657,7 +1657,7 @@ bool heal_creature(creature_type *creature_ptr, int num)
 		}
 
 		if(creature_ptr->timed_trait[TRAIT_AFRAID]) (void)set_timed_trait_aux(creature_ptr, TRAIT_AFRAID, 0, TRUE);
-		return (TRUE);
+		return TRUE;
 	}
 
 	return FALSE;
@@ -1732,7 +1732,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 #endif
 			desc_stat_neg[stat]);
 		}
-		return (TRUE); // Notice effect
+		return TRUE; // Notice effect
 	}
 
 	if(dec_stat(creature_ptr, stat, 10, (curse_of_Iluvatar && !randint0(13)))) // Attempt to reduce the stat
@@ -1745,7 +1745,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 			msg_format("You feel very %s.", desc_stat_neg[stat]);
 #endif
 		}
-		return (TRUE); // Notice effect
+		return TRUE; // Notice effect
 	}
 	
 	return FALSE; // Nothing obvious
@@ -1764,7 +1764,7 @@ bool do_res_stat(creature_type *creature_ptr, int stat)
 			msg_format("You feel less %s.", desc_stat_neg[stat]);
 #endif
 		}
-		return (TRUE);
+		return TRUE;
 	}
 
 	return FALSE;
@@ -1786,7 +1786,7 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 			msg_format("Wow! %s became very %s!", creature_ptr->name, desc_stat_pos[stat]);
 #endif
 		}
-		return (TRUE);
+		return TRUE;
 	}
 	
 	if(res) // Restoration worked
@@ -1799,7 +1799,7 @@ bool do_inc_stat(creature_type *creature_ptr, int stat)
 			msg_format("You feel less %s.", desc_stat_neg[stat]);
 #endif
 		}
-		return (TRUE);
+		return TRUE;
 	}
 
 	return FALSE; // Nothing obvious
@@ -1831,7 +1831,7 @@ bool restore_exp(creature_type *creature_ptr)
 		check_experience(creature_ptr);
 
 		/* Did something */
-		return (TRUE);
+		return TRUE;
 	}
 
 	/* No effect */
@@ -1861,7 +1861,7 @@ bool lose_all_info(creature_type *creature_ptr)
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 	play_window |= (PW_INVEN | PW_EQUIP | PW_PLAYER); // Window stuff
 	wiz_dark(GET_FLOOR_PTR(creature_ptr), creature_ptr); // Mega-Hack -- Forget the map
-	return (TRUE); // It worked
+	return TRUE; // It worked
 }
 
 
@@ -2847,7 +2847,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				get_exp_from_mon(attacker_ptr, ((long)target_ptr->mhp + 1L) * 9L / 10L, target_ptr);
 	
 			fear = FALSE; // Not afraid	
-			return (TRUE); // Creature is dead
+			return TRUE; // Creature is dead
 		}
 		
 	#if 0

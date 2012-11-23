@@ -284,7 +284,7 @@ cptr            p = "–‚–@";
 	if(repeat_pull(sn))
 	{
 		/* Success */
-		return (TRUE);
+		return TRUE;
 	}
 
 	if(use_menu)
@@ -664,7 +664,7 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 	repeat_push(*sn);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 

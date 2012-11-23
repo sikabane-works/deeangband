@@ -3164,7 +3164,7 @@ static bool item_tester_hook_activate(creature_type *creature_ptr, object_type *
 	for(i = 0; i < MAX_TRAITS; i++)
 		if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF ||
 			trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
-			if(has_trait_object(object_ptr, i)) return (TRUE);
+			if(has_trait_object(object_ptr, i)) return TRUE;
 
 	return FALSE;	// Assume not
 }
@@ -3772,7 +3772,7 @@ void do_cmd_activate(creature_type *creature_ptr)
  */
 static bool item_tester_hook_use(creature_type *creature_ptr, object_type *object_ptr)
 {
-	if(object_ptr->tval == creature_ptr->tval_ammo) return (TRUE);
+	if(object_ptr->tval == creature_ptr->tval_ammo) return TRUE;
 
 	// Useable object
 	switch (object_ptr->tval)
@@ -3785,7 +3785,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 		case TV_POTION:
 		case TV_FOOD:
 		{
-			return (TRUE);
+			return TRUE;
 		}
 
 		default:
@@ -3803,7 +3803,7 @@ static bool item_tester_hook_use(creature_type *creature_ptr, object_type *objec
 					for(i = 0; i < MAX_TRAITS; i++)
 						if(trait_info[i].effect_type == TRAIT_EFFECT_TYPE_SELF ||
 							trait_info[i].effect_type == TRAIT_EFFECT_TYPE_TARGET)
-							if(has_trait_object(object_ptr, i)) return (TRUE);
+							if(has_trait_object(object_ptr, i)) return TRUE;
 			}
 		}
 	}

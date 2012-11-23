@@ -110,7 +110,7 @@ static bool snipe_concentrate(creature_type *creature_ptr)
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	return (TRUE);
+	return TRUE;
 }
 
 void reset_concentration(creature_type *creature_ptr, bool msg)
@@ -226,7 +226,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		if((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
 		{
 			/* Success */
-			return (TRUE);
+			return TRUE;
 		}
 	}
 
@@ -391,7 +391,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 	repeat_push(*sn);
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -503,7 +503,7 @@ static bool cast_sniper_spell(creature_type *creature_ptr, int spell)
 	case 0: /* Concentration */
 		if(!snipe_concentrate(creature_ptr)) return FALSE;
 		cost_tactical_energy(creature_ptr, 100);
-		return (TRUE);
+		return TRUE;
 	case 1: creature_ptr->snipe_type = SP_LITE; break;
 	case 2: creature_ptr->snipe_type = SP_AWAY; break;
 	case 3: creature_ptr->snipe_type = SP_KILL_TRAP; break;

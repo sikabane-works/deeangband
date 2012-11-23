@@ -908,7 +908,7 @@ static bool check_file(cptr s)
 #endif /* WIN32 */
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -965,7 +965,7 @@ static bool check_dir(cptr s)
 #endif /* WIN32 */
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 
@@ -1420,7 +1420,7 @@ static int new_palette(void)
 
 
 	/* This makes no sense */
-	if(!paletted) return (TRUE);
+	if(!paletted) return TRUE;
 
 
 	/* No bitmap */
@@ -1537,7 +1537,7 @@ static int new_palette(void)
 	hPal = hNewPal;
 
 	/* Success */
-	return (TRUE);
+	return TRUE;
 }
 
 /*
