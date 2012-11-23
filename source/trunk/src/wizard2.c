@@ -1277,34 +1277,15 @@ static void wiz_create_item(creature_type *creature_ptr)
 	msg_print("Allocated.");
 }
 
-
-/*
- * Cure everything instantly
- */
+// Cure everything instantly
 static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 {
-	/* Restore stats */
-	(void)res_stat(creature_ptr, STAT_STR);
-	(void)res_stat(creature_ptr, STAT_INT);
-	(void)res_stat(creature_ptr, STAT_WIS);
-	(void)res_stat(creature_ptr, STAT_CON);
-	(void)res_stat(creature_ptr, STAT_DEX);
-	(void)res_stat(creature_ptr, STAT_CHA);
-
-	/* Restore the level */
-	(void)restore_exp(creature_ptr);
-
 	/* Heal the player */
 	if(creature_ptr->chp < creature_ptr->mhp)
 	{
 		creature_ptr->chp = creature_ptr->mhp;
 		creature_ptr->chp_frac = 0;
-
-		/* Redraw */
-		play_redraw |= (PR_HP);
-
-		/* Window stuff */
-		play_window |= (PW_PLAYER);
+		play_redraw |= (PR_HP | PW_PLAYER);
 	}
 
 	/* Restore mana */
@@ -1312,24 +1293,15 @@ static void do_cmd_wiz_cure_all(creature_type *creature_ptr)
 	{
 		creature_ptr->csp = creature_ptr->msp;
 		creature_ptr->csp_frac = 0;
-
 		play_redraw |= (PR_MANA);
-		play_window |= (PW_PLAYER);
-		play_window |= (PW_SPELL);
+		play_window |= (PW_PLAYER | PW_SPELL);
 	}
 
-	/* Cure stuff */
-	(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_CONFUSED, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_PARALYZED, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-	(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-	(void)set_timed_trait_aux(creature_ptr, TRAIT_SLOW, 0, TRUE);
+	// Cure stuff
+	do_active_trait(creature_ptr, TRAIT_HEAL, TRUE);
+	do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
 
-	/* No longer hungry */
+	// No longer hungry
 	(void)set_food(creature_ptr, PY_FOOD_MAX - 1);
 }
 
