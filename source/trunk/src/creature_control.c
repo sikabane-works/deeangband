@@ -4493,334 +4493,325 @@ bool multiply_creature(creature_type *creature_ptr, bool clone, u32b mode)
 }
 
 
-
-
-
-/*
- * Dump a message describing a creature's reaction to damage
- *
- * Technically should attempt to treat "Beholder"'s as jelly's
- */
+// Dump a message describing a creature's reaction to damage
+// Technically should attempt to treat "Beholder"'s as jelly's
 void message_pain(int m_idx, int dam)
 {
 	long oldhp, newhp, tmp;
 	int percentage;
 
-	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	creature_type *creature_ptr = &creature_list[m_idx];
+	char creature_name[MAX_NLEN];
 
-	char m_name[MAX_NLEN];
-
-	/* Get the creature name */
-	creature_desc(m_name, m_ptr, 0);
+	creature_desc(creature_name, creature_ptr, 0); // Get the creature name
 
 	if(dam == 0) // Notice non-damage
 	{
 #ifdef JP
-		msg_format("%^sはダメージを受けていない。", m_name);
+		msg_format("%^sはダメージを受けていない。", creature_name);
 #else
-		msg_format("%^s is unharmed.", m_name);
+		msg_format("%^s is unharmed.", creature_name);
 #endif
 		return;
 	}
 
 	/* Note -- subtle fix -CFT */
-	newhp = (long)(m_ptr->chp);
+	newhp = (long)(creature_ptr->chp);
 	oldhp = newhp + (long)(dam);
 	tmp = (newhp * 100L) / oldhp;
 	percentage = (int)(tmp);
 
-	if(my_strchr(",ejmvwQ", r_ptr->d_char)) // Mushrooms, Eyes, Jellies, Molds, Vortices, Worms, Quylthulgs
+	if(my_strchr(",ejmvwQ", creature_ptr->d_char)) // Mushrooms, Eyes, Jellies, Molds, Vortices, Worms, Quylthulgs
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%^sはしり込みした。", m_name);
-		else if(percentage > 50) msg_format("%^sは縮こまった。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みに震えた。", m_name);
-		else if(percentage > 20) msg_format("%^sは身もだえした。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", m_name);
-		else msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
+		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%^sはしり込みした。", creature_name);
+		else if(percentage > 50) msg_format("%^sは縮こまった。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みに震えた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは身もだえした。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", creature_name);
+		else msg_format("%^sはぐにゃぐにゃと痙攣した。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s barely notices.", m_name);
-		else if(percentage > 75) msg_format("%^s flinches.", m_name);
-		else if(percentage > 50) msg_format("%^s squelches.", m_name);
-		else if(percentage > 35) msg_format("%^s quivers in pain.", m_name);
-		else if(percentage > 20) msg_format("%^s writhes about.", m_name);
-		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
-		else msg_format("%^s jerks limply.", m_name);
+		if(percentage > 95) msg_format("%^s barely notices.", creature_name);
+		else if(percentage > 75) msg_format("%^s flinches.", creature_name);
+		else if(percentage > 50) msg_format("%^s squelches.", creature_name);
+		else if(percentage > 35) msg_format("%^s quivers in pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s writhes about.", creature_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
+		else msg_format("%^s jerks limply.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("l", r_ptr->d_char)) // Fish
+	else if(my_strchr("l", creature_ptr->d_char)) // Fish
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%^sはしり込みした。", m_name);
-		else if(percentage > 50) msg_format("%^sは躊躇した。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みに震えた。", m_name);
-		else if(percentage > 20) msg_format("%^sは身もだえした。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", m_name);
-		else msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
+		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%^sはしり込みした。", creature_name);
+		else if(percentage > 50) msg_format("%^sは躊躇した。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みに震えた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは身もだえした。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", creature_name);
+		else msg_format("%^sはぐにゃぐにゃと痙攣した。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s barely notices.", m_name);
-		else if(percentage > 75) msg_format("%^s flinches.", m_name);
-		else if(percentage > 50) msg_format("%^s hesitates.", m_name);
-		else if(percentage > 35) msg_format("%^s quivers in pain.", m_name);
-		else if(percentage > 20) msg_format("%^s writhes about.", m_name);
-		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
-		else msg_format("%^s jerks limply.", m_name);
+		if(percentage > 95) msg_format("%^s barely notices.", creature_name);
+		else if(percentage > 75) msg_format("%^s flinches.", creature_name);
+		else if(percentage > 50) msg_format("%^s hesitates.", creature_name);
+		else if(percentage > 35) msg_format("%^s quivers in pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s writhes about.", creature_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
+		else msg_format("%^s jerks limply.", creature_name);
 #endif		
 	}
 
-	else if(my_strchr("g#+<>", r_ptr->d_char)) // Golems, Walls, Doors, Stairs
+	else if(my_strchr("g#+<>", creature_ptr->d_char)) // Golems, Walls, Doors, Stairs
 	{	
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 50) msg_format("%^sは雷鳴のように吠えた。", m_name);
-		else if(percentage > 35) msg_format("%^sは苦しげに吠えた。", m_name);
-		else if(percentage > 20) msg_format("%^sはうめいた。", m_name);
-		else if(percentage > 10) msg_format("%^sは躊躇した。", m_name);
-		else msg_format("%^sはくしゃくしゃになった。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 50) msg_format("%^sは雷鳴のように吠えた。", creature_name);
+		else if(percentage > 35) msg_format("%^sは苦しげに吠えた。", creature_name);
+		else if(percentage > 20) msg_format("%^sはうめいた。", creature_name);
+		else if(percentage > 10) msg_format("%^sは躊躇した。", creature_name);
+		else msg_format("%^sはくしゃくしゃになった。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 50) msg_format("%^s roars thunderously.", m_name);
-		else if(percentage > 35) msg_format("%^s rumbles.", m_name);
-		else if(percentage > 20) msg_format("%^s grunts.", m_name);
-		else if(percentage > 10) msg_format("%^s hesitates.", m_name);
-		else msg_format("%^s crumples.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 50) msg_format("%^s roars thunderously.", creature_name);
+		else if(percentage > 35) msg_format("%^s rumbles.", creature_name);
+		else if(percentage > 20) msg_format("%^s grunts.", creature_name);
+		else if(percentage > 10) msg_format("%^s hesitates.", creature_name);
+		else msg_format("%^s crumples.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("JMR", r_ptr->d_char) || !isalpha(r_ptr->d_char)) // Snakes, Hydrae, Reptiles, Mimics
+	else if(my_strchr("JMR", creature_ptr->d_char) || !isalpha(creature_ptr->d_char)) // Snakes, Hydrae, Reptiles, Mimics
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%^sはシーッと鳴いた。", m_name);
-		else if(percentage > 50) msg_format("%^sは怒って頭を上げた。", m_name);
-		else if(percentage > 35) msg_format("%^sは猛然と威嚇した。", m_name);
-		else if(percentage > 20) msg_format("%^sは身もだえした。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", m_name);
-		else msg_format("%^sはぐにゃぐにゃと痙攣した。", m_name);
+		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%^sはシーッと鳴いた。", creature_name);
+		else if(percentage > 50) msg_format("%^sは怒って頭を上げた。", creature_name);
+		else if(percentage > 35) msg_format("%^sは猛然と威嚇した。", creature_name);
+		else if(percentage > 20) msg_format("%^sは身もだえした。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で身もだえした。", creature_name);
+		else msg_format("%^sはぐにゃぐにゃと痙攣した。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s barely notices.", m_name);
-		else if(percentage > 75) msg_format("%^s hisses.", m_name);
-		else if(percentage > 50) msg_format("%^s rears up in anger.", m_name);
-		else if(percentage > 35) msg_format("%^s hisses furiously.", m_name);
-		else if(percentage > 20) msg_format("%^s writhes about.", m_name);
-		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
-		else msg_format("%^s jerks limply.", m_name);
+		if(percentage > 95) msg_format("%^s barely notices.", creature_name);
+		else if(percentage > 75) msg_format("%^s hisses.", creature_name);
+		else if(percentage > 50) msg_format("%^s rears up in anger.", creature_name);
+		else if(percentage > 35) msg_format("%^s hisses furiously.", creature_name);
+		else if(percentage > 20) msg_format("%^s writhes about.", creature_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
+		else msg_format("%^s jerks limply.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("f", r_ptr->d_char))
+	else if(my_strchr("f", creature_ptr->d_char))
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 75) msg_format("%^sは吠えた。", m_name);
-		else if(percentage > 50) msg_format("%^sは怒って吠えた。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みでシーッと鳴いた。", m_name);
-		else if(percentage > 20) msg_format("%^sは痛みで弱々しく鳴いた。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛にうめいた。", m_name);
-		else msg_format("%sは哀れな鳴き声を出した。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 75) msg_format("%^sは吠えた。", creature_name);
+		else if(percentage > 50) msg_format("%^sは怒って吠えた。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みでシーッと鳴いた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは痛みで弱々しく鳴いた。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛にうめいた。", creature_name);
+		else msg_format("%sは哀れな鳴き声を出した。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s roars.", m_name);
-		else if(percentage > 50) msg_format("%^s growls angrily.", m_name);
-		else if(percentage > 35) msg_format("%^s hisses with pain.", m_name);
-		else if(percentage > 20) msg_format("%^s mewls in pain.", m_name);
-		else if(percentage > 10) msg_format("%^s hisses in agony.", m_name);
-		else msg_format("%^s mewls pitifully.", m_name);
+		if(percentage > 95) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s roars.", creature_name);
+		else if(percentage > 50) msg_format("%^s growls angrily.", creature_name);
+		else if(percentage > 35) msg_format("%^s hisses with pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s mewls in pain.", creature_name);
+		else if(percentage > 10) msg_format("%^s hisses in agony.", creature_name);
+		else msg_format("%^s mewls pitifully.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("acFIKS", r_ptr->d_char)) // Ants, Centipedes, Flies, Insects, Beetles, Spiders
+	else if(my_strchr("acFIKS", creature_ptr->d_char)) // Ants, Centipedes, Flies, Insects, Beetles, Spiders
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%^sはキーキー鳴いた。", m_name);
-		else if(percentage > 50) msg_format("%^sはヨロヨロ逃げ回った。", m_name);
-		else if(percentage > 35) msg_format("%^sはうるさく鳴いた。", m_name);
-		else if(percentage > 20) msg_format("%^sは痛みに痙攣した。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛で痙攣した。", m_name);
-		else msg_format("%^sはピクピクひきつった。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%^sはキーキー鳴いた。", creature_name);
+		else if(percentage > 50) msg_format("%^sはヨロヨロ逃げ回った。", creature_name);
+		else if(percentage > 35) msg_format("%^sはうるさく鳴いた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは痛みに痙攣した。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛で痙攣した。", creature_name);
+		else msg_format("%^sはピクピクひきつった。", creature_name);
 #else
-		if(percentage > 95)	msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s chitters.", m_name);
-		else if(percentage > 50) msg_format("%^s scuttles about.", m_name);
-		else if(percentage > 35) msg_format("%^s twitters.", m_name);
-		else if(percentage > 20) msg_format("%^s jerks in pain.", m_name);
-		else if(percentage > 10) msg_format("%^s jerks in agony.", m_name);
-		else msg_format("%^s twitches.", m_name);
+		if(percentage > 95)	msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s chitters.", creature_name);
+		else if(percentage > 50) msg_format("%^s scuttles about.", creature_name);
+		else if(percentage > 35) msg_format("%^s twitters.", creature_name);
+		else if(percentage > 20) msg_format("%^s jerks in pain.", creature_name);
+		else if(percentage > 10) msg_format("%^s jerks in agony.", creature_name);
+		else msg_format("%^s twitches.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("B", r_ptr->d_char)) // Birds
+	else if(my_strchr("B", creature_ptr->d_char)) // Birds
 	{		
 #ifdef JP
-		if(percentage > 95) msg_format("%^sはさえずった。", m_name);
-		else if(percentage > 75) msg_format("%^sはピーピー鳴いた。", m_name);
-		else if(percentage > 50) msg_format("%^sはギャーギャー鳴いた。", m_name);
-		else if(percentage > 35) msg_format("%^sはギャーギャー鳴きわめいた。", m_name);
-		else if(percentage > 20) msg_format("%^sは苦しんだ。", m_name);
-		else if(percentage > 10) msg_format("%^sはのたうち回った。", m_name);
-		else msg_format("%^sはキーキーと鳴き叫んだ。", m_name);
+		if(percentage > 95) msg_format("%^sはさえずった。", creature_name);
+		else if(percentage > 75) msg_format("%^sはピーピー鳴いた。", creature_name);
+		else if(percentage > 50) msg_format("%^sはギャーギャー鳴いた。", creature_name);
+		else if(percentage > 35) msg_format("%^sはギャーギャー鳴きわめいた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは苦しんだ。", creature_name);
+		else if(percentage > 10) msg_format("%^sはのたうち回った。", creature_name);
+		else msg_format("%^sはキーキーと鳴き叫んだ。", creature_name);
 #else
-		if(percentage > 95)	msg_format("%^s chirps.", m_name);
-		else if(percentage > 75) msg_format("%^s twitters.", m_name);
-		else if(percentage > 50) msg_format("%^s squawks.", m_name);
-		else if(percentage > 35) msg_format("%^s chatters.", m_name);
-		else if(percentage > 20) msg_format("%^s jeers.", m_name);
-		else if(percentage > 10) msg_format("%^s flutters about.", m_name);
-		else msg_format("%^s squeaks.", m_name);
+		if(percentage > 95)	msg_format("%^s chirps.", creature_name);
+		else if(percentage > 75) msg_format("%^s twitters.", creature_name);
+		else if(percentage > 50) msg_format("%^s squawks.", creature_name);
+		else if(percentage > 35) msg_format("%^s chatters.", creature_name);
+		else if(percentage > 20) msg_format("%^s jeers.", creature_name);
+		else if(percentage > 10) msg_format("%^s flutters about.", creature_name);
+		else msg_format("%^s squeaks.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("duDLUW", r_ptr->d_char)) // Dragons, Demons, High Undead
+	else if(my_strchr("duDLUW", creature_ptr->d_char)) // Dragons, Demons, High Undead
 	{	
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%^sはしり込みした。", m_name);
-		else if(percentage > 50) msg_format("%^sは痛みでシーッと鳴いた。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みでうなった。", m_name);
-		else if(percentage > 20) msg_format("%^sは痛みに吠えた。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦しげに叫んだ。", m_name);
-		else msg_format("%^sは弱々しくうなった。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%^sはしり込みした。", creature_name);
+		else if(percentage > 50) msg_format("%^sは痛みでシーッと鳴いた。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みでうなった。", creature_name);
+		else if(percentage > 20) msg_format("%^sは痛みに吠えた。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦しげに叫んだ。", creature_name);
+		else msg_format("%^sは弱々しくうなった。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s flinches.", m_name);
-		else if(percentage > 50) msg_format("%^s hisses in pain.", m_name);
-		else if(percentage > 35) msg_format("%^s snarls with pain.", m_name);
-		else if(percentage > 20) msg_format("%^s roars with pain.", m_name);
-		else if(percentage > 10) msg_format("%^s gasps.", m_name);
-		else msg_format("%^s snarls feebly.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s flinches.", creature_name);
+		else if(percentage > 50) msg_format("%^s hisses in pain.", creature_name);
+		else if(percentage > 35) msg_format("%^s snarls with pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s roars with pain.", creature_name);
+		else if(percentage > 10) msg_format("%^s gasps.", creature_name);
+		else msg_format("%^s snarls feebly.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("s", r_ptr->d_char)) // Skeletons
+	else if(my_strchr("s", creature_ptr->d_char)) // Skeletons
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 50) msg_format("%^sはカタカタと笑った。", m_name);
-		else if(percentage > 35) msg_format("%^sはよろめいた。", m_name);
-		else if(percentage > 20) msg_format("%^sはカタカタ言った。", m_name);
-		else if(percentage > 10) msg_format("%^sはよろめいた。", m_name);
-		else msg_format("%^sはガタガタ言った。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 50) msg_format("%^sはカタカタと笑った。", creature_name);
+		else if(percentage > 35) msg_format("%^sはよろめいた。", creature_name);
+		else if(percentage > 20) msg_format("%^sはカタカタ言った。", creature_name);
+		else if(percentage > 10) msg_format("%^sはよろめいた。", creature_name);
+		else msg_format("%^sはガタガタ言った。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 50) msg_format("%^s rattles.", m_name);
-		else if(percentage > 35) msg_format("%^s stumbles.", m_name);
-		else if(percentage > 20) msg_format("%^s rattles.", m_name);
-		else if(percentage > 10) msg_format("%^s staggers.", m_name);
-		else msg_format("%^s clatters.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 50) msg_format("%^s rattles.", creature_name);
+		else if(percentage > 35) msg_format("%^s stumbles.", creature_name);
+		else if(percentage > 20) msg_format("%^s rattles.", creature_name);
+		else if(percentage > 10) msg_format("%^s staggers.", creature_name);
+		else msg_format("%^s clatters.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("z", r_ptr->d_char)) // Zombies
+	else if(my_strchr("z", creature_ptr->d_char)) // Zombies
 	{		
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 50) msg_format("%^sはうめいた。", m_name);
-		else if(percentage > 35) msg_format("%sは苦しげにうめいた。", m_name);
-		else if(percentage > 20) msg_format("%^sは躊躇した。", m_name);
-		else if(percentage > 10) msg_format("%^sはうなった。", m_name);
-		else msg_format("%^sはよろめいた。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 50) msg_format("%^sはうめいた。", creature_name);
+		else if(percentage > 35) msg_format("%sは苦しげにうめいた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは躊躇した。", creature_name);
+		else if(percentage > 10) msg_format("%^sはうなった。", creature_name);
+		else msg_format("%^sはよろめいた。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 50) msg_format("%^s groans.", m_name);
-		else if(percentage > 35) msg_format("%^s moans.", m_name);
-		else if(percentage > 20) msg_format("%^s hesitates.", m_name);
-		else if(percentage > 10) msg_format("%^s grunts.", m_name);
-		else msg_format("%^s staggers.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 50) msg_format("%^s groans.", creature_name);
+		else if(percentage > 35) msg_format("%^s moans.", creature_name);
+		else if(percentage > 20) msg_format("%^s hesitates.", creature_name);
+		else if(percentage > 10) msg_format("%^s grunts.", creature_name);
+		else msg_format("%^s staggers.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("G", r_ptr->d_char)) // Ghosts
+	else if(my_strchr("G", creature_ptr->d_char)) // Ghosts
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 50) msg_format("%sはうめいた。", m_name);
-		else if(percentage > 35) msg_format("%^sは泣きわめいた。", m_name);
-		else if(percentage > 20) msg_format("%^sは吠えた。", m_name);
-		else if(percentage > 10) msg_format("%sは弱々しくうめいた。", m_name);
-		else msg_format("%^sはかすかにうめいた。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 50) msg_format("%sはうめいた。", creature_name);
+		else if(percentage > 35) msg_format("%^sは泣きわめいた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは吠えた。", creature_name);
+		else if(percentage > 10) msg_format("%sは弱々しくうめいた。", creature_name);
+		else msg_format("%^sはかすかにうめいた。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 50)  msg_format("%^s moans.", m_name);
-		else if(percentage > 35) msg_format("%^s wails.", m_name);
-		else if(percentage > 20) msg_format("%^s howls.", m_name);
-		else if(percentage > 10) msg_format("%^s moans softly.", m_name);
-		else msg_format("%^s sighs.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 50)  msg_format("%^s moans.", creature_name);
+		else if(percentage > 35) msg_format("%^s wails.", creature_name);
+		else if(percentage > 20) msg_format("%^s howls.", creature_name);
+		else if(percentage > 10) msg_format("%^s moans softly.", creature_name);
+		else msg_format("%^s sighs.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("CZ", r_ptr->d_char)) // Dogs and Hounds
+	else if(my_strchr("CZ", creature_ptr->d_char)) // Dogs and Hounds
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%^sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 75) msg_format("%^sは痛みでうなった。", m_name);
-		else if(percentage > 50) msg_format("%^sは痛みでキャンキャン吠えた。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みで鳴きわめいた。", m_name);
-		else if(percentage > 20) msg_format("%^sは苦痛のあまり鳴きわめいた。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛でもだえ苦しんだ。", m_name);
-		else msg_format("%^sは弱々しく吠えた。", m_name);
+		if(percentage > 95) msg_format("%^sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 75) msg_format("%^sは痛みでうなった。", creature_name);
+		else if(percentage > 50) msg_format("%^sは痛みでキャンキャン吠えた。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みで鳴きわめいた。", creature_name);
+		else if(percentage > 20) msg_format("%^sは苦痛のあまり鳴きわめいた。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛でもだえ苦しんだ。", creature_name);
+		else msg_format("%^sは弱々しく吠えた。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s snarls with pain.", m_name);
-		else if(percentage > 50) msg_format("%^s yelps in pain.", m_name);
-		else if(percentage > 35) msg_format("%^s howls in pain.", m_name);
-		else if(percentage > 20) msg_format("%^s howls in agony.", m_name);
-		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
-		else msg_format("%^s yelps feebly.", m_name);
+		if(percentage > 95) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s snarls with pain.", creature_name);
+		else if(percentage > 50) msg_format("%^s yelps in pain.", creature_name);
+		else if(percentage > 35) msg_format("%^s howls in pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s howls in agony.", creature_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
+		else msg_format("%^s yelps feebly.", creature_name);
 #endif
 	}
 
-	else if(my_strchr("Xbilqrt", r_ptr->d_char)) // One type of creatures (ignore,squeal,shriek)
+	else if(my_strchr("Xbilqrt", creature_ptr->d_char)) // One type of creatures (ignore,squeal,shriek)
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%^sは攻撃を気にとめていない。", m_name);
-		else if(percentage > 75) msg_format("%^sは痛みでうなった。", m_name);
-		else if(percentage > 50) msg_format("%^sは痛みで叫んだ。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みで絶叫した。", m_name);
-		else if(percentage > 20) msg_format("%^sは苦痛のあまり絶叫した。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛でもだえ苦しんだ。", m_name);
-		else msg_format("%^sは弱々しく叫んだ。", m_name);
+		if(percentage > 95) msg_format("%^sは攻撃を気にとめていない。", creature_name);
+		else if(percentage > 75) msg_format("%^sは痛みでうなった。", creature_name);
+		else if(percentage > 50) msg_format("%^sは痛みで叫んだ。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みで絶叫した。", creature_name);
+		else if(percentage > 20) msg_format("%^sは苦痛のあまり絶叫した。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛でもだえ苦しんだ。", creature_name);
+		else msg_format("%^sは弱々しく叫んだ。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s grunts with pain.", m_name);
-		else if(percentage > 50) msg_format("%^s squeals in pain.", m_name);
-		else if(percentage > 35) msg_format("%^s shrieks in pain.", m_name);
-		else if(percentage > 20) msg_format("%^s shrieks in agony.", m_name);
-		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
-		else msg_format("%^s cries out feebly.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s grunts with pain.", creature_name);
+		else if(percentage > 50) msg_format("%^s squeals in pain.", creature_name);
+		else if(percentage > 35) msg_format("%^s shrieks in pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s shrieks in agony.", creature_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
+		else msg_format("%^s cries out feebly.", creature_name);
 #endif
 	}
 
 	else // Another type of creatures (shrug,cry,scream)
 	{
 #ifdef JP
-		if(percentage > 95) msg_format("%^sは攻撃に肩をすくめた。", m_name);
-		else if(percentage > 75) msg_format("%^sは痛みでうなった。", m_name);
-		else if(percentage > 50) msg_format("%^sは痛みで叫んだ。", m_name);
-		else if(percentage > 35) msg_format("%^sは痛みで絶叫した。", m_name);
-		else if(percentage > 20) msg_format("%^sは苦痛のあまり絶叫した。", m_name);
-		else if(percentage > 10) msg_format("%^sは苦痛でもだえ苦しんだ。", m_name);
-		else msg_format("%^sは弱々しく叫んだ。", m_name);
+		if(percentage > 95) msg_format("%^sは攻撃に肩をすくめた。", creature_name);
+		else if(percentage > 75) msg_format("%^sは痛みでうなった。", creature_name);
+		else if(percentage > 50) msg_format("%^sは痛みで叫んだ。", creature_name);
+		else if(percentage > 35) msg_format("%^sは痛みで絶叫した。", creature_name);
+		else if(percentage > 20) msg_format("%^sは苦痛のあまり絶叫した。", creature_name);
+		else if(percentage > 10) msg_format("%^sは苦痛でもだえ苦しんだ。", creature_name);
+		else msg_format("%^sは弱々しく叫んだ。", creature_name);
 #else
-		if(percentage > 95) msg_format("%^s shrugs off the attack.", m_name);
-		else if(percentage > 75) msg_format("%^s grunts with pain.", m_name);
-		else if(percentage > 50) msg_format("%^s cries out in pain.", m_name);
-		else if(percentage > 35) msg_format("%^s screams in pain.", m_name);
-		else if(percentage > 20) msg_format("%^s screams in agony.", m_name);
-		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
-		else msg_format("%^s cries out feebly.", m_name);
+		if(percentage > 95) msg_format("%^s shrugs off the attack.", creature_name);
+		else if(percentage > 75) msg_format("%^s grunts with pain.", creature_name);
+		else if(percentage > 50) msg_format("%^s cries out in pain.", creature_name);
+		else if(percentage > 35) msg_format("%^s screams in pain.", creature_name);
+		else if(percentage > 20) msg_format("%^s screams in agony.", creature_name);
+		else if(percentage > 10) msg_format("%^s writhes in agony.", creature_name);
+		else msg_format("%^s cries out feebly.", creature_name);
 #endif
 	}
 }
@@ -4828,9 +4819,7 @@ void message_pain(int m_idx, int dam)
 // Learn about an "observed" resistance.
 void update_smart_learn(creature_type *learner_ptr, int what)
 {
-
 	species_type *r_ptr = &species_info[learner_ptr->species_idx];
-
 
 	/* Not allowed to learn */
 	if(!smart_learn) return;
