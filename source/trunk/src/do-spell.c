@@ -9819,21 +9819,7 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			/* Stop singing before start another */
 			if(cast || fail) stop_singing(caster_ptr);
 
-			if(cast)
-			{
-#ifdef JP
-				msg_print("ˆÃ•‚Ì’†‚ÉŒõ‚Æ”ü‚ğ‚Ó‚è‚Ü‚¢‚½B‘Ì‚ªŒ³‚ÌŠˆ—Í‚ğæ‚è–ß‚µ‚½B");
-#else
-				msg_print("You strewed light and beauty in the dark as you sing. You feel refreshed.");
-#endif
-				(void)do_res_stat(caster_ptr, STAT_STR);
-				(void)do_res_stat(caster_ptr, STAT_INT);
-				(void)do_res_stat(caster_ptr, STAT_WIS);
-				(void)do_res_stat(caster_ptr, STAT_DEX);
-				(void)do_res_stat(caster_ptr, STAT_CON);
-				(void)do_res_stat(caster_ptr, STAT_CHA);
-				(void)restore_exp(caster_ptr);
-			}
+			if(cast) do_active_trait(caster_ptr, TRAIT_RESTORE_ALL, TRUE);
 		}
 		break;
 

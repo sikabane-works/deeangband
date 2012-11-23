@@ -842,21 +842,7 @@ static bool pattern_effect(floor_type *floor_ptr, creature_type *creature_ptr)
 	switch (pattern_type)
 	{
 	case PATTERN_TILE_END:
-		(void)set_timed_trait(creature_ptr, TRAIT_POISONED, 0);
-		(void)set_timed_trait(creature_ptr, TRAIT_HALLUCINATION, 0);
-		(void)set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-		(void)set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-		(void)set_timed_trait(creature_ptr, TRAIT_BLIND, 0);
-		(void)set_timed_trait(creature_ptr, TRAIT_AFRAID, 0);
-		(void)do_res_stat(creature_ptr, STAT_STR);
-		(void)do_res_stat(creature_ptr, STAT_INT);
-		(void)do_res_stat(creature_ptr, STAT_WIS);
-		(void)do_res_stat(creature_ptr, STAT_DEX);
-		(void)do_res_stat(creature_ptr, STAT_CON);
-		(void)do_res_stat(creature_ptr, STAT_CHA);
-		(void)restore_exp(creature_ptr);
-		(void)heal_creature(creature_ptr, 1000);
-
+		do_active_trait(creature_ptr, TRAIT_TRUE_HEALING, TRUE);
 		cave_set_feat(floor_ptr, creature_ptr->fy, creature_ptr->fx, feat_pattern_old);
 
 #ifdef JP

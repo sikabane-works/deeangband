@@ -2851,13 +2851,7 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 
 		case SV_ROD_RESTORATION:
 		{
-			if(restore_exp(creature_ptr)) ident = TRUE;
-			if(do_res_stat(creature_ptr, STAT_STR)) ident = TRUE;
-			if(do_res_stat(creature_ptr, STAT_INT)) ident = TRUE;
-			if(do_res_stat(creature_ptr, STAT_WIS)) ident = TRUE;
-			if(do_res_stat(creature_ptr, STAT_DEX)) ident = TRUE;
-			if(do_res_stat(creature_ptr, STAT_CON)) ident = TRUE;
-			if(do_res_stat(creature_ptr, STAT_CHA)) ident = TRUE;
+			do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
 			break;
 		}
 
