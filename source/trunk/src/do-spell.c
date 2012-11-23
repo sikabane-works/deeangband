@@ -336,18 +336,6 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 	// TODO: Add Karma of Fortune feature.
 	int vir = 0;
 
-	if(vir)
-	{
-		if(creature_ptr->karmas[vir - 1] > 0)
-		{
-			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
-		}
-		else
-		{
-			while (randint1(400) < (0-creature_ptr->karmas[vir - 1])) die--;
-		}
-	}
-
 #ifdef JP
 	msg_print("‚ ‚È‚½‚ÍŽ€ŽÒ‚½‚¿‚Ì—Í‚ðµW‚µ‚½...");
 #else
@@ -371,7 +359,6 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 #else
 		msg_print("Oh no! Mouldering forms rise from the earth around you!");
 #endif
-
 		(void)summon_specific(0, creature_ptr->fy, creature_ptr->fx, floor_ptr->floor_level, TRAIT_S_UNDEAD, (PC_ALLOW_GROUP | PC_ALLOW_UNIQUE | PC_NO_PET));
 	}
 	else if(die < 14)
@@ -381,7 +368,6 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 #else
 		msg_print("An unnamable evil brushes against your mind...");
 #endif
-
 		add_timed_trait(creature_ptr, TRAIT_AFRAID, randint1(4) + 4, TRUE);
 	}
 	else if(die < 26)
@@ -393,83 +379,25 @@ static void cast_invoke_spirits(creature_type *creature_ptr, int dir)
 #endif
 		add_timed_trait(creature_ptr, TRAIT_CONFUSED, randint1(4) + 4, TRUE);
 	}
-	else if(die < 31)
-	{
-		poly_creature(creature_ptr, dir);
-	}
-	else if(die < 36)
-	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_MISSILE, dir,
-				  diceroll(3 + ((plev - 1) / 5), 4));
-	}
-	else if(die < 41)
-	{
-		confuse_creature(creature_ptr, dir, plev);
-	}
-	else if(die < 46)
-	{
-		cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 20 + (plev / 2), 3);
-	}
-	else if(die < 51)
-	{
-		(void)lite_line(creature_ptr, dir);
-	}
-	else if(die < 56)
-	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_ELEC, dir, diceroll(3+((plev-5)/4),8));
-	}
-	else if(die < 61)
-	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_COLD, dir, diceroll(5+((plev-5)/4),8));
-	}
-	else if(die < 66)
-	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_ACID, dir, diceroll(6+((plev-5)/4),8));
-	}
-	else if(die < 71)
-	{
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_FIRE, dir, diceroll(8+((plev-5)/4),8));
-	}
-	else if(die < 76)
-	{
-		drain_life(creature_ptr, dir, 75);
-	}
-	else if(die < 81)
-	{
-		cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 30 + plev / 2, 2);
-	}
-	else if(die < 86)
-	{
-		cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 40 + plev, 2);
-	}
-	else if(die < 91)
-	{
-		cast_ball(creature_ptr, DO_EFFECT_ICE, dir, 70 + plev, 3);
-	}
-	else if(die < 96)
-	{
-		cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 80 + plev, 3);
-	}
-	else if(die < 101)
-	{
-		drain_life(creature_ptr, dir, 100 + plev);
-	}
-	else if(die < 104)
-	{
-		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
-	}
-	else if(die < 106)
-	{
-		(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
-	}
-	else if(die < 108)
-	{
-		symbol_genocide(creature_ptr, plev+50, TRUE);
-	}
-	else if(die < 110)
-	{
-		dispel_creatures(creature_ptr, 120);
-	}
+	else if(die < 31) poly_creature(creature_ptr, dir);
+	else if(die < 36) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_MISSILE, dir, diceroll(3 + ((plev - 1) / 5), 4));
+	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
+	else if(die < 46) cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 20 + (plev / 2), 3);
+	else if(die < 51) (void)lite_line(creature_ptr, dir);
+	else if(die < 56) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_ELEC, dir, diceroll(3+((plev-5)/4),8));
+	else if(die < 61) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_COLD, dir, diceroll(5+((plev-5)/4),8));
+	else if(die < 66) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_ACID, dir, diceroll(6+((plev-5)/4),8));
+	else if(die < 71) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_FIRE, dir, diceroll(8+((plev-5)/4),8));
+	else if(die < 76) drain_life(creature_ptr, dir, 75);
+	else if(die < 81) cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 30 + plev / 2, 2);
+	else if(die < 86) cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 40 + plev, 2);
+	else if(die < 91) cast_ball(creature_ptr, DO_EFFECT_ICE, dir, 70 + plev, 3);
+	else if(die < 96) cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 80 + plev, 3);
+	else if(die < 101) drain_life(creature_ptr, dir, 100 + plev);
+	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
+	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
+	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
+	else if(die < 110) dispel_creatures(creature_ptr, 120);
 	else
 	{
 		dispel_creatures(creature_ptr, 150);
