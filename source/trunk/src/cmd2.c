@@ -1533,15 +1533,8 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
-	/* Must be a closed door */
-	if(!is_closed_door(c_ptr->feat))
-	{
-		/* Nope */
-		return (FALSE);
-	}
-
-	/* Jammed door */
-	if(!have_flag(f_ptr->flags, FF_OPEN))
+	if(!is_closed_door(c_ptr->feat)) return (FALSE); // Must be a closed door
+	if(!have_flag(f_ptr->flags, FF_OPEN)) // Jammed door
 	{
 		/* Stuck */
 #ifdef JP
@@ -1986,8 +1979,7 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	}
 
 	/* Saving throw against stun */
-	else if(randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] +
-		 creature_ptr->lev)
+	else if(randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] + creature_ptr->lev)
 	{
 		/* Message */
 #ifdef JP
@@ -2040,16 +2032,10 @@ void do_cmd_bash(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	/* Allow repeated command */
-	if(command_arg)
+	if(command_arg) // Allow repeated command
 	{
-		/* Set repeat count */
 		command_rep = command_arg - 1;
-
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
-
-		/* Cancel the arg */
 		command_arg = 0;
 	}
 
@@ -2120,16 +2106,11 @@ void do_cmd_alter(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	/* Allow repeated command */
-	if(command_arg)
+	
+	if(command_arg) // Allow repeated command
 	{
-		/* Set repeat count */
 		command_rep = command_arg - 1;
-
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
-
-		/* Cancel the arg */
 		command_arg = 0;
 	}
 
@@ -2150,60 +2131,24 @@ void do_cmd_alter(creature_type *creature_ptr)
 		feat = get_feat_mimic(c_ptr);
 		f_ptr = &feature_info[feat];
 
-		/* Take a turn */
 		cost_tactical_energy(creature_ptr, 100);
 
-		/* Attack creatures */
-		if(c_ptr->creature_idx)
-		{
-			/* Attack */
-			close_combat(creature_ptr, y, x, 0);
-		}
-
-		/* Locked doors */
-		else if(have_flag(f_ptr->flags, FF_OPEN))
-		{
-			more = do_cmd_open_aux(creature_ptr, y, x);
-		}
-
-		/* Bash jammed doors */
-		else if(have_flag(f_ptr->flags, FF_BASH))
-		{
-			more = do_cmd_bash_aux(creature_ptr, y, x, dir);
-		}
-
-		/* Tunnel through walls */
-		else if(have_flag(f_ptr->flags, FF_TUNNEL))
-		{
-			more = do_cmd_tunnel_aux(creature_ptr, y, x);
-		}
-
-		/* Close open doors */
-		else if(have_flag(f_ptr->flags, FF_CLOSE))
-		{
-			more = do_cmd_close_aux(creature_ptr, y, x);
-		}
-
-		/* Disarm traps */
-		else if(have_flag(f_ptr->flags, FF_DISARM))
-		{
-			more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
-		}
-
-		/* Oops */
+		if(c_ptr->creature_idx) close_combat(creature_ptr, y, x, 0);
+		else if(have_flag(f_ptr->flags, FF_OPEN)) more = do_cmd_open_aux(creature_ptr, y, x);
+		else if(have_flag(f_ptr->flags, FF_BASH)) more = do_cmd_bash_aux(creature_ptr, y, x, dir);
+		else if(have_flag(f_ptr->flags, FF_TUNNEL)) more = do_cmd_tunnel_aux(creature_ptr, y, x);
+		else if(have_flag(f_ptr->flags, FF_CLOSE)) more = do_cmd_close_aux(creature_ptr, y, x);
+		else if(have_flag(f_ptr->flags, FF_DISARM)) more = do_cmd_disarm_aux(creature_ptr, y, x, dir);
 		else
 		{
-			/* Oops */
 #ifdef JP
 			msg_print("‰½‚à‚È‚¢‹ó’†‚ðUŒ‚‚µ‚½B");
 #else
 			msg_print("You attack the empty air.");
 #endif
-
 		}
 	}
 
-	/* Cancel repetition unless we can continue */
 	if(!more) disturb(player_ptr, 0, 0);
 }
 
@@ -2270,7 +2215,6 @@ void do_cmd_spike(creature_type *creature_ptr)
 		/* Require closed door */
 		if(!have_flag(feature_info[feat].flags, FF_SPIKE))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("‚»‚±‚É‚Í‚­‚³‚Ñ‚ð‘Å‚Ä‚é‚à‚Ì‚ªŒ©“–‚½‚ç‚È‚¢B");
 #else
@@ -2282,7 +2226,6 @@ void do_cmd_spike(creature_type *creature_ptr)
 		/* Get a spike */
 		else if(!get_spike(creature_ptr, &item))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("‚­‚³‚Ñ‚ðŽ‚Á‚Ä‚¢‚È‚¢I");
 #else
@@ -2301,7 +2244,6 @@ void do_cmd_spike(creature_type *creature_ptr)
 		/* Go for it */
 		else
 		{
-			/* Take a turn */
 			cost_tactical_energy(creature_ptr, 100);
 
 			/* Successful jamming */
@@ -2310,10 +2252,7 @@ void do_cmd_spike(creature_type *creature_ptr)
 #else
 			msg_format("You jam the %s with a spike.", feature_name + feature_info[feat].name);
 #endif
-
 			cave_alter_feat(floor_ptr, y, x, FF_SPIKE);
-
-			/* Use up, and describe, a single spike, from the bottom */
 			inven_item_increase(creature_ptr, item, -1);
 			inven_item_describe(creature_ptr, item);
 			inven_item_optimize(creature_ptr, item);
@@ -2329,30 +2268,19 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool more = FALSE;
 
-
-	/* Allow repeated command */
-	if(command_arg)
+	
+	if(command_arg) // Allow repeated command
 	{
-		/* Set repeat count */
 		command_rep = command_arg - 1;
-
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
-
-		/* Cancel the arg */
 		command_arg = 0;
 	}
 
 	/* Get a "repeated" direction */
 	if(get_rep_dir(creature_ptr, &dir,FALSE))
 	{
-		/* Take a turn */
 		cost_tactical_energy(creature_ptr, 100);
-
-		if((dir != 5) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU)))
-		{
-			set_action(creature_ptr, ACTION_NONE);
-		}
+		if((dir != 5) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))) set_action(creature_ptr, ACTION_NONE);
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */
 		if(floor_ptr->wild_mode) creature_ptr->energy_need *= ((MAX_HGT + MAX_WID) / 2);
@@ -2368,11 +2296,8 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	/* Hack again -- Is there a special encounter ??? */
 	if(floor_ptr->wild_mode && !cave_have_flag_bold(floor_ptr, creature_ptr->fy, creature_ptr->fx, FF_TOWN))
 	{
-
 		int tmp = 120 + creature_ptr->lev*10 - wilderness[creature_ptr->fy][creature_ptr->fx].level + 5;
-
-		if(tmp < 1) 
-			tmp = 1;
+		if(tmp < 1) tmp = 1;
 		if(((wilderness[creature_ptr->fy][creature_ptr->fx].level + 5) > (creature_ptr->lev / 2)) && randint0(tmp) < (21-creature_ptr->skill_stl))
 		{
 			/* Inform the player of his horrible fate :=) */

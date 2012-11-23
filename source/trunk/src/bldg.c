@@ -3183,13 +3183,10 @@ if(get_check(format("‚»‚Ìƒƒbƒh‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚·‚©H",
 
 		/* Get the quantity for staves and wands */
 #ifdef JP
-charges = get_quantity(format("ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H",
+		charges = get_quantity(format("ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H", price), MIN(creature_ptr->au / price, max_charges));
 #else
-		charges = get_quantity(format("Add how many charges for %d gold? ",
+		charges = get_quantity(format("Add how many charges for %d gold? ", price), MIN(creature_ptr->au / price, max_charges));
 #endif
-
-			      price), MIN(creature_ptr->au / price, max_charges));
-
 		/* Do nothing */
 		if(charges < 1) return;
 
@@ -3205,8 +3202,9 @@ charges = get_quantity(format("ˆê‰ñ•ª%d ‚Å‰½‰ñ•ª[“U‚µ‚Ü‚·‚©H",
 
 	/* Give feedback */
 	object_desc(tmp_str, object_ptr, 0);
+
 #ifdef JP
-msg_format("%s‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
+	msg_format("%s‚ğ%d ‚ÅÄ[“U‚µ‚Ü‚µ‚½B", tmp_str, price);
 #else
 	msg_format("%^s %s recharged for %d gold.", tmp_str, ((object_ptr->number > 1) ? "were" : "was"), price);
 #endif
@@ -3243,7 +3241,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 	object_kind *object_kind_ptr;
 	int         price = 0;
 	int         total_cost = 0;
-
 
 	/* Display some info */
 	msg_flag = FALSE;
@@ -3323,7 +3320,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 #else
 		msg_format("You need %d gold to recharge all items!",total_cost);
 #endif
-
 		msg_print(NULL);
 		return;
 	}
@@ -3333,7 +3329,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 #else
 	if(!get_check(format("Recharge all items for %d gold? ", total_cost))) return;
 #endif
-
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
 		object_ptr = &creature_ptr->inventory[i];
@@ -3346,8 +3341,6 @@ static void building_recharge_all(creature_type *creature_ptr)
 		if(!object_is_known(object_ptr))
 		{
 			identify_item(creature_ptr, object_ptr);
-
-			/* Auto-inscription */
 			autopick_alter_item(creature_ptr, i, FALSE);
 		}
 
@@ -3806,7 +3799,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	    ((bldg->action_restr[i] == 2) && !is_owner(creature_ptr, bldg)))
 	{
 #ifdef JP
-msg_print("‚»‚ê‚ğ‘I‘ğ‚·‚éŒ —˜‚Í‚ ‚è‚Ü‚¹‚ñI");
+		msg_print("‚»‚ê‚ğ‘I‘ğ‚·‚éŒ —˜‚Í‚ ‚è‚Ü‚¹‚ñI");
 #else
 		msg_print("You have no right to choose that!");
 #endif
