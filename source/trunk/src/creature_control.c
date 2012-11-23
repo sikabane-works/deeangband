@@ -4554,11 +4554,9 @@ void message_pain(int m_idx, int dam)
 		else if(percentage > 10) msg_format("%^s writhes in agony.", m_name);
 		else msg_format("%^s jerks limply.", m_name);
 #endif
-
 	}
 
-
-	/* Fish */
+	// Fish
 	else if(my_strchr("l", r_ptr->d_char))
 	{
 		
@@ -4603,10 +4601,9 @@ void message_pain(int m_idx, int dam)
 #endif
 	}
 
-	/* Snakes, Hydrae, Reptiles, Mimics */
+	// Snakes, Hydrae, Reptiles, Mimics
 	else if(my_strchr("JMR", r_ptr->d_char) || !isalpha(r_ptr->d_char))
 	{
-		
 #ifdef JP
 		if(percentage > 95) msg_format("%^sはほとんど気にとめていない。", m_name);
 		else if(percentage > 75) msg_format("%^sはシーッと鳴いた。", m_name);
@@ -4628,7 +4625,6 @@ void message_pain(int m_idx, int dam)
 
 	else if(my_strchr("f", r_ptr->d_char))
 	{
-		
 #ifdef JP
 		if(percentage > 95) msg_format("%sは攻撃に肩をすくめた。", m_name);
 		else if(percentage > 75) msg_format("%^sは吠えた。", m_name);
@@ -4648,10 +4644,9 @@ void message_pain(int m_idx, int dam)
 #endif
 	}
 
-	/* Ants, Centipedes, Flies, Insects, Beetles, Spiders */
+	// Ants, Centipedes, Flies, Insects, Beetles, Spiders
 	else if(my_strchr("acFIKS", r_ptr->d_char))
 	{
-		
 #ifdef JP
 		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
 		else if(percentage > 75) msg_format("%^sはキーキー鳴いた。", m_name);
@@ -4671,118 +4666,51 @@ void message_pain(int m_idx, int dam)
 #endif
 	}
 
-
-	/* Birds */
+	// Birds
 	else if(my_strchr("B", r_ptr->d_char))
-	{
-		if(percentage > 95)
+	{		
 #ifdef JP
-msg_format("%^sはさえずった。", m_name);
+		if(percentage > 95) msg_format("%^sはさえずった。", m_name);
+		else if(percentage > 75) msg_format("%^sはピーピー鳴いた。", m_name);
+		else if(percentage > 50) msg_format("%^sはギャーギャー鳴いた。", m_name);
+		else if(percentage > 35) msg_format("%^sはギャーギャー鳴きわめいた。", m_name);
+		else if(percentage > 20) msg_format("%^sは苦しんだ。", m_name);
+		else if(percentage > 10) msg_format("%^sはのたうち回った。", m_name);
+		else msg_format("%^sはキーキーと鳴き叫んだ。", m_name);
 #else
-			msg_format("%^s chirps.", m_name);
+		if(percentage > 95)	msg_format("%^s chirps.", m_name);
+		else if(percentage > 75) msg_format("%^s twitters.", m_name);
+		else if(percentage > 50) msg_format("%^s squawks.", m_name);
+		else if(percentage > 35) msg_format("%^s chatters.", m_name);
+		else if(percentage > 20) msg_format("%^s jeers.", m_name);
+		else if(percentage > 10) msg_format("%^s flutters about.", m_name);
+		else msg_format("%^s squeaks.", m_name);
 #endif
-
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%^sはピーピー鳴いた。", m_name);
-#else
-			msg_format("%^s twitters.", m_name);
-#endif
-
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sはギャーギャー鳴いた。", m_name);
-#else
-			msg_format("%^s squawks.", m_name);
-#endif
-
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sはギャーギャー鳴きわめいた。", m_name);
-#else
-			msg_format("%^s chatters.", m_name);
-#endif
-
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは苦しんだ。", m_name);
-#else
-			msg_format("%^s jeers.", m_name);
-#endif
-
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sはのたうち回った。", m_name);
-#else
-			msg_format("%^s flutters about.", m_name);
-#endif
-
-		else
-#ifdef JP
-msg_format("%^sはキーキーと鳴き叫んだ。", m_name);
-#else
-			msg_format("%^s squeaks.", m_name);
-#endif
-
 	}
 
-
-	/* Dragons, Demons, High Undead */
+	// Dragons, Demons, High Undead
 	else if(my_strchr("duDLUW", r_ptr->d_char))
-	{
-		if(percentage > 95)
+	{	
 #ifdef JP
-msg_format("%sは攻撃を気にとめていない。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%^sはしり込みした。", m_name);
+		else if(percentage > 50) msg_format("%^sは痛みでシーッと鳴いた。", m_name);
+		else if(percentage > 35) msg_format("%^sは痛みでうなった。", m_name);
+		else if(percentage > 20) msg_format("%^sは痛みに吠えた。", m_name);
+		else if(percentage > 10) msg_format("%^sは苦しげに叫んだ。", m_name);
+		else msg_format("%^sは弱々しくうなった。", m_name);
 #else
-			msg_format("%^s ignores the attack.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
+		else if(percentage > 75) msg_format("%^s flinches.", m_name);
+		else if(percentage > 50) msg_format("%^s hisses in pain.", m_name);
+		else if(percentage > 35) msg_format("%^s snarls with pain.", m_name);
+		else if(percentage > 20) msg_format("%^s roars with pain.", m_name);
+		else if(percentage > 10) msg_format("%^s gasps.", m_name);
+		else msg_format("%^s snarls feebly.", m_name);
 #endif
-
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%^sはしり込みした。", m_name);
-#else
-			msg_format("%^s flinches.", m_name);
-#endif
-
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sは痛みでシーッと鳴いた。", m_name);
-#else
-			msg_format("%^s hisses in pain.", m_name);
-#endif
-
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sは痛みでうなった。", m_name);
-#else
-			msg_format("%^s snarls with pain.", m_name);
-#endif
-
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは痛みに吠えた。", m_name);
-#else
-			msg_format("%^s roars with pain.", m_name);
-#endif
-
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sは苦しげに叫んだ。", m_name);
-#else
-			msg_format("%^s gasps.", m_name);
-#endif
-
-		else
-#ifdef JP
-msg_format("%^sは弱々しくうなった。", m_name);
-#else
-			msg_format("%^s snarls feebly.", m_name);
-#endif
-
 	}
 
-
-	/* Skeletons */
+	// Skeletons
 	else if(my_strchr("s", r_ptr->d_char))
 	{
 		
