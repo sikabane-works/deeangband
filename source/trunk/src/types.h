@@ -1241,12 +1241,14 @@ struct creature_type
 	bool sexual_penalty;	// Sexual penalty flag 
 	s16b class_idx;		    // Class index 
 	bool cls_bonus;	        // Class bonus flag
-	s16b chara_idx;		    // chara index 
+	s16b chara_idx;		    // Chara index 
 	s16b patron_idx;		// Patron index 
 	s16b father_idx;
 	s16b mother_idx;
 	s16b realm1;            // First magic realm 
 	s16b realm2;            // Second magic realm 
+
+	u32b action_turn;		// Action turn
 
 	s16b camp_idx;				// Camp
 	s16b master_creature_idx;	// Master

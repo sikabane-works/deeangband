@@ -3812,7 +3812,7 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 	     ((bldg->other_costs[i] > creature_ptr->au) && !is_owner(creature_ptr, bldg))))
 	{
 #ifdef JP
-msg_print("お金が足りません！");
+		msg_print("お金が足りません！");
 #else
 		msg_print("You do not have the gold!");
 #endif
@@ -3939,6 +3939,7 @@ msg_print("お金が足りません！");
 		int max_depth;
 
 		clear_bldg(4, 20);
+
 #ifdef JP
 		select_dungeon = choose_dungeon("にテレポート", 4, 0);
 #else
@@ -3949,11 +3950,8 @@ msg_print("お金が足りません！");
 
 		max_depth = dungeon_info[select_dungeon].maxdepth;
 
-		/* Limit depth in Angband */
-		if(select_dungeon == DUNGEON_ANGBAND)
-		{
-			if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
-		}
+		// Limit depth in Angband
+		if(select_dungeon == DUNGEON_ANGBAND) if(quest[QUEST_SERPENT].status != QUEST_STATUS_FINISHED) max_depth = 99;
 
 #ifdef JP
 		amt = get_quantity(format("%sの何階にテレポートしますか？", dungeon_name + dungeon_info[select_dungeon].name), max_depth);
@@ -3968,16 +3966,12 @@ msg_print("お金が足りません！");
 			max_dlv[creature_ptr->recall_dungeon] = ((amt > dungeon_info[select_dungeon].maxdepth) ? dungeon_info[select_dungeon].maxdepth : ((amt < dungeon_info[select_dungeon].mindepth) ? dungeon_info[select_dungeon].mindepth : amt));
 			if(record_maxdepth)
 #ifdef JP
-				do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "トランプタワーで");
-#else
-			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "at Trump Tower");
-#endif
-#ifdef JP
+			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "トランプタワーで");
 			msg_print("回りの大気が張りつめてきた...");
 #else
+			do_cmd_write_nikki(DIARY_TRUMP, select_dungeon, "at Trump Tower");
 			msg_print("The air about you becomes charged...");
 #endif
-
 			paid = TRUE;
 			play_redraw |= (PR_STATUS);
 		}
