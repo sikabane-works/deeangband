@@ -4872,6 +4872,8 @@ void process_player(creature_type *creature_ptr)
 	/* Repeat until out of energy */
 	while (creature_ptr->energy_need <= 0)
 	{
+		creature_ptr->action_turn++;
+
 		play_window |= PW_PLAYER;
 		creature_ptr->sutemi = FALSE;
 		creature_ptr->counter = FALSE;

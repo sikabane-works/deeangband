@@ -1503,6 +1503,8 @@ static void process_nonplayer(int m_idx)
 	bool            see_m = is_seen(player_ptr, creature_ptr);
 	bool			test = FALSE;
 
+	creature_ptr->action_turn++;
+
 	// Access the location
 	int	fx = creature_ptr->fx;
 	int	fy = creature_ptr->fy;

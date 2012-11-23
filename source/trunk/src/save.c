@@ -401,10 +401,7 @@ static void wr_creature(creature_type *creature_ptr)
 	wr_string(creature_ptr->name);
 	wr_string(creature_ptr->last_message ? creature_ptr->last_message : "");
 
-	for (i = 0; i < HISTORY_ROW; i++)
-	{
-		wr_string(creature_ptr->history[i]);
-	}
+	for (i = 0; i < HISTORY_ROW; i++) wr_string(creature_ptr->history[i]);
 
 	// Race/Class/Gender/Spells
 	wr_s16b(creature_ptr->species_idx);

@@ -824,10 +824,7 @@ static void rd_creature(creature_type *creature_ptr)
 	rd_string(buf, sizeof buf);
 	if(buf[0]) creature_ptr->last_message = string_make(buf);
 
-	for (i = 0; i < HISTORY_ROW; i++)
-	{
-		rd_string(creature_ptr->history[i], sizeof(creature_ptr->history[i]));
-	}
+	for (i = 0; i < HISTORY_ROW; i++) rd_string(creature_ptr->history[i], sizeof(creature_ptr->history[i]));
 
 	// Class/Race/Chara/Gender/Spells
 	rd_s16b(&creature_ptr->species_idx);
