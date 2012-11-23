@@ -4785,55 +4785,24 @@ msg_format("%^sは弱々しくうなった。", m_name);
 	/* Skeletons */
 	else if(my_strchr("s", r_ptr->d_char))
 	{
-		if(percentage > 95)
+		
 #ifdef JP
-msg_format("%sは攻撃を気にとめていない。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
+		else if(percentage > 50) msg_format("%^sはカタカタと笑った。", m_name);
+		else if(percentage > 35) msg_format("%^sはよろめいた。", m_name);
+		else if(percentage > 20) msg_format("%^sはカタカタ言った。", m_name);
+		else if(percentage > 10) msg_format("%^sはよろめいた。", m_name);
+		else msg_format("%^sはガタガタ言った。", m_name);
 #else
-			msg_format("%^s ignores the attack.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
+		else if(percentage > 50) msg_format("%^s rattles.", m_name);
+		else if(percentage > 35) msg_format("%^s stumbles.", m_name);
+		else if(percentage > 20) msg_format("%^s rattles.", m_name);
+		else if(percentage > 10) msg_format("%^s staggers.", m_name);
+		else msg_format("%^s clatters.", m_name);
 #endif
-
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%sは攻撃に肩をすくめた。", m_name);
-#else
-			msg_format("%^s shrugs off the attack.", m_name);
-#endif
-
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%^sはカタカタと笑った。", m_name);
-#else
-			msg_format("%^s rattles.", m_name);
-#endif
-
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sはよろめいた。", m_name);
-#else
-			msg_format("%^s stumbles.", m_name);
-#endif
-
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sはカタカタ言った。", m_name);
-#else
-			msg_format("%^s rattles.", m_name);
-#endif
-
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%^sはよろめいた。", m_name);
-#else
-			msg_format("%^s staggers.", m_name);
-#endif
-
-		else
-#ifdef JP
-msg_format("%^sはガタガタ言った。", m_name);
-#else
-			msg_format("%^s clatters.", m_name);
-#endif
-
 	}
 
 
