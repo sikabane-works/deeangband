@@ -2446,13 +2446,8 @@ void do_cmd_stay(creature_type *creature_ptr, bool pickup)
 	/* Allow repeated command */
 	if(command_arg)
 	{
-		/* Set repeat count */
 		command_rep = command_arg - 1;
-
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
-
-		/* Cancel the arg */
 		command_arg = 0;
 	}
 
@@ -2614,42 +2609,31 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 		case TV_BOLT:
 		{
 			/* Slay Animal */
-			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL)) &&
-			    has_trait(target_ptr, TRAIT_ANIMAL))
+			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ANIMAL)) && has_trait(target_ptr, TRAIT_ANIMAL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				if(mult < 17) mult = 17;
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(mult < 17) mult = 20;
 			}
 
 			/* Kill Animal */
-			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_ANIMAL)) &&
-			    has_trait(target_ptr, TRAIT_ANIMAL))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_ANIMAL)) && has_trait(target_ptr, TRAIT_ANIMAL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				if(mult < 27) mult = 27;
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Evil */
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_EVIL)) &&
 			    is_enemy_of_good_creature(target_ptr))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 15) mult = 15;
 			}
 
 			/* Kill Evil */
-			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_EVIL)) &&
-			    is_enemy_of_good_creature(target_ptr))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_EVIL)) && is_enemy_of_good_creature(target_ptr))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 25) mult = 25;
 			}
 
@@ -2657,129 +2641,99 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_HUMAN)) &&
 			    (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				if(mult < 17) mult = 17;
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Human */
-			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_HUMAN)) &&
-			    (has_trait(target_ptr, TRAIT_HUMAN)))
+			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_HUMAN)) && (has_trait(target_ptr, TRAIT_HUMAN)))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
-				if(mult < 27) mult = 27;
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
+				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Undead */
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Undead */
 			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_UNDEAD)) && has_trait(target_ptr, TRAIT_UNDEAD))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Demon */
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Demon */
 			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_DEMON)) && has_trait(target_ptr, TRAIT_DEMON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Orc */
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
 			/* Kill Orc */
 			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_ORC)) && has_trait(target_ptr, TRAIT_ORC))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			// Slay Troll
 			if(have_flag(object_ptr->trait_flags, TRAIT_SLAY_TROLL) && has_trait(target_ptr, TRAIT_TROLL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
 			// Kill Troll
 			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_TROLL)) && has_trait(target_ptr, TRAIT_TROLL))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			// Slay Giant
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
 			// Kill Giant
 			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_GIANT)) && has_trait(target_ptr, TRAIT_GIANT))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
 			}
 
 			/* Slay Dragon  */
 			if((have_flag(object_ptr->trait_flags, TRAIT_SLAY_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 20) mult = 20;
 			}
 
 			/* Execute Dragon */
 			if((have_flag(object_ptr->trait_flags, TRAIT_KILL_DRAGON)) && has_trait(target_ptr, TRAIT_DRAGON))
 			{
-				if(is_original_ap_and_seen(attacker_ptr, target_ptr))
-					reveal_creature_info(target_ptr, INFO_TYPE_RACE);
-
+				if(is_original_ap_and_seen(attacker_ptr, target_ptr)) reveal_creature_info(target_ptr, INFO_TYPE_RACE);
 				if(mult < 30) mult = 30;
-
 				if(has_trait_object(object_ptr, TRAIT_SLAY_SMAUG) && (target_ptr->species_idx == SPECIES_SMAUG) && has_trait(attacker_ptr, TRAIT_SLAY_SMAUG))
 					mult *= 5;
 			}
@@ -2788,22 +2742,14 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			if(have_flag(object_ptr->trait_flags, TRAIT_ACID_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ACID_RATE);
-
-				if(!has_trait(target_ptr, TRAIT_RES_ACID))
-				{
-					if(mult < 17) mult = 17;
-				}
+				if(!has_trait(target_ptr, TRAIT_RES_ACID)) if(mult < 17) mult = 17;
 			}
 
 			/* Brand (Elec) */
 			if(have_flag(object_ptr->trait_flags, TRAIT_ELEC_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_ELEC_RATE);
-
-				if(!has_trait(target_ptr, TRAIT_RES_ELEC))
-				{
-					if(mult < 17) mult = 17;
-				}
+				if(!has_trait(target_ptr, TRAIT_RES_ELEC)) if(mult < 17) mult = 17;
 			}
 
 			/* Brand (Fire) */
@@ -2846,11 +2792,7 @@ static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_pt
 			if(have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND))
 			{
 				reveal_creature_info(target_ptr, INFO_TYPE_RESIST_POIS_RATE);
-
-				if(!has_trait(target_ptr, TRAIT_RES_POIS))
-				{
-					if(mult < 17) mult = 17;
-				}
+				if(!has_trait(target_ptr, TRAIT_RES_POIS)) if(mult < 17) mult = 17;
 			}
 
 			if((have_flag(object_ptr->trait_flags, TRAIT_FORCE_WEAPON)) && (attacker_ptr->csp > (attacker_ptr->msp / 30)))
@@ -2966,10 +2908,8 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	tdis = 13 + tmul/80;
 	if((j_ptr->sval == SV_LIGHT_XBOW) || (j_ptr->sval == SV_HEAVY_XBOW))
 	{
-		if(creature_ptr->concent)
-			tdis -= (5 - (creature_ptr->concent + 1) / 2);
-		else
-			tdis -= 5;
+		if(creature_ptr->concent) tdis -= (5 - (creature_ptr->concent + 1) / 2);
+		else tdis -= 5;
 	}
 
 	range = tdis + 1;
@@ -3003,7 +2943,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 		return;
 	}
 
-
 	/* Take a (partial) turn */
 	creature_ptr->energy_need = (creature_ptr->energy_need / thits);
 	creature_ptr->is_fired = TRUE;
@@ -3028,15 +2967,13 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Single object */
 	quest_ptr->number = 1;
 
-	/* Reduce and describe creature_ptr->inventory */
+	// Reduce and describe inventory or floor item
 	if(item >= 0)
 	{
 		inven_item_increase(creature_ptr, item, -1);
 		inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 	}
-
-	/* Reduce and describe floor item */
 	else
 	{
 		floor_item_increase(0 - item, -1);
