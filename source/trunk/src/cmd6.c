@@ -858,7 +858,6 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 #else
 			msg_print("You feel life flow through your body!");
 #endif
-			restore_exp(caster_ptr);
 			(void)set_timed_trait(caster_ptr, TRAIT_POISONED, 0);
 			(void)set_timed_trait(caster_ptr, TRAIT_BLIND, 0);
 			(void)set_timed_trait(caster_ptr, TRAIT_CONFUSED, 0);
@@ -871,6 +870,7 @@ static void do_cmd_quaff_potion_aux(creature_type *caster_ptr, int item)
 			(void)do_res_stat(caster_ptr, STAT_WIS);
 			(void)do_res_stat(caster_ptr, STAT_INT);
 			(void)do_res_stat(caster_ptr, STAT_CHA);
+			restore_exp(caster_ptr);
 			(void)set_timed_trait_aux(caster_ptr, TRAIT_S_HERO, 0,TRUE);
 			update_creature(caster_ptr, TRUE);
 			heal_creature(caster_ptr, 5000);

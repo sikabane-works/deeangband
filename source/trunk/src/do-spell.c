@@ -1748,13 +1748,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		{
 			if(cast)
 			{
-				do_res_stat(creature_ptr, STAT_STR);
-				do_res_stat(creature_ptr, STAT_INT);
-				do_res_stat(creature_ptr, STAT_WIS);
-				do_res_stat(creature_ptr, STAT_DEX);
-				do_res_stat(creature_ptr, STAT_CON);
-				do_res_stat(creature_ptr, STAT_CHA);
-				restore_exp(creature_ptr);
+				do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
 			}
 		}
 		break;

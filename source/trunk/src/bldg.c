@@ -3915,14 +3915,11 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		set_timed_trait(creature_ptr, TRAIT_STUN, 0);
 		paid = TRUE;
 		break;
-	case BUILDING_FUNCTION_RESTORE: /* needs work */
-		if(do_res_stat(creature_ptr, STAT_STR)) paid = TRUE;
-		if(do_res_stat(creature_ptr, STAT_INT)) paid = TRUE;
-		if(do_res_stat(creature_ptr, STAT_WIS)) paid = TRUE;
-		if(do_res_stat(creature_ptr, STAT_DEX)) paid = TRUE;
-		if(do_res_stat(creature_ptr, STAT_CON)) paid = TRUE;
-		if(do_res_stat(creature_ptr, STAT_CHA)) paid = TRUE;
+
+	case BUILDING_FUNCTION_RESTORE: // needs work
+		if(do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE)) paid = TRUE;
 		break;
+
 	case BUILDING_FUNCTION_ENCHANT_ARROWS:
 		//TODO item_tester_hook = item_tester_hook_ammo;
 		enchant_item(creature_ptr, bcost, 1, 1, 0, 0);
