@@ -4757,60 +4757,26 @@ void message_pain(int m_idx, int dam)
 #endif
 	}
 
-	/* Ghosts */
-	else if(my_strchr("G", r_ptr->d_char))
+	else if(my_strchr("G", r_ptr->d_char)) // Ghosts
 	{
-		if(percentage > 95)
 #ifdef JP
-			msg_format("%sは攻撃を気にとめていない。", m_name);
+		if(percentage > 95) msg_format("%sは攻撃を気にとめていない。", m_name);
+		else if(percentage > 75) msg_format("%sは攻撃に肩をすくめた。", m_name);
+		else if(percentage > 50) msg_format("%sはうめいた。", m_name);
+		else if(percentage > 35) msg_format("%^sは泣きわめいた。", m_name);
+		else if(percentage > 20) msg_format("%^sは吠えた。", m_name);
+		else if(percentage > 10) msg_format("%sは弱々しくうめいた。", m_name);
+		else msg_format("%^sはかすかにうめいた。", m_name);
 #else
-			msg_format("%^s ignores the attack.", m_name);
+		if(percentage > 95) msg_format("%^s ignores the attack.", m_name);
+		else if(percentage > 75) msg_format("%^s shrugs off the attack.", m_name);
+		else if(percentage > 50)  msg_format("%^s moans.", m_name);
+		else if(percentage > 35) msg_format("%^s wails.", m_name);
+		else if(percentage > 20) msg_format("%^s howls.", m_name);
+		else if(percentage > 10) msg_format("%^s moans softly.", m_name);
+		else msg_format("%^s sighs.", m_name);
 #endif
-
-		else if(percentage > 75)
-#ifdef JP
-msg_format("%sは攻撃に肩をすくめた。", m_name);
-#else
-			msg_format("%^s shrugs off the attack.", m_name);
-#endif
-
-		else if(percentage > 50)
-#ifdef JP
-msg_format("%sはうめいた。", m_name);
-#else
-			msg_format("%^s moans.", m_name);
-#endif
-
-		else if(percentage > 35)
-#ifdef JP
-msg_format("%^sは泣きわめいた。", m_name);
-#else
-			msg_format("%^s wails.", m_name);
-#endif
-
-		else if(percentage > 20)
-#ifdef JP
-msg_format("%^sは吠えた。", m_name);
-#else
-			msg_format("%^s howls.", m_name);
-#endif
-
-		else if(percentage > 10)
-#ifdef JP
-msg_format("%sは弱々しくうめいた。", m_name);
-#else
-			msg_format("%^s moans softly.", m_name);
-#endif
-
-		else
-#ifdef JP
-msg_format("%^sはかすかにうめいた。", m_name);
-#else
-			msg_format("%^s sighs.", m_name);
-#endif
-
 	}
-
 
 	/* Dogs and Hounds */
 	else if(my_strchr("CZ", r_ptr->d_char))
