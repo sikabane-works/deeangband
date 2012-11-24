@@ -1937,10 +1937,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			break;
 		}
 
-		case SV_STAFF_LITE:
-			if(lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
-			break;
-
 		case SV_STAFF_MAPPING:
 		{
 			map_area(creature_ptr, DETECT_RAD_MAP);
