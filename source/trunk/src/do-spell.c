@@ -175,51 +175,30 @@ static int beam_chance(creature_type *creature_ptr)
 	return creature_ptr->lev / 2;
 }
 
-
-/*
- * Handle summoning and failure of trump spells
- */
+// Handle summoning and failure of trump spells
 static bool trump_summoning(creature_type *creature_ptr, int num, bool pet, int y, int x, int lev, int type, u32b mode)
 {
-	int plev = creature_ptr->lev;
-
 	int who;
 	int i;
 	bool success = FALSE;
 
-	/* Default level */
-	if(!lev) lev = plev * 2 / 3 + randint1(plev / 2);
+	if(!lev) lev = creature_ptr->lev * 2 / 3 + randint1(creature_ptr->lev / 2); // Default level
 
 	if(pet)
 	{
-		/* Become pet */
 		mode |= PC_FORCE_PET;
-
-		/* Only sometimes allow unique creature */
 		if(mode & PC_ALLOW_UNIQUE)
-		{
-			/* Forbid often */
-			if(randint1(50 + plev) >= plev / 10)
-				mode &= ~PC_ALLOW_UNIQUE;
-		}
-
-		/* Player is who summons */
+			if(randint1(50 + creature_ptr->lev) >= creature_ptr->lev / 10) mode &= ~PC_ALLOW_UNIQUE;
 		who = -1;
 	}
 	else
 	{
-		/* Prevent taming, allow unique creature */
 		mode |= PC_NO_PET;
-
-		/* Behave as if they appear by themselfs */
 		who = 0;
 	}
 
 	for (i = 0; i < num; i++)
-	{
-		if(summon_specific(creature_ptr, y, x, lev, type, mode))
-			success = TRUE;
-	}
+		if(summon_specific(creature_ptr, y, x, lev, type, mode)) success = TRUE;
 
 	if(!success)
 	{
