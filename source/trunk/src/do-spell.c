@@ -168,18 +168,10 @@ static cptr info_weight(int weight)
 #endif
 }
 
-
-/*
- * Prepare standard probability to become beam for cast_bolt_or_beam(creature_ptr, )
- */
+// Prepare standard probability to become beam for cast_bolt_or_beam()
 static int beam_chance(creature_type *creature_ptr)
 {
-	if(creature_ptr->class_idx == CLASS_MAGE)
-		return creature_ptr->lev;
-
-	if(creature_ptr->class_idx == CLASS_HIGH_MAGE || creature_ptr->class_idx == CLASS_SORCERER)
-		return creature_ptr->lev + 10;
-
+	if(has_trait(creature_ptr, TRAIT_MAGIC_SPECIALIST)) return creature_ptr->lev;
 	return creature_ptr->lev / 2;
 }
 
@@ -1619,13 +1611,7 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Restoration";
 		if(desc) return "Restores all stats and experience.";
 #endif
-    
-		{
-			if(cast)
-			{
-				do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
-			}
-		}
+		if(cast) do_active_trait(creature_ptr, TRAIT_RESTORE_ALL, TRUE);
 		break;
 
 	case 29:
@@ -1636,18 +1622,12 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Healing True";
 		if(desc) return "The greatest healing magic. Heals all HP, cut and stun.";
 #endif
-    
+		if(info) return info_heal(0, 0, 2000);
+		if(cast)
 		{
-			int heal = 2000;
-
-			if(info) return info_heal(0, 0, heal);
-
-			if(cast)
-			{
-				heal_creature(creature_ptr, heal);
-				set_timed_trait(creature_ptr, TRAIT_STUN, 0);
-				set_timed_trait(creature_ptr, TRAIT_CUT, 0);
-			}
+			heal_creature(creature_ptr, 2000);
+			set_timed_trait(creature_ptr, TRAIT_STUN, 0);
+			set_timed_trait(creature_ptr, TRAIT_CUT, 0);
 		}
 		break;
 
@@ -1659,12 +1639,9 @@ static cptr do_life_spell(creature_type *creature_ptr, int spell, int mode)
 		if(name) return "Holy Vision";
 		if(desc) return "*Identifies* an item.";
 #endif
-    
+		if(cast)
 		{
-			if(cast)
-			{
-				if(!identify_fully(creature_ptr, FALSE)) return NULL;
-			}
+			if(!identify_fully(creature_ptr, FALSE)) return NULL;
 		}
 		break;
 
