@@ -1886,13 +1886,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			ident = TRUE;
 			break;
 
-		case SV_STAFF_IDENTIFY:
-		{
-			if(!ident_spell(creature_ptr, FALSE)) *use_charge = FALSE;
-			ident = TRUE;
-			break;
-		}
-
 		case SV_STAFF_REMOVE_CURSE:
 		{
 			if(remove_curse(creature_ptr))

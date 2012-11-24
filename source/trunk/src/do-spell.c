@@ -227,18 +227,6 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	// TODO: add Karma of Fortune feature.
 	int vir = 0;
 
-	if(vir)
-	{
-		if(creature_ptr->karmas[vir - 1] > 0)
-		{
-			while (randint1(400) < creature_ptr->karmas[vir - 1]) die++;
-		}
-		else
-		{
-			while (randint1(400) < (0-creature_ptr->karmas[vir - 1])) die--;
-		}
-	}
-
 	if(die > 100)
 	{
 #ifdef JP
@@ -252,42 +240,23 @@ static void cast_wonder(creature_type *creature_ptr, int dir)
 	else if(die < 14) speed_other_creature(creature_ptr, dir);
 	else if(die < 26) heal_other_creature(creature_ptr, dir, diceroll(4, 6));
 	else if(die < 31) poly_creature(creature_ptr, dir);
-	else if(die < 36)
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_MISSILE, dir,
-				  diceroll(3 + ((plev - 1) / 5), 4));
+	else if(die < 36) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_MISSILE, dir, diceroll(3 + ((plev - 1) / 5), 4));
 	else if(die < 41) confuse_creature(creature_ptr, dir, plev);
 	else if(die < 46) cast_ball(creature_ptr, DO_EFFECT_POIS, dir, 20 + (plev / 2), 3);
 	else if(die < 51) (void)lite_line(creature_ptr, dir);
-	else if(die < 56)
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_ELEC, dir,
-				  diceroll(3 + ((plev - 5) / 4), 8));
-	else if(die < 61)
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_COLD, dir,
-				  diceroll(5 + ((plev - 5) / 4), 8));
-	else if(die < 66)
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_ACID, dir,
-				  diceroll(6 + ((plev - 5) / 4), 8));
-	else if(die < 71)
-		cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_FIRE, dir,
-				  diceroll(8 + ((plev - 5) / 4), 8));
+	else if(die < 56) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_ELEC, dir, diceroll(3 + ((plev - 5) / 4), 8));
+	else if(die < 61) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr) - 10, DO_EFFECT_COLD, dir, diceroll(5 + ((plev - 5) / 4), 8));
+	else if(die < 66) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_ACID, dir, diceroll(6 + ((plev - 5) / 4), 8));
+	else if(die < 71) cast_bolt_or_beam(creature_ptr, beam_chance(creature_ptr), DO_EFFECT_FIRE, dir, diceroll(8 + ((plev - 5) / 4), 8));
 	else if(die < 76) drain_life(creature_ptr, dir, 75);
 	else if(die < 81) cast_ball(creature_ptr, DO_EFFECT_ELEC, dir, 30 + plev / 2, 2);
 	else if(die < 86) cast_ball(creature_ptr, DO_EFFECT_ACID, dir, 40 + plev, 2);
 	else if(die < 91) cast_ball(creature_ptr, DO_EFFECT_ICE, dir, 70 + plev, 3);
 	else if(die < 96) cast_ball(creature_ptr, DO_EFFECT_FIRE, dir, 80 + plev, 3);
 	else if(die < 101) drain_life(creature_ptr, dir, 100 + plev);
-	else if(die < 104)
-	{
-		earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
-	}
-	else if(die < 106)
-	{
-		(void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
-	}
-	else if(die < 108)
-	{
-		symbol_genocide(creature_ptr, plev+50, TRUE);
-	}
+	else if(die < 104) earthquake(creature_ptr, creature_ptr->fy, creature_ptr->fx, 12);
+	else if(die < 106) (void)destroy_area(creature_ptr, creature_ptr->fy, creature_ptr->fx, 13 + randint0(5), FALSE);
+	else if(die < 108) symbol_genocide(creature_ptr, plev+50, TRUE);
 	else if(die < 110) dispel_creatures(creature_ptr, 120);
 	else // RARE
 	{
@@ -935,15 +904,13 @@ static bool cast_summon_greater_demon(creature_type *creature_ptr)
 		msg_print("'What is thy bidding... Master?'");
 #endif
 
-		/* Decrease the item (from the pack) */
+		// Decrease the item (from the pack or the floor)
 		if(item >= 0)
 		{
 			inven_item_increase(creature_ptr, item, -1);
 			inven_item_describe(creature_ptr, item);
 			inven_item_optimize(creature_ptr, item);
 		}
-
-		/* Decrease the item (from the floor) */
 		else
 		{
 			floor_item_increase(0 - item, -1);
