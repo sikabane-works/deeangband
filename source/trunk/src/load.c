@@ -246,6 +246,7 @@ static void strip_bytes(int n)
 // Read an object
 static void rd_object(object_type *object_ptr)
 {
+	int i;
 	object_kind *object_kind_ptr;
 
 	rd_s16b(&object_ptr->k_idx);
@@ -314,6 +315,9 @@ static void rd_object(object_type *object_ptr)
 	rd_s16b(&object_ptr->size_upper);
 	rd_s16b(&object_ptr->size_lower);
 	rd_s16b(&object_ptr->to_size);
+
+	for(i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&object_ptr->trait_flags[i]);
+	for(i = 0; i < TRAIT_FLAG_MAX; i++) rd_s32b(&object_ptr->curse_flags[i]);
 
 	return;
 }

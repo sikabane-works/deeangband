@@ -387,11 +387,12 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		//TODO Remove duplicated process
 	case TRAIT_LIGHT_AREA:
 	case TRAIT_ILLUMINATION:
-		lite_area(caster_ptr, diceroll(2, 15), 3);
+		effected = lite_area(caster_ptr, diceroll(2, 15), 3);
 		break;
 
 	case TRAIT_DETECT_MAP:
 		map_area(caster_ptr, DETECT_RAD_MAP);
+		effected = TRUE;
 		break;
 
 	case TRAIT_DETECT_ALL:
