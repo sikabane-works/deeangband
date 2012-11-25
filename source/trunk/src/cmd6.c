@@ -1982,13 +1982,6 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			break;
 		}
 
-		case SV_STAFF_CURE_LIGHT:
-		{
-			if(heal_creature(creature_ptr, diceroll(2, 8))) ident = TRUE;
-			if(set_timed_trait_aux(creature_ptr, TRAIT_S_HERO, 0,TRUE)) ident = TRUE;
-			break;
-		}
-
 		case SV_STAFF_CURING:
 		{
 			if(set_timed_trait(creature_ptr, TRAIT_BLIND, 0)) ident = TRUE;
@@ -2150,6 +2143,9 @@ static int staff_effect(creature_type *creature_ptr, int sval, bool *use_charge,
 			}
 			break;
 		}
+		default:
+			ident = TRUE;
+			break;
 	}
 	return ident;
 }

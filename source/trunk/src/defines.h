@@ -410,7 +410,7 @@
 #define REALM_CRAFT        8
 #define REALM_DAEMON       9
 #define REALM_CRUSADE      10
-#define MAX_MAGIC          10
+#define MAX_MAGIC          11
 
 #define MIN_TECHNIC        16
 #define REALM_MUSIC        16
