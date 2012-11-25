@@ -2779,19 +2779,6 @@ static int rod_effect(creature_type *creature_ptr, int sval, int dir, bool *use_
 			break;
 		}
 
-		case SV_ROD_RECALL:
-		{
-			if(!word_of_recall(creature_ptr, randint0(21) + 15)) *use_charge = FALSE;
-			ident = TRUE;
-			break;
-		}
-
-		case SV_ROD_ILLUMINATION:
-		{
-			if(lite_area(creature_ptr, diceroll(2, 8), 2)) ident = TRUE;
-			break;
-		}
-
 		case SV_ROD_MAPPING:
 		{
 			map_area(creature_ptr, DETECT_RAD_MAP);
