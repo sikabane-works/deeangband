@@ -231,7 +231,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 	{
 		object_desc(object_name, old_equipped_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Describe it
 
-		// Message
 /*
 #ifdef JP
 		msg_format("%s%s‚Íô‚í‚ê‚Ä‚¢‚é‚æ‚¤‚¾B", describe_use(creature_ptr, slot) , object_name );

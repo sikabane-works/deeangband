@@ -4079,13 +4079,11 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 	// Carry the object
 	slot = inven_carry(creature_ptr, quest_ptr);
 
-	// Message
 #ifdef JP
 	msg_format("%s(%c)%sÅB", object_name, index_to_label(slot), act);
 #else
 	msg_format("%s %s (%c).", act, object_name, index_to_label(slot));
 #endif
-
 
 	// Return slot
 	return (slot);

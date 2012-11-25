@@ -3501,7 +3501,7 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 	/* Take note when "heavy bow" changes */
 	if(creature_ptr->old_heavy_shoot != creature_ptr->heavy_shoot)
 	{
-		if(creature_ptr->heavy_shoot) // Message
+		if(creature_ptr->heavy_shoot)
 		{
 #ifdef JP
 			msg_print("‚±‚ñ‚Èd‚¢‹|‚ğ‘•”õ‚µ‚Ä‚¢‚é‚Ì‚Í‘å•Ï‚¾B");

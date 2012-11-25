@@ -268,7 +268,6 @@ static void sense_inventory_aux(creature_type *creature_ptr, int slot, bool heav
 	/* Get an object description */
 	object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY));
 
-	// Message (equipment)
 	if(IS_EQUIPPED(object_ptr))
 	{
 #ifdef JP

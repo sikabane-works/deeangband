@@ -1578,10 +1578,8 @@ int generate_floor(int dungeon_id, int world_y, int world_x, int depth, floor_ty
 			okay = FALSE;
 		}
 
-		// Accept
 		if(okay) break;
 
-		// Message
 #ifdef JP
 		if(why) msg_format("ê∂ê¨Ç‚ÇËíºÇµ(%s)", why);
 #else

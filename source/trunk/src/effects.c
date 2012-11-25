@@ -1723,7 +1723,7 @@ bool do_dec_stat(creature_type *creature_ptr, int stat)
 
 	if(sust && (!curse_of_Iluvatar || randint0(13))) // Sustain
 	{
-		if(is_seen(player_ptr, creature_ptr)) // Message
+		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP
 			msg_format("%s‚È‚Á‚½‹C‚ª‚µ‚½‚ªA‚·‚®‚ÉŒ³‚É–ß‚Á‚½B",

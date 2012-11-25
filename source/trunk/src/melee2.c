@@ -1221,7 +1221,6 @@ static void creature_lack_food(creature_type *creature_ptr)
 		// Faint occasionally
 		if(!creature_ptr->timed_trait[TRAIT_PARALYZED] && (randint0(100) < 10))
 		{
-			// Message
 #ifdef JP
 			msg_print("‚ ‚Ü‚è‚É‚à‹ó• ‚Å‹Câ‚µ‚Ä‚µ‚Ü‚Á‚½B");
 #else

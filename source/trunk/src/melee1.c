@@ -1067,7 +1067,7 @@ static bool fear_cancel(creature_type *attacker_ptr, creature_type *target_ptr)
 		creature_desc(attacker_name, attacker_ptr, 0);
 		creature_desc(target_name, target_ptr, 0);
 
-		if(target_ptr->see_others) // Message
+		if(target_ptr->see_others)
 		{
 #ifdef JP
 			msg_format("%s‚Í‹¯‚¦‚Ä‚¢‚Ä%s‚ğUŒ‚‚Å‚«‚È‚¢I", attacker_name, target_name);

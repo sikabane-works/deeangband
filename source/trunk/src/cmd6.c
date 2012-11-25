@@ -3157,7 +3157,6 @@ void ring_of_power(creature_type *creature_ptr, int dir)
 
 		case 3:
 		{
-			// Message
 #ifdef JP
 			msg_print("‚ ‚È‚½‚Í‹­—Í‚ÈƒI[ƒ‰‚É•ï‚İ‚Ü‚ê‚½B");
 #else

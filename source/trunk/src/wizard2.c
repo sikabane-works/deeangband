@@ -1127,19 +1127,13 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;
 	object_ptr = GET_ITEM(creature_ptr, item);
 	
-	/* The item was not changed */
 	changed = FALSE;
 
-	/* Save the screen */
 	screen_save();
 
-	/* Get local object */
 	quest_ptr = &forge;
-
-	/* Copy object */
 	object_copy(quest_ptr, object_ptr);
 
-	/* The main loop */
 	while (TRUE)
 	{
 		wiz_display_item(quest_ptr); // Display the item
@@ -1162,42 +1156,23 @@ static void do_cmd_wiz_play(creature_type *creature_ptr)
 		if(ch == 'q' || ch == 'Q') wiz_quantity_item(creature_ptr, quest_ptr);
 	}
 
-
-	/* Restore the screen */
 	screen_load();
 
 
 	/* Accept change */
 	if(changed)
 	{
-		/* Message */
 		msg_print("Changes accepted.");
 
-		/* Recalcurate object's weight */
-		if(item >= 0)
-		{
-			set_inventory_weight(creature_ptr);
-		}
+		if(item >= 0) set_inventory_weight(creature_ptr); // Recalcurate object's weight
+		object_copy(object_ptr, quest_ptr); // Change
 
-		/* Change */
-		object_copy(object_ptr, quest_ptr);
-
-
-		/* Recalculate bonuses */
-		creature_ptr->creature_update |= (CRU_BONUS);
-
-		/* Combine / Reorder the pack (later) */
-		creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);
-
-		/* Window stuff */
+		creature_ptr->creature_update |= (CRU_BONUS | CRU_COMBINE | CRU_REORDER);
 		play_window |= (PW_INVEN | PW_EQUIP | PW_SPELL | PW_PLAYER);
 	}
 
 	/* Ignore change */
-	else
-	{
-		msg_print("Changes ignored.");
-	}
+	else msg_print("Changes ignored.");
 }
 
 

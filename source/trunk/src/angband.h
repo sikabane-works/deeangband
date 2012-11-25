@@ -49,7 +49,6 @@
 #include "types.h"
 #include "externs.h"
 #include "messages.h"
-// Message definition
 
 
 /***** Some copyright messages follow below *****/

@@ -4843,7 +4843,6 @@ bool brand_bolts(creature_type *creature_ptr)
 		if(object_is_cursed(object_ptr) || object_is_broken(object_ptr)) continue;
 		if(randint0(100) < 75) continue;	// Randomize
 
-		// Message
 #ifdef JP
 		msg_print("クロスボウの矢が炎のオーラに包まれた！");
 #else

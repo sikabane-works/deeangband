@@ -1598,7 +1598,6 @@ int load_player(void)
 #endif
 
 
-	// Message
 #ifdef JP
 	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。", what, z_major, z_minor, z_patch);
 #else
