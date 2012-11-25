@@ -171,7 +171,6 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		cptr q, s;
 		s16b slot;
 
-		/* Get an item */
 #ifdef JP
 		q = "どのアイテムから作りますか？ ";
 		s = "材料を持っていない。";
@@ -226,7 +225,6 @@ bool do_cmd_archer(creature_type *creature_ptr)
 		cptr q, s;
 		s16b slot;
 
-		/* Get an item */
 #ifdef JP
 		q = "どのアイテムから作りますか？ ";
 		s = "材料を持っていない。";
@@ -286,15 +284,13 @@ bool gain_magic(creature_type *creature_ptr)
 	object_type *object_ptr;
 	char object_name[MAX_NLEN];
 
-	/* Get an item */
 #ifdef JP
-q = "どのアイテムの魔力を取り込みますか? ";
-s = "魔力を取り込めるアイテムがない。";
+	q = "どのアイテムの魔力を取り込みますか? ";
+	s = "魔力を取り込めるアイテムがない。";
 #else
 	q = "Gain power of which item? ";
 	s = "You have nothing to gain power.";
 #endif
-
 	if(!get_item(creature_ptr, &item, q, s, (USE_INVEN | USE_FLOOR), item_tester_hook_recharge, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 

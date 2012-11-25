@@ -2871,16 +2871,11 @@ static bool enchant_item(creature_type *creature_ptr, int cost, int to_hit, int 
 #ifdef JP
 	prt(format("現在のあなたの技量だと、+%d まで改良できます。", maxenchant), 5, 0);
 	prt(format(" 改良の料金は一個につき＄%d です。", cost), 7, 0);
-#else
-	prt(format("  Based on your skill, we can improve up to +%d.", maxenchant), 5, 0);
-	prt(format("  The price for the service is %d gold per item.", cost), 7, 0);
-#endif
-
-	// Get an item
-#ifdef JP
 	q = "どのアイテムを改良しますか？";
 	s = "改良できるものがありません。";
 #else
+	prt(format("  Based on your skill, we can improve up to +%d.", maxenchant), 5, 0);
+	prt(format("  The price for the service is %d gold per item.", cost), 7, 0);
 	q = "Improve which item? ";
 	s = "You have nothing to improve.";
 #endif
@@ -2992,15 +2987,10 @@ static void building_recharge(creature_type *creature_ptr)
 	clear_bldg(4, 18);
 #ifdef JP
 	prt("  再充填の費用はアイテムの種類によります。", 6, 0);
-#else
-	prt("  The prices of recharge depend on the type.", 6, 0);
-#endif
-
-	/* Get an item */
-#ifdef JP
 	q = "どのアイテムに魔力を充填しますか? ";
 	s = "魔力を充填すべきアイテムがない。";
 #else
+	prt("  The prices of recharge depend on the type.", 6, 0);
 	q = "Recharge which item? ";
 	s = "You have nothing to recharge.";
 #endif

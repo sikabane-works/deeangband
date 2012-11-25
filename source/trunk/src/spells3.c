@@ -1261,7 +1261,6 @@ void brand_weapon(creature_type *creature_ptr, int brand_type)
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
-	/* Get an item */
 #ifdef JP
 	q = "どの武器を強化しますか? ";
 	s = "強化できる武器がない。";
@@ -2147,10 +2146,9 @@ bool alchemy(creature_type *creature_ptr)
 	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
 
-	/* Get an item */
 #ifdef JP
-q = "どのアイテムを金に変えますか？";
-s = "金に変えられる物がありません。";
+	q = "どのアイテムを金に変えますか？";
+	s = "金に変えられる物がありません。";
 #else
 	q = "Turn which item to gold? ";
 	s = "You have nothing to turn to gold.";
@@ -2417,10 +2415,9 @@ bool enchant_spell(creature_type *creature_ptr, int num_hit, int num_dam, int nu
 	if(num_ac) item_tester_hook = object_is_armour2;
 	else item_tester_hook = object_allow_enchant_weapon;
 
-	/* Get an item */
 #ifdef JP
-q = "どのアイテムを強化しますか? ";
-s = "強化できるアイテムがない。";
+	q = "どのアイテムを強化しますか? ";
+	s = "強化できるアイテムがない。";
 #else
 	q = "Enchant which item? ";
 	s = "You have nothing to enchant.";
@@ -2494,7 +2491,6 @@ bool artifact_scroll(creature_type *caster_ptr)
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを強化しますか? ";
 	s = "強化できるアイテムがない。";
@@ -2502,7 +2498,6 @@ bool artifact_scroll(creature_type *caster_ptr)
 	q = "Enchant which item? ";
 	s = "You have nothing to enchant.";
 #endif
-
 	if(!get_item(caster_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook_nameless_weapon_armour, 0)) return FALSE;
 	object_ptr = GET_ITEM(caster_ptr, item);
 
@@ -2670,11 +2665,8 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 	}
 	else
 	{
-		if(only_equip)
-			item_tester_hook = object_is_weapon_armour_ammo2;
-		else
-			item_tester_hook = NULL;
-
+		if(only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
+		else item_tester_hook = NULL;
 #ifdef JP
 		q = "すべて鑑定済みです。 ";
 #else
@@ -2682,7 +2674,6 @@ bool ident_spell(creature_type *creature_ptr, bool only_equip)
 #endif
 	}
 
-	/* Get an item */
 #ifdef JP
 	s = "鑑定するべきアイテムがない。";
 #else
@@ -2747,10 +2738,9 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 	if(only_equip) item_tester_hook = object_is_weapon_armour_ammo2;
 	else item_tester_hook = NULL;
 
-	/* Get an item */
 #ifdef JP
-q = "どれを使いますか？";
-s = "使えるものがありません。";
+	q = "どれを使いますか？";
+	s = "使えるものがありません。";
 #else
 	q = "Use which item? ";
 	s = "You have nothing you can use.";
@@ -2844,7 +2834,6 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 #endif
 	}
 
-	/* Get an item */
 #ifdef JP
 	s = "*鑑定*するべきアイテムがない。";
 #else
@@ -2957,10 +2946,9 @@ bool recharge(creature_type *creature_ptr, int power)
 	cptr q, s;
 	char object_name[MAX_NLEN];
 
-	/* Get an item */
 #ifdef JP
-q = "どのアイテムに魔力を充填しますか? ";
-s = "魔力を充填すべきアイテムがない。";
+	q = "どのアイテムに魔力を充填しますか? ";
+	s = "魔力を充填すべきアイテムがない。";
 #else
 	q = "Recharge which item? ";
 	s = "You have nothing to recharge.";
@@ -3268,10 +3256,9 @@ bool bless_weapon(creature_type *creature_ptr)
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
 
-	/* Get an item */
 #ifdef JP
-q = "どのアイテムを祝福しますか？";
-s = "祝福できる武器がありません。";
+	q = "どのアイテムを祝福しますか？";
+	s = "祝福できる武器がありません。";
 #else
 	q = "Bless which weapon? ";
 	s = "You have weapon to bless.";
@@ -3446,10 +3433,9 @@ bool pulish_shield(creature_type *creature_ptr)
 	char            object_name[MAX_NLEN];
 	cptr            q, s;
 
-	/* Get an item */
 #ifdef JP
-q = "どの盾を磨きますか？";
-s = "磨く盾がありません。";
+	q = "どの盾を磨きますか？";
+	s = "磨く盾がありません。";
 #else
 	q = "Pulish which weapon? ";
 	s = "You have weapon to pulish.";
@@ -4709,7 +4695,6 @@ bool rustproof(creature_type *creature_ptr)
 	char        object_name[MAX_NLEN];
 	cptr        q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どの防具に錆止めをしますか？";
 	s = "錆止めできるものがありません。";
@@ -5063,10 +5048,9 @@ bool eat_magic(creature_type *creature_ptr, int power)
 	cptr q, s;
 	char object_name[MAX_NLEN];
 
-	/* Get an item */
 #ifdef JP
-q = "どのアイテムから魔力を吸収しますか？";
-s = "魔力を吸収できるアイテムがありません。";
+	q = "どのアイテムから魔力を吸収しますか？";
+	s = "魔力を吸収できるアイテムがありません。";
 #else
 	q = "Drain which item? ";
 	s = "You have nothing to drain.";

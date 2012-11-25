@@ -1,13 +1,13 @@
 /* File: object2.c */
 
 /*
- * Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
- *               2012 Deskull
- *
- * This software may be copied and distributed for educational, research,
- * and not for profit purposes provided that this copyright and statement
- * are included in all such copies.  Other copyrights may also apply.
- */
+* Copyright (c) 1997 Ben Harrison, James E. Wilson, Robert A. Koeneke
+*               2012 Deskull
+*
+* This software may be copied and distributed for educational, research,
+* and not for profit purposes provided that this copyright and statement
+* are included in all such copies.  Other copyrights may also apply.
+*/
 
 /* Purpose: Object code, part 2 */
 
@@ -16,8 +16,8 @@
 
 
 /*
- * Excise a dungeon object from any stacks
- */
+* Excise a dungeon object from any stacks
+*/
 void excise_object_idx(int object_idx)
 {
 	object_type *object2_ptr;
@@ -99,10 +99,10 @@ void excise_object_idx(int object_idx)
 
 
 /*
- * Delete a dungeon object
- *
- * Handle "stacks" of objects correctly.
- */
+* Delete a dungeon object
+*
+* Handle "stacks" of objects correctly.
+*/
 void delete_object_idx(int object_idx)
 {
 	object_type *object2_ptr;
@@ -129,8 +129,8 @@ void delete_object_idx(int object_idx)
 
 
 /*
- * Deletes all objects at given location
- */
+* Deletes all objects at given location
+*/
 void delete_object(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
@@ -156,8 +156,8 @@ void delete_object(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Move an object from index i1 to index i2 in the object list
- */
+* Move an object from index i1 to index i2 in the object list
+*/
 static void compact_objects_aux(int i1, int i2)
 {
 	int i;
@@ -215,17 +215,17 @@ static void compact_objects_aux(int i1, int i2)
 
 
 /*
- * Compact and Reorder the object list
- *
- * This function can be very dangerous, use with caution!
- *
- * When actually "compacting" objects, we base the saving throw on a
- * combination of object level, distance from player, and current
- * "desperation".
- *
- * After "compacting" (if needed), we "reorder" the objects into a more
- * compact order, and we reset the allocation info, and the "live" array.
- */
+* Compact and Reorder the object list
+*
+* This function can be very dangerous, use with caution!
+*
+* When actually "compacting" objects, we base the saving throw on a
+* combination of object level, distance from player, and current
+* "desperation".
+*
+* After "compacting" (if needed), we "reorder" the objects into a more
+* compact order, and we reset the allocation info, and the "live" array.
+*/
 void compact_objects(int size)
 {
 	int i, y, x, num, cnt;
@@ -304,7 +304,7 @@ void compact_objects(int size)
 
 			/* Hack -- only compact artifacts in emergencies */
 			if((object_is_fixed_artifact(object_ptr) || object_ptr->art_name) &&
-			    (cnt < 1000)) chance = 100;
+				(cnt < 1000)) chance = 100;
 
 			/* Apply the saving throw */
 			if(randint0(100) < chance) continue;
@@ -336,23 +336,23 @@ void compact_objects(int size)
 
 
 /*
- * Delete all the items when player leaves the level
- *
- * Note -- we do NOT visually reflect these (irrelevant) changes
- *
- * Hack -- we clear the "c_ptr->object_idx" field for every grid,
- * and the "m_ptr->next_object_idx" field for every creature, since
- * we know we are clearing every object.  Technically, we only
- * clear those fields for grids/creatures containing objects,
- * and we clear it once for every such object.
- */
+* Delete all the items when player leaves the level
+*
+* Note -- we do NOT visually reflect these (irrelevant) changes
+*
+* Hack -- we clear the "c_ptr->object_idx" field for every grid,
+* and the "m_ptr->next_object_idx" field for every creature, since
+* we know we are clearing every object.  Technically, we only
+* clear those fields for grids/creatures containing objects,
+* and we clear it once for every such object.
+*/
 void wipe_object_list(int floor_id)
 {
 	int i;
 	floor_type *floor_ptr = &floor_list[floor_id];
 
 	object_wipe(&object_null);
-	
+
 	// Delete the existing objects
 	for (i = 1; i < object_max; i++)
 	{
@@ -403,11 +403,11 @@ void wipe_object_list(int floor_id)
 
 
 /*
- * Acquires and returns the index of a "free" object.
- *
- * This routine should almost never fail, but in case it does,
- * we must be sure to handle "failure" of this routine.
- */
+* Acquires and returns the index of a "free" object.
+*
+* This routine should almost never fail, but in case it does,
+* we must be sure to handle "failure" of this routine.
+*/
 s16b object_pop(void)
 {
 	int i;
@@ -459,8 +459,8 @@ s16b object_pop(void)
 
 
 /*
- * Apply a "object restriction function" to the "object allocation table"
- */
+* Apply a "object restriction function" to the "object allocation table"
+*/
 static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 {
 	int i;
@@ -492,20 +492,20 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 
 
 /*
- * Choose an object kind that seems "appropriate" to the given level
- *
- * This function uses the "prob2" field of the "object allocation table",
- * and various local information, to calculate the "prob3" field of the
- * same table, which is then used to choose an "appropriate" object, in
- * a relatively efficient manner.
- *
- * It is (slightly) more likely to acquire an object of the given level
- * than one of a lower level.  This is done by choosing several objects
- * appropriate to the given level and keeping the "hardest" one.
- *
- * Note that if no objects are "appropriate", then this function will
- * fail, and return zero, but this should *almost* never happen.
- */
+* Choose an object kind that seems "appropriate" to the given level
+*
+* This function uses the "prob2" field of the "object allocation table",
+* and various local information, to calculate the "prob3" field of the
+* same table, which is then used to choose an "appropriate" object, in
+* a relatively efficient manner.
+*
+* It is (slightly) more likely to acquire an object of the given level
+* than one of a lower level.  This is done by choosing several objects
+* appropriate to the given level and keeping the "hardest" one.
+*
+* Note that if no objects are "appropriate", then this function will
+* fail, and return zero, but this should *almost* never happen.
+*/
 s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 {
 	int             i, j, p;
@@ -629,20 +629,20 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 
 
 /*
- * Known is true when the "attributes" of an object are "known".
- * These include tohit, todam, toac, cost, and pval (charges).
- *
- * Note that "knowing" an object gives you everything that an "awareness"
- * gives you, and much more.  In fact, the player is always "aware" of any
- * item of which he has full "knowledge".
- *
- * But having full knowledge of, say, one "wand of wonder", does not, by
- * itself, give you knowledge, or even awareness, of other "wands of wonder".
- * It happens that most "identify" routines (including "buying from a shop")
- * will make the player "aware" of the object as well as fully "know" it.
- *
- * This routine also removes any inscriptions generated by "feelings".
- */
+* Known is true when the "attributes" of an object are "known".
+* These include tohit, todam, toac, cost, and pval (charges).
+*
+* Note that "knowing" an object gives you everything that an "awareness"
+* gives you, and much more.  In fact, the player is always "aware" of any
+* item of which he has full "knowledge".
+*
+* But having full knowledge of, say, one "wand of wonder", does not, by
+* itself, give you knowledge, or even awareness, of other "wands of wonder".
+* It happens that most "identify" routines (including "buying from a shop")
+* will make the player "aware" of the object as well as fully "know" it.
+*
+* This routine also removes any inscriptions generated by "feelings".
+*/
 void object_known(object_type *object_ptr)
 {
 	/* Remove "default inscriptions" */
@@ -660,8 +660,8 @@ void object_known(object_type *object_ptr)
 
 
 /*
- * The player is now aware of the effects of the given object.
- */
+* The player is now aware of the effects of the given object.
+*/
 void object_aware(object_type *object_ptr)
 {
 	bool mihanmei = !object_is_aware(object_ptr);
@@ -670,7 +670,7 @@ void object_aware(object_type *object_ptr)
 	object_kind_info[object_ptr->k_idx].aware = TRUE;
 
 	if(mihanmei && !has_trait_object(object_ptr, TRAIT_INSTA_ART) && record_ident &&
-	   !gameover && ((object_ptr->tval >= TV_AMULET && object_ptr->tval <= TV_POTION) || (object_ptr->tval == TV_FOOD)))
+		!gameover && ((object_ptr->tval >= TV_AMULET && object_ptr->tval <= TV_POTION) || (object_ptr->tval == TV_FOOD)))
 	{
 		object_type forge;
 		object_type *quest_ptr;
@@ -681,15 +681,15 @@ void object_aware(object_type *object_ptr)
 
 		quest_ptr->number = 1;
 		object_desc(object_name, quest_ptr, OD_NAME_ONLY);
-		
+
 		do_cmd_write_nikki(DIARY_HANMEI, 0, object_name);
 	}
 }
 
 
 /*
- * Something has been "sampled"
- */
+* Something has been "sampled"
+*/
 void object_tried(object_type *object_ptr)
 {
 	/* Mark it as tried (even if "aware") */
@@ -698,9 +698,9 @@ void object_tried(object_type *object_ptr)
 
 
 /*
- * Return the "value" of an "unknown" item
- * Make a guess at the value of non-aware items
- */
+* Return the "value" of an "unknown" item
+* Make a guess at the value of non-aware items
+*/
 static s32b object_value_base(object_type *object_ptr)
 {
 	/* Aware item -- use template cost */
@@ -711,31 +711,31 @@ static s32b object_value_base(object_type *object_ptr)
 	{
 
 		/* Un-aware Food */
-		case TV_FOOD: return (5L);
+	case TV_FOOD: return (5L);
 
 		/* Un-aware Potions */
-		case TV_POTION: return (20L);
+	case TV_POTION: return (20L);
 
 		/* Un-aware Scrolls */
-		case TV_SCROLL: return (20L);
+	case TV_SCROLL: return (20L);
 
 		/* Un-aware Staffs */
-		case TV_STAFF: return (70L);
+	case TV_STAFF: return (70L);
 
 		/* Un-aware Wands */
-		case TV_WAND: return (50L);
+	case TV_WAND: return (50L);
 
 		/* Un-aware Rods */
-		case TV_ROD: return (90L);
+	case TV_ROD: return (90L);
 
 		/* Un-aware Rings */
-		case TV_RING: return (45L);
+	case TV_RING: return (45L);
 
 		/* Un-aware Amulets */
-		case TV_AMULET: return (45L);
+	case TV_AMULET: return (45L);
 
 		/* Figurines, relative to creature level */
-		case TV_FIGURINE:
+	case TV_FIGURINE:
 		{
 			int level = species_info[object_ptr->pval].level;
 			if(level < 20) return level*50L;
@@ -745,9 +745,9 @@ static s32b object_value_base(object_type *object_ptr)
 			else return 14000+(level-50)*2000L;
 		}
 
-		case TV_CAPTURE:
-			if(!object_ptr->pval) return 1000L;
-			else return ((species_info[object_ptr->pval].level) * 50L + 1000);
+	case TV_CAPTURE:
+		if(!object_ptr->pval) return 1000L;
+		else return ((species_info[object_ptr->pval].level) * 50L + 1000);
 	}
 
 	/* Paranoia -- Oops */
@@ -768,9 +768,9 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 	object_flags(object_ptr, flgs);
 
 	/*
-	 * Exclude fixed flags of the base item.
-	 * pval bonuses of base item will be treated later.
-	 */
+	* Exclude fixed flags of the base item.
+	* pval bonuses of base item will be treated later.
+	*/
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
 		flgs[i] &= ~(object_kind_ptr->flags[i]);
 
@@ -794,8 +794,8 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 
 
 	/*
-	 * Calucurate values of remaining flags
-	 */
+	* Calucurate values of remaining flags
+	*/
 	if(have_flag(flgs, STAT_STR)) total += (1500 * plusses);
 	if(have_flag(flgs, STAT_INT)) total += (1500 * plusses);
 	if(have_flag(flgs, STAT_WIS)) total += (1500 * plusses);
@@ -1020,26 +1020,26 @@ s32b flag_cost(object_type *object_ptr, int plusses)
 
 
 /*
- * Return the "real" price of a "known" item, not including discounts
- *
- * Wand and staffs get cost for each charge
- *
- * Armor is worth an extra 100 gold per bonus point to armor class.
- *
- * Weapons are worth an extra 100 gold per bonus point (AC,TH,TD).
- *
- * Missiles are only worth 5 gold per bonus point, since they
- * usually appear in groups of 20, and we want the player to get
- * the same amount of cash for any "equivalent" item.  Note that
- * missiles never have any of the "pval" flags, and in fact, they
- * only have a few of the available flags, primarily of the "slay"
- * and "brand" and "ignore" variety.
- *
- * Armor with a negative armor bonus is worthless.
- * Weapons with negative hit+damage bonuses are worthless.
- *
- * Every wearable item with a "pval" bonus is worth extra (see below).
- */
+* Return the "real" price of a "known" item, not including discounts
+*
+* Wand and staffs get cost for each charge
+*
+* Armor is worth an extra 100 gold per bonus point to armor class.
+*
+* Weapons are worth an extra 100 gold per bonus point (AC,TH,TD).
+*
+* Missiles are only worth 5 gold per bonus point, since they
+* usually appear in groups of 20, and we want the player to get
+* the same amount of cash for any "equivalent" item.  Note that
+* missiles never have any of the "pval" flags, and in fact, they
+* only have a few of the available flags, primarily of the "slay"
+* and "brand" and "ignore" variety.
+*
+* Armor with a negative armor bonus is worthless.
+* Weapons with negative hit+damage bonuses are worthless.
+*
+* Every wearable item with a "pval" bonus is worth extra (see below).
+*/
 s32b object_value_real(object_type *object_ptr)
 {
 	s32b value;
@@ -1157,21 +1157,21 @@ s32b object_value_real(object_type *object_ptr)
 	switch (object_ptr->tval)
 	{
 		/* Wands/Staffs */
-		case TV_WAND:
+	case TV_WAND:
 		{
 			/* Pay extra for charges, depending on standard number of
-			 * charges.  Handle new-style wands correctly. -LM-
-			 */
+			* charges.  Handle new-style wands correctly. -LM-
+			*/
 			value += (value * object_ptr->pval / object_ptr->number / (object_kind_ptr->pval * 2));
 
 			/* Done */
 			break;
 		}
-		case TV_STAFF:
+	case TV_STAFF:
 		{
 			/* Pay extra for charges, depending on standard number of
-			 * charges.  -LM-
-			 */
+			* charges.  -LM-
+			*/
 			value += (value * object_ptr->pval / (object_kind_ptr->pval * 2));
 
 			/* Done */
@@ -1179,8 +1179,8 @@ s32b object_value_real(object_type *object_ptr)
 		}
 
 		/* Rings/Amulets */
-		case TV_RING:
-		case TV_AMULET:
+	case TV_RING:
+	case TV_AMULET:
 		{
 			/* Hack -- negative bonuses are bad */
 			if(object_ptr->to_hit + object_ptr->to_damage + object_ptr->to_ac < 0) return (0L);
@@ -1193,15 +1193,15 @@ s32b object_value_real(object_type *object_ptr)
 		}
 
 		/* Armor */
-		case TV_BOOTS:
-		case TV_GLOVES:
-		case TV_CLOAK:
-		case TV_CROWN:
-		case TV_HELM:
-		case TV_SHIELD:
-		case TV_SOFT_ARMOR:
-		case TV_HARD_ARMOR:
-		case TV_DRAG_ARMOR:
+	case TV_BOOTS:
+	case TV_GLOVES:
+	case TV_CLOAK:
+	case TV_CROWN:
+	case TV_HELM:
+	case TV_SHIELD:
+	case TV_SOFT_ARMOR:
+	case TV_HARD_ARMOR:
+	case TV_DRAG_ARMOR:
 		{
 			/* Hack -- negative armor bonus */
 			if(object_ptr->to_ac < 0) return (0L);
@@ -1214,11 +1214,11 @@ s32b object_value_real(object_type *object_ptr)
 		}
 
 		/* Bows/Weapons */
-		case TV_BOW:
-		case TV_DIGGING:
-		case TV_HAFTED:
-		case TV_SWORD:
-		case TV_POLEARM:
+	case TV_BOW:
+	case TV_DIGGING:
+	case TV_HAFTED:
+	case TV_SWORD:
+	case TV_POLEARM:
 		{
 			/* Hack -- negative hit/damage bonuses */
 			if(object_ptr->to_hit + object_ptr->to_damage < 0) return (0L);
@@ -1235,9 +1235,9 @@ s32b object_value_real(object_type *object_ptr)
 		}
 
 		/* Ammo */
-		case TV_SHOT:
-		case TV_ARROW:
-		case TV_BOLT:
+	case TV_SHOT:
+	case TV_ARROW:
+	case TV_BOLT:
 		{
 			/* Hack -- negative hit/damage bonuses */
 			if(object_ptr->to_hit + object_ptr->to_damage < 0) return (0L);
@@ -1254,7 +1254,7 @@ s32b object_value_real(object_type *object_ptr)
 		}
 
 		/* Figurines, relative to creature level */
-		case TV_FIGURINE:
+	case TV_FIGURINE:
 		{
 			int level = species_info[object_ptr->pval].level;
 			if(level < 20) value = level*50L;
@@ -1265,14 +1265,14 @@ s32b object_value_real(object_type *object_ptr)
 			break;
 		}
 
-		case TV_CAPTURE:
+	case TV_CAPTURE:
 		{
 			if(!object_ptr->pval) value = 1000L;
 			else value = ((species_info[object_ptr->pval].level) * 50L + 1000);
 			break;
 		}
 
-		case TV_CHEST:
+	case TV_CHEST:
 		{
 			if(!object_ptr->pval) value = 0L;
 			break;
@@ -1288,16 +1288,16 @@ s32b object_value_real(object_type *object_ptr)
 
 
 /*
- * Return the price of an item including plusses (and charges)
- *
- * This function returns the "value" of the given item (qty one)
- *
- * Never notice "unknown" bonuses or properties, including "curses",
- * since that would give the player information he did not have.
- *
- * Note that discounted items stay discounted forever, even if
- * the discount is "forgotten" by the player via memory loss.
- */
+* Return the price of an item including plusses (and charges)
+*
+* This function returns the "value" of the given item (qty one)
+*
+* Never notice "unknown" bonuses or properties, including "curses",
+* since that would give the player information he did not have.
+*
+* Note that discounted items stay discounted forever, even if
+* the discount is "forgotten" by the player via memory loss.
+*/
 s32b object_value(object_type *object_ptr)
 {
 	s32b value;
@@ -1340,8 +1340,8 @@ s32b object_value(object_type *object_ptr)
 
 
 /*
- * Determines whether an object can be destroyed, and makes fake inscription.
- */
+* Determines whether an object can be destroyed, and makes fake inscription.
+*/
 bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_ptr)
 {
 	/* Artifacts cannot be destroyed */
@@ -1377,29 +1377,29 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 
 
 /*
- * Distribute charges of rods or wands.
- *
- * object_ptr = source item
- * quest_ptr = target item, must be of the same type as object_ptr
- * amt   = number of items that are transfered
- */
+* Distribute charges of rods or wands.
+*
+* object_ptr = source item
+* quest_ptr = target item, must be of the same type as object_ptr
+* amt   = number of items that are transfered
+*/
 void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt)
 {
 	/*
-	 * Hack -- If rods or wands are dropped, the total maximum timeout or
-	 * charges need to be allocated between the two stacks.  If all the items
-	 * are being dropped, it makes for a neater message to leave the original
-	 * stack's pval alone. -LM-
-	 */
+	* Hack -- If rods or wands are dropped, the total maximum timeout or
+	* charges need to be allocated between the two stacks.  If all the items
+	* are being dropped, it makes for a neater message to leave the original
+	* stack's pval alone. -LM-
+	*/
 	if((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr))
 	{
 		quest_ptr->pval = object_ptr->pval * amt / object_ptr->number;
 		if(amt < object_ptr->number) object_ptr->pval -= quest_ptr->pval;
 
 		/* Hack -- Rods also need to have their timeouts distributed.  The
-		 * dropped stack will accept all time remaining to charge up to its
-		 * maximum.
-		 */
+		* dropped stack will accept all time remaining to charge up to its
+		* maximum.
+		*/
 		if(IS_ROD(object_ptr) && (object_ptr->timeout))
 		{
 			if(quest_ptr->pval > object_ptr->timeout)
@@ -1415,10 +1415,10 @@ void distribute_charges(object_type *object_ptr, object_type *quest_ptr, int amt
 void reduce_charges(object_type *object_ptr, int amt)
 {
 	/*
-	 * Hack -- If rods or wand are destroyed, the total maximum timeout or
-	 * charges of the stack needs to be reduced, unless all the items are
-	 * being destroyed. -LM-
-	 */
+	* Hack -- If rods or wand are destroyed, the total maximum timeout or
+	* charges of the stack needs to be reduced, unless all the items are
+	* being destroyed. -LM-
+	*/
 	if(((object_ptr->tval == TV_WAND) || IS_ROD(object_ptr)) &&
 		(amt < object_ptr->number))
 	{
@@ -1428,25 +1428,25 @@ void reduce_charges(object_type *object_ptr, int amt)
 
 
 /*
- * Determine if an item can "absorb" a second item
- *
- * See "object_absorb()" for the actual "absorption" code.
- *
- * If permitted, we allow staffs (if they are known to have equal charges
- * and both are either known or confirmed empty) and wands (if both are
- * either known or confirmed empty) and rods (in all cases) to combine.
- * Staffs will unstack (if necessary) when they are used, but wands and
- * rods will only unstack if one is dropped. -LM-
- *
- * If permitted, we allow weapons/armor to stack, if fully "known".
- *
- * Missiles will combine if both stacks have the same "known" status.
- * This is done to make unidentified stacks of missiles useful.
- *
- * Food, potions, scrolls, and "easy know" items always stack.
- *
- * Chests, and activatable items, never stack (for various reasons).
- */
+* Determine if an item can "absorb" a second item
+*
+* See "object_absorb()" for the actual "absorption" code.
+*
+* If permitted, we allow staffs (if they are known to have equal charges
+* and both are either known or confirmed empty) and wands (if both are
+* either known or confirmed empty) and rods (in all cases) to combine.
+* Staffs will unstack (if necessary) when they are used, but wands and
+* rods will only unstack if one is dropped. -LM-
+*
+* If permitted, we allow weapons/armor to stack, if fully "known".
+*
+* Missiles will combine if both stacks have the same "known" status.
+* This is done to make unidentified stacks of missiles useful.
+*
+* Food, potions, scrolls, and "easy know" items always stack.
+*
+* Chests, and activatable items, never stack (for various reasons).
+*/
 
 //  Determine if an item can partly absorb a second item.
 //  Return maximum number of stack.
@@ -1467,63 +1467,63 @@ int object_similar_part(object_type *object1_ptr, object_type *object2_ptr)
 	/* Analyze the items */
 	switch (object1_ptr->tval)
 	{
-		case TV_CHEST:
-		case TV_CARD:
-		case TV_WHEEL:
-		case TV_CAPTURE:
-			return 0; // Never okay
+	case TV_CHEST:
+	case TV_CARD:
+	case TV_WHEEL:
+	case TV_CAPTURE:
+		return 0; // Never okay
 
-		case TV_STATUE:
-			if((object1_ptr->sval != SV_PHOTO) || (object2_ptr->sval != SV_PHOTO)) return 0;
-			if(object1_ptr->pval != object2_ptr->pval) return 0;
-			break;
+	case TV_STATUE:
+		if((object1_ptr->sval != SV_PHOTO) || (object2_ptr->sval != SV_PHOTO)) return 0;
+		if(object1_ptr->pval != object2_ptr->pval) return 0;
+		break;
 
-		case TV_FIGURINE:
-		case TV_CORPSE:
-			if(object1_ptr->pval != object2_ptr->pval) return 0;
-			break;
+	case TV_FIGURINE:
+	case TV_CORPSE:
+		if(object1_ptr->pval != object2_ptr->pval) return 0;
+		break;
 
-		case TV_FOOD:
-		case TV_POTION:
-		case TV_SCROLL:
-			break;
+	case TV_FOOD:
+	case TV_POTION:
+	case TV_SCROLL:
+		break;
 
-		case TV_STAFF:
-			// Require either knowledge or known empty for both staffs.
-			if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
-				(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
+	case TV_STAFF:
+		// Require either knowledge or known empty for both staffs.
+		if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
+			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
 
-			// Require identical charges, since staffs are bulky.
-			if(object1_ptr->pval != object2_ptr->pval) return 0;
+		// Require identical charges, since staffs are bulky.
+		if(object1_ptr->pval != object2_ptr->pval) return 0;
 
-			break;
+		break;
 
-		case TV_WAND: // Require either knowledge or known empty for both wands.
-			if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
-				(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
-			break;
-		
-		case TV_ROD: // Staffs and Wands and Rods
-			max_num = MIN(max_num, MAX_SHORT / object_kind_info[object1_ptr->k_idx].pval);
-			break;
+	case TV_WAND: // Require either knowledge or known empty for both wands.
+		if((!(object1_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object1_ptr)) ||
+			(!(object2_ptr->ident & (IDENT_EMPTY)) && !object_is_known(object2_ptr))) return 0;
+		break;
 
-		case TV_BOW:
-		case TV_DIGGING:
-		case TV_HAFTED:
-		case TV_POLEARM:
-		case TV_SWORD:
-		case TV_RING:
-		case TV_AMULET:
-		case TV_LITE:
-		case TV_WHISTLE:
-		case TV_BOLT:
-		case TV_ARROW:
-		case TV_SHOT:
-			return 0;
-		
-		default: // Various
-			if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
-			break;
+	case TV_ROD: // Staffs and Wands and Rods
+		max_num = MIN(max_num, MAX_SHORT / object_kind_info[object1_ptr->k_idx].pval);
+		break;
+
+	case TV_BOW:
+	case TV_DIGGING:
+	case TV_HAFTED:
+	case TV_POLEARM:
+	case TV_SWORD:
+	case TV_RING:
+	case TV_AMULET:
+	case TV_LITE:
+	case TV_WHISTLE:
+	case TV_BOLT:
+	case TV_ARROW:
+	case TV_SHOT:
+		return 0;
+
+	default: // Various
+		if(!object_is_known(object1_ptr) || !object_is_known(object2_ptr)) return 0;
+		break;
 	}
 
 	// Hack -- Identical trait_flags!
@@ -1575,7 +1575,7 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 
 	/* Hack -- clear "storebought" if only one has it */
 	if(((object1_ptr->ident & IDENT_STORE) || (object2_ptr->ident & IDENT_STORE)) &&
-	    (!((object1_ptr->ident & IDENT_STORE) && (object2_ptr->ident & IDENT_STORE))))
+		(!((object1_ptr->ident & IDENT_STORE) && (object2_ptr->ident & IDENT_STORE))))
 	{
 		if(object2_ptr->ident & IDENT_STORE) object2_ptr->ident &= 0xEF;
 		if(object1_ptr->ident & IDENT_STORE) object1_ptr->ident &= 0xEF;
@@ -1608,8 +1608,8 @@ void object_absorb(object_type *object1_ptr, object_type *object2_ptr)
 
 
 /*
- * Find the index of the object_kind with the given tval and sval
- */
+* Find the index of the object_kind with the given tval and sval
+*/
 s16b lookup_kind(int tval, int sval)
 {
 	int k;
@@ -1625,7 +1625,7 @@ s16b lookup_kind(int tval, int sval)
 		if(object_kind_ptr->sval == sval) return (k);	// Found a match
 		if(sval != SV_ANY) continue;			// Ignore illegal items
 		if(!one_in_(++num)) continue;			// Apply the randomizer
-	
+
 		bk = k;	// Use this value
 	}
 
@@ -1707,51 +1707,51 @@ void object_prep(object_type *object_ptr, int k_idx, int size)
 	if(have_flag(object_kind_ptr->flags, TRAIT_RANDOM_CURSE2)) object_ptr->curse_flags[0] |= get_curse(2, object_ptr);
 
 	if(((object_ptr->tval == TV_CLOAK)      && (object_ptr->sval == SV_ELVEN_CLOAK)) ||
-	    ((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_KUROSHOUZOKU)))
-		  object_ptr->pval = (s16b)randint1(4);
+		((object_ptr->tval == TV_SOFT_ARMOR) && (object_ptr->sval == SV_KUROSHOUZOKU)))
+		object_ptr->pval = (s16b)randint1(4);
 
 }
 
 
 /*
- * Help determine an "enchantment bonus" for an object.
- *
- * To avoid floating point but still provide a smooth distribution of bonuses,
- * we simply round the results of division in such a way as to "average" the
- * correct floating point value.
- *
- * This function has been changed.  It uses "randnor()" to choose values from
- * a normal distribution, whose mean moves from zero towards the max as the
- * level increases, and whose standard deviation is equal to 1/4 of the max,
- * and whose values are forced to lie between zero and the max, inclusive.
- *
- * Since the "level" rarely passes 100 before Morgoth is dead, it is very
- * rare to get the "full" enchantment on an object, even a deep levels.
- *
- * It is always possible (albeit unlikely) to get the "full" enchantment.
- *
- * A sample distribution of values from "m_bonus(10, N)" is shown below:
- *
- *   N       0     1     2     3     4     5     6     7     8     9    10
- * ---    ----  ----  ----  ----  ----  ----  ----  ----  ----  ----  ----
- *   0   66.37 13.01  9.73  5.47  2.89  1.31  0.72  0.26  0.12  0.09  0.03
- *   8   46.85 24.66 12.13  8.13  4.20  2.30  1.05  0.36  0.19  0.08  0.05
- *  16   30.12 27.62 18.52 10.52  6.34  3.52  1.95  0.90  0.31  0.15  0.05
- *  24   22.44 15.62 30.14 12.92  8.55  5.30  2.39  1.63  0.62  0.28  0.11
- *  32   16.23 11.43 23.01 22.31 11.19  7.18  4.46  2.13  1.20  0.45  0.41
- *  40   10.76  8.91 12.80 29.51 16.00  9.69  5.90  3.43  1.47  0.88  0.65
- *  48    7.28  6.81 10.51 18.27 27.57 11.76  7.85  4.99  2.80  1.22  0.94
- *  56    4.41  4.73  8.52 11.96 24.94 19.78 11.06  7.18  3.68  1.96  1.78
- *  64    2.81  3.07  5.65  9.17 13.01 31.57 13.70  9.30  6.04  3.04  2.64
- *  72    1.87  1.99  3.68  7.15 10.56 20.24 25.78 12.17  7.52  4.42  4.62
- *  80    1.02  1.23  2.78  4.75  8.37 12.04 27.61 18.07 10.28  6.52  7.33
- *  88    0.70  0.57  1.56  3.12  6.34 10.06 15.76 30.46 12.58  8.47 10.38
- *  96    0.27  0.60  1.25  2.28  4.30  7.60 10.77 22.52 22.51 11.37 16.53
- * 104    0.22  0.42  0.77  1.36  2.62  5.33  8.93 13.05 29.54 15.23 22.53
- * 112    0.15  0.20  0.56  0.87  2.00  3.83  6.86 10.06 17.89 27.31 30.27
- * 120    0.03  0.11  0.31  0.46  1.31  2.48  4.60  7.78 11.67 25.53 45.72
- * 128    0.02  0.01  0.13  0.33  0.83  1.41  3.24  6.17  9.57 14.22 64.07
- */
+* Help determine an "enchantment bonus" for an object.
+*
+* To avoid floating point but still provide a smooth distribution of bonuses,
+* we simply round the results of division in such a way as to "average" the
+* correct floating point value.
+*
+* This function has been changed.  It uses "randnor()" to choose values from
+* a normal distribution, whose mean moves from zero towards the max as the
+* level increases, and whose standard deviation is equal to 1/4 of the max,
+* and whose values are forced to lie between zero and the max, inclusive.
+*
+* Since the "level" rarely passes 100 before Morgoth is dead, it is very
+* rare to get the "full" enchantment on an object, even a deep levels.
+*
+* It is always possible (albeit unlikely) to get the "full" enchantment.
+*
+* A sample distribution of values from "m_bonus(10, N)" is shown below:
+*
+*   N       0     1     2     3     4     5     6     7     8     9    10
+* ---    ----  ----  ----  ----  ----  ----  ----  ----  ----  ----  ----
+*   0   66.37 13.01  9.73  5.47  2.89  1.31  0.72  0.26  0.12  0.09  0.03
+*   8   46.85 24.66 12.13  8.13  4.20  2.30  1.05  0.36  0.19  0.08  0.05
+*  16   30.12 27.62 18.52 10.52  6.34  3.52  1.95  0.90  0.31  0.15  0.05
+*  24   22.44 15.62 30.14 12.92  8.55  5.30  2.39  1.63  0.62  0.28  0.11
+*  32   16.23 11.43 23.01 22.31 11.19  7.18  4.46  2.13  1.20  0.45  0.41
+*  40   10.76  8.91 12.80 29.51 16.00  9.69  5.90  3.43  1.47  0.88  0.65
+*  48    7.28  6.81 10.51 18.27 27.57 11.76  7.85  4.99  2.80  1.22  0.94
+*  56    4.41  4.73  8.52 11.96 24.94 19.78 11.06  7.18  3.68  1.96  1.78
+*  64    2.81  3.07  5.65  9.17 13.01 31.57 13.70  9.30  6.04  3.04  2.64
+*  72    1.87  1.99  3.68  7.15 10.56 20.24 25.78 12.17  7.52  4.42  4.62
+*  80    1.02  1.23  2.78  4.75  8.37 12.04 27.61 18.07 10.28  6.52  7.33
+*  88    0.70  0.57  1.56  3.12  6.34 10.06 15.76 30.46 12.58  8.47 10.38
+*  96    0.27  0.60  1.25  2.28  4.30  7.60 10.77 22.52 22.51 11.37 16.53
+* 104    0.22  0.42  0.77  1.36  2.62  5.33  8.93 13.05 29.54 15.23 22.53
+* 112    0.15  0.20  0.56  0.87  2.00  3.83  6.86 10.06 17.89 27.31 30.27
+* 120    0.03  0.11  0.31  0.46  1.31  2.48  4.60  7.78 11.67 25.53 45.72
+* 128    0.02  0.01  0.13  0.33  0.83  1.41  3.24  6.17  9.57 14.22 64.07
+*/
 s16b m_bonus(int max, int level)
 {
 	int bonus, stand, extra, value;
@@ -1766,7 +1766,7 @@ s16b m_bonus(int max, int level)
 	extra = (max % 4);		// Hack -- determine fraction of error
 
 	if(randint0(4) < extra) stand++;	// Hack -- simulate floating point computations
-	
+
 	value = randnor(bonus, stand);		// Choose an "interesting" value
 	if(value < 0) return (0);			// Enforce the minimum value
 	if(value > max) return (max);		// Enforce the maximum value
@@ -1781,15 +1781,15 @@ static void object_mention(object_type *object_ptr)
 	object_desc(object_name, object_ptr, (OD_NAME_ONLY | OD_STORE)); // Describe
 
 #ifdef JP
-		if(object_is_fixed_artifact(object_ptr)) msg_format("伝説のアイテム (%s)", object_name);
-		else if(object_is_fixed_artifact(object_ptr)) msg_print("ランダム・アーティファクト");
-		else if(object_is_ego(object_ptr)) msg_format("名のあるアイテム (%s)", object_name);
-		else msg_format("アイテム (%s)", object_name);
+	if(object_is_fixed_artifact(object_ptr)) msg_format("伝説のアイテム (%s)", object_name);
+	else if(object_is_fixed_artifact(object_ptr)) msg_print("ランダム・アーティファクト");
+	else if(object_is_ego(object_ptr)) msg_format("名のあるアイテム (%s)", object_name);
+	else msg_format("アイテム (%s)", object_name);
 #else
-		if(object_is_fixed_artifact(object_ptr)) msg_format("Artifact (%s)", object_name);
-		else if(object_is_fixed_artifact(object_ptr)) msg_print("Random artifact");
-		else if(object_is_ego(object_ptr)) msg_format("Ego-item (%s)", object_name);
-		else msg_format("Object (%s)", object_name);
+	if(object_is_fixed_artifact(object_ptr)) msg_format("Artifact (%s)", object_name);
+	else if(object_is_fixed_artifact(object_ptr)) msg_print("Random artifact");
+	else if(object_is_ego(object_ptr)) msg_format("Ego-item (%s)", object_name);
+	else msg_format("Object (%s)", object_name);
 #endif
 }
 
@@ -1878,7 +1878,7 @@ static bool judge_fixed_artifact(creature_type *owner_ptr, object_type *object_p
 			if(!one_in_(d)) continue;
 		}
 		if(!one_in_(a_ptr->rarity)) continue; // We must make the "rarity roll"
-		
+
 		object_ptr->name1 = i; // Hack -- mark the item as an artifact
 		random_artifact_resistance(owner_ptr, object_ptr, a_ptr); // Hack: Some artifacts get random extra powers
 		return TRUE; // Success
@@ -1893,7 +1893,7 @@ static s16b get_random_ego(u16b slot, bool good)
 	ego_item_type *e_ptr;
 
 	long total = 0L;
-	
+
 	for (i = 1; i < max_object_ego_idx; i++)
 	{
 		e_ptr = &object_ego_info[i];
@@ -1996,14 +1996,14 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 	/* Apply magic (good or bad) according to type */
 	switch (object_ptr->tval)
 	{
-		case TV_RING:
+	case TV_RING:
 		{
 			/* Analyze */
 			switch (object_ptr->sval)
 			{
-				case SV_RING_ATTACKS: // Stat bonus
+			case SV_RING_ATTACKS: // Stat bonus
 				{
-					
+
 					object_ptr->pval = m_bonus(2, level);
 					if(one_in_(15)) object_ptr->pval++;
 					if(object_ptr->pval < 1) object_ptr->pval = 1;
@@ -2183,7 +2183,7 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 			break;
 		}
 
-		case TV_AMULET:
+	case TV_AMULET:
 		{
 
 			if((one_in_(150) && (power > 0) && !object_is_cursed(object_ptr) && (level > 79)) || (power > 2)) /* power > 2 is debug only */
@@ -2256,8 +2256,8 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 
 
 /*
- * Hack -- help pick an item type
- */
+* Hack -- help pick an item type
+*/
 static bool item_creature_okay(int species_idx)
 {
 	species_type *r_ptr = &species_info[species_idx];
@@ -2276,10 +2276,10 @@ static bool item_creature_okay(int species_idx)
 
 
 /*
- * Apply magic to an item known to be "boring"
- *
- * Hack -- note the special code for various items
- */
+* Apply magic to an item known to be "boring"
+*
+* Hack -- note the special code for various items
+*/
 static void generate_other_magic_item(creature_type *creature_ptr, object_type *object_ptr, int level, int power)
 {
 	object_kind *object_kind_ptr = &object_kind_info[object_ptr->k_idx];
@@ -2291,7 +2291,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 	/* Apply magic (good or bad) according to type */
 	switch (object_ptr->tval)
 	{
-		case TV_WHISTLE:
+	case TV_WHISTLE:
 		{
 #if 0
 			/* Cursed */
@@ -2306,13 +2306,13 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 #endif
 			break;
 		}
-		case TV_FLASK:
+	case TV_FLASK:
 		{
 			object_ptr->xtra4 = object_ptr->pval;
 			object_ptr->pval = 0;
 			break;
 		}
-		case TV_LITE:
+	case TV_LITE:
 		{
 			/* Hack -- Torches -- random fuel */
 			if(object_ptr->sval == SV_LITE_TORCH)
@@ -2368,24 +2368,24 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			break;
 		}
 
-		case TV_WAND:
-		case TV_STAFF:
+	case TV_WAND:
+	case TV_STAFF:
 		{
 			/* The wand or staff gets a number of initial charges equal
-			 * to between 1/2 (+1) and the full object kind's pval. -LM-
-			 */
+			* to between 1/2 (+1) and the full object kind's pval. -LM-
+			*/
 			object_ptr->pval = object_kind_ptr->pval / 2 + (s16b)randint1((object_kind_ptr->pval + 1) / 2);
 			break;
 		}
 
-		case TV_ROD:
+	case TV_ROD:
 		{
 			/* Transfer the pval. -LM- */
 			object_ptr->pval = object_kind_ptr->pval;
 			break;
 		}
 
-		case TV_CAPTURE:
+	case TV_CAPTURE:
 		{
 			object_ptr->pval = 0;
 			object_aware(object_ptr);
@@ -2393,7 +2393,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			break;
 		}
 
-		case TV_FIGURINE:
+	case TV_FIGURINE:
 		{
 			int i = 1;
 			int check;
@@ -2437,14 +2437,14 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				msg_format("Figurine of %s, depth +%d%s",
 #endif
 
-							  species_name + r_ptr->name, check - 1,
-							  !object_is_cursed(object_ptr) ? "" : " {cursed}");
+					species_name + r_ptr->name, check - 1,
+					!object_is_cursed(object_ptr) ? "" : " {cursed}");
 			}
 
 			break;
 		}
 
-		case TV_CORPSE:
+	case TV_CORPSE:
 		{
 			int i = 1;
 			int check;
@@ -2492,7 +2492,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			break;
 		}
 
-		case TV_STATUE:
+	case TV_STATUE:
 		{
 			int i = 1;
 
@@ -2527,7 +2527,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			break;
 		}
 
-		case TV_CHEST:
+	case TV_CHEST:
 		{
 			byte obj_level = object_kind_info[object_ptr->k_idx].level;
 
@@ -2544,36 +2544,36 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 
 
 /*
- * Complete the "creation" of an object by applying "magic" to the item
- *
- * This includes not only rolling for random bonuses, but also putting the
- * finishing touches on ego-items and artifacts, giving charges to wands and
- * staffs, giving fuel to lites, and placing traps on chests.
- *
- * In particular, note that "Instant Artifacts", if "created" by an external
- * routine, must pass through this function to complete the actual creation.
- *
- * The base "chance" of the item being "good" increases with the "level"
- * parameter, which is usually derived from the dungeon level, being equal
- * to the level plus 10, up to a maximum of 75.  If "good" is true, then
- * the object is guaranteed to be "good".  If an object is "good", then
- * the chance that the object will be "great" (ego-item or artifact), also
- * increases with the "level", being equal to half the level, plus 5, up to
- * a maximum of 20.  If "great" is true, then the object is guaranteed to be
- * "great".  At dungeon level 65 and below, 15/100 objects are "great".
- *
- * If the object is not "good", there is a chance it will be "cursed", and
- * if it is "cursed", there is a chance it will be "broken".  These chances
- * are related to the "good" / "great" chances above.
- *
- * Otherwise "normal" rings and amulets will be "good" half the time and
- * "cursed" half the time, unless the ring/amulet is always good or cursed.
- *
- * If "okay" is true, and the object is going to be "great", then there is
- * a chance that an artifact will be created.  This is true even if both the
- * "good" and "great" arguments are false.  As a total hack, if "great" is
- * true, then the item gets 3 extra "attempts" to become an artifact.
- */
+* Complete the "creation" of an object by applying "magic" to the item
+*
+* This includes not only rolling for random bonuses, but also putting the
+* finishing touches on ego-items and artifacts, giving charges to wands and
+* staffs, giving fuel to lites, and placing traps on chests.
+*
+* In particular, note that "Instant Artifacts", if "created" by an external
+* routine, must pass through this function to complete the actual creation.
+*
+* The base "chance" of the item being "good" increases with the "level"
+* parameter, which is usually derived from the dungeon level, being equal
+* to the level plus 10, up to a maximum of 75.  If "good" is true, then
+* the object is guaranteed to be "good".  If an object is "good", then
+* the chance that the object will be "great" (ego-item or artifact), also
+* increases with the "level", being equal to half the level, plus 5, up to
+* a maximum of 20.  If "great" is true, then the object is guaranteed to be
+* "great".  At dungeon level 65 and below, 15/100 objects are "great".
+*
+* If the object is not "good", there is a chance it will be "cursed", and
+* if it is "cursed", there is a chance it will be "broken".  These chances
+* are related to the "good" / "great" chances above.
+*
+* Otherwise "normal" rings and amulets will be "good" half the time and
+* "cursed" half the time, unless the ring/amulet is always good or cursed.
+*
+* If "okay" is true, and the object is going to be "great", then there is
+* a chance that an artifact will be created.  This is true even if both the
+* "good" and "great" arguments are false.  As a total hack, if "great" is
+* true, then the item gets 3 extra "attempts" to become an artifact.
+*/
 void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32b mode, int specified_idx)
 {
 	int i, rolls, f1, f2, power;
@@ -2802,8 +2802,8 @@ void apply_magic_specified_ego(creature_type *owner_ptr, object_type *object_ptr
 
 
 /*
- * Hack -- determine if a template is "good"
- */
+* Hack -- determine if a template is "good"
+*/
 static bool kind_is_good(int k_idx)
 {
 	object_kind *object_kind_ptr = &object_kind_info[k_idx];
@@ -2812,26 +2812,26 @@ static bool kind_is_good(int k_idx)
 	switch (object_kind_ptr->tval)
 	{
 		/* Armor -- Good unless damaged */
-		case TV_HARD_ARMOR:
-		case TV_SOFT_ARMOR:
-		case TV_DRAG_ARMOR:
-		case TV_SHIELD:
-		case TV_CLOAK:
-		case TV_BOOTS:
-		case TV_GLOVES:
-		case TV_HELM:
-		case TV_CROWN:
+	case TV_HARD_ARMOR:
+	case TV_SOFT_ARMOR:
+	case TV_DRAG_ARMOR:
+	case TV_SHIELD:
+	case TV_CLOAK:
+	case TV_BOOTS:
+	case TV_GLOVES:
+	case TV_HELM:
+	case TV_CROWN:
 		{
 			if(object_kind_ptr->to_ac < 0) return FALSE;
 			return TRUE;
 		}
 
 		/* Weapons -- Good unless damaged */
-		case TV_BOW:
-		case TV_SWORD:
-		case TV_HAFTED:
-		case TV_POLEARM:
-		case TV_DIGGING:
+	case TV_BOW:
+	case TV_SWORD:
+	case TV_HAFTED:
+	case TV_POLEARM:
+	case TV_DIGGING:
 		{
 			if(object_kind_ptr->to_hit < 0) return FALSE;
 			if(object_kind_ptr->to_damage < 0) return FALSE;
@@ -2839,32 +2839,32 @@ static bool kind_is_good(int k_idx)
 		}
 
 		/* Ammo -- Arrows/Bolts are good */
-		case TV_BOLT:
-		case TV_ARROW:
+	case TV_BOLT:
+	case TV_ARROW:
 		{
 			return TRUE;
 		}
 
 		/* Books -- High level books are good (except Arcane books) */
-		case TV_LIFE_BOOK:
-		case TV_SORCERY_BOOK:
-		case TV_NATURE_BOOK:
-		case TV_CHAOS_BOOK:
-		case TV_DEATH_BOOK:
-		case TV_TRUMP_BOOK:
-		case TV_CRAFT_BOOK:
-		case TV_DAEMON_BOOK:
-		case TV_CRUSADE_BOOK:
-		case TV_MUSIC_BOOK:
-		case TV_HISSATSU_BOOK:
-		case TV_HEX_BOOK:
+	case TV_LIFE_BOOK:
+	case TV_SORCERY_BOOK:
+	case TV_NATURE_BOOK:
+	case TV_CHAOS_BOOK:
+	case TV_DEATH_BOOK:
+	case TV_TRUMP_BOOK:
+	case TV_CRAFT_BOOK:
+	case TV_DAEMON_BOOK:
+	case TV_CRUSADE_BOOK:
+	case TV_MUSIC_BOOK:
+	case TV_HISSATSU_BOOK:
+	case TV_HEX_BOOK:
 		{
 			if(object_kind_ptr->sval >= SV_BOOK_MIN_GOOD) return TRUE;
 			return FALSE;
 		}
 
 		/* Rings -- Rings of Speed are good */
-		case TV_RING:
+	case TV_RING:
 		{
 			if(object_kind_ptr->sval == SV_RING_SPEED) return TRUE;
 			if(object_kind_ptr->sval == SV_RING_LORDLY) return TRUE;
@@ -2872,7 +2872,7 @@ static bool kind_is_good(int k_idx)
 		}
 
 		/* Amulets -- Amulets of the Magi and Resistance are good */
-		case TV_AMULET:
+	case TV_AMULET:
 		{
 			if(object_kind_ptr->sval == SV_AMULET_THE_MAGI) return TRUE;
 			if(object_kind_ptr->sval == SV_AMULET_RESISTANCE) return TRUE;
@@ -2886,11 +2886,11 @@ static bool kind_is_good(int k_idx)
 
 
 /*
- * Attempt to make an object (normal or good/great)
- * This routine plays nasty games to generate the "special artifacts".
- * This routine uses "object_level" for the "generation level".
- * We assume that the given object has been "wiped".
- */
+* Attempt to make an object (normal or good/great)
+* This routine plays nasty games to generate the "special artifacts".
+* This routine uses "object_level" for the "generation level".
+* We assume that the given object has been "wiped".
+*/
 bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_level, bool (*get_obj_num_hook)(int k_idx))
 {
 	int prob, base;
@@ -2920,10 +2920,10 @@ bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_
 
 	switch (object2_ptr->tval) // Hack -- generate multiple spikes/missiles
 	{
-		case TV_SPIKE:
-		case TV_SHOT:
-		case TV_ARROW:
-		case TV_BOLT:
+	case TV_SPIKE:
+	case TV_SHOT:
+	case TV_ARROW:
+	case TV_BOLT:
 		{
 			if(!object2_ptr->name1)
 				object2_ptr->number = (byte)diceroll(6, 7);
@@ -2942,14 +2942,14 @@ bool make_object(object_type *object2_ptr, u32b mode, u32b gon_mode, int object_
 
 
 /*
- * Attempt to place an object (normal or good/great) at the given location.
- *
- * This routine plays nasty games to generate the "special artifacts".
- *
- * This routine uses "object_level" for the "generation level".
- *
- * This routine requires a clean floor grid destination.
- */
+* Attempt to place an object (normal or good/great) at the given location.
+*
+* This routine plays nasty games to generate the "special artifacts".
+*
+* This routine uses "object_level" for the "generation level".
+*
+* This routine requires a clean floor grid destination.
+*/
 void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj_num_hook)(int k_idx))
 {
 	s16b object_idx;
@@ -3049,10 +3049,10 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 
 
 /*
- * Places a treasure (Gold or Gems) at given location
- *
- * The location must be a legal, clean, floor grid.
- */
+* Places a treasure (Gold or Gems) at given location
+*
+* The location must be a legal, clean, floor grid.
+*/
 void place_gold(floor_type *floor_ptr, int y, int x)
 {
 	s16b object_idx;
@@ -3119,21 +3119,21 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Let an object fall to the ground at or near a location.
- *
- * The initial location is assumed to be "in_bounds()".
- *
- * This function takes a parameter "chance".  This is the percentage
- * chance that the item will "disappear" instead of drop.  If the object
- * has been thrown, then this is the chance of disappearance on contact.
- *
- * Hack -- this function uses "chance" to determine if it should produce
- * some form of "description" of the drop event (under the player).
- *
- * We check several locations to see if we can find a location at which
- * the object can combine, stack, or be placed.  Artifacts will try very
- * hard to be placed, including "teleporting" to a useful grid if needed.
- */
+* Let an object fall to the ground at or near a location.
+*
+* The initial location is assumed to be "in_bounds()".
+*
+* This function takes a parameter "chance".  This is the percentage
+* chance that the item will "disappear" instead of drop.  If the object
+* has been thrown, then this is the chance of disappearance on contact.
+*
+* Hack -- this function uses "chance" to determine if it should produce
+* some form of "description" of the drop event (under the player).
+*
+* We check several locations to see if we can find a location at which
+* the object can combine, stack, or be placed.  Artifacts will try very
+* hard to be placed, including "teleporting" to a useful grid if needed.
+*/
 s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int y, int x)
 {
 	int i, k, d, s;
@@ -3165,13 +3165,13 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	{
 		if(creature_can_see_bold(player_ptr, y, x))
 		{
-/* TODO
-#ifdef JP
-		msg_format("%sは壊れて使い物にならなくなった", object_name);
-#else
-		msg_format("The %s was broken and become%s useless.", object_name, (plural ? "" : "s"));
-#endif
-*/
+			/* TODO
+			#ifdef JP
+			msg_format("%sは壊れて使い物にならなくなった", object_name);
+			#else
+			msg_format("The %s was broken and become%s useless.", object_name, (plural ? "" : "s"));
+			#endif
+			*/
 		}
 		return (0); // Failure
 	}
@@ -3187,7 +3187,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 	by = y;
 	bx = x;
 
-	
+
 	for (dy = -3; dy <= 3; dy++) // Scan local grids
 	{
 		for (dx = -3; dx <= 3; dx++) // Scan local grids
@@ -3431,8 +3431,8 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 
 
 /*
- * Scatter some "great" objects near the player
- */
+* Scatter some "great" objects near the player
+*/
 void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, bool known)
 {
 	object_type *i_ptr;
@@ -3469,8 +3469,8 @@ void acquirement(floor_type *floor_ptr, int y1, int x1, int num, bool great, boo
 static s16b normal_traps[MAX_NORMAL_TRAPS];
 
 /*
- * Initialize arrays for normal traps
- */
+* Initialize arrays for normal traps
+*/
 void init_normal_traps(void)
 {
 	int cur_trap = 0;
@@ -3496,13 +3496,13 @@ void init_normal_traps(void)
 }
 
 /*
- * Get random trap
- *
- * XXX XXX XXX This routine should be redone to reflect trap "level".
- * That is, it does not make sense to have spiked pits at 50 feet.
- * Actually, it is not this routine, but the "trap instantiation"
- * code, which should also check for "trap doors" on quest levels.
- */
+* Get random trap
+*
+* XXX XXX XXX This routine should be redone to reflect trap "level".
+* That is, it does not make sense to have spiked pits at 50 feet.
+* Actually, it is not this routine, but the "trap instantiation"
+* code, which should also check for "trap doors" on quest levels.
+*/
 s16b choose_random_trap(floor_type *floor_ptr)
 {
 	s16b feat;
@@ -3553,14 +3553,14 @@ void disclose_grid(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Places a random trap at the given location.
- *
- * The location must be a legal, naked, floor grid.
- *
- * Note that all traps start out as "invisible" and "untyped", and then
- * when they are "discovered" (by detecting them or setting them off),
- * the trap is "instantiated" as a visible, "typed", trap.
- */
+* Places a random trap at the given location.
+*
+* The location must be a legal, naked, floor grid.
+*
+* Note that all traps start out as "invisible" and "untyped", and then
+* when they are "discovered" (by detecting them or setting them off),
+* the trap is "instantiated" as a visible, "typed", trap.
+*/
 void place_trap(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
@@ -3578,8 +3578,8 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 
 
 /*
- * Describe the charges on an item in the creature_ptr->inventory.
- */
+* Describe the charges on an item in the creature_ptr->inventory.
+*/
 void inven_item_charges(creature_type *creature_ptr, int item)
 {
 	object_type *object_ptr = &creature_ptr->inventory[item];
@@ -3690,8 +3690,8 @@ void floor_item_charges(int item)
 
 
 /*
- * Describe an item in the creature_ptr->inventory.
- */
+* Describe an item in the creature_ptr->inventory.
+*/
 void floor_item_describe(creature_type *creature_type, int item)
 {
 	object_type *object_ptr = &object_list[item];
@@ -3734,8 +3734,8 @@ void floor_item_optimize(int item)
 
 
 /*
- * Check if we have space for an item in the pack without overflow
- */
+* Check if we have space for an item in the pack without overflow
+*/
 bool inven_carry_okay(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int j;
@@ -3769,14 +3769,14 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 
 	/* Hack -- readable books always come first */
 	if((object_ptr->tval == REALM1_BOOK(subject_ptr)) &&
-	    (object2_ptr->tval != REALM1_BOOK(subject_ptr))) return TRUE;
+		(object2_ptr->tval != REALM1_BOOK(subject_ptr))) return TRUE;
 	if((object2_ptr->tval == REALM1_BOOK(subject_ptr)) &&
-	    (object_ptr->tval != REALM1_BOOK(subject_ptr))) return FALSE;
+		(object_ptr->tval != REALM1_BOOK(subject_ptr))) return FALSE;
 
 	if((object_ptr->tval == REALM2_BOOK(subject_ptr)) &&
-	    (object2_ptr->tval != REALM2_BOOK(subject_ptr))) return TRUE;
+		(object2_ptr->tval != REALM2_BOOK(subject_ptr))) return TRUE;
 	if((object2_ptr->tval == REALM2_BOOK(subject_ptr)) &&
-	    (object_ptr->tval != REALM2_BOOK(subject_ptr))) return FALSE;
+		(object_ptr->tval != REALM2_BOOK(subject_ptr))) return FALSE;
 
 	/* Objects sort by decreasing type */
 	if(object_ptr->tval > object2_ptr->tval) return TRUE;
@@ -3828,8 +3828,8 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 		if(object_ptr->to_hit + object_ptr->to_damage > object2_ptr->to_hit + object2_ptr->to_damage) return FALSE;
 		break;
 
-	/* Hack:  otherwise identical rods sort by
-	increasing recharge time --dsb */
+		/* Hack:  otherwise identical rods sort by
+		increasing recharge time --dsb */
 	case TV_ROD:
 		if(object_ptr->pval < object2_ptr->pval) return TRUE;
 		if(object_ptr->pval > object2_ptr->pval) return FALSE;
@@ -3842,22 +3842,22 @@ bool object_sort_comp(creature_type *subject_ptr, object_type *object_ptr, s32b 
 
 
 /*
- * Add an item to the players inventory, and return the slot used.
- *
- * If the new item can combine with an existing item in the inventory,
- * it will do so, using "object_similar()" and "object_absorb()", else,
- * the item will be placed into the "proper" location in the inventory.
- *
- * This function can be used to "over-fill" the player's pack, but only
- * once, and such an action must trigger the "overflow" code immediately.
- * Note that when the pack is being "over-filled", the new item must be
- * placed into the "overflow" slot, and the "overflow" must take place
- * before the pack is reordered, but (optionally) after the pack is
- * combined.  This may be tricky.  See "dungeon.c" for info.
- *
- * Note that this code must remove any location/stack information
- * from the object once it is placed into the inventory.
- */
+* Add an item to the players inventory, and return the slot used.
+*
+* If the new item can combine with an existing item in the inventory,
+* it will do so, using "object_similar()" and "object_absorb()", else,
+* the item will be placed into the "proper" location in the inventory.
+*
+* This function can be used to "over-fill" the player's pack, but only
+* once, and such an action must trigger the "overflow" code immediately.
+* Note that when the pack is being "over-filled", the new item must be
+* placed into the "overflow" slot, and the "overflow" must take place
+* before the pack is reordered, but (optionally) after the pack is
+* combined.  This may be tricky.  See "dungeon.c" for info.
+*
+* Note that this code must remove any location/stack information
+* from the object once it is placed into the inventory.
+*/
 s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 {
 	int i, j, k;
@@ -3980,15 +3980,15 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 
 
 /*
- * Take off (some of) a non-cursed equipment item
- *
- * Note that only one item at a time can be wielded per slot.
- *
- * Note that taking off an item when "full" may cause that item
- * to fall to the ground.
- *
- * Return the inventory slot into which the item is placed.
- */
+* Take off (some of) a non-cursed equipment item
+*
+* Note that only one item at a time can be wielded per slot.
+*
+* Note that taking off an item when "full" may cause that item
+* to fall to the ground.
+*
+* Return the inventory slot into which the item is placed.
+*/
 s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 {
 	//TODO
@@ -4093,10 +4093,10 @@ s16b inven_takeoff(creature_type *creature_ptr, int item, int amt)
 
 
 /*
- * Drop (some of) a non-cursed inventory/equipment item
- *
- * The object will be dropped "near" the current location
- */
+* Drop (some of) a non-cursed inventory/equipment item
+*
+* The object will be dropped "near" the current location
+*/
 void inven_drop(creature_type *creature_ptr, int item, int amt)
 {
 	object_type forge;
@@ -4121,11 +4121,11 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	/*
 	if(IS_EQUIPPED(object_ptr))
 	{
-		// Take off first
-		item = inven_takeoff(creature_ptr, item, amt);
+	// Take off first
+	item = inven_takeoff(creature_ptr, item, amt);
 
-		// Access original object
-		object_ptr = &creature_ptr->inventory[item];
+	// Access original object
+	object_ptr = &creature_ptr->inventory[item];
 	}
 
 	*/
@@ -4165,10 +4165,10 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 
 
 /*
- * Combine items in the pack
- *
- * Note special handling of the "overflow" slot
- */
+* Combine items in the pack
+*
+* Note special handling of the "overflow" slot
+*/
 void combine_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
@@ -4192,9 +4192,9 @@ void combine_pack(creature_type *creature_ptr)
 				if(!object2_ptr->k_idx) continue;	// Skip empty items
 
 				/*
-				 * Get maximum number of the stack if these
-				 * are similar, get zero otherwise.
-				 */
+				* Get maximum number of the stack if these
+				* are similar, get zero otherwise.
+				*/
 				max_num = object_similar_part(object2_ptr, object_ptr);
 
 				// Can we (partialy) drop "object_ptr" onto "object2_ptr"?
@@ -4244,10 +4244,10 @@ void combine_pack(creature_type *creature_ptr)
 
 
 /*
- * Reorder items in the pack
- *
- * Note special handling of the "overflow" slot
- */
+* Reorder items in the pack
+*
+* Note special handling of the "overflow" slot
+*/
 void reorder_pack(creature_type *creature_ptr)
 {
 	int             i, j, k;
@@ -4316,10 +4316,10 @@ void reorder_pack(creature_type *creature_ptr)
 
 
 /*
- * Hack -- display an object kind in the current window
- *
- * Include list of usable spells for readible books
- */
+* Hack -- display an object kind in the current window
+*
+* Include list of usable spells for readible books
+*/
 void display_koff(creature_type *creature_ptr, int k_idx)
 {
 	int y;
@@ -4466,11 +4466,11 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_ARROW:
 		/*
 		if(!has_trait(target_ptr, TRAIT_BLIND) &&
-		    ((target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU)) ||
-		     (target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU))))
+		((target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU)) ||
+		(target_ptr->inventory[].k_idx && (target_ptr->inventory[].name1 == ART_ZANTETSU))))
 		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
+		dam = 0;
+		ignore_wraith_form = TRUE;
 		}
 		*/
 		break;
@@ -4481,9 +4481,9 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		if(IS_RACE(target_ptr, RACE_S_FAIRY)) dam = dam * 4 / 3;
 
 		/*
-		 * Cannot use "ignore_wraith_form" strictly (for "random one damage")
-		 * "dam *= 2;" for later "dam /= 2"
-		 */
+		* Cannot use "ignore_wraith_form" strictly (for "random one damage")
+		* "dam *= 2;" for later "dam /= 2"
+		*/
 		if(has_trait(target_ptr, TRAIT_WRAITH_FORM)) dam *= 2;
 		break;
 
@@ -4491,8 +4491,8 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		//TODO if(IS_RACE(target_ptr, VAMPIRE) || (target_ptr->mimic_race_idx == MIMIC_VAMPIRE) || has_trait(target_ptr, TRAIT_WRAITH_FORM))
 		/*
 		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
+		dam = 0;
+		ignore_wraith_form = TRUE;
 		}
 		*/
 		if(target_ptr->resist_dark) dam /= 2; /* Worst case of 4 / (d4 + 7) */
@@ -4519,8 +4519,8 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		/*
 		if(LICH)
 		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
+		dam = 0;
+		ignore_wraith_form = TRUE;
 		}
 		*/
 		if(target_ptr->resist_neth) dam = dam * 3 / 4; /* Worst case of 6 / (d4 + 7) */
@@ -4573,8 +4573,8 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 	case DO_EFFECT_BRAIN_SMASH:
 		/*if(100 + rlev / 2 <= MAX(5, target_ptr->skill_rob))
 		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
+		dam = 0;
+		ignore_wraith_form = TRUE;
 		}
 		*/
 		break;
@@ -4586,8 +4586,8 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		/* TODO saving_throw 
 		if(100 + rlev / 2 <= target_ptr->skill_rob)
 		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
+		dam = 0;
+		ignore_wraith_form = TRUE;
 		}
 		*/
 		break;
@@ -4596,8 +4596,8 @@ static void spell_dam_estimation(creature_type *caster_ptr, creature_type *targe
 		/* TODO saving_throw
 		if((100 + rlev / 2 <= target_ptr->skill_rob) && (caster_ptr->species_idx != SPECIES_KENSHIROU))
 		{
-			dam = 0;
-			ignore_wraith_form = TRUE;
+		dam = 0;
+		ignore_wraith_form = TRUE;
 		}
 		*/
 		break;
@@ -4699,7 +4699,7 @@ bool process_warning(creature_type *target_ptr, int xx, int yy)
 
 	c_ptr = &floor_ptr->cave[yy][xx];
 	if(((!easy_disarm && is_trap(c_ptr->feat))
-	    || (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
+		|| (c_ptr->mimic && is_trap(c_ptr->feat))) && !one_in_(13))
 	{
 		object_type *object_ptr = choose_warning_item(target_ptr);
 
@@ -4727,16 +4727,16 @@ static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type
 {
 	switch (object_ptr->tval)
 	{
-		case TV_HAFTED:
-		case TV_POLEARM:
-		case TV_DIGGING:
-		case TV_BOLT:
-		case TV_ARROW:
-		case TV_SHOT:
+	case TV_HAFTED:
+	case TV_POLEARM:
+	case TV_DIGGING:
+	case TV_BOLT:
+	case TV_ARROW:
+	case TV_SHOT:
 		{
 			return TRUE;
 		}
-		case TV_SWORD:
+	case TV_SWORD:
 		{
 			if(object_ptr->sval != SV_DOKUBARI) return TRUE;
 		}
@@ -4747,8 +4747,8 @@ static bool item_tester_hook_melee_ammo(creature_type *creature_ptr, object_type
 
 
 /*
- *  A structure for smithing
- */
+*  A structure for smithing
+*/
 typedef struct {
 	int add;       /* TR flag number or special essence id */
 	cptr add_name; /* Name of this ability */
@@ -4759,8 +4759,8 @@ typedef struct {
 
 
 /*
- *  Smithing type data for Weapon smith
- */
+*  Smithing type data for Weapon smith
+*/
 #ifdef JP
 static essence_type essence_info[] = 
 {
@@ -4987,8 +4987,8 @@ static essence_type essence_info[] =
 
 
 /*
- *  Essense names for Weapon smith
- */
+*  Essense names for Weapon smith
+*/
 #ifdef JP
 static cptr essence_name[] = 
 {
@@ -5239,10 +5239,8 @@ static void drain_essence(creature_type *creature_ptr)
 	byte iy, ix, marked, number;
 	s16b next_object_idx, weight;
 
-	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++)
-		drain_value[i] = 0;
+	for (i = 0; i < sizeof(drain_value) / sizeof(int); i++) drain_value[i] = 0;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムから抽出しますか？";
 	s = "抽出できるアイテムがありません。";
@@ -5326,8 +5324,8 @@ static void drain_essence(creature_type *creature_ptr)
 			pval = (have_flag(new_flgs, es_ptr->add)) ? old_pval - object_ptr->pval : old_pval;
 
 		if(es_ptr->add < TRAIT_FLAG_MAX &&
-		    (!have_flag(new_flgs, es_ptr->add) || pval) &&
-		    have_flag(old_flgs, es_ptr->add))
+			(!have_flag(new_flgs, es_ptr->add) || pval) &&
+			have_flag(old_flgs, es_ptr->add))
 		{
 			if(pval)
 			{
@@ -5582,273 +5580,273 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	if(!repeat_pull(&i) || i<0 || i>=max_num)
 	{
 
-	/* Nothing chosen yet */
-	flag = FALSE;
+		/* Nothing chosen yet */
+		flag = FALSE;
 
-	/* No redraw yet */
-	redraw = FALSE;
+		/* No redraw yet */
+		redraw = FALSE;
 
-	/* Build a prompt */
+		/* Build a prompt */
 #ifdef JP
-	(void) strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの能力を付加しますか？");
+		(void) strnfmt(out_val, 78, "('*'で一覧, ESCで中断) どの能力を付加しますか？");
 #else
-	(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Add which ability? ");
+		(void)strnfmt(out_val, 78, "(*=List, ESC=exit) Add which ability? ");
 #endif
-	if(use_menu) screen_save();
+		if(use_menu) screen_save();
 
-	/* Get a spell from the user */
+		/* Get a spell from the user */
 
-	choice = (always_show_list || use_menu) ? ESCAPE:1;
-	while (!flag)
-	{
-		bool able[22];
-		if( choice==ESCAPE ) choice = ' '; 
-		else if( !get_com(out_val, &choice, FALSE) )break; 
-
-		if(use_menu && choice != ' ')
+		choice = (always_show_list || use_menu) ? ESCAPE:1;
+		while (!flag)
 		{
-			switch(choice)
+			bool able[22];
+			if( choice==ESCAPE ) choice = ' '; 
+			else if( !get_com(out_val, &choice, FALSE) )break; 
+
+			if(use_menu && choice != ' ')
 			{
-				case '0':
+				switch(choice)
 				{
-					screen_load();
-					return;
-				}
+				case '0':
+					{
+						screen_load();
+						return;
+					}
 
 				case '8':
 				case 'k':
 				case 'K':
-				{
-					menu_line += (max_num-1);
-					break;
-				}
+					{
+						menu_line += (max_num-1);
+						break;
+					}
 
 				case '2':
 				case 'j':
 				case 'J':
-				{
-					menu_line++;
-					break;
-				}
+					{
+						menu_line++;
+						break;
+					}
 
 				case '4':
 				case 'h':
 				case 'H':
-				{
-					menu_line = 1;
-					break;
-				}
+					{
+						menu_line = 1;
+						break;
+					}
 				case '6':
 				case 'l':
 				case 'L':
-				{
-					menu_line = max_num;
-					break;
-				}
+					{
+						menu_line = max_num;
+						break;
+					}
 
 				case 'x':
 				case 'X':
 				case '\r':
 				case '\n':
-				{
-					i = menu_line - 1;
-					ask = FALSE;
-					break;
+					{
+						i = menu_line - 1;
+						ask = FALSE;
+						break;
+					}
 				}
+				if(menu_line > max_num) menu_line -= max_num;
 			}
-			if(menu_line > max_num) menu_line -= max_num;
-		}
-		/* Request redraw */
-		if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
-		{
-			/* Show the list */
-			if(!redraw || use_menu)
+			/* Request redraw */
+			if((choice == ' ') || (choice == '*') || (choice == '?') || (use_menu && ask))
 			{
-				byte y, x = 10;
-				int ctr;
-				char dummy[80], dummy2[80];
-				byte col;
-
-				strcpy(dummy, "");
-
-				/* Show list */
-				redraw = TRUE;
-
-				/* Save the screen */
-				if(!use_menu) screen_save();
-
-				for (y = 1; y < 24; y++)
-					prt("", y, x);
-
-				/* Print header(s) */
-#ifdef JP
-				prt(format("   %-43s %6s/%s", "能力(必要エッセンス)", "必要数", "所持数"), 1, x);
-
-#else
-				prt(format("   %-43s %6s/%s", "Ability (needed essence)", "Needs", "Possess"), 1, x);
-#endif
-				/* Print list */
-				for (ctr = 0; ctr < max_num; ctr++)
+				/* Show the list */
+				if(!redraw || use_menu)
 				{
-					es_ptr = &essence_info[num[ctr]];
+					byte y, x = 10;
+					int ctr;
+					char dummy[80], dummy2[80];
+					byte col;
 
-					if(use_menu)
-					{
-						if(ctr == (menu_line-1))
+					strcpy(dummy, "");
+
+					/* Show list */
+					redraw = TRUE;
+
+					/* Save the screen */
+					if(!use_menu) screen_save();
+
+					for (y = 1; y < 24; y++)
+						prt("", y, x);
+
+					/* Print header(s) */
 #ifdef JP
-							strcpy(dummy, "》 ");
+					prt(format("   %-43s %6s/%s", "能力(必要エッセンス)", "必要数", "所持数"), 1, x);
+
 #else
-							strcpy(dummy, ">  ");
+					prt(format("   %-43s %6s/%s", "Ability (needed essence)", "Needs", "Possess"), 1, x);
 #endif
-						else strcpy(dummy, "   ");
-						
-					}
-					/* letter/number for power selection */
-					else
+					/* Print list */
+					for (ctr = 0; ctr < max_num; ctr++)
 					{
-						sprintf(dummy, "%c) ",I2A(ctr));
-					}
+						es_ptr = &essence_info[num[ctr]];
 
-					strcat(dummy, es_ptr->add_name);
-
-					col = TERM_WHITE;
-					able[ctr] = TRUE;
-
-					if(es_ptr->essence != -1)
-					{
-						strcat(dummy, format("(%s)", essence_name[es_ptr->essence]));
-						if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
-					}
-					else
-					{
-						switch(es_ptr->add)
+						if(use_menu)
 						{
-						case ESSENCE_SH_FIRE:
+							if(ctr == (menu_line-1))
 #ifdef JP
-							strcat(dummy, "(焼棄+耐火炎)");
+								strcpy(dummy, "》 ");
 #else
-							strcat(dummy, "(brand fire + res.fire)");
+								strcpy(dummy, ">  ");
 #endif
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							break;
-						case ESSENCE_SH_ELEC:
-#ifdef JP
-							strcat(dummy, "(電撃+耐電撃)");
-#else
-							strcat(dummy, "(brand elec. + res. elec.)");
-#endif
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							break;
-						case ESSENCE_SH_COLD:
-#ifdef JP
-							strcat(dummy, "(凍結+耐冷気)");
-#else
-							strcat(dummy, "(brand cold + res. cold)");
-#endif
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							break;
-						case ESSENCE_RESISTANCE:
-#ifdef JP
-							strcat(dummy, "(耐火炎+耐冷気+耐電撃+耐酸)");
-#else
-							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
-#endif
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
-							break;
-						case ESSENCE_SUSTAIN:
-#ifdef JP
-							strcat(dummy, "(耐火炎+耐冷気+耐電撃+耐酸)");
-#else
-							strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
-#endif
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
-							if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
-							break;
+							else strcpy(dummy, "   ");
+
 						}
-					}
+						/* letter/number for power selection */
+						else
+						{
+							sprintf(dummy, "%c) ",I2A(ctr));
+						}
 
-					if(!able[ctr]) col = TERM_RED;
+						strcat(dummy, es_ptr->add_name);
 
-					if(es_ptr->essence != -1)
-					{
-						sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence]);
-					}
-					else
-					{
-						sprintf(dummy2, "%-49s %3d/(\?\?)", dummy, es_ptr->value);
-					}
+						col = TERM_WHITE;
+						able[ctr] = TRUE;
 
-					c_prt(col, dummy2, ctr+2, x);
-				}
-			}
-
-			/* Hide the list */
-			else
-			{
-				/* Hide list */
-				redraw = FALSE;
-
-				/* Restore the screen */
-				screen_load();
-			}
-
-			/* Redo asking */
-			continue;
-		}
-
-		if(!use_menu)
-		{
-			/* Note verify */
-			ask = (isupper(choice));
-
-			/* Lowercase */
-			if(ask) choice = tolower(choice);
-
-			/* Extract request */
-			i = (islower(choice) ? A2I(choice) : -1);
-		}
-
-		/* Totally Illegal */
-		if((i < 0) || (i >= max_num) || !able[i])
-		{
-			bell();
-			continue;
-		}
-
-		/* Verify it */
-		if(ask)
-		{
-			char tmp_val[160];
-
-			/* Prompt */
+						if(es_ptr->essence != -1)
+						{
+							strcat(dummy, format("(%s)", essence_name[es_ptr->essence]));
+							if(creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence] < es_ptr->value) able[ctr] = FALSE;
+						}
+						else
+						{
+							switch(es_ptr->add)
+							{
+							case ESSENCE_SH_FIRE:
 #ifdef JP
-			(void) strnfmt(tmp_val, 78, "%sを付加しますか？ ", essence_info[num[i]].add_name);
+								strcat(dummy, "(焼棄+耐火炎)");
 #else
-			(void) strnfmt(tmp_val, 78, "Add the abilitiy of %s? ", essence_info[num[i]].add_name);
+								strcat(dummy, "(brand fire + res.fire)");
+#endif
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_FIRE_BRAND] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+								break;
+							case ESSENCE_SH_ELEC:
+#ifdef JP
+								strcat(dummy, "(電撃+耐電撃)");
+#else
+								strcat(dummy, "(brand elec. + res. elec.)");
+#endif
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_ELEC_BRAND] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+								break;
+							case ESSENCE_SH_COLD:
+#ifdef JP
+								strcat(dummy, "(凍結+耐冷気)");
+#else
+								strcat(dummy, "(brand cold + res. cold)");
+#endif
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_COLD_BRAND] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+								break;
+							case ESSENCE_RESISTANCE:
+#ifdef JP
+								strcat(dummy, "(耐火炎+耐冷気+耐電撃+耐酸)");
+#else
+								strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
+#endif
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+								break;
+							case ESSENCE_SUSTAIN:
+#ifdef JP
+								strcat(dummy, "(耐火炎+耐冷気+耐電撃+耐酸)");
+#else
+								strcat(dummy, "(r.fire+r.cold+r.elec+r.acid)");
+#endif
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_FIRE] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_COLD] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ELEC] < es_ptr->value) able[ctr] = FALSE;
+								if(creature_ptr->class_skills.old_skills.magic_num1[TRAIT_RES_ACID] < es_ptr->value) able[ctr] = FALSE;
+								break;
+							}
+						}
+
+						if(!able[ctr]) col = TERM_RED;
+
+						if(es_ptr->essence != -1)
+						{
+							sprintf(dummy2, "%-49s %3d/%d", dummy, es_ptr->value, (int)creature_ptr->class_skills.old_skills.magic_num1[es_ptr->essence]);
+						}
+						else
+						{
+							sprintf(dummy2, "%-49s %3d/(\?\?)", dummy, es_ptr->value);
+						}
+
+						c_prt(col, dummy2, ctr+2, x);
+					}
+				}
+
+				/* Hide the list */
+				else
+				{
+					/* Hide list */
+					redraw = FALSE;
+
+					/* Restore the screen */
+					screen_load();
+				}
+
+				/* Redo asking */
+				continue;
+			}
+
+			if(!use_menu)
+			{
+				/* Note verify */
+				ask = (isupper(choice));
+
+				/* Lowercase */
+				if(ask) choice = tolower(choice);
+
+				/* Extract request */
+				i = (islower(choice) ? A2I(choice) : -1);
+			}
+
+			/* Totally Illegal */
+			if((i < 0) || (i >= max_num) || !able[i])
+			{
+				bell();
+				continue;
+			}
+
+			/* Verify it */
+			if(ask)
+			{
+				char tmp_val[160];
+
+				/* Prompt */
+#ifdef JP
+				(void) strnfmt(tmp_val, 78, "%sを付加しますか？ ", essence_info[num[i]].add_name);
+#else
+				(void) strnfmt(tmp_val, 78, "Add the abilitiy of %s? ", essence_info[num[i]].add_name);
 #endif
 
-			/* Belay that order */
-			if(!get_check(tmp_val)) continue;
+				/* Belay that order */
+				if(!get_check(tmp_val)) continue;
+			}
+
+			/* Stop the loop */
+			flag = TRUE;
 		}
 
-		/* Stop the loop */
-		flag = TRUE;
-	}
+		/* Restore the screen */
+		if(redraw) screen_load();
 
-	/* Restore the screen */
-	if(redraw) screen_load();
+		if(!flag) return;
 
-	if(!flag) return;
-
-	repeat_push(i);
+		repeat_push(i);
 	}
 
 	es_ptr = &essence_info[num[i]];
@@ -5864,7 +5862,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 	else
 		item_tester_hook = object_is_weapon_armour_ammo2;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを改良しますか？";
 	s = "改良できるアイテムがありません。";
@@ -6046,15 +6043,9 @@ static void add_essence(creature_type *creature_ptr, int mode)
 				cost_tactical_energy(creature_ptr, 100);
 				return;
 			}
-			else
-			{
-				if(object_ptr->to_ac < creature_ptr->lev/5+5) object_ptr->to_ac++;
-			}
+			else if(object_ptr->to_ac < creature_ptr->lev / 5 + 5) object_ptr->to_ac++;
 		}
-		else
-		{
-			object_ptr->xtra3 = es_ptr->add + 1;
-		}
+		else object_ptr->xtra3 = es_ptr->add + 1;
 	}
 	else
 	{
@@ -6118,10 +6109,7 @@ static void add_essence(creature_type *creature_ptr, int mode)
 			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_FIRE);
 			add_flag(object_ptr->trait_flags, TRAIT_IGNORE_COLD);
 		}
-		else
-		{
-			object_ptr->xtra3 = es_ptr->add + 1;
-		}
+		else object_ptr->xtra3 = es_ptr->add + 1;
 	}
 
 	cost_tactical_energy(creature_ptr, 100);
@@ -6148,7 +6136,6 @@ static void erase_essence(creature_type *creature_ptr)
 	char object_name[MAX_NLEN];
 	u32b flgs[TRAIT_FLAG_MAX];
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムのエッセンスを消去しますか？";
 	s = "エッセンスを付加したアイテムがありません。";
@@ -6169,9 +6156,9 @@ static void erase_essence(creature_type *creature_ptr)
 
 	cost_tactical_energy(creature_ptr, 100);
 
-	if(object_ptr->xtra3 == 1+ESSENCE_SLAY_GLOVE)
+	if(object_ptr->xtra3 == 1 + ESSENCE_SLAY_GLOVE)
 	{
-		object_ptr->to_hit -= (object_ptr->xtra4>>8);
+		object_ptr->to_hit -= (object_ptr->xtra4 >> 8);
 		object_ptr->to_damage -= (object_ptr->xtra4 & 0x000f);
 		object_ptr->xtra4 = 0;
 		if(object_ptr->to_hit < 0) object_ptr->to_hit = 0;
@@ -6237,145 +6224,145 @@ void do_cmd_kaji(creature_type *creature_ptr, bool only_browse)
 	if(!(repeat_pull(&mode) && 1 <= mode && mode <= 5))
 	{
 
-	if(only_browse) screen_save();
-	do {
-	if(!only_browse) screen_save();
-	if(use_menu)
-	{
-		while(!mode)
-		{
+		if(only_browse) screen_save();
+		do {
+			if(!only_browse) screen_save();
+			if(use_menu)
+			{
+				while(!mode)
+				{
 #ifdef JP
-			prt(format(" %s エッセンス一覧", (menu_line == 1) ? "》" : "  "), 2, 14);
-			prt(format(" %s エッセンス抽出", (menu_line == 2) ? "》" : "  "), 3, 14);
-			prt(format(" %s エッセンス消去", (menu_line == 3) ? "》" : "  "), 4, 14);
-			prt(format(" %s エッセンス付加", (menu_line == 4) ? "》" : "  "), 5, 14);
-			prt(format(" %s 武器/防具強化", (menu_line == 5) ? "》" : "  "), 6, 14);
-			prt(format("どの種類の技術を%sますか？", only_browse ? "調べ" : "使い"), 0, 0);
+					prt(format(" %s エッセンス一覧", (menu_line == 1) ? "》" : "  "), 2, 14);
+					prt(format(" %s エッセンス抽出", (menu_line == 2) ? "》" : "  "), 3, 14);
+					prt(format(" %s エッセンス消去", (menu_line == 3) ? "》" : "  "), 4, 14);
+					prt(format(" %s エッセンス付加", (menu_line == 4) ? "》" : "  "), 5, 14);
+					prt(format(" %s 武器/防具強化", (menu_line == 5) ? "》" : "  "), 6, 14);
+					prt(format("どの種類の技術を%sますか？", only_browse ? "調べ" : "使い"), 0, 0);
 #else
-			prt(format(" %s List essences", (menu_line == 1) ? "> " : "  "), 2, 14);
-			prt(format(" %s Extract essence", (menu_line == 2) ? "> " : "  "), 3, 14);
-			prt(format(" %s Remove essence", (menu_line == 3) ? "> " : "  "), 4, 14);
-			prt(format(" %s Add essence", (menu_line == 4) ? "> " : "  "), 5, 14);
-			prt(format(" %s Enchant weapon/armor", (menu_line == 5) ? "> " : "  "), 6, 14);
-			prt(format("Choose command from menu."), 0, 0);
+					prt(format(" %s List essences", (menu_line == 1) ? "> " : "  "), 2, 14);
+					prt(format(" %s Extract essence", (menu_line == 2) ? "> " : "  "), 3, 14);
+					prt(format(" %s Remove essence", (menu_line == 3) ? "> " : "  "), 4, 14);
+					prt(format(" %s Add essence", (menu_line == 4) ? "> " : "  "), 5, 14);
+					prt(format(" %s Enchant weapon/armor", (menu_line == 5) ? "> " : "  "), 6, 14);
+					prt(format("Choose command from menu."), 0, 0);
 #endif
-			choice = inkey();
-			switch(choice)
-			{
-			case ESCAPE:
-			case 'z':
-			case 'Z':
-				screen_load();
-				return;
-			case '2':
-			case 'j':
-			case 'J':
-				menu_line++;
-				break;
-			case '8':
-			case 'k':
-			case 'K':
-				menu_line+= 4;
-				break;
-			case '\r':
-			case '\n':
-			case 'x':
-			case 'X':
-				mode = menu_line;
-				break;
+					choice = inkey();
+					switch(choice)
+					{
+					case ESCAPE:
+					case 'z':
+					case 'Z':
+						screen_load();
+						return;
+					case '2':
+					case 'j':
+					case 'J':
+						menu_line++;
+						break;
+					case '8':
+					case 'k':
+					case 'K':
+						menu_line+= 4;
+						break;
+					case '\r':
+					case '\n':
+					case 'x':
+					case 'X':
+						mode = menu_line;
+						break;
+					}
+					if(menu_line > 5) menu_line -= 5;
+				}
 			}
-			if(menu_line > 5) menu_line -= 5;
-		}
-	}
 
-	else
-	{
-		while (!mode)
-		{
+			else
+			{
+				while (!mode)
+				{
 #ifdef JP
-			prt("  a) エッセンス一覧", 2, 14);
-			prt("  b) エッセンス抽出", 3, 14);
-			prt("  c) エッセンス消去", 4, 14);
-			prt("  d) エッセンス付加", 5, 14);
-			prt("  e) 武器/防具強化", 6, 14);
-			if(!get_com(format("どの能力を%sますか:", only_browse ? "調べ" : "使い"), &choice, TRUE))
+					prt("  a) エッセンス一覧", 2, 14);
+					prt("  b) エッセンス抽出", 3, 14);
+					prt("  c) エッセンス消去", 4, 14);
+					prt("  d) エッセンス付加", 5, 14);
+					prt("  e) 武器/防具強化", 6, 14);
+					if(!get_com(format("どの能力を%sますか:", only_browse ? "調べ" : "使い"), &choice, TRUE))
 #else
-			prt("  a) List essences", 2, 14);
-			prt("  b) Extract essence", 3, 14);
-			prt("  c) Remove essence", 4, 14);
-			prt("  d) Add essence", 5, 14);
-			prt("  e) Enchant weapon/armor", 6, 14);
-			if(!get_com("Command :", &choice, TRUE))
+					prt("  a) List essences", 2, 14);
+					prt("  b) Extract essence", 3, 14);
+					prt("  c) Remove essence", 4, 14);
+					prt("  d) Add essence", 5, 14);
+					prt("  e) Enchant weapon/armor", 6, 14);
+					if(!get_com("Command :", &choice, TRUE))
 #endif
-			{
-				screen_load();
-				return;
+					{
+						screen_load();
+						return;
+					}
+					switch (choice)
+					{
+					case 'A':
+					case 'a':
+						mode = 1;
+						break;
+					case 'B':
+					case 'b':
+						mode = 2;
+						break;
+					case 'C':
+					case 'c':
+						mode = 3;
+						break;
+					case 'D':
+					case 'd':
+						mode = 4;
+						break;
+					case 'E':
+					case 'e':
+						mode = 5;
+						break;
+					}
+				}
 			}
-			switch (choice)
+
+			if(only_browse)
 			{
-			case 'A':
-			case 'a':
-				mode = 1;
-				break;
-			case 'B':
-			case 'b':
-				mode = 2;
-				break;
-			case 'C':
-			case 'c':
-				mode = 3;
-				break;
-			case 'D':
-			case 'd':
-				mode = 4;
-				break;
-			case 'E':
-			case 'e':
-				mode = 5;
-				break;
+				char temp[62*5];
+				int line, j;
+
+				/* Clear lines, position cursor  (really should use strlen here) */
+				Term_erase(14, 21, 255);
+				Term_erase(14, 20, 255);
+				Term_erase(14, 19, 255);
+				Term_erase(14, 18, 255);
+				Term_erase(14, 17, 255);
+				Term_erase(14, 16, 255);
+
+				roff_to_buf(kaji_tips[mode-1], 62, temp, sizeof(temp));
+				for(j=0, line = 17;temp[j];j+=(1+strlen(&temp[j])))
+				{
+					prt(&temp[j], line, 15);
+					line++;
+				}
+				mode = 0;
 			}
-		}
-	}
+			if(!only_browse) screen_load();
+		} while (only_browse);
 
-	if(only_browse)
-	{
-		char temp[62*5];
-		int line, j;
-
-		/* Clear lines, position cursor  (really should use strlen here) */
-		Term_erase(14, 21, 255);
-		Term_erase(14, 20, 255);
-		Term_erase(14, 19, 255);
-		Term_erase(14, 18, 255);
-		Term_erase(14, 17, 255);
-		Term_erase(14, 16, 255);
-
-		roff_to_buf(kaji_tips[mode-1], 62, temp, sizeof(temp));
-		for(j=0, line = 17;temp[j];j+=(1+strlen(&temp[j])))
-		{
-			prt(&temp[j], line, 15);
-			line++;
-		}
-		mode = 0;
-	}
-	if(!only_browse) screen_load();
-	} while (only_browse);
-
-	repeat_push(mode);
+		repeat_push(mode);
 	}
 
 	switch(mode)
 	{
-		case 1: display_essence(creature_ptr);break;
-		case 2: drain_essence(creature_ptr);break;
-		case 3: erase_essence(creature_ptr);break;
-		case 4:
-			mode = choose_essence();
-			if(mode == 0)
-				break;
-			add_essence(creature_ptr, mode);
+	case 1: display_essence(creature_ptr);break;
+	case 2: drain_essence(creature_ptr);break;
+	case 3: erase_essence(creature_ptr);break;
+	case 4:
+		mode = choose_essence();
+		if(mode == 0)
 			break;
-		case 5: add_essence(creature_ptr, 10);break;
+		add_essence(creature_ptr, mode);
+		break;
+	case 5: add_essence(creature_ptr, 10);break;
 	}
 }
 
@@ -6457,7 +6444,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	{
 		if(e_ptr->max_to_damage > 127)
 			object_ptr->to_damage -= (s16b)randint1(256-e_ptr->max_to_damage);
-			else object_ptr->to_damage += (s16b)randint1(e_ptr->max_to_damage);
+		else object_ptr->to_damage += (s16b)randint1(e_ptr->max_to_damage);
 	}
 
 	if(e_ptr->max_to_ac)
@@ -6498,20 +6485,20 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	switch(ego_id)
 	{
 
-		case EGO_REFLECTION:
-			if(object_ptr->sval == SV_MIRROR_SHIELD)
-				object_ptr->name2 = 0;
-			break;
+	case EGO_REFLECTION:
+		if(object_ptr->sval == SV_MIRROR_SHIELD)
+			object_ptr->name2 = 0;
+		break;
 
-		case EGO_SEEING:
-			if(one_in_(3))
-				if(one_in_(2)) add_esp_strong(object_ptr);
-					else add_esp_weak(object_ptr, FALSE);
+	case EGO_SEEING:
+		if(one_in_(3))
+			if(one_in_(2)) add_esp_strong(object_ptr);
+			else add_esp_weak(object_ptr, FALSE);
 
-		case EGO_EARTHQUAKES:
-			if(one_in_(3) && (level > 60)) add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
-			else object_ptr->pval = m_bonus(3, level);
-			break;
+	case EGO_EARTHQUAKES:
+		if(one_in_(3) && (level > 60)) add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
+		else object_ptr->pval = m_bonus(3, level);
+		break;
 
 	}
 

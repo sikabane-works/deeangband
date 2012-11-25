@@ -193,7 +193,6 @@ void do_cmd_wield(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	/* Get an item */
 #ifdef JP
 	q = "どれを装備しますか? ";
 	s = "装備可能なアイテムがない。";
@@ -436,7 +435,6 @@ void do_cmd_takeoff(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	// Get an item
 #ifdef JP
 	q = "どれを装備からはずしますか? ";
 	s = "はずせる装備がない。";
@@ -531,7 +529,6 @@ void do_cmd_drop(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを落としますか? ";
 	s = "落とせるアイテムを持っていない。";
@@ -628,7 +625,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	/* Hack -- force destruction */
 	if(command_arg > 0) force = TRUE;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを壊しますか? ";
 	s = "壊せるアイテムを持っていない。";
@@ -819,7 +815,6 @@ void do_cmd_observe(creature_type *creature_ptr)
 	char		object_name[MAX_NLEN];
 	cptr q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを調べますか? ";
 	s = "調べられるアイテムがない。";
@@ -876,7 +871,6 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムの銘を消しますか? ";
 	s = "銘を消せるアイテムがない。";
@@ -929,16 +923,11 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 void do_cmd_inscribe(creature_type *creature_ptr)
 {
 	int			item;
-
 	object_type		*object_ptr;
-
 	char		object_name[MAX_NLEN];
-
 	char		out_val[80];
-
 	cptr q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムに銘を刻みますか? ";
 	s = "銘を刻めるアイテムがない。";
@@ -1002,7 +991,6 @@ void do_cmd_inscribe_caves(creature_type *creature_ptr)
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	char tmp[CAVE_MESSAGE_LENGTH];
 
-	/* Get an item */
 #ifdef JP
 	msg_format("自分の真下にメッセージを刻む:");
 #else
@@ -1092,7 +1080,6 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どの油つぼから注ぎますか? ";
 	s = "油つぼがない。";
@@ -1196,7 +1183,6 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 
 	cptr q, s;
 
-	/* Get an item */
 #ifdef JP
 	q = "どの松明で明かりを強めますか? ";
 	s = "他に松明がない。";

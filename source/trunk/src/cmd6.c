@@ -553,13 +553,8 @@ void do_cmd_eat_food(creature_type *creature_ptr)
 	int         item;
 	cptr        q, s;
 
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
-
-	/* Get an item */
 #ifdef JP
 	q = "どれを食べますか? ";
 	s = "食べ物がない。";
@@ -1198,12 +1193,8 @@ void do_cmd_quaff_potion(creature_type *creature_ptr)
 	int  item;
 	cptr q, s;
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	/* Get an item */
 #ifdef JP
 	q = "どの薬を飲みますか? ";
 	s = "飲める薬がない。";
@@ -1836,7 +1827,6 @@ void do_cmd_read_scroll(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Get an item */
 #ifdef JP
 	q = "どの巻物を読みますか? ";
 	s = "読める巻物がない。";
@@ -2733,7 +2723,6 @@ void do_cmd_aim_wand(creature_type *creature_ptr)
 
 	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	/* Get an item */
 #ifdef JP
 	q = "どの魔法棒で狙いますか? ";
 	s = "使える魔法棒がない。";
@@ -3710,14 +3699,8 @@ void do_cmd_activate(creature_type *creature_ptr)
 	cptr    q, s;
 
 
-	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN))
-	{
-		set_action(creature_ptr, ACTION_NONE);
-	}
+	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	/* Prepare the hook */
-
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを始動させますか? ";
 	s = "始動できるアイテムを装備していない。";
@@ -3791,7 +3774,6 @@ void do_cmd_use(creature_type *creature_ptr)
 
 	if(creature_ptr->posture & (KATA_MUSOU | KATA_KOUKIJIN)) set_action(creature_ptr, ACTION_NONE);
 
-	/* Get an item */
 #ifdef JP
 	q = "どれを使いますか？";
 	s = "使えるものがありません。";

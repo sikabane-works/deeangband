@@ -459,20 +459,11 @@ msg_print("V‚µ‚¢•KŽE‹Z‚ðŠo‚¦‚é‚±‚Æ‚Í‚Å‚«‚È‚¢I");
 	}
 
 #ifdef JP
-	if( creature_ptr->new_spells < 10 ){
-		msg_format("‚ ‚Æ %d ‚Â‚Ì•KŽE‹Z‚ðŠw‚×‚éB", creature_ptr->new_spells);
-	}else{
-		msg_format("‚ ‚Æ %d ŒÂ‚Ì•KŽE‹Z‚ðŠw‚×‚éB", creature_ptr->new_spells);
-	}
-#else
-	msg_format("You can learn %d new special attack%s.", creature_ptr->new_spells, (creature_ptr->new_spells == 1?"":"s"));
-#endif
-
-	/* Get an item */
-#ifdef JP
+	msg_format("‚ ‚Æ %d Ží‚Ì•KŽE‹Z‚ðŠw‚×‚éB", creature_ptr->new_spells);
 	q = "‚Ç‚Ì‘‚©‚çŠw‚Ñ‚Ü‚·‚©? ";
 	s = "“Ç‚ß‚é‘‚ª‚È‚¢B";
 #else
+	msg_format("You can learn %d new special attack%s.", creature_ptr->new_spells, (creature_ptr->new_spells == 1?"":"s"));
 	q = "Study which book? ";
 	s = "You have no books that you can read.";
 #endif

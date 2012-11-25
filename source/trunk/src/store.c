@@ -4044,8 +4044,6 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 		q = "Sell which item? ";
 #endif
 
-	/* Get an item */
-	/* 我が家でおかしなメッセージが出るオリジナルのバグを修正 */
 	if(is_home(st_ptr))
 	{
 #ifdef JP

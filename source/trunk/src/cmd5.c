@@ -464,16 +464,11 @@ void do_cmd_browse(creature_type *creature_ptr)
 		select_flag = USE_INVEN | USE_FLOOR;
 	}
 
-	/* Get an item */
 #ifdef JP
 	q = "どの本を読みますか? ";
-#else
-	q = "Browse which book? ";
-#endif
-
-#ifdef JP
 	s = "読める本がない。";
 #else
+	q = "Browse which book? ";
 	s = "You have no books that you can read.";
 #endif
 
@@ -986,23 +981,15 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Restrict choices to spell books */
 	item_tester_tval = magic_info[creature_ptr->class_idx].spell_book;
 
-	/* Get an item */
 #ifdef JP
 	q = "どの呪文書を使いますか? ";
-#else
-	q = "Use which book? ";
-#endif
-
-#ifdef JP
 	s = "呪文書がない！";
 #else
+	q = "Use which book? ";
 	s = "You have no spell books!";
 #endif
 
-	if(!get_item(creature_ptr, &item, q, s, select_flag, NULL, item_tester_tval))
-	{
-		return;
-	}
+	if(!get_item(creature_ptr, &item, q, s, select_flag, NULL, item_tester_tval)) return;
 
 	if(item == INVEN_FORCE) /* the_force */
 	{

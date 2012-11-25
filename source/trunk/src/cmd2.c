@@ -3374,7 +3374,6 @@ void do_cmd_fire(creature_type *creature_ptr)
 
 	free_posture(creature_ptr);
 
-	/* Get an item */
 #ifdef JP
 	q = "どれを撃ちますか? ";
 	s = "発射されるアイテムがありません。";
@@ -3484,7 +3483,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	}
 	else
 	{
-		/* Get an item */
 #ifdef JP
 		q = "どのアイテムを投げますか? ";
 		s = "投げるアイテムがない。";

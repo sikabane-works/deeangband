@@ -1115,19 +1115,13 @@ static void do_cmd_wiz_blue_mage(creature_type *creature_ptr)
 static void do_cmd_wiz_play(creature_type *creature_ptr)
 {
 	int item;
-
 	object_type	forge;
 	object_type *quest_ptr;
-
 	object_type *object_ptr;
-
 	char ch;
-
 	bool changed;
-
 	cptr q, s;
 
-	/* Get an item */
 	q = "Play with which object? ";
 	s = "You have nothing to play with.";
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), NULL, 0)) return;

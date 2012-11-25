@@ -1287,7 +1287,6 @@ bool psychometry(creature_type *creature_ptr)
 	cptr            q, s;
 	bool okay = FALSE;
 
-	/* Get an item */
 #ifdef JP
 	q = "どのアイテムを調べますか？";
 	s = "調べるアイテムがありません。";
