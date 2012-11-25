@@ -2532,7 +2532,6 @@ static bool build_type6(floor_type *floor_ptr)
 		}
 	}
 
-	/* Message */
 	if(cheat_room)
 	{
 		/* Room type */
@@ -2551,7 +2550,6 @@ static bool build_type6(floor_type *floor_ptr)
 
 		if(cheat_hear)
 		{
-			/* Message */
 			msg_print(species_name + species_info[what[i]].name);
 		}
 	}
@@ -2959,7 +2957,6 @@ static bool build_type7(floor_type *floor_ptr)
 	v_ptr = &vault_info[2];
 #endif
 
-	/* Message */
 #ifdef JP
 	if(cheat_room) msg_format("¬‚³‚È’n‰ºŽº(%s)", vault_name + v_ptr->name);
 #else
@@ -3056,7 +3053,6 @@ static bool build_type8(floor_type *floor_ptr)
 	v_ptr = &vault_info[76 + randint1(3)];
 #endif
 
-	/* Message */
 #ifdef JP
 	if(cheat_room) msg_format("‹‘å‚È’n‰ºŽº(%s)", vault_name + v_ptr->name);
 #else
@@ -5824,7 +5820,6 @@ static bool build_type13(floor_type *floor_ptr)
 		}
 	}
 
-	/* Message */
 	if(cheat_room)
 	{
 		/* Room type */
@@ -5843,7 +5838,6 @@ static bool build_type13(floor_type *floor_ptr)
 
 		if(cheat_hear)
 		{
-			/* Message */
 			msg_print(species_name + species_info[what[i]].name);
 		}
 	}
@@ -5937,7 +5931,6 @@ static bool build_type14(floor_type *floor_ptr)
 	c_ptr->mimic = c_ptr->feat;
 	c_ptr->feat = trap;
 
-	/* Message */
 	if(cheat_room)
 	{
 #ifdef JP
@@ -6188,7 +6181,6 @@ static bool build_type15(floor_type *floor_ptr)
 		break;
 	}
 
-	/* Message */
 	if(cheat_room)
 	{
 #ifdef JP

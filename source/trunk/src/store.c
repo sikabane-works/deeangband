@@ -3384,7 +3384,6 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 		/* No reason to haggle */
 		if(final_ask >= purse)
 		{
-			/* Message */
 #ifdef JP
 			msg_print("即座にこの金額にまとまった。");
 #else
@@ -3400,7 +3399,6 @@ static bool sell_haggle(store_type *st_ptr, creature_type *creature_ptr, object_
 		/* No need to haggle */
 		else if(noneed)
 		{
-			/* Message */
 #ifdef JP
 			msg_print("結局この金額にまとまった。");
 #else
@@ -3766,7 +3764,6 @@ msg_format("一つにつき $%ldです。", (long)(best));
 			/* Describe the object (fully) */
 			object_desc(object_name, j_ptr, 0);
 
-			/* Message */
 #ifdef JP
 			msg_format("%s(%c)を購入する。", object_name, I2A(item));
 #else
@@ -3828,7 +3825,6 @@ msg_format("一つにつき $%ldです。", (long)(best));
 				/* Describe the transaction */
 				object_desc(object_name, j_ptr, 0);
 
-				/* Message */
 #ifdef JP
 msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 #else
@@ -3855,7 +3851,6 @@ msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 				/* Describe the final result */
 				object_desc(object_name, &guest_ptr->inventory[item_new], 0);
 
-				/* Message */
 #ifdef JP
 		msg_format("%s(%c)を手に入れた。", object_name, index_to_label(item_new));
 #else
@@ -3885,7 +3880,6 @@ msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 				/* Store is empty */
 				if(st_ptr->stock_num == 0)
 				{
-					/* Message */
 #ifdef JP
 					msg_print("店主は新たな在庫を取り出した。");
 #else
@@ -3952,7 +3946,6 @@ msg_format("%sを $%ldで購入しました。", object_name, (long)price);
 		/* Describe just the result */
 		object_desc(object_name, &guest_ptr->inventory[item_new], 0);
 
-		/* Message */
 #ifdef JP
 				msg_format("%s(%c)を取った。",
 #else
@@ -4534,7 +4527,6 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 	if(!get_check(format("Really order to remove %s from the Museum? ", object_name))) return;
 #endif
 
-	/* Message */
 #ifdef JP
 	msg_format("%sの展示をやめさせた。", object_name);
 #else
@@ -5178,7 +5170,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 			/* Hack -- Flee from the store */
 			if(!is_home(st_ptr))
 			{
-				/* Message */
 #ifdef JP
 				if(is_museum(st_ptr))
 					msg_print("ザックからアイテムがあふれそうなので、あわてて博物館から出た...");
@@ -5199,7 +5190,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 			/* Hack -- Flee from the home */
 			else if(!store_check_num(st_ptr, object_ptr))
 			{
-				/* Message */
 #ifdef JP
 				msg_print("ザックからアイテムがあふれそうなので、あわてて家から出た...");
 #else
@@ -5239,7 +5229,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				/* Describe it */
 				object_desc(object_name, quest_ptr, 0);
 
-				/* Message */
 #ifdef JP
 				msg_format("%sが落ちた。(%c)", object_name, index_to_label(item));
 #else

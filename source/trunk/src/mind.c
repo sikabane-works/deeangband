@@ -2113,7 +2113,6 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 		if((creature_ptr->csp - mana_cost) < 0) creature_ptr->csp_frac = 0;
 		creature_ptr->csp = MAX(0, creature_ptr->csp - mana_cost);
 
-		/* Message */
 #ifdef JP
 msg_format("%sを集中しすぎて気を失ってしまった！",p);
 #else
@@ -2129,7 +2128,6 @@ msg_format("%sを集中しすぎて気を失ってしまった！",p);
 		{
 			bool perm = (randint0(100) < 25);
 
-			/* Message */
 #ifdef JP
 msg_print("自分の精神を攻撃してしまった！");
 #else

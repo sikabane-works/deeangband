@@ -1945,7 +1945,6 @@ static void process_nonplayer(int m_idx)
 				/* Attempt to Bash XXX XXX XXX */
 				if(check_hp_for_feat_destruction(f_ptr, creature_ptr) && (randint0(creature_ptr->chp / 10) > f_ptr->power))
 				{
-					/* Message */
 					if(have_flag(f_ptr->flags, FF_GLASS))
 #ifdef JP
 						msg_print("ƒKƒ‰ƒX‚ªÓ‚¯‚é‰¹‚ª‚µ‚½I");

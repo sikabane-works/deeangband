@@ -1045,7 +1045,6 @@ void do_cmd_open(creature_type *creature_ptr)
 		/* Nothing useful */
 		if(!have_flag(feature_info[feat].flags, FF_OPEN) && !object_idx)
 		{
-			/* Message */
 #ifdef JP
 		msg_print("そこには開けるものが見当たらない。");
 #else
@@ -1114,7 +1113,6 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 		if((c_ptr->object_idx || (c_ptr->info & CAVE_OBJECT)) &&
 		    (closed_feat != old_feat) && !have_flag(feature_info[closed_feat].flags, FF_DROP))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("何かがつっかえて閉まらない。");
 #else
@@ -1129,7 +1127,6 @@ static bool do_cmd_close_aux(creature_type *creature_ptr, int y, int x)
 			/* Broken door */
 			if(old_feat == c_ptr->feat)
 			{
-				/* Message */
 #ifdef JP
 				msg_print("ドアは壊れてしまっている。");
 #else
@@ -1201,7 +1198,6 @@ void do_cmd_close(creature_type *creature_ptr)
 		/* Require open/broken door */
 		if(!have_flag(feature_info[feat].flags, FF_CLOSE))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("そこには閉じるものが見当たらない。");
 #else
@@ -1243,7 +1239,6 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	/* Must have knowledge */
 	if(!(c_ptr->info & CAVE_MARK))
 	{
-		/* Message */
 #ifdef JP
 		msg_print("そこには何も見当たらない。");
 #else
@@ -1257,7 +1252,6 @@ static bool do_cmd_tunnel_test(creature_type *creature_ptr, int y, int x)
 	/* Must be a wall/door/etc */
 	if(!cave_have_flag_grid(c_ptr, FF_TUNNEL))
 	{
-		/* Message */
 #ifdef JP
 		msg_print("そこには掘るものが見当たらない。");
 #else
@@ -1339,7 +1333,6 @@ static bool do_cmd_tunnel_aux(creature_type *creature_ptr, int y, int x)
 		/* Dig */
 		if(creature_ptr->skill_dig > randint0(20 * power))
 		{
-			/* Message */
 #ifdef JP
 			msg_format("%sをくずした。", name);
 #else
@@ -1477,7 +1470,6 @@ void do_cmd_tunnel(creature_type *creature_ptr)
 		/* No tunnelling through doors */
 		if(have_flag(feature_info[feat].flags, FF_DOOR))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("ドアは掘れない。");
 #else
@@ -1756,7 +1748,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Success */
 	if(randint0(100) < j)
 	{
-		/* Message */
 #ifdef JP
 		msg_format("%sを解除した。", name);
 #else
@@ -1779,7 +1770,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 		/* Failure */
 		if(flush_failure) flush();
 
-		/* Message */
 #ifdef JP
 		msg_format("%sの解除に失敗した。", name);
 #else
@@ -1793,7 +1783,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Failure -- Set off the trap */
 	else
 	{
-		/* Message */
 #ifdef JP
 		msg_format("%sを作動させてしまった！", name);
 #else
@@ -1874,7 +1863,6 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Disarm a trap */
 		if(!is_trap(feat) && !object_idx)
 		{
-			/* Message */
 #ifdef JP
 			msg_print("そこには解除するものが見当たらない。");
 #else
@@ -1934,7 +1922,6 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Take a turn */
 	cost_tactical_energy(creature_ptr, 100);
 
-	/* Message */
 #ifdef JP
 	msg_format("%sに体当たりをした！", name);
 #else
@@ -1952,7 +1939,6 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Hack -- attempt to bash down the door */
 	if(randint0(100) < temp)
 	{
-		/* Message */
 #ifdef JP
 		msg_format("%sを壊した！", name);
 #else
@@ -1981,7 +1967,6 @@ static bool do_cmd_bash_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Saving throw against stun */
 	else if(randint0(100) < adj_dex_safe[creature_ptr->stat_ind[STAT_DEX]] + creature_ptr->lev)
 	{
-		/* Message */
 #ifdef JP
 		msg_format("この%sは頑丈だ。", name);
 #else
@@ -2057,7 +2042,6 @@ void do_cmd_bash(creature_type *creature_ptr)
 		/* Nothing useful */
 		if(!have_flag(feature_info[feat].flags, FF_BASH))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("そこには体当たりするものが見当たらない。");
 #else
@@ -3099,7 +3083,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
 
-					/* Message */
 #ifdef JP
 					msg_format("%sが%sに命中した。", object_name, m_name);
 #else
@@ -3188,7 +3171,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 #endif
 					}
 
-					/* Message */
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
@@ -3205,7 +3187,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 						/* Get the creature name (or "it") */
 						creature_desc(m_name, m_ptr, 0);
 
-						/* Message */
 #ifdef JP
 						msg_format("%^sは恐怖して逃げ出した！", m_name);
 #else
@@ -3721,7 +3702,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 					/* Get "the creature" or "it" */
 					creature_desc(m_name, m_ptr, 0);
 
-					/* Message */
 #ifdef JP
 					msg_format("%sが%sに命中した。", object_name, m_name);
 #else
@@ -3772,7 +3752,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 				/* No death */
 				if(creature_list[c_ptr->creature_idx].species_idx != 0)
 				{
-					/* Message */
 					message_pain(c_ptr->creature_idx, tdam);
 
 					/* Anger the creature */
@@ -3790,7 +3769,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 						/* Get the creature name (or "it") */
 						creature_desc(m_name, m_ptr, 0);
 
-						/* Message */
 #ifdef JP
 						msg_format("%^sは恐怖して逃げ出した！", m_name);
 #else
@@ -3836,7 +3814,6 @@ msg_print("これはあまり良くない気がする。");
 	{
 		if(hit_body || hit_wall || (randint1(100) < j))
 		{
-			/* Message */
 #ifdef JP
 			msg_format("%sは砕け散った！", object_name);
 #else

@@ -779,7 +779,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Check line of sight */
 				if(known)
 				{
-					/* Message */
 #ifdef JP
 					msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #else
@@ -827,7 +826,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Check line of sight */
 				if(known && have_flag(mimic_f_ptr->flags, FF_OPEN))
 				{
-					/* Message */
 #ifdef JP
 					msg_format("%s‚É‰½‚©‚ª‚Â‚Á‚©‚¦‚ÄŠJ‚©‚È‚­‚È‚Á‚½B", feature_name + mimic_f_ptr->name);
 #else
@@ -845,7 +843,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 		{
 			if(have_flag(f_ptr->flags, FF_HURT_ROCK))
 			{
-				/* Message */
 				if(known && (c_ptr->info & (CAVE_MARK)))
 				{
 #ifdef JP
@@ -1103,7 +1100,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 
 			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 50))
 			{
-				/* Message */
 				if(known && (c_ptr->info & CAVE_MARK))
 				{
 #ifdef JP
@@ -1139,7 +1135,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 
 			if(have_flag(f_ptr->flags, FF_GLASS) && !have_flag(f_ptr->flags, FF_PERMANENT) && (dam >= 200))
 			{
-				/* Message */
 				if(known && (c_ptr->info & CAVE_MARK))
 				{
 #ifdef JP

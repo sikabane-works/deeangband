@@ -480,7 +480,6 @@ static void spoil_obj_desc(cptr fname)
 		return;
 	}
 
-	/* Message */
 	msg_print("Successfully created a spoiler file.");
 }
 
@@ -1665,7 +1664,6 @@ static void spoil_artifact(cptr fname)
 		return;
 	}
 
-	/* Message */
 	msg_print("Successfully created a spoiler file.");
 }
 
@@ -2597,7 +2595,6 @@ static void spoil_species_evol(cptr fname)
 		return;
 	}
 
-	/* Message */
 	msg_print("Successfully created a spoiler file.");
 }
 
@@ -2869,7 +2866,6 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 		return;
 	}
 
-	/* Message */
 	msg_print("Successfully created a list file.");
 }
 

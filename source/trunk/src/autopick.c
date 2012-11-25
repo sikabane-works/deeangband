@@ -1597,7 +1597,6 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 		/* Describe the object (with {terrible/special}) */
 		object_desc(object_name, object_ptr, 0);
 
-		/* Message */
 #ifdef JP
 		msg_format("%sは破壊不能だ。", object_name);
 #else
@@ -1732,7 +1731,6 @@ void autopick_pickup_items(creature_type *creature_ptr, cave_type *c_ptr)
 				/* Describe the object */
 				object_desc(object_name, object_ptr, 0);
 
-				/* Message */
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", object_name);
 #else
@@ -1957,7 +1955,6 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 		/* Describe the object (with {terrible/special}) */
 		object_desc(object_name, object_ptr, 0);
 
-		/* Message */
 #ifdef JP
 		msg_format("%sは破壊不能だ。", object_name);
 #else

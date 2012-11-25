@@ -1397,7 +1397,6 @@ int load_player(void)
 			/* Close the file */
 			my_fclose(fkk);
 
-			/* Message */
 #ifdef JP
 			msg_print("セーブファイルは現在使用中です。");
 #else
@@ -1513,7 +1512,6 @@ int load_player(void)
 		if(sf_when > (statbuf.st_ctime + 100) ||
 		    sf_when < (statbuf.st_ctime - 100))
 		{
-			/* Message */
 #ifdef JP
 			what = "無効なタイム・スタンプです";
 #else

@@ -867,7 +867,6 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Message if needed */
 	if(creature_ptr->new_spells)
 	{
-		/* Message */
 #ifdef JP
 		if(creature_ptr->new_spells < 10) msg_format("あと %d つの%sを学べる。", creature_ptr->new_spells, p);
 		else msg_format("あと %d 個の%sを学べる。", creature_ptr->new_spells, p);
@@ -1245,7 +1244,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 		{
 			bool perm = (randint0(100) < 25);
 
-			/* Message */
 #ifdef JP
 			msg_print("体を悪くしてしまった！");
 #else
@@ -1895,7 +1893,6 @@ static void do_name_pet(creature_type *master_ptr)
 
 		if(!is_pet(player_ptr, pet_ptr))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("そのクリーチャーはペットではない。");
 #else
@@ -1915,7 +1912,6 @@ static void do_name_pet(creature_type *master_ptr)
 		}
 		creature_desc(m_name, pet_ptr, 0);
 
-		/* Message */
 #ifdef JP
 		msg_format("%sに名前をつける。", m_name);
 #else

@@ -719,7 +719,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 	{
 		cancel_tactical_action(creature_ptr);
 
-		/* Message */
 #ifdef JP
 		msg_format("%sは破壊不可能だ。", object_name);
 #else
@@ -732,7 +731,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 
 	object_copy(quest_ptr, object_ptr);
 
-	/* Message */
 #ifdef JP
 	msg_format("%sを壊した。", object_name);
 #else
@@ -893,7 +891,6 @@ void do_cmd_uninscribe(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Message */
 #ifdef JP
 	msg_print("銘を消した。");
 #else
@@ -941,7 +938,6 @@ void do_cmd_inscribe(creature_type *creature_ptr)
 	/* Describe the activity */
 	object_desc(object_name, object_ptr, OD_OMIT_INSCRIPTION);
 
-	/* Message */
 #ifdef JP
 	msg_format("%sに銘を刻む。", object_name);
 #else
@@ -1098,7 +1094,6 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 	/* Refuel */
 	j_ptr->xtra4 += object_ptr->xtra4;
 
-	/* Message */
 #ifdef JP
 	msg_print("ランプに油を注いだ。");
 #else
@@ -1201,7 +1196,6 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 	/* Refuel */
 	j_ptr->xtra4 += object_ptr->xtra4 + 5;
 
-	/* Message */
 #ifdef JP
 	msg_print("松明を結合した。");
 #else

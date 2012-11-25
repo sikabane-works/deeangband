@@ -1227,7 +1227,6 @@ msg_print("このアイテムにはこれ以上燃素を補充できません。");
 	/* Refuel */
 	object_ptr->xtra4 += (max_flog / 2);
 
-	/* Message */
 #ifdef JP
 msg_print("照明用アイテムに燃素を補充した。");
 #else
@@ -2193,7 +2192,6 @@ sprintf(out_val, "本当に%sを金に変えますか？", object_name);
 	/* Artifacts cannot be destroyed */
 	if(!can_player_destroy_object(creature_ptr, object_ptr))
 	{
-		/* Message */
 #ifdef JP
 		msg_format("%sを金に変えることに失敗した。", object_name);
 #else
@@ -2208,7 +2206,6 @@ sprintf(out_val, "本当に%sを金に変えますか？", object_name);
 
 	if(price <= 0)
 	{
-		/* Message */
 #ifdef JP
 msg_format("%sをニセの金に変えた。", object_name);
 #else
@@ -2451,7 +2448,6 @@ msg_format("%s は明るく輝いた！",
 		/* Flush */
 		if(flush_failure) flush();
 
-		/* Message */
 #ifdef JP
 msg_print("強化に失敗した。");
 #else
@@ -4580,7 +4576,6 @@ int inven_damage(creature_type *creature_ptr, inven_func typ, int perc)
 				/* Get a description */
 				object_desc(object_name, object_ptr, OD_OMIT_PREFIX);
 
-				/* Message */
 #ifdef JP
 				msg_format("%s(%c)が%s壊れてしまった！",
 #else
@@ -4672,7 +4667,6 @@ static int minus_ac(creature_type *creature_ptr)
 		return TRUE;
 	}
 
-	/* Message */
 #ifdef JP
 	msg_format("%sがダメージを受けた！", object_name);
 #else
@@ -5141,7 +5135,6 @@ msg_print("充填中のロッドから魔力を吸収することはできません。");
 					set_inventory_weight(creature_ptr);
 					item = inven_carry(creature_ptr, quest_ptr);
 
-					/* Message */
 #ifdef JP
 					msg_print("杖をまとめなおした。");
 #else

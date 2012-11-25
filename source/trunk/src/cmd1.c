@@ -1631,7 +1631,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 		/* Hidden trap */
 		if(c_ptr->mimic || have_flag(f_ptr->flags, FF_SECRET))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("トラップだ！");
 #else
@@ -2949,7 +2948,6 @@ void run_step(creature_type *creature_ptr, int dir)
 		/* Hack -- do not start silly run */
 		if(see_wall(creature_ptr, dir, creature_ptr->fy, creature_ptr->fx))
 		{
-			/* Message */
 #ifdef JP
 			msg_print("その方向には走れません。");
 #else

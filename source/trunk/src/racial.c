@@ -359,7 +359,6 @@ bool gain_magic(creature_type *creature_ptr)
 	}
 
 	object_desc(object_name, object_ptr, 0);
-	/* Message */
 #ifdef JP
 	msg_format("%s‚Ì–‚—Í‚ğæ‚è‚ñ‚¾B", object_name);
 #else

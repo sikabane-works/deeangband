@@ -3257,7 +3257,6 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			{
 				int y, x;
 
-				/* Message */
 #ifdef JP
 				msg_print("夜が明けた。");
 #else
@@ -3292,7 +3291,6 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			{
 				int y, x;
 
-				/* Message */
 #ifdef JP
 				msg_print("日が沈んだ。");
 #else
@@ -4685,7 +4683,6 @@ static void pack_overflow(creature_type *creature_ptr)
 		/* Describe */
 		object_desc(object_name, object_ptr, 0);
 
-		/* Message */
 #ifdef JP
 		msg_format("%s(%c)を落とした。", object_name, index_to_label(INVEN_TOTAL));
 #else
@@ -5355,7 +5352,6 @@ static void cheat_death(void)
 	/* Mark savefile */
 	noscore |= 0x0001;
 
-	/* Message */
 #ifdef JP
 	msg_print("ウィザードモードに念を送り、死を欺いた。");
 #else
@@ -5386,7 +5382,6 @@ static void cheat_death(void)
 	/* Hack -- cancel recall */
 	if(has_trait(player_ptr, TRAIT_WORD_RECALL))
 	{
-		/* Message */
 #ifdef JP
 		msg_print("張りつめた大気が流れ去った...");
 #else

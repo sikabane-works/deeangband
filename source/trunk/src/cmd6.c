@@ -406,7 +406,6 @@ msg_print("‚ ‚È‚½‚Ì‹Q‚¦‚ÍV‘N‚ÈŒŒ‚É‚æ‚Á‚Ä‚Ì‚İ–‚½‚³‚ê‚éI");
 			set_inventory_weight(creature_ptr);
 			item = inven_carry(creature_ptr, quest_ptr);
 
-			/* Message */
 #ifdef JP
 			msg_format("ñ‚ğ‚Ü‚Æ‚ß‚È‚¨‚µ‚½B");
 #else

@@ -236,7 +236,6 @@ void compact_objects(int size)
 	/* Compact */
 	if(size)
 	{
-		/* Message */
 #ifdef JP
 		msg_print("アイテム情報を圧縮しています...");
 #else
@@ -4144,7 +4143,6 @@ void inven_drop(creature_type *creature_ptr, int item, int amt)
 	/* Describe local object */
 	object_desc(object_name, quest_ptr, 0);
 
-	/* Message */
 #ifdef JP
 	msg_format("%s(%c)を落とした。", object_name, index_to_label(item));
 #else
@@ -4303,7 +4301,6 @@ void reorder_pack(creature_type *creature_ptr)
 		play_window |= (PW_INVEN);
 	}
 
-	/* Message */
 #ifdef JP
 	if(flag) msg_print("ザックの中のアイテムを並べ直した。");
 #else

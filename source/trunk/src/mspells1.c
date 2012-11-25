@@ -1347,7 +1347,6 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	if((in_no_magic_dungeon || (caster_ptr->timed_trait[TRAIT_STUN] && one_in_(2)) || (randint0(100) < failrate)))
 	{
 		disturb(player_ptr, 1, 0);
-		/* Message */
 #ifdef JP
 		msg_format("%^s‚ÍŽô•¶‚ð¥‚¦‚æ‚¤‚Æ‚µ‚½‚ªŽ¸”s‚µ‚½B", m_name);
 #else

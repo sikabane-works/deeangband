@@ -839,7 +839,6 @@ msg_print("魔法をうまく唱えられなかった。");
 		creature_ptr->csp = 0;
 		creature_ptr->csp_frac = 0;
 
-		/* Message */
 #ifdef JP
 msg_print("精神を集中しすぎて気を失ってしまった！");
 #else
@@ -855,7 +854,6 @@ msg_print("精神を集中しすぎて気を失ってしまった！");
 		{
 			bool perm = (randint0(100) < 25);
 
-			/* Message */
 #ifdef JP
 msg_print("体を悪くしてしまった！");
 #else

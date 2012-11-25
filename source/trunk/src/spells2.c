@@ -2166,7 +2166,6 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		/* Hack -- Affect player */
 		if(flag)
 		{
-			/* Message */
 #ifdef JP
 			msg_print("”R‚¦‚é‚æ‚¤‚È‘MŒõ‚ª”­¶‚µ‚½I");
 #else

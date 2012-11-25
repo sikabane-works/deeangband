@@ -3746,7 +3746,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		/* Pick up gold */
 		if(object_ptr->tval == TV_GOLD)
 		{
-			/* Message */
 #ifdef JP
 		msg_format(" $%ld の価値がある%sを見つけた。",
 			   (long)object_ptr->pval, object_name);
@@ -3812,7 +3811,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 
-			/* Message */
 #ifdef JP
 			msg_format("%sがある。", object_name);
 #else
@@ -3824,7 +3822,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		/* Multiple objects */
 		else
 		{
-			/* Message */
 #ifdef JP
 			msg_format("%d 種のアイテムがある。", floor_num);
 #else
@@ -3849,7 +3846,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Describe the object */
 			object_desc(object_name, object_ptr, 0);
 
-			/* Message */
 #ifdef JP
 				msg_format("ザックには%sを入れる隙間がない。", object_name);
 #else
@@ -3861,7 +3857,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 		/* Multiple objects */
 		else
 		{
-			/* Message */
 #ifdef JP
 			msg_format("ザックには床にあるどのアイテムも入らない。", object_name);
 #else

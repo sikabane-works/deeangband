@@ -3565,7 +3565,6 @@ void do_cmd_visuals(void)
 			/* Close */
 			close_auto_dump();
 
-			/* Message */
 #ifdef JP
 			msg_print("クリーチャーの[色/文字]をファイルに書き出しました。");
 #else
@@ -3649,7 +3648,6 @@ void do_cmd_visuals(void)
 			/* Close */
 			close_auto_dump();
 
-			/* Message */
 #ifdef JP
 			msg_print("アイテムの[色/文字]をファイルに書き出しました。");
 #else
@@ -3721,7 +3719,6 @@ void do_cmd_visuals(void)
 			/* Close */
 			close_auto_dump();
 
-			/* Message */
 #ifdef JP
 			msg_print("地形の[色/文字]をファイルに書き出しました。");
 #else
@@ -4134,7 +4131,6 @@ void do_cmd_visuals(void)
 			/* Reset */
 			reset_visuals();
 
-			/* Message */
 #ifdef JP
 			msg_print("画面上の[色/文字]を初期値にリセットしました。");
 #else
@@ -4299,7 +4295,6 @@ void do_cmd_colors(void)
 			/* Close */
 			close_auto_dump();
 
-			/* Message */
 #ifdef JP
 			msg_print("カラーの設定をファイルに書き出しました。");
 #else
@@ -5536,7 +5531,6 @@ void do_cmd_load_screen(void)
 	my_fclose(fff);
 
 
-	/* Message */
 #ifdef JP
 	prt("ファイルに書き出された画面(記念撮影)をロードしました。", 0, 0);
 #else
@@ -5923,7 +5917,6 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 	/* Close it */
 	my_fclose(fff);
 
-	/* Message */
 	if(message) {
 #ifdef JP
 	msg_print("画面(記念撮影)をファイルに書き出しました。");
@@ -6113,7 +6106,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		/* Close it */
 		my_fclose(fff);
 
-		/* Message */
 #ifdef JP
 	msg_print("画面(記念撮影)をファイルに書き出しました。");
 #else
@@ -9908,7 +9900,6 @@ void do_cmd_time(creature_type *creature_ptr)
 	if(day < MAX_DAYS) sprintf(day_buf, "%d", day);
 	else strcpy(day_buf, "*****");
 
-	/* Message */
 #ifdef JP
 	msg_format("%s日目, 時刻は%d:%02d %sです。",
 		   day_buf, (hour % 12 == 0) ? 12 : (hour % 12),
@@ -9994,7 +9985,6 @@ void do_cmd_time(creature_type *creature_ptr)
 		}
 	}
 
-	/* Message */
 	msg_print(desc);
 
 	/* Close the file */

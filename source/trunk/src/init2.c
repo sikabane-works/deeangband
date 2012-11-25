@@ -1822,7 +1822,6 @@ void init_angband(void)
 	{
 		char why[1024];
 
-		/* Message */
 #ifdef JP
 	sprintf(why, "'%s'ファイルにアクセスできません!", buf);
 #else
@@ -1904,7 +1903,6 @@ void init_angband(void)
 		{
 			char why[1024];
 
-			/* Message */
 #ifdef JP
 			sprintf(why, "'%s'ファイルを作成できません!", buf);
 #else

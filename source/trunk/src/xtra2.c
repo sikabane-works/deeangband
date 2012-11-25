@@ -132,7 +132,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Sound */
 		sound(SOUND_LEVEL);
 
-		/* Message */
 		if(is_player(creature_ptr))
 		{
 #ifdef JP
@@ -2256,7 +2255,6 @@ static int target_set_aux(creature_type *creature_ptr, int y, int x, int mode, c
 				/* Describe the object */
 				object_desc(object_name, object_ptr, 0);
 
-				/* Message */
 #ifdef JP
 				sprintf(out_val, "%s%s%s%s[%s]",
 					s1, object_name, s2, s3, info);

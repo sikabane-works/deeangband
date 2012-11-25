@@ -1900,7 +1900,6 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 				which = creature_ptr->realm2;
 			}
 
-			/* Message */
 #ifdef JP
 			if(message) msg_format("%s‚Ì%s‚ð–Y‚ê‚Ä‚µ‚Ü‚Á‚½B", do_spell(creature_ptr, which, j%32, SPELL_NAME), p );
 #else
@@ -2072,7 +2071,6 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		/* Message if needed */
 		if(creature_ptr->new_spells)
 		{
-			/* Message */
 #ifdef JP
 			if( creature_ptr->new_spells < 10 ){
 				if(message) msg_format("‚ ‚Æ %d ‚Â‚Ì%s‚ðŠw‚×‚éB", creature_ptr->new_spells, p);
@@ -2279,7 +2277,6 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 	/* Take note when "glove state" changes */
 	if(creature_ptr->old_cumber_glove != creature_ptr->cumber_glove)
 	{
-		/* Message */
 		if(creature_ptr->cumber_glove)
 		{
 #ifdef JP
@@ -2307,7 +2304,6 @@ static void calc_mana(creature_type *creature_ptr, bool message)
 	/* Take note when "armor state" changes */
 	if(creature_ptr->old_cumber_armor != creature_ptr->cumber_armor)
 	{
-		/* Message */
 		if(creature_ptr->cumber_armor)
 		{
 #ifdef JP
@@ -3538,7 +3534,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 		/* Take note when "heavy weapon" changes */
 		if(creature_ptr->old_heavy_wield[i] != creature_ptr->heavy_wield[i])
 		{
-			/* Message */
 			if(creature_ptr->heavy_wield[i])
 			{
 #ifdef JP
@@ -3583,7 +3578,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 		/* Take note when "heavy weapon" changes */
 		if(creature_ptr->old_riding_wield[i] != creature_ptr->riding_wield[i])
 		{
-			/* Message */
 			if(creature_ptr->riding_wield[i])
 			{
 #ifdef JP
@@ -3619,7 +3613,6 @@ static void creature_bonuses_message(creature_type *creature_ptr)
 
 	if(creature_ptr->riding && (creature_ptr->old_riding_two_handed != creature_ptr->riding_two_handed))
 	{
-		/* Message */
 		if(creature_ptr->riding_two_handed)
 		{
 #ifdef JP

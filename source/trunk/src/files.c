@@ -5116,7 +5116,6 @@ errr file_character(cptr name)
 	/* Invalid file */
 	if(!fff)
 	{
-		/* Message */
 #ifdef JP
 		prt("キャラクタ情報のファイルへの書き出しに失敗しました！", 0, 0);
 #else
@@ -5135,7 +5134,6 @@ errr file_character(cptr name)
 	my_fclose(fff);
 
 
-	/* Message */
 #ifdef JP
 msg_print("キャラクタ情報のファイルへの書き出しに成功しました。");
 #else
@@ -5424,7 +5422,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 	/* Oops */
 	if(!fff)
 	{
-		/* Message */
 #ifdef JP
 		msg_format("'%s'をオープンできません。", name);
 #else
@@ -6266,7 +6263,6 @@ msg_print("自動セーブ中");
 	/* Handle stuff */
 	handle_stuff();
 
-	/* Message */
 #ifdef JP
 	prt("ゲームをセーブしています...", 0, 0);
 #else
@@ -7615,7 +7611,6 @@ static void handle_signal_abort(int sig)
 #endif
 
 
-	/* Message */
 #ifdef JP
 	Term_putstr(45, hgt - 1, -1, TERM_RED, "緊急セーブ...");
 #else

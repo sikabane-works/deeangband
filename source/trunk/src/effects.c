@@ -1814,7 +1814,6 @@ bool restore_exp(creature_type *creature_ptr)
 	/* Restore experience */
 	if(creature_ptr->exp < creature_ptr->max_exp)
 	{
-		/* Message */
 		if(is_seen(player_ptr, creature_ptr))
 		{
 #ifdef JP

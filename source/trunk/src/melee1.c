@@ -2066,7 +2066,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 			}
 		}
 
-		/* Message */
 		if(act)
 		{
 			if(do_silly_attack)
@@ -2207,7 +2206,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Don't heal more than max hp */
 						heal = MIN(heal, attacker_ptr->mhp - attacker_ptr->chp);
 
-						/* Message */
 #ifdef JP
 						msg_print("魔道具からエネルギーを吸い取った！");
 #else
@@ -2372,7 +2370,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 
 					object_desc(object_name, object_ptr, OD_OMIT_PREFIX); // Get a description
 
-					/* Message */
 #ifdef JP
 					msg_format("%s(%c)を%s盗まれた！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
 #else
@@ -2448,7 +2445,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					if((object_ptr->tval != TV_FOOD) && !((object_ptr->tval == TV_CORPSE) && (object_ptr->sval))) continue; // Skip non-food objects
 					object_desc(object_name, object_ptr, (OD_OMIT_PREFIX | OD_NAME_ONLY)); // Get a description
 
-					/* Message */
 #ifdef JP
 					msg_format("%s(%c)を%s食べられてしまった！", object_name, index_to_label(i), ((object_ptr->number > 1) ? "一つ" : ""));
 #else
@@ -2510,7 +2506,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				/* Message */
 #ifdef JP
 				msg_print("酸を浴びせられた！");
 #else
@@ -2554,7 +2549,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				/* Message */
 #ifdef JP
 				msg_print("全身が炎に包まれた！");
 #else
@@ -2578,7 +2572,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Obvious */
 				obvious = TRUE;
 
-				/* Message */
 #ifdef JP
 				msg_print("全身が冷気で覆われた！");
 #else
@@ -3406,7 +3399,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				/* Disturbing */
 				disturb(player_ptr, 1, 0);
 
-				/* Message */
 #ifdef JP
 				if(abbreviate)
 					msg_format("%sかわした。", (has_trait(target_ptr, TRAIT_DRUNKING_FIST)) ? "奇妙な動きで" : "");

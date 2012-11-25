@@ -65,7 +65,6 @@ void do_cmd_rerate(creature_type *creature_ptr, bool display)
 	/* Handle stuff */
 	handle_stuff();
 
-	/* Message */
 	if(display)
 	{
 #ifdef JP
