@@ -6384,7 +6384,6 @@ void weapon_boost(object_type *object_ptr, int level, int power)
 {
 	int tohit1 = randint1(5) + m_bonus(5, level);
 	int todam1 = randint1(5) + m_bonus(5, level);
-
 	int tohit2 = m_bonus(10, level);
 	int todam2 = m_bonus(10, level);
 
@@ -6394,38 +6393,25 @@ void weapon_boost(object_type *object_ptr, int level, int power)
 		todam2 = (todam2+1)/2;
 	}
 
-	/* Good */
-	if(power > 0)
+	if(power >= ITEM_RANK_GOOD)
 	{
-		/* Enchant */
 		object_ptr->to_hit += tohit1;
 		object_ptr->to_damage += todam1;
-
-		/* Very good */
-		if(power > 1)
+		if(power >= ITEM_RANK_GREAT)
 		{
-			/* Enchant again */
 			object_ptr->to_hit += tohit2;
 			object_ptr->to_damage += todam2;
 		}
 	}
-
-	/* Cursed */
-	else if(power < 0)
+	else if(power <= ITEM_RANK_CURSED)
 	{
-		/* Penalize */
 		object_ptr->to_hit -= tohit1;
 		object_ptr->to_damage -= todam1;
-
-		/* Very cursed */
-		if(power < -1)
+		if(power <= ITEM_RANK_BROKEN)
 		{
-			/* Penalize again */
 			object_ptr->to_hit -= tohit2;
 			object_ptr->to_damage -= todam2;
 		}
-
-		/* Cursed (if "bad") */
 		if(object_ptr->to_hit + object_ptr->to_damage < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
 	}
 }
