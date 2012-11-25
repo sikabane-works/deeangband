@@ -6435,36 +6435,16 @@ void armour_boost(object_type *object_ptr, int level, int power)
 {
 	int toac1 = randint1(5) + m_bonus(5, level);
 	int toac2 = m_bonus(10, level);
-
-	/* Good */
-	if(power > 0)
+	if(power >= ITEM_RANK_GOOD) // Good
 	{
-		/* Enchant */
 		object_ptr->to_ac += toac1;
-
-		/* Very good */
-		if(power > 1)
-		{
-			/* Enchant again */
-			object_ptr->to_ac += toac2;
-		}
+		if(power >= ITEM_RANK_GREAT) object_ptr->to_ac += toac2;
 	}
-
-	/* Cursed */
-	else if(power < 0)
+	else if(power <= ITEM_RANK_CURSED) // Cursed
 	{
-		/* Penalize */
-		object_ptr->to_ac -= toac1;
-
-		/* Very cursed */
-		if(power < -1)
-		{
-			/* Penalize again */
-			object_ptr->to_ac -= toac2;
-		}
-
-		/* Cursed (if "bad") */
-		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED);
+		object_ptr->to_ac -= toac1; // Penalize
+		if(power <= ITEM_RANK_BROKEN) object_ptr->to_ac -= toac2; // Very cursed -- Penalize again
+		if(object_ptr->to_ac < 0) add_flag(object_ptr->curse_flags, TRAIT_CURSED); // Cursed (if "bad")
 	}
 }
 
@@ -6523,10 +6503,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 			if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA))
 				object_ptr->pval += (s16b)randint1(2);
 		}
-		else
-		{
-			object_ptr->pval += (s16b)randint1(e_ptr->max_pval);
-		}
+		else object_ptr->pval += (s16b)randint1(e_ptr->max_pval);
 
 		if((object_ptr->tval == TV_SWORD) && (object_ptr->sval == SV_HAYABUSA) && (object_ptr->pval > 2) && (object_ptr->name2 != EGO_ATTACKS))
 			object_ptr->pval = 2;
@@ -6542,16 +6519,12 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 
 		case EGO_SEEING:
 			if(one_in_(3))
-			{
 				if(one_in_(2)) add_esp_strong(object_ptr);
 					else add_esp_weak(object_ptr, FALSE);
-			}
 
 		case EGO_EARTHQUAKES:
-			if(one_in_(3) && (level > 60))
-				add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
-			else
-				object_ptr->pval = m_bonus(3, level);
+			if(one_in_(3) && (level > 60)) add_flag(object_ptr->trait_flags, TRAIT_BLOWS);
+			else object_ptr->pval = m_bonus(3, level);
 			break;
 
 	}
@@ -6586,16 +6559,9 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 		if(one_in_(3)) object_ptr->dd *= 2;
 		else
 		{
-			do
-			{
-				object_ptr->dd++;
-			}
+			do object_ptr->dd++;
 			while (one_in_(object_ptr->dd));
-						
-			do
-			{
-				object_ptr->ds++;
-			}
+			do object_ptr->ds++;
 			while (one_in_(object_ptr->ds));
 		}
 	}
@@ -6608,10 +6574,7 @@ void create_ego(object_type *object_ptr, int level, int ego_id)
 	}
 
 	// Armour_Boost
-	{
-		armour_boost(object_ptr, level, ITEM_RANK_GREAT);
-	}
-
+	armour_boost(object_ptr, level, ITEM_RANK_GREAT);
 }
 
 void set_inventory_weight(creature_type *creature_ptr)
