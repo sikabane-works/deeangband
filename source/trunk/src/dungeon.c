@@ -352,7 +352,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Heavy sensing */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -364,7 +363,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Heavy sensing */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -376,7 +374,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Very bad (light) sensing */
 			if(0 != randint0(240000L / (plev + 5))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -386,7 +383,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Good (light) sensing */
 			if(0 != randint0(10000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -399,7 +395,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Heavy sensing */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -411,7 +406,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Changed! */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -424,7 +418,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Heavy sensing */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -434,7 +427,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Bad sensing */
 			if(0 != randint0(75000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -446,7 +438,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Bad sensing */
 			if(0 != randint0(55000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -458,7 +449,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Changed! */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -468,7 +458,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Okay sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -480,7 +469,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Heavy sensing */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 
@@ -489,7 +477,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Bad sensing */
 			if(0 != randint0(65000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 	case CLASS_BERSERKER:
@@ -497,7 +484,6 @@ static void sense_inventory1(creature_type *creature_ptr)
 			/* Heavy sensing */
 			heavy = TRUE;
 
-			/* Done */
 			break;
 		}
 	}
@@ -594,7 +580,6 @@ static void sense_inventory2(creature_type *creature_ptr)
 			/* Very bad (light) sensing */
 			if(0 != randint0(240000L / (plev + 5))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -606,7 +591,6 @@ static void sense_inventory2(creature_type *creature_ptr)
 			/* Bad sensing */
 			if(0 != randint0(95000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -619,7 +603,6 @@ static void sense_inventory2(creature_type *creature_ptr)
 			/* Good sensing */
 			if(0 != randint0(20000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -633,7 +616,6 @@ static void sense_inventory2(creature_type *creature_ptr)
 			/* Good sensing */
 			if(0 != randint0(9000L / (plev * plev + 40))) return;
 
-			/* Done */
 			break;
 		}
 
@@ -642,7 +624,6 @@ static void sense_inventory2(creature_type *creature_ptr)
 			/* Good sensing */
 			if(0 != randint0(20000L / ((plev+50)*(plev+50)))) return;
 
-			/* Done */
 			break;
 		}
 	}

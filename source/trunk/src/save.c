@@ -1544,7 +1544,6 @@ int load_player(void)
 				/* A character was loaded */
 				character_loaded = TRUE;
 
-				/* Done */
 				return 0;
 			}
 
@@ -1554,7 +1553,6 @@ int load_player(void)
 			/* Count lives */
 			sf_lives++;
 
-			/* Done */
 			return 0;
 		}
 

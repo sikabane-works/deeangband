@@ -2031,7 +2031,6 @@ void init_angband(void)
 	/* Process that file */
 	process_pref_file(buf);
 
-	/* Done */
 #ifdef JP
 	note("[‰Šú‰»I—¹]");
 #else

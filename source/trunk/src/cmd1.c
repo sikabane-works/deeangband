@@ -2956,7 +2956,6 @@ void run_step(creature_type *creature_ptr, int dir)
 			/* Disturb */
 			disturb(player_ptr, 0, 0);
 
-			/* Done */
 			return;
 		}
 
@@ -2973,7 +2972,6 @@ void run_step(creature_type *creature_ptr, int dir)
 			/* Disturb */
 			disturb(player_ptr, 0, 0);
 
-			/* Done */
 			return;
 		}
 	}

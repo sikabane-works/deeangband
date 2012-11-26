@@ -940,7 +940,6 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 			y = nonplayer_ptr->fy - y2;
 			x = nonplayer_ptr->fx - x2;
 
-			/* Done */
 			done = TRUE;
 		}
 	}

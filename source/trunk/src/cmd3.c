@@ -725,7 +725,6 @@ void do_cmd_destroy(creature_type *creature_ptr)
 		msg_format("You cannot destroy %s.", object_name);
 #endif
 
-		/* Done */
 		return;
 	}
 

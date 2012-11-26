@@ -403,7 +403,6 @@ msg_print("警告！地下室のトラップを配置できません！");
 		/* Place the trap */
 		place_trap(floor_ptr, y1, x1);
 
-		/* Done */
 		break;
 	}
 }

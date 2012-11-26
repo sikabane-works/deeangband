@@ -468,7 +468,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				/* Format the argument */
 				sprintf(tmp, aux, arg);
 
-				/* Done */
 				break;
 			}
 
@@ -496,7 +495,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 					sprintf(tmp, aux, arg);
 				}
 
-				/* Done */
 				break;
 			}
 
@@ -524,7 +522,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 					sprintf(tmp, aux, arg);
 				}
 
-				/* Done */
 				break;
 			}
 
@@ -541,7 +538,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				/* Format the argument */
 				sprintf(tmp, aux, arg);
 
-				/* Done */
 				break;
 			}
 
@@ -556,7 +552,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				/* Format the argument */
 				sprintf(tmp, aux, arg);
 
-				/* Done */
 				break;
 			}
 
@@ -579,7 +574,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				/* Format the argument */
 				sprintf(tmp, aux, arg2);
 
-				/* Done */
 				break;
 			}
 
@@ -595,7 +589,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				/* Format the "user data" */
 				(void)vstrnfmt_aux(tmp, 1000, aux, arg);
 
-				/* Done */
 				break;
 			}
 
@@ -628,7 +621,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 					if(islower(tmp[q]))
 						tmp[q] = toupper(tmp[q]);
 
-					/* Done */
 					break;
 				}
 			}

@@ -1600,7 +1600,6 @@ static void auto_destroy_item(creature_type *creature_ptr, object_type *object_p
 		msg_format("You cannot auto-destroy %s.", object_name);
 #endif
 
-		/* Done */
 		return;
 	}
 
@@ -1958,7 +1957,6 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 		msg_format("You cannot auto-destroy %s.", object_name);
 #endif
 
-		/* Done */
 		return FALSE;
 	}
 

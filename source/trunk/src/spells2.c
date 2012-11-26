@@ -1897,7 +1897,6 @@ bool probing(floor_type *floor_ptr)
 	Term->scr->cv = cv;
 	Term_fresh();
 
-	/* Done */
 	if(probe)
 	{
 

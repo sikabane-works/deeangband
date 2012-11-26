@@ -2617,7 +2617,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		/* Oops */
 		oops = TRUE;
 
-		/* Done */
 		done = TRUE;
 
 		if(select_the_force) {
@@ -3819,7 +3818,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 		}
 
-		/* Done */
 		return;
 	}
 
@@ -3854,7 +3852,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 
 		}
 
-		/* Done */
 		return;
 	}
 
@@ -3883,7 +3880,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Ask the user to confirm */
 			if(!get_check(out_val))
 			{
-				/* Done */
 				return;
 			}
 		}

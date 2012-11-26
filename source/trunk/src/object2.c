@@ -62,7 +62,6 @@ void excise_object_idx(int object_idx)
 			/* Acquire next object */
 			next_object_idx = object_ptr->next_object_idx;
 
-			/* Done */
 			if(this_object_idx == object_idx)
 			{
 				/* No previous */
@@ -87,7 +86,6 @@ void excise_object_idx(int object_idx)
 				/* Forget next pointer */
 				object_ptr->next_object_idx = 0;
 
-				/* Done */
 				break;
 			}
 
@@ -1162,7 +1160,6 @@ s32b object_value_real(object_type *object_ptr)
 			*/
 			value += (value * object_ptr->pval / object_ptr->number / (object_kind_ptr->pval * 2));
 
-			/* Done */
 			break;
 		}
 	case TV_STAFF:
@@ -1172,7 +1169,6 @@ s32b object_value_real(object_type *object_ptr)
 			*/
 			value += (value * object_ptr->pval / (object_kind_ptr->pval * 2));
 
-			/* Done */
 			break;
 		}
 
@@ -1186,7 +1182,6 @@ s32b object_value_real(object_type *object_ptr)
 			/* Give credit for bonuses */
 			value += ((object_ptr->to_hit + object_ptr->to_damage + object_ptr->to_ac) * 200L);
 
-			/* Done */
 			break;
 		}
 
@@ -1207,7 +1202,6 @@ s32b object_value_real(object_type *object_ptr)
 			/* Give credit for bonuses */
 			value += (((object_ptr->to_hit - object_kind_ptr->to_hit) + (object_ptr->to_damage - object_kind_ptr->to_damage)) * 200L + (object_ptr->to_ac) * 100L);
 
-			/* Done */
 			break;
 		}
 
@@ -1228,7 +1222,6 @@ s32b object_value_real(object_type *object_ptr)
 			value += (object_ptr->dd - object_kind_ptr->dd) * object_ptr->ds * 250L;
 			value += (object_ptr->ds - object_kind_ptr->ds) * object_ptr->dd * 250L;
 
-			/* Done */
 			break;
 		}
 
@@ -1247,7 +1240,6 @@ s32b object_value_real(object_type *object_ptr)
 			value += (object_ptr->dd - object_kind_ptr->dd) * object_ptr->ds * 5L;
 			value += (object_ptr->ds - object_kind_ptr->ds) * object_ptr->dd * 5L;
 
-			/* Done */
 			break;
 		}
 
@@ -1365,7 +1357,6 @@ bool can_player_destroy_object(creature_type *creature_ptr, object_type *object_
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
-		/* Done */
 		return FALSE;
 	}
 
@@ -2715,7 +2706,6 @@ void apply_magic(creature_type *owner_ptr, object_type *object_ptr, int lev, u32
 		/* Cheat -- peek at the item */
 		if(cheat_peek) object_mention(object_ptr);
 
-		/* Done */
 		return;
 	}
 

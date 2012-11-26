@@ -1215,7 +1215,6 @@ void map_info(creature_type *watcher_ptr, int y, int x, byte *ap, char *cp, byte
 			/* Hack -- hallucination */
 			if(has_trait(watcher_ptr, TRAIT_HALLUCINATION)) image_object(ap, cp);
 
-			/* Done */
 			break;
 		}
 	}

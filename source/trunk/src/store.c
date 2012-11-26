@@ -1881,7 +1881,6 @@ bool combine_and_reorder_home(store_type *st_ptr, int store_num)
 					/* Take note */
 					combined = TRUE;
 
-					/* Done */
 					break;
 				}
 			}

@@ -1517,7 +1517,6 @@ errr check_load_init(void)
 		/* Use that value */
 		check_load_value = value;
 
-		/* Done */
 		break;
 	}
 

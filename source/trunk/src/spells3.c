@@ -2198,7 +2198,6 @@ sprintf(out_val, "–{“–‚É%s‚ğ‹à‚É•Ï‚¦‚Ü‚·‚©H", object_name);
 		msg_format("You fail to turn %s to gold!", object_name);
 #endif
 
-		/* Done */
 		return FALSE;
 	}
 
@@ -4899,7 +4898,6 @@ static s16b poly_species_idx(int pre_species_idx)
 		/* Use that index */
 		after_species_idx = r;
 
-		/* Done */
 		break;
 	}
 

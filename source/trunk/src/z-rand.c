@@ -139,7 +139,6 @@ s32b Rand_div(u32b m)
 			/* Mutate a 28-bit "random" number */
 			r = (r >> 4) / n;
 
-			/* Done */
 			if(r < m) break;
 		}
 	}
@@ -165,7 +164,6 @@ s32b Rand_div(u32b m)
 			/* Advance the index */
 			Rand_place = j;
 
-			/* Done */
 			if(r < m) break;
 		}
 	}

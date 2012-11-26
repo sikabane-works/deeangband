@@ -2232,7 +2232,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Window stuff */
 						play_window |= (PW_INVEN);
 
-						/* Done */
 						break;
 					}
 				}
@@ -2350,7 +2349,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Obvious */
 					obvious = TRUE;
 
-					/* Done */
 					break;
 				}
 
@@ -2419,7 +2417,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Blink away */
 					blinked = TRUE;
 
-					/* Done */
 					break;
 				}
 
@@ -2457,7 +2454,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					/* Obvious */
 					obvious = TRUE;
 
-					/* Done */
 					break;
 				}
 

@@ -1552,7 +1552,6 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 		creature_ptr->creature_update |= (CRU_BONUS);
 	}
 
-	/* Done */
 	return (res);
 }
 
