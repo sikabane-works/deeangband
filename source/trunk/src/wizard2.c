@@ -1834,7 +1834,6 @@ static void do_cmd_dump_options(void)
 	FILE_TYPE(FILE_TYPE_TEXT); // File type is "TEXT"
 	fff = my_fopen(buf, "a"); // Open the file
 
-	/* Oops */
 	if(!fff)
 	{
 #ifdef JP

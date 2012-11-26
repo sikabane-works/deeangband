@@ -77,7 +77,6 @@ static cptr attr_to_text(species_type *species_ptr)
 #endif
 	}
 
-	/* Oops */
 #ifdef JP000
 	return "•Ï‚È";
 #else
@@ -376,7 +375,6 @@ static void spoil_obj_desc(cptr fname)
 	/* Open the file */
 	fff = my_fopen(buf, "w");
 
-	/* Oops */
 	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
@@ -1559,7 +1557,6 @@ static bool make_fake_artifact(object_type *object_ptr, int name1)
 	/* Acquire the "kind" index */
 	i = lookup_kind(a_ptr->tval, a_ptr->sval);
 
-	/* Oops */
 	if(!i) return FALSE;
 
 	/* Create the artifact */
@@ -1610,7 +1607,6 @@ static void spoil_artifact(cptr fname)
 	/* Open the file */
 	fff = my_fopen(buf, "w");
 
-	/* Oops */
 	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
@@ -1711,7 +1707,6 @@ static void spoil_species_desc(cptr fname)
 	/* Open the file */
 	fff = my_fopen(buf, "w");
 
-	/* Oops */
 	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
@@ -2208,7 +2203,6 @@ static void spoil_species_info(cptr fname)
 	/* Open the file */
 	fff = my_fopen(buf, "w");
 
-	/* Oops */
 	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
@@ -2480,7 +2474,6 @@ static void spoil_species_evol(cptr fname)
 	/* Open the file */
 	fff = my_fopen(buf, "w");
 
-	/* Oops */
 	if(!fff)
 	{
 		msg_print("Cannot create spoiler file.");
@@ -2669,7 +2662,6 @@ void do_cmd_spoilers(void)
 			spoil_species_evol("mon-evol.spo");
 			break;
 
-		/* Oops */
 		default:
 			bell();
 			break;
@@ -2807,7 +2799,6 @@ void spoil_random_artifact(creature_type *creature_ptr, cptr fname)
 	/* Open the file */
 	fff = my_fopen(buf, "w");
 
-	/* Oops */
 	if(!fff)
 	{
 		msg_print("Cannot create list file.");

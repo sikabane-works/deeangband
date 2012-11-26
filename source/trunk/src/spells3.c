@@ -2741,7 +2741,6 @@ bool mundane_spell(creature_type *creature_ptr, bool only_equip)
 	if(!get_item(creature_ptr, &item, q, s, (USE_EQUIP | USE_INVEN | USE_FLOOR), item_tester_hook, 0)) return FALSE;
 	object_ptr = GET_ITEM(creature_ptr, item);
 
-	/* Oops */
 #ifdef JP
 	msg_print("‚Ü‚Î‚ä‚¢‘MŒõ‚ª‘–‚Á‚½I");
 #else

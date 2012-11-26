@@ -2155,7 +2155,6 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 		}
 	}
 
-	/* Oops */
 	return FALSE;
 }
 

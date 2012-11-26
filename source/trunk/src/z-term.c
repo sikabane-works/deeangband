@@ -440,7 +440,6 @@ static errr Term_curs_hack(int x, int y)
 	(void)x;
 	(void)y;
 
-	/* Oops */
 	return (-1);
 }
 
@@ -462,7 +461,6 @@ static errr Term_wipe_hack(int x, int y, int n)
 	(void)y;
 	(void)n;
 
-	/* Oops */
 	return (-1);
 }
 
@@ -478,7 +476,6 @@ static errr Term_text_hack(int x, int y, int n, byte a, cptr cp)
 	(void)a;
 	(void)cp;
 
-	/* Oops */
 	return (-1);
 }
 
@@ -496,7 +493,6 @@ static errr Term_pict_hack(int x, int y, int n, const byte *ap, cptr cp, const b
 	(void)tap;
 	(void)tcp;
 
-	/* Oops */
 	return (-1);
 }
 

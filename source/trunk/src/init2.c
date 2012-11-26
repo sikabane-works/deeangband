@@ -519,7 +519,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 			/* Error string */
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 
-			/* Oops */
 			msg_format("Error %d at line %d of '%s.csv'.", err, error_line, filename);
 			msg_format("Record %d contains a '%s' error.", error_idx, oops);
 			msg_format("Parsing '%s'.", buf);
@@ -756,7 +755,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 			/* Error string */
 			oops = (((err > 0) && (err < PARSE_ERROR_MAX)) ? err_str[err] : "unknown");
 
-			/* Oops */
 			msg_format("Error %d at line %d of '%s.txt'.", err, error_line, filename);
 			msg_format("Record %d contains a '%s' error.", error_idx, oops);
 			msg_format("Parsing '%s'.", buf);

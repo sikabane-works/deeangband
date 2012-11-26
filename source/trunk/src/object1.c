@@ -2034,7 +2034,6 @@ if(other_query_flag && !verify(creature_ptr, "–{“–‚É", k)) continue;
 					if(done) break;
 				}
 
-				/* Oops */
 				bell();
 				break;
 			}
@@ -2614,7 +2613,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		/* Cancel creature_ptr->command_see */
 		command_see = FALSE;
 
-		/* Oops */
 		oops = TRUE;
 
 		done = TRUE;

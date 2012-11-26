@@ -2622,7 +2622,6 @@ void do_cmd_options(void)
 			/* Unknown option */
 			default:
 			{
-				/* Oops */
 				bell();
 				break;
 			}
@@ -3356,10 +3355,8 @@ void do_cmd_macros(void)
 			text_to_acscii(macro__buf, buf);
 		}
 
-		/* Oops */
 		else
 		{
-			/* Oops */
 			bell();
 		}
 
@@ -5441,7 +5438,6 @@ void do_cmd_load_screen(void)
 	/* Append to the file */
 	fff = my_fopen(buf, "r");
 
-	/* Oops */
 	if(!fff) {
 #ifdef JP
 		msg_format("%s ÇäJÇ≠Ç±Ç∆Ç™Ç≈Ç´Ç‹ÇπÇÒÇ≈ÇµÇΩÅB", buf);
@@ -5797,7 +5793,6 @@ void do_cmd_save_screen_html_aux(char *filename, int message)
 	/* Append to the file */
 	fff = my_fopen(filename, "w");
 
-	/* Oops */
 	if(!fff) {
 		if(message) {
 #ifdef JP
@@ -6028,7 +6023,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		/* Append to the file */
 		fff = my_fopen(buf, "w");
 
-		/* Oops */
 		if(!fff)
 		{
 #ifdef JP
@@ -9922,7 +9916,6 @@ void do_cmd_time(creature_type *creature_ptr)
 	/* Open this file */
 	fff = my_fopen(buf, "rt");
 
-	/* Oops */
 	if(!fff) return;
 
 	/* Find this time */

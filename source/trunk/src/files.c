@@ -661,7 +661,6 @@ errr process_pref_file_command(char *buf)
 		/* Find the colon */
 		char *t = my_strchr(buf + 2, ':');
 
-		/* Oops */
 		if(!t) return 1;
 
 		/* Nuke the colon */
@@ -848,7 +847,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 		/* First */
 		t = process_pref_file_expr(&s, &f, creature_ptr);
 
-		/* Oops */
 		if(!*t)
 		{
 			/* Nothing */
@@ -936,7 +934,6 @@ cptr process_pref_file_expr(char **sp, char *fp, creature_type *creature_ptr)
 			}
 		}
 
-		/* Oops */
 		else
 		{
 			while (*s && (f != b2))
@@ -5407,7 +5404,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 		fff = my_fopen(path, "r");
 	}
 
-	/* Oops */
 	if(!fff)
 	{
 #ifdef JP
@@ -5418,7 +5414,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 
 		msg_print(NULL);
 
-		/* Oops */
 		return TRUE;
 	}
 
@@ -5497,7 +5492,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 			/* Hack -- Re-Open the file */
 			fff = my_fopen(path, "r");
 
-			/* Oops */
 			if(!fff) return FALSE;
 
 			/* File has been restarted */
@@ -5826,7 +5820,6 @@ sprintf(caption, "ヘルプ・ファイル'%s'", name);
 
 			ffp = my_fopen(buff, "w");
 
-			/* Oops */
 			if(!(fff && ffp))
 			{
 #ifdef JP

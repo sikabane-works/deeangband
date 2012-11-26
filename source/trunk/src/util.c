@@ -284,7 +284,6 @@ static errr path_temp(char *buf, int max)
 	/* Temp file */
 	s = tmpnam(NULL);
 
-	/* Oops */
 
 #ifndef WIN32
 	(void)strnfmt(buf, max, "%s", s);
@@ -2155,7 +2154,6 @@ char inkey(void)
 					break;
 				}
 
-				/* Oops */
 				break;
 			}
 

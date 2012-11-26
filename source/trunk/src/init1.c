@@ -1162,7 +1162,6 @@ errr parse_vault_info(char *buf, header *head)
 		v_ptr->wid = wid;
 	}
 
-	/* Oops */
 	else	return (6);
 
 	return PARSE_ERROR_NONE;
@@ -1243,7 +1242,6 @@ errr parse_skill_info(char *buf, header *head)
 	}
 
 
-	/* Oops */
 	else return (6);
 
 	return PARSE_ERROR_NONE;
@@ -1370,7 +1368,6 @@ errr parse_magic_info(char *buf, header *head)
 	}
 
 
-	/* Oops */
 	else return (6);
 
 	return PARSE_ERROR_NONE;
@@ -1519,7 +1516,6 @@ static errr grab_one_feat_flag(feature_type *f_ptr, cptr what)
 		}
 	}
 
-	/* Oops */
 #ifdef JP
 	msg_format("未知の地形フラグ '%s'。", what);
 #else
@@ -1549,7 +1545,6 @@ static errr grab_one_feat_action(feature_type *f_ptr, cptr what, int count)
 		}
 	}
 
-	/* Oops */
 #ifdef JP
 	msg_format("未知の地形アクション '%s'。", what);
 #else
@@ -1837,7 +1832,6 @@ errr parse_feature_info(char *buf, header *head)
 		}
 	}
 
-	/* Oops */
 	else	return (6);
 
 	return PARSE_ERROR_NONE;
@@ -3105,7 +3099,6 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 	if(grab_one_flag(&stp_ptr->flags, store_pre_info_flags, what) == 0)
 		return PARSE_ERROR_NONE;
 
-	/* Oops */
 #ifdef JP
 	msg_format("未知の店フラグ '%s'。", what);
 #else
@@ -3125,7 +3118,6 @@ static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte a
 {
 
 
-	/* Oops */
 #ifdef JP
 	msg_format("未知の種族フラグ '%s'。", what);
 #else
@@ -3850,7 +3842,6 @@ errr parse_re_info(char *buf, header *head)
 
 	}
 
-	/* Oops */
 	else return (6);
 
 
@@ -5607,7 +5598,6 @@ static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 	if(grab_one_flag(&d_ptr->flags1, dungeon_info_flags1, what) == 0)
 		return PARSE_ERROR_NONE;
 
-	/* Oops */
 #ifdef JP
 	msg_format("未知のダンジョン・フラグ '%s'。", what);
 #else
@@ -7148,7 +7138,6 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 		/* First */
 		t = process_dungeon_file_expr(floor_ptr, &s, &f);
 
-		/* Oops */
 		if(!*t)
 		{
 			/* Nothing */
@@ -7236,7 +7225,6 @@ static cptr process_dungeon_file_expr(floor_type *floor_ptr, char **sp, char *fp
 			}
 		}
 
-		/* Oops */
 		else
 		{
 			while (*s && (f != b2))

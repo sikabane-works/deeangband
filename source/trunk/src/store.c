@@ -2849,7 +2849,6 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 			break;
 		}
 
-		/* Oops */
 		bell();
 	}
 
@@ -4064,7 +4063,6 @@ static void store_sell(store_type *st_ptr, creature_type *creature_ptr)
 	/* Hack -- Cannot remove cursed items */
 	if(IS_EQUIPPED(object_ptr) && object_is_cursed(object_ptr))
 	{
-		/* Oops */
 #ifdef JP
 		msg_print("Ç”Å[ÇﬁÅAÇ«Ç§Ç‚ÇÁÇªÇÍÇÕéÙÇÌÇÍÇƒÇ¢ÇÈÇÊÇ§ÇæÇÀÅB");
 #else
@@ -4695,7 +4693,6 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 					mode++;
 				}
 
-				/* Oops */
 				else
 				{
 					bell();

@@ -259,7 +259,6 @@ static void wr_options(void)
 
 	/*** Oops ***/
 
-	/* Oops */
 	for (i = 0; i < 4; i++) wr_u32b(0L);
 
 
@@ -1401,7 +1400,6 @@ int load_player(void)
 
 			msg_print(NULL);
 
-			/* Oops */
 			return 1;
 		}
 
@@ -1515,7 +1513,6 @@ int load_player(void)
 #endif
 
 
-			/* Oops */
 			err = -1;
 		}
 	}

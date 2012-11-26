@@ -3193,7 +3193,6 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 		/* Look up the direction */
 		dir = get_keymap_dir(ch);
 
-		/* Oops */
 		if(!dir) bell();
 	}
 
@@ -3311,7 +3310,6 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 		/* Look up the direction */
 		dir = get_keymap_dir(ch);
 
-		/* Oops */
 		if(!dir) bell();
 	}
 

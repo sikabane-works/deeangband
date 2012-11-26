@@ -198,7 +198,6 @@ void screen_roff(creature_type *creature_ptr)
 			m++;
 		}
 
-		/* Oops */
 		else
 		{
 			bell();

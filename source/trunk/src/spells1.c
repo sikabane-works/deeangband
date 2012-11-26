@@ -154,7 +154,6 @@ static byte spell_color(int type)
 		/* Lookup the default colors for this type */
 		cptr s = quark_str(gf_color[type]);
 
-		/* Oops */
 		if(!s) return (TERM_WHITE);
 
 		/* Pick a random color */

@@ -1795,7 +1795,6 @@ bool create_named_art(creature_type *creature_ptr, object_type *quest_ptr, int a
 	/* Acquire the "kind" index */
 	i = lookup_kind(a_ptr->tval, a_ptr->sval);
 
-	/* Oops */
 	if(!i) return FALSE;
 
 	/* Create the artifact */

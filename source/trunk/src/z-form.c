@@ -593,7 +593,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 			}
 
 
-			/* Oops */
 			default:
 			{
 				/* Error -- illegal format char */
