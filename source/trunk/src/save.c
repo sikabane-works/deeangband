@@ -243,7 +243,6 @@ static errr wr_randomizer(void)
 	/* State */
 	for (i = 0; i < RAND_DEG; i++) wr_u32b(Rand_state[i]);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1216,7 +1215,6 @@ static bool save_player_aux(char *name)
 	/* Successful save */
 	character_saved = TRUE;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -1291,7 +1289,6 @@ bool save_player(void)
 
 #endif
 
-		/* Success */
 		result = TRUE;
 	}
 

@@ -2803,7 +2803,6 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 		/* Verify the item */
 		if((*com_val >= i) && (*com_val <= j))
 		{
-			/* Success */
 			return TRUE;
 		}
 	}
@@ -2863,7 +2862,6 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 
 	repeat_push(*com_val);
 
-	/* Success */
 	return TRUE;
 }
 
@@ -3081,7 +3079,6 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 		msg_print(NULL);
 	}
 
-	/* Success */
 	return TRUE;
 }
 
@@ -3109,7 +3106,6 @@ static bool receive_offer(store_type *st_ptr, cptr pmt, s32b *poffer, s32b last_
 		(*poffer) = last_offer;
 	}
 
-	/* Success */
 	return FALSE;
 }
 

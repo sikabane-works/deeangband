@@ -768,7 +768,6 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 			wilderness[dungeon_info[i].dy][dungeon_info[i].dx].level = dungeon_info[i].mindepth;
 	}
 
-	/* Success */
 	return SUCCESS;
 }
 

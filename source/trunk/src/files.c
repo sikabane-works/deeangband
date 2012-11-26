@@ -675,7 +675,6 @@ errr process_pref_file_command(char *buf)
 				/* Remember this color set */
 				gf_color[gf_desc[i].num] = quark_add(t);
 
-				/* Success */
 				return 0;
 			}
 		}
@@ -1346,7 +1345,6 @@ errr check_time(void)
 
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1401,7 +1399,6 @@ errr check_time_init(void)
 
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1468,7 +1465,6 @@ errr check_load(void)
 
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1531,7 +1527,6 @@ errr check_load_init(void)
 
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -5142,7 +5137,6 @@ msg_print("キャラクタ情報のファイルへの書き出しに成功しました。");
 
 	msg_print(NULL);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -7228,7 +7222,6 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 	/* Close the file */
 	my_fclose(fp);
 
-	/* Success */
 	return counter ? 0 : -1;
 }
 

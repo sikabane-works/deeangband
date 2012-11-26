@@ -758,7 +758,6 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 				/* Save the actual creature_ptr->inventory ID */
 				*cp = i;
 
-				/* Success */
 				return TRUE;
 			}
 
@@ -806,7 +805,6 @@ static bool get_tag(creature_type *creature_ptr, int *cp, char tag, int mode)
 				/* Save the actual creature_ptr->inventory ID */
 				*cp = i;
 
-				/* Success */
 				return TRUE;
 			}
 
@@ -857,7 +855,6 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 				/* Save the actual floor object ID */
 				*cp = i;
 
-				/* Success */
 				return TRUE;
 			}
 
@@ -896,7 +893,6 @@ static bool get_tag_floor(int *cp, char tag, int floor_list[], int floor_num)
 				/* Save the floor object ID */
 				*cp = i;
 
-				/* Success */
 				return TRUE;
 			}
 
@@ -1512,7 +1508,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				hook = NULL;
 				command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-				/* Success */
 				return TRUE;
 			}
 		}
@@ -1535,7 +1530,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 					hook = NULL;
 					command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-					/* Success */
 					return TRUE;
 				}
 
@@ -1550,7 +1544,6 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 				hook = NULL;
 				command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-				/* Success */
 				return TRUE;
 			}
 		}
@@ -2481,7 +2474,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 					hook = NULL;
 					command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-					/* Success */
 					return TRUE;
 				}
 
@@ -2496,7 +2488,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				hook = NULL;
 				command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-				/* Success */
 				return TRUE;
 			}
 		}
@@ -2520,7 +2511,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 					hook = NULL;
 					command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-					/* Success */
 					return TRUE;
 				}
 
@@ -2535,7 +2525,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 				hook = NULL;
 				command_cmd = 0; /* Hack -- command_cmd is no longer effective */
 
-				/* Success */
 				return TRUE;
 			}
 		}

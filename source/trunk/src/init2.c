@@ -382,7 +382,6 @@ static errr init_info_raw(int fd, header *head)
 	}
 
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -637,7 +636,6 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	if(text) (*text) = head->text_ptr;
 	if(tag)  (*tag)  = head->tag_ptr;
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -879,7 +877,6 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 	if(text) (*text) = head->text_ptr;
 	if(tag)  (*tag)  = head->tag_ptr;
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1521,7 +1518,6 @@ static errr init_other(void)
 	(void)format("%s (%s).", "Mr.Hoge", MAINTAINER);
 
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1681,7 +1677,6 @@ static errr init_alloc(void)
 	/* Init the "alloc_kind_table" */
 	(void)init_object_alloc();
 
-	/* Success */
 	return SUCCESS;
 }
 

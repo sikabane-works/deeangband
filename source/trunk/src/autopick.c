@@ -773,7 +773,6 @@ void autopick_load_pref(bool disp_mes)
 
 	if(err == 0 && disp_mes)
 	{
-		/* Success */
 #ifdef JP
 		msg_format("%s‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B", buf);
 #else
@@ -792,7 +791,6 @@ void autopick_load_pref(bool disp_mes)
 
 		if(err == 0 && disp_mes)
 		{
-			/* Success */
 #ifdef JP
 			msg_format("%s‚ğ“Ç‚İ‚İ‚Ü‚µ‚½B", buf);
 #else

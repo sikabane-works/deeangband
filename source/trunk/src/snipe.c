@@ -225,7 +225,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 		/* Verify the spell */
 		if((snipe_powers[*sn].min_lev <= plev) && (snipe_powers[*sn].mana_cost <= (int)creature_ptr->concent))
 		{
-			/* Success */
 			return TRUE;
 		}
 	}
@@ -390,7 +389,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 	repeat_push(*sn);
 
-	/* Success */
 	return TRUE;
 }
 

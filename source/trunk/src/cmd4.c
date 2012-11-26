@@ -297,7 +297,6 @@ static bool open_auto_dump(cptr buf, cptr mark)
 	auto_dump_printf("# Don't edit them; changes will be deleted and replaced automatically.\n");
 #endif
 
-	/* Success */
 	return TRUE;
 }
 
@@ -2733,7 +2732,6 @@ static errr macro_dump(cptr fname)
 	/* Close */
 	close_auto_dump();
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2868,7 +2866,6 @@ static errr keymap_dump(cptr fname)
 	/* Close */
 	close_auto_dump();
 
-	/* Success */
 	return SUCCESS;
 }
 

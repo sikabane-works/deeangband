@@ -485,7 +485,6 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 		}
 	}
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2976,7 +2975,6 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 	/* Make an object */
 	object_idx = object_pop();
 
-	/* Success */
 	if(object_idx)
 	{
 		object_type *object_ptr;
@@ -3042,7 +3040,6 @@ bool make_gold(floor_type *floor_ptr, object_type *object2_ptr, int value, int c
 	else
 		object2_ptr->pval = value;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -3087,7 +3084,6 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 	/* Make an object */
 	object_idx = object_pop();
 
-	/* Success */
 	if(object_idx)
 	{
 		object_type *object_ptr;
@@ -3397,7 +3393,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 		/* Place the object */
 		c_ptr->object_idx = object_idx;
 
-		/* Success */
 		done = TRUE;
 	}
 
@@ -3891,7 +3886,6 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 			/* Window stuff */
 			play_window |= (PW_INVEN);
 
-			/* Success */
 			return (j);
 		}
 	}

@@ -89,7 +89,6 @@ int usleep(huge usecs)
 		if(errno != EINTR) return -1;
 	}
 
-	/* Success */
 	return 0;
 }
 
@@ -241,7 +240,6 @@ errr path_parse(char *buf, int max, cptr file)
 	if(s) strnfmt(buf, max, "%s%s", pw->pw_dir, s);
 	else strnfmt(buf, max, "%s", pw->pw_dir);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -265,7 +263,6 @@ errr path_parse(char *buf, int max, cptr file)
     convert_pathname(buf);
 #endif /* MAC_MPW && CARBON */
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -295,7 +292,6 @@ static errr path_temp(char *buf, int max)
 	(void)strnfmt(buf, max, ".%s", s);
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -344,7 +340,6 @@ errr path_build(char *buf, int max, cptr path, cptr file)
 		(void)strnfmt(buf, max, "%s%s%s", path, PATH_SEP, file);
 	}
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -393,7 +388,6 @@ errr my_fclose(FILE *fff)
 	/* Close, check for error */
 	if(fclose(fff) == EOF) return (1);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -472,7 +466,6 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 				/* Terminate */
 				buf[i] = '\0';
 
-				/* Success */
 				return SUCCESS;
 			}
 
@@ -517,7 +510,6 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 		/* No newline character, but terminate */
 		buf[i] = '\0';
 
-		/* Success */
 		return SUCCESS;
 	}
 
@@ -623,7 +615,6 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 
 		if(!(enc_num % 2))
 		{
-			/* Success */
 			buf[i] = '\0';
 			return 0;
 		}
@@ -653,7 +644,6 @@ errr my_fputs(FILE *fff, cptr buf, huge n)
 	/* Dump, ignore errors */
 	(void)fprintf(fff, "%s\n", buf);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -911,7 +901,6 @@ errr fd_lock(int fd, int what)
 
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -932,7 +921,6 @@ errr fd_seek(int fd, huge n)
 	/* Failure */
 	if(p != n) return (1);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -953,7 +941,6 @@ errr fd_chop(int fd, huge n)
 	ftruncate(fd, n);
 #endif
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -986,7 +973,6 @@ errr fd_read(int fd, char *buf, huge n)
 	/* Read the final piece */
 	if(read(fd, buf, n) != (int)n) return (1);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1019,7 +1005,6 @@ errr fd_write(int fd, cptr buf, huge n)
 	/* Write the final piece */
 	if(write(fd, buf, n) != (int)n) return (1);
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1742,7 +1727,6 @@ errr macro_add(cptr pat, cptr act)
 	/* Efficiency */
 	macro__use[(byte)(pat[0])] = TRUE;
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2601,7 +2585,6 @@ void message_add(cptr str)
 		/* Assign the starting address */
 		message__ptr[x] = message__ptr[i];
 
-		/* Success */
 		/* return; */
 		goto end_of_message_add;
 
@@ -3364,7 +3347,6 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 
 		case '\n':
 		case '\r':
-			/* Success */
 			return TRUE;
 
 		case '\010':
@@ -3699,7 +3681,6 @@ bool get_com(cptr prompt, char *command, bool z_escape)
 	if(*command == ESCAPE) return FALSE;
 	if(z_escape && ((*command == 'z') || (*command == 'Z'))) return FALSE;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -4845,7 +4826,6 @@ bool repeat_pull(int *what)
 	/* Grab the next key, advance */
 	*what = repeat__key[repeat__idx++];
 
-	/* Success */
 	return TRUE;
 }
 

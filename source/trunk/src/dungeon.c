@@ -3549,7 +3549,6 @@ static bool enter_wizard_mode(creature_type *creature_ptr)
 		noscore |= 0x0002;
 	}
 
-	/* Success */
 	return TRUE;
 }
 
@@ -3605,7 +3604,6 @@ static bool enter_debug_mode(creature_type *creature_ptr)
 		noscore |= 0x0008;
 	}
 
-	/* Success */
 	return TRUE;
 }
 

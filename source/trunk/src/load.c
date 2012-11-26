@@ -391,7 +391,6 @@ static errr rd_inventory(creature_type *creature_ptr)
 		}
 	}
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -579,7 +578,6 @@ static errr rd_store(store_type *st_ptr)
 	}
 
 
-	/* Success */
 	return SUCCESS;
 
 }
@@ -1283,7 +1281,6 @@ static errr rd_floor(floor_type *floor_ptr)
 		floor_ptr->cave[py][px].cy = cy;
 	}
 
-	/* Success */
 	return 0;
 }
 

@@ -2200,7 +2200,6 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		}
 	}
 
-	/* Success */
 	return TRUE;
 }
 

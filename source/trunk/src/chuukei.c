@@ -191,7 +191,6 @@ static errr insert_ringbuf(char *buf)
 
 	ring.inlen += len;
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -753,7 +752,6 @@ static int handle_timestamp_data(int timestamp)
 		epoch_time -= (old_time_diff - time_diff);
 	}
 
-	/* Success */
 	return 0;
 }
 #endif /* CHUUKEI */
@@ -780,7 +778,6 @@ static int handle_movie_timestamp_data(int timestamp)
 	/* ƒLƒ…[‚ÌÅŒã”ö‚É“’B‚µ‚½‚çæ“ª‚É–ß‚· */
 	fresh_queue.tail %= FRESH_QUEUE_SIZE;
 
-	/* Success */
 	return 0;
 }
 

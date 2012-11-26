@@ -72,7 +72,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 		/* Verify the spell */
 		if(spell_okay(creature_ptr, *sn, learned, FALSE, use_realm))
 		{
-			/* Success */
 			return TRUE;
 		}
 	}
@@ -318,7 +317,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 
 	repeat_push(*sn);
 
-	/* Success */
 	return TRUE;
 }
 

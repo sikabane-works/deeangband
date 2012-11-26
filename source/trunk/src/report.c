@@ -272,7 +272,6 @@ static errr make_dump(BUF* dumpbuf)
 	/* Remove the file */
 	fd_kill(file_name);
 
-	/* Success */
 	return SUCCESS;
 }
 

@@ -907,7 +907,6 @@ static bool check_file(cptr s)
 
 #endif /* WIN32 */
 
-	/* Success */
 	return TRUE;
 }
 
@@ -964,7 +963,6 @@ static bool check_dir(cptr s)
 
 #endif /* WIN32 */
 
-	/* Success */
 	return TRUE;
 }
 
@@ -1536,7 +1534,6 @@ static int new_palette(void)
 	/* Save new palette */
 	hPal = hNewPal;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -1776,7 +1773,6 @@ static errr term_force_font(term_data *td, cptr path)
 	td->font_wid = wid;
 	td->font_hgt = hgt;
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -1957,7 +1953,6 @@ static errr Term_user_win(int n)
 	/* Unused */
 	(void)n;
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2094,7 +2089,6 @@ static errr Term_xtra_win_react(void)
 	}
 
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2128,7 +2122,6 @@ static errr Term_xtra_win_event(int v)
 		}
 	}
 
-	/* Success */
 	return 0;
 }
 
@@ -2147,7 +2140,6 @@ static errr Term_xtra_win_flush(void)
 		DispatchMessage(&msg);
 	}
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2184,7 +2176,6 @@ static errr Term_xtra_win_clear(void)
 	}
 	ReleaseDC(td->w, hdc);
 
-	/* Success */
 	return 0;
 }
 
@@ -2283,7 +2274,6 @@ static int Term_xtra_win_delay(int v)
 
 #endif /* WIN32 */
 
-	/* Success */
 	return SUCCESS;
 }
 
@@ -2387,7 +2377,6 @@ static errr Term_curs_win(int x, int y)
 	FrameRect(hdc, &rc, hbrYellow);
 	ReleaseDC(td->w, hdc);
 
-	/* Success */
 	return 0;
 }
 
@@ -2429,7 +2418,6 @@ static errr Term_bigcurs_win(int x, int y)
 	FrameRect(hdc, &rc, hbrYellow);
 	ReleaseDC(td->w, hdc);
 
-	/* Success */
 	return 0;
 }
 
@@ -2462,7 +2450,6 @@ static errr Term_wipe_win(int x, int y, int n)
 		ExtTextOut(hdc, 0, 0, ETO_OPAQUE, &rc, NULL, 0, NULL);
 	ReleaseDC(td->w, hdc);
 
-	/* Success */
 	return 0;
 }
 
@@ -2654,7 +2641,6 @@ static errr Term_text_win(int x, int y, int n, byte a, const char *s)
 	/* Release DC */
 	ReleaseDC(td->w, hdc);
 
-	/* Success */
 	return 0;
 }
 
@@ -2834,7 +2820,6 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 	/* Release */
 	ReleaseDC(td->w, hdc);
 
-	/* Success */
 	return 0;
 }
 

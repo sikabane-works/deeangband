@@ -681,7 +681,6 @@ char *vformat(cptr fmt, va_list vp)
 		/* Build the string */
 		len = vstrnfmt(format_buf, format_len, fmt, vp);
 
-		/* Success */
 		if(len < format_len-1) break;
 
 		/* Grow the buffer */

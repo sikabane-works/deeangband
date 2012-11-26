@@ -844,7 +844,6 @@ static bool add_text(u32b *offset, header *head, cptr buf, bool normal_text)
 	/* Advance the index */
 	head->text_size += strlen(buf);
 
-	/* Success */
 	return TRUE;
 }
 
@@ -874,7 +873,6 @@ static bool add_name(u32b *offset, header *head, cptr buf)
 	/* Advance the index */
 	head->name_size += strlen(buf);
 
-	/* Success */
 	return TRUE;
 }
 
@@ -899,7 +897,6 @@ static bool add_tmp(u32b *offset, header *head, cptr buf)
 	/* Advance the index */
 	head->tmp_size += strlen(buf);
 
-	/* Success */
 	return TRUE;
 }
 
@@ -942,7 +939,6 @@ static bool add_tag(s16b *offset, header *head, cptr buf)
 	/* Return offset of the tag */
 	*offset = (s16b)i;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -1042,7 +1038,6 @@ errr init_info_txt(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 	if(head->name_size) head->name_size++;
 	if(head->text_size) head->text_size++;
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 
@@ -1087,7 +1082,6 @@ errr init_info_csv(FILE *fp, char *buf, header *head, parse_info_txt_func parse_
 	if(head->name_size) head->name_size++;
 	if(head->text_size) head->text_size++;
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 
@@ -1171,7 +1165,6 @@ errr parse_vault_info(char *buf, header *head)
 	/* Oops */
 	else	return (6);
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 
@@ -1253,7 +1246,6 @@ errr parse_skill_info(char *buf, header *head)
 	/* Oops */
 	else return (6);
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 
@@ -1381,7 +1373,6 @@ errr parse_magic_info(char *buf, header *head)
 	/* Oops */
 	else return (6);
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 
@@ -1849,7 +1840,6 @@ errr parse_feature_info(char *buf, header *head)
 	/* Oops */
 	else	return (6);
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 
@@ -3866,7 +3856,6 @@ errr parse_re_info(char *buf, header *head)
 	else return (6);
 
 
-	/* Success */
 	return PARSE_ERROR_NONE;
 }
 

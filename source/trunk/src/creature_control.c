@@ -3891,7 +3891,6 @@ msg_print("”š”­‚Ìƒ‹[ƒ“‚Í‰ðœ‚³‚ê‚½B");
 			creature_ptr->ac + creature_ptr->to_ac, creature_ptr->ht, creature_ptr->wt, creature_ptr->sex);
 	}
 
-	/* Success */
 	return c_ptr->creature_idx;
 }
 
@@ -4051,7 +4050,6 @@ static bool place_creature_group(creature_type *summoner_ptr, floor_type *floor_
 		}
 	}
 
-	/* Success */
 	return TRUE;
 }
 
@@ -4933,7 +4931,6 @@ bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, i
 	creature_ptr->fy = y;
 	creature_ptr->fx = x;
 
-	/* Success */
 	return TRUE;
 }
 

@@ -275,7 +275,6 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 
 	damage = (baigaesi ? creature_ptr->mane_dam[i]*2 : creature_ptr->mane_dam[i]);
 
-	/* Success */
 	return TRUE;
 }
 

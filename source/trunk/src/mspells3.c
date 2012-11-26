@@ -283,7 +283,6 @@ cptr            p = "–‚–@";
 	/* Get the spell, if available */
 	if(repeat_pull(sn))
 	{
-		/* Success */
 		return TRUE;
 	}
 
@@ -663,7 +662,6 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 
 	repeat_push(*sn);
 
-	/* Success */
 	return TRUE;
 }
 

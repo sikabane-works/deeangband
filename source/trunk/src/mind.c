@@ -533,7 +533,6 @@ static int get_mind_power(creature_type *creature_ptr, int *sn, bool only_browse
 		/* Verify the spell */
 		if(mind_ptr->info[*sn].min_lev <= plev)
 		{
-			/* Success */
 			return TRUE;
 		}
 	}
@@ -816,7 +815,6 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 
 	repeat_push(*sn);
 
-	/* Success */
 	return TRUE;
 }
 

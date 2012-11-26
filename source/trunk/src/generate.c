@@ -267,7 +267,6 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 			/* No longer "FLOOR" */
 			c_ptr->info &= ~(CAVE_FLOOR);
 
-			/* Success */
 			break;
 		}
 	}
@@ -536,7 +535,6 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 				/* Try to place the creature */
 				if(place_creature_species(player_ptr, floor_ptr, y, x, quest[i].species_idx, mode))
 				{
-					/* Success */
 					break;
 				}
 				else

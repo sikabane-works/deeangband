@@ -2328,6 +2328,5 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 	}
 	else cancel_tactical_action(creature_ptr);
 
-	/* Success */
 	return;
 }

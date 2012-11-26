@@ -1260,7 +1260,6 @@ bool change_panel(int dy, int dx)
 		/* Handle stuff */
 		handle_stuff();
 
-		/* Success */
 		return TRUE;
 	}
 
@@ -3274,7 +3273,6 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	/*	repeat_push(dir); */
 	repeat_push(command_dir);
 
-	/* Success */
 	return TRUE;
 }
 
@@ -3346,7 +3344,6 @@ bool get_rep_dir2(creature_type *creature_ptr, int *dp)
 	/*	repeat_push(dir); */
 	repeat_push(command_dir);
 
-	/* Success */
 	return TRUE;
 }
 

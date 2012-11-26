@@ -40,7 +40,6 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	/* Quest up stairs */
 	if(have_flag(f_ptr->flags, FF_QUEST))
 	{
-		/* Success */
 		if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
 
 #ifdef JP
@@ -138,7 +137,6 @@ void do_cmd_go_up(creature_type *creature_ptr)
 	if(record_stair) do_cmd_write_nikki(DIARY_STAIR, 0-up_num, "climbed up the stairs to");
 #endif
 
-	/* Success */
 	if(has_trait(creature_ptr, TRAIT_ECHIZEN_TALK)) msg_print(game_messages[GAME_MESSAGE_COMBAT_TALK_STAIR]);
 
 #ifdef JP
@@ -274,7 +272,6 @@ void do_cmd_go_down(creature_type *creature_ptr)
 		}
 		else
 		{
-			/* Success */
 			if(target_dungeon)
 			{
 /*
@@ -943,7 +940,6 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
 
-		/* Success */
 		if(randint0(100) < j)
 		{
 			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
@@ -1556,7 +1552,6 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 		/* Always have a small chance of success */
 		if(j < 2) j = 2;
 
-		/* Success */
 		if(randint0(100) < j)
 		{
 			msg_print(game_messages[GAME_MESSAGE_SUCCESS_PICKING]);
@@ -1745,7 +1740,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Always have a small chance of success */
 	if(j < 2) j = 2;
 
-	/* Success */
 	if(randint0(100) < j)
 	{
 #ifdef JP
@@ -2160,7 +2154,6 @@ static bool get_spike(creature_type *creature_ptr, int *ip)
 			/* Save the spike index */
 			(*ip) = i;
 
-			/* Success */
 			return TRUE;
 		}
 	}

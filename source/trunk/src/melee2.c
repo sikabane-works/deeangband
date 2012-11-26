@@ -325,7 +325,6 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 	/* No legal move (?) */
 	if(best == 999) return FALSE;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -447,7 +446,6 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	/* No legal move (?) */
 	if(best == 999 || best == 0) return FALSE;
 
-	/* Success */
 	return TRUE;
 }
 
@@ -518,7 +516,6 @@ static bool get_fear_moves_aux(int m_idx, int *yp, int *xp)
 	(*yp) = fy - gy;
 	(*xp) = fx - gx;
 
-	/* Success */
 	return TRUE;
 }
 

@@ -3458,7 +3458,6 @@ static void do_cmd_activate_aux(creature_type *creature_ptr, int item)
 		/* Window stuff */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
-		/* Success */
 		return;
 	}
 

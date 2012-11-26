@@ -3450,7 +3450,6 @@ static bool get_creature_subrace_dragonbone(creature_type *creature_ptr, bool np
 	}
 
 */
-	/* Success */
 	return TRUE;
 
 }
@@ -3901,7 +3900,6 @@ static bool get_creature_chara(creature_type *creature_ptr, species_type *specie
 		return i;
 	}
 
-	/* Success */
 	return 0;
 }
 
@@ -3998,7 +3996,6 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 		return i;
 	}
 
-	/* Success */
 	return 0;
 }
 

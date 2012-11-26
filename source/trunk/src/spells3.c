@@ -2387,7 +2387,6 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 
 	calc_android_exp(creature_ptr);
 
-	/* Success */
 	return TRUE;
 }
 
@@ -2885,7 +2884,6 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	/* Auto-inscription/destroy */
 	autopick_alter_item(creature_ptr, item, (bool)(destroy_identify && !old_known));
 
-	/* Success */
 	return TRUE;
 }
 
@@ -4978,7 +4976,6 @@ static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
 	{
 		teleport_creature_to(creature_ptr, y, x, 0L);
 
-		/* Success */
 		return TRUE;
 	}
 }

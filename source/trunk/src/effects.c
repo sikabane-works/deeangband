@@ -1574,7 +1574,6 @@ bool res_stat(creature_type *creature_ptr, int stat)
 		/* Redisplay the stats later */
 		play_redraw |= (PR_STATS);
 
-		/* Success */
 		return TRUE;
 	}
 
