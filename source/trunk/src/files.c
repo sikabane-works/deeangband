@@ -429,14 +429,14 @@ errr process_pref_file_command(char *buf)
 	case 'R':
 		if(tokenize(buf+2, 3, zz, TOKENIZE_CHECKQUOTE) == 3)
 		{
-			species_type *r_ptr;
+			species_type *species_ptr;
 			i = (huge)strtol(zz[0], NULL, 0);
 			n1 = strtol(zz[1], NULL, 0);
 			n2 = strtol(zz[2], NULL, 0);
 			if(i >= max_species_idx) return 1;
-			r_ptr = &species_info[i];
-			if(n1 || (!(n2 & 0x80) && n2)) r_ptr->x_attr = n1; /* Allow TERM_DARK text */
-			if(n2) r_ptr->x_char = n2;
+			species_ptr = &species_info[i];
+			if(n1 || (!(n2 & 0x80) && n2)) species_ptr->x_attr = n1; /* Allow TERM_DARK text */
+			if(n2) species_ptr->x_char = n2;
 			return 0;
 		}
 		break;
@@ -4713,15 +4713,15 @@ static void dump_aux_creatures(FILE *fff)
 	/* Count creature kills */
 	for (k = 1; k < max_species_idx; k++)
 	{
-		species_type *r_ptr = &species_info[k];
+		species_type *species_ptr = &species_info[k];
 
 		/* Ignore unused index */
- 		if(!r_ptr->name) continue;
+ 		if(!species_ptr->name) continue;
 
 		/* Unique creatures */
-		if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 		{
-			bool dead = (r_ptr->max_num == 0);
+			bool dead = (species_ptr->max_num == 0);
 			if(dead)
 			{
 				norm_total++;
@@ -4734,9 +4734,9 @@ static void dump_aux_creatures(FILE *fff)
 		/* Normal creatures */
 		else
 		{
-			if(r_ptr->r_pkills > 0)
+			if(species_ptr->r_pkills > 0)
 			{
-				norm_total += r_ptr->r_pkills;
+				norm_total += species_ptr->r_pkills;
 			}
 		}
 	}
@@ -4783,12 +4783,12 @@ static void dump_aux_creatures(FILE *fff)
 		/* Print top 10 */
 		for (k = uniq_total - 1; k >= 0 && k >= uniq_total - 10; k--)
 		{
-			species_type *r_ptr = &species_info[who[k]];
+			species_type *species_ptr = &species_info[who[k]];
 
 #ifdef JP
-			fprintf(fff, "  %-40s (ƒŒƒxƒ‹%3d)\n", (species_name + r_ptr->name), r_ptr->level); 
+			fprintf(fff, "  %-40s (ƒŒƒxƒ‹%3d)\n", (species_name + species_ptr->name), species_ptr->level); 
 #else
-			fprintf(fff, "  %-40s (level %3d)\n", (species_name + r_ptr->name), r_ptr->level); 
+			fprintf(fff, "  %-40s (level %3d)\n", (species_name + species_ptr->name), species_ptr->level); 
 #endif
 		}
 
@@ -4798,10 +4798,6 @@ static void dump_aux_creatures(FILE *fff)
 	C_KILL(who, max_species_idx, s16b);
 }
 
-
-/*
- *
- */
 static void dump_aux_race_history(creature_type *creature_ptr, FILE *fff)
 {
 

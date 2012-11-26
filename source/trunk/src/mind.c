@@ -1094,12 +1094,12 @@ static bool cast_force_spell(creature_type *creature_ptr, int spell)
 			int oy = y, ox = x;
 			int m_idx = floor_ptr->cave[y][x].creature_idx;
 			creature_type *m_ptr = &creature_list[m_idx];
-			species_type *r_ptr = &species_info[m_ptr->species_idx];
+			species_type *species_ptr = &species_info[m_ptr->species_idx];
 			char m_name[MAX_NLEN];
 
 			creature_desc(m_name, m_ptr, 0);
 
-			if(randint1(r_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
+			if(randint1(species_ptr->level * 3 / 2) > randint0(dam / 2) + dam/2)
 			{
 #ifdef JP
 				msg_format("%s‚Í”ò‚Î‚³‚ê‚È‚©‚Á‚½B", m_name);

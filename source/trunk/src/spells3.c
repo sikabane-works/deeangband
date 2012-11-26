@@ -477,7 +477,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 			if(tmp_m_idx && (creature_ptr->riding != tmp_m_idx) && (creature_ptr != &creature_list[tmp_m_idx]))
 			{
 				creature_type *creature_ptr = &creature_list[tmp_m_idx];
-				species_type *r_ptr = &species_info[creature_ptr->species_idx];
+				species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 				/*
 				 * The latter limitation is to avoid
@@ -485,7 +485,7 @@ void teleport_player_away(creature_type *creature_ptr, int dis)
 				 */
 				if(has_trait(creature_ptr, TRAIT_ACTIVE_TELEPORT) && !has_trait(creature_ptr, TRAIT_RES_TELE))
 				{
-					if(!creature_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, r_ptr->level, 0L);
+					if(!creature_ptr->timed_trait[TRAIT_PARALYZED]) teleport_creature_to2(tmp_m_idx, creature_ptr, creature_ptr->fy, creature_ptr->fx, species_ptr->level, 0L);
 				}
 			}
 		}

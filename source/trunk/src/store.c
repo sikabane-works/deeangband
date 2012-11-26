@@ -1694,7 +1694,7 @@ static bool store_will_buy(store_type *st_ptr, creature_type *creature_ptr, obje
 				case TV_FIGURINE:
 				case TV_STATUE:
 				{
-					species_type *r_ptr = &species_info[object_ptr->pval];
+					species_type *species_ptr = &species_info[object_ptr->pval];
 
 				}
 				case TV_POLEARM:

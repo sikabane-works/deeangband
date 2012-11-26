@@ -2249,15 +2249,15 @@ static void generate_process_ring_amulet(creature_type *creature_ptr, object_typ
 */
 static bool item_creature_okay(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* No uniques */
-	if(has_trait_species(r_ptr, TRAIT_UNIQUE)) return FALSE;
-	//if(is_shadow_species(r_ptr)) return FALSE;
-	if(has_trait_species(r_ptr, TRAIT_RES_ALL)) return FALSE;
-	if(has_trait_species(r_ptr, TRAIT_NAZGUL)) return FALSE;
-	if(has_trait_species(r_ptr, TRAIT_FORCE_DEPTH)) return FALSE;
-	if(has_trait_species(r_ptr, TRAIT_UNIQUE2)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE)) return FALSE;
+	//if(is_shadow_species(species_ptr)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_RES_ALL)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_NAZGUL)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_FORCE_DEPTH)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_UNIQUE2)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -2387,7 +2387,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			int i = 1;
 			int check;
 
-			species_type *r_ptr;
+			species_type *species_ptr;
 
 			/* Pick a random non-unique creature race */
 			while (1)
@@ -2397,15 +2397,15 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				if(!item_creature_okay(i)) continue;
 				if(i == SPECIES_TSUCHINOKO) continue;
 
-				r_ptr = &species_info[i];
+				species_ptr = &species_info[i];
 
-				check = (floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - floor_ptr->floor_level) : 0;
+				check = (floor_ptr->floor_level < species_ptr->level) ? (species_ptr->level - floor_ptr->floor_level) : 0;
 
 				/* Ignore dead creatures */
-				if(!r_ptr->rarity) continue;
+				if(!species_ptr->rarity) continue;
 
 				/* Ignore uncommon creatures */
-				if(r_ptr->rarity > 100) continue;
+				if(species_ptr->rarity > 100) continue;
 
 				/* Prefer less out-of-depth creatures */
 				if(randint0(check)) continue;
@@ -2426,7 +2426,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 				msg_format("Figurine of %s, depth +%d%s",
 #endif
 
-					species_name + r_ptr->name, check - 1,
+					species_name + species_ptr->name, check - 1,
 					!object_is_cursed(object_ptr) ? "" : " {cursed}");
 			}
 
@@ -2438,7 +2438,7 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			int i = 1;
 			int check;
 
-			species_type *r_ptr;
+			species_type *species_ptr;
 
 			/* Hack -- Remove the creature restriction */
 			get_species_num_prep(NULL, item_creature_okay, NULL, NULL, 0);
@@ -2448,16 +2448,16 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			{
 				i = get_species_num(floor_ptr, floor_ptr->floor_level);
 
-				r_ptr = &species_info[i];
+				species_ptr = &species_info[i];
 
-				check = (floor_ptr->floor_level < r_ptr->level) ? (r_ptr->level - floor_ptr->floor_level) : 0;
+				check = (floor_ptr->floor_level < species_ptr->level) ? (species_ptr->level - floor_ptr->floor_level) : 0;
 
 				/* Ignore dead creatures */
-				if(!r_ptr->rarity) continue;
+				if(!species_ptr->rarity) continue;
 
 				/* Ignore corpseless creatures */
-				if(object_ptr->sval == SV_SKELETON && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
-				if(object_ptr->sval =- SV_CORPSE && !has_trait_species(r_ptr, TRAIT_DROP_CORPSE)) continue;
+				if(object_ptr->sval == SV_SKELETON && !has_trait_species(species_ptr, TRAIT_DROP_SKELETON)) continue;
+				if(object_ptr->sval =- SV_CORPSE && !has_trait_species(species_ptr, TRAIT_DROP_CORPSE)) continue;
 
 				/* Prefer less out-of-depth creatures */
 				if(randint0(check)) continue;
@@ -2470,9 +2470,9 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			if(cheat_peek)
 			{
 #ifdef JP
-				msg_format("%s‚ÌŽ€‘Ì, [‚³ +%d", species_name + r_ptr->name, check - 1);
+				msg_format("%s‚ÌŽ€‘Ì, [‚³ +%d", species_name + species_ptr->name, check - 1);
 #else
-				msg_format("Corpse of %s, depth +%d", species_name + r_ptr->name, check - 1);
+				msg_format("Corpse of %s, depth +%d", species_name + species_ptr->name, check - 1);
 #endif
 			}
 
@@ -2485,17 +2485,17 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 		{
 			int i = 1;
 
-			species_type *r_ptr;
+			species_type *species_ptr;
 
 			/* Pick a random creature race */
 			while (1)
 			{
 				i = randint1(max_species_idx - 1);
 
-				r_ptr = &species_info[i];
+				species_ptr = &species_info[i];
 
 				/* Ignore dead creatures */
-				if(!r_ptr->rarity) continue;
+				if(!species_ptr->rarity) continue;
 
 				break;
 			}
@@ -2505,9 +2505,9 @@ static void generate_other_magic_item(creature_type *creature_ptr, object_type *
 			if(cheat_peek)
 			{
 #ifdef JP
-				msg_format("%s‚Ì‘œ", species_name + r_ptr->name);
+				msg_format("%s‚Ì‘œ", species_name + species_ptr->name);
 #else
-				msg_format("Statue of %s", species_name + r_ptr->name);
+				msg_format("Statue of %s", species_name + species_ptr->name);
 #endif
 			}
 			object_aware(object_ptr);
@@ -4403,8 +4403,8 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 /* Calculate spell damages */
 static void spell_dam_estimation(creature_type *caster_ptr, creature_type *target_ptr, int typ, int dam, int limit, int *max)
 {
-	species_type *r_ptr = &species_info[caster_ptr->species_idx];
-	int          rlev = r_ptr->level;
+	species_type *species_ptr = &species_info[caster_ptr->species_idx];
+	int          rlev = species_ptr->level;
 	bool         ignore_wraith_form = FALSE;
 
 	if(limit) dam = (dam > limit) ? limit : dam;

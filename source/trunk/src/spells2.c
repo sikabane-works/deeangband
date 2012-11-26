@@ -799,7 +799,7 @@ bool detect_creatures_normal(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *target_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[target_ptr->species_idx];
+		species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!target_ptr->species_idx) continue;
@@ -861,7 +861,7 @@ bool detect_creatures_invis(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -931,7 +931,7 @@ bool detect_creatures_evil(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1006,7 +1006,7 @@ bool detect_creatures_nonliving(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1073,7 +1073,7 @@ bool detect_creatures_mind(creature_type *creature_ptr, int range)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1140,7 +1140,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1153,7 +1153,7 @@ bool detect_creatures_string(creature_type *creature_ptr, int range, cptr Match)
 		if(distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect creatures with the same symbol */
-		if(my_strchr(Match, r_ptr->d_char))
+		if(my_strchr(Match, species_ptr->d_char))
 		{
 			/* Update creature recall window */
 			if(species_window_idx == m_ptr->species_idx)
@@ -1214,7 +1214,7 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1227,13 +1227,13 @@ bool detect_creatures_xxx(creature_type *creature_ptr, int range, u32b match_fla
 		if(distance(creature_ptr->fy, creature_ptr->fx, y, x) > range) continue;
 
 		/* Detect evil creatures */
-		//TODO if(r_ptr->flags3 & (match_flag))
+		//TODO if(species_ptr->flags3 & (match_flag))
 		if(1)
 		{
 			if(is_original_ap(m_ptr))
 			{
 				/* Take note that they are something */
-				//TODO r_ptr->r_flags3 |= (match_flag);
+				//TODO species_ptr->r_flags3 |= (match_flag);
 
 				/* Update creature recall window */
 				if(species_window_idx == m_ptr->species_idx)
@@ -1642,13 +1642,13 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip "wrong" creatures */
-		if(r_ptr->d_char != typ) continue;
+		if(species_ptr->d_char != typ) continue;
 
 		/* Take note */
 #ifdef JP
@@ -1718,7 +1718,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1762,7 +1762,7 @@ bool probing(floor_type *floor_ptr)
 	for (i = 1; i < creature_max; i++)
 	{
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Paranoia -- Skip dead creatures */
 		if(!m_ptr->species_idx) continue;
@@ -1831,9 +1831,9 @@ bool probing(floor_type *floor_ptr)
 				m_ptr->stat_use[2] / STAT_FRACTION, m_ptr->stat_use[3] / STAT_FRACTION,
 				m_ptr->stat_use[4] / STAT_FRACTION, m_ptr->stat_use[5] / STAT_FRACTION);
 #endif
-			if(r_ptr->next_species_idx)
+			if(species_ptr->next_species_idx)
 			{
-				strcat(buf, format("%d/%d ", m_ptr->exp, r_ptr->next_exp));
+				strcat(buf, format("%d/%d ", m_ptr->exp, species_ptr->next_exp));
 			}
 			else
 			{
@@ -1872,7 +1872,7 @@ bool probing(floor_type *floor_ptr)
 				char buf[80];
 
 				/* Get base name of creature */
-				strcpy(buf, (species_name + r_ptr->name));
+				strcpy(buf, (species_name + species_ptr->name));
 
 #ifdef JP
 				/* Note that we learnt some new flags  -Mogami- */
@@ -3116,7 +3116,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	int tx, ty;
 	cave_type * c_ptr;
 	creature_type * target_ptr;
-	species_type * r_ptr;
+	species_type * species_ptr;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 
 	if((dir == 5) && target_okay(creature_ptr))
@@ -3162,7 +3162,7 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 	}
 
 	target_ptr = &creature_list[c_ptr->creature_idx];
-	r_ptr = &species_info[target_ptr->species_idx];
+	species_ptr = &species_info[target_ptr->species_idx];
 
 	(void)set_timed_trait(target_ptr, TRAIT_PARALYZED, 0);
 

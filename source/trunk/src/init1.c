@@ -3140,7 +3140,7 @@ static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte a
 /*
  * Grab one (spell) flag in a species_type from a textual string
  */
-static int grab_one_authority_flag(species_type *r_ptr, cptr what)
+static int grab_one_authority_flag(species_type *species_ptr, cptr what)
 {
 	int i;
 
@@ -3809,7 +3809,7 @@ errr parse_re_info(char *buf, header *head)
 #endif
 	}
 
-	/* There better be a current r_ptr */
+	/* There better be a current species_ptr */
 	else if(!re_ptr) return (3);
 
 #ifdef JP
@@ -6862,7 +6862,7 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 		{
 			if(flags & INIT_ASSIGN)
 			{
-				species_type *r_ptr;
+				species_type *species_ptr;
 				artifact_type *a_ptr;
 
 				if(num < 9) return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
@@ -6878,9 +6878,9 @@ static errr process_dungeon_file_aux(floor_type *floor_ptr, char *buf, int ymin,
 
 				if(num > 10) quest_ptr->flags  = atoi(zz[10]);
 
-				r_ptr = &species_info[quest_ptr->species_idx];
-				//if(has_trait_species(r_ptr, TRAIT_UNIQUE))
-					//TODO r_ptr->flags1 |= RF1_QUESTOR;
+				species_ptr = &species_info[quest_ptr->species_idx];
+				//if(has_trait_species(species_ptr, TRAIT_UNIQUE))
+					//TODO species_ptr->flags1 |= RF1_QUESTOR;
 
 				a_ptr = &artifact_info[quest_ptr->k_idx];
 				add_flag(a_ptr->flags, TRAIT_QUESTITEM);

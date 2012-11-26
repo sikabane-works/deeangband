@@ -1267,8 +1267,8 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 
 	creature_type *m_ptr1 = &creature_list[w1];
 	creature_type *m_ptr2 = &creature_list[w2];
-	species_type *r_ptr1 = &species_info[m_ptr1->species_idx];
-	species_type *r_ptr2 = &species_info[m_ptr2->species_idx];
+	species_type *species_ptr1 = &species_info[m_ptr1->species_idx];
+	species_type *species_ptr2 = &species_info[m_ptr2->species_idx];
 
 	/* Unused */
 	(void)v;
@@ -1283,11 +1283,11 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 	if(!m_ptr1->parent_m_idx && m_ptr2->parent_m_idx) return TRUE;
 	if(!m_ptr2->parent_m_idx && m_ptr1->parent_m_idx) return FALSE;
 
-	if(has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return TRUE;
-	if(has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return FALSE;
+	if(has_trait_species(species_ptr1, TRAIT_UNIQUE) && !has_trait_species(species_ptr2, TRAIT_UNIQUE)) return TRUE;
+	if(has_trait_species(species_ptr2, TRAIT_UNIQUE) && !has_trait_species(species_ptr1, TRAIT_UNIQUE)) return FALSE;
 
-	if(r_ptr1->level > r_ptr2->level) return TRUE;
-	if(r_ptr2->level > r_ptr1->level) return FALSE;
+	if(species_ptr1->level > species_ptr2->level) return TRUE;
+	if(species_ptr2->level > species_ptr1->level) return FALSE;
 
 	if(m_ptr1->chp > m_ptr2->chp) return TRUE;
 	if(m_ptr2->chp > m_ptr1->chp) return FALSE;
@@ -1298,19 +1298,19 @@ static bool ang_sort_comp_pet_dismiss(vptr u, vptr v, int a, int b)
 void check_pets_num_and_align(creature_type *master_ptr, creature_type *m_ptr, bool inc)
 {
 	s32b old_friend_align = friend_align;
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 	if(inc)
 	{
 		master_ptr->total_friends++;
-		if(is_enemy_of_evil_creature(m_ptr)) friend_align += r_ptr->level;
-		if(is_enemy_of_good_creature(m_ptr)) friend_align -= r_ptr->level;
+		if(is_enemy_of_evil_creature(m_ptr)) friend_align += species_ptr->level;
+		if(is_enemy_of_good_creature(m_ptr)) friend_align -= species_ptr->level;
 	}
 	else
 	{
 		master_ptr->total_friends--;
-		if(is_enemy_of_evil_creature(m_ptr)) friend_align -= r_ptr->level;
-		if(is_enemy_of_good_creature(m_ptr)) friend_align += r_ptr->level;
+		if(is_enemy_of_evil_creature(m_ptr)) friend_align -= species_ptr->level;
+		if(is_enemy_of_good_creature(m_ptr)) friend_align += species_ptr->level;
 	}
 
 	if(old_friend_align != friend_align) player_ptr->creature_update |= (CRU_BONUS);
@@ -1568,7 +1568,7 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	int sn = 0, sy = 0, sx = 0;
 	char m_name[MAX_NLEN];
 	creature_type *m_ptr = &creature_list[creature_ptr->riding];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[m_ptr->species_idx];
 	bool fall_dam = FALSE;
 
 	if(!creature_ptr->riding) return FALSE;
@@ -1580,10 +1580,10 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 		{
 			int cur = creature_ptr->skill_exp[SKILL_RIDING];
 			int max = skill_info[creature_ptr->class_idx].s_max[SKILL_RIDING];
-			int ridinglevel = r_ptr->level;
+			int ridinglevel = species_ptr->level;
 
 			/* 落馬のしやすさ */
-			int do_thrown_from_ridinglevel = r_ptr->level;
+			int do_thrown_from_ridinglevel = species_ptr->level;
 			if(creature_ptr->riding_two_handed) do_thrown_from_ridinglevel += 20;
 
 			if((cur < max) && (max > 1000) &&
@@ -1644,10 +1644,10 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 			creature_desc(m_name, m_ptr, 0);
 #ifdef JP
 			msg_format("%sから振り落とされそうになって、壁にぶつかった。",m_name);
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "壁への衝突", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "壁への衝突", NULL, -1);
 #else
 			msg_format("You have nearly fallen from %s, but bumped into wall.",m_name);
-			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "bumping into wall", NULL, -1);
+			take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "bumping into wall", NULL, -1);
 #endif
 			return FALSE;
 		}
@@ -1698,9 +1698,9 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	else
 	{
 #ifdef JP
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "落馬", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "落馬", NULL, -1);
 #else
-		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, r_ptr->level+3, "Falling from riding", NULL, -1);
+		take_damage_to_creature(NULL, creature_ptr, DAMAGE_NOESCAPE, species_ptr->level+3, "Falling from riding", NULL, -1);
 #endif
 		fall_dam = TRUE;
 	}

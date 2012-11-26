@@ -184,10 +184,10 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 		/* No downstairs on quest levels */
 		if(floor_ptr->floor_level > 1 && q_idx)
 		{
-			species_type *r_ptr = &species_info[quest[q_idx].species_idx];
+			species_type *species_ptr = &species_info[quest[q_idx].species_idx];
 
 			/* The quest creature(s) is still alive? */
-			if(!(has_trait_species(r_ptr, TRAIT_UNIQUE)) || 0 < r_ptr->max_num)
+			if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)) || 0 < species_ptr->max_num)
 				return TRUE;
 		}
 
@@ -475,7 +475,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 	/* Handle the quest creature placements */
 	for (i = 0; i < max_quests; i++)
 	{
-		species_type *r_ptr;
+		species_type *species_ptr;
 		u32b mode;
 		int j;
 
@@ -490,15 +490,15 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 			continue;
 		}
 
-		r_ptr = &species_info[quest[i].species_idx];
+		species_ptr = &species_info[quest[i].species_idx];
 
 		/* Hack -- "unique" creatures must be "unique" */
-		if((has_trait_species(r_ptr, TRAIT_UNIQUE)) &&
-		    (r_ptr->cur_num >= r_ptr->max_num)) continue;
+		if((has_trait_species(species_ptr, TRAIT_UNIQUE)) &&
+		    (species_ptr->cur_num >= species_ptr->max_num)) continue;
 
 		mode = (PC_NO_KAGE | PC_NO_PET);
 
-		if(!has_trait_species(r_ptr, TRAIT_FRIENDLY))
+		if(!has_trait_species(species_ptr, TRAIT_FRIENDLY))
 			mode |= PC_ALLOW_GROUP;
 
 		for (j = 0; j < (quest[i].max_num - quest[i].cur_num); j++)
@@ -523,7 +523,7 @@ bool place_quest_creatures(floor_type *floor_ptr, creature_type *player_ptr)
 					f_ptr = &feature_info[c_ptr->feat];
 
 					if(!have_flag(f_ptr->flags, FF_MOVE) && !have_flag(f_ptr->flags, FF_CAN_FLY)) continue;
-					if(!species_can_enter(floor_ptr, y, x, r_ptr, 0)) continue;
+					if(!species_can_enter(floor_ptr, y, x, species_ptr, 0)) continue;
 					if(distance(y, x, player_ptr->fy, player_ptr->fx) < 10) continue;
 					if(c_ptr->info & CAVE_ICKY) continue;
 					else break;

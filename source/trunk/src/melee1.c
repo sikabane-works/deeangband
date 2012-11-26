@@ -815,7 +815,7 @@ static void natural_attack(creature_type *attacker_ptr, creature_type *target_pt
 static void trampling_attack(s16b m_idx, int attack, bool *fear, bool *mdeath)
 {
 	creature_type    *m_ptr = &creature_list[m_idx];
-	species_type    *r_ptr = &species_info[m_ptr->species_idx];
+	species_type    *species_ptr = &species_info[m_ptr->species_idx];
 }
 
 static void barehand_attack(creature_type *attacker_ptr, creature_type *target_ptr, int y, int x, bool *fear, bool *mdeath, s16b hand, int mode)
@@ -823,7 +823,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 	char weapon_name[MAX_NLEN], atk_name[MAX_NLEN], tar_name[MAX_NLEN];
 	floor_type *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
-	species_type *r_ptr = &species_info[target_ptr->species_idx];
+	species_type *species_ptr = &species_info[target_ptr->species_idx];
 	bool monk_attack = FALSE;
 	int k;
 
@@ -835,7 +835,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 	strcpy(weapon_name, "bare hand");
 #endif
 
-	if((r_ptr->level + 10) > attacker_ptr->lev)
+	if((species_ptr->level + 10) > attacker_ptr->lev)
 	{
 		// Matrial arts skill mastering
 		if(attacker_ptr->skill_exp[SKILL_MARTIAL_ARTS] < skill_info[attacker_ptr->class_idx].s_max[SKILL_MARTIAL_ARTS])
@@ -925,7 +925,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		else if(ma_ptr->effect == MA_SLOW)
 		{
-			if(!((has_trait_species(r_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", r_ptr->d_char)))
+			if(!((has_trait_species(species_ptr, TRAIT_NEVER_MOVE)) || my_strchr("~#{}.UjmeEv$,DdsbBFIJQSXclnw!=?", species_ptr->d_char)))
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 				{
@@ -968,7 +968,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		else if((special_effect == MA_SLOW) && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if(!has_trait(target_ptr, TRAIT_UNIQUE) && (randint1(attacker_ptr->lev) > r_ptr->level) && target_ptr->speed > 60)
+			if(!has_trait(target_ptr, TRAIT_UNIQUE) && (randint1(attacker_ptr->lev) > species_ptr->level) && target_ptr->speed > 60)
 			{
 				if(is_seen(player_ptr, attacker_ptr) || is_seen(player_ptr, target_ptr))
 #ifdef JP
@@ -982,7 +982,7 @@ static void barehand_attack(creature_type *attacker_ptr, creature_type *target_p
 
 		if(stun_effect && ((k + attacker_ptr->to_damage[hand]) < target_ptr->chp))
 		{
-			if(attacker_ptr->lev > randint1(r_ptr->level + resist_stun + 10))
+			if(attacker_ptr->lev > randint1(species_ptr->level + resist_stun + 10))
 			{
 				if(set_timed_trait(target_ptr, TRAIT_STUN, stun_effect + target_ptr->timed_trait[TRAIT_STUN]))
 				{
@@ -3528,7 +3528,7 @@ static void tramping_attack(creature_type *attacker_ptr, creature_type *target_p
 
 	floor_type      *floor_ptr = GET_FLOOR_PTR(attacker_ptr);
 	cave_type       *c_ptr = &floor_ptr->cave[y][x];
-	species_type    *r_ptr = &species_info[target_ptr->species_idx];
+	species_type    *species_ptr = &species_info[target_ptr->species_idx];
 
 	if(!mdeath)
 	{

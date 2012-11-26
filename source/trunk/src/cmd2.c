@@ -2498,7 +2498,7 @@ static int breakage_chance(creature_type *creature_ptr, object_type *object_ptr)
 static s16b tot_dam_aux_shot(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr)
 {
 	int mult = 10;
-	species_type *r_ptr = &species_info[target_ptr->species_idx];
+	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	/* Some "weapons" and "ammo" do extra damage */
 	switch (object_ptr->tval)
@@ -2999,7 +2999,7 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-			species_type *r_ptr = &species_info[m_ptr->species_idx];
+			species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->see_others;
@@ -3657,7 +3657,7 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			cave_type *c_ptr = &floor_ptr->cave[y][x];
 
 			creature_type *m_ptr = &creature_list[c_ptr->creature_idx];
-			species_type *r_ptr = &species_info[m_ptr->species_idx];
+			species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 			/* Check the visibility */
 			visible = m_ptr->see_others;

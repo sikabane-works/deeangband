@@ -29,7 +29,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 	int plus = 1;
 
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	creature_type *t_ptr;
@@ -87,7 +87,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 					continue;
 				}
 
-				if(r_ptr->alert_range < t_ptr->cdis) continue;
+				if(species_ptr->alert_range < t_ptr->cdis) continue;
 			}
 
 			/* Creature must be 'an enemy' */
@@ -196,7 +196,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
 
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 	u16b p_lev, m_lev;
 	u32b p_chp, p_mhp;
@@ -224,7 +224,7 @@ static int mon_will_run(creature_type *creature_ptr, int m_idx)
 	p_lev = creature_ptr->lev;
 
 	/* Examine creature power (level plus morale) */
-	m_lev = r_ptr->level + (m_idx & 0x08) + 25;
+	m_lev = species_ptr->level + (m_idx & 0x08) + 25;
 
 	/* Optimize extreme cases below */
 	if(m_lev > p_lev + 4) return FALSE;
@@ -261,7 +261,7 @@ static bool get_moves_aux2(int m_idx, int *yp, int *xp)
 
 	creature_type *creature_ptr = &creature_list[m_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	species_type *r_ptr = &species_info[creature_ptr->species_idx];
+	species_type *species_ptr = &species_info[creature_ptr->species_idx];
 
 	/* Creature location */
 	y1 = creature_ptr->fy;
@@ -360,10 +360,10 @@ static bool get_moves_aux(creature_type *mover_ptr, int m_idx, int *yp, int *xp,
 	bool use_scent = FALSE;
 
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
+	species_type *species_ptr = &species_info[nonplayer_ptr->species_idx];
 
 	/* Can creature cast attack spell? */
-	if(has_attack_skill_flags(&r_ptr->flags))
+	if(has_attack_skill_flags(&species_ptr->flags))
 	{
 		/* Can move spell castable grid? */
 		if(get_moves_aux2(m_idx, yp, xp)) return TRUE;
@@ -760,7 +760,7 @@ static bool find_safety(creature_type *avoid_target_ptr, int m_idx, int *yp, int
 static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 {
 	creature_type *m_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[m_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(m_ptr);
 
 	int fy = m_ptr->fy;
@@ -830,7 +830,7 @@ static bool find_hiding(creature_type *player_ptr, int m_idx, int *yp, int *xp)
 static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 {
 	creature_type *nonplayer_ptr = &creature_list[m_idx];
-	species_type *r_ptr = &species_info[nonplayer_ptr->species_idx];
+	species_type *species_ptr = &species_info[nonplayer_ptr->species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 	int          y, ay, x, ax;
 	int          move_val = 0;
@@ -893,7 +893,7 @@ static bool get_moves(int m_idx, creature_type *player_ptr, int *mm)
 
 			/* TODO
 			if(floor_ptr->cave[player_ptr->fy][player_ptr->fx].info & CAVE_ROOM) room -= 2;
-			if(!r_ptr->flags4 && !r_ptr->flags5 && !r_ptr->flags6) room -= 2;
+			if(!species_ptr->flags4 && !species_ptr->flags5 && !species_ptr->flags6) room -= 2;
 			*/
 
 			/* Not in a room and strong player */
@@ -1311,7 +1311,7 @@ static void do_multiply_creature(creature_type *creature_ptr)
 				/* Take note if visible */
 				if(creature_list[hack_m_idx_ii].see_others && is_original_ap_and_seen(player_ptr, creature_ptr))
 				{
-					//TODO r_ptr->r_flags2 |= (RF2_MULTIPLY);
+					//TODO species_ptr->r_flags2 |= (RF2_MULTIPLY);
 				}
 
 				/* Multiplying takes energy */
@@ -2789,7 +2789,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 	{
 	case MTIMED_CSLEEP:
 	{
-		species_type *r_ptr = &species_info[creature_ptr->species_idx];
+		species_type *species_ptr = &species_info[creature_ptr->species_idx];
 		u32b csleep_noise;
 
 		bool test = FALSE;	// Assume does not wake up
@@ -2798,7 +2798,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 		if(creature_ptr->cdis < AAF_LIMIT)	// Hack -- Require proximity
 		{
 			// Handle "sensing radius"
-			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((r_ptr->alert_range > MAX_SIGHT) ? MAX_SIGHT : r_ptr->alert_range) : r_ptr->alert_range))
+			if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? ((species_ptr->alert_range > MAX_SIGHT) ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
 			{
 				test = TRUE;	// We may wake up
 			}
@@ -2837,7 +2837,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))
 					{
 						/* Hack -- Count the ignores */
-						if(r_ptr->r_ignore < MAX_UCHAR) r_ptr->r_ignore++;
+						if(species_ptr->r_ignore < MAX_UCHAR) species_ptr->r_ignore++;
 					}
 				}
 
@@ -2863,7 +2863,7 @@ static void process_creatures_mtimed_aux(creature_type *watcher_ptr, creature_ty
 					if(is_original_ap_and_seen(watcher_ptr, creature_ptr))
 					{
 						/* Hack -- Count the wakings */
-						if(r_ptr->r_wake < MAX_UCHAR) r_ptr->r_wake++;
+						if(species_ptr->r_wake < MAX_UCHAR) species_ptr->r_wake++;
 					}
 				}
 			}

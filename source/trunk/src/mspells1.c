@@ -48,10 +48,10 @@
 /*
  * Internal probability routine
  */
-static bool int_outof(species_type *r_ptr, int prob)
+static bool int_outof(species_type *species_ptr, int prob)
 {
 	// Non-Smart creatures are half as "smart"
-	if(!has_trait_species(r_ptr, TRAIT_SMART)) prob = prob / 2;
+	if(!has_trait_species(species_ptr, TRAIT_SMART)) prob = prob / 2;
 
 	// Roll the dice
 	return (randint0(100) < prob);
@@ -64,7 +64,7 @@ static bool int_outof(species_type *r_ptr, int prob)
  */
 static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u32b *f6p)
 {
-	species_type *r_ptr = &species_info[caster_ptr->species_idx];
+	species_type *species_ptr = &species_info[caster_ptr->species_idx];
 
 	u32b f4 = (*f4p);
 	u32b f5 = (*f5p);
@@ -146,15 +146,15 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	}
 	else if((smart & (SM_OPP_ACID)) && (smart & (SM_RES_ACID)))
 	{
-		if(int_outof(r_ptr, 80)) f4 &= ~(RF4_BR_ACID);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BA_ACID);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BO_ACID);
+		if(int_outof(species_ptr, 80)) f4 &= ~(RF4_BR_ACID);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BA_ACID);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BO_ACID);
 	}
 	else if((smart & (SM_OPP_ACID)) || (smart & (SM_RES_ACID)))
 	{
-		if(int_outof(r_ptr, 30)) f4 &= ~(RF4_BR_ACID);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BA_ACID);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BO_ACID);
+		if(int_outof(species_ptr, 30)) f4 &= ~(RF4_BR_ACID);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BA_ACID);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BO_ACID);
 	}
 
 
@@ -166,15 +166,15 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	}
 	else if((smart & (SM_OPP_ELEC)) && (smart & (SM_RES_ELEC)))
 	{
-		if(int_outof(r_ptr, 80)) f4 &= ~(RF4_BR_ELEC);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BA_ELEC);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BO_ELEC);
+		if(int_outof(species_ptr, 80)) f4 &= ~(RF4_BR_ELEC);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BA_ELEC);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BO_ELEC);
 	}
 	else if((smart & (SM_OPP_ELEC)) || (smart & (SM_RES_ELEC)))
 	{
-		if(int_outof(r_ptr, 30)) f4 &= ~(RF4_BR_ELEC);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BA_ELEC);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BO_ELEC);
+		if(int_outof(species_ptr, 30)) f4 &= ~(RF4_BR_ELEC);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BA_ELEC);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BO_ELEC);
 	}
 
 
@@ -186,15 +186,15 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	}
 	else if((smart & (SM_OPP_FIRE)) && (smart & (SM_RES_FIRE)))
 	{
-		if(int_outof(r_ptr, 80)) f4 &= ~(RF4_BR_FIRE);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BA_FIRE);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BO_FIRE);
+		if(int_outof(species_ptr, 80)) f4 &= ~(RF4_BR_FIRE);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BA_FIRE);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BO_FIRE);
 	}
 	else if((smart & (SM_OPP_FIRE)) || (smart & (SM_RES_FIRE)))
 	{
-		if(int_outof(r_ptr, 30)) f4 &= ~(RF4_BR_FIRE);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BA_FIRE);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BO_FIRE);
+		if(int_outof(species_ptr, 30)) f4 &= ~(RF4_BR_FIRE);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BA_FIRE);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BO_FIRE);
 	}
 
 
@@ -207,31 +207,31 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	}
 	else if((smart & (SM_OPP_COLD)) && (smart & (SM_RES_COLD)))
 	{
-		if(int_outof(r_ptr, 80)) f4 &= ~(RF4_BR_COLD);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BA_COLD);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BO_COLD);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BO_ICEE);
+		if(int_outof(species_ptr, 80)) f4 &= ~(RF4_BR_COLD);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BA_COLD);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BO_COLD);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BO_ICEE);
 	}
 	else if((smart & (SM_OPP_COLD)) || (smart & (SM_RES_COLD)))
 	{
-		if(int_outof(r_ptr, 30)) f4 &= ~(RF4_BR_COLD);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BA_COLD);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BO_COLD);
-		if(int_outof(r_ptr, 20)) f5 &= ~(RF5_BO_ICEE);
+		if(int_outof(species_ptr, 30)) f4 &= ~(RF4_BR_COLD);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BA_COLD);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BO_COLD);
+		if(int_outof(species_ptr, 20)) f5 &= ~(RF5_BO_ICEE);
 	}
 
 
 	if((smart & (SM_OPP_POIS)) && (smart & (SM_RES_POIS)))
 	{
-		if(int_outof(r_ptr, 80)) f4 &= ~(RF4_BR_POIS);
-		if(int_outof(r_ptr, 80)) f5 &= ~(RF5_BA_POIS);
-		if(int_outof(r_ptr, 60)) f4 &= ~(RF4_BA_NUKE);
-		if(int_outof(r_ptr, 60)) f4 &= ~(RF4_BR_NUKE);
+		if(int_outof(species_ptr, 80)) f4 &= ~(RF4_BR_POIS);
+		if(int_outof(species_ptr, 80)) f5 &= ~(RF5_BA_POIS);
+		if(int_outof(species_ptr, 60)) f4 &= ~(RF4_BA_NUKE);
+		if(int_outof(species_ptr, 60)) f4 &= ~(RF4_BR_NUKE);
 	}
 	else if((smart & (SM_OPP_POIS)) || (smart & (SM_RES_POIS)))
 	{
-		if(int_outof(r_ptr, 30)) f4 &= ~(RF4_BR_POIS);
-		if(int_outof(r_ptr, 30)) f5 &= ~(RF5_BA_POIS);
+		if(int_outof(species_ptr, 30)) f4 &= ~(RF4_BR_POIS);
+		if(int_outof(species_ptr, 30)) f5 &= ~(RF5_BA_POIS);
 	}
 */
 
@@ -246,9 +246,9 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		}
 		else
 		{
-			if(int_outof(r_ptr, 20)) f4 &= ~(RF4_BR_NETH);
-			if(int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_NETH);
-			if(int_outof(r_ptr, 50)) f5 &= ~(RF5_BO_NETH);
+			if(int_outof(species_ptr, 20)) f4 &= ~(RF4_BR_NETH);
+			if(int_outof(species_ptr, 50)) f5 &= ~(RF5_BA_NETH);
+			if(int_outof(species_ptr, 50)) f5 &= ~(RF5_BO_NETH);
 		}
 		*/
 	}
@@ -256,8 +256,8 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 /*
 	if(smart & (SM_RES_LITE))
 	{
-		if(int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_LITE);
-		if(int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_LITE);
+		if(int_outof(species_ptr, 50)) f4 &= ~(RF4_BR_LITE);
+		if(int_outof(species_ptr, 50)) f5 &= ~(RF5_BA_LITE);
 	}
 */
 
@@ -271,8 +271,8 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 		}
 		else
 		{
-			if(int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_DARK);
-			if(int_outof(r_ptr, 50)) f5 &= ~(RF5_BA_DARK);
+			if(int_outof(species_ptr, 50)) f4 &= ~(RF4_BR_DARK);
+			if(int_outof(species_ptr, 50)) f5 &= ~(RF5_BA_DARK);
 		}
 		*/
 	}
@@ -288,18 +288,18 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 	if(smart & (SM_RES_CONF))
 	{
 		f5 &= ~(RF5_CONF);
-		if(int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_CONF);
+		if(int_outof(species_ptr, 50)) f4 &= ~(RF4_BR_CONF);
 	}
 
 	if(smart & (SM_RES_CHAOS))
 	{
-		if(int_outof(r_ptr, 20)) f4 &= ~(RF4_BR_CHAO);
-		if(int_outof(r_ptr, 50)) f4 &= ~(RF4_BA_CHAO);
+		if(int_outof(species_ptr, 20)) f4 &= ~(RF4_BR_CHAO);
+		if(int_outof(species_ptr, 50)) f4 &= ~(RF4_BA_CHAO);
 	}
 
 	if(smart & (SM_RES_DISEN))
 	{
-		if(int_outof(r_ptr, 40)) f4 &= ~(RF4_BR_DISE);
+		if(int_outof(species_ptr, 40)) f4 &= ~(RF4_BR_DISE);
 	}
 
 	if(smart & (SM_RES_BLIND))
@@ -309,33 +309,33 @@ static void remove_bad_spells(creature_type *caster_ptr, u32b *f4p, u32b *f5p, u
 
 	if(smart & (SM_RES_NEXUS))
 	{
-		if(int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_NEXU);
+		if(int_outof(species_ptr, 50)) f4 &= ~(RF4_BR_NEXU);
 		f6 &= ~(RF6_TELE_LEVEL);
 	}
 
 	if(smart & (SM_RES_SOUND))
 	{
-		if(int_outof(r_ptr, 50)) f4 &= ~(RF4_BR_SOUN);
+		if(int_outof(species_ptr, 50)) f4 &= ~(RF4_BR_SOUN);
 	}
 
 	if(smart & (SM_RES_SHARD))
 	{
-		if(int_outof(r_ptr, 40)) f4 &= ~(RF4_BR_SHAR);
+		if(int_outof(species_ptr, 40)) f4 &= ~(RF4_BR_SHAR);
 	}
 
 	if(smart & (SM_IMM_REFLECT))
 	{
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_COLD);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_FIRE);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_ACID);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_ELEC);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_NETH);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_WATE);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_MANA);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_PLAS);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_BO_ICEE);
-		if(int_outof(r_ptr, 150)) f5 &= ~(RF5_MISSILE);
-		if(int_outof(r_ptr, 150)) f4 &= ~(RF4_SHOOT);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_COLD);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_FIRE);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_ACID);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_ELEC);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_NETH);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_WATE);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_MANA);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_PLAS);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_BO_ICEE);
+		if(int_outof(species_ptr, 150)) f5 &= ~(RF5_MISSILE);
+		if(int_outof(species_ptr, 150)) f4 &= ~(RF4_SHOOT);
 	}
 
 	if(smart & (SM_IMM_FREE))
@@ -718,7 +718,7 @@ bool dispel_check(creature_type *caster_ptr, creature_type *target_ptr)
  */
 static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_ptr, int spells[], byte num)
 {
-	species_type *r_ptr = &species_info[caster_ptr->species_idx];
+	species_type *species_ptr = &species_info[caster_ptr->species_idx];
 
 	byte escape[96], escape_num = 0;
 	byte attack[96], attack_num = 0;
@@ -802,7 +802,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Player is close and we have attack spells, blink away */
-	if((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_raw(&r_ptr->flags, TRAIT_TRAPS)) && (randint0(100) < 75) && !the_world)
+	if((distance(target_ptr->fy, target_ptr->fx, caster_ptr->fy, caster_ptr->fx) < 4) && (attack_num || has_trait_raw(&species_ptr->flags, TRAIT_TRAPS)) && (randint0(100) < 75) && !the_world)
 	{
 		/* Choose tactical spell */
 		if(tactic_num) return (tactic[randint0(tactic_num)]);
@@ -999,7 +999,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	floor_type      *floor_ptr = GET_FLOOR_PTR(caster_ptr);
 	int             thrown_spell = 0, rlev, failrate;
 	int             racial_spell[MAX_TRAITS], num = 0;
-	species_type    *r_ptr = &species_info[caster_ptr->species_idx];
+	species_type    *species_ptr = &species_info[caster_ptr->species_idx];
 	char            m_name[MAX_NLEN];
 #ifndef JP
 	char            m_poss[80];
@@ -1054,7 +1054,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 
 
 	/* Sometimes forbid inate attacks (breaths) */
-	if(randint0(100) >= (r_ptr->freq_spell * 2)) no_inate = TRUE;
+	if(randint0(100) >= (species_ptr->freq_spell * 2)) no_inate = TRUE;
 
 
 	/*** require projectable player ***/
@@ -1167,7 +1167,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 	reset_target(caster_ptr);
 
 	/* Extract the creature level */
-	rlev = ((r_ptr->level >= 1) ? r_ptr->level : 1);
+	rlev = ((species_ptr->level >= 1) ? species_ptr->level : 1);
 
 	/* Forbid inate attacks sometimes */
 	if(no_inate)
@@ -1410,31 +1410,31 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		// Inate spell
 		if(thrown_spell < 32 * 4)
 		{
-			r_ptr->r_flags4 |= (1L << (thrown_spell - 32 * 3));
-			if(r_ptr->r_cast_spell < MAX_UCHAR) r_ptr->r_cast_spell++;
+			species_ptr->r_flags4 |= (1L << (thrown_spell - 32 * 3));
+			if(species_ptr->r_cast_spell < MAX_UCHAR) species_ptr->r_cast_spell++;
 		}
 
 		// Bolt or Ball
 		else if(thrown_spell < 32 * 5)
 		{
-			r_ptr->r_flags5 |= (1L << (thrown_spell - 32 * 4));
-			if(r_ptr->r_cast_spell < MAX_UCHAR) r_ptr->r_cast_spell++;
+			species_ptr->r_flags5 |= (1L << (thrown_spell - 32 * 4));
+			if(species_ptr->r_cast_spell < MAX_UCHAR) species_ptr->r_cast_spell++;
 		}
 
 		// Special spell
 		else if(thrown_spell < 32 * 6)
 		{
-			r_ptr->r_flags6 |= (1L << (thrown_spell - 32 * 5));
-			if(r_ptr->r_cast_spell < MAX_UCHAR) r_ptr->r_cast_spell++;
+			species_ptr->r_flags6 |= (1L << (thrown_spell - 32 * 5));
+			if(species_ptr->r_cast_spell < MAX_UCHAR) species_ptr->r_cast_spell++;
 		}
 		*/
 	}
 
 
 	/* Always take note of creatures that kill you */
-	if(gameover && (r_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
+	if(gameover && (species_ptr->r_deaths < MAX_SHORT) && !floor_ptr->fight_arena_mode)
 	{
-		r_ptr->r_deaths++; /* Ignore appearance difference */
+		species_ptr->r_deaths++; /* Ignore appearance difference */
 	}
 
 	/* A spell was cast */

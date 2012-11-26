@@ -61,11 +61,11 @@ void reset_visuals(void)
 	/* Extract default attr/char code for creatures */
 	for (i = 0; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Default attr/char */
-		r_ptr->x_attr = r_ptr->d_attr;
-		r_ptr->x_char = r_ptr->d_char;
+		species_ptr->x_attr = species_ptr->d_attr;
+		species_ptr->x_char = species_ptr->d_char;
 	}
 
 	if(use_graphics)

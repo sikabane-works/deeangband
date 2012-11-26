@@ -4976,17 +4976,17 @@ static bool ang_sort_comp_creature_level(vptr u, vptr v, int a, int b)
 	int w1 = who[a];
 	int w2 = who[b];
 
-	species_type *r_ptr1 = &species_info[w1];
-	species_type *r_ptr2 = &species_info[w2];
+	species_type *species_ptr1 = &species_info[w1];
+	species_type *species_ptr2 = &species_info[w2];
 
 	/* Unused */
 	(void)v;
 
-	if(r_ptr2->level > r_ptr1->level) return TRUE;
-	if(r_ptr1->level > r_ptr2->level) return FALSE;
+	if(species_ptr2->level > species_ptr1->level) return TRUE;
+	if(species_ptr1->level > species_ptr2->level) return FALSE;
 
-	if(has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return TRUE;
-	if(has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return FALSE;
+	if(has_trait_species(species_ptr2, TRAIT_UNIQUE) && !has_trait_species(species_ptr1, TRAIT_UNIQUE)) return TRUE;
+	if(has_trait_species(species_ptr1, TRAIT_UNIQUE) && !has_trait_species(species_ptr2, TRAIT_UNIQUE)) return FALSE;
 	return w1 <= w2;
 }
 
@@ -4997,17 +4997,17 @@ static bool ang_sort_comp_creature_exp(vptr u, vptr v, int a, int b)
 	int w1 = who[a];
 	int w2 = who[b];
 
-	species_type *r_ptr1 = &species_info[w1];
-	species_type *r_ptr2 = &species_info[w2];
+	species_type *species_ptr1 = &species_info[w1];
+	species_type *species_ptr2 = &species_info[w2];
 
 	/* Unused */
 	(void)v;
 
-	if(r_ptr2->exp > r_ptr1->exp) return TRUE;
-	if(r_ptr1->exp > r_ptr2->exp) return FALSE;
+	if(species_ptr2->exp > species_ptr1->exp) return TRUE;
+	if(species_ptr1->exp > species_ptr2->exp) return FALSE;
 
-	if(has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return TRUE;
-	if(has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return FALSE;
+	if(has_trait_species(species_ptr2, TRAIT_UNIQUE) && !has_trait_species(species_ptr1, TRAIT_UNIQUE)) return TRUE;
+	if(has_trait_species(species_ptr1, TRAIT_UNIQUE) && !has_trait_species(species_ptr2, TRAIT_UNIQUE)) return FALSE;
 	return w1 <= w2;
 }
 
@@ -5057,22 +5057,22 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 	for (i = 0; i < max_species_idx; i++)
 	{
 		/* Access the race */
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Skip empty race */
-		if(!r_ptr->name) continue ;
+		if(!species_ptr->name) continue ;
 
 		/* Require known creatures */
-		if(!(mode & 0x02) && !cheat_know && !r_ptr->r_sights) continue;
+		if(!(mode & 0x02) && !cheat_know && !species_ptr->r_sights) continue;
 
 		if(grp_unique)
 		{
-			if(!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 		}
 
 		else if(grp_riding)
 		{
-			if(!has_trait_species(r_ptr, TRAIT_RIDING)) continue;
+			if(!has_trait_species(species_ptr, TRAIT_RIDING)) continue;
 		}
 
 		else if(grp_wanted)
@@ -5093,29 +5093,29 @@ static int collect_creatures(int grp_cur, s16b creature_idx[], byte mode)
 
 		else if(grp_amberite)
 		{
-			if(!IS_RACE(r_ptr, RACE_AMBERITE)) continue;
+			if(!IS_RACE(species_ptr, RACE_AMBERITE)) continue;
 		}
 
 		else if(cls != 255)
 		{
-			if(r_ptr->class_idx != cls) continue;
+			if(species_ptr->class_idx != cls) continue;
 		}
 
 		else if(ego == 1)
 		{
-			if(!is_variable_race_species(r_ptr))
+			if(!is_variable_race_species(species_ptr))
 				continue;
 		}
 
 		else if(ego == 2)
 		{
-			if(!is_variable_class_species(r_ptr)) continue;
+			if(!is_variable_class_species(species_ptr)) continue;
 		}
 
 		else
 		{
 			/* Check for race in the group */
-			if(!my_strchr(group_char, r_ptr->d_char)) continue;
+			if(!my_strchr(group_char, species_ptr->d_char)) continue;
 		}
 
 		/* Add the race */
@@ -6429,26 +6429,26 @@ static void do_cmd_knowledge_uniques(void)
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 		int          lev;
 
-		if(!r_ptr->name) continue;
+		if(!species_ptr->name) continue;
 
 		/* Require unique creatures */
-		if(!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Only display "known" uniques */
-		if(!cheat_know && !r_ptr->r_sights) continue;
+		if(!cheat_know && !species_ptr->r_sights) continue;
 
 		/* Only print rarity <= 100 uniques */
-		if(!r_ptr->rarity || ((r_ptr->rarity > 100) && !(has_trait_species(r_ptr, TRAIT_QUESTOR)))) continue;
+		if(!species_ptr->rarity || ((species_ptr->rarity > 100) && !(has_trait_species(species_ptr, TRAIT_QUESTOR)))) continue;
 
 		/* Only "alive" uniques */
-		if(r_ptr->max_num == 0) continue;
+		if(species_ptr->max_num == 0) continue;
 
-		if(r_ptr->level)
+		if(species_ptr->level)
 		{
-			lev = (r_ptr->level - 1) / 10;
+			lev = (species_ptr->level - 1) / 10;
 			if(lev < 10)
 			{
 				n_alive[lev]++;
@@ -6515,13 +6515,13 @@ static void do_cmd_knowledge_uniques(void)
 	/* Scan the creature races */
 	for (k = 0; k < n; k++)
 	{
-		species_type *r_ptr = &species_info[who[k]];
+		species_type *species_ptr = &species_info[who[k]];
 
 		/* Print a message */
 #ifdef JP
-		fprintf(fff, "     %s (レベル%d)\n", species_name + r_ptr->name, r_ptr->level);
+		fprintf(fff, "     %s (レベル%d)\n", species_name + species_ptr->name, species_ptr->level);
 #else
-		fprintf(fff, "     %s (level %d)\n", species_name + r_ptr->name, r_ptr->level);
+		fprintf(fff, "     %s (level %d)\n", species_name + species_ptr->name, species_ptr->level);
 #endif
 	}
 
@@ -7005,11 +7005,11 @@ static void do_cmd_knowledge_kill_count(void)
 
 		for (kk = 1; kk < max_species_idx; kk++)
 		{
-			species_type *r_ptr = &species_info[kk];
+			species_type *species_ptr = &species_info[kk];
 
-			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+			if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 			{
-				bool dead = (r_ptr->max_num == 0);
+				bool dead = (species_ptr->max_num == 0);
 
 				if(dead)
 				{
@@ -7018,7 +7018,7 @@ static void do_cmd_knowledge_kill_count(void)
 			}
 			else
 			{
-				s16b This = r_ptr->r_pkills;
+				s16b This = species_ptr->r_pkills;
 
 				if(This > 0)
 				{
@@ -7046,10 +7046,10 @@ static void do_cmd_knowledge_kill_count(void)
 	/* Scan the creatures */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Use that creature */
-		if(r_ptr->name) who[n++] = i;
+		if(species_ptr->name) who[n++] = i;
 	}
 
 	/* Sort the array by dungeon depth of creatures */
@@ -7058,48 +7058,48 @@ static void do_cmd_knowledge_kill_count(void)
 	/* Scan the creature races */
 	for (k = 0; k < n; k++)
 	{
-		species_type *r_ptr = &species_info[who[k]];
+		species_type *species_ptr = &species_info[who[k]];
 
-		if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 		{
-			bool dead = (r_ptr->max_num == 0);
+			bool dead = (species_ptr->max_num == 0);
 
 			if(dead)
 			{
 				/* Print a message */
 				fprintf(fff, "     %s\n",
-				    (species_name + r_ptr->name));
+				    (species_name + species_ptr->name));
 				Total++;
 			}
 		}
 		else
 		{
-			s16b This = r_ptr->r_pkills;
+			s16b This = species_ptr->r_pkills;
 
 			if(This > 0)
 			{
 #ifdef JP
 				/* p,tは人と数える by ita */
-				if(my_strchr("pt", r_ptr->d_char))
-					fprintf(fff, "     %3d 人の %s\n", This, species_name + r_ptr->name);
+				if(my_strchr("pt", species_ptr->d_char))
+					fprintf(fff, "     %3d 人の %s\n", This, species_name + species_ptr->name);
 				else
-					fprintf(fff, "     %3d 体の %s\n", This, species_name + r_ptr->name);
+					fprintf(fff, "     %3d 体の %s\n", This, species_name + species_ptr->name);
 #else
 				if(This < 2)
 				{
-					if(my_strstr(species_name + r_ptr->name, "coins"))
+					if(my_strstr(species_name + species_ptr->name, "coins"))
 					{
-						fprintf(fff, "     1 pile of %s\n", (species_name + r_ptr->name));
+						fprintf(fff, "     1 pile of %s\n", (species_name + species_ptr->name));
 					}
 					else
 					{
-						fprintf(fff, "     1 %s\n", (species_name + r_ptr->name));
+						fprintf(fff, "     1 %s\n", (species_name + species_ptr->name));
 					}
 				}
 				else
 				{
 					char ToPlural[80];
-					strcpy(ToPlural, (species_name + r_ptr->name));
+					strcpy(ToPlural, (species_name + species_ptr->name));
 					plural_aux(ToPlural);
 					fprintf(fff, "     %d %s\n", This, ToPlural);
 				}
@@ -7507,18 +7507,18 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 		int species_idx = mon_idx[mon_top + i] ;
 
 		/* Access the race */
-		species_type *r_ptr = &species_info[species_idx];
+		species_type *species_ptr = &species_info[species_idx];
 
 		/* Choose a color */
 		attr = ((i + mon_top == mon_cur) ? TERM_L_BLUE : TERM_WHITE);
 
 		/* Display the name */
-		c_prt(attr, (species_name + r_ptr->name), row + i, col);
+		c_prt(attr, (species_name + species_ptr->name), row + i, col);
 
 		/* Hack -- visual_list mode */
 		if(per_page == 1)
 		{
-			c_prt(attr, format("%02x/%02x", r_ptr->x_attr, r_ptr->x_char), row + i, (wizard || visual_only) ? 56 : 61);
+			c_prt(attr, format("%02x/%02x", species_ptr->x_attr, species_ptr->x_char), row + i, (wizard || visual_only) ? 56 : 61);
 		}
 		if(wizard || visual_only)
 		{
@@ -7529,16 +7529,16 @@ static void display_creature_list(int col, int row, int per_page, s16b mon_idx[]
 		Term_erase(69, row + i, 255);
 
 		/* Display symbol */
-		Term_queue_bigchar(use_bigtile ? 69 : 70, row + i, r_ptr->x_attr, r_ptr->x_char, 0, 0);
+		Term_queue_bigchar(use_bigtile ? 69 : 70, row + i, species_ptr->x_attr, species_ptr->x_char, 0, 0);
 
 		if(!visual_only)
 		{
 			/* Display kills */
-			if(!has_trait_species(r_ptr, TRAIT_UNIQUE)) put_str(format("%5d", r_ptr->r_pkills), row + i, 73);
+			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) put_str(format("%5d", species_ptr->r_pkills), row + i, 73);
 #ifdef JP
-			else c_put_str((r_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (r_ptr->max_num == 0 ? "死亡" : "生存"), row + i, 74);
+			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? "死亡" : "生存"), row + i, 74);
 #else
-			else c_put_str((r_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (r_ptr->max_num == 0 ? " dead" : "alive"), row + i, 73);
+			else c_put_str((species_ptr->max_num == 0 ? TERM_L_DARK : TERM_WHITE), (species_ptr->max_num == 0 ? " dead" : "alive"), row + i, 73);
 #endif
 		}
 	}
@@ -7636,7 +7636,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 	while (!flag)
 	{
 		char ch;
-		species_type *r_ptr;
+		species_type *species_ptr;
 
 		if(redraw)
 		{
@@ -7730,7 +7730,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 #endif
 
 		/* Get the current creature */
-		r_ptr = &species_info[mon_idx[mon_cur]];
+		species_ptr = &species_info[mon_idx[mon_cur]];
 
 		if(!visual_only)
 		{
@@ -7743,7 +7743,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 
 		if(visual_list)
 		{
-			place_visual_list_cursor(max + 3, 7, r_ptr->x_attr, r_ptr->x_char, attr_top, char_left);
+			place_visual_list_cursor(max + 3, 7, species_ptr->x_attr, species_ptr->x_char, attr_top, char_left);
 		}
 		else if(!column)
 		{
@@ -7757,7 +7757,7 @@ static void do_cmd_knowledge_creatures(bool *need_redraw, bool visual_only, int 
 		ch = inkey();
 
 		/* Do visual mode command if needed */
-		if(visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &r_ptr->x_attr, &r_ptr->x_char, need_redraw))
+		if(visual_mode_command(ch, &visual_list, browser_rows-1, wid - (max + 3), &attr_top, &char_left, &species_ptr->x_attr, &species_ptr->x_char, need_redraw))
 		{
 			if(direct_species_idx >= 0)
 			{
@@ -8988,7 +8988,7 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 	char rand_tmp_str[120] = "\0";
 	char dungeon_name[80];
 	char name[80];
-	species_type *r_ptr;
+	species_type *species_ptr;
 	dungeon_type *d_ptr;
 	int i;
 	int rand_level = 100;
@@ -9030,9 +9030,9 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 					{
 					case QUEST_TYPE_KILL_LEVEL:
 					case QUEST_TYPE_KILL_ANY_LEVEL:
-						r_ptr = &species_info[quest[i].species_idx];
+						species_ptr = &species_info[quest[i].species_idx];
 						d_ptr = &dungeon_info[quest[i].dungeon];
-						strcpy(name, species_name + r_ptr->name);
+						strcpy(name, species_name + species_ptr->name);
 						strcpy(dungeon_name, dungeon_name + d_ptr->name);
 
 						if(quest[i].max_num > 1)
@@ -9135,8 +9135,8 @@ static void do_cmd_knowledge_quests_current(FILE *fff)
 				if(max_dlv[DUNGEON_ANGBAND] >= rand_level)
 				{
 					/* Print the quest info */
-					r_ptr = &species_info[quest[i].species_idx];
-					strcpy(name, species_name + r_ptr->name);
+					species_ptr = &species_info[quest[i].species_idx];
+					strcpy(name, species_name + species_ptr->name);
 
 					if(quest[i].max_num > 1)
 					{

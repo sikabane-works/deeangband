@@ -227,7 +227,7 @@ static void show_building(creature_type *creature_ptr, building_type* bldg)
  */
 static void arena_comm(creature_type *creature_ptr, int cmd)
 {
-	species_type    *r_ptr;
+	species_type    *species_ptr;
 	cptr            name;
 
 	switch (cmd)
@@ -338,8 +338,8 @@ static void arena_comm(creature_type *creature_ptr, int cmd)
 			}
 			else
 			{
-				r_ptr = &species_info[arena_info[arena_number].species_idx];
-				name = (species_name + r_ptr->name);
+				species_ptr = &species_info[arena_info[arena_number].species_idx];
+				name = (species_name + species_ptr->name);
 #ifdef JP
 				msg_format("%s Ç…íßêÌÇ∑ÇÈÇ‡ÇÃÇÕÇ¢Ç»Ç¢Ç©ÅH", name);
 #else
@@ -1690,31 +1690,31 @@ void battle_creatures(void)
 
 		for (i = 0; i < GAMBLE_ARENA_GLADIATOR_MAX; i++)
 		{
-			species_type *r_ptr = &species_info[battle_creature[i]];
+			species_type *species_ptr = &species_info[battle_creature[i]];
 			int num_taisei = 0;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_ACID)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_ELEC)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_COLD)) num_taisei++;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RES_POIS)) num_taisei++;
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RES_ACID)) num_taisei++;
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RES_ELEC)) num_taisei++;
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RES_FIRE)) num_taisei++;
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RES_COLD)) num_taisei++;
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RES_POIS)) num_taisei++;
 
 			power[i] = 3;
 
-			if(r_ptr->speed > 0)
-				power[i] = power[i] * (r_ptr->speed * 2) / 100;
-			if(r_ptr->speed < 0)
-				power[i] = power[i] * (r_ptr->speed - 20) / 100;
+			if(species_ptr->speed > 0)
+				power[i] = power[i] * (species_ptr->speed * 2) / 100;
+			if(species_ptr->speed < 0)
+				power[i] = power[i] * (species_ptr->speed - 20) / 100;
 			if(num_taisei > 2)
 				power[i] = power[i] * (num_taisei*2+5) / 10;
-			else if(has_trait_raw(&r_ptr->flags, TRAIT_INVULNER))
+			else if(has_trait_raw(&species_ptr->flags, TRAIT_INVULNER))
 				power[i] = power[i] * 4 / 3;
-			else if(has_trait_raw(&r_ptr->flags, TRAIT_HEAL))
+			else if(has_trait_raw(&species_ptr->flags, TRAIT_HEAL))
 				power[i] = power[i] * 4 / 3;
-			else if(has_trait_raw(&r_ptr->flags, TRAIT_DRAIN_MANA))
+			else if(has_trait_raw(&species_ptr->flags, TRAIT_DRAIN_MANA))
 				power[i] = power[i] * 11 / 10;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RAND_25))
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RAND_25))
 				power[i] = power[i] * 9 / 10;
-			if(has_trait_raw(&r_ptr->flags, TRAIT_RAND_50))
+			if(has_trait_raw(&species_ptr->flags, TRAIT_RAND_50))
 				power[i] = power[i] * 9 / 10;
 
 			if(power[i] <= 0) power[i] = 1;
@@ -1774,12 +1774,12 @@ static bool kakutoujou(creature_type *creature_ptr)
 		for (i = 0; i < 4; i++)
 		{
 			char buf[80];
-			species_type *r_ptr = &species_info[battle_creature[i]];
+			species_type *species_ptr = &species_info[battle_creature[i]];
 
 #ifdef JP
-			sprintf(buf,"%d) %-58s  %4ld.%02ldî{", i+1, format("%s%s",species_name + r_ptr->name, has_trait_species(r_ptr, TRAIT_UNIQUE) ? "Ç‡Ç«Ç´" : "      "), creature_odds[i]/100, creature_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ldî{", i+1, format("%s%s",species_name + species_ptr->name, has_trait_species(species_ptr, TRAIT_UNIQUE) ? "Ç‡Ç«Ç´" : "      "), creature_odds[i]/100, creature_odds[i]%100);
 #else
-			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", has_trait_species(r_ptr, TRAIT_UNIQUE) ? "Fake " : "", species_name + r_ptr->name), creature_odds[i]/100, creature_odds[i]%100);
+			sprintf(buf,"%d) %-58s  %4ld.%02ld", i+1, format("%s%s", has_trait_species(species_ptr, TRAIT_UNIQUE) ? "Fake " : "", species_name + species_ptr->name), creature_odds[i]/100, creature_odds[i]%100);
 #endif
 			prt(buf, 5+i, 1);
 		}
@@ -1893,7 +1893,7 @@ msg_print("ÇnÇjÅAÇPÉSÅ[ÉãÉhÇ≈Ç¢Ç±Ç§ÅB");
 static void today_target(creature_type *creature_ptr)
 {
 	char buf[160];
-	species_type *r_ptr = &species_info[today_mon];
+	species_type *species_ptr = &species_info[today_mon];
 
 	clear_bldg(4,18);
 
@@ -1904,23 +1904,23 @@ static void today_target(creature_type *creature_ptr)
 #endif
 
 #ifdef JP
-	sprintf(buf,"É^Å[ÉQÉbÉgÅF %s",species_name + r_ptr->name);
+	sprintf(buf,"É^Å[ÉQÉbÉgÅF %s",species_name + species_ptr->name);
 #else
-	sprintf(buf,"target: %s",species_name + r_ptr->name);
+	sprintf(buf,"target: %s",species_name + species_ptr->name);
 
 #endif
 	c_put_str(TERM_YELLOW, buf, 6, 10);
 #ifdef JP
-	sprintf(buf,"éÄëÃ ---- $%d",r_ptr->level * 50 + 100);
+	sprintf(buf,"éÄëÃ ---- $%d",species_ptr->level * 50 + 100);
 #else
-	sprintf(buf,"corpse   ---- $%d",r_ptr->level * 50 + 100);
+	sprintf(buf,"corpse   ---- $%d",species_ptr->level * 50 + 100);
 #endif
 	prt(buf, 8, 10);
 
 #ifdef JP
-	sprintf(buf,"çú   ---- $%d",r_ptr->level * 30 + 60);
+	sprintf(buf,"çú   ---- $%d",species_ptr->level * 30 + 60);
 #else
-	sprintf(buf,"skeleton ---- $%d",r_ptr->level * 30 + 60);
+	sprintf(buf,"skeleton ---- $%d",species_ptr->level * 30 + 60);
 #endif
 
 	prt(buf, 9, 10);
@@ -1963,7 +1963,7 @@ static void shoukinkubi(void)
 	{
 		byte color;
 		cptr done_mark;
-		species_type *r_ptr = &species_info[(kubi_species_idx[i] > 10000 ? kubi_species_idx[i] - 10000 : kubi_species_idx[i])];
+		species_type *species_ptr = &species_info[(kubi_species_idx[i] > 10000 ? kubi_species_idx[i] - 10000 : kubi_species_idx[i])];
 
 		if(kubi_species_idx[i] > 10000)
 		{
@@ -1980,7 +1980,7 @@ static void shoukinkubi(void)
 			done_mark = "";
 		}
 
-		c_prt(color, format("%s %s", species_name + r_ptr->name, done_mark), y+7, 10);
+		c_prt(color, format("%s %s", species_name + species_ptr->name, done_mark), y+7, 10);
 
 		y = (y+1) % 10;
 		if(!y && (i < MAX_BOUNTY -1))
@@ -3595,17 +3595,17 @@ sprintf(buf, "%c - %s", sym, "ñ≥å¯Ç»ï∂éö");
 	/* Collect matching creatures */
 	for (n = 0, i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Empty creature */
-		if(!r_ptr->name) continue;
+		if(!species_ptr->name) continue;
 
 		/* XTRA HACK WHATSEARCH */
 		/* Require non-unique creatures if needed */
-		if(norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(norm && has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require unique creatures if needed */
-		if(uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(uniq && !has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 
 		/* ñºëOåüçı */
 		if(temp[0])
@@ -3626,21 +3626,21 @@ sprintf(buf, "%c - %s", sym, "ñ≥å¯Ç»ï∂éö");
 			}
   
 #ifdef JP
-			strcpy(temp2, species_name + r_ptr->E_name);
+			strcpy(temp2, species_name + species_ptr->E_name);
 #else
-			strcpy(temp2, species_name + r_ptr->name);
+			strcpy(temp2, species_name + species_ptr->name);
 #endif
 			for (xx = 0; temp2[xx] && xx < 80; xx++)
 				if(isupper(temp2[xx])) temp2[xx] = tolower(temp2[xx]);
 
 #ifdef JP
-			if(my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp))
+			if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp))
 #else
 			if(my_strstr(temp2, temp))
 #endif
 				who[n++] = i;
 		}
-		else if(all || (r_ptr->d_char == sym)) who[n++] = i;
+		else if(all || (species_ptr->d_char == sym)) who[n++] = i;
 	}
 
 	/* Nothing to recall */

@@ -2467,7 +2467,7 @@ static void ang_sort_swap_evol_tree(vptr u, vptr v, int a, int b)
 static void spoil_species_evol(cptr fname)
 {
 	char buf[1024];
-	species_type *r_ptr;
+	species_type *species_ptr;
 	int **evol_tree, i, j, n, species_idx;
 	int *evol_tree_zero; /* For C_KILL() */
 
@@ -2503,20 +2503,20 @@ static void spoil_species_evol(cptr fname)
 	/* Step 1: Build the evolution tree */
 	for (i = 1; i < max_species_idx; i++)
 	{
-		r_ptr = &species_info[i];
+		species_ptr = &species_info[i];
 
 		/* No evolution */
-		if(!r_ptr->next_exp) continue;
+		if(!species_ptr->next_exp) continue;
 
 		/* Trace evolution */
 		n = 0;
 		evol_tree[i][n++] = i;
 		do
 		{
-			evol_tree[i][n++] = r_ptr->next_species_idx;
-			r_ptr = &species_info[r_ptr->next_species_idx];
+			evol_tree[i][n++] = species_ptr->next_species_idx;
+			species_ptr = &species_info[species_ptr->next_species_idx];
 		}
-		while (r_ptr->next_exp && (n < MAX_EVOL_DEPTH));
+		while (species_ptr->next_exp && (n < MAX_EVOL_DEPTH));
 	}
 
 	/* Step 2: Scan the evolution trees and remove "partial tree" */
@@ -2557,25 +2557,25 @@ static void spoil_species_evol(cptr fname)
 		if(!species_idx) continue;
 
 		/* Trace the evolution tree */
-		r_ptr = &species_info[species_idx];
+		species_ptr = &species_info[species_idx];
 #ifdef JP
 		fprintf(fff, "[%d]: %s (ƒŒƒxƒ‹%d, '%c')\n", species_idx,
-			species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+			species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
 #else
 		fprintf(fff, "[%d]: %s (Level %d, '%c')\n", species_idx,
-			species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+			species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
 #endif
-		for (n = 1; r_ptr->next_exp; n++)
+		for (n = 1; species_ptr->next_exp; n++)
 		{
-			fprintf(fff, "%*s-(%ld)-> ", n * 2, "", r_ptr->next_exp);
-			fprintf(fff, "[%d]: ", r_ptr->next_species_idx);
-			r_ptr = &species_info[r_ptr->next_species_idx];
+			fprintf(fff, "%*s-(%ld)-> ", n * 2, "", species_ptr->next_exp);
+			fprintf(fff, "[%d]: ", species_ptr->next_species_idx);
+			species_ptr = &species_info[species_ptr->next_species_idx];
 #ifdef JP
 			fprintf(fff, "%s (ƒŒƒxƒ‹%d, '%c')\n",
-				species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+				species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
 #else
 			fprintf(fff, "%s (Level %d, '%c')\n",
-				species_name + r_ptr->name, r_ptr->level, r_ptr->d_char);
+				species_name + species_ptr->name, species_ptr->level, species_ptr->d_char);
 #endif
 		}
 

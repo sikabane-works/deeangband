@@ -2386,7 +2386,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 {
 	floor_type *floor_ptr = GET_FLOOR_PTR(target_ptr);
 	int old_chp = target_ptr->chp;
-	species_type    *r_ptr = &species_info[target_ptr->species_idx];
+	species_type    *species_ptr = &species_info[target_ptr->species_idx];
 	bool fear = FALSE;
 	char atk_name[100];
 	char tar_name[100];
@@ -2611,16 +2611,16 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			if(has_trait(target_ptr, TRAIT_TANUKI))
 			{
 				/* You might have unmasked Tanuki first time */
-				r_ptr = &species_info[target_ptr->species_idx];
+				species_ptr = &species_info[target_ptr->species_idx];
 				target_ptr->ap_species_idx = target_ptr->species_idx;
-				if(r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
+				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
 	
 			if(target_ptr->sc_flag2 & SC_FLAG2_CHAMELEON)
 			{
 				/* You might have unmasked Chameleon first time */
-				r_ptr = real_species_ptr(target_ptr);
-				if(r_ptr->r_sights < MAX_SHORT) r_ptr->r_sights++;
+				species_ptr = real_species_ptr(target_ptr);
+				if(species_ptr->r_sights < MAX_SHORT) species_ptr->r_sights++;
 			}
 	
 			if(!(target_ptr->smart & SM_CLONED))
@@ -2628,7 +2628,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				/* When the player kills a Unique, it stays dead */
 				if(has_trait(target_ptr, TRAIT_UNIQUE))
 				{
-					r_ptr->max_num = 0;
+					species_ptr->max_num = 0;
 	
 					/* Mega-Hack -- Banor & Lupart */
 					if((target_ptr->species_idx == SPECIES_BANOR) || (target_ptr->species_idx == SPECIES_LUPART))
@@ -2652,22 +2652,22 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 				}
 	
 				// When the player kills a Nazgul, it stays dead
-				else if(has_trait_species(r_ptr, TRAIT_NAZGUL)) r_ptr->max_num--;
+				else if(has_trait_species(species_ptr, TRAIT_NAZGUL)) species_ptr->max_num--;
 			}
 	
 			/* Count all creatures killed */
-			if(r_ptr->r_akills < MAX_SHORT) r_ptr->r_akills++;
+			if(species_ptr->r_akills < MAX_SHORT) species_ptr->r_akills++;
 	
 			/* Recall even invisible uniques or winners */
 			if((target_ptr->see_others && !has_trait(attacker_ptr, TRAIT_HALLUCINATION)) || has_trait(target_ptr, TRAIT_UNIQUE))
 			{
 				/* Count kills this life */
 				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_pkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_pkills++;
-				else if(r_ptr->r_pkills < MAX_SHORT) r_ptr->r_pkills++;
+				else if(species_ptr->r_pkills < MAX_SHORT) species_ptr->r_pkills++;
 	
 				/* Count kills in all lives */
 				if(has_trait(target_ptr, TRAIT_KAGE) && (species_info[SPECIES_KAGE].r_tkills < MAX_SHORT)) species_info[SPECIES_KAGE].r_tkills++;
-				else if(r_ptr->r_tkills < MAX_SHORT) r_ptr->r_tkills++;
+				else if(species_ptr->r_tkills < MAX_SHORT) species_ptr->r_tkills++;
 	
 				/* Hack -- Auto-recall */
 				species_type_track(target_ptr->ap_species_idx);
@@ -2701,15 +2701,15 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 			}
 	
 			/* The new law says it is illegal to live in the dungeon */
-			if(r_ptr->level != 0) innocent = FALSE;
+			if(species_ptr->level != 0) innocent = FALSE;
 			
 			if(has_trait(target_ptr, TRAIT_UNIQUE) && record_destroy_uniq)
 			{
 				char note_buf[160];
 	#ifdef JP
-				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (target_ptr->smart & SM_CLONED) ? "(クローン)" : "");
+				sprintf(note_buf, "%s%s", species_name + species_ptr->name, (target_ptr->smart & SM_CLONED) ? "(クローン)" : "");
 	#else
-				sprintf(note_buf, "%s%s", species_name + r_ptr->name, (target_ptr->smart & SM_CLONED) ? "(Clone)" : "");
+				sprintf(note_buf, "%s%s", species_name + species_ptr->name, (target_ptr->smart & SM_CLONED) ? "(Clone)" : "");
 	#endif
 				do_cmd_write_nikki(DIARY_UNIQUE, 0, note_buf);
 			}

@@ -91,19 +91,19 @@ static void roff_aux(species_type *species_ptr, int mode)
  */
 void roff_top(int species_idx)
 {
-	species_type	*r_ptr = &species_info[species_idx];
+	species_type	*species_ptr = &species_info[species_idx];
 
 	byte		a1, a2;
 	char		c1, c2;
 
 
 	/* Access the chars */
-	c1 = r_ptr->d_char;
-	c2 = r_ptr->x_char;
+	c1 = species_ptr->d_char;
+	c2 = species_ptr->x_char;
 
 	/* Access the attrs */
-	a1 = r_ptr->d_attr;
-	a2 = r_ptr->x_attr;
+	a1 = species_ptr->d_attr;
+	a2 = species_ptr->x_attr;
 
 
 	/* Clear the top line */
@@ -114,14 +114,14 @@ void roff_top(int species_idx)
 
 #ifndef JP
 	/* A title (use "The" for non-uniques) */
-	if(!(has_trait_species(r_ptr, TRAIT_UNIQUE)))
+	if(!(has_trait_species(species_ptr, TRAIT_UNIQUE)))
 	{
 		Term_addstr(-1, TERM_WHITE, "The ");
 	}
 #endif
 
 	/* Dump the name */
-	Term_addstr(-1, TERM_WHITE, (species_name + r_ptr->name));
+	Term_addstr(-1, TERM_WHITE, (species_name + species_ptr->name));
 
 	/* Append the "standard" attr/char info */
 	Term_addstr(-1, TERM_WHITE, " ('");
@@ -254,14 +254,14 @@ void output_creature_spoiler(int species_idx, void (*roff_func)(byte attr, cptr 
 
 bool species_hook_dungeon(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 	floor_type *floor_ptr = GET_FLOOR_PTR(player_ptr);
 
-	if(!has_trait_species(r_ptr, TRAIT_WILD_ONLY)) return TRUE;
+	if(!has_trait_species(species_ptr, TRAIT_WILD_ONLY)) return TRUE;
 	else
 	{
 		dungeon_type *d_ptr = &dungeon_info[floor_ptr->dun_type];
-		if(has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
+		if(has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 		return FALSE;
 	}
 }
@@ -283,9 +283,9 @@ static bool creature_hook_shore(int species_idx)
 
 static bool creature_hook_waste(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
-	if(has_trait_species(r_ptr, TRAIT_WILD_WASTE) || has_trait_species(r_ptr, TRAIT_WILD_ALL))
+	if(has_trait_species(species_ptr, TRAIT_WILD_WASTE) || has_trait_species(species_ptr, TRAIT_WILD_ALL))
 		return TRUE;
 	else
 		return FALSE;
@@ -294,9 +294,9 @@ static bool creature_hook_waste(int species_idx)
 
 static bool creature_hook_town(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
-	if(has_trait_species(r_ptr, TRAIT_WILD_ALL) || has_trait_species(r_ptr, TRAIT_WILD_TOWN) || has_trait_species(r_ptr, TRAIT_CITIZEN))
+	if(has_trait_species(species_ptr, TRAIT_WILD_ALL) || has_trait_species(species_ptr, TRAIT_WILD_TOWN) || has_trait_species(species_ptr, TRAIT_CITIZEN))
 		return TRUE;
 	else
 		return FALSE;
@@ -305,37 +305,37 @@ static bool creature_hook_town(int species_idx)
 
 static bool creature_hook_wood(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
-	return (has_trait_species(r_ptr, TRAIT_WILD_WOOD) || has_trait_species(r_ptr, TRAIT_WILD_ALL));
+	species_type *species_ptr = &species_info[species_idx];
+	return (has_trait_species(species_ptr, TRAIT_WILD_WOOD) || has_trait_species(species_ptr, TRAIT_WILD_ALL));
 }
 
 
 static bool creature_hook_volcano(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
-	return has_trait_species(r_ptr, TRAIT_WILD_WOOD);
+	species_type *species_ptr = &species_info[species_idx];
+	return has_trait_species(species_ptr, TRAIT_WILD_WOOD);
 }
 
 
 static bool creature_hook_mountain(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
-	return has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN);
+	species_type *species_ptr = &species_info[species_idx];
+	return has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN);
 }
 
 static bool creature_hook_grass(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
-	return (has_trait_species(r_ptr, TRAIT_WILD_GRASS) || has_trait_species(r_ptr, TRAIT_WILD_ALL));
+	species_type *species_ptr = &species_info[species_idx];
+	return (has_trait_species(species_ptr, TRAIT_WILD_GRASS) || has_trait_species(species_ptr, TRAIT_WILD_ALL));
 }
 
 static bool creature_hook_deep_water(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	if(!species_hook_dungeon(species_idx)) return FALSE;
 
-	if(has_trait_species(r_ptr, TRAIT_AQUATIC))
+	if(has_trait_species(species_ptr, TRAIT_AQUATIC))
 		return TRUE;
 	else
 		return FALSE;
@@ -344,11 +344,11 @@ static bool creature_hook_deep_water(int species_idx)
 
 static bool creature_hook_shallow_water(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	if(!species_hook_dungeon(species_idx)) return FALSE;
 
-	if(has_trait_raw(&r_ptr->flags, TRAIT_AURA_FIRE))
+	if(has_trait_raw(&species_ptr->flags, TRAIT_AURA_FIRE))
 		return FALSE;
 	else
 		return TRUE;
@@ -357,13 +357,13 @@ static bool creature_hook_shallow_water(int species_idx)
 
 static bool creature_hook_lava(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	if(!species_hook_dungeon(species_idx)) return FALSE;
 
-	if(has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE) ||
-	    has_trait_species(r_ptr, TRAIT_CAN_FLY) &&
-	   !has_trait_raw(&r_ptr->flags, TRAIT_AURA_COLD))
+	if(has_trait_raw(&species_ptr->flags, TRAIT_RES_FIRE) ||
+	    has_trait_species(species_ptr, TRAIT_CAN_FLY) &&
+	   !has_trait_raw(&species_ptr->flags, TRAIT_AURA_COLD))
 		return TRUE;
 	else
 		return FALSE;
@@ -372,9 +372,9 @@ static bool creature_hook_lava(int species_idx)
 
 static bool creature_hook_floor(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
-	if(!has_trait_species(r_ptr, TRAIT_AQUATIC) || has_trait_species(r_ptr, TRAIT_CAN_FLY))
+	if(!has_trait_species(species_ptr, TRAIT_AQUATIC) || has_trait_species(species_ptr, TRAIT_CAN_FLY))
 		return TRUE;
 	else
 		return FALSE;
@@ -499,7 +499,7 @@ void anger_creature(creature_type *hostile_ptr, creature_type *m_ptr)
 /*
  * Check if creature can cross terrain
  */
-bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
+bool species_can_cross_terrain(s16b feat, species_type *species_ptr, u16b mode)
 {
 	feature_type *f_ptr = &feature_info[feat];
 
@@ -508,7 +508,7 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	{
 		if(!(mode & CEM_RIDING))
 		{
-			if(!has_trait_species(r_ptr, TRAIT_CAN_FLY)) return FALSE;
+			if(!has_trait_species(species_ptr, TRAIT_CAN_FLY)) return FALSE;
 		}
 		else
 		{
@@ -517,31 +517,31 @@ bool species_can_cross_terrain(s16b feat, species_type *r_ptr, u16b mode)
 	}
 
 	// "CAN" flags
-	if(have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait_species(r_ptr, TRAIT_CAN_FLY)) return TRUE;
-	if(have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait_raw(&r_ptr->flags, TRAIT_CAN_SWIM)) return TRUE;
+	if(have_flag(f_ptr->flags, FF_CAN_FLY) && has_trait_species(species_ptr, TRAIT_CAN_FLY)) return TRUE;
+	if(have_flag(f_ptr->flags, FF_CAN_SWIM) && has_trait_raw(&species_ptr->flags, TRAIT_CAN_SWIM)) return TRUE;
 	if(have_flag(f_ptr->flags, FF_CAN_PASS))
 	{
-		if(has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return TRUE;
+		if(has_trait_raw(&species_ptr->flags, TRAIT_PASS_WALL)) return TRUE;
 	}
 
 	if(!have_flag(f_ptr->flags, FF_MOVE)) return FALSE;
 
 	// Some creatures can walk on mountains
-	if(have_flag(f_ptr->flags, FF_MOUNTAIN) && has_trait_species(r_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
+	if(have_flag(f_ptr->flags, FF_MOUNTAIN) && has_trait_species(species_ptr, TRAIT_WILD_MOUNTAIN)) return TRUE;
 
 	if(have_flag(f_ptr->flags, FF_WATER)) // Water
 	{
-		if(!has_trait_species(r_ptr, TRAIT_AQUATIC))
+		if(!has_trait_species(species_ptr, TRAIT_AQUATIC))
 		{
 			if(have_flag(f_ptr->flags, FF_DEEP)) return FALSE;						// Deep water
-			else if(has_trait_raw(&r_ptr->flags, TRAIT_AURA_FIRE)) return FALSE;	// Shallow water
+			else if(has_trait_raw(&species_ptr->flags, TRAIT_AURA_FIRE)) return FALSE;	// Shallow water
 		}
 	}
 
-	else if(has_trait_species(r_ptr, TRAIT_AQUATIC)) return FALSE;	// Aquatic creature into non-water?
+	else if(has_trait_species(species_ptr, TRAIT_AQUATIC)) return FALSE;	// Aquatic creature into non-water?
 
 	if(have_flag(f_ptr->flags, FF_LAVA)) // Lava
-		if(!has_trait_raw(&r_ptr->flags, TRAIT_RES_FIRE)) return FALSE;
+		if(!has_trait_raw(&species_ptr->flags, TRAIT_RES_FIRE)) return FALSE;
 
 	return TRUE;
 }
@@ -605,13 +605,13 @@ bool creature_can_cross_terrain(creature_type *creature_ptr, s16b feature, u16b 
 
 
 // Strictly check if creature can enter the grid
-bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *r_ptr, u16b mode)
+bool species_can_enter(floor_type *floor_ptr, int y, int x, species_type *species_ptr, u16b mode)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 	if(c_ptr->creature_idx) return FALSE; // Other creature
 
 	//TODO
-	return species_can_cross_terrain(c_ptr->feat, r_ptr, mode);
+	return species_can_cross_terrain(c_ptr->feat, species_ptr, mode);
 }
 
 bool creature_can_enter(int y, int x, creature_type *creature_ptr, u16b mode)
@@ -666,10 +666,10 @@ bool creature_has_hostile_align(creature_type *thinker_ptr, creature_type *targe
  * Used to determine the message to print for a killed creature.
  * ("dies", "destroyed")
  */
-bool species_living(species_type *r_ptr)
+bool species_living(species_type *species_ptr)
 {
-	if(has_trait_species(r_ptr, TRAIT_NONLIVING) || has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
-	if(has_trait_species(r_ptr, TRAIT_DEMON)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_NONLIVING) || has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_DEMON)) return FALSE;
 
 	return TRUE;
 }

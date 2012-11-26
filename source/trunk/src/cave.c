@@ -643,10 +643,10 @@ static void image_creature(byte *ap, char *cp)
 	/* Random symbol from set above */
 	if(use_graphics)
 	{
-		species_type *r_ptr = &species_info[randint1(max_species_idx - 1)];
+		species_type *species_ptr = &species_info[randint1(max_species_idx - 1)];
 
-		*cp = r_ptr->x_char;
-		*ap = r_ptr->x_attr;
+		*cp = species_ptr->x_char;
+		*ap = species_ptr->x_attr;
 	}
 	else
 	/* Text mode */

@@ -1068,7 +1068,7 @@ static void regen_creatures(creature_type *creature_ptr)
 	{
 		/* Check the i'th creature */
 		creature_type *m_ptr = &creature_list[i];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 
 		/* Skip dead creatures */
@@ -1113,7 +1113,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 	/* Regenerate everyone */
 	for (i = 0; i < INVEN_TOTAL; i++)
 	{
-		species_type *r_ptr;
+		species_type *species_ptr;
 		object_type *object_ptr = &creature_ptr->inventory[i];
 
 		if(!is_valid_object(object_ptr)) continue;
@@ -1122,7 +1122,7 @@ static void regen_captured_creatures(creature_type *creature_ptr)
 
 		heal = TRUE;
 
-		r_ptr = &species_info[object_ptr->pval];
+		species_ptr = &species_info[object_ptr->pval];
 
 		/* Allow regeneration (if needed) */
 		if(object_ptr->xtra4 < object_ptr->xtra5)
@@ -4936,12 +4936,12 @@ void process_player(creature_type *creature_ptr)
 				for (i = 1; i < creature_max; i++)
 				{
 					creature_type *other_ptr;
-					species_type *r_ptr;
+					species_type *species_ptr;
 					other_ptr = &creature_list[i];
 
 					if(!other_ptr->species_idx) continue; // Skip dead creatures
 					if(!other_ptr->see_others) continue; // Skip unseen creatures
-					r_ptr = &species_info[other_ptr->ap_species_idx]; // Access the creature race
+					species_ptr = &species_info[other_ptr->ap_species_idx]; // Access the creature race
 
 					// Skip non-multi-hued creatures
 					if(!has_trait(other_ptr, TRAIT_ATTR_MULTI) && !has_trait(other_ptr, TRAIT_SHAPECHANGER)) continue;
@@ -5233,7 +5233,7 @@ void extract_option_vars(void)
 void determine_bounty_uniques(void)
 {
 	int          i, j, tmp;
-	species_type *r_ptr;
+	species_type *species_ptr;
 
 	reset_species_preps();
 	for (i = 0; i < MAX_BOUNTY; i++)
@@ -5241,11 +5241,11 @@ void determine_bounty_uniques(void)
 		while (1)
 		{
 			kubi_species_idx[i] = get_species_num(CURRENT_FLOOR_PTR, MAX_DEPTH - 1);
-			r_ptr = &species_info[kubi_species_idx[i]];
+			species_ptr = &species_info[kubi_species_idx[i]];
 
-			if(!has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
-			//TODO if(!is_drop_corpse_species(r_ptr) && !is_drop_skeleton_species(r_ptr)) continue;
-			if(r_ptr->rarity > 100) continue;
+			if(!has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
+			//TODO if(!is_drop_corpse_species(species_ptr) && !is_drop_skeleton_species(species_ptr)) continue;
+			if(species_ptr->rarity > 100) continue;
 			if(no_questor_or_bounty_uniques(kubi_species_idx[i])) continue;
 			for (j = 0; j < i; j++) if(kubi_species_idx[i] == kubi_species_idx[j]) break;
 			if(j == i) break;
@@ -5278,7 +5278,7 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 	int max_dl = 3, i;
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
 	bool old_gamble_arena_mode = floor_ptr->gamble_arena_mode;
-	species_type *r_ptr;
+	species_type *species_ptr;
 
 	if(!conv_old)
 	{
@@ -5298,14 +5298,14 @@ void determine_today_mon(creature_type * creature_ptr, bool conv_old)
 		n++;
 
 		today_mon = get_species_num(CURRENT_FLOOR_PTR, max_dl);
-		r_ptr = &species_info[today_mon];
+		species_ptr = &species_info[today_mon];
 
-		if(has_trait_species(r_ptr, TRAIT_UNIQUE) || has_trait_species(r_ptr, TRAIT_UNIQUE2)) continue;
-		if(has_trait_species(r_ptr, TRAIT_NAZGUL) ) continue;
-		if(has_trait_species(r_ptr, TRAIT_MULTIPLY)) continue;
-		if(!has_trait_species(r_ptr, TRAIT_DROP_CORPSE) && !has_trait_species(r_ptr, TRAIT_DROP_SKELETON)) continue;
-		if(r_ptr->level < MIN(max_dl / 2, 40)) continue;
-		if(r_ptr->rarity > 10) continue;
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait_species(species_ptr, TRAIT_UNIQUE2)) continue;
+		if(has_trait_species(species_ptr, TRAIT_NAZGUL) ) continue;
+		if(has_trait_species(species_ptr, TRAIT_MULTIPLY)) continue;
+		if(!has_trait_species(species_ptr, TRAIT_DROP_CORPSE) && !has_trait_species(species_ptr, TRAIT_DROP_SKELETON)) continue;
+		if(species_ptr->level < MIN(max_dl / 2, 40)) continue;
+		if(species_ptr->rarity > 10) continue;
 		break;
 
 	}

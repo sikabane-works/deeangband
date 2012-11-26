@@ -192,7 +192,7 @@ static void build_dead_end(floor_type *floor_ptr, creature_type *creature_ptr)
 /*
  * Hack -- Update location of unique creatures and artifacts
  *
- * The r_ptr->floor_id and a_ptr->floor_id are not updated correctly
+ * The species_ptr->floor_id and a_ptr->floor_id are not updated correctly
  * while new floor creation since dungeons may be re-created by
  * auto-scum option.
  */
@@ -203,19 +203,19 @@ static void update_unique_artifact(s16b cur_floor_id)
 	// Maintain unique creatures 
 	for (i = 1; i < creature_max; i++)
 	{
-		species_type *r_ptr;
+		species_type *species_ptr;
 		creature_type *m_ptr = &creature_list[i];
 
 		// Skip dead creatures 
 		if(!m_ptr->species_idx) continue;
 
 		// Extract real creature race 
-		r_ptr = real_species_ptr(m_ptr);
+		species_ptr = real_species_ptr(m_ptr);
 
 		// Memorize location of the unique creature 
-		if(has_trait_species(r_ptr, TRAIT_UNIQUE) || has_trait_species(r_ptr, TRAIT_NAZGUL))
+		if(has_trait_species(species_ptr, TRAIT_UNIQUE) || has_trait_species(species_ptr, TRAIT_NAZGUL))
 		{
-			r_ptr->floor_id = cur_floor_id;
+			species_ptr->floor_id = cur_floor_id;
 		}
 	}
 

@@ -266,10 +266,10 @@ void revenge_store(creature_type *creature_ptr, int dam)
 
 bool teleport_barrier(creature_type *cast_ptr, creature_type *target_ptr)
 {
-	species_type *r_ptr = &species_info[target_ptr->species_idx];
+	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	if(!HEX_SPELLING(cast_ptr, HEX_ANTI_TELE)) return FALSE;
-	if((cast_ptr->lev * 3 / 2) < randint1(r_ptr->level)) return FALSE;
+	if((cast_ptr->lev * 3 / 2) < randint1(species_ptr->level)) return FALSE;
 
 	return TRUE;
 }

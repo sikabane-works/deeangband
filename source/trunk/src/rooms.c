@@ -1435,18 +1435,18 @@ static u32b vault_aux_dragon_mask4;
  */
 static bool vault_aux_jelly(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
-	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_KILL_BODY) && !has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) return FALSE;
 
 	/* Also decline evil jellies (like death molds and shoggoths) */
-	if(is_enemy_of_good_species(r_ptr)) return FALSE;
+	if(is_enemy_of_good_species(species_ptr)) return FALSE;
 
 	/* Require icky thing, jelly, mold, or mushroom */
-	if(!my_strchr("ijm,", r_ptr->d_char)) return FALSE;
+	if(!my_strchr("ijm,", species_ptr->d_char)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1458,10 +1458,10 @@ static bool vault_aux_jelly(int species_idx)
  */
 static bool vault_aux_animal(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	if(!vault_creature_okay(species_idx)) return FALSE;			// Validate the creature
-	if(!has_trait_species(r_ptr, TRAIT_ANIMAL)) return FALSE;	// Require "animal" flag
+	if(!has_trait_species(species_ptr, TRAIT_ANIMAL)) return FALSE;	// Require "animal" flag
 
 	/* Okay */
 	return TRUE;
@@ -1473,13 +1473,13 @@ static bool vault_aux_animal(int species_idx)
  */
 static bool vault_aux_undead(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require Undead */
-	if(!has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
+	if(!has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1499,17 +1499,17 @@ static bool vault_aux_chapel_g(int species_idx)
 
 	int i;
 
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
-	if(is_enemy_of_good_species(r_ptr)) return FALSE;
+	if(is_enemy_of_good_species(species_ptr)) return FALSE;
 	if((species_idx == SPECIES_A_GOLD) || (species_idx == SPECIES_A_SILVER)) return FALSE;
 
 	/* Require "priest" or Angel */
 
-	if(r_ptr->d_char == 'A') return TRUE;
+	if(species_ptr->d_char == 'A') return TRUE;
 
 	for (i = 0; chapel_list[i]; i++)
 		if(species_idx == chapel_list[i]) return TRUE;
@@ -1523,13 +1523,13 @@ static bool vault_aux_chapel_g(int species_idx)
  */
 static bool vault_aux_kennel(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require a Zephyr Hound or a dog */
-	if(!my_strchr("CZ", r_ptr->d_char)) return FALSE;
+	if(!my_strchr("CZ", species_ptr->d_char)) return FALSE;
   
 	/* Okay */
 	return TRUE;
@@ -1541,13 +1541,13 @@ static bool vault_aux_kennel(int species_idx)
  */
 static bool vault_aux_mimic(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require mimic */
-	if(!my_strchr("!$&(/=?[\\|", r_ptr->d_char)) return FALSE;
+	if(!my_strchr("!$&(/=?[\\|", species_ptr->d_char)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1570,17 +1570,17 @@ static bool vault_aux_clone(int species_idx)
  */
 static bool vault_aux_symbol_e(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
-	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_KILL_BODY) && !has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) return FALSE;
 
-	if(is_enemy_of_evil_species(r_ptr)) return FALSE;
+	if(is_enemy_of_evil_species(species_ptr)) return FALSE;
 
 	/* Decline incorrect symbol */
-	if(r_ptr->d_char != vault_aux_char) return FALSE;
+	if(species_ptr->d_char != vault_aux_char) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1592,17 +1592,17 @@ static bool vault_aux_symbol_e(int species_idx)
  */
 static bool vault_aux_symbol_g(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
-	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_KILL_BODY) && !has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) return FALSE;
 
-	if(is_enemy_of_good_species(r_ptr)) return FALSE;
+	if(is_enemy_of_good_species(species_ptr)) return FALSE;
 
 	/* Decline incorrect symbol */
-	if(r_ptr->d_char != vault_aux_char) return FALSE;
+	if(species_ptr->d_char != vault_aux_char) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1644,18 +1644,18 @@ static bool vault_aux_troll(int species_idx)
  */
 static bool vault_aux_giant(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require giant */
-	if(!has_trait_species(r_ptr, TRAIT_GIANT)) return FALSE;
+	if(!has_trait_species(species_ptr, TRAIT_GIANT)) return FALSE;
 
-	if(is_enemy_of_evil_species(r_ptr)) return FALSE;
+	if(is_enemy_of_evil_species(species_ptr)) return FALSE;
 
 	/* Decline undead */
-	if(has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1667,19 +1667,19 @@ static bool vault_aux_giant(int species_idx)
  */
 static bool vault_aux_dragon(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	/* Require dragon */
-	if(!has_trait_species(r_ptr, TRAIT_DRAGON)) return FALSE;
+	if(!has_trait_species(species_ptr, TRAIT_DRAGON)) return FALSE;
 
 	/* Hack -- Require correct "breath attack" */
-	//TODO if(r_ptr->flags4 != vault_aux_dragon_mask4) return FALSE;
+	//TODO if(species_ptr->flags4 != vault_aux_dragon_mask4) return FALSE;
 
 	/* Decline undead */
-	if(has_trait_species(r_ptr, TRAIT_UNDEAD)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_UNDEAD)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1691,15 +1691,15 @@ static bool vault_aux_dragon(int species_idx)
  */
 static bool vault_aux_demon(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
-	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_KILL_BODY) && !has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) return FALSE;
 
 	/* Require demon */
-	if(!has_trait_species(r_ptr, TRAIT_DEMON)) return FALSE;
+	if(!has_trait_species(species_ptr, TRAIT_DEMON)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -1711,15 +1711,15 @@ static bool vault_aux_demon(int species_idx)
  */
 static bool vault_aux_cthulhu(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	/* Validate the creature */
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
-	if(has_trait_species(r_ptr, TRAIT_KILL_BODY) && !has_trait_species(r_ptr, TRAIT_NEVER_BLOW)) return FALSE;
+	if(has_trait_species(species_ptr, TRAIT_KILL_BODY) && !has_trait_species(species_ptr, TRAIT_NEVER_BLOW)) return FALSE;
 
 	/* Require eldritch horror */
-	if(!has_trait_species(r_ptr, TRAIT_ELDRITCH_HORROR)) return FALSE;
+	if(!has_trait_species(species_ptr, TRAIT_ELDRITCH_HORROR)) return FALSE;
 
 	/* Okay */
 	return TRUE;
@@ -2181,13 +2181,13 @@ static bool build_type5(floor_type *floor_ptr)
 	for (i = 0; i < NUM_NEST_SPECIES_TYPE; i++)
 	{
 		int species_idx = 0, attempts = 100;
-		species_type *r_ptr = NULL;
+		species_type *species_ptr = NULL;
 
 		while (attempts--)
 		{
 			/* Get a (hard) creature type */
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
-			r_ptr = &species_info[species_idx];
+			species_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if(creature_has_hostile_align(&align, player_ptr)) continue;
@@ -2200,8 +2200,8 @@ static bool build_type5(floor_type *floor_ptr)
 		if(!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if(is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if(is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
+		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
+		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		nest_info[i].species_idx = species_idx;
 		nest_info[i].used = FALSE;
@@ -2400,13 +2400,13 @@ static bool build_type6(floor_type *floor_ptr)
 	for (i = 0; i < 16; i++)
 	{
 		int species_idx = 0, attempts = 100;
-		species_type *r_ptr = NULL;
+		species_type *species_ptr = NULL;
 
 		while (attempts--)
 		{
 			/* Get a (hard) creature type */
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 11);
-			r_ptr = &species_info[species_idx];
+			species_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if(creature_has_hostile_align(&align, player_ptr)) continue;
@@ -2419,8 +2419,8 @@ static bool build_type6(floor_type *floor_ptr)
 		if(!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if(is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if(is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
+		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
+		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
 	}
@@ -5544,13 +5544,13 @@ static bool build_type12(floor_type *floor_ptr)
  */
 static bool vault_aux_trapped_pit(int species_idx)
 {
-	species_type *r_ptr = &species_info[species_idx];
+	species_type *species_ptr = &species_info[species_idx];
 
 	// Validate the creature
 	if(!vault_creature_okay(species_idx)) return FALSE;
 
 	// No wall passing creature
-	if(has_trait_raw(&r_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&r_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
+	if(has_trait_raw(&species_ptr->flags, TRAIT_KILL_WALL) || has_trait_raw(&species_ptr->flags, TRAIT_PASS_WALL)) return FALSE;
 
 	// Okay
 	return TRUE;
@@ -5664,13 +5664,13 @@ static bool build_type13(floor_type *floor_ptr)
 	for (i = 0; i < 16; i++)
 	{
 		int species_idx = 0, attempts = 100;
-		species_type *r_ptr = NULL;
+		species_type *species_ptr = NULL;
 
 		while (attempts--)
 		{
 			/* Get a (hard) creature type */
 			species_idx = get_species_num(floor_ptr, floor_ptr->floor_level + 0);
-			r_ptr = &species_info[species_idx];
+			species_ptr = &species_info[species_idx];
 
 			/* Decline incorrect alignment */
 			if(creature_has_hostile_align(&align, player_ptr)) continue;
@@ -5683,8 +5683,8 @@ static bool build_type13(floor_type *floor_ptr)
 		if(!species_idx || !attempts) return FALSE;
 
 		/* Note the alignment */
-		if(is_enemy_of_good_species(r_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
-		if(is_enemy_of_evil_species(r_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
+		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
+		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
 		what[i] = species_idx;
 	}

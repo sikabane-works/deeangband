@@ -395,7 +395,7 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 
 int tot_dam_aux_snipe(creature_type *creature_ptr, int mult, creature_type *m_ptr)
 {
-	species_type *r_ptr = &species_info[m_ptr->species_idx];
+	species_type *species_ptr = &species_info[m_ptr->species_idx];
 	bool seen = is_seen(creature_ptr, m_ptr);
 
 	switch (creature_ptr->snipe_type)

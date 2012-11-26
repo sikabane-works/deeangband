@@ -1622,7 +1622,7 @@ static errr init_object_alloc(void)
 static errr init_alloc(void)
 {
 	int i;
-	species_type *r_ptr;
+	species_type *species_ptr;
 	tag_type *elements;
 
 	/* Allocate the "species_info" array */
@@ -1649,18 +1649,18 @@ static errr init_alloc(void)
 	for (i = 1; i < max_species_idx; i++)
 	{
 		/* Get the i'th race */
-		r_ptr = &species_info[(int)elements[i].pointer];
+		species_ptr = &species_info[(int)elements[i].pointer];
 
 		/* Count valid pairs */
-		if(r_ptr->rarity)
+		if(species_ptr->rarity)
 		{
 			int p, x;
 
 			/* Extract the base level */
-			x = r_ptr->level;
+			x = species_ptr->level;
 
 			/* Extract the base probability */
-			p = (100 / r_ptr->rarity);
+			p = (100 / species_ptr->rarity);
 
 			/* Load the entry */
 			alloc_species_table[i].index = (int)elements[i].pointer;

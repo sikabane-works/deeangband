@@ -1678,14 +1678,14 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 	case TRAIT_TELE_TO:
 		{
 			creature_type *target_ptr;
-			species_type *r_ptr;
+			species_type *species_ptr;
 
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			if(!floor_ptr->cave[target_row][target_col].creature_idx) break;
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			target_ptr = &creature_list[floor_ptr->cave[target_row][target_col].creature_idx];
-			r_ptr = &species_info[target_ptr->species_idx];
+			species_ptr = &species_info[target_ptr->species_idx];
 			creature_desc(target_name, target_ptr, 0);
 			if(has_trait(target_ptr, TRAIT_RES_TELE))
 			{
@@ -1776,7 +1776,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			{
 			int target_m_idx;
 			creature_type *target_ptr;
-			species_type *r_ptr;
+			species_type *species_ptr;
 
 			if(!target_set(caster_ptr, 0, TARGET_KILL)) return FALSE;
 			target_m_idx = floor_ptr->cave[target_row][target_col].creature_idx;
@@ -1784,7 +1784,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 			if(!player_has_los_bold(target_row, target_col)) break;
 			if(!projectable(floor_ptr, MAX_RANGE, caster_ptr->fy, caster_ptr->fx, target_row, target_col)) break;
 			target_ptr = &creature_list[target_m_idx];
-			r_ptr = &species_info[target_ptr->species_idx];
+			species_ptr = &species_info[target_ptr->species_idx];
 			creature_desc(target_name, target_ptr, 0);
 
 			if(has_trait(target_ptr, TRAIT_RES_NEXU) || has_trait(target_ptr, TRAIT_RES_TELE) ||
@@ -1917,7 +1917,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 				break;
 
 			default:
-				//summon_kin_type = r_ptr->d_char; // Big hack 
+				//summon_kin_type = species_ptr->d_char; // Big hack 
 
 				for (k = 0; k < 4; k++)
 				{

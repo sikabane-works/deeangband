@@ -3219,7 +3219,7 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 	else if(creature_ptr->riding)
 	{
 		creature_type *m_ptr = &creature_list[creature_ptr->riding];
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		if(m_ptr->timed_trait[TRAIT_CONFUSED])
 		{
@@ -3230,12 +3230,12 @@ bool get_rep_dir(creature_type *creature_ptr, int *dp, bool under)
 				dir = ddd[randint0(8)];
 			}
 		}
-		else if(has_trait_species(r_ptr, TRAIT_RAND_25) && has_trait_species(r_ptr, TRAIT_RAND_50) && (randint0(100) < 50))
+		else if(has_trait_species(species_ptr, TRAIT_RAND_25) && has_trait_species(species_ptr, TRAIT_RAND_50) && (randint0(100) < 50))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];
 		}
-		else if(has_trait_species(r_ptr, TRAIT_RAND_25) && (randint0(100) < 25))
+		else if(has_trait_species(species_ptr, TRAIT_RAND_25) && (randint0(100) < 25))
 		{
 			/* Random direction */
 			dir = ddd[randint0(8)];

@@ -3194,8 +3194,8 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 
 	creature_type *m_ptr1 = &creature_list[w1];
 	creature_type *m_ptr2 = &creature_list[w2];
-	species_type *r_ptr1 = &species_info[m_ptr1->species_idx];
-	species_type *r_ptr2 = &species_info[m_ptr2->species_idx];
+	species_type *species_ptr1 = &species_info[m_ptr1->species_idx];
+	species_type *species_ptr2 = &species_info[m_ptr2->species_idx];
 
 	/* Unused */
 	(void)v;
@@ -3203,11 +3203,11 @@ static bool ang_sort_comp_pet(vptr u, vptr v, int a, int b)
 	if(m_ptr1->nickname && !m_ptr2->nickname) return TRUE;
 	if(m_ptr2->nickname && !m_ptr1->nickname) return FALSE;
 
-	if(has_trait_species(r_ptr1, TRAIT_UNIQUE) && !has_trait_species(r_ptr2, TRAIT_UNIQUE)) return TRUE;
-	if(has_trait_species(r_ptr2, TRAIT_UNIQUE) && !has_trait_species(r_ptr1, TRAIT_UNIQUE)) return FALSE;
+	if(has_trait_species(species_ptr1, TRAIT_UNIQUE) && !has_trait_species(species_ptr2, TRAIT_UNIQUE)) return TRUE;
+	if(has_trait_species(species_ptr2, TRAIT_UNIQUE) && !has_trait_species(species_ptr1, TRAIT_UNIQUE)) return FALSE;
 
-	if(r_ptr1->level > r_ptr2->level) return TRUE;
-	if(r_ptr2->level > r_ptr1->level) return FALSE;
+	if(species_ptr1->level > species_ptr2->level) return TRUE;
+	if(species_ptr2->level > species_ptr1->level) return FALSE;
 
 	if(m_ptr1->chp > m_ptr2->chp) return TRUE;
 	if(m_ptr2->chp > m_ptr1->chp) return FALSE;

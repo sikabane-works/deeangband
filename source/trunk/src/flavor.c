@@ -1280,7 +1280,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 
 		case TV_CAPTURE:
 		{
-			species_type *r_ptr = &species_info[object_ptr->pval];
+			species_type *species_ptr = &species_info[object_ptr->pval];
 
 			if(known)
 			{
@@ -1295,12 +1295,12 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 				else
 				{
 #ifdef JP
-					sprintf(tmp_val2, " (%s)",species_name + r_ptr->name);
+					sprintf(tmp_val2, " (%s)",species_name + species_ptr->name);
 					modstr = tmp_val2;
 #else
-					cptr t = species_name + r_ptr->name;
+					cptr t = species_name + species_ptr->name;
 
-					if(!has_trait_species(r_ptr, TRAIT_UNIQUE))
+					if(!has_trait_species(species_ptr, TRAIT_UNIQUE))
 					{
 						sprintf(tmp_val2, " (%s%s)", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1322,14 +1322,14 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		case TV_FIGURINE:
 		case TV_STATUE:
 		{
-			species_type *r_ptr = &species_info[object_ptr->pval];
+			species_type *species_ptr = &species_info[object_ptr->pval];
 
 #ifdef JP
-			modstr = species_name + r_ptr->name;
+			modstr = species_name + species_ptr->name;
 #else
-			cptr t = species_name + r_ptr->name;
+			cptr t = species_name + species_ptr->name;
 
-			if(!has_trait_species(r_ptr, TRAIT_UNIQUE))
+			if(!has_trait_species(species_ptr, TRAIT_UNIQUE))
 			{
 				sprintf(tmp_val2, "%s%s", (is_a_vowel(*t) ? "an " : "a "), t);
 
@@ -1348,14 +1348,14 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		/* Corpses */
 		case TV_CORPSE:
 		{
-			species_type *r_ptr = &species_info[object_ptr->pval];
+			species_type *species_ptr = &species_info[object_ptr->pval];
 
-			modstr = species_name + r_ptr->name;
+			modstr = species_name + species_ptr->name;
 
 #ifdef JP
 			basenm = "#%";
 #else
-			if(has_trait_species(r_ptr, TRAIT_UNIQUE))
+			if(has_trait_species(species_ptr, TRAIT_UNIQUE))
 				basenm = "& % of #";
 			else
 				basenm = "& # %";

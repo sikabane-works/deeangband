@@ -1686,19 +1686,19 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 	/* Collect matching creatures */
 	for (n = 0, i = 1; i < max_species_idx; i++)
 	{
-		species_type *r_ptr = &species_info[i];
+		species_type *species_ptr = &species_info[i];
 
 		/* Nothing to recall */
-		if(!cheat_know && !r_ptr->r_sights) continue;
+		if(!cheat_know && !species_ptr->r_sights) continue;
 
 		/* Require non-unique creatures if needed */
-		if(norm && has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(norm && has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require unique creatures if needed */
-		if(uniq && !has_trait_species(r_ptr, TRAIT_UNIQUE)) continue;
+		if(uniq && !has_trait_species(species_ptr, TRAIT_UNIQUE)) continue;
 
 		/* Require ridable creatures if needed */
-		if(ride && !has_trait_species(r_ptr, TRAIT_RIDING)) continue;
+		if(ride && !has_trait_species(species_ptr, TRAIT_RIDING)) continue;
 
 		/* XTRA HACK WHATSEARCH */
 		if(temp[0])
@@ -1715,15 +1715,15 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		  }
   
 #ifdef JP
-		  strcpy(temp2, species_name+r_ptr->E_name);
+		  strcpy(temp2, species_name + species_ptr->E_name);
 #else
-		  strcpy(temp2, species_name+r_ptr->name);
+		  strcpy(temp2, species_name + species_ptr->name);
 #endif
 		  for (xx=0; temp2[xx] && xx<80; xx++)
 		    if(isupper(temp2[xx])) temp2[xx]=tolower(temp2[xx]);
   
 #ifdef JP
-		  if(my_strstr(temp2, temp) || my_strstr(species_name + r_ptr->name, temp) )
+		  if(my_strstr(temp2, temp) || my_strstr(species_name + species_ptr->name, temp) )
 #else
 		  if(my_strstr(temp2, temp))
 #endif
@@ -1731,7 +1731,7 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		}
 
 		/* Collect "appropriate" creatures */
-		else if(all || (r_ptr->d_char == sym)) who[n++] = i;
+		else if(all || (species_ptr->d_char == sym)) who[n++] = i;
 	}
 
 	/* Nothing to recall */

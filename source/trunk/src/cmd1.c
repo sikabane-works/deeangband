@@ -100,7 +100,7 @@ s16b critical_shot(creature_type *creature_ptr, int weight, int plus, int dam)
 s16b tot_dam_aux(creature_type *attacker_ptr, object_type *object_ptr, int tdam, creature_type *target_ptr, int mode, bool thrown)
 {
 	int mult = 10;
-	species_type *r_ptr = &species_info[target_ptr->species_idx];
+	species_type *species_ptr = &species_info[target_ptr->species_idx];
 
 	u32b flgs[TRAIT_FLAG_MAX];
 	object_flags(object_ptr, flgs); // Extract the flags
@@ -1916,7 +1916,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	/* Hack -- attack creatures */
 	if(c_ptr->creature_idx && (m_ptr->see_others || can_enter || can_kill_walls))
 	{
-		species_type *r_ptr = &species_info[m_ptr->species_idx];
+		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
 		/* Attack -- only if we can see it OR it is not in a wall */
 		if(!is_hostile(m_ptr) &&
