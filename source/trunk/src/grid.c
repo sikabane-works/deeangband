@@ -599,10 +599,7 @@ bool build_tunnel(floor_type *floor_ptr, int row1, int col1, int row2, int col2)
 			correct_dir(&row_dir, &col_dir, row1, col1, row2, col2);
 
 			/* Random direction */
-			if(randint0(100) < dun_tun_rnd)
-			{
-				rand_dir(&row_dir, &col_dir);
-			}
+			if(randint0(100) < dun_tun_rnd) rand_dir(&row_dir, &col_dir);
 
 			/* Get the next location */
 			tmp_row = row1 + row_dir;

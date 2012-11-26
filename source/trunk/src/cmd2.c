@@ -2882,7 +2882,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 	/* Sound */
 	sound(SOUND_SHOOT);
 
-	/* Hack -- Handle stuff */
 	handle_stuff();
 
 	/* Save the old location */
@@ -3585,7 +3584,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 	x = creature_ptr->fx;
 
 
-	/* Hack -- Handle stuff */
 	handle_stuff();
 
 	if((creature_ptr->class_idx == CLASS_NINJA) && ((quest_ptr->tval == TV_SPIKE) || ((have_flag(flgs, TRAIT_THROW_MIGHTY)) && (quest_ptr->tval == TV_SWORD)))) shuriken = TRUE;

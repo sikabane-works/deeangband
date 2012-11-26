@@ -8019,7 +8019,6 @@ static void desc_obj_fake(int k_idx)
 	/* Hack - mark as fake */
 	/* term_obj_real = FALSE; */
 
-	/* Hack -- Handle stuff */
 	handle_stuff();
 
 	if(!screen_object(object_ptr, SCROBJ_FAKE_OBJECT | SCROBJ_FORCE_DETAIL))

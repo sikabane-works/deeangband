@@ -494,7 +494,6 @@ void do_cmd_browse(creature_type *creature_ptr)
 	/* Track the object kind */
 	object_kind_track(object_ptr->k_idx);
 
-	/* Hack -- Handle stuff */
 	handle_stuff();
 
 
@@ -717,7 +716,6 @@ void do_cmd_study(creature_type *creature_ptr)
 	/* Track the object kind */
 	object_kind_track(object_ptr->k_idx);
 
-	/* Hack -- Handle stuff */
 	handle_stuff();
 
 	/* Mage -- Learn a selected spell */
@@ -1004,7 +1002,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 	/* Track the object kind */
 	object_kind_track(object_ptr->k_idx);
 
-	/* Hack -- Handle stuff */
 	handle_stuff();
 
 	if((creature_ptr->class_idx == CLASS_SORCERER) || (creature_ptr->class_idx == CLASS_RED_MAGE))

@@ -1799,7 +1799,6 @@ void do_cmd_query_symbol(creature_type *creature_ptr)
 		/* Hack -- Auto-recall */
 		species_type_track(species_idx);
 
-		/* Hack -- Handle stuff */
 		handle_stuff();
 
 		/* Interact */

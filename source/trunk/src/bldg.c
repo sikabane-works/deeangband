@@ -3705,7 +3705,6 @@ Term_addstr(-1, TERM_WHITE, " ['r'évÇ¢èo, ' 'Ç≈ë±çs, ESC]");
 				/* Save this creature ID */
 				species_type_track(species_idx);
 
-				/* Hack -- Handle stuff */
 				handle_stuff();
 
 				/* know every thing mode */
