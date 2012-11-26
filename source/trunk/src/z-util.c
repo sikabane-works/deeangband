@@ -98,8 +98,7 @@ void quit(cptr str)
 	/* Attempt to use the aux function */
 	if(quit_aux) (*quit_aux)(str);
 
-	/* Success */
-	if(!str) (void)(exit(0));
+	if(!str) (void)(exit(SUCCESS));
 
 	/* Extract a "special error code" */
 	if((str[0] == '-') || (str[0] == '+')) (void)(exit(atoi(str)));

@@ -36,7 +36,7 @@ int stricmp(cptr a, cptr b)
 		z2 = FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
 		if(z1 > z2) return (1);
-		if(!z1) return (0);
+		if(!z1) return SUCCESS;
 	}
 }
 
@@ -206,7 +206,7 @@ errr path_parse(char *buf, int max, cptr file)
 	if(file[0] != '~')
 	{
 		(void)strnfmt(buf, max, "%s", file);
-		return (0);
+		return SUCCESS;
 	}
 
 	/* Point at the user */
@@ -242,7 +242,7 @@ errr path_parse(char *buf, int max, cptr file)
 	else strnfmt(buf, max, "%s", pw->pw_dir);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -266,7 +266,7 @@ errr path_parse(char *buf, int max, cptr file)
 #endif /* MAC_MPW && CARBON */
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -296,7 +296,7 @@ static errr path_temp(char *buf, int max)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 #endif
@@ -345,7 +345,7 @@ errr path_build(char *buf, int max, cptr path, cptr file)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -394,7 +394,7 @@ errr my_fclose(FILE *fff)
 	if(fclose(fff) == EOF) return (1);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -473,7 +473,7 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 				buf[i] = '\0';
 
 				/* Success */
-				return (0);
+				return SUCCESS;
 			}
 
 			/* Handle tabs */
@@ -518,7 +518,7 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 		buf[i] = '\0';
 
 		/* Success */
-		return (0);
+		return SUCCESS;
 	}
 
 	/* Nothing */
@@ -654,7 +654,7 @@ errr my_fputs(FILE *fff, cptr buf, huge n)
 	(void)fprintf(fff, "%s\n", buf);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -717,7 +717,7 @@ errr fd_kill(cptr file)
 	(void)remove(buf);
 
 	/* XXX XXX XXX */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -739,7 +739,7 @@ errr fd_move(cptr file, cptr what)
 	(void)rename(buf, aux);
 
 	/* XXX XXX XXX */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -778,7 +778,7 @@ errr fd_copy(cptr file, cptr what)
 	fd_close(dst_fd);
 
 	/* XXX XXX XXX */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -912,7 +912,7 @@ errr fd_lock(int fd, int what)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -933,7 +933,7 @@ errr fd_seek(int fd, huge n)
 	if(p != n) return (1);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -954,7 +954,7 @@ errr fd_chop(int fd, huge n)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -987,7 +987,7 @@ errr fd_read(int fd, char *buf, huge n)
 	if(read(fd, buf, n) != (int)n) return (1);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1020,7 +1020,7 @@ errr fd_write(int fd, cptr buf, huge n)
 	if(write(fd, buf, n) != (int)n) return (1);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1036,7 +1036,7 @@ errr fd_close(int fd)
 	(void)close(fd);
 
 	/* XXX XXX XXX */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1124,7 +1124,7 @@ static char hexify(uint i)
 static int deoct(char c)
 {
 	if(isdigit(c)) return (D2I(c));
-	return (0);
+	return SUCCESS;
 }
 
 /*
@@ -1135,7 +1135,7 @@ static int dehex(char c)
 	if(isdigit(c)) return (D2I(c));
 	if(islower(c)) return (A2I(c) + 10);
 	if(isupper(c)) return (A2I(tolower(c)) + 10);
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1151,7 +1151,7 @@ static int my_stricmp(cptr a, cptr b)
 		z2 = FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
 		if(z1 > z2) return (1);
-		if(!z1) return (0);
+		if(!z1) return SUCCESS;
 	}
 }
 
@@ -1167,7 +1167,7 @@ static int my_strnicmp(cptr a, cptr b, int n)
 		z2 = FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
 		if(z1 > z2) return (1);
-		if(!z1) return (0);
+		if(!z1) return SUCCESS;
 	}
 	return 0;
 }
@@ -1743,7 +1743,7 @@ errr macro_add(cptr pat, cptr act)
 	macro__use[(byte)(pat[0])] = TRUE;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1922,7 +1922,7 @@ static char inkey_aux(void)
 		while (p > 0)
 		{
 			/* Push the key, notice over-flow */
-			if(Term_key_push(buf[--p])) return (0);
+			if(Term_key_push(buf[--p])) return SUCCESS;
 		}
 
 		/* Wait for (and remove) a pending key */
@@ -1943,7 +1943,7 @@ static char inkey_aux(void)
 	while (p > n)
 	{
 		/* Push the key, notice over-flow */
-		if(Term_key_push(buf[--p])) return (0);
+		if(Term_key_push(buf[--p])) return SUCCESS;
 	}
 
 
@@ -1951,7 +1951,7 @@ static char inkey_aux(void)
 	parse_macro = TRUE;
 
 	/* Push the "end of macro action" key */
-	if(Term_key_push(30)) return (0);
+	if(Term_key_push(30)) return SUCCESS;
 
 
 	/* Access the macro action */
@@ -1964,12 +1964,12 @@ static char inkey_aux(void)
 	while (n > 0)
 	{
 		/* Push the key, notice over-flow */
-		if(Term_key_push(act[--n])) return (0);
+		if(Term_key_push(act[--n])) return SUCCESS;
 	}
 
 
 	/* Hack -- Force "inkey()" to call us again */
-	return (0);
+	return SUCCESS;
 }
 
 

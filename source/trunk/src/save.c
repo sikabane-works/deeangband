@@ -244,7 +244,7 @@ static errr wr_randomizer(void)
 	for (i = 0; i < RAND_DEG; i++) wr_u32b(Rand_state[i]);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 

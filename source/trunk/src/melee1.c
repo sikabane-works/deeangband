@@ -1475,10 +1475,10 @@ static int creature_critical(int dice, int sides, int dam)
 	int total = dice * sides;
 
 	/* Must do at least 95% of perfect */
-	if(dam < total * 19 / 20) return (0);
+	if(dam < total * 19 / 20) return SUCCESS;
 
 	/* Weak blows rarely work */
-	if((dam < 20) && (randint0(100) >= dam)) return (0);
+	if((dam < 20) && (randint0(100) >= dam)) return SUCCESS;
 
 	/* Perfect damage */
 	if((dam >= total) && (dam >= 40)) max++;

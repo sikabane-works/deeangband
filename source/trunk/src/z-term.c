@@ -315,7 +315,7 @@ static errr term_win_nuke(term_win *s, int w, int h)
 	C_KILL(s->vtc, h * w, char);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -354,7 +354,7 @@ static errr term_win_init(term_win *s, int w, int h)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -397,7 +397,7 @@ static errr term_win_copy(term_win *s, term_win *f, int w, int h)
 	s->cv = f->cv;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1769,7 +1769,7 @@ errr Term_fresh(void)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1789,7 +1789,7 @@ errr Term_set_cursor(int v)
 	Term->scr->cv = v;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1815,7 +1815,7 @@ errr Term_gotoxy(int x, int y)
 	Term->scr->cu = 0;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1840,7 +1840,7 @@ errr Term_draw(int x, int y, byte a, char c)
 	Term_queue_char(x, y, a, c, 0, 0);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1877,7 +1877,7 @@ errr Term_addch(byte a, char c)
 	Term->scr->cx++;
 
 	/* Success */
-	if(Term->scr->cx < w) return (0);
+	if(Term->scr->cx < w) return SUCCESS;
 
 	/* Note "Useless" cursor */
 	Term->scr->cu = 1;
@@ -1912,7 +1912,7 @@ errr Term_add_bigch(byte a, char c)
 	Term->scr->cx += 2;
 
 	/* Success */
-	if(Term->scr->cx < Term->wid) return (0);
+	if(Term->scr->cx < Term->wid) return SUCCESS;
 
 	/* Note "Useless" cursor */
 	Term->scr->cu = 1;
@@ -1989,7 +1989,7 @@ errr Term_putch(int x, int y, byte a, char c)
 	if((res = Term_addch(a, c)) != 0) return (res);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2007,7 +2007,7 @@ errr Term_putstr(int x, int y, int n, byte a, cptr s)
 	if((res = Term_addstr(n, a, s)) != 0) return (res);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 #ifdef JP
@@ -2039,7 +2039,7 @@ errr Term_putstr_v(int x, int y, int n, byte a, cptr s)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 #endif
 
@@ -2140,7 +2140,7 @@ errr Term_erase(int x, int y, int n)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2197,7 +2197,7 @@ errr Term_clear(void)
 	Term->total_erase = TRUE;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2212,11 +2212,10 @@ errr Term_redraw(void)
 	/* Force "total erase" */
 	Term->total_erase = TRUE;
 
-	/* Hack -- Refresh */
 	Term_fresh();
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2282,11 +2281,10 @@ errr Term_redraw_section(int x1, int y1, int x2, int y2)
 #endif
 	}
 
-	/* Hack -- Refresh */
 	Term_fresh();
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2303,7 +2301,7 @@ errr Term_get_cursor(int *v)
 	(*v) = Term->scr->cv;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2317,7 +2315,7 @@ errr Term_get_size(int *w, int *h)
 	(*h) = Term->hgt;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2334,7 +2332,7 @@ errr Term_locate(int *x, int *y)
 	if(Term->scr->cu) return (1);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2357,7 +2355,7 @@ errr Term_what(int x, int y, byte *a, char *c)
 	(*c) = Term->scr->c[y][x];
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2377,7 +2375,7 @@ errr Term_flush(void)
 	Term->key_head = Term->key_tail = 0;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2397,7 +2395,7 @@ errr Term_keypress(int k)
 	if(Term->key_head == Term->key_size) Term->key_head = 0;
 
 	/* Success (unless overflow) */
-	if(Term->key_head != Term->key_tail) return (0);
+	if(Term->key_head != Term->key_tail) return SUCCESS;
 
 	/* Problem */
 	return (1);
@@ -2419,7 +2417,7 @@ errr Term_key_push(int k)
 	Term->key_queue[--Term->key_tail] = k;
 
 	/* Success (unless overflow) */
-	if(Term->key_head != Term->key_tail) return (0);
+	if(Term->key_head != Term->key_tail) return SUCCESS;
 
 	/* Problem */
 	return (1);
@@ -2487,7 +2485,7 @@ errr Term_inkey(char *ch, bool wait, bool take)
 	if(take && (++Term->key_tail == Term->key_size)) Term->key_tail = 0;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2519,7 +2517,7 @@ errr Term_save(void)
 	term_win_copy(Term->mem, Term->scr, w, h);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2561,7 +2559,7 @@ errr Term_load(void)
 	Term->y2 = h - 1;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2606,7 +2604,7 @@ errr Term_exchange(void)
 	Term->y2 = h - 1;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2787,7 +2785,7 @@ errr Term_resize(int w, int h)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2829,7 +2827,7 @@ errr Term_activate(term *t)
 	if(Term) Term_xtra(TERM_XTRA_LEVEL, 1);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2897,7 +2895,7 @@ errr term_nuke(term *t)
 	C_KILL(t->key_queue, t->key_size, char);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2979,7 +2977,7 @@ errr term_init(term *t, int w, int h, int k)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 

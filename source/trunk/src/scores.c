@@ -588,7 +588,7 @@ errr top_twenty(creature_type *player_ptr)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -612,7 +612,7 @@ msg_print("スコア・ファイルが使用できません。");
 #endif
 
 		msg_print(NULL);
-		return (0);
+		return SUCCESS;
 	}
 
 
@@ -682,7 +682,7 @@ msg_print("スコア・ファイルが使用できません。");
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 

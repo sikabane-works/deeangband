@@ -888,7 +888,7 @@ static int choose_attack_spell(creature_type *caster_ptr, creature_type *target_
 	}
 
 	/* Choose no spell */
-	return (0);
+	return SUCCESS;
 }
 
 

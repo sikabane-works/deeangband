@@ -1335,7 +1335,7 @@ errr check_time(void)
 	struct tm   *tp;
 
 	/* No restrictions */
-	if(!check_time_flag) return (0);
+	if(!check_time_flag) return SUCCESS;
 
 	/* Check for time violation */
 	c = time((time_t *)0);
@@ -1347,7 +1347,7 @@ errr check_time(void)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1372,7 +1372,7 @@ errr check_time_init(void)
 	fp = my_fopen(buf, "r");
 
 	/* No file, no restrictions */
-	if(!fp) return (0);
+	if(!fp) return SUCCESS;
 
 	/* Assume restrictions */
 	check_time_flag = TRUE;
@@ -1402,7 +1402,7 @@ errr check_time_init(void)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1454,7 +1454,7 @@ errr check_load(void)
 	struct statstime    st;
 
 	/* Success if not checking */
-	if(!check_load_value) return (0);
+	if(!check_load_value) return SUCCESS;
 
 	/* Check the load */
 	if(0 == rstat("localhost", &st))
@@ -1469,7 +1469,7 @@ errr check_load(void)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1496,7 +1496,7 @@ errr check_load_init(void)
 	fp = my_fopen(buf, "r");
 
 	/* No file, no restrictions */
-	if(!fp) return (0);
+	if(!fp) return SUCCESS;
 
 	/* Default load */
 	check_load_value = 100;
@@ -1532,7 +1532,7 @@ errr check_load_init(void)
 #endif
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -5143,7 +5143,7 @@ msg_print("キャラクタ情報のファイルへの書き出しに成功しました。");
 	msg_print(NULL);
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 

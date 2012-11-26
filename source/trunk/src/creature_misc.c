@@ -873,7 +873,7 @@ int calc_damage(creature_type *creature_ptr, int damage, int type, bool message,
 		}
 		else if(!one_in_(PENETRATE_INVULNERABILITY))
 		{
-			return (0);
+			return SUCCESS;
 		}
 	}
 	return (dam);

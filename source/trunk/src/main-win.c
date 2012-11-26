@@ -1777,7 +1777,7 @@ static errr term_force_font(term_data *td, cptr path)
 	td->font_hgt = hgt;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1958,7 +1958,7 @@ static errr Term_user_win(int n)
 	(void)n;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2095,7 +2095,7 @@ static errr Term_xtra_win_react(void)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2148,7 +2148,7 @@ static errr Term_xtra_win_flush(void)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2195,7 +2195,7 @@ static errr Term_xtra_win_clear(void)
 static errr Term_xtra_win_noise(void)
 {
 	MessageBeep(MB_ICONASTERISK);
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2284,7 +2284,7 @@ static int Term_xtra_win_delay(int v)
 #endif /* WIN32 */
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -5476,7 +5476,7 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst,
 	quit(NULL);
 
 	/* Paranoia */
-	return (0);
+	return SUCCESS;
 }
 
 

@@ -285,7 +285,7 @@ int project_path(u16b *gp, int range, floor_type *floor_ptr, int y1, int x1, int
 	int m;
 
 	/* No path necessary (or allowed) */
-	if((x1 == x2) && (y1 == y2)) return (0);
+	if((x1 == x2) && (y1 == y2)) return SUCCESS;
 
 
 	/* Analyze "dy" */

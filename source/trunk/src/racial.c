@@ -704,7 +704,7 @@ static int racial_chance(creature_type *creature_ptr, power_desc_type *pd_ptr)
 	/* No chance for success */
 	if((creature_ptr->lev < min_level) || creature_ptr->timed_trait[TRAIT_CONFUSED])
 	{
-		return (0);
+		return SUCCESS;
 	}
 
 	if(difficulty == 0) return 100;

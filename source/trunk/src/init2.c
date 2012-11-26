@@ -309,7 +309,7 @@ static errr check_modification_date(int fd, cptr template_file)
 		return (-1);
 	}
 
-	return (0);
+	return SUCCESS;
 }
 
 #endif /* CHECK_MODIFICATION_TIME */
@@ -383,7 +383,7 @@ static errr init_info_raw(int fd, header *head)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -638,7 +638,7 @@ static errr init_info2(cptr filename, header *head, void **info, char **name, ch
 	if(tag)  (*tag)  = head->tag_ptr;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -880,7 +880,7 @@ static errr init_info(cptr filename, header *head, void **info, char **name, cha
 	if(tag)  (*tag)  = head->tag_ptr;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1216,7 +1216,7 @@ errr init_buildings(void)
 		}
 	}
 
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1522,7 +1522,7 @@ static errr init_other(void)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1616,7 +1616,7 @@ static errr init_object_alloc(void)
 		}
 	}
 
-	return (0); // Success
+	return SUCCESS; // Success
 }
 
 
@@ -1682,7 +1682,7 @@ static errr init_alloc(void)
 	(void)init_object_alloc();
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 

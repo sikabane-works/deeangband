@@ -362,7 +362,7 @@ static s16b chest_check(floor_type *floor_ptr, int y, int x)
 		if(object_ptr->tval == TV_CHEST) return (this_object_idx); // Check for chest
 	}
 
-	return (0); // No chest
+	return SUCCESS; // No chest
 }
 
 
@@ -885,7 +885,7 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
 	dx = x - creature_ptr->fx;
 
 	/* Paranoia */
-	if(ABS(dx) > 1 || ABS(dy) > 1) return (0);
+	if(ABS(dx) > 1 || ABS(dy) > 1) return SUCCESS;
 
 	return d[dx + 1][dy + 1];
 }

@@ -1415,52 +1415,52 @@ static bool store_object_similar(object_type *object_ptr, object_type *j_ptr)
 	int i;
 
 	/* Hack -- Identical items cannot be stacked */
-	if(object_ptr == j_ptr) return (0);
+	if(object_ptr == j_ptr) return SUCCESS;
 
 	/* Different objects cannot be stacked */
-	if(object_ptr->k_idx != j_ptr->k_idx) return (0);
+	if(object_ptr->k_idx != j_ptr->k_idx) return SUCCESS;
 
 	/* Different Size cannot be stacked */
 	if(object_ptr->size_lower != j_ptr->size_lower || 
 		object_ptr->size_upper != j_ptr->size_upper || 
-		object_ptr->to_size != j_ptr->to_size) return (0);
+		object_ptr->to_size != j_ptr->to_size) return SUCCESS;
 
 	/* Different charges (etc) cannot be stacked, unless wands or rods. */
-	if((object_ptr->pval != j_ptr->pval) && (object_ptr->tval != TV_WAND) && (object_ptr->tval != TV_ROD)) return (0);
+	if((object_ptr->pval != j_ptr->pval) && (object_ptr->tval != TV_WAND) && (object_ptr->tval != TV_ROD)) return SUCCESS;
 
 	/* Require many identical values */
-	if(object_ptr->to_hit != j_ptr->to_hit) return (0);
-	if(object_ptr->to_damage != j_ptr->to_damage) return (0);
-	if(object_ptr->to_ac != j_ptr->to_ac) return (0);
+	if(object_ptr->to_hit != j_ptr->to_hit) return SUCCESS;
+	if(object_ptr->to_damage != j_ptr->to_damage) return SUCCESS;
+	if(object_ptr->to_ac != j_ptr->to_ac) return SUCCESS;
 
 	/* Require identical "ego-item" names */
-	if(object_ptr->name2 != j_ptr->name2) return (0);
+	if(object_ptr->name2 != j_ptr->name2) return SUCCESS;
 
 	/* Artifacts don't stack! */
-	if(object_is_artifact_aux(object_ptr) || object_is_artifact_aux(j_ptr)) return (0);
+	if(object_is_artifact_aux(object_ptr) || object_is_artifact_aux(j_ptr)) return SUCCESS;
 
 	/* Hack -- Identical trait_flags! */
 	for (i = 0; i < TRAIT_FLAG_MAX; i++)
-		if(object_ptr->trait_flags[i] != j_ptr->trait_flags[i]) return (0);
+		if(object_ptr->trait_flags[i] != j_ptr->trait_flags[i]) return SUCCESS;
 
 	/* Hack -- Never stack "powerful" items */
-	if(object_ptr->xtra1 || j_ptr->xtra1) return (0);
+	if(object_ptr->xtra1 || j_ptr->xtra1) return SUCCESS;
 
 	/* Hack -- Never stack recharging items */
-	if(object_ptr->timeout || j_ptr->timeout) return (0);
+	if(object_ptr->timeout || j_ptr->timeout) return SUCCESS;
 
 	/* Require many identical values */
-	if(object_ptr->ac != j_ptr->ac)   return (0);
-	if(object_ptr->dd != j_ptr->dd)   return (0);
-	if(object_ptr->ds != j_ptr->ds)   return (0);
+	if(object_ptr->ac != j_ptr->ac)   return SUCCESS;
+	if(object_ptr->dd != j_ptr->dd)   return SUCCESS;
+	if(object_ptr->ds != j_ptr->ds)   return SUCCESS;
 
 	/* Hack -- Never stack chests */
-	if(object_ptr->tval == TV_CHEST) return (0);
-	if(object_ptr->tval == TV_STATUE) return (0);
-	if(object_ptr->tval == TV_CAPTURE) return (0);
+	if(object_ptr->tval == TV_CHEST) return SUCCESS;
+	if(object_ptr->tval == TV_STATUE) return SUCCESS;
+	if(object_ptr->tval == TV_CAPTURE) return SUCCESS;
 
 	/* Require matching discounts */
-	if(object_ptr->discount != j_ptr->discount) return (0);
+	if(object_ptr->discount != j_ptr->discount) return SUCCESS;
 
 	/* They match, so they must be similar */
 	return TRUE;

@@ -1482,7 +1482,7 @@ errr get_species_num_prep(creature_type *summoner_ptr, creature_hook_type creatu
 		*/
 	}
 
-	return (0);	// Success
+	return SUCCESS;	// Success
 }
 
 static int mysqrt(int n)
@@ -1604,7 +1604,7 @@ s16b get_species_num(floor_type *floor_ptr, int level)
 		total += table[i].prob3; // Total
 	}
 
-	if(total <= 0) return (0); // No legal creatures
+	if(total <= 0) return SUCCESS; // No legal creatures
 
 	value = randint0(total); // Pick a creature
 

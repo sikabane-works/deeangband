@@ -122,7 +122,7 @@ static errr init_buffer(void)
 	ring.buf = malloc(RINGBUF_SIZE);
 	if(ring.buf == NULL) return (-1);
 
-	return (0);
+	return SUCCESS;
 }
 
 /* 現在の時間を100ms単位で取得する */
@@ -192,7 +192,7 @@ static errr insert_ringbuf(char *buf)
 	ring.inlen += len;
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 #ifdef CHUUKEI
@@ -321,7 +321,7 @@ static int read_chuukei_prf(cptr prfeature_name)
 	/* prfファイルが完全でない */
 	if(server_port == -1 || servespecies_name[0] == 0) return (-1);
 
-	return (0);
+	return SUCCESS;
 }
 
 int connect_chuukei_server(char *prfeature_name)
@@ -392,7 +392,7 @@ int connect_chuukei_server(char *prfeature_name)
 		return (-1);
 	}
 
-	return (0);
+	return SUCCESS;
 #else	/* MACINTOSH */
 	OSStatus err;
 	InetHostInfo 	response;

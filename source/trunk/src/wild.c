@@ -769,7 +769,7 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 

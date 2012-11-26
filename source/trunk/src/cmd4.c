@@ -856,7 +856,7 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	if(do_level) write_level = FALSE;
 
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2734,7 +2734,7 @@ static errr macro_dump(cptr fname)
 	close_auto_dump();
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -2869,7 +2869,7 @@ static errr keymap_dump(cptr fname)
 	close_auto_dump();
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 // Interact with "macros"

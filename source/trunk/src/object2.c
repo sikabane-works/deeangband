@@ -453,7 +453,7 @@ s16b object_pop(void)
 	msg_print("Too many objects!");
 #endif
 
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -486,7 +486,7 @@ static errr get_obj_num_prep(bool (*get_obj_num_hook)(int k_idx))
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -556,7 +556,7 @@ s16b get_obj_num(floor_type *floor_ptr, int level, u32b flag)
 		total += table[i].prob3; // Total
 	}
 
-	if(total <= 0) return (0); // No legal objects
+	if(total <= 0) return SUCCESS; // No legal objects
 
 
 	/* Pick an object */
@@ -1555,7 +1555,7 @@ bool object_similar(object_type *object1_ptr, object_type *object2_ptr)
 
 	max_num = object_similar_part(object1_ptr, object2_ptr); // Are these objects similar?
 	if(!max_num) return FALSE;		// Return if not similar
-	if(total > max_num) return (0);	// Maximal "stacking" limit
+	if(total > max_num) return SUCCESS;	// Maximal "stacking" limit
 
 	return TRUE;
 }
@@ -1631,7 +1631,7 @@ s16b lookup_kind(int tval, int sval)
 	if(sval == SV_ANY) return bk;	// Return this choice
 
 	msg_warning(" No object (TV=%d,SV=%d)", tval, sval);
-	return (0);
+	return SUCCESS;
 }
 
 
@@ -1767,7 +1767,7 @@ s16b m_bonus(int max, int level)
 	if(randint0(4) < extra) stand++;	// Hack -- simulate floating point computations
 
 	value = randnor(bonus, stand);		// Choose an "interesting" value
-	if(value < 0) return (0);			// Enforce the minimum value
+	if(value < 0) return SUCCESS;			// Enforce the minimum value
 	if(value > max) return (max);		// Enforce the maximum value
 
 	return (value);		// Result
@@ -3172,7 +3172,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 			#endif
 			*/
 		}
-		return (0); // Failure
+		return SUCCESS; // Failure
 	}
 
 
@@ -3271,7 +3271,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 		msg_format("The %s disappear%s.", object_name, (plural ? "" : "s"));
 		if(wizard) msg_print("(no floor space)");
 #endif
-		return (0); // Failure
+		return SUCCESS; // Failure
 	}
 
 
@@ -3372,7 +3372,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 		if(wizard) msg_warning("too many objects");
 #endif
 		if(object_is_fixed_artifact(object2_ptr)) artifact_info[object2_ptr->name1].cur_num = 0; // Hack -- Preserve artifacts
-		return (0); // Failure
+		return SUCCESS; // Failure
 	}
 
 	/* Stack */

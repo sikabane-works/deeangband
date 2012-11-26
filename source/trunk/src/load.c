@@ -392,7 +392,7 @@ static errr rd_inventory(creature_type *creature_ptr)
 	}
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 }
 
 /*
@@ -580,7 +580,7 @@ static errr rd_store(store_type *st_ptr)
 
 
 	/* Success */
-	return (0);
+	return SUCCESS;
 
 }
 
@@ -1787,7 +1787,7 @@ note(format("クエストが多すぎる(%u)！", max_quests_load));
 		return (11);
 	}
 
-	return (0); // Success
+	return SUCCESS; // Success
 }
 
 
