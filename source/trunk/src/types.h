@@ -372,8 +372,8 @@ struct species_type
 
 	s32b au;
 
-	s16b stat_max[6];			/* Current modified stats */
-	s16b stat_max_max[6];		/* Maximal "maximal" stat values */
+	s16b stat_max[STAT_MAX];			/* Current modified stats */
+	s16b stat_max_max[STAT_MAX];		/* Maximal "maximal" stat values */
 	s16b base_hp[PY_MAX_LEVEL];
 
 	s32b karmas[MAX_KARMA];
@@ -494,7 +494,7 @@ struct creature_ego
 #ifdef JP
 	u32b E_name;                    /* ‰pŒê–¼ (offset) */
 #endif
-	s16b stat[6];		/* Current modified stats */
+	s16b stat[STAT_MAX];		/* Current modified stats */
 };
 
 
@@ -962,7 +962,7 @@ struct race_type
 	byte rarity;      /* Race Rarelity */
 	byte sex_flag;		/* Legal Sex */
 
-	s16b r_adj[6];		/* Racial stat bonuses(on main-race) */
+	s16b r_adj[STAT_MAX];		/* Racial stat bonuses(on main-race) */
 	s16b r_dis;			/* disarming */
 	s16b r_dev;			/* magic devices */
 	s16b r_rob;			/* saving throw */
@@ -974,7 +974,7 @@ struct race_type
 	s16b r_thn;			/* combat (normal) */
 	s16b r_thb;			/* combat (shooting) */
 
-	s16b r_s_adj[6];		/* Racial stat bonuses(on sub-race) */
+	s16b r_s_adj[STAT_MAX];		/* Racial stat bonuses(on sub-race) */
 	s16b r_s_dis;			/* disarming */
 	s16b r_s_dev;			/* magic devices */
 	s16b r_s_rob;			/* saving throw */
@@ -1070,8 +1070,8 @@ struct class_type
 	s16b rarity;
 	byte selectable;
 
-	s16b c_adj[6];		/* Class stat modifier */
-	s16b c_adj_b[6];	/* Class stat bonus */
+	s16b c_adj[STAT_MAX];		/* Class stat modifier */
+	s16b c_adj_b[STAT_MAX];	/* Class stat bonus */
 
 	s16b c_dis;			/* class disarming */
 	s16b c_dev;			/* class magic devices */
@@ -1109,7 +1109,7 @@ struct player_patron
 #endif
 
 
-	s16b p_adj[6];		/* patron stat bonuses */
+	s16b p_adj[STAT_MAX];		/* patron stat bonuses */
 
 	s16b p_dis;			/* patron disarming */
 	s16b p_dev;			/* patron magic devices */
@@ -1149,7 +1149,7 @@ struct chara_type
 
 	s16b rarity;		/* chara rarity (Over 100 was no selected on auto select) */
 
-	s16b a_adj[6];		/* chara stat bonuses */
+	s16b a_adj[STAT_MAX];		/* chara stat bonuses */
 
 	s16b a_dis;			/* chara disarming */
 	s16b a_dev;			/* chara magic devices */
@@ -1974,8 +1974,8 @@ typedef struct authority_type {
 	byte rank;
 	s16b dv;
 	s16b cp;
-	s16b a_adj[6];		/* Autority owner modifier */
-	s16b w_adj[6];		/* Worshiper bonus */
+	s16b a_adj[STAT_MAX];		/* Autority owner modifier */
+	s16b w_adj[STAT_MAX];		/* Worshiper bonus */
 
 	s16b a_dis;			/* Autority disarming */
 	s16b a_dev;			/* Autority magic devices */

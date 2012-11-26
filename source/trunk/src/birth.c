@@ -1711,10 +1711,8 @@ static cptr starting_point_jouhou[STARTING_MAX] =
 
 };
 
-/*
- * Autoroll limit
- */
-static s16b stat_limit[6];
+// Autoroll limit
+static s16b stat_limit[STAT_MAX];
 
 static struct {
 	s16b agemin, agemax;
@@ -1723,10 +1721,8 @@ static struct {
 	s16b scmin, scmax;
 } chara_limit;
 
-/*
- * Autoroll matches
- */
-static s32b stat_match[6];
+// Autoroll matches
+static s32b stat_match[STAT_MAX];
 
 /*
  * Autoroll round
@@ -2184,7 +2180,7 @@ static void set_stats(creature_type *creature_ptr, species_type *species_ptr)
 void get_max_stats(creature_type *creature_ptr)
 {
 	int		i, j;
-	int		dice[6];
+	int		dice[STAT_MAX];
 
 	/* Roll and verify some stats */
 	while (TRUE)
@@ -4002,7 +3998,7 @@ static bool get_starting_point(creature_type *creature_ptr, bool npc)
 static bool get_stat_limits(creature_type *creature_ptr)
 {
 	int i, j, m, cs, os;
-	int mval[6], cval[6];
+	int mval[STAT_MAX], cval[STAT_MAX];
 	char c;
 	char buf[80], cur[80];
 	char inp[80];
