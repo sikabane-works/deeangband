@@ -2733,63 +2733,29 @@ cptr window_flag_desc[32] =
 {
 #ifdef JP
 	"持ち物/装備一覧",
-#else
-	"Display inven/equip",
-#endif
-
-#ifdef JP
 	"装備/持ち物一覧",
-#else
-	"Display equip/inven",
-#endif
-
-#ifdef JP
 	"呪文一覧",
-#else
-	"Display spell list",
-#endif
-
-#ifdef JP
 	"キャラクタ情報",
-#else
-	"Display character",
-#endif
-
 	NULL,
 	NULL,
-#ifdef JP
 	"メッセージ",
-#else
-	"Display messages",
-#endif
-
-#ifdef JP
 	"ダンジョン全体図",
-#else
-	"Display overhead view",
-#endif
-
-#ifdef JP
 	"クリーチャーの思い出",
-#else
-	"Display creature recall",
-#endif
-
-#ifdef JP
 	"アイテムの詳細",
-#else
-	"Display object recall",
-#endif
-
-#ifdef JP
 	"自分の周囲を表示", 
-#else
-	"Display dungeon view",
-#endif
-
-#ifdef JP
 	"記念撮影",
 #else
+	"Display inven/equip",
+	"Display equip/inven",
+	"Display spell list",
+	"Display character",
+	NULL,
+	NULL,
+	"Display messages",
+	"Display overhead view",
+	"Display creature recall",
+	"Display object recall",
+	"Display dungeon view",
 	"Display snap-shot",
 #endif
 

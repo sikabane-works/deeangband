@@ -3118,17 +3118,11 @@ static void setup_menus(void)
 
 
 	/* Menu "File", Disable all */
-	EnableMenuItem(hm, IDM_FILE_NEW,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_FILE_OPEN,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_FILE_SAVE,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_FILE_EXIT,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-	EnableMenuItem(hm, IDM_FILE_SCORE,
-		       MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
-
+	EnableMenuItem(hm, IDM_FILE_NEW, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_FILE_OPEN, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_FILE_SAVE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_FILE_EXIT, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
+	EnableMenuItem(hm, IDM_FILE_SCORE, MF_BYCOMMAND | MF_DISABLED | MF_GRAYED);
 
 	/* No character available */
 	if(!character_generated)
