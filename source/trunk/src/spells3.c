@@ -2373,7 +2373,6 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 		}
 	}
 
-	/* Failure */
 	if(!res) return FALSE;
 
 	/* Recalculate bonuses */
@@ -2441,7 +2440,6 @@ msg_format("%s ‚Í–¾‚é‚­‹P‚¢‚½I",
 	if(enchant(creature_ptr, object_ptr, num_dam, ENCH_TODAM)) okay = TRUE;
 	if(enchant(creature_ptr, object_ptr, num_ac, ENCH_TOAC)) okay = TRUE;
 
-	/* Failure */
 	if(!okay)
 	{
 		/* Flush */
@@ -4969,7 +4967,6 @@ static bool dimension_door_aux(creature_type *creature_ptr, int x, int y)
 		creature_ptr->energy_need += (s16b)((s32b)(60 - plev) * ENERGY_NEED(100) / 100L);
 		teleport_player(creature_ptr, (plev + 2) * 2, TELEPORT_PASSIVE);
 
-		/* Failed */
 		return FALSE;
 	}
 	else

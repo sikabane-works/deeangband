@@ -106,7 +106,6 @@ void quit(cptr str)
 	/* Send the string to plog() */
 	plog(str);
 
-	/* Failure */
 	(void)(exit(EXIT_FAILURE));
 }
 

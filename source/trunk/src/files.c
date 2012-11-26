@@ -797,7 +797,6 @@ errr process_pref_file_command(char *buf)
 	}
 	}
 
-	/* Failure */
 	return 1;
 }
 
@@ -7140,7 +7139,6 @@ errr get_rnd_line(cptr file_name, int entry, char *output)
 	/* Open the file */
 	fp = my_fopen(buf, "r");
 
-	/* Failed */
 	if(!fp) return -1;
 
 	/* Find the entry of the creature */

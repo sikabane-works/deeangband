@@ -948,7 +948,6 @@ static bool do_cmd_open_aux(creature_type *creature_ptr, int y, int x)
 			gain_exp(creature_ptr, 1); // Experience
 		}
 
-		/* Failure */
 		else
 		{
 			if(flush_failure) flush();
@@ -1560,7 +1559,6 @@ bool easy_open_door(creature_type *creature_ptr, int y, int x)
 			gain_exp(creature_ptr, 1);
 		}
 
-		/* Failure */
 		else
 		{
 			if(flush_failure) flush();
@@ -1761,7 +1759,6 @@ bool do_cmd_disarm_aux(creature_type *creature_ptr, int y, int x, int dir)
 	/* Failure -- Keep trying */
 	else if((i > 5) && (randint1(i) > 5))
 	{
-		/* Failure */
 		if(flush_failure) flush();
 
 #ifdef JP

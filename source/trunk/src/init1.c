@@ -3113,7 +3113,6 @@ static errr grab_store_flag(store_pre_type *stp_ptr, cptr what)
 #endif
 
 
-	/* Failure */
 	return PARSE_ERROR_GENERIC;
 
 }
@@ -3134,7 +3133,6 @@ static errr grab_one_race_flags(traits_precondition *flag_ptr, cptr what, byte a
 #endif
 
 
-	/* Failure */
 	return PARSE_ERROR_GENERIC;
 }
 
@@ -5616,7 +5614,6 @@ static errr grab_one_dungeon_flag(dungeon_type *d_ptr, cptr what)
 	msg_format("Unknown dungeon type flag '%s'.", what);
 #endif
 
-	/* Failure */
 	return PARSE_ERROR_GENERIC;
 }
 

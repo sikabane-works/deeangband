@@ -3176,7 +3176,6 @@ bool teleport_swap(creature_type *creature_ptr, int dir)
 #endif
 		if(is_original_ap_and_seen(player_ptr, target_ptr)) reveal_creature_info(target_ptr, TRAIT_RES_TELE);
 
-		/* Failure */
 		return FALSE;
 	}
 

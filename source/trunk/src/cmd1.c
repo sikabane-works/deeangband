@@ -2928,7 +2928,6 @@ static bool run_test(creature_type *creature_ptr)
 		return TRUE;
 	}
 
-	/* Failure */
 	return FALSE;
 }
 
@@ -3078,7 +3077,6 @@ static bool travel_test(creature_type *creature_ptr)
 		}
 	}
 
-	/* Failure */
 	return FALSE;
 }
 

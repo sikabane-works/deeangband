@@ -270,7 +270,6 @@ static bool open_auto_dump(cptr buf, cptr mark)
 	/* Append to the file */
 	auto_dump_stream = my_fopen(buf, "a");
 
-	/* Failure */
 	if(!auto_dump_stream) {
 #ifdef JP
 		msg_format("%s ‚ğŠJ‚­‚±‚Æ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B", buf);
@@ -279,7 +278,6 @@ static bool open_auto_dump(cptr buf, cptr mark)
 #endif
 		msg_print(NULL);
 
-		/* Failed */
 		return FALSE;
 	}
 
@@ -392,7 +390,6 @@ errr do_cmd_write_nikki(int type, int num, cptr note)
 
 	fff = my_fopen(buf, "a");
 
-	/* Failure */
 	if(!fff)
 	{
 #ifdef JP

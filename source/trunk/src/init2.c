@@ -1812,7 +1812,6 @@ void init_angband(void)
 	/* Attempt to open the file */
 	fd = fd_open(buf, O_RDONLY);
 
-	/* Failure */
 	if(fd < 0)
 	{
 		char why[1024];
@@ -1878,7 +1877,6 @@ void init_angband(void)
 	/* Attempt to open the high score file */
 	fd = fd_open(buf, O_RDONLY);
 
-	/* Failure */
 	if(fd < 0)
 	{
 		/* File type is "DATA" */
@@ -1893,7 +1891,6 @@ void init_angband(void)
 		/* Drop permissions */
 		safe_setuid_drop();
 
-		/* Failure */
 		if(fd < 0)
 		{
 			char why[1024];

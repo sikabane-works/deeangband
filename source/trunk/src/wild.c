@@ -694,7 +694,6 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 		}
 		else
 		{
-				/* Failure */
 			return (PARSE_ERROR_TOO_FEW_ARGUMENTS);
 		}
 		
@@ -756,7 +755,6 @@ errr parse_line_wilderness(char *buf, int ymin, int xmin, int ymax, int xmax, in
 	}
 	
 	default:
-		/* Failure */
 		return (PARSE_ERROR_UNDEFINED_DIRECTIVE);
 	}
 	

@@ -516,7 +516,6 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 	/* Nothing */
 	buf[0] = '\0';
 
-	/* Failure */
 	return (1);
 }
 
@@ -620,7 +619,6 @@ errr my_fgets_csv(FILE *fff, char *buf, huge n, char enclosure)
 		}
 	}
 	
-	/* Failure */
 	buf[i] = '\0';
 	return(1);
 
@@ -918,7 +916,6 @@ errr fd_seek(int fd, huge n)
 	/* Seek to the given position */
 	p = lseek(fd, n, SEEK_SET);
 
-	/* Failure */
 	if(p != n) return (1);
 
 	return SUCCESS;

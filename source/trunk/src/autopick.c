@@ -801,7 +801,6 @@ void autopick_load_pref(bool disp_mes)
 
 	if(err && disp_mes)
 	{
-		/* Failed */
 #ifdef JP
 		msg_print("自動拾い設定ファイルの読み込みに失敗しました。");
 #else
@@ -2008,7 +2007,6 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 	/* Open for append */
 	pref_fff = my_fopen(pref_file, "a");
 
-	/* Failure */
 	if(!pref_fff) {
 #ifdef JP
 		msg_format("%s を開くことができませんでした。", pref_file);
@@ -2017,7 +2015,6 @@ bool autopick_autoregister(creature_type *creature_ptr, object_type *object_ptr)
 #endif
 		msg_print(NULL);
 
-		/* Failed */
 		return FALSE;
 	}
 
@@ -2839,7 +2836,6 @@ static void prepare_default_pickpref(void)
 	path_build(buf, sizeof(buf), ANGBAND_DIR_USER, filename);
 	user_fp = my_fopen(buf, "w");
 
-	/* Failed */
 	if(!user_fp) return;
 
 	/* Write header messages for a notification */
@@ -2855,7 +2851,6 @@ static void prepare_default_pickpref(void)
 	path_build(buf, sizeof(buf), ANGBAND_DIR_PREF, filename);
 	pref_fp = my_fopen(buf, "r");
 
-	/* Failed */
 	if(!pref_fp)
 	{
 		my_fclose(user_fp);
