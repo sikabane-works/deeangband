@@ -3495,10 +3495,9 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 	char	tmp2[128];
 
 	floor_type *floor_ptr = GET_FLOOR_PTR(creature_ptr);
-	race_type *ir_ptr = &race_info[creature_ptr->race_idx1];
 	class_type *cl_ptr = &class_info[creature_ptr->class_idx];
 	chara_type *ch_ptr = &chara_info[creature_ptr->chara_idx];
-	player_sex *se_ptr = &sex_info[creature_ptr->sex];
+	sex_type *se_ptr = &sex_info[creature_ptr->sex];
 
 	mode = (mode % DISPLAY_CR_STATUS_MAX);
 

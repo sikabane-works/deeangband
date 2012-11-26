@@ -919,9 +919,9 @@ struct resist
  * Player sex info
  */
 
-typedef struct player_sex player_sex;
+typedef struct sex_type sex_type;
 
-struct player_sex
+struct sex_type
 {
 	cptr title;			/* Type of sex */
 	cptr winner;		/* Name of winner */

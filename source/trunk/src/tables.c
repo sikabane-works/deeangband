@@ -2050,7 +2050,7 @@ s32b creature_exp_a[PY_MAX_LEVEL] =
  *      Title,
  *      Winner
  */
-player_sex sex_info[MAX_SEXES] =
+sex_type sex_info[MAX_SEXES] =
 {
 	{
 #ifdef JP

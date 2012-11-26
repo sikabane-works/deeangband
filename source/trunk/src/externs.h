@@ -84,7 +84,7 @@ extern arena_type arena_info[MAX_ARENA_MONS + 2];
 extern byte extract_energy[200];
 extern s32b creature_exp[PY_MAX_LEVEL];
 extern s32b creature_exp_a[PY_MAX_LEVEL];
-extern player_sex sex_info[MAX_SEXES];
+extern sex_type sex_info[MAX_SEXES];
 extern magic_type technic_info[NUM_TECHNIC][32];
 extern u32b fake_spell_flags[4];
 extern s32b realm_choices1[];
