@@ -1501,10 +1501,8 @@ static void process_nonplayer(int m_idx)
 	// Handle "sensing radius"
 	if(creature_ptr->cdis <= (is_pet(player_ptr, creature_ptr) ? (species_ptr->alert_range > MAX_SIGHT ? MAX_SIGHT : species_ptr->alert_range) : species_ptr->alert_range))
 		test = TRUE;
-	
 	else if((creature_ptr->cdis <= MAX_SIGHT) && (player_has_los_bold(fy, fx) || has_trait(player_ptr, TRAIT_ANTIPATHY))) // Handle "sight" and "aggravation"
 		test = TRUE;
-
 	else if(creature_ptr->target_y) test = TRUE;
 
 	// Do nothing
@@ -1747,19 +1745,13 @@ static void process_nonplayer(int m_idx)
 	{
 		/* Try four "random" directions */
 		mm[0] = mm[1] = mm[2] = mm[3] = 5;
-
-		/* Look for an enemy */
-#if 0  /* Hack - Too slow.  Mimic pits are horrible with this on. */
-		get_enemy_dir(m_idx, mm);
-#endif /* 0 */
 	}
 
 	/* Pets will follow the player */
 	else if(is_pet(player_ptr, creature_ptr))
 	{
 		/* Are we trying to avoid the player? */
-		bool avoid = ((player_ptr->pet_follow_distance < 0) &&
-						  (creature_ptr->cdis <= (0 - player_ptr->pet_follow_distance)));
+		bool avoid = ((player_ptr->pet_follow_distance < 0) && (creature_ptr->cdis <= (0 - player_ptr->pet_follow_distance)));
 
 		/* Do we want to find the player? */
 		bool lonely = (!avoid && (creature_ptr->cdis > player_ptr->pet_follow_distance));
@@ -1780,10 +1772,7 @@ static void process_nonplayer(int m_idx)
 				int dis = player_ptr->pet_follow_distance;
 
 				/* Hack -- adjust follow distance temporarily */
-				if(player_ptr->pet_follow_distance > PET_SEEK_DIST)
-				{
-					player_ptr->pet_follow_distance = PET_SEEK_DIST;
-				}
+				if(player_ptr->pet_follow_distance > PET_SEEK_DIST) player_ptr->pet_follow_distance = PET_SEEK_DIST;
 
 				/* Find the player */
 				(void)get_moves(m_idx, player_ptr, mm);
@@ -1824,7 +1813,6 @@ static void process_nonplayer(int m_idx)
 	did_move_body = FALSE;
 	did_pass_wall = FALSE;
 	did_kill_wall = FALSE;
-
 
 	/* Take a zero-terminated array of "directions" */
 	for (i = 0; mm[i]; i++)

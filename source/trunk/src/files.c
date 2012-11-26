@@ -3518,12 +3518,10 @@ void display_creature_status(int mode, creature_type *creature_ptr)
 			sprintf(tmp, "%s %s", chara_info[creature_ptr->chara_idx].title, creature_ptr->name);
 #endif
 		}
-		else
-		{
-			sprintf(tmp, "%s", creature_ptr->name);
-		}
+		else sprintf(tmp, "%s", creature_ptr->name);
 
-		if(wizard) sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_id, creature_ptr->fx, creature_ptr->fy, creature_ptr->name);
+		if(wizard)
+			sprintf(tmp, "[id:%d/f:%d/x:%d/y:%d/turn:%d]%s", creature_ptr->creature_idx, creature_ptr->floor_id, creature_ptr->fx, creature_ptr->fy, creature_ptr->action_turn, creature_ptr->name);
 
 		display_player_one_line(ENTRY_NAME, tmp, TERM_L_BLUE);
 
