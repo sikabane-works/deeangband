@@ -1307,17 +1307,13 @@ static bool gamble_comm(creature_type *creature_ptr, int cmd)
 					choice = randint1(10);
 #ifdef JP
 					sprintf(tmp_str, "黒ダイス: %d        黒ダイス: %d", roll1, roll2);
-#else
-					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
-#endif
-
 					prt(tmp_str, 8, 3);
-#ifdef JP
 					sprintf(tmp_str, "赤ダイス: %d", choice);
 #else
+					sprintf(tmp_str, "Black die: %d       Black Die: %d", roll1, roll2);
+					prt(tmp_str, 8, 3);
 					sprintf(tmp_str, "Red die: %d", choice);
 #endif
-
 					prt(tmp_str, 11, 14);
 					if(((choice > roll1) && (choice < roll2)) ||
 						((choice < roll1) && (choice > roll2)))
@@ -1852,7 +1848,7 @@ msg_print("おい！金が足りないじゃないか！出ていけ！");
 			else if(wager > maxbet)
 			{
 #ifdef JP
-msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
+				msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
 #else
 				msg_format("I'll take %ld gold of that. Keep the rest.", maxbet);
 #endif
@@ -1862,12 +1858,10 @@ msg_format("%ldゴールドだけ受けよう。残りは取っときな。", maxbet);
 			else if(wager < 1)
 			{
 #ifdef JP
-msg_print("ＯＫ、１ゴールドでいこう。");
+				msg_print("ＯＫ、１ゴールドでいこう。");
 #else
 				msg_print("Ok, we'll start with 1 gold.");
 #endif
-
-
 				wager = 1;
 			}
 			msg_print(NULL);
@@ -3578,7 +3572,7 @@ if(!get_com("クリーチャーの文字を入力して下さい(記号 or ^A全,^Uユ,^N非ユ,^M名前)
 	else
 	{
 #ifdef JP
-sprintf(buf, "%c - %s", sym, "無効な文字");
+		sprintf(buf, "%c - %s", sym, "無効な文字");
 #else
 		sprintf(buf, "%c - %s.", sym, "Unknown Symbol");
 #endif

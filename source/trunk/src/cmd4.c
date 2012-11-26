@@ -3994,22 +3994,13 @@ void do_cmd_visuals(void)
 				/* Label the object */
 				prt("", 17, 5);
 #ifdef JP
-				Term_putstr(5, 17, -1, TERM_WHITE,
-					    format("地形 = %d, 名前 = %s, 明度 = %s",
+				Term_putstr(5, 17, -1, TERM_WHITE, format("地形 = %d, 名前 = %s, 明度 = %s",
 						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
+				Term_putstr(10, 19, -1, TERM_WHITE, format("初期値  色 / 文字 = %3d / %3d", da, dc));
 #else
-				Term_putstr(5, 17, -1, TERM_WHITE,
-					    format("Terrain = %d, Name = %s, Lighting = %s",
+				Term_putstr(5, 17, -1, TERM_WHITE, format("Terrain = %d, Name = %s, Lighting = %s",
 						   f, (feature_name + f_ptr->name), lighting_level_str[lighting_level]));
-#endif
-
-				/* Label the Default values */
-#ifdef JP
-				Term_putstr(10, 19, -1, TERM_WHITE,
-					    format("初期値  色 / 文字 = %3d / %3d", da, dc));
-#else
-				Term_putstr(10, 19, -1, TERM_WHITE,
-					    format("Default attr/char = %3d / %3d", da, dc));
+				Term_putstr(10, 19, -1, TERM_WHITE, format("Default attr/char = %3d / %3d", da, dc));
 #endif
 
 				Term_putstr(40, 19, -1, TERM_WHITE, empty_symbol);
@@ -4439,140 +4430,58 @@ static cptr do_cmd_feeling_text[11] =
 {
 #ifdef JP
 	"この階の雰囲気を感じとれなかった...",
-#else
-	"Looks like any other level.",
-#endif
-
-#ifdef JP
 	"この階には何か特別なものがあるような気がする。",
-#else
-	"You feel there is something special about this level.",
-#endif
-
-#ifdef JP
 	"恐ろしい死の幻が目に浮かび、気絶しそうになった！",
-#else
-	"You nearly faint as horrible visions of death fill your mind!",
-#endif
-
-#ifdef JP
 	"この階はとても危険なようだ。",
-#else
-	"This level looks very dangerous.",
-#endif
-
-#ifdef JP
 	"とても悪い予感がする...",
-#else
-	"You have a very bad feeling...",
-#endif
-
-#ifdef JP
 	"悪い予感がする...",
-#else
-	"You have a bad feeling...",
-#endif
-
-#ifdef JP
 	"何か緊張する。",
-#else
-	"You feel nervous.",
-#endif
-
-#ifdef JP
 	"少し不運な気がする...",
-#else
-	"You feel your luck is turning...",
-#endif
-
-#ifdef JP
 	"この場所は好きになれない。",
-#else
-	"You don't like the look of this place.",
-#endif
-
-#ifdef JP
 	"この階はそれなりに安全なようだ。",
-#else
-	"This level looks reasonably safe.",
-#endif
-
-#ifdef JP
 	"なんて退屈なところだ..."
 #else
+	"Looks like any other level.",
+	"You feel there is something special about this level.",
+	"You nearly faint as horrible visions of death fill your mind!",
+	"This level looks very dangerous.",
+	"You have a very bad feeling...",
+	"You have a bad feeling...",
+	"You feel nervous.",
+	"You feel your luck is turning...",
+	"You don't like the look of this place.",
+	"This level looks reasonably safe.",
 	"What a boring place..."
 #endif
-
 };
 
 static cptr do_cmd_feeling_text_combat[11] =
 {
 #ifdef JP
 	"この階の雰囲気を感じとれなかった...",
-#else
-	"Looks like any other level.",
-#endif
-
-#ifdef JP
 	"この階には何か特別なものがあるような気がする。",
-#else
-	"You feel there is something special about this level.",
-#endif
-
-#ifdef JP
 	"今夜もまた、誰かが命を落とす...",
-#else
-	"You nearly faint as horrible visions of death fill your mind!",
-#endif
-
-#ifdef JP
 	"この階はとても危険なようだ。",
-#else
-	"This level looks very dangerous.",
-#endif
-
-#ifdef JP
 	"とても悪い予感がする...",
-#else
-	"You have a very bad feeling...",
-#endif
-
-#ifdef JP
 	"悪い予感がする...",
-#else
-	"You have a bad feeling...",
-#endif
-
-#ifdef JP
 	"何か緊張する。",
-#else
-	"You feel nervous.",
-#endif
-
-#ifdef JP
 	"少し不運な気がする...",
-#else
-	"You feel your luck is turning...",
-#endif
-
-#ifdef JP
 	"この場所は好きになれない。",
-#else
-	"You don't like the look of this place.",
-#endif
-
-#ifdef JP
 	"この階はそれなりに安全なようだ。",
-#else
-	"This level looks reasonably safe.",
-#endif
-
-#ifdef JP
 	"なんて退屈なところだ..."
 #else
+	"Looks like any other level.",
+	"You feel there is something special about this level.",
+	"You nearly faint as horrible visions of death fill your mind!",
+	"This level looks very dangerous.",
+	"You have a very bad feeling...",
+	"You have a bad feeling...",
+	"You feel nervous.",
+	"You feel your luck is turning...",
+	"You don't like the look of this place.",
+	"This level looks reasonably safe.",
 	"What a boring place..."
 #endif
-
 };
 
 static cptr do_cmd_feeling_text_lucky[11] =
