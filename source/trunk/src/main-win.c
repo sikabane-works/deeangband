@@ -2951,10 +2951,9 @@ static void init_windows(void)
 	td->pos_x = 7 * 30;
 	td->pos_y = 7 * 20;
 	td->posfix = FALSE;
-#if 1 /* #ifdef JP */
 	td->bizarre = TRUE;
-#endif
-	/* Sub windows */
+
+	// Sub windows
 	for (i = 1; i < MAX_TERM_DATA; i++)
 	{
 		td = &data[i];
@@ -2971,9 +2970,7 @@ static void init_windows(void)
 		td->pos_x = (7 - i) * 30;
 		td->pos_y = (7 - i) * 20;
 		td->posfix = FALSE;
-#if 1 /* #ifdef JP */
-			td->bizarre = TRUE;
-#endif
+		td->bizarre = TRUE;
 	}
 
 
@@ -3003,7 +3000,6 @@ static void init_windows(void)
 	{
 		td = &data[i];
 
-#if 1 /* #ifdef JP */
 		strncpy(td->lf.lfFaceName, td->font_want, LF_FACESIZE);
 		td->lf.lfCharSet = DEFAULT_CHARSET;
 		td->lf.lfPitchAndFamily = FIXED_PITCH | FF_DONTCARE;
@@ -3011,27 +3007,6 @@ static void init_windows(void)
 		term_force_font(td, NULL);
 		td->tile_wid = td->font_wid;
 		td->tile_hgt = td->font_hgt;
-#else
-		/* Access the standard font file */
-		path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_FONT, td->font_want);
-
-		/* Activate the chosen font */
-		if(term_force_font(td, buf))
-		{
-			/* Access the standard font file */
-			path_build(buf, sizeof(buf), ANGBAND_DIR_XTRA_FONT, "8X13.FON");
-
-			/* Force the use of that font */
-			(void)term_force_font(td, buf);
-
-			td->tile_wid = 8;
-			td->tile_hgt = 13;
-
-			/* Assume not bizarre */
-			td->bizarre = FALSE;
-		}
-#endif
-
 
 		/* Analyze the font */
 		term_getsize(td);

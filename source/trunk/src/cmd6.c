@@ -472,7 +472,7 @@ msg_print("食べ物がアゴを素通りして落ちた！");
 		else
 		{
 #ifdef JP
-msg_print("食べ物がアゴを素通りして落ち、消えた！");
+			msg_print("食べ物がアゴを素通りして落ち、消えた！");
 #else
 			msg_print("The food falls through your jaws and vanishes!");
 #endif

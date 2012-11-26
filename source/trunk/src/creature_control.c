@@ -2227,11 +2227,9 @@ void sanity_blast(creature_type *watcher_ptr, creature_type *eldritch_ptr, bool 
 		{
 			// Something silly happens...
 #ifdef JP
-			msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I",
-				funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
+			msg_format("%s%s‚ÌŠç‚ğŒ©‚Ä‚µ‚Ü‚Á‚½I", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
 #else
-			msg_format("You behold the %s visage of %s!",
-				funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
+			msg_format("You behold the %s visage of %s!", funny_desc[randint0(MAX_SAN_FUNNY)], eldritch_name);
 #endif
 
 			if(one_in_(3))
