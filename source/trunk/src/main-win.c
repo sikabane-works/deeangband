@@ -1021,7 +1021,7 @@ static void term_getsize(term_data *td)
 
 	int wid, hgt;
 
-	/* Paranoia */
+
 	if(td->cols < 1) td->cols = 1;
 	if(td->rows < 1) td->rows = 1;
 
@@ -1070,7 +1070,7 @@ static void save_prefs_aux(int i)
 	RECT rc;
 	WINDOWPLACEMENT lpwndpl;
 
-	/* Paranoia */
+
 	if(!td->w) return;
 
 	/* Make section name */
@@ -2670,7 +2670,7 @@ static errr Term_pict_win(int x, int y, int n, const byte *ap, const char *cp, c
 	HDC hdcSrc;
 	HBITMAP hbmSrcOld;
 
-	/* Paranoia */
+
 	if(!use_graphics)
 	{
 		/* Erase the grids */
@@ -3477,7 +3477,7 @@ static void process_menus(WORD wCmd)
 		{
 			if(game_in_progress && character_generated)
 			{
-				/* Paranoia */
+
 				if(!can_save)
 				{
 #ifdef JP
@@ -3512,7 +3512,7 @@ static void process_menus(WORD wCmd)
 		{
 			if(game_in_progress && character_generated)
 			{
-				/* Paranoia */
+
 				if(!can_save)
 				{
 #ifdef JP
@@ -3549,7 +3549,7 @@ static void process_menus(WORD wCmd)
 			/* Open the binary high score file, for reading */
 			highscore_fd = fd_open(buf, O_RDONLY);
 
-			/* Paranoia -- No score file */
+
 			if(highscore_fd < 0)
 			{
 				msg_print("Score file unavailable.");
@@ -3845,7 +3845,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_OPTIONS_NO_GRAPHICS:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -3869,7 +3869,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_OPTIONS_OLDEST_GRAPHICS:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -3893,7 +3893,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_OPTIONS_ADAMBO_GRAPHICS:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -3916,7 +3916,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_OPTIONS_DESKULL_GRAPHICS:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -3941,7 +3941,7 @@ static void process_menus(WORD wCmd)
 		{
 			term_data *td = &data[0];
 
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -3965,7 +3965,7 @@ static void process_menus(WORD wCmd)
 
 		case IDM_OPTIONS_SOUND:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -3987,7 +3987,7 @@ static void process_menus(WORD wCmd)
 		/* bg */
 		case IDM_OPTIONS_BG:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -4011,7 +4011,7 @@ static void process_menus(WORD wCmd)
 		/* bg */
 		case IDM_OPTIONS_OPEN_BG:
 		{
-			/* Paranoia */
+
 			if(!inkey_flag)
 			{
 				plog("You may not do that right now.");
@@ -5452,10 +5452,10 @@ int FAR PASCAL WinMain(HINSTANCE hInst, HINSTANCE hPrevInst,
 		DispatchMessage(&msg);
 	}
 
-	/* Paranoia */
+
 	quit(NULL);
 
-	/* Paranoia */
+
 	return SUCCESS;
 }
 

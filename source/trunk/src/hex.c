@@ -234,7 +234,7 @@ bool hex_spell_fully(creature_type *creature_ptr)
 
 	k_max = (creature_ptr->lev / 15) + 1;
 
-	/* Paranoia */
+
 	k_max = MIN(k_max, HEX_MAX_KEEP);
 
 	if(creature_ptr->class_skills.old_skills.magic_num2[0] < k_max) return FALSE;

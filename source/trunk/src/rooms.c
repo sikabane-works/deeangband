@@ -3183,7 +3183,7 @@ static void generate_hmap(floor_type *floor_ptr, int y0, int x0, int xsiz, int y
 	xsize = xsiz;
 	ysize = ysiz;
 
-	/* Paranoia about size of the system of caves */
+
 	if(xsize > 254) xsize = 254;
 	if(xsize < 4) xsize = 4;
 	if(ysize > 254) ysize = 254;
@@ -3473,7 +3473,7 @@ static void cave_fill(floor_type *floor_ptr, byte y, byte x)
 			j = ty + ddy_ddd[d];
 			i = tx + ddx_ddd[d];
 
-			/* Paranoia Don't leave the cave */
+
 			if(!in_bounds(floor_ptr, j, i))
 			{
 				/* affect boundary */
@@ -3854,7 +3854,7 @@ static bool generate_lake(floor_type *floor_ptr, int y0, int x0, int xsize, int 
 		feat3 = feat_shallow_lava;
 		break;
 
-	/* Paranoia */
+
 	default: return FALSE;
 	}
 
@@ -5387,7 +5387,7 @@ static bool build_type10(floor_type *floor_ptr)
 #endif /* ALLOW_CAVERNS_AND_LAKES */
 		/* I know how to add a few more... give me some time. */
 
-		/* Paranoia */
+
 		default: return FALSE;
 	}
 
@@ -6217,7 +6217,7 @@ static bool room_build(floor_type *floor_ptr, int typ)
 	case ROOM_T_GLASS:         return build_type15(floor_ptr);
 	}
 
-	/* Paranoia */
+
 	return FALSE;
 }
 
@@ -6341,7 +6341,7 @@ bool generate_rooms(floor_type *floor_ptr)
 			else rand -= prob_list[room_type];
 		}
 
-		/* Paranoia */
+
 		if(room_type >= ROOM_T_MAX) room_type = ROOM_T_NORMAL;
 
 		/* Increase the number of rooms of that type we should build. */

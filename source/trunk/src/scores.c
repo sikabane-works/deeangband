@@ -56,7 +56,7 @@ static int highscore_where(high_score *score)
 
 	my_score = atoi(score->pts);
 
-	/* Paranoia -- it may not have opened */
+
 	if(highscore_fd < 0) return (-1);
 
 	/* Go to the start of the highscore file */
@@ -89,7 +89,7 @@ static int highscore_add(high_score *score)
 	high_score		the_score, tmpscore;
 
 
-	/* Paranoia -- it may not have opened */
+
 	if(highscore_fd < 0) return (-1);
 
 	/* Determine where the score should go */
@@ -145,7 +145,7 @@ void display_scores_aux(int from, int to, int note, high_score *score)
 	Term_get_size(&wid, &hgt);
 	per_screen = (hgt - 4) / 4;
 
-	/* Paranoia -- it may not have opened */
+
 	if(highscore_fd < 0) return;
 
 
@@ -404,7 +404,7 @@ void display_scores(int from, int to)
 	/* Open the binary high score file, for reading */
 	highscore_fd = fd_open(buf, O_RDONLY);
 
-	/* Paranoia -- No score file */
+
 #ifdef JP
 if(highscore_fd < 0) quit("スコア・ファイルが使用できません。");
 #else

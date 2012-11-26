@@ -177,7 +177,7 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 	if((ax < 2) && (ay < 2)) return TRUE;
 
 
-	/* Paranoia -- require "safe" origin */
+
 	/* if(!in_bounds(floor_ptr, y1, x1)) return FALSE; */
 	/* if(!in_bounds(floor_ptr, y2, x2)) return FALSE; */
 
@@ -2689,7 +2689,7 @@ void update_lite(creature_type *creature_ptr)
 	{
 		int d;
 
-		/* Paranoia -- see "LITE_MAX" */
+
 		if(p > 14) p = 14;
 
 		/* South-East of the player */
@@ -4110,7 +4110,7 @@ void update_flow(creature_type *creature_ptr)
 	int flow_head = 1;
 	int flow_tail = 0;
 
-	/* Paranoia -- make sure the array is empty */
+
 	if(temp_n) return;
 
 	/* The last way-point is on the map */
@@ -4845,7 +4845,7 @@ void mmove2(int *y, int *x, int y1, int x1, int y2, int x2)
 	dy = (y2 < y1) ? (y1 - y2) : (y2 - y1);
 	dx = (x2 < x1) ? (x1 - x2) : (x2 - x1);
 
-	/* Paranoia -- Hack -- no motion */
+
 	if(!dy && !dx) return;
 
 

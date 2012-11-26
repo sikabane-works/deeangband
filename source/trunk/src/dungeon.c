@@ -731,10 +731,10 @@ static void pattern_teleport(creature_type *creature_ptr)
 		return;
 	}
 
-	/* Paranoia */
+
 	if(command_arg < min_level) command_arg = min_level;
 
-	/* Paranoia */
+
 	if(command_arg > max_level) command_arg = max_level;
 
 	/* Accept request */
@@ -1499,7 +1499,7 @@ static object_type *choose_cursed_obj_name(creature_type *creature_ptr, u32b fla
 	int choices[INVEN_TOTAL];
 	int number = 0;
 
-	/* Paranoia -- Player has no warning-item */
+
 	if(!(creature_ptr->cursed & flag)) return NULL;
 
 	/* Search Inventry */

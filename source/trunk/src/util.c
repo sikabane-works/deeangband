@@ -69,7 +69,7 @@ int usleep(huge usecs)
 	/* Was: readfds = writefds = exceptfds = 0; */
 
 
-	/* Paranoia -- No excessive sleeping */
+
 #ifdef JP
 	if(usecs > 4000000L) core("ïsìñÇ» usleep() åƒÇ—èoÇµ");
 #else
@@ -1264,7 +1264,7 @@ void text_to_acscii(char *buf, cptr str)
 			/* Skip the backslash */
 			str++;
 
-			/* Paranoia */
+
 			if(!(*str)) break;
 
 			/* Macro Trigger */
@@ -1693,7 +1693,7 @@ errr macro_add(cptr pat, cptr act)
 	int n;
 
 
-	/* Paranoia -- require data */
+
 	if(!pat || !act) return (-1);
 
 
@@ -2805,7 +2805,7 @@ void msg_print(cptr msg)
 	/* No message */
 	if(!msg) return;
 
-	/* Paranoia */
+
 	if(n > 1000) return;
 
 	/* Memorize the message */
@@ -3250,16 +3250,16 @@ bool askfor_aux(char *buf, int len, bool numpad_cursor)
 	/* Locate the cursor position */
 	Term_locate(&x, &y);
 
-	/* Paranoia -- check len */
+
 	if(len < 1) len = 1;
 
-	/* Paranoia -- check column */
+
 	if((x < 0) || (x >= 80)) x = 0;
 
 	/* Restrict the length */
 	if(x + len > 80) len = 80 - x;
 
-	/* Paranoia -- Clip the default entry */
+
 	buf[len] = '\0';
 
 
@@ -3501,7 +3501,7 @@ bool get_string(cptr prompt, char *buf, int len)
 {
 	bool res;
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 	/* Display prompt */
@@ -3551,7 +3551,7 @@ bool get_check_strict(cptr prompt, int mode)
 		num_more = 0;
 	}
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 	if(!rogue_like_commands)
@@ -3653,7 +3653,7 @@ bool get_check_strict(cptr prompt, int mode)
  */
 bool get_com(cptr prompt, char *command, bool z_escape)
 {
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 	/* Display a prompt */
@@ -3733,7 +3733,7 @@ s16b get_quantity(cptr prompt, int max)
 		prompt = tmp;
 	}
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 	/* Display prompt */
@@ -4530,7 +4530,7 @@ prt(format("âÒêî: %d", command_arg), 0, 0);
 		}
 
 
-		/* Paranoia */
+
 		if(!cmd) continue;
 
 
@@ -4775,7 +4775,7 @@ int get_keymap_dir(char ch)
 		}
 	}
 
-	/* Paranoia */
+
 	if(d == 5) d = 0;
 
 	/* Return direction */
@@ -5098,7 +5098,7 @@ errr type_string(cptr str, uint len)
 
 	term *old = Term;
 
-	/* Paranoia - no string. */
+
 	if(!str) return -1;
 
 	/* Hack - calculate the string length here if none given. */
@@ -5272,7 +5272,7 @@ size_t my_strcpy(char *buf, const char *src, size_t bufsize)
 	size_t len = strlen(src);
 	size_t ret = len;
 
-	/* Paranoia */
+
 	if(bufsize == 0) return ret;
 
 	/* Truncate */

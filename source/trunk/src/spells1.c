@@ -2792,7 +2792,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 #endif
 		curse_equipment(target_ptr, 40, 20);
 		dam = take_damage_to_creature(caster_ptr, target_ptr, DAMAGE_ATTACK, dam, caster_name, NULL, spell);
-		if(target_ptr->chp < 1) target_ptr->chp = 1; /* Paranoia */
+		if(target_ptr->chp < 1) target_ptr->chp = 1; 
 		break;
 
 	case DO_EFFECT_CAPTURE:
@@ -3593,7 +3593,7 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 	if((ax < 2) && (ay < 2)) return TRUE;
 
 
-	/* Paranoia -- require "safe" origin */
+
 	/* if(!in_bounds(floor_ptr, y1, x1)) return FALSE; */
 
 

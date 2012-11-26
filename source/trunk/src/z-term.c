@@ -1721,7 +1721,7 @@ errr Term_fresh(void)
 		/* The cursor is useless, hide it */
 		if(scr->cu)
 		{
-			/* Paranoia -- Put the cursor NEAR where it belongs */
+
 			(void)((*Term->curs_hook)(w - 1, scr->cy));
 
 			/* Make the cursor invisible */
@@ -1731,7 +1731,7 @@ errr Term_fresh(void)
 		/* The cursor is invisible, hide it */
 		else if(!scr->cv)
 		{
-			/* Paranoia -- Put the cursor where it belongs */
+
 			(void)((*Term->curs_hook)(scr->cx, scr->cy));
 
 			/* Make the cursor invisible */
@@ -1823,7 +1823,7 @@ errr Term_draw(int x, int y, byte a, char c)
 	if((x < 0) || (x >= w)) return (-1);
 	if((y < 0) || (y >= h)) return (-1);
 
-	/* Paranoia -- illegal char */
+
 	if(!c) return (-2);
 
 	/* Queue it for later */
@@ -1856,7 +1856,7 @@ errr Term_addch(byte a, char c)
 	/* Handle "unusable" cursor */
 	if(Term->scr->cu) return (-1);
 
-	/* Paranoia -- no illegal chars */
+
 	if(!c) return (-2);
 
 	/* Queue the given character for display */
@@ -1890,7 +1890,7 @@ errr Term_add_bigch(byte a, char c)
 	/* Handle "unusable" cursor */
 	if(Term->scr->cu) return (-1);
 
-	/* Paranoia -- no illegal chars */
+
 	if(!c) return (-2);
 
 	/* Queue the given character for display */

@@ -85,7 +85,7 @@ void place_random_stairs(floor_type *floor_ptr, int y, int x)
 	bool down_stairs = TRUE;
 	cave_type *c_ptr;
 
-	/* Paranoia */
+
 	c_ptr = &floor_ptr->cave[y][x];
 	if(!is_floor_grid(c_ptr) || c_ptr->object_idx) return;
 

@@ -209,7 +209,7 @@ static void shuffle_flavors(byte tval)
 		/* Skip non-Rings */
 		if(object_kind_ptr->tval != tval) continue;
 
-		/* Paranoia -- Skip objects without flavor */
+
 		if(!object_kind_ptr->flavor) continue;
 
 		/* Skip objects with a fixed flavor name */
@@ -1879,7 +1879,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 	}
 #endif
 
-	/* Paranoia -- skip illegal tildes */
+
 	/* while (*s == '~') s++; */
 
 #ifdef JP
@@ -1944,7 +1944,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			s0 = s;
 			s = modstr;
 
-			/* Paranoia -- Never append multiple modstrs */
+
 			modstr = "";
 		}
 
@@ -1954,7 +1954,7 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 			s0 = s;
 			s = kindname;
 
-			/* Paranoia -- Never append multiple kindnames */
+
 			kindname = "";
 		}
 

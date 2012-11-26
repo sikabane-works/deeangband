@@ -1111,7 +1111,7 @@ errr parse_vault_info(char *buf, header *head)
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 
-		/* Paranoia -- require a name */
+
 		if(!*s) return PARSE_ERROR_GENERIC;
 
 		/* Get the index */
@@ -1663,7 +1663,7 @@ errr parse_feature_info(char *buf, header *head)
 		byte s_attr;
 		char char_tmp[F_LIT_MAX];
 
-		/* Paranoia */
+
 		if(buf[1] != ':') return PARSE_ERROR_GENERIC;
 		if(!buf[2]) return PARSE_ERROR_GENERIC;
 		if(buf[3] != ':') return PARSE_ERROR_GENERIC;
@@ -1675,7 +1675,7 @@ errr parse_feature_info(char *buf, header *head)
 		/* Extract the color */
 		s_attr = color_char_to_acttr(buf[4]);
 
-		/* Paranoia */
+
 		if(s_attr > 127) return PARSE_ERROR_GENERIC;
 
 		/* Save the standard values */
@@ -3775,7 +3775,7 @@ errr parse_re_info(char *buf, header *head)
 		/* Nuke the colon, advance to the name */
 		*s++ = '\0';
 #ifdef JP
-		/* Paranoia -- require a name */
+
 		if(!*s) return PARSE_ERROR_GENERIC;
 #endif
 
@@ -6459,7 +6459,7 @@ static errr parse_line_building(char *buf)
 	/* Nuke the colon, advance to the sub-index */
 	*s++ = '\0';
 
-	/* Paranoia -- require a sub-index */
+
 	if(!*s) return PARSE_ERROR_GENERIC;
 
 	/* Building definition sub-index */

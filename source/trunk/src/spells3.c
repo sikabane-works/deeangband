@@ -55,7 +55,7 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	bool look = TRUE;
 
 
-	/* Paranoia */
+
 	if(!creature_ptr->species_idx) return FALSE;
 
 	/* Save the old location */
@@ -2997,7 +2997,7 @@ bool recharge(creature_type *creature_ptr, int power)
 		else recharge_strength = (100 + power - lev -
 			(8 * object_ptr->pval)) / 15;
 
-		/* Paranoia */
+
 		if(recharge_strength < 0) recharge_strength = 0;
 
 		/* Back-fire */
@@ -3951,7 +3951,7 @@ s16b spell_chance(creature_type *creature_ptr, int spell, int use_realm)
 	int penalty = (magic_info[creature_ptr->class_idx].spell_stat == STAT_WIS) ? 10 : 4;
 
 
-	/* Paranoia -- must be literate */
+
 	if(!magic_info[creature_ptr->class_idx].spell_book) return (100);
 
 	if(use_realm == REALM_HISSATSU) return 0;
@@ -5087,7 +5087,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 		/* All staffs, wands. */
 		recharge_strength = (100 + power - lev) / 15;
 
-		/* Paranoia */
+
 		if(recharge_strength < 0) recharge_strength = 0;
 
 		/* Back-fire */

@@ -878,7 +878,7 @@ msg_print("‘Ì‚ðˆ«‚­‚µ‚Ä‚µ‚Ü‚Á‚½I");
 void learn_trait(creature_type *creature_ptr, int trait_index)
 {
 	if(creature_ptr->action != ACTION_LEARN) return;
-	if(trait_index < 0) return; /* Paranoia */
+	if(trait_index < 0) return; 
 	if(creature_ptr->class_skills.old_skills.magic_num2[trait_index]) return;
 	if(has_trait(creature_ptr, TRAIT_CONFUSED) || has_trait(creature_ptr, TRAIT_BLIND) || has_trait(creature_ptr, TRAIT_HALLUCINATION) || creature_ptr->timed_trait[TRAIT_STUN] || creature_ptr->timed_trait[TRAIT_PARALYZED]) return;
 

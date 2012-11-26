@@ -1198,7 +1198,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 				do_thrown_from_riding(creature_ptr, 1, TRUE);
 
-				/* Paranoia */
+
 				/* —Ž”nˆ—‚ÉŽ¸”s‚µ‚Ä‚à‚Æ‚É‚©‚­æ”n‰ðœ */
 				creature_ptr->riding = 0;
 			}

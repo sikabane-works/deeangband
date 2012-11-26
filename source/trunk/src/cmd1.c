@@ -713,7 +713,7 @@ static int check_hit(creature_type *creature_ptr, int power)
 	if(creature_ptr->chara_idx == CHARA_NAMAKE)
 		if(one_in_(20)) return TRUE;
 
-	/* Paranoia -- No power */
+
 	if(power <= 0) return FALSE;
 
 	/* Total armor */
@@ -1850,7 +1850,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 	feature_type *f_ptr = &feature_info[c_ptr->feat];
 
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
-	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
+	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; 
 
 	bool can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
 		(!have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
@@ -1891,7 +1891,7 @@ void walk_creature(creature_type *creature_ptr, int dir, bool do_pickup, bool br
 	creature_type *m_ptr;
 
 	creature_type *steed_ptr = &creature_list[creature_ptr->riding];
-	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; /* Paranoia */
+	species_type *riding_r_ptr = &species_info[creature_ptr->riding ? steed_ptr->species_idx : 0]; 
 
 	char m_name[MAX_NLEN];
 

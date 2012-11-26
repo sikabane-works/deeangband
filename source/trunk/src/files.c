@@ -2060,7 +2060,7 @@ static cptr likert(int x, int y)
 {
 	static char dummy[20] = "";
 
-	/* Paranoia */
+
 	if(y <= 0) y = 1;
 
 	/* Negative value */

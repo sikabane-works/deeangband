@@ -198,7 +198,7 @@ static bool alloc_stairs(floor_type *floor_ptr, int feat, int num, int walls)
 			shaft_num = (randint1(num)+1)/2;
 	}
 
-	/* Paranoia */
+
 	else return FALSE;
 
 
@@ -449,7 +449,7 @@ static bool possible_doorway(floor_type *floor_ptr, int y, int x)
  */
 static void try_door(floor_type *floor_ptr, int y, int x)
 {
-	/* Paranoia */
+
 	if(!in_bounds(floor_ptr, y, x)) return;
 
 	/* Ignore walls */

@@ -735,7 +735,7 @@ void delete_creature(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr;
 
-	/* Paranoia */
+
 	if(!in_bounds(floor_ptr, y, x)) return;
 
 	/* Check the grid */
@@ -797,7 +797,7 @@ void compact_creatures(int size)
 
 			species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-			/* Paranoia -- skip "dead" creatures */
+
 			if(!m_ptr->species_idx) continue;
 
 			/* Hack -- High level creatures start out "immune" */
@@ -3005,7 +3005,7 @@ void set_new_species(creature_type *creature_ptr, bool born, int species_idx, in
 
 		chameleon_change_m_idx = 0;
 
-		/* Paranoia */
+
 		if(!species_idx) return;
 	}
 
@@ -4082,7 +4082,7 @@ static bool place_creature_okay(creature_type *summoner_ptr, int species_idx)
 	/* Skip unique creatures */
 	if(has_trait_species(z_ptr, TRAIT_UNIQUE)) return FALSE;
 
-	/* Paranoia -- Skip identical creatures */
+
 	if(place_species_idx == species_idx) return FALSE;
 
 	/* Skip different alignment */
@@ -4924,7 +4924,7 @@ void update_smart_learn(creature_type *learner_ptr, int what)
 
 bool creature_place(floor_type *floor_ptr, creature_type *creature_ptr, int y, int x)
 {
-	/* Paranoia XXX XXX */
+
 	if(floor_ptr->cave[y][x].creature_idx != 0) return FALSE;
 
 	/* Save player location */

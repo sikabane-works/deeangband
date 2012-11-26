@@ -2806,7 +2806,7 @@ static int get_stock(store_type *st_ptr, int *com_val, cptr pmt, int i, int j)
 		}
 	}
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 
@@ -2989,7 +2989,7 @@ static int get_haggle(cptr pmt, s32b *poffer, s32b price, int final)
 	}
 
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 

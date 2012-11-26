@@ -746,7 +746,7 @@ static s32b object_value_base(object_type *object_ptr)
 		else return ((species_info[object_ptr->pval].level) * 50L + 1000);
 	}
 
-	/* Paranoia -- Oops */
+
 	return (0L);
 }
 
@@ -3051,7 +3051,7 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 	object_type *quest_ptr;
 
 
-	/* Paranoia -- check bounds */
+
 	if(!in_bounds(floor_ptr, y, x)) return;
 
 	/* Require floor space */
@@ -3220,7 +3220,7 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 			/* Add new object */
 			if(!comb) k++;
 
-			/* Paranoia */
+
 			if(k > 99) continue;
 
 			/* Calculate score */
@@ -3549,7 +3549,7 @@ void place_trap(floor_type *floor_ptr, int y, int x)
 {
 	cave_type *c_ptr = &floor_ptr->cave[y][x];
 
-	/* Paranoia -- verify location */
+
 	if(!in_bounds(floor_ptr, y, x)) return;
 
 	/* Require empty, clean, floor grid */
@@ -3881,7 +3881,7 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	}
 
 
-	/* Paranoia */
+
 	if(creature_ptr->inven_cnt > INVEN_TOTAL) return (-1);
 
 	/* Find an empty slot */
@@ -4378,7 +4378,7 @@ object_type *choose_warning_item(creature_type *caster_ptr)
 	int choices[INVEN_TOTAL];
 	int number = 0;
 
-	/* Paranoia -- Player has no warning ability */
+
 	if(!has_trait(caster_ptr, TRAIT_WARNING)) return NULL;
 
 	/* Search inventory */

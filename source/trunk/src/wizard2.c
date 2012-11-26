@@ -1064,7 +1064,7 @@ static void wiz_quantity_item(creature_type *creature_ptr, object_type *object_p
 		/* Extract */
 		tmp_int = atoi(tmp_val);
 
-		/* Paranoia */
+
 		if(tmp_int < 1) tmp_int = 1;
 		if(tmp_int > 99) tmp_int = 99;
 
@@ -1691,7 +1691,7 @@ static void do_cmd_wiz_zap(creature_type *creature_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip the mount */
@@ -1726,7 +1726,7 @@ static void do_cmd_wiz_zap_all(creature_type *creature_ptr)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip the mount */

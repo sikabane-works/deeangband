@@ -82,7 +82,7 @@ vptr rpanic(huge len)
 	/* Attempt to crash before icky things happen */
 	core("Out of Memory!");
 
-	/* Paranoia */
+
 	return ((vptr)(NULL));
 }
 

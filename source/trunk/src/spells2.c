@@ -1474,7 +1474,7 @@ void aggravate_creatures(creature_type *creature_ptr)
 	{
 		creature_type    *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip aggravating creature (or player) */
@@ -1644,7 +1644,7 @@ bool symbol_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		creature_type *m_ptr = &creature_list[i];
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip "wrong" creatures */
@@ -1680,7 +1680,7 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 	{
 		creature_type *m_ptr = &creature_list[i];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		/* Skip distant creatures */
@@ -1720,7 +1720,7 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 		creature_type *m_ptr = &creature_list[i];
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		if(!has_trait(m_ptr, TRAIT_UNDEAD)) continue;
@@ -1764,7 +1764,7 @@ bool probing(floor_type *floor_ptr)
 		creature_type *m_ptr = &creature_list[i];
 		species_type *species_ptr = &species_info[m_ptr->species_idx];
 
-		/* Paranoia -- Skip dead creatures */
+
 		if(!m_ptr->species_idx) continue;
 
 		/* Require line of sight */
@@ -2728,7 +2728,7 @@ static void cave_temp_room_aux(creature_type *caster_ptr, int y, int x, bool onl
 		//    (next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
 
-	/* Paranoia -- verify space */
+
 	if(temp_n == TEMP_MAX) return;
 
 	/* Mark the grid as "seen" */
@@ -2773,7 +2773,7 @@ static void cave_temp_room_aux2(creature_type *caster_ptr, int y, int x, bool on
 			(next_to_walls_adj(floor_ptr, y, x, pass_bold) == 6) && (next_to_open(floor_ptr, y, x, pass_bold) <= 1)) return;
 	}
 
-	/* Paranoia -- verify space */
+
 	if(temp_n == TEMP_MAX) return;
 
 	/* Mark the grid as "seen" */

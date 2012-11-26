@@ -1549,7 +1549,7 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		}
 	}
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 	/* Not done */
@@ -2529,7 +2529,7 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		}
 	}
 
-	/* Paranoia XXX XXX XXX */
+
 	msg_print(NULL);
 
 

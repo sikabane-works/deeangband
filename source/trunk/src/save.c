@@ -1338,10 +1338,10 @@ int load_player(void)
 	cptr    what = "generic";
 
 
-	/* Paranoia */
+
 	turn = 0;
 
-	/* Paranoia */
+
 	gameover = FALSE;
 
 	/* Allow empty savefile name */
@@ -1483,7 +1483,7 @@ int load_player(void)
 
 	}
 
-	/* Paranoia */
+
 	if(!err)
 	{
 		/* Invalid turn */

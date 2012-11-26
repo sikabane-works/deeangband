@@ -256,7 +256,7 @@ s16b randnor(int mean, int stand)
 	s16b low = 0;
 	s16b high = RANDNOR_NUM;
 
-	/* Paranoia */
+
 	if(stand < 1) return (mean);
 
 	/* Roll for probability */

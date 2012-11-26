@@ -1478,7 +1478,7 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 			/* minimum damage of half the percentage. -CWS */
 			loss = (((cur - 180) / 2 + 1) / 2 + 1);
 
-			/* Paranoia */
+
 			if(loss < 1) loss = 1;
 
 			/* Randomize the loss */
@@ -2435,7 +2435,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 	//TODO CHECK
 	//if(!m_idx) return TRUE;
 
-	/* Paranoia */
+
 	if(gameover) return 0;
 
 	if(target_ptr->sutemi) damage *= 2;

@@ -66,7 +66,7 @@ static bool get_enemy_dir(creature_type *creature_ptr, int m_idx, int *mm)
 			/* The creature itself isn't a target */
 			if(t_ptr == m_ptr) continue;
 
-			/* Paranoia -- Skip dead creatures */
+
 			if(!t_ptr->species_idx) continue;
 
 			if(is_pet(player_ptr, m_ptr))

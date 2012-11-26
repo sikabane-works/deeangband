@@ -1038,7 +1038,6 @@ static void random_slay(object_type *object_ptr, int artifact_bias)
 		     ((object_ptr->tval == TV_POLEARM) && (object_ptr->sval == SV_SPEAR))) &&
 			 !(have_flag(object_ptr->trait_flags, TRAIT_THROW_MIGHTY)))
 		{
-			/* Free power for rogues... */
 			add_flag(object_ptr->trait_flags, TRAIT_THROW_MIGHTY);
 		}
 		if(!(have_flag(object_ptr->trait_flags, TRAIT_POIS_BRAND)))
@@ -1566,8 +1565,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 
 	if(a_cursed) curse_artifact(owner_ptr, object_ptr);
 
-	if(!a_cursed &&
-	    one_in_(object_is_armour(object_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
+	if(!a_cursed && one_in_(object_is_armour(object_ptr) ? ACTIVATION_CHANCE * 2 : ACTIVATION_CHANCE))
 	{
 		object_ptr->xtra2 = 0;
 		give_activation_power(object_ptr, artifact_bias);
@@ -1664,10 +1662,7 @@ bool create_artifact(creature_type *owner_ptr, object_type *object_ptr, bool a_s
 #endif
 
 	}
-	else
-	{
-		get_random_name(new_name, object_is_armour(object_ptr), power_level, artifact_bias);
-	}
+	else get_random_name(new_name, object_is_armour(object_ptr), power_level, artifact_bias);
 
 	if(cheat_xtra)
 	{

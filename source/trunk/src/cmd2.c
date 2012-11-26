@@ -881,7 +881,7 @@ static int coords_to_damageir(creature_type *creature_ptr, int y, int x)
 	dy = y - creature_ptr->fy;
 	dx = x - creature_ptr->fx;
 
-	/* Paranoia */
+
 	if(ABS(dx) > 1 || ABS(dy) > 1) return SUCCESS;
 
 	return d[dx + 1][dy + 1];
@@ -2413,7 +2413,7 @@ void do_cmd_rest(creature_type *creature_ptr)
 	}
 
 
-	/* Paranoia */
+
 	if(command_arg > 9999) command_arg = 9999;
 
 	if(creature_ptr->posture & NINJA_S_STEALTH) set_superstealth(creature_ptr, FALSE);
@@ -4124,7 +4124,7 @@ void do_cmd_travel(creature_type *creature_ptr)
 	/* Travel till 255 steps */
 	travel.run = 255;
 
-	/* Paranoia */
+
 	travel.dir = 0;
 
 	/* Decides first direction */

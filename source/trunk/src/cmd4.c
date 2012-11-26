@@ -6316,7 +6316,7 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 	{
 		artifact_type *a_ptr = &artifact_info[who[k]];
 
-		/* Paranoia */
+
 #ifdef JP
 		strcpy(base_name, "未知の伝説のアイテム");
 #else

@@ -1330,7 +1330,7 @@ bool make_attack_spell(creature_type *caster_ptr, creature_type *target_ptr)
 		break;
 
 	default:
-		return FALSE; /* Paranoia */
+		return FALSE; 
 	}
 
 	/* Abort if no spell was chosen */
