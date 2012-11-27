@@ -4223,7 +4223,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 		/* Notice stuff */
 		notice_stuff(creature_ptr);
 
-		/* Handle stuff */
 		handle_stuff();
 	}
 

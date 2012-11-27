@@ -1460,7 +1460,6 @@ void do_cmd_locate(creature_type *creature_ptr)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD | PW_DUNGEON);
 
-	/* Handle stuff */
 	handle_stuff();
 }
 

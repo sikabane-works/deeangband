@@ -459,7 +459,6 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Disturb */
 		if(disturb_state) disturb(player_ptr, 0, 0);
 
-		/* Handle stuff */
 		handle_stuff();
 
 		/* Result */
@@ -790,7 +789,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 
 	play_redraw |= (PR_STUN);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Result */
@@ -1096,7 +1094,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 
 	play_redraw |= (PR_CUT);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Result */
@@ -1378,7 +1375,6 @@ bool set_food(creature_type *creature_ptr, int v)
 
 	play_redraw |= (PR_HUNGER);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Result */

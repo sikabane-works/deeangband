@@ -3861,7 +3861,6 @@ msg_format("%s‚ğ $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 					object_ptr->pval -= j_ptr->pval;
 				}
 
-				/* Handle stuff */
 				handle_stuff();
 
 				/* Note how many slots the store used to have */
@@ -3944,7 +3943,6 @@ msg_format("%s‚ğ $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 #endif
  object_name, index_to_label(item_new));
 
-		/* Handle stuff */
 		handle_stuff();
 
 		/* Take note if we take the last one */
@@ -4240,7 +4238,6 @@ msg_format("%s‚ğ $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
 
 			inven_item_optimize(creature_ptr, item);
 
-			/* Handle stuff */
 			handle_stuff();
 
 			/* The store gets that (known) item */
@@ -4304,7 +4301,6 @@ msg_format("%s‚ğ $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
 		inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 
-		/* Handle stuff */
 		handle_stuff();
 
 		/* Let the home carry it */
@@ -4337,7 +4333,6 @@ msg_format("%s‚ğ $%ld‚Å”„‹p‚µ‚Ü‚µ‚½B", object_name, (long)price);
 		inven_item_describe(creature_ptr, item);
 		inven_item_optimize(creature_ptr, item);
 
-		/* Handle stuff */
 		handle_stuff();
 
 		/* Let the home carry it */
@@ -5141,7 +5136,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 		/* Notice stuff */
 		notice_stuff(creature_ptr);
 
-		/* Handle stuff */
 		handle_stuff();
 
 		/* XXX XXX XXX Pack Overflow */
@@ -5225,7 +5219,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				inven_item_describe(creature_ptr, item);
 				inven_item_optimize(creature_ptr, item);
 
-				/* Handle stuff */
 				handle_stuff();
 
 				/* Let the home carry it */

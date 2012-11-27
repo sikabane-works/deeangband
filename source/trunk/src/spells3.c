@@ -2828,7 +2828,6 @@ bool identify_fully(creature_type *creature_ptr, bool only_equip)
 	/* Mark the item as fully known */
 	object_ptr->ident |= (IDENT_MENTAL);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Description */

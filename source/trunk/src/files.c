@@ -6238,7 +6238,6 @@ msg_print("自動セーブ中");
 	/* Clear messages */
 	msg_print(NULL);
 
-	/* Handle stuff */
 	handle_stuff();
 
 #ifdef JP
@@ -6674,7 +6673,6 @@ static void show_info(creature_type *creature_ptr)
 	/* Hack -- Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Flush all input keys */
@@ -6929,7 +6927,6 @@ void close_game(void)
 
 /*	cptr p = "[i:キャラクタの情報, f:ファイル書き出し, t:スコア, x:*鑑定*, ESC:ゲーム終了]"; */
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Flush the messages */

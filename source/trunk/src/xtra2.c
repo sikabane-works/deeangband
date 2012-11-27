@@ -78,7 +78,6 @@ void check_experience(creature_type *creature_ptr)
 	if(is_player(creature_ptr))
 		play_redraw |= (PR_EXP);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	if(creature_ptr->dr >= 0)
@@ -101,7 +100,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Window stuff */
 		play_window |= (PW_PLAYER);
 
-		/* Handle stuff */
 		handle_stuff();
 	}
 
@@ -256,7 +254,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Window stuff */
 		play_window |= (PW_PLAYER | PW_SPELL);
 
-		/* Handle stuff */
 		handle_stuff();
 	}
 
@@ -1248,7 +1245,6 @@ bool change_panel(int dy, int dx)
 
 		play_redraw |= (PR_MAP);
 
-		/* Handle stuff */
 		handle_stuff();
 
 		return TRUE;
@@ -2758,7 +2754,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 					/* Window stuff */
 					play_window |= (PW_OVERHEAD);
 
-					/* Handle stuff */
 					handle_stuff();
 
 					target_set_prepare(aimer_ptr, mode);
@@ -2833,7 +2828,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 						play_redraw |= (PR_MAP | PW_OVERHEAD);	// Redraw map and Window stuff
 
-						/* Handle stuff */
 						handle_stuff();
 
 						target_set_prepare(aimer_ptr, mode);
@@ -4232,7 +4226,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 					/* Window stuff */
 					play_window |= (PW_OVERHEAD);
 
-					/* Handle stuff */
 					handle_stuff();
 				}
 				else	/* move cursor to next stair and change panel */
@@ -4322,7 +4315,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	/* Window stuff */
 	play_window |= (PW_OVERHEAD);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	*x_ptr = x;

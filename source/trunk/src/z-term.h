@@ -256,7 +256,7 @@ struct term
 #define TERM_XTRA_FRESH 6	/* Flush all rows (optional) */
 #define TERM_XTRA_NOISE 7	/* Make a noise (optional) */
 #define TERM_XTRA_SOUND 8	/* Make a sound (optional) */
-#define TERM_XTRA_BORED 9	/* Handle stuff when bored (optional) */
+#define TERM_XTRA_BORED 9
 #define TERM_XTRA_REACT 10	/* React to global changes (optional) */
 #define TERM_XTRA_ALIVE 11	/* Change the "hard" level (optional) */
 #define TERM_XTRA_LEVEL 12	/* Change the "soft" level (optional) */

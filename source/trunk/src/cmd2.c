@@ -2425,7 +2425,6 @@ void do_cmd_rest(creature_type *creature_ptr)
 
 	play_redraw |= (PR_STATE);
 
-	/* Handle stuff */
 	handle_stuff();
 
 	/* Refresh */
