@@ -1337,7 +1337,7 @@ errr check_time(void)
 	tp = localtime(&c);
 
 	/* Violation */
-	if(days[tp->tm_wday][tp->tm_hour + 4] != 'X') return (1);
+	if(days[tp->tm_wday][tp->tm_hour + 4] != 'X') return FAILURE;
 
 #endif
 
@@ -1456,7 +1456,7 @@ errr check_load(void)
 		long val2 = (long)(check_load_value) * FSCALE;
 
 		/* Check for violation */
-		if(val1 >= val2) return (1);
+		if(val1 >= val2) return FAILURE;
 	}
 
 #endif

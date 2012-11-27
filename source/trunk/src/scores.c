@@ -556,7 +556,7 @@ errr top_twenty(creature_type *player_ptr)
 	/* Drop permissions */
 	safe_setuid_drop();
 
-	if(err) return (1);
+	if(err) return FAILURE;
 
 	/* Add a new entry to the score list, see where it went */
 	j = highscore_add(&the_score);
@@ -570,7 +570,7 @@ errr top_twenty(creature_type *player_ptr)
 	/* Drop permissions */
 	safe_setuid_drop();
 
-	if(err) return (1);
+	if(err) return FAILURE;
 
 
 	/* Hack -- Display the top fifteen scores */

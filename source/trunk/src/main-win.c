@@ -1685,7 +1685,7 @@ static errr term_force_font(term_data *td, cptr path)
 	td->font_id = CreateFontIndirect(&(td->lf));
 	wid = td->lf.lfWidth;
 	hgt = td->lf.lfHeight;
-	if(!td->font_id) return (1);
+	if(!td->font_id) return FAILURE;
 #else
 	/* Forget old font */
 	if(td->font_file)
@@ -1718,7 +1718,7 @@ static errr term_force_font(term_data *td, cptr path)
 	}
 
 	/* No path given */
-	if(!path) return (1);
+	if(!path) return FAILURE;
 
 	/* Local copy */
 	strcpy(buf, path);
@@ -1727,13 +1727,13 @@ static errr term_force_font(term_data *td, cptr path)
 	base = analyze_font(buf, &wid, &hgt);
 
 	/* Verify suffix */
-	if(!suffix(base, ".FON")) return (1);
+	if(!suffix(base, ".FON")) return FAILURE;
 
 	/* Verify file */
-	if(!check_file(buf)) return (1);
+	if(!check_file(buf)) return FAILURE;
 
 	/* Load the new font */
-	if(!AddFontResource(buf)) return (1);
+	if(!AddFontResource(buf)) return FAILURE;
 
 	/* Save new font name */
 	td->font_file = string_make(base);
@@ -2195,10 +2195,10 @@ static errr Term_xtra_win_sound(int v)
 #endif /* USE_SOUND */
 
 	/* Sound disabled */
-	if(!use_sound) return (1);
+	if(!use_sound) return FAILURE;
 
 	/* Illegal sound */
-	if((v < 0) || (v >= SOUND_MAX)) return (1);
+	if((v < 0) || (v >= SOUND_MAX)) return FAILURE;
 
 #ifdef USE_SOUND
 
@@ -2210,7 +2210,7 @@ static errr Term_xtra_win_sound(int v)
 	}
 
 	/* No sample */
-	if(i == 0) return (1);
+	if(i == 0) return FAILURE;
 
 	/* Build the path */
 	path_build(buf, 1024, ANGBAND_DIR_XTRA_SOUND, sound_file[v][Rand_simple(i)]);
@@ -2229,7 +2229,7 @@ static errr Term_xtra_win_sound(int v)
 
 #else /* USE_SOUND */
 
-	return (1);
+	return FAILURE;
 
 #endif /* USE_SOUND */
 }

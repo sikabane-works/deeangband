@@ -1496,7 +1496,7 @@ errr Term_fresh(void)
 
 
 	/* Do nothing unless "mapped" */
-	if(!Term->mapped_flag) return (1);
+	if(!Term->mapped_flag) return FAILURE;
 
 
 	/* Trivial Refresh */
@@ -1508,7 +1508,7 @@ errr Term_fresh(void)
 	    !(Term->total_erase))
 	{
 		/* Nothing */
-		return (1);
+		return FAILURE;
 	}
 
 
@@ -1772,7 +1772,7 @@ errr Term_fresh(void)
 errr Term_set_cursor(int v)
 {
 	/* Already done */
-	if(Term->scr->cv == v) return (1);
+	if(Term->scr->cv == v) return FAILURE;
 
 	/* Change */
 	Term->scr->cv = v;
@@ -1866,7 +1866,7 @@ errr Term_addch(byte a, char c)
 
 	Term->scr->cu = 1;
 
-	return (1);
+	return FAILURE;
 }
 
 
@@ -1898,7 +1898,7 @@ errr Term_add_bigch(byte a, char c)
 
 	Term->scr->cu = 1;
 
-	return (1);
+	return FAILURE;
 }
 
 
@@ -2300,7 +2300,7 @@ errr Term_locate(int *x, int *y)
 	(*y) = Term->scr->cy;
 
 	/* Warn about "useless" cursor */
-	if(Term->scr->cu) return (1);
+	if(Term->scr->cu) return FAILURE;
 
 	return SUCCESS;
 }
@@ -2366,7 +2366,7 @@ errr Term_keypress(int k)
 	if(Term->key_head != Term->key_tail) return SUCCESS;
 
 	/* Problem */
-	return (1);
+	return FAILURE;
 }
 
 
@@ -2388,7 +2388,7 @@ errr Term_key_push(int k)
 	if(Term->key_head != Term->key_tail) return SUCCESS;
 
 	/* Problem */
-	return (1);
+	return FAILURE;
 }
 
 
@@ -2444,7 +2444,7 @@ errr Term_inkey(char *ch, bool wait, bool take)
 	}
 
 	/* No keys are ready */
-	if(Term->key_head == Term->key_tail) return (1);
+	if(Term->key_head == Term->key_tail) return FAILURE;
 
 	/* Extract the next keypress */
 	(*ch) = Term->key_queue[Term->key_tail];
@@ -2599,7 +2599,7 @@ errr Term_resize(int w, int h)
 
 	/* Ignore non-changes */
 	if((Term->wid == w) && (Term->hgt == h) && (arg_bigtile == use_bigtile))
-		return (1);
+		return FAILURE;
 
 	use_bigtile = arg_bigtile;
 
@@ -2765,7 +2765,7 @@ errr Term_resize(int w, int h)
 errr Term_activate(term *t)
 {
 	/* Hack -- already done */
-	if(Term == t) return (1);
+	if(Term == t) return FAILURE;
 
 	/* Deactivate the old Term */
 	if(Term) Term_xtra(TERM_XTRA_LEVEL, 0);

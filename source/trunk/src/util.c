@@ -35,7 +35,7 @@ int stricmp(cptr a, cptr b)
 		z1 = FORCEUPPER(*s1);
 		z2 = FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
-		if(z1 > z2) return (1);
+		if(z1 > z2) return FAILURE;
 		if(!z1) return SUCCESS;
 	}
 }
@@ -215,7 +215,7 @@ errr path_parse(char *buf, int max, cptr file)
 	s = my_strstr(u, PATH_SEP);
 
 	/* Hack -- no long user names */
-	if(s && (s >= u + sizeof(user))) return (1);
+	if(s && (s >= u + sizeof(user))) return FAILURE;
 
 	/* Extract a user name */
 	if(s)
@@ -234,7 +234,7 @@ errr path_parse(char *buf, int max, cptr file)
 	else pw = getpwuid(getuid());
 
 	/* Nothing found? */
-	if(!pw) return (1);
+	if(!pw) return FAILURE;
 
 	/* Make use of the info */
 	if(s) strnfmt(buf, max, "%s%s", pw->pw_dir, s);
@@ -385,7 +385,7 @@ errr my_fclose(FILE *fff)
 	if(!fff) return (-1);
 
 	/* Close, check for error */
-	if(fclose(fff) == EOF) return (1);
+	if(fclose(fff) == EOF) return FAILURE;
 
 	return SUCCESS;
 }
@@ -515,7 +515,7 @@ errr my_fgets(FILE *fff, char *buf, huge n)
 	/* Nothing */
 	buf[0] = '\0';
 
-	return (1);
+	return FAILURE;
 }
 
 
@@ -792,7 +792,7 @@ int fd_make(cptr file, int mode)
 #ifdef BEN_HACK
 
 	/* Check for existance */
-	/* if(fd_close(fd_open(file, O_RDONLY | O_BINARY))) return (1); */
+	/* if(fd_close(fd_open(file, O_RDONLY | O_BINARY))) return FAILURE; */
 
 	/* Mega-Hack -- Create the file */
 	(void)my_fclose(my_fopen(file, "wb"));
@@ -869,7 +869,7 @@ errr fd_lock(int fd, int what)
 	else
 	{
 		/* Lock the score file */
-		if(lockf(fd, F_LOCK, 0) != 0) return (1);
+		if(lockf(fd, F_LOCK, 0) != 0) return FAILURE;
 	}
 
 #  endif
@@ -889,7 +889,7 @@ errr fd_lock(int fd, int what)
 	else
 	{
 		/* Lock the score file */
-		if(flock(fd, LOCK_EX) != 0) return (1);
+		if(flock(fd, LOCK_EX) != 0) return FAILURE;
 	}
 
 #  endif
@@ -915,7 +915,7 @@ errr fd_seek(int fd, huge n)
 	/* Seek to the given position */
 	p = lseek(fd, n, SEEK_SET);
 
-	if(p != n) return (1);
+	if(p != n) return FAILURE;
 
 	return SUCCESS;
 }
@@ -955,7 +955,7 @@ errr fd_read(int fd, char *buf, huge n)
 	while (n >= 16384)
 	{
 		/* Read a piece */
-		if(read(fd, buf, 16384) != 16384) return (1);
+		if(read(fd, buf, 16384) != 16384) return FAILURE;
 
 		/* Shorten the task */
 		buf += 16384;
@@ -967,7 +967,7 @@ errr fd_read(int fd, char *buf, huge n)
 #endif
 
 	/* Read the final piece */
-	if(read(fd, buf, n) != (int)n) return (1);
+	if(read(fd, buf, n) != (int)n) return FAILURE;
 
 	return SUCCESS;
 }
@@ -987,7 +987,7 @@ errr fd_write(int fd, cptr buf, huge n)
 	while (n >= 16384)
 	{
 		/* Write a piece */
-		if(write(fd, buf, 16384) != 16384) return (1);
+		if(write(fd, buf, 16384) != 16384) return FAILURE;
 
 		/* Shorten the task */
 		buf += 16384;
@@ -999,7 +999,7 @@ errr fd_write(int fd, cptr buf, huge n)
 #endif
 
 	/* Write the final piece */
-	if(write(fd, buf, n) != (int)n) return (1);
+	if(write(fd, buf, n) != (int)n) return FAILURE;
 
 	return SUCCESS;
 }
@@ -1131,7 +1131,7 @@ static int my_stricmp(cptr a, cptr b)
 		z1 = FORCEUPPER(*s1);
 		z2 = FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
-		if(z1 > z2) return (1);
+		if(z1 > z2) return FAILURE;
 		if(!z1) return SUCCESS;
 	}
 }
@@ -1147,7 +1147,7 @@ static int my_strnicmp(cptr a, cptr b, int n)
 		z1 = FORCEUPPER(*s1);
 		z2 = FORCEUPPER(*s2);
 		if(z1 < z2) return (-1);
-		if(z1 > z2) return (1);
+		if(z1 > z2) return FAILURE;
 		if(!z1) return SUCCESS;
 	}
 	return 0;
