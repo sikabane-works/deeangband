@@ -328,7 +328,6 @@ void do_cmd_search(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
@@ -1012,7 +1011,6 @@ void do_cmd_open(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
@@ -1167,7 +1165,6 @@ void do_cmd_close(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
@@ -1826,7 +1823,6 @@ void do_cmd_disarm(creature_type *creature_ptr)
 		/* Set repeat count */
 		command_rep = command_arg - 1;
 
-		/* Redraw the state */
 		play_redraw |= (PR_STATE);
 
 		/* Cancel the arg */
@@ -2428,7 +2424,6 @@ void do_cmd_rest(creature_type *creature_ptr)
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Redraw the state */
 	play_redraw |= (PR_STATE);
 
 	/* Handle stuff */
@@ -2978,7 +2973,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			/* Notice */
 			note_spot(floor_ptr, ny, nx);
 
-			/* Redraw */
 			lite_spot(floor_ptr, ny, nx);
 		}
 
@@ -3134,7 +3128,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 					/* Notice */
 					note_spot(floor_ptr, ny, nx);
 
-					/* Redraw */
 					lite_spot(floor_ptr, ny, nx);
 				}
 

@@ -914,7 +914,6 @@ static void regenhp(creature_type *creature_ptr, int percent)
 	/* Notice changes */
 	if(old_chp != creature_ptr->chp)
 	{
-		/* Redraw */
 		play_redraw |= (PR_HP);
 
 		/* Window stuff */
@@ -1000,10 +999,8 @@ static void regenmana(creature_type * creature_ptr, int percent)
 	}
 
 
-	/* Redraw mana */
 	if(old_csp != creature_ptr->csp)
 	{
-		/* Redraw */
 		play_redraw |= (PR_MANA);
 
 		/* Window stuff */
@@ -1092,7 +1089,6 @@ static void regen_creatures(creature_type *creature_ptr)
 			/* Do not over-regenerate */
 			if(m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
-			/* Redraw (later) if needed */
 			if(health_who == i) play_redraw |= (PR_HEALTH);
 			if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 		}
@@ -1468,7 +1464,6 @@ static void check_music(creature_type *creature_ptr)
 			/* Recalculate bonuses */
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
-			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures
@@ -2389,7 +2384,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			heal_creature(creature_ptr, healing);
 			creature_ptr->csp -= healing;
 
-			/* Redraw mana */
 			play_redraw |= (PR_MANA);
 		}
 	}
@@ -2408,7 +2402,6 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			}
 			inc_mana(creature_ptr, healing);
 
-			/* Redraw mana */
 			play_redraw |= (PR_MANA);
 #ifdef JP
 			take_damage_to_creature(NULL, creature_ptr, DAMAGE_LOSELIFE, healing, "“ª‚É¸‚Á‚½ŒŒ", NULL, -1);
@@ -3316,7 +3309,6 @@ static void sunrise_and_sunset(floor_type *floor_ptr)
 			// Update creatures
 			player_ptr->creature_update |= (PU_CREATURES | PU_SPECIES_LITE);
 
-			/* Redraw map */
 			play_redraw |= (PR_MAP);
 
 			/* Window stuff */
@@ -3661,7 +3653,6 @@ static void process_player_command(creature_type *creature_ptr)
 			// Update creatures
 			creature_ptr->creature_update |= (PU_CREATURES);
 
-			/* Redraw "title" */
 			play_redraw |= (PR_TITLE);
 
 			break;
@@ -4439,7 +4430,6 @@ static void process_player_command(creature_type *creature_ptr)
 			break;
 		}
 
-		/* Redraw the screen */
 	case KTRL('R'):
 		{
 			now_message = old_now_message;
@@ -4883,7 +4873,6 @@ void process_player(creature_type *creature_ptr)
 				creature_ptr->resting--;
 				if(!creature_ptr->resting) set_action(creature_ptr, ACTION_NONE);
 
-				/* Redraw the state */
 				play_redraw |= (PR_STATE);
 			}
 			cost_tactical_energy(creature_ptr, 100);

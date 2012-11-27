@@ -3890,7 +3890,6 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 					/* Start over */
 					store_top = 0;
 
-					/* Redraw everything */
 					display_inventory(guest_ptr, st_ptr);
 				}
 
@@ -3900,14 +3899,12 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 					/* Pick the correct screen */
 					if(store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
-					/* Redraw everything */
 					display_inventory(guest_ptr, st_ptr);
 				}
 
 				/* Item is still here */
 				else
 				{
-					/* Redraw the item */
 					display_entry(st_ptr, guest_ptr, item);
 				}
 			}
@@ -3962,10 +3959,8 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 		/* Hack -- Item is still here */
 		if(i == st_ptr->stock_num)
 		{
-			/* Redraw everything */
 			if(combined_or_reordered) display_inventory(guest_ptr, st_ptr);
 
-			/* Redraw the item */
 			else display_entry(st_ptr, guest_ptr, item);
 		}
 
@@ -3978,7 +3973,6 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 			/* Nothing left on that screen */
 			else if(store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
-			/* Redraw everything */
 			display_inventory(guest_ptr, st_ptr);
 		}
 	}
@@ -4540,7 +4534,6 @@ static void museum_remove_object(store_type *st_ptr, creature_type *creature_ptr
 	/* Nothing left on that screen */
 	else if(store_top >= st_ptr->stock_num) store_top -= store_bottom;
 
-	/* Redraw everything */
 	display_inventory(creature_ptr, st_ptr);
 
 	return;
@@ -4623,7 +4616,6 @@ static void store_process_player_command(store_type *st_ptr, creature_type *gues
 			break;
 		}
 
-		/* Redraw */
 		case KTRL('R'):
 		{
 			do_cmd_redraw();
@@ -5239,7 +5231,6 @@ void store_process(creature_type *creature_ptr, store_type *st_ptr)
 				/* Let the home carry it */
 				item_pos = home_carry(creature_ptr, st_ptr, quest_ptr);
 
-				/* Redraw the home */
 				if(item_pos >= 0)
 				{
 					store_top = (item_pos / store_bottom) * store_bottom;

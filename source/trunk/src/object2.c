@@ -241,7 +241,6 @@ void compact_objects(int size)
 #endif
 
 
-		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
 		/* Window stuff */
@@ -2988,7 +2987,6 @@ void place_object(floor_type *floor_ptr, int y, int x, u32b mode, bool (*get_obj
 		/* Notice */
 		note_spot(floor_ptr, y, x);
 
-		/* Redraw */
 		lite_spot(floor_ptr, y, x);
 	}
 	else
@@ -3097,7 +3095,6 @@ void place_gold(floor_type *floor_ptr, int y, int x)
 		/* Notice */
 		note_spot(floor_ptr, y, x);
 
-		/* Redraw */
 		lite_spot(floor_ptr, y, x);
 	}
 }
@@ -3530,7 +3527,6 @@ void disclose_grid(floor_type *floor_ptr, int y, int x)
 		/* Notice */
 		note_spot(floor_ptr, y, x);
 
-		/* Redraw */
 		lite_spot(floor_ptr, y, x);
 	}
 }

@@ -28,7 +28,6 @@ bool stop_hex_spell_all(creature_type *creature_ptr)
 	/* Print message */
 	if(creature_ptr->action == ACTION_SPELL) set_action(creature_ptr, ACTION_NONE);
 
-	/* Redraw status */
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
@@ -112,7 +111,6 @@ bool stop_hex_spell(creature_type *creature_ptr)
 		creature_ptr->class_skills.old_skills.magic_num2[0]--;
 	}
 
-	/* Redraw status */
 	creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 	play_redraw |= (PR_EXTRA | PR_HP | PR_MANA);
 
@@ -191,7 +189,6 @@ void check_hex(creature_type *creature_ptr)
 			/* Recalculate bonuses */
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
-			/* Redraw map and status bar */
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 			// Update creatures

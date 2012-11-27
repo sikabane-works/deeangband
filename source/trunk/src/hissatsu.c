@@ -405,7 +405,6 @@ msg_print("‚l‚o‚ª‘«‚è‚Ü‚¹‚ñB");
 	/* Limit */
 	if(creature_ptr->csp < 0) creature_ptr->csp = 0;
 
-	/* Redraw mana */
 	play_redraw |= (PR_MANA);
 
 	/* Window stuff */

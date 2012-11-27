@@ -936,7 +936,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 			}
 
-			/* Redraw mana and hp */
 			play_redraw |= (PR_HP | PR_MANA);
 
 			break;
@@ -1002,7 +1001,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 			inc_mana(creature_ptr, 3 + creature_ptr->lev/20);
 
-			/* Redraw mana */
 			play_redraw |= (PR_MANA);
 			break;
 		}
@@ -1098,7 +1096,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 				inc_mana(creature_ptr, creature_ptr->msp / 2);
 
-				/* Redraw mana */
 				play_redraw |= (PR_MANA);
 			}
 			else if(command == -4)
@@ -1227,7 +1224,6 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #endif
 					inc_mana(creature_ptr, 5 + creature_ptr->lev * creature_ptr->lev / 100);
 
-					/* Redraw mana */
 					play_redraw |= (PR_MANA);
 				}
 				else
@@ -2293,7 +2289,6 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 			}
 			else creature_ptr->csp -= actual_racial_cost;
 
-			/* Redraw mana and hp */
 			play_redraw |= (PR_HP | PR_MANA);
 
 			/* Window stuff */

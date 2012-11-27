@@ -877,7 +877,6 @@ void do_cmd_study(creature_type *creature_ptr)
 	creature_ptr->creature_update |= (CRU_SPELLS);
 	update_creature(creature_ptr, TRUE);
 
-	/* Redraw object recall */
 	play_window |= (PW_OBJECT);
 }
 
@@ -1189,7 +1188,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 			/* Gain experience */
 			gain_exp(creature_ptr, e * s_ptr->slevel);
 
-			/* Redraw object recall */
 			play_window |= (PW_OBJECT);
 
 		}
@@ -1249,7 +1247,6 @@ void do_cmd_cast(creature_type *creature_ptr)
 		}
 	}
 
-	/* Redraw mana */
 	play_redraw |= (PR_MANA);
 
 	/* Window stuff */
@@ -1658,10 +1655,8 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 		creature_ptr->fy = sy;
 		creature_ptr->fx = sx;
 
-		/* Redraw the old spot */
 		lite_spot(floor_ptr, oy, ox);
 
-		/* Redraw the new spot */
 		lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 		/* Check for new panel */

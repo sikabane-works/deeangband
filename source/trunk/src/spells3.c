@@ -138,10 +138,8 @@ bool teleport_away(creature_type *creature_ptr, int dis, u32b mode)
 	/* Update the creature (new location) */
 	update_creature_view(player_ptr, m_idx, TRUE);
 
-	/* Redraw the old grid */
 	lite_spot(floor_ptr, oy, ox);
 
-	/* Redraw the new grid */
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(creature_ptr) || is_darken_creature(creature_ptr))
@@ -231,10 +229,8 @@ void teleport_creature_to2(int m_idx, creature_type *target_ptr, int ty, int tx,
 	/* Update the creature (new location) */
 	update_creature_view(player_ptr, m_idx, TRUE);
 
-	/* Redraw the old grid */
 	lite_spot(floor_ptr, oy, ox);
 
-	/* Redraw the new grid */
 	lite_spot(floor_ptr, ny, nx);
 
 	if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
@@ -1630,7 +1626,6 @@ static bool vanish_dungeon(floor_type *floor_ptr)
 	// Update creatures
 	player_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
@@ -1946,7 +1941,6 @@ msg_print("床上のアイテムが呪文を跳ね返した。");
 	/* Notice */
 	note_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
-	/* Redraw */
 	lite_spot(floor_ptr, creature_ptr->fy, creature_ptr->fx);
 
 	return TRUE;
@@ -2227,7 +2221,6 @@ msg_format("%sを＄%d の金に変えた。", object_name, price);
 
 		creature_ptr->au += price;
 
-		/* Redraw gold */
 		play_redraw |= (PR_GOLD);
 
 		/* Window stuff */
@@ -5330,7 +5323,6 @@ msg_format("乱暴な魔法のために%sが壊れた！", object_name);
 		creature_ptr->csp = creature_ptr->msp;
 	}
 
-	/* Redraw mana and hp */
 	play_redraw |= (PR_MANA);
 
 	creature_ptr->creature_update |= (CRU_COMBINE | CRU_REORDER);

@@ -1547,11 +1547,9 @@ errr Term_fresh(void)
 			}
 		}
 
-		/* Redraw every row */
 		Term->y1 = y1 = 0;
 		Term->y2 = y2 = h - 1;
 
-		/* Redraw every column */
 		for (y = 0; y < h; y++)
 		{
 			Term->x1[y] = 0;

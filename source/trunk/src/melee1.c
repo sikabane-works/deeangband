@@ -2219,7 +2219,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Heal the creature */
 						attacker_ptr->chp += heal;
 
-						/* Redraw (later) if needed */
 						//TODO if(&magic_info[health_who] == attacker_ptr) play_redraw |= (PR_HEALTH);
 						//if(&magic_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
 
@@ -2307,7 +2306,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 #endif
 					}
 
-					/* Redraw gold */
 					play_redraw |= (PR_GOLD);
 
 					/* Window stuff */
@@ -3009,7 +3007,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					attacker_ptr->chp += diceroll(4, damage / 6);
 					if(attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
 
-					/* Redraw (later) if needed */
 					//TODO if(health_who == m_idx) play_redraw |= (PR_HEALTH);
 					//TODO if(target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
@@ -3479,7 +3476,6 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 		close_combat(target_ptr, attacker_ptr->fy, attacker_ptr->fx, HISSATSU_COUNTER);
 		fear = FALSE;
 
-		/* Redraw mana */
 		play_redraw |= (PR_MANA);
 	}
 

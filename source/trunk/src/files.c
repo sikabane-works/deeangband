@@ -7419,7 +7419,6 @@ static void handle_signal_suspend(int sig)
 	/* Resume the "Term" */
 	Term_xtra(TERM_XTRA_ALIVE, 1);
 
-	/* Redraw the term */
 	Term_redraw();
 
 	/* Flush the term */

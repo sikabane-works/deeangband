@@ -1611,7 +1611,6 @@ void display_dungeon(creature_type *creature_ptr)
  */
 void lite_spot(floor_type *floor_ptr, int y, int x)
 {
-	/* Redraw if on screen */
 	if(panel_contains(y, x) && in_bounds2(floor_ptr, y, x))
 	{
 		byte a;
@@ -2518,7 +2517,6 @@ void forget_lite(floor_type *floor_ptr)
 		/* Forget "LITE" flag */
 		floor_ptr->cave[y][x].info &= ~(CAVE_LITE);
 
-		/* Redraw */
 		/* lite_spot(floor_ptr, y, x); Perhaps don't need? */
 	}
 
@@ -4044,7 +4042,6 @@ void delayed_visual_update(floor_type *floor_ptr)
 		/* If required, note */
 		if(cave_ptr->info & CAVE_NOTE) note_spot(floor_ptr, y, x);
 
-		/* Redraw */
 		lite_spot(floor_ptr, y, x);
 
 		/* Hack -- Visual update of creature on this grid */
@@ -4337,7 +4334,6 @@ void map_area(creature_type *creature_ptr, int range)
 		}
 	}
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
@@ -4441,7 +4437,6 @@ void wiz_lite(floor_type *floor_ptr, creature_type *creature_ptr, bool ninja)
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
@@ -4512,7 +4507,6 @@ void wiz_dark(floor_type *floor_ptr, creature_type *creature_ptr)
 	// Update creatures
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
@@ -4586,7 +4580,6 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 	/* Notice */
 	note_spot(floor_ptr, y, x);
 
-	/* Redraw */
 	lite_spot(floor_ptr, y, x);
 
 	/* Check if los has changed */
@@ -4627,7 +4620,6 @@ void cave_set_feat(floor_type *floor_ptr, int y, int x, int feat)
 				/* Notice */
 				note_spot(floor_ptr, yy, xx);
 
-				/* Redraw */
 				lite_spot(floor_ptr, yy, xx);
 			}
 
@@ -4781,7 +4773,6 @@ void remove_mirror(creature_type *creature_ptr, int y, int x)
 	/* Notice */
 	note_spot(floor_ptr, y, x);
 
-	/* Redraw */
 	lite_spot(floor_ptr, y, x);
 }
 
@@ -4960,7 +4951,6 @@ void health_track(int m_idx)
 	/* Track a new guy */
 	health_who = m_idx;
 
-	/* Redraw (later) */
 	play_redraw |= (PR_HEALTH);
 }
 
@@ -5017,7 +5007,6 @@ void disturb(creature_type *player_ptr, int stop_search, int unused_flag)
 		/* Cancel */
 		command_rep = 0;
 
-		/* Redraw the state (later) */
 		play_redraw |= (PR_STATE);
 	}
 
@@ -5095,7 +5084,6 @@ void glow_deep_lava_and_bldg(floor_type *floor_ptr)
 	/* Update the view and lite */
 	player_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_SPECIES_LITE);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 }
 

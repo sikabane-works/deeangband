@@ -591,7 +591,6 @@ void do_cmd_snipe(creature_type *creature_ptr)
 
 	if(!cast) return;
 
-	/* Redraw mana */
 	play_redraw |= (PR_HP | PR_MANA);
 
 	/* Window stuff */

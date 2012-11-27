@@ -2290,10 +2290,8 @@ static void process_nonplayer(int m_idx)
 				/* Update the creature */
 				update_creature_view(player_ptr, m_idx, TRUE);
 
-				/* Redraw the old grid */
 				lite_spot(floor_ptr, oy, ox);
 
-				/* Redraw the new grid */
 				lite_spot(floor_ptr, ny, nx);
 			}
 			else
@@ -2964,17 +2962,14 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		/* Update stuff */
 		if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
 
-		/* Redraw stuff */
 		if(play_redraw) redraw_stuff(player_ptr);
 
-		/* Redraw stuff */
 		if(play_window) window_stuff(player_ptr);
 
 		/* Delay */
 		if(vs_player) Term_xtra(TERM_XTRA_DELAY, 500);
 	}
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	// Update creatures

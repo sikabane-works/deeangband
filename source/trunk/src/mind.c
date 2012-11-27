@@ -993,7 +993,6 @@ msg_print("精神を捻じ曲げる波動を発生させた！");
 		/* Hack */
 		creature_ptr->energy_need -= 1000 + (100 + (s16b)creature_ptr->csp - 50)*TURNS_PER_TICK/10;
 
-		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
 		// Update creatures
@@ -1690,10 +1689,8 @@ msg_print("その方向にはクリーチャーはいません。");
 		/* Update the creature (new location) */
 		update_creature_view(player_ptr, m_idx, TRUE);
 
-		/* Redraw the old grid */
 		lite_spot(floor_ptr, target_row, target_col);
 
-		/* Redraw the new grid */
 		lite_spot(floor_ptr, ty, tx);
 
 		if(is_lighting_creature(m_ptr) || is_darken_creature(m_ptr))
@@ -2086,7 +2083,6 @@ msg_format("%sの力が制御できない氾流となって解放された！", p);
 #else
 		take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, mana_cost, "concentrating too hard", NULL, -1);
 #endif
-		/* Redraw hp */
 		play_redraw |= (PR_HP);
 	}
 
@@ -2137,7 +2133,6 @@ msg_print("自分の精神を攻撃してしまった！");
 		}
 	}
 
-	/* Redraw mana */
 	play_redraw |= (PR_MANA);
 
 	/* Window stuff */

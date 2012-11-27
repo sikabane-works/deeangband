@@ -393,7 +393,6 @@ static void do_cmd_wiz_change(creature_type *creature_ptr)
 	/* Interact */
 	do_cmd_wiz_change_aux(creature_ptr);
 
-	/* Redraw everything */
 	do_cmd_redraw();
 }
 
@@ -1806,7 +1805,6 @@ static void do_cmd_wiz_create_feature(creature_type *creature_ptr)
 	/* Notice */
 	note_spot(floor_ptr, y, x);
 
-	/* Redraw */
 	lite_spot(floor_ptr, y, x);
 
 	/* Update some things */

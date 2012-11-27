@@ -1457,7 +1457,6 @@ void do_cmd_locate(creature_type *creature_ptr)
 	/* Update stuff */
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */

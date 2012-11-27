@@ -1651,7 +1651,6 @@ static void term_window_resize(term_data *td)
 		     td->size_wid, td->size_hgt,
 		     SWP_NOMOVE | SWP_NOZORDER);
 
-	/* Redraw later */
 	InvalidateRect(td->w, NULL, TRUE);
 }
 
@@ -1877,7 +1876,6 @@ static void term_data_redraw(term_data *td)
 {
 	if(td->map_active)
 	{
-		/* Redraw the map */
 		windows_map();
 	}
 	else
@@ -1885,7 +1883,6 @@ static void term_data_redraw(term_data *td)
 		/* Activate the term */
 		Term_activate(&td->t);
 
-		/* Redraw the contents */
 		Term_redraw();
 
 		/* Restore the term */
@@ -2079,7 +2076,6 @@ static errr Term_xtra_win_react(void)
 			/* Hack -- Resize the term */
 			Term_resize(td->cols, td->rows);
 
-			/* Redraw the contents */
 			Term_redraw();
 
 			/* Restore */
@@ -3926,7 +3922,6 @@ static void process_menus(WORD wCmd)
 			/* Resize the term */
 			Term_resize(td->cols, td->rows);
 
-			/* Redraw later */
 			InvalidateRect(td->w, NULL, TRUE);
 
 			break;
@@ -4569,7 +4564,6 @@ LRESULT FAR PASCAL AngbandWndProc(HWND hWnd, UINT uMsg,
 						/* Resize the term */
 						Term_resize(td->cols, td->rows);
 
-						/* Redraw later */
 						InvalidateRect(td->w, NULL, TRUE);
 					}
 
@@ -4761,7 +4755,6 @@ LRESULT FAR PASCAL AngbandListProc(HWND hWnd, UINT uMsg,
 				/* Activate */
 				Term_activate(old_term);
 
-				/* Redraw later */
 				InvalidateRect(td->w, NULL, TRUE);
 
 				/* HACK - Redraw all windows */

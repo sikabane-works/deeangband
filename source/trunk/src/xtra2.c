@@ -75,7 +75,6 @@ void check_experience(creature_type *creature_ptr)
 	/* Hack -- maintain "max max" experience */
 	if(creature_ptr->max_exp > creature_ptr->max_max_exp) creature_ptr->max_max_exp = creature_ptr->max_exp;
 
-	/* Redraw experience */
 	if(is_player(creature_ptr))
 		play_redraw |= (PR_EXP);
 
@@ -97,7 +96,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Update some stuff */
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
-		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
 
 		/* Window stuff */
@@ -144,7 +142,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Update some stuff */
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
-		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE | PR_EXP);
 
 		/* Window stuff */
@@ -254,7 +251,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Update some stuff */
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
-		/* Redraw some stuff */
 		play_redraw |= (PR_LEV | PR_TITLE);
 
 		/* Window stuff */
@@ -1175,13 +1171,11 @@ void resize_map(void)
 	// Update creatures
 	player_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Hack -- update */
 	handle_stuff();
 
-	/* Redraw */
 	Term_redraw();
 
 	/*
@@ -1208,7 +1202,6 @@ void redraw_window(void)
 	/* Hack -- update */
 	handle_stuff();
 
-	/* Redraw */
 	Term_redraw();
 }
 
@@ -1254,7 +1247,6 @@ bool change_panel(int dy, int dx)
 		/* Update stuff */
 		player_ptr->creature_update |= (PU_CREATURES);
 
-		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
 		/* Handle stuff */
@@ -1374,7 +1366,6 @@ void verify_panel(creature_type *creature_ptr)
 	/* Update stuff */
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */
@@ -2764,7 +2755,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 					/* Update stuff */
 					aimer_ptr->creature_update |= (PU_CREATURES);
 
-					/* Redraw map */
 					play_redraw |= (PR_MAP);
 
 					/* Window stuff */
@@ -4242,7 +4232,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 					/* Update stuff */
 					creature_ptr->creature_update |= (PU_CREATURES);
 
-					/* Redraw map */
 					play_redraw |= (PR_MAP);
 
 					/* Window stuff */
@@ -4333,7 +4322,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	/* Update stuff */
 	creature_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	/* Window stuff */

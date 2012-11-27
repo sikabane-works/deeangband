@@ -972,7 +972,6 @@ void stop_singing(creature_type *creature_ptr)
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
 }
 
@@ -9669,7 +9668,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 				msg_print("You recall the valor of Fingolfin's challenge to the Dark Lord...");
 #endif
 
-				/* Redraw map */
 				play_redraw |= (PR_MAP);
 		
 				// Update creatures
@@ -9690,7 +9688,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 #else
 				msg_print("The invulnerability wears off.");
 #endif
-				/* Redraw map */
 				play_redraw |= (PR_MAP);
 
 				// Update creatures
@@ -10569,10 +10566,8 @@ static cptr do_hissatsu_spell(creature_type *caster_ptr, int spell, int mode)
 	
 				update_creature_view(player_ptr, m_idx, TRUE);
 	
-				/* Redraw the old spot */
 				lite_spot(floor_ptr, y, x);
 	
-				/* Redraw the new spot */
 				lite_spot(floor_ptr, ny, nx);
 	
 				/* Player can move forward? */
@@ -11789,7 +11784,6 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 				if(cont) creature_ptr->class_skills.old_skills.magic_num2[0]--;
 				if(creature_ptr->class_skills.old_skills.magic_num2) creature_ptr->action = ACTION_NONE;
 
-				/* Redraw status */
 				creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 				play_redraw |= (PR_EXTRA);
 
@@ -12073,7 +12067,6 @@ static cptr do_hex_spell(creature_type *creature_ptr, int spell, int mode)
 		if(creature_ptr->action != ACTION_SPELL) set_action(creature_ptr, ACTION_SPELL);
 	}
 
-	/* Redraw status */
 	if(!info)
 	{
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);

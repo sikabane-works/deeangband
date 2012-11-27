@@ -4007,7 +4007,6 @@ static void bldg_process_player_command(creature_type *creature_ptr, building_ty
 		/* Total winner */
 		creature_ptr->total_winner = TRUE;
 
-		/* Redraw the "title" */
 		play_redraw |= (PR_TITLE);
 
 #ifdef JP
@@ -4245,7 +4244,6 @@ void do_cmd_bldg(creature_type *creature_ptr)
 	creature_ptr->creature_update |= CRU_BONUS;
 	creature_ptr->creature_update |= (PU_VIEW | PU_CREATURES | PU_LITE | PU_SPECIES_LITE);
 
-	/* Redraw entire screen */
 	play_redraw |= (PR_BASIC | PR_EXTRA | PR_EQUIPPY | PR_MAP);
 
 	/* Window stuff */

@@ -1478,7 +1478,6 @@ static void auto_inscribe_item(creature_type *creature_ptr, object_type *object_
 	if(!object_ptr->inscription)
 		object_ptr->inscription = quark_add(autopick_list[idx].insc);
 
-	/* Redraw inscription */
 	play_window |= (PW_EQUIP | PW_INVEN);
 
 	/* {.} and {$} effect warning and TRAIT_ACTIVE_TELEPORT_SELF */
@@ -4530,11 +4529,9 @@ static void draw_text_editor(text_body_type *tb)
 	if(tb->left < 0)
 		tb->left = 0;
 
-	/* Redraw whole window after resize */
 	if(tb->old_wid != tb->wid || tb->old_hgt != tb->hgt)
 		tb->dirty_flags |= DIRTY_SCREEN;
 
-	/* Redraw all text after scroll */
 	else if(tb->old_upper != tb->upper || tb->old_left != tb->left)
 		tb->dirty_flags |= DIRTY_ALL;
 
@@ -4547,7 +4544,6 @@ static void draw_text_editor(text_body_type *tb)
 		Term_clear();
 	}
 
-	/* Redraw mode line */
 	if(tb->dirty_flags & DIRTY_MODE)
 	{
 		char buf[MAX_LINELEN];
@@ -5129,7 +5125,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 #else
 		(void)show_file(TRUE, "editor.txt", NULL, 0, 0);
 #endif
-		/* Redraw all */
 		tb->dirty_flags |= DIRTY_SCREEN;
 
 		break;
@@ -5502,7 +5497,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 			/* Disable the selection */
 			tb->mark = 0;
 
-			/* Redraw text */
 			tb->dirty_flags |= DIRTY_ALL;
 		}
 		else
@@ -5521,7 +5515,6 @@ static bool do_editor_command(creature_type *creature_ptr, text_body_type *tb, i
 				tb->cx = tb->mx;
 				tb->mx = tmp;
 
-				/* Redraw text */
 				tb->dirty_flags |= DIRTY_ALL;
 			}
 			else
@@ -6106,7 +6099,6 @@ static int analyze_move_key(text_body_type *tb, int skey)
 			/* Need to redraw text */
 			if(com_id == EC_UP || com_id == EC_DOWN)
 			{
-				/* Redraw all text */
 				tb->dirty_flags |= DIRTY_ALL;
 			}
 			else
@@ -6251,7 +6243,6 @@ void do_cmd_edit_autopick(creature_type *creature_ptr)
 		{
 			com_id = do_command_menu(0, 0);
 
-			/* Redraw all text later */
 			tb->dirty_flags |= DIRTY_SCREEN;
 		}
 

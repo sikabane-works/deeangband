@@ -432,7 +432,6 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 
 					c_ptr->info &= ~(CAVE_UNSAFE);
 
-					/* Redraw */
 					lite_spot(floor_ptr, y, x);
 				}
 			}
@@ -446,7 +445,6 @@ static bool detect_feat_flag(creature_type *creature_ptr, int range, int flag, b
 				/* Hack -- Memorize */
 				c_ptr->info |= (CAVE_MARK);
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 
 				/* Obvious */
@@ -594,7 +592,6 @@ bool detect_objects_gold(creature_type *creature_ptr, int range)
 			/* Hack -- memorize it */
 			object_ptr->marked |= OM_FOUND;
 
-			/* Redraw */
 			lite_spot(floor_ptr, y, x);
 
 			/* Detect */
@@ -662,7 +659,6 @@ bool detect_objects_normal(creature_type *creature_ptr, int range)
 			/* Hack -- memorize it */
 			object_ptr->marked |= OM_FOUND;
 
-			/* Redraw */
 			lite_spot(floor_ptr, y, x);
 
 			/* Detect */
@@ -760,7 +756,6 @@ bool detect_objects_magic(creature_type *creature_ptr, int range)
 			/* Memorize the item */
 			object_ptr->marked |= OM_FOUND;
 
-			/* Redraw */
 			lite_spot(floor_ptr, y, x);
 
 			/* Detect */
@@ -1596,7 +1591,6 @@ bool genocide_aux(creature_type *user_ptr, int m_idx, int power, bool player_cas
 	/* Visual feedback */
 	move_cursor_relative(user_ptr->fy, user_ptr->fx);
 
-	/* Redraw */
 	play_redraw |= (PR_HP);
 
 	/* Window stuff */
@@ -2187,7 +2181,6 @@ bool destroy_area(creature_type *caster_ptr, int y1, int x1, int r, bool in_gene
 		/* Update stuff */
 		caster_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
-		/* Redraw map */
 		play_redraw |= (PR_MAP);
 
 		/* Window stuff */
@@ -3323,7 +3316,6 @@ bool wall_stone(creature_type *caster_ptr)
 	/* Update stuff */
 	caster_ptr->creature_update |= (PU_FLOW);
 
-	/* Redraw map */
 	play_redraw |= (PR_MAP);
 
 	return dummy;

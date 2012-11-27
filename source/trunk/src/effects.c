@@ -245,7 +245,6 @@ void set_action(creature_type *creature_ptr, int typ)
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Redraw the state */
 	play_redraw |= (PR_STATE);
 }
 
@@ -303,7 +302,6 @@ void dispel_creature(creature_type *creature_ptr)
 		/* Recalculate bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
-		/* Redraw map */
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
 
 		// Update creatures
@@ -455,7 +453,6 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Use the value */
 		creature_ptr->timed_trait[TRAIT_AFRAID] = v;
 
-		/* Redraw status bar */
 		play_redraw |= (PR_STATUS);
 
 		/* Nothing to notice */
@@ -579,7 +576,6 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 	/* Nothing to notice */
 	if(!notice) return FALSE;
 
-	/* Redraw status bar */
 	play_redraw |= (PR_STATUS);
 
 	/* Disturb */
@@ -795,7 +791,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Redraw the "stun" */
 	play_redraw |= (PR_STUN);
 
 	/* Handle stuff */
@@ -1103,7 +1098,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Redraw the "cut" */
 	play_redraw |= (PR_CUT);
 
 	/* Handle stuff */
@@ -1387,7 +1381,6 @@ bool set_food(creature_type *creature_ptr, int v)
 	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
-	/* Redraw hunger */
 	play_redraw |= (PR_HUNGER);
 
 	/* Handle stuff */

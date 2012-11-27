@@ -1654,7 +1654,6 @@ static void fix_overhead(creature_type *watcher_ptr)
 		Term_get_size(&wid, &hgt);
 		if(wid > COL_MAP + 2 && hgt > ROW_MAP + 2)
 		{
-			/* Redraw map */
 			display_map(watcher_ptr, &cy, &cx);
 
 			/* Fresh */
@@ -1688,7 +1687,6 @@ static void fix_dungeon(creature_type *creature_ptr)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		/* Redraw dungeon view */
 		display_dungeon(creature_ptr);
 
 		/* Fresh */
@@ -2088,10 +2086,8 @@ static void calc_spells(creature_type *creature_ptr, bool message)
 		/* Save the new_spells value */
 		creature_ptr->old_spells = creature_ptr->new_spells;
 
-		/* Redraw Study Status */
 		play_redraw |= (PR_STUDY);
 
-		/* Redraw object recall */
 		play_window |= (PW_OBJECT);
 	}
 }
@@ -4596,7 +4592,6 @@ void update_creature(creature_type *creature_ptr, bool message)
  */
 void redraw_stuff(creature_type *subjectivity_ptr)
 {
-	/* Redraw stuff */
 	if(!play_redraw) return;
 
 	/* Character is not ready yet, no screen updates */

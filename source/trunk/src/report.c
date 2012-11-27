@@ -316,7 +316,6 @@ cptr make_screen_dump(void)
 		use_graphics = FALSE;
 		reset_visuals();
 
-		/* Redraw everything */
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
@@ -393,7 +392,6 @@ cptr make_screen_dump(void)
 		use_graphics = TRUE;
 		reset_visuals();
 
-		/* Redraw everything */
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */

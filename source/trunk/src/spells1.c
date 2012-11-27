@@ -760,7 +760,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 
 				obvious = TRUE;
@@ -796,7 +795,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			{
 				c_ptr->info &= ~(CAVE_UNSAFE);
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 
 				obvious = TRUE;
@@ -819,7 +817,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Notice */
 				note_spot(floor_ptr, y, x);
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 
 				/* Check line of sight */
@@ -921,7 +918,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 			/* Notice */
 			note_spot(floor_ptr, y, x);
 
-			/* Redraw */
 			lite_spot(floor_ptr, y, x);
 
 			break;
@@ -1000,7 +996,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 				/* Notice */
 				note_spot(floor_ptr, y, x);
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 
 				update_local_illumination(floor_ptr, y, x);
@@ -1065,7 +1060,6 @@ static bool project_feature(creature_type *aimer_ptr, creature_type *target_ptr,
 					note_spot(floor_ptr, y, x);
 				}
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 
 				update_local_illumination(floor_ptr, y, x);
@@ -1641,7 +1635,6 @@ static bool project_object(creature_type *caster_ptr, int r, int y, int x, int d
 					//TODO (void)potion_smash_effect(who, y, x, k_idx);
 				}
 
-				/* Redraw */
 				lite_spot(floor_ptr, y, x);
 			}
 		}
@@ -2713,7 +2706,6 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				caster_ptr->chp += (6 * dam);
 				if(caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
 
-				/* Redraw (later) if needed */
 				if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
 				if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 

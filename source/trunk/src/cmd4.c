@@ -1151,7 +1151,6 @@ void do_cmd_redraw(void)
 	// Update creatures
 	player_ptr->creature_update |= (PU_CREATURES);
 
-	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	/* Window stuff */
@@ -1169,7 +1168,6 @@ void do_cmd_redraw(void)
 	if(has_trait(player_ptr, TRAIT_ANDROID)) calc_android_exp(player_ptr);
 	*/
 
-	/* Redraw every window */
 	for (j = 0; j < 8; j++)
 	{
 		/* Dead window */
@@ -1178,7 +1176,6 @@ void do_cmd_redraw(void)
 		/* Activate */
 		Term_activate(angband_term[j]);
 
-		/* Redraw */
 		Term_redraw();
 
 		/* Refresh */
@@ -1258,7 +1255,6 @@ void do_cmd_change_name(creature_type *creature_ptr)
 	/* Restore the screen */
 	screen_load();
 
-	/* Redraw everything */
 	play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 	handle_stuff();
@@ -5893,7 +5889,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		use_graphics = FALSE;
 		reset_visuals();
 
-		/* Redraw everything */
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */
@@ -6017,7 +6012,6 @@ void do_cmd_save_screen(creature_type *player_ptr)
 		use_graphics = TRUE;
 		reset_visuals();
 
-		/* Redraw everything */
 		play_redraw |= (PR_WIPE | PR_BASIC | PR_EXTRA | PR_MAP | PR_EQUIPPY);
 
 		/* Hack -- update */

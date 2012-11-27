@@ -1699,21 +1699,18 @@ bool get_item(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, int mode
 		/* Update */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
-		/* Redraw windows */
 		window_stuff(player_ptr);
 
 
 		/* inventory screen */
 		if(!command_wrk)
 		{
-			/* Redraw if needed */
 			if(command_see) get_item_label = show_item_list(menu_line, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, hook);
 		}
 
 		/* Equipment screen */
 		else
 		{
-			/* Redraw if needed */
 			if(command_see) get_item_label = show_item_list(menu_line, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
 		}
 
@@ -2700,7 +2697,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 		/* Update */
 		play_window |= (PW_INVEN | PW_EQUIP);
 
-		/* Redraw windows */
 		window_stuff(player_ptr);
 
 		/* creature_ptr->inventory screen */
@@ -2710,7 +2706,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			n1 = I2A(i1);
 			n2 = I2A(i2);
 
-			/* Redraw if needed */
 			if(command_see) get_item_label = show_item_list(menu_line, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_INVENTORY, hook);
 		}
 
@@ -2721,7 +2716,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			n1 = I2A(e1);
 			n2 = I2A(e2);
 
-			/* Redraw if needed */
 			if(command_see) get_item_label = show_item_list(menu_line, creature_ptr, SHOW_ITEM_RIGHT_SET | SHOW_ITEM_EQUIPMENT, hook);
 		}
 
@@ -2735,7 +2729,6 @@ bool get_item_floor(creature_type *creature_ptr, int *cp, cptr pmt, cptr str, in
 			n1 = I2A(j - floor_top);
 			n2 = I2A(k - floor_top);
 
-			/* Redraw if needed */
 			if(command_see) get_item_label = show_floor(floor_ptr, menu_line, creature_ptr->fy, creature_ptr->fx, &min_width);
 		}
 
@@ -3744,7 +3737,6 @@ void py_pickup_floor(creature_type *creature_ptr, bool pickup)
 			/* Collect the gold */
 			creature_ptr->au += object_ptr->pval;
 
-			/* Redraw gold */
 			play_redraw |= (PR_GOLD);
 
 			/* Window stuff */
