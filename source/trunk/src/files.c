@@ -6291,7 +6291,6 @@ msg_print("©“®ƒZ[ƒu’†");
 	(void)strcpy(gameover_from, "(alive and well)");
 #endif
 
-	/* Update stuff */
 	//TODO update_creature(creature_ptr, TRUE);
 
 	/* Initialize creature process */

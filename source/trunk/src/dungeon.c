@@ -5419,10 +5419,8 @@ void waited_report_score(void)
 #endif
 		quit(0);
 
-	/* Update stuff */
 	player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
-	/* Update stuff */
 	update_creature(player_ptr, TRUE);
 
 	gameover = TRUE;
@@ -5695,7 +5693,6 @@ static void play_loop(void)
 		//TODO DELETE?
 		//handle_stuff();
 
-		/* Update stuff */
 		player_ptr->creature_update |= (CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS | CRU_COMBINE | CRU_REORDER);
 		notice_stuff(player_ptr);
 

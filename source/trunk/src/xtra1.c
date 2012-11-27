@@ -2500,7 +2500,6 @@ static void calc_lite(creature_type *creature_ptr)
 	/* Notice changes in the "lite radius" */
 	if(creature_ptr->old_lite != creature_ptr->cur_lite)
 	{
-		/* Update stuff */
 		/* Hack -- PU_SPECIES_LITE for creatures' darkness */
 		creature_ptr->creature_update |= (PU_LITE | PU_SPECIES_LITE | PU_CREATURES);
 

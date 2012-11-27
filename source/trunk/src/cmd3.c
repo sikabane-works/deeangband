@@ -1452,7 +1452,6 @@ void do_cmd_locate(creature_type *creature_ptr)
 	/* Recenter the map around the player */
 	verify_panel(creature_ptr);
 
-	/* Update stuff */
 	creature_ptr->creature_update |= (PU_CREATURES);
 
 	play_redraw |= (PR_MAP);

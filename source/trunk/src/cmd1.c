@@ -580,7 +580,7 @@ void carry(creature_type *creature_ptr, bool pickup)
 
 	play_redraw |= (PR_MAP); // Redraw map
 	play_window |= (PW_OVERHEAD); // Window stuff
-	handle_stuff(); // Handle stuff
+	handle_stuff();
 
 	autopick_pickup_items(creature_ptr, c_ptr); // Automatically pickup/destroy/inscribe items
 

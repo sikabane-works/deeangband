@@ -4647,7 +4647,6 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		}
 	}
 
-	/* Update stuff if needed */
 	if(caster_ptr->creature_update) update_creature(player_ptr, TRUE);
 
 	if(flg & PROJECT_KILL)
@@ -4697,7 +4696,6 @@ bool project(creature_type *caster_ptr, int range, int rad, int y, int x, int da
 		}
 	}
 
-	/* Update stuff if needed */
 	if(caster_ptr->creature_update) update_creature(player_ptr, TRUE);
 
 	/* Check objects */

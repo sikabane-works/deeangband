@@ -145,7 +145,6 @@ void check_experience(creature_type *creature_ptr)
 		/* Window stuff */
 		play_window |= (PW_PLAYER | PW_SPELL | PW_INVEN);
 
-		// Handle stuff
 		creature_ptr->level_up = TRUE;
 		handle_stuff();
 		creature_ptr->level_up = FALSE;
@@ -1156,7 +1155,6 @@ void resize_map(void)
 
 	verify_panel(player_ptr);
 
-	/* Update stuff */
 	player_ptr->creature_update |= (CRU_TORCH | CRU_BONUS | CRU_HP | CRU_MANA | CRU_SPELLS);
 
 	/* Forget lite/view */
@@ -1240,7 +1238,6 @@ bool change_panel(int dy, int dx)
 
 		panel_bounds_center();
 
-		/* Update stuff */
 		player_ptr->creature_update |= (PU_CREATURES);
 
 		play_redraw |= (PR_MAP);
@@ -1357,7 +1354,6 @@ void verify_panel(creature_type *creature_ptr)
 
 	panel_bounds_center();
 
-	/* Update stuff */
 	creature_ptr->creature_update |= (PU_CREATURES);
 
 	play_redraw |= (PR_MAP);
@@ -2746,7 +2742,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 					/* Recenter the map around the player */
 					verify_panel(aimer_ptr);
 
-					/* Update stuff */
 					aimer_ptr->creature_update |= (PU_CREATURES);
 
 					play_redraw |= (PR_MAP);
@@ -2911,7 +2906,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 				verify_panel(aimer_ptr);	// Recenter the map around the player
 				aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 				play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
-				handle_stuff();	// Handle stuff
+				handle_stuff();
 				target_set_prepare(aimer_ptr, mode);	// Recalculate interesting grids
 				y = aimer_ptr->fy;
 				x = aimer_ptr->fx;
@@ -3011,7 +3006,7 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 	verify_panel(aimer_ptr);	// Recenter the map around the player
 	aimer_ptr->creature_update |= (PU_CREATURES);	// Update stuff
 	play_redraw |= PR_MAP | PW_OVERHEAD;	// Redraw map
-	handle_stuff();	// Handle stuff
+	handle_stuff();
 	if(!target_who) return FALSE;	// Failure to set target
 
 	return TRUE;	// Success
@@ -4218,7 +4213,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 					x = creature_ptr->fx;
 					verify_panel(creature_ptr);	/* Move cursor to player */
 
-					/* Update stuff */
 					creature_ptr->creature_update |= (PU_CREATURES);
 
 					play_redraw |= (PR_MAP);
@@ -4307,7 +4301,6 @@ bool tgt_pt(creature_type *creature_ptr, int *x_ptr, int *y_ptr)
 	/* Recenter the map around the player */
 	verify_panel(creature_ptr);
 
-	/* Update stuff */
 	creature_ptr->creature_update |= (PU_CREATURES);
 
 	play_redraw |= (PR_MAP);

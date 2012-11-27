@@ -53,7 +53,7 @@ bool set_timed_trait(creature_type *creature_ptr, int type, int v)
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
 	if(!notice) return FALSE;	// Nothing to notice
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
-	handle_stuff();	// Handle stuff
+	handle_stuff();
 	
 	return TRUE;	// Result
 }
@@ -98,7 +98,7 @@ bool set_timed_trait_aux(creature_type *creature_ptr, int type, int v, bool do_d
 	if(is_player(creature_ptr)) play_redraw |= (PR_STATUS);	// Redraw status bar
 	if(!notice) return FALSE;	// Nothing to notice
 	if(disturb_state) disturb(player_ptr, 0, 0); // Disturb
-	handle_stuff();	// Handle stuff
+	handle_stuff();
 	
 	return TRUE;	// Result
 }

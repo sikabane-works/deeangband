@@ -2959,7 +2959,6 @@ bool process_the_world(creature_type *player_ptr, int num, int who, bool vs_play
 		/* Notice stuff */
 		if(player_ptr->creature_update) notice_stuff(player_ptr);
 
-		/* Update stuff */
 		if(player_ptr->creature_update) update_creature(player_ptr, TRUE);
 
 		if(play_redraw) redraw_stuff(player_ptr);

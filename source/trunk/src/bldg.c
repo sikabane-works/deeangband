@@ -2210,7 +2210,7 @@ static bool kankin(creature_type *creature_ptr)
 #endif
 
 				autopick_alter_item(creature_ptr, item_new, FALSE);	// Auto-inscription
-				handle_stuff();	// Handle stuff
+				handle_stuff();
 
 				change = TRUE;
 			}

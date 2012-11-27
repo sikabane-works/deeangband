@@ -1670,7 +1670,6 @@ bool do_thrown_from_riding(creature_type *creature_ptr, int dam, bool force)
 	creature_ptr->creature_update |= (CRU_BONUS);
 	update_creature(creature_ptr, TRUE);
 
-	/* Update stuff */
 	creature_ptr->creature_update |= (PU_VIEW | PU_LITE | PU_FLOW | PU_SPECIES_LITE | PU_CREATURES);
 
 	/* Window stuff */
