@@ -2219,7 +2219,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 						/* Heal the creature */
 						attacker_ptr->chp += heal;
 
-						//TODO if(&magic_info[health_who] == attacker_ptr) play_redraw |= (PR_HEALTH);
+						//TODO if(&magic_info[npc_status_id] == attacker_ptr) play_redraw |= (PR_HEALTH);
 						//if(&magic_info[target_ptr->riding] == attacker_ptr) play_redraw |= (PR_UHEALTH);
 
 						/* Uncharge */
@@ -3007,7 +3007,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 					attacker_ptr->chp += diceroll(4, damage / 6);
 					if(attacker_ptr->chp > attacker_ptr->mhp) attacker_ptr->chp = attacker_ptr->mhp;
 
-					//TODO if(health_who == m_idx) play_redraw |= (PR_HEALTH);
+					//TODO if(npc_status_id == m_idx) play_redraw |= (PR_HEALTH);
 					//TODO if(target_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 					/* Special message */

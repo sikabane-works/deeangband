@@ -1089,7 +1089,7 @@ static void regen_creatures(creature_type *creature_ptr)
 			/* Do not over-regenerate */
 			if(m_ptr->chp > m_ptr->mhp) m_ptr->chp = m_ptr->mhp;
 
-			if(health_who == i) play_redraw |= (PR_HEALTH);
+			if(npc_status_id == i) play_redraw |= (PR_HEALTH);
 			if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 		}
 	}
@@ -4963,7 +4963,7 @@ void process_player(creature_type *creature_ptr)
 							other_ptr->see_others = FALSE; // Assume invisible
 							update_creature_view(player_ptr, i, FALSE); // Update the creature
 
-							if(health_who == i) play_redraw |= (PR_HEALTH);
+							if(npc_status_id == i) play_redraw |= (PR_HEALTH);
 							if(creature_ptr->riding == i) play_redraw |= (PR_UHEALTH);
 							lite_spot(floor_ptr, other_ptr->fy, other_ptr->fx); // Redraw regardless
 						}

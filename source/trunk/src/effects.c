@@ -495,7 +495,7 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		if(creature_ptr->see_others)
 		{
 			/* Update health bar as needed */
-			if(&creature_list[health_who] == creature_ptr) play_redraw |= (PR_HEALTH);
+			if(&creature_list[npc_status_id] == creature_ptr) play_redraw |= (PR_HEALTH);
 			if(&creature_list[creature_ptr->riding] == creature_ptr) play_redraw |= (PR_UHEALTH);
 		}
 
@@ -2406,7 +2406,7 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 		if(attacker_ptr->posture & NINJA_S_STEALTH) set_superstealth(attacker_ptr, FALSE);
 
 		// Redraw (later) if needed
-		if(&creature_list[health_who] == target_ptr) play_redraw |= (PR_HEALTH);
+		if(&creature_list[npc_status_id] == target_ptr) play_redraw |= (PR_HEALTH);
 		if(&creature_list[attacker_ptr->riding] == target_ptr) play_redraw |= (PR_UHEALTH);
 	}
 

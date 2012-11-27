@@ -36,7 +36,7 @@ cptr macro_modifiespecies_name[MAX_MACRO_MOD];
 cptr macro_triggespecies_name[MAX_MACRO_TRIG];
 cptr macro_trigger_keycode[2][MAX_MACRO_TRIG];
 
-s16b health_who = 0;	/* Health bar trackee */
+s16b npc_status_id = 0;	/* Health bar trackee */
 
 /* 
  *  List for auto-picker/destroyer entries
@@ -446,27 +446,27 @@ char *message__buf;
 /*
  * The array of normal options
  */
-u32b option_flag[8];
-u32b option_mask[8];
+u32b option_flag[WINDOW_MAX];
+u32b option_mask[WINDOW_MAX];
 
 
 /*
  * The array of window options
  */
-u32b window_flag[8];
-u32b window_mask[8];
+u32b window_flag[WINDOW_MAX];
+u32b window_mask[WINDOW_MAX];
 
 
 /*
  * The array of window pointers
  */
-term *angband_term[8];
+term *angband_term[WINDOW_MAX];
 
 
 /*
  * Standard window names
  */
-char angband_term_name[8][16] =
+char angband_term_name[WINDOW_MAX][16] =
 {
 	"D\'angband",
 	"Term-1",

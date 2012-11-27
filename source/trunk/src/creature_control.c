@@ -710,7 +710,7 @@ void delete_species_idx(creature_type *creature_ptr)
 	reset_timed_trait(creature_ptr);
 
 	if(creature_ptr == &creature_list[target_who]) target_who = 0;	// Hack -- remove target creature
-	if(creature_ptr == &creature_list[health_who]) health_track(0);	// Hack -- remove tracked creature
+	if(creature_ptr == &creature_list[npc_status_id]) health_track(0);	// Hack -- remove tracked creature
 
 	if(&creature_list[pet_t_m_idx] == creature_ptr) pet_t_m_idx = 0;
 	if(&creature_list[riding_t_m_idx] == creature_ptr) riding_t_m_idx = 0;
@@ -2802,7 +2802,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if(health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if(npc_status_id == m_idx) play_redraw |= (PR_HEALTH);
 			if(creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Hack -- Count "fresh" sightings */
@@ -2842,7 +2842,7 @@ void update_creature_view(creature_type *creature_ptr, int m_idx, bool full)
 			lite_spot(floor_ptr, fy, fx);
 
 			/* Update health bar as needed */
-			if(health_who == m_idx) play_redraw |= (PR_HEALTH);
+			if(npc_status_id == m_idx) play_redraw |= (PR_HEALTH);
 			if(creature_ptr->riding == m_idx) play_redraw |= (PR_UHEALTH);
 
 			/* Disturb on disappearance */

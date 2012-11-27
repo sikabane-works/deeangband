@@ -4943,7 +4943,7 @@ void scatter(floor_type *floor_ptr, int *yp, int *xp, int y, int x, int d, int m
 void health_track(int m_idx)
 {
 	/* Track a new guy */
-	health_who = m_idx;
+	npc_status_id = m_idx;
 
 	play_redraw |= (PR_HEALTH);
 }

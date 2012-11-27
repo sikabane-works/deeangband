@@ -1840,7 +1840,7 @@ bool do_riding(creature_type *rider_ptr, bool force)
 		steed_ptr->ridden = (s16b)rider_ptr->creature_idx;
 
 		/* Hack -- remove tracked creature */
-		if(rider_ptr->riding == health_who) health_track(0);
+		if(rider_ptr->riding == npc_status_id) health_track(0);
 	}
 
 	cost_tactical_energy(rider_ptr, 100);

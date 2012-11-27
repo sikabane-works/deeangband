@@ -1983,7 +1983,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 		(void)heal_creature(target_ptr, dam);
 
 		// Redraw (later) if needed
-		if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+		if(npc_status_id == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 		if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 		dam = 0;
 		break;
@@ -2706,7 +2706,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 				caster_ptr->chp += (6 * dam);
 				if(caster_ptr->chp > caster_ptr->mhp) caster_ptr->chp = caster_ptr->mhp;
 
-				if(&creature_list[health_who] == caster_ptr) play_redraw |= (PR_HEALTH);
+				if(&creature_list[npc_status_id] == caster_ptr) play_redraw |= (PR_HEALTH);
 				if(&creature_list[target_ptr->riding] == caster_ptr) play_redraw |= (PR_UHEALTH);
 
 				/* Special message */
@@ -3183,7 +3183,7 @@ static void project_creature_aux(creature_type *caster_ptr, creature_type *targe
 
 		if(!dam)
 		{
-			if(health_who == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
+			if(npc_status_id == c_ptr->creature_idx) play_redraw |= (PR_HEALTH);
 			if(player_ptr->riding == c_ptr->creature_idx) play_redraw |= (PR_UHEALTH);
 			break;
 		}

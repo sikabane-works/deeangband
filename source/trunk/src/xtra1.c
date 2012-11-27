@@ -1294,7 +1294,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 
 	if(riding)
 	{
-		health_who = creature_ptr->riding;
+		npc_status_id = creature_ptr->riding;
 		row = ROW_RIDING_INFO;
 		col = COL_RIDING_INFO;
 	}
@@ -1304,11 +1304,11 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		col = COL_INFO;
 	}
 
-	target_ptr = &creature_list[health_who];
+	target_ptr = &creature_list[npc_status_id];
 	species_ptr = &species_info[target_ptr->species_idx];
 
 	if(is_player(target_ptr)) return;
-	if(!health_who) Term_erase(col, row, 20);
+	if(!npc_status_id) Term_erase(col, row, 20);
 
 	if(!target_ptr->see_others || has_trait(creature_ptr, TRAIT_HALLUCINATION) || target_ptr->chp < 0)
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
@@ -1338,7 +1338,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		Term_putstr(col + 5, row, len, attr, "**********");
 		if(wizard) Term_putstr(col + 16, row, 8, TERM_L_GREEN, format("E:%d", creature_ptr->energy_need));
 
-		if(health_who)
+		if(npc_status_id)
 		{
 			k[0] = species_ptr->x_char;
 			k[1] = 0;

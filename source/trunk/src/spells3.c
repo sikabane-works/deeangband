@@ -4898,7 +4898,7 @@ bool polymorph_creature(creature_type *creature_ptr, int y, int x)
 	int new_species_idx;
 	int old_species_idx = m_ptr->species_idx;
 	bool targeted = (target_who == c_ptr->creature_idx) ? TRUE : FALSE;
-	bool health_tracked = (health_who == c_ptr->creature_idx) ? TRUE : FALSE;
+	bool health_tracked = (npc_status_id == c_ptr->creature_idx) ? TRUE : FALSE;
 	creature_type back_m;
 
 	if(floor_ptr->fight_arena_mode || floor_ptr->gamble_arena_mode) return FALSE;

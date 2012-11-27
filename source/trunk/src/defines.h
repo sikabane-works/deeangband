@@ -72,6 +72,7 @@
 
 #define MAX_FEAT_IN_TERRAIN 18
 
+#define WINDOW_MAX 8
 
 /*
  * Number of grids in each block (vertically & horizontally)
