@@ -1388,16 +1388,13 @@ static errr rd_savefile_new_aux(void)
 	u32b n_x_check, n_v_check;
 	u32b o_x_check, o_v_check;
 
-	/* Mention the savefile version */
-	note(format(
+	// Mention the savefile version
 #ifdef JP
-		     "バージョン %d.%d.%d のセーブ・ファイルをロード中...",
+	note(format("バージョン %d.%d.%d のセーブ・ファイルをロード中...", (ver_major > 9) ? ver_major - 10 : ver_major, ver_minor, ver_patch));
 #else
-		     "Loading a %d.%d.%d savefile...",
+	note(format("Loading a %d.%d.%d savefile...", (ver_major > 9) ? ver_major - 10 : ver_major, ver_minor, ver_patch));
 #endif
-		     (z_major > 9) ? z_major - 10 : z_major, z_minor, z_patch));
-
-
+		     
 	/* Strip the version bytes */
 	strip_bytes(4);
 

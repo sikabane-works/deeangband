@@ -1457,9 +1457,9 @@ int load_player(void)
 	{
 
 		/* Extract version */
-		z_major = vvv[0];
-		z_minor = vvv[1];
-		z_patch = vvv[2];
+		ver_major = vvv[0];
+		ver_minor = vvv[1];
+		ver_patch = vvv[2];
 		sf_extra = vvv[3];
 
 
@@ -1517,12 +1517,12 @@ int load_player(void)
 	if(!err)
 	{
 		// Give a conversion warning
-		if((VER_MAJOR != z_major) || (VER_MINOR != z_minor) || (VER_PATCH != z_patch))
+		if((VER_MAJOR != ver_major) || (VER_MINOR != ver_minor) || (VER_PATCH != ver_patch))
 		{
 #ifdef JP
-			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", z_major , z_minor, z_patch);
+			msg_format("バージョン %d.%d.%d 用のセーブ・ファイルを変換しました。", ver_major , ver_minor, ver_patch);
 #else
-			msg_format("Converted a %d.%d.%d savefile.", z_major , z_minor, z_patch);
+			msg_format("Converted a %d.%d.%d savefile.", ver_major , ver_minor, ver_patch);
 #endif
 			msg_print(NULL);
 		}
@@ -1583,9 +1583,9 @@ int load_player(void)
 
 
 #ifdef JP
-	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。", what, z_major, z_minor, z_patch);
+	msg_format("エラー(%s)がバージョン%d.%d.%d 用セーブファイル読み込中に発生。", what, ver_major, ver_minor, ver_patch);
 #else
-	msg_format("Error (%s) reading %d.%d.%d savefile.", what, z_major, z_minor, z_patch);
+	msg_format("Error (%s) reading %d.%d.%d savefile.", what, ver_major, ver_minor, ver_patch);
 #endif
 	msg_print(NULL);
 

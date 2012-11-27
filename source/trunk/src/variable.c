@@ -26,7 +26,7 @@ cptr copyright[5] =
 };
 
 
-bool playing;			/* True if player is playing */
+bool playing;	// True if player is playing
 
 
 int max_macrotrigger = 0;
@@ -55,9 +55,9 @@ byte ver_extra;
 
 byte sf_extra;		/* Savefile's encoding key */
 
-byte z_major;           /* Savefile version for D\'angband */
-byte z_minor;
-byte z_patch;
+byte ver_major;           /* Savefile version for D\'angband */
+byte ver_minor;
+byte ver_patch;
 
 /*
  * Savefile information
