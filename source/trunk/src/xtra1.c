@@ -1376,6 +1376,7 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 
 		/* Dump the current "health" (use '*' symbols) */
 		Term_putstr(col + 5, row, len, attr, "**********");
+		if(wizard) Term_putstr(col + 16, row, 8, TERM_L_GREEN, format("E:%d", creature_ptr->energy_need));
 
 		if(health_who)
 		{
