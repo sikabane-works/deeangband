@@ -2246,9 +2246,8 @@ void do_cmd_walk(creature_type *creature_ptr, bool pickup)
 	}
 
 	/* Get a "repeated" direction */
-	if(get_rep_dir(creature_ptr, &dir,FALSE))
+	if(get_rep_dir(creature_ptr, &dir, FALSE))
 	{
-		cost_tactical_energy(creature_ptr, 100);
 		if((dir != 5) && (GET_TIMED_TRAIT(creature_ptr, TRAIT_POSTURE_MUSOU))) set_action(creature_ptr, ACTION_NONE);
 
 		/* Hack -- In small scale wilderness it takes MUCH more time to move */

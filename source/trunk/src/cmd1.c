@@ -1670,6 +1670,7 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 	creature_ptr->depth = floor_ptr->floor_level;
 
+	cost_tactical_energy(creature_ptr, 100);
 	return creature_bold(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
