@@ -1288,7 +1288,7 @@ static void prt_stun(creature_type *creature_ptr)
 static void health_redraw(creature_type *creature_ptr, bool riding)
 {
 	int row, col;
-	creature_type *m_ptr;
+	creature_type *target_ptr;
 	species_type *species_ptr;
 	char k[2];
 
@@ -1304,19 +1304,19 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		col = COL_INFO;
 	}
 
-	m_ptr = &creature_list[health_who];
-	species_ptr = &species_info[m_ptr->species_idx];
+	target_ptr = &creature_list[health_who];
+	species_ptr = &species_info[target_ptr->species_idx];
 
-	if(is_player(m_ptr)) return;
+	if(is_player(target_ptr)) return;
 	if(!health_who) Term_erase(col, row, 20);
 
-	if(!m_ptr->see_others || has_trait(creature_ptr, TRAIT_HALLUCINATION) || m_ptr->chp < 0)
+	if(!target_ptr->see_others || has_trait(creature_ptr, TRAIT_HALLUCINATION) || target_ptr->chp < 0)
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	else
 	{
 		// Extract the "percent" of health
-		int pct = 100L * m_ptr->chp / m_ptr->mhp;
-		int pct2 = 100L * m_ptr->chp / m_ptr->mmhp;
+		int pct = 100L * target_ptr->chp / target_ptr->mhp;
+		int pct2 = 100L * target_ptr->chp / target_ptr->mmhp;
 
 		// Convert percent into "health"
 		int len = (pct2 < 10) ? 1 : (pct2 < 90) ? (pct2 / 10 + 1) : 10;
@@ -1324,10 +1324,10 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		// Health
 		byte attr = TERM_RED;
 
-		if(has_trait(m_ptr, TRAIT_INVULNERABLE)) attr = TERM_WHITE;
-		else if(m_ptr->timed_trait[TRAIT_PARALYZED]) attr = TERM_BLUE;
-		else if(m_ptr->timed_trait[TRAIT_SLEPT]) attr = TERM_BLUE;
-		else if(m_ptr->timed_trait[TRAIT_AFRAID]) attr = TERM_VIOLET;
+		if(has_trait(target_ptr, TRAIT_INVULNERABLE)) attr = TERM_WHITE;
+		else if(target_ptr->timed_trait[TRAIT_PARALYZED]) attr = TERM_BLUE;
+		else if(target_ptr->timed_trait[TRAIT_SLEPT]) attr = TERM_BLUE;
+		else if(target_ptr->timed_trait[TRAIT_AFRAID]) attr = TERM_VIOLET;
 
 		else if(pct >= 100) attr = TERM_L_GREEN;
 		else if(pct >= 60) attr = TERM_YELLOW;
