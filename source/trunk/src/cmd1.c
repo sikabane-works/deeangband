@@ -1670,7 +1670,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 
 	creature_ptr->depth = floor_ptr->floor_level;
 
-	cost_tactical_energy(creature_ptr, 100);
 	return creature_bold(creature_ptr, ny, nx) && !gameover && !subject_change_floor;
 }
 
@@ -1854,15 +1853,12 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 	bool can_kill_walls = has_trait(creature_ptr, TRAIT_KILL_WALL) && have_flag(f_ptr->flags, FF_HURT_DISI) &&
 		(!have_flag(f_ptr->flags, FF_LOS)) && !have_flag(f_ptr->flags, FF_PERMANENT);
 
-	/*
-	 * Player can move through trees and
-	 * has effective -10 speed
-	 * Rangers can move without penality
-	 */
+	cost_tactical_energy(creature_ptr, 100);
+
 	if(have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
 		if((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
 			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
-			creature_ptr->energy_need *= 2;
+				cost_tactical_energy(creature_ptr, 30);;
 }
 
 
