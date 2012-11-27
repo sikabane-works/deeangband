@@ -5077,7 +5077,7 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 			}
 			else
 			{
-				creature_ptr->csp += lev;
+				inc_mana(creature_ptr, lev);
 				object_ptr->timeout += object_kind_ptr->pval;
 			}
 		}
@@ -5086,8 +5086,6 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 	{
 		/* All staffs, wands. */
 		recharge_strength = (100 + power - lev) / 15;
-
-
 		if(recharge_strength < 0) recharge_strength = 0;
 
 		/* Back-fire */
@@ -5100,8 +5098,8 @@ msg_print("[“U’†‚Ìƒƒbƒh‚©‚ç–‚—Í‚ğ‹zû‚·‚é‚±‚Æ‚Í‚Å‚«‚Ü‚¹‚ñB");
 		{
 			if(object_ptr->pval > 0)
 			{
-				creature_ptr->csp += lev / 2;
-				object_ptr->pval --;
+				inc_mana(creature_ptr, lev / 2);
+				object_ptr->pval--;
 
 				/* XXX Hack -- unstack if necessary */
 				if((object_ptr->tval == TV_STAFF) && (item >= 0) && (object_ptr->number > 1))

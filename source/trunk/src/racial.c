@@ -913,15 +913,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				int gain_sp = take_damage_to_creature(NULL, creature_ptr, DAMAGE_USELIFE, creature_ptr->lev, "thoughtless convertion from HP to SP", NULL, -1) / 5;
 #endif
-				if(gain_sp)
-				{
-					creature_ptr->csp += gain_sp;
-					if(creature_ptr->csp > creature_ptr->msp)
-					{
-						creature_ptr->csp = creature_ptr->msp;
-						creature_ptr->csp_frac = 0;
-					}
-				}
+				if(gain_sp) inc_mana(creature_ptr, gain_sp);
 				else
 #ifdef JP
 					msg_print("•ÏŠ·‚ÉŽ¸”s‚µ‚½B");
@@ -1008,13 +1000,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 			msg_print("You feel your head clear a little.");
 #endif
-
-			creature_ptr->csp += (3 + creature_ptr->lev/20);
-			if(creature_ptr->csp >= creature_ptr->msp)
-			{
-				creature_ptr->csp = creature_ptr->msp;
-				creature_ptr->csp_frac = 0;
-			}
+			inc_mana(creature_ptr, 3 + creature_ptr->lev/20);
 
 			/* Redraw mana */
 			play_redraw |= (PR_MANA);
@@ -1110,13 +1096,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 				msg_print("You concentrate to charge your power.");
 #endif
-
-				creature_ptr->csp += creature_ptr->msp / 2;
-				if(creature_ptr->csp >= max_csp)
-				{
-					creature_ptr->csp = max_csp;
-					creature_ptr->csp_frac = 0;
-				}
+				inc_mana(creature_ptr, creature_ptr->msp / 2);
 
 				/* Redraw mana */
 				play_redraw |= (PR_MANA);
@@ -1245,13 +1225,7 @@ static bool do_racial_power_aux(creature_type *creature_ptr, s32b command)
 #else
 					msg_print("You feel your head clear a little.");
 #endif
-
-					creature_ptr->csp += (5 + creature_ptr->lev * creature_ptr->lev / 100);
-					if(creature_ptr->csp >= creature_ptr->msp)
-					{
-						creature_ptr->csp = creature_ptr->msp;
-						creature_ptr->csp_frac = 0;
-					}
+					inc_mana(creature_ptr, 5 + creature_ptr->lev * creature_ptr->lev / 100);
 
 					/* Redraw mana */
 					play_redraw |= (PR_MANA);

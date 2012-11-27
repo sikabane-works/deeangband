@@ -2929,8 +2929,18 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 void dec_mana(creature_type *creature_ptr, int val)
 {		
-		creature_ptr->csp -= val; // Use some mana
+		creature_ptr->csp -= val;
 		if(creature_ptr->csp < 0) creature_ptr->csp = creature_ptr->csp_frac = 0; // Limit
+}
+
+void inc_mana(creature_type *creature_ptr, int val)
+{		
+		creature_ptr->csp += val;
+		if(creature_ptr->csp >= creature_ptr->msp)
+		{
+			creature_ptr->csp = creature_ptr->msp;
+			creature_ptr->csp_frac = 0;
+		}
 }
 
 

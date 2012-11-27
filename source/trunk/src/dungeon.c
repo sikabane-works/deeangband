@@ -2406,8 +2406,7 @@ static void process_world_aux_time_trying(creature_type *creature_ptr)
 			{
 				healing = wounds;
 			}
-
-			creature_ptr->csp += healing;
+			inc_mana(creature_ptr, healing);
 
 			/* Redraw mana */
 			play_redraw |= (PR_MANA);

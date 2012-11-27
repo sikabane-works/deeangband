@@ -2221,7 +2221,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #endif
 			if(gain_sp)
 			{
-				caster_ptr->csp += gain_sp;
+				inc_mana(caster_ptr, gain_sp);
 				if(caster_ptr->csp > caster_ptr->msp)
 				{
 					caster_ptr->csp = caster_ptr->msp;
@@ -2354,13 +2354,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 			msg_print("You feel your head clear a little.");
 #endif
-
-			caster_ptr->csp += (3 + caster_ptr->lev/20);
-			if(caster_ptr->csp >= caster_ptr->msp)
-			{
-				caster_ptr->csp = caster_ptr->msp;
-				caster_ptr->csp_frac = 0;
-			}
+			inc_mana(caster_ptr, 3 + caster_ptr->lev / 20);
 
 			// Redraw mana
 			play_redraw |= (PR_MANA);
@@ -2439,13 +2433,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 			msg_print("You concentrate to charge your power.");
 #endif
-
-			caster_ptr->csp += caster_ptr->msp / 2;
-			if(caster_ptr->csp >= max_csp)
-			{
-				caster_ptr->csp = max_csp;
-				caster_ptr->csp_frac = 0;
-			}
+			inc_mana(caster_ptr, caster_ptr->msp / 2);
 
 			// Redraw mana
 			play_redraw |= (PR_MANA);
@@ -2552,13 +2540,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 #else
 				msg_print("You feel your head clear a little.");
 #endif
-				caster_ptr->csp += (5 + caster_ptr->lev * caster_ptr->lev / 100);
-				if(caster_ptr->csp >= caster_ptr->msp)
-				{
-					caster_ptr->csp = caster_ptr->msp;
-					caster_ptr->csp_frac = 0;
-				}
-
+				inc_mana(caster_ptr, caster_ptr->lev * caster_ptr->lev / 100);
 				play_redraw |= (PR_MANA);	// Redraw mana
 			}
 			else
