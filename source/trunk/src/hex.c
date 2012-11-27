@@ -186,7 +186,6 @@ void check_hex(creature_type *creature_ptr)
 #endif
 			creature_ptr->action = ACTION_SPELL;
 
-			/* Recalculate bonuses */
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);

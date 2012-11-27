@@ -1145,7 +1145,6 @@ static void do_cmd_refill_lamp(creature_type *creature_ptr)
 		floor_item_optimize(0 - item);
 	}
 
-	/* Recalculate torch */
 	creature_ptr->creature_update |= (CRU_TORCH);
 }
 
@@ -1260,7 +1259,6 @@ static void do_cmd_refill_torch(creature_type *creature_ptr)
 		floor_item_optimize(0 - item);
 	}
 
-	/* Recalculate torch */
 	creature_ptr->creature_update |= (CRU_TORCH);
 }
 

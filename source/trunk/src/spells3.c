@@ -1090,7 +1090,6 @@ bool apply_disenchant(creature_type *creature_ptr, int mode)
 		msg_format("Your %s (%c) %s disenchanted!", object_name, index_to_label(t), ((object_ptr->number != 1) ? "were" : "was"));
 #endif
 
-		/* Recalculate bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Window stuff */
@@ -1242,7 +1241,6 @@ msg_print("照明用アイテムは満タンになった。");
 
 	}
 
-	/* Recalculate torch */
 	creature_ptr->creature_update |= (CRU_TORCH);
 }
 
@@ -2089,7 +2087,6 @@ static int remove_curse_aux(creature_type *creature_ptr, int all)
 		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 
-		/* Recalculate the bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Window stuff */
@@ -2367,7 +2364,6 @@ bool enchant(creature_type *creature_ptr, object_type *object_ptr, int n, int ef
 
 	if(!res) return FALSE;
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
@@ -2585,7 +2581,6 @@ bool identify_item(creature_type *creature_ptr, object_type *object_ptr)
 	/* Player touches it */
 	object_ptr->marked |= OM_TOUCHED;
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine / Reorder the pack (later) */
@@ -3291,7 +3286,6 @@ msg_format("%s から邪悪なオーラが消えた。",
 		/* Take note */
 		object_ptr->feeling = FEEL_NONE;
 
-		/* Recalculate the bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Window stuff */
@@ -3393,7 +3387,6 @@ msg_format("%s は劣化した！",
 		}
 	}
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Window stuff */

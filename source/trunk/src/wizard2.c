@@ -861,7 +861,6 @@ static void wiz_reroll_item(creature_type *caster_ptr, object_type *object_ptr)
 		/* Apply changes */
 		object_copy(object_ptr, quest_ptr);
 
-		/* Recalculate bonuses */
 		caster_ptr->creature_update |= (CRU_BONUS);
 
 		/* Combine / Reorder the pack (later) */

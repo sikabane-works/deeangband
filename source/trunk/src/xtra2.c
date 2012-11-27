@@ -1241,7 +1241,6 @@ bool change_panel(int dy, int dx)
 		panel_row_min = y;
 		panel_col_min = x;
 
-		/* Recalculate the boundaries */
 		panel_bounds_center();
 
 		/* Update stuff */
@@ -1360,7 +1359,6 @@ void verify_panel(creature_type *creature_ptr)
 	/* Hack -- optional disturb on "panel change" */
 	if(disturb_panel && !center_player) disturb(player_ptr, 0, 0);
 
-	/* Recalculate the boundaries */
 	panel_bounds_center();
 
 	/* Update stuff */
@@ -2763,7 +2761,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 					/* Handle stuff */
 					handle_stuff();
 
-					/* Recalculate interesting grids */
 					target_set_prepare(aimer_ptr, mode);
 
 					y = aimer_ptr->fy;
@@ -2810,7 +2807,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						int v = temp_y[m];
 						int u = temp_x[m];
 
-						/* Recalculate interesting grids */
 						target_set_prepare(aimer_ptr, mode);
 
 						/* Look at interesting grids */
@@ -2840,7 +2836,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 						/* Handle stuff */
 						handle_stuff();
 
-						/* Recalculate interesting grids */
 						target_set_prepare(aimer_ptr, mode);
 
 						/* Look at boring grids */

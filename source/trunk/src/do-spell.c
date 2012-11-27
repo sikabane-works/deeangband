@@ -969,7 +969,6 @@ void stop_singing(creature_type *creature_ptr)
 	creature_ptr->class_skills.old_skills.magic_num1[0] = MUSIC_NONE;
 	creature_ptr->class_skills.old_skills.magic_num2[0] = 0;
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATUS);
@@ -8888,7 +8887,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			(void)heal_creature(caster_ptr, 10);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
-			/* Recalculate hitpoints */
 			caster_ptr->creature_update |= (CRU_HP);
 
 			start_singing(caster_ptr, spell, MUSIC_HERO);
@@ -9544,7 +9542,6 @@ static cptr do_music_spell(creature_type *caster_ptr, int spell, int mode)
 			(void)heal_creature(caster_ptr, 10);
 			(void)set_timed_trait(caster_ptr, TRAIT_AFRAID, 0);
 
-			/* Recalculate hitpoints */
 			caster_ptr->creature_update |= (CRU_HP);
 
 			start_singing(caster_ptr, spell, MUSIC_SHERO);

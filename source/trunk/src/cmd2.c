@@ -2421,7 +2421,6 @@ void do_cmd_rest(creature_type *creature_ptr)
 	creature_ptr->resting = command_arg;
 	creature_ptr->action = ACTION_REST;
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATE);
@@ -3920,7 +3919,6 @@ msg_print("‚±‚ê‚Í‚ ‚Ü‚è—Ç‚­‚È‚¢‹C‚ª‚·‚éB");
 			/* Increment the equip counter by hand */
 			creature_ptr->equip_cnt++;
 
-			/* Recalculate bonuses */
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_TORCH | CRU_MANA);
 
 			/* Window stuff */

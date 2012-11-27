@@ -1179,7 +1179,6 @@ static void notice_lite_change(creature_type *creature_ptr, object_type *object_
 		msg_print("Your light has gone out!");
 #endif
 
-		/* Recalculate torch radius */
 		creature_ptr->creature_update |= (CRU_TORCH | CRU_BONUS);
 	}
 
@@ -1461,7 +1460,6 @@ static void check_music(creature_type *creature_ptr)
 #endif
 			creature_ptr->action = ACTION_SING;
 
-			/* Recalculate bonuses */
 			creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
 			play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);

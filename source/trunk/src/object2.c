@@ -3866,7 +3866,6 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 			/* Increase the weight */
 			set_inventory_weight(creature_ptr);
 
-			/* Recalculate bonuses */
 			creature_ptr->creature_update |= (CRU_BONUS);
 
 			/* Window stuff */
@@ -3944,7 +3943,6 @@ s16b inven_carry(creature_type *creature_ptr, object_type *object_ptr)
 	/* Count the items */
 	creature_ptr->inven_cnt++;
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	/* Combine and Reorder pack */

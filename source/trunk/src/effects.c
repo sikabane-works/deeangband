@@ -242,7 +242,6 @@ void set_action(creature_type *creature_ptr, int typ)
 		}
 	}
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STATE);
@@ -299,7 +298,6 @@ void dispel_creature(creature_type *creature_ptr)
 #endif
 		creature_ptr->action = ACTION_NONE;
 
-		/* Recalculate bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS | CRU_HP);
 
 		play_redraw |= (PR_MAP | PR_STATUS | PR_STATE);
@@ -788,7 +786,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_STUN);
@@ -1095,7 +1092,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_CUT);
@@ -1378,7 +1374,6 @@ bool set_food(creature_type *creature_ptr, int v)
 	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
-	/* Recalculate bonuses */
 	creature_ptr->creature_update |= (CRU_BONUS);
 
 	play_redraw |= (PR_HUNGER);
@@ -1541,7 +1536,6 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 		/* Redisplay the stats later */
 		play_redraw |= (PR_STATS);
 
-		/* Recalculate bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
 	}
 
@@ -1560,7 +1554,6 @@ bool res_stat(creature_type *creature_ptr, int stat)
 		/* Restore */
 		creature_ptr->stat_cur[stat] = creature_ptr->stat_max[stat];
 
-		/* Recalculate bonuses */
 		creature_ptr->creature_update |= (CRU_BONUS);
 
 		/* Redisplay the stats later */
