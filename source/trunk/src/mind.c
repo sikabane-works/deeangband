@@ -324,9 +324,9 @@ void mindcraft_info(creature_type *creature_ptr, char *p, int use_mind, int powe
 	case 11: sprintf(p, " %s%dd6", s_dam, plev / 2);  break;
 	case 12: sprintf(p, " %sd%d+%d", s_dam, plev * 3, plev * 3); break;
 #ifdef JP
-	case 13: sprintf(p, " s“®:%ld‰ñ", (creature_ptr->csp + 100-creature_ptr->energy_need - 50)/100); break;
+	case 13: sprintf(p, " s“®:%ld‰ñ", (creature_ptr->csp + 100 - creature_ptr->energy_need - 50) / 100); break;
 #else
-	case 13: sprintf(p, " %ld acts.", (creature_ptr->csp + 100-creature_ptr->energy_need - 50)/100); break;
+	case 13: sprintf(p, " %ld acts.", (creature_ptr->csp + 100 - creature_ptr->energy_need - 50) / 100); break;
 #endif
 	}
       break;
@@ -2071,14 +2071,13 @@ msg_format("%s‚Ì—Í‚ª§Œä‚Å‚«‚È‚¢”Ã—¬‚Æ‚È‚Á‚Ä‰ð•ú‚³‚ê‚½I", p);
 		if(!cast) return;
 	}
 
-
 	/* Take a turn */
-	cost_tactical_energy(creature_ptr, 100);
+	
+
 	/* teleport from mirror costs small energy */
-	if(on_mirror && creature_ptr->class_idx == CLASS_MIRROR_MASTER)
-	{
-	  if(n==3 || n==5 || n==7 || n==16) creature_ptr->energy_need = 50;
-	}
+	if(on_mirror && creature_ptr->class_idx == CLASS_MIRROR_MASTER && (n==3 || n==5 || n==7 || n==16))
+		cost_tactical_energy(creature_ptr, 50);
+	else cost_tactical_energy(creature_ptr, 100);
 
 	if((use_mind == MIND_BERSERKER) || (use_mind == MIND_NINJUTSU))
 	{

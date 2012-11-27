@@ -1510,7 +1510,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 		caster_ptr->time_stopper = TRUE;
 		msg_print(NULL);
 
-		caster_ptr->energy_need -= 1000 + (100 + (s16b)randint1(200) + 200) * TURNS_PER_TICK / 10; // Hack
+		cost_tactical_energy(caster_ptr, -1000 - (100 + randint1(200) + 200) * TURNS_PER_TICK / 10);
 		play_redraw |= (PR_MAP); // Redraw map
 		caster_ptr->creature_update |= (PU_CREATURES); // Update creatures
 		play_window |= (PW_OVERHEAD | PW_DUNGEON); // Window stuff
@@ -2322,7 +2322,7 @@ bool do_active_trait(creature_type *caster_ptr, int id, bool message)
 						handle_stuff();
 						close_combat(caster_ptr, y, x, 0);
 					}
-					caster_ptr->energy_need += ENERGY_NEED(100);
+					cost_tactical_energy(caster_ptr, 100);
 				}
 				else
 				{

@@ -2554,7 +2554,7 @@ static void process_creature(int i)
 	else if(CURRENT_FLOOR_PTR == floor_ptr)
 	{
 		process_nonplayer(i); // Process non player creature
-		creature_ptr->energy_need += ENERGY_NEED(100); // Use up "some" energy
+		cost_tactical_energy(creature_ptr, 100); // Use up "some" energy
 	}
 
 	reset_target(creature_ptr);
