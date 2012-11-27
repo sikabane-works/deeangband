@@ -1337,44 +1337,30 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 	}
 
-	/* Tracking a visible creature */
+	// Tracking a visible creature
 	else
 	{
-		/* Extract the "percent" of health */
+		// Extract the "percent" of health
 		int pct = 100L * m_ptr->chp / m_ptr->mhp;
 		int pct2 = 100L * m_ptr->chp / m_ptr->mmhp;
 
-		/* Convert percent into "health" */
+		// Convert percent into "health"
 		int len = (pct2 < 10) ? 1 : (pct2 < 90) ? (pct2 / 10 + 1) : 10;
 
-		/* Default to almost dead */
+		// Health
 		byte attr = TERM_RED;
 
-		/* Invulnerable */
 		if(has_trait(m_ptr, TRAIT_INVULNERABLE)) attr = TERM_WHITE;
-
-		/* Asleep */
 		else if(m_ptr->timed_trait[TRAIT_PARALYZED]) attr = TERM_BLUE;
-
-		/* Afraid */
+		else if(m_ptr->timed_trait[TRAIT_SLEPT]) attr = TERM_BLUE;
 		else if(m_ptr->timed_trait[TRAIT_AFRAID]) attr = TERM_VIOLET;
 
-		/* Healthy */
 		else if(pct >= 100) attr = TERM_L_GREEN;
-
-		/* Somewhat Wounded */
 		else if(pct >= 60) attr = TERM_YELLOW;
-
-		/* Wounded */
 		else if(pct >= 25) attr = TERM_ORANGE;
-
-		/* Badly wounded */
 		else if(pct >= 10) attr = TERM_L_RED;
-
-		/* Default to "unknown" */
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
 
-		/* Dump the current "health" (use '*' symbols) */
 		Term_putstr(col + 5, row, len, attr, "**********");
 		if(wizard) Term_putstr(col + 16, row, 8, TERM_L_GREEN, format("E:%d", creature_ptr->energy_need));
 
@@ -1388,38 +1374,21 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 }
 
 
-
-/*
- * Display basic info (mostly left of map)
- */
+// Display basic info (mostly left of map)
 static void prt_frame_basic(creature_type *creature_ptr)
 {
 	int i;
-
-	/* Level/Experience */
 	prt_level(creature_ptr);
 	prt_exp(creature_ptr);
 
-	/* All Stats */
 	for (i = 0; i < STAT_MAX; i++) prt_stat(creature_ptr, i);
-
-	/* Armor */
 	prt_ac_ev(creature_ptr);
-
-	/* Hitpoints */
 	prt_hp(creature_ptr);
-
-	/* Spellpoints */
 	prt_sp(creature_ptr);
-
-	/* Gold */
 	prt_gold(creature_ptr);
-
-	/* Current depth */
 	prt_depth(creature_ptr);
 
-	/* Special */
-//TODO	//health_redraw(creature_ptr, FALSE);
+	//TODO	//health_redraw(creature_ptr, FALSE);
 }
 
 
