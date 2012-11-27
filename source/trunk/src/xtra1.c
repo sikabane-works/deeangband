@@ -1307,37 +1307,11 @@ static void health_redraw(creature_type *creature_ptr, bool riding)
 	m_ptr = &creature_list[health_who];
 	species_ptr = &species_info[m_ptr->species_idx];
 
-	// No update player
 	if(is_player(m_ptr)) return;
+	if(!health_who) Term_erase(col, row, 20);
 
-	if(!health_who)
-	{
-		// Erase the health bar
-		Term_erase(col, row, 20);
-	}
-
-	/* Tracking an unseen creature */
-	if(!m_ptr->see_others)
-	{
-		/* Indicate that the creature health is "unknown" */
+	if(!m_ptr->see_others || has_trait(creature_ptr, TRAIT_HALLUCINATION) || m_ptr->chp < 0)
 		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
-	}
-
-	/* Tracking a hallucinatory creature */
-	else if(has_trait(creature_ptr, TRAIT_HALLUCINATION))
-	{
-		/* Indicate that the creature health is "unknown" */
-		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
-	}
-
-	/* Tracking a dead creature (???) */
-	else if(m_ptr->chp < 0)
-	{
-		/* Indicate that the creature health is "unknown" */
-		Term_putstr(col, row, 16, TERM_WHITE, "  HP[----------]");
-	}
-
-	// Tracking a visible creature
 	else
 	{
 		// Extract the "percent" of health
