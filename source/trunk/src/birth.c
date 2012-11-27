@@ -5511,7 +5511,6 @@ creature_type* generate_creature(cave_type *c_ptr, int species_idx, creature_typ
 
 	if(flags & GC_PLAYER)
 	{
-		/* Note player birth in the message recall */
 		message_add(" ");
 		message_add("  ");
 		message_add("====================");

@@ -284,7 +284,6 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 			ty = y1;
 		}
 
-		/* Note (below) the case (qy == f2), where */
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
@@ -331,7 +330,6 @@ bool los(floor_type *floor_ptr, int y1, int x1, int y2, int x2)
 			tx = x1;
 		}
 
-		/* Note (below) the case (qx == f2), where */
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{
@@ -554,7 +552,6 @@ bool creature_can_see_bold(creature_type *viewer_ptr, int y, int x)
 	/* Access the cave grid */
 	cave_ptr = &floor_ptr->cave[y][x];
 
-	/* Note that "torch-lite" yields "illumination" */
 	if(cave_ptr->info & (CAVE_LITE | CAVE_MNLT)) return TRUE;
 
 	/* Require line of sight to the grid */
@@ -2197,7 +2194,6 @@ void do_cmd_view_map(creature_type *creature_ptr)
 	/* Save the screen */
 	screen_save();
 
-	/* Note */
 #ifdef JP
 	prt("‚¨‘Ò‚¿‰º‚³‚¢...", 0, 0);
 #else
@@ -3020,7 +3016,6 @@ void update_creature_lite(floor_type *floor_ptr)
 			/* Get lite radius */
 			rad = 0;
 
-			/* Note the radii are cumulative */
 			if(has_trait(player_ptr, TRAIT_SELF_LITE_1) || has_trait(player_ptr, TRAIT_HAS_LITE_1)) rad++;
 			if(has_trait(player_ptr, TRAIT_SELF_LITE_2) || has_trait(player_ptr, TRAIT_HAS_LITE_2)) rad += 2;
 			if(has_trait(player_ptr, TRAIT_SELF_DARK_1) || has_trait(player_ptr, TRAIT_HAS_DARK_1)) rad--;
@@ -4267,7 +4262,6 @@ void update_smell(creature_type *creature_ptr)
 			/* Grid must not be blocked by walls from the character */
 			if(!player_has_los_bold(y, x)) continue;
 
-			/* Note grids that are too far away */
 			if(scent_adjust[i][j] == -1) continue;
 
 			/* Mark the grid with new scent */

@@ -1995,7 +1995,6 @@ static errr Term_xtra_win_react(void)
 			/* Activate changes */
 			if(win_clr[i] != code)
 			{
-				/* Note the change */
 				change = TRUE;
 
 				/* Apply the desired color */

@@ -2205,7 +2205,6 @@ prt("                            Lv   MP Ž¸—¦                            Lv   MP
 
 			if(isalpha(choice))
 			{
-				/* Note verify */
 				ask = (isupper(choice));
 
 				/* Lowercase */

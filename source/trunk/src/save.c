@@ -827,7 +827,6 @@ static void wr_floor(floor_type *floor_ptr)
 
 	/*** "Run-Length-Encoding" of cave ***/
 
-	/* Note that this will induce two wasted bytes */
 	count = 0;
 	prev_u16b = 0;
 
@@ -950,13 +949,10 @@ static bool wr_savefile_new(void)
 	compact_creatures(0);	// Compact the creatures
 	now = (u32b)time((time_t *)0); // Guess at the current time
 
-	/* Note the operating system */
 	sf_system = 0L;
 
-	/* Note when the file was saved */
 	sf_when = now;
 
-	/* Note the number of saves */
 	sf_saves++;
 
 	/*** Actually write the file ***/
@@ -1106,7 +1102,6 @@ static bool wr_savefile_new(void)
 	/* Write the "extra" information */
 	wr_extra();
 
-	/* Note the towns */
 	tmp16u = max_towns;
 	wr_u16b(tmp16u);
 	wr_u16b(max_st_idx);

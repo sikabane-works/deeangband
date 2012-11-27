@@ -217,7 +217,6 @@ static int get_spell(creature_type *creature_ptr, int *sn, cptr prompt, int sval
 			}
 
 
-			/* Note verify */
 			ask = (isupper(choice));
 
 			/* Lowercase */
@@ -2385,7 +2384,6 @@ void do_cmd_pet(creature_type *master_ptr)
 
 			if(!use_menu)
 			{
-				/* Note verify */
 				ask = (isupper(choice));
 
 				/* Lowercase */

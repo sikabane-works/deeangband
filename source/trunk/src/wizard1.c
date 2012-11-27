@@ -1135,7 +1135,6 @@ static void analyze_immune(object_type *object_ptr, cptr *immune_list)
 	*immune_list = NULL;
 }
 
-/* Note which stats an object sustains */
 static void analyze_sustains(object_type *object_ptr, cptr *sustain_list)
 {
 	u32b flgs[TRAIT_FLAG_MAX];
@@ -1411,7 +1410,6 @@ static void spoiler_outlist(cptr header, cptr *list, char separator)
 		/* Copy the current item to a buffer */
 		strcpy(buf, *list);
 
-		/* Note the buffer's length */
 		buf_len = strlen(buf);
 
 		/*

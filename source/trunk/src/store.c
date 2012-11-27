@@ -1224,7 +1224,6 @@ static s32b price_item(creature_type *creature_ptr, object_type *object_ptr, int
 		price = (s32b)(((u32b)price * (u32b)adjust + 50UL) / 100UL);
 	}
 
-	/* Note -- Never become "free" */
 	if(price <= 0L) return (1L);
 
 	/* Return the price */
@@ -3863,7 +3862,6 @@ msg_format("%s‚ð $%ld‚Åw“ü‚µ‚Ü‚µ‚½B", object_name, (long)price);
 
 				handle_stuff();
 
-				/* Note how many slots the store used to have */
 				i = st_ptr->stock_num;
 
 				/* Remove the bought items from the store */

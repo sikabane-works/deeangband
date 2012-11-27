@@ -2791,7 +2791,6 @@ bool target_set(creature_type *aimer_ptr, int range, int mode)
 				/* Request to target past last interesting grid */
 				while (flag && (i < 0))
 				{
-					/* Note the change */
 					if(change_panel(ddy[d], ddx[d]))
 					{
 						int v = temp_y[m];

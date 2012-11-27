@@ -6284,7 +6284,6 @@ msg_print("自動セーブ中");
 	/* Refresh */
 	Term_fresh();
 
-	/* Note that the player is not dead */
 #ifdef JP
 	(void)strcpy(gameover_from, "(元気に生きている)");
 #else

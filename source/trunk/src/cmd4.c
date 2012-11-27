@@ -6182,7 +6182,6 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 				/* Ignore known items */
 				if(object_is_known(object_ptr)) continue;
 
-				/* Note the artifact */
 				okay[object_ptr->name1] = FALSE;
 			}
 		}
@@ -6202,7 +6201,6 @@ static void do_cmd_knowledge_artifacts(creature_type *owner_ptr)
 		/* Ignore known items */
 		if(object_is_known(object_ptr)) continue;
 
-		/* Note the artifact */
 		okay[object_ptr->name1] = FALSE;
 	}
 

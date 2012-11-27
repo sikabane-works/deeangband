@@ -2704,7 +2704,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 		strcpy(fake_insc_buf, game_inscriptions[object_ptr->feeling]);
 	}
 
-	/* Note "cursed" if the item is known to be cursed */
 	else if(object_is_cursed(object_ptr) && (known || (object_ptr->ident & IDENT_SENSE)))
 	{
 #ifdef JP
@@ -2714,7 +2713,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #endif
 	}
 
-	/* Note "unidentified" if the item is unidentified */
 	else if(((object_ptr->tval == TV_RING) || (object_ptr->tval == TV_AMULET)
 		   || (object_ptr->tval == TV_LITE) || (object_ptr->tval == TV_FIGURINE))
 		 && aware && !known
@@ -2737,7 +2735,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #endif
 	}
 
-	/* Note "tried" if the object has been tested unsuccessfully */
 	else if(!aware && object_is_tried(object_ptr))
 	{
 #ifdef JP
@@ -2747,7 +2744,6 @@ void object_desc(char *buf, object_type *object_ptr, u32b mode)
 #endif
 	}
 
-	/* Note the discount, if any */
 	if(object_ptr->discount)
 	{
 		/* Hidden by real inscription unless in a store */

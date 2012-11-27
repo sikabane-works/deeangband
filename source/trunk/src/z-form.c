@@ -382,7 +382,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 					/* Save the character */
 					aux[q++] = *s++;
 
-					/* Note the "long" flag */
 					do_long = TRUE;
 				}
 
@@ -431,7 +430,6 @@ uint vstrnfmt(char *buf, uint max, cptr fmt, va_list vp)
 				/* Mega-Hack -- Handle 'caret' (for "uppercase" request) */
 				else if(*s == '^')
 				{
-					/* Note the "xtra" flag */
 					do_xtra = TRUE;
 
 					/* Skip the "^" */

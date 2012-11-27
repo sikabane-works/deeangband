@@ -1879,7 +1879,6 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 	/* Calculate the total possibilities */
 	for (n_ptr = l_ptr, total = 0, count = 0; TRUE; n_ptr++, count++)
 	{
-		/* Note end */
 		if(!n_ptr->name) break;
 
 		/* Ignore excessive depth */
@@ -1898,7 +1897,6 @@ static int pick_vault_type(floor_type *floor_ptr, vault_aux_type *l_ptr, s16b al
 	/* Find this type */
 	for (n_ptr = l_ptr, total = 0, count = 0; TRUE; n_ptr++, count++)
 	{
-		/* Note end */
 		if(!n_ptr->name) break;
 
 		/* Ignore excessive depth */
@@ -2199,7 +2197,6 @@ static bool build_type5(floor_type *floor_ptr)
 		/* Notice failure */
 		if(!species_idx || !attempts) return FALSE;
 
-		/* Note the alignment */
 		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
@@ -2418,7 +2415,6 @@ static bool build_type6(floor_type *floor_ptr)
 		/* Notice failure */
 		if(!species_idx || !attempts) return FALSE;
 
-		/* Note the alignment */
 		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 
@@ -5682,7 +5678,6 @@ static bool build_type13(floor_type *floor_ptr)
 		/* Notice failure */
 		if(!species_idx || !attempts) return FALSE;
 
-		/* Note the alignment */
 		if(is_enemy_of_good_species(species_ptr)) align.sub_align |= SUB_ALIGN_EVIL;
 		if(is_enemy_of_evil_species(species_ptr)) align.sub_align |= SUB_ALIGN_GOOD;
 

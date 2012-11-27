@@ -264,7 +264,6 @@ static void prt_alloc(byte tval, byte sval, int row, int col)
 		if(display[i] <= 0) 
 			continue;
 
-		/* Note the level */
 		if((i * K_MAX_DEPTH / 22 <= home) && (home < (i + 1) * K_MAX_DEPTH / 22))
 		{
 			c_prt(TERM_RED, format("%.*s", display[i], "**********"), row + i + 1, col + 1);

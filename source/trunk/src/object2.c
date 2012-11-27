@@ -3383,7 +3383,6 @@ s16b drop_near(floor_type *floor_ptr, object_type *object2_ptr, int chance, int 
 		done = TRUE;
 	}
 
-	/* Note the spot */
 	note_spot(floor_ptr, by, bx);
 
 	/* Draw the spot */
@@ -5777,7 +5776,6 @@ static void add_essence(creature_type *creature_ptr, int mode)
 
 			if(!use_menu)
 			{
-				/* Note verify */
 				ask = (isupper(choice));
 
 				/* Lowercase */

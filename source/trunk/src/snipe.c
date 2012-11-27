@@ -330,7 +330,6 @@ static int get_snipe_power(creature_type *creature_ptr, int *sn, bool only_brows
 			continue;
 		}
 
-		/* Note verify */
 		ask = isupper(choice);
 
 		/* Lowercase */

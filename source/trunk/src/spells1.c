@@ -3691,7 +3691,6 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 			ty = y1;
 		}
 
-		/* Note (below) the case (qy == f2), where */
 		/* the LOS exactly meets the corner of a tile. */
 		while (x2 - tx)
 		{
@@ -3738,7 +3737,6 @@ bool in_disintegration_range(floor_type *floor_ptr, int y1, int x1, int y2, int 
 			tx = x1;
 		}
 
-		/* Note (below) the case (qx == f2), where */
 		/* the LOS exactly meets the corner of a tile. */
 		while (y2 - ty)
 		{

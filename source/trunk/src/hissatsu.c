@@ -255,7 +255,6 @@ put_str("name              Lv  SP      name              Lv  SP ", y, x + 5);
 		{
 			if(isalpha(choice))
 			{
-				/* Note verify */
 				ask = (isupper(choice));
 
 				/* Lowercase */

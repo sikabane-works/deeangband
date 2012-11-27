@@ -656,7 +656,6 @@ void carry(creature_type *creature_ptr, bool pickup)
 				}
 			}
 
-			/* Note that the pack is too full */
 			else if(!inven_carry_okay(creature_ptr, object_ptr))
 			{
 #ifdef JP

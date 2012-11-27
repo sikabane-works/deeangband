@@ -22,10 +22,8 @@ void do_cmd_inven(creature_type *creature_ptr)
 	char out_val[160];
 	char buf1[80], buf2[80];
 
-	/* Note that we are in "inventory" mode */
 	command_wrk = FALSE;
 
-	/* Note that we are in "inventory" mode */
 	if(easy_floor) command_wrk = (USE_INVEN);
 
 	/* Save screen */
@@ -88,10 +86,8 @@ void do_cmd_equip(creature_type *creature_ptr)
 	char out_val[160];
 	char buf1[80], buf2[80];
 
-	/* Note that we are in "equipment" mode */
 	command_wrk = TRUE;
 
-	/* Note that we are in "equipment" mode */
 	if(easy_floor) command_wrk = (USE_EQUIP);
 
 	/* Save the screen */

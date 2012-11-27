@@ -218,7 +218,6 @@ put_str("Ž¸—¦ Œø‰Ê", y, x + 36);
 			continue;
 		}
 
-		/* Note verify */
 		ask = isupper(choice);
 
 		/* Lowercase */

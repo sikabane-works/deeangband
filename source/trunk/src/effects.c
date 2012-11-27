@@ -1439,7 +1439,6 @@ bool dec_stat(creature_type *creature_ptr, int stat, int amount, int permanent)
 	cur = creature_ptr->stat_cur[stat];
 	max = creature_ptr->stat_max[stat];
 
-	/* Note when the values are identical */
 	same = (cur == max);
 
 	/* Damage "current" value */

@@ -604,7 +604,6 @@ put_str("MP Ž¸—¦ Œø‰Ê", y, x + 33);
 
 		if(!use_menu)
 		{
-			/* Note verify */
 			ask = isupper(choice);
 
 			/* Lowercase */

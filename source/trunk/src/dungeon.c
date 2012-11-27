@@ -5367,7 +5367,6 @@ static void cheat_death(void)
 		play_redraw |= (PR_STATUS);
 	}
 
-	/* Note cause of death XXX XXX XXX */
 #ifdef JP
 	(void)strcpy(gameover_from, "Ž€‚Ì‹\‚«");
 #else

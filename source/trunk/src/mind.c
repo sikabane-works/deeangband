@@ -757,7 +757,6 @@ put_str(format("Lv   %s   Fail Info", ((use_mind == MIND_BERSERKER) || (use_mind
 
 		if(!use_menu)
 		{
-			/* Note verify */
 			ask = isupper(choice);
 
 			/* Lowercase */

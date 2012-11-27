@@ -790,7 +790,6 @@ void Term_queue_chars(int x, int y, int n, byte a, cptr s)
 		scr_taa[x] = 0;
 		scr_tcc[x] = 0;
 
-		/* Note the "range" of window updates */
 		if(x1 < 0) x1 = x;
 		x2 = x;
 #ifdef JP
@@ -1865,10 +1864,8 @@ errr Term_addch(byte a, char c)
 
 	if(Term->scr->cx < w) return SUCCESS;
 
-	/* Note "Useless" cursor */
 	Term->scr->cu = 1;
 
-	/* Note "Useless" cursor */
 	return (1);
 }
 
@@ -1899,10 +1896,8 @@ errr Term_add_bigch(byte a, char c)
 
 	if(Term->scr->cx < Term->wid) return SUCCESS;
 
-	/* Note "Useless" cursor */
 	Term->scr->cu = 1;
 
-	/* Note "Useless" cursor */
 	return (1);
 }
 

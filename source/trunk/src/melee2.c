@@ -2212,7 +2212,6 @@ static void process_nonplayer(int m_idx)
 
 			f_ptr = &feature_info[c_ptr->feat];
 
-			/* Note changes to viewable region */
 			do_view = TRUE;
 
 			/* Take a turn */

@@ -412,7 +412,6 @@ void destroy_level(floor_type *floor_ptr)
 {
 	int y1, x1, n;
 
-	/* Note destroyed levels */
 #ifdef JP
 	if(cheat_room) msg_print("”j‰ó‚³‚ê‚½ŠK");
 #else

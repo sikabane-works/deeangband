@@ -2185,7 +2185,6 @@ void lore_treasure(creature_type *creature_ptr, int num_item, int num_gold)
 	/* If the creature doesn't have original appearance, don't note */
 	if(!is_original_ap(creature_ptr)) return;
 
-	/* Note the number of things dropped */
 	if(num_item > species_ptr->r_drop_item) species_ptr->r_drop_item = num_item;
 	if(num_gold > species_ptr->r_drop_gold) species_ptr->r_drop_gold = num_gold;
 
@@ -4511,7 +4510,6 @@ void message_pain(int m_idx, int dam)
 		return;
 	}
 
-	/* Note -- subtle fix -CFT */
 	newhp = (long)(creature_ptr->chp);
 	oldhp = newhp + (long)(dam);
 	tmp = (newhp * 100L) / oldhp;

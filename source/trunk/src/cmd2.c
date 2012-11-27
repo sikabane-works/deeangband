@@ -2995,7 +2995,6 @@ void do_cmd_fire_aux(creature_type *creature_ptr, int item, object_type *j_ptr)
 			/* Check the visibility */
 			visible = m_ptr->see_others;
 
-			/* Note the collision */
 			hit_body = TRUE;
 
 			if((m_ptr->lev + 10) > creature_ptr->lev)
@@ -3652,7 +3651,6 @@ bool do_cmd_throw_aux(creature_type *creature_ptr, int mult, bool boomerang, int
 			/* Check the visibility */
 			visible = m_ptr->see_others;
 
-			/* Note the collision */
 			hit_body = TRUE;
 
 			/* Did we hit it (penalize range) */

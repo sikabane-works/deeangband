@@ -857,8 +857,7 @@ PNG_EXTERN void png_write_sRGB PNGARG((png_structp png_ptr,
 PNG_EXTERN void png_write_iCCP PNGARG((png_structp png_ptr,
     png_const_charp name, int compression_type,
     png_const_charp profile, int proflen));
-   /* Note to maintainer: profile should be png_bytep */
-#endif
+   #endif
 
 #ifdef PNG_WRITE_sPLT_SUPPORTED
 PNG_EXTERN void png_write_sPLT PNGARG((png_structp png_ptr,

@@ -1680,7 +1680,6 @@ bool mass_genocide(creature_type *caster_ptr, int power, bool player_cast)
 		/* Skip distant creatures */
 		if(m_ptr->cdis > MAX_SIGHT) continue;
 
-		/* Note effect */
 #ifdef JP
 		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "周辺抹殺");
 #else
@@ -1722,7 +1721,6 @@ bool mass_genocide_undead(creature_type *caster_ptr, int power, bool player_cast
 		/* Skip distant creatures */
 		if(m_ptr->cdis > MAX_SIGHT) continue;
 
-		/* Note effect */
 #ifdef JP
 		result |= genocide_aux(caster_ptr, i, power, player_cast, 3, "アンデッド消滅");
 #else
@@ -1869,13 +1867,11 @@ bool probing(floor_type *floor_ptr)
 				strcpy(buf, (species_name + species_ptr->name));
 
 #ifdef JP
-				/* Note that we learnt some new flags  -Mogami- */
 				msg_format("%sについてさらに詳しくなった気がする。", buf);
 #else
 				/* Pluralize it */
 				plural_aux(buf);
 
-				/* Note that we learnt some new flags  -Mogami- */
 				msg_format("You now know more about %s.", buf);
 #endif
 				/* Clear -more- prompt */
