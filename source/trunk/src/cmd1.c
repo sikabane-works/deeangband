@@ -1858,7 +1858,7 @@ static void plus_move_cost(creature_type *creature_ptr, int x, int y)
 	if(have_flag(f_ptr->flags, FF_TREE) && !can_kill_walls)
 		if((creature_ptr->class_idx != CLASS_RANGER) && !has_trait(creature_ptr, TRAIT_CAN_FLY) &&
 			(!creature_ptr->riding || !has_trait_species(riding_r_ptr, TRAIT_WILD_WOOD)))
-				cost_tactical_energy(creature_ptr, 30);;
+				cost_tactical_energy(creature_ptr, 30);
 }
 
 
