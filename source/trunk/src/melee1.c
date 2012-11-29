@@ -2244,7 +2244,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
-				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
+				if(has_trait(attacker_ptr, TRAIT_CONFUSED)) break;
 
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 
@@ -2324,7 +2324,7 @@ bool special_melee(creature_type *attacker_ptr, creature_type *target_ptr, int a
 				get_damage += take_damage_to_creature(attacker_ptr, target_ptr, DAMAGE_ATTACK, damage, ddesc, NULL, -1);
 
 				/* Confused creatures cannot steal successfully. -LM-*/
-				if(attacker_ptr->timed_trait[TRAIT_CONFUSED]) break;
+				if(has_trait(attacker_ptr, TRAIT_CONFUSED)) break;
 
 				if(IS_DEAD(target_ptr) || (has_trait(target_ptr, TRAIT_MULTI_SHADOW) && (turn & 1))) break;
 

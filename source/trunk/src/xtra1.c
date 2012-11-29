@@ -2954,30 +2954,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->skill_dig += 30;
 	}
 
-	/* Temporary see invisible */
-	if(creature_ptr->timed_trait[TRAIT_SEE_INVISIBLE])
-	{
-		//creature_ptr->see_inv = TRUE;
-	}
-
-	/* Temporary regeneration boost */
-	if(creature_ptr->timed_trait[TRAIT_REGENERATE])
-	{
-		//TODO creature_ptr->regenerate = TRUE;
-	}
-
-	/* Temporary levitation */
-	if(creature_ptr->timed_trait[TRAIT_LEVITATION])
-	{
-		//TODO creature_ptr->levitation = TRUE;
-	}
-
-	/* Temporary reflection */
-	if(creature_ptr->timed_trait[TRAIT_REFLECTING])
-	{
-		//TODO has_trait(creature_ptr, TRAIT_REFLECTING) = TRUE;
-	}
-
 	/* Hack -- Hero/Shero -> Res fear */
 	if(IS_HERO(creature_ptr) || creature_ptr->timed_trait[TRAIT_S_HERO])
 	{
@@ -3024,20 +3000,6 @@ static void set_state_bonuses(creature_type *creature_ptr)
 		creature_ptr->dis_to_ac += 100;
 	}
 
-	if(creature_ptr->timed_trait[TRAIT_RES_NETH])
-	{
-		creature_ptr->resist_neth = TRUE;
-	}
-
-	if(creature_ptr->timed_trait[TRAIT_AURA_FIRE])
-	{
-		//TODO creature_ptr->sh_fire = TRUE;
-	}
-
-	if(creature_ptr->timed_trait[TRAIT_RES_TIME])
-	{
-		creature_ptr->resist_time = TRUE;
-	}
 
 	if(creature_ptr->timed_trait[TRAIT_TSUYOSHI])
 	{
