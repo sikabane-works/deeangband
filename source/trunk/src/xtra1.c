@@ -3121,26 +3121,23 @@ static void set_inventory_bonuses(creature_type *creature_ptr)
 
 		if(has_trait(creature_ptr, TRAIT_LOW_MAGIC))
 		{
-			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE))
-			{
-				creature_ptr->to_m_chance += 10;
-			}
-			else
-			{
-				creature_ptr->to_m_chance += 3;
-			}
+			if(have_flag(object_ptr->curse_flags, TRAIT_HEAVY_CURSE)) creature_ptr->to_m_chance += 10;
+			else creature_ptr->to_m_chance += 3;
 		}
 
 		if(object_ptr->tval == TV_CAPTURE) continue;
 
-		/* Modify the base armor class */
-		/* The base armor class is always known */
-		/* Apply the bonuses to armor class */
-		/* Apply the mental bonuses to armor class, if known */
-
+		// AC/EV/VO bonuses
 		creature_ptr->ac += object_ptr->ac;
 		creature_ptr->dis_ac += object_ptr->ac;
 		creature_ptr->to_ac += object_ptr->to_ac;
+		creature_ptr->ev += object_ptr->ev;
+		creature_ptr->dis_ev += object_ptr->ev;
+		creature_ptr->to_ev += object_ptr->to_ev;
+		creature_ptr->vo += object_ptr->vo;
+		creature_ptr->dis_vo += object_ptr->vo;
+		creature_ptr->to_vo += object_ptr->to_vo;
+
 		if(object_is_known(object_ptr)) creature_ptr->dis_to_ac += object_ptr->to_ac;
 
 		if(has_trait(creature_ptr, TRAIT_LOW_MELEE))
