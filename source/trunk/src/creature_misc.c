@@ -857,29 +857,27 @@ int calc_damage(creature_type *attacker_ptr, creature_type *target_ptr, int dama
 	cptr note;
 	int t = 1000;
 
-	/*
-	if(has_trait(m_ptr, TRAIT_INVULNERABLE))
-	{
-		if(is_psy_spear)
-		{
-			if(!has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, m_ptr))
-			{
-#ifdef JP
-				msg_print("バリアを切り裂いた！");
-#else
-				msg_print("The barrier is penetrated!");
-#endif
-			}
-		}
-		else if(!one_in_(PENETRATE_INVULNERABILITY))
-		{
-			return SUCCESS;
-		}
-	}
-	return (dam);
-	*/
+	if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF)) return 0; // No damage
 
-	//if(attacker_ptr && has_trait(attacker_ptr, TRAIT_BLUFF)) return 0;
+	if(has_trait(target_ptr, TRAIT_INVULNERABLE))
+	{
+		if(!average)
+		{
+			if(type == DO_EFFECT_PSY_SPEAR)
+			{
+				if(!has_trait(player_ptr, TRAIT_BLIND) && is_seen(player_ptr, target_ptr))
+				{
+#ifdef JP
+					msg_print("バリアを切り裂いた！");
+#else
+					msg_print("The barrier is penetrated!");
+#endif
+				}
+			}
+			else if(!one_in_(PENETRATE_INVULNERABILITY)) return 0; // No Damage
+		}
+		else if(type != DO_EFFECT_PSY_SPEAR) t /= PENETRATE_INVULNERABILITY;
+	}
 
 	if(message) creature_desc(creature_name, target_ptr, 0);
 
