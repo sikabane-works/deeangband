@@ -456,7 +456,6 @@ bool set_afraid(creature_type *creature_ptr, int v)
 		/* Nothing to notice */
 		if(!notice) return FALSE;
 
-		/* Disturb */
 		if(disturb_state) disturb(player_ptr, 0, 0);
 
 		handle_stuff();
@@ -575,7 +574,6 @@ bool set_superstealth(creature_type *creature_ptr, bool set)
 
 	play_redraw |= (PR_STATUS);
 
-	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	/* Result */
@@ -782,7 +780,6 @@ bool set_stun(creature_type *creature_ptr, int v)
 	/* No change */
 	if(!notice) return FALSE;
 
-	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -1087,7 +1084,6 @@ bool set_cut(creature_type *creature_ptr, int v)
 	/* No change */
 	if(!notice) return FALSE;
 
-	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -1368,7 +1364,6 @@ bool set_food(creature_type *creature_ptr, int v)
 	/* Nothing to notice */
 	if(!notice) return FALSE;
 
-	/* Disturb */
 	if(disturb_state) disturb(player_ptr, 0, 0);
 
 	creature_ptr->creature_update |= (CRU_BONUS);
@@ -2418,7 +2413,6 @@ int take_damage_to_creature(creature_type *attacker_ptr, creature_type *target_p
 
 	if(damage_type != DAMAGE_USELIFE)
 	{
-		/* Disturb */
 		disturb(player_ptr, 1, 0);
 		if(auto_more) target_ptr->now_damaged = TRUE;
 	}

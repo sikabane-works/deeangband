@@ -1623,7 +1623,6 @@ bool move_creature(creature_type *creature_ptr, floor_type *floor_ptr, int ny, i
 	/* Set off a trap */
 	else if(have_flag(f_ptr->flags, FF_HIT_TRAP) && !(mpe_mode & MCE_STAYING))
 	{
-		/* Disturb */
 		disturb(player_ptr, 0, 0);
 
 		/* Hidden trap */
@@ -2947,7 +2946,6 @@ void run_step(creature_type *creature_ptr, int dir)
 			msg_print("You cannot run in that direction.");
 #endif
 
-			/* Disturb */
 			disturb(player_ptr, 0, 0);
 
 			return;
@@ -2963,9 +2961,7 @@ void run_step(creature_type *creature_ptr, int dir)
 		/* Update run */
 		if(run_test(creature_ptr))
 		{
-			/* Disturb */
 			disturb(player_ptr, 0, 0);
-
 			return;
 		}
 	}
@@ -3083,7 +3079,6 @@ void travel_step(creature_type *creature_ptr)
 
 	find_prevdir = dir;
 
-	/* disturb */
 	if(travel_test(creature_ptr))
 	{
 		if(travel.run == 255)

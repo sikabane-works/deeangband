@@ -2308,7 +2308,6 @@ static void process_nonplayer(int m_idx)
 			     (disturb_near && (creature_ptr->sc_flag & SC_FLAG_VIEW) && projectable(floor_ptr, MAX_RANGE, player_ptr->fy, player_ptr->fx, creature_ptr->fy, creature_ptr->fx)) ||
 			     (disturb_high && ap_species_ptr->r_tkills && ap_species_ptr->level >= player_ptr->lev)))
 			{
-				/* Disturb */
 				if(is_hostile(creature_ptr))
 					disturb(player_ptr, 0, 0);
 			}
